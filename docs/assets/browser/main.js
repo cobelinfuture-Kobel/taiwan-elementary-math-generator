@@ -1,0 +1,209 @@
+import {
+  applyPreset,
+  createConfigState,
+  getEffectiveOrderingSeed,
+  setLockOrderingSeedToGenerationSeed,
+  setSeedField,
+  setShowAnswerKeyPage
+} from "./state/config-state.js";
+import { listPresetDefinitions } from "./state/presets.js";
+import { parseQueryState, writeQueryStateFromState } from "./state/query-state.js";
+import { buildWorksheetDocumentFromState } from "./pipeline/build-worksheet-document.js";
+import { printPreviewFrame, renderPreviewFrame } from "./pipeline/render-preview-frame.js";
+
+const presetDefinitions = listPresetDefinitions();
+const queryState = parseQueryState();
+const state = createConfigState({ presetId: queryState.presetId });
+
+if (queryState.presetId && queryState.presetId !== state.presetId) {
+  applyPreset(state, queryState.presetId);
+}
+
+if (queryState.generationSeed !== undefined) {
+  setSeedField(state, "generationSeed", queryState.generationSeed);
+}
+
+if (queryState.orderingSeed !== undefined) {
+  setSeedField(state, "orderingSeed", queryState.orderingSeed);
+}
+
+if (queryState.lockOrderingSeedToGenerationSeed) {
+  setLockOrderingSeedToGenerationSeed(state, true);
+}
+
+if (queryState.showAnswerKeyPage) {
+  setShowAnswerKeyPage(state, true);
+}
+
+const elements = {
+  presetButtons: document.querySelector("#preset-buttons"),
+  generationSeedInput: document.querySelector("#generation-seed-input"),
+  orderingSeedInput: document.querySelector("#ordering-seed-input"),
+  lockOrderingSeedInput: document.querySelector("#lock-ordering-seed-input"),
+  showAnswerKeyInput: document.querySelector("#show-answer-key-input"),
+  regenerateButton: document.querySelector("#regenerate-button"),
+  printButton: document.querySelector("#print-button"),
+  statusPanel: document.querySelector("#status-panel"),
+  validationPanel: document.querySelector("#validation-panel"),
+  previewFrame: document.querySelector("#preview-frame"),
+  previewMeta: document.querySelector("#preview-meta")
+};
+
+function formatIssue(issue) {
+  const path = issue?.path ? ` (${issue.path})` : "";
+  return `${issue?.code ?? "unknown"}${path}: ${issue?.message ?? "Unknown issue."}`;
+}
+
+function renderPresetButtons() {
+  elements.presetButtons.innerHTML = presetDefinitions.map((preset) => [
+    `<button type="button" class="preset-button" data-preset-id="${preset.id}" aria-pressed="${preset.id === state.presetId ? "true" : "false"}">`,
+    `${preset.label}`,
+    "</button>"
+  ].join("")).join("");
+
+  elements.presetButtons.querySelectorAll("[data-preset-id]").forEach((button) => {
+    button.addEventListener("click", () => {
+      applyPreset(state, button.getAttribute("data-preset-id"));
+      syncControlsFromState();
+      renderPresetButtons();
+      writeQueryStateFromState(state);
+      runGeneration();
+    });
+  });
+}
+
+function syncControlsFromState() {
+  elements.generationSeedInput.value = state.seeds.generationSeed;
+  elements.orderingSeedInput.value = state.seeds.orderingSeed;
+  elements.lockOrderingSeedInput.checked = state.seeds.lockOrderingSeedToGenerationSeed;
+  elements.showAnswerKeyInput.checked = state.draftConfig.printLayout.showAnswerKeyPage;
+  elements.orderingSeedInput.disabled = state.seeds.lockOrderingSeedToGenerationSeed && !state.seeds.orderingSeed;
+}
+
+function renderStatus() {
+  const questionPages = state.derived.worksheetDocument?.summary?.questionPageCount ?? 0;
+  const answerPages = state.derived.worksheetDocument?.summary?.answerKeyPageCount ?? 0;
+  const effectiveOrderingSeed = getEffectiveOrderingSeed(state);
+  const statusLines = [];
+
+  if (state.ui.isGenerating) {
+    state.ui.lastError = null;
+    elements.statusPanel.dataset.tone = "";
+    statusLines.push("Generating worksheet...");
+  } else if (state.ui.lastError) {
+    elements.statusPanel.dataset.tone = "error";
+    statusLines.push(state.ui.lastError);
+    if (state.derived.renderedHtml) {
+      statusLines.push("Last valid preview remains loaded.");
+    }
+  } else if (state.ui.hasRendered) {
+    elements.statusPanel.dataset.tone = "success";
+    statusLines.push(`Rendered preset '${state.presetId}' with ${questionPages} question page(s) and ${answerPages} answer-key page(s).`);
+    statusLines.push(`Ordering seed in effect: ${effectiveOrderingSeed === null ? "generation seed fallback" : effectiveOrderingSeed || "none"}.`);
+  } else {
+    elements.statusPanel.dataset.tone = "";
+    statusLines.push("Ready to generate a worksheet.");
+  }
+
+  elements.statusPanel.innerHTML = statusLines.map((line) => `<p>${line}</p>`).join("");
+  elements.previewMeta.textContent = state.ui.hasRendered
+    ? `Questions: ${state.derived.worksheetDocument.summary.questionCount} | Question pages: ${questionPages} | Answer pages: ${answerPages}`
+    : "No worksheet generated yet.";
+}
+
+function renderValidation() {
+  const validation = state.derived.validation;
+  const issues = [
+    ...(validation?.errors ?? []),
+    ...(validation?.warnings ?? [])
+  ];
+
+  elements.validationPanel.dataset.hasErrors = validation?.ok === false ? "true" : "false";
+
+  if (issues.length === 0) {
+    elements.validationPanel.innerHTML = "<p>No validation issues.</p>";
+    return;
+  }
+
+  const listItems = issues.map((issue) => `<li>${formatIssue(issue)}</li>`).join("");
+  elements.validationPanel.innerHTML = `<ol class="validation-list">${listItems}</ol>`;
+}
+
+function updatePrintButton() {
+  elements.printButton.disabled = !state.ui.hasRendered || Boolean(state.ui.lastError);
+}
+
+function runGeneration() {
+  state.ui.isGenerating = true;
+  renderStatus();
+  renderValidation();
+  updatePrintButton();
+
+  const result = buildWorksheetDocumentFromState(state);
+  state.ui.isGenerating = false;
+  state.derived.validation = result.validation ?? {
+    ok: false,
+    errors: result.errors ?? [],
+    warnings: result.warnings ?? []
+  };
+
+  if (!result.ok) {
+    state.ui.lastError = `Generation failed during ${result.stage}.`;
+    renderStatus();
+    renderValidation();
+    updatePrintButton();
+    return;
+  }
+
+  const rendered = renderPreviewFrame(elements.previewFrame, result.worksheetDocument, {
+    stylesheetHref: "./assets/styles/print-styles.css"
+  });
+
+  state.ui.lastError = null;
+  state.ui.isDirty = false;
+  state.ui.hasRendered = true;
+  state.ui.lastGeneratedAt = new Date().toISOString();
+  state.derived.allocation = result.allocation;
+  state.derived.worksheetDocument = result.worksheetDocument;
+  state.derived.renderedHtml = rendered.html;
+
+  renderStatus();
+  renderValidation();
+  updatePrintButton();
+  writeQueryStateFromState(state);
+}
+
+elements.generationSeedInput.addEventListener("input", (event) => {
+  setSeedField(state, "generationSeed", event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.orderingSeedInput.addEventListener("input", (event) => {
+  setSeedField(state, "orderingSeed", event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.lockOrderingSeedInput.addEventListener("change", (event) => {
+  setLockOrderingSeedToGenerationSeed(state, event.currentTarget.checked);
+  syncControlsFromState();
+  writeQueryStateFromState(state);
+});
+
+elements.showAnswerKeyInput.addEventListener("change", (event) => {
+  setShowAnswerKeyPage(state, event.currentTarget.checked);
+  writeQueryStateFromState(state);
+});
+
+elements.regenerateButton.addEventListener("click", () => {
+  runGeneration();
+});
+
+elements.printButton.addEventListener("click", () => {
+  printPreviewFrame(elements.previewFrame);
+});
+
+renderPresetButtons();
+syncControlsFromState();
+renderStatus();
+renderValidation();
+runGeneration();

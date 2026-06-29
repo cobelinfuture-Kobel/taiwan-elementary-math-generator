@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Math Worksheet Generator</title>
+  <link rel="stylesheet" href="./assets/styles/app.css">
+</head>
+<body data-route-kind="index">
+  <main class="app-shell">
+    <section class="app-shell__hero">
+      <p class="app-shell__eyebrow">Static Browser Generator</p>
+      <h1>Math Worksheet Generator</h1>
+      <p class="app-shell__lede">Generate V1 expression worksheets in the browser using the existing validation, allocation, assembly, and renderer pipeline.</p>
+    </section>
+
+    <section class="app-shell__controls" aria-label="Worksheet controls">
+      <div class="control-group">
+        <h2>Presets</h2>
+        <div class="preset-buttons" id="preset-buttons"></div>
+      </div>
+
+      <div class="control-grid">
+        <label class="field">
+          <span>Generation Seed</span>
+          <input id="generation-seed-input" name="generationSeed" type="text" spellcheck="false">
+        </label>
+
+        <label class="field">
+          <span>Ordering Seed</span>
+          <input id="ordering-seed-input" name="orderingSeed" type="text" spellcheck="false">
+        </label>
+      </div>
+
+      <label class="toggle">
+        <input id="lock-ordering-seed-input" name="lockOrderingSeedToGenerationSeed" type="checkbox">
+        <span>Use generation seed for ordering when ordering seed is blank</span>
+      </label>
+
+      <label class="toggle">
+        <input id="show-answer-key-input" name="showAnswerKeyPage" type="checkbox">
+        <span>Show answer key pages</span>
+      </label>
+
+      <div class="toolbar">
+        <button id="regenerate-button" class="button button--primary" type="button">Regenerate</button>
+        <button id="print-button" class="button" type="button" disabled>Print</button>
+      </div>
+
+      <div class="status-panel" id="status-panel" aria-live="polite"></div>
+      <div class="validation-panel" id="validation-panel" aria-live="polite"></div>
+    </section>
+
+    <section class="app-shell__preview" aria-label="Worksheet preview">
+      <div class="preview-header">
+        <h2>Preview</h2>
+        <p id="preview-meta">No worksheet generated yet.</p>
+      </div>
+      <iframe
+        id="preview-frame"
+        class="preview-frame"
+        title="Worksheet preview"
+        loading="eager"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </section>
+  </main>
+
+  <script type="module" src="./assets/browser/main.js"></script>
+</body>
+</html>

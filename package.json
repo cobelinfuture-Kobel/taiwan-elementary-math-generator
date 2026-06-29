@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "preview:build": "node tools/preview/generate-generator-backed-preview-html.js",
+    "preview:serve": "node tools/preview/serve-preview.js",
+    "site:serve": "node tools/site/serve-site.js"
   }
 }
