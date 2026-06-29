@@ -61,6 +61,7 @@ const elements = {
   operand1MaxInput: document.querySelector("#operand-1-max-input"),
   operand2MinInput: document.querySelector("#operand-2-min-input"),
   operand2MaxInput: document.querySelector("#operand-2-max-input"),
+  answerMaxInput: document.querySelector("#answer-max-input"),
   generationSeedInput: document.querySelector("#generation-seed-input"),
   orderingSeedInput: document.querySelector("#ordering-seed-input"),
   lockOrderingSeedInput: document.querySelector("#lock-ordering-seed-input"),
@@ -300,6 +301,11 @@ elements.operand2MinInput.addEventListener("input", (event) => {
 
 elements.operand2MaxInput.addEventListener("input", (event) => {
   configEditor.handleOperandRangeChange(2, "max", event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.answerMaxInput.addEventListener("input", (event) => {
+  configEditor.handleAnswerMaxChange(event.currentTarget.value);
   writeQueryStateFromState(state);
 });
 

@@ -1,5 +1,6 @@
 import {
   getOperatorsEnabled,
+  setAnswerMax,
   setColumns,
   setOperandRange,
   setOperatorEnabled,
@@ -160,6 +161,14 @@ export function createConfigEditor(options = {}) {
       }
     },
 
+    handleAnswerMaxChange(value) {
+      setAnswerMax(state, value);
+      this.syncEditorFromState();
+      if (onApplyEdit) {
+        onApplyEdit();
+      }
+    },
+
     syncFormControlsFromState() {
       const questionCountInput = document.querySelector("#question-count-input");
       const columnsInput = document.querySelector("#columns-input");
@@ -209,6 +218,12 @@ export function createConfigEditor(options = {}) {
         if (maxElement) {
           maxElement.value = range.max ?? "";
         }
+      }
+
+      const answerMaxInput = document.querySelector("#answer-max-input");
+      if (answerMaxInput) {
+        const answerMax = state.draftConfig?.answerConstraint?.max;
+        answerMaxInput.value = (answerMax !== null && answerMax !== undefined) ? answerMax : "";
       }
     }
   };

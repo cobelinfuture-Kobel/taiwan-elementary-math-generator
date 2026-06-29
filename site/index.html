@@ -33,11 +33,11 @@
           </label>
           <label class="toggle">
             <input id="operator-multiply-input" name="operatorMultiply" type="checkbox">
-            <span>乘法 ?</span>
+            <span>乘法 ×</span>
           </label>
           <label class="toggle">
             <input id="operator-divide-input" name="operatorDivide" type="checkbox">
-            <span>除法 繩</span>
+            <span>除法 ÷</span>
           </label>
         </div>
       </div>
@@ -62,6 +62,17 @@
             <input id="operand-2-max-input" name="operand2Max" type="number" spellcheck="false">
           </label>
         </div>
+      </div>
+
+      <div class="control-group">
+        <h2>答案限制</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>答案最大值</span>
+            <input id="answer-max-input" name="answerMax" type="number" spellcheck="false" placeholder="留空代表不限制">
+          </label>
+        </div>
+        <p class="help-text">若設定答案最大值，系統只會產生答案小於或等於此數值的題目。</p>
       </div>
 
       <div class="control-group">

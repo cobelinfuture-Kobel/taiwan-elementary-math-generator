@@ -256,6 +256,24 @@ export function setOperandRange(state, position, field, value) {
   return state;
 }
 
+export function setAnswerMax(state, value) {
+  const raw = String(value ?? "").trim();
+  if (raw === "") {
+    state.draftConfig.answerConstraint.max = null;
+    state.ui.isDirty = true;
+    return state;
+  }
+
+  const numValue = Number(value);
+  if (!Number.isFinite(numValue) || numValue < 0) {
+    return state;
+  }
+
+  state.draftConfig.answerConstraint.max = Math.floor(numValue);
+  state.ui.isDirty = true;
+  return state;
+}
+
 export function getEffectiveOrderingSeed(state) {
   const orderingSeed = String(state?.seeds?.orderingSeed ?? "").trim();
   if (orderingSeed) {

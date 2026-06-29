@@ -99,26 +99,31 @@ function clampBounds(rangeMin, rangeMax, digitBounds) {
 
 function buildCandidatePool(min, max, range, digitConstraint) {
   if (!Number.isInteger(min) || !Number.isInteger(max) || max < min) {
-    return [];
+    return null;
   }
 
-  const values = [];
-  for (let value = min; value <= max; value += 1) {
-    if (range?.allowZero === false && value === 0) {
-      continue;
-    }
-    if (range?.allowOne === false && Math.abs(value) === 1) {
-      continue;
-    }
-    if (digitConstraint?.allowZero === false && value === 0) {
-      continue;
-    }
-    if (digitConstraint?.allowNegative === false && value < 0) {
-      continue;
-    }
-    values.push(value);
+  return {
+    min,
+    max,
+    range,
+    digitConstraint
+  };
+}
+
+function isValidCandidate(value, pool) {
+  if (pool.range?.allowZero === false && value === 0) {
+    return false;
   }
-  return values;
+  if (pool.range?.allowOne === false && Math.abs(value) === 1) {
+    return false;
+  }
+  if (pool.digitConstraint?.allowZero === false && value === 0) {
+    return false;
+  }
+  if (pool.digitConstraint?.allowNegative === false && value < 0) {
+    return false;
+  }
+  return true;
 }
 
 function pickOperandValue(pattern, config, randomFn, position) {
@@ -126,9 +131,9 @@ function pickOperandValue(pattern, config, randomFn, position) {
   const digitConstraint = getDigitConstraint(pattern, position);
   const digitBounds = getDigitBounds(digitConstraint);
   const bounds = clampBounds(range.min, range.max, digitBounds);
-  const candidates = buildCandidatePool(bounds.min, bounds.max, range, digitConstraint);
+  const pool = buildCandidatePool(bounds.min, bounds.max, range, digitConstraint);
 
-  if (candidates.length === 0) {
+  if (!pool) {
     throw createIssue(
       "operand_candidate_pool_empty",
       `expression.operandRanges[position:${position}]`,
@@ -136,7 +141,39 @@ function pickOperandValue(pattern, config, randomFn, position) {
     );
   }
 
-  return pickOne(randomFn, candidates);
+  // For small ranges, use direct enumeration. For large ranges, use random sampling.
+  const poolSize = pool.max - pool.min + 1;
+  if (poolSize <= 200) {
+    const candidates = [];
+    for (let value = pool.min; value <= pool.max; value += 1) {
+      if (isValidCandidate(value, pool)) {
+        candidates.push(value);
+      }
+    }
+    if (candidates.length === 0) {
+      throw createIssue(
+        "operand_candidate_pool_empty",
+        `expression.operandRanges[position:${position}]`,
+        `No candidate operands are available for operand position ${position}.`
+      );
+    }
+    return pickOne(randomFn, candidates);
+  }
+
+  // Large range: random sampling with validation
+  const maxAttempts = 1000;
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const value = Math.floor(randomFn() * (pool.max - pool.min + 1)) + pool.min;
+    if (isValidCandidate(value, pool)) {
+      return value;
+    }
+  }
+
+  throw createIssue(
+    "operand_candidate_pool_empty",
+    `expression.operandRanges[position:${position}]`,
+    `No candidate operands are available for operand position ${position}.`
+  );
 }
 
 function getAllowedOperatorsForSlot(pattern, slotIndex, config) {
@@ -169,6 +206,30 @@ function pickOperator(pattern, config, randomFn, slotIndex) {
   return pickOne(randomFn, candidates);
 }
 
+function enumeratePoolValues(pool, filters = []) {
+  if (!pool) {
+    return [];
+  }
+
+  const values = [];
+  const poolSize = pool.max - pool.min + 1;
+  // For large pools, limit to avoid memory issues
+  const maxToEnumerate = 5000;
+  const step = poolSize <= maxToEnumerate ? 1 : Math.ceil(poolSize / maxToEnumerate);
+
+  for (let value = pool.min; value <= pool.max; value += step) {
+    if (!isValidCandidate(value, pool)) {
+      continue;
+    }
+    if (filters.some((filterFn) => !filterFn(value))) {
+      continue;
+    }
+    values.push(value);
+  }
+
+  return values;
+}
+
 function buildDivisionOperands(pattern, config, randomFn) {
   const dividendRange = getOperandRange(config, 1) ?? { min: 0, max: 20, allowZero: true, allowOne: true };
   const divisorRange = getOperandRange(config, 2) ?? { min: 1, max: 10, allowZero: false, allowOne: true };
@@ -184,23 +245,28 @@ function buildDivisionOperands(pattern, config, randomFn) {
     allowOne: true
   };
   const quotientBounds = clampBounds(quotientRange.min, quotientRange.max, getDigitBounds(quotientConstraint));
-  const divisors = buildCandidatePool(divisorBounds.min, divisorBounds.max, divisorRange, divisorConstraint)
-    .filter((value) => value !== 0)
-    .filter((value) => config?.division?.allowDivideByOne !== false || value !== 1);
-  const quotients = buildCandidatePool(quotientBounds.min, quotientBounds.max, quotientRange, quotientConstraint)
-    .filter((value) => config?.answerConstraint?.allowNegative !== false || value >= 0);
+
+  const divisorPool = buildCandidatePool(divisorBounds.min, divisorBounds.max, divisorRange, divisorConstraint);
+  const divisors = enumeratePoolValues(divisorPool, [
+    (value) => value !== 0,
+    (value) => config?.division?.allowDivideByOne !== false || value !== 1
+  ]);
+
+  const quotientPool = buildCandidatePool(quotientBounds.min, quotientBounds.max, quotientRange, quotientConstraint);
+  const quotients = enumeratePoolValues(quotientPool, [
+    (value) => config?.answerConstraint?.allowNegative !== false || value >= 0
+  ]);
+
+  const dividendPool = buildCandidatePool(dividendBounds.min, dividendBounds.max, dividendRange, dividendConstraint);
 
   const pairs = [];
   for (const divisor of divisors) {
     for (const quotient of quotients) {
       const dividend = divisor * quotient;
-      if (dividend < dividendBounds.min || dividend > dividendBounds.max) {
+      if (dividend < dividendPool.min || dividend > dividendPool.max) {
         continue;
       }
-      if (dividendRange.allowZero === false && dividend === 0) {
-        continue;
-      }
-      if (dividendRange.allowOne === false && Math.abs(dividend) === 1) {
+      if (!isValidCandidate(dividend, dividendPool)) {
         continue;
       }
       if (config?.division?.allowZeroDividend === false && dividend === 0) {
