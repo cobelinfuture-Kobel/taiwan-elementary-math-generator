@@ -202,11 +202,8 @@ test("config editor — setQuestionCount updates generation.questionCount", () =
   setQuestionCount(state, 5);
   assert.equal(state.draftConfig.generation.questionCount, 5);
 
-  // Update allocation to match new question count so generation succeeds
-  state.draftConfig.patternPlan.allocation.totalQuestionCount = 5;
-  state.draftConfig.patternPlan.allocation.fixedCounts = [
-    { patternId: "default_integer_add_sub_2op", questionCount: 5 }
-  ];
+  // Allocation should have been auto-synced by the fix
+  assert.equal(state.draftConfig.patternPlan.allocation.totalQuestionCount, 5);
 
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
@@ -419,4 +416,134 @@ test("config editor — config-state.js exports new helper functions", async () 
   assert.equal(typeof configState.setColumns, "function");
   assert.equal(typeof configState.setRowsPerPage, "function");
   assert.equal(typeof configState.setOrderingMode, "function");
+});
+
+// ─── S17 Question Count regression tests ────────────────────────────
+
+test("regression — setQuestionCount auto-syncs fixedCounts allocation", () => {
+  const state = createConfigState({ presetId: "grouped" });
+  assert.equal(state.draftConfig.generation.questionCount, 4);
+
+  setQuestionCount(state, 10);
+  assert.equal(state.draftConfig.generation.questionCount, 10);
+  assert.equal(state.draftConfig.patternPlan.allocation.totalQuestionCount, 10);
+
+  // fixedCounts should sum to 10
+  const sum = state.draftConfig.patternPlan.allocation.fixedCounts.reduce(
+    (s, item) => s + (item?.questionCount ?? 0), 0
+  );
+  assert.equal(sum, 10);
+
+  // Generation should succeed without manual allocation fix-up
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.summary.questionCount, 10);
+});
+
+test("regression — Question Count input exists in index.html", () => {
+  const html = readText("site/index.html");
+  assert.match(html, /id="question-count-input"/);
+});
+
+test("regression — changing question count then regenerating updates summary", () => {
+  const state = createConfigState({ presetId: "multipage" });
+  assert.equal(state.draftConfig.generation.questionCount, 9);
+
+  setQuestionCount(state, 24);
+  assert.equal(state.draftConfig.generation.questionCount, 24);
+
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.summary.questionCount, 24);
+});
+
+// ─── S17 Chinese localization verification ──────────────────────────
+
+test("localization — site/index.html uses Traditional Chinese labels", () => {
+  const html = readText("site/index.html");
+  // Check Traditional Chinese content is present
+  assert.match(html, /數學練習卷產生器/);
+  assert.match(html, /靜態瀏覽器出題器/);
+  assert.match(html, /預設題組/);
+  assert.match(html, /練習卷設定/);
+  assert.match(html, /題目數/);
+  assert.match(html, /欄數/);
+  assert.match(html, /每頁列數/);
+  assert.match(html, /排序模式/);
+  assert.match(html, /種子與答案卷/);
+  assert.match(html, /出題種子/);
+  assert.match(html, /排序種子空白時使用出題種子/);
+  assert.match(html, /顯示答案卷/);
+  assert.match(html, /設定編輯器/);
+  assert.match(html, /直接以 JSON 編輯 draftConfig/);
+  assert.match(html, /套用編輯/);
+  assert.match(html, /重設為目前預設/);
+  assert.match(html, /重新產生/);
+  assert.match(html, /列印/);
+  assert.match(html, /預覽/);
+  assert.match(html, /尚未產生練習卷/);
+  assert.match(html, /lang="zh-Hant"/);
+});
+
+test("localization — site/404.html uses Traditional Chinese labels", () => {
+  const html = readText("site/404.html");
+  assert.match(html, /數學練習卷產生器/);
+  assert.match(html, /靜態瀏覽器出題器/);
+  assert.match(html, /找不到請求的頁面/);
+  assert.match(html, /lang="zh-Hant"/);
+});
+
+test("localization — preset labels are Traditional Chinese", () => {
+  const presets = listPresetDefinitions();
+  const labels = presets.map((p) => p.label);
+  assert.deepEqual(labels, ["預設", "分組", "隨機排序", "多頁"]);
+});
+
+test("localization — renderer output uses Chinese page headers", async () => {
+  const state = createConfigState({ presetId: "grouped" });
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+
+  const renderer = await import("../../site/modules/renderer/html-renderer.js");
+  const html = renderer.renderWorksheetDocumentToHtml(result.worksheetDocument, {
+    title: "測試",
+    stylesheetHref: "./assets/styles/print-styles.css"
+  });
+  assert.match(html, /題目頁 1/);
+  assert.match(html, /答案卷/);
+  assert.match(html, /練習卷/);
+  assert.match(html, /lang="zh-Hant"/);
+});
+
+test("localization — no Simplified Chinese labels in index.html", () => {
+  const html = readText("site/index.html");
+  assert.doesNotMatch(html, /数学/);       // Simplified: 数学 vs Traditional: 數學
+  assert.doesNotMatch(html, /预设/);       // Simplified: 预设 vs Traditional: 預設
+  assert.doesNotMatch(html, /静态/);       // Simplified: 静态 vs Traditional: 靜態
+  assert.doesNotMatch(html, /生成/);       // Simplified: 生成 vs Traditional: 產生
+  assert.doesNotMatch(html, /打印/);       // Simplified: 打印 vs Traditional: 列印
+  assert.doesNotMatch(html, /设置/);       // Simplified: 设置 vs Traditional: 設定
+  assert.doesNotMatch(html, /简体/);       // Any "Simplified" marker
+});
+
+test("localization — columns and rows controls still work after localization", () => {
+  const state = createConfigState({ presetId: "default" });
+
+  setColumns(state, 2);
+  setRowsPerPage(state, 5);
+
+  assert.equal(state.draftConfig.printLayout.columns, 2);
+  assert.equal(state.draftConfig.printLayout.rowsPerPage, 5);
+
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+});
+
+test("localization — answer key toggle still assembly-backed after localization", () => {
+  const state = createConfigState({ presetId: "grouped" });
+
+  setShowAnswerKeyPage(state, false);
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.answerKeyPages.length, 0);
 });

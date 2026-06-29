@@ -28,7 +28,7 @@ test("preview html includes browser print button shell", () => {
 test("sample preview document renders question pages in document order", () => {
   const html = buildPreviewHtml({ worksheetDocument: createSampleWorksheetDocument() });
 
-  assert.equal(html.indexOf("Question Page 1") < html.indexOf("Question Page 2"), true);
+  assert.equal(html.indexOf("題目頁 1") < html.indexOf("題目頁 2"), true);
   assert.equal(html.indexOf("8 + 5 = ___") < html.indexOf("(8 + 5) - 4 = ___"), true);
 });
 

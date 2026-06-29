@@ -30,7 +30,7 @@ function parseEditedJson(rawText) {
   if (!rawText || !String(rawText).trim()) {
     return {
       ok: false,
-      error: "JSON text is empty."
+      error: "JSON 內容為空。"
     };
   }
 
@@ -40,14 +40,14 @@ function parseEditedJson(rawText) {
   } catch (error) {
     return {
       ok: false,
-      error: `JSON parse error: ${error.message}`
+      error: `JSON 解析錯誤：${error.message}`
     };
   }
 
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     return {
       ok: false,
-      error: "Config must be a JSON object."
+      error: "設定必須是 JSON 物件。"
     };
   }
 

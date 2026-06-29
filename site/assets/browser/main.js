@@ -114,26 +114,26 @@ function renderStatus() {
   if (state.ui.isGenerating) {
     state.ui.lastError = null;
     elements.statusPanel.dataset.tone = "";
-    statusLines.push("Generating worksheet...");
+    statusLines.push("正在產生練習卷⋯⋯");
   } else if (state.ui.lastError) {
     elements.statusPanel.dataset.tone = "error";
     statusLines.push(state.ui.lastError);
     if (state.derived.renderedHtml) {
-      statusLines.push("Last valid preview remains loaded.");
+      statusLines.push("已保留最後一次有效的預覽。");
     }
   } else if (state.ui.hasRendered) {
     elements.statusPanel.dataset.tone = "success";
-    statusLines.push(`Rendered preset '${state.presetId}' with ${questionPages} question page(s) and ${answerPages} answer-key page(s).`);
-    statusLines.push(`Ordering seed in effect: ${effectiveOrderingSeed === null ? "generation seed fallback" : effectiveOrderingSeed || "none"}.`);
+    statusLines.push(`已產生預設「${state.presetId}」，共 ${questionPages} 頁題目及 ${answerPages} 頁答案。`);
+    statusLines.push(`使用中的排序種子：${effectiveOrderingSeed === null ? "使用出題種子" : effectiveOrderingSeed || "無"}`);
   } else {
     elements.statusPanel.dataset.tone = "";
-    statusLines.push("Ready to generate a worksheet.");
+    statusLines.push("就緒，可產生練習卷。");
   }
 
   elements.statusPanel.innerHTML = statusLines.map((line) => `<p>${line}</p>`).join("");
   elements.previewMeta.textContent = state.ui.hasRendered
-    ? `Questions: ${state.derived.worksheetDocument.summary.questionCount} | Question pages: ${questionPages} | Answer pages: ${answerPages}`
-    : "No worksheet generated yet.";
+    ? `題目數：${state.derived.worksheetDocument.summary.questionCount} | 題目頁數：${questionPages} | 答案頁數：${answerPages}`
+    : "尚未產生練習卷。";
 }
 
 function renderValidation() {
@@ -146,7 +146,7 @@ function renderValidation() {
   elements.validationPanel.dataset.hasErrors = validation?.ok === false ? "true" : "false";
 
   if (issues.length === 0) {
-    elements.validationPanel.innerHTML = "<p>No validation issues.</p>";
+    elements.validationPanel.innerHTML = "<p>無驗證問題。</p>";
     return;
   }
 
@@ -175,7 +175,7 @@ function runGeneration() {
   };
 
   if (!result.ok) {
-    state.ui.lastError = `Generation failed during ${result.stage}.`;
+    state.ui.lastError = `產生失敗，階段：${result.stage}`;
     renderStatus();
     renderValidation();
     updatePrintButton();

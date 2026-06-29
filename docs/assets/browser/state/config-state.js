@@ -97,6 +97,42 @@ export function setQuestionCount(state, count) {
     return state;
   }
   state.draftConfig.generation.questionCount = value;
+
+  // Keep patternPlan.allocation in sync so config validation passes.
+  // allocation.totalQuestionCount must equal generation.questionCount,
+  // and for fixedCounts mode the item counts must sum to the new value.
+  const allocation = state.draftConfig?.patternPlan?.allocation;
+  if (allocation) {
+    const normalizedMode = String(allocation.mode ?? "fixedCounts");
+
+    if (normalizedMode === "fixedCounts" && Array.isArray(allocation.fixedCounts) && allocation.fixedCounts.length > 0) {
+      const fixedCounts = allocation.fixedCounts;
+      const oldTotal = fixedCounts.reduce((sum, item) => sum + (item?.questionCount ?? 0), 0) || 1;
+
+      // Proportionally redistribute the new question count across patterns,
+      // ensuring every pattern gets at least 1 question.
+      let remaining = value;
+      const newCounts = fixedCounts.map((item, index) => {
+        if (index === fixedCounts.length - 1) {
+          return Math.max(1, remaining);
+        }
+        const share = Math.max(1, Math.round((item?.questionCount ?? 1) / oldTotal * value));
+        remaining -= share;
+        return share;
+      });
+
+      let cursor = 0;
+      for (const item of fixedCounts) {
+        if (item && typeof item.questionCount === "number") {
+          item.questionCount = Math.max(1, newCounts[cursor] ?? 1);
+        }
+        cursor += 1;
+      }
+    }
+
+    allocation.totalQuestionCount = value;
+  }
+
   state.ui.isDirty = true;
   return state;
 }

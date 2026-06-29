@@ -131,7 +131,7 @@ export function renderQuestionPage(page, options = {}) {
 
   return [
     `<section class="worksheet-page worksheet-page--questions print-page"${dataAttributes}>`,
-    `<header class="worksheet-page__meta screen-only">Question Page ${escapeHtml(page.pageNumber)}</header>`,
+    `<header class="worksheet-page__meta screen-only">題目頁 ${escapeHtml(page.pageNumber)}</header>`,
     renderPageGrid(page, options),
     "</section>"
   ].join("");
@@ -145,7 +145,7 @@ export function renderAnswerKeyPage(page, options = {}) {
 
   return [
     `<section class="worksheet-page worksheet-page--answer-key print-page"${dataAttributes}>`,
-    `<header class="worksheet-page__meta screen-only">Answer Key Page ${escapeHtml(page.pageNumber)}</header>`,
+    `<header class="worksheet-page__meta screen-only">答案頁 ${escapeHtml(page.pageNumber)}</header>`,
     renderPageGrid(page, options),
     "</section>"
   ].join("");
@@ -158,13 +158,13 @@ export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
 
   const questionPages = Array.isArray(worksheetDocument.questionPages) ? worksheetDocument.questionPages : [];
   const answerKeyPages = Array.isArray(worksheetDocument.answerKeyPages) ? worksheetDocument.answerKeyPages : [];
-  const title = options.title ?? "Math Worksheet Preview";
+  const title = options.title ?? "數學練習卷預覽";
   const stylesheetHref = options.stylesheetHref ?? "./src/renderer/print-styles.css";
 
   const questionPagesHtml = questionPages.map((page) => renderQuestionPage(page, options)).join("");
   const answerKeyPagesHtml = answerKeyPages.length > 0
     ? renderPageSection(
-      "Answer Key",
+      "答案卷",
       answerKeyPages.map((page) => renderAnswerKeyPage(page, options)).join(""),
       "worksheet-section--answer-key",
       options
@@ -173,7 +173,7 @@ export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
 
   return [
     "<!doctype html>",
-    '<html lang="en">',
+    '<html lang="zh-Hant">',
     "<head>",
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
@@ -182,7 +182,7 @@ export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
     "</head>",
     '<body class="worksheet-renderer">',
     `<main class="worksheet-document" data-worksheet-kind="${escapeHtml(worksheetDocument.worksheetKind ?? "worksheet")}">`,
-    renderPageSection("Worksheet", questionPagesHtml, "worksheet-section--questions", options),
+    renderPageSection("練習卷", questionPagesHtml, "worksheet-section--questions", options),
     answerKeyPagesHtml,
     "</main>",
     "</body>",

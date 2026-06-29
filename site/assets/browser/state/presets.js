@@ -235,8 +235,8 @@ function createMultipagePresetConfig() {
 const PRESET_BUILDERS = Object.freeze({
   default: () => ({
     id: "default",
-    label: "Default",
-    description: "Single-pattern default worksheet.",
+    label: "預設",
+    description: "單一題型的預設練習卷。",
     draftConfig: createDefaultPresetConfig(),
     seeds: {
       generationSeed: "default-generation-seed",
@@ -246,8 +246,8 @@ const PRESET_BUILDERS = Object.freeze({
   }),
   grouped: () => ({
     id: "grouped",
-    label: "Grouped",
-    description: "Grouped mixed-pattern worksheet with answer key pages.",
+    label: "分組",
+    description: "分組排列的混合題型練習卷，附答案卷。",
     draftConfig: createGroupedPresetConfig(),
     seeds: {
       generationSeed: "grouped-generation-seed",
@@ -257,8 +257,8 @@ const PRESET_BUILDERS = Object.freeze({
   }),
   shuffled: () => ({
     id: "shuffled",
-    label: "Shuffled",
-    description: "Deterministic shuffled ordering across patterns.",
+    label: "隨機排序",
+    description: "跨題型的確定性隨機排序。",
     draftConfig: createShuffledPresetConfig(),
     seeds: {
       generationSeed: "shuffled-generation-seed",
@@ -268,8 +268,8 @@ const PRESET_BUILDERS = Object.freeze({
   }),
   multipage: () => ({
     id: "multipage",
-    label: "Multipage",
-    description: "Multi-page grouped worksheet with answer key pages.",
+    label: "多頁",
+    description: "多頁的分組練習卷，附答案卷。",
     draftConfig: createMultipagePresetConfig(),
     seeds: {
       generationSeed: "multipage-generation-seed",
