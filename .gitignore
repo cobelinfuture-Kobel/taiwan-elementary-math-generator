@@ -1,0 +1,31 @@
+﻿# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.local
+
+# PyCharm
+.idea/
+
+# Generated outputs
+output/*
+!output/.gitkeep
+
+# Local raw assets
+local_assets/*
+!local_assets/.gitkeep
+raw_screenshots/
+raw_scans/
+raw_pdfs/
+
+# Logs and temp
+logs/
+*.log
+tmp/
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
