@@ -6,10 +6,11 @@ import {
   setSeedField,
   setShowAnswerKeyPage
 } from "./state/config-state.js";
-import { listPresetDefinitions } from "./state/presets.js";
+import { listPresetDefinitions, getPresetDefinition } from "./state/presets.js";
 import { parseQueryState, writeQueryStateFromState } from "./state/query-state.js";
 import { buildWorksheetDocumentFromState } from "./pipeline/build-worksheet-document.js";
 import { printPreviewFrame, renderPreviewFrame } from "./pipeline/render-preview-frame.js";
+import { createConfigEditor } from "./ui/config-editor.js";
 
 const presetDefinitions = listPresetDefinitions();
 const queryState = parseQueryState();
@@ -35,12 +36,32 @@ if (queryState.showAnswerKeyPage) {
   setShowAnswerKeyPage(state, true);
 }
 
+// ─── Config editor ──────────────────────────────────────────────────
+
+const configEditor = createConfigEditor({
+  state,
+  onApplyEdit() {
+    runGeneration();
+  },
+  onResetPreset() {
+    resetToPreset();
+  }
+});
+
+// ─── Element references ─────────────────────────────────────────────
+
 const elements = {
   presetButtons: document.querySelector("#preset-buttons"),
+  questionCountInput: document.querySelector("#question-count-input"),
+  columnsInput: document.querySelector("#columns-input"),
+  rowsPerPageInput: document.querySelector("#rows-per-page-input"),
+  orderingModeSelect: document.querySelector("#ordering-mode-select"),
   generationSeedInput: document.querySelector("#generation-seed-input"),
   orderingSeedInput: document.querySelector("#ordering-seed-input"),
   lockOrderingSeedInput: document.querySelector("#lock-ordering-seed-input"),
   showAnswerKeyInput: document.querySelector("#show-answer-key-input"),
+  applyEditButton: document.querySelector("#apply-edit-button"),
+  resetPresetButton: document.querySelector("#reset-preset-button"),
   regenerateButton: document.querySelector("#regenerate-button"),
   printButton: document.querySelector("#print-button"),
   statusPanel: document.querySelector("#status-panel"),
@@ -48,6 +69,8 @@ const elements = {
   previewFrame: document.querySelector("#preview-frame"),
   previewMeta: document.querySelector("#preview-meta")
 };
+
+// ─── Rendering helpers ──────────────────────────────────────────────
 
 function formatIssue(issue) {
   const path = issue?.path ? ` (${issue.path})` : "";
@@ -64,20 +87,22 @@ function renderPresetButtons() {
   elements.presetButtons.querySelectorAll("[data-preset-id]").forEach((button) => {
     button.addEventListener("click", () => {
       applyPreset(state, button.getAttribute("data-preset-id"));
-      syncControlsFromState();
+      syncAllControlsFromState();
       renderPresetButtons();
+      configEditor.syncEditorFromState();
       writeQueryStateFromState(state);
       runGeneration();
     });
   });
 }
 
-function syncControlsFromState() {
+function syncAllControlsFromState() {
   elements.generationSeedInput.value = state.seeds.generationSeed;
   elements.orderingSeedInput.value = state.seeds.orderingSeed;
   elements.lockOrderingSeedInput.checked = state.seeds.lockOrderingSeedToGenerationSeed;
   elements.showAnswerKeyInput.checked = state.draftConfig.printLayout.showAnswerKeyPage;
   elements.orderingSeedInput.disabled = state.seeds.lockOrderingSeedToGenerationSeed && !state.seeds.orderingSeed;
+  configEditor.syncFormControlsFromState();
 }
 
 function renderStatus() {
@@ -133,6 +158,8 @@ function updatePrintButton() {
   elements.printButton.disabled = !state.ui.hasRendered || Boolean(state.ui.lastError);
 }
 
+// ─── Generation ─────────────────────────────────────────────────────
+
 function runGeneration() {
   state.ui.isGenerating = true;
   renderStatus();
@@ -173,6 +200,25 @@ function runGeneration() {
   writeQueryStateFromState(state);
 }
 
+// ─── Reset to preset ────────────────────────────────────────────────
+
+function resetToPreset() {
+  const preset = getPresetDefinition(state.presetId);
+
+  state.draftConfig = preset.draftConfig;
+  state.seeds = preset.seeds;
+  state.ui.isDirty = true;
+  state.derived.validation = null;
+
+  syncAllControlsFromState();
+  configEditor.syncEditorFromState();
+  writeQueryStateFromState(state);
+
+  runGeneration();
+}
+
+// ─── Seed & answer-key event listeners ──────────────────────────────
+
 elements.generationSeedInput.addEventListener("input", (event) => {
   setSeedField(state, "generationSeed", event.currentTarget.value);
   writeQueryStateFromState(state);
@@ -185,7 +231,7 @@ elements.orderingSeedInput.addEventListener("input", (event) => {
 
 elements.lockOrderingSeedInput.addEventListener("change", (event) => {
   setLockOrderingSeedToGenerationSeed(state, event.currentTarget.checked);
-  syncControlsFromState();
+  syncAllControlsFromState();
   writeQueryStateFromState(state);
 });
 
@@ -193,6 +239,40 @@ elements.showAnswerKeyInput.addEventListener("change", (event) => {
   setShowAnswerKeyPage(state, event.currentTarget.checked);
   writeQueryStateFromState(state);
 });
+
+// ─── Form control event listeners ───────────────────────────────────
+
+elements.questionCountInput.addEventListener("input", (event) => {
+  configEditor.handleQuestionCountChange(event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.columnsInput.addEventListener("input", (event) => {
+  configEditor.handleColumnsChange(event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.rowsPerPageInput.addEventListener("input", (event) => {
+  configEditor.handleRowsPerPageChange(event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.orderingModeSelect.addEventListener("change", (event) => {
+  configEditor.handleOrderingModeChange(event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+// ─── Config editor event listeners ──────────────────────────────────
+
+elements.applyEditButton.addEventListener("click", () => {
+  configEditor.handleEdit();
+});
+
+elements.resetPresetButton.addEventListener("click", () => {
+  configEditor.handleResetPreset();
+});
+
+// ─── Toolbar ────────────────────────────────────────────────────────
 
 elements.regenerateButton.addEventListener("click", () => {
   runGeneration();
@@ -202,8 +282,11 @@ elements.printButton.addEventListener("click", () => {
   printPreviewFrame(elements.previewFrame);
 });
 
+// ─── Initial render ─────────────────────────────────────────────────
+
 renderPresetButtons();
-syncControlsFromState();
+syncAllControlsFromState();
+configEditor.syncEditorFromState();
 renderStatus();
 renderValidation();
 runGeneration();

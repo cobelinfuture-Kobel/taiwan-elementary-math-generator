@@ -20,27 +20,71 @@
         <div class="preset-buttons" id="preset-buttons"></div>
       </div>
 
-      <div class="control-grid">
-        <label class="field">
-          <span>Generation Seed</span>
-          <input id="generation-seed-input" name="generationSeed" type="text" spellcheck="false">
+      <div class="control-group">
+        <h2>Worksheet Settings</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>Question Count</span>
+            <input id="question-count-input" name="questionCount" type="number" min="1" max="200" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>Columns</span>
+            <input id="columns-input" name="columns" type="number" min="1" max="6" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>Rows per Page</span>
+            <input id="rows-per-page-input" name="rowsPerPage" type="number" min="1" max="20" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>Ordering Mode</span>
+            <select id="ordering-mode-select" name="orderingMode">
+              <option value="groupedByPattern">Grouped by Pattern</option>
+              <option value="shuffleAcrossPatterns">Shuffle Across Patterns</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h2>Seed & Answer Key</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>Generation Seed</span>
+            <input id="generation-seed-input" name="generationSeed" type="text" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>Ordering Seed</span>
+            <input id="ordering-seed-input" name="orderingSeed" type="text" spellcheck="false">
+          </label>
+        </div>
+
+        <label class="toggle">
+          <input id="lock-ordering-seed-input" name="lockOrderingSeedToGenerationSeed" type="checkbox">
+          <span>Use generation seed for ordering when ordering seed is blank</span>
         </label>
 
-        <label class="field">
-          <span>Ordering Seed</span>
-          <input id="ordering-seed-input" name="orderingSeed" type="text" spellcheck="false">
+        <label class="toggle">
+          <input id="show-answer-key-input" name="showAnswerKeyPage" type="checkbox">
+          <span>Show answer key pages</span>
         </label>
       </div>
 
-      <label class="toggle">
-        <input id="lock-ordering-seed-input" name="lockOrderingSeedToGenerationSeed" type="checkbox">
-        <span>Use generation seed for ordering when ordering seed is blank</span>
-      </label>
-
-      <label class="toggle">
-        <input id="show-answer-key-input" name="showAnswerKeyPage" type="checkbox">
-        <span>Show answer key pages</span>
-      </label>
+      <div class="control-group">
+        <h2>Config Editor</h2>
+        <label class="field">
+          <span>Edit draftConfig directly as JSON</span>
+          <textarea id="config-json-editor" name="configJson" rows="16" spellcheck="false"></textarea>
+        </label>
+        <div class="json-error-panel" id="json-error-panel" data-has-error="false"></div>
+        <div class="toolbar">
+          <button id="apply-edit-button" class="button button--primary" type="button">Apply Edit</button>
+          <button id="reset-preset-button" class="button" type="button">Reset to Preset</button>
+        </div>
+      </div>
 
       <div class="toolbar">
         <button id="regenerate-button" class="button button--primary" type="button">Regenerate</button>

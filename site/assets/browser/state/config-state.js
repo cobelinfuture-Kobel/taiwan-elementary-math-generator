@@ -91,6 +91,46 @@ export function setShowAnswerKeyPage(state, checked) {
   return state;
 }
 
+export function setQuestionCount(state, count) {
+  const value = Number(count);
+  if (!Number.isFinite(value) || value < 1) {
+    return state;
+  }
+  state.draftConfig.generation.questionCount = value;
+  state.ui.isDirty = true;
+  return state;
+}
+
+export function setColumns(state, columns) {
+  const value = Number(columns);
+  if (!Number.isFinite(value) || value < 1 || value > 6) {
+    return state;
+  }
+  state.draftConfig.printLayout.columns = value;
+  state.ui.isDirty = true;
+  return state;
+}
+
+export function setRowsPerPage(state, rows) {
+  const value = Number(rows);
+  if (!Number.isFinite(value) || value < 1 || value > 20) {
+    return state;
+  }
+  state.draftConfig.printLayout.rowsPerPage = value;
+  state.ui.isDirty = true;
+  return state;
+}
+
+export function setOrderingMode(state, mode) {
+  const validModes = ["groupedByPattern", "shuffleAcrossPatterns"];
+  if (!validModes.includes(mode)) {
+    return state;
+  }
+  state.draftConfig.patternPlan.worksheetOrdering.mode = mode;
+  state.ui.isDirty = true;
+  return state;
+}
+
 export function getEffectiveOrderingSeed(state) {
   const orderingSeed = String(state?.seeds?.orderingSeed ?? "").trim();
   if (orderingSeed) {

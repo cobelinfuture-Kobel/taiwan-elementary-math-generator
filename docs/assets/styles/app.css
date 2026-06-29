@@ -136,11 +136,25 @@ input {
   gap: 6px;
 }
 
-.field input {
+.field input,
+.field select,
+.field textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--line);
   background: var(--paper);
+}
+
+.field textarea {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  resize: vertical;
+  min-height: 180px;
+  font-family: ui-monospace, "Cascadia Code", "Fira Code", "Consolas", monospace;
+}
+
+.field select {
+  cursor: pointer;
 }
 
 .toggle {
@@ -169,6 +183,23 @@ input {
 }
 
 .status-panel[data-tone="error"] {
+  border-color: #e5bbbb;
+  background: var(--danger-soft);
+}
+
+.json-error-panel {
+  min-height: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: #fbfcfd;
+  font-family: ui-monospace, "Cascadia Code", "Fira Code", "Consolas", monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  display: none;
+}
+
+.json-error-panel[data-has-error="true"] {
+  display: block;
   border-color: #e5bbbb;
   background: var(--danger-soft);
 }
