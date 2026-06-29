@@ -1,12 +1,12 @@
 import {
-  applyPreset,
+  getOperatorsEnabled,
   setColumns,
+  setOperandRange,
+  setOperatorEnabled,
   setOrderingMode,
   setQuestionCount,
-  setRowsPerPage,
-  setShowAnswerKeyPage
+  setRowsPerPage
 } from "../state/config-state.js";
-import { getPresetDefinition } from "../state/presets.js";
 
 function cloneValue(value) {
   if (Array.isArray(value)) {
@@ -30,7 +30,7 @@ function parseEditedJson(rawText) {
   if (!rawText || !String(rawText).trim()) {
     return {
       ok: false,
-      error: "JSON 內容為空。"
+      error: "JSON 內容不能空白。"
     };
   }
 
@@ -40,14 +40,14 @@ function parseEditedJson(rawText) {
   } catch (error) {
     return {
       ok: false,
-      error: `JSON 解析錯誤：${error.message}`
+      error: `JSON 格式錯誤：${error.message}`
     };
   }
 
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     return {
       ok: false,
-      error: "設定必須是 JSON 物件。"
+      error: "編輯結果必須是 JSON 物件。"
     };
   }
 
@@ -68,6 +68,7 @@ export function createConfigEditor(options = {}) {
       }
 
       textarea.value = formatJson(state.draftConfig);
+
       const errorPanel = document.querySelector("#json-error-panel");
       if (errorPanel) {
         errorPanel.innerHTML = "";
@@ -83,8 +84,7 @@ export function createConfigEditor(options = {}) {
         return;
       }
 
-      const rawText = textarea.value;
-      const parseResult = parseEditedJson(rawText);
+      const parseResult = parseEditedJson(textarea.value);
 
       if (!parseResult.ok) {
         if (errorPanel) {
@@ -144,6 +144,22 @@ export function createConfigEditor(options = {}) {
       }
     },
 
+    handleOperatorToggle(operator, checked) {
+      setOperatorEnabled(state, operator, checked);
+      this.syncEditorFromState();
+      if (onApplyEdit) {
+        onApplyEdit();
+      }
+    },
+
+    handleOperandRangeChange(position, field, value) {
+      setOperandRange(state, position, field, value);
+      this.syncEditorFromState();
+      if (onApplyEdit) {
+        onApplyEdit();
+      }
+    },
+
     syncFormControlsFromState() {
       const questionCountInput = document.querySelector("#question-count-input");
       const columnsInput = document.querySelector("#columns-input");
@@ -161,6 +177,38 @@ export function createConfigEditor(options = {}) {
       }
       if (orderingModeSelect) {
         orderingModeSelect.value = state.draftConfig.patternPlan.worksheetOrdering.mode ?? "";
+      }
+
+      const enabled = getOperatorsEnabled(state);
+      const operatorMap = {
+        "operator-add-input": enabled.add,
+        "operator-subtract-input": enabled.subtract,
+        "operator-multiply-input": enabled.multiply,
+        "operator-divide-input": enabled.divide
+      };
+
+      for (const [id, checked] of Object.entries(operatorMap)) {
+        const element = document.querySelector(`#${id}`);
+        if (element) {
+          element.checked = checked;
+        }
+      }
+
+      const ranges = Array.isArray(state?.draftConfig?.expression?.operandRanges)
+        ? state.draftConfig.expression.operandRanges
+        : [];
+
+      for (let position = 1; position <= 2; position += 1) {
+        const range = ranges.find((item) => item?.position === position) ?? { min: "", max: "" };
+        const minElement = document.querySelector(`#operand-${position}-min-input`);
+        const maxElement = document.querySelector(`#operand-${position}-max-input`);
+
+        if (minElement) {
+          minElement.value = range.min ?? "";
+        }
+        if (maxElement) {
+          maxElement.value = range.max ?? "";
+        }
       }
     }
   };

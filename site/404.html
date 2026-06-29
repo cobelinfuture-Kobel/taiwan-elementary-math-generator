@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>數學練習卷產生器</title>
+  <title>數學練習題產生器</title>
   <link rel="stylesheet" href="./assets/styles/app.css">
 </head>
 <body data-route-kind="404">
   <main class="app-shell">
     <section class="app-shell__hero">
-      <p class="app-shell__eyebrow">靜態瀏覽器出題器</p>
-      <h1>數學練習卷產生器</h1>
-      <p class="app-shell__lede">找不到請求的頁面。下方的練習卷產生器仍可使用。</p>
+      <p class="app-shell__eyebrow">靜態網站瀏覽器工具</p>
+      <h1>數學練習題產生器</h1>
+      <p class="app-shell__lede">找不到指定頁面，但你仍然可以直接使用這個靜態題目產生器。</p>
     </section>
 
     <section class="app-shell__controls" aria-label="Worksheet controls">
@@ -21,23 +21,64 @@
       </div>
 
       <div class="control-group">
-        <h2>練習卷設定</h2>
+        <h2>運算符號</h2>
+        <div class="operator-grid">
+          <label class="toggle">
+            <input id="operator-add-input" name="operatorAdd" type="checkbox" checked>
+            <span>加法 +</span>
+          </label>
+          <label class="toggle">
+            <input id="operator-subtract-input" name="operatorSubtract" type="checkbox" checked>
+            <span>減法 -</span>
+          </label>
+          <label class="toggle">
+            <input id="operator-multiply-input" name="operatorMultiply" type="checkbox">
+            <span>乘法 ?</span>
+          </label>
+          <label class="toggle">
+            <input id="operator-divide-input" name="operatorDivide" type="checkbox">
+            <span>除法 繩</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h2>運算數範圍</h2>
         <div class="control-grid">
           <label class="field">
-            <span>題目數</span>
+            <span>第一個運算數最小值</span>
+            <input id="operand-1-min-input" name="operand1Min" type="number" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>第一個運算數最大值</span>
+            <input id="operand-1-max-input" name="operand1Max" type="number" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>第二個運算數最小值</span>
+            <input id="operand-2-min-input" name="operand2Min" type="number" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>第二個運算數最大值</span>
+            <input id="operand-2-max-input" name="operand2Max" type="number" spellcheck="false">
+          </label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h2>題目版面設定</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>題目數量</span>
             <input id="question-count-input" name="questionCount" type="number" min="1" max="200" spellcheck="false">
           </label>
-
           <label class="field">
             <span>欄數</span>
             <input id="columns-input" name="columns" type="number" min="1" max="6" spellcheck="false">
           </label>
-
           <label class="field">
             <span>每頁列數</span>
             <input id="rows-per-page-input" name="rowsPerPage" type="number" min="1" max="20" spellcheck="false">
           </label>
-
           <label class="field">
             <span>排序模式</span>
             <select id="ordering-mode-select" name="orderingMode">
@@ -49,13 +90,12 @@
       </div>
 
       <div class="control-group">
-        <h2>種子與答案卷</h2>
+        <h2>種子與答案頁</h2>
         <div class="control-grid">
           <label class="field">
-            <span>出題種子</span>
+            <span>產生種子</span>
             <input id="generation-seed-input" name="generationSeed" type="text" spellcheck="false">
           </label>
-
           <label class="field">
             <span>排序種子</span>
             <input id="ordering-seed-input" name="orderingSeed" type="text" spellcheck="false">
@@ -64,25 +104,25 @@
 
         <label class="toggle">
           <input id="lock-ordering-seed-input" name="lockOrderingSeedToGenerationSeed" type="checkbox">
-          <span>排序種子空白時使用出題種子</span>
+          <span>排序種子留白時，改用產生種子</span>
         </label>
 
         <label class="toggle">
           <input id="show-answer-key-input" name="showAnswerKeyPage" type="checkbox">
-          <span>顯示答案卷</span>
+          <span>顯示答案頁</span>
         </label>
       </div>
 
       <div class="control-group">
-        <h2>設定編輯器</h2>
+        <h2>進階 JSON 編輯</h2>
         <label class="field">
-          <span>直接以 JSON 編輯 draftConfig</span>
+          <span>直接編輯 draftConfig</span>
           <textarea id="config-json-editor" name="configJson" rows="16" spellcheck="false"></textarea>
         </label>
         <div class="json-error-panel" id="json-error-panel" data-has-error="false"></div>
         <div class="toolbar">
-          <button id="apply-edit-button" class="button button--primary" type="button">套用編輯</button>
-          <button id="reset-preset-button" class="button" type="button">重設為目前預設</button>
+          <button id="apply-edit-button" class="button button--primary" type="button">套用 JSON</button>
+          <button id="reset-preset-button" class="button" type="button">還原目前預設</button>
         </div>
       </div>
 
@@ -98,7 +138,7 @@
     <section class="app-shell__preview" aria-label="Worksheet preview">
       <div class="preview-header">
         <h2>預覽</h2>
-        <p id="preview-meta">尚未產生練習卷。</p>
+        <p id="preview-meta">尚未產生新的練習題。</p>
       </div>
       <iframe
         id="preview-frame"

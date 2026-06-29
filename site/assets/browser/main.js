@@ -6,6 +6,7 @@ import {
   setSeedField,
   setShowAnswerKeyPage
 } from "./state/config-state.js";
+import { OPERATORS } from "../../modules/core/constants.js";
 import { listPresetDefinitions, getPresetDefinition } from "./state/presets.js";
 import { parseQueryState, writeQueryStateFromState } from "./state/query-state.js";
 import { buildWorksheetDocumentFromState } from "./pipeline/build-worksheet-document.js";
@@ -36,8 +37,6 @@ if (queryState.showAnswerKeyPage) {
   setShowAnswerKeyPage(state, true);
 }
 
-// ─── Config editor ──────────────────────────────────────────────────
-
 const configEditor = createConfigEditor({
   state,
   onApplyEdit() {
@@ -48,14 +47,20 @@ const configEditor = createConfigEditor({
   }
 });
 
-// ─── Element references ─────────────────────────────────────────────
-
 const elements = {
   presetButtons: document.querySelector("#preset-buttons"),
   questionCountInput: document.querySelector("#question-count-input"),
   columnsInput: document.querySelector("#columns-input"),
   rowsPerPageInput: document.querySelector("#rows-per-page-input"),
   orderingModeSelect: document.querySelector("#ordering-mode-select"),
+  operatorAddInput: document.querySelector("#operator-add-input"),
+  operatorSubtractInput: document.querySelector("#operator-subtract-input"),
+  operatorMultiplyInput: document.querySelector("#operator-multiply-input"),
+  operatorDivideInput: document.querySelector("#operator-divide-input"),
+  operand1MinInput: document.querySelector("#operand-1-min-input"),
+  operand1MaxInput: document.querySelector("#operand-1-max-input"),
+  operand2MinInput: document.querySelector("#operand-2-min-input"),
+  operand2MaxInput: document.querySelector("#operand-2-max-input"),
   generationSeedInput: document.querySelector("#generation-seed-input"),
   orderingSeedInput: document.querySelector("#ordering-seed-input"),
   lockOrderingSeedInput: document.querySelector("#lock-ordering-seed-input"),
@@ -69,13 +74,6 @@ const elements = {
   previewFrame: document.querySelector("#preview-frame"),
   previewMeta: document.querySelector("#preview-meta")
 };
-
-// ─── Rendering helpers ──────────────────────────────────────────────
-
-function formatIssue(issue) {
-  const path = issue?.path ? ` (${issue.path})` : "";
-  return `${issue?.code ?? "unknown"}${path}: ${issue?.message ?? "Unknown issue."}`;
-}
 
 function renderPresetButtons() {
   elements.presetButtons.innerHTML = presetDefinitions.map((preset) => [
@@ -109,31 +107,30 @@ function renderStatus() {
   const questionPages = state.derived.worksheetDocument?.summary?.questionPageCount ?? 0;
   const answerPages = state.derived.worksheetDocument?.summary?.answerKeyPageCount ?? 0;
   const effectiveOrderingSeed = getEffectiveOrderingSeed(state);
-  const statusLines = [];
+  const lines = [];
 
   if (state.ui.isGenerating) {
-    state.ui.lastError = null;
     elements.statusPanel.dataset.tone = "";
-    statusLines.push("正在產生練習卷⋯⋯");
+    lines.push("正在產生練習題…");
   } else if (state.ui.lastError) {
     elements.statusPanel.dataset.tone = "error";
-    statusLines.push(state.ui.lastError);
+    lines.push(state.ui.lastError);
     if (state.derived.renderedHtml) {
-      statusLines.push("已保留最後一次有效的預覽。");
+      lines.push("目前保留上一份成功產生的預覽。");
     }
   } else if (state.ui.hasRendered) {
     elements.statusPanel.dataset.tone = "success";
-    statusLines.push(`已產生預設「${state.presetId}」，共 ${questionPages} 頁題目及 ${answerPages} 頁答案。`);
-    statusLines.push(`使用中的排序種子：${effectiveOrderingSeed === null ? "使用出題種子" : effectiveOrderingSeed || "無"}`);
+    lines.push(`已完成「${state.presetId}」題組，共 ${questionPages} 頁題目、${answerPages} 頁答案。`);
+    lines.push(`目前排序種子：${effectiveOrderingSeed === null ? "沿用產生種子" : effectiveOrderingSeed || "未指定"}`);
   } else {
     elements.statusPanel.dataset.tone = "";
-    statusLines.push("就緒，可產生練習卷。");
+    lines.push("尚未產生新的練習題。");
   }
 
-  elements.statusPanel.innerHTML = statusLines.map((line) => `<p>${line}</p>`).join("");
+  elements.statusPanel.innerHTML = lines.map((line) => `<p>${line}</p>`).join("");
   elements.previewMeta.textContent = state.ui.hasRendered
-    ? `題目數：${state.derived.worksheetDocument.summary.questionCount} | 題目頁數：${questionPages} | 答案頁數：${answerPages}`
-    : "尚未產生練習卷。";
+    ? `題目數量：${state.derived.worksheetDocument.summary.questionCount}｜題目頁：${questionPages}｜答案頁：${answerPages}`
+    : "尚未產生新的練習題。";
 }
 
 function renderValidation() {
@@ -146,19 +143,21 @@ function renderValidation() {
   elements.validationPanel.dataset.hasErrors = validation?.ok === false ? "true" : "false";
 
   if (issues.length === 0) {
-    elements.validationPanel.innerHTML = "<p>無驗證問題。</p>";
+    elements.validationPanel.innerHTML = "<p>目前沒有驗證訊息。</p>";
     return;
   }
 
-  const listItems = issues.map((issue) => `<li>${formatIssue(issue)}</li>`).join("");
+  const listItems = issues.map((issue) => {
+    const level = issue?.level ?? issue?.severity ?? "info";
+    return `<li><strong>${level}</strong> ${issue.message}</li>`;
+  }).join("");
+
   elements.validationPanel.innerHTML = `<ol class="validation-list">${listItems}</ol>`;
 }
 
 function updatePrintButton() {
   elements.printButton.disabled = !state.ui.hasRendered || Boolean(state.ui.lastError);
 }
-
-// ─── Generation ─────────────────────────────────────────────────────
 
 function runGeneration() {
   state.ui.isGenerating = true;
@@ -175,7 +174,7 @@ function runGeneration() {
   };
 
   if (!result.ok) {
-    state.ui.lastError = `產生失敗，階段：${result.stage}`;
+    state.ui.lastError = result.errors?.[0]?.message ?? `產生失敗：${result.stage}`;
     renderStatus();
     renderValidation();
     updatePrintButton();
@@ -200,8 +199,6 @@ function runGeneration() {
   writeQueryStateFromState(state);
 }
 
-// ─── Reset to preset ────────────────────────────────────────────────
-
 function resetToPreset() {
   const preset = getPresetDefinition(state.presetId);
 
@@ -213,11 +210,8 @@ function resetToPreset() {
   syncAllControlsFromState();
   configEditor.syncEditorFromState();
   writeQueryStateFromState(state);
-
   runGeneration();
 }
-
-// ─── Seed & answer-key event listeners ──────────────────────────────
 
 elements.generationSeedInput.addEventListener("input", (event) => {
   setSeedField(state, "generationSeed", event.currentTarget.value);
@@ -238,9 +232,8 @@ elements.lockOrderingSeedInput.addEventListener("change", (event) => {
 elements.showAnswerKeyInput.addEventListener("change", (event) => {
   setShowAnswerKeyPage(state, event.currentTarget.checked);
   writeQueryStateFromState(state);
+  runGeneration();
 });
-
-// ─── Form control event listeners ───────────────────────────────────
 
 elements.questionCountInput.addEventListener("input", (event) => {
   configEditor.handleQuestionCountChange(event.currentTarget.value);
@@ -262,8 +255,6 @@ elements.orderingModeSelect.addEventListener("change", (event) => {
   writeQueryStateFromState(state);
 });
 
-// ─── Config editor event listeners ──────────────────────────────────
-
 elements.applyEditButton.addEventListener("click", () => {
   configEditor.handleEdit();
 });
@@ -272,7 +263,45 @@ elements.resetPresetButton.addEventListener("click", () => {
   configEditor.handleResetPreset();
 });
 
-// ─── Toolbar ────────────────────────────────────────────────────────
+elements.operatorAddInput.addEventListener("change", (event) => {
+  configEditor.handleOperatorToggle(OPERATORS.ADD, event.currentTarget.checked);
+  writeQueryStateFromState(state);
+});
+
+elements.operatorSubtractInput.addEventListener("change", (event) => {
+  configEditor.handleOperatorToggle(OPERATORS.SUBTRACT, event.currentTarget.checked);
+  writeQueryStateFromState(state);
+});
+
+elements.operatorMultiplyInput.addEventListener("change", (event) => {
+  configEditor.handleOperatorToggle(OPERATORS.MULTIPLY, event.currentTarget.checked);
+  writeQueryStateFromState(state);
+});
+
+elements.operatorDivideInput.addEventListener("change", (event) => {
+  configEditor.handleOperatorToggle(OPERATORS.DIVIDE, event.currentTarget.checked);
+  writeQueryStateFromState(state);
+});
+
+elements.operand1MinInput.addEventListener("input", (event) => {
+  configEditor.handleOperandRangeChange(1, "min", event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.operand1MaxInput.addEventListener("input", (event) => {
+  configEditor.handleOperandRangeChange(1, "max", event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.operand2MinInput.addEventListener("input", (event) => {
+  configEditor.handleOperandRangeChange(2, "min", event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
+
+elements.operand2MaxInput.addEventListener("input", (event) => {
+  configEditor.handleOperandRangeChange(2, "max", event.currentTarget.value);
+  writeQueryStateFromState(state);
+});
 
 elements.regenerateButton.addEventListener("click", () => {
   runGeneration();
@@ -281,8 +310,6 @@ elements.regenerateButton.addEventListener("click", () => {
 elements.printButton.addEventListener("click", () => {
   printPreviewFrame(elements.previewFrame);
 });
-
-// ─── Initial render ─────────────────────────────────────────────────
 
 renderPresetButtons();
 syncAllControlsFromState();

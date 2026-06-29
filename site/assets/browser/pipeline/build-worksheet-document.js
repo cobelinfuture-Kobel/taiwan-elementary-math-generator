@@ -4,6 +4,10 @@ import {
   generateQuestionsForPattern,
   validateConfig
 } from "../../../modules/core/index.js";
+import {
+  translateGenerationFailure,
+  validateBrowserConfig
+} from "../state/config-validation.js";
 
 function cloneValue(value) {
   if (Array.isArray(value)) {
@@ -20,7 +24,26 @@ function cloneValue(value) {
 }
 
 function createIssue(code, severity, path, message) {
-  return { code, severity, path, message };
+  return { code, severity, level: severity, path, message };
+}
+
+function combineValidationResults(browserValidation, coreValidation) {
+  const errors = [
+    ...(browserValidation?.errors ?? []),
+    ...(coreValidation?.errors ?? [])
+  ];
+  const warnings = [
+    ...(browserValidation?.warnings ?? []),
+    ...(coreValidation?.warnings ?? []),
+    ...(browserValidation?.infos ?? [])
+  ];
+
+  return {
+    ok: errors.length === 0,
+    errors,
+    warnings,
+    infos: browserValidation?.infos ?? []
+  };
 }
 
 function createPatternMap(config) {
@@ -73,39 +96,53 @@ function generateQuestionsFromAllocations(configSnapshot, allocationResult, gene
   const duplicateKeys = new Set();
   const patternMap = createPatternMap(configSnapshot);
   const generatedQuestions = [];
-  const errors = [];
+  const rawErrors = [];
 
   allocationResult.forEach((allocation, allocationIndex) => {
     const pattern = patternMap.get(allocation.patternId);
     if (!pattern) {
-      errors.push(createIssue("pattern_missing", "error", "patternPlan.patternPool.patterns", `Missing pattern '${allocation.patternId}' in config pattern pool.`));
+      rawErrors.push(createIssue("pattern_missing", "error", "patternPlan.patternPool.patterns", `Missing pattern '${allocation.patternId}' in config pattern pool.`));
       return;
     }
 
     const result = generateQuestionsForPattern(pattern, allocation.questionCount, {
+      config: configSnapshot,
       seed: `${generationSeed ?? "site-generation-seed"}:${allocation.patternId}:${allocationIndex}`,
       existingDuplicateKeys: duplicateKeys
     });
 
     if (!result.ok) {
-      errors.push(...(result.errors ?? []));
+      rawErrors.push(...(result.errors ?? []));
       return;
     }
 
     generatedQuestions.push(...result.questions);
   });
 
+  if (rawErrors.length > 0) {
+    return {
+      ok: false,
+      generatedQuestions: [],
+      rawErrors,
+      errors: [translateGenerationFailure(rawErrors)],
+      warnings: []
+    };
+  }
+
   return {
-    ok: errors.length === 0,
+    ok: true,
     generatedQuestions,
-    errors,
+    rawErrors: [],
+    errors: [],
     warnings: []
   };
 }
 
 export function buildWorksheetDocumentFromState(state) {
   const configSnapshot = cloneValue(state?.draftConfig ?? {});
-  const validation = validateConfig(configSnapshot);
+  const browserValidation = validateBrowserConfig(configSnapshot);
+  const coreValidation = validateConfig(configSnapshot);
+  const validation = combineValidationResults(browserValidation, coreValidation);
 
   if (!validation.ok) {
     return {
@@ -114,7 +151,8 @@ export function buildWorksheetDocumentFromState(state) {
       validation,
       errors: validation.errors,
       warnings: validation.warnings,
-      worksheetDocument: null
+      worksheetDocument: null,
+      rawErrors: []
     };
   }
 
@@ -127,7 +165,8 @@ export function buildWorksheetDocumentFromState(state) {
       allocation,
       errors: allocation.errors,
       warnings: [...validation.warnings, ...(allocation.warnings ?? [])],
-      worksheetDocument: null
+      worksheetDocument: null,
+      rawErrors: []
     };
   }
 
@@ -141,7 +180,8 @@ export function buildWorksheetDocumentFromState(state) {
       allocation,
       errors: generation.errors,
       warnings: [...validation.warnings, ...(allocation.warnings ?? [])],
-      worksheetDocument: null
+      worksheetDocument: null,
+      rawErrors: generation.rawErrors
     };
   }
 
@@ -169,6 +209,7 @@ export function buildWorksheetDocumentFromState(state) {
     generationReport,
     worksheetDocument,
     errors: [],
-    warnings: [...validation.warnings, ...(allocation.warnings ?? [])]
+    warnings: [...validation.warnings, ...(allocation.warnings ?? [])],
+    rawErrors: []
   };
 }

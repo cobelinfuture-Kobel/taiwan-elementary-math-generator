@@ -124,6 +124,12 @@ input {
   cursor: not-allowed;
 }
 
+.operator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
 .control-grid {
   display: grid;
   grid-template-columns: 1fr;

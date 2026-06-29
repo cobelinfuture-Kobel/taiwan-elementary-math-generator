@@ -158,13 +158,13 @@ export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
 
   const questionPages = Array.isArray(worksheetDocument.questionPages) ? worksheetDocument.questionPages : [];
   const answerKeyPages = Array.isArray(worksheetDocument.answerKeyPages) ? worksheetDocument.answerKeyPages : [];
-  const title = options.title ?? "數學練習卷預覽";
+  const title = options.title ?? "數學練習題預覽";
   const stylesheetHref = options.stylesheetHref ?? "./src/renderer/print-styles.css";
 
   const questionPagesHtml = questionPages.map((page) => renderQuestionPage(page, options)).join("");
   const answerKeyPagesHtml = answerKeyPages.length > 0
     ? renderPageSection(
-      "答案卷",
+      "答案頁",
       answerKeyPages.map((page) => renderAnswerKeyPage(page, options)).join(""),
       "worksheet-section--answer-key",
       options
@@ -182,7 +182,7 @@ export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
     "</head>",
     '<body class="worksheet-renderer">',
     `<main class="worksheet-document" data-worksheet-kind="${escapeHtml(worksheetDocument.worksheetKind ?? "worksheet")}">`,
-    renderPageSection("練習卷", questionPagesHtml, "worksheet-section--questions", options),
+    renderPageSection("題目頁", questionPagesHtml, "worksheet-section--questions", options),
     answerKeyPagesHtml,
     "</main>",
     "</body>",

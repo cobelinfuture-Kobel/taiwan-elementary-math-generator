@@ -236,7 +236,7 @@ const PRESET_BUILDERS = Object.freeze({
   default: () => ({
     id: "default",
     label: "預設",
-    description: "單一題型的預設練習卷。",
+    description: "單一模式的預設整數算式題組。",
     draftConfig: createDefaultPresetConfig(),
     seeds: {
       generationSeed: "default-generation-seed",
@@ -247,7 +247,7 @@ const PRESET_BUILDERS = Object.freeze({
   grouped: () => ({
     id: "grouped",
     label: "分組",
-    description: "分組排列的混合題型練習卷，附答案卷。",
+    description: "依題型分組排序的混合題組，包含答案頁。",
     draftConfig: createGroupedPresetConfig(),
     seeds: {
       generationSeed: "grouped-generation-seed",
@@ -258,7 +258,7 @@ const PRESET_BUILDERS = Object.freeze({
   shuffled: () => ({
     id: "shuffled",
     label: "隨機排序",
-    description: "跨題型的確定性隨機排序。",
+    description: "使用固定排序種子的隨機混合題組。",
     draftConfig: createShuffledPresetConfig(),
     seeds: {
       generationSeed: "shuffled-generation-seed",
@@ -269,7 +269,7 @@ const PRESET_BUILDERS = Object.freeze({
   multipage: () => ({
     id: "multipage",
     label: "多頁",
-    description: "多頁的分組練習卷，附答案卷。",
+    description: "會產生多頁題目的混合題組，包含答案頁。",
     draftConfig: createMultipagePresetConfig(),
     seeds: {
       generationSeed: "multipage-generation-seed",
