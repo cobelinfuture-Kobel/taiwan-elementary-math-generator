@@ -29,3 +29,6 @@ tmp/
 # OS
 .DS_Store
 Thumbs.db
+
+# Curriculum source PDFs kept local only
+docs/curriculum/sources/**/*.pdf
