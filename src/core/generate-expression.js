@@ -238,45 +238,12 @@ function buildDivisionOperands(pattern, config, randomFn) {
   const quotientConstraint = (pattern?.expressionTemplate?.operandDigitConstraints ?? []).find((constraint) => constraint?.target === "answer") ?? null;
   const dividendBounds = clampBounds(dividendRange.min, dividendRange.max, getDigitBounds(dividendConstraint));
   const divisorBounds = clampBounds(divisorRange.min, divisorRange.max, getDigitBounds(divisorConstraint));
-  const quotientRange = {
-    min: config?.answerConstraint?.min ?? 0,
-    max: config?.answerConstraint?.max ?? 100,
-    allowZero: config?.answerConstraint?.allowZero ?? true,
-    allowOne: true
-  };
-  const quotientBounds = clampBounds(quotientRange.min, quotientRange.max, getDigitBounds(quotientConstraint));
 
-  const divisorPool = buildCandidatePool(divisorBounds.min, divisorBounds.max, divisorRange, divisorConstraint);
-  const divisors = enumeratePoolValues(divisorPool, [
-    (value) => value !== 0,
-    (value) => config?.division?.allowDivideByOne !== false || value !== 1
-  ]);
-
-  const quotientPool = buildCandidatePool(quotientBounds.min, quotientBounds.max, quotientRange, quotientConstraint);
-  const quotients = enumeratePoolValues(quotientPool, [
-    (value) => config?.answerConstraint?.allowNegative !== false || value >= 0
-  ]);
-
-  const dividendPool = buildCandidatePool(dividendBounds.min, dividendBounds.max, dividendRange, dividendConstraint);
-
-  const pairs = [];
-  for (const divisor of divisors) {
-    for (const quotient of quotients) {
-      const dividend = divisor * quotient;
-      if (dividend < dividendPool.min || dividend > dividendPool.max) {
-        continue;
-      }
-      if (!isValidCandidate(dividend, dividendPool)) {
-        continue;
-      }
-      if (config?.division?.allowZeroDividend === false && dividend === 0) {
-        continue;
-      }
-      pairs.push([dividend, divisor]);
-    }
-  }
-
-  if (pairs.length === 0) {
+  // Build divisor pool for sampling (exclude 0, optionally exclude 1).
+  const divisorMin = divisorBounds.min;
+  const divisorMax = divisorBounds.max;
+  const divisorPool = buildCandidatePool(divisorMin, divisorMax, divisorRange, divisorConstraint);
+  if (!divisorPool) {
     throw createIssue(
       "division_candidate_pool_empty",
       "expressionTemplate.divisionPattern",
@@ -284,7 +251,123 @@ function buildDivisionOperands(pattern, config, randomFn) {
     );
   }
 
-  return pickOne(randomFn, pairs);
+  // Build dividend pool once for validity checks.
+  const dividendPool = buildCandidatePool(dividendBounds.min, dividendBounds.max, dividendRange, dividendConstraint);
+  if (!dividendPool) {
+    throw createIssue(
+      "division_candidate_pool_empty",
+      "expressionTemplate.divisionPattern",
+      "No exact integer division candidates are available for the pattern."
+    );
+  }
+
+  const answerMax = config?.answerConstraint?.max;
+  const answerMin = config?.answerConstraint?.min ?? 0;
+  const answerAllowZero = config?.answerConstraint?.allowZero ?? true;
+  const answerAllowNegative = config?.answerConstraint?.allowNegative ?? false;
+
+  const maxAttempts = 1000;
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    // 1. Sample divisor uniformly from the divisor range.
+    const divisor = Math.floor(randomFn() * (divisorMax - divisorMin + 1)) + divisorMin;
+
+    // Enforce divisor constraints.
+    if (divisor === 0) {
+      continue;
+    }
+    if (config?.division?.allowDivideByOne === false && Math.abs(divisor) === 1) {
+      continue;
+    }
+    if (!isValidCandidate(divisor, divisorPool)) {
+      continue;
+    }
+
+    // 2. Derive feasible quotient range.
+    // For positive divisor: qMin = ceil(dividendMin / divisor), qMax = floor(dividendMax / divisor)
+    // for negative divisor the inequalities flip; clamp to answer constraints after.
+    let qMin, qMax;
+
+    if (divisor > 0) {
+      qMin = Math.ceil(dividendBounds.min / divisor);
+      qMax = Math.floor(dividendBounds.max / divisor);
+    } else {
+      // divisor < 0: dividend = divisor * quotient, so qMin and qMax swap
+      qMin = Math.ceil(dividendBounds.max / divisor);
+      qMax = Math.floor(dividendBounds.min / divisor);
+    }
+
+    // Clamp to answer constraints.
+    if (Number.isFinite(answerMax)) {
+      qMax = Math.min(qMax, answerMax);
+    }
+    if (Number.isFinite(answerMin)) {
+      qMin = Math.max(qMin, answerMin);
+    }
+
+    // Apply digit constraints on quotient if present.
+    const qDigitBounds = getDigitBounds(quotientConstraint);
+    if (qDigitBounds) {
+      qMin = Math.max(qMin, qDigitBounds.min);
+      qMax = Math.min(qMax, qDigitBounds.max);
+    }
+
+    if (qMin > qMax) {
+      continue;
+    }
+
+    // Enforce allowZero / allowOne on quotient.
+    if (answerAllowZero === false && qMin <= 0 && qMax >= 0) {
+      // 0 is in the range but not allowed; we can still sample valid values
+      // unless that's the only value in range.
+      if (qMin === 0 && qMax === 0) {
+        continue;
+      }
+    }
+    if (answerAllowNegative === false && qMin < 0) {
+      qMin = Math.max(qMin, 0);
+    }
+    if (qMin > qMax) {
+      continue;
+    }
+
+    // 3. Sample quotient uniformly from the feasible range.
+    const quotient = Math.floor(randomFn() * (qMax - qMin + 1)) + qMin;
+
+    // Re-check quotient constraints (allowZero / allowNegative boundary cases).
+    if (answerAllowZero === false && quotient === 0) {
+      continue;
+    }
+    if (answerAllowNegative === false && quotient < 0) {
+      continue;
+    }
+    // Quotient allowOne is always true per task spec.
+    if (quotientConstraint?.allowZero === false && quotient === 0) {
+      continue;
+    }
+
+    // 4. Derive dividend.
+    const dividend = divisor * quotient;
+
+    // 5. Validate dividend.
+    if (dividend < dividendPool.min || dividend > dividendPool.max) {
+      // Should be impossible given good range derivation, but defensive.
+      continue;
+    }
+    if (!isValidCandidate(dividend, dividendPool)) {
+      continue;
+    }
+    if (config?.division?.allowZeroDividend === false && dividend === 0) {
+      continue;
+    }
+
+    return [dividend, divisor];
+  }
+
+  throw createIssue(
+    "division_candidate_pool_empty",
+    "expressionTemplate.divisionPattern",
+    "No exact integer division candidates are available for the pattern."
+  );
 }
 
 function buildLinearExpression(operators, operandValues) {
