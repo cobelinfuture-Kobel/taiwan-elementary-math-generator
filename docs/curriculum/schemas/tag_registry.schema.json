@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-worksheet-generator/curriculum/schemas/tag_registry.schema.json",
+  "title": "TagRegistry",
+  "description": "Schema for the tag registry bootstrap. S22F artifact.",
+  "type": "object",
+  "required": ["schemaVersion", "status", "productionRuntime", "tags"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "description": "Schema version identifier."
+    },
+    "status": {
+      "type": "string",
+      "const": "bootstrap",
+      "description": "Must be bootstrap for S22F artifacts."
+    },
+    "productionRuntime": {
+      "type": "boolean",
+      "const": false,
+      "description": "Must be false for S22F artifacts."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TagEntry"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "TagEntry": {
+      "type": "object",
+      "required": ["tagId", "tagType", "labelZh", "labelEn"],
+      "properties": {
+        "tagId": {
+          "type": "string",
+          "description": "Unique tag identifier."
+        },
+        "tagType": {
+          "type": "string",
+          "enum": [
+            "curriculumDomain",
+            "questionKind",
+            "supportStatus",
+            "difficultyConstraint",
+            "representation"
+          ],
+          "description": "Type classification of the tag."
+        },
+        "labelZh": {
+          "type": "string",
+          "description": "Chinese label for the tag."
+        },
+        "labelEn": {
+          "type": "string",
+          "description": "English label for the tag."
+        },
+        "parentTagId": {
+          "type": "string",
+          "description": "Optional parent tag identifier."
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Alternative tag identifiers."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the tag."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

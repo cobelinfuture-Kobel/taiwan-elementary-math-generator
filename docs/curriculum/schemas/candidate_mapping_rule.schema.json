@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-worksheet-generator/curriculum/schemas/candidate_mapping_rule.schema.json",
+  "title": "CandidateMappingRule",
+  "description": "Schema for candidate mapping rules. S22F artifact.",
+  "type": "object",
+  "required": [
+    "ruleId",
+    "status",
+    "productionRuntime",
+    "ruleType",
+    "description",
+    "sourcePatterns",
+    "targetDomainTags",
+    "targetQuestionKindTags",
+    "confidenceSignal"
+  ],
+  "properties": {
+    "ruleId": {
+      "type": "string",
+      "description": "Unique rule identifier, e.g. rule_integer_operation_titles."
+    },
+    "status": {
+      "type": "string",
+      "const": "bootstrap",
+      "description": "Must be bootstrap for S22F artifacts."
+    },
+    "productionRuntime": {
+      "type": "boolean",
+      "const": false,
+      "description": "Must be false for S22F artifacts."
+    },
+    "ruleType": {
+      "type": "string",
+      "description": "Classification of the rule, e.g. title_keyword, structural, heuristic."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of what this rule maps."
+    },
+    "sourcePatterns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Source patterns (title keywords) that trigger this rule."
+    },
+    "targetDomainTags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Domain tags assigned by this rule."
+    },
+    "targetQuestionKindTags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Question kind tags assigned by this rule."
+    },
+    "confidenceSignal": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "shallow"],
+      "description": "Confidence level of this mapping rule."
+    }
+  },
+  "additionalProperties": false
+}

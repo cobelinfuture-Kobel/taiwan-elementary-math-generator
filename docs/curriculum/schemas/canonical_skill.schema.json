@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-worksheet-generator/curriculum/schemas/canonical_skill.schema.json",
+  "title": "CanonicalSkill",
+  "description": "Schema for a canonical skill entry. S22F artifact.",
+  "type": "object",
+  "required": [
+    "skillId",
+    "domainId",
+    "labelZh",
+    "labelEn",
+    "aliases",
+    "parentSkillId",
+    "childSkillIds",
+    "mappedQuestionKinds",
+    "mappedPatternIds",
+    "defaultSupportStatus"
+  ],
+  "properties": {
+    "skillId": {
+      "type": "string",
+      "description": "Unique skill identifier."
+    },
+    "domainId": {
+      "type": "string",
+      "description": "Domain this skill belongs to."
+    },
+    "labelZh": {
+      "type": "string",
+      "description": "Chinese label for the skill."
+    },
+    "labelEn": {
+      "type": "string",
+      "description": "English label for the skill."
+    },
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Alternative skill identifiers."
+    },
+    "parentSkillId": {
+      "type": ["string", "null"],
+      "description": "Optional parent skill identifier."
+    },
+    "childSkillIds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Child skill identifiers."
+    },
+    "mappedQuestionKinds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Question kind tags mapped to this skill."
+    },
+    "mappedPatternIds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Pattern identifiers mapped to this skill."
+    },
+    "defaultSupportStatus": {
+      "type": "string",
+      "description": "Default support status for this skill."
+    }
+  },
+  "additionalProperties": false
+}

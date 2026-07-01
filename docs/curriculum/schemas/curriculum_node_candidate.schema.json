@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-worksheet-generator/curriculum/schemas/curriculum_node_candidate.schema.json",
+  "title": "CurriculumNodeCandidate",
+  "description": "Schema for a shallow curriculum node candidate entry. S22D/S22F artifact.",
+  "type": "object",
+  "required": [
+    "curriculumNodeCandidateId",
+    "sourceCode",
+    "sourceId",
+    "grade",
+    "semester",
+    "unit",
+    "sourceTitle",
+    "domainTags",
+    "canonicalSkillTags",
+    "questionKindTags",
+    "supportStatusTags",
+    "deepMappingPriority",
+    "extractionStatus",
+    "sourceAuthorityStatus"
+  ],
+  "properties": {
+    "curriculumNodeCandidateId": {
+      "type": "string",
+      "description": "Unique node candidate identifier, e.g. g3a_u01_3a01."
+    },
+    "sourceCode": {
+      "type": "string",
+      "description": "Source code from textbook, e.g. 3a01."
+    },
+    "sourceId": {
+      "type": "string",
+      "description": "Full source identifier. For S22F3 and later, this must equal curriculumNodeCandidateId.",
+      "pattern": "^(g[3-6][ab]_u\\d{2}_[3-6][ab]\\d{2}(a1|a)?)$",
+      "examples": [
+        "g3a_u01_3a01",
+        "g4b_u10_4b10",
+        "g5a_u02_5a02a",
+        "g5a_u02_5a02a1",
+        "g6b_u06_6b06"
+      ]
+    },
+    "grade": {
+      "type": "integer",
+      "minimum": 3,
+      "maximum": 6,
+      "description": "Grade level."
+    },
+    "semester": {
+      "type": "string",
+      "enum": [
+        "g3a",
+        "g3b",
+        "g4a",
+        "g4b",
+        "g5a",
+        "g5b",
+        "g6a",
+        "g6b"
+      ],
+      "description": "Semester code."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit code, e.g. u01."
+    },
+    "sourceSubunit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Subunit within the unit, e.g. a, a1, or null."
+    },
+    "sourceTitle": {
+      "type": "string",
+      "description": "Title of the source unit/chapter in Chinese."
+    },
+    "domainTags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "domain_number_sense",
+          "domain_operation",
+          "domain_decimal",
+          "domain_fraction",
+          "domain_measurement",
+          "domain_geometry",
+          "domain_data",
+          "domain_ratio_speed",
+          "domain_pattern_relationship",
+          "domain_word_problem_strategy",
+          "domain_number_line"
+        ]
+      },
+      "minItems": 1,
+      "description": "Curriculum domain tags."
+    },
+    "canonicalSkillTags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Canonical skill tag identifiers."
+    },
+    "questionKindTags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "qk_number_sense",
+          "qk_expression",
+          "qk_decimal",
+          "qk_fraction",
+          "qk_measurement_conversion",
+          "qk_geometry_formula",
+          "qk_visual_geometry",
+          "qk_chart_data",
+          "qk_pattern_sequence",
+          "qk_relationship",
+          "qk_word_problem",
+          "qk_representation",
+          "qk_rounding",
+          "qk_factor_multiple",
+          "qk_ratio_percent",
+          "qk_visual_reading"
+        ]
+      },
+      "minItems": 1,
+      "description": "Question kind tags."
+    },
+    "supportStatusTags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Support status tags."
+    },
+    "deepMappingPriority": {
+      "type": "string",
+      "enum": [
+        "v1_priority",
+        "future_priority",
+        "planned_only",
+        "low_priority"
+      ],
+      "description": "Mapping priority tier."
+    },
+    "extractionStatus": {
+      "type": "string",
+      "const": "shallow_candidate",
+      "description": "Must be shallow_candidate for S22F artifacts."
+    },
+    "sourceAuthorityStatus": {
+      "type": "string",
+      "const": "metadata_backed",
+      "description": "Must be metadata_backed for S22F artifacts."
+    }
+  },
+  "additionalProperties": false
+}

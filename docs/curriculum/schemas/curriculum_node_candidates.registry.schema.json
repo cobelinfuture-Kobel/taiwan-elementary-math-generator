@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-worksheet-generator/curriculum/schemas/curriculum_node_candidates.registry.schema.json",
+  "title": "CurriculumNodeCandidates Registry Wrapper Schema",
+  "description": "S22F4 wrapper schema for curriculum_node_candidates.g3_to_g6.json. Validates the full registry file including top-level counts and constraints.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "productionRuntime",
+    "sourceScope",
+    "prioritySummary",
+    "nodes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^s22f\\.curriculumNodeCandidates\\.v\\d+$"
+    },
+    "status": {
+      "type": "string",
+      "const": "shallow_candidate"
+    },
+    "productionRuntime": {
+      "type": "boolean",
+      "const": false
+    },
+    "sourceScope": {
+      "type": "object",
+      "required": [
+        "gradeRange",
+        "totalNodes",
+        "sourceAuthority",
+        "visualVerification",
+        "formalMapping"
+      ],
+      "properties": {
+        "gradeRange": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["g3a", "g3b", "g4a", "g4b", "g5a", "g5b", "g6a", "g6b"]
+          },
+          "minItems": 8,
+          "maxItems": 8
+        },
+        "totalNodes": {
+          "type": "integer",
+          "const": 79
+        },
+        "sourceAuthority": {
+          "type": "string",
+          "const": "metadata_backed"
+        },
+        "visualVerification": {
+          "type": "boolean",
+          "const": false
+        },
+        "formalMapping": {
+          "type": "boolean",
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "prioritySummary": {
+      "type": "object",
+      "required": ["v1_priority", "future_priority", "planned_only"],
+      "properties": {
+        "v1_priority": {
+          "type": "integer",
+          "const": 13
+        },
+        "future_priority": {
+          "type": "integer",
+          "const": 56
+        },
+        "planned_only": {
+          "type": "integer",
+          "const": 10
+        }
+      },
+      "additionalProperties": false
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 79,
+      "maxItems": 79,
+      "items": {
+        "type": "object",
+        "required": [
+          "curriculumNodeCandidateId",
+          "sourceCode",
+          "sourceId",
+          "grade",
+          "semester",
+          "unit",
+          "sourceSubunit",
+          "sourceTitle",
+          "domainTags",
+          "canonicalSkillTags",
+          "questionKindTags",
+          "supportStatusTags",
+          "deepMappingPriority",
+          "extractionStatus",
+          "sourceAuthorityStatus"
+        ],
+        "properties": {
+          "curriculumNodeCandidateId": {
+            "type": "string",
+            "pattern": "^g[3-6][ab]_u\\d{2}_[3-6][ab]\\d{2}(a1|a)?$"
+          },
+          "sourceCode": {
+            "type": "string",
+            "pattern": "^[3-6][ab]\\d{2}(a1|a)?$"
+          },
+          "sourceId": {
+            "type": "string",
+            "pattern": "^g[3-6][ab]_u\\d{2}_[3-6][ab]\\d{2}(a1|a)?$"
+          },
+          "grade": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 6
+          },
+          "semester": {
+            "type": "string",
+            "enum": ["g3a", "g3b", "g4a", "g4b", "g5a", "g5b", "g6a", "g6b"]
+          },
+          "unit": {
+            "type": "string",
+            "pattern": "^u\\d{2}$"
+          },
+          "sourceSubunit": {
+            "type": ["string", "null"]
+          },
+          "sourceTitle": {
+            "type": "string"
+          },
+          "domainTags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "domain_number_sense",
+                "domain_operation",
+                "domain_decimal",
+                "domain_fraction",
+                "domain_measurement",
+                "domain_geometry",
+                "domain_data",
+                "domain_ratio_speed",
+                "domain_pattern_relationship",
+                "domain_word_problem_strategy",
+                "domain_number_line"
+              ]
+            },
+            "minItems": 1
+          },
+          "canonicalSkillTags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9_]+$"
+            },
+            "minItems": 1
+          },
+          "questionKindTags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "qk_number_sense",
+                "qk_expression",
+                "qk_decimal",
+                "qk_fraction",
+                "qk_measurement_conversion",
+                "qk_geometry_formula",
+                "qk_visual_geometry",
+                "qk_chart_data",
+                "qk_pattern_sequence",
+                "qk_relationship",
+                "qk_word_problem",
+                "qk_representation",
+                "qk_rounding",
+                "qk_factor_multiple",
+                "qk_ratio_percent",
+                "qk_visual_reading"
+              ]
+            },
+            "minItems": 1
+          },
+          "supportStatusTags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "v1NumberSenseSupported",
+                "v1ExpressionSupported",
+                "v1TextFallbackSupported",
+                "futureDecimalDomain",
+                "futureFractionDomain",
+                "futureMeasurementEngine",
+                "futureGeometryFormulaEngine",
+                "requiresVisualGenerator",
+                "requiresChartDataEngine",
+                "requiresWordProblemTemplate",
+                "plannedOnly"
+              ]
+            },
+            "minItems": 1
+          },
+          "deepMappingPriority": {
+            "type": "string",
+            "enum": ["v1_priority", "future_priority", "planned_only", "low_priority"]
+          },
+          "extractionStatus": {
+            "type": "string",
+            "const": "shallow_candidate"
+          },
+          "sourceAuthorityStatus": {
+            "type": "string",
+            "const": "metadata_backed"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

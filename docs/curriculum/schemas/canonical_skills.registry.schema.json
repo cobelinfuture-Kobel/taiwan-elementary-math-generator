@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-worksheet-generator/curriculum/schemas/canonical_skills.registry.schema.json",
+  "title": "CanonicalSkills Registry Wrapper Schema",
+  "description": "S22F4 wrapper schema for canonical_skills.bootstrap.json. Validates the full registry file.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "productionRuntime",
+    "skills"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "const": "bootstrap"
+    },
+    "productionRuntime": {
+      "type": "boolean",
+      "const": false
+    },
+    "skills": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "skillId",
+          "domainId",
+          "labelZh",
+          "labelEn",
+          "aliases",
+          "parentSkillId",
+          "childSkillIds",
+          "mappedQuestionKinds",
+          "mappedPatternIds",
+          "defaultSupportStatus"
+        ],
+        "properties": {
+          "skillId": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "domainId": {
+            "type": "string",
+            "enum": [
+              "domain_number_sense",
+              "domain_operation",
+              "domain_decimal",
+              "domain_fraction",
+              "domain_measurement",
+              "domain_geometry",
+              "domain_data",
+              "domain_ratio_speed",
+              "domain_pattern_relationship",
+              "domain_word_problem_strategy",
+              "domain_number_line"
+            ]
+          },
+          "labelZh": {
+            "type": "string"
+          },
+          "labelEn": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "parentSkillId": {
+            "type": ["string", "null"]
+          },
+          "childSkillIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mappedQuestionKinds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mappedPatternIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "defaultSupportStatus": {
+            "type": "string",
+            "enum": [
+              "v1NumberSenseSupported",
+              "v1ExpressionSupported",
+              "v1TextFallbackSupported",
+              "futureDecimalDomain",
+              "futureFractionDomain",
+              "futureMeasurementEngine",
+              "futureGeometryFormulaEngine",
+              "requiresVisualGenerator",
+              "requiresChartDataEngine",
+              "requiresWordProblemTemplate",
+              "plannedOnly"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
