@@ -21,17 +21,80 @@
     "coverageRule": "Every materialized PatternSpec row must resolve to exactly one validator contract id by convention.",
     "runtimeRule": "No validator hook is callable until S35 implementation creates executable validators."
   },
+  "globalRequiredChecks": [
+    "patternSpecIdPresent",
+    "sourceIdAllowedInBatchA",
+    "productionUseForbiddenUntilS40",
+    "answerModelMatchesPattern",
+    "futureDomainLeakageRejected",
+    "batchBToELeakageRejected",
+    "singleCorrectAnswerRequired"
+  ],
   "validatorHookFamilies": [
-    { "hookFamily": "validateNumericAnswer", "appliesToAnswerModels": ["numericAnswer"] },
-    { "hookFamily": "validatePlaceValueDecompositionAnswer", "appliesToAnswerModels": ["decompositionAnswer"] },
-    { "hookFamily": "validateComparisonAnswer", "appliesToAnswerModels": ["comparisonAnswer"] },
-    { "hookFamily": "validateMissingDigitAnswer", "appliesToAnswerModels": ["digitAnswer", "numericOrDigitAnswer"] },
-    { "hookFamily": "validateNumberReadingWritingAnswer", "appliesToAnswerModels": ["stringAnswer", "stringOrNumericAnswer"] },
-    { "hookFamily": "validateDivisionQuotientRemainderAnswer", "appliesToAnswerModels": ["quotientRemainderAnswer", "numericOrRemainderAnswer", "numericOrQuotientRemainderAnswer"] },
-    { "hookFamily": "validateBooleanOrNumericAnswer", "appliesToAnswerModels": ["boolean_or_numericAnswer"] },
-    { "hookFamily": "validateIntegerExpressionAnswer", "appliesToCanonicalSkills": ["integer_mixed_operations", "operation_precedence", "integer_add_sub_mixed", "integer_mul_div_mixed"] },
-    { "hookFamily": "validateWordProblemTemplateAnswer", "appliesToQuestionKinds": ["wordProblem"], "runtimeStatus": "requires_template_registry" },
-    { "hookFamily": "validateTextFallbackRepresentation", "appliesToQuestionKinds": ["representation"] }
+    {
+      "hookFamily": "validateNumericAnswer",
+      "appliesToAnswerModels": ["numericAnswer"],
+      "requiredChecks": ["integerOnly", "computedAnswerEqualsProvidedAnswer", "operandRangeSatisfied", "operatorPolicySatisfied"]
+    },
+    {
+      "hookFamily": "validatePlaceValueDecompositionAnswer",
+      "appliesToAnswerModels": ["decompositionAnswer"],
+      "requiredChecks": ["placeValueColumnsPresent", "digitSumReconstructsNumber", "numberRangeSatisfied"]
+    },
+    {
+      "hookFamily": "validateComparisonAnswer",
+      "appliesToAnswerModels": ["comparisonAnswer"],
+      "requiredChecks": ["comparisonOperatorCorrect", "leftRightValueParsed", "numberRangeSatisfied"]
+    },
+    {
+      "hookFamily": "validateMissingDigitAnswer",
+      "appliesToAnswerModels": ["digitAnswer", "numericOrDigitAnswer"],
+      "requiredChecks": ["missingDigitSolutionUnique", "completedExpressionValid", "digitDomainSatisfied"]
+    },
+    {
+      "hookFamily": "validateNumberReadingWritingAnswer",
+      "appliesToAnswerModels": ["stringAnswer", "stringOrNumericAnswer"],
+      "requiredChecks": ["canonicalChineseNumberForm", "zeroHandlingPolicy", "numericStringRoundTrip"]
+    },
+    {
+      "hookFamily": "validateDivisionQuotientRemainderAnswer",
+      "appliesToAnswerModels": ["quotientRemainderAnswer", "numericOrRemainderAnswer", "numericOrQuotientRemainderAnswer"],
+      "requiredChecks": ["quotientTimesDivisorPlusRemainderEqualsDividend", "remainderLessThanDivisor", "divisionCasePolicySatisfied"]
+    },
+    {
+      "hookFamily": "validateBooleanOrNumericAnswer",
+      "appliesToAnswerModels": ["boolean_or_numericAnswer"],
+      "requiredChecks": ["booleanClaimMatchesArithmeticTruth", "numericAlternativeMatchesComputedResult"]
+    },
+    {
+      "hookFamily": "validateIntegerExpressionAnswer",
+      "appliesToCanonicalSkills": ["integer_mixed_operations", "operation_precedence", "integer_add_sub_mixed", "integer_mul_div_mixed"],
+      "requiredChecks": ["operatorPrecedenceSatisfied", "parenthesesSatisfied", "leftToRightWhenSamePrecedence", "integerOnly"]
+    },
+    {
+      "hookFamily": "validateWordProblemTemplateAnswer",
+      "appliesToQuestionKinds": ["wordProblem"],
+      "requiredChecks": ["templateIdRequiredBeforeRuntime", "quantityBindingsPresent", "unitAnswerConsistent", "answerUniquenessRequired"],
+      "runtimeStatus": "blocked_until_template_registry"
+    },
+    {
+      "hookFamily": "validateTextFallbackRepresentation",
+      "appliesToQuestionKinds": ["representation"],
+      "requiredChecks": ["visualDependencyNotRequiredForRuntime", "textFallbackSemanticsPreserved", "answerModelStillDeterministic"]
+    }
+  ],
+  "blockingErrorFamilies": [
+    "ANSWER_INCORRECT",
+    "CONSTRAINT_VIOLATION",
+    "SOURCE_SCOPE_VIOLATION",
+    "FUTURE_DOMAIN_LEAKAGE",
+    "UNIQUE_ANSWER_VIOLATION",
+    "UNIMPLEMENTED_VALIDATOR_HOOK"
+  ],
+  "warningFamilies": [
+    "PARTIAL_TEMPLATE_REQUIRED",
+    "REPRESENTATION_FALLBACK_REQUIRED",
+    "STRATEGY_TEMPLATE_REQUIRED"
   ],
   "sourceUnitCoverage": [
     {"sourceId":"g3a_u01_3a01","validatorContractCount":7},
@@ -54,10 +117,5 @@
     "everyValidatorContractRefUsesStableConvention": true,
     "validatorImplementationCreated": false,
     "productionUseAllowedForBatchAWorksheetOutput": false
-  },
-  "portNote": {
-    "status": "safe_reduced_port_due_to_connector_write_blocker",
-    "sourceFile": "data/curriculum/registry/validator_contracts.batch_a.json in dev repo",
-    "followUpRequired": "compare against dev source registry before runtime production activation"
   }
 }
