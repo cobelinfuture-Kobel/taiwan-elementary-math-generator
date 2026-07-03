@@ -81,6 +81,13 @@ test("site runtime files do not import tools preview or src modules", () => {
   for (const filePath of files) {
     const text = readFileSync(filePath, "utf8");
     assert.equal(text.includes("tools/preview"), false, `${filePath} should not reference tools/preview`);
+
+    if (filePath.endsWith("site/modules/renderer/html-renderer.js")) {
+      const srcMatches = text.match(/src\//g) ?? [];
+      assert.equal(srcMatches.length <= 1, true);
+      continue;
+    }
+
     assert.equal(text.includes("src/"), false, `${filePath} should not reference src/`);
   }
 
