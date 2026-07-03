@@ -3,142 +3,68 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>數學練習題產生器</title>
+  <title>Batch A 台灣小學數學練習題產生器</title>
   <link rel="stylesheet" href="./assets/styles/app.css">
 </head>
 <body data-route-kind="404">
   <main class="app-shell">
     <section class="app-shell__hero">
-      <p class="app-shell__eyebrow">靜態網站瀏覽器工具</p>
-      <h1>數學練習題產生器</h1>
-      <p class="app-shell__lede">找不到指定頁面，但你仍然可以直接使用這個靜態題目產生器。</p>
+      <p class="app-shell__eyebrow">Batch A browser worksheet path</p>
+      <h1>台灣小學數學 Batch A 練習題產生器</h1>
+      <p class="app-shell__lede">找不到指定頁面，但仍可使用 Batch A 單元出題、預覽與列印流程。</p>
     </section>
 
-    <section class="app-shell__controls" aria-label="Worksheet controls">
+    <section class="app-shell__controls" aria-label="Batch A worksheet controls">
       <div class="control-group">
-        <h2>預設題組</h2>
-        <div class="preset-buttons" id="preset-buttons"></div>
+        <h2>Batch A 單元</h2>
+        <label class="field">
+          <span>選擇單元</span>
+          <select id="batch-a-source-select" name="batchASourceId"></select>
+        </label>
+        <p class="help-text" id="batch-a-source-help">13 個 Batch A sourceId 可選。</p>
       </div>
 
       <div class="control-group">
-        <h2>運算符號</h2>
-        <div class="operator-grid">
-          <label class="toggle">
-            <input id="operator-add-input" name="operatorAdd" type="checkbox" checked>
-            <span>加法 +</span>
-          </label>
-          <label class="toggle">
-            <input id="operator-subtract-input" name="operatorSubtract" type="checkbox" checked>
-            <span>減法 -</span>
-          </label>
-          <label class="toggle">
-            <input id="operator-multiply-input" name="operatorMultiply" type="checkbox">
-            <span>乘法 ×</span>
-          </label>
-          <label class="toggle">
-            <input id="operator-divide-input" name="operatorDivide" type="checkbox">
-            <span>除法 ÷</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <h2>運算數範圍</h2>
-        <div class="control-grid">
-          <label class="field">
-            <span>第一個運算數最小值</span>
-            <input id="operand-1-min-input" name="operand1Min" type="number" spellcheck="false">
-          </label>
-          <label class="field">
-            <span>第一個運算數最大值</span>
-            <input id="operand-1-max-input" name="operand1Max" type="number" spellcheck="false">
-          </label>
-          <label class="field">
-            <span>第二個運算數最小值</span>
-            <input id="operand-2-min-input" name="operand2Min" type="number" spellcheck="false">
-          </label>
-          <label class="field">
-            <span>第二個運算數最大值</span>
-            <input id="operand-2-max-input" name="operand2Max" type="number" spellcheck="false">
-          </label>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <h2>答案限制</h2>
-        <div class="control-grid">
-          <label class="field">
-            <span>答案最大值</span>
-            <input id="answer-max-input" name="answerMax" type="number" spellcheck="false" placeholder="留空代表不限制">
-          </label>
-        </div>
-        <p class="help-text">若設定答案最大值，系統只會產生答案小於或等於此數值的題目。</p>
-      </div>
-
-      <div class="control-group">
-        <h2>題目版面設定</h2>
+        <h2>題目設定</h2>
         <div class="control-grid">
           <label class="field">
             <span>題目數量</span>
-            <input id="question-count-input" name="questionCount" type="number" min="1" max="200" spellcheck="false">
-          </label>
-          <label class="field">
-            <span>欄數</span>
-            <input id="columns-input" name="columns" type="number" min="1" max="6" spellcheck="false">
-          </label>
-          <label class="field">
-            <span>每頁列數</span>
-            <input id="rows-per-page-input" name="rowsPerPage" type="number" min="1" max="20" spellcheck="false">
+            <input id="batch-a-question-count-input" name="batchAQuestionCount" type="number" min="1" max="200" value="20" spellcheck="false">
           </label>
           <label class="field">
             <span>排序模式</span>
-            <select id="ordering-mode-select" name="orderingMode">
+            <select id="batch-a-ordering-select" name="batchAOrdering">
               <option value="groupedByPattern">依題型分組</option>
               <option value="shuffleAcrossPatterns">跨題型隨機排序</option>
             </select>
           </label>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <h2>種子與答案頁</h2>
-        <div class="control-grid">
           <label class="field">
             <span>產生種子</span>
-            <input id="generation-seed-input" name="generationSeed" type="text" spellcheck="false">
-          </label>
-          <label class="field">
-            <span>排序種子</span>
-            <input id="ordering-seed-input" name="orderingSeed" type="text" spellcheck="false">
+            <input id="generation-seed-input" name="generationSeed" type="text" value="batch-a-browser" spellcheck="false">
           </label>
         </div>
-
         <label class="toggle">
-          <input id="lock-ordering-seed-input" name="lockOrderingSeedToGenerationSeed" type="checkbox">
-          <span>排序種子留白時，改用產生種子</span>
-        </label>
-
-        <label class="toggle">
-          <input id="show-answer-key-input" name="showAnswerKeyPage" type="checkbox">
-          <span>顯示答案頁</span>
+          <input id="batch-a-answer-key-input" name="batchAIncludeAnswerKey" type="checkbox" checked>
+          <span>包含答案頁</span>
         </label>
       </div>
 
       <div class="control-group">
-        <h2>進階 JSON 編輯</h2>
-        <label class="field">
-          <span>直接編輯 draftConfig</span>
-          <textarea id="config-json-editor" name="configJson" rows="16" spellcheck="false"></textarea>
-        </label>
-        <div class="json-error-panel" id="json-error-panel" data-has-error="false"></div>
-        <div class="toolbar">
-          <button id="apply-edit-button" class="button button--primary" type="button">套用 JSON</button>
-          <button id="reset-preset-button" class="button" type="button">還原目前預設</button>
+        <h2>列印版面</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>欄數</span>
+            <input id="columns-input" name="columns" type="number" min="1" max="6" value="4" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>每頁列數</span>
+            <input id="rows-per-page-input" name="rowsPerPage" type="number" min="1" max="20" value="10" spellcheck="false">
+          </label>
         </div>
       </div>
 
       <div class="toolbar">
-        <button id="regenerate-button" class="button button--primary" type="button">重新產生</button>
+        <button id="regenerate-button" class="button button--primary" type="button">產生 / 重新產生</button>
         <button id="print-button" class="button" type="button" disabled>列印</button>
       </div>
 
@@ -149,7 +75,7 @@
     <section class="app-shell__preview" aria-label="Worksheet preview">
       <div class="preview-header">
         <h2>預覽</h2>
-        <p id="preview-meta">尚未產生新的練習題。</p>
+        <p id="preview-meta">尚未產生新的 Batch A 練習題。</p>
       </div>
       <iframe
         id="preview-frame"

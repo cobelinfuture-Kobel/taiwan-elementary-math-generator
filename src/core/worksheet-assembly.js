@@ -122,6 +122,7 @@ export function assembleWorksheetDocument(input) {
   }
 
   return {
+    schemaVersion: "worksheet-document-v1",
     version: "1",
     worksheetKind: "expressionWorksheet",
     configSnapshot,

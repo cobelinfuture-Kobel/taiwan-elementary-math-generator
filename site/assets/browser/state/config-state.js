@@ -5,6 +5,10 @@ import {
   validateBrowserConfig
 } from "./config-validation.js";
 
+export const WORKSHEET_MODES = Object.freeze({
+  BATCH_A_SOURCE: "batchASource"
+});
+
 function cloneValue(value) {
   if (Array.isArray(value)) {
     return value.map((item) => cloneValue(item));
@@ -17,6 +21,16 @@ function cloneValue(value) {
   }
 
   return value;
+}
+
+function positiveInteger(value, fallback, min = 1, max = 200) {
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed)) return fallback;
+  return Math.min(max, Math.max(min, parsed));
+}
+
+function normalizeOrderingMode(ordering) {
+  return ["groupedByPattern", "shuffleAcrossPatterns"].includes(ordering) ? ordering : "groupedByPattern";
 }
 
 function createBaseUiState() {
@@ -36,6 +50,30 @@ function createBaseDerivedState() {
     worksheetDocument: null,
     renderedHtml: null
   };
+}
+
+function createBatchAStateFromConfig(config, options = {}) {
+  return {
+    sourceId: options.sourceId ?? "g3a_u02_3a02",
+    questionCount: positiveInteger(options.questionCount ?? config?.generation?.questionCount, 20),
+    ordering: normalizeOrderingMode(options.ordering ?? config?.patternPlan?.worksheetOrdering?.mode),
+    includeAnswerKey: options.includeAnswerKey ?? config?.printLayout?.showAnswerKeyPage ?? true,
+    generationSeed: String(options.generationSeed ?? "batch-a-browser"),
+    columns: positiveInteger(options.columns ?? config?.printLayout?.columns, 4, 1, 6),
+    rowsPerPage: positiveInteger(options.rowsPerPage ?? config?.printLayout?.rowsPerPage, 10, 1, 20)
+  };
+}
+
+function syncBatchAFromDraftConfig(state, patch = {}) {
+  state.batchA = {
+    ...(state.batchA ?? {}),
+    ...createBatchAStateFromConfig(state.draftConfig, {
+      sourceId: state.batchA?.sourceId,
+      generationSeed: state.batchA?.generationSeed,
+      ...patch
+    })
+  };
+  return state;
 }
 
 function syncOperatorTargets(state) {
@@ -59,14 +97,20 @@ function syncOperatorTargets(state) {
 
 export function createConfigState(options = {}) {
   const preset = getPresetDefinition(options.presetId ?? "default");
+  const queryState = options.queryState ?? {};
+  const draftConfig = cloneValue(preset.draftConfig);
 
   return {
     version: "1",
+    worksheetMode: WORKSHEET_MODES.BATCH_A_SOURCE,
     presetId: preset.id,
-    draftConfig: cloneValue(preset.draftConfig),
+    draftConfig,
     seeds: cloneValue(preset.seeds),
+    batchA: createBatchAStateFromConfig(draftConfig, queryState),
     ui: createBaseUiState(),
-    derived: createBaseDerivedState()
+    derived: createBaseDerivedState(),
+    lastWorksheetDocument: null,
+    lastValidation: null
   };
 }
 
@@ -89,6 +133,10 @@ export function applyPreset(state, presetId, overrides = {}) {
     isDirty: true
   };
   state.derived = createBaseDerivedState();
+  syncBatchAFromDraftConfig(state, {
+    includeAnswerKey: state.draftConfig?.printLayout?.showAnswerKeyPage,
+    generationSeed: state.seeds?.generationSeed
+  });
 
   return state;
 }
@@ -99,6 +147,9 @@ export function setSeedField(state, field, value) {
   }
 
   state.seeds[field] = String(value ?? "");
+  if (field === "generationSeed") {
+    state.batchA.generationSeed = state.seeds[field];
+  }
   state.ui.isDirty = true;
   return state;
 }
@@ -111,6 +162,7 @@ export function setLockOrderingSeedToGenerationSeed(state, checked) {
 
 export function setShowAnswerKeyPage(state, checked) {
   state.draftConfig.printLayout.showAnswerKeyPage = Boolean(checked);
+  state.batchA.includeAnswerKey = Boolean(checked);
   state.ui.isDirty = true;
   return state;
 }
@@ -121,7 +173,9 @@ export function setQuestionCount(state, count) {
     return state;
   }
 
-  state.draftConfig.generation.questionCount = Math.floor(value);
+  const normalizedValue = Math.floor(value);
+  state.draftConfig.generation.questionCount = normalizedValue;
+  state.batchA.questionCount = positiveInteger(normalizedValue, state.batchA.questionCount);
 
   const allocation = state.draftConfig?.patternPlan?.allocation;
   if (allocation) {
@@ -134,11 +188,11 @@ export function setQuestionCount(state, count) {
       let assigned = 0;
       const newCounts = fixedCounts.map((item, index) => {
         if (index === fixedCounts.length - 1) {
-          return Math.max(1, value - assigned);
+          return Math.max(1, normalizedValue - assigned);
         }
 
         const ratio = (item?.questionCount ?? 1) / oldTotal;
-        const nextValue = Math.max(1, Math.round(ratio * value));
+        const nextValue = Math.max(1, Math.round(ratio * normalizedValue));
         assigned += nextValue;
         return nextValue;
       });
@@ -150,13 +204,13 @@ export function setQuestionCount(state, count) {
       });
 
       const correctedTotal = fixedCounts.reduce((sum, item) => sum + (item?.questionCount ?? 0), 0);
-      const delta = value - correctedTotal;
+      const delta = normalizedValue - correctedTotal;
       if (delta !== 0 && fixedCounts.length > 0) {
         fixedCounts[fixedCounts.length - 1].questionCount += delta;
       }
     }
 
-    allocation.totalQuestionCount = Math.floor(value);
+    allocation.totalQuestionCount = normalizedValue;
   }
 
   state.ui.isDirty = true;
@@ -170,6 +224,7 @@ export function setColumns(state, columns) {
   }
 
   state.draftConfig.printLayout.columns = Math.floor(value);
+  state.batchA.columns = positiveInteger(value, state.batchA.columns, 1, 6);
   state.ui.isDirty = true;
   return state;
 }
@@ -181,17 +236,19 @@ export function setRowsPerPage(state, rows) {
   }
 
   state.draftConfig.printLayout.rowsPerPage = Math.floor(value);
+  state.batchA.rowsPerPage = positiveInteger(value, state.batchA.rowsPerPage, 1, 20);
   state.ui.isDirty = true;
   return state;
 }
 
 export function setOrderingMode(state, mode) {
-  const validModes = ["groupedByPattern", "shuffleAcrossPatterns"];
-  if (!validModes.includes(mode)) {
+  const normalizedMode = normalizeOrderingMode(mode);
+  if (mode !== normalizedMode) {
     return state;
   }
 
-  state.draftConfig.patternPlan.worksheetOrdering.mode = mode;
+  state.draftConfig.patternPlan.worksheetOrdering.mode = normalizedMode;
+  state.batchA.ordering = normalizedMode;
   state.ui.isDirty = true;
   return state;
 }
@@ -289,6 +346,69 @@ export function getEffectiveOrderingSeed(state) {
 
 export function validateConfigState(state) {
   return validateBrowserConfig(state?.draftConfig ?? {});
+}
+
+export function setBatchASourceId(state, sourceId) {
+  state.batchA.sourceId = sourceId;
+  return state;
+}
+
+export function setBatchAQuestionCount(state, questionCount) {
+  return setQuestionCount(state, questionCount);
+}
+
+export function setBatchAOrdering(state, ordering) {
+  return setOrderingMode(state, ordering);
+}
+
+export function setBatchAIncludeAnswerKey(state, includeAnswerKey) {
+  return setShowAnswerKeyPage(state, includeAnswerKey);
+}
+
+export function setBatchAGenerationSeed(state, generationSeed) {
+  state.batchA.generationSeed = String(generationSeed ?? "batch-a-browser");
+  if (state.seeds) {
+    state.seeds.generationSeed = state.batchA.generationSeed;
+  }
+  return state;
+}
+
+export function setBatchAPrintLayout(state, patch = {}) {
+  if (patch.columns !== undefined) {
+    setColumns(state, patch.columns);
+  }
+  if (patch.rowsPerPage !== undefined) {
+    setRowsPerPage(state, patch.rowsPerPage);
+  }
+  return state;
+}
+
+export function getBatchAWorksheetPlan(state) {
+  if (!state.batchA) {
+    syncBatchAFromDraftConfig(state);
+  }
+
+  return {
+    sourceId: state.batchA.sourceId,
+    questionCount: state.batchA.questionCount,
+    ordering: state.batchA.ordering,
+    includeAnswerKey: state.batchA.includeAnswerKey,
+    generationSeed: state.batchA.generationSeed,
+    printLayout: {
+      columns: state.batchA.columns,
+      rowsPerPage: state.batchA.rowsPerPage,
+      showAnswerKeyPage: state.batchA.includeAnswerKey
+    }
+  };
+}
+
+export function storeWorksheetResult(state, result) {
+  state.lastWorksheetDocument = result?.worksheetDocument ?? null;
+  state.lastValidation = result?.validation ?? null;
+  if (state.derived) {
+    state.derived.worksheetDocument = result?.worksheetDocument ?? null;
+  }
+  return state;
 }
 
 export { CONFIG_VALIDATION_MESSAGES };

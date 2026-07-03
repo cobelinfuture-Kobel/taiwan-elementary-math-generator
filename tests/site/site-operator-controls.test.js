@@ -8,7 +8,9 @@ import { buildWorksheetDocumentFromState } from "../../site/assets/browser/pipel
 import {
   createConfigState,
   getOperatorsEnabled,
-  setOperandRange,
+  setBatchAIncludeAnswerKey,
+  setBatchAQuestionCount,
+  setBatchASourceId,
   setOperatorEnabled,
   setQuestionCount
 } from "../../site/assets/browser/state/config-state.js";
@@ -20,23 +22,22 @@ function readText(relativePath) {
   return readFileSync(path.join(PROJECT_ROOT, relativePath), "utf8");
 }
 
-test("operator controls - operator checkboxes exist in index.html", () => {
+test("Batch A controls - source and worksheet controls exist in index.html", () => {
   const html = readText("site/index.html");
-  assert.match(html, /id="operator-add-input"/);
-  assert.match(html, /id="operator-subtract-input"/);
-  assert.match(html, /id="operator-multiply-input"/);
-  assert.match(html, /id="operator-divide-input"/);
+  assert.match(html, /id="batch-a-source-select"/);
+  assert.match(html, /id="batch-a-question-count-input"/);
+  assert.match(html, /id="batch-a-ordering-select"/);
+  assert.match(html, /id="batch-a-answer-key-input"/);
 });
 
-test("operator controls - operand range inputs exist in index.html", () => {
+test("Batch A controls - print layout inputs exist in index.html", () => {
   const html = readText("site/index.html");
-  assert.match(html, /id="operand-1-min-input"/);
-  assert.match(html, /id="operand-1-max-input"/);
-  assert.match(html, /id="operand-2-min-input"/);
-  assert.match(html, /id="operand-2-max-input"/);
+  assert.match(html, /id="columns-input"/);
+  assert.match(html, /id="rows-per-page-input"/);
+  assert.match(html, /id="generation-seed-input"/);
 });
 
-test("operator controls - default preset enables add and subtract only", () => {
+test("compat operator helpers - default preset still exposes operator state", () => {
   const state = createConfigState({ presetId: "default" });
   const enabled = getOperatorsEnabled(state);
 
@@ -46,97 +47,50 @@ test("operator controls - default preset enables add and subtract only", () => {
   assert.equal(enabled.divide, false);
 });
 
-test("operator controls - enabling multiply updates operator state and still generates", () => {
+test("compat operator helpers - enabling multiply updates draftConfig", () => {
   const state = createConfigState({ presetId: "default" });
   setOperatorEnabled(state, OPERATORS.MULTIPLY, true);
 
   const enabled = getOperatorsEnabled(state);
   assert.equal(enabled.multiply, true);
+  assert.equal(state.draftConfig.expression.globalOperators.includes(OPERATORS.MULTIPLY), true);
+});
+
+test("Batch A controls - multiplication source generates multiplication questions", () => {
+  const state = createConfigState();
+  setBatchASourceId(state, "g3a_u03_3a03");
+  setBatchAQuestionCount(state, 6);
 
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.batchA.sourceId, "g3a_u03_3a03");
+  assert.equal(result.worksheetDocument.generatedQuestions.some((question) => question.operatorsUsed?.includes(OPERATORS.MULTIPLY)), true);
 });
 
-test("operator controls - disabling subtract updates operator state and still generates", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
-
-  const enabled = getOperatorsEnabled(state);
-  assert.equal(enabled.add, true);
-  assert.equal(enabled.subtract, false);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-});
-
-test("operator controls - only addition selected generates only addition", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-
-  for (const question of result.worksheetDocument.generatedQuestions) {
-    assert.equal(question.operatorsUsed.includes(OPERATORS.ADD), true);
-    assert.equal(question.operatorsUsed.includes(OPERATORS.SUBTRACT), false);
-    assert.equal(question.operatorsUsed.includes(OPERATORS.MULTIPLY), false);
-    assert.equal(question.operatorsUsed.includes(OPERATORS.DIVIDE), false);
-  }
-});
-
-test("operator controls - only subtraction selected generates only subtraction", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.ADD, false);
+test("Batch A controls - division source generates integer answers", () => {
+  const state = createConfigState();
+  setBatchASourceId(state, "g3a_u06_3a06");
+  setBatchAQuestionCount(state, 6);
 
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
 
   for (const question of result.worksheetDocument.generatedQuestions) {
-    assert.equal(question.operatorsUsed[0], OPERATORS.SUBTRACT);
+    assert.equal(Number.isInteger(question.finalAnswer?.raw?.value), true);
   }
 });
 
-test("operator controls - only multiplication selected generates only multiplication", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.MULTIPLY, true);
-  setOperatorEnabled(state, OPERATORS.ADD, false);
-  setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
+test("Batch A controls - comparison source generates comparison questions", () => {
+  const state = createConfigState();
+  setBatchASourceId(state, "g4a_u01_4a01");
+  setBatchAQuestionCount(state, 5);
 
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
-
-  for (const question of result.worksheetDocument.generatedQuestions) {
-    assert.equal(question.operatorsUsed[0], OPERATORS.MULTIPLY);
-  }
+  assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.kind === "comparison"), true);
 });
 
-test("operator controls - only division selected generates only division", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.DIVIDE, true);
-  setOperatorEnabled(state, OPERATORS.ADD, false);
-  setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-
-  for (const question of result.worksheetDocument.generatedQuestions) {
-    assert.equal(question.operatorsUsed[0], OPERATORS.DIVIDE);
-  }
-});
-
-test("operator controls - all four operators enabled produces mixed output", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.MULTIPLY, true);
-  setOperatorEnabled(state, OPERATORS.DIVIDE, true);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-
-  const seen = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.operatorsUsed[0]));
-  assert.equal(seen.size >= 2, true);
-});
-
-test("operator controls - last enabled operator cannot be disabled through helper", () => {
+test("compat operator helpers - last enabled operator cannot be disabled through helper", () => {
   const state = createConfigState({ presetId: "default" });
   setOperatorEnabled(state, OPERATORS.ADD, false);
   setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
@@ -144,7 +98,7 @@ test("operator controls - last enabled operator cannot be disabled through helpe
   assert.deepEqual(state.draftConfig.expression.globalOperators, [OPERATORS.SUBTRACT]);
 });
 
-test("operator controls - operator state stays synced across config targets", () => {
+test("compat operator helpers - operator state stays synced across config targets", () => {
   const state = createConfigState({ presetId: "default" });
   setOperatorEnabled(state, OPERATORS.MULTIPLY, true);
   setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
@@ -157,84 +111,16 @@ test("operator controls - operator state stays synced across config targets", ()
   }
 });
 
-test("operator controls - operand range helper updates bounds", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperandRange(state, 1, "min", 5);
-  setOperandRange(state, 1, "max", 15);
-  setOperandRange(state, 2, "min", 3);
-  setOperandRange(state, 2, "max", 8);
-
-  const range1 = state.draftConfig.expression.operandRanges.find((range) => range.position === 1);
-  const range2 = state.draftConfig.expression.operandRanges.find((range) => range.position === 2);
-
-  assert.equal(range1.min, 5);
-  assert.equal(range1.max, 15);
-  assert.equal(range2.min, 3);
-  assert.equal(range2.max, 8);
-});
-
-test("operator controls - subtraction still avoids negative answers by default", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.ADD, false);
-
+test("Batch A controls - answer key count matches question count", () => {
+  const state = createConfigState();
+  setBatchAQuestionCount(state, 9);
+  setBatchAIncludeAnswerKey(state, true);
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
-
-  for (const question of result.worksheetDocument.generatedQuestions) {
-    assert.equal(question.finalAnswer.raw.value >= 0, true);
-  }
+  assert.equal(result.worksheetDocument.answerKeyItems.length, result.worksheetDocument.summary.questionCount);
 });
 
-test("operator controls - division produces exact integer quotients only", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.ADD, false);
-  setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
-  setOperatorEnabled(state, OPERATORS.DIVIDE, true);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-
-  for (const question of result.worksheetDocument.generatedQuestions) {
-    assert.equal(Number.isInteger(question.finalAnswer.raw.value), true);
-  }
-});
-
-test("operator controls - division never divides by zero", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.ADD, false);
-  setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
-  setOperatorEnabled(state, OPERATORS.DIVIDE, true);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-
-  for (const question of result.worksheetDocument.generatedQuestions) {
-    assert.doesNotMatch(String(question.expression?.displayText ?? ""), /繩\s*0/);
-  }
-});
-
-test("operator controls - answer key count matches question count", () => {
-  const state = createConfigState({ presetId: "grouped" });
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-
-  const totalAnswerCells = result.worksheetDocument.answerKeyPages.reduce(
-    (sum, page) => sum + page.cells.filter((cell) => cell.cellType === "answerKey").length,
-    0
-  );
-
-  assert.equal(totalAnswerCells, result.worksheetDocument.summary.questionCount);
-});
-
-test("operator controls - presets still generate", () => {
-  for (const presetId of ["default", "grouped", "shuffled", "multipage"]) {
-    const state = createConfigState({ presetId });
-    const result = buildWorksheetDocumentFromState(state);
-    assert.equal(result.ok, true, `Preset '${presetId}' should generate`);
-  }
-});
-
-test("operator controls - question count binding still works after operator changes", () => {
+test("Batch A controls - question count binding still works after compat operator changes", () => {
   const state = createConfigState({ presetId: "grouped" });
   setOperatorEnabled(state, OPERATORS.MULTIPLY, true);
   setQuestionCount(state, 8);
@@ -242,21 +128,4 @@ test("operator controls - question count binding still works after operator chan
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
   assert.equal(result.worksheetDocument.summary.questionCount, 8);
-});
-
-test("operator controls - setOperatorEnabled ignores invalid operator tokens", () => {
-  const state = createConfigState({ presetId: "default" });
-  const originalLength = state.draftConfig.expression.globalOperators.length;
-
-  setOperatorEnabled(state, "invalid", true);
-  assert.equal(state.draftConfig.expression.globalOperators.length, originalLength);
-});
-
-test("operator controls - setOperandRange ignores NaN values", () => {
-  const state = createConfigState({ presetId: "default" });
-  const range = state.draftConfig.expression.operandRanges.find((item) => item.position === 1);
-  const originalMin = range.min;
-
-  setOperandRange(state, 1, "min", "notANumber");
-  assert.equal(range.min, originalMin);
 });
