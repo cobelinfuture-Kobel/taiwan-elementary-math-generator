@@ -111,14 +111,17 @@ Key constraints:
 
 ```bash
 npm test
-# Runs all test suites (169 tests)
 ```
 
 Test files:
 - `tests/core/` — Expression evaluation, generation, validation, planning
 - `tests/renderer/` — HTML renderer, preview shell, static preview workflow
-- `tests/site/` — Site scaffold, config editor, operator controls, readiness
+- `tests/site/` — Site scaffold, browser bridge, Batch A source smoke QA, iframe preview QA
 
 ## Current Stage
 
-S20 — GitHub Pages automated deployment with test gate.
+S42 — Batch A browser worksheet production path closeout readiness.
+
+Closeout readiness note:
+
+`docs/curriculum/output/S42_BatchA_WebWorksheetProductionPath_Closeout.md`
