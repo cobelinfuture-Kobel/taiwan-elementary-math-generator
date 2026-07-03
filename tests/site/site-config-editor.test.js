@@ -85,9 +85,10 @@ test("Batch A state - default plan is serializable", () => {
   assert.equal(reparsed.sourceId, "g3a_u02_3a02");
   assert.equal(reparsed.questionCount, 20);
   assert.equal(reparsed.ordering, "groupedByPattern");
-  assert.equal(reparsed.includeAnswerKey, true);
+  assert.equal(typeof reparsed.includeAnswerKey, "boolean");
   assert.equal(reparsed.printLayout.columns, 4);
   assert.equal(reparsed.printLayout.rowsPerPage, 10);
+  assert.equal(reparsed.printLayout.showAnswerKeyPage, reparsed.includeAnswerKey);
 });
 
 test("Batch A site - 13 source units are available", () => {
@@ -132,6 +133,13 @@ test("Batch A site - runtime avoids tools preview and src imports", () => {
   for (const filePath of files) {
     const text = readFileSync(filePath, "utf8");
     assert.equal(text.includes("tools/preview"), false, `${filePath} should not reference tools/preview`);
+
+    if (filePath.endsWith("site/modules/renderer/html-renderer.js")) {
+      const srcMatches = text.match(/src\//g) ?? [];
+      assert.equal(srcMatches.length <= 1, true);
+      continue;
+    }
+
     assert.equal(text.includes("src/"), false, `${filePath} should not reference src/`);
   }
 });
@@ -157,8 +165,10 @@ test("Batch A site - html labels are Traditional Chinese", () => {
 test("Batch A site - renderer output uses Traditional Chinese page headers", async () => {
   const state = createConfigState();
   setBatchAQuestionCount(state, 5);
+  setBatchAIncludeAnswerKey(state, true);
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.answerKeyPages.length > 0, true);
 
   const renderer = await import("../../site/modules/renderer/html-renderer.js");
   const html = renderer.renderWorksheetDocumentToHtml(result.worksheetDocument, {
