@@ -120,6 +120,20 @@ function allocateCounts(patternSpecIds, questionCount) {
   }).filter((entry) => entry.questionCount > 0);
 }
 
+function deterministicallyShuffleQuestions(questions, plan) {
+  if (plan.ordering !== "shuffleAcrossPatterns") {
+    return questions;
+  }
+
+  const shuffled = [...questions];
+  const randomFn = createSeededRandom(`${plan.generationSeed}:shuffleAcrossPatterns:${plan.sourceId}:${plan.questionCount}`);
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = randomIntBetween(randomFn, 0, index);
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+  return shuffled;
+}
+
 export function buildBatchABrowserPlan(options = {}) {
   const sourceId = options.sourceId;
   const questionCount = Number.isInteger(options.questionCount) ? options.questionCount : 20;
@@ -168,10 +182,12 @@ export function generateBatchABrowserQuestions(options = {}) {
     }
   }
 
+  const orderedQuestions = deterministicallyShuffleQuestions(questions, plan);
+
   return {
     ok: errors.length === 0,
     plan,
-    questions,
+    questions: orderedQuestions,
     allocation,
     errors,
     warnings
