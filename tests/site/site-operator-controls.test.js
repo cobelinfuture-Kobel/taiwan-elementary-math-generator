@@ -8,6 +8,7 @@ import { buildWorksheetDocumentFromState } from "../../site/assets/browser/pipel
 import {
   createConfigState,
   getOperatorsEnabled,
+  setBatchAIncludeAnswerKey,
   setBatchAQuestionCount,
   setBatchASourceId,
   setOperatorEnabled,
@@ -113,15 +114,10 @@ test("compat operator helpers - operator state stays synced across config target
 test("Batch A controls - answer key count matches question count", () => {
   const state = createConfigState();
   setBatchAQuestionCount(state, 9);
+  setBatchAIncludeAnswerKey(state, true);
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
-
-  const totalAnswerCells = result.worksheetDocument.answerKeyPages.reduce(
-    (sum, page) => sum + page.cells.filter((cell) => cell.cellType === "answerKey").length,
-    0
-  );
-
-  assert.equal(totalAnswerCells, result.worksheetDocument.summary.questionCount);
+  assert.equal(result.worksheetDocument.answerKeyItems.length, result.worksheetDocument.summary.questionCount);
 });
 
 test("Batch A controls - question count binding still works after compat operator changes", () => {
