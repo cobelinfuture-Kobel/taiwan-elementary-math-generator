@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "s36a.batch_a.materialization_index.v1",
+  "taskId": "S36A_BatchA_AlgorithmicComplexitySamplerDesignScan",
+  "batchId": "batch_a",
+  "productionUse": "forbidden",
+  "sourcePolicy": {
+    "primarySource": "S30B2 manual PDF visual-read knowledge point extraction",
+    "alignmentSource": "S29C Batch A assignment",
+    "contractSource": "S34F PatternSpec / ValidatorContract materialization",
+    "validatorSource": "S35 Batch A validator implementation",
+    "validatorCiReadbackSource": "S35R1 operator-provided s21r2-local-sync-check summary",
+    "generatorConsumptionSource": "S36 Batch A PatternSpec registry consumption adapter",
+    "generatorCiReadbackSource": "S36R operator-provided s21r2-local-sync-check summary",
+    "samplerDesignScanSource": "S36A Batch A algorithmic-complexity sampler design scan",
+    "ocrUse": "sidelined_not_primary"
+  },
+  "artifacts": {
+    "patternSpecRegistry": "data/curriculum/registry/pattern_specs.batch_a.json",
+    "validatorContractRegistry": "data/curriculum/registry/validator_contracts.batch_a.json",
+    "validatorImplementation": "src/curriculum/validator/batch-a-validator.js",
+    "validatorTests": "tests/curriculum/batch-a-validator.test.js",
+    "generatorConsumptionAdapter": "src/curriculum/generator/batch-a-generator.js",
+    "generatorConsumptionTests": "tests/curriculum/batch-a-generator.test.js",
+    "validatorCloseoutReport": "docs/curriculum/output/S35_BatchA_ValidatorImplementation.md",
+    "validatorCiReadbackPassReport": "docs/curriculum/output/S35R1_BatchA_ValidatorImplementation_CIReadback_PASS.md",
+    "generatorConsumptionCloseoutReport": "docs/curriculum/output/S36_BatchA_GeneratorConsumption.md",
+    "generatorCiReadbackPassReport": "docs/curriculum/output/S36R_BatchA_GeneratorConsumption_CIReadback_PASS.md",
+    "samplerDesignScanReport": "docs/curriculum/output/S36A_BatchA_AlgorithmicComplexitySamplerDesignScan.md",
+    "ciWorkflow": ".github/workflows/s21r2-local-sync-check.yml"
+  },
+  "counts": {
+    "sourceUnitCount": 13,
+    "patternSpecGroupCount": 82,
+    "validatorContractRowCount": 82,
+    "readyPatternSpecGroupCount": 58,
+    "partialPatternSpecGroupCount": 24,
+    "implementedValidatorHookFamilies": 8,
+    "contractOnlyValidatorHookFamilies": 2,
+    "generatorExecutablePatternSpecGroupCount": 23,
+    "samplerImmediateImpactedExecutablePatternSpecGroupCount": 20,
+    "samplerLaterExpansionPatternSpecGroupCount": 16,
+    "productionReadyPatternSpecGroupCount": 0,
+    "lastConfirmedCiTests": 805,
+    "lastConfirmedCiPass": 805,
+    "lastConfirmedCiFail": 0
+  },
+  "status": {
+    "patternSpecRegistryMaterialized": true,
+    "validatorContractRegistryMaterialized": true,
+    "validatorImplementationCreated": true,
+    "validatorTestFileCreated": true,
+    "s35PromotedToPass": true,
+    "generatorConsumptionAdapterCreated": true,
+    "generatorConsumptionTestFileCreated": true,
+    "generatorConsumptionAuthorized": true,
+    "generatorConsumptionStatus": "PASS_CI_SYNCED_AND_CLEAN_NON_PRODUCTION",
+    "s36PromotedToPass": true,
+    "samplerDesignScanCompleted": true,
+    "samplerDesignScanStatus": "PASS_DESIGN_SCAN",
+    "algorithmicComplexitySamplingComplete": false,
+    "semanticSamplerTestsCreated": false,
+    "rendererWorksheetOutputCreated": false,
+    "worksheetQAPassed": false,
+    "productionUseAllowed": false
+  },
+  "implementedHookFamilies": [
+    "validateNumericAnswer",
+    "validatePlaceValueDecompositionAnswer",
+    "validateComparisonAnswer",
+    "validateMissingDigitAnswer",
+    "validateDivisionQuotientRemainderAnswer",
+    "validateBooleanOrNumericAnswer",
+    "validateIntegerExpressionAnswer",
+    "validateBatchAScope"
+  ],
+  "contractOnlyHookFamilies": [
+    "validateWordProblemTemplateAnswer",
+    "validateTextFallbackRepresentation"
+  ],
+  "nextTask": "S36B_BatchA_AlgorithmicComplexitySamplerImplementation",
+  "distanceImpact": {
+    "GOAL_DISTANCE_BEFORE": "D1",
+    "GOAL_DISTANCE_AFTER": "D1_SAMPLER_DESIGN_READY",
+    "DISTANCE_REDUCED": "Algorithmic-complexity sampler blocker was converted from an undefined blocker into a concrete implementation contract for S36B.",
+    "REMAINING_BLOCKERS": [
+      "algorithmic complexity samplers are designed but not implemented",
+      "semantic sampler tests are not implemented",
+      "number-sense non-expression generators are not implemented",
+      "renderer worksheet output not created for Batch A",
+      "worksheet QA not passed",
+      "answer key QA not passed",
+      "productionUse still forbidden"
+    ],
+    "NEXT_SHORTEST_STEP": "S36B_BatchA_AlgorithmicComplexitySamplerImplementation"
+  }
+}
