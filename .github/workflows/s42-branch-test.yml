@@ -1,6 +1,6 @@
 name: S42 Branch Test
 
-# S42 branch CI trigger marker: 2026-07-03T00:00:00+08:00
+# S42 compact CI diagnostic marker: 2026-07-03T00:00:00+08:00
 
 on:
   push:
@@ -31,5 +31,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
+      - name: Run tests with compact diagnostics
+        shell: bash
+        run: |
+          set +e
+          npm test 2>&1 | tee s42-npm-test.log
+          status=${PIPESTATUS[0]}
+          echo "S42_NPM_TEST_EXIT_CODE=${status}"
+          if [ "${status}" -ne 0 ]; then
+            echo "S42_COMPACT_FAILURE_SUMMARY_START"
+            grep -En "(ERR_|Error:|AssertionError|not ok|fail|FAIL|SyntaxError|TypeError|ReferenceError|MODULE_NOT_FOUND|ERR_MODULE_NOT_FOUND)" s42-npm-test.log | head -80 || true
+            echo "S42_COMPACT_FAILURE_TAIL_START"
+            tail -160 s42-npm-test.log
+            echo "S42_COMPACT_FAILURE_END"
+          fi
+          exit "${status}"
