@@ -4,7 +4,7 @@
 
 ```text
 CURRENT_MAJOR_TASK = S42_BatchA_WebWorksheetProductionPath
-CURRENT_STATUS = CLOSEOUT_READINESS
+CURRENT_STATUS = POST_MERGE_CLOSEOUT_READINESS
 BATCH_A_WEB_WORKSHEET_PATH = CI_GREEN
 ```
 
@@ -52,7 +52,14 @@ Node Test        = PASS
 Verified on head commit:
 
 ```text
-453126d612e2047eb1f26802144a0ff62c85bc30
+8998ca9befd2539da34697383ab2c9fa2167b531
+```
+
+Merged through PR #2:
+
+```text
+merge_commit_sha = bd2a3eec824d43e8430f91061dd14ed3dd542f49
+merged_at        = 2026-07-03T14:47:15Z
 ```
 
 ## QA Coverage Added
@@ -61,6 +68,7 @@ Verified on head commit:
 S42B19 = Batch A 13 sourceId browser smoke QA
 S42B20 = iframe preview runtime smoke QA
 S42B21 = validator contract registry exact parity restored
+S42B23 = S42 closeout readiness note added
 ```
 
 The QA coverage verifies:
@@ -97,32 +105,31 @@ S42 is limited to Batch A browser worksheet output. It does not release:
 ## PR State
 
 ```text
-PR #2 = open / draft / unmerged
-PR #2 purpose = S42B19-B21 QA, parity, and closeout readiness
+PR #2 = merged / closed / not draft
+PR #2 purpose = S42B19-B23 QA, parity, and closeout readiness
 ```
 
-No merge is authorized by this note. Merge still requires explicit operator approval.
+No further PR #2 merge action is pending.
 
 ## Distance Update
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_REDUCED_ARTIFACT_PARITY_RESOLVED
-GOAL_DISTANCE_AFTER  = D1_FINAL_DOCS_READINESS_RECORDED
-DISTANCE_REDUCED     = Final S42 docs blocker reduced by recording current scope, gates, parity status, and PR state
+GOAL_DISTANCE_BEFORE = D1_PR2_MERGED_POST_MERGE_DOC_STALENESS_REMAINS
+GOAL_DISTANCE_AFTER  = D1_POST_MERGE_CLOSEOUT_NOTE_UPDATED
+DISTANCE_REDUCED     = Post-merge PR state is recorded on main; S42 closeout note no longer says PR #2 is draft/unmerged
 ```
 
 ## Remaining Blockers
 
 ```text
 REMAINING_BLOCKERS = [
-  "PR #2 尚未 ready for review",
-  "PR #2 尚未 merge",
-  "S42 尚未 final closeout"
+  "README may still say S20 / V1 / old test count",
+  "S42 final closeout readback still required"
 ]
 ```
 
 ## Next Shortest Step
 
 ```text
-NEXT_SHORTEST_STEP = S42B24_PR2ReadyOrMergeApproval
+NEXT_SHORTEST_STEP = S42B27_FinalMainReadbackAndCloseout
 ```
