@@ -1,11 +1,11 @@
-# S42 Batch A Web Worksheet Production Path — Closeout Readiness
+# S42 Batch A Web Worksheet Production Path — Final Closeout
 
 ## Current State
 
 ```text
 CURRENT_MAJOR_TASK = S42_BatchA_WebWorksheetProductionPath
-CURRENT_STATUS = POST_MERGE_CLOSEOUT_READINESS
-BATCH_A_WEB_WORKSHEET_PATH = CI_GREEN
+CURRENT_STATUS = FINAL_CLOSEOUT
+BATCH_A_WEB_WORKSHEET_PATH = MERGED_TO_MAIN
 ```
 
 S42 advances the stable repository from the earlier V1 generic expression worksheet stage to a Batch A browser worksheet path.
@@ -62,6 +62,13 @@ merge_commit_sha = bd2a3eec824d43e8430f91061dd14ed3dd542f49
 merged_at        = 2026-07-03T14:47:15Z
 ```
 
+Post-merge documentation patches on main:
+
+```text
+S42 closeout note update = 9538345e425e2f8bd71ee536063bd03306db1128
+README S42 status update = 9702b8b423e250f5fd91a03df99421e82cf51c47
+```
+
 ## QA Coverage Added
 
 ```text
@@ -69,6 +76,7 @@ S42B19 = Batch A 13 sourceId browser smoke QA
 S42B20 = iframe preview runtime smoke QA
 S42B21 = validator contract registry exact parity restored
 S42B23 = S42 closeout readiness note added
+S42B26 = post-merge documentation state corrected
 ```
 
 The QA coverage verifies:
@@ -111,25 +119,30 @@ PR #2 purpose = S42B19-B23 QA, parity, and closeout readiness
 
 No further PR #2 merge action is pending.
 
+## README State
+
+```text
+README Current Stage = S42 — Batch A browser worksheet production path closeout readiness
+README test section  = hardcoded old test count removed
+README closeout link = docs/curriculum/output/S42_BatchA_WebWorksheetProductionPath_Closeout.md
+```
+
 ## Distance Update
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_PR2_MERGED_POST_MERGE_DOC_STALENESS_REMAINS
-GOAL_DISTANCE_AFTER  = D1_POST_MERGE_CLOSEOUT_NOTE_UPDATED
-DISTANCE_REDUCED     = Post-merge PR state is recorded on main; S42 closeout note no longer says PR #2 is draft/unmerged
+GOAL_DISTANCE_AFTER  = D0_S42_BATCH_A_WEB_WORKSHEET_PATH_MERGED_AND_DOCUMENTED
+DISTANCE_REDUCED     = PR merge blocker and post-merge documentation staleness are resolved; Batch A browser worksheet production path is merged and documented on main
 ```
 
 ## Remaining Blockers
 
 ```text
-REMAINING_BLOCKERS = [
-  "README may still say S20 / V1 / old test count",
-  "S42 final closeout readback still required"
-]
+REMAINING_BLOCKERS = []
 ```
 
 ## Next Shortest Step
 
 ```text
-NEXT_SHORTEST_STEP = S42B27_FinalMainReadbackAndCloseout
+NEXT_SHORTEST_STEP = S43_SelectNextShortestPathAfterBatchAWebWorksheetCloseout
 ```
