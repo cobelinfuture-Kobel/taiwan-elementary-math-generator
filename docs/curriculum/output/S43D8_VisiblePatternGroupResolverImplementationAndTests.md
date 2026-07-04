@@ -5,18 +5,31 @@
 ```text
 CURRENT_MAJOR_TASK = S43_BatchA_KnowledgePointSelectable_HTMLWorksheet
 CURRENT_SUBTASK = S43D8_VisiblePatternGroupResolverImplementationAndTests
-TASK_STATUS = IMPLEMENTED_READBACK_PENDING_CI
+TASK_STATUS = PASS_VISIBLE_PATTERN_GROUP_RESOLVER_IMPLEMENTED_READBACK_PENDING_CI_DUPLICATE_CLEANED
 WRITE_TYPE = resolver_runtime_plus_tests_plus_docs
 ```
 
-S43D8 implements the visible PatternGroup resolver as a pure function module using the browser-safe selector registry modules from S43D6.
+S43D8 confirms the visible PatternGroup resolver as a pure function module using the browser-safe selector registry modules from S43D6.
 
-## Files Created
+## Canonical Files
+
+```text
+CANONICAL_RESOLVER_MODULE = site/modules/curriculum/batch-a/visible-pattern-group-resolver.js
+CANONICAL_RESOLVER_TESTS  = tests/curriculum/batch-a/visible-pattern-group-resolver.test.js
+```
+
+## Duplicate Cleanup
+
+During S43D8 execution, a duplicate non-canonical resolver module path was briefly created:
+
+```text
+site/modules/curriculum/batch-a/batch-a-visible-pattern-group-resolver.js
+```
+
+It was removed in the same task. The canonical resolver remains:
 
 ```text
 site/modules/curriculum/batch-a/visible-pattern-group-resolver.js
-tests/curriculum/batch-a/visible-pattern-group-resolver.test.js
-docs/curriculum/output/S43D8_VisiblePatternGroupResolverImplementationAndTests.md
 ```
 
 ## Implemented Resolver Module
@@ -41,6 +54,8 @@ getVisibleBatchAKnowledgePoint(knowledgePointId)
 getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
 resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId)
 ```
+
+It does not read raw `data/curriculum/registry/*.json` from browser code.
 
 ## Resolver Behavior Implemented
 
@@ -111,7 +126,7 @@ kp_resolver_cross_unit_not_supported_yet
 kp_resolver_allocation_not_applicable
 ```
 
-## Tests Added
+## Tests
 
 ```text
 tests/curriculum/batch-a/visible-pattern-group-resolver.test.js
@@ -139,26 +154,40 @@ no KP promoted to selectable
 sourceId worksheet path = preserved
 ```
 
+## Local Test Evidence Before S43D8
+
+The operator-provided local readback immediately before S43D8 was:
+
+```text
+tests 830
+pass 830
+fail 0
+working tree clean
+```
+
+No additional post-S43D8 local `npm test` readback has been observed yet.
+
 ## S43D8 Gate
 
 ```text
-S43D8_GATE = PASS_VISIBLE_PATTERN_GROUP_RESOLVER_IMPLEMENTED_READBACK_PENDING_CI
+S43D8_GATE = PASS_VISIBLE_PATTERN_GROUP_RESOLVER_IMPLEMENTED_READBACK_PENDING_CI_DUPLICATE_CLEANED
 
 PASS:
-- resolver pure function module created
+- canonical resolver pure function module confirmed
+- canonical resolver tests confirmed
 - resolver uses browser-safe selector modules, not raw registry JSON
 - sourceUnit handoff preserves existing sourceId path
 - current zero-visible KP mode returns safe failure
 - hidden A rows do not resolve to PatternSpec IDs
 - D rows do not resolve to PatternSpec IDs
 - deterministic resolver error codes implemented
-- resolver tests added
+- accidental duplicate resolver module path removed
 - HTML selector not implemented
 - worksheet builder integration not implemented
 - no KP promoted to selectable
 
 GAPS:
-- CI / npm test status not observed after S43D8 changes
+- post-S43D8 CI / npm test status not observed
 - future visible-KP query survival is not implemented yet
 - positive visible-KP resolver fixture not possible until explicit QA promotion creates visible candidates
 - HTML selector not implemented yet
@@ -169,7 +198,7 @@ GAPS:
 ```text
 GOAL_DISTANCE_BEFORE = D1_LOCAL_TEST_READBACK_PASS
 GOAL_DISTANCE_AFTER  = D1_VISIBLE_PATTERN_GROUP_RESOLVER_IMPLEMENTED_PENDING_TEST_READBACK
-DISTANCE_REDUCED     = S43 now has a resolver implementation and tests that can safely reject hidden/not_selectable KP selections and preserve sourceUnit handoff
+DISTANCE_REDUCED     = S43 now has a confirmed resolver implementation and tests that can safely reject hidden/not_selectable KP selections and preserve sourceUnit handoff
 
 TestReadbackKnown                    100% -> 100%
 KPResolverImplementation               0% -> 100%
