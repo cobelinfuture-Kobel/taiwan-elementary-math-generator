@@ -225,7 +225,9 @@ test("S43C14 smoke: mixed KP modes remain deferred before their gates", () => {
     questionCount: 10
   });
   assert.equal(sameUnit.ok, false);
-  assert.deepEqual(errorCodes(sameUnit), [BATCH_A_RESOLVER_ERROR_CODES.SAME_UNIT_MIXED_NOT_SUPPORTED_YET]);
+  assert.deepEqual(errorCodes(sameUnit), [BATCH_A_RESOLVER_ERROR_CODES.ALL_CANDIDATES_REJECTED]);
+  assert.deepEqual(sameUnit.patternSpecIds, []);
+  assert.deepEqual(sameUnit.allocation, []);
 
   const crossUnit = resolveVisiblePatternGroupSelection({
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_CROSS_UNIT,
@@ -236,4 +238,6 @@ test("S43C14 smoke: mixed KP modes remain deferred before their gates", () => {
   });
   assert.equal(crossUnit.ok, false);
   assert.deepEqual(errorCodes(crossUnit), [BATCH_A_RESOLVER_ERROR_CODES.CROSS_UNIT_NOT_SUPPORTED_YET]);
+  assert.deepEqual(crossUnit.patternSpecIds, []);
+  assert.deepEqual(crossUnit.allocation, []);
 });
