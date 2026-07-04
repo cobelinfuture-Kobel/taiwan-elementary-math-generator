@@ -1,0 +1,65 @@
+{
+  "schemaName": "S43FBetaMaterializedPatternSpecs",
+  "schemaVersion": 1,
+  "task": "S43F12_BetaPatternSpecMaterialization",
+  "status": "contract_materialized_not_browser_projected",
+  "runtimeCodeChanged": false,
+  "browserProjectionChanged": false,
+  "patternSpecs": [
+    {
+      "knowledgePointId": "kp_g3a_u03_10_multiple_by_1digit",
+      "patternSpecId": "ps_g3a_u03_10_multiple_by_1digit",
+      "sourceId": "g3a_u03_3a03",
+      "title": "10 的倍數乘以一位數",
+      "kind": "expression_multiply",
+      "ranges": [[10, 90], [2, 9]],
+      "answerMax": 810,
+      "validatorContract": "numeric_integer_answer"
+    },
+    {
+      "knowledgePointId": "kp_g3a_u03_3digit_by_1digit",
+      "patternSpecId": "ps_g3a_u03_3digit_by_1digit",
+      "sourceId": "g3a_u03_3a03",
+      "title": "三位數乘以一位數",
+      "kind": "expression_multiply",
+      "ranges": [[100, 999], [2, 9]],
+      "answerMax": 8991,
+      "validatorContract": "numeric_integer_answer"
+    },
+    {
+      "knowledgePointId": "kp_g3a_u03_consecutive_multiplication_two_step",
+      "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
+      "sourceId": "g3a_u03_3a03",
+      "title": "兩步驟連續乘法",
+      "kind": "expression_multiply_two_step",
+      "ranges": [[2, 9], [2, 9], [2, 9]],
+      "answerMax": 729,
+      "validatorContract": "numeric_integer_answer"
+    },
+    {
+      "knowledgePointId": "kp_g3a_u06_divisibility_exact_check",
+      "patternSpecId": "ps_g3a_u06_divisibility_exact_check",
+      "sourceId": "g3a_u06_3a06",
+      "title": "整除檢查",
+      "kind": "expression_divide_exact",
+      "ranges": [[10, 99], [2, 9]],
+      "answerMax": 99,
+      "validatorContract": "numeric_integer_answer_exact_division"
+    },
+    {
+      "knowledgePointId": "kp_g3b_u01_2digit_by_1digit_regroup_tens",
+      "patternSpecId": "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+      "sourceId": "g3b_u01_3b01",
+      "title": "二位數除以一位數退位",
+      "kind": "expression_divide_exact",
+      "ranges": [[10, 99], [2, 9]],
+      "answerMax": 99,
+      "validatorContract": "numeric_integer_answer_exact_division"
+    }
+  ],
+  "summary": {
+    "materializedPatternSpecCount": 5,
+    "runtimeCodeChanged": false,
+    "browserProjectionChanged": false
+  }
+}
