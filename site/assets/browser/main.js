@@ -1,13 +1,20 @@
 import { listBatchASourceUnits } from "../../modules/curriculum/batch-a/source-units.js";
 import {
+  BATCH_A_SELECTION_MODES,
   createConfigState,
   setBatchAIncludeAnswerKey,
   setBatchAGenerationSeed,
   setBatchAOrdering,
   setBatchAPrintLayout,
   setBatchAQuestionCount,
+  setBatchASelectionMode,
   setBatchASourceId
 } from "./state/config-state.js";
+import {
+  BATCH_A_SELECTOR_AVAILABILITY,
+  listBatchAKnowledgePointAvailabilityBySource,
+  listVisibleBatchAKnowledgePoints
+} from "../../modules/curriculum/registry/batch-a-selector-candidates.js";
 import { parseQueryState, writeQueryStateFromState } from "./state/query-state.js";
 import { buildWorksheetDocumentFromState } from "./pipeline/build-worksheet-document.js";
 import { printPreviewFrame, renderPreviewFrame } from "./pipeline/render-preview-frame.js";
@@ -18,6 +25,11 @@ const sourceUnits = listBatchASourceUnits();
 
 const sourceSelect = document.getElementById("batch-a-source-select");
 const sourceHelp = document.getElementById("batch-a-source-help");
+const selectionModeSelect = document.getElementById("batch-a-selection-mode-select");
+const knowledgePointEmptyState = document.getElementById("batch-a-knowledge-point-empty-state");
+const knowledgePointAvailabilitySummary = document.getElementById("batch-a-knowledge-point-availability-summary");
+const knowledgePointPanel = document.getElementById("batch-a-knowledge-point-panel");
+const knowledgePointWarningList = document.getElementById("batch-a-knowledge-point-warning-list");
 const questionCountInput = document.getElementById("batch-a-question-count-input");
 const orderingSelect = document.getElementById("batch-a-ordering-select");
 const answerKeyInput = document.getElementById("batch-a-answer-key-input");
@@ -54,6 +66,56 @@ function populateSourceSelect() {
   }
 }
 
+function syncSelectionModeOptions() {
+  if (!selectionModeSelect) return;
+  for (const option of selectionModeSelect.options) {
+    option.disabled = option.value !== BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+  }
+  selectionModeSelect.value = BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+}
+
+function renderKnowledgePointAvailability() {
+  const sourceAvailability = listBatchAKnowledgePointAvailabilityBySource(state.batchA.sourceId);
+  const globalAvailability = BATCH_A_SELECTOR_AVAILABILITY;
+  if (knowledgePointAvailabilitySummary) {
+    knowledgePointAvailabilitySummary.textContent = [
+      `本單元可選知識點：${sourceAvailability.visibleCount}`,
+      `已建立但尚未開放：${sourceAvailability.hiddenPendingCount}`,
+      `不可在 S43 使用：${sourceAvailability.notSelectableCount}`,
+      `全 Batch A 可選：${globalAvailability.visibleCount}`
+    ].join("｜");
+  }
+
+  const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
+  if (knowledgePointPanel) {
+    knowledgePointPanel.replaceChildren();
+    knowledgePointPanel.dataset.visibleCount = String(visibleKnowledgePoints.length);
+  }
+  if (knowledgePointEmptyState) {
+    knowledgePointEmptyState.dataset.visible = visibleKnowledgePoints.length === 0 ? "true" : "false";
+    knowledgePointEmptyState.textContent = "目前此單元尚無已通過 QA 的可選知識點。請先使用單元出題，或等待 KnowledgePoint QA 完成。";
+  }
+}
+
+function renderSelectorWarnings() {
+  if (!knowledgePointWarningList) return;
+  const warnings = state.batchA.selectorWarnings ?? [];
+  knowledgePointWarningList.replaceChildren();
+  knowledgePointWarningList.dataset.visible = warnings.length > 0 ? "true" : "false";
+  for (const warning of warnings) {
+    const item = document.createElement("li");
+    item.textContent = warning.code;
+    knowledgePointWarningList.append(item);
+  }
+}
+
+function syncKnowledgePointSelectorFromState() {
+  syncSelectionModeOptions();
+  setBatchASelectionMode(state, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
+  renderKnowledgePointAvailability();
+  renderSelectorWarnings();
+}
+
 function syncControlsFromState() {
   if (sourceSelect) sourceSelect.value = state.batchA.sourceId;
   if (questionCountInput) questionCountInput.value = String(state.batchA.questionCount);
@@ -63,10 +125,12 @@ function syncControlsFromState() {
   if (columnsInput) columnsInput.value = String(state.batchA.columns);
   if (rowsPerPageInput) rowsPerPageInput.value = String(state.batchA.rowsPerPage);
   updateSourceHelp();
+  syncKnowledgePointSelectorFromState();
 }
 
 function readControlsIntoState() {
   setBatchASourceId(state, sourceSelect?.value ?? state.batchA.sourceId);
+  setBatchASelectionMode(state, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
   setBatchAQuestionCount(state, Number(questionCountInput?.value ?? state.batchA.questionCount));
   setBatchAOrdering(state, orderingSelect?.value ?? state.batchA.ordering);
   setBatchAIncludeAnswerKey(state, Boolean(answerKeyInput?.checked));
@@ -125,7 +189,7 @@ function regenerate() {
 }
 
 function bindControls() {
-  for (const element of [sourceSelect, questionCountInput, orderingSelect, answerKeyInput, generationSeedInput, columnsInput, rowsPerPageInput]) {
+  for (const element of [sourceSelect, selectionModeSelect, questionCountInput, orderingSelect, answerKeyInput, generationSeedInput, columnsInput, rowsPerPageInput]) {
     element?.addEventListener("change", () => {
       readControlsIntoState();
       syncControlsFromState();
