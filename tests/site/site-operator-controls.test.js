@@ -80,14 +80,19 @@ test("Batch A controls - division source generates integer answers", () => {
   }
 });
 
-test("Batch A controls - comparison source generates comparison questions", () => {
+test("Batch A controls - G4A U01 source supports comparison and large-number expression patterns", () => {
   const state = createConfigState();
   setBatchASourceId(state, "g4a_u01_4a01");
-  setBatchAQuestionCount(state, 5);
+  setBatchAQuestionCount(state, 8);
 
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.kind === "comparison"), true);
+  assert.equal(result.worksheetDocument.batchA.sourceId, "g4a_u01_4a01");
+
+  const generatedQuestions = result.worksheetDocument.generatedQuestions;
+  assert.equal(generatedQuestions.some((question) => question.kind === "comparison"), true);
+  assert.equal(generatedQuestions.some((question) => question.kind !== "comparison"), true);
+  assert.equal(generatedQuestions.every((question) => question.sourceId === "g4a_u01_4a01"), true);
 });
 
 test("compat operator helpers - last enabled operator cannot be disabled through helper", () => {
