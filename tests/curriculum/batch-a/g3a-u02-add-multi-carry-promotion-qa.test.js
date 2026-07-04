@@ -52,16 +52,20 @@ test("add multi-carry candidate registry triplet remains hidden until promotion 
   assert.equal(mapping.holdReason, "constraint_warning");
 });
 
-test("strict multi-carry promotion is blocked until explicit carry policy exists", () => {
+test("strict multi-carry candidate exposes carry policy but remains unpromoted", () => {
   const definition = getBatchABrowserPatternDefinition("ps_g3a_u02_4digit_add_multi_carry");
 
-  assert.equal(Object.hasOwn(definition, "carryPolicy"), false);
+  assert.equal(Object.hasOwn(definition, "carryPolicy"), true);
+  assert.equal(definition.carryPolicy.kind, "addition_carry");
+  assert.equal(definition.carryPolicy.mode, "at_least_one_carry");
+  assert.deepEqual(definition.carryPolicy.checkedColumns, ["ones", "tens", "hundreds"]);
+  assert.equal(definition.carryPolicy.validatorRequired, true);
   assert.equal(Object.hasOwn(definition, "algorithmConstraint"), false);
   assert.equal(Object.hasOwn(definition, "validatorHooks"), false);
   assert.deepEqual(definition.difficultyTags, ["batch_a_browser_bridge"]);
 });
 
-test("browser selector projection remains zero-visible after promotion QA guard", () => {
+test("browser selector projection remains zero-visible after carry policy implementation", () => {
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 0);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.hiddenPendingCount, 2);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.notSelectableCount, 2);
