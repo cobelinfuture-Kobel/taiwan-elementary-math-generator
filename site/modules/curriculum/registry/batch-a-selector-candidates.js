@@ -36,22 +36,82 @@ export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = deepFreeze({
 });
 
 export const BATCH_A_SELECTOR_AVAILABILITY = deepFreeze({
-  "visibleCount": 0,
-  "hiddenPendingCount": 2,
+  "visibleCount": 1,
+  "hiddenPendingCount": 1,
   "notSelectableCount": 2,
   "bySourceId": {
     "g3a_u02_3a02": {
       "sourceId": "g3a_u02_3a02",
-      "visibleCount": 0,
-      "hiddenPendingCount": 2,
+      "visibleCount": 1,
+      "hiddenPendingCount": 1,
       "notSelectableCount": 2
     }
   }
 });
 
-const VISIBLE_KNOWLEDGE_POINTS = deepFreeze([]);
-const VISIBLE_PATTERN_GROUPS_BY_KP = deepFreeze({});
-const VISIBLE_MAPPINGS_BY_KP = deepFreeze({});
+const VISIBLE_KNOWLEDGE_POINTS = deepFreeze([
+  {
+    "knowledgePointId": "kp_g3a_u02_add_multi_carry",
+    "sourceId": "g3a_u02_3a02",
+    "unitCode": "3A-U02",
+    "unitTitle": "四位數的加減",
+    "displayName": "四位數加法多次進位",
+    "supportClass": "A",
+    "canonicalSkillTag": "integer_addition",
+    "subskillTags": ["four_digit", "multi_carry"],
+    "difficultyTags": ["regrouping", "carry"],
+    "representationTags": ["numeric_expression", "vertical_algorithm"],
+    "patternGroupIds": ["pg_g3a_u02_add_multi_carry_seed"],
+    "patternSpecIds": ["ps_g3a_u02_4digit_add_multi_carry"],
+    "qaStatusLabel": "qa_verified"
+  }
+]);
+const VISIBLE_PATTERN_GROUPS_BY_KP = deepFreeze({
+  "kp_g3a_u02_add_multi_carry": [
+    {
+      "patternGroupId": "pg_g3a_u02_add_multi_carry_seed",
+      "sourceId": "g3a_u02_3a02",
+      "unitCode": "3A-U02",
+      "unitTitle": "四位數的加減",
+      "displayName": "四位數加法多次進位（seed）",
+      "primaryKnowledgePointId": "kp_g3a_u02_add_multi_carry",
+      "knowledgePointIds": ["kp_g3a_u02_add_multi_carry"],
+      "supportClass": "A",
+      "patternSpecIds": ["ps_g3a_u02_4digit_add_multi_carry"],
+      "generatorSupportStatus": "carry_policy_supported",
+      "validatorSupportStatus": "carry_policy_verified",
+      "htmlWorksheetStatus": "printable_after_selector_regen",
+      "answerKeyStatus": "supported",
+      "visibilityStatus": "visible",
+      "allocationPolicy": "single_pattern",
+      "registryStatus": "materialized",
+      "holdReason": null,
+      "notes": "S43C11 first visible PatternGroup promotion. Strict carryPolicy generator/validator support and query/resolver QA readbacks are complete. Browser selector regeneration is deferred to S43C12."
+    }
+  ]
+});
+const VISIBLE_MAPPINGS_BY_KP = deepFreeze({
+  "kp_g3a_u02_add_multi_carry": [
+    {
+      "mappingId": "map_g3a_u02_add_multi_carry_seed",
+      "sourceId": "g3a_u02_3a02",
+      "knowledgePointId": "kp_g3a_u02_add_multi_carry",
+      "patternGroupId": "pg_g3a_u02_add_multi_carry_seed",
+      "patternSpecId": "ps_g3a_u02_4digit_add_multi_carry",
+      "mappingRole": "seed",
+      "mappingStatus": "qa_verified_mapped",
+      "supportClass": "A",
+      "constraintStatus": "carry_policy_verified",
+      "constraintNote": "Strict addition carryPolicy is implemented and locally test-readback verified for the add-multi-carry PatternSpec.",
+      "generatorRequirement": "carry_policy_enforced",
+      "validatorRequirement": "carry_policy_hook_verified",
+      "htmlExposurePolicy": "eligible_after_qa",
+      "qaStatus": "qa_verified",
+      "holdReason": null,
+      "notes": "S43C11 first visible mapping promotion. S43C8/S43C8R1 carryPolicy, S43C9/S43C9R1 resolver fixture, and S43C10/S43C10R1 query survival gates are complete. Browser selector regeneration is deferred to S43C12."
+    }
+  ]
+});
 
 export function listVisibleBatchAKnowledgePoints() {
   return cloneValue(VISIBLE_KNOWLEDGE_POINTS);
