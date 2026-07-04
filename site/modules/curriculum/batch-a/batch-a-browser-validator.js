@@ -1,5 +1,6 @@
 import { evaluateExpression } from "../../core/evaluate-expression.js";
 import { getIntegerRawValue, isIntegerValue } from "../../core/number-value.js";
+import { validateBatchAQuestionCarryPolicy } from "./carry-policy.js";
 import { getBatchABrowserPatternDefinition, getBatchAPatternSpecIdsForSource } from "./source-pattern-index.js";
 import { validateBatchAPlanScope } from "./production-eligibility.js";
 
@@ -49,7 +50,12 @@ export function validateBatchABrowserQuestion(question = {}) {
         errors.push(...(evaluated.errors ?? []).map((error) => issue(error.code, error.path, error.message)));
       } else if (intValue(question.finalAnswer) !== getIntegerRawValue(evaluated.value)) {
         errors.push(issue("batch_a_answer_incorrect", "finalAnswer", "Expression finalAnswer does not match evaluated result."));
+      } else if (Number.isFinite(definition.answerConstraint?.max) && getIntegerRawValue(evaluated.value) > definition.answerConstraint.max) {
+        errors.push(issue("batch_a_answer_above_max", "answerConstraint.max", "Expression finalAnswer is above the pattern answer maximum."));
       }
+
+      const carryPolicyCheck = validateBatchAQuestionCarryPolicy(definition, question);
+      errors.push(...carryPolicyCheck.errors);
     }
   } else if (definition.kind === "comparison") {
     const expected = question.left > question.right ? ">" : question.left < question.right ? "<" : "=";
