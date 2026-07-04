@@ -44,14 +44,13 @@ test("static HTML does not render visible, hidden, or D row IDs directly", () =>
   }
 });
 
-test("main.js binds visible KP selector state without enabling mixed modes", () => {
+test("main.js binds visible KP selector state without resolving mixed modes", () => {
   assert.match(mainJs, /BATCH_A_SELECTOR_AVAILABILITY/);
   assert.match(mainJs, /listBatchAKnowledgePointAvailabilityBySource/);
   assert.match(mainJs, /listVisibleBatchAKnowledgePoints/);
   assert.match(mainJs, /setBatchASelectorSelection/);
   assert.match(mainJs, /SINGLE_KNOWLEDGE_POINT/);
-  assert.match(mainJs, /MIXED_KNOWLEDGE_POINTS_SAME_UNIT/);
-  assert.match(mainJs, /MIXED_KNOWLEDGE_POINTS_CROSS_UNIT/);
+  assert.match(mainJs, /option\.disabled = true/);
   assert.doesNotMatch(mainJs, /resolveVisiblePatternGroupSelection/);
 });
 
