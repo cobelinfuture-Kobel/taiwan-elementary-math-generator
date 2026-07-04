@@ -138,6 +138,13 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
     min: 10000000,
     max: 99999999
   }),
+  ps_g4a_u01_within_100million_compare: comparisonPattern({
+    patternSpecId: "ps_g4a_u01_within_100million_compare",
+    sourceId: "g4a_u01_4a01",
+    title: "1億以內數比大小",
+    min: 0,
+    max: 99999999
+  }),
   ps_g4a_u02_2digit_by_2digit: expressionPattern({
     patternSpecId: "ps_g4a_u02_2digit_by_2digit",
     sourceId: "g4a_u02_4a02",
@@ -145,6 +152,15 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
     operators: [[OPERATORS.MULTIPLY]],
     ranges: [[10, 99], [10, 99]],
     answerMax: 9801,
+    skill: "integer_multiplication"
+  }),
+  ps_g4a_u02_3digit_by_2digit: expressionPattern({
+    patternSpecId: "ps_g4a_u02_3digit_by_2digit",
+    sourceId: "g4a_u02_4a02",
+    title: "三位數乘以二位數",
+    operators: [[OPERATORS.MULTIPLY]],
+    ranges: [[100, 999], [10, 99]],
+    answerMax: 98901,
     skill: "integer_multiplication"
   }),
   ps_g4a_u04_4digit_by_1digit_high_place_exact: expressionPattern({
@@ -157,6 +173,16 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
     skill: "integer_division_exact",
     division: { allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true }
   }),
+  ps_g4a_u04_3digit_by_2digit_exact: expressionPattern({
+    patternSpecId: "ps_g4a_u04_3digit_by_2digit_exact",
+    sourceId: "g4a_u04_4a04",
+    title: "三位數除以二位數整除",
+    operators: [[OPERATORS.DIVIDE]],
+    ranges: [[100, 999], [10, 99]],
+    answerMax: 999,
+    skill: "integer_division_exact",
+    division: { allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true }
+  }),
   ps_g4a_u08_left_to_right_add_sub: expressionPattern({
     patternSpecId: "ps_g4a_u08_left_to_right_add_sub",
     sourceId: "g4a_u08_4a08",
@@ -164,6 +190,15 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
     operators: [[OPERATORS.ADD, OPERATORS.SUBTRACT], [OPERATORS.ADD, OPERATORS.SUBTRACT]],
     ranges: [[50, 99], [1, 40], [1, 40]],
     answerMax: 179,
+    skill: "integer_add_sub_mixed"
+  }),
+  ps_g4a_u08_add_sub_three_terms: expressionPattern({
+    patternSpecId: "ps_g4a_u08_add_sub_three_terms",
+    sourceId: "g4a_u08_4a08",
+    title: "三數加減混合",
+    operators: [[OPERATORS.ADD, OPERATORS.SUBTRACT], [OPERATORS.ADD, OPERATORS.SUBTRACT]],
+    ranges: [[100, 999], [1, 200], [1, 200]],
+    answerMax: 1399,
     skill: "integer_add_sub_mixed"
   }),
   ps_g4b_u01_multiplier_trailing_zero: expressionPattern({
@@ -183,6 +218,15 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
     ranges: [[50, 99], [1, 20], [1, 20]],
     answerMax: 97,
     skill: "integer_add_sub_mixed"
+  }),
+  ps_g5a_u08_left_to_right_add_sub: expressionPattern({
+    patternSpecId: "ps_g5a_u08_left_to_right_add_sub",
+    sourceId: "g5a_u08_5a08",
+    title: "整數加減由左到右",
+    operators: [[OPERATORS.ADD, OPERATORS.SUBTRACT], [OPERATORS.ADD, OPERATORS.SUBTRACT]],
+    ranges: [[100, 999], [1, 300], [1, 300]],
+    answerMax: 1599,
+    skill: "integer_add_sub_mixed"
   })
 });
 
@@ -194,12 +238,12 @@ export const BATCH_A_SOURCE_PATTERN_INDEX = Object.freeze({
   g3b_u01_3b01: Object.freeze(["ps_g3b_u01_3digit_by_1digit_regroup_hundreds"]),
   g3b_u04_3b04: Object.freeze(["ps_g3b_u04_consecutive_multiplication"]),
   g3b_u08_3b08: Object.freeze(["ps_g3b_u08_division_check_exact"]),
-  g4a_u01_4a01: Object.freeze(["ps_g4a_u01_compare_8digit"]),
-  g4a_u02_4a02: Object.freeze(["ps_g4a_u02_2digit_by_2digit"]),
-  g4a_u04_4a04: Object.freeze(["ps_g4a_u04_4digit_by_1digit_high_place_exact"]),
-  g4a_u08_4a08: Object.freeze(["ps_g4a_u08_left_to_right_add_sub"]),
+  g4a_u01_4a01: Object.freeze(["ps_g4a_u01_compare_8digit", "ps_g4a_u01_within_100million_compare"]),
+  g4a_u02_4a02: Object.freeze(["ps_g4a_u02_2digit_by_2digit", "ps_g4a_u02_3digit_by_2digit"]),
+  g4a_u04_4a04: Object.freeze(["ps_g4a_u04_4digit_by_1digit_high_place_exact", "ps_g4a_u04_3digit_by_2digit_exact"]),
+  g4a_u08_4a08: Object.freeze(["ps_g4a_u08_left_to_right_add_sub", "ps_g4a_u08_add_sub_three_terms"]),
   g4b_u01_4b01: Object.freeze(["ps_g4b_u01_multiplier_trailing_zero"]),
-  g5a_u08_5a08: Object.freeze(["ps_g5a_u08_repeated_subtraction"])
+  g5a_u08_5a08: Object.freeze(["ps_g5a_u08_repeated_subtraction", "ps_g5a_u08_left_to_right_add_sub"])
 });
 
 export function getBatchAPatternSpecIdsForSource(sourceId) {
