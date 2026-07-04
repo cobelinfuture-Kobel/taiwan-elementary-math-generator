@@ -1,0 +1,30 @@
+{
+  "schemaName": "BatchAUnitKnowledgePointExpansionOverlay",
+  "schemaVersion": 1,
+  "task": "S43E12_G4B_U01_KPExpansion",
+  "sourceId": "g4b_u01_4b01",
+  "unitCode": "4B-U01",
+  "unitTitle": "多位數的乘與除",
+  "overlayStatus": "registry_expansion_overlay_not_browser_projected",
+  "sourceAuthorityStatus": "manual_visual_read_summary",
+  "browserProjectionChanged": false,
+  "visibleKnowledgePointChange": "none",
+  "existingRuntimePatternSpecs": ["ps_g4b_u01_multiplier_trailing_zero"],
+  "knowledgePoints": [
+    {"id":"kp_g4b_u01_multiplier_trailing_zero","name":"末位為0的乘法","class":"A","patternSpecId":"ps_g4b_u01_multiplier_trailing_zero","role":"existing_runtime_pattern","html":"hidden","block":"selector_projection_qa_required_before_kp_exposure"},
+    {"id":"kp_g4b_u01_multiplicand_trailing_zero","name":"被乘數末位為0的乘法","class":"B","patternSpecId":"ps_g4b_u01_multiplicand_trailing_zero_candidate","role":"candidate_existing_generator","html":"hidden","block":"new_pattern_spec_materialization_required"},
+    {"id":"kp_g4b_u01_multi_digit_by_2digit","name":"多位數乘以二位數","class":"B","patternSpecId":"ps_g4b_u01_multi_digit_by_2digit_candidate","role":"candidate_existing_generator","html":"hidden","block":"new_pattern_spec_materialization_required"},
+    {"id":"kp_g4b_u01_multi_digit_by_3digit","name":"多位數乘以三位數","class":"B","patternSpecId":"ps_g4b_u01_multi_digit_by_3digit_candidate","role":"candidate_existing_generator","html":"hidden","block":"new_pattern_spec_materialization_required"},
+    {"id":"kp_g4b_u01_multi_digit_division_exact","name":"多位數除法整除","class":"B","patternSpecId":"ps_g4b_u01_multi_digit_division_exact_candidate","role":"candidate_existing_generator","html":"hidden","block":"new_pattern_spec_materialization_required"},
+    {"id":"kp_g4b_u01_trailing_zero_place_value","name":"末位0與位值規則","class":"C","patternSpecId":"ps_g4b_u01_trailing_zero_place_value_candidate","role":"candidate_place_value_pattern","html":"hidden","block":"trailing_zero_place_value_policy_required"},
+    {"id":"kp_g4b_u01_partial_product_algorithm","name":"多位數乘法部分積","class":"C","patternSpecId":"ps_g4b_u01_partial_product_algorithm_candidate","role":"candidate_algorithm_state_pattern","html":"hidden","block":"partial_product_answer_model_required"},
+    {"id":"kp_g4b_u01_division_trial_adjust","name":"多位數除法試商調商","class":"C","patternSpecId":"ps_g4b_u01_division_trial_adjust_candidate","role":"candidate_algorithm_strategy_pattern","html":"hidden","block":"trial_adjust_strategy_model_required"},
+    {"id":"kp_g4b_u01_remainder_multi_digit","name":"多位數除法餘數","class":"C","patternSpecId":"ps_g4b_u01_remainder_multi_digit_candidate","role":"candidate_remainder_pattern","html":"hidden","block":"quotient_remainder_answer_model_required"},
+    {"id":"kp_g4b_u01_missing_digit_mul_div","name":"乘除直式缺位","class":"C","patternSpecId":"ps_g4b_u01_missing_digit_mul_div_candidate","role":"candidate_missing_digit_pattern","html":"hidden","block":"missing_digit_answer_model_required"},
+    {"id":"kp_g4b_u01_estimation_mul_div","name":"乘除估算","class":"D","patternSpecId":null,"role":"out_of_scope","html":"not_selectable","block":"estimation_policy_required"},
+    {"id":"kp_g4b_u01_word_problem_mul_div","name":"多位數乘除應用題","class":"D","patternSpecId":null,"role":"out_of_scope","html":"not_selectable","block":"controlled_word_problem_template_required"},
+    {"id":"kp_g4b_u01_area_or_group_model","name":"面積或群組模型","class":"D","patternSpecId":null,"role":"out_of_scope","html":"not_selectable","block":"visual_model_generator_required"},
+    {"id":"kp_g4b_u01_answer_reasonableness","name":"乘除答案合理性","class":"D","patternSpecId":null,"role":"out_of_scope","html":"not_selectable","block":"reasonableness_template_required"}
+  ],
+  "summary": {"knowledgePointCount": 14, "supportClassA": 1, "supportClassB": 4, "supportClassC": 5, "supportClassD": 4, "selectableNow": 0, "hiddenRows": 10, "notSelectableRows": 4, "runtimeCodeChanged": false, "browserProjectionChanged": false}
+}
