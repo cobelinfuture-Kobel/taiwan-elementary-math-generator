@@ -22,9 +22,9 @@
       "sourceAuthorityStatus": "manual_visual_read_summary",
       "registryStatus": "materialized",
       "patternGroupIds": ["pg_g3a_u02_add_multi_carry_seed"],
-      "htmlSelectableStatus": "hidden",
-      "holdReason": "qa_pending",
-      "notes": "S43C2 A-class coarse seed. Existing browser PatternSpec exists, but explicit carry enforcement is not yet QA-verified."
+      "htmlSelectableStatus": "selectable",
+      "holdReason": null,
+      "notes": "S43C11 first visible KnowledgePoint promotion. Strict carryPolicy implemented, resolver positive fixture passed, query survival passed, and post-S43C10 local npm test readback passed. Browser selector regeneration is deferred to S43C12."
     },
     {
       "knowledgePointId": "kp_g3a_u02_sub_multi_borrow",
