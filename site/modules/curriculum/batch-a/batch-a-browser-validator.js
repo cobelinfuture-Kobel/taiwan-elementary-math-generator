@@ -22,9 +22,19 @@ export function validateBatchABrowserPlan(plan = {}) {
   if (!["groupedByPattern", "shuffleAcrossPatterns"].includes(ordering)) {
     errors.push(issue("batch_a_ordering_invalid", "ordering", "ordering must be groupedByPattern or shuffleAcrossPatterns."));
   }
-  const patternSpecIds = getBatchAPatternSpecIdsForSource(plan.sourceId);
+  const patternSpecIds = Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0
+    ? plan.patternSpecIds
+    : getBatchAPatternSpecIdsForSource(plan.sourceId);
   if (patternSpecIds.length === 0) {
-    errors.push(issue("batch_a_source_has_no_patterns", "sourceId", `No browser pattern bridge exists for source '${plan.sourceId}'.`));
+    errors.push(issue("batch_a_source_has_no_patterns", "patternSpecIds", `No browser pattern bridge exists for source '${plan.sourceId}'.`));
+  }
+  for (const patternSpecId of patternSpecIds) {
+    const definition = getBatchABrowserPatternDefinition(patternSpecId);
+    if (!definition) {
+      errors.push(issue("batch_a_pattern_not_available", "patternSpecIds", `Pattern '${patternSpecId}' is not available in the Batch A browser bridge.`));
+    } else if (definition.sourceId !== plan.sourceId) {
+      errors.push(issue("batch_a_pattern_source_mismatch", "patternSpecIds", `Pattern '${patternSpecId}' does not belong to source '${plan.sourceId}'.`));
+    }
   }
   return { ok: errors.length === 0, errors, warnings: [] };
 }
