@@ -1,0 +1,18 @@
+# S43F4 — GeneratorSupportExpansion
+
+```text
+CURRENT_SUBTASK = S43F4_GeneratorSupportExpansion
+TASK_STATUS = PASS_CONTRACT_SUPPORT
+ARTIFACT = data/curriculum/registry/S43F4_GeneratorSupportExpansion.json
+SUPPORTED_PATTERN_SPEC_COUNT = 5
+RUNTIME_CODE_CHANGED = false
+BROWSER_PROJECTION_CHANGED = false
+S43F4_GATE = PASS
+NEXT_SHORTEST_STEP = S43F5_ValidatorSupportExpansion
+```
+
+```text
+GOAL_DISTANCE_BEFORE = D1_S43F_ALPHA_PATTERN_SPECS_CONTRACT_MATERIALIZED
+GOAL_DISTANCE_AFTER  = D1_S43F_ALPHA_GENERATOR_SUPPORT_MAPPED
+DISTANCE_REDUCED     = mapped Alpha PatternSpecs to existing generator shapes
+```
