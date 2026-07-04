@@ -1,0 +1,17 @@
+{
+  "schemaName": "S43FAlphaValidatorSupportExpansion",
+  "schemaVersion": 1,
+  "task": "S43F5_ValidatorSupportExpansion",
+  "supportStatus": "contract_supported_by_existing_validator_shapes",
+  "browserProjectionChanged": false,
+  "runtimeCodeChanged": false,
+  "validatorMappings": [
+    {"patternSpecId":"ps_g4a_u01_within_100million_compare","contract":"comparison_answer","runtimeChange":false},
+    {"patternSpecId":"ps_g4a_u02_3digit_by_2digit","contract":"numeric_integer_answer","runtimeChange":false},
+    {"patternSpecId":"ps_g4a_u04_3digit_by_2digit_exact","contract":"numeric_integer_answer_exact_division","runtimeChange":false},
+    {"patternSpecId":"ps_g4a_u08_add_sub_three_terms","contract":"numeric_integer_answer","runtimeChange":false},
+    {"patternSpecId":"ps_g5a_u08_left_to_right_add_sub","contract":"numeric_integer_answer","runtimeChange":false}
+  ],
+  "blockedValidatorRows": {"CClass":"dedicated_validator_required", "DClass":"not_selectable"},
+  "summary": {"validatorSupportedPatternSpecCount":5,"runtimeCodeChanged":false,"browserProjectionChanged":false}
+}
