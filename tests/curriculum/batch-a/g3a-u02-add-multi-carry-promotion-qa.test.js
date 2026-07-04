@@ -85,4 +85,4 @@ test("D-class G3A-U02 rows remain non-promotable during add multi-carry QA", () 
     assert.equal(kp.htmlSelectableStatus, "not_selectable");
     assert.notEqual(kp.holdReason, null);
   }
-}
+});
