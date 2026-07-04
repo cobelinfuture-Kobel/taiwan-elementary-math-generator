@@ -85,6 +85,13 @@ function createGenerationReport({ plan, allocation, questions, errors, warnings 
   };
 }
 
+function createWorksheetTitle(options, plan) {
+  if (plan.worksheetMode === "batchAKnowledgePoint") {
+    return options.title ?? `Batch A ${plan.sourceUnit?.unitCode ?? ""} 知識點加強`.trim();
+  }
+  return options.title ?? `Batch A ${plan.sourceUnit?.unitCode ?? ""} ${plan.sourceUnit?.title ?? "數學練習卷"}`.trim();
+}
+
 export function buildBatchABrowserWorksheetDocument(options = {}) {
   const generated = generateBatchABrowserQuestions(options);
   if (!generated.ok) {
@@ -112,15 +119,16 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
   const questionPages = paginateQuestionDisplayModels(questionDisplayModels, printLayout);
   const answerKeyPages = printLayout.showAnswerKeyPage ? paginateAnswerKeyItems(answerKeyItems, printLayout) : [];
   const plan = generated.plan;
-  const title = options.title ?? `Batch A ${plan.sourceUnit?.unitCode ?? ""} ${plan.sourceUnit?.title ?? "數學練習卷"}`.trim();
+  const title = createWorksheetTitle(options, plan);
+  const generationMode = plan.worksheetMode === "batchAKnowledgePoint" ? "batchAKnowledgePoint" : "batchASourceId";
 
   const worksheetDocument = {
     schemaVersion: "worksheet-document-v1",
     version: "1",
-    worksheetId: `batch-a-${plan.sourceId}-${plan.questionCount}-${plan.generationSeed}`,
+    worksheetId: `batch-a-${plan.sourceId}-${plan.selectionMode}-${plan.questionCount}-${plan.generationSeed}`,
     worksheetKind: "batchAWorksheet",
     title,
-    subtitle: "Batch A sourceId browser worksheet bridge",
+    subtitle: plan.worksheetMode === "batchAKnowledgePoint" ? "Batch A visible KnowledgePoint browser worksheet bridge" : "Batch A sourceId browser worksheet bridge",
     locale: "zh-Hant",
     generatedAt: null,
     curriculumInfo: {
@@ -155,15 +163,17 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     validationSummary: validation,
     provenance: {
       sourceType: "batch_a_browser_bridge",
-      sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles"],
+      sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles", "S43C13_G3AU02_HTMLSingleVisibleKPEnablement"],
       patternSpecIds: [...plan.patternSpecIds],
       curriculumNodeIds: [plan.sourceId],
+      knowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
+      patternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []),
       productionStorageCategory: "none",
       notes: [BATCH_A_BROWSER_SCOPE.limit]
     },
     sections: [{
       sectionId: `section-${plan.sourceId}`,
-      title: plan.sourceUnit?.title ?? plan.sourceId,
+      title: plan.worksheetMode === "batchAKnowledgePoint" ? "知識點加強" : (plan.sourceUnit?.title ?? plan.sourceId),
       description: null,
       patternIds: [...plan.patternSpecIds],
       questionIds: generated.questions.map((question) => question.id),
@@ -176,11 +186,14 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       ordering: plan.ordering,
       includeAnswerKey: printLayout.showAnswerKeyPage,
       generationSeed: plan.generationSeed,
+      selectionMode: plan.selectionMode,
+      selectedKnowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
+      selectedPatternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []),
       printLayout
     },
     generationContext: {
       questionKind: "batchAWorksheet",
-      generationMode: "batchASourceId",
+      generationMode,
       questionCount: generated.questions.length,
       generationSeed: plan.generationSeed,
       orderingSeed: plan.generationSeed,
@@ -212,6 +225,9 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     batchA: {
       scope: cloneValue(BATCH_A_BROWSER_SCOPE),
       sourceId: plan.sourceId,
+      selectionMode: plan.selectionMode,
+      knowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
+      patternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []),
       patternSpecIds: [...plan.patternSpecIds]
     }
   };
