@@ -67,10 +67,10 @@ test("hidden subtract A-row and D rows are not visible selector candidates", () 
   }
 });
 
-test("build selector projection computes the same availability from source registries", () => {
+test("build selector projection keeps only one visible KP after source expansion", () => {
   const projection = buildSelectorProjection(loadBatchARegistries());
   assert.equal(projection.availability.visibleCount, 1);
-  assert.equal(projection.availability.hiddenPendingCount, 1);
-  assert.equal(projection.availability.notSelectableCount, 2);
+  assert.equal(projection.availability.hiddenPendingCount, 7);
+  assert.equal(projection.availability.notSelectableCount, 4);
   assert.deepEqual(projection.visibleKnowledgePoints.map((row) => row.knowledgePointId), [VISIBLE_KP_ID]);
 });
