@@ -1,0 +1,27 @@
+{
+  "schemaName": "BatchAUnitKnowledgePointExpansionOverlay",
+  "schemaVersion": 1,
+  "task": "S43E13_G5A_U08_KPExpansion",
+  "sourceId": "g5a_u08_5a08",
+  "unitCode": "5A-U08",
+  "unitTitle": "整數四則",
+  "overlayStatus": "registry_expansion_overlay_not_browser_projected",
+  "sourceAuthorityStatus": "manual_visual_read_summary",
+  "browserProjectionChanged": false,
+  "visibleKnowledgePointChange": "none",
+  "existingRuntimePatternSpecs": ["ps_g5a_u08_repeated_subtraction"],
+  "knowledgePoints": [
+    {"id":"kp_g5a_u08_repeated_subtraction","name":"連減整數四則","class":"A","patternSpecId":"ps_g5a_u08_repeated_subtraction","role":"existing_runtime_pattern","html":"hidden","block":"selector_projection_qa_required_before_kp_exposure"},
+    {"id":"kp_g5a_u08_left_to_right_add_sub","name":"整數加減由左到右","class":"B","patternSpecId":"ps_g5a_u08_left_to_right_add_sub_candidate","role":"candidate_existing_generator","html":"hidden","block":"new_pattern_spec_materialization_required"},
+    {"id":"kp_g5a_u08_multiply_divide_before_add_sub","name":"先乘除後加減","class":"C","patternSpecId":"ps_g5a_u08_multiply_divide_before_add_sub_candidate","role":"candidate_rule_pattern","html":"hidden","block":"order_rule_model_required"},
+    {"id":"kp_g5a_u08_parentheses_priority","name":"括號優先","class":"C","patternSpecId":"ps_g5a_u08_parentheses_priority_candidate","role":"candidate_parentheses_pattern","html":"hidden","block":"parentheses_expression_model_required"},
+    {"id":"kp_g5a_u08_nested_parentheses","name":"多層括號","class":"C","patternSpecId":"ps_g5a_u08_nested_parentheses_candidate","role":"candidate_parentheses_pattern","html":"hidden","block":"nested_parentheses_model_required"},
+    {"id":"kp_g5a_u08_mixed_four_ops","name":"整數四則混合","class":"C","patternSpecId":"ps_g5a_u08_mixed_four_ops_candidate","role":"candidate_mixed_ops_pattern","html":"hidden","block":"mixed_ops_policy_required"},
+    {"id":"kp_g5a_u08_simplification_strategy","name":"簡化計算策略","class":"C","patternSpecId":"ps_g5a_u08_simplification_strategy_candidate","role":"candidate_strategy_pattern","html":"hidden","block":"strategy_step_model_required"},
+    {"id":"kp_g5a_u08_missing_value_equation","name":"四則缺數等式","class":"C","patternSpecId":"ps_g5a_u08_missing_value_equation_candidate","role":"candidate_missing_value_pattern","html":"hidden","block":"missing_value_answer_model_required"},
+    {"id":"kp_g5a_u08_word_problem_four_ops","name":"整數四則應用題","class":"D","patternSpecId":null,"role":"out_of_scope","html":"not_selectable","block":"controlled_word_problem_template_required"},
+    {"id":"kp_g5a_u08_answer_reasonableness","name":"答案合理性檢查","class":"D","patternSpecId":null,"role":"out_of_scope","html":"not_selectable","block":"reasonableness_template_required"},
+    {"id":"kp_g5a_u08_multi_step_context","name":"多步驟情境判斷","class":"D","patternSpecId":null,"role":"out_of_scope","html":"not_selectable","block":"multi_step_context_template_required"}
+  ],
+  "summary": {"knowledgePointCount": 11, "supportClassA": 1, "supportClassB": 1, "supportClassC": 6, "supportClassD": 3, "selectableNow": 0, "hiddenRows": 8, "notSelectableRows": 3, "runtimeCodeChanged": false, "browserProjectionChanged": false}
+}
