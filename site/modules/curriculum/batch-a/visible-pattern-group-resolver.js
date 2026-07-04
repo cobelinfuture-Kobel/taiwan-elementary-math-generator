@@ -28,6 +28,31 @@ export const BATCH_A_RESOLVER_ERROR_CODES = Object.freeze({
 
 const VALID_SELECTION_MODES = Object.freeze(Object.values(BATCH_A_RESOLVER_SELECTION_MODES));
 
+const DEFAULT_REGISTRY_ACCESS = Object.freeze({
+  listVisibleBatchAKnowledgePoints,
+  getVisibleBatchAKnowledgePoint,
+  getVisiblePatternGroupsForKnowledgePoint,
+  resolveVisiblePatternSpecIdsForKnowledgePoint
+});
+
+function resolveRegistryAccess(options = {}) {
+  const override = options.registryAccess ?? {};
+  return {
+    listVisibleBatchAKnowledgePoints: typeof override.listVisibleBatchAKnowledgePoints === "function"
+      ? override.listVisibleBatchAKnowledgePoints
+      : DEFAULT_REGISTRY_ACCESS.listVisibleBatchAKnowledgePoints,
+    getVisibleBatchAKnowledgePoint: typeof override.getVisibleBatchAKnowledgePoint === "function"
+      ? override.getVisibleBatchAKnowledgePoint
+      : DEFAULT_REGISTRY_ACCESS.getVisibleBatchAKnowledgePoint,
+    getVisiblePatternGroupsForKnowledgePoint: typeof override.getVisiblePatternGroupsForKnowledgePoint === "function"
+      ? override.getVisiblePatternGroupsForKnowledgePoint
+      : DEFAULT_REGISTRY_ACCESS.getVisiblePatternGroupsForKnowledgePoint,
+    resolveVisiblePatternSpecIdsForKnowledgePoint: typeof override.resolveVisiblePatternSpecIdsForKnowledgePoint === "function"
+      ? override.resolveVisiblePatternSpecIdsForKnowledgePoint
+      : DEFAULT_REGISTRY_ACCESS.resolveVisiblePatternSpecIdsForKnowledgePoint
+  };
+}
+
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
   if (value && typeof value === "object") {
@@ -134,7 +159,8 @@ function allocateEvenly({ patternGroups, patternSpecIdsByGroup, questionCount })
   return allocations.filter((item) => item.questionCount > 0);
 }
 
-export function resolveVisiblePatternGroupSelection(input = {}) {
+export function resolveVisiblePatternGroupSelection(input = {}, options = {}) {
+  const registryAccess = resolveRegistryAccess(options);
   const rawSelectionMode = input.selectionMode ?? BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT;
   const selectionMode = VALID_SELECTION_MODES.includes(rawSelectionMode)
     ? rawSelectionMode
@@ -158,7 +184,7 @@ export function resolveVisiblePatternGroupSelection(input = {}) {
     return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.CROSS_UNIT_NOT_SUPPORTED_YET], 1);
   }
 
-  const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
+  const visibleKnowledgePoints = registryAccess.listVisibleBatchAKnowledgePoints();
   if (visibleKnowledgePoints.length === 0) {
     return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.NO_VISIBLE_KP], 1);
   }
@@ -175,7 +201,7 @@ export function resolveVisiblePatternGroupSelection(input = {}) {
 
   const selectedKnowledgePoints = [];
   for (const knowledgePointId of requestedKnowledgePointIds) {
-    const visibleKnowledgePoint = getVisibleBatchAKnowledgePoint(knowledgePointId);
+    const visibleKnowledgePoint = registryAccess.getVisibleBatchAKnowledgePoint(knowledgePointId);
     if (visibleKnowledgePoint) {
       selectedKnowledgePoints.push(visibleKnowledgePoint);
     }
@@ -203,13 +229,13 @@ export function resolveVisiblePatternGroupSelection(input = {}) {
 
   for (const knowledgePoint of selectedKnowledgePoints) {
     acceptedSourceIds.add(knowledgePoint.sourceId);
-    const visiblePatternGroups = getVisiblePatternGroupsForKnowledgePoint(knowledgePoint.knowledgePointId);
+    const visiblePatternGroups = registryAccess.getVisiblePatternGroupsForKnowledgePoint(knowledgePoint.knowledgePointId);
     const allowedGroups = requestedPatternGroupIds.length > 0
       ? visiblePatternGroups.filter((group) => requestedPatternGroupIds.includes(group.patternGroupId))
       : visiblePatternGroups;
 
     for (const group of allowedGroups) {
-      const patternSpecIds = resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePoint.knowledgePointId)
+      const patternSpecIds = registryAccess.resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePoint.knowledgePointId)
         .filter((patternSpecId) => Array.isArray(group.patternSpecIds) ? group.patternSpecIds.includes(patternSpecId) : true);
 
       if (patternSpecIds.length === 0) {
