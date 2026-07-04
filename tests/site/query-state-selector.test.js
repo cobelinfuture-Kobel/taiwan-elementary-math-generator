@@ -42,6 +42,26 @@ function createS43C10VisibleAddMultiCarrySelectorAccess() {
   };
 }
 
+function createZeroVisibleSelectorAccess() {
+  return {
+    getSelectorAvailability: () => ({
+      visibleCount: 0,
+      hiddenPendingCount: 2,
+      notSelectableCount: 2,
+      bySourceId: {
+        g3a_u02_3a02: {
+          sourceId: "g3a_u02_3a02",
+          visibleCount: 0,
+          hiddenPendingCount: 2,
+          notSelectableCount: 2
+        }
+      }
+    }),
+    getVisibleBatchAKnowledgePoint: () => null,
+    getVisiblePatternGroupsForKnowledgePoint: () => []
+  };
+}
+
 test("parseQueryState keeps existing source-unit params backward compatible", () => {
   const state = parseQueryState("?sourceId=g3a_u02_3a02&questionCount=12&ordering=shuffleAcrossPatterns&answerKey=0&generationSeed=abc&columns=3&rowsPerPage=8");
 
@@ -58,8 +78,22 @@ test("parseQueryState keeps existing source-unit params backward compatible", ()
   assert.deepEqual(state.selectorWarnings, []);
 });
 
-test("parseQueryState drops hidden A-row selector query ids in current zero-visible state", () => {
-  const state = parseQueryState("?sourceId=g3a_u02_3a02&selectionMode=singleKnowledgePoint&kp=kp_g3a_u02_add_multi_carry&pg=pg_g3a_u02_add_multi_carry_seed");
+test("parseQueryState preserves production visible add-multi-carry selector params", () => {
+  const state = parseQueryState("?sourceId=g3a_u02_3a02&selectionMode=singleKnowledgePoint&kp=kp_g3a_u02_add_multi_carry&pg=pg_g3a_u02_add_multi_carry_seed&questionCount=7");
+
+  assert.equal(state.sourceId, "g3a_u02_3a02");
+  assert.equal(state.questionCount, 7);
+  assert.equal(state.selectionMode, "singleKnowledgePoint");
+  assert.deepEqual(state.selectedKnowledgePointIds, ["kp_g3a_u02_add_multi_carry"]);
+  assert.deepEqual(state.selectedPatternGroupIds, ["pg_g3a_u02_add_multi_carry_seed"]);
+  assert.deepEqual(state.selectorWarnings, []);
+});
+
+test("parseQueryState can still drop selector params when a zero-visible selector access is supplied", () => {
+  const state = parseQueryState(
+    "?sourceId=g3a_u02_3a02&selectionMode=singleKnowledgePoint&kp=kp_g3a_u02_add_multi_carry&pg=pg_g3a_u02_add_multi_carry_seed",
+    { selectorAccess: createZeroVisibleSelectorAccess() }
+  );
 
   assert.equal(state.selectionMode, "sourceUnit");
   assert.deepEqual(state.selectedKnowledgePointIds, []);
@@ -69,13 +103,14 @@ test("parseQueryState drops hidden A-row selector query ids in current zero-visi
   assert.ok(state.selectorWarnings.some((warning) => warning.code === "selector_id_dropped"));
 });
 
-test("parseQueryState drops D-row selector query ids in current zero-visible state", () => {
+test("parseQueryState drops D-row selector query ids even when production has one visible KP", () => {
   const state = parseQueryState("?sourceId=g3a_u02_3a02&selectionMode=singleKnowledgePoint&kp=kp_g3a_u02_word_problem_estimation_add_sub&pg=pg_g3a_u02_word_problem_estimation_add_sub");
 
   assert.equal(state.selectionMode, "sourceUnit");
   assert.deepEqual(state.selectedKnowledgePointIds, []);
   assert.deepEqual(state.selectedPatternGroupIds, []);
-  assert.ok(state.selectorWarnings.length >= 2);
+  assert.ok(state.selectorWarnings.some((warning) => warning.code === "selector_id_dropped"));
+  assert.ok(state.selectorWarnings.some((warning) => warning.code === "selector_mode_fallback"));
 });
 
 test("parseQueryState preserves future visible single-KP selector params when selector access exposes one visible KP", () => {
@@ -140,7 +175,7 @@ test("writeQueryStateFromState does not write selector params while current sele
   assert.equal(url.searchParams.get("pg"), null);
 });
 
-test("writeQueryStateFromState writes selector params for future visible single-KP state", () => {
+test("writeQueryStateFromState writes selector params for production visible single-KP state", () => {
   let replacedUrl = null;
   global.window = {
     location: {
@@ -159,7 +194,7 @@ test("writeQueryStateFromState writes selector params for future visible single-
       questionCount: 7,
       ordering: "groupedByPattern",
       includeAnswerKey: true,
-      generationSeed: "s43c10-query-survival",
+      generationSeed: "s43c12-query-survival",
       columns: 4,
       rowsPerPage: 10,
       selectionMode: "singleKnowledgePoint",
