@@ -108,11 +108,42 @@ textarea {
   background: var(--paper);
 }
 
+.field select:disabled,
+.field option:disabled {
+  color: #788591;
+}
+
 .toggle {
   display: flex;
   align-items: start;
   gap: 10px;
   line-height: 1.45;
+}
+
+.availability-summary,
+.knowledge-point-panel,
+.selector-warning-list {
+  border: 1px solid var(--line);
+  background: #fbfcfd;
+  padding: 10px 12px;
+  line-height: 1.45;
+  font-size: 0.88rem;
+}
+
+.availability-summary {
+  color: #334155;
+}
+
+.knowledge-point-panel:empty::before {
+  content: "尚無可選知識點。";
+  color: #52606d;
+}
+
+.selector-warning-list {
+  margin: 0;
+  padding-left: 28px;
+  color: var(--danger);
+  background: var(--danger-soft);
 }
 
 .toolbar {
