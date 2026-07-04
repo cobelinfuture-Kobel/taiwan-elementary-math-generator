@@ -41,6 +41,32 @@ function createS43C9VisibleAddMultiCarryFixtureAccess() {
   };
 }
 
+function assertAddMultiCarryResolved(result, expectedQuestionCount) {
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.errors, []);
+  assert.equal(result.worksheetMode, "batchAKnowledgePoint");
+  assert.equal(result.selectionMode, BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
+  assert.deepEqual(result.sourceIds, ["g3a_u02_3a02"]);
+  assert.deepEqual(result.knowledgePointIds, ["kp_g3a_u02_add_multi_carry"]);
+  assert.deepEqual(result.patternGroupIds, ["pg_g3a_u02_add_multi_carry_seed"]);
+  assert.deepEqual(result.patternSpecIds, ["ps_g3a_u02_4digit_add_multi_carry"]);
+  assert.deepEqual(result.allocation, [{
+    patternGroupId: "pg_g3a_u02_add_multi_carry_seed",
+    patternSpecId: "ps_g3a_u02_4digit_add_multi_carry",
+    questionCount: expectedQuestionCount
+  }]);
+  assert.equal(result.visibilityValidation.visibleAcceptedCount, 1);
+  assert.equal(result.visibilityValidation.rejectedCount, 0);
+  assert.deepEqual(result.visibilityValidation.rejectionCodes, []);
+  assert.deepEqual(result.provenance, {
+    resolver: "visiblePatternGroupResolver",
+    sourceIds: ["g3a_u02_3a02"],
+    knowledgePointIds: ["kp_g3a_u02_add_multi_carry"],
+    patternGroupIds: ["pg_g3a_u02_add_multi_carry_seed"],
+    patternSpecIds: ["ps_g3a_u02_4digit_add_multi_carry"]
+  });
+}
+
 test("sourceUnit mode returns a safe handoff to the existing sourceId path", () => {
   const result = resolveVisiblePatternGroupSelection({
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT,
@@ -64,7 +90,9 @@ test("sourceUnit mode returns a safe handoff to the existing sourceId path", () 
   assert.deepEqual(result.errors, []);
 });
 
-test("singleKnowledgePoint mode fails safely when current selector projection has zero visible KPs", () => {
+test("singleKnowledgePoint mode resolves production visible add-multi-carry KP", () => {
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 1);
+
   const result = resolveVisiblePatternGroupSelection({
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     sourceId: "g3a_u02_3a02",
@@ -73,11 +101,7 @@ test("singleKnowledgePoint mode fails safely when current selector projection ha
     questionCount: 10
   });
 
-  assert.equal(result.ok, false);
-  assert.deepEqual(result.patternSpecIds, []);
-  assert.deepEqual(result.allocation, []);
-  assert.ok(errorCodes(result).includes(BATCH_A_RESOLVER_ERROR_CODES.NO_VISIBLE_KP));
-  assert.equal(result.visibilityValidation.rejectedCount, 1);
+  assertAddMultiCarryResolved(result, 10);
 });
 
 test("hidden A-row IDs do not resolve to PatternSpec IDs", () => {
@@ -94,7 +118,7 @@ test("hidden A-row IDs do not resolve to PatternSpec IDs", () => {
   assert.deepEqual(result.patternGroupIds, []);
   assert.deepEqual(result.patternSpecIds, []);
   assert.deepEqual(result.allocation, []);
-  assert.ok(errorCodes(result).includes(BATCH_A_RESOLVER_ERROR_CODES.NO_VISIBLE_KP));
+  assert.ok(errorCodes(result).includes(BATCH_A_RESOLVER_ERROR_CODES.KP_NOT_VISIBLE));
 });
 
 test("D-row IDs do not resolve to PatternSpec IDs", () => {
@@ -111,7 +135,7 @@ test("D-row IDs do not resolve to PatternSpec IDs", () => {
   assert.deepEqual(result.patternGroupIds, []);
   assert.deepEqual(result.patternSpecIds, []);
   assert.deepEqual(result.allocation, []);
-  assert.ok(errorCodes(result).includes(BATCH_A_RESOLVER_ERROR_CODES.NO_VISIBLE_KP));
+  assert.ok(errorCodes(result).includes(BATCH_A_RESOLVER_ERROR_CODES.KP_NOT_VISIBLE));
 });
 
 test("unknown selection mode returns deterministic selection-mode error", () => {
@@ -141,9 +165,7 @@ test("cross-unit KP mode remains deferred before cross-unit resolver QA", () => 
   assert.deepEqual(result.allocation, []);
 });
 
-test("S43C9 positive fixture resolves add-multi-carry visible KP without promoting production registry", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 0, "production selector projection must remain zero-visible");
-
+test("S43C9 fixture still resolves add-multi-carry visible KP through injected registry access", () => {
   const result = resolveVisiblePatternGroupSelection({
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     sourceId: "g3a_u02_3a02",
@@ -157,27 +179,5 @@ test("S43C9 positive fixture resolves add-multi-carry visible KP without promoti
     registryAccess: createS43C9VisibleAddMultiCarryFixtureAccess()
   });
 
-  assert.equal(result.ok, true);
-  assert.deepEqual(result.errors, []);
-  assert.equal(result.worksheetMode, "batchAKnowledgePoint");
-  assert.equal(result.selectionMode, BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
-  assert.deepEqual(result.sourceIds, ["g3a_u02_3a02"]);
-  assert.deepEqual(result.knowledgePointIds, ["kp_g3a_u02_add_multi_carry"]);
-  assert.deepEqual(result.patternGroupIds, ["pg_g3a_u02_add_multi_carry_seed"]);
-  assert.deepEqual(result.patternSpecIds, ["ps_g3a_u02_4digit_add_multi_carry"]);
-  assert.deepEqual(result.allocation, [{
-    patternGroupId: "pg_g3a_u02_add_multi_carry_seed",
-    patternSpecId: "ps_g3a_u02_4digit_add_multi_carry",
-    questionCount: 7
-  }]);
-  assert.equal(result.visibilityValidation.visibleAcceptedCount, 1);
-  assert.equal(result.visibilityValidation.rejectedCount, 0);
-  assert.deepEqual(result.visibilityValidation.rejectionCodes, []);
-  assert.deepEqual(result.provenance, {
-    resolver: "visiblePatternGroupResolver",
-    sourceIds: ["g3a_u02_3a02"],
-    knowledgePointIds: ["kp_g3a_u02_add_multi_carry"],
-    patternGroupIds: ["pg_g3a_u02_add_multi_carry_seed"],
-    patternSpecIds: ["ps_g3a_u02_4digit_add_multi_carry"]
-  });
+  assertAddMultiCarryResolved(result, 7);
 });
