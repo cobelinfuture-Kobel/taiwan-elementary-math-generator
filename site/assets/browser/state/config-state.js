@@ -1,4 +1,9 @@
 import { OPERATORS } from "../../../modules/core/constants.js";
+import {
+  BATCH_A_SELECTOR_AVAILABILITY,
+  getVisibleBatchAKnowledgePoint,
+  getVisiblePatternGroupsForKnowledgePoint
+} from "../../../modules/curriculum/registry/batch-a-selector-candidates.js";
 import { getPresetDefinition } from "./presets.js";
 import {
   CONFIG_VALIDATION_MESSAGES,
@@ -6,8 +11,24 @@ import {
 } from "./config-validation.js";
 
 export const WORKSHEET_MODES = Object.freeze({
-  BATCH_A_SOURCE: "batchASource"
+  BATCH_A_SOURCE: "batchASource",
+  BATCH_A_KNOWLEDGE_POINT: "batchAKnowledgePoint"
 });
+
+export const BATCH_A_SELECTION_MODES = Object.freeze({
+  SOURCE_UNIT: "sourceUnit",
+  SINGLE_KNOWLEDGE_POINT: "singleKnowledgePoint",
+  MIXED_KNOWLEDGE_POINTS_SAME_UNIT: "mixedKnowledgePointsSameUnit",
+  MIXED_KNOWLEDGE_POINTS_CROSS_UNIT: "mixedKnowledgePointsCrossUnit"
+});
+
+export const SELECTOR_WARNING_CODES = Object.freeze({
+  SELECTOR_ID_DROPPED: "selector_id_dropped",
+  SELECTOR_MODE_FALLBACK: "selector_mode_fallback",
+  NO_VISIBLE_KNOWLEDGE_POINTS: "no_visible_knowledge_points"
+});
+
+const VALID_SELECTION_MODES = Object.freeze(Object.values(BATCH_A_SELECTION_MODES));
 
 function cloneValue(value) {
   if (Array.isArray(value)) {
@@ -33,6 +54,113 @@ function normalizeOrderingMode(ordering) {
   return ["groupedByPattern", "shuffleAcrossPatterns"].includes(ordering) ? ordering : "groupedByPattern";
 }
 
+function normalizeSelectionMode(selectionMode) {
+  return VALID_SELECTION_MODES.includes(selectionMode) ? selectionMode : BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+}
+
+function normalizeIdArray(value) {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.map((item) => String(item ?? "").trim()).filter(Boolean))];
+}
+
+function createSelectorWarning(code, details = {}) {
+  return { code, ...details };
+}
+
+function createSelectorAvailability() {
+  return cloneValue(BATCH_A_SELECTOR_AVAILABILITY);
+}
+
+function getVisiblePatternGroupIdSet(knowledgePointIds) {
+  const ids = new Set();
+  for (const knowledgePointId of knowledgePointIds) {
+    for (const group of getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)) {
+      if (group?.patternGroupId) ids.add(group.patternGroupId);
+    }
+  }
+  return ids;
+}
+
+export function normalizeBatchASelectorState(batchA = {}) {
+  const availability = createSelectorAvailability();
+  const warnings = Array.isArray(batchA.selectorWarnings) ? cloneValue(batchA.selectorWarnings) : [];
+  let selectionMode = normalizeSelectionMode(batchA.selectionMode);
+
+  if (selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT) {
+    return {
+      selectionMode,
+      selectedKnowledgePointIds: [],
+      selectedPatternGroupIds: [],
+      selectorAvailability: availability,
+      selectorWarnings: warnings
+    };
+  }
+
+  if ((availability.visibleCount ?? 0) <= 0) {
+    warnings.push(createSelectorWarning(SELECTOR_WARNING_CODES.NO_VISIBLE_KNOWLEDGE_POINTS, {
+      sourceId: batchA.sourceId
+    }));
+    warnings.push(createSelectorWarning(SELECTOR_WARNING_CODES.SELECTOR_MODE_FALLBACK, {
+      from: selectionMode,
+      to: BATCH_A_SELECTION_MODES.SOURCE_UNIT
+    }));
+    selectionMode = BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+    return {
+      selectionMode,
+      selectedKnowledgePointIds: [],
+      selectedPatternGroupIds: [],
+      selectorAvailability: availability,
+      selectorWarnings: warnings
+    };
+  }
+
+  const requestedKnowledgePointIds = normalizeIdArray(batchA.selectedKnowledgePointIds);
+  const selectedKnowledgePointIds = requestedKnowledgePointIds.filter((knowledgePointId) => getVisibleBatchAKnowledgePoint(knowledgePointId));
+  const droppedKnowledgePointCount = requestedKnowledgePointIds.length - selectedKnowledgePointIds.length;
+
+  if (droppedKnowledgePointCount > 0) {
+    warnings.push(createSelectorWarning(SELECTOR_WARNING_CODES.SELECTOR_ID_DROPPED, {
+      field: "knowledgePointIds",
+      count: droppedKnowledgePointCount
+    }));
+  }
+
+  const visiblePatternGroupIds = getVisiblePatternGroupIdSet(selectedKnowledgePointIds);
+  const requestedPatternGroupIds = normalizeIdArray(batchA.selectedPatternGroupIds);
+  const selectedPatternGroupIds = requestedPatternGroupIds.filter((patternGroupId) => visiblePatternGroupIds.has(patternGroupId));
+  const droppedPatternGroupCount = requestedPatternGroupIds.length - selectedPatternGroupIds.length;
+
+  if (droppedPatternGroupCount > 0) {
+    warnings.push(createSelectorWarning(SELECTOR_WARNING_CODES.SELECTOR_ID_DROPPED, {
+      field: "patternGroupIds",
+      count: droppedPatternGroupCount
+    }));
+  }
+
+  if (selectedKnowledgePointIds.length === 0) {
+    warnings.push(createSelectorWarning(SELECTOR_WARNING_CODES.SELECTOR_MODE_FALLBACK, {
+      from: selectionMode,
+      to: BATCH_A_SELECTION_MODES.SOURCE_UNIT
+    }));
+    selectionMode = BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+    return {
+      selectionMode,
+      selectedKnowledgePointIds: [],
+      selectedPatternGroupIds: [],
+      selectorAvailability: availability,
+      selectorWarnings: warnings
+    };
+  }
+
+  return {
+    selectionMode,
+    selectedKnowledgePointIds,
+    selectedPatternGroupIds,
+    selectorAvailability: availability,
+    selectorWarnings: warnings
+  };
+}
+
 function createBaseUiState() {
   return {
     isDirty: false,
@@ -53,7 +181,7 @@ function createBaseDerivedState() {
 }
 
 function createBatchAStateFromConfig(config, options = {}) {
-  return {
+  const baseState = {
     sourceId: options.sourceId ?? "g3a_u02_3a02",
     questionCount: positiveInteger(options.questionCount ?? config?.generation?.questionCount, 20),
     ordering: normalizeOrderingMode(options.ordering ?? config?.patternPlan?.worksheetOrdering?.mode),
@@ -61,6 +189,17 @@ function createBatchAStateFromConfig(config, options = {}) {
     generationSeed: String(options.generationSeed ?? "batch-a-browser"),
     columns: positiveInteger(options.columns ?? config?.printLayout?.columns, 4, 1, 6),
     rowsPerPage: positiveInteger(options.rowsPerPage ?? config?.printLayout?.rowsPerPage, 10, 1, 20)
+  };
+
+  return {
+    ...baseState,
+    ...normalizeBatchASelectorState({
+      ...baseState,
+      selectionMode: options.selectionMode,
+      selectedKnowledgePointIds: options.selectedKnowledgePointIds,
+      selectedPatternGroupIds: options.selectedPatternGroupIds,
+      selectorWarnings: options.selectorWarnings
+    })
   };
 }
 
@@ -70,9 +209,16 @@ function syncBatchAFromDraftConfig(state, patch = {}) {
     ...createBatchAStateFromConfig(state.draftConfig, {
       sourceId: state.batchA?.sourceId,
       generationSeed: state.batchA?.generationSeed,
+      selectionMode: state.batchA?.selectionMode,
+      selectedKnowledgePointIds: state.batchA?.selectedKnowledgePointIds,
+      selectedPatternGroupIds: state.batchA?.selectedPatternGroupIds,
+      selectorWarnings: state.batchA?.selectorWarnings,
       ...patch
     })
   };
+  state.worksheetMode = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
+    ? WORKSHEET_MODES.BATCH_A_SOURCE
+    : WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT;
   return state;
 }
 
@@ -99,14 +245,17 @@ export function createConfigState(options = {}) {
   const preset = getPresetDefinition(options.presetId ?? "default");
   const queryState = options.queryState ?? {};
   const draftConfig = cloneValue(preset.draftConfig);
+  const batchA = createBatchAStateFromConfig(draftConfig, queryState);
 
   return {
     version: "1",
-    worksheetMode: WORKSHEET_MODES.BATCH_A_SOURCE,
+    worksheetMode: batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
+      ? WORKSHEET_MODES.BATCH_A_SOURCE
+      : WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT,
     presetId: preset.id,
     draftConfig,
     seeds: cloneValue(preset.seeds),
-    batchA: createBatchAStateFromConfig(draftConfig, queryState),
+    batchA,
     ui: createBaseUiState(),
     derived: createBaseDerivedState(),
     lastWorksheetDocument: null,
@@ -383,6 +532,54 @@ export function setBatchAPrintLayout(state, patch = {}) {
   return state;
 }
 
+export function setBatchASelectionMode(state, selectionMode) {
+  const normalized = normalizeBatchASelectorState({
+    ...state.batchA,
+    selectionMode
+  });
+  state.batchA = {
+    ...state.batchA,
+    ...normalized
+  };
+  state.worksheetMode = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
+    ? WORKSHEET_MODES.BATCH_A_SOURCE
+    : WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT;
+  state.ui.isDirty = true;
+  return state;
+}
+
+export function setBatchASelectedKnowledgePointIds(state, selectedKnowledgePointIds = []) {
+  const normalized = normalizeBatchASelectorState({
+    ...state.batchA,
+    selectedKnowledgePointIds
+  });
+  state.batchA = {
+    ...state.batchA,
+    ...normalized
+  };
+  state.worksheetMode = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
+    ? WORKSHEET_MODES.BATCH_A_SOURCE
+    : WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT;
+  state.ui.isDirty = true;
+  return state;
+}
+
+export function setBatchASelectedPatternGroupIds(state, selectedPatternGroupIds = []) {
+  const normalized = normalizeBatchASelectorState({
+    ...state.batchA,
+    selectedPatternGroupIds
+  });
+  state.batchA = {
+    ...state.batchA,
+    ...normalized
+  };
+  state.worksheetMode = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
+    ? WORKSHEET_MODES.BATCH_A_SOURCE
+    : WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT;
+  state.ui.isDirty = true;
+  return state;
+}
+
 export function getBatchAWorksheetPlan(state) {
   if (!state.batchA) {
     syncBatchAFromDraftConfig(state);
@@ -394,6 +591,9 @@ export function getBatchAWorksheetPlan(state) {
     ordering: state.batchA.ordering,
     includeAnswerKey: state.batchA.includeAnswerKey,
     generationSeed: state.batchA.generationSeed,
+    selectionMode: state.batchA.selectionMode,
+    selectedKnowledgePointIds: cloneValue(state.batchA.selectedKnowledgePointIds ?? []),
+    selectedPatternGroupIds: cloneValue(state.batchA.selectedPatternGroupIds ?? []),
     printLayout: {
       columns: state.batchA.columns,
       rowsPerPage: state.batchA.rowsPerPage,
