@@ -24,6 +24,25 @@
         <p class="help-text" id="batch-a-source-help">13 個 Batch A sourceId 可選。</p>
       </div>
 
+      <div class="control-group" id="batch-a-knowledge-point-selector" aria-label="Batch A KnowledgePoint selector">
+        <h2>知識點選擇</h2>
+        <label class="field">
+          <span>出題模式</span>
+          <select id="batch-a-selection-mode-select" name="batchASelectionMode">
+            <option value="sourceUnit" selected>單元出題</option>
+            <option value="singleKnowledgePoint" disabled>單一知識點加強</option>
+            <option value="mixedKnowledgePointsSameUnit" disabled>同單元知識點混合</option>
+            <option value="mixedKnowledgePointsCrossUnit" disabled>跨單元知識點混合</option>
+          </select>
+        </label>
+        <p class="help-text" id="batch-a-knowledge-point-empty-state">目前此單元尚無已通過 QA 的可選知識點。請先使用單元出題，或等待 KnowledgePoint QA 完成。</p>
+        <div class="availability-summary" id="batch-a-knowledge-point-availability-summary" aria-live="polite">
+          可選知識點：0｜已建立但尚未開放：0｜不可在 S43 使用：0
+        </div>
+        <div class="knowledge-point-panel" id="batch-a-knowledge-point-panel" aria-live="polite"></div>
+        <ul class="selector-warning-list" id="batch-a-knowledge-point-warning-list" aria-live="polite"></ul>
+      </div>
+
       <div class="control-group">
         <h2>題目設定</h2>
         <div class="control-grid">
