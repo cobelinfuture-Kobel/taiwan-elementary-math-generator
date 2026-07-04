@@ -92,10 +92,47 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
     answerMax: 891,
     skill: "integer_multiplication"
   }),
+  ps_g3a_u03_10_multiple_by_1digit: expressionPattern({
+    patternSpecId: "ps_g3a_u03_10_multiple_by_1digit",
+    sourceId: "g3a_u03_3a03",
+    title: "10 的倍數乘以一位數",
+    operators: [[OPERATORS.MULTIPLY]],
+    ranges: [[10, 90], [2, 9]],
+    answerMax: 810,
+    skill: "integer_multiplication"
+  }),
+  ps_g3a_u03_3digit_by_1digit: expressionPattern({
+    patternSpecId: "ps_g3a_u03_3digit_by_1digit",
+    sourceId: "g3a_u03_3a03",
+    title: "三位數乘以一位數",
+    operators: [[OPERATORS.MULTIPLY]],
+    ranges: [[100, 999], [2, 9]],
+    answerMax: 8991,
+    skill: "integer_multiplication"
+  }),
+  ps_g3a_u03_consecutive_multiplication_two_step: expressionPattern({
+    patternSpecId: "ps_g3a_u03_consecutive_multiplication_two_step",
+    sourceId: "g3a_u03_3a03",
+    title: "兩步驟連續乘法",
+    operators: [[OPERATORS.MULTIPLY], [OPERATORS.MULTIPLY]],
+    ranges: [[2, 9], [2, 9], [2, 9]],
+    answerMax: 729,
+    skill: "integer_multiplication"
+  }),
   ps_g3a_u06_exact_division_check: expressionPattern({
     patternSpecId: "ps_g3a_u06_exact_division_check",
     sourceId: "g3a_u06_3a06",
     title: "二位數除以一位數整除",
+    operators: [[OPERATORS.DIVIDE]],
+    ranges: [[10, 99], [2, 9]],
+    answerMax: 99,
+    skill: "integer_division_exact",
+    division: { allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true }
+  }),
+  ps_g3a_u06_divisibility_exact_check: expressionPattern({
+    patternSpecId: "ps_g3a_u06_divisibility_exact_check",
+    sourceId: "g3a_u06_3a06",
+    title: "整除檢查",
     operators: [[OPERATORS.DIVIDE]],
     ranges: [[10, 99], [2, 9]],
     answerMax: 99,
@@ -109,6 +146,16 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
     operators: [[OPERATORS.DIVIDE]],
     ranges: [[100, 999], [2, 9]],
     answerMax: 999,
+    skill: "integer_division_exact",
+    division: { allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true }
+  }),
+  ps_g3b_u01_2digit_by_1digit_regroup_tens: expressionPattern({
+    patternSpecId: "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+    sourceId: "g3b_u01_3b01",
+    title: "二位數除以一位數退位",
+    operators: [[OPERATORS.DIVIDE]],
+    ranges: [[10, 99], [2, 9]],
+    answerMax: 99,
     skill: "integer_division_exact",
     division: { allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true }
   }),
@@ -233,9 +280,14 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
 export const BATCH_A_SOURCE_PATTERN_INDEX = Object.freeze({
   g3a_u01_3a01: Object.freeze(["ps_g3a_u01_4digit_compare"]),
   g3a_u02_3a02: Object.freeze(["ps_g3a_u02_4digit_add_multi_carry", "ps_g3a_u02_4digit_sub_multi_borrow"]),
-  g3a_u03_3a03: Object.freeze(["ps_g3a_u03_2digit_by_1digit_carry"]),
-  g3a_u06_3a06: Object.freeze(["ps_g3a_u06_exact_division_check"]),
-  g3b_u01_3b01: Object.freeze(["ps_g3b_u01_3digit_by_1digit_regroup_hundreds"]),
+  g3a_u03_3a03: Object.freeze([
+    "ps_g3a_u03_2digit_by_1digit_carry",
+    "ps_g3a_u03_10_multiple_by_1digit",
+    "ps_g3a_u03_3digit_by_1digit",
+    "ps_g3a_u03_consecutive_multiplication_two_step"
+  ]),
+  g3a_u06_3a06: Object.freeze(["ps_g3a_u06_exact_division_check", "ps_g3a_u06_divisibility_exact_check"]),
+  g3b_u01_3b01: Object.freeze(["ps_g3b_u01_3digit_by_1digit_regroup_hundreds", "ps_g3b_u01_2digit_by_1digit_regroup_tens"]),
   g3b_u04_3b04: Object.freeze(["ps_g3b_u04_consecutive_multiplication"]),
   g3b_u08_3b08: Object.freeze(["ps_g3b_u08_division_check_exact"]),
   g4a_u01_4a01: Object.freeze(["ps_g4a_u01_compare_8digit", "ps_g4a_u01_within_100million_compare"]),
