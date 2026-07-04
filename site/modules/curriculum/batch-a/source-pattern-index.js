@@ -1,6 +1,16 @@
 import { OPERATORS } from "../../core/constants.js";
 
-function expressionPattern({ patternSpecId, sourceId, title, operators, ranges, answerMax, skill, division = null }) {
+function freezeCarryPolicy(carryPolicy) {
+  if (!carryPolicy) return null;
+  return Object.freeze({
+    ...carryPolicy,
+    operandPositions: Object.freeze([...(carryPolicy.operandPositions ?? [])]),
+    checkedColumns: Object.freeze([...(carryPolicy.checkedColumns ?? [])])
+  });
+}
+
+function expressionPattern({ patternSpecId, sourceId, title, operators, ranges, answerMax, skill, division = null, carryPolicy = null }) {
+  const normalizedCarryPolicy = freezeCarryPolicy(carryPolicy);
   return Object.freeze({
     patternSpecId,
     sourceId,
@@ -16,6 +26,7 @@ function expressionPattern({ patternSpecId, sourceId, title, operators, ranges, 
       requireInteger: true
     },
     division,
+    carryPolicy: normalizedCarryPolicy,
     canonicalSkillIds: [skill],
     skillTags: [skill],
     difficultyTags: ["batch_a_browser_bridge"]
@@ -51,7 +62,17 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
     operators: [[OPERATORS.ADD]],
     ranges: [[1000, 4999], [1000, 4999]],
     answerMax: 9999,
-    skill: "integer_addition"
+    skill: "integer_addition",
+    carryPolicy: {
+      kind: "addition_carry",
+      mode: "at_least_one_carry",
+      operandPositions: [1, 2],
+      base: 10,
+      scope: "generated_question",
+      validatorRequired: true,
+      checkedColumns: ["ones", "tens", "hundreds"],
+      allowCarryIntoTenThousands: false
+    }
   }),
   ps_g3a_u02_4digit_sub_multi_borrow: expressionPattern({
     patternSpecId: "ps_g3a_u02_4digit_sub_multi_borrow",
