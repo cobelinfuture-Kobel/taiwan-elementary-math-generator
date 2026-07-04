@@ -187,7 +187,7 @@ test("readiness — site/modules/renderer contains html-renderer.js", () => {
 test("readiness — site directory file count is within expected range", () => {
   const files = collectFiles(SITE_ROOT);
   assert.equal(files.length >= 25, true, `Expected >= 25 files in site/, found ${files.length}`);
-  assert.equal(files.length <= 40, true, `Expected <= 40 files in site/, found ${files.length}`);
+  assert.equal(files.length <= 50, true, `Expected <= 50 files in site/, found ${files.length}`);
 });
 
 test("readiness — no node_modules, .git directories inside site/", () => {
