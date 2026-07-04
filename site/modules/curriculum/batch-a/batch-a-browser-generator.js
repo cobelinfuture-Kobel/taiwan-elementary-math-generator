@@ -11,9 +11,19 @@ import {
   validateBatchABrowserPlan,
   validateBatchABrowserQuestion
 } from "./batch-a-browser-validator.js";
+import {
+  BATCH_A_RESOLVER_SELECTION_MODES,
+  resolveVisiblePatternGroupSelection
+} from "./visible-pattern-group-resolver.js";
 
 function issue(code, path, message) {
   return { code, severity: "error", path, message };
+}
+
+function cloneValue(value) {
+  if (Array.isArray(value)) return value.map((item) => cloneValue(item));
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, nested]) => [key, cloneValue(nested)]));
+  return value;
 }
 
 function rangeToOperandRange(range, position) {
@@ -170,18 +180,67 @@ function deterministicallyShuffleQuestions(questions, plan) {
   return shuffled;
 }
 
+function resolverIssuesToErrors(resolverResult) {
+  return (resolverResult?.errors ?? []).map((entry) => issue(
+    entry.code ?? "batch_a_kp_resolver_error",
+    "selectionMode",
+    `Visible KnowledgePoint selection could not be resolved: ${entry.code ?? "unknown"}.`
+  ));
+}
+
+function buildSourceUnitPlan(basePlan) {
+  return {
+    ...basePlan,
+    worksheetMode: "batchASource",
+    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT,
+    selectedKnowledgePointIds: [],
+    selectedPatternGroupIds: [],
+    patternSpecIds: getBatchAPatternSpecIdsForSource(basePlan.sourceId),
+    allocation: null,
+    resolverResult: null
+  };
+}
+
+function buildKnowledgePointPlan(basePlan, options = {}) {
+  const resolverResult = resolveVisiblePatternGroupSelection({
+    selectionMode: options.selectionMode,
+    sourceId: basePlan.sourceId,
+    selectedKnowledgePointIds: options.selectedKnowledgePointIds,
+    selectedPatternGroupIds: options.selectedPatternGroupIds,
+    questionCount: basePlan.questionCount,
+    ordering: basePlan.ordering,
+    generationSeed: basePlan.generationSeed,
+    includeAnswerKey: basePlan.includeAnswerKey
+  });
+
+  return {
+    ...basePlan,
+    worksheetMode: resolverResult.worksheetMode ?? "batchAKnowledgePoint",
+    selectionMode: resolverResult.selectionMode ?? options.selectionMode,
+    selectedKnowledgePointIds: cloneValue(resolverResult.knowledgePointIds ?? []),
+    selectedPatternGroupIds: cloneValue(resolverResult.patternGroupIds ?? []),
+    patternSpecIds: cloneValue(resolverResult.patternSpecIds ?? []),
+    allocation: cloneValue(resolverResult.allocation ?? []),
+    resolverResult
+  };
+}
+
 export function buildBatchABrowserPlan(options = {}) {
   const sourceId = options.sourceId;
   const questionCount = Number.isInteger(options.questionCount) ? options.questionCount : 20;
-  return {
+  const basePlan = {
     sourceId,
     questionCount,
     ordering: options.ordering ?? "groupedByPattern",
     includeAnswerKey: options.includeAnswerKey !== false,
     generationSeed: String(options.generationSeed ?? "batch-a-browser"),
-    sourceUnit: getBatchASourceUnit(sourceId),
-    patternSpecIds: getBatchAPatternSpecIdsForSource(sourceId)
+    sourceUnit: getBatchASourceUnit(sourceId)
   };
+  const selectionMode = options.selectionMode ?? BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT;
+
+  return selectionMode === BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT
+    ? buildSourceUnitPlan(basePlan)
+    : buildKnowledgePointPlan(basePlan, { ...options, selectionMode });
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
@@ -191,7 +250,13 @@ export function generateBatchABrowserQuestions(options = {}) {
     return { ok: false, plan, questions: [], allocation: [], errors: validation.errors, warnings: validation.warnings };
   }
 
-  const allocation = allocateCounts(plan.patternSpecIds, plan.questionCount);
+  if (plan.resolverResult && !plan.resolverResult.ok) {
+    return { ok: false, plan, questions: [], allocation: [], errors: resolverIssuesToErrors(plan.resolverResult), warnings: plan.resolverResult.warnings ?? [] };
+  }
+
+  const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0
+    ? cloneValue(plan.allocation)
+    : allocateCounts(plan.patternSpecIds, plan.questionCount);
   const questions = [];
   const errors = [];
   const warnings = [];
