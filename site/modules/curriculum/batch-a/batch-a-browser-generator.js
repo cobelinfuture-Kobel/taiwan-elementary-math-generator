@@ -1,6 +1,7 @@
 import { QUESTION_KINDS, SUPPORT_STATUSES } from "../../core/constants.js";
 import { generateQuestionFromPattern } from "../../core/generate-expression.js";
 import { createSeededRandom, randomIntBetween } from "../../core/random.js";
+import { validateBatchAQuestionCarryPolicy } from "./carry-policy.js";
 import { getBatchASourceUnit } from "./source-units.js";
 import {
   getBatchABrowserPatternDefinition,
@@ -91,14 +92,9 @@ function generateComparisonQuestion(definition, options = {}) {
   };
 }
 
-function generateExpressionQuestion(definition, options = {}) {
-  const pattern = createRuntimeExpressionPattern(definition);
-  const result = generateQuestionFromPattern(pattern, options);
-  if (!result.ok || !result.question) {
-    return result;
-  }
-  result.question.metadata = {
-    ...(result.question.metadata ?? {}),
+function attachBatchAMetadata(question, definition) {
+  question.metadata = {
+    ...(question.metadata ?? {}),
     sourceId: definition.sourceId,
     patternId: definition.patternSpecId,
     patternTags: ["batch_a", "browser_bridge", definition.sourceId, definition.patternSpecId],
@@ -107,7 +103,47 @@ function generateExpressionQuestion(definition, options = {}) {
     curriculumNodeIds: [definition.sourceId],
     canonicalSkillIds: [...definition.canonicalSkillIds]
   };
-  return result;
+  return question;
+}
+
+function generateExpressionQuestion(definition, options = {}) {
+  const pattern = createRuntimeExpressionPattern(definition);
+  const carryPolicyRequired = Boolean(definition.carryPolicy);
+  const maxCarryAttempts = carryPolicyRequired ? (options.carryPolicyMaxAttempts ?? 500) : 1;
+  const carryPolicyErrors = [];
+
+  for (let carryAttempt = 1; carryAttempt <= maxCarryAttempts; carryAttempt += 1) {
+    const generated = generateQuestionFromPattern(pattern, carryPolicyRequired
+      ? { ...options, seed: `${options.seed}:carryPolicy:${carryAttempt}` }
+      : options);
+    if (!generated.ok || !generated.question) {
+      if (!carryPolicyRequired) {
+        return generated;
+      }
+      carryPolicyErrors.push(...(generated.errors ?? []));
+      continue;
+    }
+
+    attachBatchAMetadata(generated.question, definition);
+    const carryPolicyCheck = validateBatchAQuestionCarryPolicy(definition, generated.question);
+    if (carryPolicyCheck.ok) {
+      return generated;
+    }
+    carryPolicyErrors.push(...carryPolicyCheck.errors);
+  }
+
+  return {
+    ok: false,
+    question: null,
+    errors: [
+      issue(
+        "batch_a_carry_policy_generation_exhausted",
+        "carryPolicy",
+        `Unable to generate a carry-policy compliant question for '${definition.patternSpecId}'.`
+      )
+    ],
+    warnings: []
+  };
 }
 
 function allocateCounts(patternSpecIds, questionCount) {
