@@ -79,6 +79,8 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
   ps_g3b_u01_2digit_by_1digit_regroup_tens: div("ps_g3b_u01_2digit_by_1digit_regroup_tens", "g3b_u01_3b01", "二位數除以一位數退位", [[10, 99], [2, 9]], 99),
   ps_g3b_u04_consecutive_multiplication: mul2("ps_g3b_u04_consecutive_multiplication", "g3b_u04_3b04", "連乘兩步驟", [[2, 9], [2, 9], [2, 9]], 729),
   ps_g3b_u08_division_check_exact: div("ps_g3b_u08_division_check_exact", "g3b_u08_3b08", "乘除互逆檢查", [[10, 99], [2, 9]], 99),
+  ps_g3b_u08_division_check_by_multiplication: div("ps_g3b_u08_division_check_by_multiplication", "g3b_u08_3b08", "用乘法檢查除法答案", [[10, 99], [2, 9]], 99),
+  ps_g3b_u08_multiplication_check_by_division: mul("ps_g3b_u08_multiplication_check_by_division", "g3b_u08_3b08", "用除法檢查乘法答案", [[10, 99], [2, 9]], 891),
   ps_g4a_u01_compare_8digit: comparisonPattern({ patternSpecId: "ps_g4a_u01_compare_8digit", sourceId: "g4a_u01_4a01", title: "八位數比大小", min: 10000000, max: 99999999 }),
   ps_g4a_u01_within_100million_compare: comparisonPattern({ patternSpecId: "ps_g4a_u01_within_100million_compare", sourceId: "g4a_u01_4a01", title: "1億以內數比大小", min: 0, max: 99999999 }),
   ps_g4a_u02_2digit_by_2digit: mul("ps_g4a_u02_2digit_by_2digit", "g4a_u02_4a02", "二位數乘以二位數", [[10, 99], [10, 99]], 9801),
@@ -88,11 +90,14 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
   ps_g4a_u02_multiplier_10_or_100: mul("ps_g4a_u02_multiplier_10_or_100", "g4a_u02_4a02", "乘數為 10 或 100", [[10, 999], [10, 100]], 99900),
   ps_g4a_u04_4digit_by_1digit_high_place_exact: div("ps_g4a_u04_4digit_by_1digit_high_place_exact", "g4a_u04_4a04", "四位數除以一位數", [[1000, 9999], [2, 9]], 9999),
   ps_g4a_u04_3digit_by_2digit_exact: div("ps_g4a_u04_3digit_by_2digit_exact", "g4a_u04_4a04", "三位數除以二位數整除", [[100, 999], [10, 99]], 999),
+  ps_g4a_u04_4digit_by_2digit_exact: div("ps_g4a_u04_4digit_by_2digit_exact", "g4a_u04_4a04", "四位數除以二位數整除", [[1000, 9999], [10, 99]], 999),
   ps_g4a_u08_left_to_right_add_sub: addSub("ps_g4a_u08_left_to_right_add_sub", "g4a_u08_4a08", "整數加減混合", [[50, 99], [1, 40], [1, 40]], 179),
   ps_g4a_u08_add_sub_three_terms: addSub("ps_g4a_u08_add_sub_three_terms", "g4a_u08_4a08", "三數加減混合", [[100, 999], [1, 200], [1, 200]], 1399),
   ps_g4b_u01_multiplier_trailing_zero: mul("ps_g4b_u01_multiplier_trailing_zero", "g4b_u01_4b01", "末位為 0 的乘法", [[10, 99], [10, 10]], 990),
   ps_g4b_u01_multiplicand_trailing_zero: mul("ps_g4b_u01_multiplicand_trailing_zero", "g4b_u01_4b01", "被乘數末位為 0 的乘法", [[10, 990], [2, 9]], 8910),
   ps_g4b_u01_multi_digit_by_2digit: mul("ps_g4b_u01_multi_digit_by_2digit", "g4b_u01_4b01", "多位數乘以二位數", [[100, 9999], [10, 99]], 989901),
+  ps_g4b_u01_multi_digit_by_3digit: mul("ps_g4b_u01_multi_digit_by_3digit", "g4b_u01_4b01", "多位數乘以三位數", [[100, 9999], [100, 999]], 9989001),
+  ps_g4b_u01_multi_digit_division_exact: div("ps_g4b_u01_multi_digit_division_exact", "g4b_u01_4b01", "多位數除法整除", [[100, 9999], [10, 99]], 999),
   ps_g5a_u08_repeated_subtraction: expressionPattern({ patternSpecId: "ps_g5a_u08_repeated_subtraction", sourceId: "g5a_u08_5a08", title: "連減整數四則", operators: [[OPERATORS.SUBTRACT], [OPERATORS.SUBTRACT]], ranges: [[50, 99], [1, 20], [1, 20]], answerMax: 97, skill: "integer_add_sub_mixed" }),
   ps_g5a_u08_left_to_right_add_sub: addSub("ps_g5a_u08_left_to_right_add_sub", "g5a_u08_5a08", "整數加減由左到右", [[100, 999], [1, 300], [1, 300]], 1599)
 });
@@ -104,12 +109,12 @@ export const BATCH_A_SOURCE_PATTERN_INDEX = Object.freeze({
   g3a_u06_3a06: Object.freeze(["ps_g3a_u06_exact_division_check", "ps_g3a_u06_divisibility_exact_check"]),
   g3b_u01_3b01: Object.freeze(["ps_g3b_u01_3digit_by_1digit_regroup_hundreds", "ps_g3b_u01_2digit_by_1digit_regroup_tens"]),
   g3b_u04_3b04: Object.freeze(["ps_g3b_u04_consecutive_multiplication"]),
-  g3b_u08_3b08: Object.freeze(["ps_g3b_u08_division_check_exact"]),
+  g3b_u08_3b08: Object.freeze(["ps_g3b_u08_division_check_exact", "ps_g3b_u08_division_check_by_multiplication", "ps_g3b_u08_multiplication_check_by_division"]),
   g4a_u01_4a01: Object.freeze(["ps_g4a_u01_compare_8digit", "ps_g4a_u01_within_100million_compare"]),
   g4a_u02_4a02: Object.freeze(["ps_g4a_u02_2digit_by_2digit", "ps_g4a_u02_3digit_by_2digit", "ps_g4a_u02_4digit_by_2digit", "ps_g4a_u02_2digit_by_3digit", "ps_g4a_u02_multiplier_10_or_100"]),
-  g4a_u04_4a04: Object.freeze(["ps_g4a_u04_4digit_by_1digit_high_place_exact", "ps_g4a_u04_3digit_by_2digit_exact"]),
+  g4a_u04_4a04: Object.freeze(["ps_g4a_u04_4digit_by_1digit_high_place_exact", "ps_g4a_u04_3digit_by_2digit_exact", "ps_g4a_u04_4digit_by_2digit_exact"]),
   g4a_u08_4a08: Object.freeze(["ps_g4a_u08_left_to_right_add_sub", "ps_g4a_u08_add_sub_three_terms"]),
-  g4b_u01_4b01: Object.freeze(["ps_g4b_u01_multiplier_trailing_zero", "ps_g4b_u01_multiplicand_trailing_zero", "ps_g4b_u01_multi_digit_by_2digit"]),
+  g4b_u01_4b01: Object.freeze(["ps_g4b_u01_multiplier_trailing_zero", "ps_g4b_u01_multiplicand_trailing_zero", "ps_g4b_u01_multi_digit_by_2digit", "ps_g4b_u01_multi_digit_by_3digit", "ps_g4b_u01_multi_digit_division_exact"]),
   g5a_u08_5a08: Object.freeze(["ps_g5a_u08_repeated_subtraction", "ps_g5a_u08_left_to_right_add_sub"])
 });
 
