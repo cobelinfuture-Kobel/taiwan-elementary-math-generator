@@ -38,15 +38,15 @@ const PATTERN_GROUP_ROWS = deepFreeze([
     "knowledgePointIds": ["kp_g3a_u02_add_multi_carry"],
     "supportClass": "A",
     "patternSpecIds": ["ps_g3a_u02_4digit_add_multi_carry"],
-    "generatorSupportStatus": "seed_supported",
-    "validatorSupportStatus": "seed_supported",
-    "htmlWorksheetStatus": "seed_printable",
-    "answerKeyStatus": "seed_supported",
-    "visibilityStatus": "hidden",
+    "generatorSupportStatus": "carry_policy_supported",
+    "validatorSupportStatus": "carry_policy_verified",
+    "htmlWorksheetStatus": "printable_after_selector_regen",
+    "answerKeyStatus": "supported",
+    "visibilityStatus": "visible",
     "allocationPolicy": "single_pattern",
     "registryStatus": "materialized",
-    "holdReason": "qa_pending",
-    "notes": "S43C2 A-class seed PatternGroup. Hidden until mapping QA and explicit constraint review pass."
+    "holdReason": null,
+    "notes": "S43C11 first visible PatternGroup promotion. Strict carryPolicy generator/validator support and query/resolver QA readbacks are complete. Browser selector regeneration is deferred to S43C12."
   },
   {
     "patternGroupId": "pg_g3a_u02_sub_multi_borrow_seed",
