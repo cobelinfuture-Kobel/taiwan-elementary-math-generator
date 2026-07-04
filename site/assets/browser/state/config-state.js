@@ -532,10 +532,10 @@ export function setBatchAPrintLayout(state, patch = {}) {
   return state;
 }
 
-export function setBatchASelectionMode(state, selectionMode) {
+function applyBatchASelectorPatch(state, patch = {}) {
   const normalized = normalizeBatchASelectorState({
     ...state.batchA,
-    selectionMode
+    ...patch
   });
   state.batchA = {
     ...state.batchA,
@@ -546,38 +546,27 @@ export function setBatchASelectionMode(state, selectionMode) {
     : WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT;
   state.ui.isDirty = true;
   return state;
+}
+
+export function setBatchASelectionMode(state, selectionMode) {
+  return applyBatchASelectorPatch(state, { selectionMode });
 }
 
 export function setBatchASelectedKnowledgePointIds(state, selectedKnowledgePointIds = []) {
-  const normalized = normalizeBatchASelectorState({
-    ...state.batchA,
-    selectedKnowledgePointIds
-  });
-  state.batchA = {
-    ...state.batchA,
-    ...normalized
-  };
-  state.worksheetMode = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
-    ? WORKSHEET_MODES.BATCH_A_SOURCE
-    : WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT;
-  state.ui.isDirty = true;
-  return state;
+  return applyBatchASelectorPatch(state, { selectedKnowledgePointIds });
 }
 
 export function setBatchASelectedPatternGroupIds(state, selectedPatternGroupIds = []) {
-  const normalized = normalizeBatchASelectorState({
-    ...state.batchA,
-    selectedPatternGroupIds
+  return applyBatchASelectorPatch(state, { selectedPatternGroupIds });
+}
+
+export function setBatchASelectorSelection(state, patch = {}) {
+  return applyBatchASelectorPatch(state, {
+    selectionMode: patch.selectionMode,
+    selectedKnowledgePointIds: patch.selectedKnowledgePointIds,
+    selectedPatternGroupIds: patch.selectedPatternGroupIds,
+    selectorWarnings: []
   });
-  state.batchA = {
-    ...state.batchA,
-    ...normalized
-  };
-  state.worksheetMode = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
-    ? WORKSHEET_MODES.BATCH_A_SOURCE
-    : WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT;
-  state.ui.isDirty = true;
-  return state;
 }
 
 export function getBatchAWorksheetPlan(state) {
