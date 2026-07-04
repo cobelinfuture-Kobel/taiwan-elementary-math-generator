@@ -103,6 +103,8 @@ function generateComparisonQuestion(definition, options = {}) {
 }
 
 function attachBatchAMetadata(question, definition) {
+  question.patternSpecId = definition.patternSpecId;
+  question.sourceId = definition.sourceId;
   question.metadata = {
     ...(question.metadata ?? {}),
     sourceId: definition.sourceId,
