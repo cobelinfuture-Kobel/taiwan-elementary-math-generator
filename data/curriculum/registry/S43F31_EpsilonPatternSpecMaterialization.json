@@ -1,0 +1,11 @@
+{
+  "schemaName": "S43FEpsilonMaterializedPatternSpecs",
+  "schemaVersion": 1,
+  "task": "S43F31_EpsilonPatternSpecMaterialization",
+  "status": "contract_materialized_not_browser_projected",
+  "patternSpecs": [
+    {"knowledgePointId":"kp_g4a_u01_large_number_vertical_calculation","patternSpecId":"ps_g4a_u01_large_number_vertical_calculation","sourceId":"g4a_u01_4a01","kind":"expression_add_sub_one_step","ranges":[[10000,99999999],[1,999999]],"answerMax":99999999},
+    {"knowledgePointId":"kp_g4a_u01_large_number_add_sub","patternSpecId":"ps_g4a_u01_large_number_add_sub","sourceId":"g4a_u01_4a01","kind":"expression_add_sub_one_step","ranges":[[10000,99999999],[1,999999]],"answerMax":99999999}
+  ],
+  "summary": {"materializedPatternSpecCount":2,"runtimeCodeChanged":false,"browserProjectionChanged":false}
+}
