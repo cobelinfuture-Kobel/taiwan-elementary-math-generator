@@ -47,6 +47,64 @@ function validateWordProblemEstimation(definition, question, errors) {
   }
 }
 
+function countPlaceholder(text) {
+  return String(text ?? "").split("□").length - 1;
+}
+
+function maskDigit(value, index) {
+  const text = String(value);
+  return `${text.slice(0, index)}□${text.slice(index + 1)}`;
+}
+
+function validateMissingDigit(definition, question, errors) {
+  if (!["add", "subtract"].includes(question.operator) || question.operator !== definition.operator) {
+    errors.push(issue("batch_a_missing_digit_operator_invalid", "operator", "Missing digit operator mismatch."));
+    return;
+  }
+  const left = question.left;
+  const right = question.right;
+  const result = question.result;
+  if (![left, right, result].every(Number.isSafeInteger)) {
+    errors.push(issue("batch_a_missing_digit_value_invalid", "operands", "Missing digit operands and result must be safe integers."));
+    return;
+  }
+  const expectedResult = question.operator === "add" ? left + right : left - right;
+  if (expectedResult !== result) {
+    errors.push(issue("batch_a_missing_digit_equation_invalid", "result", "Missing digit equation result mismatch."));
+  }
+  if (!["left", "right"].includes(question.missingOperand)) {
+    errors.push(issue("batch_a_missing_digit_operand_invalid", "missingOperand", "Missing operand must be left or right."));
+    return;
+  }
+  const target = String(question.missingOperand === "left" ? left : right);
+  if (!Number.isInteger(question.missingIndex) || question.missingIndex < 0 || question.missingIndex >= target.length) {
+    errors.push(issue("batch_a_missing_digit_index_invalid", "missingIndex", "Missing digit index is invalid."));
+    return;
+  }
+  const expectedDigit = Number(target[question.missingIndex]);
+  if (!Number.isInteger(question.missingDigit) || question.missingDigit < 0 || question.missingDigit > 9) {
+    errors.push(issue("batch_a_missing_digit_answer_invalid", "missingDigit", "Missing digit must be a single digit."));
+  } else if (question.missingDigit !== expectedDigit) {
+    errors.push(issue("batch_a_missing_digit_answer_incorrect", "missingDigit", "Missing digit does not match hidden digit."));
+  }
+  if (question.answerText !== String(expectedDigit)) {
+    errors.push(issue("batch_a_answer_incorrect", "answerText", "Missing digit answerText mismatch."));
+  }
+  if (intValue(question.finalAnswer) !== expectedDigit) {
+    errors.push(issue("batch_a_answer_incorrect", "finalAnswer", "Missing digit finalAnswer mismatch."));
+  }
+  if (countPlaceholder(question.blankedDisplayText) !== 1) {
+    errors.push(issue("batch_a_missing_digit_placeholder_invalid", "blankedDisplayText", "Missing digit prompt must contain exactly one placeholder."));
+  }
+  const maskedLeft = question.missingOperand === "left" ? maskDigit(left, question.missingIndex) : String(left);
+  const maskedRight = question.missingOperand === "right" ? maskDigit(right, question.missingIndex) : String(right);
+  const symbol = question.operator === "add" ? "+" : "-";
+  const expectedBlanked = `${maskedLeft} ${symbol} ${maskedRight} = ${result}`;
+  if (question.blankedDisplayText !== expectedBlanked) {
+    errors.push(issue("batch_a_missing_digit_prompt_invalid", "blankedDisplayText", "Missing digit prompt does not match masked equation."));
+  }
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   const scope = validateBatchAPlanScope(plan);
   const errors = [...scope.errors];
@@ -106,6 +164,8 @@ export function validateBatchABrowserQuestion(question = {}) {
     }
   } else if (definition.kind === "wordProblemEstimation") {
     validateWordProblemEstimation(definition, question, errors);
+  } else if (definition.kind === "missingDigit") {
+    validateMissingDigit(definition, question, errors);
   } else if (hasRoundingShape(definition)) {
     const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
     const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
