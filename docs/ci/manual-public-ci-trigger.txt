@@ -1,4 +1,4 @@
-S43G3B public CI trigger
+S43G4A public CI trigger
 
-triggeredAt = 2026-07-05T11:02:00Z
-reason = rerun after adding G3A-U03 render assertion
+triggeredAt = 2026-07-05T11:08:00Z
+reason = rerun after adding G3A-U06 selector QA
