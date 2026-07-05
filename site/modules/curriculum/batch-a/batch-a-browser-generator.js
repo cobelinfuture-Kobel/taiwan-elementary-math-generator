@@ -110,7 +110,7 @@ function generateComparisonQuestion(definition, options = {}) {
   };
 }
 
-function generateEstimationQuestion(definition, options = {}) {
+function generateRoundingQuestion(definition, options = {}) {
   const randomFn = options.randomFn ?? createSeededRandom(options.seed);
   const value = randomIntBetween(randomFn, definition.min, definition.max);
   const answer = roundToNearestThousand(value);
@@ -120,7 +120,7 @@ function generateEstimationQuestion(definition, options = {}) {
     id,
     patternSpecId: definition.patternSpecId,
     sourceId: definition.sourceId,
-    kind: "estimation",
+    kind: "rounding",
     value,
     unit: definition.unit,
     promptText: `將 ${value} 估到最接近的千位數。`,
@@ -279,8 +279,8 @@ function generateQuestionForDefinition(definition, options) {
   if (definition.kind === "comparison") {
     return { ok: true, question: generateComparisonQuestion(definition, options) };
   }
-  if (definition.kind === "estimation") {
-    return { ok: true, question: generateEstimationQuestion(definition, options) };
+  if (definition.kind === "rounding") {
+    return { ok: true, question: generateRoundingQuestion(definition, options) };
   }
   return generateExpressionQuestion(definition, options);
 }
