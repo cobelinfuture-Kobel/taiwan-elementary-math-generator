@@ -13,7 +13,7 @@ import { getBatchASourceUnit } from "./source-units.js";
 import {
   getBatchABrowserPatternDefinition,
   getBatchAPatternSpecIdsForSource
-} from "./source-pattern-extension.js";
+} from "./source-pattern-submiddle-extension.js";
 import {
   validateBatchABrowserPlan,
   validateBatchABrowserQuestion
@@ -337,7 +337,7 @@ function buildEquationBlankModel(definition, options = {}) {
   usedPlaceValues.add(resultBlank.placeValue);
 
   const leftIndex = chooseIndexForDistinctPlace(left, usedPlaceValues, sequenceNumber + 2);
-  const leftBlank = leftIndex === null ? null : makeBlank("left", left, leftIndex);
+  const leftBlank = leftIndex === null ? null : makeBlank("left", leftIndex === null ? left : left, leftIndex);
   const blanks = [leftBlank, rightBlank, resultBlank].filter(Boolean);
   const orderedBlanks = blanks.sort((a, b) => {
     const order = { left: 0, right: 1, result: 2 };
