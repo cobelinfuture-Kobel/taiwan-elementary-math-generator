@@ -4,10 +4,17 @@ const sourceId = "g3a_u02_3a02";
 const rows = Object.freeze([
   ["kp_g3a_u02_add_missing_digit_equation", "pg_g3a_u02_add_missing_digit_equation", "ps_g3a_u02_add_missing_digit_equation", "加法等式缺位填空", "addition"],
   ["kp_g3a_u02_sub_missing_digit_equation", "pg_g3a_u02_sub_missing_digit_equation", "ps_g3a_u02_sub_missing_digit_equation", "減法等式缺位填空", "subtraction"],
-  ["kp_g3a_u02_sub_middle_missing_digit", "pg_g3a_u02_sub_middle_missing_digit", "ps_g3a_u02_sub_middle_missing_digit", "減法中間缺位填空", "sub_middle"]
+  ["kp_g3a_u02_sub_middle_missing_digit", "pg_g3a_u02_sub_middle_missing_digit", "ps_g3a_u02_sub_middle_missing_digit", "減法中間缺位填空", "sub_middle"],
+  ["kp_g3a_u02_continuous_borrow_zero", "pg_g3a_u02_continuous_borrow_zero", "ps_g3a_u02_continuous_borrow_zero", "連續退位中間有 0", "borrow_zero"]
 ]);
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
+
+function difficultyFor(subskill) {
+  if (subskill === "sub_middle") return "sub_middle_missing_digit";
+  if (subskill === "borrow_zero") return "continuous_borrow_zero";
+  return "missing_digit_equation";
+}
 
 function toKp([knowledgePointId, patternGroupId, patternSpecId, displayName, subskill]) {
   return Object.freeze({
@@ -18,8 +25,10 @@ function toKp([knowledgePointId, patternGroupId, patternSpecId, displayName, sub
     displayName,
     supportClass: "B",
     canonicalSkillTag: "integer_add_sub_mixed",
-    subskillTags: ["missing_digit", "equation_reasoning", subskill],
-    difficultyTags: [subskill === "sub_middle" ? "sub_middle_missing_digit" : "missing_digit_equation"],
+    subskillTags: subskill === "borrow_zero"
+      ? ["subtraction", "continuous_borrow", "zero_borrow"]
+      : ["missing_digit", "equation_reasoning", subskill],
+    difficultyTags: [difficultyFor(subskill)],
     representationTags: ["numeric_expression"],
     patternGroupIds: [patternGroupId],
     patternSpecIds: [patternSpecId],
@@ -52,12 +61,12 @@ const groupsByKpId = new Map(extraGroups.flatMap((group) => group.knowledgePoint
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.visibleCount + 3,
+  visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.visibleCount + 4,
   bySourceId: {
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
     [sourceId]: {
       ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId],
-      visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId].visibleCount + 3
+      visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId].visibleCount + 4
     }
   }
 });
