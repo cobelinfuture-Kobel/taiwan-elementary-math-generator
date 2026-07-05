@@ -19,6 +19,10 @@ function roundByUnit(value, unit) {
   return Math.round(value / unit) * unit;
 }
 
+function hasRoundingShape(definition) {
+  return definition.kind === "rounding" || Number.isSafeInteger(definition.unit);
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   const scope = validateBatchAPlanScope(plan);
   const errors = [...scope.errors];
@@ -76,7 +80,7 @@ export function validateBatchABrowserQuestion(question = {}) {
     if (question.answerText !== expected) {
       errors.push(issue("batch_a_answer_incorrect", "answerText", "Comparison answerText does not match numeric comparison."));
     }
-  } else if (definition.kind === "rounding") {
+  } else if (hasRoundingShape(definition)) {
     const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
     const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
     if (expected === null) {
