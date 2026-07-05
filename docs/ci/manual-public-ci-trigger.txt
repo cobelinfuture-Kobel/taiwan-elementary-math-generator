@@ -1,4 +1,4 @@
 trigger
 
-at = 2026-07-05T11:13:00Z
-reason = retry2
+at = 2026-07-05T12:39:00Z
+reason = g3a-u02-quality-fix
