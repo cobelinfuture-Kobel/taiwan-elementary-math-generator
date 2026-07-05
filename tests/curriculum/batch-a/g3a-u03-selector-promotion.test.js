@@ -27,7 +27,7 @@ const specIds = rows.map((row) => row[2]).sort();
 
 test("S43G3A selector extension exposes G3A U03 four multiplication KPs", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 8);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 10);
   assert.equal(availability.visibleCount, 4);
   assert.equal(availability.notSelectableCount, 0);
 
