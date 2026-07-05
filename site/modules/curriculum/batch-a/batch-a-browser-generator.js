@@ -282,6 +282,102 @@ function generateMissingDigitQuestion(definition, options = {}) {
   };
 }
 
+function placesForValue(value) {
+  return Array.from({ length: String(value).length }, (_, index) => index);
+}
+
+function placeValueForIndex(value, index) {
+  return String(value).length - 1 - index;
+}
+
+function indexForPlaceValue(value, placeValue) {
+  const index = String(value).length - 1 - placeValue;
+  return index >= 0 && index < String(value).length ? index : null;
+}
+
+function chooseIndexForDistinctPlace(value, usedPlaceValues, seed) {
+  const candidates = placesForValue(value).filter((index) => !usedPlaceValues.has(placeValueForIndex(value, index)));
+  if (candidates.length === 0) return null;
+  return candidates[seed % candidates.length];
+}
+
+function maskMultipleDigits(value, blanks) {
+  const chars = String(value).split("");
+  for (const blank of blanks) chars[blank.index] = "□";
+  return chars.join("");
+}
+
+function makeBlank(target, value, index) {
+  return {
+    target,
+    index,
+    placeValue: placeValueForIndex(value, index),
+    digit: Number(String(value)[index])
+  };
+}
+
+function buildEquationBlankModel(definition, options = {}) {
+  const sequenceNumber = Number.isInteger(options.sequenceNumber) && options.sequenceNumber > 0 ? options.sequenceNumber : 1;
+  const rightDigits = definition.rightDigitCoverage[(sequenceNumber - 1) % definition.rightDigitCoverage.length];
+  const right = valueWithDigits(rightDigits, (sequenceNumber * 11) % 90);
+  const left = definition.operator === "add" ? 4200 + ((sequenceNumber * 149) % 600) : 7600 + ((sequenceNumber * 149) % 600);
+  const result = definition.operator === "add" ? left + right : left - right;
+  const usedPlaceValues = new Set();
+
+  const rightPlaces = placesForValue(right);
+  const rightIndex = rightPlaces[(sequenceNumber - 1) % rightPlaces.length];
+  const rightBlank = makeBlank("right", right, rightIndex);
+  usedPlaceValues.add(rightBlank.placeValue);
+
+  const preferredResultIndex = indexForPlaceValue(result, (rightBlank.placeValue + 1) % String(result).length);
+  const resultIndex = preferredResultIndex !== null && !usedPlaceValues.has(placeValueForIndex(result, preferredResultIndex))
+    ? preferredResultIndex
+    : chooseIndexForDistinctPlace(result, usedPlaceValues, sequenceNumber + 1);
+  const resultBlank = makeBlank("result", result, resultIndex ?? 0);
+  usedPlaceValues.add(resultBlank.placeValue);
+
+  const leftIndex = chooseIndexForDistinctPlace(left, usedPlaceValues, sequenceNumber + 2);
+  const leftBlank = leftIndex === null ? null : makeBlank("left", left, leftIndex);
+  const blanks = [leftBlank, rightBlank, resultBlank].filter(Boolean);
+  const orderedBlanks = blanks.sort((a, b) => {
+    const order = { left: 0, right: 1, result: 2 };
+    return order[a.target] - order[b.target] || a.index - b.index;
+  });
+
+  return { left, right, result, blanks: orderedBlanks, missingDigits: orderedBlanks.map((blank) => blank.digit) };
+}
+
+function generateMissingDigitEquationQuestion(definition, options = {}) {
+  const model = buildEquationBlankModel(definition, options);
+  const symbol = definition.operator === "add" ? "+" : "-";
+  const leftBlanks = model.blanks.filter((blank) => blank.target === "left");
+  const rightBlanks = model.blanks.filter((blank) => blank.target === "right");
+  const resultBlanks = model.blanks.filter((blank) => blank.target === "result");
+  const blankedDisplayText = `${maskMultipleDigits(model.left, leftBlanks)} ${symbol} ${maskMultipleDigits(model.right, rightBlanks)} = ${maskMultipleDigits(model.result, resultBlanks)}`;
+  const displayText = `${model.left} ${symbol} ${model.right} = ${model.result}`;
+  const answerText = model.missingDigits.join(",");
+  const id = options.id ?? `${definition.patternSpecId}-${options.sequenceNumber ?? 1}`;
+  return {
+    id,
+    patternSpecId: definition.patternSpecId,
+    sourceId: definition.sourceId,
+    kind: "missingDigitEquation",
+    operator: definition.operator,
+    left: model.left,
+    right: model.right,
+    result: model.result,
+    blanks: model.blanks,
+    missingDigits: model.missingDigits,
+    answerOrder: "prompt_left_to_right",
+    promptText: "依照□出現順序，填入正確的數字。",
+    displayText,
+    blankedDisplayText,
+    answerText,
+    finalAnswer: answerText,
+    metadata: textQuestionMetadata(definition)
+  };
+}
+
 function buildDirectCarryOperands(definition, options = {}) {
   const digits = targetCoveredDigits(definition, options) ?? 4;
   const r = ((Number.isInteger(options.sequenceNumber) ? options.sequenceNumber : 1) - 1) % 9 + 1;
@@ -489,6 +585,9 @@ function generateQuestionForDefinition(definition, options) {
   }
   if (definition.kind === "missingDigit") {
     return { ok: true, question: generateMissingDigitQuestion(definition, options) };
+  }
+  if (definition.kind === "missingDigitEquation") {
+    return { ok: true, question: generateMissingDigitEquationQuestion(definition, options) };
   }
   if (hasContextEstimateShape(definition)) {
     return { ok: true, question: generateContextEstimateQuestion(definition, options) };
