@@ -48,7 +48,7 @@ function answerKeyItemForTextQuestion(question, displayModel) {
     questionId: question.id,
     questionNumber: displayModel.questionNumber,
     patternId: question.patternSpecId,
-    promptText: question.blankedDisplayText,
+    promptText: question.displayText,
     answerText: question.answerText,
     metadataSnapshot: cloneValue(question.metadata)
   };
