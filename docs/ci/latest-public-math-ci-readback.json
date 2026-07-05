@@ -8,12 +8,12 @@
   "eventName": "push",
   "ref": "refs/heads/main",
   "refName": "main",
-  "sha": "09955e5d29b9843459ce445b3cc85daba73389aa",
+  "sha": "04b05da417792ddd410fa89c6973db905c66b28d",
   "run": {
-    "id": "28740973021",
-    "number": "50",
+    "id": "28740982942",
+    "number": "51",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/28740973021"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/28740982942"
   },
   "checks": {
     "npmTestExitCode": {
@@ -26,11 +26,11 @@
     },
     "pass": {
       "expected": "equal tests",
-      "actual": "336"
+      "actual": "338"
     },
     "fail": {
       "expected": "0",
-      "actual": "4"
+      "actual": "2"
     },
     "workingTree": {
       "expected": "clean",
@@ -46,5 +46,5 @@
     "gitStatus": "success",
     "verifyWorkingTree": "success"
   },
-  "updatedAt": "2026-07-05T12:36:13.148314Z"
+  "updatedAt": "2026-07-05T12:36:36.566676Z"
 }
