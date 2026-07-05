@@ -1,6 +1,7 @@
 import { evaluateExpression } from "../../core/evaluate-expression.js";
 import { getIntegerRawValue, isIntegerValue } from "../../core/number-value.js";
 import { validateBatchAQuestionCarryPolicy } from "./carry-policy.js";
+import { validateContinuousBorrowZeroPolicy } from "./continuous-borrow-zero-policy.js";
 import { validateEquationBlankQuestion } from "./equation-blank-validator.js";
 import { getBatchABrowserPatternDefinition, getBatchAPatternSpecIdsForSource } from "./source-pattern-submiddle-extension.js";
 import { validateBatchAPlanScope } from "./production-eligibility.js";
@@ -115,6 +116,7 @@ export function validateBatchABrowserQuestion(question = {}) {
       else if (intValue(question.finalAnswer) !== getIntegerRawValue(evaluated.value)) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
       else if (Number.isFinite(definition.answerConstraint?.max) && getIntegerRawValue(evaluated.value) > definition.answerConstraint.max) errors.push(issue("batch_a_answer_above_max", "answerConstraint.max"));
       errors.push(...validateBatchAQuestionCarryPolicy(definition, question).errors);
+      errors.push(...validateContinuousBorrowZeroPolicy(definition, question).errors);
     }
   } else if (definition.kind === "comparison") {
     const expected = question.left > question.right ? ">" : question.left < question.right ? "<" : "=";
