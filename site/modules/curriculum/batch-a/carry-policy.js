@@ -49,23 +49,28 @@ function twoOperands(policy, question) {
   return { ok: true, operands, errors: [] };
 }
 
-export function hasAdditionCarry(leftOperand, rightOperand, base = 10, options = {}) {
+export function countAdditionCarries(leftOperand, rightOperand, base = 10, options = {}) {
   const left = rawInteger(leftOperand);
   const right = rawInteger(rightOperand);
   const normalizedBase = normalizeBase(base);
-  if (!Number.isSafeInteger(left) || !Number.isSafeInteger(right) || left < 0 || right < 0) return false;
+  if (!Number.isSafeInteger(left) || !Number.isSafeInteger(right) || left < 0 || right < 0) return 0;
   const checkedColumnIndexes = normalizeCheckedColumnIndexes(options);
-  if (checkedColumnIndexes.length === 0) return false;
+  if (checkedColumnIndexes.length === 0) return 0;
   const checkedColumnSet = new Set(checkedColumnIndexes);
   const maxColumnIndex = Math.max(...checkedColumnIndexes);
   let incomingCarry = 0;
+  let carryCount = 0;
   for (let columnIndex = 0; columnIndex <= maxColumnIndex; columnIndex += 1) {
     const columnSum = digitAt(left, columnIndex, normalizedBase) + digitAt(right, columnIndex, normalizedBase) + incomingCarry;
     const producesCarry = columnSum >= normalizedBase;
-    if (checkedColumnSet.has(columnIndex) && producesCarry) return true;
+    if (checkedColumnSet.has(columnIndex) && producesCarry) carryCount += 1;
     incomingCarry = producesCarry ? 1 : 0;
   }
-  return false;
+  return carryCount;
+}
+
+export function hasAdditionCarry(leftOperand, rightOperand, base = 10, options = {}) {
+  return countAdditionCarries(leftOperand, rightOperand, base, options) > 0;
 }
 
 export function hasAdditionCarryIntoTenThousands(leftOperand, rightOperand, base = 10) {
@@ -125,8 +130,10 @@ function validateAdditionCarryPolicy(carryPolicy, question) {
   if (carryPolicy.allowCarryIntoTenThousands === false && hasAdditionCarryIntoTenThousands(operands[0], operands[1], base)) {
     errors.push(issue(BATCH_A_CARRY_POLICY_ISSUE_CODES.ADDITION_CARRY_OVERFLOW_NOT_ALLOWED, "carryPolicy.allowCarryIntoTenThousands", "Overflow carry not allowed."));
   }
-  if (!hasAdditionCarry(operands[0], operands[1], base, carryPolicy)) {
-    errors.push(issue(BATCH_A_CARRY_POLICY_ISSUE_CODES.ADDITION_CARRY_REQUIRED_NOT_SATISFIED, "carryPolicy.mode", "Carry required."));
+  const minCarryCount = Number.isInteger(carryPolicy.minCarryCount) && carryPolicy.minCarryCount > 0 ? carryPolicy.minCarryCount : 1;
+  const carryCount = countAdditionCarries(operands[0], operands[1], base, carryPolicy);
+  if (carryCount < minCarryCount) {
+    errors.push(issue(BATCH_A_CARRY_POLICY_ISSUE_CODES.ADDITION_CARRY_REQUIRED_NOT_SATISFIED, "carryPolicy.mode", "Carry count below requirement."));
   }
   return { ok: errors.length === 0, errors, warnings: [] };
 }
