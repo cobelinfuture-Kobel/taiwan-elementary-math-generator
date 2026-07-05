@@ -93,6 +93,10 @@ export function renderAnswerKeyCell(cell, options = {}) {
 }
 
 export function renderFillerCell(cell, options = {}) {
+  if (options.renderFillerCells !== true) {
+    return "";
+  }
+
   const dataAttributes = buildDataAttributes({
     "cell-index": cell.cellIndex,
     "row-index": cell.rowIndex,
