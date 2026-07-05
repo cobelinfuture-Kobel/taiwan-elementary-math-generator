@@ -12,6 +12,7 @@ import {
   resolveVisiblePatternGroupSelection
 } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet.js";
+import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 
 const sourceId = ["g3a", "u03", "3a03"].join("_");
 const rows = [
@@ -53,7 +54,7 @@ test("S43G3A resolver accepts G3A U03 same-unit mixed four-KP selection", () => 
   assert.equal(plan.allocation.reduce((sum, item) => sum + item.questionCount, 0), 8);
 });
 
-test("S43G3A G3A U03 mixed worksheet and answer key build", () => {
+test("S43G3A G3A U03 mixed worksheet, answer key, and HTML render", () => {
   const result = buildBatchABrowserWorksheetDocument({
     sourceId,
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
@@ -68,4 +69,8 @@ test("S43G3A G3A U03 mixed worksheet and answer key build", () => {
   assert.equal(result.worksheetDocument.summary.questionCount, 8);
   assert.deepEqual(result.worksheetDocument.batchA.patternSpecIds, specIds);
   assert.equal(result.worksheetDocument.answerKeyItems.length, 8);
+
+  const html = renderWorksheetDocumentToHtml(result.worksheetDocument, {});
+  assert.equal(html.includes("worksheet-page--questions"), true);
+  assert.equal(html.includes("worksheet-page--answer-key"), true);
 });
