@@ -17,8 +17,16 @@ import {
   setQuestionCount
 } from "../../site/assets/browser/state/config-state.js";
 import { OPERATORS } from "../../site/modules/core/constants.js";
+import {
+  countSubtractionRegroups,
+  extractBatchAExpressionOperandValues
+} from "../../site/modules/curriculum/batch-a/carry-policy.js";
 
 const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
+const G3A_U02_SUBTRACTION_REGROUP_POLICY = Object.freeze({
+  checkedColumns: ["ones", "tens", "hundreds"],
+  minRegroupCount: 2
+});
 
 function readText(relativePath) {
   return readFileSync(path.join(PROJECT_ROOT, relativePath), "utf8");
@@ -116,6 +124,26 @@ test("S43G2A0 - existing subtraction PatternSpec source-level smoke QA", () => {
   for (const question of subtractionQuestions) {
     assert.equal(question.operatorsUsed?.includes(OPERATORS.SUBTRACT), true);
     assert.equal(Number.isInteger(question.finalAnswer?.raw?.value), true);
+  }
+});
+
+test("S43G2A2 - subtraction PatternSpec enforces regroup policy", () => {
+  const state = createConfigState();
+  setBatchASourceId(state, "g3a_u02_3a02");
+  setBatchAQuestionCount(state, 8);
+
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+
+  const subtractionQuestions = result.worksheetDocument.generatedQuestions.filter(
+    (question) => question.patternSpecId === "ps_g3a_u02_4digit_sub_multi_borrow"
+  );
+  assert.equal(subtractionQuestions.length > 0, true);
+
+  for (const question of subtractionQuestions) {
+    const operands = extractBatchAExpressionOperandValues(question.expression);
+    assert.equal(operands.length, 2);
+    assert.equal(countSubtractionRegroups(operands[0], operands[1], 10, G3A_U02_SUBTRACTION_REGROUP_POLICY) >= 2, true);
   }
 });
 
