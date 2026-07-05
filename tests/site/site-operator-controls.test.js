@@ -97,6 +97,28 @@ test("Batch A controls - G4A U01 source supports comparison and large-number exp
   assert.equal(generatedQuestions.every((question) => question.sourceId === "g4a_u01_4a01"), true);
 });
 
+test("S43G2A0 - existing subtraction PatternSpec source-level smoke QA", () => {
+  const state = createConfigState();
+  setBatchASourceId(state, "g3a_u02_3a02");
+  setBatchAQuestionCount(state, 8);
+  setBatchAIncludeAnswerKey(state, true);
+
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.batchA.sourceId, "g3a_u02_3a02");
+
+  const subtractionQuestions = result.worksheetDocument.generatedQuestions.filter(
+    (question) => question.patternSpecId === "ps_g3a_u02_4digit_sub_multi_borrow"
+  );
+  assert.equal(subtractionQuestions.length > 0, true);
+  assert.equal(result.worksheetDocument.answerKeyItems.length, result.worksheetDocument.summary.questionCount);
+
+  for (const question of subtractionQuestions) {
+    assert.equal(question.operatorsUsed?.includes(OPERATORS.SUBTRACT), true);
+    assert.equal(Number.isInteger(question.finalAnswer?.raw?.value), true);
+  }
+});
+
 test("S43G1 - single visible KnowledgePoint worksheet smoke QA", () => {
   const state = createConfigState();
   setBatchASelectorSelection(state, {
