@@ -35,15 +35,15 @@
       "knowledgePointIds": ["kp_g3a_u02_sub_multi_borrow"],
       "supportClass": "A",
       "patternSpecIds": ["ps_g3a_u02_4digit_sub_multi_borrow"],
-      "generatorSupportStatus": "seed_supported",
-      "validatorSupportStatus": "seed_supported",
-      "htmlWorksheetStatus": "seed_printable",
-      "answerKeyStatus": "seed_supported",
-      "visibilityStatus": "hidden",
+      "generatorSupportStatus": "subtraction_regroup_policy_supported",
+      "validatorSupportStatus": "subtraction_regroup_policy_verified",
+      "htmlWorksheetStatus": "printable_after_selector_regen",
+      "answerKeyStatus": "supported",
+      "visibilityStatus": "visible",
       "allocationPolicy": "single_pattern",
       "registryStatus": "materialized",
-      "holdReason": "qa_pending",
-      "notes": "S43C2 A-class seed PatternGroup. Hidden until mapping QA and explicit constraint review pass."
+      "holdReason": null,
+      "notes": "S43G2A4 promotion after subtraction_regroup runtime and validator QA passed locally."
     },
     {
       "patternGroupId": "pg_g3a_u02_estimate_nearest_thousand",
@@ -108,7 +108,7 @@
     {
       "patternGroupId": "pg_g3a_u01_place_value_decomposition",
       "sourceId": "g3a_u01_3a01",
-      "unitCode": "3A-U01",
+      "unitCode": "G3A-U01",
       "unitTitle": "10000以內的數",
       "displayName": "四位數位值分解",
       "primaryKnowledgePointId": "kp_g3a_u01_place_value_decomposition",
@@ -128,7 +128,7 @@
     {
       "patternGroupId": "pg_g3a_u01_place_value_composition",
       "sourceId": "g3a_u01_3a01",
-      "unitCode": "3A-U01",
+      "unitCode": "G3A-U01",
       "unitTitle": "10000以內的數",
       "displayName": "四位數位值組合",
       "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
@@ -148,7 +148,7 @@
     {
       "patternGroupId": "pg_g3a_u01_number_reading_writing",
       "sourceId": "g3a_u01_3a01",
-      "unitCode": "3A-U01",
+      "unitCode": "G3A-U01",
       "unitTitle": "10000以內的數",
       "displayName": "四位數讀寫轉換",
       "primaryKnowledgePointId": "kp_g3a_u01_number_reading_writing",
@@ -168,7 +168,7 @@
     {
       "patternGroupId": "pg_g3a_u01_digit_card_max_min",
       "sourceId": "g3a_u01_3a01",
-      "unitCode": "3A-U01",
+      "unitCode": "G3A-U01",
       "unitTitle": "10000以內的數",
       "displayName": "指定數字組最大最小四位數",
       "primaryKnowledgePointId": "kp_g3a_u01_digit_card_max_min",
@@ -188,7 +188,7 @@
     {
       "patternGroupId": "pg_g3a_u01_money_representation",
       "sourceId": "g3a_u01_3a01",
-      "unitCode": "3A-U01",
+      "unitCode": "G3A-U01",
       "unitTitle": "10000以內的數",
       "displayName": "四位數錢幣表示",
       "primaryKnowledgePointId": "kp_g3a_u01_money_representation",
@@ -208,7 +208,7 @@
     {
       "patternGroupId": "pg_g3a_u01_number_line_reading",
       "sourceId": "g3a_u01_3a01",
-      "unitCode": "3A-U01",
+      "unitCode": "G3A-U01",
       "unitTitle": "10000以內的數",
       "displayName": "整數數線讀取",
       "primaryKnowledgePointId": "kp_g3a_u01_number_line_reading",
@@ -228,7 +228,7 @@
     {
       "patternGroupId": "pg_g3a_u01_between_numbers_pattern",
       "sourceId": "g3a_u01_3a01",
-      "unitCode": "3A-U01",
+      "unitCode": "G3A-U01",
       "unitTitle": "10000以內的數",
       "displayName": "兩數間規律填數",
       "primaryKnowledgePointId": "kp_g3a_u01_between_numbers_pattern",
