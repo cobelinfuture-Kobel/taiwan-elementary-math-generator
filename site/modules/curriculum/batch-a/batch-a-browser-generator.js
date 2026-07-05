@@ -1,5 +1,11 @@
-import { QUESTION_KINDS, SUPPORT_STATUSES } from "../../core/constants.js";
-import { generateQuestionFromPattern } from "../../core/generate-expression.js";
+import { OPERATORS, QUESTION_KINDS, SUPPORT_STATUSES } from "../../core/constants.js";
+import { buildDuplicateKey, generateQuestionFromPattern } from "../../core/generate-expression.js";
+import {
+  createBinaryNode,
+  createGeneratedQuestionSkeleton,
+  createValueNode
+} from "../../core/expression-model.js";
+import { createIntegerValue } from "../../core/number-value.js";
 import { createSeededRandom, randomIntBetween } from "../../core/random.js";
 import { validateBatchAQuestionCarryPolicy } from "./carry-policy.js";
 import { estimateAddSubToUnit } from "./context-estimate-core.js";
@@ -42,11 +48,17 @@ function digitBounds(digits) {
   return [10 ** (digits - 1), (10 ** digits) - 1];
 }
 
+function targetCoveredDigits(definition, options = {}) {
+  const coverage = definition.digitCoverage;
+  if (!coverage || !Array.isArray(coverage.allowedDigits) || coverage.allowedDigits.length === 0) return null;
+  const sequenceNumber = Number.isInteger(options.sequenceNumber) && options.sequenceNumber > 0 ? options.sequenceNumber : 1;
+  return coverage.allowedDigits[(sequenceNumber - 1) % coverage.allowedDigits.length] ?? null;
+}
+
 function applyDigitCoverage(definition, options = {}) {
   const coverage = definition.digitCoverage;
   if (!coverage || !Array.isArray(coverage.allowedDigits) || coverage.allowedDigits.length === 0) return definition;
-  const sequenceNumber = Number.isInteger(options.sequenceNumber) && options.sequenceNumber > 0 ? options.sequenceNumber : 1;
-  const targetDigits = coverage.allowedDigits[(sequenceNumber - 1) % coverage.allowedDigits.length];
+  const targetDigits = targetCoveredDigits(definition, options);
   const targetPosition = coverage.cycledOperandPosition;
   if (!Number.isInteger(targetDigits) || !Number.isInteger(targetPosition)) return definition;
 
@@ -110,6 +122,19 @@ function textQuestionMetadata(definition) {
     difficultyTags: [...definition.difficultyTags],
     curriculumNodeIds: [definition.sourceId],
     canonicalSkillIds: [...definition.canonicalSkillIds]
+  };
+}
+
+function expressionMetadata(definition) {
+  return {
+    patternId: definition.patternSpecId,
+    patternTags: ["batch_a", "browser_bridge", definition.sourceId, definition.patternSpecId],
+    skillTags: [...definition.skillTags],
+    difficultyTags: [...definition.difficultyTags],
+    curriculumNodeIds: [definition.sourceId],
+    canonicalSkillIds: [...definition.canonicalSkillIds],
+    precedenceMode: "left_to_right",
+    parenthesesMode: "none"
   };
 }
 
@@ -203,6 +228,46 @@ function generateContextEstimateQuestion(definition, options = {}) {
   };
 }
 
+function buildDirectCarryOperands(definition, options = {}) {
+  const digits = targetCoveredDigits(definition, options) ?? 4;
+  const r = ((Number.isInteger(options.sequenceNumber) ? options.sequenceNumber : 1) - 1) % 9 + 1;
+  if (definition.carryPolicy?.kind === "addition_carry") {
+    const right = (digits === 1 ? 0 : 10 ** (digits - 1)) + r;
+    const left = (digits === 1 ? 1990 : digits === 2 ? 1980 : digits === 3 ? 1890 : 1990) + (10 - r);
+    return { left, right, operator: OPERATORS.ADD, answer: left + right };
+  }
+  if (definition.carryPolicy?.kind === "subtraction_regroup") {
+    const right = (digits === 1 ? 0 : 10 ** (digits - 1)) + r;
+    const left = (digits === 4 ? 3000 : 2000) + (r - 1);
+    return { left, right, operator: OPERATORS.SUBTRACT, answer: left - right };
+  }
+  return null;
+}
+
+function createDirectExpressionQuestion(definition, operands, options = {}) {
+  const leftValue = createIntegerValue(operands.left);
+  const rightValue = createIntegerValue(operands.right);
+  const answerValue = createIntegerValue(operands.answer);
+  const expression = createBinaryNode(
+    operands.operator,
+    createValueNode(leftValue, 1),
+    createValueNode(rightValue, 2),
+    { groupingHint: "leftAssociative" }
+  );
+  const question = createGeneratedQuestionSkeleton({
+    id: options.id ?? `${definition.patternSpecId}-${options.sequenceNumber ?? 1}`,
+    expression,
+    operandCount: 2,
+    operatorsUsed: [operands.operator],
+    finalAnswer: answerValue,
+    intermediateResults: [answerValue],
+    blankTarget: { type: "finalAnswer" },
+    duplicateKey: buildDuplicateKey(expression),
+    metadata: expressionMetadata(definition)
+  });
+  return attachBatchAMetadata(question, definition);
+}
+
 function attachBatchAMetadata(question, definition) {
   question.patternSpecId = definition.patternSpecId;
   question.sourceId = definition.sourceId;
@@ -220,6 +285,15 @@ function attachBatchAMetadata(question, definition) {
 }
 
 function generateExpressionQuestion(definition, options = {}) {
+  const directOperands = buildDirectCarryOperands(definition, options);
+  if (directOperands) {
+    const question = createDirectExpressionQuestion(definition, directOperands, options);
+    const carryPolicyCheck = validateBatchAQuestionCarryPolicy(definition, question);
+    return carryPolicyCheck.ok
+      ? { ok: true, question, warnings: [] }
+      : { ok: false, question: null, errors: carryPolicyCheck.errors, warnings: carryPolicyCheck.warnings };
+  }
+
   const coveredDefinition = applyDigitCoverage(definition, options);
   const pattern = createRuntimeExpressionPattern(coveredDefinition);
   const carryPolicyRequired = Boolean(definition.carryPolicy);
