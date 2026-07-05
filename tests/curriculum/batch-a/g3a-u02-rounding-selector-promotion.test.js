@@ -20,10 +20,10 @@ const KP_ID = "kp_g3a_u02_estimate_nearest_thousand";
 const GROUP_ID = "pg_g3a_u02_estimate_nearest_thousand";
 const SPEC_ID = "ps_g3a_u02_estimate_nearest_thousand";
 
-test("S43G2L selector extension keeps rounding KP visible after G3A U06 overlay", () => {
+test("S43G2L selector extension keeps rounding KP visible", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 10);
-  assert.equal(availability.visibleCount, 4);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 12);
+  assert.equal(availability.visibleCount, 6);
   assert.equal(availability.notSelectableCount, 0);
 
   const visibleIds = listVisibleBatchAKnowledgePoints().map((entry) => entry.knowledgePointId);
