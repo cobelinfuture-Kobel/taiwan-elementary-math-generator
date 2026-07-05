@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource, resolveVisiblePatternSpecIdsForKnowledgePoint } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import { BATCH_A_RESOLVER_SELECTION_MODES, resolveVisiblePatternGroupSelection } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet.js";
+import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 
 const sourceId = ["g3a", "u06", "3a06"].join("_");
 const suffixes = ["exact_division_check", "divisibility_exact_check"];
@@ -42,4 +43,8 @@ test("S43G4A G3A U06 selector QA", () => {
   });
   assert.equal(result.ok, true);
   assert.equal(result.worksheetDocument.answerKeyItems.length, 6);
+
+  const html = renderWorksheetDocumentToHtml(result.worksheetDocument, {});
+  assert.equal(html.includes("worksheet-page--questions"), true);
+  assert.equal(html.includes("worksheet-page--answer-key"), true);
 });
