@@ -1,5 +1,5 @@
 import { OPERATORS } from "../../core/constants.js";
-import { buildDuplicateKey, generateBatchABrowserQuestions as unused } from "./batch-a-browser-generator.js";
+import { buildDuplicateKey } from "../../core/generate-expression.js";
 import { createBinaryNode, createGeneratedQuestionSkeleton, createValueNode } from "../../core/expression-model.js";
 import { createIntegerValue } from "../../core/number-value.js";
 import { buildBatchABrowserPlan, generateBatchABrowserQuestions as baseGenerateBatchABrowserQuestions } from "./batch-a-browser-generator.js";
@@ -33,15 +33,9 @@ function allocateCounts(patternSpecIds, questionCount) {
 }
 
 function pairFor(specId, sequenceNumber) {
-  if (specId === "ps_g3a_u03_2digit_by_1digit_carry") {
-    return [10 + ((sequenceNumber * 17) % 90), 2 + ((sequenceNumber * 5) % 8)];
-  }
-  if (specId === "ps_g3a_u03_10_multiple_by_1digit") {
-    return [10 * (1 + ((sequenceNumber - 1) % 9)), 2 + ((sequenceNumber * 3) % 8)];
-  }
-  if (specId === "ps_g3a_u03_3digit_by_1digit") {
-    return [100 + ((sequenceNumber * 137) % 900), 2 + ((sequenceNumber * 5) % 8)];
-  }
+  if (specId === "ps_g3a_u03_2digit_by_1digit_carry") return [10 + ((sequenceNumber * 17) % 90), 2 + ((sequenceNumber * 5) % 8)];
+  if (specId === "ps_g3a_u03_10_multiple_by_1digit") return [10 * (1 + ((sequenceNumber - 1) % 9)), 2 + ((sequenceNumber * 3) % 8)];
+  if (specId === "ps_g3a_u03_3digit_by_1digit") return [100 + ((sequenceNumber * 137) % 900), 2 + ((sequenceNumber * 5) % 8)];
   return null;
 }
 
@@ -94,9 +88,7 @@ function makeQuestion(specId, operands, sequenceNumber) {
 }
 
 function generateU03Question(specId, sequenceNumber) {
-  if (specId === "ps_g3a_u03_consecutive_multiplication_two_step") {
-    return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
-  }
+  if (specId === "ps_g3a_u03_consecutive_multiplication_two_step") return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
   return makeQuestion(specId, pairFor(specId, sequenceNumber), sequenceNumber);
 }
 
@@ -113,9 +105,7 @@ export function generateBatchABrowserQuestions(options = {}) {
   const questions = [];
   for (const entry of allocation) {
     if (!u03SpecIds.includes(entry.patternSpecId)) return baseGenerateBatchABrowserQuestions(options);
-    for (let index = 0; index < entry.questionCount; index += 1) {
-      questions.push(generateU03Question(entry.patternSpecId, questions.length + 1));
-    }
+    for (let index = 0; index < entry.questionCount; index += 1) questions.push(generateU03Question(entry.patternSpecId, questions.length + 1));
   }
 
   return { ok: true, plan, questions: shuffleIfNeeded(questions, plan), allocation, errors: [], warnings: [] };
