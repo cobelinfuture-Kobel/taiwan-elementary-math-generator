@@ -3,12 +3,13 @@ import {
   getBatchAPatternSpecIdsForSource as baseGetPatternIds
 } from "./source-pattern-index.js";
 
+const SOURCE_ID = "g3a_u02_3a02";
 const BRIDGE_SOURCE_ID = "g3a_u02_3a02_context_estimate_runtime";
 const WORD_SPEC_ID = "ps_g3a_u02_word_problem_estimation_add_sub";
 
 const WORD_PROBLEM_DEFINITION = Object.freeze({
   patternSpecId: WORD_SPEC_ID,
-  sourceId: BRIDGE_SOURCE_ID,
+  sourceId: SOURCE_ID,
   title: "加減應用題估算",
   kind: "wordProblemEstimation",
   min: 1000,
