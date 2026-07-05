@@ -1,4 +1,4 @@
-S43G2T public CI trigger
+S43G3B public CI trigger
 
-triggeredAt = 2026-07-05T10:56:00Z
-reason = rerun after restoring visible pattern resolver QA
+triggeredAt = 2026-07-05T11:02:00Z
+reason = rerun after adding G3A-U03 render assertion
