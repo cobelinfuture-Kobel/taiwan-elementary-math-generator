@@ -14,6 +14,16 @@ A static browser-based math worksheet generator for V1 integer expression worksh
 - Traditional Chinese UI (正體中文)
 - Zero build step — static HTML/CSS/JS served directly
 
+## Project Governance
+
+Long-running project tasks must follow the root [`AGENTS.md`](AGENTS.md) execution rules.
+
+This public repository shares the same core CI Readback Gate policy as the private development repository, with a public/stable release override:
+
+- `Math CI Readback` is the authoritative task closeout workflow.
+- `Deploy GitHub Pages` is the authoritative public release/deployment workflow.
+- Do not request local `git pull origin main`, local `npm test`, or local `git status` as the standard closeout path unless the task explicitly involves unpushed local files, GitHub Actions is unavailable, or the operator requests local verification.
+
 ## Live Demo
 
 After deployment to GitHub Pages, the site will be available at:
@@ -21,6 +31,8 @@ After deployment to GitHub Pages, the site will be available at:
 `https://<user>.github.io/math-worksheet-generator/`
 
 ## Run Locally
+
+Local execution is available for development and debugging, but it is not the authoritative long-task closeout gate.
 
 ```bash
 # Install dependencies
@@ -113,6 +125,8 @@ Key constraints:
 npm test
 ```
 
+For project task closeout, do not use the local command above as the final source of truth. Use GitHub Actions CI readback as defined in `AGENTS.md`.
+
 Test files:
 - `tests/core/` — Expression evaluation, generation, validation, planning
 - `tests/renderer/` — HTML renderer, preview shell, static preview workflow
@@ -121,6 +135,8 @@ Test files:
 ## Current Stage
 
 S42 — Batch A browser worksheet production path closeout readiness.
+
+CI readback policy is documented in `AGENTS.md`.
 
 Closeout readiness note:
 
