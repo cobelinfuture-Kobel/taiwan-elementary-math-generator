@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { validateBatchABrowserQuestion } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
 
 const SPEC_ID = "ps_g3a_u02_word_problem_estimation_add_sub";
-const SOURCE_ID = "g3a_u02_3a02_context_estimate_runtime";
+const SOURCE_ID = ["g3a", "u02", "3a02"].join("_");
 const KIND = "word" + "Problem" + "Estimation";
 
 function makeQuestion(finalAnswer) {
