@@ -275,11 +275,15 @@ export function buildBatchABrowserPlan(options = {}) {
     : buildKnowledgePointPlan(basePlan, { ...options, selectionMode });
 }
 
+function hasRoundingShape(definition) {
+  return definition.kind === "rounding" || Number.isSafeInteger(definition.unit);
+}
+
 function generateQuestionForDefinition(definition, options) {
   if (definition.kind === "comparison") {
     return { ok: true, question: generateComparisonQuestion(definition, options) };
   }
-  if (definition.kind === "rounding") {
+  if (hasRoundingShape(definition)) {
     return { ok: true, question: generateRoundingQuestion(definition, options) };
   }
   return generateExpressionQuestion(definition, options);
