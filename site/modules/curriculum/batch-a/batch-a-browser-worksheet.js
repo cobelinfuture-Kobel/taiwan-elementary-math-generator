@@ -4,7 +4,7 @@ import {
   paginateAnswerKeyItems,
   paginateQuestionDisplayModels
 } from "../../core/index.js";
-import { generateBatchABrowserQuestions } from "./batch-a-browser-generator.js";
+import { generateBatchABrowserQuestions } from "./g3a-u03-quality-generator.js";
 import { validateBatchABrowserQuestions } from "./batch-a-browser-validator.js";
 import { BATCH_A_BROWSER_SCOPE } from "./production-eligibility.js";
 
@@ -167,7 +167,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     validationSummary: validation,
     provenance: {
       sourceType: "batch_a_browser_bridge",
-      sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles", "S43C13_G3AU02_HTMLSingleVisibleKPEnablement"],
+      sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles", "S43C13_G3AU02_HTMLSingleVisibleKPEnablement", "S43G5B_G3AU03MultiplicationGeneratorQualityFix"],
       patternSpecIds: [...plan.patternSpecIds],
       curriculumNodeIds: [plan.sourceId],
       knowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
@@ -219,22 +219,8 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       orderingMode: plan.ordering,
       patternIdsInRenderOrder: [...plan.patternSpecIds]
     },
-    report: createGenerationReport({
-      plan,
-      allocation: generated.allocation,
-      questions: generated.questions,
-      errors: [],
-      warnings: generated.warnings
-    }),
-    batchA: {
-      scope: cloneValue(BATCH_A_BROWSER_SCOPE),
-      sourceId: plan.sourceId,
-      selectionMode: plan.selectionMode,
-      knowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
-      patternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []),
-      patternSpecIds: [...plan.patternSpecIds]
-    }
+    generationReport: createGenerationReport({ plan, allocation: generated.allocation, questions: generated.questions, errors: generated.errors, warnings: generated.warnings })
   };
 
-  return { ok: true, worksheetDocument, validation, errors: [], warnings: generated.warnings };
+  return { ok: true, worksheetDocument, validation, errors: [], warnings: validation.warnings };
 }
