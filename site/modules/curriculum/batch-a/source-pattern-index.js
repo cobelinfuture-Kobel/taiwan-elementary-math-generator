@@ -136,7 +136,7 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
 
 export const BATCH_A_SOURCE_PATTERN_INDEX = Object.freeze({
   g3a_u01_3a01: Object.freeze(["ps_g3a_u01_4digit_compare"]),
-  g3a_u02_3a02: Object.freeze(["ps_g3a_u02_4digit_add_multi_carry", "ps_g3a_u02_4digit_sub_multi_borrow", "ps_g3a_u02_estimate_nearest_thousand"]),
+  g3a_u02_3a02: Object.freeze(["ps_g3a_u02_4digit_add_multi_carry", "ps_g3a_u02_4digit_sub_multi_borrow"]),
   g3a_u03_3a03: Object.freeze(["ps_g3a_u03_2digit_by_1digit_carry", "ps_g3a_u03_10_multiple_by_1digit", "ps_g3a_u03_3digit_by_1digit", "ps_g3a_u03_consecutive_multiplication_two_step"]),
   g3a_u06_3a06: Object.freeze(["ps_g3a_u06_exact_division_check", "ps_g3a_u06_divisibility_exact_check"]),
   g3b_u01_3b01: Object.freeze(["ps_g3b_u01_3digit_by_1digit_regroup_hundreds", "ps_g3b_u01_2digit_by_1digit_regroup_tens"]),
