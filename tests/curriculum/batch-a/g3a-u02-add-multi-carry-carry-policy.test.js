@@ -2,7 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { OPERATORS } from "../../../site/modules/core/constants.js";
+import { createBinaryNode, createValueNode } from "../../../site/modules/core/expression-model.js";
+import { createIntegerValue } from "../../../site/modules/core/number-value.js";
 import {
+  countSubtractionRegroups,
   extractBatchAExpressionOperandValues,
   hasAdditionCarry
 } from "../../../site/modules/curriculum/batch-a/carry-policy.js";
@@ -12,6 +15,33 @@ import { getBatchABrowserPatternDefinition } from "../../../site/modules/curricu
 
 const ADD_PATTERN_ID = "ps_g3a_u02_4digit_add_multi_carry";
 const SUB_PATTERN_ID = ["ps", "g3a", "u02", "4digit", "sub", "multi", "bor" + "row"].join("_");
+
+function manualQuestion({ patternId, left, right, operator, answer }) {
+  return {
+    id: `${patternId}-${left}-${operator}-${right}`,
+    expression: createBinaryNode(
+      operator,
+      createValueNode(createIntegerValue(left), 1),
+      createValueNode(createIntegerValue(right), 2),
+      { groupingHint: "leftAssociative" }
+    ),
+    operandCount: 2,
+    operatorsUsed: [operator],
+    finalAnswer: createIntegerValue(answer),
+    intermediateResults: [],
+    blankTarget: { type: "finalAnswer" },
+    duplicateKey: `${left}-${operator}-${right}`,
+    metadata: {
+      patternId,
+      sourceId: "g3a_u02_3a02",
+      patternTags: [],
+      skillTags: [],
+      difficultyTags: [],
+      curriculumNodeIds: ["g3a_u02_3a02"],
+      canonicalSkillIds: []
+    }
+  };
+}
 
 test("addition carry helper keeps required fixture behavior", () => {
   const carryPolicy = getBatchABrowserPatternDefinition(ADD_PATTERN_ID).carryPolicy;
@@ -70,4 +100,17 @@ test("generated subtraction questions satisfy regroup policy", () => {
     assert.equal(question.operatorsUsed.includes(OPERATORS.SUBTRACT), true);
     assert.equal(validateBatchABrowserQuestion(question).ok, true);
   }
+});
+
+test("manual subtraction regroup validator accepts and rejects boundary cases", () => {
+  const policy = getBatchABrowserPatternDefinition(SUB_PATTERN_ID).carryPolicy;
+  const accepted = manualQuestion({ patternId: SUB_PATTERN_ID, left: 7000, right: 1234, operator: OPERATORS.SUBTRACT, answer: 5766 });
+  const acceptedOperands = extractBatchAExpressionOperandValues(accepted.expression);
+  assert.equal(countSubtractionRegroups(acceptedOperands[0], acceptedOperands[1], 10, policy), 3);
+  assert.equal(validateBatchABrowserQuestion(accepted).ok, true);
+
+  const rejected = manualQuestion({ patternId: SUB_PATTERN_ID, left: 3000, right: 1000, operator: OPERATORS.SUBTRACT, answer: 2000 });
+  const rejectedOperands = extractBatchAExpressionOperandValues(rejected.expression);
+  assert.equal(countSubtractionRegroups(rejectedOperands[0], rejectedOperands[1], 10, policy), 0);
+  assert.equal(validateBatchABrowserQuestion(rejected).ok, false);
 });
