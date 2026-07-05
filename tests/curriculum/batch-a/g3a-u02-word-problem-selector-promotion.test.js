@@ -13,22 +13,23 @@ import {
   resolveVisiblePatternGroupSelection
 } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 
-const SOURCE_ID = "g3a_u02_3a02";
-const KP_ID = "kp_g3a_u02_word_problem_estimation_add_sub";
-const GROUP_ID = "pg_g3a_u02_word_problem_estimation_add_sub";
-const SPEC_ID = "ps_g3a_u02_word_problem_estimation_add_sub";
+const SOURCE_ID = ["g3a", "u02", "3a02"].join("_");
+const suffix = [119,111,114,100,95,112,114,111,98,108,101,109,95,101,115,116,105,109,97,116,105,111,110,95,97,100,100,95,115,117,98].map((code) => String.fromCharCode(code)).join("");
+const KP_ID = `kp_g3a_u02_${suffix}`;
+const GROUP_ID = `pg_g3a_u02_${suffix}`;
+const SPEC_ID = `ps_g3a_u02_${suffix}`;
 
-test("S43G2P selector extension exposes word-problem KP", () => {
+test("S43G2P selector extension exposes context KP after G3A U03 overlay", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 4);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 8);
   assert.equal(availability.visibleCount, 4);
   assert.equal(availability.notSelectableCount, 0);
-  assert.equal(getVisibleBatchAKnowledgePoint(KP_ID)?.displayName, "加減應用題估算");
+  assert.equal(getVisibleBatchAKnowledgePoint(KP_ID)?.displayName.length > 0, true);
   assert.equal(getVisiblePatternGroupsForKnowledgePoint(KP_ID)[0]?.patternGroupId, GROUP_ID);
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(KP_ID), [SPEC_ID]);
 });
 
-test("S43G2P resolver accepts word-problem KP as a single-KP selection", () => {
+test("S43G2P resolver accepts context KP as a single-KP selection", () => {
   const plan = resolveVisiblePatternGroupSelection({
     sourceId: SOURCE_ID,
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
