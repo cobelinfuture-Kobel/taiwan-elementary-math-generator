@@ -6,10 +6,12 @@ import { fileURLToPath } from "node:url";
 
 import { buildWorksheetDocumentFromState } from "../../site/assets/browser/pipeline/build-worksheet-document.js";
 import {
+  BATCH_A_SELECTION_MODES,
   createConfigState,
   getOperatorsEnabled,
   setBatchAIncludeAnswerKey,
   setBatchAQuestionCount,
+  setBatchASelectorSelection,
   setBatchASourceId,
   setOperatorEnabled,
   setQuestionCount
@@ -93,6 +95,27 @@ test("Batch A controls - G4A U01 source supports comparison and large-number exp
   assert.equal(generatedQuestions.some((question) => question.kind === "comparison"), true);
   assert.equal(generatedQuestions.some((question) => question.kind !== "comparison"), true);
   assert.equal(generatedQuestions.every((question) => question.sourceId === "g4a_u01_4a01"), true);
+});
+
+test("S43G1 - single visible KnowledgePoint worksheet smoke QA", () => {
+  const state = createConfigState();
+  setBatchASelectorSelection(state, {
+    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+    selectedKnowledgePointIds: ["kp_g3a_u02_add_multi_carry"],
+    selectedPatternGroupIds: []
+  });
+  setBatchAQuestionCount(state, 6);
+  setBatchAIncludeAnswerKey(state, true);
+
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.batchA.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
+  assert.deepEqual(result.worksheetDocument.batchA.knowledgePointIds, ["kp_g3a_u02_add_multi_carry"]);
+  assert.deepEqual(result.worksheetDocument.batchA.patternGroupIds, ["pg_g3a_u02_add_multi_carry_seed"]);
+  assert.deepEqual(result.worksheetDocument.batchA.patternSpecIds, ["ps_g3a_u02_4digit_add_multi_carry"]);
+  assert.equal(result.worksheetDocument.summary.questionCount, 6);
+  assert.equal(result.worksheetDocument.answerKeyItems.length, 6);
+  assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.patternSpecId === "ps_g3a_u02_4digit_add_multi_carry"), true);
 });
 
 test("compat operator helpers - last enabled operator cannot be disabled through helper", () => {
