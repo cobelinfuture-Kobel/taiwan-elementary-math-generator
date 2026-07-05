@@ -167,6 +167,14 @@ jobs:
           npm_exit_code = os.environ.get("CI_READBACK_NPM_TEST_EXIT_CODE", "NOT_RUN")
           working_tree_actual = os.environ.get("CI_READBACK_WORKING_TREE_STATUS", "unknown")
 
+          npm_output = ""
+          npm_output_path = Path(os.environ.get("RUNNER_TEMP", ".")) / "npm-test-output.txt"
+          if npm_output_path.exists():
+              npm_output = npm_output_path.read_text(encoding="utf-8", errors="replace")
+          marker = "✖ failing tests:"
+          marker_index = npm_output.find(marker)
+          failing_tests_excerpt = npm_output[marker_index:marker_index + 6000] if marker_index >= 0 else ""
+
           status = "PASS_CI_SYNCED_AND_CLEAN"
           result = "PASS"
           failed_stage = "none"
@@ -183,74 +191,38 @@ jobs:
               status = "FAIL_INSTALL_DEPENDENCIES"
               result = "FAIL"
               failed_stage = "install_dependencies"
-          elif npm_test_outcome == "skipped" or npm_exit_code == "NOT_RUN":
-              status = "FAIL_NPM_TEST_NOT_RUN"
-              result = "FAIL"
-              failed_stage = "npm_test"
-          elif npm_exit_code != "0":
+          elif npm_exit_code != "0" or verify_test_result_outcome != "success":
               status = "FAIL_NPM_TEST"
               result = "FAIL"
               failed_stage = "npm_test"
-          elif "UNPARSED" in {tests_actual, pass_actual, fail_actual}:
-              status = "FAIL_TEST_SUMMARY_PARSE"
-              result = "FAIL"
-              failed_stage = "verify_dynamic_test_result"
-          elif fail_actual != "0":
-              status = "FAIL_TEST_FAILURES"
-              result = "FAIL"
-              failed_stage = "verify_dynamic_test_result"
-          elif pass_actual != tests_actual:
-              status = "FAIL_TEST_COUNT_MISMATCH"
-              result = "FAIL"
-              failed_stage = "verify_dynamic_test_result"
-          elif working_tree_actual != "clean":
+          elif working_tree_actual != "clean" or verify_working_tree_outcome != "success":
               status = "FAIL_WORKING_TREE_DIRTY"
               result = "FAIL"
-              failed_stage = "working_tree_clean_check"
+              failed_stage = "working_tree"
 
-          server_url = os.environ.get("CI_READBACK_SERVER_URL", "https://github.com")
-          repository = os.environ.get("CI_READBACK_REPOSITORY", "")
-          run_id = os.environ.get("CI_READBACK_RUN_ID", "")
-          run_url = f"{server_url}/{repository}/actions/runs/{run_id}" if repository and run_id else ""
-
-          readback = {
+          data = {
               "schemaVersion": "public-math-ci-readback-v1",
               "status": status,
               "result": result,
               "failedStage": failed_stage,
-              "workflow": os.environ.get("CI_READBACK_WORKFLOW", "Math CI Readback"),
-              "repository": repository,
-              "eventName": os.environ.get("CI_READBACK_EVENT_NAME", ""),
-              "ref": os.environ.get("CI_READBACK_REF", ""),
-              "refName": os.environ.get("CI_READBACK_REF_NAME", ""),
-              "sha": os.environ.get("CI_READBACK_SHA", ""),
+              "workflow": os.environ.get("CI_READBACK_WORKFLOW"),
+              "repository": os.environ.get("CI_READBACK_REPOSITORY"),
+              "eventName": os.environ.get("CI_READBACK_EVENT_NAME"),
+              "ref": os.environ.get("CI_READBACK_REF"),
+              "refName": os.environ.get("CI_READBACK_REF_NAME"),
+              "sha": os.environ.get("CI_READBACK_SHA"),
               "run": {
-                  "id": run_id,
-                  "number": os.environ.get("CI_READBACK_RUN_NUMBER", ""),
-                  "attempt": os.environ.get("CI_READBACK_RUN_ATTEMPT", ""),
-                  "url": run_url
+                  "id": os.environ.get("CI_READBACK_RUN_ID"),
+                  "number": os.environ.get("CI_READBACK_RUN_NUMBER"),
+                  "attempt": os.environ.get("CI_READBACK_RUN_ATTEMPT"),
+                  "url": f"{os.environ.get('CI_READBACK_SERVER_URL')}/{os.environ.get('CI_READBACK_REPOSITORY')}/actions/runs/{os.environ.get('CI_READBACK_RUN_ID')}",
               },
               "checks": {
-                  "npmTestExitCode": {
-                      "expected": "0",
-                      "actual": npm_exit_code
-                  },
-                  "tests": {
-                      "expected": "auto-detected",
-                      "actual": tests_actual
-                  },
-                  "pass": {
-                      "expected": "equal tests",
-                      "actual": pass_actual
-                  },
-                  "fail": {
-                      "expected": "0",
-                      "actual": fail_actual
-                  },
-                  "workingTree": {
-                      "expected": "clean",
-                      "actual": working_tree_actual
-                  }
+                  "npmTestExitCode": {"expected": "0", "actual": npm_exit_code},
+                  "tests": {"expected": "auto-detected", "actual": tests_actual},
+                  "pass": {"expected": "equal tests", "actual": pass_actual},
+                  "fail": {"expected": "0", "actual": fail_actual},
+                  "workingTree": {"expected": "clean", "actual": working_tree_actual},
               },
               "steps": {
                   "checkout": checkout_outcome,
@@ -259,163 +231,40 @@ jobs:
                   "npmTest": npm_test_outcome,
                   "verifyDynamicTestResult": verify_test_result_outcome,
                   "gitStatus": git_status_outcome,
-                  "verifyWorkingTree": verify_working_tree_outcome
+                  "verifyWorkingTree": verify_working_tree_outcome,
               },
-              "updatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+              "diagnostics": {
+                  "failingTestsExcerpt": failing_tests_excerpt
+              },
+              "updatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
           }
-
-          path = Path(os.environ["CI_READBACK_FILE"])
-          path.write_text(json.dumps(readback, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-          print(f"Wrote {path}")
-          print(json.dumps({"status": status, "result": result, "runUrl": run_url}, ensure_ascii=False))
+          Path(os.environ["CI_READBACK_FILE"]).write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
           PY
 
       - name: Upload CI readback artifact
-        id: upload_ci_readback_artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: latest-public-math-ci-readback
           path: docs/ci/latest-public-math-ci-readback.json
-          if-no-files-found: error
-          retention-days: 14
 
       - name: Commit CI readback file
-        id: commit_ci_readback_file
-        if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
-          set -euo pipefail
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/ci/latest-public-math-ci-readback.json
-          if git diff --staged --quiet; then
-            echo "No CI readback file changes to commit."
-            exit 0
+          if git diff --cached --quiet; then
+            echo "No CI readback changes to commit."
+          else
+            git commit -m "ci: update latest public math CI readback [skip ci]"
+            git push
           fi
-          git commit -m "ci: update latest public math CI readback [skip ci]"
-          git pull --rebase origin main
-          git push origin HEAD:main
 
       - name: Write CI readback summary
-        id: write_summary
         if: always()
         shell: bash
         run: |
-          checkout_outcome="${{ steps.checkout.outcome }}"
-          setup_node_outcome="${{ steps.setup_node.outcome }}"
-          install_dependencies_outcome="${{ steps.install_dependencies.outcome }}"
-          npm_test_outcome="${{ steps.npm_test.outcome }}"
-          verify_test_result_outcome="${{ steps.verify_test_result.outcome }}"
-          git_status_outcome="${{ steps.git_status.outcome }}"
-          verify_working_tree_outcome="${{ steps.verify_working_tree.outcome }}"
-          write_ci_readback_file_outcome="${{ steps.write_ci_readback_file.outcome }}"
-          upload_ci_readback_artifact_outcome="${{ steps.upload_ci_readback_artifact.outcome }}"
-          commit_ci_readback_file_outcome="${{ steps.commit_ci_readback_file.outcome }}"
-
-          tests_actual="${CI_READBACK_TESTS:-UNPARSED}"
-          pass_actual="${CI_READBACK_PASS:-UNPARSED}"
-          fail_actual="${CI_READBACK_FAIL:-UNPARSED}"
-          npm_exit_code="${CI_READBACK_NPM_TEST_EXIT_CODE:-NOT_RUN}"
-          working_tree_actual="${CI_READBACK_WORKING_TREE_STATUS:-unknown}"
-
-          status="PASS_CI_SYNCED_AND_CLEAN"
-          result="PASS"
-          failed_stage="none"
-
-          if [ "$checkout_outcome" != "success" ]; then
-            status="FAIL_CHECKOUT"
-            result="FAIL"
-            failed_stage="checkout"
-          elif [ "$setup_node_outcome" != "success" ]; then
-            status="FAIL_SETUP_NODE"
-            result="FAIL"
-            failed_stage="setup_node"
-          elif [ "$install_dependencies_outcome" != "success" ]; then
-            status="FAIL_INSTALL_DEPENDENCIES"
-            result="FAIL"
-            failed_stage="install_dependencies"
-          elif [ "$npm_test_outcome" = "skipped" ] || [ "$npm_exit_code" = "NOT_RUN" ]; then
-            status="FAIL_NPM_TEST_NOT_RUN"
-            result="FAIL"
-            failed_stage="npm_test"
-          elif [ "$npm_exit_code" != "0" ]; then
-            status="FAIL_NPM_TEST"
-            result="FAIL"
-            failed_stage="npm_test"
-          elif [ "$tests_actual" = "UNPARSED" ] || [ "$pass_actual" = "UNPARSED" ] || [ "$fail_actual" = "UNPARSED" ]; then
-            status="FAIL_TEST_SUMMARY_PARSE"
-            result="FAIL"
-            failed_stage="verify_dynamic_test_result"
-          elif [ "$fail_actual" != "0" ]; then
-            status="FAIL_TEST_FAILURES"
-            result="FAIL"
-            failed_stage="verify_dynamic_test_result"
-          elif [ "$pass_actual" != "$tests_actual" ]; then
-            status="FAIL_TEST_COUNT_MISMATCH"
-            result="FAIL"
-            failed_stage="verify_dynamic_test_result"
-          elif [ "$working_tree_actual" != "clean" ]; then
-            status="FAIL_WORKING_TREE_DIRTY"
-            result="FAIL"
-            failed_stage="working_tree_clean_check"
-          fi
-
-          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-          {
-            echo "## Math CI Readback"
-            echo ""
-            echo "| Check | Expected | Actual | Result |"
-            echo "|---|---:|---:|---|"
-            echo "| tests | auto-detected | $tests_actual | $([ "$tests_actual" != "UNPARSED" ] && echo PASS || echo FAIL) |"
-            echo "| pass | equal tests | $pass_actual | $([ "$pass_actual" = "$tests_actual" ] && [ "$pass_actual" != "UNPARSED" ] && echo PASS || echo FAIL) |"
-            echo "| fail | 0 | $fail_actual | $([ "$fail_actual" = "0" ] && echo PASS || echo FAIL) |"
-            echo "| npm test exit code | 0 | $npm_exit_code | $([ "$npm_exit_code" = "0" ] && echo PASS || echo FAIL) |"
-            echo "| working tree | clean | $working_tree_actual | $([ "$working_tree_actual" = "clean" ] && echo PASS || echo FAIL) |"
-            echo ""
-            echo "| Step | Outcome |"
-            echo "|---|---|"
-            echo "| checkout | $checkout_outcome |"
-            echo "| setup_node | $setup_node_outcome |"
-            echo "| install_dependencies | $install_dependencies_outcome |"
-            echo "| npm_test | $npm_test_outcome |"
-            echo "| verify_dynamic_test_result | $verify_test_result_outcome |"
-            echo "| git_status | $git_status_outcome |"
-            echo "| verify_working_tree | $verify_working_tree_outcome |"
-            echo "| write_ci_readback_file | $write_ci_readback_file_outcome |"
-            echo "| upload_ci_readback_artifact | $upload_ci_readback_artifact_outcome |"
-            echo "| commit_ci_readback_file | $commit_ci_readback_file_outcome |"
-            echo ""
-            echo "### Status"
-            echo ""
-            printf '`MATH_CI_READBACK_STATUS = %s`\n' "$status"
-            echo ""
-            echo "Result: $result"
-            echo ""
-            echo "Failed stage: $failed_stage"
-            echo ""
-            echo "Run URL: $run_url"
-            echo ""
-            echo "Readback file: docs/ci/latest-public-math-ci-readback.json"
-            echo ""
-            echo "### npm test log tail"
-            echo ""
-            printf '```text\n'
-            if [ -f "$RUNNER_TEMP/npm-test-output.txt" ]; then
-              tail -n 80 "$RUNNER_TEMP/npm-test-output.txt"
-            else
-              echo "npm-test-output.txt not found."
-            fi
-            printf '```\n'
-            echo ""
-            echo "### git status --short"
-            echo ""
-            printf '```text\n'
-            if [ -f "$RUNNER_TEMP/git-status.txt" ]; then
-              cat "$RUNNER_TEMP/git-status.txt"
-            else
-              echo "git-status.txt not found."
-            fi
-            printf '```\n'
-          } >> "$GITHUB_STEP_SUMMARY"
+          echo "CI_READBACK_STATUS=${{ env.CI_READBACK_NPM_TEST_EXIT_CODE }}" >> "$GITHUB_STEP_SUMMARY"
+          cat docs/ci/latest-public-math-ci-readback.json >> "$GITHUB_STEP_SUMMARY"
