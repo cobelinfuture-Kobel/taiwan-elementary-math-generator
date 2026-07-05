@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   BATCH_A_SELECTION_MODES,
   createConfigState,
+  setBatchAIncludeAnswerKey,
   setBatchAQuestionCount,
   setBatchASelectorSelection
 } from "../../site/assets/browser/state/config-state.js";
@@ -17,6 +18,7 @@ const SPEC_ID = "ps_g3a_u02_estimate_nearest_thousand";
 test("S43G2M UI state accepts rounding KP and renders HTML", () => {
   const state = createConfigState({ queryState: { sourceId: "g3a_u02_3a02" } });
   setBatchAQuestionCount(state, 8);
+  setBatchAIncludeAnswerKey(state, true);
   setBatchASelectorSelection(state, {
     selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     selectedKnowledgePointIds: [KP_ID],
@@ -26,6 +28,7 @@ test("S43G2M UI state accepts rounding KP and renders HTML", () => {
   assert.equal(state.batchA.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
   assert.deepEqual(state.batchA.selectedKnowledgePointIds, [KP_ID]);
   assert.deepEqual(state.batchA.selectedPatternGroupIds, [GROUP_ID]);
+  assert.equal(state.batchA.includeAnswerKey, true);
   assert.equal(state.batchA.selectorWarnings.length, 0);
 
   const result = buildWorksheetDocumentFromState(state);
