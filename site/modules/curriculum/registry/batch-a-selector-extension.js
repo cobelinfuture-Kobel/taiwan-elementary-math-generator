@@ -9,11 +9,16 @@ const wordGroupId = "pg_g3a_u02_word_problem_estimation_add_sub";
 const wordSpecId = "ps_g3a_u02_word_problem_estimation_add_sub";
 
 const g3aU03SourceId = "g3a_u03_3a03";
+const g3aU06SourceId = "g3a_u06_3a06";
 const g3aU03Rows = Object.freeze([
   ["kp_g3a_u03_2digit_by_1digit_carry", "pg_g3a_u03_2digit_by_1digit_carry", "ps_g3a_u03_2digit_by_1digit_carry", "二位數乘以一位數", ["two_digit", "one_digit", "carry"]],
   ["kp_g3a_u03_10_multiple_by_1digit", "pg_g3a_u03_10_multiple_by_1digit", "ps_g3a_u03_10_multiple_by_1digit", "10 的倍數乘以一位數", ["ten_multiple", "one_digit"]],
   ["kp_g3a_u03_3digit_by_1digit", "pg_g3a_u03_3digit_by_1digit", "ps_g3a_u03_3digit_by_1digit", "三位數乘以一位數", ["three_digit", "one_digit"]],
   ["kp_g3a_u03_consecutive_multiplication_two_step", "pg_g3a_u03_consecutive_multiplication_two_step", "ps_g3a_u03_consecutive_multiplication_two_step", "兩步驟連續乘法", ["two_step", "multiplication"]]
+]);
+const g3aU06Rows = Object.freeze([
+  ["kp_g3a_u06_exact_division_check", "pg_g3a_u06_exact_division_check", "ps_g3a_u06_exact_division_check", "二位數除以一位數整除", ["two_digit", "one_digit", "exact_division"]],
+  ["kp_g3a_u06_divisibility_exact_check", "pg_g3a_u06_divisibility_exact_check", "ps_g3a_u06_divisibility_exact_check", "整除檢查", ["divisibility", "exact_division"]]
 ]);
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -80,17 +85,17 @@ const wordGroup = Object.freeze({
   holdReason: null
 });
 
-function makeU03Kp([knowledgePointId, patternGroupId, patternSpecId, displayName, subskillTags]) {
+function makeKp([knowledgePointId, patternGroupId, patternSpecId, displayName, subskillTags], sourceId, unitCode, unitTitle, canonicalSkillTag, difficultyTag) {
   return Object.freeze({
     knowledgePointId,
-    sourceId: g3aU03SourceId,
-    unitCode: "3A-U03",
-    unitTitle: "乘法",
+    sourceId,
+    unitCode,
+    unitTitle,
     displayName,
     supportClass: "B",
-    canonicalSkillTag: "integer_multiplication",
+    canonicalSkillTag,
     subskillTags,
-    difficultyTags: ["multiplication"],
+    difficultyTags: [difficultyTag],
     representationTags: ["numeric_expression"],
     patternGroupIds: [patternGroupId],
     patternSpecIds: [patternSpecId],
@@ -98,12 +103,12 @@ function makeU03Kp([knowledgePointId, patternGroupId, patternSpecId, displayName
   });
 }
 
-function makeU03Group([knowledgePointId, patternGroupId, patternSpecId, displayName]) {
+function makeGroup([knowledgePointId, patternGroupId, patternSpecId, displayName], sourceId, unitCode, unitTitle) {
   return Object.freeze({
     patternGroupId,
-    sourceId: g3aU03SourceId,
-    unitCode: "3A-U03",
-    unitTitle: "乘法",
+    sourceId,
+    unitCode,
+    unitTitle,
     displayName,
     primaryKnowledgePointId: knowledgePointId,
     knowledgePointIds: [knowledgePointId],
@@ -115,22 +120,25 @@ function makeU03Group([knowledgePointId, patternGroupId, patternSpecId, displayN
   });
 }
 
-const u03Kps = Object.freeze(g3aU03Rows.map(makeU03Kp));
-const u03Groups = Object.freeze(g3aU03Rows.map(makeU03Group));
-const extraKps = Object.freeze([roundKp, wordKp, ...u03Kps]);
-const extraGroups = Object.freeze([roundGroup, wordGroup, ...u03Groups]);
+const u03Kps = Object.freeze(g3aU03Rows.map((row) => makeKp(row, g3aU03SourceId, "3A-U03", "乘法", "integer_multiplication", "multiplication")));
+const u03Groups = Object.freeze(g3aU03Rows.map((row) => makeGroup(row, g3aU03SourceId, "3A-U03", "乘法")));
+const u06Kps = Object.freeze(g3aU06Rows.map((row) => makeKp(row, g3aU06SourceId, "3A-U06", "二位數除以一位數", "integer_division_exact", "division")));
+const u06Groups = Object.freeze(g3aU06Rows.map((row) => makeGroup(row, g3aU06SourceId, "3A-U06", "二位數除以一位數")));
+const extraKps = Object.freeze([roundKp, wordKp, ...u03Kps, ...u06Kps]);
+const extraGroups = Object.freeze([roundGroup, wordGroup, ...u03Groups, ...u06Groups]);
 const kpById = new Map(extraKps.map((entry) => [entry.knowledgePointId, entry]));
 const groupsByKpId = new Map(extraGroups.flatMap((group) => group.knowledgePointIds.map((knowledgePointId) => [knowledgePointId, [group]])));
 
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: 8,
+  visibleCount: 10,
   notSelectableCount: 0,
   bySourceId: {
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
     [g3aU02SourceId]: { sourceId: g3aU02SourceId, visibleCount: 4, hiddenPendingCount: 0, notSelectableCount: 0 },
-    [g3aU03SourceId]: { sourceId: g3aU03SourceId, visibleCount: 4, hiddenPendingCount: 0, notSelectableCount: 0 }
+    [g3aU03SourceId]: { sourceId: g3aU03SourceId, visibleCount: 4, hiddenPendingCount: 0, notSelectableCount: 0 },
+    [g3aU06SourceId]: { sourceId: g3aU06SourceId, visibleCount: 2, hiddenPendingCount: 0, notSelectableCount: 0 }
   }
 });
 
