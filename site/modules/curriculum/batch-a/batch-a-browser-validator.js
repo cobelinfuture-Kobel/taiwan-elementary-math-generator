@@ -1,7 +1,7 @@
 import { evaluateExpression } from "../../core/evaluate-expression.js";
 import { getIntegerRawValue, isIntegerValue } from "../../core/number-value.js";
 import { validateBatchAQuestionCarryPolicy } from "./carry-policy.js";
-import { getBatchABrowserPatternDefinition, getBatchAPatternSpecIdsForSource } from "./source-pattern-index.js";
+import { getBatchABrowserPatternDefinition, getBatchAPatternSpecIdsForSource } from "./source-pattern-extension.js";
 import { validateBatchAPlanScope } from "./production-eligibility.js";
 
 function issue(code, path, message, severity = "error") {
@@ -20,7 +20,31 @@ function roundByUnit(value, unit) {
 }
 
 function hasRoundingShape(definition) {
-  return definition.kind === "rounding" || Number.isSafeInteger(definition.unit);
+  return definition.kind === "rounding" || (definition.kind !== "wordProblemEstimation" && Number.isSafeInteger(definition.unit));
+}
+
+function validateWordProblemEstimation(definition, question, errors) {
+  const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
+  const left = question.left;
+  const right = question.right;
+  const operator = question.operator;
+  if (!Number.isSafeInteger(left) || !Number.isSafeInteger(right)) {
+    errors.push(issue("batch_a_word_problem_value_invalid", "operands", "Word problem operands must be integers."));
+    return;
+  }
+  if (!["add", "subtract"].includes(operator)) {
+    errors.push(issue("batch_a_word_problem_operator_invalid", "operator", "Word problem operator is invalid."));
+    return;
+  }
+  const roundedLeft = roundByUnit(left, unit);
+  const roundedRight = roundByUnit(right, unit);
+  const expected = operator === "add" ? roundedLeft + roundedRight : roundedLeft - roundedRight;
+  if (question.answerText !== String(expected)) {
+    errors.push(issue("batch_a_answer_incorrect", "answerText", "Word problem answerText mismatch."));
+  }
+  if (intValue(question.finalAnswer) !== expected) {
+    errors.push(issue("batch_a_answer_incorrect", "finalAnswer", "Word problem finalAnswer mismatch."));
+  }
 }
 
 export function validateBatchABrowserPlan(plan = {}) {
@@ -80,6 +104,8 @@ export function validateBatchABrowserQuestion(question = {}) {
     if (question.answerText !== expected) {
       errors.push(issue("batch_a_answer_incorrect", "answerText", "Comparison answerText does not match numeric comparison."));
     }
+  } else if (definition.kind === "wordProblemEstimation") {
+    validateWordProblemEstimation(definition, question, errors);
   } else if (hasRoundingShape(definition)) {
     const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
     const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
