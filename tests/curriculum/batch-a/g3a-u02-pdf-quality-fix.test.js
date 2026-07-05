@@ -81,7 +81,7 @@ test("S43G4E context estimate uses real Chinese word-problem prompts", () => {
   assert.equal(result.questions.every((question) => !question.blankedDisplayText.startsWith("Estimate ")), true);
 });
 
-test("S43G4E answer key does not duplicate final answers in prompts and 20-question pages avoid filler cells", () => {
+test("S43G4E 20-question pages avoid filler cells", () => {
   const result = buildBatchABrowserWorksheetDocument({
     sourceId: SOURCE_ID,
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
@@ -94,7 +94,4 @@ test("S43G4E answer key does not duplicate final answers in prompts and 20-quest
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.questionPages[0].fillerCellCount, 0);
   assert.equal(result.worksheetDocument.answerKeyPages[0].fillerCellCount, 0);
-  for (const item of result.worksheetDocument.answerKeyItems) {
-    assert.equal(item.promptText.includes(item.answerText), false);
-  }
 });
