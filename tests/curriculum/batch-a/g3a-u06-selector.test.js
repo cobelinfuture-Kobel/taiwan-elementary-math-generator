@@ -15,7 +15,7 @@ const planSpecIds = [...rowSpecIds].sort();
 
 test("S43G4A G3A U06 selector QA", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 10);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 12);
   assert.equal(availability.visibleCount, 2);
   for (let index = 0; index < kpIds.length; index += 1) {
     assert.equal(getVisibleBatchAKnowledgePoint(kpIds[index])?.sourceId, sourceId);
