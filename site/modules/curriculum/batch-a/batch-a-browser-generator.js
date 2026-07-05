@@ -228,6 +228,60 @@ function generateContextEstimateQuestion(definition, options = {}) {
   };
 }
 
+function valueWithDigits(digits, offset) {
+  const [min, max] = digitBounds(digits);
+  return Math.min(max, min + offset);
+}
+
+function maskDigit(value, index) {
+  const text = String(value);
+  return `${text.slice(0, index)}□${text.slice(index + 1)}`;
+}
+
+function buildMissingDigitOperands(definition, options = {}) {
+  const sequenceNumber = Number.isInteger(options.sequenceNumber) && options.sequenceNumber > 0 ? options.sequenceNumber : 1;
+  const rightDigits = definition.rightDigitCoverage[(sequenceNumber - 1) % definition.rightDigitCoverage.length];
+  const offset = (sequenceNumber * 137) % 800;
+  const right = valueWithDigits(rightDigits, (sequenceNumber * 7) % 80);
+  const left = definition.operator === "add" ? 3000 + offset : 7000 + offset;
+  const result = definition.operator === "add" ? left + right : left - right;
+  const missingOperand = sequenceNumber % 2 === 0 ? "right" : "left";
+  const targetText = String(missingOperand === "left" ? left : right);
+  const missingIndex = targetText.length === 1 ? 0 : 1 + (sequenceNumber % (targetText.length - 1));
+  const missingDigit = Number(targetText[missingIndex]);
+  return { left, right, result, missingOperand, missingIndex, missingDigit };
+}
+
+function generateMissingDigitQuestion(definition, options = {}) {
+  const operands = buildMissingDigitOperands(definition, options);
+  const symbol = definition.operator === "add" ? "+" : "-";
+  const leftText = operands.missingOperand === "left" ? maskDigit(operands.left, operands.missingIndex) : String(operands.left);
+  const rightText = operands.missingOperand === "right" ? maskDigit(operands.right, operands.missingIndex) : String(operands.right);
+  const displayText = `${operands.left} ${symbol} ${operands.right} = ${operands.result}`;
+  const blankedDisplayText = `${leftText} ${symbol} ${rightText} = ${operands.result}`;
+  const answerText = String(operands.missingDigit);
+  const id = options.id ?? `${definition.patternSpecId}-${options.sequenceNumber ?? 1}`;
+  return {
+    id,
+    patternSpecId: definition.patternSpecId,
+    sourceId: definition.sourceId,
+    kind: "missingDigit",
+    operator: definition.operator,
+    left: operands.left,
+    right: operands.right,
+    result: operands.result,
+    missingOperand: operands.missingOperand,
+    missingIndex: operands.missingIndex,
+    missingDigit: operands.missingDigit,
+    promptText: `在□中填入正確的數字。`,
+    displayText,
+    blankedDisplayText,
+    answerText,
+    finalAnswer: operands.missingDigit,
+    metadata: textQuestionMetadata(definition)
+  };
+}
+
 function buildDirectCarryOperands(definition, options = {}) {
   const digits = targetCoveredDigits(definition, options) ?? 4;
   const r = ((Number.isInteger(options.sequenceNumber) ? options.sequenceNumber : 1) - 1) % 9 + 1;
@@ -432,6 +486,9 @@ function hasContextEstimateShape(definition) {
 function generateQuestionForDefinition(definition, options) {
   if (definition.kind === "comparison") {
     return { ok: true, question: generateComparisonQuestion(definition, options) };
+  }
+  if (definition.kind === "missingDigit") {
+    return { ok: true, question: generateMissingDigitQuestion(definition, options) };
   }
   if (hasContextEstimateShape(definition)) {
     return { ok: true, question: generateContextEstimateQuestion(definition, options) };
