@@ -19,17 +19,17 @@ const KP_ID = `kp_g3a_u02_${suffix}`;
 const GROUP_ID = `pg_g3a_u02_${suffix}`;
 const SPEC_ID = `ps_g3a_u02_${suffix}`;
 
-test("S43G2P selector extension exposes context KP after G3A U06 overlay", () => {
+test("selector extension exposes S43G2P KP", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 10);
-  assert.equal(availability.visibleCount, 4);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 12);
+  assert.equal(availability.visibleCount, 6);
   assert.equal(availability.notSelectableCount, 0);
   assert.equal(getVisibleBatchAKnowledgePoint(KP_ID)?.displayName.length > 0, true);
   assert.equal(getVisiblePatternGroupsForKnowledgePoint(KP_ID)[0]?.patternGroupId, GROUP_ID);
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(KP_ID), [SPEC_ID]);
 });
 
-test("S43G2P resolver accepts context KP as a single-KP selection", () => {
+test("resolver accepts S43G2P KP as a single selection", () => {
   const plan = resolveVisiblePatternGroupSelection({
     sourceId: SOURCE_ID,
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
