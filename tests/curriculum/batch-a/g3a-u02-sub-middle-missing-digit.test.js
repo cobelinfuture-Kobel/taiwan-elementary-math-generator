@@ -46,6 +46,32 @@ test("S43G4O2 generator creates subtraction middle-place blanks", () => {
   }
 });
 
+test("S43G4O3 validator rejects sub middle question without middle place", () => {
+  const question = {
+    id: "manual-submid-invalid",
+    patternSpecId: specId,
+    sourceId,
+    kind: "missingDigitEquation",
+    operator: "subtract",
+    left: 8000,
+    right: 1000,
+    result: 7000,
+    blanks: [
+      { target: "left", index: 0, placeValue: 3, digit: 8 },
+      { target: "result", index: 3, placeValue: 0, digit: 0 }
+    ],
+    missingDigits: [8, 0],
+    answerOrder: "prompt_left_to_right",
+    promptText: "依照□出現順序，填入正確的數字。",
+    displayText: "8000 - 1000 = 7000",
+    blankedDisplayText: "□000 - 1000 = 700□",
+    answerText: "8,0",
+    finalAnswer: "8,0",
+    metadata: { patternId: specId, sourceId }
+  };
+  assert.equal(validateBatchABrowserQuestion(question).ok, false);
+});
+
 test("S43G4O4 resolver accepts sub middle KP", () => {
   const plan = resolveVisiblePatternGroupSelection({
     sourceId,
