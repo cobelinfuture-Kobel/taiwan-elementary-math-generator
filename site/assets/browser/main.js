@@ -15,7 +15,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
-} from "../../modules/curriculum/registry/batch-a-selector-candidates.js";
+} from "../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { parseQueryState, writeQueryStateFromState } from "./state/query-state.js";
 import { buildWorksheetDocumentFromState } from "./pipeline/build-worksheet-document.js";
 import { printPreviewFrame, renderPreviewFrame } from "./pipeline/render-preview-frame.js";
