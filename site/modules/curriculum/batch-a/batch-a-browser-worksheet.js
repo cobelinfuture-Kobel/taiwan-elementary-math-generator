@@ -22,7 +22,11 @@ function cloneValue(value) {
   return value;
 }
 
-function displayModelForComparison(question, questionNumber, showQuestionNumbers = true) {
+function isTextDisplayQuestion(question) {
+  return typeof question?.blankedDisplayText === "string" && typeof question?.answerText === "string";
+}
+
+function displayModelForTextQuestion(question, questionNumber, showQuestionNumbers = true) {
   return {
     questionId: question.id,
     questionNumber,
@@ -39,7 +43,7 @@ function displayModelForComparison(question, questionNumber, showQuestionNumbers
   };
 }
 
-function answerKeyItemForComparison(question, displayModel) {
+function answerKeyItemForTextQuestion(question, displayModel) {
   return {
     questionId: question.id,
     questionNumber: displayModel.questionNumber,
@@ -53,15 +57,15 @@ function answerKeyItemForComparison(question, displayModel) {
 function createDisplayModels(questions, printLayout) {
   return questions.map((question, index) => {
     const questionNumber = index + 1;
-    return question.kind === "comparison"
-      ? displayModelForComparison(question, questionNumber, printLayout.showQuestionNumbers)
+    return isTextDisplayQuestion(question)
+      ? displayModelForTextQuestion(question, questionNumber, printLayout.showQuestionNumbers)
       : createQuestionDisplayModel(question, questionNumber, { showQuestionNumbers: printLayout.showQuestionNumbers });
   });
 }
 
 function createAnswerKeyItems(questions, displayModels) {
-  return questions.map((question, index) => question.kind === "comparison"
-    ? answerKeyItemForComparison(question, displayModels[index])
+  return questions.map((question, index) => isTextDisplayQuestion(question)
+    ? answerKeyItemForTextQuestion(question, displayModels[index])
     : createAnswerKeyItem(question, displayModels[index]));
 }
 
