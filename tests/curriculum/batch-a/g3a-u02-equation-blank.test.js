@@ -39,8 +39,8 @@ function checkQuestion(question, operator) {
 
 test("S43G4N5 selector exposes equation blank KPs", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 15);
-  assert.equal(availability.visibleCount, 9);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 16);
+  assert.equal(availability.visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(addKp)?.displayName, "加法等式缺位填空");
   assert.equal(getVisibleBatchAKnowledgePoint(subKp)?.displayName, "減法等式缺位填空");
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(addKp), [addSpec]);
