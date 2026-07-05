@@ -5,6 +5,7 @@ import { OPERATORS } from "../../../site/modules/core/constants.js";
 import { createBinaryNode, createValueNode } from "../../../site/modules/core/expression-model.js";
 import { createIntegerValue } from "../../../site/modules/core/number-value.js";
 import {
+  countAdditionCarries,
   countSubtractionRegroups,
   extractBatchAExpressionOperandValues,
   hasAdditionCarry
@@ -53,7 +54,8 @@ test("addition carry helper keeps required fixture behavior", () => {
 test("addition PatternSpec exposes locked carry policy", () => {
   const definition = getBatchABrowserPatternDefinition(ADD_PATTERN_ID);
   assert.equal(definition.carryPolicy.kind, "addition_carry");
-  assert.equal(definition.carryPolicy.mode, "at_least_one_carry");
+  assert.equal(definition.carryPolicy.mode, "at_least_two_carries");
+  assert.equal(definition.carryPolicy.minCarryCount, 2);
   assert.deepEqual(definition.carryPolicy.checkedColumns, ["ones", "tens", "hundreds"]);
   assert.equal(definition.carryPolicy.allowCarryIntoTenThousands, false);
 });
@@ -74,6 +76,7 @@ test("generated addition questions satisfy carry policy", () => {
     const operands = extractBatchAExpressionOperandValues(question.expression);
     assert.equal(operands.length, 2);
     assert.equal(hasAdditionCarry(operands[0], operands[1], 10, definition.carryPolicy), true);
+    assert.equal(countAdditionCarries(operands[0], operands[1], 10, definition.carryPolicy) >= 2, true);
     assert.equal(validateBatchABrowserQuestion(question).ok, true);
   }
 });
