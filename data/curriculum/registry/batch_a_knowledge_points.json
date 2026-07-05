@@ -43,9 +43,9 @@
       "sourceAuthorityStatus": "manual_visual_read_summary",
       "registryStatus": "materialized",
       "patternGroupIds": ["pg_g3a_u02_sub_multi_borrow_seed"],
-      "htmlSelectableStatus": "hidden",
-      "holdReason": "qa_pending",
-      "notes": "S43C2 A-class coarse seed. Existing browser PatternSpec exists, but explicit borrow enforcement is not yet QA-verified."
+      "htmlSelectableStatus": "selectable",
+      "holdReason": null,
+      "notes": "S43G2A4 promotion after subtraction_regroup runtime and validator QA passed locally."
     },
     {
       "knowledgePointId": "kp_g3a_u02_estimate_nearest_thousand",
