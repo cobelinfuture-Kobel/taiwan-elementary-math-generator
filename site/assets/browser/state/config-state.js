@@ -3,7 +3,7 @@ import {
   BATCH_A_SELECTOR_AVAILABILITY,
   getVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint
-} from "../../../modules/curriculum/registry/batch-a-selector-candidates.js";
+} from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { getPresetDefinition } from "./presets.js";
 import {
   CONFIG_VALIDATION_MESSAGES,
