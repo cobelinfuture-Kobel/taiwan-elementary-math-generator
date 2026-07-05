@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         id: install_dependencies
-        run: npm install
+        run: npm install --no-package-lock
 
       - name: Run npm test
         id: npm_test
