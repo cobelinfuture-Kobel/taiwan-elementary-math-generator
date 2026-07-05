@@ -37,6 +37,44 @@ function rangeToOperandRange(range, position) {
   };
 }
 
+function digitBounds(digits) {
+  if (digits === 1) return [1, 9];
+  return [10 ** (digits - 1), (10 ** digits) - 1];
+}
+
+function applyDigitCoverage(definition, options = {}) {
+  const coverage = definition.digitCoverage;
+  if (!coverage || !Array.isArray(coverage.allowedDigits) || coverage.allowedDigits.length === 0) return options;
+  const sequenceNumber = Number.isInteger(options.sequenceNumber) && options.sequenceNumber > 0 ? options.sequenceNumber : 1;
+  const targetDigits = coverage.allowedDigits[(sequenceNumber - 1) % coverage.allowedDigits.length];
+  const targetPosition = coverage.cycledOperandPosition;
+  if (!Number.isInteger(targetDigits) || !Number.isInteger(targetPosition)) return options;
+
+  const operandRanges = definition.ranges.map((range, index) => {
+    const position = index + 1;
+    if (position !== targetPosition) return rangeToOperandRange(range, position);
+    const bounds = digitBounds(targetDigits);
+    return {
+      position,
+      min: Math.max(range[0], bounds[0]),
+      max: Math.min(range[1], bounds[1]),
+      allowZero: false,
+      allowOne: true
+    };
+  });
+
+  return {
+    ...options,
+    config: {
+      ...(options.config ?? {}),
+      expression: {
+        ...(options.config?.expression ?? {}),
+        operandRanges
+      }
+    }
+  };
+}
+
 function createRuntimeExpressionPattern(definition) {
   return {
     patternId: definition.patternSpecId,
@@ -113,7 +151,11 @@ function generateComparisonQuestion(definition, options = {}) {
 
 function generateRoundingQuestion(definition, options = {}) {
   const randomFn = options.randomFn ?? createSeededRandom(options.seed);
-  const value = randomIntBetween(randomFn, definition.min, definition.max);
+  const coverageValues = Array.isArray(definition.coverageValues) ? definition.coverageValues : [];
+  const sequenceNumber = Number.isInteger(options.sequenceNumber) && options.sequenceNumber > 0 ? options.sequenceNumber : 1;
+  const value = coverageValues.length > 0 && sequenceNumber <= coverageValues.length
+    ? coverageValues[sequenceNumber - 1]
+    : randomIntBetween(randomFn, definition.min, definition.max);
   const answer = roundToNearestThousand(value);
   const answerText = String(answer);
   const id = options.id ?? `${definition.patternSpecId}-${options.sequenceNumber ?? 1}`;
@@ -124,13 +166,20 @@ function generateRoundingQuestion(definition, options = {}) {
     kind: "rounding",
     value,
     unit: definition.unit,
-    promptText: `Round ${value} to the nearest thousand.`,
-    displayText: `${value} is about ${answerText}`,
-    blankedDisplayText: `${value} is about ____`,
+    promptText: `將 ${value} 估到最接近的千位數。`,
+    displayText: `${value} 估到最接近的千位數是 ${answerText}`,
+    blankedDisplayText: `${value} 估到最接近的千位數是 ____`,
     answerText,
     finalAnswer: answer,
     metadata: textQuestionMetadata(definition)
   };
+}
+
+function buildContextPrompt(left, right, operator, estimate) {
+  if (operator === "add") {
+    return `書店上午賣出 ${left} 本書，下午賣出 ${right} 本書。先把兩個數估到最接近的千位，再估算一共約賣出幾本書？`;
+  }
+  return `倉庫原有 ${left} 箱貨物，送出 ${right} 箱。先把兩個數估到最接近的千位，再估算大約還剩幾箱？`;
 }
 
 function generateContextEstimateQuestion(definition, options = {}) {
@@ -143,8 +192,7 @@ function generateContextEstimateQuestion(definition, options = {}) {
   }
   const estimate = estimateAddSubToUnit(left, right, operator, definition.unit);
   const answerText = String(estimate.answer);
-  const mark = operator === "add" ? "+" : "-";
-  const promptText = `Estimate ${left} ${mark} ${right} with unit ${definition.unit}.`;
+  const promptText = buildContextPrompt(left, right, operator, estimate);
   const id = options.id ?? `${definition.patternSpecId}-${options.sequenceNumber ?? 1}`;
   return {
     id,
@@ -158,8 +206,8 @@ function generateContextEstimateQuestion(definition, options = {}) {
     roundedLeft: estimate.roundedLeft,
     roundedRight: estimate.roundedRight,
     promptText,
-    displayText: `${promptText} Answer ${answerText}`,
-    blankedDisplayText: `${promptText} Answer ____`,
+    displayText: `${promptText} 答案：${answerText}`,
+    blankedDisplayText: `${promptText} 答案：____`,
     answerText,
     finalAnswer: estimate.answer,
     explanationText: `${left}->${estimate.roundedLeft}; ${right}->${estimate.roundedRight}; ${answerText}`,
@@ -185,14 +233,15 @@ function attachBatchAMetadata(question, definition) {
 
 function generateExpressionQuestion(definition, options = {}) {
   const pattern = createRuntimeExpressionPattern(definition);
+  const generationOptions = applyDigitCoverage(definition, options);
   const carryPolicyRequired = Boolean(definition.carryPolicy);
-  const maxCarryAttempts = carryPolicyRequired ? (options.carryPolicyMaxAttempts ?? 500) : 1;
+  const maxCarryAttempts = carryPolicyRequired ? (options.carryPolicyMaxAttempts ?? 800) : 1;
   const carryPolicyErrors = [];
 
   for (let carryAttempt = 1; carryAttempt <= maxCarryAttempts; carryAttempt += 1) {
     const generated = generateQuestionFromPattern(pattern, carryPolicyRequired
-      ? { ...options, seed: `${options.seed}:carryPolicy:${carryAttempt}` }
-      : options);
+      ? { ...generationOptions, seed: `${options.seed}:carryPolicy:${carryAttempt}` }
+      : generationOptions);
     if (!generated.ok || !generated.question) {
       if (!carryPolicyRequired) {
         return generated;
