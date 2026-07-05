@@ -21,10 +21,12 @@ test("add multi-carry candidate PatternSpec exists as four-digit addition seed",
   assert.equal(definition.sourceId, "g3a_u02_3a02");
   assert.equal(definition.kind, "expression");
   assert.deepEqual(definition.operators, [[OPERATORS.ADD]]);
-  assert.deepEqual(definition.ranges, [[1000, 4999], [1000, 4999]]);
+  assert.deepEqual(definition.ranges, [[1000, 9999], [1, 9999]]);
   assert.equal(definition.answerConstraint.max, 9999);
   assert.equal(definition.answerConstraint.allowNegative, false);
   assert.equal(definition.answerConstraint.requireInteger, true);
+  assert.deepEqual(definition.digitCoverage.allowedDigits, [1, 2, 3, 4]);
+  assert.equal(definition.digitCoverage.cycledOperandPosition, 2);
 });
 
 test("add multi-carry registry triplet remains promoted after Phase 1 expansion", () => {
@@ -60,7 +62,8 @@ test("strict multi-carry candidate exposes carry policy after promotion", () => 
 
   assert.equal(Object.hasOwn(definition, "carryPolicy"), true);
   assert.equal(definition.carryPolicy.kind, "addition_carry");
-  assert.equal(definition.carryPolicy.mode, "at_least_one_carry");
+  assert.equal(definition.carryPolicy.mode, "at_least_two_carries");
+  assert.equal(definition.carryPolicy.minCarryCount, 2);
   assert.deepEqual(definition.carryPolicy.checkedColumns, ["ones", "tens", "hundreds"]);
   assert.equal(definition.carryPolicy.validatorRequired, true);
   assert.equal(Object.hasOwn(definition, "algorithmConstraint"), false);
