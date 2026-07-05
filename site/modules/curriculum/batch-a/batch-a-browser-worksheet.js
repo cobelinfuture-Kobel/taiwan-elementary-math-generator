@@ -11,7 +11,7 @@ import { BATCH_A_BROWSER_SCOPE } from "./production-eligibility.js";
 const DEFAULT_PRINT_LAYOUT = Object.freeze({
   paperSize: "A4",
   columns: 4,
-  rowsPerPage: 10,
+  rowsPerPage: 5,
   showQuestionNumbers: true,
   showAnswerKeyPage: true
 });
@@ -48,7 +48,7 @@ function answerKeyItemForTextQuestion(question, displayModel) {
     questionId: question.id,
     questionNumber: displayModel.questionNumber,
     patternId: question.patternSpecId,
-    promptText: question.displayText,
+    promptText: question.blankedDisplayText,
     answerText: question.answerText,
     metadataSnapshot: cloneValue(question.metadata)
   };
