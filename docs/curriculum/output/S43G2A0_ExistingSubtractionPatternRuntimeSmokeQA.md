@@ -1,0 +1,10 @@
+S43G2A0 ExistingSubtractionPatternRuntimeSmokeQA
+
+TASK_STATUS PATCH_APPLIED_PENDING_LOCAL_TEST
+FILE_UPDATED tests/site/site-operator-controls.test.js
+TARGET_SOURCE g3a_u02_3a02
+TARGET_PATTERN_SPEC ps_g3a_u02_4digit_sub_multi_borrow
+SCOPE source_level_runtime_smoke_only
+NOT_IN_SCOPE selector_visibility borrowPolicy_qa kp_visible_promotion
+NEXT_LOCAL_COMMANDS git fetch public; git switch --detach public/main; npm test; git status
+NEXT_IF_PASS S43G2A1_SubtractionBorrowPolicyDesignScan
