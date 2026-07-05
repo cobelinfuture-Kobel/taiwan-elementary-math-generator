@@ -21,6 +21,7 @@ import {
   countSubtractionRegroups,
   extractBatchAExpressionOperandValues
 } from "../../site/modules/curriculum/batch-a/carry-policy.js";
+import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
 
 const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const G3A_U02_SUBTRACTION_REGROUP_POLICY = Object.freeze({
@@ -217,6 +218,42 @@ test("S43G2E - same-unit mixed KnowledgePoint worksheet smoke QA", () => {
   const patternSpecIds = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.patternSpecId));
   assert.equal(patternSpecIds.has(G3A_U02_ADD_SPEC_ID), true);
   assert.equal(patternSpecIds.has(G3A_U02_SUB_SPEC_ID), true);
+});
+
+test("S43G2F - G3A U02 Phase 1 mixed worksheet HTML print and answer key QA", () => {
+  const state = createConfigState();
+  setBatchASelectorSelection(state, {
+    selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
+    selectedKnowledgePointIds: [G3A_U02_ADD_KP_ID, G3A_U02_SUB_KP_ID],
+    selectedPatternGroupIds: []
+  });
+  setBatchAQuestionCount(state, 8);
+  setBatchAIncludeAnswerKey(state, true);
+
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true);
+  const worksheet = result.worksheetDocument;
+  assert.equal(worksheet.summary.questionCount, 8);
+  assert.equal(worksheet.generatedQuestions.length, 8);
+  assert.equal(worksheet.questionDisplayModels.length, 8);
+  assert.equal(worksheet.answerKeyItems.length, 8);
+  assert.equal(worksheet.questionPages.length > 0, true);
+  assert.equal(worksheet.answerKeyPages.length > 0, true);
+  assert.deepEqual(worksheet.batchA.patternSpecIds, [G3A_U02_ADD_SPEC_ID, G3A_U02_SUB_SPEC_ID]);
+
+  const answerKeyPatternIds = new Set(worksheet.answerKeyItems.map((item) => item.patternId));
+  assert.equal(answerKeyPatternIds.has(G3A_U02_ADD_SPEC_ID), true);
+  assert.equal(answerKeyPatternIds.has(G3A_U02_SUB_SPEC_ID), true);
+
+  const html = renderWorksheetDocumentToHtml(worksheet, {
+    title: worksheet.title,
+    stylesheetHref: "./assets/styles/print-styles.css",
+    debugDataAttributes: true
+  });
+  assert.match(html, /worksheet-page--questions/);
+  assert.match(html, /worksheet-page--answer-key/);
+  assert.match(html, new RegExp(`data-pattern-id="${G3A_U02_ADD_SPEC_ID}"`));
+  assert.match(html, new RegExp(`data-pattern-id="${G3A_U02_SUB_SPEC_ID}"`));
 });
 
 test("compat operator helpers - last enabled operator cannot be disabled through helper", () => {
