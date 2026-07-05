@@ -58,6 +58,26 @@ function firstVisiblePatternGroupId(knowledgePointId) {
   return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)[0]?.patternGroupId ?? null;
 }
 
+function selectedVisibleKnowledgePointIds(sourceId) {
+  const visibleIds = new Set(visibleKnowledgePointsForSource(sourceId).map((entry) => entry.knowledgePointId));
+  return (state.batchA.selectedKnowledgePointIds ?? []).filter((knowledgePointId) => visibleIds.has(knowledgePointId));
+}
+
+function chooseSingleKnowledgePointId(sourceId) {
+  const visibleKnowledgePoints = visibleKnowledgePointsForSource(sourceId);
+  return selectedVisibleKnowledgePointIds(sourceId)[0] ?? visibleKnowledgePoints[0]?.knowledgePointId ?? null;
+}
+
+function chooseSameUnitKnowledgePointIds(sourceId) {
+  const currentIds = selectedVisibleKnowledgePointIds(sourceId);
+  if (currentIds.length >= 2) return currentIds;
+  return visibleKnowledgePointsForSource(sourceId).map((entry) => entry.knowledgePointId);
+}
+
+function patternGroupIdsForKnowledgePoints(knowledgePointIds) {
+  return knowledgePointIds.map((knowledgePointId) => firstVisiblePatternGroupId(knowledgePointId)).filter(Boolean);
+}
+
 function updateSourceHelp() {
   const unit = sourceUnits.find((entry) => entry.sourceId === state.batchA.sourceId);
   if (!sourceHelp || !unit) return;
@@ -79,17 +99,23 @@ function syncSelectionModeOptions() {
   if (!selectionModeSelect) return;
   const sourceAvailability = listBatchAKnowledgePointAvailabilityBySource(state.batchA.sourceId);
   const hasVisibleKnowledgePoint = sourceAvailability.visibleCount > 0;
+  const hasSameUnitKnowledgePointMix = sourceAvailability.visibleCount >= 2;
   for (const option of selectionModeSelect.options) {
     if (option.value === BATCH_A_SELECTION_MODES.SOURCE_UNIT) {
       option.disabled = false;
     } else if (option.value === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT) {
       option.disabled = !hasVisibleKnowledgePoint;
+    } else if (option.value === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
+      option.disabled = !hasSameUnitKnowledgePointMix;
     } else {
       option.disabled = true;
     }
   }
-  selectionModeSelect.value = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT && hasVisibleKnowledgePoint
-    ? BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT
+  const allowedModes = new Set([BATCH_A_SELECTION_MODES.SOURCE_UNIT]);
+  if (hasVisibleKnowledgePoint) allowedModes.add(BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
+  if (hasSameUnitKnowledgePointMix) allowedModes.add(BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT);
+  selectionModeSelect.value = allowedModes.has(state.batchA.selectionMode)
+    ? state.batchA.selectionMode
     : BATCH_A_SELECTION_MODES.SOURCE_UNIT;
 }
 
@@ -97,6 +123,7 @@ function renderKnowledgePointAvailability() {
   const sourceAvailability = listBatchAKnowledgePointAvailabilityBySource(state.batchA.sourceId);
   const globalAvailability = BATCH_A_SELECTOR_AVAILABILITY;
   const visibleKnowledgePoints = visibleKnowledgePointsForSource(state.batchA.sourceId);
+  const selectedIds = new Set(state.batchA.selectedKnowledgePointIds ?? []);
 
   if (knowledgePointAvailabilitySummary) {
     knowledgePointAvailabilitySummary.textContent = [
@@ -110,20 +137,27 @@ function renderKnowledgePointAvailability() {
   if (knowledgePointPanel) {
     knowledgePointPanel.replaceChildren();
     knowledgePointPanel.dataset.visibleCount = String(visibleKnowledgePoints.length);
+    knowledgePointPanel.dataset.selectionMode = state.batchA.selectionMode;
     for (const knowledgePoint of visibleKnowledgePoints) {
-      const item = document.createElement("p");
+      const item = document.createElement("button");
+      item.type = "button";
       item.className = "knowledge-point-option";
       item.dataset.knowledgePointId = knowledgePoint.knowledgePointId;
-      item.textContent = `${knowledgePoint.displayName}｜${knowledgePoint.unitCode}｜${knowledgePoint.qaStatusLabel}`;
+      item.dataset.selected = selectedIds.has(knowledgePoint.knowledgePointId) ? "true" : "false";
+      item.textContent = `${selectedIds.has(knowledgePoint.knowledgePointId) ? "已選｜" : ""}${knowledgePoint.displayName}｜${knowledgePoint.unitCode}｜${knowledgePoint.qaStatusLabel}`;
       knowledgePointPanel.append(item);
     }
   }
 
   if (knowledgePointEmptyState) {
     knowledgePointEmptyState.dataset.visible = visibleKnowledgePoints.length === 0 ? "true" : "false";
-    knowledgePointEmptyState.textContent = visibleKnowledgePoints.length === 0
-      ? "目前此單元尚無已通過 QA 的可選知識點。請先使用單元出題，或等待 KnowledgePoint QA 完成。"
-      : "此單元已有 1 個通過 QA 的知識點；選擇單一知識點加強時會使用此知識點出題。";
+    if (visibleKnowledgePoints.length === 0) {
+      knowledgePointEmptyState.textContent = "目前此單元尚無已通過 QA 的可選知識點。請先使用單元出題，或等待 KnowledgePoint QA 完成。";
+    } else if (visibleKnowledgePoints.length === 1) {
+      knowledgePointEmptyState.textContent = "此單元已有 1 個通過 QA 的知識點；可使用單一知識點加強。";
+    } else {
+      knowledgePointEmptyState.textContent = `此單元已有 ${visibleKnowledgePoints.length} 個通過 QA 的知識點；可使用單一知識點加強或同單元知識點混合。`;
+    }
   }
 }
 
@@ -159,30 +193,36 @@ function syncControlsFromState() {
 
 function readSelectorControlsIntoState() {
   const requestedMode = selectionModeSelect?.value ?? BATCH_A_SELECTION_MODES.SOURCE_UNIT;
-  if (requestedMode !== BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT) {
-    setBatchASelectorSelection(state, {
-      selectionMode: BATCH_A_SELECTION_MODES.SOURCE_UNIT,
-      selectedKnowledgePointIds: [],
-      selectedPatternGroupIds: []
-    });
-    return;
+
+  if (requestedMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT) {
+    const knowledgePointId = chooseSingleKnowledgePointId(state.batchA.sourceId);
+    const patternGroupId = knowledgePointId ? firstVisiblePatternGroupId(knowledgePointId) : null;
+    if (knowledgePointId && patternGroupId) {
+      setBatchASelectorSelection(state, {
+        selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+        selectedKnowledgePointIds: [knowledgePointId],
+        selectedPatternGroupIds: [patternGroupId]
+      });
+      return;
+    }
   }
 
-  const selectedKnowledgePoint = visibleKnowledgePointsForSource(state.batchA.sourceId)[0];
-  const patternGroupId = selectedKnowledgePoint ? firstVisiblePatternGroupId(selectedKnowledgePoint.knowledgePointId) : null;
-  if (!selectedKnowledgePoint || !patternGroupId) {
-    setBatchASelectorSelection(state, {
-      selectionMode: BATCH_A_SELECTION_MODES.SOURCE_UNIT,
-      selectedKnowledgePointIds: [],
-      selectedPatternGroupIds: []
-    });
-    return;
+  if (requestedMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
+    const knowledgePointIds = chooseSameUnitKnowledgePointIds(state.batchA.sourceId);
+    if (knowledgePointIds.length >= 2) {
+      setBatchASelectorSelection(state, {
+        selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
+        selectedKnowledgePointIds: knowledgePointIds,
+        selectedPatternGroupIds: patternGroupIdsForKnowledgePoints(knowledgePointIds)
+      });
+      return;
+    }
   }
 
   setBatchASelectorSelection(state, {
-    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [selectedKnowledgePoint.knowledgePointId],
-    selectedPatternGroupIds: [patternGroupId]
+    selectionMode: BATCH_A_SELECTION_MODES.SOURCE_UNIT,
+    selectedKnowledgePointIds: [],
+    selectedPatternGroupIds: []
   });
 }
 
@@ -254,6 +294,37 @@ function bindControls() {
       writeQueryStateFromState(state);
     });
   }
+  knowledgePointPanel?.addEventListener("click", (event) => {
+    const item = event.target.closest?.("[data-knowledge-point-id]");
+    if (!item) return;
+    const knowledgePointId = item.dataset.knowledgePointId;
+    const visibleIds = new Set(visibleKnowledgePointsForSource(state.batchA.sourceId).map((entry) => entry.knowledgePointId));
+    if (!visibleIds.has(knowledgePointId)) return;
+
+    if (state.batchA.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
+      const current = new Set(selectedVisibleKnowledgePointIds(state.batchA.sourceId));
+      if (current.has(knowledgePointId) && current.size > 2) {
+        current.delete(knowledgePointId);
+      } else {
+        current.add(knowledgePointId);
+      }
+      setBatchASelectorSelection(state, {
+        selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
+        selectedKnowledgePointIds: [...current],
+        selectedPatternGroupIds: patternGroupIdsForKnowledgePoints([...current])
+      });
+    } else {
+      const patternGroupId = firstVisiblePatternGroupId(knowledgePointId);
+      if (!patternGroupId) return;
+      setBatchASelectorSelection(state, {
+        selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+        selectedKnowledgePointIds: [knowledgePointId],
+        selectedPatternGroupIds: [patternGroupId]
+      });
+    }
+    syncControlsFromState();
+    writeQueryStateFromState(state);
+  });
   regenerateButton?.addEventListener("click", regenerate);
   printButton?.addEventListener("click", () => printPreviewFrame(previewFrame));
 }
