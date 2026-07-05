@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   BATCH_A_SELECTION_MODES,
   createConfigState,
+  setBatchAIncludeAnswerKey,
   setBatchAQuestionCount,
   setBatchASelectorSelection
 } from "../../site/assets/browser/state/config-state.js";
@@ -19,6 +20,7 @@ const roundGroup = "pg_g3a_u02_estimate_nearest_thousand";
 function buildPolishDocument(questionCount = 20) {
   const state = createConfigState({ queryState: { sourceId } });
   setBatchAQuestionCount(state, questionCount);
+  setBatchAIncludeAnswerKey(state, true);
   setBatchASelectorSelection(state, {
     selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
     selectedKnowledgePointIds: [addKp, roundKp],
