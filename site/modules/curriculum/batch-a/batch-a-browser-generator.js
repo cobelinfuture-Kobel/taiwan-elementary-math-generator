@@ -44,35 +44,23 @@ function digitBounds(digits) {
 
 function applyDigitCoverage(definition, options = {}) {
   const coverage = definition.digitCoverage;
-  if (!coverage || !Array.isArray(coverage.allowedDigits) || coverage.allowedDigits.length === 0) return options;
+  if (!coverage || !Array.isArray(coverage.allowedDigits) || coverage.allowedDigits.length === 0) return definition;
   const sequenceNumber = Number.isInteger(options.sequenceNumber) && options.sequenceNumber > 0 ? options.sequenceNumber : 1;
   const targetDigits = coverage.allowedDigits[(sequenceNumber - 1) % coverage.allowedDigits.length];
   const targetPosition = coverage.cycledOperandPosition;
-  if (!Number.isInteger(targetDigits) || !Number.isInteger(targetPosition)) return options;
+  if (!Number.isInteger(targetDigits) || !Number.isInteger(targetPosition)) return definition;
 
-  const operandRanges = definition.ranges.map((range, index) => {
+  const coveredRanges = definition.ranges.map((range, index) => {
     const position = index + 1;
-    if (position !== targetPosition) return rangeToOperandRange(range, position);
+    if (position !== targetPosition) return [...range];
     const bounds = digitBounds(targetDigits);
-    return {
-      position,
-      min: Math.max(range[0], bounds[0]),
-      max: Math.min(range[1], bounds[1]),
-      allowZero: false,
-      allowOne: true
-    };
+    return [Math.max(range[0], bounds[0]), Math.min(range[1], bounds[1])];
   });
 
-  return {
-    ...options,
-    config: {
-      ...(options.config ?? {}),
-      expression: {
-        ...(options.config?.expression ?? {}),
-        operandRanges
-      }
-    }
-  };
+  return Object.freeze({
+    ...definition,
+    ranges: Object.freeze(coveredRanges.map((range) => Object.freeze(range)))
+  });
 }
 
 function createRuntimeExpressionPattern(definition) {
@@ -175,7 +163,7 @@ function generateRoundingQuestion(definition, options = {}) {
   };
 }
 
-function buildContextPrompt(left, right, operator, estimate) {
+function buildContextPrompt(left, right, operator) {
   if (operator === "add") {
     return `書店上午賣出 ${left} 本書，下午賣出 ${right} 本書。先把兩個數估到最接近的千位，再估算一共約賣出幾本書？`;
   }
@@ -192,7 +180,7 @@ function generateContextEstimateQuestion(definition, options = {}) {
   }
   const estimate = estimateAddSubToUnit(left, right, operator, definition.unit);
   const answerText = String(estimate.answer);
-  const promptText = buildContextPrompt(left, right, operator, estimate);
+  const promptText = buildContextPrompt(left, right, operator);
   const id = options.id ?? `${definition.patternSpecId}-${options.sequenceNumber ?? 1}`;
   return {
     id,
@@ -232,16 +220,16 @@ function attachBatchAMetadata(question, definition) {
 }
 
 function generateExpressionQuestion(definition, options = {}) {
-  const pattern = createRuntimeExpressionPattern(definition);
-  const generationOptions = applyDigitCoverage(definition, options);
+  const coveredDefinition = applyDigitCoverage(definition, options);
+  const pattern = createRuntimeExpressionPattern(coveredDefinition);
   const carryPolicyRequired = Boolean(definition.carryPolicy);
   const maxCarryAttempts = carryPolicyRequired ? (options.carryPolicyMaxAttempts ?? 800) : 1;
   const carryPolicyErrors = [];
 
   for (let carryAttempt = 1; carryAttempt <= maxCarryAttempts; carryAttempt += 1) {
     const generated = generateQuestionFromPattern(pattern, carryPolicyRequired
-      ? { ...generationOptions, seed: `${options.seed}:carryPolicy:${carryAttempt}` }
-      : generationOptions);
+      ? { ...options, seed: `${options.seed}:carryPolicy:${carryAttempt}` }
+      : options);
     if (!generated.ok || !generated.question) {
       if (!carryPolicyRequired) {
         return generated;
