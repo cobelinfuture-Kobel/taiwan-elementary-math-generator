@@ -1,4 +1,4 @@
-S43G4A public CI trigger
+trigger
 
-triggeredAt = 2026-07-05T11:08:00Z
-reason = rerun after adding G3A-U06 selector QA
+at = 2026-07-05T11:10:00Z
+reason = retry
