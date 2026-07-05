@@ -66,8 +66,24 @@ function createRuntimeExpressionPattern(definition) {
   };
 }
 
+export function roundToNearestThousand(value) {
+  return Math.round(value / 1000) * 1000;
+}
+
 function comparisonSymbol(left, right) {
   return left > right ? ">" : left < right ? "<" : "=";
+}
+
+function textQuestionMetadata(definition) {
+  return {
+    patternId: definition.patternSpecId,
+    sourceId: definition.sourceId,
+    patternTags: ["batch_a", "browser_bridge", definition.sourceId, definition.patternSpecId],
+    skillTags: [...definition.skillTags],
+    difficultyTags: [...definition.difficultyTags],
+    curriculumNodeIds: [definition.sourceId],
+    canonicalSkillIds: [...definition.canonicalSkillIds]
+  };
 }
 
 function generateComparisonQuestion(definition, options = {}) {
@@ -90,15 +106,29 @@ function generateComparisonQuestion(definition, options = {}) {
     displayText: `${left} ${answerText} ${right}`,
     blankedDisplayText: `${left} ___ ${right}`,
     answerText,
-    metadata: {
-      patternId: definition.patternSpecId,
-      sourceId: definition.sourceId,
-      patternTags: ["batch_a", "browser_bridge", definition.sourceId, definition.patternSpecId],
-      skillTags: [...definition.skillTags],
-      difficultyTags: [...definition.difficultyTags],
-      curriculumNodeIds: [definition.sourceId],
-      canonicalSkillIds: [...definition.canonicalSkillIds]
-    }
+    metadata: textQuestionMetadata(definition)
+  };
+}
+
+function generateEstimationQuestion(definition, options = {}) {
+  const randomFn = options.randomFn ?? createSeededRandom(options.seed);
+  const value = randomIntBetween(randomFn, definition.min, definition.max);
+  const answer = roundToNearestThousand(value);
+  const answerText = String(answer);
+  const id = options.id ?? `${definition.patternSpecId}-${options.sequenceNumber ?? 1}`;
+  return {
+    id,
+    patternSpecId: definition.patternSpecId,
+    sourceId: definition.sourceId,
+    kind: "estimation",
+    value,
+    unit: definition.unit,
+    promptText: `將 ${value} 估到最接近的千位數。`,
+    displayText: `${value} 約是 ${answerText}`,
+    blankedDisplayText: `${value} 約是 ____`,
+    answerText,
+    finalAnswer: answer,
+    metadata: textQuestionMetadata(definition)
   };
 }
 
@@ -245,6 +275,16 @@ export function buildBatchABrowserPlan(options = {}) {
     : buildKnowledgePointPlan(basePlan, { ...options, selectionMode });
 }
 
+function generateQuestionForDefinition(definition, options) {
+  if (definition.kind === "comparison") {
+    return { ok: true, question: generateComparisonQuestion(definition, options) };
+  }
+  if (definition.kind === "estimation") {
+    return { ok: true, question: generateEstimationQuestion(definition, options) };
+  }
+  return generateExpressionQuestion(definition, options);
+}
+
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   const validation = validateBatchABrowserPlan(plan);
@@ -271,9 +311,7 @@ export function generateBatchABrowserQuestions(options = {}) {
     }
     for (let index = 0; index < entry.questionCount; index += 1) {
       const seed = `${plan.generationSeed}:${entry.patternSpecId}:${index + 1}`;
-      const generated = definition.kind === "comparison"
-        ? { ok: true, question: generateComparisonQuestion(definition, { seed, sequenceNumber: questions.length + 1 }) }
-        : generateExpressionQuestion(definition, { seed });
+      const generated = generateQuestionForDefinition(definition, { seed, sequenceNumber: questions.length + 1 });
       if (!generated.ok || !generated.question) {
         errors.push(...(generated.errors ?? [issue("batch_a_generation_failed", "generation", `Generation failed for '${entry.patternSpecId}'.`)]));
         continue;
