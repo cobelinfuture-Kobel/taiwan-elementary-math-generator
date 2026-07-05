@@ -1,5 +1,7 @@
 import { isBatchASourceId } from "./source-units.js";
 
+const CONTEXT_ESTIMATE_BRIDGE_SOURCE_ID = "g3a_u02_3a02_context_estimate_runtime";
+
 export const BATCH_A_BROWSER_SCOPE = Object.freeze({
   batchId: "batch_a",
   artifactType: "browser_worksheet_html_preview_with_answer_key",
@@ -11,7 +13,7 @@ export function createBatchAIssue(code, path, message) {
 }
 
 export function validateBatchASourceEligibility(sourceId) {
-  if (!isBatchASourceId(sourceId)) {
+  if (!isBatchASourceId(sourceId) && sourceId !== CONTEXT_ESTIMATE_BRIDGE_SOURCE_ID) {
     return {
       ok: false,
       errors: [createBatchAIssue("batch_a_source_not_available", "sourceId", `Source '${sourceId}' is not available in Batch A browser worksheet scope.`)],
