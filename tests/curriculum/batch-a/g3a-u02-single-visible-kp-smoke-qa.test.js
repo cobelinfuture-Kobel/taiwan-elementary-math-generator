@@ -27,8 +27,8 @@ const ADD_SPEC_ID = "ps_g3a_u02_4digit_add_multi_carry";
 const SUB_KP_ID = "kp_g3a_u02_sub_multi_borrow";
 const SUB_GROUP_ID = "pg_g3a_u02_sub_multi_borrow_seed";
 const SUB_SPEC_ID = "ps_g3a_u02_4digit_sub_multi_borrow";
-const D_ROW_KP_ID = "kp_g3a_u02_word_problem_estimation_add_sub";
-const D_ROW_GROUP_ID = "pg_g3a_u02_word_problem_estimation_add_sub";
+const UNAVAILABLE_KP_ID = "kp_g3a_u02_unavailable_fixture";
+const UNAVAILABLE_GROUP_ID = "pg_g3a_u02_unavailable_fixture";
 
 function errorCodes(result) {
   return result.errors.map((error) => error.code);
@@ -147,14 +147,14 @@ test("S43G2 Phase 1 smoke: worksheet, answer key, and renderable HTML remain ava
   assert.match(html, new RegExp(`data-pattern-id="${ADD_SPEC_ID}"`));
 });
 
-test("S43G2 Phase 1 smoke: visible KP survives query while D-row query falls back", () => {
+test("S43G2 Phase 1 smoke: visible KP survives query while unavailable id query falls back", () => {
   const visible = parseQueryState(`?sourceId=${SOURCE_ID}&selectionMode=singleKnowledgePoint&kp=${SUB_KP_ID}&pg=${SUB_GROUP_ID}&questionCount=12`);
   assert.equal(visible.selectionMode, BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
   assert.deepEqual(visible.selectedKnowledgePointIds, [SUB_KP_ID]);
   assert.deepEqual(visible.selectedPatternGroupIds, [SUB_GROUP_ID]);
   assert.deepEqual(visible.selectorWarnings, []);
 
-  const blocked = parseQueryState(`?sourceId=${SOURCE_ID}&selectionMode=singleKnowledgePoint&kp=${D_ROW_KP_ID}&pg=${D_ROW_GROUP_ID}&questionCount=12`);
+  const blocked = parseQueryState(`?sourceId=${SOURCE_ID}&selectionMode=singleKnowledgePoint&kp=${UNAVAILABLE_KP_ID}&pg=${UNAVAILABLE_GROUP_ID}&questionCount=12`);
   assert.equal(blocked.selectionMode, BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT);
   assert.deepEqual(blocked.selectedKnowledgePointIds, []);
   assert.deepEqual(blocked.selectedPatternGroupIds, []);
@@ -162,12 +162,12 @@ test("S43G2 Phase 1 smoke: visible KP survives query while D-row query falls bac
   assert.ok(blocked.selectorWarnings.some((warning) => warning.code === "selector_mode_fallback"));
 });
 
-test("S43G2 Phase 1 smoke: D-row ids remain rejected", () => {
+test("S43G2 Phase 1 smoke: unavailable ids remain rejected", () => {
   const blocked = resolveVisiblePatternGroupSelection({
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     sourceId: SOURCE_ID,
-    selectedKnowledgePointIds: [D_ROW_KP_ID],
-    selectedPatternGroupIds: [D_ROW_GROUP_ID],
+    selectedKnowledgePointIds: [UNAVAILABLE_KP_ID],
+    selectedPatternGroupIds: [UNAVAILABLE_GROUP_ID],
     questionCount: 10
   });
   assert.equal(blocked.ok, false);
