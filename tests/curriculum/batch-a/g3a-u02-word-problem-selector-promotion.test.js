@@ -19,9 +19,9 @@ const KP_ID = `kp_g3a_u02_${suffix}`;
 const GROUP_ID = `pg_g3a_u02_${suffix}`;
 const SPEC_ID = `ps_g3a_u02_${suffix}`;
 
-test("S43G2P selector extension exposes context KP after G3A U03 overlay", () => {
+test("S43G2P selector extension exposes context KP after G3A U06 overlay", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 8);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 10);
   assert.equal(availability.visibleCount, 4);
   assert.equal(availability.notSelectableCount, 0);
   assert.equal(getVisibleBatchAKnowledgePoint(KP_ID)?.displayName.length > 0, true);
