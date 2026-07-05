@@ -9,7 +9,8 @@ const sourceId = ["g3a", "u06", "3a06"].join("_");
 const suffixes = ["exact_division_check", "divisibility_exact_check"];
 const kpIds = suffixes.map((suffix) => `kp_g3a_u06_${suffix}`);
 const groupIds = suffixes.map((suffix) => `pg_g3a_u06_${suffix}`);
-const specIds = suffixes.map((suffix) => `ps_g3a_u06_${suffix}`).sort();
+const rowSpecIds = suffixes.map((suffix) => `ps_g3a_u06_${suffix}`);
+const planSpecIds = [...rowSpecIds].sort();
 
 test("S43G4A G3A U06 selector QA", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
@@ -17,7 +18,7 @@ test("S43G4A G3A U06 selector QA", () => {
   assert.equal(availability.visibleCount, 2);
   for (let index = 0; index < kpIds.length; index += 1) {
     assert.equal(getVisibleBatchAKnowledgePoint(kpIds[index])?.sourceId, sourceId);
-    assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpIds[index]), [specIds[index]]);
+    assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpIds[index]), [rowSpecIds[index]]);
   }
 
   const plan = resolveVisiblePatternGroupSelection({
@@ -28,7 +29,7 @@ test("S43G4A G3A U06 selector QA", () => {
     questionCount: 6
   });
   assert.equal(plan.ok, true);
-  assert.deepEqual(plan.patternSpecIds, specIds);
+  assert.deepEqual(plan.patternSpecIds, planSpecIds);
 
   const result = buildBatchABrowserWorksheetDocument({
     sourceId,
