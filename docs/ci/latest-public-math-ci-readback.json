@@ -1,6 +1,6 @@
 {
   "schemaVersion": "public-math-ci-readback-v1",
-  "status": "FAIL_NPM_TEST",
+  "status": "FAIL_NPM_TEST_NOT_RUN",
   "result": "FAIL",
   "failedStage": "npm_test",
   "workflow": "Math CI Readback",
@@ -8,29 +8,29 @@
   "eventName": "push",
   "ref": "refs/heads/main",
   "refName": "main",
-  "sha": "096bde3407c414aba201b18a51336304442f1b8b",
+  "sha": "b32ca8ab4098bd23cae0892096aa69a2aac9cc1d",
   "run": {
-    "id": "28741222895",
-    "number": "56",
+    "id": "28741312536",
+    "number": "57",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/28741222895"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/28741312536"
   },
   "checks": {
     "npmTestExitCode": {
       "expected": "0",
-      "actual": "1"
+      "actual": "NOT_RUN"
     },
     "tests": {
       "expected": "auto-detected",
-      "actual": "345"
+      "actual": "UNPARSED"
     },
     "pass": {
       "expected": "equal tests",
-      "actual": "308"
+      "actual": "UNPARSED"
     },
     "fail": {
       "expected": "0",
-      "actual": "37"
+      "actual": "UNPARSED"
     },
     "workingTree": {
       "expected": "clean",
@@ -41,10 +41,10 @@
     "checkout": "success",
     "setupNode": "success",
     "installDependencies": "success",
-    "npmTest": "success",
-    "verifyDynamicTestResult": "failure",
+    "npmTest": "cancelled",
+    "verifyDynamicTestResult": "skipped",
     "gitStatus": "success",
     "verifyWorkingTree": "success"
   },
-  "updatedAt": "2026-07-05T12:46:30.035143Z"
+  "updatedAt": "2026-07-05T12:50:05.393156Z"
 }
