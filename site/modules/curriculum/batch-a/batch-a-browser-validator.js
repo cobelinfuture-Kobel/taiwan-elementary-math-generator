@@ -15,6 +15,10 @@ function intValue(value) {
   return null;
 }
 
+function roundByUnit(value, unit) {
+  return Math.round(value / unit) * unit;
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   const scope = validateBatchAPlanScope(plan);
   const errors = [...scope.errors];
@@ -71,6 +75,19 @@ export function validateBatchABrowserQuestion(question = {}) {
     const expected = question.left > question.right ? ">" : question.left < question.right ? "<" : "=";
     if (question.answerText !== expected) {
       errors.push(issue("batch_a_answer_incorrect", "answerText", "Comparison answerText does not match numeric comparison."));
+    }
+  } else if (definition.kind === "rounding") {
+    const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
+    const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
+    if (expected === null) {
+      errors.push(issue("batch_a_rounding_value_invalid", "value", "Rounding value must be an integer."));
+    } else {
+      if (question.answerText !== String(expected)) {
+        errors.push(issue("batch_a_answer_incorrect", "answerText", "Rounding answerText mismatch."));
+      }
+      if (intValue(question.finalAnswer) !== expected) {
+        errors.push(issue("batch_a_answer_incorrect", "finalAnswer", "Rounding finalAnswer mismatch."));
+      }
     }
   } else {
     errors.push(issue("batch_a_pattern_kind_unsupported", "kind", `Pattern kind '${definition.kind}' is not supported.`));
