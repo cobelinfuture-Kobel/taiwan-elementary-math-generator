@@ -3,7 +3,8 @@ import * as base from "./batch-a-selector-extension.js";
 const sourceId = "g3a_u02_3a02";
 const rows = Object.freeze([
   ["kp_g3a_u02_add_missing_digit_equation", "pg_g3a_u02_add_missing_digit_equation", "ps_g3a_u02_add_missing_digit_equation", "加法等式缺位填空", "addition"],
-  ["kp_g3a_u02_sub_missing_digit_equation", "pg_g3a_u02_sub_missing_digit_equation", "ps_g3a_u02_sub_missing_digit_equation", "減法等式缺位填空", "subtraction"]
+  ["kp_g3a_u02_sub_missing_digit_equation", "pg_g3a_u02_sub_missing_digit_equation", "ps_g3a_u02_sub_missing_digit_equation", "減法等式缺位填空", "subtraction"],
+  ["kp_g3a_u02_sub_middle_missing_digit", "pg_g3a_u02_sub_middle_missing_digit", "ps_g3a_u02_sub_middle_missing_digit", "減法中間缺位填空", "sub_middle"]
 ]);
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -18,7 +19,7 @@ function toKp([knowledgePointId, patternGroupId, patternSpecId, displayName, sub
     supportClass: "B",
     canonicalSkillTag: "integer_add_sub_mixed",
     subskillTags: ["missing_digit", "equation_reasoning", subskill],
-    difficultyTags: ["missing_digit_equation"],
+    difficultyTags: [subskill === "sub_middle" ? "sub_middle_missing_digit" : "missing_digit_equation"],
     representationTags: ["numeric_expression"],
     patternGroupIds: [patternGroupId],
     patternSpecIds: [patternSpecId],
@@ -51,12 +52,12 @@ const groupsByKpId = new Map(extraGroups.flatMap((group) => group.knowledgePoint
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.visibleCount + 2,
+  visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.visibleCount + 3,
   bySourceId: {
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
     [sourceId]: {
       ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId],
-      visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId].visibleCount + 2
+      visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId].visibleCount + 3
     }
   }
 });
