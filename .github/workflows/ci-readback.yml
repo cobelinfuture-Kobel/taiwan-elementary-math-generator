@@ -176,6 +176,20 @@ jobs:
           failing_tests_excerpt = npm_output[marker_index:marker_index + 6000] if marker_index >= 0 else ""
           npm_output_tail = npm_output[-6000:] if npm_output else ""
 
+          lines = npm_output.splitlines()
+          context_blocks = []
+          tokens = ("not ok", "AssertionError", "ERR_ASSERTION", "Expected values to be", "actual:", "expected:")
+          for index, line in enumerate(lines):
+              if any(token in line for token in tokens):
+                  start = max(0, index - 8)
+                  end = min(len(lines), index + 18)
+                  block = "\n".join(lines[start:end])
+                  if block not in context_blocks:
+                      context_blocks.append(block)
+              if len(context_blocks) >= 8:
+                  break
+          failure_context = "\n\n---\n\n".join(context_blocks)[:12000]
+
           status = "PASS_CI_SYNCED_AND_CLEAN"
           result = "PASS"
           failed_stage = "none"
@@ -236,7 +250,8 @@ jobs:
               },
               "diagnostics": {
                   "failingTestsExcerpt": failing_tests_excerpt,
-                  "npmOutputTail": npm_output_tail
+                  "npmOutputTail": npm_output_tail,
+                  "failureContext": failure_context
               },
               "updatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
           }
