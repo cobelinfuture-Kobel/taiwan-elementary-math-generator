@@ -27,7 +27,7 @@ test("add multi-carry candidate PatternSpec exists as four-digit addition seed",
   assert.equal(definition.answerConstraint.requireInteger, true);
 });
 
-test("add multi-carry registry triplet is promoted after S43C11 QA gates", () => {
+test("add multi-carry registry triplet remains promoted after Phase 1 expansion", () => {
   const kp = rowById(knowledgePoints, "knowledgePointId", "kp_g3a_u02_add_multi_carry");
   const group = rowById(patternGroups, "patternGroupId", "pg_g3a_u02_add_multi_carry_seed");
   const mapping = rowById(patternMap, "mappingId", "map_g3a_u02_add_multi_carry_seed");
@@ -68,23 +68,23 @@ test("strict multi-carry candidate exposes carry policy after promotion", () => 
   assert.deepEqual(definition.difficultyTags, ["batch_a_browser_bridge"]);
 });
 
-test("browser selector projection exposes exactly one visible add multi-carry KP", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 1);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.hiddenPendingCount, 1);
+test("browser selector projection exposes two visible G3A-U02 Phase 1 KPs", () => {
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 2);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.hiddenPendingCount, 0);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.notSelectableCount, 2);
   assert.deepEqual(BATCH_A_SELECTOR_AVAILABILITY.bySourceId.g3a_u02_3a02, {
     sourceId: "g3a_u02_3a02",
-    visibleCount: 1,
-    hiddenPendingCount: 1,
+    visibleCount: 2,
+    hiddenPendingCount: 0,
     notSelectableCount: 2
   });
 });
 
-test("subtract A-row and D-class G3A-U02 rows remain non-promotable during add multi-carry QA", () => {
+test("subtract A-row is promoted while D-class G3A-U02 rows remain non-selectable", () => {
   const subtract = rowById(knowledgePoints, "knowledgePointId", "kp_g3a_u02_sub_multi_borrow");
   assert.equal(subtract.supportClass, "A");
-  assert.equal(subtract.htmlSelectableStatus, "hidden");
-  assert.equal(subtract.holdReason, "qa_pending");
+  assert.equal(subtract.htmlSelectableStatus, "selectable");
+  assert.equal(subtract.holdReason, null);
 
   const dKnowledgePointIds = [
     "kp_g3a_u02_estimate_nearest_thousand",
