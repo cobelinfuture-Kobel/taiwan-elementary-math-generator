@@ -140,7 +140,7 @@ export function createAnswerKeyItem(question, questionDisplayModel) {
     questionId: question.id,
     questionNumber: questionDisplayModel.questionNumber,
     patternId: questionDisplayModel.patternId,
-    promptText: questionDisplayModel.displayText,
+    promptText: questionDisplayModel.blankedDisplayText,
     answerText: formatAnswerText(question.finalAnswer),
     metadataSnapshot: createMetadataSnapshot(question)
   };
