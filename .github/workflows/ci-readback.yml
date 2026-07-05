@@ -1,0 +1,231 @@
+name: Math CI Readback
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: math-ci-readback-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci-readback:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        id: setup_node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        id: install_dependencies
+        run: npm install
+
+      - name: Run npm test
+        id: npm_test
+        shell: bash
+        run: |
+          set +e
+          set -o pipefail
+          npm test 2>&1 | tee "$RUNNER_TEMP/npm-test-output.txt"
+          npm_test_exit_code=${PIPESTATUS[0]}
+          echo "npm test exit code: $npm_test_exit_code"
+          echo "CI_READBACK_NPM_TEST_EXIT_CODE=$npm_test_exit_code" >> "$GITHUB_ENV"
+          exit 0
+
+      - name: Verify dynamic test result
+        id: verify_test_result
+        shell: bash
+        run: |
+          if [ ! -f "$RUNNER_TEMP/npm-test-output.txt" ]; then
+            echo "npm-test-output.txt was not created."
+            echo "CI_READBACK_TESTS=UNPARSED" >> "$GITHUB_ENV"
+            echo "CI_READBACK_PASS=UNPARSED" >> "$GITHUB_ENV"
+            echo "CI_READBACK_FAIL=UNPARSED" >> "$GITHUB_ENV"
+            exit 1
+          fi
+
+          TESTS=$(awk '/(^|[[:space:]])tests[[:space:]]+[0-9]+/ { value=$NF } END { print value }' "$RUNNER_TEMP/npm-test-output.txt")
+          PASS=$(awk '/(^|[[:space:]])pass[[:space:]]+[0-9]+/ { value=$NF } END { print value }' "$RUNNER_TEMP/npm-test-output.txt")
+          FAIL=$(awk '/(^|[[:space:]])fail[[:space:]]+[0-9]+/ { value=$NF } END { print value }' "$RUNNER_TEMP/npm-test-output.txt")
+
+          echo "Detected tests=$TESTS pass=$PASS fail=$FAIL"
+          echo "CI_READBACK_TESTS=${TESTS:-UNPARSED}" >> "$GITHUB_ENV"
+          echo "CI_READBACK_PASS=${PASS:-UNPARSED}" >> "$GITHUB_ENV"
+          echo "CI_READBACK_FAIL=${FAIL:-UNPARSED}" >> "$GITHUB_ENV"
+
+          if [ "${CI_READBACK_NPM_TEST_EXIT_CODE:-1}" != "0" ]; then
+            echo "npm test failed with exit code ${CI_READBACK_NPM_TEST_EXIT_CODE:-unknown}."
+            exit 1
+          fi
+
+          if [ -z "$TESTS" ] || [ -z "$PASS" ] || [ -z "$FAIL" ]; then
+            echo "Unable to parse npm test summary."
+            exit 1
+          fi
+
+          if [ "$FAIL" != "0" ]; then
+            echo "Expected fail=0, got fail=$FAIL."
+            exit 1
+          fi
+
+          if [ "$PASS" != "$TESTS" ]; then
+            echo "Expected pass to equal tests, got tests=$TESTS pass=$PASS."
+            exit 1
+          fi
+
+      - name: Show git status
+        id: git_status
+        if: always()
+        shell: bash
+        run: |
+          if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            git status --short | tee "$RUNNER_TEMP/git-status.txt" || true
+            if [ -s "$RUNNER_TEMP/git-status.txt" ]; then
+              echo "CI_READBACK_WORKING_TREE_STATUS=dirty" >> "$GITHUB_ENV"
+            else
+              echo "CI_READBACK_WORKING_TREE_STATUS=clean" >> "$GITHUB_ENV"
+            fi
+          else
+            echo "Git working tree is unavailable." | tee "$RUNNER_TEMP/git-status.txt"
+            echo "CI_READBACK_WORKING_TREE_STATUS=unknown" >> "$GITHUB_ENV"
+          fi
+
+      - name: Fail if working tree is not clean
+        id: verify_working_tree
+        if: always()
+        shell: bash
+        run: |
+          if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            echo "Git working tree is unavailable."
+            exit 1
+          fi
+
+          if [ -s "$RUNNER_TEMP/git-status.txt" ]; then
+            echo "Working tree is not clean."
+            cat "$RUNNER_TEMP/git-status.txt"
+            exit 1
+          fi
+
+      - name: Write CI readback summary
+        id: write_summary
+        if: always()
+        shell: bash
+        run: |
+          checkout_outcome="${{ steps.checkout.outcome }}"
+          setup_node_outcome="${{ steps.setup_node.outcome }}"
+          install_dependencies_outcome="${{ steps.install_dependencies.outcome }}"
+          npm_test_outcome="${{ steps.npm_test.outcome }}"
+          verify_test_result_outcome="${{ steps.verify_test_result.outcome }}"
+          git_status_outcome="${{ steps.git_status.outcome }}"
+          verify_working_tree_outcome="${{ steps.verify_working_tree.outcome }}"
+
+          tests_actual="${CI_READBACK_TESTS:-UNPARSED}"
+          pass_actual="${CI_READBACK_PASS:-UNPARSED}"
+          fail_actual="${CI_READBACK_FAIL:-UNPARSED}"
+          npm_exit_code="${CI_READBACK_NPM_TEST_EXIT_CODE:-NOT_RUN}"
+          working_tree_actual="${CI_READBACK_WORKING_TREE_STATUS:-unknown}"
+
+          status="PASS_CI_SYNCED_AND_CLEAN"
+          result="PASS"
+          failed_stage="none"
+
+          if [ "$checkout_outcome" != "success" ]; then
+            status="FAIL_CHECKOUT"
+            result="FAIL"
+            failed_stage="checkout"
+          elif [ "$setup_node_outcome" != "success" ]; then
+            status="FAIL_SETUP_NODE"
+            result="FAIL"
+            failed_stage="setup_node"
+          elif [ "$install_dependencies_outcome" != "success" ]; then
+            status="FAIL_INSTALL_DEPENDENCIES"
+            result="FAIL"
+            failed_stage="install_dependencies"
+          elif [ "$npm_test_outcome" = "skipped" ] || [ "$npm_exit_code" = "NOT_RUN" ]; then
+            status="FAIL_NPM_TEST_NOT_RUN"
+            result="FAIL"
+            failed_stage="npm_test"
+          elif [ "$npm_exit_code" != "0" ]; then
+            status="FAIL_NPM_TEST"
+            result="FAIL"
+            failed_stage="npm_test"
+          elif [ "$tests_actual" = "UNPARSED" ] || [ "$pass_actual" = "UNPARSED" ] || [ "$fail_actual" = "UNPARSED" ]; then
+            status="FAIL_TEST_SUMMARY_PARSE"
+            result="FAIL"
+            failed_stage="verify_dynamic_test_result"
+          elif [ "$fail_actual" != "0" ]; then
+            status="FAIL_TEST_FAILURES"
+            result="FAIL"
+            failed_stage="verify_dynamic_test_result"
+          elif [ "$pass_actual" != "$tests_actual" ]; then
+            status="FAIL_TEST_COUNT_MISMATCH"
+            result="FAIL"
+            failed_stage="verify_dynamic_test_result"
+          elif [ "$working_tree_actual" != "clean" ]; then
+            status="FAIL_WORKING_TREE_DIRTY"
+            result="FAIL"
+            failed_stage="working_tree_clean_check"
+          fi
+
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          {
+            echo "## Math CI Readback"
+            echo ""
+            echo "| Check | Expected | Actual | Result |"
+            echo "|---|---:|---:|---|"
+            echo "| tests | auto-detected | $tests_actual | $([ "$tests_actual" != "UNPARSED" ] && echo PASS || echo FAIL) |"
+            echo "| pass | equal tests | $pass_actual | $([ "$pass_actual" = "$tests_actual" ] && [ "$pass_actual" != "UNPARSED" ] && echo PASS || echo FAIL) |"
+            echo "| fail | 0 | $fail_actual | $([ "$fail_actual" = "0" ] && echo PASS || echo FAIL) |"
+            echo "| npm test exit code | 0 | $npm_exit_code | $([ "$npm_exit_code" = "0" ] && echo PASS || echo FAIL) |"
+            echo "| working tree | clean | $working_tree_actual | $([ "$working_tree_actual" = "clean" ] && echo PASS || echo FAIL) |"
+            echo ""
+            echo "| Step | Outcome |"
+            echo "|---|---|"
+            echo "| checkout | $checkout_outcome |"
+            echo "| setup_node | $setup_node_outcome |"
+            echo "| install_dependencies | $install_dependencies_outcome |"
+            echo "| npm_test | $npm_test_outcome |"
+            echo "| verify_dynamic_test_result | $verify_test_result_outcome |"
+            echo "| git_status | $git_status_outcome |"
+            echo "| verify_working_tree | $verify_working_tree_outcome |"
+            echo ""
+            echo "### Status"
+            echo ""
+            printf '`MATH_CI_READBACK_STATUS = %s`\n' "$status"
+            echo ""
+            echo "Result: $result"
+            echo ""
+            echo "Failed stage: $failed_stage"
+            echo ""
+            echo "Run URL: $run_url"
+            echo ""
+            echo "### npm test log tail"
+            echo ""
+            printf '```text\n'
+            if [ -f "$RUNNER_TEMP/npm-test-output.txt" ]; then
+              tail -n 80 "$RUNNER_TEMP/npm-test-output.txt"
+            else
+              echo "npm-test-output.txt not found."
+            fi
+            printf '```\n'
+            echo ""
+            echo "### git status --short"
+            echo ""
+            printf '```text\n'
+            if [ -f "$RUNNER_TEMP/git-status.txt" ]; then
+              cat "$RUNNER_TEMP/git-status.txt"
+            else
+              echo "git-status.txt not found."
+            fi
+            printf '```\n'
+          } >> "$GITHUB_STEP_SUMMARY"
