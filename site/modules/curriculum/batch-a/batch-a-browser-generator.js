@@ -2,11 +2,12 @@ import { QUESTION_KINDS, SUPPORT_STATUSES } from "../../core/constants.js";
 import { generateQuestionFromPattern } from "../../core/generate-expression.js";
 import { createSeededRandom, randomIntBetween } from "../../core/random.js";
 import { validateBatchAQuestionCarryPolicy } from "./carry-policy.js";
+import { estimateAddSubToUnit } from "./context-estimate-core.js";
 import { getBatchASourceUnit } from "./source-units.js";
 import {
   getBatchABrowserPatternDefinition,
   getBatchAPatternSpecIdsForSource
-} from "./source-pattern-index.js";
+} from "./source-pattern-extension.js";
 import {
   validateBatchABrowserPlan,
   validateBatchABrowserQuestion
@@ -102,7 +103,7 @@ function generateComparisonQuestion(definition, options = {}) {
     kind: "comparison",
     left,
     right,
-    promptText: `比較 ${left} 和 ${right}，填入 >、< 或 =。`,
+    promptText: `Compare ${left} and ${right}.`,
     displayText: `${left} ${answerText} ${right}`,
     blankedDisplayText: `${left} ___ ${right}`,
     answerText,
@@ -123,11 +124,45 @@ function generateRoundingQuestion(definition, options = {}) {
     kind: "rounding",
     value,
     unit: definition.unit,
-    promptText: `將 ${value} 估到最接近的千位數。`,
-    displayText: `${value} 約是 ${answerText}`,
-    blankedDisplayText: `${value} 約是 ____`,
+    promptText: `Round ${value} to the nearest thousand.`,
+    displayText: `${value} is about ${answerText}`,
+    blankedDisplayText: `${value} is about ____`,
     answerText,
     finalAnswer: answer,
+    metadata: textQuestionMetadata(definition)
+  };
+}
+
+function generateContextEstimateQuestion(definition, options = {}) {
+  const randomFn = options.randomFn ?? createSeededRandom(options.seed);
+  let left = randomIntBetween(randomFn, definition.min, definition.max);
+  let right = randomIntBetween(randomFn, definition.min, definition.max);
+  const operator = randomIntBetween(randomFn, 0, 1) === 0 ? "add" : "subtract";
+  if (operator === "subtract" && right > left) {
+    [left, right] = [right, left];
+  }
+  const estimate = estimateAddSubToUnit(left, right, operator, definition.unit);
+  const answerText = String(estimate.answer);
+  const mark = operator === "add" ? "+" : "-";
+  const promptText = `Estimate ${left} ${mark} ${right} with unit ${definition.unit}.`;
+  const id = options.id ?? `${definition.patternSpecId}-${options.sequenceNumber ?? 1}`;
+  return {
+    id,
+    patternSpecId: definition.patternSpecId,
+    sourceId: definition.sourceId,
+    kind: definition.kind,
+    left,
+    right,
+    operator,
+    unit: definition.unit,
+    roundedLeft: estimate.roundedLeft,
+    roundedRight: estimate.roundedRight,
+    promptText,
+    displayText: `${promptText} Answer ${answerText}`,
+    blankedDisplayText: `${promptText} Answer ____`,
+    answerText,
+    finalAnswer: estimate.answer,
+    explanationText: `${left}->${estimate.roundedLeft}; ${right}->${estimate.roundedRight}; ${answerText}`,
     metadata: textQuestionMetadata(definition)
   };
 }
@@ -276,12 +311,19 @@ export function buildBatchABrowserPlan(options = {}) {
 }
 
 function hasRoundingShape(definition) {
-  return definition.kind === "rounding" || Number.isSafeInteger(definition.unit);
+  return definition.kind === "rounding" || (definition.kind !== "wordProblemEstimation" && Number.isSafeInteger(definition.unit));
+}
+
+function hasContextEstimateShape(definition) {
+  return Array.isArray(definition.contextTags) && definition.contextTags.includes("fixed_template");
 }
 
 function generateQuestionForDefinition(definition, options) {
   if (definition.kind === "comparison") {
     return { ok: true, question: generateComparisonQuestion(definition, options) };
+  }
+  if (hasContextEstimateShape(definition)) {
+    return { ok: true, question: generateContextEstimateQuestion(definition, options) };
   }
   if (hasRoundingShape(definition)) {
     return { ok: true, question: generateRoundingQuestion(definition, options) };
