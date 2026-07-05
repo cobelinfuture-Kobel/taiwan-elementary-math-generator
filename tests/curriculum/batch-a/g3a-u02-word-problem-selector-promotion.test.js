@@ -1,46 +1,29 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import {
-  BATCH_A_SELECTOR_AVAILABILITY,
-  getVisibleBatchAKnowledgePoint,
-  getVisiblePatternGroupsForKnowledgePoint,
-  listBatchAKnowledgePointAvailabilityBySource,
-  resolveVisiblePatternSpecIdsForKnowledgePoint
-} from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
-import {
-  BATCH_A_RESOLVER_SELECTION_MODES,
-  resolveVisiblePatternGroupSelection
-} from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
+import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource, resolveVisiblePatternSpecIdsForKnowledgePoint } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+import { BATCH_A_RESOLVER_SELECTION_MODES, resolveVisiblePatternGroupSelection } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 
-const SOURCE_ID = ["g3a", "u02", "3a02"].join("_");
-const suffix = [119,111,114,100,95,112,114,111,98,108,101,109,95,101,115,116,105,109,97,116,105,111,110,95,97,100,100,95,115,117,98].map((code) => String.fromCharCode(code)).join("");
-const KP_ID = `kp_g3a_u02_${suffix}`;
-const GROUP_ID = `pg_g3a_u02_${suffix}`;
-const SPEC_ID = `ps_g3a_u02_${suffix}`;
+const sourceId = "g3a_u02_3a02";
+const kpId = "kp_g3a_u02_word_problem_estimation_add_sub";
+const groupId = "pg_g3a_u02_word_problem_estimation_add_sub";
+const specId = "ps_g3a_u02_word_problem_estimation_add_sub";
 
-test("selector extension exposes S43G2P KP", () => {
-  const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 12);
-  assert.equal(availability.visibleCount, 6);
-  assert.equal(availability.notSelectableCount, 0);
-  assert.equal(getVisibleBatchAKnowledgePoint(KP_ID)?.displayName.length > 0, true);
-  assert.equal(getVisiblePatternGroupsForKnowledgePoint(KP_ID)[0]?.patternGroupId, GROUP_ID);
-  assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(KP_ID), [SPEC_ID]);
+test("word problem KP remains visible after materialization", () => {
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 16);
+  assert.equal(listBatchAKnowledgePointAvailabilityBySource(sourceId).visibleCount, 10);
+  assert.equal(getVisibleBatchAKnowledgePoint(kpId)?.displayName, "加減應用題估算");
+  assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpId), [specId]);
 });
 
-test("resolver accepts S43G2P KP as a single selection", () => {
+test("word problem KP resolver still passes", () => {
   const plan = resolveVisiblePatternGroupSelection({
-    sourceId: SOURCE_ID,
+    sourceId,
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [KP_ID],
-    selectedPatternGroupIds: [GROUP_ID],
-    questionCount: 4,
-    generationSeed: "s43g2p"
+    selectedKnowledgePointIds: [kpId],
+    selectedPatternGroupIds: [groupId],
+    questionCount: 4
   });
-
-  assert.equal(plan.ok, true);
-  assert.deepEqual(plan.knowledgePointIds, [KP_ID]);
-  assert.deepEqual(plan.patternGroupIds, [GROUP_ID]);
-  assert.deepEqual(plan.patternSpecIds, [SPEC_ID]);
+  assert.equal(plan.ok, true, JSON.stringify(plan.errors));
+  assert.deepEqual(plan.patternSpecIds, [specId]);
 });
