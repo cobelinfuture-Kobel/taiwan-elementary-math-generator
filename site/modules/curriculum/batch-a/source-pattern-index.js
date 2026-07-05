@@ -51,6 +51,16 @@ const ADD_CARRY_POLICY = {
   checkedColumns: ["ones", "tens", "hundreds"],
   allowCarryIntoTenThousands: false
 };
+const SUB_REGROUP_POLICY = {
+  kind: "subtraction_regroup",
+  mode: "at_least_two_regroups",
+  operandPositions: [1, 2],
+  base: 10,
+  scope: "generated_question",
+  validatorRequired: true,
+  checkedColumns: ["ones", "tens", "hundreds"],
+  minRegroupCount: 2
+};
 
 function mul(patternSpecId, sourceId, title, ranges, answerMax) {
   return expressionPattern({ patternSpecId, sourceId, title, operators: [[OPERATORS.MULTIPLY]], ranges, answerMax, skill: "integer_multiplication" });
@@ -71,7 +81,7 @@ function addSub1(patternSpecId, sourceId, title, ranges, answerMax) {
 export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
   ps_g3a_u01_4digit_compare: comparisonPattern({ patternSpecId: "ps_g3a_u01_4digit_compare", sourceId: "g3a_u01_3a01", title: "四位數比大小", min: 1000, max: 9999 }),
   ps_g3a_u02_4digit_add_multi_carry: expressionPattern({ patternSpecId: "ps_g3a_u02_4digit_add_multi_carry", sourceId: "g3a_u02_3a02", title: "四位數加法", operators: [[OPERATORS.ADD]], ranges: [[1000, 4999], [1000, 4999]], answerMax: 9999, skill: "integer_addition", carryPolicy: ADD_CARRY_POLICY }),
-  ps_g3a_u02_4digit_sub_multi_borrow: expressionPattern({ patternSpecId: "ps_g3a_u02_4digit_sub_multi_borrow", sourceId: "g3a_u02_3a02", title: "四位數減法", operators: [[OPERATORS.SUBTRACT]], ranges: [[1000, 9999], [1000, 9999]], answerMax: 9999, skill: "integer_subtraction" }),
+  ps_g3a_u02_4digit_sub_multi_borrow: expressionPattern({ patternSpecId: "ps_g3a_u02_4digit_sub_multi_borrow", sourceId: "g3a_u02_3a02", title: "四位數減法", operators: [[OPERATORS.SUBTRACT]], ranges: [[1000, 9999], [1000, 9999]], answerMax: 9999, skill: "integer_subtraction", carryPolicy: SUB_REGROUP_POLICY }),
   ps_g3a_u03_2digit_by_1digit_carry: mul("ps_g3a_u03_2digit_by_1digit_carry", "g3a_u03_3a03", "二位數乘以一位數", [[10, 99], [2, 9]], 891),
   ps_g3a_u03_10_multiple_by_1digit: mul("ps_g3a_u03_10_multiple_by_1digit", "g3a_u03_3a03", "10 的倍數乘以一位數", [[10, 90], [2, 9]], 810),
   ps_g3a_u03_3digit_by_1digit: mul("ps_g3a_u03_3digit_by_1digit", "g3a_u03_3a03", "三位數乘以一位數", [[100, 999], [2, 9]], 8991),
