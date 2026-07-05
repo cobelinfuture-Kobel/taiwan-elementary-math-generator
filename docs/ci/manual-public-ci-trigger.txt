@@ -1,0 +1,4 @@
+S43G2P public CI trigger
+
+triggeredAt = 2026-07-05T06:24:00Z
+reason = rerun after Phase 3 selector contract patches
