@@ -20,11 +20,11 @@ const KP_ID = "kp_g3a_u02_estimate_nearest_thousand";
 const GROUP_ID = "pg_g3a_u02_estimate_nearest_thousand";
 const SPEC_ID = "ps_g3a_u02_estimate_nearest_thousand";
 
-test("S43G2L selector extension exposes rounding KP", () => {
+test("S43G2L selector extension keeps rounding KP visible after Phase 3 promotion", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 3);
-  assert.equal(availability.visibleCount, 3);
-  assert.equal(availability.notSelectableCount, 1);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 4);
+  assert.equal(availability.visibleCount, 4);
+  assert.equal(availability.notSelectableCount, 0);
 
   const visibleIds = listVisibleBatchAKnowledgePoints().map((entry) => entry.knowledgePointId);
   assert.equal(visibleIds.includes(KP_ID), true);
