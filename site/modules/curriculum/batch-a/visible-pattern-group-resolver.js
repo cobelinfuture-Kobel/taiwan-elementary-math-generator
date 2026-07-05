@@ -3,7 +3,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
   resolveVisiblePatternSpecIdsForKnowledgePoint
-} from "../registry/batch-a-selector-extension.js";
+} from "../registry/batch-a-selector-equation-extension.js";
 
 export const BATCH_A_RESOLVER_SELECTION_MODES = Object.freeze({
   SOURCE_UNIT: "sourceUnit",
@@ -118,170 +118,113 @@ function ok(plan) {
 }
 
 function allocateEvenly({ patternGroups, patternSpecIdsByGroup, questionCount }) {
-  if (patternGroups.length === 0) return [];
-
-  const baseCount = Math.floor(questionCount / patternGroups.length);
-  let remainder = questionCount % patternGroups.length;
-  const allocations = [];
-
-  for (const group of [...patternGroups].sort((left, right) => left.patternGroupId.localeCompare(right.patternGroupId))) {
-    const groupCount = baseCount + (remainder > 0 ? 1 : 0);
+  const groupCount = patternGroups.length;
+  if (groupCount === 0) return [];
+  const base = Math.floor(questionCount / groupCount);
+  let remainder = questionCount % groupCount;
+  return patternGroups.map((group) => {
+    const count = base + (remainder > 0 ? 1 : 0);
     remainder -= remainder > 0 ? 1 : 0;
-    const patternSpecIds = patternSpecIdsByGroup.get(group.patternGroupId) ?? [];
+    return {
+      patternGroupId: group.patternGroupId,
+      patternSpecId: patternSpecIdsByGroup.get(group.patternGroupId)[0],
+      questionCount: count
+    };
+  });
+}
 
-    if (patternSpecIds.length === 0) continue;
+function expandPatternGroups({ knowledgePointIds, selectedPatternGroupIds, registry }) {
+  const selectedGroupSet = new Set(normalizeIdArray(selectedPatternGroupIds));
+  const patternGroups = [];
+  const rejectedCodes = [];
 
-    if (group.allocationPolicy === "not_applicable") {
-      return null;
-    }
-
-    if (group.allocationPolicy === "single_pattern" || patternSpecIds.length === 1) {
-      allocations.push({
-        patternGroupId: group.patternGroupId,
-        patternSpecId: patternSpecIds[0],
-        questionCount: groupCount
-      });
+  for (const knowledgePointId of knowledgePointIds) {
+    const kp = registry.getVisibleBatchAKnowledgePoint(knowledgePointId);
+    if (!kp) {
+      rejectedCodes.push(BATCH_A_RESOLVER_ERROR_CODES.KP_NOT_VISIBLE);
       continue;
     }
-
-    const perSpecBase = Math.floor(groupCount / patternSpecIds.length);
-    let perSpecRemainder = groupCount % patternSpecIds.length;
-    for (const patternSpecId of [...patternSpecIds].sort()) {
-      allocations.push({
-        patternGroupId: group.patternGroupId,
-        patternSpecId,
-        questionCount: perSpecBase + (perSpecRemainder > 0 ? 1 : 0)
-      });
-      perSpecRemainder -= perSpecRemainder > 0 ? 1 : 0;
+    const groups = registry.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+    if (groups.length === 0) {
+      rejectedCodes.push(BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_NOT_VISIBLE);
+      continue;
     }
+    const selectedOrAll = selectedGroupSet.size > 0
+      ? groups.filter((group) => selectedGroupSet.has(group.patternGroupId))
+      : groups;
+    if (selectedOrAll.length === 0) {
+      rejectedCodes.push(BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_NOT_LINKED_TO_KP);
+      continue;
+    }
+    patternGroups.push(...selectedOrAll.map((group) => ({ ...group, knowledgePointId })));
   }
 
-  return allocations.filter((item) => item.questionCount > 0);
+  return { patternGroups, rejectedCodes };
 }
 
 export function resolveVisiblePatternGroupSelection(input = {}, options = {}) {
-  const registryAccess = resolveRegistryAccess(options);
-  const rawSelectionMode = input.selectionMode ?? BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT;
-  const selectionMode = VALID_SELECTION_MODES.includes(rawSelectionMode)
-    ? rawSelectionMode
-    : null;
-
-  if (!selectionMode) {
-    return fail(
-      baseResolverPlan(input, BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT),
-      [BATCH_A_RESOLVER_ERROR_CODES.SELECTION_MODE_INVALID],
-      1
-    );
-  }
-
+  const registry = resolveRegistryAccess(options);
+  const selectionMode = input.selectionMode ?? BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT;
   const plan = baseResolverPlan(input, selectionMode);
 
+  if (!VALID_SELECTION_MODES.includes(selectionMode)) {
+    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.SELECTION_MODE_INVALID]);
+  }
   if (selectionMode === BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT) {
     return ok(plan);
   }
-
   if (selectionMode === BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_CROSS_UNIT) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.CROSS_UNIT_NOT_SUPPORTED_YET], 1);
-  }
-
-  const visibleKnowledgePoints = registryAccess.listVisibleBatchAKnowledgePoints();
-  if (visibleKnowledgePoints.length === 0) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.NO_VISIBLE_KP], 1);
+    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.CROSS_UNIT_NOT_SUPPORTED_YET]);
   }
 
   const requestedKnowledgePointIds = normalizeIdArray(input.selectedKnowledgePointIds);
-
-  if (selectionMode === BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT && requestedKnowledgePointIds.length !== 1) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.ALL_CANDIDATES_REJECTED], requestedKnowledgePointIds.length || 1);
+  if (requestedKnowledgePointIds.length === 0) {
+    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.NO_VISIBLE_KP]);
   }
 
-  if (selectionMode === BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT && requestedKnowledgePointIds.length < 2) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.ALL_CANDIDATES_REJECTED], requestedKnowledgePointIds.length || 1);
+  const knowledgePoints = requestedKnowledgePointIds
+    .map((id) => registry.getVisibleBatchAKnowledgePoint(id))
+    .filter(Boolean);
+  if (knowledgePoints.length !== requestedKnowledgePointIds.length) {
+    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.KP_NOT_VISIBLE], requestedKnowledgePointIds.length - knowledgePoints.length);
   }
 
-  const selectedKnowledgePoints = [];
-  for (const knowledgePointId of requestedKnowledgePointIds) {
-    const visibleKnowledgePoint = registryAccess.getVisibleBatchAKnowledgePoint(knowledgePointId);
-    if (visibleKnowledgePoint) {
-      selectedKnowledgePoints.push(visibleKnowledgePoint);
-    }
+  const sourceIds = [...new Set(knowledgePoints.map((kp) => kp.sourceId))];
+  if (selectionMode === BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT && sourceIds.length > 1) {
+    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.MIXED_SAME_UNIT_SOURCE_MISMATCH]);
+  }
+  if (input.sourceId && sourceIds.some((sourceId) => sourceId !== input.sourceId)) {
+    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.MIXED_SAME_UNIT_SOURCE_MISMATCH]);
   }
 
-  if (selectedKnowledgePoints.length !== requestedKnowledgePointIds.length) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.KP_NOT_VISIBLE], requestedKnowledgePointIds.length - selectedKnowledgePoints.length);
+  const { patternGroups, rejectedCodes } = expandPatternGroups({
+    knowledgePointIds: requestedKnowledgePointIds,
+    selectedPatternGroupIds: input.selectedPatternGroupIds,
+    registry
+  });
+  if (patternGroups.length === 0) {
+    return fail(plan, rejectedCodes.length ? rejectedCodes : [BATCH_A_RESOLVER_ERROR_CODES.ALL_CANDIDATES_REJECTED], requestedKnowledgePointIds.length);
   }
 
-  if (selectedKnowledgePoints.length === 0) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.ALL_CANDIDATES_REJECTED], requestedKnowledgePointIds.length || 1);
-  }
-
-  if (selectionMode === BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
-    const selectedSourceIds = new Set(selectedKnowledgePoints.map((knowledgePoint) => knowledgePoint.sourceId));
-    if (selectedSourceIds.size !== 1) {
-      return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.MIXED_SAME_UNIT_SOURCE_MISMATCH], selectedKnowledgePoints.length);
-    }
-  }
-
-  const requestedPatternGroupIds = normalizeIdArray(input.selectedPatternGroupIds);
-  const selectedPatternGroups = [];
   const patternSpecIdsByGroup = new Map();
-  const acceptedSourceIds = new Set();
-
-  for (const knowledgePoint of selectedKnowledgePoints) {
-    acceptedSourceIds.add(knowledgePoint.sourceId);
-    const visiblePatternGroups = registryAccess.getVisiblePatternGroupsForKnowledgePoint(knowledgePoint.knowledgePointId);
-    const allowedGroups = requestedPatternGroupIds.length > 0
-      ? visiblePatternGroups.filter((group) => requestedPatternGroupIds.includes(group.patternGroupId))
-      : visiblePatternGroups;
-
-    for (const group of allowedGroups) {
-      const patternSpecIds = registryAccess.resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePoint.knowledgePointId)
-        .filter((patternSpecId) => Array.isArray(group.patternSpecIds) ? group.patternSpecIds.includes(patternSpecId) : true);
-
-      if (patternSpecIds.length === 0) {
-        return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.PATTERN_SPEC_MISSING], 1);
-      }
-
-      selectedPatternGroups.push(group);
-      patternSpecIdsByGroup.set(group.patternGroupId, patternSpecIds);
+  for (const group of patternGroups) {
+    const ids = registry.resolveVisiblePatternSpecIdsForKnowledgePoint(group.knowledgePointId)
+      .filter((id) => Array.isArray(group.patternSpecIds) ? group.patternSpecIds.includes(id) : true);
+    if (ids.length === 0) {
+      return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.PATTERN_SPEC_MISSING], 1);
     }
+    patternSpecIdsByGroup.set(group.patternGroupId, ids);
   }
 
-  if (requestedPatternGroupIds.length > 0 && selectedPatternGroups.length !== requestedPatternGroupIds.length) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_NOT_VISIBLE], requestedPatternGroupIds.length - selectedPatternGroups.length);
-  }
-
-  if (selectedPatternGroups.length === 0) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.ALL_CANDIDATES_REJECTED], selectedKnowledgePoints.length);
-  }
-
-  const allocation = allocateEvenly({
-    patternGroups: selectedPatternGroups,
+  plan.sourceIds = sourceIds;
+  plan.knowledgePointIds = [...requestedKnowledgePointIds].sort();
+  plan.patternGroupIds = patternGroups.map((group) => group.patternGroupId).sort();
+  plan.patternSpecIds = [...new Set([...patternSpecIdsByGroup.values()].flat())].sort();
+  plan.allocation = allocateEvenly({
+    patternGroups,
     patternSpecIdsByGroup,
     questionCount: plan.questionCount
   });
-
-  if (allocation === null) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.ALLOCATION_NOT_APPLICABLE], selectedPatternGroups.length);
-  }
-
-  if (allocation.length === 0) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.PATTERN_SPEC_MISSING], selectedPatternGroups.length);
-  }
-
-  plan.sourceIds = [...acceptedSourceIds].sort();
-  plan.knowledgePointIds = selectedKnowledgePoints.map((knowledgePoint) => knowledgePoint.knowledgePointId).sort();
-  plan.patternGroupIds = [...new Set(selectedPatternGroups.map((group) => group.patternGroupId))].sort();
-  plan.patternSpecIds = [...new Set(allocation.map((item) => item.patternSpecId))].sort();
-  plan.allocation = cloneValue(allocation);
-  plan.visibilityValidation.visibleAcceptedCount = selectedKnowledgePoints.length;
-  plan.provenance = {
-    resolver: "visiblePatternGroupResolver",
-    sourceIds: cloneValue(plan.sourceIds),
-    knowledgePointIds: cloneValue(plan.knowledgePointIds),
-    patternGroupIds: cloneValue(plan.patternGroupIds),
-    patternSpecIds: cloneValue(plan.patternSpecIds)
-  };
-
+  plan.visibilityValidation.visibleAcceptedCount = patternGroups.length;
   return ok(plan);
 }
