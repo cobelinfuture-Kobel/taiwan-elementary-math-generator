@@ -11,7 +11,7 @@ import { BATCH_A_BROWSER_SCOPE } from "./production-eligibility.js";
 const DEFAULT_PRINT_LAYOUT = Object.freeze({
   paperSize: "A4",
   columns: 4,
-  rowsPerPage: 5,
+  rowsPerPage: 10,
   showQuestionNumbers: true,
   showAnswerKeyPage: true
 });
