@@ -21,14 +21,14 @@ const ROUND_GROUP_ID = "pg_g3a_u02_estimate_nearest_thousand";
 const WORD_KP_ID = "kp_g3a_u02_word_problem_estimation_add_sub";
 const WORD_GROUP_ID = "pg_g3a_u02_word_problem_estimation_add_sub";
 
-test("Batch A selector state defaults to source-unit mode with ten visible overlay KPs available", () => {
+test("Batch A selector state defaults to source-unit mode with twelve visible overlay KPs available", () => {
   const state = createConfigState();
 
   assert.equal(state.worksheetMode, WORKSHEET_MODES.BATCH_A_SOURCE);
   assert.equal(state.batchA.selectionMode, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
   assert.deepEqual(state.batchA.selectedKnowledgePointIds, []);
   assert.deepEqual(state.batchA.selectedPatternGroupIds, []);
-  assert.equal(state.batchA.selectorAvailability.visibleCount, 10);
+  assert.equal(state.batchA.selectorAvailability.visibleCount, 12);
   assert.equal(state.batchA.selectorAvailability.hiddenPendingCount, 0);
   assert.equal(state.batchA.selectorAvailability.notSelectableCount, 0);
 });
