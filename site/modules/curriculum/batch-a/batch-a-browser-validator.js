@@ -2,7 +2,7 @@ import { evaluateExpression } from "../../core/evaluate-expression.js";
 import { getIntegerRawValue, isIntegerValue } from "../../core/number-value.js";
 import { validateBatchAQuestionCarryPolicy } from "./carry-policy.js";
 import { validateEquationBlankQuestion } from "./equation-blank-validator.js";
-import { getBatchABrowserPatternDefinition, getBatchAPatternSpecIdsForSource } from "./source-pattern-extension.js";
+import { getBatchABrowserPatternDefinition, getBatchAPatternSpecIdsForSource } from "./source-pattern-submiddle-extension.js";
 import { validateBatchAPlanScope } from "./production-eligibility.js";
 
 function issue(code, path, message = code, severity = "error") {
