@@ -130,6 +130,7 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
   ps_g3b_u08_multiplication_check_by_division: mul("ps_g3b_u08_multiplication_check_by_division", "g3b_u08_3b08", "用除法檢查乘法答案", [[10, 99], [2, 9]], 891),
   ps_g4a_u01_compare_8digit: comparisonPattern({ patternSpecId: "ps_g4a_u01_compare_8digit", sourceId: "g4a_u01_4a01", title: "八位數比大小", min: 10000000, max: 99999999 }),
   ps_g4a_u01_within_100million_compare: comparisonPattern({ patternSpecId: "ps_g4a_u01_within_100million_compare", sourceId: "g4a_u01_4a01", title: "1億以內數比大小", min: 0, max: 99999999 }),
+  ps_g4a_u01_large_number_add_sub: addSub1("ps_g4a_u01_large_number_add_sub", "g4a_u01_4a01", "大數加減", [[10000, 99999999], [10000, 99999999]], 99999999),
   ps_g4a_u02_add_sub_mixed_5digit: addSub1("ps_g4a_u02_add_sub_mixed_5digit", "g4a_u02_4a02", "五位數加減", [[10000, 99999], [10000, 99999]], 99999),
   ps_g4a_u04_angle_compare: comparisonPattern({ patternSpecId: "ps_g4a_u04_angle_compare", sourceId: "g4a_u04_4a04", title: "角度大小比較", min: 1, max: 180, skill: "angle_comparison" }),
   ps_g4a_u08_fraction_add_like_denominator: addSub1("ps_g4a_u08_fraction_add_like_denominator", "g4a_u08_4a08", "同分母分數加法", [[1, 9], [1, 9]], 18),
