@@ -15,15 +15,7 @@ const addSpec = "ps_g3a_u02_add_missing_digit_equation";
 const subSpec = "ps_g3a_u02_sub_missing_digit_equation";
 
 function make(kpId, groupId, count = 8) {
-  return generateBatchABrowserQuestions({
-    sourceId,
-    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [kpId],
-    selectedPatternGroupIds: [groupId],
-    questionCount: count,
-    generationSeed: `s43g4n1-${kpId}`,
-    includeAnswerKey: true
-  });
+  return generateBatchABrowserQuestions({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId], questionCount: count, generationSeed: `s43g4n1-${kpId}`, includeAnswerKey: true });
 }
 
 function checkQuestion(question, operator) {
@@ -39,7 +31,7 @@ function checkQuestion(question, operator) {
 
 test("S43G4N5 selector exposes equation blank KPs", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 16);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 18);
   assert.equal(availability.visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(addKp)?.displayName, "加法等式缺位填空");
   assert.equal(getVisibleBatchAKnowledgePoint(subKp)?.displayName, "減法等式缺位填空");
@@ -62,14 +54,7 @@ test("S43G4N3 subtraction equation blank generation and validation", () => {
 });
 
 test("S43G4N5 resolver accepts same-unit equation blank mix", () => {
-  const plan = resolveVisiblePatternGroupSelection({
-    sourceId,
-    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-    selectedKnowledgePointIds: [addKp, subKp],
-    selectedPatternGroupIds: [addGroup, subGroup],
-    questionCount: 8,
-    generationSeed: "s43g4n5"
-  });
+  const plan = resolveVisiblePatternGroupSelection({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT, selectedKnowledgePointIds: [addKp, subKp], selectedPatternGroupIds: [addGroup, subGroup], questionCount: 8, generationSeed: "s43g4n5" });
   assert.equal(plan.ok, true, JSON.stringify(plan.errors));
   assert.deepEqual(plan.knowledgePointIds, [addKp, subKp]);
   assert.deepEqual(plan.patternSpecIds, [addSpec, subSpec].sort());
