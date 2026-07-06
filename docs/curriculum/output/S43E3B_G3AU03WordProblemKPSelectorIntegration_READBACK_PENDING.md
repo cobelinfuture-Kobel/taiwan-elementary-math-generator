@@ -1,12 +1,12 @@
-# S43E3B G3A-U03 Word Problem KP Selector Integration — Readback Pending
+# S43E3B G3A-U03 Word Problem KP Selector Integration — PASS
 
 ## Current State
 
 ```text
 CURRENT_MAJOR_TASK = S43_BatchA_KnowledgePointSelectable_HTMLWorksheet
 CURRENT_SUBTASK = S43E3B_G3AU03WordProblemKPSelectorIntegration
-TASK_STATUS = IMPLEMENTED_READBACK_PENDING
-WRITE_TYPE = code_and_test
+TASK_STATUS = PASS_LOCAL_SYNCED_AND_CLEAN
+WRITE_TYPE = code_and_test_readback
 ```
 
 ## Scope Lock
@@ -44,7 +44,7 @@ patternSpecId = ps_g3a_u03_consecutive_multiplication_two_step_word_problem
 displayName = 兩步驟連續乘法應用題
 ```
 
-The G3A-U03 selector availability is now expected to show 7 visible KnowledgePoints instead of 6.
+The G3A-U03 selector availability is expected to show 7 visible KnowledgePoints instead of 6.
 
 The word-problem generator produces text questions with three multiplication factors and a final answer blank.
 
@@ -63,29 +63,60 @@ The test covers:
 4. Worksheet rendering and answer-key creation through the Batch A browser worksheet path.
 ```
 
-## Readback Status
+## Final Operator Readback
 
 ```text
-CI_STATUS = NOT_AVAILABLE_FROM_CONNECTOR
-WORKFLOW_RUNS = []
-LOCAL_NPM_TEST = PENDING_OPERATOR_READBACK
+npm test
+tests: 835
+suites: 0
+pass: 835
+fail: 0
+cancelled: 0
+skipped: 0
+todo: 0
+duration_ms: 8883.0191
+
+git status
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+```
+
+## Result
+
+```text
+S43E3B_STATUS = PASS_LOCAL_SYNCED_AND_CLEAN
+G3A_U03_WORD_PROBLEM_KP_SELECTOR = IMPLEMENTED_AND_TESTED
+LOCAL_TEST_COMMAND = npm test
+LOCAL_TESTS_TOTAL = 835
+LOCAL_TESTS_PASS = 835
+LOCAL_TESTS_FAIL = 0
+LOCAL_WORKTREE_STATUS = clean
+LOCAL_BRANCH_STATUS = up_to_date_with_origin_main
+```
+
+## Remaining Follow-up
+
+```text
+REMAINING_NON_BLOCKING_FOLLOWUP = [
+  "browser smoke：在頁面選 3A-U03 乘法 → 單一知識點加強 → 兩步驟連續乘法應用題，確認預覽為中文應用題"
+]
 ```
 
 ## Next Shortest Step
 
 ```text
-NEXT_SHORTEST_STEP = run npm test and git status on public repo main after pulling latest changes
+NEXT_SHORTEST_STEP = browser smoke readback for G3A-U03 word-problem selector path
 ```
 
 ## Distance Update
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_G3A_U03_WORD_PROBLEM_NOT_IN_KP_SELECTOR
-GOAL_DISTANCE_AFTER  = D1_G3A_U03_WORD_PROBLEM_SELECTOR_IMPLEMENTED_READBACK_PENDING
-DISTANCE_REDUCED     = selector row, PatternSpec definition, generator path, worksheet path, and tests were added for the specific G3A-U03 word-problem issue
+GOAL_DISTANCE_BEFORE = D1_G3A_U03_WORD_PROBLEM_SELECTOR_IMPLEMENTED_READBACK_PENDING
+GOAL_DISTANCE_AFTER  = D1_G3A_U03_WORD_PROBLEM_SELECTOR_PASS_LOCAL_SYNCED_AND_CLEAN
+DISTANCE_REDUCED     = npm test readback PASS and clean worktree evidence recorded for the specific G3A-U03 word-problem selector issue
 
 REMAINING_BLOCKERS = [
-  "npm test readback 尚未取得",
   "browser smoke 尚未由 operator 確認"
 ]
 ```
