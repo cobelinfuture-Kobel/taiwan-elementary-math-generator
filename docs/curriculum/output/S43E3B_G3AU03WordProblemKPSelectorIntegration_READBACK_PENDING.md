@@ -1,17 +1,17 @@
-# S43E3B G3A-U03 Word Problem KP Selector Integration — CI Fix Pending Readback
+# S43E3B G3A-U03 Word Problem KP Selector Integration — CI Failure Pending Test Names
 
 ## Current State
 
 ```text
 CURRENT_MAJOR_TASK = S43_BatchA_KnowledgePointSelectable_HTMLWorksheet
 CURRENT_SUBTASK = S43E3B_R2_G3AU03WordProblemQueryStateCIFix
-TASK_STATUS = IMPLEMENTED_READBACK_PENDING
+TASK_STATUS = CI_FAILED_NEEDS_FAILING_TEST_NAMES
 WRITE_TYPE = code_and_test
 ```
 
-## CI Failure Readback
+## CI Failure Readbacks
 
-Operator-provided GitHub Actions readback:
+Operator-provided GitHub Actions readback #1:
 
 ```text
 CI_READBACK_NPM_TEST_EXIT_CODE = 1
@@ -19,6 +19,17 @@ Detected tests = 366
 Detected pass  = 356
 Detected fail  = 10
 ```
+
+Operator-provided GitHub Actions readback #2 after the R2 query-state guard fix:
+
+```text
+CI_READBACK_NPM_TEST_EXIT_CODE = 1
+Detected tests = 366
+Detected pass  = 357
+Detected fail  = 9
+```
+
+The R2 fix reduced the failure count by 1 but did not clear CI.
 
 ## Problem Observed By Browser Smoke
 
@@ -32,17 +43,23 @@ selector_id_dropped
 selector_mode_fallback
 ```
 
-## Root Cause Refinement
+## Current Diagnosis
 
-The first query-state fix broadened `site/assets/browser/state/query-state.js` to use the full selector extension registry. That fixed the intended G3A-U03 word-problem query path, but it also changed query guard behavior for other extended rows and caused CI failures in existing query-state safety expectations.
+The failing CI excerpt provided so far is the summary-parsing step only. It includes the final test counts but not the names or assertion details of the failing tests.
 
-## R2 Fix Implemented
+```text
+Detected tests=366 pass=357 fail=9
+```
+
+The next fix should not guess across unrelated selector behavior. The needed evidence is the actual `not ok ...` / assertion failure block from the `npm test` step.
+
+## R2 Fix Already Implemented
 
 ```text
 site/assets/browser/state/query-state.js
 ```
 
-now keeps the existing base selector candidate guard and adds a narrow query-state bridge only for the current task:
+keeps the existing base selector candidate guard and adds a narrow query-state bridge only for the current task:
 
 ```text
 kp = kp_g3a_u03_consecutive_multiplication_two_step_word_problem
@@ -85,13 +102,27 @@ PREVIOUS_LOCAL_TESTS_PASS = 835
 PREVIOUS_LOCAL_TESTS_FAIL = 0
 PREVIOUS_LOCAL_WORKTREE_STATUS = clean
 
-CI_FAILURE_READBACK = 366 tests / 356 pass / 10 fail
-LATEST_R2_QUERY_STATE_GUARD_FIX = IMPLEMENTED
+CI_FAILURE_READBACK_1 = 366 tests / 356 pass / 10 fail
+CI_FAILURE_READBACK_2 = 366 tests / 357 pass / 9 fail
+LATEST_R2_QUERY_STATE_GUARD_FIX = IMPLEMENTED_BUT_INSUFFICIENT
 LATEST_LOCAL_NPM_TEST = PENDING_OPERATOR_READBACK
-LATEST_CI_READBACK = PENDING
+LATEST_CI_READBACK = FAIL_9
+FAILING_TEST_NAMES = REQUIRED
 ```
 
-## Expected Browser Result After Pull / Deploy / Cache Refresh
+## Required Evidence For Next Fix
+
+```text
+REQUIRED_OPERATOR_ACTION = paste the npm test failure blocks before the summary parser step, especially lines beginning with:
+- not ok
+- failureType
+- error:
+- expected
+- actual
+- stack
+```
+
+## Expected Browser Result After Final Fix / Deploy / Cache Refresh
 
 The correct selector item is:
 
@@ -117,19 +148,19 @@ selector_mode_fallback
 ## Next Shortest Step
 
 ```text
-NEXT_SHORTEST_STEP = run npm test and git status after pulling latest R2 query-state guard fix; then confirm CI / browser smoke
+NEXT_SHORTEST_STEP = inspect the 9 failing test names/assertion blocks, then apply a targeted FullFix without broadening selector scope
 ```
 
 ## Distance Update
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_G3A_U03_WORD_PROBLEM_QUERY_STATE_FIX_IMPLEMENTED_BUT_CI_FAILED
-GOAL_DISTANCE_AFTER  = D1_G3A_U03_WORD_PROBLEM_QUERY_STATE_GUARD_FIX_IMPLEMENTED_READBACK_PENDING
-DISTANCE_REDUCED     = CI failure source narrowed; query-state guard changed from broad extension acceptance to task-scoped word-problem bridge
+GOAL_DISTANCE_BEFORE = D1_G3A_U03_WORD_PROBLEM_QUERY_STATE_GUARD_FIX_IMPLEMENTED_READBACK_PENDING
+GOAL_DISTANCE_AFTER  = D1_CI_FAIL_9_NEEDS_FAILURE_DETAILS
+DISTANCE_REDUCED     = CI failure count reduced from 10 to 9, but blocker remains unresolved because failing test names are not present in the pasted excerpt
 
 REMAINING_BLOCKERS = [
-  "latest R2 query-state guard fix npm test readback 尚未取得",
-  "CI rerun 尚未 PASS",
+  "CI still fails: 366 tests / 357 pass / 9 fail",
+  "failing test names/assertion blocks 尚未取得",
   "public GitHub Pages deploy/cache refresh 後的 browser smoke 尚未確認"
 ]
 ```
