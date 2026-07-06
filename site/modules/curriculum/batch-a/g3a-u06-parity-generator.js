@@ -28,12 +28,22 @@ function buildIntervalCandidates(tensDigit, target) {
   return intervals;
 }
 
+function selectInterval(intervalCandidates, index) {
+  const multiAnswer = intervalCandidates.filter((interval) => interval.answers.length >= 2);
+  const singleAnswer = intervalCandidates.filter((interval) => interval.answers.length === 1);
+  const bucketIndex = Math.floor(index / 18);
+  if (index % 5 === 4 && singleAnswer.length > 0) {
+    return singleAnswer[bucketIndex % singleAnswer.length];
+  }
+  return multiAnswer[bucketIndex % multiAnswer.length] ?? intervalCandidates[bucketIndex % intervalCandidates.length];
+}
+
 function buildParityModel(sequenceNumber) {
   const index = Math.max(1, Number.isInteger(sequenceNumber) ? sequenceNumber : 1) - 1;
   const tensDigit = 1 + (index % 9);
   const target = Math.floor(index / 9) % 2 === 0 ? "even" : "odd";
   const intervalCandidates = buildIntervalCandidates(tensDigit, target);
-  const interval = intervalCandidates[Math.floor(index / 18) % intervalCandidates.length];
+  const interval = selectInterval(intervalCandidates, index);
   return { tensDigit, target, lowerBound: interval.lowerBound, upperBound: interval.upperBound, answers: interval.answers };
 }
 
