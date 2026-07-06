@@ -2,7 +2,7 @@ import {
   BATCH_A_SELECTOR_AVAILABILITY,
   getVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint
-} from "../../../modules/curriculum/registry/batch-a-selector-candidates.js";
+} from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
 const KP_SELECTION_MODES = Object.freeze([
@@ -12,27 +12,6 @@ const KP_SELECTION_MODES = Object.freeze([
 ]);
 const VALID_SELECTION_MODES = Object.freeze([SOURCE_UNIT_SELECTION_MODE, ...KP_SELECTION_MODES]);
 
-const DEFAULT_SELECTOR_ACCESS = Object.freeze({
-  getSelectorAvailability: () => BATCH_A_SELECTOR_AVAILABILITY,
-  getVisibleBatchAKnowledgePoint,
-  getVisiblePatternGroupsForKnowledgePoint
-});
-
-function resolveSelectorAccess(options = {}) {
-  const override = options.selectorAccess ?? {};
-  return {
-    getSelectorAvailability: typeof override.getSelectorAvailability === "function"
-      ? override.getSelectorAvailability
-      : DEFAULT_SELECTOR_ACCESS.getSelectorAvailability,
-    getVisibleBatchAKnowledgePoint: typeof override.getVisibleBatchAKnowledgePoint === "function"
-      ? override.getVisibleBatchAKnowledgePoint
-      : DEFAULT_SELECTOR_ACCESS.getVisibleBatchAKnowledgePoint,
-    getVisiblePatternGroupsForKnowledgePoint: typeof override.getVisiblePatternGroupsForKnowledgePoint === "function"
-      ? override.getVisiblePatternGroupsForKnowledgePoint
-      : DEFAULT_SELECTOR_ACCESS.getVisiblePatternGroupsForKnowledgePoint
-  };
-}
-
 function integerParam(params, key, fallback) {
   const value = params.get(key);
   if (value === null) return fallback;
@@ -41,21 +20,36 @@ function integerParam(params, key, fallback) {
 }
 
 function normalizeIdList(values) {
-  return [...new Set(values.flatMap((value) => String(value ?? "")
-    .split(",")
-    .map((item) => item.trim())
-    .filter(Boolean)))];
+  return [...new Set(values.flatMap((value) => String(value ?? "").split(",").map((item) => item.trim()).filter(Boolean)))];
 }
 
 function queryIdArray(params, key) {
   return normalizeIdList(params.getAll(key));
 }
 
-function createWarning(code, details = {}) {
+function warning(code, details = {}) {
   return { code, ...details };
 }
 
-function getVisiblePatternGroupIdSet(selectorAccess, knowledgePointIds) {
+function defaultSelectorAccess() {
+  return {
+    getSelectorAvailability: () => BATCH_A_SELECTOR_AVAILABILITY,
+    getVisibleBatchAKnowledgePoint,
+    getVisiblePatternGroupsForKnowledgePoint
+  };
+}
+
+function resolveSelectorAccess(options = {}) {
+  const defaults = defaultSelectorAccess();
+  const override = options.selectorAccess ?? {};
+  return {
+    getSelectorAvailability: typeof override.getSelectorAvailability === "function" ? override.getSelectorAvailability : defaults.getSelectorAvailability,
+    getVisibleBatchAKnowledgePoint: typeof override.getVisibleBatchAKnowledgePoint === "function" ? override.getVisibleBatchAKnowledgePoint : defaults.getVisibleBatchAKnowledgePoint,
+    getVisiblePatternGroupsForKnowledgePoint: typeof override.getVisiblePatternGroupsForKnowledgePoint === "function" ? override.getVisiblePatternGroupsForKnowledgePoint : defaults.getVisiblePatternGroupsForKnowledgePoint
+  };
+}
+
+function visiblePatternGroupIdsFor(selectorAccess, knowledgePointIds) {
   const ids = new Set();
   for (const knowledgePointId of knowledgePointIds) {
     for (const group of selectorAccess.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)) {
@@ -65,123 +59,54 @@ function getVisiblePatternGroupIdSet(selectorAccess, knowledgePointIds) {
   return ids;
 }
 
-function selectorWarningsForZeroVisible(params, sourceId) {
-  const requestedMode = params.get("selectionMode");
-  const requestedKpIds = queryIdArray(params, "kp");
-  const requestedPgIds = queryIdArray(params, "pg");
-
-  if (!KP_SELECTION_MODES.includes(requestedMode) && requestedKpIds.length === 0 && requestedPgIds.length === 0) {
-    return [];
-  }
-
-  const warnings = [];
-
-  if (requestedMode && requestedMode !== SOURCE_UNIT_SELECTION_MODE) {
-    warnings.push(createWarning("no_visible_knowledge_points", { sourceId }));
-    warnings.push(createWarning("selector_mode_fallback", {
-      from: requestedMode,
-      to: SOURCE_UNIT_SELECTION_MODE
-    }));
-  }
-
-  const droppedIdCount = requestedKpIds.length + requestedPgIds.length;
-  if (droppedIdCount > 0) {
-    warnings.push(createWarning("selector_id_dropped", { count: droppedIdCount }));
-  }
-
-  return warnings;
-}
-
 function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
   const requestedMode = params.get("selectionMode") ?? SOURCE_UNIT_SELECTION_MODE;
   const requestedKnowledgePointIds = queryIdArray(params, "kp");
   const requestedPatternGroupIds = queryIdArray(params, "pg");
   const availability = selectorAccess.getSelectorAvailability();
+  const warnings = [];
 
   if ((availability?.visibleCount ?? 0) <= 0) {
-    return {
-      selectionMode: SOURCE_UNIT_SELECTION_MODE,
-      selectedKnowledgePointIds: [],
-      selectedPatternGroupIds: [],
-      selectorWarnings: selectorWarningsForZeroVisible(params, sourceId)
-    };
-  }
-
-  const warnings = [];
-  let selectionMode = VALID_SELECTION_MODES.includes(requestedMode)
-    ? requestedMode
-    : SOURCE_UNIT_SELECTION_MODE;
-
-  if (requestedMode && !VALID_SELECTION_MODES.includes(requestedMode)) {
-    warnings.push(createWarning("selector_mode_fallback", {
-      from: requestedMode,
-      to: SOURCE_UNIT_SELECTION_MODE
-    }));
-  }
-
-  if (selectionMode === SOURCE_UNIT_SELECTION_MODE) {
-    const droppedIdCount = requestedKnowledgePointIds.length + requestedPatternGroupIds.length;
-    if (droppedIdCount > 0) {
-      warnings.push(createWarning("selector_id_dropped", { count: droppedIdCount }));
+    if (requestedMode !== SOURCE_UNIT_SELECTION_MODE || requestedKnowledgePointIds.length > 0 || requestedPatternGroupIds.length > 0) {
+      warnings.push(warning("no_visible_knowledge_points", { sourceId }));
+      warnings.push(warning("selector_mode_fallback", { from: requestedMode, to: SOURCE_UNIT_SELECTION_MODE }));
+      if (requestedKnowledgePointIds.length + requestedPatternGroupIds.length > 0) {
+        warnings.push(warning("selector_id_dropped", { count: requestedKnowledgePointIds.length + requestedPatternGroupIds.length }));
+      }
     }
-    return {
-      selectionMode,
-      selectedKnowledgePointIds: [],
-      selectedPatternGroupIds: [],
-      selectorWarnings: warnings
-    };
+    return { selectionMode: SOURCE_UNIT_SELECTION_MODE, selectedKnowledgePointIds: [], selectedPatternGroupIds: [], selectorWarnings: warnings };
   }
 
-  const selectedKnowledgePointIds = requestedKnowledgePointIds
-    .filter((knowledgePointId) => selectorAccess.getVisibleBatchAKnowledgePoint(knowledgePointId));
-  const droppedKnowledgePointCount = requestedKnowledgePointIds.length - selectedKnowledgePointIds.length;
-  if (droppedKnowledgePointCount > 0) {
-    warnings.push(createWarning("selector_id_dropped", {
-      field: "knowledgePointIds",
-      count: droppedKnowledgePointCount
-    }));
+  let selectionMode = VALID_SELECTION_MODES.includes(requestedMode) ? requestedMode : SOURCE_UNIT_SELECTION_MODE;
+  if (selectionMode === SOURCE_UNIT_SELECTION_MODE) {
+    if (requestedKnowledgePointIds.length + requestedPatternGroupIds.length > 0) {
+      warnings.push(warning("selector_id_dropped", { count: requestedKnowledgePointIds.length + requestedPatternGroupIds.length }));
+    }
+    return { selectionMode, selectedKnowledgePointIds: [], selectedPatternGroupIds: [], selectorWarnings: warnings };
   }
 
-  if (
-    (selectionMode === "singleKnowledgePoint" && selectedKnowledgePointIds.length !== 1) ||
-    (selectionMode === "mixedKnowledgePointsSameUnit" && selectedKnowledgePointIds.length < 2)
-  ) {
-    warnings.push(createWarning("selector_mode_fallback", {
-      from: selectionMode,
-      to: SOURCE_UNIT_SELECTION_MODE
-    }));
-    return {
-      selectionMode: SOURCE_UNIT_SELECTION_MODE,
-      selectedKnowledgePointIds: [],
-      selectedPatternGroupIds: [],
-      selectorWarnings: warnings
-    };
+  const selectedKnowledgePointIds = requestedKnowledgePointIds.filter((id) => selectorAccess.getVisibleBatchAKnowledgePoint(id));
+  if (selectedKnowledgePointIds.length !== requestedKnowledgePointIds.length) {
+    warnings.push(warning("selector_id_dropped", { field: "knowledgePointIds", count: requestedKnowledgePointIds.length - selectedKnowledgePointIds.length }));
   }
 
-  const visiblePatternGroupIds = getVisiblePatternGroupIdSet(selectorAccess, selectedKnowledgePointIds);
-  const selectedPatternGroupIds = requestedPatternGroupIds.filter((patternGroupId) => visiblePatternGroupIds.has(patternGroupId));
-  const droppedPatternGroupCount = requestedPatternGroupIds.length - selectedPatternGroupIds.length;
-  if (droppedPatternGroupCount > 0) {
-    warnings.push(createWarning("selector_id_dropped", {
-      field: "patternGroupIds",
-      count: droppedPatternGroupCount
-    }));
+  if ((selectionMode === "singleKnowledgePoint" && selectedKnowledgePointIds.length !== 1) || (selectionMode === "mixedKnowledgePointsSameUnit" && selectedKnowledgePointIds.length < 2)) {
+    warnings.push(warning("selector_mode_fallback", { from: selectionMode, to: SOURCE_UNIT_SELECTION_MODE }));
+    return { selectionMode: SOURCE_UNIT_SELECTION_MODE, selectedKnowledgePointIds: [], selectedPatternGroupIds: [], selectorWarnings: warnings };
   }
 
-  return {
-    selectionMode,
-    selectedKnowledgePointIds,
-    selectedPatternGroupIds,
-    selectorWarnings: warnings
-  };
+  const visiblePatternGroupIds = visiblePatternGroupIdsFor(selectorAccess, selectedKnowledgePointIds);
+  const selectedPatternGroupIds = requestedPatternGroupIds.filter((id) => visiblePatternGroupIds.has(id));
+  if (selectedPatternGroupIds.length !== requestedPatternGroupIds.length) {
+    warnings.push(warning("selector_id_dropped", { field: "patternGroupIds", count: requestedPatternGroupIds.length - selectedPatternGroupIds.length }));
+  }
+
+  return { selectionMode, selectedKnowledgePointIds, selectedPatternGroupIds, selectorWarnings: warnings };
 }
 
 export function parseQueryState(search = window.location.search, options = {}) {
   const params = new URLSearchParams(search);
   const sourceId = params.get("sourceId") ?? undefined;
-  const selectorAccess = resolveSelectorAccess(options);
-  const selectorState = normalizeSelectorQueryState(params, sourceId, selectorAccess);
-
   return {
     sourceId,
     questionCount: integerParam(params, "questionCount", undefined),
@@ -190,7 +115,7 @@ export function parseQueryState(search = window.location.search, options = {}) {
     generationSeed: params.get("generationSeed") ?? undefined,
     columns: integerParam(params, "columns", undefined),
     rowsPerPage: integerParam(params, "rowsPerPage", undefined),
-    ...selectorState
+    ...normalizeSelectorQueryState(params, sourceId, resolveSelectorAccess(options))
   };
 }
 
@@ -204,16 +129,10 @@ export function writeQueryStateFromState(state) {
   nextUrl.searchParams.set("generationSeed", state.batchA.generationSeed);
   nextUrl.searchParams.set("columns", String(state.batchA.columns));
   nextUrl.searchParams.set("rowsPerPage", String(state.batchA.rowsPerPage));
-
   if (KP_SELECTION_MODES.includes(state.batchA.selectionMode)) {
     nextUrl.searchParams.set("selectionMode", state.batchA.selectionMode);
-    for (const knowledgePointId of state.batchA.selectedKnowledgePointIds ?? []) {
-      nextUrl.searchParams.append("kp", knowledgePointId);
-    }
-    for (const patternGroupId of state.batchA.selectedPatternGroupIds ?? []) {
-      nextUrl.searchParams.append("pg", patternGroupId);
-    }
+    for (const knowledgePointId of state.batchA.selectedKnowledgePointIds ?? []) nextUrl.searchParams.append("kp", knowledgePointId);
+    for (const patternGroupId of state.batchA.selectedPatternGroupIds ?? []) nextUrl.searchParams.append("pg", patternGroupId);
   }
-
   window.history.replaceState({}, "", nextUrl);
 }
