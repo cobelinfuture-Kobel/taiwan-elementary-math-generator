@@ -7,6 +7,7 @@ import {
 const u02 = "g3a_u02_3a02";
 const u03 = "g3a_u03_3a03";
 const u06 = "g3a_u06_3a06";
+const b01 = "g3b_u01_3b01";
 const subMiddleSpecId = "ps_g3a_u02_sub_middle_missing_digit";
 const borrowZeroSpecId = "ps_g3a_u02_continuous_borrow_zero";
 const twoStepWordProblemSpecId = "ps_g3a_u03_consecutive_multiplication_two_step_word_problem";
@@ -19,6 +20,57 @@ const u06QuotativePackagingSpecId = "ps_g3a_u06_quotative_division_packaging";
 const u06PartitiveSharingSpecId = "ps_g3a_u06_partitive_division_equal_sharing";
 const u06ParityRangeSpecId = "ps_g3a_u06_parity_range_missing_digit";
 const u06NewSpecIds = Object.freeze([u06DivisionWithRemainderSpecId, u06QuotativePackagingSpecId, u06PartitiveSharingSpecId, u06ParityRangeSpecId]);
+const b01TwoDigitLeadingInsufficientSpecId = "ps_g3b_u01_2digit_leading_digit_insufficient";
+const b01TwoDigitOnesZeroSpecId = "ps_g3b_u01_2digit_ones_quotient_zero";
+const b01TwoDigitLeadingExactSpecId = "ps_g3b_u01_2digit_leading_digit_exact";
+const b01ThreeDigitHundredsInsufficientSpecId = "ps_g3b_u01_3digit_hundreds_insufficient";
+const b01ThreeDigitTensZeroSpecId = "ps_g3b_u01_3digit_tens_quotient_zero";
+const b01ThreeDigitOnesZeroSpecId = "ps_g3b_u01_3digit_ones_quotient_zero";
+const b01ThreeDigitHundredsExactSpecId = "ps_g3b_u01_3digit_hundreds_exact";
+const b01TwoDigitRemainderSpecId = "ps_g3b_u01_2digit_division_with_remainder";
+const b01ThreeDigitRemainderSpecId = "ps_g3b_u01_3digit_division_with_remainder";
+const b01NewSpecIds = Object.freeze([
+  b01TwoDigitLeadingInsufficientSpecId,
+  b01TwoDigitOnesZeroSpecId,
+  b01TwoDigitLeadingExactSpecId,
+  b01ThreeDigitHundredsInsufficientSpecId,
+  b01ThreeDigitTensZeroSpecId,
+  b01ThreeDigitOnesZeroSpecId,
+  b01ThreeDigitHundredsExactSpecId,
+  b01TwoDigitRemainderSpecId,
+  b01ThreeDigitRemainderSpecId
+]);
+
+const exactDivision = Object.freeze({ allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true });
+function exactDivisionDefinition(patternSpecId, title, range, skillTags, difficultyTag, caseType) {
+  return Object.freeze({
+    patternSpecId,
+    sourceId: b01,
+    title,
+    kind: "expression",
+    ranges: Object.freeze([Object.freeze(range), Object.freeze([2, 9])]),
+    operators: Object.freeze([Object.freeze([OPERATORS.DIVIDE])]),
+    answerConstraint: Object.freeze({ min: 1, max: range[1], allowZero: false, allowNegative: false, requireInteger: true }),
+    division: exactDivision,
+    divisionPlaceValueCase: Object.freeze({ caseType }),
+    canonicalSkillIds: ["integer_division_exact"],
+    skillTags: ["integer_division_exact", ...skillTags],
+    difficultyTags: ["batch_a_browser_bridge", difficultyTag]
+  });
+}
+function remainderDefinition(patternSpecId, title, range, difficultyTag) {
+  return Object.freeze({
+    patternSpecId,
+    sourceId: b01,
+    title,
+    kind: "divisionWithRemainder",
+    ranges: Object.freeze([Object.freeze(range), Object.freeze([2, 9])]),
+    answerModel: Object.freeze({ shape: "quotient_remainder", fields: Object.freeze(["quotient", "remainder"]), display: "商 {quotient} 餘 {remainder}" }),
+    canonicalSkillIds: ["integer_division_remainder"],
+    skillTags: ["integer_division_remainder", "division", "remainder"],
+    difficultyTags: ["batch_a_browser_bridge", difficultyTag]
+  });
+}
 
 const subMiddleDefinition = Object.freeze({ patternSpecId: subMiddleSpecId, sourceId: u02, title: "減法中間缺位填空", kind: "missingDigitEquation", operator: "subtract", leftRange: [1000, 9999], rightDigitCoverage: Object.freeze([3, 4]), resultBlankRequired: true, middlePlaceRequired: true, answerOrder: "prompt_left_to_right", placeholder: "□", canonicalSkillIds: ["integer_add_sub_mixed"], skillTags: ["integer_add_sub_mixed", "missing_digit", "equation_reasoning", "subtraction", "middle_place"], difficultyTags: ["batch_a_browser_bridge", "sub_middle_missing_digit"] });
 const borrowZeroDefinition = Object.freeze({ patternSpecId: borrowZeroSpecId, sourceId: u02, title: "連續退位中間有 0", kind: "expression", ranges: Object.freeze([Object.freeze([1000, 9999]), Object.freeze([100, 9999])]), operators: Object.freeze([Object.freeze(["subtract"])]), answerConstraint: Object.freeze({ min: 0, max: 9999 }), digitCoverage: Object.freeze({ allowedDigits: Object.freeze([3, 4]), cycledOperandPosition: 2, distribution: "balanced_by_sequence" }), carryPolicy: Object.freeze({ kind: "subtraction_regroup", mode: "continuous_borrow_zero", base: 10, operandPositions: Object.freeze([1, 2]), checkedColumns: Object.freeze(["ones", "tens", "hundreds"]), minRegroupCount: 3 }), continuousBorrowZeroPolicy: Object.freeze({ required: true, zeroColumns: Object.freeze(["hundreds", "tens"]) }), canonicalSkillIds: ["integer_add_sub_mixed"], skillTags: ["integer_add_sub_mixed", "subtraction", "continuous_borrow", "zero_borrow"], difficultyTags: ["batch_a_browser_bridge", "continuous_borrow_zero"] });
@@ -32,6 +84,18 @@ const u06QuotativePackagingDefinition = Object.freeze({ patternSpecId: u06Quotat
 const u06PartitiveSharingDefinition = Object.freeze({ patternSpecId: u06PartitiveSharingSpecId, sourceId: u06, title: "等分除：平分", kind: "divisionWordProblem", semanticModel: "partitive_division", answerModel: Object.freeze({ shape: "single_integer", field: "itemsPerGroup" }), canonicalSkillIds: ["division_word_problem"], skillTags: ["division_word_problem", "partitive_division", "equal_sharing"], difficultyTags: ["batch_a_browser_bridge", "partitive_division_equal_sharing"] });
 const u06ParityRangeDefinition = Object.freeze({ patternSpecId: u06ParityRangeSpecId, sourceId: u06, title: "奇偶數條件判斷", kind: "parityRangeMissingDigit", answerModel: Object.freeze({ shape: "multiple_integer_answers", answerOrder: "ascending", separator: "、" }), canonicalSkillIds: ["parity_reasoning"], skillTags: ["parity_reasoning", "range_condition", "missing_digit", "multiple_answers"], difficultyTags: ["batch_a_browser_bridge", "parity_range_missing_digit"] });
 
+const b01Definitions = Object.freeze({
+  [b01TwoDigitLeadingInsufficientSpecId]: exactDivisionDefinition(b01TwoDigitLeadingInsufficientSpecId, "二位數除以一位數：最高位不夠除", [10, 99], ["two_digit", "one_digit", "leading_digit_insufficient"], "two_digit_leading_digit_insufficient", "2digit_leading_digit_insufficient"),
+  [b01TwoDigitOnesZeroSpecId]: exactDivisionDefinition(b01TwoDigitOnesZeroSpecId, "二位數除以一位數：個位商是0", [10, 99], ["two_digit", "one_digit", "quotient_zero"], "two_digit_ones_quotient_zero", "2digit_ones_quotient_zero"),
+  [b01TwoDigitLeadingExactSpecId]: exactDivisionDefinition(b01TwoDigitLeadingExactSpecId, "二位數除以一位數：最高位夠除且無餘數", [10, 99], ["two_digit", "one_digit", "leading_digit_exact"], "two_digit_leading_digit_exact", "2digit_leading_digit_exact"),
+  [b01ThreeDigitHundredsInsufficientSpecId]: exactDivisionDefinition(b01ThreeDigitHundredsInsufficientSpecId, "三位數除以一位數：百位不夠除", [100, 999], ["three_digit", "one_digit", "hundreds_insufficient"], "three_digit_hundreds_insufficient", "3digit_hundreds_insufficient"),
+  [b01ThreeDigitTensZeroSpecId]: exactDivisionDefinition(b01ThreeDigitTensZeroSpecId, "三位數除以一位數：十位商是0", [100, 999], ["three_digit", "one_digit", "tens_quotient_zero"], "three_digit_tens_quotient_zero", "3digit_tens_quotient_zero"),
+  [b01ThreeDigitOnesZeroSpecId]: exactDivisionDefinition(b01ThreeDigitOnesZeroSpecId, "三位數除以一位數：個位商是0", [100, 999], ["three_digit", "one_digit", "ones_quotient_zero"], "three_digit_ones_quotient_zero", "3digit_ones_quotient_zero"),
+  [b01ThreeDigitHundredsExactSpecId]: exactDivisionDefinition(b01ThreeDigitHundredsExactSpecId, "三位數除以一位數：最高位夠除且無餘數", [100, 999], ["three_digit", "one_digit", "hundreds_exact"], "three_digit_hundreds_exact", "3digit_hundreds_exact"),
+  [b01TwoDigitRemainderSpecId]: remainderDefinition(b01TwoDigitRemainderSpecId, "二位數除以一位數有餘數", [10, 99], "two_digit_division_with_remainder"),
+  [b01ThreeDigitRemainderSpecId]: remainderDefinition(b01ThreeDigitRemainderSpecId, "三位數除以一位數有餘數", [100, 999], "three_digit_division_with_remainder")
+});
+
 export function getBatchABrowserPatternDefinition(patternSpecId) {
   if (patternSpecId === subMiddleSpecId) return subMiddleDefinition;
   if (patternSpecId === borrowZeroSpecId) return borrowZeroDefinition;
@@ -44,10 +108,13 @@ export function getBatchABrowserPatternDefinition(patternSpecId) {
   if (patternSpecId === u06QuotativePackagingSpecId) return u06QuotativePackagingDefinition;
   if (patternSpecId === u06PartitiveSharingSpecId) return u06PartitiveSharingDefinition;
   if (patternSpecId === u06ParityRangeSpecId) return u06ParityRangeDefinition;
+  if (b01Definitions[patternSpecId]) return b01Definitions[patternSpecId];
   return baseGetDefinition(patternSpecId);
 }
 
 export function getBatchAPatternSpecIdsForSource(id) {
   const baseIds = baseGetPatternIds(id);
-  return id === u06 ? [...baseIds, ...u06NewSpecIds] : baseIds;
+  if (id === u06) return [...baseIds, ...u06NewSpecIds];
+  if (id === b01) return [...baseIds, ...b01NewSpecIds];
+  return baseIds;
 }
