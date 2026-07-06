@@ -48,6 +48,20 @@ function validateOneDigit(definition, question, errors) {
   if (question.blankedDisplayText !== `${leftText} ${symbol} ${rightText} = ${result}`) errors.push(issue("batch_a_missing_digit_prompt_invalid", "blankedDisplayText"));
 }
 
+function validateDivisibilityCheck(definition, question, errors) {
+  const dividendRange = definition.ranges?.[0] ?? [1, 999];
+  const divisorRange = definition.ranges?.[1] ?? [2, 9];
+  if (!Number.isSafeInteger(question.dividend) || !Number.isSafeInteger(question.divisor)) { errors.push(issue("batch_a_divisibility_value_invalid", "operands")); return; }
+  if (question.dividend < dividendRange[0] || question.dividend > dividendRange[1]) errors.push(issue("batch_a_dividend_out_of_range", "dividend"));
+  if (question.divisor < divisorRange[0] || question.divisor > divisorRange[1]) errors.push(issue("batch_a_divisor_out_of_range", "divisor"));
+  const expected = question.dividend % question.divisor === 0;
+  const expectedText = expected ? "可以" : "不可以";
+  if (question.isDivisible !== expected) errors.push(issue("batch_a_divisibility_flag_incorrect", "isDivisible"));
+  if (question.answerText !== expectedText) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (question.finalAnswer !== expectedText) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+  if (!String(question.blankedDisplayText ?? "").includes("整除")) errors.push(issue("batch_a_divisibility_prompt_invalid", "blankedDisplayText"));
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   const scope = validateBatchAPlanScope(plan);
   const errors = [...scope.errors];
@@ -92,6 +106,8 @@ export function validateBatchABrowserQuestion(question = {}) {
     validateEquationBlankQuestion(definition, question, errors);
   } else if (definition.kind === "multiplicationMissingDigit") {
     validateMultiplicationMissingDigitQuestion(definition, question, errors);
+  } else if (definition.kind === "divisibilityCheck") {
+    validateDivisibilityCheck(definition, question, errors);
   } else if (hasRoundingShape(definition)) {
     const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
     const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
