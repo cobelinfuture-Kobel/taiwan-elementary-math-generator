@@ -14,6 +14,7 @@ const zeroMiddleSpecId = "ps_g3a_u03_3digit_zero_middle_by_1digit";
 const missingInferenceSpecId = "ps_g3a_u03_multiplication_missing_digit_inference";
 const u06ExactDivisionSpecId = "ps_g3a_u06_exact_division_check";
 const u06DivisibilityCheckSpecId = "ps_g3a_u06_divisibility_exact_check";
+const u06DivisionWithRemainderSpecId = "ps_g3a_u06_division_with_remainder";
 
 const subMiddleDefinition = Object.freeze({
   patternSpecId: subMiddleSpecId,
@@ -119,6 +120,19 @@ const u06DivisibilityCheckDefinition = Object.freeze({
   difficultyTags: ["batch_a_browser_bridge", "divisibility_check"]
 });
 
+const u06DivisionWithRemainderDefinition = Object.freeze({
+  patternSpecId: u06DivisionWithRemainderSpecId,
+  sourceId: u06,
+  title: "二位數除以一位數有餘數",
+  kind: "divisionWithRemainder",
+  ranges: Object.freeze([Object.freeze([10, 99]), Object.freeze([2, 9])]),
+  answerModel: Object.freeze({ shape: "quotient_remainder", fields: Object.freeze(["quotient", "remainder"]), display: "商 {quotient} 餘 {remainder}" }),
+  remainderPolicy: Object.freeze({ requireRemainder: true, minRemainder: 1, remainderLessThanDivisor: true }),
+  canonicalSkillIds: ["integer_division_remainder"],
+  skillTags: ["integer_division_remainder", "two_digit", "one_digit", "remainder", "division"],
+  difficultyTags: ["batch_a_browser_bridge", "two_digit_division_remainder"]
+});
+
 export function getBatchABrowserPatternDefinition(patternSpecId) {
   if (patternSpecId === subMiddleSpecId) return subMiddleDefinition;
   if (patternSpecId === borrowZeroSpecId) return borrowZeroDefinition;
@@ -127,6 +141,7 @@ export function getBatchABrowserPatternDefinition(patternSpecId) {
   if (patternSpecId === missingInferenceSpecId) return missingInferenceDefinition;
   if (patternSpecId === u06ExactDivisionSpecId) return u06ExactDivisionDefinition;
   if (patternSpecId === u06DivisibilityCheckSpecId) return u06DivisibilityCheckDefinition;
+  if (patternSpecId === u06DivisionWithRemainderSpecId) return u06DivisionWithRemainderDefinition;
   return baseGetDefinition(patternSpecId);
 }
 
