@@ -19,8 +19,8 @@ const specIds = rows.map((row) => row[2]).sort();
 
 test("S43G3A selector extension keeps original G3A U03 four KPs visible", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 18);
-  assert.equal(availability.visibleCount, 6);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 19);
+  assert.equal(availability.visibleCount, 7);
   assert.equal(availability.notSelectableCount, 0);
   for (const [kpId,, specId] of rows) {
     assert.equal(getVisibleBatchAKnowledgePoint(kpId)?.sourceId, sourceId);
