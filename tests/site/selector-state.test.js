@@ -25,27 +25,21 @@ const EQ_ADD_GROUP_ID = "pg_g3a_u02_add_missing_digit_equation";
 const BORROW_ZERO_KP_ID = "kp_g3a_u02_continuous_borrow_zero";
 const BORROW_ZERO_GROUP_ID = "pg_g3a_u02_continuous_borrow_zero";
 
-test("Batch A selector state defaults to source-unit mode with sixteen visible KPs available", () => {
+test("Batch A selector state defaults to source-unit mode with eighteen visible KPs available", () => {
   const state = createConfigState();
-
   assert.equal(state.worksheetMode, WORKSHEET_MODES.BATCH_A_SOURCE);
   assert.equal(state.batchA.selectionMode, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
   assert.deepEqual(state.batchA.selectedKnowledgePointIds, []);
   assert.deepEqual(state.batchA.selectedPatternGroupIds, []);
-  assert.equal(state.batchA.selectorAvailability.visibleCount, 16);
+  assert.equal(state.batchA.selectorAvailability.visibleCount, 18);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g3a_u02_3a02.visibleCount, 10);
+  assert.equal(state.batchA.selectorAvailability.bySourceId.g3a_u03_3a03.visibleCount, 6);
   assert.equal(state.batchA.selectorAvailability.hiddenPendingCount, 0);
   assert.equal(state.batchA.selectorAvailability.notSelectableCount, 0);
 });
 
 test("visible add multi-carry KnowledgePoint IDs survive selector normalization", () => {
-  const normalized = normalizeBatchASelectorState({
-    sourceId: "g3a_u02_3a02",
-    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [ADD_KP_ID],
-    selectedPatternGroupIds: [ADD_GROUP_ID]
-  });
-
+  const normalized = normalizeBatchASelectorState({ sourceId: "g3a_u02_3a02", selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [ADD_KP_ID], selectedPatternGroupIds: [ADD_GROUP_ID] });
   assert.equal(normalized.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
   assert.deepEqual(normalized.selectedKnowledgePointIds, [ADD_KP_ID]);
   assert.deepEqual(normalized.selectedPatternGroupIds, [ADD_GROUP_ID]);
@@ -53,13 +47,7 @@ test("visible add multi-carry KnowledgePoint IDs survive selector normalization"
 });
 
 test("visible subtraction KnowledgePoint IDs survive selector normalization", () => {
-  const normalized = normalizeBatchASelectorState({
-    sourceId: "g3a_u02_3a02",
-    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [SUB_KP_ID],
-    selectedPatternGroupIds: [SUB_GROUP_ID]
-  });
-
+  const normalized = normalizeBatchASelectorState({ sourceId: "g3a_u02_3a02", selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [SUB_KP_ID], selectedPatternGroupIds: [SUB_GROUP_ID] });
   assert.equal(normalized.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
   assert.deepEqual(normalized.selectedKnowledgePointIds, [SUB_KP_ID]);
   assert.deepEqual(normalized.selectedPatternGroupIds, [SUB_GROUP_ID]);
@@ -67,13 +55,7 @@ test("visible subtraction KnowledgePoint IDs survive selector normalization", ()
 });
 
 test("visible rounding KnowledgePoint IDs survive selector normalization", () => {
-  const normalized = normalizeBatchASelectorState({
-    sourceId: "g3a_u02_3a02",
-    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [ROUND_KP_ID],
-    selectedPatternGroupIds: [ROUND_GROUP_ID]
-  });
-
+  const normalized = normalizeBatchASelectorState({ sourceId: "g3a_u02_3a02", selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [ROUND_KP_ID], selectedPatternGroupIds: [ROUND_GROUP_ID] });
   assert.equal(normalized.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
   assert.deepEqual(normalized.selectedKnowledgePointIds, [ROUND_KP_ID]);
   assert.deepEqual(normalized.selectedPatternGroupIds, [ROUND_GROUP_ID]);
@@ -81,13 +63,7 @@ test("visible rounding KnowledgePoint IDs survive selector normalization", () =>
 });
 
 test("visible word-problem KnowledgePoint IDs survive selector normalization", () => {
-  const normalized = normalizeBatchASelectorState({
-    sourceId: "g3a_u02_3a02",
-    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [WORD_KP_ID],
-    selectedPatternGroupIds: [WORD_GROUP_ID]
-  });
-
+  const normalized = normalizeBatchASelectorState({ sourceId: "g3a_u02_3a02", selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [WORD_KP_ID], selectedPatternGroupIds: [WORD_GROUP_ID] });
   assert.equal(normalized.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
   assert.deepEqual(normalized.selectedKnowledgePointIds, [WORD_KP_ID]);
   assert.deepEqual(normalized.selectedPatternGroupIds, [WORD_GROUP_ID]);
@@ -95,13 +71,7 @@ test("visible word-problem KnowledgePoint IDs survive selector normalization", (
 });
 
 test("materialized equation and borrow-zero KP IDs survive selector normalization", () => {
-  const normalized = normalizeBatchASelectorState({
-    sourceId: "g3a_u02_3a02",
-    selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-    selectedKnowledgePointIds: [EQ_ADD_KP_ID, BORROW_ZERO_KP_ID],
-    selectedPatternGroupIds: [EQ_ADD_GROUP_ID, BORROW_ZERO_GROUP_ID]
-  });
-
+  const normalized = normalizeBatchASelectorState({ sourceId: "g3a_u02_3a02", selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT, selectedKnowledgePointIds: [EQ_ADD_KP_ID, BORROW_ZERO_KP_ID], selectedPatternGroupIds: [EQ_ADD_GROUP_ID, BORROW_ZERO_GROUP_ID] });
   assert.equal(normalized.selectionMode, BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT);
   assert.deepEqual(normalized.selectedKnowledgePointIds, [EQ_ADD_KP_ID, BORROW_ZERO_KP_ID]);
   assert.deepEqual(normalized.selectedPatternGroupIds, [EQ_ADD_GROUP_ID, BORROW_ZERO_GROUP_ID]);
@@ -110,10 +80,8 @@ test("materialized equation and borrow-zero KP IDs survive selector normalizatio
 
 test("selector setters fall back safely until a visible KP id is selected atomically", () => {
   const state = createConfigState();
-
   setBatchASelectionMode(state, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
   setBatchASelectedKnowledgePointIds(state, [ADD_KP_ID]);
-
   assert.equal(state.worksheetMode, WORKSHEET_MODES.BATCH_A_SOURCE);
   assert.equal(state.batchA.selectionMode, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
   assert.deepEqual(state.batchA.selectedKnowledgePointIds, []);
@@ -121,13 +89,7 @@ test("selector setters fall back safely until a visible KP id is selected atomic
 
 test("atomic selector setter can enter single-KP mode with visible KP and PatternGroup", () => {
   const state = createConfigState();
-
-  setBatchASelectorSelection(state, {
-    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [ADD_KP_ID],
-    selectedPatternGroupIds: [ADD_GROUP_ID]
-  });
-
+  setBatchASelectorSelection(state, { selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [ADD_KP_ID], selectedPatternGroupIds: [ADD_GROUP_ID] });
   assert.equal(state.worksheetMode, WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT);
   assert.equal(state.batchA.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
   assert.deepEqual(state.batchA.selectedKnowledgePointIds, [ADD_KP_ID]);
@@ -136,13 +98,7 @@ test("atomic selector setter can enter single-KP mode with visible KP and Patter
 
 test("atomic selector setter can enter same-unit mixed mode with materialized G3A U02 KPs", () => {
   const state = createConfigState();
-
-  setBatchASelectorSelection(state, {
-    selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-    selectedKnowledgePointIds: [ADD_KP_ID, SUB_KP_ID, ROUND_KP_ID, WORD_KP_ID, EQ_ADD_KP_ID, BORROW_ZERO_KP_ID],
-    selectedPatternGroupIds: []
-  });
-
+  setBatchASelectorSelection(state, { selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT, selectedKnowledgePointIds: [ADD_KP_ID, SUB_KP_ID, ROUND_KP_ID, WORD_KP_ID, EQ_ADD_KP_ID, BORROW_ZERO_KP_ID], selectedPatternGroupIds: [] });
   assert.equal(state.worksheetMode, WORKSHEET_MODES.BATCH_A_KNOWLEDGE_POINT);
   assert.equal(state.batchA.selectionMode, BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT);
   assert.deepEqual(state.batchA.selectedKnowledgePointIds, [ADD_KP_ID, SUB_KP_ID, ROUND_KP_ID, WORD_KP_ID, EQ_ADD_KP_ID, BORROW_ZERO_KP_ID]);
@@ -151,7 +107,6 @@ test("atomic selector setter can enter same-unit mixed mode with materialized G3
 test("worksheet plan preserves selector-safe fields without enabling KP generation by default", () => {
   const state = createConfigState();
   const plan = getBatchAWorksheetPlan(state);
-
   assert.equal(plan.sourceId, "g3a_u02_3a02");
   assert.equal(plan.selectionMode, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
   assert.deepEqual(plan.selectedKnowledgePointIds, []);
