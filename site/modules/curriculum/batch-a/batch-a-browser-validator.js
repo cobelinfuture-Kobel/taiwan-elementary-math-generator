@@ -56,9 +56,10 @@ function validateDivisibilityCheck(definition, question, errors) {
   if (question.divisor < divisorRange[0] || question.divisor > divisorRange[1]) errors.push(issue("batch_a_divisor_out_of_range", "divisor"));
   const expected = question.dividend % question.divisor === 0;
   const expectedText = expected ? "可以" : "不可以";
+  const expectedFlag = expected ? 1 : 0;
   if (question.isDivisible !== expected) errors.push(issue("batch_a_divisibility_flag_incorrect", "isDivisible"));
   if (question.answerText !== expectedText) errors.push(issue("batch_a_answer_incorrect", "answerText"));
-  if (question.finalAnswer !== expectedText) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+  if (intValue(question.finalAnswer) !== expectedFlag) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
   if (!String(question.blankedDisplayText ?? "").includes("整除")) errors.push(issue("batch_a_divisibility_prompt_invalid", "blankedDisplayText"));
 }
 
