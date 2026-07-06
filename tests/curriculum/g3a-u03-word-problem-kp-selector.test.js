@@ -9,6 +9,7 @@ import {
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/g3a-u03-quality-generator.js";
 import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet.js";
+import { extractBatchAExpressionOperandValues } from "../../site/modules/curriculum/batch-a/carry-policy.js";
 
 const SOURCE_ID = "g3a_u03_3a03";
 const KP_ID = "kp_g3a_u03_consecutive_multiplication_two_step_word_problem";
@@ -66,6 +67,42 @@ test("G3A U03 word problem KP selector path generates validated word-problem que
     assert.match(question.blankedDisplayText, /____$/);
     assert.match(question.answerText, /^\d+$/);
   }
+});
+
+test("G3A U03 word problem operands are seed-permuted instead of lexicographic", () => {
+  const result = generateBatchABrowserQuestions({
+    ...createWordProblemPlan(20),
+    generationSeed: "g3a-u03-word-problem-permutation-regression"
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors, null, 2));
+  assert.equal(result.questions.length, 20);
+
+  const operands = result.questions.map((question) => extractBatchAExpressionOperandValues(question.expression));
+  const firstEight = operands.slice(0, 8);
+
+  assert.notDeepEqual(firstEight, [
+    [2, 2, 3],
+    [2, 3, 3],
+    [2, 4, 3],
+    [2, 5, 3],
+    [2, 6, 3],
+    [2, 7, 3],
+    [2, 8, 3],
+    [2, 9, 3]
+  ]);
+
+  const firstFactors = new Set(firstEight.map(([left]) => left));
+  const thirdFactors = new Set(firstEight.map(([, , third]) => third));
+  assert.equal(firstFactors.size > 1, true);
+  assert.equal(thirdFactors.size > 1, true);
+});
+
+test("G3A U03 word problem seeded permutation is deterministic by generationSeed", () => {
+  const first = generateBatchABrowserQuestions({ ...createWordProblemPlan(12), generationSeed: "same-seed" });
+  const second = generateBatchABrowserQuestions({ ...createWordProblemPlan(12), generationSeed: "same-seed" });
+  const third = generateBatchABrowserQuestions({ ...createWordProblemPlan(12), generationSeed: "different-seed" });
+  assert.deepEqual(first.questions.map((question) => question.blankedDisplayText), second.questions.map((question) => question.blankedDisplayText));
+  assert.notDeepEqual(first.questions.map((question) => question.blankedDisplayText), third.questions.map((question) => question.blankedDisplayText));
 });
 
 test("G3A U03 word problem KP selector path renders worksheet and answer key", () => {
