@@ -1,0 +1,11 @@
+S44_G3AU06_TWO_DIVISION_KP_MAPPING_FIX_LOCAL_PASS
+
+sourceId = g3a_u06_3a06
+tests = 361
+pass = 361
+fail = 0
+working_tree = clean
+local_branch = public-main synced with public/main
+
+browser_pdf_smoke = pending
+ci = pending
