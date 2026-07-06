@@ -70,21 +70,21 @@ function makeQuestion(specId, operands, sequenceNumber) {
   const expression = expressionFromOperands(operands);
   const answer = operands.reduce((product, value) => product * value, 1);
   const answerValue = createIntegerValue(answer);
-  return {
-    ...createGeneratedQuestionSkeleton({
-      id: `${specId}-${sequenceNumber}`,
-      expression,
-      operandCount: operands.length,
-      operatorsUsed: operands.slice(1).map(() => OPERATORS.MULTIPLY),
-      finalAnswer: answerValue,
-      intermediateResults: [answerValue],
-      blankTarget: { type: "finalAnswer" },
-      duplicateKey: buildDuplicateKey(expression),
-      metadata: metadata(specId)
-    }),
-    patternSpecId: specId,
-    sourceId
-  };
+  const question = createGeneratedQuestionSkeleton({
+    id: `${specId}-${sequenceNumber}`,
+    expression,
+    operandCount: operands.length,
+    operatorsUsed: operands.slice(1).map(() => OPERATORS.MULTIPLY),
+    finalAnswer: answerValue,
+    intermediateResults: [answerValue],
+    blankTarget: { type: "finalAnswer" },
+    duplicateKey: buildDuplicateKey(expression),
+    metadata: metadata(specId)
+  });
+  question.patternSpecId = specId;
+  question.sourceId = sourceId;
+  question.metadata = { ...question.metadata, sourceId };
+  return question;
 }
 
 function generateU03Question(specId, sequenceNumber) {
