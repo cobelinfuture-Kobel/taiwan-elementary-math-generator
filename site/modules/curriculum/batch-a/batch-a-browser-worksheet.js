@@ -165,6 +165,14 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       debugDataAttributes: false
     },
     validationSummary: validation,
+    batchA: {
+      sourceId: plan.sourceId,
+      selectionMode: plan.selectionMode,
+      knowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
+      patternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []),
+      patternSpecIds: [...plan.patternSpecIds],
+      allocation: cloneValue(generated.allocation)
+    },
     provenance: {
       sourceType: "batch_a_browser_bridge",
       sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles", "S43C13_G3AU02_HTMLSingleVisibleKPEnablement", "S43G5B_G3AU03MultiplicationGeneratorQualityFix"],
