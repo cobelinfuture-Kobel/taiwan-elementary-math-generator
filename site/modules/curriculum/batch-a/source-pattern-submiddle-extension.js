@@ -96,15 +96,15 @@ const missingInferenceDefinition = Object.freeze({
 const u06ExactDivisionDefinition = Object.freeze({
   patternSpecId: u06ExactDivisionSpecId,
   sourceId: u06,
-  title: "三位數除以一位數整除",
+  title: "二位數除以一位數整除",
   kind: "expression",
-  ranges: Object.freeze([Object.freeze([100, 999]), Object.freeze([2, 9])]),
+  ranges: Object.freeze([Object.freeze([10, 99]), Object.freeze([2, 9])]),
   operators: Object.freeze([Object.freeze([OPERATORS.DIVIDE])]),
-  answerConstraint: Object.freeze({ min: 1, max: 999, allowZero: false, allowNegative: false, requireInteger: true }),
+  answerConstraint: Object.freeze({ min: 1, max: 99, allowZero: false, allowNegative: false, requireInteger: true }),
   division: Object.freeze({ allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true }),
   canonicalSkillIds: ["integer_division_exact"],
-  skillTags: ["integer_division_exact", "three_digit", "one_digit", "exact_division"],
-  difficultyTags: ["batch_a_browser_bridge", "three_digit_division_exact"]
+  skillTags: ["integer_division_exact", "two_digit", "one_digit", "exact_division"],
+  difficultyTags: ["batch_a_browser_bridge", "two_digit_division_exact"]
 });
 
 const u06DivisibilityCheckDefinition = Object.freeze({
