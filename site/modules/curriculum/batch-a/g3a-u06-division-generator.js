@@ -7,6 +7,7 @@ import { generateBatchABrowserQuestions as baseGenerateBatchABrowserQuestions } 
 import { makeDivisionWithRemainderQuestion } from "./g3a-u06-remainder-generator.js";
 import { makeQuotativeDivisionPackagingQuestion, makePartitiveDivisionEqualSharingQuestion } from "./g3a-u06-word-problem-generator.js";
 import { makeParityRangeMissingDigitQuestion } from "./g3a-u06-parity-generator.js";
+import { canGenerateG3BU01BatchAQuestions, generateBatchABrowserQuestions as generateG3BU01BatchABrowserQuestions } from "./g3b-u01-division-generator.js";
 
 const sourceId = "g3a_u06_3a06";
 const exactSpecId = "ps_g3a_u06_exact_division_check";
@@ -229,6 +230,7 @@ function generatePlannedDivisionQuestions({ plan, allocation, patternSpecIds, ma
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateG3BU01BatchAQuestions(plan)) return generateG3BU01BatchABrowserQuestions(options);
   if (isG3BU01DivisionPlan(plan)) {
     const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : allocateCounts(plan.patternSpecIds, plan.questionCount);
     return generatePlannedDivisionQuestions({
