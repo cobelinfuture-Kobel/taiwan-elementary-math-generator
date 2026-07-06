@@ -6,11 +6,14 @@ import {
 
 const u02 = "g3a_u02_3a02";
 const u03 = "g3a_u03_3a03";
+const u06 = "g3a_u06_3a06";
 const subMiddleSpecId = "ps_g3a_u02_sub_middle_missing_digit";
 const borrowZeroSpecId = "ps_g3a_u02_continuous_borrow_zero";
 const twoStepWordProblemSpecId = "ps_g3a_u03_consecutive_multiplication_two_step_word_problem";
 const zeroMiddleSpecId = "ps_g3a_u03_3digit_zero_middle_by_1digit";
 const missingInferenceSpecId = "ps_g3a_u03_multiplication_missing_digit_inference";
+const u06ExactDivisionSpecId = "ps_g3a_u06_exact_division_check";
+const u06DivisibilityCheckSpecId = "ps_g3a_u06_divisibility_exact_check";
 
 const subMiddleDefinition = Object.freeze({
   patternSpecId: subMiddleSpecId,
@@ -90,12 +93,40 @@ const missingInferenceDefinition = Object.freeze({
   difficultyTags: ["batch_a_browser_bridge", "multiplication_missing_digit"]
 });
 
+const u06ExactDivisionDefinition = Object.freeze({
+  patternSpecId: u06ExactDivisionSpecId,
+  sourceId: u06,
+  title: "三位數除以一位數整除",
+  kind: "expression",
+  ranges: Object.freeze([Object.freeze([100, 999]), Object.freeze([2, 9])]),
+  operators: Object.freeze([Object.freeze([OPERATORS.DIVIDE])]),
+  answerConstraint: Object.freeze({ min: 1, max: 999, allowZero: false, allowNegative: false, requireInteger: true }),
+  division: Object.freeze({ allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true }),
+  canonicalSkillIds: ["integer_division_exact"],
+  skillTags: ["integer_division_exact", "three_digit", "one_digit", "exact_division"],
+  difficultyTags: ["batch_a_browser_bridge", "three_digit_division_exact"]
+});
+
+const u06DivisibilityCheckDefinition = Object.freeze({
+  patternSpecId: u06DivisibilityCheckSpecId,
+  sourceId: u06,
+  title: "整除檢查",
+  kind: "divisibilityCheck",
+  ranges: Object.freeze([Object.freeze([20, 99]), Object.freeze([2, 9])]),
+  answerValues: Object.freeze(["可以", "不可以"]),
+  canonicalSkillIds: ["integer_division_exact"],
+  skillTags: ["integer_division_exact", "divisibility", "exact_division", "check"],
+  difficultyTags: ["batch_a_browser_bridge", "divisibility_check"]
+});
+
 export function getBatchABrowserPatternDefinition(patternSpecId) {
   if (patternSpecId === subMiddleSpecId) return subMiddleDefinition;
   if (patternSpecId === borrowZeroSpecId) return borrowZeroDefinition;
   if (patternSpecId === twoStepWordProblemSpecId) return twoStepWordProblemDefinition;
   if (patternSpecId === zeroMiddleSpecId) return zeroMiddleDefinition;
   if (patternSpecId === missingInferenceSpecId) return missingInferenceDefinition;
+  if (patternSpecId === u06ExactDivisionSpecId) return u06ExactDivisionDefinition;
+  if (patternSpecId === u06DivisibilityCheckSpecId) return u06DivisibilityCheckDefinition;
   return baseGetDefinition(patternSpecId);
 }
 
