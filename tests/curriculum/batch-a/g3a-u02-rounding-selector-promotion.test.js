@@ -10,7 +10,7 @@ const groupId = "pg_g3a_u02_estimate_nearest_thousand";
 const specId = "ps_g3a_u02_estimate_nearest_thousand";
 
 test("rounding KP remains visible after G3A U02 materialization", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 23);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 24);
   assert.equal(listBatchAKnowledgePointAvailabilityBySource(sourceId).visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(kpId)?.displayName, "整千估算");
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpId), [specId]);
