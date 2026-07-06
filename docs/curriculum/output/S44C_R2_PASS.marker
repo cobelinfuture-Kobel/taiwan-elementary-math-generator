@@ -1,0 +1,11 @@
+S44C_R2_PASS_PUBLIC_MAIN_LOCAL_SYNCED_AND_CLEAN
+
+tests 362
+pass 362
+fail 0
+working tree clean
+
+sourceId = g3a_u06_3a06
+affected_kp = kp_g3a_u06_divisibility_exact_check
+browser_pdf_smoke = pending
+pages_deploy = may_need_rerun
