@@ -15,7 +15,7 @@ const specId = "ps_g3a_u02_continuous_borrow_zero";
 
 test("S43G4P4 selector exposes continuous borrow zero KP", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 18);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 19);
   assert.equal(availability.visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(kpId)?.displayName, "連續退位中間有 0");
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpId), [specId]);
