@@ -25,16 +25,25 @@ const rows = Object.freeze([
   [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_quotative_division_packaging", "pg_g3a_u06_quotative_division_packaging", "ps_g3a_u06_quotative_division_packaging", "包含除：分裝", "division_word_problem", ["quotative_division", "packaging", "items_per_group", "word_problem"], "quotative_division_packaging", "word_problem"],
   [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_partitive_division_equal_sharing", "pg_g3a_u06_partitive_division_equal_sharing", "ps_g3a_u06_partitive_division_equal_sharing", "等分除：平分", "division_word_problem", ["partitive_division", "equal_sharing", "groups", "word_problem"], "partitive_division_equal_sharing", "word_problem"],
   [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_parity_range_missing_digit", "pg_g3a_u06_parity_range_missing_digit", "ps_g3a_u06_parity_range_missing_digit", "奇偶數條件判斷", "parity_reasoning", ["parity", "range_condition", "missing_digit", "multiple_answers"], "parity_range_missing_digit", "reasoning_prompt"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_2digit_division_place_value_cases", "pg_g3b_u01_2digit_division_place_value_cases", ["ps_g3b_u01_2digit_by_1digit_regroup_tens", "ps_g3b_u01_2digit_leading_digit_insufficient", "ps_g3b_u01_2digit_ones_quotient_zero", "ps_g3b_u01_2digit_leading_digit_exact"], "二位數除以一位數商位判斷", "integer_division_exact", ["two_digit", "one_digit", "place_value", "quotient_digit"], "division_place_value_cases", "numeric_expression"],
   [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_3digit_by_1digit_regroup_hundreds", "pg_g3b_u01_3digit_by_1digit_regroup_hundreds", "ps_g3b_u01_3digit_by_1digit_regroup_hundreds", "三位數除以一位數", "integer_division_exact", ["three_digit", "one_digit", "division"], "division", "numeric_expression"],
-  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_2digit_by_1digit_regroup_tens", "pg_g3b_u01_2digit_by_1digit_regroup_tens", "ps_g3b_u01_2digit_by_1digit_regroup_tens", "二位數除以一位數退位", "integer_division_exact", ["two_digit", "one_digit", "division", "regroup_tens"], "division", "numeric_expression"]
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_3digit_division_place_value_cases", "pg_g3b_u01_3digit_division_place_value_cases", ["ps_g3b_u01_3digit_hundreds_insufficient", "ps_g3b_u01_3digit_tens_quotient_zero", "ps_g3b_u01_3digit_ones_quotient_zero", "ps_g3b_u01_3digit_hundreds_exact"], "三位數除以一位數商位判斷", "integer_division_exact", ["three_digit", "one_digit", "place_value", "quotient_digit"], "division_place_value_cases", "numeric_expression"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_quotient_zero_cases", "pg_g3b_u01_quotient_zero_cases", ["ps_g3b_u01_2digit_ones_quotient_zero", "ps_g3b_u01_3digit_tens_quotient_zero", "ps_g3b_u01_3digit_ones_quotient_zero"], "商中有 0 的除法", "integer_division_exact", ["quotient_zero", "place_value", "division"], "quotient_zero_cases", "numeric_expression"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_division_with_remainder", "pg_g3b_u01_division_with_remainder", ["ps_g3b_u01_2digit_division_with_remainder", "ps_g3b_u01_3digit_division_with_remainder"], "有餘數除法", "integer_division_remainder", ["remainder", "division", "two_digit", "three_digit"], "division_with_remainder", "numeric_expression"]
 ]);
 
+function toSpecIds(value) {
+  return Object.freeze(Array.isArray(value) ? [...value] : [value]);
+}
+
 function toKp([sourceId, unitCode, unitTitle, knowledgePointId, patternGroupId, patternSpecId, displayName, canonicalSkillTag, subskillTags, difficultyTag, representationTag]) {
-  return Object.freeze({ knowledgePointId, sourceId, unitCode, unitTitle, displayName, supportClass: "B", canonicalSkillTag, subskillTags, difficultyTags: [difficultyTag], representationTags: [representationTag], patternGroupIds: [patternGroupId], patternSpecIds: [patternSpecId], qaStatusLabel: "qa_verified" });
+  const patternSpecIds = toSpecIds(patternSpecId);
+  return Object.freeze({ knowledgePointId, sourceId, unitCode, unitTitle, displayName, supportClass: "B", canonicalSkillTag, subskillTags, difficultyTags: [difficultyTag], representationTags: [representationTag], patternGroupIds: [patternGroupId], patternSpecIds, qaStatusLabel: "qa_verified" });
 }
 
 function toGroup([sourceId, unitCode, unitTitle, knowledgePointId, patternGroupId, patternSpecId, displayName]) {
-  return Object.freeze({ patternGroupId, sourceId, unitCode, unitTitle, displayName, primaryKnowledgePointId: knowledgePointId, knowledgePointIds: [knowledgePointId], supportClass: "B", patternSpecIds: [patternSpecId], allocationPolicy: "single_pattern", visibilityStatus: "visible", holdReason: null });
+  const patternSpecIds = toSpecIds(patternSpecId);
+  return Object.freeze({ patternGroupId, sourceId, unitCode, unitTitle, displayName, primaryKnowledgePointId: knowledgePointId, knowledgePointIds: [knowledgePointId], supportClass: "B", patternSpecIds, allocationPolicy: "single_pattern", visibilityStatus: "visible", holdReason: null });
 }
 
 const extraKps = Object.freeze(rows.map(toKp));
@@ -45,7 +54,7 @@ const groupsByKpId = new Map(extraGroups.flatMap((group) => group.knowledgePoint
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: 26,
+  visibleCount: 29,
   notSelectableCount: 0,
   bySourceId: {
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
@@ -53,7 +62,7 @@ export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
     [sourceIds.u02]: { sourceId: sourceIds.u02, visibleCount: 10, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u03]: { sourceId: sourceIds.u03, visibleCount: 7, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u06]: { sourceId: sourceIds.u06, visibleCount: 6, hiddenPendingCount: 0, notSelectableCount: 0 },
-    [sourceIds.b01]: { sourceId: sourceIds.b01, visibleCount: 2, hiddenPendingCount: 0, notSelectableCount: 0 }
+    [sourceIds.b01]: { sourceId: sourceIds.b01, visibleCount: 5, hiddenPendingCount: 0, notSelectableCount: 0 }
   }
 });
 
