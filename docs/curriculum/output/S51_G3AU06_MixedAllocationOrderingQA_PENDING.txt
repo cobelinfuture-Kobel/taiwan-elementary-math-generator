@@ -1,0 +1,11 @@
+S51 G3A-U06 Mixed Allocation Ordering QA
+TASK_STATUS = IMPLEMENTED_READBACK_PENDING
+SOURCE_ID = g3a_u06_3a06
+
+Updated source PatternSpec list, generator route, browser validator, and mixed ordering test for six G3A-U06 PatternSpecs.
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U06_NEW_KP_SELECTOR_REGISTRY_CONNECTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U06_SIX_KP_MIXED_ALLOCATION_ORDERING_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = mixed source allocation now covers all six visible G3A-U06 PatternSpecs
+REMAINING_BLOCKERS = CI readback pending; browser PDF smoke pending; Pages deploy may need rerun
+NEXT_SHORTEST_STEP = S52_G3AU06_WorksheetBrowserPDFSmoke
