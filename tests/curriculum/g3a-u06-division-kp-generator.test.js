@@ -54,13 +54,13 @@ test("G3A U06 exact division generates two-digit dividend divided by one-digit d
   }
 });
 
-test("G3A U06 divisibility check generates yes and no divisibility prompts", () => {
-  const result = generateBatchABrowserQuestions(planFor(DIVISIBILITY_KP_ID, DIVISIBILITY_PG_ID, 12, "g3a-u06-divisibility-mixed"));
+test("G3A U06 divisibility check generates balanced yes and no prompts", () => {
+  const result = generateBatchABrowserQuestions(planFor(DIVISIBILITY_KP_ID, DIVISIBILITY_PG_ID, 12, "g3a-u06-divisibility-balanced"));
   assert.equal(result.ok, true, JSON.stringify(result.errors, null, 2));
   assert.equal(result.questions.length, 12);
-  const answers = new Set(result.questions.map((question) => question.answerText));
-  assert.equal(answers.has("可以"), true);
-  assert.equal(answers.has("不可以"), true);
+  const answers = result.questions.map((question) => question.answerText);
+  assert.equal(answers.filter((answer) => answer === "可以").length, 6);
+  assert.equal(answers.filter((answer) => answer === "不可以").length, 6);
   for (const question of result.questions) {
     assert.equal(question.patternSpecId, DIVISIBILITY_PS_ID);
     assert.equal(question.kind, "divisibilityCheck");
@@ -69,6 +69,14 @@ test("G3A U06 divisibility check generates yes and no divisibility prompts", () 
     assert.equal(question.divisor >= 2 && question.divisor <= 9, true, `bad divisor ${question.divisor}`);
     assert.equal(question.answerText, question.dividend % question.divisor === 0 ? "可以" : "不可以");
   }
+});
+
+test("G3A U06 divisibility check keeps the first 20 outputs balanced", () => {
+  const result = generateBatchABrowserQuestions(planFor(DIVISIBILITY_KP_ID, DIVISIBILITY_PG_ID, 20, "g3a-u06-divisibility-pdf-smoke"));
+  assert.equal(result.ok, true, JSON.stringify(result.errors, null, 2));
+  const answers = result.questions.map((question) => question.answerText);
+  assert.equal(answers.filter((answer) => answer === "可以").length, 10);
+  assert.equal(answers.filter((answer) => answer === "不可以").length, 10);
 });
 
 test("G3A U06 worksheet bridge renders both fixed division KP outputs", () => {
