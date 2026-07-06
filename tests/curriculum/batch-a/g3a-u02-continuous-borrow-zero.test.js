@@ -15,23 +15,14 @@ const specId = "ps_g3a_u02_continuous_borrow_zero";
 
 test("S43G4P4 selector exposes continuous borrow zero KP", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 16);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 18);
   assert.equal(availability.visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(kpId)?.displayName, "連續退位中間有 0");
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpId), [specId]);
 });
 
 test("S43G4P2 generator creates continuous borrow through zero subtraction", () => {
-  const result = generateBatchABrowserQuestions({
-    sourceId,
-    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [kpId],
-    selectedPatternGroupIds: [groupId],
-    questionCount: 8,
-    generationSeed: "s43g4p2",
-    includeAnswerKey: true
-  });
-
+  const result = generateBatchABrowserQuestions({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId], questionCount: 8, generationSeed: "s43g4p2", includeAnswerKey: true });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const rightDigitCounts = new Set();
   for (const question of result.questions) {
@@ -48,36 +39,16 @@ test("S43G4P2 generator creates continuous borrow through zero subtraction", () 
 });
 
 test("S43G4P3 validator rejects subtraction without zero borrow chain", () => {
-  const result = generateBatchABrowserQuestions({
-    sourceId,
-    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [kpId],
-    selectedPatternGroupIds: [groupId],
-    questionCount: 1,
-    generationSeed: "s43g4p3",
-    includeAnswerKey: true
-  });
+  const result = generateBatchABrowserQuestions({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId], questionCount: 1, generationSeed: "s43g4p3", includeAnswerKey: true });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const question = result.questions[0];
   const edited = { ...question, expression: question.expression };
-  edited.expression = {
-    ...question.expression,
-    left: { ...question.expression.left, value: { kind: "integer", value: 4321 } },
-    right: { ...question.expression.right, value: { kind: "integer", value: 1111 } }
-  };
+  edited.expression = { ...question.expression, left: { ...question.expression.left, value: { kind: "integer", value: 4321 } }, right: { ...question.expression.right, value: { kind: "integer", value: 1111 } } };
   assert.equal(validateBatchABrowserQuestion(edited).ok, false);
 });
 
 test("S43G4P4 resolver accepts continuous borrow zero KP", () => {
-  const plan = resolveVisiblePatternGroupSelection({
-    sourceId,
-    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [kpId],
-    selectedPatternGroupIds: [groupId],
-    questionCount: 8,
-    generationSeed: "s43g4p4"
-  });
-
+  const plan = resolveVisiblePatternGroupSelection({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId], questionCount: 8, generationSeed: "s43g4p4" });
   assert.equal(plan.ok, true, JSON.stringify(plan.errors));
   assert.deepEqual(plan.knowledgePointIds, [kpId]);
   assert.deepEqual(plan.patternSpecIds, [specId]);
