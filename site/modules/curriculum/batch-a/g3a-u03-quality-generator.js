@@ -5,17 +5,31 @@ import { createIntegerValue } from "../../core/number-value.js";
 import { buildBatchABrowserPlan, generateBatchABrowserQuestions as baseGenerateBatchABrowserQuestions } from "./batch-a-browser-generator.js";
 
 const sourceId = "g3a_u03_3a03";
+const zeroMiddleSpecId = "ps_g3a_u03_3digit_zero_middle_by_1digit";
+const missingInferenceSpecId = "ps_g3a_u03_multiplication_missing_digit_inference";
 const u03SpecIds = Object.freeze([
   "ps_g3a_u03_2digit_by_1digit_carry",
   "ps_g3a_u03_10_multiple_by_1digit",
   "ps_g3a_u03_3digit_by_1digit",
-  "ps_g3a_u03_consecutive_multiplication_two_step"
+  "ps_g3a_u03_consecutive_multiplication_two_step",
+  zeroMiddleSpecId,
+  missingInferenceSpecId
 ]);
 const twoStepRows = Object.freeze([
   [3, 9, 6], [2, 7, 13], [6, 9, 13], [3, 2, 6], [9, 2, 20],
   [6, 2, 13], [4, 2, 6], [9, 3, 20], [7, 3, 13], [9, 4, 10],
   [6, 5, 3], [4, 5, 17], [9, 5, 10], [7, 6, 3], [4, 6, 17],
   [2, 6, 10], [7, 7, 3], [5, 7, 17], [2, 7, 10], [3, 6, 3]
+]);
+const missingRows = Object.freeze([
+  { shape: "AC", left: 342, right: 2, blanks: [{ target: "left", placeValue: 1 }, { target: "result", placeValue: 2 }] },
+  { shape: "AC", left: 215, right: 3, blanks: [{ target: "left", placeValue: 2 }, { target: "result", placeValue: 1 }] },
+  { shape: "AC", left: 68, right: 4, blanks: [{ target: "left", placeValue: 0 }, { target: "result", placeValue: 1 }] },
+  { shape: "BC", left: 24, right: 7, blanks: [{ target: "right", placeValue: 0 }, { target: "result", placeValue: 1 }] },
+  { shape: "BC", left: 132, right: 4, blanks: [{ target: "right", placeValue: 0 }, { target: "result", placeValue: 2 }] },
+  { shape: "AC", left: 407, right: 2, blanks: [{ target: "left", placeValue: 2 }, { target: "result", placeValue: 0 }] },
+  { shape: "AC", left: 326, right: 3, blanks: [{ target: "left", placeValue: 1 }, { target: "result", placeValue: 2 }] },
+  { shape: "BC", left: 73, right: 6, blanks: [{ target: "right", placeValue: 0 }, { target: "result", placeValue: 1 }] }
 ]);
 
 function isU03Plan(plan) {
@@ -36,6 +50,7 @@ function pairFor(specId, sequenceNumber) {
   if (specId === "ps_g3a_u03_2digit_by_1digit_carry") return [10 + ((sequenceNumber * 17) % 90), 2 + ((sequenceNumber * 5) % 8)];
   if (specId === "ps_g3a_u03_10_multiple_by_1digit") return [10 * (1 + ((sequenceNumber - 1) % 9)), 2 + ((sequenceNumber * 3) % 8)];
   if (specId === "ps_g3a_u03_3digit_by_1digit") return [100 + ((sequenceNumber * 137) % 900), 2 + ((sequenceNumber * 5) % 8)];
+  if (specId === zeroMiddleSpecId) return [100 * (1 + (sequenceNumber % 8)) + (1 + ((sequenceNumber * 7) % 9)), 2 + ((sequenceNumber * 5) % 8)];
   return null;
 }
 
@@ -56,12 +71,7 @@ function metadata(specId) {
 function expressionFromOperands(operands) {
   let expression = createValueNode(createIntegerValue(operands[0]), 1);
   for (let index = 1; index < operands.length; index += 1) {
-    expression = createBinaryNode(
-      OPERATORS.MULTIPLY,
-      expression,
-      createValueNode(createIntegerValue(operands[index]), index + 1),
-      { groupingHint: "leftAssociative" }
-    );
+    expression = createBinaryNode(OPERATORS.MULTIPLY, expression, createValueNode(createIntegerValue(operands[index]), index + 1), { groupingHint: "leftAssociative" });
   }
   return expression;
 }
@@ -87,8 +97,55 @@ function makeQuestion(specId, operands, sequenceNumber) {
   return question;
 }
 
+function placeIndex(value, placeValue) {
+  return String(value).length - 1 - placeValue;
+}
+
+function mask(value, blanks) {
+  const chars = String(value).split("");
+  for (const blank of blanks) chars[blank.index] = "□";
+  return chars.join("");
+}
+
+function blankFor(target, value, placeValue) {
+  const index = placeIndex(value, placeValue);
+  return { target, index, placeValue, digit: Number(String(value)[index]) };
+}
+
+function makeMissingQuestion(sequenceNumber) {
+  const row = missingRows[(sequenceNumber - 1) % missingRows.length];
+  const result = row.left * row.right;
+  const blanks = row.blanks.map((blank) => blankFor(blank.target, blank.target === "left" ? row.left : blank.target === "right" ? row.right : result, blank.placeValue));
+  const leftText = mask(row.left, blanks.filter((blank) => blank.target === "left"));
+  const rightText = mask(row.right, blanks.filter((blank) => blank.target === "right"));
+  const resultText = mask(result, blanks.filter((blank) => blank.target === "result"));
+  const missingDigits = blanks.map((blank) => blank.digit);
+  const answerText = missingDigits.join(",");
+  return {
+    id: `${missingInferenceSpecId}-${sequenceNumber}`,
+    patternSpecId: missingInferenceSpecId,
+    sourceId,
+    kind: "multiplicationMissingDigit",
+    operator: "multiply",
+    shape: row.shape,
+    left: row.left,
+    right: row.right,
+    result,
+    blanks,
+    missingDigits,
+    answerOrder: "prompt_left_to_right",
+    promptText: "依照□出現順序，填入正確的數字。",
+    displayText: `${row.left} × ${row.right} = ${result}`,
+    blankedDisplayText: `${leftText} × ${rightText} = ${resultText}`,
+    answerText,
+    finalAnswer: answerText,
+    metadata: { ...metadata(missingInferenceSpecId), sourceId }
+  };
+}
+
 function generateU03Question(specId, sequenceNumber) {
   if (specId === "ps_g3a_u03_consecutive_multiplication_two_step") return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
+  if (specId === missingInferenceSpecId) return makeMissingQuestion(sequenceNumber);
   return makeQuestion(specId, pairFor(specId, sequenceNumber), sequenceNumber);
 }
 
