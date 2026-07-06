@@ -4,11 +4,18 @@ import { createBinaryNode, createGeneratedQuestionSkeleton, createValueNode } fr
 import { createIntegerValue } from "../../core/number-value.js";
 import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions as baseGenerateBatchABrowserQuestions } from "./g3a-u03-quality-generator.js";
+import { makeDivisionWithRemainderQuestion } from "./g3a-u06-remainder-generator.js";
+import { makeQuotativeDivisionPackagingQuestion, makePartitiveDivisionEqualSharingQuestion } from "./g3a-u06-word-problem-generator.js";
+import { makeParityRangeMissingDigitQuestion } from "./g3a-u06-parity-generator.js";
 
 const sourceId = "g3a_u06_3a06";
 const exactSpecId = "ps_g3a_u06_exact_division_check";
 const divisibilitySpecId = "ps_g3a_u06_divisibility_exact_check";
-const u06SpecIds = Object.freeze([exactSpecId, divisibilitySpecId]);
+const remainderSpecId = "ps_g3a_u06_division_with_remainder";
+const packagingSpecId = "ps_g3a_u06_quotative_division_packaging";
+const sharingSpecId = "ps_g3a_u06_partitive_division_equal_sharing";
+const paritySpecId = "ps_g3a_u06_parity_range_missing_digit";
+const u06SpecIds = Object.freeze([exactSpecId, divisibilitySpecId, remainderSpecId, packagingSpecId, sharingSpecId, paritySpecId]);
 
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
@@ -35,7 +42,7 @@ function allocateCounts(patternSpecIds, questionCount) {
 }
 
 function isU06DivisionPlan(plan) {
-  return plan?.sourceId === sourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.some((id) => u06SpecIds.includes(id));
+  return plan?.sourceId === sourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.every((id) => u06SpecIds.includes(id));
 }
 
 function metadata(patternSpecId, extraSkillTags = [], extraDifficultyTags = []) {
@@ -68,29 +75,14 @@ function exactDivisionOperands(sequenceNumber, seed, minDividend = 10, maxDivide
 }
 
 function expressionFromOperands(dividend, divisor) {
-  return createBinaryNode(
-    OPERATORS.DIVIDE,
-    createValueNode(createIntegerValue(dividend), 1),
-    createValueNode(createIntegerValue(divisor), 2),
-    { groupingHint: "leftAssociative" }
-  );
+  return createBinaryNode(OPERATORS.DIVIDE, createValueNode(createIntegerValue(dividend), 1), createValueNode(createIntegerValue(divisor), 2), { groupingHint: "leftAssociative" });
 }
 
 function makeExactDivisionQuestion(sequenceNumber, seed) {
   const { dividend, divisor, quotient } = exactDivisionOperands(sequenceNumber, seed, 10, 99);
   const expression = expressionFromOperands(dividend, divisor);
   const answerValue = createIntegerValue(quotient);
-  const question = createGeneratedQuestionSkeleton({
-    id: `${exactSpecId}-${sequenceNumber}`,
-    expression,
-    operandCount: 2,
-    operatorsUsed: [OPERATORS.DIVIDE],
-    finalAnswer: answerValue,
-    intermediateResults: [answerValue],
-    blankTarget: { type: "finalAnswer" },
-    duplicateKey: buildDuplicateKey(expression),
-    metadata: metadata(exactSpecId, ["two_digit", "one_digit", "exact_division"], ["two_digit_division_exact"])
-  });
+  const question = createGeneratedQuestionSkeleton({ id: `${exactSpecId}-${sequenceNumber}`, expression, operandCount: 2, operatorsUsed: [OPERATORS.DIVIDE], finalAnswer: answerValue, intermediateResults: [answerValue], blankTarget: { type: "finalAnswer" }, duplicateKey: buildDuplicateKey(expression), metadata: metadata(exactSpecId, ["two_digit", "one_digit", "exact_division"], ["two_digit_division_exact"]) });
   question.patternSpecId = exactSpecId;
   question.sourceId = sourceId;
   question.metadata = { ...question.metadata, sourceId };
@@ -128,23 +120,7 @@ function divisibilityOperands(sequenceNumber, seed, shouldBeDivisible) {
 function makeDivisibilityQuestion(sequenceNumber, seed, shouldBeDivisible) {
   const model = divisibilityOperands(sequenceNumber, seed, shouldBeDivisible);
   const answerText = model.isDivisible ? "可以" : "不可以";
-  return {
-    id: `${divisibilitySpecId}-${sequenceNumber}-${shouldBeDivisible ? "yes" : "no"}`,
-    patternSpecId: divisibilitySpecId,
-    sourceId,
-    kind: "divisibilityCheck",
-    dividend: model.dividend,
-    divisor: model.divisor,
-    quotient: model.quotient,
-    remainder: model.remainder,
-    isDivisible: model.isDivisible,
-    promptText: `${model.dividend} ÷ ${model.divisor} 可以整除嗎？`,
-    displayText: `${model.dividend} ÷ ${model.divisor} 可以整除嗎？${answerText}`,
-    blankedDisplayText: `${model.dividend} ÷ ${model.divisor} 可以整除嗎？____`,
-    answerText,
-    finalAnswer: createIntegerValue(model.isDivisible ? 1 : 0),
-    metadata: metadata(divisibilitySpecId, ["divisibility", "exact_division", "check"], ["divisibility_check"])
-  };
+  return { id: `${divisibilitySpecId}-${sequenceNumber}-${shouldBeDivisible ? "yes" : "no"}`, patternSpecId: divisibilitySpecId, sourceId, kind: "divisibilityCheck", dividend: model.dividend, divisor: model.divisor, quotient: model.quotient, remainder: model.remainder, isDivisible: model.isDivisible, promptText: `${model.dividend} ÷ ${model.divisor} 可以整除嗎？`, displayText: `${model.dividend} ÷ ${model.divisor} 可以整除嗎？${answerText}`, blankedDisplayText: `${model.dividend} ÷ ${model.divisor} 可以整除嗎？____`, answerText, finalAnswer: createIntegerValue(model.isDivisible ? 1 : 0), metadata: metadata(divisibilitySpecId, ["divisibility", "exact_division", "check"], ["divisibility_check"]) };
 }
 
 function questionKey(question) {
@@ -155,20 +131,20 @@ function questionKey(question) {
 function generateU06Question(patternSpecId, sequenceNumber, seed, options = {}) {
   if (patternSpecId === exactSpecId) return makeExactDivisionQuestion(sequenceNumber, seed);
   if (patternSpecId === divisibilitySpecId) return makeDivisibilityQuestion(sequenceNumber, seed, options.shouldBeDivisible === true);
+  if (patternSpecId === remainderSpecId) return makeDivisionWithRemainderQuestion(sequenceNumber);
+  if (patternSpecId === packagingSpecId) return makeQuotativeDivisionPackagingQuestion(sequenceNumber);
+  if (patternSpecId === sharingSpecId) return makePartitiveDivisionEqualSharingQuestion(sequenceNumber);
+  if (patternSpecId === paritySpecId) return makeParityRangeMissingDigitQuestion(sequenceNumber);
   return null;
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!isU06DivisionPlan(plan)) return baseGenerateBatchABrowserQuestions(options);
-
-  const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0
-    ? cloneValue(plan.allocation)
-    : allocateCounts(plan.patternSpecIds, plan.questionCount);
+  const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : allocateCounts(plan.patternSpecIds, plan.questionCount);
   const questions = [];
   const seen = new Set();
   const errors = [];
-
   for (const entry of allocation) {
     if (!u06SpecIds.includes(entry.patternSpecId)) return baseGenerateBatchABrowserQuestions(options);
     let acceptedForPattern = 0;
@@ -178,17 +154,14 @@ export function generateBatchABrowserQuestions(options = {}) {
       const sequenceNumber = attempts + 1;
       const question = generateU06Question(entry.patternSpecId, sequenceNumber, plan.generationSeed ?? options.generationSeed, { shouldBeDivisible });
       const key = questionKey(question);
-      if (!seen.has(key)) {
+      if (question && !seen.has(key)) {
         seen.add(key);
         questions.push(question);
         acceptedForPattern += 1;
       }
       attempts += 1;
     }
-    if (acceptedForPattern < entry.questionCount) {
-      errors.push({ code: "batch_a_g3a_u06_unique_pool_exhausted", severity: "error", path: entry.patternSpecId, message: "G3A-U06 unique division question pool exhausted" });
-    }
+    if (acceptedForPattern < entry.questionCount) errors.push({ code: "batch_a_g3a_u06_unique_pool_exhausted", severity: "error", path: entry.patternSpecId, message: "G3A-U06 unique division question pool exhausted" });
   }
-
   return { ok: errors.length === 0, plan, questions, allocation, errors, warnings: [] };
 }
