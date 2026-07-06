@@ -3,75 +3,40 @@ import { getIntegerRawValue, isIntegerValue } from "../../core/number-value.js";
 import { validateBatchAQuestionCarryPolicy } from "./carry-policy.js";
 import { validateContinuousBorrowZeroPolicy } from "./continuous-borrow-zero-policy.js";
 import { validateEquationBlankQuestion } from "./equation-blank-validator.js";
+import { validateMultiplicationMissingDigitQuestion, validateZeroMiddleMultiplicationPolicy } from "./g3a-u03-multiplication-policy.js";
 import { getBatchABrowserPatternDefinition, getBatchAPatternSpecIdsForSource } from "./source-pattern-submiddle-extension.js";
 import { validateBatchAPlanScope } from "./production-eligibility.js";
 
-function issue(code, path, message = code, severity = "error") {
-  return { code, severity, path, message };
-}
-
+function issue(code, path, message = code, severity = "error") { return { code, severity, path, message }; }
 function intValue(value) {
   if (Number.isSafeInteger(value)) return value;
   if (typeof value === "string" && /^-?\d+$/.test(value.trim())) return Number(value.trim());
   if (isIntegerValue(value)) return getIntegerRawValue(value);
   return null;
 }
-
-function roundByUnit(value, unit) {
-  return Math.round(value / unit) * unit;
-}
-
-function hasRoundingShape(definition) {
-  return definition.kind === "rounding" || (definition.kind !== "wordProblemEstimation" && Number.isSafeInteger(definition.unit));
-}
-
-function countBox(text) {
-  return String(text ?? "").split("□").length - 1;
-}
-
-function oneBox(value, index) {
-  const text = String(value);
-  return `${text.slice(0, index)}□${text.slice(index + 1)}`;
-}
+function roundByUnit(value, unit) { return Math.round(value / unit) * unit; }
+function hasRoundingShape(definition) { return definition.kind === "rounding" || (definition.kind !== "wordProblemEstimation" && Number.isSafeInteger(definition.unit)); }
+function countBox(text) { return String(text ?? "").split("□").length - 1; }
+function oneBox(value, index) { const text = String(value); return `${text.slice(0, index)}□${text.slice(index + 1)}`; }
 
 function validateEstimate(definition, question, errors) {
   const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
-  if (!Number.isSafeInteger(question.left) || !Number.isSafeInteger(question.right)) {
-    errors.push(issue("batch_a_word_problem_value_invalid", "operands"));
-    return;
-  }
-  if (!["add", "subtract"].includes(question.operator)) {
-    errors.push(issue("batch_a_word_problem_operator_invalid", "operator"));
-    return;
-  }
-  const expected = question.operator === "add"
-    ? roundByUnit(question.left, unit) + roundByUnit(question.right, unit)
-    : roundByUnit(question.left, unit) - roundByUnit(question.right, unit);
+  if (!Number.isSafeInteger(question.left) || !Number.isSafeInteger(question.right)) { errors.push(issue("batch_a_word_problem_value_invalid", "operands")); return; }
+  if (!["add", "subtract"].includes(question.operator)) { errors.push(issue("batch_a_word_problem_operator_invalid", "operator")); return; }
+  const expected = question.operator === "add" ? roundByUnit(question.left, unit) + roundByUnit(question.right, unit) : roundByUnit(question.left, unit) - roundByUnit(question.right, unit);
   if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
   if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
 }
 
 function validateOneDigit(definition, question, errors) {
-  if (!["add", "subtract"].includes(question.operator) || question.operator !== definition.operator) {
-    errors.push(issue("batch_a_missing_digit_operator_invalid", "operator"));
-    return;
-  }
+  if (!["add", "subtract"].includes(question.operator) || question.operator !== definition.operator) { errors.push(issue("batch_a_missing_digit_operator_invalid", "operator")); return; }
   const { left, right, result } = question;
-  if (![left, right, result].every(Number.isSafeInteger)) {
-    errors.push(issue("batch_a_missing_digit_value_invalid", "operands"));
-    return;
-  }
+  if (![left, right, result].every(Number.isSafeInteger)) { errors.push(issue("batch_a_missing_digit_value_invalid", "operands")); return; }
   const expectedResult = question.operator === "add" ? left + right : left - right;
   if (expectedResult !== result) errors.push(issue("batch_a_missing_digit_equation_invalid", "result"));
-  if (!["left", "right"].includes(question.missingOperand)) {
-    errors.push(issue("batch_a_missing_digit_operand_invalid", "missingOperand"));
-    return;
-  }
+  if (!["left", "right"].includes(question.missingOperand)) { errors.push(issue("batch_a_missing_digit_operand_invalid", "missingOperand")); return; }
   const target = String(question.missingOperand === "left" ? left : right);
-  if (!Number.isInteger(question.missingIndex) || question.missingIndex < 0 || question.missingIndex >= target.length) {
-    errors.push(issue("batch_a_missing_digit_index_invalid", "missingIndex"));
-    return;
-  }
+  if (!Number.isInteger(question.missingIndex) || question.missingIndex < 0 || question.missingIndex >= target.length) { errors.push(issue("batch_a_missing_digit_index_invalid", "missingIndex")); return; }
   const expectedDigit = Number(target[question.missingIndex]);
   if (question.missingDigit !== expectedDigit) errors.push(issue("batch_a_missing_digit_answer_incorrect", "missingDigit"));
   if (question.answerText !== String(expectedDigit)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
@@ -102,10 +67,7 @@ export function validateBatchABrowserQuestion(question = {}) {
   const errors = [];
   const patternSpecId = question?.metadata?.patternId ?? question.patternSpecId;
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
-  if (!definition) {
-    errors.push(issue("batch_a_pattern_not_available", "metadata.patternId"));
-    return { ok: false, errors, warnings: [] };
-  }
+  if (!definition) { errors.push(issue("batch_a_pattern_not_available", "metadata.patternId")); return { ok: false, errors, warnings: [] }; }
   if (question?.metadata?.sourceId !== definition.sourceId) errors.push(issue("batch_a_question_source_mismatch", "metadata.sourceId"));
 
   if (definition.kind === "expression") {
@@ -117,6 +79,7 @@ export function validateBatchABrowserQuestion(question = {}) {
       else if (Number.isFinite(definition.answerConstraint?.max) && getIntegerRawValue(evaluated.value) > definition.answerConstraint.max) errors.push(issue("batch_a_answer_above_max", "answerConstraint.max"));
       errors.push(...validateBatchAQuestionCarryPolicy(definition, question).errors);
       errors.push(...validateContinuousBorrowZeroPolicy(definition, question).errors);
+      errors.push(...validateZeroMiddleMultiplicationPolicy(definition, question).errors);
     }
   } else if (definition.kind === "comparison") {
     const expected = question.left > question.right ? ">" : question.left < question.right ? "<" : "=";
@@ -127,6 +90,8 @@ export function validateBatchABrowserQuestion(question = {}) {
     validateOneDigit(definition, question, errors);
   } else if (definition.kind === "missingDigitEquation") {
     validateEquationBlankQuestion(definition, question, errors);
+  } else if (definition.kind === "multiplicationMissingDigit") {
+    validateMultiplicationMissingDigitQuestion(definition, question, errors);
   } else if (hasRoundingShape(definition)) {
     const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
     const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
