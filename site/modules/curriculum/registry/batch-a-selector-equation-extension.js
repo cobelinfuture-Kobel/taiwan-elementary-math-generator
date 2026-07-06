@@ -1,7 +1,7 @@
 import * as base from "./batch-a-selector-candidates.js";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
-const sourceIds = Object.freeze({ u01: "g3a_u01_3a01", u02: "g3a_u02_3a02", u03: "g3a_u03_3a03", u06: "g3a_u06_3a06" });
+const sourceIds = Object.freeze({ u01: "g3a_u01_3a01", u02: "g3a_u02_3a02", u03: "g3a_u03_3a03", u06: "g3a_u06_3a06", b01: "g3b_u01_3b01" });
 const rows = Object.freeze([
   [sourceIds.u01, "3A-U01", "10000以內的數", "kp_g3a_u01_4digit_compare", "pg_g3a_u01_4digit_compare", "ps_g3a_u01_4digit_compare", "四位數比大小", "integer_comparison", ["four_digit", "comparison", "within_10000"], "number_sense_comparison", "numeric_expression"],
   [sourceIds.u02, "3A-U02", "四位數的加減", "kp_g3a_u02_estimate_nearest_thousand", "pg_g3a_u02_estimate_nearest_thousand", "ps_g3a_u02_estimate_nearest_thousand", "整千估算", "rounding_approximation", ["nearest_thousand"], "rounding", "numeric_expression"],
@@ -24,7 +24,9 @@ const rows = Object.freeze([
   [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_division_with_remainder", "pg_g3a_u06_division_with_remainder", "ps_g3a_u06_division_with_remainder", "二位數除以一位數有餘數", "integer_division_remainder", ["two_digit", "one_digit", "remainder", "division"], "division_with_remainder", "numeric_expression"],
   [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_quotative_division_packaging", "pg_g3a_u06_quotative_division_packaging", "ps_g3a_u06_quotative_division_packaging", "包含除：分裝", "division_word_problem", ["quotative_division", "packaging", "items_per_group", "word_problem"], "quotative_division_packaging", "word_problem"],
   [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_partitive_division_equal_sharing", "pg_g3a_u06_partitive_division_equal_sharing", "ps_g3a_u06_partitive_division_equal_sharing", "等分除：平分", "division_word_problem", ["partitive_division", "equal_sharing", "groups", "word_problem"], "partitive_division_equal_sharing", "word_problem"],
-  [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_parity_range_missing_digit", "pg_g3a_u06_parity_range_missing_digit", "ps_g3a_u06_parity_range_missing_digit", "奇偶數條件判斷", "parity_reasoning", ["parity", "range_condition", "missing_digit", "multiple_answers"], "parity_range_missing_digit", "reasoning_prompt"]
+  [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_parity_range_missing_digit", "pg_g3a_u06_parity_range_missing_digit", "ps_g3a_u06_parity_range_missing_digit", "奇偶數條件判斷", "parity_reasoning", ["parity", "range_condition", "missing_digit", "multiple_answers"], "parity_range_missing_digit", "reasoning_prompt"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_3digit_by_1digit_regroup_hundreds", "pg_g3b_u01_3digit_by_1digit_regroup_hundreds", "ps_g3b_u01_3digit_by_1digit_regroup_hundreds", "三位數除以一位數", "integer_division_exact", ["three_digit", "one_digit", "division"], "division", "numeric_expression"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_2digit_by_1digit_regroup_tens", "pg_g3b_u01_2digit_by_1digit_regroup_tens", "ps_g3b_u01_2digit_by_1digit_regroup_tens", "二位數除以一位數退位", "integer_division_exact", ["two_digit", "one_digit", "division", "regroup_tens"], "division", "numeric_expression"]
 ]);
 
 function toKp([sourceId, unitCode, unitTitle, knowledgePointId, patternGroupId, patternSpecId, displayName, canonicalSkillTag, subskillTags, difficultyTag, representationTag]) {
@@ -43,14 +45,15 @@ const groupsByKpId = new Map(extraGroups.flatMap((group) => group.knowledgePoint
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: 24,
+  visibleCount: 26,
   notSelectableCount: 0,
   bySourceId: {
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
     [sourceIds.u01]: { sourceId: sourceIds.u01, visibleCount: 1, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u02]: { sourceId: sourceIds.u02, visibleCount: 10, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u03]: { sourceId: sourceIds.u03, visibleCount: 7, hiddenPendingCount: 0, notSelectableCount: 0 },
-    [sourceIds.u06]: { sourceId: sourceIds.u06, visibleCount: 6, hiddenPendingCount: 0, notSelectableCount: 0 }
+    [sourceIds.u06]: { sourceId: sourceIds.u06, visibleCount: 6, hiddenPendingCount: 0, notSelectableCount: 0 },
+    [sourceIds.b01]: { sourceId: sourceIds.b01, visibleCount: 2, hiddenPendingCount: 0, notSelectableCount: 0 }
   }
 });
 
