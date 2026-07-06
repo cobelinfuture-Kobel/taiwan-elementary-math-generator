@@ -4,7 +4,7 @@ import {
   paginateAnswerKeyItems,
   paginateQuestionDisplayModels
 } from "../../core/index.js";
-import { generateBatchABrowserQuestions } from "./g3a-u06-division-generator.js";
+import { generateBatchABrowserQuestions } from "./g3a-u06-division-ordering-generator.js";
 import { validateBatchABrowserQuestions } from "./batch-a-browser-validator.js";
 import { BATCH_A_BROWSER_SCOPE } from "./production-eligibility.js";
 
