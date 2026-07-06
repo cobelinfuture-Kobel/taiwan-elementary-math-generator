@@ -1,8 +1,9 @@
 import * as base from "./batch-a-selector-candidates.js";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
-const sourceIds = Object.freeze({ u02: "g3a_u02_3a02", u03: "g3a_u03_3a03", u06: "g3a_u06_3a06" });
+const sourceIds = Object.freeze({ u01: "g3a_u01_3a01", u02: "g3a_u02_3a02", u03: "g3a_u03_3a03", u06: "g3a_u06_3a06" });
 const rows = Object.freeze([
+  [sourceIds.u01, "3A-U01", "10000以內的數", "kp_g3a_u01_4digit_compare", "pg_g3a_u01_4digit_compare", "ps_g3a_u01_4digit_compare", "四位數比大小", "integer_comparison", ["four_digit", "comparison", "within_10000"], "number_sense_comparison", "numeric_expression"],
   [sourceIds.u02, "3A-U02", "四位數的加減", "kp_g3a_u02_estimate_nearest_thousand", "pg_g3a_u02_estimate_nearest_thousand", "ps_g3a_u02_estimate_nearest_thousand", "整千估算", "rounding_approximation", ["nearest_thousand"], "rounding", "numeric_expression"],
   [sourceIds.u02, "3A-U02", "四位數的加減", "kp_g3a_u02_word_problem_estimation_add_sub", "pg_g3a_u02_word_problem_estimation_add_sub", "ps_g3a_u02_word_problem_estimation_add_sub", "加減應用題估算", "integer_add_sub_mixed", ["estimation", "word_problem"], "context_reasoning", "word_problem"],
   [sourceIds.u02, "3A-U02", "四位數的加減", "kp_g3a_u02_add_missing_digit_operand", "pg_g3a_u02_add_missing_digit_operand", "ps_g3a_u02_add_missing_digit_operand", "加法缺位填空", "integer_add_sub_mixed", ["missing_digit", "addition"], "missing_digit", "numeric_expression"],
@@ -42,10 +43,11 @@ const groupsByKpId = new Map(extraGroups.flatMap((group) => group.knowledgePoint
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: 23,
+  visibleCount: 24,
   notSelectableCount: 0,
   bySourceId: {
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
+    [sourceIds.u01]: { sourceId: sourceIds.u01, visibleCount: 1, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u02]: { sourceId: sourceIds.u02, visibleCount: 10, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u03]: { sourceId: sourceIds.u03, visibleCount: 7, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u06]: { sourceId: sourceIds.u06, visibleCount: 6, hiddenPendingCount: 0, notSelectableCount: 0 }
