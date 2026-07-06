@@ -1,8 +1,8 @@
 import {
   BATCH_A_SELECTOR_AVAILABILITY,
-  getVisibleBatchAKnowledgePoint,
-  getVisiblePatternGroupsForKnowledgePoint
-} from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
+  getVisibleBatchAKnowledgePoint as getBaseVisibleBatchAKnowledgePoint,
+  getVisiblePatternGroupsForKnowledgePoint as getBaseVisiblePatternGroupsForKnowledgePoint
+} from "../../../modules/curriculum/registry/batch-a-selector-candidates.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
 const KP_SELECTION_MODES = Object.freeze([
@@ -11,6 +11,14 @@ const KP_SELECTION_MODES = Object.freeze([
   "mixedKnowledgePointsCrossUnit"
 ]);
 const VALID_SELECTION_MODES = Object.freeze([SOURCE_UNIT_SELECTION_MODE, ...KP_SELECTION_MODES]);
+
+const G3A_U03_WORD_PROBLEM = Object.freeze({
+  sourceId: "g3a_u03_3a03",
+  knowledgePointId: "kp_g3a_u03_consecutive_multiplication_two_step_word_problem",
+  patternGroupId: "pg_g3a_u03_consecutive_multiplication_two_step_word_problem",
+  patternSpecId: "ps_g3a_u03_consecutive_multiplication_two_step_word_problem",
+  displayName: "兩步驟連續乘法應用題"
+});
 
 function integerParam(params, key, fallback) {
   const value = params.get(key);
@@ -29,6 +37,33 @@ function queryIdArray(params, key) {
 
 function warning(code, details = {}) {
   return { code, ...details };
+}
+
+function getVisibleBatchAKnowledgePoint(knowledgePointId) {
+  const base = getBaseVisibleBatchAKnowledgePoint(knowledgePointId);
+  if (base) return base;
+  if (knowledgePointId !== G3A_U03_WORD_PROBLEM.knowledgePointId) return null;
+  return {
+    knowledgePointId: G3A_U03_WORD_PROBLEM.knowledgePointId,
+    sourceId: G3A_U03_WORD_PROBLEM.sourceId,
+    displayName: G3A_U03_WORD_PROBLEM.displayName,
+    patternGroupIds: [G3A_U03_WORD_PROBLEM.patternGroupId],
+    patternSpecIds: [G3A_U03_WORD_PROBLEM.patternSpecId]
+  };
+}
+
+function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
+  const baseGroups = getBaseVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+  if (baseGroups.length > 0) return baseGroups;
+  if (knowledgePointId !== G3A_U03_WORD_PROBLEM.knowledgePointId) return [];
+  return [{
+    patternGroupId: G3A_U03_WORD_PROBLEM.patternGroupId,
+    sourceId: G3A_U03_WORD_PROBLEM.sourceId,
+    primaryKnowledgePointId: G3A_U03_WORD_PROBLEM.knowledgePointId,
+    knowledgePointIds: [G3A_U03_WORD_PROBLEM.knowledgePointId],
+    patternSpecIds: [G3A_U03_WORD_PROBLEM.patternSpecId],
+    visibilityStatus: "visible"
+  }];
 }
 
 function defaultSelectorAccess() {
