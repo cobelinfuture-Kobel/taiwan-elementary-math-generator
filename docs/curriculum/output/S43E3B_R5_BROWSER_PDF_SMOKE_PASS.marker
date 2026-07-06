@@ -1,0 +1,25 @@
+S43E3B_R5_BROWSER_PDF_SMOKE_PASS
+
+Uploaded PDF checked: g3a_u03_二步驟連續乘法_應用題.pdf
+Result: first page order is no longer lexicographic 2x2x3, 2x3x3, 2x4x3, ...
+Observed first 15 operands:
+1. 6x2x3
+2. 8x4x6
+3. 2x7x13
+4. 5x7x17
+5. 4x3x3
+6. 6x5x6
+7. 8x7x10
+8. 3x8x17
+9. 2x4x3
+10. 4x6x6
+11. 6x8x10
+12. 9x6x13
+13. 6x4x20
+14. 2x7x6
+15. 4x9x10
+
+tests 357
+pass 357
+fail 0
+working tree clean
