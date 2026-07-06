@@ -43,7 +43,7 @@ export function validateMultiplicationMissingDigitQuestion(definition, question,
   }
   if (!question.blanks.some((blank) => blank.target === "result")) errors.push(issue("batch_a_mul_missing_result_required", "blanks", "result blank"));
   const targets = question.blanks.map((blank) => blank.target).sort().join("");
-  if (!["leftresult", "rightresult"].includes(targets)) errors.push(issue("batch_a_mul_missing_shape_invalid", "blanks", "shape"));
+  if (!["leftresult", "resultright"].includes(targets)) errors.push(issue("batch_a_mul_missing_shape_invalid", "blanks", "shape"));
   if (!distinctPlaces(question.blanks)) errors.push(issue("batch_a_mul_missing_same_place_invalid", "blanks", "same place"));
 
   const values = { left: question.left, right: question.right, result: question.result };
