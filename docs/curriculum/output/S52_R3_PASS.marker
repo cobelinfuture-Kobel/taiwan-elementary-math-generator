@@ -1,0 +1,24 @@
+S52_R3_PASS_PUBLIC_MAIN_LOCAL_SYNCED_AND_CLEAN
+
+sourceId = g3a_u06_3a06
+operator_readback = screenshot shows npm test finished without failing-test block and git status clean
+working_tree = clean
+branch = public-main
+remote_tracking = public/main
+
+S45-S52 status:
+- FormalMapping / PatternSpec DesignScan implemented
+- four new G3A-U06 standalone generators/checkers/tests implemented
+- UI selector registry connected
+- six-KP mixed allocation/ordering QA implemented
+- worksheet bridge smoke implemented
+- S52 R2/R3 test-contract drift fixes applied
+
+browser_pdf_smoke = pending
+pages_deploy = may_need_rerun
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U06_S52_QUESTION_COUNT_PATH_FIX_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U06_S52_LOCAL_PASS_BROWSER_PDF_SMOKE_PENDING
+DISTANCE_REDUCED = local test readback and clean working tree confirmed after S52 R3 patch
+REMAINING_BLOCKERS = browser PDF smoke pending; Pages deploy may need rerun
+NEXT_SHORTEST_STEP = generate G3A-U06 same-unit mixed random PDF and inspect all six KP outputs
