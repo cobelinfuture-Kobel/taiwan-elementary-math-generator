@@ -58,7 +58,7 @@ function quotientForDividendRange(divisor, minDividend, maxDividend) {
   return { minQuotient, maxQuotient };
 }
 
-function exactDivisionOperands(sequenceNumber, seed, minDividend = 100, maxDividend = 999) {
+function exactDivisionOperands(sequenceNumber, seed, minDividend = 10, maxDividend = 99) {
   const seedValue = hashSeed(`${seed}:exact:${sequenceNumber}`);
   const divisor = 2 + (seedValue % 8);
   const { minQuotient, maxQuotient } = quotientForDividendRange(divisor, minDividend, maxDividend);
@@ -77,7 +77,7 @@ function expressionFromOperands(dividend, divisor) {
 }
 
 function makeExactDivisionQuestion(sequenceNumber, seed) {
-  const { dividend, divisor, quotient } = exactDivisionOperands(sequenceNumber, seed, 100, 999);
+  const { dividend, divisor, quotient } = exactDivisionOperands(sequenceNumber, seed, 10, 99);
   const expression = expressionFromOperands(dividend, divisor);
   const answerValue = createIntegerValue(quotient);
   const question = createGeneratedQuestionSkeleton({
@@ -89,7 +89,7 @@ function makeExactDivisionQuestion(sequenceNumber, seed) {
     intermediateResults: [answerValue],
     blankTarget: { type: "finalAnswer" },
     duplicateKey: buildDuplicateKey(expression),
-    metadata: metadata(exactSpecId, ["three_digit", "one_digit", "exact_division"], ["three_digit_division_exact"])
+    metadata: metadata(exactSpecId, ["two_digit", "one_digit", "exact_division"], ["two_digit_division_exact"])
   });
   question.patternSpecId = exactSpecId;
   question.sourceId = sourceId;
