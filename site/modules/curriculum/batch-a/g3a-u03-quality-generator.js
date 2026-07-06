@@ -7,30 +7,71 @@ import { buildBatchABrowserPlan, generateBatchABrowserQuestions as baseGenerateB
 const sourceId = "g3a_u03_3a03";
 const zeroMiddleSpecId = "ps_g3a_u03_3digit_zero_middle_by_1digit";
 const missingInferenceSpecId = "ps_g3a_u03_multiplication_missing_digit_inference";
+const twoStepSpecId = "ps_g3a_u03_consecutive_multiplication_two_step";
 const u03SpecIds = Object.freeze([
   "ps_g3a_u03_2digit_by_1digit_carry",
   "ps_g3a_u03_10_multiple_by_1digit",
   "ps_g3a_u03_3digit_by_1digit",
-  "ps_g3a_u03_consecutive_multiplication_two_step",
+  twoStepSpecId,
   zeroMiddleSpecId,
   missingInferenceSpecId
 ]);
-const twoStepRows = Object.freeze([
-  [3, 9, 6], [2, 7, 13], [6, 9, 13], [3, 2, 6], [9, 2, 20],
-  [6, 2, 13], [4, 2, 6], [9, 3, 20], [7, 3, 13], [9, 4, 10],
-  [6, 5, 3], [4, 5, 17], [9, 5, 10], [7, 6, 3], [4, 6, 17],
-  [2, 6, 10], [7, 7, 3], [5, 7, 17], [2, 7, 10], [3, 6, 3]
-]);
-const missingRows = Object.freeze([
-  { shape: "AC", left: 342, right: 2, blanks: [{ target: "left", placeValue: 1 }, { target: "result", placeValue: 2 }] },
-  { shape: "AC", left: 215, right: 3, blanks: [{ target: "left", placeValue: 2 }, { target: "result", placeValue: 1 }] },
-  { shape: "AC", left: 68, right: 4, blanks: [{ target: "left", placeValue: 0 }, { target: "result", placeValue: 1 }] },
-  { shape: "BC", left: 24, right: 7, blanks: [{ target: "right", placeValue: 0 }, { target: "result", placeValue: 1 }] },
-  { shape: "BC", left: 132, right: 4, blanks: [{ target: "right", placeValue: 0 }, { target: "result", placeValue: 2 }] },
-  { shape: "AC", left: 407, right: 2, blanks: [{ target: "left", placeValue: 2 }, { target: "result", placeValue: 0 }] },
-  { shape: "AC", left: 326, right: 3, blanks: [{ target: "left", placeValue: 1 }, { target: "result", placeValue: 2 }] },
-  { shape: "BC", left: 73, right: 6, blanks: [{ target: "right", placeValue: 0 }, { target: "result", placeValue: 1 }] }
-]);
+const thirdFactors = Object.freeze([3, 6, 10, 13, 17, 20]);
+
+function buildTwoStepRows() {
+  const rows = [];
+  for (const third of thirdFactors) {
+    for (let left = 2; left <= 9; left += 1) {
+      for (let middle = 2; middle <= 9; middle += 1) {
+        const product = left * middle * third;
+        if (product <= 729) rows.push([left, middle, third]);
+      }
+    }
+  }
+  return Object.freeze(rows);
+}
+
+function buildMissingRows() {
+  const rows = [];
+  const seen = new Set();
+  function add(row) {
+    const result = row.left * row.right;
+    const blanks = row.blanks.map((blank) => `${blank.target}:${blank.placeValue}`).join("|");
+    const key = `${row.left}x${row.right}=${result}|${blanks}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      rows.push(row);
+    }
+  }
+  for (let left = 23; left <= 987 && rows.length < 120; left += 17) {
+    for (let right = 2; right <= 9 && rows.length < 120; right += 1) {
+      const result = left * right;
+      const leftPlaces = String(left).length === 2 ? [1, 0] : [2, 1, 0];
+      const resultPlaces = Array.from({ length: String(result).length }, (_, index) => index);
+      for (const leftPlace of leftPlaces) {
+        for (const resultPlace of resultPlaces) {
+          if (leftPlace !== resultPlace) add({ shape: "AC", left, right, blanks: [{ target: "left", placeValue: leftPlace }, { target: "result", placeValue: resultPlace }] });
+          if (rows.length >= 120) break;
+        }
+        if (rows.length >= 120) break;
+      }
+    }
+  }
+  for (let left = 24; left <= 987 && rows.length < 240; left += 19) {
+    for (let right = 2; right <= 9 && rows.length < 240; right += 1) {
+      const result = left * right;
+      const resultPlaces = Array.from({ length: String(result).length }, (_, index) => index).filter((placeValue) => placeValue !== 0);
+      for (const resultPlace of resultPlaces) {
+        add({ shape: "BC", left, right, blanks: [{ target: "right", placeValue: 0 }, { target: "result", placeValue: resultPlace }] });
+        if (rows.length >= 240) break;
+      }
+    }
+  }
+  return Object.freeze(rows);
+}
+
+const twoStepRows = buildTwoStepRows();
+const missingRows = buildMissingRows();
 
 function isU03Plan(plan) {
   return plan?.sourceId === sourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.some((id) => u03SpecIds.includes(id));
@@ -144,14 +185,37 @@ function makeMissingQuestion(sequenceNumber) {
 }
 
 function generateU03Question(specId, sequenceNumber) {
-  if (specId === "ps_g3a_u03_consecutive_multiplication_two_step") return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
+  if (specId === twoStepSpecId) return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
   if (specId === missingInferenceSpecId) return makeMissingQuestion(sequenceNumber);
   return makeQuestion(specId, pairFor(specId, sequenceNumber), sequenceNumber);
 }
 
-function shuffleIfNeeded(questions, plan) {
+function questionKey(question) {
+  if (question.kind === "multiplicationMissingDigit") return question.blankedDisplayText;
+  return question.duplicateKey ?? `${question.patternSpecId}:${JSON.stringify(question.expression)}`;
+}
+
+function interleaveByPattern(questions, allocation) {
+  const buckets = new Map(allocation.map((entry) => [entry.patternSpecId, []]));
+  for (const question of questions) buckets.get(question.patternSpecId)?.push(question);
+  const output = [];
+  let moved = true;
+  while (moved) {
+    moved = false;
+    for (const entry of allocation) {
+      const next = buckets.get(entry.patternSpecId)?.shift();
+      if (next) {
+        output.push(next);
+        moved = true;
+      }
+    }
+  }
+  return output;
+}
+
+function orderQuestions(questions, plan, allocation) {
   if (plan.ordering !== "shuffleAcrossPatterns") return questions;
-  return [...questions].sort((a, b) => String(a.id).localeCompare(String(b.id)));
+  return interleaveByPattern(questions, allocation);
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
@@ -160,10 +224,26 @@ export function generateBatchABrowserQuestions(options = {}) {
 
   const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? plan.allocation : allocateCounts(plan.patternSpecIds, plan.questionCount);
   const questions = [];
+  const seen = new Set();
   for (const entry of allocation) {
     if (!u03SpecIds.includes(entry.patternSpecId)) return baseGenerateBatchABrowserQuestions(options);
-    for (let index = 0; index < entry.questionCount; index += 1) questions.push(generateU03Question(entry.patternSpecId, questions.length + 1));
+    let sequenceNumber = questions.length + 1;
+    let acceptedForPattern = 0;
+    let attempts = 0;
+    while (acceptedForPattern < entry.questionCount && attempts < entry.questionCount * 50) {
+      const question = generateU03Question(entry.patternSpecId, sequenceNumber + attempts);
+      const key = questionKey(question);
+      if (!seen.has(key)) {
+        seen.add(key);
+        questions.push(question);
+        acceptedForPattern += 1;
+      }
+      attempts += 1;
+    }
+    if (acceptedForPattern < entry.questionCount) {
+      return { ok: false, plan, questions, allocation, errors: [{ code: "batch_a_g3a_u03_unique_pool_exhausted", severity: "error", path: entry.patternSpecId, message: "G3A-U03 unique question pool exhausted" }], warnings: [] };
+    }
   }
 
-  return { ok: true, plan, questions: shuffleIfNeeded(questions, plan), allocation, errors: [], warnings: [] };
+  return { ok: true, plan, questions: orderQuestions(questions, plan, allocation), allocation, errors: [], warnings: [] };
 }
