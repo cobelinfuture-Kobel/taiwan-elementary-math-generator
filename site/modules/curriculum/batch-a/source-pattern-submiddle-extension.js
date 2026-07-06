@@ -1,3 +1,4 @@
+import { OPERATORS } from "../../core/constants.js";
 import {
   getBatchABrowserPatternDefinition as baseGetDefinition,
   getBatchAPatternSpecIdsForSource as baseGetPatternIds
@@ -7,6 +8,7 @@ const u02 = "g3a_u02_3a02";
 const u03 = "g3a_u03_3a03";
 const subMiddleSpecId = "ps_g3a_u02_sub_middle_missing_digit";
 const borrowZeroSpecId = "ps_g3a_u02_continuous_borrow_zero";
+const twoStepWordProblemSpecId = "ps_g3a_u03_consecutive_multiplication_two_step_word_problem";
 const zeroMiddleSpecId = "ps_g3a_u03_3digit_zero_middle_by_1digit";
 const missingInferenceSpecId = "ps_g3a_u03_multiplication_missing_digit_inference";
 
@@ -43,6 +45,20 @@ const borrowZeroDefinition = Object.freeze({
   difficultyTags: ["batch_a_browser_bridge", "continuous_borrow_zero"]
 });
 
+const twoStepWordProblemDefinition = Object.freeze({
+  patternSpecId: twoStepWordProblemSpecId,
+  sourceId: u03,
+  title: "兩步驟連續乘法應用題",
+  kind: "expression",
+  ranges: Object.freeze([Object.freeze([2, 9]), Object.freeze([2, 9]), Object.freeze([2, 9])]),
+  operators: Object.freeze([Object.freeze([OPERATORS.MULTIPLY]), Object.freeze([OPERATORS.MULTIPLY])]),
+  answerConstraint: Object.freeze({ min: 1, max: 729, allowZero: false, allowNegative: false, requireInteger: true }),
+  canonicalSkillIds: ["integer_multiplication"],
+  skillTags: ["integer_multiplication", "two_step_multiplication", "continuous_multiplication", "word_problem"],
+  difficultyTags: ["batch_a_browser_bridge", "three_factor_product_word_problem"],
+  contextTags: ["fixed_template", "word_problem"]
+});
+
 const zeroMiddleDefinition = Object.freeze({
   patternSpecId: zeroMiddleSpecId,
   sourceId: u03,
@@ -77,6 +93,7 @@ const missingInferenceDefinition = Object.freeze({
 export function getBatchABrowserPatternDefinition(patternSpecId) {
   if (patternSpecId === subMiddleSpecId) return subMiddleDefinition;
   if (patternSpecId === borrowZeroSpecId) return borrowZeroDefinition;
+  if (patternSpecId === twoStepWordProblemSpecId) return twoStepWordProblemDefinition;
   if (patternSpecId === zeroMiddleSpecId) return zeroMiddleDefinition;
   if (patternSpecId === missingInferenceSpecId) return missingInferenceDefinition;
   return baseGetDefinition(patternSpecId);
