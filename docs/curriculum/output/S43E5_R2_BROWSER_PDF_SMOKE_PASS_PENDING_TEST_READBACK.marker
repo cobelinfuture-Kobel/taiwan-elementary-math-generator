@@ -1,0 +1,33 @@
+S43E5_R2_G3BU01_BROWSER_PDF_SMOKE_PASS_PENDING_TEST_READBACK
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+affected_kps:
+- kp_g3b_u01_3digit_by_1digit_regroup_hundreds
+- kp_g3b_u01_2digit_by_1digit_regroup_tens
+affected_specs:
+- ps_g3b_u01_3digit_by_1digit_regroup_hundreds
+- ps_g3b_u01_2digit_by_1digit_regroup_tens
+
+uploaded_pdfs:
+- g3b_u01_三位數除以一位數.pdf
+- g3b_u01_二位數除以一位數退位.pdf
+- g3b_u01_同單位混合知識隨機.pdf
+
+browser_pdf_smoke:
+- 3-digit single-KP range = PASS; all displayed dividends are 100..999 and divisors are 2..9.
+- 2-digit single-KP range = PASS; all displayed dividends are 10..99 and divisors are 2..9.
+- mixed worksheet range = PASS; includes both 3-digit and 2-digit exact-division ranges.
+- answer key arithmetic = PASS by spot check.
+- printable layout = PASS.
+
+notes:
+- Mixed PDF currently shows the 3-digit block first and the 2-digit block second. This passes the R2 range bug fix contract but is not marked as an interleaving/random-order pass.
+- The "二位數除以一位數退位" label is treated under the current implemented contract as two-digit exact division. Strict regroup/tens-borrow semantics are not asserted in this milestone.
+- npm test readback after R2 is not included in the PDF upload message and remains pending.
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_DIVISION_RANGE_GENERATOR_FIX_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3B_U01_R2_BROWSER_PDF_SMOKE_PASS_TEST_READBACK_PENDING
+DISTANCE_REDUCED = G3B-U01 R2 PDF smoke confirms the one-digit division range regression is fixed for single-KP and mixed worksheets
+REMAINING_BLOCKERS = npm test readback pending after R2; optional mixed interleaving improvement; optional strict regroup semantics for two-digit退位; Pages deploy may need rerun
+NEXT_SHORTEST_STEP = wait for operator to define additional G3B-U01 KnowledgePoints
