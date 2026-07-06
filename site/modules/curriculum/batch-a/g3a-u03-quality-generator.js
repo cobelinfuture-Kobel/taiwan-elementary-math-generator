@@ -5,6 +5,7 @@ import { createIntegerValue } from "../../core/number-value.js";
 import { buildBatchABrowserPlan, generateBatchABrowserQuestions as baseGenerateBatchABrowserQuestions } from "./batch-a-browser-generator.js";
 
 const sourceId = "g3a_u03_3a03";
+const twoStepWordProblemSpecId = "ps_g3a_u03_consecutive_multiplication_two_step_word_problem";
 const zeroMiddleSpecId = "ps_g3a_u03_3digit_zero_middle_by_1digit";
 const missingInferenceSpecId = "ps_g3a_u03_multiplication_missing_digit_inference";
 const twoStepSpecId = "ps_g3a_u03_consecutive_multiplication_two_step";
@@ -13,10 +14,18 @@ const u03SpecIds = Object.freeze([
   "ps_g3a_u03_10_multiple_by_1digit",
   "ps_g3a_u03_3digit_by_1digit",
   twoStepSpecId,
+  twoStepWordProblemSpecId,
   zeroMiddleSpecId,
   missingInferenceSpecId
 ]);
 const thirdFactors = Object.freeze([3, 6, 10, 13, 17, 20]);
+const wordProblemContexts = Object.freeze([
+  ({ left, middle, third }) => `一個收納盒有 ${left} 排貼紙，每排有 ${middle} 張。老師準備了 ${third} 個收納盒，一共有多少張貼紙？`,
+  ({ left, middle, third }) => `一層書架有 ${left} 排書，每排有 ${middle} 本。圖書角共有 ${third} 層書架，一共有多少本書？`,
+  ({ left, middle, third }) => `一袋糖果有 ${left} 包，每包有 ${middle} 顆。活動準備了 ${third} 袋糖果，一共有多少顆糖果？`,
+  ({ left, middle, third }) => `一個班有 ${left} 組，每組有 ${middle} 位學生。共有 ${third} 個班參加活動，一共有多少位學生？`,
+  ({ left, middle, third }) => `一盒積木有 ${left} 層，每層有 ${middle} 塊。共有 ${third} 盒積木，一共有多少塊積木？`
+]);
 
 function buildTwoStepRows() {
   const rows = [];
@@ -138,6 +147,27 @@ function makeQuestion(specId, operands, sequenceNumber) {
   return question;
 }
 
+function makeWordProblemQuestion(sequenceNumber) {
+  const operands = twoStepRows[(sequenceNumber - 1) % twoStepRows.length];
+  const question = makeQuestion(twoStepWordProblemSpecId, operands, sequenceNumber);
+  const [left, middle, third] = operands;
+  const answer = left * middle * third;
+  const context = wordProblemContexts[(sequenceNumber - 1) % wordProblemContexts.length]({ left, middle, third });
+  question.kind = "multiplicationWordProblem";
+  question.promptText = context;
+  question.displayText = `${context} 答：${answer}`;
+  question.blankedDisplayText = `${context} 答：____`;
+  question.answerText = String(answer);
+  question.finalAnswer = createIntegerValue(answer);
+  question.metadata = {
+    ...question.metadata,
+    skillTags: ["integer_multiplication", "two_step_multiplication", "continuous_multiplication", "word_problem"],
+    difficultyTags: ["batch_a_browser_bridge", "g3a_u03_quality_locked", "three_factor_product_word_problem"],
+    contextTags: ["fixed_template", "word_problem"]
+  };
+  return question;
+}
+
 function placeIndex(value, placeValue) {
   return String(value).length - 1 - placeValue;
 }
@@ -186,12 +216,14 @@ function makeMissingQuestion(sequenceNumber) {
 
 function generateU03Question(specId, sequenceNumber) {
   if (specId === twoStepSpecId) return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
+  if (specId === twoStepWordProblemSpecId) return makeWordProblemQuestion(sequenceNumber);
   if (specId === missingInferenceSpecId) return makeMissingQuestion(sequenceNumber);
   return makeQuestion(specId, pairFor(specId, sequenceNumber), sequenceNumber);
 }
 
 function questionKey(question) {
   if (question.kind === "multiplicationMissingDigit") return question.blankedDisplayText;
+  if (question.kind === "multiplicationWordProblem") return question.blankedDisplayText;
   return question.duplicateKey ?? `${question.patternSpecId}:${JSON.stringify(question.expression)}`;
 }
 
