@@ -30,9 +30,9 @@ function planFor(knowledgePointId, patternGroupId, questionCount = 12, seed = "g
   };
 }
 
-test("G3A U06 exact division selector row is the three-digit exact division KP", () => {
+test("G3A U06 exact division selector row is the two-digit exact division KP", () => {
   const kp = getVisibleBatchAKnowledgePoint(EXACT_KP_ID);
-  assert.equal(kp.displayName, "三位數除以一位數整除");
+  assert.equal(kp.displayName, "二位數除以一位數整除");
   assert.equal(kp.sourceId, SOURCE_ID);
   assert.deepEqual(kp.patternSpecIds, [EXACT_PS_ID]);
   const groups = getVisiblePatternGroupsForKnowledgePoint(EXACT_KP_ID);
@@ -40,14 +40,14 @@ test("G3A U06 exact division selector row is the three-digit exact division KP",
   assert.equal(groups[0].patternGroupId, EXACT_PG_ID);
 });
 
-test("G3A U06 exact division generates three-digit dividend divided by one-digit divisor", () => {
+test("G3A U06 exact division generates two-digit dividend divided by one-digit divisor", () => {
   const result = generateBatchABrowserQuestions(planFor(EXACT_KP_ID, EXACT_PG_ID, 12));
   assert.equal(result.ok, true, JSON.stringify(result.errors, null, 2));
   assert.equal(result.questions.length, 12);
   for (const question of result.questions) {
     assert.equal(question.patternSpecId, EXACT_PS_ID);
     assert.equal(question.sourceId, SOURCE_ID);
-    assert.equal(question.dividend >= 100 && question.dividend <= 999, true, `bad dividend ${question.dividend}`);
+    assert.equal(question.dividend >= 10 && question.dividend <= 99, true, `bad dividend ${question.dividend}`);
     assert.equal(question.divisor >= 2 && question.divisor <= 9, true, `bad divisor ${question.divisor}`);
     assert.equal(question.dividend % question.divisor, 0);
     assert.equal(question.quotient, question.dividend / question.divisor);
@@ -75,7 +75,7 @@ test("G3A U06 worksheet bridge renders both fixed division KP outputs", () => {
   const exact = buildBatchABrowserWorksheetDocument(planFor(EXACT_KP_ID, EXACT_PG_ID, 4, "worksheet-exact"));
   assert.equal(exact.ok, true, JSON.stringify(exact.errors, null, 2));
   assert.equal(exact.worksheetDocument.questionDisplayModels.length, 4);
-  assert.equal(exact.worksheetDocument.generatedQuestions.every((question) => question.dividend >= 100), true);
+  assert.equal(exact.worksheetDocument.generatedQuestions.every((question) => question.dividend >= 10 && question.dividend <= 99), true);
 
   const check = buildBatchABrowserWorksheetDocument(planFor(DIVISIBILITY_KP_ID, DIVISIBILITY_PG_ID, 4, "worksheet-check"));
   assert.equal(check.ok, true, JSON.stringify(check.errors, null, 2));
