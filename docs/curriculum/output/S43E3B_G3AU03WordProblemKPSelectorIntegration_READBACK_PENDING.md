@@ -1,31 +1,70 @@
-# S43E3B G3A-U03 Word Problem KP Selector Integration — PASS
+# S43E3B G3A-U03 Word Problem KP Selector Integration — Query-State Fix Pending Readback
 
 ## Current State
 
 ```text
 CURRENT_MAJOR_TASK = S43_BatchA_KnowledgePointSelectable_HTMLWorksheet
-CURRENT_SUBTASK = S43E3B_G3AU03WordProblemKPSelectorIntegration
-TASK_STATUS = PASS_LOCAL_SYNCED_AND_CLEAN
-WRITE_TYPE = code_and_test_readback
+CURRENT_SUBTASK = S43E3B_R1_G3AU03WordProblemQueryStateSmokeFix
+TASK_STATUS = IMPLEMENTED_READBACK_PENDING
+WRITE_TYPE = code_and_test
 ```
 
-## Scope Lock
+## Problem Observed By Browser Smoke
+
+The operator selected G3A-U03 and expected the newly added `兩步驟連續乘法應用題` selector path, but the public page still showed the older `兩步驟連續乘法` numeric-expression KnowledgePoint and generated formula questions.
+
+Observed UI indicators:
 
 ```text
-IN_SCOPE:
-- G3A-U03 only.
-- Add two-step continuous multiplication word-problem KnowledgePoint selector row.
-- Add pattern definition for the word-problem PatternSpec.
-- Generate word-problem worksheet questions through the existing G3A-U03 quality generator path.
-- Add selector / generator / worksheet tests for this path.
-
-OUT_OF_SCOPE:
-- Do not expand G3A-U01, G3A-U02, G3A-U06, or other Batch A units in this task.
-- Do not enable cross-unit mixed KnowledgePoint selection.
-- Do not touch Batch B/C/D/E.
+本單元可選知識點：6
+selector_id_dropped
+selector_mode_fallback
 ```
 
-## Implemented Files
+## Root Cause
+
+```text
+site/assets/browser/state/query-state.js
+```
+
+was still importing selector validation from:
+
+```text
+../../../modules/curriculum/registry/batch-a-selector-candidates.js
+```
+
+instead of the extended selector registry:
+
+```text
+../../../modules/curriculum/registry/batch-a-selector-extension.js
+```
+
+Therefore extended KnowledgePoint IDs could be dropped from URL/query restoration and fall back to source-unit mode.
+
+## Fix Implemented
+
+```text
+site/assets/browser/state/query-state.js
+```
+
+now uses `batch-a-selector-extension.js`, so extended G3A-U03 KnowledgePoints are valid during query parsing.
+
+## Added QA Coverage
+
+```text
+tests/curriculum/g3a-u03-word-problem-query-state.test.js
+```
+
+The new test verifies that this URL state survives parsing without `selector_id_dropped` or `selector_mode_fallback`:
+
+```text
+sourceId = g3a_u03_3a03
+selectionMode = singleKnowledgePoint
+kp = kp_g3a_u03_consecutive_multiplication_two_step_word_problem
+pg = pg_g3a_u03_consecutive_multiplication_two_step_word_problem
+```
+
+## Prior Completed Implementation Still Applies
 
 ```text
 site/modules/curriculum/registry/batch-a-selector-equation-extension.js
@@ -34,89 +73,58 @@ site/modules/curriculum/batch-a/g3a-u03-quality-generator.js
 tests/curriculum/g3a-u03-word-problem-kp-selector.test.js
 ```
 
-## Implemented Behavior
+The G3A-U03 selector availability is expected to show 7 visible KnowledgePoints instead of 6 after the latest deployed JavaScript is loaded.
+
+## Readback Status
 
 ```text
-sourceId = g3a_u03_3a03
-knowledgePointId = kp_g3a_u03_consecutive_multiplication_two_step_word_problem
-patternGroupId = pg_g3a_u03_consecutive_multiplication_two_step_word_problem
-patternSpecId = ps_g3a_u03_consecutive_multiplication_two_step_word_problem
-displayName = 兩步驟連續乘法應用題
+PREVIOUS_LOCAL_TESTS_TOTAL = 835
+PREVIOUS_LOCAL_TESTS_PASS = 835
+PREVIOUS_LOCAL_TESTS_FAIL = 0
+PREVIOUS_LOCAL_WORKTREE_STATUS = clean
+
+LATEST_QUERY_STATE_FIX = IMPLEMENTED
+LATEST_LOCAL_NPM_TEST = PENDING_OPERATOR_READBACK
 ```
 
-The G3A-U03 selector availability is expected to show 7 visible KnowledgePoints instead of 6.
+## Expected Browser Result After Pull / Deploy / Cache Refresh
 
-The word-problem generator produces text questions with three multiplication factors and a final answer blank.
-
-## Added QA Coverage
+The correct selector item is:
 
 ```text
-tests/curriculum/g3a-u03-word-problem-kp-selector.test.js
+兩步驟連續乘法應用題｜3A-U03｜qa_verified
 ```
 
-The test covers:
+The correct URL should include:
 
 ```text
-1. Registry visibility for the new G3A-U03 word-problem KnowledgePoint.
-2. PatternGroup and PatternSpec resolution from the KnowledgePoint selector path.
-3. G3A-U03 word-problem question generation.
-4. Worksheet rendering and answer-key creation through the Batch A browser worksheet path.
+selectionMode=singleKnowledgePoint
+kp=kp_g3a_u03_consecutive_multiplication_two_step_word_problem
+pg=pg_g3a_u03_consecutive_multiplication_two_step_word_problem
 ```
 
-## Final Operator Readback
+It should not show:
 
 ```text
-npm test
-tests: 835
-suites: 0
-pass: 835
-fail: 0
-cancelled: 0
-skipped: 0
-todo: 0
-duration_ms: 8883.0191
-
-git status
-On branch main
-Your branch is up to date with 'origin/main'.
-nothing to commit, working tree clean
-```
-
-## Result
-
-```text
-S43E3B_STATUS = PASS_LOCAL_SYNCED_AND_CLEAN
-G3A_U03_WORD_PROBLEM_KP_SELECTOR = IMPLEMENTED_AND_TESTED
-LOCAL_TEST_COMMAND = npm test
-LOCAL_TESTS_TOTAL = 835
-LOCAL_TESTS_PASS = 835
-LOCAL_TESTS_FAIL = 0
-LOCAL_WORKTREE_STATUS = clean
-LOCAL_BRANCH_STATUS = up_to_date_with_origin_main
-```
-
-## Remaining Follow-up
-
-```text
-REMAINING_NON_BLOCKING_FOLLOWUP = [
-  "browser smoke：在頁面選 3A-U03 乘法 → 單一知識點加強 → 兩步驟連續乘法應用題，確認預覽為中文應用題"
-]
+selector_id_dropped
+selector_mode_fallback
 ```
 
 ## Next Shortest Step
 
 ```text
-NEXT_SHORTEST_STEP = browser smoke readback for G3A-U03 word-problem selector path
+NEXT_SHORTEST_STEP = run npm test and git status after pulling latest query-state fix; then run browser smoke on the public page after deployment/cache refresh
 ```
 
 ## Distance Update
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_G3A_U03_WORD_PROBLEM_SELECTOR_IMPLEMENTED_READBACK_PENDING
-GOAL_DISTANCE_AFTER  = D1_G3A_U03_WORD_PROBLEM_SELECTOR_PASS_LOCAL_SYNCED_AND_CLEAN
-DISTANCE_REDUCED     = npm test readback PASS and clean worktree evidence recorded for the specific G3A-U03 word-problem selector issue
+GOAL_DISTANCE_BEFORE = D1_G3A_U03_WORD_PROBLEM_SELECTOR_PASS_LOCAL_SYNCED_BUT_BROWSER_QUERY_FALLBACK
+GOAL_DISTANCE_AFTER  = D1_G3A_U03_WORD_PROBLEM_QUERY_STATE_FIX_IMPLEMENTED_READBACK_PENDING
+DISTANCE_REDUCED     = browser-smoke root cause identified and fixed in query-state selector registry source
 
 REMAINING_BLOCKERS = [
-  "browser smoke 尚未由 operator 確認"
+  "latest query-state fix npm test readback 尚未取得",
+  "public GitHub Pages deploy/cache refresh 後的 browser smoke 尚未確認"
 ]
 ```
