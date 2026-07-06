@@ -19,7 +19,11 @@ const rows = Object.freeze([
   [sourceIds.u03, "3A-U03", "乘法", "kp_g3a_u03_3digit_zero_middle_by_1digit", "pg_g3a_u03_3digit_zero_middle_by_1digit", "ps_g3a_u03_3digit_zero_middle_by_1digit", "三位數中間為0乘一位數", "integer_multiplication", ["three_digit", "zero_middle", "one_digit"], "zero_middle_multiplication", "numeric_expression"],
   [sourceIds.u03, "3A-U03", "乘法", "kp_g3a_u03_multiplication_missing_digit_inference", "pg_g3a_u03_multiplication_missing_digit_inference", "ps_g3a_u03_multiplication_missing_digit_inference", "乘法缺位推理", "integer_multiplication", ["missing_digit", "inference", "not_same_place"], "multiplication_missing_digit", "numeric_expression"],
   [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_exact_division_check", "pg_g3a_u06_exact_division_check", "ps_g3a_u06_exact_division_check", "二位數除以一位數整除", "integer_division_exact", ["two_digit", "one_digit", "exact_division"], "division", "numeric_expression"],
-  [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_divisibility_exact_check", "pg_g3a_u06_divisibility_exact_check", "ps_g3a_u06_divisibility_exact_check", "整除檢查", "integer_division_exact", ["divisibility", "exact_division", "check"], "division", "word_problem"]
+  [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_divisibility_exact_check", "pg_g3a_u06_divisibility_exact_check", "ps_g3a_u06_divisibility_exact_check", "整除檢查", "integer_division_exact", ["divisibility", "exact_division", "check"], "division", "word_problem"],
+  [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_division_with_remainder", "pg_g3a_u06_division_with_remainder", "ps_g3a_u06_division_with_remainder", "二位數除以一位數有餘數", "integer_division_remainder", ["two_digit", "one_digit", "remainder", "division"], "division_with_remainder", "numeric_expression"],
+  [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_quotative_division_packaging", "pg_g3a_u06_quotative_division_packaging", "ps_g3a_u06_quotative_division_packaging", "包含除：分裝", "division_word_problem", ["quotative_division", "packaging", "items_per_group", "word_problem"], "quotative_division_packaging", "word_problem"],
+  [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_partitive_division_equal_sharing", "pg_g3a_u06_partitive_division_equal_sharing", "ps_g3a_u06_partitive_division_equal_sharing", "等分除：平分", "division_word_problem", ["partitive_division", "equal_sharing", "groups", "word_problem"], "partitive_division_equal_sharing", "word_problem"],
+  [sourceIds.u06, "3A-U06", "二位數除以一位數", "kp_g3a_u06_parity_range_missing_digit", "pg_g3a_u06_parity_range_missing_digit", "ps_g3a_u06_parity_range_missing_digit", "奇偶數條件判斷", "parity_reasoning", ["parity", "range_condition", "missing_digit", "multiple_answers"], "parity_range_missing_digit", "reasoning_prompt"]
 ]);
 
 function toKp([sourceId, unitCode, unitTitle, knowledgePointId, patternGroupId, patternSpecId, displayName, canonicalSkillTag, subskillTags, difficultyTag, representationTag]) {
@@ -38,13 +42,13 @@ const groupsByKpId = new Map(extraGroups.flatMap((group) => group.knowledgePoint
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: 19,
+  visibleCount: 23,
   notSelectableCount: 0,
   bySourceId: {
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
     [sourceIds.u02]: { sourceId: sourceIds.u02, visibleCount: 10, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u03]: { sourceId: sourceIds.u03, visibleCount: 7, hiddenPendingCount: 0, notSelectableCount: 0 },
-    [sourceIds.u06]: { sourceId: sourceIds.u06, visibleCount: 2, hiddenPendingCount: 0, notSelectableCount: 0 }
+    [sourceIds.u06]: { sourceId: sourceIds.u06, visibleCount: 6, hiddenPendingCount: 0, notSelectableCount: 0 }
   }
 });
 
