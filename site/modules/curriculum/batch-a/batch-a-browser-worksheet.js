@@ -4,7 +4,7 @@ import {
   paginateAnswerKeyItems,
   paginateQuestionDisplayModels
 } from "../../core/index.js";
-import { generateBatchABrowserQuestions } from "./g3a-u03-quality-generator.js";
+import { generateBatchABrowserQuestions } from "./g3a-u06-division-generator.js";
 import { validateBatchABrowserQuestions } from "./batch-a-browser-validator.js";
 import { BATCH_A_BROWSER_SCOPE } from "./production-eligibility.js";
 
@@ -175,7 +175,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     },
     provenance: {
       sourceType: "batch_a_browser_bridge",
-      sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles", "S43C13_G3AU02_HTMLSingleVisibleKPEnablement", "S43G5B_G3AU03MultiplicationGeneratorQualityFix"],
+      sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles", "S43C13_G3AU02_HTMLSingleVisibleKPEnablement", "S43G5B_G3AU03MultiplicationGeneratorQualityFix", "S44_G3AU06DivisionKPMappingFix"],
       patternSpecIds: [...plan.patternSpecIds],
       curriculumNodeIds: [plan.sourceId],
       knowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
