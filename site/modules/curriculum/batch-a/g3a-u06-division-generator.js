@@ -110,10 +110,10 @@ function nonDivisibleDividend(divisor, seedValue, minDividend = 20, maxDividend 
   return minDividend + 1;
 }
 
-function divisibilityOperands(sequenceNumber, seed) {
-  const seedValue = hashSeed(`${seed}:divisibility:${sequenceNumber}`);
+function divisibilityOperands(sequenceNumber, seed, shouldBeDivisible) {
+  const target = shouldBeDivisible ? "yes" : "no";
+  const seedValue = hashSeed(`${seed}:divisibility:${target}:${sequenceNumber}`);
   const divisor = 2 + (seedValue % 8);
-  const shouldBeDivisible = sequenceNumber % 2 === 1;
   let dividend;
   if (shouldBeDivisible) {
     const { minQuotient, maxQuotient } = quotientForDividendRange(divisor, 20, 99);
@@ -125,11 +125,11 @@ function divisibilityOperands(sequenceNumber, seed) {
   return { dividend, divisor, quotient: Math.floor(dividend / divisor), remainder: dividend % divisor, isDivisible: dividend % divisor === 0 };
 }
 
-function makeDivisibilityQuestion(sequenceNumber, seed) {
-  const model = divisibilityOperands(sequenceNumber, seed);
+function makeDivisibilityQuestion(sequenceNumber, seed, shouldBeDivisible) {
+  const model = divisibilityOperands(sequenceNumber, seed, shouldBeDivisible);
   const answerText = model.isDivisible ? "可以" : "不可以";
   return {
-    id: `${divisibilitySpecId}-${sequenceNumber}`,
+    id: `${divisibilitySpecId}-${sequenceNumber}-${shouldBeDivisible ? "yes" : "no"}`,
     patternSpecId: divisibilitySpecId,
     sourceId,
     kind: "divisibilityCheck",
@@ -152,9 +152,9 @@ function questionKey(question) {
   return question.duplicateKey ?? `${question.patternSpecId}:${question.displayText ?? question.id}`;
 }
 
-function generateU06Question(patternSpecId, sequenceNumber, seed) {
+function generateU06Question(patternSpecId, sequenceNumber, seed, options = {}) {
   if (patternSpecId === exactSpecId) return makeExactDivisionQuestion(sequenceNumber, seed);
-  if (patternSpecId === divisibilitySpecId) return makeDivisibilityQuestion(sequenceNumber, seed);
+  if (patternSpecId === divisibilitySpecId) return makeDivisibilityQuestion(sequenceNumber, seed, options.shouldBeDivisible === true);
   return null;
 }
 
@@ -174,8 +174,9 @@ export function generateBatchABrowserQuestions(options = {}) {
     let acceptedForPattern = 0;
     let attempts = 0;
     while (acceptedForPattern < entry.questionCount && attempts < entry.questionCount * 80) {
-      const sequenceNumber = acceptedForPattern + attempts + 1;
-      const question = generateU06Question(entry.patternSpecId, sequenceNumber, plan.generationSeed ?? options.generationSeed);
+      const shouldBeDivisible = entry.patternSpecId === divisibilitySpecId ? acceptedForPattern % 2 === 0 : null;
+      const sequenceNumber = attempts + 1;
+      const question = generateU06Question(entry.patternSpecId, sequenceNumber, plan.generationSeed ?? options.generationSeed, { shouldBeDivisible });
       const key = questionKey(question);
       if (!seen.has(key)) {
         seen.add(key);
