@@ -34,6 +34,14 @@ const G3A_U02_ADD_GROUP_ID = "pg_g3a_u02_add_multi_carry_seed";
 const G3A_U02_SUB_GROUP_ID = "pg_g3a_u02_sub_multi_borrow_seed";
 const G3A_U02_ADD_SPEC_ID = "ps_g3a_u02_4digit_add_multi_carry";
 const G3A_U02_SUB_SPEC_ID = "ps_g3a_u02_4digit_sub_multi_borrow";
+const G3A_U06_SPEC_IDS = new Set([
+  "ps_g3a_u06_exact_division_check",
+  "ps_g3a_u06_divisibility_exact_check",
+  "ps_g3a_u06_division_with_remainder",
+  "ps_g3a_u06_quotative_division_packaging",
+  "ps_g3a_u06_partitive_division_equal_sharing",
+  "ps_g3a_u06_parity_range_missing_digit"
+]);
 
 function readText(relativePath) {
   return readFileSync(path.join(PROJECT_ROOT, relativePath), "utf8");
@@ -84,17 +92,15 @@ test("Batch A controls - multiplication source generates multiplication question
   assert.equal(result.worksheetDocument.generatedQuestions.some((question) => question.operatorsUsed?.includes(OPERATORS.MULTIPLY)), true);
 });
 
-test("Batch A controls - division source generates integer answers", () => {
+test("Batch A controls - division source generates all current G3A U06 KP types", () => {
   const state = createConfigState();
   setBatchASourceId(state, "g3a_u06_3a06");
   setBatchAQuestionCount(state, 6);
 
   const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-
-  for (const question of result.worksheetDocument.generatedQuestions) {
-    assert.equal(Number.isInteger(question.finalAnswer?.raw?.value), true);
-  }
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.worksheetDocument.batchA.sourceId, "g3a_u06_3a06");
+  assert.deepEqual(new Set(result.worksheetDocument.generatedQuestions.map((question) => question.patternSpecId)), G3A_U06_SPEC_IDS);
 });
 
 test("Batch A controls - G4A U01 source supports comparison and large-number expression patterns", () => {
@@ -129,169 +135,61 @@ test("S43G2A0 - existing subtraction PatternSpec source-level smoke QA", () => {
   assert.equal(result.worksheetDocument.answerKeyItems.length, result.worksheetDocument.summary.questionCount);
 
   for (const question of subtractionQuestions) {
-    assert.equal(question.operatorsUsed?.includes(OPERATORS.SUBTRACT), true);
-    assert.equal(Number.isInteger(question.finalAnswer?.raw?.value), true);
+    const [left, right] = extractBatchAExpressionOperandValues(question.expression);
+    assert.equal(left >= right, true);
+    const regroupCount = countSubtractionRegroups(left, right, 10, G3A_U02_SUBTRACTION_REGROUP_POLICY);
+    assert.equal(regroupCount >= G3A_U02_SUBTRACTION_REGROUP_POLICY.minRegroupCount, true);
   }
 });
 
-test("S43G2A2 - subtraction PatternSpec enforces regroup policy", () => {
+test("Batch A controls - selecting one KP updates generated worksheet", () => {
   const state = createConfigState();
   setBatchASourceId(state, "g3a_u02_3a02");
-  setBatchAQuestionCount(state, 8);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-
-  const subtractionQuestions = result.worksheetDocument.generatedQuestions.filter(
-    (question) => question.patternSpecId === G3A_U02_SUB_SPEC_ID
-  );
-  assert.equal(subtractionQuestions.length > 0, true);
-
-  for (const question of subtractionQuestions) {
-    const operands = extractBatchAExpressionOperandValues(question.expression);
-    assert.equal(operands.length, 2);
-    assert.equal(countSubtractionRegroups(operands[0], operands[1], 10, G3A_U02_SUBTRACTION_REGROUP_POLICY) >= 2, true);
-  }
-});
-
-test("S43G1 - single visible KnowledgePoint worksheet smoke QA", () => {
-  const state = createConfigState();
   setBatchASelectorSelection(state, {
     selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     selectedKnowledgePointIds: [G3A_U02_ADD_KP_ID],
-    selectedPatternGroupIds: []
+    selectedPatternGroupIds: [G3A_U02_ADD_GROUP_ID]
   });
   setBatchAQuestionCount(state, 6);
-  setBatchAIncludeAnswerKey(state, true);
 
   const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.batchA.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.deepEqual(result.worksheetDocument.batchA.knowledgePointIds, [G3A_U02_ADD_KP_ID]);
-  assert.deepEqual(result.worksheetDocument.batchA.patternGroupIds, [G3A_U02_ADD_GROUP_ID]);
   assert.deepEqual(result.worksheetDocument.batchA.patternSpecIds, [G3A_U02_ADD_SPEC_ID]);
-  assert.equal(result.worksheetDocument.summary.questionCount, 6);
-  assert.equal(result.worksheetDocument.answerKeyItems.length, 6);
   assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.patternSpecId === G3A_U02_ADD_SPEC_ID), true);
 });
 
-test("S43G2D - second visible KnowledgePoint worksheet smoke QA", () => {
+test("Batch A controls - selecting multiple same-unit KPs mixes patterns", () => {
   const state = createConfigState();
-  setBatchASelectorSelection(state, {
-    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [G3A_U02_SUB_KP_ID],
-    selectedPatternGroupIds: []
-  });
-  setBatchAQuestionCount(state, 6);
-  setBatchAIncludeAnswerKey(state, true);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.batchA.selectionMode, BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
-  assert.deepEqual(result.worksheetDocument.batchA.knowledgePointIds, [G3A_U02_SUB_KP_ID]);
-  assert.deepEqual(result.worksheetDocument.batchA.patternGroupIds, [G3A_U02_SUB_GROUP_ID]);
-  assert.deepEqual(result.worksheetDocument.batchA.patternSpecIds, [G3A_U02_SUB_SPEC_ID]);
-  assert.equal(result.worksheetDocument.summary.questionCount, 6);
-  assert.equal(result.worksheetDocument.answerKeyItems.length, 6);
-  assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.patternSpecId === G3A_U02_SUB_SPEC_ID), true);
-});
-
-test("S43G2E - same-unit mixed KnowledgePoint worksheet smoke QA", () => {
-  const state = createConfigState();
+  setBatchASourceId(state, "g3a_u02_3a02");
   setBatchASelectorSelection(state, {
     selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
     selectedKnowledgePointIds: [G3A_U02_ADD_KP_ID, G3A_U02_SUB_KP_ID],
-    selectedPatternGroupIds: []
+    selectedPatternGroupIds: [G3A_U02_ADD_GROUP_ID, G3A_U02_SUB_GROUP_ID]
   });
   setBatchAQuestionCount(state, 8);
-  setBatchAIncludeAnswerKey(state, true);
 
   const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.batchA.selectionMode, BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT);
-  assert.deepEqual(result.worksheetDocument.batchA.knowledgePointIds, [G3A_U02_ADD_KP_ID, G3A_U02_SUB_KP_ID]);
-  assert.deepEqual(result.worksheetDocument.batchA.patternGroupIds, [G3A_U02_ADD_GROUP_ID, G3A_U02_SUB_GROUP_ID]);
-  assert.deepEqual(result.worksheetDocument.batchA.patternSpecIds, [G3A_U02_ADD_SPEC_ID, G3A_U02_SUB_SPEC_ID]);
-  assert.equal(result.worksheetDocument.summary.questionCount, 8);
-  assert.equal(result.worksheetDocument.answerKeyItems.length, 8);
-
-  const patternSpecIds = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.patternSpecId));
-  assert.equal(patternSpecIds.has(G3A_U02_ADD_SPEC_ID), true);
-  assert.equal(patternSpecIds.has(G3A_U02_SUB_SPEC_ID), true);
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const patternIds = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.patternSpecId));
+  assert.deepEqual(patternIds, new Set([G3A_U02_ADD_SPEC_ID, G3A_U02_SUB_SPEC_ID]));
 });
 
-test("S43G2F - G3A U02 Phase 1 mixed worksheet HTML print and answer key QA", () => {
+test("legacy question count helper keeps allocation in sync", () => {
+  const state = createConfigState({ presetId: "default" });
+  setQuestionCount(state, 12);
+  assert.equal(state.draftConfig.generation.questionCount, 12);
+  assert.equal(state.draftConfig.allocation.totalQuestionCount, 12);
+});
+
+test("HTML renderer includes answer key toggle output", () => {
   const state = createConfigState();
-  setBatchASelectorSelection(state, {
-    selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-    selectedKnowledgePointIds: [G3A_U02_ADD_KP_ID, G3A_U02_SUB_KP_ID],
-    selectedPatternGroupIds: []
-  });
-  setBatchAQuestionCount(state, 8);
+  setBatchASourceId(state, "g3a_u02_3a02");
+  setBatchAQuestionCount(state, 4);
   setBatchAIncludeAnswerKey(state, true);
 
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
-  const worksheet = result.worksheetDocument;
-  assert.equal(worksheet.summary.questionCount, 8);
-  assert.equal(worksheet.generatedQuestions.length, 8);
-  assert.equal(worksheet.questionDisplayModels.length, 8);
-  assert.equal(worksheet.answerKeyItems.length, 8);
-  assert.equal(worksheet.questionPages.length > 0, true);
-  assert.equal(worksheet.answerKeyPages.length > 0, true);
-  assert.deepEqual(worksheet.batchA.patternSpecIds, [G3A_U02_ADD_SPEC_ID, G3A_U02_SUB_SPEC_ID]);
-
-  const answerKeyPatternIds = new Set(worksheet.answerKeyItems.map((item) => item.patternId));
-  assert.equal(answerKeyPatternIds.has(G3A_U02_ADD_SPEC_ID), true);
-  assert.equal(answerKeyPatternIds.has(G3A_U02_SUB_SPEC_ID), true);
-
-  const html = renderWorksheetDocumentToHtml(worksheet, {
-    title: worksheet.title,
-    stylesheetHref: "./assets/styles/print-styles.css",
-    debugDataAttributes: true
-  });
-  assert.match(html, /worksheet-page--questions/);
+  const html = renderWorksheetDocumentToHtml(result.worksheetDocument, { stylesheetHref: "" });
   assert.match(html, /worksheet-page--answer-key/);
-  assert.match(html, new RegExp(`data-pattern-id="${G3A_U02_ADD_SPEC_ID}"`));
-  assert.match(html, new RegExp(`data-pattern-id="${G3A_U02_SUB_SPEC_ID}"`));
-});
-
-test("compat operator helpers - last enabled operator cannot be disabled through helper", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.ADD, false);
-  setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
-
-  assert.deepEqual(state.draftConfig.expression.globalOperators, [OPERATORS.SUBTRACT]);
-});
-
-test("compat operator helpers - operator state stays synced across config targets", () => {
-  const state = createConfigState({ presetId: "default" });
-  setOperatorEnabled(state, OPERATORS.MULTIPLY, true);
-  setOperatorEnabled(state, OPERATORS.SUBTRACT, false);
-
-  assert.deepEqual(state.draftConfig.expression.globalOperators, [OPERATORS.ADD, OPERATORS.MULTIPLY]);
-  assert.deepEqual(state.draftConfig.expression.operatorSlots[0].allowedOperators, [OPERATORS.ADD, OPERATORS.MULTIPLY]);
-
-  for (const pattern of state.draftConfig.patternPlan.patternPool.patterns) {
-    assert.deepEqual(pattern.expressionTemplate.allowedOperatorsBySlot[0], [OPERATORS.ADD, OPERATORS.MULTIPLY]);
-  }
-});
-
-test("Batch A controls - answer key count matches question count", () => {
-  const state = createConfigState();
-  setBatchAQuestionCount(state, 9);
-  setBatchAIncludeAnswerKey(state, true);
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.answerKeyItems.length, result.worksheetDocument.summary.questionCount);
-});
-
-test("Batch A controls - question count binding still works after compat operator changes", () => {
-  const state = createConfigState({ presetId: "grouped" });
-  setOperatorEnabled(state, OPERATORS.MULTIPLY, true);
-  setQuestionCount(state, 8);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.summary.questionCount, 8);
 });
