@@ -8,128 +8,21 @@ import { getBatchABrowserPatternDefinition, getBatchAPatternSpecIdsForSource } f
 import { validateBatchAPlanScope } from "./production-eligibility.js";
 
 function issue(code, path, message = code, severity = "error") { return { code, severity, path, message }; }
-function intValue(value) {
-  if (Number.isSafeInteger(value)) return value;
-  if (typeof value === "string" && /^-?\d+$/.test(value.trim())) return Number(value.trim());
-  if (isIntegerValue(value)) return getIntegerRawValue(value);
-  return null;
-}
+function intValue(value) { if (Number.isSafeInteger(value)) return value; if (typeof value === "string" && /^-?\d+$/.test(value.trim())) return Number(value.trim()); if (isIntegerValue(value)) return getIntegerRawValue(value); return null; }
 function roundByUnit(value, unit) { return Math.round(value / unit) * unit; }
 function hasRoundingShape(definition) { return definition.kind === "rounding" || (definition.kind !== "wordProblemEstimation" && Number.isSafeInteger(definition.unit)); }
 function countBox(text) { return String(text ?? "").split("□").length - 1; }
 function oneBox(value, index) { const text = String(value); return `${text.slice(0, index)}□${text.slice(index + 1)}`; }
 
-function validateEstimate(definition, question, errors) {
-  const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
-  if (!Number.isSafeInteger(question.left) || !Number.isSafeInteger(question.right)) { errors.push(issue("batch_a_word_problem_value_invalid", "operands")); return; }
-  if (!["add", "subtract"].includes(question.operator)) { errors.push(issue("batch_a_word_problem_operator_invalid", "operator")); return; }
-  const expected = question.operator === "add" ? roundByUnit(question.left, unit) + roundByUnit(question.right, unit) : roundByUnit(question.left, unit) - roundByUnit(question.right, unit);
-  if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
-  if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
-}
+function validateEstimate(definition, question, errors) { const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000; if (!Number.isSafeInteger(question.left) || !Number.isSafeInteger(question.right)) { errors.push(issue("batch_a_word_problem_value_invalid", "operands")); return; } if (!["add", "subtract"].includes(question.operator)) { errors.push(issue("batch_a_word_problem_operator_invalid", "operator")); return; } const expected = question.operator === "add" ? roundByUnit(question.left, unit) + roundByUnit(question.right, unit) : roundByUnit(question.left, unit) - roundByUnit(question.right, unit); if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText")); if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer")); }
+function validateOneDigit(definition, question, errors) { if (!["add", "subtract"].includes(question.operator) || question.operator !== definition.operator) { errors.push(issue("batch_a_missing_digit_operator_invalid", "operator")); return; } const { left, right, result } = question; if (![left, right, result].every(Number.isSafeInteger)) { errors.push(issue("batch_a_missing_digit_value_invalid", "operands")); return; } const expectedResult = question.operator === "add" ? left + right : left - right; if (expectedResult !== result) errors.push(issue("batch_a_missing_digit_equation_invalid", "result")); if (!["left", "right"].includes(question.missingOperand)) { errors.push(issue("batch_a_missing_digit_operand_invalid", "missingOperand")); return; } const target = String(question.missingOperand === "left" ? left : right); if (!Number.isInteger(question.missingIndex) || question.missingIndex < 0 || question.missingIndex >= target.length) { errors.push(issue("batch_a_missing_digit_index_invalid", "missingIndex")); return; } const expectedDigit = Number(target[question.missingIndex]); if (question.missingDigit !== expectedDigit) errors.push(issue("batch_a_missing_digit_answer_incorrect", "missingDigit")); if (question.answerText !== String(expectedDigit)) errors.push(issue("batch_a_answer_incorrect", "answerText")); if (intValue(question.finalAnswer) !== expectedDigit) errors.push(issue("batch_a_answer_incorrect", "finalAnswer")); if (countBox(question.blankedDisplayText) !== 1) errors.push(issue("batch_a_missing_digit_placeholder_invalid", "blankedDisplayText")); const leftText = question.missingOperand === "left" ? oneBox(left, question.missingIndex) : String(left); const rightText = question.missingOperand === "right" ? oneBox(right, question.missingIndex) : String(right); const symbol = question.operator === "add" ? "+" : "-"; if (question.blankedDisplayText !== `${leftText} ${symbol} ${rightText} = ${result}`) errors.push(issue("batch_a_missing_digit_prompt_invalid", "blankedDisplayText")); }
+function validateDivisibilityCheck(definition, question, errors) { const dividendRange = definition.ranges?.[0] ?? [1, 999]; const divisorRange = definition.ranges?.[1] ?? [2, 9]; if (!Number.isSafeInteger(question.dividend) || !Number.isSafeInteger(question.divisor)) { errors.push(issue("batch_a_divisibility_value_invalid", "operands")); return; } if (question.dividend < dividendRange[0] || question.dividend > dividendRange[1]) errors.push(issue("batch_a_dividend_out_of_range", "dividend")); if (question.divisor < divisorRange[0] || question.divisor > divisorRange[1]) errors.push(issue("batch_a_divisor_out_of_range", "divisor")); const expected = question.dividend % question.divisor === 0; const expectedText = expected ? "可以" : "不可以"; const expectedFlag = expected ? 1 : 0; if (question.isDivisible !== expected) errors.push(issue("batch_a_divisibility_flag_incorrect", "isDivisible")); if (question.answerText !== expectedText) errors.push(issue("batch_a_answer_incorrect", "answerText")); if (intValue(question.finalAnswer) !== expectedFlag) errors.push(issue("batch_a_answer_incorrect", "finalAnswer")); if (!String(question.blankedDisplayText ?? "").includes("整除")) errors.push(issue("batch_a_divisibility_prompt_invalid", "blankedDisplayText")); }
+function validateDivisionWithRemainder(question, errors) { if (![question.dividend, question.divisor, question.quotient, question.remainder].every(Number.isSafeInteger)) { errors.push(issue("batch_a_remainder_value_invalid", "operands")); return; } if (question.dividend < 10 || question.dividend > 99) errors.push(issue("batch_a_remainder_dividend_out_of_range", "dividend")); if (question.divisor < 2 || question.divisor > 9) errors.push(issue("batch_a_remainder_divisor_out_of_range", "divisor")); if (question.remainder <= 0 || question.remainder >= question.divisor) errors.push(issue("batch_a_remainder_invalid", "remainder")); if (question.dividend !== question.divisor * question.quotient + question.remainder) errors.push(issue("batch_a_remainder_equation_invalid", "dividend")); }
+function validateDivisionWordProblem(question, errors) { if (![question.total, question.itemsPerGroup, question.groupCount].every(Number.isSafeInteger)) { errors.push(issue("batch_a_division_word_problem_value_invalid", "operands")); return; } if (question.total !== question.itemsPerGroup * question.groupCount) errors.push(issue("batch_a_division_word_problem_equation_invalid", "total")); if (question.semanticModel === "quotative_division" && intValue(question.finalAnswer) !== question.groupCount) errors.push(issue("batch_a_answer_incorrect", "finalAnswer")); if (question.semanticModel === "partitive_division" && intValue(question.finalAnswer) !== question.itemsPerGroup) errors.push(issue("batch_a_answer_incorrect", "finalAnswer")); }
+function validateParityRange(question, errors) { const expected = []; for (let ones = 0; ones <= 9; ones += 1) { const value = question.tensDigit * 10 + ones; const ok = question.parityTarget === "even" ? value % 2 === 0 : value % 2 === 1; if (value > question.lowerBound && value < question.upperBound && ok) expected.push(value); } if (JSON.stringify(expected) !== JSON.stringify(question.answers)) errors.push(issue("batch_a_parity_answers_invalid", "answers")); }
 
-function validateOneDigit(definition, question, errors) {
-  if (!["add", "subtract"].includes(question.operator) || question.operator !== definition.operator) { errors.push(issue("batch_a_missing_digit_operator_invalid", "operator")); return; }
-  const { left, right, result } = question;
-  if (![left, right, result].every(Number.isSafeInteger)) { errors.push(issue("batch_a_missing_digit_value_invalid", "operands")); return; }
-  const expectedResult = question.operator === "add" ? left + right : left - right;
-  if (expectedResult !== result) errors.push(issue("batch_a_missing_digit_equation_invalid", "result"));
-  if (!["left", "right"].includes(question.missingOperand)) { errors.push(issue("batch_a_missing_digit_operand_invalid", "missingOperand")); return; }
-  const target = String(question.missingOperand === "left" ? left : right);
-  if (!Number.isInteger(question.missingIndex) || question.missingIndex < 0 || question.missingIndex >= target.length) { errors.push(issue("batch_a_missing_digit_index_invalid", "missingIndex")); return; }
-  const expectedDigit = Number(target[question.missingIndex]);
-  if (question.missingDigit !== expectedDigit) errors.push(issue("batch_a_missing_digit_answer_incorrect", "missingDigit"));
-  if (question.answerText !== String(expectedDigit)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
-  if (intValue(question.finalAnswer) !== expectedDigit) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
-  if (countBox(question.blankedDisplayText) !== 1) errors.push(issue("batch_a_missing_digit_placeholder_invalid", "blankedDisplayText"));
-  const leftText = question.missingOperand === "left" ? oneBox(left, question.missingIndex) : String(left);
-  const rightText = question.missingOperand === "right" ? oneBox(right, question.missingIndex) : String(right);
-  const symbol = question.operator === "add" ? "+" : "-";
-  if (question.blankedDisplayText !== `${leftText} ${symbol} ${rightText} = ${result}`) errors.push(issue("batch_a_missing_digit_prompt_invalid", "blankedDisplayText"));
-}
+export function validateBatchABrowserPlan(plan = {}) { const scope = validateBatchAPlanScope(plan); const errors = [...scope.errors]; const ordering = plan.ordering ?? "groupedByPattern"; if (!["groupedByPattern", "shuffleAcrossPatterns"].includes(ordering)) errors.push(issue("batch_a_ordering_invalid", "ordering")); const patternSpecIds = Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0 ? plan.patternSpecIds : getBatchAPatternSpecIdsForSource(plan.sourceId); if (patternSpecIds.length === 0) errors.push(issue("batch_a_source_has_no_patterns", "patternSpecIds")); for (const patternSpecId of patternSpecIds) { const definition = getBatchABrowserPatternDefinition(patternSpecId); if (!definition) errors.push(issue("batch_a_pattern_not_available", "patternSpecIds")); else if (definition.sourceId !== plan.sourceId) errors.push(issue("batch_a_pattern_source_mismatch", "patternSpecIds")); } return { ok: errors.length === 0, errors, warnings: [] }; }
 
-function validateDivisibilityCheck(definition, question, errors) {
-  const dividendRange = definition.ranges?.[0] ?? [1, 999];
-  const divisorRange = definition.ranges?.[1] ?? [2, 9];
-  if (!Number.isSafeInteger(question.dividend) || !Number.isSafeInteger(question.divisor)) { errors.push(issue("batch_a_divisibility_value_invalid", "operands")); return; }
-  if (question.dividend < dividendRange[0] || question.dividend > dividendRange[1]) errors.push(issue("batch_a_dividend_out_of_range", "dividend"));
-  if (question.divisor < divisorRange[0] || question.divisor > divisorRange[1]) errors.push(issue("batch_a_divisor_out_of_range", "divisor"));
-  const expected = question.dividend % question.divisor === 0;
-  const expectedText = expected ? "可以" : "不可以";
-  const expectedFlag = expected ? 1 : 0;
-  if (question.isDivisible !== expected) errors.push(issue("batch_a_divisibility_flag_incorrect", "isDivisible"));
-  if (question.answerText !== expectedText) errors.push(issue("batch_a_answer_incorrect", "answerText"));
-  if (intValue(question.finalAnswer) !== expectedFlag) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
-  if (!String(question.blankedDisplayText ?? "").includes("整除")) errors.push(issue("batch_a_divisibility_prompt_invalid", "blankedDisplayText"));
-}
+export function validateBatchABrowserQuestion(question = {}) { const errors = []; const patternSpecId = question?.metadata?.patternId ?? question.patternSpecId; const definition = getBatchABrowserPatternDefinition(patternSpecId); if (!definition) { errors.push(issue("batch_a_pattern_not_available", "metadata.patternId")); return { ok: false, errors, warnings: [] }; } if (question?.metadata?.sourceId !== definition.sourceId) errors.push(issue("batch_a_question_source_mismatch", "metadata.sourceId")); if (definition.kind === "expression") { if (!question.expression) errors.push(issue("batch_a_expression_missing", "expression")); else { const evaluated = evaluateExpression(question.expression); if (!evaluated.ok || !evaluated.value) errors.push(...(evaluated.errors ?? []).map((error) => issue(error.code, error.path, error.message))); else if (intValue(question.finalAnswer) !== getIntegerRawValue(evaluated.value)) errors.push(issue("batch_a_answer_incorrect", "finalAnswer")); else if (Number.isFinite(definition.answerConstraint?.max) && getIntegerRawValue(evaluated.value) > definition.answerConstraint.max) errors.push(issue("batch_a_answer_above_max", "answerConstraint.max")); errors.push(...validateBatchAQuestionCarryPolicy(definition, question).errors); errors.push(...validateContinuousBorrowZeroPolicy(definition, question).errors); errors.push(...validateZeroMiddleMultiplicationPolicy(definition, question).errors); } } else if (definition.kind === "comparison") { const expected = question.left > question.right ? ">" : question.left < question.right ? "<" : "="; if (question.answerText !== expected) errors.push(issue("batch_a_answer_incorrect", "answerText")); } else if (definition.kind === "wordProblemEstimation") validateEstimate(definition, question, errors); else if (definition.kind === "missingDigit") validateOneDigit(definition, question, errors); else if (definition.kind === "missingDigitEquation") validateEquationBlankQuestion(definition, question, errors); else if (definition.kind === "multiplicationMissingDigit") validateMultiplicationMissingDigitQuestion(definition, question, errors); else if (definition.kind === "divisibilityCheck") validateDivisibilityCheck(definition, question, errors); else if (definition.kind === "divisionWithRemainder") validateDivisionWithRemainder(question, errors); else if (definition.kind === "divisionWordProblem") validateDivisionWordProblem(question, errors); else if (definition.kind === "parityRangeMissingDigit") validateParityRange(question, errors); else if (hasRoundingShape(definition)) { const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000; const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null; if (expected === null) errors.push(issue("batch_a_rounding_value_invalid", "value")); else { if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText")); if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer")); } } else errors.push(issue("batch_a_pattern_kind_unsupported", "kind")); return { ok: errors.length === 0, errors, warnings: [] }; }
 
-export function validateBatchABrowserPlan(plan = {}) {
-  const scope = validateBatchAPlanScope(plan);
-  const errors = [...scope.errors];
-  const ordering = plan.ordering ?? "groupedByPattern";
-  if (!["groupedByPattern", "shuffleAcrossPatterns"].includes(ordering)) errors.push(issue("batch_a_ordering_invalid", "ordering"));
-  const patternSpecIds = Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0 ? plan.patternSpecIds : getBatchAPatternSpecIdsForSource(plan.sourceId);
-  if (patternSpecIds.length === 0) errors.push(issue("batch_a_source_has_no_patterns", "patternSpecIds"));
-  for (const patternSpecId of patternSpecIds) {
-    const definition = getBatchABrowserPatternDefinition(patternSpecId);
-    if (!definition) errors.push(issue("batch_a_pattern_not_available", "patternSpecIds"));
-    else if (definition.sourceId !== plan.sourceId) errors.push(issue("batch_a_pattern_source_mismatch", "patternSpecIds"));
-  }
-  return { ok: errors.length === 0, errors, warnings: [] };
-}
-
-export function validateBatchABrowserQuestion(question = {}) {
-  const errors = [];
-  const patternSpecId = question?.metadata?.patternId ?? question.patternSpecId;
-  const definition = getBatchABrowserPatternDefinition(patternSpecId);
-  if (!definition) { errors.push(issue("batch_a_pattern_not_available", "metadata.patternId")); return { ok: false, errors, warnings: [] }; }
-  if (question?.metadata?.sourceId !== definition.sourceId) errors.push(issue("batch_a_question_source_mismatch", "metadata.sourceId"));
-
-  if (definition.kind === "expression") {
-    if (!question.expression) errors.push(issue("batch_a_expression_missing", "expression"));
-    else {
-      const evaluated = evaluateExpression(question.expression);
-      if (!evaluated.ok || !evaluated.value) errors.push(...(evaluated.errors ?? []).map((error) => issue(error.code, error.path, error.message)));
-      else if (intValue(question.finalAnswer) !== getIntegerRawValue(evaluated.value)) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
-      else if (Number.isFinite(definition.answerConstraint?.max) && getIntegerRawValue(evaluated.value) > definition.answerConstraint.max) errors.push(issue("batch_a_answer_above_max", "answerConstraint.max"));
-      errors.push(...validateBatchAQuestionCarryPolicy(definition, question).errors);
-      errors.push(...validateContinuousBorrowZeroPolicy(definition, question).errors);
-      errors.push(...validateZeroMiddleMultiplicationPolicy(definition, question).errors);
-    }
-  } else if (definition.kind === "comparison") {
-    const expected = question.left > question.right ? ">" : question.left < question.right ? "<" : "=";
-    if (question.answerText !== expected) errors.push(issue("batch_a_answer_incorrect", "answerText"));
-  } else if (definition.kind === "wordProblemEstimation") {
-    validateEstimate(definition, question, errors);
-  } else if (definition.kind === "missingDigit") {
-    validateOneDigit(definition, question, errors);
-  } else if (definition.kind === "missingDigitEquation") {
-    validateEquationBlankQuestion(definition, question, errors);
-  } else if (definition.kind === "multiplicationMissingDigit") {
-    validateMultiplicationMissingDigitQuestion(definition, question, errors);
-  } else if (definition.kind === "divisibilityCheck") {
-    validateDivisibilityCheck(definition, question, errors);
-  } else if (hasRoundingShape(definition)) {
-    const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
-    const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
-    if (expected === null) errors.push(issue("batch_a_rounding_value_invalid", "value"));
-    else {
-      if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
-      if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
-    }
-  } else {
-    errors.push(issue("batch_a_pattern_kind_unsupported", "kind"));
-  }
-  return { ok: errors.length === 0, errors, warnings: [] };
-}
-
-export function validateBatchABrowserQuestions(questions = []) {
-  const errors = [];
-  const warnings = [];
-  for (const [index, question] of questions.entries()) {
-    const result = validateBatchABrowserQuestion(question);
-    errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
-    warnings.push(...result.warnings);
-  }
-  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s42b10-batch-a-browser-validator-v1", validatedAt: null };
-}
+export function validateBatchABrowserQuestions(questions = []) { const errors = []; const warnings = []; for (const [index, question] of questions.entries()) { const result = validateBatchABrowserQuestion(question); errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` }))); warnings.push(...result.warnings); } return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s50-g3a-u06-new-kp-validator-v1", validatedAt: null }; }
