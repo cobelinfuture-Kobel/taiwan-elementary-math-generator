@@ -6,6 +6,7 @@ export function makeQuotativeDivisionPackagingQuestion(sequenceNumber = 1) {
   const itemsPerGroup = 2 + ((sequenceNumber - 1) % 8);
   const groupCount = 3 + ((sequenceNumber * 2) % 9);
   const total = itemsPerGroup * groupCount;
+  const promptText = "把 " + total + " 個蘋果，每 " + itemsPerGroup + " 個裝一盤，可以裝成幾盤？";
   return {
     id: G3A_U06_PACKAGING_SPEC_ID + "-" + sequenceNumber,
     patternSpecId: G3A_U06_PACKAGING_SPEC_ID,
@@ -15,6 +16,9 @@ export function makeQuotativeDivisionPackagingQuestion(sequenceNumber = 1) {
     total,
     itemsPerGroup,
     groupCount,
+    promptText,
+    displayText: promptText + String(groupCount),
+    blankedDisplayText: promptText + "____",
     answerText: String(groupCount),
     finalAnswer: groupCount,
     metadata: { patternId: G3A_U06_PACKAGING_SPEC_ID, sourceId: G3A_U06_SOURCE_ID }
@@ -25,6 +29,7 @@ export function makePartitiveDivisionEqualSharingQuestion(sequenceNumber = 1) {
   const groupCount = 2 + ((sequenceNumber - 1) % 8);
   const itemsPerGroup = 3 + ((sequenceNumber * 2) % 9);
   const total = itemsPerGroup * groupCount;
+  const promptText = "把 " + total + " 個蘋果，平分成 " + groupCount + " 盤，每盤有幾個蘋果？";
   return {
     id: G3A_U06_EQUAL_SHARING_SPEC_ID + "-" + sequenceNumber,
     patternSpecId: G3A_U06_EQUAL_SHARING_SPEC_ID,
@@ -34,6 +39,9 @@ export function makePartitiveDivisionEqualSharingQuestion(sequenceNumber = 1) {
     total,
     itemsPerGroup,
     groupCount,
+    promptText,
+    displayText: promptText + String(itemsPerGroup),
+    blankedDisplayText: promptText + "____",
     answerText: String(itemsPerGroup),
     finalAnswer: itemsPerGroup,
     metadata: { patternId: G3A_U06_EQUAL_SHARING_SPEC_ID, sourceId: G3A_U06_SOURCE_ID }
