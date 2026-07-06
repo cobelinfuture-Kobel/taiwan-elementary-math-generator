@@ -10,7 +10,7 @@ const groupId = "pg_g3a_u02_word_problem_estimation_add_sub";
 const specId = "ps_g3a_u02_word_problem_estimation_add_sub";
 
 test("word problem KP remains visible after materialization", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 23);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 24);
   assert.equal(listBatchAKnowledgePointAvailabilityBySource(sourceId).visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(kpId)?.displayName, "加減應用題估算");
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpId), [specId]);
