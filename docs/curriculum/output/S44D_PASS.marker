@@ -1,0 +1,35 @@
+S44D_PASS_PUBLIC_MAIN_LOCAL_SYNCED_BROWSER_PDF_SMOKE_PASS
+
+sourceId = g3a_u06_3a06
+mode = 同單位混合知識點隨機 / shuffleAcrossPatterns
+
+operator_readback = git pull public main; npm test; git status OK
+browser_pdf_smoke = PASS
+
+PDF smoke first page pattern order:
+1 exact
+2 divisibility
+3 exact
+4 divisibility
+5 exact
+6 divisibility
+7 exact
+8 divisibility
+9 exact
+10 divisibility
+11 exact
+12 divisibility
+13 exact
+14 divisibility
+15 exact
+16 divisibility
+17 exact
+18 divisibility
+19 exact
+20 divisibility
+21 exact
+22 divisibility
+
+content_status = PASS
+ordering_status = PASS
+remaining_blockers = ["Pages deploy may need rerun"]
