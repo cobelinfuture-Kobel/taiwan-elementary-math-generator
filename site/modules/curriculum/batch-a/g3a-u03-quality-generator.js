@@ -40,6 +40,43 @@ function buildTwoStepRows() {
   return Object.freeze(rows);
 }
 
+function hashSeed(value) {
+  let acc = 0;
+  for (const char of String(value ?? "default")) {
+    acc = ((acc * 31) + char.charCodeAt(0)) >>> 0;
+  }
+  return acc || 1;
+}
+
+function gcd(left, right) {
+  let a = Math.abs(left);
+  let b = Math.abs(right);
+  while (b !== 0) [a, b] = [b, a % b];
+  return a;
+}
+
+function permutationStep(seedValue, length) {
+  const start = 3 + (seedValue % Math.max(1, length - 3));
+  for (let candidate = start; candidate < start + length; candidate += 1) {
+    const step = 1 + (candidate % Math.max(1, length - 1));
+    if (gcd(step, length) === 1) return step;
+  }
+  return 1;
+}
+
+function wordProblemRowFor(sequenceNumber, seed) {
+  const length = twoStepRows.length;
+  const seedValue = hashSeed(`${sourceId}:${twoStepWordProblemSpecId}:${seed ?? "default"}`);
+  const offset = seedValue % length;
+  const step = permutationStep(seedValue, length);
+  const index = (offset + ((sequenceNumber - 1) * step)) % length;
+  return twoStepRows[index];
+}
+
+function contextIndexFor(sequenceNumber, operands, seed) {
+  return hashSeed(`${seed ?? "default"}:${sequenceNumber}:${operands.join(":")}`) % wordProblemContexts.length;
+}
+
 function buildMissingRows() {
   const rows = [];
   const seen = new Set();
@@ -147,12 +184,12 @@ function makeQuestion(specId, operands, sequenceNumber) {
   return question;
 }
 
-function makeWordProblemQuestion(sequenceNumber) {
-  const operands = twoStepRows[(sequenceNumber - 1) % twoStepRows.length];
+function makeWordProblemQuestion(sequenceNumber, seed) {
+  const operands = wordProblemRowFor(sequenceNumber, seed);
   const question = makeQuestion(twoStepWordProblemSpecId, operands, sequenceNumber);
   const [left, middle, third] = operands;
   const answer = left * middle * third;
-  const context = wordProblemContexts[(sequenceNumber - 1) % wordProblemContexts.length]({ left, middle, third });
+  const context = wordProblemContexts[contextIndexFor(sequenceNumber, operands, seed)]({ left, middle, third });
   question.kind = "multiplicationWordProblem";
   question.promptText = context;
   question.displayText = `${context} 答：${answer}`;
@@ -214,9 +251,9 @@ function makeMissingQuestion(sequenceNumber) {
   };
 }
 
-function generateU03Question(specId, sequenceNumber) {
+function generateU03Question(specId, sequenceNumber, seed) {
   if (specId === twoStepSpecId) return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
-  if (specId === twoStepWordProblemSpecId) return makeWordProblemQuestion(sequenceNumber);
+  if (specId === twoStepWordProblemSpecId) return makeWordProblemQuestion(sequenceNumber, seed);
   if (specId === missingInferenceSpecId) return makeMissingQuestion(sequenceNumber);
   return makeQuestion(specId, pairFor(specId, sequenceNumber), sequenceNumber);
 }
@@ -263,7 +300,7 @@ export function generateBatchABrowserQuestions(options = {}) {
     let acceptedForPattern = 0;
     let attempts = 0;
     while (acceptedForPattern < entry.questionCount && attempts < entry.questionCount * 50) {
-      const question = generateU03Question(entry.patternSpecId, sequenceNumber + attempts);
+      const question = generateU03Question(entry.patternSpecId, sequenceNumber + attempts, plan.generationSeed ?? options.generationSeed);
       const key = questionKey(question);
       if (!seen.has(key)) {
         seen.add(key);
