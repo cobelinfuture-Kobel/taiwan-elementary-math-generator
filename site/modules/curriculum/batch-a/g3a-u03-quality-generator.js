@@ -282,9 +282,21 @@ function interleaveByPattern(questions, allocation) {
   return output;
 }
 
+function outputPermutationKey(question, plan, index) {
+  return hashSeed(`${plan.generationSeed ?? "default"}|output-permutation|${question.patternSpecId}|${question.id}|${index}`);
+}
+
+function permuteOutput(questions, plan) {
+  return questions
+    .map((question, index) => ({ question, index, key: outputPermutationKey(question, plan, index) }))
+    .sort((left, right) => left.key - right.key || left.index - right.index)
+    .map((entry) => entry.question);
+}
+
 function orderQuestions(questions, plan, allocation) {
-  if (plan.ordering !== "shuffleAcrossPatterns") return questions;
-  return interleaveByPattern(questions, allocation);
+  const ordered = plan.ordering === "shuffleAcrossPatterns" ? interleaveByPattern(questions, allocation) : questions;
+  const hasWordProblem = allocation.some((entry) => entry.patternSpecId === twoStepWordProblemSpecId);
+  return hasWordProblem ? permuteOutput(ordered, plan) : ordered;
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
