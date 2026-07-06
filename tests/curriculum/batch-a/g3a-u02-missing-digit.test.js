@@ -31,7 +31,7 @@ function checkMissingDigitQuestion(question, operator) {
 
 test("S43G4L selector exposes G3A U02 missing digit KPs", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 23);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 24);
   assert.equal(availability.visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(addKp)?.displayName, "加法缺位填空");
   assert.equal(getVisibleBatchAKnowledgePoint(subKp)?.displayName, "減法缺位填空");
