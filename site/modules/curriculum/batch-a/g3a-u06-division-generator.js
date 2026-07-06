@@ -100,18 +100,27 @@ function makeExactDivisionQuestion(sequenceNumber, seed) {
   return question;
 }
 
+function nonDivisibleDividend(divisor, seedValue, minDividend = 20, maxDividend = 99) {
+  const span = maxDividend - minDividend + 1;
+  const start = minDividend + (Math.floor(seedValue / 17) % span);
+  for (let offset = 0; offset < span; offset += 1) {
+    const candidate = minDividend + ((start - minDividend + offset) % span);
+    if (candidate % divisor !== 0) return candidate;
+  }
+  return minDividend + 1;
+}
+
 function divisibilityOperands(sequenceNumber, seed) {
   const seedValue = hashSeed(`${seed}:divisibility:${sequenceNumber}`);
   const divisor = 2 + (seedValue % 8);
-  const exact = sequenceNumber % 2 === 1;
-  const { minQuotient, maxQuotient } = quotientForDividendRange(divisor, 20, 99);
-  const quotient = minQuotient + (Math.floor(seedValue / 13) % (maxQuotient - minQuotient + 1));
-  let dividend = divisor * quotient;
-  if (!exact) {
-    const remainder = 1 + (Math.floor(seedValue / 17) % (divisor - 1));
-    dividend += remainder;
-    if (dividend > 99) dividend -= divisor;
-    if (dividend % divisor === 0) dividend += dividend + 1 <= 99 ? 1 : -1;
+  const shouldBeDivisible = sequenceNumber % 2 === 1;
+  let dividend;
+  if (shouldBeDivisible) {
+    const { minQuotient, maxQuotient } = quotientForDividendRange(divisor, 20, 99);
+    const quotient = minQuotient + (Math.floor(seedValue / 13) % (maxQuotient - minQuotient + 1));
+    dividend = divisor * quotient;
+  } else {
+    dividend = nonDivisibleDividend(divisor, seedValue, 20, 99);
   }
   return { dividend, divisor, quotient: Math.floor(dividend / divisor), remainder: dividend % divisor, isDivisible: dividend % divisor === 0 };
 }
@@ -165,7 +174,7 @@ export function generateBatchABrowserQuestions(options = {}) {
     let acceptedForPattern = 0;
     let attempts = 0;
     while (acceptedForPattern < entry.questionCount && attempts < entry.questionCount * 80) {
-      const sequenceNumber = questions.length + attempts + 1;
+      const sequenceNumber = acceptedForPattern + attempts + 1;
       const question = generateU06Question(entry.patternSpecId, sequenceNumber, plan.generationSeed ?? options.generationSeed);
       const key = questionKey(question);
       if (!seen.has(key)) {
