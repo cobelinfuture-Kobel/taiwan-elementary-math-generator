@@ -93,6 +93,7 @@ function makeExactDivisionQuestion(sequenceNumber, seed) {
   });
   question.patternSpecId = exactSpecId;
   question.sourceId = sourceId;
+  question.metadata = { ...question.metadata, sourceId };
   question.dividend = dividend;
   question.divisor = divisor;
   question.quotient = quotient;
@@ -132,7 +133,7 @@ function makeDivisibilityQuestion(sequenceNumber, seed) {
     displayText: `${model.dividend} ÷ ${model.divisor} 可以整除嗎？${answerText}`,
     blankedDisplayText: `${model.dividend} ÷ ${model.divisor} 可以整除嗎？____`,
     answerText,
-    finalAnswer: answerText,
+    finalAnswer: createIntegerValue(model.isDivisible ? 1 : 0),
     metadata: metadata(divisibilitySpecId, ["divisibility", "exact_division", "check"], ["divisibility_check"])
   };
 }
