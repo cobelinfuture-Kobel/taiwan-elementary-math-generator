@@ -13,7 +13,7 @@ const addGroup = "pg_g3a_u02_add_missing_digit_equation";
 const subGroup = "pg_g3a_u02_sub_missing_digit_equation";
 const addSpec = "ps_g3a_u02_add_missing_digit_equation";
 const subSpec = "ps_g3a_u02_sub_missing_digit_equation";
-const EXPECTED_BATCH_A_VISIBLE_COUNT = 23;
+const EXPECTED_BATCH_A_VISIBLE_COUNT = 24;
 
 function make(kpId, groupId, count = 8) {
   return generateBatchABrowserQuestions({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId], questionCount: count, generationSeed: `s43g4n1-${kpId}`, includeAnswerKey: true });
