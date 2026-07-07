@@ -29,6 +29,10 @@ function smokeWorksheet(questionCount = 20) {
   });
 }
 
+function renderSmokeHtml(worksheetDocument) {
+  return renderWorksheetDocumentToHtml(worksheetDocument, { stylesheetHref: "", debugDataAttributes: true, title: worksheetDocument.title });
+}
+
 test("S43E5 R4K browser PDF smoke has deterministic page counts", () => {
   const result = smokeWorksheet(20);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
@@ -40,7 +44,7 @@ test("S43E5 R4K browser PDF smoke has deterministic page counts", () => {
 
 test("S43E5 R4K browser PDF smoke renders expected print pages", () => {
   const result = smokeWorksheet(20);
-  const html = renderWorksheetDocumentToHtml(result.worksheetDocument, { stylesheetHref: "", debugDataAttributes: true });
+  const html = renderSmokeHtml(result.worksheetDocument);
   assert.equal((html.match(/worksheet-page--questions/g) ?? []).length, 2);
   assert.equal((html.match(/worksheet-page--answer-key/g) ?? []).length, 2);
   assert.equal((html.match(/print-page/g) ?? []).length, 4);
