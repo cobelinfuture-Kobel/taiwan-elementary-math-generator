@@ -25,6 +25,17 @@ const MULTI_SPEC_EXPECTATIONS = Object.freeze([
   ["kp_g3a_u01_range_reasoning", "pg_g3a_u01_range_reasoning", ["ps_g3a_u01_4digit_price_range_reasoning", "ps_g3a_u01_4digit_range_compare_reasoning", "ps_g3a_u01_4digit_serial_number_range"]]
 ]);
 
+function longestStepOneRun(numbers) {
+  let longest = 1;
+  let current = 1;
+  for (let index = 1; index < numbers.length; index += 1) {
+    if (Math.abs(numbers[index] - numbers[index - 1]) === 1) current += 1;
+    else current = 1;
+    longest = Math.max(longest, current);
+  }
+  return longest;
+}
+
 test("S44M G3A-U01 number-structure KPs each generate printable worksheets", () => {
   for (const [kpId, groupId] of ROWS) {
     const result = buildBatchABrowserWorksheetDocument({
@@ -142,4 +153,24 @@ test("S44M1-6a digit arrangement worksheet does not repeat exact prompts", () =>
   assert.equal(new Set(prompts).size, prompts.length);
   const perKindDigitKeys = result.worksheetDocument.generatedQuestions.map((question) => `${question.kind}:${question.digits.join(",")}`);
   assert.equal(new Set(perKindDigitKeys).size, perKindDigitKeys.length);
+});
+
+test("S44M1-6c comparison prompts avoid duplicate and visible step-one number sequences", () => {
+  const result = buildBatchABrowserWorksheetDocument({
+    sourceId: SOURCE_ID,
+    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT,
+    questionCount: 100,
+    ordering: "shuffleAcrossPatterns",
+    generationSeed: "s44m1-comparison-diversity",
+    includeAnswerKey: true
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const comparisons = result.worksheetDocument.generatedQuestions.filter((question) => question.patternSpecId === "ps_g3a_u01_4digit_compare");
+  assert.equal(comparisons.length >= 4, true);
+  const leftValues = comparisons.map((question) => question.left);
+  const rightValues = comparisons.map((question) => question.right);
+  assert.equal(new Set(leftValues).size, leftValues.length);
+  assert.equal(new Set(rightValues).size, rightValues.length);
+  assert.equal(longestStepOneRun(leftValues) <= 2, true, leftValues.join(","));
+  assert.equal(longestStepOneRun(rightValues) <= 2, true, rightValues.join(","));
 });
