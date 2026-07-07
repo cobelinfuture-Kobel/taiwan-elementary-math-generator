@@ -124,9 +124,16 @@ body.worksheet-renderer {
     background: transparent;
   }
 
-  .worksheet-document {
+  .worksheet-document,
+  .worksheet-section {
+    display: block;
     padding: 0;
     gap: 0;
+  }
+
+  .worksheet-section--answer-key {
+    page-break-before: always;
+    break-before: page;
   }
 
   .worksheet-page {
@@ -135,8 +142,13 @@ body.worksheet-renderer {
     margin: 0;
     border: 0;
     box-shadow: none;
-    page-break-after: always;
-    break-after: page;
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .worksheet-page + .worksheet-page {
+    page-break-before: always;
+    break-before: page;
   }
 
   .screen-only {
