@@ -47,6 +47,7 @@ function hashSeed(value) {
 function pick(list, seed) { return list[hashSeed(seed) % list.length]; }
 function hasInternalZero(number) { const h = Math.floor(number / 100) % 10; const t = Math.floor(number / 10) % 10; return h === 0 || t === 0; }
 function digitsOf(number) { return String(number).padStart(4, "0").split("").map(Number); }
+function tenText(tens, zeroPending) { return tens === 1 && zeroPending ? "十" : `${digitsZh[tens]}十`; }
 
 export function numberToChinese4Digit(number) {
   if (!Number.isInteger(number) || number < 1000 || number > 9999) throw new Error("g3a_u01_number_out_of_range");
@@ -55,7 +56,12 @@ export function numberToChinese4Digit(number) {
   let zeroPending = false;
   if (hundreds > 0) output += `${digitsZh[hundreds]}百`;
   else if (tens > 0 || ones > 0) zeroPending = true;
-  if (tens > 0) { if (zeroPending) output += "零"; output += `${digitsZh[tens]}十`; zeroPending = false; }
+  if (tens > 0) {
+    const shouldWriteZero = zeroPending;
+    if (shouldWriteZero) output += "零";
+    output += tenText(tens, shouldWriteZero);
+    zeroPending = false;
+  }
   else if (ones > 0 && hundreds > 0) zeroPending = true;
   if (ones > 0) { if (zeroPending) output += "零"; output += digitsZh[ones]; }
   return output;
@@ -71,7 +77,10 @@ export function chineseToNumber4Digit(text) {
   const hundredsIndex = raw.indexOf("百");
   if (hundredsIndex > 0) hundreds = zhDigits.get(raw[hundredsIndex - 1]) ?? 0;
   const tensIndex = raw.indexOf("十");
-  if (tensIndex > 0) tens = zhDigits.get(raw[tensIndex - 1]) ?? 0;
+  if (tensIndex > 0) {
+    const explicitTenDigit = zhDigits.get(raw[tensIndex - 1]);
+    tens = explicitTenDigit && explicitTenDigit > 0 ? explicitTenDigit : 1;
+  }
   const compact = raw.replace(/.千/, "").replace(/.百/, "").replace(/.十/, "").replaceAll("零", "");
   if (compact.length > 0) ones = zhDigits.get(compact[compact.length - 1]) ?? 0;
   return thousands * 1000 + hundreds * 100 + tens * 10 + ones;
