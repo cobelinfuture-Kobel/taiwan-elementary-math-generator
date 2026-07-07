@@ -120,22 +120,29 @@ function makeComposition(patternSpecId, index, seed) {
 function exchangeAnswer(sourceCount, sourceUnit, targetUnit) {
   const quotient = Math.floor(sourceCount / 10);
   const remainder = sourceCount % 10;
-  const text = remainder === 0 ? `${quotient}${targetUnit}` : `${quotient}${targetUnit}又${remainder}${sourceUnit}`;
+  const text = `${quotient}${targetUnit}又${remainder}${sourceUnit}`;
   return { quotient, remainder, text };
+}
+function exchangePrompt(sourceCount, sourceUnit, targetUnit) {
+  return `${sourceCount}${sourceUnit}可以換成幾${targetUnit}，還剩幾${sourceUnit}？`;
 }
 function makeUnitConversion(patternSpecId, index, seed) {
   const count = 20 + (hashSeed(`${seed}:${index}:${patternSpecId}`) % 70);
   if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.tensToHundredsConversion) {
-    const answer = exchangeAnswer(count, "個十", "個百");
-    return questionBase(patternSpecId, index, seed, `${count}個十可以換成幾個百？`, answer.text, { kind: "placeValueUnitConversion", sourceCount: count, sourceUnit: "個十", targetUnit: "個百", answer, skill: "place_value" });
+    const sourceUnit = "個十";
+    const targetUnit = "個百";
+    const answer = exchangeAnswer(count, sourceUnit, targetUnit);
+    return questionBase(patternSpecId, index, seed, exchangePrompt(count, sourceUnit, targetUnit), answer.text, { kind: "placeValueUnitConversion", sourceCount: count, sourceUnit, targetUnit, answerModel: { shape: "quotient_remainder", quotientUnit: targetUnit, remainderUnit: sourceUnit }, answer, skill: "place_value" });
   }
   if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.hundredsToThousandsConversion) {
-    const answer = exchangeAnswer(count, "個百", "個千");
-    return questionBase(patternSpecId, index, seed, `${count}個百可以換成幾個千？`, answer.text, { kind: "placeValueUnitConversion", sourceCount: count, sourceUnit: "個百", targetUnit: "個千", answer, skill: "place_value" });
+    const sourceUnit = "個百";
+    const targetUnit = "個千";
+    const answer = exchangeAnswer(count, sourceUnit, targetUnit);
+    return questionBase(patternSpecId, index, seed, exchangePrompt(count, sourceUnit, targetUnit), answer.text, { kind: "placeValueUnitConversion", sourceCount: count, sourceUnit, targetUnit, answerModel: { shape: "quotient_remainder", quotientUnit: targetUnit, remainderUnit: sourceUnit }, answer, skill: "place_value" });
   }
   const source = pick([{ sourceUnit: "個10元", targetUnit: "個100元" }, { sourceUnit: "張100元", targetUnit: "張1000元" }], `${seed}:${index}:money`);
   const answer = exchangeAnswer(count, source.sourceUnit, source.targetUnit);
-  return questionBase(patternSpecId, index, seed, `有${count}${source.sourceUnit}，可以換成幾${source.targetUnit}？`, answer.text, { kind: "moneyPlaceValueExchange", sourceCount: count, ...source, answer, skill: "place_value" });
+  return questionBase(patternSpecId, index, seed, `有${exchangePrompt(count, source.sourceUnit, source.targetUnit)}`, answer.text, { kind: "moneyPlaceValueExchange", sourceCount: count, ...source, answerModel: { shape: "quotient_remainder", quotientUnit: source.targetUnit, remainderUnit: source.sourceUnit }, answer, skill: "place_value" });
 }
 
 export function arrangeDigitsMax(digits) { return Number([...digits].sort((a, b) => b - a).join("")); }
@@ -199,7 +206,7 @@ export function validateG3AU01NumberStructureQuestion(question) {
     if (question.kind === "chineseToNumber" && Number(question.answerText) !== chineseToNumber4Digit(question.chineseNumber)) errors.push({ code: "g3a_u01_chinese_to_number_answer_mismatch", path: "answerText" });
     if (question.kind === "placeValueDecomposition") { const d = decompose(question.number); const expected = `${d.thousands}個千、${d.hundreds}個百、${d.tens}個十、${d.ones}個一`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_place_value_decomposition_mismatch", path: "answerText" }); }
     if (question.kind === "placeValueComposition") { const c = question.counts; const total = c.thousands * 1000 + c.hundreds * 100 + c.tens * 10 + c.ones; if (String(total) !== question.answerText) errors.push({ code: "g3a_u01_composition_answer_mismatch", path: "answerText" }); }
-    if (["placeValueUnitConversion", "moneyPlaceValueExchange"].includes(question.kind)) { const expected = exchangeAnswer(question.sourceCount, question.sourceUnit, question.targetUnit); if (question.answerText !== expected.text) errors.push({ code: "g3a_u01_unit_conversion_answer_mismatch", path: "answerText" }); }
+    if (["placeValueUnitConversion", "moneyPlaceValueExchange"].includes(question.kind)) { const expected = exchangeAnswer(question.sourceCount, question.sourceUnit, question.targetUnit); if (question.answerText !== expected.text) errors.push({ code: "g3a_u01_unit_conversion_answer_mismatch", path: "answerText" }); if (!String(question.blankedDisplayText ?? "").includes("還剩")) errors.push({ code: "g3a_u01_unit_conversion_prompt_mismatch", path: "blankedDisplayText" }); }
     if (question.kind === "digitArrangementMax" && Number(question.answerText) !== arrangeDigitsMax(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_max_mismatch", path: "answerText" });
     if (question.kind === "digitArrangementMin" && Number(question.answerText) !== arrangeDigitsMin(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_min_mismatch", path: "answerText" });
     if (question.kind === "digitArrangementPair") { const expected = `最大${arrangeDigitsMax(question.digits)}，最小${arrangeDigitsMin(question.digits)}`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_digit_arrangement_pair_mismatch", path: "answerText" }); }
