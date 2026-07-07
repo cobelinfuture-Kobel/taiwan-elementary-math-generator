@@ -9,14 +9,14 @@ const kpId = "kp_g3a_u02_word_problem_estimation_add_sub";
 const groupId = "pg_g3a_u02_word_problem_estimation_add_sub";
 const specId = "ps_g3a_u02_word_problem_estimation_add_sub";
 
-test("word problem KP remains visible after materialization", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 29);
+test("G3A U02 estimation KP remains visible", () => {
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 34);
   assert.equal(listBatchAKnowledgePointAvailabilityBySource(sourceId).visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(kpId)?.displayName, "加減應用題估算");
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpId), [specId]);
 });
 
-test("word problem KP resolver still passes", () => {
+test("G3A U02 estimation KP resolver passes", () => {
   const plan = resolveVisiblePatternGroupSelection({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId], questionCount: 4 });
   assert.equal(plan.ok, true, JSON.stringify(plan.errors));
   assert.deepEqual(plan.patternSpecIds, [specId]);
