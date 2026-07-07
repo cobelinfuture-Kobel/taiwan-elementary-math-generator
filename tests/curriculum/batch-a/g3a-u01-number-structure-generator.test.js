@@ -62,6 +62,16 @@ test("S44J generates and validates place-value unit conversion questions", () =>
   }
 });
 
+test("S44M1-1 unit conversion prompts ask quotient and remainder explicitly", () => {
+  for (const patternSpecId of [P.tensToHundredsConversion, P.hundredsToThousandsConversion, P.moneyPlaceValueExchange]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44m1-unit-conversion", index: 10 });
+    assert.match(question.blankedDisplayText, /還剩幾/);
+    assert.equal(question.answerModel.shape, "quotient_remainder");
+    assert.equal(question.answerText, `${question.answer.quotient}${question.targetUnit}又${question.answer.remainder}${question.sourceUnit}`);
+    assert.equal(validateG3AU01NumberStructureQuestion(question).ok, true);
+  }
+});
+
 test("S44J arranges digits into valid max and min four-digit numbers", () => {
   assert.equal(arrangeDigitsMax([0, 1, 6, 9]), 9610);
   assert.equal(arrangeDigitsMin([0, 1, 6, 9]), 1069);
