@@ -128,3 +128,12 @@ test("S44M1-6b number-structure prompts avoid awkward punctuation and money unit
   assert.match(money.targetUnit, /^張/);
   assert.equal(validateG3AU01NumberStructureQuestion(money).ok, true);
 });
+
+test("S44M1-5 Chinese numeral zero-ten canonical form is concise but backward-compatible", () => {
+  assert.equal(numberToChinese4Digit(5016), "五千零十六");
+  assert.equal(numberToChinese4Digit(9010), "九千零十");
+  assert.equal(chineseToNumber4Digit("五千零十六"), 5016);
+  assert.equal(chineseToNumber4Digit("五千零一十六"), 5016);
+  assert.equal(chineseToNumber4Digit("九千零十"), 9010);
+  assert.equal(chineseToNumber4Digit("九千零一十"), 9010);
+});
