@@ -1,0 +1,21 @@
+S44M_G3A_U01_SOURCE_UNIT_ROUTE_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+root_cause:
+- G3A-U01 source-unit mode now includes the existing comparison PatternSpec plus the new number-structure PatternSpecs.
+- The previous route only handled plans where every PatternSpec was a number-structure spec.
+- Source-unit smoke therefore fell through to the base expression generator, which attempted to read expression ranges from number-structure definitions.
+
+fixed:
+- widened the G3A-U01 route to support comparison plus number-structure specs.
+- added a local comparison generator for ps_g3a_u01_4digit_compare inside the G3A-U01 route.
+- added source-unit regression coverage for mixed comparison and number-structure worksheet generation.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M_G3A_U01_MixedWorksheetQA after local tests pass
