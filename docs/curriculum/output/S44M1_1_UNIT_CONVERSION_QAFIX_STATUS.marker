@@ -1,0 +1,22 @@
+S44M1_1_G3A_U01_UNIT_CONVERSION_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+fixed:
+- unit conversion prompts now ask both quotient and remainder explicitly.
+- answerText now always follows quotient_remainder wording, including zero remainder.
+- answerModel shape is explicitly quotient_remainder for unit conversion and money exchange.
+- validator now rejects unit conversion prompts that do not ask the remainder.
+- tests assert prompt-answerModel alignment.
+
+examples:
+- 88個十可以換成幾個百，還剩幾個十？
+- answer: 8個百又8個十
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1-2_G3A_U01_RangeReasoningAnswerPositionFix after local tests pass
