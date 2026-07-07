@@ -70,6 +70,17 @@ function hashSeed(value) {
   return acc || 1;
 }
 
+function mix32(value) {
+  let mixed = value >>> 0;
+  mixed = Math.imul(mixed ^ (mixed >>> 16), 0x7feb352d);
+  mixed = Math.imul(mixed ^ (mixed >>> 15), 0x846ca68b);
+  return (mixed ^ (mixed >>> 16)) >>> 0;
+}
+
+function sequenceSeed(seed, sequenceNumber, channel) {
+  return mix32((hashSeed(`${seed}:${channel}`) + Math.imul(Math.max(1, Number(sequenceNumber) || 1), 0x9e3779b1)) >>> 0);
+}
+
 function sortBucket(questions, plan) {
   return questions
     .map((question, index) => ({ question, index, key: hashSeed(`${plan.generationSeed}:${question.patternSpecId}:${question.id}:${index}`) }))
@@ -143,11 +154,14 @@ function comparisonSymbol(left, right) {
   return left > right ? ">" : left < right ? "<" : "=";
 }
 
+function comparisonNumber(sequenceNumber, seed, side) {
+  return 1000 + (sequenceSeed(seed, sequenceNumber, `${g3aU01ComparisonSpecId}:${side}`) % 9000);
+}
+
 function makeG3AU01ComparisonQuestion(sequenceNumber, seed) {
-  const seedValue = hashSeed(`${seed}:${g3aU01ComparisonSpecId}:${sequenceNumber}`);
-  const left = 1000 + (seedValue % 9000);
-  let right = 1000 + (Math.floor(seedValue / 17) % 9000);
-  if (right === left) right = right === 9999 ? 1000 : right + 1;
+  const left = comparisonNumber(sequenceNumber, seed, "left");
+  let right = comparisonNumber(sequenceNumber, seed, "right");
+  if (right === left) right = 1000 + ((right - 1000 + 457) % 9000);
   const answerText = comparisonSymbol(left, right);
   const promptText = `在 ___ 中填入 >、< 或 =，比較 ${left} 和 ${right} 的大小。`;
   return {
