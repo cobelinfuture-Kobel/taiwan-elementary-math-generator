@@ -116,3 +116,15 @@ test("S44M1-2 range reasoning randomizes correct A/B answer positions", () => {
     assert.deepEqual([...answerPositions].sort(), ["A", "B"]);
   }
 });
+
+test("S44M1-6b number-structure prompts avoid awkward punctuation and money units", () => {
+  const pair = generateG3AU01NumberStructureQuestion({ patternSpecId: P.digitArrangementPair, seed: "s44m1-prompt-polish", index: 1 });
+  assert.match(pair.blankedDisplayText, /最大和最小分別是多少？每個數字只能用一次。/);
+  assert.equal(pair.blankedDisplayText.includes("？，"), false);
+  assert.equal(validateG3AU01NumberStructureQuestion(pair).ok, true);
+
+  const money = generateG3AU01NumberStructureQuestion({ patternSpecId: P.moneyPlaceValueExchange, seed: "s44m1-prompt-polish", index: 2 });
+  assert.match(money.blankedDisplayText, /^有\d+(個10元|張100元)，可以換成幾張(100|1000)元，還剩幾(個10元|張100元)？$/);
+  assert.match(money.targetUnit, /^張/);
+  assert.equal(validateG3AU01NumberStructureQuestion(money).ok, true);
+});
