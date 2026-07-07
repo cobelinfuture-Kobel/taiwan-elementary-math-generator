@@ -15,7 +15,7 @@ const ROWS = Object.freeze([
 ]);
 
 test("S43E5 R3 G3B U01 exposes five division KPs", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 34);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 41);
   assert.equal(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID).visibleCount, 10);
   for (const [kpId,, specIds, displayName] of ROWS) {
     const kp = getVisibleBatchAKnowledgePoint(kpId);
