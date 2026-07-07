@@ -38,16 +38,43 @@ const digitCombinationPool = Object.freeze((() => {
   }
   return combinations;
 })());
+const sameDigitPlacePairs = Object.freeze([[0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]]);
 
 function hashSeed(value) {
   let acc = 0;
   for (const char of String(value ?? "g3a-u01")) acc = ((acc * 31) + char.charCodeAt(0)) >>> 0;
   return acc || 1;
 }
+function mix32(value) {
+  let mixed = value >>> 0;
+  mixed = Math.imul(mixed ^ (mixed >>> 16), 0x7feb352d);
+  mixed = Math.imul(mixed ^ (mixed >>> 15), 0x846ca68b);
+  return (mixed ^ (mixed >>> 16)) >>> 0;
+}
+function sequenceSeed(seed, index, channel) {
+  const safeIndex = Math.max(1, Number(index) || 1);
+  return mix32((hashSeed(`${seed}:${channel}`) + Math.imul(safeIndex, 0x9e3779b1)) >>> 0);
+}
+function diverseFourDigitNumber(seed, index, channel) { return 1000 + (sequenceSeed(seed, index, channel) % 9000); }
 function pick(list, seed) { return list[hashSeed(seed) % list.length]; }
 function hasInternalZero(number) { const h = Math.floor(number / 100) % 10; const t = Math.floor(number / 10) % 10; return h === 0 || t === 0; }
 function digitsOf(number) { return String(number).padStart(4, "0").split("").map(Number); }
 function tenText(tens, zeroPending) { return tens === 1 && zeroPending ? "十" : `${digitsZh[tens]}十`; }
+function nonTargetDigit(state, offset, targetDigit) {
+  const pool = [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((digit) => digit !== targetDigit);
+  return pool[mix32((state + offset) >>> 0) % pool.length];
+}
+function sameDigitQuestionData(seed, index) {
+  const state = sequenceSeed(seed, index, "same-digit-place-value");
+  const targetDigit = 1 + (state % 9);
+  const placeIndexes = sameDigitPlacePairs[mix32(state + 17) % sameDigitPlacePairs.length];
+  const digitValues = [0, 0, 0, 0];
+  for (const placeIndex of placeIndexes) digitValues[placeIndex] = targetDigit;
+  for (let placeIndex = 0; placeIndex < digitValues.length; placeIndex += 1) {
+    if (digitValues[placeIndex] === 0) digitValues[placeIndex] = nonTargetDigit(state, 101 + placeIndex * 37, targetDigit);
+  }
+  return { number: Number(digitValues.join("")), digit: targetDigit, placeIndexes };
+}
 
 export function numberToChinese4Digit(number) {
   if (!Number.isInteger(number) || number < 1000 || number > 9999) throw new Error("g3a_u01_number_out_of_range");
@@ -110,16 +137,16 @@ function makeRepresentation(patternSpecId, index, seed) {
 }
 
 function makeDecomposition(patternSpecId, index, seed) {
-  const number = 1000 + (hashSeed(`${seed}:${index}`) % 9000);
+  const number = diverseFourDigitNumber(seed, index, patternSpecId);
   const d = decompose(number);
   if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.fullDecomposition) {
     const answerText = `${d.thousands}個千、${d.hundreds}個百、${d.tens}個十、${d.ones}個一`;
     return questionBase(patternSpecId, index, seed, `${number} 是幾個千、幾個百、幾個十、幾個一合起來的？`, answerText, { kind: "placeValueDecomposition", number, placeValue: d, skill: "place_value" });
   }
   if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.sameDigit) {
-    const digit = 6 + (hashSeed(seed) % 3);
-    const number2 = digit * 1000 + 300 + digit * 10 + (index % 9);
-    return questionBase(patternSpecId, index, seed, `${number2} 中兩個 ${digit} 分別表示什麼？`, `${digit}個千、${digit}個十`, { kind: "sameDigitPlaceValue", number: number2, digit, skill: "place_value" });
+    const data = sameDigitQuestionData(seed, index);
+    const answerText = data.placeIndexes.map((placeIndex) => `${data.digit}${unitName(placeIndex)}`).join("、");
+    return questionBase(patternSpecId, index, seed, `${data.number} 中兩個 ${data.digit} 分別表示什麼？`, answerText, { kind: "sameDigitPlaceValue", number: data.number, digit: data.digit, placeIndexes: data.placeIndexes, skill: "place_value" });
   }
   const nonzeroPlaces = digitsOf(number).map((digit, placeIndex) => ({ digit, placeIndex })).filter((item) => item.digit > 0);
   const target = pick(nonzeroPlaces, `${seed}:${index}:place`);
@@ -244,6 +271,7 @@ export function validateG3AU01NumberStructureQuestion(question) {
     if (question.kind === "numberToChinese" && question.answerText !== numberToChinese4Digit(question.number)) errors.push({ code: "g3a_u01_number_to_chinese_answer_mismatch", path: "answerText" });
     if (question.kind === "chineseToNumber" && Number(question.answerText) !== chineseToNumber4Digit(question.chineseNumber)) errors.push({ code: "g3a_u01_chinese_to_number_answer_mismatch", path: "answerText" });
     if (question.kind === "placeValueDecomposition") { const d = decompose(question.number); const expected = `${d.thousands}個千、${d.hundreds}個百、${d.tens}個十、${d.ones}個一`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_place_value_decomposition_mismatch", path: "answerText" }); }
+    if (question.kind === "sameDigitPlaceValue") { const expected = question.placeIndexes.map((placeIndex) => `${question.digit}${unitName(placeIndex)}`).join("、"); if (question.answerText !== expected) errors.push({ code: "g3a_u01_same_digit_place_value_mismatch", path: "answerText" }); }
     if (question.kind === "placeValueComposition") { const c = question.counts; const total = c.thousands * 1000 + c.hundreds * 100 + c.tens * 10 + c.ones; if (String(total) !== question.answerText) errors.push({ code: "g3a_u01_composition_answer_mismatch", path: "answerText" }); }
     if (["placeValueUnitConversion", "moneyPlaceValueExchange"].includes(question.kind)) { const expected = exchangeAnswer(question.sourceCount, question.sourceUnit, question.targetUnit); if (question.answerText !== expected.text) errors.push({ code: "g3a_u01_unit_conversion_answer_mismatch", path: "answerText" }); if (!String(question.blankedDisplayText ?? "").includes("還剩")) errors.push({ code: "g3a_u01_unit_conversion_prompt_mismatch", path: "blankedDisplayText" }); }
     if (question.kind === "moneyPlaceValueExchange" && !String(question.blankedDisplayText ?? "").includes("，可以換成")) errors.push({ code: "g3a_u01_money_exchange_prompt_unnatural", path: "blankedDisplayText" });
