@@ -13,7 +13,7 @@ const kpId = "kp_g3a_u02_continuous_borrow_zero";
 const groupId = "pg_g3a_u02_continuous_borrow_zero";
 const specId = "ps_g3a_u02_continuous_borrow_zero";
 
-const EXPECTED_BATCH_A_VISIBLE_COUNT = 26;
+const EXPECTED_BATCH_A_VISIBLE_COUNT = 29;
 
 test("S43G4P4 selector exposes continuous borrow zero KP", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
