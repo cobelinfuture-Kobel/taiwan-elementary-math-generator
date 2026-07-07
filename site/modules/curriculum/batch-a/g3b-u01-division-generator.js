@@ -69,7 +69,11 @@ function exactPredicate(patternSpecId) {
 }
 function isThreeDigitSpec(patternSpecId) { return patternSpecId === specs.three || patternSpecId.startsWith("ps_g3b_u01_3digit"); }
 function isRemainderSpec(patternSpecId) { return patternSpecId === specs.rem2 || patternSpecId === specs.rem3; }
-function pick(candidates, patternSpecId, sequenceNumber, seed) { return candidates[hashSeed(`${seed}:${patternSpecId}:${sequenceNumber}`) % candidates.length] ?? null; }
+function pick(candidates, patternSpecId, sequenceNumber, seed) {
+  if (!candidates.length) return null;
+  const start = hashSeed(`${seed}:${patternSpecId}`) % candidates.length;
+  return candidates[(start + sequenceNumber - 1) % candidates.length];
+}
 
 function metadata(patternSpecId, canonicalSkillId, tags = []) {
   return { patternId: patternSpecId, sourceId, patternTags: ["batch_a", "browser_bridge", sourceId, patternSpecId], skillTags: [canonicalSkillId, ...tags], difficultyTags: ["batch_a_browser_bridge", patternSpecId.replace("ps_g3b_u01_", "")], curriculumNodeIds: [sourceId], canonicalSkillIds: [canonicalSkillId], precedenceMode: "left_to_right", parenthesesMode: "none" };
