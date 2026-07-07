@@ -1,0 +1,25 @@
+S43E5_R4M_PDF_BLANK_PAGE_FIX_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+status = IMPLEMENTED_READBACK_PENDING
+
+completed:
+- changed print CSS pagination from page-break-after on every page to page-break-before between pages
+- changed print layout containers from flex to block inside print media
+- starts answer key section on a new page without flex section gap
+- added renderer CSS regression tests for blank-page prevention rules
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+manual_pdf_required_after_tests:
+- regenerate the same 200-question mixed calculation plus word-problem PDF
+- confirm blank page 15 and blank page 30 are gone
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_MIXED_PDF_EXPORT_BLANK_PAGE_BLOCKER_IDENTIFIED
+GOAL_DISTANCE_AFTER = D1_G3B_U01_MIXED_PDF_BLANK_PAGE_FIX_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = implemented print CSS fix for section-boundary and trailing blank pages
+REMAINING_BLOCKERS = npm test readback; manual regenerated PDF smoke
+NEXT_SHORTEST_STEP = local npm test readback, then manual PDF smoke
