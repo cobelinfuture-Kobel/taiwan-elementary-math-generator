@@ -137,6 +137,7 @@ function exchangeAnswer(sourceCount, sourceUnit, targetUnit) {
   return { quotient, remainder, text };
 }
 function exchangePrompt(sourceCount, sourceUnit, targetUnit) { return `${sourceCount}${sourceUnit}可以換成幾${targetUnit}，還剩幾${sourceUnit}？`; }
+function moneyExchangePrompt(sourceCount, sourceUnit, targetUnit) { return `有${sourceCount}${sourceUnit}，可以換成幾${targetUnit}，還剩幾${sourceUnit}？`; }
 function makeUnitConversion(patternSpecId, index, seed) {
   const count = 20 + (hashSeed(`${seed}:${index}:${patternSpecId}`) % 70);
   if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.tensToHundredsConversion) {
@@ -151,9 +152,9 @@ function makeUnitConversion(patternSpecId, index, seed) {
     const answer = exchangeAnswer(count, sourceUnit, targetUnit);
     return questionBase(patternSpecId, index, seed, exchangePrompt(count, sourceUnit, targetUnit), answer.text, { kind: "placeValueUnitConversion", sourceCount: count, sourceUnit, targetUnit, answerModel: { shape: "quotient_remainder", quotientUnit: targetUnit, remainderUnit: sourceUnit }, answer, skill: "place_value" });
   }
-  const source = pick([{ sourceUnit: "個10元", targetUnit: "個100元" }, { sourceUnit: "張100元", targetUnit: "張1000元" }], `${seed}:${index}:money`);
+  const source = pick([{ sourceUnit: "個10元", targetUnit: "張100元" }, { sourceUnit: "張100元", targetUnit: "張1000元" }], `${seed}:${index}:money`);
   const answer = exchangeAnswer(count, source.sourceUnit, source.targetUnit);
-  return questionBase(patternSpecId, index, seed, `有${exchangePrompt(count, source.sourceUnit, source.targetUnit)}`, answer.text, { kind: "moneyPlaceValueExchange", sourceCount: count, ...source, answerModel: { shape: "quotient_remainder", quotientUnit: source.targetUnit, remainderUnit: source.sourceUnit }, answer, skill: "place_value" });
+  return questionBase(patternSpecId, index, seed, moneyExchangePrompt(count, source.sourceUnit, source.targetUnit), answer.text, { kind: "moneyPlaceValueExchange", sourceCount: count, ...source, answerModel: { shape: "quotient_remainder", quotientUnit: source.targetUnit, remainderUnit: source.sourceUnit }, answer, skill: "place_value" });
 }
 
 export function arrangeDigitsMax(digits) { return Number([...digits].sort((a, b) => b - a).join("")); }
@@ -168,15 +169,19 @@ function digitSet(seed, index, patternSpecId) {
   const offset = ((Math.max(1, Number(index) || 1) - 1) * 37) % digitCombinationPool.length;
   return [...digitCombinationPool[(base + offset) % digitCombinationPool.length]];
 }
-function digitArrangementPrompt(digitText, promptBody) { return `用 ${digitText} 四個數字${promptBody}，每個數字只能用一次。`; }
+function digitArrangementPrompt(digitText, mode) {
+  if (mode === "max") return `用 ${digitText} 四個數字組成最大的四位數，每個數字只能用一次。`;
+  if (mode === "min") return `用 ${digitText} 四個數字組成最小的四位數，每個數字只能用一次。`;
+  return `用 ${digitText} 四個數字組成四位數，最大和最小分別是多少？每個數字只能用一次。`;
+}
 function makeDigitArrangement(patternSpecId, index, seed) {
   const digits = digitSet(seed, index, patternSpecId);
   const max = arrangeDigitsMax(digits);
   const min = arrangeDigitsMin(digits);
   const digitText = digits.join("、");
-  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMax) return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "組成最大的四位數"), String(max), { kind: "digitArrangementMax", digits, max, skill: "place_value_reasoning" });
-  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMin) return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "組成最小的四位數"), String(min), { kind: "digitArrangementMin", digits, min, skill: "place_value_reasoning" });
-  return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "組成四位數，最大是多少？最小是多少？"), `最大${max}，最小${min}`, { kind: "digitArrangementPair", digits, max, min, skill: "place_value_reasoning" });
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMax) return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "max"), String(max), { kind: "digitArrangementMax", digits, max, skill: "place_value_reasoning" });
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMin) return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "min"), String(min), { kind: "digitArrangementMin", digits, min, skill: "place_value_reasoning" });
+  return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "pair"), `最大${max}，最小${min}`, { kind: "digitArrangementPair", digits, max, min, skill: "place_value_reasoning" });
 }
 
 function rangeValues(seed) {
@@ -232,10 +237,12 @@ export function validateG3AU01NumberStructureQuestion(question) {
     if (question.kind === "placeValueDecomposition") { const d = decompose(question.number); const expected = `${d.thousands}個千、${d.hundreds}個百、${d.tens}個十、${d.ones}個一`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_place_value_decomposition_mismatch", path: "answerText" }); }
     if (question.kind === "placeValueComposition") { const c = question.counts; const total = c.thousands * 1000 + c.hundreds * 100 + c.tens * 10 + c.ones; if (String(total) !== question.answerText) errors.push({ code: "g3a_u01_composition_answer_mismatch", path: "answerText" }); }
     if (["placeValueUnitConversion", "moneyPlaceValueExchange"].includes(question.kind)) { const expected = exchangeAnswer(question.sourceCount, question.sourceUnit, question.targetUnit); if (question.answerText !== expected.text) errors.push({ code: "g3a_u01_unit_conversion_answer_mismatch", path: "answerText" }); if (!String(question.blankedDisplayText ?? "").includes("還剩")) errors.push({ code: "g3a_u01_unit_conversion_prompt_mismatch", path: "blankedDisplayText" }); }
+    if (question.kind === "moneyPlaceValueExchange" && !String(question.blankedDisplayText ?? "").includes("，可以換成")) errors.push({ code: "g3a_u01_money_exchange_prompt_unnatural", path: "blankedDisplayText" });
     if (question.kind === "digitArrangementMax" && Number(question.answerText) !== arrangeDigitsMax(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_max_mismatch", path: "answerText" });
     if (question.kind === "digitArrangementMin" && Number(question.answerText) !== arrangeDigitsMin(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_min_mismatch", path: "answerText" });
     if (question.kind === "digitArrangementPair") { const expected = `最大${arrangeDigitsMax(question.digits)}，最小${arrangeDigitsMin(question.digits)}`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_digit_arrangement_pair_mismatch", path: "answerText" }); }
     if (["digitArrangementMax", "digitArrangementMin", "digitArrangementPair"].includes(question.kind) && !String(question.blankedDisplayText ?? "").includes("每個數字只能用一次")) errors.push({ code: "g3a_u01_digit_arrangement_reuse_rule_missing", path: "blankedDisplayText" });
+    if (["digitArrangementMax", "digitArrangementMin", "digitArrangementPair"].includes(question.kind) && String(question.blankedDisplayText ?? "").includes("？，")) errors.push({ code: "g3a_u01_digit_arrangement_punctuation_invalid", path: "blankedDisplayText" });
     if (["rangeCompareReasoning", "priceRangeReasoning"].includes(question.kind)) { const labels = validChoiceLabels(question); if (labels.length !== 1 || question.answerText !== labels[0]) errors.push({ code: "g3a_u01_range_reasoning_answer_mismatch", path: "answerText" }); }
     if (question.kind === "serialNumberRange" && Number(question.answerText) !== question.end - question.start + 1) errors.push({ code: "g3a_u01_range_reasoning_serial_boundary_mismatch", path: "answerText" });
   } catch (error) { errors.push({ code: error.code ?? error.message, path: "question" }); }
