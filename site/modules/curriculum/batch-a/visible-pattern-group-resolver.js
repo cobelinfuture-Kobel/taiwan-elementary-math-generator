@@ -117,20 +117,30 @@ function ok(plan) {
   return plan;
 }
 
+function buildAllocationCandidates(patternGroups, patternSpecIdsByGroup) {
+  const candidates = [];
+  for (const group of patternGroups) {
+    for (const patternSpecId of patternSpecIdsByGroup.get(group.patternGroupId) ?? []) {
+      candidates.push({ patternGroupId: group.patternGroupId, patternSpecId });
+    }
+  }
+  return candidates;
+}
+
 function allocateEvenly({ patternGroups, patternSpecIdsByGroup, questionCount }) {
-  const groupCount = patternGroups.length;
-  if (groupCount === 0) return [];
-  const base = Math.floor(questionCount / groupCount);
-  let remainder = questionCount % groupCount;
-  return patternGroups.map((group) => {
+  const candidates = buildAllocationCandidates(patternGroups, patternSpecIdsByGroup);
+  if (candidates.length === 0) return [];
+  const base = Math.floor(questionCount / candidates.length);
+  let remainder = questionCount % candidates.length;
+  return candidates.map((candidate) => {
     const count = base + (remainder > 0 ? 1 : 0);
     remainder -= remainder > 0 ? 1 : 0;
     return {
-      patternGroupId: group.patternGroupId,
-      patternSpecId: patternSpecIdsByGroup.get(group.patternGroupId)[0],
+      patternGroupId: candidate.patternGroupId,
+      patternSpecId: candidate.patternSpecId,
       questionCount: count
     };
-  });
+  }).filter((entry) => entry.questionCount > 0);
 }
 
 function expandPatternGroups({ knowledgePointIds, selectedPatternGroupIds, registry }) {
