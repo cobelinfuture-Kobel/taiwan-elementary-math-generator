@@ -79,6 +79,8 @@ test("S44M G3A-U01 source-unit mode mixes comparison and number-structure specs"
   const patternIds = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.patternSpecId));
   assert.equal(patternIds.has("ps_g3a_u01_4digit_compare"), true);
   assert.equal([...patternIds].some((patternId) => patternId !== "ps_g3a_u01_4digit_compare"), true);
+  const comparison = result.worksheetDocument.generatedQuestions.find((question) => question.patternSpecId === "ps_g3a_u01_4digit_compare");
+  assert.match(comparison.blankedDisplayText, /填入 >、< 或 =/);
 });
 
 test("S44M1-3 digit arrangement worksheet covers max, min, and max-min pair specs", () => {
