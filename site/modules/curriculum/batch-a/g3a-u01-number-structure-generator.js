@@ -12,7 +12,13 @@ export const G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS = Object.freeze({
   sameDigit: "ps_g3a_u01_4digit_same_digit_different_place",
   standardComposition: "ps_g3a_u01_place_value_standard_composition",
   nonstandardComposition: "ps_g3a_u01_place_value_nonstandard_composition",
-  partialComposition: "ps_g3a_u01_place_value_partial_composition"
+  partialComposition: "ps_g3a_u01_place_value_partial_composition",
+  tensToHundredsConversion: "ps_g3a_u01_tens_to_hundreds_conversion",
+  hundredsToThousandsConversion: "ps_g3a_u01_hundreds_to_thousands_conversion",
+  moneyPlaceValueExchange: "ps_g3a_u01_money_place_value_exchange",
+  digitArrangementMax: "ps_g3a_u01_digit_arrangement_max_4digit",
+  digitArrangementMin: "ps_g3a_u01_digit_arrangement_min_4digit_no_leading_zero",
+  digitArrangementPair: "ps_g3a_u01_digit_arrangement_max_min_pair"
 });
 
 const patternIds = Object.freeze(Object.values(G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS));
@@ -108,11 +114,56 @@ function makeComposition(patternSpecId, index, seed) {
   return questionBase(patternSpecId, index, seed, promptText, String(total), { kind: "placeValueComposition", counts, number: total, skill: "place_value" });
 }
 
+function exchangeAnswer(sourceCount, sourceUnit, targetUnit) {
+  const quotient = Math.floor(sourceCount / 10);
+  const remainder = sourceCount % 10;
+  const text = remainder === 0 ? `${quotient}${targetUnit}` : `${quotient}${targetUnit}又${remainder}${sourceUnit}`;
+  return { quotient, remainder, text };
+}
+function makeUnitConversion(patternSpecId, index, seed) {
+  const count = 20 + (hashSeed(`${seed}:${index}:${patternSpecId}`) % 70);
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.tensToHundredsConversion) {
+    const answer = exchangeAnswer(count, "個十", "個百");
+    return questionBase(patternSpecId, index, seed, `${count}個十可以換成幾個百？`, answer.text, { kind: "placeValueUnitConversion", sourceCount: count, sourceUnit: "個十", targetUnit: "個百", answer, skill: "place_value" });
+  }
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.hundredsToThousandsConversion) {
+    const answer = exchangeAnswer(count, "個百", "個千");
+    return questionBase(patternSpecId, index, seed, `${count}個百可以換成幾個千？`, answer.text, { kind: "placeValueUnitConversion", sourceCount: count, sourceUnit: "個百", targetUnit: "個千", answer, skill: "place_value" });
+  }
+  const source = pick([{ sourceUnit: "個10元", targetUnit: "個100元" }, { sourceUnit: "張100元", targetUnit: "張1000元" }], `${seed}:${index}:money`);
+  const answer = exchangeAnswer(count, source.sourceUnit, source.targetUnit);
+  return questionBase(patternSpecId, index, seed, `有${count}${source.sourceUnit}，可以換成幾${source.targetUnit}？`, answer.text, { kind: "moneyPlaceValueExchange", sourceCount: count, ...source, answer, skill: "place_value" });
+}
+
+export function arrangeDigitsMax(digits) {
+  return Number([...digits].sort((a, b) => b - a).join(""));
+}
+export function arrangeDigitsMin(digits) {
+  const sorted = [...digits].sort((a, b) => a - b);
+  const firstIndex = sorted.findIndex((digit) => digit !== 0);
+  const [first] = sorted.splice(firstIndex, 1);
+  return Number([first, ...sorted].join(""));
+}
+function digitSet(seed) {
+  return pick([[0, 1, 6, 9], [2, 4, 7, 8], [0, 3, 5, 8], [1, 2, 5, 9], [0, 2, 5, 8], [3, 4, 6, 9]], seed);
+}
+function makeDigitArrangement(patternSpecId, index, seed) {
+  const digits = digitSet(`${seed}:${index}:${patternSpecId}`);
+  const max = arrangeDigitsMax(digits);
+  const min = arrangeDigitsMin(digits);
+  const digitText = digits.join("、");
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMax) return questionBase(patternSpecId, index, seed, `用 ${digitText} 四個數字組成最大的四位數。`, String(max), { kind: "digitArrangementMax", digits, max, skill: "place_value_reasoning" });
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMin) return questionBase(patternSpecId, index, seed, `用 ${digitText} 四個數字組成最小的四位數。`, String(min), { kind: "digitArrangementMin", digits, min, skill: "place_value_reasoning" });
+  return questionBase(patternSpecId, index, seed, `用 ${digitText} 四個數字組成四位數，最大是多少？最小是多少？`, `最大${max}，最小${min}`, { kind: "digitArrangementPair", digits, max, min, skill: "place_value_reasoning" });
+}
+
 export function generateG3AU01NumberStructureQuestion({ patternSpecId, index = 1, seed = "s44i" } = {}) {
   if (!patternIds.includes(patternSpecId)) throw new Error("g3a_u01_pattern_not_supported");
   if (patternSpecId.includes("number_to_chinese") || patternSpecId.includes("chinese_to_4digit")) return makeRepresentation(patternSpecId, index, seed);
   if (patternSpecId.includes("place_value_full") || patternSpecId.includes("digit_value") || patternSpecId.includes("same_digit")) return makeDecomposition(patternSpecId, index, seed);
   if (patternSpecId.includes("composition")) return makeComposition(patternSpecId, index, seed);
+  if (patternSpecId.includes("conversion") || patternSpecId.includes("exchange")) return makeUnitConversion(patternSpecId, index, seed);
+  if (patternSpecId.includes("digit_arrangement")) return makeDigitArrangement(patternSpecId, index, seed);
   throw new Error("g3a_u01_pattern_not_supported");
 }
 
@@ -125,6 +176,10 @@ export function validateG3AU01NumberStructureQuestion(question) {
     if (question.kind === "chineseToNumber" && Number(question.answerText) !== chineseToNumber4Digit(question.chineseNumber)) errors.push({ code: "g3a_u01_chinese_to_number_answer_mismatch", path: "answerText" });
     if (question.kind === "placeValueDecomposition") { const d = decompose(question.number); const expected = `${d.thousands}個千、${d.hundreds}個百、${d.tens}個十、${d.ones}個一`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_place_value_decomposition_mismatch", path: "answerText" }); }
     if (question.kind === "placeValueComposition") { const c = question.counts; const total = c.thousands * 1000 + c.hundreds * 100 + c.tens * 10 + c.ones; if (String(total) !== question.answerText) errors.push({ code: "g3a_u01_composition_answer_mismatch", path: "answerText" }); }
+    if (["placeValueUnitConversion", "moneyPlaceValueExchange"].includes(question.kind)) { const expected = exchangeAnswer(question.sourceCount, question.sourceUnit, question.targetUnit); if (question.answerText !== expected.text) errors.push({ code: "g3a_u01_unit_conversion_answer_mismatch", path: "answerText" }); }
+    if (question.kind === "digitArrangementMax" && Number(question.answerText) !== arrangeDigitsMax(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_max_mismatch", path: "answerText" });
+    if (question.kind === "digitArrangementMin" && Number(question.answerText) !== arrangeDigitsMin(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_min_mismatch", path: "answerText" });
+    if (question.kind === "digitArrangementPair") { const expected = `最大${arrangeDigitsMax(question.digits)}，最小${arrangeDigitsMin(question.digits)}`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_digit_arrangement_pair_mismatch", path: "answerText" }); }
   } catch (error) { errors.push({ code: error.code ?? error.message, path: "question" }); }
   return { ok: errors.length === 0, errors, warnings: [] };
 }
