@@ -1,0 +1,48 @@
+S43E5_R3J_BROWSER_PDF_SMOKE_FAIL
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+
+local_test_readback:
+- tests 375
+- pass 375
+- fail 0
+- public-main up to date with public/main
+- working tree clean
+
+uploaded_pdf_smoke_files:
+- g3b_u01_二位數除以一位數商位判斷.pdf
+- g3b_u01_三位數除以一位數.pdf
+- g3b_u01_三位數除以一位數商位判斷.pdf
+- g3b_u01_商中有 0 的除法.pdf
+- g3b_u01_有餘數除法.pdf
+- g3b_u01_同單位知識混合_隨機排序.pdf
+
+browser_pdf_smoke_result:
+- local automated tests = PASS
+- 二位數除以一位數商位判斷 = PASS for 2-digit exact division range
+- 三位數除以一位數商位判斷 = PASS for 3-digit exact division range
+- 商中有 0 的除法 = PASS for quotient contains zero
+- 有餘數除法 = PASS for remainder prompt format and remainder cases
+- 同單位混合知識點隨機 = PARTIAL PASS for mixed content/interleaving, but includes blank trailing rendered page
+- 三位數除以一位數 = FAIL; generated two-digit division questions instead of 3-digit dividends
+
+blocking_issue:
+- kp_g3b_u01_3digit_by_1digit_regroup_hundreds currently outputs 2-digit exact division examples in browser PDF smoke.
+- Expected dividend range = 100..999.
+- Observed examples include 56 ÷ 2, 56 ÷ 4, 56 ÷ 7, 24 ÷ 6, 90 ÷ 3.
+
+additional_issue:
+- mixed PDF rendered with a trailing blank page.
+
+STOP_REASON = BROWSER_PDF_SMOKE_FAIL
+BLOCKER_TYPE = G3B_U01_GENERAL_3DIGIT_KP_ROUTING_FAIL
+LAST_COMPLETED_STATUS = npm test PASS 375/375, but R3J PDF smoke failed
+REQUIRED_OPERATOR_ACTION = fix G3B-U01 general 3-digit KP routing and mixed blank page, then rerun npm test and PDF smoke
+NEXT_RESUME_TASK = S43E5_R3J_FIX_G3BU01_GENERAL_3DIGIT_AND_BLANK_PAGE
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_R3_QUOTIENT_ZERO_ALLOCATION_FIX_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3B_U01_R3_LOCAL_PASS_PDF_SMOKE_FAIL_CONFIRMED
+DISTANCE_REDUCED = confirmed automated QA passes and isolated remaining browser PDF smoke blocker
+REMAINING_BLOCKERS = general 3-digit KP emits 2-digit questions; mixed PDF has blank trailing page; final R3K closeout pending
+NEXT_SHORTEST_STEP = fix general 3-digit KP generator routing, then retest
