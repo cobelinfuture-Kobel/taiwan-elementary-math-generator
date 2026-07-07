@@ -25,6 +25,19 @@ export const G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS = Object.freeze({
 });
 
 const patternIds = Object.freeze(Object.values(G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS));
+const digitCombinationPool = Object.freeze((() => {
+  const combinations = [];
+  for (let a = 0; a <= 6; a += 1) {
+    for (let b = a + 1; b <= 7; b += 1) {
+      for (let c = b + 1; c <= 8; c += 1) {
+        for (let d = c + 1; d <= 9; d += 1) {
+          combinations.push(Object.freeze([a, b, c, d]));
+        }
+      }
+    }
+  }
+  return combinations;
+})());
 
 function hashSeed(value) {
   let acc = 0;
@@ -150,10 +163,14 @@ export function arrangeDigitsMin(digits) {
   const [first] = sorted.splice(firstIndex, 1);
   return Number([first, ...sorted].join(""));
 }
-function digitSet(seed) { return pick([[0, 1, 6, 9], [2, 4, 7, 8], [0, 3, 5, 8], [1, 2, 5, 9], [0, 2, 5, 8], [3, 4, 6, 9]], seed); }
+function digitSet(seed, index, patternSpecId) {
+  const base = hashSeed(`${seed}:${patternSpecId}`) % digitCombinationPool.length;
+  const offset = ((Math.max(1, Number(index) || 1) - 1) * 37) % digitCombinationPool.length;
+  return [...digitCombinationPool[(base + offset) % digitCombinationPool.length]];
+}
 function digitArrangementPrompt(digitText, promptBody) { return `用 ${digitText} 四個數字${promptBody}，每個數字只能用一次。`; }
 function makeDigitArrangement(patternSpecId, index, seed) {
-  const digits = digitSet(`${seed}:${index}:${patternSpecId}`);
+  const digits = digitSet(seed, index, patternSpecId);
   const max = arrangeDigitsMax(digits);
   const min = arrangeDigitsMin(digits);
   const digitText = digits.join("、");
