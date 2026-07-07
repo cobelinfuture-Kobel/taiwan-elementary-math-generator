@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 
 import {
   G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS as P,
+  arrangeDigitsMax,
+  arrangeDigitsMin,
   chineseToNumber4Digit,
   generateG3AU01NumberStructureQuestion,
   numberToChinese4Digit,
@@ -46,5 +48,34 @@ test("S44I generates and validates place-value composition questions", () => {
     assert.equal(result.ok, true, JSON.stringify(result.errors));
     assert.equal(question.sourceId, "g3a_u01_3a01");
     assert.match(question.blankedDisplayText, /合起來是多少/);
+  }
+});
+
+test("S44J generates and validates place-value unit conversion questions", () => {
+  for (const patternSpecId of [P.tensToHundredsConversion, P.hundredsToThousandsConversion, P.moneyPlaceValueExchange]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44j-conversion", index: 4 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.equal(question.answer.quotient, Math.floor(question.sourceCount / 10));
+    assert.equal(question.answer.remainder, question.sourceCount % 10);
+  }
+});
+
+test("S44J arranges digits into valid max and min four-digit numbers", () => {
+  assert.equal(arrangeDigitsMax([0, 1, 6, 9]), 9610);
+  assert.equal(arrangeDigitsMin([0, 1, 6, 9]), 1069);
+  assert.equal(arrangeDigitsMax([2, 4, 7, 8]), 8742);
+  assert.equal(arrangeDigitsMin([2, 4, 7, 8]), 2478);
+});
+
+test("S44J generates and validates digit arrangement questions", () => {
+  for (const patternSpecId of [P.digitArrangementMax, P.digitArrangementMin, P.digitArrangementPair]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44j-arrangement", index: 5 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.equal(question.digits.length, 4);
+    assert.equal(new Set(question.digits).size, 4);
   }
 });
