@@ -1,0 +1,25 @@
+S43E5_R3_CAPACITY_ERROR_MESSAGE_PENDING_READBACK
+
+status = IMPLEMENTED_READBACK_PENDING
+sourceId = g3b_u01_3b01
+
+scope:
+- message-only fix
+- keep uniqueness guard
+- no broad generator relaxation
+
+change:
+- G3B-U01 pool exhaustion errors now include availableUniqueQuestionCount
+- errors also include requestedQuestionCount and generatedQuestionCount
+- message tells the user how many unique questions the pool can provide and to lower the question count or use mixed mode
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_R3_CAPACITY_BLOCKER_IDENTIFIED
+GOAL_DISTANCE_AFTER = D1_G3B_U01_R3_CAPACITY_ERROR_MESSAGE_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = replaced opaque pool exhaustion UX with capacity-aware message
+REMAINING_BLOCKERS = npm test readback pending; browser error message smoke pending; R3K closeout pending
+NEXT_SHORTEST_STEP = local test readback
