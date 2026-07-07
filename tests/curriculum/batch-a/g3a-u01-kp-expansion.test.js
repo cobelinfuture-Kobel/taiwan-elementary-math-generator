@@ -9,14 +9,28 @@ const SOURCE_ID = "g3a_u01_3a01";
 const KP_ID = "kp_g3a_u01_4digit_compare";
 const GROUP_ID = "pg_g3a_u01_4digit_compare";
 const SPEC_ID = "ps_g3a_u01_4digit_compare";
+const EXPANDED_KPS = Object.freeze([
+  ["kp_g3a_u01_number_to_chinese", 2],
+  ["kp_g3a_u01_chinese_to_number", 2],
+  ["kp_g3a_u01_digit_place_value_decomposition", 3],
+  ["kp_g3a_u01_place_value_composition", 3],
+  ["kp_g3a_u01_place_value_unit_conversion", 3],
+  ["kp_g3a_u01_digit_arrangement_max_min", 3],
+  ["kp_g3a_u01_range_reasoning", 3]
+]);
 
-test("S43E1 G3A U01 exposes four-digit comparison KP", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 34);
-  assert.equal(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID).visibleCount, 1);
+test("S43E1/S44L G3A U01 exposes expanded KP set", () => {
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 41);
+  assert.equal(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID).visibleCount, 8);
   const kp = getVisibleBatchAKnowledgePoint(KP_ID);
   assert.equal(kp.sourceId, SOURCE_ID);
   assert.equal(kp.displayName, "四位數比大小");
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(KP_ID), [SPEC_ID]);
+  for (const [kpId, specCount] of EXPANDED_KPS) {
+    const expanded = getVisibleBatchAKnowledgePoint(kpId);
+    assert.equal(expanded.sourceId, SOURCE_ID);
+    assert.equal(resolveVisiblePatternSpecIdsForKnowledgePoint(kpId).length, specCount);
+  }
 });
 
 test("S43E1 G3A U01 resolver accepts single comparison KP", () => {
