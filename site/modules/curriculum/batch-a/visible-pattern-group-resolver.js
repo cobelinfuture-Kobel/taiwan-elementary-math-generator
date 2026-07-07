@@ -27,6 +27,7 @@ export const BATCH_A_RESOLVER_ERROR_CODES = Object.freeze({
 });
 
 const VALID_SELECTION_MODES = Object.freeze(Object.values(BATCH_A_RESOLVER_SELECTION_MODES));
+const MULTISPEC_ALLOCATION_SOURCE_IDS = Object.freeze(new Set(["g3a_u01_3a01"]));
 
 const DEFAULT_REGISTRY_ACCESS = Object.freeze({
   listVisibleBatchAKnowledgePoints,
@@ -117,10 +118,16 @@ function ok(plan) {
   return plan;
 }
 
+function shouldExpandGroupPatternSpecs(group) {
+  return MULTISPEC_ALLOCATION_SOURCE_IDS.has(group.sourceId);
+}
+
 function buildAllocationCandidates(patternGroups, patternSpecIdsByGroup) {
   const candidates = [];
   for (const group of patternGroups) {
-    for (const patternSpecId of patternSpecIdsByGroup.get(group.patternGroupId) ?? []) {
+    const specIds = patternSpecIdsByGroup.get(group.patternGroupId) ?? [];
+    const selectedSpecIds = shouldExpandGroupPatternSpecs(group) ? specIds : specIds.slice(0, 1);
+    for (const patternSpecId of selectedSpecIds) {
       candidates.push({ patternGroupId: group.patternGroupId, patternSpecId });
     }
   }
