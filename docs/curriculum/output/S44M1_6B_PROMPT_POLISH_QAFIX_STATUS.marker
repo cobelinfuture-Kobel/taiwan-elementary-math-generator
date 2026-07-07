@@ -1,0 +1,18 @@
+S44M1_6B_G3A_U01_PROMPT_POLISH_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+fixed:
+- digit arrangement max/min-pair prompt no longer produces awkward "？，每個" punctuation.
+- max/min-pair wording is now "最大和最小分別是多少？每個數字只能用一次。"
+- money exchange prompts now use a natural comma before "可以換成".
+- 10元 to 100元 exchange now asks for "張100元" instead of "個100元".
+- G3A-U01 comparison prompts now explicitly instruct students to fill in >、< 或 =.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1-5_G3A_U01_ChineseNumeralCanonicalZeroRuleCheck after local tests pass
