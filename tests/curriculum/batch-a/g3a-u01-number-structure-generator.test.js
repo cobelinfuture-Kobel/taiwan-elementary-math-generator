@@ -11,6 +11,17 @@ import {
   validateG3AU01NumberStructureQuestion
 } from "../../../site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js";
 
+function longestStepOneRun(numbers) {
+  let longest = 1;
+  let current = 1;
+  for (let index = 1; index < numbers.length; index += 1) {
+    if (Math.abs(numbers[index] - numbers[index - 1]) === 1) current += 1;
+    else current = 1;
+    longest = Math.max(longest, current);
+  }
+  return longest;
+}
+
 test("S44I converts four-digit Arabic numbers and Chinese numerals", () => {
   assert.equal(numberToChinese4Digit(2798), "二千七百九十八");
   assert.equal(numberToChinese4Digit(4006), "四千零六");
@@ -136,4 +147,19 @@ test("S44M1-5 Chinese numeral zero-ten canonical form is concise but backward-co
   assert.equal(chineseToNumber4Digit("五千零一十六"), 5016);
   assert.equal(chineseToNumber4Digit("九千零十"), 9010);
   assert.equal(chineseToNumber4Digit("九千零一十"), 9010);
+});
+
+test("S44M1-6c place-value number selections avoid duplicates and visible step-one sequences", () => {
+  for (const patternSpecId of [P.fullDecomposition, P.digitValue, P.sameDigit]) {
+    const questions = Array.from({ length: 24 }, (_, offset) => generateG3AU01NumberStructureQuestion({
+      patternSpecId,
+      seed: "s44m1-diversity",
+      index: offset + 1
+    }));
+    const resultErrors = questions.flatMap((question) => validateG3AU01NumberStructureQuestion(question).errors);
+    assert.equal(resultErrors.length, 0, `${patternSpecId}: ${JSON.stringify(resultErrors)}`);
+    const numbers = questions.map((question) => question.number);
+    assert.equal(new Set(numbers).size, numbers.length, patternSpecId);
+    assert.equal(longestStepOneRun(numbers) <= 2, true, `${patternSpecId}: ${numbers.join(",")}`);
+  }
 });
