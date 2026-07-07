@@ -18,7 +18,10 @@ export const G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS = Object.freeze({
   moneyPlaceValueExchange: "ps_g3a_u01_money_place_value_exchange",
   digitArrangementMax: "ps_g3a_u01_digit_arrangement_max_4digit",
   digitArrangementMin: "ps_g3a_u01_digit_arrangement_min_4digit_no_leading_zero",
-  digitArrangementPair: "ps_g3a_u01_digit_arrangement_max_min_pair"
+  digitArrangementPair: "ps_g3a_u01_digit_arrangement_max_min_pair",
+  rangeCompareReasoning: "ps_g3a_u01_4digit_range_compare_reasoning",
+  serialNumberRange: "ps_g3a_u01_4digit_serial_number_range",
+  priceRangeReasoning: "ps_g3a_u01_4digit_price_range_reasoning"
 });
 
 const patternIds = Object.freeze(Object.values(G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS));
@@ -135,18 +138,14 @@ function makeUnitConversion(patternSpecId, index, seed) {
   return questionBase(patternSpecId, index, seed, `有${count}${source.sourceUnit}，可以換成幾${source.targetUnit}？`, answer.text, { kind: "moneyPlaceValueExchange", sourceCount: count, ...source, answer, skill: "place_value" });
 }
 
-export function arrangeDigitsMax(digits) {
-  return Number([...digits].sort((a, b) => b - a).join(""));
-}
+export function arrangeDigitsMax(digits) { return Number([...digits].sort((a, b) => b - a).join("")); }
 export function arrangeDigitsMin(digits) {
   const sorted = [...digits].sort((a, b) => a - b);
   const firstIndex = sorted.findIndex((digit) => digit !== 0);
   const [first] = sorted.splice(firstIndex, 1);
   return Number([first, ...sorted].join(""));
 }
-function digitSet(seed) {
-  return pick([[0, 1, 6, 9], [2, 4, 7, 8], [0, 3, 5, 8], [1, 2, 5, 9], [0, 2, 5, 8], [3, 4, 6, 9]], seed);
-}
+function digitSet(seed) { return pick([[0, 1, 6, 9], [2, 4, 7, 8], [0, 3, 5, 8], [1, 2, 5, 9], [0, 2, 5, 8], [3, 4, 6, 9]], seed); }
 function makeDigitArrangement(patternSpecId, index, seed) {
   const digits = digitSet(`${seed}:${index}:${patternSpecId}`);
   const max = arrangeDigitsMax(digits);
@@ -157,6 +156,29 @@ function makeDigitArrangement(patternSpecId, index, seed) {
   return questionBase(patternSpecId, index, seed, `用 ${digitText} 四個數字組成四位數，最大是多少？最小是多少？`, `最大${max}，最小${min}`, { kind: "digitArrangementPair", digits, max, min, skill: "place_value_reasoning" });
 }
 
+function rangeValues(seed) {
+  const lower = 1000 + (hashSeed(`${seed}:lower`) % 6500);
+  const width = 300 + (hashSeed(`${seed}:width`) % 1200);
+  const upper = Math.min(9999, lower + width);
+  const inside = lower + 1 + (hashSeed(`${seed}:inside`) % Math.max(1, upper - lower - 1));
+  const outside = Math.max(1000, lower - 1 - (hashSeed(`${seed}:outside`) % 200));
+  return { lower, upper, inside, outside };
+}
+function makeRangeReasoning(patternSpecId, index, seed) {
+  const values = rangeValues(`${seed}:${index}:${patternSpecId}`);
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.rangeCompareReasoning) {
+    return questionBase(patternSpecId, index, seed, `哪一個數在 ${values.lower} 和 ${values.upper} 之間？A ${values.inside}　B ${values.outside}`, "A", { kind: "rangeCompareReasoning", ...values, choices: { A: values.inside, B: values.outside }, skill: "place_value_reasoning" });
+  }
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.serialNumberRange) {
+    const start = values.lower;
+    const count = 100 + (hashSeed(`${seed}:${index}:count`) % 500);
+    const end = start + count - 1;
+    return questionBase(patternSpecId, index, seed, `編號從 ${start} 到 ${end}，共有幾個編號？`, String(count), { kind: "serialNumberRange", start, end, count, skill: "place_value_reasoning" });
+  }
+  const price = values.inside;
+  return questionBase(patternSpecId, index, seed, `某商品價格大於 ${values.lower} 元且小於 ${values.upper} 元，下列哪個可能？A ${price}元　B ${values.outside}元`, "A", { kind: "priceRangeReasoning", ...values, price, choices: { A: price, B: values.outside }, skill: "place_value_reasoning" });
+}
+
 export function generateG3AU01NumberStructureQuestion({ patternSpecId, index = 1, seed = "s44i" } = {}) {
   if (!patternIds.includes(patternSpecId)) throw new Error("g3a_u01_pattern_not_supported");
   if (patternSpecId.includes("number_to_chinese") || patternSpecId.includes("chinese_to_4digit")) return makeRepresentation(patternSpecId, index, seed);
@@ -164,6 +186,7 @@ export function generateG3AU01NumberStructureQuestion({ patternSpecId, index = 1
   if (patternSpecId.includes("composition")) return makeComposition(patternSpecId, index, seed);
   if (patternSpecId.includes("conversion") || patternSpecId.includes("exchange")) return makeUnitConversion(patternSpecId, index, seed);
   if (patternSpecId.includes("digit_arrangement")) return makeDigitArrangement(patternSpecId, index, seed);
+  if (patternSpecId.includes("range") || patternSpecId.includes("price")) return makeRangeReasoning(patternSpecId, index, seed);
   throw new Error("g3a_u01_pattern_not_supported");
 }
 
@@ -180,6 +203,8 @@ export function validateG3AU01NumberStructureQuestion(question) {
     if (question.kind === "digitArrangementMax" && Number(question.answerText) !== arrangeDigitsMax(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_max_mismatch", path: "answerText" });
     if (question.kind === "digitArrangementMin" && Number(question.answerText) !== arrangeDigitsMin(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_min_mismatch", path: "answerText" });
     if (question.kind === "digitArrangementPair") { const expected = `最大${arrangeDigitsMax(question.digits)}，最小${arrangeDigitsMin(question.digits)}`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_digit_arrangement_pair_mismatch", path: "answerText" }); }
+    if (["rangeCompareReasoning", "priceRangeReasoning"].includes(question.kind) && !(question.choices.A > question.lower && question.choices.A < question.upper && question.answerText === "A")) errors.push({ code: "g3a_u01_range_reasoning_answer_mismatch", path: "answerText" });
+    if (question.kind === "serialNumberRange" && Number(question.answerText) !== question.end - question.start + 1) errors.push({ code: "g3a_u01_range_reasoning_serial_boundary_mismatch", path: "answerText" });
   } catch (error) { errors.push({ code: error.code ?? error.message, path: "question" }); }
   return { ok: errors.length === 0, errors, warnings: [] };
 }
