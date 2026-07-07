@@ -1,0 +1,21 @@
+S44M1_3_G3A_U01_ALLOCATION_SCOPE_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+root_cause:
+- The first allocation QA fix expanded multi-spec allocation globally.
+- Existing non-G3A-U01 multi-spec groups, especially G3B-U01 word-problem groups, intentionally still allocate one PatternSpec per PatternGroup in current tests.
+- This changed G3B-U01 word-problem mixed worksheet allocation from 5 groups to 12 PatternSpecs.
+
+fixed:
+- multi-spec allocation expansion is now scoped to G3A-U01 only.
+- other sources retain legacy one-PatternSpec-per-PatternGroup allocation behavior.
+- this preserves S43E5 G3B-U01 expectations while allowing G3A-U01 max/min/pair rotation.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1-4_G3A_U01_PatternSpecRotationFix after local tests pass
