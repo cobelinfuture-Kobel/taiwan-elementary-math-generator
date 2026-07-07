@@ -1,0 +1,12 @@
+S43E5_R4E_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+operator_readback = tests 387, pass 387, fail 0, working tree clean
+status = PASS
+next_task = S43E5_R4F_G3BU01_RemainderInterpretationTemplates
+
+GOAL_DISTANCE_BEFORE = D2
+GOAL_DISTANCE_AFTER = D2
+DISTANCE_REDUCED = R4E templates passed local validation
+REMAINING_BLOCKERS = remainder interpretation templates; two-step templates; generator validator UI; browser PDF smoke
+NEXT_SHORTEST_STEP = S43E5_R4F_G3BU01_RemainderInterpretationTemplates
