@@ -1,0 +1,31 @@
+S43E5_R4B_WORD_PROBLEM_SCHEMA_CONTRACT_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+
+completed_scope:
+- added G3B-U01 word-problem TemplateSpec contract module
+- locked five word-problem UI KnowledgePoint candidates
+- locked twelve word-problem PatternSpecs
+- locked first-pass template target count = 20
+- added TemplateSpec validation contract
+- added registry contract validation tests
+
+files:
+- site/modules/curriculum/batch-a/g3b-u01-word-problem-template-contract.js
+- tests/curriculum/batch-a/g3b-u01-word-problem-template-contract.test.js
+
+task_status:
+- S43E5_R4B_G3BU01_WordProblemSchemaAndRegistryContract = IMPLEMENTED_READBACK_PENDING
+- R4C implementation not started
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D2_G3B_U01_WORD_PROBLEM_TEMPLATESPEC_DESIGN_LOCKED
+GOAL_DISTANCE_AFTER = D2_G3B_U01_WORD_PROBLEM_SCHEMA_REGISTRY_CONTRACT_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = moved R4 word-problem work from design document to executable schema/registry contract and tests
+REMAINING_BLOCKERS = npm test readback pending; word-problem templates not implemented; UI selector not integrated; browser PDF smoke pending
+NEXT_SHORTEST_STEP = local test readback, then S43E5_R4C_G3BU01_PartitiveDivisionTemplates
