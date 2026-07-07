@@ -1,0 +1,32 @@
+S43E5_R4C_PARTITIVE_DIVISION_TEMPLATES_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+
+completed_scope:
+- S43E5_R4B local readback PASS recorded
+- added partitive word-problem template module
+- added 4 first-pass partitive templates
+- covered 2 PatternSpecs:
+  - ps_g3b_u01_wp_partitive_equal_sharing
+  - ps_g3b_u01_wp_partitive_unit_rate
+- added tests for template count, semantic model, operation model, answer model, and prompt shape
+
+files:
+- site/modules/curriculum/batch-a/g3b-u01-word-problem-partitive-templates.js
+- tests/curriculum/batch-a/g3b-u01-word-problem-partitive-templates.test.js
+
+task_status:
+- S43E5_R4C_G3BU01_PartitiveDivisionTemplates = IMPLEMENTED_READBACK_PENDING
+- R4D implementation not started
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D2_G3B_U01_WORD_PROBLEM_SCHEMA_REGISTRY_CONTRACT_LOCAL_PASS
+GOAL_DISTANCE_AFTER = D2_G3B_U01_WORD_PROBLEM_PARTITIVE_TEMPLATES_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = added first executable TemplateSpec data for the partitive/equal-sharing word-problem layer
+REMAINING_BLOCKERS = npm test readback pending; quotative/remainder/two-step templates not implemented; generator/validator/UI not integrated; browser PDF smoke pending
+NEXT_SHORTEST_STEP = local test readback, then S43E5_R4D_G3BU01_QuotativeDivisionTemplates
