@@ -4,6 +4,7 @@ import { generateG3BU01WordProblem } from "./g3b-u01-word-problem-generator.js";
 import { generateG3AU01NumberStructureQuestion } from "./g3a-u01-number-structure-generator.js";
 
 const g3aU01SourceId = "g3a_u01_3a01";
+const g3aU01ComparisonSpecId = "ps_g3a_u01_4digit_compare";
 const sourceIds = Object.freeze([g3aU01SourceId, "g3a_u06_3a06", "g3b_u01_3b01"]);
 const g3bU01SourceId = "g3b_u01_3b01";
 const g3aU01NumberStructureSpecIds = Object.freeze([
@@ -27,6 +28,7 @@ const g3aU01NumberStructureSpecIds = Object.freeze([
   "ps_g3a_u01_4digit_serial_number_range",
   "ps_g3a_u01_4digit_price_range_reasoning"
 ]);
+const g3aU01SupportedSpecIds = Object.freeze([g3aU01ComparisonSpecId, ...g3aU01NumberStructureSpecIds]);
 const g3bU01CalculationSpecIds = Object.freeze([
   "ps_g3b_u01_3digit_by_1digit_regroup_hundreds",
   "ps_g3b_u01_2digit_by_1digit_regroup_tens",
@@ -110,8 +112,8 @@ function allocateCounts(patternSpecIds, questionCount) {
   }).filter((entry) => entry.questionCount > 0);
 }
 
-function isG3AU01NumberStructurePlan(plan) {
-  return plan?.sourceId === g3aU01SourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0 && plan.patternSpecIds.every((id) => g3aU01NumberStructureSpecIds.includes(id));
+function isG3AU01Plan(plan) {
+  return plan?.sourceId === g3aU01SourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0 && plan.patternSpecIds.every((id) => g3aU01SupportedSpecIds.includes(id));
 }
 
 function isG3BU01WordProblemPlan(plan) {
@@ -125,7 +127,45 @@ function isG3BU01MixedCalculationWordProblemPlan(plan) {
   return hasCalculation && hasWordProblem && plan.patternSpecIds.every((id) => g3bU01SupportedSpecIds.includes(id));
 }
 
-function makeMetadata(patternSpecId, semanticModel) {
+function makeG3AU01Metadata(patternSpecId, canonicalSkillId = "integer_comparison", extraSkillTags = []) {
+  return {
+    patternId: patternSpecId,
+    sourceId: g3aU01SourceId,
+    patternTags: ["batch_a", "browser_bridge", g3aU01SourceId, patternSpecId],
+    skillTags: [canonicalSkillId, ...extraSkillTags],
+    difficultyTags: ["batch_a_browser_bridge", "g3a_u01"],
+    curriculumNodeIds: [g3aU01SourceId],
+    canonicalSkillIds: [canonicalSkillId]
+  };
+}
+
+function comparisonSymbol(left, right) {
+  return left > right ? ">" : left < right ? "<" : "=";
+}
+
+function makeG3AU01ComparisonQuestion(sequenceNumber, seed) {
+  const seedValue = hashSeed(`${seed}:${g3aU01ComparisonSpecId}:${sequenceNumber}`);
+  const left = 1000 + (seedValue % 9000);
+  let right = 1000 + (Math.floor(seedValue / 17) % 9000);
+  if (right === left) right = right === 9999 ? 1000 : right + 1;
+  const answerText = comparisonSymbol(left, right);
+  return {
+    id: `${g3aU01ComparisonSpecId}-${sequenceNumber}`,
+    patternSpecId: g3aU01ComparisonSpecId,
+    sourceId: g3aU01SourceId,
+    kind: "comparison",
+    left,
+    right,
+    promptText: `比較 ${left} 和 ${right} 的大小。`,
+    displayText: `${left} ${answerText} ${right}`,
+    blankedDisplayText: `${left} ___ ${right}`,
+    answerText,
+    finalAnswer: answerText,
+    metadata: makeG3AU01Metadata(g3aU01ComparisonSpecId, "integer_comparison", ["four_digit", "comparison"])
+  };
+}
+
+function makeG3BU01Metadata(patternSpecId, semanticModel) {
   return {
     patternId: patternSpecId,
     sourceId: g3bU01SourceId,
@@ -156,22 +196,26 @@ function makeWordProblemQuestion(patternSpecId, sequenceNumber, seed) {
     answer: cloneValue(question.answer),
     answerModel: cloneValue(question.answerModel),
     operationModel: cloneValue(question.operationModel),
-    metadata: makeMetadata(patternSpecId, question.semanticModel)
+    metadata: makeG3BU01Metadata(patternSpecId, question.semanticModel)
   };
 }
 
-function generateG3AU01NumberStructureQuestions(options = {}) {
+function generateG3AU01Questions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : allocateCounts(plan.patternSpecIds, plan.questionCount);
   const questions = [];
   const errors = [];
   for (const entry of allocation) {
-    if (!g3aU01NumberStructureSpecIds.includes(entry.patternSpecId)) {
-      errors.push({ code: "batch_a_g3a_u01_pattern_not_supported", severity: "error", path: entry.patternSpecId, message: "Unsupported G3A-U01 number-structure PatternSpec" });
+    if (!g3aU01SupportedSpecIds.includes(entry.patternSpecId)) {
+      errors.push({ code: "batch_a_g3a_u01_pattern_not_supported", severity: "error", path: entry.patternSpecId, message: "Unsupported G3A-U01 PatternSpec" });
       continue;
     }
     for (let index = 0; index < entry.questionCount; index += 1) {
-      questions.push(generateG3AU01NumberStructureQuestion({ patternSpecId: entry.patternSpecId, index: questions.length + 1, seed: `${plan.generationSeed}:${entry.patternSpecId}` }));
+      if (entry.patternSpecId === g3aU01ComparisonSpecId) {
+        questions.push(makeG3AU01ComparisonQuestion(questions.length + 1, plan.generationSeed));
+      } else {
+        questions.push(generateG3AU01NumberStructureQuestion({ patternSpecId: entry.patternSpecId, index: questions.length + 1, seed: `${plan.generationSeed}:${entry.patternSpecId}` }));
+      }
     }
   }
   return { ok: errors.length === 0, plan, questions: interleaveAcrossPatternSpecs(questions, plan, allocation), allocation, errors, warnings: [] };
@@ -238,7 +282,7 @@ function generateG3BU01MixedCalculationWordProblemQuestions(options = {}) {
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
-  if (isG3AU01NumberStructurePlan(plan)) return generateG3AU01NumberStructureQuestions(options);
+  if (isG3AU01Plan(plan)) return generateG3AU01Questions(options);
   if (isG3BU01MixedCalculationWordProblemPlan(plan)) return generateG3BU01MixedCalculationWordProblemQuestions(options);
   if (isG3BU01WordProblemPlan(plan)) return generateG3BU01WordProblemQuestions(options);
   const result = generateBaseG3AU06DivisionQuestions(options);
