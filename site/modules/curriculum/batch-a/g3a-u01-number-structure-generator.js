@@ -151,14 +151,15 @@ export function arrangeDigitsMin(digits) {
   return Number([first, ...sorted].join(""));
 }
 function digitSet(seed) { return pick([[0, 1, 6, 9], [2, 4, 7, 8], [0, 3, 5, 8], [1, 2, 5, 9], [0, 2, 5, 8], [3, 4, 6, 9]], seed); }
+function digitArrangementPrompt(digitText, promptBody) { return `用 ${digitText} 四個數字${promptBody}，每個數字只能用一次。`; }
 function makeDigitArrangement(patternSpecId, index, seed) {
   const digits = digitSet(`${seed}:${index}:${patternSpecId}`);
   const max = arrangeDigitsMax(digits);
   const min = arrangeDigitsMin(digits);
   const digitText = digits.join("、");
-  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMax) return questionBase(patternSpecId, index, seed, `用 ${digitText} 四個數字組成最大的四位數。`, String(max), { kind: "digitArrangementMax", digits, max, skill: "place_value_reasoning" });
-  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMin) return questionBase(patternSpecId, index, seed, `用 ${digitText} 四個數字組成最小的四位數。`, String(min), { kind: "digitArrangementMin", digits, min, skill: "place_value_reasoning" });
-  return questionBase(patternSpecId, index, seed, `用 ${digitText} 四個數字組成四位數，最大是多少？最小是多少？`, `最大${max}，最小${min}`, { kind: "digitArrangementPair", digits, max, min, skill: "place_value_reasoning" });
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMax) return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "組成最大的四位數"), String(max), { kind: "digitArrangementMax", digits, max, skill: "place_value_reasoning" });
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.digitArrangementMin) return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "組成最小的四位數"), String(min), { kind: "digitArrangementMin", digits, min, skill: "place_value_reasoning" });
+  return questionBase(patternSpecId, index, seed, digitArrangementPrompt(digitText, "組成四位數，最大是多少？最小是多少？"), `最大${max}，最小${min}`, { kind: "digitArrangementPair", digits, max, min, skill: "place_value_reasoning" });
 }
 
 function rangeValues(seed) {
@@ -217,6 +218,7 @@ export function validateG3AU01NumberStructureQuestion(question) {
     if (question.kind === "digitArrangementMax" && Number(question.answerText) !== arrangeDigitsMax(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_max_mismatch", path: "answerText" });
     if (question.kind === "digitArrangementMin" && Number(question.answerText) !== arrangeDigitsMin(question.digits)) errors.push({ code: "g3a_u01_digit_arrangement_min_mismatch", path: "answerText" });
     if (question.kind === "digitArrangementPair") { const expected = `最大${arrangeDigitsMax(question.digits)}，最小${arrangeDigitsMin(question.digits)}`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_digit_arrangement_pair_mismatch", path: "answerText" }); }
+    if (["digitArrangementMax", "digitArrangementMin", "digitArrangementPair"].includes(question.kind) && !String(question.blankedDisplayText ?? "").includes("每個數字只能用一次")) errors.push({ code: "g3a_u01_digit_arrangement_reuse_rule_missing", path: "blankedDisplayText" });
     if (["rangeCompareReasoning", "priceRangeReasoning"].includes(question.kind)) { const labels = validChoiceLabels(question); if (labels.length !== 1 || question.answerText !== labels[0]) errors.push({ code: "g3a_u01_range_reasoning_answer_mismatch", path: "answerText" }); }
     if (question.kind === "serialNumberRange" && Number(question.answerText) !== question.end - question.start + 1) errors.push({ code: "g3a_u01_range_reasoning_serial_boundary_mismatch", path: "answerText" });
   } catch (error) { errors.push({ code: error.code ?? error.message, path: "question" }); }
