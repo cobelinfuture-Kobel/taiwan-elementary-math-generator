@@ -4,6 +4,19 @@ import { generateG3BU01WordProblem } from "./g3b-u01-word-problem-generator.js";
 
 const sourceIds = Object.freeze(["g3a_u06_3a06", "g3b_u01_3b01"]);
 const g3bU01SourceId = "g3b_u01_3b01";
+const g3bU01CalculationSpecIds = Object.freeze([
+  "ps_g3b_u01_3digit_by_1digit_regroup_hundreds",
+  "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+  "ps_g3b_u01_2digit_leading_digit_insufficient",
+  "ps_g3b_u01_2digit_ones_quotient_zero",
+  "ps_g3b_u01_2digit_leading_digit_exact",
+  "ps_g3b_u01_3digit_hundreds_insufficient",
+  "ps_g3b_u01_3digit_tens_quotient_zero",
+  "ps_g3b_u01_3digit_ones_quotient_zero",
+  "ps_g3b_u01_3digit_hundreds_exact",
+  "ps_g3b_u01_2digit_division_with_remainder",
+  "ps_g3b_u01_3digit_division_with_remainder"
+]);
 const g3bU01WordProblemSpecIds = Object.freeze([
   "ps_g3b_u01_wp_partitive_equal_sharing",
   "ps_g3b_u01_wp_partitive_unit_rate",
@@ -18,6 +31,7 @@ const g3bU01WordProblemSpecIds = Object.freeze([
   "ps_g3b_u01_wp_two_step_divide_then_subtract",
   "ps_g3b_u01_wp_two_step_subtract_then_divide"
 ]);
+const g3bU01SupportedSpecIds = Object.freeze([...g3bU01CalculationSpecIds, ...g3bU01WordProblemSpecIds]);
 
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
@@ -61,6 +75,13 @@ function interleaveAcrossPatternSpecs(questions, plan, allocation) {
 
 function isG3BU01WordProblemPlan(plan) {
   return plan?.sourceId === g3bU01SourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0 && plan.patternSpecIds.every((id) => g3bU01WordProblemSpecIds.includes(id));
+}
+
+function isG3BU01MixedCalculationWordProblemPlan(plan) {
+  if (plan?.sourceId !== g3bU01SourceId || !Array.isArray(plan.patternSpecIds) || plan.patternSpecIds.length === 0) return false;
+  const hasCalculation = plan.patternSpecIds.some((id) => g3bU01CalculationSpecIds.includes(id));
+  const hasWordProblem = plan.patternSpecIds.some((id) => g3bU01WordProblemSpecIds.includes(id));
+  return hasCalculation && hasWordProblem && plan.patternSpecIds.every((id) => g3bU01SupportedSpecIds.includes(id));
 }
 
 function makeMetadata(patternSpecId, semanticModel) {
@@ -110,8 +131,49 @@ function generateG3BU01WordProblemQuestions(options = {}) {
   return { ok: errors.length === 0, plan, questions: interleaveAcrossPatternSpecs(questions, plan, allocation), allocation, errors, warnings: [] };
 }
 
+function generateCalculationEntryQuestions(options, plan, entry) {
+  const result = generateBaseG3AU06DivisionQuestions({
+    ...options,
+    selectedPatternGroupIds: [entry.patternGroupId],
+    questionCount: entry.questionCount,
+    generationSeed: `${plan.generationSeed}:${entry.patternSpecId}`
+  });
+  if (!result.ok) return result;
+  return { ...result, questions: result.questions.map((question, index) => ({ ...question, id: `${question.id}-mixed-${index + 1}` })) };
+}
+
+function generateG3BU01MixedCalculationWordProblemQuestions(options = {}) {
+  const plan = buildBatchABrowserPlan(options);
+  const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : [];
+  const questions = [];
+  const errors = [];
+  const warnings = [];
+
+  for (const entry of allocation) {
+    if (g3bU01WordProblemSpecIds.includes(entry.patternSpecId)) {
+      for (let index = 0; index < entry.questionCount; index += 1) questions.push(makeWordProblemQuestion(entry.patternSpecId, questions.length + 1, plan.generationSeed));
+      continue;
+    }
+    if (g3bU01CalculationSpecIds.includes(entry.patternSpecId)) {
+      const result = generateCalculationEntryQuestions(options, plan, entry);
+      if (!result.ok) {
+        errors.push(...(result.errors ?? []));
+        warnings.push(...(result.warnings ?? []));
+      } else {
+        questions.push(...result.questions);
+        warnings.push(...(result.warnings ?? []));
+      }
+      continue;
+    }
+    errors.push({ code: "batch_a_g3b_u01_mixed_pattern_not_supported", severity: "error", path: entry.patternSpecId, message: "Unsupported G3B-U01 mixed PatternSpec" });
+  }
+
+  return { ok: errors.length === 0, plan, questions: interleaveAcrossPatternSpecs(questions, plan, allocation), allocation, errors, warnings };
+}
+
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (isG3BU01MixedCalculationWordProblemPlan(plan)) return generateG3BU01MixedCalculationWordProblemQuestions(options);
   if (isG3BU01WordProblemPlan(plan)) return generateG3BU01WordProblemQuestions(options);
   const result = generateBaseG3AU06DivisionQuestions(options);
   if (!result.ok) return result;
