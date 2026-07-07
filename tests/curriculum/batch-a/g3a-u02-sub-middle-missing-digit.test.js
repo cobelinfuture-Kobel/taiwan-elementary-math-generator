@@ -15,7 +15,7 @@ function hasMiddleBlank(question) { return question.blanks.some((blank) => blank
 
 test("S43G4O4 selector exposes sub middle missing digit KP", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 26);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 29);
   assert.equal(availability.visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(kpId)?.displayName, "減法中間缺位填空");
   assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(kpId), [specId]);
