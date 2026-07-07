@@ -71,3 +71,26 @@ test("S44M G3A-U01 source-unit mode mixes comparison and number-structure specs"
   assert.equal(patternIds.has("ps_g3a_u01_4digit_compare"), true);
   assert.equal([...patternIds].some((patternId) => patternId !== "ps_g3a_u01_4digit_compare"), true);
 });
+
+test("S44M1-3 digit arrangement worksheet covers max, min, and max-min pair specs", () => {
+  const result = buildBatchABrowserWorksheetDocument({
+    sourceId: SOURCE_ID,
+    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+    selectedKnowledgePointIds: ["kp_g3a_u01_digit_arrangement_max_min"],
+    selectedPatternGroupIds: ["pg_g3a_u01_digit_arrangement_max_min"],
+    questionCount: 9,
+    ordering: "shuffleAcrossPatterns",
+    generationSeed: "s44m1-digit-arrangement-coverage",
+    includeAnswerKey: true
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const patternIds = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.patternSpecId));
+  assert.deepEqual([...patternIds].sort(), [
+    "ps_g3a_u01_digit_arrangement_max_4digit",
+    "ps_g3a_u01_digit_arrangement_max_min_pair",
+    "ps_g3a_u01_digit_arrangement_min_4digit_no_leading_zero"
+  ]);
+  for (const question of result.worksheetDocument.generatedQuestions) {
+    assert.match(question.blankedDisplayText, /每個數字只能用一次/);
+  }
+});
