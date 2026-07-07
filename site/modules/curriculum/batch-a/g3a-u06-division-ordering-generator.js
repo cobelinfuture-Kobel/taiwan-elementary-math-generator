@@ -149,6 +149,7 @@ function makeG3AU01ComparisonQuestion(sequenceNumber, seed) {
   let right = 1000 + (Math.floor(seedValue / 17) % 9000);
   if (right === left) right = right === 9999 ? 1000 : right + 1;
   const answerText = comparisonSymbol(left, right);
+  const promptText = `在 ___ 中填入 >、< 或 =，比較 ${left} 和 ${right} 的大小。`;
   return {
     id: `${g3aU01ComparisonSpecId}-${sequenceNumber}`,
     patternSpecId: g3aU01ComparisonSpecId,
@@ -156,9 +157,9 @@ function makeG3AU01ComparisonQuestion(sequenceNumber, seed) {
     kind: "comparison",
     left,
     right,
-    promptText: `比較 ${left} 和 ${right} 的大小。`,
-    displayText: `${left} ${answerText} ${right}`,
-    blankedDisplayText: `${left} ___ ${right}`,
+    promptText,
+    displayText: `${promptText}\n${left} ${answerText} ${right}`,
+    blankedDisplayText: `${promptText}\n${left} ___ ${right}`,
     answerText,
     finalAnswer: answerText,
     metadata: makeG3AU01Metadata(g3aU01ComparisonSpecId, "integer_comparison", ["four_digit", "comparison"])
