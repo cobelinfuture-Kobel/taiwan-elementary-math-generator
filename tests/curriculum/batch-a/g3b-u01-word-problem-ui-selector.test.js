@@ -18,7 +18,7 @@ const WORD_PROBLEM_KPS = Object.freeze([
 ]);
 
 test("S43E5 R4I selector availability includes five G3B-U01 word-problem KPs", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 34);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 41);
   assert.equal(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID).visibleCount, 10);
 });
 
