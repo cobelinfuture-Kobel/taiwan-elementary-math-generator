@@ -4,10 +4,34 @@ import {
   getBatchAPatternSpecIdsForSource as baseGetPatternIds
 } from "./source-pattern-extension.js";
 
+const u01 = "g3a_u01_3a01";
 const u02 = "g3a_u02_3a02";
 const u03 = "g3a_u03_3a03";
 const u06 = "g3a_u06_3a06";
 const b01 = "g3b_u01_3b01";
+
+const u01NumberStructureSpecIds = Object.freeze([
+  "ps_g3a_u01_4digit_number_to_chinese_basic",
+  "ps_g3a_u01_4digit_number_to_chinese_with_zero",
+  "ps_g3a_u01_chinese_to_4digit_number_basic",
+  "ps_g3a_u01_chinese_to_4digit_number_with_zero",
+  "ps_g3a_u01_4digit_place_value_full_decomposition",
+  "ps_g3a_u01_4digit_digit_value_identification",
+  "ps_g3a_u01_4digit_same_digit_different_place",
+  "ps_g3a_u01_place_value_standard_composition",
+  "ps_g3a_u01_place_value_nonstandard_composition",
+  "ps_g3a_u01_place_value_partial_composition",
+  "ps_g3a_u01_tens_to_hundreds_conversion",
+  "ps_g3a_u01_hundreds_to_thousands_conversion",
+  "ps_g3a_u01_money_place_value_exchange",
+  "ps_g3a_u01_digit_arrangement_max_4digit",
+  "ps_g3a_u01_digit_arrangement_min_4digit_no_leading_zero",
+  "ps_g3a_u01_digit_arrangement_max_min_pair",
+  "ps_g3a_u01_4digit_range_compare_reasoning",
+  "ps_g3a_u01_4digit_serial_number_range",
+  "ps_g3a_u01_4digit_price_range_reasoning"
+]);
+
 const subMiddleSpecId = "ps_g3a_u02_sub_middle_missing_digit";
 const borrowZeroSpecId = "ps_g3a_u02_continuous_borrow_zero";
 const twoStepWordProblemSpecId = "ps_g3a_u03_consecutive_multiplication_two_step_word_problem";
@@ -97,6 +121,17 @@ function wordProblemDefinition(patternSpecId) {
     difficultyTags: ["batch_a_browser_bridge", "g3b_u01_word_problem"]
   });
 }
+function g3aU01NumberStructureDefinition(patternSpecId) {
+  return Object.freeze({
+    patternSpecId,
+    sourceId: u01,
+    title: patternSpecId,
+    kind: "g3aU01NumberStructure",
+    canonicalSkillIds: patternSpecId.includes("range") || patternSpecId.includes("arrangement") ? ["place_value_reasoning"] : ["place_value"],
+    skillTags: ["g3a_u01", "number_structure"],
+    difficultyTags: ["batch_a_browser_bridge", "g3a_u01_number_structure"]
+  });
+}
 
 const subMiddleDefinition = Object.freeze({ patternSpecId: subMiddleSpecId, sourceId: u02, title: "減法中間缺位填空", kind: "missingDigitEquation", operator: "subtract", leftRange: [1000, 9999], rightDigitCoverage: Object.freeze([3, 4]), resultBlankRequired: true, middlePlaceRequired: true, answerOrder: "prompt_left_to_right", placeholder: "□", canonicalSkillIds: ["integer_add_sub_mixed"], skillTags: ["integer_add_sub_mixed", "missing_digit", "equation_reasoning", "subtraction", "middle_place"], difficultyTags: ["batch_a_browser_bridge", "sub_middle_missing_digit"] });
 const borrowZeroDefinition = Object.freeze({ patternSpecId: borrowZeroSpecId, sourceId: u02, title: "連續退位中間有 0", kind: "expression", ranges: Object.freeze([Object.freeze([1000, 9999]), Object.freeze([100, 9999])]), operators: Object.freeze([Object.freeze(["subtract"])]), answerConstraint: Object.freeze({ min: 0, max: 9999 }), digitCoverage: Object.freeze({ allowedDigits: Object.freeze([3, 4]), cycledOperandPosition: 2, distribution: "balanced_by_sequence" }), carryPolicy: Object.freeze({ kind: "subtraction_regroup", mode: "continuous_borrow_zero", base: 10, operandPositions: Object.freeze([1, 2]), checkedColumns: Object.freeze(["ones", "tens", "hundreds"]), minRegroupCount: 3 }), continuousBorrowZeroPolicy: Object.freeze({ required: true, zeroColumns: Object.freeze(["hundreds", "tens"]) }), canonicalSkillIds: ["integer_add_sub_mixed"], skillTags: ["integer_add_sub_mixed", "subtraction", "continuous_borrow", "zero_borrow"], difficultyTags: ["batch_a_browser_bridge", "continuous_borrow_zero"] });
@@ -122,8 +157,10 @@ const b01Definitions = Object.freeze({
   [b01ThreeDigitRemainderSpecId]: remainderDefinition(b01ThreeDigitRemainderSpecId, "三位數除以一位數有餘數", [100, 999], "three_digit_division_with_remainder")
 });
 const b01WordProblemDefinitions = Object.freeze(Object.fromEntries(b01WordProblemSpecIds.map((id) => [id, wordProblemDefinition(id)])));
+const u01NumberStructureDefinitions = Object.freeze(Object.fromEntries(u01NumberStructureSpecIds.map((id) => [id, g3aU01NumberStructureDefinition(id)])));
 
 export function getBatchABrowserPatternDefinition(patternSpecId) {
+  if (u01NumberStructureDefinitions[patternSpecId]) return u01NumberStructureDefinitions[patternSpecId];
   if (patternSpecId === subMiddleSpecId) return subMiddleDefinition;
   if (patternSpecId === borrowZeroSpecId) return borrowZeroDefinition;
   if (patternSpecId === twoStepWordProblemSpecId) return twoStepWordProblemDefinition;
@@ -142,6 +179,7 @@ export function getBatchABrowserPatternDefinition(patternSpecId) {
 
 export function getBatchAPatternSpecIdsForSource(id) {
   const baseIds = baseGetPatternIds(id);
+  if (id === u01) return [...baseIds, ...u01NumberStructureSpecIds];
   if (id === u06) return [...baseIds, ...u06NewSpecIds];
   if (id === b01) return [...baseIds, ...b01NewSpecIds];
   return baseIds;
