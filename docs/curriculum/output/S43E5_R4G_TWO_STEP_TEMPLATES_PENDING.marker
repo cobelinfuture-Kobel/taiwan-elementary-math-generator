@@ -1,0 +1,21 @@
+S43E5_R4G_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+status = IMPLEMENTED_READBACK_PENDING
+files = two-step templates module and test
+
+completed:
+- 4 two-step word-problem templates
+- 4 operation orders covered
+- tests added
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D2
+GOAL_DISTANCE_AFTER = D2
+DISTANCE_REDUCED = completed first-pass two-step TemplateSpec data
+REMAINING_BLOCKERS = npm test readback; aggregate registry; generator validator UI; browser PDF smoke
+NEXT_SHORTEST_STEP = local test readback
