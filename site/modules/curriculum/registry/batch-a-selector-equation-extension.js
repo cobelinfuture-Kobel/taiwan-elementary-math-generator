@@ -29,7 +29,12 @@ const rows = Object.freeze([
   [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_3digit_by_1digit_regroup_hundreds", "pg_g3b_u01_3digit_by_1digit_regroup_hundreds", "ps_g3b_u01_3digit_by_1digit_regroup_hundreds", "三位數除以一位數", "integer_division_exact", ["three_digit", "one_digit", "division"], "division", "numeric_expression"],
   [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_3digit_division_place_value_cases", "pg_g3b_u01_3digit_division_place_value_cases", ["ps_g3b_u01_3digit_hundreds_insufficient", "ps_g3b_u01_3digit_tens_quotient_zero", "ps_g3b_u01_3digit_ones_quotient_zero", "ps_g3b_u01_3digit_hundreds_exact"], "三位數除以一位數商位判斷", "integer_division_exact", ["three_digit", "one_digit", "place_value", "quotient_digit"], "division_place_value_cases", "numeric_expression"],
   [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_quotient_zero_cases", "pg_g3b_u01_quotient_zero_cases", ["ps_g3b_u01_2digit_ones_quotient_zero", "ps_g3b_u01_3digit_tens_quotient_zero", "ps_g3b_u01_3digit_ones_quotient_zero"], "商中有 0 的除法", "integer_division_exact", ["quotient_zero", "place_value", "division"], "quotient_zero_cases", "numeric_expression"],
-  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_division_with_remainder", "pg_g3b_u01_division_with_remainder", ["ps_g3b_u01_2digit_division_with_remainder", "ps_g3b_u01_3digit_division_with_remainder"], "有餘數除法", "integer_division_remainder", ["remainder", "division", "two_digit", "three_digit"], "division_with_remainder", "numeric_expression"]
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_division_with_remainder", "pg_g3b_u01_division_with_remainder", ["ps_g3b_u01_2digit_division_with_remainder", "ps_g3b_u01_3digit_division_with_remainder"], "有餘數除法", "integer_division_remainder", ["remainder", "division", "two_digit", "three_digit"], "division_with_remainder", "numeric_expression"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_wp_partitive_division", "pg_g3b_u01_wp_partitive_division", ["ps_g3b_u01_wp_partitive_equal_sharing", "ps_g3b_u01_wp_partitive_unit_rate"], "等分除：平分與單位量", "division_word_problem", ["partitive_division", "equal_sharing", "unit_rate", "word_problem"], "partitive_division", "word_problem"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_wp_quotative_division", "pg_g3b_u01_wp_quotative_division", ["ps_g3b_u01_wp_quotative_packaging_exact", "ps_g3b_u01_wp_quotative_grouping_exact"], "包含除：分裝與分組", "division_word_problem", ["quotative_division", "packaging", "grouping", "word_problem"], "quotative_division", "word_problem"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_wp_division_with_remainder", "pg_g3b_u01_wp_division_with_remainder", ["ps_g3b_u01_wp_remainder_packaging_leftover", "ps_g3b_u01_wp_remainder_calendar_weeks_days"], "有餘數除法應用題", "division_word_problem", ["remainder", "quotient_remainder", "leftover", "word_problem"], "division_with_remainder_word_problem", "word_problem"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_wp_remainder_interpretation", "pg_g3b_u01_wp_remainder_interpretation", ["ps_g3b_u01_wp_remainder_floor_max_groups", "ps_g3b_u01_wp_remainder_ceil_min_containers"], "餘數判讀：最多與最少", "division_word_problem", ["remainder_interpretation", "floor", "ceil", "word_problem"], "remainder_interpretation", "word_problem"],
+  [sourceIds.b01, "3B-U01", "除法", "kp_g3b_u01_wp_two_step_division", "pg_g3b_u01_wp_two_step_division", ["ps_g3b_u01_wp_two_step_divide_then_add", "ps_g3b_u01_wp_two_step_add_then_divide", "ps_g3b_u01_wp_two_step_divide_then_subtract", "ps_g3b_u01_wp_two_step_subtract_then_divide"], "兩步驟除法應用題", "division_word_problem", ["two_step", "division", "word_problem"], "two_step_division", "word_problem"]
 ]);
 
 function toSpecIds(value) {
@@ -54,7 +59,7 @@ const groupsByKpId = new Map(extraGroups.flatMap((group) => group.knowledgePoint
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: 29,
+  visibleCount: 34,
   notSelectableCount: 0,
   bySourceId: {
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
@@ -62,7 +67,7 @@ export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
     [sourceIds.u02]: { sourceId: sourceIds.u02, visibleCount: 10, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u03]: { sourceId: sourceIds.u03, visibleCount: 7, hiddenPendingCount: 0, notSelectableCount: 0 },
     [sourceIds.u06]: { sourceId: sourceIds.u06, visibleCount: 6, hiddenPendingCount: 0, notSelectableCount: 0 },
-    [sourceIds.b01]: { sourceId: sourceIds.b01, visibleCount: 5, hiddenPendingCount: 0, notSelectableCount: 0 }
+    [sourceIds.b01]: { sourceId: sourceIds.b01, visibleCount: 10, hiddenPendingCount: 0, notSelectableCount: 0 }
   }
 });
 
