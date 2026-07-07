@@ -26,7 +26,7 @@ function digitAt(value, placeValue) {
 
 test("S43G5I UI selector exposes seven G3A U03 KPs", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 34);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 41);
   assert.equal(availability.visibleCount, 7);
   assert.equal(getVisibleBatchAKnowledgePoint(zeroKp)?.displayName, "三位數中間為0乘一位數");
   assert.equal(getVisibleBatchAKnowledgePoint(missKp)?.displayName, "乘法缺位推理");
