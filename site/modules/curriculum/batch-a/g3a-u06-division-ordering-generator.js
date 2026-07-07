@@ -1,9 +1,32 @@
 import { generateBatchABrowserQuestions as generateBaseG3AU06DivisionQuestions } from "./g3a-u06-division-generator.js";
 import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
 import { generateG3BU01WordProblem } from "./g3b-u01-word-problem-generator.js";
+import { generateG3AU01NumberStructureQuestion } from "./g3a-u01-number-structure-generator.js";
 
-const sourceIds = Object.freeze(["g3a_u06_3a06", "g3b_u01_3b01"]);
+const g3aU01SourceId = "g3a_u01_3a01";
+const sourceIds = Object.freeze([g3aU01SourceId, "g3a_u06_3a06", "g3b_u01_3b01"]);
 const g3bU01SourceId = "g3b_u01_3b01";
+const g3aU01NumberStructureSpecIds = Object.freeze([
+  "ps_g3a_u01_4digit_number_to_chinese_basic",
+  "ps_g3a_u01_4digit_number_to_chinese_with_zero",
+  "ps_g3a_u01_chinese_to_4digit_number_basic",
+  "ps_g3a_u01_chinese_to_4digit_number_with_zero",
+  "ps_g3a_u01_4digit_place_value_full_decomposition",
+  "ps_g3a_u01_4digit_digit_value_identification",
+  "ps_g3a_u01_4digit_same_digit_different_place",
+  "ps_g3a_u01_place_value_standard_composition",
+  "ps_g3a_u01_place_value_nonstandard_composition",
+  "ps_g3a_u01_place_value_partial_composition",
+  "ps_g3a_u01_tens_to_hundreds_conversion",
+  "ps_g3a_u01_hundreds_to_thousands_conversion",
+  "ps_g3a_u01_money_place_value_exchange",
+  "ps_g3a_u01_digit_arrangement_max_4digit",
+  "ps_g3a_u01_digit_arrangement_min_4digit_no_leading_zero",
+  "ps_g3a_u01_digit_arrangement_max_min_pair",
+  "ps_g3a_u01_4digit_range_compare_reasoning",
+  "ps_g3a_u01_4digit_serial_number_range",
+  "ps_g3a_u01_4digit_price_range_reasoning"
+]);
 const g3bU01CalculationSpecIds = Object.freeze([
   "ps_g3b_u01_3digit_by_1digit_regroup_hundreds",
   "ps_g3b_u01_2digit_by_1digit_regroup_tens",
@@ -77,6 +100,20 @@ function interleaveAcrossPatternSpecs(questions, plan, allocation) {
   return output;
 }
 
+function allocateCounts(patternSpecIds, questionCount) {
+  const base = Math.floor(questionCount / patternSpecIds.length);
+  let remainder = questionCount % patternSpecIds.length;
+  return patternSpecIds.map((patternSpecId) => {
+    const questionCountForPattern = base + (remainder > 0 ? 1 : 0);
+    remainder -= remainder > 0 ? 1 : 0;
+    return { patternSpecId, questionCount: questionCountForPattern };
+  }).filter((entry) => entry.questionCount > 0);
+}
+
+function isG3AU01NumberStructurePlan(plan) {
+  return plan?.sourceId === g3aU01SourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0 && plan.patternSpecIds.every((id) => g3aU01NumberStructureSpecIds.includes(id));
+}
+
 function isG3BU01WordProblemPlan(plan) {
   return plan?.sourceId === g3bU01SourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0 && plan.patternSpecIds.every((id) => g3bU01WordProblemSpecIds.includes(id));
 }
@@ -121,6 +158,23 @@ function makeWordProblemQuestion(patternSpecId, sequenceNumber, seed) {
     operationModel: cloneValue(question.operationModel),
     metadata: makeMetadata(patternSpecId, question.semanticModel)
   };
+}
+
+function generateG3AU01NumberStructureQuestions(options = {}) {
+  const plan = buildBatchABrowserPlan(options);
+  const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : allocateCounts(plan.patternSpecIds, plan.questionCount);
+  const questions = [];
+  const errors = [];
+  for (const entry of allocation) {
+    if (!g3aU01NumberStructureSpecIds.includes(entry.patternSpecId)) {
+      errors.push({ code: "batch_a_g3a_u01_pattern_not_supported", severity: "error", path: entry.patternSpecId, message: "Unsupported G3A-U01 number-structure PatternSpec" });
+      continue;
+    }
+    for (let index = 0; index < entry.questionCount; index += 1) {
+      questions.push(generateG3AU01NumberStructureQuestion({ patternSpecId: entry.patternSpecId, index: questions.length + 1, seed: `${plan.generationSeed}:${entry.patternSpecId}` }));
+    }
+  }
+  return { ok: errors.length === 0, plan, questions: interleaveAcrossPatternSpecs(questions, plan, allocation), allocation, errors, warnings: [] };
 }
 
 function generateG3BU01WordProblemQuestions(options = {}) {
@@ -184,6 +238,7 @@ function generateG3BU01MixedCalculationWordProblemQuestions(options = {}) {
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (isG3AU01NumberStructurePlan(plan)) return generateG3AU01NumberStructureQuestions(options);
   if (isG3BU01MixedCalculationWordProblemPlan(plan)) return generateG3BU01MixedCalculationWordProblemQuestions(options);
   if (isG3BU01WordProblemPlan(plan)) return generateG3BU01WordProblemQuestions(options);
   const result = generateBaseG3AU06DivisionQuestions(options);
