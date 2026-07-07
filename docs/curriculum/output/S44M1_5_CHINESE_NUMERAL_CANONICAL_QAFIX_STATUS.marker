@@ -1,0 +1,17 @@
+S44M1_5_G3A_U01_CHINESE_NUMERAL_CANONICAL_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+fixed:
+- number-to-Chinese canonical output now uses concise zero-ten wording after an internal zero.
+- examples: 5016 => 五千零十六; 9010 => 九千零十.
+- Chinese-to-number parser remains backward-compatible with explicit-one forms such as 五千零一十六 and 九千零一十.
+- tests assert both canonical generation and backward-compatible parsing.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1_G3A_U01_OutputQACloseout after local tests pass
