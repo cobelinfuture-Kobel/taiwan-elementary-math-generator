@@ -1,8 +1,14 @@
 import { G3B_U01_WORD_PROBLEM_SOURCE_ID } from "./g3b-u01-word-problem-template-contract.js";
 import { listG3BU01WordProblemTemplates, getG3BU01WordProblemTemplate } from "./g3b-u01-word-problem-template-registry.js";
 
+function seedNumber(seed) {
+  if (Number.isFinite(seed)) return Math.abs(Math.floor(seed));
+  let acc = 0;
+  for (const char of String(seed ?? "0")) acc = ((acc * 31) + char.charCodeAt(0)) >>> 0;
+  return acc || 1;
+}
 function values(range) { const [a, b] = range; return Array.from({ length: b - a + 1 }, (_, i) => a + i); }
-function pick(list, seed) { return list[Math.abs(seed) % list.length]; }
+function pick(list, seed) { return list[seedNumber(seed) % list.length]; }
 function exactPair(dividendRange, divisorRange, seed, remainder = false) {
   const pairs = [];
   for (const divisor of values(divisorRange)) for (const dividend of values(dividendRange)) if (divisor > 0 && (remainder ? dividend % divisor > 0 : dividend % divisor === 0)) pairs.push([dividend, divisor]);
@@ -13,7 +19,8 @@ function fill(text, slots) { return text.replace(/\{([^}]+)\}/g, (_, key) => Str
 function baseSlots(template) { return { ...template.unitModel, ...template.slotModel }; }
 function fixed(value) { return Array.isArray(value) ? value : [value, value]; }
 
-function slotsFor(template, seed) {
+function slotsFor(template, seedInput) {
+  const seed = seedNumber(seedInput);
   const s = template.slotModel;
   const kind = template.operationModel.kind;
   const out = baseSlots(template);
@@ -38,7 +45,10 @@ function slotsFor(template, seed) {
     out.length = unitLength * quotient; out.unitLength = unitLength; out.existingCount = pick(values(s.existingCount), seed + 2); return out;
   }
   if (kind === "add_then_divide") {
-    for (const knownLength of values(s.knownLength)) for (const missingLength of values(s.missingLength)) if ((knownLength + missingLength) % 4 === 0) { out.knownLength = knownLength; out.missingLength = missingLength; return out; }
+    const pairs = [];
+    for (const knownLength of values(s.knownLength)) for (const missingLength of values(s.missingLength)) if ((knownLength + missingLength) % 4 === 0) pairs.push([knownLength, missingLength]);
+    const [knownLength, missingLength] = pick(pairs, seed);
+    out.knownLength = knownLength; out.missingLength = missingLength; return out;
   }
   if (kind === "divide_then_subtract") {
     const peopleCount = pick(values(s.peopleCount), seed);
@@ -67,18 +77,20 @@ function answerFor(template, slots) {
 }
 
 export function generateG3BU01WordProblem(input = {}) {
+  const seed = seedNumber(input.seed ?? 0);
   const templates = input.templateId ? [getG3BU01WordProblemTemplate(input.templateId)] : listG3BU01WordProblemTemplates({ patternSpecId: input.patternSpecId });
   const pool = templates.filter(Boolean);
   if (pool.length === 0) throw new Error("g3b_u01_wp_template_not_found");
-  const template = pick(pool, input.seed ?? 0);
-  const slotValues = slotsFor(template, input.seed ?? 0);
+  const template = pick(pool, seed);
+  const slotValues = slotsFor(template, seed);
   const answer = answerFor(template, slotValues);
   return { sourceId: G3B_U01_WORD_PROBLEM_SOURCE_ID, templateId: template.templateId, patternSpecId: template.patternSpecId, semanticModel: template.semanticModel, questionText: fill(template.promptTemplate, slotValues), slotValues, answer, answerModel: template.answerModel, operationModel: template.operationModel };
 }
 
 export function validateG3BU01WordProblemQuestion(question) {
   const errors = [];
-  if (!question?.questionText || question.questionText.includes("{")) errors.push({ code: "g3b_u01_wp_question_prompt_invalid", path: "questionText" });
+  if (!question?.questionText && !question?.promptText) errors.push({ code: "g3b_u01_wp_question_prompt_invalid", path: "questionText" });
+  if (String(question?.questionText ?? question?.promptText ?? "").includes("{")) errors.push({ code: "g3b_u01_wp_question_prompt_invalid", path: "questionText" });
   const expected = answerFor({ operationModel: question.operationModel }, question.slotValues ?? {});
   if (JSON.stringify(expected) !== JSON.stringify(question.answer)) errors.push({ code: "g3b_u01_wp_question_answer_mismatch", path: "answer" });
   return { ok: errors.length === 0, errors, warnings: [] };
