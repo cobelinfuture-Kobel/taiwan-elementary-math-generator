@@ -1,0 +1,22 @@
+S44M1_3_G3A_U01_ALLOCATION_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+root_cause:
+- selected single-KP worksheets used one PatternGroup.
+- resolver allocation selected only the first PatternSpec in each PatternGroup.
+- multi-spec KPs therefore exposed all PatternSpecs in metadata but generated only the first PatternSpec.
+- S44M1-3 digit arrangement regression correctly caught this for max/min/pair coverage.
+
+fixed:
+- resolver allocation now expands allocation candidates to each PatternSpec inside each selected PatternGroup.
+- question counts are distributed across PatternSpec candidates instead of only PatternGroups.
+- this supports digit arrangement max/min/pair and prepares S44M1-4 PatternSpec rotation repair.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1-4_G3A_U01_PatternSpecRotationFix after local tests pass
