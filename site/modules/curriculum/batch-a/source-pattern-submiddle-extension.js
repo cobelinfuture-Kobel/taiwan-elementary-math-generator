@@ -41,6 +41,21 @@ const b01NewSpecIds = Object.freeze([
   b01ThreeDigitRemainderSpecId
 ]);
 
+const b01WordProblemSpecIds = Object.freeze([
+  "ps_g3b_u01_wp_partitive_equal_sharing",
+  "ps_g3b_u01_wp_partitive_unit_rate",
+  "ps_g3b_u01_wp_quotative_packaging_exact",
+  "ps_g3b_u01_wp_quotative_grouping_exact",
+  "ps_g3b_u01_wp_remainder_packaging_leftover",
+  "ps_g3b_u01_wp_remainder_calendar_weeks_days",
+  "ps_g3b_u01_wp_remainder_floor_max_groups",
+  "ps_g3b_u01_wp_remainder_ceil_min_containers",
+  "ps_g3b_u01_wp_two_step_divide_then_add",
+  "ps_g3b_u01_wp_two_step_add_then_divide",
+  "ps_g3b_u01_wp_two_step_divide_then_subtract",
+  "ps_g3b_u01_wp_two_step_subtract_then_divide"
+]);
+
 const exactDivision = Object.freeze({ allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true });
 function exactDivisionDefinition(patternSpecId, title, range, skillTags, difficultyTag, caseType) {
   return Object.freeze({
@@ -71,6 +86,17 @@ function remainderDefinition(patternSpecId, title, range, difficultyTag) {
     difficultyTags: ["batch_a_browser_bridge", difficultyTag]
   });
 }
+function wordProblemDefinition(patternSpecId) {
+  return Object.freeze({
+    patternSpecId,
+    sourceId: b01,
+    title: patternSpecId,
+    kind: "g3bU01WordProblem",
+    canonicalSkillIds: ["division_word_problem"],
+    skillTags: ["division_word_problem", "g3b_u01", "word_problem"],
+    difficultyTags: ["batch_a_browser_bridge", "g3b_u01_word_problem"]
+  });
+}
 
 const subMiddleDefinition = Object.freeze({ patternSpecId: subMiddleSpecId, sourceId: u02, title: "減法中間缺位填空", kind: "missingDigitEquation", operator: "subtract", leftRange: [1000, 9999], rightDigitCoverage: Object.freeze([3, 4]), resultBlankRequired: true, middlePlaceRequired: true, answerOrder: "prompt_left_to_right", placeholder: "□", canonicalSkillIds: ["integer_add_sub_mixed"], skillTags: ["integer_add_sub_mixed", "missing_digit", "equation_reasoning", "subtraction", "middle_place"], difficultyTags: ["batch_a_browser_bridge", "sub_middle_missing_digit"] });
 const borrowZeroDefinition = Object.freeze({ patternSpecId: borrowZeroSpecId, sourceId: u02, title: "連續退位中間有 0", kind: "expression", ranges: Object.freeze([Object.freeze([1000, 9999]), Object.freeze([100, 9999])]), operators: Object.freeze([Object.freeze(["subtract"])]), answerConstraint: Object.freeze({ min: 0, max: 9999 }), digitCoverage: Object.freeze({ allowedDigits: Object.freeze([3, 4]), cycledOperandPosition: 2, distribution: "balanced_by_sequence" }), carryPolicy: Object.freeze({ kind: "subtraction_regroup", mode: "continuous_borrow_zero", base: 10, operandPositions: Object.freeze([1, 2]), checkedColumns: Object.freeze(["ones", "tens", "hundreds"]), minRegroupCount: 3 }), continuousBorrowZeroPolicy: Object.freeze({ required: true, zeroColumns: Object.freeze(["hundreds", "tens"]) }), canonicalSkillIds: ["integer_add_sub_mixed"], skillTags: ["integer_add_sub_mixed", "subtraction", "continuous_borrow", "zero_borrow"], difficultyTags: ["batch_a_browser_bridge", "continuous_borrow_zero"] });
@@ -95,6 +121,7 @@ const b01Definitions = Object.freeze({
   [b01TwoDigitRemainderSpecId]: remainderDefinition(b01TwoDigitRemainderSpecId, "二位數除以一位數有餘數", [10, 99], "two_digit_division_with_remainder"),
   [b01ThreeDigitRemainderSpecId]: remainderDefinition(b01ThreeDigitRemainderSpecId, "三位數除以一位數有餘數", [100, 999], "three_digit_division_with_remainder")
 });
+const b01WordProblemDefinitions = Object.freeze(Object.fromEntries(b01WordProblemSpecIds.map((id) => [id, wordProblemDefinition(id)])));
 
 export function getBatchABrowserPatternDefinition(patternSpecId) {
   if (patternSpecId === subMiddleSpecId) return subMiddleDefinition;
@@ -109,6 +136,7 @@ export function getBatchABrowserPatternDefinition(patternSpecId) {
   if (patternSpecId === u06PartitiveSharingSpecId) return u06PartitiveSharingDefinition;
   if (patternSpecId === u06ParityRangeSpecId) return u06ParityRangeDefinition;
   if (b01Definitions[patternSpecId]) return b01Definitions[patternSpecId];
+  if (b01WordProblemDefinitions[patternSpecId]) return b01WordProblemDefinitions[patternSpecId];
   return baseGetDefinition(patternSpecId);
 }
 
