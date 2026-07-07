@@ -1,0 +1,19 @@
+S44L_G3A_U01_SELECTOR_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+root_cause:
+- S44L promoted Batch A visibleCount from 34 to 41.
+- Existing selector smoke tests still expected 34.
+
+fixed:
+- updated stale visibleCount assertions from 34 to 41 in affected selector tests.
+- no runtime behavior changed in this QA fix.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M_G3A_U01_MixedWorksheetQA after local tests pass
