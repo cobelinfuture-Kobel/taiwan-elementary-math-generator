@@ -11,7 +11,7 @@ const GROUP_ID = "pg_g3a_u01_4digit_compare";
 const SPEC_ID = "ps_g3a_u01_4digit_compare";
 
 test("S43E1 G3A U01 exposes four-digit comparison KP", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 29);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 34);
   assert.equal(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID).visibleCount, 1);
   const kp = getVisibleBatchAKnowledgePoint(KP_ID);
   assert.equal(kp.sourceId, SOURCE_ID);
