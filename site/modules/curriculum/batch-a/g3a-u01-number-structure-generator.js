@@ -1,0 +1,130 @@
+const sourceId = "g3a_u01_3a01";
+const digitsZh = Object.freeze(["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"]);
+const zhDigits = new Map(digitsZh.map((text, value) => [text, value]));
+
+export const G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS = Object.freeze({
+  numberToChineseBasic: "ps_g3a_u01_4digit_number_to_chinese_basic",
+  numberToChineseZero: "ps_g3a_u01_4digit_number_to_chinese_with_zero",
+  chineseToNumberBasic: "ps_g3a_u01_chinese_to_4digit_number_basic",
+  chineseToNumberZero: "ps_g3a_u01_chinese_to_4digit_number_with_zero",
+  fullDecomposition: "ps_g3a_u01_4digit_place_value_full_decomposition",
+  digitValue: "ps_g3a_u01_4digit_digit_value_identification",
+  sameDigit: "ps_g3a_u01_4digit_same_digit_different_place",
+  standardComposition: "ps_g3a_u01_place_value_standard_composition",
+  nonstandardComposition: "ps_g3a_u01_place_value_nonstandard_composition",
+  partialComposition: "ps_g3a_u01_place_value_partial_composition"
+});
+
+const patternIds = Object.freeze(Object.values(G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS));
+
+function hashSeed(value) {
+  let acc = 0;
+  for (const char of String(value ?? "g3a-u01")) acc = ((acc * 31) + char.charCodeAt(0)) >>> 0;
+  return acc || 1;
+}
+function pick(list, seed) { return list[hashSeed(seed) % list.length]; }
+function hasInternalZero(number) { const h = Math.floor(number / 100) % 10; const t = Math.floor(number / 10) % 10; return h === 0 || t === 0; }
+function digitsOf(number) { return String(number).padStart(4, "0").split("").map(Number); }
+
+export function numberToChinese4Digit(number) {
+  if (!Number.isInteger(number) || number < 1000 || number > 9999) throw new Error("g3a_u01_number_out_of_range");
+  const [thousands, hundreds, tens, ones] = digitsOf(number);
+  let output = `${digitsZh[thousands]}千`;
+  let zeroPending = false;
+  if (hundreds > 0) output += `${digitsZh[hundreds]}百`;
+  else if (tens > 0 || ones > 0) zeroPending = true;
+  if (tens > 0) { if (zeroPending) output += "零"; output += `${digitsZh[tens]}十`; zeroPending = false; }
+  else if (ones > 0 && hundreds > 0) zeroPending = true;
+  if (ones > 0) { if (zeroPending) output += "零"; output += digitsZh[ones]; }
+  return output;
+}
+
+export function chineseToNumber4Digit(text) {
+  const raw = String(text ?? "").replaceAll(" ", "");
+  const thousandsIndex = raw.indexOf("千");
+  if (thousandsIndex <= 0) throw new Error("g3a_u01_chinese_number_invalid");
+  const thousands = zhDigits.get(raw[thousandsIndex - 1]);
+  if (!thousands) throw new Error("g3a_u01_chinese_number_invalid");
+  let hundreds = 0, tens = 0, ones = 0;
+  const hundredsIndex = raw.indexOf("百");
+  if (hundredsIndex > 0) hundreds = zhDigits.get(raw[hundredsIndex - 1]) ?? 0;
+  const tensIndex = raw.indexOf("十");
+  if (tensIndex > 0) tens = zhDigits.get(raw[tensIndex - 1]) ?? 0;
+  const compact = raw.replace(/.千/, "").replace(/.百/, "").replace(/.十/, "").replaceAll("零", "");
+  if (compact.length > 0) ones = zhDigits.get(compact[compact.length - 1]) ?? 0;
+  return thousands * 1000 + hundreds * 100 + tens * 10 + ones;
+}
+
+function numberPool(patternSpecId) {
+  const all = [];
+  for (let n = 1000; n <= 9999; n += 1) {
+    const zero = hasInternalZero(n);
+    if (patternSpecId.endsWith("with_zero") && !zero) continue;
+    if (patternSpecId.endsWith("basic") && zero) continue;
+    all.push(n);
+  }
+  return all;
+}
+function decompose(number) { const [thousands, hundreds, tens, ones] = digitsOf(number); return { thousands, hundreds, tens, ones }; }
+function placeName(index) { return ["千位", "百位", "十位", "個位"][index]; }
+function unitName(index) { return ["個千", "個百", "個十", "個一"][index]; }
+function makeMeta(patternSpecId, skill = "number_representation") { return { patternId: patternSpecId, sourceId, canonicalSkillIds: [skill], skillTags: [skill, "g3a_u01"], difficultyTags: [patternSpecId.replace("ps_g3a_u01_", "")], curriculumNodeIds: [sourceId] }; }
+function questionBase(patternSpecId, index, seed, promptText, answerText, extra = {}) { return { id: `${patternSpecId}-${index}`, sourceId, patternSpecId, promptText, questionText: promptText, blankedDisplayText: promptText, displayText: `${promptText} 答案：${answerText}`, answerText, finalAnswer: answerText, metadata: makeMeta(patternSpecId, extra.skill), ...extra }; }
+
+function makeRepresentation(patternSpecId, index, seed) {
+  const number = pick(numberPool(patternSpecId), `${seed}:${index}:${patternSpecId}`);
+  const chinese = numberToChinese4Digit(number);
+  if (patternSpecId.includes("number_to_chinese")) return questionBase(patternSpecId, index, seed, `把 ${number} 寫成中文數字。`, chinese, { kind: "numberToChinese", number, chineseNumber: chinese, skill: "number_representation" });
+  return questionBase(patternSpecId, index, seed, `把「${chinese}」寫成數字。`, String(number), { kind: "chineseToNumber", number, chineseNumber: chinese, skill: "number_representation" });
+}
+
+function makeDecomposition(patternSpecId, index, seed) {
+  const number = 1000 + (hashSeed(`${seed}:${index}`) % 9000);
+  const d = decompose(number);
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.fullDecomposition) {
+    const answerText = `${d.thousands}個千、${d.hundreds}個百、${d.tens}個十、${d.ones}個一`;
+    return questionBase(patternSpecId, index, seed, `${number} 是幾個千、幾個百、幾個十、幾個一合起來的？`, answerText, { kind: "placeValueDecomposition", number, placeValue: d, skill: "place_value" });
+  }
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.sameDigit) {
+    const digit = 6 + (hashSeed(seed) % 3);
+    const number2 = digit * 1000 + 300 + digit * 10 + (index % 9);
+    return questionBase(patternSpecId, index, seed, `${number2} 中兩個 ${digit} 分別表示什麼？`, `${digit}個千、${digit}個十`, { kind: "sameDigitPlaceValue", number: number2, digit, skill: "place_value" });
+  }
+  const nonzeroPlaces = digitsOf(number).map((digit, placeIndex) => ({ digit, placeIndex })).filter((item) => item.digit > 0);
+  const target = pick(nonzeroPlaces, `${seed}:${index}:place`);
+  return questionBase(patternSpecId, index, seed, `${number} 中的 ${target.digit} 在${placeName(target.placeIndex)}，表示多少？`, `${target.digit}${unitName(target.placeIndex)}`, { kind: "digitValueIdentification", number, digit: target.digit, placeIndex: target.placeIndex, skill: "place_value" });
+}
+
+function compositionCounts(patternSpecId, seed) {
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.nonstandardComposition) return { thousands: 2 + (hashSeed(seed) % 5), hundreds: 10 + (hashSeed(`${seed}:h`) % 9), tens: hashSeed(`${seed}:t`) % 10, ones: hashSeed(`${seed}:o`) % 10 };
+  if (patternSpecId === G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS.partialComposition) return { thousands: 1 + (hashSeed(seed) % 8), hundreds: hashSeed(`${seed}:h`) % 10, tens: 0, ones: 0 };
+  return { thousands: 1 + (hashSeed(seed) % 8), hundreds: hashSeed(`${seed}:h`) % 10, tens: hashSeed(`${seed}:t`) % 10, ones: hashSeed(`${seed}:o`) % 10 };
+}
+function makeComposition(patternSpecId, index, seed) {
+  let counts = compositionCounts(patternSpecId, `${seed}:${index}`);
+  let total = counts.thousands * 1000 + counts.hundreds * 100 + counts.tens * 10 + counts.ones;
+  while (total > 9999) { counts = { ...counts, hundreds: counts.hundreds - 1 }; total = counts.thousands * 1000 + counts.hundreds * 100 + counts.tens * 10 + counts.ones; }
+  const promptText = `${counts.thousands}個千、${counts.hundreds}個百、${counts.tens}個十、${counts.ones}個一，合起來是多少？`;
+  return questionBase(patternSpecId, index, seed, promptText, String(total), { kind: "placeValueComposition", counts, number: total, skill: "place_value" });
+}
+
+export function generateG3AU01NumberStructureQuestion({ patternSpecId, index = 1, seed = "s44i" } = {}) {
+  if (!patternIds.includes(patternSpecId)) throw new Error("g3a_u01_pattern_not_supported");
+  if (patternSpecId.includes("number_to_chinese") || patternSpecId.includes("chinese_to_4digit")) return makeRepresentation(patternSpecId, index, seed);
+  if (patternSpecId.includes("place_value_full") || patternSpecId.includes("digit_value") || patternSpecId.includes("same_digit")) return makeDecomposition(patternSpecId, index, seed);
+  if (patternSpecId.includes("composition")) return makeComposition(patternSpecId, index, seed);
+  throw new Error("g3a_u01_pattern_not_supported");
+}
+
+export function validateG3AU01NumberStructureQuestion(question) {
+  const errors = [];
+  try {
+    if (!question?.patternSpecId || !patternIds.includes(question.patternSpecId)) errors.push({ code: "g3a_u01_pattern_not_supported", path: "patternSpecId" });
+    if (String(question?.blankedDisplayText ?? "").includes("{")) errors.push({ code: "g3a_u01_prompt_slot_unresolved", path: "blankedDisplayText" });
+    if (question.kind === "numberToChinese" && question.answerText !== numberToChinese4Digit(question.number)) errors.push({ code: "g3a_u01_number_to_chinese_answer_mismatch", path: "answerText" });
+    if (question.kind === "chineseToNumber" && Number(question.answerText) !== chineseToNumber4Digit(question.chineseNumber)) errors.push({ code: "g3a_u01_chinese_to_number_answer_mismatch", path: "answerText" });
+    if (question.kind === "placeValueDecomposition") { const d = decompose(question.number); const expected = `${d.thousands}個千、${d.hundreds}個百、${d.tens}個十、${d.ones}個一`; if (question.answerText !== expected) errors.push({ code: "g3a_u01_place_value_decomposition_mismatch", path: "answerText" }); }
+    if (question.kind === "placeValueComposition") { const c = question.counts; const total = c.thousands * 1000 + c.hundreds * 100 + c.tens * 10 + c.ones; if (String(total) !== question.answerText) errors.push({ code: "g3a_u01_composition_answer_mismatch", path: "answerText" }); }
+  } catch (error) { errors.push({ code: error.code ?? error.message, path: "question" }); }
+  return { ok: errors.length === 0, errors, warnings: [] };
+}
