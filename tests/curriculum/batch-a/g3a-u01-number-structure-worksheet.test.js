@@ -53,3 +53,21 @@ test("S44M G3A-U01 number-structure KPs mix in one worksheet", () => {
   assert.equal(html.includes("worksheet-page--answer-key"), true);
   assert.equal(html.includes("{"), false);
 });
+
+test("S44M G3A-U01 source-unit mode mixes comparison and number-structure specs", () => {
+  const result = buildBatchABrowserWorksheetDocument({
+    sourceId: SOURCE_ID,
+    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT,
+    questionCount: 16,
+    ordering: "shuffleAcrossPatterns",
+    generationSeed: "s44m-g3a-u01-source-unit",
+    includeAnswerKey: true,
+    printLayout: { columns: 2, rowsPerPage: 8, showAnswerKeyPage: true }
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.worksheetDocument.questionDisplayModels.length, 16);
+  assert.equal(result.worksheetDocument.answerKeyItems.length, 16);
+  const patternIds = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.patternSpecId));
+  assert.equal(patternIds.has("ps_g3a_u01_4digit_compare"), true);
+  assert.equal([...patternIds].some((patternId) => patternId !== "ps_g3a_u01_4digit_compare"), true);
+});
