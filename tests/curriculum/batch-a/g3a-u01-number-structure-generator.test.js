@@ -100,3 +100,19 @@ test("S44K generates and validates deterministic range reasoning questions", () 
     assert.equal(question.answerText.length > 0, true);
   }
 });
+
+test("S44M1-2 range reasoning randomizes correct A/B answer positions", () => {
+  for (const patternSpecId of [P.rangeCompareReasoning, P.priceRangeReasoning]) {
+    const answerPositions = new Set();
+    for (let index = 1; index <= 24; index += 1) {
+      const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44m1-range-position", index });
+      const result = validateG3AU01NumberStructureQuestion(question);
+      assert.equal(result.ok, true, `${patternSpecId} ${index}: ${JSON.stringify(result.errors)}`);
+      answerPositions.add(question.answerText);
+      assert.equal(["A", "B"].includes(question.answerText), true);
+      assert.equal(question.choices[question.answerText] > question.lower, true);
+      assert.equal(question.choices[question.answerText] < question.upper, true);
+    }
+    assert.deepEqual([...answerPositions].sort(), ["A", "B"]);
+  }
+});
