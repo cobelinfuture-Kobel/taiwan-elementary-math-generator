@@ -1,0 +1,23 @@
+S44M_G3A_U01_RUNTIME_ROUTE_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+root_cause:
+- S44L promoted new G3A-U01 KPs into the selector.
+- Their PatternSpec IDs were not yet registered in the browser PatternDefinition layer.
+- The worksheet generator route did not yet dispatch G3A-U01 number-structure PatternSpecs to the S44I-S44K generator.
+- Browser UI therefore failed with batch_a_pattern_not_available.
+
+fixed:
+- added G3A-U01 number-structure PatternDefinitions
+- added G3A-U01 number-structure worksheet route
+- added validator delegation for G3A-U01 number-structure text questions
+- added worksheet runtime regression tests for each new KP and mixed new-KP worksheet
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M_G3A_U01_MixedWorksheetQA after local tests pass
