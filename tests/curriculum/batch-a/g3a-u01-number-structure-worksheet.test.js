@@ -123,3 +123,21 @@ test("S44M1-4 every G3A-U01 multi-spec KP rotates all registered PatternSpecs", 
     assert.equal(result.worksheetDocument.questionDisplayModels.length, expectedPatternSpecIds.length * 3, kpId);
   }
 });
+
+test("S44M1-6a digit arrangement worksheet does not repeat exact prompts", () => {
+  const result = buildBatchABrowserWorksheetDocument({
+    sourceId: SOURCE_ID,
+    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+    selectedKnowledgePointIds: ["kp_g3a_u01_digit_arrangement_max_min"],
+    selectedPatternGroupIds: ["pg_g3a_u01_digit_arrangement_max_min"],
+    questionCount: 30,
+    ordering: "shuffleAcrossPatterns",
+    generationSeed: "s44m1-duplicate-prompt-control",
+    includeAnswerKey: true
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const prompts = result.worksheetDocument.generatedQuestions.map((question) => question.blankedDisplayText);
+  assert.equal(new Set(prompts).size, prompts.length);
+  const perKindDigitKeys = result.worksheetDocument.generatedQuestions.map((question) => `${question.kind}:${question.digits.join(",")}`);
+  assert.equal(new Set(perKindDigitKeys).size, perKindDigitKeys.length);
+});
