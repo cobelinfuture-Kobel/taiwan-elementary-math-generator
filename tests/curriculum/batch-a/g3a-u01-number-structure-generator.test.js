@@ -79,3 +79,14 @@ test("S44J generates and validates digit arrangement questions", () => {
     assert.equal(new Set(question.digits).size, 4);
   }
 });
+
+test("S44K generates and validates deterministic range reasoning questions", () => {
+  for (const patternSpecId of [P.rangeCompareReasoning, P.serialNumberRange, P.priceRangeReasoning]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44k-range", index: 6 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.equal(question.blankedDisplayText.includes("{"), false);
+    assert.equal(question.answerText.length > 0, true);
+  }
+});
