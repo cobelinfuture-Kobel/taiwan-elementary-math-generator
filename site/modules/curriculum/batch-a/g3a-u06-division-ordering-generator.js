@@ -55,12 +55,16 @@ function sortBucket(questions, plan) {
 function interleaveAcrossPatternSpecs(questions, plan, allocation) {
   if (!sourceIds.includes(plan?.sourceId) || plan.ordering !== "shuffleAcrossPatterns" || !Array.isArray(allocation) || allocation.length < 2) return questions;
   const buckets = new Map(allocation.map((entry) => [entry.patternSpecId, []]));
-  for (const question of questions) buckets.get(question.patternSpecId)?.push(question);
+  for (const question of questions) {
+    if (!buckets.has(question.patternSpecId)) buckets.set(question.patternSpecId, []);
+    buckets.get(question.patternSpecId).push(question);
+  }
   for (const [patternSpecId, bucket] of buckets.entries()) buckets.set(patternSpecId, sortBucket(bucket, plan));
-  const patternOrder = allocation
+  const knownOrder = allocation
     .map((entry, index) => ({ patternSpecId: entry.patternSpecId, index, key: hashSeed(`${plan.generationSeed}:${entry.patternSpecId}:${index}`) }))
     .sort((left, right) => left.key - right.key || left.index - right.index)
     .map((entry) => entry.patternSpecId);
+  const patternOrder = [...knownOrder, ...[...buckets.keys()].filter((patternSpecId) => !knownOrder.includes(patternSpecId)).sort()];
   const output = [];
   let moved = true;
   while (moved) {
@@ -139,18 +143,24 @@ function generateCalculationEntryQuestions(options, plan, entry) {
     generationSeed: `${plan.generationSeed}:${entry.patternSpecId}`
   });
   if (!result.ok) return result;
-  return { ...result, questions: result.questions.map((question, index) => ({ ...question, id: `${question.id}-mixed-${index + 1}` })) };
+  return {
+    ...result,
+    allocation: result.allocation.map((item) => ({ ...item, patternGroupId: entry.patternGroupId })),
+    questions: result.questions.map((question, index) => ({ ...question, id: `${question.id}-mixed-${index + 1}` }))
+  };
 }
 
 function generateG3BU01MixedCalculationWordProblemQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
-  const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : [];
+  const sourceAllocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : [];
+  const outputAllocation = [];
   const questions = [];
   const errors = [];
   const warnings = [];
 
-  for (const entry of allocation) {
+  for (const entry of sourceAllocation) {
     if (g3bU01WordProblemSpecIds.includes(entry.patternSpecId)) {
+      outputAllocation.push(entry);
       for (let index = 0; index < entry.questionCount; index += 1) questions.push(makeWordProblemQuestion(entry.patternSpecId, questions.length + 1, plan.generationSeed));
       continue;
     }
@@ -160,6 +170,7 @@ function generateG3BU01MixedCalculationWordProblemQuestions(options = {}) {
         errors.push(...(result.errors ?? []));
         warnings.push(...(result.warnings ?? []));
       } else {
+        outputAllocation.push(...result.allocation);
         questions.push(...result.questions);
         warnings.push(...(result.warnings ?? []));
       }
@@ -168,7 +179,7 @@ function generateG3BU01MixedCalculationWordProblemQuestions(options = {}) {
     errors.push({ code: "batch_a_g3b_u01_mixed_pattern_not_supported", severity: "error", path: entry.patternSpecId, message: "Unsupported G3B-U01 mixed PatternSpec" });
   }
 
-  return { ok: errors.length === 0, plan, questions: interleaveAcrossPatternSpecs(questions, plan, allocation), allocation, errors, warnings };
+  return { ok: errors.length === 0, plan, questions: interleaveAcrossPatternSpecs(questions, plan, outputAllocation), allocation: outputAllocation, errors, warnings };
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
