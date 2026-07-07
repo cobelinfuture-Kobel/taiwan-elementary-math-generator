@@ -1,0 +1,15 @@
+S44M1_6B_G3A_U01_PROMPT_POLISH_LOCAL_PASS
+
+sourceId = g3a_u01_3a01
+operator_readback = tests 427, pass 427, fail 0, working tree clean
+status = PASS
+
+validated:
+- prompt polish changes passed local automated validation.
+- digit arrangement pair wording, money exchange wording, and comparison prompt clarity are stable.
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_PROMPT_POLISH_QAFIX_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U01_PROMPT_POLISH_QAFIX_LOCAL_PASS
+DISTANCE_REDUCED = output wording and punctuation blockers resolved
+REMAINING_BLOCKERS = S44M1-5 ChineseNumeralCanonicalZeroRuleCheck
+NEXT_SHORTEST_STEP = S44M1-5_G3A_U01_ChineseNumeralCanonicalZeroRuleCheck
