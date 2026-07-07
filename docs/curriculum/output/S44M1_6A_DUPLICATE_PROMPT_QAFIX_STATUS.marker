@@ -1,0 +1,17 @@
+S44M1_6A_G3A_U01_DUPLICATE_PROMPT_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+fixed:
+- digit arrangement generator no longer uses the small fixed six-set digit pool.
+- digit arrangement now uses the full 4-distinct-digit combination pool from 0-9.
+- digit set selection advances by index with a coprime stride to avoid repeating exact prompts in ordinary worksheets.
+- regression test asserts a 30-question digit arrangement worksheet has no repeated exact prompts and no repeated same-kind digit set.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1-6b_G3A_U01_PromptPolishFix after local tests pass
