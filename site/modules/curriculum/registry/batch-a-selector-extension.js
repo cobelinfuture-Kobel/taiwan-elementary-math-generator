@@ -1,1 +1,1 @@
-export * from "./batch-a-selector-equation-extension.js";
+export * from "./batch-a-selector-g4a-extension.js";
