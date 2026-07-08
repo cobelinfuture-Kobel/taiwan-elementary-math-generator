@@ -1,14 +1,13 @@
 import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
+import { getBatchABrowserPatternDefinition } from "./source-pattern-submiddle-extension.js";
 import { BATCH_A_RESOLVER_SELECTION_MODES } from "./visible-pattern-group-resolver.js";
 import {
   G4A_U01_SOURCE_ID,
-  canGenerateG4AU01Phase1Questions,
   generateBatchABrowserQuestions as generateBaseG4AU01Questions
 } from "./g4a-u01-phase1-generator.js";
 
-export { canGenerateG4AU01Phase1Questions };
-
 const BOUNDARY_DIFFERENCE_SPEC_ID = "ps_g4a_u01_boundary_number_difference";
+const ARRANGEMENT_SPEC_ID = "ps_g4a_u01_digit_arrangement_max_min";
 const MAX_BOUNDARY_DIFFERENCE_UNIQUE_COUNT = 8;
 const PATTERN_SELECTOR = Object.freeze({
   ps_g4a_u01_compare_8digit: ["kp_g4a_u01_compare_8digit", "pg_g4a_u01_compare_8digit"],
@@ -27,12 +26,36 @@ const PATTERN_SELECTOR = Object.freeze({
   ps_g4a_u01_wan_mixed_notation_subtraction: ["kp_g4a_u01_wan_mixed_notation_subtraction", "pg_g4a_u01_wan_mixed_notation_subtraction"],
   ps_g4a_u01_boundary_number_difference: ["kp_g4a_u01_boundary_number_difference", "pg_g4a_u01_boundary_number_difference"],
   ps_g4a_u01_comparison_word_problem_total: ["kp_g4a_u01_comparison_word_problem_total", "pg_g4a_u01_comparison_word_problem_total"],
-  ps_g4a_u01_large_number_unit_word_problem_add_subtract: ["kp_g4a_u01_large_number_unit_word_problem_add_subtract", "pg_g4a_u01_large_number_unit_word_problem_add_subtract"]
+  ps_g4a_u01_large_number_unit_word_problem_add_subtract: ["kp_g4a_u01_large_number_unit_word_problem_add_subtract", "pg_g4a_u01_large_number_unit_word_problem_add_subtract"],
+  ps_g4a_u01_digit_arrangement_max_min: ["kp_g4a_u01_digit_arrangement_max_min", "pg_g4a_u01_digit_arrangement_max_min"]
 });
 const DIGIT_CHINESE = Object.freeze(["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"]);
+const ARRANGEMENT_DIGIT_SETS = Object.freeze([
+  Object.freeze([1, 3, 6, 7, 9]),
+  Object.freeze([0, 2, 4, 5, 8]),
+  Object.freeze([1, 4, 5, 7, 8]),
+  Object.freeze([0, 3, 4, 6, 9]),
+  Object.freeze([2, 3, 5, 6, 7]),
+  Object.freeze([0, 1, 4, 6, 8]),
+  Object.freeze([1, 2, 5, 8, 9]),
+  Object.freeze([0, 3, 5, 7, 8])
+]);
+const ARRANGEMENT_CONTEXTS = Object.freeze([
+  Object.freeze({ item: "光纖長度", unit: "公分", unitSymbol: "cm", prefix: "光纖長度" }),
+  Object.freeze({ item: "芒果箱號重量", unit: "公克", unitSymbol: "g", prefix: "芒果箱號" }),
+  Object.freeze({ item: "滴灌量", unit: "毫升", unitSymbol: "ml", prefix: "滴灌量" }),
+  Object.freeze({ item: "成分重量", unit: "毫克", unitSymbol: "mg", prefix: "成分重量" }),
+  Object.freeze({ item: "機台間距", unit: "毫米", unitSymbol: "mm", prefix: "機台間距" })
+]);
 
 function issue(code, path, message, severity = "warning") {
   return { code, severity, path, message };
+}
+
+function cloneValue(value) {
+  if (Array.isArray(value)) return value.map((entry) => cloneValue(entry));
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, nested]) => [key, cloneValue(nested)]));
+  return value;
 }
 
 function hashSeed(value) {
@@ -131,6 +154,70 @@ function comparisonSymbol(left, right) {
   return left > right ? ">" : left < right ? "<" : "=";
 }
 
+function textQuestionMetadata(definition) {
+  return {
+    patternId: definition.patternSpecId,
+    sourceId: definition.sourceId,
+    patternTags: ["batch_a", "browser_bridge", definition.sourceId, definition.patternSpecId],
+    skillTags: [...(definition.skillTags ?? [])],
+    difficultyTags: [...(definition.difficultyTags ?? [])],
+    curriculumNodeIds: [definition.sourceId],
+    canonicalSkillIds: [...(definition.canonicalSkillIds ?? [])]
+  };
+}
+
+function numberFromDigits(digits) {
+  return Number(digits.join(""));
+}
+
+function minNumberFromDigits(digits) {
+  const sorted = [...digits].sort((a, b) => a - b);
+  if (sorted[0] !== 0) return numberFromDigits(sorted);
+  const firstNonZeroIndex = sorted.findIndex((digit) => digit > 0);
+  const [first] = sorted.splice(firstNonZeroIndex, 1);
+  return numberFromDigits([first, ...sorted]);
+}
+
+function arrangementPrompt(digits, mode, context) {
+  const digitText = digits.join("、");
+  if (mode === "numeric") {
+    const zeroNote = digits.includes(0) ? "（萬位數字不能為 0）" : "";
+    return `用 ${digitText} 這五個數字各一次，組成五位數。最大的數是多少？最小的數是多少？${zeroNote}`;
+  }
+  const zeroNote = digits.includes(0) ? "萬位不能為0。" : "";
+  return `${context.prefix}用 ${digitText} 各一次組成五位數${context.unitSymbol}。最大幾${context.unit}？最小幾${context.unit}？${zeroNote}`;
+}
+
+function generateArrangementQuestion(definition, options = {}) {
+  const sequenceNumber = Number.isInteger(options.sequenceNumber) && options.sequenceNumber > 0 ? options.sequenceNumber : 1;
+  const seedValue = hashSeed(`${options.seed}:${sequenceNumber}`);
+  const digits = [...ARRANGEMENT_DIGIT_SETS[(sequenceNumber + seedValue) % ARRANGEMENT_DIGIT_SETS.length]];
+  const context = ARRANGEMENT_CONTEXTS[(sequenceNumber + seedValue) % ARRANGEMENT_CONTEXTS.length];
+  const mode = sequenceNumber % 2 === 0 ? "wordProblem" : "numeric";
+  const maxNumber = numberFromDigits([...digits].sort((a, b) => b - a));
+  const minNumber = minNumberFromDigits(digits);
+  const answerText = `最大：${maxNumber}；最小：${minNumber}`;
+  const promptText = arrangementPrompt(digits, mode, context);
+  const id = options.id ?? `${definition.patternSpecId}-${sequenceNumber}`;
+  return {
+    id,
+    patternSpecId: definition.patternSpecId,
+    sourceId: definition.sourceId,
+    kind: definition.kind,
+    arrangementMode: mode,
+    digits,
+    maxNumber,
+    minNumber,
+    unit: mode === "wordProblem" ? context.unit : null,
+    promptText,
+    displayText: `${promptText} ${answerText}`,
+    blankedDisplayText: `${promptText} ________`,
+    answerText,
+    finalAnswer: answerText,
+    metadata: textQuestionMetadata(definition)
+  };
+}
+
 function normalizeReadingWritingQuestion(question) {
   const chineseText = numberToChinese(question.value);
   const conversionDirection = question.conversionDirection;
@@ -209,6 +296,23 @@ function candidateOptionsForPattern(plan, patternSpecId, attempt) {
   };
 }
 
+function generateCandidateQuestion(plan, patternSpecId, attempt, sequenceNumber) {
+  if (patternSpecId === ARRANGEMENT_SPEC_ID) {
+    const definition = getBatchABrowserPatternDefinition(patternSpecId);
+    if (!definition) return { question: null, errors: [issue("batch_a_pattern_missing", "patternSpecId", `Missing pattern '${patternSpecId}'.`, "error")], warnings: [] };
+    return { question: generateArrangementQuestion(definition, { seed: `${plan.generationSeed}:${attempt}`, sequenceNumber }), errors: [], warnings: [] };
+  }
+  const options = candidateOptionsForPattern(plan, patternSpecId, attempt);
+  if (!options) return { question: null, errors: [issue("batch_a_pattern_missing", "patternSpecId", `Missing pattern '${patternSpecId}'.`, "error")], warnings: [] };
+  const generated = generateBaseG4AU01Questions(options);
+  const converted = convertUniquePoolErrors(generated.errors ?? [], generated.warnings ?? []);
+  return {
+    question: normalizeQuestion(generated.questions?.[0]),
+    errors: converted.blockingErrors,
+    warnings: converted.warnings
+  };
+}
+
 function fillShortage(plan, questions, warnings) {
   const targetCount = plan.questionCount;
   if (questions.length >= targetCount) return { questions: questions.slice(0, targetCount), warnings };
@@ -232,10 +336,8 @@ function fillShortage(plan, questions, warnings) {
   const maxAttempts = Math.max(120, targetCount * candidatePatternIds.length * 20);
   for (let attempt = 1; output.length < targetCount && attempt <= maxAttempts; attempt += 1) {
     const patternSpecId = candidatePatternIds[(attempt - 1) % candidatePatternIds.length];
-    const options = candidateOptionsForPattern(plan, patternSpecId, attempt);
-    if (!options) continue;
-    const generated = generateBaseG4AU01Questions(options);
-    const candidate = normalizeQuestion(generated.questions?.[0]);
+    const generated = generateCandidateQuestion(plan, patternSpecId, attempt, output.length + 1);
+    const candidate = generated.question;
     const key = questionKey(candidate);
     if (candidate && !seen.has(key)) {
       seen.add(key);
@@ -259,23 +361,75 @@ function fillShortage(plan, questions, warnings) {
   return { questions: output, warnings };
 }
 
+function allocateCounts(patternSpecIds, questionCount) {
+  const base = Math.floor(questionCount / patternSpecIds.length);
+  let remainder = questionCount % patternSpecIds.length;
+  return patternSpecIds.map((patternSpecId) => {
+    const questionCountForPattern = base + (remainder > 0 ? 1 : 0);
+    remainder -= remainder > 0 ? 1 : 0;
+    return { patternSpecId, questionCount: questionCountForPattern };
+  }).filter((entry) => entry.questionCount > 0);
+}
+
+function allocationForPlan(plan) {
+  return Array.isArray(plan.allocation) && plan.allocation.length > 0
+    ? cloneValue(plan.allocation)
+    : allocateCounts(plan.patternSpecIds ?? [], plan.questionCount);
+}
+
+export function canGenerateG4AU01Phase1Questions(plan = {}) {
+  return plan?.sourceId === G4A_U01_SOURCE_ID
+    && Array.isArray(plan.patternSpecIds)
+    && plan.patternSpecIds.length > 0
+    && plan.patternSpecIds.every((patternSpecId) => Boolean(PATTERN_SELECTOR[patternSpecId]));
+}
+
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
-  const base = generateBaseG4AU01Questions(options);
-  const converted = convertUniquePoolErrors(base.errors ?? [], base.warnings ?? []);
-  if (converted.blockingErrors.length > 0) {
-    return { ...base, errors: converted.blockingErrors, warnings: converted.warnings, ok: false };
+  if (!canGenerateG4AU01Phase1Questions(plan)) return generateBaseG4AU01Questions(options);
+
+  const allocation = allocationForPlan(plan);
+  const questions = [];
+  const errors = [];
+  const warnings = [];
+  const seen = new Set();
+
+  for (const entry of allocation) {
+    let generatedForPattern = 0;
+    const maxAttempts = Math.max(40, entry.questionCount * 16);
+    for (let attempt = 1; generatedForPattern < entry.questionCount && attempt <= maxAttempts; attempt += 1) {
+      const generated = generateCandidateQuestion(plan, entry.patternSpecId, attempt, questions.length + 1);
+      errors.push(...generated.errors);
+      warnings.push(...generated.warnings);
+      const candidate = generated.question;
+      const key = questionKey(candidate);
+      if (candidate && !seen.has(key)) {
+        seen.add(key);
+        questions.push(candidate);
+        generatedForPattern += 1;
+      }
+    }
+    if (generatedForPattern < entry.questionCount) {
+      warnings.push(issue(
+        entry.patternSpecId === BOUNDARY_DIFFERENCE_SPEC_ID ? "batch_a_g4a_u01_unique_pool_limited" : "batch_a_g4a_u01_pattern_pool_limited",
+        "patternSpecId",
+        `${entry.patternSpecId} 要求 ${entry.questionCount} 題，只產生 ${generatedForPattern} 題。`
+      ));
+    }
   }
 
-  const normalizedQuestions = (base.questions ?? []).map(normalizeQuestion).filter(Boolean);
-  const normalizedWarnings = converted.warnings;
-  const filled = fillShortage(base.plan ?? plan, normalizedQuestions, normalizedWarnings);
-  const orderedQuestions = shuffleQuestions(filled.questions, base.plan ?? plan);
+  if (errors.length > 0) {
+    return { ok: false, plan, questions: [], allocation, errors, warnings };
+  }
+
+  const filled = fillShortage(plan, questions, warnings);
+  const orderedQuestions = shuffleQuestions(filled.questions, plan);
 
   return {
-    ...base,
     ok: true,
+    plan,
     questions: orderedQuestions,
+    allocation,
     errors: [],
     warnings: filled.warnings
   };
