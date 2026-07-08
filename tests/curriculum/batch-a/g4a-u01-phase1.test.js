@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { generateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet.js";
 import { validateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
+import { BATCH_A_RESOLVER_SELECTION_MODES } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 
 const SOURCE_ID = "g4a_u01_4a01";
 const PHASE1_PATTERN_IDS = Object.freeze([
@@ -14,6 +15,20 @@ const PHASE1_PATTERN_IDS = Object.freeze([
   "ps_g4a_u01_place_value_composition_to_number",
   "ps_g4a_u01_same_digit_place_value_difference"
 ]);
+const TALL_PATTERN_SELECTOR = Object.freeze({
+  ps_g4a_u01_same_digit_place_value_difference: Object.freeze({
+    kpId: "kp_g4a_u01_same_digit_place_value_difference",
+    groupId: "pg_g4a_u01_same_digit_place_value_difference"
+  }),
+  ps_g4a_u01_place_value_composition_to_number: Object.freeze({
+    kpId: "kp_g4a_u01_place_value_composition_to_number",
+    groupId: "pg_g4a_u01_place_value_composition_to_number"
+  }),
+  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({
+    kpId: "kp_g4a_u01_8digit_place_value_decomposition",
+    groupId: "pg_g4a_u01_8digit_place_value_decomposition"
+  })
+});
 
 function generate(questionCount = 30) {
   return generateBatchABrowserQuestions({
@@ -26,9 +41,12 @@ function generate(questionCount = 30) {
 }
 
 function worksheetForPattern(patternSpecId, questionCount = 40) {
+  const selector = TALL_PATTERN_SELECTOR[patternSpecId];
   return buildBatchABrowserWorksheetDocument({
     sourceId: SOURCE_ID,
-    patternSpecIds: [patternSpecId],
+    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+    selectedKnowledgePointIds: [selector.kpId],
+    selectedPatternGroupIds: [selector.groupId],
     questionCount,
     ordering: "groupedByPattern",
     generationSeed: `s50g-r2-${patternSpecId}`,
