@@ -13,7 +13,7 @@ const addGroup = "pg_g3a_u02_add_missing_digit_operand";
 const subGroup = "pg_g3a_u02_sub_missing_digit_operand";
 const addSpec = "ps_g3a_u02_add_missing_digit_operand";
 const subSpec = "ps_g3a_u02_sub_missing_digit_operand";
-const CURRENT_VISIBLE_KP_COUNT = 52;
+const CURRENT_VISIBLE_KP_COUNT = 58;
 
 function make(kpId, groupId, count = 8) {
   return generateBatchABrowserQuestions({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId], questionCount: count, generationSeed: `s43g4h-${kpId}`, includeAnswerKey: true });
