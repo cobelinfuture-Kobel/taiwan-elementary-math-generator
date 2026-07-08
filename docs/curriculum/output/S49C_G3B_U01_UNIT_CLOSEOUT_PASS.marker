@@ -1,0 +1,59 @@
+S49C_G3B_U01_UNIT_CLOSEOUT_PASS
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+status = PASS_ACCEPTED_AND_CLOSED
+operator_decision = accept_duplicate_exact_expression_strings_as_non_blocking_and_close_unit
+operator_readback = NEXT_SHORTEST_STEP = accept duplicate exact-expression strings as non-blocking and close G3B-U01
+write_type = closeout_marker_only
+
+closed_scope:
+- S43E5_R4M local pass was already recorded for G3B-U01.
+- S49A PDF review completed for the uploaded 200-question G3B-U01 browser PDF.
+- S49A_R1 root-cause confirmation completed for duplicate exact-division strings.
+- Operator accepted duplicate exact-expression strings as non-blocking.
+- Unit is closed without running S49B duplicate FullFix.
+
+accepted_non_blocking_issues:
+- 8 normalized duplicate exact-division expression groups in the reviewed 200-question mixed worksheet.
+- Exported PDF contains blank page 15 between worksheet and answer key.
+- Exported PDF contains blank final page 30.
+- Duplicate exact-expression reuse can be reopened later if project policy changes to strict zero-duplicate output.
+- Blank-page pagination remains deferred to browser/PDF smoke later or renderer-wide cleanup backlog.
+
+validated_as_passing:
+- G3B-U01 mixed output contains 200 questions.
+- Answer key contains 200 answers.
+- Deterministic answer audit passed: 200 / 200.
+- Answer errors: 0.
+- Exact-division answer errors: 0.
+- Remainder answer errors: 0.
+- Word-problem answer errors: 0.
+- Remainder expression constraint errors: 0.
+- Division-by-zero errors: 0.
+- Non-integer exact-division expression errors: 0.
+- No decimal/fraction/future-domain leakage detected.
+- Scope boundary passed for G3B-U01 division.
+
+root_cause_accepted:
+- Duplicate strings were confirmed as cross-entry exact-expression collisions / limited exact-expression diversity in a large mixed worksheet.
+- The issue is not a semantic math failure.
+- The issue is not an answer correctness failure.
+- The issue is not a range or division constraint failure.
+
+not_closed_as_goal:
+- Browser/PDF smoke for the full system remains a later task.
+- Optional duplicate cleanup can be reopened as S49B if strict no-duplicate policy is later required.
+- Renderer-wide blank-page cleanup remains backlog.
+
+anti_scope_check:
+- No generator/validator/renderer code modified.
+- No PDF regenerated.
+- No G4A work performed.
+- No Batch D g3a_u04 work performed.
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_DUPLICATE_CAUSE_CONFIRMED_AWAITING_ACCEPT_OR_FIX_DECISION
+GOAL_DISTANCE_AFTER = D1_G3B_U01_UNIT_CLOSED_ACCEPTED_PASS
+DISTANCE_REDUCED = G3B-U01 duplicate exact-expression issue and blank-page pagination were accepted as non-blocking; the unit is formally closed.
+REMAINING_BLOCKERS = ["G4A units still need output QA", "browser/PDF smoke later", "optional renderer-wide blank-page cleanup backlog", "optional S49B duplicate cleanup if strict no-duplicate policy is later required"]
+NEXT_SHORTEST_STEP = S50A_G4A_U01_CurrentStateAndOutputReview
