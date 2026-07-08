@@ -4,7 +4,7 @@ import {
   paginateAnswerKeyItems,
   paginateQuestionDisplayModels
 } from "../../core/index.js";
-import { generateBatchABrowserQuestions } from "./g3a-u06-division-ordering-generator.js";
+import { generateBatchABrowserQuestions } from "./batch-a-browser-question-router.js";
 import { validateBatchABrowserQuestions } from "./batch-a-browser-validator.js";
 import { BATCH_A_BROWSER_SCOPE } from "./production-eligibility.js";
 
@@ -15,6 +15,7 @@ const DEFAULT_PRINT_LAYOUT = Object.freeze({
   showQuestionNumbers: true,
   showAnswerKeyPage: true
 });
+const G3A_U02_SOURCE_ID = "g3a_u02_3a02";
 
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
@@ -24,6 +25,29 @@ function cloneValue(value) {
 
 function isTextDisplayQuestion(question) {
   return typeof question?.blankedDisplayText === "string" && typeof question?.answerText === "string";
+}
+
+function isOrderedFillQuestion(question) {
+  return question?.answerOrder === "prompt_left_to_right" || question?.kind === "missingDigitEquation";
+}
+
+function formatAnswerKeyText(question) {
+  if (isOrderedFillQuestion(question)) return `依序填入：${String(question.answerText).split(",").map((part) => part.trim()).join(", ")}`;
+  return question.answerText;
+}
+
+function hasLongTextQuestion(questions) {
+  return questions.some((question) => question?.sourceId === G3A_U02_SOURCE_ID && (question?.kind === "wordProblemEstimation" || String(question?.blankedDisplayText ?? "").length >= 52));
+}
+
+function normalizePrintLayoutForGeneratedQuestions(printLayout, questions) {
+  if (!hasLongTextQuestion(questions)) return printLayout;
+  return {
+    ...printLayout,
+    columns: Math.min(printLayout.columns, 2),
+    rowsPerPage: Math.min(printLayout.rowsPerPage, 8),
+    longTextCardPolicy: "avoidSplit"
+  };
 }
 
 function displayModelForTextQuestion(question, questionNumber, showQuestionNumbers = true) {
@@ -38,7 +62,8 @@ function displayModelForTextQuestion(question, questionNumber, showQuestionNumbe
     metadataSnapshot: cloneValue(question.metadata),
     layoutHints: {
       estimatedTextLength: question.displayText.length,
-      hasGrouping: false
+      hasGrouping: false,
+      avoidPageBreakInside: question.sourceId === G3A_U02_SOURCE_ID && String(question.blankedDisplayText ?? "").length >= 52
     }
   };
 }
@@ -49,7 +74,7 @@ function answerKeyItemForTextQuestion(question, displayModel) {
     questionNumber: displayModel.questionNumber,
     patternId: question.patternSpecId,
     promptText: displayModel.blankedDisplayText,
-    answerText: question.answerText,
+    answerText: formatAnswerKeyText(question),
     metadataSnapshot: cloneValue(question.metadata)
   };
 }
@@ -90,9 +115,7 @@ function createGenerationReport({ plan, allocation, questions, errors, warnings 
 }
 
 function createWorksheetTitle(options, plan) {
-  if (plan.worksheetMode === "batchAKnowledgePoint") {
-    return options.title ?? `Batch A ${plan.sourceUnit?.unitCode ?? ""} 知識點加強`.trim();
-  }
+  if (plan.worksheetMode === "batchAKnowledgePoint") return options.title ?? `Batch A ${plan.sourceUnit?.unitCode ?? ""} 知識點加強`.trim();
   return options.title ?? `Batch A ${plan.sourceUnit?.unitCode ?? ""} ${plan.sourceUnit?.title ?? "數學練習卷"}`.trim();
 }
 
@@ -108,15 +131,13 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     };
   }
 
-  const printLayout = {
+  const printLayout = normalizePrintLayoutForGeneratedQuestions({
     ...DEFAULT_PRINT_LAYOUT,
     ...(options.printLayout ?? {}),
     showAnswerKeyPage: options.includeAnswerKey !== false
-  };
+  }, generated.questions);
   const validation = validateBatchABrowserQuestions(generated.questions);
-  if (!validation.ok) {
-    return { ok: false, worksheetDocument: null, validation, errors: validation.errors, warnings: validation.warnings };
-  }
+  if (!validation.ok) return { ok: false, worksheetDocument: null, validation, errors: validation.errors, warnings: validation.warnings };
 
   const questionDisplayModels = createDisplayModels(generated.questions, printLayout);
   const answerKeyItems = printLayout.showAnswerKeyPage ? createAnswerKeyItems(generated.questions, questionDisplayModels) : [];
@@ -144,13 +165,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       curriculumNodeIds: [plan.sourceId],
       canonicalSkillIds: []
     },
-    studentFields: {
-      showName: true,
-      showDate: true,
-      showClass: false,
-      showScore: false,
-      labels: { name: "姓名", date: "日期", className: "班級", score: "分數" }
-    },
+    studentFields: { showName: true, showDate: true, showClass: false, showScore: false, labels: { name: "姓名", date: "日期", className: "班級", score: "分數" } },
     printOptions: {
       paperSize: printLayout.paperSize,
       orientation: "portrait",
@@ -160,7 +175,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       showQuestionNumbers: printLayout.showQuestionNumbers,
       showAnswerKey: printLayout.showAnswerKeyPage,
       answerKeyPlacement: printLayout.showAnswerKeyPage ? "afterQuestions" : "none",
-      pageBreakMode: "fixedGrid",
+      pageBreakMode: printLayout.longTextCardPolicy === "avoidSplit" ? "avoidLongTextCards" : "fixedGrid",
       marginMode: "default",
       debugDataAttributes: false
     },
@@ -175,7 +190,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     },
     provenance: {
       sourceType: "batch_a_browser_bridge",
-      sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles", "S43C13_G3AU02_HTMLSingleVisibleKPEnablement", "S43G5B_G3AU03MultiplicationGeneratorQualityFix", "S44_G3AU06DivisionKPMappingFix"],
+      sourceTaskIds: ["S42B10_CreateBatchASiteBridgeFiles", "S43C13_G3AU02_HTMLSingleVisibleKPEnablement", "S43G5B_G3AU03MultiplicationGeneratorQualityFix", "S44_G3AU06DivisionKPMappingFix", "S45B_G3AU02OutputQualityFullFix"],
       patternSpecIds: [...plan.patternSpecIds],
       curriculumNodeIds: [plan.sourceId],
       knowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
@@ -183,36 +198,9 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       productionStorageCategory: "none",
       notes: [BATCH_A_BROWSER_SCOPE.limit]
     },
-    sections: [{
-      sectionId: `section-${plan.sourceId}`,
-      title: plan.worksheetMode === "batchAKnowledgePoint" ? "知識點加強" : (plan.sourceUnit?.title ?? plan.sourceId),
-      description: null,
-      patternIds: [...plan.patternSpecIds],
-      questionIds: generated.questions.map((question) => question.id),
-      orderingIndex: 0
-    }],
-    configSnapshot: {
-      schemaVersion: "s42b10.batch_a.browser_worksheet_plan.v1",
-      sourceId: plan.sourceId,
-      questionCount: plan.questionCount,
-      ordering: plan.ordering,
-      includeAnswerKey: printLayout.showAnswerKeyPage,
-      generationSeed: plan.generationSeed,
-      selectionMode: plan.selectionMode,
-      selectedKnowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []),
-      selectedPatternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []),
-      printLayout
-    },
-    generationContext: {
-      questionKind: "batchAWorksheet",
-      generationMode,
-      questionCount: generated.questions.length,
-      generationSeed: plan.generationSeed,
-      orderingSeed: plan.generationSeed,
-      resolvedOrderingSeed: plan.generationSeed,
-      orderingMode: plan.ordering,
-      patternIdsInRenderOrder: [...plan.patternSpecIds]
-    },
+    sections: [{ sectionId: `section-${plan.sourceId}`, title: plan.worksheetMode === "batchAKnowledgePoint" ? "知識點加強" : (plan.sourceUnit?.title ?? plan.sourceId), description: null, patternIds: [...plan.patternSpecIds], questionIds: generated.questions.map((question) => question.id), orderingIndex: 0 }],
+    configSnapshot: { schemaVersion: "s42b10.batch_a.browser_worksheet_plan.v1", sourceId: plan.sourceId, questionCount: plan.questionCount, ordering: plan.ordering, includeAnswerKey: printLayout.showAnswerKeyPage, generationSeed: plan.generationSeed, selectionMode: plan.selectionMode, selectedKnowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []), selectedPatternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []), printLayout },
+    generationContext: { questionKind: "batchAWorksheet", generationMode, questionCount: generated.questions.length, generationSeed: plan.generationSeed, orderingSeed: plan.generationSeed, resolvedOrderingSeed: plan.generationSeed, orderingMode: plan.ordering, patternIdsInRenderOrder: [...plan.patternSpecIds] },
     allocationResult: cloneValue(generated.allocation),
     generatedQuestions: cloneValue(generated.questions),
     orderedQuestionIds: generated.questions.map((question) => question.id),
@@ -220,13 +208,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     answerKeyItems,
     questionPages,
     answerKeyPages,
-    summary: {
-      questionCount: generated.questions.length,
-      questionPageCount: questionPages.length,
-      answerKeyPageCount: answerKeyPages.length,
-      orderingMode: plan.ordering,
-      patternIdsInRenderOrder: [...plan.patternSpecIds]
-    },
+    summary: { questionCount: generated.questions.length, questionPageCount: questionPages.length, answerKeyPageCount: answerKeyPages.length, orderingMode: plan.ordering, patternIdsInRenderOrder: [...plan.patternSpecIds] },
     generationReport: createGenerationReport({ plan, allocation: generated.allocation, questions: generated.questions, errors: generated.errors, warnings: generated.warnings })
   };
 
