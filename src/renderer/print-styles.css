@@ -151,7 +151,8 @@ body.worksheet-renderer {
 
   .worksheet-page {
     width: var(--worksheet-page-width);
-    min-height: var(--worksheet-page-min-height);
+    min-height: calc(var(--worksheet-page-min-height) - 0.75mm);
+    height: calc(var(--worksheet-page-min-height) - 0.75mm);
     margin: 0;
     border: 0;
     box-shadow: none;
