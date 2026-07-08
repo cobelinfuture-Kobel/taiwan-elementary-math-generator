@@ -7,7 +7,7 @@ import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curri
 import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 
 const sourceId = "g3a_u03_3a03";
-const CURRENT_VISIBLE_KP_COUNT = 47;
+const CURRENT_VISIBLE_KP_COUNT = 52;
 const rows = [
   ["kp_g3a_u03_2digit_by_1digit_carry", "pg_g3a_u03_2digit_by_1digit_carry", "ps_g3a_u03_2digit_by_1digit_carry"],
   ["kp_g3a_u03_10_multiple_by_1digit", "pg_g3a_u03_10_multiple_by_1digit", "ps_g3a_u03_10_multiple_by_1digit"],
