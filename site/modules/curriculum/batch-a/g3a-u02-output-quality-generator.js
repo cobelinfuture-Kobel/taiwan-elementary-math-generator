@@ -263,9 +263,14 @@ function generateContextEstimate(definition, options = {}) {
 function maskDigit(value, index) { const text = String(value); return `${text.slice(0, index)}□${text.slice(index + 1)}`; }
 function placesForValue(value) { return Array.from({ length: String(value).length }, (_, index) => index); }
 function placeValueForIndex(value, index) { return String(value).length - 1 - index; }
+function indexForPlaceValue(value, placeValue) { const index = String(value).length - 1 - placeValue; return index >= 0 && index < String(value).length ? index : null; }
 function chooseIndexForDistinctPlace(value, usedPlaceValues, state) {
   const candidates = placesForValue(value).filter((index) => !usedPlaceValues.has(placeValueForIndex(value, index)));
   return candidates.length === 0 ? null : candidates[state % candidates.length];
+}
+function chooseMiddleIndex(value, state) {
+  const middleIndexes = [2, 1].map((placeValue) => indexForPlaceValue(value, placeValue)).filter((index) => index !== null);
+  return middleIndexes.length === 0 ? null : middleIndexes[state % middleIndexes.length];
 }
 function makeBlank(target, value, index) { return { target, index, placeValue: placeValueForIndex(value, index), digit: Number(String(value)[index]) }; }
 function maskMultipleDigits(value, blanks) { const chars = String(value).split(""); for (const blank of blanks) chars[blank.index] = "□"; return chars.join(""); }
@@ -316,11 +321,16 @@ function equationBlankModel(definition, options = {}) {
   const result = definition.operator === "add" ? left + right : left - right;
   const usedPlaceValues = new Set();
   const rightPlaces = placesForValue(right);
-  const rightBlank = makeBlank("right", right, rightPlaces[(sequenceNumber(options) - 1) % rightPlaces.length]);
+  const defaultRightIndex = rightPlaces[(sequenceNumber(options) - 1) % rightPlaces.length];
+  const forcedMiddleIndex = definition.middlePlaceRequired === true ? chooseMiddleIndex(right, mix32(sequenceState(options, "equation-middle"))) : null;
+  const rightBlank = makeBlank("right", right, forcedMiddleIndex ?? defaultRightIndex);
   usedPlaceValues.add(rightBlank.placeValue);
+
   const resultIndex = chooseIndexForDistinctPlace(result, usedPlaceValues, mix32(sequenceState(options, "equation-result")));
-  const resultBlank = makeBlank("result", result, resultIndex ?? 0);
+  if (resultIndex === null) throw new Error("batch_a_g3a_u02_equation_result_blank_unavailable");
+  const resultBlank = makeBlank("result", result, resultIndex);
   usedPlaceValues.add(resultBlank.placeValue);
+
   const leftIndex = chooseIndexForDistinctPlace(left, usedPlaceValues, mix32(sequenceState(options, "equation-left-blank")));
   const leftBlank = leftIndex === null ? null : makeBlank("left", left, leftIndex);
   const order = { left: 0, right: 1, result: 2 };
@@ -419,19 +429,23 @@ export function generateG3AU02OutputQualityQuestions(options = {}) {
     if (!definition) { errors.push(issue("batch_a_pattern_missing", "patternSpecId", `Missing pattern '${entry.patternSpecId}'.`)); continue; }
     for (let index = 0; index < entry.questionCount; index += 1) {
       let accepted = null;
+      let lastValidationErrors = [];
       for (let attempt = 0; attempt < MAX_DUPLICATE_RETRY; attempt += 1) {
         const sequenceForAttempt = questions.length + 1 + attempt * 997;
         const seed = `${plan.generationSeed}:${entry.patternSpecId}:${index + 1}:s45b2:${attempt}`;
         let question;
         try { question = generateQuestion(definition, { seed, sequenceNumber: sequenceForAttempt }); }
-        catch (error) { errors.push(issue(error.code ?? "batch_a_g3a_u02_generation_failed", entry.patternSpecId, error.message)); break; }
+        catch (error) { lastValidationErrors = [issue(error.code ?? "batch_a_g3a_u02_generation_failed", entry.patternSpecId, error.message)]; continue; }
         const checked = validateBatchABrowserQuestion(question);
-        if (!checked.ok) { errors.push(...checked.errors); warnings.push(...checked.warnings); break; }
+        if (!checked.ok) { lastValidationErrors = checked.errors; warnings.push(...checked.warnings); continue; }
         const key = questionKey(question);
         if (!seen.has(key)) { seen.add(key); accepted = question; warnings.push(...checked.warnings); break; }
       }
       if (accepted) questions.push(accepted);
-      else errors.push(issue("batch_a_g3a_u02_duplicate_retry_exhausted", entry.patternSpecId, `Unable to produce a unique prompt for '${entry.patternSpecId}'.`));
+      else {
+        errors.push(...lastValidationErrors);
+        errors.push(issue("batch_a_g3a_u02_duplicate_retry_exhausted", entry.patternSpecId, `Unable to produce a unique valid prompt for '${entry.patternSpecId}'.`));
+      }
     }
   }
 
