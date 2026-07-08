@@ -80,6 +80,8 @@ body.worksheet-renderer {
   justify-content: flex-start;
   gap: 6px;
   background: #fff;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .worksheet-cell__number {
@@ -91,6 +93,8 @@ body.worksheet-renderer {
 .worksheet-cell__answer {
   line-height: 1.45;
   word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
 }
 
 .worksheet-cell__answer {
@@ -120,8 +124,10 @@ body.worksheet-renderer {
 }
 
 @media print {
+  html,
   body.worksheet-renderer {
     background: transparent;
+    height: auto;
   }
 
   .worksheet-document,
@@ -131,7 +137,17 @@ body.worksheet-renderer {
     gap: 0;
   }
 
+  .worksheet-section:empty,
+  .worksheet-page:empty {
+    display: none !important;
+  }
+
   .worksheet-section--answer-key {
+    page-break-before: auto;
+    break-before: auto;
+  }
+
+  .worksheet-section--answer-key .worksheet-page:first-of-type {
     page-break-before: always;
     break-before: page;
   }
@@ -144,11 +160,26 @@ body.worksheet-renderer {
     box-shadow: none;
     page-break-after: auto;
     break-after: auto;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .worksheet-page__grid,
+  .worksheet-cell {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   .worksheet-page + .worksheet-page {
     page-break-before: always;
     break-before: page;
+  }
+
+  .worksheet-page:last-child,
+  .worksheet-section:last-child,
+  .worksheet-document > :last-child {
+    page-break-after: avoid;
+    break-after: avoid;
   }
 
   .screen-only {
