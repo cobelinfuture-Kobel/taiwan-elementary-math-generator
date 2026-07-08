@@ -1,0 +1,49 @@
+S53H_G4A_U02_UNIT_CLOSEOUT_PASS
+
+sourceId = g4a_u02_4a02
+unit = 4A-U02 整數的乘法
+status = PASS_ACCEPTED_AND_CLOSED
+write_type = unit_closeout_marker
+
+accepted_scope:
+- Numeric multiplication core: accepted.
+- Reasoning/text multiplication patterns: accepted.
+- Visible KnowledgePoints: 9.
+- Pattern families covered in mixed PDF: 9.
+- Worksheet output: accepted for current stage.
+- Validator/generator/selector/test coverage: accepted for current stage.
+
+final_validation_evidence:
+- npm test readback: tests 465, pass 465, fail 0.
+- Regenerated mixed PDF smoke: PASS.
+- Mixed PDF question count: 120.
+- Mixed PDF answer key count: 120.
+- Recomputed answer errors: 0.
+- Previous mixed answer-key orphan-fragment blocker: cleared.
+- Blank-page artifact remains non-blocking renderer-wide backlog.
+
+closed_knowledge_points:
+1. kp_g4a_u02_3digit_by_1digit_review
+2. kp_g4a_u02_4digit_by_1digit_missing_digit
+3. kp_g4a_u02_1digit_by_2digit
+4. kp_g4a_u02_1digit_by_3digit
+5. kp_g4a_u02_2digit_by_2digit
+6. kp_g4a_u02_2digit_by_3digit
+7. kp_g4a_u02_3digit_by_2digit
+8. kp_g4a_u02_digit_card_arrangement_product_max_min
+9. kp_g4a_u02_near_hundred_multiplication_strategy
+
+non_blocking_backlog:
+- renderer-wide blank page cleanup.
+- digit-card semantic duplicate canonicalization by sorted digit set.
+
+GOAL_DISTANCE_BEFORE = D0_G4A_U02_FULL_UNIT_PDF_SMOKE_ACCEPTED
+GOAL_DISTANCE_AFTER = D0_G4A_U02_UNIT_CLOSED
+DISTANCE_REDUCED = G4A-U02 moved from accepted smoke state to formal closed unit state; it is now available for downstream worksheet output and future cross-unit composition.
+REMAINING_BLOCKERS = ["optional renderer-wide blank-page cleanup backlog", "optional digit-card semantic duplicate canonicalization"]
+NEXT_SHORTEST_STEP = S54A_G4A_U04_SourceEvidenceIntake
+STOP_REASON = need_source_evidence_for_next_unit
+BLOCKER_TYPE = SOURCE_EVIDENCE_REQUIRED
+LAST_COMPLETED_STATUS = S53H_G4A_U02_UNIT_CLOSEOUT_PASS
+REQUIRED_OPERATOR_ACTION = Provide or confirm the G4A-U04 整數的除法 source evidence/images/PDF before implementation.
+NEXT_RESUME_TASK = S54A_G4A_U04_SourceEvidenceIntake
