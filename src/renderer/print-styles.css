@@ -143,13 +143,10 @@ body.worksheet-renderer {
   }
 
   .worksheet-section--answer-key {
-    page-break-before: auto;
-    break-before: auto;
-  }
-
-  .worksheet-section--answer-key .worksheet-page:first-of-type {
     page-break-before: always;
     break-before: page;
+    page-break-after: avoid;
+    break-after: avoid;
   }
 
   .worksheet-page {
