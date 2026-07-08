@@ -20,12 +20,14 @@ const G4A_U01_SOURCE_ID = "g4a_u01_4a01";
 const G4A_U01_TALL_TEXT_LAYOUT_PROFILES = Object.freeze({
   ps_g4a_u01_same_digit_place_value_difference: Object.freeze({ columns: 4, rowsPerPage: 8 }),
   ps_g4a_u01_place_value_composition_to_number: Object.freeze({ columns: 4, rowsPerPage: 5 }),
-  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ columns: 4, rowsPerPage: 4 })
+  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ columns: 4, rowsPerPage: 4 }),
+  ps_g4a_u01_place_value_card_unit_model_composition: Object.freeze({ columns: 4, rowsPerPage: 8 })
 });
 const G4A_U01_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES = Object.freeze({
   ps_g4a_u01_same_digit_place_value_difference: Object.freeze({ columns: 4, rowsPerPage: 6 }),
   ps_g4a_u01_place_value_composition_to_number: Object.freeze({ columns: 4, rowsPerPage: 4 }),
-  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ columns: 4, rowsPerPage: 3 })
+  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ columns: 4, rowsPerPage: 3 }),
+  ps_g4a_u01_place_value_card_unit_model_composition: Object.freeze({ columns: 4, rowsPerPage: 6 })
 });
 
 function cloneValue(value) {
