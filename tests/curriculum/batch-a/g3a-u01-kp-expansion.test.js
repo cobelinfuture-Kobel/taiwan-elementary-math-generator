@@ -9,7 +9,7 @@ const SOURCE_ID = "g3a_u01_3a01";
 const KP_ID = "kp_g3a_u01_4digit_compare";
 const GROUP_ID = "pg_g3a_u01_4digit_compare";
 const SPEC_ID = "ps_g3a_u01_4digit_compare";
-const CURRENT_VISIBLE_KP_COUNT = 59;
+const CURRENT_VISIBLE_KP_COUNT = 66;
 const EXPANDED_KPS = Object.freeze([
   ["kp_g3a_u01_number_to_chinese", 2],
   ["kp_g3a_u01_chinese_to_number", 2],
