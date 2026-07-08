@@ -217,6 +217,10 @@ function sumPlaceCounts(placeCounts = {}) {
   return G4A_U01_PLACE_UNITS.reduce((sum, unit) => sum + (Number.isInteger(placeCounts[unit.key]) ? placeCounts[unit.key] * unit.unit : 0), 0);
 }
 
+function sumPlaceModel(placeModel = []) {
+  return placeModel.reduce((sum, place) => sum + (Number.isInteger(place.count) && Number.isInteger(place.unit) ? place.count * place.unit : 0), 0);
+}
+
 function validateG4APlaceValueDecomposition(question, errors) {
   if (!Number.isSafeInteger(question.value) || question.value < 10000000 || question.value > 99999999) {
     errors.push(issue("batch_a_g4a_u01_value_out_of_range", "value"));
@@ -266,18 +270,25 @@ function validateG4ASameDigitDifference(question, errors) {
   if (Number(text[firstIndex]) !== question.repeatedDigit || Number(text[secondIndex]) !== question.repeatedDigit) errors.push(issue("batch_a_g4a_u01_repeated_digit_position_invalid", "positions"));
   const firstValue = question.repeatedDigit * G4A_U01_PLACE_UNITS[firstIndex].unit;
   const secondValue = question.repeatedDigit * G4A_U01_PLACE_UNITS[secondIndex].unit;
-  const expected = Math.abs(firstValue - secondValue);
+  const relationMode = question.placeValueRelationMode ?? "difference";
+  if (!["difference", "sum"].includes(relationMode)) errors.push(issue("batch_a_g4a_u01_relation_mode_invalid", "placeValueRelationMode"));
+  const expected = relationMode === "sum" ? firstValue + secondValue : Math.abs(firstValue - secondValue);
   if (JSON.stringify(question.representedValues) !== JSON.stringify([firstValue, secondValue])) errors.push(issue("batch_a_g4a_u01_represented_values_invalid", "representedValues"));
   if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
   if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
 }
 
 function validateG4ANonstandardComposition(question, errors) {
-  const expectedValue = Array.isArray(question.placeModel)
-    ? question.placeModel.reduce((sum, place) => sum + (Number.isInteger(place.count) ? place.count * place.unit : 0), 0)
-    : sumPlaceCounts(question.placeCounts);
-  const hasNonstandard = Array.isArray(question.placeModel) && question.placeModel.some((place) => place.count > 9);
+  if (!Array.isArray(question.placeModel) || question.placeModel.length === 0) {
+    errors.push(issue("batch_a_g4a_u01_place_model_invalid", "placeModel"));
+    return;
+  }
+  const expectedValue = sumPlaceModel(question.placeModel);
+  const hasNonstandard = question.placeModel.some((place) => place.count > 9);
   if (!hasNonstandard) errors.push(issue("batch_a_g4a_u01_nonstandard_missing", "placeModel"));
+  for (const place of question.placeModel) {
+    if (!Number.isInteger(place.count) || place.count < 1 || place.count > 99) errors.push(issue("batch_a_g4a_u01_nonstandard_count_invalid", `placeModel.${place.key}`));
+  }
   if (expectedValue < 10000000 || expectedValue > 99999999) errors.push(issue("batch_a_g4a_u01_value_out_of_range", "value"));
   if (question.value !== expectedValue) errors.push(issue("batch_a_g4a_u01_composition_value_invalid", "value"));
   if (question.answerText !== String(expectedValue)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
@@ -289,8 +300,15 @@ function validateG4ACardComposition(question, errors) {
     const count = question.placeCounts?.[unit.key];
     if (!Number.isInteger(count) || count < 0 || count > 9) errors.push(issue("batch_a_g4a_u01_card_count_invalid", `placeCounts.${unit.key}`));
   }
-  if (question.placeCounts?.tenMillions < 1) errors.push(issue("batch_a_g4a_u01_value_out_of_range", "placeCounts.tenMillions"));
+  if (!Array.isArray(question.placeModel) || question.placeModel.length === 0 || question.placeModel.length >= G4A_U01_PLACE_UNITS.length) errors.push(issue("batch_a_g4a_u01_sparse_card_model_invalid", "placeModel"));
+  for (const place of question.placeModel ?? []) {
+    const count = question.placeCounts?.[place.key];
+    if (!Number.isInteger(place.count) || place.count < 1 || place.count > 9) errors.push(issue("batch_a_g4a_u01_card_count_invalid", `placeModel.${place.key}`));
+    if (count !== place.count) errors.push(issue("batch_a_g4a_u01_card_count_mismatch", `placeCounts.${place.key}`));
+  }
   const expectedValue = sumPlaceCounts(question.placeCounts);
+  if (expectedValue < 1 || expectedValue > 99999999) errors.push(issue("batch_a_g4a_u01_value_out_of_range", "value"));
+  if (String(question.blankedDisplayText ?? "").includes("0張")) errors.push(issue("batch_a_g4a_u01_sparse_card_prompt_invalid", "blankedDisplayText"));
   if (question.value !== expectedValue) errors.push(issue("batch_a_g4a_u01_composition_value_invalid", "value"));
   if (question.answerText !== String(expectedValue)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
   if (intValue(question.finalAnswer) !== expectedValue) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
@@ -430,5 +448,5 @@ export function validateBatchABrowserQuestions(questions = []) {
     errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
     warnings.push(...result.warnings);
   }
-  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s51b-g4a-u01-phase2-v1", validatedAt: null };
+  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s51d-g4a-u01-phase2-semantics-v1", validatedAt: null };
 }
