@@ -13,6 +13,27 @@ export const G4A_U02_NUMERIC_PATTERN_SPEC_IDS = Object.freeze([
   "ps_g4a_u02_2digit_by_3digit",
   "ps_g4a_u02_3digit_by_2digit"
 ]);
+export const G4A_U02_REASONING_PATTERN_SPEC_IDS = Object.freeze([
+  "ps_g4a_u02_digit_card_arrangement_product_max_min",
+  "ps_g4a_u02_near_hundred_multiplication_strategy"
+]);
+export const G4A_U02_PRINTABLE_PATTERN_SPEC_IDS = Object.freeze([
+  ...G4A_U02_NUMERIC_PATTERN_SPEC_IDS,
+  ...G4A_U02_REASONING_PATTERN_SPEC_IDS
+]);
+
+function commonDefinition({ patternSpecId, title, kind, answerModel, canonicalSkillIds, skillTags, difficultyTags }) {
+  return Object.freeze({
+    patternSpecId,
+    sourceId: G4A_U02_SOURCE_ID,
+    title,
+    kind,
+    answerModel: Object.freeze(answerModel),
+    canonicalSkillIds: Object.freeze([...canonicalSkillIds]),
+    skillTags: Object.freeze([...skillTags]),
+    difficultyTags: Object.freeze(["batch_a_browser_bridge", ...difficultyTags])
+  });
+}
 
 function verticalMultiplicationDefinition({ patternSpecId, title, multiplicandDigits, multiplierDigits, multiplicandRange, multiplierRange, partialProductsRequired = false, coverageCases = [] }) {
   return Object.freeze({
@@ -53,73 +74,40 @@ function missingDigitDefinition() {
   });
 }
 
-const numericDefinitions = Object.freeze({
-  ps_g4a_u02_3digit_by_1digit_review: verticalMultiplicationDefinition({
-    patternSpecId: "ps_g4a_u02_3digit_by_1digit_review",
-    title: "三位數乘一位數複習",
-    multiplicandDigits: 3,
-    multiplierDigits: 1,
-    multiplicandRange: [100, 999],
-    multiplierRange: [2, 9],
-    coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "zero_in_product"]
-  }),
+const g4aU02Definitions = Object.freeze({
+  ps_g4a_u02_3digit_by_1digit_review: verticalMultiplicationDefinition({ patternSpecId: "ps_g4a_u02_3digit_by_1digit_review", title: "三位數乘一位數複習", multiplicandDigits: 3, multiplierDigits: 1, multiplicandRange: [100, 999], multiplierRange: [2, 9], coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "zero_in_product"] }),
   ps_g4a_u02_4digit_by_1digit_missing_digit: missingDigitDefinition(),
-  ps_g4a_u02_1digit_by_2digit: verticalMultiplicationDefinition({
-    patternSpecId: "ps_g4a_u02_1digit_by_2digit",
-    title: "一位數乘二位數",
-    multiplicandDigits: 2,
-    multiplierDigits: 1,
-    multiplicandRange: [10, 99],
-    multiplierRange: [2, 9],
-    coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "zero_in_product"]
+  ps_g4a_u02_1digit_by_2digit: verticalMultiplicationDefinition({ patternSpecId: "ps_g4a_u02_1digit_by_2digit", title: "一位數乘二位數", multiplicandDigits: 2, multiplierDigits: 1, multiplicandRange: [10, 99], multiplierRange: [2, 9], coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "zero_in_product"] }),
+  ps_g4a_u02_1digit_by_3digit: verticalMultiplicationDefinition({ patternSpecId: "ps_g4a_u02_1digit_by_3digit", title: "一位數乘三位數", multiplicandDigits: 3, multiplierDigits: 1, multiplicandRange: [100, 999], multiplierRange: [2, 9], coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "zero_in_product"] }),
+  ps_g4a_u02_2digit_by_2digit: verticalMultiplicationDefinition({ patternSpecId: "ps_g4a_u02_2digit_by_2digit", title: "二位數乘二位數", multiplicandDigits: 2, multiplierDigits: 2, multiplicandRange: [10, 99], multiplierRange: [10, 99], partialProductsRequired: true, coverageCases: ["normal_no_carry", "carry", "multiplier_multiple_of_10", "partial_product_zero", "trailing_zero_product"] }),
+  ps_g4a_u02_2digit_by_3digit: verticalMultiplicationDefinition({ patternSpecId: "ps_g4a_u02_2digit_by_3digit", title: "二位數乘三位數", multiplicandDigits: 3, multiplierDigits: 2, multiplicandRange: [100, 999], multiplierRange: [10, 99], partialProductsRequired: true, coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "multiplier_multiple_of_10", "partial_product_zero"] }),
+  ps_g4a_u02_3digit_by_2digit: verticalMultiplicationDefinition({ patternSpecId: "ps_g4a_u02_3digit_by_2digit", title: "三位數乘二位數", multiplicandDigits: 3, multiplierDigits: 2, multiplicandRange: [100, 999], multiplierRange: [10, 99], partialProductsRequired: true, coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "multiplier_multiple_of_10", "partial_product_zero"] }),
+  ps_g4a_u02_digit_card_arrangement_product_max_min: commonDefinition({
+    patternSpecId: "ps_g4a_u02_digit_card_arrangement_product_max_min",
+    title: "數字卡排列最大最小乘積",
+    kind: "g4aU02DigitCardArrangementProductMaxMin",
+    answerModel: { shape: "max_min_product_pair", fields: ["maxFactors", "maxProduct", "minFactors", "minProduct"] },
+    canonicalSkillIds: ["integer_multiplication", "place_value_reasoning"],
+    skillTags: ["integer_multiplication", "digit_card_arrangement", "max_min_product", "three_digit_by_two_digit"],
+    difficultyTags: ["g4a_u02_reasoning"]
   }),
-  ps_g4a_u02_1digit_by_3digit: verticalMultiplicationDefinition({
-    patternSpecId: "ps_g4a_u02_1digit_by_3digit",
-    title: "一位數乘三位數",
-    multiplicandDigits: 3,
-    multiplierDigits: 1,
-    multiplicandRange: [100, 999],
-    multiplierRange: [2, 9],
-    coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "zero_in_product"]
-  }),
-  ps_g4a_u02_2digit_by_2digit: verticalMultiplicationDefinition({
-    patternSpecId: "ps_g4a_u02_2digit_by_2digit",
-    title: "二位數乘二位數",
-    multiplicandDigits: 2,
-    multiplierDigits: 2,
-    multiplicandRange: [10, 99],
-    multiplierRange: [10, 99],
-    partialProductsRequired: true,
-    coverageCases: ["normal_no_carry", "carry", "multiplier_multiple_of_10", "partial_product_zero", "trailing_zero_product"]
-  }),
-  ps_g4a_u02_2digit_by_3digit: verticalMultiplicationDefinition({
-    patternSpecId: "ps_g4a_u02_2digit_by_3digit",
-    title: "二位數乘三位數",
-    multiplicandDigits: 3,
-    multiplierDigits: 2,
-    multiplicandRange: [100, 999],
-    multiplierRange: [10, 99],
-    partialProductsRequired: true,
-    coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "multiplier_multiple_of_10", "partial_product_zero"]
-  }),
-  ps_g4a_u02_3digit_by_2digit: verticalMultiplicationDefinition({
-    patternSpecId: "ps_g4a_u02_3digit_by_2digit",
-    title: "三位數乘二位數",
-    multiplicandDigits: 3,
-    multiplierDigits: 2,
-    multiplicandRange: [100, 999],
-    multiplierRange: [10, 99],
-    partialProductsRequired: true,
-    coverageCases: ["normal_no_carry", "carry", "zero_in_operand", "multiplier_multiple_of_10", "partial_product_zero"]
+  ps_g4a_u02_near_hundred_multiplication_strategy: commonDefinition({
+    patternSpecId: "ps_g4a_u02_near_hundred_multiplication_strategy",
+    title: "接近整百乘法策略",
+    kind: "g4aU02NearHundredMultiplicationStrategy",
+    answerModel: { shape: "strategy_decomposition_and_product", fields: ["baseProduct", "adjustment", "finalProduct"] },
+    canonicalSkillIds: ["integer_multiplication", "multiplication_strategy"],
+    skillTags: ["integer_multiplication", "near_hundred", "strategy", "decomposition"],
+    difficultyTags: ["g4a_u02_reasoning"]
   })
 });
 
 export function getBatchABrowserPatternDefinition(patternSpecId) {
-  return numericDefinitions[patternSpecId] ?? baseGetDefinition(patternSpecId);
+  return g4aU02Definitions[patternSpecId] ?? baseGetDefinition(patternSpecId);
 }
 
 export function getBatchAPatternSpecIdsForSource(sourceId) {
   const baseIds = baseGetPatternIds(sourceId).filter((id) => id !== "ps_g4a_u02_add_sub_mixed_5digit");
-  if (sourceId === G4A_U02_SOURCE_ID) return [...baseIds, ...G4A_U02_NUMERIC_PATTERN_SPEC_IDS];
+  if (sourceId === G4A_U02_SOURCE_ID) return [...baseIds, ...G4A_U02_PRINTABLE_PATTERN_SPEC_IDS];
   return baseIds;
 }
