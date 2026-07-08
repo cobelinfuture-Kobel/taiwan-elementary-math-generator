@@ -16,6 +16,12 @@ const DEFAULT_PRINT_LAYOUT = Object.freeze({
   showAnswerKeyPage: true
 });
 const G3A_U02_SOURCE_ID = "g3a_u02_3a02";
+const G4A_U01_SOURCE_ID = "g4a_u01_4a01";
+const G4A_U01_TALL_TEXT_LAYOUT_PROFILES = Object.freeze({
+  ps_g4a_u01_same_digit_place_value_difference: Object.freeze({ columns: 4, rowsPerPage: 8 }),
+  ps_g4a_u01_place_value_composition_to_number: Object.freeze({ columns: 4, rowsPerPage: 5 }),
+  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ columns: 4, rowsPerPage: 4 })
+});
 
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
@@ -36,21 +42,58 @@ function formatAnswerKeyText(question) {
   return question.answerText;
 }
 
+function patternSpecIdOf(question) {
+  return question?.patternSpecId ?? question?.metadata?.patternId ?? null;
+}
+
+function isG4AU01TallTextQuestion(question) {
+  return question?.sourceId === G4A_U01_SOURCE_ID && Boolean(G4A_U01_TALL_TEXT_LAYOUT_PROFILES[patternSpecIdOf(question)]);
+}
+
 function hasLongTextQuestion(questions) {
   return questions.some((question) => question?.sourceId === G3A_U02_SOURCE_ID && (question?.kind === "wordProblemEstimation" || String(question?.blankedDisplayText ?? "").length >= 52));
 }
 
-function normalizePrintLayoutForGeneratedQuestions(printLayout, questions) {
-  if (!hasLongTextQuestion(questions)) return printLayout;
+function mergePrintProfile(current, profile) {
   return {
-    ...printLayout,
-    columns: Math.min(printLayout.columns, 2),
-    rowsPerPage: Math.min(printLayout.rowsPerPage, 8),
+    ...current,
+    columns: Math.min(current.columns, profile.columns),
+    rowsPerPage: Math.min(current.rowsPerPage, profile.rowsPerPage),
     longTextCardPolicy: "avoidSplit"
   };
 }
 
+function resolveG4AU01TallTextProfile(questions) {
+  let profile = null;
+  for (const question of questions) {
+    if (question?.sourceId !== G4A_U01_SOURCE_ID) continue;
+    const nextProfile = G4A_U01_TALL_TEXT_LAYOUT_PROFILES[patternSpecIdOf(question)];
+    if (!nextProfile) continue;
+    profile = profile
+      ? {
+        columns: Math.min(profile.columns, nextProfile.columns),
+        rowsPerPage: Math.min(profile.rowsPerPage, nextProfile.rowsPerPage)
+      }
+      : nextProfile;
+  }
+  return profile;
+}
+
+function normalizePrintLayoutForGeneratedQuestions(printLayout, questions) {
+  let normalized = printLayout;
+  if (hasLongTextQuestion(questions)) {
+    normalized = mergePrintProfile(normalized, { columns: 2, rowsPerPage: 8 });
+  }
+  const g4aTallTextProfile = resolveG4AU01TallTextProfile(questions);
+  if (g4aTallTextProfile) {
+    normalized = mergePrintProfile(normalized, g4aTallTextProfile);
+  }
+  return normalized;
+}
+
 function displayModelForTextQuestion(question, questionNumber, showQuestionNumbers = true) {
+  const avoidPageBreakInside = (question.sourceId === G3A_U02_SOURCE_ID && String(question.blankedDisplayText ?? "").length >= 52)
+    || isG4AU01TallTextQuestion(question);
   return {
     questionId: question.id,
     questionNumber,
@@ -61,9 +104,9 @@ function displayModelForTextQuestion(question, questionNumber, showQuestionNumbe
     questionNumberText: showQuestionNumbers === false ? null : `${questionNumber}.`,
     metadataSnapshot: cloneValue(question.metadata),
     layoutHints: {
-      estimatedTextLength: question.displayText.length,
+      estimatedTextLength: String(question.displayText ?? "").length,
       hasGrouping: false,
-      avoidPageBreakInside: question.sourceId === G3A_U02_SOURCE_ID && String(question.blankedDisplayText ?? "").length >= 52
+      avoidPageBreakInside
     }
   };
 }
