@@ -22,6 +22,11 @@ const G4A_U01_TALL_TEXT_LAYOUT_PROFILES = Object.freeze({
   ps_g4a_u01_place_value_composition_to_number: Object.freeze({ columns: 4, rowsPerPage: 5 }),
   ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ columns: 4, rowsPerPage: 4 })
 });
+const G4A_U01_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES = Object.freeze({
+  ps_g4a_u01_same_digit_place_value_difference: Object.freeze({ columns: 4, rowsPerPage: 6 }),
+  ps_g4a_u01_place_value_composition_to_number: Object.freeze({ columns: 4, rowsPerPage: 4 }),
+  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ columns: 4, rowsPerPage: 3 })
+});
 
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
@@ -63,11 +68,11 @@ function mergePrintProfile(current, profile) {
   };
 }
 
-function resolveG4AU01TallTextProfile(questions) {
+function resolveG4AU01TallTextProfile(questions, profiles = G4A_U01_TALL_TEXT_LAYOUT_PROFILES) {
   let profile = null;
   for (const question of questions) {
     if (question?.sourceId !== G4A_U01_SOURCE_ID) continue;
-    const nextProfile = G4A_U01_TALL_TEXT_LAYOUT_PROFILES[patternSpecIdOf(question)];
+    const nextProfile = profiles[patternSpecIdOf(question)];
     if (!nextProfile) continue;
     profile = profile
       ? {
@@ -79,12 +84,15 @@ function resolveG4AU01TallTextProfile(questions) {
   return profile;
 }
 
-function normalizePrintLayoutForGeneratedQuestions(printLayout, questions) {
+function normalizePrintLayoutForGeneratedQuestions(printLayout, questions, options = {}) {
   let normalized = printLayout;
   if (hasLongTextQuestion(questions)) {
     normalized = mergePrintProfile(normalized, { columns: 2, rowsPerPage: 8 });
   }
-  const g4aTallTextProfile = resolveG4AU01TallTextProfile(questions);
+  const g4aTallTextProfile = resolveG4AU01TallTextProfile(
+    questions,
+    options.answerKey === true ? G4A_U01_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES : G4A_U01_TALL_TEXT_LAYOUT_PROFILES
+  );
   if (g4aTallTextProfile) {
     normalized = mergePrintProfile(normalized, g4aTallTextProfile);
   }
@@ -118,7 +126,11 @@ function answerKeyItemForTextQuestion(question, displayModel) {
     patternId: question.patternSpecId,
     promptText: displayModel.blankedDisplayText,
     answerText: formatAnswerKeyText(question),
-    metadataSnapshot: cloneValue(question.metadata)
+    metadataSnapshot: cloneValue(question.metadata),
+    layoutHints: {
+      estimatedTextLength: String(`${displayModel.blankedDisplayText ?? ""}${question.answerText ?? ""}`).length,
+      avoidPageBreakInside: displayModel.layoutHints?.avoidPageBreakInside === true || isG4AU01TallTextQuestion(question)
+    }
   };
 }
 
@@ -174,18 +186,22 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     };
   }
 
-  const printLayout = normalizePrintLayoutForGeneratedQuestions({
+  const basePrintLayout = {
     ...DEFAULT_PRINT_LAYOUT,
     ...(options.printLayout ?? {}),
     showAnswerKeyPage: options.includeAnswerKey !== false
-  }, generated.questions);
+  };
+  const printLayout = normalizePrintLayoutForGeneratedQuestions(basePrintLayout, generated.questions);
+  const answerKeyPrintLayout = printLayout.showAnswerKeyPage
+    ? normalizePrintLayoutForGeneratedQuestions(printLayout, generated.questions, { answerKey: true })
+    : { ...printLayout, showAnswerKeyPage: false };
   const validation = validateBatchABrowserQuestions(generated.questions);
   if (!validation.ok) return { ok: false, worksheetDocument: null, validation, errors: validation.errors, warnings: validation.warnings };
 
   const questionDisplayModels = createDisplayModels(generated.questions, printLayout);
   const answerKeyItems = printLayout.showAnswerKeyPage ? createAnswerKeyItems(generated.questions, questionDisplayModels) : [];
   const questionPages = paginateQuestionDisplayModels(questionDisplayModels, printLayout);
-  const answerKeyPages = printLayout.showAnswerKeyPage ? paginateAnswerKeyItems(answerKeyItems, printLayout) : [];
+  const answerKeyPages = printLayout.showAnswerKeyPage ? paginateAnswerKeyItems(answerKeyItems, answerKeyPrintLayout) : [];
   const plan = generated.plan;
   const title = createWorksheetTitle(options, plan);
   const generationMode = plan.worksheetMode === "batchAKnowledgePoint" ? "batchAKnowledgePoint" : "batchASourceId";
@@ -214,11 +230,13 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       orientation: "portrait",
       columns: printLayout.columns,
       rowsPerPage: printLayout.rowsPerPage,
+      answerKeyColumns: answerKeyPrintLayout.columns,
+      answerKeyRowsPerPage: answerKeyPrintLayout.rowsPerPage,
       fontSizeMode: "normal",
       showQuestionNumbers: printLayout.showQuestionNumbers,
       showAnswerKey: printLayout.showAnswerKeyPage,
       answerKeyPlacement: printLayout.showAnswerKeyPage ? "afterQuestions" : "none",
-      pageBreakMode: printLayout.longTextCardPolicy === "avoidSplit" ? "avoidLongTextCards" : "fixedGrid",
+      pageBreakMode: printLayout.longTextCardPolicy === "avoidSplit" || answerKeyPrintLayout.longTextCardPolicy === "avoidSplit" ? "avoidLongTextCards" : "fixedGrid",
       marginMode: "default",
       debugDataAttributes: false
     },
@@ -242,7 +260,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       notes: [BATCH_A_BROWSER_SCOPE.limit]
     },
     sections: [{ sectionId: `section-${plan.sourceId}`, title: plan.worksheetMode === "batchAKnowledgePoint" ? "知識點加強" : (plan.sourceUnit?.title ?? plan.sourceId), description: null, patternIds: [...plan.patternSpecIds], questionIds: generated.questions.map((question) => question.id), orderingIndex: 0 }],
-    configSnapshot: { schemaVersion: "s42b10.batch_a.browser_worksheet_plan.v1", sourceId: plan.sourceId, questionCount: plan.questionCount, ordering: plan.ordering, includeAnswerKey: printLayout.showAnswerKeyPage, generationSeed: plan.generationSeed, selectionMode: plan.selectionMode, selectedKnowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []), selectedPatternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []), printLayout },
+    configSnapshot: { schemaVersion: "s42b10.batch_a.browser_worksheet_plan.v1", sourceId: plan.sourceId, questionCount: plan.questionCount, ordering: plan.ordering, includeAnswerKey: printLayout.showAnswerKeyPage, generationSeed: plan.generationSeed, selectionMode: plan.selectionMode, selectedKnowledgePointIds: cloneValue(plan.selectedKnowledgePointIds ?? []), selectedPatternGroupIds: cloneValue(plan.selectedPatternGroupIds ?? []), printLayout, answerKeyPrintLayout },
     generationContext: { questionKind: "batchAWorksheet", generationMode, questionCount: generated.questions.length, generationSeed: plan.generationSeed, orderingSeed: plan.generationSeed, resolvedOrderingSeed: plan.generationSeed, orderingMode: plan.ordering, patternIdsInRenderOrder: [...plan.patternSpecIds] },
     allocationResult: cloneValue(generated.allocation),
     generatedQuestions: cloneValue(generated.questions),
