@@ -3,6 +3,7 @@ import * as base from "./batch-a-selector-equation-extension.js";
 const clone = (value) => JSON.parse(JSON.stringify(value));
 const g4aU01 = "g4a_u01_4a01";
 const g4aU02 = "g4a_u02_4a02";
+const g4aU04 = "g4a_u04_4a04";
 const rows = Object.freeze([
   [g4aU01, "4A-U01", "1億以內的數", "kp_g4a_u01_compare_8digit", "pg_g4a_u01_compare_8digit", "ps_g4a_u01_compare_8digit", "八位數比大小", "large_number_comparison", ["eight_digit", "comparison"], "large_number_compare", "numeric_expression"],
   [g4aU01, "4A-U01", "1億以內的數", "kp_g4a_u01_within_100million_compare", "pg_g4a_u01_within_100million_compare", "ps_g4a_u01_within_100million_compare", "1億以內數比大小", "large_number_comparison", ["within_100million", "comparison"], "large_number_compare", "numeric_expression"],
@@ -30,7 +31,14 @@ const rows = Object.freeze([
   [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_2digit_by_3digit", "pg_g4a_u02_2digit_by_3digit", "ps_g4a_u02_2digit_by_3digit", "二位數乘三位數", "integer_multiplication", ["two_digit", "three_digit", "partial_product"], "vertical_multiplication_partial_products", "numeric_vertical"],
   [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_3digit_by_2digit", "pg_g4a_u02_3digit_by_2digit", "ps_g4a_u02_3digit_by_2digit", "三位數乘二位數", "integer_multiplication", ["three_digit", "two_digit", "partial_product"], "vertical_multiplication_partial_products", "numeric_vertical"],
   [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_digit_card_arrangement_product_max_min", "pg_g4a_u02_digit_card_arrangement_product_max_min", "ps_g4a_u02_digit_card_arrangement_product_max_min", "數字卡排列最大最小乘積", "place_value_reasoning", ["digit_card", "max_min_product", "three_digit_by_two_digit"], "digit_card_arrangement_product", "reasoning_prompt"],
-  [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_near_hundred_multiplication_strategy", "pg_g4a_u02_near_hundred_multiplication_strategy", "ps_g4a_u02_near_hundred_multiplication_strategy", "接近整百乘法策略", "multiplication_strategy", ["near_hundred", "decomposition", "99_101"], "near_hundred_strategy", "strategy_reasoning_prompt"]
+  [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_near_hundred_multiplication_strategy", "pg_g4a_u02_near_hundred_multiplication_strategy", "ps_g4a_u02_near_hundred_multiplication_strategy", "接近整百乘法策略", "multiplication_strategy", ["near_hundred", "decomposition", "99_101"], "near_hundred_strategy", "strategy_reasoning_prompt"],
+  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_4digit_by_1digit_thousands_sufficient", "pg_g4a_u04_4digit_by_1digit_thousands_sufficient", "ps_g4a_u04_4digit_by_1digit_thousands_sufficient", "4位數除以1位數：千位夠除", "integer_division", ["four_digit", "one_digit", "thousands_sufficient"], "long_division_start_place", "division_prompt"],
+  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_4digit_by_1digit_thousands_insufficient", "pg_g4a_u04_4digit_by_1digit_thousands_insufficient", "ps_g4a_u04_4digit_by_1digit_thousands_insufficient", "4位數除以1位數：千位不夠除", "integer_division", ["four_digit", "one_digit", "thousands_insufficient"], "long_division_start_place", "division_prompt"],
+  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_4digit_by_1digit_thousands_exact", "pg_g4a_u04_4digit_by_1digit_thousands_exact", "ps_g4a_u04_4digit_by_1digit_thousands_exact", "4位數除以1位數：千位整除", "integer_division", ["four_digit", "one_digit", "thousands_exact"], "long_division_start_place", "division_prompt"],
+  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor", "pg_g4a_u04_2digit_by_2digit_ten_multiple_divisor", "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor", "2位數除以2位數：除數是10的倍數", "integer_division", ["two_digit", "ten_multiple_divisor"], "ten_multiple_division", "division_prompt"],
+  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_3digit_by_2digit_tens_sufficient", "pg_g4a_u04_3digit_by_2digit_tens_sufficient", "ps_g4a_u04_3digit_by_2digit_tens_sufficient", "3位數除以2位數：十位夠除", "integer_division", ["three_digit", "two_digit", "tens_sufficient"], "long_division_start_place", "division_prompt"],
+  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_3digit_by_2digit_tens_insufficient", "pg_g4a_u04_3digit_by_2digit_tens_insufficient", "ps_g4a_u04_3digit_by_2digit_tens_insufficient", "3位數除以2位數：十位不夠除", "integer_division", ["three_digit", "two_digit", "tens_insufficient"], "long_division_start_place", "division_prompt"],
+  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_division_check_with_remainder", "pg_g4a_u04_division_check_with_remainder", "ps_g4a_u04_division_check_with_remainder", "除法驗算：有餘數", "division_check", ["remainder", "verification"], "division_check_with_remainder", "verification_prompt"]
 ]);
 
 function toSpecIds(value) {
