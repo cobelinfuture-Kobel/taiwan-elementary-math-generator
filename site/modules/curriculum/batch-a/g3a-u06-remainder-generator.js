@@ -1,11 +1,26 @@
 export const G3A_U06_REMAINDER_SOURCE_ID = "g3a_u06_3a06";
 export const G3A_U06_REMAINDER_SPEC_ID = "ps_g3a_u06_division_with_remainder";
 
+const TWO_DIGIT_REMAINDER_MODELS = Object.freeze(buildTwoDigitRemainderModels());
+
+function buildTwoDigitRemainderModels() {
+  const models = [];
+  for (let divisor = 2; divisor <= 9; divisor += 1) {
+    for (let quotient = 1; quotient <= Math.floor(99 / divisor); quotient += 1) {
+      for (let remainder = 1; remainder < divisor; remainder += 1) {
+        const dividend = divisor * quotient + remainder;
+        if (dividend >= 10 && dividend <= 99) {
+          models.push({ dividend, divisor, quotient, remainder });
+        }
+      }
+    }
+  }
+  return models.sort((left, right) => left.dividend - right.dividend || left.divisor - right.divisor || left.remainder - right.remainder);
+}
+
 function modelFor(sequenceNumber) {
-  const divisor = 2 + ((sequenceNumber - 1) % 8);
-  const quotient = 3 + ((sequenceNumber * 2) % 10);
-  const remainder = 1 + (sequenceNumber % (divisor - 1));
-  return { dividend: divisor * quotient + remainder, divisor, quotient, remainder };
+  const index = Math.max(1, Number.isInteger(sequenceNumber) ? sequenceNumber : 1) - 1;
+  return TWO_DIGIT_REMAINDER_MODELS[index % TWO_DIGIT_REMAINDER_MODELS.length];
 }
 
 export function makeDivisionWithRemainderQuestion(sequenceNumber = 1) {
