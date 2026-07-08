@@ -12,6 +12,15 @@ const G4A_U02_NUMERIC_SPEC_IDS = new Set([
 ]);
 const G4A_U02_DIGIT_CARD_SPEC_ID = "ps_g4a_u02_digit_card_arrangement_product_max_min";
 const G4A_U02_NEAR_HUNDRED_SPEC_ID = "ps_g4a_u02_near_hundred_multiplication_strategy";
+const G4A_U04_LONG_DIVISION_SPEC_IDS = new Set([
+  "ps_g4a_u04_4digit_by_1digit_thousands_sufficient",
+  "ps_g4a_u04_4digit_by_1digit_thousands_insufficient",
+  "ps_g4a_u04_4digit_by_1digit_thousands_exact",
+  "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+  "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+  "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+]);
+const G4A_U04_CHECK_SPEC_ID = "ps_g4a_u04_division_check_with_remainder";
 
 function issue(code, path, message = code, severity = "error") {
   return { code, severity, path, message };
@@ -31,6 +40,21 @@ function minNumberFromDigits(digits) {
 
 function digitCount(value) {
   return String(Math.abs(value)).length;
+}
+
+function firstDigit(value) {
+  return Number(String(value)[0]);
+}
+
+function firstTwoDigits(value) {
+  return Number(String(value).slice(0, 2));
+}
+
+function quotientStartPlace(quotient) {
+  if (quotient >= 1000) return "thousands";
+  if (quotient >= 100) return "hundreds";
+  if (quotient >= 10) return "tens";
+  return "ones";
 }
 
 function validateArrangementQuestion(question = {}) {
@@ -155,6 +179,52 @@ function validateG4AU02NearHundred(question = {}) {
   return { ok: errors.length === 0, errors, warnings: [] };
 }
 
+function firstPlaceRuleMatches(question) {
+  const leading = firstDigit(question.dividend);
+  const firstTwo = firstTwoDigits(question.dividend);
+  if (question.firstPlaceCase === "thousands_sufficient") return digitCount(question.dividend) === 4 && digitCount(question.divisor) === 1 && leading >= question.divisor && leading % question.divisor !== 0 && question.quotientStartPlace === "thousands";
+  if (question.firstPlaceCase === "thousands_insufficient") return digitCount(question.dividend) === 4 && digitCount(question.divisor) === 1 && leading < question.divisor && question.quotientStartPlace === "hundreds";
+  if (question.firstPlaceCase === "thousands_exact") return digitCount(question.dividend) === 4 && digitCount(question.divisor) === 1 && leading >= question.divisor && leading % question.divisor === 0 && question.quotientStartPlace === "thousands";
+  if (question.firstPlaceCase === "ten_multiple_divisor") return digitCount(question.dividend) === 2 && digitCount(question.divisor) === 2 && question.divisor % 10 === 0 && question.quotientStartPlace === "ones";
+  if (question.firstPlaceCase === "tens_sufficient") return digitCount(question.dividend) === 3 && digitCount(question.divisor) === 2 && firstTwo >= question.divisor && question.quotientStartPlace === "tens";
+  if (question.firstPlaceCase === "tens_insufficient") return digitCount(question.dividend) === 3 && digitCount(question.divisor) === 2 && firstTwo < question.divisor && question.quotientStartPlace === "ones";
+  return false;
+}
+
+function validateG4AU04Division(question = {}) {
+  const isLongDivision = G4A_U04_LONG_DIVISION_SPEC_IDS.has(question.patternSpecId) || G4A_U04_LONG_DIVISION_SPEC_IDS.has(question.metadata?.patternId);
+  const isCheck = question.patternSpecId === G4A_U04_CHECK_SPEC_ID || question.metadata?.patternId === G4A_U04_CHECK_SPEC_ID;
+  if (!isLongDivision && !isCheck) return null;
+  const errors = [];
+  if (question.metadata?.sourceId !== "g4a_u04_4a04") errors.push(issue("batch_a_question_source_mismatch", "metadata.sourceId"));
+  if (isLongDivision && question.kind !== "g4aU04LongDivision") errors.push(issue("batch_a_g4a_u04_kind_invalid", "kind"));
+  if (isCheck && question.kind !== "g4aU04DivisionCheckWithRemainder") errors.push(issue("batch_a_g4a_u04_check_kind_invalid", "kind"));
+  if (![question.dividend, question.divisor, question.quotient, question.remainder].every(Number.isSafeInteger)) {
+    errors.push(issue("batch_a_g4a_u04_operand_invalid", "operands"));
+    return { ok: false, errors, warnings: [] };
+  }
+  if (question.divisor <= 0) errors.push(issue("batch_a_g4a_u04_divisor_invalid", "divisor"));
+  if (question.quotient !== Math.floor(question.dividend / question.divisor)) errors.push(issue("batch_a_answer_incorrect", "quotient"));
+  if (question.remainder !== question.dividend % question.divisor) errors.push(issue("batch_a_answer_incorrect", "remainder"));
+  if (question.remainder < 0 || question.remainder >= question.divisor) errors.push(issue("batch_a_g4a_u04_remainder_range_invalid", "remainder"));
+  if (question.divisor * question.quotient + question.remainder !== question.dividend) errors.push(issue("batch_a_g4a_u04_check_equation_invalid", "dividend"));
+  if (isLongDivision) {
+    if (!firstPlaceRuleMatches(question)) errors.push(issue("batch_a_g4a_u04_first_place_rule_invalid", "firstPlaceCase"));
+    const expectedAnswerText = `商 ${question.quotient}，餘 ${question.remainder}`;
+    if (question.answerText !== expectedAnswerText) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+    if (question.finalAnswer !== expectedAnswerText) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+    if (question.quotientStartPlace !== quotientStartPlace(question.quotient)) errors.push(issue("batch_a_g4a_u04_quotient_start_invalid", "quotientStartPlace"));
+  }
+  if (isCheck) {
+    if (question.remainder <= 0) errors.push(issue("batch_a_g4a_u04_check_remainder_required", "remainder"));
+    if (question.checkValue !== question.dividend) errors.push(issue("batch_a_g4a_u04_check_value_invalid", "checkValue"));
+    const expectedAnswerText = `${question.divisor} × ${question.quotient} + ${question.remainder} = ${question.dividend}`;
+    if (question.answerText !== expectedAnswerText) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+    if (question.finalAnswer !== expectedAnswerText) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+  }
+  return { ok: errors.length === 0, errors, warnings: [] };
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   return base.validateBatchABrowserPlan(plan);
 }
@@ -168,6 +238,8 @@ export function validateBatchABrowserQuestion(question = {}) {
   if (digitCard) return digitCard;
   const nearHundred = validateG4AU02NearHundred(question);
   if (nearHundred) return nearHundred;
+  const g4aU04Division = validateG4AU04Division(question);
+  if (g4aU04Division) return g4aU04Division;
   return base.validateBatchABrowserQuestion(question);
 }
 
@@ -179,5 +251,5 @@ export function validateBatchABrowserQuestions(questions = []) {
     errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
     warnings.push(...result.warnings);
   }
-  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s53f-g4a-u02-reasoning-v1", validatedAt: null };
+  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s54c-g4a-u04-division-v1", validatedAt: null };
 }
