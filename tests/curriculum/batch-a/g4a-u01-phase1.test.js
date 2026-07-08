@@ -22,34 +22,24 @@ const PHASE2_PATTERN_IDS = Object.freeze([
   "ps_g4a_u01_missing_digit_comparison_possible_digits",
   "ps_g4a_u01_missing_digit_comparison_extreme_digit"
 ]);
-const PRINTABLE_PATTERN_IDS = Object.freeze([...PHASE1_PATTERN_IDS, ...PHASE2_PATTERN_IDS]);
+const PHASE3_PATTERN_IDS = Object.freeze([
+  "ps_g4a_u01_large_number_reading_writing_conversion",
+  "ps_g4a_u01_numeric_vs_chinese_number_compare",
+  "ps_g4a_u01_wan_mixed_notation_subtraction",
+  "ps_g4a_u01_boundary_number_difference",
+  "ps_g4a_u01_comparison_word_problem_total",
+  "ps_g4a_u01_large_number_unit_word_problem_add_subtract"
+]);
+const PRINTABLE_PATTERN_IDS = Object.freeze([...PHASE1_PATTERN_IDS, ...PHASE2_PATTERN_IDS, ...PHASE3_PATTERN_IDS]);
 const TALL_PATTERN_SELECTOR = Object.freeze({
-  ps_g4a_u01_same_digit_place_value_difference: Object.freeze({
-    kpId: "kp_g4a_u01_same_digit_place_value_difference",
-    groupId: "pg_g4a_u01_same_digit_place_value_difference"
-  }),
-  ps_g4a_u01_place_value_composition_to_number: Object.freeze({
-    kpId: "kp_g4a_u01_place_value_composition_to_number",
-    groupId: "pg_g4a_u01_place_value_composition_to_number"
-  }),
-  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({
-    kpId: "kp_g4a_u01_8digit_place_value_decomposition",
-    groupId: "pg_g4a_u01_8digit_place_value_decomposition"
-  }),
-  ps_g4a_u01_place_value_card_unit_model_composition: Object.freeze({
-    kpId: "kp_g4a_u01_place_value_card_unit_model_composition",
-    groupId: "pg_g4a_u01_place_value_card_unit_model_composition"
-  })
+  ps_g4a_u01_same_digit_place_value_difference: Object.freeze({ kpId: "kp_g4a_u01_same_digit_place_value_difference", groupId: "pg_g4a_u01_same_digit_place_value_difference" }),
+  ps_g4a_u01_place_value_composition_to_number: Object.freeze({ kpId: "kp_g4a_u01_place_value_composition_to_number", groupId: "pg_g4a_u01_place_value_composition_to_number" }),
+  ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ kpId: "kp_g4a_u01_8digit_place_value_decomposition", groupId: "pg_g4a_u01_8digit_place_value_decomposition" }),
+  ps_g4a_u01_place_value_card_unit_model_composition: Object.freeze({ kpId: "kp_g4a_u01_place_value_card_unit_model_composition", groupId: "pg_g4a_u01_place_value_card_unit_model_composition" })
 });
 
-function generate(questionCount = 33) {
-  return generateBatchABrowserQuestions({
-    sourceId: SOURCE_ID,
-    questionCount,
-    ordering: "shuffleAcrossPatterns",
-    generationSeed: "batch-a-browser",
-    includeAnswerKey: true
-  });
+function generate(questionCount = 51) {
+  return generateBatchABrowserQuestions({ sourceId: SOURCE_ID, questionCount, ordering: "shuffleAcrossPatterns", generationSeed: "batch-a-browser", includeAnswerKey: true });
 }
 
 function worksheetForPattern(patternSpecId, questionCount = 40) {
@@ -71,25 +61,23 @@ function countItemsByPage(pages, cellType) {
   return pages.map((page) => page.cells.filter((cell) => cell.cellType === cellType).length);
 }
 
-test("G4A-U01 source-unit generation produces Phase 1 and Phase 2 patterns", () => {
-  const result = generate(33);
+test("G4A-U01 source-unit generation produces Phase 1, Phase 2, and Phase 3 patterns", () => {
+  const result = generate(51);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.questions.length, 33);
+  assert.equal(result.questions.length, 51);
   assert.deepEqual(result.plan.patternSpecIds, PRINTABLE_PATTERN_IDS);
-  for (const patternSpecId of PRINTABLE_PATTERN_IDS) {
-    assert.ok(result.questions.some((question) => question.patternSpecId === patternSpecId), patternSpecId);
-  }
+  for (const patternSpecId of PRINTABLE_PATTERN_IDS) assert.ok(result.questions.some((question) => question.patternSpecId === patternSpecId), patternSpecId);
 });
 
-test("G4A-U01 Phase 1 and Phase 2 questions pass Batch A validator", () => {
-  const result = generate(66);
+test("G4A-U01 Phase 1/2/3 questions pass Batch A validator", () => {
+  const result = generate(102);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const validation = validateBatchABrowserQuestions(result.questions);
   assert.equal(validation.ok, true, JSON.stringify(validation.errors));
 });
 
 test("G4A-U01 printable text questions expose printable text answers", () => {
-  const result = generate(66);
+  const result = generate(102);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const textKinds = new Set([
     "g4aU01PlaceValueDecomposition",
@@ -99,7 +87,13 @@ test("G4A-U01 printable text questions expose printable text answers", () => {
     "g4aU01PlaceValueCardComposition",
     "g4aU01CompareFirstDifferentPlace",
     "g4aU01MissingDigitComparisonPossibleDigits",
-    "g4aU01MissingDigitComparisonExtremeDigit"
+    "g4aU01MissingDigitComparisonExtremeDigit",
+    "g4aU01LargeNumberReadingWritingConversion",
+    "g4aU01NumericVsChineseNumberCompare",
+    "g4aU01WanMixedNotationSubtraction",
+    "g4aU01BoundaryNumberDifference",
+    "g4aU01ComparisonWordProblemTotal",
+    "g4aU01LargeNumberUnitWordProblemAddSubtract"
   ]);
   const textQuestions = result.questions.filter((question) => textKinds.has(question.kind));
   assert.ok(textQuestions.length > 0);
@@ -112,7 +106,7 @@ test("G4A-U01 printable text questions expose printable text answers", () => {
 });
 
 test("G4A-U01 Phase 2 missing digit comparison models expose valid answers", () => {
-  const result = generate(66);
+  const result = generate(102);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const possible = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_missing_digit_comparison_possible_digits");
   const extreme = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_missing_digit_comparison_extreme_digit");
@@ -123,32 +117,45 @@ test("G4A-U01 Phase 2 missing digit comparison models expose valid answers", () 
 });
 
 test("G4A-U01 Phase 2 refined place-value prompts match source-image semantics", () => {
-  const result = generate(88);
+  const result = generate(102);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const nonstandard = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_nonstandard_place_value_composition");
   assert.ok(nonstandard.placeModel.every((place) => place.count >= 1 && place.count <= 99));
   assert.ok(nonstandard.placeModel.some((place) => place.count > 9));
-
   const sameDigitItems = result.questions.filter((question) => question.patternSpecId === "ps_g4a_u01_same_digit_place_value_difference");
   assert.deepEqual(new Set(sameDigitItems.map((question) => question.placeValueRelationMode)), new Set(["difference", "sum"]));
-
   const card = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_place_value_card_unit_model_composition");
   assert.ok(card.placeModel.length >= 2 && card.placeModel.length < 8);
   assert.equal(card.blankedDisplayText.includes("0張"), false);
   assert.equal(card.includedCardKeys.length, card.placeModel.length);
 });
 
-test("G4A-U01 worksheet document builds with answer key", () => {
-  const result = buildBatchABrowserWorksheetDocument({
-    sourceId: SOURCE_ID,
-    questionCount: 33,
-    ordering: "shuffleAcrossPatterns",
-    generationSeed: "batch-a-browser",
-    includeAnswerKey: true
-  });
+test("G4A-U01 Phase 3 models expose Chinese, wan, boundary, and word-problem semantics", () => {
+  const result = generate(102);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.worksheetDocument.summary.questionCount, 33);
-  assert.equal(result.worksheetDocument.answerKeyItems.length, 33);
+  const reading = result.questions.filter((question) => question.patternSpecId === "ps_g4a_u01_large_number_reading_writing_conversion");
+  assert.deepEqual(new Set(reading.map((question) => question.conversionDirection)), new Set(["numeric_to_chinese", "chinese_to_numeric"]));
+  assert.ok(reading.every((question) => typeof question.chineseText === "string" && question.chineseText.length > 0));
+  const mixedCompare = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_numeric_vs_chinese_number_compare");
+  assert.equal(mixedCompare.parsedRightValue, mixedCompare.rightValue);
+  assert.match(mixedCompare.answerText, /^[<>=]$/);
+  const wan = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_wan_mixed_notation_subtraction");
+  assert.equal(wan.leftValue >= wan.rightValue, true);
+  assert.equal(wan.finalAnswer, wan.leftValue - wan.rightValue);
+  const boundary = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_boundary_number_difference");
+  assert.equal(boundary.largerValue, (10 ** boundary.largerDigitCount) - 1);
+  assert.equal(boundary.smallerValue, 10 ** (boundary.smallerDigitCount - 1));
+  const comparisonWord = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_comparison_word_problem_total");
+  assert.equal(comparisonWord.total, comparisonWord.baseValue + comparisonWord.comparedValue);
+  const unitWord = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_large_number_unit_word_problem_add_subtract");
+  assert.equal(unitWord.answerText, `${unitWord.numericAnswer}${unitWord.unit}`);
+});
+
+test("G4A-U01 worksheet document builds with answer key", () => {
+  const result = buildBatchABrowserWorksheetDocument({ sourceId: SOURCE_ID, questionCount: 51, ordering: "shuffleAcrossPatterns", generationSeed: "batch-a-browser", includeAnswerKey: true });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.worksheetDocument.summary.questionCount, 51);
+  assert.equal(result.worksheetDocument.answerKeyItems.length, 51);
   assert.equal(result.worksheetDocument.batchA.sourceId, SOURCE_ID);
 });
 
