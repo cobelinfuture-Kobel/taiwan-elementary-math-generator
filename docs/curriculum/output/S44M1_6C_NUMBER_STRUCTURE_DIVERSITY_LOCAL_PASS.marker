@@ -1,0 +1,19 @@
+S44M1_6C_G3A_U01_NUMBER_STRUCTURE_DIVERSITY_LOCAL_PASS
+
+sourceId = g3a_u01_3a01
+operator_readback = tests 430, pass 430, fail 0, working tree clean
+status = PASS
+
+validated:
+- number-structure diversity fix passed local automated validation.
+- place-value decomposition, digit-value identification, same-digit place-value, and comparison tests are covered.
+
+pdf_recheck_note:
+- the uploaded PDF still shows pre-fix sequential output such as 8380-8388, 2223-2231, and 6068-6076.
+- therefore the uploaded PDF is stale or was regenerated from cached/pre-S44M1-6c browser assets.
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_NUMBER_STRUCTURE_DIVERSITY_QAFIX_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U01_NUMBER_STRUCTURE_DIVERSITY_QAFIX_LOCAL_PASS_BUT_PDF_STALE
+DISTANCE_REDUCED = diversity fix validated by tests; PDF artifact requires clean regeneration
+REMAINING_BLOCKERS = regenerate PDF from latest pulled code with browser cache cleared; S44N browser PDF smoke
+NEXT_SHORTEST_STEP = hard refresh/clear cache, regenerate G3A-U01 sample PDF, then inspect output quality again
