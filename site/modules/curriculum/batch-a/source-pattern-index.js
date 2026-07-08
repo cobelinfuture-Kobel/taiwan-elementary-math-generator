@@ -81,14 +81,14 @@ function g4aU01PlaceValuePattern({ patternSpecId, title, kind, canonicalSkillId,
   });
 }
 
-function g4aU01ReasoningPattern({ patternSpecId, title, kind, canonicalSkillId, skillTags, answerModel }) {
+function g4aU01ReasoningPattern({ patternSpecId, title, kind, canonicalSkillId, skillTags, answerModel, min = 10000000, max = 99999999 }) {
   return Object.freeze({
     patternSpecId,
     sourceId: "g4a_u01_4a01",
     title,
     kind,
-    min: 10000000,
-    max: 99999999,
+    min,
+    max,
     answerModel: Object.freeze(answerModel),
     canonicalSkillIds: [canonicalSkillId],
     skillTags: [...skillTags],
@@ -163,9 +163,9 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
   ps_g4a_u01_large_number_add_sub: addSub1("ps_g4a_u01_large_number_add_sub", "g4a_u01_4a01", "大數加減", [[10000, 99999999], [10000, 99999999]], 99999999),
   ps_g4a_u01_8digit_place_value_decomposition: g4aU01PlaceValuePattern({ patternSpecId: "ps_g4a_u01_8digit_place_value_decomposition", title: "八位數位值分解", kind: "g4aU01PlaceValueDecomposition", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "eight_digit", "decomposition"], answerModel: { shape: "place_value_expansion", fields: ["digitsByPlace", "placeValues"] } }),
   ps_g4a_u01_place_value_composition_to_number: g4aU01PlaceValuePattern({ patternSpecId: "ps_g4a_u01_place_value_composition_to_number", title: "八位數位值組合", kind: "g4aU01PlaceValueComposition", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "eight_digit", "composition"], answerModel: { shape: "integer_number", field: "value" } }),
-  ps_g4a_u01_same_digit_place_value_difference: g4aU01PlaceValuePattern({ patternSpecId: "ps_g4a_u01_same_digit_place_value_difference", title: "相同數字不同位值差", kind: "g4aU01SameDigitPlaceValueDifference", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "same_digit", "place_value_difference"], answerModel: { shape: "integer_difference", field: "difference" } }),
-  ps_g4a_u01_nonstandard_place_value_composition: g4aU01ReasoningPattern({ patternSpecId: "ps_g4a_u01_nonstandard_place_value_composition", title: "非標準位值組合", kind: "g4aU01NonstandardPlaceValueComposition", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "nonstandard_composition"], answerModel: { shape: "integer_number", field: "value" } }),
-  ps_g4a_u01_place_value_card_unit_model_composition: g4aU01ReasoningPattern({ patternSpecId: "ps_g4a_u01_place_value_card_unit_model_composition", title: "位值卡組合", kind: "g4aU01PlaceValueCardComposition", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "card_model", "composition"], answerModel: { shape: "integer_number", field: "value" } }),
+  ps_g4a_u01_same_digit_place_value_difference: g4aU01PlaceValuePattern({ patternSpecId: "ps_g4a_u01_same_digit_place_value_difference", title: "相同數字不同位值差和", kind: "g4aU01SameDigitPlaceValueDifference", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "same_digit", "place_value_difference", "place_value_sum"], answerModel: { shape: "integer_difference_or_sum", field: "answer", modes: ["difference", "sum"] } }),
+  ps_g4a_u01_nonstandard_place_value_composition: g4aU01ReasoningPattern({ patternSpecId: "ps_g4a_u01_nonstandard_place_value_composition", title: "非標準位值組合", kind: "g4aU01NonstandardPlaceValueComposition", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "nonstandard_composition", "count_1_to_99"], answerModel: { shape: "integer_number", field: "value" } }),
+  ps_g4a_u01_place_value_card_unit_model_composition: g4aU01ReasoningPattern({ patternSpecId: "ps_g4a_u01_place_value_card_unit_model_composition", title: "位值卡組合", kind: "g4aU01PlaceValueCardComposition", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "card_model", "composition", "sparse_cards"], answerModel: { shape: "integer_number", field: "value" }, min: 1 }),
   ps_g4a_u01_compare_first_different_place: g4aU01ReasoningPattern({ patternSpecId: "ps_g4a_u01_compare_first_different_place", title: "從哪一位開始比較", kind: "g4aU01CompareFirstDifferentPlace", canonicalSkillId: "large_number_comparison", skillTags: ["large_number_comparison", "first_different_place"], answerModel: { shape: "place_label", field: "placeLabel" } }),
   ps_g4a_u01_missing_digit_comparison_possible_digits: g4aU01ReasoningPattern({ patternSpecId: "ps_g4a_u01_missing_digit_comparison_possible_digits", title: "缺位比較可填哪些數", kind: "g4aU01MissingDigitComparisonPossibleDigits", canonicalSkillId: "large_number_comparison", skillTags: ["large_number_comparison", "missing_digit", "possible_digits"], answerModel: { shape: "digit_set", field: "possibleDigits" } }),
   ps_g4a_u01_missing_digit_comparison_extreme_digit: g4aU01ReasoningPattern({ patternSpecId: "ps_g4a_u01_missing_digit_comparison_extreme_digit", title: "缺位比較最大最小", kind: "g4aU01MissingDigitComparisonExtremeDigit", canonicalSkillId: "large_number_comparison", skillTags: ["large_number_comparison", "missing_digit", "extreme_digit"], answerModel: { shape: "digit", field: "digit" } }),
