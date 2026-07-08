@@ -19,7 +19,8 @@ const rows = Object.freeze([
   [sourceId, "4A-U01", "1億以內的數", "kp_g4a_u01_wan_mixed_notation_subtraction", "pg_g4a_u01_wan_mixed_notation_subtraction", "ps_g4a_u01_wan_mixed_notation_subtraction", "萬單位混合記法減法", "large_number_addition_subtraction", ["wan_notation", "subtraction"], "large_number_wan_subtraction", "wan_notation_prompt"],
   [sourceId, "4A-U01", "1億以內的數", "kp_g4a_u01_boundary_number_difference", "pg_g4a_u01_boundary_number_difference", "ps_g4a_u01_boundary_number_difference", "最大最小位數邊界差", "large_number_comparison", ["digit_count_boundary", "difference"], "boundary_difference", "reasoning_prompt"],
   [sourceId, "4A-U01", "1億以內的數", "kp_g4a_u01_comparison_word_problem_total", "pg_g4a_u01_comparison_word_problem_total", "ps_g4a_u01_comparison_word_problem_total", "比較型應用題求總和", "large_number_word_problem", ["comparison", "total"], "comparison_word_problem_total", "word_problem_prompt"],
-  [sourceId, "4A-U01", "1億以內的數", "kp_g4a_u01_large_number_unit_word_problem_add_subtract", "pg_g4a_u01_large_number_unit_word_problem_add_subtract", "ps_g4a_u01_large_number_unit_word_problem_add_subtract", "大數單位加減應用題", "large_number_word_problem", ["unit", "add_sub"], "large_number_unit_word_problem", "word_problem_prompt"]
+  [sourceId, "4A-U01", "1億以內的數", "kp_g4a_u01_large_number_unit_word_problem_add_subtract", "pg_g4a_u01_large_number_unit_word_problem_add_subtract", "ps_g4a_u01_large_number_unit_word_problem_add_subtract", "大數單位加減應用題", "large_number_word_problem", ["unit", "add_sub"], "large_number_unit_word_problem", "word_problem_prompt"],
+  [sourceId, "4A-U01", "1億以內的數", "kp_g4a_u01_digit_arrangement_max_min", "pg_g4a_u01_digit_arrangement_max_min", "ps_g4a_u01_digit_arrangement_max_min", "指定數字排列最大最小", "place_value_reasoning", ["digit_arrangement", "max_min", "no_leading_zero"], "digit_arrangement_max_min", "number_or_short_word_problem_prompt"]
 ]);
 
 function toSpecIds(value) {
