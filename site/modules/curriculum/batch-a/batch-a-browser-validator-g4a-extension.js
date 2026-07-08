@@ -10,6 +10,8 @@ const G4A_U02_NUMERIC_SPEC_IDS = new Set([
   "ps_g4a_u02_2digit_by_3digit",
   "ps_g4a_u02_3digit_by_2digit"
 ]);
+const G4A_U02_DIGIT_CARD_SPEC_ID = "ps_g4a_u02_digit_card_arrangement_product_max_min";
+const G4A_U02_NEAR_HUNDRED_SPEC_ID = "ps_g4a_u02_near_hundred_multiplication_strategy";
 
 function issue(code, path, message = code, severity = "error") {
   return { code, severity, path, message };
@@ -36,9 +38,8 @@ function validateArrangementQuestion(question = {}) {
   if (question.patternSpecId !== ARRANGEMENT_SPEC_ID && question.metadata?.patternId !== ARRANGEMENT_SPEC_ID) return null;
   if (question.metadata?.sourceId !== "g4a_u01_4a01") errors.push(issue("batch_a_question_source_mismatch", "metadata.sourceId"));
   if (question.kind !== "g4aU01DigitArrangementMaxMin") errors.push(issue("batch_a_g4a_u01_arrangement_kind_invalid", "kind"));
-  if (!Array.isArray(question.digits) || question.digits.length !== 5) {
-    errors.push(issue("batch_a_g4a_u01_arrangement_digits_invalid", "digits"));
-  } else {
+  if (!Array.isArray(question.digits) || question.digits.length !== 5) errors.push(issue("batch_a_g4a_u01_arrangement_digits_invalid", "digits"));
+  else {
     const unique = new Set(question.digits);
     if (unique.size !== 5 || question.digits.some((digit) => !Number.isInteger(digit) || digit < 0 || digit > 9)) errors.push(issue("batch_a_g4a_u01_arrangement_digits_invalid", "digits"));
     const expectedMax = numberFromDigits([...question.digits].sort((a, b) => b - a));
@@ -67,11 +68,7 @@ function validatePartialProducts(question, errors) {
     { place: "ones", digit: onesDigit, unshiftedValue: question.multiplicand * onesDigit, shiftedValue: question.multiplicand * onesDigit },
     { place: "tens", digit: tensDigit, unshiftedValue: question.multiplicand * tensDigit, shiftedValue: question.multiplicand * tensDigit * 10 }
   ];
-  for (let index = 0; index < expected.length; index += 1) {
-    for (const key of ["place", "digit", "unshiftedValue", "shiftedValue"]) {
-      if (question.partialProducts[index]?.[key] !== expected[index][key]) errors.push(issue("batch_a_g4a_u02_partial_product_invalid", `partialProducts[${index}].${key}`));
-    }
-  }
+  for (let index = 0; index < expected.length; index += 1) for (const key of ["place", "digit", "unshiftedValue", "shiftedValue"]) if (question.partialProducts[index]?.[key] !== expected[index][key]) errors.push(issue("batch_a_g4a_u02_partial_product_invalid", `partialProducts[${index}].${key}`));
 }
 
 function validateG4AU02Vertical(question = {}) {
@@ -105,6 +102,59 @@ function validateG4AU02Vertical(question = {}) {
   return { ok: errors.length === 0, errors, warnings: [] };
 }
 
+function arrangementsForDigits(digits) {
+  const output = [];
+  for (let a = 0; a < digits.length; a += 1) for (let b = 0; b < digits.length; b += 1) for (let c = 0; c < digits.length; c += 1) for (let d = 0; d < digits.length; d += 1) for (let e = 0; e < digits.length; e += 1) {
+    if (new Set([a, b, c, d, e]).size !== 5) continue;
+    const left = numberFromDigits([digits[a], digits[b], digits[c]]);
+    const right = numberFromDigits([digits[d], digits[e]]);
+    if (left < 100 || right < 10) continue;
+    output.push({ left, right, product: left * right });
+  }
+  return output;
+}
+
+function validateG4AU02DigitCard(question = {}) {
+  if (question.patternSpecId !== G4A_U02_DIGIT_CARD_SPEC_ID && question.metadata?.patternId !== G4A_U02_DIGIT_CARD_SPEC_ID) return null;
+  const errors = [];
+  if (question.metadata?.sourceId !== "g4a_u02_4a02") errors.push(issue("batch_a_question_source_mismatch", "metadata.sourceId"));
+  if (question.kind !== "g4aU02DigitCardArrangementProductMaxMin") errors.push(issue("batch_a_g4a_u02_digit_card_kind_invalid", "kind"));
+  if (!Array.isArray(question.digits) || question.digits.length !== 6 || new Set(question.digits).size !== 6) errors.push(issue("batch_a_g4a_u02_digit_card_digits_invalid", "digits"));
+  else {
+    const arrangements = arrangementsForDigits(question.digits);
+    const max = arrangements.reduce((best, item) => item.product > best.product ? item : best, arrangements[0]);
+    const min = arrangements.reduce((best, item) => item.product < best.product ? item : best, arrangements[0]);
+    if (question.maxProduct !== max.product) errors.push(issue("batch_a_g4a_u02_digit_card_max_product_invalid", "maxProduct"));
+    if (question.minProduct !== min.product) errors.push(issue("batch_a_g4a_u02_digit_card_min_product_invalid", "minProduct"));
+    if (!Array.isArray(question.maxFactors) || question.maxFactors[0] * question.maxFactors[1] !== question.maxProduct) errors.push(issue("batch_a_g4a_u02_digit_card_max_factors_invalid", "maxFactors"));
+    if (!Array.isArray(question.minFactors) || question.minFactors[0] * question.minFactors[1] !== question.minProduct) errors.push(issue("batch_a_g4a_u02_digit_card_min_factors_invalid", "minFactors"));
+    const expectedAnswerText = `最大：${question.maxFactors?.[0]} × ${question.maxFactors?.[1]} = ${question.maxProduct}；最小：${question.minFactors?.[0]} × ${question.minFactors?.[1]} = ${question.minProduct}`;
+    if (question.answerText !== expectedAnswerText) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+    if (question.finalAnswer !== expectedAnswerText) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+  }
+  if (!String(question.blankedDisplayText ?? "").includes("三位數 × 二位數")) errors.push(issue("batch_a_g4a_u02_digit_card_prompt_invalid", "blankedDisplayText"));
+  return { ok: errors.length === 0, errors, warnings: [] };
+}
+
+function validateG4AU02NearHundred(question = {}) {
+  if (question.patternSpecId !== G4A_U02_NEAR_HUNDRED_SPEC_ID && question.metadata?.patternId !== G4A_U02_NEAR_HUNDRED_SPEC_ID) return null;
+  const errors = [];
+  if (question.metadata?.sourceId !== "g4a_u02_4a02") errors.push(issue("batch_a_question_source_mismatch", "metadata.sourceId"));
+  if (question.kind !== "g4aU02NearHundredMultiplicationStrategy") errors.push(issue("batch_a_g4a_u02_near_hundred_kind_invalid", "kind"));
+  if (![99, 101].includes(question.targetFactor)) errors.push(issue("batch_a_g4a_u02_near_hundred_target_invalid", "targetFactor"));
+  const expectedBase = question.n * 100;
+  const expectedFinal = question.n * question.targetFactor;
+  const expectedDirection = question.targetFactor === 99 ? "subtract" : "add";
+  if (question.baseProduct !== expectedBase) errors.push(issue("batch_a_g4a_u02_near_hundred_base_invalid", "baseProduct"));
+  if (question.adjustment !== question.n) errors.push(issue("batch_a_g4a_u02_near_hundred_adjustment_invalid", "adjustment"));
+  if (question.finalProduct !== expectedFinal) errors.push(issue("batch_a_answer_incorrect", "finalProduct"));
+  if (question.finalAnswer !== expectedFinal) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+  if (question.direction !== expectedDirection) errors.push(issue("batch_a_g4a_u02_near_hundred_direction_invalid", "direction"));
+  const sign = expectedDirection === "subtract" ? "-" : "+";
+  if (question.answerText !== `${expectedBase} ${sign} ${question.n} = ${expectedFinal}`) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  return { ok: errors.length === 0, errors, warnings: [] };
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   return base.validateBatchABrowserPlan(plan);
 }
@@ -112,8 +162,12 @@ export function validateBatchABrowserPlan(plan = {}) {
 export function validateBatchABrowserQuestion(question = {}) {
   const arrangement = validateArrangementQuestion(question);
   if (arrangement) return arrangement;
-  const g4aU02 = validateG4AU02Vertical(question);
-  if (g4aU02) return g4aU02;
+  const g4aU02Vertical = validateG4AU02Vertical(question);
+  if (g4aU02Vertical) return g4aU02Vertical;
+  const digitCard = validateG4AU02DigitCard(question);
+  if (digitCard) return digitCard;
+  const nearHundred = validateG4AU02NearHundred(question);
+  if (nearHundred) return nearHundred;
   return base.validateBatchABrowserQuestion(question);
 }
 
@@ -125,5 +179,5 @@ export function validateBatchABrowserQuestions(questions = []) {
     errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
     warnings.push(...result.warnings);
   }
-  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s53d-g4a-u02-numeric-v1", validatedAt: null };
+  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s53f-g4a-u02-reasoning-v1", validatedAt: null };
 }
