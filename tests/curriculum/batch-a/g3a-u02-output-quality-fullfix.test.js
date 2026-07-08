@@ -15,34 +15,68 @@ const mixedRows = Object.freeze([
   ["kp_g3a_u02_sub_middle_missing_digit", "pg_g3a_u02_sub_middle_missing_digit"],
   ["kp_g3a_u02_continuous_borrow_zero", "pg_g3a_u02_continuous_borrow_zero"]
 ]);
+const residualDuplicatePrompts = Object.freeze([
+  "8003 - 104 = ___",
+  "3997 + 3 = ___",
+  "9000 - 1101 = ___",
+  "3006 - 107 = ___",
+  "6008 - 109 = ___",
+  "3008 - 1109 = ___",
+  "2002 - 103 = ___",
+  "9006 - 107 = ___",
+  "2006 - 107 = ___",
+  "5006 - 107 = ___",
+  "5004 - 105 = ___",
+  "6005 - 2106 = ___",
+  "6006 - 2107 = ___",
+  "9000 - 101 = ___",
+  "3002 - 103 = ___"
+]);
 
-function promptFor(question) {
-  return String(question.blankedDisplayText ?? question.duplicateKey ?? question.id);
-}
-
-test("S45B G3A-U02 mixed worksheet avoids exact duplicate prompts and uses long-text-safe layout", () => {
-  const result = buildBatchABrowserWorksheetDocument({
+function buildMixedWorksheet(generationSeed = "s45b-output-quality-fullfix") {
+  return buildBatchABrowserWorksheetDocument({
     sourceId,
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
     selectedKnowledgePointIds: mixedRows.map((row) => row[0]),
     selectedPatternGroupIds: mixedRows.map((row) => row[1]),
     questionCount: 200,
     ordering: "shuffleAcrossPatterns",
-    generationSeed: "s45b-output-quality-fullfix",
+    generationSeed,
     includeAnswerKey: true,
     printLayout: { columns: 2, rowsPerPage: 10, showAnswerKeyPage: true }
   });
+}
+
+function promptFor(question) {
+  return String(question.blankedDisplayText ?? question.duplicateKey ?? question.id);
+}
+
+test("S45B G3A-U02 mixed worksheet avoids exact duplicate prompts and uses long-text-safe layout", () => {
+  const result = buildMixedWorksheet();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.generatedQuestions.length, 200);
   assert.equal(result.worksheetDocument.generatedQuestions.some((question) => question.kind === "wordProblemEstimation"), true);
   assert.equal(result.worksheetDocument.printOptions.columns, 2);
   assert.equal(result.worksheetDocument.printOptions.rowsPerPage, 8);
   assert.equal(result.worksheetDocument.printOptions.pageBreakMode, "avoidLongTextCards");
+  assert.equal(result.worksheetDocument.answerKeyPages.length > 0, true);
 
   const prompts = result.worksheetDocument.generatedQuestions.map(promptFor);
   assert.equal(new Set(prompts).size, prompts.length);
   assert.equal(prompts.some((text) => /2004 - 105 = ___/.test(text)), false);
   assert.equal(prompts.some((text) => /3003 - 1004 = ___/.test(text)), false);
+});
+
+test("S45B2 G3A-U02 generated PDF regression prompts do not recur", () => {
+  for (const seed of ["s45b-output-quality-fullfix", "batch-a-browser", "s45c-pdf-recheck"]) {
+    const result = buildMixedWorksheet(seed);
+    assert.equal(result.ok, true, `${seed}: ${JSON.stringify(result.errors)}`);
+    const prompts = result.worksheetDocument.generatedQuestions.map(promptFor);
+    assert.equal(new Set(prompts).size, prompts.length, seed);
+    for (const duplicatePrompt of residualDuplicatePrompts) {
+      assert.equal(prompts.includes(duplicatePrompt), false, `${seed}: ${duplicatePrompt}`);
+    }
+  }
 });
 
 test("S45B G3A-U02 ordered-fill answer keys are explicit", () => {
