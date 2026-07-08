@@ -151,6 +151,13 @@ function createAnswerKeyItems(questions, displayModels) {
     : createAnswerKeyItem(question, displayModels[index]));
 }
 
+function mergeValidationWarnings(validation, generationWarnings = []) {
+  return {
+    ...validation,
+    warnings: [...generationWarnings, ...(validation?.warnings ?? [])]
+  };
+}
+
 function createGenerationReport({ plan, allocation, questions, errors, warnings }) {
   return {
     requestedQuestionCount: plan.questionCount,
@@ -198,7 +205,8 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     ? normalizePrintLayoutForGeneratedQuestions(printLayout, generated.questions, { answerKey: true })
     : { ...printLayout, showAnswerKeyPage: false };
   const validation = validateBatchABrowserQuestions(generated.questions);
-  if (!validation.ok) return { ok: false, worksheetDocument: null, validation, errors: validation.errors, warnings: validation.warnings };
+  const combinedValidation = mergeValidationWarnings(validation, generated.warnings ?? []);
+  if (!validation.ok) return { ok: false, worksheetDocument: null, validation: combinedValidation, errors: validation.errors, warnings: combinedValidation.warnings };
 
   const questionDisplayModels = createDisplayModels(generated.questions, printLayout);
   const answerKeyItems = printLayout.showAnswerKeyPage ? createAnswerKeyItems(generated.questions, questionDisplayModels) : [];
@@ -242,7 +250,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
       marginMode: "default",
       debugDataAttributes: false
     },
-    validationSummary: validation,
+    validationSummary: combinedValidation,
     batchA: {
       sourceId: plan.sourceId,
       selectionMode: plan.selectionMode,
@@ -272,8 +280,8 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     questionPages,
     answerKeyPages,
     summary: { questionCount: generated.questions.length, questionPageCount: questionPages.length, answerKeyPageCount: answerKeyPages.length, orderingMode: plan.ordering, patternIdsInRenderOrder: [...plan.patternSpecIds] },
-    generationReport: createGenerationReport({ plan, allocation: generated.allocation, questions: generated.questions, errors: generated.errors, warnings: generated.warnings })
+    generationReport: createGenerationReport({ plan, allocation: generated.allocation, questions: generated.questions, errors: generated.errors, warnings: combinedValidation.warnings })
   };
 
-  return { ok: true, worksheetDocument, validation, errors: [], warnings: validation.warnings };
+  return { ok: true, worksheetDocument, validation: combinedValidation, errors: [], warnings: combinedValidation.warnings };
 }
