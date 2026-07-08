@@ -1,0 +1,24 @@
+S45B4_G3A_U02_PRINT_PAGE_HEIGHT_SLACK_QAFIX_STATUS
+
+sourceId = g3a_u02_3a02
+status = WAITING_FOR_LOCAL_TEST
+trigger = S45C3 PDF recheck found blank pages 14, 15, and 21 despite passing tests and resolved duplicate/template blockers
+
+implemented:
+- print .worksheet-page height slack increased from 0.75mm to 12mm.
+- answer-key page-break contract remains intact.
+- trailing page-break-after avoidance remains intact.
+- goal is to avoid Chrome/Skia blank pages caused by near-full A4 block accumulation with explicit page breaks.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+expected:
+- tests 433
+- pass 433
+- fail 0
+- working tree clean
+
+next = regenerate G3A-U02 PDF and confirm no blank pages
