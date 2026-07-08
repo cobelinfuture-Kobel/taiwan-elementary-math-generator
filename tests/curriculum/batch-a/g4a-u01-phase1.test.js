@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import { generateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet.js";
-import { validateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
+import { validateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js";
 import { BATCH_A_RESOLVER_SELECTION_MODES } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 
 const SOURCE_ID = "g4a_u01_4a01";
@@ -30,7 +30,10 @@ const PHASE3_PATTERN_IDS = Object.freeze([
   "ps_g4a_u01_comparison_word_problem_total",
   "ps_g4a_u01_large_number_unit_word_problem_add_subtract"
 ]);
-const PRINTABLE_PATTERN_IDS = Object.freeze([...PHASE1_PATTERN_IDS, ...PHASE2_PATTERN_IDS, ...PHASE3_PATTERN_IDS]);
+const PHASE4_PATTERN_IDS = Object.freeze([
+  "ps_g4a_u01_digit_arrangement_max_min"
+]);
+const PRINTABLE_PATTERN_IDS = Object.freeze([...PHASE1_PATTERN_IDS, ...PHASE2_PATTERN_IDS, ...PHASE3_PATTERN_IDS, ...PHASE4_PATTERN_IDS]);
 const TALL_PATTERN_SELECTOR = Object.freeze({
   ps_g4a_u01_same_digit_place_value_difference: Object.freeze({ kpId: "kp_g4a_u01_same_digit_place_value_difference", groupId: "pg_g4a_u01_same_digit_place_value_difference" }),
   ps_g4a_u01_place_value_composition_to_number: Object.freeze({ kpId: "kp_g4a_u01_place_value_composition_to_number", groupId: "pg_g4a_u01_place_value_composition_to_number" }),
@@ -38,7 +41,7 @@ const TALL_PATTERN_SELECTOR = Object.freeze({
   ps_g4a_u01_place_value_card_unit_model_composition: Object.freeze({ kpId: "kp_g4a_u01_place_value_card_unit_model_composition", groupId: "pg_g4a_u01_place_value_card_unit_model_composition" })
 });
 
-function generate(questionCount = 51) {
+function generate(questionCount = 54) {
   return generateBatchABrowserQuestions({ sourceId: SOURCE_ID, questionCount, ordering: "shuffleAcrossPatterns", generationSeed: "batch-a-browser", includeAnswerKey: true });
 }
 
@@ -61,23 +64,31 @@ function countItemsByPage(pages, cellType) {
   return pages.map((page) => page.cells.filter((cell) => cell.cellType === cellType).length);
 }
 
-test("G4A-U01 source-unit generation produces Phase 1, Phase 2, and Phase 3 patterns", () => {
-  const result = generate(51);
+function minNumberFromDigits(digits) {
+  const sorted = [...digits].sort((a, b) => a - b);
+  if (sorted[0] !== 0) return Number(sorted.join(""));
+  const firstNonZeroIndex = sorted.findIndex((digit) => digit > 0);
+  const [first] = sorted.splice(firstNonZeroIndex, 1);
+  return Number([first, ...sorted].join(""));
+}
+
+test("G4A-U01 source-unit generation produces Phase 1, Phase 2, Phase 3, and arrangement patterns", () => {
+  const result = generate(54);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.questions.length, 51);
+  assert.equal(result.questions.length, 54);
   assert.deepEqual(result.plan.patternSpecIds, PRINTABLE_PATTERN_IDS);
   for (const patternSpecId of PRINTABLE_PATTERN_IDS) assert.ok(result.questions.some((question) => question.patternSpecId === patternSpecId), patternSpecId);
 });
 
-test("G4A-U01 Phase 1/2/3 questions pass Batch A validator", () => {
-  const result = generate(102);
+test("G4A-U01 Phase 1/2/3/arrangement questions pass Batch A validator", () => {
+  const result = generate(108);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const validation = validateBatchABrowserQuestions(result.questions);
   assert.equal(validation.ok, true, JSON.stringify(validation.errors));
 });
 
 test("G4A-U01 printable text questions expose printable text answers", () => {
-  const result = generate(102);
+  const result = generate(108);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const textKinds = new Set([
     "g4aU01PlaceValueDecomposition",
@@ -93,7 +104,8 @@ test("G4A-U01 printable text questions expose printable text answers", () => {
     "g4aU01WanMixedNotationSubtraction",
     "g4aU01BoundaryNumberDifference",
     "g4aU01ComparisonWordProblemTotal",
-    "g4aU01LargeNumberUnitWordProblemAddSubtract"
+    "g4aU01LargeNumberUnitWordProblemAddSubtract",
+    "g4aU01DigitArrangementMaxMin"
   ]);
   const textQuestions = result.questions.filter((question) => textKinds.has(question.kind));
   assert.ok(textQuestions.length > 0);
@@ -106,7 +118,7 @@ test("G4A-U01 printable text questions expose printable text answers", () => {
 });
 
 test("G4A-U01 Phase 2 missing digit comparison models expose valid answers", () => {
-  const result = generate(102);
+  const result = generate(108);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const possible = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_missing_digit_comparison_possible_digits");
   const extreme = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_missing_digit_comparison_extreme_digit");
@@ -117,7 +129,7 @@ test("G4A-U01 Phase 2 missing digit comparison models expose valid answers", () 
 });
 
 test("G4A-U01 Phase 2 refined place-value prompts match source-image semantics", () => {
-  const result = generate(102);
+  const result = generate(108);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const nonstandard = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_nonstandard_place_value_composition");
   assert.ok(nonstandard.placeModel.every((place) => place.count >= 1 && place.count <= 99));
@@ -131,7 +143,7 @@ test("G4A-U01 Phase 2 refined place-value prompts match source-image semantics",
 });
 
 test("G4A-U01 Phase 3 models expose Chinese, wan, boundary, and word-problem semantics", () => {
-  const result = generate(102);
+  const result = generate(108);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const reading = result.questions.filter((question) => question.patternSpecId === "ps_g4a_u01_large_number_reading_writing_conversion");
   assert.deepEqual(new Set(reading.map((question) => question.conversionDirection)), new Set(["numeric_to_chinese", "chinese_to_numeric"]));
@@ -151,11 +163,28 @@ test("G4A-U01 Phase 3 models expose Chinese, wan, boundary, and word-problem sem
   assert.equal(unitWord.answerText, `${unitWord.numericAnswer}${unitWord.unit}`);
 });
 
-test("G4A-U01 worksheet document builds with answer key", () => {
-  const result = buildBatchABrowserWorksheetDocument({ sourceId: SOURCE_ID, questionCount: 51, ordering: "shuffleAcrossPatterns", generationSeed: "batch-a-browser", includeAnswerKey: true });
+test("G4A-U01 digit arrangement max-min supports numeric and short word prompts", () => {
+  const result = generate(108);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.worksheetDocument.summary.questionCount, 51);
-  assert.equal(result.worksheetDocument.answerKeyItems.length, 51);
+  const arrangement = result.questions.filter((question) => question.patternSpecId === "ps_g4a_u01_digit_arrangement_max_min");
+  assert.ok(arrangement.length > 0);
+  assert.equal(arrangement.some((question) => question.arrangementMode === "numeric"), true);
+  assert.equal(arrangement.some((question) => question.arrangementMode === "wordProblem"), true);
+  for (const question of arrangement) {
+    const expectedMax = Number([...question.digits].sort((a, b) => b - a).join(""));
+    const expectedMin = minNumberFromDigits(question.digits);
+    assert.equal(question.maxNumber, expectedMax);
+    assert.equal(question.minNumber, expectedMin);
+    assert.equal(String(question.minNumber).length, 5);
+    assert.equal(question.answerText, `最大：${expectedMax}；最小：${expectedMin}`);
+  }
+});
+
+test("G4A-U01 worksheet document builds with answer key", () => {
+  const result = buildBatchABrowserWorksheetDocument({ sourceId: SOURCE_ID, questionCount: 54, ordering: "shuffleAcrossPatterns", generationSeed: "batch-a-browser", includeAnswerKey: true });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.worksheetDocument.summary.questionCount, 54);
+  assert.equal(result.worksheetDocument.answerKeyItems.length, 54);
   assert.equal(result.worksheetDocument.batchA.sourceId, SOURCE_ID);
 });
 
