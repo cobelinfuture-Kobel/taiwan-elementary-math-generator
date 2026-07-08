@@ -1,0 +1,36 @@
+S45_G3A_U02_UNIT_CLOSEOUT_PASS
+
+sourceId = g3a_u02_3a02
+unit = 3A-U02 四位數的加減
+status = PASS_ACCEPTED_AND_CLOSED
+operator_decision = pass_and_close_unit
+operator_readback = tests 433, pass 433, fail 0, working tree clean
+
+closed_scope:
+- S45A current output review completed.
+- S45B output quality FullFix completed.
+- S45B2 PDF regression FullFix completed.
+- S45B3/S45B4 blank page print QAFix attempts completed.
+- S45C/S45C2/S45C3 PDF rechecks completed.
+
+accepted_non_blocking_issue:
+- Some generated PDFs may still contain blank pages due to browser/print pagination behavior.
+- Operator explicitly accepted the blank-page issue as non-blocking for this unit.
+
+validated_as_passing:
+- 433 tests passed locally.
+- G3A-U02 mixed output contains 200 questions.
+- Question duplicate/template regressions found in S45C were resolved.
+- Long word-problem cards remain readable and on-page.
+- Answer key is visible in exported PDF when answer key is included.
+- Ordered-fill answer wording uses 依序填入.
+
+not_closed_as_goal:
+- Browser/PDF smoke for the full system remains a later task.
+- Blank-page print pagination can be reopened later as a renderer-wide issue if needed.
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U02_PRINT_PAGE_HEIGHT_SLACK_LOCAL_PASS
+GOAL_DISTANCE_AFTER = D1_G3A_U02_UNIT_CLOSED_ACCEPTED_PASS
+DISTANCE_REDUCED = G3A-U02 output QA is accepted and closed; unit is ready to move to the next shortest unit path
+REMAINING_BLOCKERS = browser/PDF smoke later; optional renderer-wide blank-page cleanup backlog
+NEXT_SHORTEST_STEP = S46A_G3A_U03_CurrentStateAndOutputReview
