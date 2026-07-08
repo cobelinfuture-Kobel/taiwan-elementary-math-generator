@@ -1,0 +1,26 @@
+S45B_G3A_U02_OUTPUT_QUALITY_FULLFIX_STATUS
+
+sourceId = g3a_u02_3a02
+status = WAITING_FOR_LOCAL_TEST
+
+implemented:
+- added G3A-U02 worksheet router
+- added G3A-U02 output-quality generator
+- improved value diversity for G3A-U02 worksheet output
+- added duplicate prompt control for large G3A-U02 worksheets
+- capped long-text G3A-U02 worksheet layout to 2 columns and 8 rows per page
+- changed ordered-fill answer key text to begin with 依序填入
+- added regression tests for S45B output quality
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+expected:
+- tests 432
+- pass 432
+- fail 0
+- working tree clean
+
+next = S45C_G3A_U02_OutputPDFRecheck
