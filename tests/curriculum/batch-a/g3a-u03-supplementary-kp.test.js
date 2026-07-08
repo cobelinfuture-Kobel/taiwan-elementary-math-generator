@@ -9,7 +9,7 @@ import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatc
 import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 
 const sourceId = "g3a_u03_3a03";
-const CURRENT_VISIBLE_KP_COUNT = 52;
+const CURRENT_VISIBLE_KP_COUNT = 58;
 const zeroKp = "kp_g3a_u03_3digit_zero_middle_by_1digit";
 const zeroGroup = "pg_g3a_u03_3digit_zero_middle_by_1digit";
 const zeroSpec = "ps_g3a_u03_3digit_zero_middle_by_1digit";
