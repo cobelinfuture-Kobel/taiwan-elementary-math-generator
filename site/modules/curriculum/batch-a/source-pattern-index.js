@@ -66,6 +66,21 @@ function estimationPattern({ patternSpecId, sourceId, title, min, max, unit, ski
   });
 }
 
+function g4aU01PlaceValuePattern({ patternSpecId, title, kind, canonicalSkillId, skillTags, answerModel }) {
+  return Object.freeze({
+    patternSpecId,
+    sourceId: "g4a_u01_4a01",
+    title,
+    kind,
+    min: 10000000,
+    max: 99999999,
+    answerModel: Object.freeze(answerModel),
+    canonicalSkillIds: [canonicalSkillId],
+    skillTags: [...skillTags],
+    difficultyTags: ["batch_a_browser_bridge", "g4a_u01_place_value"]
+  });
+}
+
 const DIVISION_EXACT = { allowDivideByOne: false, allowZeroDividend: false, requireExactQuotient: true };
 const ADD_CARRY_POLICY = {
   kind: "addition_carry",
@@ -131,6 +146,9 @@ export const BATCH_A_BROWSER_PATTERN_DEFINITIONS = Object.freeze({
   ps_g4a_u01_compare_8digit: comparisonPattern({ patternSpecId: "ps_g4a_u01_compare_8digit", sourceId: "g4a_u01_4a01", title: "八位數比大小", min: 10000000, max: 99999999 }),
   ps_g4a_u01_within_100million_compare: comparisonPattern({ patternSpecId: "ps_g4a_u01_within_100million_compare", sourceId: "g4a_u01_4a01", title: "1億以內數比大小", min: 0, max: 99999999 }),
   ps_g4a_u01_large_number_add_sub: addSub1("ps_g4a_u01_large_number_add_sub", "g4a_u01_4a01", "大數加減", [[10000, 99999999], [10000, 99999999]], 99999999),
+  ps_g4a_u01_8digit_place_value_decomposition: g4aU01PlaceValuePattern({ patternSpecId: "ps_g4a_u01_8digit_place_value_decomposition", title: "八位數位值分解", kind: "g4aU01PlaceValueDecomposition", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "eight_digit", "decomposition"], answerModel: { shape: "place_value_expansion", fields: ["digitsByPlace", "placeValues"] } }),
+  ps_g4a_u01_place_value_composition_to_number: g4aU01PlaceValuePattern({ patternSpecId: "ps_g4a_u01_place_value_composition_to_number", title: "八位數位值組合", kind: "g4aU01PlaceValueComposition", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "eight_digit", "composition"], answerModel: { shape: "integer_number", field: "value" } }),
+  ps_g4a_u01_same_digit_place_value_difference: g4aU01PlaceValuePattern({ patternSpecId: "ps_g4a_u01_same_digit_place_value_difference", title: "相同數字不同位值差", kind: "g4aU01SameDigitPlaceValueDifference", canonicalSkillId: "large_number_place_value", skillTags: ["large_number_place_value", "same_digit", "place_value_difference"], answerModel: { shape: "integer_difference", field: "difference" } }),
   ps_g4a_u02_add_sub_mixed_5digit: addSub1("ps_g4a_u02_add_sub_mixed_5digit", "g4a_u02_4a02", "五位數加減", [[10000, 99999], [10000, 99999]], 99999),
   ps_g4a_u04_angle_compare: comparisonPattern({ patternSpecId: "ps_g4a_u04_angle_compare", sourceId: "g4a_u04_4a04", title: "角度大小比較", min: 1, max: 180, skill: "angle_comparison" }),
   ps_g4a_u08_fraction_add_like_denominator: addSub1("ps_g4a_u08_fraction_add_like_denominator", "g4a_u08_4a08", "同分母分數加法", [[1, 9], [1, 9]], 18),
