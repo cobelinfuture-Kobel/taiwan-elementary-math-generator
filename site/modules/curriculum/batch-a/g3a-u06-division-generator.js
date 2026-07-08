@@ -8,6 +8,7 @@ import { makeDivisionWithRemainderQuestion } from "./g3a-u06-remainder-generator
 import { makeQuotativeDivisionPackagingQuestion, makePartitiveDivisionEqualSharingQuestion } from "./g3a-u06-word-problem-generator.js";
 import { makeParityRangeMissingDigitQuestion } from "./g3a-u06-parity-generator.js";
 import { canGenerateG3BU01BatchAQuestions, generateBatchABrowserQuestions as generateG3BU01BatchABrowserQuestions } from "./g3b-u01-division-generator.js";
+import { getBatchABrowserPatternDefinition } from "./source-pattern-submiddle-extension.js";
 
 const sourceId = "g3a_u06_3a06";
 const exactSpecId = "ps_g3a_u06_exact_division_check";
@@ -190,7 +191,7 @@ function makeDivisibilityQuestion(sequenceNumber, seed, shouldBeDivisible) {
 
 function questionKey(question) {
   if (question.kind === "divisibilityCheck") return question.blankedDisplayText;
-  return question.duplicateKey ?? `${question.patternSpecId}:${question.displayText ?? question.id}`;
+  return question.duplicateKey ?? `${question.patternSpecId}:${question.blankedDisplayText ?? question.displayText ?? question.id}`;
 }
 
 function generateU06Question(patternSpecId, sequenceNumber, seed, options = {}) {
@@ -203,29 +204,94 @@ function generateU06Question(patternSpecId, sequenceNumber, seed, options = {}) 
   return null;
 }
 
+function labelForPattern(patternSpecId) {
+  return getBatchABrowserPatternDefinition(patternSpecId)?.title ?? patternSpecId;
+}
+
+function shouldBeDivisibleFor(patternSpecId, sequenceNumber) {
+  return patternSpecId === divisibilitySpecId ? sequenceNumber % 2 === 1 : null;
+}
+
+function warningForShortfall(entry, acceptedForPattern) {
+  const missing = Math.max(0, entry.questionCount - acceptedForPattern);
+  return {
+    code: "batch_a_pattern_pool_fallback",
+    severity: "warning",
+    path: entry.patternSpecId,
+    message: `知識點/題型「${labelForPattern(entry.patternSpecId)}」可用題庫不足：要求 ${entry.questionCount} 題，目前只產生 ${acceptedForPattern} 題；系統會改由同單元其他知識點補足 ${missing} 題。`
+  };
+}
+
+function allocationFromQuestions(questions, originalAllocation) {
+  const counts = new Map();
+  for (const question of questions) counts.set(question.patternSpecId, (counts.get(question.patternSpecId) ?? 0) + 1);
+  return [...counts.entries()].map(([patternSpecId, questionCount]) => {
+    const original = originalAllocation.find((entry) => entry.patternSpecId === patternSpecId);
+    return original?.patternGroupId ? { patternSpecId, patternGroupId: original.patternGroupId, questionCount } : { patternSpecId, questionCount };
+  });
+}
+
+function acceptCandidate({ patternSpecId, sequenceNumber, plan, options, makeQuestion, seen, questions }) {
+  const shouldBeDivisible = shouldBeDivisibleFor(patternSpecId, sequenceNumber);
+  const question = makeQuestion(patternSpecId, sequenceNumber, plan.generationSeed ?? options.generationSeed, { shouldBeDivisible });
+  const key = question ? questionKey(question) : null;
+  if (!question || seen.has(key)) return false;
+  seen.add(key);
+  questions.push(question);
+  return true;
+}
+
 function generatePlannedDivisionQuestions({ plan, allocation, patternSpecIds, makeQuestion, errorCode, errorMessage, options }) {
   const questions = [];
   const seen = new Set();
   const errors = [];
+  const warnings = [];
+  const shortfalls = [];
+  const nextSequenceByPattern = new Map(patternSpecIds.map((patternSpecId) => [patternSpecId, 1]));
+
   for (const entry of allocation) {
     if (!patternSpecIds.includes(entry.patternSpecId)) return baseGenerateBatchABrowserQuestions(options);
     let acceptedForPattern = 0;
     let attempts = 0;
-    while (acceptedForPattern < entry.questionCount && attempts < entry.questionCount * 80) {
-      const shouldBeDivisible = entry.patternSpecId === divisibilitySpecId ? acceptedForPattern % 2 === 0 : null;
-      const sequenceNumber = attempts + 1;
-      const question = makeQuestion(entry.patternSpecId, sequenceNumber, plan.generationSeed ?? options.generationSeed, { shouldBeDivisible });
-      const key = question ? questionKey(question) : null;
-      if (question && !seen.has(key)) {
-        seen.add(key);
-        questions.push(question);
+    const maxAttempts = Math.max(80, entry.questionCount * 80);
+    while (acceptedForPattern < entry.questionCount && attempts < maxAttempts) {
+      const sequenceNumber = nextSequenceByPattern.get(entry.patternSpecId) ?? 1;
+      nextSequenceByPattern.set(entry.patternSpecId, sequenceNumber + 1);
+      if (acceptCandidate({ patternSpecId: entry.patternSpecId, sequenceNumber, plan, options, makeQuestion, seen, questions })) {
         acceptedForPattern += 1;
       }
       attempts += 1;
     }
-    if (acceptedForPattern < entry.questionCount) errors.push({ code: errorCode, severity: "error", path: entry.patternSpecId, message: errorMessage });
+    if (acceptedForPattern < entry.questionCount) {
+      shortfalls.push({ entry, acceptedForPattern, missing: entry.questionCount - acceptedForPattern });
+      warnings.push(warningForShortfall(entry, acceptedForPattern));
+    }
   }
-  return { ok: errors.length === 0, plan, questions, allocation, errors, warnings: [] };
+
+  const targetQuestionCount = Number.isInteger(plan.questionCount) ? plan.questionCount : questions.length;
+  let fallbackAttempts = 0;
+  const fallbackAttemptLimit = Math.max(240, targetQuestionCount * patternSpecIds.length * 120);
+  while (questions.length < targetQuestionCount && fallbackAttempts < fallbackAttemptLimit) {
+    const patternSpecId = patternSpecIds[fallbackAttempts % patternSpecIds.length];
+    const sequenceNumber = nextSequenceByPattern.get(patternSpecId) ?? 1;
+    nextSequenceByPattern.set(patternSpecId, sequenceNumber + 1);
+    acceptCandidate({ patternSpecId, sequenceNumber, plan, options, makeQuestion, seen, questions });
+    fallbackAttempts += 1;
+  }
+
+  if (questions.length < targetQuestionCount) {
+    const shortfallText = shortfalls.length > 0
+      ? shortfalls.map((item) => `「${labelForPattern(item.entry.patternSpecId)}」要求 ${item.entry.questionCount} 題，只產生 ${item.acceptedForPattern} 題`).join("；")
+      : "沒有單一題型回報短缺，但總題數仍未補滿";
+    errors.push({
+      code: errorCode,
+      severity: "error",
+      path: "questionCount",
+      message: `${errorMessage}；同單元其他知識點補題後仍缺 ${targetQuestionCount - questions.length} 題。庫池不足明細：${shortfallText}`
+    });
+  }
+
+  return { ok: errors.length === 0, plan, questions, allocation: allocationFromQuestions(questions, allocation), errors, warnings };
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
@@ -239,7 +305,7 @@ export function generateBatchABrowserQuestions(options = {}) {
       patternSpecIds: g3bU01SpecIds,
       makeQuestion: makeG3BU01Question,
       errorCode: "batch_a_g3b_u01_unique_pool_exhausted",
-      errorMessage: "G3B-U01 unique division question pool exhausted",
+      errorMessage: "G3B-U01 division question pool exhausted",
       options
     });
   }
@@ -252,7 +318,7 @@ export function generateBatchABrowserQuestions(options = {}) {
     patternSpecIds: u06SpecIds,
     makeQuestion: generateU06Question,
     errorCode: "batch_a_g3a_u06_unique_pool_exhausted",
-    errorMessage: "G3A-U06 unique division question pool exhausted",
+    errorMessage: "G3A-U06 division question pool exhausted",
     options
   });
 }
