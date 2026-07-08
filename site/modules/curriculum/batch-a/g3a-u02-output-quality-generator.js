@@ -23,7 +23,7 @@ const G3A_U02_PATTERN_SPEC_IDS = Object.freeze([
   "ps_g3a_u02_continuous_borrow_zero"
 ]);
 
-const MAX_DUPLICATE_RETRY = 12;
+const MAX_DUPLICATE_RETRY = 48;
 
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
@@ -52,6 +52,8 @@ function valueBetween(min, max, state) { return min + (state % (max - min + 1));
 function digitBounds(digits) { return digits === 1 ? [1, 9] : [10 ** (digits - 1), (10 ** digits) - 1]; }
 function variedValueWithDigits(digits, state) { const [min, max] = digitBounds(digits); return valueBetween(min, max, state); }
 function roundToNearestThousand(value) { return Math.round(value / 1000) * 1000; }
+function digitsToNumber(digits) { return Number(digits.join("")); }
+function nonzeroDigit(state) { return 1 + (state % 9); }
 
 function expressionMetadata(definition) {
   return {
@@ -103,6 +105,10 @@ function createExpressionQuestion(definition, { left, right, operator, answer },
   });
   question.patternSpecId = definition.patternSpecId;
   question.sourceId = definition.sourceId;
+  question.left = left;
+  question.right = right;
+  question.operator = operator === OPERATORS.ADD ? "add" : "subtract";
+  question.answer = answer;
   question.metadata = { ...question.metadata, sourceId: definition.sourceId, patternId: definition.patternSpecId };
   return question;
 }
@@ -110,22 +116,77 @@ function createExpressionQuestion(definition, { left, right, operator, answer },
 function additionCarryOperands(definition, options = {}) {
   const digits = targetCoveredDigits(definition, options) ?? 4;
   const state = sequenceState(options, `addition-carry-${digits}`);
-  const r = (mix32(state + 19) % 9) + 1;
-  const thousands = digits === 4 ? valueBetween(1, 7, mix32(state + 31)) : valueBetween(1, 8, mix32(state + 31));
-  const left = (digits === 1 ? thousands * 1000 + 990 : digits === 2 ? thousands * 1000 + 980 : digits === 3 ? thousands * 1000 + 890 : thousands * 1000 + 990) + (10 - r);
-  const right = (digits === 1 ? 0 : 10 ** (digits - 1)) + r;
+  const rightDigits = [0, 0, 0, 0];
+  const leftDigits = [0, 0, 0, 0];
+
+  rightDigits[3] = nonzeroDigit(mix32(state + 11));
+  leftDigits[3] = 10 - rightDigits[3];
+
+  if (digits >= 2) {
+    rightDigits[2] = nonzeroDigit(mix32(state + 23));
+    const minTens = 9 - rightDigits[2];
+    leftDigits[2] = valueBetween(minTens, 9, mix32(state + 29));
+  } else {
+    leftDigits[2] = 9;
+  }
+
+  rightDigits[1] = digits >= 3 ? nonzeroDigit(mix32(state + 37)) : 0;
+  leftDigits[1] = valueBetween(0, 8, mix32(state + 41));
+
+  leftDigits[0] = digits === 4 ? valueBetween(1, 7, mix32(state + 53)) : valueBetween(1, 8, mix32(state + 53));
+  rightDigits[0] = digits === 4 ? valueBetween(1, Math.max(1, 8 - leftDigits[0]), mix32(state + 61)) : 0;
+
+  const left = digitsToNumber(leftDigits);
+  const right = digitsToNumber(rightDigits);
   return { left, right, operator: OPERATORS.ADD, answer: left + right };
 }
 
 function subtractionRegroupOperands(definition, options = {}) {
+  if (definition.continuousBorrowZeroPolicy?.required === true) return continuousBorrowZeroOperands(definition, options);
   const digits = targetCoveredDigits(definition, options) ?? 4;
   const state = sequenceState(options, `subtraction-regroup-${digits}`);
-  const r = (mix32(state + 23) % 9) + 1;
-  const leftThousands = valueBetween(digits === 4 ? 3 : 2, 9, mix32(state + 41));
-  const right = digits === 4
-    ? valueBetween(1, leftThousands - 1, mix32(state + 89)) * 1000 + 100 + r
-    : (digits === 1 ? 0 : 10 ** (digits - 1)) + r;
-  const left = leftThousands * 1000 + (r - 1);
+  const rightDigits = [0, 0, 0, 0];
+  const leftDigits = [0, 0, 0, 0];
+
+  rightDigits[3] = nonzeroDigit(mix32(state + 13));
+  leftDigits[3] = valueBetween(0, rightDigits[3] - 1, mix32(state + 17));
+
+  rightDigits[2] = digits >= 2 ? valueBetween(0, 9, mix32(state + 31)) : 0;
+  leftDigits[2] = valueBetween(0, rightDigits[2], mix32(state + 43));
+
+  rightDigits[1] = digits >= 3 ? nonzeroDigit(mix32(state + 47)) : 0;
+  leftDigits[1] = valueBetween(0, 9, mix32(state + 59));
+
+  if (digits === 4) {
+    rightDigits[0] = valueBetween(1, 7, mix32(state + 67));
+    leftDigits[0] = valueBetween(rightDigits[0] + 1, 9, mix32(state + 71));
+  } else {
+    leftDigits[0] = valueBetween(1, 9, mix32(state + 71));
+  }
+
+  const left = digitsToNumber(leftDigits);
+  const right = digitsToNumber(rightDigits);
+  return { left, right, operator: OPERATORS.SUBTRACT, answer: left - right };
+}
+
+function continuousBorrowZeroOperands(definition, options = {}) {
+  const digits = targetCoveredDigits(definition, options) ?? 3;
+  const state = sequenceState(options, `continuous-borrow-zero-${digits}`);
+  const rightDigits = [0, 0, 0, 0];
+  const leftDigits = [0, 0, 0, 0];
+
+  rightDigits[3] = nonzeroDigit(mix32(state + 79));
+  leftDigits[3] = valueBetween(0, rightDigits[3] - 1, mix32(state + 83));
+  rightDigits[2] = valueBetween(0, 9, mix32(state + 89));
+  rightDigits[1] = digits >= 3 ? nonzeroDigit(mix32(state + 97)) : 0;
+  if (digits === 4) rightDigits[0] = valueBetween(1, 7, mix32(state + 101));
+
+  leftDigits[0] = digits === 4 ? valueBetween(rightDigits[0] + 1, 9, mix32(state + 107)) : valueBetween(2, 9, mix32(state + 107));
+  leftDigits[1] = 0;
+  leftDigits[2] = 0;
+
+  const left = digitsToNumber(leftDigits);
+  const right = digitsToNumber(rightDigits);
   return { left, right, operator: OPERATORS.SUBTRACT, answer: left - right };
 }
 
@@ -318,15 +379,16 @@ function allocateCounts(patternSpecIds, questionCount) {
 }
 
 function questionKey(question) {
-  if (typeof question?.blankedDisplayText === "string") return `${question.patternSpecId}:${question.blankedDisplayText}`;
-  if (typeof question?.duplicateKey === "string") return `${question.patternSpecId}:${question.duplicateKey}`;
+  if (typeof question?.blankedDisplayText === "string") return question.blankedDisplayText;
+  if (typeof question?.duplicateKey === "string") return question.duplicateKey;
+  if (Number.isSafeInteger(question?.left) && Number.isSafeInteger(question?.right)) return `${question.operator}:${question.left}:${question.right}`;
   return `${question?.patternSpecId}:${question?.id}`;
 }
 
 function shuffleQuestions(questions, plan) {
   if (plan.ordering !== "shuffleAcrossPatterns") return questions;
   const output = [...questions];
-  const randomFn = createSeededRandom(`${plan.generationSeed}:s45b:g3a-u02:${plan.questionCount}`);
+  const randomFn = createSeededRandom(`${plan.generationSeed}:s45b2:g3a-u02:${plan.questionCount}`);
   for (let index = output.length - 1; index > 0; index -= 1) {
     const swapIndex = randomIntBetween(randomFn, 0, index);
     [output[index], output[swapIndex]] = [output[swapIndex], output[index]];
@@ -359,16 +421,17 @@ export function generateG3AU02OutputQualityQuestions(options = {}) {
       let accepted = null;
       for (let attempt = 0; attempt < MAX_DUPLICATE_RETRY; attempt += 1) {
         const sequenceForAttempt = questions.length + 1 + attempt * 997;
-        const seed = `${plan.generationSeed}:${entry.patternSpecId}:${index + 1}:s45b:${attempt}`;
+        const seed = `${plan.generationSeed}:${entry.patternSpecId}:${index + 1}:s45b2:${attempt}`;
         let question;
         try { question = generateQuestion(definition, { seed, sequenceNumber: sequenceForAttempt }); }
         catch (error) { errors.push(issue(error.code ?? "batch_a_g3a_u02_generation_failed", entry.patternSpecId, error.message)); break; }
         const checked = validateBatchABrowserQuestion(question);
         if (!checked.ok) { errors.push(...checked.errors); warnings.push(...checked.warnings); break; }
         const key = questionKey(question);
-        if (!seen.has(key) || attempt === MAX_DUPLICATE_RETRY - 1) { seen.add(key); accepted = question; warnings.push(...checked.warnings); break; }
+        if (!seen.has(key)) { seen.add(key); accepted = question; warnings.push(...checked.warnings); break; }
       }
       if (accepted) questions.push(accepted);
+      else errors.push(issue("batch_a_g3a_u02_duplicate_retry_exhausted", entry.patternSpecId, `Unable to produce a unique prompt for '${entry.patternSpecId}'.`));
     }
   }
 
