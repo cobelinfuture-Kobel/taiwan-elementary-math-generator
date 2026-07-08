@@ -13,6 +13,7 @@ const addGroup = "pg_g3a_u02_add_missing_digit_operand";
 const subGroup = "pg_g3a_u02_sub_missing_digit_operand";
 const addSpec = "ps_g3a_u02_add_missing_digit_operand";
 const subSpec = "ps_g3a_u02_sub_missing_digit_operand";
+const CURRENT_VISIBLE_KP_COUNT = 47;
 
 function make(kpId, groupId, count = 8) {
   return generateBatchABrowserQuestions({ sourceId, selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId], questionCount: count, generationSeed: `s43g4h-${kpId}`, includeAnswerKey: true });
@@ -31,7 +32,7 @@ function checkMissingDigitQuestion(question, operator) {
 
 test("S43G4L selector exposes G3A U02 missing digit KPs", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 41);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, CURRENT_VISIBLE_KP_COUNT);
   assert.equal(availability.visibleCount, 10);
   assert.equal(getVisibleBatchAKnowledgePoint(addKp)?.displayName, "加法缺位填空");
   assert.equal(getVisibleBatchAKnowledgePoint(subKp)?.displayName, "減法缺位填空");
