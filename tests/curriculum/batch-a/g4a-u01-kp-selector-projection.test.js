@@ -28,7 +28,13 @@ const G4A_U01_KP_IDS = Object.freeze([
   "kp_g4a_u01_place_value_card_unit_model_composition",
   "kp_g4a_u01_compare_first_different_place",
   "kp_g4a_u01_missing_digit_comparison_possible_digits",
-  "kp_g4a_u01_missing_digit_comparison_extreme_digit"
+  "kp_g4a_u01_missing_digit_comparison_extreme_digit",
+  "kp_g4a_u01_large_number_reading_writing_conversion",
+  "kp_g4a_u01_numeric_vs_chinese_number_compare",
+  "kp_g4a_u01_wan_mixed_notation_subtraction",
+  "kp_g4a_u01_boundary_number_difference",
+  "kp_g4a_u01_comparison_word_problem_total",
+  "kp_g4a_u01_large_number_unit_word_problem_add_subtract"
 ]);
 const G4A_U01_SPEC_IDS = Object.freeze([
   "ps_g4a_u01_compare_8digit",
@@ -41,19 +47,25 @@ const G4A_U01_SPEC_IDS = Object.freeze([
   "ps_g4a_u01_place_value_card_unit_model_composition",
   "ps_g4a_u01_compare_first_different_place",
   "ps_g4a_u01_missing_digit_comparison_possible_digits",
-  "ps_g4a_u01_missing_digit_comparison_extreme_digit"
+  "ps_g4a_u01_missing_digit_comparison_extreme_digit",
+  "ps_g4a_u01_large_number_reading_writing_conversion",
+  "ps_g4a_u01_numeric_vs_chinese_number_compare",
+  "ps_g4a_u01_wan_mixed_notation_subtraction",
+  "ps_g4a_u01_boundary_number_difference",
+  "ps_g4a_u01_comparison_word_problem_total",
+  "ps_g4a_u01_large_number_unit_word_problem_add_subtract"
 ]);
 
 function firstGroupId(knowledgePointId) {
   return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)[0]?.patternGroupId;
 }
 
-test("G4A-U01 exposes eleven visible Phase 1 + Phase 2 KnowledgePoints", () => {
+test("G4A-U01 exposes seventeen visible Phase 1 + Phase 2 + Phase 3 KnowledgePoints", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 11);
+  assert.equal(availability.visibleCount, 17);
   assert.equal(availability.hiddenPendingCount, 0);
   assert.equal(availability.notSelectableCount, 0);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount >= 52, true);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount >= 58, true);
 
   const visibleIds = listVisibleBatchAKnowledgePoints()
     .filter((kp) => kp.sourceId === SOURCE_ID)
@@ -61,9 +73,9 @@ test("G4A-U01 exposes eleven visible Phase 1 + Phase 2 KnowledgePoints", () => {
   assert.deepEqual(visibleIds, G4A_U01_KP_IDS);
 });
 
-test("G4A-U01 single Phase 2 KnowledgePoint selector generates the selected PatternSpec", () => {
+test("G4A-U01 single Phase 3 KnowledgePoint selector generates the selected PatternSpec", () => {
   const state = createConfigState();
-  const kpId = "kp_g4a_u01_missing_digit_comparison_possible_digits";
+  const kpId = "kp_g4a_u01_numeric_vs_chinese_number_compare";
   const groupId = firstGroupId(kpId);
   setBatchASourceId(state, SOURCE_ID);
   setBatchASelectorSelection(state, {
@@ -76,11 +88,11 @@ test("G4A-U01 single Phase 2 KnowledgePoint selector generates the selected Patt
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.deepEqual(result.worksheetDocument.batchA.knowledgePointIds, [kpId]);
-  assert.deepEqual(result.worksheetDocument.batchA.patternSpecIds, ["ps_g4a_u01_missing_digit_comparison_possible_digits"]);
-  assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.patternSpecId === "ps_g4a_u01_missing_digit_comparison_possible_digits"), true);
+  assert.deepEqual(result.worksheetDocument.batchA.patternSpecIds, ["ps_g4a_u01_numeric_vs_chinese_number_compare"]);
+  assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.patternSpecId === "ps_g4a_u01_numeric_vs_chinese_number_compare"), true);
 });
 
-test("G4A-U01 same-unit KnowledgePoint mix generates all Phase 1 + Phase 2 PatternSpecs", () => {
+test("G4A-U01 same-unit KnowledgePoint mix generates all Phase 1 + Phase 2 + Phase 3 PatternSpecs", () => {
   const state = createConfigState();
   setBatchASourceId(state, SOURCE_ID);
   setBatchASelectorSelection(state, {
@@ -88,11 +100,11 @@ test("G4A-U01 same-unit KnowledgePoint mix generates all Phase 1 + Phase 2 Patte
     selectedKnowledgePointIds: [...G4A_U01_KP_IDS],
     selectedPatternGroupIds: G4A_U01_KP_IDS.map(firstGroupId)
   });
-  setBatchAQuestionCount(state, 55);
+  setBatchAQuestionCount(state, 85);
 
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.deepEqual(new Set(result.worksheetDocument.batchA.patternSpecIds), new Set(G4A_U01_SPEC_IDS));
-  assert.equal(result.worksheetDocument.generatedQuestions.length, 55);
+  assert.equal(result.worksheetDocument.generatedQuestions.length, 85);
   assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.sourceId === SOURCE_ID), true);
 });
