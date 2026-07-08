@@ -55,6 +55,10 @@ function worksheetForPattern(patternSpecId, questionCount = 40) {
   });
 }
 
+function countItemsByPage(pages, cellType) {
+  return pages.map((page) => page.cells.filter((cell) => cell.cellType === cellType).length);
+}
+
 test("G4A-U01 Phase 1 source-unit generation produces all six patterns", () => {
   const result = generate(30);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
@@ -109,8 +113,10 @@ test("G4A-U01 same-digit tall prompt caps rows to avoid split after 32 cards", (
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.configSnapshot.printLayout.columns, 4);
   assert.equal(result.worksheetDocument.configSnapshot.printLayout.rowsPerPage, 8);
+  assert.equal(result.worksheetDocument.configSnapshot.answerKeyPrintLayout.rowsPerPage, 6);
   assert.equal(result.worksheetDocument.summary.questionPageCount, 2);
-  assert.deepEqual(result.worksheetDocument.questionPages.map((page) => page.cells.filter((cell) => cell.cellType === "question").length), [32, 8]);
+  assert.deepEqual(countItemsByPage(result.worksheetDocument.questionPages, "question"), [32, 8]);
+  assert.deepEqual(countItemsByPage(result.worksheetDocument.answerKeyPages, "answerKey"), [24, 16]);
   assert.equal(result.worksheetDocument.printOptions.pageBreakMode, "avoidLongTextCards");
 });
 
@@ -119,9 +125,12 @@ test("G4A-U01 composition tall prompt caps rows to avoid split after 20 cards", 
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.configSnapshot.printLayout.columns, 4);
   assert.equal(result.worksheetDocument.configSnapshot.printLayout.rowsPerPage, 5);
+  assert.equal(result.worksheetDocument.configSnapshot.answerKeyPrintLayout.rowsPerPage, 4);
   assert.equal(result.worksheetDocument.summary.questionPageCount, 2);
-  assert.deepEqual(result.worksheetDocument.questionPages.map((page) => page.cells.filter((cell) => cell.cellType === "question").length), [20, 20]);
+  assert.deepEqual(countItemsByPage(result.worksheetDocument.questionPages, "question"), [20, 20]);
+  assert.deepEqual(countItemsByPage(result.worksheetDocument.answerKeyPages, "answerKey"), [16, 16, 8]);
   assert.equal(result.worksheetDocument.questionDisplayModels.every((model) => model.layoutHints.avoidPageBreakInside === true), true);
+  assert.equal(result.worksheetDocument.answerKeyItems.every((item) => item.layoutHints.avoidPageBreakInside === true), true);
 });
 
 test("G4A-U01 decomposition tall prompt caps rows to avoid dangling fragments", () => {
@@ -129,7 +138,8 @@ test("G4A-U01 decomposition tall prompt caps rows to avoid dangling fragments", 
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.configSnapshot.printLayout.columns, 4);
   assert.equal(result.worksheetDocument.configSnapshot.printLayout.rowsPerPage, 4);
+  assert.equal(result.worksheetDocument.configSnapshot.answerKeyPrintLayout.rowsPerPage, 3);
   assert.equal(result.worksheetDocument.summary.questionPageCount, 3);
-  assert.deepEqual(result.worksheetDocument.questionPages.map((page) => page.cells.filter((cell) => cell.cellType === "question").length), [16, 16, 8]);
-  assert.equal(result.worksheetDocument.answerKeyPages.length, 3);
+  assert.deepEqual(countItemsByPage(result.worksheetDocument.questionPages, "question"), [16, 16, 8]);
+  assert.deepEqual(countItemsByPage(result.worksheetDocument.answerKeyPages, "answerKey"), [12, 12, 12, 4]);
 });
