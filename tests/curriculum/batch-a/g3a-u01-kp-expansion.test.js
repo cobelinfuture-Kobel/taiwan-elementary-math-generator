@@ -9,6 +9,7 @@ const SOURCE_ID = "g3a_u01_3a01";
 const KP_ID = "kp_g3a_u01_4digit_compare";
 const GROUP_ID = "pg_g3a_u01_4digit_compare";
 const SPEC_ID = "ps_g3a_u01_4digit_compare";
+const CURRENT_VISIBLE_KP_COUNT = 47;
 const EXPANDED_KPS = Object.freeze([
   ["kp_g3a_u01_number_to_chinese", 2],
   ["kp_g3a_u01_chinese_to_number", 2],
@@ -20,7 +21,7 @@ const EXPANDED_KPS = Object.freeze([
 ]);
 
 test("S43E1/S44L G3A U01 exposes expanded KP set", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 41);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, CURRENT_VISIBLE_KP_COUNT);
   assert.equal(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID).visibleCount, 8);
   const kp = getVisibleBatchAKnowledgePoint(KP_ID);
   assert.equal(kp.sourceId, SOURCE_ID);
