@@ -199,6 +199,11 @@ function digitsForValue(value) {
   return String(value).padStart(8, "0").split("").map((digit) => Number(digit));
 }
 
+function valueFromDigits(digits) {
+  if (!Array.isArray(digits) || digits.some((digit) => !Number.isInteger(digit))) return null;
+  return Number(digits.join(""));
+}
+
 function canonicalPlaceModel(value) {
   const digits = digitsForValue(value);
   return G4A_U01_PLACE_UNITS.map((place, index) => ({ ...place, digit: digits[index], representedValue: digits[index] * place.unit }));
@@ -206,6 +211,10 @@ function canonicalPlaceModel(value) {
 
 function canonicalExpansion(placeModel) {
   return placeModel.map((place) => `${place.digit}個${place.label}`).join("、");
+}
+
+function sumPlaceCounts(placeCounts = {}) {
+  return G4A_U01_PLACE_UNITS.reduce((sum, unit) => sum + (Number.isInteger(placeCounts[unit.key]) ? placeCounts[unit.key] * unit.unit : 0), 0);
 }
 
 function validateG4APlaceValueDecomposition(question, errors) {
@@ -263,6 +272,86 @@ function validateG4ASameDigitDifference(question, errors) {
   if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
 }
 
+function validateG4ANonstandardComposition(question, errors) {
+  const expectedValue = Array.isArray(question.placeModel)
+    ? question.placeModel.reduce((sum, place) => sum + (Number.isInteger(place.count) ? place.count * place.unit : 0), 0)
+    : sumPlaceCounts(question.placeCounts);
+  const hasNonstandard = Array.isArray(question.placeModel) && question.placeModel.some((place) => place.count > 9);
+  if (!hasNonstandard) errors.push(issue("batch_a_g4a_u01_nonstandard_missing", "placeModel"));
+  if (expectedValue < 10000000 || expectedValue > 99999999) errors.push(issue("batch_a_g4a_u01_value_out_of_range", "value"));
+  if (question.value !== expectedValue) errors.push(issue("batch_a_g4a_u01_composition_value_invalid", "value"));
+  if (question.answerText !== String(expectedValue)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (intValue(question.finalAnswer) !== expectedValue) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function validateG4ACardComposition(question, errors) {
+  for (const unit of G4A_U01_PLACE_UNITS) {
+    const count = question.placeCounts?.[unit.key];
+    if (!Number.isInteger(count) || count < 0 || count > 9) errors.push(issue("batch_a_g4a_u01_card_count_invalid", `placeCounts.${unit.key}`));
+  }
+  if (question.placeCounts?.tenMillions < 1) errors.push(issue("batch_a_g4a_u01_value_out_of_range", "placeCounts.tenMillions"));
+  const expectedValue = sumPlaceCounts(question.placeCounts);
+  if (question.value !== expectedValue) errors.push(issue("batch_a_g4a_u01_composition_value_invalid", "value"));
+  if (question.answerText !== String(expectedValue)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (intValue(question.finalAnswer) !== expectedValue) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function firstDifferentIndex(left, right) {
+  const leftDigits = digitsForValue(left);
+  const rightDigits = digitsForValue(right);
+  return leftDigits.findIndex((digit, index) => digit !== rightDigits[index]);
+}
+
+function validateG4AFirstDifferentPlace(question, errors) {
+  if (!Number.isSafeInteger(question.left) || !Number.isSafeInteger(question.right)) {
+    errors.push(issue("batch_a_g4a_u01_compare_value_invalid", "operands"));
+    return;
+  }
+  const index = firstDifferentIndex(question.left, question.right);
+  if (index < 0) errors.push(issue("batch_a_g4a_u01_first_difference_missing", "operands"));
+  if (question.firstDifferentIndex !== index) errors.push(issue("batch_a_g4a_u01_first_difference_invalid", "firstDifferentIndex"));
+  const expectedLabel = G4A_U01_PLACE_UNITS[index]?.label;
+  if (question.answerText !== expectedLabel) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (question.finalAnswer !== expectedLabel) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function possibleDigitsForComparison(question) {
+  const relation = question.relation;
+  const leftDigits = question.leftDigits;
+  if (!Array.isArray(leftDigits) || !Number.isInteger(question.blankIndex) || !Number.isSafeInteger(question.right)) return [];
+  const output = [];
+  for (let digit = 0; digit <= 9; digit += 1) {
+    if (question.blankIndex === 0 && digit === 0) continue;
+    const candidateDigits = [...leftDigits];
+    candidateDigits[question.blankIndex] = digit;
+    const candidate = valueFromDigits(candidateDigits);
+    const ok = relation === ">" ? candidate > question.right : candidate < question.right;
+    if (ok) output.push(digit);
+  }
+  return output;
+}
+
+function validateG4AMissingDigitPossible(question, errors) {
+  const expected = possibleDigitsForComparison(question);
+  if (expected.length === 0) errors.push(issue("batch_a_g4a_u01_possible_digits_empty", "possibleDigits"));
+  if (JSON.stringify(question.possibleDigits) !== JSON.stringify(expected)) errors.push(issue("batch_a_g4a_u01_possible_digits_invalid", "possibleDigits"));
+  if (question.answerText !== expected.join(",")) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (JSON.stringify(question.finalAnswer) !== JSON.stringify(expected)) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function validateG4AMissingDigitExtreme(question, errors) {
+  const possible = possibleDigitsForComparison(question);
+  if (possible.length === 0) {
+    errors.push(issue("batch_a_g4a_u01_possible_digits_empty", "possibleDigits"));
+    return;
+  }
+  const expected = question.extremeMode === "min" ? Math.min(...possible) : Math.max(...possible);
+  if (!question.possibleDigits || JSON.stringify(question.possibleDigits) !== JSON.stringify(possible)) errors.push(issue("batch_a_g4a_u01_possible_digits_invalid", "possibleDigits"));
+  if (question.extremeDigit !== expected) errors.push(issue("batch_a_g4a_u01_extreme_digit_invalid", "extremeDigit"));
+  if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   const scope = validateBatchAPlanScope(plan);
   const errors = [...scope.errors];
@@ -316,6 +405,11 @@ export function validateBatchABrowserQuestion(question = {}) {
   else if (definition.kind === "g4aU01PlaceValueDecomposition") validateG4APlaceValueDecomposition(question, errors);
   else if (definition.kind === "g4aU01PlaceValueComposition") validateG4APlaceValueComposition(question, errors);
   else if (definition.kind === "g4aU01SameDigitPlaceValueDifference") validateG4ASameDigitDifference(question, errors);
+  else if (definition.kind === "g4aU01NonstandardPlaceValueComposition") validateG4ANonstandardComposition(question, errors);
+  else if (definition.kind === "g4aU01PlaceValueCardComposition") validateG4ACardComposition(question, errors);
+  else if (definition.kind === "g4aU01CompareFirstDifferentPlace") validateG4AFirstDifferentPlace(question, errors);
+  else if (definition.kind === "g4aU01MissingDigitComparisonPossibleDigits") validateG4AMissingDigitPossible(question, errors);
+  else if (definition.kind === "g4aU01MissingDigitComparisonExtremeDigit") validateG4AMissingDigitExtreme(question, errors);
   else if (hasRoundingShape(definition)) {
     const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
     const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
@@ -336,5 +430,5 @@ export function validateBatchABrowserQuestions(questions = []) {
     errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
     warnings.push(...result.warnings);
   }
-  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s50d-g4a-u01-phase1-v1", validatedAt: null };
+  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s51b-g4a-u01-phase2-v1", validatedAt: null };
 }
