@@ -20,7 +20,19 @@ export const G4A_U01_PHASE2_PATTERN_SPEC_IDS = Object.freeze([
   "ps_g4a_u01_missing_digit_comparison_possible_digits",
   "ps_g4a_u01_missing_digit_comparison_extreme_digit"
 ]);
-export const G4A_U01_PRINTABLE_PATTERN_SPEC_IDS = Object.freeze([...G4A_U01_PHASE1_PATTERN_SPEC_IDS, ...G4A_U01_PHASE2_PATTERN_SPEC_IDS]);
+export const G4A_U01_PHASE3_PATTERN_SPEC_IDS = Object.freeze([
+  "ps_g4a_u01_large_number_reading_writing_conversion",
+  "ps_g4a_u01_numeric_vs_chinese_number_compare",
+  "ps_g4a_u01_wan_mixed_notation_subtraction",
+  "ps_g4a_u01_boundary_number_difference",
+  "ps_g4a_u01_comparison_word_problem_total",
+  "ps_g4a_u01_large_number_unit_word_problem_add_subtract"
+]);
+export const G4A_U01_PRINTABLE_PATTERN_SPEC_IDS = Object.freeze([
+  ...G4A_U01_PHASE1_PATTERN_SPEC_IDS,
+  ...G4A_U01_PHASE2_PATTERN_SPEC_IDS,
+  ...G4A_U01_PHASE3_PATTERN_SPEC_IDS
+]);
 
 const compare8SpecId = "ps_g4a_u01_compare_8digit";
 const compare100mSpecId = "ps_g4a_u01_within_100million_compare";
@@ -33,7 +45,14 @@ const cardCompositionSpecId = "ps_g4a_u01_place_value_card_unit_model_compositio
 const firstDifferentPlaceSpecId = "ps_g4a_u01_compare_first_different_place";
 const possibleDigitsSpecId = "ps_g4a_u01_missing_digit_comparison_possible_digits";
 const extremeDigitSpecId = "ps_g4a_u01_missing_digit_comparison_extreme_digit";
+const readingWritingSpecId = "ps_g4a_u01_large_number_reading_writing_conversion";
+const numericChineseCompareSpecId = "ps_g4a_u01_numeric_vs_chinese_number_compare";
+const wanMixedSubtractionSpecId = "ps_g4a_u01_wan_mixed_notation_subtraction";
+const boundaryDifferenceSpecId = "ps_g4a_u01_boundary_number_difference";
+const comparisonWordProblemTotalSpecId = "ps_g4a_u01_comparison_word_problem_total";
+const unitWordProblemSpecId = "ps_g4a_u01_large_number_unit_word_problem_add_subtract";
 
+const DIGIT_CHINESE = Object.freeze(["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"]);
 const PLACE_UNITS = Object.freeze([
   Object.freeze({ key: "tenMillions", label: "千萬", unit: 10000000 }),
   Object.freeze({ key: "millions", label: "百萬", unit: 1000000 }),
@@ -99,6 +118,74 @@ function compactExpansion(placeModel) {
 
 function unitCountText(placeModel) {
   return placeModel.map((place) => `${place.count}個${place.label}`).join("、");
+}
+
+function chineseSection(section) {
+  if (section === 0) return "";
+  const values = [Math.floor(section / 1000), Math.floor(section / 100) % 10, Math.floor(section / 10) % 10, section % 10];
+  const units = ["千", "百", "十", ""];
+  let output = "";
+  let pendingZero = false;
+  for (let index = 0; index < values.length; index += 1) {
+    const digit = values[index];
+    if (digit === 0) {
+      if (output) pendingZero = true;
+      continue;
+    }
+    if (pendingZero) {
+      output += "零";
+      pendingZero = false;
+    }
+    output += `${DIGIT_CHINESE[digit]}${units[index]}`;
+  }
+  return output;
+}
+
+function numberToChinese(value) {
+  if (value === 0) return "零";
+  const wan = Math.floor(value / 10000);
+  const lower = value % 10000;
+  if (wan === 0) return chineseSection(lower);
+  if (lower === 0) return `${chineseSection(wan)}萬`;
+  return `${chineseSection(wan)}萬${lower < 1000 ? "零" : ""}${chineseSection(lower)}`;
+}
+
+function parseChineseSection(text) {
+  const digitMap = new Map(DIGIT_CHINESE.map((digit, index) => [digit, index]));
+  const unitMap = new Map([["千", 1000], ["百", 100], ["十", 10]]);
+  let total = 0;
+  let current = 0;
+  for (const char of String(text ?? "")) {
+    if (char === "零") continue;
+    if (digitMap.has(char)) {
+      current = digitMap.get(char);
+      continue;
+    }
+    if (unitMap.has(char)) {
+      total += (current || 1) * unitMap.get(char);
+      current = 0;
+    }
+  }
+  return total + current;
+}
+
+function parseChineseNumber(text) {
+  const normalized = String(text ?? "").trim();
+  if (normalized === "零") return 0;
+  const [wanText, lowerText = ""] = normalized.split("萬");
+  if (!normalized.includes("萬")) return parseChineseSection(normalized);
+  return parseChineseSection(wanText) * 10000 + parseChineseSection(lowerText);
+}
+
+function formatWanMixed(value) {
+  const wan = Math.floor(value / 10000);
+  const lower = value % 10000;
+  return lower === 0 ? `${wan}萬` : `${wan}萬${String(lower).padStart(4, "0")}`;
+}
+
+function parseWanMixed(text) {
+  const [wanText, lowerText = "0"] = String(text ?? "").replace(/,/g, "").split("萬");
+  return Number(wanText) * 10000 + Number(lowerText || 0);
 }
 
 function metadata(patternSpecId, canonicalSkillId, extraTags = []) {
@@ -440,6 +527,170 @@ function makeMissingDigitExtremeQuestion(sequenceNumber, seed) {
   };
 }
 
+function makeReadingWritingQuestion(sequenceNumber, seed) {
+  const patternSpecId = readingWritingSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const value = integerBetween(seedValue, 1, 99999999);
+  const chineseText = numberToChinese(value);
+  const conversionDirection = sequenceNumber % 2 === 0 ? "chinese_to_numeric" : "numeric_to_chinese";
+  const answerText = conversionDirection === "numeric_to_chinese" ? chineseText : String(value);
+  const promptText = conversionDirection === "numeric_to_chinese"
+    ? `把 ${value} 寫成中文數詞。`
+    : `把「${chineseText}」寫成阿拉伯數字。`;
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01LargeNumberReadingWritingConversion",
+    value,
+    chineseText,
+    conversionDirection,
+    promptText,
+    displayText: `${promptText} 答：${answerText}`,
+    blankedDisplayText: `${promptText} ________`,
+    answerText,
+    finalAnswer: answerText,
+    metadata: metadata(patternSpecId, "large_number_reading_writing", ["chinese_number", "conversion"])
+  };
+}
+
+function makeNumericVsChineseCompareQuestion(sequenceNumber, seed) {
+  const patternSpecId = numericChineseCompareSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const leftValue = integerBetween(seedValue, 1, 99999999);
+  let rightValue = integerBetween(mix32(seedValue + 17), 1, 99999999);
+  if (leftValue === rightValue) rightValue = rightValue === 99999999 ? 1 : rightValue + 1;
+  const rightChineseText = numberToChinese(rightValue);
+  const answerText = comparisonSymbol(leftValue, rightValue);
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01NumericVsChineseNumberCompare",
+    leftValue,
+    rightValue,
+    rightChineseText,
+    parsedRightValue: parseChineseNumber(rightChineseText),
+    promptText: `在□中填入 >、< 或 =：${leftValue} □ ${rightChineseText}`,
+    displayText: `${leftValue} ${answerText} ${rightChineseText}`,
+    blankedDisplayText: `${leftValue} □ ${rightChineseText}`,
+    answerText,
+    finalAnswer: answerText,
+    metadata: metadata(patternSpecId, "large_number_comparison", ["chinese_number", "mixed_notation"])
+  };
+}
+
+function makeWanMixedSubtractionQuestion(sequenceNumber, seed) {
+  const patternSpecId = wanMixedSubtractionSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const leftValue = integerBetween(seedValue, 1000000, 99999999);
+  const rightValue = integerBetween(mix32(seedValue + 29), 1, Math.max(1, leftValue - 1));
+  const leftWanText = formatWanMixed(leftValue);
+  const rightWanText = formatWanMixed(rightValue);
+  const answer = leftValue - rightValue;
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01WanMixedNotationSubtraction",
+    leftValue,
+    rightValue,
+    leftWanText,
+    rightWanText,
+    promptText: `${leftWanText} - ${rightWanText} = 多少？`,
+    displayText: `${leftWanText} - ${rightWanText} = ${answer}`,
+    blankedDisplayText: `${leftWanText} - ${rightWanText} = ________`,
+    answerText: String(answer),
+    finalAnswer: answer,
+    metadata: metadata(patternSpecId, "large_number_addition_subtraction", ["wan_notation", "subtraction"])
+  };
+}
+
+function makeBoundaryDifferenceQuestion(sequenceNumber, seed) {
+  const patternSpecId = boundaryDifferenceSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const largerDigitCount = 5 + (seedValue % 4);
+  const smallerDigitCount = Math.max(1, largerDigitCount - 1 - (mix32(seedValue + 13) % 2));
+  const largerValue = (10 ** largerDigitCount) - 1;
+  const smallerValue = 10 ** (smallerDigitCount - 1);
+  const difference = largerValue - smallerValue;
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01BoundaryNumberDifference",
+    largerDigitCount,
+    smallerDigitCount,
+    largerValue,
+    smallerValue,
+    promptText: `最大的${largerDigitCount}位數和最小的${smallerDigitCount}位數相差多少？`,
+    displayText: `最大的${largerDigitCount}位數 ${largerValue} 和最小的${smallerDigitCount}位數 ${smallerValue} 相差 ${difference}`,
+    blankedDisplayText: `最大的${largerDigitCount}位數和最小的${smallerDigitCount}位數相差 ________`,
+    answerText: String(difference),
+    finalAnswer: difference,
+    metadata: metadata(patternSpecId, "large_number_comparison", ["digit_count_boundary", "difference"])
+  };
+}
+
+function makeComparisonWordProblemTotalQuestion(sequenceNumber, seed) {
+  const patternSpecId = comparisonWordProblemTotalSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const baseValue = integerBetween(seedValue, 100000, 49999999);
+  const deltaValue = integerBetween(mix32(seedValue + 41), 10000, Math.max(10000, Math.min(baseValue - 1, 20000000)));
+  const relationMode = sequenceNumber % 2 === 0 ? "less" : "more";
+  const comparedValue = relationMode === "more" ? baseValue + deltaValue : baseValue - deltaValue;
+  const total = baseValue + comparedValue;
+  const relationText = relationMode === "more" ? "多" : "少";
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01ComparisonWordProblemTotal",
+    baseValue,
+    deltaValue,
+    relationMode,
+    comparedValue,
+    total,
+    promptText: `甲倉庫有 ${baseValue} 個零件，乙倉庫比甲倉庫${relationText} ${deltaValue} 個，兩個倉庫共有多少個零件？`,
+    displayText: `甲 ${baseValue}，乙 ${comparedValue}，合計 ${total}`,
+    blankedDisplayText: `甲倉庫有 ${baseValue} 個零件，乙倉庫比甲倉庫${relationText} ${deltaValue} 個，兩個倉庫共有 ________ 個零件`,
+    answerText: String(total),
+    finalAnswer: total,
+    metadata: metadata(patternSpecId, "large_number_word_problem", ["comparison", "total"])
+  };
+}
+
+function makeUnitWordProblemQuestion(sequenceNumber, seed) {
+  const patternSpecId = unitWordProblemSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const units = ["人", "元", "公斤", "公噸", "萬元"];
+  const unit = units[seedValue % units.length];
+  const operator = sequenceNumber % 2 === 0 ? "subtract" : "add";
+  let leftValue = integerBetween(seedValue, 10000, 60000000);
+  let rightValue = integerBetween(mix32(seedValue + 59), 10000, 39999999);
+  if (operator === "add" && leftValue + rightValue > 99999999) rightValue = 99999999 - leftValue;
+  if (operator === "subtract" && rightValue > leftValue) [leftValue, rightValue] = [rightValue, leftValue];
+  const numericAnswer = operator === "add" ? leftValue + rightValue : leftValue - rightValue;
+  const operatorText = operator === "add" ? "增加" : "減少";
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01LargeNumberUnitWordProblemAddSubtract",
+    leftValue,
+    rightValue,
+    operator,
+    unit,
+    numericAnswer,
+    promptText: `某城市原有 ${leftValue}${unit}，後來${operatorText} ${rightValue}${unit}，現在有多少${unit}？`,
+    displayText: `${leftValue}${unit} ${operator === "add" ? "+" : "-"} ${rightValue}${unit} = ${numericAnswer}${unit}`,
+    blankedDisplayText: `某城市原有 ${leftValue}${unit}，後來${operatorText} ${rightValue}${unit}，現在有 ________${unit}`,
+    answerText: `${numericAnswer}${unit}`,
+    finalAnswer: numericAnswer,
+    metadata: metadata(patternSpecId, "large_number_word_problem", ["unit", operator])
+  };
+}
+
 function generateQuestion(patternSpecId, sequenceNumber, seed) {
   if (patternSpecId === compare8SpecId) return makeComparisonQuestion(patternSpecId, sequenceNumber, seed, 10000000, 99999999);
   if (patternSpecId === compare100mSpecId) return makeComparisonQuestion(patternSpecId, sequenceNumber, seed, 0, 99999999);
@@ -452,6 +703,12 @@ function generateQuestion(patternSpecId, sequenceNumber, seed) {
   if (patternSpecId === firstDifferentPlaceSpecId) return makeFirstDifferentPlaceQuestion(sequenceNumber, seed);
   if (patternSpecId === possibleDigitsSpecId) return makeMissingDigitPossibleQuestion(sequenceNumber, seed);
   if (patternSpecId === extremeDigitSpecId) return makeMissingDigitExtremeQuestion(sequenceNumber, seed);
+  if (patternSpecId === readingWritingSpecId) return makeReadingWritingQuestion(sequenceNumber, seed);
+  if (patternSpecId === numericChineseCompareSpecId) return makeNumericVsChineseCompareQuestion(sequenceNumber, seed);
+  if (patternSpecId === wanMixedSubtractionSpecId) return makeWanMixedSubtractionQuestion(sequenceNumber, seed);
+  if (patternSpecId === boundaryDifferenceSpecId) return makeBoundaryDifferenceQuestion(sequenceNumber, seed);
+  if (patternSpecId === comparisonWordProblemTotalSpecId) return makeComparisonWordProblemTotalQuestion(sequenceNumber, seed);
+  if (patternSpecId === unitWordProblemSpecId) return makeUnitWordProblemQuestion(sequenceNumber, seed);
   return null;
 }
 
