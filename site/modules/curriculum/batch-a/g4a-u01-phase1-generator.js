@@ -72,6 +72,10 @@ function integerBetween(seedValue, min, max) {
   return min + (seedValue % (max - min + 1));
 }
 
+function countBetween(seedValue, min = 1, max = 99) {
+  return min + (seedValue % (max - min + 1));
+}
+
 function digitsForValue(value) {
   return String(value).padStart(8, "0").split("").map((digit) => Number(digit));
 }
@@ -83,6 +87,10 @@ function valueFromDigits(digits) {
 function placeModelForValue(value) {
   const digits = digitsForValue(value);
   return PLACE_UNITS.map((place, index) => ({ ...place, digit: digits[index], count: digits[index], representedValue: digits[index] * place.unit }));
+}
+
+function placeCountsForModel(placeModel) {
+  return Object.fromEntries(PLACE_UNITS.map((place) => [place.key, placeModel.find((item) => item.key === place.key)?.count ?? 0]));
 }
 
 function compactExpansion(placeModel) {
@@ -238,7 +246,10 @@ function makeSameDigitDifferenceQuestion(sequenceNumber, seed) {
   const secondPlace = PLACE_UNITS[lowIndex];
   const firstValue = repeatedDigit * firstPlace.unit;
   const secondValue = repeatedDigit * secondPlace.unit;
-  const difference = Math.abs(firstValue - secondValue);
+  const relationMode = sequenceNumber % 2 === 0 ? "sum" : "difference";
+  const answer = relationMode === "sum" ? firstValue + secondValue : Math.abs(firstValue - secondValue);
+  const promptAction = relationMode === "sum" ? "合起來是多少" : "相差多少";
+  const displayAction = relationMode === "sum" ? "合起來是" : "相差";
   return {
     id: `${patternSpecId}-${sequenceNumber}`,
     patternSpecId,
@@ -248,23 +259,36 @@ function makeSameDigitDifferenceQuestion(sequenceNumber, seed) {
     repeatedDigit,
     positions: [highIndex, lowIndex],
     representedValues: [firstValue, secondValue],
-    promptText: `在 ${value} 中，兩個 ${repeatedDigit} 所代表的數相差多少？`,
-    displayText: `在 ${value} 中，兩個 ${repeatedDigit} 所代表的數相差 ${difference}`,
-    blankedDisplayText: `在 ${value} 中，兩個 ${repeatedDigit} 所代表的數相差 ________`,
-    answerText: String(difference),
-    finalAnswer: difference,
-    metadata: metadata(patternSpecId, "large_number_place_value", ["same_digit", "place_value_difference"])
+    placeValueRelationMode: relationMode,
+    promptText: `在 ${value} 中，兩個 ${repeatedDigit} 所代表的數${promptAction}？`,
+    displayText: `在 ${value} 中，兩個 ${repeatedDigit} 所代表的數${displayAction} ${answer}`,
+    blankedDisplayText: `在 ${value} 中，兩個 ${repeatedDigit} 所代表的數${displayAction} ________`,
+    answerText: String(answer),
+    finalAnswer: answer,
+    metadata: metadata(patternSpecId, "large_number_place_value", ["same_digit", "place_value_difference", relationMode === "sum" ? "place_value_sum" : "place_value_difference_only"])
   };
 }
 
 function makeNonstandardCompositionQuestion(sequenceNumber, seed) {
   const patternSpecId = nonstandardCompositionSpecId;
-  const value = integerBetween(sequenceSeed(seed, patternSpecId, sequenceNumber), 10000000, 99999999);
-  const standard = placeModelForValue(value);
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const millionCount = countBetween(seedValue, 10, 79);
+  const candidatePlaces = PLACE_UNITS.slice(2);
+  const includeCount = 2 + (mix32(seedValue + 19) % 4);
+  const chosenIndexes = new Set();
+  let cursor = mix32(seedValue + 37) % candidatePlaces.length;
+  while (chosenIndexes.size < includeCount) {
+    chosenIndexes.add(cursor % candidatePlaces.length);
+    cursor += 1 + (mix32(seedValue + cursor + 53) % candidatePlaces.length);
+  }
   const placeModel = [
-    { ...PLACE_UNITS[1], count: standard[0].digit * 10 + standard[1].digit },
-    ...standard.slice(2).map((place) => ({ ...place, count: place.digit }))
+    { ...PLACE_UNITS[1], count: millionCount },
+    ...[...chosenIndexes].sort((a, b) => a - b).map((index, order) => ({
+      ...candidatePlaces[index],
+      count: countBetween(mix32(seedValue + 101 + index + order * 13), 1, 99)
+    }))
   ].map((place) => ({ ...place, representedValue: place.count * place.unit }));
+  const value = placeModel.reduce((sum, place) => sum + place.representedValue, 0);
   const prompt = unitCountText(placeModel);
   return {
     id: `${patternSpecId}-${sequenceNumber}`,
@@ -273,20 +297,31 @@ function makeNonstandardCompositionQuestion(sequenceNumber, seed) {
     kind: "g4aU01NonstandardPlaceValueComposition",
     value,
     placeModel,
-    placeCounts: Object.fromEntries(placeModel.map((place) => [place.key, place.count])),
+    placeCounts: placeCountsForModel(placeModel),
     promptText: `${prompt} 合起來是多少？`,
     displayText: `${prompt} 合起來是 ${value}`,
     blankedDisplayText: `${prompt} 合起來是 ________`,
     answerText: String(value),
     finalAnswer: value,
-    metadata: metadata(patternSpecId, "large_number_place_value", ["nonstandard_composition"])
+    metadata: metadata(patternSpecId, "large_number_place_value", ["nonstandard_composition", "count_1_to_99"])
   };
 }
 
 function makeCardCompositionQuestion(sequenceNumber, seed) {
   const patternSpecId = cardCompositionSpecId;
-  const value = integerBetween(sequenceSeed(seed, patternSpecId, sequenceNumber), 10000000, 99999999);
-  const placeModel = placeModelForValue(value).map((place) => ({ ...place, count: place.digit }));
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const includeCount = 2 + (seedValue % 4);
+  const selected = new Set();
+  let cursor = mix32(seedValue + 23) % PLACE_UNITS.length;
+  while (selected.size < includeCount) {
+    selected.add(cursor % PLACE_UNITS.length);
+    cursor += 1 + (mix32(seedValue + cursor + 71) % PLACE_UNITS.length);
+  }
+  const placeModel = [...selected].sort((a, b) => a - b).map((index, order) => {
+    const count = countBetween(mix32(seedValue + 211 + index + order * 17), 1, 9);
+    return { ...PLACE_UNITS[index], count, representedValue: count * PLACE_UNITS[index].unit };
+  });
+  const value = placeModel.reduce((sum, place) => sum + place.representedValue, 0);
   const prompt = placeModel.map((place) => `${place.count}張${place.label}卡`).join("、");
   return {
     id: `${patternSpecId}-${sequenceNumber}`,
@@ -295,13 +330,14 @@ function makeCardCompositionQuestion(sequenceNumber, seed) {
     kind: "g4aU01PlaceValueCardComposition",
     value,
     placeModel,
-    placeCounts: Object.fromEntries(placeModel.map((place) => [place.key, place.count])),
+    includedCardKeys: placeModel.map((place) => place.key),
+    placeCounts: placeCountsForModel(placeModel),
     promptText: `位值卡：${prompt}，表示的數是多少？`,
     displayText: `位值卡：${prompt}，表示 ${value}`,
     blankedDisplayText: `位值卡：${prompt}，表示的數是 ________`,
     answerText: String(value),
     finalAnswer: value,
-    metadata: metadata(patternSpecId, "large_number_place_value", ["card_model", "composition"])
+    metadata: metadata(patternSpecId, "large_number_place_value", ["card_model", "composition", "sparse_cards"])
   };
 }
 
