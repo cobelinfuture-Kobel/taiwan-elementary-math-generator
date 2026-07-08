@@ -28,7 +28,9 @@ const rows = Object.freeze([
   [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_1digit_by_3digit", "pg_g4a_u02_1digit_by_3digit", "ps_g4a_u02_1digit_by_3digit", "一位數乘三位數", "integer_multiplication", ["one_digit", "three_digit"], "vertical_multiplication", "numeric_vertical"],
   [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_2digit_by_2digit", "pg_g4a_u02_2digit_by_2digit", "ps_g4a_u02_2digit_by_2digit", "二位數乘二位數", "integer_multiplication", ["two_digit", "two_digit", "partial_product"], "vertical_multiplication_partial_products", "numeric_vertical"],
   [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_2digit_by_3digit", "pg_g4a_u02_2digit_by_3digit", "ps_g4a_u02_2digit_by_3digit", "二位數乘三位數", "integer_multiplication", ["two_digit", "three_digit", "partial_product"], "vertical_multiplication_partial_products", "numeric_vertical"],
-  [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_3digit_by_2digit", "pg_g4a_u02_3digit_by_2digit", "ps_g4a_u02_3digit_by_2digit", "三位數乘二位數", "integer_multiplication", ["three_digit", "two_digit", "partial_product"], "vertical_multiplication_partial_products", "numeric_vertical"]
+  [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_3digit_by_2digit", "pg_g4a_u02_3digit_by_2digit", "ps_g4a_u02_3digit_by_2digit", "三位數乘二位數", "integer_multiplication", ["three_digit", "two_digit", "partial_product"], "vertical_multiplication_partial_products", "numeric_vertical"],
+  [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_digit_card_arrangement_product_max_min", "pg_g4a_u02_digit_card_arrangement_product_max_min", "ps_g4a_u02_digit_card_arrangement_product_max_min", "數字卡排列最大最小乘積", "place_value_reasoning", ["digit_card", "max_min_product", "three_digit_by_two_digit"], "digit_card_arrangement_product", "reasoning_prompt"],
+  [g4aU02, "4A-U02", "整數的乘法", "kp_g4a_u02_near_hundred_multiplication_strategy", "pg_g4a_u02_near_hundred_multiplication_strategy", "ps_g4a_u02_near_hundred_multiplication_strategy", "接近整百乘法策略", "multiplication_strategy", ["near_hundred", "decomposition", "99_101"], "near_hundred_strategy", "strategy_reasoning_prompt"]
 ]);
 
 function toSpecIds(value) {
