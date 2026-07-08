@@ -8,7 +8,7 @@ const sourceId = "g3a_u02_3a02";
 const kpId = "kp_g3a_u02_word_problem_estimation_add_sub";
 const groupId = "pg_g3a_u02_word_problem_estimation_add_sub";
 const specId = "ps_g3a_u02_word_problem_estimation_add_sub";
-const CURRENT_VISIBLE_KP_COUNT = 47;
+const CURRENT_VISIBLE_KP_COUNT = 52;
 
 test("G3A U02 estimation KP remains visible", () => {
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, CURRENT_VISIBLE_KP_COUNT);
