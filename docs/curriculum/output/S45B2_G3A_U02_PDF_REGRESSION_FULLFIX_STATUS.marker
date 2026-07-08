@@ -1,0 +1,32 @@
+S45B2_G3A_U02_PDF_REGRESSION_FULLFIX_STATUS
+
+sourceId = g3a_u02_3a02
+status = WAITING_FOR_LOCAL_TEST
+scope = bounded FullFix for S45C residual PDF blockers
+
+implemented:
+- G3A-U02 carry/regroup expression generation now uses diversified digit-level constructions instead of narrow crossing-thousand templates.
+- G3A-U02 exact duplicate rejection now compares rendered prompt/duplicate keys across PatternSpecs rather than namespacing duplicates by PatternSpec.
+- G3A-U02 duplicate retry count increased and duplicate retry exhaustion is treated as an error instead of accepting the last duplicate attempt.
+- Continuous-borrow-zero generation still preserves zero-borrow constraints while varying right-side tens/hundreds/thousands digits.
+- Regression tests cover S45C residual duplicate prompts across multiple seeds.
+- Print CSS now avoids empty sections/pages and prevents trailing blank print pages by moving answer-key page-break handling to the first answer-key page.
+
+not_in_scope:
+- New G3A-U02 knowledge points.
+- New word-problem scenario families.
+- G3A-U01 backlog.
+- Browser PDF smoke after recheck.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+expected:
+- tests 433
+- pass 433
+- fail 0
+- working tree clean
+
+next = regenerate G3A-U02 PDF and run S45C2_OutputPDFRecheck after local tests pass
