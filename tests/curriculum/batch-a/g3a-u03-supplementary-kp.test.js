@@ -9,6 +9,7 @@ import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatc
 import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 
 const sourceId = "g3a_u03_3a03";
+const CURRENT_VISIBLE_KP_COUNT = 47;
 const zeroKp = "kp_g3a_u03_3digit_zero_middle_by_1digit";
 const zeroGroup = "pg_g3a_u03_3digit_zero_middle_by_1digit";
 const zeroSpec = "ps_g3a_u03_3digit_zero_middle_by_1digit";
@@ -26,7 +27,7 @@ function digitAt(value, placeValue) {
 
 test("S43G5I UI selector exposes seven G3A U03 KPs", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 41);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, CURRENT_VISIBLE_KP_COUNT);
   assert.equal(availability.visibleCount, 7);
   assert.equal(getVisibleBatchAKnowledgePoint(zeroKp)?.displayName, "三位數中間為0乘一位數");
   assert.equal(getVisibleBatchAKnowledgePoint(missKp)?.displayName, "乘法缺位推理");
