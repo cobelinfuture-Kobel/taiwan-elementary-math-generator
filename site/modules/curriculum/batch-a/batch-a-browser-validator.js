@@ -306,7 +306,7 @@ export function validateBatchABrowserQuestion(question = {}) {
   } else if (definition.kind === "wordProblemEstimation") validateEstimate(definition, question, errors);
   else if (definition.kind === "missingDigit") validateOneDigit(definition, question, errors);
   else if (definition.kind === "missingDigitEquation") validateEquationBlankQuestion(definition, question, errors);
-  else if (definition.kind === "multiplicationMissingDigit") validateMultiplicationMissingDigitQuestion(question, errors);
+  else if (definition.kind === "multiplicationMissingDigit") validateMultiplicationMissingDigitQuestion(definition, question, errors);
   else if (definition.kind === "divisibilityCheck") validateDivisibilityCheck(definition, question, errors);
   else if (definition.kind === "divisionWithRemainder") validateDivisionWithRemainder(definition, question, errors);
   else if (definition.kind === "divisionWordProblem") validateDivisionWordProblem(question, errors);
