@@ -68,10 +68,6 @@ function placeModelForValue(value) {
   return PLACE_UNITS.map((place, index) => ({ ...place, digit: digits[index], representedValue: digits[index] * place.unit }));
 }
 
-function valueFromPlaceModel(placeModel) {
-  return placeModel.reduce((sum, place) => sum + place.digit * place.unit, 0);
-}
-
 function compactExpansion(placeModel) {
   return placeModel.map((place) => `${place.digit}個${place.label}`).join("、");
 }
@@ -149,6 +145,7 @@ function makeLargeNumberAddSubQuestion(sequenceNumber, seed) {
   });
   question.patternSpecId = patternSpecId;
   question.sourceId = G4A_U01_SOURCE_ID;
+  question.metadata.sourceId = G4A_U01_SOURCE_ID;
   question.left = left;
   question.right = right;
   question.operator = operator;
