@@ -5,6 +5,7 @@ import { buildWorksheetDocumentFromState } from "../../../site/assets/browser/pi
 import {
   BATCH_A_SELECTION_MODES,
   createConfigState,
+  setBatchAIncludeAnswerKey,
   setBatchAQuestionCount,
   setBatchASelectorSelection,
   setBatchASourceId
@@ -43,9 +44,10 @@ function firstGroupId(kpId) {
   return getVisiblePatternGroupsForKnowledgePoint(kpId)[0]?.patternGroupId;
 }
 
-function stateFor(kpIds, count = 35) {
+function stateFor(kpIds, count = 35, includeAnswerKey = true) {
   const state = createConfigState();
   setBatchASourceId(state, SOURCE_ID);
+  setBatchAIncludeAnswerKey(state, includeAnswerKey);
   setBatchASelectorSelection(state, {
     selectionMode: kpIds.length === 1 ? BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT : BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
     selectedKnowledgePointIds: [...kpIds],
@@ -128,7 +130,7 @@ test("G4A-U02 missing-digit multiplication includes zero answer coverage", () =>
 });
 
 test("G4A-U02 same-unit numeric mix builds worksheet and answer key", () => {
-  const result = buildWorksheetDocumentFromState(stateFor(KP_IDS, 49));
+  const result = buildWorksheetDocumentFromState(stateFor(KP_IDS, 49, true));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.deepEqual(new Set(result.worksheetDocument.batchA.patternSpecIds), new Set(SPEC_IDS));
   assert.equal(result.worksheetDocument.generatedQuestions.length, 49);
