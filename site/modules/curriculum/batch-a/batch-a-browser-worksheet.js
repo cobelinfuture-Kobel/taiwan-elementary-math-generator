@@ -5,7 +5,7 @@ import {
   paginateQuestionDisplayModels
 } from "../../core/index.js";
 import { generateBatchABrowserQuestions } from "./batch-a-browser-question-router.js";
-import { validateBatchABrowserQuestions } from "./batch-a-browser-validator.js";
+import { validateBatchABrowserQuestions } from "./batch-a-browser-validator-g4a-extension.js";
 import { BATCH_A_BROWSER_SCOPE } from "./production-eligibility.js";
 
 const DEFAULT_PRINT_LAYOUT = Object.freeze({
