@@ -172,6 +172,14 @@ test("G4A-U02 same-unit all-KP mix builds worksheet and answer key", () => {
   assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.sourceId === SOURCE_ID), true);
 });
 
+test("G4A-U02 all-KP mixed worksheet uses safe reasoning answer-key layout", () => {
+  const result = buildWorksheetDocumentFromState(stateFor(KP_IDS, 150));
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.worksheetDocument.printOptions.answerKeyColumns <= 3, true);
+  assert.equal(result.worksheetDocument.printOptions.answerKeyRowsPerPage <= 4, true);
+  assert.equal(result.worksheetDocument.printOptions.pageBreakMode, "avoidLongTextCards");
+});
+
 test("G4A-U02 mixed worksheet duplicate rate stays bounded", () => {
   const result = buildWorksheetDocumentFromState(stateFor(KP_IDS, 150));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
