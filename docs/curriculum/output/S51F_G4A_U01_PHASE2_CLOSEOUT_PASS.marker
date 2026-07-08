@@ -1,0 +1,57 @@
+S51F_G4A_U01_PHASE2_CLOSEOUT_PASS
+
+sourceId = g4a_u01_4a01
+unit = 4A-U01 1億以內的數
+status = PHASE2_PASS_ACCEPTED_AND_CLOSED
+write_type = closeout_marker
+
+basis:
+- S51D_G4A_U01_Phase2SemanticsAndCardLayoutFullFix.md
+- S51E_G4A_U01_Phase2SemanticFixNpmAndPDFReadback.md
+
+validated_scope:
+- G4A-U01 Phase 2 semantic refinements.
+- 非標準位值組合 count model 1-99.
+- 相同數字不同位值差/和 relation modes.
+- sparse 位值卡組合 prompt model.
+- sparse card layout cap.
+
+npm_test_readback:
+- tests = 446
+- pass = 446
+- fail = 0
+
+pdf_readback_summary:
+- checked_pdf_count = 3
+- each_pdf_question_count = 200
+- each_pdf_answer_key_count = 200
+- each_pdf_answer_errors = 0
+- each_pdf_duplicate_prompt_groups = 0
+- shared_blank_pages_detected = 15, 30
+- blank_pages_status = accepted_non_blocking
+
+phase2_pdf_results:
+- g4a_u01_非標準位值組合.pdf = PASS
+- g4a_u01_位值卡組合.pdf = PASS
+- g4a_u01_相同數字不同位值差.pdf = PASS
+
+accepted_non_blocking_issues:
+- Blank pages 15 and 30 remain as known browser/PDF pagination artifacts.
+- Phase 3 fine-grained source-image patterns remain deferred.
+- Optional renderer-wide blank-page cleanup remains backlog.
+
+anti_scope_check:
+- No Phase 3 implementation in this closeout.
+- No G4A-U02/G4A-U04/G4A-U08 work in this closeout.
+- No unrelated Batch A unit changes in this closeout.
+
+GOAL_DISTANCE_BEFORE = D1_G4A_U01_PHASE2_VALIDATED_READY_TO_CLOSE
+GOAL_DISTANCE_AFTER = D1_G4A_U01_PHASE2_CLOSED_ACCEPTED_PASS
+DISTANCE_REDUCED = G4A-U01 Phase 2 is now formally closed after npm and regenerated PDF readback passed.
+REMAINING_BLOCKERS = ["Phase 3 fine-grained source-image patterns deferred", "optional renderer-wide blank-page cleanup backlog", "Next Batch A unit output QA not started"]
+NEXT_SHORTEST_STEP = S52A_G4A_U01_Phase3SourceImagePatternDesignScan_OR_S53A_NEXT_BATCH_A_UNIT_SELECTION
+STOP_REASON = scope_boundary_requires_operator_choice
+BLOCKER_TYPE = NEXT_SCOPE_CHOICE_REQUIRED
+LAST_COMPLETED_STATUS = S51F_G4A_U01_PHASE2_CLOSEOUT_PASS
+REQUIRED_OPERATOR_ACTION = Choose whether to continue G4A-U01 Phase 3 fine-grained patterns or move to next Batch A unit output QA.
+NEXT_RESUME_TASK = S52A_OR_S53A_OPERATOR_SELECTED
