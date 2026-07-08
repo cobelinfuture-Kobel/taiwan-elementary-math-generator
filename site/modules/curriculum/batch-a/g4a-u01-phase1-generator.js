@@ -13,6 +13,14 @@ export const G4A_U01_PHASE1_PATTERN_SPEC_IDS = Object.freeze([
   "ps_g4a_u01_place_value_composition_to_number",
   "ps_g4a_u01_same_digit_place_value_difference"
 ]);
+export const G4A_U01_PHASE2_PATTERN_SPEC_IDS = Object.freeze([
+  "ps_g4a_u01_nonstandard_place_value_composition",
+  "ps_g4a_u01_place_value_card_unit_model_composition",
+  "ps_g4a_u01_compare_first_different_place",
+  "ps_g4a_u01_missing_digit_comparison_possible_digits",
+  "ps_g4a_u01_missing_digit_comparison_extreme_digit"
+]);
+export const G4A_U01_PRINTABLE_PATTERN_SPEC_IDS = Object.freeze([...G4A_U01_PHASE1_PATTERN_SPEC_IDS, ...G4A_U01_PHASE2_PATTERN_SPEC_IDS]);
 
 const compare8SpecId = "ps_g4a_u01_compare_8digit";
 const compare100mSpecId = "ps_g4a_u01_within_100million_compare";
@@ -20,6 +28,11 @@ const addSubSpecId = "ps_g4a_u01_large_number_add_sub";
 const decompositionSpecId = "ps_g4a_u01_8digit_place_value_decomposition";
 const compositionSpecId = "ps_g4a_u01_place_value_composition_to_number";
 const sameDigitDifferenceSpecId = "ps_g4a_u01_same_digit_place_value_difference";
+const nonstandardCompositionSpecId = "ps_g4a_u01_nonstandard_place_value_composition";
+const cardCompositionSpecId = "ps_g4a_u01_place_value_card_unit_model_composition";
+const firstDifferentPlaceSpecId = "ps_g4a_u01_compare_first_different_place";
+const possibleDigitsSpecId = "ps_g4a_u01_missing_digit_comparison_possible_digits";
+const extremeDigitSpecId = "ps_g4a_u01_missing_digit_comparison_extreme_digit";
 
 const PLACE_UNITS = Object.freeze([
   Object.freeze({ key: "tenMillions", label: "千萬", unit: 10000000 }),
@@ -63,13 +76,21 @@ function digitsForValue(value) {
   return String(value).padStart(8, "0").split("").map((digit) => Number(digit));
 }
 
+function valueFromDigits(digits) {
+  return Number(digits.join(""));
+}
+
 function placeModelForValue(value) {
   const digits = digitsForValue(value);
-  return PLACE_UNITS.map((place, index) => ({ ...place, digit: digits[index], representedValue: digits[index] * place.unit }));
+  return PLACE_UNITS.map((place, index) => ({ ...place, digit: digits[index], count: digits[index], representedValue: digits[index] * place.unit }));
 }
 
 function compactExpansion(placeModel) {
   return placeModel.map((place) => `${place.digit}個${place.label}`).join("、");
+}
+
+function unitCountText(placeModel) {
+  return placeModel.map((place) => `${place.count}個${place.label}`).join("、");
 }
 
 function metadata(patternSpecId, canonicalSkillId, extraTags = []) {
@@ -212,7 +233,7 @@ function makeSameDigitDifferenceQuestion(sequenceNumber, seed) {
   if (digits[0] === repeatedDigit && highIndex !== 0 && lowIndex !== 0) digits[0] = repeatedDigit === 9 ? 8 : 9;
   digits[highIndex] = repeatedDigit;
   digits[lowIndex] = repeatedDigit;
-  const value = Number(digits.join(""));
+  const value = valueFromDigits(digits);
   const firstPlace = PLACE_UNITS[highIndex];
   const secondPlace = PLACE_UNITS[lowIndex];
   const firstValue = repeatedDigit * firstPlace.unit;
@@ -236,6 +257,153 @@ function makeSameDigitDifferenceQuestion(sequenceNumber, seed) {
   };
 }
 
+function makeNonstandardCompositionQuestion(sequenceNumber, seed) {
+  const patternSpecId = nonstandardCompositionSpecId;
+  const value = integerBetween(sequenceSeed(seed, patternSpecId, sequenceNumber), 10000000, 99999999);
+  const standard = placeModelForValue(value);
+  const placeModel = [
+    { ...PLACE_UNITS[1], count: standard[0].digit * 10 + standard[1].digit },
+    ...standard.slice(2).map((place) => ({ ...place, count: place.digit }))
+  ].map((place) => ({ ...place, representedValue: place.count * place.unit }));
+  const prompt = unitCountText(placeModel);
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01NonstandardPlaceValueComposition",
+    value,
+    placeModel,
+    placeCounts: Object.fromEntries(placeModel.map((place) => [place.key, place.count])),
+    promptText: `${prompt} 合起來是多少？`,
+    displayText: `${prompt} 合起來是 ${value}`,
+    blankedDisplayText: `${prompt} 合起來是 ________`,
+    answerText: String(value),
+    finalAnswer: value,
+    metadata: metadata(patternSpecId, "large_number_place_value", ["nonstandard_composition"])
+  };
+}
+
+function makeCardCompositionQuestion(sequenceNumber, seed) {
+  const patternSpecId = cardCompositionSpecId;
+  const value = integerBetween(sequenceSeed(seed, patternSpecId, sequenceNumber), 10000000, 99999999);
+  const placeModel = placeModelForValue(value).map((place) => ({ ...place, count: place.digit }));
+  const prompt = placeModel.map((place) => `${place.count}張${place.label}卡`).join("、");
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01PlaceValueCardComposition",
+    value,
+    placeModel,
+    placeCounts: Object.fromEntries(placeModel.map((place) => [place.key, place.count])),
+    promptText: `位值卡：${prompt}，表示的數是多少？`,
+    displayText: `位值卡：${prompt}，表示 ${value}`,
+    blankedDisplayText: `位值卡：${prompt}，表示的數是 ________`,
+    answerText: String(value),
+    finalAnswer: value,
+    metadata: metadata(patternSpecId, "large_number_place_value", ["card_model", "composition"])
+  };
+}
+
+function makeFirstDifferentPlaceQuestion(sequenceNumber, seed) {
+  const patternSpecId = firstDifferentPlaceSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const firstDifferentIndex = seedValue % 7;
+  const leftDigits = Array.from({ length: 8 }, (_, index) => (index === 0 ? 1 + (mix32(seedValue + index) % 9) : mix32(seedValue + index) % 10));
+  const rightDigits = [...leftDigits];
+  const replacement = (leftDigits[firstDifferentIndex] + 1 + (mix32(seedValue + 91) % 8)) % 10;
+  rightDigits[firstDifferentIndex] = firstDifferentIndex === 0 && replacement === 0 ? 9 : replacement;
+  const left = valueFromDigits(leftDigits);
+  const right = valueFromDigits(rightDigits);
+  const place = PLACE_UNITS[firstDifferentIndex];
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01CompareFirstDifferentPlace",
+    left,
+    right,
+    firstDifferentIndex,
+    placeLabel: place.label,
+    promptText: `比較 ${left} 和 ${right}，要先看哪一位？`,
+    displayText: `比較 ${left} 和 ${right}，先看${place.label}`,
+    blankedDisplayText: `比較 ${left} 和 ${right}，要先看 ________ 位`,
+    answerText: place.label,
+    finalAnswer: place.label,
+    metadata: metadata(patternSpecId, "large_number_comparison", ["first_different_place"])
+  };
+}
+
+function buildMissingDigitComparison(seedValue, relation) {
+  const blankIndex = 1 + (seedValue % 5);
+  const targetDigit = 2 + (mix32(seedValue + 11) % 6);
+  const baseDigits = Array.from({ length: 8 }, (_, index) => (index === 0 ? 1 + (mix32(seedValue + index) % 9) : mix32(seedValue + index) % 10));
+  const leftDigits = [...baseDigits];
+  const rightDigits = [...baseDigits];
+  rightDigits[blankIndex] = targetDigit;
+  leftDigits[blankIndex] = null;
+  const possibleDigits = [];
+  for (let digit = 0; digit <= 9; digit += 1) {
+    const candidateDigits = [...leftDigits];
+    candidateDigits[blankIndex] = digit;
+    const candidate = valueFromDigits(candidateDigits);
+    const right = valueFromDigits(rightDigits);
+    const ok = relation === ">" ? candidate > right : candidate < right;
+    if (ok) possibleDigits.push(digit);
+  }
+  return { leftDigits, rightDigits, blankIndex, targetDigit, relation, right: valueFromDigits(rightDigits), possibleDigits };
+}
+
+function formatDigitsWithBlank(digits) {
+  return digits.map((digit) => digit === null ? "□" : String(digit)).join("");
+}
+
+function makeMissingDigitPossibleQuestion(sequenceNumber, seed) {
+  const patternSpecId = possibleDigitsSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const model = buildMissingDigitComparison(seedValue, sequenceNumber % 2 === 0 ? "<" : ">");
+  const leftText = formatDigitsWithBlank(model.leftDigits);
+  const answerText = model.possibleDigits.join(",");
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01MissingDigitComparisonPossibleDigits",
+    ...model,
+    promptText: `${leftText} ${model.relation} ${model.right}，□可以填哪些數？`,
+    displayText: `${leftText} ${model.relation} ${model.right}，□可以填 ${answerText}`,
+    blankedDisplayText: `${leftText} ${model.relation} ${model.right}，□可以填哪些數？ ________`,
+    answerText,
+    finalAnswer: [...model.possibleDigits],
+    metadata: metadata(patternSpecId, "large_number_comparison", ["missing_digit", "possible_digits"])
+  };
+}
+
+function makeMissingDigitExtremeQuestion(sequenceNumber, seed) {
+  const patternSpecId = extremeDigitSpecId;
+  const seedValue = sequenceSeed(seed, patternSpecId, sequenceNumber);
+  const model = buildMissingDigitComparison(seedValue, sequenceNumber % 2 === 0 ? "<" : ">");
+  const extremeMode = sequenceNumber % 3 === 0 ? "min" : "max";
+  const digit = extremeMode === "min" ? Math.min(...model.possibleDigits) : Math.max(...model.possibleDigits);
+  const leftText = formatDigitsWithBlank(model.leftDigits);
+  const promptExtreme = extremeMode === "min" ? "最小" : "最大";
+  return {
+    id: `${patternSpecId}-${sequenceNumber}`,
+    patternSpecId,
+    sourceId: G4A_U01_SOURCE_ID,
+    kind: "g4aU01MissingDigitComparisonExtremeDigit",
+    ...model,
+    extremeMode,
+    extremeDigit: digit,
+    promptText: `${leftText} ${model.relation} ${model.right}，□可填的${promptExtreme}數字是多少？`,
+    displayText: `${leftText} ${model.relation} ${model.right}，□可填的${promptExtreme}數字是 ${digit}`,
+    blankedDisplayText: `${leftText} ${model.relation} ${model.right}，□可填的${promptExtreme}數字是 ________`,
+    answerText: String(digit),
+    finalAnswer: digit,
+    metadata: metadata(patternSpecId, "large_number_comparison", ["missing_digit", "extreme_digit"])
+  };
+}
+
 function generateQuestion(patternSpecId, sequenceNumber, seed) {
   if (patternSpecId === compare8SpecId) return makeComparisonQuestion(patternSpecId, sequenceNumber, seed, 10000000, 99999999);
   if (patternSpecId === compare100mSpecId) return makeComparisonQuestion(patternSpecId, sequenceNumber, seed, 0, 99999999);
@@ -243,6 +411,11 @@ function generateQuestion(patternSpecId, sequenceNumber, seed) {
   if (patternSpecId === decompositionSpecId) return makeDecompositionQuestion(sequenceNumber, seed);
   if (patternSpecId === compositionSpecId) return makeCompositionQuestion(sequenceNumber, seed);
   if (patternSpecId === sameDigitDifferenceSpecId) return makeSameDigitDifferenceQuestion(sequenceNumber, seed);
+  if (patternSpecId === nonstandardCompositionSpecId) return makeNonstandardCompositionQuestion(sequenceNumber, seed);
+  if (patternSpecId === cardCompositionSpecId) return makeCardCompositionQuestion(sequenceNumber, seed);
+  if (patternSpecId === firstDifferentPlaceSpecId) return makeFirstDifferentPlaceQuestion(sequenceNumber, seed);
+  if (patternSpecId === possibleDigitsSpecId) return makeMissingDigitPossibleQuestion(sequenceNumber, seed);
+  if (patternSpecId === extremeDigitSpecId) return makeMissingDigitExtremeQuestion(sequenceNumber, seed);
   return null;
 }
 
@@ -264,13 +437,13 @@ export function canGenerateG4AU01Phase1Questions(plan = {}) {
   return plan?.sourceId === G4A_U01_SOURCE_ID
     && Array.isArray(plan.patternSpecIds)
     && plan.patternSpecIds.length > 0
-    && plan.patternSpecIds.every((id) => G4A_U01_PHASE1_PATTERN_SPEC_IDS.includes(id));
+    && plan.patternSpecIds.every((id) => G4A_U01_PRINTABLE_PATTERN_SPEC_IDS.includes(id));
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG4AU01Phase1Questions(plan)) {
-    return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "batch_a_g4a_u01_phase1_scope_mismatch", severity: "error", path: "patternSpecIds", message: "G4A-U01 Phase 1 generator scope mismatch" }], warnings: [] };
+    return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "batch_a_g4a_u01_printable_scope_mismatch", severity: "error", path: "patternSpecIds", message: "G4A-U01 printable generator scope mismatch" }], warnings: [] };
   }
   const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : allocateCounts(plan.patternSpecIds, plan.questionCount);
   const questions = [];
@@ -294,7 +467,7 @@ export function generateBatchABrowserQuestions(options = {}) {
       attempts += 1;
     }
     if (accepted < entry.questionCount) {
-      errors.push({ code: "batch_a_g4a_u01_phase1_unique_pool_exhausted", severity: "error", path: entry.patternSpecId, message: `G4A-U01 Phase 1 題庫不足：${entry.patternSpecId} 要求 ${entry.questionCount} 題，只產生 ${accepted} 題。` });
+      errors.push({ code: "batch_a_g4a_u01_unique_pool_exhausted", severity: "error", path: entry.patternSpecId, message: `G4A-U01 題庫不足：${entry.patternSpecId} 要求 ${entry.questionCount} 題，只產生 ${accepted} 題。` });
     }
   }
 
