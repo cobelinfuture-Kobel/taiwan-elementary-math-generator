@@ -3,7 +3,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
   resolveVisiblePatternSpecIdsForKnowledgePoint
-} from "../registry/batch-a-selector-equation-extension.js";
+} from "../registry/batch-a-selector-extension.js";
 
 export const BATCH_A_RESOLVER_SELECTION_MODES = Object.freeze({
   SOURCE_UNIT: "sourceUnit",
