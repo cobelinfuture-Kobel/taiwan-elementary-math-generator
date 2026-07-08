@@ -7,6 +7,7 @@ import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curri
 import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 
 const sourceId = "g3a_u03_3a03";
+const CURRENT_VISIBLE_KP_COUNT = 47;
 const rows = [
   ["kp_g3a_u03_2digit_by_1digit_carry", "pg_g3a_u03_2digit_by_1digit_carry", "ps_g3a_u03_2digit_by_1digit_carry"],
   ["kp_g3a_u03_10_multiple_by_1digit", "pg_g3a_u03_10_multiple_by_1digit", "ps_g3a_u03_10_multiple_by_1digit"],
@@ -19,7 +20,7 @@ const specIds = rows.map((row) => row[2]).sort();
 
 test("S43G3A selector extension keeps original G3A U03 four KPs visible", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 41);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, CURRENT_VISIBLE_KP_COUNT);
   assert.equal(availability.visibleCount, 7);
   assert.equal(availability.notSelectableCount, 0);
   for (const [kpId,, specId] of rows) {
