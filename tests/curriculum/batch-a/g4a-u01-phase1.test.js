@@ -35,6 +35,10 @@ const TALL_PATTERN_SELECTOR = Object.freeze({
   ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({
     kpId: "kp_g4a_u01_8digit_place_value_decomposition",
     groupId: "pg_g4a_u01_8digit_place_value_decomposition"
+  }),
+  ps_g4a_u01_place_value_card_unit_model_composition: Object.freeze({
+    kpId: "kp_g4a_u01_place_value_card_unit_model_composition",
+    groupId: "pg_g4a_u01_place_value_card_unit_model_composition"
   })
 });
 
@@ -118,6 +122,22 @@ test("G4A-U01 Phase 2 missing digit comparison models expose valid answers", () 
   assert.equal(extreme.answerText, String(extreme.extremeDigit));
 });
 
+test("G4A-U01 Phase 2 refined place-value prompts match source-image semantics", () => {
+  const result = generate(88);
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const nonstandard = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_nonstandard_place_value_composition");
+  assert.ok(nonstandard.placeModel.every((place) => place.count >= 1 && place.count <= 99));
+  assert.ok(nonstandard.placeModel.some((place) => place.count > 9));
+
+  const sameDigitItems = result.questions.filter((question) => question.patternSpecId === "ps_g4a_u01_same_digit_place_value_difference");
+  assert.deepEqual(new Set(sameDigitItems.map((question) => question.placeValueRelationMode)), new Set(["difference", "sum"]));
+
+  const card = result.questions.find((question) => question.patternSpecId === "ps_g4a_u01_place_value_card_unit_model_composition");
+  assert.ok(card.placeModel.length >= 2 && card.placeModel.length < 8);
+  assert.equal(card.blankedDisplayText.includes("0張"), false);
+  assert.equal(card.includedCardKeys.length, card.placeModel.length);
+});
+
 test("G4A-U01 worksheet document builds with answer key", () => {
   const result = buildBatchABrowserWorksheetDocument({
     sourceId: SOURCE_ID,
@@ -166,4 +186,13 @@ test("G4A-U01 decomposition tall prompt caps rows to avoid dangling fragments", 
   assert.equal(result.worksheetDocument.summary.questionPageCount, 3);
   assert.deepEqual(countItemsByPage(result.worksheetDocument.questionPages, "question"), [16, 16, 8]);
   assert.deepEqual(countItemsByPage(result.worksheetDocument.answerKeyPages, "answerKey"), [12, 12, 12, 4]);
+});
+
+test("G4A-U01 sparse card composition uses card layout caps", () => {
+  const result = worksheetForPattern("ps_g4a_u01_place_value_card_unit_model_composition", 40);
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.worksheetDocument.configSnapshot.printLayout.rowsPerPage, 8);
+  assert.equal(result.worksheetDocument.configSnapshot.answerKeyPrintLayout.rowsPerPage, 6);
+  assert.deepEqual(countItemsByPage(result.worksheetDocument.questionPages, "question"), [32, 8]);
+  assert.deepEqual(countItemsByPage(result.worksheetDocument.answerKeyPages, "answerKey"), [24, 16]);
 });
