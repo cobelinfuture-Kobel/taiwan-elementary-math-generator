@@ -24,7 +24,23 @@ const DIGIT_CARD_SETS = Object.freeze([
   Object.freeze([0, 1, 3, 5, 6, 9]),
   Object.freeze([2, 3, 5, 6, 7, 8]),
   Object.freeze([0, 1, 4, 6, 7, 9]),
-  Object.freeze([1, 2, 4, 5, 8, 9])
+  Object.freeze([1, 2, 4, 5, 8, 9]),
+  Object.freeze([0, 2, 3, 6, 7, 9]),
+  Object.freeze([1, 4, 5, 6, 7, 8]),
+  Object.freeze([0, 3, 4, 5, 8, 9]),
+  Object.freeze([1, 2, 5, 6, 8, 9]),
+  Object.freeze([0, 1, 2, 4, 7, 8]),
+  Object.freeze([2, 3, 4, 6, 7, 9]),
+  Object.freeze([0, 2, 5, 6, 8, 9]),
+  Object.freeze([1, 3, 5, 7, 8, 9]),
+  Object.freeze([0, 1, 4, 5, 6, 8]),
+  Object.freeze([2, 4, 5, 6, 7, 9]),
+  Object.freeze([0, 3, 5, 6, 7, 8]),
+  Object.freeze([1, 2, 3, 5, 7, 9]),
+  Object.freeze([0, 4, 5, 6, 8, 9]),
+  Object.freeze([1, 3, 4, 5, 7, 8]),
+  Object.freeze([0, 1, 2, 6, 7, 9]),
+  Object.freeze([2, 3, 4, 5, 8, 9])
 ]);
 
 function issue(code, path, message, severity = "error") {
@@ -253,7 +269,7 @@ function makeDigitCardQuestion(definition, sequenceNumber, seed) {
   const digitText = digits.join("、");
   const answerText = `最大：${max.left} × ${max.right} = ${max.product}；最小：${min.left} × ${min.right} = ${min.product}`;
   const zeroNote = digits.includes(0) ? "（首位不能為0）" : "";
-  const promptText = `用 ${digitText} 六張數字卡各一次，排出三位數 × 二位數。最大乘積和最小乘積各是多少？${zeroNote}`;
+  const promptText = `從 ${digitText} 六張數字卡中選出五張各用一次，排出三位數 × 二位數。最大乘積和最小乘積各是多少？${zeroNote}`;
   return { id: `${definition.patternSpecId}-${sequenceNumber}`, patternSpecId: definition.patternSpecId, sourceId: definition.sourceId, kind: definition.kind, digits, maxFactors: [max.left, max.right], minFactors: [min.left, min.right], maxProduct: max.product, minProduct: min.product, promptText, displayText: `${promptText} ${answerText}`, blankedDisplayText: `${promptText} ________`, answerText, finalAnswer: answerText, metadata: metadata(definition) };
 }
 
