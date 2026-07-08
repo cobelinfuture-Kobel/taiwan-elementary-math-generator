@@ -1,0 +1,24 @@
+S45B2_G3A_U02_TEST_FAILURE_QAFIX_STATUS
+
+sourceId = g3a_u02_3a02
+status = WAITING_FOR_LOCAL_TEST
+operator_readback = tests 433, pass 430, fail 3
+
+fixed:
+- sub-middle missing digit generation now forces one right-side blank into a middle place when middlePlaceRequired is true.
+- equation blank generation now retries invalid generated questions instead of stopping immediately on the first invalid attempt.
+- duplicate retry exhaustion still remains an error, but only after all attempts fail to produce a valid unique prompt.
+- print CSS restored the legacy answer-key section page-break contract required by tests while retaining trailing-page avoidance rules.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+expected:
+- tests 433
+- pass 433
+- fail 0
+- working tree clean
+
+next = regenerate G3A-U02 PDF and run S45C2_OutputPDFRecheck after local tests pass
