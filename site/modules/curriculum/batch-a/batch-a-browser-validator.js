@@ -9,6 +9,7 @@ import { validateBatchAPlanScope } from "./production-eligibility.js";
 import { validateG3BU01WordProblemQuestion } from "./g3b-u01-word-problem-generator.js";
 import { validateG3AU01NumberStructureQuestion } from "./g3a-u01-number-structure-generator.js";
 
+const DIGIT_CHINESE = Object.freeze(["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"]);
 const G4A_U01_PLACE_UNITS = Object.freeze([
   Object.freeze({ key: "tenMillions", label: "千萬", unit: 10000000 }),
   Object.freeze({ key: "millions", label: "百萬", unit: 1000000 }),
@@ -58,6 +59,38 @@ function hundredsDigit(value) {
 
 function quotientTensDigit(value) {
   return Math.floor(value / 10) % 10;
+}
+
+function parseChineseSection(text) {
+  const digitMap = new Map(DIGIT_CHINESE.map((digit, index) => [digit, index]));
+  const unitMap = new Map([["千", 1000], ["百", 100], ["十", 10]]);
+  let total = 0;
+  let current = 0;
+  for (const char of String(text ?? "")) {
+    if (char === "零") continue;
+    if (digitMap.has(char)) {
+      current = digitMap.get(char);
+      continue;
+    }
+    if (unitMap.has(char)) {
+      total += (current || 1) * unitMap.get(char);
+      current = 0;
+    }
+  }
+  return total + current;
+}
+
+function parseChineseNumber(text) {
+  const normalized = String(text ?? "").trim();
+  if (normalized === "零") return 0;
+  if (!normalized.includes("萬")) return parseChineseSection(normalized);
+  const [wanText, lowerText = ""] = normalized.split("萬");
+  return parseChineseSection(wanText) * 10000 + parseChineseSection(lowerText);
+}
+
+function parseWanMixed(text) {
+  const [wanText, lowerText = "0"] = String(text ?? "").replace(/,/g, "").split("萬");
+  return Number(wanText) * 10000 + Number(lowerText || 0);
 }
 
 function validateEstimate(definition, question, errors) {
@@ -370,6 +403,62 @@ function validateG4AMissingDigitExtreme(question, errors) {
   if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
 }
 
+function validateG4AReadingWriting(question, errors) {
+  const parsed = parseChineseNumber(question.chineseText);
+  if (parsed !== question.value) errors.push(issue("batch_a_g4a_u01_chinese_parse_invalid", "chineseText"));
+  const expected = question.conversionDirection === "numeric_to_chinese" ? question.chineseText : String(question.value);
+  if (!["numeric_to_chinese", "chinese_to_numeric"].includes(question.conversionDirection)) errors.push(issue("batch_a_g4a_u01_conversion_direction_invalid", "conversionDirection"));
+  if (question.answerText !== expected) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (question.finalAnswer !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function validateG4ANumericVsChineseCompare(question, errors) {
+  const parsed = parseChineseNumber(question.rightChineseText);
+  if (parsed !== question.rightValue) errors.push(issue("batch_a_g4a_u01_chinese_parse_invalid", "rightChineseText"));
+  const expected = question.leftValue > question.rightValue ? ">" : question.leftValue < question.rightValue ? "<" : "=";
+  if (question.answerText !== expected) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (question.finalAnswer !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function validateG4AWanMixedSubtraction(question, errors) {
+  const left = parseWanMixed(question.leftWanText);
+  const right = parseWanMixed(question.rightWanText);
+  if (left !== question.leftValue || right !== question.rightValue) errors.push(issue("batch_a_g4a_u01_wan_parse_invalid", "wanText"));
+  const expected = question.leftValue - question.rightValue;
+  if (expected < 0) errors.push(issue("batch_a_g4a_u01_negative_difference", "rightValue"));
+  if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function validateG4ABoundaryDifference(question, errors) {
+  const larger = (10 ** question.largerDigitCount) - 1;
+  const smaller = 10 ** (question.smallerDigitCount - 1);
+  const expected = larger - smaller;
+  if (question.largerValue !== larger) errors.push(issue("batch_a_g4a_u01_boundary_larger_invalid", "largerValue"));
+  if (question.smallerValue !== smaller) errors.push(issue("batch_a_g4a_u01_boundary_smaller_invalid", "smallerValue"));
+  if (question.answerText !== String(expected)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function validateG4AComparisonWordProblemTotal(question, errors) {
+  const compared = question.relationMode === "more" ? question.baseValue + question.deltaValue : question.baseValue - question.deltaValue;
+  const total = question.baseValue + compared;
+  if (!["more", "less"].includes(question.relationMode)) errors.push(issue("batch_a_g4a_u01_relation_mode_invalid", "relationMode"));
+  if (question.comparedValue !== compared) errors.push(issue("batch_a_g4a_u01_compared_value_invalid", "comparedValue"));
+  if (question.total !== total) errors.push(issue("batch_a_g4a_u01_total_invalid", "total"));
+  if (question.answerText !== String(total)) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (intValue(question.finalAnswer) !== total) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
+function validateG4AUnitWordProblem(question, errors) {
+  const expected = question.operator === "add" ? question.leftValue + question.rightValue : question.leftValue - question.rightValue;
+  if (!["add", "subtract"].includes(question.operator)) errors.push(issue("batch_a_g4a_u01_operator_invalid", "operator"));
+  if (!String(question.answerText ?? "").endsWith(question.unit)) errors.push(issue("batch_a_g4a_u01_unit_answer_invalid", "answerText"));
+  if (question.numericAnswer !== expected) errors.push(issue("batch_a_g4a_u01_numeric_answer_invalid", "numericAnswer"));
+  if (question.answerText !== `${expected}${question.unit}`) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   const scope = validateBatchAPlanScope(plan);
   const errors = [...scope.errors];
@@ -428,6 +517,12 @@ export function validateBatchABrowserQuestion(question = {}) {
   else if (definition.kind === "g4aU01CompareFirstDifferentPlace") validateG4AFirstDifferentPlace(question, errors);
   else if (definition.kind === "g4aU01MissingDigitComparisonPossibleDigits") validateG4AMissingDigitPossible(question, errors);
   else if (definition.kind === "g4aU01MissingDigitComparisonExtremeDigit") validateG4AMissingDigitExtreme(question, errors);
+  else if (definition.kind === "g4aU01LargeNumberReadingWritingConversion") validateG4AReadingWriting(question, errors);
+  else if (definition.kind === "g4aU01NumericVsChineseNumberCompare") validateG4ANumericVsChineseCompare(question, errors);
+  else if (definition.kind === "g4aU01WanMixedNotationSubtraction") validateG4AWanMixedSubtraction(question, errors);
+  else if (definition.kind === "g4aU01BoundaryNumberDifference") validateG4ABoundaryDifference(question, errors);
+  else if (definition.kind === "g4aU01ComparisonWordProblemTotal") validateG4AComparisonWordProblemTotal(question, errors);
+  else if (definition.kind === "g4aU01LargeNumberUnitWordProblemAddSubtract") validateG4AUnitWordProblem(question, errors);
   else if (hasRoundingShape(definition)) {
     const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
     const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
@@ -448,5 +543,5 @@ export function validateBatchABrowserQuestions(questions = []) {
     errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
     warnings.push(...result.warnings);
   }
-  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s51d-g4a-u01-phase2-semantics-v1", validatedAt: null };
+  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s52b-g4a-u01-phase3-v1", validatedAt: null };
 }
