@@ -218,28 +218,57 @@ function generateArrangementQuestion(definition, options = {}) {
   };
 }
 
-function normalizeReadingWritingQuestion(question) {
+function withRuntimeId(question, sequenceNumber) {
+  return {
+    ...question,
+    id: `${question.patternSpecId}-${sequenceNumber}`
+  };
+}
+
+function normalizeSameDigitQuestion(question, sequenceNumber) {
+  const relationMode = sequenceNumber % 2 === 0 ? "sum" : "difference";
+  const [firstValue, secondValue] = question.representedValues ?? [];
+  const answer = relationMode === "sum" ? firstValue + secondValue : Math.abs(firstValue - secondValue);
+  const promptAction = relationMode === "sum" ? "合起來是多少" : "相差多少";
+  const displayAction = relationMode === "sum" ? "合起來是" : "相差";
+  return withRuntimeId({
+    ...question,
+    placeValueRelationMode: relationMode,
+    promptText: `在 ${question.value} 中，兩個 ${question.repeatedDigit} 所代表的數${promptAction}？`,
+    displayText: `在 ${question.value} 中，兩個 ${question.repeatedDigit} 所代表的數${displayAction} ${answer}`,
+    blankedDisplayText: `在 ${question.value} 中，兩個 ${question.repeatedDigit} 所代表的數${displayAction} ________`,
+    answerText: String(answer),
+    finalAnswer: answer,
+    metadata: {
+      ...question.metadata,
+      skillTags: [...new Set([...(question.metadata?.skillTags ?? []), relationMode === "sum" ? "place_value_sum" : "place_value_difference_only"])]
+    }
+  }, sequenceNumber);
+}
+
+function normalizeReadingWritingQuestion(question, sequenceNumber) {
   const chineseText = numberToChinese(question.value);
-  const conversionDirection = question.conversionDirection;
+  const conversionDirection = sequenceNumber % 2 === 0 ? "chinese_to_numeric" : "numeric_to_chinese";
   const answerText = conversionDirection === "numeric_to_chinese" ? chineseText : String(question.value);
   const promptText = conversionDirection === "numeric_to_chinese"
     ? `把 ${question.value} 寫成中文數詞。`
     : `把「${chineseText}」寫成阿拉伯數字。`;
-  return {
+  return withRuntimeId({
     ...question,
     chineseText,
+    conversionDirection,
     promptText,
     displayText: `${promptText} 答：${answerText}`,
     blankedDisplayText: `${promptText} ________`,
     answerText,
     finalAnswer: answerText
-  };
+  }, sequenceNumber);
 }
 
-function normalizeNumericVsChineseComparison(question) {
+function normalizeNumericVsChineseComparison(question, sequenceNumber) {
   const rightChineseText = numberToChinese(question.rightValue);
   const answerText = comparisonSymbol(question.leftValue, question.rightValue);
-  return {
+  return withRuntimeId({
     ...question,
     rightChineseText,
     parsedRightValue: parseChineseNumber(rightChineseText),
@@ -248,20 +277,21 @@ function normalizeNumericVsChineseComparison(question) {
     blankedDisplayText: `${question.leftValue} □ ${rightChineseText}`,
     answerText,
     finalAnswer: answerText
-  };
+  }, sequenceNumber);
 }
 
-function normalizeComparisonWordProblemTotal(question) {
+function normalizeComparisonWordProblemTotal(question, sequenceNumber) {
   if (question.total > 99999999 || question.comparedValue < 0) return null;
-  return question;
+  return withRuntimeId(question, sequenceNumber);
 }
 
-function normalizeQuestion(question) {
+function normalizeQuestion(question, sequenceNumber) {
   if (!question) return null;
-  if (question.kind === "g4aU01LargeNumberReadingWritingConversion") return normalizeReadingWritingQuestion(question);
-  if (question.kind === "g4aU01NumericVsChineseNumberCompare") return normalizeNumericVsChineseComparison(question);
-  if (question.kind === "g4aU01ComparisonWordProblemTotal") return normalizeComparisonWordProblemTotal(question);
-  return question;
+  if (question.kind === "g4aU01SameDigitPlaceValueDifference") return normalizeSameDigitQuestion(question, sequenceNumber);
+  if (question.kind === "g4aU01LargeNumberReadingWritingConversion") return normalizeReadingWritingQuestion(question, sequenceNumber);
+  if (question.kind === "g4aU01NumericVsChineseNumberCompare") return normalizeNumericVsChineseComparison(question, sequenceNumber);
+  if (question.kind === "g4aU01ComparisonWordProblemTotal") return normalizeComparisonWordProblemTotal(question, sequenceNumber);
+  return withRuntimeId(question, sequenceNumber);
 }
 
 function convertUniquePoolErrors(errors = [], warnings = []) {
@@ -307,7 +337,7 @@ function generateCandidateQuestion(plan, patternSpecId, attempt, sequenceNumber)
   const generated = generateBaseG4AU01Questions(options);
   const converted = convertUniquePoolErrors(generated.errors ?? [], generated.warnings ?? []);
   return {
-    question: normalizeQuestion(generated.questions?.[0]),
+    question: normalizeQuestion(generated.questions?.[0], sequenceNumber),
     errors: converted.blockingErrors,
     warnings: converted.warnings
   };
