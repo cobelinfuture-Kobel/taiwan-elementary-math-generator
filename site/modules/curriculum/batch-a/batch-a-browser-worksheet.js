@@ -17,6 +17,7 @@ const DEFAULT_PRINT_LAYOUT = Object.freeze({
 });
 const G3A_U02_SOURCE_ID = "g3a_u02_3a02";
 const G4A_U01_SOURCE_ID = "g4a_u01_4a01";
+const G4A_U02_SOURCE_ID = "g4a_u02_4a02";
 const G4A_U01_TALL_TEXT_LAYOUT_PROFILES = Object.freeze({
   ps_g4a_u01_same_digit_place_value_difference: Object.freeze({ columns: 4, rowsPerPage: 8 }),
   ps_g4a_u01_place_value_composition_to_number: Object.freeze({ columns: 4, rowsPerPage: 5 }),
@@ -28,6 +29,14 @@ const G4A_U01_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES = Object.freeze({
   ps_g4a_u01_place_value_composition_to_number: Object.freeze({ columns: 4, rowsPerPage: 4 }),
   ps_g4a_u01_8digit_place_value_decomposition: Object.freeze({ columns: 4, rowsPerPage: 3 }),
   ps_g4a_u01_place_value_card_unit_model_composition: Object.freeze({ columns: 4, rowsPerPage: 6 })
+});
+const G4A_U02_TALL_TEXT_LAYOUT_PROFILES = Object.freeze({
+  ps_g4a_u02_digit_card_arrangement_product_max_min: Object.freeze({ columns: 3, rowsPerPage: 5 }),
+  ps_g4a_u02_near_hundred_multiplication_strategy: Object.freeze({ columns: 3, rowsPerPage: 5 })
+});
+const G4A_U02_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES = Object.freeze({
+  ps_g4a_u02_digit_card_arrangement_product_max_min: Object.freeze({ columns: 3, rowsPerPage: 4 }),
+  ps_g4a_u02_near_hundred_multiplication_strategy: Object.freeze({ columns: 3, rowsPerPage: 4 })
 });
 
 function cloneValue(value) {
@@ -57,6 +66,10 @@ function isG4AU01TallTextQuestion(question) {
   return question?.sourceId === G4A_U01_SOURCE_ID && Boolean(G4A_U01_TALL_TEXT_LAYOUT_PROFILES[patternSpecIdOf(question)]);
 }
 
+function isG4AU02TallTextQuestion(question) {
+  return question?.sourceId === G4A_U02_SOURCE_ID && Boolean(G4A_U02_TALL_TEXT_LAYOUT_PROFILES[patternSpecIdOf(question)]);
+}
+
 function hasLongTextQuestion(questions) {
   return questions.some((question) => question?.sourceId === G3A_U02_SOURCE_ID && (question?.kind === "wordProblemEstimation" || String(question?.blankedDisplayText ?? "").length >= 52));
 }
@@ -70,17 +83,14 @@ function mergePrintProfile(current, profile) {
   };
 }
 
-function resolveG4AU01TallTextProfile(questions, profiles = G4A_U01_TALL_TEXT_LAYOUT_PROFILES) {
+function resolveTallTextProfile(questions, sourceId, profiles) {
   let profile = null;
   for (const question of questions) {
-    if (question?.sourceId !== G4A_U01_SOURCE_ID) continue;
+    if (question?.sourceId !== sourceId) continue;
     const nextProfile = profiles[patternSpecIdOf(question)];
     if (!nextProfile) continue;
     profile = profile
-      ? {
-        columns: Math.min(profile.columns, nextProfile.columns),
-        rowsPerPage: Math.min(profile.rowsPerPage, nextProfile.rowsPerPage)
-      }
+      ? { columns: Math.min(profile.columns, nextProfile.columns), rowsPerPage: Math.min(profile.rowsPerPage, nextProfile.rowsPerPage) }
       : nextProfile;
   }
   return profile;
@@ -88,22 +98,26 @@ function resolveG4AU01TallTextProfile(questions, profiles = G4A_U01_TALL_TEXT_LA
 
 function normalizePrintLayoutForGeneratedQuestions(printLayout, questions, options = {}) {
   let normalized = printLayout;
-  if (hasLongTextQuestion(questions)) {
-    normalized = mergePrintProfile(normalized, { columns: 2, rowsPerPage: 8 });
-  }
-  const g4aTallTextProfile = resolveG4AU01TallTextProfile(
+  if (hasLongTextQuestion(questions)) normalized = mergePrintProfile(normalized, { columns: 2, rowsPerPage: 8 });
+  const g4aU01Profile = resolveTallTextProfile(
     questions,
+    G4A_U01_SOURCE_ID,
     options.answerKey === true ? G4A_U01_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES : G4A_U01_TALL_TEXT_LAYOUT_PROFILES
   );
-  if (g4aTallTextProfile) {
-    normalized = mergePrintProfile(normalized, g4aTallTextProfile);
-  }
+  if (g4aU01Profile) normalized = mergePrintProfile(normalized, g4aU01Profile);
+  const g4aU02Profile = resolveTallTextProfile(
+    questions,
+    G4A_U02_SOURCE_ID,
+    options.answerKey === true ? G4A_U02_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES : G4A_U02_TALL_TEXT_LAYOUT_PROFILES
+  );
+  if (g4aU02Profile) normalized = mergePrintProfile(normalized, g4aU02Profile);
   return normalized;
 }
 
 function displayModelForTextQuestion(question, questionNumber, showQuestionNumbers = true) {
   const avoidPageBreakInside = (question.sourceId === G3A_U02_SOURCE_ID && String(question.blankedDisplayText ?? "").length >= 52)
-    || isG4AU01TallTextQuestion(question);
+    || isG4AU01TallTextQuestion(question)
+    || isG4AU02TallTextQuestion(question);
   return {
     questionId: question.id,
     questionNumber,
@@ -131,7 +145,7 @@ function answerKeyItemForTextQuestion(question, displayModel) {
     metadataSnapshot: cloneValue(question.metadata),
     layoutHints: {
       estimatedTextLength: String(`${displayModel.blankedDisplayText ?? ""}${question.answerText ?? ""}`).length,
-      avoidPageBreakInside: displayModel.layoutHints?.avoidPageBreakInside === true || isG4AU01TallTextQuestion(question)
+      avoidPageBreakInside: displayModel.layoutHints?.avoidPageBreakInside === true || isG4AU01TallTextQuestion(question) || isG4AU02TallTextQuestion(question)
     }
   };
 }
