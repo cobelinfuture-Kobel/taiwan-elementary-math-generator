@@ -349,7 +349,7 @@ export function generateG4AU02NumericQuestions(options = {}) {
     let generatedForPattern = 0;
     const maxAttempts = Math.max(entry.questionCount * 8, 80);
     for (let attempt = 1; generatedForPattern < entry.questionCount && attempt <= maxAttempts; attempt += 1) {
-      const sequenceNumber = questions.length + attempt;
+      const sequenceNumber = attempt;
       const question = generateQuestion(entry.patternSpecId, sequenceNumber, `${plan.generationSeed}:${entry.patternSpecId}:${attempt}`);
       if (!question) {
         errors.push(issue("g4a_u02_question_generation_failed", entry.patternSpecId, `Failed to generate ${entry.patternSpecId}.`));
