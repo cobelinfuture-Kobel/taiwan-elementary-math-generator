@@ -5,6 +5,16 @@ import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curri
 import { BATCH_A_RESOLVER_SELECTION_MODES } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 
 const sourceId = "g3a_u02_3a02";
+const mixedRows = Object.freeze([
+  ["kp_g3a_u02_estimate_nearest_thousand", "pg_g3a_u02_estimate_nearest_thousand"],
+  ["kp_g3a_u02_word_problem_estimation_add_sub", "pg_g3a_u02_word_problem_estimation_add_sub"],
+  ["kp_g3a_u02_add_missing_digit_operand", "pg_g3a_u02_add_missing_digit_operand"],
+  ["kp_g3a_u02_sub_missing_digit_operand", "pg_g3a_u02_sub_missing_digit_operand"],
+  ["kp_g3a_u02_add_missing_digit_equation", "pg_g3a_u02_add_missing_digit_equation"],
+  ["kp_g3a_u02_sub_missing_digit_equation", "pg_g3a_u02_sub_missing_digit_equation"],
+  ["kp_g3a_u02_sub_middle_missing_digit", "pg_g3a_u02_sub_middle_missing_digit"],
+  ["kp_g3a_u02_continuous_borrow_zero", "pg_g3a_u02_continuous_borrow_zero"]
+]);
 
 function promptFor(question) {
   return String(question.blankedDisplayText ?? question.duplicateKey ?? question.id);
@@ -13,7 +23,9 @@ function promptFor(question) {
 test("S45B G3A-U02 mixed worksheet avoids exact duplicate prompts and uses long-text-safe layout", () => {
   const result = buildBatchABrowserWorksheetDocument({
     sourceId,
-    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT,
+    selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
+    selectedKnowledgePointIds: mixedRows.map((row) => row[0]),
+    selectedPatternGroupIds: mixedRows.map((row) => row[1]),
     questionCount: 200,
     ordering: "shuffleAcrossPatterns",
     generationSeed: "s45b-output-quality-fullfix",
@@ -22,6 +34,7 @@ test("S45B G3A-U02 mixed worksheet avoids exact duplicate prompts and uses long-
   });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.generatedQuestions.length, 200);
+  assert.equal(result.worksheetDocument.generatedQuestions.some((question) => question.kind === "wordProblemEstimation"), true);
   assert.equal(result.worksheetDocument.printOptions.columns, 2);
   assert.equal(result.worksheetDocument.printOptions.rowsPerPage, 8);
   assert.equal(result.worksheetDocument.printOptions.pageBreakMode, "avoidLongTextCards");
