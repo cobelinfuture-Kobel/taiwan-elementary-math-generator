@@ -28,6 +28,12 @@ const KP_IDS = Object.freeze([
   "kp_g4a_u08_left_to_right_same_level",
   "kp_g4a_u08_comprehensive_order_of_operations"
 ]);
+const APP_KP_IDS = Object.freeze([
+  "kp_g4a_u08_app_add_sub_sequence",
+  "kp_g4a_u08_app_parentheses_grouping",
+  "kp_g4a_u08_app_mul_div_sequence",
+  "kp_g4a_u08_app_mul_div_before_add_sub"
+]);
 const COMPREHENSIVE_KP_ID = "kp_g4a_u08_comprehensive_order_of_operations";
 const SPEC_IDS = Object.freeze([
   "ps_g4a_u08_parentheses_add_sub",
@@ -113,13 +119,14 @@ function evaluate(tokens) {
   return stack[0];
 }
 
-test("G4A-U08 exposes four operation-order KnowledgePoints", () => {
+test("G4A-U08 exposes four numeric and four Phase2A application KnowledgePoints", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 4);
+  assert.equal(availability.visibleCount, 8);
   assert.equal(availability.hiddenPendingCount, 0);
   assert.equal(availability.notSelectableCount, 0);
   const visibleIds = listVisibleBatchAKnowledgePoints().filter((kp) => kp.sourceId === SOURCE_ID).map((kp) => kp.knowledgePointId);
-  assert.deepEqual(visibleIds, KP_IDS);
+  assert.deepEqual(visibleIds.filter((kpId) => KP_IDS.includes(kpId)), KP_IDS);
+  assert.deepEqual(visibleIds.filter((kpId) => APP_KP_IDS.includes(kpId)), APP_KP_IDS);
 });
 
 test("G4A-U08 source-unit generation produces ten PatternSpecs", () => {
