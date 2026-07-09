@@ -127,6 +127,11 @@ function validateG4AU08Expression(question = {}) {
   return { ok: errors.length === 0, errors, warnings: [] };
 }
 
+function canUseUnitLabel(question, definition) {
+  if (definition.storyTemplateId === "tpl_app_divide_by_group_product" && question.unitLabel === "份") return true;
+  return isUnitLabelAllowed(question.unitDomain, question.unitLabel);
+}
+
 function canUseFinalUnitLabel(question, definition) {
   if (definition.storyTemplateId === "tpl_app_divide_by_group_product" && question.finalUnitLabel === "份") return true;
   return isUnitLabelAllowed(question.unitDomain, question.finalUnitLabel);
@@ -149,7 +154,7 @@ function validateG4AU08Application(question = {}) {
   if (definition && question.storyTemplateId !== definition.storyTemplateId) errors.push(issue("batch_a_g4a_u08_app_template_mismatch", "storyTemplateId"));
   if (!isUnitDomainAllowed(question.unitDomain)) errors.push(issue("batch_a_g4a_u08_app_unit_domain_invalid", "unitDomain"));
   if (definition && !definition.allowedUnitDomains.includes(question.unitDomain)) errors.push(issue("batch_a_g4a_u08_app_unit_domain_not_allowed", "unitDomain"));
-  if (!isUnitLabelAllowed(question.unitDomain, question.unitLabel)) errors.push(issue("batch_a_g4a_u08_app_unit_label_invalid", "unitLabel"));
+  if (definition && !canUseUnitLabel(question, definition)) errors.push(issue("batch_a_g4a_u08_app_unit_label_invalid", "unitLabel"));
   if (definition && !canUseFinalUnitLabel(question, definition)) errors.push(issue("batch_a_g4a_u08_app_final_unit_invalid", "finalUnitLabel"));
   if (!Array.isArray(question.equationTokens) || question.equationTokens.length < 3) {
     errors.push(issue("batch_a_g4a_u08_app_equation_tokens_invalid", "equationTokens"));
