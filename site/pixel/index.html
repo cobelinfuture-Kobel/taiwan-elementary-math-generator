@@ -9,17 +9,39 @@
 <body class="pixel-page" data-ui-version="pixel-beta">
   <main class="pixel-shell" aria-label="像素風數學出題介面">
     <header class="pixel-hero">
-      <p class="pixel-eyebrow">Pixel UI Beta｜Parallel version</p>
-      <h1>小學數學出題小屋</h1>
-      <p class="pixel-lede">這是平行測試版：保留標準版功能，同時建立像素風介面。出題核心將共用現有 Batch A generator / validator / renderer。</p>
-      <nav class="pixel-version-nav" aria-label="版本切換">
-        <a href="../index.html">回到標準版</a>
-      </nav>
+      <div class="pixel-hero__skyline" aria-hidden="true">
+        <span class="pixel-cloud pixel-cloud--one"></span>
+        <span class="pixel-cloud pixel-cloud--two"></span>
+        <span class="pixel-mountain pixel-mountain--one"></span>
+        <span class="pixel-mountain pixel-mountain--two"></span>
+        <span class="pixel-tree pixel-tree--one"></span>
+        <span class="pixel-tree pixel-tree--two"></span>
+      </div>
+      <div class="pixel-hero__content">
+        <p class="pixel-eyebrow">Pixel UI Beta｜Parallel version</p>
+        <h1>小學數學出題小屋</h1>
+        <p class="pixel-lede">這是平行測試版：保留標準版功能，同時建立像素風介面。出題核心將共用現有 Batch A generator / validator / renderer。</p>
+        <nav class="pixel-version-nav" aria-label="版本切換">
+          <a href="../index.html">回到標準版</a>
+          <span class="pixel-badge">/pixel/ beta</span>
+          <span class="pixel-badge pixel-badge--safe">Classic 保留</span>
+        </nav>
+      </div>
     </header>
+
+    <section class="pixel-status-row" aria-label="版本狀態">
+      <div class="pixel-status-chip">共用 Registry</div>
+      <div class="pixel-status-chip">共用 Generator</div>
+      <div class="pixel-status-chip">共用 Validator</div>
+      <div class="pixel-status-chip pixel-status-chip--muted">產生流程：下一階段接入</div>
+    </section>
 
     <section class="pixel-layout" aria-label="Pixel UI scaffold">
       <aside class="pixel-panel pixel-panel--sidebar" aria-label="篩選條件">
-        <h2>篩選條件</h2>
+        <div class="pixel-panel__title-row">
+          <span class="pixel-icon" aria-hidden="true">▥</span>
+          <h2>篩選條件</h2>
+        </div>
         <label class="pixel-field">
           <span>年級 / 單元</span>
           <select id="pixel-source-select" name="pixelSourceId"></select>
@@ -29,10 +51,18 @@
           <span>可選知識點</span>
           <strong id="pixel-kp-count">0</strong>
         </div>
+        <div class="pixel-mini-map" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+        </div>
       </aside>
 
       <section class="pixel-panel pixel-panel--main" aria-label="考卷設定">
-        <h2>考卷設定</h2>
+        <div class="pixel-panel__title-row">
+          <span class="pixel-icon" aria-hidden="true">✎</span>
+          <h2>考卷設定</h2>
+        </div>
         <div class="pixel-setting-grid">
           <label class="pixel-field">
             <span>題數</span>
@@ -50,20 +80,36 @@
             <span>包含答案頁</span>
           </label>
         </div>
+        <div class="pixel-workbench" aria-label="工作台示意">
+          <div class="pixel-workbench__card">
+            <strong>目前階段</strong>
+            <span>S44C 視覺外殼</span>
+          </div>
+          <div class="pixel-workbench__card">
+            <strong>下一階段</strong>
+            <span>S45/S46 接入共用出題流程</span>
+          </div>
+        </div>
         <button class="pixel-button pixel-button--primary" type="button" disabled>產生考卷｜下一階段接入</button>
-        <p class="pixel-help">S44B 只建立 /pixel/ 平行入口，不複製 generator 或 validator。S45/S46 會接共用出題流程。</p>
+        <p class="pixel-help">S44C 只美化平行 UI shell，不複製 generator 或 validator。實際出題流程保留給 shared-core bridge milestone。</p>
       </section>
 
       <aside class="pixel-panel pixel-panel--preview" aria-label="預覽摘要">
-        <h2>題目預覽</h2>
+        <div class="pixel-panel__title-row">
+          <span class="pixel-icon" aria-hidden="true">▣</span>
+          <h2>題目預覽</h2>
+        </div>
         <p id="pixel-preview-meta">尚未接入產生流程。</p>
         <ol class="pixel-sample-list" aria-label="示意題目">
-          <li>4836 + 1957 = □</li>
-          <li>7052 - 1869 = □</li>
-          <li>36 × 4 = □</li>
-          <li>84 ÷ 7 = □</li>
+          <li><span>4836 + 1957</span><strong>= □</strong></li>
+          <li><span>7052 - 1869</span><strong>= □</strong></li>
+          <li><span>36 × 4</span><strong>= □</strong></li>
+          <li><span>84 ÷ 7</span><strong>= □</strong></li>
         </ol>
-        <div class="pixel-mascot" aria-hidden="true">▣✎▣</div>
+        <div class="pixel-mascot" aria-hidden="true">
+          <span class="pixel-mascot__face">◕‿◕</span>
+          <span class="pixel-mascot__label">小幫手</span>
+        </div>
       </aside>
     </section>
   </main>
