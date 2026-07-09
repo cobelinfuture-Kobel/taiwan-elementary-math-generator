@@ -2,7 +2,7 @@ export const G4A_U08_PHASE2A_CONVERSION_TARGET_RATE = 0.4;
 
 export const UNIT_DOMAINS = Object.freeze({
   money: Object.freeze({ unitLabels: Object.freeze(["元"]), conversionEligible: false }),
-  count_items: Object.freeze({ unitLabels: Object.freeze(["個", "箱", "盒", "包", "片", "張", "支", "顆", "人", "班"]), conversionEligible: false }),
+  count_items: Object.freeze({ unitLabels: Object.freeze(["個", "箱", "盒", "包", "片", "張", "支", "顆", "人", "班", "條", "本"]), conversionEligible: false }),
   capacity: Object.freeze({ unitLabels: Object.freeze(["L", "mL"]), conversionEligible: true }),
   weight: Object.freeze({ unitLabels: Object.freeze(["kg", "g"]), conversionEligible: true }),
   length: Object.freeze({ unitLabels: Object.freeze(["km", "m", "cm", "mm"]), conversionEligible: true }),
