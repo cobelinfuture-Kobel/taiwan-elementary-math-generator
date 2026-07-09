@@ -7,7 +7,7 @@ import {
   createConfigState
 } from "../../site/assets/browser/state/config-state.js";
 
-const CURRENT_VISIBLE_KP_COUNT = 75;
+const CURRENT_VISIBLE_KP_COUNT = 79;
 
 test("Batch A selector state defaults to source-unit mode with current visible KP counts", () => {
   const state = createConfigState();
@@ -23,6 +23,7 @@ test("Batch A selector state defaults to source-unit mode with current visible K
   assert.equal(state.batchA.selectorAvailability.bySourceId.g4a_u01_4a01.visibleCount, 18);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g4a_u02_4a02.visibleCount, 9);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g4a_u04_4a04.visibleCount, 7);
+  assert.equal(state.batchA.selectorAvailability.bySourceId.g4a_u08_4a08.visibleCount, 4);
   assert.equal(state.batchA.selectorAvailability.hiddenPendingCount, 0);
   assert.equal(state.batchA.selectorAvailability.notSelectableCount, 0);
 });
