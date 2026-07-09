@@ -1,48 +1,49 @@
-import { listBatchASourceUnits } from "../modules/curriculum/batch-a/source-units.js";
-import { listVisibleBatchAKnowledgePoints } from "../modules/curriculum/registry/batch-a-selector-extension.js";
+import {
+  getPixelRegistrySnapshot,
+  getPixelSourceSummary,
+  listPixelSourceOptions
+} from "./pixel-registry-bridge.js";
 
 const sourceSelect = document.getElementById("pixel-source-select");
 const sourceSummary = document.getElementById("pixel-source-summary");
 const kpCount = document.getElementById("pixel-kp-count");
 const previewMeta = document.getElementById("pixel-preview-meta");
 
-const sourceUnits = listBatchASourceUnits();
-const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
+const sourceOptions = listPixelSourceOptions();
+const registrySnapshot = getPixelRegistrySnapshot();
 
-function visibleKnowledgePointCountForSource(sourceId) {
-  return visibleKnowledgePoints.filter((entry) => entry.sourceId === sourceId).length;
-}
-
-function selectedSourceUnit() {
-  return sourceUnits.find((entry) => entry.sourceId === sourceSelect?.value) ?? sourceUnits[0] ?? null;
+function selectedSourceSummary() {
+  return getPixelSourceSummary(sourceSelect?.value) ?? getPixelSourceSummary(sourceOptions[0]?.sourceId) ?? null;
 }
 
 function renderSourceOptions() {
   if (!sourceSelect) return;
   sourceSelect.replaceChildren();
-  for (const unit of sourceUnits) {
+  for (const unit of sourceOptions) {
     const option = document.createElement("option");
     option.value = unit.sourceId;
-    option.textContent = `${unit.unitCode} ${unit.title}`;
+    option.textContent = unit.label;
+    option.dataset.visibleKnowledgePointCount = String(unit.visibleKnowledgePointCount);
     sourceSelect.append(option);
   }
 }
 
 function renderSummary() {
-  const unit = selectedSourceUnit();
-  if (!unit) {
+  const summary = selectedSourceSummary();
+  if (!summary) {
     if (sourceSummary) sourceSummary.textContent = "尚未讀取到 Batch A source unit。";
     if (kpCount) kpCount.textContent = "0";
     if (previewMeta) previewMeta.textContent = "尚未接入產生流程。";
     return;
   }
 
-  const count = visibleKnowledgePointCountForSource(unit.sourceId);
-  if (sourceSummary) sourceSummary.textContent = `${unit.unitCode}｜${unit.title}｜sourceId: ${unit.sourceId}`;
-  if (kpCount) kpCount.textContent = String(count);
-  if (previewMeta) previewMeta.textContent = `目前讀取 ${unit.unitCode}，可選知識點 ${count} 個。S44B 僅顯示 scaffold，尚未產生 worksheet。`;
+  if (sourceSummary) sourceSummary.textContent = summary.summaryText;
+  if (kpCount) kpCount.textContent = String(summary.visibleKnowledgePoints.length);
+  if (previewMeta) previewMeta.textContent = summary.previewText;
 }
 
 renderSourceOptions();
 renderSummary();
 sourceSelect?.addEventListener("change", renderSummary);
+document.body.dataset.pixelRegistrySourceCount = String(registrySnapshot.sourceCount);
+document.body.dataset.pixelRegistryVisibleKnowledgePointCount = String(registrySnapshot.visibleKnowledgePointCount);
