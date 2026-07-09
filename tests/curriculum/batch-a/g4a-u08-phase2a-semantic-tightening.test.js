@@ -30,7 +30,12 @@ const FORBIDDEN_SEMANTIC_FRAGMENTS = Object.freeze([
   "每份作品需要95kg",
   "每份跑道標線原本需要140m",
   "每份材料包需要5組，每組用5mL的飲用水",
-  "每份材料包需要2組，每組用5kg的飼料"
+  "每份材料包需要2組，每組用5kg的飼料",
+  "每份需要5杯，每杯倒入5mL",
+  "每份需要2袋，每袋裝5g",
+  "每份需要4袋，每袋裝5g",
+  "每小杯倒入5mL",
+  "每小袋裝5g"
 ]);
 
 function firstGroupId(kpId) {
