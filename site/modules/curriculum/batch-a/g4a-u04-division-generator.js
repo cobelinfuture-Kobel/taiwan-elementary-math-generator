@@ -137,7 +137,7 @@ function selectCandidate(definition, sequenceNumber, seed) {
 function makeLongDivisionQuestion(definition, sequenceNumber, seed) {
   const selected = selectCandidate(definition, sequenceNumber, seed);
   const answerText = answerTextFor(selected.quotient, selected.remainder);
-  const promptText = `${definition.title}：${selected.dividend} ÷ ${selected.divisor} = ______`;
+  const promptText = `${selected.dividend} ÷ ${selected.divisor} = ______`;
   return {
     id: `${definition.patternSpecId}-${sequenceNumber}`,
     patternSpecId: definition.patternSpecId,
@@ -170,7 +170,7 @@ function makeDivisionCheckQuestion(definition, sequenceNumber, seed) {
   const remainder = 1 + (mix32(seedValue + 31) % (divisor - 1));
   const dividend = divisor * quotient + remainder;
   const answerText = `${divisor} × ${quotient} + ${remainder} = ${dividend}`;
-  const promptText = `${dividend} ÷ ${divisor} = 商 ${quotient}，餘 ${remainder}。驗算：${divisor} × ${quotient} + ${remainder} = ______`;
+  const promptText = `${dividend} ÷ ${divisor} = 商 ${quotient}，餘 ${remainder}。如何驗算？`;
   return {
     id: `${definition.patternSpecId}-${sequenceNumber}`,
     patternSpecId: definition.patternSpecId,
