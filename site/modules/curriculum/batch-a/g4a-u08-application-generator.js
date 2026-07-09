@@ -35,6 +35,57 @@ const TEMPLATE_KP = Object.freeze({
   tpl_app_subtract_divided_amount_or_add_divided_amount: "kp_g4a_u08_app_mul_div_before_add_sub"
 });
 
+const SCENARIO_BANK = Object.freeze({
+  money: Object.freeze([
+    Object.freeze({ scene: "校外教學", item: "門票", packageNoun: "張門票", groupNoun: "門票", extraVerb: "加購" }),
+    Object.freeze({ scene: "文具店", item: "筆記本", packageNoun: "本筆記本", groupNoun: "筆記本", extraVerb: "加買" }),
+    Object.freeze({ scene: "麵包店", item: "麵包", packageNoun: "個麵包", groupNoun: "麵包", extraVerb: "多買" }),
+    Object.freeze({ scene: "園遊會", item: "點券", packageNoun: "張點券", groupNoun: "點券", extraVerb: "加購" }),
+    Object.freeze({ scene: "公車站", item: "車票", packageNoun: "張車票", groupNoun: "車票", extraVerb: "加買" }),
+    Object.freeze({ scene: "明信片小店", item: "明信片", packageNoun: "張明信片", groupNoun: "明信片", extraVerb: "多買" })
+  ]),
+  count_items: Object.freeze([
+    Object.freeze({ scene: "圖書館活動", item: "書籤", container: "包", groupNoun: "書籤", perPack: "包書籤", extraVerb: "加印" }),
+    Object.freeze({ scene: "美術課", item: "貼紙", container: "張", groupNoun: "貼紙", perPack: "疊貼紙", extraVerb: "補發" }),
+    Object.freeze({ scene: "班級獎勵", item: "獎勵卡", container: "張", groupNoun: "獎勵卡", perPack: "盒獎勵卡", extraVerb: "補進" }),
+    Object.freeze({ scene: "運動會", item: "毛巾", container: "條", groupNoun: "毛巾", perPack: "箱毛巾", extraVerb: "加準備" }),
+    Object.freeze({ scene: "自然課", item: "實驗卡", container: "張", groupNoun: "實驗卡", perPack: "組實驗卡", extraVerb: "加印" }),
+    Object.freeze({ scene: "積木角", item: "積木", container: "個", groupNoun: "積木", perPack: "盒積木", extraVerb: "補進" })
+  ]),
+  capacity: Object.freeze([
+    Object.freeze({ scene: "運動會補給站", item: "運動飲料", container: "桶", groupNoun: "運動飲料", perPack: "箱運動飲料", extraVerb: "再倒入" }),
+    Object.freeze({ scene: "生日會", item: "果汁", container: "壺", groupNoun: "果汁", perPack: "壺果汁", extraVerb: "多準備" }),
+    Object.freeze({ scene: "午餐廚房", item: "湯", container: "鍋", groupNoun: "湯", perPack: "鍋湯", extraVerb: "再加入" }),
+    Object.freeze({ scene: "教室飲水區", item: "飲用水", container: "桶", groupNoun: "飲用水", perPack: "桶飲用水", extraVerb: "補充" }),
+    Object.freeze({ scene: "園藝課", item: "澆花水", container: "桶", groupNoun: "澆花水", perPack: "桶澆花水", extraVerb: "再裝" }),
+    Object.freeze({ scene: "早餐店", item: "豆漿", container: "瓶", groupNoun: "豆漿", perPack: "箱豆漿", extraVerb: "多準備" })
+  ]),
+  weight: Object.freeze([
+    Object.freeze({ scene: "烘焙社", item: "麵粉", container: "袋", groupNoun: "麵粉", perPack: "袋麵粉", extraVerb: "再加入" }),
+    Object.freeze({ scene: "午餐廚房", item: "白米", container: "袋", groupNoun: "白米", perPack: "袋白米", extraVerb: "補進" }),
+    Object.freeze({ scene: "市場採買", item: "蔬菜", container: "籃", groupNoun: "蔬菜", perPack: "籃蔬菜", extraVerb: "多買" }),
+    Object.freeze({ scene: "資源回收", item: "回收紙", container: "捆", groupNoun: "回收紙", perPack: "捆回收紙", extraVerb: "再收集" }),
+    Object.freeze({ scene: "寵物照顧", item: "飼料", container: "包", groupNoun: "飼料", perPack: "包飼料", extraVerb: "補充" }),
+    Object.freeze({ scene: "郵局寄件", item: "包裹", container: "件", groupNoun: "包裹", perPack: "箱包裹", extraVerb: "加寄" })
+  ]),
+  length: Object.freeze([
+    Object.freeze({ scene: "美術課", item: "緞帶", container: "段", groupNoun: "緞帶", perPack: "卷緞帶", extraVerb: "再剪" }),
+    Object.freeze({ scene: "園藝課", item: "水管", container: "段", groupNoun: "水管", perPack: "卷水管", extraVerb: "接上" }),
+    Object.freeze({ scene: "布置教室", item: "紙膠帶", container: "段", groupNoun: "紙膠帶", perPack: "卷紙膠帶", extraVerb: "再貼" }),
+    Object.freeze({ scene: "童軍活動", item: "繩子", container: "段", groupNoun: "繩子", perPack: "捆繩子", extraVerb: "加接" }),
+    Object.freeze({ scene: "木工角", item: "木條", container: "段", groupNoun: "木條", perPack: "束木條", extraVerb: "再鋸" }),
+    Object.freeze({ scene: "運動場", item: "跑道標線", container: "段", groupNoun: "跑道標線", perPack: "卷標線帶", extraVerb: "再畫" })
+  ]),
+  time: Object.freeze([
+    Object.freeze({ scene: "閱讀課", item: "閱讀時間", container: "次", groupNoun: "閱讀時間", perPack: "段閱讀時間", extraVerb: "再安排" }),
+    Object.freeze({ scene: "籃球隊", item: "練球時間", container: "次", groupNoun: "練球時間", perPack: "段練球時間", extraVerb: "加練" }),
+    Object.freeze({ scene: "資訊課", item: "影片播放時間", container: "段", groupNoun: "影片播放時間", perPack: "段影片", extraVerb: "再播放" }),
+    Object.freeze({ scene: "科學社", item: "實驗觀察時間", container: "次", groupNoun: "實驗觀察時間", perPack: "段觀察時間", extraVerb: "延長" }),
+    Object.freeze({ scene: "家政課", item: "烘烤時間", container: "次", groupNoun: "烘烤時間", perPack: "段烘烤時間", extraVerb: "再烤" }),
+    Object.freeze({ scene: "平板充電站", item: "充電時間", container: "次", groupNoun: "充電時間", perPack: "段充電時間", extraVerb: "延長" })
+  ])
+});
+
 function issue(code, path, message, severity = "error") {
   return { code, severity, path, message };
 }
@@ -110,11 +161,13 @@ function spreadCounts(patternSpecIds, questionCount) {
   }).filter((entry) => entry.questionCount > 0);
 }
 
-function appMetadata(definition) {
+function appMetadata(definition, scenario) {
   return {
     patternId: definition.patternSpecId,
     sourceId: definition.sourceId,
-    patternTags: ["batch_a", "browser_bridge", definition.sourceId, definition.patternSpecId, "phase2a_application"],
+    scenarioScene: scenario.scene,
+    scenarioItem: scenario.item,
+    patternTags: ["batch_a", "browser_bridge", definition.sourceId, definition.patternSpecId, "phase2a_application", `scene:${scenario.scene}`],
     skillTags: [...definition.skillTags],
     difficultyTags: [...definition.difficultyTags],
     curriculumNodeIds: [definition.sourceId],
@@ -129,28 +182,21 @@ function selectUnitDomain(definition, sequenceNumber, conversionRequired) {
   return pool[(sequenceNumber - 1) % pool.length] ?? "count_items";
 }
 
+function scenarioFor(unitDomain, sequenceNumber) {
+  const pool = SCENARIO_BANK[unitDomain] ?? SCENARIO_BANK.count_items;
+  return pool[(sequenceNumber - 1) % pool.length];
+}
+
 function defaultUnitLabel(unitDomain, sequenceNumber) {
   const labels = {
     money: ["元"],
-    count_items: ["個", "盒", "包", "張", "支"],
+    count_items: ["個", "張", "條", "本", "包"],
     capacity: ["mL", "L"],
     weight: ["g", "kg"],
     length: ["cm", "m", "mm"],
     time: ["分", "秒", "時"]
   }[unitDomain] ?? ["個"];
   return labels[(sequenceNumber - 1) % labels.length];
-}
-
-function contextNoun(unitDomain, sequenceNumber) {
-  const nouns = {
-    money: ["門票", "寄物櫃", "明信片"],
-    count_items: ["貼紙", "粉筆", "晶片", "毛巾"],
-    capacity: ["飲料", "藥水", "水箱水", "果汁"],
-    weight: ["麵粉", "藥粉", "包裹", "食材"],
-    length: ["電線", "緞帶", "道路", "布料"],
-    time: ["練習時間", "機器運轉時間", "充電時間", "課程時間"]
-  }[unitDomain] ?? ["物品"];
-  return nouns[(sequenceNumber - 1) % nouns.length];
 }
 
 function measuredValue(unitDomain, sequenceNumber, fallback) {
@@ -176,11 +222,19 @@ function makeMeasurement({ unitDomain, sequenceNumber, baseValue, conversionRequ
   return { displayValue: baseValue, displayUnitLabel: unitLabel, equationValue: baseValue, finalUnitLabel: unitLabel, conversion: null };
 }
 
+function valueText(value, unitLabel) {
+  return `${value} ${unitLabel}`;
+}
+
+function prefixConversion(conversion) {
+  return conversion ? `${conversion.lineText}。` : "";
+}
+
 function buildTemplateData(definition, sequenceNumber, seed, conversionRequired) {
   const seedValue = mix32(hashSeed(`${seed}:${definition.patternSpecId}:${sequenceNumber}`));
   const n = (offset, min, max) => randomInt(mix32(seedValue + offset + sequenceNumber * 37), min, max);
   const unitDomain = selectUnitDomain(definition, sequenceNumber, conversionRequired);
-  const noun = contextNoun(unitDomain, sequenceNumber);
+  const scenario = scenarioFor(unitDomain, sequenceNumber + G4A_U08_PHASE2A_PATTERN_SPEC_IDS.indexOf(definition.patternSpecId));
   const first = (baseValue) => makeMeasurement({ unitDomain, sequenceNumber, baseValue, conversionRequired });
   let tokens;
   let prompt;
@@ -198,7 +252,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
       quantities = { a: aM.displayValue, b, c };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}${noun}分成三批，分別是 ${aM.displayValue} ${aM.displayUnitLabel}、${b} ${finalUnitLabel} 和 ${c} ${finalUnitLabel}。總共是多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}準備了三${scenario.container}${scenario.item}，分別是 ${valueText(aM.displayValue, aM.displayUnitLabel)}、${valueText(b, finalUnitLabel)} 和 ${valueText(c, finalUnitLabel)}。一共有多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_add_then_subtract_state_change": {
@@ -209,7 +263,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
       quantities = { start: aM.displayValue, increase: b, decrease: c };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}${noun}原本有 ${aM.displayValue} ${aM.displayUnitLabel}，又增加 ${b} ${finalUnitLabel}，後來用掉 ${c} ${finalUnitLabel}，還剩多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}原本有 ${valueText(aM.displayValue, aM.displayUnitLabel)} 的${scenario.item}，又${scenario.extraVerb} ${valueText(b, finalUnitLabel)}，後來用掉 ${valueText(c, finalUnitLabel)}，還剩多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_subtract_then_add_state_change": {
@@ -220,7 +274,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
       quantities = { start: aM.displayValue, decrease: Math.min(b, aM.equationValue), increase: c };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}${noun}原本有 ${aM.displayValue} ${aM.displayUnitLabel}，先用掉 ${quantities.decrease} ${finalUnitLabel}，後來補進 ${c} ${finalUnitLabel}，現在有多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}原本有 ${valueText(aM.displayValue, aM.displayUnitLabel)} 的${scenario.item}，先用掉 ${valueText(quantities.decrease, finalUnitLabel)}，後來${scenario.extraVerb} ${valueText(c, finalUnitLabel)}，現在有多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_subtract_twice_state_change": {
@@ -233,7 +287,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
       quantities = { start: aM.displayValue, firstUse: safeB, secondUse: safeC };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}${noun}原本有 ${aM.displayValue} ${aM.displayUnitLabel}，上午用掉 ${safeB} ${finalUnitLabel}，下午又用掉 ${safeC} ${finalUnitLabel}，還剩多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}原本有 ${valueText(aM.displayValue, aM.displayUnitLabel)} 的${scenario.item}，上午用掉 ${valueText(safeB, finalUnitLabel)}，下午又用掉 ${valueText(safeC, finalUnitLabel)}，還剩多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_adjusted_amount_then_subtract": {
@@ -244,7 +298,8 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = outerM.finalUnitLabel;
       conversion = outerM.conversion;
       quantities = { outer: outerM.displayValue, base, decrease };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}標準${noun}是 ${base} ${finalUnitLabel}，調整後少 ${decrease} ${finalUnitLabel}。用 ${outerM.displayValue} ${outerM.displayUnitLabel} 扣除調整後的量，還剩多少 ${finalUnitLabel}？`;
+      if (unitDomain === "money") prompt = `${scenario.scene}每${scenario.packageNoun}原價 ${base} 元，活動折扣 ${decrease} 元。付 ${outerM.displayValue} 元，找回多少元？`;
+      else prompt = `${prefixConversion(conversion)}${scenario.scene}每份${scenario.item}原本需要 ${valueText(base, finalUnitLabel)}，調整後少用 ${valueText(decrease, finalUnitLabel)}。現有 ${valueText(outerM.displayValue, outerM.displayUnitLabel)}，扣掉調整後的一份，還剩多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_divide_by_group_product": {
@@ -255,7 +310,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = totalM.finalUnitLabel;
       conversion = totalM.conversion;
       quantities = { total: totalM.displayValue, groups, perGroup };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}每份${noun}需要 ${groups} 組，每組 ${perGroup} ${finalUnitLabel}。共有 ${totalM.displayValue} ${totalM.displayUnitLabel}，可以分成幾份？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}每份材料包需要 ${groups} 組，每組用 ${valueText(perGroup, finalUnitLabel)} 的${scenario.item}。共有 ${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份材料包？`;
       finalUnitLabel = "份";
       break;
     }
@@ -268,7 +323,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = unitM.finalUnitLabel;
       conversion = unitM.conversion;
       quantities = { unit: unitM.displayValue, planned, cancelled, extra };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}每份${noun}需要 ${unitM.displayValue} ${unitM.displayUnitLabel}，原本要做 ${planned} 份，後來取消 ${cancelled} 份，又多準備 ${extra} ${finalUnitLabel}，共需要多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}每份作品需要 ${valueText(unitM.displayValue, unitM.displayUnitLabel)} 的${scenario.item}，原本要做 ${planned} 份，後來取消 ${cancelled} 份，又${scenario.extraVerb} ${valueText(extra, finalUnitLabel)}，共需要多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_multiply_then_share": {
@@ -279,7 +334,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = perBoxM.finalUnitLabel;
       conversion = perBoxM.conversion;
       quantities = { boxes, perBox: perBoxM.displayValue, groups };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}有 ${boxes} 盒${noun}，每盒有 ${perBoxM.displayValue} ${perBoxM.displayUnitLabel}，平均分給 ${groups} 組，每組分到多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}有 ${boxes} ${scenario.perPack}，每${scenario.perPack.slice(0, 1)}有 ${valueText(perBoxM.displayValue, perBoxM.displayUnitLabel)}，平均分給 ${groups} 組，每組分到多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_unit_rate_then_scale": {
@@ -291,7 +346,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = perUnitM.finalUnitLabel;
       conversion = perUnitM.conversion;
       quantities = { total: conversion ? total / (conversion.convertedValue / perUnitM.displayValue) : total, knownUnits, targetUnits };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}${knownUnits} 份${noun}共有 ${quantities.total} ${perUnitM.displayUnitLabel}，照這樣計算，${targetUnits} 份有多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}${knownUnits} 份${scenario.item}共需要 ${valueText(quantities.total, perUnitM.displayUnitLabel)}，照這樣計算，${targetUnits} 份需要多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_divide_then_divide": {
@@ -303,7 +358,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = perPersonM.finalUnitLabel;
       conversion = perPersonM.conversion;
       quantities = { total: conversion ? total / (conversion.convertedValue / perPersonM.displayValue) : total, groups, peoplePerGroup };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}${noun}共有 ${quantities.total} ${perPersonM.displayUnitLabel}，先平均分成 ${groups} 份，每份再平均分給 ${peoplePerGroup} 人，每人得到多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}共有 ${valueText(quantities.total, perPersonM.displayUnitLabel)} 的${scenario.item}，先平均分成 ${groups} 份，每份再平均分給 ${peoplePerGroup} 人，每人得到多少 ${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_payment_minus_unit_cost_times_quantity": {
@@ -313,7 +368,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       tokens = [payment, "-", unitPrice, "×", quantity];
       finalUnitLabel = "元";
       quantities = { payment, unitPrice, quantity };
-      prompt = `每次使用${noun}要 ${unitPrice} 元，使用 ${quantity} 次，付 ${payment} 元，可以找回幾元？`;
+      prompt = `${scenario.scene}每${scenario.packageNoun}要 ${unitPrice} 元，買 ${quantity} ${scenario.packageNoun}，付 ${payment} 元，可以找回幾元？`;
       break;
     }
     case "tpl_app_subtract_divided_amount_or_add_divided_amount":
@@ -325,14 +380,14 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = totalM.finalUnitLabel;
       conversion = totalM.conversion;
       quantities = { total: totalM.displayValue, groups, used };
-      prompt = `${conversion ? `${conversion.lineText}。` : ""}${noun}共有 ${totalM.displayValue} ${totalM.displayUnitLabel}，平均分成 ${groups} 份後，又多準備 ${used} ${finalUnitLabel}，合起來是多少 ${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}共有 ${valueText(totalM.displayValue, totalM.displayUnitLabel)} 的${scenario.item}，平均分成 ${groups} 份後，又${scenario.extraVerb} ${valueText(used, finalUnitLabel)}，合起來是多少 ${finalUnitLabel}？`;
       break;
     }
   }
 
   const evaluated = evaluateG4AU08ApplicationEquationTokens(tokens);
   if (conversion) convertedQuantities = { first: conversion };
-  return { tokens, prompt, quantities, convertedQuantities, conversion, finalUnitLabel, finalAnswer: evaluated.finalAnswer };
+  return { tokens, prompt, quantities, convertedQuantities, conversion, finalUnitLabel, finalAnswer: evaluated.finalAnswer, scenario };
 }
 
 function makeApplicationQuestion(definition, sequenceNumber, seed, conversionRequired) {
@@ -366,7 +421,7 @@ function makeApplicationQuestion(definition, sequenceNumber, seed, conversionReq
     blankedDisplayText: data.prompt,
     promptText: data.prompt,
     operationOrderTags: [...definition.operationOrderTags],
-    metadata: appMetadata(definition)
+    metadata: appMetadata(definition, data.scenario)
   };
 }
 
