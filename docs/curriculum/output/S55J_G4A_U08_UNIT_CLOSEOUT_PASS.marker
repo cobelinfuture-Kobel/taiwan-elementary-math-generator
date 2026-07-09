@@ -1,0 +1,80 @@
+S55J_G4A_U08_UNIT_CLOSEOUT_PASS
+
+sourceId = g4a_u08_4a08
+unit = 4A-U08 整數四則
+status = PASS_ACCEPTED_AND_CLOSED
+write_type = unit_closeout_marker
+
+accepted_scope:
+- Phase1 printable horizontal expression calculation accepted.
+- Four visible KnowledgePoints accepted.
+- Ten PatternSpecs accepted.
+- Selector/generator/validator/worksheet pipeline accepted.
+- Expression-shape variation accepted after S55I_R3/S55I_R4 fixes.
+- Large add/sub overlay policy accepted at about 20%.
+- Phase2 application word problems are not included in this closeout and will be planned separately.
+
+closed_knowledge_points:
+1. kp_g4a_u08_parentheses_first
+   - 括號優先計算
+2. kp_g4a_u08_mul_div_before_add_sub
+   - 乘除先於加減
+3. kp_g4a_u08_left_to_right_same_level
+   - 同級運算由左至右
+4. kp_g4a_u08_comprehensive_order_of_operations
+   - 四則與括號綜合計算
+
+closed_pattern_specs:
+1. ps_g4a_u08_parentheses_add_sub
+2. ps_g4a_u08_parentheses_mul_div
+3. ps_g4a_u08_mul_before_add_sub
+4. ps_g4a_u08_div_before_add_sub
+5. ps_g4a_u08_add_sub_left_to_right
+6. ps_g4a_u08_mul_div_left_to_right
+7. ps_g4a_u08_mixed_mul_div_add_sub_no_parentheses
+8. ps_g4a_u08_mixed_with_parentheses
+9. ps_g4a_u08_large_add_sub_overlay_no_parentheses
+10. ps_g4a_u08_large_add_sub_overlay_with_parentheses
+
+final_npm_readback:
+- tests = 489
+- suites = 0
+- pass = 489
+- fail = 0
+- cancelled = 0
+- skipped = 0
+- todo = 0
+- duration_ms = 5284.4632
+- status = PASS_LOCAL_PUBLIC_MAIN
+
+final_pdf_smoke_evidence:
+- Based on S55I_R5_G4A_U08_RegeneratedPDFSmoke_PASS_NPM_PENDING.md.
+- Uploaded PDFs reviewed:
+  - g4a_u08_括號優先計算.pdf
+  - g4a_u08_乘除先於加減.pdf
+  - g4a_u08_同級運算由左至右.pdf
+  - g4a_u08_四則與括號綜合計算.pdf
+  - g4a_u08_同單位知識點混合_隨機排序.pdf
+- PDF answer recomputation errors = 0 across all reviewed PDFs.
+- Prompt label leaks = 0.
+- Exact duplicate prompts = 0.
+- Card split / answer-only orphan fragments = 0 observed.
+- Single-KP comprehensive overlay rate = 6/30 = 20%.
+- Mixed same-unit overlay rate = 30/150 = 20%.
+- Expression-position monotony cleared.
+
+non_blocking_backlog:
+- renderer-wide blank-page cleanup remains a general pagination backlog.
+- optional future worked-step answer key rendering.
+- Phase2 application word problems for G4A-U08 will be separately designed and implemented.
+
+GOAL_DISTANCE_BEFORE = D1_G4A_U08_REGENERATED_PDF_SMOKE_PASS_NPM_PENDING
+GOAL_DISTANCE_AFTER = D0_G4A_U08_PHASE1_UNIT_CLOSED
+DISTANCE_REDUCED = G4A-U08 Phase1 moved from PDF-smoke pass / npm-pending to formally closed; horizontal expression generation, validation, UI selector, worksheet output, PDF smoke, and npm tests are all accepted.
+REMAINING_BLOCKERS = ["Phase2 application word problem design not yet implemented", "renderer-wide blank-page cleanup backlog", "optional future worked-step answer key rendering"]
+NEXT_SHORTEST_STEP = S56A_G4A_U08_Phase2ApplicationProblemTypologyScan
+STOP_REASON = NONE
+BLOCKER_TYPE = NONE
+LAST_COMPLETED_STATUS = S55J_G4A_U08_UNIT_CLOSEOUT_PASS
+REQUIRED_OPERATOR_ACTION = NONE
+NEXT_RESUME_TASK = S56A_G4A_U08_Phase2ApplicationProblemTypologyScan
