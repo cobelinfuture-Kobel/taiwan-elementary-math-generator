@@ -27,7 +27,7 @@ export const BATCH_A_RESOLVER_ERROR_CODES = Object.freeze({
 });
 
 const VALID_SELECTION_MODES = Object.freeze(Object.values(BATCH_A_RESOLVER_SELECTION_MODES));
-const MULTISPEC_ALLOCATION_SOURCE_IDS = Object.freeze(new Set(["g3a_u01_3a01"]));
+const MULTISPEC_ALLOCATION_SOURCE_IDS = Object.freeze(new Set(["g3a_u01_3a01", "g4a_u08_4a08"]));
 
 const DEFAULT_REGISTRY_ACCESS = Object.freeze({
   listVisibleBatchAKnowledgePoints,
