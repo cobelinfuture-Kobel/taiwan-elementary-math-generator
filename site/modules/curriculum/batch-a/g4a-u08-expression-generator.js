@@ -406,9 +406,9 @@ function makeByFamily(definition, sequenceNumber, seed) {
           return shaped([largeA, "+", c, "×", "(", d, "-", e, ")", "-", largeB], "large_with_parentheses_middle_group_mul");
         }
         case 2: {
-          const a = n(135, 10, 60);
-          const b = n(136, 10, 60);
-          const c = n(137, 2, 6);
+          const a = n(135, 10, 50);
+          const b = n(136, 10, 50);
+          const c = n(137, 2, 5);
           const largeA = n(138, 2500, 6500);
           const largeB = n(139, 100, Math.min(2400, largeA + (a + b) * c));
           return shaped(["(", a, "+", b, ")", "×", c, "+", largeA, "-", largeB], "large_with_parentheses_leading_group_mul");
