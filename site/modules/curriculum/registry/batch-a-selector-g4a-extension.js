@@ -4,6 +4,7 @@ const clone = (value) => JSON.parse(JSON.stringify(value));
 const g4aU01 = "g4a_u01_4a01";
 const g4aU02 = "g4a_u02_4a02";
 const g4aU04 = "g4a_u04_4a04";
+const g4aU08 = "g4a_u08_4a08";
 const rows = Object.freeze([
   [g4aU01, "4A-U01", "1億以內的數", "kp_g4a_u01_compare_8digit", "pg_g4a_u01_compare_8digit", "ps_g4a_u01_compare_8digit", "八位數比大小", "large_number_comparison", ["eight_digit", "comparison"], "large_number_compare", "numeric_expression"],
   [g4aU01, "4A-U01", "1億以內的數", "kp_g4a_u01_within_100million_compare", "pg_g4a_u01_within_100million_compare", "ps_g4a_u01_within_100million_compare", "1億以內數比大小", "large_number_comparison", ["within_100million", "comparison"], "large_number_compare", "numeric_expression"],
@@ -38,7 +39,11 @@ const rows = Object.freeze([
   [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor", "pg_g4a_u04_2digit_by_2digit_ten_multiple_divisor", "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor", "2位數除以2位數：除數是10的倍數", "integer_division", ["two_digit", "ten_multiple_divisor"], "ten_multiple_division", "division_prompt"],
   [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_3digit_by_2digit_tens_sufficient", "pg_g4a_u04_3digit_by_2digit_tens_sufficient", "ps_g4a_u04_3digit_by_2digit_tens_sufficient", "3位數除以2位數：十位夠除", "integer_division", ["three_digit", "two_digit", "tens_sufficient"], "long_division_start_place", "division_prompt"],
   [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_3digit_by_2digit_tens_insufficient", "pg_g4a_u04_3digit_by_2digit_tens_insufficient", "ps_g4a_u04_3digit_by_2digit_tens_insufficient", "3位數除以2位數：十位不夠除", "integer_division", ["three_digit", "two_digit", "tens_insufficient"], "long_division_start_place", "division_prompt"],
-  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_division_check_with_remainder", "pg_g4a_u04_division_check_with_remainder", "ps_g4a_u04_division_check_with_remainder", "除法驗算：有餘數", "division_check", ["remainder", "verification"], "division_check_with_remainder", "verification_prompt"]
+  [g4aU04, "4A-U04", "整數的除法", "kp_g4a_u04_division_check_with_remainder", "pg_g4a_u04_division_check_with_remainder", "ps_g4a_u04_division_check_with_remainder", "除法驗算：有餘數", "division_check", ["remainder", "verification"], "division_check_with_remainder", "verification_prompt"],
+  [g4aU08, "4A-U08", "整數四則", "kp_g4a_u08_parentheses_first", "pg_g4a_u08_parentheses_first", ["ps_g4a_u08_parentheses_add_sub", "ps_g4a_u08_parentheses_mul_div"], "括號優先計算", "order_of_operations", ["parentheses_first"], "parentheses_first", "horizontal_expression"],
+  [g4aU08, "4A-U08", "整數四則", "kp_g4a_u08_mul_div_before_add_sub", "pg_g4a_u08_mul_div_before_add_sub", ["ps_g4a_u08_mul_before_add_sub", "ps_g4a_u08_div_before_add_sub"], "乘除先於加減", "order_of_operations", ["mul_div_before_add_sub"], "mul_div_before_add_sub", "horizontal_expression"],
+  [g4aU08, "4A-U08", "整數四則", "kp_g4a_u08_left_to_right_same_level", "pg_g4a_u08_left_to_right_same_level", ["ps_g4a_u08_add_sub_left_to_right", "ps_g4a_u08_mul_div_left_to_right"], "同級運算由左至右", "order_of_operations", ["left_to_right", "same_level"], "same_level_left_to_right", "horizontal_expression"],
+  [g4aU08, "4A-U08", "整數四則", "kp_g4a_u08_comprehensive_order_of_operations", "pg_g4a_u08_comprehensive_order_of_operations", ["ps_g4a_u08_mixed_mul_div_add_sub_no_parentheses", "ps_g4a_u08_mixed_with_parentheses", "ps_g4a_u08_large_add_sub_overlay_no_parentheses", "ps_g4a_u08_large_add_sub_overlay_with_parentheses"], "四則與括號綜合計算", "order_of_operations", ["comprehensive", "large_add_sub_overlay"], "comprehensive_order", "horizontal_expression"]
 ]);
 
 function toSpecIds(value) {
