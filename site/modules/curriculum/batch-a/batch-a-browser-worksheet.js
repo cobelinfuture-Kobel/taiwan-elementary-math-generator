@@ -18,6 +18,7 @@ const DEFAULT_PRINT_LAYOUT = Object.freeze({
 const G3A_U02_SOURCE_ID = "g3a_u02_3a02";
 const G4A_U01_SOURCE_ID = "g4a_u01_4a01";
 const G4A_U02_SOURCE_ID = "g4a_u02_4a02";
+const G4A_U04_SOURCE_ID = "g4a_u04_4a04";
 const G4A_U01_TALL_TEXT_LAYOUT_PROFILES = Object.freeze({
   ps_g4a_u01_same_digit_place_value_difference: Object.freeze({ columns: 4, rowsPerPage: 8 }),
   ps_g4a_u01_place_value_composition_to_number: Object.freeze({ columns: 4, rowsPerPage: 5 }),
@@ -37,6 +38,24 @@ const G4A_U02_TALL_TEXT_LAYOUT_PROFILES = Object.freeze({
 const G4A_U02_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES = Object.freeze({
   ps_g4a_u02_digit_card_arrangement_product_max_min: Object.freeze({ columns: 3, rowsPerPage: 4 }),
   ps_g4a_u02_near_hundred_multiplication_strategy: Object.freeze({ columns: 3, rowsPerPage: 4 })
+});
+const G4A_U04_SAFE_LAYOUT_PROFILES = Object.freeze({
+  ps_g4a_u04_4digit_by_1digit_thousands_sufficient: Object.freeze({ columns: 3, rowsPerPage: 9 }),
+  ps_g4a_u04_4digit_by_1digit_thousands_insufficient: Object.freeze({ columns: 3, rowsPerPage: 9 }),
+  ps_g4a_u04_4digit_by_1digit_thousands_exact: Object.freeze({ columns: 3, rowsPerPage: 9 }),
+  ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor: Object.freeze({ columns: 3, rowsPerPage: 9 }),
+  ps_g4a_u04_3digit_by_2digit_tens_sufficient: Object.freeze({ columns: 3, rowsPerPage: 9 }),
+  ps_g4a_u04_3digit_by_2digit_tens_insufficient: Object.freeze({ columns: 3, rowsPerPage: 9 }),
+  ps_g4a_u04_division_check_with_remainder: Object.freeze({ columns: 3, rowsPerPage: 8 })
+});
+const G4A_U04_SAFE_ANSWER_KEY_LAYOUT_PROFILES = Object.freeze({
+  ps_g4a_u04_4digit_by_1digit_thousands_sufficient: Object.freeze({ columns: 3, rowsPerPage: 8 }),
+  ps_g4a_u04_4digit_by_1digit_thousands_insufficient: Object.freeze({ columns: 3, rowsPerPage: 8 }),
+  ps_g4a_u04_4digit_by_1digit_thousands_exact: Object.freeze({ columns: 3, rowsPerPage: 8 }),
+  ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor: Object.freeze({ columns: 3, rowsPerPage: 8 }),
+  ps_g4a_u04_3digit_by_2digit_tens_sufficient: Object.freeze({ columns: 3, rowsPerPage: 8 }),
+  ps_g4a_u04_3digit_by_2digit_tens_insufficient: Object.freeze({ columns: 3, rowsPerPage: 8 }),
+  ps_g4a_u04_division_check_with_remainder: Object.freeze({ columns: 3, rowsPerPage: 6 })
 });
 
 function cloneValue(value) {
@@ -68,6 +87,10 @@ function isG4AU01TallTextQuestion(question) {
 
 function isG4AU02TallTextQuestion(question) {
   return question?.sourceId === G4A_U02_SOURCE_ID && Boolean(G4A_U02_TALL_TEXT_LAYOUT_PROFILES[patternSpecIdOf(question)]);
+}
+
+function isG4AU04SafeLayoutQuestion(question) {
+  return question?.sourceId === G4A_U04_SOURCE_ID && Boolean(G4A_U04_SAFE_LAYOUT_PROFILES[patternSpecIdOf(question)]);
 }
 
 function hasLongTextQuestion(questions) {
@@ -111,13 +134,20 @@ function normalizePrintLayoutForGeneratedQuestions(printLayout, questions, optio
     options.answerKey === true ? G4A_U02_TALL_TEXT_ANSWER_KEY_LAYOUT_PROFILES : G4A_U02_TALL_TEXT_LAYOUT_PROFILES
   );
   if (g4aU02Profile) normalized = mergePrintProfile(normalized, g4aU02Profile);
+  const g4aU04Profile = resolveTallTextProfile(
+    questions,
+    G4A_U04_SOURCE_ID,
+    options.answerKey === true ? G4A_U04_SAFE_ANSWER_KEY_LAYOUT_PROFILES : G4A_U04_SAFE_LAYOUT_PROFILES
+  );
+  if (g4aU04Profile) normalized = mergePrintProfile(normalized, g4aU04Profile);
   return normalized;
 }
 
 function displayModelForTextQuestion(question, questionNumber, showQuestionNumbers = true) {
   const avoidPageBreakInside = (question.sourceId === G3A_U02_SOURCE_ID && String(question.blankedDisplayText ?? "").length >= 52)
     || isG4AU01TallTextQuestion(question)
-    || isG4AU02TallTextQuestion(question);
+    || isG4AU02TallTextQuestion(question)
+    || isG4AU04SafeLayoutQuestion(question);
   return {
     questionId: question.id,
     questionNumber,
@@ -145,7 +175,7 @@ function answerKeyItemForTextQuestion(question, displayModel) {
     metadataSnapshot: cloneValue(question.metadata),
     layoutHints: {
       estimatedTextLength: String(`${displayModel.blankedDisplayText ?? ""}${question.answerText ?? ""}`).length,
-      avoidPageBreakInside: displayModel.layoutHints?.avoidPageBreakInside === true || isG4AU01TallTextQuestion(question) || isG4AU02TallTextQuestion(question)
+      avoidPageBreakInside: displayModel.layoutHints?.avoidPageBreakInside === true || isG4AU01TallTextQuestion(question) || isG4AU02TallTextQuestion(question) || isG4AU04SafeLayoutQuestion(question)
     }
   };
 }
