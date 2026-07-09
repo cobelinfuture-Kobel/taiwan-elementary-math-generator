@@ -19,6 +19,7 @@ import {
 
 const OPERATORS = new Set(["+", "-", "×", "÷"]);
 const PRECEDENCE = Object.freeze({ "+": 1, "-": 1, "×": 2, "÷": 2 });
+const DIVISION_GROUPS = Object.freeze([2, 4, 5, 10]);
 const TEMPLATE_KP = Object.freeze({
   tpl_app_add_three_quantities: "kp_g4a_u08_app_add_sub_sequence",
   tpl_app_add_then_subtract_state_change: "kp_g4a_u08_app_add_sub_sequence",
@@ -271,9 +272,9 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       break;
     }
     case "tpl_app_multiply_then_share": {
-      const boxes = n(21, 2, 8);
-      const perBoxM = first(n(22, 1, 4) * 50);
-      const groups = [2, 4, 5, 10][sequenceNumber % 4];
+      const boxes = DIVISION_GROUPS[sequenceNumber % DIVISION_GROUPS.length];
+      const perBoxM = first(n(22, 1, 4) * 100);
+      const groups = DIVISION_GROUPS[(sequenceNumber + 1) % DIVISION_GROUPS.length];
       tokens = [boxes, "×", perBoxM.equationValue, "÷", groups];
       finalUnitLabel = perBoxM.finalUnitLabel;
       conversion = perBoxM.conversion;
@@ -317,11 +318,10 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
     }
     case "tpl_app_subtract_divided_amount_or_add_divided_amount":
     default: {
-      const totalM = first(n(27, 2, 5) * 120);
-      const groups = [2, 3, 4, 5][sequenceNumber % 4];
+      const totalM = first(n(27, 2, 5) * 100);
+      const groups = DIVISION_GROUPS[sequenceNumber % DIVISION_GROUPS.length];
       const used = measuredValue(unitDomain, sequenceNumber + 12, n(28, 10, 60));
-      const total = totalM.equationValue - (totalM.equationValue % groups);
-      tokens = [total, "÷", groups, "+", used];
+      tokens = [totalM.equationValue, "÷", groups, "+", used];
       finalUnitLabel = totalM.finalUnitLabel;
       conversion = totalM.conversion;
       quantities = { total: totalM.displayValue, groups, used };
@@ -422,7 +422,6 @@ export function generateG4AU08ApplicationQuestions(options = {}) {
   const allocation = plan.allocation.length > 0 ? plan.allocation : spreadCounts(plan.patternSpecIds, plan.questionCount);
   const targetConversionCount = Math.round(plan.questionCount * G4A_U08_PHASE2A_CONVERSION_TARGET_RATE);
   let conversionCount = 0;
-  let sequence = 0;
   const questions = [];
   const errors = [];
   const promptKeys = new Set();
@@ -435,7 +434,6 @@ export function generateG4AU08ApplicationQuestions(options = {}) {
     let generatedForPattern = 0;
     const maxAttempts = Math.max(entry.questionCount * 6, 60);
     for (let attempt = 1; generatedForPattern < entry.questionCount && attempt <= maxAttempts; attempt += 1) {
-      sequence += 1;
       const conversionWanted = conversionCount < targetConversionCount;
       const question = makeApplicationQuestion(definition, attempt, `${plan.generationSeed}:${entry.patternSpecId}:${attempt}`, conversionWanted);
       if (question.conversionRequired) conversionCount += 1;
