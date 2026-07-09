@@ -258,12 +258,21 @@ function adjustedMoneyValues(sequenceNumber, n) {
   return { base, decrease, payment };
 }
 
+function perGroupValueForDivideByGroup(unitDomain) {
+  if (unitDomain === "capacity") return 50;
+  if (unitDomain === "weight") return 50;
+  if (unitDomain === "length") return 20;
+  if (unitDomain === "time") return 10;
+  if (unitDomain === "money") return 10;
+  return 5;
+}
+
 function divideByGroupPrompt({ unitDomain, scenario, groups, perGroup, finalUnitLabel, totalM, conversion }) {
   if (unitDomain === "capacity") {
-    return `${prefixConversion(conversion)}${scenario.scene}要分裝${scenario.item}，每份需要${groups}杯，每杯倒入${valueText(perGroup, finalUnitLabel)}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份？`;
+    return `${prefixConversion(conversion)}${scenario.scene}要分裝${scenario.item}，每份需要${groups}小杯，每小杯倒入${valueText(perGroup, finalUnitLabel)}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份？`;
   }
   if (unitDomain === "weight") {
-    return `${prefixConversion(conversion)}${scenario.scene}要整理${scenario.item}，每份需要${groups}袋，每袋裝${valueText(perGroup, finalUnitLabel)}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份？`;
+    return `${prefixConversion(conversion)}${scenario.scene}要整理${scenario.item}，每份需要${groups}小袋，每小袋裝${valueText(perGroup, finalUnitLabel)}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份？`;
   }
   return `${scenario.scene}要整理${scenario.item}，每份需要${groups}組，每組放${valueText(perGroup, finalUnitLabel)}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份？`;
 }
@@ -357,8 +366,8 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
     }
     case "tpl_app_divide_by_group_product": {
       const groups = [2, 4, 5][sequenceNumber % 3];
-      const perGroup = 5;
-      const totalM = first(conversionRequired ? n(16, 1, 5) * 1000 : groups * perGroup * n(17, 12, 40));
+      const perGroup = perGroupValueForDivideByGroup(unitDomain);
+      const totalM = first(conversionRequired ? n(16, 1, 5) * 1000 : groups * perGroup * n(17, 6, 24));
       tokens = [totalM.equationValue, "÷", "(", groups, "×", perGroup, ")"];
       finalUnitLabel = totalM.finalUnitLabel;
       conversion = totalM.conversion;
