@@ -178,9 +178,9 @@ function defaultUnitLabel(unitDomain, sequenceNumber, scenario = null) {
   const labels = {
     money: ["元"],
     count_items: ["個", "張", "條", "本", "包"],
-    capacity: ["mL", "L"],
-    weight: ["g", "kg"],
-    length: ["cm", "m", "mm"],
+    capacity: ["mL"],
+    weight: ["g"],
+    length: ["cm", "mm"],
     time: ["分", "秒"]
   }[unitDomain] ?? ["個"];
   return labels[(sequenceNumber - 1) % labels.length];
@@ -188,7 +188,7 @@ function defaultUnitLabel(unitDomain, sequenceNumber, scenario = null) {
 
 function measuredValue(unitDomain, sequenceNumber, fallback) {
   if (unitDomain === "time") return [10, 15, 20, 25, 30, 40, 45, 60][sequenceNumber % 8];
-  if (unitDomain === "money") return [12, 15, 18, 20, 25][sequenceNumber % 5];
+  if (unitDomain === "money") return [8, 10, 12, 15, 18, 20, 25][sequenceNumber % 7];
   return fallback;
 }
 
@@ -213,30 +213,66 @@ function prefixConversion(conversion) {
 
 function normalStartValue(unitDomain, sequenceNumber, n) {
   if (unitDomain === "time") return [120, 180, 240, 300, 360][sequenceNumber % 5];
-  return n(100, 120, 500);
+  if (unitDomain === "money") return n(99, 80, 240);
+  if (unitDomain === "count_items") return n(98, 80, 420);
+  return n(100, 120, 380);
 }
 
 function packTotalBaseValue(unitDomain, conversionRequired, sequenceNumber, n) {
   if (conversionRequired) return n(104, 1, 5) * 1000;
   if (unitDomain === "time") return [200, 400, 600, 800, 1000][sequenceNumber % 5];
-  return n(105, 2, 12) * 100;
+  if (unitDomain === "count_items") return n(105, 2, 10) * 60;
+  return n(106, 2, 10) * 100;
 }
 
 function unitBaseValue(unitDomain, conversionRequired, sequenceNumber, n) {
   if (conversionRequired) return n(108, 1, 4) * 100;
   if (unitDomain === "time") return [20, 30, 40, 45, 60][sequenceNumber % 5];
-  if (unitDomain === "capacity" || unitDomain === "weight") return n(109, 40, 150);
-  return n(110, 40, 180);
+  if (unitDomain === "money") return n(113, 10, 28);
+  if (unitDomain === "count_items") return n(114, 24, 90);
+  if (unitDomain === "capacity" || unitDomain === "weight") return n(109, 40, 140);
+  return n(110, 40, 160);
 }
 
 function divisibleUnitBaseValue(unitDomain, conversionRequired, sequenceNumber, n) {
   if (conversionRequired) return n(111, 1, 4) * 100;
   if (unitDomain === "time") return [100, 200, 300, 400][sequenceNumber % 4];
+  if (unitDomain === "money") return [20, 40, 60, 80, 100][sequenceNumber % 5];
   return n(112, 1, 4) * 100;
 }
 
 function displayQuantityForConvertedTotal(total, conversion, displayedUnitValue) {
   return conversion ? total / (conversion.convertedValue / displayedUnitValue) : total;
+}
+
+function paymentAbove(cost) {
+  return [20, 50, 100, 200, 500].find((candidate) => candidate > cost) ?? Math.ceil((cost + 1) / 100) * 100;
+}
+
+function adjustedMoneyValues(sequenceNumber, n) {
+  const base = n(201, 25, 90);
+  const maxDiscount = Math.min(25, Math.floor(base / 3));
+  const decrease = n(202, 5, Math.max(5, maxDiscount));
+  const adjusted = base - decrease;
+  const payment = paymentAbove(adjusted);
+  return { base, decrease, payment };
+}
+
+function divideByGroupPrompt({ unitDomain, scenario, groups, perGroup, finalUnitLabel, totalM, conversion }) {
+  if (unitDomain === "capacity") {
+    return `${prefixConversion(conversion)}${scenario.scene}要分裝${scenario.item}，每份需要${groups}杯，每杯倒入${valueText(perGroup, finalUnitLabel)}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份？`;
+  }
+  if (unitDomain === "weight") {
+    return `${prefixConversion(conversion)}${scenario.scene}要整理${scenario.item}，每份需要${groups}袋，每袋裝${valueText(perGroup, finalUnitLabel)}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份？`;
+  }
+  return `${scenario.scene}要整理${scenario.item}，每份需要${groups}組，每組放${valueText(perGroup, finalUnitLabel)}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份？`;
+}
+
+function unitRatePrompt({ unitDomain, scenario, knownUnits, targetUnits, total, displayUnitLabel, finalUnitLabel, conversion }) {
+  if (unitDomain === "money") return `在${scenario.scene}中，買${knownUnits}${scenario.packageNoun}共花${valueText(total, displayUnitLabel)}。照同樣單價，買${targetUnits}${scenario.packageNoun}要花多少${finalUnitLabel}？`;
+  if (unitDomain === "count_items") return `${scenario.scene}整理${knownUnits}組${scenario.item}共需要${valueText(total, displayUnitLabel)}。照這樣整理，${targetUnits}組需要多少${finalUnitLabel}？`;
+  if (unitDomain === "time") return `${scenario.scene}安排${knownUnits}次${scenario.item}共需要${valueText(total, displayUnitLabel)}。照這樣安排，${targetUnits}次需要多少${finalUnitLabel}？`;
+  return `${prefixConversion(conversion)}${scenario.scene}準備${knownUnits}份${scenario.item}共需要${valueText(total, displayUnitLabel)}。照這樣準備，${targetUnits}份需要多少${finalUnitLabel}？`;
 }
 
 function buildTemplateData(definition, sequenceNumber, seed, conversionRequired) {
@@ -255,8 +291,8 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
   switch (definition.storyTemplateId) {
     case "tpl_app_add_three_quantities": {
       const aM = first(normalStartValue(unitDomain, sequenceNumber, n));
-      const b = measuredValue(unitDomain, sequenceNumber + 1, n(2, 30, 140));
-      const c = measuredValue(unitDomain, sequenceNumber + 2, n(3, 30, 140));
+      const b = measuredValue(unitDomain, sequenceNumber + 1, n(2, 30, 120));
+      const c = measuredValue(unitDomain, sequenceNumber + 2, n(3, 30, 120));
       tokens = [aM.equationValue, "+", b, "+", c];
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
@@ -266,8 +302,8 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
     }
     case "tpl_app_add_then_subtract_state_change": {
       const aM = first(normalStartValue(unitDomain, sequenceNumber, n));
-      const b = measuredValue(unitDomain, sequenceNumber + 3, n(5, 30, 130));
-      const c = Math.min(aM.equationValue + b, measuredValue(unitDomain, sequenceNumber + 4, n(6, 20, 100)));
+      const b = measuredValue(unitDomain, sequenceNumber + 3, n(5, 30, 110));
+      const c = Math.min(aM.equationValue + b, measuredValue(unitDomain, sequenceNumber + 4, n(6, 20, 90)));
       tokens = [aM.equationValue, "+", b, "-", c];
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
@@ -277,8 +313,8 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
     }
     case "tpl_app_subtract_then_add_state_change": {
       const aM = first(normalStartValue(unitDomain, sequenceNumber, n));
-      const b = measuredValue(unitDomain, sequenceNumber + 5, n(8, 30, 120));
-      const c = measuredValue(unitDomain, sequenceNumber + 6, n(9, 20, 120));
+      const b = measuredValue(unitDomain, sequenceNumber + 5, n(8, 30, 110));
+      const c = measuredValue(unitDomain, sequenceNumber + 6, n(9, 20, 110));
       tokens = [aM.equationValue, "-", Math.min(b, aM.equationValue), "+", c];
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
@@ -288,8 +324,8 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
     }
     case "tpl_app_subtract_twice_state_change": {
       const aM = first(normalStartValue(unitDomain, sequenceNumber, n));
-      const b = measuredValue(unitDomain, sequenceNumber + 7, n(11, 20, 110));
-      const c = measuredValue(unitDomain, sequenceNumber + 8, n(12, 20, 110));
+      const b = measuredValue(unitDomain, sequenceNumber + 7, n(11, 20, 100));
+      const c = measuredValue(unitDomain, sequenceNumber + 8, n(12, 20, 100));
       const safeB = Math.min(b, Math.floor(aM.equationValue / 2));
       const safeC = Math.min(c, aM.equationValue - safeB);
       tokens = [aM.equationValue, "-", safeB, "-", safeC];
@@ -301,15 +337,22 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       break;
     }
     case "tpl_app_adjusted_amount_then_subtract": {
-      const outerM = first(conversionRequired ? n(13, 1, 5) * 1000 : normalStartValue(unitDomain, sequenceNumber, n));
-      const base = measuredValue(unitDomain, sequenceNumber + 9, n(14, 80, 180));
-      const decrease = Math.min(base - 1, measuredValue(unitDomain, sequenceNumber + 10, n(15, 10, 60)));
-      tokens = [outerM.equationValue, "-", "(", base, "-", decrease, ")"];
-      finalUnitLabel = outerM.finalUnitLabel;
-      conversion = outerM.conversion;
-      quantities = { outer: outerM.displayValue, base, decrease };
-      if (unitDomain === "money") prompt = `${scenario.scene}每${scenario.packageNoun}原價${base}元，活動折扣${decrease}元。付${outerM.displayValue}元，找回多少元？`;
-      else prompt = `${prefixConversion(conversion)}${scenario.scene}每份${scenario.item}原本需要${valueText(base, finalUnitLabel)}，調整後少用${valueText(decrease, finalUnitLabel)}。現有${valueText(outerM.displayValue, outerM.displayUnitLabel)}，扣掉調整後的一份，還剩多少${finalUnitLabel}？`;
+      if (unitDomain === "money") {
+        const money = adjustedMoneyValues(sequenceNumber, n);
+        tokens = [money.payment, "-", "(", money.base, "-", money.decrease, ")"];
+        finalUnitLabel = "元";
+        quantities = { outer: money.payment, base: money.base, decrease: money.decrease };
+        prompt = `${scenario.scene}每${scenario.packageNoun}原價${money.base}元，活動折扣${money.decrease}元。付${money.payment}元，找回多少元？`;
+      } else {
+        const outerM = first(conversionRequired ? n(13, 1, 5) * 1000 : normalStartValue(unitDomain, sequenceNumber, n));
+        const base = measuredValue(unitDomain, sequenceNumber + 9, n(14, 70, 150));
+        const decrease = Math.min(base - 1, measuredValue(unitDomain, sequenceNumber + 10, n(15, 10, 50)));
+        tokens = [outerM.equationValue, "-", "(", base, "-", decrease, ")"];
+        finalUnitLabel = outerM.finalUnitLabel;
+        conversion = outerM.conversion;
+        quantities = { outer: outerM.displayValue, base, decrease };
+        prompt = `${prefixConversion(conversion)}${scenario.scene}每份${scenario.item}原本需要${valueText(base, finalUnitLabel)}，調整後少用${valueText(decrease, finalUnitLabel)}。現有${valueText(outerM.displayValue, outerM.displayUnitLabel)}，扣掉調整後的一份，還剩多少${finalUnitLabel}？`;
+      }
       break;
     }
     case "tpl_app_divide_by_group_product": {
@@ -320,7 +363,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = totalM.finalUnitLabel;
       conversion = totalM.conversion;
       quantities = { total: totalM.displayValue, groups, perGroup };
-      prompt = `${prefixConversion(conversion)}${scenario.scene}每份材料包需要${groups}組，每組用${valueText(perGroup, finalUnitLabel)}的${scenario.item}。共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}，可以分成幾份材料包？`;
+      prompt = divideByGroupPrompt({ unitDomain, scenario, groups, perGroup, finalUnitLabel, totalM, conversion });
       finalUnitLabel = "份";
       break;
     }
@@ -328,7 +371,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       const unitM = first(unitBaseValue(unitDomain, conversionRequired, sequenceNumber, n));
       const planned = n(18, 6, 12);
       const cancelled = n(19, 1, Math.min(4, planned - 1));
-      const extra = measuredValue(unitDomain, sequenceNumber + 11, n(20, 20, 80));
+      const extra = measuredValue(unitDomain, sequenceNumber + 11, n(20, 20, 70));
       tokens = [unitM.equationValue, "×", "(", planned, "-", cancelled, ")", "+", extra];
       finalUnitLabel = unitM.finalUnitLabel;
       conversion = unitM.conversion;
@@ -356,7 +399,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = perUnitM.finalUnitLabel;
       conversion = perUnitM.conversion;
       quantities = { total: displayQuantityForConvertedTotal(total, conversion, perUnitM.displayValue), knownUnits, targetUnits };
-      prompt = `${prefixConversion(conversion)}在${scenario.scene}中，${knownUnits}份${scenario.item}共需要${valueText(quantities.total, perUnitM.displayUnitLabel)}，照這樣計算，${targetUnits}份需要多少${finalUnitLabel}？`;
+      prompt = unitRatePrompt({ unitDomain, scenario, knownUnits, targetUnits, total: quantities.total, displayUnitLabel: perUnitM.displayUnitLabel, finalUnitLabel, conversion });
       break;
     }
     case "tpl_app_divide_then_divide": {
@@ -375,7 +418,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       const unitPrice = n(25, 10, 25);
       const quantity = n(26, 2, 6);
       const cost = unitPrice * quantity;
-      const payment = [50, 100, 200, 500].find((candidate) => candidate > cost) ?? 500;
+      const payment = paymentAbove(cost);
       tokens = [payment, "-", unitPrice, "×", quantity];
       finalUnitLabel = "元";
       quantities = { payment, unitPrice, quantity };
