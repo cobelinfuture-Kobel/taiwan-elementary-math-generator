@@ -144,11 +144,14 @@ test("G4A-U08 prompt format stays horizontal without KP labels", () => {
 test("G4A-U08 same-level left-to-right examples differ from common wrong grouping", () => {
   const result = generateBatchABrowserQuestions({ sourceId: SOURCE_ID, selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: ["kp_g4a_u08_left_to_right_same_level"], selectedPatternGroupIds: [firstGroupId("kp_g4a_u08_left_to_right_same_level")], questionCount: 20, generationSeed: "s55-left-right" });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  const sub = result.questions.find((question) => question.expressionTokens.includes("-") && !question.expressionTokens.includes("×") && !question.expressionTokens.includes("÷"));
-  const divMul = result.questions.find((question) => question.expressionTokens.includes("÷") && question.expressionTokens.includes("×"));
+  const sub = result.questions.find((question) => question.expressionTokens[1] === "-" && (question.expressionTokens[3] === "+" || question.expressionTokens[3] === "-"));
+  const divMul = result.questions.find((question) => question.expressionTokens[1] === "÷" && question.expressionTokens[3] === "×");
   assert.ok(sub);
   assert.ok(divMul);
-  assert.notEqual(sub.finalAnswer, sub.expressionTokens[0] - (sub.expressionTokens[2] + Math.abs(sub.expressionTokens[4])));
+  const wrongSub = sub.expressionTokens[3] === "+"
+    ? sub.expressionTokens[0] - (sub.expressionTokens[2] + sub.expressionTokens[4])
+    : sub.expressionTokens[0] - (sub.expressionTokens[2] - sub.expressionTokens[4]);
+  assert.notEqual(sub.finalAnswer, wrongSub);
   assert.notEqual(divMul.finalAnswer, divMul.expressionTokens[0] / (divMul.expressionTokens[2] * divMul.expressionTokens[4]));
 });
 
