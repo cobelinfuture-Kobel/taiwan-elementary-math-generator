@@ -20,69 +20,55 @@ import {
 const OPERATORS = new Set(["+", "-", "×", "÷"]);
 const PRECEDENCE = Object.freeze({ "+": 1, "-": 1, "×": 2, "÷": 2 });
 const DIVISION_GROUPS = Object.freeze([2, 4, 5, 10]);
-const TEMPLATE_KP = Object.freeze({
-  tpl_app_add_three_quantities: "kp_g4a_u08_app_add_sub_sequence",
-  tpl_app_add_then_subtract_state_change: "kp_g4a_u08_app_add_sub_sequence",
-  tpl_app_subtract_then_add_state_change: "kp_g4a_u08_app_add_sub_sequence",
-  tpl_app_subtract_twice_state_change: "kp_g4a_u08_app_add_sub_sequence",
-  tpl_app_adjusted_amount_then_subtract: "kp_g4a_u08_app_parentheses_grouping",
-  tpl_app_divide_by_group_product: "kp_g4a_u08_app_parentheses_grouping",
-  tpl_app_multiply_after_difference_then_add_sub: "kp_g4a_u08_app_parentheses_grouping",
-  tpl_app_multiply_then_share: "kp_g4a_u08_app_mul_div_sequence",
-  tpl_app_unit_rate_then_scale: "kp_g4a_u08_app_mul_div_sequence",
-  tpl_app_divide_then_divide: "kp_g4a_u08_app_mul_div_sequence",
-  tpl_app_payment_minus_unit_cost_times_quantity: "kp_g4a_u08_app_mul_div_before_add_sub",
-  tpl_app_subtract_divided_amount_or_add_divided_amount: "kp_g4a_u08_app_mul_div_before_add_sub"
-});
 
 const SCENARIO_BANK = Object.freeze({
   money: Object.freeze([
-    Object.freeze({ scene: "校外教學", item: "門票", packageNoun: "張門票", groupNoun: "門票", packUnit: "張", extraVerb: "加購", restoreVerb: "加購" }),
-    Object.freeze({ scene: "文具店", item: "筆記本", packageNoun: "本筆記本", groupNoun: "筆記本", packUnit: "本", extraVerb: "加買", restoreVerb: "加買" }),
-    Object.freeze({ scene: "麵包店", item: "麵包", packageNoun: "個麵包", groupNoun: "麵包", packUnit: "個", extraVerb: "多買", restoreVerb: "多買" }),
-    Object.freeze({ scene: "園遊會", item: "點券", packageNoun: "張點券", groupNoun: "點券", packUnit: "張", extraVerb: "加購", restoreVerb: "加購" }),
-    Object.freeze({ scene: "公車站", item: "車票", packageNoun: "張車票", groupNoun: "車票", packUnit: "張", extraVerb: "加買", restoreVerb: "加買" }),
-    Object.freeze({ scene: "明信片小店", item: "明信片", packageNoun: "張明信片", groupNoun: "明信片", packUnit: "張", extraVerb: "多買", restoreVerb: "多買" })
+    Object.freeze({ scene: "校外教學", item: "門票", packageNoun: "張門票", packUnit: "張", addVerb: "加購", restoreVerb: "加購", consumeVerb: "使用" }),
+    Object.freeze({ scene: "文具店", item: "筆記本", packageNoun: "本筆記本", packUnit: "本", addVerb: "加買", restoreVerb: "加買", consumeVerb: "買走" }),
+    Object.freeze({ scene: "麵包店", item: "麵包", packageNoun: "個麵包", packUnit: "個", addVerb: "多買", restoreVerb: "多買", consumeVerb: "買走" }),
+    Object.freeze({ scene: "園遊會", item: "點券", packageNoun: "張點券", packUnit: "張", addVerb: "加購", restoreVerb: "加購", consumeVerb: "使用" }),
+    Object.freeze({ scene: "公車站", item: "車票", packageNoun: "張車票", packUnit: "張", addVerb: "加買", restoreVerb: "加買", consumeVerb: "使用" }),
+    Object.freeze({ scene: "明信片小店", item: "明信片", packageNoun: "張明信片", packUnit: "張", addVerb: "多買", restoreVerb: "多買", consumeVerb: "寄出" })
   ]),
   count_items: Object.freeze([
-    Object.freeze({ scene: "圖書館活動", item: "書籤", container: "批", groupNoun: "書籤", perPack: "包書籤", packUnit: "包", unitLabels: Object.freeze(["張"]), extraVerb: "加印", restoreVerb: "補印", consumeVerb: "發出" }),
-    Object.freeze({ scene: "美術課", item: "貼紙", container: "疊", groupNoun: "貼紙", perPack: "疊貼紙", packUnit: "疊", unitLabels: Object.freeze(["張"]), extraVerb: "補發", restoreVerb: "補發", consumeVerb: "用掉" }),
-    Object.freeze({ scene: "班級獎勵", item: "獎勵卡", container: "疊", groupNoun: "獎勵卡", perPack: "盒獎勵卡", packUnit: "盒", unitLabels: Object.freeze(["張"]), extraVerb: "補進", restoreVerb: "補進", consumeVerb: "發出" }),
-    Object.freeze({ scene: "運動會", item: "毛巾", container: "箱", groupNoun: "毛巾", perPack: "箱毛巾", packUnit: "箱", unitLabels: Object.freeze(["條"]), extraVerb: "加準備", restoreVerb: "補進", consumeVerb: "發出" }),
-    Object.freeze({ scene: "自然課", item: "實驗卡", container: "疊", groupNoun: "實驗卡", perPack: "組實驗卡", packUnit: "組", unitLabels: Object.freeze(["張"]), extraVerb: "加印", restoreVerb: "補印", consumeVerb: "用掉" }),
-    Object.freeze({ scene: "積木角", item: "積木", container: "盒", groupNoun: "積木", perPack: "盒積木", packUnit: "盒", unitLabels: Object.freeze(["個"]), extraVerb: "補進", restoreVerb: "補進", consumeVerb: "拿走" })
+    Object.freeze({ scene: "圖書館活動", item: "書籤", container: "批", perPack: "包書籤", packUnit: "包", unitLabels: Object.freeze(["張"]), addVerb: "加印", restoreVerb: "補印", consumeVerb: "發出" }),
+    Object.freeze({ scene: "美術課", item: "貼紙", container: "疊", perPack: "疊貼紙", packUnit: "疊", unitLabels: Object.freeze(["張"]), addVerb: "補發", restoreVerb: "補發", consumeVerb: "用掉" }),
+    Object.freeze({ scene: "班級獎勵", item: "獎勵卡", container: "疊", perPack: "盒獎勵卡", packUnit: "盒", unitLabels: Object.freeze(["張"]), addVerb: "補進", restoreVerb: "補進", consumeVerb: "發出" }),
+    Object.freeze({ scene: "運動會", item: "毛巾", container: "箱", perPack: "箱毛巾", packUnit: "箱", unitLabels: Object.freeze(["條"]), addVerb: "加準備", restoreVerb: "補進", consumeVerb: "發出" }),
+    Object.freeze({ scene: "自然課", item: "實驗卡", container: "疊", perPack: "組實驗卡", packUnit: "組", unitLabels: Object.freeze(["張"]), addVerb: "加印", restoreVerb: "補印", consumeVerb: "用掉" }),
+    Object.freeze({ scene: "積木角", item: "積木", container: "盒", perPack: "盒積木", packUnit: "盒", unitLabels: Object.freeze(["個"]), addVerb: "補進", restoreVerb: "補進", consumeVerb: "拿走" })
   ]),
   capacity: Object.freeze([
-    Object.freeze({ scene: "運動會補給站", item: "運動飲料", container: "桶", groupNoun: "運動飲料", perPack: "箱運動飲料", packUnit: "箱", extraVerb: "再倒入", restoreVerb: "補充", consumeVerb: "分裝" }),
-    Object.freeze({ scene: "生日會", item: "果汁", container: "壺", groupNoun: "果汁", perPack: "壺果汁", packUnit: "壺", extraVerb: "多準備", restoreVerb: "補充", consumeVerb: "喝掉" }),
-    Object.freeze({ scene: "午餐廚房", item: "湯", container: "鍋", groupNoun: "湯", perPack: "鍋湯", packUnit: "鍋", extraVerb: "再加入", restoreVerb: "再加入", consumeVerb: "盛出" }),
-    Object.freeze({ scene: "教室飲水區", item: "飲用水", container: "桶", groupNoun: "飲用水", perPack: "桶飲用水", packUnit: "桶", extraVerb: "補充", restoreVerb: "補充", consumeVerb: "倒出" }),
-    Object.freeze({ scene: "園藝課", item: "澆花水", container: "桶", groupNoun: "澆花水", perPack: "桶澆花水", packUnit: "桶", extraVerb: "再裝", restoreVerb: "補水", consumeVerb: "澆掉" }),
-    Object.freeze({ scene: "早餐店", item: "豆漿", container: "瓶", groupNoun: "豆漿", perPack: "箱豆漿", packUnit: "箱", extraVerb: "多準備", restoreVerb: "補充", consumeVerb: "賣出" })
+    Object.freeze({ scene: "運動會補給站", item: "運動飲料", container: "桶", perPack: "箱運動飲料", packUnit: "箱", addVerb: "再倒入", restoreVerb: "補充", consumeVerb: "分裝" }),
+    Object.freeze({ scene: "生日會", item: "果汁", container: "壺", perPack: "壺果汁", packUnit: "壺", addVerb: "多準備", restoreVerb: "補充", consumeVerb: "喝掉" }),
+    Object.freeze({ scene: "午餐廚房", item: "湯", container: "鍋", perPack: "鍋湯", packUnit: "鍋", addVerb: "再加入", restoreVerb: "再加入", consumeVerb: "盛出" }),
+    Object.freeze({ scene: "教室飲水區", item: "飲用水", container: "桶", perPack: "桶飲用水", packUnit: "桶", addVerb: "補充", restoreVerb: "補充", consumeVerb: "倒出" }),
+    Object.freeze({ scene: "園藝課", item: "澆花水", container: "桶", perPack: "桶澆花水", packUnit: "桶", addVerb: "再裝", restoreVerb: "補水", consumeVerb: "澆掉" }),
+    Object.freeze({ scene: "早餐店", item: "豆漿", container: "瓶", perPack: "箱豆漿", packUnit: "箱", addVerb: "多準備", restoreVerb: "補充", consumeVerb: "賣出" })
   ]),
   weight: Object.freeze([
-    Object.freeze({ scene: "烘焙社", item: "麵粉", container: "袋", groupNoun: "麵粉", perPack: "袋麵粉", packUnit: "袋", extraVerb: "再加入", restoreVerb: "補進", consumeVerb: "用掉" }),
-    Object.freeze({ scene: "午餐廚房", item: "白米", container: "袋", groupNoun: "白米", perPack: "袋白米", packUnit: "袋", extraVerb: "補進", restoreVerb: "補進", consumeVerb: "煮掉" }),
-    Object.freeze({ scene: "市場採買", item: "蔬菜", container: "籃", groupNoun: "蔬菜", perPack: "籃蔬菜", packUnit: "籃", extraVerb: "多買", restoreVerb: "補買", consumeVerb: "賣出" }),
-    Object.freeze({ scene: "資源回收", item: "回收紙", container: "捆", groupNoun: "回收紙", perPack: "捆回收紙", packUnit: "捆", extraVerb: "再收集", restoreVerb: "再收集", consumeVerb: "送出" }),
-    Object.freeze({ scene: "寵物照顧", item: "飼料", container: "包", groupNoun: "飼料", perPack: "包飼料", packUnit: "包", extraVerb: "補充", restoreVerb: "補充", consumeVerb: "餵掉" }),
-    Object.freeze({ scene: "郵局寄件", item: "包裹", container: "件", groupNoun: "包裹", perPack: "箱包裹", packUnit: "箱", extraVerb: "加寄", restoreVerb: "加寄", consumeVerb: "寄出" })
+    Object.freeze({ scene: "烘焙社", item: "麵粉", container: "袋", perPack: "袋麵粉", packUnit: "袋", addVerb: "再加入", restoreVerb: "補進", consumeVerb: "用掉" }),
+    Object.freeze({ scene: "午餐廚房", item: "白米", container: "袋", perPack: "袋白米", packUnit: "袋", addVerb: "補進", restoreVerb: "補進", consumeVerb: "煮掉" }),
+    Object.freeze({ scene: "市場採買", item: "蔬菜", container: "籃", perPack: "籃蔬菜", packUnit: "籃", addVerb: "多買", restoreVerb: "補買", consumeVerb: "賣出" }),
+    Object.freeze({ scene: "資源回收", item: "回收紙", container: "捆", perPack: "捆回收紙", packUnit: "捆", addVerb: "再收集", restoreVerb: "再收集", consumeVerb: "送出" }),
+    Object.freeze({ scene: "寵物照顧", item: "飼料", container: "包", perPack: "包飼料", packUnit: "包", addVerb: "補充", restoreVerb: "補充", consumeVerb: "餵掉" }),
+    Object.freeze({ scene: "郵局寄件", item: "包裹", container: "件", perPack: "箱包裹", packUnit: "箱", addVerb: "加寄", restoreVerb: "加寄", consumeVerb: "寄出" })
   ]),
   length: Object.freeze([
-    Object.freeze({ scene: "美術課", item: "緞帶", container: "段", groupNoun: "緞帶", perPack: "卷緞帶", packUnit: "卷", extraVerb: "再剪下一段", restoreVerb: "接上一段", consumeVerb: "剪下" }),
-    Object.freeze({ scene: "園藝課", item: "水管", container: "段", groupNoun: "水管", perPack: "卷水管", packUnit: "卷", extraVerb: "接上", restoreVerb: "接上", consumeVerb: "剪掉" }),
-    Object.freeze({ scene: "布置教室", item: "紙膠帶", container: "段", groupNoun: "紙膠帶", perPack: "卷紙膠帶", packUnit: "卷", extraVerb: "再貼", restoreVerb: "補上一段", consumeVerb: "用掉" }),
-    Object.freeze({ scene: "童軍活動", item: "繩子", container: "段", groupNoun: "繩子", perPack: "捆繩子", packUnit: "捆", extraVerb: "加接", restoreVerb: "加接", consumeVerb: "剪下" }),
-    Object.freeze({ scene: "木工角", item: "木條", container: "段", groupNoun: "木條", perPack: "束木條", packUnit: "束", extraVerb: "補上一段", restoreVerb: "接上一段", consumeVerb: "鋸下" }),
-    Object.freeze({ scene: "運動場", item: "跑道標線", container: "段", groupNoun: "跑道標線", perPack: "卷標線帶", packUnit: "卷", extraVerb: "再畫", restoreVerb: "補畫", consumeVerb: "移除" })
+    Object.freeze({ scene: "美術課", item: "緞帶", container: "段", perPack: "卷緞帶", packUnit: "卷", addVerb: "再剪下一段", restoreVerb: "接上一段", consumeVerb: "剪下" }),
+    Object.freeze({ scene: "園藝課", item: "水管", container: "段", perPack: "卷水管", packUnit: "卷", addVerb: "接上", restoreVerb: "接上", consumeVerb: "剪掉" }),
+    Object.freeze({ scene: "布置教室", item: "紙膠帶", container: "段", perPack: "卷紙膠帶", packUnit: "卷", addVerb: "再貼", restoreVerb: "補上一段", consumeVerb: "用掉" }),
+    Object.freeze({ scene: "童軍活動", item: "繩子", container: "段", perPack: "捆繩子", packUnit: "捆", addVerb: "加接", restoreVerb: "加接", consumeVerb: "剪下" }),
+    Object.freeze({ scene: "木工角", item: "木條", container: "段", perPack: "束木條", packUnit: "束", addVerb: "補上一段", restoreVerb: "接上一段", consumeVerb: "鋸下" }),
+    Object.freeze({ scene: "運動場", item: "跑道標線", container: "段", perPack: "卷標線帶", packUnit: "卷", addVerb: "再畫", restoreVerb: "補畫", consumeVerb: "移除" })
   ]),
   time: Object.freeze([
-    Object.freeze({ scene: "閱讀課", item: "閱讀時間", container: "次", groupNoun: "閱讀時間", perPack: "段閱讀時間", packUnit: "段", extraVerb: "再安排", restoreVerb: "再安排", consumeVerb: "完成" }),
-    Object.freeze({ scene: "籃球隊", item: "練球時間", container: "次", groupNoun: "練球時間", perPack: "段練球時間", packUnit: "段", extraVerb: "加練", restoreVerb: "加練", consumeVerb: "完成" }),
-    Object.freeze({ scene: "資訊課", item: "影片播放時間", container: "段", groupNoun: "影片播放時間", perPack: "段影片", packUnit: "段", extraVerb: "再播放", restoreVerb: "再播放", consumeVerb: "播放完" }),
-    Object.freeze({ scene: "科學社", item: "實驗觀察時間", container: "次", groupNoun: "實驗觀察時間", perPack: "段觀察時間", packUnit: "段", extraVerb: "延長", restoreVerb: "延長", consumeVerb: "完成" }),
-    Object.freeze({ scene: "家政課", item: "烘烤時間", container: "次", groupNoun: "烘烤時間", perPack: "段烘烤時間", packUnit: "段", extraVerb: "延長", restoreVerb: "延長", consumeVerb: "完成" }),
-    Object.freeze({ scene: "平板充電站", item: "充電時間", container: "次", groupNoun: "充電時間", perPack: "段充電時間", packUnit: "段", extraVerb: "延長", restoreVerb: "延長", consumeVerb: "完成" })
+    Object.freeze({ scene: "閱讀課", item: "閱讀時間", container: "次", perPack: "段閱讀時間", packUnit: "段", addVerb: "再安排", restoreVerb: "再安排", consumeVerb: "完成" }),
+    Object.freeze({ scene: "籃球隊", item: "練球時間", container: "次", perPack: "段練球時間", packUnit: "段", addVerb: "加練", restoreVerb: "加練", consumeVerb: "完成" }),
+    Object.freeze({ scene: "資訊課", item: "影片播放時間", container: "段", perPack: "段影片", packUnit: "段", addVerb: "再播放", restoreVerb: "再播放", consumeVerb: "播放完" }),
+    Object.freeze({ scene: "科學社", item: "實驗觀察時間", container: "次", perPack: "段觀察時間", packUnit: "段", addVerb: "延長", restoreVerb: "延長", consumeVerb: "完成" }),
+    Object.freeze({ scene: "家政課", item: "烘烤時間", container: "次", perPack: "段烘烤時間", packUnit: "段", addVerb: "延長", restoreVerb: "延長", consumeVerb: "完成" }),
+    Object.freeze({ scene: "平板充電站", item: "充電時間", container: "次", perPack: "段充電時間", packUnit: "段", addVerb: "延長", restoreVerb: "延長", consumeVerb: "完成" })
   ])
 });
 
@@ -188,9 +174,7 @@ function scenarioFor(unitDomain, sequenceNumber) {
 }
 
 function defaultUnitLabel(unitDomain, sequenceNumber, scenario = null) {
-  if (Array.isArray(scenario?.unitLabels) && scenario.unitLabels.length > 0) {
-    return scenario.unitLabels[(sequenceNumber - 1) % scenario.unitLabels.length];
-  }
+  if (Array.isArray(scenario?.unitLabels) && scenario.unitLabels.length > 0) return scenario.unitLabels[(sequenceNumber - 1) % scenario.unitLabels.length];
   const labels = {
     money: ["元"],
     count_items: ["個", "張", "條", "本", "包"],
@@ -213,13 +197,7 @@ function makeMeasurement({ unitDomain, sequenceNumber, baseValue, conversionRequ
     const rule = getDefaultConversionRuleForDomain(unitDomain);
     const sourceValue = Math.max(1, Math.min(6, Math.ceil(baseValue / Math.max(rule.factor, 1))));
     const conversion = convertByRule(rule, sourceValue);
-    return {
-      displayValue: conversion.sourceValue,
-      displayUnitLabel: conversion.fromUnit,
-      equationValue: conversion.convertedValue,
-      finalUnitLabel: conversion.toUnit,
-      conversion
-    };
+    return { displayValue: conversion.sourceValue, displayUnitLabel: conversion.fromUnit, equationValue: conversion.convertedValue, finalUnitLabel: conversion.toUnit, conversion };
   }
   const unitLabel = defaultUnitLabel(unitDomain, sequenceNumber, scenario);
   return { displayValue: baseValue, displayUnitLabel: unitLabel, equationValue: baseValue, finalUnitLabel: unitLabel, conversion: null };
@@ -235,27 +213,26 @@ function prefixConversion(conversion) {
 
 function normalStartValue(unitDomain, sequenceNumber, n) {
   if (unitDomain === "time") return [120, 180, 240, 300, 360][sequenceNumber % 5];
-  if (unitDomain === "weight") return n(100, 120, 500);
-  if (unitDomain === "capacity") return n(101, 120, 500);
-  if (unitDomain === "length") return n(102, 120, 500);
-  return n(103, 120, 500);
+  return n(100, 120, 500);
 }
 
 function packTotalBaseValue(unitDomain, conversionRequired, sequenceNumber, n) {
   if (conversionRequired) return n(104, 1, 5) * 1000;
-  if (unitDomain === "time") return [120, 180, 240, 300, 360][sequenceNumber % 5];
-  if (unitDomain === "capacity") return n(105, 200, 900);
-  if (unitDomain === "weight") return n(106, 200, 900);
-  return n(107, 200, 1200);
+  if (unitDomain === "time") return [200, 400, 600, 800, 1000][sequenceNumber % 5];
+  return n(105, 2, 12) * 100;
 }
 
 function unitBaseValue(unitDomain, conversionRequired, sequenceNumber, n) {
   if (conversionRequired) return n(108, 1, 4) * 100;
   if (unitDomain === "time") return [20, 30, 40, 45, 60][sequenceNumber % 5];
-  if (unitDomain === "capacity") return n(109, 40, 150);
-  if (unitDomain === "weight") return n(110, 40, 150);
-  if (unitDomain === "length") return n(111, 40, 180);
-  return n(112, 40, 180);
+  if (unitDomain === "capacity" || unitDomain === "weight") return n(109, 40, 150);
+  return n(110, 40, 180);
+}
+
+function divisibleUnitBaseValue(unitDomain, conversionRequired, sequenceNumber, n) {
+  if (conversionRequired) return n(111, 1, 4) * 100;
+  if (unitDomain === "time") return [100, 200, 300, 400][sequenceNumber % 4];
+  return n(112, 1, 4) * 100;
 }
 
 function displayQuantityForConvertedTotal(total, conversion, displayedUnitValue) {
@@ -295,7 +272,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
       quantities = { start: aM.displayValue, increase: b, decrease: c };
-      prompt = `${prefixConversion(conversion)}${scenario.scene}原本有${valueText(aM.displayValue, aM.displayUnitLabel)}的${scenario.item}，又${scenario.extraVerb}${valueText(b, finalUnitLabel)}，後來${scenario.consumeVerb ?? "用掉"}${valueText(c, finalUnitLabel)}，還剩多少${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}原本有${valueText(aM.displayValue, aM.displayUnitLabel)}的${scenario.item}，又${scenario.addVerb}${valueText(b, finalUnitLabel)}，後來${scenario.consumeVerb ?? "用掉"}${valueText(c, finalUnitLabel)}，還剩多少${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_subtract_then_add_state_change": {
@@ -306,7 +283,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = aM.finalUnitLabel;
       conversion = aM.conversion;
       quantities = { start: aM.displayValue, decrease: Math.min(b, aM.equationValue), increase: c };
-      prompt = `${prefixConversion(conversion)}${scenario.scene}原本有${valueText(aM.displayValue, aM.displayUnitLabel)}的${scenario.item}，先${scenario.consumeVerb ?? "用掉"}${valueText(quantities.decrease, finalUnitLabel)}，後來${scenario.restoreVerb ?? scenario.extraVerb}${valueText(c, finalUnitLabel)}，現在有多少${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}原本有${valueText(aM.displayValue, aM.displayUnitLabel)}的${scenario.item}，先${scenario.consumeVerb ?? "用掉"}${valueText(quantities.decrease, finalUnitLabel)}，後來${scenario.restoreVerb ?? scenario.addVerb}${valueText(c, finalUnitLabel)}，現在有多少${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_subtract_twice_state_change": {
@@ -336,9 +313,9 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       break;
     }
     case "tpl_app_divide_by_group_product": {
-      const totalM = first(packTotalBaseValue(unitDomain, conversionRequired, sequenceNumber, n));
       const groups = [2, 4, 5][sequenceNumber % 3];
       const perGroup = 5;
+      const totalM = first(conversionRequired ? n(16, 1, 5) * 1000 : groups * perGroup * n(17, 12, 40));
       tokens = [totalM.equationValue, "÷", "(", groups, "×", perGroup, ")"];
       finalUnitLabel = totalM.finalUnitLabel;
       conversion = totalM.conversion;
@@ -356,13 +333,13 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
       finalUnitLabel = unitM.finalUnitLabel;
       conversion = unitM.conversion;
       quantities = { unit: unitM.displayValue, planned, cancelled, extra };
-      prompt = `${prefixConversion(conversion)}${scenario.scene}每份作品需要${valueText(unitM.displayValue, unitM.displayUnitLabel)}的${scenario.item}，原本要做${planned}份，後來取消${cancelled}份，又${scenario.restoreVerb ?? scenario.extraVerb}${valueText(extra, finalUnitLabel)}，共需要多少${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}每份作品需要${valueText(unitM.displayValue, unitM.displayUnitLabel)}的${scenario.item}，原本要做${planned}份，後來取消${cancelled}份，又${scenario.restoreVerb ?? scenario.addVerb}${valueText(extra, finalUnitLabel)}，共需要多少${finalUnitLabel}？`;
       break;
     }
     case "tpl_app_multiply_then_share": {
       const boxes = DIVISION_GROUPS[sequenceNumber % DIVISION_GROUPS.length];
-      const perBoxM = first(unitBaseValue(unitDomain, conversionRequired, sequenceNumber, n));
       const groups = DIVISION_GROUPS[(sequenceNumber + 1) % DIVISION_GROUPS.length];
+      const perBoxM = first(divisibleUnitBaseValue(unitDomain, conversionRequired, sequenceNumber, n));
       tokens = [boxes, "×", perBoxM.equationValue, "÷", groups];
       finalUnitLabel = perBoxM.finalUnitLabel;
       conversion = perBoxM.conversion;
@@ -407,21 +384,21 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
     }
     case "tpl_app_subtract_divided_amount_or_add_divided_amount":
     default: {
-      const totalM = first(packTotalBaseValue(unitDomain, conversionRequired, sequenceNumber, n));
       const groups = DIVISION_GROUPS[sequenceNumber % DIVISION_GROUPS.length];
-      const used = measuredValue(unitDomain, sequenceNumber + 12, n(28, 10, 60));
+      const totalM = first(conversionRequired ? n(27, 1, 5) * 1000 : groups * n(28, 20, 90));
+      const used = measuredValue(unitDomain, sequenceNumber + 12, n(29, 10, 60));
       tokens = [totalM.equationValue, "÷", groups, "+", used];
       finalUnitLabel = totalM.finalUnitLabel;
       conversion = totalM.conversion;
       quantities = { total: totalM.displayValue, groups, used };
-      prompt = `${prefixConversion(conversion)}${scenario.scene}共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}的${scenario.item}，平均分成${groups}份後，又${scenario.restoreVerb ?? scenario.extraVerb}${valueText(used, finalUnitLabel)}，合起來是多少${finalUnitLabel}？`;
+      prompt = `${prefixConversion(conversion)}${scenario.scene}共有${valueText(totalM.displayValue, totalM.displayUnitLabel)}的${scenario.item}，平均分成${groups}份後，又${scenario.restoreVerb ?? scenario.addVerb}${valueText(used, finalUnitLabel)}，合起來是多少${finalUnitLabel}？`;
       break;
     }
   }
 
   const evaluated = evaluateG4AU08ApplicationEquationTokens(tokens);
   if (conversion) convertedQuantities = { first: conversion };
-  return { tokens, prompt, quantities, convertedQuantities, conversion, finalUnitLabel, finalAnswer: evaluated.finalAnswer, scenario };
+  return { tokens, prompt, quantities, convertedQuantities, conversion, finalUnitLabel, finalAnswer: evaluated.finalAnswer, scenario, unitDomain };
 }
 
 function makeApplicationQuestion(definition, sequenceNumber, seed, conversionRequired) {
@@ -435,10 +412,10 @@ function makeApplicationQuestion(definition, sequenceNumber, seed, conversionReq
     sourceId: definition.sourceId,
     phase: "Phase2A",
     kind: "g4aU08ApplicationWordProblem",
-    knowledgePointId: TEMPLATE_KP[definition.storyTemplateId] ?? definition.knowledgePointId,
+    knowledgePointId: definition.knowledgePointId,
     patternSpecId: definition.patternSpecId,
     storyTemplateId: definition.storyTemplateId,
-    unitDomain: data.conversion?.unitDomain ?? selectUnitDomain(definition, sequenceNumber, Boolean(data.conversion)),
+    unitDomain: data.unitDomain,
     unitLabel: data.conversion?.fromUnit ?? data.finalUnitLabel,
     finalUnitLabel: data.finalUnitLabel,
     quantities: data.quantities,
@@ -521,7 +498,7 @@ export function generateG4AU08ApplicationQuestions(options = {}) {
       continue;
     }
     let generatedForPattern = 0;
-    const maxAttempts = Math.max(entry.questionCount * 8, 120);
+    const maxAttempts = Math.max(entry.questionCount * 10, 150);
     for (let attempt = 1; generatedForPattern < entry.questionCount && attempt <= maxAttempts; attempt += 1) {
       const conversionWanted = conversionCount < targetConversionCount;
       const question = makeApplicationQuestion(definition, attempt, `${plan.generationSeed}:${entry.patternSpecId}:${attempt}`, conversionWanted);
