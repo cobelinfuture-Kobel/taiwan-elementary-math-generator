@@ -1,0 +1,71 @@
+S56G2R_R13_G4A_U08_FINAL_CLOSEOUT_PASS
+
+sourceId = g4a_u08_4a08
+unit = 4A-U08 整數四則
+phase = Phase1 numeric + Phase2A application
+status = PASS_ACCEPTED_AND_CLOSED
+write_type = final_unit_closeout_marker
+
+final_local_readback:
+- tests = 499
+- pass = 499
+- fail = 0
+- cancelled = 0
+- skipped = 0
+- todo = 0
+- duration_ms = 5568.9509
+
+final_pdf_smoke_reviewed:
+- g4a_u08_同單位知識點混合_隨機排序.pdf
+
+final_pdf_smoke_result:
+- question_count = 200
+- numeric calculation questions present = PASS
+- Phase2A application word problems present = PASS
+- answer key present = PASS
+- hybrid numeric+application generation = PASS
+- no severe semantic blocker found = PASS
+
+semantic_acceptance_notes:
+- Prior blocker class near-total discount / far-away payment is absent.
+- Prior same-unit 144L / 95kg / 140m blocker class is absent.
+- Prior generic capacity/weight 材料包 blocker class is absent.
+- Tiny package quantity blocker was corrected; regenerated PDF uses 50mL / 50g package quantities.
+- Remaining wording is acceptable for current Phase2A scope and should be improved only in future recursive quality passes, not as a closeout blocker.
+
+closed_scope:
+- G4A-U08 Phase1 numeric order-of-operations generation.
+- G4A-U08 Phase2A lower-risk application word problems.
+- 4 Phase2A application KPs:
+  - kp_g4a_u08_app_add_sub_sequence
+  - kp_g4a_u08_app_parentheses_grouping
+  - kp_g4a_u08_app_mul_div_sequence
+  - kp_g4a_u08_app_mul_div_before_add_sub
+- Hybrid numeric + application mixed worksheet generation.
+- High-count Phase2A application generation up to 200 mixed questions.
+- Local npm regression coverage through 499 tests.
+
+not_in_scope_and_not_closed:
+- Phase2B comparison/rate-difference KP.
+- two-cost-component application template.
+- large-overlay application template.
+- chained conversion.
+- decimal/fraction answers.
+- broader style/UX redesign.
+
+future_quality_backlog_non_blocking:
+- Add more narrative variants for unit-rate prompts.
+- Add more realistic school-context text for long-duration time conversion problems.
+- Expand same-structure application variants recursively after more units are available.
+- Upgrade answer-key formatting to explicit equation+answer rendering in a later renderer milestone if still desired.
+
+GOAL_DISTANCE_BEFORE = D1_G4A_U08_TINY_PACKAGE_QUANTITY_FIX_TEST_PENDING
+GOAL_DISTANCE_AFTER = D0_G4A_U08_PHASE2A_AND_HYBRID_MIXED_CLOSED
+DISTANCE_REDUCED = Final local validation passed and regenerated PDF smoke confirmed 200-question numeric+application mixed output without blocker-level semantic issues.
+REMAINING_BLOCKERS = []
+NEXT_SHORTEST_STEP = Resume Batch A with the next shortest source-unit milestone outside closed G4A-U08 scope.
+STOP_REASON = NONE
+BLOCKER_TYPE = NONE
+LAST_COMPLETED_STATUS = S56G2R_R13_G4A_U08_FINAL_CLOSEOUT_PASS
+REQUIRED_OPERATOR_ACTION = None
+NEXT_RESUME_TASK = Select next Batch A unit or continue scheduled Batch A queue.
