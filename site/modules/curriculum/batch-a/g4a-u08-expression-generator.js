@@ -11,6 +11,11 @@ import {
 
 const OPERATORS = new Set(["+", "-", "×", "÷"]);
 const PRECEDENCE = Object.freeze({ "+": 1, "-": 1, "×": 2, "÷": 2 });
+const LARGE_ADD_SUB_OVERLAY_PATTERN_SPEC_IDS = new Set([
+  "ps_g4a_u08_large_add_sub_overlay_no_parentheses",
+  "ps_g4a_u08_large_add_sub_overlay_with_parentheses"
+]);
+const LARGE_ADD_SUB_OVERLAY_RATE = 0.2;
 
 function issue(code, path, message, severity = "error") {
   return { code, severity, path, message };
@@ -96,142 +101,335 @@ function evaluateExpressionTokens(tokens) {
   return { finalAnswer: stack[0], operations, intermediateResults: operations.map((operation) => operation.result) };
 }
 
+function variant(sequenceNumber, count) {
+  return (sequenceNumber - 1) % count;
+}
+
+function shaped(tokens, shapeVariant) {
+  return { tokens, shapeVariant };
+}
+
 function makeByFamily(definition, sequenceNumber, seed) {
   const seedValue = mix32(hashSeed(`${seed}:${definition.patternSpecId}:${sequenceNumber}`));
   const n = (offset, min, max) => randomInt(mix32(seedValue + offset + sequenceNumber * 37), min, max);
   switch (definition.expressionFamily) {
     case "parentheses_add_sub": {
-      if (sequenceNumber % 2 === 0) {
-        const a = n(1, 8, 30);
-        const c = n(2, 2, 9);
-        const b = c + n(3, 2, 12);
-        return [a, "+", "(", b, "-", c, ")"];
+      switch (variant(sequenceNumber, 4)) {
+        case 0: {
+          const b = n(1, 3, 12);
+          const c = n(2, 2, 10);
+          const a = b + c + n(3, 8, 40);
+          return shaped([a, "-", "(", b, "+", c, ")"], "parentheses_add_sub_middle_subtract_sum");
+        }
+        case 1: {
+          const c = n(4, 2, 9);
+          const b = c + n(5, 2, 12);
+          const a = n(6, 8, 40);
+          return shaped([a, "+", "(", b, "-", c, ")"], "parentheses_add_sub_middle_add_difference");
+        }
+        case 2: {
+          const a = n(7, 6, 24);
+          const b = n(8, 4, 20);
+          const c = n(9, 2, Math.min(18, a + b));
+          return shaped(["(", a, "+", b, ")", "-", c], "parentheses_add_sub_leading_sum_minus");
+        }
+        default: {
+          const b = n(10, 3, 15);
+          const c = n(11, 2, 12);
+          const a = n(12, 8, 35);
+          const d = n(13, 1, Math.min(25, a + b + c));
+          return shaped([a, "+", "(", b, "+", c, ")", "-", d], "parentheses_add_sub_middle_sum_then_subtract");
+        }
       }
-      const b = n(4, 3, 12);
-      const c = n(5, 2, 10);
-      const a = b + c + n(6, 8, 40);
-      return [a, "-", "(", b, "+", c, ")"];
     }
     case "parentheses_mul_div": {
-      if (sequenceNumber % 2 === 0) {
-        const a = n(7, 3, 12);
-        const c = n(8, 2, 6);
-        const b = c * n(9, 2, 6);
-        return [a, "×", "(", b, "÷", c, ")"];
+      switch (variant(sequenceNumber, 4)) {
+        case 0: {
+          const b = n(14, 2, 6);
+          const c = n(15, 2, 5);
+          const q = n(16, 2, 12);
+          return shaped([b * c * q, "÷", "(", b, "×", c, ")"], "parentheses_mul_div_divide_by_product");
+        }
+        case 1: {
+          const a = n(17, 3, 12);
+          const c = n(18, 2, 6);
+          const b = c * n(19, 2, 6);
+          return shaped([a, "×", "(", b, "÷", c, ")"], "parentheses_mul_div_multiply_by_quotient");
+        }
+        case 2: {
+          const c = n(20, 2, 6);
+          const b = n(21, 2, 8);
+          const k = n(22, 2, 9);
+          const a = c * k;
+          const d = n(23, 1, 30);
+          return shaped(["(", a, "×", b, ")", "÷", c, "+", d], "parentheses_mul_div_leading_product_then_divide");
+        }
+        default: {
+          const d = n(24, 2, 8);
+          const c = d + n(25, 2, 8);
+          const b = n(26, 2, 9);
+          const a = n(27, 10, 50);
+          return shaped([a, "+", b, "×", "(", c, "-", d, ")"], "parentheses_mul_div_factor_from_difference");
+        }
       }
-      const b = n(10, 2, 6);
-      const c = n(11, 2, 5);
-      const q = n(12, 2, 12);
-      return [b * c * q, "÷", "(", b, "×", c, ")"];
     }
     case "mul_before_add_sub": {
-      const b = n(13, 2, 9);
-      const c = n(14, 2, 9);
-      const a = n(15, 10, 60);
-      const d = n(16, 1, Math.min(30, a + b * c));
-      return [a, "+", b, "×", c, "-", d];
+      const b = n(28, 2, 9);
+      const c = n(29, 2, 9);
+      const product = b * c;
+      switch (variant(sequenceNumber, 4)) {
+        case 0: {
+          const a = n(30, 10, 60);
+          const d = n(31, 1, Math.min(30, a + product));
+          return shaped([a, "+", b, "×", c, "-", d], "mul_before_add_sub_middle_plus_then_minus");
+        }
+        case 1: {
+          const a = product + n(32, 5, 45);
+          const d = n(33, 1, 30);
+          return shaped([a, "-", b, "×", c, "+", d], "mul_before_add_sub_middle_minus_then_plus");
+        }
+        case 2: {
+          const a = n(34, 10, 60);
+          const d = n(35, 1, Math.min(45, a + product));
+          return shaped([b, "×", c, "+", a, "-", d], "mul_before_add_sub_leading_product");
+        }
+        default: {
+          const d = n(36, product, product + 50);
+          const a = n(37, 5, 50);
+          return shaped([a, "+", d, "-", b, "×", c], "mul_before_add_sub_trailing_product");
+        }
+      }
     }
     case "div_before_add_sub": {
-      const divisor = n(17, 2, 9);
-      const quotient = n(18, 2, 20);
+      const divisor = n(38, 2, 9);
+      const quotient = n(39, 2, 20);
       const dividend = divisor * quotient;
-      const a = n(19, 10, 60);
-      const d = n(20, 1, Math.min(30, a + quotient));
-      return [a, "+", dividend, "÷", divisor, "-", d];
+      switch (variant(sequenceNumber, 4)) {
+        case 0: {
+          const a = n(40, 10, 60);
+          const d = n(41, 1, Math.min(30, a + quotient));
+          return shaped([a, "+", dividend, "÷", divisor, "-", d], "div_before_add_sub_middle_plus_then_minus");
+        }
+        case 1: {
+          const a = quotient + n(42, 5, 45);
+          const d = n(43, 1, 30);
+          return shaped([a, "-", dividend, "÷", divisor, "+", d], "div_before_add_sub_middle_minus_then_plus");
+        }
+        case 2: {
+          const a = n(44, 10, 60);
+          const d = n(45, 1, Math.min(45, a + quotient));
+          return shaped([dividend, "÷", divisor, "+", a, "-", d], "div_before_add_sub_leading_quotient");
+        }
+        default: {
+          const d = n(46, quotient, quotient + 50);
+          const a = n(47, 5, 50);
+          return shaped([a, "+", d, "-", dividend, "÷", divisor], "div_before_add_sub_trailing_quotient");
+        }
+      }
     }
     case "add_sub_left_to_right": {
-      if (sequenceNumber % 2 === 0) {
-        const b = n(21, 3, 20);
-        const c = n(22, 2, 18);
-        const a = b + c + n(23, 5, 40);
-        return [a, "-", b, "-", c];
+      switch (variant(sequenceNumber, 3)) {
+        case 0: {
+          const b = n(48, 3, 25);
+          const a = b + n(49, 5, 50);
+          const c = n(50, 2, 30);
+          return shaped([a, "-", b, "+", c], "add_sub_ltr_subtract_then_add");
+        }
+        case 1: {
+          const a = n(51, 10, 50);
+          const b = n(52, 3, 30);
+          const c = n(53, 2, Math.min(30, a + b));
+          return shaped([a, "+", b, "-", c], "add_sub_ltr_add_then_subtract");
+        }
+        default: {
+          const b = n(54, 3, 20);
+          const c = n(55, 2, 18);
+          const a = b + c + n(56, 5, 40);
+          return shaped([a, "-", b, "-", c], "add_sub_ltr_two_subtractions");
+        }
       }
-      const b = n(24, 3, 25);
-      const a = b + n(25, 5, 50);
-      const c = n(26, 2, 30);
-      return [a, "-", b, "+", c];
     }
     case "mul_div_left_to_right": {
-      if (sequenceNumber % 2 === 0) {
-        const a = n(27, 3, 12);
-        const c = n(28, 2, 8);
-        const k = n(29, 2, 5);
-        return [a, "×", c * k, "÷", c];
+      switch (variant(sequenceNumber, 3)) {
+        case 0: {
+          const divisor = n(57, 2, 9);
+          const q = n(58, 2, 12);
+          const multiplier = n(59, 2, 8);
+          return shaped([divisor * q, "÷", divisor, "×", multiplier], "mul_div_ltr_divide_then_multiply");
+        }
+        case 1: {
+          const divisor = n(60, 2, 8);
+          const k = n(61, 2, 8);
+          const multiplier = n(62, 2, 8);
+          return shaped([divisor * k, "×", multiplier, "÷", divisor], "mul_div_ltr_multiply_then_divide");
+        }
+        default: {
+          const b = n(63, 2, 7);
+          const c = n(64, 2, 6);
+          const q = n(65, 2, 12);
+          return shaped([b * c * q, "÷", b, "÷", c], "mul_div_ltr_two_divisions");
+        }
       }
-      const divisor = n(30, 2, 9);
-      const q = n(31, 2, 12);
-      const multiplier = n(32, 2, 8);
-      return [divisor * q, "÷", divisor, "×", multiplier];
     }
     case "mixed_no_parentheses": {
-      if (sequenceNumber % 2 === 0) {
-        const b = n(33, 2, 9);
-        const c = n(34, 2, 8);
-        const a = n(35, 10, 70);
-        const d = n(36, 1, Math.min(50, a + b * c));
-        return [a, "+", b, "×", c, "-", d];
+      switch (variant(sequenceNumber, 4)) {
+        case 0: {
+          const b = n(66, 2, 9);
+          const c = n(67, 2, 8);
+          const e = n(68, 2, 9);
+          const q = n(69, 2, 12);
+          const d = e * q;
+          const a = n(70, 10, 70);
+          return shaped([a, "+", b, "×", c, "-", d, "÷", e], "mixed_no_parentheses_mul_then_div");
+        }
+        case 1: {
+          const c = n(71, 2, 9);
+          const q = n(72, 2, 14);
+          const b = c * q;
+          const d = n(73, 2, 8);
+          const e = n(74, 2, 7);
+          const a = q + n(75, 15, 70);
+          return shaped([a, "-", b, "÷", c, "+", d, "×", e], "mixed_no_parentheses_div_then_mul");
+        }
+        case 2: {
+          const b = n(76, 2, 9);
+          const c = n(77, 2, 8);
+          const e = n(78, 2, 9);
+          const q = n(79, 2, 10);
+          const d = e * q;
+          const a = n(80, 10, 60);
+          return shaped([b, "×", c, "+", a, "-", d, "÷", e], "mixed_no_parentheses_leading_mul");
+        }
+        default: {
+          const divisor = n(81, 2, 9);
+          const quotient = n(82, 2, 16);
+          const e = n(83, 2, 6);
+          const a = n(84, 10, 70);
+          const d = n(85, 1, Math.min(50, a + quotient * e));
+          return shaped([a, "+", divisor * quotient, "÷", divisor, "×", e, "-", d], "mixed_no_parentheses_ltr_mul_div_chain");
+        }
       }
-      const divisor = n(37, 2, 9);
-      const quotient = n(38, 2, 16);
-      const e = n(39, 2, 6);
-      const a = n(40, 10, 70);
-      const d = n(41, 1, Math.min(50, a + quotient * e));
-      return [a, "+", divisor * quotient, "÷", divisor, "×", e, "-", d];
     }
     case "mixed_with_parentheses": {
-      if (sequenceNumber % 2 === 0) {
-        const d = n(42, 2, 8);
-        const c = d + n(43, 2, 8);
-        const b = n(44, 2, 9);
-        const a = n(45, 10, 70);
-        return [a, "+", b, "×", "(", c, "-", d, ")"];
+      switch (variant(sequenceNumber, 5)) {
+        case 0: {
+          const d = n(86, 2, 8);
+          const c = d + n(87, 2, 8);
+          const b = n(88, 2, 9);
+          const a = n(89, 10, 70);
+          return shaped([a, "+", b, "×", "(", c, "-", d, ")"], "mixed_with_parentheses_middle_factor");
+        }
+        case 1: {
+          const a = n(90, 6, 20);
+          const b = n(91, 4, 15);
+          const c = n(92, 2, 8);
+          const d = n(93, 1, Math.min(40, (a + b) * c));
+          return shaped(["(", a, "+", b, ")", "×", c, "-", d], "mixed_with_parentheses_leading_group");
+        }
+        case 2: {
+          const c = n(94, 2, 8);
+          const b = c + n(95, 2, 8);
+          const d = n(96, 2, 8);
+          const a = n(97, 10, 60);
+          const e = n(98, 1, Math.min(40, a + (b - c) * d));
+          return shaped([a, "+", "(", b, "-", c, ")", "×", d, "-", e], "mixed_with_parentheses_middle_group_then_mul");
+        }
+        case 3: {
+          const d = n(99, 2, 8);
+          const c = d + n(100, 2, 8);
+          const b = n(101, 2, 8);
+          const product = b * (c - d);
+          const a = product + n(102, 10, 60);
+          const e = n(103, 1, 30);
+          return shaped([a, "-", b, "×", "(", c, "-", d, ")", "+", e], "mixed_with_parentheses_trailing_add_after_group");
+        }
+        default: {
+          const diff = n(104, 2, 6);
+          const d = n(105, 2, 8);
+          const c = d + diff;
+          const quotient = n(106, 2, 12);
+          const b = diff * quotient;
+          const e = n(107, 2, 6);
+          const a = n(108, 10, 70);
+          return shaped([a, "+", b, "÷", "(", c, "-", d, ")", "×", e], "mixed_with_parentheses_divide_by_group_then_mul");
+        }
       }
-      const diff = n(46, 2, 6);
-      const d = n(47, 2, 8);
-      const c = d + diff;
-      const quotient = n(48, 2, 12);
-      const b = diff * quotient;
-      const e = n(49, 2, 6);
-      const a = n(50, 10, 70);
-      return [a, "+", b, "÷", "(", c, "-", d, ")", "×", e];
     }
     case "large_no_parentheses": {
-      if (sequenceNumber % 2 === 0) {
-        const largeA = n(51, 2000, 7000);
-        const divisor = n(52, 2, 9);
-        const quotient = n(53, 2, 40);
-        const largeB = n(54, 100, Math.min(3000, largeA + quotient));
-        return [largeA, "-", divisor * quotient, "÷", divisor, "+", largeB];
+      switch (variant(sequenceNumber, 4)) {
+        case 0: {
+          const largeA = n(109, 3000, 8000);
+          const b = n(110, 2, 9);
+          const c = n(111, 2, 9);
+          const largeB = n(112, 100, Math.min(3000, largeA + b * c));
+          return shaped([largeA, "+", b, "×", c, "-", largeB], "large_no_parentheses_middle_mul");
+        }
+        case 1: {
+          const largeA = n(113, 2000, 7000);
+          const divisor = n(114, 2, 9);
+          const quotient = n(115, 2, 40);
+          const largeB = n(116, 100, Math.min(2500, 9999 - largeA + quotient));
+          return shaped([largeA, "-", divisor * quotient, "÷", divisor, "+", largeB], "large_no_parentheses_middle_div");
+        }
+        case 2: {
+          const largeA = n(117, 3000, 7000);
+          const largeB = n(118, 800, 2400);
+          const b = n(119, 2, 9);
+          const c = n(120, 2, 9);
+          return shaped([largeA, "+", largeB, "-", b, "×", c], "large_no_parentheses_trailing_mul");
+        }
+        default: {
+          const largeB = n(121, 500, 2500);
+          const divisor = n(122, 2, 9);
+          const quotient = n(123, 2, 40);
+          const largeA = largeB + quotient + n(124, 500, 6000);
+          return shaped([largeA, "-", largeB, "+", divisor * quotient, "÷", divisor], "large_no_parentheses_trailing_div");
+        }
       }
-      const largeA = n(55, 3000, 8000);
-      const b = n(56, 2, 9);
-      const c = n(57, 2, 9);
-      const largeB = n(58, 100, Math.min(3000, largeA + b * c));
-      return [largeA, "+", b, "×", c, "-", largeB];
     }
     case "large_with_parentheses": {
-      if (sequenceNumber % 2 === 0) {
-        const largeA = n(59, 2500, 9000);
-        const a = n(60, 10, 80);
-        const b = n(61, 10, 80);
-        const c = n(62, 2, 9);
-        const d = n(63, 2, 9);
-        return [largeA, "-", "(", a, "+", b, ")", "+", c, "×", d];
+      switch (variant(sequenceNumber, 4)) {
+        case 0: {
+          const largeA = n(125, 2500, 9000);
+          const a = n(126, 10, 80);
+          const b = n(127, 10, 80);
+          const c = n(128, 2, 9);
+          const d = n(129, 2, 9);
+          return shaped([largeA, "-", "(", a, "+", b, ")", "+", c, "×", d], "large_with_parentheses_subtract_group_then_mul");
+        }
+        case 1: {
+          const largeA = n(130, 2500, 8500);
+          const e = n(131, 2, 8);
+          const d = e + n(132, 2, 8);
+          const c = n(133, 2, 9);
+          const largeB = n(134, 100, Math.min(2500, largeA + c * (d - e)));
+          return shaped([largeA, "+", c, "×", "(", d, "-", e, ")", "-", largeB], "large_with_parentheses_middle_group_mul");
+        }
+        case 2: {
+          const a = n(135, 10, 60);
+          const b = n(136, 10, 60);
+          const c = n(137, 2, 6);
+          const largeA = n(138, 2500, 6500);
+          const largeB = n(139, 100, Math.min(2400, largeA + (a + b) * c));
+          return shaped(["(", a, "+", b, ")", "×", c, "+", largeA, "-", largeB], "large_with_parentheses_leading_group_mul");
+        }
+        default: {
+          const b = n(140, 10, 50);
+          const a = b + n(141, 2, 20);
+          const c = n(142, 2, 8);
+          const largeA = n(143, 2500, 8500);
+          const largeB = n(144, 100, Math.min(2500, largeA + (a - b) * c));
+          return shaped([largeA, "+", "(", a, "-", b, ")", "×", c, "-", largeB], "large_with_parentheses_middle_group_difference");
+        }
       }
-      const largeA = n(64, 2500, 8500);
-      const e = n(65, 2, 8);
-      const d = e + n(66, 2, 8);
-      const c = n(67, 2, 9);
-      const largeB = n(68, 100, 2500);
-      return [largeA, "+", c, "×", "(", d, "-", e, ")", "-", largeB];
     }
     default:
-      return [10, "+", 2, "×", 3];
+      return shaped([10, "+", 2, "×", 3], "fallback");
   }
 }
 
 function makeExpressionQuestion(definition, sequenceNumber, seed) {
-  const expressionTokens = makeByFamily(definition, sequenceNumber, seed);
+  const { tokens: expressionTokens, shapeVariant } = makeByFamily(definition, sequenceNumber, seed);
   const expression = tokensToExpression(expressionTokens);
   const evaluated = evaluateExpressionTokens(expressionTokens);
   const finalAnswer = evaluated.finalAnswer;
@@ -243,6 +441,7 @@ function makeExpressionQuestion(definition, sequenceNumber, seed) {
     kind: definition.kind,
     expression,
     expressionTokens,
+    shapeVariant,
     finalAnswer,
     answerText,
     displayText: `${expression} = ${answerText}`,
@@ -267,7 +466,8 @@ function generateQuestion(patternSpecId, sequenceNumber, seed) {
   return makeExpressionQuestion(definition, sequenceNumber, seed);
 }
 
-function allocateCounts(patternSpecIds, questionCount) {
+function spreadCounts(patternSpecIds, questionCount) {
+  if (patternSpecIds.length === 0 || questionCount <= 0) return [];
   const base = Math.floor(questionCount / patternSpecIds.length);
   let remainder = questionCount % patternSpecIds.length;
   return patternSpecIds.map((patternSpecId) => {
@@ -275,6 +475,22 @@ function allocateCounts(patternSpecIds, questionCount) {
     remainder -= remainder > 0 ? 1 : 0;
     return { patternSpecId, questionCount: count };
   }).filter((entry) => entry.questionCount > 0);
+}
+
+function allocateCounts(patternSpecIds, questionCount) {
+  const overlaySpecIds = patternSpecIds.filter((id) => LARGE_ADD_SUB_OVERLAY_PATTERN_SPEC_IDS.has(id));
+  const normalSpecIds = patternSpecIds.filter((id) => !LARGE_ADD_SUB_OVERLAY_PATTERN_SPEC_IDS.has(id));
+  if (overlaySpecIds.length > 0 && normalSpecIds.length > 0 && questionCount >= patternSpecIds.length) {
+    const minimumOverlay = overlaySpecIds.length;
+    const maximumOverlay = questionCount - normalSpecIds.length;
+    const targetOverlay = Math.round(questionCount * LARGE_ADD_SUB_OVERLAY_RATE);
+    const overlayCount = Math.max(minimumOverlay, Math.min(maximumOverlay, targetOverlay));
+    return [
+      ...spreadCounts(normalSpecIds, questionCount - overlayCount),
+      ...spreadCounts(overlaySpecIds, overlayCount)
+    ];
+  }
+  return spreadCounts(patternSpecIds, questionCount);
 }
 
 function buildPlan(options = {}) {
@@ -324,7 +540,7 @@ export function generateG4AU08ExpressionQuestions(options = {}) {
   if (plan.sourceId !== G4A_U08_SOURCE_ID) return { ok: false, plan, questions: [], allocation: [], errors: [issue("g4a_u08_source_mismatch", "sourceId", "G4A-U08 generator received a non-G4A-U08 sourceId.")], warnings: [] };
   if (plan.resolverResult && !plan.resolverResult.ok) return { ok: false, plan, questions: [], allocation: [], errors: plan.resolverResult.errors ?? [], warnings: plan.resolverResult.warnings ?? [] };
   if (plan.patternSpecIds.length === 0) return { ok: false, plan, questions: [], allocation: [], errors: [issue("g4a_u08_no_pattern_selected", "patternSpecIds", "No implemented G4A-U08 PatternSpec is selected.")], warnings: [] };
-  const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : allocateCounts(plan.patternSpecIds, plan.questionCount);
+  const allocation = allocateCounts(plan.patternSpecIds, plan.questionCount);
   const questions = [];
   const errors = [];
   const promptKeys = new Set();
