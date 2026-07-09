@@ -28,6 +28,7 @@ const KP_IDS = Object.freeze([
   "kp_g4a_u08_left_to_right_same_level",
   "kp_g4a_u08_comprehensive_order_of_operations"
 ]);
+const COMPREHENSIVE_KP_ID = "kp_g4a_u08_comprehensive_order_of_operations";
 const SPEC_IDS = Object.freeze([
   "ps_g4a_u08_parentheses_add_sub",
   "ps_g4a_u08_parentheses_mul_div",
@@ -67,6 +68,14 @@ function stateFor(kpIds, count = 40, includeAnswerKey = true, ordering = "groupe
 
 function uniquePromptCount(questions) {
   return new Set(questions.map((question) => question.blankedDisplayText)).size;
+}
+
+function overlayCount(questions) {
+  return questions.filter((question) => question.largeAddSubOverlay === true || OVERLAY_SPEC_IDS.has(question.patternSpecId)).length;
+}
+
+function shapeVariantCount(questions) {
+  return new Set(questions.map((question) => question.shapeVariant)).size;
 }
 
 function toRpn(tokens) {
@@ -177,9 +186,31 @@ test("G4A-U08 number-control constraints hold", () => {
 test("G4A-U08 large add/sub overlay rate is near 20 percent in source-unit mode", () => {
   const result = generateBatchABrowserQuestions({ sourceId: SOURCE_ID, questionCount: 100, ordering: "groupedByPattern", generationSeed: "s55-overlay-rate" });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  const overlayCount = result.questions.filter((question) => question.largeAddSubOverlay === true || OVERLAY_SPEC_IDS.has(question.patternSpecId)).length;
-  assert.equal(overlayCount >= 10 && overlayCount <= 30, true);
-  assert.equal(overlayCount, 20);
+  const count = overlayCount(result.questions);
+  assert.equal(count >= 10 && count <= 30, true);
+  assert.equal(count, 20);
+});
+
+test("G4A-U08 single-KP generation uses varied expression shapes", () => {
+  const minimumShapeCounts = new Map([
+    ["kp_g4a_u08_parentheses_first", 6],
+    ["kp_g4a_u08_mul_div_before_add_sub", 6],
+    ["kp_g4a_u08_left_to_right_same_level", 5],
+    [COMPREHENSIVE_KP_ID, 10]
+  ]);
+  for (const kpId of KP_IDS) {
+    const result = generateBatchABrowserQuestions({ sourceId: SOURCE_ID, selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [firstGroupId(kpId)], questionCount: 60, generationSeed: `s55-shape-${kpId}` });
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(shapeVariantCount(result.questions) >= minimumShapeCounts.get(kpId), true, `${kpId} shape variants were too narrow`);
+  }
+});
+
+test("G4A-U08 comprehensive single-KP overlay rate stays near 20 percent", () => {
+  const result = buildWorksheetDocumentFromState(stateFor([COMPREHENSIVE_KP_ID], 30, true));
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const count = overlayCount(result.worksheetDocument.generatedQuestions);
+  assert.equal(count >= 3 && count <= 9, true);
+  assert.equal(count, 6);
 });
 
 test("G4A-U08 same-unit mixed worksheet builds answer key", () => {
