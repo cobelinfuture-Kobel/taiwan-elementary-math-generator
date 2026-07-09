@@ -50,7 +50,16 @@ const FORBIDDEN_SEMANTIC_PHRASES = Object.freeze([
   "標準門票",
   "每次使用門票",
   "道路共有",
-  "課程時間共有"
+  "課程時間共有",
+  "再鋸",
+  "運動會2 份",
+  "園藝課5 份",
+  "籃球隊4 份",
+  "共有 200 時",
+  "共有200時",
+  "用掉閱讀時間",
+  "用掉練球時間",
+  "用掉烘烤時間"
 ]);
 
 function firstGroupId(kpId) {
@@ -73,6 +82,11 @@ function appStateFor(kpIds, count = 48, ordering = "groupedByPattern") {
 
 function conversionCount(questions) {
   return questions.filter((question) => question.conversionRequired === true).length;
+}
+
+function assertNoForbiddenSemanticPhrase(questions) {
+  const prompts = questions.map((question) => question.promptText).join("\n");
+  for (const phrase of FORBIDDEN_SEMANTIC_PHRASES) assert.equal(prompts.includes(phrase), false, `${phrase} should not appear in Phase2A prompts`);
 }
 
 test("G4A-U08 Phase2A exposes four application KnowledgePoints and twelve PatternSpecs", () => {
@@ -150,13 +164,40 @@ test("G4A-U08 Phase2A mixed application worksheet builds answer key and conversi
 test("G4A-U08 Phase2A scenario bank avoids invalid phrases and provides life-context diversity", () => {
   const result = buildWorksheetDocumentFromState(appStateFor(APP_KP_IDS, 60, "shuffleAcrossPatterns"));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  const prompts = result.worksheetDocument.generatedQuestions.map((question) => question.promptText).join("\n");
-  for (const phrase of FORBIDDEN_SEMANTIC_PHRASES) assert.equal(prompts.includes(phrase), false, `${phrase} should not appear in Phase2A prompts`);
+  assertNoForbiddenSemanticPhrase(result.worksheetDocument.generatedQuestions);
   const sceneSet = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.metadata?.scenarioScene).filter(Boolean));
   const itemSet = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.metadata?.scenarioItem).filter(Boolean));
   assert.equal(sceneSet.size >= 10, true, `expected at least 10 scenes, got ${sceneSet.size}`);
   assert.equal(itemSet.size >= 12, true, `expected at least 12 scenario items, got ${itemSet.size}`);
   assert.equal([...sceneSet].some((scene) => ["美術課", "圖書館活動", "運動會補給站", "烘焙社", "校外教學", "閱讀課"].includes(scene)), true);
+});
+
+test("G4A-U08 Phase2A high-count generation supports single-KP and mixed worksheets", () => {
+  for (const kpId of APP_KP_IDS) {
+    const single = buildWorksheetDocumentFromState(appStateFor([kpId], 120, "groupedByPattern"));
+    assert.equal(single.ok, true, JSON.stringify(single.errors));
+    assert.equal(single.worksheetDocument.generatedQuestions.length, 120);
+    assert.equal(single.worksheetDocument.answerKeyItems.length, 120);
+    assert.equal(validateBatchABrowserQuestions(single.worksheetDocument.generatedQuestions).ok, true);
+    assertNoForbiddenSemanticPhrase(single.worksheetDocument.generatedQuestions);
+  }
+
+  const mixed = buildWorksheetDocumentFromState(appStateFor(APP_KP_IDS, 200, "shuffleAcrossPatterns"));
+  assert.equal(mixed.ok, true, JSON.stringify(mixed.errors));
+  assert.equal(mixed.worksheetDocument.generatedQuestions.length, 200);
+  assert.equal(mixed.worksheetDocument.answerKeyItems.length, 200);
+  assert.equal(validateBatchABrowserQuestions(mixed.worksheetDocument.generatedQuestions).ok, true);
+  assertNoForbiddenSemanticPhrase(mixed.worksheetDocument.generatedQuestions);
+});
+
+test("G4A-U08 Phase2A high-count prompts keep scenario quantities in user-facing ranges", () => {
+  const result = buildWorksheetDocumentFromState(appStateFor(APP_KP_IDS, 200, "shuffleAcrossPatterns"));
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const prompts = result.worksheetDocument.generatedQuestions.map((question) => question.promptText).join("\n");
+  assert.equal(/\d{4,}L/.test(prompts), false, "large L quantities should not appear in prompts");
+  assert.equal(/\d{4,}kg/.test(prompts), false, "large kg quantities should not appear in prompts");
+  assert.equal(/\d{3,}時/.test(prompts), false, "large hour quantities should not appear in prompts");
+  assert.equal(/\d{4,}(條|張|本|個|顆|人)/.test(prompts), false, "large count-item quantities should not appear in prompts");
 });
 
 test("G4A-U08 Phase2A validator rejects corrupted application fields", () => {
