@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>像素風版｜台灣小學數學練習題產生器</title>
+  <link rel="stylesheet" href="./pixel-theme.css">
+</head>
+<body class="pixel-page" data-ui-version="pixel-beta">
+  <main class="pixel-shell" aria-label="像素風數學出題介面">
+    <header class="pixel-hero">
+      <p class="pixel-eyebrow">Pixel UI Beta｜Parallel version</p>
+      <h1>小學數學出題小屋</h1>
+      <p class="pixel-lede">這是平行測試版：保留標準版功能，同時建立像素風介面。出題核心將共用現有 Batch A generator / validator / renderer。</p>
+      <nav class="pixel-version-nav" aria-label="版本切換">
+        <a href="../index.html">回到標準版</a>
+      </nav>
+    </header>
+
+    <section class="pixel-layout" aria-label="Pixel UI scaffold">
+      <aside class="pixel-panel pixel-panel--sidebar" aria-label="篩選條件">
+        <h2>篩選條件</h2>
+        <label class="pixel-field">
+          <span>年級 / 單元</span>
+          <select id="pixel-source-select" name="pixelSourceId"></select>
+        </label>
+        <p class="pixel-help" id="pixel-source-summary">正在讀取 Batch A source units...</p>
+        <div class="pixel-stat-card">
+          <span>可選知識點</span>
+          <strong id="pixel-kp-count">0</strong>
+        </div>
+      </aside>
+
+      <section class="pixel-panel pixel-panel--main" aria-label="考卷設定">
+        <h2>考卷設定</h2>
+        <div class="pixel-setting-grid">
+          <label class="pixel-field">
+            <span>題數</span>
+            <input id="pixel-question-count" type="number" min="1" max="200" value="20" disabled>
+          </label>
+          <label class="pixel-field">
+            <span>排序</span>
+            <select id="pixel-ordering" disabled>
+              <option value="groupedByPattern">依題型分組</option>
+              <option value="shuffleAcrossPatterns">跨題型隨機排序</option>
+            </select>
+          </label>
+          <label class="pixel-toggle">
+            <input id="pixel-answer-key" type="checkbox" checked disabled>
+            <span>包含答案頁</span>
+          </label>
+        </div>
+        <button class="pixel-button pixel-button--primary" type="button" disabled>產生考卷｜下一階段接入</button>
+        <p class="pixel-help">S44B 只建立 /pixel/ 平行入口，不複製 generator 或 validator。S45/S46 會接共用出題流程。</p>
+      </section>
+
+      <aside class="pixel-panel pixel-panel--preview" aria-label="預覽摘要">
+        <h2>題目預覽</h2>
+        <p id="pixel-preview-meta">尚未接入產生流程。</p>
+        <ol class="pixel-sample-list" aria-label="示意題目">
+          <li>4836 + 1957 = □</li>
+          <li>7052 - 1869 = □</li>
+          <li>36 × 4 = □</li>
+          <li>84 ÷ 7 = □</li>
+        </ol>
+        <div class="pixel-mascot" aria-hidden="true">▣✎▣</div>
+      </aside>
+    </section>
+  </main>
+
+  <script type="module" src="./pixel-ui.js"></script>
+</body>
+</html>
