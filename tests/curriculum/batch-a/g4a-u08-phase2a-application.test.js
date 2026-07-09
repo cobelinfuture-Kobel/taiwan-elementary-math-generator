@@ -43,6 +43,15 @@ const APP_SPEC_IDS = Object.freeze([
   "ps_g4a_u08_app_payment_minus_unit_cost_times_quantity",
   "ps_g4a_u08_app_subtract_divided_amount_or_add_divided_amount"
 ]);
+const FORBIDDEN_SEMANTIC_PHRASES = Object.freeze([
+  "道路分成三批",
+  "盒道路",
+  "盒課程時間",
+  "標準門票",
+  "每次使用門票",
+  "道路共有",
+  "課程時間共有"
+]);
 
 function firstGroupId(kpId) {
   return getVisiblePatternGroupsForKnowledgePoint(kpId)[0]?.patternGroupId;
@@ -136,6 +145,18 @@ test("G4A-U08 Phase2A mixed application worksheet builds answer key and conversi
       assert.equal(question.convertedQuantities, null);
     }
   }
+});
+
+test("G4A-U08 Phase2A scenario bank avoids invalid phrases and provides life-context diversity", () => {
+  const result = buildWorksheetDocumentFromState(appStateFor(APP_KP_IDS, 60, "shuffleAcrossPatterns"));
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const prompts = result.worksheetDocument.generatedQuestions.map((question) => question.promptText).join("\n");
+  for (const phrase of FORBIDDEN_SEMANTIC_PHRASES) assert.equal(prompts.includes(phrase), false, `${phrase} should not appear in Phase2A prompts`);
+  const sceneSet = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.metadata?.scenarioScene).filter(Boolean));
+  const itemSet = new Set(result.worksheetDocument.generatedQuestions.map((question) => question.metadata?.scenarioItem).filter(Boolean));
+  assert.equal(sceneSet.size >= 10, true, `expected at least 10 scenes, got ${sceneSet.size}`);
+  assert.equal(itemSet.size >= 12, true, `expected at least 12 scenario items, got ${itemSet.size}`);
+  assert.equal([...sceneSet].some((scene) => ["美術課", "圖書館活動", "運動會補給站", "烘焙社", "校外教學", "閱讀課"].includes(scene)), true);
 });
 
 test("G4A-U08 Phase2A validator rejects corrupted application fields", () => {
