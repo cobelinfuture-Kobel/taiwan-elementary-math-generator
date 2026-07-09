@@ -309,7 +309,7 @@ function buildTemplateData(definition, sequenceNumber, seed, conversionRequired)
     case "tpl_app_payment_minus_unit_cost_times_quantity": {
       const unitPrice = n(25, 10, 25);
       const quantity = n(26, 2, 6);
-      const payment = [100, 200, 500][sequenceNumber % 3];
+      const payment = [200, 500, 1000][sequenceNumber % 3];
       tokens = [payment, "-", unitPrice, "×", quantity];
       finalUnitLabel = "元";
       quantities = { payment, unitPrice, quantity };
