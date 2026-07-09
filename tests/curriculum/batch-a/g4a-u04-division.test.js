@@ -146,13 +146,26 @@ test("G4A-U04 generated divisions satisfy quotient/remainder and source start-pl
   }
 });
 
-test("G4A-U04 verification questions use dividend = divisor × quotient + remainder", () => {
+test("G4A-U04 long-division prompts are bare horizontal expressions", () => {
+  const result = generateBatchABrowserQuestions({ sourceId: SOURCE_ID, questionCount: 42, ordering: "groupedByPattern", generationSeed: "s54i-r1-prompts" });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  for (const question of result.questions.filter((item) => item.kind === "g4aU04LongDivision")) {
+    assert.equal(question.blankedDisplayText, `${question.dividend} ÷ ${question.divisor} = ______`);
+    assert.equal(question.blankedDisplayText.includes("4位數"), false);
+    assert.equal(question.blankedDisplayText.includes("3位數"), false);
+    assert.equal(question.blankedDisplayText.includes("千位"), false);
+    assert.equal(question.blankedDisplayText.includes("十位"), false);
+  }
+});
+
+test("G4A-U04 verification prompts ask how to check", () => {
   const result = buildWorksheetDocumentFromState(stateFor(["kp_g4a_u04_division_check_with_remainder"], 12));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   for (const question of result.worksheetDocument.generatedQuestions) {
     assert.equal(question.kind, "g4aU04DivisionCheckWithRemainder");
     assert.equal(question.remainder > 0, true);
     assert.equal(question.remainder < question.divisor, true);
+    assert.equal(question.blankedDisplayText, `${question.dividend} ÷ ${question.divisor} = 商 ${question.quotient}，餘 ${question.remainder}。如何驗算？`);
     assert.equal(question.answerText, `${question.divisor} × ${question.quotient} + ${question.remainder} = ${question.dividend}`);
     assert.equal(validateBatchABrowserQuestion(question).ok, true);
   }
@@ -182,6 +195,16 @@ test("G4A-U04 same-unit mixed worksheet builds questions and answer key", () => 
   assert.equal(result.worksheetDocument.generatedQuestions.length, 70);
   assert.equal(result.worksheetDocument.answerKeyItems.length, 70);
   assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.sourceId === SOURCE_ID), true);
+});
+
+test("G4A-U04 same-unit mixed worksheet uses safe page-break layout", () => {
+  const result = buildWorksheetDocumentFromState(stateFor(KP_IDS, 120, true));
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.worksheetDocument.printOptions.columns <= 3, true);
+  assert.equal(result.worksheetDocument.printOptions.rowsPerPage <= 8, true);
+  assert.equal(result.worksheetDocument.printOptions.answerKeyColumns <= 3, true);
+  assert.equal(result.worksheetDocument.printOptions.answerKeyRowsPerPage <= 6, true);
+  assert.equal(result.worksheetDocument.printOptions.pageBreakMode, "avoidLongTextCards");
 });
 
 test("G4A-U04 mixed worksheet duplicate rate stays bounded", () => {
