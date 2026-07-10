@@ -1,4 +1,4 @@
-import { renderWorksheetDocumentToHtml } from "../../../modules/renderer/html-renderer.js";
+import { renderWorksheetDocumentToHtml } from "../../../modules/renderer/html-renderer-s57f5-extension.js";
 
 export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}) {
   if (!previewFrame) {
