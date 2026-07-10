@@ -1,0 +1,51 @@
+name: S57F7R1 Tighten Relation Dimension Check
+
+on:
+  push:
+    branches:
+      - s57f7r1-g3b-u04-human-semantic-readback-fullfix
+    paths:
+      - .github/workflows/s57f7r1-tighten-relation-dimension-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: s57f7r1-g3b-u04-human-semantic-readback-fullfix
+          fetch-depth: 0
+
+      - name: Tighten both relation-dimension checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-fullfix.js')
+          text = path.read_text(encoding='utf-8')
+          old_capacity = '(family === "tpl_g3b_u04_ratio_capacity_ratio_composition" && (prompt.match(/容量是/g) ?? []).length < 2)'
+          old_weight = '(family === "tpl_g3b_u04_ratio_weight_ratio_composition" && (prompt.match(/重量是/g) ?? []).length < 2)'
+          new_capacity = '(family === "tpl_g3b_u04_ratio_capacity_ratio_composition" && (prompt.match(/容量是/g) ?? []).length < 3)'
+          new_weight = '(family === "tpl_g3b_u04_ratio_weight_ratio_composition" && (prompt.match(/重量是/g) ?? []).length < 3)'
+          if text.count(old_capacity) != 1 or text.count(old_weight) != 1:
+              raise SystemExit('Expected relation-dimension conditions were not found exactly once.')
+          text = text.replace(old_capacity, new_capacity).replace(old_weight, new_weight)
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit patch and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-fullfix.js
+          git rm .github/workflows/s57f7r1-tighten-relation-dimension-check.yml
+          git commit -m "fix(g3b-u04): require explicit relation dimension in both links and target"
+          git push origin HEAD:s57f7r1-g3b-u04-human-semantic-readback-fullfix
