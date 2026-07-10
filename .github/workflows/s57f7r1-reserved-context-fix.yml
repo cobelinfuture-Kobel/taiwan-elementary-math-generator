@@ -1,0 +1,81 @@
+name: S57F7R1 Reserved Context FullFix
+
+on:
+  push:
+    branches:
+      - s57f7r1-g3b-u04-human-semantic-readback-fullfix
+    paths:
+      - .github/workflows/s57f7r1-reserved-context-fix.yml
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-commit:
+    if: github.event_name != 'pull_request' || github.head_ref == 's57f7r1-g3b-u04-human-semantic-readback-fullfix'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: s57f7r1-g3b-u04-human-semantic-readback-fullfix
+          fetch-depth: 0
+      - name: Align reserved-distribution context keys with registered domains
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          module = Path('site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js')
+          text = module.read_text(encoding='utf-8')
+          replacements = {
+            'const perRecipientByContext = { classroom: 5, library: 4, sports_equipment: 2, awards: 3 };':
+              'const perRecipientByContext = { books: 4, prizes: 3, snacks: 4, sports_equipment: 2 };',
+            'const reservedByContext = { classroom: 5, library: 4, sports_equipment: 2, awards: 6 };':
+              'const reservedByContext = { books: 4, prizes: 6, snacks: 4, sports_equipment: 2 };',
+            'const caps = { classroom: 6, library: 4, sports_equipment: 2, awards: 3 };':
+              'const caps = { books: 4, prizes: 3, snacks: 4, sports_equipment: 2 };'
+          }
+          for old, new in replacements.items():
+              if text.count(old) != 1:
+                  raise SystemExit(f'Expected reserved context mapping once: {old}')
+              text = text.replace(old, new)
+          module.write_text(text, encoding='utf-8')
+
+          test_path = Path('tests/curriculum/g3b-u04-human-semantic-quality-v2.test.js')
+          tests = test_path.read_text(encoding='utf-8')
+          tests = tests.replace(
+            'const library = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "library");',
+            'const books = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "books");'
+          ).replace(
+            'const awards = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "awards");',
+            'const prizes = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "prizes");'
+          ).replace(
+            'assert.equal(library.finalAnswer <= 4, true);',
+            'assert.equal(books.finalAnswer <= 4, true);'
+          ).replace(
+            'assert.equal(awards.finalAnswer <= 3, true);',
+            'assert.equal(prizes.finalAnswer <= 3, true);'
+          )
+          test_path.write_text(tests, encoding='utf-8')
+          PY
+          git diff --check
+      - name: Commit patch and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+users.noreply.github.com"
+          git add site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js
+          git add tests/curriculum/g3b-u04-human-semantic-quality-v2.test.js
+          git rm .github/workflows/s57f7r1-reserved-context-fix.yml
+          git commit -m "fix(g3b-u04): align reserved-distribution registered contexts"
+          git push origin HEAD:s57f7r1-g3b-u04-human-semantic-readback-fullfix
