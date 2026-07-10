@@ -1,0 +1,94 @@
+TASK = S57F3_G3B_U04_ResolverAndBrowserStateIntegration
+STATUS = PASS_CI_SYNCED_AND_MERGED
+SOURCE_ID = g3b_u04_3b04
+UNIT = 3B-U04 兩步驟計算
+PR = 18
+PR_URL = https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/pull/18
+PR_HEAD_SHA = 7aebc324818e38f80dea3a7765590ee4564195b1
+PR_MERGE_REF_SHA = cdec2203fa537f0548142a0d87a5b69623c4bd41
+MERGE_COMMIT = 99413b0aa4ee7fbcbb708563a1374bea94b319aa
+
+PR_CI = PASS
+PR_CI_RUN = 29087630483
+PR_CI_TESTS = 641
+PR_CI_PASS = 641
+PR_CI_FAIL = 0
+PR_CI_WORKING_TREE = clean
+PR_NODE_TEST = success
+PR_S42_BRANCH_TEST = success
+PR_MATH_CI_READBACK = success
+
+MAIN_CI = PASS_CI_SYNCED_AND_CLEAN
+MAIN_CI_RUN = 29087728482
+MAIN_CI_TESTS = 641
+MAIN_CI_PASS = 641
+MAIN_CI_FAIL = 0
+MAIN_CI_WORKING_TREE = clean
+
+VISIBLE_KNOWLEDGE_POINTS_CONNECTED = 9
+VISIBLE_PATTERN_GROUPS_CONNECTED = 10
+SEMANTIC_PATTERN_GROUPS_CONNECTED = 9
+NUMERIC_PATTERN_GROUPS_CONNECTED = 1
+PROMOTED_SEMANTIC_PATTERN_SPECS_RESOLVABLE = 32
+PRESERVED_NUMERIC_PATTERN_SPECS_RESOLVABLE = 1
+
+SUPPORTED_SELECTION_MODES = [
+  "singleKnowledgePoint",
+  "mixedKnowledgePointsSameUnit"
+]
+
+BROWSER_STATE_FIELDS = [
+  "selectionMode",
+  "selectedKnowledgePointIds",
+  "selectedPatternGroupIds",
+  "questionCount",
+  "ordering",
+  "includeAnswerKey"
+]
+
+ALLOCATION_STRATEGY = balanced_by_group_then_family
+GROUP_COUNT_DIFFERENCE_MAX = 1
+FAMILY_COUNT_DIFFERENCE_WITHIN_GROUP_MAX = 1
+EXACT_QUESTION_COUNT_REQUIRED = true
+
+CONSECUTIVE_MULTIPLICATION_SELECTIONS = [
+  "numeric",
+  "application_word_problem",
+  "numeric_plus_application"
+]
+
+STRICT_REJECTION_COVERAGE = [
+  "missing representation selection for multi-group KnowledgePoint",
+  "stale PatternGroup",
+  "invisible PatternGroup",
+  "PatternGroup not linked to selected KnowledgePoint",
+  "empty KnowledgePoint selection",
+  "unknown KnowledgePoint",
+  "cross-unit same-unit selection"
+]
+
+ARBITRARY_PATTERN_SPEC_INJECTION_ALLOWED = false
+PUBLIC_HIDDEN_MODE_FLAG_ALLOWED = false
+CANONICAL_ROUTER_CHANGED = false
+PRODUCTION_ELIGIBILITY_CHANGED = false
+WORKSHEET_RENDERER_CHANGED = false
+UI_CHANGED = false
+SEMANTIC_AUTHORITY_CHANGED = false
+PROMOTION_REGISTRY_CHANGED = false
+
+REGRESSION_FOUND = legacy G3B-U01 internal per-entry generation inherited the new strict public group rejection and lost calculation entries
+REGRESSION_FULLFIX = strict rejection and hierarchical allocation are scoped to G3B-U04; legacy internal partial group filtering and flat allocation remain unchanged for prior sources
+LEGACY_G3B_U01_MIXED_REGRESSION = PASS
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U04_VISIBLE_SELECTOR_PROJECTION_CLOSED_RESOLVER_NOT_INTEGRATED
+GOAL_DISTANCE_AFTER = D1_G3B_U04_RESOLVER_AND_BROWSER_STATE_CONNECTED_ROUTER_NOT_PROMOTED
+DISTANCE_REDUCED = Connected the visible G3B-U04 selector authority to the generic resolver and browser state, added exact hierarchical allocation and strict visible-selection rejection, preserved all legacy routes, merged PR #18, and verified main at 641/641 with a clean working tree.
+REMAINING_BLOCKERS = [
+  "canonical semantic router is not connected to resolver-derived allocation",
+  "numeric-plus-semantic canonical hybrid generation is not integrated",
+  "production eligibility remains unchanged",
+  "canonical long-text worksheet profile is not integrated",
+  "public selector and print QA are not complete",
+  "public HTML/PDF promotion closeout is not complete"
+]
+NEXT_SHORTEST_STEP = S57F4_G3B_U04_CanonicalRouterAndHybridIntegration
