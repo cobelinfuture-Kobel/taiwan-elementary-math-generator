@@ -1,0 +1,114 @@
+.pixel-kp-selector {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 3px solid var(--pixel-border);
+}
+
+.pixel-subheading-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pixel-subheading-row h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.pixel-icon--small {
+  width: 30px;
+  height: 30px;
+  font-size: 0.82rem;
+}
+
+.pixel-kp-availability {
+  margin: 10px 0;
+  border: 3px solid var(--pixel-border);
+  background: #d8f2ff;
+  padding: 10px;
+  color: var(--pixel-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.pixel-kp-panel {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.pixel-kp-option {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  border: 3px solid var(--pixel-border);
+  box-shadow: 3px 3px 0 var(--pixel-panel-shadow);
+  background: #fff9e4;
+  color: var(--pixel-text);
+  padding: 10px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pixel-kp-option:hover:not(:disabled),
+.pixel-kp-option:focus-visible:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--pixel-panel-shadow);
+  outline: 3px solid var(--pixel-blue);
+  outline-offset: 2px;
+}
+
+.pixel-kp-option[data-selected="true"] {
+  background: #bce7a5;
+}
+
+.pixel-kp-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.66;
+  box-shadow: none;
+}
+
+.pixel-kp-option strong,
+.pixel-kp-option span {
+  display: block;
+}
+
+.pixel-kp-option span {
+  color: var(--pixel-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.pixel-warning-list {
+  display: none;
+  margin: 10px 0 0;
+  padding: 10px 10px 10px 28px;
+  border: 3px solid var(--pixel-danger);
+  background: #ffe1d9;
+  color: #6d2017;
+  line-height: 1.5;
+}
+
+.pixel-warning-list[data-visible="true"] {
+  display: block;
+}
+
+@media (max-width: 920px) {
+  .pixel-kp-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .pixel-kp-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .pixel-kp-selector {
+    display: none;
+  }
+}
