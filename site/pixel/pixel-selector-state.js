@@ -26,21 +26,9 @@ function uniqueStrings(values) {
 export function listPixelKnowledgePointModeOptions(sourceId) {
   const visibleCount = listPixelKnowledgePointsForSource(sourceId).length;
   return Object.freeze([
-    Object.freeze({
-      value: BATCH_A_SELECTION_MODES.SOURCE_UNIT,
-      label: MODE_LABELS[BATCH_A_SELECTION_MODES.SOURCE_UNIT],
-      disabled: false
-    }),
-    Object.freeze({
-      value: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-      label: MODE_LABELS[BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT],
-      disabled: visibleCount < 1
-    }),
-    Object.freeze({
-      value: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-      label: MODE_LABELS[BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT],
-      disabled: visibleCount < 2
-    })
+    Object.freeze({ value: BATCH_A_SELECTION_MODES.SOURCE_UNIT, label: MODE_LABELS[BATCH_A_SELECTION_MODES.SOURCE_UNIT], disabled: false }),
+    Object.freeze({ value: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, label: MODE_LABELS[BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT], disabled: visibleCount < 1 }),
+    Object.freeze({ value: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT, label: MODE_LABELS[BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT], disabled: visibleCount < 2 })
   ]);
 }
 
@@ -63,35 +51,21 @@ export function createPixelKnowledgePointSelectorState({
   let normalizedMode = enabledModes.has(selectionMode) ? selectionMode : BATCH_A_SELECTION_MODES.SOURCE_UNIT;
 
   if (normalizedMode !== selectionMode) {
-    warnings.push({
-      code: PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK,
-      from: selectionMode,
-      to: normalizedMode
-    });
+    warnings.push({ code: PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK, from: selectionMode, to: normalizedMode });
   }
-
   if (requestedIds.length !== sanitizedIds.length) {
-    warnings.push({
-      code: PIXEL_SELECTOR_WARNING_CODES.KNOWLEDGE_POINT_DROPPED,
-      count: requestedIds.length - sanitizedIds.length
-    });
+    warnings.push({ code: PIXEL_SELECTOR_WARNING_CODES.KNOWLEDGE_POINT_DROPPED, count: requestedIds.length - sanitizedIds.length });
   }
 
   let normalizedIds = [];
   if (normalizedMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT) {
     normalizedIds = [sanitizedIds[0] ?? availableKnowledgePoints[0]?.knowledgePointId].filter(Boolean);
   } else if (normalizedMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
-    normalizedIds = sanitizedIds.length >= 2
-      ? sanitizedIds
-      : availableKnowledgePoints.map((entry) => entry.knowledgePointId);
+    normalizedIds = sanitizedIds.length >= 2 ? sanitizedIds : availableKnowledgePoints.map((entry) => entry.knowledgePointId);
     if (normalizedIds.length < 2) {
       normalizedMode = BATCH_A_SELECTION_MODES.SOURCE_UNIT;
       normalizedIds = [];
-      warnings.push({
-        code: PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK,
-        from: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-        to: BATCH_A_SELECTION_MODES.SOURCE_UNIT
-      });
+      warnings.push({ code: PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK, from: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT, to: BATCH_A_SELECTION_MODES.SOURCE_UNIT });
     }
   }
 
@@ -132,10 +106,7 @@ export function togglePixelKnowledgePointSelection(state, knowledgePointId) {
       if (selected.size <= 2) {
         return Object.freeze({
           ...state,
-          warnings: Object.freeze([{
-            code: PIXEL_SELECTOR_WARNING_CODES.MIXED_MINIMUM_TWO,
-            minimum: 2
-          }])
+          warnings: Object.freeze([{ code: PIXEL_SELECTOR_WARNING_CODES.MIXED_MINIMUM_TWO, minimum: 2 }])
         });
       }
       selected.delete(knowledgePointId);
@@ -160,10 +131,14 @@ export function togglePixelPatternGroupSelection(state, patternGroupId) {
     selectedPatternGroupIds: state?.selectedPatternGroupIds,
     patternGroupId
   });
-  return createPixelKnowledgePointSelectorState({
+  const next = createPixelKnowledgePointSelectorState({
     sourceId: state?.sourceId,
     selectionMode: state?.selectionMode,
     selectedKnowledgePointIds: state?.selectedKnowledgePointIds,
     selectedPatternGroupIds: toggled.selectedPatternGroupIds
+  });
+  return Object.freeze({
+    ...next,
+    warnings: Object.freeze([...next.warnings, ...toggled.warnings])
   });
 }
