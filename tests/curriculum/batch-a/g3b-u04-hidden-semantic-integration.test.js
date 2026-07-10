@@ -183,11 +183,15 @@ test("S57E6 320-question stress remains balanced, deterministic, and blocking-va
   assert.equal(first.questions.every((question) => Number.isInteger(question.finalAnswer) && question.finalAnswer > 0), true);
 });
 
-test("S57E6 does not create selector visibility or public production projection", () => {
+test("S57E6 hidden runtime remains isolated after later selector projection", () => {
   const selectorPath = new URL(
     "../../../site/modules/curriculum/registry/batch-a-selector-g3b-u04-semantic-extension.js",
     import.meta.url
   );
-  assert.equal(existsSync(selectorPath), false);
+  assert.equal(existsSync(selectorPath), true);
+  const plan = buildG3BU04HiddenSemanticPlan(hiddenOptions());
+  assert.equal(plan.selectorStatus, "hidden");
+  assert.equal(plan.productionUse, "forbidden");
+  assert.equal(plan.publicProjectionChanged, false);
   assert.equal(G3B_U04_ALL_SEMANTIC_PATTERN_SPEC_IDS.length, 32);
 });
