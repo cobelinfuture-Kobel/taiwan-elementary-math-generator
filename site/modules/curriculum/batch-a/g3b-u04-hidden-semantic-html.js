@@ -83,7 +83,7 @@ export function renderG3BU04HiddenSemanticWorksheetHtml(worksheetDocument = {}, 
     .student-fields { display: flex; gap: 12mm; padding: 3mm 0 4mm; font-size: 10pt; border-bottom: 1px solid #abb2b9; }
     .answer-fields { visibility: hidden; }
     .question-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4mm; align-content: start; flex: 1; padding-top: 4mm; }
-    .question-card { border: 1.2px solid #566573; border-radius: 3mm; padding: 3.2mm; min-height: 58mm; break-inside: avoid; page-break-inside: avoid; position: relative; }
+    .question-card { border: 1.2px solid #566573; border-radius: 3mm; padding: 3.2mm; min-height: 46mm; break-inside: avoid; page-break-inside: avoid; position: relative; }
     .question-number { font-weight: 700; font-size: 12pt; margin-bottom: 1.5mm; }
     .question-body { min-height: 31mm; }
     .answer-line { border-bottom: 1px solid #7b7d7d; margin-top: 5mm; }
