@@ -126,6 +126,7 @@ body.worksheet-renderer {
 
   .worksheet-document,
   .worksheet-section {
+    display: block;
     padding: 0;
     gap: 0;
   }
@@ -137,7 +138,10 @@ body.worksheet-renderer {
 
   .worksheet-page {
     width: var(--worksheet-page-width);
-    min-height: var(--worksheet-page-min-height);
+    height: 296mm;
+    min-height: 296mm;
+    max-height: 296mm;
+    overflow: hidden;
     margin: 0;
     border: 0;
     box-shadow: none;
