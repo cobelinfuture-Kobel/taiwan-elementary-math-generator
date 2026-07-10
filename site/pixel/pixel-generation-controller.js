@@ -5,7 +5,11 @@ const generationSubscribers = new Set();
 
 function normalizeMessages(items = []) {
   return (Array.isArray(items) ? items : [])
-    .map((item) => publicIssueMessage(typeof item === "string" ? { message: item } : item))
+    .map((item) => {
+      if (typeof item === "string") return publicIssueMessage({ message: item });
+      if (String(item?.message ?? "").trim()) return publicIssueMessage(item);
+      return String(item?.code ?? item ?? "").trim();
+    })
     .map((message) => String(message ?? "").trim())
     .filter(Boolean);
 }
