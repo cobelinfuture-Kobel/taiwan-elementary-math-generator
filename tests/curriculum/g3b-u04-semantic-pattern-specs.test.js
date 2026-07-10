@@ -105,7 +105,10 @@ test("S57E1 browser projection is an exact drift-checked copy and delegates prio
   for (const patternSpecId of G3B_U04_SEMANTIC_PATTERN_SPEC_IDS) assert.equal(sourceIds.includes(patternSpecId), true);
 });
 
-test("S57E1 keeps selector visibility deferred to S57F", () => {
+test("S57E1 authority remains hidden after S57F2 selector overlay is materialized", () => {
   const selectorPath = new URL("../../site/modules/curriculum/registry/batch-a-selector-g3b-u04-semantic-extension.js", import.meta.url);
-  assert.equal(existsSync(selectorPath), false);
+  assert.equal(existsSync(selectorPath), true);
+  assert.equal(registry.patternSpecs.every((spec) => spec.selectorStatus === "hidden"), true);
+  assert.equal(registry.patternSpecs.every((spec) => spec.productionUse === "forbidden"), true);
+  assert.equal(registry.patternGroups.every((group) => group.visibilityStatus === "hidden"), true);
 });
