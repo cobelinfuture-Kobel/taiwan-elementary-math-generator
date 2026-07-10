@@ -12,6 +12,10 @@ import {
 } from "./g3b-u04-multiplicative-semantic-generator.js";
 import { validateG3BU04SemanticQuestion } from "./g3b-u04-semantic-validator-unit-flow-fullfix.js";
 import {
+  applyG3BU04HumanSemanticReadbackFullFix,
+  validateG3BU04HumanSemanticReadback
+} from "./g3b-u04-human-semantic-readback-fullfix.js";
+import {
   G3B_U04_SEMANTIC_PROMOTION_LIFECYCLE,
   G3B_U04_SEMANTIC_PROMOTION_REGISTRY_ID,
   isS57FPromotedG3BU04SemanticPatternSpecId
@@ -40,6 +44,7 @@ export const G3B_U04_CANONICAL_ROUTER_INTEGRATION = Object.freeze({
   resolverDerivedOnly: true,
   publicHiddenModeFlagAllowed: false,
   blockingSemanticValidatorRequired: true,
+  humanSemanticReadbackFullFixRequired: true,
   genericFallbackOnSemanticFailureAllowed: false,
   productionEligibilityChanged: false,
   worksheetRendererChanged: false,
@@ -301,14 +306,22 @@ export function generateG3BU04CanonicalSemanticQuestions(plan = {}, options = {}
         continue;
       }
 
-      const promotedQuestion = promoteQuestionForCanonicalRoute(generated.question, plan, allocationEntry);
+      const promotedQuestion = applyG3BU04HumanSemanticReadbackFullFix(
+        promoteQuestionForCanonicalRoute(generated.question, plan, allocationEntry)
+      );
       const checked = validator(promotedQuestion, { recentPrompts });
+      const readback = validateG3BU04HumanSemanticReadback(promotedQuestion);
       errors.push(...pathIssues(checked.errors, questionIndex));
+      errors.push(...pathIssues(readback.errors, questionIndex));
       warnings.push(...pathIssues(checked.warnings, questionIndex));
-      if (!checked.ok) continue;
+      warnings.push(...pathIssues(readback.warnings, questionIndex));
+      if (!checked.ok || !readback.ok) continue;
 
       promotedQuestion.id = `${allocationEntry.patternSpecId}-${sequenceNumber}`;
-      promotedQuestion.semanticSnapshot.validationCodes = (checked.warnings ?? []).map((warning) => warning.code);
+      promotedQuestion.semanticSnapshot.validationCodes = unique([
+        ...(checked.warnings ?? []).map((warning) => warning.code),
+        ...(readback.warnings ?? []).map((warning) => warning.code)
+      ]);
       generatedQuestions.push(promotedQuestion);
       recentPrompts.push(promotedQuestion.promptText);
     }
