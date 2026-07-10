@@ -37,6 +37,36 @@
       <div class="pixel-status-chip pixel-status-chip--muted">Preview / Print：已接入</div>
     </section>
 
+    <section class="pixel-beta-notice" aria-labelledby="pixel-beta-notice-title">
+      <div class="pixel-beta-notice__header">
+        <span class="pixel-icon" aria-hidden="true">!</span>
+        <div>
+          <p class="pixel-beta-notice__eyebrow">Beta 使用範圍</p>
+          <h2 id="pixel-beta-notice-title">目前可用功能與已知限制</h2>
+        </div>
+      </div>
+      <div class="pixel-beta-notice__grid">
+        <div class="pixel-beta-card pixel-beta-card--available">
+          <h3>目前可用</h3>
+          <ul>
+            <li>使用目前公開的 Batch A 單元與通過 QA 的知識點。</li>
+            <li>支援單元出題、單一知識點與同單元知識點混合。</li>
+            <li>支援題數、排序、答案頁、版面設定、HTML 預覽與列印。</li>
+          </ul>
+        </div>
+        <div class="pixel-beta-card pixel-beta-card--limits" id="pixel-known-limits">
+          <h3>已知限制</h3>
+          <ul>
+            <li>跨單元知識點混合尚未開放。</li>
+            <li>尚未通過 QA、隱藏或未發布的知識點不會出現在選單。</li>
+            <li>重新整理頁面後不保留設定、考卷或學生作答紀錄。</li>
+            <li>未列入目前公開 Registry 的單元與題型無法由 Pixel UI 選取。</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pixel-beta-notice__footnote">Pixel UI 是公開 Beta 介面；需要最穩定操作時，可使用上方「回到標準版」。</p>
+    </section>
+
     <section class="pixel-layout" aria-label="Pixel UI scaffold">
       <aside class="pixel-panel pixel-panel--sidebar" aria-label="篩選條件">
         <div class="pixel-panel__title-row">
@@ -124,11 +154,11 @@
         <div class="pixel-workbench" aria-label="工作台狀態">
           <div class="pixel-workbench__card">
             <strong>目前階段</strong>
-            <span>S46D 答案頁與列印控制</span>
+            <span>S48B Beta 標示與已知限制</span>
           </div>
           <div class="pixel-workbench__card">
             <strong>下一階段</strong>
-            <span>S47 HTML 輸出與列印 QA</span>
+            <span>S49 Pixel 全功能 QA</span>
           </div>
         </div>
         <button id="pixel-generate-button" class="pixel-button pixel-button--primary" type="button">產生考卷</button>
