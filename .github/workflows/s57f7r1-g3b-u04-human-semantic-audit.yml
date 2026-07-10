@@ -41,6 +41,7 @@ jobs:
         run: node tools/curriculum/generate-s57f7r1-g3b-u04-human-semantic-audit.mjs
 
       - name: Upload semantic audit
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: s57f7r1-g3b-u04-human-semantic-audit
