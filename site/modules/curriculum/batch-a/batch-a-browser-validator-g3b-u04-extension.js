@@ -1,5 +1,5 @@
 import * as base from "./batch-a-browser-validator-g4a-u08-extension.js";
-import { validateG3BU04SemanticQuestion } from "./g3b-u04-semantic-validator.js";
+import { validateG3BU04SemanticQuestion } from "./g3b-u04-semantic-validator-unit-flow-fullfix.js";
 
 function isG3BU04SemanticQuestion(question = {}) {
   return question?.sourceId === "g3b_u04_3b04"
@@ -49,7 +49,7 @@ export function validateBatchABrowserQuestions(questions = [], options = {}) {
     warnings,
     infos: [],
     stages,
-    validatorVersion: "s57e6-g3b-u04-hidden-semantic-integration-v1",
+    validatorVersion: "s57e7r1-g3b-u04-unit-flow-fullfix-v1",
     validatedAt: null
   };
 }
