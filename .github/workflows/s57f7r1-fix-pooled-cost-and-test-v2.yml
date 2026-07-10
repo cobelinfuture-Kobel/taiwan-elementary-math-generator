@@ -1,0 +1,82 @@
+name: S57F7R1 Fix Pooled Cost and V2 Test
+
+on:
+  push:
+    branches:
+      - s57f7r1-g3b-u04-human-semantic-readback-fullfix
+    paths:
+      - .github/workflows/s57f7r1-fix-pooled-cost-and-test-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: s57f7r1-g3b-u04-human-semantic-readback-fullfix
+          fetch-depth: 0
+
+      - name: Patch pooled-money plausibility and canonical test validator
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          module = Path('site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js')
+          text = module.read_text(encoding='utf-8')
+          old = '''function normalizePooledMoney(question, scenario) {
+            const total = question.quantities.a + question.quantities.b;
+            const a = Math.floor(total / 2);
+            const b = total - a;
+            updateAddThenDivide(question, a, b);
+            const p = scenario.placeholderBindings;
+            setPrompt(question, `${p.person1}有${a}元，${p.person2}有${b}元，兩人的錢合起來剛好買${question.quantities.c}${p.itemUnit}${p.item}，每${p.itemUnit}${p.item}多少元？`);
+          }'''
+          new = '''function normalizePooledMoney(question, scenario) {
+            const unitPriceByContext = { snacks: 15, stationery: 10, tickets: 50 };
+            const unitPrice = unitPriceByContext[question.contextDomain] ?? 15;
+            const total = question.quantities.c * unitPrice;
+            const a = Math.floor(total / 2);
+            const b = total - a;
+            updateAddThenDivide(question, a, b);
+            const p = scenario.placeholderBindings;
+            setPrompt(question, `${p.person1}有${a}元，${p.person2}有${b}元，兩人的錢合起來剛好買${question.quantities.c}${p.itemUnit}${p.item}，每${p.itemUnit}${p.item}多少元？`);
+          }'''
+          if text.count(old) != 1:
+              raise SystemExit('normalizePooledMoney block not found exactly once')
+          module.write_text(text.replace(old, new), encoding='utf-8')
+
+          test_path = Path('tests/curriculum/g3b-u04-human-semantic-readback-fullfix.test.js')
+          text = test_path.read_text(encoding='utf-8')
+          anchor = '''} from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-fullfix.js";'''
+          addition = anchor + '''
+          import {
+            validateG3BU04HumanSemanticQualityV2
+          } from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js";'''
+          if text.count(anchor) != 1:
+              raise SystemExit('Readback test import anchor not found exactly once')
+          text = text.replace(anchor, addition)
+          old_call = 'assert.equal(validateG3BU04HumanSemanticReadback(question).ok, true);'
+          new_call = 'assert.equal(validateG3BU04HumanSemanticQualityV2(question).ok, true);'
+          if text.count(old_call) != 1:
+              raise SystemExit('Canonical v1 validator assertion not found exactly once')
+          test_path.write_text(text.replace(old_call, new_call), encoding='utf-8')
+          PY
+
+      - name: Commit patch and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js
+          git add tests/curriculum/g3b-u04-human-semantic-readback-fullfix.test.js
+          git rm .github/workflows/s57f7r1-fix-pooled-cost-and-test-v2.yml
+          git commit -m "fix(g3b-u04): normalize pooled costs and assert quality v2"
+          git push origin HEAD:s57f7r1-g3b-u04-human-semantic-readback-fullfix
