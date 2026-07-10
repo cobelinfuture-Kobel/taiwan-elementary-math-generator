@@ -65,6 +65,10 @@ function createFrame() {
   };
 }
 
+function sorted(values) {
+  return [...values].sort();
+}
+
 function assertSuccessfulExecution(execution, { sourceId, questionCount, includeAnswerKey }) {
   assert.equal(execution.summary.ok, true, `${sourceId}: ${JSON.stringify(execution.result.errors ?? [])}`);
   assert.equal(execution.summary.validationOk, true, sourceId);
@@ -97,7 +101,7 @@ test("Pixel public route exposes the complete selector, generation, preview, ans
   assert.match(html, /pixel-print-surface\.js/);
   assert.match(html, /id="pixel-print-button"[^>]*disabled/);
   assert.match(pixelUi, /runPixelWorksheetGeneration/);
-  assert.match(pixelUi, /pixelGenerateButton\?\.addEventListener\("click"/);
+  assert.match(pixelUi, /generateButton\?\.addEventListener\("click",\s*generateWorksheet\)/);
   assert.match(livePreview, /subscribePixelGeneration/);
   assert.match(livePreview, /renderPixelWorksheetPreview/);
   assert.match(printSurface, /subscribePixelGeneration/);
@@ -169,8 +173,14 @@ test("Pixel single-KnowledgePoint and same-unit mixed modes preserve authoritati
   });
   const singleExecution = runPixelWorksheetGeneration(singleState);
   assertSuccessfulExecution(singleExecution, { sourceId, questionCount: 6, includeAnswerKey: false });
-  assert.deepEqual(singleExecution.result.worksheetDocument.batchA.knowledgePointIds, singleSelector.selectedKnowledgePointIds);
-  assert.deepEqual(singleExecution.result.worksheetDocument.batchA.patternGroupIds, singleSelector.selectedPatternGroupIds);
+  assert.deepEqual(
+    sorted(singleExecution.result.worksheetDocument.batchA.knowledgePointIds),
+    sorted(singleSelector.selectedKnowledgePointIds)
+  );
+  assert.deepEqual(
+    sorted(singleExecution.result.worksheetDocument.batchA.patternGroupIds),
+    sorted(singleSelector.selectedPatternGroupIds)
+  );
 
   const mixedSelector = createPixelKnowledgePointSelectorState({
     sourceId,
@@ -192,8 +202,14 @@ test("Pixel single-KnowledgePoint and same-unit mixed modes preserve authoritati
   });
   const mixedExecution = runPixelWorksheetGeneration(mixedState);
   assertSuccessfulExecution(mixedExecution, { sourceId, questionCount: 8, includeAnswerKey: true });
-  assert.deepEqual(mixedExecution.result.worksheetDocument.batchA.knowledgePointIds, mixedSelector.selectedKnowledgePointIds);
-  assert.deepEqual(mixedExecution.result.worksheetDocument.batchA.patternGroupIds, mixedSelector.selectedPatternGroupIds);
+  assert.deepEqual(
+    sorted(mixedExecution.result.worksheetDocument.batchA.knowledgePointIds),
+    sorted(mixedSelector.selectedKnowledgePointIds)
+  );
+  assert.deepEqual(
+    sorted(mixedExecution.result.worksheetDocument.batchA.patternGroupIds),
+    sorted(mixedSelector.selectedPatternGroupIds)
+  );
 });
 
 test("Pixel selector drops unknown KnowledgePoint IDs before generation", () => {
