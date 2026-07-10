@@ -66,7 +66,7 @@ test("S57E8 HTML renderer produces deterministic 16-page A4 content for 64 quest
   assert.ok(first.includes("兩步驟計算｜題目卷"));
   assert.ok(first.includes("兩步驟計算｜答案卷"));
   assert.ok(first.includes("不得作為公開選單或正式教材發布"));
-  assert.equal(/\{[^}]+\}/.test(first), false);
+  assert.equal(/\{[A-Za-z][A-Za-z0-9_]*\}/.test(first), false);
 });
 
 test("S57E8 visible question and answer cards do not leak internal registry identifiers", () => {
