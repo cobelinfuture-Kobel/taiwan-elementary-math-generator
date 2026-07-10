@@ -34,7 +34,7 @@
       <div class="pixel-status-chip">共用 Registry</div>
       <div class="pixel-status-chip">共用 Config State</div>
       <div class="pixel-status-chip">共用 Generator / Validator</div>
-      <div class="pixel-status-chip pixel-status-chip--muted">產生流程：已接入</div>
+      <div class="pixel-status-chip pixel-status-chip--muted">Live Preview：已接入</div>
     </section>
 
     <section class="pixel-layout" aria-label="Pixel UI scaffold">
@@ -124,31 +124,29 @@
         <div class="pixel-workbench" aria-label="工作台狀態">
           <div class="pixel-workbench__card">
             <strong>目前階段</strong>
-            <span>S46B 產生按鈕整合</span>
+            <span>S46C Live Worksheet Preview</span>
           </div>
           <div class="pixel-workbench__card">
             <strong>下一階段</strong>
-            <span>S46C 真正題目預覽</span>
+            <span>S46D 答案頁與列印控制</span>
           </div>
         </div>
         <button id="pixel-generate-button" class="pixel-button pixel-button--primary" type="button">產生考卷</button>
         <div class="pixel-generation-status" id="pixel-generation-status" data-status="idle" aria-live="polite">尚未產生考卷。</div>
         <ul class="pixel-generation-errors" id="pixel-generation-errors" aria-live="assertive"></ul>
-        <p class="pixel-help">按鈕會使用共用 generator / validator 建立 worksheetDocument。完整 HTML 預覽、答案頁顯示與列印會在後續 milestone 接入。</p>
+        <p class="pixel-help">產生成功後，右側 iframe 會使用共用 HTML renderer 顯示真正題目卷；答案頁是否包含由上方設定控制。</p>
       </section>
 
-      <aside class="pixel-panel pixel-panel--preview" aria-label="預覽摘要">
+      <aside class="pixel-panel pixel-panel--preview" aria-label="題目卷即時預覽">
         <div class="pixel-panel__title-row">
           <span class="pixel-icon" aria-hidden="true">▣</span>
           <h2>題目預覽</h2>
         </div>
-        <p id="pixel-preview-meta">可先產生 worksheetDocument；完整題目預覽於 S46C 接入。</p>
-        <ol class="pixel-sample-list" aria-label="示意題目">
-          <li><span>4836 + 1957</span><strong>= □</strong></li>
-          <li><span>7052 - 1869</span><strong>= □</strong></li>
-          <li><span>36 × 4</span><strong>= □</strong></li>
-          <li><span>84 ÷ 7</span><strong>= □</strong></li>
-        </ol>
+        <p id="pixel-preview-meta">尚未產生考卷。</p>
+        <div class="pixel-preview-empty" id="pixel-preview-empty">設定完成後按「產生考卷」，此處會顯示真正 HTML 題目卷。</div>
+        <div class="pixel-preview-frame-wrap" id="pixel-preview-frame-wrap" data-status="empty">
+          <iframe id="pixel-preview-frame" class="pixel-preview-frame" title="數學題目卷預覽"></iframe>
+        </div>
         <div class="pixel-mascot" aria-hidden="true">
           <span class="pixel-mascot__face">◕‿◕</span>
           <span class="pixel-mascot__label">小幫手</span>
