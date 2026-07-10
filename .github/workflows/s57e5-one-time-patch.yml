@@ -58,3 +58,5 @@ jobs:
           git rm .github/workflows/s57e5-one-time-patch.yml
           git commit -m "chore(ci): remove one-time S57E5 patch workflow [skip ci]"
           git push origin HEAD:main
+
+# trigger: 2
