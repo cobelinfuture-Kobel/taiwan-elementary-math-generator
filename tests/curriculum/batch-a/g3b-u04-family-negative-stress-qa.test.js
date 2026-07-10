@@ -318,12 +318,12 @@ test("S57E7 confirms all three style warnings remain nonblocking through the rou
   ].map((warning) => warning.code)), new Set(G3B_U04_SEMANTIC_WARNING_CODES));
 });
 
-test("S57E7 keeps selector visibility, public production projection, and unrelated UI files untouched", () => {
+test("S57E7 hidden runtime remains hidden after later selector lifecycle promotion", () => {
   const selectorPath = new URL(
     "../../../site/modules/curriculum/registry/batch-a-selector-g3b-u04-semantic-extension.js",
     import.meta.url
   );
-  assert.equal(existsSync(selectorPath), false);
+  assert.equal(existsSync(selectorPath), true);
   const generated = generateG3BU04HiddenSemanticQuestions(hiddenOptions({ questionCount: 64 }));
   assert.equal(generated.ok, true, JSON.stringify(generated.errors));
   assert.equal(generated.plan.selectorStatus, "hidden");
