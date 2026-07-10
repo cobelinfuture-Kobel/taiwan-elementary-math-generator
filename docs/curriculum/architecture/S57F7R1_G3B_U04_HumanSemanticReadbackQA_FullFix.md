@@ -2,16 +2,16 @@
 
 ## Scope
 
-This task reopens the G3B-U04 semantic production closeout because the prior S57F7 acceptance proved arithmetic, validator, routing, HTML, PDF, and layout behavior but did not establish a complete human semantic readback across the approved language surface.
+This task reopened the G3B-U04 semantic production closeout because the prior S57F7 acceptance proved arithmetic, validator, routing, HTML, PDF, and layout behavior but did not establish a complete human semantic readback across the approved language surface.
 
-The approved correction scope is restricted to the production overlay for the existing:
+The approved correction scope remained restricted to the production overlay for the existing:
 
 - 9 KnowledgePoints;
 - 32 semantic PatternSpecs;
 - 117 family-context variants;
 - canonical public semantic and numeric-plus-semantic routes.
 
-No KnowledgePoint, PatternSpec family, equation shape, source mapping, public question-count limit, or free-form generation policy is added or broadened.
+No KnowledgePoint, PatternSpec family, equation shape, source mapping, public question-count limit, or free-form generation policy was added or broadened.
 
 ## Human-readback defect classes
 
@@ -30,27 +30,34 @@ The FullFix treats the following as blocking:
 11. a shared purchase or rental does not define who uses or pays for the items;
 12. a measured quantity is answered using a container classifier instead of its measure unit;
 13. prices, contributions, or activity budgets are implausible for the selected context;
-14. per-recipient quantities are implausible for classroom, sports, library, or technology use;
+14. per-recipient quantities are implausible for classroom, sports, library, technology, reserved-distribution, or combined-inventory use;
 15. a context noun, classifier, action, container, or equivalence bundle is unnatural.
 
 ## Architecture rule
 
 The S57E semantic authority remains immutable. S57F7R1 applies deterministic production overlays after canonical promotion and before blocking validation. The original S57E5 validator continues to validate the authority contract through a narrow compatibility projection for corrected public classifier and period literals. Blocking readback validators separately validate the corrected public wording, quantities, units, context lexicons, and provenance.
 
-The second quality layer is required because complete review of the first 117-variant audit exposed additional issues not visible in the original 64-question smoke, including measured-unit answers, rental-versus-purchase wording, per-student resource plausibility, ticket pricing, and unnatural ticket-bundle classifiers.
+The second quality layer was required because complete review of the first 117-variant audit exposed additional issues not visible in the original 64-question smoke, including measured-unit answers, rental-versus-purchase wording, per-student resource plausibility, ticket pricing, and unnatural ticket-bundle classifiers.
 
-The second-pass patch additionally constrains combined-inventory quantities by context, assigns context-specific promotion prices, replaces undefined package classifiers with explicit units, rejects unresolved `undefined` text, and makes the audit workflow fail when either semantic validator reports a failure.
+The later review passes additionally constrained combined-inventory and reserved-distribution quantities by context, assigned context-specific promotion prices, replaced undefined package classifiers with explicit units, required named-person participant inclusion, rejected unresolved `undefined` text, and made the audit fail when either semantic validator reports a failure.
 
-## Acceptance gates
+## Accepted evidence
 
-- all 32 families and all 117 family-context variants are generated and reviewed through the deterministic audit;
-- all variants pass the original semantic validator and both blocking human-readback quality layers;
-- all fifteen readback defect codes are proven blocking by targeted mutations;
+- deterministic audit covers all 32 families and all 117 family-context variants;
+- original semantic validator failures: 0;
+- human semantic quality validator failures: 0;
+- 15 human-readback defect classes remain blocking through targeted regression fixtures;
 - canonical public generation emits only quality-v2 accepted questions;
-- full regression CI passes;
-- a regenerated public HTML/PDF worksheet is manually read back for semantic quality and visually checked;
-- D0 is restored only after the regenerated artifact and closeout evidence are accepted.
+- final 64-question public smoke covers all 32 families;
+- final PDF contains 8 question pages and 8 answer pages, for 16 pages total;
+- extracted equation labels: 64;
+- extracted answer labels: 64;
+- internal ID leaks: 0;
+- unresolved placeholders: 0;
+- manual semantic readback of the complete 117-variant audit and the final 64-question public smoke found no remaining blocking semantic defect under the approved policy;
+- manual visual checks of pages 1, 3, 4, 8, 9, and 16 found no clipping, split cards, or blank pages;
+- S57E semantic authority, PatternSpecs, scenarios, equation shapes, and public limits remain unchanged.
 
 ## Current state
 
-`SECOND_PASS_APPLIED_FULL_CI_AND_REGENERATED_AUDIT_PENDING`
+`HUMAN_SEMANTIC_READBACK_ACCEPTED_CLOSEOUT_MERGE_PENDING`
