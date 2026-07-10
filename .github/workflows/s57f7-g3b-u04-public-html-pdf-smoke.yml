@@ -67,6 +67,18 @@ jobs:
             "file://$HTML"
           test -s "$PDF"
 
+      - name: Upload pre-verification diagnostic artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s57f7-g3b-u04-public-html-pdf-diagnostic
+          path: |
+            docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.html
+            docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.pdf
+            docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.manifest.json
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Verify PDF structure, extraction, and rendered pages
         shell: bash
         run: |
