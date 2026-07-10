@@ -129,7 +129,7 @@ jobs:
           }
 
           const combinedEnd = 'if (family === "tpl_g3b_u04_add_divide_combined_inventory_equal_distribution") {';
-          if (!text.includes('tpl_g3b_u04_sub_div_reserved_amount_then_distribute") || !text.includes('Per-recipient reserved-distribution quantity')) {
+          if (!text.includes('tpl_g3b_u04_sub_div_reserved_amount_then_distribute")') || !text.includes('Per-recipient reserved-distribution quantity')) {
             const block = `  if (family === "tpl_g3b_u04_sub_div_reserved_amount_then_distribute") {
             const caps = { classroom: 6, library: 4, sports_equipment: 2, awards: 3 };
             if (question.finalAnswer > (caps[question.contextDomain] ?? 4)) {
