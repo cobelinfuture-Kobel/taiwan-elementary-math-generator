@@ -1,0 +1,98 @@
+name: S57F7R1 Wire Semantic Quality V2
+
+on:
+  push:
+    branches:
+      - s57f7r1-g3b-u04-human-semantic-readback-fullfix
+    paths:
+      - .github/workflows/s57f7r1-wire-quality-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: s57f7r1-g3b-u04-human-semantic-readback-fullfix
+          fetch-depth: 0
+
+      - name: Wire quality v2 into router validator and audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          router = Path('site/modules/curriculum/batch-a/g3b-u04-canonical-semantic-router.js')
+          text = router.read_text(encoding='utf-8')
+          old = '''import {
+            applyG3BU04HumanSemanticReadbackFullFix,
+            validateG3BU04HumanSemanticReadback
+          } from "./g3b-u04-human-semantic-readback-fullfix.js";'''
+          new = '''import {
+            applyG3BU04HumanSemanticQualityV2,
+            validateG3BU04HumanSemanticQualityV2
+          } from "./g3b-u04-human-semantic-readback-quality-v2.js";'''
+          if text.count(old) != 1:
+              raise SystemExit('Router readback import not found exactly once')
+          text = text.replace(old, new)
+          text = text.replace('applyG3BU04HumanSemanticReadbackFullFix(', 'applyG3BU04HumanSemanticQualityV2(')
+          text = text.replace('validateG3BU04HumanSemanticReadback(promotedQuestion)', 'validateG3BU04HumanSemanticQualityV2(promotedQuestion)')
+          router.write_text(text, encoding='utf-8')
+
+          validator = Path('site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js')
+          text = validator.read_text(encoding='utf-8')
+          old = '''import {
+            G3B_U04_HUMAN_SEMANTIC_READBACK_FULLFIX,
+            validateG3BU04HumanSemanticReadback
+          } from "./g3b-u04-human-semantic-readback-fullfix.js";'''
+          new = '''import {
+            G3B_U04_HUMAN_SEMANTIC_QUALITY_V2,
+            validateG3BU04HumanSemanticQualityV2
+          } from "./g3b-u04-human-semantic-readback-quality-v2.js";'''
+          if text.count(old) != 1:
+              raise SystemExit('Validator readback import not found exactly once')
+          text = text.replace(old, new)
+          text = text.replace('G3B_U04_HUMAN_SEMANTIC_READBACK_FULLFIX.version', 'G3B_U04_HUMAN_SEMANTIC_QUALITY_V2.version')
+          text = text.replace('validateG3BU04HumanSemanticReadback(question)', 'validateG3BU04HumanSemanticQualityV2(question)')
+          validator.write_text(text, encoding='utf-8')
+
+          audit = Path('tools/curriculum/generate-s57f7r1-g3b-u04-human-semantic-audit.mjs')
+          text = audit.read_text(encoding='utf-8')
+          old = '''import {
+            applyG3BU04HumanSemanticReadbackFullFix,
+            validateG3BU04HumanSemanticReadback
+          } from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-fullfix.js";'''
+          new = '''import {
+            applyG3BU04HumanSemanticQualityV2,
+            validateG3BU04HumanSemanticQualityV2
+          } from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js";'''
+          if text.count(old) != 1:
+              raise SystemExit('Audit readback import not found exactly once')
+          text = text.replace(old, new)
+          text = text.replace('applyG3BU04HumanSemanticReadbackFullFix(generated.question)', 'applyG3BU04HumanSemanticQualityV2(generated.question)')
+          text = text.replace('validateG3BU04HumanSemanticReadback(question)', 'validateG3BU04HumanSemanticQualityV2(question)')
+          text = text.replace('schemaVersion: 2', 'schemaVersion: 3')
+          text = text.replace('readbackValidatorFailureCount', 'qualityValidatorFailureCount')
+          text = text.replace('readbackValidatorOk', 'qualityValidatorOk')
+          text = text.replace('readbackValidatorErrors', 'qualityValidatorErrors')
+          audit.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit wiring and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/modules/curriculum/batch-a/g3b-u04-canonical-semantic-router.js
+          git add site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js
+          git add tools/curriculum/generate-s57f7r1-g3b-u04-human-semantic-audit.mjs
+          git rm .github/workflows/s57f7r1-wire-quality-v2.yml
+          git commit -m "fix(g3b-u04): wire full semantic quality v2 into production"
+          git push origin HEAD:s57f7r1-g3b-u04-human-semantic-readback-fullfix
