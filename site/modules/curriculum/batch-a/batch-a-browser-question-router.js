@@ -9,6 +9,25 @@ import { canGenerateG4AU08ExpressionQuestions, generateG4AU08ExpressionQuestions
 import { G4A_U08_PATTERN_SPEC_IDS } from "./source-pattern-g4a-u08-extension.js";
 import { G4A_U08_SOURCE_ID, isG4AU08Phase2APatternSpecId } from "./source-pattern-g4a-u08-phase2a-extension.js";
 import { getVisiblePatternGroupsForKnowledgePoint } from "../registry/batch-a-selector-extension.js";
+import {
+  G3B_U04_CANONICAL_ROUTE_KINDS,
+  G3B_U04_PRESERVED_NUMERIC_PATTERN_SPEC_ID,
+  buildG3BU04CanonicalSemanticSubplan,
+  classifyG3BU04CanonicalRouterPlan,
+  generateG3BU04CanonicalSemanticQuestions
+} from "./g3b-u04-canonical-semantic-router.js";
+
+function issue(code, path, message, details = {}) {
+  return { code, severity: "error", path, message, ...details };
+}
+
+function cloneValue(value) {
+  if (Array.isArray(value)) return value.map((item) => cloneValue(item));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, nested]) => [key, cloneValue(nested)]));
+  }
+  return value;
+}
 
 function hashSeed(value) {
   let acc = 0;
@@ -36,6 +55,10 @@ function shuffleQuestions(questions, seed) {
 
 function isG4AU08NumericPatternSpecId(patternSpecId) {
   return G4A_U08_PATTERN_SPEC_IDS.includes(patternSpecId);
+}
+
+function isG3BU04NumericPatternSpecId(patternSpecId) {
+  return patternSpecId === G3B_U04_PRESERVED_NUMERIC_PATTERN_SPEC_ID;
 }
 
 function groupIdsForKps(kpIds = []) {
@@ -88,8 +111,133 @@ function generateG4AU08HybridQuestions(options, plan) {
   };
 }
 
+function invalidG3BU04CanonicalResult(plan) {
+  const resolverErrors = Array.isArray(plan.resolverResult?.errors) ? plan.resolverResult.errors : [];
+  const errors = resolverErrors.length > 0
+    ? resolverErrors.map((entry) => issue(
+      entry.code ?? "G3B_U04_CANONICAL_SCOPE_INVALID",
+      "resolverResult",
+      `G3B-U04 canonical selection was rejected by the visible resolver: ${entry.code ?? "unknown"}.`
+    ))
+    : [issue(
+      "G3B_U04_CANONICAL_SCOPE_INVALID",
+      "allocation",
+      "G3B-U04 canonical selection contains an invalid or unpromoted semantic scope."
+    )];
+  return {
+    ok: false,
+    plan,
+    questions: [],
+    allocation: cloneValue(plan.allocation ?? []),
+    errors,
+    warnings: cloneValue(plan.resolverResult?.warnings ?? [])
+  };
+}
+
+function questionsInAllocationOrder(plan, questionSets) {
+  const buckets = new Map();
+  for (const question of questionSets.flat()) {
+    const bucket = buckets.get(question.patternSpecId) ?? [];
+    bucket.push(question);
+    buckets.set(question.patternSpecId, bucket);
+  }
+  const output = [];
+  for (const entry of plan.allocation ?? []) {
+    const bucket = buckets.get(entry.patternSpecId) ?? [];
+    output.push(...bucket.splice(0, entry.questionCount));
+  }
+  for (const bucket of buckets.values()) output.push(...bucket);
+  return output;
+}
+
+function attachG3BU04HybridRouteMetadata(question, plan, index) {
+  const semantic = question.kind === "g3bU04SemanticWordProblem";
+  return {
+    ...question,
+    id: `${question.patternSpecId}-${index + 1}`,
+    canonicalRoute: {
+      ...(question.canonicalRoute ?? {}),
+      kind: G3B_U04_CANONICAL_ROUTE_KINDS.NUMERIC_SEMANTIC_HYBRID,
+      runtimeKind: semantic ? "semantic" : "numeric",
+      resolver: plan.resolverResult?.provenance?.resolver ?? null,
+      allocationStrategy: plan.resolverResult?.provenance?.allocationStrategy ?? null,
+      publicHiddenModeFlagUsed: false
+    }
+  };
+}
+
+function generateG3BU04HybridQuestions(options, plan) {
+  const numericCount = plan.allocation
+    .filter((entry) => isG3BU04NumericPatternSpecId(entry.patternSpecId))
+    .reduce((sum, entry) => sum + entry.questionCount, 0);
+  const semanticPlan = {
+    ...buildG3BU04CanonicalSemanticSubplan(plan),
+    ordering: "groupedByPattern"
+  };
+  const semantic = generateG3BU04CanonicalSemanticQuestions(semanticPlan);
+  const numeric = generateDefaultBatchABrowserQuestions(
+    filterOptionsForPatternKind(options, plan, isG3BU04NumericPatternSpecId, numericCount)
+  );
+  const errors = [...(numeric.errors ?? []), ...(semantic.errors ?? [])];
+  const warnings = [...(numeric.warnings ?? []), ...(semantic.warnings ?? [])];
+
+  if (numeric.ok !== true || semantic.ok !== true || errors.length > 0) {
+    return {
+      ok: false,
+      plan,
+      questions: [],
+      allocation: cloneValue(plan.allocation ?? []),
+      errors,
+      warnings
+    };
+  }
+
+  const groupedQuestions = questionsInAllocationOrder(plan, [numeric.questions ?? [], semantic.questions ?? []])
+    .map((question, index) => attachG3BU04HybridRouteMetadata(question, plan, index));
+  const orderedQuestions = plan.ordering === "shuffleAcrossPatterns"
+    ? shuffleQuestions(groupedQuestions, `${plan.generationSeed}:g3b-u04-hybrid:${plan.questionCount}`)
+    : groupedQuestions;
+  if (orderedQuestions.length !== plan.questionCount) {
+    return {
+      ok: false,
+      plan,
+      questions: [],
+      allocation: cloneValue(plan.allocation ?? []),
+      errors: [issue(
+        "G3B_U04_CANONICAL_OUTPUT_COUNT_MISMATCH",
+        "questions",
+        "G3B-U04 hybrid output count does not match the resolver allocation.",
+        { expected: plan.questionCount, actual: orderedQuestions.length }
+      )],
+      warnings
+    };
+  }
+
+  return {
+    ok: true,
+    plan: { ...plan, routeKind: G3B_U04_CANONICAL_ROUTE_KINDS.NUMERIC_SEMANTIC_HYBRID },
+    questions: orderedQuestions,
+    allocation: cloneValue(plan.allocation),
+    errors: [],
+    warnings
+  };
+}
+
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  const g3bU04RouteKind = classifyG3BU04CanonicalRouterPlan(plan);
+  if (g3bU04RouteKind === G3B_U04_CANONICAL_ROUTE_KINDS.INVALID_SEMANTIC_SCOPE) {
+    return invalidG3BU04CanonicalResult(plan);
+  }
+  if (g3bU04RouteKind === G3B_U04_CANONICAL_ROUTE_KINDS.PURE_SEMANTIC) {
+    return generateG3BU04CanonicalSemanticQuestions({
+      ...buildG3BU04CanonicalSemanticSubplan(plan),
+      routeKind: G3B_U04_CANONICAL_ROUTE_KINDS.PURE_SEMANTIC
+    });
+  }
+  if (g3bU04RouteKind === G3B_U04_CANONICAL_ROUTE_KINDS.NUMERIC_SEMANTIC_HYBRID) {
+    return generateG3BU04HybridQuestions(options, plan);
+  }
   if (isG3AU02OutputQualityPlan(plan)) return generateG3AU02OutputQualityQuestions(options);
   if (canGenerateG4AU01Phase1Questions(plan)) return generateG4AU01Phase1Questions(options);
   if (canGenerateG4AU02NumericQuestions(options)) return generateG4AU02NumericQuestions(options);
