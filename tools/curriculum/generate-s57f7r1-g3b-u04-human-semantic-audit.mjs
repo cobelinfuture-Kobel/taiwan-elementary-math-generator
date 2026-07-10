@@ -89,6 +89,10 @@ const report = {
 
 mkdirSync(dirname(OUT_PATH), { recursive: true });
 writeFileSync(OUT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+if (report.semanticValidatorFailureCount !== 0 || report.qualityValidatorFailureCount !== 0) {
+  throw new Error(`S57F7R1 audit failed: semantic=${report.semanticValidatorFailureCount}, quality=${report.qualityValidatorFailureCount}`);
+}
+
 console.log(JSON.stringify({
   outputPath: OUT_PATH,
   familyCount: report.familyCount,

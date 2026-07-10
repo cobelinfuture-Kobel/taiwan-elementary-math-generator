@@ -101,6 +101,9 @@ test("S57F7R1 quality v2 fixes measured units, realistic per-recipient quantitie
   assert.match(display.promptText, /展示品/);
   assert.match(display.answerText, /件$/);
 
+  const combinedSports = fixed("ps_g3b_u04_add_divide_combined_inventory_equal_distribution", "sports");
+  assert.equal(combinedSports.finalAnswer <= 2, true);
+
   const sports = fixed("ps_g3b_u04_div_add_distributed_resources_plus_existing_per_group", "sports");
   const technology = fixed("ps_g3b_u04_div_add_distributed_resources_plus_existing_per_group", "technology");
   assert.equal(sports.finalAnswer <= 3, true);
@@ -109,6 +112,8 @@ test("S57F7R1 quality v2 fixes measured units, realistic per-recipient quantitie
   const ticketPrice = fixed("ps_g3b_u04_consecutive_unit_price_items_per_pack_packs", "tickets");
   assert.equal(ticketPrice.quantities.a >= 30, true);
   assert.match(ticketPrice.promptText, /每張門票50元/);
+  assert.equal(ticketPrice.promptText.includes("undefined"), false);
+  assert.match(ticketPrice.promptText, /每本有/);
 
   const budget = fixed("ps_g3b_u04_total_minus_share_personal_budget_minus_group_fee", "field_trip");
   assert.equal(budget.quantities.a >= 50, true);

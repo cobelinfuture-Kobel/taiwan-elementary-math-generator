@@ -238,7 +238,9 @@ function normalizePooledMoney(question, scenario) {
 }
 
 function normalizeCombinedInventory(question, scenario) {
-  const total = question.quantities.a + question.quantities.b;
+  const perRecipientByContext = { classroom: 6, library: 4, sports: 2, crafts: 8 };
+  const perRecipient = perRecipientByContext[question.contextDomain] ?? 5;
+  const total = question.quantities.c * perRecipient;
   const a = Math.floor(total / 2);
   const b = total - a;
   updateAddThenDivide(question, a, b);
@@ -263,7 +265,18 @@ function normalizePromotionPrice(question, scenario) {
   const divisor = question.quantities.r ?? q + question.quantities.g;
   const gcd = (left, right) => right === 0 ? left : gcd(right, left % right);
   const step = divisor / gcd(q, divisor);
-  const p = step * (3 + ((q + divisor) % 3));
+  const targetByContext = {
+    bakery: 25,
+    drinks: 30,
+    stationery: 10,
+    daily_goods: 28,
+    tickets: 60,
+    stickers: 14,
+    sports_cards: 20,
+    coupons: 25
+  };
+  const target = targetByContext[question.contextDomain] ?? step * 4;
+  const p = Math.max(step, Math.ceil(target / step) * step);
   const total = p * q;
   const answer = total / divisor;
   setBinding(question, "p", p);
@@ -343,10 +356,12 @@ function normalizePlantContainer(question) {
 
 function normalizeTicketUnitPrice(question, scenario) {
   const priceByContext = { stationery: 10, snacks: 15, tickets: 50, craft_materials: 20 };
+  const packageUnitByContext = { stationery: "盒", snacks: "盒", tickets: "本", craft_materials: "包" };
   const price = priceByContext[question.contextDomain] ?? question.quantities.a;
+  const packageUnit = packageUnitByContext[question.contextDomain] ?? "包";
   updateConsecutive(question, price, question.quantities.b, question.quantities.c, "元");
   const p = scenario.placeholderBindings;
-  setPrompt(question, `每${p.itemUnit}${p.item}${price}元，每${p.packageUnit}有${question.quantities.b}${p.itemUnit}，買${question.quantities.c}${p.packageUnit}一共要付多少元？`);
+  setPrompt(question, `每${p.itemUnit}${p.item}${price}元，每${packageUnit}有${question.quantities.b}${p.itemUnit}，買${question.quantities.c}${packageUnit}一共要付多少元？`);
 }
 
 function normalizeDisplayArray(question) {
@@ -457,8 +472,14 @@ export function validateG3BU04HumanSemanticQualityV2(question = {}) {
       errors.push(issue("G3B_U04_READBACK_PER_RECIPIENT_QUANTITY_IMPLAUSIBLE", "quantities", "Per-recipient resource quantity is implausible for the selected context."));
     }
   }
+if (family === "tpl_g3b_u04_add_divide_combined_inventory_equal_distribution") {
+  const caps = { classroom: 10, library: 6, sports: 2, crafts: 10 };
+  if (question.finalAnswer > (caps[question.contextDomain] ?? 8)) {
+    errors.push(issue("G3B_U04_READBACK_PER_RECIPIENT_QUANTITY_IMPLAUSIBLE", "quantities", "Per-recipient combined inventory quantity is implausible for the selected context."));
+  }
+}
 
-  if (prompt.includes("本車票") || prompt.includes("本門票")
+  if (prompt.includes("undefined") || prompt.includes("本車票") || prompt.includes("本門票")
     || (family === "tpl_g3b_u04_div_add_new_packages_plus_existing_stock" && prompt.includes("新做好的"))
     || (family === "tpl_g3b_u04_consecutive_items_per_row_per_box" && question.contextDomain === "plants" && prompt.includes("每箱"))
     || (family === "tpl_g3b_u04_consecutive_length_width_layers_array" && question.contextDomain === "display_array" && !prompt.includes("展示品"))) {
