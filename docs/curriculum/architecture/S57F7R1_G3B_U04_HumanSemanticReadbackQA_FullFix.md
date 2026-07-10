@@ -39,6 +39,8 @@ The S57E semantic authority remains immutable. S57F7R1 applies deterministic pro
 
 The second quality layer is required because complete review of the first 117-variant audit exposed additional issues not visible in the original 64-question smoke, including measured-unit answers, rental-versus-purchase wording, per-student resource plausibility, ticket pricing, and unnatural ticket-bundle classifiers.
 
+The second-pass patch additionally constrains combined-inventory quantities by context, assigns context-specific promotion prices, replaces undefined package classifiers with explicit units, rejects unresolved `undefined` text, and makes the audit workflow fail when either semantic validator reports a failure.
+
 ## Acceptance gates
 
 - all 32 families and all 117 family-context variants are generated and reviewed through the deterministic audit;
@@ -51,4 +53,4 @@ The second quality layer is required because complete review of the first 117-va
 
 ## Current state
 
-`FULL_117_VARIANT_QUALITY_V2_IMPLEMENTED_CI_AND_ARTIFACT_REGEN_PENDING`
+`SECOND_PASS_APPLIED_FULL_CI_AND_REGENERATED_AUDIT_PENDING`
