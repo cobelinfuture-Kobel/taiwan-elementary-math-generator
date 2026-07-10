@@ -12,7 +12,7 @@ test("Pixel public page exposes answer and print controls", async () => {
   assert.match(html, /id="pixel-print-button"[^>]*disabled/);
   assert.match(html, /src="\.\/pixel-print-surface\.js"/);
   assert.match(html, /Preview \/ Print：已接入/);
-  assert.match(html, /S46D 答案頁與列印控制/);
+  assert.match(html, /aria-label="答案頁與列印控制"/);
 });
 
 test("Pixel print surface subscribes to generation and uses shared print controller", async () => {
