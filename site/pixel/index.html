@@ -33,8 +33,8 @@
     <section class="pixel-status-row" aria-label="版本狀態">
       <div class="pixel-status-chip">共用 Registry</div>
       <div class="pixel-status-chip">共用 Config State</div>
-      <div class="pixel-status-chip">共用 Validator</div>
-      <div class="pixel-status-chip pixel-status-chip--muted">產生流程：S46 接入</div>
+      <div class="pixel-status-chip">共用 Generator / Validator</div>
+      <div class="pixel-status-chip pixel-status-chip--muted">產生流程：已接入</div>
     </section>
 
     <section class="pixel-layout" aria-label="Pixel UI scaffold">
@@ -121,18 +121,20 @@
           </label>
         </div>
         <div class="pixel-plan-summary" id="pixel-plan-summary" aria-live="polite">正在建立 worksheet plan...</div>
-        <div class="pixel-workbench" aria-label="工作台示意">
+        <div class="pixel-workbench" aria-label="工作台狀態">
           <div class="pixel-workbench__card">
             <strong>目前階段</strong>
-            <span>S45D 考卷設定狀態</span>
+            <span>S46B 產生按鈕整合</span>
           </div>
           <div class="pixel-workbench__card">
             <strong>下一階段</strong>
-            <span>S46A Worksheet Plan Resolver</span>
+            <span>S46C 真正題目預覽</span>
           </div>
         </div>
-        <button id="pixel-generate-button" class="pixel-button pixel-button--primary" type="button" disabled>產生考卷｜S46 接入</button>
-        <p class="pixel-help">題數、排序、種子、答案頁與列印版面已接入共用 config state；目前只建立 worksheet plan，尚未執行 generator。</p>
+        <button id="pixel-generate-button" class="pixel-button pixel-button--primary" type="button">產生考卷</button>
+        <div class="pixel-generation-status" id="pixel-generation-status" data-status="idle" aria-live="polite">尚未產生考卷。</div>
+        <ul class="pixel-generation-errors" id="pixel-generation-errors" aria-live="assertive"></ul>
+        <p class="pixel-help">按鈕會使用共用 generator / validator 建立 worksheetDocument。完整 HTML 預覽、答案頁顯示與列印會在後續 milestone 接入。</p>
       </section>
 
       <aside class="pixel-panel pixel-panel--preview" aria-label="預覽摘要">
@@ -140,7 +142,7 @@
           <span class="pixel-icon" aria-hidden="true">▣</span>
           <h2>題目預覽</h2>
         </div>
-        <p id="pixel-preview-meta">尚未接入產生流程。</p>
+        <p id="pixel-preview-meta">可先產生 worksheetDocument；完整題目預覽於 S46C 接入。</p>
         <ol class="pixel-sample-list" aria-label="示意題目">
           <li><span>4836 + 1957</span><strong>= □</strong></li>
           <li><span>7052 - 1869</span><strong>= □</strong></li>
