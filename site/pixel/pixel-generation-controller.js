@@ -1,7 +1,27 @@
 import { buildPixelWorksheetDocument } from "./pixel-generation-bridge.js";
 
+const generationSubscribers = new Set();
+
 function normalizeMessages(items = []) {
   return (Array.isArray(items) ? items : []).map((item) => String(item?.message ?? item?.code ?? item ?? "").trim()).filter(Boolean);
+}
+
+function notifyGenerationSubscribers(execution) {
+  for (const subscriber of generationSubscribers) {
+    try {
+      subscriber(execution);
+    } catch {
+      // A UI subscriber must not break the authoritative generation result.
+    }
+  }
+}
+
+export function subscribePixelGeneration(subscriber) {
+  if (typeof subscriber !== "function") {
+    throw new TypeError("Pixel generation subscriber must be a function.");
+  }
+  generationSubscribers.add(subscriber);
+  return () => generationSubscribers.delete(subscriber);
 }
 
 export function summarizePixelGenerationResult(result = {}) {
@@ -37,13 +57,18 @@ export function summarizePixelGenerationResult(result = {}) {
   });
 }
 
+function publishExecution(execution) {
+  notifyGenerationSubscribers(execution);
+  return execution;
+}
+
 export function runPixelWorksheetGeneration(state) {
   try {
     const result = buildPixelWorksheetDocument(state);
-    return Object.freeze({
+    return publishExecution(Object.freeze({
       result,
       summary: summarizePixelGenerationResult(result)
-    });
+    }));
   } catch (error) {
     const failure = Object.freeze({
       ok: false,
@@ -56,9 +81,9 @@ export function runPixelWorksheetGeneration(state) {
       })],
       warnings: []
     });
-    return Object.freeze({
+    return publishExecution(Object.freeze({
       result: failure,
       summary: summarizePixelGenerationResult(failure)
-    });
+    }));
   }
 }
