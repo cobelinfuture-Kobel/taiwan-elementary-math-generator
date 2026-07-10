@@ -62,6 +62,22 @@
           <strong id="pixel-kp-count">0</strong>
         </div>
         <div class="pixel-unit-meta" id="pixel-unit-meta" aria-live="polite"></div>
+
+        <section class="pixel-kp-selector" aria-label="知識點選擇">
+          <div class="pixel-subheading-row">
+            <span class="pixel-icon pixel-icon--small" aria-hidden="true">◆</span>
+            <h3>知識點選擇</h3>
+          </div>
+          <label class="pixel-field">
+            <span>出題模式</span>
+            <select id="pixel-selection-mode-select" name="pixelSelectionMode"></select>
+          </label>
+          <p class="pixel-help" id="pixel-kp-empty-state">正在讀取可選知識點...</p>
+          <div class="pixel-kp-availability" id="pixel-kp-availability-summary" aria-live="polite"></div>
+          <div class="pixel-kp-panel" id="pixel-kp-panel" aria-live="polite"></div>
+          <ul class="pixel-warning-list" id="pixel-kp-warning-list" aria-live="polite"></ul>
+        </section>
+
         <div class="pixel-mini-map" aria-hidden="true">
           <span></span><span></span><span></span><span></span>
           <span></span><span></span><span></span><span></span>
@@ -94,15 +110,15 @@
         <div class="pixel-workbench" aria-label="工作台示意">
           <div class="pixel-workbench__card">
             <strong>目前階段</strong>
-            <span>S45B 單元選擇器</span>
+            <span>S45C 知識點選擇器</span>
           </div>
           <div class="pixel-workbench__card">
             <strong>下一階段</strong>
-            <span>S45C 知識點選擇器</span>
+            <span>S45D 考卷設定狀態</span>
           </div>
         </div>
         <button class="pixel-button pixel-button--primary" type="button" disabled>產生考卷｜下一階段接入</button>
-        <p class="pixel-help">S45B 已接入年級、學期、單元 selector；實際出題仍留在 shared-core generation milestone。</p>
+        <p class="pixel-help">S45C 可選單元出題、單一知識點或同單元知識點混合；題數與真正出題流程仍留在後續 shared-core milestone。</p>
       </section>
 
       <aside class="pixel-panel pixel-panel--preview" aria-label="預覽摘要">
