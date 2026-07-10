@@ -31,7 +31,7 @@ test("S57E7R1 accepts the registered distributed-resource unit flow in all four 
     const question = generate(contextDomain, index + 1);
     assert.equal(question.quantityRoleBindings.a.unitDimension, "count");
     assert.equal(question.quantityRoleBindings.b.unitDimension, "count");
-    assert.equal(question.quantityRoleBindings.c.unitDimension, "context_bound_measure_or_count");
+    assert.equal(question.quantityRoleBindings.c.unitDimension, "count");
     assert.equal(question.quantityRoleBindings.a.unitLabel, question.answerUnit);
     assert.equal(question.quantityRoleBindings.c.unitLabel, question.answerUnit);
 
