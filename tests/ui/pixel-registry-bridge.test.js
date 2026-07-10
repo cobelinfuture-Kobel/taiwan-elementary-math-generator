@@ -38,7 +38,8 @@ test("Pixel registry bridge source summaries match shared visible KnowledgePoint
     const expectedKps = visibleKps.filter((entry) => entry.sourceId === option.sourceId);
     assert.equal(summary.visibleKnowledgePoints.length, expectedKps.length);
     assert.equal(listPixelKnowledgePointsForSource(option.sourceId).length, expectedKps.length);
-    assert.equal(summary.summaryText.includes(option.sourceId), true);
+    assert.equal(summary.summaryText.includes(option.sourceId), false);
+    assert.equal(summary.summaryText.includes(option.unitCode), true);
     assert.equal(summary.previewText.includes(option.unitCode), true);
   }
 });
