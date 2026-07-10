@@ -11,7 +11,7 @@
     <section class="app-shell__hero">
       <p class="app-shell__eyebrow">Batch A browser worksheet path</p>
       <h1>台灣小學數學 Batch A 練習題產生器</h1>
-      <p class="app-shell__lede">選擇 Batch A 單元、設定題數，直接在瀏覽器中產生可預覽與列印的題目頁與答案頁。</p>
+      <p class="app-shell__lede">選擇單元、知識點與題目形式，直接在瀏覽器中產生可預覽與列印的題目頁與答案頁。</p>
       <nav class="app-shell__version-nav" aria-label="介面版本切換">
         <span class="version-chip" aria-current="page">標準版 Classic</span>
         <a class="version-link" href="./pixel/">切換至像素風版 Beta</a>
@@ -25,10 +25,10 @@
           <span>選擇單元</span>
           <select id="batch-a-source-select" name="batchASourceId"></select>
         </label>
-        <p class="help-text" id="batch-a-source-help">13 個 Batch A sourceId 可選。</p>
+        <p class="help-text" id="batch-a-source-help">13 個 Batch A 單元可選。</p>
       </div>
 
-      <div class="control-group" id="batch-a-knowledge-point-selector" aria-label="Batch A KnowledgePoint selector">
+      <div class="control-group" id="batch-a-knowledge-point-selector" aria-label="知識點與題目形式選擇">
         <h2>知識點選擇</h2>
         <label class="field">
           <span>出題模式</span>
@@ -39,11 +39,18 @@
             <option value="mixedKnowledgePointsCrossUnit" disabled>跨單元知識點混合</option>
           </select>
         </label>
-        <p class="help-text" id="batch-a-knowledge-point-empty-state">此單元已有通過 QA 的知識點時，可選擇單一知識點加強；若同單元有 2 個以上知識點，則可使用同單元知識點混合。</p>
+        <p class="help-text" id="batch-a-knowledge-point-empty-state">此單元已有通過驗證的知識點時，可選擇單一知識點加強或同單元混合。</p>
         <div class="availability-summary" id="batch-a-knowledge-point-availability-summary" aria-live="polite">
-          可選知識點：0｜已建立但尚未開放：0｜不可在 S43 使用：0
+          可選知識點：0｜已建立但尚未開放：0｜目前不可選：0
         </div>
         <div class="knowledge-point-panel" id="batch-a-knowledge-point-panel" aria-live="polite"></div>
+
+        <section class="pattern-group-selector" id="batch-a-pattern-group-selector" data-visible="false" aria-label="題目形式選擇">
+          <h3>題目形式</h3>
+          <p class="help-text" id="batch-a-pattern-group-help">切換到知識點模式後，可選擇計算題或應用題。</p>
+          <div class="pattern-group-panel" id="batch-a-pattern-group-panel" aria-live="polite"></div>
+        </section>
+
         <ul class="selector-warning-list" id="batch-a-knowledge-point-warning-list" aria-live="polite"></ul>
       </div>
 

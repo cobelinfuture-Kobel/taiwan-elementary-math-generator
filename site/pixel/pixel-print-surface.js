@@ -66,9 +66,11 @@ for (const id of watchedControlIds) {
   }
 }
 
-document.getElementById("pixel-kp-panel")?.addEventListener("click", (event) => {
-  if (event.target.closest?.("[data-knowledge-point-id]")) markPrintStale();
-});
+for (const panelId of ["pixel-kp-panel", "pixel-pattern-group-panel"]) {
+  document.getElementById(panelId)?.addEventListener("click", (event) => {
+    if (event.target.closest?.("[data-knowledge-point-id], [data-pattern-group-id]")) markPrintStale();
+  });
+}
 
 printButton?.addEventListener("click", () => {
   try {

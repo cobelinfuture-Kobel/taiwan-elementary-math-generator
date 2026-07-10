@@ -1,4 +1,8 @@
 import { BATCH_A_SELECTION_MODES } from "../assets/browser/state/config-state.js";
+import {
+  normalizePublicPatternGroupSelection,
+  togglePublicPatternGroupSelection
+} from "../assets/browser/state/public-pattern-group-selection.js";
 import { listPixelKnowledgePointsForSource } from "./pixel-registry-bridge.js";
 
 export { BATCH_A_SELECTION_MODES };
@@ -19,31 +23,12 @@ function uniqueStrings(values) {
   return [...new Set((Array.isArray(values) ? values : []).map((value) => String(value ?? "").trim()).filter(Boolean))];
 }
 
-function patternGroupIdsForSelection(knowledgePoints, selectedKnowledgePointIds) {
-  const byId = new Map(knowledgePoints.map((entry) => [entry.knowledgePointId, entry]));
-  return selectedKnowledgePointIds
-    .map((knowledgePointId) => byId.get(knowledgePointId)?.patternGroupIds?.[0] ?? null)
-    .filter(Boolean);
-}
-
 export function listPixelKnowledgePointModeOptions(sourceId) {
   const visibleCount = listPixelKnowledgePointsForSource(sourceId).length;
   return Object.freeze([
-    Object.freeze({
-      value: BATCH_A_SELECTION_MODES.SOURCE_UNIT,
-      label: MODE_LABELS[BATCH_A_SELECTION_MODES.SOURCE_UNIT],
-      disabled: false
-    }),
-    Object.freeze({
-      value: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-      label: MODE_LABELS[BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT],
-      disabled: visibleCount < 1
-    }),
-    Object.freeze({
-      value: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-      label: MODE_LABELS[BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT],
-      disabled: visibleCount < 2
-    })
+    Object.freeze({ value: BATCH_A_SELECTION_MODES.SOURCE_UNIT, label: MODE_LABELS[BATCH_A_SELECTION_MODES.SOURCE_UNIT], disabled: false }),
+    Object.freeze({ value: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT, label: MODE_LABELS[BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT], disabled: visibleCount < 1 }),
+    Object.freeze({ value: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT, label: MODE_LABELS[BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT], disabled: visibleCount < 2 })
   ]);
 }
 
@@ -54,7 +39,8 @@ export function getPixelSelectionModeLabel(selectionMode) {
 export function createPixelKnowledgePointSelectorState({
   sourceId,
   selectionMode = BATCH_A_SELECTION_MODES.SOURCE_UNIT,
-  selectedKnowledgePointIds = []
+  selectedKnowledgePointIds = [],
+  selectedPatternGroupIds = []
 } = {}) {
   const availableKnowledgePoints = listPixelKnowledgePointsForSource(sourceId);
   const visibleIds = new Set(availableKnowledgePoints.map((entry) => entry.knowledgePointId));
@@ -65,45 +51,38 @@ export function createPixelKnowledgePointSelectorState({
   let normalizedMode = enabledModes.has(selectionMode) ? selectionMode : BATCH_A_SELECTION_MODES.SOURCE_UNIT;
 
   if (normalizedMode !== selectionMode) {
-    warnings.push({
-      code: PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK,
-      from: selectionMode,
-      to: normalizedMode
-    });
+    warnings.push({ code: PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK, from: selectionMode, to: normalizedMode });
   }
-
   if (requestedIds.length !== sanitizedIds.length) {
-    warnings.push({
-      code: PIXEL_SELECTOR_WARNING_CODES.KNOWLEDGE_POINT_DROPPED,
-      count: requestedIds.length - sanitizedIds.length
-    });
+    warnings.push({ code: PIXEL_SELECTOR_WARNING_CODES.KNOWLEDGE_POINT_DROPPED, count: requestedIds.length - sanitizedIds.length });
   }
 
   let normalizedIds = [];
   if (normalizedMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT) {
     normalizedIds = [sanitizedIds[0] ?? availableKnowledgePoints[0]?.knowledgePointId].filter(Boolean);
   } else if (normalizedMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
-    normalizedIds = sanitizedIds.length >= 2
-      ? sanitizedIds
-      : availableKnowledgePoints.map((entry) => entry.knowledgePointId);
+    normalizedIds = sanitizedIds.length >= 2 ? sanitizedIds : availableKnowledgePoints.map((entry) => entry.knowledgePointId);
     if (normalizedIds.length < 2) {
       normalizedMode = BATCH_A_SELECTION_MODES.SOURCE_UNIT;
       normalizedIds = [];
-      warnings.push({
-        code: PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK,
-        from: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-        to: BATCH_A_SELECTION_MODES.SOURCE_UNIT
-      });
+      warnings.push({ code: PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK, from: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT, to: BATCH_A_SELECTION_MODES.SOURCE_UNIT });
     }
   }
+
+  const patternGroupState = normalizePublicPatternGroupSelection({
+    selectionMode: normalizedMode,
+    selectedKnowledgePointIds: normalizedIds,
+    selectedPatternGroupIds
+  });
 
   return Object.freeze({
     sourceId: sourceId ?? null,
     selectionMode: normalizedMode,
     availableKnowledgePoints: Object.freeze(availableKnowledgePoints),
     selectedKnowledgePointIds: Object.freeze(normalizedIds),
-    selectedPatternGroupIds: Object.freeze(patternGroupIdsForSelection(availableKnowledgePoints, normalizedIds)),
-    warnings: Object.freeze(warnings),
+    selectedPatternGroupIds: patternGroupState.selectedPatternGroupIds,
+    patternGroupChoices: patternGroupState.choices,
+    warnings: Object.freeze([...warnings, ...patternGroupState.warnings]),
     visibleCount: availableKnowledgePoints.length
   });
 }
@@ -116,7 +95,8 @@ export function togglePixelKnowledgePointSelection(state, knowledgePointId) {
     return createPixelKnowledgePointSelectorState({
       sourceId: state.sourceId,
       selectionMode: state.selectionMode,
-      selectedKnowledgePointIds: [knowledgePointId]
+      selectedKnowledgePointIds: [knowledgePointId],
+      selectedPatternGroupIds: state.selectedPatternGroupIds
     });
   }
 
@@ -126,10 +106,7 @@ export function togglePixelKnowledgePointSelection(state, knowledgePointId) {
       if (selected.size <= 2) {
         return Object.freeze({
           ...state,
-          warnings: Object.freeze([{
-            code: PIXEL_SELECTOR_WARNING_CODES.MIXED_MINIMUM_TWO,
-            minimum: 2
-          }])
+          warnings: Object.freeze([{ code: PIXEL_SELECTOR_WARNING_CODES.MIXED_MINIMUM_TWO, minimum: 2 }])
         });
       }
       selected.delete(knowledgePointId);
@@ -139,9 +116,29 @@ export function togglePixelKnowledgePointSelection(state, knowledgePointId) {
     return createPixelKnowledgePointSelectorState({
       sourceId: state.sourceId,
       selectionMode: state.selectionMode,
-      selectedKnowledgePointIds: [...selected]
+      selectedKnowledgePointIds: [...selected],
+      selectedPatternGroupIds: state.selectedPatternGroupIds
     });
   }
 
   return state;
+}
+
+export function togglePixelPatternGroupSelection(state, patternGroupId) {
+  const toggled = togglePublicPatternGroupSelection({
+    selectionMode: state?.selectionMode,
+    selectedKnowledgePointIds: state?.selectedKnowledgePointIds,
+    selectedPatternGroupIds: state?.selectedPatternGroupIds,
+    patternGroupId
+  });
+  const next = createPixelKnowledgePointSelectorState({
+    sourceId: state?.sourceId,
+    selectionMode: state?.selectionMode,
+    selectedKnowledgePointIds: state?.selectedKnowledgePointIds,
+    selectedPatternGroupIds: toggled.selectedPatternGroupIds
+  });
+  return Object.freeze({
+    ...next,
+    warnings: Object.freeze([...next.warnings, ...toggled.warnings])
+  });
 }
