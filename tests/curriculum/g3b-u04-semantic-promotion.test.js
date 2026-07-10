@@ -112,13 +112,36 @@ test("S57F1 promotion IDs exactly cover immutable S57E semantic authority", () =
 });
 
 test("S57F1 evidence is complete and activation remains disconnected from public behavior", () => {
-  for (const evidencePath of Object.values(registry.promotionEvidence)) {
+  const committedEvidenceKeys = ["s57eFinalCloseout", "s57e7r1UnitFlowFullFix"];
+  for (const key of committedEvidenceKeys) {
+    const evidencePath = registry.promotionEvidence[key];
     assert.equal(
       existsSync(new URL(`../../${evidencePath}`, import.meta.url)),
       true,
-      `Missing promotion evidence: ${evidencePath}`
+      `Missing committed promotion evidence: ${evidencePath}`
     );
   }
+
+  assert.equal(
+    registry.promotionEvidence.hiddenHtmlSmoke,
+    "docs/curriculum/output/smoke/S57E8_G3B_U04_HiddenSemanticWorksheet.html"
+  );
+  assert.equal(
+    registry.promotionEvidence.hiddenPdfSmoke,
+    "docs/curriculum/output/smoke/S57E8_G3B_U04_HiddenSemanticWorksheet.pdf"
+  );
+  assert.equal(
+    registry.promotionEvidence.hiddenSmokeManifest,
+    "docs/curriculum/output/smoke/S57E8_G3B_U04_HiddenSemanticWorksheet.manifest.json"
+  );
+
+  const finalCloseout = readFileSync(
+    new URL(`../../${registry.promotionEvidence.s57eFinalCloseout}`, import.meta.url),
+    "utf8"
+  );
+  assert.match(finalCloseout, /HTML_SMOKE = PASS/);
+  assert.match(finalCloseout, /PDF_SMOKE = PASS/);
+  assert.match(finalCloseout, /PDF_PAGES = 16/);
 
   const selectorExtension = readFileSync(selectorExtensionUrl, "utf8");
   const productionEligibility = readFileSync(productionEligibilityUrl, "utf8");
