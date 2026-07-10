@@ -53,3 +53,5 @@ jobs:
           git rm .github/workflows/s57e2-materialize.yml
           git commit -m "data(g3b-u04): materialize S57E2 semantic scenario registry"
           git push origin HEAD:s57e2-g3b-u04-scenario-role-registry
+
+# retrigger: 1
