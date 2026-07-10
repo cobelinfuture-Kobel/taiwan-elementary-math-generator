@@ -5,6 +5,14 @@ import {
   listPixelSemestersForGrade,
   listPixelSourceOptionsByFilter
 } from "./pixel-registry-bridge.js";
+import {
+  BATCH_A_SELECTION_MODES,
+  createPixelKnowledgePointSelectorState,
+  getPixelSelectionModeLabel,
+  listPixelKnowledgePointModeOptions,
+  PIXEL_SELECTOR_WARNING_CODES,
+  togglePixelKnowledgePointSelection
+} from "./pixel-selector-state.js";
 
 const gradeSelect = document.getElementById("pixel-grade-select");
 const semesterSelect = document.getElementById("pixel-semester-select");
@@ -12,9 +20,16 @@ const sourceSelect = document.getElementById("pixel-source-select");
 const sourceSummary = document.getElementById("pixel-source-summary");
 const kpCount = document.getElementById("pixel-kp-count");
 const unitMeta = document.getElementById("pixel-unit-meta");
+const selectionModeSelect = document.getElementById("pixel-selection-mode-select");
+const knowledgePointEmptyState = document.getElementById("pixel-kp-empty-state");
+const knowledgePointAvailabilitySummary = document.getElementById("pixel-kp-availability-summary");
+const knowledgePointPanel = document.getElementById("pixel-kp-panel");
+const knowledgePointWarningList = document.getElementById("pixel-kp-warning-list");
 const previewMeta = document.getElementById("pixel-preview-meta");
 
 const registrySnapshot = getPixelRegistrySnapshot();
+let activeSourceSummary = null;
+let knowledgePointState = null;
 
 function selectedGrade() {
   const value = Number(gradeSelect?.value);
@@ -78,21 +93,128 @@ function renderSourceOptions() {
   if (sourceOptions.some((entry) => entry.sourceId === previous)) sourceSelect.value = previous;
 }
 
+function warningMessage(warning) {
+  if (warning.code === PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK) {
+    return `出題模式已從 ${getPixelSelectionModeLabel(warning.from)} 改回 ${getPixelSelectionModeLabel(warning.to)}。`;
+  }
+  if (warning.code === PIXEL_SELECTOR_WARNING_CODES.KNOWLEDGE_POINT_DROPPED) {
+    return `已移除 ${warning.count} 個不屬於目前單元或不可見的知識點。`;
+  }
+  if (warning.code === PIXEL_SELECTOR_WARNING_CODES.MIXED_MINIMUM_TWO) {
+    return "同單元知識點混合至少需要保留 2 個知識點。";
+  }
+  return warning.code;
+}
+
+function renderSelectionModeOptions() {
+  if (!selectionModeSelect || !knowledgePointState) return;
+  selectionModeSelect.replaceChildren();
+  for (const mode of listPixelKnowledgePointModeOptions(knowledgePointState.sourceId)) {
+    const option = document.createElement("option");
+    option.value = mode.value;
+    option.textContent = mode.label;
+    option.disabled = mode.disabled;
+    selectionModeSelect.append(option);
+  }
+  selectionModeSelect.value = knowledgePointState.selectionMode;
+}
+
+function renderKnowledgePointSelector() {
+  if (!knowledgePointState) return;
+  const selectedIds = new Set(knowledgePointState.selectedKnowledgePointIds);
+  const isSourceUnitMode = knowledgePointState.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+
+  if (knowledgePointAvailabilitySummary) {
+    knowledgePointAvailabilitySummary.textContent = [
+      `本單元可選：${knowledgePointState.visibleCount}`,
+      `尚未開放：${activeSourceSummary?.hiddenPendingCount ?? 0}`,
+      `不可選：${activeSourceSummary?.notSelectableCount ?? 0}`,
+      `全 Batch A 可選：${registrySnapshot.visibleKnowledgePointCount}`
+    ].join("｜");
+  }
+
+  if (knowledgePointEmptyState) {
+    if (knowledgePointState.visibleCount === 0) {
+      knowledgePointEmptyState.textContent = "目前此單元尚無已通過 QA 的可選知識點，請使用單元出題。";
+    } else if (knowledgePointState.visibleCount === 1) {
+      knowledgePointEmptyState.textContent = "此單元已有 1 個可選知識點，可使用單一知識點加強。";
+    } else if (isSourceUnitMode) {
+      knowledgePointEmptyState.textContent = `此單元已有 ${knowledgePointState.visibleCount} 個可選知識點；切換出題模式後可進行加強或混合。`;
+    } else {
+      knowledgePointEmptyState.textContent = `${getPixelSelectionModeLabel(knowledgePointState.selectionMode)}｜已選 ${knowledgePointState.selectedKnowledgePointIds.length} 個。`;
+    }
+  }
+
+  if (knowledgePointPanel) {
+    knowledgePointPanel.replaceChildren();
+    knowledgePointPanel.dataset.selectionMode = knowledgePointState.selectionMode;
+    knowledgePointPanel.dataset.visibleCount = String(knowledgePointState.visibleCount);
+    for (const knowledgePoint of knowledgePointState.availableKnowledgePoints) {
+      const button = document.createElement("button");
+      const selected = selectedIds.has(knowledgePoint.knowledgePointId);
+      button.type = "button";
+      button.className = "pixel-kp-option";
+      button.dataset.knowledgePointId = knowledgePoint.knowledgePointId;
+      button.dataset.selected = selected ? "true" : "false";
+      button.disabled = isSourceUnitMode;
+      button.setAttribute("aria-pressed", selected ? "true" : "false");
+      button.innerHTML = `<strong>${selected ? "已選｜" : ""}${knowledgePoint.displayName}</strong><span>${knowledgePoint.unitCode}｜${knowledgePoint.qaStatusLabel}｜${knowledgePoint.patternSpecIds.length} PatternSpec</span>`;
+      button.addEventListener("click", () => {
+        knowledgePointState = togglePixelKnowledgePointSelection(knowledgePointState, knowledgePoint.knowledgePointId);
+        renderKnowledgePointSelector();
+      });
+      knowledgePointPanel.append(button);
+    }
+  }
+
+  if (knowledgePointWarningList) {
+    knowledgePointWarningList.replaceChildren();
+    for (const warning of knowledgePointState.warnings) {
+      const item = document.createElement("li");
+      item.textContent = warningMessage(warning);
+      knowledgePointWarningList.append(item);
+    }
+    knowledgePointWarningList.dataset.visible = knowledgePointState.warnings.length > 0 ? "true" : "false";
+  }
+
+  const modeLabel = getPixelSelectionModeLabel(knowledgePointState.selectionMode);
+  if (previewMeta && activeSourceSummary) {
+    previewMeta.textContent = `${activeSourceSummary.previewText}｜模式：${modeLabel}｜已選知識點：${knowledgePointState.selectedKnowledgePointIds.length}`;
+  }
+  document.body.dataset.pixelSelectionMode = knowledgePointState.selectionMode;
+  document.body.dataset.pixelSelectedKnowledgePointIds = knowledgePointState.selectedKnowledgePointIds.join(",");
+  document.body.dataset.pixelSelectedPatternGroupIds = knowledgePointState.selectedPatternGroupIds.join(",");
+}
+
+function syncKnowledgePointSelector(sourceId, preserveSelection = true) {
+  knowledgePointState = createPixelKnowledgePointSelectorState({
+    sourceId,
+    selectionMode: preserveSelection
+      ? knowledgePointState?.selectionMode ?? BATCH_A_SELECTION_MODES.SOURCE_UNIT
+      : BATCH_A_SELECTION_MODES.SOURCE_UNIT,
+    selectedKnowledgePointIds: preserveSelection ? knowledgePointState?.selectedKnowledgePointIds ?? [] : []
+  });
+  renderSelectionModeOptions();
+  renderKnowledgePointSelector();
+}
+
 function renderSummary() {
   const summary = selectedSourceSummary();
+  activeSourceSummary = summary;
   if (!summary) {
     if (sourceSummary) sourceSummary.textContent = "目前篩選條件沒有 Batch A source unit。";
     if (kpCount) kpCount.textContent = "0";
     if (unitMeta) unitMeta.textContent = "請改選年級或學期。";
     if (previewMeta) previewMeta.textContent = "尚未接入產生流程。";
+    syncKnowledgePointSelector(null, false);
     return;
   }
 
   if (sourceSummary) sourceSummary.textContent = summary.summaryText;
   if (kpCount) kpCount.textContent = String(summary.visibleKnowledgePoints.length);
   if (unitMeta) unitMeta.textContent = `${summary.grade} 年級｜${summary.semesterLabel}｜${summary.domain}`;
-  if (previewMeta) previewMeta.textContent = summary.previewText;
   document.body.dataset.pixelSelectedSourceId = summary.sourceId;
+  syncKnowledgePointSelector(summary.sourceId, true);
 }
 
 function syncFilteredSelectors() {
@@ -109,5 +231,14 @@ semesterSelect?.addEventListener("change", () => {
   renderSummary();
 });
 sourceSelect?.addEventListener("change", renderSummary);
+selectionModeSelect?.addEventListener("change", () => {
+  knowledgePointState = createPixelKnowledgePointSelectorState({
+    sourceId: activeSourceSummary?.sourceId,
+    selectionMode: selectionModeSelect.value,
+    selectedKnowledgePointIds: knowledgePointState?.selectedKnowledgePointIds ?? []
+  });
+  renderSelectionModeOptions();
+  renderKnowledgePointSelector();
+});
 document.body.dataset.pixelRegistrySourceCount = String(registrySnapshot.sourceCount);
 document.body.dataset.pixelRegistryVisibleKnowledgePointCount = String(registrySnapshot.visibleKnowledgePointCount);
