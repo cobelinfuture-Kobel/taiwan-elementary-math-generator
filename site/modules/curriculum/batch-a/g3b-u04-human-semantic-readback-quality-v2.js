@@ -270,7 +270,7 @@ function normalizePromotionPrice(question, scenario) {
     drinks: 30,
     stationery: 10,
     daily_goods: 28,
-    tickets: 60,
+    tickets: 48,
     stickers: 14,
     sports_cards: 20,
     coupons: 25
