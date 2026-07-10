@@ -227,7 +227,9 @@ function normalizeJointPurchase(question) {
 }
 
 function normalizePooledMoney(question, scenario) {
-  const total = question.quantities.a + question.quantities.b;
+  const unitPriceByContext = { snacks: 15, stationery: 10, tickets: 50 };
+  const unitPrice = unitPriceByContext[question.contextDomain] ?? 15;
+  const total = question.quantities.c * unitPrice;
   const a = Math.floor(total / 2);
   const b = total - a;
   updateAddThenDivide(question, a, b);

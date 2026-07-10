@@ -21,6 +21,9 @@ import {
   validateG3BU04HumanSemanticReadback
 } from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-fullfix.js";
 import {
+  validateG3BU04HumanSemanticQualityV2
+} from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js";
+import {
   G3B_U04_PROMOTED_KNOWLEDGE_POINT_IDS
 } from "../../site/modules/curriculum/registry/g3b-u04-semantic-promotion.js";
 import {
@@ -245,7 +248,7 @@ test("S57F7R1 canonical public production emits only readback-accepted semantic 
 
   for (const question of result.worksheetDocument.generatedQuestions) {
     assert.equal(question.humanSemanticReadback.fullFixApplied, true);
-    assert.equal(validateG3BU04HumanSemanticReadback(question).ok, true);
+    assert.equal(validateG3BU04HumanSemanticQualityV2(question).ok, true);
     const canonical = validateBatchABrowserQuestion(question);
     assert.equal(canonical.ok, true, JSON.stringify(canonical.errors));
     assert.equal(canonical.stages.some((stage) => stage.stage === "human_semantic_readback" && stage.ok), true);
