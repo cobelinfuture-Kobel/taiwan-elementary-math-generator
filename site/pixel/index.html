@@ -21,7 +21,7 @@
       <div class="pixel-hero__content">
         <p class="pixel-eyebrow">Pixel UI Beta｜Parallel version</p>
         <h1>小學數學出題小屋</h1>
-        <p class="pixel-lede">這是平行測試版：保留標準版功能，同時建立像素風介面。出題核心將共用現有 Batch A generator / validator / renderer。</p>
+        <p class="pixel-lede">這是平行測試版：保留標準版功能，同時建立像素風介面。出題核心共用現有 Batch A generator / validator / renderer。</p>
         <nav class="pixel-version-nav" aria-label="版本切換">
           <a href="../index.html">回到標準版</a>
           <span class="pixel-badge">/pixel/ beta</span>
@@ -32,9 +32,9 @@
 
     <section class="pixel-status-row" aria-label="版本狀態">
       <div class="pixel-status-chip">共用 Registry</div>
-      <div class="pixel-status-chip">共用 Generator</div>
+      <div class="pixel-status-chip">共用 Config State</div>
       <div class="pixel-status-chip">共用 Validator</div>
-      <div class="pixel-status-chip pixel-status-chip--muted">產生流程：下一階段接入</div>
+      <div class="pixel-status-chip pixel-status-chip--muted">產生流程：S46 接入</div>
     </section>
 
     <section class="pixel-layout" aria-label="Pixel UI scaffold">
@@ -94,32 +94,45 @@
         <div class="pixel-setting-grid">
           <label class="pixel-field">
             <span>題數</span>
-            <input id="pixel-question-count" type="number" min="1" max="200" value="20" disabled>
+            <input id="pixel-question-count" type="number" min="1" max="200" value="20">
           </label>
           <label class="pixel-field">
             <span>排序</span>
-            <select id="pixel-ordering" disabled>
+            <select id="pixel-ordering">
               <option value="groupedByPattern">依題型分組</option>
               <option value="shuffleAcrossPatterns">跨題型隨機排序</option>
             </select>
           </label>
+          <label class="pixel-field">
+            <span>產生種子</span>
+            <input id="pixel-generation-seed" type="text" value="pixel-ui" spellcheck="false">
+          </label>
+          <label class="pixel-field">
+            <span>欄數</span>
+            <input id="pixel-columns" type="number" min="1" max="6" value="4">
+          </label>
+          <label class="pixel-field">
+            <span>每頁列數</span>
+            <input id="pixel-rows-per-page" type="number" min="1" max="20" value="10">
+          </label>
           <label class="pixel-toggle">
-            <input id="pixel-answer-key" type="checkbox" checked disabled>
+            <input id="pixel-answer-key" type="checkbox" checked>
             <span>包含答案頁</span>
           </label>
         </div>
+        <div class="pixel-plan-summary" id="pixel-plan-summary" aria-live="polite">正在建立 worksheet plan...</div>
         <div class="pixel-workbench" aria-label="工作台示意">
           <div class="pixel-workbench__card">
             <strong>目前階段</strong>
-            <span>S45C 知識點選擇器</span>
+            <span>S45D 考卷設定狀態</span>
           </div>
           <div class="pixel-workbench__card">
             <strong>下一階段</strong>
-            <span>S45D 考卷設定狀態</span>
+            <span>S46A Worksheet Plan Resolver</span>
           </div>
         </div>
-        <button class="pixel-button pixel-button--primary" type="button" disabled>產生考卷｜下一階段接入</button>
-        <p class="pixel-help">S45C 可選單元出題、單一知識點或同單元知識點混合；題數與真正出題流程仍留在後續 shared-core milestone。</p>
+        <button id="pixel-generate-button" class="pixel-button pixel-button--primary" type="button" disabled>產生考卷｜S46 接入</button>
+        <p class="pixel-help">題數、排序、種子、答案頁與列印版面已接入共用 config state；目前只建立 worksheet plan，尚未執行 generator。</p>
       </section>
 
       <aside class="pixel-panel pixel-panel--preview" aria-label="預覽摘要">
