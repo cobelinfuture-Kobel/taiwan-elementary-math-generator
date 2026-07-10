@@ -26,22 +26,29 @@ The FullFix treats the following as blocking:
 7. the action verb is incompatible with the selected context object;
 8. shared promotion ownership or use is unclear;
 9. context-specific quantities are implausible;
-10. a multiplicative relation omits the capacity or weight dimension in either relation or in the target question.
+10. a multiplicative relation omits the capacity or weight dimension in either relation or in the target question;
+11. a shared purchase or rental does not define who uses or pays for the items;
+12. a measured quantity is answered using a container classifier instead of its measure unit;
+13. prices, contributions, or activity budgets are implausible for the selected context;
+14. per-recipient quantities are implausible for classroom, sports, library, or technology use;
+15. a context noun, classifier, action, container, or equivalence bundle is unnatural.
 
 ## Architecture rule
 
-The S57E semantic authority remains immutable. S57F7R1 applies a deterministic production overlay after canonical promotion and before blocking validation. The original S57E5 validator continues to validate the authority contract through a narrow compatibility projection for corrected public classifier and period literals. A separate blocking readback validator validates the corrected public wording, quantities, units, and provenance.
+The S57E semantic authority remains immutable. S57F7R1 applies deterministic production overlays after canonical promotion and before blocking validation. The original S57E5 validator continues to validate the authority contract through a narrow compatibility projection for corrected public classifier and period literals. Blocking readback validators separately validate the corrected public wording, quantities, units, context lexicons, and provenance.
+
+The second quality layer is required because complete review of the first 117-variant audit exposed additional issues not visible in the original 64-question smoke, including measured-unit answers, rental-versus-purchase wording, per-student resource plausibility, ticket pricing, and unnatural ticket-bundle classifiers.
 
 ## Acceptance gates
 
 - all 32 families and all 117 family-context variants are generated and reviewed through the deterministic audit;
-- all variants pass the original semantic validator and the new human-readback validator;
-- all ten readback defect codes are proven blocking by targeted mutations;
-- canonical public generation emits only readback-accepted questions;
+- all variants pass the original semantic validator and both blocking human-readback quality layers;
+- all fifteen readback defect codes are proven blocking by targeted mutations;
+- canonical public generation emits only quality-v2 accepted questions;
 - full regression CI passes;
 - a regenerated public HTML/PDF worksheet is manually read back for semantic quality and visually checked;
 - D0 is restored only after the regenerated artifact and closeout evidence are accepted.
 
 ## Current state
 
-`IMPLEMENTATION_AND_QA_IN_PROGRESS`
+`FULL_117_VARIANT_QUALITY_V2_IMPLEMENTED_CI_AND_ARTIFACT_REGEN_PENDING`
