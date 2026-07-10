@@ -1,4 +1,8 @@
 import { BATCH_A_SELECTION_MODES } from "../assets/browser/state/config-state.js";
+import {
+  normalizePublicPatternGroupSelection,
+  togglePublicPatternGroupSelection
+} from "../assets/browser/state/public-pattern-group-selection.js";
 import { listPixelKnowledgePointsForSource } from "./pixel-registry-bridge.js";
 
 export { BATCH_A_SELECTION_MODES };
@@ -17,13 +21,6 @@ const MODE_LABELS = Object.freeze({
 
 function uniqueStrings(values) {
   return [...new Set((Array.isArray(values) ? values : []).map((value) => String(value ?? "").trim()).filter(Boolean))];
-}
-
-function patternGroupIdsForSelection(knowledgePoints, selectedKnowledgePointIds) {
-  const byId = new Map(knowledgePoints.map((entry) => [entry.knowledgePointId, entry]));
-  return selectedKnowledgePointIds
-    .map((knowledgePointId) => byId.get(knowledgePointId)?.patternGroupIds?.[0] ?? null)
-    .filter(Boolean);
 }
 
 export function listPixelKnowledgePointModeOptions(sourceId) {
@@ -54,7 +51,8 @@ export function getPixelSelectionModeLabel(selectionMode) {
 export function createPixelKnowledgePointSelectorState({
   sourceId,
   selectionMode = BATCH_A_SELECTION_MODES.SOURCE_UNIT,
-  selectedKnowledgePointIds = []
+  selectedKnowledgePointIds = [],
+  selectedPatternGroupIds = []
 } = {}) {
   const availableKnowledgePoints = listPixelKnowledgePointsForSource(sourceId);
   const visibleIds = new Set(availableKnowledgePoints.map((entry) => entry.knowledgePointId));
@@ -97,13 +95,20 @@ export function createPixelKnowledgePointSelectorState({
     }
   }
 
+  const patternGroupState = normalizePublicPatternGroupSelection({
+    selectionMode: normalizedMode,
+    selectedKnowledgePointIds: normalizedIds,
+    selectedPatternGroupIds
+  });
+
   return Object.freeze({
     sourceId: sourceId ?? null,
     selectionMode: normalizedMode,
     availableKnowledgePoints: Object.freeze(availableKnowledgePoints),
     selectedKnowledgePointIds: Object.freeze(normalizedIds),
-    selectedPatternGroupIds: Object.freeze(patternGroupIdsForSelection(availableKnowledgePoints, normalizedIds)),
-    warnings: Object.freeze(warnings),
+    selectedPatternGroupIds: patternGroupState.selectedPatternGroupIds,
+    patternGroupChoices: patternGroupState.choices,
+    warnings: Object.freeze([...warnings, ...patternGroupState.warnings]),
     visibleCount: availableKnowledgePoints.length
   });
 }
@@ -116,7 +121,8 @@ export function togglePixelKnowledgePointSelection(state, knowledgePointId) {
     return createPixelKnowledgePointSelectorState({
       sourceId: state.sourceId,
       selectionMode: state.selectionMode,
-      selectedKnowledgePointIds: [knowledgePointId]
+      selectedKnowledgePointIds: [knowledgePointId],
+      selectedPatternGroupIds: state.selectedPatternGroupIds
     });
   }
 
@@ -139,9 +145,25 @@ export function togglePixelKnowledgePointSelection(state, knowledgePointId) {
     return createPixelKnowledgePointSelectorState({
       sourceId: state.sourceId,
       selectionMode: state.selectionMode,
-      selectedKnowledgePointIds: [...selected]
+      selectedKnowledgePointIds: [...selected],
+      selectedPatternGroupIds: state.selectedPatternGroupIds
     });
   }
 
   return state;
+}
+
+export function togglePixelPatternGroupSelection(state, patternGroupId) {
+  const toggled = togglePublicPatternGroupSelection({
+    selectionMode: state?.selectionMode,
+    selectedKnowledgePointIds: state?.selectedKnowledgePointIds,
+    selectedPatternGroupIds: state?.selectedPatternGroupIds,
+    patternGroupId
+  });
+  return createPixelKnowledgePointSelectorState({
+    sourceId: state?.sourceId,
+    selectionMode: state?.selectionMode,
+    selectedKnowledgePointIds: state?.selectedKnowledgePointIds,
+    selectedPatternGroupIds: toggled.selectedPatternGroupIds
+  });
 }
