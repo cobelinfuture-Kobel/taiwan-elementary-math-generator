@@ -11,8 +11,10 @@ import {
   getPixelSelectionModeLabel,
   listPixelKnowledgePointModeOptions,
   PIXEL_SELECTOR_WARNING_CODES,
-  togglePixelKnowledgePointSelection
+  togglePixelKnowledgePointSelection,
+  togglePixelPatternGroupSelection
 } from "./pixel-selector-state.js";
+import { publicSelectorWarningMessage } from "../assets/browser/state/public-ui-messages.js";
 import {
   applyPixelWorksheetSettings,
   createPixelWorksheetState,
@@ -31,6 +33,9 @@ const selectionModeSelect = document.getElementById("pixel-selection-mode-select
 const knowledgePointEmptyState = document.getElementById("pixel-kp-empty-state");
 const knowledgePointAvailabilitySummary = document.getElementById("pixel-kp-availability-summary");
 const knowledgePointPanel = document.getElementById("pixel-kp-panel");
+const patternGroupSection = document.getElementById("pixel-pattern-group-selector");
+const patternGroupHelp = document.getElementById("pixel-pattern-group-help");
+const patternGroupPanel = document.getElementById("pixel-pattern-group-panel");
 const knowledgePointWarningList = document.getElementById("pixel-kp-warning-list");
 const questionCountInput = document.getElementById("pixel-question-count");
 const orderingSelect = document.getElementById("pixel-ordering");
@@ -115,7 +120,7 @@ function renderSourceOptions() {
 
 function warningMessage(warning) {
   if (warning.code === PIXEL_SELECTOR_WARNING_CODES.MODE_FALLBACK) {
-    return `出題模式已從 ${getPixelSelectionModeLabel(warning.from)} 改回 ${getPixelSelectionModeLabel(warning.to)}。`;
+    return `出題模式已從「${getPixelSelectionModeLabel(warning.from)}」改回「${getPixelSelectionModeLabel(warning.to)}」。`;
   }
   if (warning.code === PIXEL_SELECTOR_WARNING_CODES.KNOWLEDGE_POINT_DROPPED) {
     return `已移除 ${warning.count} 個不屬於目前單元或不可見的知識點。`;
@@ -123,7 +128,7 @@ function warningMessage(warning) {
   if (warning.code === PIXEL_SELECTOR_WARNING_CODES.MIXED_MINIMUM_TWO) {
     return "同單元知識點混合至少需要保留 2 個知識點。";
   }
-  return warning.code;
+  return publicSelectorWarningMessage(warning);
 }
 
 function renderSelectionModeOptions() {
@@ -153,11 +158,12 @@ function readWorksheetSettings() {
 function renderWorksheetPlan(plan = getPixelWorksheetPlan(worksheetState)) {
   if (planSummary) {
     planSummary.textContent = [
-      `sourceId：${plan.sourceId}`,
+      `單元：${activeSourceSummary?.label ?? "尚未選擇"}`,
       `模式：${getPixelSelectionModeLabel(plan.selectionMode)}`,
       `題數：${plan.questionCount}`,
       `排序：${plan.ordering === "groupedByPattern" ? "依題型分組" : "跨題型隨機"}`,
       `知識點：${plan.selectedKnowledgePointIds.length}`,
+      `題目形式：${plan.selectedPatternGroupIds.length}`,
       `答案頁：${plan.includeAnswerKey ? "是" : "否"}`,
       `版面：${plan.printLayout.columns} 欄 × 每頁 ${plan.printLayout.rowsPerPage} 列`
     ].join("｜");
@@ -198,7 +204,7 @@ function renderGenerationExecution(execution) {
   clearGenerationMessages();
   const messages = [
     ...summary.errors.map((message) => `錯誤：${message}`),
-    ...summary.warnings.map((message) => `警告：${message}`)
+    ...summary.warnings.map((message) => `提醒：${message}`)
   ];
   if (generationErrors && messages.length > 0) {
     for (const message of messages) {
@@ -210,7 +216,7 @@ function renderGenerationExecution(execution) {
   }
   if (previewMeta) {
     previewMeta.textContent = summary.ok
-      ? `${summary.title ?? "考卷"}｜已建立 worksheetDocument｜${summary.questionCount} 題｜題目頁 ${summary.questionPageCount}｜答案頁 ${summary.answerKeyPageCount}`
+      ? `${summary.title ?? "考卷"}｜${summary.questionCount} 題｜題目頁 ${summary.questionPageCount}｜答案頁 ${summary.answerKeyPageCount}`
       : summary.statusText;
   }
   document.body.dataset.pixelGenerationStatus = summary.ok ? "success" : "error";
@@ -240,7 +246,7 @@ async function generateWorksheet() {
   clearGenerationMessages();
   if (generationStatus) {
     generationStatus.dataset.status = "generating";
-    generationStatus.textContent = "正在呼叫共用 generator / validator...";
+    generationStatus.textContent = "正在產生並驗證考卷...";
   }
   document.body.dataset.pixelGenerationStatus = "generating";
   await Promise.resolve();
@@ -248,6 +254,55 @@ async function generateWorksheet() {
   generationInProgress = false;
   renderGenerationExecution(execution);
   renderGenerateButtonState();
+}
+
+function renderPatternGroupSelector() {
+  if (!patternGroupSection || !patternGroupPanel || !patternGroupHelp || !knowledgePointState) return;
+  const groupsByKnowledgePoint = new Map();
+  for (const choice of knowledgePointState.patternGroupChoices ?? []) {
+    if (!choice.hasRepresentationChoice) continue;
+    const choices = groupsByKnowledgePoint.get(choice.knowledgePointId) ?? [];
+    choices.push(choice);
+    groupsByKnowledgePoint.set(choice.knowledgePointId, choices);
+  }
+
+  patternGroupPanel.replaceChildren();
+  const visible = knowledgePointState.selectionMode !== BATCH_A_SELECTION_MODES.SOURCE_UNIT
+    && groupsByKnowledgePoint.size > 0;
+  patternGroupSection.dataset.visible = visible ? "true" : "false";
+  if (!visible) {
+    patternGroupHelp.textContent = knowledgePointState.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
+      ? "切換到知識點模式後，可選擇計算題或應用題。"
+      : "目前選取的知識點只有一種題目形式，系統已自動套用。";
+    return;
+  }
+
+  patternGroupHelp.textContent = "可同時選擇計算題與應用題；每個知識點至少保留一種形式。";
+  for (const choices of groupsByKnowledgePoint.values()) {
+    const section = document.createElement("section");
+    section.className = "pixel-pattern-group-choice";
+    const heading = document.createElement("h4");
+    heading.textContent = choices[0].knowledgePointDisplayName;
+    section.append(heading);
+    const buttons = document.createElement("div");
+    buttons.className = "pixel-pattern-group-choice__buttons";
+    for (const choice of choices) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "pixel-pattern-group-option";
+      button.dataset.patternGroupId = choice.patternGroupId;
+      button.dataset.selected = choice.selected ? "true" : "false";
+      button.setAttribute("aria-pressed", choice.selected ? "true" : "false");
+      button.textContent = `${choice.selected ? "已選｜" : ""}${choice.displayLabel}`;
+      button.addEventListener("click", () => {
+        knowledgePointState = togglePixelPatternGroupSelection(knowledgePointState, choice.patternGroupId);
+        renderKnowledgePointSelector();
+      });
+      buttons.append(button);
+    }
+    section.append(buttons);
+    patternGroupPanel.append(section);
+  }
 }
 
 function renderKnowledgePointSelector() {
@@ -259,14 +314,14 @@ function renderKnowledgePointSelector() {
     knowledgePointAvailabilitySummary.textContent = [
       `本單元可選：${knowledgePointState.visibleCount}`,
       `尚未開放：${activeSourceSummary?.hiddenPendingCount ?? 0}`,
-      `不可選：${activeSourceSummary?.notSelectableCount ?? 0}`,
-      `全 Batch A 可選：${registrySnapshot.visibleKnowledgePointCount}`
+      `目前不可選：${activeSourceSummary?.notSelectableCount ?? 0}`,
+      `全部可選：${registrySnapshot.visibleKnowledgePointCount}`
     ].join("｜");
   }
 
   if (knowledgePointEmptyState) {
     if (knowledgePointState.visibleCount === 0) {
-      knowledgePointEmptyState.textContent = "目前此單元尚無已通過 QA 的可選知識點，請使用單元出題。";
+      knowledgePointEmptyState.textContent = "目前此單元尚無已通過驗證的可選知識點，請使用單元出題。";
     } else if (knowledgePointState.visibleCount === 1) {
       knowledgePointEmptyState.textContent = "此單元已有 1 個可選知識點，可使用單一知識點加強。";
     } else if (isSourceUnitMode) {
@@ -289,7 +344,7 @@ function renderKnowledgePointSelector() {
       button.dataset.selected = selected ? "true" : "false";
       button.disabled = isSourceUnitMode;
       button.setAttribute("aria-pressed", selected ? "true" : "false");
-      button.innerHTML = `<strong>${selected ? "已選｜" : ""}${knowledgePoint.displayName}</strong><span>${knowledgePoint.unitCode}｜${knowledgePoint.qaStatusLabel}｜${knowledgePoint.patternSpecIds.length} PatternSpec</span>`;
+      button.innerHTML = `<strong>${selected ? "已選｜" : ""}${knowledgePoint.displayName}</strong><span>${knowledgePoint.unitCode}｜已通過出題驗證</span>`;
       button.addEventListener("click", () => {
         knowledgePointState = togglePixelKnowledgePointSelection(knowledgePointState, knowledgePoint.knowledgePointId);
         renderKnowledgePointSelector();
@@ -297,6 +352,8 @@ function renderKnowledgePointSelector() {
       knowledgePointPanel.append(button);
     }
   }
+
+  renderPatternGroupSelector();
 
   if (knowledgePointWarningList) {
     knowledgePointWarningList.replaceChildren();
@@ -310,7 +367,7 @@ function renderKnowledgePointSelector() {
 
   const modeLabel = getPixelSelectionModeLabel(knowledgePointState.selectionMode);
   if (previewMeta && activeSourceSummary && !lastGenerationSummary) {
-    previewMeta.textContent = `${activeSourceSummary.previewText}｜模式：${modeLabel}｜已選知識點：${knowledgePointState.selectedKnowledgePointIds.length}`;
+    previewMeta.textContent = `${activeSourceSummary.previewText}｜模式：${modeLabel}｜已選知識點：${knowledgePointState.selectedKnowledgePointIds.length}｜題目形式：${knowledgePointState.selectedPatternGroupIds.length}`;
   }
   document.body.dataset.pixelSelectionMode = knowledgePointState.selectionMode;
   document.body.dataset.pixelSelectedKnowledgePointIds = knowledgePointState.selectedKnowledgePointIds.join(",");
@@ -324,7 +381,8 @@ function syncKnowledgePointSelector(sourceId, preserveSelection = true) {
     selectionMode: preserveSelection
       ? knowledgePointState?.selectionMode ?? BATCH_A_SELECTION_MODES.SOURCE_UNIT
       : BATCH_A_SELECTION_MODES.SOURCE_UNIT,
-    selectedKnowledgePointIds: preserveSelection ? knowledgePointState?.selectedKnowledgePointIds ?? [] : []
+    selectedKnowledgePointIds: preserveSelection ? knowledgePointState?.selectedKnowledgePointIds ?? [] : [],
+    selectedPatternGroupIds: preserveSelection ? knowledgePointState?.selectedPatternGroupIds ?? [] : []
   });
   renderSelectionModeOptions();
   renderKnowledgePointSelector();
@@ -334,7 +392,7 @@ function renderSummary() {
   const summary = selectedSourceSummary();
   activeSourceSummary = summary;
   if (!summary) {
-    if (sourceSummary) sourceSummary.textContent = "目前篩選條件沒有 Batch A source unit。";
+    if (sourceSummary) sourceSummary.textContent = "目前篩選條件沒有可用單元。";
     if (kpCount) kpCount.textContent = "0";
     if (unitMeta) unitMeta.textContent = "請改選年級或學期。";
     if (previewMeta) previewMeta.textContent = "目前沒有可用單元。";
@@ -368,7 +426,8 @@ selectionModeSelect?.addEventListener("change", () => {
   knowledgePointState = createPixelKnowledgePointSelectorState({
     sourceId: activeSourceSummary?.sourceId,
     selectionMode: selectionModeSelect.value,
-    selectedKnowledgePointIds: knowledgePointState?.selectedKnowledgePointIds ?? []
+    selectedKnowledgePointIds: knowledgePointState?.selectedKnowledgePointIds ?? [],
+    selectedPatternGroupIds: knowledgePointState?.selectedPatternGroupIds ?? []
   });
   renderSelectionModeOptions();
   renderKnowledgePointSelector();
