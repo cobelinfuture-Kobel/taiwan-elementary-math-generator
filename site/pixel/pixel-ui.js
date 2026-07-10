@@ -19,6 +19,7 @@ import {
   getPixelWorksheetPlan,
   syncPixelWorksheetSelection
 } from "./pixel-worksheet-state.js";
+import { runPixelWorksheetGeneration } from "./pixel-generation-controller.js";
 
 const gradeSelect = document.getElementById("pixel-grade-select");
 const semesterSelect = document.getElementById("pixel-semester-select");
@@ -38,11 +39,16 @@ const columnsInput = document.getElementById("pixel-columns");
 const rowsPerPageInput = document.getElementById("pixel-rows-per-page");
 const answerKeyInput = document.getElementById("pixel-answer-key");
 const planSummary = document.getElementById("pixel-plan-summary");
+const generateButton = document.getElementById("pixel-generate-button");
+const generationStatus = document.getElementById("pixel-generation-status");
+const generationErrors = document.getElementById("pixel-generation-errors");
 const previewMeta = document.getElementById("pixel-preview-meta");
 
 const registrySnapshot = getPixelRegistrySnapshot();
 let activeSourceSummary = null;
 let knowledgePointState = null;
+let generationInProgress = false;
+let lastGenerationSummary = null;
 const worksheetState = createPixelWorksheetState();
 
 function selectedGrade() {
@@ -164,6 +170,55 @@ function renderWorksheetPlan(plan = getPixelWorksheetPlan(worksheetState)) {
   document.body.dataset.pixelRowsPerPage = String(plan.printLayout.rowsPerPage);
 }
 
+function renderGenerateButtonState() {
+  if (!generateButton) return;
+  generateButton.disabled = generationInProgress || !activeSourceSummary || !knowledgePointState;
+  generateButton.textContent = generationInProgress ? "正在產生考卷..." : "產生考卷";
+}
+
+function clearGenerationMessages() {
+  generationErrors?.replaceChildren();
+  if (generationErrors) generationErrors.dataset.visible = "false";
+}
+
+function markGenerationStale() {
+  if (!lastGenerationSummary || generationInProgress || !generationStatus) return;
+  generationStatus.dataset.status = "stale";
+  generationStatus.textContent = "設定已變更，請重新產生考卷。";
+  document.body.dataset.pixelGenerationStatus = "stale";
+}
+
+function renderGenerationExecution(execution) {
+  const summary = execution.summary;
+  lastGenerationSummary = summary;
+  if (generationStatus) {
+    generationStatus.dataset.status = summary.ok ? "success" : "error";
+    generationStatus.textContent = summary.statusText;
+  }
+  clearGenerationMessages();
+  const messages = [
+    ...summary.errors.map((message) => `錯誤：${message}`),
+    ...summary.warnings.map((message) => `警告：${message}`)
+  ];
+  if (generationErrors && messages.length > 0) {
+    for (const message of messages) {
+      const item = document.createElement("li");
+      item.textContent = message;
+      generationErrors.append(item);
+    }
+    generationErrors.dataset.visible = "true";
+  }
+  if (previewMeta) {
+    previewMeta.textContent = summary.ok
+      ? `${summary.title ?? "考卷"}｜已建立 worksheetDocument｜${summary.questionCount} 題｜題目頁 ${summary.questionPageCount}｜答案頁 ${summary.answerKeyPageCount}`
+      : summary.statusText;
+  }
+  document.body.dataset.pixelGenerationStatus = summary.ok ? "success" : "error";
+  document.body.dataset.pixelGeneratedWorksheetId = summary.worksheetId ?? "";
+  document.body.dataset.pixelGeneratedQuestionCount = String(summary.questionCount);
+  document.body.dataset.pixelGeneratedAnswerKeyItemCount = String(summary.answerKeyItemCount);
+}
+
 function syncWorksheetPlan() {
   if (activeSourceSummary && knowledgePointState) {
     syncPixelWorksheetSelection(worksheetState, {
@@ -173,7 +228,26 @@ function syncWorksheetPlan() {
   }
   const plan = applyPixelWorksheetSettings(worksheetState, readWorksheetSettings());
   renderWorksheetPlan(plan);
+  markGenerationStale();
+  renderGenerateButtonState();
   return plan;
+}
+
+async function generateWorksheet() {
+  syncWorksheetPlan();
+  generationInProgress = true;
+  renderGenerateButtonState();
+  clearGenerationMessages();
+  if (generationStatus) {
+    generationStatus.dataset.status = "generating";
+    generationStatus.textContent = "正在呼叫共用 generator / validator...";
+  }
+  document.body.dataset.pixelGenerationStatus = "generating";
+  await Promise.resolve();
+  const execution = runPixelWorksheetGeneration(worksheetState);
+  generationInProgress = false;
+  renderGenerationExecution(execution);
+  renderGenerateButtonState();
 }
 
 function renderKnowledgePointSelector() {
@@ -235,7 +309,7 @@ function renderKnowledgePointSelector() {
   }
 
   const modeLabel = getPixelSelectionModeLabel(knowledgePointState.selectionMode);
-  if (previewMeta && activeSourceSummary) {
+  if (previewMeta && activeSourceSummary && !lastGenerationSummary) {
     previewMeta.textContent = `${activeSourceSummary.previewText}｜模式：${modeLabel}｜已選知識點：${knowledgePointState.selectedKnowledgePointIds.length}`;
   }
   document.body.dataset.pixelSelectionMode = knowledgePointState.selectionMode;
@@ -263,8 +337,9 @@ function renderSummary() {
     if (sourceSummary) sourceSummary.textContent = "目前篩選條件沒有 Batch A source unit。";
     if (kpCount) kpCount.textContent = "0";
     if (unitMeta) unitMeta.textContent = "請改選年級或學期。";
-    if (previewMeta) previewMeta.textContent = "尚未接入產生流程。";
+    if (previewMeta) previewMeta.textContent = "目前沒有可用單元。";
     syncKnowledgePointSelector(null, false);
+    renderGenerateButtonState();
     return;
   }
 
@@ -302,5 +377,8 @@ for (const control of [questionCountInput, orderingSelect, generationSeedInput, 
   control?.addEventListener("change", syncWorksheetPlan);
   if (control?.tagName === "INPUT" && control.type !== "checkbox") control.addEventListener("input", syncWorksheetPlan);
 }
+generateButton?.addEventListener("click", generateWorksheet);
 document.body.dataset.pixelRegistrySourceCount = String(registrySnapshot.sourceCount);
 document.body.dataset.pixelRegistryVisibleKnowledgePointCount = String(registrySnapshot.visibleKnowledgePointCount);
+document.body.dataset.pixelGenerationStatus = "idle";
+renderGenerateButtonState();
