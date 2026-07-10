@@ -1,0 +1,12 @@
+S57E7R1_G3B_U04_DISTRIBUTED_RESOURCES_UNIT_FLOW_REGRESSION_FULLFIX
+
+STATUS = IMPLEMENTED_CI_PENDING
+SOURCE_ID = g3b_u04_3b04
+PATTERN_SPEC_ID = ps_g3b_u04_div_add_distributed_resources_plus_existing_per_group
+ROOT_CAUSE = context_bound_measure_or_count compatibility was not resolved for count divided by recipient count plus existing quantity per recipient
+FULLFIX = exact semantic role contract adapter plus canonical validator routing plus deterministic context cycling
+APPROVED_CONTEXTS = [classroom, library, sports, technology]
+NEGATIVE_UNIT_FLOW_GUARD = REQUIRED
+REGRESSION_COUNTS = [32, 257, 640, 1000]
+PRODUCTION_USE = FORBIDDEN
+NEXT_GATE = FULL_NPM_TEST_ZERO_FAILURES
