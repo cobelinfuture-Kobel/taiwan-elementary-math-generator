@@ -13,7 +13,7 @@ test("Pixel public page exposes a real worksheet preview iframe", async () => {
   assert.match(html, /id="pixel-preview-empty"/);
   assert.match(html, /src="\.\/pixel-live-preview\.js"/);
   assert.doesNotMatch(html, /class="pixel-sample-list"/);
-  assert.match(html, /Live Preview：已接入/);
+  assert.match(html, /Preview \/ Print：已接入/);
 });
 
 test("Pixel live preview subscribes to shared generation results and renders the shared iframe", async () => {
