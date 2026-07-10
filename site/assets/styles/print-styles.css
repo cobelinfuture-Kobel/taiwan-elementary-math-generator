@@ -126,6 +126,7 @@ body.worksheet-renderer {
 
   .worksheet-document,
   .worksheet-section {
+    display: block;
     padding: 0;
     gap: 0;
   }
