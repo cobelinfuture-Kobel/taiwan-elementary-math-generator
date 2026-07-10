@@ -335,8 +335,8 @@ function normalizePromotionSharedPurchase(question) {
 }
 
 function normalizeReservedDistribution(question, scenario) {
-  const perRecipientByContext = { classroom: 5, library: 4, sports_equipment: 2, awards: 3 };
-  const reservedByContext = { classroom: 5, library: 4, sports_equipment: 2, awards: 6 };
+  const perRecipientByContext = { books: 4, prizes: 3, snacks: 4, sports_equipment: 2 };
+  const reservedByContext = { books: 4, prizes: 6, snacks: 4, sports_equipment: 2 };
   const perRecipient = perRecipientByContext[question.contextDomain] ?? 4;
   const reserved = reservedByContext[question.contextDomain] ?? 4;
   const total = reserved + question.quantities.c * perRecipient;
@@ -524,7 +524,7 @@ export function validateG3BU04HumanSemanticQualityV2(question = {}) {
     }
   }
   if (family === "tpl_g3b_u04_sub_div_reserved_amount_then_distribute") {
-  const caps = { classroom: 6, library: 4, sports_equipment: 2, awards: 3 };
+  const caps = { books: 4, prizes: 3, snacks: 4, sports_equipment: 2 };
   if (question.finalAnswer > (caps[question.contextDomain] ?? 4)) {
     errors.push(issue("G3B_U04_READBACK_PER_RECIPIENT_QUANTITY_IMPLAUSIBLE", "quantities", "Per-recipient reserved-distribution quantity is implausible for the selected context."));
   }

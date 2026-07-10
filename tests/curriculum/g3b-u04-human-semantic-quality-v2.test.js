@@ -151,10 +151,10 @@ test("S57F7R1 public-smoke semantic third-pass fixes promotion, reserved distrib
   assert.match(promotion.promptText, /共同使用/);
   assert.equal(validateG3BU04HumanSemanticQualityV2(promotion).ok, true);
 
-  const library = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "library");
-  const awards = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "awards");
-  assert.equal(library.finalAnswer <= 4, true);
-  assert.equal(awards.finalAnswer <= 3, true);
+  const books = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "books");
+  const prizes = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "prizes");
+  assert.equal(books.finalAnswer <= 4, true);
+  assert.equal(prizes.finalAnswer <= 3, true);
 
   const sharedCost = fixed("ps_g3b_u04_div_add_shared_cost_plus_personal_purchase", "meal");
   assert.match(sharedCost.promptText, /小安和其他人共/);
