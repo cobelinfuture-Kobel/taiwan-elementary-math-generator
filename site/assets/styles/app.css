@@ -161,6 +161,7 @@ textarea {
 
 .availability-summary,
 .knowledge-point-panel,
+.pattern-group-selector,
 .selector-warning-list {
   border: 1px solid var(--line);
   background: #fbfcfd;
@@ -173,9 +174,91 @@ textarea {
   color: #334155;
 }
 
+.knowledge-point-panel,
+.pattern-group-panel,
+.pattern-group-choice__buttons {
+  display: grid;
+  gap: 8px;
+}
+
 .knowledge-point-panel:empty::before {
   content: "尚無可選知識點。";
   color: #52606d;
+}
+
+.knowledge-point-option,
+.pattern-group-option {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.knowledge-point-option {
+  display: grid;
+  gap: 4px;
+}
+
+.knowledge-point-option strong,
+.knowledge-point-option span {
+  display: block;
+}
+
+.knowledge-point-option span {
+  color: #52606d;
+  font-size: 0.82rem;
+}
+
+.knowledge-point-option[data-selected="true"],
+.pattern-group-option[data-selected="true"] {
+  border-color: #7fb196;
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.knowledge-point-option:hover:not(:disabled),
+.knowledge-point-option:focus-visible:not(:disabled),
+.pattern-group-option:hover:not(:disabled),
+.pattern-group-option:focus-visible:not(:disabled) {
+  border-color: var(--accent);
+  outline: 3px solid rgba(180, 83, 9, 0.18);
+  outline-offset: 2px;
+}
+
+.knowledge-point-option:disabled,
+.pattern-group-option:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
+.pattern-group-selector {
+  display: grid;
+  gap: 10px;
+  background: #fffaf2;
+}
+
+.pattern-group-selector h3,
+.pattern-group-choice h4 {
+  margin: 0;
+}
+
+.pattern-group-choice {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.pattern-group-choice:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.pattern-group-choice__buttons {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .selector-warning-list {
@@ -273,5 +356,11 @@ textarea {
 
   .preview-frame {
     min-height: 720px;
+  }
+}
+
+@media (max-width: 520px) {
+  .pattern-group-choice__buttons {
+    grid-template-columns: 1fr;
   }
 }
