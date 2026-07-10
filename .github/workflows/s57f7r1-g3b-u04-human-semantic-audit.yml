@@ -7,6 +7,13 @@ on:
     paths:
       - tools/curriculum/generate-s57f7r1-g3b-u04-human-semantic-audit.mjs
       - .github/workflows/s57f7r1-g3b-u04-human-semantic-audit.yml
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
   workflow_dispatch:
 
 permissions:
@@ -14,6 +21,7 @@ permissions:
 
 jobs:
   generate-audit:
+    if: github.event_name != 'pull_request' || github.head_ref == 's57f7r1-g3b-u04-human-semantic-readback-fullfix'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
