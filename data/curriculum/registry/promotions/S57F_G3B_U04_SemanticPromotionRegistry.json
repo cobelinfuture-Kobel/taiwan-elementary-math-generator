@@ -34,7 +34,6 @@
     "ps_g3b_u04_add_divide_pooled_money_unit_price",
     "ps_g3b_u04_add_divide_combined_inventory_equal_distribution",
     "ps_g3b_u04_add_divide_combined_liquid_equal_portions",
-    "ps_g3b_u04_add_divide_promotion_total_equal_share",
     "ps_g3b_u04_mul_div_buy_get_free_average_price",
     "ps_g3b_u04_mul_div_bonus_units_average_cost",
     "ps_g3b_u04_mul_div_bulk_repack_average_cost",
@@ -61,6 +60,7 @@
     "ps_g3b_u04_quantity_chain_personal_quantity_ratio_chain",
     "ps_g3b_u04_quantity_chain_price_equivalence_chain",
     "ps_g3b_u04_quantity_chain_production_capacity_chain",
+    "ps_g3b_u04_add_divide_promotion_total_equal_share",
     "ps_g3b_u04_quantity_chain_age_ratio_chain"
   ],
   "lifecycle": {
