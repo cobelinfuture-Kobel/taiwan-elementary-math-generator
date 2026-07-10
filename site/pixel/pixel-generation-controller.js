@@ -1,9 +1,13 @@
+import { publicIssueMessage } from "../assets/browser/state/public-ui-messages.js";
 import { buildPixelWorksheetDocument } from "./pixel-generation-bridge.js";
 
 const generationSubscribers = new Set();
 
 function normalizeMessages(items = []) {
-  return (Array.isArray(items) ? items : []).map((item) => String(item?.message ?? item?.code ?? item ?? "").trim()).filter(Boolean);
+  return (Array.isArray(items) ? items : [])
+    .map((item) => publicIssueMessage(typeof item === "string" ? { message: item } : item))
+    .map((message) => String(message ?? "").trim())
+    .filter(Boolean);
 }
 
 function notifyGenerationSubscribers(execution) {
@@ -53,7 +57,7 @@ export function summarizePixelGenerationResult(result = {}) {
     warnings: Object.freeze(warnings),
     statusText: result.ok === true
       ? `已產生 ${questionCount} 題｜題目頁 ${questionPageCount}｜答案 ${answerKeyItemCount} 題｜答案頁 ${answerKeyPageCount}`
-      : `產生失敗｜階段：${result.stage ?? "unknown"}｜錯誤 ${errors.length}`
+      : `產生失敗｜請檢查目前選擇｜錯誤 ${errors.length}`
   });
 }
 
