@@ -82,8 +82,8 @@ export function getPixelSourceSummary(sourceId) {
   return Object.freeze({
     ...clone(sourceOption),
     visibleKnowledgePoints: knowledgePoints,
-    summaryText: `${sourceOption.unitCode}｜${sourceOption.title}｜sourceId: ${sourceOption.sourceId}`,
-    previewText: `目前讀取 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。S45C 已接知識點 selector，尚未產生 worksheet。`
+    summaryText: `${sourceOption.unitCode}｜${sourceOption.title}｜${sourceOption.grade} 年級${sourceOption.semesterLabel}`,
+    previewText: `目前選擇 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。`
   });
 }
 
