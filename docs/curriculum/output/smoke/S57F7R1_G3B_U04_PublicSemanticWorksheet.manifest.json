@@ -2,7 +2,7 @@
   "schemaName": "G3BU04HumanSemanticReadbackPublicWorksheetSmokeManifest",
   "schemaVersion": 1,
   "task": "S57F7R1_G3B_U04_HumanSemanticReadbackQA_FullFix",
-  "status": "public_html_pdf_smoke_pass_manual_readback_pending",
+  "status": "public_html_pdf_smoke_and_human_readback_pass",
   "promotionRegistryId": "s57f_g3b_u04_semantic_promotion",
   "promotionActivationStatus": "production_promotion_accepted",
   "humanSemanticQualityVersion": "s57f7r1-g3b-u04-human-semantic-quality-v2",
@@ -38,11 +38,23 @@
   "longTextCardPolicy": "avoidSplit",
   "pageBreakMode": "avoidLongTextCards",
   "generationSeed": "s57f7r1-human-semantic-readback-public-smoke",
-  "htmlSha256": "beab9d6dbaa113b4aeb046cf30c2e40ac661fb8b12a3b81d5c9b7152e2cfd07c",
-  "pdfSha256": "c8fff0fa21e9d3409736a604878cff191d58fcd1ba3f009344acb9e0433bbafd",
-  "pdfBytes": 512917,
+  "htmlSha256": "e2136c5810722eba27e3addafe5bf29f553675bcc5bd266f4d0364103aa9f2a0",
+  "pdfSha256": "ea429292e7887288b98a2594fca8305430585ec747d37c30482d7ff8451ce3c6",
+  "pdfBytes": 513141,
   "renderedPageImageCount": 16,
   "extractedEquationLabelCount": 64,
   "extractedAnswerLabelCount": 64,
-  "humanSemanticReadbackStatus": "pending_manual_readback"
+  "humanSemanticReadbackStatus": "accepted",
+  "humanSemanticReadbackScope": "complete_117_variant_audit_plus_64_question_public_smoke",
+  "humanSemanticBlockingDefectCount": 0,
+  "manualVisualSpotcheckPages": [
+    1,
+    3,
+    4,
+    8,
+    9,
+    16
+  ],
+  "manualVisualSpotcheckStatus": "pass_no_clipping_split_or_blank_pages",
+  "acceptedAt": null
 }
