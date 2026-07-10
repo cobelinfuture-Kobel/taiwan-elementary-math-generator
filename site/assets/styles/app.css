@@ -78,6 +78,45 @@ textarea {
   margin-bottom: 0;
 }
 
+.app-shell__version-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.version-chip,
+.version-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.version-chip {
+  background: #f8fafc;
+  color: #52606d;
+}
+
+.version-link {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.version-link:hover,
+.version-link:focus-visible {
+  filter: brightness(0.94);
+  outline: 3px solid rgba(180, 83, 9, 0.24);
+  outline-offset: 2px;
+}
+
 .control-group,
 .toolbar,
 .status-panel,
