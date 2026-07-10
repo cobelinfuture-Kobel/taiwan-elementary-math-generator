@@ -180,12 +180,12 @@ test("S57E3 rejects unapproved contexts and defers both multiplicative-relation 
   }
 });
 
-test("S57E3 remains hidden, unrouted, unselectable, and outside worksheet production", () => {
+test("S57E3 generated artifacts remain hidden after later selector projection", () => {
   const selectorPath = new URL(
     "../../../site/modules/curriculum/registry/batch-a-selector-g3b-u04-semantic-extension.js",
     import.meta.url
   );
-  assert.equal(existsSync(selectorPath), false);
+  assert.equal(existsSync(selectorPath), true);
   for (const patternSpecId of G3B_U04_STRUCTURAL_SEMANTIC_PATTERN_SPEC_IDS) {
     const question = generate(patternSpecId, { seed: "hidden-scope", sequenceNumber: 1 });
     assert.equal(question.selectorStatus, "hidden");
