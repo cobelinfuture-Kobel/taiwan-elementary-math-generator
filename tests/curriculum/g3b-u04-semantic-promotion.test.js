@@ -27,14 +27,6 @@ const semanticRegistryUrl = new URL(
   "../../data/curriculum/pattern_specs/S57E_G3B_U04_SemanticPatternSpecs.json",
   import.meta.url
 );
-const selectorExtensionUrl = new URL(
-  "../../site/modules/curriculum/registry/batch-a-selector-extension.js",
-  import.meta.url
-);
-const productionEligibilityUrl = new URL(
-  "../../site/modules/curriculum/batch-a/production-eligibility.js",
-  import.meta.url
-);
 
 const registry = JSON.parse(readFileSync(registryUrl, "utf8"));
 const semanticRegistry = JSON.parse(readFileSync(semanticRegistryUrl, "utf8"));
@@ -47,7 +39,17 @@ function assertUnique(values, label) {
   assert.equal(new Set(values).size, values.length, `${label} contains duplicate IDs`);
 }
 
-test("S57F1 materializes an exact 9-KP, 9-group, 32-PatternSpec lifecycle registry", () => {
+function assertEvidenceExists(key) {
+  const evidencePath = registry.promotionEvidence[key];
+  assert.equal(typeof evidencePath, "string", `Missing evidence path for ${key}`);
+  assert.equal(
+    existsSync(new URL(`../../${evidencePath}`, import.meta.url)),
+    true,
+    `Missing committed promotion evidence: ${evidencePath}`
+  );
+}
+
+test("S57F7 retains the exact 9-KP, 9-group, 32-PatternSpec lifecycle registry and accepts production promotion", () => {
   assert.equal(registry.schemaName, "G3BU04SemanticPromotionRegistry");
   assert.equal(registry.task, "S57F1_G3B_U04_SemanticPromotionLifecycleRegistry");
   assert.equal(registry.promotionRegistryId, G3B_U04_SEMANTIC_PROMOTION_REGISTRY_ID);
@@ -60,14 +62,21 @@ test("S57F1 materializes an exact 9-KP, 9-group, 32-PatternSpec lifecycle regist
   assertUnique(registry.patternSpecIds, "patternSpecIds");
   assert.deepEqual(registry.lifecycle, G3B_U04_SEMANTIC_PROMOTION_LIFECYCLE);
   assert.deepEqual(registry.activation, G3B_U04_SEMANTIC_PROMOTION_ACTIVATION);
-  assert.equal(registry.activation.status, "materialized_not_consumed");
-  assert.equal(registry.activation.publicProjectionChanged, false);
-  assert.equal(registry.activation.selectorBehaviorChanged, false);
-  assert.equal(registry.activation.productionEligibilityBehaviorChanged, false);
+  assert.equal(registry.activation.status, "production_promotion_accepted");
+  assert.equal(registry.activation.acceptedByTask, "S57F7_G3B_U04_ProductionRegressionStressHTMLPDFPromotionCloseout");
+  assert.equal(registry.activation.requiredNextGate, null);
+  assert.equal(registry.activation.publicProjectionChanged, true);
+  assert.equal(registry.activation.selectorBehaviorChanged, true);
+  assert.equal(registry.activation.productionEligibilityBehaviorChanged, true);
+  assert.equal(registry.activation.canonicalRouterChanged, true);
+  assert.equal(registry.activation.canonicalWorksheetChanged, true);
+  assert.equal(registry.activation.publicSelectorAndPrintQaAccepted, true);
+  assert.equal(registry.activation.finalStressAccepted, true);
+  assert.equal(registry.activation.finalHtmlPdfSmokeAccepted, true);
   assert.equal(registry.rollbackKey, registry.promotionRegistryId);
 });
 
-test("S57F1 JSON and browser-neutral projection have exact ID parity", () => {
+test("S57F7 JSON and browser-neutral projection retain exact ID and activation parity", () => {
   const projection = getG3BU04SemanticPromotionProjection();
   assert.deepEqual(registry.knowledgePointIds, G3B_U04_PROMOTED_KNOWLEDGE_POINT_IDS);
   assert.deepEqual(registry.patternGroupIds, G3B_U04_PROMOTED_PATTERN_GROUP_IDS);
@@ -86,7 +95,7 @@ test("S57F1 JSON and browser-neutral projection have exact ID parity", () => {
   assert.equal(isS57FPromotedG3BU04SemanticPatternSpecId("ps_g3b_u04_unregistered"), false);
 });
 
-test("S57F1 promotion IDs exactly cover immutable S57E semantic authority", () => {
+test("S57F7 promotion IDs exactly cover the immutable S57E semantic authority", () => {
   const definitions = listG3BU04SemanticPatternDefinitions();
   assert.equal(definitions.length, 32);
   assert.deepEqual(
@@ -111,15 +120,16 @@ test("S57F1 promotion IDs exactly cover immutable S57E semantic authority", () =
   assert.equal(semanticRegistry.patternSpecs.every((patternSpec) => patternSpec.productionUse === "forbidden"), true);
 });
 
-test("S57F1 evidence is complete and activation remains disconnected from public behavior", () => {
-  const committedEvidenceKeys = ["s57eFinalCloseout", "s57e7r1UnitFlowFullFix"];
-  for (const key of committedEvidenceKeys) {
-    const evidencePath = registry.promotionEvidence[key];
-    assert.equal(
-      existsSync(new URL(`../../${evidencePath}`, import.meta.url)),
-      true,
-      `Missing committed promotion evidence: ${evidencePath}`
-    );
+test("S57F7 promotion evidence includes hidden-runtime, public-control, and final HTML/PDF acceptance artifacts", () => {
+  for (const key of [
+    "s57eFinalCloseout",
+    "s57e7r1UnitFlowFullFix",
+    "s57f6PublicSelectorPrintCloseout",
+    "publicHtmlSmoke",
+    "publicPdfSmoke",
+    "publicSmokeManifest"
+  ]) {
+    assertEvidenceExists(key);
   }
 
   assert.equal(
@@ -143,11 +153,19 @@ test("S57F1 evidence is complete and activation remains disconnected from public
   assert.match(finalCloseout, /PDF_SMOKE = PASS/);
   assert.match(finalCloseout, /PDF_PAGES = 16/);
 
-  const selectorExtension = readFileSync(selectorExtensionUrl, "utf8");
-  const productionEligibility = readFileSync(productionEligibilityUrl, "utf8");
-  assert.equal(selectorExtension.includes("g3b-u04-semantic-promotion"), false);
-  assert.equal(selectorExtension.includes("s57f_g3b_u04_semantic_promotion"), false);
-  assert.equal(productionEligibility.includes("s57f_g3b_u04_semantic_promotion"), false);
+  const publicManifest = JSON.parse(readFileSync(
+    new URL(`../../${registry.promotionEvidence.publicSmokeManifest}`, import.meta.url),
+    "utf8"
+  ));
+  assert.equal(publicManifest.status, "public_html_pdf_smoke_pass");
+  assert.equal(publicManifest.questionCount, 64);
+  assert.equal(publicManifest.answerKeyItemCount, 64);
+  assert.equal(publicManifest.templateFamilyCount, 32);
+  assert.equal(publicManifest.familyContextVariantCount, 117);
+  assert.equal(publicManifest.actualPdfPageCount, 16);
+  assert.equal(publicManifest.publicHiddenModeFlagUsed, false);
+  assert.equal(publicManifest.internalIdLeakCount, 0);
+
   assert.equal(registry.semanticAuthorityPolicy.overlayOnly, true);
   assert.equal(registry.semanticAuthorityPolicy.semanticFieldsImmutable, true);
   assert.equal(registry.semanticAuthorityPolicy.freeFormAIGeneration, "forbidden");
