@@ -76,20 +76,22 @@ jobs:
           RENDER_DIR="/tmp/s57f7-render"
           head -c 5 "$PDF" | grep -q '%PDF-'
           pages="$(pdfinfo "$PDF" | awk '/^Pages:/ {print $2}')"
-          test "$pages" = "16"
           bytes="$(stat -c%s "$PDF")"
-          test "$bytes" -ge 20000
           pdftotext -layout "$PDF" "$TEXT"
           equations="$(grep -o '算式：' "$TEXT" | wc -l | tr -d ' ')"
           answers="$(grep -o '答案：' "$TEXT" | wc -l | tr -d ' ')"
-          test "$equations" = "64"
-          test "$answers" = "64"
-          ! grep -Eq 'kp_g3b_u04_|pg_g3b_u04_|ps_g3b_u04_|tpl_g3b_u04_|hiddenSemanticMode|g3b_u04_hidden_semantic|\{\{|\}\}' "$TEXT"
           mkdir -p "$RENDER_DIR"
           pdftoppm -png -r 110 "$PDF" "$RENDER_DIR/page" >/dev/null 2>&1
           rendered="$(find "$RENDER_DIR" -maxdepth 1 -name 'page-*.png' | wc -l | tr -d ' ')"
+          small_page="$(find "$RENDER_DIR" -maxdepth 1 -name 'page-*.png' -size -5000c -print -quit)"
+          printf 'pages=%s bytes=%s equations=%s answers=%s rendered=%s small_page=%s\n' "$pages" "$bytes" "$equations" "$answers" "$rendered" "$small_page"
+          test "$pages" = "16"
+          test "$bytes" -ge 20000
+          test "$equations" = "64"
+          test "$answers" = "64"
+          ! grep -Eq 'kp_g3b_u04_|pg_g3b_u04_|ps_g3b_u04_|tpl_g3b_u04_|hiddenSemanticMode|g3b_u04_hidden_semantic|\{\{|\}\}' "$TEXT"
           test "$rendered" = "16"
-          find "$RENDER_DIR" -maxdepth 1 -name 'page-*.png' -size -5000c -print -quit | grep -q '^$'
+          test -z "$small_page"
           printf 'PDF_PAGES=%s\nPDF_BYTES=%s\nEQUATIONS=%s\nANSWERS=%s\nRENDERED=%s\n' "$pages" "$bytes" "$equations" "$answers" "$rendered" >> "$GITHUB_ENV"
 
       - name: Finalize public smoke manifest
