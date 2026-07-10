@@ -37,8 +37,8 @@ jobs:
           from pathlib import Path
           path = Path('site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js')
           text = path.read_text(encoding='utf-8')
-          old = '              tickets: 60,'
-          new = '              tickets: 48,'
+          old = 'tickets: 60,'
+          new = 'tickets: 48,'
           if text.count(old) != 1:
               raise SystemExit('Expected ticket price target not found exactly once')
           path.write_text(text.replace(old, new), encoding='utf-8')
