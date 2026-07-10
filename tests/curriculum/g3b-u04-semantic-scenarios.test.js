@@ -207,7 +207,7 @@ test("S57E2 preserves contract realism bounds", () => {
   assert.equal(G3B_U04_SEMANTIC_REALISM_PROFILES.realism_g3b_u04_production_common_period.sameTimePeriodRequired, true);
 });
 
-test("S57E2 links every scenario family to S57E1 and preserves hidden scope", () => {
+test("S57E2 links every scenario family to S57E1 and preserves hidden scope after selector promotion", () => {
   const specFamilies = new Set(patternRegistry.patternSpecs.map((spec) => spec.templateFamilyId));
   assert.equal(specFamilies.size, 32);
   for (const scenario of G3B_U04_SEMANTIC_SCENARIO_PROFILES) assert.equal(specFamilies.has(scenario.templateFamilyId), true);
@@ -218,5 +218,5 @@ test("S57E2 links every scenario family to S57E1 and preserves hidden scope", ()
     "../../site/modules/curriculum/registry/batch-a-selector-g3b-u04-semantic-extension.js",
     import.meta.url
   );
-  assert.equal(existsSync(selectorPath), false);
+  assert.equal(existsSync(selectorPath), true);
 });

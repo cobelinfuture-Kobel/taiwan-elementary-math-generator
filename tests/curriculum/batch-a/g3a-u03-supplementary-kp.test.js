@@ -5,11 +5,10 @@ import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curri
 import { extractBatchAExpressionOperandValues } from "../../../site/modules/curriculum/batch-a/carry-policy.js";
 import { validateBatchABrowserQuestion } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
 import { BATCH_A_RESOLVER_SELECTION_MODES } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
-import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource, resolveVisiblePatternSpecIdsForKnowledgePoint } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource, listVisibleBatchAKnowledgePoints, resolveVisiblePatternSpecIdsForKnowledgePoint } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 
 const sourceId = "g3a_u03_3a03";
-const CURRENT_VISIBLE_KP_COUNT = 83;
 const zeroKp = "kp_g3a_u03_3digit_zero_middle_by_1digit";
 const zeroGroup = "pg_g3a_u03_3digit_zero_middle_by_1digit";
 const zeroSpec = "ps_g3a_u03_3digit_zero_middle_by_1digit";
@@ -27,7 +26,7 @@ function digitAt(value, placeValue) {
 
 test("S43G5I UI selector exposes seven G3A U03 KPs", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, CURRENT_VISIBLE_KP_COUNT);
+  assert.equal(listVisibleBatchAKnowledgePoints().length, BATCH_A_SELECTOR_AVAILABILITY.visibleCount);
   assert.equal(availability.visibleCount, 7);
   assert.equal(getVisibleBatchAKnowledgePoint(zeroKp)?.displayName, "三位數中間為0乘一位數");
   assert.equal(getVisibleBatchAKnowledgePoint(missKp)?.displayName, "乘法缺位推理");

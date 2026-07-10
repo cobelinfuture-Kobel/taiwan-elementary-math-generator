@@ -3,10 +3,9 @@ import assert from "node:assert/strict";
 
 import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet.js";
 import { BATCH_A_RESOLVER_SELECTION_MODES, resolveVisiblePatternGroupSelection } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
-import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource, resolveVisiblePatternSpecIdsForKnowledgePoint } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource, listVisibleBatchAKnowledgePoints, resolveVisiblePatternSpecIdsForKnowledgePoint } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_ID = "g3b_u01_3b01";
-const CURRENT_VISIBLE_KP_COUNT = 83;
 const ROWS = Object.freeze([
   ["kp_g3b_u01_2digit_division_place_value_cases", "pg_g3b_u01_2digit_division_place_value_cases", ["ps_g3b_u01_2digit_by_1digit_regroup_tens", "ps_g3b_u01_2digit_leading_digit_insufficient", "ps_g3b_u01_2digit_ones_quotient_zero", "ps_g3b_u01_2digit_leading_digit_exact"], "二位數除以一位數商位判斷"],
   ["kp_g3b_u01_3digit_by_1digit_regroup_hundreds", "pg_g3b_u01_3digit_by_1digit_regroup_hundreds", ["ps_g3b_u01_3digit_by_1digit_regroup_hundreds"], "三位數除以一位數"],
@@ -16,7 +15,7 @@ const ROWS = Object.freeze([
 ]);
 
 test("S43E5 R3 G3B U01 exposes five division KPs", () => {
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, CURRENT_VISIBLE_KP_COUNT);
+  assert.equal(listVisibleBatchAKnowledgePoints().length, BATCH_A_SELECTOR_AVAILABILITY.visibleCount);
   assert.equal(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID).visibleCount, 10);
   for (const [kpId,, specIds, displayName] of ROWS) {
     const kp = getVisibleBatchAKnowledgePoint(kpId);

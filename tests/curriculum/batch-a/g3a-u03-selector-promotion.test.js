@@ -1,13 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource, resolveVisiblePatternSpecIdsForKnowledgePoint } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource, listVisibleBatchAKnowledgePoints, resolveVisiblePatternSpecIdsForKnowledgePoint } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import { BATCH_A_RESOLVER_SELECTION_MODES, resolveVisiblePatternGroupSelection } from "../../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 import { buildBatchABrowserWorksheetDocument } from "../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet.js";
 import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 
 const sourceId = "g3a_u03_3a03";
-const CURRENT_VISIBLE_KP_COUNT = 83;
 const rows = [
   ["kp_g3a_u03_2digit_by_1digit_carry", "pg_g3a_u03_2digit_by_1digit_carry", "ps_g3a_u03_2digit_by_1digit_carry"],
   ["kp_g3a_u03_10_multiple_by_1digit", "pg_g3a_u03_10_multiple_by_1digit", "ps_g3a_u03_10_multiple_by_1digit"],
@@ -20,7 +19,7 @@ const specIds = rows.map((row) => row[2]).sort();
 
 test("S43G3A selector extension keeps original G3A U03 four KPs visible", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, CURRENT_VISIBLE_KP_COUNT);
+  assert.equal(listVisibleBatchAKnowledgePoints().length, BATCH_A_SELECTOR_AVAILABILITY.visibleCount);
   assert.equal(availability.visibleCount, 7);
   assert.equal(availability.notSelectableCount, 0);
   for (const [kpId,, specId] of rows) {

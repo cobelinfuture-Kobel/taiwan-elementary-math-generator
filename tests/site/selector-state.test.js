@@ -6,8 +6,9 @@ import {
   WORKSHEET_MODES,
   createConfigState
 } from "../../site/assets/browser/state/config-state.js";
-
-const CURRENT_VISIBLE_KP_COUNT = 83;
+import {
+  BATCH_A_SELECTOR_AVAILABILITY
+} from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 
 test("Batch A selector state defaults to source-unit mode with current visible KP counts", () => {
   const state = createConfigState();
@@ -15,11 +16,12 @@ test("Batch A selector state defaults to source-unit mode with current visible K
   assert.equal(state.batchA.selectionMode, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
   assert.deepEqual(state.batchA.selectedKnowledgePointIds, []);
   assert.deepEqual(state.batchA.selectedPatternGroupIds, []);
-  assert.equal(state.batchA.selectorAvailability.visibleCount, CURRENT_VISIBLE_KP_COUNT);
+  assert.equal(state.batchA.selectorAvailability.visibleCount, BATCH_A_SELECTOR_AVAILABILITY.visibleCount);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g3a_u01_3a01.visibleCount, 8);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g3a_u02_3a02.visibleCount, 10);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g3a_u03_3a03.visibleCount, 7);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g3b_u01_3b01.visibleCount, 10);
+  assert.equal(state.batchA.selectorAvailability.bySourceId.g3b_u04_3b04.visibleCount, 9);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g4a_u01_4a01.visibleCount, 18);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g4a_u02_4a02.visibleCount, 9);
   assert.equal(state.batchA.selectorAvailability.bySourceId.g4a_u04_4a04.visibleCount, 7);
