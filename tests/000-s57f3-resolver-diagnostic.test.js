@@ -25,5 +25,15 @@ test("AAA S57F3 diagnostic legacy G3B-U01 resolver plan", () => {
     ordering: "shuffleAcrossPatterns",
     generationSeed: "s57f3-diagnostic"
   });
-  throw new Error(`S57F3_DIAGNOSTIC\n${JSON.stringify(plan, null, 2)}`);
+  const compact = {
+    resolverOk: plan.resolverResult?.ok,
+    errors: plan.resolverResult?.errors,
+    requestedGroups: rows.map((row) => row[1]),
+    resolvedGroups: plan.selectedPatternGroupIds,
+    patternSpecIds: plan.patternSpecIds,
+    allocation: plan.allocation,
+    allocationSum: plan.allocation?.reduce((sum, entry) => sum + entry.questionCount, 0),
+    provenance: plan.resolverResult?.provenance
+  };
+  throw new Error(`S57F3_DIAGNOSTIC\n${JSON.stringify(compact)}`);
 });
