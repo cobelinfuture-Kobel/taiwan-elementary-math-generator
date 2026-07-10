@@ -6,6 +6,13 @@ on:
       - s57f7r1-g3b-u04-human-semantic-readback-fullfix
     paths:
       - .github/workflows/s57f7r1-full-audit-second-pass-fix.yml
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
   workflow_dispatch:
 
 permissions:
@@ -13,6 +20,7 @@ permissions:
 
 jobs:
   patch-and-commit:
+    if: github.event_name != 'pull_request' || github.head_ref == 's57f7r1-g3b-u04-human-semantic-readback-fullfix'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -151,7 +159,7 @@ jobs:
 
           audit = Path('tools/curriculum/generate-s57f7r1-g3b-u04-human-semantic-audit.mjs')
           text = audit.read_text(encoding='utf-8')
-          anchor = '''writeFileSync(OUT_PATH, `${JSON.stringify(report, null, 2)}\\n`, "utf8");'''
+          anchor = '''writeFileSync(OUT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");'''
           addition = anchor + '''
           if (report.semanticValidatorFailureCount !== 0 || report.qualityValidatorFailureCount !== 0) {
             throw new Error(`S57F7R1 audit failed: semantic=${report.semanticValidatorFailureCount}, quality=${report.qualityValidatorFailureCount}`);
