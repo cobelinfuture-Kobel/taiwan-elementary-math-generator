@@ -421,8 +421,8 @@ export function validateG3BU04HumanSemanticReadback(question = {}) {
       "Context-specific prices and per-student device counts must remain plausible."
     ));
   }
-  if ((family === "tpl_g3b_u04_ratio_capacity_ratio_composition" && (prompt.match(/容量是/g) ?? []).length < 2)
-    || (family === "tpl_g3b_u04_ratio_weight_ratio_composition" && (prompt.match(/重量是/g) ?? []).length < 2)) {
+  if ((family === "tpl_g3b_u04_ratio_capacity_ratio_composition" && (prompt.match(/容量是/g) ?? []).length < 3)
+    || (family === "tpl_g3b_u04_ratio_weight_ratio_composition" && (prompt.match(/重量是/g) ?? []).length < 3)) {
     errors.push(issue(
       "G3B_U04_READBACK_RELATION_DIMENSION_IMPLICIT",
       "promptText",
