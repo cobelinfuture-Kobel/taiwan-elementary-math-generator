@@ -1,0 +1,63 @@
+name: S57F7R1 Print Fragmentation FullFix
+
+on:
+  push:
+    branches:
+      - s57f7r1-g3b-u04-human-semantic-readback-fullfix
+    paths:
+      - .github/workflows/s57f7r1-print-flex-fragmentation-fix.yml
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-commit:
+    if: github.event_name != 'pull_request' || github.head_ref == 's57f7r1-g3b-u04-human-semantic-readback-fullfix'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: s57f7r1-g3b-u04-human-semantic-readback-fullfix
+          fetch-depth: 0
+      - name: Disable fragmented print flex containers
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('site/assets/styles/print-styles.css')
+          text = path.read_text(encoding='utf-8')
+          old = '''  .worksheet-document,
+            .worksheet-section {
+              padding: 0;
+              gap: 0;
+            }'''
+          new = '''  .worksheet-document,
+            .worksheet-section {
+              display: block;
+              padding: 0;
+              gap: 0;
+            }'''
+          if text.count(old) != 1:
+              raise SystemExit('Expected print container rule not found exactly once')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+          git diff --check
+      - name: Commit patch and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/assets/styles/print-styles.css
+          git rm .github/workflows/s57f7r1-print-flex-fragmentation-fix.yml
+          git commit -m "fix(print): prevent worksheet flex fragmentation blank pages"
+          git push origin HEAD:s57f7r1-g3b-u04-human-semantic-readback-fullfix
