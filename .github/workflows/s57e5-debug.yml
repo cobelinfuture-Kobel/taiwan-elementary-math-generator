@@ -1,0 +1,48 @@
+name: S57E5 Validator Debug
+
+on:
+  push:
+    branches:
+      - s57e5-g3b-u04-blocking-semantic-validator
+    paths:
+      - .github/workflows/s57e5-debug.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: s57e5-g3b-u04-blocking-semantic-validator
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Capture focused validator test
+        shell: bash
+        run: |
+          mkdir -p docs/curriculum/output/debug
+          set +e
+          node --test tests/curriculum/batch-a/g3b-u04-semantic-validator.test.js > docs/curriculum/output/debug/S57E5_validator_test.log 2>&1
+          echo "exit_code=$?" >> docs/curriculum/output/debug/S57E5_validator_test.log
+          set -e
+
+      - name: Commit debug log and remove workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/curriculum/output/debug/S57E5_validator_test.log
+          git rm .github/workflows/s57e5-debug.yml
+          git commit -m "debug(g3b-u04): capture S57E5 validator failure"
+          git push origin HEAD:s57e5-g3b-u04-blocking-semantic-validator
