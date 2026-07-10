@@ -11,7 +11,7 @@ import {
   generateG3BU04MultiplicativeSemanticQuestion,
   isG3BU04MultiplicativeSemanticPatternSpecId
 } from "./g3b-u04-multiplicative-semantic-generator.js";
-import { validateG3BU04SemanticQuestion } from "./g3b-u04-semantic-validator.js";
+import { validateG3BU04SemanticQuestion } from "./g3b-u04-semantic-validator-unit-flow-fullfix.js";
 
 export const G3B_U04_HIDDEN_SEMANTIC_MODE = "g3b_u04_hidden_semantic";
 export const G3B_U04_ALL_SEMANTIC_PATTERN_SPEC_IDS = Object.freeze(
