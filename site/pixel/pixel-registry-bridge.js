@@ -32,10 +32,27 @@ export function listPixelSourceOptions() {
       title: unit.title,
       domain: unit.domain,
       label: `${unit.unitCode} ${unit.title}`,
+      semesterLabel: unit.semester === "upper" ? "上學期" : "下學期",
       visibleKnowledgePointCount: visibleKnowledgePoints.length,
       hiddenPendingCount: availability.hiddenPendingCount ?? 0,
       notSelectableCount: availability.notSelectableCount ?? 0
     });
+  });
+}
+
+export function listPixelGrades() {
+  return [...new Set(listPixelSourceOptions().map((entry) => entry.grade))].sort((a, b) => a - b);
+}
+
+export function listPixelSemestersForGrade(grade) {
+  return [...new Set(listPixelSourceOptions().filter((entry) => entry.grade === grade).map((entry) => entry.semester))];
+}
+
+export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
+  return listPixelSourceOptions().filter((entry) => {
+    if (Number.isInteger(grade) && entry.grade !== grade) return false;
+    if (semester && entry.semester !== semester) return false;
+    return true;
   });
 }
 
@@ -66,7 +83,7 @@ export function getPixelSourceSummary(sourceId) {
     ...clone(sourceOption),
     visibleKnowledgePoints: knowledgePoints,
     summaryText: `${sourceOption.unitCode}｜${sourceOption.title}｜sourceId: ${sourceOption.sourceId}`,
-    previewText: `目前讀取 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。S45A 已接共用 registry bridge，尚未產生 worksheet。`
+    previewText: `目前讀取 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。S45B 已接年級、學期與單元 selector，尚未產生 worksheet。`
   });
 }
 
@@ -75,6 +92,7 @@ export function getPixelRegistrySnapshot() {
   return Object.freeze({
     sourceCount: sources.length,
     visibleKnowledgePointCount: BATCH_A_SELECTOR_AVAILABILITY.visibleCount,
+    grades: listPixelGrades(),
     sources,
     bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, getPixelSourceSummary(source.sourceId)])))
   });
