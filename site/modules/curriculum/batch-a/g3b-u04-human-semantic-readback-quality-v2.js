@@ -303,6 +303,48 @@ function normalizePromotionPrice(question, scenario) {
   setAnswer(question, "元", answer);
 }
 
+function updateSubtractThenDivide(question, total, removed) {
+  const divisor = question.quantities.c;
+  const remaining = total - removed;
+  const answer = remaining / divisor;
+  setBinding(question, "a", total);
+  setBinding(question, "b", removed);
+  question.intermediateResults = [remaining, answer];
+  setEvent(question, 0, remaining);
+  setEvent(question, 1, answer);
+  question.equationModel = `(${total} - ${removed}) ÷ ${divisor}`;
+  question.equationTokens = ["(", total, "-", removed, ")", "÷", divisor];
+  setAnswer(question, question.answerUnit, answer);
+}
+
+function normalizePromotionSharedPurchase(question) {
+  const perPersonByContext = { daily_goods: 20, food: 30, school_supplies: 15 };
+  const perPerson = perPersonByContext[question.contextDomain] ?? 20;
+  const participantCount = question.quantities.c;
+  const total = participantCount * perPerson;
+  const addOn = Math.max(5, Math.floor(total / 15) * 5);
+  const originalPrice = total - addOn;
+  updateAddThenDivide(question, originalPrice, addOn);
+  const labels = {
+    daily_goods: { item: "清潔用品組合", use: "共同使用" },
+    food: { item: "分享餐組合", use: "一起分享" },
+    school_supplies: { item: "文具組合", use: "作為班級共用物資" }
+  };
+  const label = labels[question.contextDomain] ?? labels.daily_goods;
+  setPrompt(question, `${label.item}原價${originalPrice}元，活動期間再加${addOn}元可以多拿一組相同商品。${participantCount}人共同購買，${label.use}，並平均分擔總費用。每人要付多少元？`);
+}
+
+function normalizeReservedDistribution(question, scenario) {
+  const perRecipientByContext = { classroom: 5, library: 4, sports_equipment: 2, awards: 3 };
+  const reservedByContext = { classroom: 5, library: 4, sports_equipment: 2, awards: 6 };
+  const perRecipient = perRecipientByContext[question.contextDomain] ?? 4;
+  const reserved = reservedByContext[question.contextDomain] ?? 4;
+  const total = reserved + question.quantities.c * perRecipient;
+  updateSubtractThenDivide(question, total, reserved);
+  const p = scenario.placeholderBindings;
+  setPrompt(question, `共有${total}${p.itemUnit}${p.item}，先保留${reserved}${p.itemUnit}，其餘平均分給${question.quantities.c}${p.recipientUnit}${p.recipient}，每${p.recipientUnit}分到多少${p.itemUnit}${p.item}？`);
+}
+
 function normalizeMeasuredPortion(question, scenario) {
   const unit = scenario.measureUnit ?? scenario.capacityUnit;
   setAnswer(question, unit, question.finalAnswer);
@@ -318,7 +360,7 @@ function normalizeSharedCostPlusPersonal(question) {
   updateDivideThenAdd(question, quotient, personal);
   const b = question.quantities.b;
   const a = question.quantities.a;
-  setPrompt(question, `${b}人平均分擔${a}元的共同費用，小安另外花了${personal}元，小安一共花了多少元？`);
+  setPrompt(question, `小安和其他人共${b}人，平均分擔${a}元的共同費用。小安另外花了${personal}元，小安一共花了多少元？`);
 }
 
 function normalizeDistributedResources(question, scenario) {
@@ -396,9 +438,11 @@ export function applyG3BU04HumanSemanticQualityV2(inputQuestion = {}) {
     case "tpl_g3b_u04_add_divide_pooled_money_unit_price": normalizePooledMoney(question, scenario); break;
     case "tpl_g3b_u04_add_divide_combined_inventory_equal_distribution": normalizeCombinedInventory(question, scenario); break;
     case "tpl_g3b_u04_add_divide_combined_liquid_equal_portions": normalizeCombinedLiquid(question, scenario); break;
+    case "tpl_g3b_u04_add_divide_promotion_total_equal_share": normalizePromotionSharedPurchase(question); break;
     case "tpl_g3b_u04_mul_div_buy_get_free_average_price":
     case "tpl_g3b_u04_mul_div_bonus_units_average_cost": normalizePromotionPrice(question, scenario); break;
     case "tpl_g3b_u04_sub_div_used_amount_then_share": normalizeMeasuredPortion(question, scenario); break;
+    case "tpl_g3b_u04_sub_div_reserved_amount_then_distribute": normalizeReservedDistribution(question, scenario); break;
     case "tpl_g3b_u04_div_add_shared_cost_plus_personal_purchase": normalizeSharedCostPlusPersonal(question); break;
     case "tpl_g3b_u04_div_add_distributed_resources_plus_existing_per_group": normalizeDistributedResources(question, scenario); break;
     case "tpl_g3b_u04_total_minus_share_wallet_minus_shared_purchase": normalizeWalletOrBudget(question, "wallet"); break;
@@ -437,6 +481,11 @@ export function validateG3BU04HumanSemanticQualityV2(question = {}) {
   const prompt = String(question.promptText ?? "");
   const family = question.templateFamilyId;
 
+  if (family === "tpl_g3b_u04_div_add_shared_cost_plus_personal_purchase"
+  && !prompt.includes("小安和其他人共")) {
+  errors.push(issue("G3B_U04_READBACK_SHARED_ACTIVITY_SCOPE_UNCLEAR", "promptText", "The named student must be explicitly included in the shared-cost participant total."));
+}
+
   if (family === "tpl_g3b_u04_add_divide_joint_purchase_equal_share") {
     const allowed = question.contextDomain === "equipment_rental"
       ? /共同租用|總租金/.test(prompt)
@@ -461,7 +510,9 @@ export function validateG3BU04HumanSemanticQualityV2(question = {}) {
     || (family === "tpl_g3b_u04_mul_div_bonus_units_average_cost" && question.quantities.p > 50)
     || (family === "tpl_g3b_u04_consecutive_unit_price_items_per_pack_packs"
       && question.contextDomain === "tickets" && question.quantities.a < 30)
-    || (family === "tpl_g3b_u04_total_minus_share_personal_budget_minus_group_fee" && question.quantities.a < 50)) {
+    || (family === "tpl_g3b_u04_total_minus_share_personal_budget_minus_group_fee" && question.quantities.a < 50)
+    || (family === "tpl_g3b_u04_add_divide_promotion_total_equal_share"
+      && question.quantities.b > question.quantities.a)) {
     errors.push(issue("G3B_U04_READBACK_COST_IMPLAUSIBLE", "quantities", "Context-specific prices, contributions, or budgets are implausible."));
   }
 
@@ -472,6 +523,12 @@ export function validateG3BU04HumanSemanticQualityV2(question = {}) {
       errors.push(issue("G3B_U04_READBACK_PER_RECIPIENT_QUANTITY_IMPLAUSIBLE", "quantities", "Per-recipient resource quantity is implausible for the selected context."));
     }
   }
+  if (family === "tpl_g3b_u04_sub_div_reserved_amount_then_distribute") {
+  const caps = { classroom: 6, library: 4, sports_equipment: 2, awards: 3 };
+  if (question.finalAnswer > (caps[question.contextDomain] ?? 4)) {
+    errors.push(issue("G3B_U04_READBACK_PER_RECIPIENT_QUANTITY_IMPLAUSIBLE", "quantities", "Per-recipient reserved-distribution quantity is implausible for the selected context."));
+  }
+}
 if (family === "tpl_g3b_u04_add_divide_combined_inventory_equal_distribution") {
   const caps = { classroom: 10, library: 6, sports: 2, crafts: 10 };
   if (question.finalAnswer > (caps[question.contextDomain] ?? 8)) {

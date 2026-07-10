@@ -144,6 +144,23 @@ test("S57F7R1 quality v2 fixes shared activity scope and context lexicons", () =
   assert.equal((length.promptText.match(/長度是/g) ?? []).length, 3);
 });
 
+test("S57F7R1 public-smoke semantic third-pass fixes promotion, reserved distribution, and participant scope", () => {
+  const promotion = fixed("ps_g3b_u04_add_divide_promotion_total_equal_share", "daily_goods");
+  assert.equal(promotion.quantities.b <= promotion.quantities.a, true);
+  assert.match(promotion.promptText, /共同購買/);
+  assert.match(promotion.promptText, /共同使用/);
+  assert.equal(validateG3BU04HumanSemanticQualityV2(promotion).ok, true);
+
+  const library = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "library");
+  const awards = fixed("ps_g3b_u04_sub_div_reserved_amount_then_distribute", "awards");
+  assert.equal(library.finalAnswer <= 4, true);
+  assert.equal(awards.finalAnswer <= 3, true);
+
+  const sharedCost = fixed("ps_g3b_u04_div_add_shared_cost_plus_personal_purchase", "meal");
+  assert.match(sharedCost.promptText, /小安和其他人共/);
+  assert.equal(validateG3BU04HumanSemanticQualityV2(sharedCost).ok, true);
+});
+
 test("S57F7R1 quality v2 exposes five additional blocking quality codes", () => {
   assert.equal(G3B_U04_HUMAN_SEMANTIC_QUALITY_V2_ERROR_CODES.length, 5);
   const fixtures = new Map();
