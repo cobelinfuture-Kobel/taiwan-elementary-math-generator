@@ -73,6 +73,11 @@ function duplicates(values) {
   return [...repeated];
 }
 
+function sameMembers(left, right) {
+  return left.length === right.length
+    && JSON.stringify([...left].sort()) === JSON.stringify([...right].sort());
+}
+
 export function isS57FPromotedG3BU04SemanticPatternSpecId(patternSpecId) {
   return promotedPatternSpecIdSet.has(patternSpecId);
 }
@@ -115,10 +120,10 @@ export function validateG3BU04SemanticPromotionProjection() {
   if (JSON.stringify(definitionIds) !== JSON.stringify(G3B_U04_PROMOTED_SEMANTIC_PATTERN_SPEC_IDS)) {
     errors.push("pattern_spec_projection_drift");
   }
-  if (JSON.stringify(new Set(definitionKpIds)) !== JSON.stringify(new Set(G3B_U04_PROMOTED_KNOWLEDGE_POINT_IDS))) {
+  if (!sameMembers(definitionKpIds, G3B_U04_PROMOTED_KNOWLEDGE_POINT_IDS)) {
     errors.push("knowledge_point_projection_drift");
   }
-  if (JSON.stringify(new Set(definitionGroupIds)) !== JSON.stringify(new Set(G3B_U04_PROMOTED_PATTERN_GROUP_IDS))) {
+  if (!sameMembers(definitionGroupIds, G3B_U04_PROMOTED_PATTERN_GROUP_IDS)) {
     errors.push("pattern_group_projection_drift");
   }
   if (definitions.some((definition) => definition.sourceId !== G3B_U04_SOURCE_ID)) errors.push("source_membership_drift");
