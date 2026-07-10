@@ -83,7 +83,7 @@ export function getPixelSourceSummary(sourceId) {
     ...clone(sourceOption),
     visibleKnowledgePoints: knowledgePoints,
     summaryText: `${sourceOption.unitCode}｜${sourceOption.title}｜sourceId: ${sourceOption.sourceId}`,
-    previewText: `目前讀取 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。S45B 已接年級、學期與單元 selector，尚未產生 worksheet。`
+    previewText: `目前讀取 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。S45C 已接知識點 selector，尚未產生 worksheet。`
   });
 }
 
