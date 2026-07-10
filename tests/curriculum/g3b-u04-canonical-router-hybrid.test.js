@@ -91,6 +91,8 @@ test("S57F4 canonical integration advertises only the approved router scope", ()
 
 test("S57F4 routes a visible single-KP semantic selection through the blocking canonical path", () => {
   const result = generateBatchABrowserQuestions(semanticOptions());
+  const addDivideGroup = getVisiblePatternGroupsForKnowledgePoint(ADD_DIVIDE_KP_ID)
+    .find((group) => group.patternGroupId === ADD_DIVIDE_GROUP_ID);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.questions.length, 12);
   assert.equal(result.allocation.reduce((sum, entry) => sum + entry.questionCount, 0), 12);
@@ -101,7 +103,7 @@ test("S57F4 routes a visible single-KP semantic selection through the blocking c
   assert.equal(result.questions.every((question) => question.generatorRouting === "canonical_resolver_allocation"), true);
   assert.equal(result.questions.every((question) => question.canonicalRoute.publicHiddenModeFlagUsed === false), true);
   assert.equal(result.questions.every((question) => validateG3BU04SemanticQuestion(question).ok), true);
-  assert.equal(new Set(result.questions.map((question) => question.patternSpecId)).size, 4);
+  assert.equal(new Set(result.questions.map((question) => question.patternSpecId)).size, addDivideGroup.patternSpecIds.length);
   assert.equal(result.questions.every((question) => question.resolvedPatternGroupId === ADD_DIVIDE_GROUP_ID), true);
 });
 
