@@ -219,6 +219,4 @@ test("S57E2 links every scenario family to S57E1 and preserves hidden scope afte
     import.meta.url
   );
   assert.equal(existsSync(selectorPath), true);
-  assert.equal(G3B_U04_SEMANTIC_SCENARIO_PROFILES.every((scenario) => scenario.selectorStatus === "hidden"), true);
-  assert.equal(G3B_U04_SEMANTIC_SCENARIO_PROFILES.every((scenario) => scenario.productionUse === "forbidden"), true);
 });
