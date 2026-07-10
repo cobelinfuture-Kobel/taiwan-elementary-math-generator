@@ -8,7 +8,7 @@ export const G3B_U04_DISTRIBUTED_RESOURCES_PATTERN_SPEC_ID =
 const EXPECTED_ROLE_CONTRACT = Object.freeze({
   a: Object.freeze({ semanticRole: "new_resource_count", unitDimension: "count" }),
   b: Object.freeze({ semanticRole: "recipient_count", unitDimension: "count" }),
-  c: Object.freeze({ semanticRole: "existing_quantity_per_recipient", unitDimension: "context_bound_measure_or_count" })
+  c: Object.freeze({ semanticRole: "existing_quantity_per_recipient", unitDimension: "count" })
 });
 
 function cloneValue(value) {
@@ -69,12 +69,11 @@ function removeResolvedUnitFlowCode(stages = []) {
 }
 
 /**
- * Resolves the one approved contextual quantity compatibility:
- * count ÷ recipient-count produces an item quantity per recipient, which can
- * be added to an existing item quantity per recipient. The authoritative role
- * intentionally remains context-bound; this adapter proves the exact role,
- * family, arithmetic, answer-unit, and classifier contract before accepting
- * that compatibility. No other unit-flow failure is downgraded or removed.
+ * Guards the approved resource-count flow:
+ * count ÷ recipient-count produces an item count per recipient, which can be
+ * added to an existing item count per recipient. The authoritative role is
+ * count-based. This adapter remains as a narrow compatibility boundary for
+ * previously materialized questions and never suppresses unrelated failures.
  */
 export function validateG3BU04SemanticQuestion(question = {}, options = {}) {
   const result = validateBaseG3BU04SemanticQuestion(question, options);
