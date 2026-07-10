@@ -206,12 +206,12 @@ test("S57E4 rejects structural families and unapproved multiplicative contexts",
   assert.equal(invalidContext.errors[0].code, "G3B_U04_SEM_SCENARIO_PROFILE_UNREGISTERED");
 });
 
-test("S57E4 remains hidden, unrouted, unselectable, and outside worksheet production", () => {
+test("S57E4 generated artifacts remain hidden after later selector projection", () => {
   const selectorPath = new URL(
     "../../../site/modules/curriculum/registry/batch-a-selector-g3b-u04-semantic-extension.js",
     import.meta.url
   );
-  assert.equal(existsSync(selectorPath), false);
+  assert.equal(existsSync(selectorPath), true);
   for (const patternSpecId of G3B_U04_MULTIPLICATIVE_SEMANTIC_PATTERN_SPEC_IDS) {
     const question = generate(patternSpecId, { seed: "hidden-scope", sequenceNumber: 1 });
     assert.equal(question.selectorStatus, "hidden");
