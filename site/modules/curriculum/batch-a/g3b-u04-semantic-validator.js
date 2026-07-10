@@ -209,7 +209,7 @@ function expectedAnswerUnit(spec, scenario) {
   if (spec?.knowledgePointId === "kp_g3b_u04_composite_multiplicative_ratio") return "倍";
   if (/cost|price|money|budget/.test(role)) return "元";
   if (/points/.test(role)) return "點";
-  if (/age/.test(role)) return "歲";
+  if (/(^|_)age($|_)/.test(role)) return "歲";
   if (/capacity/.test(role)) return scenario?.capacityUnit ?? scenario?.measureUnit ?? "毫升";
   if (/team/.test(role)) return "隊";
   if (/tray/.test(role)) return "盤";
