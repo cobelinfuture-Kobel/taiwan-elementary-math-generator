@@ -2,7 +2,7 @@ import {
   BATCH_A_SELECTOR_AVAILABILITY,
   getVisibleBatchAKnowledgePoint as getBaseVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint as getBaseVisiblePatternGroupsForKnowledgePoint
-} from "../../../modules/curriculum/registry/batch-a-selector-candidates.js";
+} from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
 const KP_SELECTION_MODES = Object.freeze([
