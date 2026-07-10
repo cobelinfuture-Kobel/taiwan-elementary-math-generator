@@ -34,20 +34,16 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
+          import re
           from pathlib import Path
 
           module = Path('site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js')
           text = module.read_text(encoding='utf-8')
 
-          old = '''function normalizeCombinedInventory(question, scenario) {
-            const total = question.quantities.a + question.quantities.b;
-            const a = Math.floor(total / 2);
-            const b = total - a;
-            updateAddThenDivide(question, a, b);
-            const p = scenario.placeholderBindings;
-            setPrompt(question, `老師把第一批${a}${p.itemUnit}${p.item}和第二批${b}${p.itemUnit}${p.item}合在一起，平均分給${question.quantities.c}${p.recipientUnit}${p.recipient}，每${p.recipientUnit}分到多少${p.itemUnit}${p.item}？`);
-          }'''
-          new = '''function normalizeCombinedInventory(question, scenario) {
+          replacements = [
+            (
+              r'function normalizeCombinedInventory\(question, scenario\) \{.*?\n\}',
+              '''function normalizeCombinedInventory(question, scenario) {
             const perRecipientByContext = { classroom: 6, library: 4, sports: 2, crafts: 8 };
             const perRecipient = perRecipientByContext[question.contextDomain] ?? 5;
             const total = question.quantities.c * perRecipient;
@@ -57,17 +53,10 @@ jobs:
             const p = scenario.placeholderBindings;
             setPrompt(question, `老師把第一批${a}${p.itemUnit}${p.item}和第二批${b}${p.itemUnit}${p.item}合在一起，平均分給${question.quantities.c}${p.recipientUnit}${p.recipient}，每${p.recipientUnit}分到多少${p.itemUnit}${p.item}？`);
           }'''
-          if text.count(old) != 1:
-              raise SystemExit('Combined inventory normalizer not found exactly once')
-          text = text.replace(old, new)
-
-          old = '''function normalizePromotionPrice(question, scenario) {
-            const q = question.quantities.q;
-            const divisor = question.quantities.r ?? q + question.quantities.g;
-            const gcd = (left, right) => right === 0 ? left : gcd(right, left % right);
-            const step = divisor / gcd(q, divisor);
-            const p = step * (3 + ((q + divisor) % 3));'''
-          new = '''function normalizePromotionPrice(question, scenario) {
+            ),
+            (
+              r'function normalizePromotionPrice\(question, scenario\) \{.*?\n  setAnswer\(question, "元", answer\);\n\}',
+              '''function normalizePromotionPrice(question, scenario) {
             const q = question.quantities.q;
             const divisor = question.quantities.r ?? q + question.quantities.g;
             const gcd = (left, right) => right === 0 ? left : gcd(right, left % right);
@@ -83,19 +72,36 @@ jobs:
               coupons: 25
             };
             const target = targetByContext[question.contextDomain] ?? step * 4;
-            const p = Math.max(step, Math.ceil(target / step) * step);'''
-          if text.count(old) != 1:
-              raise SystemExit('Promotion price normalizer prefix not found exactly once')
-          text = text.replace(old, new)
-
-          old = '''function normalizeTicketUnitPrice(question, scenario) {
-            const priceByContext = { stationery: 10, snacks: 15, tickets: 50, craft_materials: 20 };
-            const price = priceByContext[question.contextDomain] ?? question.quantities.a;
-            updateConsecutive(question, price, question.quantities.b, question.quantities.c, "元");
-            const p = scenario.placeholderBindings;
-            setPrompt(question, `每${p.itemUnit}${p.item}${price}元，每${p.packageUnit}有${question.quantities.b}${p.itemUnit}，買${question.quantities.c}${p.packageUnit}一共要付多少元？`);
+            const p = Math.max(step, Math.ceil(target / step) * step);
+            const total = p * q;
+            const answer = total / divisor;
+            setBinding(question, "p", p);
+            if (question.quantities.r !== undefined) {
+              question.intermediateResults = [total, answer];
+              setEvent(question, 0, total);
+              setEvent(question, 1, answer);
+              question.equationModel = `(${p} × ${q}) ÷ ${divisor}`;
+              question.equationTokens = ["(", p, "×", q, ")", "÷", divisor];
+              const item = scenario.placeholderBindings.item;
+              const unit = scenario.placeholderBindings.itemUnit;
+              setPrompt(question, `${item}每${unit}${p}元，活動期間付${q}${unit}的錢可以拿到${divisor}${unit}，平均每${unit}${item}多少元？`);
+            } else {
+              question.intermediateResults = [total, divisor, answer];
+              setEvent(question, 0, total);
+              setEvent(question, 1, divisor);
+              setEvent(question, 2, answer);
+              question.equationModel = `(${p} × ${q}) ÷ (${q} + ${question.quantities.g})`;
+              question.equationTokens = ["(", p, "×", q, ")", "÷", "(", q, "+", question.quantities.g, ")"];
+              const unit = scenario.placeholderBindings.itemUnit;
+              const item = question.contextDomain === "coupons" ? "遊戲券" : scenario.placeholderBindings.item;
+              setPrompt(question, `每${unit}${item}${p}元，買${q}${unit}另外贈送${question.quantities.g}${unit}，把總費用平均到收到的全部${item}，每${unit}${item}平均多少元？`);
+            }
+            setAnswer(question, "元", answer);
           }'''
-          new = '''function normalizeTicketUnitPrice(question, scenario) {
+            ),
+            (
+              r'function normalizeTicketUnitPrice\(question, scenario\) \{.*?\n\}',
+              '''function normalizeTicketUnitPrice(question, scenario) {
             const priceByContext = { stationery: 10, snacks: 15, tickets: 50, craft_materials: 20 };
             const packageUnitByContext = { stationery: "盒", snacks: "盒", tickets: "本", craft_materials: "包" };
             const price = priceByContext[question.contextDomain] ?? question.quantities.a;
@@ -104,69 +110,77 @@ jobs:
             const p = scenario.placeholderBindings;
             setPrompt(question, `每${p.itemUnit}${p.item}${price}元，每${packageUnit}有${question.quantities.b}${p.itemUnit}，買${question.quantities.c}${packageUnit}一共要付多少元？`);
           }'''
-          if text.count(old) != 1:
-              raise SystemExit('Unit-price normalizer not found exactly once')
-          text = text.replace(old, new)
+            )
+          ]
 
-          old = '''  if (family === "tpl_g3b_u04_div_add_distributed_resources_plus_existing_per_group") {
+          for pattern, replacement in replacements:
+              text, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit(f'Function replacement failed: {pattern}')
+
+          validation_anchor = '''  if (family === "tpl_g3b_u04_div_add_distributed_resources_plus_existing_per_group") {
             const quotient = question.quantities.a / question.quantities.b;
             const caps = { classroom: 9, library: 8, sports: 3, technology: 2 };
             if (!Number.isInteger(quotient) || question.finalAnswer > (caps[question.contextDomain] ?? 8)) {
               errors.push(issue("G3B_U04_READBACK_PER_RECIPIENT_QUANTITY_IMPLAUSIBLE", "quantities", "Per-recipient resource quantity is implausible for the selected context."));
             }
           }'''
-          new = '''  if (family === "tpl_g3b_u04_div_add_distributed_resources_plus_existing_per_group") {
-            const quotient = question.quantities.a / question.quantities.b;
-            const caps = { classroom: 9, library: 8, sports: 3, technology: 2 };
-            if (!Number.isInteger(quotient) || question.finalAnswer > (caps[question.contextDomain] ?? 8)) {
-              errors.push(issue("G3B_U04_READBACK_PER_RECIPIENT_QUANTITY_IMPLAUSIBLE", "quantities", "Per-recipient resource quantity is implausible for the selected context."));
-            }
-          }
+          validation_addition = validation_anchor + '''
           if (family === "tpl_g3b_u04_add_divide_combined_inventory_equal_distribution") {
             const caps = { classroom: 10, library: 6, sports: 2, crafts: 10 };
             if (question.finalAnswer > (caps[question.contextDomain] ?? 8)) {
               errors.push(issue("G3B_U04_READBACK_PER_RECIPIENT_QUANTITY_IMPLAUSIBLE", "quantities", "Per-recipient combined inventory quantity is implausible for the selected context."));
             }
           }'''
-          if text.count(old) != 1:
-              raise SystemExit('Per-recipient validation block not found exactly once')
-          text = text.replace(old, new)
+          if validation_anchor not in text:
+              raise SystemExit('Per-recipient validation anchor missing')
+          text = text.replace(validation_anchor, validation_addition, 1)
 
-          old = '''  if (prompt.includes("本車票") || prompt.includes("本門票")'''
-          new = '''  if (prompt.includes("undefined") || prompt.includes("本車票") || prompt.includes("本門票")'''
-          if text.count(old) != 1:
-              raise SystemExit('Context lexicon validation anchor not found exactly once')
-          text = text.replace(old, new)
+          lexicon_anchor = '  if (prompt.includes("本車票") || prompt.includes("本門票")'
+          if lexicon_anchor not in text:
+              raise SystemExit('Lexicon validation anchor missing')
+          text = text.replace(
+            lexicon_anchor,
+            '  if (prompt.includes("undefined") || prompt.includes("本車票") || prompt.includes("本門票")',
+            1
+          )
           module.write_text(text, encoding='utf-8')
 
           test_path = Path('tests/curriculum/g3b-u04-human-semantic-quality-v2.test.js')
-          text = test_path.read_text(encoding='utf-8')
-          anchor = '''  const sports = fixed("ps_g3b_u04_div_add_distributed_resources_plus_existing_per_group", "sports");'''
-          addition = '''  const combinedSports = fixed("ps_g3b_u04_add_divide_combined_inventory_equal_distribution", "sports");
-            assert.equal(combinedSports.finalAnswer <= 2, true);
-
-          ''' + anchor
-          if text.count(anchor) != 1:
-              raise SystemExit('Quality v2 test sports anchor not found exactly once')
-          text = text.replace(anchor, addition)
-          anchor = '''  assert.match(ticketPrice.promptText, /每張門票50元/);'''
-          addition = anchor + '''
-            assert.equal(ticketPrice.promptText.includes("undefined"), false);
-            assert.match(ticketPrice.promptText, /每本有/);'''
-          if text.count(anchor) != 1:
-              raise SystemExit('Ticket price assertion anchor not found exactly once')
-          test_path.write_text(text.replace(anchor, addition), encoding='utf-8')
+          test_text = test_path.read_text(encoding='utf-8')
+          sports_anchor = '  const sports = fixed("ps_g3b_u04_div_add_distributed_resources_plus_existing_per_group", "sports");'
+          if sports_anchor not in test_text:
+              raise SystemExit('Sports assertion anchor missing')
+          test_text = test_text.replace(
+            sports_anchor,
+            '  const combinedSports = fixed("ps_g3b_u04_add_divide_combined_inventory_equal_distribution", "sports");\n'
+            '  assert.equal(combinedSports.finalAnswer <= 2, true);\n\n'
+            + sports_anchor,
+            1
+          )
+          ticket_anchor = '  assert.match(ticketPrice.promptText, /每張門票50元/);'
+          if ticket_anchor not in test_text:
+              raise SystemExit('Ticket assertion anchor missing')
+          test_text = test_text.replace(
+            ticket_anchor,
+            ticket_anchor + '\n  assert.equal(ticketPrice.promptText.includes("undefined"), false);\n  assert.match(ticketPrice.promptText, /每本有/);',
+            1
+          )
+          test_path.write_text(test_text, encoding='utf-8')
 
           audit = Path('tools/curriculum/generate-s57f7r1-g3b-u04-human-semantic-audit.mjs')
-          text = audit.read_text(encoding='utf-8')
-          anchor = '''writeFileSync(OUT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");'''
-          addition = anchor + '''
-          if (report.semanticValidatorFailureCount !== 0 || report.qualityValidatorFailureCount !== 0) {
+          audit_text = audit.read_text(encoding='utf-8')
+          if 'S57F7R1 audit failed:' not in audit_text:
+              marker = 'console.log(JSON.stringify({'
+              guard = '''if (report.semanticValidatorFailureCount !== 0 || report.qualityValidatorFailureCount !== 0) {
             throw new Error(`S57F7R1 audit failed: semantic=${report.semanticValidatorFailureCount}, quality=${report.qualityValidatorFailureCount}`);
-          }'''
-          if text.count(anchor) != 1:
-              raise SystemExit('Audit write anchor not found exactly once')
-          audit.write_text(text.replace(anchor, addition), encoding='utf-8')
+          }
+
+          '''
+              if marker not in audit_text:
+                  raise SystemExit('Audit console marker missing')
+              audit_text = audit_text.replace(marker, guard + marker, 1)
+          audit.write_text(audit_text, encoding='utf-8')
           PY
 
       - name: Commit fixes and remove one-time workflow
