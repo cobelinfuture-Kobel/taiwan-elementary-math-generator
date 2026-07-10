@@ -12,9 +12,9 @@ import {
 } from "./g3b-u04-multiplicative-semantic-generator.js";
 import { validateG3BU04SemanticQuestion } from "./g3b-u04-semantic-validator-unit-flow-fullfix.js";
 import {
-  applyG3BU04HumanSemanticReadbackFullFix,
-  validateG3BU04HumanSemanticReadback
-} from "./g3b-u04-human-semantic-readback-fullfix.js";
+  applyG3BU04HumanSemanticQualityV2,
+  validateG3BU04HumanSemanticQualityV2
+} from "./g3b-u04-human-semantic-readback-quality-v2.js";
 import {
   G3B_U04_SEMANTIC_PROMOTION_LIFECYCLE,
   G3B_U04_SEMANTIC_PROMOTION_REGISTRY_ID,
@@ -306,11 +306,11 @@ export function generateG3BU04CanonicalSemanticQuestions(plan = {}, options = {}
         continue;
       }
 
-      const promotedQuestion = applyG3BU04HumanSemanticReadbackFullFix(
+      const promotedQuestion = applyG3BU04HumanSemanticQualityV2(
         promoteQuestionForCanonicalRoute(generated.question, plan, allocationEntry)
       );
       const checked = validator(promotedQuestion, { recentPrompts });
-      const readback = validateG3BU04HumanSemanticReadback(promotedQuestion);
+      const readback = validateG3BU04HumanSemanticQualityV2(promotedQuestion);
       errors.push(...pathIssues(checked.errors, questionIndex));
       errors.push(...pathIssues(readback.errors, questionIndex));
       warnings.push(...pathIssues(checked.warnings, questionIndex));

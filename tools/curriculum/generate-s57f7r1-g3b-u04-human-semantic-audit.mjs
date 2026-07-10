@@ -16,9 +16,9 @@ import {
   validateG3BU04SemanticQuestion
 } from "../../site/modules/curriculum/batch-a/g3b-u04-semantic-validator-unit-flow-fullfix.js";
 import {
-  applyG3BU04HumanSemanticReadbackFullFix,
-  validateG3BU04HumanSemanticReadback
-} from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-fullfix.js";
+  applyG3BU04HumanSemanticQualityV2,
+  validateG3BU04HumanSemanticQualityV2
+} from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js";
 
 const OUT_PATH = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -46,9 +46,9 @@ for (const definition of listG3BU04SemanticPatternDefinitions()) {
     if (!generated.ok || !generated.question) {
       throw new Error(`${definition.patternSpecId}/${contextDomain}: ${JSON.stringify(generated.errors)}`);
     }
-    const question = applyG3BU04HumanSemanticReadbackFullFix(generated.question);
+    const question = applyG3BU04HumanSemanticQualityV2(generated.question);
     const semanticValidation = validateG3BU04SemanticQuestion(question);
-    const readbackValidation = validateG3BU04HumanSemanticReadback(question);
+    const readbackValidation = validateG3BU04HumanSemanticQualityV2(question);
     rows.push({
       sequenceNumber,
       patternSpecId: definition.patternSpecId,
@@ -67,8 +67,8 @@ for (const definition of listG3BU04SemanticPatternDefinitions()) {
       countNounModel: question.countNounModel ?? null,
       semanticValidatorOk: semanticValidation.ok,
       semanticValidatorErrors: semanticValidation.errors,
-      readbackValidatorOk: readbackValidation.ok,
-      readbackValidatorErrors: readbackValidation.errors,
+      qualityValidatorOk: readbackValidation.ok,
+      qualityValidatorErrors: readbackValidation.errors,
       validatorWarnings: [...(semanticValidation.warnings ?? []), ...(readbackValidation.warnings ?? [])]
     });
   }
@@ -76,14 +76,14 @@ for (const definition of listG3BU04SemanticPatternDefinitions()) {
 
 const report = {
   schemaName: "G3BU04HumanSemanticAudit",
-  schemaVersion: 2,
+  schemaVersion: 3,
   task: "S57F7R1_G3B_U04_HumanSemanticReadbackQA_FullFix",
   sourceId: "g3b_u04_3b04",
   generatedAt: null,
   familyCount: new Set(rows.map((row) => row.patternSpecId)).size,
   familyContextVariantCount: rows.length,
   semanticValidatorFailureCount: rows.filter((row) => !row.semanticValidatorOk).length,
-  readbackValidatorFailureCount: rows.filter((row) => !row.readbackValidatorOk).length,
+  qualityValidatorFailureCount: rows.filter((row) => !row.qualityValidatorOk).length,
   rows
 };
 
@@ -94,5 +94,5 @@ console.log(JSON.stringify({
   familyCount: report.familyCount,
   familyContextVariantCount: report.familyContextVariantCount,
   semanticValidatorFailureCount: report.semanticValidatorFailureCount,
-  readbackValidatorFailureCount: report.readbackValidatorFailureCount
+  qualityValidatorFailureCount: report.qualityValidatorFailureCount
 }, null, 2));

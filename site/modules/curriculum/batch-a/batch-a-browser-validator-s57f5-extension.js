@@ -12,9 +12,9 @@ import {
   G3B_U04_SEMANTIC_PROMOTION_REGISTRY_ID
 } from "../registry/g3b-u04-semantic-promotion.js";
 import {
-  G3B_U04_HUMAN_SEMANTIC_READBACK_FULLFIX,
-  validateG3BU04HumanSemanticReadback
-} from "./g3b-u04-human-semantic-readback-fullfix.js";
+  G3B_U04_HUMAN_SEMANTIC_QUALITY_V2,
+  validateG3BU04HumanSemanticQualityV2
+} from "./g3b-u04-human-semantic-readback-quality-v2.js";
 
 export const G3B_U04_CANONICAL_VALIDATOR_INTEGRATION = Object.freeze({
   task: "S57F5_G3B_U04_CanonicalValidatorWorksheetAndRendererIntegration",
@@ -22,7 +22,7 @@ export const G3B_U04_CANONICAL_VALIDATOR_INTEGRATION = Object.freeze({
   semanticValidatorFirst: true,
   lifecycleValidationRequired: true,
   humanSemanticReadbackRequired: true,
-  humanSemanticReadbackVersion: G3B_U04_HUMAN_SEMANTIC_READBACK_FULLFIX.version,
+  humanSemanticReadbackVersion: G3B_U04_HUMAN_SEMANTIC_QUALITY_V2.version,
   productionEligibilityRequired: true,
   validatorVersion: "s57f5-g3b-u04-canonical-production-v1",
   requiredNextGate: "S57F6_G3B_U04_PublicSelectorAndPrintControlsQA"
@@ -114,7 +114,7 @@ export function validateBatchABrowserQuestion(question = {}, options = {}) {
   if (!isG3BU04SemanticQuestion(question)) return semanticResult;
 
   const lifecycleErrors = validateCanonicalLifecycle(question);
-  const readbackResult = validateG3BU04HumanSemanticReadback(question);
+  const readbackResult = validateG3BU04HumanSemanticQualityV2(question);
   const lifecycleStage = {
     stage: "production_lifecycle",
     ok: lifecycleErrors.length === 0,
@@ -170,7 +170,7 @@ export function validateBatchABrowserQuestions(questions = [], options = {}) {
     infos: [],
     stages,
     validatorVersion: G3B_U04_CANONICAL_VALIDATOR_INTEGRATION.validatorVersion,
-    humanSemanticReadbackVersion: G3B_U04_HUMAN_SEMANTIC_READBACK_FULLFIX.version,
+    humanSemanticReadbackVersion: G3B_U04_HUMAN_SEMANTIC_QUALITY_V2.version,
     eligibilityVersion: G3B_U04_PRODUCTION_WORKSHEET_ELIGIBILITY.status,
     validatedAt: null
   };
