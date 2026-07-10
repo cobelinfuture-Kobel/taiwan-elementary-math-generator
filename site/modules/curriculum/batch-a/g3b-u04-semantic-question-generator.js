@@ -175,6 +175,11 @@ function generateForPattern(patternSpecId, options) {
   };
 }
 
+function contextDomainForFamily(patternSpecId, familyIndex) {
+  const domains = getG3BU04SemanticPatternDefinition(patternSpecId)?.contextDomains ?? [];
+  return domains.length > 0 ? domains[familyIndex % domains.length] : undefined;
+}
+
 export function generateG3BU04HiddenSemanticQuestions(options = {}) {
   const plan = buildG3BU04HiddenSemanticPlan(options);
   const planValidation = validateG3BU04HiddenSemanticPlan(plan);
@@ -200,7 +205,8 @@ export function generateG3BU04HiddenSemanticQuestions(options = {}) {
       const sequenceNumber = questions.length + 1;
       const generated = generateForPattern(allocationEntry.patternSpecId, {
         seed: `${plan.generationSeed}:${allocationEntry.patternSpecId}:${familyIndex + 1}`,
-        sequenceNumber
+        sequenceNumber,
+        contextDomain: contextDomainForFamily(allocationEntry.patternSpecId, familyIndex)
       });
       if (!generated.ok || !generated.question) {
         errors.push(...(generated.errors ?? [issue("G3B_U04_SEM_GENERATION_EXHAUSTED", "generation", "Semantic generation failed.")]));
