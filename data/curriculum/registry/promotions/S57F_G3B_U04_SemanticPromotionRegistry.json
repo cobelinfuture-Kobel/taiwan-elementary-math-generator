@@ -71,18 +71,28 @@
     "productionUse": "allowed"
   },
   "activation": {
-    "status": "materialized_not_consumed",
-    "requiredNextGate": "S57F2_G3B_U04_VisibleSelectorRegistryProjection",
-    "publicProjectionChanged": false,
-    "selectorBehaviorChanged": false,
-    "productionEligibilityBehaviorChanged": false
+    "status": "production_promotion_accepted",
+    "acceptedByTask": "S57F7_G3B_U04_ProductionRegressionStressHTMLPDFPromotionCloseout",
+    "requiredNextGate": null,
+    "publicProjectionChanged": true,
+    "selectorBehaviorChanged": true,
+    "productionEligibilityBehaviorChanged": true,
+    "canonicalRouterChanged": true,
+    "canonicalWorksheetChanged": true,
+    "publicSelectorAndPrintQaAccepted": true,
+    "finalStressAccepted": true,
+    "finalHtmlPdfSmokeAccepted": true
   },
   "promotionEvidence": {
     "s57eFinalCloseout": "docs/curriculum/output/S57E_G3B_U04_SEMANTIC_RUNTIME_IMPLEMENTATION_FINAL_CLOSEOUT_PASS.marker",
     "s57e7r1UnitFlowFullFix": "docs/curriculum/output/S57E7R1_G3B_U04_UnitFlowRegressionFullFix_PASS.marker",
     "hiddenHtmlSmoke": "docs/curriculum/output/smoke/S57E8_G3B_U04_HiddenSemanticWorksheet.html",
     "hiddenPdfSmoke": "docs/curriculum/output/smoke/S57E8_G3B_U04_HiddenSemanticWorksheet.pdf",
-    "hiddenSmokeManifest": "docs/curriculum/output/smoke/S57E8_G3B_U04_HiddenSemanticWorksheet.manifest.json"
+    "hiddenSmokeManifest": "docs/curriculum/output/smoke/S57E8_G3B_U04_HiddenSemanticWorksheet.manifest.json",
+    "s57f6PublicSelectorPrintCloseout": "docs/curriculum/output/S57F6_G3B_U04_PUBLIC_SELECTOR_AND_PRINT_CONTROLS_QA_PASS.marker",
+    "publicHtmlSmoke": "docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.html",
+    "publicPdfSmoke": "docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.pdf",
+    "publicSmokeManifest": "docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.manifest.json"
   },
   "semanticAuthorityPolicy": {
     "semanticFieldsImmutable": true,

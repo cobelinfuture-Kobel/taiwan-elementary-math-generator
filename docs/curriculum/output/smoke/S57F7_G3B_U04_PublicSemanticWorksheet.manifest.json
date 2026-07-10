@@ -1,0 +1,42 @@
+{
+  "schemaName": "G3BU04PublicSemanticWorksheetSmokeManifest",
+  "schemaVersion": 1,
+  "task": "S57F7_G3B_U04_ProductionRegressionStressHTMLPDFPromotionCloseout",
+  "status": "public_html_pdf_smoke_pass",
+  "promotionRegistryId": "s57f_g3b_u04_semantic_promotion",
+  "promotionActivationStatus": "production_promotion_accepted",
+  "canonicalPublicPath": true,
+  "publicHiddenModeFlagUsed": false,
+  "routeKind": "g3b_u04_pure_semantic",
+  "questionCount": 64,
+  "answerKeyItemCount": 64,
+  "questionPageCount": 8,
+  "answerKeyPageCount": 8,
+  "expectedPdfPageCount": 16,
+  "actualPdfPageCount": 16,
+  "visibleKnowledgePointCount": 9,
+  "visibleSemanticPatternGroupCount": 9,
+  "templateFamilyCount": 32,
+  "familyContextVariantCount": 117,
+  "semanticValidationErrorCount": 0,
+  "internalIdLeakCount": 0,
+  "unresolvedPlaceholderCount": 0,
+  "rendererProfileId": "g3b_u04_semantic_long_text_v1",
+  "questionLayout": {
+    "columns": 2,
+    "rowsPerPage": 4
+  },
+  "answerKeyLayout": {
+    "columns": 1,
+    "rowsPerPage": 8
+  },
+  "longTextCardPolicy": "avoidSplit",
+  "pageBreakMode": "avoidLongTextCards",
+  "generationSeed": "s57f7-public-semantic-html-pdf-smoke",
+  "htmlSha256": "785ad9be729f1ed795bc31246526e82467974708d8a58a266a88ad017a9d70e0",
+  "pdfSha256": "59a82c27a451dd9e533a7ac487230b3aae909873954206ef4c98b93cbef3cd95",
+  "pdfBytes": 498883,
+  "renderedPageImageCount": 16,
+  "extractedEquationLabelCount": 64,
+  "extractedAnswerLabelCount": 64
+}

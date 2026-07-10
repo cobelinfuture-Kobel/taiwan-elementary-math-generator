@@ -42,11 +42,17 @@ export const G3B_U04_SEMANTIC_PROMOTION_LIFECYCLE = Object.freeze({
 });
 
 export const G3B_U04_SEMANTIC_PROMOTION_ACTIVATION = Object.freeze({
-  status: "materialized_not_consumed",
-  requiredNextGate: "S57F2_G3B_U04_VisibleSelectorRegistryProjection",
-  publicProjectionChanged: false,
-  selectorBehaviorChanged: false,
-  productionEligibilityBehaviorChanged: false
+  status: "production_promotion_accepted",
+  acceptedByTask: "S57F7_G3B_U04_ProductionRegressionStressHTMLPDFPromotionCloseout",
+  requiredNextGate: null,
+  publicProjectionChanged: true,
+  selectorBehaviorChanged: true,
+  productionEligibilityBehaviorChanged: true,
+  canonicalRouterChanged: true,
+  canonicalWorksheetChanged: true,
+  publicSelectorAndPrintQaAccepted: true,
+  finalStressAccepted: true,
+  finalHtmlPdfSmokeAccepted: true
 });
 
 const promotedPatternSpecIdSet = new Set(G3B_U04_PROMOTED_SEMANTIC_PATTERN_SPEC_IDS);
@@ -129,8 +135,13 @@ export function validateG3BU04SemanticPromotionProjection() {
   if (definitions.some((definition) => definition.sourceId !== G3B_U04_SOURCE_ID)) errors.push("source_membership_drift");
   if (definitions.some((definition) => definition.selectorStatus !== "hidden")) errors.push("semantic_authority_selector_mutated");
   if (definitions.some((definition) => definition.productionUse !== "forbidden")) errors.push("semantic_authority_production_mutated");
-  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.status !== "materialized_not_consumed") errors.push("premature_activation");
-  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.publicProjectionChanged !== false) errors.push("public_projection_changed");
+  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.status !== "production_promotion_accepted") errors.push("promotion_not_accepted");
+  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.requiredNextGate !== null) errors.push("unexpected_next_gate");
+  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.publicProjectionChanged !== true) errors.push("public_projection_not_active");
+  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.selectorBehaviorChanged !== true) errors.push("selector_not_active");
+  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.productionEligibilityBehaviorChanged !== true) errors.push("production_eligibility_not_active");
+  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.finalStressAccepted !== true) errors.push("stress_not_accepted");
+  if (G3B_U04_SEMANTIC_PROMOTION_ACTIVATION.finalHtmlPdfSmokeAccepted !== true) errors.push("html_pdf_smoke_not_accepted");
 
   return Object.freeze({
     ok: errors.length === 0,
