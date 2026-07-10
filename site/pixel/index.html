@@ -34,7 +34,7 @@
       <div class="pixel-status-chip">共用 Registry</div>
       <div class="pixel-status-chip">共用 Config State</div>
       <div class="pixel-status-chip">共用 Generator / Validator</div>
-      <div class="pixel-status-chip pixel-status-chip--muted">Live Preview：已接入</div>
+      <div class="pixel-status-chip pixel-status-chip--muted">Preview / Print：已接入</div>
     </section>
 
     <section class="pixel-layout" aria-label="Pixel UI scaffold">
@@ -124,17 +124,17 @@
         <div class="pixel-workbench" aria-label="工作台狀態">
           <div class="pixel-workbench__card">
             <strong>目前階段</strong>
-            <span>S46C Live Worksheet Preview</span>
+            <span>S46D 答案頁與列印控制</span>
           </div>
           <div class="pixel-workbench__card">
             <strong>下一階段</strong>
-            <span>S46D 答案頁與列印控制</span>
+            <span>S47 HTML 輸出與列印 QA</span>
           </div>
         </div>
         <button id="pixel-generate-button" class="pixel-button pixel-button--primary" type="button">產生考卷</button>
         <div class="pixel-generation-status" id="pixel-generation-status" data-status="idle" aria-live="polite">尚未產生考卷。</div>
         <ul class="pixel-generation-errors" id="pixel-generation-errors" aria-live="assertive"></ul>
-        <p class="pixel-help">產生成功後，右側 iframe 會使用共用 HTML renderer 顯示真正題目卷；答案頁是否包含由上方設定控制。</p>
+        <p class="pixel-help">答案頁由「包含答案頁」控制；重新產生後，右側會顯示正確輸出內容並開放列印。</p>
       </section>
 
       <aside class="pixel-panel pixel-panel--preview" aria-label="題目卷即時預覽">
@@ -147,6 +147,10 @@
         <div class="pixel-preview-frame-wrap" id="pixel-preview-frame-wrap" data-status="empty">
           <iframe id="pixel-preview-frame" class="pixel-preview-frame" title="數學題目卷預覽"></iframe>
         </div>
+        <section class="pixel-output-controls" aria-label="答案頁與列印控制">
+          <div class="pixel-output-summary" id="pixel-output-summary" data-status="empty" aria-live="polite">尚無可列印的考卷。</div>
+          <button id="pixel-print-button" class="pixel-button pixel-button--print" type="button" disabled>請先產生考卷</button>
+        </section>
         <div class="pixel-mascot" aria-hidden="true">
           <span class="pixel-mascot__face">◕‿◕</span>
           <span class="pixel-mascot__label">小幫手</span>
@@ -157,5 +161,6 @@
 
   <script type="module" src="./pixel-ui.js"></script>
   <script type="module" src="./pixel-live-preview.js"></script>
+  <script type="module" src="./pixel-print-surface.js"></script>
 </body>
 </html>
