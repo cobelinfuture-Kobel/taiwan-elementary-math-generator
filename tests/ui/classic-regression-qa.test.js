@@ -105,7 +105,8 @@ test("Classic source-unit generation remains valid for every public Batch A sour
 
     const result = buildWorksheetDocumentFromState(state);
     assert.equal(result.ok, true, `${unit.sourceId}: ${JSON.stringify(result.errors ?? [])}`);
-    assert.equal(result.stage, "complete", unit.sourceId);
+    assert.ok(result.worksheetDocument, `${unit.sourceId}: missing worksheetDocument`);
+    assert.equal(result.worksheetDocument.schemaVersion, "worksheet-document-v1", unit.sourceId);
     assert.equal(result.validation.ok, true, unit.sourceId);
     assert.equal(result.worksheetDocument.batchA.sourceId, unit.sourceId);
     assert.equal(result.worksheetDocument.generatedQuestions.length, 4, unit.sourceId);
