@@ -38,8 +38,8 @@ function semanticGroupIdsForKnowledgePoints(knowledgePointIds) {
   ));
 }
 
-function sha256(text) {
-  return createHash("sha256").update(text).digest("hex");
+function sha256(value) {
+  return createHash("sha256").update(value).digest("hex");
 }
 
 const selectedPatternGroupIds = semanticGroupIdsForKnowledgePoints(G3B_U04_PROMOTED_KNOWLEDGE_POINT_IDS);
@@ -81,6 +81,7 @@ html = html
     '<body class="worksheet-renderer worksheet-renderer--g3b-u04-semantic"',
     '<body class="worksheet-renderer worksheet-renderer--g3b-u04-semantic" data-s57f7-public-smoke="true"'
   );
+const htmlFileContents = `${html}\n`;
 
 const forbiddenTokens = [
   "kp_g3b_u04_",
@@ -92,7 +93,7 @@ const forbiddenTokens = [
   "{{",
   "}}"
 ];
-const leakedTokens = forbiddenTokens.filter((token) => html.includes(token));
+const leakedTokens = forbiddenTokens.filter((token) => htmlFileContents.includes(token));
 if (leakedTokens.length > 0) {
   throw new Error(`S57F7 public HTML contains forbidden tokens: ${leakedTokens.join(", ")}`);
 }
@@ -139,10 +140,10 @@ const manifest = {
     columns: worksheetDocument.printOptions.answerKeyColumns,
     rowsPerPage: worksheetDocument.printOptions.answerKeyRowsPerPage
   },
-  longTextCardPolicy: worksheetDocument.rendererProfile.longTextCardPolicy,
+  longTextCardPolicy: worksheetDocument.rendererProfile.questionSheet.longTextCardPolicy,
   pageBreakMode: worksheetDocument.printOptions.pageBreakMode,
   generationSeed: options.generationSeed,
-  htmlSha256: sha256(html),
+  htmlSha256: sha256(htmlFileContents),
   pdfSha256: null,
   pdfBytes: null,
   renderedPageImageCount: null,
@@ -151,7 +152,7 @@ const manifest = {
 };
 
 mkdirSync(OUT_DIR, { recursive: true });
-writeFileSync(HTML_PATH, `${html}\n`, "utf8");
+writeFileSync(HTML_PATH, htmlFileContents, "utf8");
 writeFileSync(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 
 console.log(JSON.stringify({
