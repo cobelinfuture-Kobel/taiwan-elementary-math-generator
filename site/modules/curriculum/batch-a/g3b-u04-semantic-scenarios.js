@@ -295,6 +295,7 @@ export function resolveG3BU04SemanticScenarioProfile(templateFamilyId, contextDo
   const quantityBounds = bindQuantityRoles(scenario);
   const placeholderBindings = bindPlaceholders(scenario, domain);
   return deepFreeze({
+    scenarioProfileId: scenario.scenarioProfileId,
     scenarioId: `${scenario.scenarioProfileId}__${contextDomain}`,
     sourceId: SOURCE_ID,
     unitCode: UNIT_CODE,
