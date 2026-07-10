@@ -1,0 +1,263 @@
+{
+  "schemaName": "G3BU04SemanticValidationContract",
+  "schemaVersion": 1,
+  "task": "S57_G3B_U04_KPAndSemanticTemplateContract",
+  "sourceId": "g3b_u04_3b04",
+  "unitCode": "3B-U04",
+  "contractStatus": "blocking_contract_approved_not_runtime_implemented",
+  "validationPolicy": {
+    "semanticErrorsAreBlocking": true,
+    "styleWarningsMayPass": true,
+    "questionPromotionRequires": [
+      "all_blocking_semantic_checks_pass",
+      "deterministic_answer_reconstruction_pass",
+      "template_family_registered",
+      "knowledge_point_mapping_registered",
+      "human_readable_smoke_sample_pass"
+    ],
+    "forbiddenFallbacks": [
+      "silently_change_equation_to_match_prompt",
+      "silently_change_prompt_to_match_numbers",
+      "downgrade_semantic_error_to_warning",
+      "accept_by_numeric_answer_only",
+      "accept_implausible_real_world_quantity_because_arithmetic_is_valid"
+    ]
+  },
+  "validationStages": [
+    {
+      "stage": "structure",
+      "checks": ["registered_template_family", "registered_knowledge_point", "equation_shape_matches_knowledge_point"]
+    },
+    {
+      "stage": "role_binding",
+      "checks": ["all_quantity_roles_bound_once", "unknown_role_matches_question", "actor_ownership_consistent"]
+    },
+    {
+      "stage": "arithmetic",
+      "checks": ["positive_integer_inputs", "exact_division", "non_negative_answer", "intermediate_and_final_range"]
+    },
+    {
+      "stage": "unit_flow",
+      "checks": ["operation_units_compatible", "answer_unit_matches_unknown_role", "count_nouns_match_objects"]
+    },
+    {
+      "stage": "event_semantics",
+      "checks": ["event_order_matches_equation", "conservation_relationship_holds", "comparison_direction_consistent"]
+    },
+    {
+      "stage": "realism",
+      "checks": ["quantity_plausibility", "promotion_plausibility", "age_plausibility", "container_and_package_plausibility"]
+    },
+    {
+      "stage": "language_readback",
+      "checks": ["prompt_has_single_unambiguous_question", "referents_unambiguous", "no_contradictory_wording"]
+    },
+    {
+      "stage": "answer_reconstruction",
+      "checks": ["rebuild_equation_from_semantic_roles", "recomputed_answer_equals_answer_model"]
+    }
+  ],
+  "blockingErrorCodes": [
+    {
+      "code": "G3B_U04_SEM_TEMPLATE_UNREGISTERED",
+      "condition": "templateFamilyId is absent from the approved registry",
+      "message": "Question uses an unregistered semantic template family."
+    },
+    {
+      "code": "G3B_U04_SEM_KP_UNREGISTERED",
+      "condition": "knowledgePointId is absent from the nine approved knowledge points",
+      "message": "Question maps to an unregistered G3B-U04 knowledge point."
+    },
+    {
+      "code": "G3B_U04_SEM_EQUATION_SHAPE_MISMATCH",
+      "condition": "generated expression does not match the equationShape for its knowledge point and template family",
+      "message": "Prompt, template, and equation structure do not agree."
+    },
+    {
+      "code": "G3B_U04_SEM_UNKNOWN_ROLE_MISMATCH",
+      "condition": "the question asks for a different semantic quantity than answerModel.unknownRole",
+      "message": "The generated answer solves a different unknown than the prompt asks for."
+    },
+    {
+      "code": "G3B_U04_SEM_QUANTITY_ROLE_MISSING",
+      "condition": "a required semantic quantity role is missing or bound more than once inconsistently",
+      "message": "A required quantity role is missing or ambiguous."
+    },
+    {
+      "code": "G3B_U04_SEM_ACTOR_OWNERSHIP_MISMATCH",
+      "condition": "money, items, points, or personal share is attributed to the wrong actor or scope",
+      "message": "Ownership or participant scope is inconsistent."
+    },
+    {
+      "code": "G3B_U04_SEM_EVENT_ORDER_MISMATCH",
+      "condition": "narrative order does not match the operation order required by the template",
+      "message": "The story event order conflicts with the required two-step calculation."
+    },
+    {
+      "code": "G3B_U04_SEM_UNIT_FLOW_MISMATCH",
+      "condition": "addition or subtraction combines incompatible units, or division result cannot participate in the next operation",
+      "message": "Units do not flow consistently through the two operations."
+    },
+    {
+      "code": "G3B_U04_SEM_ANSWER_UNIT_MISMATCH",
+      "condition": "answer unit does not match unknownRole",
+      "message": "Answer unit does not match the quantity requested."
+    },
+    {
+      "code": "G3B_U04_SEM_COUNT_NOUN_MISMATCH",
+      "condition": "classifier or count noun does not match the object or packaging level",
+      "message": "Object classifier or grouping unit is inconsistent."
+    },
+    {
+      "code": "G3B_U04_SEM_DIVISION_NOT_EXACT",
+      "condition": "a division step has a non-zero remainder in the approved exact-division scope",
+      "message": "Division must be exact for the current G3B-U04 scope."
+    },
+    {
+      "code": "G3B_U04_SEM_NON_POSITIVE_OR_NEGATIVE_RESULT",
+      "condition": "input is non-positive or an intermediate/final result is negative or zero where the story requires a positive quantity",
+      "message": "Generated quantities violate positive real-world quantity constraints."
+    },
+    {
+      "code": "G3B_U04_SEM_RANGE_EXCEEDED",
+      "condition": "an intermediate or final value exceeds the approved unit range",
+      "message": "Generated arithmetic exceeds the approved G3B-U04 range."
+    },
+    {
+      "code": "G3B_U04_SEM_PROMOTION_INCONSISTENT",
+      "condition": "received count is not greater than paid count, paid total is wrong, or promotion wording conflicts with quantities",
+      "message": "Promotion payment and received-item semantics are inconsistent."
+    },
+    {
+      "code": "G3B_U04_SEM_CONSERVATION_MISMATCH",
+      "condition": "sold plus remaining, used plus remaining, or distributed plus reserved does not reconstruct the original total",
+      "message": "The story violates quantity conservation."
+    },
+    {
+      "code": "G3B_U04_SEM_COMPARISON_DIRECTION_MISMATCH",
+      "condition": "A is B's multiple is reversed or the composed relationship points in the wrong direction",
+      "message": "Multiplicative comparison direction is reversed or inconsistent."
+    },
+    {
+      "code": "G3B_U04_SEM_TIME_PERIOD_MISMATCH",
+      "condition": "production or rate quantities being compared use different unstated time periods",
+      "message": "Compared production quantities must refer to the same time period."
+    },
+    {
+      "code": "G3B_U04_SEM_AGE_IMPLAUSIBLE",
+      "condition": "generated child, sibling, or parent age falls outside the approved plausibility ranges or family ordering",
+      "message": "Generated family ages are not plausible."
+    },
+    {
+      "code": "G3B_U04_SEM_PACKAGE_QUANTITY_IMPLAUSIBLE",
+      "condition": "items per package, container capacity, or grouping level is implausible for the chosen object",
+      "message": "Package or container quantity is not realistic for the chosen context."
+    },
+    {
+      "code": "G3B_U04_SEM_CONTEXT_OBJECT_INCOMPATIBLE",
+      "condition": "object cannot reasonably be divided, packaged, stacked, sold, or measured as described",
+      "message": "Selected object is incompatible with the template action."
+    },
+    {
+      "code": "G3B_U04_SEM_AMBIGUOUS_REFERENT",
+      "condition": "a pronoun, participant group, quantity, or object reference has more than one possible interpretation",
+      "message": "Prompt contains an ambiguous referent."
+    },
+    {
+      "code": "G3B_U04_SEM_MULTIPLE_QUESTIONS_OR_UNKNOWNS",
+      "condition": "prompt asks more than one independent question or leaves the target unknown unclear",
+      "message": "Prompt must ask one unambiguous target question."
+    },
+    {
+      "code": "G3B_U04_SEM_ANSWER_RECONSTRUCTION_FAILED",
+      "condition": "equation rebuilt from semantic roles does not equal the stored expression or computed answer",
+      "message": "Deterministic semantic answer reconstruction failed."
+    },
+    {
+      "code": "G3B_U04_SEM_DUPLICATE_SIGNATURE",
+      "condition": "a claimed new template family differs only by names, nouns, numbers, or surface wording",
+      "message": "Candidate is a wording variant, not a distinct semantic template family."
+    },
+    {
+      "code": "G3B_U04_SEM_SOURCE_LABEL_MISMATCH_UNRESOLVED",
+      "condition": "source field p1_r2_r is mapped as addition-then-division despite its multiplication-then-division equation",
+      "message": "Known source heading mismatch must not contaminate knowledge-point mapping."
+    }
+  ],
+  "warningCodes": [
+    {
+      "code": "G3B_U04_STYLE_REPETITIVE_WORDING",
+      "condition": "wording is semantically valid but repeats a recent prompt frame",
+      "message": "Increase language variation without changing semantic family."
+    },
+    {
+      "code": "G3B_U04_STYLE_CONTEXT_IMBALANCE",
+      "condition": "a worksheet overuses one context domain",
+      "message": "Balance school, home, shopping, food, sports, and inventory contexts."
+    },
+    {
+      "code": "G3B_U04_STYLE_LONG_SENTENCE",
+      "condition": "prompt is correct but longer than the configured readability preference",
+      "message": "Consider a shorter sentence while preserving all semantic roles."
+    }
+  ],
+  "knowledgePointInvariants": {
+    "kp_g3b_u04_add_then_divide": ["a>0", "b>0", "c>=2", "(a+b)%c=0", "answer=(a+b)/c"],
+    "kp_g3b_u04_multiply_then_divide_average_unit_price": ["p>0", "q>0", "r>q", "(p*q)%r=0", "answer=(p*q)/r"],
+    "kp_g3b_u04_subtract_then_divide": ["a>b", "b>=0", "c>=2", "(a-b)%c=0", "answer=(a-b)/c"],
+    "kp_g3b_u04_divide_then_add": ["a>0", "b>=2", "a%b=0", "c>0", "answer=a/b+c"],
+    "kp_g3b_u04_total_minus_shared_amount": ["a>0", "b>0", "c>=2", "b%c=0", "a>b/c", "answer=a-b/c"],
+    "kp_g3b_u04_group_total_minus_remaining": ["a>0", "b>=2", "a%b=0", "c>=0", "a/b>c", "answer=a/b-c"],
+    "kp_g3b_u04_consecutive_multiplication": ["a>0", "b>0", "c>0", "a*b*c<=10000", "answer=a*b*c"],
+    "kp_g3b_u04_composite_multiplicative_ratio": ["m>=2", "m<=9", "n>=2", "n<=9", "answer=m*n", "answerUnit=倍"],
+    "kp_g3b_u04_multiplicative_quantity_chain": ["a>0", "m>=2", "m<=9", "n>=2", "n<=9", "a*m*n<=10000", "answer=a*m*n"]
+  },
+  "realismProfiles": {
+    "age": {
+      "baseChildAge": {"min": 6, "max": 12},
+      "siblingAge": {"min": 10, "max": 24},
+      "parentAge": {"min": 25, "max": 60},
+      "ordering": "baseChildAge<siblingAge<parentAge"
+    },
+    "promotion": {
+      "minimumPaidItems": 1,
+      "minimumBonusItems": 1,
+      "maximumReceivedItems": 20,
+      "averagePriceMustNotExceedUnitPrice": true
+    },
+    "packages": {
+      "itemsPerPackageMin": 2,
+      "itemsPerPackageMax": 50,
+      "packageClassifierMustMatchObject": true
+    },
+    "liquidContainers": {
+      "allowedUnits": ["毫升", "公升"],
+      "sameSubstanceBeforeCombining": true,
+      "positiveCapacityPerContainer": true
+    }
+  },
+  "requiredQuestionSemanticSnapshot": {
+    "fields": [
+      "sourceId",
+      "knowledgePointId",
+      "templateFamilyId",
+      "semanticSignature",
+      "equationShape",
+      "quantityRoleBindings",
+      "eventSequence",
+      "unknownRole",
+      "answerUnit",
+      "contextDomain",
+      "realismProfile",
+      "validationCodes"
+    ]
+  },
+  "summary": {
+    "blockingErrorCodeCount": 25,
+    "warningCodeCount": 3,
+    "validationStageCount": 8,
+    "semanticErrorsAreBlocking": true,
+    "runtimeValidatorImplemented": false,
+    "browserProjectionChanged": false
+  }
+}
