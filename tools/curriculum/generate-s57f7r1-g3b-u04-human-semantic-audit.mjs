@@ -15,6 +15,10 @@ import {
 import {
   validateG3BU04SemanticQuestion
 } from "../../site/modules/curriculum/batch-a/g3b-u04-semantic-validator-unit-flow-fullfix.js";
+import {
+  applyG3BU04HumanSemanticReadbackFullFix,
+  validateG3BU04HumanSemanticReadback
+} from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-fullfix.js";
 
 const OUT_PATH = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -42,7 +46,9 @@ for (const definition of listG3BU04SemanticPatternDefinitions()) {
     if (!generated.ok || !generated.question) {
       throw new Error(`${definition.patternSpecId}/${contextDomain}: ${JSON.stringify(generated.errors)}`);
     }
-    const validation = validateG3BU04SemanticQuestion(generated.question);
+    const question = applyG3BU04HumanSemanticReadbackFullFix(generated.question);
+    const semanticValidation = validateG3BU04SemanticQuestion(question);
+    const readbackValidation = validateG3BU04HumanSemanticReadback(question);
     rows.push({
       sequenceNumber,
       patternSpecId: definition.patternSpecId,
@@ -51,30 +57,33 @@ for (const definition of listG3BU04SemanticPatternDefinitions()) {
       semanticSignature: definition.semanticSignature,
       equationShape: definition.equationShape,
       contextDomain,
-      promptText: generated.question.promptText,
-      equationModel: generated.question.equationModel,
-      answerText: generated.question.answerText,
-      answerUnit: generated.question.answerUnit,
-      ownershipModel: generated.question.ownershipModel,
-      relationshipDirection: generated.question.relationshipDirection ?? null,
-      timePeriodModel: generated.question.timePeriodModel ?? null,
-      countNounModel: generated.question.countNounModel ?? null,
-      validatorOk: validation.ok,
-      validatorErrors: validation.errors,
-      validatorWarnings: validation.warnings
+      promptText: question.promptText,
+      equationModel: question.equationModel,
+      answerText: question.answerText,
+      answerUnit: question.answerUnit,
+      ownershipModel: question.ownershipModel,
+      relationshipDirection: question.relationshipDirection ?? null,
+      timePeriodModel: question.timePeriodModel ?? null,
+      countNounModel: question.countNounModel ?? null,
+      semanticValidatorOk: semanticValidation.ok,
+      semanticValidatorErrors: semanticValidation.errors,
+      readbackValidatorOk: readbackValidation.ok,
+      readbackValidatorErrors: readbackValidation.errors,
+      validatorWarnings: [...(semanticValidation.warnings ?? []), ...(readbackValidation.warnings ?? [])]
     });
   }
 }
 
 const report = {
   schemaName: "G3BU04HumanSemanticAudit",
-  schemaVersion: 1,
+  schemaVersion: 2,
   task: "S57F7R1_G3B_U04_HumanSemanticReadbackQA_FullFix",
   sourceId: "g3b_u04_3b04",
   generatedAt: null,
   familyCount: new Set(rows.map((row) => row.patternSpecId)).size,
   familyContextVariantCount: rows.length,
-  validatorFailureCount: rows.filter((row) => !row.validatorOk).length,
+  semanticValidatorFailureCount: rows.filter((row) => !row.semanticValidatorOk).length,
+  readbackValidatorFailureCount: rows.filter((row) => !row.readbackValidatorOk).length,
   rows
 };
 
@@ -84,5 +93,6 @@ console.log(JSON.stringify({
   outputPath: OUT_PATH,
   familyCount: report.familyCount,
   familyContextVariantCount: report.familyContextVariantCount,
-  validatorFailureCount: report.validatorFailureCount
+  semanticValidatorFailureCount: report.semanticValidatorFailureCount,
+  readbackValidatorFailureCount: report.readbackValidatorFailureCount
 }, null, 2));
