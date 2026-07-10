@@ -12,7 +12,7 @@ test("Pixel public page enables generate button and exposes generation status re
   assert.match(html, /id="pixel-generation-status"/);
   assert.match(html, /id="pixel-generation-errors"/);
   assert.match(html, /共用 Generator \/ Validator/);
-  assert.match(html, /Live Preview：已接入/);
+  assert.match(html, /Preview \/ Print：已接入/);
 });
 
 test("Pixel UI imports controller and binds generate button to shared execution", async () => {
