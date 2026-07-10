@@ -35,19 +35,10 @@ jobs:
           from pathlib import Path
           path = Path('site/assets/styles/print-styles.css')
           text = path.read_text(encoding='utf-8')
-          old = '''  .worksheet-page {
-            width: var(--worksheet-page-width);
-            min-height: var(--worksheet-page-min-height);
-            margin: 0;'''
-          new = '''  .worksheet-page {
-            width: var(--worksheet-page-width);
-            height: 296mm;
-            min-height: 296mm;
-            max-height: 296mm;
-            overflow: hidden;
-            margin: 0;'''
+          old = 'width: var(--worksheet-page-width);\n    min-height: var(--worksheet-page-min-height);\n    margin: 0;'
+          new = 'width: var(--worksheet-page-width);\n    height: 296mm;\n    min-height: 296mm;\n    max-height: 296mm;\n    overflow: hidden;\n    margin: 0;'
           if text.count(old) != 1:
-              raise SystemExit('Expected print worksheet-page rule not found exactly once')
+              raise SystemExit(f'Expected print worksheet-page sequence count=1, actual={text.count(old)}')
           path.write_text(text.replace(old, new), encoding='utf-8')
           PY
           git diff --check
@@ -56,7 +47,7 @@ jobs:
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+users.noreply.github.com"
           git add site/assets/styles/print-styles.css
           git rm .github/workflows/s57f7r1-print-page-height-fullfix.yml
           git commit -m "fix(print): add A4 rounding safety height"
