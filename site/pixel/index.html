@@ -21,7 +21,7 @@
       <div class="pixel-hero__content">
         <p class="pixel-eyebrow">Pixel UI Beta｜Parallel version</p>
         <h1>小學數學出題小屋</h1>
-        <p class="pixel-lede">這是平行測試版：保留標準版功能，同時建立像素風介面。出題核心共用現有 Batch A generator / validator / renderer。</p>
+        <p class="pixel-lede">保留標準版功能，並共用目前的單元、知識點、題目形式、出題、驗證與列印流程。</p>
         <nav class="pixel-version-nav" aria-label="版本切換">
           <a href="../index.html">回到標準版</a>
           <span class="pixel-badge">/pixel/ beta</span>
@@ -31,10 +31,10 @@
     </header>
 
     <section class="pixel-status-row" aria-label="版本狀態">
-      <div class="pixel-status-chip">共用 Registry</div>
-      <div class="pixel-status-chip">共用 Config State</div>
-      <div class="pixel-status-chip">共用 Generator / Validator</div>
-      <div class="pixel-status-chip pixel-status-chip--muted">Preview / Print：已接入</div>
+      <div class="pixel-status-chip">共用知識點資料</div>
+      <div class="pixel-status-chip">共用設定狀態</div>
+      <div class="pixel-status-chip">共用出題與驗證</div>
+      <div class="pixel-status-chip pixel-status-chip--muted">預覽與列印：已接入</div>
     </section>
 
     <section class="pixel-beta-notice" aria-labelledby="pixel-beta-notice-title">
@@ -49,8 +49,9 @@
         <div class="pixel-beta-card pixel-beta-card--available">
           <h3>目前可用</h3>
           <ul>
-            <li>使用目前公開的 Batch A 單元與通過 QA 的知識點。</li>
+            <li>使用目前公開的 Batch A 單元與通過驗證的知識點。</li>
             <li>支援單元出題、單一知識點與同單元知識點混合。</li>
+            <li>知識點有多種題目形式時，可選擇計算題、應用題或兩者混合。</li>
             <li>支援題數、排序、答案頁、版面設定、HTML 預覽與列印。</li>
           </ul>
         </div>
@@ -58,9 +59,9 @@
           <h3>已知限制</h3>
           <ul>
             <li>跨單元知識點混合尚未開放。</li>
-            <li>尚未通過 QA、隱藏或未發布的知識點不會出現在選單。</li>
+            <li>尚未通過驗證、隱藏或未發布的知識點不會出現在選單。</li>
             <li>重新整理頁面後不保留設定、考卷或學生作答紀錄。</li>
-            <li>未列入目前公開 Registry 的單元與題型無法由 Pixel UI 選取。</li>
+            <li>未列入目前公開資料的單元與題型無法由 Pixel UI 選取。</li>
           </ul>
         </div>
       </div>
@@ -87,7 +88,7 @@
           <span>單元</span>
           <select id="pixel-source-select" name="pixelSourceId"></select>
         </label>
-        <p class="pixel-help" id="pixel-source-summary">正在讀取 Batch A source units...</p>
+        <p class="pixel-help" id="pixel-source-summary">正在讀取可用單元...</p>
         <div class="pixel-stat-card">
           <span>可選知識點</span>
           <strong id="pixel-kp-count">0</strong>
@@ -106,6 +107,16 @@
           <p class="pixel-help" id="pixel-kp-empty-state">正在讀取可選知識點...</p>
           <div class="pixel-kp-availability" id="pixel-kp-availability-summary" aria-live="polite"></div>
           <div class="pixel-kp-panel" id="pixel-kp-panel" aria-live="polite"></div>
+
+          <section class="pixel-pattern-group-selector" id="pixel-pattern-group-selector" data-visible="false" aria-label="題目形式選擇">
+            <div class="pixel-subheading-row">
+              <span class="pixel-icon pixel-icon--small" aria-hidden="true">▦</span>
+              <h3>題目形式</h3>
+            </div>
+            <p class="pixel-help" id="pixel-pattern-group-help">切換到知識點模式後，可選擇計算題或應用題。</p>
+            <div class="pixel-pattern-group-panel" id="pixel-pattern-group-panel" aria-live="polite"></div>
+          </section>
+
           <ul class="pixel-warning-list" id="pixel-kp-warning-list" aria-live="polite"></ul>
         </section>
 
@@ -150,21 +161,21 @@
             <span>包含答案頁</span>
           </label>
         </div>
-        <div class="pixel-plan-summary" id="pixel-plan-summary" aria-live="polite">正在建立 worksheet plan...</div>
+        <div class="pixel-plan-summary" id="pixel-plan-summary" aria-live="polite">正在建立考卷設定...</div>
         <div class="pixel-workbench" aria-label="工作台狀態">
           <div class="pixel-workbench__card">
             <strong>目前階段</strong>
-            <span>S48B Beta 標示與已知限制</span>
+            <span>公開選擇、預覽與列印驗證</span>
           </div>
           <div class="pixel-workbench__card">
-            <strong>下一階段</strong>
-            <span>S49 Pixel 全功能 QA</span>
+            <strong>輸出路徑</strong>
+            <span>共用正式考卷與答案頁</span>
           </div>
         </div>
         <button id="pixel-generate-button" class="pixel-button pixel-button--primary" type="button">產生考卷</button>
         <div class="pixel-generation-status" id="pixel-generation-status" data-status="idle" aria-live="polite">尚未產生考卷。</div>
         <ul class="pixel-generation-errors" id="pixel-generation-errors" aria-live="assertive"></ul>
-        <p class="pixel-help">答案頁由「包含答案頁」控制；重新產生後，右側會顯示正確輸出內容並開放列印。</p>
+        <p class="pixel-help">答案頁由「包含答案頁」控制；設定變更後，請重新產生再列印。</p>
       </section>
 
       <aside class="pixel-panel pixel-panel--preview" aria-label="題目卷即時預覽">
