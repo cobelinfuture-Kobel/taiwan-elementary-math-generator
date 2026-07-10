@@ -11,6 +11,13 @@ on:
       - tests/curriculum/g3b-u04-semantic-promotion.test.js
       - tests/curriculum/g3b-u04-production-regression-stress-html-pdf-closeout.test.js
       - .github/workflows/s57f7-g3b-u04-public-html-pdf-smoke.yml
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
   workflow_dispatch:
 
 permissions:
@@ -18,6 +25,7 @@ permissions:
 
 jobs:
   generate-verify-commit:
+    if: github.event_name != 'pull_request' || github.head_ref == 's57f7-g3b-u04-production-closeout'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -90,7 +98,6 @@ jobs:
           set -euo pipefail
           HTML="docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.html"
           PDF="docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.pdf"
-          MANIFEST="docs/curriculum/output/smoke/S57F7_G3B_U04_PublicSemanticWorksheet.manifest.json"
           html_sha="$(sha256sum "$HTML" | awk '{print $1}')"
           pdf_sha="$(sha256sum "$PDF" | awk '{print $1}')"
           HTML_SHA="$html_sha" PDF_SHA="$pdf_sha" node <<'NODE'
