@@ -50,10 +50,11 @@ export const G3B_U04_RESOLVER_BROWSER_STATE_INTEGRATION = Object.freeze({
   requiredNextGate: "S57F4_G3B_U04_CanonicalRouterAndHybridIntegration"
 });
 
+const G3B_U04_SOURCE_ID = "g3b_u04_3b04";
 const VALID_SELECTION_MODES = Object.freeze(Object.values(BATCH_A_RESOLVER_SELECTION_MODES));
 const MULTISPEC_ALLOCATION_SOURCE_IDS = Object.freeze(new Set([
   "g3a_u01_3a01",
-  "g3b_u04_3b04",
+  G3B_U04_SOURCE_ID,
   "g4a_u08_4a08"
 ]));
 
@@ -126,7 +127,7 @@ function baseResolverPlan(input, selectionMode) {
     provenance: {
       resolver: "visiblePatternGroupResolver",
       sourceId: input?.sourceId ?? null,
-      allocationStrategy: "balanced_by_group_then_family",
+      allocationStrategy: "legacy_flat_by_pattern",
       publicHiddenModeFlagUsed: false
     },
     errors: [],
@@ -149,8 +150,7 @@ function ok(plan) {
 }
 
 function shouldExpandGroupPatternSpecs(group) {
-  return group.allocationPolicy === "balanced_by_family"
-    || MULTISPEC_ALLOCATION_SOURCE_IDS.has(group.sourceId);
+  return MULTISPEC_ALLOCATION_SOURCE_IDS.has(group.sourceId);
 }
 
 function allocateItemCounts(items, totalCount) {
@@ -164,7 +164,35 @@ function allocateItemCounts(items, totalCount) {
   });
 }
 
-function allocateEvenly({ patternGroups, patternSpecIdsByGroup, questionCount }) {
+function buildAllocationCandidates(patternGroups, patternSpecIdsByGroup) {
+  const candidates = [];
+  for (const group of patternGroups) {
+    const specIds = patternSpecIdsByGroup.get(group.patternGroupId) ?? [];
+    const selectedSpecIds = shouldExpandGroupPatternSpecs(group) ? specIds : specIds.slice(0, 1);
+    for (const patternSpecId of selectedSpecIds) {
+      candidates.push({ patternGroupId: group.patternGroupId, patternSpecId });
+    }
+  }
+  return candidates;
+}
+
+function allocateFlatEvenly({ patternGroups, patternSpecIdsByGroup, questionCount }) {
+  const candidates = buildAllocationCandidates(patternGroups, patternSpecIdsByGroup);
+  if (candidates.length === 0) return [];
+  const base = Math.floor(questionCount / candidates.length);
+  let remainder = questionCount % candidates.length;
+  return candidates.map((candidate) => {
+    const count = base + (remainder > 0 ? 1 : 0);
+    remainder -= remainder > 0 ? 1 : 0;
+    return {
+      patternGroupId: candidate.patternGroupId,
+      patternSpecId: candidate.patternSpecId,
+      questionCount: count
+    };
+  }).filter((entry) => entry.questionCount > 0);
+}
+
+function allocateByGroupThenFamily({ patternGroups, patternSpecIdsByGroup, questionCount }) {
   const allocation = [];
   const groupAllocations = allocateItemCounts(patternGroups, questionCount);
   for (const { item: group, questionCount: groupQuestionCount } of groupAllocations) {
@@ -181,6 +209,14 @@ function allocateEvenly({ patternGroups, patternSpecIdsByGroup, questionCount })
     }
   }
   return allocation;
+}
+
+function allocateEvenly({ patternGroups, patternSpecIdsByGroup, questionCount }) {
+  const isG3BU04Selection = patternGroups.length > 0
+    && patternGroups.every((group) => group.sourceId === G3B_U04_SOURCE_ID);
+  return isG3BU04Selection
+    ? allocateByGroupThenFamily({ patternGroups, patternSpecIdsByGroup, questionCount })
+    : allocateFlatEvenly({ patternGroups, patternSpecIdsByGroup, questionCount });
 }
 
 function allVisiblePatternGroupIds(registry) {
@@ -310,6 +346,9 @@ export function resolveVisiblePatternGroupSelection(input = {}, options = {}) {
   plan.knowledgePointIds = [...requestedKnowledgePointIds].sort();
   plan.patternGroupIds = patternGroups.map((group) => group.patternGroupId).sort();
   plan.patternSpecIds = [...new Set([...patternSpecIdsByGroup.values()].flat())].sort();
+  plan.provenance.allocationStrategy = sourceIds.length === 1 && sourceIds[0] === G3B_U04_SOURCE_ID
+    ? "balanced_by_group_then_family"
+    : "legacy_flat_by_pattern";
   plan.allocation = allocateEvenly({
     patternGroups,
     patternSpecIdsByGroup,
