@@ -1,0 +1,135 @@
+name: S57F7R1 G3B-U04 Public HTML PDF Smoke
+
+on:
+  push:
+    branches:
+      - s57f7r1-g3b-u04-human-semantic-readback-fullfix
+    paths:
+      - tools/curriculum/generate-s57f7r1-g3b-u04-public-smoke.mjs
+      - .github/workflows/s57f7r1-g3b-u04-public-html-pdf-smoke.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-verify-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: s57f7r1-g3b-u04-human-semantic-readback-fullfix
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install CJK fonts and PDF inspection tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+
+      - name: Generate deterministic S57F7R1 public worksheet HTML
+        run: node tools/curriculum/generate-s57f7r1-g3b-u04-public-smoke.mjs
+
+      - name: Print public HTML to PDF with headless Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          HTML="$GITHUB_WORKSPACE/docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.html"
+          PDF="$GITHUB_WORKSPACE/docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.pdf"
+          CHROME="$(command -v google-chrome-stable || command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME"
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-gpu \
+            --no-pdf-header-footer \
+            --print-to-pdf="$PDF" \
+            "file://$HTML"
+          test -s "$PDF"
+
+      - name: Verify PDF structure extraction and rendered pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          PDF="docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.pdf"
+          TEXT="/tmp/s57f7r1-g3b-u04.txt"
+          RENDER_DIR="/tmp/s57f7r1-render"
+          head -c 5 "$PDF" | grep -q '%PDF-'
+          pages="$(pdfinfo "$PDF" | awk '/^Pages:/ {print $2}')"
+          test "$pages" = "16"
+          bytes="$(stat -c%s "$PDF")"
+          test "$bytes" -ge 20000
+          pdftotext -layout "$PDF" "$TEXT"
+          equations="$(grep -o '算式：' "$TEXT" | wc -l | tr -d ' ')"
+          answers="$(grep -o '答案：' "$TEXT" | wc -l | tr -d ' ')"
+          test "$equations" = "64"
+          test "$answers" = "64"
+          ! grep -Eq 'kp_g3b_u04_|pg_g3b_u04_|ps_g3b_u04_|tpl_g3b_u04_|hiddenSemanticMode|g3b_u04_hidden_semantic|undefined|\{\{|\}\}' "$TEXT"
+          mkdir -p "$RENDER_DIR"
+          pdftoppm -png -r 110 "$PDF" "$RENDER_DIR/page" >/dev/null 2>&1
+          rendered="$(find "$RENDER_DIR" -maxdepth 1 -name 'page-*.png' | wc -l | tr -d ' ')"
+          test "$rendered" = "16"
+          if find "$RENDER_DIR" -maxdepth 1 -name 'page-*.png' -size -5000c -print -quit | grep -q .; then
+            echo "Rendered page below minimum byte size" >&2
+            exit 1
+          fi
+          printf 'PDF_PAGES=%s\nPDF_BYTES=%s\nEQUATIONS=%s\nANSWERS=%s\nRENDERED=%s\n' "$pages" "$bytes" "$equations" "$answers" "$rendered" >> "$GITHUB_ENV"
+
+      - name: Finalize public smoke manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          HTML="docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.html"
+          PDF="docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.pdf"
+          html_sha="$(sha256sum "$HTML" | awk '{print $1}')"
+          pdf_sha="$(sha256sum "$PDF" | awk '{print $1}')"
+          HTML_SHA="$html_sha" PDF_SHA="$pdf_sha" node <<'NODE'
+          const fs = require('node:fs');
+          const path = 'docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.manifest.json';
+          const manifest = JSON.parse(fs.readFileSync(path, 'utf8'));
+          manifest.actualPdfPageCount = Number(process.env.PDF_PAGES);
+          manifest.pdfBytes = Number(process.env.PDF_BYTES);
+          manifest.pdfSha256 = process.env.PDF_SHA;
+          manifest.htmlSha256 = process.env.HTML_SHA;
+          manifest.renderedPageImageCount = Number(process.env.RENDERED);
+          manifest.extractedEquationLabelCount = Number(process.env.EQUATIONS);
+          manifest.extractedAnswerLabelCount = Number(process.env.ANSWERS);
+          manifest.status = 'public_html_pdf_smoke_pass_manual_readback_pending';
+          fs.writeFileSync(path, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+          NODE
+
+      - name: Run full regression suite
+        run: npm test
+
+      - name: Upload verified smoke artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: s57f7r1-g3b-u04-public-html-pdf-smoke
+          path: |
+            docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.html
+            docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.pdf
+            docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.manifest.json
+            /tmp/s57f7r1-render/page-*.png
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Commit smoke artifacts and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.html
+          git add docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.pdf
+          git add docs/curriculum/output/smoke/S57F7R1_G3B_U04_PublicSemanticWorksheet.manifest.json
+          git rm .github/workflows/s57f7r1-g3b-u04-public-html-pdf-smoke.yml
+          git commit -m "docs(g3b-u04): add S57F7R1 public HTML PDF smoke artifacts"
+          git push origin HEAD:s57f7r1-g3b-u04-human-semantic-readback-fullfix
