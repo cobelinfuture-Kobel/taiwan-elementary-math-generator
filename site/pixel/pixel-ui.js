@@ -13,6 +13,12 @@ import {
   PIXEL_SELECTOR_WARNING_CODES,
   togglePixelKnowledgePointSelection
 } from "./pixel-selector-state.js";
+import {
+  applyPixelWorksheetSettings,
+  createPixelWorksheetState,
+  getPixelWorksheetPlan,
+  syncPixelWorksheetSelection
+} from "./pixel-worksheet-state.js";
 
 const gradeSelect = document.getElementById("pixel-grade-select");
 const semesterSelect = document.getElementById("pixel-semester-select");
@@ -25,11 +31,19 @@ const knowledgePointEmptyState = document.getElementById("pixel-kp-empty-state")
 const knowledgePointAvailabilitySummary = document.getElementById("pixel-kp-availability-summary");
 const knowledgePointPanel = document.getElementById("pixel-kp-panel");
 const knowledgePointWarningList = document.getElementById("pixel-kp-warning-list");
+const questionCountInput = document.getElementById("pixel-question-count");
+const orderingSelect = document.getElementById("pixel-ordering");
+const generationSeedInput = document.getElementById("pixel-generation-seed");
+const columnsInput = document.getElementById("pixel-columns");
+const rowsPerPageInput = document.getElementById("pixel-rows-per-page");
+const answerKeyInput = document.getElementById("pixel-answer-key");
+const planSummary = document.getElementById("pixel-plan-summary");
 const previewMeta = document.getElementById("pixel-preview-meta");
 
 const registrySnapshot = getPixelRegistrySnapshot();
 let activeSourceSummary = null;
 let knowledgePointState = null;
+const worksheetState = createPixelWorksheetState();
 
 function selectedGrade() {
   const value = Number(gradeSelect?.value);
@@ -119,6 +133,49 @@ function renderSelectionModeOptions() {
   selectionModeSelect.value = knowledgePointState.selectionMode;
 }
 
+function readWorksheetSettings() {
+  return {
+    questionCount: Number(questionCountInput?.value ?? 20),
+    ordering: orderingSelect?.value ?? "groupedByPattern",
+    includeAnswerKey: Boolean(answerKeyInput?.checked),
+    generationSeed: generationSeedInput?.value ?? "pixel-ui",
+    columns: Number(columnsInput?.value ?? 4),
+    rowsPerPage: Number(rowsPerPageInput?.value ?? 10)
+  };
+}
+
+function renderWorksheetPlan(plan = getPixelWorksheetPlan(worksheetState)) {
+  if (planSummary) {
+    planSummary.textContent = [
+      `sourceId：${plan.sourceId}`,
+      `模式：${getPixelSelectionModeLabel(plan.selectionMode)}`,
+      `題數：${plan.questionCount}`,
+      `排序：${plan.ordering === "groupedByPattern" ? "依題型分組" : "跨題型隨機"}`,
+      `知識點：${plan.selectedKnowledgePointIds.length}`,
+      `答案頁：${plan.includeAnswerKey ? "是" : "否"}`,
+      `版面：${plan.printLayout.columns} 欄 × 每頁 ${plan.printLayout.rowsPerPage} 列`
+    ].join("｜");
+  }
+  document.body.dataset.pixelQuestionCount = String(plan.questionCount);
+  document.body.dataset.pixelOrdering = plan.ordering;
+  document.body.dataset.pixelIncludeAnswerKey = String(plan.includeAnswerKey);
+  document.body.dataset.pixelGenerationSeed = plan.generationSeed;
+  document.body.dataset.pixelColumns = String(plan.printLayout.columns);
+  document.body.dataset.pixelRowsPerPage = String(plan.printLayout.rowsPerPage);
+}
+
+function syncWorksheetPlan() {
+  if (activeSourceSummary && knowledgePointState) {
+    syncPixelWorksheetSelection(worksheetState, {
+      sourceId: activeSourceSummary.sourceId,
+      selectorState: knowledgePointState
+    });
+  }
+  const plan = applyPixelWorksheetSettings(worksheetState, readWorksheetSettings());
+  renderWorksheetPlan(plan);
+  return plan;
+}
+
 function renderKnowledgePointSelector() {
   if (!knowledgePointState) return;
   const selectedIds = new Set(knowledgePointState.selectedKnowledgePointIds);
@@ -184,6 +241,7 @@ function renderKnowledgePointSelector() {
   document.body.dataset.pixelSelectionMode = knowledgePointState.selectionMode;
   document.body.dataset.pixelSelectedKnowledgePointIds = knowledgePointState.selectedKnowledgePointIds.join(",");
   document.body.dataset.pixelSelectedPatternGroupIds = knowledgePointState.selectedPatternGroupIds.join(",");
+  syncWorksheetPlan();
 }
 
 function syncKnowledgePointSelector(sourceId, preserveSelection = true) {
@@ -240,5 +298,9 @@ selectionModeSelect?.addEventListener("change", () => {
   renderSelectionModeOptions();
   renderKnowledgePointSelector();
 });
+for (const control of [questionCountInput, orderingSelect, generationSeedInput, columnsInput, rowsPerPageInput, answerKeyInput]) {
+  control?.addEventListener("change", syncWorksheetPlan);
+  if (control?.tagName === "INPUT" && control.type !== "checkbox") control.addEventListener("input", syncWorksheetPlan);
+}
 document.body.dataset.pixelRegistrySourceCount = String(registrySnapshot.sourceCount);
 document.body.dataset.pixelRegistryVisibleKnowledgePointCount = String(registrySnapshot.visibleKnowledgePointCount);
