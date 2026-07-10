@@ -4,6 +4,12 @@ import {
   renderPixelWorksheetPreview
 } from "./pixel-preview-controller.js";
 
+const representationStylesheet = document.createElement("link");
+representationStylesheet.rel = "stylesheet";
+representationStylesheet.href = "./pixel-s57f6.css";
+representationStylesheet.dataset.publicSelectorStyles = "s57f6";
+document.head.append(representationStylesheet);
+
 const previewFrame = document.getElementById("pixel-preview-frame");
 const previewFrameWrap = document.getElementById("pixel-preview-frame-wrap");
 const previewEmpty = document.getElementById("pixel-preview-empty");
