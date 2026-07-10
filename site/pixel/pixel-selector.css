@@ -22,7 +22,8 @@
   font-size: 0.82rem;
 }
 
-.pixel-kp-availability {
+.pixel-kp-availability,
+.pixel-plan-summary {
   margin: 10px 0;
   border: 3px solid var(--pixel-border);
   background: #d8f2ff;
@@ -30,6 +31,12 @@
   color: var(--pixel-muted);
   font-size: 0.88rem;
   line-height: 1.55;
+}
+
+.pixel-plan-summary {
+  margin: 4px 0 16px;
+  background: #fff9e4;
+  color: var(--pixel-text);
 }
 
 .pixel-kp-panel {
@@ -108,7 +115,8 @@
 }
 
 @media print {
-  .pixel-kp-selector {
+  .pixel-kp-selector,
+  .pixel-plan-summary {
     display: none;
   }
 }
