@@ -1,0 +1,59 @@
+S57_G3B_U04_KP_AND_SEMANTIC_TEMPLATE_CONTRACT_PASS
+
+sourceId = g3b_u04_3b04
+unit = 3B-U04 兩步驟計算
+status = PASS_CI_SYNCED_AND_CLEAN
+write_type = mapping_template_semantic_contract_closeout_marker
+
+approved_scope:
+- 18 visually verified PDF source fields mapped.
+- 9 canonical mathematical KnowledgePoints approved.
+- 32 distinct semantic template families registered (minimum gate = 27).
+- 25 blocking semantic error codes registered.
+- 8 semantic validation stages registered.
+- 3 style-only warning codes registered.
+- known PDF source heading mismatch isolated.
+- former context/representation candidates normalized to tags.
+
+semantic_safety:
+- numeric-answer-only acceptance = FORBIDDEN
+- arithmetically valid but semantically implausible acceptance = FORBIDDEN
+- equation/unknown/unit/event/ownership/comparison mismatch = BLOCK
+- promotion/age/package/container realism violations = BLOCK
+- deterministic semantic answer reconstruction required before promotion
+
+ci_readback:
+- workflow = Math CI Readback
+- run = 29073985836
+- url = https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29073985836
+- npm_test_exit_code = 0
+- tests = 528
+- pass = 528
+- fail = 0
+- working_tree = clean
+
+closed_scope:
+- source-field-to-KnowledgePoint mapping contract
+- semantic template family registry contract
+- blocking semantic validation contract
+- structural contract QA tests
+
+not_in_scope_and_not_closed:
+- PatternSpec materialization
+- runtime application generator
+- runtime semantic validator implementation
+- browser selector projection
+- worksheet generation
+- PDF smoke
+- full G3B-U04 unit closeout
+
+GOAL_DISTANCE_BEFORE = D3_G3B_U04_SOURCE_FIELDS_AND_OLD_CANDIDATE_OVERLAY
+GOAL_DISTANCE_AFTER = D2_G3B_U04_FORMAL_KP_MAPPING_TEMPLATE_AND_SEMANTIC_VALIDATION_CONTRACT
+DISTANCE_REDUCED = 18 source fields are now mapped to nine canonical KPs, 32 semantic families, and blocking semantic validation requirements.
+REMAINING_BLOCKERS = [PatternSpec materialization, runtime semantic generator, runtime semantic validator, worksheet and PDF smoke]
+NEXT_SHORTEST_STEP = S57D_G3B_U04_PatternSpecAndSemanticGeneratorImplementation_DesignScan
+STOP_REASON = NEXT_STEP_REQUIRES_PATTERN_SPEC_AND_GENERATOR_SCOPE_APPROVAL
+BLOCKER_TYPE = SCOPE_BLOCKED
+LAST_COMPLETED_STATUS = S57_G3B_U04_KPAndSemanticTemplateContract_PASS_CI_SYNCED_AND_CLEAN
+REQUIRED_OPERATOR_ACTION = Approve S57D PatternSpec and semantic generator implementation scope when ready.
+NEXT_RESUME_TASK = S57D_G3B_U04_PatternSpecAndSemanticGeneratorImplementation_DesignScan
