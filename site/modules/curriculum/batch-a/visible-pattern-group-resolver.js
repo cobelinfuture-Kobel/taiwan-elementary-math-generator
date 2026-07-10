@@ -229,10 +229,10 @@ function allVisiblePatternGroupIds(registry) {
   return ids;
 }
 
-function expandPatternGroups({ knowledgePointIds, selectedPatternGroupIds, registry }) {
+function expandPatternGroups({ knowledgePointIds, selectedPatternGroupIds, registry, strictSelection }) {
   const requestedGroupIds = normalizeIdArray(selectedPatternGroupIds);
   const selectedGroupSet = new Set(requestedGroupIds);
-  const globallyVisibleGroupIds = allVisiblePatternGroupIds(registry);
+  const globallyVisibleGroupIds = strictSelection ? allVisiblePatternGroupIds(registry) : new Set();
   const linkedVisibleGroupIds = new Set();
   const patternGroups = [];
   const rejectedCodes = [];
@@ -251,11 +251,11 @@ function expandPatternGroups({ knowledgePointIds, selectedPatternGroupIds, regis
     for (const group of groups) linkedVisibleGroupIds.add(group.patternGroupId);
 
     if (selectedGroupSet.size === 0) {
-      if (groups.length !== 1) {
+      if (strictSelection && groups.length !== 1) {
         rejectedCodes.push(BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_SELECTION_REQUIRED);
         continue;
       }
-      patternGroups.push({ ...groups[0], knowledgePointId });
+      patternGroups.push(...groups.map((group) => ({ ...group, knowledgePointId })));
       continue;
     }
 
@@ -267,11 +267,13 @@ function expandPatternGroups({ knowledgePointIds, selectedPatternGroupIds, regis
     patternGroups.push(...selectedForKnowledgePoint.map((group) => ({ ...group, knowledgePointId })));
   }
 
-  for (const requestedGroupId of requestedGroupIds) {
-    if (linkedVisibleGroupIds.has(requestedGroupId)) continue;
-    rejectedCodes.push(globallyVisibleGroupIds.has(requestedGroupId)
-      ? BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_NOT_LINKED_TO_KP
-      : BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_NOT_VISIBLE);
+  if (strictSelection) {
+    for (const requestedGroupId of requestedGroupIds) {
+      if (linkedVisibleGroupIds.has(requestedGroupId)) continue;
+      rejectedCodes.push(globallyVisibleGroupIds.has(requestedGroupId)
+        ? BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_NOT_LINKED_TO_KP
+        : BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_NOT_VISIBLE);
+    }
   }
 
   const uniqueGroups = [];
@@ -320,16 +322,22 @@ export function resolveVisiblePatternGroupSelection(input = {}, options = {}) {
     return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.MIXED_SAME_UNIT_SOURCE_MISMATCH]);
   }
 
+  const strictSelection = sourceIds.length === 1 && sourceIds[0] === G3B_U04_SOURCE_ID;
   const { patternGroups, rejectedCodes } = expandPatternGroups({
     knowledgePointIds: requestedKnowledgePointIds,
     selectedPatternGroupIds: input.selectedPatternGroupIds,
-    registry
+    registry,
+    strictSelection
   });
-  if (rejectedCodes.length > 0) {
+  if (strictSelection && rejectedCodes.length > 0) {
     return fail(plan, rejectedCodes, rejectedCodes.length);
   }
   if (patternGroups.length === 0) {
-    return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.ALL_CANDIDATES_REJECTED], requestedKnowledgePointIds.length);
+    return fail(
+      plan,
+      rejectedCodes.length ? rejectedCodes : [BATCH_A_RESOLVER_ERROR_CODES.ALL_CANDIDATES_REJECTED],
+      requestedKnowledgePointIds.length
+    );
   }
 
   const patternSpecIdsByGroup = new Map();
@@ -346,7 +354,7 @@ export function resolveVisiblePatternGroupSelection(input = {}, options = {}) {
   plan.knowledgePointIds = [...requestedKnowledgePointIds].sort();
   plan.patternGroupIds = patternGroups.map((group) => group.patternGroupId).sort();
   plan.patternSpecIds = [...new Set([...patternSpecIdsByGroup.values()].flat())].sort();
-  plan.provenance.allocationStrategy = sourceIds.length === 1 && sourceIds[0] === G3B_U04_SOURCE_ID
+  plan.provenance.allocationStrategy = strictSelection
     ? "balanced_by_group_then_family"
     : "legacy_flat_by_pattern";
   plan.allocation = allocateEvenly({
