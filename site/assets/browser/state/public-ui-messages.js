@@ -42,7 +42,7 @@ const PUBLIC_MESSAGE_BY_CODE = Object.freeze({
   public_pattern_group_minimum_one: "每個知識點至少要保留一種題目形式。"
 });
 
-const INTERNAL_IDENTIFIER_PATTERN = /\b(?:kp|pg|ps|tpl)_[a-z0-9_]+\b/gi;
+const INTERNAL_IDENTIFIER_PATTERN = /\b(?:kp|pg|ps|tpl|ctx)_[a-z0-9_]+\b/gi;
 const SOURCE_IDENTIFIER_PATTERN = /\b(?:g\d+[ab]_u\d+_[0-9a-z_]+)\b/gi;
 
 export function sanitizePublicMessage(value) {
