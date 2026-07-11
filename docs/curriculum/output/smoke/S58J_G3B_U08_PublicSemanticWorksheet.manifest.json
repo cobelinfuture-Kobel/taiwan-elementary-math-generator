@@ -5,7 +5,7 @@
   "status": "public_html_pdf_smoke_pass",
   "basePromotionRegistryId": "s58f_g3b_u08_semantic_promotion",
   "productionPromotionOverlayId": "s58h_g3b_u08_canonical_worksheet_promotion",
-  "promotionActivationStatus": "canonical_validator_worksheet_renderer_integrated",
+  "promotionActivationStatus": "production_promotion_accepted",
   "canonicalPublicPath": true,
   "publicHiddenModeFlagUsed": false,
   "publicNumericModeUsed": false,
