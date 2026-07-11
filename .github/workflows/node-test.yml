@@ -1,4 +1,4 @@
-﻿name: Node Test
+name: Node Test
 
 on:
   push:
@@ -24,3 +24,77 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+  s58j-public-html-pdf-smoke:
+    if: github.event_name == 'pull_request' && github.head_ref == 's58j-g3b-u08-production-closeout'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install PDF inspection and Traditional Chinese fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils fonts-noto-cjk
+
+      - name: Install Playwright Chromium without changing manifests
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Generate deterministic public HTML
+        run: node tools/curriculum/generate-s58j-g3b-u08-public-smoke.mjs
+
+      - name: Print canonical HTML to PDF
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from "playwright";
+          import { pathToFileURL } from "node:url";
+          import { resolve } from "node:path";
+
+          const htmlPath = resolve("docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.html");
+          const pdfPath = resolve("docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.pdf");
+          const browser = await chromium.launch({ headless: true });
+          try {
+            const page = await browser.newPage();
+            await page.goto(pathToFileURL(htmlPath).href, { waitUntil: "networkidle" });
+            await page.emulateMedia({ media: "print" });
+            await page.pdf({
+              path: pdfPath,
+              format: "A4",
+              printBackground: true,
+              preferCSSPageSize: true,
+              margin: { top: "0", right: "0", bottom: "0", left: "0" }
+            });
+          } finally {
+            await browser.close();
+          }
+          NODE
+
+      - name: Render, extract and finalize smoke manifest
+        run: node tools/curriculum/generate-s58j-g3b-u08-public-smoke.mjs --finalize
+
+      - name: Verify smoke manifest
+        run: |
+          grep -q '"status": "public_html_pdf_smoke_pass"' docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
+          git status --short
+
+      - name: Upload verified S58J smoke artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: s58j-g3b-u08-public-smoke
+          path: |
+            docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.html
+            docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.pdf
+            docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
+          if-no-files-found: error
+          retention-days: 7
