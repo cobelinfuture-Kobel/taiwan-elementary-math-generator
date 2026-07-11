@@ -198,6 +198,24 @@ function validateStage1(question, spec) {
   return errors;
 }
 
+function isHiddenPrePromotionLifecycle(question) {
+  return question.selectorStatus === "hidden"
+    && question.productionUse === "forbidden"
+    && question.generatorRouting === "hidden_only_not_canonical";
+}
+
+function isCanonicalRuntimeLifecycle(question) {
+  return question.phase === "S58G"
+    && question.selectorStatus === "visible"
+    && question.visibilityStatus === "visible"
+    && question.productionUse === "canonical_runtime_only"
+    && question.generatorRouting === "canonical_resolver_allocation"
+    && question.canonicalRoute?.kind === "g3b_u08_pure_semantic"
+    && question.canonicalRoute?.publicHiddenModeFlagUsed === false
+    && question.semanticSnapshot?.runtimeStatus === "canonical_routed_pre_worksheet"
+    && question.semanticSnapshot?.resolverDerived === true;
+}
+
 function validateStage2(question, spec) {
   const errors = [];
   if (!APPROVED_KP_IDS.has(question.knowledgePointId)) {
@@ -212,8 +230,8 @@ function validateStage2(question, spec) {
     if (question.knowledgePointId !== spec.knowledgePointId) {
       add(errors, "G3BU08_KP_NOT_APPROVED", 2, "knowledgePointId", "Question KnowledgePoint does not match the registered PatternSpec.");
     }
-    if (question.selectorStatus !== "hidden" || question.productionUse !== "forbidden" || question.generatorRouting !== "hidden_only_not_canonical") {
-      add(errors, "G3BU08_ARBITRARY_PATTERN_SPEC_INJECTION", 2, "productionUse", "Question escaped the approved hidden pre-promotion lifecycle.");
+    if (!isHiddenPrePromotionLifecycle(question) && !isCanonicalRuntimeLifecycle(question)) {
+      add(errors, "G3BU08_ARBITRARY_PATTERN_SPEC_INJECTION", 2, "productionUse", "Question is outside the approved hidden or resolver-derived canonical lifecycle.");
     }
   }
   const scopeText = [
