@@ -1,1 +1,1 @@
-export * from "./batch-a-selector-g3b-u08-semantic-extension.js";
+export * from "./batch-a-selector-g4b-u01-horizontal-extension.js";
