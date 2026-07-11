@@ -11,7 +11,8 @@ import {
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
 const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
   "g3b_u04_3b04",
-  "g3b_u08_3b08"
+  "g3b_u08_3b08",
+  "g4b_u01_4b01"
 ]));
 const KP_SELECTION_MODES = Object.freeze([
   "singleKnowledgePoint",
@@ -142,7 +143,13 @@ function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
     return { selectionMode, selectedKnowledgePointIds: [], selectedPatternGroupIds: [], selectorWarnings: warnings };
   }
 
-  const selectedKnowledgePointIds = requestedKnowledgePointIds.filter((id) => selectorAccess.getVisibleBatchAKnowledgePoint(id));
+  const sourceScopedMode = selectionMode !== "mixedKnowledgePointsCrossUnit";
+  const selectedKnowledgePointIds = requestedKnowledgePointIds.filter((id) => {
+    const row = selectorAccess.getVisibleBatchAKnowledgePoint(id);
+    if (!row) return false;
+    if (!sourceScopedMode || !sourceId) return true;
+    return row.sourceId === sourceId;
+  });
   if (selectedKnowledgePointIds.length !== requestedKnowledgePointIds.length) {
     warnings.push(warning("selector_id_dropped", { field: "knowledgePointIds", count: requestedKnowledgePointIds.length - selectedKnowledgePointIds.length }));
   }
