@@ -49,7 +49,7 @@ const SEMANTIC_RENDERER_STYLE = [
   '  }',
   '}',
   '</style>'
-].join("");
+].join("\n");
 
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
