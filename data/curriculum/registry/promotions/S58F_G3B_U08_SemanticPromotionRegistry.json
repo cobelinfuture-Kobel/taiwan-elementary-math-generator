@@ -1,0 +1,96 @@
+{
+  "schemaName": "G3BU08SemanticPromotionRegistry",
+  "schemaVersion": 1,
+  "task": "S58F_G3B_U08_PromotionLifecycleAndVisibleSelectorProjection",
+  "promotionRegistryId": "s58f_g3b_u08_semantic_promotion",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "unitTitle": "乘法與除法",
+  "semanticContractRef": "data/curriculum/pattern_specs/S58C_G3B_U08_SemanticPatternSpecRegistry.json",
+  "knowledgePointIds": [
+    "kp_g3b_u08_total_from_groups",
+    "kp_g3b_u08_group_count_from_total",
+    "kp_g3b_u08_per_group_from_total",
+    "kp_g3b_u08_reverse_base_from_multiple",
+    "kp_g3b_u08_shopping_estimation",
+    "kp_g3b_u08_same_price_value_comparison"
+  ],
+  "patternGroupIds": [
+    "pg_g3b_u08_total_from_groups",
+    "pg_g3b_u08_group_count_from_total",
+    "pg_g3b_u08_per_group_from_total",
+    "pg_g3b_u08_reverse_base_from_multiple",
+    "pg_g3b_u08_shopping_estimation",
+    "pg_g3b_u08_same_price_value_comparison"
+  ],
+  "patternSpecIds": [
+    "ps_g3b_u08_total_daily_saving_accumulation",
+    "ps_g3b_u08_total_score_per_success",
+    "ps_g3b_u08_total_material_per_product",
+    "ps_g3b_u08_total_items_per_package",
+    "ps_g3b_u08_group_count_score_events",
+    "ps_g3b_u08_group_count_craft_products",
+    "ps_g3b_u08_group_count_equal_segments",
+    "ps_g3b_u08_group_count_packaging",
+    "ps_g3b_u08_per_group_daily_saving",
+    "ps_g3b_u08_per_group_equal_share_people",
+    "ps_g3b_u08_per_group_equal_container_capacity",
+    "ps_g3b_u08_per_group_equal_segment_length",
+    "ps_g3b_u08_reverse_base_price_multiple",
+    "ps_g3b_u08_reverse_base_quantity_multiple",
+    "ps_g3b_u08_reverse_base_length_multiple",
+    "ps_g3b_u08_reverse_base_capacity_multiple",
+    "ps_g3b_u08_estimate_near_hundred_total",
+    "ps_g3b_u08_estimate_budget_sufficiency_upper",
+    "ps_g3b_u08_estimate_exact_over_benchmark",
+    "ps_g3b_u08_estimate_exact_under_benchmark",
+    "ps_g3b_u08_same_price_compare_weight",
+    "ps_g3b_u08_same_price_compare_capacity",
+    "ps_g3b_u08_same_price_compare_item_count",
+    "ps_g3b_u08_same_price_compare_total_length"
+  ],
+  "lifecycle": {
+    "selectorStatus": "visible",
+    "runtimeStatus": "hidden_validated_not_canonical_routed",
+    "validatorStatus": "blocking_validator_accepted",
+    "worksheetStatus": "not_connected",
+    "productionUse": "forbidden"
+  },
+  "activation": {
+    "status": "visible_selector_projection_accepted",
+    "acceptedByTask": "S58F_G3B_U08_PromotionLifecycleAndVisibleSelectorProjection",
+    "requiredNextGate": "S58G_G3B_U08_ResolverBrowserStateAndCanonicalRouterIntegration",
+    "publicProjectionChanged": true,
+    "selectorBehaviorChanged": true,
+    "productionEligibilityBehaviorChanged": false,
+    "canonicalRouterChanged": false,
+    "canonicalWorksheetChanged": false,
+    "humanSemanticReadbackAccepted": true,
+    "publicNumericModeAdded": false,
+    "representationToggleAdded": false
+  },
+  "promotionEvidence": {
+    "s58cMaterialization": "docs/curriculum/output/S58C_R1_G3B_U08_MATERIALIZER_WORKFLOW_SETUPNODE_FULLFIX_AND_S58C_MATERIALIZATION_PASS.marker",
+    "s58dHiddenGenerator": "docs/curriculum/output/S58D_G3B_U08_HIDDEN_DETERMINISTIC_SEMANTIC_GENERATOR_PASS.marker",
+    "s58eValidatorAndHumanReadback": "docs/curriculum/output/S58E_G3B_U08_SEMANTIC_VALIDATOR_RUNTIME_AND_HUMAN_READBACK_QA_FULLFIX_PASS.marker",
+    "humanReadbackAcceptance": "data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAcceptance.json"
+  },
+  "semanticAuthorityPolicy": {
+    "semanticFieldsImmutable": true,
+    "originalPatternSpecsRemainHidden": true,
+    "originalPatternSpecsRemainProductionForbidden": true,
+    "overlayOnly": true,
+    "horizontalOnly": true,
+    "freeFormAIGeneration": "forbidden"
+  },
+  "publicSelectorPolicy": {
+    "visibleKnowledgePointCount": 6,
+    "visiblePatternGroupCount": 6,
+    "visibleNumericPatternGroupCount": 0,
+    "oneVisibleGroupPerKnowledgePoint": true,
+    "representationToggle": "not_applicable_application_only_unit",
+    "internalPatternSpecIdsDisplayed": false,
+    "hiddenSupportReasoningDisplayed": false
+  },
+  "rollbackKey": "s58f_g3b_u08_semantic_promotion"
+}
