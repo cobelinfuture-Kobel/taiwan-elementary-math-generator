@@ -1,0 +1,73 @@
+record	knowledgePointId	templateFamilyId	contextVariantId	promptText	equationModel	answerText
+1	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_daily_saving_accumulation	ctx_g3b_u08_total_daily_saving_accumulation_saving_xiaoan	小安每天存237元，連續存了4天，一共存了多少元？	237 × 4 = 948	948元
+2	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_daily_saving_accumulation	ctx_g3b_u08_total_daily_saving_accumulation_allowance_xiaomei	小美每天存137元，連續存了5天，一共存了多少元？	137 × 5 = 685	685元
+3	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_daily_saving_accumulation	ctx_g3b_u08_total_daily_saving_accumulation_saving_xiaojie	小杰每天存92元，連續存了9天，一共存了多少元？	92 × 9 = 828	828元
+4	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_score_per_success	ctx_g3b_u08_total_score_per_success_basketball	每投進一球可得137分，小安投進了2球，一共得到多少分？	137 × 2 = 274	274分
+5	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_score_per_success	ctx_g3b_u08_total_score_per_success_quiz	每答對一題可得37分，小美答對了9題，一共得到多少分？	37 × 9 = 333	333分
+6	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_score_per_success	ctx_g3b_u08_total_score_per_success_level	每完成一關可得179分，小杰完成了4關，一共得到多少分？	179 × 4 = 716	716分
+7	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_material_per_product	ctx_g3b_u08_total_material_per_product_paper_card	做一張卡片需要35張色紙，做8張共需要多少張色紙？	35 × 8 = 280	280張
+8	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_material_per_product	ctx_g3b_u08_total_material_per_product_bracelet	做一條手鍊需要115顆珠子，做8條共需要多少顆珠子？	115 × 8 = 920	920顆
+9	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_material_per_product	ctx_g3b_u08_total_material_per_product_paper_flower	做一朵紙花需要68張色紙，做8朵共需要多少張色紙？	68 × 8 = 544	544張
+10	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_items_per_package	ctx_g3b_u08_total_items_per_package_cookies	每包餅乾有140片餅乾，共有5包，一共有多少片餅乾？	140 × 5 = 700	700片
+11	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_items_per_package	ctx_g3b_u08_total_items_per_package_crayons	每盒蠟筆有129枝蠟筆，共有7盒，一共有多少枝蠟筆？	129 × 7 = 903	903枝
+12	kp_g3b_u08_total_from_groups	tpl_g3b_u08_total_items_per_package	ctx_g3b_u08_total_items_per_package_blocks	每袋積木有97塊積木，共有9袋，一共有多少塊積木？	97 × 9 = 873	873塊
+13	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_score_events	ctx_g3b_u08_group_count_score_events_basketball	小安共得到45分，每投進一球可得9分，小安投進了幾球？	45 ÷ 9 = 5	5球
+14	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_score_events	ctx_g3b_u08_group_count_score_events_quiz	小美共得到76分，每答對一題可得4分，小美答對了幾題？	76 ÷ 4 = 19	19題
+15	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_score_events	ctx_g3b_u08_group_count_score_events_level	小杰共得到159分，每完成一關可得3分，小杰完成了幾關？	159 ÷ 3 = 53	53關
+16	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_craft_products	ctx_g3b_u08_group_count_craft_products_bracelet	共有82顆珠子，做一條手鍊要用2顆，可以做幾條手鍊？	82 ÷ 2 = 41	41條
+17	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_craft_products	ctx_g3b_u08_group_count_craft_products_necklace	共有256顆珠子，做一條項鍊要用4顆，可以做幾條項鍊？	256 ÷ 4 = 64	64條
+18	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_craft_products	ctx_g3b_u08_group_count_craft_products_paper_flower	共有405張色紙，做一朵紙花要用5張，可以做幾朵紙花？	405 ÷ 5 = 81	81朵
+19	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_equal_segments	ctx_g3b_u08_group_count_equal_segments_ribbon	一條緞帶長150公分，每段長3公分，可以剪成幾段？	150 ÷ 3 = 50	50段
+20	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_equal_segments	ctx_g3b_u08_group_count_equal_segments_rope	一條繩子長164公分，每段長4公分，可以剪成幾段？	164 ÷ 4 = 41	41段
+21	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_equal_segments	ctx_g3b_u08_group_count_equal_segments_paper_strip	一條紙條長122公分，每段長2公分，可以剪成幾段？	122 ÷ 2 = 61	61段
+22	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_packaging	ctx_g3b_u08_group_count_packaging_oranges	共有224顆橘子，每4顆裝一袋，可以裝成幾袋？	224 ÷ 4 = 56	56袋
+23	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_packaging	ctx_g3b_u08_group_count_packaging_pencils	共有392枝鉛筆，每4枝裝一盒，可以裝成幾盒？	392 ÷ 4 = 98	98盒
+24	kp_g3b_u08_group_count_from_total	tpl_g3b_u08_group_count_packaging	ctx_g3b_u08_group_count_packaging_tennis_balls	共有664顆網球，每8顆裝一筒，可以裝成幾筒？	664 ÷ 8 = 83	83筒
+25	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_daily_saving	ctx_g3b_u08_per_group_daily_saving_saving_xiaoan	小安8天共存了208元，每天存一樣多，平均每天存多少元？	208 ÷ 8 = 26	26元
+26	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_daily_saving	ctx_g3b_u08_per_group_daily_saving_allowance_xiaomei	小美7天共存了588元，每天存一樣多，平均每天存多少元？	588 ÷ 7 = 84	84元
+27	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_daily_saving	ctx_g3b_u08_per_group_daily_saving_saving_xiaojie	小杰4天共存了172元，每天存一樣多，平均每天存多少元？	172 ÷ 4 = 43	43元
+28	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_share_people	ctx_g3b_u08_per_group_equal_share_people_pencils	把476枝鉛筆平均分給7人，每人分到多少枝鉛筆？	476 ÷ 7 = 68	68枝
+29	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_share_people	ctx_g3b_u08_per_group_equal_share_people_cookies	把324片餅乾平均分給9人，每人分到多少片餅乾？	324 ÷ 9 = 36	36片
+30	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_share_people	ctx_g3b_u08_per_group_equal_share_people_beads	把182顆珠子平均分給2人，每人分到多少顆珠子？	182 ÷ 2 = 91	91顆
+31	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_container_capacity	ctx_g3b_u08_per_group_equal_container_capacity_juice_bottles	把24毫升果汁平均裝入2瓶，每瓶有多少毫升？	24 ÷ 2 = 12	12毫升
+32	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_container_capacity	ctx_g3b_u08_per_group_equal_container_capacity_soup_bowls	把495毫升湯平均裝入5碗，每碗有多少毫升？	495 ÷ 5 = 99	99毫升
+33	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_container_capacity	ctx_g3b_u08_per_group_equal_container_capacity_colored_water_cups	把92毫升色水平均裝入4杯，每杯有多少毫升？	92 ÷ 4 = 23	23毫升
+34	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_segment_length	ctx_g3b_u08_per_group_equal_segment_length_ribbon	一條緞帶全長154公分，平均分成7段，每段長多少公分？	154 ÷ 7 = 22	22公分
+35	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_segment_length	ctx_g3b_u08_per_group_equal_segment_length_rope	一條繩子全長105公分，平均分成7段，每段長多少公分？	105 ÷ 7 = 15	15公分
+36	kp_g3b_u08_per_group_from_total	tpl_g3b_u08_per_group_equal_segment_length	ctx_g3b_u08_per_group_equal_segment_length_track	一條跑道全長216公尺，平均分成9段，每段長多少公尺？	216 ÷ 9 = 24	24公尺
+37	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_price_multiple	ctx_g3b_u08_reverse_base_price_multiple_clothing	外套售價285元，剛好是帽子售價的3倍，帽子售價多少元？	285 ÷ 3 = 95	95元
+38	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_price_multiple	ctx_g3b_u08_reverse_base_price_multiple_stationery	書包售價415元，剛好是鉛筆盒售價的5倍，鉛筆盒售價多少元？	415 ÷ 5 = 83	83元
+39	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_price_multiple	ctx_g3b_u08_reverse_base_price_multiple_daily_goods	大浴巾售價528元，剛好是小毛巾售價的6倍，小毛巾售價多少元？	528 ÷ 6 = 88	88元
+40	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_quantity_multiple	ctx_g3b_u08_reverse_base_quantity_multiple_cards	小安有219張卡片，是小美的3倍，小美有多少張卡片？	219 ÷ 3 = 73	73張
+41	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_quantity_multiple	ctx_g3b_u08_reverse_base_quantity_multiple_books	小杰有16本故事書，是小華的8倍，小華有多少本故事書？	16 ÷ 8 = 2	2本
+42	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_quantity_multiple	ctx_g3b_u08_reverse_base_quantity_multiple_stickers	小美有207張貼紙，是小安的9倍，小安有多少張貼紙？	207 ÷ 9 = 23	23張
+43	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_length_multiple	ctx_g3b_u08_reverse_base_length_multiple_ribbon	紅緞帶長348公分，是藍緞帶長度的6倍，藍緞帶長多少公分？	348 ÷ 6 = 58	58公分
+44	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_length_multiple	ctx_g3b_u08_reverse_base_length_multiple_rope	長繩長235公分，是短繩長度的5倍，短繩長多少公分？	235 ÷ 5 = 47	47公分
+45	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_length_multiple	ctx_g3b_u08_reverse_base_length_multiple_track	主跑道長396公尺，是練習跑道長度的4倍，練習跑道長多少公尺？	396 ÷ 4 = 99	99公尺
+46	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_capacity_multiple	ctx_g3b_u08_reverse_base_capacity_multiple_jugs	大水壺可裝192毫升，是小水壺容量的2倍，小水壺可裝多少毫升？	192 ÷ 2 = 96	96毫升
+47	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_capacity_multiple	ctx_g3b_u08_reverse_base_capacity_multiple_juice_bottles	大瓶果汁可裝285毫升，是小瓶果汁容量的3倍，小瓶果汁可裝多少毫升？	285 ÷ 3 = 95	95毫升
+48	kp_g3b_u08_reverse_base_from_multiple	tpl_g3b_u08_reverse_base_capacity_multiple	ctx_g3b_u08_reverse_base_capacity_multiple_measuring_cups	大量杯可裝261毫升，是小量杯容量的9倍，小量杯可裝多少毫升？	261 ÷ 9 = 29	29毫升
+49	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_near_hundred_total	ctx_g3b_u08_estimate_near_hundred_total_notebooks	每本筆記本328元，買3本，先把單價看成接近的整百數，估一估大約需要多少元？	300 × 3 = 900	大約900元
+50	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_near_hundred_total	ctx_g3b_u08_estimate_near_hundred_total_cakes	每盒蛋糕314元，買2盒，先把單價看成接近的整百數，估一估大約需要多少元？	300 × 2 = 600	大約600元
+51	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_near_hundred_total	ctx_g3b_u08_estimate_near_hundred_total_colored_pencils	每盒色鉛筆82元，買6盒，先把單價看成接近的整百數，估一估大約需要多少元？	100 × 6 = 600	大約600元
+52	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_budget_sufficiency_upper	ctx_g3b_u08_estimate_budget_sufficiency_upper_notebooks	每本筆記本93元，買2本，帶200元夠不夠？請先用接近的整百數估一估。	100 × 2 = 200	夠，估計最多需要200元
+53	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_budget_sufficiency_upper	ctx_g3b_u08_estimate_budget_sufficiency_upper_cakes	每盒蛋糕269元，買3盒，帶900元夠不夠？請先用接近的整百數估一估。	300 × 3 = 900	夠，估計最多需要900元
+54	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_budget_sufficiency_upper	ctx_g3b_u08_estimate_budget_sufficiency_upper_colored_pencils	每盒色鉛筆176元，買2盒，帶400元夠不夠？請先用接近的整百數估一估。	200 × 2 = 400	夠，估計最多需要400元
+55	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_exact_over_benchmark	ctx_g3b_u08_estimate_exact_over_benchmark_notebooks	每本筆記本107元，買6本。先把單價看成100元，再補回每本多出的7元，實際費用比600元多多少元？	100 × 6 = 600	多42元
+56	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_exact_over_benchmark	ctx_g3b_u08_estimate_exact_over_benchmark_cakes	每盒蛋糕213元，買2盒。先把單價看成200元，再補回每盒多出的13元，實際費用比400元多多少元？	200 × 2 = 400	多26元
+57	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_exact_over_benchmark	ctx_g3b_u08_estimate_exact_over_benchmark_colored_pencils	每盒色鉛筆317元，買3盒。先把單價看成300元，再補回每盒多出的17元，實際費用比900元多多少元？	300 × 3 = 900	多51元
+58	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_exact_under_benchmark	ctx_g3b_u08_estimate_exact_under_benchmark_notebooks	每本筆記本180元，買3本。先把單價看成200元，再扣回每本少的20元，實際費用比600元少多少元？	200 × 3 = 600	少60元
+59	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_exact_under_benchmark	ctx_g3b_u08_estimate_exact_under_benchmark_cakes	每盒蛋糕284元，買2盒。先把單價看成300元，再扣回每盒少的16元，實際費用比600元少多少元？	300 × 2 = 600	少32元
+60	kp_g3b_u08_shopping_estimation	tpl_g3b_u08_estimate_exact_under_benchmark	ctx_g3b_u08_estimate_exact_under_benchmark_colored_pencils	每盒色鉛筆87元，買8盒。先把單價看成100元，再扣回每盒少的13元，實際費用比800元少多少元？	100 × 8 = 800	少104元
+61	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_weight	ctx_g3b_u08_same_price_compare_weight_cookies	兩種餅乾組合價格相同。甲有4包，每包46克；乙有6包，每包110克。哪一種買到的總重量較多？	46 × 4 = 184；110 × 6 = 660	乙的總重量較多（660克）
+62	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_weight	ctx_g3b_u08_same_price_compare_weight_nuts	兩種堅果組合價格相同。甲有6包，每包12克；乙有2包，每包40克。哪一種買到的總重量較多？	12 × 6 = 72；40 × 2 = 80	乙的總重量較多（80克）
+63	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_weight	ctx_g3b_u08_same_price_compare_weight_rice_crackers	兩種米果組合價格相同。甲有4包，每包243克；乙有2包，每包155克。哪一種買到的總重量較多？	243 × 4 = 972；155 × 2 = 310	甲的總重量較多（972克）
+64	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_capacity	ctx_g3b_u08_same_price_compare_capacity_juice	兩種飲料組合價格相同。甲有3瓶，每瓶202毫升；乙有4瓶，每瓶207毫升。哪一種總容量較多？	202 × 3 = 606；207 × 4 = 828	乙的總容量較多（828毫升）
+65	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_capacity	ctx_g3b_u08_same_price_compare_capacity_milk	兩種飲料組合價格相同。甲有2瓶，每瓶51毫升；乙有4瓶，每瓶182毫升。哪一種總容量較多？	51 × 2 = 102；182 × 4 = 728	乙的總容量較多（728毫升）
+66	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_capacity	ctx_g3b_u08_same_price_compare_capacity_water	兩種飲料組合價格相同。甲有6瓶，每瓶18毫升；乙有5瓶，每瓶15毫升。哪一種總容量較多？	18 × 6 = 108；15 × 5 = 75	甲的總容量較多（108毫升）
+67	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_item_count	ctx_g3b_u08_same_price_compare_item_count_pencils	兩種鉛筆組合價格相同。甲有2盒，每盒38枝；乙有3盒，每盒232枝。哪一種總數量較多？	38 × 2 = 76；232 × 3 = 696	乙的總數量較多（696枝）
+68	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_item_count	ctx_g3b_u08_same_price_compare_item_count_stickers	兩種貼紙組合價格相同。甲有6包，每包95張；乙有3包，每包43張。哪一種總數量較多？	95 × 6 = 570；43 × 3 = 129	甲的總數量較多（570張）
+69	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_item_count	ctx_g3b_u08_same_price_compare_item_count_blocks	兩種積木組合價格相同。甲有6袋，每袋149塊；乙有6袋，每袋15塊。哪一種總數量較多？	149 × 6 = 894；15 × 6 = 90	甲的總數量較多（894塊）
+70	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_total_length	ctx_g3b_u08_same_price_compare_total_length_ribbon	兩種緞帶組合價格相同。甲有2捲，每捲38公分；乙有6捲，每捲155公分。哪一種總長度較長？	38 × 2 = 76；155 × 6 = 930	乙的總長度較多（930公分）
+71	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_total_length	ctx_g3b_u08_same_price_compare_total_length_rope	兩種繩子組合價格相同。甲有5捲，每捲100公分；乙有4捲，每捲154公分。哪一種總長度較長？	100 × 5 = 500；154 × 4 = 616	乙的總長度較多（616公分）
+72	kp_g3b_u08_same_price_value_comparison	tpl_g3b_u08_same_price_compare_total_length	ctx_g3b_u08_same_price_compare_total_length_streamer	兩種彩帶組合價格相同。甲有2捲，每捲243公分；乙有3捲，每捲180公分。哪一種總長度較長？	243 × 2 = 486；180 × 3 = 540	乙的總長度較多（540公分）
