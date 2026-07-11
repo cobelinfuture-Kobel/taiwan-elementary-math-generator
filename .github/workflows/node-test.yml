@@ -1,4 +1,4 @@
-﻿name: Node Test
+name: Node Test
 
 on:
   push:
@@ -24,3 +24,39 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+  s58j-targeted-debug:
+    if: github.event_name == 'pull_request' && github.head_ref == 's58j-g3b-u08-production-closeout'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run targeted S58J tests and retain full log
+        id: targeted
+        shell: bash
+        run: |
+          set +e
+          node --test tests/curriculum/g3b-u08-production-regression-stress-html-pdf-closeout.test.js > s58j-targeted-test.log 2>&1
+          status=$?
+          cat s58j-targeted-test.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit $status
+
+      - name: Upload targeted test log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s58j-targeted-test-log
+          path: s58j-targeted-test.log
+          if-no-files-found: error
+          retention-days: 3
