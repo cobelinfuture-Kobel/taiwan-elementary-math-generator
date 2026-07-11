@@ -172,7 +172,7 @@ jobs:
           manifest.renderedPageImageCount = Number(process.env.RENDER_COUNT);
           manifest.extractedEquationLabelCount = Number(process.env.EQ_COUNT);
           manifest.extractedAnswerLabelCount = Number(process.env.ANSWER_COUNT);
-          manifest.visualRenderVerification = "all_pages_rendered_nonblank_with_cjk_fonts";
+          manifest.visualRenderVerification = "all_pages_rendered_nonblank";
           writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
           NODE
 
