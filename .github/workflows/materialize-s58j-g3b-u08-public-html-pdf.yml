@@ -91,11 +91,13 @@ jobs:
       - name: Generate canonical public HTML and initial manifest
         run: node tools/curriculum/generate-s58j-g3b-u08-public-smoke.mjs
 
-      - name: Install PDF verification tools
+      - name: Install PDF verification tools and Traditional Chinese fonts
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y poppler-utils python3-pil
+          sudo apt-get install -y poppler-utils python3-pil fonts-noto-cjk
+          fc-cache -f
+          fc-match "Noto Sans CJK TC"
 
       - name: Print and verify 18-page PDF
         shell: bash
@@ -143,7 +145,7 @@ jobs:
               lo, hi = gray.getextrema()
               assert lo < 245 and hi > 245, f'low-contrast or uniform page: {page} {lo} {hi}'
               stats = ImageStat.Stat(diff.convert('L'))
-              assert stats.mean[0] > 0.5, f'insufficient rendered content: {page}'
+              assert stats.mean[0] > 0.8, f'insufficient rendered content: {page}'
           print('All 18 PDF pages rendered as nonblank, mixed-tone PNGs.')
           PY
 
@@ -170,7 +172,7 @@ jobs:
           manifest.renderedPageImageCount = Number(process.env.RENDER_COUNT);
           manifest.extractedEquationLabelCount = Number(process.env.EQ_COUNT);
           manifest.extractedAnswerLabelCount = Number(process.env.ANSWER_COUNT);
-          manifest.visualRenderVerification = "all_pages_rendered_nonblank";
+          manifest.visualRenderVerification = "all_pages_rendered_nonblank_with_cjk_fonts";
           writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
           NODE
 
@@ -183,10 +185,11 @@ jobs:
       - name: Run full tests
         run: npm test
 
-      - name: Remove one-shot workflow and generated lockfile
+      - name: Remove one-shot workflows and generated lockfile
         shell: bash
         run: |
           rm .github/workflows/materialize-s58j-g3b-u08-public-html-pdf.yml
+          rm .github/workflows/diagnose-s58j-g3b-u08-pdf.yml
           rm -f package-lock.json
 
       - name: Commit verified S58J artifacts
