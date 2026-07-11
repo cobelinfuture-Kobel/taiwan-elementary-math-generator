@@ -11,6 +11,7 @@
     "knowledgePointCount": 6,
     "patternGroupCount": 6,
     "patternSpecCount": 24,
+    "contextVariantCount": 72,
     "applicationOnly": true,
     "horizontalOnly": true
   },
@@ -22,9 +23,9 @@
     "productionUse": "allowed"
   },
   "activation": {
-    "status": "canonical_validator_worksheet_renderer_integrated",
-    "acceptedByTask": "S58H_G3B_U08_CanonicalValidatorWorksheetAndRendererIntegration",
-    "requiredNextGate": "S58I_G3B_U08_PublicSelectorAndPrintControlsQA",
+    "status": "production_promotion_accepted",
+    "acceptedByTask": "S58J_G3B_U08_ProductionRegressionStressHTMLPDFPromotionCloseout",
+    "requiredNextGate": null,
     "publicProjectionChanged": false,
     "selectorBehaviorChanged": false,
     "resolverBehaviorChanged": false,
@@ -33,9 +34,18 @@
     "canonicalWorksheetChanged": true,
     "rendererChanged": true,
     "publicPrintControlBehaviorChanged": false,
-    "finalHtmlPdfPromotionAccepted": false,
+    "publicSelectorAndPrintQaAccepted": true,
+    "finalStressAccepted": true,
+    "finalHtmlPdfPromotionAccepted": true,
     "publicNumericModeAdded": false,
     "representationToggleAdded": false
+  },
+  "promotionEvidence": {
+    "s58hCloseout": "docs/curriculum/output/S58H_G3B_U08_CANONICAL_VALIDATOR_WORKSHEET_AND_RENDERER_INTEGRATION_PASS.marker",
+    "s58iPublicSelectorPrintQa": "docs/curriculum/output/S58I_G3B_U08_PUBLIC_SELECTOR_AND_PRINT_CONTROLS_QA_PASS.marker",
+    "publicHtmlSmoke": "docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.html",
+    "publicPdfSmoke": "docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.pdf",
+    "publicSmokeManifest": "docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json"
   },
   "authorityPolicy": {
     "originalS58CPatternSpecsRemainHidden": true,
