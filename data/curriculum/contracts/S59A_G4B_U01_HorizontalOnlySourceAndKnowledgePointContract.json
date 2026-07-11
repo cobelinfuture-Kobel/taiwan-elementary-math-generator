@@ -1,0 +1,93 @@
+{
+  "schemaName": "G4BU01HorizontalOnlySourceAndKnowledgePointContract",
+  "schemaVersion": 1,
+  "task": "S59A_G4B_U01_HorizontalOnlySourceAndKnowledgePointContract",
+  "sourceId": "g4b_u01_4b01",
+  "unitCode": "4B-U01",
+  "unitTitle": "多位數的乘與除",
+  "source": {
+    "fileName": "題型總覽-4b01-多位數的乘與除.pdf",
+    "pageCount": 2,
+    "byteSize": 503240,
+    "sha256": "8e187794305d2a19ede4fe085eb493f67593621d653a4706a71cf5700d3be05b",
+    "pageHeaderUrl": "https://meow911.com/4b01/",
+    "authorityStatus": "operator_supplied_pdf_manual_visual_read",
+    "repositoryStoragePolicy": "pdf_not_committed_source_fingerprint_and_panel_evidence_only"
+  },
+  "scopeLock": {
+    "outputMode": "horizontal_only",
+    "applicationProblemsRequired": false,
+    "applicationProblemsAllowedInCore": false,
+    "verticalRenderingAllowed": false,
+    "verticalSourceDiagrams": "evidence_only",
+    "publicMissingDigitAllowed": false,
+    "crossUnitFusionAllowed": false,
+    "genericFallbackAllowed": false
+  },
+  "supersededPlanningInput": {
+    "artifact": "data/curriculum/registry/unit_expansions/S43E12_G4B_U01_KPExpansion.json",
+    "status": "retained_as_historical_overlay_not_rewritten",
+    "reason": "S59A re-audits the operator-supplied PDF and narrows the public core to horizontal-only calculation KPs."
+  },
+  "sourceEvidence": [
+    {"evidenceId":"src_g4b_u01_p1_panel01","page":1,"panel":1,"sourceLabel":"×幾位數、乘積就會有幾排","normalizedMeaning":"multiplier digit count and partial-product row count","publicDisposition":"evidence_only","reason":"vertical-algorithm structure is not a horizontal calculation KP"},
+    {"evidenceId":"src_g4b_u01_p1_panel02","page":1,"panel":2,"sourceLabel":"3位數×3位數","normalizedMeaning":"three-digit by three-digit multiplication","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_3digit_by_3digit"]},
+    {"evidenceId":"src_g4b_u01_p1_panel03","page":1,"panel":3,"sourceLabel":"4位數×3位數","normalizedMeaning":"four-digit by three-digit multiplication","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_4digit_by_3digit"]},
+    {"evidenceId":"src_g4b_u01_p1_panel04","page":1,"panel":4,"sourceLabel":"乘數中間有0","normalizedMeaning":"multiplier contains internal zero","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_multiplier_internal_zero"]},
+    {"evidenceId":"src_g4b_u01_p1_panel05","page":1,"panel":5,"sourceLabel":"乘數尾巴有0","normalizedMeaning":"multiplier has trailing zero factors","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_trailing_zero_multiplication"]},
+    {"evidenceId":"src_g4b_u01_p1_panel06","page":1,"panel":6,"sourceLabel":"被乘數尾巴有0","normalizedMeaning":"multiplicand has trailing zero factors","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_trailing_zero_multiplication"]},
+    {"evidenceId":"src_g4b_u01_p1_panel07","page":1,"panel":7,"sourceLabel":"被乘數與乘數尾巴都有0","normalizedMeaning":"both factors have trailing zero factors","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_trailing_zero_multiplication"]},
+    {"evidenceId":"src_g4b_u01_p1_panel08","page":1,"panel":8,"sourceLabel":"3位數÷3位數","normalizedMeaning":"three-digit dividend divided by three-digit divisor with one-digit quotient","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_3digit_div_3digit"]},
+    {"evidenceId":"src_g4b_u01_p1_panel09","page":1,"panel":9,"sourceLabel":"4位數÷3位數（不退位）","normalizedMeaning":"four-digit dividend divided by three-digit divisor with two-digit quotient","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_4digit_div_3digit_2digit_quotient"]},
+    {"evidenceId":"src_g4b_u01_p1_panel10","page":1,"panel":10,"sourceLabel":"4位數÷3位數（退位）","normalizedMeaning":"four-digit dividend divided by three-digit divisor with one-digit quotient","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_4digit_div_3digit_1digit_quotient"]},
+    {"evidenceId":"src_g4b_u01_p2_panel01","page":2,"panel":1,"sourceLabel":"被除數與除數尾巴都有0，整除","normalizedMeaning":"trailing-zero division with exact quotient","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_trailing_zero_division_exact"]},
+    {"evidenceId":"src_g4b_u01_p2_panel02","page":2,"panel":2,"sourceLabel":"被除數與除數尾巴都有0，有餘數","normalizedMeaning":"trailing-zero division with remainder scale restoration","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_trailing_zero_division_remainder_restore"]},
+    {"evidenceId":"src_g4b_u01_p2_panel03","page":2,"panel":3,"sourceLabel":"尾巴有0的乘法簡化計算","normalizedMeaning":"base product multiplied by powers of ten","publicDisposition":"mapped","knowledgePointIds":["kp_g4b_u01_trailing_zero_multiplication"]},
+    {"evidenceId":"src_g4b_u01_p2_panel04","page":2,"panel":4,"sourceLabel":"3位數×3位數直式乘法內填未知數","normalizedMeaning":"missing-digit inference from vertical partial products","publicDisposition":"deferred_extension","reason":"requires a separate horizontal missing-digit answer model and unique-solution validator"}
+  ],
+  "knowledgePoints": [
+    {"knowledgePointId":"kp_g4b_u01_3digit_by_3digit","displayName":"三位數乘三位數","publicCore":true,"patternSpecIds":["ps_g4b_u01_3digit_by_3digit"]},
+    {"knowledgePointId":"kp_g4b_u01_4digit_by_3digit","displayName":"四位數乘三位數","publicCore":true,"patternSpecIds":["ps_g4b_u01_4digit_by_3digit"]},
+    {"knowledgePointId":"kp_g4b_u01_multiplier_internal_zero","displayName":"乘數中間有0的乘法","publicCore":true,"patternSpecIds":["ps_g4b_u01_multiplier_internal_zero"]},
+    {"knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication","displayName":"尾0乘法與位值簡算","publicCore":true,"patternSpecIds":["ps_g4b_u01_multiplier_trailing_zero","ps_g4b_u01_multiplicand_trailing_zero","ps_g4b_u01_both_factors_trailing_zero","ps_g4b_u01_power10_multiplication"]},
+    {"knowledgePointId":"kp_g4b_u01_3digit_div_3digit","displayName":"三位數除以三位數","publicCore":true,"patternSpecIds":["ps_g4b_u01_3digit_div_3digit"]},
+    {"knowledgePointId":"kp_g4b_u01_4digit_div_3digit_2digit_quotient","displayName":"四位數除以三位數，商為兩位數","publicCore":true,"patternSpecIds":["ps_g4b_u01_4digit_div_3digit_2digit_quotient"]},
+    {"knowledgePointId":"kp_g4b_u01_4digit_div_3digit_1digit_quotient","displayName":"四位數除以三位數，商為一位數","publicCore":true,"patternSpecIds":["ps_g4b_u01_4digit_div_3digit_1digit_quotient"]},
+    {"knowledgePointId":"kp_g4b_u01_trailing_zero_division_exact","displayName":"尾0除法，整除","publicCore":true,"patternSpecIds":["ps_g4b_u01_trailing_zero_division_exact"]},
+    {"knowledgePointId":"kp_g4b_u01_trailing_zero_division_remainder_restore","displayName":"尾0除法，有餘數及餘數還原","publicCore":true,"patternSpecIds":["ps_g4b_u01_trailing_zero_division_remainder_restore"]}
+  ],
+  "patternSpecCandidates": [
+    {"patternSpecId":"ps_g4b_u01_3digit_by_3digit","knowledgePointId":"kp_g4b_u01_3digit_by_3digit"},
+    {"patternSpecId":"ps_g4b_u01_4digit_by_3digit","knowledgePointId":"kp_g4b_u01_4digit_by_3digit"},
+    {"patternSpecId":"ps_g4b_u01_multiplier_internal_zero","knowledgePointId":"kp_g4b_u01_multiplier_internal_zero"},
+    {"patternSpecId":"ps_g4b_u01_multiplier_trailing_zero","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication","legacyRuntimeId":"ps_g4b_u01_multiplier_trailing_zero"},
+    {"patternSpecId":"ps_g4b_u01_multiplicand_trailing_zero","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication"},
+    {"patternSpecId":"ps_g4b_u01_both_factors_trailing_zero","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication"},
+    {"patternSpecId":"ps_g4b_u01_power10_multiplication","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication"},
+    {"patternSpecId":"ps_g4b_u01_3digit_div_3digit","knowledgePointId":"kp_g4b_u01_3digit_div_3digit"},
+    {"patternSpecId":"ps_g4b_u01_4digit_div_3digit_2digit_quotient","knowledgePointId":"kp_g4b_u01_4digit_div_3digit_2digit_quotient"},
+    {"patternSpecId":"ps_g4b_u01_4digit_div_3digit_1digit_quotient","knowledgePointId":"kp_g4b_u01_4digit_div_3digit_1digit_quotient"},
+    {"patternSpecId":"ps_g4b_u01_trailing_zero_division_exact","knowledgePointId":"kp_g4b_u01_trailing_zero_division_exact"},
+    {"patternSpecId":"ps_g4b_u01_trailing_zero_division_remainder_restore","knowledgePointId":"kp_g4b_u01_trailing_zero_division_remainder_restore"}
+  ],
+  "deferredExtensions": [
+    {"extensionId":"g4b_u01_horizontal_missing_digit","sourceEvidenceId":"src_g4b_u01_p2_panel04","blocksCoreCloseout":false},
+    {"extensionId":"g4b_u01_application_problems","sourceEvidenceId":null,"blocksCoreCloseout":false,"reason":"not present in the supplied PDF and explicitly excluded from the approved core scope"}
+  ],
+  "acceptance": {
+    "sourceEvidenceCount": 14,
+    "visibleKnowledgePointCount": 9,
+    "corePatternSpecCandidateCount": 12,
+    "allSourcePanelsAccountedFor": true,
+    "horizontalOnly": true,
+    "applicationProblemCount": 0,
+    "verticalPublicKnowledgePointCount": 0
+  },
+  "goalDistance": {
+    "before": "D4_G4B_U01_SOURCE_AUDITED_SCOPE_NOT_FROZEN",
+    "after": "D3_G4B_U01_HORIZONTAL_SOURCE_KP_CONTRACT_FROZEN",
+    "distanceReduced": "The two-page PDF is fingerprinted; all 14 source panels are accounted for; nine public horizontal-only KnowledgePoints and twelve core PatternSpec candidates are frozen.",
+    "remainingBlockers": ["Tag Registry and FormalMapping boundaries are not yet defined", "PatternSpecs are not materialized", "Generator, Validator, Worksheet, UI and print gates are not implemented"],
+    "nextShortestStep": "S59B_G4B_U01_TagRegistryFormalMappingAndBoundaryDesign"
+  }
+}
