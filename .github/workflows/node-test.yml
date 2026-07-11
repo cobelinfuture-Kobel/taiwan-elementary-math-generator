@@ -39,7 +39,7 @@ jobs:
           node-version: 20
 
       - name: Install project dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install PDF inspection and Traditional Chinese fonts
         run: |
