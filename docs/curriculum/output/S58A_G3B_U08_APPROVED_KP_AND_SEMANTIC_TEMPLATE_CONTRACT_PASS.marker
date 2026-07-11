@@ -1,0 +1,89 @@
+TASK = S58A_G3B_U08_ApprovedKnowledgePointAndSemanticTemplateContract
+STATUS = PASS_CI_SYNCED_AND_MERGED
+SOURCE_ID = g3b_u08_3b08
+UNIT = 3B-U08 乘法與除法
+
+PR = 24
+PR_HEAD_SHA = e02abdc4450295b952a9476921cd163bd14b6f22
+PR_MERGE_REF_SHA = 739160c6b2b11a448ce20acd7bc92945e61eefd1
+MERGE_COMMIT = 3827da7a052462a0b2e911617bc1f179111406b2
+
+PR_CI = PASS_CI_SYNCED_AND_CLEAN
+PR_CI_RUN = 29136677766
+PR_CI_RUN_NUMBER = 1099
+PR_CI_TESTS = 699
+PR_CI_PASS = 699
+PR_CI_FAIL = 0
+PR_CI_WORKING_TREE = clean
+PR_NODE_TEST = success
+PR_S42_BRANCH_TEST = success
+PR_MATH_CI_READBACK = success
+
+MAIN_CI = PASS_CI_SYNCED_AND_CLEAN
+MAIN_CI_RUN = 29136729775
+MAIN_CI_RUN_NUMBER = 1100
+MAIN_CI_READBACK_COMMIT = fd6f29b1f35d11bce57b96a4ef5a09649c0da1e0
+MAIN_CI_TESTS = 699
+MAIN_CI_PASS = 699
+MAIN_CI_FAIL = 0
+MAIN_CI_WORKING_TREE = clean
+
+APPROVED_PUBLIC_KNOWLEDGE_POINT_COUNT = 6
+PUBLIC_PURE_NUMERIC_KP_COUNT = 0
+HIDDEN_SUPPORT_RULE_COUNT = 4
+CANDIDATE_SEMANTIC_FAMILY_COUNT = 24
+DIRECT_SOURCE_FAMILY_COUNT = 13
+CONTROLLED_STRUCTURAL_EXTENSION_FAMILY_COUNT = 11
+PLANNED_MINIMUM_CONTEXT_VARIANT_COUNT = 72
+FAMILIES_PER_KP = 4
+
+REPRESENTATION = horizontal_only
+VERTICAL_MULTIPLICATION_ALLOWED = false
+VERTICAL_DIVISION_ALLOWED = false
+LONG_DIVISION_ALLOWED = false
+VERTICAL_MISSING_DIGIT_ALLOWED = false
+PURE_NUMERIC_PRACTICE_MODE_ALLOWED = false
+GENERAL_TWO_STEP_MIXED_OPERATION_EXPANSION_ALLOWED = false
+PUBLIC_REMAINDER_APPLICATION_ALLOWED = false
+TWO_DIGIT_MULTIPLIER_COMPUTATION_ALLOWED = false
+TWO_DIGIT_DIVISOR_COMPUTATION_ALLOWED = false
+
+PRIOR_MULTIPLICATION_BOUNDARY = 1digit_x_1digit,2digit_x_1digit,3digit_x_1digit
+PRIOR_DIVISION_BOUNDARY = 2digit_div_1digit_exact,3digit_div_1digit_exact
+REMAINDER_ROLE = support_check_only_not_public_application
+G3B_U04_OVERLAP_GUARD = general_two_step_mixed_operation_families_forbidden
+
+HISTORICAL_OVERLAY = data/curriculum/registry/unit_expansions/S43E7_G3B_U08_KPExpansion.json
+HISTORICAL_OVERLAY_MUTATED = false
+HISTORICAL_CANDIDATE_COUNT = 11
+CURRENT_PLANNING_AUTHORITY = data/curriculum/mapping/S58_G3B_U08_SourceFieldKnowledgePointMapping.json
+CURRENT_TEMPLATE_CONTRACT = data/curriculum/templates/S58_G3B_U08_SemanticTemplateFamilies.json
+SOURCE_METADATA_DISCREPANCY = uploaded filename/sourceId use 3b08 while PDF page header displays 3b07
+
+IMPLEMENTATION_ENTERED = false
+PATTERNSPEC_MATERIALIZED = false
+GENERATOR_CHANGED = false
+VALIDATOR_CHANGED = false
+SELECTOR_CHANGED = false
+WORKSHEET_CHANGED = false
+RENDERER_CHANGED = false
+PUBLIC_UI_CHANGED = false
+PRODUCTION_PROMOTION_CHANGED = false
+
+GOAL_DISTANCE_BEFORE = D3_G3B_U08_PRIOR_BATCH_A_BOUNDARY_ALIGNED_6_APPLICATION_KP_CANDIDATES_READY
+GOAL_DISTANCE_AFTER = D3_G3B_U08_6_KP_APPROVED_24_FAMILY_CONTRACT_READY_FOR_PATTERNSPEC_DESIGN
+DISTANCE_REDUCED = Fixed the six public application KnowledgePoints, horizontal-only representation, prior Batch A operand limits, G3B-U04 overlap guard, and a 24-family semantic template contract with 699/699 PR and main CI.
+REMAINING_BLOCKERS = ["24-family contract requires operator readback/acceptance before PatternSpec design", "PatternSpec and answer-model contracts are not yet designed", "semantic validator code contract is not yet materialized", "generator, selector, worksheet, renderer, HTML and PDF remain unchanged", "3b08 filename versus 3b07 page-header URL remains a recorded source metadata discrepancy"]
+NEXT_SHORTEST_STEP = S58B_G3B_U08_PatternSpecAndSemanticValidatorDesignScan
+
+TASK_DISTANCE_SEGMENT_SHORTENED = source/prior-boundary candidates -> approved six-KP and explicit 24-family design contract
+SYSTEM_NODE_ADVANCED = Source Evidence -> KnowledgePoint -> Semantic Template Family Candidate
+BLOCKER_REMOVED = vertical-format ambiguity, public pure-numeric ambiguity, two-digit multiplier/divisor overreach, and G3B-U04 two-step overlap ambiguity
+NEW_BLOCKER_ADDED = none; exact family approval remains the next governance gate
+NEXT_EFFECTIVE_STEP = Review and approve or adjust the 24 candidate semantic families, then authorize S58B design.
+
+STOP_REASON = NEXT_STEP_OUTSIDE_APPROVED_SCOPE
+BLOCKER_TYPE = APPROVAL_BOUNDARY
+LAST_COMPLETED_STATUS = S58A_PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve or adjust the 24-family contract and approve S58B_G3B_U08_PatternSpecAndSemanticValidatorDesignScan
+NEXT_RESUME_TASK = S58B_G3B_U08_PatternSpecAndSemanticValidatorDesignScan
