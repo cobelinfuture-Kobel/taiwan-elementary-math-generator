@@ -1,0 +1,200 @@
+name: FullFix S58E G3B U08 Realism
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fullfix-s58e-g3b-u08-realism-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  fullfix:
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Apply realism FullFix patches
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+
+          function replaceExactly(path, oldText, newText) {
+            let text = readFileSync(path, "utf8");
+            const count = text.split(oldText).length - 1;
+            if (count !== 1) throw new Error(`${path}: expected replacement count 1, got ${count}`);
+            text = text.replace(oldText, newText);
+            writeFileSync(path, text, "utf8");
+          }
+
+          const generator = "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js";
+          replaceExactly(
+            generator,
+            '} from "./g3b-u08-semantic-context-registry.js";\n',
+            '} from "./g3b-u08-semantic-context-registry.js";\nimport {\n  sampleG3BU08RealisticForSpec\n} from "./g3b-u08-semantic-realism-policy.js";\n'
+          );
+          replaceExactly(
+            generator,
+            `function sampleForSpec(spec, seed) {
+  if (spec.equationShape === "a*b") return sampleMultiply(seed);
+  if (spec.equationShape === "a/b") return sampleExactDivision(seed);
+  if (spec.equationShape === "round100(a)*b") return sampleNearestHundredEstimate(seed);
+  if (spec.equationShape === "ceil100(a)*b") return sampleUpperBudgetEstimate(seed);
+  if (spec.equationShape === "(h+d)*b") return sampleBenchmarkDifference(seed, "over");
+  if (spec.equationShape === "(h-d)*b") return sampleBenchmarkDifference(seed, "under");
+  if (spec.equationShape === "a*b vs c*d") return sampleSamePriceComparison(seed);
+  return null;
+}`,
+            `function sampleForSpec(spec, scenario, seed) {
+  return sampleG3BU08RealisticForSpec(spec, scenario, seed);
+}`
+          );
+          replaceExactly(
+            generator,
+            "    const sampled = sampleForSpec(spec, attemptSeed);",
+            "    const sampled = sampleForSpec(spec, scenario, attemptSeed);"
+          );
+          replaceExactly(
+            generator,
+            `  if (spec.templateFamilyId === "tpl_g3b_u08_group_count_score_events") {
+    const { person, successAction, successVerb, eventUnit } = scenario.bindings;
+    return \`${'${person}'}共得到${'${values.a}'}分，每${'${successAction}'}可得${'${values.b}'}分，${'${person}'}${'${successVerb}'}了幾${'${eventUnit}'}？\`;
+  }
+  const bindings = { ...scenario.bindings, ...values };`,
+            `  if (spec.templateFamilyId === "tpl_g3b_u08_group_count_score_events") {
+    const { person, successAction, successVerb, eventUnit } = scenario.bindings;
+    return \`${'${person}'}共得到${'${values.a}'}分，每${'${successAction}'}可得${'${values.b}'}分，${'${person}'}${'${successVerb}'}了幾${'${eventUnit}'}？\`;
+  }
+  if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_capacity" && scenario.bindings.item) {
+    const { item, containerUnit = "瓶", capacityUnit = "毫升" } = scenario.bindings;
+    return \`兩種${'${item}'}組合價格相同。甲有${'${values.a}'}${'${containerUnit}'}，每${'${containerUnit}'}${'${values.b}'}${'${capacityUnit}'}；乙有${'${values.c}'}${'${containerUnit}'}，每${'${containerUnit}'}${'${values.d}'}${'${capacityUnit}'}。哪一種總容量較多？\`;
+  }
+  const bindings = { ...scenario.bindings, ...values };`
+          );
+          replaceExactly(
+            generator,
+            `  const dimensionLabel = scenario.comparisonDimension === "weight" ? "總重量" : scenario.comparisonDimension === "capacity" ? "總容量" : scenario.comparisonDimension === "length" ? "總長度" : "總數量";
+  const conclusionZh = \`${'${winnerLabel}'}的${'${dimensionLabel}'}較多（${'${winningTotal}'}${'${unit}'}）\`;`,
+            `  const dimensionLabel = scenario.comparisonDimension === "weight" ? "總重量" : scenario.comparisonDimension === "capacity" ? "總容量" : scenario.comparisonDimension === "length" ? "總長度" : "總數量";
+  const comparisonAdjective = scenario.comparisonDimension === "length" ? "較長" : "較多";
+  const conclusionZh = \`${'${winnerLabel}'}的${'${dimensionLabel}'}${'${comparisonAdjective}'}（${'${winningTotal}'}${'${unit}'}）\`;`
+          );
+
+          const contexts = "site/modules/curriculum/batch-a/g3b-u08-semantic-context-registry.js";
+          replaceExactly(contexts,
+            '{ key: "juice", contextDomain: "drinks", sceneLabelZh: "同價果汁容量", bindings: { capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" },',
+            '{ key: "juice", contextDomain: "drinks", sceneLabelZh: "同價果汁容量", bindings: { item: "果汁", containerUnit: "瓶", capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" },'
+          );
+          replaceExactly(contexts,
+            '{ key: "milk", contextDomain: "drinks", sceneLabelZh: "同價牛奶容量", bindings: { capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" },',
+            '{ key: "milk", contextDomain: "drinks", sceneLabelZh: "同價牛奶容量", bindings: { item: "牛奶", containerUnit: "盒", capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" },'
+          );
+          replaceExactly(contexts,
+            '{ key: "water", contextDomain: "drinks", sceneLabelZh: "同價飲用水容量", bindings: { capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" }',
+            '{ key: "water", contextDomain: "drinks", sceneLabelZh: "同價飲用水容量", bindings: { item: "飲用水", containerUnit: "瓶", capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" }'
+          );
+
+          const validator = "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js";
+          replaceExactly(
+            validator,
+            '} from "./g3b-u08-semantic-context-registry.js";\nimport {',
+            '} from "./g3b-u08-semantic-context-registry.js";\nimport {\n  checkG3BU08HumanRealism\n} from "./g3b-u08-semantic-realism-policy.js";\nimport {'
+          );
+          replaceExactly(
+            validator,
+            `  if (numericValues(question).some((value) => Math.abs(value) > 999) || (question.intermediateResults ?? []).some((value) => typeof value === "number" && Math.abs(value) > 999)) {
+    add(errors, "G3BU08_NUMERIC_BOUND_EXCEEDED", 3, "quantities", "A final or intermediate value exceeds 999.");
+  }
+  return errors;
+}`,
+            `  if (numericValues(question).some((value) => Math.abs(value) > 999) || (question.intermediateResults ?? []).some((value) => typeof value === "number" && Math.abs(value) > 999)) {
+    add(errors, "G3BU08_NUMERIC_BOUND_EXCEEDED", 3, "quantities", "A final or intermediate value exceeds 999.");
+  }
+  const scenario = getG3BU08SemanticContextVariant(question.contextVariantId);
+  const realism = checkG3BU08HumanRealism(question, spec, scenario);
+  if (!realism.ok) {
+    add(errors, "G3BU08_NUMERIC_BOUND_EXCEEDED", 3, "quantities", \`Question exceeds family-specific realism policy: ${'${realism.reasons.join(", ")}'}\`);
+  }
+  return errors;
+}`
+          );
+
+          const audit = "tools/curriculum/generate-s58e-g3b-u08-human-readback-audit.mjs";
+          replaceExactly(
+            audit,
+            '} from "../../site/modules/curriculum/batch-a/source-pattern-g3b-u08-semantic-extension.js";\n',
+            '} from "../../site/modules/curriculum/batch-a/source-pattern-g3b-u08-semantic-extension.js";\nimport {\n  checkG3BU08HumanRealism\n} from "../../site/modules/curriculum/batch-a/g3b-u08-semantic-realism-policy.js";\n'
+          );
+          replaceExactly(audit, "function humanPrecheck(question) {", "function humanPrecheck(question, spec, variant) {");
+          replaceExactly(
+            audit,
+            "    gradeBoundaryClear: numericBoundaryClear(question),",
+            "    gradeBoundaryClear: numericBoundaryClear(question) && checkG3BU08HumanRealism(question, spec, variant).ok,"
+          );
+          replaceExactly(audit, "    const precheck = humanPrecheck(generated.question);", "    const precheck = humanPrecheck(generated.question, spec, variant);");
+          NODE
+
+      - name: Regenerate audit and compact evidence
+        shell: bash
+        run: |
+          node tools/curriculum/generate-s58e-g3b-u08-human-readback-audit.mjs
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+          const audit = JSON.parse(readFileSync("data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json", "utf8"));
+          const lines = ["record\tknowledgePointId\ttemplateFamilyId\tcontextVariantId\tpromptText\tequationModel\tanswerText"];
+          for (const record of audit.records) {
+            lines.push([
+              record.recordNumber,
+              record.knowledgePointId,
+              record.templateFamilyId,
+              record.contextVariantId,
+              record.promptText,
+              record.equationModel,
+              record.answerText
+            ].map((value) => String(value).replaceAll("\t", " ").replaceAll("\n", " ")).join("\t"));
+          }
+          writeFileSync("docs/curriculum/output/S58E_G3B_U08_HUMAN_READBACK_COMPACT.tsv", `${lines.join("\n")}\n`, "utf8");
+          NODE
+          test "$(wc -l < docs/curriculum/output/S58E_G3B_U08_HUMAN_READBACK_COMPACT.tsv)" -eq 73
+          git diff --check
+
+      - name: Run full tests
+        run: npm test
+
+      - name: Remove one-shot workflow
+        run: rm .github/workflows/fullfix-s58e-g3b-u08-realism.yml
+
+      - name: Commit realism FullFix
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js \
+                  site/modules/curriculum/batch-a/g3b-u08-semantic-context-registry.js \
+                  site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js \
+                  tools/curriculum/generate-s58e-g3b-u08-human-readback-audit.mjs \
+                  data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json \
+                  docs/curriculum/output/S58E_G3B_U08_HUMAN_READBACK_COMPACT.tsv \
+                  .github/workflows/fullfix-s58e-g3b-u08-realism.yml
+          git commit -m "fix(g3b-u08): FullFix S58E semantic realism [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
