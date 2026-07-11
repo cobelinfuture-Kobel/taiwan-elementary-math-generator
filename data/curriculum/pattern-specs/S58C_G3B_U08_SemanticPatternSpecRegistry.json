@@ -1,0 +1,172 @@
+{
+  "schemaName": "G3BU08SemanticPatternSpecRegistry",
+  "schemaVersion": 1,
+  "task": "S58C_G3B_U08_FormalMappingAndPatternSpecMaterialization",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "unitTitle": "乘法與除法",
+  "materializationStatus": "authoritative_materialized_hidden_not_routed",
+  "sourceTemplateRegistryRef": "data/curriculum/templates/S58_G3B_U08_SemanticTemplateFamilies.json",
+  "familyFreezeRef": "data/curriculum/contracts/S58A1_G3B_U08_24FamilyHumanReadbackFreeze.json",
+  "formalMappingDesignRef": "data/curriculum/mapping/S58B_G3B_U08_FormalMappingDesign.json",
+  "patternSpecSchemaRef": "data/curriculum/contracts/S58B_G3B_U08_PatternSpecSchema.json",
+  "semanticValidationContractRef": "data/curriculum/contracts/S58B_G3B_U08_SemanticValidationContract.json",
+  "policy": {
+    "oneSemanticFamilyPerPatternSpec": true,
+    "authoritativeArtifact": true,
+    "runtimeProjectionRequired": true,
+    "selectorVisibility": "hidden",
+    "productionUse": "forbidden",
+    "generatorRouting": "not_implemented_in_s58c",
+    "semanticValidationRuntime": "not_implemented_in_s58c",
+    "freeFormAIGeneration": "forbidden",
+    "representation": "horizontal_only"
+  },
+  "sharedNumericPolicy": {
+    "numberDomain": "positive_integers",
+    "multiplicationCalculatedShapes": ["1digit_x_1digit", "2digit_x_1digit", "3digit_x_1digit"],
+    "divisionCalculatedShapes": ["2digit_div_1digit_exact", "3digit_div_1digit_exact"],
+    "twoDigitMultiplierComputationAllowed": false,
+    "twoDigitDivisorComputationAllowed": false,
+    "publicRemainderApplicationAllowed": false,
+    "negativeAllowed": false,
+    "decimalAllowed": false,
+    "fractionAllowed": false,
+    "percentAllowed": false,
+    "maximumFinalAnswer": 999,
+    "maximumIntermediateValue": 999
+  },
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "primaryKnowledgePointId": "kp_g3b_u08_total_from_groups",
+      "displayName": "已知每組量與組數，求總量",
+      "answerModelRef": "answer_single_integer_with_unit",
+      "patternSpecIds": [
+        "ps_g3b_u08_total_daily_saving_accumulation",
+        "ps_g3b_u08_total_score_per_success",
+        "ps_g3b_u08_total_material_per_product",
+        "ps_g3b_u08_total_items_per_package"
+      ],
+      "allocationPolicy": "balanced_by_family",
+      "visibilityStatus": "hidden"
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "primaryKnowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "displayName": "已知總量與每組量，求組數",
+      "answerModelRef": "answer_single_integer_with_unit",
+      "patternSpecIds": [
+        "ps_g3b_u08_group_count_score_events",
+        "ps_g3b_u08_group_count_craft_products",
+        "ps_g3b_u08_group_count_equal_segments",
+        "ps_g3b_u08_group_count_packaging"
+      ],
+      "allocationPolicy": "balanced_by_family",
+      "visibilityStatus": "hidden"
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "primaryKnowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "displayName": "已知總量與組數，求每組量",
+      "answerModelRef": "answer_single_integer_with_unit",
+      "patternSpecIds": [
+        "ps_g3b_u08_per_group_daily_saving",
+        "ps_g3b_u08_per_group_equal_share_people",
+        "ps_g3b_u08_per_group_equal_container_capacity",
+        "ps_g3b_u08_per_group_equal_segment_length"
+      ],
+      "allocationPolicy": "balanced_by_family",
+      "visibilityStatus": "hidden"
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "primaryKnowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "displayName": "已知比較量與倍數，反求基準量",
+      "answerModelRef": "answer_single_integer_with_unit",
+      "patternSpecIds": [
+        "ps_g3b_u08_reverse_base_price_multiple",
+        "ps_g3b_u08_reverse_base_quantity_multiple",
+        "ps_g3b_u08_reverse_base_length_multiple",
+        "ps_g3b_u08_reverse_base_capacity_multiple"
+      ],
+      "allocationPolicy": "balanced_by_family",
+      "visibilityStatus": "hidden"
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "primaryKnowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "displayName": "購物估算：判斷夠不夠、多或少",
+      "answerModelRef": "answer_estimation_judgment_with_reason",
+      "patternSpecIds": [
+        "ps_g3b_u08_estimate_near_hundred_total",
+        "ps_g3b_u08_estimate_budget_sufficiency_upper",
+        "ps_g3b_u08_estimate_exact_over_benchmark",
+        "ps_g3b_u08_estimate_exact_under_benchmark"
+      ],
+      "allocationPolicy": "balanced_by_family",
+      "visibilityStatus": "hidden"
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "primaryKnowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "displayName": "相同價格下比較哪個方案較划算",
+      "answerModelRef": "answer_same_price_comparison",
+      "patternSpecIds": [
+        "ps_g3b_u08_same_price_compare_weight",
+        "ps_g3b_u08_same_price_compare_capacity",
+        "ps_g3b_u08_same_price_compare_item_count",
+        "ps_g3b_u08_same_price_compare_total_length"
+      ],
+      "allocationPolicy": "balanced_by_family",
+      "visibilityStatus": "hidden"
+    }
+  ],
+  "patternSpecs": [
+    {"patternSpecId":"ps_g3b_u08_total_daily_saving_accumulation","patternGroupId":"pg_g3b_u08_total_from_groups","knowledgePointId":"kp_g3b_u08_total_from_groups","templateFamilyId":"tpl_g3b_u08_total_daily_saving_accumulation","answerModelRef":"answer_single_integer_with_unit","familyOrder":1,"familyOrderWithinKnowledgePoint":1},
+    {"patternSpecId":"ps_g3b_u08_total_score_per_success","patternGroupId":"pg_g3b_u08_total_from_groups","knowledgePointId":"kp_g3b_u08_total_from_groups","templateFamilyId":"tpl_g3b_u08_total_score_per_success","answerModelRef":"answer_single_integer_with_unit","familyOrder":2,"familyOrderWithinKnowledgePoint":2},
+    {"patternSpecId":"ps_g3b_u08_total_material_per_product","patternGroupId":"pg_g3b_u08_total_from_groups","knowledgePointId":"kp_g3b_u08_total_from_groups","templateFamilyId":"tpl_g3b_u08_total_material_per_product","answerModelRef":"answer_single_integer_with_unit","familyOrder":3,"familyOrderWithinKnowledgePoint":3},
+    {"patternSpecId":"ps_g3b_u08_total_items_per_package","patternGroupId":"pg_g3b_u08_total_from_groups","knowledgePointId":"kp_g3b_u08_total_from_groups","templateFamilyId":"tpl_g3b_u08_total_items_per_package","answerModelRef":"answer_single_integer_with_unit","familyOrder":4,"familyOrderWithinKnowledgePoint":4},
+    {"patternSpecId":"ps_g3b_u08_group_count_score_events","patternGroupId":"pg_g3b_u08_group_count_from_total","knowledgePointId":"kp_g3b_u08_group_count_from_total","templateFamilyId":"tpl_g3b_u08_group_count_score_events","answerModelRef":"answer_single_integer_with_unit","familyOrder":5,"familyOrderWithinKnowledgePoint":1},
+    {"patternSpecId":"ps_g3b_u08_group_count_craft_products","patternGroupId":"pg_g3b_u08_group_count_from_total","knowledgePointId":"kp_g3b_u08_group_count_from_total","templateFamilyId":"tpl_g3b_u08_group_count_craft_products","answerModelRef":"answer_single_integer_with_unit","familyOrder":6,"familyOrderWithinKnowledgePoint":2},
+    {"patternSpecId":"ps_g3b_u08_group_count_equal_segments","patternGroupId":"pg_g3b_u08_group_count_from_total","knowledgePointId":"kp_g3b_u08_group_count_from_total","templateFamilyId":"tpl_g3b_u08_group_count_equal_segments","answerModelRef":"answer_single_integer_with_unit","familyOrder":7,"familyOrderWithinKnowledgePoint":3},
+    {"patternSpecId":"ps_g3b_u08_group_count_packaging","patternGroupId":"pg_g3b_u08_group_count_from_total","knowledgePointId":"kp_g3b_u08_group_count_from_total","templateFamilyId":"tpl_g3b_u08_group_count_packaging","answerModelRef":"answer_single_integer_with_unit","familyOrder":8,"familyOrderWithinKnowledgePoint":4},
+    {"patternSpecId":"ps_g3b_u08_per_group_daily_saving","patternGroupId":"pg_g3b_u08_per_group_from_total","knowledgePointId":"kp_g3b_u08_per_group_from_total","templateFamilyId":"tpl_g3b_u08_per_group_daily_saving","answerModelRef":"answer_single_integer_with_unit","familyOrder":9,"familyOrderWithinKnowledgePoint":1},
+    {"patternSpecId":"ps_g3b_u08_per_group_equal_share_people","patternGroupId":"pg_g3b_u08_per_group_from_total","knowledgePointId":"kp_g3b_u08_per_group_from_total","templateFamilyId":"tpl_g3b_u08_per_group_equal_share_people","answerModelRef":"answer_single_integer_with_unit","familyOrder":10,"familyOrderWithinKnowledgePoint":2},
+    {"patternSpecId":"ps_g3b_u08_per_group_equal_container_capacity","patternGroupId":"pg_g3b_u08_per_group_from_total","knowledgePointId":"kp_g3b_u08_per_group_from_total","templateFamilyId":"tpl_g3b_u08_per_group_equal_container_capacity","answerModelRef":"answer_single_integer_with_unit","familyOrder":11,"familyOrderWithinKnowledgePoint":3},
+    {"patternSpecId":"ps_g3b_u08_per_group_equal_segment_length","patternGroupId":"pg_g3b_u08_per_group_from_total","knowledgePointId":"kp_g3b_u08_per_group_from_total","templateFamilyId":"tpl_g3b_u08_per_group_equal_segment_length","answerModelRef":"answer_single_integer_with_unit","familyOrder":12,"familyOrderWithinKnowledgePoint":4},
+    {"patternSpecId":"ps_g3b_u08_reverse_base_price_multiple","patternGroupId":"pg_g3b_u08_reverse_base_from_multiple","knowledgePointId":"kp_g3b_u08_reverse_base_from_multiple","templateFamilyId":"tpl_g3b_u08_reverse_base_price_multiple","answerModelRef":"answer_single_integer_with_unit","familyOrder":13,"familyOrderWithinKnowledgePoint":1},
+    {"patternSpecId":"ps_g3b_u08_reverse_base_quantity_multiple","patternGroupId":"pg_g3b_u08_reverse_base_from_multiple","knowledgePointId":"kp_g3b_u08_reverse_base_from_multiple","templateFamilyId":"tpl_g3b_u08_reverse_base_quantity_multiple","answerModelRef":"answer_single_integer_with_unit","familyOrder":14,"familyOrderWithinKnowledgePoint":2},
+    {"patternSpecId":"ps_g3b_u08_reverse_base_length_multiple","patternGroupId":"pg_g3b_u08_reverse_base_from_multiple","knowledgePointId":"kp_g3b_u08_reverse_base_from_multiple","templateFamilyId":"tpl_g3b_u08_reverse_base_length_multiple","answerModelRef":"answer_single_integer_with_unit","familyOrder":15,"familyOrderWithinKnowledgePoint":3},
+    {"patternSpecId":"ps_g3b_u08_reverse_base_capacity_multiple","patternGroupId":"pg_g3b_u08_reverse_base_from_multiple","knowledgePointId":"kp_g3b_u08_reverse_base_from_multiple","templateFamilyId":"tpl_g3b_u08_reverse_base_capacity_multiple","answerModelRef":"answer_single_integer_with_unit","familyOrder":16,"familyOrderWithinKnowledgePoint":4},
+    {"patternSpecId":"ps_g3b_u08_estimate_near_hundred_total","patternGroupId":"pg_g3b_u08_shopping_estimation","knowledgePointId":"kp_g3b_u08_shopping_estimation","templateFamilyId":"tpl_g3b_u08_estimate_near_hundred_total","answerModelRef":"answer_estimation_judgment_with_reason","familyOrder":17,"familyOrderWithinKnowledgePoint":1},
+    {"patternSpecId":"ps_g3b_u08_estimate_budget_sufficiency_upper","patternGroupId":"pg_g3b_u08_shopping_estimation","knowledgePointId":"kp_g3b_u08_shopping_estimation","templateFamilyId":"tpl_g3b_u08_estimate_budget_sufficiency_upper","answerModelRef":"answer_estimation_judgment_with_reason","familyOrder":18,"familyOrderWithinKnowledgePoint":2},
+    {"patternSpecId":"ps_g3b_u08_estimate_exact_over_benchmark","patternGroupId":"pg_g3b_u08_shopping_estimation","knowledgePointId":"kp_g3b_u08_shopping_estimation","templateFamilyId":"tpl_g3b_u08_estimate_exact_over_benchmark","answerModelRef":"answer_estimation_judgment_with_reason","familyOrder":19,"familyOrderWithinKnowledgePoint":3},
+    {"patternSpecId":"ps_g3b_u08_estimate_exact_under_benchmark","patternGroupId":"pg_g3b_u08_shopping_estimation","knowledgePointId":"kp_g3b_u08_shopping_estimation","templateFamilyId":"tpl_g3b_u08_estimate_exact_under_benchmark","answerModelRef":"answer_estimation_judgment_with_reason","familyOrder":20,"familyOrderWithinKnowledgePoint":4},
+    {"patternSpecId":"ps_g3b_u08_same_price_compare_weight","patternGroupId":"pg_g3b_u08_same_price_value_comparison","knowledgePointId":"kp_g3b_u08_same_price_value_comparison","templateFamilyId":"tpl_g3b_u08_same_price_compare_weight","answerModelRef":"answer_same_price_comparison","familyOrder":21,"familyOrderWithinKnowledgePoint":1},
+    {"patternSpecId":"ps_g3b_u08_same_price_compare_capacity","patternGroupId":"pg_g3b_u08_same_price_value_comparison","knowledgePointId":"kp_g3b_u08_same_price_value_comparison","templateFamilyId":"tpl_g3b_u08_same_price_compare_capacity","answerModelRef":"answer_same_price_comparison","familyOrder":22,"familyOrderWithinKnowledgePoint":2},
+    {"patternSpecId":"ps_g3b_u08_same_price_compare_item_count","patternGroupId":"pg_g3b_u08_same_price_value_comparison","knowledgePointId":"kp_g3b_u08_same_price_value_comparison","templateFamilyId":"tpl_g3b_u08_same_price_compare_item_count","answerModelRef":"answer_same_price_comparison","familyOrder":23,"familyOrderWithinKnowledgePoint":3},
+    {"patternSpecId":"ps_g3b_u08_same_price_compare_total_length","patternGroupId":"pg_g3b_u08_same_price_value_comparison","knowledgePointId":"kp_g3b_u08_same_price_value_comparison","templateFamilyId":"tpl_g3b_u08_same_price_compare_total_length","answerModelRef":"answer_same_price_comparison","familyOrder":24,"familyOrderWithinKnowledgePoint":4}
+  ],
+  "patternSpecDefaults": {
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "representation": "horizontal_only",
+    "selectorVisibility": "hidden",
+    "productionUse": "forbidden",
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "semanticDefinitionSource": "sourceTemplateRegistryRef"
+  },
+  "summary": {
+    "knowledgePointCount": 6,
+    "patternGroupCount": 6,
+    "patternSpecCount": 24,
+    "templateFamilyCount": 24,
+    "visiblePatternGroupCount": 0,
+    "visiblePatternSpecCount": 0,
+    "productionEligiblePatternSpecCount": 0
+  }
+}
