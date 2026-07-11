@@ -30,22 +30,25 @@ export const G3B_U08_PROMOTED_SEMANTIC_PATTERN_SPEC_IDS = Object.freeze(
 
 export const G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE = Object.freeze({
   selectorStatus: "visible",
-  runtimeStatus: "hidden_validated_not_canonical_routed",
-  validatorStatus: "blocking_validator_accepted",
-  worksheetStatus: "not_connected",
-  productionUse: "forbidden"
+  runtimeStatus: "production_routed",
+  validatorStatus: "blocking_validator_required",
+  worksheetStatus: "production_eligible",
+  productionUse: "allowed"
 });
 
 export const G3B_U08_SEMANTIC_PROMOTION_ACTIVATION = Object.freeze({
-  status: "visible_selector_projection_accepted",
-  acceptedByTask: "S58F_G3B_U08_PromotionLifecycleAndVisibleSelectorProjection",
-  requiredNextGate: "S58G_G3B_U08_ResolverBrowserStateAndCanonicalRouterIntegration",
+  status: "production_promotion_accepted",
+  acceptedByTask: "S58J_G3B_U08_ProductionRegressionStressHTMLPDFPromotionCloseout",
+  requiredNextGate: null,
   publicProjectionChanged: true,
   selectorBehaviorChanged: true,
-  productionEligibilityBehaviorChanged: false,
-  canonicalRouterChanged: false,
-  canonicalWorksheetChanged: false,
+  productionEligibilityBehaviorChanged: true,
+  canonicalRouterChanged: true,
+  canonicalWorksheetChanged: true,
   humanSemanticReadbackAccepted: true,
+  publicSelectorAndPrintQaAccepted: true,
+  finalStressAccepted: true,
+  finalHtmlPdfSmokeAccepted: true,
   publicNumericModeAdded: false,
   representationToggleAdded: false
 });
@@ -129,13 +132,21 @@ export function validateG3BU08SemanticPromotionProjection() {
   if (definitions.some((definition) => definition.sourceId !== G3B_U08_SOURCE_ID)) errors.push("source_membership_drift");
   if (definitions.some((definition) => definition.selectorStatus !== "hidden")) errors.push("semantic_authority_selector_mutated");
   if (definitions.some((definition) => definition.productionUse !== "forbidden")) errors.push("semantic_authority_production_mutated");
-  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.status !== "visible_selector_projection_accepted") errors.push("selector_projection_not_accepted");
-  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.requiredNextGate !== "S58G_G3B_U08_ResolverBrowserStateAndCanonicalRouterIntegration") errors.push("unexpected_next_gate");
+  if (G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.runtimeStatus !== "production_routed") errors.push("runtime_not_production_routed");
+  if (G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_required") errors.push("blocking_validator_not_required");
+  if (G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.worksheetStatus !== "production_eligible") errors.push("worksheet_not_production_eligible");
+  if (G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.productionUse !== "allowed") errors.push("production_use_not_allowed");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.status !== "production_promotion_accepted") errors.push("promotion_not_accepted");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.requiredNextGate !== null) errors.push("unexpected_next_gate");
   if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.publicProjectionChanged !== true) errors.push("public_projection_not_active");
   if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.selectorBehaviorChanged !== true) errors.push("selector_not_active");
-  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.productionEligibilityBehaviorChanged !== false) errors.push("production_eligibility_changed_too_early");
-  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.canonicalRouterChanged !== false) errors.push("canonical_router_changed_too_early");
-  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.canonicalWorksheetChanged !== false) errors.push("canonical_worksheet_changed_too_early");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.productionEligibilityBehaviorChanged !== true) errors.push("production_eligibility_not_active");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.canonicalRouterChanged !== true) errors.push("canonical_router_not_active");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.canonicalWorksheetChanged !== true) errors.push("canonical_worksheet_not_active");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.humanSemanticReadbackAccepted !== true) errors.push("human_readback_not_accepted");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted !== true) errors.push("public_selector_print_qa_not_accepted");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.finalStressAccepted !== true) errors.push("stress_not_accepted");
+  if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.finalHtmlPdfSmokeAccepted !== true) errors.push("html_pdf_smoke_not_accepted");
   if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.publicNumericModeAdded !== false) errors.push("public_numeric_mode_added");
   if (G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.representationToggleAdded !== false) errors.push("representation_toggle_added");
 
