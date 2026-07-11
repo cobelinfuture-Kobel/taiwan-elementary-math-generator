@@ -138,9 +138,9 @@ const rows = [
     { key: "rice_crackers", contextDomain: "food", sceneLabelZh: "同價米果重量", bindings: { item: "米果" }, answerUnit: "克", comparisonDimension: "weight" }
   ]),
   ...row("tpl_g3b_u08_same_price_compare_capacity", [
-    { key: "juice", contextDomain: "drinks", sceneLabelZh: "同價果汁容量", bindings: { capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" },
-    { key: "milk", contextDomain: "drinks", sceneLabelZh: "同價牛奶容量", bindings: { capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" },
-    { key: "water", contextDomain: "drinks", sceneLabelZh: "同價飲用水容量", bindings: { capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" }
+    { key: "juice", contextDomain: "drinks", sceneLabelZh: "同價果汁容量", bindings: { item: "果汁", containerUnit: "瓶", capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" },
+    { key: "milk", contextDomain: "drinks", sceneLabelZh: "同價牛奶容量", bindings: { item: "牛奶", containerUnit: "盒", capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" },
+    { key: "water", contextDomain: "drinks", sceneLabelZh: "同價飲用水容量", bindings: { item: "飲用水", containerUnit: "瓶", capacityUnit: "毫升" }, answerUnit: "毫升", comparisonDimension: "capacity" }
   ]),
   ...row("tpl_g3b_u08_same_price_compare_item_count", [
     { key: "pencils", contextDomain: "stationery", sceneLabelZh: "同價鉛筆數量", bindings: { item: "鉛筆", packageUnit: "盒", itemUnit: "枝" }, answerUnit: "枝", comparisonDimension: "count" },
