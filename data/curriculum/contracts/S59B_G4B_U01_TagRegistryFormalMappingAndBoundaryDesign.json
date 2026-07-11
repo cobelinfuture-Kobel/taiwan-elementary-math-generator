@@ -1,0 +1,354 @@
+{
+  "schemaName": "G4BU01TagRegistryFormalMappingAndBoundaryDesign",
+  "schemaVersion": 1,
+  "task": "S59B_G4B_U01_TagRegistryFormalMappingAndBoundaryDesign",
+  "sourceId": "g4b_u01_4b01",
+  "unitCode": "4B-U01",
+  "unitTitle": "多位數的乘與除",
+  "status": "approved_design_contract_not_materialized",
+  "dependsOn": "S59A_G4B_U01_HorizontalOnlySourceAndKnowledgePointContract",
+  "scope": {
+    "representation": "horizontal_only",
+    "applicationProblems": "forbidden_in_core",
+    "verticalAlgorithm": "evidence_only",
+    "missingDigit": "deferred_extension",
+    "numberDomain": "positive_safe_integers",
+    "maximumFinalValue": 9999999,
+    "genericFallbackAllowed": false
+  },
+  "tagRegistry": {
+    "canonicalSkillTags": [
+      "multi_digit_multiplication",
+      "multi_digit_division"
+    ],
+    "subskillTags": [
+      "three_digit_by_three_digit",
+      "four_digit_by_three_digit",
+      "multiplier_internal_zero",
+      "multiplier_trailing_zero",
+      "multiplicand_trailing_zero",
+      "both_factors_trailing_zero",
+      "power_of_ten_scaling",
+      "three_digit_dividend_three_digit_divisor",
+      "four_digit_dividend_three_digit_divisor",
+      "one_digit_quotient",
+      "two_digit_quotient",
+      "exact_division",
+      "division_with_remainder",
+      "common_trailing_zero_reduction",
+      "remainder_scale_restoration"
+    ],
+    "difficultyTags": [
+      "multi_carry_possible",
+      "place_value_alignment",
+      "zero_position_constraint",
+      "quotient_digit_count_constraint",
+      "remainder_constraint",
+      "remainder_rescaling"
+    ],
+    "representationTags": [
+      "horizontal_expression",
+      "numeric_answer_blank",
+      "quotient_remainder_answer_blank"
+    ],
+    "answerModelTags": [
+      "numericAnswer",
+      "quotientRemainderAnswer"
+    ]
+  },
+  "knowledgePointMappings": [
+    {
+      "knowledgePointId": "kp_g4b_u01_3digit_by_3digit",
+      "displayName": "三位數乘三位數",
+      "canonicalSkillTag": "multi_digit_multiplication",
+      "subskillTags": ["three_digit_by_three_digit"],
+      "difficultyTags": ["multi_carry_possible", "place_value_alignment"],
+      "representationTags": ["horizontal_expression", "numeric_answer_blank"],
+      "answerModel": "numericAnswer",
+      "patternSpecIds": ["ps_g4b_u01_3digit_by_3digit"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_4digit_by_3digit",
+      "displayName": "四位數乘三位數",
+      "canonicalSkillTag": "multi_digit_multiplication",
+      "subskillTags": ["four_digit_by_three_digit"],
+      "difficultyTags": ["multi_carry_possible", "place_value_alignment"],
+      "representationTags": ["horizontal_expression", "numeric_answer_blank"],
+      "answerModel": "numericAnswer",
+      "patternSpecIds": ["ps_g4b_u01_4digit_by_3digit"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_multiplier_internal_zero",
+      "displayName": "乘數中間有0的乘法",
+      "canonicalSkillTag": "multi_digit_multiplication",
+      "subskillTags": ["multiplier_internal_zero"],
+      "difficultyTags": ["zero_position_constraint", "place_value_alignment"],
+      "representationTags": ["horizontal_expression", "numeric_answer_blank"],
+      "answerModel": "numericAnswer",
+      "patternSpecIds": ["ps_g4b_u01_multiplier_internal_zero"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_multiplication",
+      "displayName": "尾0乘法與位值簡算",
+      "canonicalSkillTag": "multi_digit_multiplication",
+      "subskillTags": ["multiplier_trailing_zero", "multiplicand_trailing_zero", "both_factors_trailing_zero", "power_of_ten_scaling"],
+      "difficultyTags": ["zero_position_constraint", "place_value_alignment"],
+      "representationTags": ["horizontal_expression", "numeric_answer_blank"],
+      "answerModel": "numericAnswer",
+      "patternSpecIds": ["ps_g4b_u01_multiplier_trailing_zero", "ps_g4b_u01_multiplicand_trailing_zero", "ps_g4b_u01_both_factors_trailing_zero", "ps_g4b_u01_power10_multiplication"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_3digit_div_3digit",
+      "displayName": "三位數除以三位數",
+      "canonicalSkillTag": "multi_digit_division",
+      "subskillTags": ["three_digit_dividend_three_digit_divisor", "one_digit_quotient", "division_with_remainder"],
+      "difficultyTags": ["quotient_digit_count_constraint", "remainder_constraint"],
+      "representationTags": ["horizontal_expression", "quotient_remainder_answer_blank"],
+      "answerModel": "quotientRemainderAnswer",
+      "patternSpecIds": ["ps_g4b_u01_3digit_div_3digit"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_4digit_div_3digit_2digit_quotient",
+      "displayName": "四位數除以三位數，商為兩位數",
+      "canonicalSkillTag": "multi_digit_division",
+      "subskillTags": ["four_digit_dividend_three_digit_divisor", "two_digit_quotient", "division_with_remainder"],
+      "difficultyTags": ["quotient_digit_count_constraint", "remainder_constraint"],
+      "representationTags": ["horizontal_expression", "quotient_remainder_answer_blank"],
+      "answerModel": "quotientRemainderAnswer",
+      "patternSpecIds": ["ps_g4b_u01_4digit_div_3digit_2digit_quotient"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_4digit_div_3digit_1digit_quotient",
+      "displayName": "四位數除以三位數，商為一位數",
+      "canonicalSkillTag": "multi_digit_division",
+      "subskillTags": ["four_digit_dividend_three_digit_divisor", "one_digit_quotient", "division_with_remainder"],
+      "difficultyTags": ["quotient_digit_count_constraint", "remainder_constraint"],
+      "representationTags": ["horizontal_expression", "quotient_remainder_answer_blank"],
+      "answerModel": "quotientRemainderAnswer",
+      "patternSpecIds": ["ps_g4b_u01_4digit_div_3digit_1digit_quotient"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_division_exact",
+      "displayName": "尾0除法，整除",
+      "canonicalSkillTag": "multi_digit_division",
+      "subskillTags": ["common_trailing_zero_reduction", "exact_division"],
+      "difficultyTags": ["zero_position_constraint", "place_value_alignment"],
+      "representationTags": ["horizontal_expression", "numeric_answer_blank"],
+      "answerModel": "numericAnswer",
+      "patternSpecIds": ["ps_g4b_u01_trailing_zero_division_exact"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_division_remainder_restore",
+      "displayName": "尾0除法，有餘數及餘數還原",
+      "canonicalSkillTag": "multi_digit_division",
+      "subskillTags": ["common_trailing_zero_reduction", "division_with_remainder", "remainder_scale_restoration"],
+      "difficultyTags": ["zero_position_constraint", "remainder_constraint", "remainder_rescaling"],
+      "representationTags": ["horizontal_expression", "quotient_remainder_answer_blank"],
+      "answerModel": "quotientRemainderAnswer",
+      "patternSpecIds": ["ps_g4b_u01_trailing_zero_division_remainder_restore"]
+    }
+  ],
+  "formalMappings": [
+    {
+      "patternSpecId": "ps_g4b_u01_3digit_by_3digit",
+      "knowledgePointId": "kp_g4b_u01_3digit_by_3digit",
+      "operation": "multiply",
+      "equationShape": "a*b",
+      "operandBoundary": {"aMin":100,"aMax":999,"bMin":100,"bMax":999,"aDigits":3,"bDigits":3},
+      "zeroPolicy": "unrestricted_digits_except_leading_zero",
+      "resultBoundary": {"min":10000,"max":998001},
+      "answerModel": "numericAnswer",
+      "generatorKind": "g4bU01HorizontalMultiplication",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01MultiplicationShape", "validateG4BU01NumericAnswer"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_4digit_by_3digit",
+      "knowledgePointId": "kp_g4b_u01_4digit_by_3digit",
+      "operation": "multiply",
+      "equationShape": "a*b",
+      "operandBoundary": {"aMin":1000,"aMax":9999,"bMin":100,"bMax":999,"aDigits":4,"bDigits":3},
+      "zeroPolicy": "unrestricted_digits_except_leading_zero",
+      "resultBoundary": {"min":100000,"max":9999999},
+      "answerModel": "numericAnswer",
+      "generatorKind": "g4bU01HorizontalMultiplication",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01MultiplicationShape", "validateG4BU01NumericAnswer"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_multiplier_internal_zero",
+      "knowledgePointId": "kp_g4b_u01_multiplier_internal_zero",
+      "operation": "multiply",
+      "equationShape": "a*b",
+      "operandBoundary": {"aMin":100,"aMax":999,"bMin":101,"bMax":9999,"aDigits":[3],"bDigits":[3,4]},
+      "zeroPolicy": "b_has_at_least_one_internal_zero_and_nonzero_leading_and_ones_digits",
+      "resultBoundary": {"min":10100,"max":9999999},
+      "answerModel": "numericAnswer",
+      "generatorKind": "g4bU01HorizontalMultiplication",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01InternalZeroMultiplier", "validateG4BU01NumericAnswer"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_multiplier_trailing_zero",
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_multiplication",
+      "operation": "multiply",
+      "equationShape": "a*b",
+      "operandBoundary": {"aMin":2,"aMax":9999,"bMin":10,"bMax":9999},
+      "zeroPolicy": "a_not_divisible_by_10_and_b_trailing_zero_count_1_to_3",
+      "resultBoundary": {"min":20,"max":9999999},
+      "answerModel": "numericAnswer",
+      "generatorKind": "g4bU01HorizontalTrailingZeroMultiplication",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01TrailingZeroFactorRole", "validateG4BU01NumericAnswer"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_multiplicand_trailing_zero",
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_multiplication",
+      "operation": "multiply",
+      "equationShape": "a*b",
+      "operandBoundary": {"aMin":10,"aMax":9999,"bMin":2,"bMax":9999},
+      "zeroPolicy": "a_trailing_zero_count_1_to_3_and_b_not_divisible_by_10",
+      "resultBoundary": {"min":20,"max":9999999},
+      "answerModel": "numericAnswer",
+      "generatorKind": "g4bU01HorizontalTrailingZeroMultiplication",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01TrailingZeroFactorRole", "validateG4BU01NumericAnswer"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_both_factors_trailing_zero",
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_multiplication",
+      "operation": "multiply",
+      "equationShape": "a*b",
+      "operandBoundary": {"aMin":10,"aMax":9999,"bMin":10,"bMax":9999},
+      "zeroPolicy": "both_factors_trailing_zero_count_1_to_3",
+      "resultBoundary": {"min":100,"max":9999999},
+      "answerModel": "numericAnswer",
+      "generatorKind": "g4bU01HorizontalTrailingZeroMultiplication",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01TrailingZeroFactorRole", "validateG4BU01NumericAnswer"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_power10_multiplication",
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_multiplication",
+      "operation": "multiply",
+      "equationShape": "a*b",
+      "operandBoundary": {"baseAmin":2,"baseAmax":99,"baseBmin":2,"baseBmax":99,"powerOfTenExponentTotalMin":1,"powerOfTenExponentTotalMax":5},
+      "zeroPolicy": "result_equals_base_product_times_10_to_total_exponent",
+      "resultBoundary": {"min":20,"max":9999999},
+      "answerModel": "numericAnswer",
+      "generatorKind": "g4bU01HorizontalTrailingZeroMultiplication",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01PowerOfTenScaling", "validateG4BU01NumericAnswer"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_3digit_div_3digit",
+      "knowledgePointId": "kp_g4b_u01_3digit_div_3digit",
+      "operation": "divide",
+      "equationShape": "a/b",
+      "operandBoundary": {"dividendMin":100,"dividendMax":999,"divisorMin":100,"divisorMax":999},
+      "quotientBoundary": {"min":1,"max":9,"digits":1},
+      "remainderPolicy": "zero_or_positive_less_than_original_divisor",
+      "answerModel": "quotientRemainderAnswer",
+      "generatorKind": "g4bU01HorizontalDivision",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01DivisionEquation", "validateG4BU01QuotientDigits", "validateG4BU01Remainder"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_4digit_div_3digit_2digit_quotient",
+      "knowledgePointId": "kp_g4b_u01_4digit_div_3digit_2digit_quotient",
+      "operation": "divide",
+      "equationShape": "a/b",
+      "operandBoundary": {"dividendMin":1000,"dividendMax":9999,"divisorMin":100,"divisorMax":999},
+      "quotientBoundary": {"min":10,"max":99,"digits":2},
+      "remainderPolicy": "zero_or_positive_less_than_original_divisor",
+      "answerModel": "quotientRemainderAnswer",
+      "generatorKind": "g4bU01HorizontalDivision",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01DivisionEquation", "validateG4BU01QuotientDigits", "validateG4BU01Remainder"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_4digit_div_3digit_1digit_quotient",
+      "knowledgePointId": "kp_g4b_u01_4digit_div_3digit_1digit_quotient",
+      "operation": "divide",
+      "equationShape": "a/b",
+      "operandBoundary": {"dividendMin":1000,"dividendMax":9999,"divisorMin":100,"divisorMax":999},
+      "quotientBoundary": {"min":1,"max":9,"digits":1},
+      "remainderPolicy": "zero_or_positive_less_than_original_divisor",
+      "answerModel": "quotientRemainderAnswer",
+      "generatorKind": "g4bU01HorizontalDivision",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01DivisionEquation", "validateG4BU01QuotientDigits", "validateG4BU01Remainder"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_trailing_zero_division_exact",
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_division_exact",
+      "operation": "divide",
+      "equationShape": "a/b",
+      "operandBoundary": {"dividendMin":1000,"dividendMax":99999,"divisorMin":100,"divisorMax":9999,"commonTrailingZeroCountMin":1,"commonTrailingZeroCountMax":3},
+      "quotientBoundary": {"min":1,"max":99,"digits":[1,2]},
+      "remainderPolicy": "must_be_zero",
+      "answerModel": "numericAnswer",
+      "generatorKind": "g4bU01HorizontalTrailingZeroDivision",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01CommonTrailingZeroReduction", "validateG4BU01ExactDivision", "validateG4BU01NumericAnswer"]
+    },
+    {
+      "patternSpecId": "ps_g4b_u01_trailing_zero_division_remainder_restore",
+      "knowledgePointId": "kp_g4b_u01_trailing_zero_division_remainder_restore",
+      "operation": "divide",
+      "equationShape": "a/b",
+      "operandBoundary": {"dividendMin":1000,"dividendMax":99999,"divisorMin":100,"divisorMax":9999,"commonTrailingZeroCountMin":1,"commonTrailingZeroCountMax":3},
+      "quotientBoundary": {"min":1,"max":99,"digits":[1,2]},
+      "remainderPolicy": "reduced_remainder_positive_original_remainder_equals_reduced_remainder_times_10_to_common_zero_count",
+      "answerModel": "quotientRemainderAnswer",
+      "generatorKind": "g4bU01HorizontalTrailingZeroDivision",
+      "validatorHooks": ["validateG4BU01Identity", "validateG4BU01HorizontalOnly", "validateG4BU01CommonTrailingZeroReduction", "validateG4BU01DivisionEquation", "validateG4BU01RemainderScaleRestoration"]
+    }
+  ],
+  "globalInvariants": [
+    "all operands and answers are safe integers",
+    "multiplication result is positive and no greater than 9999999",
+    "division divisor is positive and nonzero",
+    "division identity is dividend = divisor * quotient + remainder",
+    "remainder is at least zero and less than original divisor",
+    "quotient digit count matches the selected PatternSpec",
+    "internal-zero and trailing-zero positions match the selected PatternSpec",
+    "no vertical algorithm markup or application wording is emitted",
+    "validator failure produces zero canonical output and no fallback"
+  ],
+  "plannedBlockingCodes": [
+    "G4B_U01_IDENTITY_MISMATCH",
+    "G4B_U01_NON_HORIZONTAL_REPRESENTATION",
+    "G4B_U01_APPLICATION_TEXT_FORBIDDEN",
+    "G4B_U01_PATTERN_SPEC_SCOPE_MISMATCH",
+    "G4B_U01_OPERAND_RANGE_INVALID",
+    "G4B_U01_DIGIT_COUNT_INVALID",
+    "G4B_U01_MULTIPLICATION_RESULT_INVALID",
+    "G4B_U01_RESULT_RANGE_INVALID",
+    "G4B_U01_INTERNAL_ZERO_POSITION_INVALID",
+    "G4B_U01_TRAILING_ZERO_ROLE_INVALID",
+    "G4B_U01_POWER10_SCALING_INVALID",
+    "G4B_U01_DIVISOR_ZERO",
+    "G4B_U01_DIVISION_IDENTITY_INVALID",
+    "G4B_U01_QUOTIENT_RANGE_INVALID",
+    "G4B_U01_QUOTIENT_DIGIT_COUNT_INVALID",
+    "G4B_U01_REMAINDER_NEGATIVE",
+    "G4B_U01_REMAINDER_NOT_LESS_THAN_DIVISOR",
+    "G4B_U01_EXACT_DIVISION_HAS_REMAINDER",
+    "G4B_U01_REMAINDER_REQUIRED_BUT_ZERO",
+    "G4B_U01_COMMON_TRAILING_ZERO_INVALID",
+    "G4B_U01_REDUCED_DIVISION_INVALID",
+    "G4B_U01_REMAINDER_SCALE_NOT_RESTORED",
+    "G4B_U01_ANSWER_MODEL_INVALID",
+    "G4B_U01_GENERIC_FALLBACK_FORBIDDEN"
+  ],
+  "warnings": [
+    "G4B_U01_REPEATED_SIGNATURE_WARNING",
+    "G4B_U01_LOW_CARRY_COMPLEXITY_WARNING"
+  ],
+  "acceptance": {
+    "knowledgePointMappingCount": 9,
+    "formalMappingCount": 12,
+    "plannedBlockingCodeCount": 24,
+    "warningCodeCount": 2,
+    "allMappingsDeterministic": true,
+    "horizontalOnly": true,
+    "applicationProblems": 0
+  },
+  "goalDistance": {
+    "before": "D3_G4B_U01_HORIZONTAL_SOURCE_KP_CONTRACT_FROZEN",
+    "after": "D2_G4B_U01_TAG_FORMAL_MAPPING_AND_BOUNDARIES_LOCKED",
+    "distanceReduced": "Defined canonical tags, answer models, numeric boundaries, quotient/remainder policies and validator contracts for all nine KPs and twelve PatternSpec candidates.",
+    "remainingBlockers": ["PatternSpecs are not materialized", "Generator and Validator runtime are not implemented", "Selector, Worksheet, UI and print gates are not connected"],
+    "nextShortestStep": "S59C_G4B_U01_HiddenPatternSpecMaterialization"
+  }
+}
