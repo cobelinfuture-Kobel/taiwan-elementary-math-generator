@@ -70,13 +70,16 @@ const overlayRegistry = JSON.parse(readFileSync(
   "utf8"
 ));
 
-test("S58H promotion overlay advances worksheet eligibility without mutating hidden authority", () => {
+test("S58J final promotion preserves the S58H worksheet overlay and hidden authority", () => {
   assert.equal(overlayRegistry.overlayId, G3B_U08_PRODUCTION_PROMOTION_OVERLAY_ID);
   assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);
-  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "canonical_validator_worksheet_renderer_integrated");
-  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, "S58I_G3B_U08_PublicSelectorAndPrintControlsQA");
+  assert.deepEqual(overlayRegistry.activation, G3B_U08_PRODUCTION_PROMOTION_ACTIVATION);
+  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "production_promotion_accepted");
+  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, null);
   assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);
-  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, false);
+  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted, true);
+  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalStressAccepted, true);
+  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, true);
   const projection = validateG3BU08ProductionPromotionProjection();
   assert.equal(projection.ok, true, projection.errors.join(", "));
   for (const definition of listG3BU08SemanticPatternDefinitions()) {
