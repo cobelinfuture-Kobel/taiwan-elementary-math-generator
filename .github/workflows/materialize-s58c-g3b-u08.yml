@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - s58c-g3b-u08-pattern-spec-materialization
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
