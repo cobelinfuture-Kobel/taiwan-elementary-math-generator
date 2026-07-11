@@ -123,7 +123,13 @@ export function publicIssueMessage(issue = {}) {
   const code = String(issue?.code ?? "").trim();
   const mapped = PUBLIC_MESSAGE_BY_CODE[code];
   if (mapped) return mapped;
-  const sanitized = sanitizePublicMessage(issue?.message ?? "");
+  const rawMessage = String(issue?.message ?? "").trim();
+  if (!rawMessage || rawMessage === code || /^[A-Z0-9_]+$/.test(rawMessage)) {
+    return issue?.severity === "warning"
+      ? "設定已調整，請確認目前選擇。"
+      : "無法完成出題，請確認知識點、題目形式與題數設定。";
+  }
+  const sanitized = sanitizePublicMessage(rawMessage);
   if (sanitized && !/^[A-Z0-9_]+$/.test(sanitized)) return sanitized;
   return issue?.severity === "warning"
     ? "設定已調整，請確認目前選擇。"
