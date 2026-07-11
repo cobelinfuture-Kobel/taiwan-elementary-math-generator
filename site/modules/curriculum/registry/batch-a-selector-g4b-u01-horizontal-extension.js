@@ -1,3 +1,5 @@
+export * from "./batch-a-selector-g3b-u08-semantic-extension.js";
+
 import * as base from "./batch-a-selector-g3b-u08-semantic-extension.js";
 import {
   G4B_U01_HORIZONTAL_PROMOTION_REGISTRY_ID,
