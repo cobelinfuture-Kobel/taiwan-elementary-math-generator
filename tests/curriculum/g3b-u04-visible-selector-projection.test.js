@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import * as publicSelector from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+import * as stageSelector from "../../site/modules/curriculum/registry/batch-a-selector-g3b-u04-semantic-extension.js";
 import * as previousSelector from "../../site/modules/curriculum/registry/batch-a-selector-g4a-u08-phase2a-extension.js";
 import {
   G3B_U04_VISIBLE_SELECTOR_PROJECTION,
@@ -53,12 +53,12 @@ function sorted(values) {
 }
 
 function visibleG3BU04KnowledgePoints() {
-  return publicSelector.listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
+  return stageSelector.listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
 }
 
 function visibleG3BU04Groups() {
   return visibleG3BU04KnowledgePoints().flatMap((row) => (
-    publicSelector.getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId)
+    stageSelector.getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId)
   ));
 }
 
@@ -83,7 +83,7 @@ test("S57F2 projection validates exact 9-KP, 10-group, 32-plus-1 selector author
   assert.equal(G3B_U04_VISIBLE_SELECTOR_PROJECTION.requiredNextGate, "S57F3_G3B_U04_ResolverAndBrowserStateIntegration");
 });
 
-test("S57F2 top-level selector exposes exactly the nine approved Traditional Chinese KnowledgePoints", () => {
+test("S57F2 stage selector exposes exactly the nine approved Traditional Chinese KnowledgePoints", () => {
   const rows = visibleG3BU04KnowledgePoints();
   assert.equal(rows.length, 9);
   assert.deepEqual(sorted(rows.map((row) => row.knowledgePointId)), sorted(G3B_U04_PROMOTED_KNOWLEDGE_POINT_IDS));
@@ -99,10 +99,10 @@ test("S57F2 top-level selector exposes exactly the nine approved Traditional Chi
     assert.equal(row.difficultyTags.includes("two_step"), true);
     assert.equal(row.difficultyTags.includes("semantic_application"), true);
     assert.equal(/(?:kp_|pg_|ps_|tpl_)/.test(row.displayName), false);
-    assert.deepEqual(publicSelector.getVisibleBatchAKnowledgePoint(row.knowledgePointId), row);
+    assert.deepEqual(stageSelector.getVisibleBatchAKnowledgePoint(row.knowledgePointId), row);
   }
 
-  const allIds = new Set(publicSelector.listVisibleBatchAKnowledgePoints().map((row) => row.knowledgePointId));
+  const allIds = new Set(stageSelector.listVisibleBatchAKnowledgePoints().map((row) => row.knowledgePointId));
   for (const historicalId of historicalOnlyIds) assert.equal(allIds.has(historicalId), false);
 });
 
@@ -123,7 +123,7 @@ test("S57F2 exposes nine semantic groups and one separate preserved numeric repr
   assert.equal(numericGroups[0].patternGroupId, NUMERIC_GROUP_ID);
   assert.deepEqual(numericGroups[0].patternSpecIds, [NUMERIC_PATTERN_SPEC_ID]);
 
-  const consecutiveGroups = publicSelector.getVisiblePatternGroupsForKnowledgePoint("kp_g3b_u04_consecutive_multiplication");
+  const consecutiveGroups = stageSelector.getVisiblePatternGroupsForKnowledgePoint("kp_g3b_u04_consecutive_multiplication");
   assert.deepEqual(consecutiveGroups.map((group) => group.patternGroupId), [NUMERIC_GROUP_ID, APPLICATION_GROUP_ID]);
   assert.equal(consecutiveGroups[0].representationTag, "numeric");
   assert.equal(consecutiveGroups[1].representationTag, "application_word_problem");
@@ -139,24 +139,24 @@ test("S57F2 exposes nine semantic groups and one separate preserved numeric repr
 
 test("S57F2 visible PatternSpec resolution is exact while prior source availability remains unchanged", () => {
   for (const row of visibleG3BU04KnowledgePoints()) {
-    const groups = publicSelector.getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId);
+    const groups = stageSelector.getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId);
     const expected = [...new Set(groups.flatMap((group) => group.patternSpecIds))];
-    assert.deepEqual(publicSelector.resolveVisiblePatternSpecIdsForKnowledgePoint(row.knowledgePointId), expected);
+    assert.deepEqual(stageSelector.resolveVisiblePatternSpecIdsForKnowledgePoint(row.knowledgePointId), expected);
     assert.deepEqual(row.patternSpecIds, expected);
     assert.deepEqual(row.patternGroupIds, groups.map((group) => group.patternGroupId));
   }
 
   const previousSource = previousSelector.listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  const currentSource = publicSelector.listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
+  const currentSource = stageSelector.listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
   assert.equal(currentSource.visibleCount, previousSource.visibleCount + 9);
   assert.equal(currentSource.hiddenPendingCount, previousSource.hiddenPendingCount);
   assert.equal(currentSource.notSelectableCount, previousSource.notSelectableCount);
-  assert.equal(publicSelector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount, previousSelector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount + 9);
-  assert.equal(publicSelector.BATCH_A_SELECTOR_AVAILABILITY.notSelectableCount, previousSelector.BATCH_A_SELECTOR_AVAILABILITY.notSelectableCount);
+  assert.equal(stageSelector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount, previousSelector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount + 9);
+  assert.equal(stageSelector.BATCH_A_SELECTOR_AVAILABILITY.notSelectableCount, previousSelector.BATCH_A_SELECTOR_AVAILABILITY.notSelectableCount);
 
   for (const [sourceId, availability] of Object.entries(previousSelector.BATCH_A_SELECTOR_AVAILABILITY.bySourceId)) {
     if (sourceId === SOURCE_ID) continue;
-    assert.deepEqual(publicSelector.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId], availability);
+    assert.deepEqual(stageSelector.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId], availability);
   }
 });
 
