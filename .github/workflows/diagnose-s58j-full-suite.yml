@@ -1,0 +1,72 @@
+name: Diagnose S58J Full Suite
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+
+      - name: Apply current S58J lifecycle patches
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+          function replaceOne(path, oldText, newText) {
+            let text = readFileSync(path, "utf8");
+            const count = text.split(oldText).length - 1;
+            if (count !== 1) throw new Error(`${path}: ${count}`);
+            writeFileSync(path, text.replace(oldText, newText), "utf8");
+          }
+          replaceOne(
+            "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+            'G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_accepted"',
+            '!["blocking_validator_accepted", "blocking_validator_required"].includes(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus)'
+          );
+          const path = "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js";
+          replaceOne(path, 'test("S58H promotion overlay advances worksheet eligibility without mutating hidden authority", () => {', 'test("S58J final promotion preserves the S58H worksheet overlay and hidden authority", () => {');
+          replaceOne(path, '  assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);', '  assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);\n  assert.deepEqual(overlayRegistry.activation, G3B_U08_PRODUCTION_PROMOTION_ACTIVATION);');
+          replaceOne(path, '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "canonical_validator_worksheet_renderer_integrated");', '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "production_promotion_accepted");');
+          replaceOne(path, '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, "S58I_G3B_U08_PublicSelectorAndPrintControlsQA");', '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, null);');
+          replaceOne(path, '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);', '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);\n  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted, true);\n  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalStressAccepted, true);');
+          replaceOne(path, '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, false);', '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, true);');
+          NODE
+
+      - name: Run full suite and capture output
+        shell: bash
+        run: |
+          set +e
+          npm test > s58j-full-suite.log 2>&1
+          echo $? > s58j-full-suite.exit
+          grep -nE '^not ok|failureType|error:|Expected|actual|expected' s58j-full-suite.log > s58j-failures.txt || true
+          tail -300 s58j-full-suite.log > s58j-tail.txt
+          exit 0
+
+      - name: Upload full-suite diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: s58j-full-suite-diagnostics
+          path: |
+            s58j-full-suite.exit
+            s58j-failures.txt
+            s58j-tail.txt
+            s58j-full-suite.log
+          retention-days: 7
