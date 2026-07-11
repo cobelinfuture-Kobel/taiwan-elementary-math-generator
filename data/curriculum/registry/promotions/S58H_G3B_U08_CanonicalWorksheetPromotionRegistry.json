@@ -1,0 +1,49 @@
+{
+  "schemaName": "G3BU08CanonicalWorksheetPromotionRegistry",
+  "schemaVersion": 1,
+  "task": "S58H_G3B_U08_CanonicalValidatorWorksheetAndRendererIntegration",
+  "overlayId": "s58h_g3b_u08_canonical_worksheet_promotion",
+  "basePromotionRegistryId": "s58f_g3b_u08_semantic_promotion",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "unitTitle": "乘法與除法",
+  "coverage": {
+    "knowledgePointCount": 6,
+    "patternGroupCount": 6,
+    "patternSpecCount": 24,
+    "applicationOnly": true,
+    "horizontalOnly": true
+  },
+  "lifecycle": {
+    "selectorStatus": "visible",
+    "runtimeStatus": "production_routed",
+    "validatorStatus": "blocking_validator_required",
+    "worksheetStatus": "production_eligible",
+    "productionUse": "allowed"
+  },
+  "activation": {
+    "status": "canonical_validator_worksheet_renderer_integrated",
+    "acceptedByTask": "S58H_G3B_U08_CanonicalValidatorWorksheetAndRendererIntegration",
+    "requiredNextGate": "S58I_G3B_U08_PublicSelectorAndPrintControlsQA",
+    "publicProjectionChanged": false,
+    "selectorBehaviorChanged": false,
+    "resolverBehaviorChanged": false,
+    "canonicalRouterChanged": false,
+    "productionEligibilityBehaviorChanged": true,
+    "canonicalWorksheetChanged": true,
+    "rendererChanged": true,
+    "publicPrintControlBehaviorChanged": false,
+    "finalHtmlPdfPromotionAccepted": false,
+    "publicNumericModeAdded": false,
+    "representationToggleAdded": false
+  },
+  "authorityPolicy": {
+    "originalS58CPatternSpecsRemainHidden": true,
+    "originalS58CPatternSpecsRemainProductionForbidden": true,
+    "productionPromotionIsOverlayOnly": true,
+    "resolverDerivedOnly": true,
+    "blockingValidatorRequired": true,
+    "genericFallbackAllowed": false,
+    "publicHiddenModeFlagAllowed": false
+  }
+}
