@@ -30,7 +30,8 @@
   "rendererProfile":{
     "profileId":"g4b_u01_horizontal_numeric_v1",
     "questionSheet":{"paperSize":"A4","columns":3,"rowsPerPage":8,"noWrapExpression":true,"avoidSplit":true},
-    "answerKey":{"paperSize":"A4","columns":3,"rowsPerPage":10,"noWrapExpression":true,"avoidSplit":true}
+    "answerKey":{"paperSize":"A4","columns":3,"rowsPerPage":10,"noWrapExpression":true,"avoidSplit":true},
+    "appliesWhen":{"sourceId":"g4b_u01_4b01","kind":"g4bU01HorizontalCalculation"}
   },
   "publicQuestionCount":{"min":1,"max":200},
   "summary":{"knowledgePointCount":9,"patternGroupCount":9,"patternSpecCount":12}
