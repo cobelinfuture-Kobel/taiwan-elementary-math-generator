@@ -1,0 +1,177 @@
+name: Materialize S58J G3B U08 Public HTML PDF
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: materialize-s58j-g3b-u08-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies without lockfile
+        run: npm install --no-package-lock
+
+      - name: Advance historical S58H lifecycle assertions
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+          const path = "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js";
+          let text = readFileSync(path, "utf8");
+          const oldText = `test("S58H promotion overlay advances worksheet eligibility without mutating hidden authority", () => {
+            assert.equal(overlayRegistry.overlayId, G3B_U08_PRODUCTION_PROMOTION_OVERLAY_ID);
+            assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "canonical_validator_worksheet_renderer_integrated");
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, "S58I_G3B_U08_PublicSelectorAndPrintControlsQA");
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, false);
+            const projection = validateG3BU08ProductionPromotionProjection();`;
+          const newText = `test("S58J final promotion preserves the S58H worksheet overlay and hidden authority", () => {
+            assert.equal(overlayRegistry.overlayId, G3B_U08_PRODUCTION_PROMOTION_OVERLAY_ID);
+            assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);
+            assert.deepEqual(overlayRegistry.activation, G3B_U08_PRODUCTION_PROMOTION_ACTIVATION);
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "production_promotion_accepted");
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, null);
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted, true);
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalStressAccepted, true);
+            assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, true);
+            const projection = validateG3BU08ProductionPromotionProjection();`;
+          const count = text.split(oldText).length - 1;
+          if (count !== 1) throw new Error(`Expected one S58H lifecycle block, got ${count}`);
+          text = text.replace(oldText, newText);
+          writeFileSync(path, text, "utf8");
+          NODE
+          git diff --check
+
+      - name: Generate canonical public HTML and initial manifest
+        run: node tools/curriculum/generate-s58j-g3b-u08-public-smoke.mjs
+
+      - name: Install PDF verification tools
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils python3-pil
+
+      - name: Print and verify 18-page PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          HTML="docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.html"
+          PDF="docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.pdf"
+          MANIFEST="docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json"
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          test -n "$CHROME"
+          HTML_ABS="$(realpath "$HTML")"
+          "$CHROME" \
+            --headless \
+            --no-sandbox \
+            --disable-gpu \
+            --disable-dev-shm-usage \
+            --no-pdf-header-footer \
+            --print-to-pdf="$PDF" \
+            "file://$HTML_ABS"
+          test -s "$PDF"
+          test "$(head -c 5 "$PDF")" = "%PDF-"
+
+          PAGE_COUNT="$(pdfinfo "$PDF" | awk '/^Pages:/ {print $2}')"
+          test "$PAGE_COUNT" = "18"
+
+          rm -rf /tmp/s58j-render
+          mkdir -p /tmp/s58j-render
+          pdftoppm -png -r 120 "$PDF" /tmp/s58j-render/page >/dev/null
+          RENDER_COUNT="$(find /tmp/s58j-render -maxdepth 1 -name 'page-*.png' | wc -l | tr -d ' ')"
+          test "$RENDER_COUNT" = "18"
+
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageChops, ImageStat
+
+          pages = sorted(Path('/tmp/s58j-render').glob('page-*.png'))
+          assert len(pages) == 18, len(pages)
+          for page in pages:
+              image = Image.open(page).convert('RGB')
+              white = Image.new('RGB', image.size, 'white')
+              diff = ImageChops.difference(image, white)
+              bbox = diff.getbbox()
+              assert bbox is not None, f'blank page: {page}'
+              gray = image.convert('L')
+              lo, hi = gray.getextrema()
+              assert lo < 245 and hi > 245, f'low-contrast or uniform page: {page} {lo} {hi}'
+              stats = ImageStat.Stat(diff.convert('L'))
+              assert stats.mean[0] > 0.5, f'insufficient rendered content: {page}'
+          print('All 18 PDF pages rendered as nonblank, mixed-tone PNGs.')
+          PY
+
+          pdftotext -layout "$PDF" /tmp/s58j-public.txt
+          EQ_COUNT="$(grep -o '算式：' /tmp/s58j-public.txt | wc -l | tr -d ' ')"
+          ANSWER_COUNT="$(grep -o '答案：' /tmp/s58j-public.txt | wc -l | tr -d ' ')"
+          test "$EQ_COUNT" = "72"
+          test "$ANSWER_COUNT" = "72"
+          ! grep -Eiq '(kp|pg|ps|tpl|ctx)_g3b_u08_|hiddenSemanticMode|g3bU08Semantic|直式|長除法|\{\{' /tmp/s58j-public.txt
+
+          export PAGE_COUNT RENDER_COUNT EQ_COUNT ANSWER_COUNT PDF MANIFEST
+          node --input-type=module <<'NODE'
+          import { createHash } from "node:crypto";
+          import { readFileSync, statSync, writeFileSync } from "node:fs";
+
+          const manifestPath = process.env.MANIFEST;
+          const pdfPath = process.env.PDF;
+          const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+          const pdf = readFileSync(pdfPath);
+          manifest.status = "public_html_pdf_smoke_pass";
+          manifest.actualPdfPageCount = Number(process.env.PAGE_COUNT);
+          manifest.pdfSha256 = createHash("sha256").update(pdf).digest("hex");
+          manifest.pdfBytes = statSync(pdfPath).size;
+          manifest.renderedPageImageCount = Number(process.env.RENDER_COUNT);
+          manifest.extractedEquationLabelCount = Number(process.env.EQ_COUNT);
+          manifest.extractedAnswerLabelCount = Number(process.env.ANSWER_COUNT);
+          manifest.visualRenderVerification = "all_pages_rendered_nonblank";
+          writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+          NODE
+
+          test "$(stat -c%s "$PDF")" -ge 20000
+          git diff --check
+
+      - name: Run focused S58J tests
+        run: node --test tests/curriculum/g3b-u08-production-regression-stress-html-pdf-closeout.test.js
+
+      - name: Run full tests
+        run: npm test
+
+      - name: Remove one-shot workflow and generated lockfile
+        shell: bash
+        run: |
+          rm .github/workflows/materialize-s58j-g3b-u08-public-html-pdf.yml
+          rm -f package-lock.json
+
+      - name: Commit verified S58J artifacts
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "test(g3b-u08): materialize S58J HTML PDF promotion evidence [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
