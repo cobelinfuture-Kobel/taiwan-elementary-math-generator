@@ -26,6 +26,7 @@
     "status": "production_promotion_accepted",
     "acceptedByTask": "S58J_G3B_U08_ProductionRegressionStressHTMLPDFPromotionCloseout",
     "requiredNextGate": null,
+    "basePromotionRegistryId": "s58f_g3b_u08_semantic_promotion",
     "publicProjectionChanged": false,
     "selectorBehaviorChanged": false,
     "resolverBehaviorChanged": false,
