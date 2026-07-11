@@ -147,7 +147,7 @@ test("S58I Classic query state preserves all six public KPs and application grou
     selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
     questionCount: "24",
     ordering: "shuffleAcrossPatterns",
-    includeAnswerKey: "false"
+    answerKey: "0"
   });
   for (const knowledgePointId of G3B_U08_PROMOTED_KNOWLEDGE_POINT_IDS) query.append("kp", knowledgePointId);
   for (const patternGroupId of G3B_U08_PROMOTED_PATTERN_GROUP_IDS) query.append("pg", patternGroupId);
@@ -282,6 +282,7 @@ test("S58I maps G3B-U08 canonical and production failures to Traditional Chinese
 
   const sanitized = sanitizePublicMessage(`PatternSpec ps_example and ctx_example belong to ${SOURCE_ID}`);
   assert.doesNotMatch(sanitized, /ps_example/);
+  assert.doesNotMatch(sanitized, /ctx_example/);
   assert.equal(sanitized.includes(SOURCE_ID), false);
 
   const pixelSummary = summarizePixelGenerationResult({
@@ -312,8 +313,8 @@ test("S58I Classic, 404, and Pixel surfaces expose required controls without int
   }
 
   assert.match(pixel, /id="pixel-source-select"/);
-  assert.match(pixel, /id="pixel-selection-mode"/);
-  assert.match(pixel, /id="pixel-knowledge-point-panel"/);
+  assert.match(pixel, /id="pixel-selection-mode-select"/);
+  assert.match(pixel, /id="pixel-kp-panel"/);
   assert.match(pixel, /id="pixel-question-count"/);
   assert.match(pixel, /id="pixel-ordering"/);
   assert.match(pixel, /id="pixel-answer-key"/);
