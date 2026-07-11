@@ -20,10 +20,10 @@ export const G4B_U01_PROMOTED_PATTERN_SPEC_IDS = Object.freeze(
 
 export const G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE = Object.freeze({
   selectorStatus: "visible",
-  runtimeStatus: "production_routed",
-  validatorStatus: "blocking_validator_required",
-  worksheetStatus: "production_eligible",
-  productionUse: "allowed",
+  runtimeStatus: "blocking_validated_hidden_not_canonical",
+  validatorStatus: "blocking_validator_accepted",
+  worksheetStatus: "not_eligible",
+  productionUse: "forbidden",
 });
 
 export const G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION = Object.freeze({
@@ -32,10 +32,10 @@ export const G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION = Object.freeze({
   requiredNextGate: null,
   publicProjectionChanged: true,
   selectorBehaviorChanged: true,
-  resolverBehaviorChanged: true,
-  canonicalRouterChanged: true,
-  productionEligibilityBehaviorChanged: true,
-  canonicalWorksheetChanged: true,
+  resolverBehaviorChanged: false,
+  canonicalRouterChanged: false,
+  productionEligibilityBehaviorChanged: false,
+  canonicalWorksheetChanged: false,
   publicSelectorAndPrintQaAccepted: true,
   finalStressAccepted: true,
   finalHtmlPdfSmokeAccepted: true,
@@ -99,10 +99,10 @@ export function validateG4BU01HorizontalPromotionProjection() {
   if (G4B_U01_HIDDEN_PATTERN_GROUPS.some((group) => group.visibilityStatus !== "hidden")) errors.push("hidden_group_authority_mutated");
   if (G4B_U01_HIDDEN_PATTERN_SPECS.some((spec) => spec.selectorStatus !== "hidden" || spec.productionUse !== "forbidden")) errors.push("hidden_spec_authority_mutated");
   if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.selectorStatus !== "visible") errors.push("selector_not_visible");
-  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.runtimeStatus !== "production_routed") errors.push("runtime_not_production_routed");
-  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_required") errors.push("blocking_validator_not_required");
-  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.worksheetStatus !== "production_eligible") errors.push("worksheet_not_eligible");
-  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.productionUse !== "allowed") errors.push("production_not_allowed");
+  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.runtimeStatus !== "blocking_validated_hidden_not_canonical") errors.push("base_runtime_lifecycle_mutated");
+  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_accepted") errors.push("base_validator_lifecycle_mutated");
+  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.worksheetStatus !== "not_eligible") errors.push("base_worksheet_lifecycle_mutated");
+  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.productionUse !== "forbidden") errors.push("base_production_lifecycle_mutated");
   if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.status !== "production_promotion_accepted") errors.push("promotion_not_accepted");
   if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.requiredNextGate !== null) errors.push("unexpected_next_gate");
   if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted !== true) errors.push("public_selector_print_qa_not_accepted");
