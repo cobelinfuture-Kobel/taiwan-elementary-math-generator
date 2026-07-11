@@ -105,10 +105,12 @@ test("S58C browser-neutral runtime projection exactly matches the authoritative 
   for (const spec of registry.patternSpecs) assert.deepEqual(getG3BU08SemanticPatternDefinition(spec.patternSpecId), spec);
 });
 
-test("S58E adds the blocking validator while selector and canonical router remain deferred", () => {
-  assert.equal(existsSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-g3b-u08-semantic-extension.js", import.meta.url)), false);
+test("S58F exposes the selector overlay while canonical routing and worksheet integration remain deferred", () => {
+  assert.equal(existsSync(new URL("../../site/modules/curriculum/registry/g3b-u08-semantic-promotion.js", import.meta.url)), true);
+  assert.equal(existsSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-g3b-u08-semantic-extension.js", import.meta.url)), true);
   assert.equal(existsSync(new URL("../../site/modules/curriculum/batch-a/g3b-u08-semantic-context-registry.js", import.meta.url)), true);
   assert.equal(existsSync(new URL("../../site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js", import.meta.url)), true);
   assert.equal(existsSync(new URL("../../site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js", import.meta.url)), true);
   assert.equal(existsSync(new URL("../../site/modules/curriculum/batch-a/g3b-u08-semantic-router.js", import.meta.url)), false);
+  assert.equal(existsSync(new URL("../../site/modules/curriculum/batch-a/g3b-u08-semantic-worksheet.js", import.meta.url)), false);
 });
