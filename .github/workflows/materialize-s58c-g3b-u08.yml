@@ -1,0 +1,53 @@
+name: Materialize S58C G3B U08
+
+on:
+  push:
+    branches:
+      - s58c-g3b-u08-pattern-spec-materialization
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: s58c-g3b-u08-pattern-spec-materialization
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Materialize S58C artifacts
+        run: node tools/curriculum/materialize-s58c-g3b-u08.mjs
+
+      - name: Run full tests
+        run: npm test
+
+      - name: Remove one-shot workflow
+        run: rm .github/workflows/materialize-s58c-g3b-u08.yml
+
+      - name: Commit generated artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/curriculum/pattern_specs/S58C_G3B_U08_SemanticPatternSpecRegistry.json \
+                  site/modules/curriculum/batch-a/source-pattern-g3b-u08-semantic-extension.js \
+                  tests/curriculum/g3b-u08-semantic-pattern-specs.test.js \
+                  .github/workflows/materialize-s58c-g3b-u08.yml
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+          else
+            git commit -m "data(g3b-u08): generate full S58C PatternSpec projection [skip ci]"
+            git push origin HEAD:s58c-g3b-u08-pattern-spec-materialization
+          fi
