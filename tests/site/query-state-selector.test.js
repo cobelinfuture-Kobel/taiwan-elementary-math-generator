@@ -103,14 +103,13 @@ test("parseQueryState can still drop selector params when a zero-visible selecto
   assert.ok(state.selectorWarnings.some((warning) => warning.code === "selector_id_dropped"));
 });
 
-test("parseQueryState drops D-row selector query ids even when production has one visible KP", () => {
+test("parseQueryState preserves rows promoted by the latest public selector registry", () => {
   const state = parseQueryState("?sourceId=g3a_u02_3a02&selectionMode=singleKnowledgePoint&kp=kp_g3a_u02_word_problem_estimation_add_sub&pg=pg_g3a_u02_word_problem_estimation_add_sub");
 
-  assert.equal(state.selectionMode, "sourceUnit");
-  assert.deepEqual(state.selectedKnowledgePointIds, []);
-  assert.deepEqual(state.selectedPatternGroupIds, []);
-  assert.ok(state.selectorWarnings.some((warning) => warning.code === "selector_id_dropped"));
-  assert.ok(state.selectorWarnings.some((warning) => warning.code === "selector_mode_fallback"));
+  assert.equal(state.selectionMode, "singleKnowledgePoint");
+  assert.deepEqual(state.selectedKnowledgePointIds, ["kp_g3a_u02_word_problem_estimation_add_sub"]);
+  assert.deepEqual(state.selectedPatternGroupIds, ["pg_g3a_u02_word_problem_estimation_add_sub"]);
+  assert.deepEqual(state.selectorWarnings, []);
 });
 
 test("parseQueryState preserves future visible single-KP selector params when selector access exposes one visible KP", () => {
