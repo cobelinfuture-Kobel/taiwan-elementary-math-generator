@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -30,8 +33,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout pull request branch
+      - name: Checkout pull request head branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -87,10 +93,8 @@ jobs:
         run: |
           cat docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
           grep -q '"status": "public_html_pdf_smoke_pass"' docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
-          git status --short
 
-      - name: Upload S58J smoke artifact and diagnostics
-        if: always()
+      - name: Upload verified S58J smoke artifact
         uses: actions/upload-artifact@v4
         with:
           name: s58j-g3b-u08-public-smoke
@@ -100,3 +104,18 @@ jobs:
             docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
           if-no-files-found: error
           retention-days: 7
+
+      - name: Commit verified artifacts and remove temporary workflows
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout origin/main -- .github/workflows/node-test.yml
+          rm -f .github/workflows/s58j-g3b-u08-one-time-smoke.yml
+          git add .github/workflows/node-test.yml \
+            .github/workflows/s58j-g3b-u08-one-time-smoke.yml \
+            docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.html \
+            docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.pdf \
+            docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
+          git commit -m "test(g3b-u08): add verified S58J HTML PDF smoke [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
