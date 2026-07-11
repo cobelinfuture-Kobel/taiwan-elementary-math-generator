@@ -392,6 +392,9 @@ function validateStage6(question, spec, scenario) {
   if (expectedClassifier && !String(question.finalAnswerWithUnit ?? "").includes(expectedClassifier) && question.knowledgePointId !== COMPARISON_KP) {
     add(errors, "G3BU08_CLASSIFIER_MISMATCH", 6, "finalAnswerWithUnit", "Answer text does not carry the expected classifier or measurement unit.");
   }
+  if (question.templateFamilyId === "tpl_g3b_u08_total_items_per_package" && /每(?:包|盒|袋)([^，]+)有\d+(?:片|枝|塊)\1/.test(prompt)) {
+    add(errors, "G3BU08_CLASSIFIER_MISMATCH", 6, "promptText", "Package classifier and item noun are duplicated unnaturally.");
+  }
   if (/每段剪成/.test(prompt)) {
     add(errors, "G3BU08_SEGMENT_LENGTH_WORDING_UNNATURAL", 6, "promptText", "Use '每段長…' rather than '每段剪成…'.");
   }

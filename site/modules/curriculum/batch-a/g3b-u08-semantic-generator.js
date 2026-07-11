@@ -230,6 +230,10 @@ function renderPrompt(spec, scenario, values) {
     const { item, containerUnit = "瓶", capacityUnit = "毫升" } = scenario.bindings;
     return `兩種${item}組合價格相同。甲有${values.a}${containerUnit}，每${containerUnit}${values.b}${capacityUnit}；乙有${values.c}${containerUnit}，每${containerUnit}${values.d}${capacityUnit}。哪一種總容量較多？`;
   }
+  if (spec.templateFamilyId === "tpl_g3b_u08_total_items_per_package") {
+    const { packageUnit, itemUnit, item } = scenario.bindings;
+    return `每${packageUnit}有${values.a}${itemUnit}${item}，共有${values.b}${packageUnit}，一共有多少${itemUnit}${item}？`;
+  }
   const bindings = { ...scenario.bindings, ...values };
   return spec.promptSkeletonZh.replace(/\{([^}]+)\}/g, (_, key) => {
     const value = bindings[key];

@@ -44,7 +44,8 @@ test("S58E score and craft contexts avoid implausible per-event and per-product 
   const scoreSpec = "ps_g3b_u08_total_score_per_success";
   for (const variant of listG3BU08SemanticContextVariantsForPatternSpec(scoreSpec)) {
     const question = generate(scoreSpec, variant.contextVariantId, `score:${variant.contextVariantId}`);
-    assert.equal(question.quantities.a >= 2 && question.quantities.a <= 10, true);
+    const max = variant.contextVariantId.endsWith("basketball") ? 3 : 10;
+    assert.equal(question.quantities.a >= 2 && question.quantities.a <= max, true);
   }
 
   const craftSpecs = [
@@ -85,7 +86,7 @@ test("S58E comparison variants express their context and use dimension-natural c
     assert.ok(variant.bindings.item);
     assert.match(question.promptText, new RegExp(variant.bindings.item));
     assert.equal(question.optionATotal === question.optionBTotal, false);
-    assert.equal(Math.max(question.optionATotal, question.optionBTotal) / Math.min(question.optionATotal, question.optionBTotal) <= 3, true);
+    assert.equal(Math.max(question.optionATotal, question.optionBTotal) / Math.min(question.optionATotal, question.optionBTotal) <= 2, true);
   }
 
   const lengthId = "ps_g3b_u08_same_price_compare_total_length";

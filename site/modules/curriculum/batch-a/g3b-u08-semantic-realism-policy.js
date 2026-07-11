@@ -29,7 +29,7 @@ function multiplyPerGroupRange(spec, scenario) {
   const family = spec.templateFamilyId;
   const key = contextKey(scenario);
   if (family === "tpl_g3b_u08_total_daily_saving_accumulation") return range(5, 100);
-  if (family === "tpl_g3b_u08_total_score_per_success") return range(2, 10);
+  if (family === "tpl_g3b_u08_total_score_per_success") return key.endsWith("basketball") ? range(2, 3) : range(2, 10);
   if (family === "tpl_g3b_u08_total_material_per_product") {
     if (key.endsWith("paper_card")) return range(1, 6);
     if (key.endsWith("bracelet")) return range(5, 15);
@@ -47,12 +47,14 @@ function divisionProfile(spec, scenario) {
   const family = spec.templateFamilyId;
   const key = contextKey(scenario);
   if (family === "tpl_g3b_u08_group_count_score_events") {
+    if (key.endsWith("basketball")) return { divisor: range(2, 3), quotient: range(2, 15) };
+    if (key.endsWith("level")) return { divisor: range(2, 10), quotient: range(2, 12) };
     return { divisor: range(2, 10), quotient: range(2, 20) };
   }
   if (family === "tpl_g3b_u08_group_count_craft_products") {
-    if (key.endsWith("bracelet")) return { divisor: range(5, 9), quotient: range(2, 20) };
-    if (key.endsWith("necklace")) return { divisor: range(6, 9), quotient: range(2, 20) };
-    return { divisor: range(2, 6), quotient: range(2, 20) };
+    if (key.endsWith("bracelet")) return { divisor: range(5, 9), quotient: range(2, 12) };
+    if (key.endsWith("necklace")) return { divisor: range(6, 9), quotient: range(2, 12) };
+    return { divisor: range(2, 6), quotient: range(2, 15) };
   }
   if (family === "tpl_g3b_u08_group_count_equal_segments") {
     return { divisor: range(4, 9), quotient: range(2, 30) };
@@ -90,7 +92,9 @@ function divisionProfile(spec, scenario) {
       : { divisor: range(2, 6), quotient: range(10, 150) };
   }
   if (family === "tpl_g3b_u08_reverse_base_capacity_multiple") {
-    return { divisor: range(2, 6), quotient: range(50, 300) };
+    if (key.endsWith("jugs")) return { divisor: range(2, 5), quotient: range(150, 300) };
+    if (key.endsWith("juice_bottles")) return { divisor: range(2, 5), quotient: range(100, 250) };
+    return { divisor: range(2, 6), quotient: range(50, 200) };
   }
   return { divisor: range(2, 9), quotient: range(2, 99) };
 }
@@ -98,7 +102,7 @@ function divisionProfile(spec, scenario) {
 function comparisonPerUnitRange(spec, scenario) {
   const key = contextKey(scenario);
   if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_weight") return range(50, 250);
-  if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_capacity") return range(100, 500);
+  if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_capacity") return range(150, 400);
   if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_item_count") {
     if (key.endsWith("pencils")) return range(6, 36);
     if (key.endsWith("stickers")) return range(10, 100);
@@ -206,7 +210,7 @@ function sampleComparison(spec, scenario, seed) {
     const optionBTotal = c * d;
     if (optionATotal === optionBTotal) continue;
     const ratio = Math.max(optionATotal, optionBTotal) / Math.min(optionATotal, optionBTotal);
-    if (ratio > 3) continue;
+    if (ratio > 2) continue;
     const winner = optionATotal > optionBTotal ? "option_a" : "option_b";
     return {
       values: { a, b, c, d },
@@ -254,7 +258,7 @@ export function checkG3BU08HumanRealism(question, spec, scenario) {
     if (!within(values.b, allowed) || !within(values.d, allowed)) reasons.push("comparison_per_unit_range");
     const low = Math.min(question.optionATotal, question.optionBTotal);
     const high = Math.max(question.optionATotal, question.optionBTotal);
-    if (!Number.isFinite(low) || low <= 0 || high / low > 3) reasons.push("comparison_excessive_ratio");
+    if (!Number.isFinite(low) || low <= 0 || high / low > 2) reasons.push("comparison_excessive_ratio");
     if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_capacity" && scenario.bindings.item && !question.promptText.includes(scenario.bindings.item)) {
       reasons.push("capacity_context_not_expressed");
     }
