@@ -1,0 +1,85 @@
+name: FullFix S58E G3B U08 Human Readback R2
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fullfix-s58e-g3b-u08-human-r2-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  fullfix:
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Apply second human-readback FullFix
+        run: node tools/curriculum/apply-s58e-g3b-u08-human-readback-r2-fullfix.mjs
+
+      - name: Regenerate audit and compact evidence
+        shell: bash
+        run: |
+          node tools/curriculum/generate-s58e-g3b-u08-human-readback-audit.mjs
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+          const audit = JSON.parse(readFileSync("data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json", "utf8"));
+          const lines = ["record\tknowledgePointId\ttemplateFamilyId\tcontextVariantId\tpromptText\tequationModel\tanswerText"];
+          for (const record of audit.records) {
+            lines.push([
+              record.recordNumber,
+              record.knowledgePointId,
+              record.templateFamilyId,
+              record.contextVariantId,
+              record.promptText,
+              record.equationModel,
+              record.answerText
+            ].map((value) => String(value).replaceAll("\t", " ").replaceAll("\n", " ")).join("\t"));
+          }
+          writeFileSync("docs/curriculum/output/S58E_G3B_U08_HUMAN_READBACK_COMPACT.tsv", `${lines.join("\n")}\n`, "utf8");
+          NODE
+          test "$(wc -l < docs/curriculum/output/S58E_G3B_U08_HUMAN_READBACK_COMPACT.tsv)" -eq 73
+          git diff --check
+
+      - name: Run full tests
+        run: npm test
+
+      - name: Remove one-shot workflow and patcher
+        run: |
+          rm .github/workflows/fullfix-s58e-g3b-u08-human-readback-r2.yml
+          rm tools/curriculum/apply-s58e-g3b-u08-human-readback-r2-fullfix.mjs
+
+      - name: Commit second human-readback FullFix
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/modules/curriculum/batch-a/g3b-u08-semantic-realism-policy.js \
+                  site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js \
+                  site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js \
+                  tests/curriculum/g3b-u08-semantic-realism-fullfix.test.js \
+                  tools/curriculum/apply-s58e-g3b-u08-human-readback-r2-fullfix.mjs \
+                  data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json \
+                  docs/curriculum/output/S58E_G3B_U08_HUMAN_READBACK_COMPACT.tsv \
+                  .github/workflows/fullfix-s58e-g3b-u08-human-readback-r2.yml
+          git commit -m "fix(g3b-u08): FullFix S58E human readback round two [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
