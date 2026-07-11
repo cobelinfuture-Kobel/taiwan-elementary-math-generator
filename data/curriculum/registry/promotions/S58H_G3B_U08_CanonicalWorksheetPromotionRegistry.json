@@ -1,7 +1,7 @@
 {
   "schemaName": "G3BU08CanonicalWorksheetPromotionRegistry",
   "schemaVersion": 1,
-  "task": "S58H_G3B_U08_CanonicalValidatorWorksheetAndRendererIntegration",
+  "task": "S58J_G3B_U08_ProductionRegressionStressHTMLPDFPromotionCloseout",
   "overlayId": "s58h_g3b_u08_canonical_worksheet_promotion",
   "basePromotionRegistryId": "s58f_g3b_u08_semantic_promotion",
   "sourceId": "g3b_u08_3b08",
@@ -11,6 +11,7 @@
     "knowledgePointCount": 6,
     "patternGroupCount": 6,
     "patternSpecCount": 24,
+    "familyContextVariantCount": 56,
     "applicationOnly": true,
     "horizontalOnly": true
   },
@@ -22,20 +23,25 @@
     "productionUse": "allowed"
   },
   "activation": {
-    "status": "canonical_validator_worksheet_renderer_integrated",
-    "acceptedByTask": "S58H_G3B_U08_CanonicalValidatorWorksheetAndRendererIntegration",
-    "requiredNextGate": "S58I_G3B_U08_PublicSelectorAndPrintControlsQA",
-    "publicProjectionChanged": false,
-    "selectorBehaviorChanged": false,
-    "resolverBehaviorChanged": false,
-    "canonicalRouterChanged": false,
+    "status": "production_promotion_accepted",
+    "acceptedByTask": "S58J_G3B_U08_ProductionRegressionStressHTMLPDFPromotionCloseout",
+    "requiredNextGate": null,
+    "publicProjectionChanged": true,
+    "selectorBehaviorChanged": true,
+    "resolverBehaviorChanged": true,
+    "canonicalRouterChanged": true,
     "productionEligibilityBehaviorChanged": true,
     "canonicalWorksheetChanged": true,
     "rendererChanged": true,
-    "publicPrintControlBehaviorChanged": false,
-    "finalHtmlPdfPromotionAccepted": false,
+    "publicPrintControlBehaviorChanged": true,
+    "publicSelectorAndPrintQaAccepted": true,
+    "finalStressAccepted": true,
+    "finalHtmlPdfSmokeAccepted": true,
+    "finalHtmlPdfPromotionAccepted": true,
     "publicNumericModeAdded": false,
-    "representationToggleAdded": false
+    "representationToggleAdded": false,
+    "publicHiddenModeFlagAdded": false,
+    "crossUnitSelectorAdded": false
   },
   "authorityPolicy": {
     "originalS58CPatternSpecsRemainHidden": true,
@@ -45,5 +51,16 @@
     "blockingValidatorRequired": true,
     "genericFallbackAllowed": false,
     "publicHiddenModeFlagAllowed": false
+  },
+  "acceptedEvidence": {
+    "questionCountMatrix": [1, 6, 24, 48, 200],
+    "aggregateStressQuestionCount": 1000,
+    "htmlPdfSmokeQuestionCount": 48,
+    "pdfPageCount": 12,
+    "renderedPageImageCount": 12,
+    "extractedEquationLabelCount": 48,
+    "extractedAnswerLabelCount": 48,
+    "internalIdLeakCount": 0,
+    "unresolvedPlaceholderCount": 0
   }
 }
