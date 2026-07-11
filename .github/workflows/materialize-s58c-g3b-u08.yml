@@ -1,9 +1,6 @@
 name: Materialize S58C G3B U08
 
 on:
-  push:
-    branches:
-      - s58c-g3b-u08-pattern-spec-materialization
   pull_request:
     branches:
       - main
@@ -11,28 +8,51 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: materialize-s58c-g3b-u08-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   materialize:
-    if: github.actor != 'github-actions[bot]'
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
+      - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
-          ref: s58c-g3b-u08-pattern-spec-materialization
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
+
+      - name: Preflight package-manager contract
+        shell: bash
+        run: |
+          test -f package.json
+          if test -f package-lock.json; then
+            echo "Unexpected package-lock.json: this repository currently uses npm install without a lockfile."
+            exit 1
+          fi
+          echo "No lockfile detected; using the repository's established npm install path."
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: npm
+          node-version: 20
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Materialize S58C artifacts
         run: node tools/curriculum/materialize-s58c-g3b-u08.mjs
+
+      - name: Verify generated artifact set
+        shell: bash
+        run: |
+          test -s data/curriculum/pattern_specs/S58C_G3B_U08_SemanticPatternSpecRegistry.json
+          test -s site/modules/curriculum/batch-a/source-pattern-g3b-u08-semantic-extension.js
+          test -s tests/curriculum/g3b-u08-semantic-pattern-specs.test.js
+          git diff --check
 
       - name: Run full tests
         run: npm test
@@ -41,6 +61,7 @@ jobs:
         run: rm .github/workflows/materialize-s58c-g3b-u08.yml
 
       - name: Commit generated artifacts
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -52,5 +73,5 @@ jobs:
             echo "No generated changes"
           else
             git commit -m "data(g3b-u08): generate full S58C PatternSpec projection [skip ci]"
-            git push origin HEAD:s58c-g3b-u08-pattern-spec-materialization
+            git push origin HEAD:${{ github.head_ref }}
           fi
