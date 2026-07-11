@@ -1,0 +1,73 @@
+name: Generate S58E G3B U08 Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-s58e-g3b-u08-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Preflight package-manager contract
+        shell: bash
+        run: |
+          test -f package.json
+          if test -f package-lock.json; then
+            echo "Unexpected package-lock.json: this repository currently uses npm install without a lockfile."
+            exit 1
+          fi
+          echo "No lockfile detected; using npm install."
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate S58E audit
+        run: node tools/curriculum/generate-s58e-g3b-u08-human-readback-audit.mjs
+
+      - name: Verify generated audit
+        shell: bash
+        run: |
+          test -s data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json
+          git diff --check
+
+      - name: Run full tests
+        run: npm test
+
+      - name: Remove one-shot workflow
+        run: rm .github/workflows/generate-s58e-g3b-u08-audit.yml
+
+      - name: Commit generated audit
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json \
+                  .github/workflows/generate-s58e-g3b-u08-audit.yml
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+          else
+            git commit -m "data(g3b-u08): generate S58E human-readback audit [skip ci]"
+            git push origin HEAD:${{ github.head_ref }}
+          fi
