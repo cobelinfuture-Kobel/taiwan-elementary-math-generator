@@ -1,0 +1,72 @@
+name: Materialize S58G G3B U08
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: materialize-s58g-g3b-u08-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Apply S58G integration patches
+        run: node tools/curriculum/apply-s58g-g3b-u08-resolver-router.mjs
+
+      - name: Verify scope and syntax
+        shell: bash
+        run: |
+          test -s site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js
+          test -s tests/curriculum/g3b-u08-resolver-browser-canonical-router.test.js
+          git diff --check
+          node --check site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js
+          node --check site/modules/curriculum/batch-a/visible-pattern-group-resolver.js
+          node --check site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js
+          node --check site/modules/curriculum/batch-a/batch-a-browser-question-router.js
+
+      - name: Run focused S58G tests
+        run: node --test tests/curriculum/g3b-u08-resolver-browser-canonical-router.test.js
+
+      - name: Run full tests
+        run: npm test
+
+      - name: Remove one-shot workflow and patcher
+        run: |
+          rm .github/workflows/materialize-s58g-g3b-u08.yml
+          rm tools/curriculum/apply-s58g-g3b-u08-resolver-router.mjs
+
+      - name: Commit materialized integration
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/modules/curriculum/batch-a/visible-pattern-group-resolver.js \
+                  site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js \
+                  site/modules/curriculum/batch-a/batch-a-browser-question-router.js \
+                  tools/curriculum/apply-s58g-g3b-u08-resolver-router.mjs \
+                  .github/workflows/materialize-s58g-g3b-u08.yml
+          git commit -m "feat(g3b-u08): materialize S58G resolver and canonical route [skip ci]"
+          git push origin HEAD:${{ github.head_ref }}
