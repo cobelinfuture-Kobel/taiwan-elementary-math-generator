@@ -59,8 +59,28 @@ jobs:
       - name: Run focused S58I tests
         run: node --test tests/site/g3b-u08-public-selector-print-controls.test.js
 
-      - name: Run full tests
-        run: npm test
+      - name: Run full tests and capture log
+        id: full_tests
+        shell: bash
+        run: |
+          set +e
+          npm test > s58i-full-suite.log 2>&1
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          tail -200 s58i-full-suite.log
+          exit 0
+
+      - name: Upload full-suite diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s58i-full-suite-log
+          path: s58i-full-suite.log
+          retention-days: 7
+
+      - name: Verify full tests
+        shell: bash
+        run: exit ${{ steps.full_tests.outputs.exit_code }}
 
       - name: Remove one-shot workflow
         run: rm .github/workflows/fullfix-s58i-g3b-u08-public-qa.yml
