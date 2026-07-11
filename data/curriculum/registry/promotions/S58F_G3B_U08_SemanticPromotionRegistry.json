@@ -51,21 +51,24 @@
   ],
   "lifecycle": {
     "selectorStatus": "visible",
-    "runtimeStatus": "hidden_validated_not_canonical_routed",
-    "validatorStatus": "blocking_validator_accepted",
-    "worksheetStatus": "not_connected",
-    "productionUse": "forbidden"
+    "runtimeStatus": "production_routed",
+    "validatorStatus": "blocking_validator_required",
+    "worksheetStatus": "production_eligible",
+    "productionUse": "allowed"
   },
   "activation": {
-    "status": "visible_selector_projection_accepted",
-    "acceptedByTask": "S58F_G3B_U08_PromotionLifecycleAndVisibleSelectorProjection",
-    "requiredNextGate": "S58G_G3B_U08_ResolverBrowserStateAndCanonicalRouterIntegration",
+    "status": "production_promotion_accepted",
+    "acceptedByTask": "S58J_G3B_U08_ProductionRegressionStressHTMLPDFPromotionCloseout",
+    "requiredNextGate": null,
     "publicProjectionChanged": true,
     "selectorBehaviorChanged": true,
-    "productionEligibilityBehaviorChanged": false,
-    "canonicalRouterChanged": false,
-    "canonicalWorksheetChanged": false,
+    "productionEligibilityBehaviorChanged": true,
+    "canonicalRouterChanged": true,
+    "canonicalWorksheetChanged": true,
     "humanSemanticReadbackAccepted": true,
+    "publicSelectorAndPrintQaAccepted": true,
+    "finalStressAccepted": true,
+    "finalHtmlPdfSmokeAccepted": true,
     "publicNumericModeAdded": false,
     "representationToggleAdded": false
   },
@@ -73,7 +76,13 @@
     "s58cMaterialization": "docs/curriculum/output/S58C_R1_G3B_U08_MATERIALIZER_WORKFLOW_SETUPNODE_FULLFIX_AND_S58C_MATERIALIZATION_PASS.marker",
     "s58dHiddenGenerator": "docs/curriculum/output/S58D_G3B_U08_HIDDEN_DETERMINISTIC_SEMANTIC_GENERATOR_PASS.marker",
     "s58eValidatorAndHumanReadback": "docs/curriculum/output/S58E_G3B_U08_SEMANTIC_VALIDATOR_RUNTIME_AND_HUMAN_READBACK_QA_FULLFIX_PASS.marker",
-    "humanReadbackAcceptance": "data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAcceptance.json"
+    "humanReadbackAcceptance": "data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAcceptance.json",
+    "s58gResolverCanonicalRouter": "docs/curriculum/output/S58G_G3B_U08_RESOLVER_BROWSER_STATE_AND_CANONICAL_ROUTER_INTEGRATION_PASS.marker",
+    "s58hCanonicalWorksheetRenderer": "docs/curriculum/output/S58H_G3B_U08_CANONICAL_VALIDATOR_WORKSHEET_AND_RENDERER_INTEGRATION_PASS.marker",
+    "s58iPublicSelectorPrintQa": "docs/curriculum/output/S58I_G3B_U08_PUBLIC_SELECTOR_AND_PRINT_CONTROLS_QA_PASS.marker",
+    "publicHtmlSmoke": "docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.html",
+    "publicPdfSmoke": "docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.pdf",
+    "publicSmokeManifest": "docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json"
   },
   "semanticAuthorityPolicy": {
     "semanticFieldsImmutable": true,

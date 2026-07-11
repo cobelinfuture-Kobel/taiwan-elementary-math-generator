@@ -24,7 +24,7 @@ const registry = JSON.parse(readFileSync(
   "utf8"
 ));
 
-test("S58F promotion registry has exact 6-KP, 6-group and 24-family parity", () => {
+test("G3B-U08 promotion registry has exact 6-KP, 6-group and 24-family parity", () => {
   assert.equal(registry.schemaName, "G3BU08SemanticPromotionRegistry");
   assert.equal(registry.promotionRegistryId, G3B_U08_SEMANTIC_PROMOTION_REGISTRY_ID);
   assert.deepEqual(registry.knowledgePointIds, [...G3B_U08_PROMOTED_KNOWLEDGE_POINT_IDS]);
@@ -39,21 +39,27 @@ test("S58F promotion registry has exact 6-KP, 6-group and 24-family parity", () 
   );
 });
 
-test("S58F promotes selector visibility without prematurely enabling production", () => {
+test("S58J finalizes production promotion after selector, router, worksheet and print QA", () => {
   assert.deepEqual(registry.lifecycle, G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE);
   assert.deepEqual(registry.activation, G3B_U08_SEMANTIC_PROMOTION_ACTIVATION);
   assert.equal(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.selectorStatus, "visible");
-  assert.equal(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.runtimeStatus, "hidden_validated_not_canonical_routed");
-  assert.equal(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.worksheetStatus, "not_connected");
-  assert.equal(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.productionUse, "forbidden");
-  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.productionEligibilityBehaviorChanged, false);
-  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.canonicalRouterChanged, false);
-  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.canonicalWorksheetChanged, false);
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.runtimeStatus, "production_routed");
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus, "blocking_validator_required");
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.worksheetStatus, "production_eligible");
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.productionUse, "allowed");
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.status, "production_promotion_accepted");
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.requiredNextGate, null);
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.productionEligibilityBehaviorChanged, true);
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.canonicalRouterChanged, true);
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.canonicalWorksheetChanged, true);
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted, true);
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.finalStressAccepted, true);
+  assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.finalHtmlPdfSmokeAccepted, true);
   assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.publicNumericModeAdded, false);
   assert.equal(G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.representationToggleAdded, false);
 });
 
-test("S58F overlay does not mutate hidden S58C semantic authority", () => {
+test("production overlay does not mutate hidden S58C semantic authority", () => {
   for (const definition of listG3BU08SemanticPatternDefinitions()) {
     assert.equal(definition.selectorStatus, "hidden");
     assert.equal(definition.productionUse, "forbidden");
@@ -68,7 +74,7 @@ test("S58F overlay does not mutate hidden S58C semantic authority", () => {
   assert.equal(isS58FPromotedG3BU08SemanticPatternSpecId("ps_unknown"), false);
 });
 
-test("S58F runtime promotion projection is immutable-by-copy and self-validating", () => {
+test("G3B-U08 runtime promotion projection is immutable-by-copy and self-validating", () => {
   const projection = getG3BU08SemanticPromotionProjection();
   assert.deepEqual(projection.knowledgePointIds, registry.knowledgePointIds);
   assert.deepEqual(projection.patternGroupIds, registry.patternGroupIds);

@@ -16,9 +16,9 @@ export const G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE = Object.freeze({
 });
 
 export const G3B_U08_PRODUCTION_PROMOTION_ACTIVATION = Object.freeze({
-  status: "canonical_validator_worksheet_renderer_integrated",
-  acceptedByTask: "S58H_G3B_U08_CanonicalValidatorWorksheetAndRendererIntegration",
-  requiredNextGate: "S58I_G3B_U08_PublicSelectorAndPrintControlsQA",
+  status: "production_promotion_accepted",
+  acceptedByTask: "S58J_G3B_U08_ProductionRegressionStressHTMLPDFPromotionCloseout",
+  requiredNextGate: null,
   basePromotionRegistryId: G3B_U08_SEMANTIC_PROMOTION_REGISTRY_ID,
   publicProjectionChanged: false,
   selectorBehaviorChanged: false,
@@ -28,7 +28,9 @@ export const G3B_U08_PRODUCTION_PROMOTION_ACTIVATION = Object.freeze({
   canonicalWorksheetChanged: true,
   rendererChanged: true,
   publicPrintControlBehaviorChanged: false,
-  finalHtmlPdfPromotionAccepted: false,
+  publicSelectorAndPrintQaAccepted: true,
+  finalStressAccepted: true,
+  finalHtmlPdfPromotionAccepted: true,
   publicNumericModeAdded: false,
   representationToggleAdded: false
 });
@@ -64,9 +66,12 @@ export function validateG3BU08ProductionPromotionProjection() {
   if (G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_required") errors.push("blocking_validator_not_required");
   if (G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE.worksheetStatus !== "production_eligible") errors.push("worksheet_not_production_eligible");
   if (G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE.productionUse !== "allowed") errors.push("production_use_not_allowed");
-  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate !== "S58I_G3B_U08_PublicSelectorAndPrintControlsQA") errors.push("unexpected_next_gate");
-  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged !== false) errors.push("public_print_controls_changed_too_early");
-  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted !== false) errors.push("html_pdf_promoted_too_early");
+  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status !== "production_promotion_accepted") errors.push("promotion_not_accepted");
+  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate !== null) errors.push("unexpected_next_gate");
+  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted !== true) errors.push("public_selector_print_qa_not_accepted");
+  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalStressAccepted !== true) errors.push("stress_not_accepted");
+  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted !== true) errors.push("html_pdf_promotion_not_accepted");
+  if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged !== false) errors.push("public_print_controls_behavior_mutated");
   if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicNumericModeAdded !== false) errors.push("public_numeric_mode_added");
   if (G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.representationToggleAdded !== false) errors.push("representation_toggle_added");
   return Object.freeze({

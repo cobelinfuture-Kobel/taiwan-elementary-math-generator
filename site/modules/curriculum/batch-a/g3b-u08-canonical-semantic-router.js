@@ -154,7 +154,7 @@ export function validateG3BU08CanonicalSemanticPlan(plan = {}) {
     }));
   }
   if (G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.selectorStatus !== "visible"
-    || G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_accepted"
+    || !["blocking_validator_accepted", "blocking_validator_required"].includes(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus)
     || G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.humanSemanticReadbackAccepted !== true) {
     errors.push(issue("G3B_U08_CANONICAL_LIFECYCLE_INVALID", "promotionLifecycle", "S58F selector promotion and S58E human semantic readback are required before canonical routing."));
   }
