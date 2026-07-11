@@ -180,7 +180,8 @@ function generateHtmlAndInitialManifest() {
     pdfBytes: null,
     renderedPageImageCount: null,
     extractedEquationLabelCount: null,
-    extractedAnswerLabelCount: null
+    extractedAnswerLabelCount: null,
+    verificationErrors: []
   };
 
   mkdirSync(OUT_DIR, { recursive: true });
@@ -206,30 +207,37 @@ function finalizeManifest() {
     .length;
   rmSync(RENDER_DIR, { recursive: true, force: true });
 
+  const actualPdfPageCount = parsePdfPages(pdfInfo);
+  const extractedEquationLabelCount = countOccurrences(extractedText, "算式：");
+  const extractedAnswerLabelCount = countOccurrences(extractedText, "答案：");
+  const verificationErrors = [];
+  if (actualPdfPageCount !== manifest.expectedPdfPageCount) {
+    verificationErrors.push(`pdf_page_count:${manifest.expectedPdfPageCount}:${actualPdfPageCount}`);
+  }
+  if (renderedPageImageCount !== manifest.expectedPdfPageCount) {
+    verificationErrors.push(`rendered_page_count:${manifest.expectedPdfPageCount}:${renderedPageImageCount}`);
+  }
+  if (extractedEquationLabelCount !== manifest.questionCount) {
+    verificationErrors.push(`equation_label_count:${manifest.questionCount}:${extractedEquationLabelCount}`);
+  }
+  if (extractedAnswerLabelCount !== manifest.answerKeyItemCount) {
+    verificationErrors.push(`answer_label_count:${manifest.answerKeyItemCount}:${extractedAnswerLabelCount}`);
+  }
+
   const finalized = {
     ...manifest,
-    status: "public_html_pdf_smoke_pass",
-    actualPdfPageCount: parsePdfPages(pdfInfo),
+    status: verificationErrors.length === 0
+      ? "public_html_pdf_smoke_pass"
+      : "public_html_pdf_smoke_diagnostic_failure",
+    actualPdfPageCount,
     htmlSha256: sha256(Buffer.from(html, "utf8")),
     pdfSha256: sha256(pdf),
     pdfBytes: statSync(PDF_PATH).size,
     renderedPageImageCount,
-    extractedEquationLabelCount: countOccurrences(extractedText, "算式："),
-    extractedAnswerLabelCount: countOccurrences(extractedText, "答案：")
+    extractedEquationLabelCount,
+    extractedAnswerLabelCount,
+    verificationErrors
   };
-
-  if (finalized.actualPdfPageCount !== finalized.expectedPdfPageCount) {
-    throw new Error(`Expected ${finalized.expectedPdfPageCount} PDF pages, got ${finalized.actualPdfPageCount}.`);
-  }
-  if (finalized.renderedPageImageCount !== finalized.expectedPdfPageCount) {
-    throw new Error(`Expected ${finalized.expectedPdfPageCount} rendered images, got ${finalized.renderedPageImageCount}.`);
-  }
-  if (finalized.extractedEquationLabelCount !== finalized.questionCount) {
-    throw new Error(`Expected ${finalized.questionCount} equation labels, got ${finalized.extractedEquationLabelCount}.`);
-  }
-  if (finalized.extractedAnswerLabelCount !== finalized.answerKeyItemCount) {
-    throw new Error(`Expected ${finalized.answerKeyItemCount} answer labels, got ${finalized.extractedAnswerLabelCount}.`);
-  }
 
   writeFileSync(MANIFEST_PATH, `${JSON.stringify(finalized, null, 2)}\n`, "utf8");
   return finalized;
@@ -246,5 +254,9 @@ console.log(JSON.stringify({
   templateFamilyCount: finalized.templateFamilyCount,
   familyContextVariantCount: finalized.familyContextVariantCount,
   expectedPdfPageCount: finalized.expectedPdfPageCount,
-  actualPdfPageCount: finalized.actualPdfPageCount
+  actualPdfPageCount: finalized.actualPdfPageCount,
+  renderedPageImageCount: finalized.renderedPageImageCount,
+  extractedEquationLabelCount: finalized.extractedEquationLabelCount,
+  extractedAnswerLabelCount: finalized.extractedAnswerLabelCount,
+  verificationErrors: finalized.verificationErrors
 }, null, 2));
