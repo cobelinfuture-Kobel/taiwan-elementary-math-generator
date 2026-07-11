@@ -51,7 +51,11 @@ replaceExactly(
   '  if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_capacity") return range(150, 400);'
 );
 replaceExactly(policy, "    if (ratio > 3) continue;", "    if (ratio > 2) continue;");
-replaceExactly(policy, "    if (!Number.isFinite(low) || low <= 0 || high / low > 3) reasons.push(\"comparison_excessive_ratio\");", "    if (!Number.isFinite(low) || low <= 0 || high / low > 2) reasons.push(\"comparison_excessive_ratio\");");
+replaceExactly(
+  policy,
+  '    if (!Number.isFinite(low) || low <= 0 || high / low > 3) reasons.push("comparison_excessive_ratio");',
+  '    if (!Number.isFinite(low) || low <= 0 || high / low > 2) reasons.push("comparison_excessive_ratio");'
+);
 
 const generator = "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js";
 replaceExactly(
@@ -89,7 +93,7 @@ replaceExactly(
 );
 
 const test = "tests/curriculum/g3b-u08-semantic-realism-fullfix.test.js";
-replaceExactly(test, "<= 3, true);", "<= 2, true);
+replaceExactly(test, "<= 3, true);", "<= 2, true);");
 replaceExactly(
   test,
   `  for (const variant of listG3BU08SemanticContextVariantsForPatternSpec(scoreSpec)) {
