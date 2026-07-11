@@ -20,21 +20,25 @@ export const G4B_U01_PROMOTED_PATTERN_SPEC_IDS = Object.freeze(
 
 export const G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE = Object.freeze({
   selectorStatus: "visible",
-  runtimeStatus: "blocking_validated_hidden_not_canonical",
-  validatorStatus: "blocking_validator_accepted",
-  worksheetStatus: "not_eligible",
-  productionUse: "forbidden",
+  runtimeStatus: "production_routed",
+  validatorStatus: "blocking_validator_required",
+  worksheetStatus: "production_eligible",
+  productionUse: "allowed",
 });
 
 export const G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION = Object.freeze({
-  status: "selector_projected_resolver_not_integrated",
-  requiredNextGate: "S59G_G4B_U01_ResolverBrowserStateAndCanonicalRouterIntegration",
+  status: "production_promotion_accepted",
+  acceptedByTask: "S59J_G4B_U01_ProductionStressHTMLPDFPromotionCloseout",
+  requiredNextGate: null,
   publicProjectionChanged: true,
   selectorBehaviorChanged: true,
-  resolverBehaviorChanged: false,
-  canonicalRouterChanged: false,
-  productionEligibilityBehaviorChanged: false,
-  canonicalWorksheetChanged: false,
+  resolverBehaviorChanged: true,
+  canonicalRouterChanged: true,
+  productionEligibilityBehaviorChanged: true,
+  canonicalWorksheetChanged: true,
+  publicSelectorAndPrintQaAccepted: true,
+  finalStressAccepted: true,
+  finalHtmlPdfSmokeAccepted: true,
   publicApplicationModeAdded: false,
   verticalRepresentationAdded: false,
   representationToggleAdded: false,
@@ -95,12 +99,15 @@ export function validateG4BU01HorizontalPromotionProjection() {
   if (G4B_U01_HIDDEN_PATTERN_GROUPS.some((group) => group.visibilityStatus !== "hidden")) errors.push("hidden_group_authority_mutated");
   if (G4B_U01_HIDDEN_PATTERN_SPECS.some((spec) => spec.selectorStatus !== "hidden" || spec.productionUse !== "forbidden")) errors.push("hidden_spec_authority_mutated");
   if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.selectorStatus !== "visible") errors.push("selector_not_visible");
-  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_accepted") errors.push("blocking_validator_not_accepted");
-  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.worksheetStatus !== "not_eligible") errors.push("worksheet_promoted_too_early");
-  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.productionUse !== "forbidden") errors.push("production_promoted_too_early");
-  if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.resolverBehaviorChanged !== false) errors.push("resolver_changed_too_early");
-  if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.canonicalRouterChanged !== false) errors.push("router_changed_too_early");
-  if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.productionEligibilityBehaviorChanged !== false) errors.push("production_eligibility_changed_too_early");
+  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.runtimeStatus !== "production_routed") errors.push("runtime_not_production_routed");
+  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_required") errors.push("blocking_validator_not_required");
+  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.worksheetStatus !== "production_eligible") errors.push("worksheet_not_eligible");
+  if (G4B_U01_HORIZONTAL_PROMOTION_LIFECYCLE.productionUse !== "allowed") errors.push("production_not_allowed");
+  if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.status !== "production_promotion_accepted") errors.push("promotion_not_accepted");
+  if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.requiredNextGate !== null) errors.push("unexpected_next_gate");
+  if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted !== true) errors.push("public_selector_print_qa_not_accepted");
+  if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.finalStressAccepted !== true) errors.push("stress_not_accepted");
+  if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.finalHtmlPdfSmokeAccepted !== true) errors.push("html_pdf_smoke_not_accepted");
   if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.publicApplicationModeAdded !== false) errors.push("application_mode_added");
   if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.verticalRepresentationAdded !== false) errors.push("vertical_representation_added");
   if (G4B_U01_HORIZONTAL_PROMOTION_ACTIVATION.representationToggleAdded !== false) errors.push("representation_toggle_added");
