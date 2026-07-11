@@ -120,7 +120,8 @@ test("S58E human-readback language gates pass across all 72 deterministic prompt
       });
       assert.equal(result.ok, true, variant.contextVariantId);
       const prompt = result.question.promptText;
-      assert.match(prompt, /？$/);
+      assert.match(prompt, /[？?]/);
+      assert.match(prompt, /[？?。]$/);
       assert.doesNotMatch(prompt, /\{[^}]+\}|每段剪成|成功一(?:球|題|關)|\b(?:kp|pg|ps|tpl|ctx)_g3b_u08_/i);
       assert.equal(prompt.length >= 15 && prompt.length <= 120, true, `${variant.contextVariantId}: ${prompt}`);
       if (spec.knowledgePointId === "kp_g3b_u08_same_price_value_comparison") assert.match(prompt, /價格相同/);

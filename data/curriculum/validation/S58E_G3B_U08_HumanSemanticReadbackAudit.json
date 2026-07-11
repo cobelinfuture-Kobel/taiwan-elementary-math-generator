@@ -1,0 +1,2972 @@
+{
+  "schemaName": "G3BU08HumanSemanticReadbackAudit",
+  "schemaVersion": 1,
+  "task": "S58E_G3B_U08_SemanticValidatorRuntimeAndHumanReadbackQA_FullFix",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "unitTitle": "乘法與除法",
+  "status": "automated_precheck_pass_manual_readback_pending",
+  "validatorVersion": "s58e-g3b-u08-semantic-validator-v1",
+  "coverage": {
+    "knowledgePointCount": 6,
+    "patternGroupCount": 6,
+    "patternSpecCount": 24,
+    "templateFamilyCount": 24,
+    "contextVariantCount": 72,
+    "variantsPerFamily": 3,
+    "automaticValidationPassCount": 72,
+    "humanPrecheckPassCount": 72,
+    "manualReadbackAcceptedCount": 0,
+    "blockingDefectCount": 0
+  },
+  "manualReadbackPolicy": {
+    "reviewEveryRecord": true,
+    "reviewFields": [
+      "promptText",
+      "equationModel",
+      "answerText",
+      "unknown quantity role",
+      "unit/classifier flow",
+      "grade boundary",
+      "context realism",
+      "unique answer"
+    ],
+    "acceptanceRule": "All 72 records must be manually accepted with zero blocking semantic defect."
+  },
+  "records": [
+    {
+      "recordNumber": 1,
+      "patternSpecId": "ps_g3b_u08_total_daily_saving_accumulation",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_daily_saving_accumulation",
+      "contextVariantId": "ctx_g3b_u08_total_daily_saving_accumulation_saving_xiaoan",
+      "contextDomain": "saving",
+      "sceneLabelZh": "每日存錢",
+      "promptText": "小安每天存237元，連續存了4天，一共存了多少元？",
+      "equationModel": "237 × 4 = 948",
+      "answerText": "948元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 237,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 2,
+      "patternSpecId": "ps_g3b_u08_total_daily_saving_accumulation",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_daily_saving_accumulation",
+      "contextVariantId": "ctx_g3b_u08_total_daily_saving_accumulation_allowance_xiaomei",
+      "contextDomain": "allowance",
+      "sceneLabelZh": "零用錢儲蓄",
+      "promptText": "小美每天存137元，連續存了5天，一共存了多少元？",
+      "equationModel": "137 × 5 = 685",
+      "answerText": "685元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 137,
+        "b": 5
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 3,
+      "patternSpecId": "ps_g3b_u08_total_daily_saving_accumulation",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_daily_saving_accumulation",
+      "contextVariantId": "ctx_g3b_u08_total_daily_saving_accumulation_saving_xiaojie",
+      "contextDomain": "saving",
+      "sceneLabelZh": "存錢目標",
+      "promptText": "小杰每天存92元，連續存了9天，一共存了多少元？",
+      "equationModel": "92 × 9 = 828",
+      "answerText": "828元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 92,
+        "b": 9
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 4,
+      "patternSpecId": "ps_g3b_u08_total_score_per_success",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_score_per_success",
+      "contextVariantId": "ctx_g3b_u08_total_score_per_success_basketball",
+      "contextDomain": "sports",
+      "sceneLabelZh": "籃球得分",
+      "promptText": "每投進一球可得137分，小安投進了2球，一共得到多少分？",
+      "equationModel": "137 × 2 = 274",
+      "answerText": "274分",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 137,
+        "b": 2
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 5,
+      "patternSpecId": "ps_g3b_u08_total_score_per_success",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_score_per_success",
+      "contextVariantId": "ctx_g3b_u08_total_score_per_success_quiz",
+      "contextDomain": "game",
+      "sceneLabelZh": "答題得分",
+      "promptText": "每答對一題可得37分，小美答對了9題，一共得到多少分？",
+      "equationModel": "37 × 9 = 333",
+      "answerText": "333分",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 37,
+        "b": 9
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 6,
+      "patternSpecId": "ps_g3b_u08_total_score_per_success",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_score_per_success",
+      "contextVariantId": "ctx_g3b_u08_total_score_per_success_level",
+      "contextDomain": "game",
+      "sceneLabelZh": "闖關得分",
+      "promptText": "每完成一關可得179分，小杰完成了4關，一共得到多少分？",
+      "equationModel": "179 × 4 = 716",
+      "answerText": "716分",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 179,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 7,
+      "patternSpecId": "ps_g3b_u08_total_material_per_product",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_material_per_product",
+      "contextVariantId": "ctx_g3b_u08_total_material_per_product_paper_card",
+      "contextDomain": "craft",
+      "sceneLabelZh": "製作卡片",
+      "promptText": "做一張卡片需要35張色紙，做8張共需要多少張色紙？",
+      "equationModel": "35 × 8 = 280",
+      "answerText": "280張",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 35,
+        "b": 8
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 8,
+      "patternSpecId": "ps_g3b_u08_total_material_per_product",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_material_per_product",
+      "contextVariantId": "ctx_g3b_u08_total_material_per_product_bracelet",
+      "contextDomain": "craft",
+      "sceneLabelZh": "製作手鍊",
+      "promptText": "做一條手鍊需要115顆珠子，做8條共需要多少顆珠子？",
+      "equationModel": "115 × 8 = 920",
+      "answerText": "920顆",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 115,
+        "b": 8
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 9,
+      "patternSpecId": "ps_g3b_u08_total_material_per_product",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_material_per_product",
+      "contextVariantId": "ctx_g3b_u08_total_material_per_product_paper_flower",
+      "contextDomain": "classroom",
+      "sceneLabelZh": "製作紙花",
+      "promptText": "做一朵紙花需要68張色紙，做8朵共需要多少張色紙？",
+      "equationModel": "68 × 8 = 544",
+      "answerText": "544張",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 68,
+        "b": 8
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 10,
+      "patternSpecId": "ps_g3b_u08_total_items_per_package",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_items_per_package",
+      "contextVariantId": "ctx_g3b_u08_total_items_per_package_cookies",
+      "contextDomain": "food",
+      "sceneLabelZh": "餅乾包裝",
+      "promptText": "每包餅乾有140片餅乾，共有5包，一共有多少片餅乾？",
+      "equationModel": "140 × 5 = 700",
+      "answerText": "700片",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 140,
+        "b": 5
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 11,
+      "patternSpecId": "ps_g3b_u08_total_items_per_package",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_items_per_package",
+      "contextVariantId": "ctx_g3b_u08_total_items_per_package_crayons",
+      "contextDomain": "stationery",
+      "sceneLabelZh": "蠟筆盒",
+      "promptText": "每盒蠟筆有129枝蠟筆，共有7盒，一共有多少枝蠟筆？",
+      "equationModel": "129 × 7 = 903",
+      "answerText": "903枝",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 129,
+        "b": 7
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 12,
+      "patternSpecId": "ps_g3b_u08_total_items_per_package",
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "templateFamilyId": "tpl_g3b_u08_total_items_per_package",
+      "contextVariantId": "ctx_g3b_u08_total_items_per_package_blocks",
+      "contextDomain": "toys",
+      "sceneLabelZh": "積木袋",
+      "promptText": "每袋積木有97塊積木，共有9袋，一共有多少塊積木？",
+      "equationModel": "97 × 9 = 873",
+      "answerText": "873塊",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 97,
+        "b": 9
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 13,
+      "patternSpecId": "ps_g3b_u08_group_count_score_events",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_score_events",
+      "contextVariantId": "ctx_g3b_u08_group_count_score_events_basketball",
+      "contextDomain": "sports",
+      "sceneLabelZh": "反推投球數",
+      "promptText": "小安共得到45分，每投進一球可得9分，小安投進了幾球？",
+      "equationModel": "45 ÷ 9 = 5",
+      "answerText": "5球",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 45,
+        "b": 9
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 14,
+      "patternSpecId": "ps_g3b_u08_group_count_score_events",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_score_events",
+      "contextVariantId": "ctx_g3b_u08_group_count_score_events_quiz",
+      "contextDomain": "game",
+      "sceneLabelZh": "反推答對題數",
+      "promptText": "小美共得到76分，每答對一題可得4分，小美答對了幾題？",
+      "equationModel": "76 ÷ 4 = 19",
+      "answerText": "19題",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 76,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 15,
+      "patternSpecId": "ps_g3b_u08_group_count_score_events",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_score_events",
+      "contextVariantId": "ctx_g3b_u08_group_count_score_events_level",
+      "contextDomain": "game",
+      "sceneLabelZh": "反推完成關數",
+      "promptText": "小杰共得到159分，每完成一關可得3分，小杰完成了幾關？",
+      "equationModel": "159 ÷ 3 = 53",
+      "answerText": "53關",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 159,
+        "b": 3
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 16,
+      "patternSpecId": "ps_g3b_u08_group_count_craft_products",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_craft_products",
+      "contextVariantId": "ctx_g3b_u08_group_count_craft_products_bracelet",
+      "contextDomain": "craft",
+      "sceneLabelZh": "珠子做手鍊",
+      "promptText": "共有82顆珠子，做一條手鍊要用2顆，可以做幾條手鍊？",
+      "equationModel": "82 ÷ 2 = 41",
+      "answerText": "41條",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 82,
+        "b": 2
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 17,
+      "patternSpecId": "ps_g3b_u08_group_count_craft_products",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_craft_products",
+      "contextVariantId": "ctx_g3b_u08_group_count_craft_products_necklace",
+      "contextDomain": "jewelry",
+      "sceneLabelZh": "珠子做項鍊",
+      "promptText": "共有256顆珠子，做一條項鍊要用4顆，可以做幾條項鍊？",
+      "equationModel": "256 ÷ 4 = 64",
+      "answerText": "64條",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 256,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 18,
+      "patternSpecId": "ps_g3b_u08_group_count_craft_products",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_craft_products",
+      "contextVariantId": "ctx_g3b_u08_group_count_craft_products_paper_flower",
+      "contextDomain": "craft",
+      "sceneLabelZh": "色紙做紙花",
+      "promptText": "共有405張色紙，做一朵紙花要用5張，可以做幾朵紙花？",
+      "equationModel": "405 ÷ 5 = 81",
+      "answerText": "81朵",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 405,
+        "b": 5
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 19,
+      "patternSpecId": "ps_g3b_u08_group_count_equal_segments",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_equal_segments",
+      "contextVariantId": "ctx_g3b_u08_group_count_equal_segments_ribbon",
+      "contextDomain": "ribbon",
+      "sceneLabelZh": "緞帶剪段",
+      "promptText": "一條緞帶長150公分，每段長3公分，可以剪成幾段？",
+      "equationModel": "150 ÷ 3 = 50",
+      "answerText": "50段",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 150,
+        "b": 3
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 20,
+      "patternSpecId": "ps_g3b_u08_group_count_equal_segments",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_equal_segments",
+      "contextVariantId": "ctx_g3b_u08_group_count_equal_segments_rope",
+      "contextDomain": "rope",
+      "sceneLabelZh": "繩子剪段",
+      "promptText": "一條繩子長164公分，每段長4公分，可以剪成幾段？",
+      "equationModel": "164 ÷ 4 = 41",
+      "answerText": "41段",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 164,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 21,
+      "patternSpecId": "ps_g3b_u08_group_count_equal_segments",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_equal_segments",
+      "contextVariantId": "ctx_g3b_u08_group_count_equal_segments_paper_strip",
+      "contextDomain": "paper_strip",
+      "sceneLabelZh": "紙條剪段",
+      "promptText": "一條紙條長122公分，每段長2公分，可以剪成幾段？",
+      "equationModel": "122 ÷ 2 = 61",
+      "answerText": "61段",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 122,
+        "b": 2
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 22,
+      "patternSpecId": "ps_g3b_u08_group_count_packaging",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_packaging",
+      "contextVariantId": "ctx_g3b_u08_group_count_packaging_oranges",
+      "contextDomain": "food",
+      "sceneLabelZh": "橘子裝袋",
+      "promptText": "共有224顆橘子，每4顆裝一袋，可以裝成幾袋？",
+      "equationModel": "224 ÷ 4 = 56",
+      "answerText": "56袋",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 224,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 23,
+      "patternSpecId": "ps_g3b_u08_group_count_packaging",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_packaging",
+      "contextVariantId": "ctx_g3b_u08_group_count_packaging_pencils",
+      "contextDomain": "classroom",
+      "sceneLabelZh": "鉛筆裝盒",
+      "promptText": "共有392枝鉛筆，每4枝裝一盒，可以裝成幾盒？",
+      "equationModel": "392 ÷ 4 = 98",
+      "answerText": "98盒",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 392,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 24,
+      "patternSpecId": "ps_g3b_u08_group_count_packaging",
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "templateFamilyId": "tpl_g3b_u08_group_count_packaging",
+      "contextVariantId": "ctx_g3b_u08_group_count_packaging_tennis_balls",
+      "contextDomain": "sports",
+      "sceneLabelZh": "網球裝筒",
+      "promptText": "共有664顆網球，每8顆裝一筒，可以裝成幾筒？",
+      "equationModel": "664 ÷ 8 = 83",
+      "answerText": "83筒",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 664,
+        "b": 8
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 25,
+      "patternSpecId": "ps_g3b_u08_per_group_daily_saving",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_daily_saving",
+      "contextVariantId": "ctx_g3b_u08_per_group_daily_saving_saving_xiaoan",
+      "contextDomain": "saving",
+      "sceneLabelZh": "平均每日存款",
+      "promptText": "小安8天共存了208元，每天存一樣多，平均每天存多少元？",
+      "equationModel": "208 ÷ 8 = 26",
+      "answerText": "26元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 208,
+        "b": 8
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 26,
+      "patternSpecId": "ps_g3b_u08_per_group_daily_saving",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_daily_saving",
+      "contextVariantId": "ctx_g3b_u08_per_group_daily_saving_allowance_xiaomei",
+      "contextDomain": "allowance",
+      "sceneLabelZh": "平均每日零用錢儲蓄",
+      "promptText": "小美7天共存了588元，每天存一樣多，平均每天存多少元？",
+      "equationModel": "588 ÷ 7 = 84",
+      "answerText": "84元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 588,
+        "b": 7
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 27,
+      "patternSpecId": "ps_g3b_u08_per_group_daily_saving",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_daily_saving",
+      "contextVariantId": "ctx_g3b_u08_per_group_daily_saving_saving_xiaojie",
+      "contextDomain": "saving",
+      "sceneLabelZh": "平均每日存錢",
+      "promptText": "小杰4天共存了172元，每天存一樣多，平均每天存多少元？",
+      "equationModel": "172 ÷ 4 = 43",
+      "answerText": "43元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 172,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 28,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_share_people",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_share_people",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_share_people_pencils",
+      "contextDomain": "classroom",
+      "sceneLabelZh": "平均分鉛筆",
+      "promptText": "把476枝鉛筆平均分給7人，每人分到多少枝鉛筆？",
+      "equationModel": "476 ÷ 7 = 68",
+      "answerText": "68枝",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 476,
+        "b": 7
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 29,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_share_people",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_share_people",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_share_people_cookies",
+      "contextDomain": "snacks",
+      "sceneLabelZh": "平均分餅乾",
+      "promptText": "把324片餅乾平均分給9人，每人分到多少片餅乾？",
+      "equationModel": "324 ÷ 9 = 36",
+      "answerText": "36片",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 324,
+        "b": 9
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 30,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_share_people",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_share_people",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_share_people_beads",
+      "contextDomain": "craft",
+      "sceneLabelZh": "平均分珠子",
+      "promptText": "把182顆珠子平均分給2人，每人分到多少顆珠子？",
+      "equationModel": "182 ÷ 2 = 91",
+      "answerText": "91顆",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 182,
+        "b": 2
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 31,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_container_capacity",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_container_capacity",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_container_capacity_juice_bottles",
+      "contextDomain": "drinks",
+      "sceneLabelZh": "果汁平均裝瓶",
+      "promptText": "把24毫升果汁平均裝入2瓶，每瓶有多少毫升？",
+      "equationModel": "24 ÷ 2 = 12",
+      "answerText": "12毫升",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 24,
+        "b": 2
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 32,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_container_capacity",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_container_capacity",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_container_capacity_soup_bowls",
+      "contextDomain": "cooking",
+      "sceneLabelZh": "湯平均裝碗",
+      "promptText": "把495毫升湯平均裝入5碗，每碗有多少毫升？",
+      "equationModel": "495 ÷ 5 = 99",
+      "answerText": "99毫升",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 495,
+        "b": 5
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 33,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_container_capacity",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_container_capacity",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_container_capacity_colored_water_cups",
+      "contextDomain": "experiment",
+      "sceneLabelZh": "色水平均裝杯",
+      "promptText": "把92毫升色水平均裝入4杯，每杯有多少毫升？",
+      "equationModel": "92 ÷ 4 = 23",
+      "answerText": "23毫升",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 92,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 34,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_segment_length",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_segment_length",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_segment_length_ribbon",
+      "contextDomain": "ribbon",
+      "sceneLabelZh": "緞帶平均分段",
+      "promptText": "一條緞帶全長154公分，平均分成7段，每段長多少公分？",
+      "equationModel": "154 ÷ 7 = 22",
+      "answerText": "22公分",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 154,
+        "b": 7
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 35,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_segment_length",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_segment_length",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_segment_length_rope",
+      "contextDomain": "rope",
+      "sceneLabelZh": "繩子平均分段",
+      "promptText": "一條繩子全長105公分，平均分成7段，每段長多少公分？",
+      "equationModel": "105 ÷ 7 = 15",
+      "answerText": "15公分",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 105,
+        "b": 7
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 36,
+      "patternSpecId": "ps_g3b_u08_per_group_equal_segment_length",
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "templateFamilyId": "tpl_g3b_u08_per_group_equal_segment_length",
+      "contextVariantId": "ctx_g3b_u08_per_group_equal_segment_length_track",
+      "contextDomain": "track",
+      "sceneLabelZh": "跑道平均分段",
+      "promptText": "一條跑道全長216公尺，平均分成9段，每段長多少公尺？",
+      "equationModel": "216 ÷ 9 = 24",
+      "answerText": "24公尺",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 216,
+        "b": 9
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 37,
+      "patternSpecId": "ps_g3b_u08_reverse_base_price_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_price_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_price_multiple_clothing",
+      "contextDomain": "clothing",
+      "sceneLabelZh": "服飾價格倍數",
+      "promptText": "外套售價285元，剛好是帽子售價的3倍，帽子售價多少元？",
+      "equationModel": "285 ÷ 3 = 95",
+      "answerText": "95元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 285,
+        "b": 3
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 38,
+      "patternSpecId": "ps_g3b_u08_reverse_base_price_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_price_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_price_multiple_stationery",
+      "contextDomain": "stationery",
+      "sceneLabelZh": "文具價格倍數",
+      "promptText": "書包售價415元，剛好是鉛筆盒售價的5倍，鉛筆盒售價多少元？",
+      "equationModel": "415 ÷ 5 = 83",
+      "answerText": "83元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 415,
+        "b": 5
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 39,
+      "patternSpecId": "ps_g3b_u08_reverse_base_price_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_price_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_price_multiple_daily_goods",
+      "contextDomain": "daily_goods",
+      "sceneLabelZh": "日用品價格倍數",
+      "promptText": "大浴巾售價528元，剛好是小毛巾售價的6倍，小毛巾售價多少元？",
+      "equationModel": "528 ÷ 6 = 88",
+      "answerText": "88元",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 528,
+        "b": 6
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 40,
+      "patternSpecId": "ps_g3b_u08_reverse_base_quantity_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_quantity_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_quantity_multiple_cards",
+      "contextDomain": "collections",
+      "sceneLabelZh": "卡片數量倍數",
+      "promptText": "小安有219張卡片，是小美的3倍，小美有多少張卡片？",
+      "equationModel": "219 ÷ 3 = 73",
+      "answerText": "73張",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 219,
+        "b": 3
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 41,
+      "patternSpecId": "ps_g3b_u08_reverse_base_quantity_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_quantity_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_quantity_multiple_books",
+      "contextDomain": "books",
+      "sceneLabelZh": "故事書數量倍數",
+      "promptText": "小杰有16本故事書，是小華的8倍，小華有多少本故事書？",
+      "equationModel": "16 ÷ 8 = 2",
+      "answerText": "2本",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 16,
+        "b": 8
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 42,
+      "patternSpecId": "ps_g3b_u08_reverse_base_quantity_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_quantity_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_quantity_multiple_stickers",
+      "contextDomain": "stickers",
+      "sceneLabelZh": "貼紙數量倍數",
+      "promptText": "小美有207張貼紙，是小安的9倍，小安有多少張貼紙？",
+      "equationModel": "207 ÷ 9 = 23",
+      "answerText": "23張",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 207,
+        "b": 9
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 43,
+      "patternSpecId": "ps_g3b_u08_reverse_base_length_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_length_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_length_multiple_ribbon",
+      "contextDomain": "ribbon",
+      "sceneLabelZh": "緞帶長度倍數",
+      "promptText": "紅緞帶長348公分，是藍緞帶長度的6倍，藍緞帶長多少公分？",
+      "equationModel": "348 ÷ 6 = 58",
+      "answerText": "58公分",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 348,
+        "b": 6
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 44,
+      "patternSpecId": "ps_g3b_u08_reverse_base_length_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_length_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_length_multiple_rope",
+      "contextDomain": "rope",
+      "sceneLabelZh": "繩子長度倍數",
+      "promptText": "長繩長235公分，是短繩長度的5倍，短繩長多少公分？",
+      "equationModel": "235 ÷ 5 = 47",
+      "answerText": "47公分",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 235,
+        "b": 5
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 45,
+      "patternSpecId": "ps_g3b_u08_reverse_base_length_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_length_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_length_multiple_track",
+      "contextDomain": "track",
+      "sceneLabelZh": "跑道長度倍數",
+      "promptText": "主跑道長396公尺，是練習跑道長度的4倍，練習跑道長多少公尺？",
+      "equationModel": "396 ÷ 4 = 99",
+      "answerText": "99公尺",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 396,
+        "b": 4
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 46,
+      "patternSpecId": "ps_g3b_u08_reverse_base_capacity_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_capacity_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_capacity_multiple_jugs",
+      "contextDomain": "containers",
+      "sceneLabelZh": "水壺容量倍數",
+      "promptText": "大水壺可裝192毫升，是小水壺容量的2倍，小水壺可裝多少毫升？",
+      "equationModel": "192 ÷ 2 = 96",
+      "answerText": "96毫升",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 192,
+        "b": 2
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 47,
+      "patternSpecId": "ps_g3b_u08_reverse_base_capacity_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_capacity_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_capacity_multiple_juice_bottles",
+      "contextDomain": "drinks",
+      "sceneLabelZh": "果汁瓶容量倍數",
+      "promptText": "大瓶果汁可裝285毫升，是小瓶果汁容量的3倍，小瓶果汁可裝多少毫升？",
+      "equationModel": "285 ÷ 3 = 95",
+      "answerText": "95毫升",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 285,
+        "b": 3
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 48,
+      "patternSpecId": "ps_g3b_u08_reverse_base_capacity_multiple",
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "templateFamilyId": "tpl_g3b_u08_reverse_base_capacity_multiple",
+      "contextVariantId": "ctx_g3b_u08_reverse_base_capacity_multiple_measuring_cups",
+      "contextDomain": "containers",
+      "sceneLabelZh": "量杯容量倍數",
+      "promptText": "大量杯可裝261毫升，是小量杯容量的9倍，小量杯可裝多少毫升？",
+      "equationModel": "261 ÷ 9 = 29",
+      "answerText": "29毫升",
+      "answerModelShape": "semantic_single_integer_with_unit",
+      "quantities": {
+        "a": 261,
+        "b": 9
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 49,
+      "patternSpecId": "ps_g3b_u08_estimate_near_hundred_total",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_near_hundred_total",
+      "contextVariantId": "ctx_g3b_u08_estimate_near_hundred_total_notebooks",
+      "contextDomain": "shopping",
+      "sceneLabelZh": "筆記本估價",
+      "promptText": "每本筆記本328元，買3本，先把單價看成接近的整百數，估一估大約需要多少元？",
+      "equationModel": "300 × 3 = 900",
+      "answerText": "大約900元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "a": 328,
+        "b": 3,
+        "h": 300
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 50,
+      "patternSpecId": "ps_g3b_u08_estimate_near_hundred_total",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_near_hundred_total",
+      "contextVariantId": "ctx_g3b_u08_estimate_near_hundred_total_cakes",
+      "contextDomain": "food",
+      "sceneLabelZh": "蛋糕估價",
+      "promptText": "每盒蛋糕314元，買2盒，先把單價看成接近的整百數，估一估大約需要多少元？",
+      "equationModel": "300 × 2 = 600",
+      "answerText": "大約600元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "a": 314,
+        "b": 2,
+        "h": 300
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 51,
+      "patternSpecId": "ps_g3b_u08_estimate_near_hundred_total",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_near_hundred_total",
+      "contextVariantId": "ctx_g3b_u08_estimate_near_hundred_total_colored_pencils",
+      "contextDomain": "shopping",
+      "sceneLabelZh": "色鉛筆估價",
+      "promptText": "每盒色鉛筆82元，買6盒，先把單價看成接近的整百數，估一估大約需要多少元？",
+      "equationModel": "100 × 6 = 600",
+      "answerText": "大約600元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "a": 82,
+        "b": 6,
+        "h": 100
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 52,
+      "patternSpecId": "ps_g3b_u08_estimate_budget_sufficiency_upper",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_budget_sufficiency_upper",
+      "contextVariantId": "ctx_g3b_u08_estimate_budget_sufficiency_upper_notebooks",
+      "contextDomain": "shopping",
+      "sceneLabelZh": "筆記本預算",
+      "promptText": "每本筆記本93元，買2本，帶200元夠不夠？請先用接近的整百數估一估。",
+      "equationModel": "100 × 2 = 200",
+      "answerText": "夠，估計最多需要200元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "a": 93,
+        "b": 2,
+        "c": 200,
+        "h": 100,
+        "d": 7
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 53,
+      "patternSpecId": "ps_g3b_u08_estimate_budget_sufficiency_upper",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_budget_sufficiency_upper",
+      "contextVariantId": "ctx_g3b_u08_estimate_budget_sufficiency_upper_cakes",
+      "contextDomain": "food",
+      "sceneLabelZh": "蛋糕預算",
+      "promptText": "每盒蛋糕269元，買3盒，帶900元夠不夠？請先用接近的整百數估一估。",
+      "equationModel": "300 × 3 = 900",
+      "answerText": "夠，估計最多需要900元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "a": 269,
+        "b": 3,
+        "c": 900,
+        "h": 300,
+        "d": 31
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 54,
+      "patternSpecId": "ps_g3b_u08_estimate_budget_sufficiency_upper",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_budget_sufficiency_upper",
+      "contextVariantId": "ctx_g3b_u08_estimate_budget_sufficiency_upper_colored_pencils",
+      "contextDomain": "shopping",
+      "sceneLabelZh": "色鉛筆預算",
+      "promptText": "每盒色鉛筆176元，買2盒，帶400元夠不夠？請先用接近的整百數估一估。",
+      "equationModel": "200 × 2 = 400",
+      "answerText": "夠，估計最多需要400元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "a": 176,
+        "b": 2,
+        "c": 400,
+        "h": 200,
+        "d": 24
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 55,
+      "patternSpecId": "ps_g3b_u08_estimate_exact_over_benchmark",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_exact_over_benchmark",
+      "contextVariantId": "ctx_g3b_u08_estimate_exact_over_benchmark_notebooks",
+      "contextDomain": "shopping",
+      "sceneLabelZh": "筆記本超出整百基準",
+      "promptText": "每本筆記本107元，買6本。先把單價看成100元，再補回每本多出的7元，實際費用比600元多多少元？",
+      "equationModel": "100 × 6 = 600",
+      "answerText": "多42元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "h": 100,
+        "d": 7,
+        "b": 6,
+        "c": 600,
+        "unitPrice": 107
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 56,
+      "patternSpecId": "ps_g3b_u08_estimate_exact_over_benchmark",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_exact_over_benchmark",
+      "contextVariantId": "ctx_g3b_u08_estimate_exact_over_benchmark_cakes",
+      "contextDomain": "food",
+      "sceneLabelZh": "蛋糕超出整百基準",
+      "promptText": "每盒蛋糕213元，買2盒。先把單價看成200元，再補回每盒多出的13元，實際費用比400元多多少元？",
+      "equationModel": "200 × 2 = 400",
+      "answerText": "多26元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "h": 200,
+        "d": 13,
+        "b": 2,
+        "c": 400,
+        "unitPrice": 213
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 57,
+      "patternSpecId": "ps_g3b_u08_estimate_exact_over_benchmark",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_exact_over_benchmark",
+      "contextVariantId": "ctx_g3b_u08_estimate_exact_over_benchmark_colored_pencils",
+      "contextDomain": "shopping",
+      "sceneLabelZh": "色鉛筆超出整百基準",
+      "promptText": "每盒色鉛筆317元，買3盒。先把單價看成300元，再補回每盒多出的17元，實際費用比900元多多少元？",
+      "equationModel": "300 × 3 = 900",
+      "answerText": "多51元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "h": 300,
+        "d": 17,
+        "b": 3,
+        "c": 900,
+        "unitPrice": 317
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 58,
+      "patternSpecId": "ps_g3b_u08_estimate_exact_under_benchmark",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_exact_under_benchmark",
+      "contextVariantId": "ctx_g3b_u08_estimate_exact_under_benchmark_notebooks",
+      "contextDomain": "shopping",
+      "sceneLabelZh": "筆記本低於整百基準",
+      "promptText": "每本筆記本180元，買3本。先把單價看成200元，再扣回每本少的20元，實際費用比600元少多少元？",
+      "equationModel": "200 × 3 = 600",
+      "answerText": "少60元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "h": 200,
+        "d": 20,
+        "b": 3,
+        "c": 600,
+        "unitPrice": 180
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 59,
+      "patternSpecId": "ps_g3b_u08_estimate_exact_under_benchmark",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_exact_under_benchmark",
+      "contextVariantId": "ctx_g3b_u08_estimate_exact_under_benchmark_cakes",
+      "contextDomain": "food",
+      "sceneLabelZh": "蛋糕低於整百基準",
+      "promptText": "每盒蛋糕284元，買2盒。先把單價看成300元，再扣回每盒少的16元，實際費用比600元少多少元？",
+      "equationModel": "300 × 2 = 600",
+      "answerText": "少32元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "h": 300,
+        "d": 16,
+        "b": 2,
+        "c": 600,
+        "unitPrice": 284
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 60,
+      "patternSpecId": "ps_g3b_u08_estimate_exact_under_benchmark",
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "templateFamilyId": "tpl_g3b_u08_estimate_exact_under_benchmark",
+      "contextVariantId": "ctx_g3b_u08_estimate_exact_under_benchmark_colored_pencils",
+      "contextDomain": "shopping",
+      "sceneLabelZh": "色鉛筆低於整百基準",
+      "promptText": "每盒色鉛筆87元，買8盒。先把單價看成100元，再扣回每盒少的13元，實際費用比800元少多少元？",
+      "equationModel": "100 × 8 = 800",
+      "answerText": "少104元",
+      "answerModelShape": "semantic_estimation_judgment",
+      "quantities": {
+        "h": 100,
+        "d": 13,
+        "b": 8,
+        "c": 800,
+        "unitPrice": 87
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 61,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_weight",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_weight",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_weight_cookies",
+      "contextDomain": "food",
+      "sceneLabelZh": "同價餅乾重量",
+      "promptText": "兩種餅乾組合價格相同。甲有4包，每包46克；乙有6包，每包110克。哪一種買到的總重量較多？",
+      "equationModel": "46 × 4 = 184；110 × 6 = 660",
+      "answerText": "乙的總重量較多（660克）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 4,
+        "b": 46,
+        "c": 6,
+        "d": 110
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 62,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_weight",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_weight",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_weight_nuts",
+      "contextDomain": "food",
+      "sceneLabelZh": "同價堅果重量",
+      "promptText": "兩種堅果組合價格相同。甲有6包，每包12克；乙有2包，每包40克。哪一種買到的總重量較多？",
+      "equationModel": "12 × 6 = 72；40 × 2 = 80",
+      "answerText": "乙的總重量較多（80克）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 6,
+        "b": 12,
+        "c": 2,
+        "d": 40
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 63,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_weight",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_weight",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_weight_rice_crackers",
+      "contextDomain": "food",
+      "sceneLabelZh": "同價米果重量",
+      "promptText": "兩種米果組合價格相同。甲有4包，每包243克；乙有2包，每包155克。哪一種買到的總重量較多？",
+      "equationModel": "243 × 4 = 972；155 × 2 = 310",
+      "answerText": "甲的總重量較多（972克）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 4,
+        "b": 243,
+        "c": 2,
+        "d": 155
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 64,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_capacity",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_capacity",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_capacity_juice",
+      "contextDomain": "drinks",
+      "sceneLabelZh": "同價果汁容量",
+      "promptText": "兩種飲料組合價格相同。甲有3瓶，每瓶202毫升；乙有4瓶，每瓶207毫升。哪一種總容量較多？",
+      "equationModel": "202 × 3 = 606；207 × 4 = 828",
+      "answerText": "乙的總容量較多（828毫升）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 3,
+        "b": 202,
+        "c": 4,
+        "d": 207
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 65,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_capacity",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_capacity",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_capacity_milk",
+      "contextDomain": "drinks",
+      "sceneLabelZh": "同價牛奶容量",
+      "promptText": "兩種飲料組合價格相同。甲有2瓶，每瓶51毫升；乙有4瓶，每瓶182毫升。哪一種總容量較多？",
+      "equationModel": "51 × 2 = 102；182 × 4 = 728",
+      "answerText": "乙的總容量較多（728毫升）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 2,
+        "b": 51,
+        "c": 4,
+        "d": 182
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 66,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_capacity",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_capacity",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_capacity_water",
+      "contextDomain": "drinks",
+      "sceneLabelZh": "同價飲用水容量",
+      "promptText": "兩種飲料組合價格相同。甲有6瓶，每瓶18毫升；乙有5瓶，每瓶15毫升。哪一種總容量較多？",
+      "equationModel": "18 × 6 = 108；15 × 5 = 75",
+      "answerText": "甲的總容量較多（108毫升）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 6,
+        "b": 18,
+        "c": 5,
+        "d": 15
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 67,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_item_count",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_item_count",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_item_count_pencils",
+      "contextDomain": "stationery",
+      "sceneLabelZh": "同價鉛筆數量",
+      "promptText": "兩種鉛筆組合價格相同。甲有2盒，每盒38枝；乙有3盒，每盒232枝。哪一種總數量較多？",
+      "equationModel": "38 × 2 = 76；232 × 3 = 696",
+      "answerText": "乙的總數量較多（696枝）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 2,
+        "b": 38,
+        "c": 3,
+        "d": 232
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 68,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_item_count",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_item_count",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_item_count_stickers",
+      "contextDomain": "stickers",
+      "sceneLabelZh": "同價貼紙數量",
+      "promptText": "兩種貼紙組合價格相同。甲有6包，每包95張；乙有3包，每包43張。哪一種總數量較多？",
+      "equationModel": "95 × 6 = 570；43 × 3 = 129",
+      "answerText": "甲的總數量較多（570張）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 6,
+        "b": 95,
+        "c": 3,
+        "d": 43
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 69,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_item_count",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_item_count",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_item_count_blocks",
+      "contextDomain": "toys",
+      "sceneLabelZh": "同價積木數量",
+      "promptText": "兩種積木組合價格相同。甲有6袋，每袋149塊；乙有6袋，每袋15塊。哪一種總數量較多？",
+      "equationModel": "149 × 6 = 894；15 × 6 = 90",
+      "answerText": "甲的總數量較多（894塊）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 6,
+        "b": 149,
+        "c": 6,
+        "d": 15
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 70,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_total_length",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_total_length",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_total_length_ribbon",
+      "contextDomain": "ribbon",
+      "sceneLabelZh": "同價緞帶長度",
+      "promptText": "兩種緞帶組合價格相同。甲有2捲，每捲38公分；乙有6捲，每捲155公分。哪一種總長度較長？",
+      "equationModel": "38 × 2 = 76；155 × 6 = 930",
+      "answerText": "乙的總長度較多（930公分）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 2,
+        "b": 38,
+        "c": 6,
+        "d": 155
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 71,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_total_length",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_total_length",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_total_length_rope",
+      "contextDomain": "rope",
+      "sceneLabelZh": "同價繩子長度",
+      "promptText": "兩種繩子組合價格相同。甲有5捲，每捲100公分；乙有4捲，每捲154公分。哪一種總長度較長？",
+      "equationModel": "100 × 5 = 500；154 × 4 = 616",
+      "answerText": "乙的總長度較多（616公分）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 5,
+        "b": 100,
+        "c": 4,
+        "d": 154
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    },
+    {
+      "recordNumber": 72,
+      "patternSpecId": "ps_g3b_u08_same_price_compare_total_length",
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "templateFamilyId": "tpl_g3b_u08_same_price_compare_total_length",
+      "contextVariantId": "ctx_g3b_u08_same_price_compare_total_length_streamer",
+      "contextDomain": "ribbon",
+      "sceneLabelZh": "同價彩帶長度",
+      "promptText": "兩種彩帶組合價格相同。甲有2捲，每捲243公分；乙有3捲，每捲180公分。哪一種總長度較長？",
+      "equationModel": "243 × 2 = 486；180 × 3 = 540",
+      "answerText": "乙的總長度較多（540公分）",
+      "answerModelShape": "semantic_same_price_comparison",
+      "quantities": {
+        "a": 2,
+        "b": 243,
+        "c": 3,
+        "d": 180
+      },
+      "automaticValidation": {
+        "valid": true,
+        "blockingErrorCount": 0,
+        "stagePassCount": 8
+      },
+      "humanPrecheck": {
+        "checks": {
+          "naturalTraditionalChinese": true,
+          "roleCueClear": true,
+          "unitOrConclusionClear": true,
+          "uniqueAnswer": true,
+          "gradeBoundaryClear": true,
+          "samePriceComparable": true,
+          "noInternalIdLeakage": true
+        },
+        "pass": true
+      },
+      "manualReadback": {
+        "status": "pending_manual_review",
+        "defectCodes": [],
+        "notes": ""
+      }
+    }
+  ]
+}

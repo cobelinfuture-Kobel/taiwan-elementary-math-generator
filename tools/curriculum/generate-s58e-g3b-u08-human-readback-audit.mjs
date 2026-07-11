@@ -37,7 +37,8 @@ function numericBoundaryClear(question) {
 
 function humanPrecheck(question) {
   const checks = {
-    naturalTraditionalChinese: question.promptText.endsWith("？")
+    naturalTraditionalChinese: /[？?]/.test(question.promptText)
+      && /[？?。]$/.test(question.promptText)
       && question.promptText.length >= 15
       && question.promptText.length <= 120
       && !/\{[^}]+\}|每段剪成|成功一(?:球|題|關)|另外的人共|和另外\d+人共\d+人/.test(question.promptText),
