@@ -9,12 +9,11 @@ import {
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
-const KP_SELECTION_MODES = Object.freeze([
+const PUBLIC_KP_SELECTION_MODES = Object.freeze([
   "singleKnowledgePoint",
-  "mixedKnowledgePointsSameUnit",
-  "mixedKnowledgePointsCrossUnit"
+  "mixedKnowledgePointsSameUnit"
 ]);
-const VALID_SELECTION_MODES = Object.freeze([SOURCE_UNIT_SELECTION_MODE, ...KP_SELECTION_MODES]);
+const VALID_SELECTION_MODES = Object.freeze([SOURCE_UNIT_SELECTION_MODE, ...PUBLIC_KP_SELECTION_MODES]);
 
 const G3A_U03_WORD_PROBLEM = Object.freeze({
   sourceId: "g3a_u03_3a03",
@@ -125,6 +124,9 @@ function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
   }
 
   let selectionMode = VALID_SELECTION_MODES.includes(requestedMode) ? requestedMode : SOURCE_UNIT_SELECTION_MODE;
+  if (selectionMode !== requestedMode) {
+    warnings.push(warning("selector_mode_fallback", { from: requestedMode, to: SOURCE_UNIT_SELECTION_MODE }));
+  }
   if (selectionMode === SOURCE_UNIT_SELECTION_MODE) {
     if (requestedKnowledgePointIds.length + requestedPatternGroupIds.length > 0) {
       warnings.push(warning("selector_id_dropped", { count: requestedKnowledgePointIds.length + requestedPatternGroupIds.length }));
@@ -132,7 +134,10 @@ function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
     return { selectionMode, selectedKnowledgePointIds: [], selectedPatternGroupIds: [], selectorWarnings: warnings };
   }
 
-  const selectedKnowledgePointIds = requestedKnowledgePointIds.filter((id) => selectorAccess.getVisibleBatchAKnowledgePoint(id));
+  const selectedKnowledgePointIds = requestedKnowledgePointIds.filter((id) => {
+    const row = selectorAccess.getVisibleBatchAKnowledgePoint(id);
+    return row?.sourceId === sourceId;
+  });
   if (selectedKnowledgePointIds.length !== requestedKnowledgePointIds.length) {
     warnings.push(warning("selector_id_dropped", { field: "knowledgePointIds", count: requestedKnowledgePointIds.length - selectedKnowledgePointIds.length }));
   }
@@ -176,7 +181,7 @@ export function writeQueryStateFromState(state) {
   nextUrl.searchParams.set("generationSeed", state.batchA.generationSeed);
   nextUrl.searchParams.set("columns", String(state.batchA.columns));
   nextUrl.searchParams.set("rowsPerPage", String(state.batchA.rowsPerPage));
-  if (KP_SELECTION_MODES.includes(state.batchA.selectionMode)) {
+  if (PUBLIC_KP_SELECTION_MODES.includes(state.batchA.selectionMode)) {
     nextUrl.searchParams.set("selectionMode", state.batchA.selectionMode);
     for (const knowledgePointId of state.batchA.selectedKnowledgePointIds ?? []) nextUrl.searchParams.append("kp", knowledgePointId);
     for (const patternGroupId of state.batchA.selectedPatternGroupIds ?? []) nextUrl.searchParams.append("pg", patternGroupId);
