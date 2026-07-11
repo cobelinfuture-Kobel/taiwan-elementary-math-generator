@@ -9,7 +9,10 @@ import {
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
-const G3B_U04_SOURCE_ID = "g3b_u04_3b04";
+const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
+  "g3b_u04_3b04",
+  "g3b_u08_3b08"
+]));
 const KP_SELECTION_MODES = Object.freeze([
   "singleKnowledgePoint",
   "mixedKnowledgePointsSameUnit",
@@ -44,12 +47,17 @@ function warning(code, details = {}) {
   return { code, ...details };
 }
 
+function approvedLatestKnowledgePoint(knowledgePointId) {
+  const latest = getLatestVisibleBatchAKnowledgePoint(knowledgePointId);
+  return latest && LATEST_QUERY_SELECTOR_SOURCE_IDS.has(latest.sourceId) ? latest : null;
+}
+
 function getVisibleBatchAKnowledgePoint(knowledgePointId) {
   const base = getBaseVisibleBatchAKnowledgePoint(knowledgePointId);
   if (base) return base;
 
-  const latest = getLatestVisibleBatchAKnowledgePoint(knowledgePointId);
-  if (latest?.sourceId === G3B_U04_SOURCE_ID) return latest;
+  const latest = approvedLatestKnowledgePoint(knowledgePointId);
+  if (latest) return latest;
 
   if (knowledgePointId !== G3A_U03_WORD_PROBLEM.knowledgePointId) return null;
   return {
@@ -65,8 +73,7 @@ function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
   const baseGroups = getBaseVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
   if (baseGroups.length > 0) return baseGroups;
 
-  const latestKnowledgePoint = getLatestVisibleBatchAKnowledgePoint(knowledgePointId);
-  if (latestKnowledgePoint?.sourceId === G3B_U04_SOURCE_ID) {
+  if (approvedLatestKnowledgePoint(knowledgePointId)) {
     return getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
   }
 
