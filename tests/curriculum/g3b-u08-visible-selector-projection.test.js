@@ -11,7 +11,7 @@ import {
   listVisibleBatchAKnowledgePoints,
   resolveVisiblePatternSpecIdsForKnowledgePoint,
   validateG3BU08VisibleSelectorProjection
-} from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-g3b-u08-semantic-extension.js";
 import {
   G3B_U08_PROMOTED_KNOWLEDGE_POINT_IDS,
   G3B_U08_PROMOTED_PATTERN_GROUP_IDS,
