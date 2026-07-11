@@ -34,9 +34,18 @@ function generateAllExplicitVariants() {
   );
 }
 
+function groupByAnswerShape(questions) {
+  const grouped = {
+    semantic_single_integer_with_unit: [],
+    semantic_estimation_judgment: [],
+    semantic_same_price_comparison: []
+  };
+  for (const question of questions) grouped[question.answerModelShape].push(question);
+  return grouped;
+}
+
 test("S58D registers exactly 72 approved hidden context variants across all 24 families", () => {
-  const checked = validateG3BU08SemanticContextRegistry();
-  assert.deepEqual(checked, { ok: true, errors: [] });
+  assert.deepEqual(validateG3BU08SemanticContextRegistry(), { ok: true, errors: [] });
   assert.equal(G3B_U08_SEMANTIC_CONTEXT_VARIANTS.length, 72);
   assert.equal(listG3BU08SemanticContextVariants().length, 72);
   assert.equal(new Set(G3B_U08_SEMANTIC_CONTEXT_VARIANTS.map((variant) => variant.contextVariantId)).size, 72);
@@ -76,8 +85,7 @@ test("S58D generates all 72 family-context variants without fallback or unresolv
 });
 
 test("S58D obeys prior Batch A multiplication, exact-division and integer bounds", () => {
-  const questions = generateAllExplicitVariants();
-  for (const question of questions) {
+  for (const question of generateAllExplicitVariants()) {
     const spec = getG3BU08SemanticPatternDefinition(question.patternSpecId);
     const values = question.quantities;
     for (const value of Object.values(values)) {
@@ -106,12 +114,10 @@ test("S58D obeys prior Batch A multiplication, exact-division and integer bounds
 });
 
 test("S58D emits the three approved answer-model shapes with correct arithmetic", () => {
-  const questions = generateAllExplicitVariants();
-  const byShape = Object.groupBy(questions, (question) => question.answerModelShape);
+  const byShape = groupByAnswerShape(generateAllExplicitVariants());
   assert.equal(byShape.semantic_single_integer_with_unit.length, 48);
   assert.equal(byShape.semantic_estimation_judgment.length, 12);
   assert.equal(byShape.semantic_same_price_comparison.length, 12);
-
   for (const question of byShape.semantic_single_integer_with_unit) {
     assert.equal(Number.isSafeInteger(question.finalAnswer), true);
     assert.equal(question.finalAnswerWithUnit, `${question.finalAnswer}${question.finalAnswerUnit}`);
@@ -137,8 +143,7 @@ test("S58D emits the three approved answer-model shapes with correct arithmetic"
 });
 
 test("S58D applies the frozen natural-language and same-price FullFix directives", () => {
-  const questions = generateAllExplicitVariants();
-  for (const question of questions) {
+  for (const question of generateAllExplicitVariants()) {
     assert.doesNotMatch(question.promptText, /每段剪成/);
     assert.doesNotMatch(question.promptText, /成功一球|成功一題|成功一關/);
     if (question.templateFamilyId === "tpl_g3b_u08_total_score_per_success") {
@@ -181,33 +186,18 @@ test("S58D batch generation balances families, preserves exact count and determi
   assert.deepEqual(stable.questions.map((question) => question.questionNumber), Array.from({ length: 240 }, (_, index) => index + 1));
   assert.deepEqual(new Set(Object.values(stable.allocation)), new Set([10]));
 
-  const shuffledA = generateG3BU08HiddenSemanticBatch({
+  const common = {
     patternSpecIds: G3B_U08_SEMANTIC_PATTERN_SPEC_IDS,
     questionCount: 240,
     seed: "s58d-batch-240",
-    ordering: "shuffledAcrossPatterns",
-    orderingSeed: "shuffle-a"
-  });
-  const shuffledAReplay = generateG3BU08HiddenSemanticBatch({
-    patternSpecIds: G3B_U08_SEMANTIC_PATTERN_SPEC_IDS,
-    questionCount: 240,
-    seed: "s58d-batch-240",
-    ordering: "shuffledAcrossPatterns",
-    orderingSeed: "shuffle-a"
-  });
-  const shuffledB = generateG3BU08HiddenSemanticBatch({
-    patternSpecIds: G3B_U08_SEMANTIC_PATTERN_SPEC_IDS,
-    questionCount: 240,
-    seed: "s58d-batch-240",
-    ordering: "shuffledAcrossPatterns",
-    orderingSeed: "shuffle-b"
-  });
+    ordering: "shuffledAcrossPatterns"
+  };
+  const shuffledA = generateG3BU08HiddenSemanticBatch({ ...common, orderingSeed: "shuffle-a" });
+  const shuffledAReplay = generateG3BU08HiddenSemanticBatch({ ...common, orderingSeed: "shuffle-a" });
+  const shuffledB = generateG3BU08HiddenSemanticBatch({ ...common, orderingSeed: "shuffle-b" });
   assert.equal(shuffledA.ok, true);
   assert.deepEqual(shuffledAReplay, shuffledA);
-  assert.notDeepEqual(
-    shuffledA.questions.map((question) => question.id),
-    shuffledB.questions.map((question) => question.id)
-  );
+  assert.notDeepEqual(shuffledA.questions.map((question) => question.id), shuffledB.questions.map((question) => question.id));
   assert.deepEqual(new Set(shuffledA.questions.map((question) => question.id)), new Set(stable.questions.map((question) => question.id)));
 });
 
