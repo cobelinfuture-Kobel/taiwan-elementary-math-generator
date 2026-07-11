@@ -9,7 +9,6 @@ import {
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
-const G3B_U04_SOURCE_ID = "g3b_u04_3b04";
 const KP_SELECTION_MODES = Object.freeze([
   "singleKnowledgePoint",
   "mixedKnowledgePointsSameUnit",
@@ -49,7 +48,7 @@ function getVisibleBatchAKnowledgePoint(knowledgePointId) {
   if (base) return base;
 
   const latest = getLatestVisibleBatchAKnowledgePoint(knowledgePointId);
-  if (latest?.sourceId === G3B_U04_SOURCE_ID) return latest;
+  if (latest) return latest;
 
   if (knowledgePointId !== G3A_U03_WORD_PROBLEM.knowledgePointId) return null;
   return {
@@ -66,7 +65,7 @@ function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
   if (baseGroups.length > 0) return baseGroups;
 
   const latestKnowledgePoint = getLatestVisibleBatchAKnowledgePoint(knowledgePointId);
-  if (latestKnowledgePoint?.sourceId === G3B_U04_SOURCE_ID) {
+  if (latestKnowledgePoint) {
     return getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
   }
 
