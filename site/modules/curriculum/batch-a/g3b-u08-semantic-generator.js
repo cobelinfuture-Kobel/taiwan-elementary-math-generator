@@ -228,20 +228,24 @@ function renderPrompt(spec, scenario, values) {
   }
   if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_capacity" && scenario.bindings.item) {
     const { item, containerUnit = "瓶", capacityUnit = "毫升" } = scenario.bindings;
-    return `兩種${item}組合價格相同。甲有${values.a}${containerUnit}，每${containerUnit}${values.b}${capacityUnit}；乙有${values.c}${containerUnit}，每${containerUnit}${values.d}${capacityUnit}。哪一種總容量較多？`;
+    return `兩種${item}組合價格相同。甲有${values.a}${containerUnit}，每${containerUnit}${values.b}${capacityUnit}；乙有${values.c}${containerUnit}，每${containerUnit}${values.d}${capacityUnit}。哪一種總容量較多，也就是哪一種比較划算？`;
   }
   if (spec.templateFamilyId === "tpl_g3b_u08_total_items_per_package") {
     const { packageUnit, itemUnit, item } = scenario.bindings;
     return `每${packageUnit}有${values.a}${itemUnit}${item}，共有${values.b}${packageUnit}，一共有多少${itemUnit}${item}？`;
   }
   const bindings = { ...scenario.bindings, ...values };
-  return spec.promptSkeletonZh.replace(/\{([^}]+)\}/g, (_, key) => {
+  const rendered = spec.promptSkeletonZh.replace(/\{([^}]+)\}/g, (_, key) => {
     const value = bindings[key];
     if (value === undefined || value === null || value === "") {
       throw new Error(`G3B_U08_GEN_PROMPT_PLACEHOLDER_UNRESOLVED:${key}`);
     }
     return String(value);
   });
+  if (spec.equationShape === "a*b vs c*d") {
+    return rendered.replace(/？$/, "，也就是哪一種比較划算？");
+  }
+  return rendered;
 }
 
 function eventSequence(spec, sampled) {
@@ -326,7 +330,7 @@ function buildAnswerDetails(spec, scenario, sampled, expression) {
   const winningTotal = sampled.winner === "option_a" ? sampled.optionATotal : sampled.optionBTotal;
   const dimensionLabel = scenario.comparisonDimension === "weight" ? "總重量" : scenario.comparisonDimension === "capacity" ? "總容量" : scenario.comparisonDimension === "length" ? "總長度" : "總數量";
   const comparisonAdjective = scenario.comparisonDimension === "length" ? "較長" : "較多";
-  const conclusionZh = `${winnerLabel}的${dimensionLabel}${comparisonAdjective}（${winningTotal}${unit}）`;
+  const conclusionZh = `${winnerLabel}的${dimensionLabel}${comparisonAdjective}，所以${winnerLabel}方案比較划算（${winningTotal}${unit}）`;
   return {
     answerModelShape: spec.answerModel.shape,
     equationModel: expression.text,

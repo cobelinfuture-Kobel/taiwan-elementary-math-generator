@@ -87,6 +87,8 @@ test("S58E comparison variants express their context and use dimension-natural c
     assert.match(question.promptText, new RegExp(variant.bindings.item));
     assert.equal(question.optionATotal === question.optionBTotal, false);
     assert.equal(Math.max(question.optionATotal, question.optionBTotal) / Math.min(question.optionATotal, question.optionBTotal) <= 2, true);
+    assert.match(question.promptText, /比較划算/);
+    assert.match(question.conclusionZh, /比較划算/);
   }
 
   const lengthId = "ps_g3b_u08_same_price_compare_total_length";
@@ -94,6 +96,8 @@ test("S58E comparison variants express their context and use dimension-natural c
     const question = generate(lengthId, variant.contextVariantId, `length:${variant.contextVariantId}`);
     assert.match(question.conclusionZh, /總長度較長/);
     assert.doesNotMatch(question.conclusionZh, /總長度較多/);
+    assert.match(question.promptText, /比較划算/);
+    assert.match(question.conclusionZh, /比較划算/);
   }
 });
 

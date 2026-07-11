@@ -471,6 +471,9 @@ function validateStage7(question, spec, scenario) {
     if (!["option_a", "option_b"].includes(question.winner) || question.winner !== expectedWinner) {
       add(errors, "G3BU08_COMPARISON_NO_UNIQUE_WINNER", 7, "winner", "Comparison must identify exactly one mathematically correct winner.");
     }
+    if (!/比較划算/.test(question.promptText ?? "") || !/比較划算/.test(question.conclusionZh ?? "")) {
+      add(errors, "G3BU08_COMPARISON_NO_UNIQUE_WINNER", 7, "conclusionZh", "The prompt and conclusion must connect the larger same-price total to the better-value decision.");
+    }
   }
   return errors;
 }

@@ -265,6 +265,9 @@ export function checkG3BU08HumanRealism(question, spec, scenario) {
     if (spec.templateFamilyId === "tpl_g3b_u08_same_price_compare_total_length" && !/總長度較長/.test(question.conclusionZh ?? "")) {
       reasons.push("length_conclusion_wording");
     }
+    if (!/比較划算/.test(question.promptText ?? "") || !/比較划算/.test(question.conclusionZh ?? "")) {
+      reasons.push("same_price_value_decision_not_explicit");
+    }
   }
 
   return { ok: reasons.length === 0, reasons };
