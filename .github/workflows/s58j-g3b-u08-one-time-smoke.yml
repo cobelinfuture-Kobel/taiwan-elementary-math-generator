@@ -94,3 +94,5 @@ jobs:
             docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
           git commit -m "test(g3b-u08): generate S58J public HTML PDF smoke [skip ci]"
           git push origin HEAD:s58j-g3b-u08-production-closeout
+
+# Retrigger token: 2026-07-11T23:28+08:00
