@@ -43,12 +43,12 @@
       "contextVariantId": "ctx_g3b_u08_total_daily_saving_accumulation_saving_xiaoan",
       "contextDomain": "saving",
       "sceneLabelZh": "每日存錢",
-      "promptText": "小安每天存237元，連續存了4天，一共存了多少元？",
-      "equationModel": "237 × 4 = 948",
-      "answerText": "948元",
+      "promptText": "小安每天存88元，連續存了4天，一共存了多少元？",
+      "equationModel": "88 × 4 = 352",
+      "answerText": "352元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 237,
+        "a": 88,
         "b": 4
       },
       "automaticValidation": {
@@ -83,12 +83,12 @@
       "contextVariantId": "ctx_g3b_u08_total_daily_saving_accumulation_allowance_xiaomei",
       "contextDomain": "allowance",
       "sceneLabelZh": "零用錢儲蓄",
-      "promptText": "小美每天存137元，連續存了5天，一共存了多少元？",
-      "equationModel": "137 × 5 = 685",
-      "answerText": "685元",
+      "promptText": "小美每天存44元，連續存了5天，一共存了多少元？",
+      "equationModel": "44 × 5 = 220",
+      "answerText": "220元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 137,
+        "a": 44,
         "b": 5
       },
       "automaticValidation": {
@@ -123,12 +123,12 @@
       "contextVariantId": "ctx_g3b_u08_total_daily_saving_accumulation_saving_xiaojie",
       "contextDomain": "saving",
       "sceneLabelZh": "存錢目標",
-      "promptText": "小杰每天存92元，連續存了9天，一共存了多少元？",
-      "equationModel": "92 × 9 = 828",
-      "answerText": "828元",
+      "promptText": "小杰每天存97元，連續存了9天，一共存了多少元？",
+      "equationModel": "97 × 9 = 873",
+      "answerText": "873元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 92,
+        "a": 97,
         "b": 9
       },
       "automaticValidation": {
@@ -163,12 +163,12 @@
       "contextVariantId": "ctx_g3b_u08_total_score_per_success_basketball",
       "contextDomain": "sports",
       "sceneLabelZh": "籃球得分",
-      "promptText": "每投進一球可得137分，小安投進了2球，一共得到多少分？",
-      "equationModel": "137 × 2 = 274",
-      "answerText": "274分",
+      "promptText": "每投進一球可得2分，小安投進了2球，一共得到多少分？",
+      "equationModel": "2 × 2 = 4",
+      "answerText": "4分",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 137,
+        "a": 2,
         "b": 2
       },
       "automaticValidation": {
@@ -203,12 +203,12 @@
       "contextVariantId": "ctx_g3b_u08_total_score_per_success_quiz",
       "contextDomain": "game",
       "sceneLabelZh": "答題得分",
-      "promptText": "每答對一題可得37分，小美答對了9題，一共得到多少分？",
-      "equationModel": "37 × 9 = 333",
-      "answerText": "333分",
+      "promptText": "每答對一題可得6分，小美答對了9題，一共得到多少分？",
+      "equationModel": "6 × 9 = 54",
+      "answerText": "54分",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 37,
+        "a": 6,
         "b": 9
       },
       "automaticValidation": {
@@ -243,12 +243,12 @@
       "contextVariantId": "ctx_g3b_u08_total_score_per_success_level",
       "contextDomain": "game",
       "sceneLabelZh": "闖關得分",
-      "promptText": "每完成一關可得179分，小杰完成了4關，一共得到多少分？",
-      "equationModel": "179 × 4 = 716",
-      "answerText": "716分",
+      "promptText": "每完成一關可得7分，小杰完成了4關，一共得到多少分？",
+      "equationModel": "7 × 4 = 28",
+      "answerText": "28分",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 179,
+        "a": 7,
         "b": 4
       },
       "automaticValidation": {
@@ -283,12 +283,12 @@
       "contextVariantId": "ctx_g3b_u08_total_material_per_product_paper_card",
       "contextDomain": "craft",
       "sceneLabelZh": "製作卡片",
-      "promptText": "做一張卡片需要35張色紙，做8張共需要多少張色紙？",
-      "equationModel": "35 × 8 = 280",
-      "answerText": "280張",
+      "promptText": "做一張卡片需要1張色紙，做8張共需要多少張色紙？",
+      "equationModel": "1 × 8 = 8",
+      "answerText": "8張",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 35,
+        "a": 1,
         "b": 8
       },
       "automaticValidation": {
@@ -323,12 +323,12 @@
       "contextVariantId": "ctx_g3b_u08_total_material_per_product_bracelet",
       "contextDomain": "craft",
       "sceneLabelZh": "製作手鍊",
-      "promptText": "做一條手鍊需要115顆珠子，做8條共需要多少顆珠子？",
-      "equationModel": "115 × 8 = 920",
-      "answerText": "920顆",
+      "promptText": "做一條手鍊需要7顆珠子，做8條共需要多少顆珠子？",
+      "equationModel": "7 × 8 = 56",
+      "answerText": "56顆",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 115,
+        "a": 7,
         "b": 8
       },
       "automaticValidation": {
@@ -363,12 +363,12 @@
       "contextVariantId": "ctx_g3b_u08_total_material_per_product_paper_flower",
       "contextDomain": "classroom",
       "sceneLabelZh": "製作紙花",
-      "promptText": "做一朵紙花需要68張色紙，做8朵共需要多少張色紙？",
-      "equationModel": "68 × 8 = 544",
-      "answerText": "544張",
+      "promptText": "做一朵紙花需要4張色紙，做8朵共需要多少張色紙？",
+      "equationModel": "4 × 8 = 32",
+      "answerText": "32張",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 68,
+        "a": 4,
         "b": 8
       },
       "automaticValidation": {
@@ -403,12 +403,12 @@
       "contextVariantId": "ctx_g3b_u08_total_items_per_package_cookies",
       "contextDomain": "food",
       "sceneLabelZh": "餅乾包裝",
-      "promptText": "每包餅乾有140片餅乾，共有5包，一共有多少片餅乾？",
-      "equationModel": "140 × 5 = 700",
-      "answerText": "700片",
+      "promptText": "每包餅乾有4片餅乾，共有5包，一共有多少片餅乾？",
+      "equationModel": "4 × 5 = 20",
+      "answerText": "20片",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 140,
+        "a": 4,
         "b": 5
       },
       "automaticValidation": {
@@ -443,12 +443,12 @@
       "contextVariantId": "ctx_g3b_u08_total_items_per_package_crayons",
       "contextDomain": "stationery",
       "sceneLabelZh": "蠟筆盒",
-      "promptText": "每盒蠟筆有129枝蠟筆，共有7盒，一共有多少枝蠟筆？",
-      "equationModel": "129 × 7 = 903",
-      "answerText": "903枝",
+      "promptText": "每盒蠟筆有10枝蠟筆，共有7盒，一共有多少枝蠟筆？",
+      "equationModel": "10 × 7 = 70",
+      "answerText": "70枝",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 129,
+        "a": 10,
         "b": 7
       },
       "automaticValidation": {
@@ -483,12 +483,12 @@
       "contextVariantId": "ctx_g3b_u08_total_items_per_package_blocks",
       "contextDomain": "toys",
       "sceneLabelZh": "積木袋",
-      "promptText": "每袋積木有97塊積木，共有9袋，一共有多少塊積木？",
-      "equationModel": "97 × 9 = 873",
-      "answerText": "873塊",
+      "promptText": "每袋積木有38塊積木，共有9袋，一共有多少塊積木？",
+      "equationModel": "38 × 9 = 342",
+      "answerText": "342塊",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 97,
+        "a": 38,
         "b": 9
       },
       "automaticValidation": {
@@ -523,12 +523,12 @@
       "contextVariantId": "ctx_g3b_u08_group_count_score_events_basketball",
       "contextDomain": "sports",
       "sceneLabelZh": "反推投球數",
-      "promptText": "小安共得到45分，每投進一球可得9分，小安投進了幾球？",
-      "equationModel": "45 ÷ 9 = 5",
-      "answerText": "5球",
+      "promptText": "小安共得到126分，每投進一球可得9分，小安投進了幾球？",
+      "equationModel": "126 ÷ 9 = 14",
+      "answerText": "14球",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 45,
+        "a": 126,
         "b": 9
       },
       "automaticValidation": {
@@ -563,12 +563,12 @@
       "contextVariantId": "ctx_g3b_u08_group_count_score_events_quiz",
       "contextDomain": "game",
       "sceneLabelZh": "反推答對題數",
-      "promptText": "小美共得到76分，每答對一題可得4分，小美答對了幾題？",
-      "equationModel": "76 ÷ 4 = 19",
-      "answerText": "19題",
+      "promptText": "小美共得到68分，每答對一題可得4分，小美答對了幾題？",
+      "equationModel": "68 ÷ 4 = 17",
+      "answerText": "17題",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 76,
+        "a": 68,
         "b": 4
       },
       "automaticValidation": {
@@ -603,12 +603,12 @@
       "contextVariantId": "ctx_g3b_u08_group_count_score_events_level",
       "contextDomain": "game",
       "sceneLabelZh": "反推完成關數",
-      "promptText": "小杰共得到159分，每完成一關可得3分，小杰完成了幾關？",
-      "equationModel": "159 ÷ 3 = 53",
-      "answerText": "53關",
+      "promptText": "小杰共得到60分，每完成一關可得3分，小杰完成了幾關？",
+      "equationModel": "60 ÷ 3 = 20",
+      "answerText": "20關",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 159,
+        "a": 60,
         "b": 3
       },
       "automaticValidation": {
@@ -643,13 +643,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_craft_products_bracelet",
       "contextDomain": "craft",
       "sceneLabelZh": "珠子做手鍊",
-      "promptText": "共有82顆珠子，做一條手鍊要用2顆，可以做幾條手鍊？",
-      "equationModel": "82 ÷ 2 = 41",
-      "answerText": "41條",
+      "promptText": "共有171顆珠子，做一條手鍊要用9顆，可以做幾條手鍊？",
+      "equationModel": "171 ÷ 9 = 19",
+      "answerText": "19條",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 82,
-        "b": 2
+        "a": 171,
+        "b": 9
       },
       "automaticValidation": {
         "valid": true,
@@ -683,13 +683,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_craft_products_necklace",
       "contextDomain": "jewelry",
       "sceneLabelZh": "珠子做項鍊",
-      "promptText": "共有256顆珠子，做一條項鍊要用4顆，可以做幾條項鍊？",
-      "equationModel": "256 ÷ 4 = 64",
-      "answerText": "64條",
+      "promptText": "共有32顆珠子，做一條項鍊要用8顆，可以做幾條項鍊？",
+      "equationModel": "32 ÷ 8 = 4",
+      "answerText": "4條",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 256,
-        "b": 4
+        "a": 32,
+        "b": 8
       },
       "automaticValidation": {
         "valid": true,
@@ -723,13 +723,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_craft_products_paper_flower",
       "contextDomain": "craft",
       "sceneLabelZh": "色紙做紙花",
-      "promptText": "共有405張色紙，做一朵紙花要用5張，可以做幾朵紙花？",
-      "equationModel": "405 ÷ 5 = 81",
-      "answerText": "81朵",
+      "promptText": "共有42張色紙，做一朵紙花要用3張，可以做幾朵紙花？",
+      "equationModel": "42 ÷ 3 = 14",
+      "answerText": "14朵",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 405,
-        "b": 5
+        "a": 42,
+        "b": 3
       },
       "automaticValidation": {
         "valid": true,
@@ -763,13 +763,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_equal_segments_ribbon",
       "contextDomain": "ribbon",
       "sceneLabelZh": "緞帶剪段",
-      "promptText": "一條緞帶長150公分，每段長3公分，可以剪成幾段？",
-      "equationModel": "150 ÷ 3 = 50",
-      "answerText": "50段",
+      "promptText": "一條緞帶長168公分，每段長7公分，可以剪成幾段？",
+      "equationModel": "168 ÷ 7 = 24",
+      "answerText": "24段",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 150,
-        "b": 3
+        "a": 168,
+        "b": 7
       },
       "automaticValidation": {
         "valid": true,
@@ -803,13 +803,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_equal_segments_rope",
       "contextDomain": "rope",
       "sceneLabelZh": "繩子剪段",
-      "promptText": "一條繩子長164公分，每段長4公分，可以剪成幾段？",
-      "equationModel": "164 ÷ 4 = 41",
-      "answerText": "41段",
+      "promptText": "一條繩子長136公分，每段長8公分，可以剪成幾段？",
+      "equationModel": "136 ÷ 8 = 17",
+      "answerText": "17段",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 164,
-        "b": 4
+        "a": 136,
+        "b": 8
       },
       "automaticValidation": {
         "valid": true,
@@ -843,13 +843,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_equal_segments_paper_strip",
       "contextDomain": "paper_strip",
       "sceneLabelZh": "紙條剪段",
-      "promptText": "一條紙條長122公分，每段長2公分，可以剪成幾段？",
-      "equationModel": "122 ÷ 2 = 61",
-      "answerText": "61段",
+      "promptText": "一條紙條長64公分，每段長8公分，可以剪成幾段？",
+      "equationModel": "64 ÷ 8 = 8",
+      "answerText": "8段",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 122,
-        "b": 2
+        "a": 64,
+        "b": 8
       },
       "automaticValidation": {
         "valid": true,
@@ -883,13 +883,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_packaging_oranges",
       "contextDomain": "food",
       "sceneLabelZh": "橘子裝袋",
-      "promptText": "共有224顆橘子，每4顆裝一袋，可以裝成幾袋？",
-      "equationModel": "224 ÷ 4 = 56",
-      "answerText": "56袋",
+      "promptText": "共有153顆橘子，每9顆裝一袋，可以裝成幾袋？",
+      "equationModel": "153 ÷ 9 = 17",
+      "answerText": "17袋",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 224,
-        "b": 4
+        "a": 153,
+        "b": 9
       },
       "automaticValidation": {
         "valid": true,
@@ -923,13 +923,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_packaging_pencils",
       "contextDomain": "classroom",
       "sceneLabelZh": "鉛筆裝盒",
-      "promptText": "共有392枝鉛筆，每4枝裝一盒，可以裝成幾盒？",
-      "equationModel": "392 ÷ 4 = 98",
-      "answerText": "98盒",
+      "promptText": "共有36枝鉛筆，每9枝裝一盒，可以裝成幾盒？",
+      "equationModel": "36 ÷ 9 = 4",
+      "answerText": "4盒",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 392,
-        "b": 4
+        "a": 36,
+        "b": 9
       },
       "automaticValidation": {
         "valid": true,
@@ -963,13 +963,13 @@
       "contextVariantId": "ctx_g3b_u08_group_count_packaging_tennis_balls",
       "contextDomain": "sports",
       "sceneLabelZh": "網球裝筒",
-      "promptText": "共有664顆網球，每8顆裝一筒，可以裝成幾筒？",
-      "equationModel": "664 ÷ 8 = 83",
-      "answerText": "83筒",
+      "promptText": "共有50顆網球，每5顆裝一筒，可以裝成幾筒？",
+      "equationModel": "50 ÷ 5 = 10",
+      "answerText": "10筒",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 664,
-        "b": 8
+        "a": 50,
+        "b": 5
       },
       "automaticValidation": {
         "valid": true,
@@ -1003,12 +1003,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_daily_saving_saving_xiaoan",
       "contextDomain": "saving",
       "sceneLabelZh": "平均每日存款",
-      "promptText": "小安8天共存了208元，每天存一樣多，平均每天存多少元？",
-      "equationModel": "208 ÷ 8 = 26",
-      "answerText": "26元",
+      "promptText": "小安8天共存了72元，每天存一樣多，平均每天存多少元？",
+      "equationModel": "72 ÷ 8 = 9",
+      "answerText": "9元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 208,
+        "a": 72,
         "b": 8
       },
       "automaticValidation": {
@@ -1043,12 +1043,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_daily_saving_allowance_xiaomei",
       "contextDomain": "allowance",
       "sceneLabelZh": "平均每日零用錢儲蓄",
-      "promptText": "小美7天共存了588元，每天存一樣多，平均每天存多少元？",
-      "equationModel": "588 ÷ 7 = 84",
-      "answerText": "84元",
+      "promptText": "小美7天共存了567元，每天存一樣多，平均每天存多少元？",
+      "equationModel": "567 ÷ 7 = 81",
+      "answerText": "81元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 588,
+        "a": 567,
         "b": 7
       },
       "automaticValidation": {
@@ -1083,12 +1083,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_daily_saving_saving_xiaojie",
       "contextDomain": "saving",
       "sceneLabelZh": "平均每日存錢",
-      "promptText": "小杰4天共存了172元，每天存一樣多，平均每天存多少元？",
-      "equationModel": "172 ÷ 4 = 43",
-      "answerText": "43元",
+      "promptText": "小杰4天共存了164元，每天存一樣多，平均每天存多少元？",
+      "equationModel": "164 ÷ 4 = 41",
+      "answerText": "41元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 172,
+        "a": 164,
         "b": 4
       },
       "automaticValidation": {
@@ -1123,12 +1123,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_share_people_pencils",
       "contextDomain": "classroom",
       "sceneLabelZh": "平均分鉛筆",
-      "promptText": "把476枝鉛筆平均分給7人，每人分到多少枝鉛筆？",
-      "equationModel": "476 ÷ 7 = 68",
-      "answerText": "68枝",
+      "promptText": "把77枝鉛筆平均分給7人，每人分到多少枝鉛筆？",
+      "equationModel": "77 ÷ 7 = 11",
+      "answerText": "11枝",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 476,
+        "a": 77,
         "b": 7
       },
       "automaticValidation": {
@@ -1163,12 +1163,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_share_people_cookies",
       "contextDomain": "snacks",
       "sceneLabelZh": "平均分餅乾",
-      "promptText": "把324片餅乾平均分給9人，每人分到多少片餅乾？",
-      "equationModel": "324 ÷ 9 = 36",
-      "answerText": "36片",
+      "promptText": "把81片餅乾平均分給9人，每人分到多少片餅乾？",
+      "equationModel": "81 ÷ 9 = 9",
+      "answerText": "9片",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 324,
+        "a": 81,
         "b": 9
       },
       "automaticValidation": {
@@ -1203,12 +1203,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_share_people_beads",
       "contextDomain": "craft",
       "sceneLabelZh": "平均分珠子",
-      "promptText": "把182顆珠子平均分給2人，每人分到多少顆珠子？",
-      "equationModel": "182 ÷ 2 = 91",
-      "answerText": "91顆",
+      "promptText": "把22顆珠子平均分給2人，每人分到多少顆珠子？",
+      "equationModel": "22 ÷ 2 = 11",
+      "answerText": "11顆",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 182,
+        "a": 22,
         "b": 2
       },
       "automaticValidation": {
@@ -1243,12 +1243,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_container_capacity_juice_bottles",
       "contextDomain": "drinks",
       "sceneLabelZh": "果汁平均裝瓶",
-      "promptText": "把24毫升果汁平均裝入2瓶，每瓶有多少毫升？",
-      "equationModel": "24 ÷ 2 = 12",
-      "answerText": "12毫升",
+      "promptText": "把212毫升果汁平均裝入2瓶，每瓶有多少毫升？",
+      "equationModel": "212 ÷ 2 = 106",
+      "answerText": "106毫升",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 24,
+        "a": 212,
         "b": 2
       },
       "automaticValidation": {
@@ -1283,12 +1283,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_container_capacity_soup_bowls",
       "contextDomain": "cooking",
       "sceneLabelZh": "湯平均裝碗",
-      "promptText": "把495毫升湯平均裝入5碗，每碗有多少毫升？",
-      "equationModel": "495 ÷ 5 = 99",
-      "answerText": "99毫升",
+      "promptText": "把480毫升湯平均裝入5碗，每碗有多少毫升？",
+      "equationModel": "480 ÷ 5 = 96",
+      "answerText": "96毫升",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 495,
+        "a": 480,
         "b": 5
       },
       "automaticValidation": {
@@ -1323,12 +1323,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_container_capacity_colored_water_cups",
       "contextDomain": "experiment",
       "sceneLabelZh": "色水平均裝杯",
-      "promptText": "把92毫升色水平均裝入4杯，每杯有多少毫升？",
-      "equationModel": "92 ÷ 4 = 23",
-      "answerText": "23毫升",
+      "promptText": "把328毫升色水平均裝入4杯，每杯有多少毫升？",
+      "equationModel": "328 ÷ 4 = 82",
+      "answerText": "82毫升",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 92,
+        "a": 328,
         "b": 4
       },
       "automaticValidation": {
@@ -1363,12 +1363,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_segment_length_ribbon",
       "contextDomain": "ribbon",
       "sceneLabelZh": "緞帶平均分段",
-      "promptText": "一條緞帶全長154公分，平均分成7段，每段長多少公分？",
-      "equationModel": "154 ÷ 7 = 22",
-      "answerText": "22公分",
+      "promptText": "一條緞帶全長119公分，平均分成7段，每段長多少公分？",
+      "equationModel": "119 ÷ 7 = 17",
+      "answerText": "17公分",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 154,
+        "a": 119,
         "b": 7
       },
       "automaticValidation": {
@@ -1403,12 +1403,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_segment_length_rope",
       "contextDomain": "rope",
       "sceneLabelZh": "繩子平均分段",
-      "promptText": "一條繩子全長105公分，平均分成7段，每段長多少公分？",
-      "equationModel": "105 ÷ 7 = 15",
-      "answerText": "15公分",
+      "promptText": "一條繩子全長322公分，平均分成7段，每段長多少公分？",
+      "equationModel": "322 ÷ 7 = 46",
+      "answerText": "46公分",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 105,
+        "a": 322,
         "b": 7
       },
       "automaticValidation": {
@@ -1443,12 +1443,12 @@
       "contextVariantId": "ctx_g3b_u08_per_group_equal_segment_length_track",
       "contextDomain": "track",
       "sceneLabelZh": "跑道平均分段",
-      "promptText": "一條跑道全長216公尺，平均分成9段，每段長多少公尺？",
-      "equationModel": "216 ÷ 9 = 24",
-      "answerText": "24公尺",
+      "promptText": "一條跑道全長540公尺，平均分成9段，每段長多少公尺？",
+      "equationModel": "540 ÷ 9 = 60",
+      "answerText": "60公尺",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 216,
+        "a": 540,
         "b": 9
       },
       "automaticValidation": {
@@ -1483,12 +1483,12 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_price_multiple_clothing",
       "contextDomain": "clothing",
       "sceneLabelZh": "服飾價格倍數",
-      "promptText": "外套售價285元，剛好是帽子售價的3倍，帽子售價多少元？",
-      "equationModel": "285 ÷ 3 = 95",
-      "answerText": "95元",
+      "promptText": "外套售價747元，剛好是帽子售價的3倍，帽子售價多少元？",
+      "equationModel": "747 ÷ 3 = 249",
+      "answerText": "249元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 285,
+        "a": 747,
         "b": 3
       },
       "automaticValidation": {
@@ -1523,13 +1523,13 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_price_multiple_stationery",
       "contextDomain": "stationery",
       "sceneLabelZh": "文具價格倍數",
-      "promptText": "書包售價415元，剛好是鉛筆盒售價的5倍，鉛筆盒售價多少元？",
-      "equationModel": "415 ÷ 5 = 83",
-      "answerText": "83元",
+      "promptText": "書包售價396元，剛好是鉛筆盒售價的4倍，鉛筆盒售價多少元？",
+      "equationModel": "396 ÷ 4 = 99",
+      "answerText": "99元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 415,
-        "b": 5
+        "a": 396,
+        "b": 4
       },
       "automaticValidation": {
         "valid": true,
@@ -1563,12 +1563,12 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_price_multiple_daily_goods",
       "contextDomain": "daily_goods",
       "sceneLabelZh": "日用品價格倍數",
-      "promptText": "大浴巾售價528元，剛好是小毛巾售價的6倍，小毛巾售價多少元？",
-      "equationModel": "528 ÷ 6 = 88",
-      "answerText": "88元",
+      "promptText": "大浴巾售價636元，剛好是小毛巾售價的6倍，小毛巾售價多少元？",
+      "equationModel": "636 ÷ 6 = 106",
+      "answerText": "106元",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 528,
+        "a": 636,
         "b": 6
       },
       "automaticValidation": {
@@ -1603,12 +1603,12 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_quantity_multiple_cards",
       "contextDomain": "collections",
       "sceneLabelZh": "卡片數量倍數",
-      "promptText": "小安有219張卡片，是小美的3倍，小美有多少張卡片？",
-      "equationModel": "219 ÷ 3 = 73",
-      "answerText": "73張",
+      "promptText": "小安有114張卡片，是小美的3倍，小美有多少張卡片？",
+      "equationModel": "114 ÷ 3 = 38",
+      "answerText": "38張",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 219,
+        "a": 114,
         "b": 3
       },
       "automaticValidation": {
@@ -1643,13 +1643,13 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_quantity_multiple_books",
       "contextDomain": "books",
       "sceneLabelZh": "故事書數量倍數",
-      "promptText": "小杰有16本故事書，是小華的8倍，小華有多少本故事書？",
-      "equationModel": "16 ÷ 8 = 2",
-      "answerText": "2本",
+      "promptText": "小杰有36本故事書，是小華的4倍，小華有多少本故事書？",
+      "equationModel": "36 ÷ 4 = 9",
+      "answerText": "9本",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 16,
-        "b": 8
+        "a": 36,
+        "b": 4
       },
       "automaticValidation": {
         "valid": true,
@@ -1683,12 +1683,12 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_quantity_multiple_stickers",
       "contextDomain": "stickers",
       "sceneLabelZh": "貼紙數量倍數",
-      "promptText": "小美有207張貼紙，是小安的9倍，小安有多少張貼紙？",
-      "equationModel": "207 ÷ 9 = 23",
-      "answerText": "23張",
+      "promptText": "小美有72張貼紙，是小安的9倍，小安有多少張貼紙？",
+      "equationModel": "72 ÷ 9 = 8",
+      "answerText": "8張",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 207,
+        "a": 72,
         "b": 9
       },
       "automaticValidation": {
@@ -1723,13 +1723,13 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_length_multiple_ribbon",
       "contextDomain": "ribbon",
       "sceneLabelZh": "緞帶長度倍數",
-      "promptText": "紅緞帶長348公分，是藍緞帶長度的6倍，藍緞帶長多少公分？",
-      "equationModel": "348 ÷ 6 = 58",
-      "answerText": "58公分",
+      "promptText": "紅緞帶長171公分，是藍緞帶長度的3倍，藍緞帶長多少公分？",
+      "equationModel": "171 ÷ 3 = 57",
+      "answerText": "57公分",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 348,
-        "b": 6
+        "a": 171,
+        "b": 3
       },
       "automaticValidation": {
         "valid": true,
@@ -1763,13 +1763,13 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_length_multiple_rope",
       "contextDomain": "rope",
       "sceneLabelZh": "繩子長度倍數",
-      "promptText": "長繩長235公分，是短繩長度的5倍，短繩長多少公分？",
-      "equationModel": "235 ÷ 5 = 47",
-      "answerText": "47公分",
+      "promptText": "長繩長612公分，是短繩長度的6倍，短繩長多少公分？",
+      "equationModel": "612 ÷ 6 = 102",
+      "answerText": "102公分",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 235,
-        "b": 5
+        "a": 612,
+        "b": 6
       },
       "automaticValidation": {
         "valid": true,
@@ -1803,13 +1803,13 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_length_multiple_track",
       "contextDomain": "track",
       "sceneLabelZh": "跑道長度倍數",
-      "promptText": "主跑道長396公尺，是練習跑道長度的4倍，練習跑道長多少公尺？",
-      "equationModel": "396 ÷ 4 = 99",
-      "answerText": "99公尺",
+      "promptText": "主跑道長178公尺，是練習跑道長度的2倍，練習跑道長多少公尺？",
+      "equationModel": "178 ÷ 2 = 89",
+      "answerText": "89公尺",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 396,
-        "b": 4
+        "a": 178,
+        "b": 2
       },
       "automaticValidation": {
         "valid": true,
@@ -1843,13 +1843,13 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_capacity_multiple_jugs",
       "contextDomain": "containers",
       "sceneLabelZh": "水壺容量倍數",
-      "promptText": "大水壺可裝192毫升，是小水壺容量的2倍，小水壺可裝多少毫升？",
-      "equationModel": "192 ÷ 2 = 96",
-      "answerText": "96毫升",
+      "promptText": "大水壺可裝582毫升，是小水壺容量的6倍，小水壺可裝多少毫升？",
+      "equationModel": "582 ÷ 6 = 97",
+      "answerText": "97毫升",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 192,
-        "b": 2
+        "a": 582,
+        "b": 6
       },
       "automaticValidation": {
         "valid": true,
@@ -1883,13 +1883,13 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_capacity_multiple_juice_bottles",
       "contextDomain": "drinks",
       "sceneLabelZh": "果汁瓶容量倍數",
-      "promptText": "大瓶果汁可裝285毫升，是小瓶果汁容量的3倍，小瓶果汁可裝多少毫升？",
-      "equationModel": "285 ÷ 3 = 95",
-      "answerText": "95毫升",
+      "promptText": "大瓶果汁可裝828毫升，是小瓶果汁容量的6倍，小瓶果汁可裝多少毫升？",
+      "equationModel": "828 ÷ 6 = 138",
+      "answerText": "138毫升",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 285,
-        "b": 3
+        "a": 828,
+        "b": 6
       },
       "automaticValidation": {
         "valid": true,
@@ -1923,13 +1923,13 @@
       "contextVariantId": "ctx_g3b_u08_reverse_base_capacity_multiple_measuring_cups",
       "contextDomain": "containers",
       "sceneLabelZh": "量杯容量倍數",
-      "promptText": "大量杯可裝261毫升，是小量杯容量的9倍，小量杯可裝多少毫升？",
-      "equationModel": "261 ÷ 9 = 29",
-      "answerText": "29毫升",
+      "promptText": "大量杯可裝804毫升，是小量杯容量的6倍，小量杯可裝多少毫升？",
+      "equationModel": "804 ÷ 6 = 134",
+      "answerText": "134毫升",
       "answerModelShape": "semantic_single_integer_with_unit",
       "quantities": {
-        "a": 261,
-        "b": 9
+        "a": 804,
+        "b": 6
       },
       "automaticValidation": {
         "valid": true,
@@ -2045,13 +2045,13 @@
       "contextVariantId": "ctx_g3b_u08_estimate_near_hundred_total_colored_pencils",
       "contextDomain": "shopping",
       "sceneLabelZh": "色鉛筆估價",
-      "promptText": "每盒色鉛筆82元，買6盒，先把單價看成接近的整百數，估一估大約需要多少元？",
-      "equationModel": "100 × 6 = 600",
-      "answerText": "大約600元",
+      "promptText": "每盒色鉛筆82元，買2盒，先把單價看成接近的整百數，估一估大約需要多少元？",
+      "equationModel": "100 × 2 = 200",
+      "answerText": "大約200元",
       "answerModelShape": "semantic_estimation_judgment",
       "quantities": {
         "a": 82,
-        "b": 6,
+        "b": 2,
         "h": 100
       },
       "automaticValidation": {
@@ -2086,14 +2086,14 @@
       "contextVariantId": "ctx_g3b_u08_estimate_budget_sufficiency_upper_notebooks",
       "contextDomain": "shopping",
       "sceneLabelZh": "筆記本預算",
-      "promptText": "每本筆記本93元，買2本，帶200元夠不夠？請先用接近的整百數估一估。",
-      "equationModel": "100 × 2 = 200",
-      "answerText": "夠，估計最多需要200元",
+      "promptText": "每本筆記本93元，買3本，帶300元夠不夠？請先用接近的整百數估一估。",
+      "equationModel": "100 × 3 = 300",
+      "answerText": "夠，估計最多需要300元",
       "answerModelShape": "semantic_estimation_judgment",
       "quantities": {
         "a": 93,
-        "b": 2,
-        "c": 200,
+        "b": 3,
+        "c": 300,
         "h": 100,
         "d": 7
       },
@@ -2215,15 +2215,15 @@
       "contextVariantId": "ctx_g3b_u08_estimate_exact_over_benchmark_notebooks",
       "contextDomain": "shopping",
       "sceneLabelZh": "筆記本超出整百基準",
-      "promptText": "每本筆記本107元，買6本。先把單價看成100元，再補回每本多出的7元，實際費用比600元多多少元？",
-      "equationModel": "100 × 6 = 600",
-      "answerText": "多42元",
+      "promptText": "每本筆記本107元，買5本。先把單價看成100元，再補回每本多出的7元，實際費用比500元多多少元？",
+      "equationModel": "100 × 5 = 500",
+      "answerText": "多35元",
       "answerModelShape": "semantic_estimation_judgment",
       "quantities": {
         "h": 100,
         "d": 7,
-        "b": 6,
-        "c": 600,
+        "b": 5,
+        "c": 500,
         "unitPrice": 107
       },
       "automaticValidation": {
@@ -2430,15 +2430,15 @@
       "contextVariantId": "ctx_g3b_u08_estimate_exact_under_benchmark_colored_pencils",
       "contextDomain": "shopping",
       "sceneLabelZh": "色鉛筆低於整百基準",
-      "promptText": "每盒色鉛筆87元，買8盒。先把單價看成100元，再扣回每盒少的13元，實際費用比800元少多少元？",
-      "equationModel": "100 × 8 = 800",
-      "answerText": "少104元",
+      "promptText": "每盒色鉛筆87元，買2盒。先把單價看成100元，再扣回每盒少的13元，實際費用比200元少多少元？",
+      "equationModel": "100 × 2 = 200",
+      "answerText": "少26元",
       "answerModelShape": "semantic_estimation_judgment",
       "quantities": {
         "h": 100,
         "d": 13,
-        "b": 8,
-        "c": 800,
+        "b": 2,
+        "c": 200,
         "unitPrice": 87
       },
       "automaticValidation": {
@@ -2473,15 +2473,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_weight_cookies",
       "contextDomain": "food",
       "sceneLabelZh": "同價餅乾重量",
-      "promptText": "兩種餅乾組合價格相同。甲有4包，每包46克；乙有6包，每包110克。哪一種買到的總重量較多？",
-      "equationModel": "46 × 4 = 184；110 × 6 = 660",
-      "answerText": "乙的總重量較多（660克）",
+      "promptText": "兩種餅乾組合價格相同。甲有6包，每包110克；乙有2包，每包232克。哪一種買到的總重量較多？",
+      "equationModel": "110 × 6 = 660；232 × 2 = 464",
+      "answerText": "甲的總重量較多（660克）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 4,
-        "b": 46,
-        "c": 6,
-        "d": 110
+        "a": 6,
+        "b": 110,
+        "c": 2,
+        "d": 232
       },
       "automaticValidation": {
         "valid": true,
@@ -2515,15 +2515,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_weight_nuts",
       "contextDomain": "food",
       "sceneLabelZh": "同價堅果重量",
-      "promptText": "兩種堅果組合價格相同。甲有6包，每包12克；乙有2包，每包40克。哪一種買到的總重量較多？",
-      "equationModel": "12 × 6 = 72；40 × 2 = 80",
-      "answerText": "乙的總重量較多（80克）",
+      "promptText": "兩種堅果組合價格相同。甲有6包，每包85克；乙有5包，每包115克。哪一種買到的總重量較多？",
+      "equationModel": "85 × 6 = 510；115 × 5 = 575",
+      "answerText": "乙的總重量較多（575克）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
         "a": 6,
-        "b": 12,
-        "c": 2,
-        "d": 40
+        "b": 85,
+        "c": 5,
+        "d": 115
       },
       "automaticValidation": {
         "valid": true,
@@ -2557,15 +2557,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_weight_rice_crackers",
       "contextDomain": "food",
       "sceneLabelZh": "同價米果重量",
-      "promptText": "兩種米果組合價格相同。甲有4包，每包243克；乙有2包，每包155克。哪一種買到的總重量較多？",
-      "equationModel": "243 × 4 = 972；155 × 2 = 310",
-      "answerText": "甲的總重量較多（972克）",
+      "promptText": "兩種米果組合價格相同。甲有6包，每包58克；乙有3包，每包146克。哪一種買到的總重量較多？",
+      "equationModel": "58 × 6 = 348；146 × 3 = 438",
+      "answerText": "乙的總重量較多（438克）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 4,
-        "b": 243,
-        "c": 2,
-        "d": 155
+        "a": 6,
+        "b": 58,
+        "c": 3,
+        "d": 146
       },
       "automaticValidation": {
         "valid": true,
@@ -2599,15 +2599,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_capacity_juice",
       "contextDomain": "drinks",
       "sceneLabelZh": "同價果汁容量",
-      "promptText": "兩種飲料組合價格相同。甲有3瓶，每瓶202毫升；乙有4瓶，每瓶207毫升。哪一種總容量較多？",
-      "equationModel": "202 × 3 = 606；207 × 4 = 828",
-      "answerText": "乙的總容量較多（828毫升）",
+      "promptText": "兩種果汁組合價格相同。甲有6瓶，每瓶110毫升；乙有4瓶，每瓶154毫升。哪一種總容量較多？",
+      "equationModel": "110 × 6 = 660；154 × 4 = 616",
+      "answerText": "甲的總容量較多（660毫升）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 3,
-        "b": 202,
+        "a": 6,
+        "b": 110,
         "c": 4,
-        "d": 207
+        "d": 154
       },
       "automaticValidation": {
         "valid": true,
@@ -2641,15 +2641,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_capacity_milk",
       "contextDomain": "drinks",
       "sceneLabelZh": "同價牛奶容量",
-      "promptText": "兩種飲料組合價格相同。甲有2瓶，每瓶51毫升；乙有4瓶，每瓶182毫升。哪一種總容量較多？",
-      "equationModel": "51 × 2 = 102；182 × 4 = 728",
-      "answerText": "乙的總容量較多（728毫升）",
+      "promptText": "兩種牛奶組合價格相同。甲有5盒，每盒113毫升；乙有5盒，每盒189毫升。哪一種總容量較多？",
+      "equationModel": "113 × 5 = 565；189 × 5 = 945",
+      "answerText": "乙的總容量較多（945毫升）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 2,
-        "b": 51,
-        "c": 4,
-        "d": 182
+        "a": 5,
+        "b": 113,
+        "c": 5,
+        "d": 189
       },
       "automaticValidation": {
         "valid": true,
@@ -2683,15 +2683,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_capacity_water",
       "contextDomain": "drinks",
       "sceneLabelZh": "同價飲用水容量",
-      "promptText": "兩種飲料組合價格相同。甲有6瓶，每瓶18毫升；乙有5瓶，每瓶15毫升。哪一種總容量較多？",
-      "equationModel": "18 × 6 = 108；15 × 5 = 75",
-      "answerText": "甲的總容量較多（108毫升）",
+      "promptText": "兩種飲用水組合價格相同。甲有3瓶，每瓶205毫升；乙有6瓶，每瓶152毫升。哪一種總容量較多？",
+      "equationModel": "205 × 3 = 615；152 × 6 = 912",
+      "answerText": "乙的總容量較多（912毫升）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 6,
-        "b": 18,
-        "c": 5,
-        "d": 15
+        "a": 3,
+        "b": 205,
+        "c": 6,
+        "d": 152
       },
       "automaticValidation": {
         "valid": true,
@@ -2725,15 +2725,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_item_count_pencils",
       "contextDomain": "stationery",
       "sceneLabelZh": "同價鉛筆數量",
-      "promptText": "兩種鉛筆組合價格相同。甲有2盒，每盒38枝；乙有3盒，每盒232枝。哪一種總數量較多？",
-      "equationModel": "38 × 2 = 76；232 × 3 = 696",
-      "answerText": "乙的總數量較多（696枝）",
+      "promptText": "兩種鉛筆組合價格相同。甲有5盒，每盒9枝；乙有4盒，每盒31枝。哪一種總數量較多？",
+      "equationModel": "9 × 5 = 45；31 × 4 = 124",
+      "answerText": "乙的總數量較多（124枝）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 2,
-        "b": 38,
-        "c": 3,
-        "d": 232
+        "a": 5,
+        "b": 9,
+        "c": 4,
+        "d": 31
       },
       "automaticValidation": {
         "valid": true,
@@ -2767,15 +2767,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_item_count_stickers",
       "contextDomain": "stickers",
       "sceneLabelZh": "同價貼紙數量",
-      "promptText": "兩種貼紙組合價格相同。甲有6包，每包95張；乙有3包，每包43張。哪一種總數量較多？",
-      "equationModel": "95 × 6 = 570；43 × 3 = 129",
-      "answerText": "甲的總數量較多（570張）",
+      "promptText": "兩種貼紙組合價格相同。甲有4包，每包44張；乙有5包，每包90張。哪一種總數量較多？",
+      "equationModel": "44 × 4 = 176；90 × 5 = 450",
+      "answerText": "乙的總數量較多（450張）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 6,
-        "b": 95,
-        "c": 3,
-        "d": 43
+        "a": 4,
+        "b": 44,
+        "c": 5,
+        "d": 90
       },
       "automaticValidation": {
         "valid": true,
@@ -2809,15 +2809,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_item_count_blocks",
       "contextDomain": "toys",
       "sceneLabelZh": "同價積木數量",
-      "promptText": "兩種積木組合價格相同。甲有6袋，每袋149塊；乙有6袋，每袋15塊。哪一種總數量較多？",
-      "equationModel": "149 × 6 = 894；15 × 6 = 90",
-      "answerText": "甲的總數量較多（894塊）",
+      "promptText": "兩種積木組合價格相同。甲有5袋，每袋46塊；乙有2袋，每袋39塊。哪一種總數量較多？",
+      "equationModel": "46 × 5 = 230；39 × 2 = 78",
+      "answerText": "甲的總數量較多（230塊）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 6,
-        "b": 149,
-        "c": 6,
-        "d": 15
+        "a": 5,
+        "b": 46,
+        "c": 2,
+        "d": 39
       },
       "automaticValidation": {
         "valid": true,
@@ -2851,15 +2851,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_total_length_ribbon",
       "contextDomain": "ribbon",
       "sceneLabelZh": "同價緞帶長度",
-      "promptText": "兩種緞帶組合價格相同。甲有2捲，每捲38公分；乙有6捲，每捲155公分。哪一種總長度較長？",
-      "equationModel": "38 × 2 = 76；155 × 6 = 930",
-      "answerText": "乙的總長度較多（930公分）",
+      "promptText": "兩種緞帶組合價格相同。甲有5捲，每捲199公分；乙有2捲，每捲221公分。哪一種總長度較長？",
+      "equationModel": "199 × 5 = 995；221 × 2 = 442",
+      "answerText": "甲的總長度較長（995公分）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 2,
-        "b": 38,
-        "c": 6,
-        "d": 155
+        "a": 5,
+        "b": 199,
+        "c": 2,
+        "d": 221
       },
       "automaticValidation": {
         "valid": true,
@@ -2893,15 +2893,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_total_length_rope",
       "contextDomain": "rope",
       "sceneLabelZh": "同價繩子長度",
-      "promptText": "兩種繩子組合價格相同。甲有5捲，每捲100公分；乙有4捲，每捲154公分。哪一種總長度較長？",
-      "equationModel": "100 × 5 = 500；154 × 4 = 616",
-      "answerText": "乙的總長度較多（616公分）",
+      "promptText": "兩種繩子組合價格相同。甲有6捲，每捲111公分；乙有6捲，每捲130公分。哪一種總長度較長？",
+      "equationModel": "111 × 6 = 666；130 × 6 = 780",
+      "answerText": "乙的總長度較長（780公分）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 5,
-        "b": 100,
-        "c": 4,
-        "d": 154
+        "a": 6,
+        "b": 111,
+        "c": 6,
+        "d": 130
       },
       "automaticValidation": {
         "valid": true,
@@ -2935,15 +2935,15 @@
       "contextVariantId": "ctx_g3b_u08_same_price_compare_total_length_streamer",
       "contextDomain": "ribbon",
       "sceneLabelZh": "同價彩帶長度",
-      "promptText": "兩種彩帶組合價格相同。甲有2捲，每捲243公分；乙有3捲，每捲180公分。哪一種總長度較長？",
-      "equationModel": "243 × 2 = 486；180 × 3 = 540",
-      "answerText": "乙的總長度較多（540公分）",
+      "promptText": "兩種彩帶組合價格相同。甲有4捲，每捲166公分；乙有5捲，每捲172公分。哪一種總長度較長？",
+      "equationModel": "166 × 4 = 664；172 × 5 = 860",
+      "answerText": "乙的總長度較長（860公分）",
       "answerModelShape": "semantic_same_price_comparison",
       "quantities": {
-        "a": 2,
-        "b": 243,
-        "c": 3,
-        "d": 180
+        "a": 4,
+        "b": 166,
+        "c": 5,
+        "d": 172
       },
       "automaticValidation": {
         "valid": true,

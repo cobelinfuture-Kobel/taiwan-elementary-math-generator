@@ -7,6 +7,9 @@ import {
   getG3BU08SemanticContextVariant
 } from "./g3b-u08-semantic-context-registry.js";
 import {
+  checkG3BU08HumanRealism
+} from "./g3b-u08-semantic-realism-policy.js";
+import {
   generateG3BU08HiddenSemanticBatch,
   generateG3BU08HiddenSemanticQuestion
 } from "./g3b-u08-semantic-generator.js";
@@ -260,6 +263,11 @@ function validateStage3(question, spec) {
   }
   if (numericValues(question).some((value) => Math.abs(value) > 999) || (question.intermediateResults ?? []).some((value) => typeof value === "number" && Math.abs(value) > 999)) {
     add(errors, "G3BU08_NUMERIC_BOUND_EXCEEDED", 3, "quantities", "A final or intermediate value exceeds 999.");
+  }
+  const scenario = getG3BU08SemanticContextVariant(question.contextVariantId);
+  const realism = checkG3BU08HumanRealism(question, spec, scenario);
+  if (!realism.ok) {
+    add(errors, "G3BU08_NUMERIC_BOUND_EXCEEDED", 3, "quantities", `Question exceeds family-specific realism policy: ${realism.reasons.join(", ")}`);
   }
   return errors;
 }

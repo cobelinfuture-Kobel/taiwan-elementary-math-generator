@@ -11,6 +11,9 @@ import {
 import {
   listG3BU08SemanticPatternDefinitions
 } from "../../site/modules/curriculum/batch-a/source-pattern-g3b-u08-semantic-extension.js";
+import {
+  checkG3BU08HumanRealism
+} from "../../site/modules/curriculum/batch-a/g3b-u08-semantic-realism-policy.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const OUTPUT = resolve(ROOT, "data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json");
@@ -35,7 +38,7 @@ function numericBoundaryClear(question) {
   return true;
 }
 
-function humanPrecheck(question) {
+function humanPrecheck(question, spec, variant) {
   const checks = {
     naturalTraditionalChinese: /[？?]/.test(question.promptText)
       && /[？?。]$/.test(question.promptText)
@@ -46,7 +49,7 @@ function humanPrecheck(question) {
     unitOrConclusionClear: Boolean(question.finalAnswerWithUnit)
       && (question.answerModelShape === "semantic_same_price_comparison" || question.finalAnswerWithUnit.includes(question.finalAnswerUnit)),
     uniqueAnswer: question.validationStatus === "accepted",
-    gradeBoundaryClear: numericBoundaryClear(question),
+    gradeBoundaryClear: numericBoundaryClear(question) && checkG3BU08HumanRealism(question, spec, variant).ok,
     samePriceComparable: question.answerModelShape !== "semantic_same_price_comparison"
       || (/價格相同/.test(question.promptText)
         && question.optionATotal !== question.optionBTotal
@@ -72,7 +75,7 @@ for (const spec of listG3BU08SemanticPatternDefinitions()) {
     if (!generated.ok) {
       throw new Error(`${variant.contextVariantId}: ${JSON.stringify(generated.errors)}`);
     }
-    const precheck = humanPrecheck(generated.question);
+    const precheck = humanPrecheck(generated.question, spec, variant);
     records.push({
       recordNumber: records.length + 1,
       patternSpecId: spec.patternSpecId,
