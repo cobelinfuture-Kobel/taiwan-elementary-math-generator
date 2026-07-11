@@ -16,6 +16,11 @@ import {
   classifyG3BU04CanonicalRouterPlan,
   generateG3BU04CanonicalSemanticQuestions
 } from "./g3b-u04-canonical-semantic-router.js";
+import {
+  G3B_U08_CANONICAL_ROUTE_KINDS,
+  classifyG3BU08CanonicalRouterPlan,
+  generateG3BU08CanonicalSemanticQuestions
+} from "./g3b-u08-canonical-semantic-router.js";
 
 function issue(code, path, message, details = {}) {
   return { code, severity: "error", path, message, ...details };
@@ -108,6 +113,29 @@ function generateG4AU08HybridQuestions(options, plan) {
     allocation: [...(numeric.allocation ?? []), ...(application.allocation ?? [])],
     errors,
     warnings
+  };
+}
+
+function invalidG3BU08CanonicalResult(plan) {
+  const resolverErrors = Array.isArray(plan.resolverResult?.errors) ? plan.resolverResult.errors : [];
+  const errors = resolverErrors.length > 0
+    ? resolverErrors.map((entry) => issue(
+      entry.code ?? "G3B_U08_CANONICAL_SCOPE_INVALID",
+      "resolverResult",
+      `G3B-U08 canonical selection was rejected by the visible resolver: ${entry.code ?? "unknown"}.`
+    ))
+    : [issue(
+      "G3B_U08_CANONICAL_SCOPE_INVALID",
+      "allocation",
+      "G3B-U08 canonical selection contains an invalid or unpromoted semantic scope."
+    )];
+  return {
+    ok: false,
+    plan,
+    questions: [],
+    allocation: cloneValue(plan.allocation ?? []),
+    errors,
+    warnings: cloneValue(plan.resolverResult?.warnings ?? [])
   };
 }
 
@@ -225,6 +253,13 @@ function generateG3BU04HybridQuestions(options, plan) {
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  const g3bU08RouteKind = classifyG3BU08CanonicalRouterPlan(plan);
+  if (g3bU08RouteKind === G3B_U08_CANONICAL_ROUTE_KINDS.INVALID_SEMANTIC_SCOPE) {
+    return invalidG3BU08CanonicalResult(plan);
+  }
+  if (g3bU08RouteKind === G3B_U08_CANONICAL_ROUTE_KINDS.PURE_SEMANTIC) {
+    return generateG3BU08CanonicalSemanticQuestions(plan);
+  }
   const g3bU04RouteKind = classifyG3BU04CanonicalRouterPlan(plan);
   if (g3bU04RouteKind === G3B_U04_CANONICAL_ROUTE_KINDS.INVALID_SEMANTIC_SCOPE) {
     return invalidG3BU04CanonicalResult(plan);

@@ -50,12 +50,49 @@ export const G3B_U04_RESOLVER_BROWSER_STATE_INTEGRATION = Object.freeze({
   requiredNextGate: "S57F4_G3B_U04_CanonicalRouterAndHybridIntegration"
 });
 
+export const G3B_U08_RESOLVER_BROWSER_STATE_INTEGRATION = Object.freeze({
+  task: "S58G_G3B_U08_ResolverBrowserStateAndCanonicalRouterIntegration",
+  sourceId: "g3b_u08_3b08",
+  status: "resolver_browser_state_and_canonical_router_integrated_worksheet_gate_pending",
+  allocationStrategy: "balanced_by_group_then_family",
+  supportedSelectionModes: Object.freeze([
+    BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+    BATCH_A_RESOLVER_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT
+  ]),
+  browserStateFields: Object.freeze([
+    "selectionMode",
+    "selectedKnowledgePointIds",
+    "selectedPatternGroupIds",
+    "questionCount",
+    "ordering",
+    "includeAnswerKey"
+  ]),
+  applicationOnly: true,
+  publicNumericModeAdded: false,
+  representationToggleAdded: false,
+  publicHiddenModeFlagAllowed: false,
+  canonicalRouterChanged: true,
+  productionEligibilityChanged: false,
+  worksheetRendererChanged: false,
+  requiredNextGate: "S58H_G3B_U08_CanonicalValidatorWorksheetAndRendererIntegration"
+});
+
 const G3B_U04_SOURCE_ID = "g3b_u04_3b04";
+const G3B_U08_SOURCE_ID = "g3b_u08_3b08";
 const VALID_SELECTION_MODES = Object.freeze(Object.values(BATCH_A_RESOLVER_SELECTION_MODES));
 const MULTISPEC_ALLOCATION_SOURCE_IDS = Object.freeze(new Set([
   "g3a_u01_3a01",
   G3B_U04_SOURCE_ID,
+  G3B_U08_SOURCE_ID,
   "g4a_u08_4a08"
+]));
+const HIERARCHICAL_ALLOCATION_SOURCE_IDS = Object.freeze(new Set([
+  G3B_U04_SOURCE_ID,
+  G3B_U08_SOURCE_ID
+]));
+const STRICT_VISIBLE_SELECTION_SOURCE_IDS = Object.freeze(new Set([
+  G3B_U04_SOURCE_ID,
+  G3B_U08_SOURCE_ID
 ]));
 
 const DEFAULT_REGISTRY_ACCESS = Object.freeze({
@@ -212,9 +249,10 @@ function allocateByGroupThenFamily({ patternGroups, patternSpecIdsByGroup, quest
 }
 
 function allocateEvenly({ patternGroups, patternSpecIdsByGroup, questionCount }) {
-  const isG3BU04Selection = patternGroups.length > 0
-    && patternGroups.every((group) => group.sourceId === G3B_U04_SOURCE_ID);
-  return isG3BU04Selection
+  const sourceIds = new Set(patternGroups.map((group) => group.sourceId));
+  const useHierarchicalAllocation = sourceIds.size === 1
+    && HIERARCHICAL_ALLOCATION_SOURCE_IDS.has([...sourceIds][0]);
+  return useHierarchicalAllocation
     ? allocateByGroupThenFamily({ patternGroups, patternSpecIdsByGroup, questionCount })
     : allocateFlatEvenly({ patternGroups, patternSpecIdsByGroup, questionCount });
 }
@@ -322,7 +360,7 @@ export function resolveVisiblePatternGroupSelection(input = {}, options = {}) {
     return fail(plan, [BATCH_A_RESOLVER_ERROR_CODES.MIXED_SAME_UNIT_SOURCE_MISMATCH]);
   }
 
-  const strictSelection = sourceIds.length === 1 && sourceIds[0] === G3B_U04_SOURCE_ID;
+  const strictSelection = sourceIds.length === 1 && STRICT_VISIBLE_SELECTION_SOURCE_IDS.has(sourceIds[0]);
   const { patternGroups, rejectedCodes } = expandPatternGroups({
     knowledgePointIds: requestedKnowledgePointIds,
     selectedPatternGroupIds: input.selectedPatternGroupIds,
