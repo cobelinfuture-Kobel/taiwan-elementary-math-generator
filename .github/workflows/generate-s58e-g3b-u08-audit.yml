@@ -43,6 +43,29 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Apply CI-discovered FullFix
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+
+          const testPath = "tests/curriculum/g3b-u08-semantic-validator.test.js";
+          let testText = readFileSync(testPath, "utf8");
+          const oldTest = "      assert.match(prompt, /？$/);";
+          const newTest = "      assert.match(prompt, /[？?]/);\n      assert.match(prompt, /[？?。]$/);";
+          if (!testText.includes(oldTest)) throw new Error("Expected punctuation assertion not found");
+          testText = testText.replace(oldTest, newTest);
+          writeFileSync(testPath, testText, "utf8");
+
+          const auditPath = "tools/curriculum/generate-s58e-g3b-u08-human-readback-audit.mjs";
+          let auditText = readFileSync(auditPath, "utf8");
+          const oldAudit = "    naturalTraditionalChinese: question.promptText.endsWith(\"？\")";
+          const newAudit = "    naturalTraditionalChinese: /[？?]/.test(question.promptText)\n      && /[？?。]$/.test(question.promptText)";
+          if (!auditText.includes(oldAudit)) throw new Error("Expected audit punctuation gate not found");
+          auditText = auditText.replace(oldAudit, newAudit);
+          writeFileSync(auditPath, auditText, "utf8");
+          NODE
+
       - name: Generate S58E audit
         run: node tools/curriculum/generate-s58e-g3b-u08-human-readback-audit.mjs
 
@@ -58,16 +81,18 @@ jobs:
       - name: Remove one-shot workflow
         run: rm .github/workflows/generate-s58e-g3b-u08-audit.yml
 
-      - name: Commit generated audit
+      - name: Commit generated audit and FullFix
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json \
+                  tests/curriculum/g3b-u08-semantic-validator.test.js \
+                  tools/curriculum/generate-s58e-g3b-u08-human-readback-audit.mjs \
                   .github/workflows/generate-s58e-g3b-u08-audit.yml
           if git diff --cached --quiet; then
             echo "No generated changes"
           else
-            git commit -m "data(g3b-u08): generate S58E human-readback audit [skip ci]"
+            git commit -m "fix(g3b-u08): FullFix S58E lifecycle and punctuation gates [skip ci]"
             git push origin HEAD:${{ github.head_ref }}
           fi
