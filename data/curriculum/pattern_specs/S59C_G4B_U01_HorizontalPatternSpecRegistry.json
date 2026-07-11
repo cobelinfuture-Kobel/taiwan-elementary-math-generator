@@ -1,0 +1,79 @@
+{
+  "schemaName": "G4BU01HorizontalPatternSpecRegistry",
+  "schemaVersion": 1,
+  "task": "S59C_G4B_U01_HiddenPatternSpecMaterialization",
+  "sourceId": "g4b_u01_4b01",
+  "unitCode": "4B-U01",
+  "unitTitle": "多位數的乘與除",
+  "materializationStatus": "authoritative_materialized_hidden_not_routed",
+  "sourceContractRef": "data/curriculum/contracts/S59A_G4B_U01_HorizontalOnlySourceAndKnowledgePointContract.json",
+  "formalMappingRef": "data/curriculum/contracts/S59B_G4B_U01_TagRegistryFormalMappingAndBoundaryDesign.json",
+  "policy": {
+    "authoritativeArtifact": true,
+    "runtimeProjectionRequired": true,
+    "selectorVisibility": "hidden",
+    "canonicalRouting": "disabled",
+    "productionUse": "forbidden",
+    "generatorRouting": "not_implemented_in_s59c",
+    "validatorRuntime": "not_implemented_in_s59c",
+    "representation": "horizontal_only",
+    "applicationProblems": "forbidden",
+    "verticalRendering": "forbidden",
+    "genericFallback": "forbidden"
+  },
+  "patternGroups": [
+    {"patternGroupId":"pg_g4b_u01_3digit_by_3digit","displayName":"三位數乘三位數","knowledgePointId":"kp_g4b_u01_3digit_by_3digit","answerModel":"numericAnswer","patternSpecIds":["ps_g4b_u01_3digit_by_3digit"]},
+    {"patternGroupId":"pg_g4b_u01_4digit_by_3digit","displayName":"四位數乘三位數","knowledgePointId":"kp_g4b_u01_4digit_by_3digit","answerModel":"numericAnswer","patternSpecIds":["ps_g4b_u01_4digit_by_3digit"]},
+    {"patternGroupId":"pg_g4b_u01_multiplier_internal_zero","displayName":"乘數中間有0的乘法","knowledgePointId":"kp_g4b_u01_multiplier_internal_zero","answerModel":"numericAnswer","patternSpecIds":["ps_g4b_u01_multiplier_internal_zero"]},
+    {"patternGroupId":"pg_g4b_u01_trailing_zero_multiplication","displayName":"尾0乘法與位值簡算","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication","answerModel":"numericAnswer","patternSpecIds":["ps_g4b_u01_multiplier_trailing_zero","ps_g4b_u01_multiplicand_trailing_zero","ps_g4b_u01_both_factors_trailing_zero","ps_g4b_u01_power10_multiplication"]},
+    {"patternGroupId":"pg_g4b_u01_3digit_div_3digit","displayName":"三位數除以三位數","knowledgePointId":"kp_g4b_u01_3digit_div_3digit","answerModel":"quotientRemainderAnswer","patternSpecIds":["ps_g4b_u01_3digit_div_3digit"]},
+    {"patternGroupId":"pg_g4b_u01_4digit_div_3digit_2digit_quotient","displayName":"四位數除以三位數，商為兩位數","knowledgePointId":"kp_g4b_u01_4digit_div_3digit_2digit_quotient","answerModel":"quotientRemainderAnswer","patternSpecIds":["ps_g4b_u01_4digit_div_3digit_2digit_quotient"]},
+    {"patternGroupId":"pg_g4b_u01_4digit_div_3digit_1digit_quotient","displayName":"四位數除以三位數，商為一位數","knowledgePointId":"kp_g4b_u01_4digit_div_3digit_1digit_quotient","answerModel":"quotientRemainderAnswer","patternSpecIds":["ps_g4b_u01_4digit_div_3digit_1digit_quotient"]},
+    {"patternGroupId":"pg_g4b_u01_trailing_zero_division_exact","displayName":"尾0除法，整除","knowledgePointId":"kp_g4b_u01_trailing_zero_division_exact","answerModel":"numericAnswer","patternSpecIds":["ps_g4b_u01_trailing_zero_division_exact"]},
+    {"patternGroupId":"pg_g4b_u01_trailing_zero_division_remainder_restore","displayName":"尾0除法，有餘數及餘數還原","knowledgePointId":"kp_g4b_u01_trailing_zero_division_remainder_restore","answerModel":"quotientRemainderAnswer","patternSpecIds":["ps_g4b_u01_trailing_zero_division_remainder_restore"]}
+  ],
+  "patternSpecs": [
+    {"patternSpecId":"ps_g4b_u01_3digit_by_3digit","patternGroupId":"pg_g4b_u01_3digit_by_3digit","knowledgePointId":"kp_g4b_u01_3digit_by_3digit","operation":"multiply","equationShape":"a*b","answerModel":"numericAnswer","patternOrder":1},
+    {"patternSpecId":"ps_g4b_u01_4digit_by_3digit","patternGroupId":"pg_g4b_u01_4digit_by_3digit","knowledgePointId":"kp_g4b_u01_4digit_by_3digit","operation":"multiply","equationShape":"a*b","answerModel":"numericAnswer","patternOrder":2},
+    {"patternSpecId":"ps_g4b_u01_multiplier_internal_zero","patternGroupId":"pg_g4b_u01_multiplier_internal_zero","knowledgePointId":"kp_g4b_u01_multiplier_internal_zero","operation":"multiply","equationShape":"a*b","answerModel":"numericAnswer","patternOrder":3},
+    {"patternSpecId":"ps_g4b_u01_multiplier_trailing_zero","patternGroupId":"pg_g4b_u01_trailing_zero_multiplication","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication","operation":"multiply","equationShape":"a*b","answerModel":"numericAnswer","patternOrder":4,"legacyRuntimeIdPreserved":true},
+    {"patternSpecId":"ps_g4b_u01_multiplicand_trailing_zero","patternGroupId":"pg_g4b_u01_trailing_zero_multiplication","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication","operation":"multiply","equationShape":"a*b","answerModel":"numericAnswer","patternOrder":5},
+    {"patternSpecId":"ps_g4b_u01_both_factors_trailing_zero","patternGroupId":"pg_g4b_u01_trailing_zero_multiplication","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication","operation":"multiply","equationShape":"a*b","answerModel":"numericAnswer","patternOrder":6},
+    {"patternSpecId":"ps_g4b_u01_power10_multiplication","patternGroupId":"pg_g4b_u01_trailing_zero_multiplication","knowledgePointId":"kp_g4b_u01_trailing_zero_multiplication","operation":"multiply","equationShape":"a*b","answerModel":"numericAnswer","patternOrder":7},
+    {"patternSpecId":"ps_g4b_u01_3digit_div_3digit","patternGroupId":"pg_g4b_u01_3digit_div_3digit","knowledgePointId":"kp_g4b_u01_3digit_div_3digit","operation":"divide","equationShape":"a/b","answerModel":"quotientRemainderAnswer","patternOrder":8},
+    {"patternSpecId":"ps_g4b_u01_4digit_div_3digit_2digit_quotient","patternGroupId":"pg_g4b_u01_4digit_div_3digit_2digit_quotient","knowledgePointId":"kp_g4b_u01_4digit_div_3digit_2digit_quotient","operation":"divide","equationShape":"a/b","answerModel":"quotientRemainderAnswer","patternOrder":9},
+    {"patternSpecId":"ps_g4b_u01_4digit_div_3digit_1digit_quotient","patternGroupId":"pg_g4b_u01_4digit_div_3digit_1digit_quotient","knowledgePointId":"kp_g4b_u01_4digit_div_3digit_1digit_quotient","operation":"divide","equationShape":"a/b","answerModel":"quotientRemainderAnswer","patternOrder":10},
+    {"patternSpecId":"ps_g4b_u01_trailing_zero_division_exact","patternGroupId":"pg_g4b_u01_trailing_zero_division_exact","knowledgePointId":"kp_g4b_u01_trailing_zero_division_exact","operation":"divide","equationShape":"a/b","answerModel":"numericAnswer","patternOrder":11},
+    {"patternSpecId":"ps_g4b_u01_trailing_zero_division_remainder_restore","patternGroupId":"pg_g4b_u01_trailing_zero_division_remainder_restore","knowledgePointId":"kp_g4b_u01_trailing_zero_division_remainder_restore","operation":"divide","equationShape":"a/b","answerModel":"quotientRemainderAnswer","patternOrder":12}
+  ],
+  "sharedLifecycle": {
+    "sourceId":"g4b_u01_4b01",
+    "unitCode":"4B-U01",
+    "kind":"g4bU01HorizontalCalculation",
+    "representation":"horizontal_only",
+    "applicationTextAllowed":false,
+    "formalMappingRef":"data/curriculum/contracts/S59B_G4B_U01_TagRegistryFormalMappingAndBoundaryDesign.json",
+    "generatorStatus":"hidden_not_implemented",
+    "validatorStatus":"contract_only_not_runtime",
+    "runtimeProjectionStatus":"materialized_not_routed",
+    "selectorStatus":"hidden",
+    "canonicalRouting":"disabled",
+    "productionUse":"forbidden"
+  },
+  "summary": {
+    "patternGroupCount":9,
+    "patternSpecCount":12,
+    "hiddenPatternGroupCount":9,
+    "hiddenPatternSpecCount":12,
+    "visiblePatternSpecCount":0,
+    "routedPatternSpecCount":0,
+    "productionPatternSpecCount":0
+  },
+  "goalDistance": {
+    "before":"D2_G4B_U01_TAG_FORMAL_MAPPING_AND_BOUNDARIES_LOCKED",
+    "after":"D2_G4B_U01_HIDDEN_PATTERNSPECS_MATERIALIZED",
+    "distanceReduced":"Materialized 9 hidden PatternGroups and 12 hidden PatternSpecs with a drift-checkable browser-neutral projection while preserving no-routing and no-production gates.",
+    "remainingBlockers":["Generator runtime not implemented","Blocking validator runtime not implemented","Selector, canonical router, worksheet, UI and print not connected"],
+    "nextShortestStep":"S59D_G4B_U01_HiddenDeterministicHorizontalGenerator"
+  }
+}
