@@ -1,14 +1,14 @@
 {
-  "schemaName":"G4BU01HorizontalPromotionRegistry",
-  "schemaVersion":1,
-  "task":"S59F_G4B_U01_PromotionLifecycleAndVisibleSelectorProjection",
-  "promotionRegistryId":"s59f_g4b_u01_horizontal_promotion",
-  "sourceId":"g4b_u01_4b01",
-  "unitCode":"4B-U01",
-  "unitTitle":"多位數的乘與除",
-  "authorityRef":"data/curriculum/pattern_specs/S59C_G4B_U01_HorizontalPatternSpecRegistry.json",
-  "validatorRef":"site/modules/curriculum/batch-a/g4b-u01-horizontal-validator.js",
-  "knowledgePointIds":[
+  "schemaName": "G4BU01HorizontalPromotionRegistry",
+  "schemaVersion": 1,
+  "task": "S59F_G4B_U01_PromotionLifecycleAndVisibleSelectorProjection",
+  "promotionRegistryId": "s59f_g4b_u01_horizontal_promotion",
+  "sourceId": "g4b_u01_4b01",
+  "unitCode": "4B-U01",
+  "unitTitle": "多位數的乘與除",
+  "authorityRef": "data/curriculum/pattern_specs/S59C_G4B_U01_HorizontalPatternSpecRegistry.json",
+  "validatorRef": "site/modules/curriculum/batch-a/g4b-u01-horizontal-validator.js",
+  "knowledgePointIds": [
     "kp_g4b_u01_3digit_by_3digit",
     "kp_g4b_u01_4digit_by_3digit",
     "kp_g4b_u01_multiplier_internal_zero",
@@ -19,7 +19,7 @@
     "kp_g4b_u01_trailing_zero_division_exact",
     "kp_g4b_u01_trailing_zero_division_remainder_restore"
   ],
-  "patternGroupIds":[
+  "patternGroupIds": [
     "pg_g4b_u01_3digit_by_3digit",
     "pg_g4b_u01_4digit_by_3digit",
     "pg_g4b_u01_multiplier_internal_zero",
@@ -30,7 +30,7 @@
     "pg_g4b_u01_trailing_zero_division_exact",
     "pg_g4b_u01_trailing_zero_division_remainder_restore"
   ],
-  "patternSpecIds":[
+  "patternSpecIds": [
     "ps_g4b_u01_3digit_by_3digit",
     "ps_g4b_u01_4digit_by_3digit",
     "ps_g4b_u01_multiplier_internal_zero",
@@ -44,26 +44,34 @@
     "ps_g4b_u01_trailing_zero_division_exact",
     "ps_g4b_u01_trailing_zero_division_remainder_restore"
   ],
-  "lifecycle":{
-    "selectorStatus":"visible",
-    "runtimeStatus":"blocking_validated_hidden_not_canonical",
-    "validatorStatus":"blocking_validator_accepted",
-    "worksheetStatus":"not_eligible",
-    "productionUse":"forbidden"
+  "lifecycle": {
+    "selectorStatus": "visible",
+    "runtimeStatus": "blocking_validated_hidden_not_canonical",
+    "validatorStatus": "blocking_validator_accepted",
+    "worksheetStatus": "not_eligible",
+    "productionUse": "forbidden"
   },
-  "activation":{
-    "status":"selector_projected_resolver_not_integrated",
-    "requiredNextGate":"S59G_G4B_U01_ResolverBrowserStateAndCanonicalRouterIntegration",
-    "publicProjectionChanged":true,
-    "selectorBehaviorChanged":true,
-    "resolverBehaviorChanged":false,
-    "canonicalRouterChanged":false,
-    "productionEligibilityBehaviorChanged":false,
-    "canonicalWorksheetChanged":false,
-    "publicApplicationModeAdded":false,
-    "verticalRepresentationAdded":false,
-    "representationToggleAdded":false
+  "activation": {
+    "status": "production_promotion_accepted",
+    "acceptedByTask": "S59J_G4B_U01_ProductionStressHTMLPDFPromotionCloseout",
+    "requiredNextGate": null,
+    "publicProjectionChanged": true,
+    "selectorBehaviorChanged": true,
+    "resolverBehaviorChanged": false,
+    "canonicalRouterChanged": false,
+    "productionEligibilityBehaviorChanged": false,
+    "canonicalWorksheetChanged": false,
+    "publicSelectorAndPrintQaAccepted": true,
+    "finalStressAccepted": true,
+    "finalHtmlPdfSmokeAccepted": true,
+    "publicApplicationModeAdded": false,
+    "verticalRepresentationAdded": false,
+    "representationToggleAdded": false
   },
-  "rollbackKey":"s59f_g4b_u01_horizontal_promotion",
-  "summary":{"knowledgePointCount":9,"patternGroupCount":9,"patternSpecCount":12}
+  "rollbackKey": "s59f_g4b_u01_horizontal_promotion",
+  "summary": {
+    "knowledgePointCount": 9,
+    "patternGroupCount": 9,
+    "patternSpecCount": 12
+  }
 }
