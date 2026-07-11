@@ -39,45 +39,51 @@ jobs:
           node --input-type=module <<'NODE'
           import { readFileSync, writeFileSync } from "node:fs";
 
-          function replaceExactly(path, oldText, newText) {
+          function replaceOne(path, oldText, newText) {
             let text = readFileSync(path, "utf8");
             const count = text.split(oldText).length - 1;
-            if (count !== 1) throw new Error(`${path}: expected one replacement, got ${count}`);
+            if (count !== 1) throw new Error(`${path}: expected one '${oldText}', got ${count}`);
             text = text.replace(oldText, newText);
             writeFileSync(path, text, "utf8");
           }
 
-          replaceExactly(
-            "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
-            `  if (G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.selectorStatus !== "visible"
-              || G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_accepted"
-              || G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.humanSemanticReadbackAccepted !== true) {`,
-            `  if (G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.selectorStatus !== "visible"
-              || !["blocking_validator_accepted", "blocking_validator_required"].includes(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus)
-              || G3B_U08_SEMANTIC_PROMOTION_ACTIVATION.humanSemanticReadbackAccepted !== true) {`
+          const router = "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js";
+          replaceOne(
+            router,
+            'G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus !== "blocking_validator_accepted"',
+            '!["blocking_validator_accepted", "blocking_validator_required"].includes(G3B_U08_SEMANTIC_PROMOTION_LIFECYCLE.validatorStatus)'
           );
 
-          replaceExactly(
-            "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
-            `test("S58H promotion overlay advances worksheet eligibility without mutating hidden authority", () => {
-              assert.equal(overlayRegistry.overlayId, G3B_U08_PRODUCTION_PROMOTION_OVERLAY_ID);
-              assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "canonical_validator_worksheet_renderer_integrated");
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, "S58I_G3B_U08_PublicSelectorAndPrintControlsQA");
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, false);
-              const projection = validateG3BU08ProductionPromotionProjection();`,
-            `test("S58J final promotion preserves the S58H worksheet overlay and hidden authority", () => {
-              assert.equal(overlayRegistry.overlayId, G3B_U08_PRODUCTION_PROMOTION_OVERLAY_ID);
-              assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);
-              assert.deepEqual(overlayRegistry.activation, G3B_U08_PRODUCTION_PROMOTION_ACTIVATION);
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "production_promotion_accepted");
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, null);
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted, true);
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalStressAccepted, true);
-              assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, true);
-              const projection = validateG3BU08ProductionPromotionProjection();`
+          const testPath = "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js";
+          replaceOne(
+            testPath,
+            'test("S58H promotion overlay advances worksheet eligibility without mutating hidden authority", () => {',
+            'test("S58J final promotion preserves the S58H worksheet overlay and hidden authority", () => {'
+          );
+          replaceOne(
+            testPath,
+            '  assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);',
+            '  assert.deepEqual(overlayRegistry.lifecycle, G3B_U08_PRODUCTION_PROMOTION_LIFECYCLE);\n  assert.deepEqual(overlayRegistry.activation, G3B_U08_PRODUCTION_PROMOTION_ACTIVATION);'
+          );
+          replaceOne(
+            testPath,
+            '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "canonical_validator_worksheet_renderer_integrated");',
+            '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.status, "production_promotion_accepted");'
+          );
+          replaceOne(
+            testPath,
+            '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, "S58I_G3B_U08_PublicSelectorAndPrintControlsQA");',
+            '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.requiredNextGate, null);'
+          );
+          replaceOne(
+            testPath,
+            '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);',
+            '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicPrintControlBehaviorChanged, false);\n  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.publicSelectorAndPrintQaAccepted, true);\n  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalStressAccepted, true);'
+          );
+          replaceOne(
+            testPath,
+            '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, false);',
+            '  assert.equal(G3B_U08_PRODUCTION_PROMOTION_ACTIVATION.finalHtmlPdfPromotionAccepted, true);'
           );
           NODE
           git diff --check
