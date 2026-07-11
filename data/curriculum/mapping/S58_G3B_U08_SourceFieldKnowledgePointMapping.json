@@ -1,1 +1,265 @@
-PLACEHOLDER
+{
+  "schemaName": "G3BU08SourceFieldKnowledgePointMapping",
+  "schemaVersion": 1,
+  "task": "S58A_G3B_U08_ApprovedKnowledgePointAndSemanticTemplateContract",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "unitTitle": "乘法與除法",
+  "status": "approved_design_contract_not_materialized",
+  "sourceAuthority": {
+    "fileName": "題型總覽-3b08-乘法與除法.pdf",
+    "pageCount": 2,
+    "sourceReadback": "manual_visual_read_complete",
+    "page1Role": "support reasoning only: inverse relation, unknown term, horizontal verification; no public vertical-format KP",
+    "page2Role": "primary public application evidence",
+    "sourceUrlLabel": "https://meow911.com/3b07/",
+    "sourceUrlMismatchNote": "The uploaded filename and project sourceId use 3b08 while the PDF page header displays 3b07; retain as a source metadata discrepancy pending source catalog normalization."
+  },
+  "approval": {
+    "approvedKnowledgePointCount": 6,
+    "approvedByOperator": true,
+    "approvedBoundary": "application_only_public_kps_horizontal_only",
+    "verticalQuestionGenerationAllowed": false,
+    "pureNumericPracticeModeAllowed": false,
+    "generalTwoStepMixedOperationExpansionAllowed": false
+  },
+  "priorBatchABoundary": {
+    "multiplication": {
+      "allowedCalculatedShapes": [
+        "1digit_x_1digit",
+        "2digit_x_1digit",
+        "3digit_x_1digit"
+      ],
+      "knownResultOnlyShapes": [
+        "2digit_x_2digit"
+      ],
+      "forbiddenCalculatedShapes": [
+        "2digit_x_2digit",
+        "3digit_x_2digit",
+        "multi_digit_x_multi_digit"
+      ],
+      "basis": [
+        "G3A-U03 completed PatternSpecs"
+      ]
+    },
+    "division": {
+      "allowedCalculatedShapes": [
+        "2digit_div_1digit_exact",
+        "3digit_div_1digit_exact"
+      ],
+      "supportOnlyShapes": [
+        "2digit_div_1digit_remainder",
+        "3digit_div_1digit_remainder"
+      ],
+      "forbiddenCalculatedShapes": [
+        "divisor_2digit",
+        "decimal_quotient",
+        "fraction_quotient",
+        "4digit_long_division"
+      ],
+      "basis": [
+        "G3A-U06 division semantics",
+        "G3B-U01 exact and remainder division"
+      ]
+    },
+    "estimation": {
+      "allowed": [
+        "nearest_hundred_single_unit_price",
+        "simple benchmark adjustment"
+      ],
+      "forbidden": [
+        "percentage_error",
+        "formal_upper_lower_bound_terms",
+        "decimal_estimation",
+        "multi_item_mixed_operation_estimation"
+      ],
+      "basis": [
+        "G3A-U02 nearest-thousand and add/sub estimation application",
+        "source page 2 near-hundred shopping examples"
+      ]
+    },
+    "overlapGuard": {
+      "g3b_u04": "Do not recreate general two-step mixed-operation KPs; G3B-U08 focuses on operation-role recognition, one-step multiplicative applications, estimation, and same-price comparison."
+    }
+  },
+  "presentationPolicy": {
+    "representation": "horizontal_only",
+    "allowedForms": [
+      "a×b＝□",
+      "□×b＝c",
+      "a÷b＝□",
+      "□÷b＝c",
+      "a÷□＝c",
+      "a＝b×q",
+      "a＝b×q＋r"
+    ],
+    "forbiddenForms": [
+      "vertical_multiplication",
+      "vertical_division",
+      "long_division",
+      "vertical_missing_digit",
+      "column_algorithm_grid"
+    ],
+    "answerDisplay": "horizontal_equation_plus_answer_with_unit"
+  },
+  "supportReasoningRules": [
+    {
+      "ruleId": "sr_g3b_u08_choose_operation_by_unknown_role",
+      "displayName": "依未知量角色選擇乘法或除法",
+      "publicKnowledgePoint": false,
+      "usage": "shared_hidden_support",
+      "cases": {
+        "total_quantity": "multiply",
+        "group_count": "divide",
+        "quantity_per_group": "divide",
+        "base_quantity": "divide"
+      }
+    },
+    {
+      "ruleId": "sr_g3b_u08_inverse_relation_horizontal",
+      "displayName": "乘除互逆",
+      "publicKnowledgePoint": false,
+      "usage": "horizontal_check_or_given_fact_only",
+      "constraints": [
+        "2digit_x_2digit_may_appear_only_as_given_fact",
+        "no_new_multi_digit_multiplication_computation"
+      ]
+    },
+    {
+      "ruleId": "sr_g3b_u08_division_verification_horizontal",
+      "displayName": "整除與有餘數驗算",
+      "publicKnowledgePoint": false,
+      "usage": "horizontal_check_only",
+      "forms": [
+        "dividend=divisor×quotient",
+        "dividend=divisor×quotient+remainder"
+      ],
+      "remainderApplicationGenerationAllowed": false
+    },
+    {
+      "ruleId": "sr_g3b_u08_multiplication_commutativity",
+      "displayName": "乘法交換律",
+      "publicKnowledgePoint": false,
+      "usage": "support_unknown_factor_reasoning_only",
+      "divisionCommutativityAllowed": false
+    }
+  ],
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "displayName": "已知每組量與組數，求總量",
+      "canonicalSkillTag": "multiplicative_total",
+      "unknownRole": "total_quantity",
+      "equationShape": "a*b",
+      "operationDecision": "multiply",
+      "sourceExamples": [
+        "每日存款×天數",
+        "每球得分×投進球數",
+        "每條手鍊珠數×手鍊條數",
+        "每袋糖果數×袋數"
+      ],
+      "priorSupportRefs": [
+        "g3a_u03_3a03"
+      ],
+      "publicSelectable": true
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "displayName": "已知總量與每組量，求組數",
+      "canonicalSkillTag": "quotative_division",
+      "unknownRole": "group_count",
+      "equationShape": "a/b",
+      "operationDecision": "divide",
+      "sourceExamples": [
+        "總分÷每球分數",
+        "總珠數÷每條珠數",
+        "總長÷每段長度"
+      ],
+      "priorSupportRefs": [
+        "g3a_u06_3a06",
+        "g3b_u01_3b01"
+      ],
+      "publicSelectable": true
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "displayName": "已知總量與組數，求每組量",
+      "canonicalSkillTag": "partitive_division",
+      "unknownRole": "quantity_per_group",
+      "equationShape": "a/b",
+      "operationDecision": "divide",
+      "sourceExamples": [
+        "總存款÷天數",
+        "總物品數÷人數"
+      ],
+      "priorSupportRefs": [
+        "g3a_u06_3a06",
+        "g3b_u01_3b01"
+      ],
+      "publicSelectable": true
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "displayName": "已知比較量與倍數，反求基準量",
+      "canonicalSkillTag": "multiplicative_comparison_reverse",
+      "unknownRole": "base_quantity",
+      "equationShape": "a/b",
+      "operationDecision": "divide",
+      "sourceExamples": [
+        "衣服價格是帽子的4倍，已知衣服價格求帽子價格"
+      ],
+      "priorSupportRefs": [
+        "g3a_u03_3a03",
+        "g3a_u06_3a06",
+        "g3b_u01_3b01"
+      ],
+      "publicSelectable": true
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "displayName": "購物估算：判斷夠不夠、多或少",
+      "canonicalSkillTag": "multiplication_estimation_application",
+      "unknownRole": "estimated_total_or_budget_relation",
+      "equationShape": "round100(a)*b or benchmark adjustment",
+      "operationDecision": "estimate_then_multiply",
+      "sourceExamples": [
+        "199元×5盒，判斷1000元是否足夠",
+        "215元×3盒，與600元比較"
+      ],
+      "priorSupportRefs": [
+        "g3a_u02_3a02",
+        "g3a_u03_3a03"
+      ],
+      "publicSelectable": true
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "displayName": "相同價格下比較哪個方案較划算",
+      "canonicalSkillTag": "same_price_total_quantity_comparison",
+      "unknownRole": "better_option",
+      "equationShape": "a*b vs c*d",
+      "operationDecision": "multiply_both_then_compare",
+      "sourceExamples": [
+        "同為100元，2包×102克與3包×59克比較"
+      ],
+      "priorSupportRefs": [
+        "g3a_u03_3a03"
+      ],
+      "publicSelectable": true
+    }
+  ],
+  "supersedes": {
+    "artifact": "data/curriculum/registry/unit_expansions/S43E7_G3B_U08_KPExpansion.json",
+    "policy": "S43E7 remains historical; this S58 mapping is the approved planning authority for subsequent G3B-U08 work.",
+    "oldCandidateCount": 11,
+    "newApprovedPublicCount": 6,
+    "oldStructuralRowsDisposition": "retained only as hidden support concepts where applicable"
+  },
+  "summary": {
+    "publicKnowledgePointCount": 6,
+    "hiddenSupportRuleCount": 4,
+    "verticalRepresentationCount": 0,
+    "publicPureNumericKnowledgePointCount": 0,
+    "generalTwoStepKnowledgePointCount": 0
+  }
+}
