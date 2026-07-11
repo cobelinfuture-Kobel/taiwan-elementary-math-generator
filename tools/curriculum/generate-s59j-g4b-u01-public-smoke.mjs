@@ -81,8 +81,16 @@ html = html
     '<head><meta name="robots" content="noindex,nofollow"><meta name="generator" content="S59J G4B-U01 canonical public smoke">',
   )
   .replace(
+    "</head>",
+    '<style id="s59j-print-title-style">.s59j-print-title{position:fixed;top:2mm;right:7mm;z-index:20;font-family:"Noto Sans CJK TC","Noto Sans CJK",sans-serif;font-size:8pt;color:#333;}</style></head>',
+  )
+  .replace(
     '<body class="worksheet-renderer worksheet-renderer--g4b-u01-horizontal"',
     '<body class="worksheet-renderer worksheet-renderer--g4b-u01-horizontal" data-s59j-public-smoke="true"',
+  )
+  .replace(
+    '<main class="worksheet-document"',
+    '<div class="s59j-print-title">4B-U01 多位數的乘與除</div><main class="worksheet-document"',
   );
 const htmlFileContents = `${html}\n`;
 
