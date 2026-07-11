@@ -85,10 +85,12 @@ jobs:
 
       - name: Verify smoke manifest
         run: |
+          cat docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
           grep -q '"status": "public_html_pdf_smoke_pass"' docs/curriculum/output/smoke/S58J_G3B_U08_PublicSemanticWorksheet.manifest.json
           git status --short
 
-      - name: Upload verified S58J smoke artifact
+      - name: Upload S58J smoke artifact and diagnostics
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: s58j-g3b-u08-public-smoke
