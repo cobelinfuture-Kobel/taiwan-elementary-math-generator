@@ -21,6 +21,12 @@ import {
   classifyG3BU08CanonicalRouterPlan,
   generateG3BU08CanonicalSemanticQuestions
 } from "./g3b-u08-canonical-semantic-router.js";
+import {
+  G4B_U01_CANONICAL_ROUTE_KINDS,
+  classifyG4BU01CanonicalRouterPlan,
+  generateG4BU01CanonicalHorizontalQuestions,
+  normalizeG4BU01ResolverPlan
+} from "./g4b-u01-canonical-horizontal-router.js";
 
 function issue(code, path, message, details = {}) {
   return { code, severity: "error", path, message, ...details };
@@ -162,6 +168,29 @@ function invalidG3BU04CanonicalResult(plan) {
   };
 }
 
+function invalidG4BU01CanonicalResult(plan) {
+  const resolverErrors = Array.isArray(plan.resolverResult?.errors) ? plan.resolverResult.errors : [];
+  const errors = resolverErrors.length > 0
+    ? resolverErrors.map((entry) => issue(
+      entry.code ?? "G4B_U01_CANONICAL_SCOPE_INVALID",
+      "resolverResult",
+      `G4B-U01 canonical selection was rejected by the visible resolver: ${entry.code ?? "unknown"}.`
+    ))
+    : [issue(
+      "G4B_U01_CANONICAL_SCOPE_INVALID",
+      "allocation",
+      "G4B-U01 canonical selection contains an invalid or unpromoted horizontal scope."
+    )];
+  return {
+    ok: false,
+    plan,
+    questions: [],
+    allocation: cloneValue(plan.allocation ?? []),
+    errors,
+    warnings: cloneValue(plan.resolverResult?.warnings ?? [])
+  };
+}
+
 function questionsInAllocationOrder(plan, questionSets) {
   const buckets = new Map();
   for (const question of questionSets.flat()) {
@@ -253,6 +282,14 @@ function generateG3BU04HybridQuestions(options, plan) {
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  const g4bU01Plan = normalizeG4BU01ResolverPlan(plan);
+  const g4bU01RouteKind = classifyG4BU01CanonicalRouterPlan(g4bU01Plan);
+  if (g4bU01RouteKind === G4B_U01_CANONICAL_ROUTE_KINDS.INVALID_HORIZONTAL_SCOPE) {
+    return invalidG4BU01CanonicalResult(g4bU01Plan);
+  }
+  if (g4bU01RouteKind === G4B_U01_CANONICAL_ROUTE_KINDS.PURE_HORIZONTAL) {
+    return generateG4BU01CanonicalHorizontalQuestions(g4bU01Plan);
+  }
   const g3bU08RouteKind = classifyG3BU08CanonicalRouterPlan(plan);
   if (g3bU08RouteKind === G3B_U08_CANONICAL_ROUTE_KINDS.INVALID_SEMANTIC_SCOPE) {
     return invalidG3BU08CanonicalResult(plan);
