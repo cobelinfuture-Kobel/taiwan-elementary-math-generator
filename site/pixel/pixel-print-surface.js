@@ -15,6 +15,9 @@ const watchedControlIds = [
   "pixel-selection-mode-select",
   "pixel-question-count",
   "pixel-ordering",
+  "pixel-g5a-question-mode",
+  "pixel-g5a-depth-mode",
+  "pixel-g5a-context-mode",
   "pixel-generation-seed",
   "pixel-columns",
   "pixel-rows-per-page",
@@ -57,6 +60,8 @@ subscribePixelGeneration((execution) => {
   printIsStale = false;
   renderPrintSurface();
 });
+
+document.addEventListener("pixel:worksheet-stale", markPrintStale);
 
 for (const id of watchedControlIds) {
   const control = document.getElementById(id);
