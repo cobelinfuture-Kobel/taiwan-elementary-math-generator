@@ -2,7 +2,7 @@
   "schemaName": "G4BU04ClassDSemanticRuntimeContract",
   "schemaVersion": 1,
   "task": "S70_G4B_U04_ClassDSemanticGeneratorAndBlockingValidator",
-  "status": "implemented_pending_ci",
+  "status": "pass_ci_synced_and_merged",
   "sourceId": "g4b_u04_4b04",
   "dependsOn": [
     "data/curriculum/contracts/S66_G4B_U04_PatternSpecContractDesign.json",
@@ -76,6 +76,16 @@
     "divisionIntegerRequired": true,
     "internalIdLeakageForbidden": true,
     "unresolvedPlaceholderForbidden": true
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 107,
+    "implementationMergeCommit": "c98495163b048b1097b6b5aa18cb5a6c6c63354e",
+    "mainCiRun": 29196899752,
+    "mainCiReadbackCommit": "9e6694eb14ab258993f38bcc5ee63893960d6331",
+    "tests": 1044,
+    "pass": 1044,
+    "fail": 0,
+    "workingTree": "clean"
   },
   "lifecycle": {
     "selectorVisibility": "hidden",
