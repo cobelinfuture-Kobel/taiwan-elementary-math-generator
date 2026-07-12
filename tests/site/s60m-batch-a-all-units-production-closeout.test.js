@@ -103,7 +103,7 @@ test("S60M all 13 source-unit routes render printable Traditional Chinese HTML w
   }
 });
 
-test("S60M aggregate gate validates 936 production questions across ordering and answer-key modes", () => {
+test("S60M aggregate gate validates 1,248 production questions across ordering and answer-key modes", () => {
   let validatedQuestionCount = 0;
   for (const sourceId of BATCH_A_PRODUCTION_SOURCE_IDS) {
     for (const ordering of BATCH_A_ALL_UNITS_PRODUCTION_CLOSEOUT.requiredOrderingModes) {
