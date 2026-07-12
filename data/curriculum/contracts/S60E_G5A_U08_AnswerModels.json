@@ -1,0 +1,76 @@
+{
+  "schemaName": "G5AU08AnswerModels",
+  "schemaVersion": 1,
+  "task": "S60E_G5A_U08_FormalMappingAnswerModelValidatorContract",
+  "sourceId": "g5a_u08_5a08",
+  "answerModels": [
+    {
+      "answerModelId":"numericAnswer",
+      "core":true,
+      "shape":{"value":"integer","unit":"string_or_null"},
+      "requiredValidation":["integer_value","computed_value_matches","unit_matches_when_present"]
+    },
+    {
+      "answerModelId":"expressionAnswer",
+      "core":true,
+      "shape":{"expression":"canonical_ast_or_token_sequence","value":"integer","unit":"string_or_null","operationSignature":"string"},
+      "requiredValidation":["expression_parses","expression_uses_required_facts","expression_value_matches","operation_signature_matches","single_expression_when_required"]
+    },
+    {
+      "answerModelId":"operatorSequenceAnswer",
+      "core":true,
+      "shape":{"operators":"array_of_plus_minus_multiply_divide","value":"integer","unique":"boolean"},
+      "requiredValidation":["allowed_operator_symbols","sequence_length_matches_slots","equality_holds","unique_solution"]
+    },
+    {
+      "answerModelId":"equalityJudgementAnswer",
+      "core":true,
+      "shape":{"isEqual":"boolean","leftValue":"integer","rightValue":"integer","errorType":"string_or_null"},
+      "requiredValidation":["both_sides_evaluate","judgement_matches_values","error_type_required_when_false","error_type_matches_structure"]
+    },
+    {
+      "answerModelId":"averageInverseAnswer",
+      "core":true,
+      "shape":{"average":"integer","count":"integer","total":"integer","missingValue":"integer_or_null","newAverage":"integer_or_null","unit":"string"},
+      "requiredValidation":["total_equals_average_times_count","missing_value_unique_when_present","new_average_equation_holds_when_present","all_results_integer"]
+    },
+    {
+      "answerModelId":"allocationTransferAnswer",
+      "core":true,
+      "shape":{"averageShare":"integer","fromRole":"string","toRole":"string","amount":"integer","unit":"string"},
+      "requiredValidation":["average_share_correct","transfer_direction_correct","transfer_amount_positive","post_transfer_balanced"]
+    },
+    {
+      "answerModelId":"missingValueAnswer",
+      "core":false,
+      "challengeExtension":"S60X1",
+      "shape":{"symbol":"blank_or_x","value":"integer","unique":"boolean"},
+      "requiredValidation":["unique_solution","elementary_arithmetic_solution_exists"]
+    },
+    {
+      "answerModelId":"blankEquationAnswer",
+      "core":false,
+      "challengeExtension":"S60X1",
+      "shape":{"equation":"canonical_ast","blankCount":"integer","values":"integer_array"},
+      "requiredValidation":["equation_balanced","all_blanks_uniquely_solved","no_formal_transposition_required"]
+    }
+  ],
+  "equivalencePolicy": {
+    "expressionComparison":"canonical_ast_and_exact_integer_evaluation",
+    "stringEqualityRequired":false,
+    "commutativeNormalizationAllowedFor":["addition","multiplication"],
+    "associativeNormalizationAllowedFor":["addition","multiplication"],
+    "subtractionAssociative":false,
+    "divisionAssociative":false,
+    "divisionCommutative":false,
+    "continuousDivisionCanonicalRule":"a÷b÷c = a÷(b×c)",
+    "coincidentalNumericEqualityWithoutSemanticValidityAccepted":false
+  },
+  "acceptance": {
+    "answerModelCount":8,
+    "coreAnswerModelCount":6,
+    "challengeAnswerModelCount":2,
+    "allCoreModelsDeterministic":true,
+    "stringOnlyExpressionValidationAllowed":false
+  }
+}
