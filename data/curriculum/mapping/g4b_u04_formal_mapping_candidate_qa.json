@@ -2,7 +2,7 @@
   "schemaName": "G4BU04FormalMappingCandidateQA",
   "schemaVersion": 1,
   "task": "S65_G4B_U04_FormalMappingCandidateQA",
-  "status": "qa_passed_pending_ci",
+  "status": "qa_passed_ci_synced_and_merged",
   "sourceId": "g4b_u04_4b04",
   "sourceArtifact": "data/curriculum/mapping/g4b_u04_formal_mapping_candidates.json",
   "summary": {
@@ -82,6 +82,16 @@
     "validatorImplemented": false,
     "publicSelectorEnabled": false,
     "productionUse": "forbidden"
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 97,
+    "implementationMergeCommit": "1a47d92c868923c797220f7ad72e77a8572053a2",
+    "mainCiRun": 29191041071,
+    "tests": 999,
+    "pass": 999,
+    "fail": 0,
+    "workingTree": "clean",
+    "mainCiReadbackCommit": "16e066a8f17e81afdcaa43c3f198eace141d9c5e"
   },
   "nextGate": "S66_G4B_U04_PatternSpecContractDesign"
 }
