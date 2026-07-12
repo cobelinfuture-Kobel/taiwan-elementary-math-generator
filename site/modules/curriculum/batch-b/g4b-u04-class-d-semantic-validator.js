@@ -54,8 +54,20 @@ function exactKeys(value, keys) {
   return JSON.stringify(Object.keys(value).sort()) === JSON.stringify([...keys].sort());
 }
 
+function canonicalize(value) {
+  if (Array.isArray(value)) return value.map(canonicalize);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map((key) => [key, canonicalize(value[key])]),
+    );
+  }
+  return value;
+}
+
 function sameObject(left, right) {
-  return JSON.stringify(left) === JSON.stringify(right);
+  return JSON.stringify(canonicalize(left)) === JSON.stringify(canonicalize(right));
 }
 
 function allNumericLeaves(value, output = []) {
@@ -210,11 +222,8 @@ function validateTemplate(question, spec, errors) {
   if (!sameObject(question.templateRoleBindings, template.roleBindings)) {
     add(errors, "G4BU04_SEMANTIC_TEMPLATE_NOT_ALLOWLISTED", "templateRoleBindings", "模板 role binding 與 S67 overlay 不一致。", stage);
   }
-  if (roles) {
-    const expectedPrompt = renderG4BU04ControlledTemplate(templateId, roles);
-    if (question.promptText !== expectedPrompt) {
-      add(errors, "G4BU04_SEMANTIC_TEMPLATE_NOT_ALLOWLISTED", "promptText", "題面不是受控模板的確定性渲染結果。", stage);
-    }
+  if (roles && question.promptText !== renderG4BU04ControlledTemplate(templateId, roles)) {
+    add(errors, "G4BU04_SEMANTIC_TEMPLATE_NOT_ALLOWLISTED", "promptText", "題面不是受控模板的確定性渲染結果。", stage);
   }
   if (/\{\{?\s*[A-Za-z0-9_.-]+\s*\}?\}/.test(question.promptText ?? "")) {
     add(errors, "G4BU04_UNRESOLVED_PLACEHOLDER", "promptText", "題目含未解析 placeholder。", stage);
