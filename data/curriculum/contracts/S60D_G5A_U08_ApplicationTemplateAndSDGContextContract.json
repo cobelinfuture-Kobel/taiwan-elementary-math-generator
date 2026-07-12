@@ -1,0 +1,235 @@
+{
+  "schemaName": "G5AU08ApplicationTemplateAndSDGContextContract",
+  "schemaVersion": 1,
+  "task": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+  "sourceId": "g5a_u08_5a08",
+  "unitCode": "5A-U08",
+  "dependsOn": "S60C_G5A_U08_NBaselineAndNPlus1SemanticDeltaMatrix",
+  "policy": {
+    "templateFamilyCount": 10,
+    "defaultContextMix": {"daily_life": 50, "sdg": 50},
+    "allowedSdgGoalIds": ["SDG_2", "SDG_4", "SDG_6", "SDG_7", "SDG_11", "SDG_12", "SDG_13", "SDG_15"],
+    "defaultDataStatus": "fictionalized_for_practice",
+    "realStatisticsRequireSourceRef": true,
+    "sdgLabelOnlyVariantAllowed": false,
+    "maxSemanticDeltaPerItem": 1,
+    "traditionalChineseRequired": true,
+    "externalKnowledgeRequired": false
+  },
+  "templateFamilies": [
+    {
+      "templateFamilyId":"tf_g5a_u08_two_same_rate_groups_sum",
+      "sourceEvidenceIds":["src_g5a_u08_p1_panel10","src_g5a_u08_p3_panel02"],
+      "knowledgePointId":"kp_g5a_u08_common_factor_extract",
+      "allowedDepths":["N","N_PLUS_1"],
+      "allowedSemanticDeltaIds":["combine_groups"],
+      "operationSignature":"rate×countA + rate×countB",
+      "roleBindings":["rate","countA","countB","total"],
+      "unitFlow":["currency_per_item×item","currency_per_item×item","currency"],
+      "requiredFacts":["same rate applies to both groups","countA and countB are positive integers"],
+      "forbiddenFacts":["different rates hidden under one common factor","unrelated extra purchase"],
+      "naturalLanguageConstraints":["state the common unit price or production rate once","distinguish the two groups clearly"],
+      "answerUnit":"currency_or_time_or_items",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_two_same_rate_groups_sum","contextType":"daily_life","theme":"meal_or_craft_orders","dataStatus":"fictionalized_for_practice","semanticRelevance":"two role-distinct groups share one rate"},
+        {"contextVariantId":"cv_sdg4_two_same_rate_groups_sum","contextType":"sdg","sdgGoalId":"SDG_4","theme":"learning_material_packs","dataStatus":"fictionalized_for_practice","semanticRelevance":"two classes receive equal-cost resource packs"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_two_product_groups_difference",
+      "sourceEvidenceIds":["src_g5a_u08_p2_panel01"],
+      "knowledgePointId":"kp_g5a_u08_common_factor_extract",
+      "allowedDepths":["N_PLUS_1"],
+      "allowedSemanticDeltaIds":["combine_groups"],
+      "operationSignature":"rate×countA - rate×countB",
+      "roleBindings":["rate","availableCount","reservedOrRemovedCount","remainingTotal"],
+      "unitFlow":["unit_per_group×group","unit_per_group×group","unit"],
+      "requiredFacts":["availableCount is at least reservedOrRemovedCount","same rate applies to both groups"],
+      "forbiddenFacts":["negative remaining quantity","different units in compared products"],
+      "naturalLanguageConstraints":["make the subtraction direction explicit","avoid ambiguous words such as more without a comparison target"],
+      "answerUnit":"items_or_capacity",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_two_product_groups_difference","contextType":"daily_life","theme":"seating_or_storage_capacity","dataStatus":"fictionalized_for_practice","semanticRelevance":"reserved capacity is removed from available capacity"},
+        {"contextVariantId":"cv_sdg11_two_product_groups_difference","contextType":"sdg","sdgGoalId":"SDG_11","theme":"public_transport_seats","dataStatus":"fictionalized_for_practice","semanticRelevance":"accessible or reserved public-transport spaces alter usable capacity"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_discount_and_change",
+      "sourceEvidenceIds":["src_g5a_u08_p2_panel02"],
+      "knowledgePointId":"kp_g5a_u08_mixed_operation_order",
+      "allowedDepths":["N_PLUS_1"],
+      "allowedSemanticDeltaIds":["discount_or_compensation"],
+      "operationSignature":"payment - (unitPrice×quantity - discountPerGroup×discountGroupCount)",
+      "roleBindings":["unitPrice","quantity","discountGroupSize","discountPerGroup","payment","change"],
+      "unitFlow":["currency_per_item×item","currency_per_group×group","currency","currency"],
+      "requiredFacts":["quantity is divisible by discountGroupSize","payment covers final cost"],
+      "forbiddenFacts":["percentage discount","tiered discount","two discount rules"],
+      "naturalLanguageConstraints":["state the discount group rule before asking for change","use one explicit discount rule only"],
+      "answerUnit":"currency",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_discount_and_change","contextType":"daily_life","theme":"store_purchase","dataStatus":"fictionalized_for_practice","semanticRelevance":"group discount changes the payable amount"},
+        {"contextVariantId":"cv_sdg12_discount_and_change","contextType":"sdg","sdgGoalId":"SDG_12","theme":"refill_or_reuse_discount","dataStatus":"fictionalized_for_practice","semanticRelevance":"reuse participation produces a fixed group discount rather than a decorative SDG label"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_adjust_unit_then_remaining",
+      "sourceEvidenceIds":["src_g5a_u08_p2_panel03"],
+      "knowledgePointId":"kp_g5a_u08_distributive_expand",
+      "allowedDepths":["N_PLUS_1"],
+      "allowedSemanticDeltaIds":["adjust_unit_amount"],
+      "operationSignature":"startingTotal - (originalUnitAmount-adjustment)×count",
+      "roleBindings":["startingTotal","originalUnitAmount","unitAdjustment","count","remainingTotal"],
+      "unitFlow":["measure","measure_per_item","measure_per_item","item","measure"],
+      "requiredFacts":["originalUnitAmount exceeds unitAdjustment","startingTotal covers adjusted use"],
+      "forbiddenFacts":["second independent adjustment","negative remaining total"],
+      "naturalLanguageConstraints":["explain why the per-unit amount changes","keep the changed amount tied to every item"],
+      "answerUnit":"mass_or_volume_or_items",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_adjust_unit_then_remaining","contextType":"daily_life","theme":"recipe_or_material_use","dataStatus":"fictionalized_for_practice","semanticRelevance":"each product uses a reduced amount"},
+        {"contextVariantId":"cv_sdg6_adjust_unit_then_remaining","contextType":"sdg","sdgGoalId":"SDG_6","theme":"water_saving_per_activity","dataStatus":"fictionalized_for_practice","semanticRelevance":"a verified per-activity water reduction changes total use"},
+        {"contextVariantId":"cv_sdg7_adjust_unit_then_remaining","contextType":"sdg","sdgGoalId":"SDG_7","theme":"energy_saving_per_device","dataStatus":"fictionalized_for_practice","semanticRelevance":"a per-device energy reduction changes total consumption"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_group_then_select_groups",
+      "sourceEvidenceIds":["src_g5a_u08_p2_panel04"],
+      "knowledgePointId":"kp_g5a_u08_mul_div_equivalent_regroup",
+      "allowedDepths":["N_PLUS_1"],
+      "allowedSemanticDeltaIds":["nested_grouping"],
+      "operationSignature":"total÷groupCount×selectedGroupCount",
+      "roleBindings":["total","groupCount","selectedGroupCount","selectedQuantity"],
+      "unitFlow":["item÷group","item_per_group×group","item"],
+      "requiredFacts":["total divisible by groupCount","selectedGroupCount does not exceed groupCount"],
+      "forbiddenFacts":["ambiguous whether divisor is group count or group size","fractional group quantity"],
+      "naturalLanguageConstraints":["name the number of equal groups and the selected groups separately","ask for selected quantity, not selected group count"],
+      "answerUnit":"items",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_group_then_select_groups","contextType":"daily_life","theme":"boxes_or_teams","dataStatus":"fictionalized_for_practice","semanticRelevance":"equal grouping precedes selecting some groups"},
+        {"contextVariantId":"cv_sdg2_group_then_select_groups","contextType":"sdg","sdgGoalId":"SDG_2","theme":"food_aid_boxes","dataStatus":"fictionalized_for_practice","semanticRelevance":"food is equally packed before some boxes are allocated"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_near_round_unit_price",
+      "sourceEvidenceIds":["src_g5a_u08_p2_panel05","src_g5a_u08_p2_panel10"],
+      "knowledgePointId":"kp_g5a_u08_near_round_multiply_compensation",
+      "allowedDepths":["N","N_PLUS_1"],
+      "allowedSemanticDeltaIds":["discount_or_compensation"],
+      "operationSignature":"nearRoundUnitPrice×quantity",
+      "roleBindings":["nearRoundUnitPrice","quantity","totalCost"],
+      "unitFlow":["currency_per_item×item","currency"],
+      "requiredFacts":["unit price differs from a round anchor by a small integer","quantity is a positive integer"],
+      "forbiddenFacts":["percentage reasoning","multiple price tiers"],
+      "naturalLanguageConstraints":["use a plausible whole-number price","do not state the compensation method in the question"],
+      "answerUnit":"currency",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_near_round_unit_price","contextType":"daily_life","theme":"tickets_or_supplies","dataStatus":"fictionalized_for_practice","semanticRelevance":"the near-round price supports compensation strategy"},
+        {"contextVariantId":"cv_sdg13_near_round_unit_price","contextType":"sdg","sdgGoalId":"SDG_13","theme":"tree_planting_kits","dataStatus":"fictionalized_for_practice","semanticRelevance":"kit cost is near a round value; the climate theme does not change the mathematical contract"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_nested_grouping",
+      "sourceEvidenceIds":["src_g5a_u08_p3_panel03"],
+      "knowledgePointId":"kp_g5a_u08_mul_div_equivalent_regroup",
+      "allowedDepths":["N_PLUS_1"],
+      "allowedSemanticDeltaIds":["nested_grouping"],
+      "operationSignature":"total÷itemsPerFirstGroup÷secondGroupCount",
+      "roleBindings":["total","itemsPerFirstGroup","secondGroupCount","groupsPerSecondContainer"],
+      "unitFlow":["item÷item_per_bundle","bundle÷container","bundle_per_container"],
+      "requiredFacts":["first division exact","second division exact"],
+      "forbiddenFacts":["reversed grouping order","remainder not described"],
+      "naturalLanguageConstraints":["state the first grouping before the second grouping","keep units visible in both grouping levels"],
+      "answerUnit":"first_level_groups_per_second_level_group",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_nested_grouping","contextType":"daily_life","theme":"bundles_and_boxes","dataStatus":"fictionalized_for_practice","semanticRelevance":"items are bundled before bundles are boxed"},
+        {"contextVariantId":"cv_sdg15_nested_grouping","contextType":"sdg","sdgGoalId":"SDG_15","theme":"seedlings_trays_and_zones","dataStatus":"fictionalized_for_practice","semanticRelevance":"seedlings are grouped into trays before trays are assigned to habitat zones"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_direct_average",
+      "sourceEvidenceIds":["src_g5a_u08_p3_panel05"],
+      "knowledgePointId":"kp_g5a_u08_average_inverse_update",
+      "allowedDepths":["N"],
+      "allowedSemanticDeltaIds":[],
+      "operationSignature":"sum(values)÷count",
+      "roleBindings":["values","count","average"],
+      "unitFlow":["measure×count","measure"],
+      "requiredFacts":["sum divisible by count","all values share one unit"],
+      "forbiddenFacts":["weighted values","fractional answer"],
+      "naturalLanguageConstraints":["identify the averaging population clearly","avoid using average to mean typical"],
+      "answerUnit":"same_as_values",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_direct_average","contextType":"daily_life","theme":"shared_cost_or_scores","dataStatus":"fictionalized_for_practice","semanticRelevance":"several same-unit values are averaged"},
+        {"contextVariantId":"cv_sdg11_direct_average","contextType":"sdg","sdgGoalId":"SDG_11","theme":"daily_public_transport_ridership","dataStatus":"fictionalized_for_practice","semanticRelevance":"daily ridership values share one unit and are averaged"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_average_share_transfer",
+      "sourceEvidenceIds":["src_g5a_u08_p3_panel06"],
+      "knowledgePointId":"kp_g5a_u08_average_inverse_update",
+      "allowedDepths":["N_PLUS_1"],
+      "allowedSemanticDeltaIds":["reverse_from_total"],
+      "operationSignature":"averageShare=sum(payments)÷count; transfer=payment-averageShare",
+      "roleBindings":["payments","count","averageShare","payerAboveAverage","payerBelowAverage","transferAmount"],
+      "unitFlow":["currency×person","currency_per_person","currency"],
+      "requiredFacts":["sum divisible by count","one transfer resolves the stated imbalance"],
+      "forbiddenFacts":["multiple unresolved transfers","negative payment"],
+      "naturalLanguageConstraints":["state who paid each amount","ask both transfer direction and amount when required"],
+      "answerUnit":"currency",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_average_share_transfer","contextType":"daily_life","theme":"shared_meal_or_activity_cost","dataStatus":"fictionalized_for_practice","semanticRelevance":"participants equalize actual payments to one average share"},
+        {"contextVariantId":"cv_sdg12_average_share_transfer","contextType":"sdg","sdgGoalId":"SDG_12","theme":"shared_repair_or_reuse_project_cost","dataStatus":"fictionalized_for_practice","semanticRelevance":"participants fairly share one repair or reuse project cost"}
+      ]
+    },
+    {
+      "templateFamilyId":"tf_g5a_u08_average_inverse_or_update",
+      "sourceEvidenceIds":["src_g5a_u08_p3_panel07","src_g5a_u08_p3_panel08"],
+      "knowledgePointId":"kp_g5a_u08_average_inverse_update",
+      "allowedDepths":["N_PLUS_1"],
+      "allowedSemanticDeltaIds":["reverse_from_average","update_population"],
+      "operationSignature":"average×count-knownParts OR (oldAverage×oldCount±memberValue)÷newCount",
+      "roleBindings":["average","count","knownValues","missingValue","memberValue","newAverage"],
+      "unitFlow":["measure_per_member×member","measure","measure_per_member"],
+      "requiredFacts":["average times count is integer","missing value unique","updated average integer when update variant used"],
+      "forbiddenFacts":["weighted average","two population updates","formal equation required"],
+      "naturalLanguageConstraints":["distinguish inverse and update variants","state old and new counts explicitly"],
+      "answerUnit":"same_as_values",
+      "contextVariants":[
+        {"contextVariantId":"cv_daily_average_inverse","contextType":"daily_life","theme":"scores_or_measurements","dataStatus":"fictionalized_for_practice","semanticRelevance":"a missing value is recovered from the average"},
+        {"contextVariantId":"cv_sdg6_average_update","contextType":"sdg","sdgGoalId":"SDG_6","theme":"daily_water_use_average_update","dataStatus":"fictionalized_for_practice","semanticRelevance":"a new day of water use changes the average"},
+        {"contextVariantId":"cv_sdg7_average_inverse","contextType":"sdg","sdgGoalId":"SDG_7","theme":"missing_daily_energy_value","dataStatus":"fictionalized_for_practice","semanticRelevance":"a missing daily energy value is recovered from an integer average"}
+      ]
+    }
+  ],
+  "semanticValidation": {
+    "globalRequiredChecks":["all_roles_bound_once","unit_flow_valid","nonnegative_quantities","answer_unit_matches","semantic_delta_allowlisted","semantic_delta_count_matches_depth"],
+    "sdgRequiredFields":["sdgGoalId","theme","dataStatus","semanticRelevance"],
+    "forbiddenPatterns":["environmental adjective with unchanged generic story","claimed real statistic without sourceRef","role-swapped quantity","impossible allocation","payment below cost when change requested"]
+  },
+  "coverage": {
+    "templateFamilyCount":10,
+    "sourceEvidencePanelCount":13,
+    "dailyLifeContextVariantCount":10,
+    "sdgContextVariantCount":12,
+    "coveredSdgGoalIds":["SDG_2","SDG_4","SDG_6","SDG_7","SDG_11","SDG_12","SDG_13","SDG_15"],
+    "allFamiliesHaveRoleBindings":true,
+    "allFamiliesHaveUnitFlow":true,
+    "allSdgVariantsDeclareDataStatus":true,
+    "fakeRealStatisticCount":0
+  },
+  "acceptance": {
+    "sourceBackedTemplateFamilyCount":10,
+    "allSourceApplicationPanelsAccountedFor":true,
+    "allFamiliesHaveOperationSignature":true,
+    "allFamiliesHaveRequiredAndForbiddenFacts":true,
+    "allSdgVariantsAreSemanticallyRelevant":true,
+    "sdgLabelOnlyVariantCount":0,
+    "fakeRealStatisticCount":0
+  },
+  "goalDistance": {
+    "before":"D2_G5A_U08_NPLUS1_MATRIX_FROZEN_APPLICATION_SEMANTICS_UNDEFINED",
+    "after":"D2_G5A_U08_10_TEMPLATE_FAMILIES_AND_SDG_CONTEXT_CONTRACT_FROZEN",
+    "distanceReduced":"All thirteen source application panels are represented by ten semantic families with explicit roles, unit flow, operation signatures and daily-life/SDG context variants.",
+    "remainingBlockers":["FormalMapping, answer models and validator error taxonomy are not frozen","PatternSpecs are not materialized","Generators, UI and print remain pending"],
+    "nextShortestStep":"S60E_G5A_U08_FormalMappingAnswerModelValidatorContract"
+  }
+}
