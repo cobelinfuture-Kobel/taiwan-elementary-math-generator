@@ -10,10 +10,11 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-smoke:
+    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -126,6 +127,22 @@ jobs:
           manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           print(json.dumps(manifest, ensure_ascii=False, indent=2))
           PY
+
+      - name: Commit verified smoke bundle to branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/s59j-g4b-u01-production-closeout'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.html \
+            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.pdf \
+            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.manifest.json
+          if git diff --cached --quiet; then
+            echo "Verified smoke bundle is already committed."
+          else
+            git commit -m "docs(g4b-u01): commit verified S59J HTML PDF smoke"
+            git push origin HEAD:s59j-g4b-u01-production-closeout
+          fi
 
       - name: Upload verified smoke bundle
         uses: actions/upload-artifact@v4
