@@ -2,7 +2,7 @@
 
 ```text
 TASK = S60I_G5A_U08_PromotionResolverAndPublicSelectorIntegration
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 ```
 
 ## Promotion
@@ -85,14 +85,32 @@ S60I does not add worksheet eligibility, renderer profiles, print pagination, HT
 - blocking validator zero-output behavior;
 - source-unit and unrelated route preservation.
 
+## CI and merge evidence
+
+```text
+implementation PR = #78
+implementation merge commit = fc7c329d75edeb4a090ea95527c2f3a6b3c4d127
+PR Node Test = PASS
+PR S42 Branch Test = PASS
+PR Math CI Readback = PASS
+PR G4B-U01 HTML/PDF smoke = PASS
+PR G4B-U01 14-page containment regression = PASS
+main CI run = 29179682475
+main tests = 953
+main pass = 953
+main fail = 0
+main working tree = clean
+```
+
+The initial PR run failed because a per-KP group bucket was frozen before all groups were collected. The FullFix builds mutable buckets first and freezes copies only after collection. The complete PR gate and main CI passed after this correction.
+
 ## Distance
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_G5A_U08_ALL_30_PATTERNSPECS_HAVE_VALIDATED_HIDDEN_RUNTIME
-GOAL_DISTANCE_AFTER  = D1_G5A_U08_PUBLIC_SELECTOR_AND_CANONICAL_RUNTIME_INTEGRATED_PENDING_CI
-DISTANCE_REDUCED     = Promoted all 11 KPs, 17 groups and 30 PatternSpecs into resolver-derived public controls and a validated no-fallback canonical runtime.
+GOAL_DISTANCE_BEFORE = D1_G5A_U08_ALL_HIDDEN_RUNTIME_COMPLETE_PUBLIC_PROMOTION_PENDING
+GOAL_DISTANCE_AFTER  = D1_G5A_U08_PUBLIC_SELECTOR_AND_CANONICAL_RUNTIME_INTEGRATED_WORKSHEET_PENDING
+DISTANCE_REDUCED     = Promoted all 11 KPs, 17 groups and 30 PatternSpecs into resolver-derived public controls and a blocking-validated no-fallback canonical runtime.
 REMAINING_BLOCKERS   = [
-  "S60I PR CI and merge",
   "S60J worksheet/answer key/renderer",
   "S60K public UI/print/query-state QA",
   "S60L production stress and D0 closeout"
