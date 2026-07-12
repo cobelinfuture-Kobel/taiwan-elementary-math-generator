@@ -2,7 +2,7 @@
 
 ```text
 TASK = S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration
-STATUS = PASS_IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 ```
 
@@ -140,6 +140,29 @@ Executable QA covers:
 10. unrelated route delegation;
 11. invalid canonical selection returning zero WorksheetDocument;
 12. lifecycle remaining preview-only pending S74/S75.
+
+## Quality fixes
+
+Before merge, three boundary fixes were applied:
+
+- invalid G4B-U04 canonical scope now returns a zero-WorksheetDocument failure instead of delegating to a legacy route;
+- answer HTML renders the authoritative `answerText` directly and does not append a duplicate unit;
+- the full pre-existing site scaffold and browser regression test tail was preserved while updating the extension chain.
+
+The first PR CI run found one test-contract defect in the unrelated-route delegation assertion: an optional renderer profile predicate returned `undefined`, but the test compared it directly with `false`. The assertion now normalizes the predicate to Boolean. Runtime behavior did not change.
+
+## CI and merge evidence
+
+```text
+implementation PR          = #113
+implementation merge       = 61a3a0a5245e0c8861b52a330e32aa3f303484f1
+main CI run                = 29213515063
+main CI readback commit    = 634f7afe142fe5193a7717c73b1570379477956c
+tests                      = 1080
+pass                       = 1080
+fail                       = 0
+working tree               = clean
+```
 
 ## Lifecycle boundary
 
