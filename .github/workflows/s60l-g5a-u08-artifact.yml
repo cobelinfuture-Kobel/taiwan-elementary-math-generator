@@ -131,6 +131,7 @@ jobs:
           from hashlib import sha256
           import json
           from pathlib import Path
+          import unicodedata
           from pypdf import PdfReader
           root = Path('docs/curriculum/output/smoke')
           pdf_path = root / 'S60L_G5A_U08_PublicWorksheet.pdf'
@@ -138,12 +139,13 @@ jobs:
           manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
           reader = PdfReader(str(pdf_path))
           texts = [(page.extract_text() or '') for page in reader.pages]
-          all_text = ''.join(texts)
+          normalized_texts = [unicodedata.normalize('NFKC', text) for text in texts]
+          all_text = ''.join(normalized_texts)
           if '整數四則' not in all_text or '答案頁' not in all_text:
-              raise SystemExit('Traditional Chinese title or answer page missing from PDF text')
+              raise SystemExit('Traditional Chinese title or answer page missing from normalized PDF text')
           if len(reader.pages) != manifest['expectedPdfPageCount']:
               raise SystemExit(f"PDF page mismatch: {len(reader.pages)}/{manifest['expectedPdfPageCount']}")
-          if not texts[-1].strip():
+          if not normalized_texts[-1].strip():
               raise SystemExit('last answer page is blank')
           pdf_bytes = pdf_path.read_bytes()
           manifest.update({
