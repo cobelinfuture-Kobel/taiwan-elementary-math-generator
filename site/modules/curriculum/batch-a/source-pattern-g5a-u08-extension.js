@@ -68,8 +68,8 @@ const specRows = [
   ["ps_g5a_u08_app_nested_grouping", "pg_g5a_u08_mul_div_regroup_application", "kp_g5a_u08_mul_div_equivalent_regroup", "application", "expressionAnswer", "tf_g5a_u08_nested_grouping"],
   ["ps_g5a_u08_app_direct_average", "pg_g5a_u08_average_application", "kp_g5a_u08_average_inverse_update", "application", "numericAnswer", "tf_g5a_u08_direct_average"],
   ["ps_g5a_u08_app_average_share_transfer", "pg_g5a_u08_average_application", "kp_g5a_u08_average_inverse_update", "application", "allocationTransferAnswer", "tf_g5a_u08_average_share_transfer"],
-  ["ps_g5a_u08_app_average_inverse", "pg_g5a_u08_average_reasoning", "kp_g5a_u08_average_inverse_update", "application", "averageInverseAnswer", "tf_g5a_u08_average_inverse_or_update"],
-  ["ps_g5a_u08_app_average_update", "pg_g5a_u08_average_reasoning", "kp_g5a_u08_average_inverse_update", "application", "averageInverseAnswer", "tf_g5a_u08_average_inverse_or_update"],
+  ["ps_g5a_u08_app_average_inverse", "pg_g5a_u08_average_reasoning", "kp_g5a_u08_average_inverse_update", "reasoning", "averageInverseAnswer", "tf_g5a_u08_average_inverse_or_update", true],
+  ["ps_g5a_u08_app_average_update", "pg_g5a_u08_average_reasoning", "kp_g5a_u08_average_inverse_update", "reasoning", "averageInverseAnswer", "tf_g5a_u08_average_inverse_or_update", true],
 ];
 
 export const G5A_U08_HIDDEN_PATTERN_GROUPS = deepFreeze(
@@ -89,7 +89,10 @@ export const G5A_U08_HIDDEN_PATTERN_GROUPS = deepFreeze(
 );
 
 export const G5A_U08_HIDDEN_PATTERN_SPECS = deepFreeze(
-  specRows.map(([patternSpecId, patternGroupId, knowledgePointId, mode, answerModelId, templateFamilyId], index) => ({
+  specRows.map((
+    [patternSpecId, patternGroupId, knowledgePointId, mode, answerModelId, templateFamilyId, contextualReasoning],
+    index,
+  ) => ({
     ...sharedLifecycle,
     patternSpecId,
     patternGroupId,
@@ -97,6 +100,7 @@ export const G5A_U08_HIDDEN_PATTERN_SPECS = deepFreeze(
     mode,
     answerModel: { shape: answerModelId },
     ...(templateFamilyId ? { templateFamilyId } : {}),
+    ...(contextualReasoning ? { contextualReasoning: true } : {}),
     patternOrder: index + 1,
   })),
 );
