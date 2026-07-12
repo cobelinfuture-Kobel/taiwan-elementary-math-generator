@@ -1,0 +1,41 @@
+{
+  "schemaName": "G5AU08ProductionPromotionRegistry",
+  "schemaVersion": 1,
+  "task": "S60L_G5A_U08_ProductionStressHTMLPDFAndD0Closeout",
+  "promotionOverlayId": "s60l_g5a_u08_production_promotion",
+  "basePromotionRegistryId": "s60i_g5a_u08_integer_four_operations_promotion",
+  "sourceId": "g5a_u08_5a08",
+  "unitCode": "5A-U08",
+  "status": "production_promotion_accepted",
+  "lifecycle": {
+    "selectorStatus": "visible",
+    "runtimeStatus": "production_routed",
+    "validatorStatus": "blocking_validator_required",
+    "worksheetStatus": "production_eligible",
+    "rendererStatus": "production_eligible",
+    "productionUse": "allowed"
+  },
+  "counts": {
+    "knowledgePoints": 11,
+    "patternGroups": 17,
+    "patternSpecs": 30,
+    "templateFamilies": 10,
+    "sdgGoals": 8,
+    "answerModels": 6,
+    "publicSurfaces": 3
+  },
+  "stress": {
+    "publicQuestionCounts": [1, 11, 29, 72, 120, 200],
+    "aggregateQuestionCount": 1000,
+    "aggregateBatchCount": 5,
+    "batchQuestionCount": 200
+  },
+  "publicBoundaries": {
+    "maxQuestionCount": 200,
+    "nPlus2": false,
+    "formalEquation": false,
+    "internalIdsVisible": false,
+    "genericFallback": false
+  },
+  "requiredNextGate": null
+}
