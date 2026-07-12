@@ -2,7 +2,7 @@
   "schemaName": "G4BU04ClassCRuntimeContract",
   "schemaVersion": 1,
   "task": "S69_G4B_U04_ClassCGeneratorAndBlockingValidator",
-  "status": "implemented_pending_ci",
+  "status": "pass_ci_synced_and_merged",
   "sourceId": "g4b_u04_4b04",
   "dependsOn": [
     "data/curriculum/contracts/S68_G4B_U04_HiddenMaterializationCloseout.json",
@@ -56,6 +56,16 @@
     "inverseSolutionSetComplete": true,
     "internalIdLeakageForbidden": true,
     "unresolvedPlaceholderForbidden": true
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 105,
+    "implementationMergeCommit": "5b20e45e27a518a08aa3d0b6a4abedac618c5a98",
+    "mainCiRun": 29195611817,
+    "mainCiReadbackCommit": "95f0669a11a6834ae16d2da391e1825f3f14d0dc",
+    "tests": 1034,
+    "pass": 1034,
+    "fail": 0,
+    "workingTree": "clean"
   },
   "lifecycle": {
     "selectorVisibility": "hidden",

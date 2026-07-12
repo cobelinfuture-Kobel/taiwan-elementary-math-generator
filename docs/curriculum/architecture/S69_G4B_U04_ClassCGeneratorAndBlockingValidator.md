@@ -2,7 +2,7 @@
 
 ```text
 TASK = S69_G4B_U04_ClassCGeneratorAndBlockingValidator
-STATUS = PASS_IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 ```
 
@@ -105,14 +105,14 @@ S66 base contract
 ## Lifecycle boundary
 
 ```text
-Class C generator         = implemented_hidden
+Class C generator          = implemented_hidden
 Class C blocking validator = implemented_hidden
-Class D generator         = not implemented
+Class D generator          = not implemented
 Class D semantic validator = not implemented
-selector visibility       = hidden
-canonical routing         = disabled
-worksheet eligible        = false
-production use            = forbidden
+selector visibility        = hidden
+canonical routing          = disabled
+worksheet eligible         = false
+production use             = forbidden
 ```
 
 ## Acceptance
@@ -129,6 +129,19 @@ Executable QA verifies:
 - identity, boundary, formula, ambiguity, inverse, placeholder, internal-ID and fallback mutations;
 - zero accepted output on any batch blocking error;
 - explicit Class D rejection and production prohibition.
+
+## CI and merge evidence
+
+```text
+implementation PR          = #105
+implementation merge       = 5b20e45e27a518a08aa3d0b6a4abedac618c5a98
+main CI run                = 29195611817
+main CI readback commit    = 95f0669a11a6834ae16d2da391e1825f3f14d0dc
+tests                      = 1034
+pass                       = 1034
+fail                       = 0
+working tree               = clean
+```
 
 ## Distance
 
