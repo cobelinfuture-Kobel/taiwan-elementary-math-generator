@@ -54,6 +54,7 @@ test("site scaffold files exist", () => {
     "site/modules/renderer/html-renderer-s57f5-extension.js",
     "site/modules/renderer/html-renderer-s58h-extension.js",
     "site/modules/renderer/html-renderer-s59h-extension.js",
+    "site/modules/renderer/html-renderer-s59j-r1-extension.js",
     "site/modules/curriculum/batch-a/source-units.js",
     "site/modules/curriculum/batch-a/source-pattern-index.js",
     "site/modules/curriculum/batch-a/batch-a-browser-generator.js",
@@ -65,6 +66,7 @@ test("site scaffold files exist", () => {
     "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s57f5-extension.js",
     "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s58h-extension.js",
     "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59h-extension.js",
+    "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js",
     "site/modules/curriculum/batch-a/g3b-u04-production-eligibility.js",
     "site/modules/curriculum/batch-a/g3b-u08-production-eligibility.js",
     "site/modules/curriculum/batch-a/g4b-u01-production-eligibility.js",
@@ -107,11 +109,15 @@ test("site runtime files do not import tools preview or src modules", () => {
 
   const pipelineSource = readText("site/assets/browser/pipeline/build-worksheet-document.js");
   const renderSource = readText("site/assets/browser/pipeline/render-preview-frame.js");
+  const worksheetFullFixSource = readText("site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js");
+  const rendererFullFixSource = readText("site/modules/renderer/html-renderer-s59j-r1-extension.js");
   const worksheetExtensionSource = readText("site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59h-extension.js");
   const rendererExtensionSource = readText("site/modules/renderer/html-renderer-s59h-extension.js");
 
-  assert.equal(pipelineSource.includes("../../../modules/curriculum/batch-a/batch-a-browser-worksheet-s59h-extension.js"), true);
-  assert.equal(renderSource.includes("../../../modules/renderer/html-renderer-s59h-extension.js"), true);
+  assert.equal(pipelineSource.includes("../../../modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js"), true);
+  assert.equal(renderSource.includes("../../../modules/renderer/html-renderer-s59j-r1-extension.js"), true);
+  assert.equal(worksheetFullFixSource.includes('./batch-a-browser-worksheet-s59h-extension.js'), true);
+  assert.equal(rendererFullFixSource.includes('./html-renderer-s59h-extension.js'), true);
   assert.equal(worksheetExtensionSource.includes('./batch-a-browser-worksheet-s58h-extension.js'), true);
   assert.equal(rendererExtensionSource.includes('./html-renderer-s58h-extension.js'), true);
 });
