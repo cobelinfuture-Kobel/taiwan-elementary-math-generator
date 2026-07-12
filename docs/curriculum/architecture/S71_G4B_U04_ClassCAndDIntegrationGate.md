@@ -2,7 +2,7 @@
 
 ```text
 TASK = S71_G4B_U04_ClassCAndDIntegrationGate
-STATUS = PASS_IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 ```
 
@@ -29,12 +29,12 @@ S71 does not expose a public selector, connect a canonical resolver, create a Wo
 ## Authority coverage
 
 ```text
-KnowledgePoints              = 12
-PatternGroups                = 12
-PatternSpecs                 = 17
-Class C PatternSpecs         = 9
-Class D PatternSpecs         = 8
-answer models                = 9
+KnowledgePoints               = 12
+PatternGroups                 = 12
+PatternSpecs                  = 17
+Class C PatternSpecs          = 9
+Class D PatternSpecs          = 8
+answer models                 = 9
 controlled template families = 9
 ```
 
@@ -50,7 +50,7 @@ reasoning             = 2
 total                 = 17
 ```
 
-The canonical order comes from S68 `patternOrder`. The Class C and Class D sets must be disjoint and their union must equal all 17 authoritative PatternSpecs.
+The canonical order comes from S68 `patternOrder`. The Class C and Class D sets are disjoint and their union equals all 17 authoritative PatternSpecs.
 
 ## Integration generation
 
@@ -155,6 +155,23 @@ Executable QA covers:
 12. full-authority coverage mutations;
 13. lifecycle/public/worksheet/renderer/production mutations;
 14. exact shared and integration blocking-code registries.
+
+## CI-driven correction
+
+The first PR run failed before runtime assertions because one mutation test used `array.at(-1)` as an assignment target, which is invalid JavaScript syntax. The test was rewritten with an explicit `lastIndex` swap. No S69, S70 or S71 runtime semantic was changed by this correction.
+
+## CI and merge evidence
+
+```text
+implementation PR       = #109
+implementation merge    = e02caa8d76234f2ef08da4e51482870ba2f01993
+main CI run             = 29198287473
+main CI readback commit = ee83eacc0d497b58631e40be59da87fbaefd26cb
+tests                   = 1056
+pass                    = 1056
+fail                    = 0
+working tree            = clean
+```
 
 ## Lifecycle boundary
 

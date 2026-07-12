@@ -2,7 +2,7 @@
   "schemaName": "G4BU04ClassCAndDIntegrationGate",
   "schemaVersion": 1,
   "task": "S71_G4B_U04_ClassCAndDIntegrationGate",
-  "status": "implemented_pending_ci",
+  "status": "pass_ci_synced_and_merged",
   "sourceId": "g4b_u04_4b04",
   "dependsOn": [
     "data/curriculum/contracts/S68_G4B_U04_HiddenMaterializationCloseout.json",
@@ -70,6 +70,17 @@
     "delegatedClassCMutationGate": true,
     "delegatedClassDMutationGate": true,
     "lifecycleMutationGate": true
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 109,
+    "implementationMergeCommit": "e02caa8d76234f2ef08da4e51482870ba2f01993",
+    "mainCiRun": 29198287473,
+    "mainCiReadbackCommit": "ee83eacc0d497b58631e40be59da87fbaefd26cb",
+    "tests": 1056,
+    "pass": 1056,
+    "fail": 0,
+    "workingTree": "clean",
+    "ciDrivenFix": "Corrected invalid JavaScript mutation-test swap syntax; integration runtime semantics were unchanged."
   },
   "lifecycle": {
     "integrationStatus": "hidden_gate_implemented",
