@@ -92,8 +92,8 @@ const forbiddenTokens = [
 ];
 const leakedTokens = forbiddenTokens.filter((token) => htmlContents.includes(token));
 if (leakedTokens.length) throw new Error(`Internal token leak: ${leakedTokens.join(", ")}`);
-const questionCellCount = count(htmlContents, "g5a-u08-cell--question");
-const answerCellCount = count(htmlContents, "g5a-u08-cell--answer");
+const questionCellCount = count(htmlContents, 'class="g5a-u08-cell g5a-u08-cell--question');
+const answerCellCount = count(htmlContents, 'class="g5a-u08-cell g5a-u08-cell--answer');
 if (questionCellCount !== 120 || answerCellCount !== 120) {
   throw new Error(`HTML cell count mismatch: ${questionCellCount}/${answerCellCount}`);
 }
