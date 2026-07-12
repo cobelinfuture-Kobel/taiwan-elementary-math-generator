@@ -88,11 +88,13 @@ const forbiddenTokens = [
   "cv_daily",
   "N_PLUS_2",
   "formal_equation",
-  "{{",
-  "}}",
 ];
 const leakedTokens = forbiddenTokens.filter((token) => htmlContents.includes(token));
 if (leakedTokens.length) throw new Error(`Internal token leak: ${leakedTokens.join(", ")}`);
+const unresolvedPlaceholders = htmlContents.match(/\{\{[^{}]+\}\}/g) ?? [];
+if (unresolvedPlaceholders.length) {
+  throw new Error(`Unresolved template placeholder: ${unresolvedPlaceholders[0]}`);
+}
 const questionCellCount = count(htmlContents, 'class="g5a-u08-cell g5a-u08-cell--question');
 const answerCellCount = count(htmlContents, 'class="g5a-u08-cell g5a-u08-cell--answer');
 if (questionCellCount !== 120 || answerCellCount !== 120) {
@@ -133,7 +135,7 @@ const manifest = {
   htmlQuestionCellCount: questionCellCount,
   htmlAnswerCellCount: answerCellCount,
   internalIdLeakCount: leakedTokens.length,
-  unresolvedPlaceholderCount: count(htmlContents, "{{") + count(htmlContents, "}}"),
+  unresolvedPlaceholderCount: unresolvedPlaceholders.length,
   rendererProfileId: document.rendererProfile.profileId,
   htmlSha256: sha256(htmlContents),
   pdfSha256: null,
