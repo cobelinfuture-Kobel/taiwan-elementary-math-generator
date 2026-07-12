@@ -2,7 +2,7 @@
 
 ```text
 TASK = S66_G4B_U04_PatternSpecContractDesign
-STATUS = PASS_DESIGN_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 ```
 
@@ -365,7 +365,20 @@ all Class D PatternSpecs controlled-template only
 no materialization or runtime activation
 ```
 
-## 14. Distance and next step
+## 14. CI and merge evidence
+
+```text
+implementation PR           = #99
+implementation merge commit = 253a223bd6da9948e2a083228f01edebba56996c
+main CI run                 = 29192648867
+tests                       = 1007
+pass                        = 1007
+fail                        = 0
+working tree                = clean
+main CI readback commit     = 5550ea54cc05d7aca331826730844a3b0784bc10
+```
+
+## 15. Distance and next step
 
 ```text
 GOAL_DISTANCE_BEFORE = D2_G4B_U04_FORMAL_MAPPING_CANDIDATES_QA_LOCKED
