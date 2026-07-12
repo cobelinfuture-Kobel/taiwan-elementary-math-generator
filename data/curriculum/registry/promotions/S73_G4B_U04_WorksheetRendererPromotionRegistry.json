@@ -2,7 +2,7 @@
   "schemaName": "G4BU04WorksheetRendererPromotionRegistry",
   "schemaVersion": 1,
   "task": "S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration",
-  "status": "implemented_pending_ci",
+  "status": "pass_ci_synced_and_merged",
   "promotionOverlayId": "s73_g4b_u04_worksheet_answer_renderer_promotion",
   "basePromotionRegistryId": "s72_g4b_u04_rounding_approximation_promotion",
   "sourceId": "g4b_u04_4b04",
@@ -97,9 +97,26 @@
     "productionStress": false,
     "d0Closeout": false
   },
+  "ciEvidence": {
+    "implementationPullRequest": 113,
+    "implementationMergeCommit": "61a3a0a5245e0c8861b52a330e32aa3f303484f1",
+    "mainCiRun": 29213515063,
+    "mainCiReadbackCommit": "634f7afe142fe5193a7717c73b1570379477956c",
+    "tests": 1080,
+    "pass": 1080,
+    "fail": 0,
+    "workingTree": "clean",
+    "ciDrivenFix": "normalized an optional delegated renderer profile predicate to Boolean before strict comparison; runtime behavior was unchanged",
+    "preMergeQualityFixes": [
+      "invalid G4B-U04 worksheet routes return zero WorksheetDocument instead of legacy fallback",
+      "answer renderer does not append duplicate units already present in answerText",
+      "full pre-existing site scaffold regression coverage was preserved"
+    ]
+  },
   "goalDistance": {
     "before": "D1_G4B_U04_PROMOTION_RESOLVER_AND_PUBLIC_SELECTOR_CONNECTED",
     "after": "D1_G4B_U04_WORKSHEET_ANSWER_KEY_AND_RENDERER_CONNECTED",
+    "distanceReduced": "Connected all five modes and nine answer models to exact-count WorksheetDocument assembly, optional answer-key pagination and three adaptive Traditional Chinese A4 renderer profiles.",
     "remainingBlockers": [
       "Public UI and query-state QA not completed",
       "HTML/PDF smoke not completed",
