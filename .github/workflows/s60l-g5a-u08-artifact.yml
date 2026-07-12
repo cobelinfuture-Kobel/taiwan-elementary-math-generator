@@ -1,0 +1,217 @@
+name: S60L G5A-U08 Production HTML PDF Closeout
+
+on:
+  push:
+    branches:
+      - s60l-g5a-u08-production-closeout
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  production-html-pdf:
+    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Install browser and PDF verification dependencies
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
+
+      - name: Run full Node test suite
+        run: npm test
+
+      - name: Generate 120-question public mixed worksheet
+        run: node tools/curriculum/generate-s60l-g5a-u08-public-smoke.mjs
+
+      - name: Verify DOM containment and print PDF
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import { pathToFileURL } from 'node:url';
+          import { resolve } from 'node:path';
+          const htmlPath = resolve('docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.html');
+          const pdfPath = resolve('docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.pdf');
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage();
+          await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
+          await page.emulateMedia({ media: 'print' });
+          const overflows = await page.evaluate(() => {
+            const nodes = [...document.querySelectorAll('.g5a-u08-cell__prompt, .g5a-u08-cell__response, .g5a-u08-cell__answer')];
+            return nodes.flatMap((node, index) => {
+              const cell = node.closest('.g5a-u08-cell');
+              const pageNode = node.closest('.g5a-u08-page');
+              if (!cell || !pageNode) return [{ index, reason: 'missing_container', text: node.textContent }];
+              const rect = node.getBoundingClientRect();
+              const cellRect = cell.getBoundingClientRect();
+              const pageRect = pageNode.getBoundingClientRect();
+              const reasons = [];
+              if (node.scrollWidth > node.clientWidth + 1) reasons.push('horizontal_scroll_overflow');
+              if (node.scrollHeight > node.clientHeight + 1) reasons.push('vertical_scroll_overflow');
+              if (rect.left < cellRect.left - 1 || rect.right > cellRect.right + 1) reasons.push('outside_cell_x');
+              if (rect.top < cellRect.top - 1 || rect.bottom > cellRect.bottom + 1) reasons.push('outside_cell_y');
+              if (rect.left < pageRect.left - 1 || rect.right > pageRect.right + 1) reasons.push('outside_page_x');
+              if (rect.top < pageRect.top - 1 || rect.bottom > pageRect.bottom + 1) reasons.push('outside_page_y');
+              return reasons.length ? [{ index, reasons, text: node.textContent, rect, cellRect, pageRect }] : [];
+            });
+          });
+          if (overflows.length) {
+            console.error(JSON.stringify(overflows.slice(0, 30), null, 2));
+            throw new Error(`DOM overflow detected: ${overflows.length}`);
+          }
+          await page.pdf({
+            path: pdfPath,
+            format: 'A4',
+            printBackground: true,
+            preferCSSPageSize: true,
+            margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' }
+          });
+          await browser.close();
+          console.log('DOM containment passed with zero overflows.');
+          NODE
+
+      - name: Render and verify every PDF page
+        run: |
+          rm -rf /tmp/s60l-g5a-u08-rendered
+          mkdir -p /tmp/s60l-g5a-u08-rendered
+          pdftoppm -png -r 120 \
+            docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.pdf \
+            /tmp/s60l-g5a-u08-rendered/page
+          python3 <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image, ImageStat
+          from pypdf import PdfReader
+          root = Path('docs/curriculum/output/smoke')
+          manifest = json.loads((root / 'S60L_G5A_U08_PublicMixedWorksheet.manifest.json').read_text(encoding='utf-8'))
+          pdf_path = root / 'S60L_G5A_U08_PublicMixedWorksheet.pdf'
+          page_count = len(PdfReader(str(pdf_path)).pages)
+          expected = manifest['expectedPdfPageCount']
+          files = sorted(Path('/tmp/s60l-g5a-u08-rendered').glob('page-*.png'))
+          if page_count != expected or len(files) != expected:
+              raise SystemExit(f'page count mismatch: pdf={page_count}, rendered={len(files)}, expected={expected}')
+          nonblank = 0
+          for path in files:
+              image = Image.open(path).convert('L')
+              stat = ImageStat.Stat(image)
+              if stat.extrema[0][0] < 245 and stat.var[0] > 5:
+                  nonblank += 1
+          if nonblank != expected:
+              raise SystemExit(f'blank rendered page detected: {nonblank}/{expected}')
+          print(f'all rendered pages nonblank: {nonblank}')
+          PY
+
+      - name: Verify PDF text bounding boxes stay inside A4 pages
+        run: |
+          pdftotext -bbox-layout \
+            docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.pdf \
+            /tmp/s60l-g5a-u08-bbox.html
+          python3 <<'PY'
+          import json
+          import re
+          from pathlib import Path
+          root = Path('docs/curriculum/output/smoke')
+          manifest = json.loads((root / 'S60L_G5A_U08_PublicMixedWorksheet.manifest.json').read_text(encoding='utf-8'))
+          text = Path('/tmp/s60l-g5a-u08-bbox.html').read_text(encoding='utf-8')
+          page_pattern = re.compile(r'<page width="([0-9.]+)" height="([0-9.]+)">(.*?)</page>', re.S)
+          word_pattern = re.compile(r'<word xMin="([0-9.]+)" yMin="([0-9.]+)" xMax="([0-9.]+)" yMax="([0-9.]+)">')
+          pages = page_pattern.findall(text)
+          if len(pages) != manifest['expectedPdfPageCount']:
+              raise SystemExit(f'bbox page mismatch: {len(pages)}')
+          overflows = []
+          for page_index, (width_text, height_text, body) in enumerate(pages, start=1):
+              width, height = float(width_text), float(height_text)
+              for word_index, values in enumerate(word_pattern.findall(body), start=1):
+                  x_min, y_min, x_max, y_max = map(float, values)
+                  if x_min < -0.5 or y_min < -0.5 or x_max > width + 0.5 or y_max > height + 0.5:
+                      overflows.append((page_index, word_index, x_min, y_min, x_max, y_max, width, height))
+          if overflows:
+              raise SystemExit(f'PDF bbox overflow detected: {overflows[:20]}')
+          print('PDF bbox containment passed with zero overflows.')
+          PY
+
+      - name: Finalize verified manifest
+        run: |
+          python3 <<'PY'
+          from hashlib import sha256
+          import json
+          from pathlib import Path
+          from pypdf import PdfReader
+          root = Path('docs/curriculum/output/smoke')
+          html_path = root / 'S60L_G5A_U08_PublicMixedWorksheet.html'
+          pdf_path = root / 'S60L_G5A_U08_PublicMixedWorksheet.pdf'
+          manifest_path = root / 'S60L_G5A_U08_PublicMixedWorksheet.manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          pdf_bytes = pdf_path.read_bytes()
+          reader = PdfReader(str(pdf_path))
+          texts = [(page.extract_text() or '') for page in reader.pages]
+          full_text = ''.join(texts)
+          if '整數四則' not in full_text:
+              raise SystemExit('Traditional Chinese unit title missing from PDF text')
+          if len(reader.pages) != manifest['expectedPdfPageCount']:
+              raise SystemExit('PDF page count mismatch')
+          manifest.update({
+              'status': 'public_html_pdf_smoke_pass',
+              'actualPdfPageCount': len(reader.pages),
+              'pdfSha256': sha256(pdf_bytes).hexdigest(),
+              'pdfBytes': len(pdf_bytes),
+              'renderedPageImageCount': len(reader.pages),
+              'nonblankRenderedPageCount': len(reader.pages),
+              'domOverflowCount': 0,
+              'pdfBoundingBoxOverflowCount': 0,
+              'cjkGlyphRendering': 'pass',
+              'visualRenderVerification': 'all_pages_rendered_nonblank_and_contained'
+          })
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps(manifest, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Commit first verified smoke bundle to branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/s60l-g5a-u08-production-closeout'
+        run: |
+          HTML_PATH=docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.html
+          PDF_PATH=docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.pdf
+          MANIFEST_PATH=docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.manifest.json
+          if git cat-file -e "HEAD:${HTML_PATH}" \
+            && git cat-file -e "HEAD:${PDF_PATH}" \
+            && git cat-file -e "HEAD:${MANIFEST_PATH}"; then
+            echo "Verified smoke bundle already committed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${HTML_PATH}" "${PDF_PATH}" "${MANIFEST_PATH}"
+          git commit -m "docs(g5a-u08): commit verified S60L HTML PDF smoke"
+          git push origin HEAD:s60l-g5a-u08-production-closeout
+
+      - name: Upload verified smoke bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s60l-g5a-u08-public-html-pdf-smoke
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.html
+            docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.pdf
+            docs/curriculum/output/smoke/S60L_G5A_U08_PublicMixedWorksheet.manifest.json
+            /tmp/s60l-g5a-u08-rendered/*.png
