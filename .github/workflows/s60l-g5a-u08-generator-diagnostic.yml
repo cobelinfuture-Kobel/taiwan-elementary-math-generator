@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - s60l-g5a-u08-production-stress
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -11,7 +14,6 @@ permissions:
 
 jobs:
   generator-diagnostic:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
