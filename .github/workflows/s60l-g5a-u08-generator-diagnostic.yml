@@ -1,0 +1,48 @@
+name: S60L G5A-U08 Generator Diagnostic
+
+on:
+  push:
+    branches:
+      - s60l-g5a-u08-production-closeout
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generator-diagnostic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run generator and persist complete log
+        id: generator
+        shell: bash
+        run: |
+          set +e
+          node tools/curriculum/generate-s60l-g5a-u08-public-smoke.mjs > /tmp/s60l-generator.log 2>&1
+          status=$?
+          cat /tmp/s60l-generator.log
+          echo "exit_code=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload generator log
+        uses: actions/upload-artifact@v4
+        with:
+          name: s60l-g5a-u08-generator-diagnostic
+          if-no-files-found: error
+          retention-days: 7
+          path: /tmp/s60l-generator.log
+
+      - name: Enforce generator success
+        run: test "${{ steps.generator.outputs.exit_code }}" = "0"
