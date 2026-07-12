@@ -2,7 +2,7 @@
 
 ```text
 TASK = S60M_BatchA_AllUnitsProductionCloseout
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 ```
 
 ## Scope
@@ -95,15 +95,27 @@ goalDistance = D0_BATCH_A_SOURCE_UNIT_WORKSHEET
 
 This closeout is deliberately scoped to the Batch A source-unit production worksheet contract. Batch B/C/D/E remain outside production scope.
 
+## CI and merge evidence
+
+```text
+implementation PR = #88
+implementation merge commit = f8e4b51925522cd67b5d5cb086ffff7ff3fae7a4
+main CI run = 29188533414
+main tests = 981
+main pass = 981
+main fail = 0
+main working tree = clean
+main CI readback commit = d3a3285ef8d4c009c1dfa1e9ce1b79da309e6496
+```
+
+The executable aggregate assertion and its test label both state the same accepted matrix size: `1,248` generated questions.
+
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_BATCH_A_ALL_UNITS_IMPLEMENTED_WITH_UNIT_LEVEL_CLOSEOUTS_NOT_AGGREGATED
 GOAL_DISTANCE_AFTER  = D0_BATCH_A_SOURCE_UNIT_WORKSHEET_PRODUCTION_CLOSED
-DISTANCE_REDUCED     = Added a current executable 13-unit release matrix covering generation, validation, worksheet, answer-key, HTML and print prerequisites after all late unit extensions.
-REMAINING_BLOCKERS   = [
-  "S60M PR CI and merge",
-  "fresh-main Batch A closeout readback"
-]
-NEXT_SHORTEST_STEP = S61_BatchBPlanningAndSourcePriorityLock
+DISTANCE_REDUCED     = Completed the current executable 13-unit release matrix covering selection, generation, blocking validation, worksheet and answer-key assembly, Traditional Chinese HTML preview, and print prerequisites after all late Batch A unit extensions.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = S61_BatchBPlanningAndSourcePriorityLock
 ```
