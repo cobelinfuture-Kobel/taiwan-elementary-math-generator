@@ -2,7 +2,8 @@
 
 ```text
 TASK = S60E_G5A_U08_FormalMappingAnswerModelValidatorContract
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = FULLFIXED_BY_S60F_R1_PENDING_CI
+FULLFIX_TASK = S60F_R1_G5A_U08_AverageReasoningModeConsistency_FullFix
 ```
 
 ## FormalMapping result
@@ -10,14 +11,23 @@ STATUS = IMPLEMENTED_PENDING_CI
 ```text
 PatternSpecs = 30
 numeric = 16
-reasoning = 3
-application = 11
+reasoning = 5
+application = 9
+contextual reasoning = 2
 KnowledgePoints = 11
 PatternGroups = 17
 TemplateFamilies = 10
 ```
 
 All PatternSpecs remain hidden, canonical routing is disabled and production use is forbidden.
+
+## Average reasoning mode FullFix
+
+`ps_g5a_u08_app_average_inverse` and `ps_g5a_u08_app_average_update` belong to `pg_g5a_u08_average_reasoning`. Their canonical mode is therefore `reasoning`, not `application`.
+
+Both remain contextual reasoning items and preserve `tf_g5a_u08_average_inverse_or_update`. The mode contract now explicitly permits a reasoning PatternSpec to carry a TemplateFamily only when `contextualReasoning = true`.
+
+The FormalMapping test now verifies every PatternSpec against its registered PatternGroup mode, preventing the original upstream mismatch from recurring.
 
 ## Answer models
 
@@ -63,9 +73,9 @@ generic fallback = forbidden
 ```text
 GOAL_DISTANCE_BEFORE = D2_G5A_U08_TEMPLATE_SDG_CONTRACT_FROZEN_FORMAL_RUNTIME_CONTRACT_UNDEFINED
 GOAL_DISTANCE_AFTER  = D2_G5A_U08_30_PATTERN_FORMAL_MAPPING_AND_VALIDATOR_CONTRACT_FROZEN
-DISTANCE_REDUCED     = Thirty deterministic PatternSpec candidates now have explicit identity, answer, boundary, semantic and validation contracts.
+DISTANCE_REDUCED     = Thirty deterministic PatternSpec candidates have explicit identity, answer, boundary, semantic and validation contracts; average inverse/update now match their reasoning group.
 REMAINING_BLOCKERS   = [
-  "PatternSpecs are not materialized into authority and projection",
+  "PatternSpecs require S60F CI and merge",
   "Generators and validators are not implemented",
   "Promotion, UI, worksheet and print are pending"
 ]

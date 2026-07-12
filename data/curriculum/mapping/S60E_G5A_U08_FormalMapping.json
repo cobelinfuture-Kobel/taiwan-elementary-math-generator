@@ -1,7 +1,8 @@
 {
   "schemaName": "G5AU08FormalMapping",
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "task": "S60E_G5A_U08_FormalMappingAnswerModelValidatorContract",
+  "fullFixTask": "S60F_R1_G5A_U08_AverageReasoningModeConsistency_FullFix",
   "sourceId": "g5a_u08_5a08",
   "unitCode": "5A-U08",
   "unitTitle": "整數四則",
@@ -14,6 +15,12 @@
     "maxAnswer": 9999999,
     "divisionByZeroAllowed": false,
     "negativeFinalAnswerAllowed": false
+  },
+  "modePolicy": {
+    "patternSpecModeMustMatchPatternGroupMode": true,
+    "contextualReasoningMayUseTemplateFamily": true,
+    "applicationModeRequiresTemplateFamily": true,
+    "numericModeForbidsTemplateFamily": true
   },
   "patternSpecs": [
     {"patternSpecId":"ps_g5a_u08_mixed_precedence_3op","knowledgePointId":"kp_g5a_u08_mixed_operation_order","patternGroupId":"pg_g5a_u08_mixed_operation_order_numeric","mode":"numeric","answerModelId":"numericAnswer","sourceEvidenceIds":["src_g5a_u08_p1_panel03"],"allowedDepths":["N"],"allowedSemanticDeltaIds":[],"operandBounds":{"termCount":3,"maxOperand":999},"requiredInvariants":["contains_multiplication_or_division","contains_addition_or_subtraction","precedence_changes_naive_left_to_right_result"]},
@@ -44,14 +51,15 @@
     {"patternSpecId":"ps_g5a_u08_app_nested_grouping","knowledgePointId":"kp_g5a_u08_mul_div_equivalent_regroup","patternGroupId":"pg_g5a_u08_mul_div_regroup_application","mode":"application","answerModelId":"expressionAnswer","templateFamilyId":"tf_g5a_u08_nested_grouping","sourceEvidenceIds":["src_g5a_u08_p3_panel03"],"allowedDepths":["N_PLUS_1"],"allowedSemanticDeltaIds":["nested_grouping"],"operandBounds":{"totalMax":999999,"firstGroupSizeMax":999,"secondGroupCountMax":99},"requiredInvariants":["first_division_exact","second_division_exact"]},
     {"patternSpecId":"ps_g5a_u08_app_direct_average","knowledgePointId":"kp_g5a_u08_average_inverse_update","patternGroupId":"pg_g5a_u08_average_application","mode":"application","answerModelId":"numericAnswer","templateFamilyId":"tf_g5a_u08_direct_average","sourceEvidenceIds":["src_g5a_u08_p3_panel05"],"allowedDepths":["N"],"allowedSemanticDeltaIds":[],"operandBounds":{"countMin":3,"countMax":8,"valueMax":9999},"requiredInvariants":["sum_divisible_by_count","same_unit_values"]},
     {"patternSpecId":"ps_g5a_u08_app_average_share_transfer","knowledgePointId":"kp_g5a_u08_average_inverse_update","patternGroupId":"pg_g5a_u08_average_application","mode":"application","answerModelId":"allocationTransferAnswer","templateFamilyId":"tf_g5a_u08_average_share_transfer","sourceEvidenceIds":["src_g5a_u08_p3_panel06"],"allowedDepths":["N_PLUS_1"],"allowedSemanticDeltaIds":["reverse_from_total"],"operandBounds":{"participantCountMin":3,"participantCountMax":5,"paymentMax":9999},"requiredInvariants":["sum_divisible_by_count","single_transfer_resolves_balance"]},
-    {"patternSpecId":"ps_g5a_u08_app_average_inverse","knowledgePointId":"kp_g5a_u08_average_inverse_update","patternGroupId":"pg_g5a_u08_average_reasoning","mode":"application","answerModelId":"averageInverseAnswer","templateFamilyId":"tf_g5a_u08_average_inverse_or_update","sourceEvidenceIds":["src_g5a_u08_p3_panel07"],"allowedDepths":["N_PLUS_1"],"allowedSemanticDeltaIds":["reverse_from_average"],"operandBounds":{"countMin":3,"countMax":8,"averageMax":999},"requiredInvariants":["average_times_count_integer","missing_value_unique_and_nonnegative"]},
-    {"patternSpecId":"ps_g5a_u08_app_average_update","knowledgePointId":"kp_g5a_u08_average_inverse_update","patternGroupId":"pg_g5a_u08_average_reasoning","mode":"application","answerModelId":"averageInverseAnswer","templateFamilyId":"tf_g5a_u08_average_inverse_or_update","sourceEvidenceIds":["src_g5a_u08_p3_panel08"],"allowedDepths":["N_PLUS_1"],"allowedSemanticDeltaIds":["update_population"],"operandBounds":{"oldCountMin":3,"oldCountMax":9,"oldAverageMax":999,"memberValueMax":999},"requiredInvariants":["updated_count_positive","new_average_integer"]}
+    {"patternSpecId":"ps_g5a_u08_app_average_inverse","knowledgePointId":"kp_g5a_u08_average_inverse_update","patternGroupId":"pg_g5a_u08_average_reasoning","mode":"reasoning","contextualReasoning":true,"answerModelId":"averageInverseAnswer","templateFamilyId":"tf_g5a_u08_average_inverse_or_update","sourceEvidenceIds":["src_g5a_u08_p3_panel07"],"allowedDepths":["N_PLUS_1"],"allowedSemanticDeltaIds":["reverse_from_average"],"operandBounds":{"countMin":3,"countMax":8,"averageMax":999},"requiredInvariants":["average_times_count_integer","missing_value_unique_and_nonnegative"]},
+    {"patternSpecId":"ps_g5a_u08_app_average_update","knowledgePointId":"kp_g5a_u08_average_inverse_update","patternGroupId":"pg_g5a_u08_average_reasoning","mode":"reasoning","contextualReasoning":true,"answerModelId":"averageInverseAnswer","templateFamilyId":"tf_g5a_u08_average_inverse_or_update","sourceEvidenceIds":["src_g5a_u08_p3_panel08"],"allowedDepths":["N_PLUS_1"],"allowedSemanticDeltaIds":["update_population"],"operandBounds":{"oldCountMin":3,"oldCountMax":9,"oldAverageMax":999,"memberValueMax":999},"requiredInvariants":["updated_count_positive","new_average_integer"]}
   ],
   "summary": {
     "patternSpecCount":30,
     "numericPatternSpecCount":16,
-    "reasoningPatternSpecCount":3,
-    "applicationPatternSpecCount":11,
+    "reasoningPatternSpecCount":5,
+    "applicationPatternSpecCount":9,
+    "contextualReasoningPatternSpecCount":2,
     "knowledgePointCount":11,
     "patternGroupCount":17,
     "templateFamilyCount":10,
@@ -63,6 +71,8 @@
     "allPatternSpecsHaveDeterministicAnswerModel":true,
     "allPatternSpecsHaveExplicitNumericBoundary":true,
     "allApplicationSpecsHaveTemplateFamily":true,
+    "allContextualReasoningSpecsHaveTemplateFamily":true,
+    "allPatternSpecModesMatchPatternGroupModes":true,
     "allNPlus1SpecsHaveExactlyOneAllowedDelta":true,
     "allSourcePanelsMappedOrCoveredByFamily":true,
     "genericFallbackAllowed":false
@@ -70,7 +80,7 @@
   "goalDistance": {
     "before":"D2_G5A_U08_TEMPLATE_SDG_CONTRACT_FROZEN_FORMAL_RUNTIME_CONTRACT_UNDEFINED",
     "after":"D2_G5A_U08_30_PATTERN_FORMAL_MAPPING_AND_VALIDATOR_CONTRACT_FROZEN",
-    "distanceReduced":"Thirty hidden PatternSpec candidates now have explicit KP/group ownership, answer shapes, numeric boundaries, source/template evidence and blocking validator contracts.",
+    "distanceReduced":"Thirty hidden PatternSpec candidates have explicit KP/group ownership, answer shapes, numeric boundaries, source/template evidence and blocking validator contracts; S60F-R1 additionally aligns average inverse/update with the reasoning group while retaining contextual templates.",
     "remainingBlockers":["PatternSpecs are not materialized into authority and projection","Generators and validators are not implemented","Promotion, UI, worksheet and print are pending"],
     "nextShortestStep":"S60F_G5A_U08_HiddenPatternSpecMaterialization"
   }
