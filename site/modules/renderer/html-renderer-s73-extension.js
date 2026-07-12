@@ -77,12 +77,11 @@ function renderAnswerCell(cell) {
   if (cell?.cellType === "filler") return '<div class="g4b-u04-cell g4b-u04-cell--filler" aria-hidden="true"></div>';
   const item = cell?.answerKeyItem;
   if (!item) throw new Error("G4B_U04_RENDERER_ANSWER_CELL_INVALID");
-  const unit = item.answerUnit ? ` ${escapeHtml(item.answerUnit)}` : "";
   return [
     `<article class="g4b-u04-cell g4b-u04-cell--answer g4b-u04-cell--${escapeHtml(item.renderKind)}" data-render-kind="${escapeHtml(item.renderKind)}" data-answer-shape="${escapeHtml(item.answerModelShape)}">`,
     `<div class="g4b-u04-cell__number">${escapeHtml(`${item.questionNumber}.`)}</div>`,
     `<div class="g4b-u04-cell__prompt g4b-u04-cell__prompt--answer">${escapeHtml(item.promptText)}</div>`,
-    `<div class="g4b-u04-cell__answer"><strong>${escapeHtml(answerLabel(item.answerModelShape))}：</strong>${escapeHtml(item.answerText)}${unit}</div>`,
+    `<div class="g4b-u04-cell__answer"><strong>${escapeHtml(answerLabel(item.answerModelShape))}：</strong>${escapeHtml(item.answerText)}</div>`,
     "</article>",
   ].join("");
 }
