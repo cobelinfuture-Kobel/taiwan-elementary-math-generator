@@ -2,7 +2,7 @@
 
 ```text
 TASK = S60K_G5A_U08_PublicUIPrintAndQueryStateQA
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 ```
 
 ## Public surfaces
@@ -13,11 +13,9 @@ Classic
 Pixel
 ```
 
-All three surfaces use the S60I resolver-derived canonical route and the S60J WorksheetDocument/renderer path.
+All three surfaces use the S60I resolver-derived canonical route and S60J WorksheetDocument/renderer path.
 
 ## Public controls
-
-G5A-U08 knowledge-point mode exposes:
 
 ```text
 questionMode = mixed | numeric | application | reasoning
@@ -25,53 +23,42 @@ depthMode = mixed | N | N_PLUS_1
 contextMode = mixed | daily_life | sdg
 ```
 
-The controls are not shown for other source units or source-unit fallback mode. N+2 and formal-equation modes are absent from every public surface.
+Controls are hidden for unrelated units and source-unit fallback mode. N+2 and formal-equation modes are absent from every public surface.
 
-## Query-state contract
+## Query-state and print lifecycle
 
-Classic and 404 preserve:
+Classic/404 preserve source, KP, PatternGroup, question mode, depth, context, count, ordering, answer-key, seed and layout. Only visible same-unit IDs survive. Invalid controls revert to approved defaults.
 
-```text
-sourceId
-selectionMode
-kp
-pg
-questionMode
-depthMode
-contextMode
-questionCount
-ordering
-answerKey
-generationSeed
-columns
-rowsPerPage
-```
-
-Only visible G5A-U08 KnowledgePoint and PatternGroup IDs survive parsing. Stale, hidden, cross-unit and invalid IDs are dropped. Unsupported control values revert to approved defaults.
-
-## UI and print lifecycle
-
-Any source, KnowledgePoint, PatternGroup, question mode, depth, context, question count, ordering, seed, answer-key or layout change marks the previous preview stale and disables printing until regeneration.
-
-Pixel adds the three G5A controls to both generation-state and print-stale watchers. Classic and Pixel therefore cannot print an old worksheet after a control change.
+Any relevant control change marks the old preview and print output stale. Pixel includes the three G5A controls in both generation-state and print-stale watchers.
 
 ## Public-message policy
 
-Public validation output is Traditional Chinese. Internal KnowledgePoint, PatternGroup, PatternSpec, TemplateFamily, ContextVariant and source identifiers are redacted. Unknown codes fall back to generic Traditional Chinese guidance rather than exposing raw codes.
+Public validation remains Traditional Chinese. Internal KP/group/spec/template/context/source identifiers are redacted. Unknown codes use generic Traditional Chinese guidance.
 
-## QA
+## QA and merge evidence
 
-- 11 visible KnowledgePoints, 17 groups and 30 PatternSpecs;
+```text
+implementation PR = #82
+implementation merge commit = 32c0129e8d0fa3d24fdc2fc28b3230e911347535
+main CI run = 29181053895
+main tests = 970
+main pass = 970
+main fail = 0
+main working tree = clean
+```
+
+The first PR run found one missing pre-existing Pixel Beta limitation sentence. The limitation remained valid and was restored; no test standard was weakened. The second PR run passed Node, S42, Math CI, G4B HTML/PDF smoke and the 14-page containment regression.
+
+Validated behavior:
+
+- 11 visible KPs, 17 groups and 30 PatternSpecs;
 - Classic, fallback404 and Pixel control presence;
-- URL round trip for KP/group/mode/depth/context;
-- stale and cross-unit ID sanitization;
-- invalid N+2/equation-like values reset to defaults;
-- Classic and Pixel N+1 SDG worksheet generation;
-- shared S60J long-text renderer path;
-- answer-key suppression on both UI versions;
+- URL round trip and stale/cross-unit ID sanitization;
+- Classic and Pixel N+1 SDG generation;
+- answer-key suppression;
 - stale-preview and stale-print invalidation;
-- Traditional Chinese public messages and internal-ID redaction;
-- unrelated source-unit state remains unchanged.
+- Traditional Chinese messages and ID redaction;
+- no N+2 or formal equation exposure.
 
 ## Lifecycle boundary
 
@@ -79,16 +66,13 @@ Public validation output is Traditional Chinese. Internal KnowledgePoint, Patter
 productionUse = preview_only_pending_s60l
 ```
 
-S60K proves the public controls and print path but does not grant final production release. Production stress, generated HTML/PDF smoke and D0 closeout remain S60L.
-
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U08_WORKSHEET_ANSWER_KEY_RENDERER_INTEGRATED_PUBLIC_UI_QA_PENDING
-GOAL_DISTANCE_AFTER  = D1_G5A_U08_PUBLIC_UI_PRINT_QUERY_STATE_INTEGRATED_PENDING_CI
-DISTANCE_REDUCED     = Connected question type, N/N+1 depth and daily-life/SDG context controls across Classic, fallback and Pixel, including URL state and stale-print protection.
+GOAL_DISTANCE_AFTER  = D1_G5A_U08_PUBLIC_UI_PRINT_QUERY_STATE_ACCEPTED_PRODUCTION_CLOSEOUT_PENDING
+DISTANCE_REDUCED     = Connected and accepted public question type, N/N+1 depth and daily-life/SDG controls across Classic, fallback and Pixel with URL state and stale-print protection.
 REMAINING_BLOCKERS   = [
-  "S60K PR CI and merge",
   "S60L production stress, HTML/PDF smoke and D0 closeout"
 ]
 NEXT_SHORTEST_STEP = S60L_G5A_U08_ProductionStressHTMLPDFAndD0Closeout
