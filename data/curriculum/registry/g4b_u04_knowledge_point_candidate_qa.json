@@ -2,7 +2,7 @@
   "schemaName": "UnitKnowledgePointCandidateQA",
   "schemaVersion": 1,
   "task": "S63_G4B_U04_KnowledgePointCandidateMapQA",
-  "status": "qa_passed_pending_ci",
+  "status": "qa_passed_ci_synced_and_merged",
   "sourceId": "g4b_u04_4b04",
   "sourceArtifact": "data/curriculum/registry/g4b_u04_knowledge_point_candidates.json",
   "canonicalSkillParent": "rounding_approximation",
@@ -149,6 +149,16 @@
     "sourceIdDecision": "retain_g4b_u04_4b04",
     "reason": "Uploaded filename, unit title and curriculum assignment agree on 4B-U04; only the rendered URL header differs."
   },
+  "ciEvidence": {
+    "implementationPr": 93,
+    "implementationMergeCommit": "30cd046c8fb6eb627629db9485cdcc0744bb6148",
+    "mainCiRun": "29189541957",
+    "mainCiReadbackCommit": "2b5e8e6c7eb4a5dc8786a0b36518c3a02cc0974b",
+    "tests": 989,
+    "pass": 989,
+    "fail": 0,
+    "workingTree": "clean"
+  },
   "scopeBoundary": {
     "knowledgePointRowsPromoted": false,
     "formalMappingCreated": false,
@@ -158,5 +168,6 @@
     "publicSelectorEnabled": false,
     "productionUse": "forbidden"
   },
-  "nextGate": "S64_G4B_U04_FormalMappingCandidateDesign"
+  "nextGate": "S64_G4B_U04_FormalMappingCandidateDesign",
+  "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
 }
