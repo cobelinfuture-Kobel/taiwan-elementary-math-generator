@@ -283,6 +283,10 @@
   display: block;
 }
 
+.pixel-page [data-visible="false"] {
+  display: none !important;
+}
+
 @media (max-width: 920px) {
   .pixel-beta-notice__grid {
     grid-template-columns: 1fr;
