@@ -1,0 +1,162 @@
+{
+  "schemaName": "UnitKnowledgePointCandidateQA",
+  "schemaVersion": 1,
+  "task": "S63_G4B_U04_KnowledgePointCandidateMapQA",
+  "status": "qa_passed_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "sourceArtifact": "data/curriculum/registry/g4b_u04_knowledge_point_candidates.json",
+  "canonicalSkillParent": "rounding_approximation",
+  "summary": {
+    "candidateCount": 12,
+    "acceptedCount": 12,
+    "mergedCount": 0,
+    "splitCount": 0,
+    "rejectedCount": 0,
+    "classCCount": 8,
+    "classDCount": 4
+  },
+  "boundaryDecisions": [
+    {
+      "knowledgePointId": "kp_g4b_u04_approximation_language_cues",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "approximation_language_cues",
+      "boundaryRationale": "Classifies exact versus approximate everyday statements through lexical cues; this is a semantic concept boundary, not notation recognition."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_approximation_symbol_reading",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "approximation_symbol_reading",
+      "boundaryRationale": "Recognizes and reads approximation notation; representation literacy is distinct from identifying approximate language."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_three_approximation_methods_compare",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "rounding_method_comparison",
+      "boundaryRationale": "Compares three methods on the same exact value and supports method-choice questions; it is a meta-strategy boundary rather than direct execution of one method."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_unconditional_round_down",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "unconditional_round_down",
+      "boundaryRationale": "Has a deterministic place-value transformation and a validator rule different from round-up and round-half-up."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_unconditional_round_up",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "unconditional_round_up",
+      "boundaryRationale": "Has a deterministic ceiling-to-place transformation and separate boundary handling from round-down and round-half-up."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_round_half_up_place_value",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "round_half_up_by_place",
+      "boundaryRationale": "Requires retained-place selection, next-digit inspection, carry-or-keep logic and zero filling across multiple places."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "context_floor_ceiling_selection",
+      "boundaryRationale": "Chooses discard or include based on maximum complete groups versus minimum required groups; quotient-remainder semantics are central."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_payment_denomination_ceiling",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "payment_denomination_ceiling",
+      "boundaryRationale": "Adds a unique denomination-to-place mapping and payment-sufficiency constraint; it is not merely a generic minimum-container problem."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_round_then_add_subtract",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "estimate_after_rounding_add_subtract",
+      "boundaryRationale": "Rounds operands before addition or subtraction and preserves large-number answer units; operation hooks differ from multiplication and division."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_round_then_multiply_divide",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "estimate_after_rounding_multiply_divide",
+      "boundaryRationale": "Rounds an operand before product or quotient estimation; multiplication and division constraints differ from add/subtract estimation."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_inverse_rounding_unknown_digit",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "inverse_rounding_digit_set",
+      "boundaryRationale": "Returns a constrained set of valid digits at the rounding-decision place."
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_inverse_rounding_possible_original",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "rounding_approximation",
+      "skillVariant": "inverse_rounding_original_values",
+      "boundaryRationale": "Intersects a rounding interval with fixed visible digits and returns possible original values; this answer shape differs from a single unknown-digit set."
+    }
+  ],
+  "duplicateBoundaryChecks": [
+    {
+      "pair": [
+        "kp_g4b_u04_approximation_language_cues",
+        "kp_g4b_u04_approximation_symbol_reading"
+      ],
+      "result": "distinct",
+      "reason": "semantic classification versus symbolic representation"
+    },
+    {
+      "pair": [
+        "kp_g4b_u04_three_approximation_methods_compare",
+        "kp_g4b_u04_round_half_up_place_value"
+      ],
+      "result": "distinct",
+      "reason": "method comparison versus execution of one algorithm"
+    },
+    {
+      "pair": [
+        "kp_g4b_u04_context_floor_ceiling_selection",
+        "kp_g4b_u04_payment_denomination_ceiling"
+      ],
+      "result": "distinct",
+      "reason": "general quotient-remainder context versus denomination and sufficiency reasoning"
+    },
+    {
+      "pair": [
+        "kp_g4b_u04_round_then_add_subtract",
+        "kp_g4b_u04_round_then_multiply_divide"
+      ],
+      "result": "distinct",
+      "reason": "different operation families and validator contracts"
+    },
+    {
+      "pair": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit",
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "result": "distinct",
+      "reason": "digit-set answer versus constrained original-value set or interval"
+    }
+  ],
+  "sourceAnomalyDisposition": {
+    "code": "source_header_url_unit_mismatch",
+    "status": "recorded_non_blocking",
+    "sourceIdDecision": "retain_g4b_u04_4b04",
+    "reason": "Uploaded filename, unit title and curriculum assignment agree on 4B-U04; only the rendered URL header differs."
+  },
+  "scopeBoundary": {
+    "knowledgePointRowsPromoted": false,
+    "formalMappingCreated": false,
+    "patternSpecsCreated": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "nextGate": "S64_G4B_U04_FormalMappingCandidateDesign"
+}
