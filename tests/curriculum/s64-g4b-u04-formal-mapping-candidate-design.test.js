@@ -65,16 +65,18 @@ test("S64 freezes 17 unique candidate mappings and proposed PatternSpec IDs", as
   }
 });
 
-test("S64 formal rules and numeric boundaries preserve the G4B-U04 rounding contract", async () => {
+test("S64 formal rules and QA-corrected numeric boundaries preserve the G4B-U04 rounding contract", async () => {
   const s64 = await load(S64_URL);
   assert.deepEqual(s64.globalBoundaryCandidate, {
     inputRange: [0, 99999999],
     targetPlaceUnits: [10, 100, 1000, 10000],
     contextGroupSizes: [10, 100, 1000],
+    paymentDenominations: [100, 1000],
     factorOrDivisorRange: [2, 9],
     maxAnswer: 999999999,
     integerOnly: true,
     negativeAnswerAllowed: false,
+    inversePreimageClampedToInputRange: true,
     genericFallbackAllowed: false,
   });
   assert.deepEqual(s64.formalRules, {
@@ -85,7 +87,7 @@ test("S64 formal rules and numeric boundaries preserve the G4B-U04 rounding cont
     ceilingGroups: "ceil(t/g)",
     payment: "ceil(p/d)*d",
     noteCount: "ceil(p/d)",
-    inverse: "[y-u/2,y+u/2-1]",
+    inverse: "intersect([y-u/2,y+u/2-1],[0,maxInput])",
   });
 });
 
@@ -99,6 +101,7 @@ test("S64 keeps semantically different output shapes as separate candidate mappi
   assert.equal(byId.get("fmc_g4b_u04_payment_banknote_count").answer, "banknoteCountAnswer");
   assert.equal(byId.get("fmc_g4b_u04_inverse_digit_set").answer, "digitSetAnswer");
   assert.equal(byId.get("fmc_g4b_u04_inverse_original_values").answer, "possibleValuesAnswer");
+  assert.equal(byId.get("fmc_g4b_u04_method_identify_from_result").answer, "methodSetAnswer");
 
   for (const requiredId of [
     "fmc_g4b_u04_round_then_add",
@@ -124,6 +127,7 @@ test("S64 acceptance counts and scope boundary forbid premature materialization"
     classCMappingCandidateCount: 9,
     classDMappingCandidateCount: 8,
     answerModelCandidateCount: 9,
+    qaCorrectionCount: 3,
     allKnowledgePointsCovered: true,
     allMappingsSourceEvidenced: true,
     allMappingsCandidateOnly: true,
