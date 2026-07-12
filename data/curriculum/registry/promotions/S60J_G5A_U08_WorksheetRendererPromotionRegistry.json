@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "task": "S60J_G5A_U08_WorksheetAnswerKeyAndRendererIntegration",
   "promotionOverlayId": "s60j_g5a_u08_worksheet_renderer_promotion",
-  "basePromotionRegistryId": "s60i_g5a_u08_public_promotion",
+  "basePromotionRegistryId": "s60i_g5a_u08_integer_four_operations_promotion",
   "sourceId": "g5a_u08_5a08",
   "unitCode": "5A-U08",
   "lifecycle": {
