@@ -2,7 +2,7 @@
 
 ```text
 TASK = S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration
-STATUS = PASS_IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 ```
 
@@ -75,6 +75,7 @@ The resolver:
 
 - accepts only promoted G4B-U04 KnowledgePoints and linked PatternGroups;
 - filters groups by the public question mode;
+- in mixed-KP selection, retains the compatible subset and blocks only when the complete scope has no compatible group;
 - derives PatternSpecs from visible authority rather than caller input;
 - ignores arbitrary public PatternSpec injection;
 - preserves canonical S68 PatternSpec order;
@@ -130,6 +131,23 @@ Executable QA covers:
 11. delegated integration-validator zero-output failure;
 12. browser question-router canonical dispatch;
 13. worksheet, renderer and production prohibition.
+
+## CI-driven FullFix
+
+The first PR run found one resolver defect: mixed KnowledgePoint selection with `questionMode` filtering treated each nonmatching KnowledgePoint as a blocking error. The resolver now retains all compatible groups and emits `G4B_U04_CANONICAL_GROUP_NOT_RESOLVED` only when no selected KnowledgePoint contributes any compatible public group. Cross-unit and explicitly unlinked group selections remain blocking.
+
+## CI and merge evidence
+
+```text
+implementation PR          = #111
+implementation merge       = e01a1c9a9d5ac05246412eab12bc8c22e6ce94c8
+main CI run                = 29200201968
+main CI readback commit    = 18178911b018b6ec81b476fecd89118e7518cf9d
+tests                      = 1069
+pass                       = 1069
+fail                       = 0
+working tree               = clean
+```
 
 ## Lifecycle boundary
 
