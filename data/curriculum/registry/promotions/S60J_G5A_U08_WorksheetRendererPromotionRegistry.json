@@ -1,0 +1,54 @@
+{
+  "schemaName": "G5AU08WorksheetRendererPromotionRegistry",
+  "schemaVersion": 1,
+  "task": "S60J_G5A_U08_WorksheetAnswerKeyAndRendererIntegration",
+  "promotionOverlayId": "s60j_g5a_u08_worksheet_renderer_promotion",
+  "basePromotionRegistryId": "s60i_g5a_u08_integer_four_operations_promotion",
+  "sourceId": "g5a_u08_5a08",
+  "unitCode": "5A-U08",
+  "lifecycle": {
+    "selectorStatus": "visible",
+    "runtimeStatus": "blocking_validated_canonical_runtime",
+    "validatorStatus": "blocking_validator_required",
+    "worksheetStatus": "worksheet_eligible",
+    "rendererStatus": "worksheet_renderer_integrated",
+    "productionUse": "preview_only_pending_s60l"
+  },
+  "counts": {
+    "knowledgePoints": 11,
+    "patternGroups": 17,
+    "patternSpecs": 30,
+    "coreAnswerModels": 6,
+    "rendererProfiles": 2
+  },
+  "answerModelShapes": [
+    "numericAnswer",
+    "expressionAnswer",
+    "operatorSequenceAnswer",
+    "equalityJudgementAnswer",
+    "averageInverseAnswer",
+    "allocationTransferAnswer"
+  ],
+  "rendererProfiles": [
+    {
+      "profileId": "g5a_u08_numeric_reasoning_v1",
+      "questionSheet": { "paperSize": "A4", "columns": 3, "rowsPerPage": 8 },
+      "answerKey": { "paperSize": "A4", "columns": 3, "rowsPerPage": 10 }
+    },
+    {
+      "profileId": "g5a_u08_mixed_long_text_v1",
+      "questionSheet": { "paperSize": "A4", "columns": 2, "rowsPerPage": 4 },
+      "answerKey": { "paperSize": "A4", "columns": 1, "rowsPerPage": 6 }
+    }
+  ],
+  "constraints": {
+    "avoidCardSplit": true,
+    "traditionalChineseRequired": true,
+    "internalIdsVisible": false,
+    "answerSuppressionRequired": true,
+    "publicNPlus2": false,
+    "publicFormalEquation": false,
+    "productionReleaseAllowed": false
+  },
+  "requiredNextGate": "S60K_G5A_U08_PublicUIPrintAndQueryStateQA"
+}
