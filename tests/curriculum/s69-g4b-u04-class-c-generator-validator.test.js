@@ -37,9 +37,19 @@ function generate(id, sequence = 0) {
   return generateG4BU04ClassCQuestion({ patternSpecId: id, seed: "s69-test", sequence });
 }
 
-test("S69 freezes exactly the nine S68 Class C PatternSpecs", () => {
+test("S69 freezes exactly the nine S68 Class C PatternSpecs and records closeout evidence", () => {
   const contract = JSON.parse(readFileSync(CONTRACT_PATH, "utf8"));
-  assert.equal(contract.status, "implemented_pending_ci");
+  assert.equal(contract.status, "pass_ci_synced_and_merged");
+  assert.deepEqual(contract.ciEvidence, {
+    implementationPullRequest: 105,
+    implementationMergeCommit: "5b20e45e27a518a08aa3d0b6a4abedac618c5a98",
+    mainCiRun: 29195611817,
+    mainCiReadbackCommit: "95f0669a11a6834ae16d2da391e1825f3f14d0dc",
+    tests: 1034,
+    pass: 1034,
+    fail: 0,
+    workingTree: "clean",
+  });
   assert.equal(G4B_U04_S69_CLASS_C_PATTERN_SPEC_IDS.length, 9);
   assert.deepEqual(contract.patternSpecIds, [...G4B_U04_S69_CLASS_C_PATTERN_SPEC_IDS]);
   for (const id of G4B_U04_S69_CLASS_C_PATTERN_SPEC_IDS) {
