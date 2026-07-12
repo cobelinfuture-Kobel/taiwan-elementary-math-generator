@@ -42,7 +42,7 @@ const options = {
   questionCount: 120,
   ordering: "groupedByPattern",
   includeAnswerKey: true,
-  generationSeed: "s60l-g5a-u08-public-html-pdf-smoke",
+  generationSeed: "s60l-120-all-promoted",
 };
 
 const result = buildBatchABrowserWorksheetDocument(options);
