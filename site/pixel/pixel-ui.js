@@ -22,6 +22,7 @@ import {
   syncPixelWorksheetSelection
 } from "./pixel-worksheet-state.js";
 import { runPixelWorksheetGeneration } from "./pixel-generation-controller.js";
+import { G5A_U08_SOURCE_ID } from "../modules/curriculum/registry/g5a-u08-promotion.js";
 
 const gradeSelect = document.getElementById("pixel-grade-select");
 const semesterSelect = document.getElementById("pixel-semester-select");
@@ -39,6 +40,13 @@ const patternGroupPanel = document.getElementById("pixel-pattern-group-panel");
 const knowledgePointWarningList = document.getElementById("pixel-kp-warning-list");
 const questionCountInput = document.getElementById("pixel-question-count");
 const orderingSelect = document.getElementById("pixel-ordering");
+const questionModeSelect = document.getElementById("pixel-g5a-question-mode");
+const depthModeSelect = document.getElementById("pixel-g5a-depth-mode");
+const contextModeSelect = document.getElementById("pixel-g5a-context-mode");
+const questionModeField = document.getElementById("pixel-g5a-question-mode-field");
+const depthModeField = document.getElementById("pixel-g5a-depth-mode-field");
+const contextModeField = document.getElementById("pixel-g5a-context-mode-field");
+const g5aControlHelp = document.getElementById("pixel-g5a-control-help");
 const generationSeedInput = document.getElementById("pixel-generation-seed");
 const columnsInput = document.getElementById("pixel-columns");
 const rowsPerPageInput = document.getElementById("pixel-rows-per-page");
@@ -66,10 +74,7 @@ function selectedSemester() {
 }
 
 function currentSourceOptions() {
-  return listPixelSourceOptionsByFilter({
-    grade: selectedGrade(),
-    semester: selectedSemester()
-  });
+  return listPixelSourceOptionsByFilter({ grade: selectedGrade(), semester: selectedSemester() });
 }
 
 function selectedSourceSummary() {
@@ -144,6 +149,18 @@ function renderSelectionModeOptions() {
   selectionModeSelect.value = knowledgePointState.selectionMode;
 }
 
+function g5aControlsVisible() {
+  return activeSourceSummary?.sourceId === G5A_U08_SOURCE_ID
+    && knowledgePointState?.selectionMode !== BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+}
+
+function renderG5AControls() {
+  const visible = g5aControlsVisible();
+  for (const element of [questionModeField, depthModeField, contextModeField, g5aControlHelp]) {
+    if (element) element.dataset.visible = visible ? "true" : "false";
+  }
+}
+
 function readWorksheetSettings() {
   return {
     questionCount: Number(questionCountInput?.value ?? 20),
@@ -151,13 +168,16 @@ function readWorksheetSettings() {
     includeAnswerKey: Boolean(answerKeyInput?.checked),
     generationSeed: generationSeedInput?.value ?? "pixel-ui",
     columns: Number(columnsInput?.value ?? 4),
-    rowsPerPage: Number(rowsPerPageInput?.value ?? 10)
+    rowsPerPage: Number(rowsPerPageInput?.value ?? 10),
+    questionMode: questionModeSelect?.value ?? "mixed",
+    depthMode: depthModeSelect?.value ?? "mixed",
+    contextMode: contextModeSelect?.value ?? "mixed",
   };
 }
 
 function renderWorksheetPlan(plan = getPixelWorksheetPlan(worksheetState)) {
   if (planSummary) {
-    planSummary.textContent = [
+    const details = [
       `單元：${activeSourceSummary?.label ?? "尚未選擇"}`,
       `模式：${getPixelSelectionModeLabel(plan.selectionMode)}`,
       `題數：${plan.questionCount}`,
@@ -165,8 +185,12 @@ function renderWorksheetPlan(plan = getPixelWorksheetPlan(worksheetState)) {
       `知識點：${plan.selectedKnowledgePointIds.length}`,
       `題目形式：${plan.selectedPatternGroupIds.length}`,
       `答案頁：${plan.includeAnswerKey ? "是" : "否"}`,
-      `版面：${plan.printLayout.columns} 欄 × 每頁 ${plan.printLayout.rowsPerPage} 列`
-    ].join("｜");
+      `版面：${plan.printLayout.columns} 欄 × 每頁 ${plan.printLayout.rowsPerPage} 列`,
+    ];
+    if (plan.sourceId === G5A_U08_SOURCE_ID) {
+      details.push(`類型：${plan.questionMode}`, `深度：${plan.depthMode}`, `情境：${plan.contextMode}`);
+    }
+    planSummary.textContent = details.join("｜");
   }
   document.body.dataset.pixelQuestionCount = String(plan.questionCount);
   document.body.dataset.pixelOrdering = plan.ordering;
@@ -174,6 +198,10 @@ function renderWorksheetPlan(plan = getPixelWorksheetPlan(worksheetState)) {
   document.body.dataset.pixelGenerationSeed = plan.generationSeed;
   document.body.dataset.pixelColumns = String(plan.printLayout.columns);
   document.body.dataset.pixelRowsPerPage = String(plan.printLayout.rowsPerPage);
+  document.body.dataset.pixelQuestionMode = plan.questionMode ?? "";
+  document.body.dataset.pixelDepthMode = plan.depthMode ?? "";
+  document.body.dataset.pixelContextMode = plan.contextMode ?? "";
+  renderG5AControls();
 }
 
 function renderGenerateButtonState() {
@@ -192,6 +220,7 @@ function markGenerationStale() {
   generationStatus.dataset.status = "stale";
   generationStatus.textContent = "設定已變更，請重新產生考卷。";
   document.body.dataset.pixelGenerationStatus = "stale";
+  document.dispatchEvent(new CustomEvent("pixel:worksheet-stale"));
 }
 
 function renderGenerationExecution(execution) {
@@ -272,12 +301,12 @@ function renderPatternGroupSelector() {
   patternGroupSection.dataset.visible = visible ? "true" : "false";
   if (!visible) {
     patternGroupHelp.textContent = knowledgePointState.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
-      ? "切換到知識點模式後，可選擇計算題或應用題。"
+      ? "切換到知識點模式後，可選擇計算題、應用題或推理題。"
       : "目前選取的知識點只有一種題目形式，系統已自動套用。";
     return;
   }
 
-  patternGroupHelp.textContent = "可同時選擇計算題與應用題；每個知識點至少保留一種形式。";
+  patternGroupHelp.textContent = "可同時選擇計算題、應用題與推理題；每個知識點至少保留一種形式。";
   for (const choices of groupsByKnowledgePoint.values()) {
     const section = document.createElement("section");
     section.className = "pixel-pattern-group-choice";
@@ -405,7 +434,7 @@ function renderSummary() {
   if (kpCount) kpCount.textContent = String(summary.visibleKnowledgePoints.length);
   if (unitMeta) unitMeta.textContent = `${summary.grade} 年級｜${summary.semesterLabel}｜${summary.domain}`;
   document.body.dataset.pixelSelectedSourceId = summary.sourceId;
-  syncKnowledgePointSelector(summary.sourceId, true);
+  syncKnowledgePointSelector(summary.sourceId, false);
 }
 
 function syncFilteredSelectors() {
@@ -432,7 +461,17 @@ selectionModeSelect?.addEventListener("change", () => {
   renderSelectionModeOptions();
   renderKnowledgePointSelector();
 });
-for (const control of [questionCountInput, orderingSelect, generationSeedInput, columnsInput, rowsPerPageInput, answerKeyInput]) {
+for (const control of [
+  questionCountInput,
+  orderingSelect,
+  generationSeedInput,
+  columnsInput,
+  rowsPerPageInput,
+  answerKeyInput,
+  questionModeSelect,
+  depthModeSelect,
+  contextModeSelect
+]) {
   control?.addEventListener("change", syncWorksheetPlan);
   if (control?.tagName === "INPUT" && control.type !== "checkbox") control.addEventListener("input", syncWorksheetPlan);
 }
