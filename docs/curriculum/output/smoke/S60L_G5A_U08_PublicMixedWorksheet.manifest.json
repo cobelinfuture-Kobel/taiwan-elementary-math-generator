@@ -1,0 +1,62 @@
+{
+  "schemaName": "G5AU08PublicMixedWorksheetSmokeManifest",
+  "schemaVersion": 1,
+  "task": "S60L_G5A_U08_ProductionStressHTMLPDFAndD0Closeout",
+  "status": "public_html_pdf_smoke_pass",
+  "productionPromotionOverlayId": "s60l_g5a_u08_production_promotion",
+  "productionPromotionActivationStatus": "production_promotion_accepted",
+  "productionUse": "allowed",
+  "canonicalPublicPath": true,
+  "questionCount": 120,
+  "answerKeyItemCount": 120,
+  "questionPageCount": 15,
+  "answerKeyPageCount": 20,
+  "expectedPdfPageCount": 35,
+  "actualPdfPageCount": 35,
+  "visibleKnowledgePointCount": 11,
+  "visiblePatternGroupCount": 17,
+  "promotedPatternSpecCount": 30,
+  "reachedKnowledgePointCount": 11,
+  "reachedPatternGroupCount": 17,
+  "reachedPatternSpecCount": 30,
+  "reachedTemplateFamilyCount": 10,
+  "reachedSdgGoalCount": 8,
+  "reachedAnswerModelCount": 6,
+  "modes": [
+    "application",
+    "numeric",
+    "reasoning"
+  ],
+  "depths": [
+    "N",
+    "N_PLUS_1"
+  ],
+  "contexts": [
+    "daily_life",
+    "sdg"
+  ],
+  "validationErrorCount": 0,
+  "internalIdLeakCount": 0,
+  "unresolvedPlaceholderCount": 0,
+  "rendererProfileId": "g5a_u08_mixed_long_text_v1",
+  "questionLayout": {
+    "columns": 2,
+    "rowsPerPage": 4
+  },
+  "answerKeyLayout": {
+    "columns": 1,
+    "rowsPerPage": 6
+  },
+  "generationSeed": "s60l-g5a-u08-public-html-pdf-smoke",
+  "htmlQuestionCellCount": 120,
+  "htmlAnswerCellCount": 120,
+  "htmlSha256": "3def772880349a324116ff593a606bbaa9f46b1c6ef887e8bd297043f7510c36",
+  "pdfSha256": "6837b467ad5ac27198f59067178aa90c60a87eb74d9c511fe680944902f64033",
+  "pdfBytes": 508081,
+  "renderedPageImageCount": 35,
+  "nonblankRenderedPageCount": 35,
+  "cjkGlyphRendering": "pass",
+  "visualRenderVerification": "all_pages_rendered_nonblank_and_contained",
+  "domOverflowCount": 0,
+  "pdfBoundingBoxOverflowCount": 0
+}
