@@ -22,7 +22,10 @@ import {
   G4B_U04_WORKSHEET_LIFECYCLE,
   G4B_U04_WORKSHEET_PROMOTION_OVERLAY_ID,
 } from "../registry/g4b-u04-worksheet-promotion.js";
-import { G4B_U04_PROMOTION_REGISTRY_ID } from "../registry/g4b-u04-promotion.js";
+import {
+  G4B_U04_PROMOTION_REGISTRY_ID,
+  G4B_U04_SOURCE_ID,
+} from "../registry/g4b-u04-promotion.js";
 
 export const G4B_U04_CANONICAL_WORKSHEET_INTEGRATION = Object.freeze({
   task: "S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration",
@@ -264,7 +267,19 @@ export function isS73G4BU04WorksheetOptions(options = {}) {
 
 export function buildBatchABrowserWorksheetDocument(options = {}) {
   const initialPlan = normalizeG4BU04ResolverPlan(buildBatchABrowserPlan(options));
-  if (classifyG4BU04CanonicalRouterPlan(initialPlan) !== G4B_U04_CANONICAL_ROUTE_KINDS.CANONICAL) {
+  const routeKind = classifyG4BU04CanonicalRouterPlan(initialPlan);
+  if (initialPlan.sourceId === G4B_U04_SOURCE_ID && routeKind !== G4B_U04_CANONICAL_ROUTE_KINDS.CANONICAL) {
+    const errors = initialPlan.resolverResult?.errors?.length > 0
+      ? cloneValue(initialPlan.resolverResult.errors)
+      : [{
+        code: "G4B_U04_WORKSHEET_CANONICAL_ROUTE_REQUIRED",
+        severity: "error",
+        path: "routeKind",
+        message: "G4B-U04 Worksheet 必須使用有效的 canonical KnowledgePoint route。",
+      }];
+    return failedResult(errors, cloneValue(initialPlan.resolverResult?.warnings ?? []), { plan: initialPlan });
+  }
+  if (routeKind !== G4B_U04_CANONICAL_ROUTE_KINDS.CANONICAL) {
     return buildBaseBatchABrowserWorksheetDocument(options);
   }
 
