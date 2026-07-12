@@ -26,8 +26,7 @@ function escapeHtml(value) {
 }
 
 function isG5AU08Document(document = {}) {
-  return G5A_U08_RENDERER_INTEGRATION.profileIds.includes(document?.rendererProfile?.profileId)
-    || document?.batchA?.sourceId === "g5a_u08_5a08";
+  return G5A_U08_RENDERER_INTEGRATION.profileIds.includes(document?.rendererProfile?.profileId);
 }
 
 function answerLabel(shape) {
