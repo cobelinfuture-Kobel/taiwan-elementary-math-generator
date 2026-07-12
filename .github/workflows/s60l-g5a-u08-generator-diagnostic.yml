@@ -15,7 +15,7 @@ permissions:
 jobs:
   generator-diagnostic:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,34 +25,95 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install project dependencies
-        run: npm install
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
 
-      - name: Run S60L smoke generator with diagnostics
-        id: generate
+      - name: Generate canonical HTML
         shell: bash
         run: |
           set -o pipefail
-          mkdir -p /tmp/s60l-generator-diagnostic
+          mkdir -p /tmp/s60l-diagnostic
           node tools/curriculum/generate-s60l-g5a-u08-public-smoke.mjs \
-            2>&1 | tee /tmp/s60l-generator-diagnostic/generator.log
+            2>&1 | tee /tmp/s60l-diagnostic/generator.log
 
-      - name: Capture generated files when present
+      - name: Print diagnostic PDF
+        shell: bash
+        run: |
+          set -o pipefail
+          node --input-type=module <<'NODE' 2>&1 | tee /tmp/s60l-diagnostic/pdf-print.log
+          import { chromium } from 'playwright';
+          import { pathToFileURL } from 'node:url';
+          import { resolve } from 'node:path';
+          const htmlPath = resolve('docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html');
+          const pdfPath = resolve('docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf');
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage({ viewport: { width: 1280, height: 960 } });
+          await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
+          await page.emulateMedia({ media: 'print' });
+          await page.pdf({
+            path: pdfPath,
+            format: 'A4',
+            printBackground: true,
+            preferCSSPageSize: true,
+            margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' }
+          });
+          await browser.close();
+          NODE
+
+      - name: Run manifest finalization diagnostic
+        shell: bash
+        run: |
+          set -o pipefail
+          python3 <<'PY' 2>&1 | tee /tmp/s60l-diagnostic/finalization.log
+          import json
+          from pathlib import Path
+          from pypdf import PdfReader
+          root = Path('docs/curriculum/output/smoke')
+          pdf_path = root / 'S60L_G5A_U08_PublicWorksheet.pdf'
+          manifest_path = root / 'S60L_G5A_U08_PublicWorksheet.manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          reader = PdfReader(str(pdf_path))
+          texts = [(page.extract_text() or '') for page in reader.pages]
+          all_text = ''.join(texts)
+          report = {
+              'expectedPdfPageCount': manifest['expectedPdfPageCount'],
+              'actualPdfPageCount': len(reader.pages),
+              'lastPageTextLength': len(texts[-1]) if texts else 0,
+              'containsIntegerOperationsTitle': '整數四則' in all_text,
+              'containsAnswerPageTitle': '答案頁' in all_text,
+              'firstPageTextSample': texts[0][:300] if texts else '',
+              'lastPageTextSample': texts[-1][:300] if texts else '',
+          }
+          print(json.dumps(report, ensure_ascii=False, indent=2))
+          if not report['containsIntegerOperationsTitle'] or not report['containsAnswerPageTitle']:
+              raise SystemExit('Traditional Chinese title or answer page missing from PDF text')
+          if report['actualPdfPageCount'] != report['expectedPdfPageCount']:
+              raise SystemExit(f"PDF page mismatch: {report['actualPdfPageCount']}/{report['expectedPdfPageCount']}")
+          if report['lastPageTextLength'] == 0:
+              raise SystemExit('last answer page is blank')
+          PY
+
+      - name: Capture diagnostic files
         if: always()
         shell: bash
         run: |
-          mkdir -p /tmp/s60l-generator-diagnostic/generated
-          cp -f docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html \
-            /tmp/s60l-generator-diagnostic/generated/ 2>/dev/null || true
-          cp -f docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.manifest.json \
-            /tmp/s60l-generator-diagnostic/generated/ 2>/dev/null || true
-          git status --short > /tmp/s60l-generator-diagnostic/git-status.txt
+          mkdir -p /tmp/s60l-diagnostic/generated
+          cp -f docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html /tmp/s60l-diagnostic/generated/ 2>/dev/null || true
+          cp -f docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf /tmp/s60l-diagnostic/generated/ 2>/dev/null || true
+          cp -f docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.manifest.json /tmp/s60l-diagnostic/generated/ 2>/dev/null || true
+          git status --short > /tmp/s60l-diagnostic/git-status.txt
 
-      - name: Upload S60L generator diagnostics
+      - name: Upload S60L diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: s60l-g5a-u08-generator-diagnostic
           if-no-files-found: error
           retention-days: 7
-          path: /tmp/s60l-generator-diagnostic
+          path: /tmp/s60l-diagnostic
