@@ -1,0 +1,108 @@
+{
+  "schemaName": "G4BU04ClassCAndDIntegrationGate",
+  "schemaVersion": 1,
+  "task": "S71_G4B_U04_ClassCAndDIntegrationGate",
+  "status": "implemented_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "dependsOn": [
+    "data/curriculum/contracts/S68_G4B_U04_HiddenMaterializationCloseout.json",
+    "data/curriculum/runtime/S69_G4B_U04_ClassCRuntimeContract.json",
+    "data/curriculum/runtime/S70_G4B_U04_ClassDSemanticRuntimeContract.json",
+    "data/curriculum/contracts/S66_G4B_U04_PatternSpecContractDesign.json",
+    "data/curriculum/contracts/S67_G4B_U04_PatternSpecContractQA.json"
+  ],
+  "effectiveContractLoadOrder": [
+    "S66_G4B_U04_PatternSpecContractDesign",
+    "S67_G4B_U04_PatternSpecContractQA",
+    "S68_G4B_U04_FormalMappingAndHiddenPatternSpecMaterialization",
+    "S69_G4B_U04_ClassCGeneratorAndBlockingValidator",
+    "S70_G4B_U04_ClassDSemanticGeneratorAndBlockingValidator",
+    "S71_G4B_U04_ClassCAndDIntegrationGate"
+  ],
+  "coverage": {
+    "knowledgePointCount": 12,
+    "patternGroupCount": 12,
+    "patternSpecCount": 17,
+    "classCPatternSpecCount": 9,
+    "classDPatternSpecCount": 8,
+    "conceptPatternSpecCount": 4,
+    "numericPatternSpecCount": 3,
+    "applicationPatternSpecCount": 4,
+    "operationEstimationPatternSpecCount": 4,
+    "reasoningPatternSpecCount": 2,
+    "answerModelCount": 9,
+    "controlledTemplateFamilyCount": 9,
+    "sharedBlockingCodeCount": 44,
+    "integrationBlockingCodeCount": 14,
+    "validatorStageCount": 8,
+    "maximumBatchCount": 1000,
+    "orderingModes": ["groupedByPattern", "shuffleAcrossPatterns"],
+    "coverageModes": ["fullAuthority", "selectedPatterns"]
+  },
+  "integrationContract": {
+    "authorityDrivenClassRouting": true,
+    "classCAndDDisjoint": true,
+    "classCAndDUnionComplete": true,
+    "canonicalPatternOrderRequired": true,
+    "fullAuthorityPatternSetRequiredByDefault": true,
+    "hiddenSelectedPatternModeAvailable": true,
+    "deterministicSeedReplay": true,
+    "exactQuestionCount": true,
+    "balancedPatternAllocation": true,
+    "classAllocationDerivedFromPatternAllocation": true,
+    "modeAllocationDerivedFromPatternAllocation": true,
+    "duplicateQuestionIdsForbidden": true,
+    "crossClassRoutingForbidden": true,
+    "delegatedClassValidatorErrorsPreserved": true,
+    "batchZeroOutputOnAnyBlockingError": true,
+    "freeFormAI": "forbidden",
+    "genericFallback": "forbidden"
+  },
+  "gateAcceptance": {
+    "fullAuthoritySeventeenQuestionSmoke": true,
+    "allNineAnswerModelsCovered": true,
+    "allFiveModesCovered": true,
+    "mixedClassSelectedPatternSmoke": true,
+    "oneThousandQuestionGroupedStress": true,
+    "oneThousandQuestionShuffledStress": true,
+    "crossClassMutationGate": true,
+    "allocationMutationGate": true,
+    "delegatedClassCMutationGate": true,
+    "delegatedClassDMutationGate": true,
+    "lifecycleMutationGate": true
+  },
+  "lifecycle": {
+    "integrationStatus": "hidden_gate_implemented",
+    "selectorVisibility": "hidden",
+    "canonicalRouting": "disabled",
+    "worksheetEligible": false,
+    "rendererConnected": false,
+    "productionUse": "forbidden"
+  },
+  "scopeBoundary": {
+    "classCGeneratorModified": false,
+    "classCValidatorModified": false,
+    "classDGeneratorModified": false,
+    "classDValidatorModified": false,
+    "publicSelectorEnabled": false,
+    "canonicalResolverConnected": false,
+    "worksheetPathConnected": false,
+    "answerKeyPathConnected": false,
+    "rendererConnected": false,
+    "htmlPdfSmokeImplemented": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D1_G4B_U04_CLASS_C_AND_D_RUNTIME_IMPLEMENTED_HIDDEN",
+    "after": "D1_G4B_U04_CLASS_C_AND_D_INTEGRATION_GATE_LOCKED_HIDDEN",
+    "distanceReduced": "Unified all 17 PatternSpecs behind an authority-driven hidden mixed generator and blocking-validation gate.",
+    "remainingBlockers": [
+      "Canonical resolver and promotion contract not connected",
+      "Public selector not enabled",
+      "Worksheet, answer key and renderer path not connected",
+      "HTML/PDF production stress and D0 closeout not completed"
+    ],
+    "nextShortestStep": "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}
