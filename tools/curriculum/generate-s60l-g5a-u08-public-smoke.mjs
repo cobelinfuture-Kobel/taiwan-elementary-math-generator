@@ -78,11 +78,13 @@ const forbidden = [
   "cv_sdg",
   "N_PLUS_2",
   "formal_equation",
-  "{{",
-  "}}",
 ];
 const leaks = forbidden.filter((token) => htmlContents.includes(token));
+const unresolvedPlaceholders = [...htmlContents.matchAll(/\{\{\s*[A-Za-z0-9_.-]+\s*\}\}/g)].map((match) => match[0]);
 if (leaks.length > 0) throw new Error(`Forbidden public tokens: ${leaks.join(", ")}`);
+if (unresolvedPlaceholders.length > 0) {
+  throw new Error(`Unresolved semantic placeholders: ${[...new Set(unresolvedPlaceholders)].join(", ")}`);
+}
 const questionCells = count(htmlContents, '<article class="g5a-u08-cell g5a-u08-cell--question');
 const answerCells = count(htmlContents, '<article class="g5a-u08-cell g5a-u08-cell--answer');
 if (questionCells !== 120 || answerCells !== 120) {
@@ -118,7 +120,7 @@ const manifest = {
   contexts: [...new Set(questions.map((row) => row.context?.contextType).filter(Boolean))].sort(),
   validationErrorCount: result.validation?.errors?.length ?? 0,
   internalIdLeakCount: leaks.length,
-  unresolvedPlaceholderCount: 0,
+  unresolvedPlaceholderCount: unresolvedPlaceholders.length,
   rendererProfileId: document.rendererProfile.profileId,
   questionLayout: { columns: document.printOptions.columns, rowsPerPage: document.printOptions.rowsPerPage },
   answerKeyLayout: { columns: document.printOptions.answerKeyColumns, rowsPerPage: document.printOptions.answerKeyRowsPerPage },
