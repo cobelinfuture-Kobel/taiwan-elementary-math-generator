@@ -93,10 +93,12 @@ test("S62 locks the expected concept, numeric, contextual, operation and inverse
   ];
   assert.deepEqual([...ids].sort(), [...expected].sort());
 
-  const classCounts = Object.groupBy(
-    registry.knowledgePoints,
-    (row) => row.implementationClassCandidate,
+  const classCounts = registry.knowledgePoints.reduce(
+    (counts, row) => {
+      counts[row.implementationClassCandidate] += 1;
+      return counts;
+    },
+    { C: 0, D: 0 },
   );
-  assert.equal(classCounts.C.length, 8);
-  assert.equal(classCounts.D.length, 4);
+  assert.deepEqual(classCounts, { C: 8, D: 4 });
 });
