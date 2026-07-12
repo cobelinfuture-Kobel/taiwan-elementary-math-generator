@@ -83,8 +83,8 @@ const forbidden = [
 ];
 const leaks = forbidden.filter((token) => htmlContents.includes(token));
 if (leaks.length > 0) throw new Error(`Forbidden public tokens: ${leaks.join(", ")}`);
-const questionCells = count(htmlContents, "g5a-u08-cell--question");
-const answerCells = count(htmlContents, "g5a-u08-cell--answer");
+const questionCells = count(htmlContents, '<article class="g5a-u08-cell g5a-u08-cell--question');
+const answerCells = count(htmlContents, '<article class="g5a-u08-cell g5a-u08-cell--answer');
 if (questionCells !== 120 || answerCells !== 120) {
   throw new Error(`HTML cell mismatch: questions=${questionCells}, answers=${answerCells}`);
 }
