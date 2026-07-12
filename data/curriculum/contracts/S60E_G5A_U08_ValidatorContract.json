@@ -1,0 +1,125 @@
+{
+  "schemaName": "G5AU08ValidatorContract",
+  "schemaVersion": 1,
+  "task": "S60E_G5A_U08_FormalMappingAnswerModelValidatorContract",
+  "sourceId": "g5a_u08_5a08",
+  "blockingErrorCodes": [
+    "G5A_U08_SOURCE_ID_MISMATCH",
+    "G5A_U08_KNOWLEDGE_POINT_MISMATCH",
+    "G5A_U08_PATTERN_GROUP_MISMATCH",
+    "G5A_U08_PATTERN_SPEC_MISMATCH",
+    "G5A_U08_MODE_MISMATCH",
+    "G5A_U08_DEPTH_NOT_ALLOWED",
+    "G5A_U08_SEMANTIC_DELTA_COUNT_INVALID",
+    "G5A_U08_SEMANTIC_DELTA_NOT_ALLOWED",
+    "G5A_U08_N_PLUS_2_FORBIDDEN_IN_CORE",
+    "G5A_U08_NUMERIC_ANSWER_INCORRECT",
+    "G5A_U08_EXPRESSION_PARSE_FAILED",
+    "G5A_U08_EXPRESSION_NOT_EQUIVALENT",
+    "G5A_U08_OPERATION_SIGNATURE_MISMATCH",
+    "G5A_U08_REQUIRED_FACT_UNUSED",
+    "G5A_U08_FACT_USED_MORE_THAN_ONCE",
+    "G5A_U08_SINGLE_EXPRESSION_REQUIRED",
+    "G5A_U08_ILLEGAL_SUBTRACTION_REGROUP",
+    "G5A_U08_ILLEGAL_DIVISION_REGROUP",
+    "G5A_U08_DIVISION_BY_ZERO",
+    "G5A_U08_NONINTEGER_RESULT_FORBIDDEN",
+    "G5A_U08_NONINTEGER_INTERMEDIATE_WITHOUT_REGROUPING",
+    "G5A_U08_OPERATOR_SEQUENCE_INCORRECT",
+    "G5A_U08_OPERATOR_SEQUENCE_AMBIGUOUS",
+    "G5A_U08_EQUALITY_JUDGEMENT_INCORRECT",
+    "G5A_U08_ERROR_TYPE_INCORRECT",
+    "G5A_U08_AVERAGE_CONTRACT_BROKEN",
+    "G5A_U08_AVERAGE_MISSING_VALUE_NOT_UNIQUE",
+    "G5A_U08_ALLOCATION_TRANSFER_INCORRECT",
+    "G5A_U08_ROLE_BINDING_INVALID",
+    "G5A_U08_UNIT_FLOW_INVALID",
+    "G5A_U08_NEGATIVE_QUANTITY_FORBIDDEN",
+    "G5A_U08_IMPOSSIBLE_ALLOCATION",
+    "G5A_U08_PAYMENT_INSUFFICIENT",
+    "G5A_U08_SDG_LABEL_ONLY_CONTEXT",
+    "G5A_U08_REAL_STATISTIC_SOURCE_REQUIRED",
+    "G5A_U08_GENERIC_FALLBACK_FORBIDDEN"
+  ],
+  "warningCodes": [
+    "G5A_U08_NONPREFERRED_BUT_VALID_STRATEGY",
+    "G5A_U08_DUPLICATE_SURFACE_CONTEXT",
+    "G5A_U08_CHALLENGE_REPRESENTATION_AVAILABLE"
+  ],
+  "validationStages": [
+    {
+      "stage":"identity",
+      "blockingCodes":["G5A_U08_SOURCE_ID_MISMATCH","G5A_U08_KNOWLEDGE_POINT_MISMATCH","G5A_U08_PATTERN_GROUP_MISMATCH","G5A_U08_PATTERN_SPEC_MISMATCH","G5A_U08_MODE_MISMATCH"]
+    },
+    {
+      "stage":"depth_and_semantics",
+      "blockingCodes":["G5A_U08_DEPTH_NOT_ALLOWED","G5A_U08_SEMANTIC_DELTA_COUNT_INVALID","G5A_U08_SEMANTIC_DELTA_NOT_ALLOWED","G5A_U08_N_PLUS_2_FORBIDDEN_IN_CORE"]
+    },
+    {
+      "stage":"arithmetic_and_expression",
+      "blockingCodes":["G5A_U08_NUMERIC_ANSWER_INCORRECT","G5A_U08_EXPRESSION_PARSE_FAILED","G5A_U08_EXPRESSION_NOT_EQUIVALENT","G5A_U08_OPERATION_SIGNATURE_MISMATCH","G5A_U08_REQUIRED_FACT_UNUSED","G5A_U08_FACT_USED_MORE_THAN_ONCE","G5A_U08_SINGLE_EXPRESSION_REQUIRED","G5A_U08_ILLEGAL_SUBTRACTION_REGROUP","G5A_U08_ILLEGAL_DIVISION_REGROUP","G5A_U08_DIVISION_BY_ZERO","G5A_U08_NONINTEGER_RESULT_FORBIDDEN","G5A_U08_NONINTEGER_INTERMEDIATE_WITHOUT_REGROUPING"]
+    },
+    {
+      "stage":"structured_reasoning",
+      "blockingCodes":["G5A_U08_OPERATOR_SEQUENCE_INCORRECT","G5A_U08_OPERATOR_SEQUENCE_AMBIGUOUS","G5A_U08_EQUALITY_JUDGEMENT_INCORRECT","G5A_U08_ERROR_TYPE_INCORRECT","G5A_U08_AVERAGE_CONTRACT_BROKEN","G5A_U08_AVERAGE_MISSING_VALUE_NOT_UNIQUE","G5A_U08_ALLOCATION_TRANSFER_INCORRECT"]
+    },
+    {
+      "stage":"context_and_units",
+      "blockingCodes":["G5A_U08_ROLE_BINDING_INVALID","G5A_U08_UNIT_FLOW_INVALID","G5A_U08_NEGATIVE_QUANTITY_FORBIDDEN","G5A_U08_IMPOSSIBLE_ALLOCATION","G5A_U08_PAYMENT_INSUFFICIENT","G5A_U08_SDG_LABEL_ONLY_CONTEXT","G5A_U08_REAL_STATISTIC_SOURCE_REQUIRED"]
+    },
+    {
+      "stage":"production_gate",
+      "blockingCodes":["G5A_U08_GENERIC_FALLBACK_FORBIDDEN"]
+    }
+  ],
+  "contracts": {
+    "zeroOutputOnBlockingError": true,
+    "warningsAreNonblocking": true,
+    "unknownErrorCodeAllowed": false,
+    "validatorMayAssignVerifiedStatus": false,
+    "numericCoincidenceOverridesSemanticFailure": false,
+    "genericFallbackAllowed": false,
+    "publicMessagesMustBeTraditionalChinese": true,
+    "publicMessagesMayExposeInternalIds": false
+  },
+  "specialRules": {
+    "subtraction":"Treat terms with signs or prove exact AST equivalence; never reorder subtraction as if associative.",
+    "division":"Preserve left-to-right direction; continuous division may normalize to division by the product of divisors.",
+    "factorRegrouping":"Noninteger left-to-right intermediate values are allowed only when the PatternSpec explicitly permits legal factor regrouping and the final value is integer.",
+    "singleExpression":"Application source panels marked requiresSingleExpression must include one parseable expression using every required fact exactly once.",
+    "operatorInference":"The operator sequence must be unique over the allowed operator set.",
+    "average":"total = average × count; inverse and update variants must have unique integer outcomes.",
+    "allocationTransfer":"After the reported transfer, all declared participants must match the computed average share.",
+    "sdg":"SDG context must alter a quantity role or relation; decorative labels are blocking failures."
+  },
+  "mutationRequirements": [
+    "wrong_numeric_answer",
+    "illegal_subtraction_reorder",
+    "illegal_division_reorder",
+    "wrong_operation_signature",
+    "required_fact_omitted",
+    "fact_used_twice",
+    "two_semantic_deltas_in_n_plus_1",
+    "unallowlisted_semantic_delta",
+    "ambiguous_operator_sequence",
+    "wrong_equality_error_type",
+    "noninteger_average",
+    "wrong_transfer_direction",
+    "role_swap",
+    "unit_flow_break",
+    "negative_remaining_quantity",
+    "impossible_group_selection",
+    "insufficient_payment",
+    "sdg_label_only",
+    "fake_real_statistic",
+    "generic_fallback_attempt"
+  ],
+  "acceptance": {
+    "blockingErrorCodeCount":36,
+    "warningCodeCount":3,
+    "validationStageCount":6,
+    "mutationRequirementCount":20,
+    "zeroOutputOnBlockingError":true,
+    "genericFallbackAllowed":false
+  }
+}
