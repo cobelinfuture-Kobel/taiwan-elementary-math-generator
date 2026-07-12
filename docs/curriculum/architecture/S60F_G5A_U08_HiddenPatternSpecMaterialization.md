@@ -2,23 +2,42 @@
 
 ```text
 TASK = S60F_G5A_U08_HiddenPatternSpecMaterialization
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = FULLFIXED_PENDING_CI
+FULLFIX_TASK = S60F_R1_G5A_U08_AverageReasoningModeConsistency_FullFix
 ```
 
 ## Result
 
-The S60E FormalMapping is materialized as an authoritative hidden registry and a browser-neutral frozen projection.
+The corrected S60E FormalMapping is materialized as an authoritative hidden registry and a browser-neutral frozen projection.
 
 ```text
 PatternGroups = 17
 PatternSpecs = 30
 numeric = 16
-reasoning = 3
-application = 11
+reasoning = 5
+application = 9
+contextual reasoning = 2
 visible = 0
 routed = 0
 production = 0
 ```
+
+## S60F-R1 correction
+
+The original S60F gate correctly rejected two PatternSpecs whose `mode` did not match their owning reasoning group:
+
+- `ps_g5a_u08_app_average_inverse`
+- `ps_g5a_u08_app_average_update`
+
+Both are now `mode = reasoning`, remain assigned to `pg_g5a_u08_average_reasoning`, and retain their application-style semantic template through the explicit `contextualReasoning = true` contract.
+
+The fix is applied at every authority boundary:
+
+- S60E FormalMapping;
+- S60F authoritative registry;
+- browser-neutral projection;
+- mode distribution summaries;
+- S60E and S60F regression tests.
 
 ## Lifecycle
 
@@ -37,10 +56,12 @@ The historical S43E13 overlay remains unchanged. S60F is the new hidden authorit
 
 ## Drift protection
 
-Static QA compares all authority and projection fields:
+Static QA compares:
 
 - PatternGroup ID, KP, mode and member specs;
-- PatternSpec ID, group, KP, mode, answer model, TemplateFamily and order;
+- PatternSpec ID, group, KP, mode, answer model, TemplateFamily, contextual-reasoning flag and order;
+- S60E FormalMapping against S60F authority;
+- S60F authority against browser projection;
 - complete non-overlapping group membership;
 - deep-frozen browser projection;
 - hidden/no-routing/no-production lifecycle.
@@ -48,10 +69,11 @@ Static QA compares all authority and projection fields:
 ## Distance closeout
 
 ```text
-GOAL_DISTANCE_BEFORE = D2_G5A_U08_30_PATTERN_FORMAL_MAPPING_AND_VALIDATOR_CONTRACT_FROZEN
-GOAL_DISTANCE_AFTER  = D2_G5A_U08_30_HIDDEN_PATTERNSPECS_MATERIALIZED
-DISTANCE_REDUCED     = 17 hidden PatternGroups and 30 hidden PatternSpecs now exist as a drift-checked authority and browser projection.
+GOAL_DISTANCE_BEFORE = D2_G5A_U08_HIDDEN_MATERIALIZATION_MODE_CONSISTENCY_BLOCKED
+GOAL_DISTANCE_AFTER  = D2_G5A_U08_30_HIDDEN_PATTERNSPECS_MODE_CONSISTENT_PENDING_CI
+DISTANCE_REDUCED     = Corrected the upstream and downstream mode contract for average inverse/update and added two-layer drift protection.
 REMAINING_BLOCKERS   = [
+  "S60F-R1 PR CI and merge are pending",
   "Numeric generator and blocking validator are not implemented",
   "N+1 application generator and semantic validator are not implemented",
   "Promotion, UI, worksheet and print remain pending"
