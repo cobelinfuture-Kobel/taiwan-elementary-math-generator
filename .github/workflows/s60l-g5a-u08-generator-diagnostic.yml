@@ -1,0 +1,56 @@
+name: S60L G5A-U08 Generator Diagnostic
+
+on:
+  push:
+    branches:
+      - s60l-g5a-u08-production-stress
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generator-diagnostic:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run S60L smoke generator with diagnostics
+        id: generate
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p /tmp/s60l-generator-diagnostic
+          node tools/curriculum/generate-s60l-g5a-u08-public-smoke.mjs \
+            2>&1 | tee /tmp/s60l-generator-diagnostic/generator.log
+
+      - name: Capture generated files when present
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p /tmp/s60l-generator-diagnostic/generated
+          cp -f docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html \
+            /tmp/s60l-generator-diagnostic/generated/ 2>/dev/null || true
+          cp -f docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.manifest.json \
+            /tmp/s60l-generator-diagnostic/generated/ 2>/dev/null || true
+          git status --short > /tmp/s60l-generator-diagnostic/git-status.txt
+
+      - name: Upload S60L generator diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s60l-g5a-u08-generator-diagnostic
+          if-no-files-found: error
+          retention-days: 7
+          path: /tmp/s60l-generator-diagnostic
