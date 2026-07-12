@@ -2,7 +2,7 @@
   "schemaName": "G4BU04PromotionRegistry",
   "schemaVersion": 1,
   "task": "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
-  "status": "implemented_pending_ci",
+  "status": "pass_ci_synced_and_merged",
   "promotionRegistryId": "s72_g4b_u04_rounding_approximation_promotion",
   "sourceId": "g4b_u04_4b04",
   "unitCode": "4B-U04",
@@ -70,7 +70,8 @@
     "allocationStrategy": "balanced_by_authoritative_pattern_spec",
     "blockingValidatorRequired": true,
     "zeroOutputOnBlocking": true,
-    "maximumQuestionCount": 1000
+    "maximumQuestionCount": 1000,
+    "multiKnowledgePointModeFiltering": "compatible_subset"
   },
   "lifecycle": {
     "selectorStatus": "visible",
@@ -91,6 +92,17 @@
     "productionEligibilityBehaviorChanged": false,
     "canonicalWorksheetChanged": false
   },
+  "ciEvidence": {
+    "implementationPullRequest": 111,
+    "implementationMergeCommit": "e01a1c9a9d5ac05246412eab12bc8c22e6ce94c8",
+    "mainCiRun": 29200201968,
+    "mainCiReadbackCommit": "18178911b018b6ec81b476fecd89118e7518cf9d",
+    "tests": 1069,
+    "pass": 1069,
+    "fail": 0,
+    "workingTree": "clean",
+    "ciDrivenFix": "multi-KnowledgePoint questionMode filtering now retains the compatible subset and blocks only when the complete selected scope has no compatible group"
+  },
   "rollbackKey": "s72_g4b_u04_rounding_approximation_promotion",
   "summary": {
     "knowledgePointCount": 12,
@@ -109,6 +121,7 @@
   "goalDistance": {
     "before": "D1_G4B_U04_CLASS_C_AND_D_INTEGRATION_GATE_LOCKED_HIDDEN",
     "after": "D1_G4B_U04_PROMOTION_RESOLVER_AND_PUBLIC_SELECTOR_CONNECTED",
+    "distanceReduced": "Promoted all 12 KnowledgePoints, 12 PatternGroups and 17 PatternSpecs through an immutable overlay and connected public selection to the blocking-validated S71 canonical runtime.",
     "remainingBlockers": [
       "Worksheet and answer-key model not connected",
       "Renderer and public print path not connected",
