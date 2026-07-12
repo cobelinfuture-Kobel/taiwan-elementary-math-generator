@@ -2,7 +2,7 @@
 
 ```text
 TASK = S62_G4B_U04_ManualPDFKnowledgePointExtraction
-STATUS = PASS_MANUAL_VISUAL_EXTRACTION
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 SOURCE_TITLE = 概數
 SOURCE_PAGES = 2
@@ -149,12 +149,25 @@ public selector = disabled
 productionUse = forbidden
 ```
 
-## 7. Distance and next step
+## 7. CI and merge evidence
+
+```text
+implementation PR = #91
+implementation merge commit = 2b64d40a850f48e8af0800ac04ca7e38da799e8e
+main CI run = 29189289056
+main tests = 985
+main pass = 985
+main fail = 0
+main working tree = clean
+main CI readback commit = 5b00a22c96c76d0af94835f20363dff2a7b06cef
+```
+
+## 8. Distance and next step
 
 ```text
 GOAL_DISTANCE_BEFORE = D4_G4B_U04_SOURCE_READY_VISUAL_REVIEW_PENDING
 GOAL_DISTANCE_AFTER  = D3_G4B_U04_12_KNOWLEDGE_POINT_CANDIDATES_EXTRACTED
-DISTANCE_REDUCED     = Converted the two-page source from a title-level Batch B node into 12 page-evidenced KnowledgePoint candidates.
+DISTANCE_REDUCED     = Converted the two-page source from a title-level Batch B node into 12 page-evidenced KnowledgePoint candidates and passed executable source/scope QA.
 REMAINING_BLOCKERS   = [
   "KnowledgePoint candidate QA and boundary normalization",
   "canonical tag and duplicate-boundary review",
