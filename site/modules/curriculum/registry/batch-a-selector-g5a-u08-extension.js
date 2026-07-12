@@ -109,12 +109,18 @@ const visibleGroups = Object.freeze(G5A_U08_HIDDEN_PATTERN_GROUPS.map((authority
   });
 }));
 
-const groupsByKnowledgePointId = new Map();
+const mutableGroupsByKnowledgePointId = new Map();
 for (const group of visibleGroups) {
-  const rows = groupsByKnowledgePointId.get(group.primaryKnowledgePointId) ?? [];
+  const rows = mutableGroupsByKnowledgePointId.get(group.primaryKnowledgePointId) ?? [];
   rows.push(group);
-  groupsByKnowledgePointId.set(group.primaryKnowledgePointId, Object.freeze(rows));
+  mutableGroupsByKnowledgePointId.set(group.primaryKnowledgePointId, rows);
 }
+const groupsByKnowledgePointId = new Map(
+  [...mutableGroupsByKnowledgePointId.entries()].map(([knowledgePointId, groups]) => [
+    knowledgePointId,
+    Object.freeze([...groups]),
+  ]),
+);
 
 const visibleKnowledgePoints = Object.freeze(kpRows.map(([knowledgePointId, displayName, canonicalSkillTag, subskillTags]) => {
   const groups = groupsByKnowledgePointId.get(knowledgePointId) ?? [];
