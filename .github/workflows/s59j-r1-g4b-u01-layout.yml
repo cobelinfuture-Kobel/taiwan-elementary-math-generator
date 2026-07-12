@@ -102,9 +102,12 @@ jobs:
 
           pdf_path = Path('artifacts/s59j-r1-g4b-u01/G4B_U01_120Q_3x4_FullFix.pdf')
           reader = PdfReader(str(pdf_path))
-          if len(reader.pages) != 14:
-              raise SystemExit(f'expected 14 PDF pages, got {len(reader.pages)}')
+          page_count = len(reader.pages)
           files = sorted(Path('/tmp/s59j-r1-g4b-u01-rendered').glob('page-*.png'))
+          print(f'pdf_page_count={page_count}')
+          print(f'rendered_page_count={len(files)}')
+          if page_count != 14:
+              raise SystemExit(f'expected 14 PDF pages, got {page_count}')
           if len(files) != 14:
               raise SystemExit(f'expected 14 rendered pages, got {len(files)}')
           nonblank = 0
@@ -113,9 +116,9 @@ jobs:
               stat = ImageStat.Stat(image)
               if stat.extrema[0][0] < 245 and stat.var[0] > 5:
                   nonblank += 1
+          print(f'nonblank_page_count={nonblank}')
           if nonblank != 14:
               raise SystemExit(f'blank rendered page detected: {nonblank}/14 nonblank')
-          print(f'all rendered pages nonblank: {nonblank}')
           PY
 
       - name: Verify PDF text bounding boxes stay inside A4 pages
@@ -170,6 +173,7 @@ jobs:
           PY
 
       - name: Upload FullFix regression bundle
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: s59j-r1-g4b-u01-warning-print-layout
