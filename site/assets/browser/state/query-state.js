@@ -7,12 +7,17 @@ import {
   getVisibleBatchAKnowledgePoint as getLatestVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint as getLatestVisiblePatternGroupsForKnowledgePoint
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
+import {
+  G5A_U08_PUBLIC_CONTROLS,
+  G5A_U08_SOURCE_ID,
+} from "../../../modules/curriculum/registry/g5a-u08-promotion.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
 const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
   "g3b_u04_3b04",
   "g3b_u08_3b08",
-  "g4b_u01_4b01"
+  "g4b_u01_4b01",
+  G5A_U08_SOURCE_ID,
 ]));
 const KP_SELECTION_MODES = Object.freeze([
   "singleKnowledgePoint",
@@ -34,6 +39,11 @@ function integerParam(params, key, fallback) {
   if (value === null) return fallback;
   const parsed = Number(value);
   return Number.isInteger(parsed) ? parsed : fallback;
+}
+
+function allowedParam(params, key, allowed, fallback) {
+  const value = params.get(key);
+  return value === null ? fallback : allowed.includes(value) ? value : fallback;
 }
 
 function normalizeIdList(values) {
@@ -168,6 +178,15 @@ function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
   return { selectionMode, selectedKnowledgePointIds, selectedPatternGroupIds, selectorWarnings: warnings };
 }
 
+function normalizeG5AU08PublicControls(params, sourceId) {
+  if (sourceId !== G5A_U08_SOURCE_ID) return {};
+  return {
+    questionMode: allowedParam(params, "questionMode", G5A_U08_PUBLIC_CONTROLS.questionModes, G5A_U08_PUBLIC_CONTROLS.defaults.questionMode),
+    depthMode: allowedParam(params, "depthMode", G5A_U08_PUBLIC_CONTROLS.depthModes, G5A_U08_PUBLIC_CONTROLS.defaults.depthMode),
+    contextMode: allowedParam(params, "contextMode", G5A_U08_PUBLIC_CONTROLS.contextModes, G5A_U08_PUBLIC_CONTROLS.defaults.contextMode),
+  };
+}
+
 export function parseQueryState(search = window.location.search, options = {}) {
   const params = new URLSearchParams(search);
   const sourceId = params.get("sourceId") ?? undefined;
@@ -179,6 +198,7 @@ export function parseQueryState(search = window.location.search, options = {}) {
     generationSeed: params.get("generationSeed") ?? undefined,
     columns: integerParam(params, "columns", undefined),
     rowsPerPage: integerParam(params, "rowsPerPage", undefined),
+    ...normalizeG5AU08PublicControls(params, sourceId),
     ...normalizeSelectorQueryState(params, sourceId, resolveSelectorAccess(options))
   };
 }
@@ -193,6 +213,11 @@ export function writeQueryStateFromState(state) {
   nextUrl.searchParams.set("generationSeed", state.batchA.generationSeed);
   nextUrl.searchParams.set("columns", String(state.batchA.columns));
   nextUrl.searchParams.set("rowsPerPage", String(state.batchA.rowsPerPage));
+  if (state.batchA.sourceId === G5A_U08_SOURCE_ID) {
+    nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? G5A_U08_PUBLIC_CONTROLS.defaults.questionMode);
+    nextUrl.searchParams.set("depthMode", state.batchA.depthMode ?? G5A_U08_PUBLIC_CONTROLS.defaults.depthMode);
+    nextUrl.searchParams.set("contextMode", state.batchA.contextMode ?? G5A_U08_PUBLIC_CONTROLS.defaults.contextMode);
+  }
   if (KP_SELECTION_MODES.includes(state.batchA.selectionMode)) {
     nextUrl.searchParams.set("selectionMode", state.batchA.selectionMode);
     for (const knowledgePointId of state.batchA.selectedKnowledgePointIds ?? []) nextUrl.searchParams.append("kp", knowledgePointId);
