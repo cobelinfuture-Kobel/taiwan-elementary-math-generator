@@ -55,7 +55,7 @@ if (result.warnings.some((warning) => /[A-Za-z]{4,}/.test(String(warning.message
 
 const html = `${renderWorksheetDocumentToHtml(document, {
   title: "4B-U01 多位數的乘與除｜120 題列印 FullFix",
-  stylesheetHref: "../../site/assets/styles/print-styles.css",
+  stylesheetHref: "../../../site/assets/styles/print-styles.css",
   debugDataAttributes: false,
 })}\n`;
 
