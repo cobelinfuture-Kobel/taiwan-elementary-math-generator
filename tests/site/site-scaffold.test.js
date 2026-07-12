@@ -167,3 +167,61 @@ test("Batch A default source generates a worksheet document", () => {
   assert.equal(result.worksheetDocument.summary.questionCount > 0, true);
   assert.equal(result.worksheetDocument.questionPages.length > 0, true);
 });
+
+test("Batch A grouped ordering keeps pattern grouping", () => {
+  const state = createConfigState();
+  setBatchASourceId(state, "g3a_u02_3a02");
+  setBatchAQuestionCount(state, 8);
+  setBatchAOrdering(state, "groupedByPattern");
+
+  const result = buildWorksheetDocumentFromState(state);
+
+  assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.summary.orderingMode, "groupedByPattern");
+  assert.deepEqual(result.worksheetDocument.summary.patternIdsInRenderOrder, [
+    "ps_g3a_u02_4digit_add_multi_carry",
+    "ps_g3a_u02_4digit_sub_multi_borrow"
+  ]);
+});
+
+test("Batch A shuffled ordering is deterministic for the same state", () => {
+  const firstState = createConfigState();
+  const secondState = createConfigState();
+  setBatchASourceId(firstState, "g3b_u04_3b04");
+  setBatchASourceId(secondState, "g3b_u04_3b04");
+  setBatchAQuestionCount(firstState, 8);
+  setBatchAQuestionCount(secondState, 8);
+  setBatchAOrdering(firstState, "shuffleAcrossPatterns");
+  setBatchAOrdering(secondState, "shuffleAcrossPatterns");
+
+  const firstResult = buildWorksheetDocumentFromState(firstState);
+  const secondResult = buildWorksheetDocumentFromState(secondState);
+
+  assert.equal(firstResult.ok, true);
+  assert.equal(secondResult.ok, true);
+  assert.equal(firstResult.worksheetDocument.summary.orderingMode, "shuffleAcrossPatterns");
+  assert.deepEqual(firstResult.worksheetDocument.orderedQuestionIds, secondResult.worksheetDocument.orderedQuestionIds);
+});
+
+test("Batch A multipage output can produce more than one question page", () => {
+  const state = createConfigState();
+  setBatchAQuestionCount(state, 45);
+
+  const result = buildWorksheetDocumentFromState(state);
+
+  assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.questionPages.length > 1, true);
+});
+
+test("Batch A answer key toggle affects assembled answer key pages", () => {
+  const state = createConfigState();
+  setBatchAQuestionCount(state, 8);
+  setBatchAIncludeAnswerKey(state, false);
+
+  const result = buildWorksheetDocumentFromState(state);
+
+  assert.equal(result.ok, true);
+  assert.equal(result.worksheetDocument.answerKeyItems.length, 0);
+  assert.equal(result.worksheetDocument.answerKeyPages.length, 0);
+  assert.equal(result.worksheetDocument.printOptions.answerKeyPlacement, "none");
+});
