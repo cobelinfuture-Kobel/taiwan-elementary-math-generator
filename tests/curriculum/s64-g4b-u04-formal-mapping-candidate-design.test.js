@@ -101,7 +101,7 @@ test("S64 keeps semantically different output shapes as separate candidate mappi
   assert.equal(byId.get("fmc_g4b_u04_payment_banknote_count").answer, "banknoteCountAnswer");
   assert.equal(byId.get("fmc_g4b_u04_inverse_digit_set").answer, "digitSetAnswer");
   assert.equal(byId.get("fmc_g4b_u04_inverse_original_values").answer, "possibleValuesAnswer");
-  assert.equal(byId.get("fmc_g4b_u04_method_identify_from_result").answer, "methodSetAnswer");
+  assert.equal(byId.get("fmc_g4b_u04_method_identify_from_result").answer, "methodChoiceAnswer");
 
   for (const requiredId of [
     "fmc_g4b_u04_round_then_add",
