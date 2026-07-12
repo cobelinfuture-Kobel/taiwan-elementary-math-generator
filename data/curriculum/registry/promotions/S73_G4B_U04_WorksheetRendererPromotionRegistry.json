@@ -1,0 +1,111 @@
+{
+  "schemaName": "G4BU04WorksheetRendererPromotionRegistry",
+  "schemaVersion": 1,
+  "task": "S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration",
+  "status": "implemented_pending_ci",
+  "promotionOverlayId": "s73_g4b_u04_worksheet_answer_renderer_promotion",
+  "basePromotionRegistryId": "s72_g4b_u04_rounding_approximation_promotion",
+  "sourceId": "g4b_u04_4b04",
+  "unitCode": "4B-U04",
+  "unitTitle": "概數",
+  "worksheetBuilderRef": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s73-extension.js",
+  "worksheetEligibilityRef": "site/modules/curriculum/batch-b/g4b-u04-worksheet-eligibility.js",
+  "rendererRef": "site/modules/renderer/html-renderer-s73-extension.js",
+  "pipelineRefs": [
+    "site/assets/browser/pipeline/build-worksheet-document.js",
+    "site/assets/browser/pipeline/render-preview-frame.js"
+  ],
+  "coverage": {
+    "knowledgePointCount": 12,
+    "patternGroupCount": 12,
+    "patternSpecCount": 17,
+    "classCPatternSpecCount": 9,
+    "classDPatternSpecCount": 8,
+    "modeCounts": {
+      "concept": 4,
+      "numeric": 3,
+      "application": 4,
+      "operation_estimation": 4,
+      "reasoning": 2
+    },
+    "answerModelShapes": [
+      "classificationAnswer",
+      "symbolReadingAnswer",
+      "methodComparisonAnswer",
+      "methodChoiceAnswer",
+      "numericAnswer",
+      "moneyAmountAnswer",
+      "banknoteCountAnswer",
+      "digitSetAnswer",
+      "possibleValuesAnswer"
+    ]
+  },
+  "rendererProfiles": {
+    "compact": {
+      "profileId": "g4b_u04_compact_concept_numeric_v1",
+      "questionSheet": { "paperSize": "A4", "columns": 2, "rowsPerPage": 6 },
+      "answerKey": { "paperSize": "A4", "columns": 2, "rowsPerPage": 8 }
+    },
+    "contextual": {
+      "profileId": "g4b_u04_contextual_estimation_v1",
+      "questionSheet": { "paperSize": "A4", "columns": 2, "rowsPerPage": 4 },
+      "answerKey": { "paperSize": "A4", "columns": 1, "rowsPerPage": 6 }
+    },
+    "inverseLong": {
+      "profileId": "g4b_u04_inverse_long_answer_v1",
+      "questionSheet": { "paperSize": "A4", "columns": 1, "rowsPerPage": 4 },
+      "answerKey": { "paperSize": "A4", "columns": 1, "rowsPerPage": 5 }
+    }
+  },
+  "worksheetContract": {
+    "schemaVersion": "worksheet-document-v1",
+    "exactQuestionCountRequired": true,
+    "exactAnswerRecordCountRequiredWhenEnabled": true,
+    "answerSuppressionRequiredWhenDisabled": true,
+    "blockingCanonicalValidationRequired": true,
+    "zeroWorksheetOnBlocking": true,
+    "traditionalChineseRequired": true,
+    "internalCurriculumIdVisible": false,
+    "maximumQuestionCount": 1000
+  },
+  "lifecycle": {
+    "selectorStatus": "visible",
+    "runtimeStatus": "blocking_validated_canonical_runtime",
+    "validatorStatus": "blocking_validator_required",
+    "worksheetStatus": "worksheet_eligible",
+    "answerKeyStatus": "answer_key_integrated",
+    "rendererStatus": "worksheet_renderer_integrated",
+    "productionUse": "preview_only_pending_s75"
+  },
+  "activation": {
+    "status": "worksheet_answer_key_renderer_integrated",
+    "requiredNextGate": "S74_G4B_U04_PublicUIPrintAndQueryStateQA",
+    "worksheetBehaviorChanged": true,
+    "answerKeyBehaviorChanged": true,
+    "rendererBehaviorChanged": true,
+    "pipelineBehaviorChanged": true,
+    "selectorBehaviorChanged": false,
+    "resolverBehaviorChanged": false,
+    "canonicalRouterChanged": false,
+    "productionEligibilityChanged": false,
+    "htmlPdfSmokeAdded": false
+  },
+  "scopeBoundary": {
+    "publicUIControlQA": false,
+    "queryStateQA": false,
+    "htmlPdfSmoke": false,
+    "productionStress": false,
+    "d0Closeout": false
+  },
+  "goalDistance": {
+    "before": "D1_G4B_U04_PROMOTION_RESOLVER_AND_PUBLIC_SELECTOR_CONNECTED",
+    "after": "D1_G4B_U04_WORKSHEET_ANSWER_KEY_AND_RENDERER_CONNECTED",
+    "remainingBlockers": [
+      "Public UI and query-state QA not completed",
+      "HTML/PDF smoke not completed",
+      "Production stress and D0 closeout not completed"
+    ],
+    "nextShortestStep": "S74_G4B_U04_PublicUIPrintAndQueryStateQA",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}
