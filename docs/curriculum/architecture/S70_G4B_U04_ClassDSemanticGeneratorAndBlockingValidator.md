@@ -2,7 +2,7 @@
 
 ```text
 TASK = S70_G4B_U04_ClassDSemanticGeneratorAndBlockingValidator
-STATUS = PASS_IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 ```
 
@@ -158,17 +158,41 @@ Executable QA covers:
 - zero accepted batch output on any blocking error;
 - explicit Class C and public-runtime rejection.
 
+## FullFix record
+
+CI-driven FullFix resolved three implementation defects without changing the S66/S67 contract:
+
+```text
+1. semantic object equality now canonicalizes nested object keys;
+2. multiply/divide samplers respect both MAX_INPUT and MAX_ANSWER;
+3. payment and banknote guards validate the submitted candidate answer,
+   so dedicated insufficiency/minimality codes are emitted.
+```
+
 ## Lifecycle boundary
 
 ```text
-Class C runtime           = unchanged
-Class D generator         = implemented_hidden
+Class C runtime            = unchanged
+Class D generator          = implemented_hidden
 Class D blocking validator = implemented_hidden
-selector visibility       = hidden
-canonical routing         = disabled
-worksheet eligible        = false
-renderer connected        = false
-production use            = forbidden
+selector visibility        = hidden
+canonical routing          = disabled
+worksheet eligible         = false
+renderer connected         = false
+production use             = forbidden
+```
+
+## CI and merge evidence
+
+```text
+implementation PR       = #107
+implementation merge    = c98495163b048b1097b6b5aa18cb5a6c6c63354e
+main CI run             = 29196899752
+main CI readback commit = 9e6694eb14ab258993f38bcc5ee63893960d6331
+tests                   = 1044
+pass                    = 1044
+fail                    = 0
+working tree            = clean
 ```
 
 ## Distance
