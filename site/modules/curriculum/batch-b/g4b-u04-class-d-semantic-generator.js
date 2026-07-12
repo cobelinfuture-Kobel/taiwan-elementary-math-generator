@@ -234,11 +234,10 @@ export function renderG4BU04ControlledTemplate(templateId, roles) {
 
 function sourceForRounded(roundedValue, method, unit, seed, offset) {
   const remainder = randomInt(seed, offset, 1, unit - 1);
-  if (method === "down") return Math.min(MAX_INPUT, roundedValue + remainder);
-  if (method === "up") return Math.max(0, roundedValue - remainder);
+  if (method === "down") return roundedValue + remainder;
+  if (method === "up") return roundedValue - remainder;
   const half = unit / 2;
-  const delta = randomInt(seed, offset, -half, half - 1);
-  return Math.max(0, Math.min(MAX_INPUT, roundedValue + delta));
+  return roundedValue + randomInt(seed, offset, -half, half - 1);
 }
 
 function semanticPayload(templateId, input, context, roles, derived, answer, answerText) {
@@ -263,12 +262,11 @@ function sampleFloorGroups(seed) {
   const remainder = randomInt(seed, 3, 1, groupSize - 1);
   const total = quotient * groupSize + remainder;
   const context = randomChoice(seed, 4, FLOOR_CONTEXTS);
-  const roles = { total, groupSize, ...context };
   return semanticPayload(
     "tpl_g4b_u04_floor_complete_pack",
     { total, groupSize },
     context,
-    roles,
+    { total, groupSize, ...context },
     { quotient, remainder },
     { finalAnswer: quotient, structuredAnswer: { value: quotient, unitLabel: context.containerClassifier } },
     `${quotient}${context.containerClassifier}`,
@@ -280,26 +278,23 @@ function sampleCeilingMinimum(seed) {
   const quotient = randomInt(seed, 2, 8, 700);
   const remainder = randomInt(seed, 3, 1, capacityOrIncrement - 1);
   const total = quotient * capacityOrIncrement + remainder;
-  const useSaving = randomInt(seed, 4, 0, 1) === 1;
-  if (useSaving) {
-    const roles = { increment: capacityOrIncrement, target: total };
+  if (randomInt(seed, 4, 0, 1) === 1) {
     return semanticPayload(
       "tpl_g4b_u04_ceiling_saving_periods",
       { total, capacityOrIncrement },
       { unitLabel: "月", contextDomain: "saving" },
-      roles,
+      { increment: capacityOrIncrement, target: total },
       { floorCount: quotient, remainder, minimumRequired: quotient + 1 },
       { finalAnswer: quotient + 1, structuredAnswer: { value: quotient + 1, unitLabel: "月" } },
       `${quotient + 1}個月`,
     );
   }
   const context = randomChoice(seed, 5, CEILING_CONTEXTS);
-  const roles = { total, capacity: capacityOrIncrement, ...context };
   return semanticPayload(
     "tpl_g4b_u04_ceiling_pack_all",
     { total, capacityOrIncrement },
     { ...context, contextDomain: "packing" },
-    roles,
+    { total, capacity: capacityOrIncrement, ...context },
     { floorCount: quotient, remainder, minimumRequired: quotient + 1 },
     { finalAnswer: quotient + 1, structuredAnswer: { value: quotient + 1, unitLabel: context.containerClassifier } },
     `${quotient + 1}${context.containerClassifier}`,
@@ -314,7 +309,6 @@ function samplePayment(seed, countOnly) {
   const count = baseCount + 1;
   const amount = count * denomination;
   const templateId = countOnly ? "tpl_g4b_u04_payment_banknote_count" : "tpl_g4b_u04_payment_amount";
-  const roles = { price, denomination };
   const answer = countOnly
     ? { finalAnswer: count, structuredAnswer: { count, denomination, currency: "TWD", unitLabel: "張" } }
     : { finalAnswer: amount, structuredAnswer: { amount, currency: "TWD", unitLabel: "元" } };
@@ -322,7 +316,7 @@ function samplePayment(seed, countOnly) {
     templateId,
     { price, denomination },
     { currency: "TWD", unitLabel: countOnly ? "張" : "元", contextDomain: "payment" },
-    roles,
+    { price, denomination },
     { count, amount, remainder, oneFewerAmount: (count - 1) * denomination },
     answer,
     countOnly ? `${count}張` : `${amount}元`,
@@ -332,8 +326,8 @@ function samplePayment(seed, countOnly) {
 function makeRoundedOperand(seed, offset) {
   const targetUnit = randomChoice(seed, offset, G4B_U04_TARGET_UNITS);
   const method = randomChoice(seed, offset + 1, METHODS);
-  const multiplier = randomInt(seed, offset + 2, 20, 1800);
-  const roundedValue = targetUnit * multiplier;
+  const maxMultiplier = Math.floor((MAX_INPUT - targetUnit) / targetUnit);
+  const roundedValue = targetUnit * randomInt(seed, offset + 2, 20, Math.min(maxMultiplier, 1800));
   const value = sourceForRounded(roundedValue, method, targetUnit, seed, offset + 3);
   return { value, method, targetUnit, roundedValue };
 }
@@ -363,9 +357,7 @@ function sampleRoundThenAddSubtract(seed, subtract) {
     targetPlaceLabelB: g4bU04TargetPlaceLabel(right.targetUnit),
     unitLabel,
   };
-  const result = subtract
-    ? Math.abs(left.roundedValue - right.roundedValue)
-    : left.roundedValue + right.roundedValue;
+  const result = subtract ? Math.abs(left.roundedValue - right.roundedValue) : left.roundedValue + right.roundedValue;
   const templateId = subtract ? "tpl_g4b_u04_population_difference" : "tpl_g4b_u04_population_total";
   return semanticPayload(
     templateId,
@@ -382,21 +374,17 @@ function sampleRoundThenMultiply(seed) {
   const factor = randomInt(seed, 1, 2, 9);
   const targetUnit = randomChoice(seed, 2, G4B_U04_TARGET_UNITS);
   const method = randomChoice(seed, 3, METHODS);
-  const maxMultiplier = Math.max(20, Math.floor(MAX_ANSWER / (targetUnit * factor)));
-  const roundedValue = targetUnit * randomInt(seed, 4, 20, Math.min(maxMultiplier, 50_000));
+  const maxByAnswer = Math.floor(MAX_ANSWER / (targetUnit * factor));
+  const maxByInput = Math.floor((MAX_INPUT - targetUnit) / targetUnit);
+  const maxMultiplier = Math.min(maxByAnswer, maxByInput, 50_000);
+  const roundedValue = targetUnit * randomInt(seed, 4, 20, maxMultiplier);
   const value = sourceForRounded(roundedValue, method, targetUnit, seed, 5);
   const result = roundedValue * factor;
-  const roles = {
-    value,
-    methodLabel: g4bU04MethodLabel(method),
-    targetPlaceLabel: g4bU04TargetPlaceLabel(targetUnit),
-    factor,
-  };
   return semanticPayload(
     "tpl_g4b_u04_recurring_cost_multiply",
     { value, method, targetUnit, factor },
     { unitLabel: "元", contextDomain: "recurring_cost" },
-    roles,
+    { value, methodLabel: g4bU04MethodLabel(method), targetPlaceLabel: g4bU04TargetPlaceLabel(targetUnit), factor },
     { roundedValue, operation: "multiply" },
     { finalAnswer: result, structuredAnswer: { value: result, unitLabel: "元" } },
     `${formatNumber(result)}元`,
@@ -407,21 +395,16 @@ function sampleRoundThenDivide(seed) {
   const divisor = randomInt(seed, 1, 2, 9);
   const targetUnit = randomChoice(seed, 2, G4B_U04_TARGET_UNITS);
   const method = randomChoice(seed, 3, METHODS);
-  const multiplier = randomInt(seed, 4, 10, 1500);
+  const maxMultiplier = Math.min(1500, Math.floor((MAX_INPUT - targetUnit) / (targetUnit * divisor)));
+  const multiplier = randomInt(seed, 4, 10, maxMultiplier);
   const roundedValue = targetUnit * divisor * multiplier;
   const value = sourceForRounded(roundedValue, method, targetUnit, seed, 5);
   const result = roundedValue / divisor;
-  const roles = {
-    value,
-    methodLabel: g4bU04MethodLabel(method),
-    targetPlaceLabel: g4bU04TargetPlaceLabel(targetUnit),
-    divisor,
-  };
   return semanticPayload(
     "tpl_g4b_u04_equal_share_divide",
     { value, method, targetUnit, divisor },
     { unitLabel: "元", contextDomain: "equal_share" },
-    roles,
+    { value, methodLabel: g4bU04MethodLabel(method), targetPlaceLabel: g4bU04TargetPlaceLabel(targetUnit), divisor },
     { roundedValue, operation: "divide" },
     { finalAnswer: result, structuredAnswer: { value: result, unitLabel: "元" } },
     `${formatNumber(result)}元`,
@@ -504,7 +487,6 @@ export function generateG4BU04ClassDBatch({
   if (!new Set(["groupedByPattern", "shuffleAcrossPatterns"]).has(ordering)) {
     throw new Error(`G4BU04_D_GEN_ORDERING_INVALID:${ordering}`);
   }
-
   const allocations = Object.fromEntries(ids.map((id) => [id, 0]));
   for (let index = 0; index < questionCount; index += 1) allocations[ids[index % ids.length]] += 1;
   const questions = [];
