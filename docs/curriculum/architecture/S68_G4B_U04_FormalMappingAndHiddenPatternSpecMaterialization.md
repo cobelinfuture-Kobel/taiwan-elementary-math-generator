@@ -2,7 +2,7 @@
 
 ```text
 TASK = S68_G4B_U04_FormalMappingAndHiddenPatternSpecMaterialization
-STATUS = PASS_MATERIALIZED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 ```
 
@@ -136,7 +136,26 @@ The S68 test gate verifies:
 - projection and nested values are deeply frozen;
 - every row stays hidden, unrouted and forbidden in production.
 
-## 8. Distance
+## 8. CI and merge evidence
+
+```text
+implementation PR = #103
+implementation merge commit = 23982e0765214973802d7ba8f72db0625d5fab40
+main CI run = 29194826166
+main CI readback commit = 351e9c55bfde70a7ab75f0cc4d41b983b7682e95
+main tests = 1024
+main pass = 1024
+main fail = 0
+main working tree = clean
+```
+
+Fresh-main closeout authority:
+
+```text
+data/curriculum/contracts/S68_G4B_U04_HiddenMaterializationCloseout.json
+```
+
+## 9. Distance
 
 ```text
 GOAL_DISTANCE_BEFORE =

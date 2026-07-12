@@ -1,0 +1,71 @@
+{
+  "schemaName": "G4BU04HiddenMaterializationCloseout",
+  "schemaVersion": 1,
+  "task": "S68_G4B_U04_FormalMappingAndHiddenPatternSpecMaterialization",
+  "status": "materialization_passed_ci_synced_and_merged",
+  "sourceId": "g4b_u04_4b04",
+  "authoritativeRefs": {
+    "formalMapping": "data/curriculum/mapping/S68_G4B_U04_FormalMapping.json",
+    "patternSpecRegistry": "data/curriculum/pattern_specs/S68_G4B_U04_PatternSpecRegistry.json",
+    "browserProjection": "site/modules/curriculum/batch-b/source-pattern-g4b-u04-extension.js",
+    "baseContract": "data/curriculum/contracts/S66_G4B_U04_PatternSpecContractDesign.json",
+    "qaOverlay": "data/curriculum/contracts/S67_G4B_U04_PatternSpecContractQA.json",
+    "qaCloseout": "data/curriculum/contracts/S67_G4B_U04_PatternSpecContractQA_Closeout.json"
+  },
+  "result": {
+    "knowledgePointCount": 12,
+    "formalMappingCount": 17,
+    "patternGroupCount": 12,
+    "patternSpecCount": 17,
+    "answerModelCount": 9,
+    "controlledTemplateFamilyCount": 9,
+    "classCPatternSpecCount": 9,
+    "classDPatternSpecCount": 8,
+    "hiddenPatternGroupCount": 12,
+    "hiddenPatternSpecCount": 17,
+    "visiblePatternSpecCount": 0,
+    "routedPatternSpecCount": 0,
+    "productionPatternSpecCount": 0
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 103,
+    "implementationMergeCommit": "23982e0765214973802d7ba8f72db0625d5fab40",
+    "mainCiRun": 29194826166,
+    "mainCiReadbackCommit": "351e9c55bfde70a7ab75f0cc4d41b983b7682e95",
+    "tests": 1024,
+    "pass": 1024,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "effectiveContract": {
+    "loadOrder": [
+      "S66_G4B_U04_PatternSpecContractDesign",
+      "S67_G4B_U04_PatternSpecContractQA"
+    ],
+    "higherPrecedence": "S67_G4B_U04_PatternSpecContractQA",
+    "s67CloseoutRequired": true
+  },
+  "scopeBoundary": {
+    "formalMappingMaterialized": true,
+    "patternGroupsMaterialized": true,
+    "patternSpecsMaterialized": true,
+    "runtimeProjectionMaterialized": true,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "canonicalRoutingEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D2_G4B_U04_PATTERNSPEC_CONTRACT_QA_LOCKED",
+    "after": "D1_G4B_U04_FORMAL_MAPPING_AND_HIDDEN_PATTERNSPECS_MATERIALIZED",
+    "distanceReduced": "Materialized authoritative FormalMapping, hidden PatternGroups, hidden PatternSpecs and a frozen browser-neutral projection from the accepted S66 base plus S67 QA overlay.",
+    "remainingBlockers": [
+      "Class C generator and blocking validator not implemented",
+      "Class D semantic generator and validator not implemented",
+      "canonical resolver, selector and worksheet path not connected"
+    ],
+    "nextShortestStep": "S69_G4B_U04_ClassCGeneratorAndBlockingValidator",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}
