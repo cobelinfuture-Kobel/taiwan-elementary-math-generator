@@ -1,7 +1,8 @@
 {
   "schemaName": "G5AU08PatternSpecRegistry",
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "task": "S60F_G5A_U08_HiddenPatternSpecMaterialization",
+  "fullFixTask": "S60F_R1_G5A_U08_AverageReasoningModeConsistency_FullFix",
   "sourceId": "g5a_u08_5a08",
   "unitCode": "5A-U08",
   "unitTitle": "整數四則",
@@ -21,7 +22,9 @@
     "validatorRuntime": "contract_only_not_runtime",
     "genericFallback": "forbidden",
     "publicNPlus2": "forbidden",
-    "publicFormalEquation": "forbidden"
+    "publicFormalEquation": "forbidden",
+    "patternSpecModeMustMatchPatternGroupMode": true,
+    "contextualReasoningMayUseTemplateFamily": true
   },
   "patternGroups": [
     {"patternGroupId":"pg_g5a_u08_mixed_operation_order_numeric","knowledgePointId":"kp_g5a_u08_mixed_operation_order","mode":"numeric","patternSpecIds":["ps_g5a_u08_mixed_precedence_3op","ps_g5a_u08_mixed_precedence_4op"]},
@@ -71,8 +74,8 @@
     {"patternSpecId":"ps_g5a_u08_app_nested_grouping","patternGroupId":"pg_g5a_u08_mul_div_regroup_application","knowledgePointId":"kp_g5a_u08_mul_div_equivalent_regroup","mode":"application","answerModelId":"expressionAnswer","templateFamilyId":"tf_g5a_u08_nested_grouping","patternOrder":26},
     {"patternSpecId":"ps_g5a_u08_app_direct_average","patternGroupId":"pg_g5a_u08_average_application","knowledgePointId":"kp_g5a_u08_average_inverse_update","mode":"application","answerModelId":"numericAnswer","templateFamilyId":"tf_g5a_u08_direct_average","patternOrder":27},
     {"patternSpecId":"ps_g5a_u08_app_average_share_transfer","patternGroupId":"pg_g5a_u08_average_application","knowledgePointId":"kp_g5a_u08_average_inverse_update","mode":"application","answerModelId":"allocationTransferAnswer","templateFamilyId":"tf_g5a_u08_average_share_transfer","patternOrder":28},
-    {"patternSpecId":"ps_g5a_u08_app_average_inverse","patternGroupId":"pg_g5a_u08_average_reasoning","knowledgePointId":"kp_g5a_u08_average_inverse_update","mode":"application","answerModelId":"averageInverseAnswer","templateFamilyId":"tf_g5a_u08_average_inverse_or_update","patternOrder":29},
-    {"patternSpecId":"ps_g5a_u08_app_average_update","patternGroupId":"pg_g5a_u08_average_reasoning","knowledgePointId":"kp_g5a_u08_average_inverse_update","mode":"application","answerModelId":"averageInverseAnswer","templateFamilyId":"tf_g5a_u08_average_inverse_or_update","patternOrder":30}
+    {"patternSpecId":"ps_g5a_u08_app_average_inverse","patternGroupId":"pg_g5a_u08_average_reasoning","knowledgePointId":"kp_g5a_u08_average_inverse_update","mode":"reasoning","contextualReasoning":true,"answerModelId":"averageInverseAnswer","templateFamilyId":"tf_g5a_u08_average_inverse_or_update","patternOrder":29},
+    {"patternSpecId":"ps_g5a_u08_app_average_update","patternGroupId":"pg_g5a_u08_average_reasoning","knowledgePointId":"kp_g5a_u08_average_inverse_update","mode":"reasoning","contextualReasoning":true,"answerModelId":"averageInverseAnswer","templateFamilyId":"tf_g5a_u08_average_inverse_or_update","patternOrder":30}
   ],
   "sharedLifecycle": {
     "kind":"g5aU08IntegerFourOperations",
@@ -86,6 +89,10 @@
   "summary": {
     "patternGroupCount":17,
     "patternSpecCount":30,
+    "numericPatternSpecCount":16,
+    "reasoningPatternSpecCount":5,
+    "applicationPatternSpecCount":9,
+    "contextualReasoningPatternSpecCount":2,
     "hiddenPatternGroupCount":17,
     "hiddenPatternSpecCount":30,
     "visiblePatternSpecCount":0,
@@ -95,8 +102,8 @@
   "goalDistance": {
     "before":"D2_G5A_U08_30_PATTERN_FORMAL_MAPPING_AND_VALIDATOR_CONTRACT_FROZEN",
     "after":"D2_G5A_U08_30_HIDDEN_PATTERNSPECS_MATERIALIZED",
-    "distanceReduced":"Materialized seventeen hidden PatternGroups and thirty hidden PatternSpecs with a drift-checkable browser-neutral projection and no public activation.",
-    "remainingBlockers":["Numeric generator and blocking validator are not implemented","N+1 application generator and semantic validator are not implemented","Promotion, UI, worksheet and print remain pending"],
+    "distanceReduced":"Materialized seventeen hidden PatternGroups and thirty hidden PatternSpecs with authority/projection drift protection; S60F-R1 aligns both average inverse/update specs with their reasoning group and preserves their semantic templates as contextual reasoning.",
+    "remainingBlockers":["Numeric generator and blocking validator are not implemented","N+1 application generator and semantic validator are not implemented","Promotion, UI, worksheet and print are pending"],
     "nextShortestStep":"S60G_G5A_U08_NumericGeneratorAndBlockingValidator"
   }
 }
