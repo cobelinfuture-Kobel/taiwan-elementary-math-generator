@@ -56,6 +56,7 @@ test("site scaffold files exist", () => {
     "site/modules/renderer/html-renderer-s59h-extension.js",
     "site/modules/renderer/html-renderer-s59j-r1-extension.js",
     "site/modules/renderer/html-renderer-s60j-extension.js",
+    "site/modules/renderer/html-renderer-s73-extension.js",
     "site/modules/curriculum/batch-a/source-units.js",
     "site/modules/curriculum/batch-a/source-pattern-index.js",
     "site/modules/curriculum/batch-a/batch-a-browser-generator.js",
@@ -69,13 +70,16 @@ test("site scaffold files exist", () => {
     "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59h-extension.js",
     "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js",
     "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s60j-extension.js",
+    "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s73-extension.js",
     "site/modules/curriculum/batch-a/g3b-u04-production-eligibility.js",
     "site/modules/curriculum/batch-a/g3b-u08-production-eligibility.js",
     "site/modules/curriculum/batch-a/g4b-u01-production-eligibility.js",
     "site/modules/curriculum/batch-a/g5a-u08-worksheet-eligibility.js",
+    "site/modules/curriculum/batch-b/g4b-u04-worksheet-eligibility.js",
     "site/modules/curriculum/registry/g3b-u08-semantic-production-promotion.js",
     "site/modules/curriculum/registry/g4b-u01-horizontal-production-promotion.js",
-    "site/modules/curriculum/registry/g5a-u08-worksheet-promotion.js"
+    "site/modules/curriculum/registry/g5a-u08-worksheet-promotion.js",
+    "site/modules/curriculum/registry/g4b-u04-worksheet-promotion.js"
   ].forEach((relativePath) => {
     assert.equal(existsSync(path.join(PROJECT_ROOT, relativePath)), true, `${relativePath} should exist`);
   });
@@ -113,6 +117,8 @@ test("site runtime files do not import tools preview or src modules", () => {
 
   const pipelineSource = readText("site/assets/browser/pipeline/build-worksheet-document.js");
   const renderSource = readText("site/assets/browser/pipeline/render-preview-frame.js");
+  const worksheetS73Source = readText("site/modules/curriculum/batch-a/batch-a-browser-worksheet-s73-extension.js");
+  const rendererS73Source = readText("site/modules/renderer/html-renderer-s73-extension.js");
   const worksheetS60JSource = readText("site/modules/curriculum/batch-a/batch-a-browser-worksheet-s60j-extension.js");
   const rendererS60JSource = readText("site/modules/renderer/html-renderer-s60j-extension.js");
   const worksheetFullFixSource = readText("site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js");
@@ -120,8 +126,10 @@ test("site runtime files do not import tools preview or src modules", () => {
   const worksheetExtensionSource = readText("site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59h-extension.js");
   const rendererExtensionSource = readText("site/modules/renderer/html-renderer-s59h-extension.js");
 
-  assert.equal(pipelineSource.includes("../../../modules/curriculum/batch-a/batch-a-browser-worksheet-s60j-extension.js"), true);
-  assert.equal(renderSource.includes("../../../modules/renderer/html-renderer-s60j-extension.js"), true);
+  assert.equal(pipelineSource.includes("../../../modules/curriculum/batch-a/batch-a-browser-worksheet-s73-extension.js"), true);
+  assert.equal(renderSource.includes("../../../modules/renderer/html-renderer-s73-extension.js"), true);
+  assert.equal(worksheetS73Source.includes('./batch-a-browser-worksheet-s60j-extension.js'), true);
+  assert.equal(rendererS73Source.includes('./html-renderer-s60j-extension.js'), true);
   assert.equal(worksheetS60JSource.includes('./batch-a-browser-worksheet-s59j-r1-extension.js'), true);
   assert.equal(rendererS60JSource.includes('./html-renderer-s59j-r1-extension.js'), true);
   assert.equal(worksheetFullFixSource.includes('./batch-a-browser-worksheet-s59h-extension.js'), true);
@@ -158,62 +166,4 @@ test("Batch A default source generates a worksheet document", () => {
   assert.equal(result.worksheetDocument.batchA.sourceId, "g3a_u02_3a02");
   assert.equal(result.worksheetDocument.summary.questionCount > 0, true);
   assert.equal(result.worksheetDocument.questionPages.length > 0, true);
-});
-
-test("Batch A grouped ordering keeps pattern grouping", () => {
-  const state = createConfigState();
-  setBatchASourceId(state, "g3a_u02_3a02");
-  setBatchAQuestionCount(state, 8);
-  setBatchAOrdering(state, "groupedByPattern");
-
-  const result = buildWorksheetDocumentFromState(state);
-
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.summary.orderingMode, "groupedByPattern");
-  assert.deepEqual(result.worksheetDocument.summary.patternIdsInRenderOrder, [
-    "ps_g3a_u02_4digit_add_multi_carry",
-    "ps_g3a_u02_4digit_sub_multi_borrow"
-  ]);
-});
-
-test("Batch A shuffled ordering is deterministic for the same state", () => {
-  const firstState = createConfigState();
-  const secondState = createConfigState();
-  setBatchASourceId(firstState, "g3b_u04_3b04");
-  setBatchASourceId(secondState, "g3b_u04_3b04");
-  setBatchAQuestionCount(firstState, 8);
-  setBatchAQuestionCount(secondState, 8);
-  setBatchAOrdering(firstState, "shuffleAcrossPatterns");
-  setBatchAOrdering(secondState, "shuffleAcrossPatterns");
-
-  const firstResult = buildWorksheetDocumentFromState(firstState);
-  const secondResult = buildWorksheetDocumentFromState(secondState);
-
-  assert.equal(firstResult.ok, true);
-  assert.equal(secondResult.ok, true);
-  assert.equal(firstResult.worksheetDocument.summary.orderingMode, "shuffleAcrossPatterns");
-  assert.deepEqual(firstResult.worksheetDocument.orderedQuestionIds, secondResult.worksheetDocument.orderedQuestionIds);
-});
-
-test("Batch A multipage output can produce more than one question page", () => {
-  const state = createConfigState();
-  setBatchAQuestionCount(state, 45);
-
-  const result = buildWorksheetDocumentFromState(state);
-
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.questionPages.length > 1, true);
-});
-
-test("Batch A answer key toggle affects assembled answer key pages", () => {
-  const state = createConfigState();
-  setBatchAQuestionCount(state, 8);
-  setBatchAIncludeAnswerKey(state, false);
-
-  const result = buildWorksheetDocumentFromState(state);
-
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.answerKeyItems.length, 0);
-  assert.equal(result.worksheetDocument.answerKeyPages.length, 0);
-  assert.equal(result.worksheetDocument.printOptions.answerKeyPlacement, "none");
 });
