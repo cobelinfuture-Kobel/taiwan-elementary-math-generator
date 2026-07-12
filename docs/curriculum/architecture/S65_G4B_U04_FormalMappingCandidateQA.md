@@ -1,0 +1,227 @@
+# S65 — G4B-U04 FormalMapping Candidate QA
+
+```text
+TASK = S65_G4B_U04_FormalMappingCandidateQA
+STATUS = PASS_WITH_CORRECTIONS_PENDING_CI
+SOURCE_ID = g4b_u04_4b04
+MAPPINGS_REVIEWED = 17
+MAPPINGS_ACCEPTED = 17
+MAPPINGS_REJECTED = 0
+QA_CORRECTIONS = 3
+```
+
+## 1. Scope
+
+S65 validates the 17 S64 FormalMapping candidates using formula boundary vectors, source examples, inverse-enumeration checks and mutation cases.
+
+```text
+S64 candidate mapping
+→ formula and semantic review
+→ boundary-vector execution
+→ mutation rejection
+→ corrected candidate contract
+```
+
+S65 does not materialize FormalMapping, create PatternSpecs, implement a generator or validator, expose a selector, or authorize production use.
+
+## 2. QA result
+
+```text
+mapping candidates reviewed = 17
+accepted after correction = 17
+rejected = 0
+formula families reviewed = 8
+positive vectors = 36
+mutation cases = 20
+```
+
+The 12 KnowledgePoint, 12 PatternGroup-candidate and 17 mapping-candidate counts remain unchanged.
+
+## 3. Corrections applied
+
+### 3.1 Unique method identification guard
+
+The original mapping correctly intended a unique `methodChoiceAnswer`, but its generation rule was underspecified.
+
+For a value `v` and target unit `u`:
+
+```text
+down(v,u) = floor(v/u) × u
+up(v,u) = ceil(v/u) × u
+halfUp(v,u) = floor((v+u/2)/u) × u
+```
+
+When `v` is not a multiple of `u`, half-up equals either down or up. Therefore:
+
+- the result shared with half-up is ambiguous;
+- the opposite result identifies exactly one of down or up;
+- an exact multiple is ambiguous because all three methods coincide.
+
+The effective generation guard is now:
+
+```text
+input_not_multiple_of_unit
+shown_result_matches_exactly_one_method
+shown_result_differs_from_half_up_output
+ambiguous_shared_result_forbidden
+```
+
+Examples:
+
+```text
+753 to hundreds, shown 700 → unique answer: unconditional down
+749 to hundreds, shown 800 → unique answer: unconditional up
+753 to hundreds, shown 800 → forbidden: up and half-up both match
+700 to hundreds, shown 700 → forbidden: all three methods match
+```
+
+### 3.2 Inverse interval clamp
+
+The unbounded integer half-up preimage is:
+
+```text
+[y-u/2, y+u/2-1]
+```
+
+Because the unit uses nonnegative input, the effective candidate rule is:
+
+```text
+intersect([y-u/2,y+u/2-1], [0,maxInput])
+```
+
+This matters for targets such as zero:
+
+```text
+round to tens and result is 0
+possible source integers = 0..4
+not -5..4
+```
+
+### 3.3 Payment denomination source boundary
+
+The PDF payment panels provide 100-dollar and 1000-dollar banknotes. Source-backed payment mappings are therefore restricted to:
+
+```text
+paymentDenominations = [100, 1000]
+```
+
+Other denominations require new source evidence or an explicitly approved extension.
+
+## 4. Accepted formula contracts
+
+```text
+unconditional down  = floor(v/u) × u
+unconditional up    = ceil(v/u) × u
+round half up       = floor((v+u/2)/u) × u
+maximum full groups = floor(total/groupSize)
+minimum required    = ceil(total/capacity)
+minimum payment     = ceil(price/denomination) × denomination
+banknote count      = ceil(price/denomination)
+inverse interval    = intersect([y-u/2,y+u/2-1], [0,maxInput])
+```
+
+## 5. Source and boundary vectors
+
+The executable QA covers 36 accepted vectors, including:
+
+```text
+753 down to hundreds = 700
+753 up to hundreds = 800
+647 half-up to tens = 650
+647 half-up to hundreds = 600
+2768 half-up to hundreds = 2800
+2768 half-up to thousands = 3000
+26743041 half-up to ten-thousands = 26740000
+
+8427 items, 10 per full box = 842 full boxes
+8427 items, 10 per box, all items packed = 843 boxes
+12999 dollars, save 1000 per month = 13 months
+7699 dollars using 1000-dollar notes = 8000 dollars / 8 notes
+7699 dollars using 100-dollar notes = 7700 dollars / 77 notes
+
+57389 rounded to ten-thousands, then ×6 = 360000
+695400 rounded to ten-thousands, then ÷5 = 140000
+```
+
+Inverse checks include:
+
+```text
+30000 to ten-thousands → source interval 25000..34999
+47000 to thousands → source interval 46500..47499
+0 to tens → source interval 0..4
+
+2□318 → 30000 to ten-thousands → □ = 5,6,7,8,9
+47□61 → 47000 to thousands → □ = 0,1,2,3,4
+```
+
+For `4,□□99` rounding to `45000` at the thousands place, the accepted possible values are:
+
+```text
+44599, 44699, 44799, 44899, 44999,
+45099, 45199, 45299, 45399, 45499
+```
+
+## 6. Mutation review
+
+Twenty defect classes are executable requirements:
+
+```text
+wrong down/up method
+output direction violation
+half-up threshold 649/650 error
+floor/ceiling remainder inversion
+insufficient or non-minimal payment
+one-fewer banknote accepted
+unsupported denomination
+ambiguous method-choice item
+negative inverse-preimage leakage
+inverse upper-endpoint off by one
+missing or extra inverse digits
+visible-digit mismatch
+noninteger estimated division
+```
+
+All 20 mutations must be rejected.
+
+## 7. Effective artifacts
+
+```text
+data/curriculum/mapping/g4b_u04_formal_mapping_candidates.json
+data/curriculum/mapping/g4b_u04_formal_mapping_candidate_qa.json
+tests/curriculum/s65-g4b-u04-formal-mapping-candidate-qa.test.js
+```
+
+S65 corrects the S64 candidate artifact in place and records the QA overlay separately. Future PatternSpec work must consume the QA-corrected S64 artifact and the S65 overlay together.
+
+## 8. Acceptance gate
+
+```text
+17 / 17 candidate mappings reviewed
+17 / 17 accepted after correction
+3 / 3 blocking design findings corrected
+36 / 36 positive vectors accepted
+20 / 20 mutation classes rejected
+payment denomination boundary locked
+inverse interval globally clamped
+unique method-choice generation guard locked
+FormalMapping materialized = false
+PatternSpecs created = false
+generator implemented = false
+validator implemented = false
+productionUse = forbidden
+```
+
+## 9. Distance and next step
+
+```text
+GOAL_DISTANCE_BEFORE = D3_G4B_U04_17_FORMAL_MAPPING_CANDIDATES_DESIGNED
+GOAL_DISTANCE_AFTER  = D2_G4B_U04_FORMAL_MAPPING_CANDIDATES_QA_LOCKED
+DISTANCE_REDUCED     = Verified all 17 candidate mappings, corrected three blocking contract defects, and locked executable formula, boundary, inverse and mutation behavior for PatternSpec design.
+REMAINING_BLOCKERS   = [
+  "PatternSpec contract not designed",
+  "answer-model schemas not materialized",
+  "generator and validator not implemented"
+]
+NEXT_SHORTEST_STEP   = S66_G4B_U04_PatternSpecContractDesign
+STOP_REASON          = NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE
+```

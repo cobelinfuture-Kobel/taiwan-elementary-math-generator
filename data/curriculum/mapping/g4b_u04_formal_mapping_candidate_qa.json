@@ -1,0 +1,87 @@
+{
+  "schemaName": "G4BU04FormalMappingCandidateQA",
+  "schemaVersion": 1,
+  "task": "S65_G4B_U04_FormalMappingCandidateQA",
+  "status": "qa_passed_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "sourceArtifact": "data/curriculum/mapping/g4b_u04_formal_mapping_candidates.json",
+  "summary": {
+    "mappingCandidatesReviewed": 17,
+    "mappingCandidatesAccepted": 17,
+    "mappingCandidatesRejected": 0,
+    "qaCorrectionsApplied": 3,
+    "formulaFamiliesReviewed": 8,
+    "positiveVectorCount": 36,
+    "mutationCaseCount": 20
+  },
+  "corrections": [
+    {
+      "code": "S65_METHOD_UNIQUENESS_GUARD_UNDERSPECIFIED",
+      "target": "fmc_g4b_u04_method_identify_from_result",
+      "resolution": "Retain methodChoiceAnswer, but require a non-multiple input and a shown result that differs from the round-half-up output so exactly one method matches.",
+      "blockingBeforeCorrection": true
+    },
+    {
+      "code": "S65_INVERSE_INTERVAL_GLOBAL_RANGE_CLAMP_REQUIRED",
+      "target": "formalRules.inverse",
+      "resolution": "Intersect the half-up preimage interval with [0,maxInput] so rounded zero never produces negative source candidates.",
+      "blockingBeforeCorrection": true
+    },
+    {
+      "code": "S65_PAYMENT_DENOMINATION_SOURCE_BOUNDARY_REQUIRED",
+      "target": "globalBoundaryCandidate.paymentDenominations",
+      "resolution": "Restrict source-backed payment mappings to denominations 100 and 1000.",
+      "blockingBeforeCorrection": true
+    }
+  ],
+  "acceptedMappingCandidateIds": [
+    "fmc_g4b_u04_approx_language_classify",
+    "fmc_g4b_u04_approx_symbol_reading",
+    "fmc_g4b_u04_method_compare_outputs",
+    "fmc_g4b_u04_method_identify_from_result",
+    "fmc_g4b_u04_unconditional_round_down",
+    "fmc_g4b_u04_unconditional_round_up",
+    "fmc_g4b_u04_round_half_up",
+    "fmc_g4b_u04_floor_complete_groups",
+    "fmc_g4b_u04_ceiling_minimum_required",
+    "fmc_g4b_u04_payment_amount_ceiling",
+    "fmc_g4b_u04_payment_banknote_count",
+    "fmc_g4b_u04_round_then_add",
+    "fmc_g4b_u04_round_then_subtract",
+    "fmc_g4b_u04_round_then_multiply",
+    "fmc_g4b_u04_round_then_divide",
+    "fmc_g4b_u04_inverse_digit_set",
+    "fmc_g4b_u04_inverse_original_values"
+  ],
+  "mutationRequirements": [
+    "DOWN_MUTATED_TO_UP",
+    "DOWN_OUTPUT_ABOVE_INPUT",
+    "UP_MUTATED_TO_DOWN",
+    "UP_OUTPUT_BELOW_INPUT",
+    "HALF_UP_649_CARRIED",
+    "HALF_UP_650_NOT_CARRIED",
+    "FLOOR_GROUPS_COUNTS_REMAINDER",
+    "CEILING_GROUPS_DISCARDS_REMAINDER",
+    "PAYMENT_UNDER_PRICE",
+    "PAYMENT_NOT_MINIMUM_MULTIPLE",
+    "BANKNOTE_ONE_FEWER_ACCEPTED",
+    "UNSUPPORTED_PAYMENT_DENOMINATION",
+    "METHOD_EXACT_MULTIPLE_AMBIGUOUS",
+    "METHOD_SHARED_HALF_UP_RESULT_AMBIGUOUS",
+    "INVERSE_NEGATIVE_PREIMAGE_LEAK",
+    "INVERSE_UPPER_ENDPOINT_OFF_BY_ONE",
+    "INVERSE_DIGIT_OMITS_VALID",
+    "INVERSE_DIGIT_INCLUDES_INVALID",
+    "INVERSE_VISIBLE_DIGIT_MISMATCH",
+    "ROUND_THEN_DIVIDE_NONINTEGER"
+  ],
+  "scopeBoundary": {
+    "formalMappingMaterialized": false,
+    "patternSpecsCreated": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "nextGate": "S66_G4B_U04_PatternSpecContractDesign"
+}

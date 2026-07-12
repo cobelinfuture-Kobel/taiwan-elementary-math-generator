@@ -1,56 +1,24 @@
 {
-  "schemaName": "G4BU04FormalMappingCandidateDesign",
-  "schemaVersion": 1,
-  "task": "S64_G4B_U04_FormalMappingCandidateDesign",
-  "status": "candidate_design_complete_pending_qa",
-  "sourceId": "g4b_u04_4b04",
-  "unitCode": "4B-U04",
-  "unitTitle": "概數",
-  "dependsOn": [
-    "S62_G4B_U04_ManualPDFKnowledgePointExtraction",
-    "S63_G4B_U04_KnowledgePointCandidateMapQA"
+  "schemaName":"G4BU04FormalMappingCandidateDesign",
+  "schemaVersion":1,
+  "task":"S64_G4B_U04_FormalMappingCandidateDesign",
+  "status":"candidate_design_qa_corrected",
+  "sourceId":"g4b_u04_4b04",
+  "unitCode":"4B-U04",
+  "unitTitle":"概數",
+  "dependsOn":["S62_G4B_U04_ManualPDFKnowledgePointExtraction","S63_G4B_U04_KnowledgePointCandidateMapQA"],
+  "qaCorrectionTask":"S65_G4B_U04_FormalMappingCandidateQA",
+  "canonicalSkillParent":"rounding_approximation",
+  "scopeBoundary":{"formalMappingMaterialized":false,"patternSpecsCreated":false,"generatorImplemented":false,"validatorImplemented":false,"publicSelectorEnabled":false,"productionUse":"forbidden"},
+  "globalBoundaryCandidate":{"inputRange":[0,99999999],"targetPlaceUnits":[10,100,1000,10000],"contextGroupSizes":[10,100,1000],"paymentDenominations":[100,1000],"factorOrDivisorRange":[2,9],"maxAnswer":999999999,"integerOnly":true,"negativeAnswerAllowed":false,"inversePreimageClampedToInputRange":true,"genericFallbackAllowed":false},
+  "formalRules":{"down":"floor(v/u)*u","up":"ceil(v/u)*u","halfUp":"floor((v+u/2)/u)*u","floorGroups":"floor(t/g)","ceilingGroups":"ceil(t/g)","payment":"ceil(p/d)*d","noteCount":"ceil(p/d)","inverse":"intersect([y-u/2,y+u/2-1],[0,maxInput])"},
+  "qaCorrections":[
+    {"code":"S65_METHOD_UNIQUENESS_GUARD_UNDERSPECIFIED","disposition":"corrected","detail":"A unique method answer is allowed only when the shown result is the result not shared by round-half-up; exact multiples and the half-up result are ambiguous."},
+    {"code":"S65_INVERSE_INTERVAL_GLOBAL_RANGE_CLAMP_REQUIRED","disposition":"corrected","detail":"Intersect the integer half-up preimage interval with the nonnegative global input range."},
+    {"code":"S65_PAYMENT_DENOMINATION_SOURCE_BOUNDARY_REQUIRED","disposition":"corrected","detail":"Source-backed payment mappings allow 100-dollar and 1000-dollar denominations only."}
   ],
-  "canonicalSkillParent": "rounding_approximation",
-  "scopeBoundary": {
-    "formalMappingMaterialized": false,
-    "patternSpecsCreated": false,
-    "generatorImplemented": false,
-    "validatorImplemented": false,
-    "publicSelectorEnabled": false,
-    "productionUse": "forbidden"
-  },
-  "globalBoundaryCandidate": {
-    "inputRange": [0, 99999999],
-    "targetPlaceUnits": [10, 100, 1000, 10000],
-    "contextGroupSizes": [10, 100, 1000],
-    "factorOrDivisorRange": [2, 9],
-    "maxAnswer": 999999999,
-    "integerOnly": true,
-    "negativeAnswerAllowed": false,
-    "genericFallbackAllowed": false
-  },
-  "formalRules": {
-    "down": "floor(v/u)*u",
-    "up": "ceil(v/u)*u",
-    "halfUp": "floor((v+u/2)/u)*u",
-    "floorGroups": "floor(t/g)",
-    "ceilingGroups": "ceil(t/g)",
-    "payment": "ceil(p/d)*d",
-    "noteCount": "ceil(p/d)",
-    "inverse": "[y-u/2,y+u/2-1]"
-  },
-  "answerModelCandidates": [
-    "classificationAnswer",
-    "symbolReadingAnswer",
-    "methodComparisonAnswer",
-    "methodChoiceAnswer",
-    "numericAnswer",
-    "moneyAmountAnswer",
-    "banknoteCountAnswer",
-    "digitSetAnswer",
-    "possibleValuesAnswer"
-  ],
-  "knowledgePointMappings": [
+  "answerModelCandidates":["classificationAnswer","symbolReadingAnswer","methodComparisonAnswer","methodChoiceAnswer","numericAnswer","moneyAmountAnswer","banknoteCountAnswer","digitSetAnswer","possibleValuesAnswer"],
+  "knowledgePointMappings":[
     {"knowledgePointId":"kp_g4b_u04_approximation_language_cues","patternGroupCandidateId":"pgc_g4b_u04_approximation_language","mappingCandidateIds":["fmc_g4b_u04_approx_language_classify"]},
     {"knowledgePointId":"kp_g4b_u04_approximation_symbol_reading","patternGroupCandidateId":"pgc_g4b_u04_approximation_symbol","mappingCandidateIds":["fmc_g4b_u04_approx_symbol_reading"]},
     {"knowledgePointId":"kp_g4b_u04_three_approximation_methods_compare","patternGroupCandidateId":"pgc_g4b_u04_method_comparison","mappingCandidateIds":["fmc_g4b_u04_method_compare_outputs","fmc_g4b_u04_method_identify_from_result"]},
@@ -64,34 +32,24 @@
     {"knowledgePointId":"kp_g4b_u04_inverse_rounding_unknown_digit","patternGroupCandidateId":"pgc_g4b_u04_inverse_digit_set","mappingCandidateIds":["fmc_g4b_u04_inverse_digit_set"]},
     {"knowledgePointId":"kp_g4b_u04_inverse_rounding_possible_original","patternGroupCandidateId":"pgc_g4b_u04_inverse_original_values","mappingCandidateIds":["fmc_g4b_u04_inverse_original_values"]}
   ],
-  "formalMappingCandidates": [
+  "formalMappingCandidates":[
     {"id":"fmc_g4b_u04_approx_language_classify","ps":"ps_g4b_u04_approx_language_classify","kp":"kp_g4b_u04_approximation_language_cues","pg":"pgc_g4b_u04_approximation_language","mode":"concept","answer":"classificationAnswer","evidence":["s62:p1:top-left"],"contract":"classify by explicit quantity precision and approved approximation cues","guards":["statement_has_single_interpretation","classification_matches_precision","traditional_chinese_cue_allowlist"],"class":"C","status":"candidate_only"},
     {"id":"fmc_g4b_u04_approx_symbol_reading","ps":"ps_g4b_u04_approx_symbol_reading","kp":"kp_g4b_u04_approximation_symbol_reading","pg":"pgc_g4b_u04_approximation_symbol","mode":"concept","answer":"symbolReadingAnswer","evidence":["s62:p1:top-right"],"contract":"map approved approximation symbol to approved Traditional Chinese reading","guards":["symbol_allowlisted","reading_allowlisted","symbol_reading_pair_valid"],"class":"C","status":"candidate_only"},
     {"id":"fmc_g4b_u04_method_compare_outputs","ps":"ps_g4b_u04_method_compare_outputs","kp":"kp_g4b_u04_three_approximation_methods_compare","pg":"pgc_g4b_u04_method_comparison","mode":"concept","answer":"methodComparisonAnswer","evidence":["s62:p1:second-row-left"],"contract":"compute round-down, round-up and round-half-up for the same value and unit","guards":["all_three_outputs_correct","output_multiple_of_unit","method_labels_not_swapped"],"class":"C","status":"candidate_only"},
-    {"id":"fmc_g4b_u04_method_identify_from_result","ps":"ps_g4b_u04_method_identify_from_result","kp":"kp_g4b_u04_three_approximation_methods_compare","pg":"pgc_g4b_u04_method_comparison","mode":"concept","answer":"methodChoiceAnswer","evidence":["s62:p1:second-row-left"],"contract":"identify which method produces the shown result; generation must ensure a unique method answer","guards":["shown_result_matches_method","method_answer_unique","ambiguous_coincidence_forbidden"],"class":"C","status":"candidate_only"},
+    {"id":"fmc_g4b_u04_method_identify_from_result","ps":"ps_g4b_u04_method_identify_from_result","kp":"kp_g4b_u04_three_approximation_methods_compare","pg":"pgc_g4b_u04_method_comparison","mode":"concept","answer":"methodChoiceAnswer","evidence":["s62:p1:second-row-left"],"contract":"identify the unique method producing the shown result for the same value and unit","guards":["input_not_multiple_of_unit","shown_result_matches_exactly_one_method","shown_result_differs_from_half_up_output","ambiguous_shared_result_forbidden"],"class":"C","status":"candidate_only"},
     {"id":"fmc_g4b_u04_unconditional_round_down","ps":"ps_g4b_u04_unconditional_round_down","kp":"kp_g4b_u04_unconditional_round_down","pg":"pgc_g4b_u04_round_down","mode":"numeric","answer":"numericAnswer","evidence":["s62:p1:second-row-left","s62:p2:top-right"],"contract":"floor(value / unit) * unit","guards":["numeric_answer_correct","output_not_greater_than_input","output_multiple_of_unit","difference_less_than_unit"],"class":"C","status":"candidate_only"},
     {"id":"fmc_g4b_u04_unconditional_round_up","ps":"ps_g4b_u04_unconditional_round_up","kp":"kp_g4b_u04_unconditional_round_up","pg":"pgc_g4b_u04_round_up","mode":"numeric","answer":"numericAnswer","evidence":["s62:p1:second-row-left","s62:p2:top-right"],"contract":"ceil(value / unit) * unit","guards":["numeric_answer_correct","output_not_less_than_input","output_multiple_of_unit","difference_less_than_unit"],"class":"C","status":"candidate_only"},
     {"id":"fmc_g4b_u04_round_half_up","ps":"ps_g4b_u04_round_half_up","kp":"kp_g4b_u04_round_half_up_place_value","pg":"pgc_g4b_u04_round_half_up","mode":"numeric","answer":"numericAnswer","evidence":["s62:p1:bottom-right","s62:p2:top-left"],"contract":"floor((value + unit / 2) / unit) * unit","guards":["numeric_answer_correct","rounding_digit_rule_correct","output_multiple_of_unit","lower_places_zero"],"class":"C","status":"candidate_only"},
     {"id":"fmc_g4b_u04_floor_complete_groups","ps":"ps_g4b_u04_floor_complete_groups","kp":"kp_g4b_u04_context_floor_ceiling_selection","pg":"pgc_g4b_u04_context_floor_ceiling","mode":"application","answer":"numericAnswer","evidence":["s62:p1:second-row-right","s62:p1:third-row-left"],"contract":"floor(total / groupSize)","guards":["quotient_floor_correct","remainder_not_counted_as_complete_group","unit_role_consistent"],"class":"D","status":"candidate_only"},
     {"id":"fmc_g4b_u04_ceiling_minimum_required","ps":"ps_g4b_u04_ceiling_minimum_required","kp":"kp_g4b_u04_context_floor_ceiling_selection","pg":"pgc_g4b_u04_context_floor_ceiling","mode":"application","answer":"numericAnswer","evidence":["s62:p1:second-row-right","s62:p1:third-row-left","s62:p1:third-row-right"],"contract":"ceil(total / capacityOrIncrement)","guards":["ceiling_count_correct","remainder_requires_one_more","count_is_minimum_sufficient","unit_role_consistent"],"class":"D","status":"candidate_only"},
-    {"id":"fmc_g4b_u04_payment_amount_ceiling","ps":"ps_g4b_u04_payment_amount_ceiling","kp":"kp_g4b_u04_payment_denomination_ceiling","pg":"pgc_g4b_u04_payment_ceiling","mode":"application","answer":"moneyAmountAnswer","evidence":["s62:p1:fourth-row-left-and-right","s62:p1:bottom-left"],"contract":"ceil(price / denomination) * denomination","guards":["payment_covers_price","payment_is_minimum_multiple","denomination_matches_target_place","round_down_payment_forbidden_when_insufficient"],"class":"D","status":"candidate_only"},
-    {"id":"fmc_g4b_u04_payment_banknote_count","ps":"ps_g4b_u04_payment_banknote_count","kp":"kp_g4b_u04_payment_denomination_ceiling","pg":"pgc_g4b_u04_payment_ceiling","mode":"application","answer":"banknoteCountAnswer","evidence":["s62:p1:fourth-row-left-and-right","s62:p1:bottom-left"],"contract":"ceil(price / denomination)","guards":["banknote_count_minimum","count_times_denomination_covers_price","one_fewer_note_is_insufficient"],"class":"D","status":"candidate_only"},
+    {"id":"fmc_g4b_u04_payment_amount_ceiling","ps":"ps_g4b_u04_payment_amount_ceiling","kp":"kp_g4b_u04_payment_denomination_ceiling","pg":"pgc_g4b_u04_payment_ceiling","mode":"application","answer":"moneyAmountAnswer","evidence":["s62:p1:fourth-row-left-and-right","s62:p1:bottom-left"],"contract":"ceil(price / denomination) * denomination","guards":["denomination_source_allowlisted","payment_covers_price","payment_is_minimum_multiple","denomination_matches_target_place","round_down_payment_forbidden_when_insufficient"],"class":"D","status":"candidate_only"},
+    {"id":"fmc_g4b_u04_payment_banknote_count","ps":"ps_g4b_u04_payment_banknote_count","kp":"kp_g4b_u04_payment_denomination_ceiling","pg":"pgc_g4b_u04_payment_ceiling","mode":"application","answer":"banknoteCountAnswer","evidence":["s62:p1:fourth-row-left-and-right","s62:p1:bottom-left"],"contract":"ceil(price / denomination)","guards":["denomination_source_allowlisted","banknote_count_minimum","count_times_denomination_covers_price","one_fewer_note_is_insufficient"],"class":"D","status":"candidate_only"},
     {"id":"fmc_g4b_u04_round_then_add","ps":"ps_g4b_u04_round_then_add","kp":"kp_g4b_u04_round_then_add_subtract","pg":"pgc_g4b_u04_estimate_add_subtract","mode":"operation_estimation","answer":"numericAnswer","evidence":["s62:p2:top-right"],"contract":"round each operand by its specified method, then add","guards":["each_rounded_operand_correct","sum_of_rounded_operands_correct","answer_unit_label_matches"],"class":"D","status":"candidate_only"},
     {"id":"fmc_g4b_u04_round_then_subtract","ps":"ps_g4b_u04_round_then_subtract","kp":"kp_g4b_u04_round_then_add_subtract","pg":"pgc_g4b_u04_estimate_add_subtract","mode":"operation_estimation","answer":"numericAnswer","evidence":["s62:p2:top-right"],"contract":"round each operand by its specified method, then subtract smaller from larger","guards":["each_rounded_operand_correct","nonnegative_difference","difference_correct","answer_unit_label_matches"],"class":"D","status":"candidate_only"},
     {"id":"fmc_g4b_u04_round_then_multiply","ps":"ps_g4b_u04_round_then_multiply","kp":"kp_g4b_u04_round_then_multiply_divide","pg":"pgc_g4b_u04_estimate_multiply_divide","mode":"operation_estimation","answer":"numericAnswer","evidence":["s62:p2:second-row-left"],"contract":"round value, then multiply by factor","guards":["rounded_operand_correct","product_correct","answer_within_boundary","answer_unit_label_matches"],"class":"D","status":"candidate_only"},
     {"id":"fmc_g4b_u04_round_then_divide","ps":"ps_g4b_u04_round_then_divide","kp":"kp_g4b_u04_round_then_multiply_divide","pg":"pgc_g4b_u04_estimate_multiply_divide","mode":"operation_estimation","answer":"numericAnswer","evidence":["s62:p2:second-row-right"],"contract":"round value, then divide by divisor","guards":["rounded_operand_correct","divisor_nonzero","estimated_quotient_integer","quotient_correct","answer_unit_label_matches"],"class":"D","status":"candidate_only"},
     {"id":"fmc_g4b_u04_inverse_digit_set","ps":"ps_g4b_u04_inverse_digit_set","kp":"kp_g4b_u04_inverse_rounding_unknown_digit","pg":"pgc_g4b_u04_inverse_digit_set","mode":"reasoning","answer":"digitSetAnswer","evidence":["s62:p2:third-row-left","s62:p2:third-row-right"],"contract":"enumerate digits 0..9 and retain exactly those whose completed number rounds half up to roundedValue","guards":["all_valid_digits_included","invalid_digits_excluded","visible_digits_preserved","answer_set_unique_and_sorted"],"class":"C","status":"candidate_only"},
-    {"id":"fmc_g4b_u04_inverse_original_values","ps":"ps_g4b_u04_inverse_original_values","kp":"kp_g4b_u04_inverse_rounding_possible_original","pg":"pgc_g4b_u04_inverse_original_values","mode":"reasoning","answer":"possibleValuesAnswer","evidence":["s62:p2:bottom-left"],"contract":"intersect the integer half-up preimage interval with all numbers matching the visible digits","guards":["rounding_interval_correct","all_values_match_visible_digits","all_values_round_to_target","no_valid_value_omitted","empty_solution_forbidden"],"class":"C","status":"candidate_only"}
+    {"id":"fmc_g4b_u04_inverse_original_values","ps":"ps_g4b_u04_inverse_original_values","kp":"kp_g4b_u04_inverse_rounding_possible_original","pg":"pgc_g4b_u04_inverse_original_values","mode":"reasoning","answer":"possibleValuesAnswer","evidence":["s62:p2:bottom-left"],"contract":"intersect the globally clamped integer half-up preimage interval with all numbers matching the visible digits","guards":["rounding_interval_clamped_to_input_range","rounding_interval_correct","all_values_match_visible_digits","all_values_round_to_target","no_valid_value_omitted","empty_solution_forbidden"],"class":"C","status":"candidate_only"}
   ],
-  "acceptance": {
-    "knowledgePointCount": 12,
-    "patternGroupCandidateCount": 12,
-    "formalMappingCandidateCount": 17,
-    "classCMappingCandidateCount": 9,
-    "classDMappingCandidateCount": 8,
-    "answerModelCandidateCount": 9,
-    "allKnowledgePointsCovered": true,
-    "allMappingsSourceEvidenced": true,
-    "allMappingsCandidateOnly": true
-  }
+  "acceptance":{"knowledgePointCount":12,"patternGroupCandidateCount":12,"formalMappingCandidateCount":17,"classCMappingCandidateCount":9,"classDMappingCandidateCount":8,"answerModelCandidateCount":9,"qaCorrectionCount":3,"allKnowledgePointsCovered":true,"allMappingsSourceEvidenced":true,"allMappingsCandidateOnly":true}
 }
