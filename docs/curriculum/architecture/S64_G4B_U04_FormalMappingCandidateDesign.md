@@ -2,7 +2,7 @@
 
 ```text
 TASK = S64_G4B_U04_FormalMappingCandidateDesign
-STATUS = PASS_DESIGN_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 KNOWLEDGE_POINTS = 12
 PATTERN_GROUP_CANDIDATES = 12
@@ -199,7 +199,20 @@ Validator implemented = false
 Production use = forbidden
 ```
 
-## 11. Distance and next step
+## 11. CI and merge evidence
+
+```text
+implementation PR = #95
+implementation merge commit = a0c2f1fd1baf95a262b10c2c405c1897b3344e74
+main CI run = 29190479917
+main tests = 994
+main pass = 994
+main fail = 0
+main working tree = clean
+main CI readback commit = 13ebf0d81a6691d719d532eff7c0b39ae6b99a3b
+```
+
+## 12. Distance and next step
 
 ```text
 GOAL_DISTANCE_BEFORE = D3_G4B_U04_12_KNOWLEDGE_POINT_BOUNDARIES_QA_LOCKED
@@ -211,4 +224,5 @@ REMAINING_BLOCKERS   = [
   "generator and validator not implemented"
 ]
 NEXT_SHORTEST_STEP   = S65_G4B_U04_FormalMappingCandidateQA
+STOP_REASON          = NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE
 ```
