@@ -1,0 +1,86 @@
+{
+  "schemaName": "G4BU04ClassCRuntimeContract",
+  "schemaVersion": 1,
+  "task": "S69_G4B_U04_ClassCGeneratorAndBlockingValidator",
+  "status": "implemented_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "dependsOn": [
+    "data/curriculum/contracts/S68_G4B_U04_HiddenMaterializationCloseout.json",
+    "data/curriculum/mapping/S68_G4B_U04_FormalMapping.json",
+    "data/curriculum/pattern_specs/S68_G4B_U04_PatternSpecRegistry.json",
+    "data/curriculum/contracts/S66_G4B_U04_PatternSpecContractDesign.json",
+    "data/curriculum/contracts/S67_G4B_U04_PatternSpecContractQA.json"
+  ],
+  "effectiveContractLoadOrder": [
+    "S66_G4B_U04_PatternSpecContractDesign",
+    "S67_G4B_U04_PatternSpecContractQA"
+  ],
+  "patternSpecIds": [
+    "ps_g4b_u04_approx_language_classify",
+    "ps_g4b_u04_approx_symbol_reading",
+    "ps_g4b_u04_method_compare_outputs",
+    "ps_g4b_u04_method_identify_from_result",
+    "ps_g4b_u04_unconditional_round_down",
+    "ps_g4b_u04_unconditional_round_up",
+    "ps_g4b_u04_round_half_up",
+    "ps_g4b_u04_inverse_digit_set",
+    "ps_g4b_u04_inverse_original_values"
+  ],
+  "coverage": {
+    "classCPatternSpecCount": 9,
+    "conceptPatternSpecCount": 4,
+    "numericPatternSpecCount": 3,
+    "reasoningPatternSpecCount": 2,
+    "answerModelCount": 7,
+    "validatorStageCount": 8,
+    "blockingCodeRegistryCount": 44,
+    "maximumBatchCount": 1000,
+    "orderingModes": ["groupedByPattern", "shuffleAcrossPatterns"]
+  },
+  "generatorContract": {
+    "deterministicSeedReplay": true,
+    "exactQuestionCount": true,
+    "balancedPatternAllocation": true,
+    "freeFormAI": "forbidden",
+    "genericFallback": "forbidden",
+    "classDPatternSpecs": "unsupported",
+    "applicationText": false,
+    "depth": "N"
+  },
+  "validatorContract": {
+    "blockingBeforeQuestionReturn": true,
+    "batchZeroOutputOnAnyBlockingError": true,
+    "closedAnswerSchemas": true,
+    "methodChoiceUniquenessRequired": true,
+    "inverseDigitMaskGrammarRequired": true,
+    "inverseSolutionSetComplete": true,
+    "internalIdLeakageForbidden": true,
+    "unresolvedPlaceholderForbidden": true
+  },
+  "lifecycle": {
+    "selectorVisibility": "hidden",
+    "canonicalRouting": "disabled",
+    "worksheetEligible": false,
+    "rendererConnected": false,
+    "productionUse": "forbidden"
+  },
+  "scopeBoundary": {
+    "classDGeneratorImplemented": false,
+    "classDSemanticValidatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "canonicalResolverConnected": false,
+    "worksheetPathConnected": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D1_G4B_U04_FORMAL_MAPPING_AND_HIDDEN_PATTERNSPECS_MATERIALIZED",
+    "after": "D1_G4B_U04_CLASS_C_GENERATOR_VALIDATOR_IMPLEMENTED_HIDDEN",
+    "remainingBlockers": [
+      "Class D semantic generator and blocking validator not implemented",
+      "canonical resolver and public selector not connected",
+      "worksheet, answer key and renderer path not connected"
+    ],
+    "nextShortestStep": "S70_G4B_U04_ClassDSemanticGeneratorAndBlockingValidator",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}
