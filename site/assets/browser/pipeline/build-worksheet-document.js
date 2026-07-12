@@ -1,4 +1,4 @@
-import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-s60j-extension.js";
+import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-s73-extension.js";
 import { getBatchAWorksheetPlan, storeWorksheetResult } from "../state/config-state.js";
 
 export function buildWorksheetDocumentFromState(state) {
