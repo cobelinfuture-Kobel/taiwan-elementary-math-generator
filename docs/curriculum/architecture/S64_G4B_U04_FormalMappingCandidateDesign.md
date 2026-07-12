@@ -164,7 +164,7 @@ Every mapping candidate includes one or more S62 visual evidence references usin
 s62:p<page>:<panel>
 ```
 
-The recorded PDF header URL mismatch remains non-blocking. Source identity remains `g4b_u04_4b04` because the uploaded filename, title and curriculum assignment agree on G4B-U04. The PDF itself remains the source authority; OCR is not authoritative. fileciteturn53file0
+The recorded PDF header URL mismatch remains non-blocking. Source identity remains `g4b_u04_4b04` because the uploaded filename, title and curriculum assignment agree on G4B-U04. The uploaded PDF remains the source authority; OCR is not authoritative.
 
 ## 9. Data artifact
 
