@@ -99,9 +99,6 @@ function selectedVisibleGroups(plan, questionMode) {
       if (requestedGroupIds.size > 0 && !requestedGroupIds.has(group.patternGroupId)) return false;
       return questionMode === "mixed" || group.mode === questionMode;
     });
-    if (matched.length === 0) {
-      errors.push(issue("G4B_U04_CANONICAL_GROUP_NOT_RESOLVED", "selectedPatternGroupIds", "KnowledgePoint 沒有符合題目模式的公開 PatternGroup。", { knowledgePointId, questionMode }));
-    }
     groups.push(...matched);
   }
 
@@ -114,6 +111,9 @@ function selectedVisibleGroups(plan, questionMode) {
   const uniqueGroups = G4B_U04_PROMOTED_PATTERN_GROUP_IDS
     .map((id) => groups.find((group) => group.patternGroupId === id))
     .filter(Boolean);
+  if (uniqueGroups.length === 0) {
+    errors.push(issue("G4B_U04_CANONICAL_GROUP_NOT_RESOLVED", "selectedPatternGroupIds", "所選 KnowledgePoint 沒有符合題目模式的公開 PatternGroup。", { questionMode }));
+  }
   return { groups: uniqueGroups, errors };
 }
 
