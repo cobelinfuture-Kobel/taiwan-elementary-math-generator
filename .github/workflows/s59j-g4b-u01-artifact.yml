@@ -128,21 +128,23 @@ jobs:
           print(json.dumps(manifest, ensure_ascii=False, indent=2))
           PY
 
-      - name: Commit verified smoke bundle to branch
+      - name: Commit first verified smoke bundle to branch
         if: github.event_name == 'push' && github.ref == 'refs/heads/s59j-g4b-u01-production-closeout'
         run: |
+          HTML_PATH=docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.html
+          PDF_PATH=docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.pdf
+          MANIFEST_PATH=docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.manifest.json
+          if git cat-file -e "HEAD:${HTML_PATH}" \
+            && git cat-file -e "HEAD:${PDF_PATH}" \
+            && git cat-file -e "HEAD:${MANIFEST_PATH}"; then
+            echo "Verified smoke bundle is already committed and remains immutable."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.html \
-            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.pdf \
-            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.manifest.json
-          if git diff --cached --quiet; then
-            echo "Verified smoke bundle is already committed."
-          else
-            git commit -m "docs(g4b-u01): commit verified S59J HTML PDF smoke"
-            git push origin HEAD:s59j-g4b-u01-production-closeout
-          fi
+          git add "${HTML_PATH}" "${PDF_PATH}" "${MANIFEST_PATH}"
+          git commit -m "docs(g4b-u01): commit verified S59J HTML PDF smoke"
+          git push origin HEAD:s59j-g4b-u01-production-closeout
 
       - name: Upload verified smoke bundle
         uses: actions/upload-artifact@v4
