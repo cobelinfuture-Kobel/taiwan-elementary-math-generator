@@ -73,6 +73,7 @@ if ((result.validation?.errors ?? []).length !== 0) {
 let html = renderWorksheetDocumentToHtml(document, {
   title: "5A-U08 整數四則｜公開正式驗證",
   stylesheetHref: "../../../../site/assets/styles/print-styles.css",
+  debugDataAttributes: false,
 });
 html = html
   .replace("<head>", '<head><meta name="robots" content="noindex,nofollow"><meta name="generator" content="S60L G5A-U08 canonical public smoke">')
