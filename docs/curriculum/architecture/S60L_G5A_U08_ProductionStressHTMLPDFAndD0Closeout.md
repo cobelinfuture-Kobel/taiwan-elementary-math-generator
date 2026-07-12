@@ -2,7 +2,7 @@
 
 ```text
 TASK = S60L_G5A_U08_ProductionStressHTMLPDFAndD0Closeout
-STATUS = IMPLEMENTED_PENDING_CI_AND_ARTIFACT
+STATUS = VERIFIED_ARTIFACT_PENDING_FINAL_PR_CI_AND_MERGE
 ```
 
 ## Production scope
@@ -35,24 +35,45 @@ ordering = grouped and deterministic shuffled
 answer key = enabled and suppressed paths
 ```
 
-Aggregate coverage must reach all KPs, groups, PatternSpecs, modes, N/N+1 depths, daily-life/SDG contexts, TemplateFamilies, SDG goals and core answer models.
+Aggregate coverage reaches all KPs, groups, PatternSpecs, modes, N/N+1 depths, daily-life/SDG contexts, TemplateFamilies, SDG goals and core answer models.
 
-## HTML/PDF smoke
+## Verified HTML/PDF smoke
 
-A fixed 120-question public mixed worksheet is generated through the same production browser worksheet path used by Classic and Pixel.
+A fixed 120-question public mixed worksheet was generated through the same production browser worksheet path used by Classic and Pixel.
 
-Required verification:
+```text
+question cells = 120
+answer cells = 120
+question pages = 15
+answer pages = 20
+expected PDF pages = 35
+actual PDF pages = 35
+rendered nonblank pages = 35 / 35
+DOM overflow = 0
+PDF text bounding-box overflow = 0
+internal ID leakage = 0
+unresolved placeholders = 0
+CJK glyph rendering = PASS
+PDF bytes = 508081
+HTML SHA-256 = 3def772880349a324116ff593a606bbaa9f46b1c6ef887e8bd297043f7510c36
+PDF SHA-256 = 6837b467ad5ac27198f59067178aa90c60a87eb74d9c511fe680944902f64033
+```
 
-- 120 question cells and 120 answer cells;
-- all 11 KPs, 17 groups and 30 PatternSpecs;
-- all 10 TemplateFamilies, 8 SDGs and 6 answer models;
-- Traditional Chinese font and title extraction;
-- expected PDF page count equals actual page count;
-- every rendered page nonblank;
-- zero DOM overflow;
-- zero PDF text bounding-box overflow;
-- no internal IDs, unresolved placeholders, N+2 or formal-equation leakage;
-- SHA-256 and byte size recorded in manifest.
+Coverage in the fixed smoke:
+
+```text
+KnowledgePoints = 11 / 11
+PatternGroups = 17 / 17
+PatternSpecs = 30 / 30
+TemplateFamilies = 10 / 10
+SDG goals = 8 / 8
+answer models = 6 / 6
+modes = numeric, application, reasoning
+depths = N, N+1
+contexts = daily_life, sdg
+```
+
+The first two smoke failures were verification-tool defects rather than worksheet defects: CSS class selectors were counted as answer cards, and adjacent CSS braces were mistaken for semantic placeholders. The corrected tool counts actual `<article>` cards and detects only `{{identifier}}` placeholders. The full artifact workflow then passed without weakening coverage, internal-ID, DOM or PDF containment gates.
 
 ## Boundaries
 
@@ -68,11 +89,10 @@ blocking validation = required
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U08_PUBLIC_UI_PRINT_QUERY_STATE_ACCEPTED_PRODUCTION_CLOSEOUT_PENDING
-GOAL_DISTANCE_AFTER  = D0_G5A_U08_PRODUCTION_PROMOTED_AND_PRINTABLE_PENDING_CI_ARTIFACT
-DISTANCE_REDUCED     = Added final production promotion, count/stress coverage, fixed 120-question HTML/PDF verification and immutable D0 acceptance evidence.
+GOAL_DISTANCE_AFTER  = D0_G5A_U08_PRODUCTION_PROMOTED_AND_PRINTABLE_PENDING_FINAL_PR_CI_AND_MERGE
+DISTANCE_REDUCED     = Completed production promotion, public count/stress coverage, and a verified 120-question Traditional Chinese HTML/PDF bundle with full semantic and layout containment evidence.
 REMAINING_BLOCKERS   = [
-  "S60L PR CI",
-  "verified HTML/PDF artifact",
+  "final PR CI on the human-authored evidence commit",
   "merge and main CI closeout"
 ]
 NEXT_SHORTEST_STEP = S60M_BatchA_AllUnitsProductionCloseout
