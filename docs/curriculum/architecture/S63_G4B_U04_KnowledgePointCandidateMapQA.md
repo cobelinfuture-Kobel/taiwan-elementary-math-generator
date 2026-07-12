@@ -2,7 +2,7 @@
 
 ```text
 TASK = S63_G4B_U04_KnowledgePointCandidateMapQA
-STATUS = PASS_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 CANDIDATES_REVIEWED = 12
 CANDIDATES_ACCEPTED = 12
@@ -136,7 +136,20 @@ validator = not implemented
 productionUse = forbidden
 ```
 
-## 8. Distance and scope stop
+## 8. CI and merge evidence
+
+```text
+implementation PR = #93
+implementation merge commit = 30cd046c8fb6eb627629db9485cdcc0744bb6148
+main CI run = 29189541957
+main tests = 989
+main pass = 989
+main fail = 0
+main working tree = clean
+main CI readback commit = 2b5e8e6c7eb4a5dc8786a0b36518c3a02cc0974b
+```
+
+## 9. Distance and scope stop
 
 ```text
 GOAL_DISTANCE_BEFORE = D3_G4B_U04_12_KNOWLEDGE_POINT_CANDIDATES_EXTRACTED
