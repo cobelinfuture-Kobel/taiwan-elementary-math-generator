@@ -51,6 +51,38 @@
           <div class="pattern-group-panel" id="batch-a-pattern-group-panel" aria-live="polite"></div>
         </section>
 
+        <section class="pattern-group-selector" id="g5a-u08-public-controls" data-visible="false" aria-label="五上整數四則進階設定">
+          <h3>五上整數四則設定</h3>
+          <div class="control-grid">
+            <label class="field">
+              <span>題目類型</span>
+              <select id="g5a-u08-question-mode" name="g5aU08QuestionMode">
+                <option value="mixed">數字、應用與推理混合</option>
+                <option value="numeric">數字題</option>
+                <option value="application">應用題</option>
+                <option value="reasoning">推理題</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>推理深度</span>
+              <select id="g5a-u08-depth-mode" name="g5aU08DepthMode">
+                <option value="mixed">N 與 N+1 混合</option>
+                <option value="N">N 基礎</option>
+                <option value="N_PLUS_1">N+1 深度</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>生活情境</span>
+              <select id="g5a-u08-context-mode" name="g5aU08ContextMode">
+                <option value="mixed">一般生活與 SDG 混合</option>
+                <option value="daily_life">一般生活</option>
+                <option value="sdg">SDG 永續情境</option>
+              </select>
+            </label>
+          </div>
+          <p class="help-text">N+1 每題只增加一個可驗證的語意轉換；不提供 N+2 或正式方程式模式。</p>
+        </section>
+
         <ul class="selector-warning-list" id="batch-a-knowledge-point-warning-list" aria-live="polite"></ul>
       </div>
 

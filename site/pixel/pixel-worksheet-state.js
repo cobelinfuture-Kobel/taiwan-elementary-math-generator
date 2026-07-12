@@ -1,11 +1,14 @@
 import {
   createConfigState,
   getBatchAWorksheetPlan,
+  setBatchAContextMode,
+  setBatchADepthMode,
   setBatchAGenerationSeed,
   setBatchAIncludeAnswerKey,
   setBatchAOrdering,
   setBatchAPrintLayout,
   setBatchAQuestionCount,
+  setBatchAQuestionMode,
   setBatchASelectorSelection,
   setBatchASourceId
 } from "../assets/browser/state/config-state.js";
@@ -26,7 +29,10 @@ export function createPixelWorksheetState({
   includeAnswerKey = true,
   generationSeed = "pixel-ui",
   columns = 4,
-  rowsPerPage = 10
+  rowsPerPage = 10,
+  questionMode = "mixed",
+  depthMode = "mixed",
+  contextMode = "mixed",
 } = {}) {
   const state = createConfigState();
   if (sourceId) setBatchASourceId(state, sourceId);
@@ -36,6 +42,9 @@ export function createPixelWorksheetState({
   setBatchAGenerationSeed(state, generationSeed);
   setBatchAPrintLayout(state, { columns, rowsPerPage });
   if (selectorState) setBatchASelectorSelection(state, selectorPatch(selectorState));
+  setBatchAQuestionMode(state, questionMode);
+  setBatchADepthMode(state, depthMode);
+  setBatchAContextMode(state, contextMode);
   return state;
 }
 
@@ -50,6 +59,9 @@ export function applyPixelWorksheetSettings(state, patch = {}) {
   if (patch.ordering !== undefined) setBatchAOrdering(state, patch.ordering);
   if (patch.includeAnswerKey !== undefined) setBatchAIncludeAnswerKey(state, patch.includeAnswerKey);
   if (patch.generationSeed !== undefined) setBatchAGenerationSeed(state, patch.generationSeed);
+  if (patch.questionMode !== undefined) setBatchAQuestionMode(state, patch.questionMode);
+  if (patch.depthMode !== undefined) setBatchADepthMode(state, patch.depthMode);
+  if (patch.contextMode !== undefined) setBatchAContextMode(state, patch.contextMode);
   if (patch.columns !== undefined || patch.rowsPerPage !== undefined) {
     setBatchAPrintLayout(state, {
       columns: patch.columns,

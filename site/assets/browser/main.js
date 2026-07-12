@@ -2,11 +2,14 @@ import { listBatchASourceUnits } from "../../modules/curriculum/batch-a/source-u
 import {
   BATCH_A_SELECTION_MODES,
   createConfigState,
+  setBatchAContextMode,
+  setBatchADepthMode,
   setBatchAIncludeAnswerKey,
   setBatchAGenerationSeed,
   setBatchAOrdering,
   setBatchAPrintLayout,
   setBatchAQuestionCount,
+  setBatchAQuestionMode,
   setBatchASelectorSelection,
   setBatchASourceId
 } from "./state/config-state.js";
@@ -15,6 +18,7 @@ import {
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
 } from "../../modules/curriculum/registry/batch-a-selector-extension.js";
+import { G5A_U08_SOURCE_ID } from "../../modules/curriculum/registry/g5a-u08-promotion.js";
 import {
   normalizePublicPatternGroupSelection,
   togglePublicPatternGroupSelection
@@ -41,6 +45,10 @@ const patternGroupSection = document.getElementById("batch-a-pattern-group-selec
 const patternGroupHelp = document.getElementById("batch-a-pattern-group-help");
 const patternGroupPanel = document.getElementById("batch-a-pattern-group-panel");
 const knowledgePointWarningList = document.getElementById("batch-a-knowledge-point-warning-list");
+const g5aU08ControlSection = document.getElementById("g5a-u08-public-controls");
+const g5aU08QuestionMode = document.getElementById("g5a-u08-question-mode");
+const g5aU08DepthMode = document.getElementById("g5a-u08-depth-mode");
+const g5aU08ContextMode = document.getElementById("g5a-u08-context-mode");
 const questionCountInput = document.getElementById("batch-a-question-count-input");
 const orderingSelect = document.getElementById("batch-a-ordering-select");
 const answerKeyInput = document.getElementById("batch-a-answer-key-input");
@@ -219,7 +227,7 @@ function renderPatternGroupChoices() {
     return;
   }
 
-  patternGroupHelp.textContent = "可同時選擇計算題與應用題；每個知識點至少保留一種形式。";
+  patternGroupHelp.textContent = "可同時選擇計算題、應用題與推理題；每個知識點至少保留一種形式。";
   for (const choices of choiceGroups.values()) {
     const group = document.createElement("section");
     group.className = "pattern-group-choice";
@@ -255,11 +263,21 @@ function renderSelectorWarnings() {
   }
 }
 
+function syncG5AU08Controls() {
+  const visible = state.batchA.sourceId === G5A_U08_SOURCE_ID
+    && state.batchA.selectionMode !== BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+  if (g5aU08ControlSection) g5aU08ControlSection.dataset.visible = visible ? "true" : "false";
+  if (g5aU08QuestionMode) g5aU08QuestionMode.value = state.batchA.questionMode ?? "mixed";
+  if (g5aU08DepthMode) g5aU08DepthMode.value = state.batchA.depthMode ?? "mixed";
+  if (g5aU08ContextMode) g5aU08ContextMode.value = state.batchA.contextMode ?? "mixed";
+}
+
 function syncKnowledgePointSelectorFromState() {
   syncSelectionModeOptions();
   renderKnowledgePointAvailability();
   renderPatternGroupChoices();
   renderSelectorWarnings();
+  syncG5AU08Controls();
 }
 
 function syncControlsFromState() {
@@ -315,6 +333,9 @@ function readControlsIntoState() {
     rowsPerPage: Number(rowsPerPageInput?.value ?? state.batchA.rowsPerPage)
   });
   readSelectorControlsIntoState();
+  setBatchAQuestionMode(state, g5aU08QuestionMode?.value ?? state.batchA.questionMode);
+  setBatchADepthMode(state, g5aU08DepthMode?.value ?? state.batchA.depthMode);
+  setBatchAContextMode(state, g5aU08ContextMode?.value ?? state.batchA.contextMode);
 }
 
 function renderIssues(result) {
@@ -359,7 +380,7 @@ function regenerate() {
   renderIssues(result);
   if (!result.ok || !result.worksheetDocument) {
     hasGeneratedWorksheet = false;
-    setPanel(statusPanel, "產生失敗，請檢查知識點、題目形式與題數設定。", "error");
+    setPanel(statusPanel, "產生失敗，請檢查知識點、題目形式、深度、情境與題數設定。", "error");
     if (previewMeta) previewMeta.textContent = "產生失敗。";
     return;
   }
@@ -382,7 +403,19 @@ function regenerate() {
 }
 
 function bindControls() {
-  for (const element of [sourceSelect, selectionModeSelect, questionCountInput, orderingSelect, answerKeyInput, generationSeedInput, columnsInput, rowsPerPageInput]) {
+  for (const element of [
+    sourceSelect,
+    selectionModeSelect,
+    questionCountInput,
+    orderingSelect,
+    answerKeyInput,
+    generationSeedInput,
+    columnsInput,
+    rowsPerPageInput,
+    g5aU08QuestionMode,
+    g5aU08DepthMode,
+    g5aU08ContextMode
+  ]) {
     element?.addEventListener("change", () => {
       readControlsIntoState();
       syncControlsFromState();
@@ -458,4 +491,3 @@ populateSourceSelect();
 normalizeCurrentPatternGroups();
 syncControlsFromState();
 bindControls();
-regenerate();

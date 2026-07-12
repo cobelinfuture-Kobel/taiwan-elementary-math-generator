@@ -51,7 +51,8 @@
           <ul>
             <li>使用目前公開的 Batch A 單元與通過驗證的知識點。</li>
             <li>支援單元出題、單一知識點與同單元知識點混合。</li>
-            <li>知識點有多種題目形式時，可選擇計算題、應用題或兩者混合。</li>
+            <li>知識點有多種題目形式時，可選擇計算題、應用題或推理題。</li>
+            <li>五上整數四則支援 N/N+1 與一般生活/SDG 情境。</li>
             <li>支援題數、排序、答案頁、版面設定、HTML 預覽與列印。</li>
           </ul>
         </div>
@@ -61,6 +62,7 @@
             <li>跨單元知識點混合尚未開放。</li>
             <li>尚未通過 QA、隱藏或未發布的知識點不會出現在選單。</li>
             <li>重新整理頁面後不保留設定、考卷或學生作答紀錄。</li>
+            <li>不提供 N+2 或正式方程式模式。</li>
             <li>未列入目前公開 Registry 的單元與題型無法由 Pixel UI 選取。</li>
           </ul>
         </div>
@@ -113,7 +115,7 @@
               <span class="pixel-icon pixel-icon--small" aria-hidden="true">▦</span>
               <h3>題目形式</h3>
             </div>
-            <p class="pixel-help" id="pixel-pattern-group-help">切換到知識點模式後，可選擇計算題或應用題。</p>
+            <p class="pixel-help" id="pixel-pattern-group-help">切換到知識點模式後，可選擇計算題、應用題或推理題。</p>
             <div class="pixel-pattern-group-panel" id="pixel-pattern-group-panel" aria-live="polite"></div>
           </section>
 
@@ -144,6 +146,31 @@
               <option value="shuffleAcrossPatterns">跨題型隨機排序</option>
             </select>
           </label>
+          <label class="pixel-field" id="pixel-g5a-question-mode-field" data-visible="false">
+            <span>題目類型</span>
+            <select id="pixel-g5a-question-mode">
+              <option value="mixed">數字、應用與推理混合</option>
+              <option value="numeric">數字題</option>
+              <option value="application">應用題</option>
+              <option value="reasoning">推理題</option>
+            </select>
+          </label>
+          <label class="pixel-field" id="pixel-g5a-depth-mode-field" data-visible="false">
+            <span>推理深度</span>
+            <select id="pixel-g5a-depth-mode">
+              <option value="mixed">N 與 N+1 混合</option>
+              <option value="N">N 基礎</option>
+              <option value="N_PLUS_1">N+1 深度</option>
+            </select>
+          </label>
+          <label class="pixel-field" id="pixel-g5a-context-mode-field" data-visible="false">
+            <span>生活情境</span>
+            <select id="pixel-g5a-context-mode">
+              <option value="mixed">一般生活與 SDG 混合</option>
+              <option value="daily_life">一般生活</option>
+              <option value="sdg">SDG 永續情境</option>
+            </select>
+          </label>
           <label class="pixel-field">
             <span>產生種子</span>
             <input id="pixel-generation-seed" type="text" value="pixel-ui" spellcheck="false">
@@ -161,6 +188,7 @@
             <span>包含答案頁</span>
           </label>
         </div>
+        <p class="pixel-help" id="pixel-g5a-control-help" data-visible="false">N+1 每題只增加一個語意轉換；不提供 N+2 或正式方程式。</p>
         <div class="pixel-plan-summary" id="pixel-plan-summary" aria-live="polite">正在建立考卷設定...</div>
         <div class="pixel-workbench" aria-label="工作台狀態">
           <div class="pixel-workbench__card">
