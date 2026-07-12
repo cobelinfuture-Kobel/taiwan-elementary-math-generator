@@ -199,7 +199,7 @@ test("S73 renderer delegates unchanged for non-G4B-U04 documents", () => {
     includeAnswerKey: true,
   });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.worksheetDocument.rendererProfile?.profileId?.startsWith("g4b_u04_"), false);
+  assert.equal(Boolean(result.worksheetDocument.rendererProfile?.profileId?.startsWith("g4b_u04_")), false);
   const html = renderWorksheetDocumentToHtml(result.worksheetDocument, { stylesheetHref: "" });
   assert.doesNotMatch(html, /worksheet-renderer--g4b-u04/);
 });
