@@ -1,0 +1,106 @@
+{
+  "schemaName": "G4BU04ClassDSemanticRuntimeContract",
+  "schemaVersion": 1,
+  "task": "S70_G4B_U04_ClassDSemanticGeneratorAndBlockingValidator",
+  "status": "implemented_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "dependsOn": [
+    "data/curriculum/contracts/S66_G4B_U04_PatternSpecContractDesign.json",
+    "data/curriculum/contracts/S67_G4B_U04_PatternSpecContractQA.json",
+    "data/curriculum/contracts/S68_G4B_U04_HiddenMaterializationCloseout.json",
+    "data/curriculum/runtime/S69_G4B_U04_ClassCRuntimeContract.json"
+  ],
+  "effectiveContractLoadOrder": [
+    "S66_G4B_U04_PatternSpecContractDesign",
+    "S67_G4B_U04_PatternSpecContractQA",
+    "S68_G4B_U04_FormalMappingAndHiddenPatternSpecMaterialization",
+    "S69_G4B_U04_ClassCGeneratorAndBlockingValidator",
+    "S70_G4B_U04_ClassDSemanticGeneratorAndBlockingValidator"
+  ],
+  "patternSpecIds": [
+    "ps_g4b_u04_floor_complete_groups",
+    "ps_g4b_u04_ceiling_minimum_required",
+    "ps_g4b_u04_payment_amount_ceiling",
+    "ps_g4b_u04_payment_banknote_count",
+    "ps_g4b_u04_round_then_add",
+    "ps_g4b_u04_round_then_subtract",
+    "ps_g4b_u04_round_then_multiply",
+    "ps_g4b_u04_round_then_divide"
+  ],
+  "templateFamilyIds": [
+    "tpl_g4b_u04_floor_complete_pack",
+    "tpl_g4b_u04_ceiling_pack_all",
+    "tpl_g4b_u04_ceiling_saving_periods",
+    "tpl_g4b_u04_payment_amount",
+    "tpl_g4b_u04_payment_banknote_count",
+    "tpl_g4b_u04_population_total",
+    "tpl_g4b_u04_population_difference",
+    "tpl_g4b_u04_recurring_cost_multiply",
+    "tpl_g4b_u04_equal_share_divide"
+  ],
+  "coverage": {
+    "classDPatternSpecCount": 8,
+    "applicationPatternSpecCount": 4,
+    "operationEstimationPatternSpecCount": 4,
+    "controlledTemplateFamilyCount": 9,
+    "answerModelCount": 3,
+    "validatorStageCount": 8,
+    "blockingCodeRegistryCount": 44,
+    "maximumBatchCount": 1000,
+    "orderingModes": ["groupedByPattern", "shuffleAcrossPatterns"]
+  },
+  "generatorContract": {
+    "deterministicSeedReplay": true,
+    "exactQuestionCount": true,
+    "balancedPatternAllocation": true,
+    "controlledTemplatesOnly": true,
+    "exactRoleBindings": true,
+    "originalOperationInputsVisible": true,
+    "roundingMethodLabelsVisible": true,
+    "targetPlaceLabelsVisible": true,
+    "freeFormAI": "forbidden",
+    "genericFallback": "forbidden",
+    "classCPatternSpecs": "unsupported",
+    "applicationText": true,
+    "depth": "S"
+  },
+  "validatorContract": {
+    "blockingBeforeQuestionReturn": true,
+    "batchZeroOutputOnAnyBlockingError": true,
+    "closedAnswerSchemas": true,
+    "templateAllowlistRequired": true,
+    "templateRoleBindingsExact": true,
+    "floorCeilingSemanticsRequired": true,
+    "paymentMinimumSufficiencyRequired": true,
+    "roundedOperandRecomputationRequired": true,
+    "divisionIntegerRequired": true,
+    "internalIdLeakageForbidden": true,
+    "unresolvedPlaceholderForbidden": true
+  },
+  "lifecycle": {
+    "selectorVisibility": "hidden",
+    "canonicalRouting": "disabled",
+    "worksheetEligible": false,
+    "rendererConnected": false,
+    "productionUse": "forbidden"
+  },
+  "scopeBoundary": {
+    "classCModified": false,
+    "publicSelectorEnabled": false,
+    "canonicalResolverConnected": false,
+    "worksheetPathConnected": false,
+    "rendererConnected": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D1_G4B_U04_CLASS_C_GENERATOR_VALIDATOR_IMPLEMENTED_HIDDEN",
+    "after": "D1_G4B_U04_CLASS_C_AND_D_RUNTIME_IMPLEMENTED_HIDDEN",
+    "remainingBlockers": [
+      "Class C and Class D integration gate not completed",
+      "canonical resolver and public selector not connected",
+      "worksheet, answer key and renderer path not connected"
+    ],
+    "nextShortestStep": "S71_G4B_U04_ClassCAndDIntegrationGate",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}
