@@ -27,7 +27,7 @@ function readJson(url) {
   return JSON.parse(readFileSync(url, "utf8"));
 }
 
-test("S60E defines 30 hidden PatternSpecs with expected mode distribution", () => {
+test("S60E defines 30 hidden PatternSpecs with corrected mode distribution", () => {
   const mapping = readJson(MAPPING_PATH);
   const ids = mapping.patternSpecs.map((row) => row.patternSpecId);
   const counts = mapping.patternSpecs.reduce((acc, row) => {
@@ -35,9 +35,12 @@ test("S60E defines 30 hidden PatternSpecs with expected mode distribution", () =
     return acc;
   }, {});
 
+  assert.equal(mapping.schemaVersion, 2);
+  assert.equal(mapping.fullFixTask, "S60F_R1_G5A_U08_AverageReasoningModeConsistency_FullFix");
   assert.equal(mapping.patternSpecs.length, 30);
   assert.equal(new Set(ids).size, 30);
-  assert.deepEqual(counts, { numeric: 16, reasoning: 3, application: 11 });
+  assert.deepEqual(counts, { numeric: 16, reasoning: 5, application: 9 });
+  assert.equal(mapping.summary.contextualReasoningPatternSpecCount, 2);
   assert.equal(mapping.lifecycle.visibility, "hidden");
   assert.equal(mapping.lifecycle.canonicalRouting, false);
   assert.equal(mapping.lifecycle.productionUse, false);
@@ -49,22 +52,44 @@ test("S60E mapping references registered KPs, groups, templates and answer model
   const templateContract = readJson(TEMPLATE_PATH);
   const answerContract = readJson(ANSWER_PATH);
   const kpIds = new Set(kpContract.knowledgePoints.map((row) => row.knowledgePointId));
-  const groupIds = new Set(kpContract.patternGroups.map((row) => row.patternGroupId));
+  const groupById = new Map(kpContract.patternGroups.map((row) => [row.patternGroupId, row]));
   const templateIds = new Set(templateContract.templateFamilies.map((row) => row.templateFamilyId));
   const answerIds = new Set(answerContract.answerModels.map((row) => row.answerModelId));
 
   for (const spec of mapping.patternSpecs) {
+    const group = groupById.get(spec.patternGroupId);
     assert.equal(kpIds.has(spec.knowledgePointId), true, `${spec.patternSpecId} KP`);
-    assert.equal(groupIds.has(spec.patternGroupId), true, `${spec.patternSpecId} group`);
+    assert.ok(group, `${spec.patternSpecId} group`);
+    assert.equal(group.knowledgePointId, spec.knowledgePointId, `${spec.patternSpecId} group KP`);
+    assert.equal(group.mode, spec.mode, `${spec.patternSpecId} group mode`);
     assert.equal(answerIds.has(spec.answerModelId), true, `${spec.patternSpecId} answer model`);
     assert.ok(spec.operandBounds && Object.keys(spec.operandBounds).length > 0);
     assert.ok(spec.requiredInvariants.length > 0);
-    if (spec.mode === "application") {
+
+    if (spec.mode === "application" || spec.contextualReasoning === true) {
       assert.equal(templateIds.has(spec.templateFamilyId), true, `${spec.patternSpecId} template`);
     } else {
       assert.equal(spec.templateFamilyId, undefined);
+      assert.equal(spec.contextualReasoning, undefined);
     }
   }
+});
+
+test("S60E average inverse and update are contextual reasoning, not application mode", () => {
+  const mapping = readJson(MAPPING_PATH);
+  const ids = ["ps_g5a_u08_app_average_inverse", "ps_g5a_u08_app_average_update"];
+
+  for (const id of ids) {
+    const spec = mapping.patternSpecs.find((row) => row.patternSpecId === id);
+    assert.ok(spec, `${id} should exist`);
+    assert.equal(spec.patternGroupId, "pg_g5a_u08_average_reasoning");
+    assert.equal(spec.mode, "reasoning");
+    assert.equal(spec.contextualReasoning, true);
+    assert.equal(spec.templateFamilyId, "tf_g5a_u08_average_inverse_or_update");
+    assert.equal(spec.answerModelId, "averageInverseAnswer");
+  }
+  assert.equal(mapping.acceptance.allPatternSpecModesMatchPatternGroupModes, true);
+  assert.equal(mapping.acceptance.allContextualReasoningSpecsHaveTemplateFamily, true);
 });
 
 test("S60E N+1 specs have exactly one allowed delta and core specs never allow N+2", () => {
