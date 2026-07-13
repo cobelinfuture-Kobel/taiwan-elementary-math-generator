@@ -1,0 +1,15 @@
+TASK=S75_G4B_U04_ProductionStressHTMLPDFAndD0Closeout
+STATUS=IMPLEMENTED_PENDING_ARTIFACT_CI
+SOURCE_ID=g4b_u04_4b04
+BRANCH=s75-g4b-u04-production-stress-html-pdf-d0
+PRODUCTION_OVERLAY=site/modules/curriculum/registry/g4b-u04-production-promotion.js
+STRESS_TEST=tests/curriculum/s75-g4b-u04-production-stress-closeout.test.js
+SMOKE_GENERATOR=tools/curriculum/generate-s75-g4b-u04-public-smoke.mjs
+SMOKE_WORKFLOW=.github/workflows/s75-g4b-u04-artifact.yml
+QUESTION_COUNT=68
+ANSWER_COUNT=68
+CUMULATIVE_STRESS_COUNT=1052
+PRODUCTION_USE=allowed
+DISTANCE_TARGET=D0_G4B_U04
+NEXT=RUN_ARTIFACT_CI
+STOP_REASON=NONE
