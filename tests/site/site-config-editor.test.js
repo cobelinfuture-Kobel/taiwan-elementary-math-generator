@@ -144,21 +144,24 @@ test("Batch A site - runtime avoids tools preview and src imports", () => {
   }
 });
 
-test("Batch A site - html labels are Traditional Chinese", () => {
+test("Public site - html labels are Traditional Chinese and catalog-neutral", () => {
   const indexHtml = readText("site/index.html");
   const notFoundHtml = readText("site/404.html");
 
-  assert.match(indexHtml, /台灣小學數學 Batch A 練習題產生器/);
-  assert.match(indexHtml, /選擇單元/);
+  assert.match(indexHtml, /台灣小學數學練習題產生器/);
+  assert.match(indexHtml, /<h2>單元選擇<\/h2>/);
   assert.match(indexHtml, /題目數量/);
   assert.match(indexHtml, /排序模式/);
   assert.match(indexHtml, /包含答案頁/);
   assert.match(indexHtml, /產生 \/ 重新產生/);
   assert.match(indexHtml, /列印/);
-  assert.match(indexHtml, /尚未產生新的 Batch A 練習題/);
+  assert.match(indexHtml, /尚未產生新的練習題/);
+  assert.doesNotMatch(indexHtml, /台灣小學數學 Batch A 練習題產生器/);
   assert.match(indexHtml, /lang="zh-Hant"/);
 
+  assert.match(notFoundHtml, /台灣小學數學練習題產生器/);
   assert.match(notFoundHtml, /找不到指定頁面/);
+  assert.doesNotMatch(notFoundHtml, /尚未產生新的 Batch A 練習題/);
   assert.match(notFoundHtml, /lang="zh-Hant"/);
 });
 
