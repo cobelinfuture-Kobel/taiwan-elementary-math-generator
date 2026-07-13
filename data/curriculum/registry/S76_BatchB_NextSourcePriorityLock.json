@@ -2,7 +2,7 @@
   "schemaName": "BatchBNextSourcePriorityLock",
   "schemaVersion": 1,
   "task": "S76_BatchB_NextSourcePriorityLock",
-  "status": "planning_locked_pending_ci",
+  "status": "pass_ci_synced_and_merged",
   "mode": "planning_only",
   "authority": {
     "priorityPlanRef": "docs/curriculum/architecture/S61_BatchBPlanningAndSourcePriorityLock.md",
@@ -84,6 +84,17 @@
       "S78_G5A_U02A_ManualPDFKnowledgePointExtraction"
     ],
     "planningToImplementationApprovalRequired": true
+  },
+  "ciEvidence": {
+    "pullRequest": 120,
+    "mergeCommit": "e5319baaed6e095fc7aae9889e2bbb137c810c6e",
+    "prMathCiRun": 29220206521,
+    "freshMainCiRun": 29220305618,
+    "freshMainReadbackCommit": "6f55ea11fd3fa8889e148ecb4b50e2b9db45ca65",
+    "tests": 1106,
+    "pass": 1106,
+    "fail": 0,
+    "workingTree": "clean"
   },
   "goalDistance": {
     "before": "D4_BATCH_B_FIRST_SOURCE_D0_NEXT_SOURCE_NOT_RECONFIRMED",
