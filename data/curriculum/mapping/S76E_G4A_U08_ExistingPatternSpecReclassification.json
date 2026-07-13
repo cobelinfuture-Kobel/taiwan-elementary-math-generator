@@ -1,0 +1,71 @@
+{
+  "schemaName": "G4AU08ExistingPatternSpecReclassification",
+  "schemaVersion": 1,
+  "task": "S76E_G4A_U08_ExistingPatternSpecReclassification",
+  "status": "authoritative_reclassification_hidden_not_routed",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "unitTitle": "整數四則",
+  "refs": {
+    "sourceAuthority": "docs/curriculum/mapping/S76A_G4A_U08_SourceAuthorityFreeze.md",
+    "registry": "data/curriculum/registry/S76D_G4A_U08_KnowledgePointPatternGroupRegistry.json"
+  },
+  "rowFields": [
+    "legacyTemplateId",
+    "legacyKnowledgePointId",
+    "canonicalKnowledgePointId",
+    "patternGroupId",
+    "canonicalPatternSpecId",
+    "reasoningRole",
+    "mode",
+    "lifecycle"
+  ],
+  "rows": [
+    ["tpl_app_add_three_quantities", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_add_three_quantities", "ps_g4a_u08_app_add_three_quantities", "combine_three_same-unit_quantities", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_add_then_subtract_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_add_then_subtract", "ps_g4a_u08_app_add_then_subtract_state_change", "increase_then_decrease", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_subtract_then_add_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_subtract_then_add", "ps_g4a_u08_app_subtract_then_add_state_change", "decrease_then_increase", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_subtract_twice_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_subtract_twice", "ps_g4a_u08_app_subtract_twice_state_change", "decrease_then_decrease", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_adjusted_amount_then_subtract", "kp_g4a_u08_app_parentheses_grouping", "kp_g4a_u08_app_parentheses_grouping", "pg_g4a_u08_app_adjusted_amount_then_subtract", "ps_g4a_u08_app_adjusted_amount_then_subtract", "adjust_inner_amount_then_subtract", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_divide_by_group_product", "kp_g4a_u08_app_parentheses_grouping", "kp_g4a_u08_app_parentheses_grouping", "pg_g4a_u08_app_divide_by_group_product", "ps_g4a_u08_app_divide_by_group_product", "divide_by_group_product", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_multiply_after_difference_then_add_sub", "kp_g4a_u08_app_parentheses_grouping", "kp_g4a_u08_app_parentheses_grouping", "pg_g4a_u08_app_multiply_after_difference", "ps_g4a_u08_app_multiply_after_difference_then_add_sub", "multiply_adjusted_unit_then_overlay", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_multiply_then_share", "kp_g4a_u08_app_mul_div_sequence", "kp_g4a_u08_app_mul_div_sequence", "pg_g4a_u08_app_multiply_then_share", "ps_g4a_u08_app_multiply_then_share", "find_total_then_equal_share", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_unit_rate_then_scale", "kp_g4a_u08_app_mul_div_sequence", "kp_g4a_u08_app_mul_div_sequence", "pg_g4a_u08_app_unit_rate_then_scale", "ps_g4a_u08_app_unit_rate_then_scale", "find_unit_rate_then_scale", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_divide_then_divide", "kp_g4a_u08_app_mul_div_sequence", "kp_g4a_u08_app_mul_div_sequence", "pg_g4a_u08_app_divide_then_divide", "ps_g4a_u08_app_divide_then_divide", "successive_equal_partition", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_payment_minus_unit_cost_times_quantity", "kp_g4a_u08_app_mul_div_before_add_sub", "kp_g4a_u08_app_mul_div_before_add_sub", "pg_g4a_u08_app_payment_minus_unit_cost", "ps_g4a_u08_app_payment_minus_unit_cost_times_quantity", "payment_minus_single_cost_component", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_subtract_divided_amount_or_add_divided_amount", "kp_g4a_u08_app_mul_div_before_add_sub", "kp_g4a_u08_app_mul_div_before_add_sub", "pg_g4a_u08_app_divided_amount_overlay", "ps_g4a_u08_app_subtract_or_add_divided_amount", "base_amount_plus_or_minus_equal-share-overlay", "application", "hidden_reclassified_existing_runtime"]
+  ],
+  "extensionPatternGroupsNotMaterializedHere": [
+    "pg_g4a_u08_app_comparison_chain",
+    "pg_g4a_u08_app_equal_value_unit_price",
+    "pg_g4a_u08_app_relative_difference",
+    "pg_g4a_u08_app_two_cost_component_payment"
+  ],
+  "compatibility": {
+    "legacyTemplateIdsPreserved": true,
+    "legacyKnowledgePointIdsPreserved": true,
+    "runtimeGeneratorChanged": false,
+    "validatorChanged": false,
+    "selectorChanged": false,
+    "worksheetChanged": false,
+    "rendererChanged": false
+  },
+  "summary": {
+    "reclassifiedExistingTemplateCount": 12,
+    "canonicalPatternSpecCount": 12,
+    "targetPatternGroupCount": 12,
+    "extensionPatternGroupCountDeferred": 4
+  },
+  "scopeBoundary": {
+    "metadataOnly": true,
+    "canonicalGeneratedItemAdapterImplemented": false,
+    "validatorContractImplemented": false,
+    "extensionGeneratorImplemented": false,
+    "publicRoutingEnabled": false,
+    "productionLifecycleChanged": false
+  },
+  "goalDistance": {
+    "before": "D2_G4A_U08_HIDDEN_KP_PATTERN_GROUP_REGISTRY_REBASED",
+    "after": "D2_G4A_U08_EXISTING_PATTERNS_RECLASSIFIED_PENDING_ADAPTER",
+    "next": "S76F_G4A_U08_CanonicalGeneratedItemAdapter"
+  }
+}
