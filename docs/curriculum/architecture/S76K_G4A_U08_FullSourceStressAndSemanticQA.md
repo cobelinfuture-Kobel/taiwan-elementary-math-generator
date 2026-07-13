@@ -2,7 +2,7 @@
 
 ```text
 TASK = S76K_G4A_U08_FullSourceStressAndSemanticQA
-STATUS = PASS_IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_ACCEPTED_PENDING_MERGE
 SOURCE_ID = g4a_u08_4a08
 ```
 
@@ -89,6 +89,39 @@ The workflow generates a 120-question and 120-answer WorksheetDocument through t
 
 The HTML, PDF, manifest and rendered page images are uploaded as a 30-day workflow artifact. Generated binary artifacts are not committed by this milestone.
 
+## Accepted CI evidence
+
+PR `#154`, head `268f7e5344c850ed02116bd97ad6dfe4d9f344bd`:
+
+```text
+Node Test                                      PASS
+Math CI Readback                               PASS
+S42 Branch Test                                PASS
+S59J G4B-U01 HTML PDF Smoke                    PASS
+S59J R1 G4B-U01 Warning and Print Layout       PASS
+S60L G5A-U08 HTML PDF Smoke                    PASS
+S75 G4B-U04 HTML PDF Smoke                     PASS
+S76K G4A-U08 HTML PDF Smoke                    PASS
+```
+
+S76K verified artifact evidence:
+
+```text
+questions                  = 120
+answer-key items            = 120
+question pages              = 15
+answer pages                = 20
+PDF pages                   = 35
+nonblank rendered pages     = 35
+DOM cell overflow           = 0
+DOM page overflow           = 0
+PDF bbox overflow           = 0
+internal-ID leak            = 0
+unresolved placeholder      = 0
+CJK glyph rendering         = PASS
+PDF SHA-256                 = 70914d43be7fcf9bb4b94e9d27abea350efbb1bc48fc07d0e8dbc4171dee0484
+```
+
 ## Lifecycle
 
 ```text
@@ -103,8 +136,8 @@ S76K does not declare D0. Fresh-main closeout and Batch A migration readback rem
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G4A_U08_PHASE2B_RESOLVER_SELECTOR_WORKSHEET_CONNECTED
-GOAL_DISTANCE_AFTER  = D1_G4A_U08_FULL_SOURCE_STRESS_SEMANTIC_HTML_PDF_PENDING_CI
-DISTANCE_REDUCED     = Added full executable-surface stress, exact semantic recomputation, mutation rejection and Chromium HTML/PDF production evidence.
-REMAINING_BLOCKERS   = [S76K CI/Chromium smoke, fresh-main D0 closeout, Batch A migration readback]
+GOAL_DISTANCE_AFTER  = D1_G4A_U08_FULL_SOURCE_STRESS_SEMANTIC_HTML_PDF_ACCEPTED_PENDING_MERGE
+DISTANCE_REDUCED     = Accepted full executable-surface stress, exact semantic recomputation, mutation rejection and 35-page Chromium HTML/PDF production evidence.
+REMAINING_BLOCKERS   = [PR #154 merge, S76L fresh-main D0 closeout, S76L Batch A migration readback]
 NEXT_SHORTEST_STEP   = S76L_G4A_U08_FullSourceD0CloseoutAndBatchAMigrationReadback
 ```
