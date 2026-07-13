@@ -100,9 +100,7 @@ function makeBase(patternSpecId, seed, data, prompt, answer) {
 }
 
 function compositeTarget(rng) {
-  const left = rng.int(2, 12);
-  const right = rng.int(2, 12);
-  return left * right;
+  return rng.int(2, 12) * rng.int(2, 12);
 }
 
 function generateByPattern(patternSpecId, rng, seed) {
@@ -257,9 +255,9 @@ function validateDomain(item, errors) {
 }
 
 function answerErrorCode(patternSpecId) {
+  if (patternSpecId.includes("greatest_common_factor")) return "G5AU02_GCF_NOT_MAXIMUM";
   if (patternSpecId.includes("factor_pair")) return "G5AU02_FACTOR_PAIR_PRODUCT_MISMATCH";
   if (patternSpecId.includes("common_factor")) return "G5AU02_COMMON_FACTOR_NONCOMMON_INCLUDED";
-  if (patternSpecId.includes("greatest_common_factor")) return "G5AU02_GCF_NOT_MAXIMUM";
   if (patternSpecId.includes("factor_relation")) return "G5AU02_FACTOR_QUOTIENT_WITNESS_INVALID";
   if (patternSpecId.includes("missing_factor")) return "G5AU02_MISSING_FACTOR_POSITION_INVALID";
   if (patternSpecId.includes("statement")) return "G5AU02_BOOLEAN_TRUTH_VALUE_INVALID";
