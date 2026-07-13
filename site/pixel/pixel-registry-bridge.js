@@ -69,6 +69,14 @@ export function listPixelSemestersForGrade(grade) {
 }
 
 export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
+  return listPixelSourceOptions().filter((entry) => {
+    if (Number.isInteger(grade) && entry.grade !== grade) return false;
+    if (semester && entry.semester !== semester) return false;
+    return true;
+  });
+}
+
+export function listS74PixelSourceOptionsByFilter({ grade, semester } = {}) {
   return listS74PixelSourceOptions().filter((entry) => {
     if (Number.isInteger(grade) && entry.grade !== grade) return false;
     if (semester && entry.semester !== semester) return false;
@@ -77,6 +85,10 @@ export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
 }
 
 export function getPixelSourceOption(sourceId) {
+  return listPixelSourceOptions().find((unit) => unit.sourceId === sourceId) ?? null;
+}
+
+export function getS74PixelSourceOption(sourceId) {
   return listS74PixelSourceOptions().find((unit) => unit.sourceId === sourceId) ?? null;
 }
 
@@ -95,16 +107,23 @@ export function listPixelKnowledgePointsForSource(sourceId) {
     }));
 }
 
-export function getPixelSourceSummary(sourceId) {
-  const sourceOption = getPixelSourceOption(sourceId);
+function buildPixelSourceSummary(sourceOption) {
   if (!sourceOption) return null;
-  const knowledgePoints = listPixelKnowledgePointsForSource(sourceId);
+  const knowledgePoints = listPixelKnowledgePointsForSource(sourceOption.sourceId);
   return Object.freeze({
     ...clone(sourceOption),
     visibleKnowledgePoints: knowledgePoints,
     summaryText: `${sourceOption.unitCode}｜${sourceOption.title}｜${sourceOption.grade} 年級${sourceOption.semesterLabel}`,
     previewText: `目前選擇 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。`
   });
+}
+
+export function getPixelSourceSummary(sourceId) {
+  return buildPixelSourceSummary(getPixelSourceOption(sourceId));
+}
+
+export function getS74PixelSourceSummary(sourceId) {
+  return buildPixelSourceSummary(getS74PixelSourceOption(sourceId));
 }
 
 export function getPixelRegistrySnapshot() {
