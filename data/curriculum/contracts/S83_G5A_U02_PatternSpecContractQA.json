@@ -2,7 +2,7 @@
   "schemaName": "G5AU02PatternSpecContractQA",
   "schemaVersion": 1,
   "task": "S83_G5A_U02_PatternSpecContractQA",
-  "status": "qa_passed_with_corrections_pending_ci",
+  "status": "qa_passed_ci_synced_and_merged",
   "unitId": "g5a_u02",
   "unitTitle": "因數與公因數",
   "sourceContractRef": "data/curriculum/contracts/S82_G5A_U02_PatternSpecContractDesign.json",
@@ -72,6 +72,17 @@
     "nextTask": "S84_G5A_U02_FormalMappingAndHiddenPatternSpecMaterialization",
     "materializationAllowedByS83": false,
     "qaOverlayRequiredByLaterConsumers": true
+  },
+  "closeoutEvidence": {
+    "implementationPr": 134,
+    "implementationMergeCommit": "f96e30d3b5c717d77ecddb81447fdc72b0285004",
+    "prMathCiRun": "29235676645",
+    "freshMainMathCiRun": "29235912361",
+    "freshMainReadbackCommit": "4819382d9a83760b1b2fd46039178ea2a12b3919",
+    "tests": 1157,
+    "pass": 1157,
+    "fail": 0,
+    "workingTree": "clean"
   },
   "goalDistance": {
     "before": "D2_G5A_U02_22_PATTERNSPEC_CONTRACTS_DESIGNED_PENDING_QA",
