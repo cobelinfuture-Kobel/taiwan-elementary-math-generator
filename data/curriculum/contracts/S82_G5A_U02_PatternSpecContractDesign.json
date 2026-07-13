@@ -1,0 +1,137 @@
+{
+  "schemaName": "G5AU02PatternSpecContractDesign",
+  "schemaVersion": 1,
+  "task": "S82_G5A_U02_PatternSpecContractDesign",
+  "status": "contract_design_complete_pending_qa",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "dependsOn": [
+    "data/curriculum/mapping/g5a_u02_formal_mapping_candidates.json",
+    "data/curriculum/mapping/g5a_u02_formal_mapping_candidate_qa.json"
+  ],
+  "authorityPrecedence": {
+    "base": "S80_G5A_U02_FormalMappingCandidateDesign",
+    "overlay": "S81_G5A_U02_FormalMappingCandidateQA",
+    "rule": "S81 overlay has higher precedence for all five corrected targets",
+    "uncorrectedS80ConsumptionAllowed": false
+  },
+  "canonicalSkillParents": [
+    "factor",
+    "factor_application",
+    "factor_reasoning",
+    "common_factor_gcf",
+    "common_factor_application",
+    "number_theory_language",
+    "number_theory_reasoning"
+  ],
+  "patternSpecKind": "g5aU02FactorCommonFactor",
+  "cardinality": {
+    "knowledgePointCount": 18,
+    "patternGroupCount": 18,
+    "patternSpecContractCount": 22,
+    "answerModelSchemaCount": 16,
+    "controlledTemplateFamilyCount": 8,
+    "implementationClassCCount": 14,
+    "implementationClassDCount": 8,
+    "qaOverlayApplicationCount": 5
+  },
+  "modeCounts": {
+    "concept": 4,
+    "numeric": 6,
+    "representation": 1,
+    "reasoning": 3,
+    "application": 4,
+    "reasoning_application": 2,
+    "geometry_application": 2
+  },
+  "requiredPatternSpecFields": [
+    "patternSpecId",
+    "sourceMappingCandidateId",
+    "unitId",
+    "unitTitle",
+    "kind",
+    "patternGroupId",
+    "knowledgePointId",
+    "mode",
+    "equationShape",
+    "inputContract",
+    "generationContract",
+    "promptContract",
+    "answerModel",
+    "answerSchemaRef",
+    "validatorHooks",
+    "sourceEvidence",
+    "implementationClass",
+    "patternOrder",
+    "qaOverlayRefs",
+    "lifecycle"
+  ],
+  "fixedLifecycle": {
+    "contractStatus": "designed_not_materialized",
+    "selectorVisibility": "hidden",
+    "canonicalRouting": "disabled",
+    "generatorStatus": "not_implemented",
+    "validatorStatus": "contract_only",
+    "productionUse": "forbidden"
+  },
+  "artifacts": {
+    "rules": "data/curriculum/contracts/s82_g5a_u02/rules_and_overlays.json",
+    "answerSchemas": "data/curriculum/contracts/s82_g5a_u02/answer_model_schemas.json",
+    "templates": "data/curriculum/contracts/s82_g5a_u02/controlled_template_families.json",
+    "patternGroups": "data/curriculum/contracts/s82_g5a_u02/pattern_groups.json",
+    "patternSpecs": [
+      "data/curriculum/contracts/s82_g5a_u02/pattern_specs_c_01.json",
+      "data/curriculum/contracts/s82_g5a_u02/pattern_specs_c_02.json",
+      "data/curriculum/contracts/s82_g5a_u02/pattern_specs_d_01.json",
+      "data/curriculum/contracts/s82_g5a_u02/pattern_specs_d_02.json"
+    ],
+    "validator": "data/curriculum/contracts/s82_g5a_u02/validator_contract.json"
+  },
+  "sourceIdentityBoundary": {
+    "packetIdsRetained": true,
+    "candidatePipelineResolved": true,
+    "publicCatalogPromotionRequiresMetadataCorrection": true,
+    "requiredMetadataCorrection": {
+      "sourceId": "g5a_u02_5a02a1",
+      "displayTitle": "公因數",
+      "sourceUrl": "https://meow911.com/5a03b/"
+    }
+  },
+  "scopeBoundary": {
+    "sourceMetadataMutated": false,
+    "formalMappingMaterialized": false,
+    "patternGroupsMaterialized": false,
+    "patternSpecsMaterialized": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "canonicalRoutingEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "acceptance": {
+    "allS81AcceptedMappingsProjected": true,
+    "allFiveS81CorrectionsApplied": true,
+    "allPatternSpecsSourceEvidenced": true,
+    "allClassDPatternsControlledTemplateBound": true,
+    "allAnswerSchemasDeterministic": true,
+    "allLifecycleHiddenAndNonProduction": true
+  },
+  "handoff": {
+    "nextTask": "S83_G5A_U02_PatternSpecContractQA",
+    "qaRequiredBeforeMaterialization": true,
+    "materializationAllowedByS82": false
+  },
+  "goalDistance": {
+    "before": "D2_G5A_U02_22_FORMAL_MAPPING_CANDIDATES_QA_LOCKED",
+    "after": "D2_G5A_U02_22_PATTERNSPEC_CONTRACTS_DESIGNED_PENDING_QA",
+    "distanceReduced": "Projected all 22 QA-accepted FormalMapping candidates into deterministic PatternSpec contracts with 16 answer schemas, 8 controlled Class D template families and the five mandatory S81 corrections.",
+    "remainingBlockers": [
+      "PatternSpec contract QA has not executed",
+      "5a02a1 public/source metadata correction remains pending",
+      "FormalMapping and PatternSpec materialization are absent",
+      "Generator and blocking validator runtime are absent"
+    ],
+    "nextShortestStep": "S83_G5A_U02_PatternSpecContractQA",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}

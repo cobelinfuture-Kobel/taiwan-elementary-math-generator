@@ -1,0 +1,23 @@
+{
+  "schemaName": "G5AU02AnswerModelSchemas",
+  "schemaVersion": 1,
+  "task": "S82_G5A_U02_PatternSpecContractDesign",
+  "answerModelSchemas": {
+    "relationClassificationAnswer": {"type": "object", "required": ["target", "candidateDivisor", "isFactor", "quotient"], "deterministic": true},
+    "integerListAnswer": {"type": "object", "required": ["values"], "deterministic": true, "rules": ["ascending_unique", "complete_set"]},
+    "factorPairListAnswer": {"type": "object", "required": ["pairs"], "deterministic": true, "rules": ["a<=b", "a*b=target", "sqrt_pair_once", "complete_set"]},
+    "orderedFactorRelationAnswer": {"type": "object", "required": ["factorList", "symmetricPairs"], "deterministic": true, "rules": ["ascending_complete_factor_list", "symmetric_pair_products_equal_target"]},
+    "missingValueMapAnswer": {"type": "object", "required": ["valuesByPosition"], "deterministic": true},
+    "selectionSetAnswer": {"type": "object", "required": ["selectedValues"], "deterministic": true},
+    "booleanAnswer": {"type": "object", "required": ["value"], "deterministic": true},
+    "integerListWithUnitAnswer": {"type": "object", "required": ["values", "unitLabel"], "deterministic": true, "rules": ["ascending_unique", "complete_set", "unit_required"]},
+    "problemTypeLabelAnswer": {"type": "object", "required": ["label"], "deterministic": true, "allowedLabels": ["factor", "multiple", "common_factor", "common_multiple"]},
+    "structuredInferenceAnswer": {"type": "object", "required": ["targetNumber", "inferredValues"], "deterministic": true},
+    "booleanSetAnswer": {"type": "object", "required": ["values"], "deterministic": true},
+    "remainderAnswer": {"type": "object", "required": ["remainder", "smallerDivisor"], "deterministic": true, "rules": ["0<=remainder<smallerDivisor"]},
+    "integerAnswer": {"type": "object", "required": ["value"], "deterministic": true},
+    "lengthListAnswer": {"type": "object", "required": ["values", "unitLabel"], "deterministic": true, "units": ["公分", "公尺"]},
+    "areaListAnswer": {"type": "object", "required": ["values", "unitLabel"], "deterministic": true, "units": ["平方公分", "平方公尺"]},
+    "digitTupleAnswer": {"type": "object", "required": ["digits", "value"], "deterministic": true, "rules": ["four_ordered_distinct_digits", "value_encodes_digits", "unique_source_solution_1725"]}
+  }
+}
