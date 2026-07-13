@@ -1,0 +1,184 @@
+{
+  "schemaName": "G5AU02PatternSpecQAAnswerSchemaOverlay",
+  "schemaVersion": 1,
+  "task": "S83_G5A_U02_PatternSpecContractQA",
+  "answerSchemaPolicy": {
+    "additionalProperties": false,
+    "closedSchemas": {
+      "relationClassificationAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target", "candidateDivisor", "isFactor", "quotient"],
+        "properties": {
+          "target": {"type": "integer", "minimum": 1},
+          "candidateDivisor": {"type": "integer", "minimum": 1},
+          "isFactor": {"type": "boolean"},
+          "quotient": {"anyOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]}
+        },
+        "conditionalWitness": {
+          "whenTrue": "isFactor===true => quotient is positive integer && candidateDivisor*quotient===target",
+          "whenFalse": "isFactor===false => quotient===null && target%candidateDivisor!==0"
+        }
+      },
+      "integerListAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["values"],
+        "properties": {
+          "values": {"type": "array", "items": {"type": "integer", "minimum": 1}, "minItems": 1, "uniqueItems": true, "order": "ascending", "completeSet": true}
+        }
+      },
+      "factorPairListAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["pairs"],
+        "properties": {
+          "pairs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "array",
+              "prefixItems": [{"type": "integer", "minimum": 1}, {"type": "integer", "minimum": 1}],
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "rules": ["first_not_greater_than_second", "pair_product_equals_target", "sqrt_pair_once", "complete_pair_set", "pairs_sorted_by_first"]
+      },
+      "orderedFactorRelationAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["factorList", "symmetricPairs"],
+        "properties": {
+          "factorList": {"type": "array", "items": {"type": "integer", "minimum": 1}, "minItems": 1, "uniqueItems": true, "order": "ascending", "completeSet": true},
+          "symmetricPairs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "array",
+              "prefixItems": [{"type": "integer", "minimum": 1}, {"type": "integer", "minimum": 1}],
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "rules": ["symmetric_pairs_cover_factor_list", "every_pair_product_equals_target"]
+      },
+      "missingValueMapAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["valuesByPosition"],
+        "properties": {
+          "valuesByPosition": {
+            "type": "object",
+            "minProperties": 1,
+            "propertyNames": {"pattern": "^[0-9]+$"},
+            "additionalProperties": {"type": "integer", "minimum": 1}
+          }
+        },
+        "rules": ["positions_unique", "visible_entries_unchanged", "completed_list_equals_factor_set"]
+      },
+      "selectionSetAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["selectedValues"],
+        "properties": {
+          "selectedValues": {"type": "array", "items": {"type": "integer", "minimum": 1}, "minItems": 1, "uniqueItems": true, "order": "ascending", "completeSet": true}
+        },
+        "rules": ["selected_values_from_closed_candidate_set", "selection_complete"]
+      },
+      "booleanAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["value"],
+        "properties": {"value": {"type": "boolean"}}
+      },
+      "integerListWithUnitAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["values", "unitLabel"],
+        "properties": {
+          "values": {"type": "array", "items": {"type": "integer", "minimum": 1}, "minItems": 1, "uniqueItems": true, "order": "ascending", "completeSet": true},
+          "unitLabel": {"type": "string", "enum": ["段", "人", "盒", "個", "公分", "公尺"]}
+        },
+        "rules": ["unit_matches_controlled_template_variant"]
+      },
+      "problemTypeLabelAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label"],
+        "properties": {"label": {"type": "string", "enum": ["factor", "multiple", "common_factor", "common_multiple"]}}
+      },
+      "structuredInferenceAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["targetNumber", "inferredValues"],
+        "properties": {
+          "targetNumber": {"type": "integer", "minimum": 1},
+          "inferredValues": {
+            "type": "object",
+            "minProperties": 1,
+            "propertyNames": {"pattern": "^[A-Za-z][A-Za-z0-9_]*$"},
+            "additionalProperties": {"type": "integer", "minimum": 1}
+          }
+        },
+        "rules": ["all_unknowns_solved", "solution_unique"]
+      },
+      "booleanSetAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["values"],
+        "properties": {"values": {"type": "array", "items": {"type": "boolean"}, "minItems": 1}},
+        "rules": ["values_order_matches_statement_order", "values_length_equals_statement_count"]
+      },
+      "remainderAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["remainder", "smallerDivisor"],
+        "properties": {
+          "remainder": {"type": "integer", "minimum": 0},
+          "smallerDivisor": {"type": "integer", "minimum": 2}
+        },
+        "rules": ["remainder_less_than_smaller_divisor"]
+      },
+      "integerAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["value"],
+        "properties": {"value": {"type": "integer", "minimum": 1}}
+      },
+      "lengthListAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["values", "unitLabel"],
+        "properties": {
+          "values": {"type": "array", "items": {"type": "integer", "minimum": 1}, "minItems": 1, "uniqueItems": true, "order": "ascending", "completeSet": true},
+          "unitLabel": {"type": "string", "enum": ["公分", "公尺"]}
+        },
+        "rules": ["all_values_are_common_divisor_lengths"]
+      },
+      "areaListAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["values", "unitLabel"],
+        "properties": {
+          "values": {"type": "array", "items": {"type": "integer", "minimum": 1}, "minItems": 1, "uniqueItems": true, "order": "ascending", "completeSet": true},
+          "unitLabel": {"type": "string", "enum": ["平方公分", "平方公尺"]}
+        },
+        "rules": ["every_value_is_square_of_valid_side", "area_unit_is_squared_length_unit"]
+      },
+      "digitTupleAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["digits", "value"],
+        "properties": {
+          "digits": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 9}, "minItems": 4, "maxItems": 4, "uniqueItems": true},
+          "value": {"type": "integer", "minimum": 1000, "maximum": 9999}
+        },
+        "rules": ["first_digit_nonzero", "value_encodes_digits_in_order", "source_predicates_exact", "unique_source_solution_1725"]
+      }
+    }
+  }
+}
