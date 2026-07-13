@@ -11,7 +11,7 @@ export const G4B_U04_PRODUCTION_PROMOTION_OVERLAY_ID =
 
 export const G4B_U04_PRODUCTION_LIFECYCLE = Object.freeze({
   task: "S75_G4B_U04_ProductionStressHTMLPDFAndD0Closeout",
-  status: "production_promoted",
+  status: "production_promoted_d0_closed",
   selectorStatus: "visible",
   runtimeStatus: "blocking_validated_canonical_runtime",
   validatorStatus: "blocking_validator_accepted",
@@ -20,7 +20,7 @@ export const G4B_U04_PRODUCTION_LIFECYCLE = Object.freeze({
   rendererStatus: "production_renderer_accepted",
   publicUiStatus: "classic_fallback_pixel_connected",
   queryStateStatus: "round_trip_and_sanitization_accepted",
-  htmlPdfStatus: "production_smoke_required",
+  htmlPdfStatus: "production_smoke_passed",
   productionUse: "allowed",
   distance: "D0_G4B_U04",
   requiredNextGate: "S76_BatchB_NextSourcePriorityLock",
@@ -48,6 +48,7 @@ export function validateG4BU04ProductionPromotionProjection() {
   if (G4B_U04_PRODUCTION_LIFECYCLE.distance !== "D0_G4B_U04") errors.push("distance_not_d0");
   if (G4B_U04_PRODUCTION_LIFECYCLE.publicUiStatus !== "classic_fallback_pixel_connected") errors.push("public_ui_not_connected");
   if (G4B_U04_PRODUCTION_LIFECYCLE.queryStateStatus !== "round_trip_and_sanitization_accepted") errors.push("query_state_not_accepted");
+  if (G4B_U04_PRODUCTION_LIFECYCLE.htmlPdfStatus !== "production_smoke_passed") errors.push("html_pdf_smoke_not_passed");
   if (G4B_U04_PRODUCTION_LIFECYCLE.requiredNextGate !== "S76_BatchB_NextSourcePriorityLock") errors.push("next_gate_mismatch");
   return Object.freeze({
     ok: errors.length === 0,
