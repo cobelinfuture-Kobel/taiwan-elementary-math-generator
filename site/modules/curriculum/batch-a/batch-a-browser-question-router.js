@@ -9,6 +9,9 @@ import {
   normalizeG4AU08ResolverPlan,
 } from "./g4a-u08-canonical-router.js";
 import {
+  G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS,
+} from "../registry/g4a-u08-phase2b-promotion.js";
+import {
   G5A_U08_CANONICAL_ROUTE_KINDS,
   classifyG5AU08CanonicalRouterPlan,
   generateG5AU08CanonicalQuestions,
@@ -20,6 +23,8 @@ import {
   generateG4BU04CanonicalQuestions,
   normalizeG4BU04ResolverPlan,
 } from "../batch-b/g4b-u04-canonical-router.js";
+
+const G4A_U08_PHASE2B_GROUP_SET = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
@@ -54,16 +59,23 @@ function invalidCanonicalResult(plan, prefix, fallbackMessage) {
   };
 }
 
+function requestsG4AU08Phase2B(plan = {}) {
+  return Array.isArray(plan.requestedPatternGroupIds)
+    && plan.requestedPatternGroupIds.some((id) => G4A_U08_PHASE2B_GROUP_SET.has(id));
+}
+
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
 
-  const g4aU08Plan = normalizeG4AU08ResolverPlan(plan);
-  const g4aU08RouteKind = classifyG4AU08CanonicalRouterPlan(g4aU08Plan);
-  if (g4aU08RouteKind === G4A_U08_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) {
-    return invalidCanonicalResult(g4aU08Plan, "G4A_U08", "G4A-U08 公開選擇沒有可用的 Phase2B KnowledgePoint 或 PatternGroup。");
-  }
-  if (g4aU08RouteKind === G4A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) {
-    return generateG4AU08CanonicalQuestions(g4aU08Plan);
+  if (requestsG4AU08Phase2B(plan)) {
+    const g4aU08Plan = normalizeG4AU08ResolverPlan(plan);
+    const g4aU08RouteKind = classifyG4AU08CanonicalRouterPlan(g4aU08Plan);
+    if (g4aU08RouteKind === G4A_U08_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) {
+      return invalidCanonicalResult(g4aU08Plan, "G4A_U08", "G4A-U08 公開選擇沒有可用的 Phase2B KnowledgePoint 或 PatternGroup。");
+    }
+    if (g4aU08RouteKind === G4A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) {
+      return generateG4AU08CanonicalQuestions(g4aU08Plan);
+    }
   }
 
   const g4bU04Plan = normalizeG4BU04ResolverPlan(plan);
