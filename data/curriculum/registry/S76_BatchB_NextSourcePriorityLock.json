@@ -1,0 +1,100 @@
+{
+  "schemaName": "BatchBNextSourcePriorityLock",
+  "schemaVersion": 1,
+  "task": "S76_BatchB_NextSourcePriorityLock",
+  "status": "planning_locked_pending_ci",
+  "mode": "planning_only",
+  "authority": {
+    "priorityPlanRef": "docs/curriculum/architecture/S61_BatchBPlanningAndSourcePriorityLock.md",
+    "completedSourceCloseoutRef": "docs/curriculum/output/S75_G4B_U04_PRODUCTION_STRESS_HTML_PDF_D0_CLOSEOUT_PASS.marker",
+    "sourceMetadataAuthority": "Google Drive Taiwan Elementary Math Sources/source_metadata.md",
+    "ocrAuthority": "forbidden"
+  },
+  "completedSource": {
+    "sourceId": "g4b_u04_4b04",
+    "sourceTitle": "概數",
+    "distance": "D0_G4B_U04_PRODUCTION_READY_AND_CLOSED",
+    "productionUse": "allowed"
+  },
+  "lockedNextSource": {
+    "priority": 2,
+    "wave": "B1",
+    "sourceId": "g5a_u02_5a02a",
+    "sourceCode": "5a02a",
+    "sourceTitle": "因數",
+    "grade": 5,
+    "semester": "g5a",
+    "semesterZh": "五年級上學期",
+    "unit": "u02",
+    "sourceSubunit": "a",
+    "sourceType": "external_pdf",
+    "sourceFile": "meow911_5a02a_source.pdf",
+    "originalFileName": "題型總覽-5a02a-因數.pdf",
+    "sourceUrl": "https://meow911.com/5a02a/",
+    "driveFileId": "1950HYCXtP6qeBvCiRqTeEgLWwpSxKvgk",
+    "sourceStored": true,
+    "manualReviewed": false,
+    "extractionStatus": "pending",
+    "selectionReason": "Starts the integer factor-multiple-GCD-LCM prerequisite ladder with a deterministic unique-answer domain before decimal and fraction pipelines."
+  },
+  "pairedFollowUpSource": {
+    "priority": 3,
+    "sourceId": "g5a_u02_5a02a1",
+    "sourceTitle": "因數",
+    "sourceFile": "meow911_5a02a1_source.pdf",
+    "driveFileId": "1OTUwV3Eg04dX3taI24mBVfNjDYv5lg_c",
+    "relationship": "split_source_packet",
+    "mergeIntoLockedNextSource": false,
+    "processingRule": "Review after g5a_u02_5a02a but preserve a distinct sourceId and source-evidence boundary."
+  },
+  "publicCatalogDecision": {
+    "batchABatchBToggle": false,
+    "decision": "neutral_public_catalog_labels",
+    "rationale": "Batch A and Batch B are internal implementation and release waves, not learner-facing curriculum dimensions. A public batch toggle would expose internal architecture and create unnecessary catalog, query-state and deep-link complexity.",
+    "keepInterfaceStyleToggle": true,
+    "interfaceStyleOptions": ["Classic", "Pixel Beta"],
+    "recommendedPublicLabels": {
+      "documentTitle": "台灣小學數學練習題產生器",
+      "heroTitle": "台灣小學數學練習題產生器",
+      "heroEyebrow": "Taiwan Elementary Math Worksheet",
+      "unitSectionHeading": "單元選擇",
+      "controlsAriaLabel": "練習題設定",
+      "previewEmptyText": "尚未產生新的練習題。"
+    },
+    "recommendedCurriculumFilters": ["年級", "學期", "單元"],
+    "compatibilityRule": "Existing batch-a-* DOM ids, query keys and module names may remain internal until a separately scoped compatibility migration is approved.",
+    "currentMismatch": "G4B-U04 is a Batch B production source but the public Classic page still labels the whole catalog as Batch A."
+  },
+  "scopeBoundary": {
+    "pdfVisualExtraction": false,
+    "knowledgePointMaterialization": false,
+    "patternSpecChange": false,
+    "generatorChange": false,
+    "validatorChange": false,
+    "selectorRuntimeChange": false,
+    "publicUiCodeChange": false,
+    "queryStateChange": false,
+    "productionBehaviorChange": false
+  },
+  "handoff": {
+    "uiCorrectionTask": "S77_PublicCatalogNeutralNamingAndBatchBoundaryFullFix",
+    "sourceExtractionTask": "S78_G5A_U02A_ManualPDFKnowledgePointExtraction",
+    "executionOrder": [
+      "S77_PublicCatalogNeutralNamingAndBatchBoundaryFullFix",
+      "S78_G5A_U02A_ManualPDFKnowledgePointExtraction"
+    ],
+    "planningToImplementationApprovalRequired": true
+  },
+  "goalDistance": {
+    "before": "D4_BATCH_B_FIRST_SOURCE_D0_NEXT_SOURCE_NOT_RECONFIRMED",
+    "after": "D4_BATCH_B_NEXT_SOURCE_AND_PUBLIC_CATALOG_POLICY_LOCKED",
+    "distanceReduced": "Removed the next-source decision blocker and the public Batch A/Batch B presentation ambiguity without expanding curriculum or runtime scope.",
+    "remainingBlockers": [
+      "Public catalog still displays Batch A labels around a mixed Batch A/Batch B source catalog",
+      "g5a_u02_5a02a manual visual PDF verification has not started",
+      "g5a_u02_5a02a KnowledgePoint extraction has not started"
+    ],
+    "nextShortestStep": "S77_PublicCatalogNeutralNamingAndBatchBoundaryFullFix",
+    "stopReason": "PLANNING_TO_IMPLEMENTATION_APPROVAL_REQUIRED"
+  }
+}
