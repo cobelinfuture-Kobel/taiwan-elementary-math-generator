@@ -2,7 +2,7 @@
   "schemaName": "G5AU02FormalMappingCandidateQA",
   "schemaVersion": 1,
   "task": "S81_G5A_U02_FormalMappingCandidateQA",
-  "status": "qa_passed_pending_ci",
+  "status": "qa_passed_ci_synced_and_merged",
   "unitId": "g5a_u02",
   "unitTitle": "因數與公因數",
   "sourceArtifact": "data/curriculum/mapping/g5a_u02_formal_mapping_candidates.json",
@@ -173,6 +173,19 @@
     "validatorImplemented": false,
     "publicSelectorEnabled": false,
     "productionUse": "forbidden"
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 130,
+    "implementationMergeCommit": "26429dccc3d7e42aca48139cd04c56e4e18caf6e",
+    "initialPrMathCiRun": 29226607528,
+    "initialPrCiDisposition": "test_only_wording_mismatch_fixed",
+    "finalPrMathCiRun": 29226740061,
+    "freshMainMathCiRun": 29226909138,
+    "freshMainReadbackCommit": "623ecb75b662330a30def95c3ee1607d4350cdfb",
+    "tests": 1140,
+    "pass": 1140,
+    "fail": 0,
+    "workingTree": "clean"
   },
   "remainingBlockers": [
     "The S81 overlay must be consumed with higher precedence than the S80 base during PatternSpec contract design.",
