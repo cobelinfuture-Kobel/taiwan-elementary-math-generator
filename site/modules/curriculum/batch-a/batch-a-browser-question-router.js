@@ -3,6 +3,12 @@ export * from "./batch-a-browser-question-router-core.js";
 import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions as generateCoreBatchABrowserQuestions } from "./batch-a-browser-question-router-core.js";
 import {
+  G4A_U08_CANONICAL_ROUTE_KINDS,
+  classifyG4AU08CanonicalRouterPlan,
+  generateG4AU08CanonicalQuestions,
+  normalizeG4AU08ResolverPlan,
+} from "./g4a-u08-canonical-router.js";
+import {
   G5A_U08_CANONICAL_ROUTE_KINDS,
   classifyG5AU08CanonicalRouterPlan,
   generateG5AU08CanonicalQuestions,
@@ -50,6 +56,15 @@ function invalidCanonicalResult(plan, prefix, fallbackMessage) {
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+
+  const g4aU08Plan = normalizeG4AU08ResolverPlan(plan);
+  const g4aU08RouteKind = classifyG4AU08CanonicalRouterPlan(g4aU08Plan);
+  if (g4aU08RouteKind === G4A_U08_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) {
+    return invalidCanonicalResult(g4aU08Plan, "G4A_U08", "G4A-U08 公開選擇沒有可用的 Phase2B KnowledgePoint 或 PatternGroup。");
+  }
+  if (g4aU08RouteKind === G4A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) {
+    return generateG4AU08CanonicalQuestions(g4aU08Plan);
+  }
 
   const g4bU04Plan = normalizeG4BU04ResolverPlan(plan);
   const g4bU04RouteKind = classifyG4BU04CanonicalRouterPlan(g4bU04Plan);
