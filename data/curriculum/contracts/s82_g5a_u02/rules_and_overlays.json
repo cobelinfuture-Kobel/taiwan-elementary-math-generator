@@ -1,0 +1,103 @@
+{
+  "schemaName": "G5AU02PatternSpecRulesAndOverlays",
+  "schemaVersion": 1,
+  "task": "S82_G5A_U02_PatternSpecContractDesign",
+  "globalBoundary": {
+    "targetNumberRange": [2, 999],
+    "pairedNumberRange": [2, 999],
+    "applicationQuantityRange": [2, 9999],
+    "geometryDimensionRange": [2, 999],
+    "digitRange": [0, 9],
+    "digitCodeLength": 4,
+    "positiveIntegerOnly": true,
+    "includeOneAndSelfAsFactors": true,
+    "factorListOrdering": "ascending_unique",
+    "zeroDivisorAllowed": false,
+    "leadingZeroAllowedInDigitCode": false,
+    "fractionalAnswerAllowed": false,
+    "negativeAnswerAllowed": false,
+    "shortDivisionExternalMediaInferenceAllowed": false,
+    "genericFallbackAllowed": false
+  },
+  "formalRules": {
+    "divides": "d>0 && n%d===0",
+    "factorSet": "sortAsc({d in Z | 1<=d<=n && n%d=0})",
+    "factorPairs": "sortByFirst({(a,n/a) | 1<=a<=floor(sqrt(n)) && n%a=0})",
+    "factorListFromPairs": "sortAsc(unique(flatten(factorPairs(n))))",
+    "commonFactorSet": "intersect(factorSet(a),factorSet(b))",
+    "greatestCommonFactor": "max(commonFactorSet(a,b))",
+    "missingFactorValues": "project factorSet(n) onto hidden positions while all visible positions remain fixed",
+    "equalPartitionSolutions": "filter(factorSet(total), closed context range and unit constraints)",
+    "targetParity": "n is even iff 2 in factorSet(n)",
+    "factorCountParity": "factorSet(n).length is odd iff n is a perfect square (isPerfectSquare(n))",
+    "remainderTransfer": "if D>d>=2 && D%d=0 && q>=0 && 0<=r<D && N=q*D+r, then N%d=r%d and 0<=N%d<d",
+    "rectangleSquareSideLengths": "commonFactorSet(length,width)",
+    "squareTileAreas": "sortAsc({s*s | s in commonFactorSet(length,width)})",
+    "problemTypeClassification": "choose exactly one of factor|multiple|common_factor|common_multiple from closed quantity-role and extremum-language rules",
+    "digitCodeSolutions": "enumerate x1..x4 in 0..9 with x1>0,x2>0,x4>0; x1 divides 22,33,45,60; x3 divides 6,8 and x3!=x1; x2 divides 70 and x4 divides 70; value divisible by 3 and 5; all digits distinct; require exactly one tuple"
+  },
+  "identifierRules": {
+    "patternSpecIdPattern": "^ps_g5a_u02_[a-z0-9_]+$",
+    "patternGroupIdPattern": "^pg_g5a_u02_[a-z0-9_]+$",
+    "knowledgePointIdPattern": "^kp_g5a_u02_[a-z0-9_]+$",
+    "mappingCandidateIdPattern": "^fmc_g5a_u02_[a-z0-9_]+$",
+    "templateFamilyIdPattern": "^tpl_g5a_u02_[a-z0-9_]+$",
+    "allIdsUnique": true
+  },
+  "inputContracts": {
+    "factor_relation_equivalence": {"contract": "positive n,d; factor iff integer quotient witness"},
+    "factor_enumeration_trial_division": {"contract": "target 2..999"},
+    "factor_pair_enumeration": {"contract": "target 2..999; search through floor(sqrt(target))"},
+    "factor_list_from_pairs": {"contract": "complete factor-pair record"},
+    "factor_order_and_symmetry": {"contract": "complete ascending factor list"},
+    "missing_factor_reconstruction": {"contract": "complete ascending factor list with hidden positions"},
+    "divisor_candidate_selection": {"contract": "target and closed unique candidate set"},
+    "factor_statement_judgement": {"contract": "closed factor/multiple statement"},
+    "equal_partition_all_segment_counts": {"contract": "total 2..9999 and closed unit role"},
+    "equal_partition_range_constrained_recipients": {"contract": "total 2..9999 and closed count interval"},
+    "problem_type_classification": {"contract": "controlled quantity-role semantic record"},
+    "complete_factor_list_unknown_values": {"contract": "complete ascending symbolic factor list"},
+    "complete_factor_list_statement_evaluation": {"contract": "reconstructed complete factor list and closed statements"},
+    "remainder_transfer": {"contract": "D>d>=2, D%d=0, q>=0, 0<=r<D, N=qD+r"},
+    "common_factor_concept_identification": {"contract": "two targets and closed candidate set"},
+    "common_factor_enumeration": {"contract": "two targets 2..999"},
+    "greatest_common_factor": {"contract": "two targets 2..999"},
+    "maximum_equal_grouping": {"contract": "two quantities 2..9999 and maximum grouping language"},
+    "possible_equal_packaging_counts": {"contract": "two quantities 2..9999 and no-leftover packaging"},
+    "rectangle_square_side_lengths": {"contract": "length,width 2..999 and length unit"},
+    "square_tile_area_possibilities": {"contract": "length,width 2..999 and squared answer unit"},
+    "multi_constraint_digit_code": {"contract": "fixed source-backed x1..x4 predicate family"}
+  },
+  "qaOverlayApplications": [
+    {
+      "correctionCode": "S81_FACTOR_RELATION_BICONDITIONAL_OVERGENERALIZED",
+      "targetPatternSpecId": "ps_g5a_u02_factor_relation_equivalence",
+      "effectiveContract": "for positive integers n and d, d is a factor of n iff there exists positive q with d*q=n iff n%d=0; a displayed a*b=n witnesses complementary factors but arbitrary factors need not multiply to n",
+      "requiredGuards": ["positive_integer_target_divisor_and_quotient", "quotient_equals_target_divided_by_divisor", "multiplication_and_division_witnesses_equivalent", "arbitrary_factor_pair_converse_forbidden", "factor_multiple_direction_not_reversed"]
+    },
+    {
+      "correctionCode": "S81_FACTOR_PAIR_STOP_RULE_REPETITION_ONLY_UNSOUND",
+      "targetPatternSpecId": "ps_g5a_u02_factor_pair_enumeration",
+      "effectiveContract": "sortByFirst({(a,n/a) | 1<=a<=floor(sqrt(n)) && n%a=0})",
+      "requiredGuards": ["first_factor_not_greater_than_complement", "search_domain_ends_at_floor_sqrt", "square_root_pair_included_once", "nonsquare_crossing_terminates_without_repetition", "no_symmetric_duplicate"]
+    },
+    {
+      "correctionCode": "S81_COMPLETE_FACTOR_LIST_PARITY_RULE_AMBIGUOUS",
+      "targetPatternSpecId": "ps_g5a_u02_complete_factor_list_statement_evaluation",
+      "effectiveContract": "target parity is determined by membership of factor 2; factor-count parity is used only to determine perfect-square status",
+      "requiredGuards": ["target_reconstructed_before_statement_evaluation", "target_parity_from_factor_two_membership", "factor_count_parity_used_only_for_square_status", "number_parity_and_factor_count_parity_not_conflated", "each_statement_has_single_truth_value"]
+    },
+    {
+      "correctionCode": "S81_REMAINDER_TRANSFER_WITNESS_RANGE_REQUIRED",
+      "targetPatternSpecId": "ps_g5a_u02_remainder_transfer",
+      "effectiveContract": "D>d>=2 && D%d=0 && q>=0 && 0<=r<D && N=q*D+r implies N%d=r%d and 0<=N%d<d",
+      "requiredGuards": ["larger_and_smaller_divisors_positive_and_ordered", "larger_divisor_multiple_of_smaller", "known_remainder_in_standard_range", "division_witness_reconstructs_total", "transferred_remainder_reduced_mod_smaller"]
+    },
+    {
+      "correctionCode": "S81_DIGIT_CODE_POSITIONAL_PREDICATES_REQUIRED",
+      "targetPatternSpecId": "ps_g5a_u02_multi_constraint_digit_code",
+      "effectiveContract": "bind source predicates to x1..x4 exactly; x1 divides 22,33,45,60; x3 divides 6,8 and differs from x1; positive x2,x4 each divide 70; whole number divisible by 3 and 5; all digits distinct; unique tuple 1725",
+      "requiredGuards": ["source_predicates_bound_to_exact_digit_positions", "common_multiple_witness_means_each_positive_digit_divides_70", "lcm_equals_70_substitution_forbidden", "whole_number_divisible_by_3_and_5", "all_four_digits_distinct", "exactly_one_solution", "no_unstated_constraint"]
+    }
+  ]
+}
