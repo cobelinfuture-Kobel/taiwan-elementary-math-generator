@@ -55,7 +55,7 @@
       "resolution": "Reconstruct n first. The target is even iff 2 belongs to factorSet(n), and odd iff 2 does not. Separately, factorSet(n).length is odd iff n is a perfect square. These rules may not be interchanged.",
       "effectiveRules": {
         "targetParity": "n is even iff 2 in factorSet(n)",
-        "factorCountParity": "factorSet(n).length is odd iff isPerfectSquare(n)"
+        "factorCountParity": "factorSet(n).length is odd iff n is a perfect square (isPerfectSquare(n))"
       },
       "requiredGuards": [
         "target_reconstructed_before_statement_evaluation",
