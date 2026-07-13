@@ -1,0 +1,58 @@
+{
+  "schemaName": "G4AU08Phase2BMissingPatternGroups",
+  "schemaVersion": 1,
+  "task": "S76I_G4A_U08_Phase2BMissingPatternGroupsImplementation",
+  "status": "implemented_hidden_not_routed",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g4a_u08_ext_comparison_chain",
+      "patternSpecId": "ps_g4a_u08_ext_comparison_chain",
+      "templateId": "tpl_ext_comparison_chain",
+      "knowledgePointId": "kp_g4a_u08_app_add_sub_sequence",
+      "reasoningRole": "two_link_more_less_relation_chain",
+      "lifecycle": "hidden_implemented"
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_ext_equal_value_unit_price",
+      "patternSpecId": "ps_g4a_u08_ext_equal_value_unit_price",
+      "templateId": "tpl_ext_equal_value_unit_price",
+      "knowledgePointId": "kp_g4a_u08_app_mul_div_sequence",
+      "reasoningRole": "equal_total_value_find_unit_price",
+      "lifecycle": "hidden_implemented"
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_ext_relative_difference",
+      "patternSpecId": "ps_g4a_u08_ext_relative_difference",
+      "templateId": "tpl_ext_relative_difference",
+      "knowledgePointId": "kp_g4a_u08_app_mul_div_sequence",
+      "reasoningRole": "same_direction_relative_increment",
+      "lifecycle": "hidden_implemented"
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_ext_two_cost_component_payment",
+      "patternSpecId": "ps_g4a_u08_ext_two_cost_component_payment",
+      "templateId": "tpl_ext_two_cost_component_payment",
+      "knowledgePointId": "kp_g4a_u08_app_mul_div_before_add_sub",
+      "reasoningRole": "payment_minus_two_cost_components",
+      "lifecycle": "hidden_implemented"
+    }
+  ],
+  "coverage": {
+    "patternGroupCount": 4,
+    "patternSpecCount": 4,
+    "generatorCount": 4,
+    "adapterContractCount": 4,
+    "validatorContractCount": 4
+  },
+  "scopeBoundary": {
+    "selectorVisibility": "hidden",
+    "canonicalRouting": "disabled",
+    "worksheetIntegration": false,
+    "rendererIntegration": false,
+    "productionUse": "forbidden",
+    "numericContractsChanged": false
+  },
+  "next": "S76J_G4A_U08_ResolverSelectorAndWorksheetIntegration"
+}
