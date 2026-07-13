@@ -2,7 +2,7 @@
 
 ```text
 TASK = S78_G5A_U02_DualPDFManualKnowledgePointExtraction
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 MODE = MANUAL_VISUAL_SOURCE_EXTRACTION
 ```
 
@@ -152,7 +152,23 @@ S78 passes only if:
 7. no candidate is inferred solely from the embedded video thumbnail;
 8. no runtime or production artifact is created.
 
-## 7. Distance and handoff
+## 7. CI and merge evidence
+
+```text
+implementation PR        = #124
+implementation merge     = 9dd3f65fcb2d28d5da8d689e17bf24f4dbdaf4fc
+PR Math CI run           = 29222828731
+fresh-main Math CI run   = 29222906438
+fresh-main readback      = a1d3ebacc808edf3724715697a912ce42435d12a
+tests                    = 1118
+pass                     = 1118
+fail                     = 0
+working tree             = clean
+```
+
+All Node, S42, G4B-U01, G5A-U08 and G4B-U04 HTML/PDF smoke workflows passed.
+
+## 8. Distance and handoff
 
 ```text
 GOAL_DISTANCE_BEFORE = D4_G5A_U02_DUAL_SOURCE_FILES_WITHOUT_REVIEWED_KPS
