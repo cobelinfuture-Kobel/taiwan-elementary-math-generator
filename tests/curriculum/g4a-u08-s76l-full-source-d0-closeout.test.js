@@ -14,15 +14,12 @@ import {
   G4A_U08_PHASE2B_PROMOTED_PATTERN_SPEC_IDS,
 } from "../../site/modules/curriculum/registry/g4a-u08-phase2b-promotion.js";
 import {
-  G4A_U08_PRODUCTION_EVIDENCE,
-  G4A_U08_PRODUCTION_LIFECYCLE,
-  G4A_U08_STRESS_ACCEPTANCE,
-  getG4AU08ProductionPromotionProjection,
-  validateG4AU08ProductionPromotionProjection,
-} from "../../site/modules/curriculum/registry/g4a-u08-production-promotion.js";
-import {
-  getVisiblePatternGroupsForKnowledgePoint,
-} from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+  G4A_U08_D0_EVIDENCE,
+  G4A_U08_D0_PRODUCTION_LIFECYCLE,
+  getG4AU08D0ProductionCloseoutProjection,
+  validateG4AU08D0ProductionCloseoutProjection,
+} from "../../site/modules/curriculum/registry/g4a-u08-d0-production-closeout.js";
+import { getVisiblePatternGroupsForKnowledgePoint } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import {
   BATCH_A_ALL_UNITS_PRODUCTION_CLOSEOUT,
   validateBatchAAllUnitsProductionCloseoutContract,
@@ -60,8 +57,8 @@ function phase2BOptions(questionCount = 120, seed = "s76l-fresh-main") {
   };
 }
 
-test("S76L promotes the S76K production projection to D0", () => {
-  const checked = validateG4AU08ProductionPromotionProjection();
+test("S76L promotes the immutable S76K projection to a separate D0 overlay", () => {
+  const checked = validateG4AU08D0ProductionCloseoutProjection();
   assert.equal(checked.ok, true, checked.errors.join(","));
   assert.deepEqual(checked.counts, {
     knowledgePoints: 3,
@@ -70,24 +67,25 @@ test("S76L promotes the S76K production projection to D0", () => {
     totalExecutablePatternSpecs: 26,
     primaryStressQuestions: 1806,
   });
-  assert.equal(G4A_U08_PRODUCTION_LIFECYCLE.productionUse, "allowed");
-  assert.equal(G4A_U08_PRODUCTION_LIFECYCLE.distance, "D0_G4A_U08");
-  assert.equal(G4A_U08_PRODUCTION_LIFECYCLE.htmlPdfStatus, "production_smoke_pass");
-  assert.equal(G4A_U08_PRODUCTION_LIFECYCLE.batchAMigrationStatus, "readback_accepted");
-  assert.equal(G4A_U08_PRODUCTION_LIFECYCLE.requiredNextGate, "S77_BatchA_NextUnitSourcePriorityLock");
+  assert.equal(G4A_U08_D0_PRODUCTION_LIFECYCLE.productionUse, "allowed");
+  assert.equal(G4A_U08_D0_PRODUCTION_LIFECYCLE.distance, "D0_G4A_U08");
+  assert.equal(G4A_U08_D0_PRODUCTION_LIFECYCLE.htmlPdfStatus, "production_smoke_pass");
+  assert.equal(G4A_U08_D0_PRODUCTION_LIFECYCLE.batchAMigrationStatus, "readback_accepted");
+  assert.equal(G4A_U08_D0_PRODUCTION_LIFECYCLE.requiredNextGate, "S77_BatchA_NextUnitSourcePriorityLock");
 });
 
 test("S76L preserves exact S76K CI, smoke artifact and stress evidence", () => {
-  assert.equal(G4A_U08_PRODUCTION_EVIDENCE.stressImplementationPr, 154);
-  assert.equal(G4A_U08_PRODUCTION_EVIDENCE.stressMergeCommit, "c995a2e5d741bbc07f000205eed8d145b7002f13");
-  assert.equal(G4A_U08_PRODUCTION_EVIDENCE.smokeWorkflowRunId, 29268903266);
-  assert.equal(G4A_U08_PRODUCTION_EVIDENCE.smokeArtifactId, 8286611935);
-  assert.match(G4A_U08_PRODUCTION_EVIDENCE.smokeArtifactDigest, /^sha256:[0-9a-f]{64}$/);
-  assert.equal(G4A_U08_PRODUCTION_EVIDENCE.standardWorkflowCount, 8);
-  assert.equal(G4A_U08_PRODUCTION_EVIDENCE.standardWorkflowFailures, 0);
-  assert.equal(G4A_U08_STRESS_ACCEPTANCE.primaryStressQuestionCount, 1806);
-  assert.equal(G4A_U08_STRESS_ACCEPTANCE.maximumAcceptedQuestionCount, 1000);
-  assert.equal(G4A_U08_STRESS_ACCEPTANCE.firstRejectedQuestionCount, 1001);
+  const projection = getG4AU08D0ProductionCloseoutProjection();
+  assert.equal(G4A_U08_D0_EVIDENCE.stressImplementationPr, 154);
+  assert.equal(G4A_U08_D0_EVIDENCE.stressMergeCommit, "c995a2e5d741bbc07f000205eed8d145b7002f13");
+  assert.equal(G4A_U08_D0_EVIDENCE.smokeWorkflowRunId, 29268903266);
+  assert.equal(G4A_U08_D0_EVIDENCE.smokeArtifactId, 8286611935);
+  assert.match(G4A_U08_D0_EVIDENCE.smokeArtifactDigest, /^sha256:[0-9a-f]{64}$/);
+  assert.equal(G4A_U08_D0_EVIDENCE.standardWorkflowCount, 8);
+  assert.equal(G4A_U08_D0_EVIDENCE.standardWorkflowFailures, 0);
+  assert.equal(projection.stressAcceptance.primaryStressQuestionCount, 1806);
+  assert.equal(projection.stressAcceptance.maximumAcceptedQuestionCount, 1000);
+  assert.equal(projection.stressAcceptance.firstRejectedQuestionCount, 1001);
 });
 
 test("S76L authority readback keeps 15 KnowledgePoints and 28 PatternGroups", () => {
@@ -140,7 +138,7 @@ test("S76L fresh-main worksheet and answer key are production-accepted by the D0
   assert.equal(result.worksheetDocument.rendererBehaviorChanged, false);
   assert.equal(result.worksheetDocument.productionUse, "preview_only_pending_s76k");
 
-  const production = getG4AU08ProductionPromotionProjection();
+  const production = getG4AU08D0ProductionCloseoutProjection();
   assert.equal(production.lifecycle.productionUse, "allowed");
   assert.equal(production.lifecycle.distance, "D0_G4A_U08");
   assert.equal(production.lifecycle.status, "full_source_d0_closeout_integrated");
