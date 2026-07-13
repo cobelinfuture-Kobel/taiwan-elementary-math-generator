@@ -2,8 +2,9 @@
 
 ```text
 TASK = S75_G4B_U04_ProductionStressHTMLPDFAndD0Closeout
-STATUS = IMPLEMENTED_PENDING_HTML_PDF_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
+DISTANCE = D0_G4B_U04
 ```
 
 ## Scope lock
@@ -23,7 +24,7 @@ S74 public UI / query / print candidate
 → D0 closeout
 ```
 
-S75 does not add, remove, merge or split KnowledgePoints, PatternGroups, PatternSpecs, generators, answer models or semantic template families.
+No KnowledgePoint, PatternGroup, PatternSpec, generator, answer model or semantic template family was added, removed, merged or split.
 
 ## Production authority
 
@@ -49,9 +50,9 @@ htmlPdfStatus                 = production_smoke_required
 requiredNextGate              = S76_BatchB_NextSourcePriorityLock
 ```
 
-The overlay does not rewrite hidden source PatternSpecs or the S73 preview lifecycle. It records the accepted production projection after the S75 stress and artifact gates pass.
+The overlay does not rewrite hidden source PatternSpecs or the S73 preview lifecycle. It records the accepted production projection after the S75 stress and artifact gates passed.
 
-## Node stress contract
+## Node stress acceptance
 
 Public count matrix:
 
@@ -71,7 +72,7 @@ Cumulative validated output:
 452 public-matrix questions + 600 additional questions = 1052 questions
 ```
 
-Every successful build must satisfy:
+Every successful build satisfied:
 
 - requested question count equals generated question count;
 - display-model count equals question count;
@@ -81,63 +82,13 @@ Every successful build must satisfy:
 - no arbitrary PatternSpec injection;
 - no internal curriculum identifier in public prompt or answer text.
 
-The canonical hard limit is separately verified by rejecting a 1001-question request with zero worksheet output.
-
-## Coverage smoke
-
-The committed smoke uses 68 questions because 68 provides four allocations for each of the 17 promoted PatternSpecs while keeping the PDF artifact bounded.
-
-```text
-questionCount    = 68
-answerKeyItems   = 68
-ordering         = groupedByPattern
-questionMode     = mixed
-selectionMode    = mixedKnowledgePointsSameUnit
-```
-
-The smoke must reach:
-
-- all 12 KnowledgePoints;
-- all 12 PatternGroups;
-- all 17 PatternSpecs;
-- concept, numeric, application, operation_estimation and reasoning modes;
-- all 9 answer-model shapes;
-- both Class C and Class D implementations;
-- compact, contextual and inverse-long render content through the authoritative mixed worksheet.
-
-## HTML acceptance
-
-The generated HTML must:
-
-- use `lang="zh-Hant"`;
-- contain 68 question cells and 68 answer cells;
-- contain no internal KP, PatternGroup, PatternSpec, FormalMapping or template IDs;
-- contain no unresolved template placeholders;
-- retain Traditional Chinese title and answer-page labels;
-- use the S73 G4B-U04 renderer with debug data attributes disabled.
-
-## Chromium and PDF acceptance
-
-The dedicated workflow must:
-
-1. install Chromium, Noto CJK, Poppler, Pillow and pypdf;
-2. run the complete Node test suite;
-3. regenerate the canonical HTML and manifest;
-4. reject any rendered G4B-U04 cell with DOM overflow;
-5. print A4 PDF with CSS page size and background enabled;
-6. render every PDF page to PNG;
-7. reject missing or blank rendered pages;
-8. reject every PDF word bounding box outside its A4 page;
-9. verify normalized PDF text contains `概數` and `答案頁`;
-10. verify the final answer page is nonblank;
-11. write SHA-256, byte count and final visual evidence to the manifest;
-12. commit the first verified HTML/PDF/manifest bundle to the S75 branch.
+The canonical hard limit was separately verified by rejecting a 1001-question request with zero worksheet output.
 
 ## Determinism and explicit modes
 
-S75 replays the same 68-question shuffled seed twice and requires identical prompt, answer and ordering projections.
+S75 replayed the same 68-question shuffled seed twice and obtained identical prompt, answer and ordering projections.
 
-Separate production builds verify:
+Separate production builds passed for:
 
 ```text
 concept
@@ -147,7 +98,96 @@ operation_estimation
 reasoning
 ```
 
-Each explicit-mode build must contain only the requested canonical mode and remain blocking-validator clean.
+Each explicit-mode build contained only the requested canonical mode and remained blocking-validator clean.
+
+## Verified HTML/PDF bundle
+
+The committed smoke uses 68 questions because 68 provides four allocations for each of the 17 promoted PatternSpecs while keeping the PDF artifact bounded.
+
+```text
+questionCount             = 68
+answerKeyItemCount        = 68
+questionPageCount         = 17
+answerKeyPageCount        = 14
+actualPdfPageCount        = 31
+nonblankRenderedPageCount = 31
+ordering                  = groupedByPattern
+questionMode              = mixed
+selectionMode             = mixedKnowledgePointsSameUnit
+rendererProfileId         = g4b_u04_inverse_long_answer_v1
+```
+
+Coverage reached:
+
+```text
+KnowledgePoints      = 12 / 12
+PatternGroups        = 12 / 12
+PatternSpecs         = 17 / 17
+Question modes       = 5 / 5
+Answer shapes        = 9 / 9
+Render kinds         = 11
+Class C questions    = 36
+Class D questions    = 32
+Long-text questions  = 36
+```
+
+Mode distribution:
+
+```text
+concept              = 16
+numeric              = 12
+application          = 16
+operation_estimation = 16
+reasoning            = 8
+```
+
+Artifact integrity:
+
+```text
+HTML question cells       = 68
+HTML answer cells         = 68
+DOM overflow              = 0
+PDF bbox overflow         = 0
+Internal-ID leak          = 0
+Unresolved placeholder    = 0
+Blank rendered pages      = 0
+CJK glyph rendering       = pass
+PDF bytes                 = 401307
+HTML SHA-256              = b1f8f4de42fdaccd9fcb1a324f3af6a164b4e4046d06848afed44814f9a80b64
+PDF SHA-256               = 3ad7cf4629a1a5e9ca415018deed4049087e567e58c5c84e8e04ccb2f903eb5c
+```
+
+The normalized PDF text contains `概數` and `答案頁`, and the final answer page is nonblank.
+
+## CI and merge evidence
+
+Implementation PR:
+
+```text
+PR                    = 117
+PR head               = f9d58cb447ea3d6c25b50d1f363cbe92cc38bde3
+implementation merge  = e30a22a0d322d0b20075df73cd802d6ef2dc6499
+PR Math CI run        = 29217220270
+PR S75 smoke run      = 29217220427
+PR tests              = 1101
+PR pass               = 1101
+PR fail               = 0
+PR working tree       = clean
+```
+
+Fresh-main verification:
+
+```text
+main verified SHA     = e30a22a0d322d0b20075df73cd802d6ef2dc6499
+main Math CI run      = 29217320409
+main tests            = 1101
+main pass             = 1101
+main fail             = 0
+main working tree     = clean
+main readback commit  = 3a9956e59fe38c9188dc3fbb1ae5cb75f6cf4f30
+```
+
+All prior triggered regression and HTML/PDF workflows also passed.
 
 ## Boundary
 
@@ -159,32 +199,32 @@ Validator math changed              = false
 Resolver allocation changed         = false
 Public UI control set changed       = false
 Renderer semantic content changed   = false
+Renderer containment fix required   = false
 Production promotion overlay added  = true
 Stress QA added                     = true
 HTML/PDF artifact gate added        = true
+Verified smoke bundle committed     = true
 ```
 
-Renderer CSS may be adjusted only when Chromium or PDF containment supplies concrete failure evidence. Such a fix may change layout containment, but not question meaning, answer meaning or curriculum authority.
-
-## Distance
+## Distance closeout
 
 ```text
 GOAL_DISTANCE_BEFORE =
 D1_G4B_U04_PUBLIC_UI_PRINT_AND_QUERY_STATE_QA_CONNECTED
 
 GOAL_DISTANCE_AFTER =
-PENDING_S75_HTML_PDF_CI
+D0_G4B_U04_PRODUCTION_READY_AND_CLOSED
 
 DISTANCE_REDUCED =
-Production overlay, 1052-question stress contract and canonical HTML/PDF gate implemented.
-Final D0 acceptance waits for verified Chromium/PDF artifacts and fresh-main CI.
+Completed production promotion, 1052-question aggregate stress, all-authority reachability,
+deterministic mode QA, committed Traditional Chinese HTML/PDF verification, PR merge and fresh-main CI.
+G4B-U04 can now generate, validate, render, preview and print production worksheets with answer pages.
 
-REMAINING_BLOCKERS = [
-  "S75 Chromium HTML/PDF smoke has not passed",
-  "Verified smoke bundle has not been committed",
-  "Implementation PR and fresh-main CI have not passed"
-]
+REMAINING_BLOCKERS = []
 
 NEXT_SHORTEST_STEP =
-Run S75 branch workflow, commit the verified smoke bundle, merge, read back main CI and close at D0.
+S76_BatchB_NextSourcePriorityLock
+
+STOP_REASON =
+NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE
 ```
