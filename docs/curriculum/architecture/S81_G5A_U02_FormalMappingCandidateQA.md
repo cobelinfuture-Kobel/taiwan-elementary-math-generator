@@ -2,7 +2,7 @@
 
 ```text
 TASK = S81_G5A_U02_FormalMappingCandidateQA
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 UNIT_ID = g5a_u02
 UNIT_TITLE = 因數與公因數
 ```
@@ -204,7 +204,24 @@ public selector                = disabled
 productionUse                  = forbidden
 ```
 
-## 8. Distance and handoff
+## 8. CI and merge evidence
+
+```text
+implementation PR              = #130
+implementation merge           = 26429dccc3d7e42aca48139cd04c56e4e18caf6e
+initial PR Math CI run          = 29226607528
+final PR Math CI run            = 29226740061
+fresh-main Math CI run          = 29226909138
+fresh-main readback             = 623ecb75b662330a30def95c3ee1607d4350cdfb
+tests                           = 1140
+pass                            = 1140
+fail                            = 0
+working tree                    = clean
+```
+
+The initial PR CI failure was limited to a QA assertion wording mismatch: the executable test searched for the phrase `perfect square`, while the JSON expressed the same rule only as `isPerfectSquare(n)`. The overlay wording was normalized to state both forms. No formula, candidate identity, answer model or runtime behavior changed. The final PR CI and every Node, S42, G4B-U01, G5A-U08 and G4B-U04 smoke workflow then passed.
+
+## 9. Distance and handoff
 
 ```text
 GOAL_DISTANCE_BEFORE = D2_G5A_U02_18_PATTERN_GROUP_AND_22_FORMAL_MAPPING_CANDIDATES_DESIGNED
