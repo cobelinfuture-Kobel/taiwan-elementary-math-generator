@@ -21,24 +21,24 @@
     "lifecycle"
   ],
   "rows": [
-    ["tpl_app_add_three_quantities", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_add_three_quantities", "ps_g4a_u08_app_add_three_quantities", "combine_three_same-unit_quantities", "application", "hidden_reclassified_existing_runtime"],
-    ["tpl_app_add_then_subtract_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_add_then_subtract", "ps_g4a_u08_app_add_then_subtract_state_change", "increase_then_decrease", "application", "hidden_reclassified_existing_runtime"],
-    ["tpl_app_subtract_then_add_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_subtract_then_add", "ps_g4a_u08_app_subtract_then_add_state_change", "decrease_then_increase", "application", "hidden_reclassified_existing_runtime"],
-    ["tpl_app_subtract_twice_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_subtract_twice", "ps_g4a_u08_app_subtract_twice_state_change", "decrease_then_decrease", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_add_three_quantities", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_add_add", "ps_g4a_u08_app_add_three_quantities", "combine_three_same-unit_quantities", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_add_then_subtract_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_add_subtract", "ps_g4a_u08_app_add_then_subtract_state_change", "increase_then_decrease", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_subtract_then_add_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_subtract_add", "ps_g4a_u08_app_subtract_then_add_state_change", "decrease_then_increase", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_subtract_twice_state_change", "kp_g4a_u08_app_add_sub_sequence", "kp_g4a_u08_app_add_sub_sequence", "pg_g4a_u08_app_subtract_subtract", "ps_g4a_u08_app_subtract_twice_state_change", "decrease_then_decrease", "application", "hidden_reclassified_existing_runtime"],
     ["tpl_app_adjusted_amount_then_subtract", "kp_g4a_u08_app_parentheses_grouping", "kp_g4a_u08_app_parentheses_grouping", "pg_g4a_u08_app_adjusted_amount_then_subtract", "ps_g4a_u08_app_adjusted_amount_then_subtract", "adjust_inner_amount_then_subtract", "application", "hidden_reclassified_existing_runtime"],
     ["tpl_app_divide_by_group_product", "kp_g4a_u08_app_parentheses_grouping", "kp_g4a_u08_app_parentheses_grouping", "pg_g4a_u08_app_divide_by_group_product", "ps_g4a_u08_app_divide_by_group_product", "divide_by_group_product", "application", "hidden_reclassified_existing_runtime"],
-    ["tpl_app_multiply_after_difference_then_add_sub", "kp_g4a_u08_app_parentheses_grouping", "kp_g4a_u08_app_parentheses_grouping", "pg_g4a_u08_app_multiply_after_difference", "ps_g4a_u08_app_multiply_after_difference_then_add_sub", "multiply_adjusted_unit_then_overlay", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_multiply_after_difference_then_add_sub", "kp_g4a_u08_app_parentheses_grouping", "kp_g4a_u08_app_parentheses_grouping", "pg_g4a_u08_app_difference_then_scale_overlay", "ps_g4a_u08_app_multiply_after_difference_then_add_sub", "multiply_adjusted_unit_then_overlay", "application", "hidden_reclassified_existing_runtime"],
     ["tpl_app_multiply_then_share", "kp_g4a_u08_app_mul_div_sequence", "kp_g4a_u08_app_mul_div_sequence", "pg_g4a_u08_app_multiply_then_share", "ps_g4a_u08_app_multiply_then_share", "find_total_then_equal_share", "application", "hidden_reclassified_existing_runtime"],
     ["tpl_app_unit_rate_then_scale", "kp_g4a_u08_app_mul_div_sequence", "kp_g4a_u08_app_mul_div_sequence", "pg_g4a_u08_app_unit_rate_then_scale", "ps_g4a_u08_app_unit_rate_then_scale", "find_unit_rate_then_scale", "application", "hidden_reclassified_existing_runtime"],
     ["tpl_app_divide_then_divide", "kp_g4a_u08_app_mul_div_sequence", "kp_g4a_u08_app_mul_div_sequence", "pg_g4a_u08_app_divide_then_divide", "ps_g4a_u08_app_divide_then_divide", "successive_equal_partition", "application", "hidden_reclassified_existing_runtime"],
-    ["tpl_app_payment_minus_unit_cost_times_quantity", "kp_g4a_u08_app_mul_div_before_add_sub", "kp_g4a_u08_app_mul_div_before_add_sub", "pg_g4a_u08_app_payment_minus_unit_cost", "ps_g4a_u08_app_payment_minus_unit_cost_times_quantity", "payment_minus_single_cost_component", "application", "hidden_reclassified_existing_runtime"],
-    ["tpl_app_subtract_divided_amount_or_add_divided_amount", "kp_g4a_u08_app_mul_div_before_add_sub", "kp_g4a_u08_app_mul_div_before_add_sub", "pg_g4a_u08_app_divided_amount_overlay", "ps_g4a_u08_app_subtract_or_add_divided_amount", "base_amount_plus_or_minus_equal-share-overlay", "application", "hidden_reclassified_existing_runtime"]
+    ["tpl_app_payment_minus_unit_cost_times_quantity", "kp_g4a_u08_app_mul_div_before_add_sub", "kp_g4a_u08_app_mul_div_before_add_sub", "pg_g4a_u08_app_payment_minus_unit_cost_times_quantity", "ps_g4a_u08_app_payment_minus_unit_cost_times_quantity", "payment_minus_single_cost_component", "application", "hidden_reclassified_existing_runtime"],
+    ["tpl_app_subtract_divided_amount_or_add_divided_amount", "kp_g4a_u08_app_mul_div_before_add_sub", "kp_g4a_u08_app_mul_div_before_add_sub", "pg_g4a_u08_app_subtract_or_add_divided_amount", "ps_g4a_u08_app_subtract_or_add_divided_amount", "base_amount_plus_or_minus_equal-share-overlay", "application", "hidden_reclassified_existing_runtime"]
   ],
   "extensionPatternGroupsNotMaterializedHere": [
-    "pg_g4a_u08_app_comparison_chain",
-    "pg_g4a_u08_app_equal_value_unit_price",
-    "pg_g4a_u08_app_relative_difference",
-    "pg_g4a_u08_app_two_cost_component_payment"
+    "pg_g4a_u08_ext_comparison_chain",
+    "pg_g4a_u08_ext_equal_value_unit_price",
+    "pg_g4a_u08_ext_relative_difference",
+    "pg_g4a_u08_ext_two_cost_component_payment"
   ],
   "compatibility": {
     "legacyTemplateIdsPreserved": true,
