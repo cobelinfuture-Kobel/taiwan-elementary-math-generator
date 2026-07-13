@@ -17,7 +17,11 @@ async function loadS82() {
   ]);
   return {
     ...index,
-    ...rules,
+    globalBoundary: rules.globalBoundary,
+    formalRules: rules.formalRules,
+    identifierRules: rules.identifierRules,
+    inputContracts: rules.inputContracts,
+    qaOverlayApplications: rules.qaOverlayApplications,
     answerModelSchemas: answers.answerModelSchemas,
     controlledTemplateFamilies: templates.controlledTemplateFamilies,
     patternGroups: groups.patternGroups,
