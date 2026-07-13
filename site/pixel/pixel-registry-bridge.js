@@ -4,6 +4,16 @@ import {
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
 } from "../modules/curriculum/registry/batch-a-selector-extension.js";
+import { G4B_U04_SOURCE_ID } from "../modules/curriculum/registry/g4b-u04-promotion.js";
+
+const G4B_U04_PIXEL_SOURCE_UNIT = Object.freeze({
+  sourceId: G4B_U04_SOURCE_ID,
+  grade: 4,
+  semester: "lower",
+  unitCode: "4B-U04",
+  title: "概數",
+  domain: "rounding_approximation",
+});
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -19,9 +29,15 @@ function visibleKnowledgePointsBySource() {
   return grouped;
 }
 
+function listPixelPublicSourceUnits() {
+  const units = listBatchASourceUnits();
+  if (!units.some((unit) => unit.sourceId === G4B_U04_SOURCE_ID)) units.splice(12, 0, { ...G4B_U04_PIXEL_SOURCE_UNIT });
+  return units;
+}
+
 export function listPixelSourceOptions() {
   const grouped = visibleKnowledgePointsBySource();
-  return listBatchASourceUnits().map((unit) => {
+  return listPixelPublicSourceUnits().map((unit) => {
     const visibleKnowledgePoints = grouped.get(unit.sourceId) ?? [];
     const availability = listBatchAKnowledgePointAvailabilityBySource(unit.sourceId);
     return Object.freeze({
