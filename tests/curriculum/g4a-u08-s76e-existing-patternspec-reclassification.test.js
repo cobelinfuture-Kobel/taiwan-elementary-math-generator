@@ -33,14 +33,14 @@ test("every canonical KP and PatternGroup resolves to S76D authority", () => {
 test("over-merged add/sub and mul/div roles are separated", () => {
   const groups = new Set(column("patternGroupId"));
   for (const id of [
-    "pg_g4a_u08_app_add_then_subtract",
-    "pg_g4a_u08_app_subtract_then_add",
-    "pg_g4a_u08_app_subtract_twice",
+    "pg_g4a_u08_app_add_subtract",
+    "pg_g4a_u08_app_subtract_add",
+    "pg_g4a_u08_app_subtract_subtract",
     "pg_g4a_u08_app_multiply_then_share",
     "pg_g4a_u08_app_unit_rate_then_scale",
     "pg_g4a_u08_app_divide_then_divide",
-    "pg_g4a_u08_app_payment_minus_unit_cost",
-    "pg_g4a_u08_app_divided_amount_overlay"
+    "pg_g4a_u08_app_payment_minus_unit_cost_times_quantity",
+    "pg_g4a_u08_app_subtract_or_add_divided_amount"
   ]) assert.ok(groups.has(id), id);
 });
 
@@ -57,13 +57,16 @@ test("legacy compatibility anchors remain intact", () => {
 
 test("extension groups are deferred rather than falsely classified as existing runtime", () => {
   assert.deepEqual(new Set(mapping.extensionPatternGroupsNotMaterializedHere), new Set([
-    "pg_g4a_u08_app_comparison_chain",
-    "pg_g4a_u08_app_equal_value_unit_price",
-    "pg_g4a_u08_app_relative_difference",
-    "pg_g4a_u08_app_two_cost_component_payment"
+    "pg_g4a_u08_ext_comparison_chain",
+    "pg_g4a_u08_ext_equal_value_unit_price",
+    "pg_g4a_u08_ext_relative_difference",
+    "pg_g4a_u08_ext_two_cost_component_payment"
   ]));
   const classifiedGroups = new Set(column("patternGroupId"));
-  for (const id of mapping.extensionPatternGroupsNotMaterializedHere) assert.equal(classifiedGroups.has(id), false);
+  for (const id of mapping.extensionPatternGroupsNotMaterializedHere) {
+    assert.ok(groupIds.has(id), id);
+    assert.equal(classifiedGroups.has(id), false);
+  }
 });
 
 test("S76E is metadata-only and does not claim downstream implementation", () => {
