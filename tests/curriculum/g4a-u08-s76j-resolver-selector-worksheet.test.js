@@ -1,18 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import {
-  generateG4AU08Phase2BItem as generateSourceItem,
-} from "../../src/curriculum/g4a-u08/phase2b-extension-generator.js";
-import {
-  buildBatchABrowserPlan,
-} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator.js";
-import {
-  generateBatchABrowserQuestions,
-} from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
-import {
-  buildBatchABrowserWorksheetDocument,
-} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-s76j-extension.js";
+import { generateG4AU08Phase2BItem as generateSourceItem } from "../../src/curriculum/g4a-u08/phase2b-extension-generator.js";
+import { buildBatchABrowserPlan } from "../../site/modules/curriculum/batch-a/batch-a-browser-generator.js";
+import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
+import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-s76j-entry.js";
 import {
   G4A_U08_CANONICAL_ROUTE_KINDS,
   classifyG4AU08CanonicalRouterPlan,
@@ -33,11 +25,10 @@ import {
   G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS,
   G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS,
   G4A_U08_PHASE2B_PROMOTED_PATTERN_SPEC_IDS,
+  G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID,
   validateG4AU08Phase2BPromotionProjection,
 } from "../../site/modules/curriculum/registry/g4a-u08-phase2b-promotion.js";
-import {
-  validateG4AU08WorksheetPromotionProjection,
-} from "../../site/modules/curriculum/registry/g4a-u08-worksheet-promotion.js";
+import { validateG4AU08WorksheetPromotionProjection } from "../../site/modules/curriculum/registry/g4a-u08-worksheet-promotion.js";
 
 const SOURCE_ID = "g4a_u08_4a08";
 const TEMPLATE_IDS = [
@@ -52,7 +43,7 @@ function options(overrides = {}) {
     sourceId: SOURCE_ID,
     selectionMode: "mixedKnowledgePointsSameUnit",
     selectedKnowledgePointIds: [...G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS],
-    selectedPatternGroupIds: [],
+    selectedPatternGroupIds: [...G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS],
     questionMode: "application",
     questionCount: 12,
     ordering: "groupedByPattern",
@@ -77,7 +68,7 @@ function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
-test("S76J promotes exactly 3 KnowledgePoints, 4 PatternGroups and 4 PatternSpecs", () => {
+test("S76J reuses exactly 3 existing KnowledgePoints and promotes 4 PatternGroups and 4 PatternSpecs", () => {
   assert.equal(validateG4AU08Phase2BPromotionProjection().ok, true);
   assert.equal(validateG4AU08Phase2BVisibleSelectorProjection().ok, true);
   assert.equal(validateG4AU08WorksheetPromotionProjection().ok, true);
@@ -87,17 +78,18 @@ test("S76J promotes exactly 3 KnowledgePoints, 4 PatternGroups and 4 PatternSpec
   assert.deepEqual(getG4AU08Phase2BBrowserTemplateIds(), TEMPLATE_IDS);
 });
 
-test("S76J selector exposes the approved Phase2B rows without replacing prior projections", () => {
+test("S76J selector extends approved existing KP rows without changing public KP counts", () => {
   const visible = listVisibleBatchAKnowledgePoints();
+  assert.equal(visible.filter((row) => row.sourceId === SOURCE_ID).length, 8);
   for (const knowledgePointId of G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS) {
     const row = getVisibleBatchAKnowledgePoint(knowledgePointId);
     assert.equal(row.sourceId, SOURCE_ID);
-    assert.equal(row.qaStatusLabel, "blocking_validator_accepted");
+    assert.ok(row.promotionRegistryIds.includes(G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID));
     assert.ok(visible.some((candidate) => candidate.knowledgePointId === knowledgePointId));
   }
-  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_add_sub_sequence").length, 1);
-  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_mul_div_sequence").length, 2);
-  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_mul_div_before_add_sub").length, 1);
+  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_add_sub_sequence").length, 2);
+  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_mul_div_sequence").length, 3);
+  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_mul_div_before_add_sub").length, 2);
   assert.ok(getVisibleBatchAKnowledgePoint("kp_g4b_u04_round_half_up_place_value"));
   assert.ok(getVisibleBatchAKnowledgePoint("kp_g5a_u08_mixed_operation_order"));
 });
@@ -117,10 +109,8 @@ test("browser runtime remains deterministic and aligned with the S76I source gen
   }
 });
 
-test("resolver derives all four authoritative groups and ignores public PatternSpec injection", () => {
-  const plan = normalizeG4AU08ResolverPlan(buildBatchABrowserPlan(options({
-    patternSpecIds: ["ps_injected_forbidden"],
-  })));
+test("resolver derives all four explicitly selected authority groups and ignores public PatternSpec injection", () => {
+  const plan = normalizeG4AU08ResolverPlan(buildBatchABrowserPlan(options({ patternSpecIds: ["ps_injected_forbidden"] })));
   assert.equal(plan.resolverResult.ok, true);
   assert.equal(classifyG4AU08CanonicalRouterPlan(plan), G4A_U08_CANONICAL_ROUTE_KINDS.CANONICAL);
   assert.deepEqual(new Set(plan.selectedPatternGroupIds), new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS));
@@ -130,17 +120,19 @@ test("resolver derives all four authoritative groups and ignores public PatternS
   assert.equal(plan.allocation.reduce((sum, row) => sum + row.questionCount, 0), 12);
 });
 
-test("single KnowledgePoint selection allocates only linked Phase2B groups", () => {
+test("single KnowledgePoint selection allocates only explicitly selected linked Phase2B groups", () => {
+  const selectedPatternGroupIds = [
+    "pg_g4a_u08_ext_equal_value_unit_price",
+    "pg_g4a_u08_ext_relative_difference",
+  ];
   const plan = normalizeG4AU08ResolverPlan(buildBatchABrowserPlan(options({
     selectionMode: "singleKnowledgePoint",
     selectedKnowledgePointIds: ["kp_g4a_u08_app_mul_div_sequence"],
+    selectedPatternGroupIds,
     questionCount: 7,
   })));
   assert.equal(plan.resolverResult.ok, true);
-  assert.deepEqual(new Set(plan.selectedPatternGroupIds), new Set([
-    "pg_g4a_u08_ext_equal_value_unit_price",
-    "pg_g4a_u08_ext_relative_difference",
-  ]));
+  assert.deepEqual(new Set(plan.selectedPatternGroupIds), new Set(selectedPatternGroupIds));
   assert.equal(plan.allocation.reduce((sum, row) => sum + row.questionCount, 0), 7);
 });
 
@@ -161,6 +153,20 @@ test("canonical router generates blocking-validated public questions with exact 
   }
 });
 
+test("legacy G4A-U08 selections do not enter the S76J route", () => {
+  const result = generateBatchABrowserQuestions({
+    sourceId: SOURCE_ID,
+    selectionMode: "singleKnowledgePoint",
+    selectedKnowledgePointIds: ["kp_g4a_u08_app_mul_div_sequence"],
+    selectedPatternGroupIds: ["pg_g4a_u08_app_mul_div_sequence"],
+    questionCount: 8,
+    generationSeed: "s76j-legacy-boundary",
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.questions.length, 8);
+  assert.ok(result.questions.every((question) => question.phase !== "S76J"));
+});
+
 test("canonical lifecycle mutation and cross-source selections are blocking with zero output", () => {
   const valid = generateBatchABrowserQuestions(options({ questionCount: 4 }));
   const mutated = clone(valid.questions[0]);
@@ -170,6 +176,7 @@ test("canonical lifecycle mutation and cross-source selections are blocking with
   const rejected = generateBatchABrowserQuestions(options({
     selectionMode: "singleKnowledgePoint",
     selectedKnowledgePointIds: ["kp_g5a_u08_mixed_operation_order"],
+    selectedPatternGroupIds: ["pg_g4a_u08_ext_comparison_chain"],
     questionCount: 4,
   }));
   assert.equal(rejected.ok, false);
@@ -194,7 +201,7 @@ test("worksheet allocation produces exact question, answer-key and page contract
   assert.ok(document.answerKeyPages.length >= 1);
 });
 
-test("worksheet answer-key suppression and invalid source-unit route remain bounded", () => {
+test("worksheet answer-key suppression and invalid source-unit Phase2B request remain bounded", () => {
   const noKey = buildBatchABrowserWorksheetDocument(options({ includeAnswerKey: false, questionCount: 5 }));
   assert.equal(noKey.ok, true);
   assert.equal(noKey.worksheetDocument.answerKeyItems.length, 0);
