@@ -1,0 +1,286 @@
+{
+  "schemaName": "G5AU02DualPDFKnowledgePointBoundarySourceIdentityQA",
+  "schemaVersion": 1,
+  "task": "S79_G5A_U02_DualPDFKnowledgePointBoundaryAndSourceIdentityQA",
+  "status": "qa_passed_pending_ci",
+  "sourceArtifact": "data/curriculum/registry/g5a_u02_dual_pdf_knowledge_point_candidates.json",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "canonicalSkillParents": [
+    "factor",
+    "factor_application",
+    "factor_reasoning",
+    "common_factor_gcf",
+    "common_factor_application",
+    "number_theory_language",
+    "number_theory_reasoning"
+  ],
+  "summary": {
+    "reviewedCandidateCount": 19,
+    "acceptedDistinctCount": 18,
+    "mergedCount": 1,
+    "splitCount": 0,
+    "rejectedCount": 0,
+    "canonicalBoundaryCount": 18,
+    "canonicalClassCCount": 11,
+    "canonicalClassDCount": 7
+  },
+  "boundaryDecisions": [
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_criterion_multiplication_division_equivalence",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor",
+      "skillVariant": "factor_relation_equivalence",
+      "boundaryRationale": "Defines the logical equivalence used to recognize factor relations; it is a concept boundary rather than a candidate-selection task."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_enumeration_by_division",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor",
+      "skillVariant": "factor_enumeration_by_division",
+      "boundaryRationale": "Uses trial division and exact-quotient checks; its procedure and validator trace differ from multiplication-pair enumeration."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_enumeration_by_multiplication_pairs",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor",
+      "skillVariant": "factor_enumeration_by_multiplication_pairs",
+      "boundaryRationale": "Enumerates complementary factor pairs by multiplication and supports a factor-pair answer shape."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_pair_order_and_symmetry",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor",
+      "skillVariant": "factor_pair_order_and_symmetry",
+      "boundaryRationale": "Focuses on ascending order, first-last pairing and constant pair products rather than the search method itself."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_missing_factor_reconstruction",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor",
+      "skillVariant": "missing_factor_reconstruction",
+      "boundaryRationale": "Returns missing entries from a partially visible ordered factor list; this inverse answer shape differs from direct enumeration."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_divisibility_factor_membership_judgement",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor",
+      "skillVariant": "factor_membership_judgement",
+      "boundaryRationale": "Evaluates candidate numbers or statements as true/false; it applies the factor criterion without requiring a complete factor list."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_equal_partition_factor_application",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor_application",
+      "skillVariant": "equal_partition_factor_application",
+      "boundaryRationale": "Maps equal-segment and equal-sharing contexts to all valid factors, with optional range and unit constraints."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_number_theory_problem_type_discrimination",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "number_theory_language",
+      "skillVariant": "factor_multiple_problem_type_discrimination",
+      "boundaryRationale": "Classifies factor, multiple, common-factor and common-multiple wording across both packets; this is a semantic strategy boundary."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_efficient_factor_pair_search",
+      "decision": "merge_into",
+      "canonicalSkillParent": "factor",
+      "skillVariant": "factor_enumeration_by_multiplication_pairs",
+      "boundaryRationale": "The source panels only reinforce multiplication-pair factor search. Search stopping and duplicate avoidance are method constraints within factor-pair enumeration, not an independently evidenced KnowledgePoint.",
+      "mergedInto": "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_inverse_reasoning_from_complete_factor_list",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor_reasoning",
+      "skillVariant": "inverse_reasoning_complete_factor_list",
+      "boundaryRationale": "Uses a complete symbolic factor list to infer pair products, unknown values, divisibility and parity; it is deeper than direct missing-value reconstruction."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_remainder_transfer_under_divisor_relation",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "factor_reasoning",
+      "skillVariant": "remainder_transfer_under_divisor_relation",
+      "boundaryRationale": "Uses the fact that one divisor is a factor of another to transform a known remainder; it has a distinct modular answer model."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factor_concept",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "common_factor_gcf",
+      "skillVariant": "common_factor_concept",
+      "boundaryRationale": "Defines common factors as the intersection of two factor sets and supports concept-identification questions."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factor_enumeration",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "common_factor_gcf",
+      "skillVariant": "common_factor_enumeration",
+      "boundaryRationale": "Requires complete enumeration or factor-set intersection for two numbers; it is execution rather than definition."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_greatest_common_factor",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "common_factor_gcf",
+      "skillVariant": "greatest_common_factor",
+      "boundaryRationale": "Selects the maximum from the common-factor set and has a single-integer answer shape."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_maximum_equal_grouping_gcf_application",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "common_factor_application",
+      "skillVariant": "maximum_equal_grouping_gcf",
+      "boundaryRationale": "The keyword 最多 and equal grouping require the greatest common factor, not every common factor."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_possible_equal_packaging_common_factor_application",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "common_factor_application",
+      "skillVariant": "possible_equal_packaging_common_factors",
+      "boundaryRationale": "Asks all feasible box counts and therefore returns the complete common-factor set rather than only the greatest value."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_rectangle_equal_square_side_lengths",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "common_factor_application",
+      "skillVariant": "rectangle_equal_square_side_lengths",
+      "boundaryRationale": "Returns common divisors as square side lengths with length units; no area transformation is required."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_square_tile_area_possibilities",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "common_factor_application",
+      "skillVariant": "square_tile_area_possibilities",
+      "boundaryRationale": "Adds a second deterministic step that squares every valid common-divisor side length and returns area units."
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_multi_constraint_digit_code_number_theory",
+      "decision": "accept_as_distinct",
+      "canonicalSkillParent": "number_theory_reasoning",
+      "skillVariant": "multi_constraint_digit_code",
+      "boundaryRationale": "Combines common-factor, common-multiple, divisibility and non-repetition constraints into a unique digit tuple."
+    }
+  ],
+  "duplicateBoundaryChecks": [
+    {
+      "pair": [
+        "kp_g5a_u02_factor_criterion_multiplication_division_equivalence",
+        "kp_g5a_u02_divisibility_factor_membership_judgement"
+      ],
+      "result": "distinct",
+      "reason": "factor-definition equivalence versus candidate or statement judgement"
+    },
+    {
+      "pair": [
+        "kp_g5a_u02_factor_enumeration_by_division",
+        "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
+      ],
+      "result": "distinct",
+      "reason": "trial-division procedure versus multiplication-pair procedure"
+    },
+    {
+      "pair": [
+        "kp_g5a_u02_factor_enumeration_by_multiplication_pairs",
+        "kp_g5a_u02_efficient_factor_pair_search"
+      ],
+      "result": "merge",
+      "reason": "search efficiency and stopping are constraints of the same multiplication-pair enumeration method"
+    },
+    {
+      "pair": [
+        "kp_g5a_u02_factor_pair_order_and_symmetry",
+        "kp_g5a_u02_missing_factor_reconstruction"
+      ],
+      "result": "distinct",
+      "reason": "factor-list representation structure versus inverse missing-entry answer"
+    },
+    {
+      "pair": [
+        "kp_g5a_u02_missing_factor_reconstruction",
+        "kp_g5a_u02_inverse_reasoning_from_complete_factor_list"
+      ],
+      "result": "distinct",
+      "reason": "direct missing factors versus multi-relation symbolic inference including parity"
+    },
+    {
+      "pair": [
+        "kp_g5a_u02_common_factor_concept",
+        "kp_g5a_u02_common_factor_enumeration"
+      ],
+      "result": "distinct",
+      "reason": "definition and recognition versus complete two-set enumeration"
+    },
+    {
+      "pair": [
+        "kp_g5a_u02_maximum_equal_grouping_gcf_application",
+        "kp_g5a_u02_possible_equal_packaging_common_factor_application"
+      ],
+      "result": "distinct",
+      "reason": "single maximum GCF answer versus complete set of possible common-factor answers"
+    },
+    {
+      "pair": [
+        "kp_g5a_u02_rectangle_equal_square_side_lengths",
+        "kp_g5a_u02_square_tile_area_possibilities"
+      ],
+      "result": "distinct",
+      "reason": "length-unit side answers versus squared area-unit answers"
+    }
+  ],
+  "sourceIdentityResolution": {
+    "status": "resolved_for_candidate_pipeline",
+    "parentUnitDecision": {
+      "unitId": "g5a_u02",
+      "canonicalUnitTitle": "因數與公因數",
+      "reason": "The user-provided packet grouping and manual visual content form one factor/common-factor instructional sequence."
+    },
+    "packetDecisions": [
+      {
+        "packetId": "packet_g5a_u02_5a02a",
+        "requestedSourceIdDecision": "retain_g5a_u02_5a02a",
+        "canonicalPacketTitle": "因數",
+        "canonicalPacketRole": "factor_core",
+        "anomalyDisposition": "recorded_non_blocking",
+        "metadataPatchRequired": false,
+        "reason": "Filename, visible title and expected curriculum role agree; only the rendered source-site URL suffix differs."
+      },
+      {
+        "packetId": "packet_g5a_u02_5a02a1",
+        "requestedSourceIdDecision": "retain_g5a_u02_5a02a1",
+        "canonicalPacketTitle": "公因數",
+        "canonicalPacketRole": "common_factor_gcf_extension",
+        "anomalyDisposition": "resolved_by_packet_role_lock",
+        "metadataPatchRequired": true,
+        "requiredMetadataCorrection": {
+          "displayTitle": "公因數",
+          "sourceUrl": "https://meow911.com/5a03b/"
+        },
+        "reason": "The visible title, URL and page content consistently identify common-factor/GCF instruction. The stable split-packet id is retained while its metadata title/URL must be corrected."
+      }
+    ],
+    "sourceIdentityPromotionBlocker": false,
+    "operatorDecisionRequired": false
+  },
+  "externalMediaDisposition": {
+    "shortDivisionThumbnailObserved": true,
+    "standaloneShortDivisionKnowledgePointAccepted": false,
+    "reason": "The PDF only embeds a video thumbnail and does not provide enough in-panel instruction to source a separate short-division KnowledgePoint."
+  },
+  "scopeBoundary": {
+    "sourceCandidateRegistryMutated": false,
+    "knowledgePointRowsPromoted": false,
+    "formalMappingCreated": false,
+    "patternSpecsCreated": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "remainingBlockers": [
+    "Metadata for g5a_u02_5a02a1 must display 公因數 and preserve the visible /5a03b/ source URL.",
+    "FormalMapping candidate design has not been created.",
+    "PatternSpec, generator, validator and public selector support do not exist."
+  ],
+  "nextGate": "S80_G5A_U02_FormalMappingCandidateDesign",
+  "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+}
