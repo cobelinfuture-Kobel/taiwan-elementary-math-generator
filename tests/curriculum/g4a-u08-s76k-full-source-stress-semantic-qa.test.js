@@ -170,7 +170,7 @@ test("S76K Phase2A legacy surface stress covers all 12 application PatternSpecs"
   assert.deepEqual(new Set(result.questions.map((question) => question.patternSpecId)), new Set(PHASE2A_SPEC_IDS));
   assert.equal(validateBatchABrowserQuestions(result.questions).ok, true);
   for (const question of result.questions) {
-    assert.equal(evaluateG4AU08ApplicationEquationTokens(question.equationTokens), question.finalAnswer);
+    assert.equal(evaluateG4AU08ApplicationEquationTokens(question.equationTokens).finalAnswer, question.finalAnswer);
     assertPublicText(question.promptText ?? question.blankedDisplayText ?? "");
   }
 });
