@@ -29,15 +29,9 @@ function visibleKnowledgePointsBySource() {
   return grouped;
 }
 
-function listPixelPublicSourceUnits() {
-  const units = listBatchASourceUnits();
-  if (!units.some((unit) => unit.sourceId === G4B_U04_SOURCE_ID)) units.splice(12, 0, { ...G4B_U04_PIXEL_SOURCE_UNIT });
-  return units;
-}
-
-export function listPixelSourceOptions() {
+function mapPixelSourceOptions(units) {
   const grouped = visibleKnowledgePointsBySource();
-  return listPixelPublicSourceUnits().map((unit) => {
+  return units.map((unit) => {
     const visibleKnowledgePoints = grouped.get(unit.sourceId) ?? [];
     const availability = listBatchAKnowledgePointAvailabilityBySource(unit.sourceId);
     return Object.freeze({
@@ -56,6 +50,16 @@ export function listPixelSourceOptions() {
   });
 }
 
+function listS74PixelSourceOptions() {
+  const units = listBatchASourceUnits();
+  if (!units.some((unit) => unit.sourceId === G4B_U04_SOURCE_ID)) units.splice(12, 0, { ...G4B_U04_PIXEL_SOURCE_UNIT });
+  return mapPixelSourceOptions(units);
+}
+
+export function listPixelSourceOptions() {
+  return mapPixelSourceOptions(listBatchASourceUnits());
+}
+
 export function listPixelGrades() {
   return [...new Set(listPixelSourceOptions().map((entry) => entry.grade))].sort((a, b) => a - b);
 }
@@ -65,7 +69,7 @@ export function listPixelSemestersForGrade(grade) {
 }
 
 export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
-  return listPixelSourceOptions().filter((entry) => {
+  return listS74PixelSourceOptions().filter((entry) => {
     if (Number.isInteger(grade) && entry.grade !== grade) return false;
     if (semester && entry.semester !== semester) return false;
     return true;
@@ -73,7 +77,7 @@ export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
 }
 
 export function getPixelSourceOption(sourceId) {
-  return listPixelSourceOptions().find((unit) => unit.sourceId === sourceId) ?? null;
+  return listS74PixelSourceOptions().find((unit) => unit.sourceId === sourceId) ?? null;
 }
 
 export function listPixelKnowledgePointsForSource(sourceId) {
