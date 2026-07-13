@@ -1,0 +1,52 @@
+{
+  "schemaName": "G5AU02ClassDHiddenProjectionBindingCloseout",
+  "schemaVersion": 1,
+  "task": "S88_G5A_U02_ClassDHiddenProjectionBindingAndQA",
+  "status": "pass_ci_synced_and_merged",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "projection": {
+    "totalPatternSpecCount": 22,
+    "boundClassCCount": 14,
+    "boundClassDCount": 8,
+    "totalBoundRuntimeCount": 22,
+    "binding": "src/curriculum/g5a-u02/class-d-hidden-projection-binding.js",
+    "tests": "tests/curriculum/g5a-u02-class-d-hidden-projection-binding.test.js",
+    "templateFamilyParity": true,
+    "metadataParity": true
+  },
+  "lifecycle": {
+    "bindingStatus": "class_d_runtime_bound_hidden",
+    "selectorStatus": "hidden",
+    "canonicalRouting": "disabled",
+    "productionUse": "forbidden",
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden"
+  },
+  "ciEvidence": {
+    "pullRequest": 143,
+    "headCommit": "ce6bc641a6f8ea4a5de99a7bb745197e397c820f",
+    "mergeCommit": "c08453af9bf314eb439853aeb3187d29f903d894",
+    "prNodeTestRun": 29261558865,
+    "prS42BranchTestRun": 29261558705,
+    "prMathCiReadbackRun": 29261558629,
+    "freshMainMathCiRun": 29262330158,
+    "freshMainReadbackCommit": "35ba777f287f77f15d63573de73d68136319b289",
+    "tests": 1232,
+    "pass": 1232,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "scopeBoundary": {
+    "metadataCorrected": false,
+    "canonicalResolverConnected": false,
+    "publicSelectorEnabled": false,
+    "worksheetIntegrated": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D1_G5A_U02_ALL_22_PATTERNS_HAVE_HIDDEN_RUNTIME",
+    "after": "D1_G5A_U02_ALL_22_RUNTIMES_BOUND_TO_HIDDEN_PROJECTION",
+    "nextShortestStep": "S89_G5A_U02_SourceMetadataCorrectionAndProjectionConsistencyQA"
+  }
+}
