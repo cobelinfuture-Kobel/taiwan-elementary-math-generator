@@ -1,0 +1,50 @@
+{
+  "schemaName": "G5AU02ClassDSemanticRuntimeCloseout",
+  "schemaVersion": 1,
+  "task": "S87_G5A_U02_ClassDSemanticGeneratorAndBlockingValidator",
+  "status": "pass_ci_synced_and_merged",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "runtime": {
+    "implementationClass": "D",
+    "patternSpecCount": 8,
+    "generatorValidator": "src/curriculum/g5a-u02/class-d-semantic-generator-validator.js",
+    "tests": "tests/curriculum/g5a-u02-class-d-semantic-generator-validator.test.js",
+    "controlledTemplates": true,
+    "canonicalAnswerRecomputation": true,
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden"
+  },
+  "lifecycle": {
+    "selectorStatus": "hidden",
+    "canonicalRouting": "disabled",
+    "productionUse": "forbidden"
+  },
+  "ciEvidence": {
+    "pullRequest": 141,
+    "headCommit": "8928ee26b7b1b3ec50a6479b6e2095a6a4f2ef6f",
+    "mergeCommit": "422fa7715dbdbdc33ca58d7ad538dde78518dcd0",
+    "prNodeTestRun": 29260015356,
+    "prS42BranchTestRun": 29260015519,
+    "prMathCiReadbackRun": 29260015195,
+    "freshMainMathCiRun": 29260286543,
+    "freshMainReadbackCommit": "1ebb4fbbc31cb7d97c2706f8194674d62f39cb17",
+    "tests": 1216,
+    "pass": 1216,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "scopeBoundary": {
+    "classDHiddenProjectionBound": false,
+    "metadataCorrected": false,
+    "canonicalResolverConnected": false,
+    "publicSelectorEnabled": false,
+    "worksheetIntegrated": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D1_G5A_U02_CLASS_C_RUNTIME_BOUND_TO_HIDDEN_PROJECTION",
+    "after": "D1_G5A_U02_ALL_22_PATTERNS_HAVE_HIDDEN_RUNTIME",
+    "nextShortestStep": "S88_G5A_U02_ClassDHiddenProjectionBindingAndQA"
+  }
+}
