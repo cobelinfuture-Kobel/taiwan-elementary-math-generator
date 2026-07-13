@@ -1,0 +1,730 @@
+{
+  "schemaName": "G5AU02FormalMappingCandidateDesign",
+  "schemaVersion": 1,
+  "task": "S80_G5A_U02_FormalMappingCandidateDesign",
+  "status": "candidate_design_pending_ci",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "dependsOn": [
+    "S78_G5A_U02_DualPDFManualKnowledgePointExtraction",
+    "S79_G5A_U02_DualPDFKnowledgePointBoundaryAndSourceIdentityQA"
+  ],
+  "sourceIdentity": {
+    "status": "resolved_for_candidate_pipeline",
+    "parentUnitTitle": "因數與公因數",
+    "packets": [
+      {
+        "sourceId": "g5a_u02_5a02a",
+        "canonicalTitle": "因數",
+        "canonicalRole": "factor_core",
+        "metadataPatchRequired": false
+      },
+      {
+        "sourceId": "g5a_u02_5a02a1",
+        "canonicalTitle": "公因數",
+        "canonicalRole": "common_factor_gcf_extension",
+        "metadataPatchRequired": true,
+        "requiredMetadataCorrection": {
+          "displayTitle": "公因數",
+          "sourceUrl": "https://meow911.com/5a03b/"
+        }
+      }
+    ],
+    "promotionBlockedByIdentity": false,
+    "publicCatalogPromotionRequiresMetadataCorrection": true
+  },
+  "canonicalSkillParents": [
+    "factor",
+    "factor_application",
+    "factor_reasoning",
+    "common_factor_gcf",
+    "common_factor_application",
+    "number_theory_language",
+    "number_theory_reasoning"
+  ],
+  "scopeBoundary": {
+    "sourceMetadataMutated": false,
+    "formalMappingMaterialized": false,
+    "patternSpecsCreated": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "globalBoundaryCandidate": {
+    "targetNumberRange": [
+      2,
+      999
+    ],
+    "pairedNumberRange": [
+      2,
+      999
+    ],
+    "applicationQuantityRange": [
+      2,
+      9999
+    ],
+    "geometryDimensionRange": [
+      2,
+      999
+    ],
+    "digitRange": [
+      0,
+      9
+    ],
+    "digitCodeLength": 4,
+    "positiveIntegerOnly": true,
+    "includeOneAndSelfAsFactors": true,
+    "factorListOrdering": "ascending_unique",
+    "zeroDivisorAllowed": false,
+    "leadingZeroAllowedInDigitCode": false,
+    "fractionalAnswerAllowed": false,
+    "negativeAnswerAllowed": false,
+    "shortDivisionExternalMediaInferenceAllowed": false,
+    "genericFallbackAllowed": false
+  },
+  "formalRules": {
+    "divides": "d>0 && n%d===0",
+    "factorSet": "sortAsc({d in Z | 1<=d<=n && n%d=0})",
+    "factorPairs": "sortByFirst({(a,b) in Z^2 | 1<=a<=b && a*b=n})",
+    "factorListFromPairs": "sortAsc(unique(flatten(factorPairs(n))))",
+    "commonFactorSet": "intersect(factorSet(a),factorSet(b))",
+    "greatestCommonFactor": "max(commonFactorSet(a,b))",
+    "missingFactorValues": "project factorSet(n) onto hidden positions while all visible positions remain fixed",
+    "equalPartitionSolutions": "filter(factorSet(total), context range and unit constraints)",
+    "remainderTransfer": "if D%d=0 and N=q*D+r, then N%d=r%d",
+    "rectangleSquareSideLengths": "commonFactorSet(length,width)",
+    "squareTileAreas": "sortAsc({s*s | s in commonFactorSet(length,width)})",
+    "problemTypeClassification": "choose one of factor|multiple|common_factor|common_multiple from quantified quantity-role semantics",
+    "digitCodeSolutions": "lexicographically sort all digit tuples satisfying the closed predicates; candidate item requires exactly one tuple"
+  },
+  "answerModelCandidates": [
+    "relationClassificationAnswer",
+    "integerListAnswer",
+    "factorPairListAnswer",
+    "orderedFactorRelationAnswer",
+    "missingValueMapAnswer",
+    "selectionSetAnswer",
+    "booleanAnswer",
+    "integerListWithUnitAnswer",
+    "problemTypeLabelAnswer",
+    "structuredInferenceAnswer",
+    "booleanSetAnswer",
+    "remainderAnswer",
+    "integerAnswer",
+    "lengthListAnswer",
+    "areaListAnswer",
+    "digitTupleAnswer"
+  ],
+  "knowledgePointMappings": [
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_criterion_multiplication_division_equivalence",
+      "patternGroupCandidateId": "pgc_g5a_u02_factor_relation_equivalence",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_factor_relation_equivalence"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_enumeration_by_division",
+      "patternGroupCandidateId": "pgc_g5a_u02_factor_enumeration_division",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_factor_enumeration_trial_division"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_enumeration_by_multiplication_pairs",
+      "patternGroupCandidateId": "pgc_g5a_u02_factor_enumeration_pairs",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_factor_pair_enumeration",
+        "fmc_g5a_u02_factor_list_from_pairs"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_pair_order_and_symmetry",
+      "patternGroupCandidateId": "pgc_g5a_u02_factor_order_symmetry",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_factor_order_and_symmetry"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_missing_factor_reconstruction",
+      "patternGroupCandidateId": "pgc_g5a_u02_missing_factor_reconstruction",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_missing_factor_reconstruction"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_divisibility_factor_membership_judgement",
+      "patternGroupCandidateId": "pgc_g5a_u02_factor_membership_judgement",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_divisor_candidate_selection",
+        "fmc_g5a_u02_factor_statement_judgement"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_equal_partition_factor_application",
+      "patternGroupCandidateId": "pgc_g5a_u02_equal_partition_application",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_equal_partition_all_segment_counts",
+        "fmc_g5a_u02_equal_partition_range_constrained_recipients"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_number_theory_problem_type_discrimination",
+      "patternGroupCandidateId": "pgc_g5a_u02_problem_type_discrimination",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_problem_type_classification"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_inverse_reasoning_from_complete_factor_list",
+      "patternGroupCandidateId": "pgc_g5a_u02_complete_factor_list_reasoning",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_complete_factor_list_unknown_values",
+        "fmc_g5a_u02_complete_factor_list_statement_evaluation"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_remainder_transfer_under_divisor_relation",
+      "patternGroupCandidateId": "pgc_g5a_u02_remainder_transfer",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_remainder_transfer"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factor_concept",
+      "patternGroupCandidateId": "pgc_g5a_u02_common_factor_concept",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_common_factor_concept_identification"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factor_enumeration",
+      "patternGroupCandidateId": "pgc_g5a_u02_common_factor_enumeration",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_common_factor_enumeration"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_greatest_common_factor",
+      "patternGroupCandidateId": "pgc_g5a_u02_greatest_common_factor",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_greatest_common_factor"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_maximum_equal_grouping_gcf_application",
+      "patternGroupCandidateId": "pgc_g5a_u02_maximum_equal_grouping",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_maximum_equal_grouping"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_possible_equal_packaging_common_factor_application",
+      "patternGroupCandidateId": "pgc_g5a_u02_possible_equal_packaging",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_possible_equal_packaging_counts"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_rectangle_equal_square_side_lengths",
+      "patternGroupCandidateId": "pgc_g5a_u02_rectangle_square_sides",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_rectangle_square_side_lengths"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_square_tile_area_possibilities",
+      "patternGroupCandidateId": "pgc_g5a_u02_square_tile_areas",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_square_tile_area_possibilities"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_multi_constraint_digit_code_number_theory",
+      "patternGroupCandidateId": "pgc_g5a_u02_multi_constraint_digit_code",
+      "mappingCandidateIds": [
+        "fmc_g5a_u02_multi_constraint_digit_code"
+      ]
+    }
+  ],
+  "formalMappingCandidates": [
+    {
+      "id": "fmc_g5a_u02_factor_relation_equivalence",
+      "ps": "ps_g5a_u02_factor_relation_equivalence",
+      "kp": "kp_g5a_u02_factor_criterion_multiplication_division_equivalence",
+      "pg": "pgc_g5a_u02_factor_relation_equivalence",
+      "mode": "concept",
+      "answer": "relationClassificationAnswer",
+      "evidence": [
+        "s78:5a02a:p1:left-top"
+      ],
+      "contract": "recognize a and b as factors of n exactly when a*b=n; equivalently n is exactly divisible by each",
+      "guards": [
+        "positive_integer_inputs",
+        "multiplication_product_matches_target",
+        "division_has_zero_remainder",
+        "factor_multiple_direction_not_reversed"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_factor_enumeration_trial_division",
+      "ps": "ps_g5a_u02_factor_enumeration_trial_division",
+      "kp": "kp_g5a_u02_factor_enumeration_by_division",
+      "pg": "pgc_g5a_u02_factor_enumeration_division",
+      "mode": "numeric",
+      "answer": "integerListAnswer",
+      "evidence": [
+        "s78:5a02a:p1:right-top"
+      ],
+      "contract": "enumerate factorSet(n) by testing exact division and return the complete ascending unique factor list",
+      "guards": [
+        "all_and_only_divisors_included",
+        "one_and_self_included",
+        "ascending_unique",
+        "trial_quotients_exact_when_selected"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_factor_pair_enumeration",
+      "ps": "ps_g5a_u02_factor_pair_enumeration",
+      "kp": "kp_g5a_u02_factor_enumeration_by_multiplication_pairs",
+      "pg": "pgc_g5a_u02_factor_enumeration_pairs",
+      "mode": "numeric",
+      "answer": "factorPairListAnswer",
+      "evidence": [
+        "s78:5a02a:p1:left-lower-middle",
+        "s78:5a02a:p2:right-middle"
+      ],
+      "contract": "enumerate all complementary integer pairs (a,b) with a<=b and a*b=n",
+      "guards": [
+        "all_pairs_product_equals_target",
+        "no_pair_omitted",
+        "no_symmetric_duplicate",
+        "pairs_sorted_by_first",
+        "search_stops_after_pair_repetition"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_factor_list_from_pairs",
+      "ps": "ps_g5a_u02_factor_list_from_pairs",
+      "kp": "kp_g5a_u02_factor_enumeration_by_multiplication_pairs",
+      "pg": "pgc_g5a_u02_factor_enumeration_pairs",
+      "mode": "numeric",
+      "answer": "integerListAnswer",
+      "evidence": [
+        "s78:5a02a:p1:left-lower-middle",
+        "s78:5a02a:p2:right-middle"
+      ],
+      "contract": "flatten the complete factor-pair set, remove duplicates and return the ascending factor list",
+      "guards": [
+        "factor_pairs_complete",
+        "flattened_values_exact",
+        "duplicate_square_root_removed_once",
+        "ascending_unique",
+        "one_and_self_included"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_factor_order_and_symmetry",
+      "ps": "ps_g5a_u02_factor_order_and_symmetry",
+      "kp": "kp_g5a_u02_factor_pair_order_and_symmetry",
+      "pg": "pgc_g5a_u02_factor_order_symmetry",
+      "mode": "representation",
+      "answer": "orderedFactorRelationAnswer",
+      "evidence": [
+        "s78:5a02a:p1:left-middle"
+      ],
+      "contract": "order factorSet(n) ascending and pair symmetric outer entries so every pair product equals n",
+      "guards": [
+        "ordered_factor_list_complete",
+        "outer_pairs_product_equals_target",
+        "middle_square_factor_handled_once",
+        "pair_indices_symmetric"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_missing_factor_reconstruction",
+      "ps": "ps_g5a_u02_missing_factor_reconstruction",
+      "kp": "kp_g5a_u02_missing_factor_reconstruction",
+      "pg": "pgc_g5a_u02_missing_factor_reconstruction",
+      "mode": "reasoning",
+      "answer": "missingValueMapAnswer",
+      "evidence": [
+        "s78:5a02a:p1:right-middle"
+      ],
+      "contract": "reconstruct every hidden entry in a partially visible complete ascending factor list",
+      "guards": [
+        "visible_entries_preserved",
+        "completed_list_equals_factor_set",
+        "hidden_values_unique_by_position",
+        "pair_products_match_target",
+        "ascending_order_preserved"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_divisor_candidate_selection",
+      "ps": "ps_g5a_u02_divisor_candidate_selection",
+      "kp": "kp_g5a_u02_divisibility_factor_membership_judgement",
+      "pg": "pgc_g5a_u02_factor_membership_judgement",
+      "mode": "numeric",
+      "answer": "selectionSetAnswer",
+      "evidence": [
+        "s78:5a02a:p1:right-lower-middle"
+      ],
+      "contract": "select exactly the candidate numbers that divide the target with zero remainder",
+      "guards": [
+        "candidate_set_closed",
+        "all_selected_divide_target",
+        "all_nonselected_fail_divisibility",
+        "selection_unique"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_factor_statement_judgement",
+      "ps": "ps_g5a_u02_factor_statement_judgement",
+      "kp": "kp_g5a_u02_divisibility_factor_membership_judgement",
+      "pg": "pgc_g5a_u02_factor_membership_judgement",
+      "mode": "concept",
+      "answer": "booleanAnswer",
+      "evidence": [
+        "s78:5a02a:p2:right-top"
+      ],
+      "contract": "evaluate a closed factor or multiple statement by exact divisibility and relation direction",
+      "guards": [
+        "statement_has_single_truth_value",
+        "divisibility_computed_exactly",
+        "factor_multiple_direction_valid",
+        "no_decimal_or_fractional_inference"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_equal_partition_all_segment_counts",
+      "ps": "ps_g5a_u02_equal_partition_all_segment_counts",
+      "kp": "kp_g5a_u02_equal_partition_factor_application",
+      "pg": "pgc_g5a_u02_equal_partition_application",
+      "mode": "application",
+      "answer": "integerListWithUnitAnswer",
+      "evidence": [
+        "s78:5a02a:p1:left-bottom"
+      ],
+      "contract": "return every positive segment count permitted by equal partition of the total under the stated unit constraint",
+      "guards": [
+        "all_counts_divide_total",
+        "all_valid_counts_included",
+        "per_segment_quantity_integer",
+        "context_unit_preserved",
+        "answer_sorted_unique"
+      ],
+      "class": "D",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_equal_partition_range_constrained_recipients",
+      "ps": "ps_g5a_u02_equal_partition_range_constrained_recipients",
+      "kp": "kp_g5a_u02_equal_partition_factor_application",
+      "pg": "pgc_g5a_u02_equal_partition_application",
+      "mode": "application",
+      "answer": "integerListWithUnitAnswer",
+      "evidence": [
+        "s78:5a02a:p1:right-bottom"
+      ],
+      "contract": "intersect factorSet(total) with the stated recipient-count interval and return every feasible count",
+      "guards": [
+        "range_bounds_applied",
+        "all_counts_divide_total",
+        "all_in_range_solutions_included",
+        "out_of_range_values_excluded",
+        "unit_role_preserved"
+      ],
+      "class": "D",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_problem_type_classification",
+      "ps": "ps_g5a_u02_problem_type_classification",
+      "kp": "kp_g5a_u02_number_theory_problem_type_discrimination",
+      "pg": "pgc_g5a_u02_problem_type_discrimination",
+      "mode": "concept",
+      "answer": "problemTypeLabelAnswer",
+      "evidence": [
+        "s78:5a02a:p2:left-top",
+        "s78:5a02a1:p1:right-lower-middle"
+      ],
+      "contract": "classify the closed wording pattern as factor, multiple, common_factor or common_multiple from quantity roles and extremum language",
+      "guards": [
+        "label_from_closed_allowlist",
+        "quantity_roles_unambiguous",
+        "maximum_vs_minimum_language_respected",
+        "single_classification_only",
+        "no_free_form_semantic_fallback"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_complete_factor_list_unknown_values",
+      "ps": "ps_g5a_u02_complete_factor_list_unknown_values",
+      "kp": "kp_g5a_u02_inverse_reasoning_from_complete_factor_list",
+      "pg": "pgc_g5a_u02_complete_factor_list_reasoning",
+      "mode": "reasoning",
+      "answer": "structuredInferenceAnswer",
+      "evidence": [
+        "s78:5a02a:p2:left-lower-middle"
+      ],
+      "contract": "infer the target number and all symbolic factor entries from a complete ascending factor list and symmetric products",
+      "guards": [
+        "factor_list_declared_complete",
+        "visible_order_preserved",
+        "symmetric_products_constant",
+        "all_unknowns_solved",
+        "solution_unique"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_complete_factor_list_statement_evaluation",
+      "ps": "ps_g5a_u02_complete_factor_list_statement_evaluation",
+      "kp": "kp_g5a_u02_inverse_reasoning_from_complete_factor_list",
+      "pg": "pgc_g5a_u02_complete_factor_list_reasoning",
+      "mode": "reasoning",
+      "answer": "booleanSetAnswer",
+      "evidence": [
+        "s78:5a02a:p2:left-lower-middle"
+      ],
+      "contract": "evaluate closed statements about factor membership, multiple relations, pair products and parity from the completed factor list",
+      "guards": [
+        "complete_list_reconstructed_first",
+        "each_statement_has_single_truth_value",
+        "parity_from_factor_structure_valid",
+        "relation_direction_valid",
+        "boolean_vector_length_matches_prompts"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_remainder_transfer",
+      "ps": "ps_g5a_u02_remainder_transfer",
+      "kp": "kp_g5a_u02_remainder_transfer_under_divisor_relation",
+      "pg": "pgc_g5a_u02_remainder_transfer",
+      "mode": "reasoning_application",
+      "answer": "remainderAnswer",
+      "evidence": [
+        "s78:5a02a:p2:right-lower-middle"
+      ],
+      "contract": "when the larger divisor is a multiple of the smaller divisor, transform the known remainder by remainder mod smallerDivisor",
+      "guards": [
+        "larger_divisor_multiple_of_smaller",
+        "known_remainder_in_valid_range",
+        "transferred_remainder_equals_r_mod_d",
+        "result_less_than_smaller_divisor",
+        "context_total_consistent"
+      ],
+      "class": "D",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_common_factor_concept_identification",
+      "ps": "ps_g5a_u02_common_factor_concept_identification",
+      "kp": "kp_g5a_u02_common_factor_concept",
+      "pg": "pgc_g5a_u02_common_factor_concept",
+      "mode": "concept",
+      "answer": "selectionSetAnswer",
+      "evidence": [
+        "s78:5a02a1:p1:left-top"
+      ],
+      "contract": "identify exactly the values that are factors of both positive integers",
+      "guards": [
+        "each_selected_value_divides_both",
+        "noncommon_candidates_excluded",
+        "one_included_when_candidate_available",
+        "selection_unique"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_common_factor_enumeration",
+      "ps": "ps_g5a_u02_common_factor_enumeration",
+      "kp": "kp_g5a_u02_common_factor_enumeration",
+      "pg": "pgc_g5a_u02_common_factor_enumeration",
+      "mode": "numeric",
+      "answer": "integerListAnswer",
+      "evidence": [
+        "s78:5a02a:p2:left-middle",
+        "s78:5a02a1:p1:left-bottom",
+        "s78:5a02a1:p1:right-top"
+      ],
+      "contract": "return the complete ascending intersection of factorSet(a) and factorSet(b)",
+      "guards": [
+        "both_factor_sets_correct",
+        "intersection_complete",
+        "noncommon_values_excluded",
+        "ascending_unique",
+        "one_included"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_greatest_common_factor",
+      "ps": "ps_g5a_u02_greatest_common_factor",
+      "kp": "kp_g5a_u02_greatest_common_factor",
+      "pg": "pgc_g5a_u02_greatest_common_factor",
+      "mode": "numeric",
+      "answer": "integerAnswer",
+      "evidence": [
+        "s78:5a02a1:p1:left-top",
+        "s78:5a02a1:p1:right-top"
+      ],
+      "contract": "return the maximum value in commonFactorSet(a,b)",
+      "guards": [
+        "common_factor_set_nonempty",
+        "answer_divides_both",
+        "no_larger_common_factor_exists",
+        "answer_positive_integer"
+      ],
+      "class": "C",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_maximum_equal_grouping",
+      "ps": "ps_g5a_u02_maximum_equal_grouping",
+      "kp": "kp_g5a_u02_maximum_equal_grouping_gcf_application",
+      "pg": "pgc_g5a_u02_maximum_equal_grouping",
+      "mode": "application",
+      "answer": "integerAnswer",
+      "evidence": [
+        "s78:5a02a1:p1:left-middle"
+      ],
+      "contract": "for two quantities split into the greatest possible equal number of groups, return gcd(a,b)",
+      "guards": [
+        "maximum_keyword_present",
+        "group_count_divides_both_quantities",
+        "group_count_equals_gcf",
+        "per_group_counts_integer",
+        "units_preserved"
+      ],
+      "class": "D",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_possible_equal_packaging_counts",
+      "ps": "ps_g5a_u02_possible_equal_packaging_counts",
+      "kp": "kp_g5a_u02_possible_equal_packaging_common_factor_application",
+      "pg": "pgc_g5a_u02_possible_equal_packaging",
+      "mode": "application",
+      "answer": "integerListWithUnitAnswer",
+      "evidence": [
+        "s78:5a02a1:p1:right-middle"
+      ],
+      "contract": "return every box count in commonFactorSet(a,b) permitted by equal complete packaging",
+      "guards": [
+        "each_count_divides_both_quantities",
+        "all_feasible_counts_included",
+        "no_leftovers",
+        "per_box_counts_integer",
+        "answer_sorted_unique",
+        "unit_role_preserved"
+      ],
+      "class": "D",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_rectangle_square_side_lengths",
+      "ps": "ps_g5a_u02_rectangle_square_side_lengths",
+      "kp": "kp_g5a_u02_rectangle_equal_square_side_lengths",
+      "pg": "pgc_g5a_u02_rectangle_square_sides",
+      "mode": "geometry_application",
+      "answer": "lengthListAnswer",
+      "evidence": [
+        "s78:5a02a1:p1:left-lower-middle"
+      ],
+      "contract": "return every positive square side length that divides both rectangle dimensions",
+      "guards": [
+        "length_and_width_positive",
+        "each_side_divides_both_dimensions",
+        "all_common_divisor_sides_included",
+        "length_unit_preserved",
+        "answer_sorted_unique"
+      ],
+      "class": "D",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_square_tile_area_possibilities",
+      "ps": "ps_g5a_u02_square_tile_area_possibilities",
+      "kp": "kp_g5a_u02_square_tile_area_possibilities",
+      "pg": "pgc_g5a_u02_square_tile_areas",
+      "mode": "geometry_application",
+      "answer": "areaListAnswer",
+      "evidence": [
+        "s78:5a02a1:p2:left-top"
+      ],
+      "contract": "square every valid common-divisor side length and return all possible tile areas",
+      "guards": [
+        "side_length_set_complete",
+        "each_area_equals_side_squared",
+        "all_areas_included",
+        "area_unit_squared",
+        "answer_sorted_unique"
+      ],
+      "class": "D",
+      "status": "candidate_only"
+    },
+    {
+      "id": "fmc_g5a_u02_multi_constraint_digit_code",
+      "ps": "ps_g5a_u02_multi_constraint_digit_code",
+      "kp": "kp_g5a_u02_multi_constraint_digit_code_number_theory",
+      "pg": "pgc_g5a_u02_multi_constraint_digit_code",
+      "mode": "reasoning_application",
+      "answer": "digitTupleAnswer",
+      "evidence": [
+        "s78:5a02a1:p2:right-top"
+      ],
+      "contract": "enumerate four-digit tuples and retain the unique tuple satisfying all factor, common-factor, common-multiple, divisibility and non-repetition predicates",
+      "guards": [
+        "four_digits_exact",
+        "leading_zero_forbidden",
+        "digit_constraints_closed_and_visible",
+        "all_predicates_satisfied",
+        "digits_distinct_when_required",
+        "exactly_one_solution",
+        "no_unstated_constraint"
+      ],
+      "class": "D",
+      "status": "candidate_only"
+    }
+  ],
+  "acceptance": {
+    "knowledgePointCount": 18,
+    "patternGroupCandidateCount": 18,
+    "formalMappingCandidateCount": 22,
+    "classCMappingCandidateCount": 14,
+    "classDMappingCandidateCount": 8,
+    "answerModelCandidateCount": 16,
+    "mergedSourceCandidateCount": 1,
+    "allAcceptedKnowledgePointsCovered": true,
+    "allMappingsSourceEvidenced": true,
+    "allMappingsCandidateOnly": true,
+    "sourceIdentityResolvedForCandidatePipeline": true
+  }
+}
