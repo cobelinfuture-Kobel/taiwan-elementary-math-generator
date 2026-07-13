@@ -1,0 +1,86 @@
+{
+  "schemaName": "G4AU08ResolverSelectorWorksheetPromotionRegistry",
+  "schemaVersion": 1,
+  "task": "S76J_G4A_U08_ResolverSelectorAndWorksheetIntegration",
+  "status": "implemented_pending_ci",
+  "promotionRegistryId": "s76j_g4a_u08_phase2b_resolver_selector_worksheet",
+  "worksheetPromotionOverlayId": "s76j_g4a_u08_phase2b_worksheet_allocation",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "unitTitle": "整數四則 Phase2B 應用題",
+  "authorityRefs": [
+    "data/curriculum/registry/S76D_G4A_U08_KnowledgePointPatternGroupRegistry.json",
+    "data/curriculum/mapping/S76I_G4A_U08_Phase2BMissingPatternGroups.json"
+  ],
+  "knowledgePointIds": [
+    "kp_g4a_u08_app_add_sub_sequence",
+    "kp_g4a_u08_app_mul_div_sequence",
+    "kp_g4a_u08_app_mul_div_before_add_sub"
+  ],
+  "patternGroupIds": [
+    "pg_g4a_u08_ext_comparison_chain",
+    "pg_g4a_u08_ext_equal_value_unit_price",
+    "pg_g4a_u08_ext_relative_difference",
+    "pg_g4a_u08_ext_two_cost_component_payment"
+  ],
+  "patternSpecIds": [
+    "ps_g4a_u08_ext_comparison_chain",
+    "ps_g4a_u08_ext_equal_value_unit_price",
+    "ps_g4a_u08_ext_relative_difference",
+    "ps_g4a_u08_ext_two_cost_component_payment"
+  ],
+  "publicControls": {
+    "questionModes": ["mixed", "application"],
+    "defaultQuestionMode": "application",
+    "selectionModes": ["singleKnowledgePoint", "mixedKnowledgePointsSameUnit"],
+    "arbitraryPatternSpecInjection": false,
+    "genericFallback": false,
+    "maximumQuestionCount": 1000
+  },
+  "integration": {
+    "selectorVisible": true,
+    "resolverConnected": true,
+    "canonicalRoutingEnabled": true,
+    "blockingValidatorRequired": true,
+    "zeroOutputOnBlocking": true,
+    "worksheetEligible": true,
+    "answerKeyConnected": true,
+    "existingGenericRendererOnly": true,
+    "rendererBehaviorChanged": false,
+    "htmlPdfCloseoutCompleted": false,
+    "productionEligible": false
+  },
+  "lifecycle": {
+    "selectorStatus": "visible",
+    "runtimeStatus": "blocking_validated_canonical_runtime",
+    "validatorStatus": "blocking_validator_required",
+    "canonicalRouting": "enabled",
+    "worksheetStatus": "worksheet_eligible",
+    "rendererStatus": "existing_generic_renderer_only",
+    "productionUse": "preview_only_pending_s76k"
+  },
+  "summary": {
+    "knowledgePointCount": 3,
+    "patternGroupCount": 4,
+    "patternSpecCount": 4,
+    "applicationPatternSpecCount": 4,
+    "answerModelShapes": ["numericAnswer"]
+  },
+  "scopeBoundary": {
+    "existingPhase2APatternsPromoted": false,
+    "numericPatternSpecsPromoted": false,
+    "rendererVisualChanged": false,
+    "htmlPdfStressCompleted": false,
+    "fullSourceD0Declared": false
+  },
+  "goalDistance": {
+    "before": "D1_G4A_U08_PHASE2B_HIDDEN_GENERATOR_VALIDATOR_IMPLEMENTED",
+    "after": "D1_G4A_U08_PHASE2B_RESOLVER_SELECTOR_WORKSHEET_CONNECTED_PENDING_CI",
+    "remainingBlockers": [
+      "Full-source stress and semantic QA not completed",
+      "HTML/PDF production closeout not completed",
+      "D0 closeout not completed"
+    ],
+    "nextShortestStep": "S76K_G4A_U08_FullSourceStressAndSemanticQA"
+  }
+}
