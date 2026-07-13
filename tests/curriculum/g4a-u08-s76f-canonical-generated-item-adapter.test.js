@@ -38,7 +38,7 @@ function fixture(templateFamilyId, overrides = {}) {
   };
 }
 
-test("S76F exposes exactly 12 deterministic adapter contracts", () => {
+test("S76F exposes exactly 12 deterministic existing-scope adapter contracts", () => {
   const contracts = getG4AU08AdapterContracts();
   assert.deepEqual(Object.keys(contracts), TEMPLATE_IDS);
   assert.equal(Object.isFrozen(contracts), true);
@@ -65,7 +65,7 @@ test("all 12 existing templates adapt to the canonical item shape", () => {
     assert.match(item.patternSpecId, /^ps_g4a_u08_/);
     assert.equal(typeof item.unknownQuantityRole, "string");
     assert.equal(item.lifecycle.adapterStatus, "implemented_hidden");
-    assert.equal(item.lifecycle.validatorStatus, "pending_s76g");
+    assert.equal(item.lifecycle.validatorStatus, "implemented_hidden");
     assert.equal(item.lifecycle.canonicalRouting, "disabled");
     assert.equal(item.lifecycle.productionUse, "forbidden");
     assert.equal(Object.isFrozen(item), true);
@@ -90,28 +90,13 @@ test("adapter preserves legacy evidence while assigning canonical identity", () 
 });
 
 test("adapter blocks absent or unknown template identity", () => {
-  assert.throws(
-    () => adaptG4AU08LegacyItem(fixture(undefined, { templateFamilyId: undefined })),
-    /G4AU08_ADAPTER_TEMPLATE_ID_MISSING/
-  );
-  assert.throws(
-    () => adaptG4AU08LegacyItem(fixture("tpl_unknown")),
-    /G4AU08_ADAPTER_TEMPLATE_UNMAPPED:tpl_unknown/
-  );
+  assert.throws(() => adaptG4AU08LegacyItem(fixture(undefined, { templateFamilyId: undefined })), /G4AU08_ADAPTER_TEMPLATE_ID_MISSING/);
+  assert.throws(() => adaptG4AU08LegacyItem(fixture("tpl_unknown")), /G4AU08_ADAPTER_TEMPLATE_UNMAPPED:tpl_unknown/);
 });
 
 test("adapter blocks missing prompt or answer instead of silently fabricating them", () => {
-  assert.throws(
-    () => adaptG4AU08LegacyItem(fixture("tpl_app_multiply_then_share", { prompt: "" })),
-    /G4AU08_ADAPTER_PROMPT_MISSING/
-  );
-  assert.throws(
-    () => adaptG4AU08LegacyItem(fixture("tpl_app_multiply_then_share", {
-      answer: undefined,
-      answerModel: undefined
-    })),
-    /G4AU08_ADAPTER_ANSWER_MISSING/
-  );
+  assert.throws(() => adaptG4AU08LegacyItem(fixture("tpl_app_multiply_then_share", { prompt: "" })), /G4AU08_ADAPTER_PROMPT_MISSING/);
+  assert.throws(() => adaptG4AU08LegacyItem(fixture("tpl_app_multiply_then_share", { answer: undefined, answerModel: undefined })), /G4AU08_ADAPTER_ANSWER_MISSING/);
 });
 
 test("canonical output is detached from mutable legacy input", () => {
