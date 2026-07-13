@@ -2,8 +2,10 @@
 
 ```text
 TASK = S76K_G4A_U08_FullSourceStressAndSemanticQA
-STATUS = PASS_IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4a_u08_4a08
+PR = 154
+MERGE_COMMIT = c995a2e5d741bbc07f000205eed8d145b7002f13
 ```
 
 ## Scope
@@ -31,7 +33,7 @@ Phase2B public counts:
 
 The matrix validates 1,406 Phase2B questions. Numeric legacy and Phase2A application each add 200 questions, producing 1,806 primary stress questions.
 
-The accepted upper boundary is 1,000 questions. A request for 1,001 questions must return a blocking error and zero output.
+The accepted upper boundary is 1,000 questions. A request for 1,001 questions returns a blocking error and zero output.
 
 ## Semantic gates
 
@@ -72,22 +74,38 @@ S76K retains blocking rejection for:
 - unapproved PatternGroup identity;
 - generic fallback activation.
 
-## HTML/PDF smoke
+## Accepted HTML/PDF evidence
 
-The workflow generates a 120-question and 120-answer WorksheetDocument through the public S76J route, renders it with the existing generic renderer, prints it with Chromium, and validates:
+The workflow generated a 120-question and 120-answer WorksheetDocument through the public S76J route and verified:
 
-- question and answer counts;
-- all four Phase2B PatternGroups and PatternSpecs;
-- DOM cell and page containment;
-- PDF page count against the WorksheetDocument manifest;
-- all rendered pages nonblank;
-- PDF text bounding boxes inside A4 pages;
-- Traditional Chinese glyph extraction;
-- final answer page nonblank;
-- zero internal-ID leaks;
-- zero unresolved placeholders.
+```text
+question pages          = 15
+answer pages            = 20
+PDF pages               = 35
+nonblank pages          = 35
+DOM cell overflow       = 0
+DOM page overflow       = 0
+PDF bbox overflow       = 0
+internal-ID leak        = 0
+unresolved placeholder  = 0
+CJK glyph rendering     = PASS
+PDF SHA-256             = 70914d43be7fcf9bb4b94e9d27abea350efbb1bc48fc07d0e8dbc4171dee0484
+```
 
-The HTML, PDF, manifest and rendered page images are uploaded as a 30-day workflow artifact. Generated binary artifacts are not committed by this milestone.
+Workflow evidence:
+
+```text
+Node Test                                      PASS
+Math CI Readback                               PASS
+S42 Branch Test                                PASS
+S59J G4B-U01 HTML PDF Smoke                    PASS
+S59J R1 G4B-U01 Warning and Print Layout       PASS
+S60L G5A-U08 HTML PDF Smoke                    PASS
+S75 G4B-U04 HTML PDF Smoke                     PASS
+S76K G4A-U08 HTML PDF Smoke                    PASS
+```
+
+The HTML, PDF, manifest and rendered page images were uploaded as workflow artifact `8286611935`. Generated binary artifacts were not committed.
 
 ## Lifecycle
 
@@ -103,8 +121,8 @@ S76K does not declare D0. Fresh-main closeout and Batch A migration readback rem
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G4A_U08_PHASE2B_RESOLVER_SELECTOR_WORKSHEET_CONNECTED
-GOAL_DISTANCE_AFTER  = D1_G4A_U08_FULL_SOURCE_STRESS_SEMANTIC_HTML_PDF_PENDING_CI
-DISTANCE_REDUCED     = Added full executable-surface stress, exact semantic recomputation, mutation rejection and Chromium HTML/PDF production evidence.
-REMAINING_BLOCKERS   = [S76K CI/Chromium smoke, fresh-main D0 closeout, Batch A migration readback]
+GOAL_DISTANCE_AFTER  = D1_G4A_U08_FULL_SOURCE_STRESS_SEMANTIC_HTML_PDF_ACCEPTED
+DISTANCE_REDUCED     = Accepted full executable-surface stress, exact semantic recomputation, mutation rejection and 35-page Chromium HTML/PDF evidence.
+REMAINING_BLOCKERS   = [S76L full-source D0 metric evaluation, Batch A migration cost readback]
 NEXT_SHORTEST_STEP   = S76L_G4A_U08_FullSourceD0CloseoutAndBatchAMigrationReadback
 ```
