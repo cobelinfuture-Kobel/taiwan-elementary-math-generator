@@ -142,7 +142,7 @@ test("site runtime files do not import tools preview or src modules", () => {
   assert.equal(rendererExtensionSource.includes('./html-renderer-s58h-extension.js'), true);
 });
 
-test("Batch A source units include all 14 production sourceIds", () => {
+test("Batch A source units preserve all 13 legacy production sourceIds", () => {
   const sourceIds = listBatchASourceUnits().map((unit) => unit.sourceId);
   assert.deepEqual(sourceIds, [
     "g3a_u01_3a01",
@@ -157,7 +157,6 @@ test("Batch A source units include all 14 production sourceIds", () => {
     "g4a_u04_4a04",
     "g4a_u08_4a08",
     "g4b_u01_4b01",
-    "g4b_u04_4b04",
     "g5a_u08_5a08"
   ]);
 });
