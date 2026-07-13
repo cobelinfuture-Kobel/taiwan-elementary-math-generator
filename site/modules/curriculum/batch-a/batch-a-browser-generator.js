@@ -20,41 +20,21 @@ function normalize(value, allowed, fallback) {
 
 export function normalizeG5AU08PublicControls(options = {}) {
   return Object.freeze({
-    questionMode: normalize(
-      options.questionMode,
-      G5A_U08_PUBLIC_CONTROLS.questionModes,
-      G5A_U08_PUBLIC_CONTROLS.defaults.questionMode,
-    ),
-    depthMode: normalize(
-      options.depthMode,
-      G5A_U08_PUBLIC_CONTROLS.depthModes,
-      G5A_U08_PUBLIC_CONTROLS.defaults.depthMode,
-    ),
-    contextMode: normalize(
-      options.contextMode,
-      G5A_U08_PUBLIC_CONTROLS.contextModes,
-      G5A_U08_PUBLIC_CONTROLS.defaults.contextMode,
-    ),
+    questionMode: normalize(options.questionMode, G5A_U08_PUBLIC_CONTROLS.questionModes, G5A_U08_PUBLIC_CONTROLS.defaults.questionMode),
+    depthMode: normalize(options.depthMode, G5A_U08_PUBLIC_CONTROLS.depthModes, G5A_U08_PUBLIC_CONTROLS.defaults.depthMode),
+    contextMode: normalize(options.contextMode, G5A_U08_PUBLIC_CONTROLS.contextModes, G5A_U08_PUBLIC_CONTROLS.defaults.contextMode),
   });
 }
 
 export function normalizeG4BU04PublicControls(options = {}) {
   return Object.freeze({
-    questionMode: normalize(
-      options.questionMode,
-      G4B_U04_PUBLIC_CONTROLS.questionModes,
-      G4B_U04_PUBLIC_CONTROLS.defaults.questionMode,
-    ),
+    questionMode: normalize(options.questionMode, G4B_U04_PUBLIC_CONTROLS.questionModes, G4B_U04_PUBLIC_CONTROLS.defaults.questionMode),
   });
 }
 
 export function normalizeG4AU08PublicControls(options = {}) {
   return Object.freeze({
-    questionMode: normalize(
-      options.questionMode,
-      G4A_U08_PHASE2B_PUBLIC_CONTROLS.questionModes,
-      G4A_U08_PHASE2B_PUBLIC_CONTROLS.defaults.questionMode,
-    ),
+    questionMode: normalize(options.questionMode, G4A_U08_PHASE2B_PUBLIC_CONTROLS.questionModes, G4A_U08_PHASE2B_PUBLIC_CONTROLS.defaults.questionMode),
   });
 }
 
@@ -66,6 +46,8 @@ export function buildBatchABrowserPlan(options = {}) {
       ...plan,
       ...controls,
       publicControls: { ...controls },
+      requestedKnowledgePointIds: Array.isArray(options.selectedKnowledgePointIds) ? [...options.selectedKnowledgePointIds] : [],
+      requestedPatternGroupIds: Array.isArray(options.selectedPatternGroupIds) ? [...options.selectedPatternGroupIds] : [],
       publicPatternSpecInjectionUsed: false,
       genericFallbackAllowed: false,
     };
