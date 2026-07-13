@@ -1,0 +1,87 @@
+{
+  "schemaName": "G4AU08FullSourceStressAndSemanticQA",
+  "schemaVersion": 1,
+  "task": "S76K_G4A_U08_FullSourceStressAndSemanticQA",
+  "status": "implemented_pending_ci",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "authorityChain": [
+    "S76D_G4A_U08_KnowledgePointAndPatternGroupRegistryRebase",
+    "S76E_G4A_U08_ExistingPatternSpecReclassification",
+    "S76I_G4A_U08_Phase2BMissingPatternGroupsImplementation",
+    "S76J_G4A_U08_ResolverSelectorAndWorksheetIntegration"
+  ],
+  "publicExecutableSurfaces": {
+    "numericLegacyPatternSpecCount": 10,
+    "phase2AApplicationPatternSpecCount": 12,
+    "phase2BCanonicalPatternSpecCount": 4,
+    "totalExecutablePatternSpecCount": 26,
+    "phase2BPatternGroupCount": 4,
+    "phase2BKnowledgePointReuseCount": 3
+  },
+  "stressPlan": {
+    "numericLegacyQuestionCount": 200,
+    "phase2AApplicationQuestionCount": 200,
+    "phase2BCountMatrix": [1, 4, 17, 64, 120, 200, 1000],
+    "phase2BCumulativeQuestionCount": 1406,
+    "totalPrimaryStressQuestionCount": 1806,
+    "maximumAcceptedQuestionCount": 1000,
+    "firstRejectedQuestionCount": 1001,
+    "zeroOutputOnRejectedCount": true
+  },
+  "semanticGates": {
+    "comparisonChain": ["more_than", "less_than", "intermediate_middle_amount", "exact_recompute"],
+    "equalValueUnitPrice": ["equal_total_value", "different_quantity", "integer_unit_price", "exact_recompute"],
+    "relativeDifference": ["same_direction", "difference_not_sum", "exact_recompute"],
+    "twoCostComponentPayment": ["two_cost_components", "payment_covers_total", "nonnegative_change", "exact_recompute"],
+    "requiredPassRate": 1,
+    "internalIdLeakAllowed": false,
+    "unresolvedPlaceholderAllowed": false
+  },
+  "mutationGates": {
+    "canonicalLifecycleMutationBlocking": true,
+    "patternSpecIdentityMutationBlocking": true,
+    "patternGroupIdentityMutationBlocking": true,
+    "genericFallbackMutationBlocking": true,
+    "requiredPassRate": 1
+  },
+  "htmlPdfSmoke": {
+    "questionCount": 120,
+    "answerKeyItemCount": 120,
+    "pageCountSource": "worksheet_manifest",
+    "domCellOverflowAllowed": 0,
+    "domPageOverflowAllowed": 0,
+    "pdfBoundingBoxOverflowAllowed": 0,
+    "blankPageAllowed": 0,
+    "internalIdLeakAllowed": 0,
+    "unresolvedPlaceholderAllowed": 0,
+    "traditionalChineseGlyphGateRequired": true,
+    "lastAnswerPageNonblankRequired": true,
+    "artifactRetentionDays": 30
+  },
+  "lifecycle": {
+    "productionUse": "allowed_after_s76k_ci",
+    "distance": "D1_G4A_U08_PRODUCTION_STRESS_PENDING_D0_CLOSEOUT",
+    "fullSourceD0Declared": false,
+    "requiredNextGate": "S76L_G4A_U08_FullSourceD0CloseoutAndBatchAMigrationReadback"
+  },
+  "scopeBoundary": {
+    "rendererVisualChanged": false,
+    "publicSelectorExpandedBeyondS76J": false,
+    "newPatternSpecAdded": false,
+    "newGeneratorAdded": false,
+    "d0CloseoutIncluded": false,
+    "batchAMigrationReadbackIncluded": false
+  },
+  "goalDistance": {
+    "before": "D1_G4A_U08_PHASE2B_RESOLVER_SELECTOR_WORKSHEET_CONNECTED",
+    "after": "D1_G4A_U08_FULL_SOURCE_STRESS_SEMANTIC_HTML_PDF_PENDING_CI",
+    "distanceReduced": "Adds executable stress, exact arithmetic and semantic verification across numeric legacy, Phase2A application and Phase2B canonical surfaces, plus a 120-question HTML/PDF production smoke gate.",
+    "remainingBlockers": [
+      "S76K CI and Chromium smoke must pass",
+      "Fresh-main D0 closeout is not completed",
+      "Batch A migration readback is not completed"
+    ],
+    "nextShortestStep": "S76L_G4A_U08_FullSourceD0CloseoutAndBatchAMigrationReadback"
+  }
+}
