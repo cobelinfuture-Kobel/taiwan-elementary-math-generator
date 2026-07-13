@@ -47,7 +47,7 @@ function comparisonChain(rng, seed) {
 
 function equalValueUnitPrice(rng, seed) {
   const knownQuantity = choose(rng, [3, 4, 5, 6, 8]);
-  const targetQuantity = choose(rng, [2, 4, 5, 10]);
+  const targetQuantity = choose(rng, [2, 4, 5, 10].filter((value) => value !== knownQuantity));
   const targetUnitPrice = integer(rng, 12, 45);
   const total = targetUnitPrice * targetQuantity;
   const knownUnitPrice = total / knownQuantity;
