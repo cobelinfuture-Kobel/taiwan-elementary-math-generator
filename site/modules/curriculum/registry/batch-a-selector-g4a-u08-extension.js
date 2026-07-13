@@ -118,9 +118,10 @@ function extendKnowledgePoint(row) {
   const linked = extensionGroupsByKnowledgePointId.get(row.knowledgePointId);
   return {
     ...row,
-    patternGroupIds: [...new Set([...(row.patternGroupIds ?? []), ...linked.map((group) => group.patternGroupId)])],
-    patternSpecIds: [...new Set([...(row.patternSpecIds ?? []), ...linked.flatMap((group) => group.patternSpecIds)])],
-    subskillTags: [...new Set([...(row.subskillTags ?? []), "phase2b_application"] )],
+    phase2bPatternGroupIds: linked.map((group) => group.patternGroupId),
+    phase2bPatternSpecIds: [...new Set(linked.flatMap((group) => group.patternSpecIds))],
+    phase2bSelectorStatus: "visible_explicit_group_selection",
+    subskillTags: [...new Set([...(row.subskillTags ?? []), "phase2b_application"])],
     promotionRegistryIds: [...new Set([...(row.promotionRegistryIds ?? []), G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID])],
   };
 }
