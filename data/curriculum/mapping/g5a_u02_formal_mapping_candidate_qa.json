@@ -1,0 +1,184 @@
+{
+  "schemaName": "G5AU02FormalMappingCandidateQA",
+  "schemaVersion": 1,
+  "task": "S81_G5A_U02_FormalMappingCandidateQA",
+  "status": "qa_passed_pending_ci",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "sourceArtifact": "data/curriculum/mapping/g5a_u02_formal_mapping_candidates.json",
+  "consumptionRule": "S82 and later consumers must load the S80 base candidate design and apply this S81 QA overlay with higher precedence.",
+  "summary": {
+    "mappingCandidatesReviewed": 22,
+    "mappingCandidatesAcceptedAfterCorrection": 22,
+    "mappingCandidatesRejected": 0,
+    "blockingCorrections": 5,
+    "formulaFamiliesReviewed": 13,
+    "positiveVectorCount": 41,
+    "mutationCaseCount": 30
+  },
+  "corrections": [
+    {
+      "code": "S81_FACTOR_RELATION_BICONDITIONAL_OVERGENERALIZED",
+      "target": "fmc_g5a_u02_factor_relation_equivalence",
+      "blockingBeforeCorrection": true,
+      "issue": "The S80 wording can be read as saying that any two factors a and b of n must satisfy a*b=n. That converse is false; for example, 2 and 3 are both factors of 12 but 2*3 is not 12.",
+      "resolution": "For one candidate divisor d, d is a factor of n iff there exists a positive integer q with d*q=n, equivalently n%d=0 and q=n/d. When a*b=n, both a and b are factors, but arbitrary factors need not form a complementary pair.",
+      "effectiveContract": "for positive integers n and d, factor(d,n) iff exists positive q such that d*q=n iff n%d=0; a displayed product a*b=n witnesses that a and b are complementary factors",
+      "requiredGuards": [
+        "positive_integer_target_divisor_and_quotient",
+        "quotient_equals_target_divided_by_divisor",
+        "multiplication_and_division_witnesses_equivalent",
+        "arbitrary_factor_pair_converse_forbidden",
+        "factor_multiple_direction_not_reversed"
+      ]
+    },
+    {
+      "code": "S81_FACTOR_PAIR_STOP_RULE_REPETITION_ONLY_UNSOUND",
+      "target": "fmc_g5a_u02_factor_pair_enumeration",
+      "blockingBeforeCorrection": true,
+      "issue": "Waiting only for a repeated pair does not define a safe stopping point for nonsquare targets, whose factor-pair search crosses without an equal middle pair.",
+      "resolution": "Search candidate first factors a only while a*a<=n. For every exact divisor, emit (a,n/a) with a<=n/a. Include the square-root pair once and stop before a exceeds its complementary quotient.",
+      "effectiveRule": "sortByFirst({(a,n/a) | 1<=a<=floor(sqrt(n)) && n%a=0})",
+      "requiredGuards": [
+        "first_factor_not_greater_than_complement",
+        "search_domain_ends_at_floor_sqrt",
+        "square_root_pair_included_once",
+        "nonsquare_crossing_terminates_without_repetition",
+        "no_symmetric_duplicate"
+      ]
+    },
+    {
+      "code": "S81_COMPLETE_FACTOR_LIST_PARITY_RULE_AMBIGUOUS",
+      "target": "fmc_g5a_u02_complete_factor_list_statement_evaluation",
+      "blockingBeforeCorrection": true,
+      "issue": "The S80 guard 'parity_from_factor_structure_valid' does not distinguish parity of the target number from parity of the factor count. Those are different theorems.",
+      "resolution": "Reconstruct n first. The target is even iff 2 belongs to factorSet(n), and odd iff 2 does not. Separately, factorSet(n).length is odd iff n is a perfect square. These rules may not be interchanged.",
+      "effectiveRules": {
+        "targetParity": "n is even iff 2 in factorSet(n)",
+        "factorCountParity": "factorSet(n).length is odd iff isPerfectSquare(n)"
+      },
+      "requiredGuards": [
+        "target_reconstructed_before_statement_evaluation",
+        "target_parity_from_factor_two_membership",
+        "factor_count_parity_used_only_for_square_status",
+        "number_parity_and_factor_count_parity_not_conflated",
+        "each_statement_has_single_truth_value"
+      ]
+    },
+    {
+      "code": "S81_REMAINDER_TRANSFER_WITNESS_RANGE_REQUIRED",
+      "target": "formalRules.remainderTransfer",
+      "blockingBeforeCorrection": true,
+      "issue": "The modular identity is correct, but the division witness and standard remainder ranges were not fully closed.",
+      "resolution": "Require positive integers D>d>=2, D%d=0, q>=0, 0<=r<D and N=q*D+r. Then the requested remainder is r%d and must satisfy 0<=r%d<d.",
+      "effectiveRule": "if D>d>=2 && D%d=0 && q>=0 && 0<=r<D && N=q*D+r, then N%d=r%d and 0<=N%d<d",
+      "requiredGuards": [
+        "larger_and_smaller_divisors_positive_and_ordered",
+        "larger_divisor_multiple_of_smaller",
+        "known_remainder_in_standard_range",
+        "division_witness_reconstructs_total",
+        "transferred_remainder_reduced_mod_smaller"
+      ]
+    },
+    {
+      "code": "S81_DIGIT_CODE_POSITIONAL_PREDICATES_REQUIRED",
+      "target": "fmc_g5a_u02_multi_constraint_digit_code",
+      "blockingBeforeCorrection": true,
+      "issue": "The generic predicate contract does not preserve the exact source positions and can incorrectly replace '70 is a common multiple' with lcm(d2,d4)=70.",
+      "resolution": "Bind the source predicates to four positions x1..x4: x1 is a common factor of 22 and 33 and also of 45 and 60; x3 is a common factor of 6 and 8 and x3!=x1; 70 is a common multiple of positive digits x2 and x4, meaning x2|70 and x4|70 rather than lcm(x2,x4)=70; the four-digit number is divisible by 3 and 5; all digits are distinct. The unique solution is 1725.",
+      "effectiveRule": "enumerate x1..x4 in 0..9 with x1>0,x2>0,x4>0; x1 divides 22,33,45,60; x3 divides 6,8 and x3!=x1; x2 divides 70 and x4 divides 70; value=1000*x1+100*x2+10*x3+x4 is divisible by 3 and 5; all digits distinct; require exactly one tuple",
+      "sourceBackedUniqueTuple": [1, 7, 2, 5],
+      "requiredGuards": [
+        "source_predicates_bound_to_exact_digit_positions",
+        "common_multiple_witness_means_each_positive_digit_divides_70",
+        "lcm_equals_70_substitution_forbidden",
+        "whole_number_divisible_by_3_and_5",
+        "all_four_digits_distinct",
+        "exactly_one_solution",
+        "no_unstated_constraint"
+      ]
+    }
+  ],
+  "acceptedMappingCandidateIds": [
+    "fmc_g5a_u02_factor_relation_equivalence",
+    "fmc_g5a_u02_factor_enumeration_trial_division",
+    "fmc_g5a_u02_factor_pair_enumeration",
+    "fmc_g5a_u02_factor_list_from_pairs",
+    "fmc_g5a_u02_factor_order_and_symmetry",
+    "fmc_g5a_u02_missing_factor_reconstruction",
+    "fmc_g5a_u02_divisor_candidate_selection",
+    "fmc_g5a_u02_factor_statement_judgement",
+    "fmc_g5a_u02_equal_partition_all_segment_counts",
+    "fmc_g5a_u02_equal_partition_range_constrained_recipients",
+    "fmc_g5a_u02_problem_type_classification",
+    "fmc_g5a_u02_complete_factor_list_unknown_values",
+    "fmc_g5a_u02_complete_factor_list_statement_evaluation",
+    "fmc_g5a_u02_remainder_transfer",
+    "fmc_g5a_u02_common_factor_concept_identification",
+    "fmc_g5a_u02_common_factor_enumeration",
+    "fmc_g5a_u02_greatest_common_factor",
+    "fmc_g5a_u02_maximum_equal_grouping",
+    "fmc_g5a_u02_possible_equal_packaging_counts",
+    "fmc_g5a_u02_rectangle_square_side_lengths",
+    "fmc_g5a_u02_square_tile_area_possibilities",
+    "fmc_g5a_u02_multi_constraint_digit_code"
+  ],
+  "mutationRequirements": [
+    "FACTOR_RELATION_ARBITRARY_FACTORS_FORCED_TO_PRODUCT",
+    "FACTOR_RELATION_DIRECTION_REVERSED",
+    "FACTOR_RELATION_NONZERO_REMAINDER_ACCEPTED",
+    "FACTOR_PAIR_SQUARE_ROOT_DUPLICATED",
+    "FACTOR_PAIR_NONSQUARE_WAITS_FOR_REPETITION",
+    "FACTOR_PAIR_COMPLEMENT_OMITTED",
+    "FACTOR_LIST_DUPLICATE_SQUARE_ROOT",
+    "FACTOR_LIST_ONE_OR_SELF_OMITTED",
+    "MISSING_FACTOR_VISIBLE_ENTRY_CHANGED",
+    "MISSING_FACTOR_ASCENDING_ORDER_BROKEN",
+    "DIVISOR_SELECTION_NONFACTOR_INCLUDED",
+    "FACTOR_STATEMENT_RELATION_DIRECTION_REVERSED",
+    "EQUAL_PARTITION_NONDIVISOR_INCLUDED",
+    "EQUAL_PARTITION_RANGE_CONSTRAINT_IGNORED",
+    "COMPLETE_FACTOR_LIST_NONUNIQUE_TARGET_ACCEPTED",
+    "TARGET_PARITY_INFERRED_FROM_FACTOR_COUNT_PARITY",
+    "SQUARE_STATUS_INFERRED_FROM_TARGET_PARITY",
+    "REMAINDER_LARGER_DIVISOR_NOT_MULTIPLE",
+    "REMAINDER_KNOWN_VALUE_OUT_OF_RANGE",
+    "REMAINDER_NOT_REDUCED_MOD_SMALLER_DIVISOR",
+    "COMMON_FACTOR_NONCOMMON_VALUE_INCLUDED",
+    "GCF_NONMAXIMUM_COMMON_FACTOR_ACCEPTED",
+    "MAXIMUM_GROUPING_USES_NONMAXIMUM_COMMON_FACTOR",
+    "PACKAGING_VALID_COMMON_FACTOR_OMITTED",
+    "RECTANGLE_SIDE_NOT_COMMON_DIVISOR",
+    "TILE_AREA_NOT_SIDE_SQUARED",
+    "DIGIT_CODE_LCM_EQUALS_70_SUBSTITUTED",
+    "DIGIT_CODE_ZERO_AS_DIVISOR_ACCEPTED",
+    "DIGIT_CODE_POSITION_BINDING_SWAPPED",
+    "DIGIT_CODE_NONUNIQUE_OR_WRONG_TUPLE_ACCEPTED"
+  ],
+  "sourceIdentityDisposition": {
+    "packetIdsRetained": true,
+    "candidatePipelineResolved": true,
+    "publicCatalogPromotionRequiresMetadataCorrection": true,
+    "requiredMetadataCorrection": {
+      "sourceId": "g5a_u02_5a02a1",
+      "displayTitle": "公因數",
+      "sourceUrl": "https://meow911.com/5a03b/"
+    }
+  },
+  "scopeBoundary": {
+    "sourceMetadataMutated": false,
+    "formalMappingMaterialized": false,
+    "patternSpecsCreated": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "remainingBlockers": [
+    "The S81 overlay must be consumed with higher precedence than the S80 base during PatternSpec contract design.",
+    "Metadata for g5a_u02_5a02a1 must display 公因數 and preserve /5a03b/ before public catalog promotion.",
+    "PatternSpec contracts, runtime validators and generators do not exist."
+  ],
+  "nextGate": "S82_G5A_U02_PatternSpecContractDesign",
+  "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+}
