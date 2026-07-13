@@ -24,6 +24,21 @@ function choose(rng, values) {
   return values[integer(rng, 0, values.length - 1)];
 }
 
+function gcd(a, b) {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) {
+    const remainder = x % y;
+    x = y;
+    y = remainder;
+  }
+  return x;
+}
+
+function lcm(a, b) {
+  return Math.abs(a * b) / gcd(a, b);
+}
+
 function comparisonChain(rng, seed) {
   const base = integer(rng, 120, 480);
   const more = integer(rng, 20, 90);
@@ -46,12 +61,21 @@ function comparisonChain(rng, seed) {
 }
 
 function equalValueUnitPrice(rng, seed) {
-  const knownQuantity = choose(rng, [3, 4, 5, 6, 8]);
-  const targetQuantity = choose(rng, [2, 4, 5, 10].filter((value) => value !== knownQuantity));
-  const targetUnitPrice = integer(rng, 12, 45);
-  const total = targetUnitPrice * targetQuantity;
+  const [knownQuantity, targetQuantity] = choose(rng, [
+    [3, 2],
+    [3, 4],
+    [4, 2],
+    [4, 5],
+    [5, 2],
+    [5, 4],
+    [6, 4],
+    [8, 5],
+    [8, 10]
+  ]);
+  const commonFactor = integer(rng, 6, 20);
+  const total = lcm(knownQuantity, targetQuantity) * commonFactor;
   const knownUnitPrice = total / knownQuantity;
-  if (!Number.isInteger(knownUnitPrice)) return equalValueUnitPrice(rng, seed);
+  const targetUnitPrice = total / targetQuantity;
   return {
     templateFamilyId: "tpl_ext_equal_value_unit_price",
     knowledgePointId: "kp_g4a_u08_app_mul_div_sequence",
