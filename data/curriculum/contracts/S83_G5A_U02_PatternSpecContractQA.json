@@ -1,0 +1,95 @@
+{
+  "schemaName": "G5AU02PatternSpecContractQA",
+  "schemaVersion": 1,
+  "task": "S83_G5A_U02_PatternSpecContractQA",
+  "status": "qa_passed_with_corrections_pending_ci",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "sourceContractRef": "data/curriculum/contracts/S82_G5A_U02_PatternSpecContractDesign.json",
+  "sourceMappingQARef": "data/curriculum/mapping/g5a_u02_formal_mapping_candidate_qa.json",
+  "summary": {
+    "patternSpecContractsReviewed": 22,
+    "patternSpecContractsAccepted": 22,
+    "patternSpecContractsRejected": 0,
+    "patternGroupsReviewed": 18,
+    "answerModelSchemasReviewed": 16,
+    "controlledTemplateFamiliesReviewed": 8,
+    "validatorStagesReviewed": 9,
+    "blockingCodesReviewed": 64,
+    "qaCorrectionsApplied": 6,
+    "mutationCaseCount": 36
+  },
+  "corrections": [
+    {
+      "code": "S83_ANSWER_SCHEMA_CLOSURE_AND_CONDITIONAL_WITNESS_REQUIRED",
+      "target": "answerModelSchemas",
+      "blockingBeforeCorrection": true,
+      "resolution": "Close all 16 answer schemas, define every property and list item shape, and make the factor-relation quotient witness conditional: a true factor requires a positive integer quotient while a false factor requires quotient=null."
+    },
+    {
+      "code": "S83_TEMPLATE_ROLE_BINDING_AND_PARTITION_VARIANT_REQUIRED",
+      "target": "controlledTemplateFamilies",
+      "blockingBeforeCorrection": true,
+      "resolution": "Bind every placeholder to an input, context, derived or fixed role. Replace the free answerRole slot in equal partition with two closed variants for segment count and per-segment quantity."
+    },
+    {
+      "code": "S83_APPLICATION_SEMANTIC_AND_UNIT_SEPARATION_REQUIRED",
+      "target": "application and geometry templates",
+      "blockingBeforeCorrection": true,
+      "resolution": "State that each group or box has equal counts across groups without implying the two categories are equal to each other, and bind length-to-area unit conversion explicitly."
+    },
+    {
+      "code": "S83_PROBLEM_TYPE_DECISION_TABLE_REQUIRED",
+      "target": "ps_g5a_u02_problem_type_classification",
+      "blockingBeforeCorrection": true,
+      "resolution": "Replace open semantic classification with a finite mutually-exclusive decision table covering factor, multiple, common_factor and common_multiple."
+    },
+    {
+      "code": "S83_CLOSED_STATEMENT_GRAMMAR_AND_VECTOR_ALIGNMENT_REQUIRED",
+      "target": "factor-statement and complete-factor-list reasoning PatternSpecs",
+      "blockingBeforeCorrection": true,
+      "resolution": "Lock the allowed statement kinds, relation direction and parity theorem usage, and require one boolean output for each ordered statement."
+    },
+    {
+      "code": "S83_VALIDATOR_HOOK_AND_CODE_COVERAGE_REQUIRED",
+      "target": "validatorContract",
+      "blockingBeforeCorrection": true,
+      "resolution": "Add the missing selection, statement, inverse-factor and parity hooks, require the S81 overlay hook on all five corrected PatternSpecs, and assign all 64 blocking codes exactly once across nine stages."
+    }
+  ],
+  "scopeBoundary": {
+    "sourceMetadataMutated": false,
+    "formalMappingMaterialized": false,
+    "patternGroupsMaterialized": false,
+    "patternSpecsMaterialized": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "canonicalRoutingEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "handoff": {
+    "nextTask": "S84_G5A_U02_FormalMappingAndHiddenPatternSpecMaterialization",
+    "materializationAllowedByS83": false,
+    "qaOverlayRequiredByLaterConsumers": true
+  },
+  "goalDistance": {
+    "before": "D2_G5A_U02_22_PATTERNSPEC_CONTRACTS_DESIGNED_PENDING_QA",
+    "after": "D2_G5A_U02_22_PATTERNSPEC_CONTRACTS_QA_LOCKED",
+    "distanceReduced": "Reviewed all 22 PatternSpec contracts, closed 16 answer schemas, role-bound eight controlled templates, locked semantic decision and statement grammars, and completed exact nine-stage/64-code validator coverage.",
+    "remainingBlockers": [
+      "g5a_u02_5a02a1 public source metadata still requires the 公因數 and /5a03b/ correction.",
+      "FormalMapping, PatternGroup and PatternSpec materialization are absent.",
+      "Generator and blocking validator runtime are absent.",
+      "Public selector, canonical routing, worksheet and renderer integration are absent."
+    ],
+    "nextShortestStep": "S84_G5A_U02_FormalMappingAndHiddenPatternSpecMaterialization",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  },
+  "artifacts": {
+    "answerSchemaOverlay": "data/curriculum/contracts/s83_g5a_u02/answer_schema_overlay.json",
+    "templateSemanticOverlay": "data/curriculum/contracts/s83_g5a_u02/template_semantic_overlay.json",
+    "semanticGrammarOverlay": "data/curriculum/contracts/s83_g5a_u02/semantic_grammar_overlay.json",
+    "validatorCoverageOverlay": "data/curriculum/contracts/s83_g5a_u02/validator_coverage_overlay.json"
+  }
+}
