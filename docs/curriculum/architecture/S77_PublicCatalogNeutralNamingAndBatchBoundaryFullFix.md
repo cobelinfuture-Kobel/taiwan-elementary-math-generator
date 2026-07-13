@@ -2,7 +2,7 @@
 
 ```text
 TASK = S77_PublicCatalogNeutralNamingAndBatchBoundaryFullFix
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 MODE = IMPLEMENTATION
 ```
 
@@ -43,6 +43,22 @@ This is a visible-label and accessibility FullFix, not an internal naming migrat
 4. No source, query-state, generator, validator or output behavior changes.
 5. Existing full test and HTML/PDF smoke suites pass.
 
+## CI and merge evidence
+
+```text
+implementation PR        = #122
+implementation merge     = 61ce256982e798d3ca4b91ee0271bf43ae3f6e59
+final PR Math CI run     = 29222094269
+fresh-main Math CI run   = 29222310972
+fresh-main readback      = 7a798893d433cd394760b64a0ed8d225f511b623
+tests                    = 1110
+pass                     = 1110
+fail                     = 0
+working tree             = clean
+```
+
+The first PR attempt correctly failed one stale legacy assertion that still expected the old public title. The correction changed only test expectations; runtime behavior was already correct. The final PR and all Node, S42, G4B-U01, G5A-U08 and G4B-U04 HTML/PDF smoke workflows passed.
+
 ## Distance
 
 ```text
@@ -53,4 +69,5 @@ REMAINING_BLOCKERS   = [
   "g5a_u02_5a02a and g5a_u02_5a02a1 PDF source identity and KnowledgePoint extraction"
 ]
 NEXT_SHORTEST_STEP   = S78_G5A_U02_DualPDFManualKnowledgePointExtraction
+STOP_REASON          = NONE
 ```
