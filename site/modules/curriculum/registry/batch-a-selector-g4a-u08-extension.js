@@ -9,78 +9,16 @@ import {
   G4A_U08_SOURCE_ID,
 } from "./g4a-u08-phase2b-promotion.js";
 
-const UNIT_CODE = "4A-U08";
-const UNIT_TITLE = "整數四則｜Phase2B 應用題";
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
-const knowledgePoints = Object.freeze([
-  Object.freeze({
-    knowledgePointId: "kp_g4a_u08_app_add_sub_sequence",
-    sourceId: G4A_U08_SOURCE_ID,
-    unitCode: UNIT_CODE,
-    unitTitle: UNIT_TITLE,
-    displayName: "加減關係鏈與比較量",
-    supportClass: "B",
-    canonicalSkillTag: "add_sub_relation_chain",
-    subskillTags: Object.freeze(["more_than", "less_than", "comparison_chain"]),
-    difficultyTags: Object.freeze(["g4a_u08", "phase2b", "application"]),
-    representationTags: Object.freeze(["controlled_semantic_application"]),
-    publicQuestionModes: Object.freeze(["application"]),
-    patternGroupIds: Object.freeze(["pg_g4a_u08_ext_comparison_chain"]),
-    patternSpecIds: Object.freeze(["ps_g4a_u08_ext_comparison_chain"]),
-    qaStatusLabel: "blocking_validator_accepted",
-    promotionRegistryId: G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID,
-  }),
-  Object.freeze({
-    knowledgePointId: "kp_g4a_u08_app_mul_div_sequence",
-    sourceId: G4A_U08_SOURCE_ID,
-    unitCode: UNIT_CODE,
-    unitTitle: UNIT_TITLE,
-    displayName: "等總價單價與同量差額",
-    supportClass: "B",
-    canonicalSkillTag: "mul_div_rate_and_difference",
-    subskillTags: Object.freeze(["equal_total_value", "unit_price", "relative_difference"]),
-    difficultyTags: Object.freeze(["g4a_u08", "phase2b", "application"]),
-    representationTags: Object.freeze(["controlled_semantic_application"]),
-    publicQuestionModes: Object.freeze(["application"]),
-    patternGroupIds: Object.freeze([
-      "pg_g4a_u08_ext_equal_value_unit_price",
-      "pg_g4a_u08_ext_relative_difference",
-    ]),
-    patternSpecIds: Object.freeze([
-      "ps_g4a_u08_ext_equal_value_unit_price",
-      "ps_g4a_u08_ext_relative_difference",
-    ]),
-    qaStatusLabel: "blocking_validator_accepted",
-    promotionRegistryId: G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID,
-  }),
-  Object.freeze({
-    knowledgePointId: "kp_g4a_u08_app_mul_div_before_add_sub",
-    sourceId: G4A_U08_SOURCE_ID,
-    unitCode: UNIT_CODE,
-    unitTitle: UNIT_TITLE,
-    displayName: "雙成本付款與找零",
-    supportClass: "B",
-    canonicalSkillTag: "two_component_cost_payment",
-    subskillTags: Object.freeze(["two_cost_components", "payment_change"]),
-    difficultyTags: Object.freeze(["g4a_u08", "phase2b", "application"]),
-    representationTags: Object.freeze(["controlled_semantic_application"]),
-    publicQuestionModes: Object.freeze(["application"]),
-    patternGroupIds: Object.freeze(["pg_g4a_u08_ext_two_cost_component_payment"]),
-    patternSpecIds: Object.freeze(["ps_g4a_u08_ext_two_cost_component_payment"]),
-    qaStatusLabel: "blocking_validator_accepted",
-    promotionRegistryId: G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID,
-  }),
-]);
-
-const groups = Object.freeze([
+const extensionGroups = Object.freeze([
   Object.freeze({
     patternGroupId: "pg_g4a_u08_ext_comparison_chain",
     hiddenAuthorityGroupId: "pg_g4a_u08_ext_comparison_chain",
     sourceId: G4A_U08_SOURCE_ID,
-    unitCode: UNIT_CODE,
-    unitTitle: UNIT_TITLE,
-    displayName: "兩段多少關係鏈",
+    unitCode: "4A-U08",
+    unitTitle: "整數四則",
+    displayName: "兩段多少關係鏈｜Phase2B",
     primaryKnowledgePointId: "kp_g4a_u08_app_add_sub_sequence",
     knowledgePointIds: Object.freeze(["kp_g4a_u08_app_add_sub_sequence"]),
     supportClass: "B",
@@ -101,9 +39,9 @@ const groups = Object.freeze([
     patternGroupId: "pg_g4a_u08_ext_equal_value_unit_price",
     hiddenAuthorityGroupId: "pg_g4a_u08_ext_equal_value_unit_price",
     sourceId: G4A_U08_SOURCE_ID,
-    unitCode: UNIT_CODE,
-    unitTitle: UNIT_TITLE,
-    displayName: "等總價求單價",
+    unitCode: "4A-U08",
+    unitTitle: "整數四則",
+    displayName: "等總價求單價｜Phase2B",
     primaryKnowledgePointId: "kp_g4a_u08_app_mul_div_sequence",
     knowledgePointIds: Object.freeze(["kp_g4a_u08_app_mul_div_sequence"]),
     supportClass: "B",
@@ -124,9 +62,9 @@ const groups = Object.freeze([
     patternGroupId: "pg_g4a_u08_ext_relative_difference",
     hiddenAuthorityGroupId: "pg_g4a_u08_ext_relative_difference",
     sourceId: G4A_U08_SOURCE_ID,
-    unitCode: UNIT_CODE,
-    unitTitle: UNIT_TITLE,
-    displayName: "同量總差額",
+    unitCode: "4A-U08",
+    unitTitle: "整數四則",
+    displayName: "同量總差額｜Phase2B",
     primaryKnowledgePointId: "kp_g4a_u08_app_mul_div_sequence",
     knowledgePointIds: Object.freeze(["kp_g4a_u08_app_mul_div_sequence"]),
     supportClass: "B",
@@ -147,9 +85,9 @@ const groups = Object.freeze([
     patternGroupId: "pg_g4a_u08_ext_two_cost_component_payment",
     hiddenAuthorityGroupId: "pg_g4a_u08_ext_two_cost_component_payment",
     sourceId: G4A_U08_SOURCE_ID,
-    unitCode: UNIT_CODE,
-    unitTitle: UNIT_TITLE,
-    displayName: "雙成本付款找零",
+    unitCode: "4A-U08",
+    unitTitle: "整數四則",
+    displayName: "雙成本付款找零｜Phase2B",
     primaryKnowledgePointId: "kp_g4a_u08_app_mul_div_before_add_sub",
     knowledgePointIds: Object.freeze(["kp_g4a_u08_app_mul_div_before_add_sub"]),
     supportClass: "B",
@@ -168,25 +106,23 @@ const groups = Object.freeze([
   }),
 ]);
 
-const knowledgePointById = new Map(knowledgePoints.map((row) => [row.knowledgePointId, row]));
-const groupsByKnowledgePointId = new Map(knowledgePoints.map((row) => [
-  row.knowledgePointId,
-  Object.freeze(groups.filter((group) => group.primaryKnowledgePointId === row.knowledgePointId)),
-]));
+const extensionGroupsByKnowledgePointId = new Map(
+  G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS.map((knowledgePointId) => [
+    knowledgePointId,
+    Object.freeze(extensionGroups.filter((group) => group.primaryKnowledgePointId === knowledgePointId)),
+  ]),
+);
 
-function availabilityBySource() {
-  const entries = new Map(Object.entries(base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId));
-  const current = entries.get(G4A_U08_SOURCE_ID) ?? {
-    sourceId: G4A_U08_SOURCE_ID,
-    visibleCount: 0,
-    hiddenPendingCount: 0,
-    notSelectableCount: 0,
+function extendKnowledgePoint(row) {
+  if (!row || row.sourceId !== G4A_U08_SOURCE_ID || !extensionGroupsByKnowledgePointId.has(row.knowledgePointId)) return row;
+  const linked = extensionGroupsByKnowledgePointId.get(row.knowledgePointId);
+  return {
+    ...row,
+    patternGroupIds: [...new Set([...(row.patternGroupIds ?? []), ...linked.map((group) => group.patternGroupId)])],
+    patternSpecIds: [...new Set([...(row.patternSpecIds ?? []), ...linked.flatMap((group) => group.patternSpecIds)])],
+    subskillTags: [...new Set([...(row.subskillTags ?? []), "phase2b_application"] )],
+    promotionRegistryIds: [...new Set([...(row.promotionRegistryIds ?? []), G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID])],
   };
-  entries.set(G4A_U08_SOURCE_ID, {
-    ...current,
-    visibleCount: current.visibleCount + knowledgePoints.length,
-  });
-  return Object.fromEntries(entries);
 }
 
 function sameMembers(left, right) {
@@ -198,11 +134,12 @@ export const G4A_U08_PHASE2B_VISIBLE_SELECTOR_PROJECTION = Object.freeze({
   task: "S76J_G4A_U08_ResolverSelectorAndWorksheetIntegration",
   sourceId: G4A_U08_SOURCE_ID,
   promotionRegistryId: G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID,
-  status: "resolver_selector_worksheet_integrated_pending_stress_qa",
-  visibleKnowledgePointCount: knowledgePoints.length,
-  visiblePatternGroupCount: groups.length,
+  status: "existing_kp_rows_extended_with_phase2b_groups",
+  existingKnowledgePointRowsReused: 3,
+  additionalKnowledgePointRows: 0,
+  visiblePatternGroupCount: extensionGroups.length,
   promotedPatternSpecCount: G4A_U08_PHASE2B_PROMOTED_PATTERN_SPEC_IDS.length,
-  publicQuestionModes: Object.freeze(["mixed", "application"]),
+  explicitPhase2BGroupSelectionRequired: true,
   arbitraryPatternSpecInjection: false,
   genericFallback: false,
   worksheetEligible: true,
@@ -212,56 +149,47 @@ export const G4A_U08_PHASE2B_VISIBLE_SELECTOR_PROJECTION = Object.freeze({
 });
 
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
-export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
-  ...base.BATCH_A_SELECTOR_AVAILABILITY,
-  visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.visibleCount + knowledgePoints.length,
-  bySourceId: availabilityBySource(),
-});
+export const BATCH_A_SELECTOR_AVAILABILITY = base.BATCH_A_SELECTOR_AVAILABILITY;
 
 export function listVisibleBatchAKnowledgePoints() {
-  return [...base.listVisibleBatchAKnowledgePoints(), ...knowledgePoints.map(clone)];
+  return base.listVisibleBatchAKnowledgePoints().map((row) => clone(extendKnowledgePoint(row)));
 }
 
 export function listBatchAKnowledgePointAvailabilityBySource(sourceId) {
-  const entry = BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId];
-  return entry ? clone(entry) : base.listBatchAKnowledgePointAvailabilityBySource(sourceId);
+  return base.listBatchAKnowledgePointAvailabilityBySource(sourceId);
 }
 
 export function getVisibleBatchAKnowledgePoint(knowledgePointId) {
-  return knowledgePointById.has(knowledgePointId)
-    ? clone(knowledgePointById.get(knowledgePointId))
-    : base.getVisibleBatchAKnowledgePoint(knowledgePointId);
+  return clone(extendKnowledgePoint(base.getVisibleBatchAKnowledgePoint(knowledgePointId)));
 }
 
 export function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
-  return groupsByKnowledgePointId.has(knowledgePointId)
-    ? clone(groupsByKnowledgePointId.get(knowledgePointId))
-    : base.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+  const existing = base.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+  const extension = extensionGroupsByKnowledgePointId.get(knowledgePointId) ?? [];
+  return clone([...existing, ...extension]);
 }
 
 export function resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId) {
-  const linked = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
-  if (linked.length > 0) return [...new Set(linked.flatMap((group) => group.patternSpecIds ?? []))];
-  return base.resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId);
+  return [...new Set(getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).flatMap((group) => group.patternSpecIds ?? []))];
 }
 
 export function validateG4AU08Phase2BVisibleSelectorProjection() {
   const errors = [];
-  const baseIds = base.listVisibleBatchAKnowledgePoints().map((row) => row.knowledgePointId);
-  const kpIds = knowledgePoints.map((row) => row.knowledgePointId);
-  const groupIds = groups.map((row) => row.patternGroupId);
-  const specIds = [...new Set(groups.flatMap((row) => row.patternSpecIds))];
-  if (kpIds.length !== 3) errors.push("visible_knowledge_point_count_mismatch");
+  const baseRows = base.listVisibleBatchAKnowledgePoints();
+  const reusedRows = G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS.map((id) => base.getVisibleBatchAKnowledgePoint(id));
+  const groupIds = extensionGroups.map((row) => row.patternGroupId);
+  const specIds = [...new Set(extensionGroups.flatMap((row) => row.patternSpecIds))];
+  if (reusedRows.some((row) => !row || row.sourceId !== G4A_U08_SOURCE_ID)) errors.push("existing_knowledge_point_missing");
+  if (listVisibleBatchAKnowledgePoints().length !== baseRows.length) errors.push("knowledge_point_count_changed");
   if (groupIds.length !== 4) errors.push("visible_pattern_group_count_mismatch");
   if (specIds.length !== 4) errors.push("visible_pattern_spec_count_mismatch");
-  if (new Set([...baseIds, ...kpIds]).size !== baseIds.length + kpIds.length) errors.push("cross_projection_duplicate_knowledge_point_id");
-  if (!sameMembers(kpIds, G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS)) errors.push("promoted_knowledge_point_drift");
+  if (!sameMembers(reusedRows.map((row) => row.knowledgePointId), G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS)) errors.push("promoted_knowledge_point_drift");
   if (!sameMembers(groupIds, G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS)) errors.push("promoted_pattern_group_drift");
   if (!sameMembers(specIds, G4A_U08_PHASE2B_PROMOTED_PATTERN_SPEC_IDS)) errors.push("promoted_pattern_spec_drift");
-  if (groups.some((row) => row.visibilityStatus !== "visible" || row.holdReason !== null)) errors.push("visible_group_lifecycle_invalid");
+  if (extensionGroups.some((row) => row.visibilityStatus !== "visible" || row.holdReason !== null)) errors.push("visible_group_lifecycle_invalid");
   return Object.freeze({
     ok: errors.length === 0,
     errors: Object.freeze(errors),
-    counts: Object.freeze({ knowledgePoints: kpIds.length, patternGroups: groupIds.length, patternSpecs: specIds.length }),
+    counts: Object.freeze({ reusedKnowledgePoints: 3, addedKnowledgePoints: 0, patternGroups: 4, patternSpecs: 4 }),
   });
 }
