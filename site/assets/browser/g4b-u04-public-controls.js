@@ -8,6 +8,7 @@ export const G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS = Object.freeze({
   questionMode: "g4b-u04-question-mode",
   proxyQuestionMode: "g5a-u08-question-mode",
   source: "batch-a-source-select",
+  sourceHelp: "batch-a-source-help",
   selectionMode: "batch-a-selection-mode-select",
 });
 
@@ -26,10 +27,28 @@ function isAllowedMode(value) {
   return G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value);
 }
 
+function queryParam(name) {
+  if (typeof window === "undefined") return null;
+  return new URL(window.location.href).searchParams.get(name);
+}
+
 function queryMode() {
-  if (typeof window === "undefined") return G4B_U04_PUBLIC_CONTROLS.defaults.questionMode;
-  const value = new URL(window.location.href).searchParams.get("questionMode");
+  const value = queryParam("questionMode");
   return isAllowedMode(value) ? value : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode;
+}
+
+function ensureSourceOption(source) {
+  if (!source) return;
+  let option = [...source.options].find((entry) => entry.value === G4B_U04_SOURCE_ID);
+  if (!option) {
+    option = document.createElement("option");
+    option.value = G4B_U04_SOURCE_ID;
+    option.textContent = "4B-U04 概數";
+    option.dataset.s74PublicSource = "true";
+    const next = [...source.options].find((entry) => entry.value === "g5a_u08_5a08");
+    source.insertBefore(option, next ?? null);
+  }
+  if (!source.value && queryParam("sourceId") === G4B_U04_SOURCE_ID) source.value = G4B_U04_SOURCE_ID;
 }
 
 function ensureProxyOptions(proxy, enabled) {
@@ -73,11 +92,14 @@ function createSection() {
 
 export function syncG4BU04ClassicPublicControls(root = document) {
   const source = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.source);
+  ensureSourceOption(source);
+  const sourceHelp = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.sourceHelp);
   const selectionMode = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.selectionMode);
   const proxy = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyQuestionMode);
   const section = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.section) ?? createSection();
   const select = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.questionMode);
   const active = source?.value === G4B_U04_SOURCE_ID;
+  if (active && sourceHelp) sourceHelp.textContent = "4B-U04｜概數｜4 年級下學期";
   ensureProxyOptions(proxy, active);
   const visible = active && selectionMode?.value !== "sourceUnit";
   section.dataset.visible = visible ? "true" : "false";
