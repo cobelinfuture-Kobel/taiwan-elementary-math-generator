@@ -1,9 +1,9 @@
 name: S76I Diagnostic
 
 on:
-  push:
+  pull_request:
     branches:
-      - s76i-g4a-u08-phase2b-missing-pattern-groups
+      - main
 
 jobs:
   diagnose:
