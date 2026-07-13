@@ -2,7 +2,7 @@
 
 ```text
 TASK = S85_G5A_U02_ClassCGeneratorAndBlockingValidator
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 UNIT_ID = g5a_u02
 UNIT_TITLE = 因數與公因數
 ```
@@ -77,12 +77,32 @@ S85 passes only when:
 - Class D generation is rejected;
 - the repository test suite passes in CI.
 
+## CI and merge evidence
+
+```text
+implementation PR           = #138
+implementation merge commit = b0760c5c2fd034ad02c30d9d79e0f7e385f3fd59
+PR Node Test run            = 29258091145
+PR Math CI run              = 29258091204
+fresh-main Math CI run      = 29258177561
+fresh-main readback commit  = 172dacc03fa7d81774f08d39435e05ecd55aad8a
+tests                       = 1195
+pass                        = 1195
+fail                        = 0
+working tree                = clean
+```
+
+Two CI defects were resolved before merge:
+
+1. the GCF mutation test now always changes the canonical value;
+2. GCF-specific blocking-code precedence now runs before the broader `common_factor` match.
+
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_FORMAL_MAPPING_AND_HIDDEN_PATTERNSPECS_MATERIALIZED
-GOAL_DISTANCE_AFTER  = D1_G5A_U02_CLASS_C_RUNTIME_IMPLEMENTED_HIDDEN_PENDING_CI
-DISTANCE_REDUCED     = 14 deterministic Class C PatternSpecs now have executable generators and blocking validators.
-REMAINING_BLOCKERS   = Class D semantic runtime; metadata correction; canonical resolver; public selector; worksheet integration; production gate.
+GOAL_DISTANCE_AFTER  = D1_G5A_U02_CLASS_C_RUNTIME_IMPLEMENTED_HIDDEN
+DISTANCE_REDUCED     = 14 deterministic Class C PatternSpecs now have executable generators and blocking validators with fresh-main CI evidence.
+REMAINING_BLOCKERS   = Class D semantic runtime; metadata correction; hidden projection binding; canonical resolver; public selector; worksheet integration; production gate.
 NEXT_SHORTEST_STEP   = S86_G5A_U02_ClassCRuntimeQAAndHiddenProjectionBinding
 ```
