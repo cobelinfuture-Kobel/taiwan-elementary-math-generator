@@ -2,7 +2,7 @@
 
 ```text
 TASK = S83_G5A_U02_PatternSpecContractQA
-STATUS = QA_PASSED_WITH_CORRECTIONS_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 UNIT_ID = g5a_u02
 UNIT_TITLE = 因數與公因數
 ```
@@ -136,6 +136,22 @@ production use                 = forbidden
 ```
 
 The `g5a_u02_5a02a1` public metadata correction to `公因數` and `/5a03b/` remains a later promotion prerequisite.
+
+## Merge and CI evidence
+
+```text
+implementation PR          = 134
+implementation merge       = f96e30d3b5c717d77ecddb81447fdc72b0285004
+PR Math CI                 = 29235676645
+fresh-main Math CI         = 29235912361
+fresh-main readback commit = 4819382d9a83760b1b2fd46039178ea2a12b3919
+tests                      = 1157
+pass                       = 1157
+fail                       = 0
+working tree               = clean
+```
+
+PR and fresh-main validation also passed Node Test, S42 branch regression, G4B-U01 smoke and print-layout regression, G4B-U04 HTML/PDF smoke, and G5A-U08 production smoke.
 
 ## Distance
 
