@@ -89,14 +89,19 @@ test("S76L preserves exact S76K CI, smoke artifact and stress evidence", () => {
 });
 
 test("S76L authority readback keeps 15 KnowledgePoints and 28 PatternGroups", () => {
+  const numericGroups = registry.patternGroups.filter((row) => row[2] === "numeric");
+  const applicationCoreGroups = registry.patternGroups.filter((row) => row[2] === "application" && row[3] === "hidden");
+  const applicationExtensionGroups = registry.patternGroups.filter((row) => row[2] === "application" && row[3] === "extension_hidden");
   assert.equal(registry.summary.knowledgePointCount, 15);
+  assert.equal(registry.summary.numericKnowledgePointCount, 11);
+  assert.equal(registry.summary.applicationKnowledgePointCount, 4);
   assert.equal(registry.summary.patternGroupCount, 28);
-  assert.equal(registry.summary.numericPatternGroupCount, 11);
-  assert.equal(registry.summary.applicationPatternGroupCount, 17);
-  assert.equal(registry.summary.applicationCorePatternGroupCount, 13);
-  assert.equal(registry.summary.applicationExtensionPatternGroupCount, 4);
-  assert.equal(new Set(registry.knowledgePoints.map((row) => row.knowledgePointId)).size, 15);
-  assert.equal(new Set(registry.patternGroups.map((row) => row.patternGroupId)).size, 28);
+  assert.equal(registry.summary.extensionPatternGroupCount, 4);
+  assert.equal(numericGroups.length, 11);
+  assert.equal(applicationCoreGroups.length, 13);
+  assert.equal(applicationExtensionGroups.length, 4);
+  assert.equal(new Set(registry.knowledgePoints.map((row) => row[0])).size, 15);
+  assert.equal(new Set(registry.patternGroups.map((row) => row[0])).size, 28);
 });
 
 test("S76L fresh-main numeric, Phase2A and Phase2B routes all remain executable", () => {
