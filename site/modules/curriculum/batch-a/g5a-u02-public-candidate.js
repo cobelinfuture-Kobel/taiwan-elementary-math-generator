@@ -1,0 +1,82 @@
+export const G5A_U02_SOURCE_ID = "g5a_u02_5a02";
+
+export const G5A_U02_PUBLIC_CANDIDATE = Object.freeze({
+  task: "S94_G5A_U02_PublicSelectorPrintAndQueryStateQA",
+  status: "public_preview_print_candidate",
+  sourceId: G5A_U02_SOURCE_ID,
+  unitCode: "5A-U02",
+  title: "因數與公因數",
+  selectorStatus: "public_source_unit_candidate",
+  publicSelectionMode: "sourceUnit",
+  questionCount: 22,
+  answerCount: 22,
+  questionPageCount: 22,
+  answerPageCount: 22,
+  patternSpecCount: 22,
+  answerModelShapeCount: 16,
+  rendererProfileCount: 3,
+  canonicalArtifactCommit: "5bd0e6d3aa904768e8436ab19d49e9aa12b4b32a",
+  canonicalHtmlUrl: "https://raw.githubusercontent.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/5bd0e6d3aa904768e8436ab19d49e9aa12b4b32a/docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.html",
+  productionUse: "preview_only_pending_s95",
+  arbitraryRegeneration: false,
+  genericFallback: false,
+  freeFormAI: false,
+});
+
+export function isG5AU02PublicCandidatePlan(plan = {}) {
+  return plan.sourceId === G5A_U02_SOURCE_ID;
+}
+
+export function buildG5AU02PublicCandidateWorksheet(plan = {}) {
+  if (!isG5AU02PublicCandidatePlan(plan)) return null;
+  const includeAnswerKey = plan.includeAnswerKey !== false;
+  const warning = Object.freeze({
+    code: "g5a_u02_public_canonical_candidate_fixed",
+    message: "此單元目前使用已驗證的 22 題公開候選卷；自訂題數與重新抽題將於下一個 production gate 開放。",
+  });
+  const worksheetDocument = Object.freeze({
+    schemaName: "G5AU02PublicCandidateWorksheet",
+    schemaVersion: 1,
+    worksheetId: `g5a-u02-public-candidate-${includeAnswerKey ? "with-answer" : "questions-only"}`,
+    sourceId: G5A_U02_SOURCE_ID,
+    title: "5A-U02 因數與公因數｜公開候選卷",
+    staticHtmlUrl: G5A_U02_PUBLIC_CANDIDATE.canonicalHtmlUrl,
+    staticHtmlTransform: Object.freeze({ suppressAnswerKey: !includeAnswerKey }),
+    includeAnswerKey,
+    answerKeyItems: includeAnswerKey ? Object.freeze(Array.from({ length: 22 }, (_, index) => Object.freeze({ questionNumber: index + 1 }))) : Object.freeze([]),
+    questionPages: Object.freeze(Array.from({ length: 22 }, (_, index) => Object.freeze({ pageNumber: index + 1 }))),
+    answerKeyPages: includeAnswerKey ? Object.freeze(Array.from({ length: 22 }, (_, index) => Object.freeze({ pageNumber: index + 1 }))) : Object.freeze([]),
+    summary: Object.freeze({
+      questionCount: 22,
+      questionPageCount: 22,
+      answerKeyItemCount: includeAnswerKey ? 22 : 0,
+      answerKeyPageCount: includeAnswerKey ? 22 : 0,
+      publicCandidate: true,
+    }),
+    lifecycle: Object.freeze({
+      selectorStatus: "public_source_unit_candidate",
+      browserPipelineStatus: "public_static_candidate_connected",
+      printStatus: "public_print_candidate",
+      queryStateStatus: "source_unit_round_trip_supported",
+      productionUse: "preview_only_pending_s95",
+    }),
+  });
+  return Object.freeze({
+    ok: true,
+    stage: "public_candidate",
+    worksheetDocument,
+    validation: Object.freeze({ ok: true, errors: Object.freeze([]), warnings: Object.freeze([warning]) }),
+    errors: Object.freeze([]),
+    warnings: Object.freeze([warning]),
+  });
+}
+
+export function validateG5AU02PublicCandidateContract() {
+  const errors = [];
+  if (G5A_U02_PUBLIC_CANDIDATE.questionCount !== 22) errors.push("question_count_mismatch");
+  if (G5A_U02_PUBLIC_CANDIDATE.answerCount !== 22) errors.push("answer_count_mismatch");
+  if (!G5A_U02_PUBLIC_CANDIDATE.canonicalHtmlUrl.includes(G5A_U02_PUBLIC_CANDIDATE.canonicalArtifactCommit)) errors.push("artifact_not_commit_pinned");
+  if (G5A_U02_PUBLIC_CANDIDATE.productionUse !== "preview_only_pending_s95") errors.push("production_scope_mismatch");
+  if (G5A_U02_PUBLIC_CANDIDATE.arbitraryRegeneration) errors.push("arbitrary_regeneration_enabled");
+  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) });
+}
