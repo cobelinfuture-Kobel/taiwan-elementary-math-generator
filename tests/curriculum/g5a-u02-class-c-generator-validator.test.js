@@ -128,7 +128,7 @@ test("S85 blocks a non-common value in common-factor selection", () => {
 
 test("S85 blocks a non-maximum GCF answer", () => {
   const item = clone(generateG5AU02ClassC("ps_g5a_u02_greatest_common_factor", { seed: 39 }));
-  item.answer.value = 1;
+  item.answer.value = item.answer.value === 1 ? 2 : 1;
   const result = validateG5AU02ClassC(item);
   assert.equal(result.ok, false);
   assert.ok(result.errors.includes("G5AU02_GCF_NOT_MAXIMUM"));
