@@ -2,7 +2,7 @@
   "schemaName": "G5AU02PatternSpecContractDesign",
   "schemaVersion": 1,
   "task": "S82_G5A_U02_PatternSpecContractDesign",
-  "status": "contract_design_complete_pending_qa",
+  "status": "pass_ci_synced_and_merged",
   "unitId": "g5a_u02",
   "unitTitle": "因數與公因數",
   "dependsOn": [
@@ -115,6 +115,19 @@
     "allClassDPatternsControlledTemplateBound": true,
     "allAnswerSchemasDeterministic": true,
     "allLifecycleHiddenAndNonProduction": true
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 132,
+    "implementationMergeCommit": "db9778b11174a9c21c1e3e15cc65eab11fe378b2",
+    "initialPrMathCiRun": 29231000549,
+    "initialPrIssue": "test bundle loader allowed rules artifact schemaName to overwrite the index schemaName",
+    "finalPrMathCiRun": 29231280766,
+    "freshMainMathCiRun": 29231915169,
+    "freshMainReadbackCommit": "3e561b06136d32a6ce0d2cc18974399db15f8e8e",
+    "tests": 1148,
+    "pass": 1148,
+    "fail": 0,
+    "workingTree": "clean"
   },
   "handoff": {
     "nextTask": "S83_G5A_U02_PatternSpecContractQA",

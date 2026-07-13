@@ -2,7 +2,7 @@
 
 ```text
 TASK = S82_G5A_U02_PatternSpecContractDesign
-STATUS = CONTRACT_DESIGN_COMPLETE_PENDING_QA
+STATUS = PASS_CI_SYNCED_AND_MERGED
 UNIT_ID = g5a_u02
 UNIT_TITLE = 因數與公因數
 ```
@@ -233,6 +233,25 @@ S82 is accepted only when:
 6. all source evidence and implementation classes match S80;
 7. the validator design is blocking and fallback-free;
 8. no materialization or runtime behavior is introduced.
+
+## CI and merge evidence
+
+```text
+implementation PR             = #132
+implementation merge commit   = db9778b11174a9c21c1e3e15cc65eab11fe378b2
+initial PR Math CI            = 29231000549
+final PR Math CI              = 29231280766
+fresh-main Math CI            = 29231915169
+fresh-main readback commit    = 3e561b06136d32a6ce0d2cc18974399db15f8e8e
+tests                         = 1148
+pass                          = 1148
+fail                          = 0
+working tree                  = clean
+```
+
+The initial PR failure was confined to the S82 test bundle loader: spreading the rules component over the index replaced the index `schemaName`. The FullFix changed the loader to merge only `formalRules`, `correctedContracts` and `qaOverlayApplications`. No PatternSpec, formula, answer schema, controlled template, lifecycle or runtime behavior changed.
+
+Node Test, S42 Branch Test, Math CI Readback, G4B-U01 smoke, G4B-U01 warning/print QA, G4B-U04 HTML/PDF smoke and G5A-U08 HTML/PDF smoke all passed before merge. Fresh-main Math CI then passed at 1148/1148 with a clean worktree.
 
 ## Distance
 
