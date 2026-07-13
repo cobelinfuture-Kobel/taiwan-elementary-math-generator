@@ -2,7 +2,7 @@
 
 ```text
 TASK = S76_BatchB_NextSourcePriorityLock
-STATUS = PASS_PLANNING_LOCKED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 MODE = PLANNING_ONLY
 ```
 
@@ -130,6 +130,22 @@ S76 is accepted only when:
 5. neutral public labels and curriculum filters are recorded;
 6. Classic/Pixel interface switching remains unchanged;
 7. no PDF extraction or runtime/UI implementation occurs in S76.
+
+## CI and merge evidence
+
+```text
+planning PR             = #120
+merge commit            = e5319baaed6e095fc7aae9889e2bbb137c810c6e
+PR Math CI run          = 29220206521
+fresh-main Math CI run  = 29220305618
+fresh-main readback     = 6f55ea11fd3fa8889e148ecb4b50e2b9db45ca65
+tests                   = 1106
+pass                    = 1106
+fail                    = 0
+working tree            = clean
+```
+
+All existing Node, S42, G4B-U01, G5A-U08 and G4B-U04 smoke workflows passed. The merged changes remain planning artifacts and executable contract tests only.
 
 ## Distance
 
