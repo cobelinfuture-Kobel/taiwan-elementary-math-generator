@@ -1,3 +1,4 @@
+import "./g4b-u04-public-controls.js";
 import { subscribePixelGeneration } from "./pixel-generation-controller.js";
 import {
   printPixelWorksheet,
@@ -15,6 +16,7 @@ const watchedControlIds = [
   "pixel-selection-mode-select",
   "pixel-question-count",
   "pixel-ordering",
+  "pixel-g4b-u04-question-mode",
   "pixel-g5a-question-mode",
   "pixel-g5a-depth-mode",
   "pixel-g5a-context-mode",

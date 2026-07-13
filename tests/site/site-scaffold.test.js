@@ -44,11 +44,13 @@ test("site scaffold files exist", () => {
     "site/assets/styles/app.css",
     "site/assets/styles/print-styles.css",
     "site/assets/browser/main.js",
+    "site/assets/browser/g4b-u04-public-controls.js",
     "site/assets/browser/state/presets.js",
     "site/assets/browser/state/config-state.js",
     "site/assets/browser/state/query-state.js",
     "site/assets/browser/pipeline/build-worksheet-document.js",
     "site/assets/browser/pipeline/render-preview-frame.js",
+    "site/pixel/g4b-u04-public-controls.js",
     "site/modules/core/index.js",
     "site/modules/renderer/html-renderer.js",
     "site/modules/renderer/html-renderer-s57f5-extension.js",
@@ -76,6 +78,7 @@ test("site scaffold files exist", () => {
     "site/modules/curriculum/batch-a/g4b-u01-production-eligibility.js",
     "site/modules/curriculum/batch-a/g5a-u08-worksheet-eligibility.js",
     "site/modules/curriculum/batch-b/g4b-u04-worksheet-eligibility.js",
+    "site/modules/curriculum/batch-b/g4b-u04-public-ui-print-qa.js",
     "site/modules/curriculum/registry/g3b-u08-semantic-production-promotion.js",
     "site/modules/curriculum/registry/g4b-u01-horizontal-production-promotion.js",
     "site/modules/curriculum/registry/g5a-u08-worksheet-promotion.js",
@@ -128,6 +131,7 @@ test("site runtime files do not import tools preview or src modules", () => {
 
   assert.equal(pipelineSource.includes("../../../modules/curriculum/batch-a/batch-a-browser-worksheet-s73-extension.js"), true);
   assert.equal(renderSource.includes("../../../modules/renderer/html-renderer-s73-extension.js"), true);
+  assert.equal(renderSource.includes("../g4b-u04-public-controls.js"), true);
   assert.equal(worksheetS73Source.includes('./batch-a-browser-worksheet-s60j-extension.js'), true);
   assert.equal(rendererS73Source.includes('./html-renderer-s60j-extension.js'), true);
   assert.equal(worksheetS60JSource.includes('./batch-a-browser-worksheet-s59j-r1-extension.js'), true);
@@ -138,7 +142,7 @@ test("site runtime files do not import tools preview or src modules", () => {
   assert.equal(rendererExtensionSource.includes('./html-renderer-s58h-extension.js'), true);
 });
 
-test("Batch A source units include all 13 production sourceIds", () => {
+test("Batch A source units preserve all 13 legacy production sourceIds", () => {
   const sourceIds = listBatchASourceUnits().map((unit) => unit.sourceId);
   assert.deepEqual(sourceIds, [
     "g3a_u01_3a01",

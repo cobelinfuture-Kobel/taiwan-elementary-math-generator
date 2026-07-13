@@ -8,6 +8,10 @@ import {
   getVisiblePatternGroupsForKnowledgePoint as getLatestVisiblePatternGroupsForKnowledgePoint
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 import {
+  G4B_U04_PUBLIC_CONTROLS,
+  G4B_U04_SOURCE_ID,
+} from "../../../modules/curriculum/registry/g4b-u04-promotion.js";
+import {
   G5A_U08_PUBLIC_CONTROLS,
   G5A_U08_SOURCE_ID,
 } from "../../../modules/curriculum/registry/g5a-u08-promotion.js";
@@ -17,6 +21,7 @@ const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
   "g3b_u04_3b04",
   "g3b_u08_3b08",
   "g4b_u01_4b01",
+  G4B_U04_SOURCE_ID,
   G5A_U08_SOURCE_ID,
 ]));
 const KP_SELECTION_MODES = Object.freeze([
@@ -178,13 +183,20 @@ function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
   return { selectionMode, selectedKnowledgePointIds, selectedPatternGroupIds, selectorWarnings: warnings };
 }
 
-function normalizeG5AU08PublicControls(params, sourceId) {
-  if (sourceId !== G5A_U08_SOURCE_ID) return {};
-  return {
-    questionMode: allowedParam(params, "questionMode", G5A_U08_PUBLIC_CONTROLS.questionModes, G5A_U08_PUBLIC_CONTROLS.defaults.questionMode),
-    depthMode: allowedParam(params, "depthMode", G5A_U08_PUBLIC_CONTROLS.depthModes, G5A_U08_PUBLIC_CONTROLS.defaults.depthMode),
-    contextMode: allowedParam(params, "contextMode", G5A_U08_PUBLIC_CONTROLS.contextModes, G5A_U08_PUBLIC_CONTROLS.defaults.contextMode),
-  };
+function normalizeUnitPublicControls(params, sourceId) {
+  if (sourceId === G4B_U04_SOURCE_ID) {
+    return {
+      questionMode: allowedParam(params, "questionMode", G4B_U04_PUBLIC_CONTROLS.questionModes, G4B_U04_PUBLIC_CONTROLS.defaults.questionMode),
+    };
+  }
+  if (sourceId === G5A_U08_SOURCE_ID) {
+    return {
+      questionMode: allowedParam(params, "questionMode", G5A_U08_PUBLIC_CONTROLS.questionModes, G5A_U08_PUBLIC_CONTROLS.defaults.questionMode),
+      depthMode: allowedParam(params, "depthMode", G5A_U08_PUBLIC_CONTROLS.depthModes, G5A_U08_PUBLIC_CONTROLS.defaults.depthMode),
+      contextMode: allowedParam(params, "contextMode", G5A_U08_PUBLIC_CONTROLS.contextModes, G5A_U08_PUBLIC_CONTROLS.defaults.contextMode),
+    };
+  }
+  return {};
 }
 
 export function parseQueryState(search = window.location.search, options = {}) {
@@ -198,7 +210,7 @@ export function parseQueryState(search = window.location.search, options = {}) {
     generationSeed: params.get("generationSeed") ?? undefined,
     columns: integerParam(params, "columns", undefined),
     rowsPerPage: integerParam(params, "rowsPerPage", undefined),
-    ...normalizeG5AU08PublicControls(params, sourceId),
+    ...normalizeUnitPublicControls(params, sourceId),
     ...normalizeSelectorQueryState(params, sourceId, resolveSelectorAccess(options))
   };
 }
@@ -213,6 +225,9 @@ export function writeQueryStateFromState(state) {
   nextUrl.searchParams.set("generationSeed", state.batchA.generationSeed);
   nextUrl.searchParams.set("columns", String(state.batchA.columns));
   nextUrl.searchParams.set("rowsPerPage", String(state.batchA.rowsPerPage));
+  if (state.batchA.sourceId === G4B_U04_SOURCE_ID) {
+    nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? G4B_U04_PUBLIC_CONTROLS.defaults.questionMode);
+  }
   if (state.batchA.sourceId === G5A_U08_SOURCE_ID) {
     nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? G5A_U08_PUBLIC_CONTROLS.defaults.questionMode);
     nextUrl.searchParams.set("depthMode", state.batchA.depthMode ?? G5A_U08_PUBLIC_CONTROLS.defaults.depthMode);

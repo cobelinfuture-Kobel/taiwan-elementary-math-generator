@@ -1,3 +1,4 @@
+import "../g4b-u04-public-controls.js";
 import { renderWorksheetDocumentToHtml } from "../../../modules/renderer/html-renderer-s73-extension.js";
 
 export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}) {
