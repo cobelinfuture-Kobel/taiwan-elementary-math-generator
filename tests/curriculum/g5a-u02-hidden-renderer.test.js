@@ -91,7 +91,13 @@ test("S92 suppresses answer HTML when the S91 answer key is disabled", () => {
 
 test("S92 question section contains no answer cells and rendered HTML leaks no curriculum IDs", () => {
   const { renderedWorksheet } = buildFull();
-  const questionSection = renderedWorksheet.html.split('g5a-u02-section--answer-key')[0];
+  const questionMarker = '<section class="g5a-u02-section g5a-u02-section--questions">';
+  const answerMarker = '<section class="g5a-u02-section g5a-u02-section--answer-key">';
+  const questionStart = renderedWorksheet.html.indexOf(questionMarker);
+  const answerStart = renderedWorksheet.html.indexOf(answerMarker);
+  assert.ok(questionStart >= 0);
+  assert.ok(answerStart > questionStart);
+  const questionSection = renderedWorksheet.html.slice(questionStart, answerStart);
   assert.doesNotMatch(questionSection, /g5a-u02-card--answer/);
   assert.doesNotMatch(questionSection, /答案頁/);
   assert.doesNotMatch(renderedWorksheet.html, /ps_g5a_u02_|fm_g5a_u02_|fmc_g5a_u02_|pg_g5a_u02_|kp_g5a_u02_|g5a_u02_5a02a/);
