@@ -2,7 +2,7 @@
 
 ## Status
 
-`IMPLEMENTED_PENDING_CI_AND_VERIFIED_ARTIFACT`
+`VERIFIED_ARTIFACT_COMMITTED_PENDING_PR_CI`
 
 ## Scope
 
@@ -109,6 +109,34 @@ The workflow:
 12. commits the first verified HTML/PDF/manifest bundle to the implementation branch;
 13. uploads HTML, PDF, manifest and page images as a workflow artifact.
 
+## Verified artifact evidence
+
+The branch workflow committed:
+
+- `docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.html`;
+- `docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.pdf`;
+- `docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.manifest.json`.
+
+Verified manifest state:
+
+```text
+status                       = hidden_html_pdf_smoke_pass
+questionCount                = 22
+answerCount                  = 22
+actualPdfPageCount           = 44
+renderedPageImageCount       = 44
+nonblankRenderedPageCount    = 44
+domOverflowCount             = 0
+pdfBoundingBoxOverflowCount  = 0
+internalIdLeakCount          = 0
+unresolvedPlaceholderCount   = 0
+finalAnswerPageNonblank      = true
+cjkGlyphRendering            = pass
+visualRenderVerification     = all_pages_nonblank_and_bbox_contained
+```
+
+The bot-created verified-artifact commit intentionally requires a following user-authored documentation commit so GitHub can execute PR workflows on the final head.
+
 ## Lifecycle boundary
 
 ```text
@@ -118,22 +146,22 @@ answerKeyStatus       = hidden_integrated_optional
 selectorStatus        = hidden
 canonicalRouting      = internal_explicit_only
 browserPipelineStatus = hidden_connected
-htmlPdfSmokeStatus    = pipeline_ready_pending_ci
+htmlPdfSmokeStatus    = hidden_smoke_passed
 productionUse         = forbidden
 genericFallback       = forbidden
 freeFormAI            = forbidden
 ```
 
-After the Chromium workflow passes, the committed manifest may report `htmlPdfSmokeStatus = hidden_smoke_passed`. This does not change `selectorStatus` or `productionUse`.
+The committed manifest reports `htmlPdfSmokeStatus = hidden_smoke_passed`. This does not change `selectorStatus` or `productionUse`.
 
 ## Acceptance
 
 S93 is accepted only when:
 
-- Node Test passes;
-- Math CI Readback passes;
-- S42 Branch Test passes;
-- S93 hidden HTML/PDF smoke passes;
+- Node Test passes on the final PR head;
+- Math CI Readback passes on the final PR head;
+- S42 Branch Test passes on the final PR head;
+- S93 hidden HTML/PDF smoke passes on the final PR head;
 - the verified HTML/PDF/manifest bundle is committed;
 - the implementation PR is merged;
 - a fresh-main readback matches the merge commit.
@@ -142,13 +170,13 @@ S93 is accepted only when:
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_HIDDEN_RENDERER_VERIFIED_AND_CLOSED
-GOAL_DISTANCE_AFTER  = D1_G5A_U02_HIDDEN_BROWSER_AND_HTML_PDF_SMOKE_IMPLEMENTED_PENDING_CI
+GOAL_DISTANCE_AFTER  = D1_G5A_U02_HIDDEN_BROWSER_AND_HTML_PDF_SMOKE_VERIFIED_PENDING_FINAL_PR_CI
 ```
 
 This milestone advances the Worksheet Output node from deterministic HTML to browser-executed and PDF-verifiable output. Public exposure and production eligibility remain separate gates.
 
 ## Next shortest step
 
-After PR CI, verified artifact, merge and fresh-main closeout:
+After final-head PR CI, merge and fresh-main closeout:
 
 `S94_G5A_U02_PublicSelectorPrintAndQueryStateQA`
