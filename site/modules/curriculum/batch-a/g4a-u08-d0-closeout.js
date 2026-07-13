@@ -16,10 +16,10 @@ import {
   G4A_U08_SOURCE_ID,
 } from "../registry/g4a-u08-phase2b-promotion.js";
 import {
-  G4A_U08_PRODUCTION_LIFECYCLE,
-  G4A_U08_STRESS_ACCEPTANCE,
-  validateG4AU08ProductionPromotionProjection,
-} from "../registry/g4a-u08-production-promotion.js";
+  G4A_U08_D0_PRODUCTION_LIFECYCLE,
+  getG4AU08D0ProductionCloseoutProjection,
+  validateG4AU08D0ProductionCloseoutProjection,
+} from "../registry/g4a-u08-d0-production-closeout.js";
 
 const promotedGroupSet = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 
@@ -59,7 +59,8 @@ function sameMembers(left, right) {
 export function validateG4AU08BatchAMigrationReadback() {
   const errors = [];
   const aggregate = validateBatchAAllUnitsProductionCloseoutContract();
-  const production = validateG4AU08ProductionPromotionProjection();
+  const production = validateG4AU08D0ProductionCloseoutProjection();
+  const productionProjection = getG4AU08D0ProductionCloseoutProjection();
   const sourceUnit = BATCH_A_SOURCE_UNITS.find((unit) => unit.sourceId === G4A_U08_SOURCE_ID);
   const availability = listBatchAKnowledgePointAvailabilityBySource(G4A_U08_SOURCE_ID);
   const reachedGroups = [];
@@ -84,9 +85,9 @@ export function validateG4AU08BatchAMigrationReadback() {
 
   if (!sameMembers([...new Set(reachedGroups)], G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS)) errors.push("phase2b_pattern_group_reachability_mismatch");
   if (!sameMembers([...new Set(reachedSpecs)], G4A_U08_PHASE2B_PROMOTED_PATTERN_SPEC_IDS)) errors.push("phase2b_pattern_spec_reachability_mismatch");
-  if (G4A_U08_STRESS_ACCEPTANCE.totalExecutablePatternSpecCount !== 26) errors.push("executable_pattern_spec_count_mismatch");
-  if (G4A_U08_PRODUCTION_LIFECYCLE.productionUse !== "allowed") errors.push("production_use_not_allowed");
-  if (G4A_U08_PRODUCTION_LIFECYCLE.distance !== "D0_G4A_U08") errors.push("distance_not_d0");
+  if (productionProjection.stressAcceptance.totalExecutablePatternSpecCount !== 26) errors.push("executable_pattern_spec_count_mismatch");
+  if (G4A_U08_D0_PRODUCTION_LIFECYCLE.productionUse !== "allowed") errors.push("production_use_not_allowed");
+  if (G4A_U08_D0_PRODUCTION_LIFECYCLE.distance !== "D0_G4A_U08") errors.push("distance_not_d0");
   if (G4A_U08_BATCH_A_MIGRATION_READBACK.aggregateBatchASourceCountChanged !== false) errors.push("aggregate_source_count_change_declared");
   if (G4A_U08_BATCH_A_MIGRATION_READBACK.rendererVisualChanged !== false) errors.push("renderer_visual_change_declared");
 
@@ -98,7 +99,7 @@ export function validateG4AU08BatchAMigrationReadback() {
       legacyVisibleKnowledgePoints: availability?.visibleCount ?? null,
       authoritativeKnowledgePoints: G4A_U08_BATCH_A_MIGRATION_READBACK.authoritativeKnowledgePointCount,
       authoritativePatternGroups: G4A_U08_BATCH_A_MIGRATION_READBACK.authoritativePatternGroupCount,
-      executablePatternSpecs: G4A_U08_STRESS_ACCEPTANCE.totalExecutablePatternSpecCount,
+      executablePatternSpecs: productionProjection.stressAcceptance.totalExecutablePatternSpecCount,
       phase2BPatternGroups: new Set(reachedGroups).size,
       phase2BPatternSpecs: new Set(reachedSpecs).size,
     }),
