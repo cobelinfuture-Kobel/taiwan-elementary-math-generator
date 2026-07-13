@@ -42,6 +42,7 @@ export function adaptG4AU08LegacyItem(legacyItem) {
   const prompt = legacyItem.prompt ?? legacyItem.question ?? legacyItem.text;
   if (typeof prompt !== "string" || !prompt.trim()) throw new Error("G4AU08_ADAPTER_PROMPT_MISSING");
   if (legacyItem.answer === undefined && legacyItem.answerModel === undefined) throw new Error("G4AU08_ADAPTER_ANSWER_MISSING");
+  const isExtension = Object.prototype.hasOwnProperty.call(EXTENSION_CONTRACTS, legacyTemplateId);
   const canonical = {
     schemaName: "G4AU08CanonicalGeneratedItem", schemaVersion: 1, sourceId: SOURCE_ID, unitCode: UNIT_CODE,
     legacyTemplateId, legacyKnowledgePointId: legacyItem.knowledgePointId ?? null,
@@ -57,7 +58,13 @@ export function adaptG4AU08LegacyItem(legacyItem) {
     expression: legacyItem.expression ?? legacyItem.equation ?? null,
     answerModel: clone(legacyItem.answerModel ?? { value: legacyItem.answer }),
     context: clone(legacyItem.context ?? legacyItem.scenario ?? legacyItem.data?.context ?? null), seed: legacyItem.seed ?? null,
-    lifecycle: Object.freeze({ adapterStatus: "implemented_hidden", validatorStatus: "implemented_hidden", selectorVisibility: "hidden", canonicalRouting: "disabled", productionUse: "forbidden" })
+    lifecycle: Object.freeze({
+      adapterStatus: "implemented_hidden",
+      validatorStatus: isExtension ? "implemented_hidden" : "pending_s76g",
+      selectorVisibility: "hidden",
+      canonicalRouting: "disabled",
+      productionUse: "forbidden"
+    })
   };
   return deepFreeze(canonical);
 }
