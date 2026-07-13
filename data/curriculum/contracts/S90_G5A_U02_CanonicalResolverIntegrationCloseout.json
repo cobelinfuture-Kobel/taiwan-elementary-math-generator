@@ -1,0 +1,22 @@
+{
+  "task": "S90_G5A_U02_CanonicalResolverIntegration",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "mergeCommit": "c666670ee24ceada1b817fc4dfecd62b1a321eba",
+  "freshMainReadbackCommit": "c883c5437daaad13e6ed9764e9f68e079854403a",
+  "freshMainRunId": 29265101222,
+  "tests": 1269,
+  "pass": 1269,
+  "fail": 0,
+  "workingTree": "clean",
+  "resolver": {
+    "patternSpecCount": 22,
+    "classCCount": 14,
+    "classDCount": 8,
+    "selectorStatus": "hidden",
+    "canonicalRouting": "internal_explicit_only",
+    "productionUse": "forbidden",
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden"
+  },
+  "nextShortestStep": "S91_G5A_U02_HiddenWorksheetAllocationAndAnswerKeyIntegration"
+}
