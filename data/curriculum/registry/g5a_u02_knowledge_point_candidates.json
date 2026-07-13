@@ -1,0 +1,756 @@
+{
+  "schemaName": "DualSourceUnitKnowledgePointCandidateMap",
+  "schemaVersion": 1,
+  "task": "S78_G5A_U02_DualPDFManualKnowledgePointExtraction",
+  "status": "manual_visual_extraction_complete_pending_qa",
+  "unit": {
+    "unitId": "g5a_u02",
+    "unitCode": "5A-U02",
+    "unitTitle": "因數與公因數",
+    "grade": 5,
+    "semester": "A",
+    "sourceAuthorityStatus": "manual_visual_read",
+    "ocrAuthority": "forbidden"
+  },
+  "sourcePacketCount": 2,
+  "totalPageCount": 4,
+  "sourcePackets": [
+    {
+      "sourcePacketId": "g5a_u02_5a02a",
+      "sourceSubunit": "a",
+      "uploadedFileName": "題型總覽-5a02a-因數.pdf",
+      "renderedTitle": "因數",
+      "pageCount": 2,
+      "renderedHeaderUrl": "https://meow911.com/5a02b/",
+      "sourceAnomalies": [
+        {
+          "code": "source_header_url_code_mismatch",
+          "description": "The packet filename/source code is 5a02a, while the rendered header URL ends in 5a02b. Preserve the packet as g5a_u02_5a02a and retain the discrepancy for QA."
+        }
+      ]
+    },
+    {
+      "sourcePacketId": "g5a_u02_5a02a1",
+      "sourceSubunit": "a1",
+      "uploadedFileName": "題型總覽-5a02a1-因數.pdf",
+      "renderedTitle": "公因數",
+      "pageCount": 2,
+      "renderedHeaderUrl": "https://meow911.com/5a03b/",
+      "sourceAnomalies": [
+        {
+          "code": "source_filename_rendered_title_mismatch",
+          "description": "The uploaded filename ends in 因數, while the rendered packet title is 公因數. Treat the rendered title as packet content evidence without changing the packet sourceId."
+        },
+        {
+          "code": "source_header_url_code_mismatch",
+          "description": "The packet filename/source code is 5a02a1, while the rendered header URL ends in 5a03b. Preserve the packet as g5a_u02_5a02a1 and retain the discrepancy for QA."
+        },
+        {
+          "code": "shallow_metadata_title_mismatch",
+          "description": "Earlier shallow metadata labelled both 5a02a and 5a02a1 as 因數; manual visual reading shows that 5a02a1 is the 公因數 packet."
+        }
+      ]
+    }
+  ],
+  "knowledgePointCount": 19,
+  "candidateImplementationClassCounts": {
+    "C": 15,
+    "D": 4
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_relation_multiplication_division",
+      "displayName": "以乘法分解與整除判斷因數關係",
+      "canonicalSkillCandidate": "factor_relation",
+      "subskillTags": [
+        "multiplication_decomposition",
+        "exact_division",
+        "factor_definition"
+      ],
+      "questionKindCandidates": [
+        "concept_identification",
+        "method_comparison"
+      ],
+      "difficultyTags": [
+        "relation_direction",
+        "exact_division"
+      ],
+      "representationTags": [
+        "numeric_equation",
+        "method_comparison"
+      ],
+      "answerModelCandidates": [
+        "methodChoiceAnswer",
+        "booleanAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 1,
+          "panel": "top-left",
+          "summary": "Compares 32 = 8 × 4 with 32 ÷ 8 = 4 and states that factor relationships can be recognized through multiplication decomposition or exact division."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_enumerate_factors_multiplication_pairs",
+      "displayName": "用乘法配對列出一個數的全部因數",
+      "canonicalSkillCandidate": "factor_enumeration",
+      "subskillTags": [
+        "factor_pairs",
+        "multiplication_decomposition",
+        "complete_factor_set"
+      ],
+      "questionKindCandidates": [
+        "factor_listing",
+        "numeric_reasoning"
+      ],
+      "difficultyTags": [
+        "systematic_search",
+        "completeness"
+      ],
+      "representationTags": [
+        "multiplication_equations",
+        "factor_pair_table"
+      ],
+      "answerModelCandidates": [
+        "factorListAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 1,
+          "panel": "third-row-left",
+          "summary": "Uses 56 = 1×56, 2×28, 4×14, and 7×8 to identify all factor pairs and reject non-exact pairs."
+        },
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 2,
+          "panel": "middle-left-middle-right-and-bottom-left",
+          "summary": "Extends multiplication-decomposition factor search to 72, 90, 130, and 144."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_enumerate_factors_exact_division",
+      "displayName": "用逐一整除測試列出一個數的全部因數",
+      "canonicalSkillCandidate": "factor_enumeration",
+      "subskillTags": [
+        "trial_division",
+        "exact_quotient",
+        "complete_factor_set"
+      ],
+      "questionKindCandidates": [
+        "factor_listing",
+        "divisibility_test"
+      ],
+      "difficultyTags": [
+        "systematic_search",
+        "remainder_check"
+      ],
+      "representationTags": [
+        "division_table",
+        "numeric_equation"
+      ],
+      "answerModelCandidates": [
+        "factorListAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 1,
+          "panel": "top-right",
+          "summary": "Tests 56 ÷ 1 through 56 ÷ 8 and keeps divisors whose quotients are integers."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_pair_ordered_recording",
+      "displayName": "依因數配對並由小到大完整記錄因數",
+      "canonicalSkillCandidate": "factor_pair_structure",
+      "subskillTags": [
+        "ascending_order",
+        "complementary_factor_pair",
+        "u_shape_recording"
+      ],
+      "questionKindCandidates": [
+        "ordered_factor_list",
+        "representation"
+      ],
+      "difficultyTags": [
+        "ordering",
+        "pair_symmetry"
+      ],
+      "representationTags": [
+        "u_shape_factor_table",
+        "ordered_sequence"
+      ],
+      "answerModelCandidates": [
+        "orderedFactorListAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 1,
+          "panel": "second-row-left",
+          "summary": "Shows U-shaped recording for factor pairs of 56 and requires the final factor list to be written from smallest to largest."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_membership_divisibility",
+      "displayName": "判斷指定數是否為因數或能否整除",
+      "canonicalSkillCandidate": "factor_membership",
+      "subskillTags": [
+        "divisibility",
+        "candidate_factor",
+        "integer_quotient"
+      ],
+      "questionKindCandidates": [
+        "selection",
+        "boolean_judgement"
+      ],
+      "difficultyTags": [
+        "multiple_candidates",
+        "distractor_filtering"
+      ],
+      "representationTags": [
+        "candidate_number_list",
+        "short_statement"
+      ],
+      "answerModelCandidates": [
+        "numberSetAnswer",
+        "booleanAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 1,
+          "panel": "third-row-right",
+          "summary": "Asks which listed numbers divide 144 exactly."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_restore_missing_factors_ordered_list",
+      "displayName": "從排序因數數列還原缺漏因數",
+      "canonicalSkillCandidate": "factor_pair_structure",
+      "subskillTags": [
+        "missing_factor",
+        "ordered_factor_sequence",
+        "complementary_pairs"
+      ],
+      "questionKindCandidates": [
+        "missing_value",
+        "sequence_reasoning"
+      ],
+      "difficultyTags": [
+        "inverse_reasoning",
+        "pair_symmetry"
+      ],
+      "representationTags": [
+        "ordered_number_sequence"
+      ],
+      "answerModelCandidates": [
+        "missingValueTupleAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 1,
+          "panel": "second-row-right",
+          "summary": "Provides the ordered factor sequence 1, 2, 4, A, 8, B, 28, 56 and asks for the missing values."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_multiple_language_direction",
+      "displayName": "分辨因數題與倍數題的問法及關係方向",
+      "canonicalSkillCandidate": "factor_multiple_relation",
+      "subskillTags": [
+        "factor_question_language",
+        "multiple_question_language",
+        "relation_direction"
+      ],
+      "questionKindCandidates": [
+        "language_classification",
+        "word_problem"
+      ],
+      "difficultyTags": [
+        "semantic_direction",
+        "keyword_interpretation"
+      ],
+      "representationTags": [
+        "paired_wording_examples"
+      ],
+      "answerModelCandidates": [
+        "questionTypeAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 2,
+          "panel": "top-left",
+          "summary": "Contrasts a multiples question asking possible rope lengths with a factors question asking possible equal segment lengths."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_relation_true_false",
+      "displayName": "判斷因數、倍數與整除陳述的正誤",
+      "canonicalSkillCandidate": "factor_multiple_relation",
+      "subskillTags": [
+        "factor_statement",
+        "multiple_statement",
+        "divisibility_statement"
+      ],
+      "questionKindCandidates": [
+        "true_false",
+        "relation_judgement"
+      ],
+      "difficultyTags": [
+        "relation_direction",
+        "mixed_statement_forms"
+      ],
+      "representationTags": [
+        "short_text",
+        "numeric_relation"
+      ],
+      "answerModelCandidates": [
+        "booleanVectorAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 2,
+          "panel": "top-right",
+          "summary": "Evaluates statements such as 3 is divisible by 12, 20 is divisible by 5 and 10, and 28 can be divided by 2 and 7."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_pair_unknown_relation",
+      "displayName": "由完整因數順序與配對推理未知數關係",
+      "canonicalSkillCandidate": "factor_pair_structure",
+      "subskillTags": [
+        "unknown_factor_symbols",
+        "complementary_pair_product",
+        "largest_factor"
+      ],
+      "questionKindCandidates": [
+        "constraint_reasoning",
+        "multiple_choice"
+      ],
+      "difficultyTags": [
+        "abstract_symbols",
+        "inverse_reasoning"
+      ],
+      "representationTags": [
+        "ordered_symbolic_factor_list"
+      ],
+      "answerModelCandidates": [
+        "choiceAnswer",
+        "relationAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 2,
+          "panel": "third-row-left",
+          "summary": "Given all factors of N in ascending order as 1, a, 5, b, c, 14, d, N, asks which inferred relation is incorrect."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_equal_partition_factor_application",
+      "displayName": "用因數解決等長分段與平均分配問題",
+      "canonicalSkillCandidate": "factor_application",
+      "subskillTags": [
+        "equal_segments",
+        "equal_sharing",
+        "whole_number_partition"
+      ],
+      "questionKindCandidates": [
+        "word_problem",
+        "factor_listing"
+      ],
+      "difficultyTags": [
+        "unit_interpretation",
+        "all_possible_answers"
+      ],
+      "representationTags": [
+        "rope_context",
+        "sharing_context"
+      ],
+      "answerModelCandidates": [
+        "factorListAnswer",
+        "integerSetAnswer"
+      ],
+      "implementationClassCandidate": "D",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 1,
+          "panel": "bottom-left",
+          "summary": "Uses a 27-metre rope to ask every possible equal number of segments and every possible integer segment length."
+        },
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 2,
+          "panel": "third-row-right",
+          "summary": "After 8 of 24 students are absent, divides 24 cupcakes equally among the remaining students and finds the remainder count."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_bounded_factor_application",
+      "displayName": "在指定範圍內找可平均分配的因數",
+      "canonicalSkillCandidate": "factor_application",
+      "subskillTags": [
+        "factor_range_filter",
+        "equal_sharing",
+        "candidate_count"
+      ],
+      "questionKindCandidates": [
+        "word_problem",
+        "bounded_search"
+      ],
+      "difficultyTags": [
+        "range_constraint",
+        "multiple_valid_answers"
+      ],
+      "representationTags": [
+        "classroom_sharing_context"
+      ],
+      "answerModelCandidates": [
+        "integerSetAnswer"
+      ],
+      "implementationClassCandidate": "D",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 1,
+          "panel": "bottom-right",
+          "summary": "Divides 60 candies evenly and asks which class sizes between about 10 and 16 students are possible."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factors_two_numbers",
+      "displayName": "列出兩個數的全部公因數",
+      "canonicalSkillCandidate": "common_factor",
+      "subskillTags": [
+        "factor_set_intersection",
+        "two_numbers",
+        "complete_common_factor_set"
+      ],
+      "questionKindCandidates": [
+        "common_factor_listing",
+        "numeric_reasoning"
+      ],
+      "difficultyTags": [
+        "two_factor_sets",
+        "completeness"
+      ],
+      "representationTags": [
+        "ordered_number_list",
+        "factor_set"
+      ],
+      "answerModelCandidates": [
+        "factorListAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 1,
+          "panel": "top-left-and-top-right",
+          "summary": "Defines common factors with 56 and 48, then asks for all common factors of 24 and 30."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_greatest_common_factor",
+      "displayName": "從公因數中找出最大公因數",
+      "canonicalSkillCandidate": "greatest_common_factor",
+      "subskillTags": [
+        "maximum_common_factor",
+        "two_numbers",
+        "factor_set"
+      ],
+      "questionKindCandidates": [
+        "gcf_numeric",
+        "common_factor_listing"
+      ],
+      "difficultyTags": [
+        "maximum_selection",
+        "complete_factor_check"
+      ],
+      "representationTags": [
+        "ordered_common_factor_list"
+      ],
+      "answerModelCandidates": [
+        "numericAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 1,
+          "panel": "top-left-and-top-right",
+          "summary": "Identifies 8 as the greatest common factor of 56 and 48 and asks for the greatest common factor of 24 and 30."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factor_multiplication_decomposition",
+      "displayName": "用乘法分解比較兩數因數並找公因數",
+      "canonicalSkillCandidate": "common_factor_method",
+      "subskillTags": [
+        "multiplication_decomposition",
+        "factor_pair_comparison",
+        "two_numbers"
+      ],
+      "questionKindCandidates": [
+        "common_factor_listing",
+        "method_application"
+      ],
+      "difficultyTags": [
+        "systematic_comparison",
+        "larger_numbers"
+      ],
+      "representationTags": [
+        "parallel_factor_equations"
+      ],
+      "answerModelCandidates": [
+        "factorListAnswer",
+        "numericAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 1,
+          "panel": "bottom-left",
+          "summary": "Uses multiplication decomposition for 72 and 90 as a technique for finding common factors."
+        },
+        {
+          "sourcePacketId": "g5a_u02_5a02a",
+          "page": 2,
+          "panel": "middle-left",
+          "summary": "Introduces the same 72-and-90 decomposition bridge from the factor packet."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factor_vs_gcf_context_selection",
+      "displayName": "依所有可能或最多需求選擇公因數或最大公因數",
+      "canonicalSkillCandidate": "common_factor_context_method_selection",
+      "subskillTags": [
+        "all_possible_group_counts",
+        "maximum_group_count",
+        "equal_grouping"
+      ],
+      "questionKindCandidates": [
+        "word_problem",
+        "method_selection"
+      ],
+      "difficultyTags": [
+        "all_vs_maximum",
+        "semantic_keyword"
+      ],
+      "representationTags": [
+        "group_activity_context",
+        "gift_box_context"
+      ],
+      "answerModelCandidates": [
+        "integerSetAnswer",
+        "numericAnswer",
+        "methodChoiceAnswer"
+      ],
+      "implementationClassCandidate": "D",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 1,
+          "panel": "second-row-left",
+          "summary": "Uses 27 boys and 18 girls with equal numbers per group and asks for the maximum number of groups, requiring the GCF."
+        },
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 1,
+          "panel": "second-row-right",
+          "summary": "Uses 24 apples and 32 mangoes, equal amounts per gift box and all items used, and asks every possible number of boxes, requiring all common factors."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_equal_square_cutting_common_factor",
+      "displayName": "用公因數解決長方形裁正方形與方磚鋪面問題",
+      "canonicalSkillCandidate": "common_factor_geometry_application",
+      "subskillTags": [
+        "square_side_length",
+        "rectangle_dimensions",
+        "all_tiles_used",
+        "tile_area"
+      ],
+      "questionKindCandidates": [
+        "word_problem",
+        "geometry_application"
+      ],
+      "difficultyTags": [
+        "unit_conversion",
+        "multiple_valid_answers",
+        "square_area"
+      ],
+      "representationTags": [
+        "rectangle_diagram",
+        "floor_tiling_context"
+      ],
+      "answerModelCandidates": [
+        "sideLengthSetAnswer",
+        "areaSetAnswer"
+      ],
+      "implementationClassCandidate": "D",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 1,
+          "panel": "third-row-left",
+          "summary": "Cuts a 24-by-16 rectangular sheet into identical integer-sided squares and asks all possible square side lengths."
+        },
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 2,
+          "panel": "top-left",
+          "summary": "Tiles a 36-by-28 floor with identical square tiles and asks all possible tile areas."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_gcf_short_division_method",
+      "displayName": "用短除法求兩數的公因數與最大公因數",
+      "canonicalSkillCandidate": "greatest_common_factor_method",
+      "subskillTags": [
+        "short_division",
+        "simultaneous_division",
+        "common_prime_factors"
+      ],
+      "questionKindCandidates": [
+        "gcf_numeric",
+        "method_application"
+      ],
+      "difficultyTags": [
+        "multi_step_division",
+        "larger_numbers"
+      ],
+      "representationTags": [
+        "short_division_layout"
+      ],
+      "answerModelCandidates": [
+        "factorListAnswer",
+        "numericAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 1,
+          "panel": "bottom-right",
+          "summary": "Asks for the common factors and greatest common factor of 164 and 220 and points to the short-division method."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_common_factor_language_classification",
+      "displayName": "分辨找因數、倍數、公因數與公倍數的題型語法",
+      "canonicalSkillCandidate": "factor_multiple_language_classification",
+      "subskillTags": [
+        "factor",
+        "multiple",
+        "common_factor",
+        "common_multiple"
+      ],
+      "questionKindCandidates": [
+        "language_classification",
+        "method_selection"
+      ],
+      "difficultyTags": [
+        "keyword_interpretation",
+        "four_way_classification"
+      ],
+      "representationTags": [
+        "question_stem_table",
+        "short_text"
+      ],
+      "answerModelCandidates": [
+        "questionTypeAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 1,
+          "panel": "third-row-right",
+          "summary": "Provides a four-way language table distinguishing factor, multiple, common-factor and common-multiple question stems."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_multi_constraint_digit_password",
+      "displayName": "綜合因數、公因數、公倍數與整除條件推理數字密碼",
+      "canonicalSkillCandidate": "factor_common_factor_constraint_reasoning",
+      "subskillTags": [
+        "digit_constraints",
+        "common_factor",
+        "common_multiple",
+        "divisibility",
+        "distinct_digits"
+      ],
+      "questionKindCandidates": [
+        "constraint_puzzle",
+        "multi_step_reasoning"
+      ],
+      "difficultyTags": [
+        "multiple_constraints",
+        "unique_solution",
+        "cross_skill_integration"
+      ],
+      "representationTags": [
+        "password_digits",
+        "clue_list"
+      ],
+      "answerModelCandidates": [
+        "digitTupleAnswer",
+        "numericAnswer"
+      ],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "sourcePacketId": "g5a_u02_5a02a1",
+          "page": 2,
+          "panel": "top-right",
+          "summary": "Uses a four-digit password puzzle with clues involving common factors, common multiples, divisibility by 3 and 5, and non-repeating digits."
+        }
+      ]
+    }
+  ],
+  "scopeBoundary": {
+    "candidateBoundaryQaCompleted": false,
+    "formalMappingCreated": false,
+    "patternSpecsCreated": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "productionUse": "forbidden"
+  }
+}
