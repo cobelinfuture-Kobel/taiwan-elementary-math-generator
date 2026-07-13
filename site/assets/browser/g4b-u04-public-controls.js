@@ -107,6 +107,7 @@ export function mountG4BU04ClassicPublicControls(root = document) {
     proxy.dispatchEvent(new Event("change", { bubbles: true }));
   });
   sync();
+  if (typeof queueMicrotask === "function") queueMicrotask(sync);
   return section;
 }
 
