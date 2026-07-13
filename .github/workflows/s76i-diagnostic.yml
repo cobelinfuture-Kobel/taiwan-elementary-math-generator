@@ -1,0 +1,29 @@
+name: S76I Diagnostic
+
+on:
+  push:
+    branches:
+      - s76i-g4a-u08-phase2b-missing-pattern-groups
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Capture full npm test output
+        shell: bash
+        run: |
+          set +e
+          npm test > s76i-diagnostic.log 2>&1
+          status=$?
+          echo "TEST_EXIT_CODE=$status" >> s76i-diagnostic.log
+          exit 0
+      - name: Upload diagnostic log
+        uses: actions/upload-artifact@v4
+        with:
+          name: s76i-diagnostic-log
+          path: s76i-diagnostic.log
+          if-no-files-found: error
