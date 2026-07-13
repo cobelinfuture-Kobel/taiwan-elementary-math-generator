@@ -52,7 +52,7 @@ if (patternGroupIds.length !== 4 || patternSpecIds.length !== 4) {
 
 const html = renderWorksheetDocumentToHtml(document, {
   title: options.title,
-  stylesheetHref: "../../../../site/assets/styles/print-styles.css",
+  stylesheetHref: "../../site/assets/styles/print-styles.css",
   debugDataAttributes: false,
   renderFillerCells: false,
 });
