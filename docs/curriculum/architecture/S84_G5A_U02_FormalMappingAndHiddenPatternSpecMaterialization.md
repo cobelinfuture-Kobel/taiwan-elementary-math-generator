@@ -2,7 +2,7 @@
 
 ```text
 TASK = S84_G5A_U02_FormalMappingAndHiddenPatternSpecMaterialization
-STATUS = AUTHORITATIVE_MATERIALIZED_HIDDEN_NOT_ROUTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 UNIT_ID = g5a_u02
 UNIT_TITLE = 因數與公因數
 ```
@@ -142,7 +142,27 @@ The S84 gate verifies:
 - deep freezing and stable read-only accessors;
 - all rows remain hidden, unrouted and forbidden in production.
 
-## 9. Distance
+## 9. CI and merge evidence
+
+```text
+implementation PR           = #136
+implementation merge commit = 9b063b114afecb8f50771838fb45ffccc5256564
+PR Math CI run              = 29239426596
+fresh-main Math CI run      = 29239683253
+fresh-main readback commit  = fa5420b5d95f0e0658e964aed9b9d8def1a10903
+tests                       = 1166
+pass                        = 1166
+fail                        = 0
+working tree                = clean
+```
+
+Fresh-main closeout authority:
+
+```text
+data/curriculum/contracts/S84_G5A_U02_HiddenMaterializationCloseout.json
+```
+
+## 10. Distance
 
 ```text
 GOAL_DISTANCE_BEFORE =
