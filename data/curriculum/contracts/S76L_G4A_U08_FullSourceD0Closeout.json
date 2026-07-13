@@ -1,0 +1,84 @@
+{
+  "schemaName": "G4AU08FullSourceD0Closeout",
+  "schemaVersion": 1,
+  "task": "S76L_G4A_U08_FullSourceD0CloseoutAndBatchAMigrationReadback",
+  "status": "implemented_pending_ci",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "goalDistance": "D0_G4A_U08",
+  "productionUse": "allowed",
+  "authorityCoverage": {
+    "knowledgePointCount": 15,
+    "patternGroupCount": 28,
+    "numericPatternGroupCount": 11,
+    "applicationCorePatternGroupCount": 13,
+    "applicationExtensionPatternGroupCount": 4
+  },
+  "executableCoverage": {
+    "numericLegacyPatternSpecCount": 10,
+    "phase2AApplicationPatternSpecCount": 12,
+    "phase2BCanonicalPatternSpecCount": 4,
+    "totalExecutablePatternSpecCount": 26,
+    "phase2BReusedKnowledgePointCount": 3,
+    "phase2BPromotedPatternGroupCount": 4
+  },
+  "freshMainAcceptance": {
+    "numericQuestionCount": 50,
+    "phase2AApplicationQuestionCount": 60,
+    "phase2BCanonicalQuestionCount": 120,
+    "phase2BAnswerKeyCount": 120,
+    "rendererVisualChanged": false,
+    "blockingValidationRequired": true
+  },
+  "s76kEvidence": {
+    "implementationPr": 154,
+    "mergeCommit": "c995a2e5d741bbc07f000205eed8d145b7002f13",
+    "headSha": "268f7e5344c850ed02116bd97ad6dfe4d9f344bd",
+    "workflowCount": 8,
+    "workflowFailureCount": 0,
+    "smokeWorkflowRunId": 29268903266,
+    "artifactId": 8286611935,
+    "artifactName": "s76k-g4a-u08-public-html-pdf-smoke",
+    "artifactDigest": "sha256:baf1d77e6b989b5efee273adeda91c1b909e70033cc4b84caa3e96b684f93e66",
+    "artifactExpiresAt": "2026-08-12T17:04:39Z",
+    "primaryStressQuestionCount": 1806,
+    "maximumAcceptedQuestionCount": 1000,
+    "firstRejectedQuestionCount": 1001
+  },
+  "batchAMigrationReadback": {
+    "aggregateSourceUnitCountBefore": 13,
+    "aggregateSourceUnitCountAfter": 13,
+    "aggregatePublicSurfaceCountBefore": 3,
+    "aggregatePublicSurfaceCountAfter": 3,
+    "legacyVisibleKnowledgePointCountBefore": 8,
+    "legacyVisibleKnowledgePointCountAfter": 8,
+    "sourceUnitRoutePreserved": true,
+    "legacyKnowledgePointRoutesPreserved": true,
+    "phase2BExplicitGroupRouteAdded": true,
+    "aggregateContractStatus": "preserved",
+    "rendererVisualChanged": false
+  },
+  "snapshotPolicy": {
+    "s76jWorksheetSnapshotProductionUse": "preview_only_pending_s76k",
+    "finalProductionOverlayProductionUse": "allowed",
+    "interpretation": "The immutable S76J snapshot is retained as historical generation evidence; the S76L production overlay is authoritative for release eligibility."
+  },
+  "scopeBoundary": {
+    "newKnowledgePointAdded": false,
+    "newPatternGroupAdded": false,
+    "newPatternSpecAdded": false,
+    "newGeneratorAdded": false,
+    "selectorBehaviorChanged": false,
+    "resolverBehaviorChanged": false,
+    "worksheetBehaviorChanged": false,
+    "rendererVisualChanged": false,
+    "batchASourceCountChanged": false
+  },
+  "closeout": {
+    "distanceBefore": "D1_G4A_U08_FULL_SOURCE_STRESS_SEMANTIC_HTML_PDF_ACCEPTED_D0_CLOSEOUT_PENDING",
+    "distanceAfter": "D0_G4A_U08",
+    "distanceReduced": "Converted merged S76K stress and HTML/PDF evidence into an authoritative production-allowed D0 overlay and verified fresh-main Batch A migration invariants.",
+    "remainingBlockers": [],
+    "nextShortestStep": "S77_BatchA_NextUnitSourcePriorityLock"
+  }
+}
