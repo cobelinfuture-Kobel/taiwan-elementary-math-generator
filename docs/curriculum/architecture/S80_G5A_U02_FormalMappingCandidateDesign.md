@@ -2,7 +2,7 @@
 
 ```text
 TASK = S80_G5A_U02_FormalMappingCandidateDesign
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 UNIT_ID = g5a_u02
 UNIT_TITLE = 因數與公因數
 ```
@@ -188,7 +188,23 @@ selector = disabled
 productionUse = forbidden
 ```
 
-## 9. Distance and handoff
+## 9. CI and merge evidence
+
+```text
+implementation PR         = #128
+implementation merge      = bcebc1171e623f286d1e67ad637cdd4377d2769e
+PR Math CI run            = 29224820281
+fresh-main Math CI run    = 29224957233
+fresh-main readback       = dfb4a20cfc9530322b7fc4f43c7359c6e6afbb3a
+tests                     = 1131
+pass                      = 1131
+fail                      = 0
+working tree              = clean
+```
+
+All Node, S42, G4B-U01, G5A-U08 and G4B-U04 HTML/PDF smoke workflows passed on the implementation PR.
+
+## 10. Distance and handoff
 
 ```text
 GOAL_DISTANCE_BEFORE = D3_G5A_U02_18_CANONICAL_BOUNDARIES_AND_PACKET_ROLES_LOCKED
