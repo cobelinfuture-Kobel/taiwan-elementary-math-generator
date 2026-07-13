@@ -2,8 +2,10 @@
 
 ```text
 TASK = S75_G4B_U04_ProductionStressHTMLPDFAndD0Closeout
-STATUS = IMPLEMENTED_PENDING_HTML_PDF_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
+DISTANCE = D0_G4B_U04
+PRODUCTION_USE = allowed
 ```
 
 ## Scope lock
@@ -43,15 +45,14 @@ The S72 base promotion, S73 worksheet/answer/renderer overlay and S74 public-sur
 
 ```text
 productionPromotionOverlayId = s75_g4b_u04_production_promotion
-productionUse                 = allowed
-distance                      = D0_G4B_U04
-htmlPdfStatus                 = production_smoke_required
-requiredNextGate              = S76_BatchB_NextSourcePriorityLock
+status                       = production_promoted_d0_closed
+productionUse                = allowed
+distance                     = D0_G4B_U04
+htmlPdfStatus                = production_smoke_passed
+requiredNextGate             = S76_BatchB_NextSourcePriorityLock
 ```
 
-The overlay does not rewrite hidden source PatternSpecs or the S73 preview lifecycle. It records the accepted production projection after the S75 stress and artifact gates pass.
-
-## Node stress contract
+## Node stress acceptance
 
 Public count matrix:
 
@@ -71,7 +72,7 @@ Cumulative validated output:
 452 public-matrix questions + 600 additional questions = 1052 questions
 ```
 
-Every successful build must satisfy:
+Every successful build satisfies:
 
 - requested question count equals generated question count;
 - display-model count equals question count;
@@ -85,7 +86,7 @@ The canonical hard limit is separately verified by rejecting a 1001-question req
 
 ## Coverage smoke
 
-The committed smoke uses 68 questions because 68 provides four allocations for each of the 17 promoted PatternSpecs while keeping the PDF artifact bounded.
+The committed smoke uses 68 questions, providing four allocations for each of the 17 promoted PatternSpecs.
 
 ```text
 questionCount    = 68
@@ -93,9 +94,12 @@ answerKeyItems   = 68
 ordering         = groupedByPattern
 questionMode     = mixed
 selectionMode    = mixedKnowledgePointsSameUnit
+questionPages    = 17
+answerKeyPages   = 14
+PDF pages        = 31
 ```
 
-The smoke must reach:
+The smoke reaches:
 
 - all 12 KnowledgePoints;
 - all 12 PatternGroups;
@@ -103,35 +107,44 @@ The smoke must reach:
 - concept, numeric, application, operation_estimation and reasoning modes;
 - all 9 answer-model shapes;
 - both Class C and Class D implementations;
-- compact, contextual and inverse-long render content through the authoritative mixed worksheet.
+- all required G4B-U04 render kinds.
 
-## HTML acceptance
+## HTML/PDF artifact acceptance
 
-The generated HTML must:
+Committed artifacts:
 
-- use `lang="zh-Hant"`;
-- contain 68 question cells and 68 answer cells;
-- contain no internal KP, PatternGroup, PatternSpec, FormalMapping or template IDs;
-- contain no unresolved template placeholders;
-- retain Traditional Chinese title and answer-page labels;
-- use the S73 G4B-U04 renderer with debug data attributes disabled.
+```text
+docs/curriculum/output/smoke/S75_G4B_U04_PublicWorksheet.html
+docs/curriculum/output/smoke/S75_G4B_U04_PublicWorksheet.pdf
+docs/curriculum/output/smoke/S75_G4B_U04_PublicWorksheet.manifest.json
+```
 
-## Chromium and PDF acceptance
+Verified manifest result:
 
-The dedicated workflow must:
+```text
+status                         = production_html_pdf_smoke_pass
+question cells                 = 68
+answer cells                   = 68
+expected / actual PDF pages    = 31 / 31
+rendered / nonblank pages      = 31 / 31
+PDF bounding-box overflow      = 0
+internal ID leaks              = 0
+unresolved placeholders        = 0
+Traditional Chinese font       = Noto Sans CJK TC
+CJK glyph rendering            = pass
+visual verification            = all_pages_nonblank_and_bbox_contained
+HTML SHA-256                    = b1f8f4de42fdaccd9fcb1a324f3af6a164b4e4046d06848afed44814f9a80b64
+PDF SHA-256                     = 3ad7cf4629a1a5e9ca415018deed4049087e567e58c5c84e8e04ccb2f903eb5c
+PDF bytes                       = 401307
+```
 
-1. install Chromium, Noto CJK, Poppler, Pillow and pypdf;
-2. run the complete Node test suite;
-3. regenerate the canonical HTML and manifest;
-4. reject any rendered G4B-U04 cell with DOM overflow;
-5. print A4 PDF with CSS page size and background enabled;
-6. render every PDF page to PNG;
-7. reject missing or blank rendered pages;
-8. reject every PDF word bounding box outside its A4 page;
-9. verify normalized PDF text contains `概數` and `答案頁`;
-10. verify the final answer page is nonblank;
-11. write SHA-256, byte count and final visual evidence to the manifest;
-12. commit the first verified HTML/PDF/manifest bundle to the S75 branch.
+Dedicated branch artifact workflow:
+
+```text
+workflow = S75 G4B-U04 HTML PDF Smoke
+run      = 29217220427
+result   = success
+```
 
 ## Determinism and explicit modes
 
@@ -147,7 +160,24 @@ operation_estimation
 reasoning
 ```
 
-Each explicit-mode build must contain only the requested canonical mode and remain blocking-validator clean.
+Each explicit-mode build contains only the requested canonical mode and remains blocking-validator clean.
+
+## Implementation and fresh-main CI evidence
+
+```text
+IMPLEMENTATION_PR             = #117
+IMPLEMENTATION_PR_STATUS      = MERGED
+IMPLEMENTATION_MERGE_COMMIT   = e30a22a0d322d0b20075df73cd802d6ef2dc6499
+PR_NODE_TEST_RUN              = 29217220218
+PR_MATH_CI_RUN                = 29217220270
+PR_ARTIFACT_RUN               = 29217220427
+FRESH_MAIN_CI_RUN             = 29217320409
+FRESH_MAIN_READBACK_COMMIT    = 3a9956e59fe38c9188dc3fbb1ae5cb75f6cf4f30
+TESTS                         = 1101
+PASS                          = 1101
+FAIL                          = 0
+WORKING_TREE                  = clean
+```
 
 ## Boundary
 
@@ -164,27 +194,27 @@ Stress QA added                     = true
 HTML/PDF artifact gate added        = true
 ```
 
-Renderer CSS may be adjusted only when Chromium or PDF containment supplies concrete failure evidence. Such a fix may change layout containment, but not question meaning, answer meaning or curriculum authority.
+The closeout lifecycle update records the verified artifact state. It does not change question semantics, answer semantics, curriculum authority, generator arithmetic or validator arithmetic.
 
-## Distance
+## Distance closeout
 
 ```text
 GOAL_DISTANCE_BEFORE =
 D1_G4B_U04_PUBLIC_UI_PRINT_AND_QUERY_STATE_QA_CONNECTED
 
 GOAL_DISTANCE_AFTER =
-PENDING_S75_HTML_PDF_CI
+D0_G4B_U04
 
 DISTANCE_REDUCED =
-Production overlay, 1052-question stress contract and canonical HTML/PDF gate implemented.
-Final D0 acceptance waits for verified Chromium/PDF artifacts and fresh-main CI.
+Completed the production promotion, 1,052-question validated stress,
+1001-request hard-limit rejection, verified 68-question/68-answer Traditional
+Chinese HTML/PDF bundle, branch artifact CI, implementation merge and fresh-main CI.
 
-REMAINING_BLOCKERS = [
-  "S75 Chromium HTML/PDF smoke has not passed",
-  "Verified smoke bundle has not been committed",
-  "Implementation PR and fresh-main CI have not passed"
-]
+REMAINING_BLOCKERS = []
 
 NEXT_SHORTEST_STEP =
-Run S75 branch workflow, commit the verified smoke bundle, merge, read back main CI and close at D0.
+S76_BatchB_NextSourcePriorityLock
+
+STOP_REASON =
+NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE
 ```
