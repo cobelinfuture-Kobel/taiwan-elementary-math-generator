@@ -2,7 +2,7 @@
 
 ```text
 TASK = S79_G5A_U02_DualPDFKnowledgePointBoundaryAndSourceIdentityQA
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ARTIFACT = data/curriculum/registry/g5a_u02_dual_pdf_knowledge_point_candidates.json
 REVIEWED_CANDIDATES = 19
 CANONICAL_BOUNDARIES = 18
@@ -131,7 +131,23 @@ selector = disabled
 productionUse = forbidden
 ```
 
-## 9. Distance and handoff
+## 9. CI and merge evidence
+
+```text
+implementation PR        = #126
+implementation merge     = 88ca95c06e24fd627cb2229e6f957e72a3af928e
+PR Math CI run           = 29223464324
+fresh-main Math CI run   = 29223594864
+fresh-main readback      = b7f6519ddaba2d75dee5e99deb027b4e97c76205
+tests                    = 1124
+pass                     = 1124
+fail                     = 0
+working tree             = clean
+```
+
+All Node, S42, G4B-U01, G5A-U08 and G4B-U04 HTML/PDF smoke workflows passed.
+
+## 10. Distance and handoff
 
 ```text
 GOAL_DISTANCE_BEFORE = D3_G5A_U02_19_CANDIDATES_WITH_IDENTITY_BLOCKER
