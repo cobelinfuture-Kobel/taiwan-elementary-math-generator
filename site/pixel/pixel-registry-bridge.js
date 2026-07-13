@@ -56,6 +56,10 @@ function listS74PixelSourceOptions() {
   return mapPixelSourceOptions(units);
 }
 
+function listPixelSurfaceSourceOptions() {
+  return typeof document === "undefined" ? listPixelSourceOptions() : listS74PixelSourceOptions();
+}
+
 export function listPixelSourceOptions() {
   return mapPixelSourceOptions(listBatchASourceUnits());
 }
@@ -69,7 +73,7 @@ export function listPixelSemestersForGrade(grade) {
 }
 
 export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
-  return listPixelSourceOptions().filter((entry) => {
+  return listPixelSurfaceSourceOptions().filter((entry) => {
     if (Number.isInteger(grade) && entry.grade !== grade) return false;
     if (semester && entry.semester !== semester) return false;
     return true;
@@ -85,7 +89,7 @@ export function listS74PixelSourceOptionsByFilter({ grade, semester } = {}) {
 }
 
 export function getPixelSourceOption(sourceId) {
-  return listPixelSourceOptions().find((unit) => unit.sourceId === sourceId) ?? null;
+  return listPixelSurfaceSourceOptions().find((unit) => unit.sourceId === sourceId) ?? null;
 }
 
 export function getS74PixelSourceOption(sourceId) {
@@ -133,6 +137,6 @@ export function getPixelRegistrySnapshot() {
     visibleKnowledgePointCount: BATCH_A_SELECTOR_AVAILABILITY.visibleCount,
     grades: listPixelGrades(),
     sources,
-    bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, getPixelSourceSummary(source.sourceId)])))
+    bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)])))
   });
 }
