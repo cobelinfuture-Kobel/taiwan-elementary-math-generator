@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Batch A 台灣小學數學練習題產生器</title>
+  <title>台灣小學數學練習題產生器</title>
   <link rel="stylesheet" href="./assets/styles/app.css">
 </head>
 <body data-route-kind="index">
   <main class="app-shell">
     <section class="app-shell__hero">
-      <p class="app-shell__eyebrow">Batch A browser worksheet path</p>
-      <h1>台灣小學數學 Batch A 練習題產生器</h1>
+      <p class="app-shell__eyebrow">Taiwan Elementary Math Worksheet</p>
+      <h1>台灣小學數學練習題產生器</h1>
       <p class="app-shell__lede">選擇單元、知識點與題目形式，直接在瀏覽器中產生可預覽與列印的題目頁與答案頁。</p>
       <nav class="app-shell__version-nav" aria-label="介面版本切換">
         <span class="version-chip" aria-current="page">標準版 Classic</span>
@@ -18,14 +18,14 @@
       </nav>
     </section>
 
-    <section class="app-shell__controls" aria-label="Batch A worksheet controls">
+    <section class="app-shell__controls" aria-label="練習題設定">
       <div class="control-group">
-        <h2>Batch A 單元</h2>
+        <h2>單元選擇</h2>
         <label class="field">
           <span>選擇單元</span>
           <select id="batch-a-source-select" name="batchASourceId"></select>
         </label>
-        <p class="help-text" id="batch-a-source-help">13 個 Batch A 單元可選。</p>
+        <p class="help-text" id="batch-a-source-help">正在讀取可用單元...</p>
       </div>
 
       <div class="control-group" id="batch-a-knowledge-point-selector" aria-label="知識點與題目形式選擇">
@@ -135,15 +135,15 @@
       <div class="validation-panel" id="validation-panel" aria-live="polite"></div>
     </section>
 
-    <section class="app-shell__preview" aria-label="Worksheet preview">
+    <section class="app-shell__preview" aria-label="練習題預覽">
       <div class="preview-header">
         <h2>預覽</h2>
-        <p id="preview-meta">尚未產生新的 Batch A 練習題。</p>
+        <p id="preview-meta">尚未產生新的練習題。</p>
       </div>
       <iframe
         id="preview-frame"
         class="preview-frame"
-        title="Worksheet preview"
+        title="練習題預覽"
         loading="eager"
         referrerpolicy="no-referrer"
       ></iframe>
