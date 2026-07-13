@@ -1,0 +1,100 @@
+{
+  "schemaName": "G4AU08KnowledgePointPatternGroupRegistry",
+  "schemaVersion": 1,
+  "task": "S76D_G4A_U08_KnowledgePointAndPatternGroupRegistryRebase",
+  "status": "authoritative_hidden_registry_not_routed",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "unitTitle": "整數四則、兩步驟問題與併式",
+  "refs": {
+    "sourceAuthority": "docs/curriculum/mapping/S76A_G4A_U08_SourceAuthorityFreeze.md",
+    "rebaseStandard": "docs/curriculum/contracts/S76B_BatchA_ValidatorOntologyRebaseStandard.md",
+    "reuseAudit": "docs/curriculum/mapping/S76C_G4A_U08_ExistingAssetReuseAudit.md"
+  },
+  "knowledgePointRowFields": ["knowledgePointId", "domain", "canonicalObjective", "sourceScope"],
+  "knowledgePoints": [
+    ["kp_g4a_u08_num_add_group_round", "numeric", "加法交換、結合與湊整", "core"],
+    ["kp_g4a_u08_num_signed_term_move", "numeric", "加減混合時連同符號移項", "core"],
+    ["kp_g4a_u08_num_add_sub_left_assoc", "numeric", "同級加減由左至右", "core"],
+    ["kp_g4a_u08_num_parentheses_first", "numeric", "括號優先", "core"],
+    ["kp_g4a_u08_num_repeated_subtract_group", "numeric", "連續減法合併", "core"],
+    ["kp_g4a_u08_num_mul_div_safe_reorder", "numeric", "乘除混合安全重排與湊整", "core"],
+    ["kp_g4a_u08_num_mul_div_left_assoc", "numeric", "同級乘除由左至右", "core"],
+    ["kp_g4a_u08_num_repeated_divide_group", "numeric", "連續除法合併", "core"],
+    ["kp_g4a_u08_num_mul_div_before_add_sub", "numeric", "先乘除後加減", "core"],
+    ["kp_g4a_u08_num_parentheses_change_precedence", "numeric", "括號改變原本優先順序", "core"],
+    ["kp_g4a_u08_num_compound_parentheses", "numeric", "多組括號與完整四則", "core"],
+    ["kp_g4a_u08_app_add_sub_sequence", "application", "加減狀態變化序列", "core"],
+    ["kp_g4a_u08_app_parentheses_grouping", "application", "括號群組與付款折扣", "core"],
+    ["kp_g4a_u08_app_mul_div_sequence", "application", "乘除兩步驟的單位量與總量轉換", "core"],
+    ["kp_g4a_u08_app_mul_div_before_add_sub", "application", "乘除優先後再加減的複合情境", "core"]
+  ],
+  "patternGroupRowFields": ["patternGroupId", "knowledgePointId", "mode", "lifecycle", "reasoningRole"],
+  "patternGroups": [
+    ["pg_g4a_u08_num_add_group_round", "kp_g4a_u08_num_add_group_round", "numeric", "hidden", "reorder_signed_terms_for_useful_grouping"],
+    ["pg_g4a_u08_num_signed_term_move", "kp_g4a_u08_num_signed_term_move", "numeric", "hidden", "preserve_operand_sign_binding"],
+    ["pg_g4a_u08_num_add_sub_left_assoc", "kp_g4a_u08_num_add_sub_left_assoc", "numeric", "hidden", "left_associative_add_sub"],
+    ["pg_g4a_u08_num_parentheses_first", "kp_g4a_u08_num_parentheses_first", "numeric", "hidden", "evaluate_parenthesized_group_first"],
+    ["pg_g4a_u08_num_repeated_subtract_group", "kp_g4a_u08_num_repeated_subtract_group", "numeric", "hidden", "combine_subtrahends"],
+    ["pg_g4a_u08_num_mul_div_safe_reorder", "kp_g4a_u08_num_mul_div_safe_reorder", "numeric", "hidden", "safe_rational_reorder"],
+    ["pg_g4a_u08_num_mul_div_left_assoc", "kp_g4a_u08_num_mul_div_left_assoc", "numeric", "hidden", "left_associative_mul_div"],
+    ["pg_g4a_u08_num_repeated_divide_group", "kp_g4a_u08_num_repeated_divide_group", "numeric", "hidden", "combine_divisors_by_product"],
+    ["pg_g4a_u08_num_mul_div_before_add_sub", "kp_g4a_u08_num_mul_div_before_add_sub", "numeric", "hidden", "operator_precedence"],
+    ["pg_g4a_u08_num_parentheses_change_precedence", "kp_g4a_u08_num_parentheses_change_precedence", "numeric", "hidden", "nonredundant_parentheses_ast_change"],
+    ["pg_g4a_u08_num_compound_parentheses", "kp_g4a_u08_num_compound_parentheses", "numeric", "hidden", "bounded_compound_expression"],
+
+    ["pg_g4a_u08_app_add_add", "kp_g4a_u08_app_add_sub_sequence", "application", "hidden", "add_then_add"],
+    ["pg_g4a_u08_app_add_subtract", "kp_g4a_u08_app_add_sub_sequence", "application", "hidden", "add_then_subtract"],
+    ["pg_g4a_u08_app_subtract_add", "kp_g4a_u08_app_add_sub_sequence", "application", "hidden", "subtract_then_add"],
+    ["pg_g4a_u08_app_subtract_subtract", "kp_g4a_u08_app_add_sub_sequence", "application", "hidden", "subtract_then_subtract"],
+
+    ["pg_g4a_u08_app_adjusted_amount_then_subtract", "kp_g4a_u08_app_parentheses_grouping", "application", "hidden", "adjusted_amount_then_payment_change"],
+    ["pg_g4a_u08_app_divide_by_group_product", "kp_g4a_u08_app_parentheses_grouping", "application", "hidden", "group_product_as_divisor"],
+    ["pg_g4a_u08_app_difference_then_scale_overlay", "kp_g4a_u08_app_parentheses_grouping", "application", "hidden", "difference_then_scale_with_overlay"],
+
+    ["pg_g4a_u08_app_multiply_then_share", "kp_g4a_u08_app_mul_div_sequence", "application", "hidden", "find_total_then_share"],
+    ["pg_g4a_u08_app_unit_rate_then_scale", "kp_g4a_u08_app_mul_div_sequence", "application", "hidden", "find_unit_rate_then_scale"],
+    ["pg_g4a_u08_app_divide_then_divide", "kp_g4a_u08_app_mul_div_sequence", "application", "hidden", "two_stage_equal_partition"],
+
+    ["pg_g4a_u08_app_payment_minus_unit_cost_times_quantity", "kp_g4a_u08_app_mul_div_before_add_sub", "application", "hidden", "payment_minus_single_cost_component"],
+    ["pg_g4a_u08_app_subtract_or_add_divided_amount", "kp_g4a_u08_app_mul_div_before_add_sub", "application", "hidden", "base_amount_adjusted_by_shared_amount"],
+    ["pg_g4a_u08_app_cost_overlay", "kp_g4a_u08_app_mul_div_before_add_sub", "application", "hidden", "cost_component_plus_or_minus_overlay"],
+
+    ["pg_g4a_u08_ext_comparison_chain", "kp_g4a_u08_app_add_sub_sequence", "application", "extension_hidden", "two_link_more_less_relation_chain"],
+    ["pg_g4a_u08_ext_equal_value_unit_price", "kp_g4a_u08_app_mul_div_sequence", "application", "extension_hidden", "equal_total_value_find_unit_price"],
+    ["pg_g4a_u08_ext_relative_difference", "kp_g4a_u08_app_mul_div_sequence", "application", "extension_hidden", "same_direction_relative_increment"],
+    ["pg_g4a_u08_ext_two_cost_component_payment", "kp_g4a_u08_app_mul_div_before_add_sub", "application", "extension_hidden", "payment_minus_two_cost_components"]
+  ],
+  "compatibilityAliases": {
+    "kp_g4a_u08_app_add_sub_sequence": "kp_g4a_u08_app_add_sub_sequence",
+    "kp_g4a_u08_app_parentheses_grouping": "kp_g4a_u08_app_parentheses_grouping",
+    "kp_g4a_u08_app_mul_div_sequence": "kp_g4a_u08_app_mul_div_sequence",
+    "kp_g4a_u08_app_mul_div_before_add_sub": "kp_g4a_u08_app_mul_div_before_add_sub"
+  },
+  "lifecycle": {
+    "selectorVisibility": "hidden",
+    "canonicalRouting": "disabled",
+    "patternSpecMaterialization": "pending_s76e",
+    "generatorStatus": "existing_runtime_unchanged",
+    "validatorStatus": "existing_runtime_unchanged_pending_s76g",
+    "productionUse": "forbidden_for_rebase_registry",
+    "genericFallback": "forbidden"
+  },
+  "summary": {
+    "knowledgePointCount": 15,
+    "numericKnowledgePointCount": 11,
+    "applicationKnowledgePointCount": 4,
+    "patternGroupCount": 28,
+    "extensionPatternGroupCount": 4
+  },
+  "scopeBoundary": {
+    "registryRebased": true,
+    "patternSpecsReclassified": false,
+    "generatedItemAdapterImplemented": false,
+    "validatorContractRebased": false,
+    "runtimeChanged": false,
+    "publicSelectorChanged": false,
+    "worksheetChanged": false,
+    "rendererChanged": false
+  }
+}
