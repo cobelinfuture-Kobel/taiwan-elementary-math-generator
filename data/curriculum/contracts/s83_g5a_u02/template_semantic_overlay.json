@@ -1,0 +1,99 @@
+{
+  "schemaName": "G5AU02PatternSpecQATemplateSemanticOverlay",
+  "schemaVersion": 1,
+  "task": "S83_G5A_U02_PatternSpecContractQA",
+  "controlledTemplateOverrides": [
+    {
+      "templateFamilyId": "tpl_g5a_u02_equal_partition_segments",
+      "mappingId": "fmc_g5a_u02_equal_partition_all_segment_counts",
+      "contextDomain": "equal_partition",
+      "controlledVariants": [
+        {
+          "variantId": "segment_count",
+          "promptSkeletonZh": "有 {total}{itemUnit}，平均分成若干段且每段長度都是整數，列出所有可能的段數。",
+          "requiredRoles": ["total", "itemUnit"],
+          "roleBindings": {"total": "input.total", "itemUnit": "context.itemUnit"},
+          "answerProjection": "factorSet(input.total)",
+          "answerUnitPolicy": {"fixed": "段"}
+        },
+        {
+          "variantId": "per_segment_quantity",
+          "promptSkeletonZh": "有 {total}{itemUnit}，平均分成若干段且段數是整數，列出所有可能的每段長度。",
+          "requiredRoles": ["total", "itemUnit"],
+          "roleBindings": {"total": "input.total", "itemUnit": "context.itemUnit"},
+          "answerProjection": "factorSet(input.total)",
+          "answerUnitPolicy": {"fromContext": "itemUnit"}
+        }
+      ],
+      "arbitraryAnswerRoleForbidden": true
+    },
+    {
+      "templateFamilyId": "tpl_g5a_u02_range_recipients",
+      "mappingId": "fmc_g5a_u02_equal_partition_range_constrained_recipients",
+      "contextDomain": "sharing",
+      "promptSkeletonZh": "把 {total}{itemUnit}平均分給 {minCount} 到 {maxCount} 人，且每人分得整數個，列出所有可行人數。",
+      "requiredRoles": ["total", "itemUnit", "minCount", "maxCount"],
+      "roleBindings": {"total": "input.total", "itemUnit": "context.itemUnit", "minCount": "input.minCount", "maxCount": "input.maxCount"},
+      "answerUnitPolicy": {"fixed": "人"}
+    },
+    {
+      "templateFamilyId": "tpl_g5a_u02_remainder_transfer",
+      "mappingId": "fmc_g5a_u02_remainder_transfer",
+      "contextDomain": "remainder_distribution",
+      "promptSkeletonZh": "有一批物品，每 {largerDivisor} 個分一份會餘 {knownRemainder} 個；若每 {smallerDivisor} 個分一份，會餘幾個？",
+      "requiredRoles": ["largerDivisor", "knownRemainder", "smallerDivisor"],
+      "roleBindings": {"largerDivisor": "input.largerDivisor", "knownRemainder": "input.knownRemainder", "smallerDivisor": "input.smallerDivisor"},
+      "hiddenWitnessBindings": {"quotient": "derived.nonnegativeQuotient", "total": "derived.quotientTimesLargerPlusRemainder"},
+      "answerUnitPolicy": {"fixed": "個"}
+    },
+    {
+      "templateFamilyId": "tpl_g5a_u02_maximum_equal_grouping",
+      "mappingId": "fmc_g5a_u02_maximum_equal_grouping",
+      "contextDomain": "grouping",
+      "promptSkeletonZh": "有 {quantityA}{unitA}和 {quantityB}{unitB}，要分成最多組；每組的第一類數量相同，第二類數量也相同，且全部分完。最多可分幾組？",
+      "requiredRoles": ["quantityA", "unitA", "quantityB", "unitB"],
+      "roleBindings": {"quantityA": "input.quantityA", "unitA": "context.unitA", "quantityB": "input.quantityB", "unitB": "context.unitB"},
+      "crossCategoryEqualityRequired": false,
+      "answerUnitPolicy": {"fixed": "組"}
+    },
+    {
+      "templateFamilyId": "tpl_g5a_u02_possible_equal_packaging",
+      "mappingId": "fmc_g5a_u02_possible_equal_packaging_counts",
+      "contextDomain": "packaging",
+      "promptSkeletonZh": "有 {quantityA}{unitA}和 {quantityB}{unitB}，平均分裝成若干盒；每盒的第一類數量相同，第二類數量也相同，且全部用完。列出所有可能的盒數。",
+      "requiredRoles": ["quantityA", "unitA", "quantityB", "unitB"],
+      "roleBindings": {"quantityA": "input.quantityA", "unitA": "context.unitA", "quantityB": "input.quantityB", "unitB": "context.unitB"},
+      "crossCategoryEqualityRequired": false,
+      "answerUnitPolicy": {"fixed": "盒"}
+    },
+    {
+      "templateFamilyId": "tpl_g5a_u02_rectangle_square_sides",
+      "mappingId": "fmc_g5a_u02_rectangle_square_side_lengths",
+      "contextDomain": "geometry_cutting",
+      "promptSkeletonZh": "將長 {length}{lengthUnit}、寬 {width}{lengthUnit} 的長方形裁成同樣大的正方形，列出所有可能邊長。",
+      "requiredRoles": ["length", "lengthUnit", "width"],
+      "roleBindings": {"length": "input.length", "lengthUnit": "context.lengthUnit", "width": "input.width"},
+      "answerUnitPolicy": {"fromContext": "lengthUnit"}
+    },
+    {
+      "templateFamilyId": "tpl_g5a_u02_square_tile_areas",
+      "mappingId": "fmc_g5a_u02_square_tile_area_possibilities",
+      "contextDomain": "geometry_tiling",
+      "promptSkeletonZh": "用同樣大的正方形磁磚鋪滿長 {length}{lengthUnit}、寬 {width}{lengthUnit} 的長方形，列出所有可能的磁磚面積。",
+      "requiredRoles": ["length", "lengthUnit", "width"],
+      "roleBindings": {"length": "input.length", "lengthUnit": "context.lengthUnit", "width": "input.width"},
+      "answerUnitPolicy": {"derivedMap": {"公分": "平方公分", "公尺": "平方公尺"}}
+    },
+    {
+      "templateFamilyId": "tpl_g5a_u02_source_password",
+      "mappingId": "fmc_g5a_u02_multi_constraint_digit_code",
+      "contextDomain": "number_code_reasoning",
+      "promptSkeletonZh": "四位數密碼的千位數同時是 22、33、45、60 的因數；十位數同時是 6、8 的因數且不同於千位數；百位數與個位數都是 70 的正因數。整個四位數同時是 3 和 5 的倍數，四個數字不重複。求密碼。",
+      "requiredRoles": [],
+      "roleBindings": {},
+      "fixedPredicateFamily": "S81_DIGIT_CODE_POSITIONAL_PREDICATES_REQUIRED",
+      "arbitraryRuleParaphraseForbidden": true,
+      "answerUnitPolicy": {"fixed": "四位數"}
+    }
+  ]
+}
