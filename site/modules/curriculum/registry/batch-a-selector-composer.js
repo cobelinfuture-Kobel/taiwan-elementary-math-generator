@@ -5,7 +5,6 @@ import {
   G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
   getVisibleBatchAKnowledgePoint as getCanonicalG4AU08KnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint as getCanonicalG4AU08PatternGroups,
-  validateG4AU08AllCanonicalPublicSelectorProjection as validateCanonicalG4AU08Projection,
 } from "./batch-a-selector-g4a-u08-all-canonical.js";
 import {
   G5A_U02_SELECTOR_PROJECTION,
@@ -111,20 +110,24 @@ export function resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId) 
 }
 
 export function validateG4AU08AllCanonicalPublicSelectorProjection() {
-  const canonical = validateCanonicalG4AU08Projection();
   const availability = listBatchAKnowledgePointAvailabilityBySource(G4A_U08_SOURCE_ID);
-  const errors = [...canonical.errors];
-  if (availability.visibleCount !== base.listBatchAKnowledgePointAvailabilityBySource(G4A_U08_SOURCE_ID).visibleCount) {
-    errors.push("legacy_source_availability_changed");
-  }
+  const patternSpecIds = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.flatMap((group) => group.patternSpecIds));
+  const errors = [];
+  if (g4aCanonicalKnowledgePointIds.length !== 15) errors.push("knowledge_point_count_mismatch");
+  if (G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.length !== 28) errors.push("pattern_group_count_mismatch");
+  if (patternSpecIds.size !== 33) errors.push("pattern_spec_count_mismatch");
+  if (g4aCanonicalKnowledgePointIds.some((id) => !getCanonicalG4AU08KnowledgePoint(id))) errors.push("canonical_knowledge_point_unresolvable");
+  if (g4aCanonicalKnowledgePointIds.some((id) => getCanonicalG4AU08PatternGroups(id).length === 0)) errors.push("canonical_pattern_group_missing");
+  if (G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.some((group) => group.visibilityStatus !== "visible" || group.holdReason !== null)) errors.push("group_visibility_invalid");
+  if (availability.visibleCount !== base.listBatchAKnowledgePointAvailabilityBySource(G4A_U08_SOURCE_ID).visibleCount) errors.push("legacy_source_availability_changed");
   if (availability.canonicalReachableKnowledgePointCount !== 15) errors.push("canonical_reachable_count_mismatch");
   return Object.freeze({
     ok: errors.length === 0,
     errors: Object.freeze(errors),
     counts: Object.freeze({
-      knowledgePoints: 15,
+      knowledgePoints: g4aCanonicalKnowledgePointIds.length,
       patternGroups: G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.length,
-      patternSpecs: new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.flatMap((group) => group.patternSpecIds)).size,
+      patternSpecs: patternSpecIds.size,
       globalRegistryRows: listVisibleBatchAKnowledgePoints().length,
       legacyVisibleKnowledgePoints: availability.visibleCount,
     }),
