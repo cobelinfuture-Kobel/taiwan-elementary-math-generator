@@ -21,6 +21,7 @@ const sharedLifecycle = deepFreeze({
   effectiveContractLoadOrder: [
     "S66_G4B_U04_PatternSpecContractDesign",
     "S67_G4B_U04_PatternSpecContractQA",
+    "G4B_U04_R2C_DiscountRoundDownAuthorityOverlay",
   ],
 });
 
@@ -37,6 +38,7 @@ const groupRows = [
   ["pg_g4b_u04_estimate_multiply_divide", "kp_g4b_u04_round_then_multiply_divide", "operation_estimation", ["ps_g4b_u04_round_then_multiply", "ps_g4b_u04_round_then_divide"]],
   ["pg_g4b_u04_inverse_digit_set", "kp_g4b_u04_inverse_rounding_unknown_digit", "reasoning", ["ps_g4b_u04_inverse_digit_set"]],
   ["pg_g4b_u04_inverse_original_values", "kp_g4b_u04_inverse_rounding_possible_original", "reasoning", ["ps_g4b_u04_inverse_original_values"]],
+  ["pg_g4b_u04_discount_round_down", "kp_g4b_u04_discount_denomination_round_down", "application", ["ps_g4b_u04_discount_payment_amount_round_down", "ps_g4b_u04_discount_banknote_count_round_down"]],
 ];
 
 const specRows = [
@@ -57,6 +59,8 @@ const specRows = [
   ["ps_g4b_u04_round_then_divide", "fm_g4b_u04_round_then_divide", "fmc_g4b_u04_round_then_divide", "pg_g4b_u04_estimate_multiply_divide", "kp_g4b_u04_round_then_multiply_divide", "operation_estimation", "numericAnswer", "D", ["tpl_g4b_u04_equal_share_divide"], ["s62:p2:second-row-right"]],
   ["ps_g4b_u04_inverse_digit_set", "fm_g4b_u04_inverse_digit_set", "fmc_g4b_u04_inverse_digit_set", "pg_g4b_u04_inverse_digit_set", "kp_g4b_u04_inverse_rounding_unknown_digit", "reasoning", "digitSetAnswer", "C", [], ["s62:p2:third-row-left", "s62:p2:third-row-right"]],
   ["ps_g4b_u04_inverse_original_values", "fm_g4b_u04_inverse_original_values", "fmc_g4b_u04_inverse_original_values", "pg_g4b_u04_inverse_original_values", "kp_g4b_u04_inverse_rounding_possible_original", "reasoning", "possibleValuesAnswer", "C", [], ["s62:p2:bottom-left"]],
+  ["ps_g4b_u04_discount_payment_amount_round_down", "fm_g4b_u04_discount_payment_amount_round_down", "fmc_g4b_u04_discount_payment_amount_round_down", "pg_g4b_u04_discount_round_down", "kp_g4b_u04_discount_denomination_round_down", "application", "moneyAmountAnswer", "D", ["tpl_g4b_u04_discount_amount_round_down"], ["r2c:source-overview:p1:discount-whole-thousands"]],
+  ["ps_g4b_u04_discount_banknote_count_round_down", "fm_g4b_u04_discount_banknote_count_round_down", "fmc_g4b_u04_discount_banknote_count_round_down", "pg_g4b_u04_discount_round_down", "kp_g4b_u04_discount_denomination_round_down", "application", "banknoteCountAnswer", "D", ["tpl_g4b_u04_discount_banknote_count_round_down"], ["r2c:source-overview:p1:discount-whole-thousands"]],
 ];
 
 export const G4B_U04_HIDDEN_PATTERN_GROUPS = deepFreeze(
