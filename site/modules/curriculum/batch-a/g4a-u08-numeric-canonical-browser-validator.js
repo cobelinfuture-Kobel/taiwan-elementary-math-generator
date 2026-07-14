@@ -4,6 +4,7 @@ const SOURCE_ID = "g4a_u08_4a08";
 const UNIT_CODE = "4A-U08";
 const OPS = new Set(["+", "-", "×", "÷"]);
 const PRECEDENCE = { "+": 1, "-": 1, "×": 2, "÷": 2 };
+const clone = (value) => value === undefined ? undefined : JSON.parse(JSON.stringify(value));
 
 function toRpn(tokens) {
   const output = [];
@@ -36,6 +37,73 @@ function evaluate(tokens) {
     else if (token === "÷") stack.push(right === 0 ? NaN : left / right);
   }
   return stack.length === 1 ? stack[0] : NaN;
+}
+
+function deriveEvidence(sample, definition) {
+  const evidence = clone(sample.canonicalEvidence ?? {});
+  const groupId = definition.patternGroupId;
+  const tokens = sample.expressionTokens ?? [];
+  if (["pg_g4a_u08_num_add_sub_left_assoc", "pg_g4a_u08_num_mul_div_left_assoc"].includes(groupId)) {
+    return { ...evidence, leftAssociated: true, operationOrderTrace: clone(sample.operationOrderTrace ?? []), expressionTokens: clone(tokens) };
+  }
+  if (groupId === "pg_g4a_u08_num_parentheses_first") {
+    return { ...evidence, parenthesisGroupCount: tokens.filter((token) => token === "(").length, firstTraceOperation: clone(sample.operationOrderTrace?.[0] ?? null) };
+  }
+  if (groupId === "pg_g4a_u08_num_mul_div_before_add_sub") {
+    const firstTraceOperator = sample.operationOrderTrace?.[0]?.op ?? null;
+    return { ...evidence, firstTraceOperator, higherPrecedenceEvaluatedFirst: ["×", "÷"].includes(firstTraceOperator), operationOrderTrace: clone(sample.operationOrderTrace ?? []) };
+  }
+  if (groupId === "pg_g4a_u08_num_parentheses_change_precedence") {
+    const withoutParentheses = tokens.filter((token) => token !== "(" && token !== ")");
+    const parenthesizedValue = evaluate(tokens);
+    const unparenthesizedValue = evaluate(withoutParentheses);
+    return { ...evidence, parenthesisGroupCount: tokens.filter((token) => token === "(").length, parenthesizedValue, unparenthesizedValue, parenthesesEffect: parenthesizedValue !== unparenthesizedValue };
+  }
+  if (groupId === "pg_g4a_u08_num_compound_parentheses") {
+    return {
+      ...evidence,
+      parenthesisGroupCount: tokens.filter((token) => token === "(").length,
+      operatorSet: [...new Set(tokens.filter((token) => OPS.has(token)))],
+      exactIntegerDivision: sample.operationOrderTrace?.filter((step) => step.op === "÷").every((step) => Number.isInteger(step.result)) === true,
+      intermediateValues: clone(sample.intermediateResults ?? []),
+    };
+  }
+  return evidence;
+}
+
+export function adaptG4AU08NumericSampleForBrowser(sample) {
+  if (!sample || typeof sample !== "object") throw new TypeError("G4AU08_NUMERIC_ITEM_INVALID");
+  const definition = getG4AU08NumericCanonicalPatternSpec(sample.patternSpecId);
+  if (!definition) throw new Error(`G4AU08_NUMERIC_PATTERN_SPEC_UNKNOWN:${sample.patternSpecId}`);
+  return {
+    schemaName: "G4AU08NumericCanonicalGeneratedItem",
+    schemaVersion: 1,
+    sourceId: SOURCE_ID,
+    unitCode: UNIT_CODE,
+    mode: "numeric",
+    knowledgePointId: definition.knowledgePointId,
+    patternGroupId: definition.patternGroupId,
+    patternSpecId: definition.patternSpecId,
+    legacyPatternSpecId: sample.legacyPatternSpecId ?? sample.patternSpecId,
+    reasoningRole: definition.reasoningRole,
+    prompt: sample.promptText ?? sample.blankedDisplayText ?? sample.expression,
+    expression: sample.expression,
+    expressionTokens: clone(sample.expressionTokens ?? []),
+    operations: clone(sample.operationOrderTrace ?? []),
+    intermediateValues: clone(sample.intermediateResults ?? []),
+    answerModel: { shape: "final_numeric_answer", value: sample.finalAnswer },
+    canonicalEvidence: deriveEvidence(sample, definition),
+    shapeVariant: sample.shapeVariant ?? null,
+    lifecycle: {
+      adapterStatus: "implemented_hidden",
+      validatorStatus: "implemented_hidden",
+      mutationStatus: "implemented_hidden",
+      selectorVisibility: "hidden",
+      canonicalRouting: "disabled",
+      worksheetReachability: "disabled",
+      productionUse: "forbidden",
+    },
+  };
 }
 
 function error(code, field, expected, actual) {
