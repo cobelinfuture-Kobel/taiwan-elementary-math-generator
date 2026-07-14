@@ -17,20 +17,9 @@ const SOURCE_ID = "g4a_u08_4a08";
 const PROMOTION_ID = "s76q_g4a_u08_all_canonical_groups_public";
 const PHASE2B_GROUP_SET = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 const GROUP_BY_ID = new Map(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => [row.patternGroupId, row]));
+const CANONICAL_KP_SET = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.primaryKnowledgePointId));
 const NUMERIC_GROUP_SET = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.filter((row) => row.mode === "numeric").map((row) => row.patternGroupId));
 const COST_OVERLAY_GROUP_ID = "pg_g4a_u08_app_cost_overlay";
-const LEGACY_APP_GROUP_BY_KP = Object.freeze({
-  kp_g4a_u08_app_add_sub_sequence: "pg_g4a_u08_app_add_sub_sequence",
-  kp_g4a_u08_app_parentheses_grouping: "pg_g4a_u08_app_parentheses_grouping",
-  kp_g4a_u08_app_mul_div_sequence: "pg_g4a_u08_app_mul_div_sequence",
-  kp_g4a_u08_app_mul_div_before_add_sub: "pg_g4a_u08_app_mul_div_before_add_sub",
-});
-const LEGACY_APP_SPEC_COUNT_BY_KP = Object.freeze({
-  kp_g4a_u08_app_add_sub_sequence: 4,
-  kp_g4a_u08_app_parentheses_grouping: 3,
-  kp_g4a_u08_app_mul_div_sequence: 3,
-  kp_g4a_u08_app_mul_div_before_add_sub: 2,
-});
 
 const clone = (value) => value === undefined ? undefined : JSON.parse(JSON.stringify(value));
 const issue = (code, path, message, details = {}) => ({ code, severity: "error", path, message, ...details });
@@ -59,9 +48,18 @@ function allocateGroups(groups, questionCount) {
 }
 
 export function requestsG4AU08AllCanonicalPublicRoute(plan = {}) {
+  const requestedGroups = Array.isArray(plan.requestedPatternGroupIds)
+    ? plan.requestedPatternGroupIds.filter(Boolean)
+    : [];
+  const requestedKnowledgePoints = Array.isArray(plan.requestedKnowledgePointIds)
+    ? plan.requestedKnowledgePointIds.filter(Boolean)
+    : [];
   return plan.sourceId === SOURCE_ID
-    && Array.isArray(plan.requestedPatternGroupIds)
-    && plan.requestedPatternGroupIds.some((id) => isS76QPublicG4AU08PatternGroupId(id) && !PHASE2B_GROUP_SET.has(id));
+    && requestedGroups.length > 0
+    && requestedGroups.every((id) => isS76QPublicG4AU08PatternGroupId(id))
+    && requestedKnowledgePoints.length > 0
+    && requestedKnowledgePoints.every((id) => CANONICAL_KP_SET.has(id))
+    && requestedGroups.some((id) => !PHASE2B_GROUP_SET.has(id));
 }
 
 export function normalizeG4AU08AllCanonicalPublicPlan(plan = {}) {
@@ -183,16 +181,13 @@ function publicCostOverlayQuestion(item, entry, sequenceNumber) {
 }
 
 function generatePhase2AEntry(entry, normalized) {
-  const legacyGroupId = LEGACY_APP_GROUP_BY_KP[entry.knowledgePointId];
-  const multiplier = LEGACY_APP_SPEC_COUNT_BY_KP[entry.knowledgePointId];
   const targetSpecId = entry.patternSpecIds[0];
-  if (!legacyGroupId || !multiplier) return { ok: false, questions: [], errors: [issue("G4A_U08_S76Q_PHASE2A_MAPPING_MISSING", "allocation", "Phase2A canonical mapping 不完整。", { patternGroupId: entry.patternGroupId })] };
   const result = generateG4AU08ApplicationQuestions({
     sourceId: SOURCE_ID,
     selectionMode: "singleKnowledgePoint",
     selectedKnowledgePointIds: [entry.knowledgePointId],
-    selectedPatternGroupIds: [legacyGroupId],
-    questionCount: entry.questionCount * multiplier,
+    selectedPatternGroupIds: [entry.patternGroupId],
+    questionCount: entry.questionCount,
     ordering: "groupedByPattern",
     generationSeed: `${normalized.generationSeed}:${entry.patternGroupId}`,
   });
