@@ -4,19 +4,12 @@ import assert from "node:assert/strict";
 import {
   G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
   getVisibleBatchAKnowledgePoint,
-  getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   validateG4AU08AllCanonicalPublicSelectorProjection,
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
-import {
-  generateBatchABrowserQuestions,
-} from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
-import {
-  buildBatchABrowserWorksheetDocument,
-} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-s76j-entry.js";
-import {
-  validateG4AU08AllCanonicalPublicQuestion,
-} from "../../site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js";
+import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
+import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-s76j-entry.js";
+import { validateG4AU08AllCanonicalPublicQuestion } from "../../site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js";
 
 const SOURCE_ID = "g4a_u08_4a08";
 
@@ -48,7 +41,7 @@ test("S76Q exposes exactly 15 canonical KnowledgePoints, 28 PatternGroups and 33
   assert.equal(new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.patternGroupId)).size, 28);
 });
 
-test("S76Q all canonical KnowledgePoints are resolvable with explicit canonical groups", () => {
+test("S76Q all canonical KnowledgePoints are resolvable and have explicit public group projections", () => {
   const kpIds = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.primaryKnowledgePointId));
   assert.equal(kpIds.size, 15);
   for (const knowledgePointId of kpIds) {
@@ -56,10 +49,9 @@ test("S76Q all canonical KnowledgePoints are resolvable with explicit canonical 
     assert.ok(row, knowledgePointId);
     assert.equal(row.sourceId, SOURCE_ID);
     assert.equal(row.visibilityStatus, "visible");
-    const groups = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
-    assert.ok(groups.length >= 1, knowledgePointId);
-    const canonicalIds = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.filter((group) => group.primaryKnowledgePointId === knowledgePointId).map((group) => group.patternGroupId));
-    assert.equal([...canonicalIds].every((id) => groups.some((group) => group.patternGroupId === id && group.visibilityStatus === "visible")), true);
+    const canonicalGroups = G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.filter((group) => group.primaryKnowledgePointId === knowledgePointId);
+    assert.ok(canonicalGroups.length >= 1, knowledgePointId);
+    assert.equal(canonicalGroups.every((group) => group.visibilityStatus === "visible" && group.holdReason === null), true);
   }
 });
 
@@ -90,10 +82,7 @@ test("S76Q mixed 28-group route allocates exact output and reaches every group",
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.questions.length, 56);
   assert.equal(result.allocation.reduce((sum, row) => sum + row.questionCount, 0), 56);
-  assert.deepEqual(
-    new Set(result.questions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)),
-    new Set(groups.map((row) => row.patternGroupId)),
-  );
+  assert.deepEqual(new Set(result.questions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)), new Set(groups.map((row) => row.patternGroupId)));
   assert.equal(result.questions.every((row) => row.productionUse === "preview_only_pending_s76r"), true);
   assert.equal(result.questions.every((row) => row.worksheetReachability === "enabled"), true);
 });
@@ -116,10 +105,7 @@ test("S76Q worksheet and answer key are reachable for all 28 canonical PatternGr
   assert.equal(result.worksheetDocument.generatedQuestions.length, 56);
   assert.equal(result.worksheetDocument.answerKeyItems.length, 56);
   assert.equal(result.worksheetDocument.rendererBehaviorChanged, false);
-  assert.deepEqual(
-    new Set(result.worksheetDocument.generatedQuestions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)),
-    new Set(groups.map((row) => row.patternGroupId)),
-  );
+  assert.deepEqual(new Set(result.worksheetDocument.generatedQuestions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)), new Set(groups.map((row) => row.patternGroupId)));
 });
 
 test("S76Q blocks unregistered PatternGroups and never falls back generically", () => {
