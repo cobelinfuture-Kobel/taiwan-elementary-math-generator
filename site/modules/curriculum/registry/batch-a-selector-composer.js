@@ -4,6 +4,7 @@ import * as base from "./batch-a-selector-g4a-u08-extension.js";
 import {
   G5A_U02_SELECTOR_PROJECTION,
   G5A_U02_SELECTOR_SOURCE_ID,
+  auditG5AU02SelectorProjection,
   getG5AU02SelectorRow,
   listG5AU02SelectorPatternGroups,
   listG5AU02SelectorRows,
@@ -30,6 +31,14 @@ function availabilityBySource() {
 }
 
 export { G5A_U02_SELECTOR_PROJECTION };
+export const G5A_U02_VISIBLE_SELECTOR_PROJECTION = Object.freeze({
+  ...G5A_U02_SELECTOR_PROJECTION,
+  status: "18_knowledge_points_dynamic_production",
+  visibleKnowledgePointCount: G5A_U02_SELECTOR_PROJECTION.visibleKnowledgePointCount,
+  visiblePatternGroupCount: G5A_U02_SELECTOR_PROJECTION.visiblePatternGroupCount,
+  visiblePatternSpecCount: G5A_U02_SELECTOR_PROJECTION.visiblePatternSpecCount,
+  htmlPdfStressStatus: "s96g_passed",
+});
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
@@ -62,6 +71,21 @@ export function resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId) 
   return g5aRowById.has(knowledgePointId)
     ? resolveG5AU02SelectorPatternSpecIds(knowledgePointId)
     : base.resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId);
+}
+
+export function validateG5AU02VisibleSelectorProjection() {
+  const audit = auditG5AU02SelectorProjection();
+  const availability = listBatchAKnowledgePointAvailabilityBySource(G5A_U02_SELECTOR_SOURCE_ID);
+  const errors = [...audit.errors];
+  if (availability.visibleCount !== 18 || availability.hiddenPendingCount !== 0 || availability.notSelectableCount !== 0) {
+    errors.push("G5AU02_SELECTOR_AVAILABILITY_MISMATCH");
+  }
+  return Object.freeze({
+    ok: errors.length === 0,
+    errors: Object.freeze(errors),
+    knowledgePointCount: 18,
+    patternSpecCount: 22,
+  });
 }
 
 export function auditBatchASelectorComposition() {
