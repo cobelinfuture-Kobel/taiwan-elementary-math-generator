@@ -1,0 +1,77 @@
+{
+  "schemaName": "G4AU08S76RFullSourceProductionCloseout",
+  "schemaVersion": 1,
+  "task": "S76R_G4A_U08_FullSourceStressHTMLPDFAndD0Reevaluation",
+  "taskStatus": "PASS_CI_SYNCED_PENDING_MERGE",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "productionUse": "allowed",
+  "promotionId": "s76r_g4a_u08_full_source_production_promotion",
+  "acceptedHead": "b4be2c4c024188467d1067eba5648e1dc3fd12dc",
+  "pullRequest": 191,
+  "authorityCounts": {
+    "knowledgePoints": 15,
+    "patternGroups": 28,
+    "patternSpecs": 33
+  },
+  "stressAcceptance": {
+    "questionCountMatrix": [28, 56, 280, 1000],
+    "maximumAcceptedQuestionCount": 1000,
+    "firstRejectedQuestionCount": 1001,
+    "firstRejectedOutputCount": 0,
+    "mutationCoveredPatternGroups": 28,
+    "mutationRejectedPatternGroups": 28
+  },
+  "worksheetAcceptance": {
+    "questionCount": 280,
+    "answerKeyItemCount": 280,
+    "questionPageCount": 35,
+    "answerKeyPageCount": 47,
+    "pdfPageCount": 82,
+    "renderedPageImageCount": 82,
+    "nonblankRenderedPageCount": 82,
+    "domCellCount": 560,
+    "domCellOverflowCount": 0,
+    "domPageOverflowCount": 0,
+    "pdfBoundingBoxOverflowCount": 0,
+    "internalIdLeakCount": 0,
+    "unresolvedPlaceholderCount": 0,
+    "cjkGlyphRendering": "pass",
+    "rendererProfileId": "g4a_u08_phase2b_existing_generic_v1",
+    "rendererBehaviorChanged": false,
+    "pdfSha256": "1a28391ca6e41019cab26ace467331fdbbb15aa7adcf757be77b29d688e4a6cb",
+    "pdfBytes": 210067
+  },
+  "workflowEvidence": {
+    "s76rWorkflowRun": 29314173124,
+    "s76rArtifactId": 8303274410,
+    "s76rArtifactDigest": "sha256:2b446eccf83b59443b9632258446db9c01d33c6517f8c7fafc0bc6a69c94d222",
+    "nodeTest": "pass",
+    "mathCiReadback": "pass",
+    "s42BranchTest": "pass",
+    "s76kRegression": "pass",
+    "crossUnitRegressionWorkflows": "pass"
+  },
+  "scopeBoundary": {
+    "newCurriculumContent": false,
+    "newGeneratorFamily": false,
+    "rendererBehaviorChanged": false,
+    "legacySourceUnitLifecycleChanged": false,
+    "directGeneratorProductionUseChanged": false,
+    "canonicalWorksheetProductionUseChanged": true
+  },
+  "goalDistance": {
+    "before": "D1_G4A_U08_ALL_CANONICAL_PUBLIC_ROUTING_MERGED",
+    "after": "D0_G4A_U08_FULL_SOURCE_PRODUCTION_ALLOWED",
+    "distanceReduced": "Closed the complete 15-KnowledgePoint, 28-PatternGroup and 33-PatternSpec public worksheet path with blocking answer-consistency validation, count-boundary stress, 28/28 mutation rejection, and accepted 82-page HTML/PDF evidence.",
+    "remainingBlockers": [],
+    "nextShortestStep": "Select the next approved Batch A unit with the shortest remaining production path."
+  },
+  "stop": {
+    "stopReason": "NONE",
+    "blockerType": null,
+    "lastCompletedStatus": "PASS_CI_SYNCED_PENDING_MERGE",
+    "requiredOperatorAction": null,
+    "nextResumeTask": "NEXT_APPROVED_SHORTEST_PRODUCTION_UNIT"
+  }
+}
