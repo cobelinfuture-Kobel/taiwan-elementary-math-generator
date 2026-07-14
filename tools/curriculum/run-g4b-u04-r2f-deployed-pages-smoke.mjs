@@ -168,15 +168,35 @@ try {
   selectedKpCount = await page.locator('#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected="true"]').count();
   if (selectedKpCount !== EXPECTED_KP_COUNT) fail("G4B_U04_R2F_DEPLOYED_KP_SELECTION_MISMATCH", { selectedKpCount });
 
-  let guard = 0;
-  while (await page.locator('#batch-a-pattern-group-panel [data-pattern-group-id][data-selected="false"]').count()) {
-    await page.locator('#batch-a-pattern-group-panel [data-pattern-group-id][data-selected="false"]').first().click();
-    guard += 1;
-    if (guard > 30) fail("G4B_U04_R2F_PATTERN_GROUP_SELECTION_LOOP_EXCEEDED");
+  const patternGroupButtons = page.locator("#batch-a-pattern-group-panel [data-pattern-group-id]");
+  await patternGroupButtons.first().waitFor({ state: "visible", timeout: 120000 });
+  const patternGroupButtonCount = await patternGroupButtons.count();
+  if (patternGroupButtonCount !== EXPECTED_PATTERN_GROUP_COUNT) {
+    fail("G4B_U04_R2F_DEPLOYED_PATTERN_GROUP_BUTTON_COUNT_MISMATCH", {
+      patternGroupButtonCount,
+      expected: EXPECTED_PATTERN_GROUP_COUNT,
+    });
   }
-  const selectedGroupCount = await page.locator('#batch-a-pattern-group-panel [data-pattern-group-id][data-selected="true"]').count();
-  if (selectedGroupCount !== EXPECTED_PATTERN_GROUP_COUNT) {
-    fail("G4B_U04_R2F_DEPLOYED_PATTERN_GROUP_COUNT_MISMATCH", { selectedGroupCount });
+  await page.waitForFunction(
+    (expectedCount) => new Set(new URL(window.location.href).searchParams.getAll("pg")).size === expectedCount,
+    EXPECTED_PATTERN_GROUP_COUNT,
+    { timeout: 120000 },
+  );
+  const selectedPatternGroupIds = [...new Set(new URL(page.url()).searchParams.getAll("pg"))];
+  const missingPatternGroupIds = G4B_U04_PROMOTED_PATTERN_GROUP_IDS.filter(
+    (patternGroupId) => !selectedPatternGroupIds.includes(patternGroupId),
+  );
+  const unexpectedPatternGroupIds = selectedPatternGroupIds.filter(
+    (patternGroupId) => !G4B_U04_PROMOTED_PATTERN_GROUP_IDS.includes(patternGroupId),
+  );
+  if (selectedPatternGroupIds.length !== EXPECTED_PATTERN_GROUP_COUNT
+    || missingPatternGroupIds.length
+    || unexpectedPatternGroupIds.length) {
+    fail("G4B_U04_R2F_DEPLOYED_PATTERN_GROUP_QUERY_AUTHORITY_MISMATCH", {
+      selectedPatternGroupIds,
+      missingPatternGroupIds,
+      unexpectedPatternGroupIds,
+    });
   }
 
   await questionModeControl.selectOption("operation_estimation");
@@ -258,7 +278,10 @@ try {
     localAuthority,
     knowledgePointCount,
     selectedKnowledgePointCount: selectedKpCount,
-    selectedPatternGroupCount: selectedGroupCount,
+    patternGroupButtonCount,
+    selectedPatternGroupCount: selectedPatternGroupIds.length,
+    selectedPatternGroupIds,
+    patternGroupSelectionAuthority: "query_state",
     patternSpecCount: EXPECTED_PATTERN_SPEC_COUNT,
     contextModes: [...G4B_U04_PUBLIC_CONTROLS.contextModes],
     contextResults,
