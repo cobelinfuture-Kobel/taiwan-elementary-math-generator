@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  BATCH_A_SELECTOR_AVAILABILITY,
   G5A_U02_VISIBLE_SELECTOR_PROJECTION,
   getVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint,
@@ -25,11 +26,10 @@ test("S96E reports non-zero per-source selector availability", () => {
   assert.deepEqual(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID), {
     sourceId: SOURCE_ID,
     visibleCount: 18,
-    selectableCount: 18,
-    builtButHiddenCount: 0,
-    unavailableCount: 0,
-    totalCount: 18,
+    hiddenPendingCount: 0,
+    notSelectableCount: 0,
   });
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.bySourceId[SOURCE_ID].visibleCount, 18);
 });
 
 test("S96E resolves each visible row to its canonical PatternGroup and PatternSpecs", () => {
