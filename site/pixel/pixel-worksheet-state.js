@@ -5,6 +5,7 @@ import {
   setBatchADepthMode,
   setBatchAGenerationSeed,
   setBatchAIncludeAnswerKey,
+  setBatchALayoutMode,
   setBatchAOrdering,
   setBatchAPrintLayout,
   setBatchAQuestionCount,
@@ -31,6 +32,7 @@ export function createPixelWorksheetState({
   columns = 4,
   rowsPerPage = 10,
   questionMode = "mixed",
+  layoutMode = "auto_safe",
   depthMode = "mixed",
   contextMode = "mixed",
 } = {}) {
@@ -40,9 +42,10 @@ export function createPixelWorksheetState({
   setBatchAOrdering(state, ordering);
   setBatchAIncludeAnswerKey(state, includeAnswerKey);
   setBatchAGenerationSeed(state, generationSeed);
-  setBatchAPrintLayout(state, { columns, rowsPerPage });
+  setBatchAPrintLayout(state, { columns, rowsPerPage, layoutMode });
   if (selectorState) setBatchASelectorSelection(state, selectorPatch(selectorState));
   setBatchAQuestionMode(state, questionMode);
+  setBatchALayoutMode(state, layoutMode);
   setBatchADepthMode(state, depthMode);
   setBatchAContextMode(state, contextMode);
   return state;
@@ -60,12 +63,14 @@ export function applyPixelWorksheetSettings(state, patch = {}) {
   if (patch.includeAnswerKey !== undefined) setBatchAIncludeAnswerKey(state, patch.includeAnswerKey);
   if (patch.generationSeed !== undefined) setBatchAGenerationSeed(state, patch.generationSeed);
   if (patch.questionMode !== undefined) setBatchAQuestionMode(state, patch.questionMode);
+  if (patch.layoutMode !== undefined) setBatchALayoutMode(state, patch.layoutMode);
   if (patch.depthMode !== undefined) setBatchADepthMode(state, patch.depthMode);
   if (patch.contextMode !== undefined) setBatchAContextMode(state, patch.contextMode);
-  if (patch.columns !== undefined || patch.rowsPerPage !== undefined) {
+  if (patch.columns !== undefined || patch.rowsPerPage !== undefined || patch.layoutMode !== undefined) {
     setBatchAPrintLayout(state, {
       columns: patch.columns,
-      rowsPerPage: patch.rowsPerPage
+      rowsPerPage: patch.rowsPerPage,
+      layoutMode: patch.layoutMode,
     });
   }
   return getPixelWorksheetPlan(state);
