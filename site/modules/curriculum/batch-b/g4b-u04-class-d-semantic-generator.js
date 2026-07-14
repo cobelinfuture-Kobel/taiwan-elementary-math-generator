@@ -13,6 +13,7 @@ const MAX_BATCH_COUNT = 1000;
 const MAX_INPUT = 99_999_999;
 const MAX_ANSWER = 999_999_999;
 const PAYMENT_DENOMINATIONS = Object.freeze([100, 1000]);
+const DISCOUNT_DENOMINATION = 1000;
 const CONTEXT_GROUP_SIZES = Object.freeze([10, 100, 1000]);
 const METHODS = Object.freeze(["down", "up", "halfUp"]);
 
@@ -25,6 +26,8 @@ export const G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS = Object.freeze([
   "ps_g4b_u04_round_then_subtract",
   "ps_g4b_u04_round_then_multiply",
   "ps_g4b_u04_round_then_divide",
+  "ps_g4b_u04_discount_payment_amount_round_down",
+  "ps_g4b_u04_discount_banknote_count_round_down",
 ]);
 
 export const G4B_U04_S70_TEMPLATE_IDS = Object.freeze([
@@ -37,6 +40,8 @@ export const G4B_U04_S70_TEMPLATE_IDS = Object.freeze([
   "tpl_g4b_u04_population_difference",
   "tpl_g4b_u04_recurring_cost_multiply",
   "tpl_g4b_u04_equal_share_divide",
+  "tpl_g4b_u04_discount_amount_round_down",
+  "tpl_g4b_u04_discount_banknote_count_round_down",
 ]);
 
 export const G4B_U04_S70_CONTROLLED_TEMPLATES = Object.freeze({
@@ -132,6 +137,26 @@ export const G4B_U04_S70_CONTROLLED_TEMPLATES = Object.freeze({
     }),
     answerUnitRole: "元",
   }),
+  tpl_g4b_u04_discount_amount_round_down: Object.freeze({
+    mappingCandidateId: "fmc_g4b_u04_discount_payment_amount_round_down",
+    requiredRoles: Object.freeze(["productName", "price", "denomination"]),
+    roleBindings: Object.freeze({
+      productName: "context.productName",
+      price: "input.price",
+      denomination: "input.denomination",
+    }),
+    answerUnitRole: "元",
+  }),
+  tpl_g4b_u04_discount_banknote_count_round_down: Object.freeze({
+    mappingCandidateId: "fmc_g4b_u04_discount_banknote_count_round_down",
+    requiredRoles: Object.freeze(["productName", "price", "denomination"]),
+    roleBindings: Object.freeze({
+      productName: "context.productName",
+      price: "input.price",
+      denomination: "input.denomination",
+    }),
+    answerUnitRole: "張",
+  }),
 });
 
 const FLOOR_CONTEXTS = Object.freeze([
@@ -200,6 +225,10 @@ export function g4bU04TargetPlaceLabel(unit) {
   return ({ 10: "十位", 100: "百位", 1000: "千位", 10000: "萬位" })[unit] ?? null;
 }
 
+export function g4bU04DenominationLabel(denomination) {
+  return ({ 100: "百元", 1000: "千元" })[denomination] ?? null;
+}
+
 export function g4bU04RoundByMethod(value, method, unit) {
   if (method === "down") return g4bU04RoundDown(value, unit);
   if (method === "up") return g4bU04RoundUp(value, unit);
@@ -227,6 +256,10 @@ export function renderG4BU04ControlledTemplate(templateId, roles) {
       return `每期費用是 ${formatNumber(roles.value)} 元，用${roles.methodLabel}取概數到${roles.targetPlaceLabel}後，估算 ${roles.factor} 期的總費用約是多少元？`;
     case "tpl_g4b_u04_equal_share_divide":
       return `總費用是 ${formatNumber(roles.value)} 元，用${roles.methodLabel}取概數到${roles.targetPlaceLabel}後，由 ${roles.divisor} 人平均分攤，每人約付多少元？`;
+    case "tpl_g4b_u04_discount_amount_round_down":
+      return `${roles.productName}定價 ${formatNumber(roles.price)} 元，特價只算整${g4bU04DenominationLabel(roles.denomination)}。買一台特價是多少元？`;
+    case "tpl_g4b_u04_discount_banknote_count_round_down":
+      return `${roles.productName}定價 ${formatNumber(roles.price)} 元，特價只算整${g4bU04DenominationLabel(roles.denomination)}。買一台要拿幾張${g4bU04DenominationLabel(roles.denomination)}鈔票？`;
     default:
       throw new Error(`G4BU04_D_GEN_TEMPLATE_UNSUPPORTED:${templateId}`);
   }
@@ -320,6 +353,30 @@ function samplePayment(seed, countOnly) {
     { count, amount, remainder, oneFewerAmount: (count - 1) * denomination },
     answer,
     countOnly ? `${count}張` : `${amount}元`,
+  );
+}
+
+function sampleDiscountRoundDown(seed, countOnly) {
+  const denomination = DISCOUNT_DENOMINATION;
+  const count = randomInt(seed, 1, 2, 90);
+  const remainder = randomInt(seed, 2, 1, denomination - 1);
+  const price = count * denomination + remainder;
+  const amount = count * denomination;
+  const productName = "除濕機";
+  const templateId = countOnly
+    ? "tpl_g4b_u04_discount_banknote_count_round_down"
+    : "tpl_g4b_u04_discount_amount_round_down";
+  const answer = countOnly
+    ? { finalAnswer: count, structuredAnswer: { count, denomination, currency: "TWD", unitLabel: "張" } }
+    : { finalAnswer: amount, structuredAnswer: { amount, currency: "TWD", unitLabel: "元" } };
+  return semanticPayload(
+    templateId,
+    { price, denomination, discountPolicy: "whole_denomination_round_down" },
+    { currency: "TWD", unitLabel: countOnly ? "張" : "元", contextDomain: "discount_price", productName },
+    { productName, price, denomination },
+    { discountedAmount: amount, count, remainder, savings: remainder, originalPrice: price },
+    answer,
+    countOnly ? `${count}張` : `${formatNumber(amount)}元`,
   );
 }
 
@@ -421,6 +478,8 @@ function sampleForPattern(patternSpecId, seed) {
     case "ps_g4b_u04_round_then_subtract": return sampleRoundThenAddSubtract(seed, true);
     case "ps_g4b_u04_round_then_multiply": return sampleRoundThenMultiply(seed);
     case "ps_g4b_u04_round_then_divide": return sampleRoundThenDivide(seed);
+    case "ps_g4b_u04_discount_payment_amount_round_down": return sampleDiscountRoundDown(seed, false);
+    case "ps_g4b_u04_discount_banknote_count_round_down": return sampleDiscountRoundDown(seed, true);
     default: throw new Error(`G4BU04_D_GEN_PATTERN_SPEC_UNSUPPORTED:${patternSpecId}`);
   }
 }
@@ -472,7 +531,7 @@ export function generateG4BU04ClassDQuestion({ patternSpecId, seed = "s70", sequ
 }
 
 export function generateG4BU04ClassDBatch({
-  questionCount = 8,
+  questionCount = G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS.length,
   patternSpecIds = G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS,
   seed = "s70-batch",
   ordering = "groupedByPattern",
