@@ -71,7 +71,7 @@ test("S76N hidden registry contains ten primary and six supplemental numeric Pat
   assert.deepEqual(G4A_U08_NUMERIC_CANONICAL_SUPPLEMENTAL_PATTERN_SPECS.map((row) => row.patternSpecId), SUPPLEMENTAL_IDS);
 });
 
-test("S76N registry remains hidden and production-forbidden", () => {
+test("S76N registry remains historically hidden and production-forbidden", () => {
   for (const row of listG4AU08NumericCanonicalPatternSpecs()) {
     assert.equal(row.sourceId, SOURCE_ID);
     assert.equal(row.mode, "numeric");
@@ -86,12 +86,13 @@ test("S76N registry remains hidden and production-forbidden", () => {
   assert.equal(getG4AU08NumericCanonicalPatternSpec("unknown"), null);
 });
 
-test("S76N does not alter the existing public G4A-U08 selector surface", () => {
+test("S76R supersedes the S76N public-surface count without rewriting hidden registry history", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 8);
+  assert.equal(availability.visibleCount, 15);
   const visible = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
-  assert.equal(visible.length, 8);
-  assert.equal(visible.some((row) => row.knowledgePointId.startsWith("kp_g4a_u08_num_")), false);
+  assert.equal(visible.length, 15);
+  assert.equal(visible.filter((row) => row.knowledgePointId.startsWith("kp_g4a_u08_num_")).length, 11);
+  assert.equal(listG4AU08NumericCanonicalPatternSpecs().every((row) => row.lifecycle.productionUse === "forbidden"), true);
 });
 
 test("S76N primary samplers preserve legacy IDs while adding canonical KP and PatternGroup identity", () => {
