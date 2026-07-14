@@ -31,7 +31,7 @@ try {
   await kpButtons.first().waitFor({ state: "visible" });
   const knowledgePointCount = await kpButtons.count();
   if (knowledgePointCount !== 15) fail("S76R_VISIBLE_KP_COUNT_MISMATCH", { knowledgePointCount });
-  const selectedKnowledgePointCount = await kpButtons.locator('[data-selected="true"]').count();
+  const selectedKnowledgePointCount = await page.locator('#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected="true"]').count();
   if (selectedKnowledgePointCount !== 15) fail("S76R_SELECTED_KP_COUNT_MISMATCH", { selectedKnowledgePointCount });
 
   let clickCount = 0;
@@ -55,7 +55,7 @@ try {
   const replayKpButtons = page.locator("#batch-a-knowledge-point-panel [data-knowledge-point-id]");
   await replayKpButtons.first().waitFor({ state: "visible" });
   if (await replayKpButtons.count() !== 15) fail("S76R_QUERY_KP_REPLAY_COUNT_MISMATCH");
-  if (await replayKpButtons.locator('[data-selected="true"]').count() !== 15) fail("S76R_QUERY_KP_REPLAY_SELECTION_MISMATCH");
+  if (await page.locator('#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected="true"]').count() !== 15) fail("S76R_QUERY_KP_REPLAY_SELECTION_MISMATCH");
   url = new URL(page.url());
   if (new Set(url.searchParams.getAll("pg")).size !== 28) fail("S76R_QUERY_GROUP_REPLAY_COUNT_MISMATCH");
 
