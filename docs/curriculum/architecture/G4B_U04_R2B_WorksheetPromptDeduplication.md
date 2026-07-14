@@ -2,8 +2,11 @@
 
 ```text
 TASK = G4B_U04_R2B_WorksheetPromptDeduplication
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
+STATUS_EFFECTIVE_WHEN = THIS_CLOSEOUT_COMMIT_IS_MERGED_TO_MAIN
 SOURCE_ID = g4b_u04_4b04
+IMPLEMENTATION_PR = 206
+IMPLEMENTATION_MERGE_SHA = d9e762b3e617ebfd1ba42ecdc4f18f889f924c91
 ```
 
 ## Scope
@@ -21,7 +24,7 @@ visible resolver
 → worksheet / answer key / renderer
 ```
 
-No arithmetic formula, KnowledgePoint, PatternGroup, PatternSpec, answer model, renderer profile or public control is added by this milestone.
+No arithmetic formula, KnowledgePoint, PatternGroup, PatternSpec, answer model, renderer profile or public control was added by this milestone.
 
 ## Prompt signature
 
@@ -29,7 +32,9 @@ No arithmetic formula, KnowledgePoint, PatternGroup, PatternSpec, answer model, 
 Unicode NFKC
 → trim
 → collapse whitespace
-→ normalize punctuation spacing
+→ preserve digit-comma-digit thousands separators
+→ canonicalize ASCII sentence punctuation to Chinese punctuation
+→ remove whitespace around Chinese punctuation and brackets
 → preserve all numbers, units and semantic nouns
 ```
 
@@ -41,13 +46,14 @@ The following PatternSpecs have finite unique prompt pools:
 
 ```text
 ps_g4b_u04_approx_symbol_reading   = 1
-ps_g4b_u04_inverse_digit_set       = 4
-ps_g4b_u04_inverse_original_values = 4
+ps_g4b_u04_inverse_digit_set       = 12
+ps_g4b_u04_inverse_original_values = 12
+reasoning mode combined capacity   = 24
 ```
 
-Mixed worksheets allocate round-robin until a finite pool is exhausted, then redistribute later questions to PatternSpecs with remaining capacity.
+The inverse capacities are validator-backed cases with distinct `mask`, `targetUnit`, `roundedValue` and computed solution sets. They are not wording-only variants.
 
-A request restricted to a finite PatternSpec is blocked when the requested count exceeds capacity. Generic fallback, silent duplication and arbitrary PatternSpec injection remain forbidden.
+Mixed worksheets allocate round-robin until a finite pool is exhausted, then redistribute later questions to PatternSpecs with remaining capacity. A request restricted to a finite PatternSpec is blocked when the requested count exceeds capacity. Generic fallback, silent duplication and arbitrary PatternSpec injection remain forbidden.
 
 ## Deterministic retry
 
@@ -62,12 +68,18 @@ output on blocking failure          = zero questions
 ## Acceptance
 
 ```text
-40-question mixed worksheet    = exact count, 0 duplicate prompts
-170-question authority mix     = 17 PatternSpecs, 0 duplicate prompts
-1000-question stress           = deterministic, 0 duplicate prompts
-symbol-reading count           = maximum 1 per worksheet
-inverse fixed-case count       = maximum 4 per PatternSpec
-single finite-pool overflow    = blocking error
+40-question mixed worksheet      = exact count, 0 duplicate prompts
+170-question authority mix       = 17 PatternSpecs, 0 duplicate prompts
+1000-question stress             = deterministic, 0 duplicate prompts
+24-question reasoning mode       = exact count, 0 duplicates, validator accepted
+symbol-reading count             = maximum 1 per worksheet
+single finite-pool overflow      = blocking error
+Node Test                        = PASS
+S42 Branch Test                  = PASS
+Math CI Readback                 = PASS
+S75 68-question HTML/PDF smoke   = PASS
+S75 DOM containment              = PASS
+S75 PDF render and A4 bounds     = PASS
 ```
 
 ## Distance
@@ -77,14 +89,13 @@ GOAL_DISTANCE_BEFORE =
 D1_G4B_U04_DUPLICATE_PROMPT_BLOCKER_OPEN
 
 GOAL_DISTANCE_AFTER =
-D1_G4B_U04_PROMPT_DEDUPLICATION_IMPLEMENTED_PENDING_CI
+D1_G4B_U04_R2B_CLOSED_NEXT_R2C
 
 DISTANCE_REDUCED =
-Added capacity-aware allocation, bounded deterministic resampling and a whole-worksheet prompt-signature gate.
+Closed the whole-worksheet duplicate-prompt blocker with deterministic, validator-backed unique generation and production HTML/PDF verification.
 
 REMAINING_BLOCKERS = [
-  "R2B CI and merge pending",
-  "R2C source-backed discount round-down PatternSpecs not implemented",
+  "R2C source-backed discount round-down and KP refinement not implemented",
   "R2D resolved layout readback not implemented",
   "R2E controlled SDG context materialization not implemented",
   "R2F production recloseout not completed"
