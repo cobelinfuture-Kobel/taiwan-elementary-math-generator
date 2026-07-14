@@ -46,7 +46,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
   if (requestsS76QAllCanonicalWorksheet(options) && isS76QG4AU08WorksheetOptions(options)) {
     return buildS76QG4AU08WorksheetDocument(options);
   }
-  if (isS76JG4AU08WorksheetEntryOptions(options)) {
+  if (requestsS76JG4AU08Phase2B(options)) {
     return buildS76JG4AU08WorksheetDocument(options);
   }
   return buildBaseBatchABrowserWorksheetDocument(options);
