@@ -53,23 +53,36 @@ export const G4B_U04_PUBLIC_CONTROLS = Object.freeze({
   publicGenericFallback: false,
 });
 
+// S72/R2C canonical authority remains immutable. R2D is a downstream
+// worksheet-layout overlay and must not promote this base lifecycle.
 export const G4B_U04_PROMOTION_LIFECYCLE = Object.freeze({
-  task: "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA",
+  task: "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
   baseTask: "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
   promotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
   effectivePromotionRegistryIds: Object.freeze([
     G4B_U04_PROMOTION_REGISTRY_ID,
     G4B_U04_R2C_PROMOTION_OVERLAY_ID,
-    G4B_U04_R2D_LAYOUT_OVERLAY_ID,
   ]),
   sourceId: G4B_U04_SOURCE_ID,
   selectorStatus: "visible",
   runtimeStatus: "blocking_validated_canonical_runtime",
   validatorStatus: "blocking_validator_accepted",
   canonicalRouting: "enabled",
-  worksheetStatus: "production_worksheet_with_truthful_layout_readback",
-  productionUse: "allowed",
-  activationStatus: "r2d_layout_readback_candidate",
+  worksheetStatus: "not_eligible",
+  productionUse: "forbidden",
+  activationStatus: "r2c_discount_round_down_effective_authority",
+  requiredNextGate: "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA",
+});
+
+export const G4B_U04_R2D_LAYOUT_LIFECYCLE = Object.freeze({
+  task: "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA",
+  sourceId: G4B_U04_SOURCE_ID,
+  layoutOverlayId: G4B_U04_R2D_LAYOUT_OVERLAY_ID,
+  basePromotionLifecycleTask: G4B_U04_PROMOTION_LIFECYCLE.task,
+  status: "layout_readback_candidate_pending_ci",
+  baseLifecyclePreserved: true,
+  promotionAuthorityMutated: false,
+  productionEligibilityChanged: false,
   requiredNextGate: "G4B_U04_R2E_ControlledSDGTemplateVariantsAndContextMode",
 });
 
@@ -112,6 +125,17 @@ export function validateG4BU04PromotionProjection() {
   if (JSON.stringify(modes) !== JSON.stringify(expectedModes)) errors.push("mode_distribution_mismatch");
   if (G4B_U04_PUBLIC_CONTROLS.layoutModes.length !== 2) errors.push("layout_mode_count_mismatch");
   if (G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode !== "auto_safe") errors.push("layout_mode_default_mismatch");
+  if (G4B_U04_PROMOTION_LIFECYCLE.worksheetStatus !== "not_eligible"
+    || G4B_U04_PROMOTION_LIFECYCLE.productionUse !== "forbidden") {
+    errors.push("base_promotion_lifecycle_mutated");
+  }
+  if (G4B_U04_PROMOTION_LIFECYCLE.effectivePromotionRegistryIds.includes(G4B_U04_R2D_LAYOUT_OVERLAY_ID)) {
+    errors.push("layout_overlay_leaked_into_promotion_authority");
+  }
+  if (G4B_U04_R2D_LAYOUT_LIFECYCLE.baseLifecyclePreserved !== true
+    || G4B_U04_R2D_LAYOUT_LIFECYCLE.promotionAuthorityMutated !== false) {
+    errors.push("layout_lifecycle_isolation_invalid");
+  }
   return Object.freeze({
     ok: errors.length === 0,
     errors: Object.freeze(errors),
