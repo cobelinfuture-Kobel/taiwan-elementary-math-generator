@@ -2,9 +2,11 @@
 
 ```text
 TASK = G4B_U04_R2E_ControlledSDGTemplateVariantsAndContextMode
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_FINAL_HEAD_CI_PENDING_MERGE
 SOURCE_ID = g4b_u04_4b04
 BASE_DESIGN = G4B_U04_R2_SemanticDedupLayoutAndSDGDesignLock
+PR = 213
+ACCEPTED_RUNTIME_HEAD = 8571ea4cc1003abdf09e0d48d25c840c85e20e3b
 ```
 
 ## Scope
@@ -26,7 +28,7 @@ R2E does not add or modify KnowledgePoints, PatternGroups, PatternSpecs, formula
 
 ```text
 mixed
- daily_life
+daily_life
 sdg
 ```
 
@@ -130,15 +132,14 @@ Non-G4B-U04 worksheet routes are returned unchanged.
 
 Classic and Pixel expose the same three context modes. Both controls synchronize through the existing context control and stale-output invalidation paths.
 
-G4B-U04 query state supports:
+Explicit values support query round-trip:
 
 ```text
-contextMode=mixed
 contextMode=daily_life
 contextMode=sdg
 ```
 
-Unsupported values normalize to `mixed`. G5-only `depthMode` remains absent from G4B-U04 output.
+Unsupported values normalize to `mixed`. The default `mixed` mode is not redundantly serialized, preserving the R2D/S74 legacy URL and public-control readback. G5-only `depthMode` remains absent from G4B-U04 output.
 
 ## Focused acceptance
 
@@ -165,16 +166,24 @@ Pixel canonical worksheet path
 R2E → R2D → S76J scaffold delegation
 ```
 
-## Pending final-head gates
+## Final-head acceptance
+
+Accepted runtime head:
 
 ```text
-Node Test
-S42 Branch Test
-Math CI Readback
-S96D focused + full-suite enforcement
-S75 G4B-U04 HTML/PDF smoke
-R2D six-scenario HTML/PDF smoke
-R2E controlled-context HTML/PDF smoke or R2F full recloseout gate
+8571ea4cc1003abdf09e0d48d25c840c85e20e3b
+```
+
+```text
+Node Test                         PASS
+S42 Branch Test                   PASS
+Math CI Readback                  PASS
+S96D focused + full-suite         PASS
+S75 G4B-U04 HTML/PDF              PASS
+R2D six-scenario HTML/PDF         PASS
+DOM containment                   PASS
+PDF nonblank-page checks          PASS
+A4 text bounding-box checks       PASS
 ```
 
 ## Fixed boundaries
@@ -199,20 +208,22 @@ GOAL_DISTANCE_BEFORE =
 D1_G4B_U04_R2D_CLOSED_NEXT_R2E
 
 GOAL_DISTANCE_AFTER =
-D1_G4B_U04_R2E_IMPLEMENTED_PENDING_CI
+D1_G4B_U04_R2E_FINAL_HEAD_ACCEPTED_PENDING_MERGE
 
 DISTANCE_REDUCED =
-Connected the approved controlled SDG context contract to canonical generation, deterministic replay validation, worksheet metadata, Classic and Pixel controls, and query-state round-trip without changing curriculum or mathematical authority.
+Connected the approved controlled SDG context contract to canonical generation,
+deterministic replay validation, worksheet metadata, Classic and Pixel controls,
+query-state propagation and existing HTML/PDF gates without changing curriculum
+or mathematical authority.
 
 REMAINING_BLOCKERS = [
-  "R2E final-head CI not completed",
-  "R2E HTML/PDF context readback not completed",
-  "R2E implementation PR not merged",
-  "R2F production recloseout not completed"
+  "PR #213 implementation merge",
+  "R2E merged closeout marker",
+  "R2F production recloseout"
 ]
 
 NEXT_SHORTEST_STEP =
-G4B_U04_R2E_CIHTMLPDFAndCloseout
+G4B_U04_R2E_CloseoutAfterMerge
 
 STOP_REASON = NONE
 ```
