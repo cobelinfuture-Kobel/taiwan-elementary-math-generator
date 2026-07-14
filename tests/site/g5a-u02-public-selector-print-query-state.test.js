@@ -16,12 +16,14 @@ import {
 const ROOT = new URL("../../", import.meta.url);
 const read = (path) => readFile(new URL(path, ROOT), "utf8");
 
-test("S94 exposes G5A-U02 as a public source-unit candidate", () => {
+test("S94 exposes G5A-U02 through a public projection while preserving the Batch A 13-unit authority", () => {
   const unit = getBatchASourceUnit(G5A_U02_SOURCE_ID);
   assert.equal(unit?.unitCode, "5A-U02");
   assert.equal(unit?.title, "因數與公因數");
   assert.equal(unit?.lifecycle, "public_preview_candidate");
-  assert.equal(listBatchASourceUnits().filter((row) => row.sourceId === G5A_U02_SOURCE_ID).length, 1);
+  assert.equal(listBatchASourceUnits().length, 13);
+  assert.equal(listBatchASourceUnits().some((row) => row.sourceId === G5A_U02_SOURCE_ID), false);
+  assert.equal(listBatchASourceUnits({ includePublicCandidates: true }).filter((row) => row.sourceId === G5A_U02_SOURCE_ID).length, 1);
 });
 
 test("S94 candidate is pinned to the closed S93 artifact and remains preview-only", () => {
