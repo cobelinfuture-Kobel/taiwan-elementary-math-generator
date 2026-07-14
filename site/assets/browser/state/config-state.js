@@ -19,6 +19,9 @@ function normalizedControls(sourceId, input = {}) {
       questionMode: G4B_U04_PUBLIC_CONTROLS.questionModes.includes(input.questionMode)
         ? input.questionMode
         : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode,
+      layoutMode: G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(input.layoutMode)
+        ? input.layoutMode
+        : G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode,
     };
   }
   const profile = getPublicControlProfile(sourceId);
@@ -36,6 +39,13 @@ function applyControlsToState(state, input = {}) {
   return state;
 }
 
+function browserLayoutMode() {
+  if (typeof document === "undefined") return null;
+  const value = document.getElementById("g4b-u04-layout-mode")?.value
+    ?? document.getElementById("pixel-g4b-u04-layout-mode")?.value;
+  return G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value) ? value : null;
+}
+
 export function createConfigState(options = {}) {
   const state = core.createConfigState(options);
   return applyControlsToState(state, options.queryState ?? {});
@@ -46,11 +56,32 @@ export function setBatchASourceId(state, sourceId) {
   return applyControlsToState(state, state?.batchA ?? {});
 }
 
+export function setBatchAPrintLayout(state, patch = {}) {
+  core.setBatchAPrintLayout(state, patch);
+  if (state?.batchA?.sourceId === G4B_U04_SOURCE_ID) {
+    const layoutMode = patch.layoutMode ?? browserLayoutMode();
+    if (G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(layoutMode)) state.batchA.layoutMode = layoutMode;
+  }
+  return state;
+}
+
 export function getBatchAWorksheetPlan(state) {
   const plan = core.getBatchAWorksheetPlan(state);
-  const controls = normalizedControls(plan.sourceId, state?.batchA ?? {});
+  const input = state?.batchA ?? {};
+  const controls = normalizedControls(plan.sourceId, {
+    ...input,
+    layoutMode: plan.sourceId === G4B_U04_SOURCE_ID ? (browserLayoutMode() ?? input.layoutMode) : input.layoutMode,
+  });
   if (plan.sourceId === G4B_U04_SOURCE_ID) {
-    return { ...plan, questionMode: controls.questionMode, publicControls: { questionMode: controls.questionMode } };
+    return {
+      ...plan,
+      questionMode: controls.questionMode,
+      layoutMode: controls.layoutMode,
+      publicControls: {
+        questionMode: controls.questionMode,
+        layoutMode: controls.layoutMode,
+      },
+    };
   }
   const profile = getPublicControlProfile(plan.sourceId);
   if (!profile) return plan;
@@ -69,6 +100,8 @@ function setControl(state, field, value, controlName) {
   if (!state?.batchA) return state;
   if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "questionMode") {
     if (G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value)) state.batchA[field] = value;
+  } else if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "layoutMode") {
+    if (G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value)) state.batchA[field] = value;
   } else {
     const profile = getPublicControlProfile(state.batchA.sourceId);
     const definition = profile?.[controlName];
@@ -80,6 +113,7 @@ function setControl(state, field, value, controlName) {
 }
 
 export function setBatchAQuestionMode(state, value) { return setControl(state, "questionMode", value, "questionTypeControl"); }
+export function setBatchALayoutMode(state, value) { return setControl(state, "layoutMode", value, "layoutControl"); }
 export function setBatchADepthMode(state, value) { return setControl(state, "depthMode", value, "reasoningDepthControl"); }
 export function setBatchAContextMode(state, value) { return setControl(state, "contextMode", value, "contextControl"); }
 

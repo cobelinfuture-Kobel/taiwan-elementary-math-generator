@@ -152,11 +152,15 @@ function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
 
 function normalizeUnitPublicControls(params, sourceId) {
   if (sourceId === G4B_U04_SOURCE_ID) {
-    const requested = params.get("questionMode");
+    const requestedQuestionMode = params.get("questionMode");
+    const requestedLayoutMode = params.get("layoutMode");
     return {
-      questionMode: G4B_U04_PUBLIC_CONTROLS.questionModes.includes(requested)
-        ? requested
+      questionMode: G4B_U04_PUBLIC_CONTROLS.questionModes.includes(requestedQuestionMode)
+        ? requestedQuestionMode
         : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode,
+      layoutMode: G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(requestedLayoutMode)
+        ? requestedLayoutMode
+        : G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode,
     };
   }
   const profile = getPublicControlProfile(sourceId);
@@ -196,6 +200,7 @@ export function writeQueryStateFromState(state) {
   nextUrl.searchParams.set("rowsPerPage", String(state.batchA.rowsPerPage));
   if (state.batchA.sourceId === G4B_U04_SOURCE_ID) {
     nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? G4B_U04_PUBLIC_CONTROLS.defaults.questionMode);
+    nextUrl.searchParams.set("layoutMode", state.batchA.layoutMode ?? G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode);
   } else {
     const profile = getPublicControlProfile(state.batchA.sourceId);
     if (profile?.questionTypeControl.supported) nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? profile.questionTypeControl.defaultValue);
