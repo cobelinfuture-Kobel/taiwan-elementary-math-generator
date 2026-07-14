@@ -5,6 +5,8 @@ import {
   G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import {
+  G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE,
+  G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID,
   G4A_U08_FULL_SOURCE_STRESS_ACCEPTANCE,
   validateG4AU08FullSourceProductionProjection,
 } from "../../site/modules/curriculum/registry/g4a-u08-full-source-production-promotion.js";
@@ -33,7 +35,7 @@ function fullSourceOptions(questionCount, seed, overrides = {}) {
   };
 }
 
-test("S76R production projection locks the complete 15/28/33 authority surface", () => {
+test("S76R production projection locks the complete 15/28/33 D0 authority surface", () => {
   const checked = validateG4AU08FullSourceProductionProjection();
   assert.equal(checked.ok, true, checked.errors.join(","));
   assert.deepEqual(checked.counts, {
@@ -41,6 +43,11 @@ test("S76R production projection locks the complete 15/28/33 authority surface",
     patternGroups: 28,
     patternSpecs: 33,
   });
+  assert.equal(G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.status, "full_source_production_allowed");
+  assert.equal(G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.productionUse, "allowed");
+  assert.equal(G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.htmlPdfStatus, "full_source_smoke_pass");
+  assert.equal(G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.distanceAfter.startsWith("D0"), true);
+  assert.equal(G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.requiredNextGate, null);
   assert.equal(groups.length, 28);
   assert.equal(knowledgePointIds.length, 15);
   assert.equal(patternSpecIds.length, 33);
@@ -56,11 +63,12 @@ test("S76R count matrix generates exact validated output and preserves all 28 gr
       new Set(result.questions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)),
       new Set(patternGroupIds),
     );
+    assert.equal(result.questions.every((row) => row.productionUse === "preview_only_pending_s76r" || row.productionUse === "preview_only_pending_s76k"), true);
     assert.equal(result.questions.every((row) => validateG4AU08S76RProductionQuestion(row).ok), true);
   }
 });
 
-test("S76R 280-item worksheet reaches all 15 KP, 28 groups and 33 PatternSpecs", () => {
+test("S76R 280-item worksheet is production allowed across all 15 KP, 28 groups and 33 PatternSpecs", () => {
   const result = buildBatchABrowserWorksheetDocument(fullSourceOptions(280, "s76r:worksheet:280"));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const document = result.worksheetDocument;
@@ -71,6 +79,13 @@ test("S76R 280-item worksheet reaches all 15 KP, 28 groups and 33 PatternSpecs",
   assert.deepEqual(new Set(document.generatedQuestions.map((row) => row.patternSpecId)), new Set(patternSpecIds));
   assert.equal(document.rendererBehaviorChanged, false);
   assert.equal(document.validationSummary.validatorVersion, "s76r-g4a-u08-production-v1");
+  assert.equal(document.productionUse, "allowed");
+  assert.equal(document.productionEligibility.ok, true);
+  assert.equal(document.productionEligibility.productionUse, "allowed");
+  assert.equal(document.promotionRegistryId, G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID);
+  assert.equal(document.generatedQuestions.every((row) => row.productionUse === "allowed"), true);
+  assert.equal(document.generatedQuestions.every((row) => row.promotionRegistryId === G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID), true);
+  assert.equal(document.generatedQuestions.every((row) => validateG4AU08S76RProductionQuestion(row).ok), true);
 });
 
 test("S76R mutation gate rejects a corrupted final answer for every canonical group", () => {
