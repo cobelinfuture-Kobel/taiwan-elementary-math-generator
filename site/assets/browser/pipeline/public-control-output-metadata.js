@@ -1,4 +1,5 @@
 import { getPublicControlProfile } from "../../../modules/curriculum/registry/public-control-profiles.js";
+import { resolveWorksheetQuestionCount } from "./worksheet-output-count.js";
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -24,11 +25,17 @@ export function attachPublicControlOutputMetadata(result, plan = {}) {
   if (!result?.worksheetDocument) return result;
   const publicControls = buildPublicControlOutputMetadata(plan);
   if (!publicControls) return result;
+  const questionCount = resolveWorksheetQuestionCount(result.worksheetDocument);
   const worksheetDocument = {
     ...result.worksheetDocument,
+    summary: {
+      ...(result.worksheetDocument.summary ?? {}),
+      questionCount,
+    },
     publicControls,
     metadata: {
       ...(result.worksheetDocument.metadata ?? {}),
+      questionCount,
       publicControls,
     },
   };
