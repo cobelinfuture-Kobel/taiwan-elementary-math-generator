@@ -2,20 +2,20 @@
   "schemaVersion": "g4b-u04-r2f-deployed-pages-smoke-v1",
   "task": "G4B_U04_R2F_ProductionStressAndD0Recloseout",
   "status": "FAIL",
-  "deploymentSha": "8e7141639a8ac4ec9b24fd9057f6ba0d9eac703f",
-  "message": "locator.waitFor: Timeout 120000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-pattern-group-panel [data-pattern-group-id]').first() to be visible\n",
-  "details": null,
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&questionCount=20&ordering=groupedByPattern&answerKey=0&generationSeed=batch-a-browser&columns=4&rowsPerPage=10&questionMode=mixed&layoutMode=auto_safe&selectionMode=mixedKnowledgePointsSameUnit&kp=kp_g4b_u04_approximation_language_cues&kp=kp_g4b_u04_approximation_symbol_reading&kp=kp_g4b_u04_three_approximation_methods_compare&kp=kp_g4b_u04_unconditional_round_down&kp=kp_g4b_u04_unconditional_round_up&kp=kp_g4b_u04_round_half_up_place_value&kp=kp_g4b_u04_context_floor_ceiling_selection&kp=kp_g4b_u04_payment_denomination_ceiling&kp=kp_g4b_u04_round_then_add_subtract&kp=kp_g4b_u04_round_then_multiply_divide&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&kp=kp_g4b_u04_discount_denomination_round_down&pg=pg_g4b_u04_approximation_language&pg=pg_g4b_u04_approximation_symbol&pg=pg_g4b_u04_method_comparison&pg=pg_g4b_u04_round_down&pg=pg_g4b_u04_round_up&pg=pg_g4b_u04_round_half_up&pg=pg_g4b_u04_context_floor_ceiling&pg=pg_g4b_u04_payment_ceiling&pg=pg_g4b_u04_estimate_add_subtract&pg=pg_g4b_u04_estimate_multiply_divide&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&pg=pg_g4b_u04_discount_round_down",
+  "deploymentSha": "af84510b9cbcb22001397a5b558f06e9b1644d9d",
+  "message": "G4B_U04_R2F_LAYOUT_QUERY_REPLAY_FAILED",
+  "details": {},
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&questionCount=12&ordering=groupedByPattern&answerKey=1&generationSeed=g4b-u04-r2f-sdg&columns=4&rowsPerPage=10&questionMode=operation_estimation&layoutMode=custom_with_caps&contextMode=sdg&selectionMode=mixedKnowledgePointsSameUnit&kp=kp_g4b_u04_approximation_language_cues&kp=kp_g4b_u04_approximation_symbol_reading&kp=kp_g4b_u04_three_approximation_methods_compare&kp=kp_g4b_u04_unconditional_round_down&kp=kp_g4b_u04_unconditional_round_up&kp=kp_g4b_u04_round_half_up_place_value&kp=kp_g4b_u04_context_floor_ceiling_selection&kp=kp_g4b_u04_payment_denomination_ceiling&kp=kp_g4b_u04_round_then_add_subtract&kp=kp_g4b_u04_round_then_multiply_divide&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&kp=kp_g4b_u04_discount_denomination_round_down&pg=pg_g4b_u04_approximation_language&pg=pg_g4b_u04_approximation_symbol&pg=pg_g4b_u04_method_comparison&pg=pg_g4b_u04_round_down&pg=pg_g4b_u04_round_up&pg=pg_g4b_u04_round_half_up&pg=pg_g4b_u04_context_floor_ceiling&pg=pg_g4b_u04_payment_ceiling&pg=pg_g4b_u04_estimate_add_subtract&pg=pg_g4b_u04_estimate_multiply_divide&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&pg=pg_g4b_u04_discount_round_down",
   "consoleErrors": [],
   "pageErrors": [],
   "workflow": "G4B-U04 R2F Deployed Pages Smoke",
   "run": {
-    "id": "29375551122",
-    "number": "2",
+    "id": "29377018531",
+    "number": "3",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29375551122"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29377018531"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-14T23:18:07.258Z"
+  "verifiedAt": "2026-07-14T23:45:08.865Z"
 }
