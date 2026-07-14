@@ -6,10 +6,13 @@ import {
 export const G4B_U04_PIXEL_PUBLIC_CONTROL_IDS = Object.freeze({
   field: "pixel-g4b-u04-question-mode-field",
   questionMode: "pixel-g4b-u04-question-mode",
+  contextField: "pixel-g4b-u04-context-mode-field",
+  contextMode: "pixel-g4b-u04-context-mode",
   layoutField: "pixel-g4b-u04-layout-mode-field",
   layoutMode: "pixel-g4b-u04-layout-mode",
   help: "pixel-g4b-u04-control-help",
   proxyQuestionMode: "pixel-g5a-question-mode",
+  proxyContextMode: "pixel-g5a-context-mode",
   proxyLayoutChange: "pixel-columns",
   source: "pixel-source-select",
   selectionMode: "pixel-selection-mode-select",
@@ -24,6 +27,12 @@ export const G4B_U04_PIXEL_QUESTION_MODE_LABELS = Object.freeze({
   reasoning: "逆推推理",
 });
 
+export const G4B_U04_PIXEL_CONTEXT_MODE_LABELS = Object.freeze({
+  mixed: "生活與永續混合",
+  daily_life: "一般生活",
+  sdg: "受控永續情境",
+});
+
 export const G4B_U04_PIXEL_LAYOUT_MODE_LABELS = Object.freeze({
   auto_safe: "自動安全版面",
   custom_with_caps: "自訂欄列（安全上限）",
@@ -33,6 +42,10 @@ const G4_ONLY_MODES = Object.freeze(["concept", "operation_estimation"]);
 
 function isAllowedMode(value) {
   return G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value);
+}
+
+function isAllowedContextMode(value) {
+  return G4B_U04_PUBLIC_CONTROLS.contextModes.includes(value);
 }
 
 function isAllowedLayoutMode(value) {
@@ -56,6 +69,7 @@ function ensureProxyOptions(proxy, enabled) {
 
 function createControls(root) {
   let questionField = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.field);
+  let contextField = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.contextField);
   let layoutField = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.layoutField);
   const grid = root.querySelector(".pixel-setting-grid");
   const seedField = root.getElementById("pixel-generation-seed")?.closest("label");
@@ -70,6 +84,18 @@ function createControls(root) {
       .join("");
     questionField.innerHTML = `<span>概數題目類型</span><select id="${G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.questionMode}">${options}</select>`;
     if (grid) grid.insertBefore(questionField, seedField ?? null);
+  }
+
+  if (!contextField) {
+    contextField = root.createElement("label");
+    contextField.className = "pixel-field";
+    contextField.id = G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.contextField;
+    contextField.dataset.visible = "false";
+    const options = G4B_U04_PUBLIC_CONTROLS.contextModes
+      .map((mode) => `<option value="${mode}">${G4B_U04_PIXEL_CONTEXT_MODE_LABELS[mode]}</option>`)
+      .join("");
+    contextField.innerHTML = `<span>概數情境模式</span><select id="${G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.contextMode}">${options}</select>`;
+    if (grid) grid.insertBefore(contextField, seedField ?? null);
   }
 
   if (!layoutField) {
@@ -90,36 +116,46 @@ function createControls(root) {
     help.className = "pixel-help";
     help.id = G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.help;
     help.dataset.visible = "false";
-    help.textContent = "自動安全版面依題型套用欄列；自訂模式可降低密度，超過上限時會顯示實際套用版面。";
+    help.textContent = "永續情境只使用核准模板與虛構練習資料；版面超過上限時會顯示實際套用值。";
     const planSummary = root.getElementById("pixel-plan-summary");
     planSummary?.before(help);
   }
-  return { questionField, layoutField, help };
+  return { questionField, contextField, layoutField, help };
 }
 
 export function syncG4BU04PixelPublicControls(root = document) {
   const source = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.source);
   const selectionMode = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.selectionMode);
   const proxy = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.proxyQuestionMode);
-  const { questionField, layoutField, help } = createControls(root);
+  const proxyContext = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.proxyContextMode);
+  const { questionField, contextField, layoutField, help } = createControls(root);
   const select = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.questionMode);
+  const contextSelect = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.contextMode);
   const layoutSelect = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.layoutMode);
   const active = source?.value === G4B_U04_SOURCE_ID;
   ensureProxyOptions(proxy, active);
   const visible = active && selectionMode?.value !== "sourceUnit";
   questionField.dataset.visible = visible ? "true" : "false";
+  contextField.dataset.visible = visible ? "true" : "false";
   layoutField.dataset.visible = visible ? "true" : "false";
   if (help) help.dataset.visible = visible ? "true" : "false";
   const requested = active && isAllowedMode(proxy?.value)
     ? proxy.value
     : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode;
+  const contextMode = active && isAllowedContextMode(proxyContext?.value)
+    ? proxyContext.value
+    : (isAllowedContextMode(contextSelect?.value)
+      ? contextSelect.value
+      : G4B_U04_PUBLIC_CONTROLS.defaults.contextMode);
   const layoutMode = isAllowedLayoutMode(layoutSelect?.value)
     ? layoutSelect.value
     : G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode;
   if (active && proxy) proxy.value = requested;
+  if (active && proxyContext) proxyContext.value = contextMode;
   if (select) select.value = requested;
+  if (contextSelect) contextSelect.value = contextMode;
   if (layoutSelect) layoutSelect.value = layoutMode;
-  return Object.freeze({ active, visible, questionMode: requested, layoutMode });
+  return Object.freeze({ active, visible, questionMode: requested, contextMode, layoutMode });
 }
 
 export function mountG4BU04PixelPublicControls(root = document) {
@@ -127,8 +163,10 @@ export function mountG4BU04PixelPublicControls(root = document) {
   const source = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.source);
   const selectionMode = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.selectionMode);
   const proxy = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.proxyQuestionMode);
+  const proxyContext = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.proxyContextMode);
   const proxyLayoutChange = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.proxyLayoutChange);
   const select = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.questionMode);
+  const contextSelect = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.contextMode);
   const layoutSelect = root.getElementById(G4B_U04_PIXEL_PUBLIC_CONTROL_IDS.layoutMode);
   const sync = () => syncG4BU04PixelPublicControls(root);
   source?.addEventListener("change", sync);
@@ -136,11 +174,19 @@ export function mountG4BU04PixelPublicControls(root = document) {
   proxy?.addEventListener("change", () => {
     if (source?.value === G4B_U04_SOURCE_ID && select && isAllowedMode(proxy.value)) select.value = proxy.value;
   });
+  proxyContext?.addEventListener("change", () => {
+    if (source?.value === G4B_U04_SOURCE_ID && contextSelect && isAllowedContextMode(proxyContext.value)) contextSelect.value = proxyContext.value;
+  });
   select?.addEventListener("change", () => {
     if (!proxy || source?.value !== G4B_U04_SOURCE_ID || !isAllowedMode(select.value)) return;
     ensureProxyOptions(proxy, true);
     proxy.value = select.value;
     proxy.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+  contextSelect?.addEventListener("change", () => {
+    if (!proxyContext || source?.value !== G4B_U04_SOURCE_ID || !isAllowedContextMode(contextSelect.value)) return;
+    proxyContext.value = contextSelect.value;
+    proxyContext.dispatchEvent(new Event("change", { bubbles: true }));
   });
   layoutSelect?.addEventListener("change", () => {
     if (source?.value !== G4B_U04_SOURCE_ID || !isAllowedLayoutMode(layoutSelect.value)) return;
