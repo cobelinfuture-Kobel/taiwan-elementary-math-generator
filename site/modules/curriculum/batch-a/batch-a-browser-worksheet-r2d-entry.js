@@ -102,12 +102,29 @@ function applyR2DLayout(result, options) {
     ...(document.provenance?.sourceTaskIds ?? []),
     G4B_U04_R2D_WORKSHEET_LAYOUT_INTEGRATION.task,
   ])];
+  const publicControls = {
+    ...(document.publicControls ?? {}),
+    sourceId: G4B_U04_SOURCE_ID,
+    questionMode: options.questionMode ?? document.batchA?.questionMode ?? "mixed",
+    layoutMode: layoutResolution.layoutMode,
+    genericFallback: false,
+    freeFormAI: false,
+    printScope: "resolved_question_layout_and_profile_controlled_answer_layout",
+  };
   const worksheetDocument = {
     ...document,
+    publicControls,
     layoutResolution: clone(layoutResolution),
     appliedLayoutText: layoutResolution.appliedLayoutText,
     layoutNoticeText: layoutResolution.noticeText,
     printOptions,
+    metadata: {
+      ...(document.metadata ?? {}),
+      publicControls: clone(publicControls),
+      layoutResolution: clone(layoutResolution),
+      appliedLayoutText: layoutResolution.appliedLayoutText,
+      layoutNoticeText: layoutResolution.noticeText,
+    },
     validationSummary: {
       ...(document.validationSummary ?? {}),
       warnings: clone(warnings),
