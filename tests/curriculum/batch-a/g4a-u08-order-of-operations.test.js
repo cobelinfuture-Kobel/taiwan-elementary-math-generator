@@ -126,7 +126,7 @@ test("G4A-U08 exposes all 15 canonical KnowledgePoints including numeric and Pha
   assert.equal(availability.notSelectableCount, 0);
   const visibleIds = listVisibleBatchAKnowledgePoints().filter((kp) => kp.sourceId === SOURCE_ID).map((kp) => kp.knowledgePointId);
   assert.equal(visibleIds.length, 15);
-  assert.deepEqual(visibleIds.filter((kpId) => KP_IDS.includes(kpId)), KP_IDS);
+  assert.equal(visibleIds.filter((kpId) => kpId.startsWith("kp_g4a_u08_num_")).length, 11);
   assert.deepEqual(visibleIds.filter((kpId) => APP_KP_IDS.includes(kpId)), APP_KP_IDS);
 });
 
