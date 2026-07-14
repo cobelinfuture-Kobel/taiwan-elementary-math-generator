@@ -6,6 +6,7 @@ import {
 export const G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS = Object.freeze({
   section: "g4b-u04-public-controls",
   questionMode: "g4b-u04-question-mode",
+  layoutMode: "g4b-u04-layout-mode",
   proxyQuestionMode: "g5a-u08-question-mode",
   source: "batch-a-source-select",
   sourceHelp: "batch-a-source-help",
@@ -21,10 +22,19 @@ export const G4B_U04_QUESTION_MODE_LABELS = Object.freeze({
   reasoning: "逆推推理",
 });
 
+export const G4B_U04_LAYOUT_MODE_LABELS = Object.freeze({
+  auto_safe: "自動安全版面",
+  custom_with_caps: "自訂欄列（受安全上限保護）",
+});
+
 const G4_ONLY_MODES = Object.freeze(["concept", "operation_estimation"]);
 
 function isAllowedMode(value) {
   return G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value);
+}
+
+function isAllowedLayoutMode(value) {
+  return G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value);
 }
 
 function queryParam(name) {
@@ -35,6 +45,11 @@ function queryParam(name) {
 function queryMode() {
   const value = queryParam("questionMode");
   return isAllowedMode(value) ? value : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode;
+}
+
+function queryLayoutMode() {
+  const value = queryParam("layoutMode");
+  return isAllowedLayoutMode(value) ? value : G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode;
 }
 
 function ensureSourceOption(source) {
@@ -73,17 +88,23 @@ function createSection() {
   section.className = "pattern-group-selector";
   section.id = G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.section;
   section.dataset.visible = "false";
-  section.setAttribute("aria-label", "四下概數題目模式設定");
-  const options = G4B_U04_PUBLIC_CONTROLS.questionModes
+  section.setAttribute("aria-label", "四下概數題目與版面設定");
+  const questionOptions = G4B_U04_PUBLIC_CONTROLS.questionModes
     .map((mode) => `<option value="${mode}">${G4B_U04_QUESTION_MODE_LABELS[mode]}</option>`)
+    .join("");
+  const layoutOptions = G4B_U04_PUBLIC_CONTROLS.layoutModes
+    .map((mode) => `<option value="${mode}">${G4B_U04_LAYOUT_MODE_LABELS[mode]}</option>`)
     .join("");
   section.innerHTML = [
     "<h3>四下概數設定</h3>",
     '<div class="control-grid">',
     '<label class="field"><span>題目類型</span>',
-    `<select id="${G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.questionMode}" name="g4bU04QuestionMode">${options}</select>`,
+    `<select id="${G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.questionMode}" name="g4bU04QuestionMode">${questionOptions}</select>`,
+    "</label>",
+    '<label class="field"><span>版面模式</span>',
+    `<select id="${G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.layoutMode}" name="g4bU04LayoutMode">${layoutOptions}</select>`,
     "</label></div>",
-    '<p class="help-text">可分別練習概數語意、三種取概數方法、生活應用、先取概數再估算與逆推題。</p>',
+    '<p class="help-text">自動安全版面依題型套用欄列；自訂模式可降低密度，超過安全上限時會自動調整並顯示實際版面。</p>',
   ].join("");
   const anchor = document.getElementById("batch-a-knowledge-point-warning-list");
   anchor?.before(section);
@@ -98,6 +119,7 @@ export function syncG4BU04ClassicPublicControls(root = document) {
   const proxy = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyQuestionMode);
   const section = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.section) ?? createSection();
   const select = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.questionMode);
+  const layoutSelect = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.layoutMode);
   const active = source?.value === G4B_U04_SOURCE_ID;
   if (active && sourceHelp) sourceHelp.textContent = "4B-U04｜概數｜4 年級下學期";
   ensureProxyOptions(proxy, active);
@@ -105,9 +127,11 @@ export function syncG4BU04ClassicPublicControls(root = document) {
   section.dataset.visible = visible ? "true" : "false";
   const requested = active && isAllowedMode(proxy?.value) ? proxy.value : queryMode();
   const mode = isAllowedMode(requested) ? requested : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode;
+  const layoutMode = isAllowedLayoutMode(layoutSelect?.value) ? layoutSelect.value : queryLayoutMode();
   if (active && proxy) proxy.value = mode;
   if (select) select.value = mode;
-  return Object.freeze({ active, visible, questionMode: mode });
+  if (layoutSelect) layoutSelect.value = layoutMode;
+  return Object.freeze({ active, visible, questionMode: mode, layoutMode });
 }
 
 export function mountG4BU04ClassicPublicControls(root = document) {
