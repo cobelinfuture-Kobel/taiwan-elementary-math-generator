@@ -5,6 +5,7 @@ import { buildG5AU02PublicCandidateWorksheet } from "../../../modules/curriculum
 import { resolveG5AU02BrowserPlan } from "../../../modules/curriculum/batch-b/g5a-u02-browser-resolver.js";
 import { buildG5AU02BrowserDynamicWorksheet } from "../../../modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js";
 import { getBatchAWorksheetPlan, storeWorksheetResult } from "../state/config-state.js";
+import { attachPublicControlOutputMetadata } from "./public-control-output-metadata.js";
 
 function blockedKnowledgePointResult(resolution) {
   return Object.freeze({
@@ -27,6 +28,7 @@ export function buildWorksheetDocumentFromState(state) {
     const publicCandidate = buildG5AU02PublicCandidateWorksheet(resolution?.plan ?? plan);
     result = publicCandidate ?? buildBatchABrowserWorksheetDocument(plan);
   }
+  result = attachPublicControlOutputMetadata(result, resolution?.plan ?? plan);
   storeWorksheetResult(state, result);
   return result;
 }
