@@ -27,7 +27,7 @@ import {
   classifyG4BU04CanonicalRouterPlan,
   generateG4BU04CanonicalQuestions,
   normalizeG4BU04ResolverPlan,
-} from "../batch-b/g4b-u04-canonical-router.js";
+} from "../batch-b/g4b-u04-canonical-router-r2e.js";
 
 const G4A_U08_PHASE2B_GROUP_SET = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 

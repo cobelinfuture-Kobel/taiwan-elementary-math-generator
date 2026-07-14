@@ -5,10 +5,15 @@ import {
 import {
   G4B_U04_LAYOUT_MODES,
 } from "../batch-b/g4b-u04-layout-resolution.js";
+import {
+  G4B_U04_CONTEXT_DEFAULT_MODE,
+  G4B_U04_CONTEXT_MODES,
+} from "../batch-b/g4b-u04-controlled-context-variants.js";
 
 export const G4B_U04_PROMOTION_REGISTRY_ID = "s72_g4b_u04_rounding_approximation_promotion";
 export const G4B_U04_R2C_PROMOTION_OVERLAY_ID = "g4b_u04_r2c_discount_round_down_promotion";
 export const G4B_U04_R2D_LAYOUT_OVERLAY_ID = "g4b_u04_r2d_layout_readback";
+export const G4B_U04_R2E_CONTEXT_OVERLAY_ID = "g4b_u04_r2e_controlled_context";
 export const G4B_U04_SOURCE_ID = "g4b_u04_4b04";
 
 export const G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS = Object.freeze([
@@ -45,16 +50,19 @@ export const G4B_U04_PUBLIC_CONTROLS = Object.freeze({
     "reasoning",
   ]),
   layoutModes: G4B_U04_LAYOUT_MODES,
+  contextModes: G4B_U04_CONTEXT_MODES,
   defaults: Object.freeze({
     questionMode: "mixed",
     layoutMode: "auto_safe",
+    contextMode: G4B_U04_CONTEXT_DEFAULT_MODE,
   }),
   publicPatternSpecInjection: false,
   publicGenericFallback: false,
+  publicFreeFormAI: false,
 });
 
-// S72/R2C canonical authority remains immutable. R2D is a downstream
-// worksheet-layout overlay and must not promote this base lifecycle.
+// S72/R2C canonical authority remains immutable. R2D and R2E are downstream
+// worksheet/output overlays and must not promote the base lifecycle.
 export const G4B_U04_PROMOTION_LIFECYCLE = Object.freeze({
   task: "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
   baseTask: "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
@@ -79,11 +87,26 @@ export const G4B_U04_R2D_LAYOUT_LIFECYCLE = Object.freeze({
   sourceId: G4B_U04_SOURCE_ID,
   layoutOverlayId: G4B_U04_R2D_LAYOUT_OVERLAY_ID,
   basePromotionLifecycleTask: G4B_U04_PROMOTION_LIFECYCLE.task,
-  status: "layout_readback_candidate_pending_ci",
+  status: "layout_readback_closed",
   baseLifecyclePreserved: true,
   promotionAuthorityMutated: false,
   productionEligibilityChanged: false,
   requiredNextGate: "G4B_U04_R2E_ControlledSDGTemplateVariantsAndContextMode",
+});
+
+export const G4B_U04_R2E_CONTEXT_LIFECYCLE = Object.freeze({
+  task: "G4B_U04_R2E_ControlledSDGTemplateVariantsAndContextMode",
+  sourceId: G4B_U04_SOURCE_ID,
+  contextOverlayId: G4B_U04_R2E_CONTEXT_OVERLAY_ID,
+  basePromotionLifecycleTask: G4B_U04_PROMOTION_LIFECYCLE.task,
+  status: "controlled_context_candidate_pending_ci",
+  baseLifecyclePreserved: true,
+  promotionAuthorityMutated: false,
+  curriculumAuthorityMutated: false,
+  productionEligibilityChanged: false,
+  genericContextFallbackAllowed: false,
+  freeFormAIAllowed: false,
+  requiredNextGate: "G4B_U04_R2F_FullWorksheetHTMLPDFAndDeployedUIRecloseout",
 });
 
 const kpIds = new Set(G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS);
@@ -124,17 +147,25 @@ export function validateG4BU04PromotionProjection() {
   const expectedModes = { concept: 4, numeric: 3, application: 6, operation_estimation: 4, reasoning: 2 };
   if (JSON.stringify(modes) !== JSON.stringify(expectedModes)) errors.push("mode_distribution_mismatch");
   if (G4B_U04_PUBLIC_CONTROLS.layoutModes.length !== 2) errors.push("layout_mode_count_mismatch");
+  if (G4B_U04_PUBLIC_CONTROLS.contextModes.length !== 3) errors.push("context_mode_count_mismatch");
   if (G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode !== "auto_safe") errors.push("layout_mode_default_mismatch");
+  if (G4B_U04_PUBLIC_CONTROLS.defaults.contextMode !== "mixed") errors.push("context_mode_default_mismatch");
   if (G4B_U04_PROMOTION_LIFECYCLE.worksheetStatus !== "not_eligible"
     || G4B_U04_PROMOTION_LIFECYCLE.productionUse !== "forbidden") {
     errors.push("base_promotion_lifecycle_mutated");
   }
-  if (G4B_U04_PROMOTION_LIFECYCLE.effectivePromotionRegistryIds.includes(G4B_U04_R2D_LAYOUT_OVERLAY_ID)) {
-    errors.push("layout_overlay_leaked_into_promotion_authority");
+  if (G4B_U04_PROMOTION_LIFECYCLE.effectivePromotionRegistryIds.includes(G4B_U04_R2D_LAYOUT_OVERLAY_ID)
+    || G4B_U04_PROMOTION_LIFECYCLE.effectivePromotionRegistryIds.includes(G4B_U04_R2E_CONTEXT_OVERLAY_ID)) {
+    errors.push("downstream_overlay_leaked_into_promotion_authority");
   }
   if (G4B_U04_R2D_LAYOUT_LIFECYCLE.baseLifecyclePreserved !== true
     || G4B_U04_R2D_LAYOUT_LIFECYCLE.promotionAuthorityMutated !== false) {
     errors.push("layout_lifecycle_isolation_invalid");
+  }
+  if (G4B_U04_R2E_CONTEXT_LIFECYCLE.baseLifecyclePreserved !== true
+    || G4B_U04_R2E_CONTEXT_LIFECYCLE.promotionAuthorityMutated !== false
+    || G4B_U04_R2E_CONTEXT_LIFECYCLE.curriculumAuthorityMutated !== false) {
+    errors.push("context_lifecycle_isolation_invalid");
   }
   return Object.freeze({
     ok: errors.length === 0,
@@ -142,5 +173,6 @@ export function validateG4BU04PromotionProjection() {
     counts: Object.freeze(expectedCounts),
     modes: Object.freeze(modes),
     layoutModes: G4B_U04_PUBLIC_CONTROLS.layoutModes,
+    contextModes: G4B_U04_PUBLIC_CONTROLS.contextModes,
   });
 }

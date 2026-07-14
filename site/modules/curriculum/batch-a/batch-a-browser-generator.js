@@ -29,6 +29,7 @@ export function normalizeG5AU08PublicControls(options = {}) {
 export function normalizeG4BU04PublicControls(options = {}) {
   return Object.freeze({
     questionMode: normalize(options.questionMode, G4B_U04_PUBLIC_CONTROLS.questionModes, G4B_U04_PUBLIC_CONTROLS.defaults.questionMode),
+    contextMode: normalize(options.contextMode, G4B_U04_PUBLIC_CONTROLS.contextModes, G4B_U04_PUBLIC_CONTROLS.defaults.contextMode),
   });
 }
 

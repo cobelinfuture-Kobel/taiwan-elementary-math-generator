@@ -17,6 +17,7 @@ const watchedControlIds = [
   "pixel-question-count",
   "pixel-ordering",
   "pixel-g4b-u04-question-mode",
+  "pixel-g4b-u04-context-mode",
   "pixel-g4b-u04-layout-mode",
   "pixel-g5a-question-mode",
   "pixel-g5a-depth-mode",
