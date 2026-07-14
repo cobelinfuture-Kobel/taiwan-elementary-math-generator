@@ -18,9 +18,14 @@ import {
 } from "../../../modules/curriculum/registry/public-control-profiles.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
+const G4A_U08_SOURCE_ID = "g4a_u08_4a08";
 const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
   "g3b_u04_3b04", "g3b_u08_3b08", "g4b_u01_4b01", "g5a_u02_5a02",
-  G4B_U04_SOURCE_ID, G5A_U08_SOURCE_ID,
+  G4A_U08_SOURCE_ID, G4B_U04_SOURCE_ID, G5A_U08_SOURCE_ID,
+]));
+const LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
+  G4A_U08_SOURCE_ID,
+  "g5a_u02_5a02",
 ]));
 const KP_SELECTION_MODES = Object.freeze([
   "singleKnowledgePoint", "mixedKnowledgePointsSameUnit", "mixedKnowledgePointsCrossUnit"
@@ -52,9 +57,10 @@ function approvedLatestKnowledgePoint(knowledgePointId) {
   return latest && LATEST_QUERY_SELECTOR_SOURCE_IDS.has(latest.sourceId) ? latest : null;
 }
 function getVisibleBatchAKnowledgePoint(knowledgePointId) {
+  const latest = approvedLatestKnowledgePoint(knowledgePointId);
+  if (latest && LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS.has(latest.sourceId)) return latest;
   const base = getBaseVisibleBatchAKnowledgePoint(knowledgePointId);
   if (base) return base;
-  const latest = approvedLatestKnowledgePoint(knowledgePointId);
   if (latest) return latest;
   if (knowledgePointId !== G3A_U03_WORD_PROBLEM.knowledgePointId) return null;
   return {
@@ -66,9 +72,13 @@ function getVisibleBatchAKnowledgePoint(knowledgePointId) {
   };
 }
 function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
+  const latest = approvedLatestKnowledgePoint(knowledgePointId);
+  if (latest && LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS.has(latest.sourceId)) {
+    return getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+  }
   const baseGroups = getBaseVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
   if (baseGroups.length > 0) return baseGroups;
-  if (approvedLatestKnowledgePoint(knowledgePointId)) return getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+  if (latest) return getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
   if (knowledgePointId !== G3A_U03_WORD_PROBLEM.knowledgePointId) return [];
   return [{
     patternGroupId: G3A_U03_WORD_PROBLEM.patternGroupId,
