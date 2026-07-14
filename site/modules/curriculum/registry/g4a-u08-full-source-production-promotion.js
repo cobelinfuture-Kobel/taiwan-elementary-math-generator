@@ -30,17 +30,17 @@ export const G4A_U08_FULL_SOURCE_STRESS_ACCEPTANCE = Object.freeze({
 
 export const G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE = Object.freeze({
   task: "S76R_G4A_U08_FullSourceStressHTMLPDFAndD0Reevaluation",
-  status: "full_source_production_candidate_pending_ci",
+  status: "full_source_production_allowed",
   selectorStatus: "15_kp_visible",
   runtimeStatus: "28_group_blocking_validated_runtime",
   validatorStatus: "33_pattern_spec_contracts_reachable",
-  worksheetStatus: "28_group_worksheet_reachable",
-  rendererStatus: "existing_generic_renderer_full_source_candidate",
-  htmlPdfStatus: "full_source_smoke_required",
-  productionUse: "preview_only_pending_s76r_ci",
+  worksheetStatus: "28_group_production_worksheet_reachable",
+  rendererStatus: "existing_generic_renderer_full_source_accepted",
+  htmlPdfStatus: "full_source_smoke_pass",
+  productionUse: "allowed",
   distanceBefore: "D1_G4A_U08_ALL_CANONICAL_PUBLIC_ROUTING_MERGED",
-  distanceAfterCandidate: "D0_G4A_U08_PENDING_S76R_CI_AND_PROMOTION",
-  requiredNextGate: "S76R_CI_THEN_PRODUCTION_PROMOTION",
+  distanceAfter: "D0_G4A_U08_FULL_SOURCE_PRODUCTION_ALLOWED",
+  requiredNextGate: null,
 });
 
 export function getG4AU08FullSourceProductionProjection() {
@@ -63,7 +63,10 @@ export function validateG4AU08FullSourceProductionProjection() {
   if (new Set(patternGroupIds).size !== patternGroupIds.length) errors.push("duplicate_pattern_group");
   if (G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.some((row) => row.visibilityStatus !== "visible" || row.holdReason !== null)) errors.push("canonical_group_visibility_invalid");
   if (G4A_U08_FULL_SOURCE_STRESS_ACCEPTANCE.firstRejectedQuestionCount !== 1001) errors.push("rejection_boundary_mismatch");
-  if (G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.productionUse !== "preview_only_pending_s76r_ci") errors.push("premature_production_promotion");
+  if (G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.productionUse !== "allowed") errors.push("production_use_not_allowed");
+  if (G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.htmlPdfStatus !== "full_source_smoke_pass") errors.push("html_pdf_not_accepted");
+  if (!G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.distanceAfter.startsWith("D0")) errors.push("d0_not_declared");
+  if (G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.requiredNextGate !== null) errors.push("unexpected_next_gate");
   return Object.freeze({
     ok: errors.length === 0,
     errors: Object.freeze(errors),
