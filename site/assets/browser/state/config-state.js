@@ -41,7 +41,8 @@ function applyControlsToState(state, input = {}) {
 
 function browserLayoutMode() {
   if (typeof document === "undefined") return null;
-  const value = document.getElementById("g4b-u04-layout-mode")?.value;
+  const value = document.getElementById("g4b-u04-layout-mode")?.value
+    ?? document.getElementById("pixel-g4b-u04-layout-mode")?.value;
   return G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value) ? value : null;
 }
 
