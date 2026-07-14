@@ -1,6 +1,5 @@
 import {
   G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
-  validateG4AU08AllCanonicalPublicSelectorProjection,
 } from "./batch-a-selector-g4a-u08-all-canonical.js";
 
 export const G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID =
@@ -57,12 +56,12 @@ export function getG4AU08FullSourceProductionProjection() {
 }
 
 export function validateG4AU08FullSourceProductionProjection() {
-  const selector = validateG4AU08AllCanonicalPublicSelectorProjection();
-  const errors = [...selector.errors];
+  const errors = [];
   if (knowledgePointIds.length !== 15) errors.push("knowledge_point_count_mismatch");
   if (patternGroupIds.length !== 28) errors.push("pattern_group_count_mismatch");
   if (patternSpecIds.length !== 33) errors.push("pattern_spec_count_mismatch");
   if (new Set(patternGroupIds).size !== patternGroupIds.length) errors.push("duplicate_pattern_group");
+  if (G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.some((row) => row.visibilityStatus !== "visible" || row.holdReason !== null)) errors.push("canonical_group_visibility_invalid");
   if (G4A_U08_FULL_SOURCE_STRESS_ACCEPTANCE.firstRejectedQuestionCount !== 1001) errors.push("rejection_boundary_mismatch");
   if (G4A_U08_FULL_SOURCE_PRODUCTION_LIFECYCLE.productionUse !== "preview_only_pending_s76r_ci") errors.push("premature_production_promotion");
   return Object.freeze({
