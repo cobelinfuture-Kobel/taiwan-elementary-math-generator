@@ -2,28 +2,18 @@ import {
   G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
   isS76QPublicG4AU08PatternGroupId,
 } from "../registry/batch-a-selector-g4a-u08-all-canonical.js";
-import {
-  sampleG4AU08NumericCanonicalPatternSpec,
-} from "./g4a-u08-numeric-canonical-hidden.js";
+import { sampleG4AU08NumericCanonicalPatternSpec } from "./g4a-u08-numeric-canonical-hidden.js";
 import {
   adaptG4AU08NumericSample,
   validateG4AU08NumericCanonicalItem,
 } from "../../../../src/curriculum/g4a-u08/numeric-canonical-adapter-validator.js";
-import {
-  generateG4AU08ApplicationQuestions,
-} from "./g4a-u08-application-generator.js";
+import { generateG4AU08ApplicationQuestions } from "./g4a-u08-application-generator.js";
 import {
   generateG4AU08AppCostOverlayHidden,
 } from "./g4a-u08-app-cost-overlay-hidden.js";
-import {
-  validateG4AU08AppCostOverlayItem,
-} from "../../../../src/curriculum/g4a-u08/app-cost-overlay-validator.js";
-import {
-  G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS,
-} from "../registry/g4a-u08-phase2b-promotion.js";
-import {
-  generateG4AU08CanonicalQuestions,
-} from "./g4a-u08-canonical-router.js";
+import { validateG4AU08AppCostOverlayItem } from "../../../../src/curriculum/g4a-u08/app-cost-overlay-validator.js";
+import { G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS } from "../registry/g4a-u08-phase2b-promotion.js";
+import { generateG4AU08CanonicalQuestions } from "./g4a-u08-canonical-router.js";
 
 const SOURCE_ID = "g4a_u08_4a08";
 const PROMOTION_ID = "s76q_g4a_u08_all_canonical_groups_public";
@@ -31,30 +21,27 @@ const PHASE2B_GROUP_SET = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 const GROUP_BY_ID = new Map(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => [row.patternGroupId, row]));
 const NUMERIC_GROUP_SET = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.filter((row) => row.mode === "numeric").map((row) => row.patternGroupId));
 const COST_OVERLAY_GROUP_ID = "pg_g4a_u08_app_cost_overlay";
+const LEGACY_APP_GROUP_BY_KP = Object.freeze({
+  kp_g4a_u08_app_add_sub_sequence: "pg_g4a_u08_app_add_sub_sequence",
+  kp_g4a_u08_app_parentheses_grouping: "pg_g4a_u08_app_parentheses_grouping",
+  kp_g4a_u08_app_mul_div_sequence: "pg_g4a_u08_app_mul_div_sequence",
+  kp_g4a_u08_app_mul_div_before_add_sub: "pg_g4a_u08_app_mul_div_before_add_sub",
+});
+const LEGACY_APP_SPEC_COUNT_BY_KP = Object.freeze({
+  kp_g4a_u08_app_add_sub_sequence: 4,
+  kp_g4a_u08_app_parentheses_grouping: 3,
+  kp_g4a_u08_app_mul_div_sequence: 3,
+  kp_g4a_u08_app_mul_div_before_add_sub: 2,
+});
 
-function clone(value) {
-  return value === undefined ? undefined : JSON.parse(JSON.stringify(value));
-}
-
-function issue(code, path, message, details = {}) {
-  return { code, severity: "error", path, message, ...details };
-}
-
-function hashSeed(value) {
-  let acc = 2166136261;
-  for (const char of String(value ?? "s76q")) {
-    acc ^= char.charCodeAt(0);
-    acc = Math.imul(acc, 16777619);
-  }
-  return acc >>> 0 || 1;
-}
+const clone = (value) => value === undefined ? undefined : JSON.parse(JSON.stringify(value));
+const issue = (code, path, message, details = {}) => ({ code, severity: "error", path, message, ...details });
 
 function allocateGroups(groups, questionCount) {
   const base = Math.floor(questionCount / groups.length);
   let remainder = questionCount % groups.length;
   return groups.map((group) => {
-    const count = base + (remainder > 0 ? 1 : 0);
-    if (remainder > 0) remainder -= 1;
+    const count = base + (remainder-- > 0 ? 1 : 0);
     return {
       patternGroupId: group.patternGroupId,
       knowledgePointId: group.primaryKnowledgePointId,
@@ -75,7 +62,7 @@ function allocateGroups(groups, questionCount) {
 export function requestsG4AU08AllCanonicalPublicRoute(plan = {}) {
   return plan.sourceId === SOURCE_ID
     && Array.isArray(plan.requestedPatternGroupIds)
-    && plan.requestedPatternGroupIds.some(isS76QPublicG4AU08PatternGroupId);
+    && plan.requestedPatternGroupIds.some((id) => isS76QPublicG4AU08PatternGroupId(id) && !PHASE2B_GROUP_SET.has(id));
 }
 
 export function normalizeG4AU08AllCanonicalPublicPlan(plan = {}) {
@@ -89,19 +76,22 @@ export function normalizeG4AU08AllCanonicalPublicPlan(plan = {}) {
     : G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.filter((group) => requestedKnowledgePoints.has(group.primaryKnowledgePointId));
   const uniqueGroups = [...new Map(groups.map((group) => [group.patternGroupId, group])).values()];
   const allocation = allocateGroups(uniqueGroups, plan.questionCount);
+  const knowledgePointIds = [...new Set(uniqueGroups.map((group) => group.primaryKnowledgePointId))];
+  const patternGroupIds = uniqueGroups.map((group) => group.patternGroupId);
+  const patternSpecIds = [...new Set(uniqueGroups.flatMap((group) => group.patternSpecIds))];
   return {
     ...clone(plan),
-    selectedKnowledgePointIds: [...new Set(uniqueGroups.map((group) => group.primaryKnowledgePointId))],
-    selectedPatternGroupIds: uniqueGroups.map((group) => group.patternGroupId),
-    patternSpecIds: [...new Set(uniqueGroups.flatMap((group) => group.patternSpecIds))],
+    selectedKnowledgePointIds: knowledgePointIds,
+    selectedPatternGroupIds: patternGroupIds,
+    patternSpecIds,
     allocation,
     publicPatternSpecInjectionUsed: false,
     genericFallbackAllowed: false,
     resolverResult: {
       ok: uniqueGroups.length > 0 && allocation.length > 0,
-      knowledgePointIds: [...new Set(uniqueGroups.map((group) => group.primaryKnowledgePointId))],
-      patternGroupIds: uniqueGroups.map((group) => group.patternGroupId),
-      patternSpecIds: [...new Set(uniqueGroups.flatMap((group) => group.patternSpecIds))],
+      knowledgePointIds,
+      patternGroupIds,
+      patternSpecIds,
       allocation: clone(allocation),
       errors: [],
       warnings: [],
@@ -129,14 +119,28 @@ export function validateG4AU08AllCanonicalPublicPlan(plan = {}) {
   return { ok: errors.length === 0, errors, warnings: [], plan: normalized };
 }
 
-function publicNumericQuestion(item, entry, sequenceNumber) {
+function publicLifecycle(question, entry, sequenceNumber) {
   return {
-    id: `${item.patternSpecId}-${sequenceNumber}`,
+    ...clone(question),
+    id: `${question.patternSpecId}-${sequenceNumber}`,
+    knowledgePointId: entry.knowledgePointId,
+    patternGroupId: entry.patternGroupId,
+    resolvedPatternGroupId: entry.patternGroupId,
+    selectorStatus: "visible",
+    visibilityStatus: "visible",
+    canonicalRouting: "enabled",
+    worksheetReachability: "enabled",
+    productionUse: "preview_only_pending_s76r",
+    generatorRouting: "s76q_canonical_resolver_allocation",
+    promotionRegistryId: PROMOTION_ID,
+    validationStatus: "accepted",
+  };
+}
+
+function publicNumericQuestion(item, entry, sequenceNumber) {
+  return publicLifecycle({
     sourceId: item.sourceId,
     unitCode: item.unitCode,
-    knowledgePointId: item.knowledgePointId,
-    patternGroupId: item.patternGroupId,
-    resolvedPatternGroupId: entry.patternGroupId,
     patternSpecId: item.patternSpecId,
     legacyPatternSpecId: item.legacyPatternSpecId,
     mode: "numeric",
@@ -152,25 +156,13 @@ function publicNumericQuestion(item, entry, sequenceNumber) {
     operationOrderTrace: clone(item.operations),
     canonicalEvidence: clone(item.canonicalEvidence),
     reasoningRole: item.reasoningRole,
-    selectorStatus: "visible",
-    visibilityStatus: "visible",
-    canonicalRouting: "enabled",
-    worksheetReachability: "enabled",
-    productionUse: "preview_only_pending_s76r",
-    generatorRouting: "s76q_canonical_resolver_allocation",
-    promotionRegistryId: PROMOTION_ID,
-    validationStatus: "accepted",
-  };
+  }, entry, sequenceNumber);
 }
 
 function publicCostOverlayQuestion(item, entry, sequenceNumber) {
-  return {
-    id: `${item.patternSpecId}-${sequenceNumber}`,
+  return publicLifecycle({
     sourceId: item.sourceId,
     unitCode: item.unitCode,
-    knowledgePointId: item.knowledgePointId,
-    patternGroupId: item.patternGroupId,
-    resolvedPatternGroupId: entry.patternGroupId,
     patternSpecId: item.patternSpecId,
     legacyTemplateId: item.templateFamilyId,
     mode: "application",
@@ -187,33 +179,28 @@ function publicCostOverlayQuestion(item, entry, sequenceNumber) {
     reasoningRole: item.reasoningRole,
     semanticRelations: clone(item.semanticRelations),
     context: clone(item.context),
-    selectorStatus: "visible",
-    visibilityStatus: "visible",
-    canonicalRouting: "enabled",
-    worksheetReachability: "enabled",
-    productionUse: "preview_only_pending_s76r",
-    generatorRouting: "s76q_canonical_resolver_allocation",
-    promotionRegistryId: PROMOTION_ID,
-    validationStatus: "accepted",
-  };
+  }, entry, sequenceNumber);
 }
 
-function promoteLegacyApplication(question, entry, sequenceNumber) {
-  return {
-    ...clone(question),
-    id: `${question.patternSpecId}-${sequenceNumber}`,
-    knowledgePointId: entry.knowledgePointId,
-    patternGroupId: entry.patternGroupId,
-    resolvedPatternGroupId: entry.patternGroupId,
-    selectorStatus: "visible",
-    visibilityStatus: "visible",
-    canonicalRouting: "enabled",
-    worksheetReachability: "enabled",
-    productionUse: "preview_only_pending_s76r",
-    generatorRouting: "s76q_canonical_resolver_allocation",
-    promotionRegistryId: PROMOTION_ID,
-    validationStatus: "accepted",
-  };
+function generatePhase2AEntry(entry, normalized) {
+  const legacyGroupId = LEGACY_APP_GROUP_BY_KP[entry.knowledgePointId];
+  const multiplier = LEGACY_APP_SPEC_COUNT_BY_KP[entry.knowledgePointId];
+  const targetSpecId = entry.patternSpecIds[0];
+  const result = generateG4AU08ApplicationQuestions({
+    sourceId: SOURCE_ID,
+    selectionMode: "singleKnowledgePoint",
+    selectedKnowledgePointIds: [entry.knowledgePointId],
+    selectedPatternGroupIds: [legacyGroupId],
+    questionCount: entry.questionCount * multiplier,
+    ordering: "groupedByPattern",
+    generationSeed: `${normalized.generationSeed}:${entry.patternGroupId}`,
+  });
+  if (!result.ok) return result;
+  const questions = result.questions.filter((question) => question.patternSpecId === targetSpecId).slice(0, entry.questionCount);
+  if (questions.length !== entry.questionCount) {
+    return { ok: false, questions: [], errors: [issue("G4A_U08_S76Q_PHASE2A_TARGET_COUNT_MISMATCH", "questions", "Phase2A canonical target PatternSpec 題數不足。", { targetSpecId, expected: entry.questionCount, actual: questions.length })] };
+  }
+  return { ok: true, questions, errors: [] };
 }
 
 export function generateG4AU08AllCanonicalPublicQuestions(plan = {}) {
@@ -234,9 +221,7 @@ export function generateG4AU08AllCanonicalPublicQuestions(plan = {}) {
         sequenceNumber += 1;
         questions.push(publicNumericQuestion(item, entry, sequenceNumber));
       }
-      continue;
-    }
-    if (entry.runtimeKind === "app_cost_overlay") {
+    } else if (entry.runtimeKind === "app_cost_overlay") {
       for (let index = 0; index < entry.questionCount; index += 1) {
         const item = generateG4AU08AppCostOverlayHidden({ seed: `${normalized.generationSeed}:${entry.patternGroupId}:${index}` });
         const validation = validateG4AU08AppCostOverlayItem(item);
@@ -244,36 +229,14 @@ export function generateG4AU08AllCanonicalPublicQuestions(plan = {}) {
         sequenceNumber += 1;
         questions.push(publicCostOverlayQuestion(item, entry, sequenceNumber));
       }
-      continue;
-    }
-    if (entry.runtimeKind === "phase2b_application") {
-      const result = generateG4AU08CanonicalQuestions({
-        ...clone(normalized),
-        selectedKnowledgePointIds: [entry.knowledgePointId],
-        selectedPatternGroupIds: [entry.patternGroupId],
-        requestedPatternGroupIds: [entry.patternGroupId],
-        questionCount: entry.questionCount,
-      });
-      if (!result.ok) { errors.push(...result.errors); continue; }
-      for (const question of result.questions) {
-        sequenceNumber += 1;
-        questions.push({ ...question, id: `${question.patternSpecId}-${sequenceNumber}`, productionUse: "preview_only_pending_s76r", promotionRegistryId: PROMOTION_ID, worksheetReachability: "enabled" });
-      }
-      continue;
-    }
-    const result = generateG4AU08ApplicationQuestions({
-      sourceId: SOURCE_ID,
-      selectionMode: "singleKnowledgePoint",
-      selectedKnowledgePointIds: [entry.knowledgePointId],
-      selectedPatternGroupIds: [entry.patternGroupId],
-      questionCount: entry.questionCount,
-      ordering: "groupedByPattern",
-      generationSeed: `${normalized.generationSeed}:${entry.patternGroupId}`,
-    });
-    if (!result.ok) { errors.push(...result.errors); continue; }
-    for (const question of result.questions) {
-      sequenceNumber += 1;
-      questions.push(promoteLegacyApplication(question, entry, sequenceNumber));
+    } else if (entry.runtimeKind === "phase2b_application") {
+      const result = generateG4AU08CanonicalQuestions({ ...clone(normalized), selectedKnowledgePointIds: [entry.knowledgePointId], selectedPatternGroupIds: [entry.patternGroupId], requestedPatternGroupIds: [entry.patternGroupId], questionCount: entry.questionCount });
+      if (!result.ok) errors.push(...result.errors);
+      else for (const question of result.questions) { sequenceNumber += 1; questions.push(publicLifecycle(question, entry, sequenceNumber)); }
+    } else {
+      const result = generatePhase2AEntry(entry, normalized);
+      if (!result.ok) errors.push(...result.errors);
+      else for (const question of result.questions) { sequenceNumber += 1; questions.push(publicLifecycle(question, entry, sequenceNumber)); }
     }
   }
   if (questions.length !== normalized.questionCount) errors.push(issue("G4A_U08_S76Q_OUTPUT_COUNT_MISMATCH", "questions", "輸出題數不一致。", { expected: normalized.questionCount, actual: questions.length }));
@@ -286,6 +249,8 @@ export function validateG4AU08AllCanonicalPublicQuestion(question) {
   if (question.sourceId !== SOURCE_ID) errors.push(issue("G4A_U08_S76Q_QUESTION_SOURCE_INVALID", "sourceId", "題目來源錯誤。"));
   if (!isS76QPublicG4AU08PatternGroupId(question.resolvedPatternGroupId ?? question.patternGroupId)) errors.push(issue("G4A_U08_S76Q_QUESTION_GROUP_INVALID", "patternGroupId", "PatternGroup 未公開。"));
   if (!Number.isInteger(question.finalAnswer)) errors.push(issue("G4A_U08_S76Q_QUESTION_ANSWER_INVALID", "finalAnswer", "答案必須是整數。"));
-  if (question.selectorStatus !== "visible" || question.canonicalRouting !== "enabled" || question.worksheetReachability !== "enabled" || question.productionUse !== "preview_only_pending_s76r") errors.push(issue("G4A_U08_S76Q_QUESTION_LIFECYCLE_INVALID", "lifecycle", "S76Q lifecycle 不一致。"));
+  const s76qLifecycle = question.selectorStatus === "visible" && question.canonicalRouting === "enabled" && question.worksheetReachability === "enabled" && question.productionUse === "preview_only_pending_s76r";
+  const preservedS76JLifecycle = PHASE2B_GROUP_SET.has(question.resolvedPatternGroupId ?? question.patternGroupId) && question.selectorStatus === "visible" && question.canonicalRouting === "enabled" && question.productionUse === "preview_only_pending_s76k";
+  if (!s76qLifecycle && !preservedS76JLifecycle) errors.push(issue("G4A_U08_S76Q_QUESTION_LIFECYCLE_INVALID", "lifecycle", "S76Q 或 preserved S76J lifecycle 不一致。"));
   return { ok: errors.length === 0, errors, warnings: [] };
 }
