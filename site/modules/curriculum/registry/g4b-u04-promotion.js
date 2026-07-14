@@ -1,6 +1,6 @@
 import {
-  G4B_U04_HIDDEN_PATTERN_GROUPS,
-  G4B_U04_HIDDEN_PATTERN_SPECS,
+  G4B_U04_EFFECTIVE_PATTERN_GROUPS,
+  G4B_U04_EFFECTIVE_PATTERN_SPECS,
 } from "../batch-b/source-pattern-g4b-u04-extension.js";
 
 export const G4B_U04_PROMOTION_REGISTRY_ID = "s72_g4b_u04_rounding_approximation_promotion";
@@ -24,11 +24,11 @@ export const G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS = Object.freeze([
 ]);
 
 export const G4B_U04_PROMOTED_PATTERN_GROUP_IDS = Object.freeze(
-  G4B_U04_HIDDEN_PATTERN_GROUPS.map((row) => row.patternGroupId),
+  G4B_U04_EFFECTIVE_PATTERN_GROUPS.map((row) => row.patternGroupId),
 );
 
 export const G4B_U04_PROMOTED_PATTERN_SPEC_IDS = Object.freeze(
-  G4B_U04_HIDDEN_PATTERN_SPECS.map((row) => row.patternSpecId),
+  G4B_U04_EFFECTIVE_PATTERN_SPECS.map((row) => row.patternSpecId),
 );
 
 export const G4B_U04_PUBLIC_CONTROLS = Object.freeze({
@@ -89,13 +89,13 @@ export function validateG4BU04PromotionProjection() {
   if (new Set(G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS).size !== expectedCounts.knowledgePoints) errors.push("duplicate_knowledge_point_id");
   if (new Set(G4B_U04_PROMOTED_PATTERN_GROUP_IDS).size !== expectedCounts.patternGroups) errors.push("duplicate_pattern_group_id");
   if (new Set(G4B_U04_PROMOTED_PATTERN_SPEC_IDS).size !== expectedCounts.patternSpecs) errors.push("duplicate_pattern_spec_id");
-  if (G4B_U04_HIDDEN_PATTERN_GROUPS.some((row) => row.visibilityStatus !== "hidden" || row.productionUse !== "forbidden")) {
+  if (G4B_U04_EFFECTIVE_PATTERN_GROUPS.some((row) => row.visibilityStatus !== "hidden" || row.productionUse !== "forbidden")) {
     errors.push("hidden_group_authority_mutated");
   }
-  if (G4B_U04_HIDDEN_PATTERN_SPECS.some((row) => row.selectorStatus !== "hidden" || row.canonicalRouting !== "disabled" || row.productionUse !== "forbidden")) {
+  if (G4B_U04_EFFECTIVE_PATTERN_SPECS.some((row) => row.selectorStatus !== "hidden" || row.canonicalRouting !== "disabled" || row.productionUse !== "forbidden")) {
     errors.push("hidden_pattern_authority_mutated");
   }
-  const modes = G4B_U04_HIDDEN_PATTERN_SPECS.reduce((counts, row) => ({
+  const modes = G4B_U04_EFFECTIVE_PATTERN_SPECS.reduce((counts, row) => ({
     ...counts,
     [row.mode]: (counts[row.mode] ?? 0) + 1,
   }), {});
