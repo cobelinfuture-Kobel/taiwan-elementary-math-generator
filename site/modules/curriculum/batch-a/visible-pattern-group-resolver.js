@@ -6,11 +6,34 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
 } from "../registry/batch-a-selector-extension.js";
 
-const SOURCE_ID = "g5a_u08_5a08";
+const G5A_U08_SOURCE_ID = "g5a_u08_5a08";
+const G4A_U08_SOURCE_ID = "g4a_u08_4a08";
+const G4A_U08_LEGACY_GROUP_ALIASES = Object.freeze({
+  pg_g4a_u08_app_add_sub_sequence: Object.freeze([
+    "pg_g4a_u08_app_add_add",
+    "pg_g4a_u08_app_add_subtract",
+    "pg_g4a_u08_app_subtract_add",
+    "pg_g4a_u08_app_subtract_subtract",
+  ]),
+  pg_g4a_u08_app_parentheses_grouping: Object.freeze([
+    "pg_g4a_u08_app_adjusted_amount_then_subtract",
+    "pg_g4a_u08_app_divide_by_group_product",
+    "pg_g4a_u08_app_difference_then_scale_overlay",
+  ]),
+  pg_g4a_u08_app_mul_div_sequence: Object.freeze([
+    "pg_g4a_u08_app_multiply_then_share",
+    "pg_g4a_u08_app_unit_rate_then_scale",
+    "pg_g4a_u08_app_divide_then_divide",
+  ]),
+  pg_g4a_u08_app_mul_div_before_add_sub: Object.freeze([
+    "pg_g4a_u08_app_payment_minus_unit_cost_times_quantity",
+    "pg_g4a_u08_app_subtract_or_add_divided_amount",
+  ]),
+});
 
 export const G5A_U08_RESOLVER_BROWSER_STATE_INTEGRATION = Object.freeze({
   task: "S60I_G5A_U08_PromotionResolverAndPublicSelectorIntegration",
-  sourceId: SOURCE_ID,
+  sourceId: G5A_U08_SOURCE_ID,
   status: "resolver_browser_state_and_canonical_runtime_integrated_worksheet_gate_pending",
   allocationStrategy: "balanced_by_group_then_runtime_family",
   supportedSelectionModes: Object.freeze([
@@ -35,6 +58,15 @@ export const G5A_U08_RESOLVER_BROWSER_STATE_INTEGRATION = Object.freeze({
   productionEligibilityChanged: false,
   worksheetRendererChanged: false,
   requiredNextGate: "S60J_G5A_U08_WorksheetAnswerKeyAndRendererIntegration",
+});
+
+export const G4A_U08_LEGACY_PATTERN_GROUP_ALIAS_INTEGRATION = Object.freeze({
+  task: "S76R_G4A_U08_FullSourceStressHTMLPDFAndD0Reevaluation",
+  sourceId: G4A_U08_SOURCE_ID,
+  status: "legacy_broad_group_ids_resolver_only",
+  publicSelectorExposure: false,
+  aliasCount: Object.keys(G4A_U08_LEGACY_GROUP_ALIASES).length,
+  canonicalTargetGroupCount: new Set(Object.values(G4A_U08_LEGACY_GROUP_ALIASES).flat()).size,
 });
 
 function normalizeIds(value) {
@@ -92,7 +124,7 @@ function resolveG5AU08Selection(input = {}) {
     schemaVersion: "batch-a-kp-resolver-plan-v1",
     worksheetMode: selectionMode === core.BATCH_A_RESOLVER_SELECTION_MODES.SOURCE_UNIT ? "batchASource" : "batchAKnowledgePoint",
     selectionMode,
-    sourceIds: [SOURCE_ID],
+    sourceIds: [G5A_U08_SOURCE_ID],
     knowledgePointIds: [],
     patternGroupIds: [],
     patternSpecIds: [],
@@ -104,7 +136,7 @@ function resolveG5AU08Selection(input = {}) {
     visibilityValidation: { visibleAcceptedCount: 0, rejectedCount: 0, rejectionCodes: [] },
     provenance: {
       resolver: "visiblePatternGroupResolver",
-      sourceId: SOURCE_ID,
+      sourceId: G5A_U08_SOURCE_ID,
       allocationStrategy: "balanced_by_group_then_runtime_family",
       publicHiddenModeFlagUsed: false,
       s60iAdapterApplied: true,
@@ -128,10 +160,10 @@ function resolveG5AU08Selection(input = {}) {
   }
 
   const knowledgePoints = requestedKpIds.map((id) => getVisibleBatchAKnowledgePoint(id));
-  if (knowledgePoints.some((row) => !row || row.sourceId !== SOURCE_ID)) {
-    return fail(plan, [core.BATCH_A_RESOLVER_ERROR_CODES.KP_NOT_VISIBLE], knowledgePoints.filter((row) => !row || row.sourceId !== SOURCE_ID).length);
+  if (knowledgePoints.some((row) => !row || row.sourceId !== G5A_U08_SOURCE_ID)) {
+    return fail(plan, [core.BATCH_A_RESOLVER_ERROR_CODES.KP_NOT_VISIBLE], knowledgePoints.filter((row) => !row || row.sourceId !== G5A_U08_SOURCE_ID).length);
   }
-  if (input.sourceId && input.sourceId !== SOURCE_ID) {
+  if (input.sourceId && input.sourceId !== G5A_U08_SOURCE_ID) {
     return fail(plan, [core.BATCH_A_RESOLVER_ERROR_CODES.MIXED_SAME_UNIT_SOURCE_MISMATCH]);
   }
 
@@ -140,7 +172,7 @@ function resolveG5AU08Selection(input = {}) {
   const selectedGroups = [];
   const rejected = [];
   for (const knowledgePointId of requestedKpIds) {
-    const groups = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).filter((row) => row.sourceId === SOURCE_ID);
+    const groups = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).filter((row) => row.sourceId === G5A_U08_SOURCE_ID);
     for (const group of groups) linkedGroupIds.add(group.patternGroupId);
     if (requestedGroupIds.size === 0) {
       if (groups.length !== 1) {
@@ -173,7 +205,46 @@ function resolveG5AU08Selection(input = {}) {
   return plan;
 }
 
+function translateG4AU08LegacyPatternGroupAliases(input = {}) {
+  const requested = normalizeIds(input.selectedPatternGroupIds);
+  const translated = [];
+  const appliedAliases = [];
+  for (const groupId of requested) {
+    const targets = G4A_U08_LEGACY_GROUP_ALIASES[groupId];
+    if (!targets) {
+      translated.push(groupId);
+      continue;
+    }
+    appliedAliases.push(groupId);
+    translated.push(...targets);
+  }
+  return {
+    input: {
+      ...cloneValue(input),
+      selectedPatternGroupIds: [...new Set(translated)],
+    },
+    appliedAliases,
+  };
+}
+
+function resolveG4AU08Selection(input = {}, options = {}) {
+  const translated = translateG4AU08LegacyPatternGroupAliases(input);
+  const plan = core.resolveVisiblePatternGroupSelection(translated.input, options);
+  if (translated.appliedAliases.length === 0) return plan;
+  return {
+    ...cloneValue(plan),
+    provenance: {
+      ...cloneValue(plan.provenance ?? {}),
+      legacyPatternGroupAliasTranslationApplied: true,
+      requestedLegacyPatternGroupIds: translated.appliedAliases,
+      translatedCanonicalPatternGroupIds: cloneValue(translated.input.selectedPatternGroupIds),
+      publicSelectorExposure: false,
+    },
+  };
+}
+
 export function resolveVisiblePatternGroupSelection(input = {}, options = {}) {
-  if (input?.sourceId !== SOURCE_ID) return core.resolveVisiblePatternGroupSelection(input, options);
-  return cloneValue(resolveG5AU08Selection(input));
+  if (input?.sourceId === G5A_U08_SOURCE_ID) return cloneValue(resolveG5AU08Selection(input));
+  if (input?.sourceId === G4A_U08_SOURCE_ID) return cloneValue(resolveG4AU08Selection(input, options));
+  return core.resolveVisiblePatternGroupSelection(input, options);
 }
