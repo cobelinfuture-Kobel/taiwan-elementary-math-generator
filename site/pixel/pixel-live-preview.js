@@ -33,12 +33,23 @@ subscribePixelGeneration((execution) => {
   const preview = renderPixelWorksheetPreview(previewFrame, worksheetDocument);
   if (previewEmpty) previewEmpty.hidden = true;
   if (previewMeta) {
-    previewMeta.textContent = `${preview.title ?? "考卷"}｜${preview.questionCount} 題｜題目頁 ${preview.questionPageCount}｜答案 ${preview.answerKeyItemCount} 題｜答案頁 ${preview.answerKeyPageCount}`;
+    const details = [
+      `${preview.title ?? "考卷"}`,
+      `${preview.questionCount} 題`,
+      `題目頁 ${preview.questionPageCount}`,
+      `答案 ${preview.answerKeyItemCount} 題`,
+      `答案頁 ${preview.answerKeyPageCount}`,
+    ];
+    if (worksheetDocument.appliedLayoutText) details.push(worksheetDocument.appliedLayoutText);
+    if (worksheetDocument.layoutNoticeText) details.push(worksheetDocument.layoutNoticeText);
+    previewMeta.textContent = details.join("｜");
   }
   if (previewFrame) previewFrame.title = `${preview.title ?? "數學題目卷"}預覽`;
   document.body.dataset.pixelPreviewWorksheetId = preview.worksheetId ?? "";
   document.body.dataset.pixelPreviewQuestionCount = String(preview.questionCount);
   document.body.dataset.pixelPreviewAnswerKeyItemCount = String(preview.answerKeyItemCount);
+  document.body.dataset.pixelLayoutMode = worksheetDocument.layoutResolution?.layoutMode ?? "";
+  document.body.dataset.pixelLayoutCapped = String(worksheetDocument.layoutResolution?.capped ?? false);
   setPreviewStatus("ready");
 });
 
