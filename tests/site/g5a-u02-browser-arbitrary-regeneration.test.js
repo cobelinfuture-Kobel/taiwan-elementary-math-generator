@@ -81,8 +81,11 @@ test("S96D does not claim dynamic generation for source-unit plans without resol
 
 test("S96D bundle is generated from canonical source and deployed under site", async () => {
   const bundle = await readFile("site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js", "utf8");
-  assert.match(bundle, /^\/\* GENERATED FROM CANONICAL src\/curriculum\/g5a-u02 — DO NOT EDIT \*\//);
+  assert.match(bundle, /^\/\* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT \*\//);
+  assert.doesNotMatch(bundle, /src\//);
   assert.match(bundle, /buildG5AU02BrowserDynamicWorksheet/);
+  const workflow = await readFile(".github/workflows/s96d-g5a-u02-browser-bundle.yml", "utf8");
+  assert.match(workflow, /src\/curriculum\/g5a-u02\/browser-dynamic-entry\.js/);
   const pagesWorkflow = await readFile(".github/workflows/pages.yml", "utf8");
   assert.match(pagesWorkflow, /path: site/);
 });
