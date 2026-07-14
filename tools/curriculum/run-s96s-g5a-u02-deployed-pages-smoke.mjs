@@ -6,6 +6,7 @@ import { chromium } from "playwright";
 const BASE_URL = process.env.S96S_SITE_URL ?? "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html";
 const DEPLOYMENT_SHA = process.env.S96S_DEPLOYMENT_SHA ?? "unknown";
 const SOURCE_ID = "g5a_u02_5a02";
+const EXPECTED_TITLE = "因數與公因數";
 const EXPECTED_KP_COUNT = 18;
 const QUESTION_COUNT = 20;
 const DEFAULT_SEED = "batch-a-browser";
@@ -26,6 +27,10 @@ async function sha256Url(url) {
 
 function expectedStatus() {
   return `已產生 ${QUESTION_COUNT} 題，可預覽與列印。`;
+}
+
+function expectedPreviewMeta(includeAnswerKey) {
+  return `${EXPECTED_TITLE}｜${QUESTION_COUNT} 題｜${includeAnswerKey ? "含答案頁" : "不含答案頁"}`;
 }
 
 await mkdir(OUTPUT_DIR, { recursive: true });
@@ -76,8 +81,11 @@ try {
         testedUrl,
       });
     }
-    if (status !== expectedStatus() || !previewMeta.includes(`｜${QUESTION_COUNT} 題｜`)) {
-      fail("S96S_DEPLOYED_PUBLIC_COUNT_STATUS_MISMATCH", { knowledgePointId, label, status, previewMeta, expectedStatus: expectedStatus() });
+    if (status !== expectedStatus()) {
+      fail("S96S_DEPLOYED_PUBLIC_COUNT_STATUS_MISMATCH", { knowledgePointId, label, status, expectedStatus: expectedStatus() });
+    }
+    if (previewMeta !== expectedPreviewMeta(true)) {
+      fail("S96S_DEPLOYED_PUBLIC_PREVIEW_META_MISMATCH", { knowledgePointId, label, previewMeta, expectedPreviewMeta: expectedPreviewMeta(true) });
     }
     const frame = page.frameLocator("#preview-frame");
     await frame.locator("body").waitFor({ state: "attached" });
@@ -108,8 +116,11 @@ try {
       testedUrl,
     });
   }
-  if (reportedStatus !== expectedStatus() || !reportedPreviewMeta.includes(`｜${QUESTION_COUNT} 題｜`)) {
-    fail("S96S_REPORTED_PUBLIC_COUNT_STATUS_MISMATCH", { reportedStatus, reportedPreviewMeta, expectedStatus: expectedStatus() });
+  if (reportedStatus !== expectedStatus()) {
+    fail("S96S_REPORTED_PUBLIC_COUNT_STATUS_MISMATCH", { reportedStatus, expectedStatus: expectedStatus() });
+  }
+  if (reportedPreviewMeta !== expectedPreviewMeta(false)) {
+    fail("S96S_REPORTED_PUBLIC_PREVIEW_META_MISMATCH", { reportedPreviewMeta, expectedPreviewMeta: expectedPreviewMeta(false) });
   }
 
   const frame = page.frameLocator("#preview-frame");
@@ -141,10 +152,12 @@ try {
     deploymentSha: DEPLOYMENT_SHA,
     testedUrl,
     sourceId: SOURCE_ID,
+    expectedTitle: EXPECTED_TITLE,
     knowledgePointCount: kpCount,
     generatedKnowledgePointCount: generated.length,
     questionCount: QUESTION_COUNT,
     publicCountStatusVerified: true,
+    publicPreviewTitleVerified: true,
     generationSeed: DEFAULT_SEED,
     deployedAssets: { mainAsset, runtimeAsset },
     reportedPath: {
