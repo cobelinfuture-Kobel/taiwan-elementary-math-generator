@@ -4,8 +4,8 @@
   "status": "PASS",
   "productionUse": "allowed",
   "goalDistance": "D0",
-  "deploymentSha": "d9e762b3e617ebfd1ba42ecdc4f18f889f924c91",
-  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s76r2=d9e762b3e617ebfd1ba42ecdc4f18f889f924c91-1784036124209",
+  "deploymentSha": "4618c08e8ec6d26326d1cb86ea086e4f7125215c",
+  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s76r2=4618c08e8ec6d26326d1cb86ea086e4f7125215c-1784036439473",
   "sourceId": "g4a_u08_4a08",
   "expectedTitle": "Batch A 4A-U08 整數四則 canonical 全題組",
   "knowledgePointCount": 15,
@@ -191,12 +191,12 @@
   },
   "workflow": "S76R2 G4A-U08 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29337066795",
-    "number": "14",
+    "id": "29337445929",
+    "number": "15",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29337066795"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29337445929"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-14T13:35:29.938Z"
+  "verifiedAt": "2026-07-14T13:40:44.480Z"
 }
