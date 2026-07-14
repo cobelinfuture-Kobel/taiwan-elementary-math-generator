@@ -13,6 +13,10 @@ export function listVisibleBatchAKnowledgePoints() {
 
 export function getVisibleBatchAKnowledgePoint(knowledgePointId) {
   const legacyRow = legacy.getVisibleBatchAKnowledgePoint(knowledgePointId);
+  if (legacyRow && CANONICAL_KP_IDS.includes(knowledgePointId)) {
+    const virtual = canonical.getVisibleBatchAKnowledgePoint(knowledgePointId);
+    return clone({ ...virtual, ...legacyRow, canonicalPatternGroupIds: virtual.canonicalPatternGroupIds, canonicalPatternSpecIds: virtual.canonicalPatternSpecIds, canonicalSelectorStatus: virtual.canonicalSelectorStatus, visibilityStatus: "visible" });
+  }
   if (legacyRow) return clone(legacyRow);
   if (CANONICAL_KP_IDS.includes(knowledgePointId)) return clone(canonical.getVisibleBatchAKnowledgePoint(knowledgePointId));
   return null;
