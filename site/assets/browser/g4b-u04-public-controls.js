@@ -48,7 +48,7 @@ function ensureSourceOption(source) {
     const next = [...source.options].find((entry) => entry.value === "g5a_u08_5a08");
     source.insertBefore(option, next ?? null);
   }
-  if (!source.value && queryParam("sourceId") === G4B_U04_SOURCE_ID) source.value = G4B_U04_SOURCE_ID;
+  if (queryParam("sourceId") === G4B_U04_SOURCE_ID) source.value = G4B_U04_SOURCE_ID;
 }
 
 function ensureProxyOptions(proxy, enabled) {
