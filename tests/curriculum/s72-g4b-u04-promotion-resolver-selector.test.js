@@ -31,6 +31,10 @@ import {
   validateG4BU04CanonicalQuestion,
 } from "../../site/modules/curriculum/batch-b/g4b-u04-canonical-router.js";
 import {
+  G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC,
+  normalizeG4BU04PromptSignature,
+} from "../../site/modules/curriculum/batch-b/g4b-u04-prompt-deduplication.js";
+import {
   generateBatchABrowserQuestions,
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 
@@ -177,9 +181,10 @@ test("S72 mixed all-authority canonical generation reaches 17 specs and all five
   ]);
   assert.equal(result.questions.some((row) => row.implementationClass === "C"), true);
   assert.equal(result.questions.some((row) => row.implementationClass === "D"), true);
+  assert.equal(new Set(result.questions.map((row) => normalizeG4BU04PromptSignature(row.promptText))).size, 170);
 });
 
-test("S72 canonical generation is deterministic through 1000 questions", () => {
+test("S72 canonical generation is deterministic and duplicate-free through 1000 questions", () => {
   const plan = basePlan({
     selectionMode: "mixedKnowledgePointsSameUnit",
     selectedKnowledgePointIds: G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
@@ -191,8 +196,19 @@ test("S72 canonical generation is deterministic through 1000 questions", () => {
   const second = generateG4BU04CanonicalQuestions(plan);
   assert.equal(first.ok, true, JSON.stringify(first.errors));
   assert.deepEqual(first, second);
-  const counts = Object.values(first.plan.patternAllocation);
-  assert.equal(Math.max(...counts) - Math.min(...counts) <= 1, true);
+  assert.equal(Object.values(first.plan.patternAllocation).reduce((sum, count) => sum + count, 0), 1000);
+  assert.equal(first.plan.patternAllocation.ps_g4b_u04_approx_symbol_reading, 1);
+  assert.equal(
+    first.plan.patternAllocation.ps_g4b_u04_inverse_digit_set,
+    G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_digit_set,
+  );
+  assert.equal(
+    first.plan.patternAllocation.ps_g4b_u04_inverse_original_values,
+    G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_original_values,
+  );
+  const signatures = first.questions.map((row) => normalizeG4BU04PromptSignature(row.promptText));
+  assert.equal(new Set(signatures).size, 1000);
+  assert.equal(first.deduplication.signatureCount, 1000);
 });
 
 test("S72 returns zero public output when the delegated integration validator blocks", () => {

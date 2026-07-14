@@ -18,8 +18,16 @@ import {
 } from "./source-pattern-g4b-u04-extension.js";
 import {
   generateG4BU04IntegratedBatch,
+  generateG4BU04IntegratedQuestion,
   validateG4BU04IntegratedBatch,
+  validateG4BU04IntegratedQuestion,
 } from "./g4b-u04-class-c-d-integration-gate.js";
+import {
+  G4B_U04_PROMPT_DEDUPLICATION_CONTRACT,
+  allocateG4BU04UniquePromptCapacity,
+  generateUniqueG4BU04QuestionSet,
+  normalizeG4BU04PromptSignature,
+} from "./g4b-u04-prompt-deduplication.js";
 
 export const G4B_U04_CANONICAL_ROUTE_KINDS = Object.freeze({
   LEGACY: "legacy",
@@ -29,9 +37,11 @@ export const G4B_U04_CANONICAL_ROUTE_KINDS = Object.freeze({
 
 export const G4B_U04_CANONICAL_ROUTER_INTEGRATION = Object.freeze({
   task: "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
+  promptDeduplicationTask: "G4B_U04_R2B_WorksheetPromptDeduplication",
   sourceId: G4B_U04_SOURCE_ID,
-  status: "canonical_runtime_integrated_worksheet_gate_pending",
-  allocationStrategy: "balanced_by_authoritative_pattern_spec",
+  status: "canonical_runtime_integrated_with_unique_prompt_gate",
+  allocationStrategy: "capacity_aware_round_robin",
+  promptDeduplicationVersion: G4B_U04_PROMPT_DEDUPLICATION_CONTRACT.version,
   supportedSelectionModes: Object.freeze(["singleKnowledgePoint", "mixedKnowledgePointsSameUnit"]),
   browserStateFields: Object.freeze([
     "selectionMode",
@@ -72,12 +82,6 @@ function normalizeQuestionMode(value) {
   return G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value)
     ? value
     : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode;
-}
-
-function expectedPatternAllocation(questionCount, patternSpecIds) {
-  const counts = Object.fromEntries(patternSpecIds.map((id) => [id, 0]));
-  for (let index = 0; index < questionCount; index += 1) counts[patternSpecIds[index % patternSpecIds.length]] += 1;
-  return counts;
 }
 
 function selectedVisibleGroups(plan, questionMode) {
@@ -147,9 +151,11 @@ export function normalizeG4BU04ResolverPlan(plan = {}) {
   }
 
   const questionCount = Number(normalized.questionCount);
-  const patternAllocation = Number.isSafeInteger(questionCount) && questionCount > 0 && patternSpecIds.length > 0
-    ? expectedPatternAllocation(questionCount, patternSpecIds)
-    : {};
+  const capacityAllocation = Number.isSafeInteger(questionCount) && questionCount > 0 && patternSpecIds.length > 0
+    ? allocateG4BU04UniquePromptCapacity(questionCount, patternSpecIds)
+    : null;
+  if (capacityAllocation?.ok === false) errors.push(...cloneValue(capacityAllocation.errors));
+  const patternAllocation = capacityAllocation?.patternAllocation ?? {};
   const allocation = patternSpecIds
     .filter((id) => (patternAllocation[id] ?? 0) > 0)
     .map((patternSpecId) => {
@@ -169,8 +175,18 @@ export function normalizeG4BU04ResolverPlan(plan = {}) {
   normalized.selectedKnowledgePointIds = selectedKnowledgePointIds;
   normalized.selectedPatternGroupIds = selected.groups.map((group) => group.patternGroupId);
   normalized.patternSpecIds = patternSpecIds;
-  normalized.patternAllocation = patternAllocation;
+  normalized.patternAllocation = cloneValue(patternAllocation);
   normalized.allocation = allocation;
+  normalized.promptDeduplication = {
+    version: G4B_U04_PROMPT_DEDUPLICATION_CONTRACT.version,
+    allocationStrategy: G4B_U04_PROMPT_DEDUPLICATION_CONTRACT.allocationStrategy,
+    exactDuplicateAllowed: false,
+    capacity: capacityAllocation ? {
+      allocatedQuestionCount: capacityAllocation.allocatedQuestionCount,
+      requestedQuestionCount: capacityAllocation.requestedQuestionCount,
+      exhaustedPatternSpecIds: cloneValue(capacityAllocation.exhaustedPatternSpecIds),
+    } : null,
+  };
   normalized.publicPatternSpecInjectionUsed = false;
   normalized.genericFallbackAllowed = false;
   normalized.resolverResult = {
@@ -181,13 +197,16 @@ export function normalizeG4BU04ResolverPlan(plan = {}) {
     patternGroupIds: cloneValue(normalized.selectedPatternGroupIds),
     patternSpecIds: cloneValue(patternSpecIds),
     allocation: cloneValue(allocation),
+    promptDeduplication: cloneValue(normalized.promptDeduplication),
     provenance: {
       resolver: "g4bU04VisiblePatternGroupResolver",
       sourceId: G4B_U04_SOURCE_ID,
-      allocationStrategy: "balanced_by_authoritative_pattern_spec",
+      allocationStrategy: "capacity_aware_round_robin",
+      promptDeduplicationVersion: G4B_U04_PROMPT_DEDUPLICATION_CONTRACT.version,
       arbitraryPatternSpecInjectionIgnored: true,
       publicHiddenModeFlagUsed: false,
       s72AdapterApplied: true,
+      r2bPromptDeduplicationApplied: true,
     },
   };
   return normalized;
@@ -264,6 +283,7 @@ function promoteQuestion(question, plan, sequenceNumber) {
       implementationClass: spec.implementationClass,
       resolver: plan.resolverResult?.provenance?.resolver ?? null,
       allocationStrategy: plan.resolverResult?.provenance?.allocationStrategy ?? null,
+      promptDeduplicationVersion: G4B_U04_PROMPT_DEDUPLICATION_CONTRACT.version,
       questionMode: plan.questionMode,
       arbitraryPatternSpecInjectionUsed: false,
       genericFallbackUsed: false,
@@ -272,6 +292,8 @@ function promoteQuestion(question, plan, sequenceNumber) {
       resolvedPatternGroupId: spec.patternGroupId,
       promotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
       publicControls: cloneValue(plan.publicControls),
+      promptSignatureVersion: G4B_U04_PROMPT_DEDUPLICATION_CONTRACT.version,
+      promptSignature: normalizeG4BU04PromptSignature(question.promptText),
     },
   };
 }
@@ -299,6 +321,12 @@ export function validateG4BU04CanonicalQuestion(question = {}) {
     || question.canonicalRoute?.genericFallbackUsed !== false
   ) {
     errors.push(issue("G4B_U04_CANONICAL_ROUTE_INVALID", "canonicalRoute", "Canonical route metadata 不一致。"));
+  }
+  if (
+    question.metadata?.promptSignatureVersion !== G4B_U04_PROMPT_DEDUPLICATION_CONTRACT.version
+    || question.metadata?.promptSignature !== normalizeG4BU04PromptSignature(question.promptText)
+  ) {
+    errors.push(issue("G4B_U04_CANONICAL_PROMPT_SIGNATURE_INVALID", "metadata.promptSignature", "Canonical 題目的 prompt signature 不一致。"));
   }
   return { ok: errors.length === 0, errors, warnings: [] };
 }
@@ -330,19 +358,52 @@ export function generateG4BU04CanonicalQuestions(plan = {}, options = {}) {
     };
   }
 
-  const promoted = validation.acceptedQuestions.map((question, index) => promoteQuestion(question, normalized, index + 1));
+  const uniqueGeneration = generateUniqueG4BU04QuestionSet({
+    patternSpecIds: normalized.patternSpecIds,
+    patternAllocation: normalized.patternAllocation,
+    seed: normalized.generationSeed ?? "s72-public",
+    ordering: normalized.ordering ?? "groupedByPattern",
+    generateQuestion: generateG4BU04IntegratedQuestion,
+    validateQuestion: validateG4BU04IntegratedQuestion,
+  });
+  if (!uniqueGeneration.ok) {
+    return {
+      ok: false,
+      plan: normalized,
+      questions: [],
+      allocation: cloneValue(normalized.allocation),
+      deduplication: cloneValue(uniqueGeneration.report),
+      errors: cloneValue(uniqueGeneration.errors),
+      warnings: cloneValue(validation.warnings ?? []),
+    };
+  }
+
+  const promoted = uniqueGeneration.questions.map((question, index) => promoteQuestion(question, normalized, index + 1));
   const lifecycleErrors = promoted.flatMap((question) => validateG4BU04CanonicalQuestion(question).errors);
+  const signatures = promoted.map((question) => normalizeG4BU04PromptSignature(question.promptText));
+  if (new Set(signatures).size !== signatures.length) {
+    lifecycleErrors.push(issue("G4B_U04_CANONICAL_DUPLICATE_PROMPT", "questions", "Canonical output 含重複題面。"));
+  }
   if (promoted.length !== normalized.questionCount) {
     lifecycleErrors.push(issue("G4B_U04_CANONICAL_OUTPUT_COUNT_MISMATCH", "questions", "Canonical output 題數不一致。", { expected: normalized.questionCount, actual: promoted.length }));
   }
   if (lifecycleErrors.length > 0) {
-    return { ok: false, plan: normalized, questions: [], allocation: cloneValue(normalized.allocation), errors: lifecycleErrors, warnings: [] };
+    return {
+      ok: false,
+      plan: normalized,
+      questions: [],
+      allocation: cloneValue(normalized.allocation),
+      deduplication: cloneValue(uniqueGeneration.report),
+      errors: lifecycleErrors,
+      warnings: [],
+    };
   }
   return {
     ok: true,
     plan: { ...normalized, routeKind: G4B_U04_CANONICAL_ROUTE_KINDS.CANONICAL },
     questions: promoted,
     allocation: cloneValue(normalized.allocation),
+    deduplication: cloneValue(uniqueGeneration.report),
     errors: [],
     warnings: cloneValue(validation.warnings ?? []),
   };
