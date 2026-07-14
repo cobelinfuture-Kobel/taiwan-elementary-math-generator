@@ -22,6 +22,9 @@ function normalizedControls(sourceId, input = {}) {
       layoutMode: G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(input.layoutMode)
         ? input.layoutMode
         : G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode,
+      contextMode: G4B_U04_PUBLIC_CONTROLS.contextModes.includes(input.contextMode)
+        ? input.contextMode
+        : G4B_U04_PUBLIC_CONTROLS.defaults.contextMode,
     };
   }
   const profile = getPublicControlProfile(sourceId);
@@ -44,6 +47,13 @@ function browserLayoutMode() {
   const value = document.getElementById("g4b-u04-layout-mode")?.value
     ?? document.getElementById("pixel-g4b-u04-layout-mode")?.value;
   return G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value) ? value : null;
+}
+
+function browserContextMode() {
+  if (typeof document === "undefined") return null;
+  const value = document.getElementById("g4b-u04-context-mode")?.value
+    ?? document.getElementById("pixel-g4b-u04-context-mode")?.value;
+  return G4B_U04_PUBLIC_CONTROLS.contextModes.includes(value) ? value : null;
 }
 
 export function createConfigState(options = {}) {
@@ -71,15 +81,18 @@ export function getBatchAWorksheetPlan(state) {
   const controls = normalizedControls(plan.sourceId, {
     ...input,
     layoutMode: plan.sourceId === G4B_U04_SOURCE_ID ? (browserLayoutMode() ?? input.layoutMode) : input.layoutMode,
+    contextMode: plan.sourceId === G4B_U04_SOURCE_ID ? (browserContextMode() ?? input.contextMode) : input.contextMode,
   });
   if (plan.sourceId === G4B_U04_SOURCE_ID) {
     return {
       ...plan,
       questionMode: controls.questionMode,
       layoutMode: controls.layoutMode,
+      contextMode: controls.contextMode,
       publicControls: {
         questionMode: controls.questionMode,
         layoutMode: controls.layoutMode,
+        contextMode: controls.contextMode,
       },
     };
   }
@@ -102,6 +115,8 @@ function setControl(state, field, value, controlName) {
     if (G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value)) state.batchA[field] = value;
   } else if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "layoutMode") {
     if (G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value)) state.batchA[field] = value;
+  } else if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "contextMode") {
+    if (G4B_U04_PUBLIC_CONTROLS.contextModes.includes(value)) state.batchA[field] = value;
   } else {
     const profile = getPublicControlProfile(state.batchA.sourceId);
     const definition = profile?.[controlName];
