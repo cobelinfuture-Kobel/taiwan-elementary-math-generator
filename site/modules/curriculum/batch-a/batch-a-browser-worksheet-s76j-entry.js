@@ -46,7 +46,7 @@ export function isS76JG4AU08WorksheetEntryOptions(options = {}) {
 }
 
 function enforceS76RProductionValidation(options, result) {
-  if (options.sourceId !== G4A_U08_SOURCE_ID || !result?.ok || !result.worksheetDocument) return result;
+  if (!requestsS76QAllCanonicalWorksheet(options) || !result?.ok || !result.worksheetDocument) return result;
   const checked = validateG4AU08S76RProductionQuestions(result.worksheetDocument.generatedQuestions ?? []);
   if (checked.ok) {
     return {
