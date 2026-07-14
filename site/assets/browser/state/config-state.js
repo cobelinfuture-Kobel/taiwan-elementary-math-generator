@@ -39,6 +39,12 @@ function applyControlsToState(state, input = {}) {
   return state;
 }
 
+function browserLayoutMode() {
+  if (typeof document === "undefined") return null;
+  const value = document.getElementById("g4b-u04-layout-mode")?.value;
+  return G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value) ? value : null;
+}
+
 export function createConfigState(options = {}) {
   const state = core.createConfigState(options);
   return applyControlsToState(state, options.queryState ?? {});
@@ -49,9 +55,22 @@ export function setBatchASourceId(state, sourceId) {
   return applyControlsToState(state, state?.batchA ?? {});
 }
 
+export function setBatchAPrintLayout(state, patch = {}) {
+  core.setBatchAPrintLayout(state, patch);
+  if (state?.batchA?.sourceId === G4B_U04_SOURCE_ID) {
+    const layoutMode = patch.layoutMode ?? browserLayoutMode();
+    if (G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(layoutMode)) state.batchA.layoutMode = layoutMode;
+  }
+  return state;
+}
+
 export function getBatchAWorksheetPlan(state) {
   const plan = core.getBatchAWorksheetPlan(state);
-  const controls = normalizedControls(plan.sourceId, state?.batchA ?? {});
+  const input = state?.batchA ?? {};
+  const controls = normalizedControls(plan.sourceId, {
+    ...input,
+    layoutMode: plan.sourceId === G4B_U04_SOURCE_ID ? (browserLayoutMode() ?? input.layoutMode) : input.layoutMode,
+  });
   if (plan.sourceId === G4B_U04_SOURCE_ID) {
     return {
       ...plan,
