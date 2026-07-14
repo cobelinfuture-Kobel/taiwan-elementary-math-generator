@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "s96t-production-recloseout-v1",
+  "task": "S96T_G5A_U02_ProductionRecloseout",
+  "status": "PASS_ACCEPTED_AND_CLOSED",
+  "sourceId": "g5a_u02_5a02",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "productionUse": "allowed_dynamic_knowledge_point_release",
+  "goalDistanceBefore": "D1_G5A_U02_DEPLOYED_UI_METADATA_REPAIR_PENDING",
+  "goalDistanceAfter": "D0_G5A_U02_PRODUCTION_DEPLOYED_AND_CLOSED",
+  "distanceReduced": "Closed the final deployed public UI acceptance gap: exact generated count, canonical preview title, 18-KP generation, answer-key suppression, print invocation, and browser error-free production smoke are all verified on GitHub Pages.",
+  "authority": {
+    "deploymentSha": "286184d9d900392a96d8353bd4571d2d4554f6d7",
+    "authorityCommitSha": "8d563d676f573cad41b4d3a3c17d7038264b1b59",
+    "authorityPath": "docs/ci/latest-s96s-deployed-pages-smoke.json",
+    "workflow": "S96S G5A-U02 Deployed GitHub Pages Smoke",
+    "runId": "29309803245",
+    "runNumber": "3",
+    "verifiedAt": "2026-07-14T05:55:42.074Z"
+  },
+  "acceptance": {
+    "knowledgePointCount": 18,
+    "generatedKnowledgePointCount": 18,
+    "questionCount": 20,
+    "publicCountStatusVerified": true,
+    "publicPreviewTitleVerified": true,
+    "expectedTitle": "因數與公因數",
+    "reportedStatus": "已產生 20 題，可預覽與列印。",
+    "reportedPreviewMeta": "因數與公因數｜20 題｜不含答案頁",
+    "reportedQuestionCards": 20,
+    "reportedAnswerCards": 0,
+    "printCalled": true,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "lifecycle": {
+    "projectionStatus": "public_production_projection",
+    "selectorStatus": "public_knowledge_point_selection",
+    "browserResolverStatus": "production_integrated",
+    "browserRegenerationStatus": "production_allowed",
+    "browserPipelineStatus": "public_dynamic_canonical_connected",
+    "htmlPdfStressStatus": "s96r_passed",
+    "deployedPagesSmokeStatus": "s96s_passed",
+    "productionCloseoutStatus": "s96t_closed"
+  },
+  "remainingBlockers": [],
+  "nextShortestStep": "Select the next approved curriculum unit on the shortest production path; do not reopen G5A-U02 unless a regression is detected."
+}
