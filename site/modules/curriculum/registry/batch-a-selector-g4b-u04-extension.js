@@ -6,10 +6,11 @@ import {
   G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
   G4B_U04_PROMOTED_PATTERN_GROUP_IDS,
   G4B_U04_PROMOTED_PATTERN_SPEC_IDS,
+  G4B_U04_R2C_PROMOTION_OVERLAY_ID,
 } from "./g4b-u04-promotion.js";
 import {
-  G4B_U04_HIDDEN_PATTERN_GROUPS,
-  G4B_U04_HIDDEN_PATTERN_SPECS,
+  G4B_U04_EFFECTIVE_PATTERN_GROUPS as G4B_U04_HIDDEN_PATTERN_GROUPS,
+  G4B_U04_EFFECTIVE_PATTERN_SPECS as G4B_U04_HIDDEN_PATTERN_SPECS,
 } from "../batch-b/source-pattern-g4b-u04-extension.js";
 
 const SOURCE_ID = "g4b_u04_4b04";
@@ -30,6 +31,7 @@ const kpRows = Object.freeze([
   ["kp_g4b_u04_round_then_multiply_divide", "先取概數再做乘除估算", "round_then_multiply_divide", ["estimated_product", "estimated_quotient"]],
   ["kp_g4b_u04_inverse_rounding_unknown_digit", "由概數推回未知數字", "inverse_rounding_unknown_digit", ["digit_set", "inverse_interval"]],
   ["kp_g4b_u04_inverse_rounding_possible_original", "由概數推回可能原數", "inverse_rounding_possible_original", ["possible_values", "inverse_interval"]],
+  ["kp_g4b_u04_discount_denomination_round_down", "特價只算整千元的付款與鈔票張數", "discount_denomination_round_down", ["discount_amount", "round_down", "banknote_count"]],
 ]);
 
 const groupDisplayNames = Object.freeze({
@@ -45,6 +47,7 @@ const groupDisplayNames = Object.freeze({
   pg_g4b_u04_estimate_multiply_divide: "先取概數再乘除｜估算題",
   pg_g4b_u04_inverse_digit_set: "未知數字集合｜推理題",
   pg_g4b_u04_inverse_original_values: "可能原數集合｜推理題",
+  pg_g4b_u04_discount_round_down: "特價整千元捨去與鈔票張數｜應用題",
 });
 
 const modeRepresentation = Object.freeze({
@@ -57,11 +60,15 @@ const modeRepresentation = Object.freeze({
 
 const kpNameById = new Map(kpRows.map(([id, displayName]) => [id, displayName]));
 const specById = new Map(G4B_U04_HIDDEN_PATTERN_SPECS.map((row) => [row.patternSpecId, row]));
+const R2C_GROUP_ID = "pg_g4b_u04_discount_round_down";
 
 const visibleGroups = Object.freeze(G4B_U04_HIDDEN_PATTERN_GROUPS.map((authority) => {
   const memberSpecs = authority.patternSpecIds.map((id) => specById.get(id)).filter(Boolean);
   const implementationClasses = [...new Set(memberSpecs.map((row) => row.implementationClass))];
   const representationTag = modeRepresentation[authority.mode];
+  const promotionRegistryIds = authority.patternGroupId === R2C_GROUP_ID
+    ? [G4B_U04_PROMOTION_REGISTRY_ID, G4B_U04_R2C_PROMOTION_OVERLAY_ID]
+    : [G4B_U04_PROMOTION_REGISTRY_ID];
   return Object.freeze({
     patternGroupId: authority.patternGroupId,
     hiddenAuthorityGroupId: authority.patternGroupId,
@@ -84,7 +91,10 @@ const visibleGroups = Object.freeze(G4B_U04_HIDDEN_PATTERN_GROUPS.map((authority
     visibilityStatus: "visible",
     holdReason: null,
     promotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
-    promotionRole: "promoted_rounding_approximation_group",
+    promotionRegistryIds: Object.freeze(promotionRegistryIds),
+    promotionRole: authority.patternGroupId === R2C_GROUP_ID
+      ? "r2c_source_backed_discount_round_down_group"
+      : "promoted_rounding_approximation_group",
   });
 }));
 
@@ -100,6 +110,7 @@ const groupsByKnowledgePointId = new Map(
 
 const visibleKnowledgePoints = Object.freeze(kpRows.map(([knowledgePointId, displayName, canonicalSkillTag, subskillTags]) => {
   const groups = groupsByKnowledgePointId.get(knowledgePointId) ?? [];
+  const promotionRegistryIds = [...new Set(groups.flatMap((group) => group.promotionRegistryIds ?? [group.promotionRegistryId]))];
   return Object.freeze({
     knowledgePointId,
     sourceId: SOURCE_ID,
@@ -116,6 +127,7 @@ const visibleKnowledgePoints = Object.freeze(kpRows.map(([knowledgePointId, disp
     patternSpecIds: Object.freeze([...new Set(groups.flatMap((group) => group.patternSpecIds))]),
     qaStatusLabel: "blocking_validator_accepted",
     promotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
+    promotionRegistryIds: Object.freeze(promotionRegistryIds),
   });
 }));
 
@@ -143,20 +155,22 @@ function sameMembers(left, right) {
 }
 
 export const G4B_U04_VISIBLE_SELECTOR_PROJECTION = Object.freeze({
-  task: "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
+  task: "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
+  baseTask: "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
   sourceId: SOURCE_ID,
   promotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
-  status: "selector_resolver_and_canonical_runtime_integrated_worksheet_pending",
+  promotionRegistryIds: Object.freeze([G4B_U04_PROMOTION_REGISTRY_ID, G4B_U04_R2C_PROMOTION_OVERLAY_ID]),
+  status: "r2c_discount_round_down_effective_authority",
   visibleKnowledgePointCount: visibleKnowledgePoints.length,
   visiblePatternGroupCount: visibleGroups.length,
   promotedPatternSpecCount: G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length,
-  modeCounts: Object.freeze({ concept: 4, numeric: 3, application: 4, operation_estimation: 4, reasoning: 2 }),
+  modeCounts: Object.freeze({ concept: 4, numeric: 3, application: 6, operation_estimation: 4, reasoning: 2 }),
   publicQuestionModes: Object.freeze(["mixed", "concept", "numeric", "application", "operation_estimation", "reasoning"]),
   arbitraryPatternSpecInjection: false,
   genericFallback: false,
   worksheetEligible: false,
   productionEligibilityBehaviorChanged: false,
-  requiredNextGate: "S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration",
+  requiredNextGate: "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA",
 });
 
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
@@ -200,14 +214,14 @@ export function validateG4BU04VisibleSelectorProjection() {
   const groupIds = visibleGroups.map((row) => row.patternGroupId);
   const specIds = [...new Set(visibleGroups.flatMap((row) => row.patternSpecIds))];
   const modeCounts = visibleGroups.reduce((counts, row) => ({ ...counts, [row.mode]: (counts[row.mode] ?? 0) + row.patternSpecIds.length }), {});
-  if (kpIds.length !== 12) errors.push("visible_knowledge_point_count_mismatch");
-  if (groupIds.length !== 12) errors.push("visible_pattern_group_count_mismatch");
-  if (specIds.length !== 17) errors.push("pattern_spec_count_mismatch");
+  if (kpIds.length !== 13) errors.push("visible_knowledge_point_count_mismatch");
+  if (groupIds.length !== 13) errors.push("visible_pattern_group_count_mismatch");
+  if (specIds.length !== 19) errors.push("pattern_spec_count_mismatch");
   if (duplicates([...baseKpIds, ...kpIds]).length > 0) errors.push("cross_projection_duplicate_knowledge_point_id");
   if (!sameMembers(kpIds, G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS)) errors.push("promoted_knowledge_point_drift");
   if (!sameMembers(groupIds, G4B_U04_PROMOTED_PATTERN_GROUP_IDS)) errors.push("promoted_pattern_group_drift");
   if (!sameMembers(specIds, G4B_U04_PROMOTED_PATTERN_SPEC_IDS)) errors.push("promoted_pattern_spec_drift");
-  if (JSON.stringify(modeCounts) !== JSON.stringify({ concept: 4, numeric: 3, application: 4, operation_estimation: 4, reasoning: 2 })) {
+  if (JSON.stringify(modeCounts) !== JSON.stringify({ concept: 4, numeric: 3, application: 6, operation_estimation: 4, reasoning: 2 })) {
     errors.push("mode_distribution_mismatch");
   }
   if (visibleGroups.some((row) => row.visibilityStatus !== "visible" || row.holdReason !== null)) errors.push("visible_group_lifecycle_invalid");

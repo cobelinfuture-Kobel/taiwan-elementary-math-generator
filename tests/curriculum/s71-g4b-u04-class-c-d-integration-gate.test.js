@@ -16,6 +16,7 @@ import {
   validateG4BU04IntegratedQuestion,
 } from "../../site/modules/curriculum/batch-b/g4b-u04-class-c-d-integration-gate.js";
 import {
+  getG4BU04EffectivePatternSpecs,
   getG4BU04HiddenPatternSpecById,
   getG4BU04HiddenPatternSpecs,
 } from "../../site/modules/curriculum/batch-b/source-pattern-g4b-u04-extension.js";
@@ -34,24 +35,26 @@ function patternCounts(questions) {
   return output;
 }
 
-test("S71 partitions the exact 17-pattern authority into disjoint C=9 and D=8 routes", () => {
-  const authority = [...getG4BU04HiddenPatternSpecs()].sort((a, b) => a.patternOrder - b.patternOrder);
+test("S71 effective authority partitions 19 patterns into disjoint C=9 and D=10 routes", () => {
+  const authority = [...getG4BU04EffectivePatternSpecs()].sort((a, b) => a.patternOrder - b.patternOrder);
+  const historical = [...getG4BU04HiddenPatternSpecs()].sort((a, b) => a.patternOrder - b.patternOrder);
   assert.deepEqual(G4B_U04_S71_ALL_PATTERN_SPEC_IDS, authority.map((row) => row.patternSpecId));
-  assert.equal(G4B_U04_S71_ALL_PATTERN_SPEC_IDS.length, 17);
+  assert.deepEqual(authority.slice(0, historical.length).map((row) => row.patternSpecId), historical.map((row) => row.patternSpecId));
+  assert.equal(G4B_U04_S71_ALL_PATTERN_SPEC_IDS.length, 19);
   assert.equal(G4B_U04_S71_CLASS_C_PATTERN_SPEC_IDS.length, 9);
-  assert.equal(G4B_U04_S71_CLASS_D_PATTERN_SPEC_IDS.length, 8);
-  assert.equal(new Set([...G4B_U04_S71_CLASS_C_PATTERN_SPEC_IDS, ...G4B_U04_S71_CLASS_D_PATTERN_SPEC_IDS]).size, 17);
+  assert.equal(G4B_U04_S71_CLASS_D_PATTERN_SPEC_IDS.length, 10);
+  assert.equal(new Set([...G4B_U04_S71_CLASS_C_PATTERN_SPEC_IDS, ...G4B_U04_S71_CLASS_D_PATTERN_SPEC_IDS]).size, 19);
   assert.equal(G4B_U04_S71_CLASS_C_PATTERN_SPEC_IDS.some((id) => G4B_U04_S71_CLASS_D_PATTERN_SPEC_IDS.includes(id)), false);
   for (const spec of authority) assert.equal(G4B_U04_S71_CLASS_BY_PATTERN_SPEC_ID[spec.patternSpecId], spec.implementationClass);
-  assert.equal(new Set(authority.map((row) => row.knowledgePointId)).size, 12);
-  assert.equal(new Set(authority.map((row) => row.patternGroupId)).size, 12);
+  assert.equal(new Set(authority.map((row) => row.knowledgePointId)).size, 13);
+  assert.equal(new Set(authority.map((row) => row.patternGroupId)).size, 13);
   assert.deepEqual(
     authority.reduce((acc, row) => ({ ...acc, [row.mode]: (acc[row.mode] ?? 0) + 1 }), {}),
-    { concept: 4, numeric: 3, application: 4, operation_estimation: 4, reasoning: 2 },
+    { concept: 4, numeric: 3, application: 6, operation_estimation: 4, reasoning: 2 },
   );
 });
 
-test("S71 routes and validates all PatternSpecs through the authority-selected class runtime", () => {
+test("S71 routes and validates all effective PatternSpecs through the authority-selected class runtime", () => {
   const answerModels = new Set();
   for (const [sequence, patternSpecId] of G4B_U04_S71_ALL_PATTERN_SPEC_IDS.entries()) {
     const spec = getG4BU04HiddenPatternSpecById(patternSpecId);
@@ -74,18 +77,18 @@ test("S71 routes and validates all PatternSpecs through the authority-selected c
   ]);
 });
 
-test("S71 full-authority count-17 smoke covers every PatternSpec once", () => {
-  const batch = generateG4BU04IntegratedBatch({ questionCount: 17, seed: "s71-full-17" });
+test("S71 full-authority count-19 smoke covers every PatternSpec once", () => {
+  const batch = generateG4BU04IntegratedBatch({ questionCount: 19, seed: "s71-full-19" });
   const result = validateG4BU04IntegratedBatch(batch);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.deepEqual(batch.patternSpecIds, [...G4B_U04_S71_ALL_PATTERN_SPEC_IDS]);
-  assert.deepEqual(Object.values(batch.patternAllocation), Array(17).fill(1));
-  assert.deepEqual(batch.classAllocation, { C: 9, D: 8 });
+  assert.deepEqual(Object.values(batch.patternAllocation), Array(19).fill(1));
+  assert.deepEqual(batch.classAllocation, { C: 9, D: 10 });
   assert.deepEqual(batch.modeAllocation, {
-    concept: 4, numeric: 3, application: 4, operation_estimation: 4, reasoning: 2,
+    concept: 4, numeric: 3, application: 6, operation_estimation: 4, reasoning: 2,
   });
-  assert.deepEqual(result.coverage, { patternSpecCount: 17, classCCount: 9, classDCount: 8 });
-  assert.equal(result.acceptedQuestions.length, 17);
+  assert.deepEqual(result.coverage, { patternSpecCount: 19, classCCount: 9, classDCount: 10 });
+  assert.equal(result.acceptedQuestions.length, 19);
 });
 
 test("S71 selected-pattern mode supports a hidden mixed C/D subset", () => {
@@ -93,11 +96,12 @@ test("S71 selected-pattern mode supports a hidden mixed C/D subset", () => {
     "ps_g4b_u04_round_half_up",
     "ps_g4b_u04_floor_complete_groups",
     "ps_g4b_u04_payment_amount_ceiling",
+    "ps_g4b_u04_discount_payment_amount_round_down",
     "ps_g4b_u04_round_then_divide",
     "ps_g4b_u04_inverse_digit_set",
   ];
   const batch = generateG4BU04IntegratedBatch({
-    questionCount: 55,
+    questionCount: 60,
     patternSpecIds: selected,
     coverageMode: "selectedPatterns",
     seed: "s71-selected",
@@ -152,7 +156,7 @@ test("S71 rejects cross-class routing and authority-class drift", () => {
 });
 
 test("S71 preserves delegated C/D blocking errors and returns zero accepted questions", () => {
-  const batch = clone(generateG4BU04IntegratedBatch({ questionCount: 34, seed: "s71-delegated" }));
+  const batch = clone(generateG4BU04IntegratedBatch({ questionCount: 38, seed: "s71-delegated" }));
   const cIndex = batch.questions.findIndex((row) => row.patternSpecId === "ps_g4b_u04_round_half_up");
   const dIndex = batch.questions.findIndex((row) => row.patternSpecId === "ps_g4b_u04_payment_amount_ceiling");
   batch.questions[cIndex].finalAnswer += batch.questions[cIndex].input.targetUnit;
@@ -169,27 +173,27 @@ test("S71 preserves delegated C/D blocking errors and returns zero accepted ques
 
 test("S71 rejects count, allocation, duplicate-ID and grouped-order mutations", () => {
   const mutations = [];
-  const count = clone(generateG4BU04IntegratedBatch({ questionCount: 34, seed: "s71-count" }));
-  count.questionCount = 33;
+  const count = clone(generateG4BU04IntegratedBatch({ questionCount: 38, seed: "s71-count" }));
+  count.questionCount = 37;
   mutations.push([count, "G4BU04_INTEGRATION_QUESTION_COUNT_MISMATCH"]);
 
-  const pattern = clone(generateG4BU04IntegratedBatch({ questionCount: 34, seed: "s71-pattern" }));
+  const pattern = clone(generateG4BU04IntegratedBatch({ questionCount: 38, seed: "s71-pattern" }));
   pattern.patternAllocation[pattern.patternSpecIds[0]] += 1;
   mutations.push([pattern, "G4BU04_INTEGRATION_PATTERN_ALLOCATION_MISMATCH"]);
 
-  const classAllocation = clone(generateG4BU04IntegratedBatch({ questionCount: 34, seed: "s71-class" }));
+  const classAllocation = clone(generateG4BU04IntegratedBatch({ questionCount: 38, seed: "s71-class" }));
   classAllocation.classAllocation.C += 1;
   mutations.push([classAllocation, "G4BU04_INTEGRATION_CLASS_ALLOCATION_MISMATCH"]);
 
-  const mode = clone(generateG4BU04IntegratedBatch({ questionCount: 34, seed: "s71-mode" }));
+  const mode = clone(generateG4BU04IntegratedBatch({ questionCount: 38, seed: "s71-mode" }));
   mode.modeAllocation.numeric += 1;
   mutations.push([mode, "G4BU04_INTEGRATION_MODE_ALLOCATION_MISMATCH"]);
 
-  const duplicate = clone(generateG4BU04IntegratedBatch({ questionCount: 34, seed: "s71-id" }));
+  const duplicate = clone(generateG4BU04IntegratedBatch({ questionCount: 38, seed: "s71-id" }));
   duplicate.questions[1].questionId = duplicate.questions[0].questionId;
   mutations.push([duplicate, "G4BU04_INTEGRATION_DUPLICATE_QUESTION_ID"]);
 
-  const ordering = clone(generateG4BU04IntegratedBatch({ questionCount: 34, seed: "s71-order" }));
+  const ordering = clone(generateG4BU04IntegratedBatch({ questionCount: 38, seed: "s71-order" }));
   const lastIndex = ordering.questions.length - 1;
   const first = ordering.questions[0];
   ordering.questions[0] = ordering.questions[lastIndex];
@@ -215,7 +219,7 @@ test("S71 full-authority gate rejects missing, duplicate and unknown PatternSpec
   }), /G4BU04_INTEGRATION_PATTERN_SET_INVALID/);
   assert.throws(() => generateG4BU04IntegratedQuestion({ patternSpecId: "ps_g4b_u04_unknown" }), /G4BU04_INTEGRATION_PATTERN_SET_INVALID/);
 
-  const batch = clone(generateG4BU04IntegratedBatch({ questionCount: 17, seed: "s71-missing" }));
+  const batch = clone(generateG4BU04IntegratedBatch({ questionCount: 19, seed: "s71-missing" }));
   batch.patternSpecIds.pop();
   const result = validateG4BU04IntegratedBatch(batch);
   assert.equal(result.ok, false);
@@ -223,7 +227,7 @@ test("S71 full-authority gate rejects missing, duplicate and unknown PatternSpec
 });
 
 test("S71 keeps selector, resolver, worksheet, renderer and production disabled", () => {
-  const batch = clone(generateG4BU04IntegratedBatch({ questionCount: 17, seed: "s71-lifecycle" }));
+  const batch = clone(generateG4BU04IntegratedBatch({ questionCount: 19, seed: "s71-lifecycle" }));
   batch.lifecycle.selectorStatus = "public";
   batch.lifecycle.canonicalRouting = "enabled";
   batch.lifecycle.worksheetEligible = true;
@@ -245,7 +249,7 @@ test("S71 exposes 44 shared and 14 integration-only blocking codes", () => {
   assert.equal(G4B_U04_S71_INTEGRATION_CODES.some((code) => G4B_U04_S71_SHARED_BLOCKING_CODES.includes(code)), false);
 });
 
-test("S71 contract supports pending and final status without weakening scope", () => {
+test("S71 historical contract remains an unchanged prefix of the effective R2C authority", () => {
   const contract = JSON.parse(readFileSync(CONTRACT_PATH, "utf8"));
   assert.equal(["implemented_pending_ci", "pass_ci_synced_and_merged"].includes(contract.status), true);
   assert.equal(contract.coverage.patternSpecCount, 17);
@@ -253,6 +257,9 @@ test("S71 contract supports pending and final status without weakening scope", (
   assert.equal(contract.coverage.classDPatternSpecCount, 8);
   assert.equal(contract.coverage.knowledgePointCount, 12);
   assert.equal(contract.coverage.patternGroupCount, 12);
+  assert.deepEqual(G4B_U04_S71_ALL_PATTERN_SPEC_IDS.slice(0, contract.coverage.patternSpecCount), getG4BU04HiddenPatternSpecs().map((row) => row.patternSpecId));
+  assert.equal(G4B_U04_S71_ALL_PATTERN_SPEC_IDS.length, 19);
+  assert.equal(G4B_U04_S71_CLASS_D_PATTERN_SPEC_IDS.length, 10);
   assert.equal(contract.scopeBoundary.publicSelectorEnabled, false);
   assert.equal(contract.scopeBoundary.canonicalResolverConnected, false);
   assert.equal(contract.scopeBoundary.worksheetPathConnected, false);

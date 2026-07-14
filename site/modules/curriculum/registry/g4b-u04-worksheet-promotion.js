@@ -3,10 +3,23 @@ import {
   G4B_U04_PROMOTED_PATTERN_GROUP_IDS,
   G4B_U04_PROMOTED_PATTERN_SPEC_IDS,
   G4B_U04_PROMOTION_REGISTRY_ID,
+  G4B_U04_R2C_PROMOTION_OVERLAY_ID,
 } from "./g4b-u04-promotion.js";
 
 export const G4B_U04_WORKSHEET_PROMOTION_OVERLAY_ID =
   "s73_g4b_u04_worksheet_answer_renderer_promotion";
+
+export const G4B_U04_S73_BASE_AUTHORITY_COUNTS = Object.freeze({
+  knowledgePoints: 12,
+  patternGroups: 12,
+  patternSpecs: 17,
+});
+
+export const G4B_U04_EFFECTIVE_AUTHORITY_COUNTS = Object.freeze({
+  knowledgePoints: 13,
+  patternGroups: 13,
+  patternSpecs: 19,
+});
 
 export const G4B_U04_WORKSHEET_LIFECYCLE = Object.freeze({
   selectorStatus: "visible",
@@ -22,6 +35,12 @@ export const G4B_U04_WORKSHEET_ACTIVATION = Object.freeze({
   task: "S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration",
   status: "worksheet_answer_key_renderer_integrated",
   basePromotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
+  effectivePromotionRegistryIds: Object.freeze([
+    G4B_U04_PROMOTION_REGISTRY_ID,
+    G4B_U04_R2C_PROMOTION_OVERLAY_ID,
+    G4B_U04_WORKSHEET_PROMOTION_OVERLAY_ID,
+  ]),
+  authorityLayer: "s73_base_plus_r2c_effective_overlay",
   requiredNextGate: "S74_G4B_U04_PublicUIPrintAndQueryStateQA",
   selectorBehaviorChanged: false,
   resolverBehaviorChanged: false,
@@ -67,6 +86,10 @@ export function getG4BU04WorksheetPromotionProjection() {
   return {
     promotionOverlayId: G4B_U04_WORKSHEET_PROMOTION_OVERLAY_ID,
     basePromotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
+    effectivePromotionRegistryIds: [...G4B_U04_WORKSHEET_ACTIVATION.effectivePromotionRegistryIds],
+    authorityLayer: G4B_U04_WORKSHEET_ACTIVATION.authorityLayer,
+    baseAuthorityCounts: { ...G4B_U04_S73_BASE_AUTHORITY_COUNTS },
+    effectiveAuthorityCounts: { ...G4B_U04_EFFECTIVE_AUTHORITY_COUNTS },
     sourceId: "g4b_u04_4b04",
     knowledgePointIds: [...G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS],
     patternGroupIds: [...G4B_U04_PROMOTED_PATTERN_GROUP_IDS],
@@ -88,10 +111,11 @@ export function validateG4BU04WorksheetPromotionProjection() {
   if (G4B_U04_WORKSHEET_LIFECYCLE.rendererStatus !== "worksheet_renderer_integrated") errors.push("renderer_not_integrated");
   if (G4B_U04_WORKSHEET_LIFECYCLE.productionUse !== "preview_only_pending_s75") errors.push("production_scope_mismatch");
   if (G4B_U04_WORKSHEET_ACTIVATION.basePromotionRegistryId !== G4B_U04_PROMOTION_REGISTRY_ID) errors.push("base_promotion_mismatch");
+  if (!G4B_U04_WORKSHEET_ACTIVATION.effectivePromotionRegistryIds.includes(G4B_U04_R2C_PROMOTION_OVERLAY_ID)) errors.push("r2c_overlay_missing");
   if (G4B_U04_WORKSHEET_ACTIVATION.requiredNextGate !== "S74_G4B_U04_PublicUIPrintAndQueryStateQA") errors.push("next_gate_mismatch");
-  if (G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS.length !== 12) errors.push("knowledge_point_count_mismatch");
-  if (G4B_U04_PROMOTED_PATTERN_GROUP_IDS.length !== 12) errors.push("pattern_group_count_mismatch");
-  if (G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length !== 17) errors.push("pattern_spec_count_mismatch");
+  if (G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS.length !== G4B_U04_EFFECTIVE_AUTHORITY_COUNTS.knowledgePoints) errors.push("knowledge_point_count_mismatch");
+  if (G4B_U04_PROMOTED_PATTERN_GROUP_IDS.length !== G4B_U04_EFFECTIVE_AUTHORITY_COUNTS.patternGroups) errors.push("pattern_group_count_mismatch");
+  if (G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length !== G4B_U04_EFFECTIVE_AUTHORITY_COUNTS.patternSpecs) errors.push("pattern_spec_count_mismatch");
   if (G4B_U04_WORKSHEET_ANSWER_SHAPES.length !== 9) errors.push("answer_shape_count_mismatch");
   return Object.freeze({
     ok: errors.length === 0,

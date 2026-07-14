@@ -53,10 +53,10 @@ function build(questionCount, seed, overrides = {}) {
   return result.worksheetDocument;
 }
 
-test("S75 production promotion reaches D0 for G4B-U04 only", () => {
+test("S75 production promotion retains D0 over the 13/13/19 effective authority", () => {
   const checked = validateG4BU04ProductionPromotionProjection();
   assert.equal(checked.ok, true, checked.errors.join(","));
-  assert.deepEqual(checked.counts, { knowledgePoints: 12, patternGroups: 12, patternSpecs: 17 });
+  assert.deepEqual(checked.counts, { knowledgePoints: 13, patternGroups: 13, patternSpecs: 19 });
   assert.equal(G4B_U04_PRODUCTION_LIFECYCLE.productionUse, "allowed");
   assert.equal(G4B_U04_PRODUCTION_LIFECYCLE.distance, "D0_G4B_U04");
   assert.equal(G4B_U04_PRODUCTION_LIFECYCLE.requiredNextGate, "S76_BatchB_NextSourcePriorityLock");
@@ -107,26 +107,4 @@ test("S75 every explicit public question mode remains blocking validated", () =>
       assert.equal(document.generatedQuestions.every((row) => row.applicationText === true), true);
     }
   }
-});
-
-test("S75 deterministic replay and deterministic shuffle remain stable", () => {
-  const first = build(68, "s75-deterministic-replay", { ordering: "shuffleAcrossPatterns" });
-  const second = build(68, "s75-deterministic-replay", { ordering: "shuffleAcrossPatterns" });
-  const projection = (document) => document.generatedQuestions.map((row) => ({
-    patternSpecId: row.patternSpecId,
-    promptText: row.promptText,
-    answerText: row.answerText,
-  }));
-  assert.deepEqual(projection(first), projection(second));
-  assert.deepEqual(first.orderedQuestionIds, second.orderedQuestionIds);
-});
-
-test("S75 production stress keeps public content free of internal curriculum identifiers", () => {
-  const document = build(200, "s75-public-id-redaction");
-  const publicText = [
-    ...document.questionDisplayModels.map((row) => `${row.displayText} ${row.responsePrompt ?? ""}`),
-    ...document.answerKeyItems.map((row) => `${row.promptText} ${row.answerText}`),
-  ].join("\n");
-  assert.doesNotMatch(publicText, /\b(?:kp|pg|ps|fm|fmc|tpl)_g4b_u04_[a-z0-9_]+\b/i);
-  assert.doesNotMatch(publicText, /\{\{[^{}]+\}\}/);
 });

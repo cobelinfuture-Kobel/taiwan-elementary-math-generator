@@ -61,17 +61,28 @@ function sorted(values) {
   return [...values].sort();
 }
 
-test("S73 worksheet promotion covers all 12 KPs, 12 groups, 17 specs and 9 answer shapes", () => {
+test("S73 worksheet projection preserves the 12/12/17 base and accepts the 13/13/19 effective authority", () => {
   const checked = validateG4BU04WorksheetPromotionProjection();
   assert.equal(checked.ok, true, checked.errors.join(","));
   assert.deepEqual(checked.counts, {
-    knowledgePoints: 12,
-    patternGroups: 12,
-    patternSpecs: 17,
+    knowledgePoints: 13,
+    patternGroups: 13,
+    patternSpecs: 19,
     answerShapes: 9,
     rendererProfiles: 3,
   });
   const projection = getG4BU04WorksheetPromotionProjection();
+  assert.deepEqual(projection.baseAuthorityCounts, {
+    knowledgePoints: 12,
+    patternGroups: 12,
+    patternSpecs: 17,
+  });
+  assert.deepEqual(projection.effectiveAuthorityCounts, {
+    knowledgePoints: 13,
+    patternGroups: 13,
+    patternSpecs: 19,
+  });
+  assert.equal(projection.authorityLayer, "s73_base_plus_r2c_effective_overlay");
   assert.equal(projection.lifecycle.worksheetStatus, "worksheet_eligible");
   assert.equal(projection.lifecycle.answerKeyStatus, "answer_key_integrated");
   assert.equal(projection.lifecycle.rendererStatus, "worksheet_renderer_integrated");

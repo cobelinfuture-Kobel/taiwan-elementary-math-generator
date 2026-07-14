@@ -57,17 +57,18 @@ const MODE_CASES = Object.freeze([
   ["reasoning", "kp_g4b_u04_inverse_rounding_unknown_digit", "pg_g4b_u04_inverse_digit_set"],
 ]);
 
-test("S74 contract locks three public surfaces, six modes and three renderer profiles", () => {
+test("S74 contract accepts the 13/13/19 effective authority across three surfaces", () => {
   const result = validateG4BU04PublicUIPrintQAContract();
   assert.equal(result.ok, true, result.errors.join(","));
   assert.deepEqual(result.counts, {
     surfaces: 3,
-    knowledgePoints: 12,
-    patternGroups: 12,
-    patternSpecs: 17,
+    knowledgePoints: 13,
+    patternGroups: 13,
+    patternSpecs: 19,
     questionModes: 6,
     rendererProfiles: 3,
   });
+  assert.equal(G4B_U04_PUBLIC_UI_PRINT_QA.authorityLayer, "s73_base_plus_r2c_effective_overlay");
   assert.deepEqual(G4B_U04_PUBLIC_UI_PRINT_QA.surfaces, ["classic", "fallback404", "pixel"]);
   assert.equal(G4B_U04_PUBLIC_UI_PRINT_QA.productionUse, "preview_only_pending_s75");
   assert.equal(G4B_U04_PUBLIC_UI_PRINT_QA.htmlPdfSmokeImplemented, false);

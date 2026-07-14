@@ -21,6 +21,8 @@ const TARGET_UNITS = Object.freeze([10, 100, 1000, 10000]);
 const GROUP_SIZES = Object.freeze([10, 100, 1000]);
 const DENOMINATIONS = Object.freeze([100, 1000]);
 const METHODS = Object.freeze(["down", "up", "halfUp"]);
+const DISCOUNT_POLICY = "whole_denomination_round_down";
+const DISCOUNT_DENOMINATION = 1000;
 
 const REQUIRED_FIELDS = Object.freeze([
   "questionId", "sourceId", "unitCode", "unitTitle", "kind", "representation",
@@ -178,6 +180,9 @@ function expectedRoles(question) {
     case "tpl_g4b_u04_payment_amount":
     case "tpl_g4b_u04_payment_banknote_count":
       return { price: input.price, denomination: input.denomination };
+    case "tpl_g4b_u04_discount_amount_round_down":
+    case "tpl_g4b_u04_discount_banknote_count_round_down":
+      return { productName: context.productName, price: input.price, denomination: input.denomination };
     case "tpl_g4b_u04_population_total":
     case "tpl_g4b_u04_population_difference":
       return {
@@ -245,6 +250,33 @@ function validateNumericAnswer(question, expectedValue, expectedUnit, errors) {
   }
 }
 
+function validateMoneyAmountAnswer(question, expectedAmount, errors) {
+  if (
+    question.answerModelShape !== "moneyAmountAnswer"
+    || !exactKeys(question.structuredAnswer, ["amount", "currency", "unitLabel"])
+    || question.structuredAnswer?.amount !== expectedAmount
+    || question.structuredAnswer?.currency !== "TWD"
+    || question.structuredAnswer?.unitLabel !== "元"
+    || question.finalAnswer !== expectedAmount
+  ) {
+    add(errors, "G4BU04_ANSWER_MODEL_MISMATCH", "structuredAnswer", "moneyAmountAnswer 不符合封閉 schema。", "answer_model");
+  }
+}
+
+function validateBanknoteCountAnswer(question, expectedCount, denomination, errors) {
+  if (
+    question.answerModelShape !== "banknoteCountAnswer"
+    || !exactKeys(question.structuredAnswer, ["count", "denomination", "currency", "unitLabel"])
+    || question.structuredAnswer?.count !== expectedCount
+    || question.structuredAnswer?.denomination !== denomination
+    || question.structuredAnswer?.currency !== "TWD"
+    || question.structuredAnswer?.unitLabel !== "張"
+    || question.finalAnswer !== expectedCount
+  ) {
+    add(errors, "G4BU04_ANSWER_MODEL_MISMATCH", "structuredAnswer", "banknoteCountAnswer 不符合封閉 schema。", "answer_model");
+  }
+}
+
 function validateFloor(question, errors) {
   const { total, groupSize } = question.input;
   const expected = Math.floor(total / groupSize);
@@ -278,24 +310,11 @@ function validatePaymentAmount(question, errors) {
   const { price, denomination } = question.input;
   const expectedAmount = Math.ceil(price / denomination) * denomination;
   const candidateAmount = question.structuredAnswer?.amount;
-  if (
-    question.answerModelShape !== "moneyAmountAnswer"
-    || !exactKeys(question.structuredAnswer, ["amount", "currency", "unitLabel"])
-    || candidateAmount !== expectedAmount
-    || question.structuredAnswer.currency !== "TWD"
-    || question.structuredAnswer.unitLabel !== "元"
-    || question.finalAnswer !== expectedAmount
-  ) {
-    add(errors, "G4BU04_ANSWER_MODEL_MISMATCH", "structuredAnswer", "moneyAmountAnswer 不符合封閉 schema。", "answer_model");
-  }
+  validateMoneyAmountAnswer(question, expectedAmount, errors);
   if (!isInteger(candidateAmount) || candidateAmount < price) {
     add(errors, "G4BU04_PAYMENT_INSUFFICIENT", "structuredAnswer.amount", "付款金額不足。", "formula_and_operation");
   }
-  if (
-    !isInteger(candidateAmount)
-    || candidateAmount % denomination !== 0
-    || candidateAmount - denomination >= price
-  ) {
+  if (!isInteger(candidateAmount) || candidateAmount % denomination !== 0 || candidateAmount - denomination >= price) {
     add(errors, "G4BU04_PAYMENT_NOT_MINIMUM_MULTIPLE", "structuredAnswer.amount", "付款金額不是最小足額面額倍數。", "formula_and_operation");
   }
   if (price % denomination === 0) {
@@ -307,22 +326,60 @@ function validateBanknoteCount(question, errors) {
   const { price, denomination } = question.input;
   const expectedCount = Math.ceil(price / denomination);
   const candidateCount = question.structuredAnswer?.count;
-  if (
-    question.answerModelShape !== "banknoteCountAnswer"
-    || !exactKeys(question.structuredAnswer, ["count", "denomination", "currency", "unitLabel"])
-    || candidateCount !== expectedCount
-    || question.structuredAnswer.denomination !== denomination
-    || question.structuredAnswer.currency !== "TWD"
-    || question.structuredAnswer.unitLabel !== "張"
-    || question.finalAnswer !== expectedCount
-  ) {
-    add(errors, "G4BU04_ANSWER_MODEL_MISMATCH", "structuredAnswer", "banknoteCountAnswer 不符合封閉 schema。", "answer_model");
-  }
+  validateBanknoteCountAnswer(question, expectedCount, denomination, errors);
   if (!isInteger(candidateCount) || candidateCount * denomination < price) {
     add(errors, "G4BU04_BANKNOTE_COUNT_NOT_MINIMUM", "structuredAnswer.count", "鈔票張數不足。", "formula_and_operation");
   }
   if (isInteger(candidateCount) && (candidateCount - 1) * denomination >= price) {
     add(errors, "G4BU04_ONE_FEWER_NOTE_SUFFICIENT", "structuredAnswer.count", "少一張仍足額，答案不是最小張數。", "formula_and_operation");
+  }
+}
+
+function validateDiscountCommon(question, errors) {
+  const { price, denomination, discountPolicy } = question.input ?? {};
+  const expectedAmount = Math.floor(price / denomination) * denomination;
+  const expectedCount = expectedAmount / denomination;
+  const remainder = price - expectedAmount;
+  if (
+    denomination !== DISCOUNT_DENOMINATION
+    || discountPolicy !== DISCOUNT_POLICY
+    || question.context?.contextDomain !== "discount_price"
+    || question.context?.productName !== "除濕機"
+  ) {
+    add(errors, "G4BU04_FORMULA_MISMATCH", "input.discountPolicy", "特價整千元情境的來源邊界不正確。", "formula_and_operation");
+  }
+  if (
+    !isInteger(price)
+    || !isInteger(expectedAmount)
+    || expectedAmount >= price
+    || remainder <= 0
+    || remainder >= denomination
+    || expectedAmount % denomination !== 0
+  ) {
+    add(errors, "G4BU04_FORMULA_MISMATCH", "derived.discountedAmount", "特價必須是低於定價的最大整千元倍數。", "formula_and_operation");
+  }
+  if (
+    question.derived?.discountedAmount !== expectedAmount
+    || question.derived?.count !== expectedCount
+    || question.derived?.remainder !== remainder
+    || question.derived?.savings !== remainder
+    || question.derived?.originalPrice !== price
+  ) {
+    add(errors, "G4BU04_FORMULA_MISMATCH", "derived", "特價捨去的衍生值不正確。", "formula_and_operation");
+  }
+  return { expectedAmount, expectedCount, denomination };
+}
+
+function validateDiscountAmount(question, errors) {
+  const { expectedAmount } = validateDiscountCommon(question, errors);
+  validateMoneyAmountAnswer(question, expectedAmount, errors);
+}
+
+function validateDiscountBanknoteCount(question, errors) {
+  const { expectedAmount, expectedCount, denomination } = validateDiscountCommon(question, errors);
+  validateBanknoteCountAnswer(question, expectedCount, denomination, errors);
+  if (expectedCount * denomination !== expectedAmount || expectedAmount >= question.input.price) {
+    add(errors, "G4BU04_FORMULA_MISMATCH", "structuredAnswer.count", "特價鈔票張數必須等於捨去後特價除以面額。", "formula_and_operation");
   }
 }
 
@@ -382,6 +439,8 @@ function validatePattern(question, errors) {
     case "ps_g4b_u04_round_then_subtract": validateRoundedPair(question, "subtract", errors); break;
     case "ps_g4b_u04_round_then_multiply": validateRoundThenMultiply(question, errors); break;
     case "ps_g4b_u04_round_then_divide": validateRoundThenDivide(question, errors); break;
+    case "ps_g4b_u04_discount_payment_amount_round_down": validateDiscountAmount(question, errors); break;
+    case "ps_g4b_u04_discount_banknote_count_round_down": validateDiscountBanknoteCount(question, errors); break;
     default: break;
   }
 }

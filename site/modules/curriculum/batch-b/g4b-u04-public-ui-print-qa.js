@@ -6,6 +6,7 @@ import {
   G4B_U04_SOURCE_ID,
 } from "../registry/g4b-u04-promotion.js";
 import {
+  G4B_U04_EFFECTIVE_AUTHORITY_COUNTS,
   G4B_U04_RENDERER_PROFILES,
   G4B_U04_WORKSHEET_LIFECYCLE,
 } from "../registry/g4b-u04-worksheet-promotion.js";
@@ -13,6 +14,7 @@ import {
 export const G4B_U04_PUBLIC_UI_PRINT_QA = Object.freeze({
   task: "S74_G4B_U04_PublicUIPrintAndQueryStateQA",
   status: "public_ui_print_query_state_qa_integrated",
+  authorityLayer: "s73_base_plus_r2c_effective_overlay",
   sourceId: G4B_U04_SOURCE_ID,
   surfaces: Object.freeze(["classic", "fallback404", "pixel"]),
   visibleKnowledgePointCount: G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS.length,
@@ -56,9 +58,9 @@ export const G4B_U04_PUBLIC_UI_PRINT_QA = Object.freeze({
 export function validateG4BU04PublicUIPrintQAContract() {
   const errors = [];
   if (G4B_U04_PUBLIC_UI_PRINT_QA.surfaces.length !== 3) errors.push("surface_count_mismatch");
-  if (G4B_U04_PUBLIC_UI_PRINT_QA.visibleKnowledgePointCount !== 12) errors.push("knowledge_point_count_mismatch");
-  if (G4B_U04_PUBLIC_UI_PRINT_QA.visiblePatternGroupCount !== 12) errors.push("pattern_group_count_mismatch");
-  if (G4B_U04_PUBLIC_UI_PRINT_QA.promotedPatternSpecCount !== 17) errors.push("pattern_spec_count_mismatch");
+  if (G4B_U04_PUBLIC_UI_PRINT_QA.visibleKnowledgePointCount !== G4B_U04_EFFECTIVE_AUTHORITY_COUNTS.knowledgePoints) errors.push("knowledge_point_count_mismatch");
+  if (G4B_U04_PUBLIC_UI_PRINT_QA.visiblePatternGroupCount !== G4B_U04_EFFECTIVE_AUTHORITY_COUNTS.patternGroups) errors.push("pattern_group_count_mismatch");
+  if (G4B_U04_PUBLIC_UI_PRINT_QA.promotedPatternSpecCount !== G4B_U04_EFFECTIVE_AUTHORITY_COUNTS.patternSpecs) errors.push("pattern_spec_count_mismatch");
   if (G4B_U04_PUBLIC_UI_PRINT_QA.questionModes.length !== 6) errors.push("question_mode_count_mismatch");
   if (G4B_U04_PUBLIC_UI_PRINT_QA.rendererProfileIds.length !== 3) errors.push("renderer_profile_count_mismatch");
   if (!G4B_U04_PUBLIC_UI_PRINT_QA.stalePreviewInvalidationRequired) errors.push("stale_preview_not_required");
@@ -74,12 +76,12 @@ export function validateG4BU04PublicUIPrintQAContract() {
     ok: errors.length === 0,
     errors: Object.freeze(errors),
     counts: Object.freeze({
-      surfaces: 3,
-      knowledgePoints: 12,
-      patternGroups: 12,
-      patternSpecs: 17,
-      questionModes: 6,
-      rendererProfiles: 3,
+      surfaces: G4B_U04_PUBLIC_UI_PRINT_QA.surfaces.length,
+      knowledgePoints: G4B_U04_PUBLIC_UI_PRINT_QA.visibleKnowledgePointCount,
+      patternGroups: G4B_U04_PUBLIC_UI_PRINT_QA.visiblePatternGroupCount,
+      patternSpecs: G4B_U04_PUBLIC_UI_PRINT_QA.promotedPatternSpecCount,
+      questionModes: G4B_U04_PUBLIC_UI_PRINT_QA.questionModes.length,
+      rendererProfiles: G4B_U04_PUBLIC_UI_PRINT_QA.rendererProfileIds.length,
     }),
   });
 }

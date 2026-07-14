@@ -24,7 +24,7 @@ const sharedLifecycle = deepFreeze({
   ],
 });
 
-const groupRows = [
+const baseGroupRows = [
   ["pg_g4b_u04_approximation_language", "kp_g4b_u04_approximation_language_cues", "concept", ["ps_g4b_u04_approx_language_classify"]],
   ["pg_g4b_u04_approximation_symbol", "kp_g4b_u04_approximation_symbol_reading", "concept", ["ps_g4b_u04_approx_symbol_reading"]],
   ["pg_g4b_u04_method_comparison", "kp_g4b_u04_three_approximation_methods_compare", "concept", ["ps_g4b_u04_method_compare_outputs", "ps_g4b_u04_method_identify_from_result"]],
@@ -39,7 +39,11 @@ const groupRows = [
   ["pg_g4b_u04_inverse_original_values", "kp_g4b_u04_inverse_rounding_possible_original", "reasoning", ["ps_g4b_u04_inverse_original_values"]],
 ];
 
-const specRows = [
+const r2cGroupRows = [
+  ["pg_g4b_u04_discount_round_down", "kp_g4b_u04_discount_denomination_round_down", "application", ["ps_g4b_u04_discount_payment_amount_round_down", "ps_g4b_u04_discount_banknote_count_round_down"]],
+];
+
+const baseSpecRows = [
   ["ps_g4b_u04_approx_language_classify", "fm_g4b_u04_approx_language_classify", "fmc_g4b_u04_approx_language_classify", "pg_g4b_u04_approximation_language", "kp_g4b_u04_approximation_language_cues", "concept", "classificationAnswer", "C", [], ["s62:p1:top-left"]],
   ["ps_g4b_u04_approx_symbol_reading", "fm_g4b_u04_approx_symbol_reading", "fmc_g4b_u04_approx_symbol_reading", "pg_g4b_u04_approximation_symbol", "kp_g4b_u04_approximation_symbol_reading", "concept", "symbolReadingAnswer", "C", [], ["s62:p1:top-right"]],
   ["ps_g4b_u04_method_compare_outputs", "fm_g4b_u04_method_compare_outputs", "fmc_g4b_u04_method_compare_outputs", "pg_g4b_u04_method_comparison", "kp_g4b_u04_three_approximation_methods_compare", "concept", "methodComparisonAnswer", "C", [], ["s62:p1:second-row-left"]],
@@ -59,8 +63,13 @@ const specRows = [
   ["ps_g4b_u04_inverse_original_values", "fm_g4b_u04_inverse_original_values", "fmc_g4b_u04_inverse_original_values", "pg_g4b_u04_inverse_original_values", "kp_g4b_u04_inverse_rounding_possible_original", "reasoning", "possibleValuesAnswer", "C", [], ["s62:p2:bottom-left"]],
 ];
 
-export const G4B_U04_HIDDEN_PATTERN_GROUPS = deepFreeze(
-  groupRows.map(([patternGroupId, knowledgePointId, mode, patternSpecIds]) => ({
+const r2cSpecRows = [
+  ["ps_g4b_u04_discount_payment_amount_round_down", "fm_g4b_u04_discount_payment_amount_round_down", "fmc_g4b_u04_discount_payment_amount_round_down", "pg_g4b_u04_discount_round_down", "kp_g4b_u04_discount_denomination_round_down", "application", "moneyAmountAnswer", "D", ["tpl_g4b_u04_discount_amount_round_down"], ["r2c:source-overview:p1:discount-whole-thousands"]],
+  ["ps_g4b_u04_discount_banknote_count_round_down", "fm_g4b_u04_discount_banknote_count_round_down", "fmc_g4b_u04_discount_banknote_count_round_down", "pg_g4b_u04_discount_round_down", "kp_g4b_u04_discount_denomination_round_down", "application", "banknoteCountAnswer", "D", ["tpl_g4b_u04_discount_banknote_count_round_down"], ["r2c:source-overview:p1:discount-whole-thousands"]],
+];
+
+function materializeGroups(rows) {
+  return rows.map(([patternGroupId, knowledgePointId, mode, patternSpecIds]) => ({
     patternGroupId,
     sourceId: G4B_U04_SOURCE_ID,
     unitCode: "4B-U04",
@@ -74,11 +83,11 @@ export const G4B_U04_HIDDEN_PATTERN_GROUPS = deepFreeze(
     canonicalRouting: "disabled",
     productionUse: "forbidden",
     holdReason: "hidden_generator_validator_and_public_worksheet_required",
-  })),
-);
+  }));
+}
 
-export const G4B_U04_HIDDEN_PATTERN_SPECS = deepFreeze(
-  specRows.map(([
+function materializeSpecs(rows, patternOrderOffset = 0, effectiveOverlay = false) {
+  return rows.map(([
     patternSpecId,
     formalMappingId,
     sourceMappingCandidateId,
@@ -91,6 +100,9 @@ export const G4B_U04_HIDDEN_PATTERN_SPECS = deepFreeze(
     sourceEvidence,
   ], index) => ({
     ...sharedLifecycle,
+    effectiveContractLoadOrder: effectiveOverlay
+      ? [...sharedLifecycle.effectiveContractLoadOrder, "G4B_U04_R2C_DiscountRoundDownAuthorityOverlay"]
+      : sharedLifecycle.effectiveContractLoadOrder,
     patternSpecId,
     formalMappingId,
     sourceMappingCandidateId,
@@ -101,9 +113,22 @@ export const G4B_U04_HIDDEN_PATTERN_SPECS = deepFreeze(
     implementationClass,
     templateFamilyIds,
     sourceEvidence,
-    patternOrder: index + 1,
-  })),
-);
+    patternOrder: patternOrderOffset + index + 1,
+  }));
+}
+
+export const G4B_U04_HIDDEN_PATTERN_GROUPS = deepFreeze(materializeGroups(baseGroupRows));
+export const G4B_U04_HIDDEN_PATTERN_SPECS = deepFreeze(materializeSpecs(baseSpecRows));
+export const G4B_U04_R2C_PATTERN_GROUPS = deepFreeze(materializeGroups(r2cGroupRows));
+export const G4B_U04_R2C_PATTERN_SPECS = deepFreeze(materializeSpecs(r2cSpecRows, baseSpecRows.length, true));
+export const G4B_U04_EFFECTIVE_PATTERN_GROUPS = deepFreeze([
+  ...G4B_U04_HIDDEN_PATTERN_GROUPS,
+  ...G4B_U04_R2C_PATTERN_GROUPS,
+]);
+export const G4B_U04_EFFECTIVE_PATTERN_SPECS = deepFreeze([
+  ...G4B_U04_HIDDEN_PATTERN_SPECS,
+  ...G4B_U04_R2C_PATTERN_SPECS,
+]);
 
 export function getG4BU04HiddenPatternGroups() {
   return G4B_U04_HIDDEN_PATTERN_GROUPS;
@@ -114,13 +139,33 @@ export function getG4BU04HiddenPatternSpecs() {
 }
 
 export function getG4BU04HiddenPatternGroupById(patternGroupId) {
-  return G4B_U04_HIDDEN_PATTERN_GROUPS.find((row) => row.patternGroupId === patternGroupId) ?? null;
+  return G4B_U04_EFFECTIVE_PATTERN_GROUPS.find((row) => row.patternGroupId === patternGroupId) ?? null;
 }
 
 export function getG4BU04HiddenPatternSpecById(patternSpecId) {
-  return G4B_U04_HIDDEN_PATTERN_SPECS.find((row) => row.patternSpecId === patternSpecId) ?? null;
+  return G4B_U04_EFFECTIVE_PATTERN_SPECS.find((row) => row.patternSpecId === patternSpecId) ?? null;
 }
 
 export function getG4BU04HiddenPatternSpecsByGroupId(patternGroupId) {
-  return G4B_U04_HIDDEN_PATTERN_SPECS.filter((row) => row.patternGroupId === patternGroupId);
+  return G4B_U04_EFFECTIVE_PATTERN_SPECS.filter((row) => row.patternGroupId === patternGroupId);
+}
+
+export function getG4BU04EffectivePatternGroups() {
+  return G4B_U04_EFFECTIVE_PATTERN_GROUPS;
+}
+
+export function getG4BU04EffectivePatternSpecs() {
+  return G4B_U04_EFFECTIVE_PATTERN_SPECS;
+}
+
+export function getG4BU04EffectivePatternGroupById(patternGroupId) {
+  return G4B_U04_EFFECTIVE_PATTERN_GROUPS.find((row) => row.patternGroupId === patternGroupId) ?? null;
+}
+
+export function getG4BU04EffectivePatternSpecById(patternSpecId) {
+  return G4B_U04_EFFECTIVE_PATTERN_SPECS.find((row) => row.patternSpecId === patternSpecId) ?? null;
+}
+
+export function getG4BU04EffectivePatternSpecsByGroupId(patternGroupId) {
+  return G4B_U04_EFFECTIVE_PATTERN_SPECS.filter((row) => row.patternGroupId === patternGroupId);
 }

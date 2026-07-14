@@ -13,7 +13,7 @@ function readText(relativePath) {
   return readFileSync(new URL(`../../${relativePath}`, import.meta.url), "utf8");
 }
 
-test("S74 exposes G4B-U04 on browser surfaces without changing legacy release registries", () => {
+test("S74 exposes the 13-KP G4B-U04 effective overlay without changing legacy release registries", () => {
   const legacyIds = listBatchASourceUnits().map((unit) => unit.sourceId);
   assert.equal(legacyIds.length, 13);
   assert.equal(legacyIds.includes("g4b_u04_4b04"), false);
@@ -27,7 +27,7 @@ test("S74 exposes G4B-U04 on browser surfaces without changing legacy release re
   assert.ok(g4bU04);
   assert.equal(g4bU04.unitCode, "4B-U04");
   assert.equal(g4bU04.title, "概數");
-  assert.equal(g4bU04.visibleKnowledgePoints.length, 12);
+  assert.equal(g4bU04.visibleKnowledgePoints.length, 13);
 
   const pixelBridge = readText("site/pixel/pixel-registry-bridge.js");
   assert.match(pixelBridge, /typeof document === "undefined"/);

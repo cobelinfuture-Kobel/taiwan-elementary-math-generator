@@ -1,0 +1,62 @@
+{
+  "schemaName": "G4BU04R2CDiscountRoundDownMappingCandidateOverlay",
+  "schemaVersion": 1,
+  "task": "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
+  "status": "implemented_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "sourceRef": {
+    "title": "題型總覽-4b04-概數.pdf",
+    "page": 1,
+    "region": "fourth-row-left-and-right",
+    "evidenceId": "r2c:source-overview:p1:discount-whole-thousands",
+    "sourcePrompt": "除濕機定價7699元，特價只算整千元，買一台要付多少錢？要拿幾張千元鈔票？"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4b_u04_discount_denomination_round_down",
+    "displayName": "特價只算整千元的付款與鈔票張數",
+    "canonicalSkillTag": "discount_denomination_round_down",
+    "semanticBoundary": "The advertised special price is rounded down to a whole-thousand multiple; this is distinct from paying enough banknotes to cover the original price."
+  },
+  "patternGroupCandidate": {
+    "patternGroupCandidateId": "pgc_g4b_u04_discount_round_down",
+    "patternGroupId": "pg_g4b_u04_discount_round_down",
+    "mode": "application"
+  },
+  "formalMappingCandidates": [
+    {
+      "id": "fmc_g4b_u04_discount_payment_amount_round_down",
+      "patternSpecId": "ps_g4b_u04_discount_payment_amount_round_down",
+      "answerModelId": "moneyAmountAnswer",
+      "implementationClass": "D",
+      "templateFamilyIds": ["tpl_g4b_u04_discount_amount_round_down"],
+      "formula": "floor(price / 1000) * 1000",
+      "guards": [
+        "denomination_equals_1000",
+        "price_has_nonzero_remainder",
+        "discount_amount_is_below_original_price",
+        "discount_amount_is_largest_allowed_multiple_not_exceeding_price",
+        "ceiling_payment_interpretation_forbidden"
+      ]
+    },
+    {
+      "id": "fmc_g4b_u04_discount_banknote_count_round_down",
+      "patternSpecId": "ps_g4b_u04_discount_banknote_count_round_down",
+      "answerModelId": "banknoteCountAnswer",
+      "implementationClass": "D",
+      "templateFamilyIds": ["tpl_g4b_u04_discount_banknote_count_round_down"],
+      "formula": "floor(price / 1000)",
+      "guards": [
+        "denomination_equals_1000",
+        "count_times_denomination_equals_discount_amount",
+        "count_is_not_ceiling_of_original_price",
+        "ceiling_payment_interpretation_forbidden"
+      ]
+    }
+  ],
+  "effectiveCounts": {
+    "knowledgePoints": 13,
+    "patternGroups": 13,
+    "patternSpecs": 19,
+    "applicationPatternSpecs": 6
+  }
+}

@@ -40,17 +40,27 @@ function generate(id, sequence = 0) {
   return generateG4BU04ClassDQuestion({ patternSpecId: id, seed: "s70-test", sequence });
 }
 
-test("S70 freezes exactly the eight S68 Class D PatternSpecs and nine S67 templates", () => {
+test("S70 historical eight-spec and nine-template contract remains the prefix of the R2C effective runtime", () => {
   const contract = JSON.parse(readFileSync(CONTRACT_PATH, "utf8"));
   assert.ok(["implemented_pending_ci", "pass_ci_synced_and_merged"].includes(contract.status));
-  assert.equal(G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS.length, 8);
-  assert.equal(G4B_U04_S70_TEMPLATE_IDS.length, 9);
-  assert.equal(Object.keys(G4B_U04_S70_CONTROLLED_TEMPLATES).length, 9);
-  assert.deepEqual(contract.patternSpecIds, [...G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS]);
-  assert.deepEqual(contract.templateFamilyIds, [...G4B_U04_S70_TEMPLATE_IDS]);
+  assert.equal(contract.patternSpecIds.length, 8);
+  assert.equal(contract.templateFamilyIds.length, 9);
+  assert.equal(G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS.length, 10);
+  assert.equal(G4B_U04_S70_TEMPLATE_IDS.length, 11);
+  assert.equal(Object.keys(G4B_U04_S70_CONTROLLED_TEMPLATES).length, 11);
+  assert.deepEqual(contract.patternSpecIds, G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS.slice(0, contract.patternSpecIds.length));
+  assert.deepEqual(contract.templateFamilyIds, G4B_U04_S70_TEMPLATE_IDS.slice(0, contract.templateFamilyIds.length));
+  assert.deepEqual(G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS.slice(-2), [
+    "ps_g4b_u04_discount_payment_amount_round_down",
+    "ps_g4b_u04_discount_banknote_count_round_down",
+  ]);
+  assert.deepEqual(G4B_U04_S70_TEMPLATE_IDS.slice(-2), [
+    "tpl_g4b_u04_discount_amount_round_down",
+    "tpl_g4b_u04_discount_banknote_count_round_down",
+  ]);
   for (const id of G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS) {
     const spec = getG4BU04HiddenPatternSpecById(id);
-    assert.ok(spec, `${id} must exist in S68 authority`);
+    assert.ok(spec, `${id} must exist in effective authority`);
     assert.equal(spec.implementationClass, "D");
     assert.equal(spec.selectorStatus, "hidden");
     assert.equal(spec.canonicalRouting, "disabled");
@@ -63,7 +73,7 @@ test("S70 freezes exactly the eight S68 Class D PatternSpecs and nine S67 templa
   }
 });
 
-test("S70 generates and validates all eight Class D PatternSpecs and all nine template routes", () => {
+test("S70 generates and validates all ten effective Class D PatternSpecs and eleven template routes", () => {
   const templates = new Set();
   const answerShapes = new Set();
   for (const id of G4B_U04_S70_CLASS_D_PATTERN_SPEC_IDS) {
@@ -90,6 +100,8 @@ test("S70 preserves source formulas and representative textbook values", () => {
   assert.equal(Math.ceil(8427 / 10), 843);
   assert.equal(Math.ceil(7699 / 1000) * 1000, 8000);
   assert.equal(Math.ceil(7699 / 1000), 8);
+  assert.equal(Math.floor(7699 / 1000) * 1000, 7000);
+  assert.equal(Math.floor(7699 / 1000), 7);
   assert.equal(Math.ceil(7699 / 100) * 100, 7700);
   assert.equal(Math.ceil(7699 / 100), 77);
   assert.equal(g4bU04RoundByMethod(57389, "halfUp", 10000) * 6, 360000);
@@ -120,7 +132,7 @@ test("S70 operation-estimation prompts expose original values, methods and targe
   }
 });
 
-test("S70 controlled-template role bindings exactly match the S67 overlay", () => {
+test("S70 controlled-template role bindings exactly match the effective overlay", () => {
   for (const templateId of G4B_U04_S70_TEMPLATE_IDS) {
     const template = G4B_U04_S70_CONTROLLED_TEMPLATES[templateId];
     assert.deepEqual(Object.keys(template.roleBindings).sort(), [...template.requiredRoles].sort());
@@ -137,7 +149,7 @@ test("S70 batch generation is deterministic, exact and balanced through 1000 que
   assert.equal(validateG4BU04ClassDBatch(first).ok, true);
   const counts = Object.values(first.allocation);
   assert.equal(Math.max(...counts) - Math.min(...counts) <= 1, true);
-  assert.equal(Object.keys(first.allocation).length, 8);
+  assert.equal(Object.keys(first.allocation).length, 10);
 
   const shuffledA = generateG4BU04ClassDBatch({ questionCount: 1000, seed: "s70-stress", ordering: "shuffleAcrossPatterns" });
   const shuffledB = generateG4BU04ClassDBatch({ questionCount: 1000, seed: "s70-stress", ordering: "shuffleAcrossPatterns" });

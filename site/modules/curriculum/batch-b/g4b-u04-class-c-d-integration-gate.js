@@ -1,7 +1,7 @@
 import {
   G4B_U04_SOURCE_ID,
   getG4BU04HiddenPatternSpecById,
-  getG4BU04HiddenPatternSpecs,
+  getG4BU04EffectivePatternSpecs,
 } from "./source-pattern-g4b-u04-extension.js";
 import {
   G4B_U04_S69_CLASS_C_PATTERN_SPEC_IDS,
@@ -78,7 +78,7 @@ function deterministicShuffle(values, seed) {
   return output;
 }
 
-const authoritySpecs = [...getG4BU04HiddenPatternSpecs()].sort((left, right) => left.patternOrder - right.patternOrder);
+const authoritySpecs = [...getG4BU04EffectivePatternSpecs()].sort((left, right) => left.patternOrder - right.patternOrder);
 
 export const G4B_U04_S71_ALL_PATTERN_SPEC_IDS = Object.freeze(
   authoritySpecs.map((spec) => spec.patternSpecId),
@@ -186,7 +186,7 @@ export function generateG4BU04IntegratedQuestion({ patternSpecId, seed = "s71", 
 }
 
 export function generateG4BU04IntegratedBatch({
-  questionCount = 17,
+  questionCount = G4B_U04_S71_ALL_PATTERN_SPEC_IDS.length,
   patternSpecIds = G4B_U04_S71_ALL_PATTERN_SPEC_IDS,
   seed = "s71-integration",
   ordering = "groupedByPattern",
@@ -320,7 +320,7 @@ function validatePatternSet(batch, errors) {
     add(errors, "G4BU04_INTEGRATION_PATTERN_SET_INVALID", "patternSpecIds", "PatternSpec 集合含未知 ID 或未依 authority order。", "identity_and_schema");
   }
   if (batch.coverageMode === "fullAuthority" && !sameValue(ids, G4B_U04_S71_ALL_PATTERN_SPEC_IDS)) {
-    add(errors, "G4BU04_INTEGRATION_FULL_COVERAGE_REQUIRED", "patternSpecIds", "Full-authority gate 必須覆蓋全部 17 個 PatternSpec。", "integration_gate");
+    add(errors, "G4BU04_INTEGRATION_FULL_COVERAGE_REQUIRED", "patternSpecIds", `Full-authority gate 必須覆蓋全部 ${G4B_U04_S71_ALL_PATTERN_SPEC_IDS.length} 個 PatternSpec。`, "integration_gate");
   }
   return expectedCanonical;
 }
