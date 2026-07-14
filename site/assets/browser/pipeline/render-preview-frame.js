@@ -10,6 +10,14 @@ export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}
     throw new Error("Preview frame element is required.");
   }
 
+  if (worksheetDocument?.dynamicHtml) {
+    previewFrame.srcdoc = String(worksheetDocument.dynamicHtml)
+      .replace('data-s93-hidden-browser-pipeline="true"', 'data-s96d-public-dynamic-browser="true"')
+      .replace('content="S93 G5A-U02 hidden browser pipeline"', 'content="S96D G5A-U02 public dynamic browser"');
+    previewFrame.dataset.dynamicWorksheetStatus = "ready";
+    return { html: previewFrame.srcdoc, dynamic: true };
+  }
+
   if (worksheetDocument?.staticHtmlUrl) {
     previewFrame.dataset.staticCandidateStatus = "loading";
     fetch(worksheetDocument.staticHtmlUrl, { cache: "force-cache" })
