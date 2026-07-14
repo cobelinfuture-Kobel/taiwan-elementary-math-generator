@@ -39,6 +39,41 @@ function cloneValue(value) {
   return value;
 }
 
+function hashSeed(value) {
+  let acc = 0;
+  for (const char of String(value ?? "default")) acc = ((acc * 31) + char.charCodeAt(0)) >>> 0;
+  return acc || 1;
+}
+
+function mix32(value) {
+  let mixed = value >>> 0;
+  mixed = Math.imul(mixed ^ (mixed >>> 16), 0x7feb352d);
+  mixed = Math.imul(mixed ^ (mixed >>> 15), 0x846ca68b);
+  return (mixed ^ (mixed >>> 16)) >>> 0;
+}
+
+function shuffleQuestions(questions, seed) {
+  const shuffled = [...questions];
+  let seedValue = hashSeed(seed);
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    seedValue = mix32(seedValue + index);
+    const swapIndex = seedValue % (index + 1);
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+  return shuffled;
+}
+
+function applyRequestedOrdering(result, plan, routeId) {
+  if (result?.ok !== true || plan?.ordering !== "shuffleAcrossPatterns") return result;
+  return {
+    ...result,
+    questions: shuffleQuestions(
+      result.questions ?? [],
+      `${plan.generationSeed}:${routeId}:${plan.questionCount}`,
+    ),
+  };
+}
+
 function normalizeExplicitErrors(explicitErrors = []) {
   return explicitErrors.map((entry) => ({
     code: entry.code ?? "CANONICAL_ROUTE_INVALID",
@@ -96,7 +131,7 @@ export function generateBatchABrowserQuestions(options = {}) {
         result.errors,
       );
     }
-    return result;
+    return applyRequestedOrdering(result, g4aU08Plan, "g4a-u08-all-canonical");
   }
 
   if (requestsG4AU08Phase2B(plan)) {
