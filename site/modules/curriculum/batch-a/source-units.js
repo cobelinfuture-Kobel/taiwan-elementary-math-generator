@@ -22,7 +22,7 @@ export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
     unitCode: "5A-U02",
     title: "因數與公因數",
     domain: "factors_common_factors",
-    lifecycle: "public_preview_candidate"
+    lifecycle: "public_canonical_static_release"
   })
 ]);
 
