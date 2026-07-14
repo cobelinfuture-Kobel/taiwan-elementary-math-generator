@@ -49,7 +49,7 @@ const GROUP_ROWS = Object.freeze([
   ["pg_g4a_u08_app_unit_rate_then_scale", "kp_g4a_u08_app_mul_div_sequence", "application", ["ps_g4a_u08_app_unit_rate_then_scale"]],
   ["pg_g4a_u08_app_divide_then_divide", "kp_g4a_u08_app_mul_div_sequence", "application", ["ps_g4a_u08_app_divide_then_divide"]],
   ["pg_g4a_u08_app_payment_minus_unit_cost_times_quantity", "kp_g4a_u08_app_mul_div_before_add_sub", "application", ["ps_g4a_u08_app_payment_minus_unit_cost_times_quantity"]],
-  ["pg_g4a_u08_app_subtract_or_add_divided_amount", "kp_g4a_u08_app_mul_div_before_add_sub", "application", ["ps_g4a_u08_app_subtract_or_add_divided_amount"]],
+  ["pg_g4a_u08_app_subtract_or_add_divided_amount", "kp_g4a_u08_app_mul_div_before_add_sub", "application", ["ps_g4a_u08_app_subtract_divided_amount_or_add_divided_amount"]],
   ["pg_g4a_u08_app_cost_overlay", "kp_g4a_u08_app_mul_div_before_add_sub", "application", ["ps_g4a_u08_app_cost_overlay"]],
   ["pg_g4a_u08_ext_comparison_chain", "kp_g4a_u08_app_add_sub_sequence", "application", ["ps_g4a_u08_ext_comparison_chain"]],
   ["pg_g4a_u08_ext_equal_value_unit_price", "kp_g4a_u08_app_mul_div_sequence", "application", ["ps_g4a_u08_ext_equal_value_unit_price"]],
