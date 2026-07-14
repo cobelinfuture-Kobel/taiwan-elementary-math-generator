@@ -1,8 +1,13 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { chromium } from "playwright";
 
 const BASE_URL = process.env.S76R_SITE_URL ?? "http://127.0.0.1:4174/index.html";
 const SOURCE_ID = "g4a_u08_4a08";
 const QUESTION_COUNT = 112;
+const ARTIFACT_ROOT = resolve("artifacts/s76r-g4a-u08");
+const DIAGNOSTIC_PATH = resolve(ARTIFACT_ROOT, "S76R_G4A_U08_PublicUIE2E.failure.json");
+const SCREENSHOT_PATH = resolve(ARTIFACT_ROOT, "S76R_G4A_U08_PublicUIE2E.failure.png");
 
 function fail(message, details = {}) {
   const error = new Error(message);
@@ -107,6 +112,23 @@ try {
     pageErrorCount: pageErrors.length,
   }, null, 2));
 } catch (error) {
+  mkdirSync(ARTIFACT_ROOT, { recursive: true });
+  const diagnostic = {
+    task: "S76R_G4A_U08_PublicUIE2E",
+    status: "FAIL",
+    message: error.message,
+    details: error.details ?? null,
+    pageUrl: page.url(),
+    consoleErrors,
+    pageErrors,
+  };
+  writeFileSync(DIAGNOSTIC_PATH, `${JSON.stringify(diagnostic, null, 2)}\n`, "utf8");
+  try {
+    await page.screenshot({ path: SCREENSHOT_PATH, fullPage: true });
+  } catch (screenshotError) {
+    diagnostic.screenshotError = screenshotError.message;
+    writeFileSync(DIAGNOSTIC_PATH, `${JSON.stringify(diagnostic, null, 2)}\n`, "utf8");
+  }
   console.error(error.message);
   if (error.details) console.error(JSON.stringify(error.details, null, 2));
   console.error(JSON.stringify({ consoleErrors, pageErrors }, null, 2));
