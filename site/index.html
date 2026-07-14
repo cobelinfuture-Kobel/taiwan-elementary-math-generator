@@ -21,7 +21,10 @@
     <section class="app-shell__controls" aria-label="練習題設定">
       <div class="control-group">
         <h2>單元選擇</h2>
-        <label class="field"><span>選擇單元</span><select id="batch-a-source-select" name="batchASourceId"></select></label>
+        <label class="field">
+          <span>選擇單元</span>
+          <select id="batch-a-source-select" name="batchASourceId"></select>
+        </label>
         <p class="help-text" id="batch-a-source-help">正在讀取可用單元...</p>
       </div>
 
@@ -37,7 +40,9 @@
           </select>
         </label>
         <p class="help-text" id="batch-a-knowledge-point-empty-state">此單元已有通過驗證的知識點時，可選擇單一知識點加強或同單元混合。</p>
-        <div class="availability-summary" id="batch-a-knowledge-point-availability-summary" aria-live="polite">可選知識點：0｜已建立但尚未開放：0｜目前不可選：0</div>
+        <div class="availability-summary" id="batch-a-knowledge-point-availability-summary" aria-live="polite">
+          可選知識點：0｜已建立但尚未開放：0｜目前不可選：0
+        </div>
         <div class="knowledge-point-panel" id="batch-a-knowledge-point-panel" aria-live="polite"></div>
 
         <section class="pattern-group-selector" id="batch-a-pattern-group-selector" data-visible="false" aria-label="題目形式選擇">
@@ -46,14 +51,36 @@
           <div class="pattern-group-panel" id="batch-a-pattern-group-panel" aria-live="polite"></div>
         </section>
 
-        <section class="pattern-group-selector" id="g5a-u08-public-controls" data-visible="false" aria-label="單元進階出題設定">
-          <h3>單元進階設定</h3>
+        <section class="pattern-group-selector" id="g5a-u08-public-controls" data-visible="false" aria-label="五上整數四則進階設定">
+          <h3>五上整數四則設定</h3>
           <div class="control-grid">
-            <label class="field"><span>題目類型</span><select id="g5a-u08-question-mode" name="publicQuestionMode"><option value="mixed">混合</option></select></label>
-            <label class="field"><span>推理深度</span><select id="g5a-u08-depth-mode" name="publicDepthMode"><option value="mixed">混合</option></select></label>
-            <label class="field"><span>生活情境</span><select id="g5a-u08-context-mode" name="publicContextMode"><option value="mixed">混合</option></select></label>
+            <label class="field">
+              <span>題目類型</span>
+              <select id="g5a-u08-question-mode" name="g5aU08QuestionMode">
+                <option value="mixed">數字、應用與推理混合</option>
+                <option value="numeric">數字題</option>
+                <option value="application">應用題</option>
+                <option value="reasoning">推理題</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>推理深度</span>
+              <select id="g5a-u08-depth-mode" name="g5aU08DepthMode">
+                <option value="mixed">N 與 N+1 混合</option>
+                <option value="N">N 基礎</option>
+                <option value="N_PLUS_1">N+1 深度</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>生活情境</span>
+              <select id="g5a-u08-context-mode" name="g5aU08ContextMode">
+                <option value="mixed">一般生活與 SDG 混合</option>
+                <option value="daily_life">一般生活</option>
+                <option value="sdg">SDG 永續情境</option>
+              </select>
+            </label>
           </div>
-          <p class="help-text">控制選項依目前單元的正式 contract 載入。</p>
+          <p class="help-text">N+1 每題只增加一個可驗證的語意轉換；不提供 N+2 或正式方程式模式。</p>
         </section>
 
         <ul class="selector-warning-list" id="batch-a-knowledge-point-warning-list" aria-live="polite"></ul>
@@ -62,30 +89,64 @@
       <div class="control-group">
         <h2>題目設定</h2>
         <div class="control-grid">
-          <label class="field"><span>題目數量</span><input id="batch-a-question-count-input" name="batchAQuestionCount" type="number" min="1" max="200" value="20" spellcheck="false"></label>
-          <label class="field"><span>排序模式</span><select id="batch-a-ordering-select" name="batchAOrdering"><option value="groupedByPattern">依題型分組</option><option value="shuffleAcrossPatterns">跨題型隨機排序</option></select></label>
-          <label class="field"><span>產生種子</span><input id="generation-seed-input" name="generationSeed" type="text" value="batch-a-browser" spellcheck="false"></label>
+          <label class="field">
+            <span>題目數量</span>
+            <input id="batch-a-question-count-input" name="batchAQuestionCount" type="number" min="1" max="200" value="20" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>排序模式</span>
+            <select id="batch-a-ordering-select" name="batchAOrdering">
+              <option value="groupedByPattern">依題型分組</option>
+              <option value="shuffleAcrossPatterns">跨題型隨機排序</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>產生種子</span>
+            <input id="generation-seed-input" name="generationSeed" type="text" value="batch-a-browser" spellcheck="false">
+          </label>
         </div>
-        <label class="toggle"><input id="batch-a-answer-key-input" name="batchAIncludeAnswerKey" type="checkbox" checked><span>包含答案頁</span></label>
+        <label class="toggle">
+          <input id="batch-a-answer-key-input" name="batchAIncludeAnswerKey" type="checkbox" checked>
+          <span>包含答案頁</span>
+        </label>
       </div>
 
       <div class="control-group">
         <h2>列印版面</h2>
         <div class="control-grid">
-          <label class="field"><span>題目頁欄數</span><input id="columns-input" name="columns" type="number" min="1" max="6" value="4" spellcheck="false"></label>
-          <label class="field"><span>題目頁每頁列數</span><input id="rows-per-page-input" name="rowsPerPage" type="number" min="1" max="20" value="10" spellcheck="false"></label>
+          <label class="field">
+            <span>題目頁欄數</span>
+            <input id="columns-input" name="columns" type="number" min="1" max="6" value="4" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>題目頁每頁列數</span>
+            <input id="rows-per-page-input" name="rowsPerPage" type="number" min="1" max="20" value="10" spellcheck="false">
+          </label>
         </div>
         <p class="help-text">答案頁使用固定緊湊版面，避免大量答案在 A4 列印時遭到裁切。</p>
       </div>
 
-      <div class="toolbar"><button id="regenerate-button" class="button button--primary" type="button">產生 / 重新產生</button><button id="print-button" class="button" type="button" disabled>列印</button></div>
+      <div class="toolbar">
+        <button id="regenerate-button" class="button button--primary" type="button">產生 / 重新產生</button>
+        <button id="print-button" class="button" type="button" disabled>列印</button>
+      </div>
+
       <div class="status-panel" id="status-panel" aria-live="polite"></div>
       <div class="validation-panel" id="validation-panel" aria-live="polite"></div>
     </section>
 
     <section class="app-shell__preview" aria-label="練習題預覽">
-      <div class="preview-header"><h2>預覽</h2><p id="preview-meta">尚未產生新的練習題。</p></div>
-      <iframe id="preview-frame" class="preview-frame" title="練習題預覽" loading="eager" referrerpolicy="no-referrer"></iframe>
+      <div class="preview-header">
+        <h2>預覽</h2>
+        <p id="preview-meta">尚未產生新的練習題。</p>
+      </div>
+      <iframe
+        id="preview-frame"
+        class="preview-frame"
+        title="練習題預覽"
+        loading="eager"
+        referrerpolicy="no-referrer"
+      ></iframe>
     </section>
   </main>
 
