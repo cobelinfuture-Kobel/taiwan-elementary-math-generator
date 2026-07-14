@@ -125,6 +125,7 @@ function publicLifecycle(question, entry, sequenceNumber) {
     knowledgePointId: entry.knowledgePointId,
     patternGroupId: entry.patternGroupId,
     resolvedPatternGroupId: entry.patternGroupId,
+    answerModelShape: "numericAnswer",
     selectorStatus: "visible",
     visibilityStatus: "visible",
     canonicalRouting: "enabled",
