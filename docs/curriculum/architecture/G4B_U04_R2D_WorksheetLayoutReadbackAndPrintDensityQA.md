@@ -2,37 +2,45 @@
 
 ```text
 TASK = G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
 BASE_DESIGN = G4B_U04_R2_SemanticDedupLayoutAndSDGDesignLock
+IMPLEMENTATION_PR = 210
+IMPLEMENTATION_MERGE_SHA = 0bbbcbeb85c29672c9fd1685a72187a74e9592f0
 ```
 
-## Scope
+## Scope and fixed boundary
 
-R2D implements only the approved G4B-U04 worksheet-layout contract:
+R2D closes the approved G4B-U04 worksheet-layout segment only:
 
-- two public layout modes;
-- renderer-profile density caps;
+- `layoutMode = auto_safe | custom_with_caps`;
 - requested versus resolved layout metadata;
-- exact applied-layout readback in Classic and Pixel preview surfaces;
-- a non-blocking cap notice;
-- re-pagination after layout resolution;
+- renderer-profile caps;
+- question and answer re-pagination;
+- Classic, fallback and Pixel applied-layout readback;
+- non-blocking cap notice;
 - six-scenario Chromium HTML/PDF density QA.
 
-R2D does not add KnowledgePoints, PatternGroups, PatternSpecs, formulas, generators, validators, SDG templates or context modes.
-
-## Public layout modes
+The following authority remains unchanged:
 
 ```text
-auto_safe
-custom_with_caps
+KnowledgePoints = 13
+PatternGroups   = 13
+PatternSpecs    = 19
+formula changes = none
+generator changes = none
+validator changes = none
+renderer-profile dimensions changed = none
+SDG runtime changes = none
+generic fallback = forbidden
+free-form AI = forbidden
 ```
 
-`auto_safe` is the default. It applies the complete renderer profile selected by the generated question set and does not treat ignored generic columns/rows as a cap event.
+## Layout modes and profile authority
 
-`custom_with_caps` permits the operator to lower question density. Requests above the renderer profile are clamped to the profile maximum. There is no bypass path.
+`auto_safe` applies the complete profile selected by generated content. Generic requested columns and rows are recorded but do not create a cap warning.
 
-## Renderer profile authority
+`custom_with_caps` may lower question density. It cannot exceed the selected profile maximum.
 
 ```text
 compact
@@ -48,69 +56,31 @@ question = 1 column  × 4 rows
 answer   = 1 column  × 5 rows
 ```
 
-Question-page columns and rows may be lower than the profile maximum only in `custom_with_caps` mode.
+Answer-page density remains profile-controlled in both modes.
 
-Answer-page columns and rows are always profile-controlled. Public custom values never override answer density.
+## Public readback contract
 
-## Layout resolution contract
-
-The shared resolver returns:
-
-```text
-schemaVersion
-sourceId
-profileId
-layoutMode
-layoutModeLabel
-requestedQuestionLayout
-profileQuestionCap
-resolvedQuestionLayout
-resolvedAnswerLayout
-answerKeyProfileControlled
-includeAnswerKey
-capped
-cappedFields
-noticeCode
-noticeText
-appliedLayoutText
-warnings
-```
-
-The exact public readback format is:
+Exact applied-layout text:
 
 ```text
 套用版面：題目 {questionColumns} 欄 × {questionRows} 列；答案 {answerColumns} 欄 × {answerRows} 列
 ```
 
-The exact capped notice is:
+Exact capped notice:
 
 ```text
 已依長文字題型自動調整為安全版面。
 ```
 
-The notice uses warning code:
+Warning code:
 
 ```text
 G4B_U04_LAYOUT_CAPPED_TO_PROFILE
 ```
 
-It is non-blocking. Generation, validation, worksheet creation and print remain successful.
+The warning is non-blocking. Preview displays it; printed output hides the preview-only readback.
 
-## Worksheet integration
-
-R2D wraps the current public worksheet entry without replacing existing curriculum routing.
-
-```text
-current worksheet chain
-→ G4B-U04 renderer profile selection
-→ R2D layout resolution
-→ question and answer re-pagination
-→ WorksheetDocument readback metadata
-→ preview metadata
-→ print HTML/PDF
-```
-
-The resolved values are written to:
+Resolved information is stored in:
 
 ```text
 worksheetDocument.layoutResolution
@@ -126,45 +96,49 @@ worksheetDocument.summary
 worksheetDocument.validationSummary.warnings
 ```
 
-Non-G4B-U04 worksheet routes are returned unchanged.
+## R2D1 compatibility repair
 
-## Public surface integration
+The first CI run exposed three downstream contract drifts. R2D1 repaired them without changing layout semantics.
 
-### Classic and fallback
+### S72 lifecycle isolation
 
-The dynamically mounted G4B-U04 control now includes:
+The S72/R2C promotion lifecycle remains immutable:
 
 ```text
-questionMode
-layoutMode
+worksheetStatus = not_eligible
+productionUse   = forbidden
 ```
 
-Changing `layoutMode` uses the existing layout-control invalidation path, so the generated worksheet becomes stale, query state is rewritten, and the operator must regenerate before printing.
+R2D is a downstream layout lifecycle. Its overlay is not inserted into the base promotion authority registry list and does not change production eligibility.
 
-The outer preview metadata and the iframe HTML both display the applied layout. Requested and resolved values are also exposed through machine-readable body attributes.
+### Legacy preview metadata compatibility
 
-### Pixel
+Worksheets without `layoutMode` retain the original metadata shape:
 
-Pixel mounts the same two layout modes. Changing the mode uses the existing columns-control synchronization and stale-print path.
+```text
+questionMode|depthMode|contextMode
+```
 
-Pixel preview metadata displays both the applied layout and the cap notice when applicable.
+The fourth field and `data-public-layout-mode` are emitted only for output that actually has a layout mode.
 
-## Query-state contract
+### Worksheet-chain delegation
 
-G4B-U04 supports:
+The browser pipeline imports the R2D wrapper, and the wrapper delegates the existing S76J worksheet chain. R2D does not bypass prior curriculum routing or renderer selection.
+
+## Public controls
+
+Classic, fallback and Pixel expose the same two layout modes. G4B-U04 query state round-trips:
 
 ```text
 layoutMode=auto_safe
 layoutMode=custom_with_caps
 ```
 
-Unsupported values normalize to `auto_safe`.
-
-The field round-trips only for G4B-U04. G5-only `depthMode` and `contextMode` remain absent from G4B-U04 query state.
+Unsupported values normalize to `auto_safe`. G5-only depth and context fields remain absent from the G4B-U04 query contract.
 
 ## HTML/PDF acceptance matrix
 
-The dedicated R2D workflow generates six scenarios:
+The dedicated workflow verified:
 
 ```text
 compact × auto_safe
@@ -175,35 +149,36 @@ inverseLong × auto_safe
 inverseLong × custom_with_caps over-cap request
 ```
 
-For every scenario the workflow requires:
+Every scenario passed:
 
-- exact question and answer counts;
 - exact renderer profile;
-- exact requested/resolved question values;
-- exact profile-controlled answer values;
-- applied-layout readback present;
-- exact cap notice only in the capped case;
-- zero DOM card overflow;
+- exact requested and resolved values;
+- profile-controlled answer values;
+- applied-layout readback;
+- exact cap notice only in the capped scenario;
+- zero DOM overflow;
 - preview readback hidden from print;
-- exact expected PDF page count;
-- every rendered page nonblank;
+- exact PDF page count;
+- every PDF page nonblank;
 - zero PDF text bounding-box overflow;
-- Traditional Chinese title extraction.
+- Traditional Chinese extraction.
 
-## Fixed boundaries
+## Final-head acceptance
 
 ```text
-KnowledgePoint count unchanged = 13
-PatternGroup count unchanged = 13
-PatternSpec count unchanged = 19
-formula changes = none
-generator changes = none
-validator changes = none
-renderer profile dimensions changed = none
-SDG runtime changes = none
-generic fallback = forbidden
-free-form AI = forbidden
-profile cap bypass = forbidden
+FINAL_HEAD = 56f6b8951c1d1e22a49813cfbdbd3d5bd8e0506f
+
+Node Test                                  29344616341 PASS
+S42 Branch Test                            29344616258 PASS
+Math CI Readback                           29344616860 PASS
+S96D Focused + full-suite enforcement      29344616095 PASS
+S75 68-question HTML/PDF smoke             29344616402 PASS
+R2D six-scenario Layout HTML/PDF smoke     29344616215 PASS
+
+DOM overflow count                         0
+PDF bounding-box overflow count            0
+S72 lifecycle mutation                     0
+legacy metadata regression                 0
 ```
 
 ## Distance
@@ -213,21 +188,18 @@ GOAL_DISTANCE_BEFORE =
 D1_G4B_U04_R2C_CLOSED_NEXT_R2D
 
 GOAL_DISTANCE_AFTER =
-D1_G4B_U04_R2D_IMPLEMENTED_PENDING_CI
+D1_G4B_U04_R2D_CLOSED_NEXT_R2E
 
 DISTANCE_REDUCED =
-Connected the approved layout-mode contract to shared state, query state, worksheet pagination, Classic and Pixel readback, and a dedicated six-scenario HTML/PDF density gate.
+Closed the truthful layout-control segment from public state and query parameters through profile-capped worksheet pagination, Classic and Pixel readback, and verified HTML/PDF output while preserving S72 authority and legacy preview metadata contracts.
 
 REMAINING_BLOCKERS = [
-  "R2D final-head CI not completed",
-  "R2D HTML/PDF density smoke not completed",
-  "R2D implementation PR not merged",
-  "R2E controlled context materialization not completed",
+  "R2E controlled SDG context materialization not completed",
   "R2F D0 recloseout not completed"
 ]
 
 NEXT_SHORTEST_STEP =
-G4B_U04_R2D_CIHTMLPDFAndCloseout
+G4B_U04_R2E_ControlledSDGTemplateVariantsAndContextMode
 
 STOP_REASON = NONE
 ```
