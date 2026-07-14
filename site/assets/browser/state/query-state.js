@@ -7,7 +7,10 @@ import {
   getVisibleBatchAKnowledgePoint as getLatestVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint as getLatestVisiblePatternGroupsForKnowledgePoint
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
-import { G4B_U04_SOURCE_ID } from "../../../modules/curriculum/registry/g4b-u04-promotion.js";
+import {
+  G4B_U04_PUBLIC_CONTROLS,
+  G4B_U04_SOURCE_ID,
+} from "../../../modules/curriculum/registry/g4b-u04-promotion.js";
 import { G5A_U08_SOURCE_ID } from "../../../modules/curriculum/registry/g5a-u08-promotion.js";
 import {
   getPublicControlProfile,
@@ -38,7 +41,6 @@ function integerParam(params, key, fallback) {
   const parsed = Number(value);
   return Number.isInteger(parsed) ? parsed : fallback;
 }
-
 function normalizeIdList(values) {
   return [...new Set(values.flatMap((value) => String(value ?? "").split(",").map((item) => item.trim()).filter(Boolean)))];
 }
@@ -139,6 +141,14 @@ function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
 }
 
 function normalizeUnitPublicControls(params, sourceId) {
+  if (sourceId === G4B_U04_SOURCE_ID) {
+    const requested = params.get("questionMode");
+    return {
+      questionMode: G4B_U04_PUBLIC_CONTROLS.questionModes.includes(requested)
+        ? requested
+        : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode,
+    };
+  }
   const profile = getPublicControlProfile(sourceId);
   if (!profile) return {};
   const output = {};
@@ -174,10 +184,14 @@ export function writeQueryStateFromState(state) {
   nextUrl.searchParams.set("generationSeed", state.batchA.generationSeed);
   nextUrl.searchParams.set("columns", String(state.batchA.columns));
   nextUrl.searchParams.set("rowsPerPage", String(state.batchA.rowsPerPage));
-  const profile = getPublicControlProfile(state.batchA.sourceId);
-  if (profile?.questionTypeControl.supported) nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? profile.questionTypeControl.defaultValue);
-  if (profile?.reasoningDepthControl.supported) nextUrl.searchParams.set("depthMode", state.batchA.depthMode ?? profile.reasoningDepthControl.defaultValue);
-  if (profile?.contextControl.supported) nextUrl.searchParams.set("contextMode", state.batchA.contextMode ?? profile.contextControl.defaultValue);
+  if (state.batchA.sourceId === G4B_U04_SOURCE_ID) {
+    nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? G4B_U04_PUBLIC_CONTROLS.defaults.questionMode);
+  } else {
+    const profile = getPublicControlProfile(state.batchA.sourceId);
+    if (profile?.questionTypeControl.supported) nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? profile.questionTypeControl.defaultValue);
+    if (profile?.reasoningDepthControl.supported) nextUrl.searchParams.set("depthMode", state.batchA.depthMode ?? profile.reasoningDepthControl.defaultValue);
+    if (profile?.contextControl.supported) nextUrl.searchParams.set("contextMode", state.batchA.contextMode ?? profile.contextControl.defaultValue);
+  }
   if (KP_SELECTION_MODES.includes(state.batchA.selectionMode)) {
     nextUrl.searchParams.set("selectionMode", state.batchA.selectionMode);
     for (const knowledgePointId of state.batchA.selectedKnowledgePointIds ?? []) nextUrl.searchParams.append("kp", knowledgePointId);
