@@ -17,4 +17,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: node --test tests/site/g5a-u02-browser-arbitrary-regeneration.test.js
+      - name: Run focused S96D tests
+        run: node --test tests/site/g5a-u02-browser-arbitrary-regeneration.test.js
+      - name: Run full suite with concise failure tail
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/s96d-full-suite.log 2>&1
+          code=$?
+          tail -n 250 /tmp/s96d-full-suite.log
+          exit $code
