@@ -1,6 +1,6 @@
-export * from "./batch-a-selector-g4a-u08-extension.js";
+export * from "./batch-a-selector-g4a-u08-s76q-compatible.js";
 
-import * as base from "./batch-a-selector-g4a-u08-extension.js";
+import * as base from "./batch-a-selector-g4a-u08-s76q-compatible.js";
 import {
   G5A_U02_SELECTOR_PROJECTION,
   G5A_U02_SELECTOR_SOURCE_ID,
