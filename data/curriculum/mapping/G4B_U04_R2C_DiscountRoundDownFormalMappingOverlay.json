@@ -1,0 +1,45 @@
+{
+  "schemaName": "G4BU04R2CDiscountRoundDownFormalMappingOverlay",
+  "schemaVersion": 1,
+  "task": "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
+  "status": "implemented_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "dependsOn": [
+    "data/curriculum/mapping/S68_G4B_U04_FormalMapping.json",
+    "data/curriculum/mapping/G4B_U04_R2C_DiscountRoundDownMappingCandidateOverlay.json"
+  ],
+  "loadOrder": ["S68_G4B_U04_FormalMapping", "G4B_U04_R2C_DiscountRoundDownFormalMappingOverlay"],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g4b_u04_discount_payment_amount_round_down",
+      "sourceMappingCandidateId": "fmc_g4b_u04_discount_payment_amount_round_down",
+      "patternSpecId": "ps_g4b_u04_discount_payment_amount_round_down",
+      "knowledgePointId": "kp_g4b_u04_discount_denomination_round_down",
+      "patternGroupId": "pg_g4b_u04_discount_round_down",
+      "mode": "application",
+      "answerModelId": "moneyAmountAnswer",
+      "implementationClass": "D",
+      "templateFamilyIds": ["tpl_g4b_u04_discount_amount_round_down"],
+      "sourceEvidence": ["r2c:source-overview:p1:discount-whole-thousands"],
+      "patternOrder": 18
+    },
+    {
+      "formalMappingId": "fm_g4b_u04_discount_banknote_count_round_down",
+      "sourceMappingCandidateId": "fmc_g4b_u04_discount_banknote_count_round_down",
+      "patternSpecId": "ps_g4b_u04_discount_banknote_count_round_down",
+      "knowledgePointId": "kp_g4b_u04_discount_denomination_round_down",
+      "patternGroupId": "pg_g4b_u04_discount_round_down",
+      "mode": "application",
+      "answerModelId": "banknoteCountAnswer",
+      "implementationClass": "D",
+      "templateFamilyIds": ["tpl_g4b_u04_discount_banknote_count_round_down"],
+      "sourceEvidence": ["r2c:source-overview:p1:discount-whole-thousands"],
+      "patternOrder": 19
+    }
+  ],
+  "scopeBoundary": {
+    "existingSeventeenMappingsMutated": false,
+    "ceilingPaymentMappingsMutated": false,
+    "genericFallbackAllowed": false
+  }
+}
