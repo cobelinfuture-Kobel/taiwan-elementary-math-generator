@@ -1,23 +1,202 @@
 {
   "schemaVersion": "s76r2-deployed-pages-smoke-v1",
   "task": "S76R2_G4A_U08_DeployedPagesAndFreshMainD0Closeout",
-  "status": "FAIL",
-  "deploymentSha": "8e7141639a8ac4ec9b24fd9057f6ba0d9eac703f",
-  "message": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-source-select')\n    - locator resolved to <select name=\"batchASourceId\" id=\"batch-a-source-select\"></select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n",
-  "details": null,
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s76r2=8e7141639a8ac4ec9b24fd9057f6ba0d9eac703f-1784070935547",
-  "consoleErrors": [
-    "Failed to load resource: the server responded with a status of 503 ()"
+  "status": "PASS",
+  "productionUse": "allowed",
+  "goalDistance": "D0",
+  "deploymentSha": "af84510b9cbcb22001397a5b558f06e9b1644d9d",
+  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s76r2=af84510b9cbcb22001397a5b558f06e9b1644d9d-1784072713296",
+  "sourceId": "g4a_u08_4a08",
+  "expectedTitle": "Batch A 4A-U08 整數四則 canonical 全題組",
+  "knowledgePointCount": 15,
+  "generatedKnowledgePointCount": 15,
+  "generatedKnowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4a_u08_num_add_group_round",
+      "label": "加法交換、結合與湊整",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_signed_term_move",
+      "label": "加減混合連同符號移項",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_add_sub_left_assoc",
+      "label": "同級加減由左至右",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_parentheses_first",
+      "label": "括號優先",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_repeated_subtract_group",
+      "label": "連續減法合併",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_safe_reorder",
+      "label": "乘除混合安全重排與湊整",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_left_assoc",
+      "label": "同級乘除由左至右",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_repeated_divide_group",
+      "label": "連續除法合併",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_before_add_sub",
+      "label": "先乘除後加減",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_parentheses_change_precedence",
+      "label": "括號改變優先順序",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_num_compound_parentheses",
+      "label": "多組括號與完整四則",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_app_add_sub_sequence",
+      "label": "加減序列應用題",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_app_parentheses_grouping",
+      "label": "括號與組合量應用題",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_app_mul_div_sequence",
+      "label": "乘除序列應用題",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u08_app_mul_div_before_add_sub",
+      "label": "乘除先於加減應用題",
+      "questionCards": 8,
+      "answerCards": 8,
+      "status": "已產生 8 題，可預覽與列印。",
+      "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+    }
   ],
-  "pageErrors": [],
+  "selectedKnowledgePointCount": 15,
+  "selectedPatternGroupCount": 28,
+  "selectedPatternGroupIds": [
+    "pg_g4a_u08_num_add_group_round",
+    "pg_g4a_u08_num_signed_term_move",
+    "pg_g4a_u08_num_add_sub_left_assoc",
+    "pg_g4a_u08_num_parentheses_first",
+    "pg_g4a_u08_num_repeated_subtract_group",
+    "pg_g4a_u08_num_mul_div_safe_reorder",
+    "pg_g4a_u08_num_mul_div_left_assoc",
+    "pg_g4a_u08_num_repeated_divide_group",
+    "pg_g4a_u08_num_mul_div_before_add_sub",
+    "pg_g4a_u08_num_parentheses_change_precedence",
+    "pg_g4a_u08_num_compound_parentheses",
+    "pg_g4a_u08_app_add_add",
+    "pg_g4a_u08_app_add_subtract",
+    "pg_g4a_u08_app_subtract_add",
+    "pg_g4a_u08_app_subtract_subtract",
+    "pg_g4a_u08_ext_comparison_chain",
+    "pg_g4a_u08_app_adjusted_amount_then_subtract",
+    "pg_g4a_u08_app_divide_by_group_product",
+    "pg_g4a_u08_app_difference_then_scale_overlay",
+    "pg_g4a_u08_app_multiply_then_share",
+    "pg_g4a_u08_app_unit_rate_then_scale",
+    "pg_g4a_u08_app_divide_then_divide",
+    "pg_g4a_u08_ext_equal_value_unit_price",
+    "pg_g4a_u08_ext_relative_difference",
+    "pg_g4a_u08_app_payment_minus_unit_cost_times_quantity",
+    "pg_g4a_u08_app_subtract_or_add_divided_amount",
+    "pg_g4a_u08_app_cost_overlay",
+    "pg_g4a_u08_ext_two_cost_component_payment"
+  ],
+  "questionCount": 112,
+  "answerKeyItemCount": 112,
+  "answerKeyOffQuestionCount": 112,
+  "answerKeyOffAnswerCount": 0,
+  "publicStatus": "已產生 112 題，可預覽與列印。",
+  "publicPreviewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜112 題｜含答案頁",
+  "answerKeyOffPreviewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜112 題｜不含答案頁",
+  "queryStateReplay": "pass",
+  "printCalled": true,
+  "previewTitleUndefined": false,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "genericFallback": false,
+  "deployedAssets": {
+    "mainAsset": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/main.js",
+      "bytes": 20988,
+      "sha256": "e4bd1a56c394133aaadc0f22bd2712a109c4b0aea80e4fc3fa4a9e0c13dbebd2"
+    },
+    "canonicalRouterAsset": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js",
+      "bytes": 14806,
+      "sha256": "73e9e6747be903b184899c9ea1df8fd43873e076f547b77c82dc2edc30f63862"
+    }
+  },
   "workflow": "S76R2 G4A-U08 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29375551074",
-    "number": "23",
+    "id": "29377018465",
+    "number": "24",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29375551074"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29377018465"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-14T23:16:07.825Z"
+  "verifiedAt": "2026-07-14T23:45:19.654Z"
 }
