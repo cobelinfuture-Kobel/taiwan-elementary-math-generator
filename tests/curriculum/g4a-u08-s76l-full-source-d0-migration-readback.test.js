@@ -87,7 +87,7 @@ test("S76L derives the authoritative 15-KP and 28-PatternGroup denominator", () 
   });
 });
 
-test("S76L proves only four canonical KnowledgePoints have PatternSpec and validator closure", () => {
+test("S76L proves only four canonical KnowledgePoints had PatternSpec and validator closure at that milestone", () => {
   assert.equal(reclassification.rows.length, 12);
   assert.equal(extension.patternGroups.length, 4);
   assert.equal(implementedGroupIds.length, 16);
@@ -106,7 +106,13 @@ test("S76L proves only four canonical KnowledgePoints have PatternSpec and valid
   }
 });
 
-test("S76L public canonical worksheet reachability is exactly the four Phase2B groups", () => {
+test("S76L historical four-group reachability remains recorded while S76R exposes all 28 groups", () => {
+  assert.equal(report.implementedCanonicalScope.publicCanonicalPatternGroupCount, 4);
+  assert.deepEqual(
+    new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS),
+    new Set(extension.patternGroups.map((row) => row.patternGroupId)),
+  );
+
   const registryGroupSet = new Set(groupIds);
   const visibleKps = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === report.sourceId);
   const visibleCanonicalGroups = new Set();
@@ -115,9 +121,8 @@ test("S76L public canonical worksheet reachability is exactly the four Phase2B g
       if (registryGroupSet.has(group.patternGroupId)) visibleCanonicalGroups.add(group.patternGroupId);
     }
   }
-  assert.deepEqual(visibleCanonicalGroups, new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS));
-  assert.equal(visibleCanonicalGroups.size, 4);
-  assert.equal(report.implementedCanonicalScope.publicCanonicalPatternGroupCount, 4);
+  assert.deepEqual(visibleCanonicalGroups, registryGroupSet);
+  assert.equal(visibleCanonicalGroups.size, 28);
 });
 
 test("S76L computes all five S76B coverage metrics and blocks four failed gates", () => {
@@ -153,7 +158,7 @@ test("S76L identifies the exact 12 PatternGroups without PatternSpec closure", (
   assert.equal(report.unclosedCanonicalScope.canonicalPatternGroupsNotPubliclyReachable, 24);
 });
 
-test("S76L preserves D1 and forbids a false full-source D0 declaration", () => {
+test("S76L preserves its historical D1 result and false-D0 prevention evidence", () => {
   assert.equal(G4A_U08_PRODUCTION_LIFECYCLE.distance.startsWith("D1"), true);
   assert.equal(G4A_U08_PRODUCTION_LIFECYCLE.productionUse, "allowed_after_s76k_ci");
   assert.equal(report.scopeBoundary.runtimeChanged, false);
