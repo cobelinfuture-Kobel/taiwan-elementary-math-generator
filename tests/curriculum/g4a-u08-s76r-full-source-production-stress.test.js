@@ -10,7 +10,7 @@ import {
 } from "../../site/modules/curriculum/registry/g4a-u08-full-source-production-promotion.js";
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-s76j-entry.js";
-import { validateG4AU08AllCanonicalPublicQuestion } from "../../site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js";
+import { validateG4AU08S76RProductionQuestion } from "../../site/modules/curriculum/batch-a/g4a-u08-s76r-production-validator.js";
 
 const SOURCE_ID = "g4a_u08_4a08";
 const groups = G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS;
@@ -56,7 +56,7 @@ test("S76R count matrix generates exact validated output and preserves all 28 gr
       new Set(result.questions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)),
       new Set(patternGroupIds),
     );
-    assert.equal(result.questions.every((row) => validateG4AU08AllCanonicalPublicQuestion(row).ok), true);
+    assert.equal(result.questions.every((row) => validateG4AU08S76RProductionQuestion(row).ok), true);
   }
 });
 
@@ -70,6 +70,7 @@ test("S76R 280-item worksheet reaches all 15 KP, 28 groups and 33 PatternSpecs",
   assert.deepEqual(new Set(document.generatedQuestions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)), new Set(patternGroupIds));
   assert.deepEqual(new Set(document.generatedQuestions.map((row) => row.patternSpecId)), new Set(patternSpecIds));
   assert.equal(document.rendererBehaviorChanged, false);
+  assert.equal(document.validationSummary.validatorVersion, "s76r-g4a-u08-production-v1");
 });
 
 test("S76R mutation gate rejects a corrupted final answer for every canonical group", () => {
@@ -89,8 +90,9 @@ test("S76R mutation gate rejects a corrupted final answer for every canonical gr
     assert.equal(result.ok, true, group.patternGroupId);
     const mutated = structuredClone(result.questions[0]);
     mutated.finalAnswer += 1;
-    const checked = validateG4AU08AllCanonicalPublicQuestion(mutated);
+    const checked = validateG4AU08S76RProductionQuestion(mutated);
     assert.equal(checked.ok, false, group.patternGroupId);
+    assert.equal(checked.errors.some((entry) => entry.code.includes("MISMATCH")), true, group.patternGroupId);
     covered += 1;
   }
   assert.equal(covered, G4A_U08_FULL_SOURCE_STRESS_ACCEPTANCE.requiredMutationCoveredPatternGroupCount);
