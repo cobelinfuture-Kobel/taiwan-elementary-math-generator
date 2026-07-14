@@ -1,1 +1,1 @@
-export * from "./batch-a-selector-g4a-u08-all-canonical.js";
+export * from "./batch-a-selector-g4a-u08-s76q-compatible.js";
