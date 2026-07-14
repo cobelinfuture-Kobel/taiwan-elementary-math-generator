@@ -14,17 +14,36 @@ export const BATCH_A_SOURCE_UNITS = Object.freeze([
   { sourceId: "g5a_u08_5a08", grade: 5, semester: "upper", unitCode: "5A-U08", title: "整數四則", domain: "integer_mixed_operations" }
 ]);
 
-const BATCH_A_SOURCE_UNIT_BY_ID = new Map(BATCH_A_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
+export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
+  Object.freeze({
+    sourceId: "g5a_u02_5a02",
+    grade: 5,
+    semester: "upper",
+    unitCode: "5A-U02",
+    title: "因數與公因數",
+    domain: "factors_common_factors",
+    lifecycle: "public_preview_candidate"
+  })
+]);
 
-export function listBatchASourceUnits() {
-  return BATCH_A_SOURCE_UNITS.map((unit) => ({ ...unit }));
+const ALL_PUBLIC_SOURCE_UNITS = Object.freeze([
+  ...BATCH_A_SOURCE_UNITS,
+  ...PUBLIC_CANDIDATE_SOURCE_UNITS
+]);
+const SOURCE_UNIT_BY_ID = new Map(ALL_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
+
+export function listBatchASourceUnits(options = {}) {
+  const includePublicCandidates = options.includePublicCandidates
+    ?? (typeof document !== "undefined");
+  const units = includePublicCandidates ? ALL_PUBLIC_SOURCE_UNITS : BATCH_A_SOURCE_UNITS;
+  return units.map((unit) => ({ ...unit }));
 }
 
 export function getBatchASourceUnit(sourceId) {
-  const unit = BATCH_A_SOURCE_UNIT_BY_ID.get(sourceId) ?? null;
+  const unit = SOURCE_UNIT_BY_ID.get(sourceId) ?? null;
   return unit ? { ...unit } : null;
 }
 
 export function isBatchASourceId(sourceId) {
-  return BATCH_A_SOURCE_UNIT_BY_ID.has(sourceId);
+  return SOURCE_UNIT_BY_ID.has(sourceId);
 }
