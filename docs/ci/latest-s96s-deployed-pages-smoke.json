@@ -2,13 +2,15 @@
   "schemaVersion": "s96s-deployed-pages-smoke-v1",
   "task": "S96S_G5A_U02_DeployedGitHubPagesSmoke",
   "status": "PASS",
-  "deploymentSha": "7af08e53f4c58a9f3f741cd250c23a66df8c047e",
-  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s96s=7af08e53f4c58a9f3f741cd250c23a66df8c047e-1784008005730",
+  "deploymentSha": "286184d9d900392a96d8353bd4571d2d4554f6d7",
+  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s96s=286184d9d900392a96d8353bd4571d2d4554f6d7-1784008537446",
   "sourceId": "g5a_u02_5a02",
+  "expectedTitle": "因數與公因數",
   "knowledgePointCount": 18,
   "generatedKnowledgePointCount": 18,
   "questionCount": 20,
   "publicCountStatusVerified": true,
+  "publicPreviewTitleVerified": true,
   "generationSeed": "batch-a-browser",
   "deployedAssets": {
     "mainAsset": {
@@ -31,7 +33,7 @@
     "questionCards": 20,
     "answerCards": 0,
     "status": "已產生 20 題，可預覽與列印。",
-    "previewMeta": "undefined｜20 題｜不含答案頁",
+    "previewMeta": "因數與公因數｜20 題｜不含答案頁",
     "printCalled": true,
     "bodyControls": {
       "questionMode": "reasoning",
@@ -46,12 +48,12 @@
   "freeFormAI": false,
   "workflow": "S96S G5A-U02 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29309400576",
-    "number": "2",
+    "id": "29309803245",
+    "number": "3",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29309400576"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29309803245"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-14T05:46:52.878Z"
+  "verifiedAt": "2026-07-14T05:55:42.074Z"
 }
