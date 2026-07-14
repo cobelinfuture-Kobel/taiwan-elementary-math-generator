@@ -4,6 +4,7 @@ import {
 } from "../batch-b/source-pattern-g4b-u04-extension.js";
 
 export const G4B_U04_PROMOTION_REGISTRY_ID = "s72_g4b_u04_rounding_approximation_promotion";
+export const G4B_U04_R2C_PROMOTION_OVERLAY_ID = "g4b_u04_r2c_discount_round_down_promotion";
 export const G4B_U04_SOURCE_ID = "g4b_u04_4b04";
 
 export const G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS = Object.freeze([
@@ -19,6 +20,7 @@ export const G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS = Object.freeze([
   "kp_g4b_u04_round_then_multiply_divide",
   "kp_g4b_u04_inverse_rounding_unknown_digit",
   "kp_g4b_u04_inverse_rounding_possible_original",
+  "kp_g4b_u04_discount_denomination_round_down",
 ]);
 
 export const G4B_U04_PROMOTED_PATTERN_GROUP_IDS = Object.freeze(
@@ -44,8 +46,13 @@ export const G4B_U04_PUBLIC_CONTROLS = Object.freeze({
 });
 
 export const G4B_U04_PROMOTION_LIFECYCLE = Object.freeze({
-  task: "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
+  task: "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
+  baseTask: "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
   promotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
+  effectivePromotionRegistryIds: Object.freeze([
+    G4B_U04_PROMOTION_REGISTRY_ID,
+    G4B_U04_R2C_PROMOTION_OVERLAY_ID,
+  ]),
   sourceId: G4B_U04_SOURCE_ID,
   selectorStatus: "visible",
   runtimeStatus: "blocking_validated_canonical_runtime",
@@ -53,8 +60,8 @@ export const G4B_U04_PROMOTION_LIFECYCLE = Object.freeze({
   canonicalRouting: "enabled",
   worksheetStatus: "not_eligible",
   productionUse: "forbidden",
-  activationStatus: "selector_resolver_and_canonical_runtime_integrated_worksheet_pending",
-  requiredNextGate: "S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration",
+  activationStatus: "r2c_discount_round_down_effective_authority",
+  requiredNextGate: "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA",
 });
 
 const kpIds = new Set(G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS);
@@ -75,12 +82,13 @@ export function isS72PromotedG4BU04PatternSpecId(value) {
 
 export function validateG4BU04PromotionProjection() {
   const errors = [];
-  if (G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS.length !== 12) errors.push("knowledge_point_count_mismatch");
-  if (G4B_U04_PROMOTED_PATTERN_GROUP_IDS.length !== 12) errors.push("pattern_group_count_mismatch");
-  if (G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length !== 17) errors.push("pattern_spec_count_mismatch");
-  if (new Set(G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS).size !== 12) errors.push("duplicate_knowledge_point_id");
-  if (new Set(G4B_U04_PROMOTED_PATTERN_GROUP_IDS).size !== 12) errors.push("duplicate_pattern_group_id");
-  if (new Set(G4B_U04_PROMOTED_PATTERN_SPEC_IDS).size !== 17) errors.push("duplicate_pattern_spec_id");
+  const expectedCounts = { knowledgePoints: 13, patternGroups: 13, patternSpecs: 19 };
+  if (G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS.length !== expectedCounts.knowledgePoints) errors.push("knowledge_point_count_mismatch");
+  if (G4B_U04_PROMOTED_PATTERN_GROUP_IDS.length !== expectedCounts.patternGroups) errors.push("pattern_group_count_mismatch");
+  if (G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length !== expectedCounts.patternSpecs) errors.push("pattern_spec_count_mismatch");
+  if (new Set(G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS).size !== expectedCounts.knowledgePoints) errors.push("duplicate_knowledge_point_id");
+  if (new Set(G4B_U04_PROMOTED_PATTERN_GROUP_IDS).size !== expectedCounts.patternGroups) errors.push("duplicate_pattern_group_id");
+  if (new Set(G4B_U04_PROMOTED_PATTERN_SPEC_IDS).size !== expectedCounts.patternSpecs) errors.push("duplicate_pattern_spec_id");
   if (G4B_U04_HIDDEN_PATTERN_GROUPS.some((row) => row.visibilityStatus !== "hidden" || row.productionUse !== "forbidden")) {
     errors.push("hidden_group_authority_mutated");
   }
@@ -91,12 +99,12 @@ export function validateG4BU04PromotionProjection() {
     ...counts,
     [row.mode]: (counts[row.mode] ?? 0) + 1,
   }), {});
-  const expectedModes = { concept: 4, numeric: 3, application: 4, operation_estimation: 4, reasoning: 2 };
+  const expectedModes = { concept: 4, numeric: 3, application: 6, operation_estimation: 4, reasoning: 2 };
   if (JSON.stringify(modes) !== JSON.stringify(expectedModes)) errors.push("mode_distribution_mismatch");
   return Object.freeze({
     ok: errors.length === 0,
     errors: Object.freeze(errors),
-    counts: Object.freeze({ knowledgePoints: 12, patternGroups: 12, patternSpecs: 17 }),
+    counts: Object.freeze(expectedCounts),
     modes: Object.freeze(modes),
   });
 }
