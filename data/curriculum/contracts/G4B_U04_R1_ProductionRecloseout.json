@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "g4b-u04-r1-production-recloseout-v1",
+  "task": "G4B_U04_R1_DeployedLiveUIGeneratePreviewPrintAuditAndRecloseout",
+  "status": "PASS_ACCEPTED_AND_CLOSED",
+  "sourceId": "g4b_u04_4b04",
+  "unitId": "g4b_u04",
+  "unitTitle": "概數",
+  "productionUse": "allowed_deployed_ui_print",
+  "goalDistanceBefore": "D1_G4B_U04_LEGACY_PRODUCTION_ARTIFACT_WITHOUT_DEPLOYED_LIVE_UI_AUTHORITY",
+  "goalDistanceAfter": "D0_G4B_U04_DEPLOYED_UI_PRINT_RECLOSED",
+  "distanceReduced": "Closed the deployed live UI authority gap and repaired the query-backed dynamic source replay defect. All 12 public KnowledgePoints, 12 PatternGroups, 17 PatternSpecs and six question modes now pass deployed generate, preview, answer-key, query replay and print acceptance.",
+  "authority": {
+    "deploymentSha": "4efe028640c91aa46fa739bbcde67587e207d755",
+    "authorityCommitSha": "c0aa24c6faf88c79c482a22df2d5f6f992724bb4",
+    "authorityPath": "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+    "workflow": "G4B-U04-R1 Deployed GitHub Pages Smoke",
+    "runId": "29322113785",
+    "runNumber": "3",
+    "verifiedAt": "2026-07-14T09:33:28.919Z"
+  },
+  "audit": {
+    "mappingComplete": true,
+    "publicSelectorComplete": true,
+    "questionTypeControlsConnected": true,
+    "queryStatePreserved": true,
+    "generatorValidatorRendererConsistent": true
+  },
+  "acceptance": {
+    "knowledgePointCount": 12,
+    "generatedKnowledgePointCount": 12,
+    "patternGroupCount": 12,
+    "patternSpecCount": 17,
+    "questionModes": [
+      "mixed",
+      "concept",
+      "numeric",
+      "application",
+      "operation_estimation",
+      "reasoning"
+    ],
+    "questionCount": 68,
+    "answerKeyItemCount": 68,
+    "answerNumberSequenceConsistent": true,
+    "answerKeyOffQuestionCount": 68,
+    "answerKeyOffAnswerCount": 0,
+    "publicCountStatusVerified": true,
+    "publicPreviewTitleVerified": true,
+    "queryStateReplay": "pass",
+    "printCalled": true,
+    "previewTitleUndefined": false,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "genericFallback": false,
+    "publicPatternSpecInjection": false
+  },
+  "remainingBlockers": [],
+  "nextShortestStep": "G5A_U08_R1_DeployedControlsAndPrintRecloseout"
+}
