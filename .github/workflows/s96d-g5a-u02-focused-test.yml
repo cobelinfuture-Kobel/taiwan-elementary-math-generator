@@ -19,11 +19,23 @@ jobs:
           node-version: 20
       - name: Run focused S96D tests
         run: node --test tests/site/g5a-u02-browser-arbitrary-regeneration.test.js
-      - name: Run full suite with concise failure tail
+      - name: Run full suite and capture concise diagnostic
+        id: full-suite
         shell: bash
         run: |
           set +e
           npm test > /tmp/s96d-full-suite.log 2>&1
           code=$?
-          tail -n 250 /tmp/s96d-full-suite.log
-          exit $code
+          tail -n 300 /tmp/s96d-full-suite.log > /tmp/s96d-full-suite-tail.log
+          cat /tmp/s96d-full-suite-tail.log
+          echo "exit_code=${code}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload full-suite diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: s96d-full-suite-tail
+          if-no-files-found: error
+          retention-days: 7
+          path: /tmp/s96d-full-suite-tail.log
+      - name: Enforce full-suite result
+        run: exit ${{ steps.full-suite.outputs.exit_code }}
