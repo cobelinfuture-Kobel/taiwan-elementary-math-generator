@@ -28,7 +28,7 @@ const visibleKnowledgePoints = Object.freeze(
     holdReason: null,
     worksheetEligible: true,
     arbitraryRegenerationEligible: true,
-    selectorStatus: "visible_s96e",
+    selectorStatus: "public_dynamic_production",
   })),
 );
 
@@ -50,16 +50,17 @@ function availabilityBySource() {
 }
 
 export const G5A_U02_VISIBLE_SELECTOR_PROJECTION = Object.freeze({
-  task: "S96E_G5A_U02_KnowledgePointSelector",
+  task: "S96H_G5A_U02_ProductionPromotionAndCloseout",
   sourceId: SOURCE_ID,
-  status: "18_knowledge_points_visible",
+  status: "18_knowledge_points_dynamic_production",
   visibleKnowledgePointCount: visibleKnowledgePoints.length,
   visiblePatternGroupCount: visibleKnowledgePoints.length,
   visiblePatternSpecCount: new Set(visibleKnowledgePoints.flatMap((row) => row.patternSpecIds)).size,
   arbitraryRegeneration: true,
   genericFallback: false,
   freeFormAI: false,
-  productionUse: "forbidden_until_s96g_stress_pass",
+  htmlPdfStressStatus: "s96g_passed",
+  productionUse: "allowed_dynamic_knowledge_point_release",
 });
 
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
@@ -109,7 +110,7 @@ export function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
     allocationPolicy: "balanced_by_pattern_spec",
     visibilityStatus: "visible",
     holdReason: null,
-    promotionRole: "s96e_public_dynamic_knowledge_point",
+    promotionRole: "s96h_public_dynamic_knowledge_point",
   }]);
 }
 
@@ -132,6 +133,9 @@ export function validateG5AU02VisibleSelectorProjection() {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
   if (availability.visibleCount !== 18 || availability.hiddenPendingCount !== 0 || availability.notSelectableCount !== 0) {
     errors.push("G5AU02_SELECTOR_AVAILABILITY_MISMATCH");
+  }
+  if (G5A_U02_VISIBLE_SELECTOR_PROJECTION.productionUse !== "allowed_dynamic_knowledge_point_release") {
+    errors.push("G5AU02_SELECTOR_PRODUCTION_NOT_PROMOTED");
   }
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), knowledgePointCount: 18, patternSpecCount: 22 });
 }
