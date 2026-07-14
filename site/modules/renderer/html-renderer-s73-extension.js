@@ -1,4 +1,8 @@
 import { renderWorksheetDocumentToHtml as renderBaseWorksheetDocumentToHtml } from "./html-renderer-s60j-extension.js";
+import {
+  normalizeG4BU04PublicAnswer,
+  normalizeG4BU04PublicPrompt,
+} from "./g4b-u04-public-semantic-format.js";
 
 export const G4B_U04_RENDERER_INTEGRATION = Object.freeze({
   task: "S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration",
@@ -64,10 +68,11 @@ function renderQuestionCell(cell) {
   if (cell?.cellType === "filler") return '<div class="g4b-u04-cell g4b-u04-cell--filler" aria-hidden="true"></div>';
   const model = cell?.displayModel;
   if (!model) throw new Error("G4B_U04_RENDERER_QUESTION_CELL_INVALID");
+  const promptText = normalizeG4BU04PublicPrompt(model.blankedDisplayText);
   return [
     `<article class="g4b-u04-cell g4b-u04-cell--question g4b-u04-cell--${escapeHtml(model.renderKind)}" data-render-kind="${escapeHtml(model.renderKind)}" data-answer-shape="${escapeHtml(model.answerModelShape)}">`,
     model.questionNumberText ? `<div class="g4b-u04-cell__number">${escapeHtml(model.questionNumberText)}</div>` : "",
-    `<div class="g4b-u04-cell__prompt">${escapeHtml(model.blankedDisplayText)}</div>`,
+    `<div class="g4b-u04-cell__prompt">${escapeHtml(promptText)}</div>`,
     model.responsePrompt ? `<div class="g4b-u04-cell__response">${escapeHtml(model.responsePrompt)}</div>` : "",
     "</article>",
   ].join("");
@@ -77,11 +82,13 @@ function renderAnswerCell(cell) {
   if (cell?.cellType === "filler") return '<div class="g4b-u04-cell g4b-u04-cell--filler" aria-hidden="true"></div>';
   const item = cell?.answerKeyItem;
   if (!item) throw new Error("G4B_U04_RENDERER_ANSWER_CELL_INVALID");
+  const promptText = normalizeG4BU04PublicPrompt(item.promptText);
+  const answerText = normalizeG4BU04PublicAnswer(item.answerText, item.answerModelShape);
   return [
     `<article class="g4b-u04-cell g4b-u04-cell--answer g4b-u04-cell--${escapeHtml(item.renderKind)}" data-render-kind="${escapeHtml(item.renderKind)}" data-answer-shape="${escapeHtml(item.answerModelShape)}">`,
     `<div class="g4b-u04-cell__number">${escapeHtml(`${item.questionNumber}.`)}</div>`,
-    `<div class="g4b-u04-cell__prompt g4b-u04-cell__prompt--answer">${escapeHtml(item.promptText)}</div>`,
-    `<div class="g4b-u04-cell__answer"><strong>${escapeHtml(answerLabel(item.answerModelShape))}：</strong>${escapeHtml(item.answerText)}</div>`,
+    `<div class="g4b-u04-cell__prompt g4b-u04-cell__prompt--answer">${escapeHtml(promptText)}</div>`,
+    `<div class="g4b-u04-cell__answer"><strong>${escapeHtml(answerLabel(item.answerModelShape))}：</strong>${escapeHtml(answerText)}</div>`,
     "</article>",
   ].join("");
 }
