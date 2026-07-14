@@ -11,21 +11,39 @@ export const BATCH_A_SOURCE_UNITS = Object.freeze([
   { sourceId: "g4a_u04_4a04", grade: 4, semester: "upper", unitCode: "4A-U04", title: "整數的除法", domain: "integer_expression" },
   { sourceId: "g4a_u08_4a08", grade: 4, semester: "upper", unitCode: "4A-U08", title: "整數四則", domain: "integer_mixed_operations" },
   { sourceId: "g4b_u01_4b01", grade: 4, semester: "lower", unitCode: "4B-U01", title: "多位數的乘與除", domain: "integer_expression" },
-  { sourceId: "g5a_u02_5a02", grade: 5, semester: "upper", unitCode: "5A-U02", title: "因數與公因數", domain: "factors_common_factors", lifecycle: "public_preview_candidate" },
   { sourceId: "g5a_u08_5a08", grade: 5, semester: "upper", unitCode: "5A-U08", title: "整數四則", domain: "integer_mixed_operations" }
 ]);
 
-const BATCH_A_SOURCE_UNIT_BY_ID = new Map(BATCH_A_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
+export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
+  Object.freeze({
+    sourceId: "g5a_u02_5a02",
+    grade: 5,
+    semester: "upper",
+    unitCode: "5A-U02",
+    title: "因數與公因數",
+    domain: "factors_common_factors",
+    lifecycle: "public_preview_candidate"
+  })
+]);
 
-export function listBatchASourceUnits() {
-  return BATCH_A_SOURCE_UNITS.map((unit) => ({ ...unit }));
+const ALL_PUBLIC_SOURCE_UNITS = Object.freeze([
+  ...BATCH_A_SOURCE_UNITS,
+  ...PUBLIC_CANDIDATE_SOURCE_UNITS
+]);
+const SOURCE_UNIT_BY_ID = new Map(ALL_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
+
+export function listBatchASourceUnits(options = {}) {
+  const includePublicCandidates = options.includePublicCandidates
+    ?? (typeof document !== "undefined");
+  const units = includePublicCandidates ? ALL_PUBLIC_SOURCE_UNITS : BATCH_A_SOURCE_UNITS;
+  return units.map((unit) => ({ ...unit }));
 }
 
 export function getBatchASourceUnit(sourceId) {
-  const unit = BATCH_A_SOURCE_UNIT_BY_ID.get(sourceId) ?? null;
+  const unit = SOURCE_UNIT_BY_ID.get(sourceId) ?? null;
   return unit ? { ...unit } : null;
 }
 
 export function isBatchASourceId(sourceId) {
-  return BATCH_A_SOURCE_UNIT_BY_ID.has(sourceId);
+  return SOURCE_UNIT_BY_ID.has(sourceId);
 }
