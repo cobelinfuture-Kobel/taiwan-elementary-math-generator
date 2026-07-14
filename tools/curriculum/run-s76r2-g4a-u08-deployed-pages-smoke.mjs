@@ -6,7 +6,7 @@ import { chromium } from "playwright";
 const BASE_URL = process.env.S76R2_SITE_URL ?? "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html";
 const DEPLOYMENT_SHA = process.env.S76R2_DEPLOYMENT_SHA ?? "unknown";
 const SOURCE_ID = "g4a_u08_4a08";
-const EXPECTED_TITLE = "整數四則";
+const EXPECTED_TITLE = "Batch A 4A-U08 整數四則 canonical 全題組";
 const EXPECTED_KP_COUNT = 15;
 const EXPECTED_PATTERN_GROUP_COUNT = 28;
 const PER_KP_QUESTION_COUNT = 8;
