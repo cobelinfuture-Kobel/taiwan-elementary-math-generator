@@ -1,0 +1,31 @@
+{
+  "schemaName": "G4BU04R2CDiscountRoundDownPromotionOverlay",
+  "schemaVersion": 1,
+  "task": "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
+  "status": "implemented_pending_ci",
+  "promotionOverlayId": "g4b_u04_r2c_discount_round_down_promotion",
+  "basePromotionRegistryId": "s72_g4b_u04_rounding_approximation_promotion",
+  "sourceId": "g4b_u04_4b04",
+  "addedKnowledgePointIds": ["kp_g4b_u04_discount_denomination_round_down"],
+  "addedPatternGroupIds": ["pg_g4b_u04_discount_round_down"],
+  "addedPatternSpecIds": [
+    "ps_g4b_u04_discount_payment_amount_round_down",
+    "ps_g4b_u04_discount_banknote_count_round_down"
+  ],
+  "effectiveCounts": {
+    "knowledgePoints": 13,
+    "patternGroups": 13,
+    "patternSpecs": 19,
+    "classC": 9,
+    "classD": 10,
+    "concept": 4,
+    "numeric": 3,
+    "application": 6,
+    "operationEstimation": 4,
+    "reasoning": 2
+  },
+  "publicControlsChanged": false,
+  "existingPaymentCeilingSemanticsChanged": false,
+  "genericFallbackAllowed": false,
+  "requiredNextGate": "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA"
+}
