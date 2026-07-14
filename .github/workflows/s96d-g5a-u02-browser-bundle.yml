@@ -39,15 +39,19 @@ jobs:
             --format=esm \
             --platform=browser \
             --target=es2022 \
-            --banner:js='/* GENERATED FROM CANONICAL src/curriculum/g5a-u02 — DO NOT EDIT */' \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
             --outfile="${BUNDLE_PATH}"
 
       - name: Verify generated runtime
         run: |
           node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
           const runtime = await import('./site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js');
           const audit = runtime.auditG5AU02BrowserDynamicRuntime();
           if (!audit.ok) throw new Error(JSON.stringify(audit.errors));
+          const bundle = await readFile(process.env.BUNDLE_PATH, 'utf8');
+          if (bundle.includes('src/')) throw new Error('Generated site bundle contains forbidden src/ path');
           NODE
 
       - name: Commit generated bundle
