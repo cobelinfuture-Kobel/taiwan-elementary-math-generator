@@ -9,8 +9,8 @@ import {
   G4B_U04_R2C_PROMOTION_OVERLAY_ID,
 } from "./g4b-u04-promotion.js";
 import {
-  G4B_U04_HIDDEN_PATTERN_GROUPS,
-  G4B_U04_HIDDEN_PATTERN_SPECS,
+  G4B_U04_EFFECTIVE_PATTERN_GROUPS as G4B_U04_HIDDEN_PATTERN_GROUPS,
+  G4B_U04_EFFECTIVE_PATTERN_SPECS as G4B_U04_HIDDEN_PATTERN_SPECS,
 } from "../batch-b/source-pattern-g4b-u04-extension.js";
 
 const SOURCE_ID = "g4b_u04_4b04";
@@ -168,7 +168,7 @@ export const G4B_U04_VISIBLE_SELECTOR_PROJECTION = Object.freeze({
   publicQuestionModes: Object.freeze(["mixed", "concept", "numeric", "application", "operation_estimation", "reasoning"]),
   arbitraryPatternSpecInjection: false,
   genericFallback: false,
-  worksheetEligible: true,
+  worksheetEligible: false,
   productionEligibilityBehaviorChanged: false,
   requiredNextGate: "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA",
 });
