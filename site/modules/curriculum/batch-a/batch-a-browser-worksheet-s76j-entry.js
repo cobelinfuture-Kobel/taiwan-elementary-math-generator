@@ -16,6 +16,9 @@ import {
 import {
   buildBatchABrowserWorksheetDocument as buildBaseBatchABrowserWorksheetDocument,
 } from "./batch-a-browser-worksheet-s73-extension.js";
+import {
+  validateG4AU08S76RProductionQuestions,
+} from "./g4a-u08-s76r-production-validator.js";
 
 const promotedGroupIds = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 
@@ -42,12 +45,37 @@ export function isS76JG4AU08WorksheetEntryOptions(options = {}) {
     && isS76JG4AU08WorksheetOptions(options);
 }
 
+function enforceS76RProductionValidation(options, result) {
+  if (options.sourceId !== G4A_U08_SOURCE_ID || !result?.ok || !result.worksheetDocument) return result;
+  const checked = validateG4AU08S76RProductionQuestions(result.worksheetDocument.generatedQuestions ?? []);
+  if (checked.ok) {
+    return {
+      ...result,
+      validation: checked,
+      worksheetDocument: {
+        ...result.worksheetDocument,
+        validationSummary: checked,
+      },
+    };
+  }
+  return {
+    ...result,
+    ok: false,
+    worksheetDocument: null,
+    validation: checked,
+    errors: checked.errors,
+    warnings: checked.warnings,
+  };
+}
+
 export function buildBatchABrowserWorksheetDocument(options = {}) {
+  let result;
   if (requestsS76QAllCanonicalWorksheet(options) && isS76QG4AU08WorksheetOptions(options)) {
-    return buildS76QG4AU08WorksheetDocument(options);
+    result = buildS76QG4AU08WorksheetDocument(options);
+  } else if (requestsS76JG4AU08Phase2B(options)) {
+    result = buildS76JG4AU08WorksheetDocument(options);
+  } else {
+    result = buildBaseBatchABrowserWorksheetDocument(options);
   }
-  if (requestsS76JG4AU08Phase2B(options)) {
-    return buildS76JG4AU08WorksheetDocument(options);
-  }
-  return buildBaseBatchABrowserWorksheetDocument(options);
+  return enforceS76RProductionValidation(options, result);
 }
