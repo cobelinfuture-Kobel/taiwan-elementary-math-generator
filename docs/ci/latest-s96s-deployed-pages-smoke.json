@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "s96s-deployed-pages-smoke-v1",
+  "task": "S96S_G5A_U02_DeployedGitHubPagesSmoke",
+  "status": "PASS",
+  "deploymentSha": "ec2c26cafdafe402e0e6d26838954daa256f562a",
+  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s96s=ec2c26cafdafe402e0e6d26838954daa256f562a-1784007290907",
+  "sourceId": "g5a_u02_5a02",
+  "knowledgePointCount": 18,
+  "generatedKnowledgePointCount": 18,
+  "questionCount": 20,
+  "generationSeed": "batch-a-browser",
+  "deployedAssets": {
+    "mainAsset": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/main.js",
+      "bytes": 20988,
+      "sha256": "e4bd1a56c394133aaadc0f22bd2712a109c4b0aea80e4fc3fa4a9e0c13dbebd2"
+    },
+    "runtimeAsset": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js",
+      "bytes": 61080,
+      "sha256": "e915b4497235427c205bae672d57e7ac9ce1790e25b1770827b6b62db1fe10cf"
+    }
+  },
+  "reportedPath": {
+    "knowledgePoint": "多條件四位數推理",
+    "questionMode": "reasoning",
+    "depthMode": "extended",
+    "contextMode": "abstract_math",
+    "includeAnswerKey": false,
+    "questionCards": 20,
+    "answerCards": 0,
+    "printCalled": true,
+    "bodyControls": {
+      "questionMode": "reasoning",
+      "depthMode": "extended",
+      "contextMode": "abstract_math",
+      "genericFallback": "false"
+    }
+  },
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "genericFallback": false,
+  "freeFormAI": false,
+  "workflow": "S96S G5A-U02 Deployed GitHub Pages Smoke",
+  "run": {
+    "id": "29308877906",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29308877906"
+  },
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "verifiedAt": "2026-07-14T05:34:55.370Z"
+}
