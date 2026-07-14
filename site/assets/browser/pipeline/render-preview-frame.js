@@ -58,8 +58,24 @@ function stampPreviewMetadata(html, worksheetDocument) {
   return stampG4BU04LayoutReadback(stampPublicControls(html, worksheetDocument), worksheetDocument);
 }
 
+function scheduleClassicLayoutReadback(worksheetDocument) {
+  if (typeof document === "undefined" || !worksheetDocument?.appliedLayoutText) return;
+  const run = () => {
+    const previewMeta = document.getElementById("preview-meta");
+    if (!previewMeta) return;
+    const additions = [worksheetDocument.appliedLayoutText, worksheetDocument.layoutNoticeText].filter(Boolean);
+    const current = String(previewMeta.textContent ?? "");
+    previewMeta.textContent = [current, ...additions.filter((text) => !current.includes(text))].filter(Boolean).join("｜");
+    previewMeta.dataset.layoutMode = worksheetDocument.layoutResolution?.layoutMode ?? "";
+    previewMeta.dataset.layoutCapped = String(worksheetDocument.layoutResolution?.capped ?? false);
+  };
+  if (typeof queueMicrotask === "function") queueMicrotask(run);
+  else Promise.resolve().then(run);
+}
+
 export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}) {
   if (!previewFrame) throw new Error("Preview frame element is required.");
+  scheduleClassicLayoutReadback(worksheetDocument);
 
   if (worksheetDocument?.dynamicHtml) {
     previewFrame.srcdoc = stampPreviewMetadata(String(worksheetDocument.dynamicHtml)
