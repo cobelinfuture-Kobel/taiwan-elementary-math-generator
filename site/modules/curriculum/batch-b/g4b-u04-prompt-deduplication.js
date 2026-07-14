@@ -1,12 +1,18 @@
-export const G4B_U04_PROMPT_DEDUPLICATION_VERSION = "g4b-u04-prompt-signature-v1";
+import {
+  G4B_U04_INVERSE_DIGIT_SET_CASES,
+  G4B_U04_INVERSE_ORIGINAL_VALUE_CASES,
+  materializeG4BU04InverseUniqueCase,
+} from "./g4b-u04-inverse-unique-case-pool.js";
+
+export const G4B_U04_PROMPT_DEDUPLICATION_VERSION = "g4b-u04-prompt-signature-v2";
 export const G4B_U04_PROMPT_DEDUPLICATION_MAX_RETRIES = 128;
 
 const UNBOUNDED = Number.POSITIVE_INFINITY;
 
 export const G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC = Object.freeze({
   ps_g4b_u04_approx_symbol_reading: 1,
-  ps_g4b_u04_inverse_digit_set: 4,
-  ps_g4b_u04_inverse_original_values: 4,
+  ps_g4b_u04_inverse_digit_set: G4B_U04_INVERSE_DIGIT_SET_CASES.length,
+  ps_g4b_u04_inverse_original_values: G4B_U04_INVERSE_ORIGINAL_VALUE_CASES.length,
 });
 
 export const G4B_U04_PROMPT_DEDUPLICATION_CONTRACT = Object.freeze({
@@ -60,7 +66,8 @@ export function normalizeG4BU04PromptSignature(value) {
     .normalize("NFKC")
     .trim()
     .replace(/\s+/gu, " ")
-    .replace(/\s+([，。！？；：、])/gu, "$1")
+    .replace(/\s+([，。；：、])/gu, "$1")
+    .replace(/\s*([?!])/gu, (_, mark) => (mark === "?" ? "？" : "！"))
     .replace(/([（「『])\s+/gu, "$1")
     .replace(/\s+([）」』])/gu, "$1");
 }
@@ -176,6 +183,11 @@ export function generateUniqueG4BU04QuestionSet({
         let candidate;
         try {
           candidate = generateQuestion({ patternSpecId, seed, sequence });
+          candidate = materializeG4BU04InverseUniqueCase(candidate, {
+            seed: `${seed}:${patternSpecId}`,
+            occurrence,
+            attempt,
+          });
         } catch (error) {
           constraintRejectCount += 1;
           lastConstraintErrors = [{
