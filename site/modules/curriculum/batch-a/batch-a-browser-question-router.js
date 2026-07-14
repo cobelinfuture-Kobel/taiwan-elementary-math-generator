@@ -8,6 +8,13 @@ import {
   requestsG4AU08AllCanonicalPublicRoute,
 } from "./g4a-u08-all-canonical-public-router.js";
 import {
+  G4A_U08_CANONICAL_ROUTE_KINDS,
+  classifyG4AU08CanonicalRouterPlan,
+  generateG4AU08CanonicalQuestions,
+  normalizeG4AU08ResolverPlan,
+} from "./g4a-u08-canonical-router.js";
+import { G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS } from "../registry/g4a-u08-phase2b-promotion.js";
+import {
   G5A_U08_CANONICAL_ROUTE_KINDS,
   classifyG5AU08CanonicalRouterPlan,
   generateG5AU08CanonicalQuestions,
@@ -20,37 +27,24 @@ import {
   normalizeG4BU04ResolverPlan,
 } from "../batch-b/g4b-u04-canonical-router.js";
 
+const PHASE2B_GROUP_SET = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
+
 function cloneValue(value) {
   if (Array.isArray(value)) return value.map((item) => cloneValue(item));
-  if (value && typeof value === "object") {
-    return Object.fromEntries(Object.entries(value).map(([key, nested]) => [key, cloneValue(nested)]));
-  }
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, nested]) => [key, cloneValue(nested)]));
   return value;
 }
 
 function invalidCanonicalResult(plan, prefix, fallbackMessage) {
   const resolverErrors = Array.isArray(plan.resolverResult?.errors) ? plan.resolverResult.errors : [];
   const errors = resolverErrors.length > 0
-    ? resolverErrors.map((entry) => ({
-      code: entry.code ?? `${prefix}_CANONICAL_SCOPE_INVALID`,
-      severity: "error",
-      path: entry.path ?? "resolverResult",
-      message: entry.message ?? `${prefix} 公開選擇被 resolver 拒絕。`,
-    }))
-    : [{
-      code: `${prefix}_CANONICAL_SCOPE_INVALID`,
-      severity: "error",
-      path: "allocation",
-      message: fallbackMessage,
-    }];
-  return {
-    ok: false,
-    plan,
-    questions: [],
-    allocation: cloneValue(plan.allocation ?? []),
-    errors,
-    warnings: cloneValue(plan.resolverResult?.warnings ?? []),
-  };
+    ? resolverErrors.map((entry) => ({ code: entry.code ?? `${prefix}_CANONICAL_SCOPE_INVALID`, severity: "error", path: entry.path ?? "resolverResult", message: entry.message ?? `${prefix} 公開選擇被 resolver 拒絕。` }))
+    : [{ code: `${prefix}_CANONICAL_SCOPE_INVALID`, severity: "error", path: "allocation", message: fallbackMessage }];
+  return { ok: false, plan, questions: [], allocation: cloneValue(plan.allocation ?? []), errors, warnings: cloneValue(plan.resolverResult?.warnings ?? []) };
+}
+
+function requestsPreservedG4AU08Phase2B(plan = {}) {
+  return Array.isArray(plan.requestedPatternGroupIds) && plan.requestedPatternGroupIds.some((id) => PHASE2B_GROUP_SET.has(id));
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
@@ -63,22 +57,21 @@ export function generateBatchABrowserQuestions(options = {}) {
     return result;
   }
 
+  if (requestsPreservedG4AU08Phase2B(plan)) {
+    const g4aU08Plan = normalizeG4AU08ResolverPlan(plan);
+    const routeKind = classifyG4AU08CanonicalRouterPlan(g4aU08Plan);
+    if (routeKind === G4A_U08_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) return invalidCanonicalResult(g4aU08Plan, "G4A_U08", "G4A-U08 公開選擇沒有可用的 Phase2B KnowledgePoint 或 PatternGroup。");
+    if (routeKind === G4A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) return generateG4AU08CanonicalQuestions(g4aU08Plan);
+  }
+
   const g4bU04Plan = normalizeG4BU04ResolverPlan(plan);
   const g4bU04RouteKind = classifyG4BU04CanonicalRouterPlan(g4bU04Plan);
-  if (g4bU04RouteKind === G4B_U04_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) {
-    return invalidCanonicalResult(g4bU04Plan, "G4B_U04", "G4B-U04 公開選擇沒有可用的 KnowledgePoint、PatternGroup 或題目模式。");
-  }
-  if (g4bU04RouteKind === G4B_U04_CANONICAL_ROUTE_KINDS.CANONICAL) {
-    return generateG4BU04CanonicalQuestions(g4bU04Plan);
-  }
+  if (g4bU04RouteKind === G4B_U04_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) return invalidCanonicalResult(g4bU04Plan, "G4B_U04", "G4B-U04 公開選擇沒有可用的 KnowledgePoint、PatternGroup 或題目模式。");
+  if (g4bU04RouteKind === G4B_U04_CANONICAL_ROUTE_KINDS.CANONICAL) return generateG4BU04CanonicalQuestions(g4bU04Plan);
 
   const g5aU08Plan = normalizeG5AU08ResolverPlan(plan);
   const g5aU08RouteKind = classifyG5AU08CanonicalRouterPlan(g5aU08Plan);
-  if (g5aU08RouteKind === G5A_U08_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) {
-    return invalidCanonicalResult(g5aU08Plan, "G5A_U08", "G5A-U08 公開選擇沒有可用的 mode、depth 與 context 組合。");
-  }
-  if (g5aU08RouteKind === G5A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) {
-    return generateG5AU08CanonicalQuestions(g5aU08Plan);
-  }
+  if (g5aU08RouteKind === G5A_U08_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) return invalidCanonicalResult(g5aU08Plan, "G5A_U08", "G5A-U08 公開選擇沒有可用的 mode、depth 與 context 組合。");
+  if (g5aU08RouteKind === G5A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) return generateG5AU08CanonicalQuestions(g5aU08Plan);
   return generateCoreBatchABrowserQuestions(options);
 }
