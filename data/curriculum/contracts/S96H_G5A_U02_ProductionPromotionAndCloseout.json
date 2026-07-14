@@ -1,0 +1,76 @@
+{
+  "task": "S96H_G5A_U02_ProductionPromotionAndCloseout",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "d0Scope": "D0_G5A_U02_DYNAMIC_KNOWLEDGE_POINT_PRODUCTION_RELEASE",
+  "merge": {
+    "pullRequest": 171,
+    "mergeCommit": "f6c1703405877787c255fb50d994c20ac81dc598"
+  },
+  "readbackRecovery": {
+    "pullRequest": 172,
+    "recoveryMergeCommit": "614961110771e6d08c4e71a1cf7469e7faf7fdeb",
+    "authorityCommit": "d6992cb6d32c4255a50b343a6d325c33e7b8d341",
+    "workflow": "S96H Exact Main Readback Recovery",
+    "runId": 29302768166,
+    "runNumber": 1,
+    "tests": 1398,
+    "pass": 1398,
+    "fail": 0,
+    "workingTree": "clean",
+    "originalS96HMergeSha": "f6c1703405877787c255fb50d994c20ac81dc598"
+  },
+  "publicRelease": {
+    "sourceId": "g5a_u02_5a02",
+    "unitCode": "5A-U02",
+    "title": "因數與公因數",
+    "knowledgePointCount": 18,
+    "patternGroupCount": 18,
+    "patternSpecCount": 22,
+    "singleKnowledgePointSelection": true,
+    "multiKnowledgePointSelection": true,
+    "arbitraryBrowserRegeneration": true,
+    "customQuestionCount": true,
+    "deterministicSeed": true,
+    "answerKeySuppression": true,
+    "queryStateRoundTrip": true,
+    "browserPreview": true,
+    "browserPrint": true
+  },
+  "dynamicStress": {
+    "scenarioCount": 36,
+    "maxQuestionCount": 200,
+    "maxAnswerCount": 200,
+    "exactCountRequired": true,
+    "deterministicReplayVerified": true,
+    "answerKeySuppressionVerified": true,
+    "canonicalPatternOnly": true,
+    "balancedAllocationVerified": true,
+    "domOverflowCount": 0,
+    "allPdfPagesNonblank": true,
+    "pdfBoundingBoxOverflowCount": 0,
+    "finalAnswerPageNonblank": true,
+    "cjkExtraction": "pass"
+  },
+  "lifecycle": {
+    "projectionStatus": "public_production_projection",
+    "selectorStatus": "public_knowledge_point_selection",
+    "browserResolverStatus": "production_integrated",
+    "browserRegenerationStatus": "production_allowed",
+    "browserPipelineStatus": "public_dynamic_canonical_connected",
+    "htmlPdfStressStatus": "s96g_passed",
+    "productionUse": "allowed_dynamic_knowledge_point_release",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "authorityIsolation": {
+    "batchACoreSourceCount": 13,
+    "g5aU02ProjectedOutsideBatchACore": true,
+    "historicalS90ToS95AuthoritiesMutated": false,
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "distance": {
+    "before": "D0_G5A_U02_DYNAMIC_PRODUCTION_MERGED_PENDING_READBACK_RECOVERY",
+    "after": "D0_G5A_U02_DYNAMIC_KNOWLEDGE_POINT_PRODUCTION_VERIFIED_AND_CLOSED"
+  }
+}
