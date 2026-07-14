@@ -44,8 +44,10 @@ function validateScenario(result, scenario) {
   const expectedAnswers = scenario.includeAnswerKey ? scenario.questionCount : 0;
   if (worksheetDocument.answerKeyRecords.length !== expectedAnswers) errors.push("G5AU02_PRODUCTION_STRESS_ANSWER_COUNT_MISMATCH");
   if (renderedWorksheet.questionCount !== scenario.questionCount) errors.push("G5AU02_PRODUCTION_STRESS_RENDERER_COUNT_MISMATCH");
-  if (countOccurrences(renderedWorksheet.html, "g5a-u02-card--question") !== scenario.questionCount) errors.push("G5AU02_PRODUCTION_STRESS_HTML_QUESTION_COUNT_MISMATCH");
-  if (countOccurrences(renderedWorksheet.html, "g5a-u02-card--answer") !== expectedAnswers) errors.push("G5AU02_PRODUCTION_STRESS_HTML_ANSWER_COUNT_MISMATCH");
+  const questionArticle = '<article class="g5a-u02-card g5a-u02-card--question ';
+  const answerArticle = '<article class="g5a-u02-card g5a-u02-card--answer">';
+  if (countOccurrences(renderedWorksheet.html, questionArticle) !== scenario.questionCount) errors.push("G5AU02_PRODUCTION_STRESS_HTML_QUESTION_COUNT_MISMATCH");
+  if (countOccurrences(renderedWorksheet.html, answerArticle) !== expectedAnswers) errors.push("G5AU02_PRODUCTION_STRESS_HTML_ANSWER_COUNT_MISMATCH");
   if (!scenario.includeAnswerKey && renderedWorksheet.html.includes("g5a-u02-section--answer-key")) errors.push("G5AU02_PRODUCTION_STRESS_ANSWER_SUPPRESSION_FAILED");
   if (worksheetDocument.lifecycle?.productionUse !== "forbidden") errors.push("G5AU02_PRODUCTION_STRESS_SOURCE_LIFECYCLE_MUTATED");
   if (renderedWorksheet.lifecycle?.productionUse !== "forbidden") errors.push("G5AU02_PRODUCTION_STRESS_RENDERER_LIFECYCLE_MUTATED");
