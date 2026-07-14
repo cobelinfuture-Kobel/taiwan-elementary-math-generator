@@ -39,21 +39,34 @@ function cloneValue(value) {
   return value;
 }
 
-function invalidCanonicalResult(plan, prefix, fallbackMessage) {
+function normalizeExplicitErrors(explicitErrors = []) {
+  return explicitErrors.map((entry) => ({
+    code: entry.code ?? "CANONICAL_ROUTE_INVALID",
+    severity: entry.severity ?? "error",
+    path: entry.path ?? "canonicalRoute",
+    message: entry.message ?? "Canonical route rejected the public request.",
+    ...cloneValue(entry),
+  }));
+}
+
+function invalidCanonicalResult(plan, prefix, fallbackMessage, explicitErrors = []) {
+  const directErrors = Array.isArray(explicitErrors) ? normalizeExplicitErrors(explicitErrors) : [];
   const resolverErrors = Array.isArray(plan.resolverResult?.errors) ? plan.resolverResult.errors : [];
-  const errors = resolverErrors.length > 0
-    ? resolverErrors.map((entry) => ({
-      code: entry.code ?? `${prefix}_CANONICAL_SCOPE_INVALID`,
-      severity: "error",
-      path: entry.path ?? "resolverResult",
-      message: entry.message ?? `${prefix} 公開選擇被 resolver 拒絕。`,
-    }))
-    : [{
-      code: `${prefix}_CANONICAL_SCOPE_INVALID`,
-      severity: "error",
-      path: "allocation",
-      message: fallbackMessage,
-    }];
+  const errors = directErrors.length > 0
+    ? directErrors
+    : resolverErrors.length > 0
+      ? resolverErrors.map((entry) => ({
+        code: entry.code ?? `${prefix}_CANONICAL_SCOPE_INVALID`,
+        severity: "error",
+        path: entry.path ?? "resolverResult",
+        message: entry.message ?? `${prefix} 公開選擇被 resolver 拒絕。`,
+      }))
+      : [{
+        code: `${prefix}_CANONICAL_SCOPE_INVALID`,
+        severity: "error",
+        path: "allocation",
+        message: fallbackMessage,
+      }];
   return {
     ok: false,
     plan,
@@ -76,7 +89,12 @@ export function generateBatchABrowserQuestions(options = {}) {
     const g4aU08Plan = normalizeG4AU08AllCanonicalPublicPlan(plan);
     const result = generateG4AU08AllCanonicalPublicQuestions(g4aU08Plan);
     if (!result.ok) {
-      return invalidCanonicalResult(result.plan, "G4A_U08_S76Q", "G4A-U08 公開選擇沒有可用的 canonical KnowledgePoint 或 PatternGroup。");
+      return invalidCanonicalResult(
+        result.plan,
+        "G4A_U08_S76Q",
+        "G4A-U08 公開選擇沒有可用的 canonical KnowledgePoint 或 PatternGroup。",
+        result.errors,
+      );
     }
     return result;
   }
