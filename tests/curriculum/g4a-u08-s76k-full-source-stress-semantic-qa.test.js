@@ -7,9 +7,6 @@ import {
   validateG4AU08CanonicalQuestion,
 } from "../../site/modules/curriculum/batch-a/g4a-u08-canonical-router.js";
 import {
-  getVisiblePatternGroupsForKnowledgePoint,
-} from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
-import {
   G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS,
   G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS,
   G4A_U08_PHASE2B_PROMOTED_PATTERN_SPEC_IDS,
@@ -44,6 +41,12 @@ const PHASE2A_KP_IDS = Object.freeze([
   "kp_g4a_u08_app_mul_div_sequence",
   "kp_g4a_u08_app_mul_div_before_add_sub",
 ]);
+const PHASE2A_LEGACY_GROUP_BY_KP = Object.freeze({
+  kp_g4a_u08_app_add_sub_sequence: "pg_g4a_u08_app_add_sub_sequence",
+  kp_g4a_u08_app_parentheses_grouping: "pg_g4a_u08_app_parentheses_grouping",
+  kp_g4a_u08_app_mul_div_sequence: "pg_g4a_u08_app_mul_div_sequence",
+  kp_g4a_u08_app_mul_div_before_add_sub: "pg_g4a_u08_app_mul_div_before_add_sub",
+});
 const PHASE2A_SPEC_IDS = Object.freeze([
   "ps_g4a_u08_app_add_three_quantities",
   "ps_g4a_u08_app_add_then_subtract_state_change",
@@ -58,7 +61,6 @@ const PHASE2A_SPEC_IDS = Object.freeze([
   "ps_g4a_u08_app_payment_minus_unit_cost_times_quantity",
   "ps_g4a_u08_app_subtract_divided_amount_or_add_divided_amount",
 ]);
-const EXTENSION_GROUP_SET = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 const INTERNAL_ID_RE = /\b(?:kp|pg|ps|tpl)_g4a_u08_[a-z0-9_]+\b/i;
 const PLACEHOLDER_RE = /\{\{[^}]+\}\}|\[[A-Z_]+\]|undefined|null/;
 
@@ -76,17 +78,12 @@ function phase2BOptions(count, seed = "s76k-phase2b") {
   };
 }
 
-function phase2AGroupId(knowledgePointId) {
-  return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
-    .find((group) => !EXTENSION_GROUP_SET.has(group.patternGroupId))?.patternGroupId;
-}
-
 function phase2AOptions(count = 200) {
   return {
     sourceId: SOURCE_ID,
     selectionMode: "mixedKnowledgePointsSameUnit",
     selectedKnowledgePointIds: [...PHASE2A_KP_IDS],
-    selectedPatternGroupIds: PHASE2A_KP_IDS.map(phase2AGroupId),
+    selectedPatternGroupIds: PHASE2A_KP_IDS.map((id) => PHASE2A_LEGACY_GROUP_BY_KP[id]),
     questionCount: count,
     ordering: "groupedByPattern",
     generationSeed: "s76k-phase2a",
@@ -163,7 +160,7 @@ test("S76K numeric legacy surface stress covers all 10 public numeric PatternSpe
   }
 });
 
-test("S76K Phase2A legacy surface stress covers all 12 application PatternSpecs", () => {
+test("S76K Phase2A resolver-alias stress covers all 12 application PatternSpecs", () => {
   const result = generateBatchABrowserQuestions(phase2AOptions());
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.questions.length, 200);
