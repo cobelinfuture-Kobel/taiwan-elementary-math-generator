@@ -61,13 +61,24 @@ function deterministicShuffle(values, seed) {
   return output;
 }
 
+function normalizeAsciiPunctuation(value) {
+  return value
+    .replace(/,/gu, (mark, offset, source) => {
+      const previous = source[offset - 1] ?? "";
+      const next = source[offset + 1] ?? "";
+      return /\d/u.test(previous) && /\d/u.test(next) ? mark : "，";
+    })
+    .replace(/;/gu, "；")
+    .replace(/:/gu, "：")
+    .replace(/\?/gu, "？")
+    .replace(/!/gu, "！");
+}
+
 export function normalizeG4BU04PromptSignature(value) {
-  return String(value ?? "")
-    .normalize("NFKC")
+  return normalizeAsciiPunctuation(String(value ?? "").normalize("NFKC"))
     .trim()
     .replace(/\s+/gu, " ")
-    .replace(/\s+([，。；：、])/gu, "$1")
-    .replace(/\s*([?!])/gu, (_, mark) => (mark === "?" ? "？" : "！"))
+    .replace(/\s+([，。！？；：、])/gu, "$1")
     .replace(/([（「『])\s+/gu, "$1")
     .replace(/\s+([）」』])/gu, "$1");
 }
