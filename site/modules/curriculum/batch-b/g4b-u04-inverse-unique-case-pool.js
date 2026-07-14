@@ -65,7 +65,7 @@ function enumerateMaskValues(mask) {
 }
 
 function selectCase(cases, seed, occurrence, attempt) {
-  const offset = hashSeed(`${seed}:${occurrence}`) % cases.length;
+  const offset = hashSeed(seed) % cases.length;
   return cases[(offset + occurrence + attempt) % cases.length];
 }
 
