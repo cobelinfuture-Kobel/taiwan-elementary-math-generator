@@ -19,6 +19,8 @@ import {
   validateG4BU04PromotionProjection,
 } from "../../site/modules/curriculum/registry/g4b-u04-promotion.js";
 import {
+  G4B_U04_EFFECTIVE_PATTERN_GROUPS,
+  G4B_U04_EFFECTIVE_PATTERN_SPECS,
   G4B_U04_HIDDEN_PATTERN_GROUPS,
   G4B_U04_HIDDEN_PATTERN_SPECS,
 } from "../../site/modules/curriculum/batch-b/source-pattern-g4b-u04-extension.js";
@@ -52,7 +54,7 @@ function basePlan(overrides = {}) {
     selectedPatternGroupIds: [],
     patternSpecIds: ["ps_g4b_u04_payment_amount_ceiling"],
     questionMode: "mixed",
-    questionCount: 17,
+    questionCount: 19,
     ordering: "groupedByPattern",
     generationSeed: "s72-test",
     includeAnswerKey: true,
@@ -65,31 +67,33 @@ function errorCodes(result) {
   return new Set((result.errors ?? []).map((row) => row.code));
 }
 
-test("S72 promotion registry covers the exact S68 authority without mutating hidden rows", () => {
+test("S72 promotion projects the R2C effective authority while preserving the S68 base prefix", () => {
   const projection = validateG4BU04PromotionProjection();
   assert.equal(projection.ok, true, projection.errors.join(","));
-  assert.equal(G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS.length, 12);
-  assert.equal(G4B_U04_PROMOTED_PATTERN_GROUP_IDS.length, 12);
-  assert.equal(G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length, 17);
-  assert.deepEqual(G4B_U04_PROMOTED_PATTERN_GROUP_IDS, G4B_U04_HIDDEN_PATTERN_GROUPS.map((row) => row.patternGroupId));
-  assert.deepEqual(G4B_U04_PROMOTED_PATTERN_SPEC_IDS, G4B_U04_HIDDEN_PATTERN_SPECS.map((row) => row.patternSpecId));
-  assert.equal(G4B_U04_HIDDEN_PATTERN_GROUPS.every((row) => row.visibilityStatus === "hidden" && row.productionUse === "forbidden"), true);
-  assert.equal(G4B_U04_HIDDEN_PATTERN_SPECS.every((row) => row.selectorStatus === "hidden" && row.canonicalRouting === "disabled" && row.productionUse === "forbidden"), true);
+  assert.equal(G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS.length, 13);
+  assert.equal(G4B_U04_PROMOTED_PATTERN_GROUP_IDS.length, 13);
+  assert.equal(G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length, 19);
+  assert.deepEqual(G4B_U04_PROMOTED_PATTERN_GROUP_IDS, G4B_U04_EFFECTIVE_PATTERN_GROUPS.map((row) => row.patternGroupId));
+  assert.deepEqual(G4B_U04_PROMOTED_PATTERN_SPEC_IDS, G4B_U04_EFFECTIVE_PATTERN_SPECS.map((row) => row.patternSpecId));
+  assert.deepEqual(G4B_U04_EFFECTIVE_PATTERN_GROUPS.slice(0, 12), G4B_U04_HIDDEN_PATTERN_GROUPS);
+  assert.deepEqual(G4B_U04_EFFECTIVE_PATTERN_SPECS.slice(0, 17), G4B_U04_HIDDEN_PATTERN_SPECS);
+  assert.equal(G4B_U04_EFFECTIVE_PATTERN_GROUPS.every((row) => row.visibilityStatus === "hidden" && row.productionUse === "forbidden"), true);
+  assert.equal(G4B_U04_EFFECTIVE_PATTERN_SPECS.every((row) => row.selectorStatus === "hidden" && row.canonicalRouting === "disabled" && row.productionUse === "forbidden"), true);
 });
 
-test("S72 public selector exposes 12 KPs, 12 groups and 17 specs while preserving prior projections", () => {
+test("S72 public selector exposes 13 KPs, 13 groups and 19 specs while preserving prior projections", () => {
   const projection = validateG4BU04VisibleSelectorProjection();
   assert.equal(projection.ok, true, projection.errors.join(","));
-  assert.deepEqual(projection.counts, { knowledgePoints: 12, patternGroups: 12, patternSpecs: 17 });
-  assert.deepEqual(projection.modeCounts, { concept: 4, numeric: 3, application: 4, operation_estimation: 4, reasoning: 2 });
-  assert.equal(G4B_U04_VISIBLE_SELECTOR_PROJECTION.visibleKnowledgePointCount, 12);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.bySourceId.g4b_u04_4b04.visibleCount, 12);
+  assert.deepEqual(projection.counts, { knowledgePoints: 13, patternGroups: 13, patternSpecs: 19 });
+  assert.deepEqual(projection.modeCounts, { concept: 4, numeric: 3, application: 6, operation_estimation: 4, reasoning: 2 });
+  assert.equal(G4B_U04_VISIBLE_SELECTOR_PROJECTION.visibleKnowledgePointCount, 13);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.bySourceId.g4b_u04_4b04.visibleCount, 13);
   const all = listVisibleBatchAKnowledgePoints();
-  assert.equal(all.filter((row) => row.sourceId === "g4b_u04_4b04").length, 12);
+  assert.equal(all.filter((row) => row.sourceId === "g4b_u04_4b04").length, 13);
   assert.ok(all.some((row) => row.sourceId === "g5a_u08_5a08"));
 });
 
-test("S72 selector maps each KnowledgePoint to its authoritative group and specs", () => {
+test("S72 selector maps each effective KnowledgePoint to its authoritative group and specs", () => {
   for (const knowledgePointId of G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS) {
     const kp = getVisibleBatchAKnowledgePoint(knowledgePointId);
     const groups = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
@@ -167,21 +171,21 @@ test("S72 generates a validated visible canonical question batch", () => {
   assert.equal(result.questions.every((row) => validateG4BU04CanonicalQuestion(row).ok), true);
 });
 
-test("S72 mixed all-authority canonical generation reaches 17 specs and all five modes", () => {
+test("S72 mixed all-authority canonical generation reaches 19 specs and all five modes", () => {
   const result = generateG4BU04CanonicalQuestions(basePlan({
     selectionMode: "mixedKnowledgePointsSameUnit",
     selectedKnowledgePointIds: G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
-    questionCount: 170,
+    questionCount: 190,
     ordering: "shuffleAcrossPatterns",
   }));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(new Set(result.questions.map((row) => row.patternSpecId)).size, 17);
+  assert.equal(new Set(result.questions.map((row) => row.patternSpecId)).size, 19);
   assert.deepEqual([...new Set(result.questions.map((row) => row.mode))].sort(), [
     "application", "concept", "numeric", "operation_estimation", "reasoning",
   ]);
   assert.equal(result.questions.some((row) => row.implementationClass === "C"), true);
   assert.equal(result.questions.some((row) => row.implementationClass === "D"), true);
-  assert.equal(new Set(result.questions.map((row) => normalizeG4BU04PromptSignature(row.promptText))).size, 170);
+  assert.equal(new Set(result.questions.map((row) => normalizeG4BU04PromptSignature(row.promptText))).size, 190);
 });
 
 test("S72 canonical generation is deterministic and duplicate-free through 1000 questions", () => {
@@ -243,7 +247,7 @@ test("S72 browser question router dispatches G4B-U04 public selections to canoni
   assert.equal(result.questions.every((row) => row.patternSpecId === "ps_g4b_u04_round_half_up"), true);
 });
 
-test("S72 keeps worksheet, renderer and production release outside scope", () => {
+test("S72 historical promotion contract remains unchanged beneath the R2C overlay", () => {
   const contract = JSON.parse(readFileSync(CONTRACT_PATH, "utf8"));
   assert.equal(["implemented_pending_ci", "pass_ci_synced_and_merged"].includes(contract.status), true);
   assert.equal(contract.lifecycle.selectorStatus, "visible");
