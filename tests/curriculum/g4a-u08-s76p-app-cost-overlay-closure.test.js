@@ -11,17 +11,20 @@ import {
   validateG4AU08AppCostOverlayItem,
 } from "../../src/curriculum/g4a-u08/app-cost-overlay-validator.js";
 import {
+  getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_ID = "g4a_u08_4a08";
+const KNOWLEDGE_POINT_ID = "kp_g4a_u08_app_mul_div_before_add_sub";
+const PATTERN_GROUP_ID = "pg_g4a_u08_app_cost_overlay";
 
 test("S76P hidden registry closes exactly one app_cost_overlay PatternGroup", () => {
   const result = validateG4AU08AppCostOverlayHiddenRegistry();
   assert.equal(result.ok, true, result.errors.join(","));
   assert.deepEqual(result.counts, { patternSpecs: 1, patternGroups: 1, knowledgePoints: 1, equationShapes: 2 });
-  assert.equal(G4A_U08_APP_COST_OVERLAY_PATTERN_SPEC.patternGroupId, "pg_g4a_u08_app_cost_overlay");
+  assert.equal(G4A_U08_APP_COST_OVERLAY_PATTERN_SPEC.patternGroupId, PATTERN_GROUP_ID);
   assert.equal(G4A_U08_APP_COST_OVERLAY_PATTERN_SPEC.patternSpecId, "ps_g4a_u08_app_cost_overlay");
   assert.equal(G4A_U08_APP_COST_OVERLAY_PATTERN_SPEC.lifecycle.productionUse, "forbidden");
 });
@@ -58,10 +61,12 @@ test("S76P rejects overlay direction, component and payment-balance mutations", 
   }
 });
 
-test("S76P remains hidden from the public selector", () => {
+test("S76R exposes app_cost_overlay publicly without rewriting the historical S76P hidden artifact", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 8);
+  assert.equal(availability.visibleCount, 15);
   const visible = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
-  assert.equal(visible.length, 8);
-  assert.equal(visible.some((row) => row.patternGroupIds?.includes("pg_g4a_u08_app_cost_overlay")), false);
+  assert.equal(visible.length, 15);
+  assert.ok(visible.some((row) => row.knowledgePointId === KNOWLEDGE_POINT_ID));
+  assert.ok(getVisiblePatternGroupsForKnowledgePoint(KNOWLEDGE_POINT_ID).some((row) => row.patternGroupId === PATTERN_GROUP_ID));
+  assert.equal(G4A_U08_APP_COST_OVERLAY_PATTERN_SPEC.lifecycle.productionUse, "forbidden");
 });

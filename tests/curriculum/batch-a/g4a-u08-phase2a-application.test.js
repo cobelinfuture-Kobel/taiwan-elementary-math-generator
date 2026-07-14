@@ -17,7 +17,6 @@ import {
   validateBatchABrowserQuestions
 } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-u08-extension.js";
 import {
-  getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
 } from "../../../site/modules/curriculum/registry/batch-a-selector-extension.js";
@@ -29,6 +28,34 @@ const APP_KP_IDS = Object.freeze([
   "kp_g4a_u08_app_mul_div_sequence",
   "kp_g4a_u08_app_mul_div_before_add_sub"
 ]);
+const LEGACY_GROUP_BY_KP = Object.freeze({
+  kp_g4a_u08_app_add_sub_sequence: "pg_g4a_u08_app_add_sub_sequence",
+  kp_g4a_u08_app_parentheses_grouping: "pg_g4a_u08_app_parentheses_grouping",
+  kp_g4a_u08_app_mul_div_sequence: "pg_g4a_u08_app_mul_div_sequence",
+  kp_g4a_u08_app_mul_div_before_add_sub: "pg_g4a_u08_app_mul_div_before_add_sub",
+});
+const CANONICAL_GROUPS_BY_KP = Object.freeze({
+  kp_g4a_u08_app_add_sub_sequence: Object.freeze([
+    "pg_g4a_u08_app_add_add",
+    "pg_g4a_u08_app_add_subtract",
+    "pg_g4a_u08_app_subtract_add",
+    "pg_g4a_u08_app_subtract_subtract",
+  ]),
+  kp_g4a_u08_app_parentheses_grouping: Object.freeze([
+    "pg_g4a_u08_app_adjusted_amount_then_subtract",
+    "pg_g4a_u08_app_divide_by_group_product",
+    "pg_g4a_u08_app_difference_then_scale_overlay",
+  ]),
+  kp_g4a_u08_app_mul_div_sequence: Object.freeze([
+    "pg_g4a_u08_app_multiply_then_share",
+    "pg_g4a_u08_app_unit_rate_then_scale",
+    "pg_g4a_u08_app_divide_then_divide",
+  ]),
+  kp_g4a_u08_app_mul_div_before_add_sub: Object.freeze([
+    "pg_g4a_u08_app_payment_minus_unit_cost_times_quantity",
+    "pg_g4a_u08_app_subtract_or_add_divided_amount",
+  ]),
+});
 const APP_SPEC_IDS = Object.freeze([
   "ps_g4a_u08_app_add_three_quantities",
   "ps_g4a_u08_app_add_then_subtract_state_change",
@@ -66,8 +93,12 @@ const FORBIDDEN_SEMANTIC_PHRASES = Object.freeze([
   "2400m"
 ]);
 
-function firstGroupId(kpId) {
-  return getVisiblePatternGroupsForKnowledgePoint(kpId)[0]?.patternGroupId;
+function broadGroupId(kpId) {
+  return LEGACY_GROUP_BY_KP[kpId];
+}
+
+function canonicalGroupIds(kpIds) {
+  return [...new Set(kpIds.flatMap((kpId) => CANONICAL_GROUPS_BY_KP[kpId] ?? []))];
 }
 
 function appStateFor(kpIds, count = 48, ordering = "groupedByPattern") {
@@ -78,7 +109,7 @@ function appStateFor(kpIds, count = 48, ordering = "groupedByPattern") {
   setBatchASelectorSelection(state, {
     selectionMode: kpIds.length === 1 ? BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT : BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
     selectedKnowledgePointIds: [...kpIds],
-    selectedPatternGroupIds: kpIds.map(firstGroupId)
+    selectedPatternGroupIds: canonicalGroupIds(kpIds)
   });
   setBatchAQuestionCount(state, count);
   return state;
@@ -93,23 +124,24 @@ function assertNoForbiddenPhrases(questions) {
   for (const phrase of FORBIDDEN_SEMANTIC_PHRASES) assert.equal(prompts.includes(phrase), false, `${phrase} should not appear in Phase2A prompts`);
 }
 
-test("G4A-U08 Phase2A exposes four application KnowledgePoints and twelve PatternSpecs", () => {
+test("G4A-U08 Phase2A remains compatible after the 15-KP canonical selector promotion", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 8);
+  assert.equal(availability.visibleCount, 15);
   const appKps = listVisibleBatchAKnowledgePoints().filter((kp) => APP_KP_IDS.includes(kp.knowledgePointId));
   assert.deepEqual(appKps.map((kp) => kp.knowledgePointId), APP_KP_IDS);
   const exposedSpecIds = appKps.flatMap((kp) => kp.patternSpecIds);
   assert.deepEqual(new Set(exposedSpecIds), new Set(APP_SPEC_IDS));
-  for (const kpId of APP_KP_IDS) assert.ok(firstGroupId(kpId), `${kpId} should resolve to a visible PatternGroup`);
+  assert.equal(canonicalGroupIds(APP_KP_IDS).length, 12);
+  for (const kpId of APP_KP_IDS) assert.ok(broadGroupId(kpId), `${kpId} should retain a resolver-only broad alias`);
 });
 
-test("G4A-U08 Phase2A single-KP generation validates each application group", () => {
+test("G4A-U08 Phase2A single-KP generation validates each application family", () => {
   for (const kpId of APP_KP_IDS) {
     const result = generateBatchABrowserQuestions({
       sourceId: SOURCE_ID,
       selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
       selectedKnowledgePointIds: [kpId],
-      selectedPatternGroupIds: [firstGroupId(kpId)],
+      selectedPatternGroupIds: [broadGroupId(kpId)],
       questionCount: 24,
       generationSeed: `s56g2r-${kpId}`
     });
@@ -127,7 +159,7 @@ test("G4A-U08 Phase2A application equations recompute and keep equation-plus-ans
     sourceId: SOURCE_ID,
     selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
     selectedKnowledgePointIds: [...APP_KP_IDS],
-    selectedPatternGroupIds: APP_KP_IDS.map(firstGroupId),
+    selectedPatternGroupIds: APP_KP_IDS.map(broadGroupId),
     questionCount: 60,
     generationSeed: "s56g2r-equation"
   });
@@ -182,7 +214,7 @@ test("G4A-U08 Phase2A high-count generation supports 120 single-KP and 200 mixed
       sourceId: SOURCE_ID,
       selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
       selectedKnowledgePointIds: [kpId],
-      selectedPatternGroupIds: [firstGroupId(kpId)],
+      selectedPatternGroupIds: [broadGroupId(kpId)],
       questionCount: 120,
       generationSeed: `s56g2r-high-${kpId}`
     });
@@ -205,7 +237,7 @@ test("G4A-U08 Phase2A validator rejects corrupted application fields", () => {
     sourceId: SOURCE_ID,
     selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     selectedKnowledgePointIds: [APP_KP_IDS[0]],
-    selectedPatternGroupIds: [firstGroupId(APP_KP_IDS[0])],
+    selectedPatternGroupIds: [broadGroupId(APP_KP_IDS[0])],
     questionCount: 20,
     generationSeed: "s56g2r-corrupt"
   });

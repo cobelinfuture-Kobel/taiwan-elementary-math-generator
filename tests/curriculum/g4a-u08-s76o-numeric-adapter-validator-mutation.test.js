@@ -37,7 +37,7 @@ test("S76O validator registry covers 16 PatternSpecs and all 11 numeric PatternG
   for (const ids of Object.values(mutationIds)) assert.equal(ids.length >= 2, true);
 });
 
-test("S76O adapts and validates every hidden numeric PatternSpec", () => {
+test("S76O adapts and validates every historically hidden numeric PatternSpec", () => {
   for (const definition of listG4AU08NumericCanonicalPatternSpecs()) {
     const sample = sampleG4AU08NumericCanonicalPatternSpec(definition.patternSpecId, { seed: `s76o:${definition.patternSpecId}` });
     const canonical = adaptG4AU08NumericSample(sample);
@@ -115,10 +115,11 @@ test("S76O deterministically rejects every declared PatternGroup mutation", () =
   assert.equal(mutationCount >= 25, true);
 });
 
-test("S76O keeps all numeric canonical contracts hidden from the public selector", () => {
+test("S76R exposes all 11 numeric KnowledgePoints while S76O validator contracts remain fail-closed", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 8);
+  assert.equal(availability.visibleCount, 15);
   const visible = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
-  assert.equal(visible.length, 8);
-  assert.equal(visible.some((row) => row.knowledgePointId.startsWith("kp_g4a_u08_num_")), false);
+  assert.equal(visible.length, 15);
+  assert.equal(visible.filter((row) => row.knowledgePointId.startsWith("kp_g4a_u08_num_")).length, 11);
+  assert.equal(listG4AU08NumericCanonicalPatternSpecs().every((row) => row.lifecycle.productionUse === "forbidden"), true);
 });

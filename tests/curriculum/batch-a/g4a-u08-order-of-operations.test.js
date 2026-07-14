@@ -119,13 +119,14 @@ function evaluate(tokens) {
   return stack[0];
 }
 
-test("G4A-U08 exposes four numeric and four Phase2A application KnowledgePoints", () => {
+test("G4A-U08 exposes all 15 canonical KnowledgePoints including numeric and Phase2A families", () => {
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 8);
+  assert.equal(availability.visibleCount, 15);
   assert.equal(availability.hiddenPendingCount, 0);
   assert.equal(availability.notSelectableCount, 0);
   const visibleIds = listVisibleBatchAKnowledgePoints().filter((kp) => kp.sourceId === SOURCE_ID).map((kp) => kp.knowledgePointId);
-  assert.deepEqual(visibleIds.filter((kpId) => KP_IDS.includes(kpId)), KP_IDS);
+  assert.equal(visibleIds.length, 15);
+  assert.equal(visibleIds.filter((kpId) => kpId.startsWith("kp_g4a_u08_num_")).length, 11);
   assert.deepEqual(visibleIds.filter((kpId) => APP_KP_IDS.includes(kpId)), APP_KP_IDS);
 });
 
