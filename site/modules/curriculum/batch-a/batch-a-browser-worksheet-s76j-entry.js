@@ -25,7 +25,6 @@ function isKnowledgePointSelection(options = {}) {
 
 export function requestsS76JG4AU08Phase2B(options = {}) {
   return options.sourceId === G4A_U08_SOURCE_ID
-    && isKnowledgePointSelection(options)
     && Array.isArray(options.selectedPatternGroupIds)
     && options.selectedPatternGroupIds.some((id) => promotedGroupIds.has(id));
 }
