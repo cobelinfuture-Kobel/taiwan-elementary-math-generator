@@ -31,6 +31,7 @@ import {
   validateG4BU04CanonicalQuestion,
 } from "../../site/modules/curriculum/batch-b/g4b-u04-canonical-router.js";
 import {
+  G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC,
   normalizeG4BU04PromptSignature,
 } from "../../site/modules/curriculum/batch-b/g4b-u04-prompt-deduplication.js";
 import {
@@ -197,8 +198,14 @@ test("S72 canonical generation is deterministic and duplicate-free through 1000 
   assert.deepEqual(first, second);
   assert.equal(Object.values(first.plan.patternAllocation).reduce((sum, count) => sum + count, 0), 1000);
   assert.equal(first.plan.patternAllocation.ps_g4b_u04_approx_symbol_reading, 1);
-  assert.equal(first.plan.patternAllocation.ps_g4b_u04_inverse_digit_set, 4);
-  assert.equal(first.plan.patternAllocation.ps_g4b_u04_inverse_original_values, 4);
+  assert.equal(
+    first.plan.patternAllocation.ps_g4b_u04_inverse_digit_set,
+    G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_digit_set,
+  );
+  assert.equal(
+    first.plan.patternAllocation.ps_g4b_u04_inverse_original_values,
+    G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_original_values,
+  );
   const signatures = first.questions.map((row) => normalizeG4BU04PromptSignature(row.promptText));
   assert.equal(new Set(signatures).size, 1000);
   assert.equal(first.deduplication.signatureCount, 1000);
