@@ -24,6 +24,10 @@ async function sha256Url(url) {
   return { url, bytes: bytes.length, sha256: createHash("sha256").update(bytes).digest("hex") };
 }
 
+function expectedStatus() {
+  return `已產生 ${QUESTION_COUNT} 題，可預覽與列印。`;
+}
+
 await mkdir(OUTPUT_DIR, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
@@ -61,14 +65,19 @@ try {
     await page.click("#regenerate-button");
     await page.waitForFunction(() => ["success", "error"].includes(document.querySelector("#status-panel")?.dataset.tone));
     const tone = await page.locator("#status-panel").getAttribute("data-tone");
+    const status = (await page.locator("#status-panel").textContent())?.trim() ?? "";
+    const previewMeta = (await page.locator("#preview-meta").textContent())?.trim() ?? "";
     if (tone !== "success") {
       fail("S96S_DEPLOYED_KP_GENERATION_FAILED", {
         knowledgePointId,
         label,
-        status: (await page.locator("#status-panel").textContent())?.trim(),
+        status,
         validation: (await page.locator("#validation-panel").textContent())?.trim(),
         testedUrl,
       });
+    }
+    if (status !== expectedStatus() || !previewMeta.includes(`｜${QUESTION_COUNT} 題｜`)) {
+      fail("S96S_DEPLOYED_PUBLIC_COUNT_STATUS_MISMATCH", { knowledgePointId, label, status, previewMeta, expectedStatus: expectedStatus() });
     }
     const frame = page.frameLocator("#preview-frame");
     await frame.locator("body").waitFor({ state: "attached" });
@@ -78,7 +87,7 @@ try {
       fail("S96S_DEPLOYED_CARD_COUNT_MISMATCH", { knowledgePointId, label, questionCards, answerCards });
     }
     if (await page.locator("#print-button").isDisabled()) fail("S96S_DEPLOYED_PRINT_DISABLED", { knowledgePointId, label });
-    generated.push({ knowledgePointId, label, questionCards, answerCards });
+    generated.push({ knowledgePointId, label, questionCards, answerCards, status, previewMeta });
   }
 
   const reportedButton = kpButtons.filter({ hasText: "多條件四位數推理" });
@@ -90,12 +99,17 @@ try {
   await page.uncheck("#batch-a-answer-key-input");
   await page.click("#regenerate-button");
   await page.waitForFunction(() => ["success", "error"].includes(document.querySelector("#status-panel")?.dataset.tone));
+  const reportedStatus = (await page.locator("#status-panel").textContent())?.trim() ?? "";
+  const reportedPreviewMeta = (await page.locator("#preview-meta").textContent())?.trim() ?? "";
   if (await page.locator("#status-panel").getAttribute("data-tone") !== "success") {
     fail("S96S_REPORTED_CONTROL_PATH_FAILED", {
-      status: (await page.locator("#status-panel").textContent())?.trim(),
+      status: reportedStatus,
       validation: (await page.locator("#validation-panel").textContent())?.trim(),
       testedUrl,
     });
+  }
+  if (reportedStatus !== expectedStatus() || !reportedPreviewMeta.includes(`｜${QUESTION_COUNT} 題｜`)) {
+    fail("S96S_REPORTED_PUBLIC_COUNT_STATUS_MISMATCH", { reportedStatus, reportedPreviewMeta, expectedStatus: expectedStatus() });
   }
 
   const frame = page.frameLocator("#preview-frame");
@@ -130,6 +144,7 @@ try {
     knowledgePointCount: kpCount,
     generatedKnowledgePointCount: generated.length,
     questionCount: QUESTION_COUNT,
+    publicCountStatusVerified: true,
     generationSeed: DEFAULT_SEED,
     deployedAssets: { mainAsset, runtimeAsset },
     reportedPath: {
@@ -140,6 +155,8 @@ try {
       includeAnswerKey: false,
       questionCards: reportedQuestions,
       answerCards: reportedAnswers,
+      status: reportedStatus,
+      previewMeta: reportedPreviewMeta,
       printCalled,
       bodyControls,
     },
