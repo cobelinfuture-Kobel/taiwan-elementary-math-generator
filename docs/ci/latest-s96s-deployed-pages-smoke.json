@@ -2,8 +2,8 @@
   "schemaVersion": "s96s-deployed-pages-smoke-v1",
   "task": "S96S_G5A_U02_DeployedGitHubPagesSmoke",
   "status": "PASS",
-  "deploymentSha": "d9e762b3e617ebfd1ba42ecdc4f18f889f924c91",
-  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s96s=d9e762b3e617ebfd1ba42ecdc4f18f889f924c91-1784036119240",
+  "deploymentSha": "4618c08e8ec6d26326d1cb86ea086e4f7125215c",
+  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s96s=4618c08e8ec6d26326d1cb86ea086e4f7125215c-1784036447961",
   "sourceId": "g5a_u02_5a02",
   "expectedTitle": "因數與公因數",
   "knowledgePointCount": 18,
@@ -48,12 +48,12 @@
   "freeFormAI": false,
   "workflow": "S96S G5A-U02 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29337066463",
-    "number": "21",
+    "id": "29337445550",
+    "number": "22",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29337066463"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29337445550"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-14T13:35:23.420Z"
+  "verifiedAt": "2026-07-14T13:40:52.945Z"
 }
