@@ -1,0 +1,75 @@
+name: S96S G5A-U02 Deployed GitHub Pages Smoke
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy GitHub Pages
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  S96S_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+
+jobs:
+  deployed-pages-smoke:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout deployed main test harness
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Resolve deployment SHA
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "S96S_DEPLOYMENT_SHA=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_ENV"
+          else
+            echo "S96S_DEPLOYMENT_SHA=${{ github.sha }}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Wait for deployed URL
+        shell: bash
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error \
+              "${S96S_SITE_URL}?deployment=${S96S_DEPLOYMENT_SHA}-${attempt}" > /tmp/s96s-index.html; then
+              test -s /tmp/s96s-index.html
+              exit 0
+            fi
+            sleep 10
+          done
+          exit 1
+
+      - name: Run deployed production click generate preview print smoke
+        run: node tools/curriculum/run-s96s-g5a-u02-deployed-pages-smoke.mjs
+
+      - name: Upload deployed smoke authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s96s-g5a-u02-deployed-pages-smoke
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/stress/s96s-deployed-pages/manifest.json
+            /tmp/s96s-index.html
