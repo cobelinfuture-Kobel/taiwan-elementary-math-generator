@@ -2,14 +2,15 @@
 
 ```text
 TASK = G4B_U04_R2E_ControlledSDGTemplateVariantsAndContextMode
-STATUS = PASS_FINAL_HEAD_CI_PENDING_MERGE
+STATUS = PASS_CI_SYNCED_AND_MERGED
 SOURCE_ID = g4b_u04_4b04
-BASE_DESIGN = G4B_U04_R2_SemanticDedupLayoutAndSDGDesignLock
-PR = 213
+IMPLEMENTATION_PR = 213
+MERGE_SHA = d35ab3b814d09aa6ecb78232f18a538a26cdd4d1
 ACCEPTED_RUNTIME_HEAD = 8571ea4cc1003abdf09e0d48d25c840c85e20e3b
+FINAL_IMPLEMENTATION_HEAD = a5b87511ab02481ab1a5f4078d3a4d2f0057b60f
 ```
 
-## Scope
+## 1. Scope
 
 R2E adds a deterministic controlled-context layer after the existing canonical generator and blocking validator have produced a mathematically accepted question.
 
@@ -17,29 +18,28 @@ R2E adds a deterministic controlled-context layer after the existing canonical g
 existing canonical question
 → validator-backed Class C / D output
 → R2E allowlisted context resolver
-→ R2E replay validator
+→ deterministic replay validator
+→ prompt-signature recalculation
 → worksheet metadata
 → Classic / Pixel / query-state surfaces
 ```
 
 R2E does not add or modify KnowledgePoints, PatternGroups, PatternSpecs, formulas, answer models, renderer profiles or the S72/R2C base promotion lifecycle.
 
-## Public context modes
+## 2. Public context modes
 
 ```text
-mixed
-daily_life
-sdg
+contextMode = mixed | daily_life | sdg
+default = mixed
 ```
-
-The default is `mixed`.
 
 - `daily_life` preserves the existing controlled Class D prompt.
 - `sdg` applies an allowlisted fictional variant to every eligible Class D question.
-- `mixed` deterministically targets approximately two-thirds daily-life and one-third SDG among eligible questions. Very small worksheets do not force an SDG item.
-- Class C, payment-ceiling and source-backed discount questions remain unchanged and are reported as `not_applicable` when no approved SDG mapping exists.
+- `mixed` deterministically uses approximately two daily-life questions for each SDG question among eligible items.
+- Very small mixed worksheets do not force an SDG item.
+- Class C, payment-ceiling and source-backed discount questions remain unchanged when no approved mapping exists.
 
-## Eligible PatternSpecs
+## 3. Eligible PatternSpecs
 
 ```text
 ps_g4b_u04_floor_complete_groups
@@ -52,7 +52,7 @@ ps_g4b_u04_round_then_divide
 
 No generic context fallback exists.
 
-## Allowlisted SDG goals
+## 4. Allowlisted SDG goals
 
 ```text
 6  clean water and water conservation
@@ -60,16 +60,16 @@ No generic context fallback exists.
 11 sustainable transport and community facilities
 12 recycling, reuse and responsible packaging
 13 tree planting and emissions-reduction activities
-15 habitat and forest restoration activities
+15 habitat and forest restoration
 ```
 
-Every student-facing quantity is fictional exercise data. Current statistics, political persuasion, moral grading, fear-based language and free-form AI generation are forbidden.
+All quantities are fictional exercise data. Current real-world statistics, political persuasion, moral grading, fear-based language and free-form AI generation are forbidden.
 
-## Mathematical authority preservation
+## 5. Mathematical authority preservation
 
-For an SDG variant, R2E may replace only the controlled semantic prompt, unit-facing answer text, context object and template-role presentation.
+The controlled-context renderer may change only the semantic prompt, display unit, context object and template-role presentation.
 
-The replay validator requires the following to remain identical to the deterministic Class D base question:
+The replay validator requires these fields to remain identical to the deterministic base question:
 
 ```text
 input
@@ -82,9 +82,9 @@ patternGroupId
 knowledgePointId
 ```
 
-The validator also deterministically re-renders the selected allowlisted variant and rejects unknown variants, render drift, unsafe claims or any mathematical mutation.
+It also deterministically re-renders the selected allowlisted variant and blocks unknown variants, render drift, unsafe claims or mathematical mutation.
 
-## Canonical integration
+## 6. Canonical and worksheet integration
 
 The public question router delegates G4B-U04 to the R2E canonical wrapper. The wrapper:
 
@@ -96,11 +96,7 @@ The public question router delegates G4B-U04 to the R2E canonical wrapper. The w
 6. rejects duplicate rendered prompts;
 7. reports deterministic context allocation.
 
-Generic fallback and free-form AI remain false in canonical route metadata.
-
-## Worksheet integration
-
-The browser worksheet chain is:
+The worksheet chain is:
 
 ```text
 existing S76J worksheet chain
@@ -109,121 +105,66 @@ existing S76J worksheet chain
 → preview / print
 ```
 
-R2E writes:
+R2E records context mode, allocation, validator version, source task IDs, safety provenance and daily-life / SDG / not-applicable counts in the worksheet document.
 
-```text
-worksheetDocument.publicControls.contextMode
-worksheetDocument.contextAllocation
-worksheetDocument.metadata.contextMode
-worksheetDocument.metadata.contextAllocation
-worksheetDocument.validationSummary.contextValidatorVersion
-worksheetDocument.batchA.contextMode
-worksheetDocument.g4bU04Summary.contextMode
-worksheetDocument.provenance.contextContractVersion
-worksheetDocument.configSnapshot.contextMode
-worksheetDocument.summary.dailyLifeContextCount
-worksheetDocument.summary.sdgContextCount
-worksheetDocument.summary.contextNotApplicableCount
-```
+## 7. Public UI and compatibility
 
-Non-G4B-U04 worksheet routes are returned unchanged.
+Classic, Pixel and query-state expose the same three modes. Explicit `daily_life` and `sdg` values round-trip through the browser plan. Unsupported values normalize to `mixed`.
 
-## Public UI and query state
+The default `mixed` mode is not redundantly serialized, preserving the R2D/S74 legacy URL and public-control readback. G5-only `depthMode` remains absent from G4B-U04 output.
 
-Classic and Pixel expose the same three context modes. Both controls synchronize through the existing context control and stale-output invalidation paths.
+R2D layout resolution remains authoritative and answer-key layout remains profile-controlled.
 
-Explicit values support query round-trip:
-
-```text
-contextMode=daily_life
-contextMode=sdg
-```
-
-Unsupported values normalize to `mixed`. The default `mixed` mode is not redundantly serialized, preserving the R2D/S74 legacy URL and public-control readback. G5-only `depthMode` remains absent from G4B-U04 output.
-
-## Focused acceptance
-
-The R2E focused suites require:
-
-```text
-13 KnowledgePoints unchanged
-13 PatternGroups unchanged
-19 PatternSpecs unchanged
-S72/R2C base lifecycle unchanged
-all six SDG goals covered
-only six approved PatternSpecs eligible
-daily_life preserves base prompts
-sdg covers every eligible question
-mixed allocation deterministic
-small mixed worksheets do not force SDG
-payment and discount prompts remain source-faithful
-Class C remains non-SDG
-math mutation blocked
-unknown variant blocked
-unsafe claims blocked
-Classic query round-trip
-Pixel canonical worksheet path
-R2E → R2D → S76J scaffold delegation
-```
-
-## Final-head acceptance
-
-Accepted runtime head:
-
-```text
-8571ea4cc1003abdf09e0d48d25c840c85e20e3b
-```
+## 8. Acceptance evidence
 
 ```text
 Node Test                         PASS
 S42 Branch Test                   PASS
 Math CI Readback                  PASS
 S96D focused + full-suite         PASS
-S75 G4B-U04 HTML/PDF              PASS
+S75 68-question G4B-U04 HTML/PDF  PASS
 R2D six-scenario HTML/PDF         PASS
 DOM containment                   PASS
 PDF nonblank-page checks          PASS
 A4 text bounding-box checks       PASS
+PR #213                           MERGED
 ```
 
-## Fixed boundaries
+## 9. Authority invariants
 
 ```text
-KnowledgePoint count changed = false
-PatternGroup count changed = false
-PatternSpec count changed = false
-formula changed = false
-answer model changed = false
-renderer profile changed = false
-S72/R2C promotion authority changed = false
-generic context fallback allowed = false
-free-form AI allowed = false
-current real-world statistics allowed = false
+KnowledgePoints = 13 unchanged
+PatternGroups   = 13 unchanged
+PatternSpecs    = 19 unchanged
+formulas        = unchanged
+answer models   = unchanged
+renderer profiles = unchanged
+S72/R2C promotion authority = unchanged
+generic context fallback = forbidden
+free-form AI = forbidden
+current real-world statistics = forbidden
 ```
 
-## Distance
+## 10. Distance
 
 ```text
 GOAL_DISTANCE_BEFORE =
 D1_G4B_U04_R2D_CLOSED_NEXT_R2E
 
 GOAL_DISTANCE_AFTER =
-D1_G4B_U04_R2E_FINAL_HEAD_ACCEPTED_PENDING_MERGE
+D1_G4B_U04_R2E_CLOSED_NEXT_R2F
 
 DISTANCE_REDUCED =
-Connected the approved controlled SDG context contract to canonical generation,
-deterministic replay validation, worksheet metadata, Classic and Pixel controls,
-query-state propagation and existing HTML/PDF gates without changing curriculum
-or mathematical authority.
+Controlled context generation, deterministic replay validation, browser-plan
+propagation, Classic/Pixel/query-state controls, worksheet metadata and existing
+HTML/PDF regressions are implemented, accepted, merged and formally closed.
 
 REMAINING_BLOCKERS = [
-  "PR #213 implementation merge",
-  "R2E merged closeout marker",
-  "R2F production recloseout"
+  "R2F production stress and D0 recloseout"
 ]
 
 NEXT_SHORTEST_STEP =
-G4B_U04_R2E_CloseoutAfterMerge
+G4B_U04_R2F_ProductionStressAndD0Recloseout
 
 STOP_REASON = NONE
 ```
