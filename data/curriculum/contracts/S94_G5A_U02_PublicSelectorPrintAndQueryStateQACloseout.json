@@ -1,0 +1,63 @@
+{
+  "task": "S94_G5A_U02_PublicSelectorPrintAndQueryStateQA",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "merge": {
+    "pullRequest": 160,
+    "mergeCommit": "b14018c373ba46a73ed13f51c9c7dc662d373d62"
+  },
+  "freshMainReadback": {
+    "commit": "43294ff2d7b1a4f750ee6ccf98698ddd99477e2a",
+    "runId": 29296045713,
+    "runNumber": 1554,
+    "tests": 1366,
+    "pass": 1366,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "publicCandidate": {
+    "sourceId": "g5a_u02_5a02",
+    "unitCode": "5A-U02",
+    "title": "因數與公因數",
+    "selectionMode": "sourceUnit",
+    "questionCount": 22,
+    "answerCount": 22,
+    "questionPageCount": 22,
+    "answerPageCount": 22,
+    "canonicalArtifactCommit": "5bd0e6d3aa904768e8436ab19d49e9aa12b4b32a",
+    "arbitraryRegeneration": false
+  },
+  "integration": {
+    "classic": true,
+    "fallback404": true,
+    "pixel": true,
+    "preview": true,
+    "browserPrint": true,
+    "answerKeySuppression": true,
+    "queryStateRoundTrip": [
+      "sourceId",
+      "questionCount",
+      "ordering",
+      "answerKey",
+      "generationSeed",
+      "columns",
+      "rowsPerPage"
+    ]
+  },
+  "authorityIsolation": {
+    "batchACoreSourceCount": 13,
+    "g5aU02ProjectedOutsideBatchACore": true,
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "lifecycle": {
+    "selectorStatus": "public_source_unit_candidate",
+    "browserPipelineStatus": "public_static_candidate_connected",
+    "printStatus": "public_print_candidate",
+    "queryStateStatus": "source_unit_round_trip_supported",
+    "productionUse": "preview_only_pending_s95"
+  },
+  "distance": {
+    "before": "D1_G5A_U02_PUBLIC_PREVIEW_PRINT_QUERY_CANDIDATE_MERGED_PENDING_FRESH_MAIN",
+    "after": "D1_G5A_U02_PUBLIC_PREVIEW_PRINT_QUERY_CANDIDATE_VERIFIED_AND_CLOSED"
+  }
+}
