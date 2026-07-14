@@ -5,15 +5,32 @@ function suppressAnswerKey(html) {
   return String(html).replace(/<section class="g5a-u02-section g5a-u02-section--answer-key">[\s\S]*?<\/section><\/main>/, "</main>");
 }
 
+function escapeAttribute(value) {
+  return String(value ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function stampPublicControls(html, worksheetDocument) {
+  const controls = worksheetDocument?.publicControls;
+  if (!controls) return String(html);
+  const attributes = [
+    `data-public-question-mode="${escapeAttribute(controls.questionMode)}"`,
+    `data-public-depth-mode="${escapeAttribute(controls.depthMode)}"`,
+    `data-public-context-mode="${escapeAttribute(controls.contextMode)}"`,
+    `data-public-generic-fallback="${controls.genericFallback ? "true" : "false"}"`,
+  ].join(" ");
+  const meta = `<meta name="worksheet-public-controls" content="${escapeAttribute(`${controls.questionMode}|${controls.depthMode}|${controls.contextMode}`)}">`;
+  return String(html)
+    .replace("</head>", `${meta}</head>`)
+    .replace(/<body([^>]*)>/, `<body$1 ${attributes}>`);
+}
+
 export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}) {
-  if (!previewFrame) {
-    throw new Error("Preview frame element is required.");
-  }
+  if (!previewFrame) throw new Error("Preview frame element is required.");
 
   if (worksheetDocument?.dynamicHtml) {
-    previewFrame.srcdoc = String(worksheetDocument.dynamicHtml)
+    previewFrame.srcdoc = stampPublicControls(String(worksheetDocument.dynamicHtml)
       .replace('data-s93-hidden-browser-pipeline="true"', 'data-s96d-public-dynamic-browser="true"')
-      .replace('content="S93 G5A-U02 hidden browser pipeline"', 'content="S96D G5A-U02 public dynamic browser"');
+      .replace('content="S93 G5A-U02 hidden browser pipeline"', 'content="S96D G5A-U02 public dynamic browser"'), worksheetDocument);
     previewFrame.dataset.dynamicWorksheetStatus = "ready";
     return { html: previewFrame.srcdoc, dynamic: true };
   }
@@ -26,12 +43,10 @@ export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}
         return response.text();
       })
       .then((sourceHtml) => {
-        const html = worksheetDocument.staticHtmlTransform?.suppressAnswerKey
-          ? suppressAnswerKey(sourceHtml)
-          : sourceHtml;
-        previewFrame.srcdoc = html
+        const html = worksheetDocument.staticHtmlTransform?.suppressAnswerKey ? suppressAnswerKey(sourceHtml) : sourceHtml;
+        previewFrame.srcdoc = stampPublicControls(html
           .replace('content="S93 G5A-U02 hidden browser pipeline"', 'content="S94 G5A-U02 public preview candidate"')
-          .replace('data-s93-hidden-browser-pipeline="true"', 'data-s94-public-preview-candidate="true"');
+          .replace('data-s93-hidden-browser-pipeline="true"', 'data-s94-public-preview-candidate="true"'), worksheetDocument);
         previewFrame.dataset.staticCandidateStatus = "ready";
       })
       .catch((error) => {
@@ -46,18 +61,13 @@ export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}
     stylesheetHref: options.stylesheetHref ?? "./assets/styles/print-styles.css",
     debugDataAttributes: options.debugDataAttributes ?? true
   });
-
-  previewFrame.srcdoc = html;
-
-  return { html };
+  previewFrame.srcdoc = stampPublicControls(html, worksheetDocument);
+  return { html: previewFrame.srcdoc };
 }
 
 export function printPreviewFrame(previewFrame) {
   const previewWindow = previewFrame?.contentWindow;
-  if (!previewWindow) {
-    throw new Error("Preview frame window is not available.");
-  }
-
+  if (!previewWindow) throw new Error("Preview frame window is not available.");
   previewWindow.focus();
   previewWindow.print();
 }
