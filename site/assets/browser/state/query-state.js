@@ -21,6 +21,7 @@ const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
   "g3b_u04_3b04",
   "g3b_u08_3b08",
   "g4b_u01_4b01",
+  "g5a_u02_5a02",
   G4B_U04_SOURCE_ID,
   G5A_U08_SOURCE_ID,
 ]));
