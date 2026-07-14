@@ -5,6 +5,7 @@ import {
   G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
   getVisibleBatchAKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
+  listVisibleBatchAKnowledgePoints,
   validateG4AU08AllCanonicalPublicSelectorProjection,
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
@@ -27,21 +28,24 @@ function optionsForGroup(group, questionCount = 1) {
   };
 }
 
-test("S76Q exposes exactly 15 canonical KnowledgePoints, 28 PatternGroups and 33 PatternSpecs", () => {
+test("S76R exposes exactly 15 visible canonical KnowledgePoints, 28 PatternGroups and 33 PatternSpecs", () => {
   const checked = validateG4AU08AllCanonicalPublicSelectorProjection();
   assert.equal(checked.ok, true, checked.errors.join(","));
   assert.equal(checked.counts.knowledgePoints, 15);
   assert.equal(checked.counts.patternGroups, 28);
   assert.equal(checked.counts.patternSpecs, 33);
-  assert.equal(checked.counts.legacyVisibleKnowledgePoints, 8);
+  assert.equal(checked.counts.visibleKnowledgePoints, 15);
+  assert.equal(checked.counts.legacyAliasKnowledgePoints, 8);
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 8);
+  assert.equal(availability.visibleCount, 15);
   assert.equal(availability.canonicalReachableKnowledgePointCount, 15);
+  assert.equal(availability.publicSelectorStatus, "15_canonical_knowledge_points_visible");
+  assert.equal(listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID).length, 15);
   assert.equal(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.length, 28);
   assert.equal(new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.patternGroupId)).size, 28);
 });
 
-test("S76Q all canonical KnowledgePoints are resolvable and have explicit public group projections", () => {
+test("S76R all canonical KnowledgePoints are visibly selectable and have explicit public group projections", () => {
   const kpIds = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.primaryKnowledgePointId));
   assert.equal(kpIds.size, 15);
   for (const knowledgePointId of kpIds) {
@@ -49,6 +53,8 @@ test("S76Q all canonical KnowledgePoints are resolvable and have explicit public
     assert.ok(row, knowledgePointId);
     assert.equal(row.sourceId, SOURCE_ID);
     assert.equal(row.visibilityStatus, "visible");
+    assert.equal(row.selectorStatus, "visible");
+    assert.equal(row.productionUse, "preview_only_pending_s76r");
     const canonicalGroups = G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.filter((group) => group.primaryKnowledgePointId === knowledgePointId);
     assert.ok(canonicalGroups.length >= 1, knowledgePointId);
     assert.equal(canonicalGroups.every((group) => group.visibilityStatus === "visible" && group.holdReason === null), true);
