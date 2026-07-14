@@ -2,6 +2,11 @@ export * from "./batch-a-selector-g4a-u08-extension.js";
 
 import * as base from "./batch-a-selector-g4a-u08-extension.js";
 import {
+  G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
+  getVisibleBatchAKnowledgePoint as getCanonicalG4AU08KnowledgePoint,
+  getVisiblePatternGroupsForKnowledgePoint as getCanonicalG4AU08PatternGroups,
+} from "./batch-a-selector-g4a-u08-all-canonical.js";
+import {
   G5A_U02_SELECTOR_PROJECTION,
   G5A_U02_SELECTOR_SOURCE_ID,
   auditG5AU02SelectorProjection,
@@ -11,12 +16,29 @@ import {
   resolveG5AU02SelectorPatternSpecIds,
 } from "./g5a-u02-selector-projection.js";
 
+const G4A_U08_SOURCE_ID = "g4a_u08_4a08";
 const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
 const g5aRows = Object.freeze(listG5AU02SelectorRows().map((row) => Object.freeze(row)));
 const g5aRowById = new Map(g5aRows.map((row) => [row.knowledgePointId, row]));
+const g4aCanonicalKnowledgePointIds = Object.freeze([
+  ...new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.primaryKnowledgePointId)),
+]);
+const g4aCanonicalKnowledgePointIdSet = new Set(g4aCanonicalKnowledgePointIds);
+
+function enrichG4AU08Availability(entry) {
+  if (!entry) return entry;
+  return {
+    ...entry,
+    compatibilityProjection: "legacy_source_availability_preserved_canonical_rows_resolvable_by_id",
+    canonicalReachableKnowledgePointCount: g4aCanonicalKnowledgePointIds.length,
+    canonicalReachableKnowledgePointIds: [...g4aCanonicalKnowledgePointIds],
+  };
+}
 
 function availabilityBySource() {
   const entries = new Map(Object.entries(base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId));
+  const g4a = entries.get(G4A_U08_SOURCE_ID);
+  if (g4a) entries.set(G4A_U08_SOURCE_ID, enrichG4AU08Availability(g4a));
   const current = entries.get(G5A_U02_SELECTOR_SOURCE_ID) ?? {
     sourceId: G5A_U02_SELECTOR_SOURCE_ID,
     visibleCount: 0,
@@ -30,7 +52,7 @@ function availabilityBySource() {
   return Object.fromEntries(entries);
 }
 
-export { G5A_U02_SELECTOR_PROJECTION };
+export { G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS, G5A_U02_SELECTOR_PROJECTION };
 export const G5A_U02_VISIBLE_SELECTOR_PROJECTION = Object.freeze({
   ...G5A_U02_SELECTOR_PROJECTION,
   status: "18_knowledge_points_dynamic_production",
@@ -52,25 +74,64 @@ export function listVisibleBatchAKnowledgePoints() {
 
 export function listBatchAKnowledgePointAvailabilityBySource(sourceId) {
   const entry = BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId];
-  return entry ? clone(entry) : base.listBatchAKnowledgePointAvailabilityBySource(sourceId);
+  if (entry) return clone(entry);
+  const fallback = base.listBatchAKnowledgePointAvailabilityBySource(sourceId);
+  return sourceId === G4A_U08_SOURCE_ID ? clone(enrichG4AU08Availability(fallback)) : fallback;
 }
 
 export function getVisibleBatchAKnowledgePoint(knowledgePointId) {
-  return g5aRowById.has(knowledgePointId)
-    ? getG5AU02SelectorRow(knowledgePointId)
-    : base.getVisibleBatchAKnowledgePoint(knowledgePointId);
+  if (g5aRowById.has(knowledgePointId)) return getG5AU02SelectorRow(knowledgePointId);
+  const legacyRow = base.getVisibleBatchAKnowledgePoint(knowledgePointId);
+  if (!g4aCanonicalKnowledgePointIdSet.has(knowledgePointId)) return legacyRow;
+  const canonicalRow = getCanonicalG4AU08KnowledgePoint(knowledgePointId);
+  if (!legacyRow) return canonicalRow;
+  return clone({
+    ...canonicalRow,
+    ...legacyRow,
+    canonicalPatternGroupIds: canonicalRow.canonicalPatternGroupIds,
+    canonicalPatternSpecIds: canonicalRow.canonicalPatternSpecIds,
+    canonicalSelectorStatus: canonicalRow.canonicalSelectorStatus,
+    visibilityStatus: "visible",
+  });
 }
 
 export function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
-  return g5aRowById.has(knowledgePointId)
-    ? listG5AU02SelectorPatternGroups(knowledgePointId)
-    : base.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+  if (g5aRowById.has(knowledgePointId)) return listG5AU02SelectorPatternGroups(knowledgePointId);
+  const legacyGroups = base.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+  if (legacyGroups.length > 0) return legacyGroups;
+  return g4aCanonicalKnowledgePointIdSet.has(knowledgePointId)
+    ? getCanonicalG4AU08PatternGroups(knowledgePointId)
+    : [];
 }
 
 export function resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId) {
-  return g5aRowById.has(knowledgePointId)
-    ? resolveG5AU02SelectorPatternSpecIds(knowledgePointId)
-    : base.resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId);
+  if (g5aRowById.has(knowledgePointId)) return resolveG5AU02SelectorPatternSpecIds(knowledgePointId);
+  return [...new Set(getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).flatMap((group) => group.patternSpecIds ?? []))];
+}
+
+export function validateG4AU08AllCanonicalPublicSelectorProjection() {
+  const availability = listBatchAKnowledgePointAvailabilityBySource(G4A_U08_SOURCE_ID);
+  const patternSpecIds = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.flatMap((group) => group.patternSpecIds));
+  const errors = [];
+  if (g4aCanonicalKnowledgePointIds.length !== 15) errors.push("knowledge_point_count_mismatch");
+  if (G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.length !== 28) errors.push("pattern_group_count_mismatch");
+  if (patternSpecIds.size !== 33) errors.push("pattern_spec_count_mismatch");
+  if (g4aCanonicalKnowledgePointIds.some((id) => !getCanonicalG4AU08KnowledgePoint(id))) errors.push("canonical_knowledge_point_unresolvable");
+  if (g4aCanonicalKnowledgePointIds.some((id) => getCanonicalG4AU08PatternGroups(id).length === 0)) errors.push("canonical_pattern_group_missing");
+  if (G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.some((group) => group.visibilityStatus !== "visible" || group.holdReason !== null)) errors.push("group_visibility_invalid");
+  if (availability.visibleCount !== base.listBatchAKnowledgePointAvailabilityBySource(G4A_U08_SOURCE_ID).visibleCount) errors.push("legacy_source_availability_changed");
+  if (availability.canonicalReachableKnowledgePointCount !== 15) errors.push("canonical_reachable_count_mismatch");
+  return Object.freeze({
+    ok: errors.length === 0,
+    errors: Object.freeze(errors),
+    counts: Object.freeze({
+      knowledgePoints: g4aCanonicalKnowledgePointIds.length,
+      patternGroups: G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.length,
+      patternSpecs: patternSpecIds.size,
+      globalRegistryRows: listVisibleBatchAKnowledgePoints().length,
+      legacyVisibleKnowledgePoints: availability.visibleCount,
+    }),
+  });
 }
 
 export function validateG5AU02VisibleSelectorProjection() {

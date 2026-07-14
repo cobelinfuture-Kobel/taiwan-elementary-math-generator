@@ -3,6 +3,11 @@ export * from "./batch-a-browser-question-router-core.js";
 import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions as generateCoreBatchABrowserQuestions } from "./batch-a-browser-question-router-core.js";
 import {
+  generateG4AU08AllCanonicalPublicQuestions,
+  normalizeG4AU08AllCanonicalPublicPlan,
+  requestsG4AU08AllCanonicalPublicRoute,
+} from "./g4a-u08-all-canonical-public-router.js";
+import {
   G4A_U08_CANONICAL_ROUTE_KINDS,
   classifyG4AU08CanonicalRouterPlan,
   generateG4AU08CanonicalQuestions,
@@ -66,6 +71,15 @@ function requestsG4AU08Phase2B(plan = {}) {
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+
+  if (requestsG4AU08AllCanonicalPublicRoute(plan)) {
+    const g4aU08Plan = normalizeG4AU08AllCanonicalPublicPlan(plan);
+    const result = generateG4AU08AllCanonicalPublicQuestions(g4aU08Plan);
+    if (!result.ok) {
+      return invalidCanonicalResult(result.plan, "G4A_U08_S76Q", "G4A-U08 公開選擇沒有可用的 canonical KnowledgePoint 或 PatternGroup。");
+    }
+    return result;
+  }
 
   if (requestsG4AU08Phase2B(plan)) {
     const g4aU08Plan = normalizeG4AU08ResolverPlan(plan);
