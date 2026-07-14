@@ -38,7 +38,7 @@ function errorCodes(result) {
 test("R2B prompt signature normalizes Unicode, whitespace and punctuation spacing", () => {
   assert.equal(
     normalizeG4BU04PromptSignature("  符號 ｢≈｣  讀作什麼 ？  "),
-    "符號「≈」 讀作什麼？",
+    "符號 「≈」 讀作什麼？",
   );
   assert.equal(
     normalizeG4BU04PromptSignature("有 4,683 張紙，  每 100 張綁成一束。"),
