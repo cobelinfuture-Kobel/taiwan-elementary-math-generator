@@ -6,6 +6,9 @@ import {
   isS76QPublicG4AU08PatternGroupId,
 } from "../registry/batch-a-selector-g4a-u08-all-canonical.js";
 import {
+  G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID,
+} from "../registry/g4a-u08-full-source-production-promotion.js";
+import {
   buildBatchABrowserWorksheetDocument as buildS76QG4AU08WorksheetDocument,
   isS76QG4AU08WorksheetOptions,
 } from "./batch-a-browser-worksheet-s76q-extension.js";
@@ -45,26 +48,79 @@ export function isS76JG4AU08WorksheetEntryOptions(options = {}) {
     && isS76JG4AU08WorksheetOptions(options);
 }
 
+function productionQuestion(question) {
+  return {
+    ...question,
+    productionUse: "allowed",
+    productionWorksheetStatus: "production_allowed_s76r",
+    promotionRegistryId: G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID,
+    metadata: {
+      ...(question.metadata ?? {}),
+      productionPromotionId: G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID,
+      productionUse: "allowed",
+    },
+  };
+}
+
+function productionMetadataSnapshot(snapshot) {
+  return {
+    ...(snapshot ?? {}),
+    productionPromotionId: G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID,
+    productionUse: "allowed",
+  };
+}
+
 function enforceS76RProductionValidation(options, result) {
   if (!requestsS76QAllCanonicalWorksheet(options) || !result?.ok || !result.worksheetDocument) return result;
   const checked = validateG4AU08S76RProductionQuestions(result.worksheetDocument.generatedQuestions ?? []);
-  if (checked.ok) {
+  if (!checked.ok) {
     return {
       ...result,
+      ok: false,
+      worksheetDocument: null,
       validation: checked,
-      worksheetDocument: {
-        ...result.worksheetDocument,
-        validationSummary: checked,
-      },
+      errors: checked.errors,
+      warnings: checked.warnings,
     };
   }
+
+  const promotedQuestions = result.worksheetDocument.generatedQuestions.map(productionQuestion);
+  const worksheetDocument = {
+    ...result.worksheetDocument,
+    productionUse: "allowed",
+    promotionRegistryId: G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID,
+    productionEligibility: {
+      ok: true,
+      sourceId: G4A_U08_SOURCE_ID,
+      productionUse: "allowed",
+      promotionRegistryId: G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID,
+      rendererBehaviorChanged: false,
+      requiredNextGate: null,
+    },
+    validationSummary: checked,
+    generatedQuestions: promotedQuestions,
+    questionDisplayModels: result.worksheetDocument.questionDisplayModels.map((item) => ({
+      ...item,
+      metadataSnapshot: productionMetadataSnapshot(item.metadataSnapshot),
+    })),
+    answerKeyItems: result.worksheetDocument.answerKeyItems.map((item) => ({
+      ...item,
+      metadataSnapshot: productionMetadataSnapshot(item.metadataSnapshot),
+    })),
+    provenance: {
+      ...(result.worksheetDocument.provenance ?? {}),
+      promotionRegistryId: G4A_U08_FULL_SOURCE_PRODUCTION_PROMOTION_ID,
+      productionUse: "allowed",
+    },
+  };
+
   return {
     ...result,
-    ok: false,
-    worksheetDocument: null,
     validation: checked,
-    errors: checked.errors,
-    warnings: checked.warnings,
+    worksheetDocument,
+    generation: result.generation
+      ? { ...result.generation, questions: promotedQuestions }
+      : result.generation,
   };
 }
 
