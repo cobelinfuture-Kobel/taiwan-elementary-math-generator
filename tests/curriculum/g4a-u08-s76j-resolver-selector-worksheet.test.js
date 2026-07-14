@@ -78,18 +78,19 @@ test("S76J reuses exactly 3 existing KnowledgePoints and promotes 4 PatternGroup
   assert.deepEqual(getG4AU08Phase2BBrowserTemplateIds(), TEMPLATE_IDS);
 });
 
-test("S76J selector extends approved existing KP rows without changing public KP counts", () => {
+test("S76R exposes all canonical KP rows while preserving S76J Phase2B aliases and metadata", () => {
   const visible = listVisibleBatchAKnowledgePoints();
-  assert.equal(visible.filter((row) => row.sourceId === SOURCE_ID).length, 8);
+  assert.equal(visible.filter((row) => row.sourceId === SOURCE_ID).length, 15);
   for (const knowledgePointId of G4A_U08_PHASE2B_PROMOTED_KNOWLEDGE_POINT_IDS) {
     const row = getVisibleBatchAKnowledgePoint(knowledgePointId);
     assert.equal(row.sourceId, SOURCE_ID);
     assert.ok(row.promotionRegistryIds.includes(G4A_U08_PHASE2B_PROMOTION_REGISTRY_ID));
     assert.ok(visible.some((candidate) => candidate.knowledgePointId === knowledgePointId));
   }
-  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_add_sub_sequence").length, 2);
-  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_mul_div_sequence").length, 3);
-  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_mul_div_before_add_sub").length, 2);
+  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_add_sub_sequence").length, 5);
+  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_parentheses_grouping").length, 3);
+  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_mul_div_sequence").length, 5);
+  assert.equal(getVisiblePatternGroupsForKnowledgePoint("kp_g4a_u08_app_mul_div_before_add_sub").length, 4);
   assert.ok(getVisibleBatchAKnowledgePoint("kp_g4b_u04_round_half_up_place_value"));
   assert.ok(getVisibleBatchAKnowledgePoint("kp_g5a_u08_mixed_operation_order"));
 });
