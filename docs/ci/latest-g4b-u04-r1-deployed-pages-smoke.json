@@ -2,25 +2,17 @@
   "schemaVersion": "g4b-u04-r1-deployed-pages-smoke-v1",
   "task": "G4B_U04_R1_DeployedLiveUIGeneratePreviewPrintAuditAndRecloseout",
   "status": "FAIL",
-  "deploymentSha": "4618c08e8ec6d26326d1cb86ea086e4f7125215c",
-  "message": "G4B_U04_R1_DEPLOYED_GENERATION_FAILED",
-  "details": {
-    "label": "約等號與近似符號讀法",
-    "status": "產生失敗，請檢查知識點、題目形式、深度、情境與題數設定。",
-    "validation": "所選題型的唯一題面容量不足，無法產生指定題數。",
-    "previewMeta": "產生失敗。"
-  },
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&questionCount=8&ordering=groupedByPattern&answerKey=1&generationSeed=g4b-u04-r1-kp-2&columns=4&rowsPerPage=10&questionMode=mixed&selectionMode=singleKnowledgePoint&kp=kp_g4b_u04_approximation_symbol_reading&pg=pg_g4b_u04_approximation_symbol",
-  "consoleErrors": [],
-  "pageErrors": [],
+  "deploymentSha": "e95561415a0525fe77ec24935265a78a4967729d",
+  "message": "G4B-U04-R1 workflow failed before the browser harness wrote structured evidence.",
+  "details": null,
   "workflow": "G4B-U04-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29337445662",
-    "number": "11",
+    "id": "29341273512",
+    "number": "12",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29337445662"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29341273512"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-14T13:40:51.293Z"
+  "verifiedAt": "2026-07-14T14:32:45.476Z"
 }
