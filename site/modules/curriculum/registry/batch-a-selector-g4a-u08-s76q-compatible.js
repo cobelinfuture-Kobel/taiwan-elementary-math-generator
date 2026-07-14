@@ -7,22 +7,15 @@ const SOURCE_ID = "g4a_u08_4a08";
 const clone = (value) => value === undefined ? undefined : JSON.parse(JSON.stringify(value));
 const CANONICAL_KP_IDS = Object.freeze([...new Set(canonical.G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.primaryKnowledgePointId))]);
 
-function dedupeGroups(groups) {
-  return [...new Map(groups.map((row) => [row.patternGroupId, row])).values()];
-}
-
 export function listVisibleBatchAKnowledgePoints() {
-  const legacyRows = legacy.listVisibleBatchAKnowledgePoints();
-  return clone(legacyRows.map((row) => {
-    if (row.sourceId !== SOURCE_ID || !CANONICAL_KP_IDS.includes(row.knowledgePointId)) return row;
-    const virtual = canonical.getVisibleBatchAKnowledgePoint(row.knowledgePointId);
-    return { ...row, ...virtual };
-  }));
+  return clone(legacy.listVisibleBatchAKnowledgePoints());
 }
 
 export function getVisibleBatchAKnowledgePoint(knowledgePointId) {
+  const legacyRow = legacy.getVisibleBatchAKnowledgePoint(knowledgePointId);
+  if (legacyRow) return clone(legacyRow);
   if (CANONICAL_KP_IDS.includes(knowledgePointId)) return clone(canonical.getVisibleBatchAKnowledgePoint(knowledgePointId));
-  return clone(legacy.getVisibleBatchAKnowledgePoint(knowledgePointId));
+  return null;
 }
 
 export function listBatchAKnowledgePointAvailabilityBySource(sourceId) {
@@ -38,9 +31,9 @@ export function listBatchAKnowledgePointAvailabilityBySource(sourceId) {
 
 export function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
   const legacyGroups = legacy.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
-  if (!CANONICAL_KP_IDS.includes(knowledgePointId)) return clone(legacyGroups);
-  const canonicalGroups = canonical.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
-  return clone(dedupeGroups([...legacyGroups, ...canonicalGroups]));
+  if (legacyGroups.length > 0) return clone(legacyGroups);
+  if (CANONICAL_KP_IDS.includes(knowledgePointId)) return clone(canonical.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId));
+  return [];
 }
 
 export function resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId) {
