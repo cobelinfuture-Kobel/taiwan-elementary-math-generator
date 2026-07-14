@@ -16,14 +16,17 @@ function escapeHtml(value) {
 function stampPublicControls(html, worksheetDocument) {
   const controls = worksheetDocument?.publicControls;
   if (!controls) return String(html);
+  const hasLayoutMode = typeof controls.layoutMode === "string" && controls.layoutMode.length > 0;
   const attributes = [
     `data-public-question-mode="${escapeAttribute(controls.questionMode)}"`,
     `data-public-depth-mode="${escapeAttribute(controls.depthMode)}"`,
     `data-public-context-mode="${escapeAttribute(controls.contextMode)}"`,
-    `data-public-layout-mode="${escapeAttribute(controls.layoutMode)}"`,
+    ...(hasLayoutMode ? [`data-public-layout-mode="${escapeAttribute(controls.layoutMode)}"`] : []),
     `data-public-generic-fallback="${controls.genericFallback ? "true" : "false"}"`,
   ].join(" ");
-  const meta = `<meta name="worksheet-public-controls" content="${escapeAttribute(`${controls.questionMode}|${controls.depthMode}|${controls.contextMode}|${controls.layoutMode ?? ""}`)}">`;
+  const metaValues = [controls.questionMode, controls.depthMode, controls.contextMode];
+  if (hasLayoutMode) metaValues.push(controls.layoutMode);
+  const meta = `<meta name="worksheet-public-controls" content="${escapeAttribute(metaValues.join("|"))}">`;
   return String(html)
     .replace("</head>", `${meta}</head>`)
     .replace(/<body([^>]*)>/, `<body$1 ${attributes}>`);
