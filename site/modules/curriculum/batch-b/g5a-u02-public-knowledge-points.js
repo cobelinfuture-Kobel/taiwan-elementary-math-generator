@@ -14,11 +14,12 @@ const SPEC_BY_ID = new Map(
 );
 
 const PUBLIC_KP_LIFECYCLE = deepFreeze({
-  task: "S96_G5A_U02_BrowserArbitraryRegenerationAndKnowledgePointSelection",
-  projectionStatus: "public_projection_materialized",
-  selectorStatus: "pending_browser_selector_integration",
-  browserRegenerationStatus: "pending_runtime_integration",
-  productionUse: "forbidden_until_s96_stress_pass",
+  task: "S96H_G5A_U02_ProductionPromotionAndCloseout",
+  projectionStatus: "public_production_projection",
+  selectorStatus: "public_knowledge_point_selection",
+  browserRegenerationStatus: "production_allowed",
+  htmlPdfStressStatus: "s96g_passed",
+  productionUse: "allowed_dynamic_knowledge_point_release",
   genericFallback: false,
   freeFormAI: false,
 });
@@ -89,6 +90,9 @@ export function auditG5AU02PublicKnowledgePointProjection() {
   for (const row of G5A_U02_PUBLIC_KNOWLEDGE_POINTS) {
     if (!row.knowledgePointId || !row.patternGroupId || !row.displayName) {
       errors.push("G5AU02_PUBLIC_KP_REQUIRED_FIELD_MISSING");
+    }
+    if (row.lifecycle.productionUse !== "allowed_dynamic_knowledge_point_release") {
+      errors.push("G5AU02_PUBLIC_KP_PRODUCTION_NOT_PROMOTED");
     }
     for (const patternSpecId of row.patternSpecIds) patternIds.add(patternSpecId);
   }
