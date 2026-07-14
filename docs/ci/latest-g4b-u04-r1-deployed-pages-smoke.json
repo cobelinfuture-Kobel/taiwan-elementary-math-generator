@@ -2,7 +2,7 @@
   "schemaVersion": "g4b-u04-r1-deployed-pages-smoke-v1",
   "task": "G4B_U04_R1_DeployedLiveUIGeneratePreviewPrintAuditAndRecloseout",
   "status": "FAIL",
-  "deploymentSha": "d9e762b3e617ebfd1ba42ecdc4f18f889f924c91",
+  "deploymentSha": "4618c08e8ec6d26326d1cb86ea086e4f7125215c",
   "message": "G4B_U04_R1_DEPLOYED_GENERATION_FAILED",
   "details": {
     "label": "約等號與近似符號讀法",
@@ -15,12 +15,12 @@
   "pageErrors": [],
   "workflow": "G4B-U04-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29337066815",
-    "number": "10",
+    "id": "29337445662",
+    "number": "11",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29337066815"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29337445662"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-14T13:35:33.186Z"
+  "verifiedAt": "2026-07-14T13:40:51.293Z"
 }
