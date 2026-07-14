@@ -2,9 +2,13 @@ import {
   G4B_U04_EFFECTIVE_PATTERN_GROUPS,
   G4B_U04_EFFECTIVE_PATTERN_SPECS,
 } from "../batch-b/source-pattern-g4b-u04-extension.js";
+import {
+  G4B_U04_LAYOUT_MODES,
+} from "../batch-b/g4b-u04-layout-resolution.js";
 
 export const G4B_U04_PROMOTION_REGISTRY_ID = "s72_g4b_u04_rounding_approximation_promotion";
 export const G4B_U04_R2C_PROMOTION_OVERLAY_ID = "g4b_u04_r2c_discount_round_down_promotion";
+export const G4B_U04_R2D_LAYOUT_OVERLAY_ID = "g4b_u04_r2d_layout_readback";
 export const G4B_U04_SOURCE_ID = "g4b_u04_4b04";
 
 export const G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS = Object.freeze([
@@ -40,28 +44,33 @@ export const G4B_U04_PUBLIC_CONTROLS = Object.freeze({
     "operation_estimation",
     "reasoning",
   ]),
-  defaults: Object.freeze({ questionMode: "mixed" }),
+  layoutModes: G4B_U04_LAYOUT_MODES,
+  defaults: Object.freeze({
+    questionMode: "mixed",
+    layoutMode: "auto_safe",
+  }),
   publicPatternSpecInjection: false,
   publicGenericFallback: false,
 });
 
 export const G4B_U04_PROMOTION_LIFECYCLE = Object.freeze({
-  task: "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
+  task: "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA",
   baseTask: "S72_G4B_U04_PromotionResolverAndPublicSelectorIntegration",
   promotionRegistryId: G4B_U04_PROMOTION_REGISTRY_ID,
   effectivePromotionRegistryIds: Object.freeze([
     G4B_U04_PROMOTION_REGISTRY_ID,
     G4B_U04_R2C_PROMOTION_OVERLAY_ID,
+    G4B_U04_R2D_LAYOUT_OVERLAY_ID,
   ]),
   sourceId: G4B_U04_SOURCE_ID,
   selectorStatus: "visible",
   runtimeStatus: "blocking_validated_canonical_runtime",
   validatorStatus: "blocking_validator_accepted",
   canonicalRouting: "enabled",
-  worksheetStatus: "not_eligible",
-  productionUse: "forbidden",
-  activationStatus: "r2c_discount_round_down_effective_authority",
-  requiredNextGate: "G4B_U04_R2D_WorksheetLayoutReadbackAndPrintDensityQA",
+  worksheetStatus: "production_worksheet_with_truthful_layout_readback",
+  productionUse: "allowed",
+  activationStatus: "r2d_layout_readback_candidate",
+  requiredNextGate: "G4B_U04_R2E_ControlledSDGTemplateVariantsAndContextMode",
 });
 
 const kpIds = new Set(G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS);
@@ -101,10 +110,13 @@ export function validateG4BU04PromotionProjection() {
   }), {});
   const expectedModes = { concept: 4, numeric: 3, application: 6, operation_estimation: 4, reasoning: 2 };
   if (JSON.stringify(modes) !== JSON.stringify(expectedModes)) errors.push("mode_distribution_mismatch");
+  if (G4B_U04_PUBLIC_CONTROLS.layoutModes.length !== 2) errors.push("layout_mode_count_mismatch");
+  if (G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode !== "auto_safe") errors.push("layout_mode_default_mismatch");
   return Object.freeze({
     ok: errors.length === 0,
     errors: Object.freeze(errors),
     counts: Object.freeze(expectedCounts),
     modes: Object.freeze(modes),
+    layoutModes: G4B_U04_PUBLIC_CONTROLS.layoutModes,
   });
 }
