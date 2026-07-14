@@ -40,9 +40,14 @@ try {
         const tone = await page.locator("#status-panel").getAttribute("data-tone");
         const status = (await page.locator("#status-panel").textContent())?.trim() ?? "";
         const validation = (await page.locator("#validation-panel").textContent())?.trim() ?? "";
-        const row = { key, questionMode, depthMode, contextMode, tone, status, validation };
+        const previewMeta = (await page.locator("#preview-meta").textContent())?.trim() ?? "";
+        const row = { key, questionMode, depthMode, contextMode, tone, status, validation, previewMeta };
 
         if (tone === "success") {
+          const expectedStatus = `已產生 ${QUESTION_COUNT} 題，可預覽與列印。`;
+          if (status !== expectedStatus || !previewMeta.includes(`｜${QUESTION_COUNT} 題｜`)) {
+            throw new Error(`S96R_PUBLIC_COUNT_STATUS_MISMATCH ${JSON.stringify({ ...row, expectedStatus })}`);
+          }
           const frame = page.frameLocator("#preview-frame");
           await frame.locator("body").waitFor({ state: "attached" });
           row.questionCards = await frame.locator(".g5a-u02-card--question").count();
@@ -90,6 +95,7 @@ try {
     successCount,
     blockedCount,
     questionCount: QUESTION_COUNT,
+    publicCountStatusVerified: true,
     genericFallback: false,
     freeFormAI: false,
     results,
