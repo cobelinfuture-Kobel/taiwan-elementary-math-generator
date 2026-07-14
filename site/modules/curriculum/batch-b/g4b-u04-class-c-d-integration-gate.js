@@ -1,7 +1,7 @@
 import {
   G4B_U04_SOURCE_ID,
   getG4BU04HiddenPatternSpecById,
-  getG4BU04HiddenPatternSpecs,
+  getG4BU04EffectivePatternSpecs,
 } from "./source-pattern-g4b-u04-extension.js";
 import {
   G4B_U04_S69_CLASS_C_PATTERN_SPEC_IDS,
@@ -78,7 +78,7 @@ function deterministicShuffle(values, seed) {
   return output;
 }
 
-const authoritySpecs = [...getG4BU04HiddenPatternSpecs()].sort((left, right) => left.patternOrder - right.patternOrder);
+const authoritySpecs = [...getG4BU04EffectivePatternSpecs()].sort((left, right) => left.patternOrder - right.patternOrder);
 
 export const G4B_U04_S71_ALL_PATTERN_SPEC_IDS = Object.freeze(
   authoritySpecs.map((spec) => spec.patternSpecId),
