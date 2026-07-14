@@ -15,14 +15,15 @@ import { listG5AU02PublicKnowledgePoints } from "../../site/modules/curriculum/b
 
 const SOURCE_ID = "g5a_u02_5a02";
 
-test("S96E exposes exactly 18 G5A-U02 KnowledgePoints in the shared selector", () => {
+test("S96H exposes exactly 18 G5A-U02 production KnowledgePoints in the shared selector", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
   assert.equal(rows.length, 18);
   assert.deepEqual(rows.map((row) => row.knowledgePointId), listG5AU02PublicKnowledgePoints().map((row) => row.knowledgePointId));
   assert.equal(new Set(rows.flatMap((row) => row.patternSpecIds)).size, 22);
+  assert.ok(rows.every((row) => row.selectorStatus === "public_dynamic_production"));
 });
 
-test("S96E reports non-zero per-source selector availability", () => {
+test("S96H reports non-zero per-source selector availability", () => {
   assert.deepEqual(listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID), {
     sourceId: SOURCE_ID,
     visibleCount: 18,
@@ -32,7 +33,7 @@ test("S96E reports non-zero per-source selector availability", () => {
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.bySourceId[SOURCE_ID].visibleCount, 18);
 });
 
-test("S96E resolves each visible row to its canonical PatternGroup and PatternSpecs", () => {
+test("S96H resolves each visible row to its canonical PatternGroup and PatternSpecs", () => {
   for (const sourceRow of listG5AU02PublicKnowledgePoints()) {
     const row = getVisibleBatchAKnowledgePoint(sourceRow.knowledgePointId);
     assert.equal(row.sourceId, SOURCE_ID);
@@ -46,7 +47,7 @@ test("S96E resolves each visible row to its canonical PatternGroup and PatternSp
   }
 });
 
-test("S96E preserves prior selector rows and passes projection audit", () => {
+test("S96H preserves prior selector rows and passes production projection audit", () => {
   const allRows = listVisibleBatchAKnowledgePoints();
   assert.ok(allRows.some((row) => row.sourceId !== SOURCE_ID));
   assert.deepEqual(validateG5AU02VisibleSelectorProjection(), {
@@ -56,5 +57,6 @@ test("S96E preserves prior selector rows and passes projection audit", () => {
     patternSpecCount: 22,
   });
   assert.equal(G5A_U02_VISIBLE_SELECTOR_PROJECTION.arbitraryRegeneration, true);
-  assert.equal(G5A_U02_VISIBLE_SELECTOR_PROJECTION.productionUse, "forbidden_until_s96g_stress_pass");
+  assert.equal(G5A_U02_VISIBLE_SELECTOR_PROJECTION.htmlPdfStressStatus, "s96g_passed");
+  assert.equal(G5A_U02_VISIBLE_SELECTOR_PROJECTION.productionUse, "allowed_dynamic_knowledge_point_release");
 });
