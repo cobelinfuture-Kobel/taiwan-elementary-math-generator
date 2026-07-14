@@ -25,11 +25,11 @@ function resolve(knowledgePointIds) {
   return result;
 }
 
-test("S96D generated browser runtime passes canonical self-audit", () => {
+test("S96H generated browser runtime passes canonical self-audit", () => {
   assert.deepEqual(auditG5AU02BrowserDynamicRuntime(), { ok: true, errors: [] });
 });
 
-test("S96D single-KP regeneration produces exact-count validated HTML", () => {
+test("S96H single-KP regeneration produces exact-count production HTML", () => {
   const resolution = resolve([GCF_KP]);
   assert.deepEqual(resolution.patternSpecIds, ["ps_g5a_u02_greatest_common_factor"]);
   const result = buildG5AU02BrowserDynamicWorksheet(resolution.plan);
@@ -38,12 +38,14 @@ test("S96D single-KP regeneration produces exact-count validated HTML", () => {
   assert.equal(result.worksheetDocument.answerKeyItems.length, 12);
   assert.equal(result.worksheetDocument.patternSpecIds.length, 1);
   assert.match(result.worksheetDocument.dynamicHtml, /^<!doctype html>/);
-  assert.equal(result.worksheetDocument.lifecycle.browserRegenerationStatus, "implemented_pending_selector");
+  assert.equal(result.worksheetDocument.lifecycle.browserRegenerationStatus, "production_allowed");
+  assert.equal(result.worksheetDocument.lifecycle.productionUse, "allowed_dynamic_knowledge_point_release");
+  assert.equal(result.worksheetDocument.lifecycle.htmlPdfStressStatus, "s96g_passed");
   assert.equal(result.worksheetDocument.lifecycle.genericFallback, false);
   assert.equal(result.worksheetDocument.lifecycle.freeFormAI, false);
 });
 
-test("S96D multi-KP regeneration allocates only resolved canonical patterns", () => {
+test("S96H multi-KP regeneration allocates only resolved canonical patterns", () => {
   const resolution = resolve([GCF_KP, COMMON_FACTOR_KP]);
   assert.deepEqual(resolution.patternSpecIds, [
     "ps_g5a_u02_greatest_common_factor",
@@ -55,7 +57,7 @@ test("S96D multi-KP regeneration allocates only resolved canonical patterns", ()
   assert.deepEqual(new Set(result.worksheetDocument.questionItems.map((row) => row.patternSpecId)), new Set(resolution.patternSpecIds));
 });
 
-test("S96D same seed is deterministic and different seeds vary", () => {
+test("S96H same seed is deterministic and different seeds vary", () => {
   const resolution = resolve([GCF_KP]);
   const first = buildG5AU02BrowserDynamicWorksheet(resolution.plan);
   const replay = buildG5AU02BrowserDynamicWorksheet(resolution.plan);
@@ -64,7 +66,7 @@ test("S96D same seed is deterministic and different seeds vary", () => {
   assert.notDeepEqual(first.worksheetDocument.questionItems, varied.worksheetDocument.questionItems);
 });
 
-test("S96D answer suppression removes answer records and answer HTML section", () => {
+test("S96H answer suppression removes answer records and answer HTML section", () => {
   const resolution = resolve([COMMON_FACTOR_KP]);
   const result = buildG5AU02BrowserDynamicWorksheet({ ...resolution.plan, includeAnswerKey: false });
   assert.equal(result.ok, true);
@@ -74,12 +76,12 @@ test("S96D answer suppression removes answer records and answer HTML section", (
   assert.doesNotMatch(result.worksheetDocument.dynamicHtml, /g5a-u02-section--answer-key/);
 });
 
-test("S96D does not claim dynamic generation for source-unit plans without resolved patterns", () => {
+test("S96H does not claim dynamic generation for source-unit plans without resolved patterns", () => {
   assert.equal(buildG5AU02BrowserDynamicWorksheet({ sourceId: SOURCE_ID }), null);
   assert.equal(buildG5AU02BrowserDynamicWorksheet({ sourceId: "other", patternSpecIds: ["x"] }), null);
 });
 
-test("S96D bundle is generated from canonical source and deployed under site", async () => {
+test("S96H bundle is generated from canonical source and deployed under site", async () => {
   const bundle = await readFile("site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js", "utf8");
   assert.match(bundle, /^\/\* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT \*\//);
   assert.doesNotMatch(bundle, /src\//);

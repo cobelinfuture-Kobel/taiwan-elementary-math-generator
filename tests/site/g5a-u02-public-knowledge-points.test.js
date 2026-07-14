@@ -62,11 +62,15 @@ test("S96 resolver blocks empty, duplicate and unknown KP selections", () => {
   assert.throws(() => resolveG5AU02PublicPatternSpecIds(["kp_unknown"]), /PUBLIC_KP_UNKNOWN/);
 });
 
-test("S96 projection remains pre-runtime and pre-production until later S96 gates", () => {
+test("S96H projection is promoted to dynamic production after S96G stress", () => {
   for (const row of G5A_U02_PUBLIC_KNOWLEDGE_POINTS) {
-    assert.equal(row.lifecycle.projectionStatus, "public_projection_materialized");
-    assert.equal(row.lifecycle.selectorStatus, "pending_browser_selector_integration");
-    assert.equal(row.lifecycle.browserRegenerationStatus, "pending_runtime_integration");
-    assert.equal(row.lifecycle.productionUse, "forbidden_until_s96_stress_pass");
+    assert.equal(row.lifecycle.task, "S96H_G5A_U02_ProductionPromotionAndCloseout");
+    assert.equal(row.lifecycle.projectionStatus, "public_production_projection");
+    assert.equal(row.lifecycle.selectorStatus, "public_knowledge_point_selection");
+    assert.equal(row.lifecycle.browserRegenerationStatus, "production_allowed");
+    assert.equal(row.lifecycle.htmlPdfStressStatus, "s96g_passed");
+    assert.equal(row.lifecycle.productionUse, "allowed_dynamic_knowledge_point_release");
+    assert.equal(row.lifecycle.genericFallback, false);
+    assert.equal(row.lifecycle.freeFormAI, false);
   }
 });

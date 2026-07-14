@@ -55,12 +55,13 @@ export function buildG5AU02BrowserDynamicWorksheet(plan = {}) {
     dynamicHtml: rendered.renderedWorksheet.html,
     generationSeed: input.baseSeed,
     lifecycle: freeze({
-      task: "S96D_G5A_U02_ArbitraryRegeneration",
-      selectorStatus: "pending_s96e",
-      browserResolverStatus: "integrated",
-      browserRegenerationStatus: "implemented_pending_selector",
-      browserPipelineStatus: "dynamic_canonical_connected",
-      productionUse: "forbidden_until_s96g_stress_pass",
+      task: "S96H_G5A_U02_ProductionPromotionAndCloseout",
+      selectorStatus: "public_knowledge_point_selection",
+      browserResolverStatus: "production_integrated",
+      browserRegenerationStatus: "production_allowed",
+      browserPipelineStatus: "public_dynamic_canonical_connected",
+      htmlPdfStressStatus: "s96g_passed",
+      productionUse: "allowed_dynamic_knowledge_point_release",
       genericFallback: false,
       freeFormAI: false,
     }),
@@ -82,6 +83,7 @@ export function auditG5AU02BrowserDynamicRuntime() {
     if (sample.worksheetDocument.questionCount !== 3) errors.push("G5AU02_BROWSER_DYNAMIC_EXACT_COUNT_FAILED");
     if (sample.worksheetDocument.answerKeyItems.length !== 3) errors.push("G5AU02_BROWSER_DYNAMIC_ANSWER_COUNT_FAILED");
     if (!sample.worksheetDocument.dynamicHtml.includes("<!doctype html>")) errors.push("G5AU02_BROWSER_DYNAMIC_HTML_MISSING");
+    if (sample.worksheetDocument.lifecycle.productionUse !== "allowed_dynamic_knowledge_point_release") errors.push("G5AU02_BROWSER_DYNAMIC_PRODUCTION_NOT_PROMOTED");
   }
   return freeze({ ok: errors.length === 0, errors: [...new Set(errors)] });
 }
