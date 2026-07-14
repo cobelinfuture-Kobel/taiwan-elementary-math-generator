@@ -11,6 +11,7 @@ export const G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS = Object.freeze({
   source: "batch-a-source-select",
   sourceHelp: "batch-a-source-help",
   selectionMode: "batch-a-selection-mode-select",
+  proxyLayoutChange: "columns-input",
 });
 
 export const G4B_U04_QUESTION_MODE_LABELS = Object.freeze({
@@ -140,6 +141,8 @@ export function mountG4BU04ClassicPublicControls(root = document) {
   const selectionMode = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.selectionMode);
   const proxy = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyQuestionMode);
   const select = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.questionMode);
+  const layoutSelect = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.layoutMode);
+  const proxyLayoutChange = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyLayoutChange);
   const sync = () => syncG4BU04ClassicPublicControls(root);
   source?.addEventListener("change", sync);
   selectionMode?.addEventListener("change", sync);
@@ -151,6 +154,10 @@ export function mountG4BU04ClassicPublicControls(root = document) {
     ensureProxyOptions(proxy, true);
     proxy.value = select.value;
     proxy.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+  layoutSelect?.addEventListener("change", () => {
+    if (source?.value !== G4B_U04_SOURCE_ID || !isAllowedLayoutMode(layoutSelect.value)) return;
+    proxyLayoutChange?.dispatchEvent(new Event("change", { bubbles: true }));
   });
   sync();
   if (typeof queueMicrotask === "function") queueMicrotask(sync);
