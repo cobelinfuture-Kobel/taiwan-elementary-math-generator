@@ -139,15 +139,15 @@ export function getG4BU04HiddenPatternSpecs() {
 }
 
 export function getG4BU04HiddenPatternGroupById(patternGroupId) {
-  return G4B_U04_HIDDEN_PATTERN_GROUPS.find((row) => row.patternGroupId === patternGroupId) ?? null;
+  return G4B_U04_EFFECTIVE_PATTERN_GROUPS.find((row) => row.patternGroupId === patternGroupId) ?? null;
 }
 
 export function getG4BU04HiddenPatternSpecById(patternSpecId) {
-  return G4B_U04_HIDDEN_PATTERN_SPECS.find((row) => row.patternSpecId === patternSpecId) ?? null;
+  return G4B_U04_EFFECTIVE_PATTERN_SPECS.find((row) => row.patternSpecId === patternSpecId) ?? null;
 }
 
 export function getG4BU04HiddenPatternSpecsByGroupId(patternGroupId) {
-  return G4B_U04_HIDDEN_PATTERN_SPECS.filter((row) => row.patternGroupId === patternGroupId);
+  return G4B_U04_EFFECTIVE_PATTERN_SPECS.filter((row) => row.patternGroupId === patternGroupId);
 }
 
 export function getG4BU04EffectivePatternGroups() {
