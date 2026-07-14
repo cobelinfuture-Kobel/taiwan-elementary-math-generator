@@ -11,12 +11,23 @@ function answerTextInteger(answerText) {
 }
 
 export function validateG4AU08S76RProductionQuestion(question = {}) {
-  const base = validateG4AU08AllCanonicalPublicQuestion(question);
+  const lifecycleNormalized = question.productionUse === "allowed"
+    ? { ...question, productionUse: "preview_only_pending_s76r" }
+    : question;
+  const base = validateG4AU08AllCanonicalPublicQuestion(lifecycleNormalized);
   const errors = [...base.errors];
   const textValue = answerTextInteger(question.answerText);
   const structuredValue = Number.isInteger(question.structuredAnswer?.value)
     ? question.structuredAnswer.value
     : null;
+
+  if (!["preview_only_pending_s76r", "allowed"].includes(question.productionUse)) {
+    errors.push(issue(
+      "G4A_U08_S76R_PRODUCTION_USE_INVALID",
+      "productionUse",
+      "S76R canonical 題目必須是 pending 或 allowed lifecycle。",
+    ));
+  }
 
   if (!Number.isInteger(textValue)) {
     errors.push(issue(
