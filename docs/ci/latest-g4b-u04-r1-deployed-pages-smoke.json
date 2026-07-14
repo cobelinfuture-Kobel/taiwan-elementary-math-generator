@@ -1,244 +1,26 @@
 {
   "schemaVersion": "g4b-u04-r1-deployed-pages-smoke-v1",
   "task": "G4B_U04_R1_DeployedLiveUIGeneratePreviewPrintAuditAndRecloseout",
-  "status": "PASS",
-  "productionUse": "allowed_deployed_ui_print",
-  "goalDistance": "D0",
-  "deploymentSha": "3f642335cfdd0a2726d18b56d8b136795e4ac74d",
-  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g4bU04R1=3f642335cfdd0a2726d18b56d8b136795e4ac74d-1784029038560",
-  "sourceId": "g4b_u04_4b04",
-  "audit": {
-    "mappingComplete": true,
-    "publicSelectorComplete": true,
-    "questionTypeControlsConnected": true,
-    "queryStatePreserved": true,
-    "generatorValidatorRendererConsistent": true,
-    "localAuthority": {
-      "promotion": {
-        "ok": true,
-        "errors": [],
-        "counts": {
-          "knowledgePoints": 12,
-          "patternGroups": 12,
-          "patternSpecs": 17
-        },
-        "modes": {
-          "concept": 4,
-          "numeric": 3,
-          "application": 4,
-          "operation_estimation": 4,
-          "reasoning": 2
-        }
-      },
-      "production": {
-        "ok": true,
-        "errors": [],
-        "counts": {
-          "knowledgePoints": 12,
-          "patternGroups": 12,
-          "patternSpecs": 17
-        }
-      }
-    }
+  "status": "FAIL",
+  "deploymentSha": "d9e762b3e617ebfd1ba42ecdc4f18f889f924c91",
+  "message": "G4B_U04_R1_DEPLOYED_GENERATION_FAILED",
+  "details": {
+    "label": "約等號與近似符號讀法",
+    "status": "產生失敗，請檢查知識點、題目形式、深度、情境與題數設定。",
+    "validation": "所選題型的唯一題面容量不足，無法產生指定題數。",
+    "previewMeta": "產生失敗。"
   },
-  "knowledgePointCount": 12,
-  "generatedKnowledgePointCount": 12,
-  "generatedKnowledgePoints": [
-    {
-      "knowledgePointId": "kp_g4b_u04_approximation_language_cues",
-      "label": "概數語意關鍵詞與精確數辨識",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_approximation_symbol_reading",
-      "label": "約等號與近似符號讀法",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_three_approximation_methods_compare",
-      "label": "三種取概數方法的辨識與比較",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_unconditional_round_down",
-      "label": "無條件捨去法",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_unconditional_round_up",
-      "label": "無條件進入法",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_round_half_up_place_value",
-      "label": "四捨五入到指定位值",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
-      "label": "依情境選擇捨去或進入",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_payment_denomination_ceiling",
-      "label": "依鈔票面額決定最少付款",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_round_then_add_subtract",
-      "label": "先取概數再做加減估算",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_round_then_multiply_divide",
-      "label": "先取概數再做乘除估算",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_inverse_rounding_unknown_digit",
-      "label": "由概數推回未知數字",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    },
-    {
-      "knowledgePointId": "kp_g4b_u04_inverse_rounding_possible_original",
-      "label": "由概數推回可能原數",
-      "questionCards": 8,
-      "answerCards": 8,
-      "previewMeta": "Batch B 4B-U04 概數｜8 題｜含答案頁"
-    }
-  ],
-  "selectedKnowledgePointCount": 12,
-  "selectedPatternGroupCount": 12,
-  "selectedPatternGroupIds": [
-    "pg_g4b_u04_approximation_language",
-    "pg_g4b_u04_approximation_symbol",
-    "pg_g4b_u04_method_comparison",
-    "pg_g4b_u04_round_down",
-    "pg_g4b_u04_round_up",
-    "pg_g4b_u04_round_half_up",
-    "pg_g4b_u04_context_floor_ceiling",
-    "pg_g4b_u04_payment_ceiling",
-    "pg_g4b_u04_estimate_add_subtract",
-    "pg_g4b_u04_estimate_multiply_divide",
-    "pg_g4b_u04_inverse_digit_set",
-    "pg_g4b_u04_inverse_original_values"
-  ],
-  "patternSpecCount": 17,
-  "questionModes": [
-    "mixed",
-    "concept",
-    "numeric",
-    "application",
-    "operation_estimation",
-    "reasoning"
-  ],
-  "questionModeResults": [
-    {
-      "questionMode": "mixed",
-      "questionCards": 12,
-      "answerCards": 12,
-      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁"
-    },
-    {
-      "questionMode": "concept",
-      "questionCards": 12,
-      "answerCards": 12,
-      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁"
-    },
-    {
-      "questionMode": "numeric",
-      "questionCards": 12,
-      "answerCards": 12,
-      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁"
-    },
-    {
-      "questionMode": "application",
-      "questionCards": 12,
-      "answerCards": 12,
-      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁"
-    },
-    {
-      "questionMode": "operation_estimation",
-      "questionCards": 12,
-      "answerCards": 12,
-      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁"
-    },
-    {
-      "questionMode": "reasoning",
-      "questionCards": 12,
-      "answerCards": 12,
-      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁"
-    }
-  ],
-  "questionCount": 68,
-  "answerKeyItemCount": 68,
-  "questionNumberCount": 68,
-  "answerNumberCount": 68,
-  "answerNumberSequenceConsistent": true,
-  "answerKeyOffQuestionCount": 68,
-  "answerKeyOffAnswerCount": 0,
-  "publicStatus": "已產生 68 題，可預覽與列印。",
-  "publicPreviewMeta": "Batch B 4B-U04 概數｜68 題｜含答案頁",
-  "answerKeyOffPreviewMeta": "Batch B 4B-U04 概數｜68 題｜不含答案頁",
-  "queryStateReplay": "pass",
-  "printCalled": true,
-  "previewTitleUndefined": false,
-  "consoleErrorCount": 0,
-  "pageErrorCount": 0,
-  "genericFallback": false,
-  "publicPatternSpecInjection": false,
-  "deployedAssets": {
-    "main": {
-      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/main.js",
-      "bytes": 20988,
-      "sha256": "e4bd1a56c394133aaadc0f22bd2712a109c4b0aea80e4fc3fa4a9e0c13dbebd2"
-    },
-    "controls": {
-      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/g4b-u04-public-controls.js",
-      "bytes": 5967,
-      "sha256": "6b69a0380c1bfdedaf5462005ac05eece3cb3f52ba35f7f309ef9fd3ec57dc49"
-    },
-    "router": {
-      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-canonical-router.js",
-      "bytes": 16620,
-      "sha256": "d4e1527538c45c42e44f470b467cdfbfc1d4faa25cbb228ef90ab0eb9b7c558c"
-    },
-    "renderer": {
-      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/html-renderer-s73-extension.js",
-      "bytes": 9160,
-      "sha256": "6342b9bf2dd82a3d8635608aee5884d718cfe78bf069506780fa38ba6fe2d1c4"
-    }
-  },
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&questionCount=8&ordering=groupedByPattern&answerKey=1&generationSeed=g4b-u04-r1-kp-2&columns=4&rowsPerPage=10&questionMode=mixed&selectionMode=singleKnowledgePoint&kp=kp_g4b_u04_approximation_symbol_reading&pg=pg_g4b_u04_approximation_symbol",
+  "consoleErrors": [],
+  "pageErrors": [],
   "workflow": "G4B-U04-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29329506105",
-    "number": "7",
+    "id": "29337066815",
+    "number": "10",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29329506105"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29337066815"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-14T11:37:23.631Z"
+  "verifiedAt": "2026-07-14T13:35:33.186Z"
 }
