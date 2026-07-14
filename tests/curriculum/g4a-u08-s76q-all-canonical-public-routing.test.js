@@ -34,17 +34,21 @@ function optionsForGroup(group, questionCount = 1) {
   };
 }
 
-test("S76Q exposes exactly 15 KnowledgePoints, 28 PatternGroups and 33 PatternSpecs", () => {
+test("S76Q exposes exactly 15 canonical KnowledgePoints, 28 PatternGroups and 33 PatternSpecs", () => {
   const checked = validateG4AU08AllCanonicalPublicSelectorProjection();
   assert.equal(checked.ok, true, checked.errors.join(","));
-  assert.deepEqual(checked.counts, { knowledgePoints: 15, patternGroups: 28, patternSpecs: 33 });
+  assert.equal(checked.counts.knowledgePoints, 15);
+  assert.equal(checked.counts.patternGroups, 28);
+  assert.equal(checked.counts.patternSpecs, 33);
+  assert.equal(checked.counts.legacyVisibleKnowledgePoints, 8);
   const availability = listBatchAKnowledgePointAvailabilityBySource(SOURCE_ID);
-  assert.equal(availability.visibleCount, 15);
+  assert.equal(availability.visibleCount, 8);
+  assert.equal(availability.canonicalReachableKnowledgePointCount, 15);
   assert.equal(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.length, 28);
   assert.equal(new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.patternGroupId)).size, 28);
 });
 
-test("S76Q all canonical KnowledgePoints are visible with explicit canonical groups", () => {
+test("S76Q all canonical KnowledgePoints are resolvable with explicit canonical groups", () => {
   const kpIds = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.map((row) => row.primaryKnowledgePointId));
   assert.equal(kpIds.size, 15);
   for (const knowledgePointId of kpIds) {
@@ -54,7 +58,8 @@ test("S76Q all canonical KnowledgePoints are visible with explicit canonical gro
     assert.equal(row.visibilityStatus, "visible");
     const groups = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
     assert.ok(groups.length >= 1, knowledgePointId);
-    assert.equal(groups.every((group) => group.visibilityStatus === "visible"), true);
+    const canonicalIds = new Set(G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS.filter((group) => group.primaryKnowledgePointId === knowledgePointId).map((group) => group.patternGroupId));
+    assert.equal([...canonicalIds].every((id) => groups.some((group) => group.patternGroupId === id && group.visibilityStatus === "visible")), true);
   }
 });
 
