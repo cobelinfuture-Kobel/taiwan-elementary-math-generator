@@ -79,6 +79,7 @@ export function normalizeG4BU04PromptSignature(value) {
     .trim()
     .replace(/\s+/gu, " ")
     .replace(/\s+([，。！？；：、])/gu, "$1")
+    .replace(/([，。！？；：、])\s+/gu, "$1")
     .replace(/([（「『])\s+/gu, "$1")
     .replace(/\s+([）」』])/gu, "$1");
 }
