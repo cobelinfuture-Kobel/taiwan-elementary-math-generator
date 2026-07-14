@@ -84,16 +84,19 @@ export function getBatchAWorksheetPlan(state) {
     contextMode: plan.sourceId === G4B_U04_SOURCE_ID ? (browserContextMode() ?? input.contextMode) : input.contextMode,
   });
   if (plan.sourceId === G4B_U04_SOURCE_ID) {
+    const publicControls = {
+      questionMode: controls.questionMode,
+      layoutMode: controls.layoutMode,
+    };
+    if (controls.contextMode !== G4B_U04_PUBLIC_CONTROLS.defaults.contextMode) {
+      publicControls.contextMode = controls.contextMode;
+    }
     return {
       ...plan,
       questionMode: controls.questionMode,
       layoutMode: controls.layoutMode,
       contextMode: controls.contextMode,
-      publicControls: {
-        questionMode: controls.questionMode,
-        layoutMode: controls.layoutMode,
-        contextMode: controls.contextMode,
-      },
+      publicControls,
     };
   }
   const profile = getPublicControlProfile(plan.sourceId);
