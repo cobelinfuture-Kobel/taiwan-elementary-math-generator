@@ -1,0 +1,159 @@
+name: G4B-U04 R3D Deployed Approved Layouts
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/g4b-u04-r3d-deployed-approved-layouts.yml
+      - tools/curriculum/run-g4b-u04-r3d-deployed-approved-layouts.mjs
+      - tests/curriculum/g4b-u04-r3d-deployed-approved-layouts-contract.test.js
+      - docs/curriculum/architecture/G4B_U04_R3D_DeployedQuestionOnly3x5And2x6Audit.md
+      - docs/curriculum/output/G4B_U04_R3D_DEPLOYED_APPROVED_LAYOUTS_PENDING.marker
+  workflow_run:
+    workflows:
+      - Deploy GitHub Pages
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  G4B_U04_R3D_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+
+jobs:
+  deployed-approved-layouts:
+    if: >-
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.actor.login != 'github-actions[bot]')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout pull-request harness
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+
+      - name: Checkout main harness
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Resolve deployed production SHA
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            DEPLOYMENT_SHA="${{ github.event.workflow_run.head_sha }}"
+          else
+            DEPLOYMENT_SHA="$(node -p "JSON.parse(require('fs').readFileSync('docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json','utf8')).deploymentSha")"
+          fi
+          test -n "$DEPLOYMENT_SHA"
+          test "$DEPLOYMENT_SHA" != "undefined"
+          echo "G4B_U04_R3D_DEPLOYMENT_SHA=$DEPLOYMENT_SHA" >> "$GITHUB_ENV"
+
+      - name: Wait for deployed URL
+        shell: bash
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error \
+              "${G4B_U04_R3D_SITE_URL}?r3dDeployment=${G4B_U04_R3D_DEPLOYMENT_SHA}-${attempt}" \
+              > /tmp/g4b-u04-r3d-index.html; then
+              test -s /tmp/g4b-u04-r3d-index.html
+              exit 0
+            fi
+            sleep 10
+          done
+          exit 1
+
+      - name: Run deployed 3x5 and 2x6 question-only audit
+        run: node tools/curriculum/run-g4b-u04-r3d-deployed-approved-layouts.mjs
+
+      - name: Write R3D deployed authority
+        if: always()
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { access, readFile, writeFile, mkdir } from 'node:fs/promises';
+
+          async function readJsonIfPresent(path) {
+            try {
+              await access(path);
+              return JSON.parse(await readFile(path, 'utf8'));
+            } catch {
+              return null;
+            }
+          }
+
+          const root = 'docs/curriculum/output/stress/g4b-u04-r3d-deployed-approved-layouts';
+          const manifest = await readJsonIfPresent(`${root}/manifest.json`);
+          const failure = await readJsonIfPresent(`${root}/failure.json`);
+          const evidence = manifest ?? failure ?? {
+            schemaVersion: 'g4b-u04-r3d-deployed-approved-layouts-v1',
+            task: 'G4B_U04_R3D_DeployedQuestionOnly3x5And2x6Audit',
+            status: 'FAIL',
+            deploymentSha: process.env.G4B_U04_R3D_DEPLOYMENT_SHA ?? 'unknown',
+            message: 'R3D workflow failed before the browser harness wrote structured evidence.',
+            details: null,
+          };
+          const authority = {
+            ...evidence,
+            workflow: process.env.GITHUB_WORKFLOW,
+            eventName: process.env.GITHUB_EVENT_NAME,
+            run: {
+              id: process.env.GITHUB_RUN_ID,
+              number: process.env.GITHUB_RUN_NUMBER,
+              attempt: process.env.GITHUB_RUN_ATTEMPT,
+              url: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            },
+            repository: process.env.GITHUB_REPOSITORY,
+            ref: process.env.GITHUB_REF,
+            verifiedAt: new Date().toISOString(),
+          };
+          await mkdir('docs/ci', { recursive: true });
+          await writeFile('docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json', `${JSON.stringify(authority, null, 2)}\n`, 'utf8');
+          NODE
+
+      - name: Commit R3D deployed authority on main
+        if: always() && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          test -f docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json || exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "ci: record G4B-U04-R3D deployed approved layouts [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Upload R3D deployed audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4b-u04-r3d-deployed-approved-layouts
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/stress/g4b-u04-r3d-deployed-approved-layouts/manifest.json
+            docs/curriculum/output/stress/g4b-u04-r3d-deployed-approved-layouts/failure.json
+            docs/curriculum/output/stress/g4b-u04-r3d-deployed-approved-layouts/failure.png
+            docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json
+            /tmp/g4b-u04-r3d-index.html
