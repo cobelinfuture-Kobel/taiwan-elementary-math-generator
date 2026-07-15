@@ -14,6 +14,7 @@ export const G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS = Object.freeze({
   sourceHelp: "batch-a-source-help",
   selectionMode: "batch-a-selection-mode-select",
   proxyLayoutChange: "columns-input",
+  proxyLayoutRowChange: "rows-per-page-input",
 });
 
 export const G4B_U04_QUESTION_MODE_LABELS = Object.freeze({
@@ -38,6 +39,10 @@ export const G4B_U04_CONTEXT_MODE_LABELS = Object.freeze({
 
 const G4_ONLY_MODES = Object.freeze(["concept", "operation_estimation"]);
 const G4B_U04_LAYOUT_QUERY_HYDRATED_DATASET_KEY = "g4bU04QueryHydrated";
+const G4B_U04_CUSTOM_LAYOUT_INPUT_IDS = Object.freeze(new Set([
+  G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyLayoutChange,
+  G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyLayoutRowChange,
+]));
 
 function isAllowedMode(value) {
   return G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value);
@@ -92,7 +97,16 @@ function ensureSourceOption(source) {
     const next = [...source.options].find((entry) => entry.value === "g5a_u08_5a08");
     source.insertBefore(option, next ?? null);
   }
-  if (queryParam("sourceId") === G4B_U04_SOURCE_ID) source.value = G4B_U04_SOURCE_ID;
+}
+
+export function activateG4BU04CustomLayoutFromPrintInput({ source, layoutSelect, target } = {}) {
+  if (source?.value !== G4B_U04_SOURCE_ID
+    || !layoutSelect
+    || !G4B_U04_CUSTOM_LAYOUT_INPUT_IDS.has(target?.id)) {
+    return false;
+  }
+  layoutSelect.value = "custom_with_caps";
+  return true;
 }
 
 function ensureProxyOptions(proxy, enabled) {
@@ -139,7 +153,7 @@ function createSection() {
     '<label class="field"><span>版面模式</span>',
     `<select id="${G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.layoutMode}" name="g4bU04LayoutMode">${layoutOptions}</select>`,
     "</label></div>",
-    '<p class="help-text">永續情境只套用於已核准的應用與估算模板；所有資料均為虛構練習資料。版面超過安全上限時會自動調整。</p>',
+    '<p class="help-text">永續情境只套用於已核准的應用與估算模板；所有資料均為虛構練習資料。變更題目頁欄數或列數會自動切換為自訂版面，超過安全上限時會自動調整。</p>',
   ].join("");
   const anchor = document.getElementById("batch-a-knowledge-point-warning-list");
   anchor?.before(section);
@@ -187,6 +201,10 @@ export function mountG4BU04ClassicPublicControls(root = document) {
   const layoutSelect = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.layoutMode);
   const proxyLayoutChange = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyLayoutChange);
   const sync = () => syncG4BU04ClassicPublicControls(root);
+  const activateCustomLayout = (event) => {
+    activateG4BU04CustomLayoutFromPrintInput({ source, layoutSelect, target: event.target });
+  };
+  root.addEventListener?.("change", activateCustomLayout, true);
   source?.addEventListener("change", sync);
   selectionMode?.addEventListener("change", sync);
   proxy?.addEventListener("change", () => {
