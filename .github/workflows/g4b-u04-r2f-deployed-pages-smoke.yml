@@ -63,7 +63,7 @@ jobs:
           exit 1
 
       - name: Run deployed R2F context layout preview answer-key print audit
-        run: node tools/curriculum/run-g4b-u04-r2f-deployed-pages-smoke-v2.mjs
+        run: node tools/curriculum/run-g4b-u04-r2f-deployed-pages-smoke-v3.mjs
 
       - name: Write deployed R2F authority
         if: always()
