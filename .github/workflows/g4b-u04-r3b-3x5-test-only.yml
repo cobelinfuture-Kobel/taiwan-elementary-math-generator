@@ -1,0 +1,221 @@
+name: G4B-U04 R3B 3x5 Test Only
+
+on:
+  push:
+    branches:
+      - experiment/g4b-u04-r3b-3x5
+    paths:
+      - .github/workflows/g4b-u04-r3b-3x5-test-only.yml
+      - tools/curriculum/generate-g4b-u04-r3b-3x5-experiment.mjs
+      - docs/curriculum/experiments/G4B_U04_R3B_3X5_TEST_ONLY.md
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test-only-3x5:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout experiment branch
+        uses: actions/checkout@v4
+        with:
+          ref: experiment/g4b-u04-r3b-3x5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Install browser and PDF verification dependencies
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
+
+      - name: Generate isolated 200-question 3x5 HTML
+        run: node tools/curriculum/generate-g4b-u04-r3b-3x5-experiment.mjs
+
+      - name: Verify 200 cards, DOM containment and print PDF
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile, writeFile } from 'node:fs/promises';
+          import { resolve } from 'node:path';
+          import { pathToFileURL } from 'node:url';
+          import { chromium } from 'playwright';
+
+          const root = resolve('docs/curriculum/output/experiments/g4b-u04-r3b-3x5');
+          const manifestPath = resolve(root, 'manifest.json');
+          const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+          const browser = await chromium.launch({ headless: true });
+          try {
+            const page = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
+            await page.goto(pathToFileURL(resolve(root, manifest.htmlFile)).href, { waitUntil: 'networkidle' });
+            const containment = await page.evaluate(() => {
+              const cells = [...document.querySelectorAll('.g4b-u04-cell')]
+                .filter((node) => !node.classList.contains('g4b-u04-cell--filler'));
+              const overflow = cells.filter((node) =>
+                node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1
+              );
+              return {
+                cellCount: cells.length,
+                overflowCount: overflow.length,
+                firstOverflow: overflow[0]?.outerHTML.slice(0, 800) ?? null,
+              };
+            });
+            if (containment.cellCount !== 200) {
+              throw new Error(`R3B rendered card count ${containment.cellCount}/200`);
+            }
+            if (containment.overflowCount !== 0) {
+              throw new Error(`R3B DOM overflow ${containment.overflowCount}; first=${containment.firstOverflow}`);
+            }
+            manifest.domOverflowCount = 0;
+            await page.emulateMedia({ media: 'print' });
+            await page.pdf({
+              path: resolve(root, manifest.pdfFile),
+              format: 'A4',
+              printBackground: true,
+              preferCSSPageSize: true,
+              margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' },
+            });
+            await page.close();
+          } finally {
+            await browser.close();
+          }
+          await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+          NODE
+
+      - name: Verify exactly 14 nonblank PDF pages
+        run: |
+          rm -rf /tmp/g4b-u04-r3b-3x5-rendered
+          mkdir -p /tmp/g4b-u04-r3b-3x5-rendered
+          python3 <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageStat
+          from pypdf import PdfReader
+          import json
+          import subprocess
+
+          root = Path('docs/curriculum/output/experiments/g4b-u04-r3b-3x5')
+          manifest_path = root / 'manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          pdf = root / manifest['pdfFile']
+          reader = PdfReader(str(pdf))
+          if len(reader.pages) != 14:
+              raise SystemExit(f"R3B PDF page count {len(reader.pages)}/14")
+          subprocess.run([
+              'pdftoppm', '-png', '-r', '110', str(pdf),
+              '/tmp/g4b-u04-r3b-3x5-rendered/page'
+          ], check=True)
+          files = sorted(Path('/tmp/g4b-u04-r3b-3x5-rendered').glob('page-*.png'))
+          if len(files) != 14:
+              raise SystemExit(f"R3B rendered page count {len(files)}/14")
+          nonblank = 0
+          for path in files:
+              image = Image.open(path).convert('L')
+              stat = ImageStat.Stat(image)
+              if stat.extrema[0][0] < 245 and stat.var[0] > 5:
+                  nonblank += 1
+          if nonblank != 14:
+              raise SystemExit(f"R3B nonblank page count {nonblank}/14")
+          manifest['actualPdfPageCount'] = 14
+          manifest['nonblankPdfPageCount'] = 14
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Verify PDF text bounding boxes
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import json
+          import re
+          import subprocess
+
+          root = Path('docs/curriculum/output/experiments/g4b-u04-r3b-3x5')
+          manifest_path = root / 'manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          pdf = root / manifest['pdfFile']
+          bbox = Path('/tmp/g4b-u04-r3b-3x5-bbox.html')
+          subprocess.run(['pdftotext', '-bbox-layout', str(pdf), str(bbox)], check=True)
+          text = bbox.read_text(encoding='utf-8', errors='ignore')
+          page_re = re.compile(r'<page[^>]*width="([0-9.]+)"[^>]*height="([0-9.]+)"[^>]*>(.*?)</page>', re.S)
+          word_re = re.compile(r'<word[^>]*xMin="([0-9.]+)"[^>]*yMin="([0-9.]+)"[^>]*xMax="([0-9.]+)"[^>]*yMax="([0-9.]+)"', re.S)
+          pages = page_re.findall(text)
+          if len(pages) != 14:
+              raise SystemExit(f"R3B bbox page count {len(pages)}/14")
+          overflow = []
+          for page_index, (width, height, body) in enumerate(pages, 1):
+              width, height = float(width), float(height)
+              for coords in word_re.findall(body):
+                  x0, y0, x1, y1 = map(float, coords)
+                  if x0 < -0.5 or y0 < -0.5 or x1 > width + 0.5 or y1 > height + 0.5:
+                      overflow.append((page_index, x0, y0, x1, y1, width, height))
+          if overflow:
+              raise SystemExit(f"R3B PDF bbox overflow {len(overflow)} first={overflow[0]}")
+          manifest['pdfBoundingBoxOverflowCount'] = 0
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Finalize test-only evidence
+        env:
+          RUN_ID: ${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          python3 <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          from pypdf import PdfReader
+          import json
+          import os
+          import unicodedata
+
+          root = Path('docs/curriculum/output/experiments/g4b-u04-r3b-3x5')
+          manifest_path = root / 'manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          pdf = root / manifest['pdfFile']
+          pdf_bytes = pdf.read_bytes()
+          text = ''.join(unicodedata.normalize('NFKC', page.extract_text() or '') for page in PdfReader(str(pdf)).pages)
+          if '概數' not in text or '測試版' not in text:
+              raise SystemExit('R3B Traditional Chinese title missing from PDF')
+          manifest.update({
+              'status': 'PASS_TEST_ONLY_AWAITING_USER_CONFIRMATION',
+              'pdfSha256': sha256(pdf_bytes).hexdigest(),
+              'pdfBytes': len(pdf_bytes),
+              'workflowRunId': os.environ['RUN_ID'],
+              'workflowRunNumber': os.environ['RUN_NUMBER'],
+              'experimentCommitSha': os.environ['COMMIT_SHA'],
+              'productionProfileChanged': False,
+              'nextDecision': 'USER_REVIEW_PDF_THEN_DECIDE_PRODUCTION_CHANGE',
+          })
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          authority = Path('docs/ci/latest-g4b-u04-r3b-3x5-test-only.json')
+          authority.parent.mkdir(parents=True, exist_ok=True)
+          authority.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Commit test-only authority to experiment branch
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/ci/latest-g4b-u04-r3b-3x5-test-only.json
+          git commit -m "ci: record G4B-U04 R3B 3x5 test-only evidence [skip ci]"
+          git push origin HEAD:experiment/g4b-u04-r3b-3x5
+
+      - name: Upload 3x5 test PDF and manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4b-u04-r3b-3x5-test-only
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            docs/curriculum/output/experiments/g4b-u04-r3b-3x5/*.html
+            docs/curriculum/output/experiments/g4b-u04-r3b-3x5/*.pdf
+            docs/curriculum/output/experiments/g4b-u04-r3b-3x5/manifest.json
+            /tmp/g4b-u04-r3b-3x5-rendered/*.png
