@@ -33,24 +33,62 @@ try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
   await page.goto(pathToFileURL(resolve(ROOT, manifest.htmlFile)).href, { waitUntil: "networkidle" });
   const containment = await page.evaluate(() => {
+    const pages = [...document.querySelectorAll(".g4b-u04-page--questions")];
     const cells = [...document.querySelectorAll(".g4b-u04-cell")]
       .filter((node) => !node.classList.contains("g4b-u04-cell--filler"));
     const overflow = cells.filter((node) =>
       node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1
     );
+    const responsePrompts = [...document.querySelectorAll(".g4b-u04-cell__response")];
+    const overlaps = [];
+    for (const questionPage of pages) {
+      const pageCells = [...questionPage.querySelectorAll(".g4b-u04-cell")]
+        .filter((node) => !node.classList.contains("g4b-u04-cell--filler"));
+      const rects = pageCells.map((node) => ({
+        node,
+        rect: node.getBoundingClientRect(),
+      }));
+      for (let left = 0; left < rects.length; left += 1) {
+        for (let right = left + 1; right < rects.length; right += 1) {
+          const a = rects[left].rect;
+          const b = rects[right].rect;
+          const overlapWidth = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+          const overlapHeight = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+          if (overlapWidth > 0.5 && overlapHeight > 0.5) {
+            overlaps.push({
+              left: rects[left].node.querySelector(".g4b-u04-cell__number")?.textContent ?? null,
+              right: rects[right].node.querySelector(".g4b-u04-cell__number")?.textContent ?? null,
+              overlapWidth,
+              overlapHeight,
+            });
+          }
+        }
+      }
+    }
     return {
       cellCount: cells.length,
       overflowCount: overflow.length,
+      responsePromptCount: responsePrompts.length,
+      interCardOverlapCount: overlaps.length,
       firstOverflow: overflow[0]?.outerHTML.slice(0, 800) ?? null,
+      firstOverlap: overlaps[0] ?? null,
     };
   });
   if (containment.cellCount !== 200) {
     throw new Error(`R3B rendered card count ${containment.cellCount}/200`);
   }
+  if (containment.responsePromptCount !== 0) {
+    throw new Error(`R3B response prompt count ${containment.responsePromptCount}/0`);
+  }
   if (containment.overflowCount !== 0) {
     throw new Error(`R3B DOM overflow ${containment.overflowCount}; first=${containment.firstOverflow}`);
   }
+  if (containment.interCardOverlapCount !== 0) {
+    throw new Error(`R3B inter-card overlap ${containment.interCardOverlapCount}; first=${JSON.stringify(containment.firstOverlap)}`);
+  }
   manifest.domOverflowCount = 0;
+  manifest.responsePromptCount = 0;
+  manifest.interCardOverlapCount = 0;
   await page.emulateMedia({ media: "print" });
   await page.pdf({
     path: resolve(ROOT, manifest.pdfFile),
@@ -128,6 +166,6 @@ manifest.pdfBoundingBoxOverflowCount = 0;
 manifest.pdfSha256 = sha256(pdfBytes);
 manifest.pdfBytes = pdfBytes.length;
 manifest.productionProfileChanged = false;
-manifest.nextDecision = "USER_REVIEW_PDF_THEN_DECIDE_PRODUCTION_CHANGE";
+manifest.nextDecision = "USER_REVIEW_QUESTION_ONLY_PDF_THEN_DECIDE_PRODUCTION_CHANGE";
 writeFileSync(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(manifest, null, 2));
