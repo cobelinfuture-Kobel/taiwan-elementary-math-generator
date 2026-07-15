@@ -1,0 +1,56 @@
+name: G4B-U04 R3B 2x6 PR Test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/g4b-u04-r3b-2x6-pr-test.yml
+      - tools/curriculum/generate-g4b-u04-r3b-2x6-experiment.mjs
+      - tools/curriculum/run-g4b-u04-r3b-2x6-experiment.mjs
+
+permissions:
+  contents: read
+
+jobs:
+  test-only-2x6:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Install browser and PDF verification dependencies
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
+
+      - name: Run isolated 2x6 experiment with diagnostic capture
+        run: |
+          set -o pipefail
+          node tools/curriculum/run-g4b-u04-r3b-2x6-experiment.mjs 2>&1 | tee /tmp/g4b-u04-r3b-2x6.log
+
+      - name: Upload test artifacts and diagnostic log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4b-u04-r3b-2x6-test-only-diagnostic
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/experiments/g4b-u04-r3b-2x6/*.html
+            docs/curriculum/output/experiments/g4b-u04-r3b-2x6/*.pdf
+            docs/curriculum/output/experiments/g4b-u04-r3b-2x6/manifest.json
+            /tmp/g4b-u04-r3b-2x6-rendered/*.png
+            /tmp/g4b-u04-r3b-2x6.log
