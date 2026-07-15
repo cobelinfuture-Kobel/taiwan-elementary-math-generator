@@ -65,7 +65,7 @@ export const G4B_U04_RENDERER_PROFILES = Object.freeze({
   }),
   inverseLong: Object.freeze({
     profileId: "g4b_u04_inverse_long_answer_v1",
-    questionSheet: Object.freeze({ paperSize: "A4", columns: 1, rowsPerPage: 4, avoidSplit: true }),
+    questionSheet: Object.freeze({ paperSize: "A4", columns: 2, rowsPerPage: 4, avoidSplit: true }),
     answerKey: Object.freeze({ paperSize: "A4", columns: 1, rowsPerPage: 5, avoidSplit: true }),
   }),
 });
