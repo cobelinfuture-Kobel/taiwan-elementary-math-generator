@@ -17,11 +17,17 @@ No production runtime, curriculum authority, formula, answer model, generator, v
 | auto-safe-3x5 | `auto_safe` | 4×10 | 3×5 | 15 | 0 |
 | custom-2x6 | `custom_with_caps` | 2×6 | 2×6 | 12 | 0 |
 
-Both scenarios use the inverse possible-original-values KnowledgePoint and PatternGroup so the `inverseLong` profile is authoritative.
+Both scenarios use the existing combined inverse reasoning selection:
+
+- `kp_g4b_u04_inverse_rounding_unknown_digit` / `pg_g4b_u04_inverse_digit_set`;
+- `kp_g4b_u04_inverse_rounding_possible_original` / `pg_g4b_u04_inverse_original_values`.
+
+Each finite pool has 12 unique prompts. The combined validator-backed capacity is 24, which safely covers the 15-question 3×5 scenario while keeping the `inverseLong` profile authoritative.
 
 ## Blocking acceptance
 
-- source, selection mode, question mode and layout mode replay through the public controls;
+- source, mixed same-unit selection mode, question mode and layout mode replay through the public controls;
+- exact two-KnowledgePoint and two-PatternGroup query authority;
 - exact requested and resolved layout metadata;
 - question pages contain only the question number and question text;
 - response prompt count is zero;
