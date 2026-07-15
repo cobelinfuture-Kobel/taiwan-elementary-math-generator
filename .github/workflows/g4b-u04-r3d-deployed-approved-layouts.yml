@@ -59,16 +59,13 @@ jobs:
         shell: bash
         run: |
           if [ "${{ github.event_name }}" = "workflow_run" ]; then
-            echo "G4B_U04_R3D_DEPLOYMENT_SHA=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_ENV"
+            DEPLOYMENT_SHA="${{ github.event.workflow_run.head_sha }}"
           else
-            node --input-type=module <<'NODE'
-            import { readFile } from 'node:fs/promises';
-            const authority = JSON.parse(await readFile('docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json', 'utf8'));
-            if (!authority.deploymentSha) throw new Error('R3D_DEPLOYMENT_SHA_AUTHORITY_MISSING');
-            console.log(`G4B_U04_R3D_DEPLOYMENT_SHA=${authority.deploymentSha}`);
-            await import('node:fs/promises').then(({ appendFile }) => appendFile(process.env.GITHUB_ENV, `G4B_U04_R3D_DEPLOYMENT_SHA=${authority.deploymentSha}\n`));
-            NODE
+            DEPLOYMENT_SHA="$(node -p "JSON.parse(require('fs').readFileSync('docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json','utf8')).deploymentSha")"
           fi
+          test -n "$DEPLOYMENT_SHA"
+          test "$DEPLOYMENT_SHA" != "undefined"
+          echo "G4B_U04_R3D_DEPLOYMENT_SHA=$DEPLOYMENT_SHA" >> "$GITHUB_ENV"
 
       - name: Wait for deployed URL
         shell: bash
