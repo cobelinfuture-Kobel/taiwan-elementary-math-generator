@@ -22,6 +22,14 @@ function positiveInteger(value, fallback) {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
 }
 
+function approvedQuestionLayout(questionCap, requested) {
+  const layouts = Array.isArray(questionCap.approvedLayouts) ? questionCap.approvedLayouts : [];
+  return layouts.find((layout) =>
+    Number(layout?.columns) === requested.columns
+    && Number(layout?.rowsPerPage) === requested.rowsPerPage
+  ) ?? null;
+}
+
 export function normalizeG4BU04LayoutMode(value) {
   return G4B_U04_LAYOUT_MODES.includes(value) ? value : "auto_safe";
 }
@@ -49,10 +57,15 @@ export function resolveG4BU04WorksheetLayout({
     rowsPerPage: positiveInteger(requestedLayout.rowsPerPage, questionCap.rowsPerPage),
   };
   const custom = mode === "custom_with_caps";
+  const approved = custom ? approvedQuestionLayout(questionCap, requested) : null;
   const resolvedQuestion = {
     paperSize: requested.paperSize,
-    columns: custom ? Math.min(requested.columns, questionCap.columns) : questionCap.columns,
-    rowsPerPage: custom ? Math.min(requested.rowsPerPage, questionCap.rowsPerPage) : questionCap.rowsPerPage,
+    columns: approved
+      ? requested.columns
+      : custom ? Math.min(requested.columns, questionCap.columns) : questionCap.columns,
+    rowsPerPage: approved
+      ? requested.rowsPerPage
+      : custom ? Math.min(requested.rowsPerPage, questionCap.rowsPerPage) : questionCap.rowsPerPage,
   };
   const resolvedAnswer = {
     paperSize: requested.paperSize,
@@ -61,8 +74,8 @@ export function resolveG4BU04WorksheetLayout({
   };
   const cappedFields = custom
     ? [
-      ...(requested.columns > questionCap.columns ? ["columns"] : []),
-      ...(requested.rowsPerPage > questionCap.rowsPerPage ? ["rowsPerPage"] : []),
+      ...(requested.columns !== resolvedQuestion.columns ? ["columns"] : []),
+      ...(requested.rowsPerPage !== resolvedQuestion.rowsPerPage ? ["rowsPerPage"] : []),
     ]
     : [];
   const capped = cappedFields.length > 0;
@@ -84,7 +97,7 @@ export function resolveG4BU04WorksheetLayout({
     : [];
 
   return deepFreeze({
-    schemaVersion: "g4b-u04-layout-resolution-v1",
+    schemaVersion: "g4b-u04-layout-resolution-v2",
     sourceId: "g4b_u04_4b04",
     profileId: profile.profileId,
     layoutMode: mode,
@@ -94,6 +107,10 @@ export function resolveG4BU04WorksheetLayout({
       paperSize: questionCap.paperSize,
       columns: questionCap.columns,
       rowsPerPage: questionCap.rowsPerPage,
+      approvedLayouts: (questionCap.approvedLayouts ?? []).map((layout) => ({
+        columns: layout.columns,
+        rowsPerPage: layout.rowsPerPage,
+      })),
     },
     resolvedQuestionLayout: resolvedQuestion,
     resolvedAnswerLayout: resolvedAnswer,
