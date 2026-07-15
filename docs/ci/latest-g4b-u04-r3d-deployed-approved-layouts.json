@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "g4b-u04-r3d-deployed-approved-layouts-v1",
+  "task": "G4B_U04_R3D_DeployedQuestionOnly3x5And2x6Audit",
+  "status": "PASS",
+  "productionUse": "allowed_deployed_ui_print",
+  "deploymentSha": "712c513c1dba2299c0ad8adba805991e025e37ba",
+  "sourceId": "g4b_u04_4b04",
+  "selectionMode": "mixedKnowledgePointsSameUnit",
+  "selectedKnowledgePointIds": [
+    "kp_g4b_u04_inverse_rounding_unknown_digit",
+    "kp_g4b_u04_inverse_rounding_possible_original"
+  ],
+  "selectedPatternGroupIds": [
+    "pg_g4b_u04_inverse_digit_set",
+    "pg_g4b_u04_inverse_original_values"
+  ],
+  "combinedUniquePromptCapacity": 24,
+  "questionOnly": true,
+  "responsePromptCount": 0,
+  "approvedLayouts": [
+    {
+      "columns": 3,
+      "rowsPerPage": 5,
+      "questionsPerFullPage": 15,
+      "mode": "auto_safe"
+    },
+    {
+      "columns": 2,
+      "rowsPerPage": 6,
+      "questionsPerFullPage": 12,
+      "mode": "custom_with_caps"
+    }
+  ],
+  "scenarioCount": 2,
+  "scenarios": [
+    {
+      "scenarioId": "auto-safe-3x5",
+      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r3d-auto-safe-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R3D=712c513c1dba2299c0ad8adba805991e025e37ba-auto-safe-3x5-1784126702729",
+      "replayedControls": {
+        "sourceId": "g4b_u04_4b04",
+        "selectionMode": "mixedKnowledgePointsSameUnit",
+        "questionMode": "reasoning",
+        "layoutMode": "auto_safe",
+        "columns": 4,
+        "rowsPerPage": 10,
+        "answerKeyChecked": false,
+        "selectedKnowledgePointIds": [
+          "kp_g4b_u04_inverse_rounding_unknown_digit",
+          "kp_g4b_u04_inverse_rounding_possible_original"
+        ],
+        "selectedPatternGroupIds": [
+          "pg_g4b_u04_inverse_digit_set",
+          "pg_g4b_u04_inverse_original_values"
+        ]
+      },
+      "statusText": "已產生 15 題，可預覽與列印。",
+      "validationText": "驗證通過，沒有發現出題錯誤。",
+      "previewMeta": "Batch B 4B-U04 概數｜15 題｜不含答案頁｜套用版面：題目 3 欄 × 5 列；答案 1 欄 × 5 列",
+      "questionCardCount": 15,
+      "answerCardCount": 0,
+      "questionPageCount": 1,
+      "answerPageCount": 0,
+      "responsePromptCount": 0,
+      "overflowCount": 0,
+      "firstOverflow": null,
+      "interCardOverlapCount": 0,
+      "firstOverlap": null,
+      "requestedColumns": 4,
+      "requestedRows": 10,
+      "resolvedColumns": 3,
+      "resolvedRows": 5,
+      "answerColumns": 1,
+      "answerRows": 5,
+      "layoutMode": "auto_safe",
+      "layoutProfile": "g4b_u04_inverse_long_answer_v1",
+      "layoutCapped": "false",
+      "publicText": "套用版面：題目 3 欄 × 5 列；答案 1 欄 × 5 列\nBatch B 4B-U04 概數\n\n概數判讀、取概數、生活應用、估算與逆推\n\n姓名：____________\n日期：____________\n題目 1\n1.\n1□3 用四捨五入法取概數到百位後是 100，□ 可以填哪些數字？\n2.\n1□3 用四捨五入法取概數到百位後是 200，□ 可以填哪些數字？\n3.\n2□4 用四捨五入法取概數到百位後是 200，□ 可以填哪些數字？\n4.\n2□4 用四捨五入法取概數到百位後是 300，□ 可以填哪些數字？\n5.\n3□5 用四捨五入法取概數到百位後是 300，□ 可以填哪些數字？\n6.\n3□5 用四捨五入法取概數到百位後是 400，□ 可以填哪些數字？\n7.\n4□6 用四捨五入法取概數到百位後是 400，□ 可以填哪些數字？\n8.\n4□6 用四捨五入法取概數到百位後是 500，□ 可以填哪些數字？\n9.\n一個數寫成 3□□5，用四捨五入法取概數到千位後是 3,000。原數可能是多少？請列出所有可能值。\n10.\n一個數寫成 3□□5，用四捨五入法取概數到千位後是 4,000。原數可能是多少？請列出所有可能值。\n11.\n一個數寫成 4□□5，用四捨五入法取概數到千位後是 4,000。原數可能是多少？請列出所有可能值。\n12.\n一個數寫成 4□□5，用四捨五入法取概數到千位後是 5,000。原數可能是多少？請列出所有可能值。\n13.\n一個數寫成 5□□5，用四捨五入法取概數到千位後是 5,000。原數可能是多少？請列出所有可能值。\n14.\n一個數寫成 5□□5，用四捨五入法取概數到千位後是 6,000。原數可能是多少？請列出所有可能值。\n15.\n一個數寫成 6□□5，用四捨五入法取概數到千位後是 6,000。原數可能是多少？請列出所有可能值。",
+      "printCalled": true
+    },
+    {
+      "scenarioId": "custom-2x6",
+      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=custom_with_caps&questionCount=12&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r3d-custom-2x6&columns=2&rowsPerPage=6&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R3D=712c513c1dba2299c0ad8adba805991e025e37ba-custom-2x6-1784126705110",
+      "replayedControls": {
+        "sourceId": "g4b_u04_4b04",
+        "selectionMode": "mixedKnowledgePointsSameUnit",
+        "questionMode": "reasoning",
+        "layoutMode": "custom_with_caps",
+        "columns": 2,
+        "rowsPerPage": 6,
+        "answerKeyChecked": false,
+        "selectedKnowledgePointIds": [
+          "kp_g4b_u04_inverse_rounding_unknown_digit",
+          "kp_g4b_u04_inverse_rounding_possible_original"
+        ],
+        "selectedPatternGroupIds": [
+          "pg_g4b_u04_inverse_digit_set",
+          "pg_g4b_u04_inverse_original_values"
+        ]
+      },
+      "statusText": "已產生 12 題，可預覽與列印。",
+      "validationText": "驗證通過，沒有發現出題錯誤。",
+      "previewMeta": "Batch B 4B-U04 概數｜12 題｜不含答案頁｜套用版面：題目 2 欄 × 6 列；答案 1 欄 × 5 列",
+      "questionCardCount": 12,
+      "answerCardCount": 0,
+      "questionPageCount": 1,
+      "answerPageCount": 0,
+      "responsePromptCount": 0,
+      "overflowCount": 0,
+      "firstOverflow": null,
+      "interCardOverlapCount": 0,
+      "firstOverlap": null,
+      "requestedColumns": 2,
+      "requestedRows": 6,
+      "resolvedColumns": 2,
+      "resolvedRows": 6,
+      "answerColumns": 1,
+      "answerRows": 5,
+      "layoutMode": "custom_with_caps",
+      "layoutProfile": "g4b_u04_inverse_long_answer_v1",
+      "layoutCapped": "false",
+      "publicText": "套用版面：題目 2 欄 × 6 列；答案 1 欄 × 5 列\nBatch B 4B-U04 概數\n\n概數判讀、取概數、生活應用、估算與逆推\n\n姓名：____________\n日期：____________\n題目 1\n1.\n3□5 用四捨五入法取概數到百位後是 300，□ 可以填哪些數字？\n2.\n3□5 用四捨五入法取概數到百位後是 400，□ 可以填哪些數字？\n3.\n4□6 用四捨五入法取概數到百位後是 400，□ 可以填哪些數字？\n4.\n4□6 用四捨五入法取概數到百位後是 500，□ 可以填哪些數字？\n5.\n5□7 用四捨五入法取概數到百位後是 500，□ 可以填哪些數字？\n6.\n5□7 用四捨五入法取概數到百位後是 600，□ 可以填哪些數字？\n7.\n一個數寫成 1□□5，用四捨五入法取概數到千位後是 1,000。原數可能是多少？請列出所有可能值。\n8.\n一個數寫成 1□□5，用四捨五入法取概數到千位後是 2,000。原數可能是多少？請列出所有可能值。\n9.\n一個數寫成 2□□5，用四捨五入法取概數到千位後是 2,000。原數可能是多少？請列出所有可能值。\n10.\n一個數寫成 2□□5，用四捨五入法取概數到千位後是 3,000。原數可能是多少？請列出所有可能值。\n11.\n一個數寫成 3□□5，用四捨五入法取概數到千位後是 3,000。原數可能是多少？請列出所有可能值。\n12.\n一個數寫成 3□□5，用四捨五入法取概數到千位後是 4,000。原數可能是多少？請列出所有可能值。",
+      "printCalled": true
+    }
+  ],
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "genericFallback": false,
+  "freeFormAI": false,
+  "deployedAssets": {
+    "layoutResolver": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-layout-resolution.js",
+      "bytes": 4510,
+      "sha256": "f9dec88d887cfd5e3ce8e08b20fa8daca15b217e7402bccc066a643d3f3d34cc"
+    },
+    "renderer": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/html-renderer-s73-extension.js",
+      "bytes": 9418,
+      "sha256": "c1f8c04dd3eb68c90fdd4d9b5e9ec7ab4b6d06bc614297473196b7f664225e03"
+    },
+    "worksheet": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+      "bytes": 3822,
+      "sha256": "cbae3b2b6e6a2ab9d17c521963054cfeb72ea6e7f4e3456de6750bbc59af741b"
+    }
+  },
+  "workflow": "G4B-U04 R3D Deployed Approved Layouts",
+  "eventName": "workflow_run",
+  "run": {
+    "id": "29424893452",
+    "number": "7",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29424893452"
+  },
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "verifiedAt": "2026-07-15T14:45:06.172Z"
+}
