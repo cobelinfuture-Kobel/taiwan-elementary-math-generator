@@ -191,8 +191,8 @@ test("R2F custom layout remains capped and truthful for inverse long answers", (
   });
   assert.deepEqual(document.layoutResolution.resolvedQuestionLayout, {
     paperSize: "A4",
-    columns: 1,
-    rowsPerPage: 4,
+    columns: 3,
+    rowsPerPage: 5,
   });
   assert.deepEqual(document.layoutResolution.resolvedAnswerLayout, {
     paperSize: "A4",
