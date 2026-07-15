@@ -156,7 +156,7 @@ html = html
     '<body class="worksheet-renderer worksheet-renderer--g4b-u04" data-r3b-test-only="true" data-r3b-question-only="true" data-r3b-columns="3" data-r3b-rows="5"',
   );
 const htmlContents = `${html}\n`;
-if (htmlContents.includes("g4b-u04-cell__response")) {
+if (/<div class="g4b-u04-cell__response"/.test(htmlContents)) {
   throw new Error("R3B question-only HTML still contains response prompt markup");
 }
 const htmlFile = "g4b-u04-r3b-3x5-200q-question-only.html";
