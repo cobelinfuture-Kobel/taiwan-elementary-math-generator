@@ -7,8 +7,14 @@ const BASE_URL = process.env.G4B_U04_R3D_SITE_URL
   ?? "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html";
 const DEPLOYMENT_SHA = process.env.G4B_U04_R3D_DEPLOYMENT_SHA ?? "unknown";
 const SOURCE_ID = "g4b_u04_4b04";
-const INVERSE_KP = "kp_g4b_u04_inverse_rounding_possible_original";
-const INVERSE_GROUP = "pg_g4b_u04_inverse_original_values";
+const INVERSE_KP_IDS = Object.freeze([
+  "kp_g4b_u04_inverse_rounding_unknown_digit",
+  "kp_g4b_u04_inverse_rounding_possible_original",
+]);
+const INVERSE_GROUP_IDS = Object.freeze([
+  "pg_g4b_u04_inverse_digit_set",
+  "pg_g4b_u04_inverse_original_values",
+]);
 const OUTPUT_DIR = resolve("docs/curriculum/output/stress/g4b-u04-r3d-deployed-approved-layouts");
 const FAILURE_JSON = resolve(OUTPUT_DIR, "failure.json");
 const FAILURE_SCREENSHOT = resolve(OUTPUT_DIR, "failure.png");
@@ -44,10 +50,15 @@ function fail(message, details = {}) {
   throw error;
 }
 
+function sameSet(actual, expected) {
+  return actual.length === expected.length
+    && expected.every((value) => actual.includes(value));
+}
+
 function scenarioUrl(scenario) {
   const url = new URL(BASE_URL);
   url.searchParams.set("sourceId", SOURCE_ID);
-  url.searchParams.set("selectionMode", "singleKnowledgePoint");
+  url.searchParams.set("selectionMode", "mixedKnowledgePointsSameUnit");
   url.searchParams.set("questionMode", "reasoning");
   url.searchParams.set("layoutMode", scenario.layoutMode);
   url.searchParams.set("questionCount", String(scenario.questionCount));
@@ -56,8 +67,8 @@ function scenarioUrl(scenario) {
   url.searchParams.set("generationSeed", `g4b-u04-r3d-${scenario.id}`);
   url.searchParams.set("columns", String(scenario.requestedColumns));
   url.searchParams.set("rowsPerPage", String(scenario.requestedRows));
-  url.searchParams.append("kp", INVERSE_KP);
-  url.searchParams.append("pg", INVERSE_GROUP);
+  for (const knowledgePointId of INVERSE_KP_IDS) url.searchParams.append("kp", knowledgePointId);
+  for (const patternGroupId of INVERSE_GROUP_IDS) url.searchParams.append("pg", patternGroupId);
   url.searchParams.set("g4bU04R3D", `${DEPLOYMENT_SHA}-${scenario.id}-${Date.now()}`);
   return url.href;
 }
@@ -77,7 +88,7 @@ async function waitForControlReplay(page, scenario) {
   await page.waitForFunction(
     ({ sourceId, layoutMode }) => (
       document.querySelector("#batch-a-source-select")?.value === sourceId
-      && document.querySelector("#batch-a-selection-mode-select")?.value === "singleKnowledgePoint"
+      && document.querySelector("#batch-a-selection-mode-select")?.value === "mixedKnowledgePointsSameUnit"
       && document.querySelector("#g4b-u04-question-mode")?.value === "reasoning"
       && document.querySelector("#g4b-u04-layout-mode")?.value === layoutMode
     ),
@@ -100,17 +111,24 @@ async function waitForControlReplay(page, scenario) {
     fail("G4B_U04_R3D_ANSWER_KEY_QUERY_REPLAY_MISMATCH", { scenario, values });
   }
   const url = new URL(page.url());
+  const selectedKnowledgePointIds = [...new Set(url.searchParams.getAll("kp"))];
+  const selectedPatternGroupIds = [...new Set(url.searchParams.getAll("pg"))];
   if (url.searchParams.get("sourceId") !== SOURCE_ID
-    || url.searchParams.get("selectionMode") !== "singleKnowledgePoint"
+    || url.searchParams.get("selectionMode") !== "mixedKnowledgePointsSameUnit"
     || url.searchParams.get("questionMode") !== "reasoning"
-    || url.searchParams.getAll("kp").filter((value) => value === INVERSE_KP).length !== 1
-    || url.searchParams.getAll("pg").filter((value) => value === INVERSE_GROUP).length !== 1) {
-    fail("G4B_U04_R3D_QUERY_AUTHORITY_MISMATCH", { scenario, url: page.url() });
+    || !sameSet(selectedKnowledgePointIds, INVERSE_KP_IDS)
+    || !sameSet(selectedPatternGroupIds, INVERSE_GROUP_IDS)) {
+    fail("G4B_U04_R3D_QUERY_AUTHORITY_MISMATCH", {
+      scenario,
+      selectedKnowledgePointIds,
+      selectedPatternGroupIds,
+      url: page.url(),
+    });
   }
-  return values;
+  return { ...values, selectedKnowledgePointIds, selectedPatternGroupIds };
 }
 
-async function auditRenderedWorksheet(page, scenario) {
+async function auditRenderedWorksheet(page) {
   const frame = page.frameLocator("#preview-frame");
   await frame.locator("body").waitFor({ state: "attached", timeout: 120000 });
   return frame.locator("body").evaluate(() => {
@@ -200,7 +218,7 @@ async function runScenario(browser, scenario, browserErrors) {
         previewMeta,
       });
     }
-    const audit = await auditRenderedWorksheet(page, scenario);
+    const audit = await auditRenderedWorksheet(page);
     if (audit.questionCardCount !== scenario.questionCount
       || audit.answerCardCount !== 0
       || audit.questionPageCount !== scenario.expectedQuestionPages
@@ -226,7 +244,7 @@ async function runScenario(browser, scenario, browserErrors) {
       fail("G4B_U04_R3D_PREVIEW_LAYOUT_READBACK_MISMATCH", { scenario, previewMeta, audit });
     }
     if (/\b(?:kp|pg|ps|fm|fmc|tpl)_g4b_u04_[a-z0-9_]+\b/i.test(audit.publicText)
-      || /\{\{[^}]+\}\}|\[[A-Z_]+\]|undefined|null/.test(audit.publicText)) {
+      || /\{\{[^}]+\}|\[[A-Z_]+\]|undefined|null/.test(audit.publicText)) {
       fail("G4B_U04_R3D_PUBLIC_TEXT_LEAK", { scenario, publicText: audit.publicText.slice(0, 1200) });
     }
     if (await page.locator("#print-button").isDisabled()) fail("G4B_U04_R3D_PRINT_DISABLED", { scenario });
@@ -284,6 +302,10 @@ try {
     productionUse: "allowed_deployed_ui_print",
     deploymentSha: DEPLOYMENT_SHA,
     sourceId: SOURCE_ID,
+    selectionMode: "mixedKnowledgePointsSameUnit",
+    selectedKnowledgePointIds: [...INVERSE_KP_IDS],
+    selectedPatternGroupIds: [...INVERSE_GROUP_IDS],
+    combinedUniquePromptCapacity: 24,
     questionOnly: true,
     responsePromptCount: 0,
     approvedLayouts: [
