@@ -43,7 +43,7 @@ const options = {
   contextMode: "mixed",
   layoutMode: "custom_with_caps",
   questionCount: QUESTION_COUNT,
-  ordering: "mixedAcrossPatterns",
+  ordering: "shuffleAcrossPatterns",
   generationSeed: "g4b-u04-r3b-3x5-test-only",
   includeAnswerKey: false,
   printLayout: {
