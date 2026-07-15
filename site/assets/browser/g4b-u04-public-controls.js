@@ -37,6 +37,7 @@ export const G4B_U04_CONTEXT_MODE_LABELS = Object.freeze({
 });
 
 const G4_ONLY_MODES = Object.freeze(["concept", "operation_estimation"]);
+const G4B_U04_LAYOUT_QUERY_HYDRATED_DATASET_KEY = "g4bU04QueryHydrated";
 
 function isAllowedMode(value) {
   return G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value);
@@ -68,6 +69,16 @@ function queryLayoutMode() {
 function queryContextMode() {
   const value = queryParam("contextMode");
   return isAllowedContextMode(value) ? value : G4B_U04_PUBLIC_CONTROLS.defaults.contextMode;
+}
+
+function resolveLayoutModeForSync({ active, layoutSelect }) {
+  const queryValue = queryLayoutMode();
+  if (!layoutSelect) return queryValue;
+  if (active && layoutSelect.dataset[G4B_U04_LAYOUT_QUERY_HYDRATED_DATASET_KEY] !== "true") {
+    layoutSelect.dataset[G4B_U04_LAYOUT_QUERY_HYDRATED_DATASET_KEY] = "true";
+    return queryValue;
+  }
+  return isAllowedLayoutMode(layoutSelect.value) ? layoutSelect.value : queryValue;
 }
 
 function ensureSourceOption(source) {
@@ -156,7 +167,7 @@ export function syncG4BU04ClassicPublicControls(root = document) {
   const contextMode = active && isAllowedContextMode(proxyContext?.value)
     ? proxyContext.value
     : (isAllowedContextMode(contextSelect?.value) ? contextSelect.value : queryContextMode());
-  const layoutMode = isAllowedLayoutMode(layoutSelect?.value) ? layoutSelect.value : queryLayoutMode();
+  const layoutMode = resolveLayoutModeForSync({ active, layoutSelect });
   if (active && proxy) proxy.value = mode;
   if (active && proxyContext) proxyContext.value = contextMode;
   if (select) select.value = mode;
