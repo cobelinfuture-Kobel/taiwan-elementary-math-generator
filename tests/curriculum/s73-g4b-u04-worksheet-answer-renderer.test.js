@@ -160,7 +160,7 @@ test("S73 uses the contextual profile for application and operation-estimation q
   assert.equal(estimation.worksheetDocument.rendererProfile.profileId, G4B_U04_RENDERER_PROFILES.contextual.profileId);
 });
 
-test("S73 uses the approved question-only 3x5 profile for possible-original-value reasoning", () => {
+test("S73 preserves the explicit 2x6 print layout for possible-original-value reasoning", () => {
   const result = buildBatchABrowserWorksheetDocument(baseOptions({
     selectionMode: "singleKnowledgePoint",
     selectedKnowledgePointIds: ["kp_g4b_u04_inverse_rounding_possible_original"],
@@ -170,8 +170,8 @@ test("S73 uses the approved question-only 3x5 profile for possible-original-valu
   }));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.rendererProfile.profileId, G4B_U04_RENDERER_PROFILES.inverseLong.profileId);
-  assert.equal(result.worksheetDocument.printOptions.columns, 3);
-  assert.equal(result.worksheetDocument.printOptions.rowsPerPage, 5);
+  assert.equal(result.worksheetDocument.printOptions.columns, 2);
+  assert.equal(result.worksheetDocument.printOptions.rowsPerPage, 6);
 });
 
 test("S73 suppresses every answer record and answer page when answer key is disabled", () => {
