@@ -1,0 +1,61 @@
+name: G4B-U04 R3C Approved Layouts
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/g4b-u04-r3c-approved-layouts.yml
+      - site/modules/curriculum/registry/g4b-u04-worksheet-promotion.js
+      - site/modules/curriculum/batch-b/g4b-u04-layout-resolution.js
+      - site/modules/renderer/html-renderer-s73-extension.js
+      - tests/curriculum/g4b-u04-r3c-question-only-approved-layouts.test.js
+      - tests/curriculum/g4b-u04-r2d-layout-readback.test.js
+      - tests/curriculum/g4b-u04-r2f-production-stress-recloseout.test.js
+      - tests/curriculum/s73-g4b-u04-worksheet-answer-renderer.test.js
+      - tools/curriculum/generate-g4b-u04-r3c-approved-layouts.mjs
+      - tools/curriculum/run-g4b-u04-r3c-approved-layouts.mjs
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  approved-layouts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Install browser and PDF verification dependencies
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
+
+      - name: Run production 3x5 and 2x6 acceptance
+        run: node tools/curriculum/run-g4b-u04-r3c-approved-layouts.mjs
+
+      - name: Upload approved-layout artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4b-u04-r3c-approved-layouts
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/g4b-u04-r3c-approved-layouts/**/*.html
+            docs/curriculum/output/g4b-u04-r3c-approved-layouts/**/*.pdf
+            docs/curriculum/output/g4b-u04-r3c-approved-layouts/**/*.json
+            /tmp/g4b-u04-r3c-approved-layouts/**/*.png
