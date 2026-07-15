@@ -160,7 +160,7 @@ test("S73 uses the contextual profile for application and operation-estimation q
   assert.equal(estimation.worksheetDocument.rendererProfile.profileId, G4B_U04_RENDERER_PROFILES.contextual.profileId);
 });
 
-test("S73 uses the inverse-long profile for possible-original-value reasoning", () => {
+test("S73 uses the approved question-only 3x5 profile for possible-original-value reasoning", () => {
   const result = buildBatchABrowserWorksheetDocument(baseOptions({
     selectionMode: "singleKnowledgePoint",
     selectedKnowledgePointIds: ["kp_g4b_u04_inverse_rounding_possible_original"],
@@ -170,8 +170,8 @@ test("S73 uses the inverse-long profile for possible-original-value reasoning", 
   }));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.rendererProfile.profileId, G4B_U04_RENDERER_PROFILES.inverseLong.profileId);
-  assert.equal(result.worksheetDocument.printOptions.columns, 1);
-  assert.equal(result.worksheetDocument.printOptions.rowsPerPage, 4);
+  assert.equal(result.worksheetDocument.printOptions.columns, 3);
+  assert.equal(result.worksheetDocument.printOptions.rowsPerPage, 5);
 });
 
 test("S73 suppresses every answer record and answer page when answer key is disabled", () => {
@@ -186,7 +186,7 @@ test("S73 suppresses every answer record and answer page when answer key is disa
   assert.equal(result.worksheetDocument.printOptions.answerKeyPlacement, "none");
 });
 
-test("S73 renderer emits Traditional Chinese worksheet and answer pages for all nine answer shapes", () => {
+test("S73 renderer emits question-only student pages and complete Traditional Chinese answer pages", () => {
   const result = buildBatchABrowserWorksheetDocument(baseOptions());
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const html = renderWorksheetDocumentToHtml(result.worksheetDocument, { stylesheetHref: "" });
@@ -196,6 +196,8 @@ test("S73 renderer emits Traditional Chinese worksheet and answer pages for all 
   for (const shape of G4B_U04_WORKSHEET_ANSWER_SHAPES) {
     assert.match(html, new RegExp(`data-answer-shape="${shape}"`));
   }
+  assert.equal(G4B_U04_RENDERER_INTEGRATION.questionPageResponseMode, "question_only");
+  assert.doesNotMatch(html, /<div class="g4b-u04-cell__response"/);
   assert.doesNotMatch(html, /\b(?:kp|pg|ps|fm|fmc|tpl)_g4b_u04_[a-z0-9_]+\b/i);
   assert.equal(G4B_U04_RENDERER_INTEGRATION.internalIdVisible, false);
 });
