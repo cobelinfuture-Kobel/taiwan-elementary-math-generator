@@ -23,6 +23,7 @@ export const G4B_U04_RENDERER_INTEGRATION = Object.freeze({
     "digitSetAnswer",
     "possibleValuesAnswer",
   ]),
+  questionPageResponseMode: "question_only",
   internalIdVisible: false,
   requiredNextGate: "S74_G4B_U04_PublicUIPrintAndQueryStateQA",
 });
@@ -73,7 +74,6 @@ function renderQuestionCell(cell) {
     `<article class="g4b-u04-cell g4b-u04-cell--question g4b-u04-cell--${escapeHtml(model.renderKind)}" data-render-kind="${escapeHtml(model.renderKind)}" data-answer-shape="${escapeHtml(model.answerModelShape)}">`,
     model.questionNumberText ? `<div class="g4b-u04-cell__number">${escapeHtml(model.questionNumberText)}</div>` : "",
     `<div class="g4b-u04-cell__prompt">${escapeHtml(promptText)}</div>`,
-    model.responsePrompt ? `<div class="g4b-u04-cell__response">${escapeHtml(model.responsePrompt)}</div>` : "",
     "</article>",
   ].join("");
 }
