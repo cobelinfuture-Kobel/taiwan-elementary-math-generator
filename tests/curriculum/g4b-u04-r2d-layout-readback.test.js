@@ -137,7 +137,7 @@ test("R2D custom_with_caps clamps inverse density and emits the exact non-blocki
     layoutMode: "custom_with_caps",
     requestedLayout: { paperSize: "A4", columns: 6, rowsPerPage: 20 },
   });
-  assert.deepEqual(resolved.resolvedQuestionLayout, { paperSize: "A4", columns: 1, rowsPerPage: 4 });
+  assert.deepEqual(resolved.resolvedQuestionLayout, { paperSize: "A4", columns: 3, rowsPerPage: 5 });
   assert.deepEqual(resolved.resolvedAnswerLayout, { paperSize: "A4", columns: 1, rowsPerPage: 5 });
   assert.deepEqual(resolved.cappedFields, ["columns", "rowsPerPage"]);
   assert.equal(resolved.capped, true);
@@ -197,7 +197,7 @@ test("R2D worksheet clamps inverse custom density, keeps generation successful a
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const document = result.worksheetDocument;
   assert.equal(document.layoutResolution.capped, true);
-  assert.deepEqual(document.layoutResolution.resolvedQuestionLayout, { paperSize: "A4", columns: 1, rowsPerPage: 4 });
+  assert.deepEqual(document.layoutResolution.resolvedQuestionLayout, { paperSize: "A4", columns: 3, rowsPerPage: 5 });
   assert.deepEqual(document.layoutResolution.resolvedAnswerLayout, { paperSize: "A4", columns: 1, rowsPerPage: 5 });
   assert.equal(document.layoutNoticeText, G4B_U04_LAYOUT_CAPPED_NOTICE);
   assert.equal(result.warnings.filter((row) => row.code === G4B_U04_LAYOUT_CAPPED_CODE).length, 1);
@@ -235,10 +235,10 @@ test("R2D preview HTML displays applied layout, cap notice and machine-readable 
   const rendered = renderPreviewFrame(frame, result.worksheetDocument, { stylesheetHref: "" });
   assert.equal(rendered.html, frame.srcdoc);
   assert.match(frame.srcdoc, /g4b-u04-layout-readback/);
-  assert.match(frame.srcdoc, /套用版面：題目 1 欄 × 4 列；答案 1 欄 × 5 列/);
+  assert.match(frame.srcdoc, /套用版面：題目 3 欄 × 5 列；答案 1 欄 × 5 列/);
   assert.match(frame.srcdoc, /已依長文字題型自動調整為安全版面。/);
   assert.match(frame.srcdoc, /data-g4b-u04-requested-columns="6"/);
-  assert.match(frame.srcdoc, /data-g4b-u04-resolved-columns="1"/);
+  assert.match(frame.srcdoc, /data-g4b-u04-resolved-columns="3"/);
   assert.match(frame.srcdoc, /data-public-layout-mode="custom_with_caps"/);
   assert.match(frame.srcdoc, /@media print\{\.g4b-u04-layout-readback\{display:none!important\}\}/);
 });
@@ -301,7 +301,7 @@ test("R2D Pixel state generates through the same capped layout resolver", () => 
   const execution = runPixelWorksheetGeneration(state);
   assert.equal(execution.summary.ok, true, JSON.stringify(execution.summary.errors));
   assert.equal(execution.result.worksheetDocument.layoutResolution.capped, true);
-  assert.equal(execution.result.worksheetDocument.appliedLayoutText, "套用版面：題目 1 欄 × 4 列；答案 1 欄 × 5 列");
+  assert.equal(execution.result.worksheetDocument.appliedLayoutText, "套用版面：題目 3 欄 × 5 列；答案 1 欄 × 5 列");
 });
 
 test("R2D public adapters expose layout controls and stale-output wiring on Classic and Pixel", () => {

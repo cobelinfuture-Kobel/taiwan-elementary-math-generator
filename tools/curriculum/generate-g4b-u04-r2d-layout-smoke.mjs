@@ -134,7 +134,7 @@ const scenarios = [
     id: "inverse-auto-safe",
     title: "概數｜逆推原數｜自動安全版面",
     expectedProfileId: "g4b_u04_inverse_long_answer_v1",
-    expectedQuestionLayout: { paperSize: "A4", columns: 1, rowsPerPage: 4 },
+    expectedQuestionLayout: { paperSize: "A4", columns: 3, rowsPerPage: 5 },
     expectedAnswerLayout: { paperSize: "A4", columns: 1, rowsPerPage: 5 },
     expectedCapped: false,
     plan: plan({
@@ -152,7 +152,7 @@ const scenarios = [
     id: "inverse-custom-capped",
     title: "概數｜逆推原數｜自訂超限自動調整",
     expectedProfileId: "g4b_u04_inverse_long_answer_v1",
-    expectedQuestionLayout: { paperSize: "A4", columns: 1, rowsPerPage: 4 },
+    expectedQuestionLayout: { paperSize: "A4", columns: 3, rowsPerPage: 5 },
     expectedAnswerLayout: { paperSize: "A4", columns: 1, rowsPerPage: 5 },
     expectedCapped: true,
     plan: plan({

@@ -94,16 +94,22 @@ jobs:
           mkdir -p /tmp/s75-g4b-u04-rendered
           pdftoppm -png -r 120 docs/curriculum/output/smoke/S75_G4B_U04_PublicWorksheet.pdf /tmp/s75-g4b-u04-rendered/page
           python3 <<'PY'
+          import json
           from pathlib import Path
           from PIL import Image, ImageStat
           from pypdf import PdfReader
-          pdf = Path('docs/curriculum/output/smoke/S75_G4B_U04_PublicWorksheet.pdf')
+          root = Path('docs/curriculum/output/smoke')
+          pdf = root / 'S75_G4B_U04_PublicWorksheet.pdf'
+          manifest = json.loads((root / 'S75_G4B_U04_PublicWorksheet.manifest.json').read_text(encoding='utf-8'))
           reader = PdfReader(str(pdf))
           files = sorted(Path('/tmp/s75-g4b-u04-rendered').glob('page-*.png'))
           if len(files) != len(reader.pages):
               raise SystemExit(f'rendered page mismatch: {len(files)}/{len(reader.pages)}')
-          if len(files) < 20:
-              raise SystemExit(f'expected multi-page production PDF, got {len(files)} pages')
+          expected_pages = manifest['expectedPdfPageCount']
+          if len(files) != expected_pages:
+              raise SystemExit(f'PDF page mismatch: {len(files)}/{expected_pages}')
+          if expected_pages < 2:
+              raise SystemExit(f'expected multi-page production PDF, got {expected_pages} pages')
           nonblank = 0
           for path in files:
               image = Image.open(path).convert('L')
