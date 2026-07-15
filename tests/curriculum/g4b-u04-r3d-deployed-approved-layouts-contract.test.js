@@ -21,6 +21,15 @@ test("R3D deployed workflow audits the approved production deployment on PR and 
   assert.match(workflow, /G4B_U04_R3D_DEPLOYMENT_SHA/);
 });
 
+test("R3D deployed harness uses the combined 24-prompt inverse capacity", () => {
+  assert.match(harness, /kp_g4b_u04_inverse_rounding_unknown_digit/);
+  assert.match(harness, /kp_g4b_u04_inverse_rounding_possible_original/);
+  assert.match(harness, /pg_g4b_u04_inverse_digit_set/);
+  assert.match(harness, /pg_g4b_u04_inverse_original_values/);
+  assert.match(harness, /mixedKnowledgePointsSameUnit/);
+  assert.match(harness, /combinedUniquePromptCapacity: 24/);
+});
+
 test("R3D deployed harness locks question-only 3x5 and 2x6 output", () => {
   assert.match(harness, /id: "auto-safe-3x5"/);
   assert.match(harness, /resolvedColumns: 3/);
