@@ -97,7 +97,7 @@ function buildScenario(scenario) {
   const manifestFile = `${scenario.id}-manifest.json`;
   const html = `${renderWorksheetDocumentToHtml(document, {
     title: `4B-U04 概數｜${scenario.resolved.columns}×${scenario.resolved.rowsPerPage}｜200 題`,
-    stylesheetHref: "../../../../site/assets/styles/print-styles.css",
+    stylesheetHref: "../../../../../site/assets/styles/print-styles.css",
   })}\n`;
   if (/<div class="g4b-u04-cell__response"/.test(html)) {
     throw new Error(`R3C ${scenario.id} response prompt markup present`);
