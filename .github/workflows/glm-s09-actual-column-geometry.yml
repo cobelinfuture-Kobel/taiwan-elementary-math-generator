@@ -41,6 +41,14 @@ jobs:
           status=$?
           tail -n 400 /tmp/glm-s09-regression.log
           exit "$status"
+      - name: Upload full regression readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s09-full-regression-readback
+          retention-days: 7
+          if-no-files-found: error
+          path: /tmp/glm-s09-regression.log
 
   geometry:
     needs: contract
