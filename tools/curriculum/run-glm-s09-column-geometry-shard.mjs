@@ -61,7 +61,7 @@ async function inspect(browser, htmlPath, expectedColumns) {
     const pages = [...document.querySelectorAll('[data-page-type="question"],.worksheet-page--questions')]
       .filter((node) => getComputedStyle(node).display !== "none");
     const pageResults = pages.map((questionPage, pageIndex) => {
-      const cards = [...questionPage.querySelectorAll(".worksheet-cell--question")]
+      const cards = [...questionPage.querySelectorAll(".worksheet-cell--question,.g4b-u04-cell--question")]
         .filter((node) => getComputedStyle(node).display !== "none");
       const lefts = cards.map((card) => card.getBoundingClientRect().left);
       const sorted = [...lefts].sort((a, b) => a - b);
@@ -74,7 +74,7 @@ async function inspect(browser, htmlPath, expectedColumns) {
         } else clusters.push({ center: value, values: [value] });
       }
       const expected = Math.min(expectedColumns, cards.length);
-      const grid = questionPage.querySelector(".worksheet-page__grid");
+      const grid = questionPage.querySelector(".worksheet-page__grid,.g4b-u04-grid");
       const computedColumns = grid ? getComputedStyle(grid).gridTemplateColumns.split(/\s+/).filter(Boolean).length : 0;
       const widths = cards.map((card) => card.getBoundingClientRect().width);
       return {
@@ -84,6 +84,11 @@ async function inspect(browser, htmlPath, expectedColumns) {
         actualColumnCount: clusters.length,
         xClusters: clusters.map((row) => Number(row.center.toFixed(2))),
         computedGridColumnCount: computedColumns,
+        geometryAuthority: grid?.matches(".worksheet-page__grid")
+          ? "shared_worksheet_grid"
+          : grid?.matches(".g4b-u04-grid")
+            ? "g4b_u04_renderer_grid"
+            : "missing_grid",
         maxCardWidth: widths.length ? Math.max(...widths) : 0,
         pageWidth: questionPage.getBoundingClientRect().width,
         pass: cards.length > 0 && clusters.length === expected && computedColumns === expectedColumns,
