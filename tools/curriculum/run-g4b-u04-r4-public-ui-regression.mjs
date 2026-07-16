@@ -1,8 +1,13 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import { chromium } from "playwright";
 
 const BASE_URL = process.env.G4B_U04_R4_SITE_URL ?? "http://127.0.0.1:4174/index.html";
 const SOURCE_ID = "g4b_u04_4b04";
 const OTHER_SOURCE_ID = "g5a_u08_5a08";
+const OUTPUT_DIR = resolve("docs/curriculum/output/stress/g4b-u04-r4-public-ui-regression");
+const FAILURE_JSON = resolve(OUTPUT_DIR, "failure.json");
+const FAILURE_SCREENSHOT = resolve(OUTPUT_DIR, "failure.png");
 const KPS = Object.freeze([
   "kp_g4b_u04_inverse_rounding_unknown_digit",
   "kp_g4b_u04_inverse_rounding_possible_original",
@@ -71,16 +76,41 @@ async function setNumericControl(page, selector, value) {
   }, value);
 }
 
+async function readControlSnapshot(page) {
+  if (!page || page.isClosed()) return null;
+  return page.evaluate(() => ({
+    url: window.location.href,
+    sourceId: document.querySelector("#batch-a-source-select")?.value ?? null,
+    selectionMode: document.querySelector("#batch-a-selection-mode-select")?.value ?? null,
+    layoutMode: document.querySelector("#g4b-u04-layout-mode")?.value ?? null,
+    columns: document.querySelector("#columns-input")?.value ?? null,
+    rowsPerPage: document.querySelector("#rows-per-page-input")?.value ?? null,
+    statusTone: document.querySelector("#status-panel")?.dataset.tone ?? null,
+    statusText: document.querySelector("#status-panel")?.textContent?.trim() ?? null,
+    validationText: document.querySelector("#validation-panel")?.textContent?.trim() ?? null,
+    g4ControlsPresent: Boolean(document.querySelector("#g4b-u04-public-controls")),
+    g4ControlsVisible: document.querySelector("#g4b-u04-public-controls")?.dataset.visible ?? null,
+  }));
+}
+
+await mkdir(OUTPUT_DIR, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const consoleErrors = [];
 const pageErrors = [];
+let activePage = null;
+let activeStage = "startup";
 try {
   const sourcePage = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
+  activePage = sourcePage;
+  activeStage = "source-page-load";
   sourcePage.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
   sourcePage.on("pageerror", (error) => pageErrors.push(error.message));
   await sourcePage.goto(g4Url(), { waitUntil: "networkidle", timeout: 120000 });
+  activeStage = "source-g4-control-ready";
   await waitForG4(sourcePage);
+  activeStage = "source-generate";
   await regenerate(sourcePage, 12);
+  activeStage = "source-switch";
   await sourcePage.selectOption("#batch-a-source-select", OTHER_SOURCE_ID);
   await sourcePage.waitForFunction(
     (sourceId) => document.querySelector("#batch-a-source-select")?.value === sourceId
@@ -98,16 +128,22 @@ try {
     fail("G4B_U04_R4_SOURCE_SWITCH_RECLAIMED", switched);
   }
   await sourcePage.close();
+  activePage = null;
 
   const layoutResults = [];
   for (const scenario of MAX_LAYOUTS) {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
+    activePage = page;
+    activeStage = `${scenario.id}-page-load`;
     page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(`${scenario.id}: ${message.text()}`); });
     page.on("pageerror", (error) => pageErrors.push(`${scenario.id}: ${error.message}`));
     await page.goto(g4Url({ questionCount: scenario.questionCount }), { waitUntil: "networkidle", timeout: 120000 });
+    activeStage = `${scenario.id}-g4-control-ready`;
     await waitForG4(page);
+    activeStage = `${scenario.id}-dimension-change`;
     await setNumericControl(page, "#columns-input", scenario.columns);
     await setNumericControl(page, "#rows-per-page-input", scenario.rowsPerPage);
+    activeStage = `${scenario.id}-custom-query-sync`;
     await page.waitForFunction(
       ({ columns, rowsPerPage }) => document.querySelector("#g4b-u04-layout-mode")?.value === "custom_with_caps"
         && document.querySelector("#columns-input")?.value === String(columns)
@@ -116,7 +152,9 @@ try {
       scenario,
       { timeout: 120000 },
     );
+    activeStage = `${scenario.id}-generate`;
     await regenerate(page, scenario.questionCount);
+    activeStage = `${scenario.id}-frame-audit`;
     const frame = page.frameLocator("#preview-frame");
     await frame.locator("body").waitFor({ state: "attached", timeout: 120000 });
     const output = await frame.locator("body").evaluate(() => ({
@@ -143,6 +181,7 @@ try {
     }
     layoutResults.push({ scenario, output, url: page.url() });
     await page.close();
+    activePage = null;
   }
 
   if (consoleErrors.length || pageErrors.length) {
@@ -156,8 +195,24 @@ try {
     pageErrorCount: 0,
   }, null, 2));
 } catch (error) {
-  console.error(error.message);
-  if (error.details) console.error(JSON.stringify(error.details, null, 2));
+  const failure = {
+    schemaVersion: "g4b-u04-r4-public-ui-regression-failure-v1",
+    task: "G4B_U04_R4_SourceSwitchAndFlexibleCustomLayoutRepair",
+    status: "FAIL",
+    stage: activeStage,
+    message: error.message,
+    details: error.details ?? null,
+    controls: await readControlSnapshot(activePage).catch(() => null),
+    consoleErrors,
+    pageErrors,
+  };
+  await writeFile(FAILURE_JSON, `${JSON.stringify(failure, null, 2)}\n`, "utf8");
+  try {
+    await activePage?.screenshot({ path: FAILURE_SCREENSHOT, fullPage: true });
+  } catch {
+    // Structured failure remains authoritative without an image.
+  }
+  console.error(JSON.stringify(failure, null, 2));
   process.exitCode = 1;
 } finally {
   await browser.close();
