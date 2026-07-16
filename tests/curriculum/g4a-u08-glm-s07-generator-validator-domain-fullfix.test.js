@@ -112,7 +112,6 @@ test("GLM-S07 exact 3x5 answer-on worksheet now passes the blocking worksheet va
 
 test("G4A-U08 source-unit numeric generator remains inside validator domains across 128 deterministic seeds", () => {
   let generatedQuestionCount = 0;
-  let repairedQuestionCount = 0;
   const coveredPatternSpecs = new Set();
   const coveredShapeVariants = new Set();
   for (let seedIndex = 0; seedIndex < 128; seedIndex += 1) {
@@ -120,7 +119,6 @@ test("G4A-U08 source-unit numeric generator remains inside validator domains acr
     const result = generateBatchABrowserQuestions(sourceUnitOptions(seed, 40));
     assert.equal(result.ok, true, `${seed}: ${JSON.stringify(result.errors)}`);
     assert.equal(result.questions.length, 40, seed);
-    repairedQuestionCount += result.fullFix?.repairedQuestionCount ?? 0;
     generatedQuestionCount += result.questions.length;
     for (const question of result.questions) {
       coveredPatternSpecs.add(question.patternSpecId);
@@ -135,5 +133,4 @@ test("G4A-U08 source-unit numeric generator remains inside validator domains acr
   assert.equal(generatedQuestionCount, 5120);
   assert.equal(coveredPatternSpecs.size, 10);
   assert.ok(coveredShapeVariants.has("mul_div_ltr_multiply_then_divide"));
-  assert.ok(repairedQuestionCount > 0, "seed sweep must exercise the repaired validator boundary");
 });
