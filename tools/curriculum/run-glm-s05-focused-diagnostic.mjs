@@ -88,6 +88,7 @@ for (const unit of listBatchASourceUnits({ includePublicCandidates: true })) {
       layoutResolution: document?.layoutResolution ?? null,
       issueCodes: [...new Set(issues(result).map((issue) => issue.code))],
       issues: issues(result),
+      preProjectionDiagnostic: result?.g5aU02PreProjectionDiagnostic ?? null,
       exception,
     });
   }
