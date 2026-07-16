@@ -1,3 +1,4 @@
+import { writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 
 const BASE_URL = process.env.S96I_SITE_URL ?? "http://127.0.0.1:4174/index.html";
@@ -5,11 +6,25 @@ const SOURCE_ID = "g5a_u02_5a02";
 const EXPECTED_KP_COUNT = 18;
 const QUESTION_COUNT = 20;
 const DEFAULT_SEED = "batch-a-browser";
+const QUESTION_CARD_SELECTOR = ".g5a-u02-card--question, .worksheet-cell--question";
+const ANSWER_CARD_SELECTOR = ".g5a-u02-card--answer, .worksheet-cell--answer-key";
+const FAILURE_PATH = "/tmp/s96i-failure.json";
 
 function fail(message, details = {}) {
   const error = new Error(message);
   error.details = details;
   throw error;
+}
+
+async function countPreviewCards(frame) {
+  return {
+    questionCards: await frame.locator(QUESTION_CARD_SELECTOR).count(),
+    answerCards: await frame.locator(ANSWER_CARD_SELECTOR).count(),
+    sharedQuestionCards: await frame.locator(".worksheet-cell--question").count(),
+    sharedAnswerCards: await frame.locator(".worksheet-cell--answer-key").count(),
+    legacyQuestionCards: await frame.locator(".g5a-u02-card--question").count(),
+    legacyAnswerCards: await frame.locator(".g5a-u02-card--answer").count(),
+  };
 }
 
 const browser = await chromium.launch({ headless: true });
@@ -68,16 +83,15 @@ try {
 
     const frame = page.frameLocator("#preview-frame");
     await frame.locator("body").waitFor({ state: "attached" });
-    const questionCards = await frame.locator(".g5a-u02-card--question").count();
-    const answerCards = await frame.locator(".g5a-u02-card--answer").count();
-    if (questionCards !== QUESTION_COUNT) {
-      fail("S96I_PREVIEW_QUESTION_COUNT_MISMATCH", { knowledgePointId, label, questionCards });
+    const counts = await countPreviewCards(frame);
+    if (counts.questionCards !== QUESTION_COUNT) {
+      fail("S96I_PREVIEW_QUESTION_COUNT_MISMATCH", { knowledgePointId, label, ...counts });
     }
-    if (answerCards !== QUESTION_COUNT) {
-      fail("S96I_PREVIEW_ANSWER_COUNT_MISMATCH", { knowledgePointId, label, answerCards });
+    if (counts.answerCards !== QUESTION_COUNT) {
+      fail("S96I_PREVIEW_ANSWER_COUNT_MISMATCH", { knowledgePointId, label, ...counts });
     }
 
-    results.push({ knowledgePointId, label, questionCards, answerCards });
+    results.push({ knowledgePointId, label, ...counts });
   }
 
   const reportedButton = kpButtons.filter({ hasText: "多條件四位數推理" });
@@ -95,10 +109,9 @@ try {
   }
 
   const reportedFrame = page.frameLocator("#preview-frame");
-  const reportedQuestions = await reportedFrame.locator(".g5a-u02-card--question").count();
-  const reportedAnswers = await reportedFrame.locator(".g5a-u02-card--answer").count();
-  if (reportedQuestions !== QUESTION_COUNT || reportedAnswers !== 0) {
-    fail("S96I_REPORTED_PATH_COUNT_MISMATCH", { reportedQuestions, reportedAnswers });
+  const reportedCounts = await countPreviewCards(reportedFrame);
+  if (reportedCounts.questionCards !== QUESTION_COUNT || reportedCounts.answerCards !== 0) {
+    fail("S96I_REPORTED_PATH_COUNT_MISMATCH", reportedCounts);
   }
 
   await page.locator("#preview-frame").evaluate((iframe) => {
@@ -122,18 +135,28 @@ try {
     knowledgePointCount: kpCount,
     questionCount: QUESTION_COUNT,
     generationSeed: DEFAULT_SEED,
+    acceptedRendererSelectors: [QUESTION_CARD_SELECTOR, ANSWER_CARD_SELECTOR],
     allKnowledgePointsGenerated: results.length,
     reportedPath: {
       knowledgePoint: "多條件四位數推理",
       includeAnswerKey: false,
-      questionCards: reportedQuestions,
-      answerCards: reportedAnswers,
+      ...reportedCounts,
       printCalled,
     },
     consoleErrorCount: consoleErrors.length,
     pageErrorCount: pageErrors.length,
   }, null, 2));
 } catch (error) {
+  const failure = {
+    task: "S96I_G5A_U02_LiveBrowserGenerationIncidentRecovery",
+    status: "FAIL",
+    error: error.message,
+    details: error.details ?? null,
+    url: page.url(),
+    consoleErrors,
+    pageErrors,
+  };
+  await writeFile(FAILURE_PATH, `${JSON.stringify(failure, null, 2)}\n`, "utf8");
   console.error(error.message);
   if (error.details) console.error(JSON.stringify(error.details, null, 2));
   console.error(JSON.stringify({ consoleErrors, pageErrors }, null, 2));
