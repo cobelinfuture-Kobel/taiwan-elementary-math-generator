@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "glm-s03-270-html-pdf-baseline-summary-v1",
+  "task": "GLM-S03_270ScenarioHTMLPDFBaseline",
+  "status": "BASELINE_CAPTURED_AND_VALIDATED",
+  "headSha": "e8f0b1e90d24e7fa29b0f005ade8a5ba35cf5ad8",
+  "workflow": {
+    "name": "GLM-S03 270-Scenario HTML PDF Baseline",
+    "runId": 29478399908,
+    "runNumber": 1,
+    "conclusion": "success",
+    "artifactId": 8367521965,
+    "artifactName": "glm-s03-270-html-pdf-baseline",
+    "artifactDigest": "sha256:34183ff3176657ad681643e8c37397a517dada0f0f382e8b8d85dfe05422573a",
+    "fullManifestSha256": "d23c0310edf9781225083eff7ad0c0ed8c480ab5fdbf790be2afbfdf278398a9"
+  },
+  "scope": {
+    "publicUnitCount": 15,
+    "approvedLayoutCountPerUnit": 18,
+    "scenarioCount": 270,
+    "shardCount": 5,
+    "questionCountPerScenario": 18,
+    "answerKeyEnabled": false
+  },
+  "documentClassificationCounts": {
+    "PASS": 225,
+    "SILENTLY_CAPPED": 8,
+    "GENERATION_BLOCKED": 19,
+    "IGNORED": 18
+  },
+  "rendering": {
+    "generatedScenarioCount": 251,
+    "renderedScenarioCount": 251,
+    "renderPassCount": 251,
+    "renderDefectScenarioCount": 0,
+    "uniquePdfCount": 234,
+    "pdfByteTotal": 9566220,
+    "pdfPageCount": 1531,
+    "renderedImagePageCount": 1531,
+    "nonblankPdfPageCount": 1531,
+    "blankPdfPageCount": 0,
+    "pdfBoundingBoxOverflowCount": 0,
+    "domQuestionPageCount": 1531,
+    "domQuestionCardCount": 4590,
+    "domOverflowCount": 0,
+    "interCardOverlapCount": 0,
+    "missingPromptCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "pdfPageCountMismatchCount": 0
+  },
+  "exactUnits": [
+    "g3a_u01_3a01",
+    "g3a_u02_3a02",
+    "g3a_u03_3a03",
+    "g3a_u06_3a06",
+    "g3b_u01_3b01",
+    "g3b_u04_3b04",
+    "g3b_u08_3b08",
+    "g4a_u04_4a04",
+    "g4a_u08_4a08",
+    "g4b_u01_4b01",
+    "g5a_u08_5a08"
+  ],
+  "gapUnits": [
+    {
+      "sourceId": "g4a_u01_4a01",
+      "unitCode": "4A-U01",
+      "documentClassificationCounts": {
+        "PASS": 12,
+        "SILENTLY_CAPPED": 5,
+        "GENERATION_BLOCKED": 1
+      },
+      "renderedScenarioCount": 17,
+      "renderPassCount": 17,
+      "nonPassLayouts": ["3x5", "2x5", "2x6", "1x5", "1x6", "1x7"],
+      "architectureInput": [
+        "remove or supersede the four-row source profile cap for approved layouts",
+        "repair the seed-specific first-difference generation validation independently from layout resolution"
+      ]
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "unitCode": "4A-U02",
+      "documentClassificationCounts": {
+        "PASS": 15,
+        "SILENTLY_CAPPED": 3
+      },
+      "renderedScenarioCount": 18,
+      "renderPassCount": 18,
+      "nonPassLayouts": ["2x6", "1x6", "1x7"],
+      "architectureInput": [
+        "remove or supersede the five-row source profile cap for approved layouts"
+      ]
+    },
+    {
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "documentClassificationCounts": {
+        "GENERATION_BLOCKED": 18
+      },
+      "renderedScenarioCount": 0,
+      "renderPassCount": 0,
+      "nonPassLayouts": [
+        "3x1", "3x2", "3x3", "3x4", "3x5",
+        "2x1", "2x2", "2x3", "2x4", "2x5", "2x6",
+        "1x1", "1x2", "1x3", "1x4", "1x5", "1x6", "1x7"
+      ],
+      "architectureInput": [
+        "provide a valid sourceUnit-to-canonical selection adapter",
+        "preserve the already accepted KnowledgePoint-route 18-layout resolver and inverse-long safety"
+      ]
+    },
+    {
+      "sourceId": "g5a_u02_5a02",
+      "unitCode": "5A-U02",
+      "documentClassificationCounts": {
+        "IGNORED": 18
+      },
+      "renderedScenarioCount": 18,
+      "renderPassCount": 18,
+      "fixedPdfPageCountPerScenario": 22,
+      "nonPassLayouts": [
+        "3x1", "3x2", "3x3", "3x4", "3x5",
+        "2x1", "2x2", "2x3", "2x4", "2x5", "2x6",
+        "1x1", "1x2", "1x3", "1x4", "1x5", "1x6", "1x7"
+      ],
+      "architectureInput": [
+        "replace or adapt the fixed static sourceUnit release so requested question count and layout are authoritative",
+        "retain the existing compact, reasoning and contextual question-shape safety"
+      ]
+    }
+  ],
+  "conclusions": [
+    "all currently generated output is visually contained and printable",
+    "visual containment does not close exact-layout failures",
+    "the global FullFix must preserve current render safety while closing caps, blocked routing and ignored settings",
+    "the four gap units define the minimum S04 architecture repair surface",
+    "the other eleven units require regression protection but no document-layer layout repair"
+  ],
+  "globalStatus": "HTML_PDF_CLEAN_BUT_EXACT_LAYOUT_CONTRACT_INCOMPLETE",
+  "nextTask": "GLM-S04_GlobalLayoutArchitectureDesign"
+}
