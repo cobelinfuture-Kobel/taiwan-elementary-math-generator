@@ -163,7 +163,7 @@ test("S58I Classic query state preserves all six public KPs and application grou
   assert.equal(parsed.selectorWarnings.length, 0);
 });
 
-test("S58I Classic public path produces a complete 24-family printable worksheet", () => {
+test("S58I Classic public path produces a complete 24-family worksheet under the global exact layout", () => {
   const result = buildClassicWorksheet();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const document = result.worksheetDocument;
@@ -176,12 +176,12 @@ test("S58I Classic public path produces a complete 24-family printable worksheet
     new Set(G3B_U08_PROMOTED_SEMANTIC_PATTERN_SPEC_IDS)
   );
   assert.equal(document.rendererProfile.profileId, "g3b_u08_semantic_long_text_v1");
-  assert.equal(document.printOptions.columns, 2);
-  assert.equal(document.printOptions.rowsPerPage, 4);
+  assert.equal(document.printOptions.columns, 3);
+  assert.equal(document.printOptions.rowsPerPage, 5);
   assert.equal(document.printOptions.answerKeyColumns, 1);
   assert.equal(document.printOptions.answerKeyRowsPerPage, 8);
   assert.equal(document.printOptions.pageBreakMode, "avoidLongTextCards");
-  assert.equal(document.questionPages.length, 3);
+  assert.equal(document.questionPages.length, 2);
   assert.equal(document.answerKeyPages.length, 3);
   assert.equal(document.answerKeyItems.length, 24);
 });
@@ -242,7 +242,7 @@ test("S58I Pixel selector keeps all G3B-U08 groups application-only and auto-sel
   assert.deepEqual(unchanged.selectedPatternGroupIds, [...G3B_U08_PROMOTED_PATTERN_GROUP_IDS]);
 });
 
-test("S58I Pixel public generation produces the same printable application-only contract", () => {
+test("S58I Pixel public generation produces the same application-only contract under the global exact layout", () => {
   const selectorState = createPixelKnowledgePointSelectorState({
     sourceId: SOURCE_ID,
     selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
@@ -263,8 +263,8 @@ test("S58I Pixel public generation produces the same printable application-only 
   assert.equal(execution.summary.questionCount, 24);
   assert.equal(execution.summary.answerKeyItemCount, 24);
   assert.equal(execution.result.worksheetDocument.generatedQuestions.every((question) => question.kind === "g3bU08SemanticApplication"), true);
-  assert.equal(execution.result.worksheetDocument.printOptions.columns, 2);
-  assert.equal(execution.result.worksheetDocument.printOptions.rowsPerPage, 4);
+  assert.equal(execution.result.worksheetDocument.printOptions.columns, 3);
+  assert.equal(execution.result.worksheetDocument.printOptions.rowsPerPage, 5);
 });
 
 test("S58I maps G3B-U08 canonical and production failures to Traditional Chinese public messages", () => {
