@@ -54,19 +54,6 @@ function htmlFor(document, scenario) {
   return html.replace("</head>", `<style>${css}</style></head>`);
 }
 
-function cluster(values, tolerance = 2) {
-  const sorted = [...values].sort((a, b) => a - b);
-  const groups = [];
-  for (const value of sorted) {
-    const group = groups.find((row) => Math.abs(row.center - value) <= tolerance);
-    if (group) {
-      group.values.push(value);
-      group.center = group.values.reduce((sum, item) => sum + item, 0) / group.values.length;
-    } else groups.push({ center: value, values: [value] });
-  }
-  return groups.map((row) => Number(row.center.toFixed(2)));
-}
-
 async function inspect(browser, htmlPath, expectedColumns) {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
   await page.goto(pathToFileURL(htmlPath).href, { waitUntil: "networkidle" });
@@ -87,7 +74,7 @@ async function inspect(browser, htmlPath, expectedColumns) {
         } else clusters.push({ center: value, values: [value] });
       }
       const expected = Math.min(expectedColumns, cards.length);
-      const grid = questionPage.querySelector(".worksheet-grid");
+      const grid = questionPage.querySelector(".worksheet-page__grid");
       const computedColumns = grid ? getComputedStyle(grid).gridTemplateColumns.split(/\s+/).filter(Boolean).length : 0;
       const widths = cards.map((card) => card.getBoundingClientRect().width);
       return {
