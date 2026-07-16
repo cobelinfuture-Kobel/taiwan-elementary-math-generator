@@ -1,0 +1,185 @@
+{
+  "schemaName": "GlobalContextSchemaAndRegistryContract",
+  "schemaVersion": 1,
+  "task": "GCTX-S02_GlobalContextSchemaAndRegistryContract",
+  "status": "schema_locked_pending_ci",
+  "schemaPath": "data/curriculum/context/schemas/GCTX_GlobalContextRegistry.schema.json",
+  "scope": {
+    "schemaDefinitionsOnly": true,
+    "seedContentMaterialized": false,
+    "existingAuthorityMigrated": false,
+    "runtimeBehaviorChange": false,
+    "registryKindCount": 7
+  },
+  "registryManifest": [
+    {
+      "registryKind": "context_domain_registry",
+      "targetPath": "data/curriculum/context/registry/context-domains.json",
+      "entryDefinition": "contextDomainEntry",
+      "owner": "global_context_authority",
+      "materializationTask": "GCTX-S04_GlobalSeedRegistryMaterialization"
+    },
+    {
+      "registryKind": "sdg_goal_registry",
+      "targetPath": "data/curriculum/context/registry/sdg-goals.json",
+      "entryDefinition": "sdgGoalEntry",
+      "owner": "global_context_authority",
+      "materializationTask": "GCTX-S04_GlobalSeedRegistryMaterialization"
+    },
+    {
+      "registryKind": "source_authority_registry",
+      "targetPath": "data/curriculum/context/registry/source-authorities.json",
+      "entryDefinition": "sourceAuthorityEntry",
+      "owner": "global_context_authority",
+      "materializationTask": "GCTX-S04_GlobalSeedRegistryMaterialization"
+    },
+    {
+      "registryKind": "common_knowledge_registry",
+      "targetPath": "data/curriculum/context/registry/common-knowledge.json",
+      "entryDefinition": "commonKnowledgeEntry",
+      "owner": "global_context_authority",
+      "materializationTask": "GCTX-S04_GlobalSeedRegistryMaterialization"
+    },
+    {
+      "registryKind": "context_family_registry",
+      "targetPath": "data/curriculum/context/registry/context-families.json",
+      "entryDefinition": "contextFamilyEntry",
+      "owner": "global_context_authority",
+      "materializationTask": "GCTX-S04_GlobalSeedRegistryMaterialization"
+    },
+    {
+      "registryKind": "unit_context_binding_registry",
+      "targetPath": "data/curriculum/context/registry/unit-context-bindings.json",
+      "entryDefinition": "unitContextBindingEntry",
+      "owner": "unit_context_binding_authority",
+      "materializationTask": "GCTX-S08_UnitContextBindingCoverageContract"
+    },
+    {
+      "registryKind": "context_lifecycle_registry",
+      "targetPath": "data/curriculum/context/registry/context-lifecycle.json",
+      "entryDefinition": "contextLifecycleEntry",
+      "owner": "global_context_governance",
+      "materializationTask": "GCTX-S04_GlobalSeedRegistryMaterialization"
+    }
+  ],
+  "idNamespaces": {
+    "contextDomain": "gctx_dom_",
+    "sdgGoal": "SDG_",
+    "sourceAuthority": "gctx_src_",
+    "commonKnowledge": "gctx_ck_",
+    "contextFamily": "gctx_cf_",
+    "unitContextBinding": "gctx_bind_"
+  },
+  "referenceGraph": [
+    {
+      "from": "commonKnowledgeEntry.verificationRefs[].sourceAuthorityId",
+      "to": "sourceAuthorityEntry.sourceAuthorityId",
+      "cardinality": "one_or_more"
+    },
+    {
+      "from": "contextFamilyEntry.commonKnowledgeIds[]",
+      "to": "commonKnowledgeEntry.commonKnowledgeId",
+      "cardinality": "one_or_more"
+    },
+    {
+      "from": "contextFamilyEntry.sdgGoalIds[]",
+      "to": "sdgGoalEntry.sdgGoalId",
+      "cardinality": "zero_or_more_except_sdg_primary_requires_one"
+    },
+    {
+      "from": "unitContextBindingEntry.contextFamilyIds[]",
+      "to": "contextFamilyEntry.contextFamilyId",
+      "cardinality": "one_or_more"
+    },
+    {
+      "from": "contextLifecycleEntry.assetId",
+      "to": "any_global_or_binding_asset_id",
+      "cardinality": "exactly_one"
+    }
+  ],
+  "ownershipBoundary": {
+    "globalAssetDefinitions": [
+      "contextDomainEntry",
+      "sdgGoalEntry",
+      "sourceAuthorityEntry",
+      "commonKnowledgeEntry",
+      "contextFamilyEntry",
+      "contextLifecycleEntry"
+    ],
+    "unitOwnedDefinition": "unitContextBindingEntry",
+    "forbiddenFieldsInGlobalAssets": [
+      "sourceId",
+      "unitCode",
+      "knowledgePointId",
+      "patternSpecId",
+      "operationSignature",
+      "roleBindings",
+      "unitFlow",
+      "plausibleRanges",
+      "answerModel",
+      "validatorHooks",
+      "rendererHook"
+    ],
+    "requiredUnitBindingFields": [
+      "sourceId",
+      "unitCode",
+      "knowledgePointId",
+      "patternSpecId",
+      "contextFamilyIds",
+      "operationSignature",
+      "roleBindings",
+      "unitFlow",
+      "plausibleRanges",
+      "requiredFacts",
+      "forbiddenFacts",
+      "validatorHooks",
+      "answerUnitPolicy"
+    ],
+    "sharedContentMayRenderCompleteMathPrompt": false,
+    "unitBindingMayChangePatternSpecMath": false
+  },
+  "domainAndEraContract": {
+    "contextDomains": ["daily_life", "sdg", "natural_science", "social_studies", "history"],
+    "entryEraTags": ["modern", "ancient"],
+    "publicEraModes": ["modern", "ancient", "mixed_eras"],
+    "mixedErasIsWorksheetAllocationMode": true,
+    "sameQuestionArbitraryEraMixingAllowed": false,
+    "ancientStudentFacingSDGClaimAllowed": false
+  },
+  "verificationShapeContract": {
+    "generalCommonKnowledgeMinimumRefs": 1,
+    "specificSpeciesRegionEraOrInstitutionMinimumRefs": 2,
+    "exactFactRequiresExactClaim": true,
+    "exactClaimValueMutationAllowed": false,
+    "exerciseNumbersDefault": "fictionalized_for_practice",
+    "verificationGovernanceFinalizedBy": "GCTX-S03_WebVerificationAndCommonKnowledgeAdmissionGovernance"
+  },
+  "lifecycleContract": {
+    "statuses": ["candidate", "web_verified", "approved", "deprecated", "expired", "blocked", "rejected"],
+    "productionUseRequiresStatus": "approved",
+    "expiredOrBlockedProductionUseAllowed": false,
+    "legacyAliasesRequiredForMigratedIds": true,
+    "legacyAliasMayResolveToMultipleCanonicalIds": false
+  },
+  "compatibilityContract": {
+    "existingIdsPreservedAsCanonicalOrLegacyAlias": true,
+    "deterministicSeedReplayMustRemainStable": true,
+    "queryStateValuesMustRemainAdapterCompatible": true,
+    "existingBlockingValidatorsRemainBlocking": true,
+    "migrationMayDeleteLegacyAuthorityBeforeAdapterPass": false,
+    "freeFormAIAllowed": false,
+    "genericFallbackAllowed": false,
+    "runtimeWebSearchAllowed": false
+  },
+  "deferredTasks": {
+    "webAdmissionPolicy": "GCTX-S03_WebVerificationAndCommonKnowledgeAdmissionGovernance",
+    "seedContent": "GCTX-S04_GlobalSeedRegistryMaterialization",
+    "g4bMigration": "GCTX-S05_G4BU04ContextAuthorityMigrationAdapter",
+    "g5aMigration": "GCTX-S06_G5AU08ContextAuthorityMigrationAdapter",
+    "remainingPublicUnitAudit": "GCTX-S07_PublicUnitApplicationPatternCoverageAudit",
+    "unitBindings": "GCTX-S08_UnitContextBindingCoverageContract",
+    "runtimeResolver": "GCTX-S09_GlobalContextResolverImplementation",
+    "validatorCore": "GCTX-S10_CommonKnowledgeAndSemanticValidatorCore"
+  },
+  "nextTask": "GCTX-S03_WebVerificationAndCommonKnowledgeAdmissionGovernance"
+}
