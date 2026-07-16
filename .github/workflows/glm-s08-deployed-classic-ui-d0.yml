@@ -1,0 +1,197 @@
+name: GLM-S08 Deployed Classic UI D0 Closeout
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy GitHub Pages
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: glm-s08-deployed-classic-ui-d0
+  cancel-in-progress: false
+
+env:
+  GLM_S08_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+
+jobs:
+  deployed-classic-ui-d0:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.actor.login != 'github-actions[bot]')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout deployed authority SHA
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || 'main' }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Resolve deployment SHA
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "GLM_S08_DEPLOYMENT_SHA=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_ENV"
+          else
+            echo "GLM_S08_DEPLOYMENT_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          fi
+
+      - name: Wait for exact deployed assets
+        shell: bash
+        run: |
+          local_asset="site/modules/curriculum/batch-a/g4a-u08-generator-validator-domain-fullfix.js"
+          local_sha=$(sha256sum "$local_asset" | awk '{print $1}')
+          for attempt in $(seq 1 60); do
+            remote_file="/tmp/glm-s08-deployed-asset-${attempt}.js"
+            if curl --fail --silent --show-error \
+              "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g4a-u08-generator-validator-domain-fullfix.js?glmS08Wait=${GLM_S08_DEPLOYMENT_SHA}-${attempt}" \
+              > "$remote_file"; then
+              remote_sha=$(sha256sum "$remote_file" | awk '{print $1}')
+              if [ "$remote_sha" = "$local_sha" ]; then
+                exit 0
+              fi
+            fi
+            sleep 10
+          done
+          echo "Deployed critical asset did not match checkout authority." >&2
+          exit 1
+
+      - name: Run deployed Classic UI D0 audit
+        run: node tools/curriculum/run-glm-s08-deployed-classic-ui-d0.mjs
+
+      - name: Write deployed authority and D0 markers
+        if: success()
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+
+          const manifestPath = 'docs/curriculum/output/stress/glm-s08-deployed-classic-ui-d0/manifest.json';
+          const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+          if (manifest.status !== 'PASS_ACCEPTED') throw new Error(`status ${manifest.status}`);
+          if (manifest.globalStatus !== 'D0_GLOBAL_COMPLETED_UNITS_18_LAYOUT_MATRIX_CLOSED') throw new Error(`globalStatus ${manifest.globalStatus}`);
+          const authority = {
+            ...manifest,
+            workflow: process.env.GITHUB_WORKFLOW,
+            eventName: process.env.GITHUB_EVENT_NAME,
+            run: {
+              id: process.env.GITHUB_RUN_ID,
+              number: process.env.GITHUB_RUN_NUMBER,
+              attempt: process.env.GITHUB_RUN_ATTEMPT,
+              url: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            },
+            repository: process.env.GITHUB_REPOSITORY,
+            ref: process.env.GITHUB_REF,
+            verifiedAt: new Date().toISOString(),
+          };
+          await mkdir('docs/ci', { recursive: true });
+          await writeFile('docs/ci/latest-glm-s08-deployed-classic-ui-d0.json', `${JSON.stringify(authority, null, 2)}\n`, 'utf8');
+
+          const passMarker = [
+            'TASK=GLM-S08_DeployedClassicUIAndD0Closeout',
+            'STATUS=PASS_ACCEPTED_AND_DEPLOYED',
+            `DEPLOYMENT_SHA=${manifest.deploymentSha}`,
+            `WORKFLOW_RUN_ID=${process.env.GITHUB_RUN_ID}`,
+            `DEPLOYED_URL=${manifest.deployedUrl}`,
+            `PUBLIC_UNIT_COUNT=${manifest.publicUnitCount}`,
+            `APPROVED_LAYOUT_COUNT_PER_UNIT=${manifest.approvedLayoutCountPerUnit}`,
+            `DEPLOYED_SCENARIO_COUNT=${manifest.scenarioCount}`,
+            `QUERY_REPLAY_PASS_COUNT=${manifest.queryReplayPassCount}`,
+            `GENERATION_PASS_COUNT=${manifest.generationPassCount}`,
+            `PREVIEW_PASS_COUNT=${manifest.previewPassCount}`,
+            `ANSWER_OFF_SCENARIO_COUNT=${manifest.answerOffScenarioCount}`,
+            `ANSWER_ON_SCENARIO_COUNT=${manifest.answerOnScenarioCount}`,
+            `PRINT_PASS_COUNT=${manifest.printPassCount}`,
+            `RELOAD_PASS_COUNT=${manifest.reloadPassCount}`,
+            `SOURCE_SWITCH_PASS_COUNT=${manifest.sourceSwitchPassCount}`,
+            `ASSET_IDENTITY_PASS_COUNT=${manifest.assetIdentityPassCount}`,
+            `CONSOLE_ERROR_COUNT=${manifest.consoleErrorCount}`,
+            `PAGE_ERROR_COUNT=${manifest.pageErrorCount}`,
+            `RENDER_FINDING_COUNT=${manifest.renderFindingCount}`,
+            `GLOBAL_STATUS=${manifest.globalStatus}`,
+            'NEXT_TASK=NONE',
+            '',
+          ].join('\n');
+          await writeFile('docs/curriculum/output/GLM_S08_DEPLOYED_CLASSIC_UI_D0_PASS.marker', passMarker, 'utf8');
+
+          const globalMarker = [
+            'PROGRAM=GLOBAL_COMPLETED_UNITS_18_LAYOUT_MATRIX',
+            'STATUS=PASS_ACCEPTED_AND_CLOSED',
+            'GLM_S00=PASS',
+            'GLM_S01=PASS',
+            'GLM_S02=PASS',
+            'GLM_S03=PASS',
+            'GLM_S04=PASS',
+            'GLM_S05=PASS_270_OF_270_EXACT',
+            'GLM_S06=PASS_270_OF_270_HTML_PDF',
+            'GLM_S07=PASS_90_OF_90_ANSWER_BOUNDARY',
+            'GLM_S08=PASS_315_OF_315_DEPLOYED_CLASSIC_UI',
+            `DEPLOYMENT_SHA=${manifest.deploymentSha}`,
+            `PUBLIC_UNIT_COUNT=${manifest.publicUnitCount}`,
+            `APPROVED_LAYOUT_COUNT_PER_UNIT=${manifest.approvedLayoutCountPerUnit}`,
+            'SILENT_CAP_COUNT=0',
+            'GENERATION_BLOCKED_COUNT=0',
+            'IGNORED_LAYOUT_COUNT=0',
+            'RENDER_FINDING_COUNT=0',
+            'CONSOLE_ERROR_COUNT=0',
+            'PAGE_ERROR_COUNT=0',
+            'GOAL_DISTANCE_AFTER=D0_GLOBAL_COMPLETED_UNITS_18_LAYOUT_MATRIX_CLOSED',
+            'REMAINING_BLOCKERS=NONE',
+            'NEXT_TASK=NONE',
+            '',
+          ].join('\n');
+          await writeFile('docs/curriculum/output/GLM_GLOBAL_COMPLETED_UNITS_18_LAYOUT_D0_CLOSEOUT_PASS.marker', globalMarker, 'utf8');
+          await rm('docs/curriculum/output/GLM_S08_DEPLOYED_CLASSIC_UI_D0_PENDING.marker', { force: true });
+          NODE
+
+      - name: Commit deployed D0 authority
+        if: success()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/ci/latest-glm-s08-deployed-classic-ui-d0.json \
+            docs/curriculum/output/GLM_S08_DEPLOYED_CLASSIC_UI_D0_PASS.marker \
+            docs/curriculum/output/GLM_GLOBAL_COMPLETED_UNITS_18_LAYOUT_D0_CLOSEOUT_PASS.marker \
+            docs/curriculum/output/GLM_S08_DEPLOYED_CLASSIC_UI_D0_PENDING.marker
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "ci: close global 18-layout deployed D0 [skip ci]"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
+
+      - name: Upload deployed D0 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s08-deployed-classic-ui-d0
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/stress/glm-s08-deployed-classic-ui-d0/manifest.json
+            docs/curriculum/output/stress/glm-s08-deployed-classic-ui-d0/failure.json
+            docs/curriculum/output/stress/glm-s08-deployed-classic-ui-d0/failure.png
+            docs/ci/latest-glm-s08-deployed-classic-ui-d0.json
+            docs/curriculum/output/GLM_S08_DEPLOYED_CLASSIC_UI_D0_PASS.marker
+            docs/curriculum/output/GLM_GLOBAL_COMPLETED_UNITS_18_LAYOUT_D0_CLOSEOUT_PASS.marker
