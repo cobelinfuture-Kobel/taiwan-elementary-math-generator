@@ -11,6 +11,10 @@ const toolPath = path.join(
   repositoryRoot,
   "tools/curriculum/run-glm-s02-unit-renderer-worst-case-audit.mjs",
 );
+const enrichmentPath = path.join(
+  repositoryRoot,
+  "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
+);
 const manifestPath = path.join(
   repositoryRoot,
   "docs/curriculum/output/glm-s02-unit-renderer-worst-case-audit/current.json",
@@ -29,6 +33,11 @@ let generatedByThisTestProcess = false;
 function ensureManifest() {
   if (!existsSync(manifestPath)) {
     execFileSync(process.execPath, [toolPath], {
+      cwd: repositoryRoot,
+      encoding: "utf8",
+      stdio: "pipe",
+    });
+    execFileSync(process.execPath, [enrichmentPath], {
       cwd: repositoryRoot,
       encoding: "utf8",
       stdio: "pipe",
@@ -85,6 +94,20 @@ test("GLM-S02 records one or more worst-case question shapes for every unit", ()
       );
     }
   }
+});
+
+test("GLM-S02 recovers G5A-U02 static canonical prompts without hiding route limitations", () => {
+  const manifest = ensureManifest();
+  const unit = manifest.unitSummaries.find((entry) => entry.sourceId === "g5a_u02_5a02");
+  assert.equal(manifest.g5aU02StaticHtmlEnrichment.status, "APPLIED");
+  assert.equal(manifest.g5aU02StaticHtmlEnrichment.questionCount, 22);
+  assert.equal(unit.staticCanonicalHtmlEvidence.questionCount, 22);
+  assert.ok(unit.staticCanonicalHtmlEvidence.renderKinds.length >= 3);
+  assert.ok(unit.maxTextMetrics.promptLength > 0);
+  assert.ok(unit.worstCases.byShape.some((sample) => sample.routeKind === "staticCanonicalHtml"));
+  assert.ok(unit.diagnoses.includes("static_canonical_html_question_shapes_recovered"));
+  assert.ok(unit.diagnoses.includes("source_unit_question_count_not_honored"));
+  assert.ok(unit.diagnoses.includes("print_layout_readback_missing"));
 });
 
 test("GLM-S02 carries forward all four S01 gap units without misclassifying them as closed", () => {
