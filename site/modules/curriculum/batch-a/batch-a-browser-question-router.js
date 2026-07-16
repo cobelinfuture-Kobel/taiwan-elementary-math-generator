@@ -3,6 +3,7 @@ export * from "./batch-a-browser-question-router-core.js";
 import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions as generateCoreBatchABrowserQuestions } from "./batch-a-browser-question-router-core.js";
 import { applyG4AU01FirstDifferenceFullFix } from "./g4a-u01-first-difference-fullfix.js";
+import { applyG4AU08GeneratorValidatorDomainFullFix } from "./g4a-u08-generator-validator-domain-fullfix.js";
 import {
   generateG4AU08AllCanonicalPublicQuestions,
   normalizeG4AU08AllCanonicalPublicPlan,
@@ -163,5 +164,7 @@ export function generateBatchABrowserQuestions(options = {}) {
   if (g5aU08RouteKind === G5A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) {
     return generateG5AU08CanonicalQuestions(g5aU08Plan);
   }
-  return applyG4AU01FirstDifferenceFullFix(generateCoreBatchABrowserQuestions(options), plan);
+  const coreResult = generateCoreBatchABrowserQuestions(options);
+  const g4aU08DomainResult = applyG4AU08GeneratorValidatorDomainFullFix(coreResult, plan);
+  return applyG4AU01FirstDifferenceFullFix(g4aU08DomainResult, plan);
 }
