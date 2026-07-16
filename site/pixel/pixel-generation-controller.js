@@ -65,6 +65,32 @@ export function summarizePixelGenerationResult(result = {}) {
   });
 }
 
+function withLegacyMigrationReadback(result = {}) {
+  const document = result?.worksheetDocument;
+  const resolution = document?.layoutResolution;
+  if (!document || resolution?.legacyMigrationApplied !== true) return result;
+  const question = resolution.resolvedQuestionLayout ?? {};
+  const answer = resolution.resolvedAnswerLayout ?? {};
+  const appliedLayoutText = `套用版面：題目 ${question.columns} 欄 × ${question.rowsPerPage} 列；答案 ${answer.columns} 欄 × ${answer.rowsPerPage} 列`;
+  return {
+    ...result,
+    worksheetDocument: {
+      ...document,
+      appliedLayoutText,
+      layoutResolution: {
+        ...resolution,
+        capped: true,
+        appliedLayoutText,
+      },
+      summary: {
+        ...(document.summary ?? {}),
+        layoutCapped: true,
+        appliedLayoutText,
+      },
+    },
+  };
+}
+
 function publishExecution(execution) {
   notifyGenerationSubscribers(execution);
   return execution;
@@ -72,7 +98,7 @@ function publishExecution(execution) {
 
 export function runPixelWorksheetGeneration(state) {
   try {
-    const result = buildPixelWorksheetDocument(state);
+    const result = withLegacyMigrationReadback(buildPixelWorksheetDocument(state));
     return publishExecution(Object.freeze({
       result,
       summary: summarizePixelGenerationResult(result)
