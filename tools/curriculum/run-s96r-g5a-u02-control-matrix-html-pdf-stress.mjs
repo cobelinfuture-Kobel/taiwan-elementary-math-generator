@@ -9,6 +9,10 @@ const QUESTION_MODES = ["concept", "numeric", "application", "reasoning"];
 const DEPTH_MODES = ["basic", "extended"];
 const CONTEXT_MODES = ["abstract_math", "daily_life", "geometry_context"];
 const QUESTION_COUNT = 20;
+const QUESTION_CARD_SELECTOR = ".g5a-u02-card--question, .worksheet-cell--question";
+const ANSWER_CARD_SELECTOR = ".g5a-u02-card--answer, .worksheet-cell--answer-key";
+const PAGE_SELECTOR = ".g5a-u02-page, .worksheet-page";
+const CARD_SELECTOR = ".g5a-u02-card, .worksheet-cell";
 
 await mkdir(OUTPUT_DIR, { recursive: true });
 const browser = await chromium.launch({ headless: true });
@@ -50,10 +54,14 @@ try {
           }
           const frame = page.frameLocator("#preview-frame");
           await frame.locator("body").waitFor({ state: "attached" });
-          row.questionCards = await frame.locator(".g5a-u02-card--question").count();
-          row.answerCards = await frame.locator(".g5a-u02-card--answer").count();
-          row.pageCount = await frame.locator(".g5a-u02-page").count();
-          row.overflowCount = await frame.locator(".g5a-u02-card").evaluateAll((cards) => cards.filter((node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1).length);
+          row.questionCards = await frame.locator(QUESTION_CARD_SELECTOR).count();
+          row.answerCards = await frame.locator(ANSWER_CARD_SELECTOR).count();
+          row.pageCount = await frame.locator(PAGE_SELECTOR).count();
+          row.sharedQuestionCards = await frame.locator(".worksheet-cell--question").count();
+          row.sharedAnswerCards = await frame.locator(".worksheet-cell--answer-key").count();
+          row.legacyQuestionCards = await frame.locator(".g5a-u02-card--question").count();
+          row.legacyAnswerCards = await frame.locator(".g5a-u02-card--answer").count();
+          row.overflowCount = await frame.locator(CARD_SELECTOR).evaluateAll((cards) => cards.filter((node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1).length);
           row.bodyControls = await frame.locator("body").evaluate((body) => ({
             questionMode: body.dataset.publicQuestionMode,
             depthMode: body.dataset.publicDepthMode,
@@ -95,6 +103,11 @@ try {
     successCount,
     blockedCount,
     questionCount: QUESTION_COUNT,
+    acceptedRendererSelectors: {
+      question: QUESTION_CARD_SELECTOR,
+      answer: ANSWER_CARD_SELECTOR,
+      page: PAGE_SELECTOR,
+    },
     publicCountStatusVerified: true,
     genericFallback: false,
     freeFormAI: false,
@@ -102,6 +115,17 @@ try {
   };
   await writeFile(resolve(OUTPUT_DIR, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
   console.log(JSON.stringify(manifest, null, 2));
+} catch (error) {
+  const failure = {
+    task: "S96R_G5A_U02_ControlMatrixHTMLPDFStress",
+    status: "FAIL",
+    error: error.message,
+    results,
+    pageErrors,
+    consoleErrors,
+  };
+  await writeFile(resolve(OUTPUT_DIR, "failure.json"), `${JSON.stringify(failure, null, 2)}\n`, "utf8");
+  throw error;
 } finally {
   await browser.close();
 }
