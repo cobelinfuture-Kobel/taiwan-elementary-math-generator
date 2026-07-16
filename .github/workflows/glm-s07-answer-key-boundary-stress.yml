@@ -1,0 +1,161 @@
+name: GLM-S07 Answer Key and Maximum Boundary Stress
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/glm-s07-answer-key-boundary-stress.yml
+      - data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json
+      - site/assets/styles/print-styles.css
+      - site/assets/browser/state/**
+      - site/assets/browser/pipeline/**
+      - site/modules/curriculum/batch-a/**
+      - site/modules/curriculum/batch-b/**
+      - site/modules/curriculum/registry/**
+      - site/modules/renderer/**
+      - tools/curriculum/glm-s07-scenario-plan.mjs
+      - tools/curriculum/run-glm-s07-answer-key-boundary-shard.mjs
+      - tools/curriculum/aggregate-glm-s07-answer-key-boundary.mjs
+      - tools/curriculum/inspect-glm-s06-pdfs.py
+      - tests/curriculum/glm-s07-answer-key-boundary-stress-contract.test.js
+      - docs/curriculum/architecture/GLM_S07_AnswerKeyAndMaximumBoundaryStress.md
+      - docs/curriculum/output/GLM_S06_270_POSTFIX_HTML_PDF_ACCEPTANCE_PASS.marker
+      - docs/curriculum/output/GLM_S07_ANSWER_KEY_BOUNDARY_STRESS_PENDING.marker
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Validate GLM-S07 contract
+        run: |
+          node --test tests/curriculum/glm-s00-public-completed-unit-18-layout-contract.test.js
+          node --test tests/curriculum/glm-s07-answer-key-boundary-stress-contract.test.js
+          node tools/curriculum/glm-s07-scenario-plan.mjs
+          python3 -m py_compile tools/curriculum/inspect-glm-s06-pdfs.py
+
+  shard:
+    needs: contract
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        shard: [0, 1, 2, 3, 4]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install browser and PDF dependencies
+        run: |
+          npm install
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
+
+      - name: Run answer-key boundary shard
+        run: node tools/curriculum/run-glm-s07-answer-key-boundary-shard.mjs --shard=${{ matrix.shard }}
+
+      - name: Upload shard evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s07-shard-${{ matrix.shard }}
+          if-no-files-found: error
+          retention-days: 30
+          path: docs/curriculum/output/glm-s07-answer-key-boundary-stress/shard-${{ matrix.shard }}/**
+
+  aggregate:
+    needs: shard
+    if: always() && needs.shard.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download all shard evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: glm-s07-shard-*
+          path: /tmp/glm-s07-shards
+
+      - name: Aggregate answer-key boundary authority
+        run: node tools/curriculum/aggregate-glm-s07-answer-key-boundary.mjs --input=/tmp/glm-s07-shards
+
+      - name: Validate all 90 answer-key boundary scenarios
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const p = 'docs/curriculum/output/glm-s07-answer-key-boundary-stress/current.json';
+          const m = JSON.parse(fs.readFileSync(p, 'utf8'));
+          if (m.status !== 'PASS_ACCEPTED') throw new Error(`status ${m.status}`);
+          if (m.globalStatus !== 'ALL_90_ANSWER_KEY_BOUNDARY_HTML_PDF_PASS') throw new Error(`globalStatus ${m.globalStatus}`);
+          if (m.scenarioCount !== 90) throw new Error(`scenarios ${m.scenarioCount}`);
+          if (m.publicUnitCount !== 15) throw new Error(`units ${m.publicUnitCount}`);
+          if (m.boundaryLayoutCountPerUnit !== 3) throw new Error(`layouts ${m.boundaryLayoutCountPerUnit}`);
+          if (m.answerStateCountPerLayout !== 2) throw new Error(`answerStates ${m.answerStateCountPerLayout}`);
+          if (m.generatedScenarioCount !== 90) throw new Error(`generated ${m.generatedScenarioCount}`);
+          if (m.renderedScenarioCount !== 90) throw new Error(`rendered ${m.renderedScenarioCount}`);
+          if (m.renderPassCount !== 90) throw new Error(`renderPass ${m.renderPassCount}`);
+          if (m.acceptancePassCount !== 90) throw new Error(`acceptancePass ${m.acceptancePassCount}`);
+          if (m.acceptanceFailureCount !== 0) throw new Error(`failures ${m.acceptanceFailureCount}`);
+          if (m.documentClassificationCounts.PASS !== 90) throw new Error(`documentPass ${m.documentClassificationCounts.PASS}`);
+          if (Object.keys(m.renderFindingCounts).length !== 0) throw new Error(`renderFindings ${JSON.stringify(m.renderFindingCounts)}`);
+          if (m.questionItemCount !== 1620) throw new Error(`questionItems ${m.questionItemCount}`);
+          if (m.answerItemCount !== 810) throw new Error(`answerItems ${m.answerItemCount}`);
+          if (m.sourceSummaries.length !== 15 || m.sourceSummaries.some(s => s.acceptancePassCount !== 6)) throw new Error('unit acceptance gap');
+          if (m.layoutSummaries.length !== 3 || m.layoutSummaries.some(s => s.acceptancePassCount !== 30)) throw new Error('layout acceptance gap');
+          if (m.answerStateSummaries.length !== 2 || m.answerStateSummaries.some(s => s.acceptancePassCount !== 45)) throw new Error('answer-state acceptance gap');
+          if (new Set(m.scenarios.map(s => s.scenarioId)).size !== 90) throw new Error('duplicate scenario IDs');
+          console.log(JSON.stringify({
+            status: m.status,
+            globalStatus: m.globalStatus,
+            generatedScenarioCount: m.generatedScenarioCount,
+            renderedScenarioCount: m.renderedScenarioCount,
+            renderPassCount: m.renderPassCount,
+            acceptancePassCount: m.acceptancePassCount,
+            questionItemCount: m.questionItemCount,
+            answerItemCount: m.answerItemCount,
+            totalPdfPageCount: m.totalPdfPageCount,
+            totalPdfBytes: m.totalPdfBytes,
+          }, null, 2));
+          NODE
+
+      - name: Upload aggregate authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s07-answer-key-boundary-stress
+          if-no-files-found: error
+          retention-days: 30
+          path: docs/curriculum/output/glm-s07-answer-key-boundary-stress/current.json
