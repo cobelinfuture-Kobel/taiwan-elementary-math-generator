@@ -1,6 +1,7 @@
 import { G5A_U02_PUBLIC_SOURCE_ID } from "../batch-b/g5a-u02-browser-resolver.js";
 
 export const G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION = "glm-s05-g5a-u02-projection-v1";
+export const G5A_U02_SEMANTIC_PROJECTION_VERSION = "g5a-u02-s97-visible-prompt-v1";
 
 function clone(value) {
   if (Array.isArray(value)) return value.map(clone);
@@ -12,6 +13,7 @@ function clone(value) {
 
 function renderKind(record = {}) {
   if (record.renderKind) return record.renderKind;
+  if (record.questionDisplayModel?.kind) return record.questionDisplayModel.kind;
   if (record.mode === "application") return "contextual_application";
   if (record.mode === "reasoning_application") return "reasoning_application";
   if (record.mode === "geometry_application") return "geometry_application";
@@ -74,6 +76,7 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
     const questionNumber = Number(record.questionNumber) || index + 1;
     const prompt = String(record.prompt ?? record.promptText ?? "");
     const response = responsePrompt(record);
+    const structuredDisplayModel = clone(record.questionDisplayModel ?? null);
     return {
       questionId: record.questionId ?? `g5a-u02-${questionNumber}`,
       questionNumber,
@@ -90,9 +93,13 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
       applicationText: String(record.mode ?? "").includes("application"),
       mode: record.mode ?? null,
       implementationClass: record.implementationClass ?? null,
+      questionDisplayModel: structuredDisplayModel,
+      promptCompletenessStatus: record.promptCompletenessStatus ?? null,
       metadataSnapshot: {
         sourceIds: clone(record.sourceIds ?? []),
         projectionVersion: G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION,
+        semanticProjectionVersion: structuredDisplayModel ? G5A_U02_SEMANTIC_PROJECTION_VERSION : null,
+        promptCompletenessStatus: record.promptCompletenessStatus ?? null,
       },
       layoutHints: {
         estimatedTextLength: [...prompt].length,
@@ -122,9 +129,11 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
       answerModelShape: record.answerModelId ?? answer.answerModelId ?? null,
       renderKind: renderKind(record),
       structuredAnswer: clone(answer.structuredAnswer ?? null),
+      questionDisplayModel: clone(record.questionDisplayModel ?? null),
       metadataSnapshot: {
         sourceIds: clone(record.sourceIds ?? []),
         projectionVersion: G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION,
+        semanticProjectionVersion: record.questionDisplayModel ? G5A_U02_SEMANTIC_PROJECTION_VERSION : null,
       },
       layoutHints: {
         estimatedTextLength: [...`${prompt}${answer.answerText ?? ""}`].length,
@@ -145,10 +154,12 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
       metadata: {
         ...(document.metadata ?? {}),
         g5aU02GlobalLayoutProjectionVersion: G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION,
+        g5aU02SemanticProjectionVersion: G5A_U02_SEMANTIC_PROJECTION_VERSION,
       },
       provenance: {
         ...(document.provenance ?? {}),
         g5aU02GlobalLayoutProjectionVersion: G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION,
+        g5aU02SemanticProjectionVersion: G5A_U02_SEMANTIC_PROJECTION_VERSION,
       },
     },
   };
