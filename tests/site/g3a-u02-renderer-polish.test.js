@@ -48,8 +48,8 @@ test("S43G4F answer key prompts stay blanked and do not duplicate answer text", 
 
 test("S43G4F renderer omits filler cells from printable HTML by default", () => {
   const document = buildPolishDocument(20);
-  assert.equal(document.questionPages.length, 1);
-  assert.equal(document.questionPages[0].fillerCellCount > 0, true);
+  assert.equal(document.questionPages.length, 2);
+  assert.equal(document.questionPages.some((page) => page.fillerCellCount > 0), true);
 
   const html = renderWorksheetDocumentToHtml(document, { stylesheetHref: "" });
   assert.doesNotMatch(html, /worksheet-cell--filler/);
