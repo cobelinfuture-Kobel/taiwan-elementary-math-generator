@@ -1,0 +1,425 @@
+{
+  "schemaName": "G5AU02P0SourceMethodAndRepresentationFullFixContract",
+  "schemaVersion": 1,
+  "task": "G5AU02-S99_P0SourceMethodAndRepresentationFullFixContract",
+  "unitId": "g5a_u02",
+  "contractStatus": "designed_pending_ci",
+  "inputs": {
+    "auditTask": "G5AU02-S98_All22SourceMethodAndRepresentationParityAudit",
+    "auditPath": "data/curriculum/audits/G5AU02_S98_All22SourceMethodAndRepresentationParityAudit.json",
+    "sourcePacketIds": ["g5a_u02_5a02a", "g5a_u02_5a02a1"],
+    "requiredPriority": "P0",
+    "requiredPatternCount": 12
+  },
+  "globalInvariants": {
+    "patternSpecIdsStable": true,
+    "knowledgePointIdsStable": true,
+    "sourcePacketIdsStable": true,
+    "freeFormAI": "forbidden",
+    "genericFallback": "forbidden",
+    "deterministicGenerationRequired": true,
+    "canonicalAnswerRecomputationRequired": true,
+    "learnerVisibleUniqueSolutionRequired": true,
+    "answerLeakageForbidden": true,
+    "traditionalChineseRequired": true,
+    "sourceMethodEvidenceRequired": true,
+    "currentP1P2BehaviorFrozen": true,
+    "crossUnitChangeForbidden": true,
+    "runtimeImplementationAllowedInS99": false
+  },
+  "displayModelKinds": [
+    {
+      "kind": "factor_relation_dual_witness",
+      "requiredFields": ["target", "candidateDivisor", "multiplicationWitness", "divisionWitness", "learnerTaskMode"]
+    },
+    {
+      "kind": "trial_division_table",
+      "requiredFields": ["target", "rows", "searchEnd", "factorValues"],
+      "rowFields": ["divisor", "quotient", "remainder", "isExact"]
+    },
+    {
+      "kind": "factor_pairs_to_ordered_list",
+      "requiredFields": ["target", "factorPairs", "orderedFactorList", "transformationPrompt"]
+    },
+    {
+      "kind": "controlled_divisibility_statement",
+      "requiredFields": ["grammarFamilyId", "subjectValue", "objectValue", "statementText", "truthValue"]
+    },
+    {
+      "kind": "partition_count_length_pairs",
+      "requiredFields": ["totalLength", "lengthUnit", "pairs"],
+      "pairFields": ["segmentCount", "lengthPerSegment"]
+    },
+    {
+      "kind": "number_theory_problem_type_scenario",
+      "requiredFields": ["scenarioFamilyId", "scenarioText", "quantityRoles", "expectedLabel"]
+    },
+    {
+      "kind": "factor_list_reasoning_statement_set",
+      "requiredFields": ["target", "factorList", "statements", "truthPattern"],
+      "statementFields": ["statementFamilyId", "text", "truthValue", "requiredInference"]
+    },
+    {
+      "kind": "parallel_factor_sets_with_intersection",
+      "requiredFields": ["a", "b", "factorSetA", "factorSetB", "commonFactors"]
+    },
+    {
+      "kind": "common_factor_set_with_gcf",
+      "requiredFields": ["a", "b", "commonFactors", "greatestCommonFactor"]
+    },
+    {
+      "kind": "rectangle_square_partition_diagram",
+      "requiredFields": ["length", "width", "lengthUnit", "candidateSideLengths", "diagramScale"]
+    },
+    {
+      "kind": "square_tile_side_area_chain",
+      "requiredFields": ["length", "width", "lengthUnit", "sideAreaPairs", "diagramScale"],
+      "pairFields": ["sideLength", "tileArea"]
+    },
+    {
+      "kind": "unique_digit_code_constraints",
+      "requiredFields": ["profileId", "conditions", "candidateDomain", "solutionCount", "sourceReference"]
+    }
+  ],
+  "answerModelChanges": [
+    {
+      "answerModelId": "partitionPairListAnswer",
+      "changeType": "additive",
+      "usedBy": ["ps_g5a_u02_equal_partition_all_segment_counts"],
+      "requiredFields": ["pairs", "lengthUnit"],
+      "pairFields": ["segmentCount", "lengthPerSegment"]
+    },
+    {
+      "answerModelId": "commonFactorAndGcfAnswer",
+      "changeType": "additive",
+      "usedBy": ["ps_g5a_u02_greatest_common_factor"],
+      "requiredFields": ["commonFactors", "greatestCommonFactor"]
+    },
+    {
+      "answerModelId": "tileSideAreaPairListAnswer",
+      "changeType": "additive",
+      "usedBy": ["ps_g5a_u02_square_tile_area_possibilities"],
+      "requiredFields": ["pairs", "sideUnit", "areaUnit"],
+      "pairFields": ["sideLength", "tileArea"]
+    }
+  ],
+  "controlledGrammars": {
+    "divisibilityStatementFamilies": [
+      "candidate_is_factor_of_target",
+      "target_is_multiple_of_candidate",
+      "target_is_divisible_by_candidate",
+      "candidate_divides_target"
+    ],
+    "problemTypeLabels": ["factor", "multiple", "common_factor", "common_multiple"],
+    "problemTypeScenarioFamilies": [
+      "equal_partition_single_quantity",
+      "repeated_grouping_single_quantity",
+      "equal_partition_two_quantities",
+      "synchronized_repetition_two_quantities"
+    ],
+    "factorStatementFamilies": [
+      "candidate_is_factor",
+      "target_is_multiple",
+      "factor_count_parity",
+      "square_number_odd_factor_count",
+      "paired_factors_product_target"
+    ]
+  },
+  "samplingContracts": {
+    "nontrivialCommonFactorPair": {
+      "appliesTo": [
+        "ps_g5a_u02_common_factor_enumeration",
+        "ps_g5a_u02_greatest_common_factor"
+      ],
+      "constraints": [
+        "a != b",
+        "gcd(a,b) >= 2",
+        "gcd(a,b) < min(a,b)",
+        "factorSet(a) != factorSet(b)"
+      ]
+    },
+    "sourceDigitCodeSeparation": {
+      "appliesTo": ["ps_g5a_u02_multi_constraint_digit_code"],
+      "profiles": [
+        {
+          "profileId": "source_1725_reference",
+          "productionAllocation": "reference_only",
+          "expectedSolution": 1725,
+          "sourceEvidence": "g5a_u02_5a02a1:p2:right-top"
+        },
+        {
+          "profileId": "generated_unique_code_v1",
+          "productionAllocation": "default_regeneration",
+          "candidateDomain": "1000..9999 with four distinct digits and nonzero thousands digit",
+          "solverRequirement": "exactly_one_solution",
+          "conditionGrammar": "finite_controlled_only",
+          "minimalityRequirement": "removing_any_required_condition_must_not_leave_the_same_unique_solution"
+        }
+      ]
+    }
+  },
+  "patternContracts": [
+    {
+      "patternOrder": 1,
+      "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
+      "implementationMilestone": "S100",
+      "requiredDisplayModelKind": "factor_relation_dual_witness",
+      "requiredFixes": [
+        "show multiplication and exact-division witnesses for true cases",
+        "show nonexact division evidence for false cases",
+        "allow learner tasks to complete or compare the two methods"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_FACTOR_RELATION_DUAL_WITNESS_MISSING",
+        "G5AU02_P0_FACTOR_RELATION_WITNESS_INCONSISTENT"
+      ]
+    },
+    {
+      "patternOrder": 2,
+      "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
+      "implementationMilestone": "S100",
+      "requiredDisplayModelKind": "trial_division_table",
+      "requiredFixes": [
+        "render sequential trial divisors",
+        "render quotient, remainder and exact/nonexact status",
+        "derive the final factor list from exact rows"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_TRIAL_DIVISION_ROWS_INCOMPLETE",
+        "G5AU02_P0_TRIAL_DIVISION_ROW_ARITHMETIC_INVALID",
+        "G5AU02_P0_TRIAL_DIVISION_FACTOR_SET_MISMATCH"
+      ]
+    },
+    {
+      "patternOrder": 4,
+      "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
+      "implementationMilestone": "S100",
+      "requiredDisplayModelKind": "factor_pairs_to_ordered_list",
+      "requiredFixes": [
+        "show completed factor pairs",
+        "require flattening, deduplication and ascending ordering",
+        "keep public behavior distinguishable from direct factor enumeration"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_PAIR_SOURCE_NOT_VISIBLE",
+        "G5AU02_P0_PAIR_TO_LIST_TRANSFORMATION_INVALID"
+      ]
+    },
+    {
+      "patternOrder": 8,
+      "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
+      "implementationMilestone": "S100",
+      "requiredDisplayModelKind": "controlled_divisibility_statement",
+      "requiredFixes": [
+        "cover all four approved divisibility grammar families",
+        "derive truth from semantic roles rather than prompt text",
+        "include both true and false deterministic samples"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_DIVISIBILITY_GRAMMAR_UNKNOWN",
+        "G5AU02_P0_DIVISIBILITY_ROLE_DIRECTION_INVALID",
+        "G5AU02_P0_DIVISIBILITY_TRUTH_MISMATCH"
+      ]
+    },
+    {
+      "patternOrder": 9,
+      "patternSpecId": "ps_g5a_u02_equal_partition_all_segment_counts",
+      "implementationMilestone": "S101",
+      "requiredDisplayModelKind": "partition_count_length_pairs",
+      "requiredAnswerModelId": "partitionPairListAnswer",
+      "requiredFixes": [
+        "ask for segment count and length per segment as paired values",
+        "include every positive factor pair exactly once",
+        "preserve length units"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_PARTITION_PAIR_INCOMPLETE",
+        "G5AU02_P0_PARTITION_PAIR_PRODUCT_INVALID",
+        "G5AU02_P0_PARTITION_UNIT_MISSING"
+      ]
+    },
+    {
+      "patternOrder": 11,
+      "patternSpecId": "ps_g5a_u02_problem_type_classification",
+      "implementationMilestone": "S100",
+      "requiredDisplayModelKind": "number_theory_problem_type_scenario",
+      "requiredFixes": [
+        "replace dictionary definitions with controlled source-like scenarios",
+        "bind quantity roles and extremum wording to the expected label",
+        "cover all four approved labels"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_PROBLEM_SCENARIO_FAMILY_UNKNOWN",
+        "G5AU02_P0_PROBLEM_QUANTITY_ROLE_MISSING",
+        "G5AU02_P0_PROBLEM_TYPE_LABEL_MISMATCH"
+      ]
+    },
+    {
+      "patternOrder": 13,
+      "patternSpecId": "ps_g5a_u02_complete_factor_list_statement_evaluation",
+      "implementationMilestone": "S100",
+      "requiredDisplayModelKind": "factor_list_reasoning_statement_set",
+      "requiredFixes": [
+        "use controlled nontrivial statement families",
+        "require at least one true and one false statement",
+        "require at least one statement that depends on reconstructing factor structure",
+        "block the old always-true one-and-self-only set"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_STATEMENT_SET_TRIVIAL",
+        "G5AU02_P0_STATEMENT_TRUTH_PATTERN_INVALID",
+        "G5AU02_P0_STATEMENT_INFERENCE_NOT_REQUIRED"
+      ]
+    },
+    {
+      "patternOrder": 16,
+      "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
+      "implementationMilestone": "S102",
+      "requiredDisplayModelKind": "parallel_factor_sets_with_intersection",
+      "requiredFixes": [
+        "enforce nontrivial two-number sampling",
+        "show both factor sets and their intersection",
+        "retain complete common-factor answer"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_COMMON_FACTOR_OPERANDS_DEGENERATE",
+        "G5AU02_P0_FACTOR_SET_WITNESS_MISSING",
+        "G5AU02_P0_COMMON_FACTOR_INTERSECTION_MISMATCH"
+      ]
+    },
+    {
+      "patternOrder": 17,
+      "patternSpecId": "ps_g5a_u02_greatest_common_factor",
+      "implementationMilestone": "S102",
+      "requiredDisplayModelKind": "common_factor_set_with_gcf",
+      "requiredAnswerModelId": "commonFactorAndGcfAnswer",
+      "requiredFixes": [
+        "enforce nontrivial two-number sampling",
+        "derive the GCF from the complete common-factor set",
+        "show and validate the full set plus its maximum"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_GCF_OPERANDS_DEGENERATE",
+        "G5AU02_P0_GCF_COMMON_SET_MISSING",
+        "G5AU02_P0_GCF_NOT_MAXIMUM"
+      ]
+    },
+    {
+      "patternOrder": 20,
+      "patternSpecId": "ps_g5a_u02_rectangle_square_side_lengths",
+      "implementationMilestone": "S101",
+      "requiredDisplayModelKind": "rectangle_square_partition_diagram",
+      "requiredFixes": [
+        "render a bounded proportional rectangle diagram",
+        "show equal-square partition semantics without implying only one candidate",
+        "retain all valid integer side lengths"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_RECTANGLE_DIAGRAM_DIMENSION_MISMATCH",
+        "G5AU02_P0_RECTANGLE_SIDE_SET_MISMATCH"
+      ]
+    },
+    {
+      "patternOrder": 21,
+      "patternSpecId": "ps_g5a_u02_square_tile_area_possibilities",
+      "implementationMilestone": "S101",
+      "requiredDisplayModelKind": "square_tile_side_area_chain",
+      "requiredAnswerModelId": "tileSideAreaPairListAnswer",
+      "requiredFixes": [
+        "render the tiled rectangle representation",
+        "show every common-factor side length paired with its squared area",
+        "preserve side and area units"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_TILE_DIAGRAM_DIMENSION_MISMATCH",
+        "G5AU02_P0_TILE_SIDE_AREA_PAIR_INCOMPLETE",
+        "G5AU02_P0_TILE_AREA_NOT_SIDE_SQUARED"
+      ]
+    },
+    {
+      "patternOrder": 22,
+      "patternSpecId": "ps_g5a_u02_multi_constraint_digit_code",
+      "implementationMilestone": "S103",
+      "requiredDisplayModelKind": "unique_digit_code_constraints",
+      "requiredFixes": [
+        "retain the source 1725 reference profile exactly",
+        "exclude the source reference profile from repeated default allocation",
+        "generate deterministic finite-grammar code problems with exactly one solution",
+        "validate condition sufficiency and source-reference separation"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P0_DIGIT_CODE_PROFILE_INVALID",
+        "G5AU02_P0_DIGIT_CODE_NOT_UNIQUE",
+        "G5AU02_P0_DIGIT_CODE_CONDITION_INSUFFICIENT",
+        "G5AU02_P0_SOURCE_REFERENCE_REPEATED_AS_DEFAULT"
+      ]
+    }
+  ],
+  "implementationMilestones": [
+    {
+      "milestoneId": "S100",
+      "task": "G5AU02-S100_P0MethodWitnessLanguageAndReasoningFullFix",
+      "patternOrders": [1, 2, 4, 8, 11, 13],
+      "scope": "generator, display-model, validator, renderer and focused tests for method/language P0 patterns"
+    },
+    {
+      "milestoneId": "S101",
+      "task": "G5AU02-S101_P0PartitionAndGeometryRepresentationFullFix",
+      "patternOrders": [9, 20, 21],
+      "scope": "paired partition answers and bounded HTML/CSS geometry representations"
+    },
+    {
+      "milestoneId": "S102",
+      "task": "G5AU02-S102_P0NontrivialCommonFactorSamplingAndWitnessFullFix",
+      "patternOrders": [16, 17],
+      "scope": "nondegenerate deterministic sampling, factor-set witnesses and GCF derivation"
+    },
+    {
+      "milestoneId": "S103",
+      "task": "G5AU02-S103_P0SourceDigitCodeReferenceAndGeneratedFamilySeparation",
+      "patternOrders": [22],
+      "scope": "retain 1725 reference and add deterministic unique generated-code profile"
+    },
+    {
+      "milestoneId": "S104",
+      "task": "G5AU02-S104_P0IntegratedSemanticRendererHTMLPDFAcceptance",
+      "patternOrders": [1, 2, 4, 8, 9, 11, 13, 16, 17, 20, 21, 22],
+      "scope": "integrated source parity, browser bundle, 18-layout, answer-key, HTML/PDF and deployed-path acceptance"
+    }
+  ],
+  "acceptance": {
+    "focusedGeneration": {
+      "seedsPerPattern": 64,
+      "patternCount": 12,
+      "scenarioCount": 768,
+      "requiredPassCount": 768
+    },
+    "layoutMatrix": {
+      "layoutsPerPattern": 18,
+      "patternCount": 12,
+      "scenarioCount": 216,
+      "requiredPassCount": 216
+    },
+    "answerBoundaryMatrix": {
+      "layouts": ["3x5", "2x6", "1x7"],
+      "answerStates": ["off", "on"],
+      "patternCount": 12,
+      "scenarioCount": 72,
+      "requiredPassCount": 72
+    },
+    "blockingConditions": [
+      "missing source method witness",
+      "missing required structured representation",
+      "answer model mismatch",
+      "learner-visible information incomplete",
+      "nonunique generated code",
+      "equal-operand common-factor degeneracy",
+      "DOM overflow or overlap",
+      "blank or clipped PDF page",
+      "generic fallback or free-form AI"
+    ],
+    "all22SemanticD0AfterP0": false,
+    "reason": "P1 method and representation gaps remain after the P0 program."
+  },
+  "nextShortestStep": "G5AU02-S100_P0MethodWitnessLanguageAndReasoningFullFix"
+}
