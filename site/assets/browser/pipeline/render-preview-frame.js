@@ -22,7 +22,7 @@ function stampPublicControls(html, worksheetDocument) {
     `data-public-depth-mode="${escapeAttribute(controls.depthMode)}"`,
     `data-public-context-mode="${escapeAttribute(controls.contextMode)}"`,
     ...(hasLayoutMode ? [`data-public-layout-mode="${escapeAttribute(controls.layoutMode)}"`] : []),
-    `data-public-generic-fallback="${controls.genericFallback ? "true" : "false"}"`,
+    `data-public-generic-fallback="${controls.genericFallback ? "true" : "false"}`,
   ].join(" ");
   const metaValues = [controls.questionMode, controls.depthMode, controls.contextMode];
   if (hasLayoutMode) metaValues.push(controls.layoutMode);
@@ -38,7 +38,7 @@ function stampG4BU04LayoutReadback(html, worksheetDocument) {
   const attributes = [
     `data-g4b-u04-layout-mode="${escapeAttribute(layout.layoutMode)}"`,
     `data-g4b-u04-layout-profile="${escapeAttribute(layout.profileId)}"`,
-    `data-g4b-u04-layout-capped="${layout.capped ? "true" : "false"}"`,
+    `data-g4b-u04-layout-capped="${layout.capped ? "true" : "false"}`,
     `data-g4b-u04-requested-columns="${escapeAttribute(layout.requestedQuestionLayout?.columns)}"`,
     `data-g4b-u04-requested-rows="${escapeAttribute(layout.requestedQuestionLayout?.rowsPerPage)}"`,
     `data-g4b-u04-resolved-columns="${escapeAttribute(layout.resolvedQuestionLayout?.columns)}"`,
@@ -76,9 +76,36 @@ function scheduleClassicLayoutReadback(worksheetDocument) {
   else Promise.resolve().then(run);
 }
 
+export function shouldUseSharedExactLayoutRenderer(worksheetDocument) {
+  const resolution = worksheetDocument?.layoutResolution;
+  return resolution?.layoutMode === "exact_approved_matrix"
+    && resolution?.layoutExact === true
+    && Array.isArray(worksheetDocument?.questionPages)
+    && worksheetDocument.questionPages.length > 0;
+}
+
+function renderSharedWorksheet(previewFrame, worksheetDocument, options = {}) {
+  const html = renderWorksheetDocumentToHtml(worksheetDocument, {
+    title: options.title ?? "Math Worksheet Generator Preview",
+    stylesheetHref: options.stylesheetHref ?? "./assets/styles/print-styles.css",
+    debugDataAttributes: options.debugDataAttributes ?? true
+  });
+  previewFrame.srcdoc = stampPreviewMetadata(html, worksheetDocument);
+  previewFrame.dataset.sharedExactLayoutRenderer = "true";
+  return { html: previewFrame.srcdoc, sharedExactLayout: true };
+}
+
 export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}) {
   if (!previewFrame) throw new Error("Preview frame element is required.");
   scheduleClassicLayoutReadback(worksheetDocument);
+
+  // GLM-S09: once a worksheet has been projected into the global exact-layout
+  // document shape, the shared renderer is the only authority allowed to lay
+  // out question pages. Legacy dynamic/static HTML may contain correct content
+  // but cannot override the requested 1/2/3-column geometry.
+  if (shouldUseSharedExactLayoutRenderer(worksheetDocument)) {
+    return renderSharedWorksheet(previewFrame, worksheetDocument, options);
+  }
 
   if (worksheetDocument?.dynamicHtml) {
     previewFrame.srcdoc = stampPreviewMetadata(String(worksheetDocument.dynamicHtml)
@@ -109,13 +136,7 @@ export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}
     return { html: null, staticHtmlUrl: worksheetDocument.staticHtmlUrl };
   }
 
-  const html = renderWorksheetDocumentToHtml(worksheetDocument, {
-    title: options.title ?? "Math Worksheet Generator Preview",
-    stylesheetHref: options.stylesheetHref ?? "./assets/styles/print-styles.css",
-    debugDataAttributes: options.debugDataAttributes ?? true
-  });
-  previewFrame.srcdoc = stampPreviewMetadata(html, worksheetDocument);
-  return { html: previewFrame.srcdoc };
+  return renderSharedWorksheet(previewFrame, worksheetDocument, options);
 }
 
 export function printPreviewFrame(previewFrame) {
