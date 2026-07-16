@@ -155,7 +155,6 @@ export function validateG4BU04WorksheetPromotionProjection() {
       patternSpecs: G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length,
       answerShapes: G4B_U04_WORKSHEET_ANSWER_SHAPES.length,
       rendererProfiles: Object.keys(G4B_U04_RENDERER_PROFILES).length,
-      inverseApprovedLayouts: G4B_U04_INVERSE_LONG_APPROVED_LAYOUTS.length,
     }),
   });
 }
