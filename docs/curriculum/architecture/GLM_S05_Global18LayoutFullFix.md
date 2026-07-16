@@ -2,11 +2,13 @@
 
 ```text
 TASK = GLM-S05_Global18LayoutFullFix
-STATUS = IMPLEMENTED_PENDING_CI_AND_GAP_REPAIR
+STATUS = FOCUSED_270_EXACT_PENDING_FULL_REGRESSION_CI
 DEPENDS_ON = GLM-S04_GlobalLayoutArchitectureDesign
 PUBLIC_UNIT_COUNT = 15
 APPROVED_LAYOUT_COUNT = 18
 FOCUSED_DOCUMENT_SCENARIOS = 270
+FOCUSED_EXACT_COUNT = 270
+FOCUSED_FAILURE_COUNT = 0
 ```
 
 ## 1. Shared implementation
@@ -63,7 +65,7 @@ Public source-unit mode is internally adapted to all 13 promoted KnowledgePoints
 
 ### G5A-U02
 
-Public source-unit mode is internally adapted to all 18 visible KnowledgePoints and PatternGroups. It uses the existing dynamic runtime, making requested count and layout authoritative. The fixed static worksheet remains only a legacy diagnostic path.
+Public source-unit mode is internally adapted to all 18 visible KnowledgePoints and PatternGroups. It uses the existing dynamic runtime, making requested count and layout authoritative. The fixed static worksheet remains only a legacy diagnostic path. The public dynamic worksheet is projected from its canonical `questionItems` into the shared question and answer display models before the global overlay runs.
 
 ## 5. Focused acceptance
 
@@ -75,17 +77,30 @@ The dedicated focused test requires:
 - 15 units × 18 layouts = 270 exact source-unit documents;
 - exactly 18 questions for every scenario;
 - zero caps, ignored layouts or blocked scenarios;
-- answer layout independent for representative generic and specialized units.
+- answer layout independently resolved and read back for representative generic and specialized units.
 
-Initial CI is also the authority for identifying any remaining source-specific generation-validator inconsistency, particularly the known 4A-U01 first-difference case. Such defects are repaired without weakening validators.
+The latest clean focused diagnostic produced:
 
-## 6. Boundary
+```text
+STATUS         = ALL_270_EXACT
+SCENARIO_COUNT = 270
+EXACT_COUNT    = 270
+FAILURE_COUNT  = 0
+```
+
+The 4A-U01 first-difference generator-validator inconsistency was repaired by recalculating the first differing place and its answer before the unchanged blocking validator runs. No validator was weakened.
+
+## 6. Regression compatibility
+
+Historical S01/S02 baseline evidence remains immutable evidence of the pre-fix state. Runtime regression tests now distinguish those historical gap snapshots from current repaired behavior. Previous per-unit density recommendations remain renderer evidence, but public question pagination is superseded by the global exact matrix. Answer-specific pagination remains independently resolved.
+
+## 7. Boundary
 
 S05 does not change curriculum authority, arithmetic formulas, answer models, question wording, generic fallback or free-form AI policy. The eleven previously exact units are regression-only.
 
-## 7. Continuation
+## 8. Continuation
 
-After focused and full CI pass:
+After full CI passes:
 
 ```text
 GLM-S06_270ScenarioPostFixAcceptance
@@ -93,13 +108,13 @@ GLM-S06_270ScenarioPostFixAcceptance
 → require 270 exact documents and zero render defects
 ```
 
-## 8. Distance
+## 9. Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_GLOBAL_EXACT_LAYOUT_ARCHITECTURE_LOCKED_PENDING_FULLFIX
-GOAL_DISTANCE_AFTER  = D1_GLOBAL_FULLFIX_IMPLEMENTED_PENDING_CI_AND_270_HTML_PDF_ACCEPTANCE
-DISTANCE_REDUCED     = shared registry, adapters, exact overlay, controls and metadata implemented
-REMAINING_BLOCKERS   = focused CI, source-specific gap repairs, full CI, S06-S08
-NEXT_SHORT_STEP      = GLM-S05_FocusedCIAndGapRepair
+GOAL_DISTANCE_AFTER  = D1_GLOBAL_270_EXACT_PENDING_FULL_REGRESSION_AND_HTML_PDF_ACCEPTANCE
+DISTANCE_REDUCED     = shared registry, adapters, exact overlay, 270/270 focused authority and stale-contract separation complete
+REMAINING_BLOCKERS   = full regression CI, merge, S06-S08
+NEXT_SHORT_STEP      = GLM-S05_FullRegressionCIAndMerge
 STOP_REASON          = NONE
 ```
