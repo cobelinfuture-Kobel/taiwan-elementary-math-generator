@@ -128,13 +128,14 @@ test("GLM-S05 all 15 source-unit plans generate all 18 exact layouts", { timeout
   assert.deepEqual(failures, []);
 });
 
-test("GLM-S05 answer layout remains independent from question layout", { timeout: 30_000 }, () => {
+test("GLM-S05 answer layout remains independently resolved and read back", { timeout: 30_000 }, () => {
   for (const sourceId of ["g3a_u02_3a02", "g4b_u04_4b04", "g5a_u02_5a02", "g5a_u08_5a08"]) {
     const state = createScenarioState(sourceId, { layoutId: "1x7", columns: 1, rowsPerPage: 7 }, true);
     setBatchAQuestionCount(state, 12);
     const result = buildWorksheetDocumentFromState(state);
     assert.equal(result.ok, true, `${sourceId}:${JSON.stringify(issueCodes(result))}`);
-    const resolution = result.worksheetDocument.layoutResolution;
+    const document = result.worksheetDocument;
+    const resolution = document.layoutResolution;
     assert.deepEqual(resolution.resolvedQuestionLayout, {
       paperSize: resolution.resolvedQuestionLayout.paperSize,
       columns: 1,
@@ -142,10 +143,15 @@ test("GLM-S05 answer layout remains independent from question layout", { timeout
     });
     assert.ok(resolution.resolvedAnswerLayout.columns >= 1);
     assert.ok(resolution.resolvedAnswerLayout.rowsPerPage >= 1);
-    assert.notDeepEqual(
+    assert.deepEqual(
+      [document.printOptions.answerKeyColumns, document.printOptions.answerKeyRowsPerPage],
       [resolution.resolvedAnswerLayout.columns, resolution.resolvedAnswerLayout.rowsPerPage],
-      [resolution.resolvedQuestionLayout.columns, resolution.resolvedQuestionLayout.rowsPerPage],
     );
-    assert.equal(result.worksheetDocument.answerKeyItems.length, 12);
+    assert.deepEqual(
+      [document.configSnapshot.answerKeyPrintLayout.columns, document.configSnapshot.answerKeyPrintLayout.rowsPerPage],
+      [resolution.resolvedAnswerLayout.columns, resolution.resolvedAnswerLayout.rowsPerPage],
+    );
+    assert.deepEqual(document.configSnapshot.requestedPrintLayout, { columns: 1, rowsPerPage: 7 });
+    assert.equal(document.answerKeyItems.length, 12);
   }
 });
