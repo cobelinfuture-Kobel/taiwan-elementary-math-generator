@@ -26,7 +26,10 @@ function responsePrompt(record = {}) {
 }
 
 function isG5AU02DynamicDocument(document = {}) {
-  return document?.sourceUnitId === G5A_U02_PUBLIC_SOURCE_ID
+  const dynamicRecordShape = document?.schemaVersion === "g5a-u02-hidden-worksheet-v1"
+    && Array.isArray(document?.questionRecords);
+  return dynamicRecordShape
+    || document?.sourceUnitId === G5A_U02_PUBLIC_SOURCE_ID
     || document?.sourceId === G5A_U02_PUBLIC_SOURCE_ID
     || document?.batchA?.sourceId === G5A_U02_PUBLIC_SOURCE_ID;
 }
