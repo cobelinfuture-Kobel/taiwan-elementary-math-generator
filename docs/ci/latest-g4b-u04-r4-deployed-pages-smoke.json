@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "g4b-u04-r4-deployed-pages-smoke-v1",
+  "task": "G4B_U04_R4_SourceSwitchAndFlexibleCustomLayoutRepair",
+  "status": "PASS",
+  "productionUse": "allowed_deployed_ui_print",
+  "deploymentSha": "981735f89b4f7222ad3c506fa134a5e88fbfe0ec",
+  "sourceId": "g4b_u04_4b04",
+  "otherSourceId": "g5a_u08_5a08",
+  "sourceSwitch": {
+    "from": "g4b_u04_4b04",
+    "to": "g5a_u08_5a08",
+    "controlSourceId": "g5a_u08_5a08",
+    "querySourceId": "g5a_u08_5a08",
+    "g4ControlsVisible": "false"
+  },
+  "approvedCustomLayoutCount": 18,
+  "approvedRanges": {
+    "1": [
+      1,
+      7
+    ],
+    "2": [
+      1,
+      6
+    ],
+    "3": [
+      1,
+      5
+    ]
+  },
+  "layoutResults": [
+    {
+      "scenarioId": "3x5",
+      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=981735f89b4f7222ad3c506fa134a5e88fbfe0ec-3x5-1784163620430",
+      "generation": {
+        "status": "已產生 15 題，可預覽與列印。",
+        "validation": "驗證通過，沒有發現出題錯誤。",
+        "previewMeta": "Batch B 4B-U04 概數｜15 題｜不含答案頁｜套用版面：題目 3 欄 × 5 列；答案 1 欄 × 5 列"
+      },
+      "audit": {
+        "questionCardCount": 15,
+        "questionPageCount": 1,
+        "answerCardCount": 0,
+        "answerPageCount": 0,
+        "responsePromptCount": 0,
+        "overflowCount": 0,
+        "interCardOverlapCount": 0,
+        "requestedColumns": 3,
+        "requestedRows": 5,
+        "resolvedColumns": 3,
+        "resolvedRows": 5,
+        "layoutMode": "custom_with_caps",
+        "layoutCapped": "false"
+      },
+      "printCalled": true
+    },
+    {
+      "scenarioId": "2x6",
+      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=12&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-2x6&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=981735f89b4f7222ad3c506fa134a5e88fbfe0ec-2x6-1784163621517",
+      "generation": {
+        "status": "已產生 12 題，可預覽與列印。",
+        "validation": "驗證通過，沒有發現出題錯誤。",
+        "previewMeta": "Batch B 4B-U04 概數｜12 題｜不含答案頁｜套用版面：題目 2 欄 × 6 列；答案 1 欄 × 5 列"
+      },
+      "audit": {
+        "questionCardCount": 12,
+        "questionPageCount": 1,
+        "answerCardCount": 0,
+        "answerPageCount": 0,
+        "responsePromptCount": 0,
+        "overflowCount": 0,
+        "interCardOverlapCount": 0,
+        "requestedColumns": 2,
+        "requestedRows": 6,
+        "resolvedColumns": 2,
+        "resolvedRows": 6,
+        "layoutMode": "custom_with_caps",
+        "layoutCapped": "false"
+      },
+      "printCalled": true
+    },
+    {
+      "scenarioId": "1x7",
+      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=7&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-1x7&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=981735f89b4f7222ad3c506fa134a5e88fbfe0ec-1x7-1784163622616",
+      "generation": {
+        "status": "已產生 7 題，可預覽與列印。",
+        "validation": "驗證通過，沒有發現出題錯誤。",
+        "previewMeta": "Batch B 4B-U04 概數｜7 題｜不含答案頁｜套用版面：題目 1 欄 × 7 列；答案 1 欄 × 5 列"
+      },
+      "audit": {
+        "questionCardCount": 7,
+        "questionPageCount": 1,
+        "answerCardCount": 0,
+        "answerPageCount": 0,
+        "responsePromptCount": 0,
+        "overflowCount": 0,
+        "interCardOverlapCount": 0,
+        "requestedColumns": 1,
+        "requestedRows": 7,
+        "resolvedColumns": 1,
+        "resolvedRows": 7,
+        "layoutMode": "custom_with_caps",
+        "layoutCapped": "false"
+      },
+      "printCalled": true
+    }
+  ],
+  "responsePromptCount": 0,
+  "answerCardCount": 0,
+  "domOverflowCount": 0,
+  "interCardOverlapCount": 0,
+  "printCalledCount": 3,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "genericFallback": false,
+  "freeFormAI": false,
+  "deployedAssets": {
+    "controls": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/g4b-u04-public-controls.js",
+      "bytes": 10352,
+      "sha256": "052112d5768e1aa993bf7b55b319084c2a5802dc251b51eb78b2b4e3899cdf33"
+    },
+    "resolver": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-layout-resolution.js",
+      "bytes": 5178,
+      "sha256": "cd40be248d58c13cc89fe9448ffe188aa34697a2147655206ce33c23be26f09b"
+    },
+    "worksheetProfile": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4b-u04-worksheet-promotion.js",
+      "bytes": 7476,
+      "sha256": "62950de0dfb089b387a2300fc4de86beedd01b203b2feadf252eb41847bd6f94"
+    }
+  },
+  "workflow": "G4B-U04 R4 Deployed Pages Smoke",
+  "eventName": "workflow_run",
+  "run": {
+    "id": "29462947905",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29462947905"
+  },
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "verifiedAt": "2026-07-16T01:00:23.746Z"
+}
