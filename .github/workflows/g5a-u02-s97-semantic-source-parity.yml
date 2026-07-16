@@ -1,0 +1,90 @@
+name: G5A-U02 S97 Semantic Source Parity
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/curriculum/g5a-u02/**"
+      - "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js"
+      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      - "tests/curriculum/g5a-u02-s97-source-parity-prompt-completeness.test.js"
+      - ".github/workflows/g5a-u02-s97-semantic-source-parity.yml"
+      - "docs/curriculum/architecture/G5AU02_S97_SourceParityPromptCompletenessAndSemanticFullFix.md"
+      - "docs/curriculum/output/G5AU02_S97_SEMANTIC_SOURCE_PARITY_PENDING.marker"
+  workflow_dispatch:
+
+jobs:
+  source-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run 120-scenario visible-information acceptance
+        run: node --test tests/curriculum/g5a-u02-s97-source-parity-prompt-completeness.test.js
+
+  browser-bundle:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build current browser runtime from canonical source
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
+      - name: Verify bundled six-pattern semantic authority
+        run: |
+          node --input-type=module <<'NODE'
+          const runtime = await import('./site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js');
+          const audit = runtime.auditG5AU02BrowserDynamicRuntime();
+          if (!audit.ok) throw new Error(JSON.stringify(audit.errors));
+          const patternSpecIds = [
+            'ps_g5a_u02_missing_factor_reconstruction',
+            'ps_g5a_u02_divisor_candidate_selection',
+            'ps_g5a_u02_complete_factor_list_unknown_values',
+            'ps_g5a_u02_complete_factor_list_statement_evaluation',
+            'ps_g5a_u02_common_factor_concept_identification',
+            'ps_g5a_u02_multi_constraint_digit_code',
+          ];
+          let count = 0;
+          for (const patternSpecId of patternSpecIds) {
+            const result = runtime.buildG5AU02BrowserDynamicWorksheet({
+              sourceId: 'g5a_u02_5a02',
+              patternSpecIds: [patternSpecId],
+              questionCount: 20,
+              generationSeed: 970001,
+              includeAnswerKey: true,
+            });
+            if (!result?.ok) throw new Error(JSON.stringify(result?.errors));
+            for (const question of result.worksheetDocument.questionItems) {
+              if (!question.questionDisplayModel) throw new Error(`missing display model: ${patternSpecId}`);
+              if (question.promptCompletenessStatus !== 'visible_unique_solution_data_complete') {
+                throw new Error(`incomplete visible prompt: ${patternSpecId}`);
+              }
+              count += 1;
+            }
+          }
+          if (count !== 120) throw new Error(`expected 120 inspected prompts, got ${count}`);
+          NODE
+
+  full-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run complete Node regression
+        run: npm test
