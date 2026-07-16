@@ -1,0 +1,157 @@
+name: GLM-S06 270-Scenario Post-Fix HTML PDF Acceptance
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/glm-s06-270-postfix-html-pdf-acceptance.yml
+      - data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json
+      - site/assets/styles/print-styles.css
+      - site/assets/browser/state/**
+      - site/assets/browser/pipeline/**
+      - site/modules/curriculum/batch-a/**
+      - site/modules/curriculum/batch-b/**
+      - site/modules/curriculum/registry/**
+      - site/modules/renderer/**
+      - tools/curriculum/glm-s06-scenario-plan.mjs
+      - tools/curriculum/run-glm-s06-html-pdf-shard.mjs
+      - tools/curriculum/inspect-glm-s06-pdfs.py
+      - tools/curriculum/aggregate-glm-s06-html-pdf-acceptance.mjs
+      - tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js
+      - docs/curriculum/architecture/GLM_S06_270ScenarioPostFixAcceptance.md
+      - docs/curriculum/output/GLM_S06_270_POSTFIX_HTML_PDF_ACCEPTANCE_PENDING.marker
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Validate GLM-S06 acceptance contract
+        run: |
+          node --test tests/curriculum/glm-s00-public-completed-unit-18-layout-contract.test.js
+          node --test tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js
+          python3 -m py_compile tools/curriculum/inspect-glm-s06-pdfs.py
+
+  shard:
+    needs: contract
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        shard: [0, 1, 2, 3, 4]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install browser and PDF dependencies
+        run: |
+          npm install
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
+
+      - name: Run strict post-fix HTML PDF acceptance shard
+        run: node tools/curriculum/run-glm-s06-html-pdf-shard.mjs --shard=${{ matrix.shard }}
+
+      - name: Upload shard evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s06-shard-${{ matrix.shard }}
+          if-no-files-found: error
+          retention-days: 30
+          path: docs/curriculum/output/glm-s06-270-postfix-html-pdf-acceptance/shard-${{ matrix.shard }}/**
+
+  aggregate:
+    needs: shard
+    if: always() && needs.shard.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download all shard evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: glm-s06-shard-*
+          path: /tmp/glm-s06-shards
+
+      - name: Aggregate strict 270-scenario acceptance
+        run: node tools/curriculum/aggregate-glm-s06-html-pdf-acceptance.mjs --input=/tmp/glm-s06-shards
+
+      - name: Validate S06 terminal authority
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const p = 'docs/curriculum/output/glm-s06-270-postfix-html-pdf-acceptance/current.json';
+          const m = JSON.parse(fs.readFileSync(p, 'utf8'));
+          if (m.status !== 'PASS_ACCEPTED') throw new Error(`status ${m.status}`);
+          if (m.globalStatus !== 'ALL_270_POSTFIX_HTML_PDF_PASS') throw new Error(`global ${m.globalStatus}`);
+          if (m.scenarioCount !== 270) throw new Error(`scenarios ${m.scenarioCount}`);
+          if (m.generatedScenarioCount !== 270) throw new Error(`generated ${m.generatedScenarioCount}`);
+          if (m.renderedScenarioCount !== 270) throw new Error(`rendered ${m.renderedScenarioCount}`);
+          if (m.renderPassCount !== 270) throw new Error(`render pass ${m.renderPassCount}`);
+          if (m.acceptancePassCount !== 270 || m.acceptanceFailureCount !== 0) {
+            throw new Error(`acceptance ${m.acceptancePassCount}/${m.acceptanceFailureCount}`);
+          }
+          if (m.documentClassificationCounts.PASS !== 270) {
+            throw new Error(`document pass ${m.documentClassificationCounts.PASS}`);
+          }
+          if (Object.keys(m.renderFindingCounts).length !== 0) {
+            throw new Error(`render findings ${JSON.stringify(m.renderFindingCounts)}`);
+          }
+          if (m.sourceSummaries.length !== 15 || m.sourceSummaries.some(s => s.acceptancePassCount !== 18)) {
+            throw new Error('source summaries are not 18/18');
+          }
+          console.log(JSON.stringify({
+            status: m.status,
+            globalStatus: m.globalStatus,
+            scenarioCount: m.scenarioCount,
+            generatedScenarioCount: m.generatedScenarioCount,
+            renderedScenarioCount: m.renderedScenarioCount,
+            renderPassCount: m.renderPassCount,
+            acceptancePassCount: m.acceptancePassCount,
+            acceptanceFailureCount: m.acceptanceFailureCount,
+            documentClassificationCounts: m.documentClassificationCounts,
+            renderFindingCounts: m.renderFindingCounts,
+          }, null, 2));
+          NODE
+
+      - name: Upload S06 aggregate authority
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s06-270-postfix-html-pdf-acceptance
+          if-no-files-found: error
+          retention-days: 30
+          path: docs/curriculum/output/glm-s06-270-postfix-html-pdf-acceptance/current.json
