@@ -21,13 +21,13 @@ test("Pixel worksheet state uses shared Batch A config state defaults", () => {
   assert.equal(plan.includeAnswerKey, true);
   assert.equal(plan.generationSeed, "pixel-ui");
   assert.deepEqual(plan.printLayout, {
-    columns: 4,
-    rowsPerPage: 10,
+    columns: 3,
+    rowsPerPage: 5,
     showAnswerKeyPage: true
   });
 });
 
-test("Pixel worksheet settings update question count ordering answer key seed and print layout", () => {
+test("Pixel worksheet settings update question count ordering answer key seed and normalize print layout", () => {
   const state = createPixelWorksheetState({ sourceId: "g3a_u02_3a02" });
   const plan = applyPixelWorksheetSettings(state, {
     questionCount: 48,
@@ -43,12 +43,12 @@ test("Pixel worksheet settings update question count ordering answer key seed an
   assert.equal(plan.generationSeed, "pixel-seed-48");
   assert.deepEqual(plan.printLayout, {
     columns: 3,
-    rowsPerPage: 8,
+    rowsPerPage: 5,
     showAnswerKeyPage: false
   });
 });
 
-test("Pixel worksheet state preserves shared question-count and print-layout bounds", () => {
+test("Pixel worksheet state preserves shared question-count and approved-layout bounds", () => {
   const state = createPixelWorksheetState({
     sourceId: "g3a_u02_3a02",
     questionCount: 999,
@@ -57,8 +57,8 @@ test("Pixel worksheet state preserves shared question-count and print-layout bou
   });
   const plan = getPixelWorksheetPlan(state);
   assert.equal(plan.questionCount, 200);
-  assert.equal(plan.printLayout.columns, 4);
-  assert.equal(plan.printLayout.rowsPerPage, 10);
+  assert.equal(plan.printLayout.columns, 3);
+  assert.equal(plan.printLayout.rowsPerPage, 5);
 });
 
 test("Pixel worksheet selection sync maps shared selector state into worksheet plan", () => {

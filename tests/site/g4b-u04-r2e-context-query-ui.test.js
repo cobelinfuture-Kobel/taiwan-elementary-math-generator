@@ -84,7 +84,7 @@ test("R2E Classic worksheet carries controlled context and resolved layout metad
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const document = result.worksheetDocument;
   assert.equal(document.publicControls.contextMode, "sdg");
-  assert.equal(document.publicControls.layoutMode, "custom_with_caps");
+  assert.equal(document.publicControls.layoutMode, "exact_approved_matrix");
   assert.equal(document.contextAllocation.requestedMode, "sdg");
   assert.equal(document.contextAllocation.counts.sdg, 12);
   assert.equal(document.summary.sdgContextCount, 12);

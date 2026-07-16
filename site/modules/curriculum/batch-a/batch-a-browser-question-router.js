@@ -2,6 +2,7 @@ export * from "./batch-a-browser-question-router-core.js";
 
 import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions as generateCoreBatchABrowserQuestions } from "./batch-a-browser-question-router-core.js";
+import { applyG4AU01FirstDifferenceFullFix } from "./g4a-u01-first-difference-fullfix.js";
 import {
   generateG4AU08AllCanonicalPublicQuestions,
   normalizeG4AU08AllCanonicalPublicPlan,
@@ -162,5 +163,5 @@ export function generateBatchABrowserQuestions(options = {}) {
   if (g5aU08RouteKind === G5A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) {
     return generateG5AU08CanonicalQuestions(g5aU08Plan);
   }
-  return generateCoreBatchABrowserQuestions(options);
+  return applyG4AU01FirstDifferenceFullFix(generateCoreBatchABrowserQuestions(options), plan);
 }

@@ -86,8 +86,8 @@ test("Batch A state - default plan is serializable", () => {
   assert.equal(reparsed.questionCount, 20);
   assert.equal(reparsed.ordering, "groupedByPattern");
   assert.equal(typeof reparsed.includeAnswerKey, "boolean");
-  assert.equal(reparsed.printLayout.columns, 4);
-  assert.equal(reparsed.printLayout.rowsPerPage, 10);
+  assert.equal(reparsed.printLayout.columns, 3);
+  assert.equal(reparsed.printLayout.rowsPerPage, 5);
   assert.equal(reparsed.printLayout.showAnswerKeyPage, reparsed.includeAnswerKey);
 });
 

@@ -214,7 +214,7 @@ test("S59I Classic public state builds a printable 72-question all-family worksh
   assert.deepEqual(new Set(document.generatedQuestions.map((question) => question.patternSpecId)), new Set(SPEC_IDS));
   assert.equal(document.rendererProfile.profileId, "g4b_u01_horizontal_numeric_v1");
   assert.equal(document.printOptions.columns, 3);
-  assert.equal(document.printOptions.rowsPerPage, 8);
+  assert.equal(document.printOptions.rowsPerPage, 5);
   assert.equal(document.printOptions.answerKeyColumns, 3);
   assert.equal(document.printOptions.answerKeyRowsPerPage, 10);
   assert.ok(document.generatedQuestions.every((question) => question.representation === "horizontal_only"));

@@ -119,13 +119,13 @@ test("Classic public path generates numeric, semantic, and hybrid G3B-U04 worksh
   assert.equal(hybrid.worksheetDocument.generatedQuestions.some((question) => question.kind !== "g3bU04SemanticWordProblem"), true);
 });
 
-test("semantic Classic output enforces long-text layout and answer-key controls", () => {
+test("semantic Classic output preserves long-text policy while using the global exact default", () => {
   const withAnswers = buildClassicWorksheet({ patternGroupIds: [APPLICATION_GROUP_ID], includeAnswerKey: true, questionCount: 16 });
   const withoutAnswers = buildClassicWorksheet({ patternGroupIds: [APPLICATION_GROUP_ID], includeAnswerKey: false, questionCount: 16 });
 
   assert.equal(withAnswers.ok, true);
-  assert.equal(withAnswers.worksheetDocument.printOptions.columns, 2);
-  assert.equal(withAnswers.worksheetDocument.printOptions.rowsPerPage, 4);
+  assert.equal(withAnswers.worksheetDocument.printOptions.columns, 3);
+  assert.equal(withAnswers.worksheetDocument.printOptions.rowsPerPage, 5);
   assert.equal(withAnswers.worksheetDocument.printOptions.answerKeyColumns, 1);
   assert.equal(withAnswers.worksheetDocument.printOptions.answerKeyRowsPerPage, 8);
   assert.equal(withAnswers.worksheetDocument.printOptions.pageBreakMode, "avoidLongTextCards");

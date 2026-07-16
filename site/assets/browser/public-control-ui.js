@@ -1,3 +1,4 @@
+import "./global-public-layout-controls.js";
 import { getPublicControlProfile } from "../../modules/curriculum/registry/public-control-profiles.js";
 
 const sourceSelect = document.getElementById("batch-a-source-select");

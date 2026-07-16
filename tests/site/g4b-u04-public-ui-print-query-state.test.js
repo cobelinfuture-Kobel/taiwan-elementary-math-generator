@@ -148,7 +148,7 @@ test("S74 Classic query state builds printable contextual worksheet with truthfu
   assert.equal(result.worksheetDocument.generatedQuestions.length, 12);
   assert.equal(result.worksheetDocument.answerKeyItems.length, 12);
   assert.equal(result.worksheetDocument.rendererProfile.profileId, "g4b_u04_contextual_estimation_v1");
-  assert.equal(result.worksheetDocument.layoutResolution.layoutMode, "custom_with_caps");
+  assert.equal(result.worksheetDocument.layoutResolution.layoutMode, "exact_approved_matrix");
   assert.deepEqual(result.worksheetDocument.layoutResolution.resolvedQuestionLayout, {
     paperSize: "A4", columns: 2, rowsPerPage: 4,
   });
@@ -175,7 +175,7 @@ test("S74 all five explicit G4B-U04 question modes remain publicly generatable",
     assert.equal(result.ok, true, `${questionMode}:${JSON.stringify(result.errors)}`);
     assert.equal(result.worksheetDocument.generatedQuestions.length, 4);
     assert.ok(result.worksheetDocument.generatedQuestions.every((item) => item.mode === questionMode));
-    assert.equal(result.worksheetDocument.layoutResolution.layoutMode, "auto_safe");
+    assert.equal(result.worksheetDocument.layoutResolution.layoutMode, "exact_approved_matrix");
   }
 });
 
