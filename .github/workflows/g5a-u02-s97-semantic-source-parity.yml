@@ -63,5 +63,19 @@ jobs:
         with:
           node-version: 20
       - run: npm install --no-package-lock
-      - name: Run complete Node regression
-        run: npm test
+      - name: Run complete Node regression with inspectable readback
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/g5a-u02-s97-full-regression.log 2>&1
+          status=$?
+          tail -n 120 /tmp/g5a-u02-s97-full-regression.log
+          exit "$status"
+      - name: Upload full regression readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s97-full-regression
+          retention-days: 7
+          if-no-files-found: error
+          path: /tmp/g5a-u02-s97-full-regression.log
