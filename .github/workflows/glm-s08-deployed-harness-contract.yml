@@ -1,0 +1,45 @@
+name: GLM-S08 Deployed Harness Contract
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/glm-s08-deployed-harness-contract.yml
+      - .github/workflows/glm-s08-deployed-classic-ui-d0.yml
+      - data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json
+      - tools/curriculum/glm-s08-deployed-scenario-plan.mjs
+      - tools/curriculum/run-glm-s08-deployed-classic-ui-d0.mjs
+      - tests/curriculum/glm-s08-deployed-classic-ui-d0-contract.test.js
+      - docs/curriculum/architecture/GLM_S08_DeployedClassicUIAndD0Closeout.md
+      - docs/curriculum/output/GLM_S07_ANSWER_KEY_BOUNDARY_STRESS_PASS.marker
+      - docs/curriculum/output/GLM_S08_DEPLOYED_CLASSIC_UI_D0_PENDING.marker
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Validate GLM-S08 deployed harness contract
+        run: |
+          node --test tests/curriculum/glm-s00-public-completed-unit-18-layout-contract.test.js
+          node --test tests/curriculum/glm-s08-deployed-classic-ui-d0-contract.test.js
+          node tools/curriculum/glm-s08-deployed-scenario-plan.mjs
+          node --check tools/curriculum/run-glm-s08-deployed-classic-ui-d0.mjs
+          test -f docs/curriculum/output/GLM_S07_ANSWER_KEY_BOUNDARY_STRESS_PASS.marker
+          test -f docs/curriculum/output/GLM_S08_DEPLOYED_CLASSIC_UI_D0_PENDING.marker
