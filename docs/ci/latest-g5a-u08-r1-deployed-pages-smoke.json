@@ -2,7 +2,7 @@
   "schemaVersion": "g5a-u08-r1-deployed-pages-smoke-v1",
   "task": "G5A_U08_R1_DeployedControlsAndPrintRecloseout",
   "status": "FAIL",
-  "deploymentSha": "a66261aa3b1acb9023b4a599f504da59db3966cf",
+  "deploymentSha": "d55c5ae51eea664ab90bf6625b3b4fb53652caa5",
   "message": "G5A_U08_R1_DEPLOYED_PREVIEW_META_INVALID",
   "details": {
     "label": "無括號四則混合運算順序",
@@ -14,12 +14,12 @@
   "pageErrors": [],
   "workflow": "G5A-U08-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29485041369",
-    "number": "31",
+    "id": "29488817595",
+    "number": "32",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29485041369"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29488817595"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-16T08:53:09.972Z"
+  "verifiedAt": "2026-07-16T09:54:08.223Z"
 }
