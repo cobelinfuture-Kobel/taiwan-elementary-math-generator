@@ -76,9 +76,36 @@ function scheduleClassicLayoutReadback(worksheetDocument) {
   else Promise.resolve().then(run);
 }
 
+export function shouldUseSharedExactLayoutRenderer(worksheetDocument) {
+  const resolution = worksheetDocument?.layoutResolution;
+  return resolution?.layoutMode === "exact_approved_matrix"
+    && resolution?.layoutExact === true
+    && Array.isArray(worksheetDocument?.questionPages)
+    && worksheetDocument.questionPages.length > 0;
+}
+
+function renderSharedWorksheet(previewFrame, worksheetDocument, options = {}) {
+  const html = renderWorksheetDocumentToHtml(worksheetDocument, {
+    title: options.title ?? "Math Worksheet Generator Preview",
+    stylesheetHref: options.stylesheetHref ?? "./assets/styles/print-styles.css",
+    debugDataAttributes: options.debugDataAttributes ?? true
+  });
+  previewFrame.srcdoc = stampPreviewMetadata(html, worksheetDocument);
+  if (previewFrame.dataset) previewFrame.dataset.sharedExactLayoutRenderer = "true";
+  return { html: previewFrame.srcdoc, sharedExactLayout: true };
+}
+
 export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}) {
   if (!previewFrame) throw new Error("Preview frame element is required.");
   scheduleClassicLayoutReadback(worksheetDocument);
+
+  // GLM-S09: once a worksheet has been projected into the global exact-layout
+  // document shape, the shared renderer is the only authority allowed to lay
+  // out question pages. Legacy dynamic/static HTML may contain correct content
+  // but cannot override the requested 1/2/3-column geometry.
+  if (shouldUseSharedExactLayoutRenderer(worksheetDocument)) {
+    return renderSharedWorksheet(previewFrame, worksheetDocument, options);
+  }
 
   if (worksheetDocument?.dynamicHtml) {
     previewFrame.srcdoc = stampPreviewMetadata(String(worksheetDocument.dynamicHtml)
@@ -109,13 +136,7 @@ export function renderPreviewFrame(previewFrame, worksheetDocument, options = {}
     return { html: null, staticHtmlUrl: worksheetDocument.staticHtmlUrl };
   }
 
-  const html = renderWorksheetDocumentToHtml(worksheetDocument, {
-    title: options.title ?? "Math Worksheet Generator Preview",
-    stylesheetHref: options.stylesheetHref ?? "./assets/styles/print-styles.css",
-    debugDataAttributes: options.debugDataAttributes ?? true
-  });
-  previewFrame.srcdoc = stampPreviewMetadata(html, worksheetDocument);
-  return { html: previewFrame.srcdoc };
+  return renderSharedWorksheet(previewFrame, worksheetDocument, options);
 }
 
 export function printPreviewFrame(previewFrame) {
