@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, unlinkSync } from "node:fs";
 import path from "node:path";
-import test from "node:test";
+import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const testDirectory = path.dirname(fileURLToPath(import.meta.url));
@@ -20,6 +20,8 @@ const contractPath = path.join(
   "data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json",
 );
 
+let generatedByThisTestProcess = false;
+
 function ensureManifest() {
   if (!existsSync(manifestPath)) {
     execFileSync(process.execPath, [toolPath], {
@@ -27,9 +29,20 @@ function ensureManifest() {
       encoding: "utf8",
       stdio: "pipe",
     });
+    generatedByThisTestProcess = true;
   }
   return JSON.parse(readFileSync(manifestPath, "utf8"));
 }
+
+after(() => {
+  // The dedicated GLM-S01 workflow runs the audit tool before this test and
+  // retains the manifest for artifact upload. Full-suite test jobs create the
+  // manifest only for validation, so remove that temporary output to preserve
+  // the repository clean-tree contract.
+  if (generatedByThisTestProcess && existsSync(manifestPath)) {
+    unlinkSync(manifestPath);
+  }
+});
 
 const contract = JSON.parse(readFileSync(contractPath, "utf8"));
 
