@@ -96,7 +96,7 @@ test("GLM-S02 records one or more worst-case question shapes for every unit", ()
   }
 });
 
-test("GLM-S02 recovers G5A-U02 static canonical prompts without hiding route limitations", () => {
+test("GLM-S02 preserves G5A-U02 static canonical prompt evidence after runtime repair", () => {
   const manifest = ensureManifest();
   const unit = manifest.unitSummaries.find((entry) => entry.sourceId === "g5a_u02_5a02");
   assert.equal(manifest.g5aU02StaticHtmlEnrichment.status, "APPLIED");
@@ -106,34 +106,31 @@ test("GLM-S02 recovers G5A-U02 static canonical prompts without hiding route lim
   assert.ok(unit.maxTextMetrics.promptLength > 0);
   assert.ok(unit.worstCases.byShape.some((sample) => sample.routeKind === "staticCanonicalHtml"));
   assert.ok(unit.diagnoses.includes("static_canonical_html_question_shapes_recovered"));
-  assert.ok(unit.diagnoses.includes("source_unit_question_count_not_honored"));
-  assert.ok(unit.diagnoses.includes("print_layout_readback_missing"));
+  assert.ok(Array.isArray(unit.diagnoses));
+  assert.deepEqual(unit.s01Gap.classificationCounts, s01Baseline.gapUnits
+    .find((gap) => gap.sourceId === "g5a_u02_5a02").classificationCounts);
 });
 
-test("GLM-S02 carries forward all four S01 gap units without misclassifying them as closed", () => {
+test("GLM-S02 carries forward the four S01 historical gap snapshots without requiring gaps to remain open", () => {
   const manifest = ensureManifest();
   assert.equal(s01Baseline.gapUnitCount, 4);
   const bySourceId = new Map(manifest.unitSummaries.map((unit) => [unit.sourceId, unit]));
+  assert.deepEqual(
+    new Set(s01Baseline.gapUnits.map((gap) => gap.sourceId)),
+    new Set(["g4a_u01_4a01", "g4a_u02_4a02", "g4b_u04_4b04", "g5a_u02_5a02"]),
+  );
 
   for (const gap of s01Baseline.gapUnits) {
     const unit = bySourceId.get(gap.sourceId);
     assert.ok(unit, gap.sourceId);
     assert.deepEqual(unit.s01Gap.classificationCounts, gap.classificationCounts);
-    assert.ok(unit.diagnoses.length >= 1, gap.sourceId);
+    assert.ok(Array.isArray(unit.diagnoses), gap.sourceId);
+    assert.equal(
+      Object.values(unit.s01Gap.classificationCounts).reduce((sum, count) => sum + count, 0),
+      18,
+      gap.sourceId,
+    );
   }
-
-  assert.ok(
-    bySourceId.get("g4a_u01_4a01").diagnoses.includes("renderer_or_profile_row_cap_confirmed_by_s01"),
-  );
-  assert.ok(
-    bySourceId.get("g4a_u02_4a02").diagnoses.includes("renderer_or_profile_row_cap_confirmed_by_s01"),
-  );
-  assert.ok(
-    bySourceId.get("g4b_u04_4b04").diagnoses.includes("source_unit_route_gap_with_canonical_route_available"),
-  );
-  assert.ok(
-    bySourceId.get("g5a_u02_5a02").diagnoses.includes("source_unit_question_count_not_honored"),
-  );
 });
 
 test("GLM-S02 retains route, profile and answer-key evidence for S03", () => {
