@@ -23,14 +23,14 @@ const repositoryRoot = path.resolve(toolDirectory, "../..");
 const outputDirectory = path.join(repositoryRoot, "docs/curriculum/output/glm-s05-focused-diagnostic");
 const outputPath = path.join(outputDirectory, "current.json");
 
-function createScenarioState(sourceId, layout) {
+function createScenarioState(sourceId, layout, { includeAnswerKey = false, questionCount = 18 } = {}) {
   const state = createConfigState();
   setBatchASourceId(state, sourceId);
   setBatchASelectionMode(state, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
-  setBatchAQuestionCount(state, 18);
+  setBatchAQuestionCount(state, questionCount);
   setBatchAOrdering(state, "groupedByPattern");
-  setBatchAIncludeAnswerKey(state, false);
-  setBatchAGenerationSeed(state, `glm-s01:${sourceId}:${layout.layoutId}`);
+  setBatchAIncludeAnswerKey(state, includeAnswerKey);
+  setBatchAGenerationSeed(state, `glm-s01:${sourceId}:${layout.layoutId}:${questionCount}:${includeAnswerKey}`);
   setBatchAPrintLayout(state, { columns: layout.columns, rowsPerPage: layout.rowsPerPage });
   setBatchALayoutMode(state, "custom_with_caps");
   return state;
@@ -93,6 +93,57 @@ for (const unit of listBatchASourceUnits({ includePublicCandidates: true })) {
   }
 }
 
+const answerLayoutSources = ["g3a_u02_3a02", "g4b_u04_4b04", "g5a_u02_5a02", "g5a_u08_5a08"];
+const answerLayoutDiagnostics = answerLayoutSources.map((sourceId) => {
+  const requested = { layoutId: "1x7", columns: 1, rowsPerPage: 7 };
+  let result;
+  let exception = null;
+  try {
+    result = buildWorksheetDocumentFromState(createScenarioState(sourceId, requested, {
+      includeAnswerKey: true,
+      questionCount: 12,
+    }));
+  } catch (error) {
+    exception = { name: error?.name ?? "Error", message: String(error?.message ?? error), stack: error?.stack ?? null };
+    result = { ok: false, errors: [{ code: "GLM_S05_ANSWER_DIAGNOSTIC_EXCEPTION", message: exception.message }] };
+  }
+  const document = result?.worksheetDocument ?? null;
+  const resolution = document?.layoutResolution ?? null;
+  const answerCount = document?.answerKeyItems?.length ?? 0;
+  const exact = Boolean(
+    result?.ok
+    && document
+    && resolution?.resolvedQuestionLayout?.columns === 1
+    && resolution?.resolvedQuestionLayout?.rowsPerPage === 7
+    && Number(resolution?.resolvedAnswerLayout?.columns) >= 1
+    && Number(resolution?.resolvedAnswerLayout?.rowsPerPage) >= 1
+    && document?.printOptions?.answerKeyColumns === resolution?.resolvedAnswerLayout?.columns
+    && document?.printOptions?.answerKeyRowsPerPage === resolution?.resolvedAnswerLayout?.rowsPerPage
+    && document?.configSnapshot?.answerKeyPrintLayout?.columns === resolution?.resolvedAnswerLayout?.columns
+    && document?.configSnapshot?.answerKeyPrintLayout?.rowsPerPage === resolution?.resolvedAnswerLayout?.rowsPerPage
+    && answerCount === 12
+  );
+  return {
+    sourceId,
+    exact,
+    ok: Boolean(result?.ok && document),
+    answerCount,
+    questionCount: document?.summary?.questionCount ?? document?.questionDisplayModels?.length ?? 0,
+    answerPageCount: document?.answerKeyPages?.length ?? 0,
+    requested,
+    resolvedQuestionLayout: resolution?.resolvedQuestionLayout ?? null,
+    resolvedAnswerLayout: resolution?.resolvedAnswerLayout ?? null,
+    printOptions: document?.printOptions ?? null,
+    configSnapshot: document?.configSnapshot ?? null,
+    documentSchemaName: document?.schemaName ?? null,
+    sourceQuestionItemCount: document?.questionItems?.length ?? null,
+    sourceAnswerKeyItemCount: document?.answerKeyItems?.length ?? null,
+    issueCodes: [...new Set(issues(result).map((issue) => issue.code))],
+    issues: issues(result),
+    exception,
+  };
+});
+
 const failures = scenarios.filter((scenario) => !scenario.exact);
 const sourceSummaries = listBatchASourceUnits({ includePublicCandidates: true }).map((unit) => {
   const rows = scenarios.filter((scenario) => scenario.sourceId === unit.sourceId);
@@ -107,12 +158,16 @@ const sourceSummaries = listBatchASourceUnits({ includePublicCandidates: true })
   };
 });
 const manifest = {
-  schemaVersion: "glm-s05-focused-diagnostic-v1",
+  schemaVersion: "glm-s05-focused-diagnostic-v2",
   task: "GLM-S05_Global18LayoutFullFix",
   status: failures.length === 0 ? "ALL_270_EXACT" : "GAPS_DETECTED",
   scenarioCount: scenarios.length,
   exactCount: scenarios.length - failures.length,
   failureCount: failures.length,
+  answerLayoutStatus: answerLayoutDiagnostics.every((row) => row.exact)
+    ? "ALL_REPRESENTATIVE_ANSWER_LAYOUTS_EXACT"
+    : "ANSWER_LAYOUT_GAPS_DETECTED",
+  answerLayoutDiagnostics,
   sourceSummaries,
   failures,
   scenarios,
@@ -124,6 +179,8 @@ console.log(JSON.stringify({
   scenarioCount: manifest.scenarioCount,
   exactCount: manifest.exactCount,
   failureCount: manifest.failureCount,
+  answerLayoutStatus: manifest.answerLayoutStatus,
+  answerLayoutFailures: answerLayoutDiagnostics.filter((row) => !row.exact),
   gapSources: sourceSummaries.filter((source) => source.failureCount > 0),
   outputPath: path.relative(repositoryRoot, outputPath),
 }, null, 2));
