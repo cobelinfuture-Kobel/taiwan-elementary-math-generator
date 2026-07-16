@@ -1,0 +1,52 @@
+name: GLM-S05 Global 18-Layout FullFix
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/glm-s05-global-18-layout-fullfix.yml
+      - data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json
+      - data/curriculum/contracts/GLM_S04_Global18LayoutArchitecture.json
+      - site/index.html
+      - site/assets/browser/global-public-layout-controls.js
+      - site/assets/browser/public-control-ui.js
+      - site/assets/browser/state/config-state.js
+      - site/assets/browser/state/query-state.js
+      - site/assets/browser/pipeline/build-worksheet-document.js
+      - site/modules/curriculum/batch-a/global-public-layout-contract.js
+      - site/modules/curriculum/batch-a/global-public-layout-overlay.js
+      - site/modules/curriculum/batch-a/global-public-source-unit-adapter.js
+      - site/modules/curriculum/batch-a/**
+      - site/modules/curriculum/batch-b/**
+      - tests/curriculum/glm-s05-global-18-layout-fullfix.test.js
+      - docs/curriculum/architecture/GLM_S05_Global18LayoutFullFix.md
+      - docs/curriculum/output/GLM_S05_GLOBAL_18_LAYOUT_FULLFIX_PENDING.marker
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  focused-global-layout:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate architecture and FullFix
+        run: |
+          node --test tests/curriculum/glm-s04-global-layout-architecture.test.js
+          node --test tests/curriculum/glm-s05-global-18-layout-fullfix.test.js
+
+      - name: Verify repository remains clean
+        run: git diff --exit-code && git status --short
