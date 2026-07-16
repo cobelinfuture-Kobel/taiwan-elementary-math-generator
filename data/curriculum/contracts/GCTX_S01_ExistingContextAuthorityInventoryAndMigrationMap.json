@@ -1,0 +1,234 @@
+{
+  "schemaName": "ExistingContextAuthorityInventoryAndMigrationMap",
+  "schemaVersion": 1,
+  "task": "GCTX-S01_ExistingContextAuthorityInventoryAndMigrationMap",
+  "status": "inventory_locked_pending_ci",
+  "scope": {
+    "publicUnitCount": 15,
+    "structuredOrPartialAuthorityUnitCount": 5,
+    "remainingS07AuditUnitCount": 10,
+    "runtimeBehaviorChange": false,
+    "fileMigrationPerformed": false
+  },
+  "ownershipClasses": [
+    "unit_local_content_authority",
+    "unit_local_taxonomy_authority",
+    "unit_local_source_governance",
+    "unit_local_binding_and_validator_authority",
+    "shared_control_consumer",
+    "global_target_authority"
+  ],
+  "publicUnits": [
+    {"sourceId":"g3a_u01_3a01","unitCode":"3A-U01","title":"10000以內的數","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g3a_u02_3a02","unitCode":"3A-U02","title":"四位數的加減","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g3a_u03_3a03","unitCode":"3A-U03","title":"乘法","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g3a_u06_3a06","unitCode":"3A-U06","title":"二位數除以一位數","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g3b_u01_3b01","unitCode":"3B-U01","title":"除法","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g3b_u04_3b04","unitCode":"3B-U04","title":"兩步驟計算","inventoryStatus":"production_structured_context_authority"},
+    {"sourceId":"g3b_u08_3b08","unitCode":"3B-U08","title":"乘法與除法","inventoryStatus":"production_structured_context_authority"},
+    {"sourceId":"g4a_u01_4a01","unitCode":"4A-U01","title":"1億以內的數","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g4a_u02_4a02","unitCode":"4A-U02","title":"整數的乘法","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g4a_u04_4a04","unitCode":"4A-U04","title":"整數的除法","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g4a_u08_4a08","unitCode":"4A-U08","title":"整數四則","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g4b_u01_4b01","unitCode":"4B-U01","title":"多位數的乘與除","inventoryStatus":"requires_s07_application_prompt_audit"},
+    {"sourceId":"g4b_u04_4b04","unitCode":"4B-U04","title":"概數","inventoryStatus":"production_structured_context_authority"},
+    {"sourceId":"g5a_u02_5a02","unitCode":"5A-U02","title":"因數與公因數","inventoryStatus":"production_taxonomy_and_partial_semantic_authority"},
+    {"sourceId":"g5a_u08_5a08","unitCode":"5A-U08","title":"整數四則","inventoryStatus":"production_structured_context_authority"}
+  ],
+  "authorityFamilies": [
+    {
+      "authorityId": "g3b_u04_semantic_context_authority",
+      "sourceId": "g3b_u04_3b04",
+      "ownershipClass": "unit_local_content_authority",
+      "lifecycle": "production",
+      "contentSummary": "32 semantic families and 117 family-context variants with domain, role, scenario, realism, generator and validator authority",
+      "authorityPaths": [
+        "site/modules/curriculum/batch-a/g3b-u04-semantic-domain-rows.js",
+        "site/modules/curriculum/batch-a/g3b-u04-semantic-role-rows.js",
+        "site/modules/curriculum/batch-a/g3b-u04-semantic-scenario-rows.js",
+        "site/modules/curriculum/batch-a/g3b-u04-semantic-scenarios.js",
+        "site/modules/curriculum/batch-a/g3b-u04-semantic-generator.js",
+        "site/modules/curriculum/batch-a/g3b-u04-semantic-validator.js"
+      ],
+      "consumerPaths": [
+        "site/modules/curriculum/batch-a/g3b-u04-canonical-semantic-router.js",
+        "site/modules/curriculum/registry/g3b-u04-semantic-promotion.js"
+      ],
+      "migrationTarget": "global_context_family_registry_plus_g3b_u04_unit_binding_adapter",
+      "migrationPriority": "P1",
+      "preserve": ["existing_template_family_ids","existing_context_domains","deterministic_seed_replay","semantic_validator_behavior","public_numeric_semantic_hybrid_routes"]
+    },
+    {
+      "authorityId": "g3b_u08_semantic_context_authority",
+      "sourceId": "g3b_u08_3b08",
+      "ownershipClass": "unit_local_content_authority",
+      "lifecycle": "production",
+      "contentSummary": "24 semantic families and 72 registered context variants with realism and blocking validation",
+      "authorityPaths": [
+        "site/modules/curriculum/batch-a/g3b-u08-semantic-context-registry.js",
+        "site/modules/curriculum/batch-a/g3b-u08-semantic-realism-policy.js",
+        "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+        "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js"
+      ],
+      "consumerPaths": [
+        "site/modules/curriculum/batch-a/source-pattern-g3b-u08-semantic-extension.js"
+      ],
+      "migrationTarget": "global_context_family_registry_plus_g3b_u08_unit_binding_adapter",
+      "migrationPriority": "P1",
+      "preserve": ["existing_context_variant_ids","24_family_72_variant_membership","deterministic_seed_replay","horizontal_only_boundary","blocking_validator_behavior"]
+    },
+    {
+      "authorityId": "g4b_u04_class_d_semantic_authority",
+      "sourceId": "g4b_u04_4b04",
+      "ownershipClass": "unit_local_binding_and_validator_authority",
+      "lifecycle": "production",
+      "contentSummary": "8 Class D PatternSpecs, 9 controlled semantic template families and 44-code blocking validator",
+      "authorityPaths": [
+        "data/curriculum/runtime/S70_G4B_U04_ClassDSemanticRuntimeContract.json",
+        "site/modules/curriculum/batch-b/g4b-u04-class-d-semantic-generator.js",
+        "site/modules/curriculum/batch-b/g4b-u04-class-d-semantic-validator.js"
+      ],
+      "consumerPaths": [
+        "site/modules/curriculum/batch-b/g4b-u04-canonical-router-r2e.js"
+      ],
+      "migrationTarget": "g4b_u04_unit_binding_and_validator_adapter",
+      "migrationPriority": "P1",
+      "preserve": ["patternspec_allowlist","operation_inputs","role_bindings","answer_schemas","44_blocking_codes"]
+    },
+    {
+      "authorityId": "g4b_u04_sdg_context_bank",
+      "sourceId": "g4b_u04_4b04",
+      "ownershipClass": "unit_local_content_authority",
+      "lifecycle": "production",
+      "contentSummary": "SDG and daily-life context design plus deterministic controlled runtime variants",
+      "authorityPaths": [
+        "docs/curriculum/context/G4B_U04_SDG_LifeAndCurrentAffairsContextBank.md",
+        "site/modules/curriculum/batch-b/g4b-u04-controlled-context-variants.js"
+      ],
+      "consumerPaths": [
+        "site/modules/curriculum/batch-b/g4b-u04-canonical-router-r2e.js",
+        "site/assets/browser/g4b-u04-public-controls.js",
+        "site/assets/browser/state/config-state.js",
+        "site/assets/browser/state/query-state.js",
+        "site/pixel/g4b-u04-public-controls.js"
+      ],
+      "migrationTarget": "global_sdg_and_common_context_registry_plus_g4b_u04_adapter",
+      "migrationPriority": "P0",
+      "preserve": ["mixed_daily_life_sdg_modes","sdg_goal_allowlist","eligible_patternspec_allowlist","fictional_exercise_data","no_free_form_ai","no_generic_fallback"]
+    },
+    {
+      "authorityId": "g4b_u04_current_affairs_source_governance",
+      "sourceId": "g4b_u04_4b04",
+      "ownershipClass": "unit_local_source_governance",
+      "lifecycle": "design_authority_used_by_production_context_policy",
+      "contentSummary": "official-source tiers, current-affairs admission, validity and evergreen fictionalization rules",
+      "authorityPaths": [
+        "docs/curriculum/context/G4B_U04_SDG_CurrentAffairsSourceRegistry.md"
+      ],
+      "consumerPaths": [],
+      "migrationTarget": "global_source_authority_and_verification_registry",
+      "migrationPriority": "P0",
+      "preserve": ["authority_tiers","news_discovery_only","validity_window","fictional_data_default","expired_context_policy"]
+    },
+    {
+      "authorityId": "g5a_u02_context_taxonomy",
+      "sourceId": "g5a_u02_5a02",
+      "ownershipClass": "unit_local_taxonomy_authority",
+      "lifecycle": "production",
+      "contentSummary": "22 PatternSpecs classified as abstract mathematics, daily life or geometry context; SDG unsupported",
+      "authorityPaths": [
+        "site/modules/curriculum/batch-b/g5a-u02-context-taxonomy.js"
+      ],
+      "consumerPaths": [
+        "site/modules/curriculum/registry/public-control-profiles.js"
+      ],
+      "migrationTarget": "g5a_u02_unit_context_binding_adapter",
+      "migrationPriority": "P2",
+      "preserve": ["22_patternspec_classification","partial_context_support","context_rewrite_forbidden","sdg_currently_unsupported","no_generic_fallback"]
+    },
+    {
+      "authorityId": "g5a_u02_class_d_semantic_authority",
+      "sourceId": "g5a_u02_5a02",
+      "ownershipClass": "unit_local_binding_and_validator_authority",
+      "lifecycle": "production_hidden_projection_bound",
+      "contentSummary": "8 Class D deterministic semantic generators and blocking validators",
+      "authorityPaths": [
+        "src/curriculum/g5a-u02/class-d-semantic-generator-validator.js"
+      ],
+      "consumerPaths": [
+        "site/modules/curriculum/batch-b/g5a-u02-context-taxonomy.js"
+      ],
+      "migrationTarget": "g5a_u02_unit_binding_and_validator_adapter",
+      "migrationPriority": "P2",
+      "preserve": ["8_class_d_patternspecs","controlled_template_families","canonical_answer_recomputation","hidden_projection_metadata","no_fallback"]
+    },
+    {
+      "authorityId": "g5a_u08_application_sdg_context_authority",
+      "sourceId": "g5a_u08_5a08",
+      "ownershipClass": "unit_local_content_authority",
+      "lifecycle": "production",
+      "contentSummary": "10 application template families with daily-life and SDG variants, operation signatures, bindings, unit flow and semantic validation",
+      "authorityPaths": [
+        "data/curriculum/contracts/S60D_G5A_U08_ApplicationTemplateAndSDGContextContract.json",
+        "site/modules/curriculum/batch-a/g5a-u08-application-batch-planner.js",
+        "site/modules/curriculum/batch-a/g5a-u08-application-generator-core.js",
+        "site/modules/curriculum/batch-a/g5a-u08-application-generator.js",
+        "site/modules/curriculum/batch-a/g5a-u08-application-validator-core.js",
+        "site/modules/curriculum/batch-a/g5a-u08-application-validator.js"
+      ],
+      "consumerPaths": [
+        "site/modules/curriculum/registry/g5a-u08-promotion.js",
+        "site/modules/curriculum/registry/public-control-profiles.js"
+      ],
+      "migrationTarget": "global_context_family_registry_plus_g5a_u08_unit_binding_adapter",
+      "migrationPriority": "P1",
+      "preserve": ["10_template_families","daily_life_sdg_variants","eight_sdg_goals","operation_signatures","role_bindings","unit_flow","semantic_validator_behavior","deterministic_allocation"]
+    },
+    {
+      "authorityId": "shared_public_context_control_profiles",
+      "sourceId": null,
+      "ownershipClass": "shared_control_consumer",
+      "lifecycle": "production",
+      "contentSummary": "shared UI profile registry currently exposes unit-specific context values for G5A-U02 and G5A-U08",
+      "authorityPaths": [
+        "site/modules/curriculum/registry/public-control-profiles.js"
+      ],
+      "consumerPaths": [
+        "site/assets/browser/state/config-state.js",
+        "site/assets/browser/state/query-state.js"
+      ],
+      "migrationTarget": "global_context_control_profile_adapter",
+      "migrationPriority": "P2",
+      "preserve": ["unit_specific_supported_options","invalid_value_normalization","empty_intersection_blocking","query_state_compatibility"]
+    }
+  ],
+  "migrationOrder": [
+    {"priority":"P0","authorityIds":["g4b_u04_sdg_context_bank","g4b_u04_current_affairs_source_governance"],"reason":"unit-local files currently claim shared SDG and source-governance ownership"},
+    {"priority":"P1","authorityIds":["g3b_u04_semantic_context_authority","g3b_u08_semantic_context_authority","g4b_u04_class_d_semantic_authority","g5a_u08_application_sdg_context_authority"],"reason":"production structured context banks and validator-backed bindings must be preserved through adapters"},
+    {"priority":"P2","authorityIds":["g5a_u02_context_taxonomy","g5a_u02_class_d_semantic_authority","shared_public_context_control_profiles"],"reason":"partial taxonomy, hidden semantic runtime and public controls depend on the global schema but do not own shared knowledge"},
+    {"priority":"P3","authorityIds":[],"reason":"the remaining ten public units require the dedicated S07 application PatternSpec and embedded-prompt audit before any migration claim"}
+  ],
+  "migrationRules": {
+    "deleteOrRewriteExistingAuthoritiesInS01": false,
+    "productionBehaviorChangeInS01": false,
+    "globalRegistryBecomesSharedOwnerAfterMigration": true,
+    "unitAdaptersRetainPatternSpecBindings": true,
+    "existingIdsMustRemainReplayCompatible": true,
+    "mathAuthorityChangesAllowed": false,
+    "validatorWeakeningAllowed": false,
+    "freeFormAIAllowed": false,
+    "genericFallbackAllowed": false,
+    "runtimeWebSearchAllowed": false
+  },
+  "identifiedRisks": [
+    "context_id_collision_across_unit_local_namespaces",
+    "direct_prompt_rendering_coupled_to_unit_generators",
+    "validator_payload_shapes_are_unit_specific",
+    "public_context_mode_values_are_not_yet_global",
+    "source_governance_is_stored_under_g4b_u04_path",
+    "some_context_taxonomies_classify_without_reusable_context_families",
+    "embedded_application_prompts_in_remaining_units_are_not_yet_inventoried",
+    "migration_must_preserve_deterministic_seed_and_query_replay"
+  ],
+  "nextTask": "GCTX-S02_GlobalContextSchemaAndRegistryContract"
+}
