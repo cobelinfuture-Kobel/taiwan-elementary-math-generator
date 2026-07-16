@@ -80,6 +80,31 @@ Every scenario must satisfy:
 - the generated browser bundle passes the same semantic audit;
 - full Node regression passes.
 
+## Compatibility recovery
+
+Two integration defects were closed during acceptance:
+
+- three-factor targets could carry duplicate legacy unknown keys; the semantic display boundary now normalizes them without changing the canonical answer;
+- S96I, S96Q and S96R still counted only the legacy G5A-U02 DOM after GLM-S09 moved public exact-layout previews to the shared renderer. Their browser authorities now accept both legal renderer DOM families and retain structured failure diagnostics.
+
+## Accepted evidence
+
+```text
+PR = 244
+MERGE_SHA = 45dbb996fd64f83595fe4115712fd767b622a00c
+S97_SOURCE_VISIBLE_INFORMATION = 120 / 120 PASS
+S97_BUNDLED_VISIBLE_INFORMATION = 120 / 120 PASS
+FULL_NODE_REGRESSION = 1575 / 1575 PASS
+GLM_S05_15_BY_18_EXACT_LAYOUT = PASS
+GLM_S06_HTML_PDF = 270 / 270 PASS
+GLM_S07_ANSWER_BOUNDARY = 90 / 90 PASS
+S95_PRODUCTION_STRESS = PASS
+S96G_DYNAMIC_HTML_PDF = PASS
+S96I_LIVE_BROWSER = PASS
+S96Q_PUBLIC_CONTROL_DOM = PASS
+S96R_24_CONTROL_COMBINATIONS = PASS
+```
+
 ## Explicitly deferred
 
 The following are real semantic-quality gaps but are outside this six-pattern blocking milestone:
@@ -92,11 +117,12 @@ The following are real semantic-quality gaps but are outside this six-pattern bl
 
 These remain blockers for a later all-22 semantic D0 closeout.
 
-## Distance
+## Distance closeout
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_PROMPT_COMPLETENESS_BLOCKED
-GOAL_DISTANCE_TARGET = D1_G5A_U02_SIX_BLOCKING_PATTERNS_CLOSED
+GOAL_DISTANCE_AFTER = D1_G5A_U02_SIX_BLOCKING_PATTERNS_CLOSED
+DISTANCE_REDUCED = six learner-visible information blockers closed and validated through source, bundle, browser, HTML and PDF paths
 D0_ELIGIBLE = false
-NEXT_SHORT_STEP = Run_S97_120Scenario_CI_And_Bundle_Acceptance
+NEXT_SHORT_STEP = G5AU02-S98_All22SourceMethodAndRepresentationParityAudit
 ```
