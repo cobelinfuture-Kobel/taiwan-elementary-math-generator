@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taiwan-elementary-math-generator.example/schemas/gctx-global-context-registry-v1.json",
+  "title": "Global Cross-Curricular Context Registry Schema",
+  "description": "Schema definitions for shared elementary common-knowledge context assets and unit-owned mathematical bindings.",
+  "$defs": {
+    "contextDomainValue": {
+      "type": "string",
+      "enum": ["daily_life", "sdg", "natural_science", "social_studies", "history"]
+    },
+    "eraTag": {
+      "type": "string",
+      "enum": ["modern", "ancient"]
+    },
+    "gradeBand": {
+      "type": "string",
+      "enum": ["G1", "G2", "G3", "G4", "G5", "G6"]
+    },
+    "lifecycleStatus": {
+      "type": "string",
+      "enum": ["candidate", "web_verified", "approved", "deprecated", "expired", "blocked", "rejected"]
+    },
+    "verificationTier": {
+      "type": "string",
+      "enum": ["general_common_knowledge", "specific_species_region_era_or_institution", "exact_fact_or_statistic"]
+    },
+    "verificationReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceAuthorityId", "title", "url", "verifiedAt", "evidenceScope"],
+      "properties": {
+        "sourceAuthorityId": {"type": "string", "pattern": "^gctx_src_[a-z0-9_]+$"},
+        "title": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "verifiedAt": {"type": "string", "format": "date"},
+        "validUntil": {"type": ["string", "null"], "format": "date"},
+        "evidenceScope": {"type": "string", "minLength": 1},
+        "supportsExactValue": {"type": "boolean"},
+        "archivedUrl": {"type": ["string", "null"], "format": "uri"}
+      }
+    },
+    "contextDomainEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contextDomainId", "value", "labelZh", "descriptionZh", "lifecycleStatus"],
+      "properties": {
+        "contextDomainId": {"type": "string", "pattern": "^gctx_dom_[a-z0-9_]+$"},
+        "value": {"$ref": "#/$defs/contextDomainValue"},
+        "labelZh": {"type": "string", "minLength": 1},
+        "descriptionZh": {"type": "string", "minLength": 1},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "legacyAliases": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "sdgGoalEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sdgGoalId", "goalNumber", "labelZh", "themeTags", "modernFramework", "studentFacingPolicy", "lifecycleStatus"],
+      "properties": {
+        "sdgGoalId": {"type": "string", "pattern": "^SDG_(?:[1-9]|1[0-7])$"},
+        "goalNumber": {"type": "integer", "minimum": 1, "maximum": 17},
+        "labelZh": {"type": "string", "minLength": 1},
+        "themeTags": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9_]+$"}},
+        "modernFramework": {"const": true},
+        "studentFacingPolicy": {"type": "string", "enum": ["modern_context_label_allowed", "backend_theme_link_only"]},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "legacyAliases": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "sourceAuthorityEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceAuthorityId", "organizationName", "authorityTier", "sourceType", "permittedUses", "lifecycleStatus"],
+      "properties": {
+        "sourceAuthorityId": {"type": "string", "pattern": "^gctx_src_[a-z0-9_]+$"},
+        "organizationName": {"type": "string", "minLength": 1},
+        "authorityTier": {"type": "string", "enum": ["official_public_authority", "museum_library_university", "education_or_science_institution", "trusted_reference", "discovery_only", "disallowed_social_only"]},
+        "sourceType": {"type": "string", "enum": ["government", "international_organization", "museum", "library", "university", "school_education", "science_institution", "encyclopedia", "news", "social_media", "other"]},
+        "baseUrl": {"type": ["string", "null"], "format": "uri"},
+        "permittedUses": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "enum": ["general_common_knowledge", "specific_claim", "exact_fact", "discovery_only", "not_admissible"]}},
+        "approvedDomains": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/contextDomainValue"}},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "reviewNotes": {"type": "string"},
+        "legacyAliases": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "commonKnowledgeEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commonKnowledgeId", "statementZh", "primaryDomain", "topicTags", "eraTags", "regionScope", "gradeBands", "verificationTier", "verificationRefs", "allowedUses", "forbiddenClaims", "exerciseNumbersPolicy", "lifecycleStatus"],
+      "properties": {
+        "commonKnowledgeId": {"type": "string", "pattern": "^gctx_ck_[a-z0-9_]+$"},
+        "statementZh": {"type": "string", "minLength": 4},
+        "primaryDomain": {"$ref": "#/$defs/contextDomainValue"},
+        "crossDomainTags": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/contextDomainValue"}},
+        "topicTags": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9_]+$"}},
+        "eraTags": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/eraTag"}},
+        "regionScope": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9_]+$"}},
+        "gradeBands": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/gradeBand"}},
+        "verificationTier": {"$ref": "#/$defs/verificationTier"},
+        "verificationRefs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/verificationReference"}},
+        "exactClaim": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["claimTextZh", "sourceBound"],
+          "properties": {
+            "claimTextZh": {"type": "string", "minLength": 1},
+            "sourceBound": {"const": true},
+            "valueMutationAllowed": {"const": false}
+          }
+        },
+        "allowedActors": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "allowedPlaces": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "allowedObjects": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "allowedActivities": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "allowedUses": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "enum": ["background_clause", "actor_selection", "place_selection", "object_selection", "activity_selection", "student_note"]}},
+        "forbiddenClaims": {"type": "array", "items": {"type": "string"}},
+        "exerciseNumbersPolicy": {"type": "string", "enum": ["fictionalized_for_practice", "source_bound_exact_values_only", "no_numeric_claim"]},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "reviewAt": {"type": ["string", "null"], "format": "date"},
+        "legacyAliases": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"verificationTier": {"const": "specific_species_region_era_or_institution"}}},
+          "then": {"properties": {"verificationRefs": {"minItems": 2}}}
+        },
+        {
+          "if": {"properties": {"verificationTier": {"const": "exact_fact_or_statistic"}}},
+          "then": {"required": ["exactClaim"], "properties": {"exerciseNumbersPolicy": {"const": "source_bound_exact_values_only"}}}
+        }
+      ]
+    },
+    "contextSlots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actors", "places", "objects", "activities", "classifiers", "units"],
+      "properties": {
+        "actors": {"type": "array", "items": {"type": "string"}},
+        "places": {"type": "array", "items": {"type": "string"}},
+        "objects": {"type": "array", "items": {"type": "string"}},
+        "activities": {"type": "array", "items": {"type": "string"}},
+        "classifiers": {"type": "array", "items": {"type": "string"}},
+        "units": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "contextFamilyEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contextFamilyId", "labelZh", "primaryDomain", "commonKnowledgeIds", "eraTags", "gradeBands", "contextSlots", "languageAssets", "forbiddenCombinations", "sharedContentOnly", "lifecycleStatus"],
+      "properties": {
+        "contextFamilyId": {"type": "string", "pattern": "^gctx_cf_[a-z0-9_]+$"},
+        "labelZh": {"type": "string", "minLength": 1},
+        "primaryDomain": {"$ref": "#/$defs/contextDomainValue"},
+        "crossDomainTags": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/contextDomainValue"}},
+        "sdgGoalIds": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^SDG_(?:[1-9]|1[0-7])$"}},
+        "commonKnowledgeIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^gctx_ck_[a-z0-9_]+$"}},
+        "eraTags": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/eraTag"}},
+        "gradeBands": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/gradeBand"}},
+        "contextSlots": {"$ref": "#/$defs/contextSlots"},
+        "languageAssets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["backgroundClausesZh", "nounPhrasesZh", "actionPhrasesZh"],
+          "properties": {
+            "backgroundClausesZh": {"type": "array", "items": {"type": "string"}},
+            "nounPhrasesZh": {"type": "array", "items": {"type": "string"}},
+            "actionPhrasesZh": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "forbiddenCombinations": {"type": "array", "items": {"type": "string"}},
+        "studentFacingRestrictions": {"type": "array", "items": {"type": "string"}},
+        "sharedContentOnly": {"const": true},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "legacyAliases": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"primaryDomain": {"const": "sdg"}}},
+          "then": {"required": ["sdgGoalIds"], "properties": {"sdgGoalIds": {"minItems": 1}}}
+        }
+      ]
+    },
+    "unitContextBindingEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bindingId", "sourceId", "unitCode", "knowledgePointId", "patternSpecId", "contextFamilyIds", "operationSignature", "roleBindings", "unitFlow", "plausibleRanges", "requiredFacts", "forbiddenFacts", "validatorHooks", "answerUnitPolicy", "lifecycleStatus"],
+      "properties": {
+        "bindingId": {"type": "string", "pattern": "^gctx_bind_[a-z0-9_]+$"},
+        "sourceId": {"type": "string", "pattern": "^g[1-6][ab]_u[0-9]{2}_[0-9][ab][0-9]{2}$"},
+        "unitCode": {"type": "string", "pattern": "^[1-6][AB]-U[0-9]{2}$"},
+        "knowledgePointId": {"type": "string", "minLength": 1},
+        "patternSpecId": {"type": "string", "minLength": 1},
+        "contextFamilyIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^gctx_cf_[a-z0-9_]+$"}},
+        "operationSignature": {"type": "string", "minLength": 1},
+        "roleBindings": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string"}},
+        "unitFlow": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "plausibleRanges": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["min", "max"],
+            "properties": {
+              "min": {"type": "number"},
+              "max": {"type": "number"},
+              "integerOnly": {"type": "boolean"}
+            }
+          }
+        },
+        "requiredFacts": {"type": "array", "items": {"type": "string"}},
+        "forbiddenFacts": {"type": "array", "items": {"type": "string"}},
+        "validatorHooks": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "answerUnitPolicy": {"type": "string", "minLength": 1},
+        "rendererHook": {"type": ["string", "null"]},
+        "legacyAliases": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"}
+      }
+    },
+    "contextLifecycleEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assetId", "assetKind", "status", "productionUse", "reasons"],
+      "properties": {
+        "assetId": {"type": "string", "minLength": 1},
+        "assetKind": {"type": "string", "enum": ["context_domain", "sdg_goal", "source_authority", "common_knowledge", "context_family", "unit_context_binding"]},
+        "status": {"$ref": "#/$defs/lifecycleStatus"},
+        "productionUse": {"type": "boolean"},
+        "validFrom": {"type": ["string", "null"], "format": "date"},
+        "validUntil": {"type": ["string", "null"], "format": "date"},
+        "reviewAt": {"type": ["string", "null"], "format": "date"},
+        "supersededBy": {"type": ["string", "null"]},
+        "reasons": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "registryEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registryId", "schemaVersion", "registryKind", "entries"],
+      "properties": {
+        "registryId": {"type": "string", "pattern": "^gctx_registry_[a-z0-9_]+$"},
+        "schemaVersion": {"const": 1},
+        "registryKind": {"type": "string", "enum": ["context_domain_registry", "sdg_goal_registry", "source_authority_registry", "common_knowledge_registry", "context_family_registry", "unit_context_binding_registry", "context_lifecycle_registry"]},
+        "generatedAt": {"type": ["string", "null"], "format": "date-time"},
+        "entries": {"type": "array"}
+      }
+    }
+  }
+}
