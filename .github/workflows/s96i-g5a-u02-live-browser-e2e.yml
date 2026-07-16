@@ -54,3 +54,4 @@ jobs:
           retention-days: 14
           path: |
             /tmp/s96i-site.log
+            /tmp/s96i-failure.json
