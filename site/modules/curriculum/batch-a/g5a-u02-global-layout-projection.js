@@ -25,9 +25,15 @@ function responsePrompt(record = {}) {
   return String(record.responseLabel ?? record.responsePrompt ?? "答案：________________");
 }
 
+function isG5AU02Record(record = {}) {
+  return String(record?.patternSpecId ?? "").startsWith("ps_g5a_u02_")
+    || String(record?.knowledgePointId ?? "").startsWith("kp_g5a_u02_")
+    || String(record?.patternGroupId ?? "").startsWith("pg_g5a_u02_");
+}
+
 function isG5AU02DynamicDocument(document = {}) {
-  const hasDynamicRecords = Array.isArray(document?.questionRecords)
-    && document.questionRecords.length > 0;
+  const records = Array.isArray(document?.questionRecords) ? document.questionRecords : [];
+  const hasDynamicRecords = records.length > 0;
   const canonicalDynamicSchema = document?.schemaName === "G5AU02HiddenWorksheetDocument"
     && Number(document?.schemaVersion) === 1
     && document?.unitId === "g5a_u02";
@@ -36,8 +42,9 @@ function isG5AU02DynamicDocument(document = {}) {
   const publicSourceIdentity = document?.sourceUnitId === G5A_U02_PUBLIC_SOURCE_ID
     || document?.sourceId === G5A_U02_PUBLIC_SOURCE_ID
     || document?.batchA?.sourceId === G5A_U02_PUBLIC_SOURCE_ID;
+  const canonicalRecordIdentity = records.some(isG5AU02Record);
   return hasDynamicRecords
-    && (canonicalDynamicSchema || legacyDynamicSchema || publicSourceIdentity);
+    && (canonicalDynamicSchema || legacyDynamicSchema || publicSourceIdentity || canonicalRecordIdentity);
 }
 
 export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
