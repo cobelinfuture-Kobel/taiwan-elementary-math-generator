@@ -16,6 +16,15 @@ export const BATCH_A_SOURCE_UNITS = Object.freeze([
 
 export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
   Object.freeze({
+    sourceId: "g4b_u04_4b04",
+    grade: 4,
+    semester: "lower",
+    unitCode: "4B-U04",
+    title: "概數",
+    domain: "number_sense",
+    lifecycle: "public_canonical_specialized_release"
+  }),
+  Object.freeze({
     sourceId: "g5a_u02_5a02",
     grade: 5,
     semester: "upper",

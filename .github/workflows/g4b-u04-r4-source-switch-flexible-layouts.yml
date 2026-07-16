@@ -1,0 +1,92 @@
+name: G4B-U04 R4 Source Switch Flexible Layouts
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/g4b-u04-r4-source-switch-flexible-layouts.yml
+      - site/assets/browser/g4b-u04-public-controls.js
+      - site/modules/curriculum/batch-a/source-units.js
+      - site/modules/curriculum/registry/g4b-u04-worksheet-promotion.js
+      - site/modules/curriculum/batch-b/g4b-u04-layout-resolution.js
+      - tests/site/g4b-u04-r2f4-classic-layout-query-hydration.test.js
+      - tests/curriculum/g4b-u04-r3c-question-only-approved-layouts.test.js
+      - tools/curriculum/generate-g4b-u04-r4-flexible-layouts.mjs
+      - tools/curriculum/run-g4b-u04-r4-flexible-layouts.mjs
+      - tools/curriculum/run-g4b-u04-r4-public-ui-regression.mjs
+      - docs/curriculum/architecture/G4B_U04_R4_SourceSwitchAndFlexibleCustomLayoutRepair.md
+      - docs/curriculum/output/G4B_U04_R4_SOURCE_SWITCH_FLEXIBLE_LAYOUTS_PENDING.marker
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-switch-flexible-layouts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project and browser dependencies
+        run: |
+          npm install
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
+
+      - name: Run focused source and layout contracts
+        run: |
+          node --test tests/site/g4b-u04-r2f4-classic-layout-query-hydration.test.js
+          node --test tests/curriculum/g4b-u04-r3c-question-only-approved-layouts.test.js
+
+      - name: Run Classic public UI source-switch and custom-layout regression
+        shell: bash
+        run: |
+          npm run site:serve > /tmp/g4b-u04-r4-site.log 2>&1 &
+          SITE_PID=$!
+          trap 'kill "$SITE_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error http://127.0.0.1:4174/index.html > /tmp/g4b-u04-r4-index.html; then
+              break
+            fi
+            sleep 2
+          done
+          test -s /tmp/g4b-u04-r4-index.html
+          set +e
+          timeout 180s node tools/curriculum/run-g4b-u04-r4-public-ui-regression.mjs \
+            > /tmp/g4b-u04-r4-browser.log 2>&1
+          BROWSER_STATUS=$?
+          set -e
+          cat /tmp/g4b-u04-r4-browser.log
+          exit "$BROWSER_STATUS"
+
+      - name: Run 200-question 3x5 2x6 1x7 HTML PDF acceptance
+        run: node tools/curriculum/run-g4b-u04-r4-flexible-layouts.mjs
+
+      - name: Upload R4 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g4b-u04-r4-source-switch-flexible-layouts
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/stress/g4b-u04-r4-public-ui-regression/failure.json
+            docs/curriculum/output/stress/g4b-u04-r4-public-ui-regression/failure.png
+            docs/curriculum/output/g4b-u04-r4-flexible-layouts/**/*.html
+            docs/curriculum/output/g4b-u04-r4-flexible-layouts/**/*.pdf
+            docs/curriculum/output/g4b-u04-r4-flexible-layouts/**/*.json
+            /tmp/g4b-u04-r4-flexible-layouts/**/*.png
+            /tmp/g4b-u04-r4-site.log
+            /tmp/g4b-u04-r4-browser.log
+            /tmp/g4b-u04-r4-index.html

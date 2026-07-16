@@ -52,6 +52,27 @@ export const G4B_U04_WORKSHEET_ACTIVATION = Object.freeze({
   htmlPdfSmokeAdded: false,
 });
 
+export const G4B_U04_INVERSE_LONG_APPROVED_LAYOUTS = Object.freeze([
+  Object.freeze({ columns: 3, rowsPerPage: 1 }),
+  Object.freeze({ columns: 3, rowsPerPage: 2 }),
+  Object.freeze({ columns: 3, rowsPerPage: 3 }),
+  Object.freeze({ columns: 3, rowsPerPage: 4 }),
+  Object.freeze({ columns: 3, rowsPerPage: 5 }),
+  Object.freeze({ columns: 2, rowsPerPage: 1 }),
+  Object.freeze({ columns: 2, rowsPerPage: 2 }),
+  Object.freeze({ columns: 2, rowsPerPage: 3 }),
+  Object.freeze({ columns: 2, rowsPerPage: 4 }),
+  Object.freeze({ columns: 2, rowsPerPage: 5 }),
+  Object.freeze({ columns: 2, rowsPerPage: 6 }),
+  Object.freeze({ columns: 1, rowsPerPage: 1 }),
+  Object.freeze({ columns: 1, rowsPerPage: 2 }),
+  Object.freeze({ columns: 1, rowsPerPage: 3 }),
+  Object.freeze({ columns: 1, rowsPerPage: 4 }),
+  Object.freeze({ columns: 1, rowsPerPage: 5 }),
+  Object.freeze({ columns: 1, rowsPerPage: 6 }),
+  Object.freeze({ columns: 1, rowsPerPage: 7 }),
+]);
+
 export const G4B_U04_RENDERER_PROFILES = Object.freeze({
   compact: Object.freeze({
     profileId: "g4b_u04_compact_concept_numeric_v1",
@@ -71,10 +92,7 @@ export const G4B_U04_RENDERER_PROFILES = Object.freeze({
       rowsPerPage: 5,
       avoidSplit: true,
       questionOnly: true,
-      approvedLayouts: Object.freeze([
-        Object.freeze({ columns: 3, rowsPerPage: 5 }),
-        Object.freeze({ columns: 2, rowsPerPage: 6 }),
-      ]),
+      approvedLayouts: G4B_U04_INVERSE_LONG_APPROVED_LAYOUTS,
     }),
     answerKey: Object.freeze({ paperSize: "A4", columns: 1, rowsPerPage: 5, avoidSplit: true }),
   }),
@@ -127,6 +145,7 @@ export function validateG4BU04WorksheetPromotionProjection() {
   if (G4B_U04_PROMOTED_PATTERN_GROUP_IDS.length !== G4B_U04_EFFECTIVE_AUTHORITY_COUNTS.patternGroups) errors.push("pattern_group_count_mismatch");
   if (G4B_U04_PROMOTED_PATTERN_SPEC_IDS.length !== G4B_U04_EFFECTIVE_AUTHORITY_COUNTS.patternSpecs) errors.push("pattern_spec_count_mismatch");
   if (G4B_U04_WORKSHEET_ANSWER_SHAPES.length !== 9) errors.push("answer_shape_count_mismatch");
+  if (G4B_U04_INVERSE_LONG_APPROVED_LAYOUTS.length !== 18) errors.push("inverse_layout_count_mismatch");
   return Object.freeze({
     ok: errors.length === 0,
     errors: Object.freeze(errors),
