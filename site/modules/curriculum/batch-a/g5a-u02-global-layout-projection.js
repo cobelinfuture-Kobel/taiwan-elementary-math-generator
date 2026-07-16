@@ -26,18 +26,23 @@ function responsePrompt(record = {}) {
 }
 
 function isG5AU02DynamicDocument(document = {}) {
-  const dynamicRecordShape = document?.schemaVersion === "g5a-u02-hidden-worksheet-v1"
-    && Array.isArray(document?.questionRecords);
-  return dynamicRecordShape
-    || document?.sourceUnitId === G5A_U02_PUBLIC_SOURCE_ID
+  const hasDynamicRecords = Array.isArray(document?.questionRecords)
+    && document.questionRecords.length > 0;
+  const canonicalDynamicSchema = document?.schemaName === "G5AU02HiddenWorksheetDocument"
+    && Number(document?.schemaVersion) === 1
+    && document?.unitId === "g5a_u02";
+  const legacyDynamicSchema = document?.schemaVersion === "g5a-u02-hidden-worksheet-v1"
+    && document?.unitId === "g5a_u02";
+  const publicSourceIdentity = document?.sourceUnitId === G5A_U02_PUBLIC_SOURCE_ID
     || document?.sourceId === G5A_U02_PUBLIC_SOURCE_ID
     || document?.batchA?.sourceId === G5A_U02_PUBLIC_SOURCE_ID;
+  return hasDynamicRecords
+    && (canonicalDynamicSchema || legacyDynamicSchema || publicSourceIdentity);
 }
 
 export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
   const document = result?.worksheetDocument;
   if (!result?.ok || !document || !isG5AU02DynamicDocument(document)) return result;
-  if (!Array.isArray(document.questionRecords) || document.questionRecords.length === 0) return result;
 
   const answerByNumber = new Map(
     (document.answerKeyRecords ?? []).map((record) => [record.questionNumber, record]),
