@@ -2,24 +2,20 @@
   "schemaVersion": "g5a-u08-r1-deployed-pages-smoke-v1",
   "task": "G5A_U08_R1_DeployedControlsAndPrintRecloseout",
   "status": "FAIL",
-  "deploymentSha": "6304d3bff4fbeb338417f09a721d269f18611c2a",
-  "message": "G5A_U08_R1_DEPLOYED_PREVIEW_META_INVALID",
-  "details": {
-    "label": "無括號四則混合運算順序",
-    "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列",
-    "expectedSuffix": "｜6 題｜含答案頁"
-  },
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g5a_u08_5a08&questionCount=6&ordering=groupedByPattern&answerKey=1&generationSeed=g5a-u08-r1-kp-1&columns=3&rowsPerPage=5&questionMode=mixed&depthMode=mixed&contextMode=mixed&selectionMode=singleKnowledgePoint&kp=kp_g5a_u08_mixed_operation_order&pg=pg_g5a_u08_mixed_operation_order_numeric",
+  "deploymentSha": "252054a011d793655f73502dec62a17715c43d1a",
+  "message": "fetch failed",
+  "details": null,
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g5aU08R1=252054a011d793655f73502dec62a17715c43d1a-1784221586754",
   "consoleErrors": [],
   "pageErrors": [],
   "workflow": "G5A-U08-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29517989010",
-    "number": "44",
+    "id": "29518348300",
+    "number": "46",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29517989010"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29518348300"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-16T17:01:20.882Z"
+  "verifiedAt": "2026-07-16T17:06:28.121Z"
 }
