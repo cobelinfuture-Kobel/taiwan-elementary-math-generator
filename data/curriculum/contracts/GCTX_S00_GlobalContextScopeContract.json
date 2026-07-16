@@ -2,7 +2,13 @@
   "schemaName": "GlobalCrossCurricularContextScopeContract",
   "schemaVersion": 1,
   "task": "GCTX-S00_GlobalContextScopeArchitectureAndTaskSequenceLock",
-  "status": "design_locked_pending_ci",
+  "status": "pass_accepted_ci_synced_and_merged",
+  "completionEvidence": {
+    "pullRequest": 241,
+    "mergeCommit": "3dbf1b51fe37c1c58fa939369627c196e99489b2",
+    "triggeredWorkflowCount": 19,
+    "allTriggeredWorkflowsPassed": true
+  },
   "goal": {
     "primary": "all_application_capable_units_can_use_approved_global_contexts",
     "knowledgeLevel": "elementary_common_knowledge",
