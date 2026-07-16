@@ -1,6 +1,7 @@
 // R2E entry preserves the complete worksheet chain, including R2D layout
 // resolution, and appends controlled G4B-U04 context metadata.
 import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import { projectG5AU02DynamicDocumentForGlobalLayout } from "../../../modules/curriculum/batch-a/g5a-u02-global-layout-projection.js";
 import { applyGlobalPublicLayoutOverlay } from "../../../modules/curriculum/batch-a/global-public-layout-overlay.js";
 import { adaptGlobalPublicSourceUnitPlan } from "../../../modules/curriculum/batch-a/global-public-source-unit-adapter.js";
 import { buildG5AU02PublicCandidateWorksheet } from "../../../modules/curriculum/batch-a/g5a-u02-public-candidate.js";
@@ -36,6 +37,7 @@ export function buildWorksheetDocumentFromState(state) {
     result = publicCandidate ?? buildBatchABrowserWorksheetDocument(plan);
   }
   result = attachPublicControlOutputMetadata(result, resolution?.plan ?? plan);
+  result = projectG5AU02DynamicDocumentForGlobalLayout(result);
   result = applyGlobalPublicLayoutOverlay(result, resolution?.plan ?? plan);
   storeWorksheetResult(state, result);
   return result;
