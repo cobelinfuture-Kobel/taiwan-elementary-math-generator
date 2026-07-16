@@ -3,7 +3,7 @@ import { G4A_U01_SOURCE_ID } from "./g4a-u01-phase1-generator.js";
 export const G4A_U01_FIRST_DIFFERENCE_FULLFIX_VERSION = "glm-s05-g4a-u01-first-difference-v1";
 
 const FIRST_DIFFERENCE_PATTERN_SPEC_ID = "ps_g4a_u01_compare_first_different_place";
-const PLACE_LABELS = Object.freeze(["千萬位", "百萬位", "十萬位", "萬位", "千位", "百位", "十位", "個位"]);
+const PLACE_LABELS = Object.freeze(["千萬", "百萬", "十萬", "萬", "千", "百", "十", "一"]);
 
 function clone(value) {
   if (Array.isArray(value)) return value.map(clone);
