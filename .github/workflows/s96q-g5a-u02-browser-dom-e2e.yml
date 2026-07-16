@@ -51,4 +51,6 @@ jobs:
           name: s96q-g5a-u02-browser-dom-diagnostics
           if-no-files-found: ignore
           retention-days: 14
-          path: /tmp/s96q-site.log
+          path: |
+            /tmp/s96q-site.log
+            /tmp/s96q-failure.json

@@ -1,7 +1,10 @@
+import { writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 
 const BASE_URL = process.env.S96Q_SITE_URL ?? "http://127.0.0.1:4174/index.html";
 const SOURCE_ID = "g5a_u02_5a02";
+const QUESTION_CARD_SELECTOR = ".g5a-u02-card--question, .worksheet-cell--question";
+const FAILURE_PATH = "/tmp/s96q-failure.json";
 
 function fail(message, details = {}) {
   const error = new Error(message);
@@ -49,7 +52,14 @@ try {
   if (await body.getAttribute("data-public-question-mode") !== "reasoning") fail("S96Q_PREVIEW_QUESTION_MODE_MISMATCH");
   if (await body.getAttribute("data-public-depth-mode") !== "extended") fail("S96Q_PREVIEW_DEPTH_MODE_MISMATCH");
   if (await body.getAttribute("data-public-context-mode") !== "abstract_math") fail("S96Q_PREVIEW_CONTEXT_MODE_MISMATCH");
-  if (await frame.locator(".g5a-u02-card--question").count() !== 12) fail("S96Q_PREVIEW_COUNT_MISMATCH");
+  const questionCards = await frame.locator(QUESTION_CARD_SELECTOR).count();
+  if (questionCards !== 12) {
+    fail("S96Q_PREVIEW_COUNT_MISMATCH", {
+      questionCards,
+      sharedQuestionCards: await frame.locator(".worksheet-cell--question").count(),
+      legacyQuestionCards: await frame.locator(".g5a-u02-card--question").count(),
+    });
+  }
 
   const questionModes = ["concept", "numeric", "application", "reasoning"];
   const depthModes = ["basic", "extended"];
@@ -81,12 +91,23 @@ try {
     task: "S96Q_G5A_U02_BrowserDOME2E",
     status: "PASS",
     sourceId: SOURCE_ID,
+    acceptedQuestionSelector: QUESTION_CARD_SELECTOR,
     successfulControls: { questionMode: "reasoning", depthMode: "extended", contextMode: "abstract_math" },
     blockedControls: blocked,
     consoleErrorCount: consoleErrors.length,
     pageErrorCount: pageErrors.length,
   }, null, 2));
 } catch (error) {
+  const failure = {
+    task: "S96Q_G5A_U02_BrowserDOME2E",
+    status: "FAIL",
+    error: error.message,
+    details: error.details ?? null,
+    url: page.url(),
+    consoleErrors,
+    pageErrors,
+  };
+  await writeFile(FAILURE_PATH, `${JSON.stringify(failure, null, 2)}\n`, "utf8");
   console.error(error.message);
   if (error.details) console.error(JSON.stringify(error.details, null, 2));
   process.exitCode = 1;
