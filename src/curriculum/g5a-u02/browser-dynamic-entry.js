@@ -28,12 +28,31 @@ function seedFor(baseSeed, index) {
   return ((baseSeed + index - 1) % MAX_SEED) + 1;
 }
 
+export function normalizeG5AU02SemanticDisplayItem(item) {
+  if (item?.patternSpecId !== "ps_g5a_u02_complete_factor_list_unknown_values") return item;
+  const unknownKeys = [...new Set(item.data?.unknownKeys ?? [])];
+  if (unknownKeys.length === (item.data?.unknownKeys ?? []).length) return item;
+  return freeze({
+    ...item,
+    data: {
+      ...item.data,
+      unknownKeys,
+    },
+    semanticNormalization: {
+      code: "G5AU02_DUPLICATE_UNKNOWN_KEY_NORMALIZED",
+      originalUnknownKeyCount: item.data.unknownKeys.length,
+      normalizedUnknownKeyCount: unknownKeys.length,
+    },
+  });
+}
+
 function enrichPublicQuestionRecords(source, input) {
   const errors = [];
   const questionItems = source.questionRecords.map((record, index) => {
-    const item = generateG5AU02Canonical(record.patternSpecId, {
+    const canonicalItem = generateG5AU02Canonical(record.patternSpecId, {
       seed: seedFor(input.baseSeed, index),
     });
+    const item = normalizeG5AU02SemanticDisplayItem(canonicalItem);
     const enriched = enrichG5AU02GeneratedItemPrompt(item);
     if (item.patternSpecId !== record.patternSpecId) {
       errors.push(`G5AU02_SEMANTIC_REGENERATION_PATTERN_MISMATCH:${record.patternSpecId}`);
@@ -46,6 +65,7 @@ function enrichPublicQuestionRecords(source, input) {
       promptCompletenessStatus: isG5AU02PromptCompletenessPattern(record.patternSpecId)
         ? "visible_unique_solution_data_complete"
         : "not_required_for_pattern",
+      semanticNormalization: item.semanticNormalization ?? null,
     });
   });
 
