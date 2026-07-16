@@ -1,0 +1,64 @@
+name: GLM-S02 Unit Renderer Worst-Case Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/glm-s02-unit-renderer-worst-case-audit.yml
+      - data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json
+      - docs/curriculum/output/GLM_S01_CURRENT_15_UNIT_LAYOUT_BEHAVIOR_BASELINE.json
+      - docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.html
+      - site/assets/browser/state/config-state.js
+      - site/assets/browser/pipeline/build-worksheet-document.js
+      - site/modules/curriculum/batch-a/**
+      - site/modules/curriculum/batch-b/**
+      - site/modules/curriculum/registry/**
+      - tools/curriculum/run-glm-s02-unit-renderer-worst-case-audit.mjs
+      - tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs
+      - tests/curriculum/glm-s02-unit-renderer-worst-case-audit.test.js
+      - docs/curriculum/architecture/GLM_S02_UnitRendererProfileAndWorstCaseQuestionAudit.md
+      - docs/curriculum/output/GLM_S02_UNIT_RENDERER_WORST_CASE_AUDIT_PENDING.marker
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  renderer-worst-case-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Verify S00 and S01 authorities
+        run: |
+          node --test tests/curriculum/glm-s00-public-completed-unit-18-layout-contract.test.js
+          node --test tests/curriculum/glm-s01-current-layout-behavior-audit.test.js
+
+      - name: Capture unit renderer and worst-case question audit
+        run: node tools/curriculum/run-glm-s02-unit-renderer-worst-case-audit.mjs
+
+      - name: Enrich G5A-U02 from commit-pinned canonical HTML
+        run: node tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs
+
+      - name: Validate GLM-S02 manifest
+        run: node --test tests/curriculum/glm-s02-unit-renderer-worst-case-audit.test.js
+
+      - name: Upload GLM-S02 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s02-unit-renderer-worst-case-audit
+          if-no-files-found: error
+          retention-days: 30
+          path: docs/curriculum/output/glm-s02-unit-renderer-worst-case-audit/current.json
