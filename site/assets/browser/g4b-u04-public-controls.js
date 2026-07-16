@@ -38,6 +38,7 @@ export const G4B_U04_CONTEXT_MODE_LABELS = Object.freeze({
 });
 
 const G4_ONLY_MODES = Object.freeze(["concept", "operation_estimation"]);
+const G4B_U04_SOURCE_QUERY_HYDRATED_DATASET_KEY = "g4bU04SourceQueryHydrated";
 const G4B_U04_LAYOUT_QUERY_HYDRATED_DATASET_KEY = "g4bU04QueryHydrated";
 const G4B_U04_CUSTOM_LAYOUT_INPUT_IDS = Object.freeze(new Set([
   G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyLayoutChange,
@@ -97,6 +98,14 @@ function ensureSourceOption(source) {
     const next = [...source.options].find((entry) => entry.value === "g5a_u08_5a08");
     source.insertBefore(option, next ?? null);
   }
+}
+
+function hydrateSourceFromQueryOnce(source) {
+  if (!source || source.dataset[G4B_U04_SOURCE_QUERY_HYDRATED_DATASET_KEY] === "true") return false;
+  source.dataset[G4B_U04_SOURCE_QUERY_HYDRATED_DATASET_KEY] = "true";
+  if (queryParam("sourceId") !== G4B_U04_SOURCE_ID) return false;
+  source.value = G4B_U04_SOURCE_ID;
+  return true;
 }
 
 export function activateG4BU04CustomLayoutFromPrintInput({ source, layoutSelect, target } = {}) {
@@ -163,6 +172,7 @@ function createSection() {
 export function syncG4BU04ClassicPublicControls(root = document) {
   const source = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.source);
   ensureSourceOption(source);
+  hydrateSourceFromQueryOnce(source);
   const sourceHelp = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.sourceHelp);
   const selectionMode = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.selectionMode);
   const proxy = root.getElementById(G4B_U04_CLASSIC_PUBLIC_CONTROL_IDS.proxyQuestionMode);
