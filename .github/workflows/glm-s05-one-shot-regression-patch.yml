@@ -1,23 +1,25 @@
 name: GLM-S05 One-Shot Regression Patch
 
 on:
-  push:
-    branches:
-      - fix/global-18-layout-fullfix
-    paths:
-      - .glm-s05-regression-patch-trigger
+  pull_request:
+    types:
+      - synchronize
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
   patch-stale-expectations:
+    if: github.head_ref == 'fix/global-18-layout-fullfix'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
           ref: fix/global-18-layout-fullfix
           fetch-depth: 0
+      - name: Verify one-shot trigger
+        run: test -f .glm-s05-regression-patch-trigger
       - name: Apply bounded replacements
         run: python tools/maintenance/patch-glm-s05-stale-regressions.py
       - name: Remove one-shot maintenance files
