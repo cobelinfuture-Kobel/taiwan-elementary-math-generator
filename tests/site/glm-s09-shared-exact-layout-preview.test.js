@@ -7,28 +7,38 @@ import {
 } from "../../site/assets/browser/pipeline/render-preview-frame.js";
 
 function exactDocument(columns, rowsPerPage) {
-  const cells = Array.from({ length: columns * rowsPerPage }, (_, index) => ({
-    cellType: "question",
-    questionDisplayModel: {
+  const cells = Array.from({ length: columns * rowsPerPage }, (_, index) => {
+    const displayModel = {
       questionId: `q-${index + 1}`,
       questionNumber: index + 1,
       questionNumberText: `${index + 1}.`,
       promptText: `題目 ${index + 1}`,
       displayText: `題目 ${index + 1}`,
+      blankedDisplayText: `題目 ${index + 1}`,
       responsePrompt: "答：________",
       renderKind: "numeric",
-    },
-  }));
+    };
+    return {
+      cellType: "question",
+      cellIndex: index,
+      rowIndex: Math.floor(index / columns),
+      columnIndex: index % columns,
+      questionId: displayModel.questionId,
+      questionNumber: displayModel.questionNumber,
+      displayModel,
+    };
+  });
   return {
     dynamicHtml: "<!doctype html><html><body data-legacy-g5a-u02=\"true\">legacy single column</body></html>",
     questionPages: [{
       pageNumber: 1,
       pageType: "question",
-      layout: { columns, rowsPerPage },
+      columns,
+      rowsPerPage,
       cells,
     }],
     answerKeyPages: [],
-    questionDisplayModels: cells.map((cell) => cell.questionDisplayModel),
+    questionDisplayModels: cells.map((cell) => cell.displayModel),
     answerKeyItems: [],
     printOptions: {
       paperSize: "A4",
@@ -59,7 +69,7 @@ test("GLM-S09 exact-layout projection supersedes legacy G5A-U02 dynamic HTML", (
     const result = renderPreviewFrame(frame, document, { stylesheetHref: "" });
     assert.equal(result.sharedExactLayout, true);
     assert.equal(frame.dataset.sharedExactLayoutRenderer, "true");
-    assert.match(frame.srcdoc, /class="worksheet-grid"/);
+    assert.match(frame.srcdoc, /class="worksheet-page__grid"/);
     assert.match(frame.srcdoc, new RegExp(`--worksheet-columns:${columns}`));
     assert.doesNotMatch(frame.srcdoc, /data-legacy-g5a-u02/);
     assert.doesNotMatch(frame.srcdoc, /legacy single column/);
