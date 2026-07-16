@@ -25,6 +25,23 @@ jobs:
       - name: Validate shared exact-layout preview authority
         run: node --test tests/site/glm-s09-shared-exact-layout-preview.test.js
 
+  regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run full regression with concise failure readback
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/glm-s09-regression.log 2>&1
+          status=$?
+          tail -n 400 /tmp/glm-s09-regression.log
+          exit "$status"
+
   geometry:
     needs: contract
     strategy:
