@@ -6,10 +6,20 @@ import {
   activateG4BU04CustomLayoutFromPrintInput,
   syncG4BU04ClassicPublicControls,
 } from "../../site/assets/browser/g4b-u04-public-controls.js";
+import {
+  createConfigState,
+} from "../../site/assets/browser/state/config-state.js";
+import {
+  parseQueryState,
+} from "../../site/assets/browser/state/query-state.js";
+import {
+  getBatchASourceUnit,
+  isBatchASourceId,
+  listBatchASourceUnits,
+} from "../../site/modules/curriculum/batch-a/source-units.js";
 
 const SOURCE_ID = "g4b_u04_4b04";
 const OTHER_SOURCE_ID = "g5a_u08_5a08";
-const SOURCE_HYDRATED_KEY = "g4bU04SourceQueryHydrated";
 const LAYOUT_HYDRATED_KEY = "g4bU04QueryHydrated";
 
 function createOption(value) {
@@ -80,29 +90,20 @@ function withWindow(href, callback) {
   }
 }
 
-test("R4 Classic hydrates the G4B source query exactly once after its option exists", () => {
-  withWindow(`https://example.test/math?sourceId=${SOURCE_ID}&layoutMode=custom_with_caps`, () => {
-    const { root, source } = createClassicRoot({ sourceId: OTHER_SOURCE_ID });
-    const first = syncG4BU04ClassicPublicControls(root);
-    assert.equal(first.active, true);
-    assert.equal(source.value, SOURCE_ID);
-    assert.equal(source.dataset[SOURCE_HYDRATED_KEY], "true");
-
-    source.value = OTHER_SOURCE_ID;
-    const second = syncG4BU04ClassicPublicControls(root);
-    assert.equal(second.active, false);
-    assert.equal(source.value, OTHER_SOURCE_ID);
+test("R4 public source registry owns G4B-U04 metadata and query-state acceptance", () => {
+  assert.equal(isBatchASourceId(SOURCE_ID), true);
+  assert.deepEqual(getBatchASourceUnit(SOURCE_ID), {
+    sourceId: SOURCE_ID,
+    grade: 4,
+    semester: "lower",
+    unitCode: "4B-U04",
+    title: "概數",
+    domain: "number_sense",
   });
-});
-
-test("R4 Classic without a G4B source query preserves the current source", () => {
-  withWindow(`https://example.test/math?sourceId=${OTHER_SOURCE_ID}`, () => {
-    const { root, source } = createClassicRoot({ sourceId: OTHER_SOURCE_ID });
-    const result = syncG4BU04ClassicPublicControls(root);
-    assert.equal(result.active, false);
-    assert.equal(source.value, OTHER_SOURCE_ID);
-    assert.equal(source.dataset[SOURCE_HYDRATED_KEY], "true");
-  });
+  assert.equal(listBatchASourceUnits().some((unit) => unit.sourceId === SOURCE_ID), true);
+  const queryState = parseQueryState(`?sourceId=${SOURCE_ID}&selectionMode=mixedKnowledgePointsSameUnit`);
+  const state = createConfigState({ queryState });
+  assert.equal(state.batchA.sourceId, SOURCE_ID);
 });
 
 test("R2F4 Classic first activation hydrates custom_with_caps from the URL before the DOM default", () => {
@@ -155,13 +156,9 @@ test("R2F4 Classic delays layout query hydration until G4B-U04 becomes the activ
   });
 });
 
-test("R4 stale G4B query state never reclaims the source dropdown after initial hydration", () => {
+test("R4 G4 control sync never changes the source selected by main state", () => {
   withWindow(`https://example.test/math?sourceId=${SOURCE_ID}&layoutMode=custom_with_caps`, () => {
     const { root, source } = createClassicRoot({ sourceId: OTHER_SOURCE_ID });
-    syncG4BU04ClassicPublicControls(root);
-    assert.equal(source.value, SOURCE_ID);
-
-    source.value = OTHER_SOURCE_ID;
     const result = syncG4BU04ClassicPublicControls(root);
     assert.equal(result.active, false);
     assert.equal(source.value, OTHER_SOURCE_ID);
