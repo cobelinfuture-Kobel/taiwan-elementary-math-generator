@@ -11,6 +11,7 @@ export const BATCH_A_SOURCE_UNITS = Object.freeze([
   { sourceId: "g4a_u04_4a04", grade: 4, semester: "upper", unitCode: "4A-U04", title: "整數的除法", domain: "integer_expression" },
   { sourceId: "g4a_u08_4a08", grade: 4, semester: "upper", unitCode: "4A-U08", title: "整數四則", domain: "integer_mixed_operations" },
   { sourceId: "g4b_u01_4b01", grade: 4, semester: "lower", unitCode: "4B-U01", title: "多位數的乘與除", domain: "integer_expression" },
+  { sourceId: "g4b_u04_4b04", grade: 4, semester: "lower", unitCode: "4B-U04", title: "概數", domain: "number_sense" },
   { sourceId: "g5a_u08_5a08", grade: 5, semester: "upper", unitCode: "5A-U08", title: "整數四則", domain: "integer_mixed_operations" }
 ]);
 
