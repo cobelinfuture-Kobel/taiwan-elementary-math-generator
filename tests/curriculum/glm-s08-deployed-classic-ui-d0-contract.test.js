@@ -56,7 +56,8 @@ test("GLM-S08 harness validates deployed identity, query replay, preview and pri
   assert.match(runner, /sourceSwitchResults/);
   assert.match(runner, /waitForHydration/);
   assert.match(runner, /exact_approved_matrix/);
-  assert.match(runner, /data-g4b-u04/);
+  assert.match(runner, /g4bU04RequestedColumns/);
+  assert.match(runner, /g4bU04ResolvedColumns/);
   assert.match(runner, /ANSWER_CARD_COUNT_MISMATCH/);
   assert.match(runner, /ANSWER_PAGE_OFF_LEAK/);
   assert.match(runner, /OVERFLOW/);
