@@ -90,7 +90,7 @@ function withWindow(href, callback) {
   }
 }
 
-test("R4 public source registry owns G4B-U04 metadata and query-state acceptance", () => {
+test("R4 public source registry accepts G4B-U04 while isolating it from generic source-unit loops", () => {
   assert.equal(isBatchASourceId(SOURCE_ID), true);
   assert.deepEqual(getBatchASourceUnit(SOURCE_ID), {
     sourceId: SOURCE_ID,
@@ -99,8 +99,10 @@ test("R4 public source registry owns G4B-U04 metadata and query-state acceptance
     unitCode: "4B-U04",
     title: "概數",
     domain: "number_sense",
+    lifecycle: "public_canonical_specialized_release",
   });
-  assert.equal(listBatchASourceUnits().some((unit) => unit.sourceId === SOURCE_ID), true);
+  assert.equal(listBatchASourceUnits().some((unit) => unit.sourceId === SOURCE_ID), false);
+  assert.equal(listBatchASourceUnits({ includePublicCandidates: true }).some((unit) => unit.sourceId === SOURCE_ID), true);
   const queryState = parseQueryState(`?sourceId=${SOURCE_ID}&selectionMode=mixedKnowledgePointsSameUnit`);
   const state = createConfigState({ queryState });
   assert.equal(state.batchA.sourceId, SOURCE_ID);
