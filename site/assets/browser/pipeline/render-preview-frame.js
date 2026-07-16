@@ -22,7 +22,7 @@ function stampPublicControls(html, worksheetDocument) {
     `data-public-depth-mode="${escapeAttribute(controls.depthMode)}"`,
     `data-public-context-mode="${escapeAttribute(controls.contextMode)}"`,
     ...(hasLayoutMode ? [`data-public-layout-mode="${escapeAttribute(controls.layoutMode)}"`] : []),
-    `data-public-generic-fallback="${controls.genericFallback ? "true" : "false"}`,
+    `data-public-generic-fallback="${controls.genericFallback ? "true" : "false"}"`,
   ].join(" ");
   const metaValues = [controls.questionMode, controls.depthMode, controls.contextMode];
   if (hasLayoutMode) metaValues.push(controls.layoutMode);
@@ -38,7 +38,7 @@ function stampG4BU04LayoutReadback(html, worksheetDocument) {
   const attributes = [
     `data-g4b-u04-layout-mode="${escapeAttribute(layout.layoutMode)}"`,
     `data-g4b-u04-layout-profile="${escapeAttribute(layout.profileId)}"`,
-    `data-g4b-u04-layout-capped="${layout.capped ? "true" : "false"}`,
+    `data-g4b-u04-layout-capped="${layout.capped ? "true" : "false"}"`,
     `data-g4b-u04-requested-columns="${escapeAttribute(layout.requestedQuestionLayout?.columns)}"`,
     `data-g4b-u04-requested-rows="${escapeAttribute(layout.requestedQuestionLayout?.rowsPerPage)}"`,
     `data-g4b-u04-resolved-columns="${escapeAttribute(layout.resolvedQuestionLayout?.columns)}"`,
