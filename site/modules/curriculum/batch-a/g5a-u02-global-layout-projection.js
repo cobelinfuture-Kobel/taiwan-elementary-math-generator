@@ -25,6 +25,18 @@ function responsePrompt(record = {}) {
   return String(record.responseLabel ?? record.responsePrompt ?? "答案：________________");
 }
 
+function questionRecords(document = {}) {
+  if (Array.isArray(document.questionItems)) return document.questionItems;
+  if (Array.isArray(document.questionRecords)) return document.questionRecords;
+  return [];
+}
+
+function answerRecords(document = {}) {
+  if (Array.isArray(document.answerKeyRecords)) return document.answerKeyRecords;
+  if (Array.isArray(document.answerKeyItems)) return document.answerKeyItems;
+  return [];
+}
+
 function isG5AU02Record(record = {}) {
   return String(record?.patternSpecId ?? "").startsWith("ps_g5a_u02_")
     || String(record?.knowledgePointId ?? "").startsWith("kp_g5a_u02_")
@@ -32,8 +44,11 @@ function isG5AU02Record(record = {}) {
 }
 
 function isG5AU02DynamicDocument(document = {}) {
-  const records = Array.isArray(document?.questionRecords) ? document.questionRecords : [];
+  const records = questionRecords(document);
   const hasDynamicRecords = records.length > 0;
+  const publicDynamicSchema = document?.schemaName === "G5AU02PublicDynamicWorksheet"
+    && Number(document?.schemaVersion) === 1
+    && document?.unitId === "g5a_u02";
   const canonicalDynamicSchema = document?.schemaName === "G5AU02HiddenWorksheetDocument"
     && Number(document?.schemaVersion) === 1
     && document?.unitId === "g5a_u02";
@@ -44,17 +59,18 @@ function isG5AU02DynamicDocument(document = {}) {
     || document?.batchA?.sourceId === G5A_U02_PUBLIC_SOURCE_ID;
   const canonicalRecordIdentity = records.some(isG5AU02Record);
   return hasDynamicRecords
-    && (canonicalDynamicSchema || legacyDynamicSchema || publicSourceIdentity || canonicalRecordIdentity);
+    && (publicDynamicSchema || canonicalDynamicSchema || legacyDynamicSchema || publicSourceIdentity || canonicalRecordIdentity);
 }
 
 export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
   const document = result?.worksheetDocument;
   if (!result?.ok || !document || !isG5AU02DynamicDocument(document)) return result;
 
+  const records = questionRecords(document);
   const answerByNumber = new Map(
-    (document.answerKeyRecords ?? []).map((record) => [record.questionNumber, record]),
+    answerRecords(document).map((record) => [record.questionNumber, record]),
   );
-  const questionDisplayModels = document.questionRecords.map((record, index) => {
+  const questionDisplayModels = records.map((record, index) => {
     const questionNumber = Number(record.questionNumber) || index + 1;
     const prompt = String(record.prompt ?? record.promptText ?? "");
     const response = responsePrompt(record);
@@ -88,7 +104,7 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
       },
     };
   });
-  const answerKeyItems = document.questionRecords.map((record, index) => {
+  const answerKeyItems = records.map((record, index) => {
     const questionNumber = Number(record.questionNumber) || index + 1;
     const answer = answerByNumber.get(questionNumber) ?? {};
     const prompt = String(record.prompt ?? record.promptText ?? "");
