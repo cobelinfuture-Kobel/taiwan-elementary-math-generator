@@ -1,3 +1,11 @@
+import { isG5AU02S100Pattern } from "./s100-method-runtime.js";
+import {
+  buildG5AU02S100QuestionDisplayModel,
+  isG5AU02S100DisplayModel,
+  serializeG5AU02S100QuestionDisplayModel,
+  validateG5AU02S100QuestionDisplayModel,
+} from "./s100-question-display.js";
+
 const BLOCKING_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_missing_factor_reconstruction",
   "ps_g5a_u02_divisor_candidate_selection",
@@ -60,11 +68,12 @@ function unknownLabelByPosition(data) {
 }
 
 export function isG5AU02PromptCompletenessPattern(patternSpecId) {
-  return BLOCKING_PATTERN_SET.has(patternSpecId);
+  return BLOCKING_PATTERN_SET.has(patternSpecId) || isG5AU02S100Pattern(patternSpecId);
 }
 
 export function buildG5AU02QuestionDisplayModel(item) {
   if (!item || typeof item !== "object") throw new Error("G5AU02_DISPLAY_ITEM_REQUIRED");
+  if (isG5AU02S100Pattern(item.patternSpecId)) return buildG5AU02S100QuestionDisplayModel(item);
   const data = item.data ?? {};
 
   switch (item.patternSpecId) {
@@ -147,6 +156,7 @@ function sequenceText(sequence) {
 
 export function serializeG5AU02QuestionDisplayModel(basePrompt, model) {
   if (!model) return String(basePrompt ?? "");
+  if (isG5AU02S100DisplayModel(model)) return serializeG5AU02S100QuestionDisplayModel(model);
 
   switch (model.kind) {
     case "masked_factor_sequence":
@@ -173,8 +183,11 @@ function requireExactArray(actual, expected, errorCode, errors) {
 }
 
 export function validateG5AU02QuestionDisplayModel(item, model, promptText = "") {
+  if (isG5AU02S100Pattern(item?.patternSpecId)) {
+    return validateG5AU02S100QuestionDisplayModel(item, model, promptText);
+  }
   const errors = [];
-  if (!isG5AU02PromptCompletenessPattern(item?.patternSpecId)) {
+  if (!BLOCKING_PATTERN_SET.has(item?.patternSpecId)) {
     if (model !== null) errors.push("G5AU02_DISPLAY_UNEXPECTED_FOR_NONBLOCKING_PATTERN");
     return deepFreeze({ ok: errors.length === 0, errors });
   }
