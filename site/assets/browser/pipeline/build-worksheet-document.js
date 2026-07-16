@@ -19,42 +19,6 @@ function blockedKnowledgePointResult(resolution) {
   });
 }
 
-function arrayLengths(value = {}) {
-  return Object.fromEntries(Object.entries(value)
-    .filter(([, nested]) => Array.isArray(nested))
-    .map(([key, nested]) => [key, nested.length]));
-}
-
-function objectKeys(value = {}) {
-  return Object.fromEntries(Object.entries(value)
-    .filter(([, nested]) => nested && typeof nested === "object" && !Array.isArray(nested))
-    .map(([key, nested]) => [key, Object.keys(nested)]));
-}
-
-function attachG5AU02PreProjectionDiagnostic(result, plan, resolution) {
-  if (plan?.sourceId !== "g5a_u02_5a02") return result;
-  const document = result?.worksheetDocument ?? null;
-  return {
-    ...result,
-    g5aU02PreProjectionDiagnostic: {
-      resolutionMode: resolution?.mode ?? null,
-      resultKeys: Object.keys(result ?? {}),
-      resultArrayLengths: arrayLengths(result ?? {}),
-      resultObjectKeys: objectKeys(result ?? {}),
-      documentKeys: Object.keys(document ?? {}),
-      documentArrayLengths: arrayLengths(document ?? {}),
-      documentObjectKeys: objectKeys(document ?? {}),
-      schemaName: document?.schemaName ?? null,
-      schemaVersion: document?.schemaVersion ?? null,
-      unitId: document?.unitId ?? null,
-      sourceId: document?.sourceId ?? null,
-      questionRecordSampleKeys: Object.keys(document?.questionRecords?.[0] ?? {}),
-      selectedKnowledgePointCount: plan?.selectedKnowledgePointIds?.length ?? plan?.knowledgePointIds?.length ?? 0,
-      patternSpecCount: resolution?.plan?.patternSpecIds?.length ?? 0,
-    },
-  };
-}
-
 export function buildWorksheetDocumentFromState(state) {
   const publicPlan = getBatchAWorksheetPlan(state);
   const sourceUnitAdaptation = adaptGlobalPublicSourceUnitPlan(publicPlan);
@@ -72,7 +36,6 @@ export function buildWorksheetDocumentFromState(state) {
     const publicCandidate = buildG5AU02PublicCandidateWorksheet(resolution?.plan ?? plan);
     result = publicCandidate ?? buildBatchABrowserWorksheetDocument(plan);
   }
-  result = attachG5AU02PreProjectionDiagnostic(result, resolution?.plan ?? plan, resolution);
   result = attachPublicControlOutputMetadata(result, resolution?.plan ?? plan);
   result = projectG5AU02DynamicDocumentForGlobalLayout(result);
   result = applyGlobalPublicLayoutOverlay(result, resolution?.plan ?? plan);
