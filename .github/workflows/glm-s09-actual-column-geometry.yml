@@ -1,0 +1,89 @@
+name: GLM-S09 Actual Column Geometry
+
+on:
+  pull_request:
+    paths:
+      - "site/assets/browser/pipeline/render-preview-frame.js"
+      - "site/modules/renderer/**"
+      - "site/assets/styles/print-styles.css"
+      - "tools/curriculum/run-glm-s09-column-geometry-shard.mjs"
+      - "tests/site/glm-s09-shared-exact-layout-preview.test.js"
+      - ".github/workflows/glm-s09-actual-column-geometry.yml"
+      - "docs/curriculum/architecture/GLM_S09_ActualColumnGeometryAuditAndRendererFullFix.md"
+      - "docs/curriculum/output/GLM_S09_ACTUAL_COLUMN_GEOMETRY_PENDING.marker"
+  workflow_dispatch:
+
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Validate shared exact-layout preview authority
+        run: node --test tests/site/glm-s09-shared-exact-layout-preview.test.js
+
+  geometry:
+    needs: contract
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Run actual column geometry shard
+        run: node tools/curriculum/run-glm-s09-column-geometry-shard.mjs --shard=${{ matrix.shard }}
+      - name: Upload geometry authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s09-column-geometry-shard-${{ matrix.shard }}
+          retention-days: 30
+          if-no-files-found: error
+          path: docs/curriculum/output/glm-s09-column-geometry/shard-${{ matrix.shard }}/manifest.json
+
+  aggregate:
+    needs: geometry
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: glm-s09-column-geometry-shard-*
+          path: /tmp/glm-s09
+          merge-multiple: false
+      - name: Validate all 270 actual geometry scenarios
+        run: |
+          node --input-type=module <<'NODE'
+          import { readdirSync, readFileSync } from 'node:fs';
+          import path from 'node:path';
+          const root = '/tmp/glm-s09';
+          const manifests = readdirSync(root).map((name) => JSON.parse(readFileSync(path.join(root, name, 'manifest.json'), 'utf8')));
+          const scenarioCount = manifests.reduce((sum, row) => sum + row.scenarioCount, 0);
+          const passCount = manifests.reduce((sum, row) => sum + row.passCount, 0);
+          const failures = manifests.flatMap((row) => row.results.filter((item) => item.status !== 'PASS'));
+          const authority = {
+            task: 'GLM-S09_ActualColumnGeometryAuditAndRendererFullFix',
+            shardCount: manifests.length,
+            scenarioCount,
+            passCount,
+            failureCount: failures.length,
+            status: manifests.length === 5 && scenarioCount === 270 && passCount === 270 && failures.length === 0 ? 'ALL_270_ACTUAL_COLUMN_GEOMETRY_PASS' : 'FAIL',
+            failures,
+          };
+          console.log(JSON.stringify(authority, null, 2));
+          if (authority.status !== 'ALL_270_ACTUAL_COLUMN_GEOMETRY_PASS') process.exit(1);
+          NODE
