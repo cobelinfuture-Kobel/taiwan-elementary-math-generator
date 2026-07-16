@@ -1,0 +1,57 @@
+name: GLM-S01 Current 15-Unit Layout Behavior Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/glm-s01-current-layout-behavior-audit.yml
+      - data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json
+      - site/assets/browser/state/config-state.js
+      - site/assets/browser/state/config-state-core.js
+      - site/assets/browser/pipeline/build-worksheet-document.js
+      - site/modules/curriculum/batch-a/**
+      - site/modules/curriculum/batch-b/**
+      - site/modules/curriculum/registry/**
+      - tools/curriculum/run-glm-s01-current-layout-behavior-audit.mjs
+      - tests/curriculum/glm-s01-current-layout-behavior-audit.test.js
+      - docs/curriculum/architecture/GLM_S01_Current15UnitLayoutBehaviorAudit.md
+      - docs/curriculum/output/GLM_S01_CURRENT_15_UNIT_LAYOUT_BEHAVIOR_AUDIT_PENDING.marker
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  current-layout-behavior-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run GLM-S00 contract test
+        run: node --test tests/curriculum/glm-s00-public-completed-unit-18-layout-contract.test.js
+
+      - name: Capture 270-scenario worksheet-document baseline
+        run: node tools/curriculum/run-glm-s01-current-layout-behavior-audit.mjs
+
+      - name: Validate baseline manifest
+        run: node --test tests/curriculum/glm-s01-current-layout-behavior-audit.test.js
+
+      - name: Upload GLM-S01 baseline evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s01-current-15-unit-layout-behavior-audit
+          if-no-files-found: error
+          retention-days: 30
+          path: docs/curriculum/output/glm-s01-current-layout-behavior-audit/current.json
