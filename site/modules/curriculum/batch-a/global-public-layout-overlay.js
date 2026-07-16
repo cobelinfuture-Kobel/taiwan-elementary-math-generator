@@ -27,26 +27,108 @@ function uniqueIssues(items = []) {
   });
 }
 
+function fallbackRenderKind(question = {}) {
+  if (question.renderKind) return question.renderKind;
+  if (question.applicationText === true) return "contextual_application";
+  if (question.mode === "application") return "contextual_application";
+  if (question.mode === "reasoning_application") return "reasoning_application";
+  if (question.mode === "geometry_application") return "geometry_application";
+  if (question.mode === "reasoning") return "reasoning";
+  if (question.mode === "representation") return "representation";
+  if (question.mode === "concept") return "concept";
+  return "numeric";
+}
+
+function fallbackResponsePrompt(question = {}) {
+  if (typeof question.responsePrompt === "string") return question.responsePrompt;
+  if (question.applicationText === true || String(question.mode ?? "").includes("application")) {
+    return "作答：________________________________________________";
+  }
+  if (Array.isArray(question.finalAnswer)) return "答案：________________________________________";
+  return "答案：________________";
+}
+
+function generatedQuestionDisplayModels(document) {
+  const questions = Array.isArray(document?.generatedQuestions) ? document.generatedQuestions : [];
+  return questions.map((question, index) => ({
+    questionId: question.id ?? question.questionId ?? `global-question-${index + 1}`,
+    questionNumber: index + 1,
+    patternId: question.patternSpecId ?? question.patternId ?? null,
+    knowledgePointId: question.knowledgePointId ?? null,
+    patternGroupId: question.resolvedPatternGroupId ?? question.patternGroupId ?? null,
+    questionNumberText: `${index + 1}.`,
+    promptText: question.promptText ?? question.displayText ?? "",
+    displayText: question.promptText ?? question.displayText ?? "",
+    blankedDisplayText: question.promptText ?? question.displayText ?? "",
+    responsePrompt: fallbackResponsePrompt(question),
+    answerModelShape: question.answerModelShape ?? question.answerModel?.shape ?? null,
+    renderKind: fallbackRenderKind(question),
+    applicationText: question.applicationText === true,
+    mode: question.mode ?? null,
+    implementationClass: question.implementationClass ?? null,
+    metadataSnapshot: clone(question.metadata ?? null),
+    layoutHints: {
+      estimatedTextLength: String(question.promptText ?? question.displayText ?? "").length,
+      estimatedResponseLength: fallbackResponsePrompt(question).length,
+      avoidPageBreakInside: true,
+      representation: fallbackRenderKind(question),
+      longTextCardPolicy: "avoidSplit",
+      preserveTraditionalChinese: true,
+    },
+  }));
+}
+
+function generatedAnswerKeyItems(document) {
+  const questions = Array.isArray(document?.generatedQuestions) ? document.generatedQuestions : [];
+  return questions.map((question, index) => ({
+    questionId: question.id ?? question.questionId ?? `global-question-${index + 1}`,
+    questionNumber: index + 1,
+    patternId: question.patternSpecId ?? question.patternId ?? null,
+    knowledgePointId: question.knowledgePointId ?? null,
+    patternGroupId: question.resolvedPatternGroupId ?? question.patternGroupId ?? null,
+    promptText: question.promptText ?? question.displayText ?? "",
+    answerText: question.answerText ?? String(question.finalAnswer ?? ""),
+    expressionText: question.structuredAnswer?.expression ?? question.canonicalExpression ?? null,
+    answerValue: clone(question.finalAnswer),
+    answerUnit: question.structuredAnswer?.unitLabel ?? question.structuredAnswer?.unit ?? null,
+    answerModelShape: question.answerModelShape ?? question.answerModel?.shape ?? null,
+    renderKind: fallbackRenderKind(question),
+    structuredAnswer: clone(question.structuredAnswer ?? null),
+    metadataSnapshot: clone(question.metadata ?? null),
+    layoutHints: {
+      estimatedTextLength: String(`${question.promptText ?? ""}${question.answerText ?? ""}`).length,
+      avoidPageBreakInside: true,
+      representation: `${fallbackRenderKind(question)}_answer`,
+      longTextCardPolicy: "avoidSplit",
+      preserveTraditionalChinese: true,
+    },
+  }));
+}
+
 function flattenQuestionDisplayModels(document) {
   if (Array.isArray(document?.questionDisplayModels) && document.questionDisplayModels.length > 0) {
     return clone(document.questionDisplayModels);
   }
-  return (document?.questionPages ?? []).flatMap((page) => (
+  const pageModels = (document?.questionPages ?? []).flatMap((page) => (
     (page?.cells ?? [])
       .filter((cell) => cell?.cellType === "question")
       .map((cell) => clone(cell.displayModel ?? cell.questionDisplayModel ?? cell))
   ));
+  if (pageModels.length > 0) return pageModels;
+  return generatedQuestionDisplayModels(document);
 }
 
 function flattenAnswerKeyItems(document) {
   if (Array.isArray(document?.answerKeyItems) && document.answerKeyItems.length > 0) {
     return clone(document.answerKeyItems);
   }
-  return (document?.answerKeyPages ?? []).flatMap((page) => (
+  const pageItems = (document?.answerKeyPages ?? []).flatMap((page) => (
     (page?.cells ?? [])
       .filter((cell) => cell?.cellType === "answer")
       .map((cell) => clone(cell.answerKeyItem ?? cell.answerItem ?? cell))
   ));
+  if (pageItems.length > 0) return pageItems;
+  return generatedAnswerKeyItems(document);
 }
 
 function answerLayout(document, includeAnswerKey) {
@@ -100,9 +182,11 @@ export function applyGlobalPublicLayoutOverlay(result, plan = {}, options = {}) 
   if (!result?.ok || !result?.worksheetDocument) return result;
   const document = result.worksheetDocument;
   const requested = plan.printLayout ?? {};
-  const normalization = normalizeGlobalPublicLayout(requested, {
-    allowLegacyMigration: options.allowLegacyMigration !== false,
-  });
+  const normalization = plan.globalLayoutNormalization?.ok
+    ? plan.globalLayoutNormalization
+    : normalizeGlobalPublicLayout(requested, {
+      allowLegacyMigration: options.allowLegacyMigration !== false,
+    });
   if (!normalization.ok) return failedLayoutResult(result, normalization);
 
   const questionDisplayModels = flattenQuestionDisplayModels(document);
@@ -118,12 +202,13 @@ export function applyGlobalPublicLayoutOverlay(result, plan = {}, options = {}) 
     });
   }
 
+  const availableAnswerKeyItems = flattenAnswerKeyItems(document);
   const includeAnswerKey = plan.includeAnswerKey !== false
     && (document?.printOptions?.showAnswerKey !== false)
-    && flattenAnswerKeyItems(document).length > 0;
+    && availableAnswerKeyItems.length > 0;
   const questionOptions = questionPaginationOptions(normalization.layout, document, includeAnswerKey);
   const answerOptions = answerLayout(document, includeAnswerKey);
-  const answerKeyItems = includeAnswerKey ? flattenAnswerKeyItems(document) : [];
+  const answerKeyItems = includeAnswerKey ? availableAnswerKeyItems : [];
   const questionPages = paginateQuestionDisplayModels(questionDisplayModels, questionOptions);
   const answerKeyPages = includeAnswerKey
     ? paginateAnswerKeyItems(answerKeyItems, answerOptions)
