@@ -1,0 +1,124 @@
+{
+  "schemaName": "GlobalCrossCurricularContextScopeContract",
+  "schemaVersion": 1,
+  "task": "GCTX-S00_GlobalContextScopeArchitectureAndTaskSequenceLock",
+  "status": "design_locked_pending_ci",
+  "goal": {
+    "primary": "all_application_capable_units_can_use_approved_global_contexts",
+    "knowledgeLevel": "elementary_common_knowledge",
+    "mathAuthorityPosition": "context_after_existing_patternspec_and_math_validation",
+    "productionTarget": "deterministic_global_context_registry_binding_resolver_validator_and_worksheet_output"
+  },
+  "contextDomains": [
+    "daily_life",
+    "sdg",
+    "natural_science",
+    "social_studies",
+    "history"
+  ],
+  "eraModes": [
+    "modern",
+    "ancient",
+    "mixed_eras"
+  ],
+  "ownership": {
+    "globalRegistryOwnsSharedContextKnowledge": true,
+    "unitFilesMayOwnOnlyBindingsAndAdapters": true,
+    "unitLocalGlobalContextAuthorityForbiddenAfterMigration": true,
+    "knowledgePointAuthorityUnchanged": true,
+    "patternSpecAuthorityUnchanged": true,
+    "mathGeneratorAuthorityUnchanged": true,
+    "mathValidatorAuthorityUnchanged": true
+  },
+  "verificationPolicy": {
+    "webVerificationAtAdmissionRequired": true,
+    "runtimeWebSearchAllowed": false,
+    "generalCommonKnowledgeMinimumReliableSources": 1,
+    "specificSpeciesRegionEraOrInstitutionMinimumReliableSources": 2,
+    "exactFactOrStatisticRequiresExactSource": true,
+    "exerciseNumbersDefault": "fictionalized_for_practice",
+    "realStatisticsRequireSourceRef": true,
+    "newsOnlyAuthorityAllowed": false,
+    "socialOnlyAuthorityAllowed": false,
+    "professionalSubjectKnowledgeBaseRequired": false,
+    "approvedRegistryRequiredAtGeneration": true
+  },
+  "historicalPolicy": {
+    "ancientContextsAllowed": true,
+    "anachronismAllowed": false,
+    "studentFacingClaimThatAncientActorsPracticedModernSDGsAllowed": false,
+    "backendModernThemeTagsAllowed": true,
+    "historicalExerciseNumbersMayBeFictional": true,
+    "exactHistoricalNumbersRequireSourceRef": true
+  },
+  "generationPolicy": {
+    "freeFormAIAllowed": false,
+    "genericFallbackAllowed": false,
+    "unapprovedContextFamilyAllowed": false,
+    "unapprovedUnitBindingAllowed": false,
+    "deterministicSeedReplayRequired": true,
+    "roleBindingsRequired": true,
+    "unitFlowRequired": true,
+    "plausibleRangeRequired": true,
+    "semanticValidatorRequired": true,
+    "mathValidatorMustRun": true
+  },
+  "migrationInputs": [
+    {
+      "authorityId": "g4b_u04_life_and_current_affairs_context_bank",
+      "path": "docs/curriculum/context/G4B_U04_SDG_LifeAndCurrentAffairsContextBank.md",
+      "target": "global_context_registry_plus_g4b_u04_binding_adapter"
+    },
+    {
+      "authorityId": "g4b_u04_current_affairs_source_registry",
+      "path": "docs/curriculum/context/G4B_U04_SDG_CurrentAffairsSourceRegistry.md",
+      "target": "global_source_and_verification_registry"
+    },
+    {
+      "authorityId": "g5a_u08_application_template_and_sdg_context_contract",
+      "path": "data/curriculum/contracts/S60D_G5A_U08_ApplicationTemplateAndSDGContextContract.json",
+      "target": "global_context_registry_plus_g5a_u08_binding_adapter"
+    }
+  ],
+  "requiredRegistryKinds": [
+    "context_domain_registry",
+    "sdg_goal_registry",
+    "common_knowledge_registry",
+    "context_family_registry",
+    "source_authority_registry",
+    "unit_context_binding_registry",
+    "context_lifecycle_registry"
+  ],
+  "taskSequence": [
+    "GCTX-S00_GlobalContextScopeArchitectureAndTaskSequenceLock",
+    "GCTX-S01_ExistingContextAuthorityInventoryAndMigrationMap",
+    "GCTX-S02_GlobalContextSchemaAndRegistryContract",
+    "GCTX-S03_WebVerificationAndCommonKnowledgeAdmissionGovernance",
+    "GCTX-S04_GlobalSeedRegistryMaterialization",
+    "GCTX-S05_G4BU04ContextAuthorityMigrationAdapter",
+    "GCTX-S06_G5AU08ContextAuthorityMigrationAdapter",
+    "GCTX-S07_PublicUnitApplicationPatternCoverageAudit",
+    "GCTX-S08_UnitContextBindingCoverageContract",
+    "GCTX-S09_GlobalContextResolverImplementation",
+    "GCTX-S10_CommonKnowledgeAndSemanticValidatorCore",
+    "GCTX-S11_AllApprovedApplicationBindingsProductionPopulation",
+    "GCTX-S12_CrossUnitDeterministicGenerationAndReplayStress",
+    "GCTX-S13_PublicContextControlsWorksheetHTMLPDFQA",
+    "GCTX-S14_DeployedGlobalContextD0Closeout"
+  ],
+  "autoContinuation": {
+    "enabled": true,
+    "mergeIsStopPoint": false,
+    "closeoutIsStopPoint": false,
+    "readbackIsStopPoint": false,
+    "allowedStopReasons": [
+      "CI_FAILURE",
+      "GITHUB_OR_TOOL_SAFETY_BLOCKER",
+      "PR_MERGE_BLOCKED",
+      "NEXT_STEP_OUTSIDE_APPROVED_GCTX_SCOPE",
+      "FORBIDDEN_FILE_BOUNDARY",
+      "HUMAN_SOURCE_OR_EVIDENCE_SELECTION_REQUIRED"
+    ]
+  },
+  "nextTask": "GCTX-S01_ExistingContextAuthorityInventoryAndMigrationMap"
+}
