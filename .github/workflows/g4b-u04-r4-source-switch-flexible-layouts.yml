@@ -61,7 +61,13 @@ jobs:
             sleep 2
           done
           test -s /tmp/g4b-u04-r4-index.html
-          node tools/curriculum/run-g4b-u04-r4-public-ui-regression.mjs
+          set +e
+          timeout 180s node tools/curriculum/run-g4b-u04-r4-public-ui-regression.mjs \
+            > /tmp/g4b-u04-r4-browser.log 2>&1
+          BROWSER_STATUS=$?
+          set -e
+          cat /tmp/g4b-u04-r4-browser.log
+          exit "$BROWSER_STATUS"
 
       - name: Run 200-question 3x5 2x6 1x7 HTML PDF acceptance
         run: node tools/curriculum/run-g4b-u04-r4-flexible-layouts.mjs
@@ -81,4 +87,5 @@ jobs:
             docs/curriculum/output/g4b-u04-r4-flexible-layouts/**/*.json
             /tmp/g4b-u04-r4-flexible-layouts/**/*.png
             /tmp/g4b-u04-r4-site.log
+            /tmp/g4b-u04-r4-browser.log
             /tmp/g4b-u04-r4-index.html
