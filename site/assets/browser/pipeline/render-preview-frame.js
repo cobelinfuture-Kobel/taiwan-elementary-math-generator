@@ -91,7 +91,7 @@ function renderSharedWorksheet(previewFrame, worksheetDocument, options = {}) {
     debugDataAttributes: options.debugDataAttributes ?? true
   });
   previewFrame.srcdoc = stampPreviewMetadata(html, worksheetDocument);
-  previewFrame.dataset.sharedExactLayoutRenderer = "true";
+  if (previewFrame.dataset) previewFrame.dataset.sharedExactLayoutRenderer = "true";
   return { html: previewFrame.srcdoc, sharedExactLayout: true };
 }
 
