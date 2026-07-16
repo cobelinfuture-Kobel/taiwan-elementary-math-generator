@@ -74,6 +74,8 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
           path: |
+            docs/curriculum/output/stress/g4b-u04-r4-public-ui-regression/failure.json
+            docs/curriculum/output/stress/g4b-u04-r4-public-ui-regression/failure.png
             docs/curriculum/output/g4b-u04-r4-flexible-layouts/**/*.html
             docs/curriculum/output/g4b-u04-r4-flexible-layouts/**/*.pdf
             docs/curriculum/output/g4b-u04-r4-flexible-layouts/**/*.json
