@@ -1,0 +1,35 @@
+name: G5A-U02 S98 Source Method Representation Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "data/curriculum/audits/G5AU02_S98_All22SourceMethodAndRepresentationParityAudit.json"
+      - "docs/curriculum/architecture/G5AU02_S98_All22SourceMethodAndRepresentationParityAudit.md"
+      - "docs/curriculum/output/G5AU02_S98_SOURCE_METHOD_REPRESENTATION_PARITY_PENDING.marker"
+      - "tests/curriculum/g5a-u02-s98-source-method-representation-parity-audit.test.js"
+      - ".github/workflows/g5a-u02-s98-source-method-representation-parity-audit.yml"
+  workflow_dispatch:
+
+jobs:
+  focused-audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate all-22 source method and representation audit
+        run: node --test tests/curriculum/g5a-u02-s98-source-method-representation-parity-audit.test.js
+
+  full-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run complete Node regression
+        run: npm test
