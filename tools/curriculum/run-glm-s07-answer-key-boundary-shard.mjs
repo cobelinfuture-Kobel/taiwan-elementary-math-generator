@@ -292,6 +292,8 @@ async function inspectHtmlAndCreatePdf(browser, htmlPath, pdfPath, screenshotPat
     ]).filter(visible);
     const answerPages = uniqueElements([
       '[data-page-type="answer"]',
+      '[data-page-type="answer-key"]',
+      ".worksheet-page--answer-key",
       ".worksheet-page--answers",
       ".g4b-u04-page--answers",
       ".g5a-u08-page--answers",
@@ -304,6 +306,7 @@ async function inspectHtmlAndCreatePdf(browser, htmlPath, pdfPath, screenshotPat
       ".g5a-u02-card--question",
     ]).filter(visible);
     const answerCards = uniqueElements([
+      ".worksheet-cell--answer-key",
       ".worksheet-cell--answer",
       ".g4b-u04-cell--answer",
       ".g5a-u08-cell--answer",
@@ -316,6 +319,7 @@ async function inspectHtmlAndCreatePdf(browser, htmlPath, pdfPath, screenshotPat
       ".g5a-u02-card--question .g5a-u02-card__prompt",
     ]).filter(visible);
     const answerTexts = uniqueElements([
+      ".worksheet-cell--answer-key .worksheet-cell__answer",
       ".worksheet-cell--answer .worksheet-cell__answer",
       ".g4b-u04-cell--answer .g4b-u04-cell__answer",
       ".g5a-u08-cell--answer .g5a-u08-cell__answer",
