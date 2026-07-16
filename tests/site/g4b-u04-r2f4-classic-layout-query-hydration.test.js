@@ -9,6 +9,7 @@ import {
 
 const SOURCE_ID = "g4b_u04_4b04";
 const OTHER_SOURCE_ID = "g5a_u08_5a08";
+const SOURCE_HYDRATED_KEY = "g4bU04SourceQueryHydrated";
 const LAYOUT_HYDRATED_KEY = "g4bU04QueryHydrated";
 
 function createOption(value) {
@@ -79,6 +80,31 @@ function withWindow(href, callback) {
   }
 }
 
+test("R4 Classic hydrates the G4B source query exactly once after its option exists", () => {
+  withWindow(`https://example.test/math?sourceId=${SOURCE_ID}&layoutMode=custom_with_caps`, () => {
+    const { root, source } = createClassicRoot({ sourceId: OTHER_SOURCE_ID });
+    const first = syncG4BU04ClassicPublicControls(root);
+    assert.equal(first.active, true);
+    assert.equal(source.value, SOURCE_ID);
+    assert.equal(source.dataset[SOURCE_HYDRATED_KEY], "true");
+
+    source.value = OTHER_SOURCE_ID;
+    const second = syncG4BU04ClassicPublicControls(root);
+    assert.equal(second.active, false);
+    assert.equal(source.value, OTHER_SOURCE_ID);
+  });
+});
+
+test("R4 Classic without a G4B source query preserves the current source", () => {
+  withWindow(`https://example.test/math?sourceId=${OTHER_SOURCE_ID}`, () => {
+    const { root, source } = createClassicRoot({ sourceId: OTHER_SOURCE_ID });
+    const result = syncG4BU04ClassicPublicControls(root);
+    assert.equal(result.active, false);
+    assert.equal(source.value, OTHER_SOURCE_ID);
+    assert.equal(source.dataset[SOURCE_HYDRATED_KEY], "true");
+  });
+});
+
 test("R2F4 Classic first activation hydrates custom_with_caps from the URL before the DOM default", () => {
   withWindow(`https://example.test/math?sourceId=${SOURCE_ID}&layoutMode=custom_with_caps`, () => {
     const { root, layoutSelect } = createClassicRoot({ layoutMode: "auto_safe" });
@@ -109,7 +135,7 @@ test("R2F4 Classic without a layout query keeps auto_safe and preserves a later 
   });
 });
 
-test("R2F4 Classic delays query hydration until G4B-U04 becomes the active source", () => {
+test("R2F4 Classic delays layout query hydration until G4B-U04 becomes the active source", () => {
   withWindow("https://example.test/math?layoutMode=custom_with_caps", () => {
     const { root, source, layoutSelect } = createClassicRoot({
       sourceId: OTHER_SOURCE_ID,
@@ -129,9 +155,13 @@ test("R2F4 Classic delays query hydration until G4B-U04 becomes the active sourc
   });
 });
 
-test("R4 stale G4B query state never reclaims the source dropdown after the user selects another unit", () => {
+test("R4 stale G4B query state never reclaims the source dropdown after initial hydration", () => {
   withWindow(`https://example.test/math?sourceId=${SOURCE_ID}&layoutMode=custom_with_caps`, () => {
     const { root, source } = createClassicRoot({ sourceId: OTHER_SOURCE_ID });
+    syncG4BU04ClassicPublicControls(root);
+    assert.equal(source.value, SOURCE_ID);
+
+    source.value = OTHER_SOURCE_ID;
     const result = syncG4BU04ClassicPublicControls(root);
     assert.equal(result.active, false);
     assert.equal(source.value, OTHER_SOURCE_ID);
