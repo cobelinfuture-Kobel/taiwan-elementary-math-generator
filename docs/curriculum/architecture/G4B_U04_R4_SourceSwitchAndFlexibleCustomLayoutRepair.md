@@ -11,9 +11,9 @@
 
 ## Confirmed root causes
 
-### Source ownership conflict
+### Missing source registry authority and duplicate ownership
 
-`g4b-u04-public-controls.js` re-applied `sourceId=g4b_u04_4b04` from the current URL during every synchronization. The main config/query-state layer already owns source hydration and persistence. The duplicate G4B control-layer write could reclaim the source dropdown while the old query was still visible.
+`g4b_u04_4b04` was not registered in `site/modules/curriculum/batch-a/source-units.js`. As a result, query parsing and config-state normalization rejected the G4B-U04 source and fell back to the first source unit. The G4B control layer compensated by dynamically creating the option and repeatedly applying the stale URL value, which could later reclaim the dropdown after the user selected another unit.
 
 ### Custom layout activation gap
 
@@ -21,7 +21,9 @@ The generic column and row inputs did not activate `custom_with_caps`. Therefore
 
 ## Repair contract
 
-- G4B public controls may ensure the option exists but must never set the active source from the URL.
+- G4B-U04 is a first-class entry in the public source registry.
+- The main config/query-state layer exclusively owns source option creation, initial hydration and persistence.
+- G4B public controls must never create or set the active source option.
 - Changing either `columns-input` or `rows-per-page-input` while G4B-U04 is active activates `custom_with_caps` before the main change handler reads the controls.
 - Other units are unaffected.
 - `auto_safe` remains 3×5.
@@ -38,6 +40,8 @@ The matrix contains 18 exact approved layouts. Requests above a column-specific 
 
 ## Blocking acceptance
 
+- public source registry and query-state accept `g4b_u04_4b04`;
+- initial G4B URL hydration selects the correct unit without a control-layer override;
 - stale G4B query state cannot reclaim the source dropdown after another unit is selected;
 - source dropdown and URL remain on the selected non-G4B unit after a generated worksheet exists;
 - changing either print dimension automatically activates and persists `custom_with_caps`;
@@ -50,7 +54,7 @@ The matrix contains 18 exact approved layouts. Requests above a column-specific 
 
 ## Scope boundary
 
-No KnowledgePoint, PatternGroup, PatternSpec, formula, answer model, generator semantics, validator semantics, context templates, or curriculum evidence changes.
+The public source registry metadata is corrected to include an already-promoted production unit. No KnowledgePoint, PatternGroup, PatternSpec, formula, answer model, generator semantics, validator semantics, context templates, or curriculum evidence changes.
 
 ## Distance
 
