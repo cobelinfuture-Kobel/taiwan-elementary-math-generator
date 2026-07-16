@@ -13,7 +13,6 @@ function clone(value) {
 
 function renderKind(record = {}) {
   if (record.renderKind) return record.renderKind;
-  if (record.questionDisplayModel?.kind) return record.questionDisplayModel.kind;
   if (record.mode === "application") return "contextual_application";
   if (record.mode === "reasoning_application") return "reasoning_application";
   if (record.mode === "geometry_application") return "geometry_application";
