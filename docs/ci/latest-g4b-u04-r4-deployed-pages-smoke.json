@@ -3,7 +3,7 @@
   "task": "G4B_U04_R4_SourceSwitchAndFlexibleCustomLayoutRepair",
   "status": "PASS",
   "productionUse": "allowed_deployed_ui_print",
-  "deploymentSha": "c11879e01ded3eb8d4633b009d23d1b62ec336c1",
+  "deploymentSha": "242c72665fea205b21cc04cfe3e87d5aa5045076",
   "sourceId": "g4b_u04_4b04",
   "otherSourceId": "g5a_u08_5a08",
   "sourceSwitch": {
@@ -31,7 +31,7 @@
   "layoutResults": [
     {
       "scenarioId": "3x5",
-      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=c11879e01ded3eb8d4633b009d23d1b62ec336c1-3x5-1784183350061",
+      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=242c72665fea205b21cc04cfe3e87d5aa5045076-3x5-1784184499770",
       "generation": {
         "status": "已產生 15 題，可預覽與列印。",
         "validation": "驗證通過，沒有發現出題錯誤。",
@@ -56,7 +56,7 @@
     },
     {
       "scenarioId": "2x6",
-      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=12&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-2x6&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=c11879e01ded3eb8d4633b009d23d1b62ec336c1-2x6-1784183351212",
+      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=12&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-2x6&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=242c72665fea205b21cc04cfe3e87d5aa5045076-2x6-1784184500844",
       "generation": {
         "status": "已產生 12 題，可預覽與列印。",
         "validation": "驗證通過，沒有發現出題錯誤。",
@@ -81,7 +81,7 @@
     },
     {
       "scenarioId": "1x7",
-      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=7&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-1x7&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=c11879e01ded3eb8d4633b009d23d1b62ec336c1-1x7-1784183352412",
+      "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=7&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-1x7&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=242c72665fea205b21cc04cfe3e87d5aa5045076-1x7-1784184501895",
       "generation": {
         "status": "已產生 7 題，可預覽與列印。",
         "validation": "驗證通過，沒有發現出題錯誤。",
@@ -134,12 +134,12 @@
   "workflow": "G4B-U04 R4 Deployed Pages Smoke",
   "eventName": "workflow_run",
   "run": {
-    "id": "29476806538",
-    "number": "4",
+    "id": "29477780751",
+    "number": "5",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29476806538"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29477780751"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-16T06:29:13.702Z"
+  "verifiedAt": "2026-07-16T06:48:22.952Z"
 }
