@@ -98,10 +98,10 @@ test("S86 blocks projection PatternSpec mismatch", () => {
 
 test("S86 continues to block wrong runtime answers after projection binding", () => {
   const item = clone(generateG5AU02ClassCFromHiddenProjection("ps_g5a_u02_greatest_common_factor", { seed: 8624 }));
-  item.answer.value += 1;
+  item.answer.greatestCommonFactor += 1;
   const result = validateG5AU02ClassCFromHiddenProjection(item);
   assert.equal(result.ok, false);
-  assert.ok(result.errors.includes("G5AU02_GCF_NOT_MAXIMUM"));
+  assert.ok(result.errors.includes("G5AU02_P0_GCF_NOT_MAXIMUM"));
 });
 
 test("S86 does not promote hidden binding into selector, canonical routing, or production use", () => {
