@@ -1,0 +1,16 @@
+TASK=GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance
+STATUS=PENDING_CI
+BRANCH=design/gctx-p03-source-evidence-governance
+SCOPE=schema and contract only; no source corpus, common-knowledge seed, authentic-problem seed, runtime, unit migration, P04 breadth or renderer implementation
+SOURCE_DISCOVERY_DESIGN_TIME_ONLY=true
+RUNTIME_WEB_SEARCH_ALLOWED=false
+AI_SELF_APPROVAL_ALLOWED=false
+OCR_SOURCE_BACKED_PROMOTION_ALLOWED=false
+VISUAL_PDF_OPERATOR_REVIEW_REQUIRED=true
+EXPIRED_EVIDENCE_PRODUCTION_ADMISSIBLE=false
+UNRESOLVED_CONTRADICTION_PRODUCTION_ADMISSIBLE=false
+GOAL_DISTANCE_BEFORE=D2_GCTX_SCENARIO_AND_BOUNDED_PBL_CLOSURE_CONTRACT_LOCKED
+GOAL_DISTANCE_AFTER=D2_GCTX_SOURCE_EVIDENCE_GOVERNANCE_LOCKED_PENDING_CI
+DISTANCE_REDUCED=source discovery converted into admissible, reviewed, expiring and traceable evidence authority
+REMAINING_BLOCKERS=CI acceptance and merge
+NEXT_SHORTEST_STEP=GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract
