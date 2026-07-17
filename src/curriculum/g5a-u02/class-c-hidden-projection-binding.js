@@ -20,6 +20,12 @@ import {
   isG5AU02S102Pattern,
   validateG5AU02S102Pattern,
 } from "./s102-common-factor-runtime.js";
+import {
+  expectedG5AU02S106Answer,
+  generateG5AU02S106Pattern,
+  isG5AU02S106Pattern,
+  validateG5AU02S106Pattern,
+} from "./s106-factor-structure-runtime.js";
 
 const CLASS_C_IDS = Object.freeze(getG5AU02ClassCPatternIds());
 const CLASS_C_SET = new Set(CLASS_C_IDS);
@@ -97,6 +103,12 @@ function answerMismatchCode(patternSpecId) {
   return "G5AU02_FACTOR_SET_INCOMPLETE";
 }
 
+function s106AnswerMismatchCode(patternSpecId) {
+  if (patternSpecId === "ps_g5a_u02_factor_pair_enumeration") return "G5AU02_P1_FACTOR_PAIR_PRODUCT_MISMATCH";
+  if (patternSpecId === "ps_g5a_u02_factor_order_and_symmetry") return "G5AU02_P1_U_RECORD_LINK_MISMATCH";
+  return "G5AU02_P1_MISSING_FACTOR_NOT_UNIQUE";
+}
+
 function makeSpecialClassCItem(patternSpecId, options, generated, parityField, parityTask, parityStatus) {
   if (!generated) throw new Error(`G5AU02_SPECIAL_PATTERN_NOT_IMPLEMENTED:${patternSpecId}`);
   return deepFreeze({
@@ -137,6 +149,18 @@ function generateS102ClassC(patternSpecId, options = {}) {
     "commonFactorParity",
     "G5AU02-S102_P0NontrivialCommonFactorSamplingAndWitnessFullFix",
     "nondegenerate_factor_set_witness_runtime",
+  );
+}
+
+function generateS106ClassC(patternSpecId, options = {}) {
+  const seed = options.seed ?? 1;
+  return makeSpecialClassCItem(
+    patternSpecId,
+    options,
+    generateG5AU02S106Pattern(patternSpecId, createRng(seed)),
+    "p1FactorStructureParity",
+    "G5AU02-S106_P1FactorPairSymmetryAndMaskedTableFullFix",
+    "factor_search_symmetry_masked_table_runtime",
   );
 }
 
@@ -201,6 +225,22 @@ function validateS102ClassC(item) {
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze([...new Set(errors)]) });
 }
 
+function validateS106ClassC(item) {
+  const errors = [];
+  validateSpecialBase(item, isG5AU02S106Pattern, errors);
+  if (errors.length === 0) {
+    errors.push(...validateG5AU02S106Pattern(item).errors);
+    try {
+      if (JSON.stringify(item.answer) !== JSON.stringify(expectedG5AU02S106Answer(item))) {
+        errors.push(s106AnswerMismatchCode(item.patternSpecId));
+      }
+    } catch {
+      errors.push("G5AU02_ANSWER_SCHEMA_MISMATCH");
+    }
+  }
+  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze([...new Set(errors)]) });
+}
+
 export function getG5AU02BoundClassCSpecs() {
   return BOUND_CLASS_C_SPECS;
 }
@@ -235,12 +275,14 @@ export function auditG5AU02ClassCHiddenProjectionBinding() {
 }
 
 function generateRuntimeItem(patternSpecId, options) {
+  if (isG5AU02S106Pattern(patternSpecId)) return generateS106ClassC(patternSpecId, options);
   if (isG5AU02S100Pattern(patternSpecId)) return generateS100ClassC(patternSpecId, options);
   if (isG5AU02S102Pattern(patternSpecId)) return generateS102ClassC(patternSpecId, options);
   return generateAndValidateG5AU02ClassC(patternSpecId, options);
 }
 
 function validateRuntimeItem(item) {
+  if (isG5AU02S106Pattern(item?.patternSpecId)) return validateS106ClassC(item);
   if (isG5AU02S100Pattern(item?.patternSpecId)) return validateS100ClassC(item);
   if (isG5AU02S102Pattern(item?.patternSpecId)) return validateS102ClassC(item);
   return validateG5AU02ClassC(item);
