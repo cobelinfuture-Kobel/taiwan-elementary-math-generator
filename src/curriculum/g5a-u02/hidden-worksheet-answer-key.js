@@ -23,7 +23,7 @@ const SUPPORTED_ANSWER_MODEL_IDS = Object.freeze([
   "booleanAnswer", "integerListWithUnitAnswer", "partitionPairListAnswer",
   "problemTypeLabelAnswer", "structuredInferenceAnswer", "booleanSetAnswer",
   "remainderAnswer", "integerAnswer", "lengthListAnswer", "areaListAnswer",
-  "tileSideAreaPairListAnswer", "digitTupleAnswer",
+  "tileSideAreaPairListAnswer", "commonFactorAndGcfAnswer", "digitTupleAnswer",
 ]);
 const SUPPORTED_ANSWER_MODEL_SET = new Set(SUPPORTED_ANSWER_MODEL_IDS);
 
@@ -102,6 +102,7 @@ export function formatG5AU02Answer(answerModelId, answer) {
     case "areaListAnswer": return joinValues(answer.values, answer.unitLabel);
     case "partitionPairListAnswer": return answer.pairs.map((pair) => `${pair.segmentCount} 段｜每段 ${pair.lengthPerSegment} ${answer.lengthUnit}`).join("；");
     case "tileSideAreaPairListAnswer": return answer.pairs.map((pair) => `邊長 ${pair.sideLength} ${answer.sideUnit}｜面積 ${pair.tileArea} ${answer.areaUnit}`).join("；");
+    case "commonFactorAndGcfAnswer": return `公因數：${joinValues(answer.commonFactors)}；最大公因數：${answer.greatestCommonFactor}`;
     case "problemTypeLabelAnswer": return formatProblemType(answer.label);
     case "structuredInferenceAnswer": return `目標數=${answer.targetNumber}；${Object.entries(answer.inferredValues).map(([key, value]) => `${key}=${value}`).join("、")}`;
     case "booleanSetAnswer": return answer.values.map(formatBoolean).join("、");
@@ -254,7 +255,7 @@ export function auditG5AU02HiddenWorksheetIntegration() {
   if (CANONICAL_SPECS.length !== 22) errors.push("G5AU02_WORKSHEET_PATTERN_COUNT_MISMATCH");
   if (classCCount !== 14) errors.push("G5AU02_WORKSHEET_CLASS_C_COUNT_MISMATCH");
   if (classDCount !== 8) errors.push("G5AU02_WORKSHEET_CLASS_D_COUNT_MISMATCH");
-  if (ROUTED_ANSWER_MODEL_IDS.length !== 17) errors.push("G5AU02_WORKSHEET_ANSWER_MODEL_COUNT_MISMATCH");
+  if (ROUTED_ANSWER_MODEL_IDS.length !== 18) errors.push("G5AU02_WORKSHEET_ANSWER_MODEL_COUNT_MISMATCH");
   for (const answerModelId of ROUTED_ANSWER_MODEL_IDS) {
     if (!SUPPORTED_ANSWER_MODEL_SET.has(answerModelId)) errors.push(`G5AU02_WORKSHEET_ANSWER_MODEL_UNSUPPORTED:${answerModelId}`);
   }

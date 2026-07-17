@@ -20,11 +20,11 @@ function buildFull(options = {}) {
   return result;
 }
 
-test("S93 audit covers all 22 PatternSpecs, 18 supported answer models, and three profiles", () => {
+test("S93 audit covers all 22 PatternSpecs, 19 supported answer models, and three profiles", () => {
   const audit = auditG5AU02HiddenBrowserPipeline();
   assert.equal(audit.ok, true, audit.errors.join(","));
   assert.equal(audit.patternSpecCount, 22);
-  assert.equal(audit.answerModelCount, 18);
+  assert.equal(audit.answerModelCount, 19);
   assert.deepEqual([...audit.profileIds].sort(), ["compact", "contextual", "reasoning"]);
   assert.equal(audit.selectorStatus, "hidden");
   assert.equal(audit.browserPipelineStatus, "hidden_connected");
@@ -45,9 +45,10 @@ test("S93 builds an exact hidden browser bundle with 22 question and 22 answer p
   assert.equal(browserBundle.answerPageCount, renderedWorksheet.answerPageCount);
   assert.equal(browserBundle.questionCount, worksheetDocument.questionCount);
   assert.equal(browserBundle.answerCount, worksheetDocument.answerKeyRecords.length);
-  assert.equal(browserBundle.answerModelIds.length, 18);
+  assert.equal(browserBundle.answerModelIds.length, 19);
   assert.ok(browserBundle.answerModelIds.includes("partitionPairListAnswer"));
   assert.ok(browserBundle.answerModelIds.includes("tileSideAreaPairListAnswer"));
+  assert.ok(browserBundle.answerModelIds.includes("commonFactorAndGcfAnswer"));
 });
 
 test("S93 browser HTML is Traditional Chinese, noindex, deterministic, and internally marked", () => {

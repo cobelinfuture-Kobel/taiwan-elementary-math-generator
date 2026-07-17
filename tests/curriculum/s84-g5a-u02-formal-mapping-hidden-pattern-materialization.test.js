@@ -15,15 +15,12 @@ import {
 
 const path = (value) => new URL(`../../${value}`, import.meta.url);
 const readJson = (value) => JSON.parse(readFileSync(path(value), "utf8"));
-const rowsToObjects = (fields, rows) =>
-  rows.map((values) => Object.fromEntries(fields.map((field, index) => [field, values[index]])));
+const rowsToObjects = (fields, rows) => rows.map((values) => Object.fromEntries(fields.map((field, index) => [field, values[index]])));
 
 function loadS82() {
   const index = readJson("data/curriculum/contracts/S82_G5A_U02_PatternSpecContractDesign.json");
   const groups = readJson(index.artifacts.patternGroups).patternGroups;
-  const specs = index.artifacts.patternSpecs
-    .flatMap((artifact) => readJson(artifact).patternSpecs)
-    .sort((a, b) => a.patternOrder - b.patternOrder);
+  const specs = index.artifacts.patternSpecs.flatMap((artifact) => readJson(artifact).patternSpecs).sort((a, b) => a.patternOrder - b.patternOrder);
   return { index, groups, specs };
 }
 
@@ -54,14 +51,13 @@ function loadS101Overlay() {
   return readJson("data/curriculum/contracts/G5AU02_S101_AnswerModelOverlay.json");
 }
 
-function applyS101AnswerModelOverlay(groups, specs) {
-  const overlay = loadS101Overlay();
-  const groupOverrides = new Map(
-    overlay.patternGroupAnswerModelOverrides.map((row) => [row.patternGroupId, row]),
-  );
-  const specOverrides = new Map(
-    overlay.patternSpecAnswerModelOverrides.map((row) => [row.patternSpecId, row]),
-  );
+function loadS102Overlay() {
+  return readJson("data/curriculum/contracts/G5AU02_S102_AnswerModelOverlay.json");
+}
+
+function applyAnswerModelOverlay(groups, specs, overlay) {
+  const groupOverrides = new Map(overlay.patternGroupAnswerModelOverrides.map((row) => [row.patternGroupId, row]));
+  const specOverrides = new Map(overlay.patternSpecAnswerModelOverrides.map((row) => [row.patternSpecId, row]));
   return {
     groups: groups.map((group) => {
       const override = groupOverrides.get(group.patternGroupId);
@@ -72,6 +68,11 @@ function applyS101AnswerModelOverlay(groups, specs) {
       return override ? { ...spec, answerModelId: override.toAnswerModelId } : spec;
     }),
   };
+}
+
+function applyCurrentAnswerModelOverlays(groups, specs) {
+  const s101 = applyAnswerModelOverlay(groups, specs, loadS101Overlay());
+  return applyAnswerModelOverlay(s101.groups, s101.specs, loadS102Overlay());
 }
 
 test("S84 preflight requires merged S82 and S83 with S83 as the higher-precedence contract", () => {
@@ -113,14 +114,8 @@ test("S84 materializes all 22 QA-accepted candidates one-to-one as authoritative
 test("S84 freezes 18 complete hidden PatternGroups and 22 ordered hidden PatternSpecs", () => {
   const { groups, specs } = loadS84();
   const groupedIds = groups.flatMap((row) => row.patternSpecIds);
-  const modeCounts = Object.fromEntries(
-    [...new Set(specs.map((row) => row.mode))]
-      .map((mode) => [mode, specs.filter((row) => row.mode === mode).length]),
-  );
-  const classCounts = Object.fromEntries(
-    [...new Set(specs.map((row) => row.implementationClass))]
-      .map((kind) => [kind, specs.filter((row) => row.implementationClass === kind).length]),
-  );
+  const modeCounts = Object.fromEntries([...new Set(specs.map((row) => row.mode))].map((mode) => [mode, specs.filter((row) => row.mode === mode).length]));
+  const classCounts = Object.fromEntries([...new Set(specs.map((row) => row.implementationClass))].map((kind) => [kind, specs.filter((row) => row.implementationClass === kind).length]));
   assert.equal(groups.length, 18);
   assert.equal(specs.length, 22);
   assert.equal(new Set(groups.map((row) => row.patternGroupId)).size, 18);
@@ -189,12 +184,7 @@ test("S84 makes all six S83 corrections mandatory for later consumers", () => {
   assert.equal(Object.keys(s83.answer.answerSchemaPolicy.closedSchemas).length, 16);
   assert.equal(s83.answer.answerSchemaPolicy.additionalProperties, false);
   assert.equal(s83.template.controlledTemplateOverrides.length, 8);
-  assert.equal(
-    s83.template.controlledTemplateOverrides
-      .find((row) => row.templateFamilyId === "tpl_g5a_u02_equal_partition_segments")
-      .controlledVariants.length,
-    2,
-  );
+  assert.equal(s83.template.controlledTemplateOverrides.find((row) => row.templateFamilyId === "tpl_g5a_u02_equal_partition_segments").controlledVariants.length, 2);
   assert.equal(s83.grammar.problemTypeDecisionTable.freeFormClassificationForbidden, true);
   assert.equal(s83.grammar.closedStatementGrammar.unknownStatementKindsForbidden, true);
   assert.equal(s83.grammar.closedStatementGrammar.targetParityAndFactorCountParitySeparated, true);
@@ -218,10 +208,7 @@ test("S84 makes all six S83 corrections mandatory for later consumers", () => {
   assert.equal(mapping.effectiveContract.equalPartitionVariantCount, 2);
   assert.equal(mapping.effectiveContract.applicationCrossCategoryEqualityRequired, false);
   const templateIds = new Set(specs.flatMap((row) => row.templateFamilyIds));
-  assert.deepEqual(
-    [...templateIds].sort(),
-    s83.template.controlledTemplateOverrides.map((row) => row.templateFamilyId).sort(),
-  );
+  assert.deepEqual([...templateIds].sort(), s83.template.controlledTemplateOverrides.map((row) => row.templateFamilyId).sort());
 });
 
 test("S84 retains source packet identity but keeps public metadata promotion blocked", () => {
@@ -248,18 +235,35 @@ test("S101 answer-model overlay is additive, bounded, and higher precedence than
   ]);
   assert.equal(overlay.patternSpecAnswerModelOverrides.length, 2);
   assert.equal(overlay.patternGroupAnswerModelOverrides.length, 2);
-  assert.deepEqual(
-    overlay.patternSpecAnswerModelOverrides.map((row) => row.patternOrder),
-    [9, 21],
-  );
+  assert.deepEqual(overlay.patternSpecAnswerModelOverrides.map((row) => row.patternOrder), [9, 21]);
   assert.equal(overlay.invariants.baseS84ArtifactRewritten, false);
   assert.equal(overlay.invariants.genericFallback, "forbidden");
   assert.equal(overlay.invariants.freeFormAI, "forbidden");
 });
 
-test("S84 browser-neutral projection plus S101 overlay matches current runtime authority", () => {
+test("S102 answer-model overlay is additive, bounded, and higher precedence than S101", () => {
+  const overlay = loadS102Overlay();
+  assert.equal(overlay.schemaName, "G5AU02S102AnswerModelOverlay");
+  assert.deepEqual(overlay.precedence, [
+    "S84_base_materialization",
+    "S99_additive_answer_model_contract",
+    "S101_runtime_overlay",
+    "S102_runtime_overlay",
+  ]);
+  assert.equal(overlay.patternSpecAnswerModelOverrides.length, 1);
+  assert.equal(overlay.patternGroupAnswerModelOverrides.length, 1);
+  assert.equal(overlay.patternSpecAnswerModelOverrides[0].patternOrder, 17);
+  assert.equal(overlay.patternSpecAnswerModelOverrides[0].toAnswerModelId, "commonFactorAndGcfAnswer");
+  assert.deepEqual(overlay.answerSchema.requiredFields, ["commonFactors", "greatestCommonFactor"]);
+  assert.equal(overlay.invariants.baseS84ArtifactRewritten, false);
+  assert.equal(overlay.invariants.s101OverlayRewritten, false);
+  assert.equal(overlay.invariants.genericFallback, "forbidden");
+  assert.equal(overlay.invariants.freeFormAI, "forbidden");
+});
+
+test("S84 browser-neutral projection plus S101 and S102 overlays matches current runtime authority", () => {
   const base = loadS84();
-  const { groups, specs } = applyS101AnswerModelOverlay(base.groups, base.specs);
+  const { groups, specs } = applyCurrentAnswerModelOverlays(base.groups, base.specs);
   assert.deepEqual(
     G5A_U02_HIDDEN_PATTERN_GROUPS.map((row) => ({
       patternGroupId: row.patternGroupId,
@@ -288,4 +292,16 @@ test("S84 browser-neutral projection plus S101 overlay matches current runtime a
     })),
     specs,
   );
+});
+
+test("current hidden projection accessors remain complete and immutable", () => {
+  assert.deepEqual(G5A_U02_SOURCE_PACKET_IDS, ["g5a_u02_5a02a", "g5a_u02_5a02a1"]);
+  assert.equal(getG5AU02HiddenPatternGroups().length, 18);
+  assert.equal(getG5AU02HiddenPatternSpecs().length, 22);
+  const gcf = getG5AU02HiddenPatternSpecById("ps_g5a_u02_greatest_common_factor");
+  assert.equal(gcf.answerModel.shape, "commonFactorAndGcfAnswer");
+  assert.equal(getG5AU02HiddenPatternGroupById(gcf.patternGroupId).answerModelIds[0], "commonFactorAndGcfAnswer");
+  assert.deepEqual(getG5AU02HiddenPatternSpecsByGroupId(gcf.patternGroupId).map((row) => row.patternSpecId), [gcf.patternSpecId]);
+  assert.equal(Object.isFrozen(G5A_U02_HIDDEN_PATTERN_GROUPS), true);
+  assert.equal(Object.isFrozen(G5A_U02_HIDDEN_PATTERN_SPECS), true);
 });

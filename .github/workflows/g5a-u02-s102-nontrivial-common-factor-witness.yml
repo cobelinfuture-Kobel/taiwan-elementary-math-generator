@@ -1,0 +1,148 @@
+name: G5A-U02 S102 Nontrivial Common Factor Witness
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/curriculum/g5a-u02/**"
+      - "site/modules/curriculum/batch-b/source-pattern-g5a-u02-extension.js"
+      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      - "data/curriculum/contracts/G5AU02_S102_AnswerModelOverlay.json"
+      - "tests/curriculum/g5a-u02-s102-nontrivial-common-factor-witness.test.js"
+      - "tests/curriculum/s84-g5a-u02-formal-mapping-hidden-pattern-materialization.test.js"
+      - "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs"
+      - "docs/curriculum/architecture/G5AU02_S102_P0NontrivialCommonFactorSamplingAndWitnessFullFix.md"
+      - "docs/curriculum/output/G5AU02_S102_P0_NONTRIVIAL_COMMON_FACTOR_WITNESS_PENDING.marker"
+      - ".github/workflows/g5a-u02-s102-nontrivial-common-factor-witness.yml"
+  workflow_dispatch:
+
+jobs:
+  source-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run 128-scenario S102 source acceptance
+        run: node --test tests/curriculum/g5a-u02-s102-nontrivial-common-factor-witness.test.js
+
+  browser-bundle:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build current browser runtime from canonical source
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
+      - name: Verify bundled S102 common-factor authority
+        run: node tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs
+      - name: Upload bundled S102 authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s102-bundle-audit
+          retention-days: 30
+          if-no-files-found: error
+          path: docs/curriculum/output/g5a-u02-s102-bundle-audit/current.json
+
+  full-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run complete Node regression with inspectable readback
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/g5a-u02-s102-full-regression.log 2>&1
+          status=$?
+          tail -n 240 /tmp/g5a-u02-s102-full-regression.log
+          exit "$status"
+      - name: Upload full regression readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s102-full-regression
+          retention-days: 7
+          if-no-files-found: error
+          path: /tmp/g5a-u02-s102-full-regression.log
+
+  actual-column-geometry:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Run actual column geometry shard
+        run: node tools/curriculum/run-glm-s09-column-geometry-shard.mjs --shard=${{ matrix.shard }}
+      - name: Upload S102 geometry authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s102-column-geometry-shard-${{ matrix.shard }}
+          retention-days: 30
+          if-no-files-found: error
+          path: docs/curriculum/output/glm-s09-column-geometry/shard-${{ matrix.shard }}/manifest.json
+
+  actual-column-geometry-aggregate:
+    needs: actual-column-geometry
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: g5a-u02-s102-column-geometry-shard-*
+          path: /tmp/g5a-u02-s102-geometry
+          merge-multiple: false
+      - name: Validate all 270 S102 actual-column geometry scenarios
+        run: |
+          node --input-type=module <<'NODE'
+          import { readdirSync, readFileSync } from 'node:fs';
+          import path from 'node:path';
+          const root = '/tmp/g5a-u02-s102-geometry';
+          const manifests = readdirSync(root).map((name) => JSON.parse(readFileSync(path.join(root, name, 'manifest.json'), 'utf8')));
+          const scenarioCount = manifests.reduce((sum, row) => sum + row.scenarioCount, 0);
+          const passCount = manifests.reduce((sum, row) => sum + row.passCount, 0);
+          const failures = manifests.flatMap((row) => row.results.filter((item) => item.status !== 'PASS'));
+          const authority = {
+            task: 'G5AU02-S102_P0NontrivialCommonFactorSamplingAndWitnessFullFix',
+            delegatedGate: 'GLM-S09_ActualColumnGeometryAuditAndRendererFullFix',
+            shardCount: manifests.length,
+            scenarioCount,
+            passCount,
+            failureCount: failures.length,
+            status: manifests.length === 5 && scenarioCount === 270 && passCount === 270 && failures.length === 0
+              ? 'PASS_270_OF_270_ACTUAL_COLUMN_GEOMETRY'
+              : 'FAIL',
+            failures,
+          };
+          console.log(JSON.stringify(authority, null, 2));
+          if (authority.status !== 'PASS_270_OF_270_ACTUAL_COLUMN_GEOMETRY') process.exit(1);
+          NODE
