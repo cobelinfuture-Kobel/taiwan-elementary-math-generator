@@ -161,7 +161,7 @@ test("S105 source evidence and priorities remain traceable to S98", async () => 
     assert.equal(row.patternSpecId, source.patternSpecId);
     assert.equal(row.priority, source.priority);
     const normalizedEvidence = source.sourceEvidence.map((ref) => (
-      ref.includes(":") ? ref : `${source.sourcePacketId}:${ref}`
+      ref.startsWith("g5a_u02_") ? ref : `${source.sourcePacketId}:${ref}`
     ));
     assert.deepEqual(row.sourceEvidence, normalizedEvidence);
   }
