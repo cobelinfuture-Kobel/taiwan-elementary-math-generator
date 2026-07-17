@@ -89,12 +89,29 @@ runtimeSelectable = false
 
 Synthetic P02 projection IDs and P03 evidence IDs exist only to exercise traceability fields. They are not production records.
 
+## CI acceptance
+
+```text
+ACCEPTED_HEAD_SHA      = 43fa7dd0ae37595cfdfe4b6eaae4d5263ed67a0c
+WORKFLOWS_TOTAL        = 19
+WORKFLOWS_SUCCESS      = 18
+INHERITED_FAILURES     = 1
+INHERITED_FAILURE      = S93 G5A-U02 Hidden HTML PDF Smoke
+NEW_P05_FAILURES       = 0
+NODE_TEST_RUN          = 2331
+MATH_CI_READBACK_RUN   = 2001
+PRODUCTION_STRESS_RUN  = 335
+BASELINE_PARITY        = ACCEPTED
+```
+
+Node Test、Math CI Readback、S95 Production Stress、S42 Branch Test 與其餘非退化 gates 均成功。唯一失敗與 `main` 既有 S93 baseline 相同；P05 未修改任何 G5A-U02 檔案。
+
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D2_GCTX_PBL_SEMANTIC_BREADTH_AND_DEDUP_CONTRACT_LOCKED
-GOAL_DISTANCE_AFTER  = D2_GCTX_REPRESENTATIVE_FIXTURE_CORPUS_LOCKED_PENDING_CI
+GOAL_DISTANCE_AFTER  = D2_GCTX_REPRESENTATIVE_FIXTURE_CORPUS_LOCKED
 DISTANCE_REDUCED     = replayable positive and negative evidence materialized for semantic identity, duplicate classification and breadth gates
-REMAINING_BLOCKERS   = [CI acceptance, merge, validator contracts, layout contracts, resolver, production population, unit audits]
+REMAINING_BLOCKERS   = [validator contracts, layout contracts, resolver, production population, unit audits]
 NEXT_SHORTEST_STEP   = GCTX-P06_ValidatorAndBlockingCodeContract
 ```

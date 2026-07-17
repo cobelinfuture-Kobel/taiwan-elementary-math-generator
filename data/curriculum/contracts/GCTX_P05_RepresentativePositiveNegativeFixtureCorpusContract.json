@@ -2,7 +2,7 @@
   "contractName": "GCTXRepresentativePositiveNegativeFixtureCorpusContract",
   "contractVersion": 1,
   "task": "GCTX-P05_RepresentativePositiveNegativeFixtureCorpus",
-  "status": "fixture_corpus_materialized_pending_ci",
+  "status": "fixture_corpus_materialized_ci_accepted",
   "rulesetVersion": "0.1.0",
   "schemaPath": "data/curriculum/context/schemas/GCTX_P05_RepresentativeFixtureCorpus.schema.json",
   "fixtureModulePath": "tests/fixtures/gctx-p05-representative-fixture-corpus.js",
@@ -242,6 +242,18 @@
     "newFailureRelativeToMainAllowed": false,
     "inheritedNonOwnedBaselineFailureMayBeRecordedByParity": true,
     "inheritedFailureMayBeRepairedInP05": false
+  },
+  "ciAcceptance": {
+    "acceptedHeadSha": "43fa7dd0ae37595cfdfe4b6eaae4d5263ed67a0c",
+    "workflowCount": 19,
+    "successCount": 18,
+    "inheritedFailureCount": 1,
+    "inheritedFailureWorkflow": "S93 G5A-U02 Hidden HTML PDF Smoke",
+    "newOwnedFailures": 0,
+    "baselineParityAccepted": true,
+    "nodeTestRunNumber": 2331,
+    "mathCiReadbackRunNumber": 2001,
+    "productionStressRunNumber": 335
   },
   "distance": {
     "goalDistanceBefore": "D2_GCTX_PBL_SEMANTIC_BREADTH_AND_DEDUP_CONTRACT_LOCKED",
