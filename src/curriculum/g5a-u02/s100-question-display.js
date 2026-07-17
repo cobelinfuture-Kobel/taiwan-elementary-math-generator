@@ -91,10 +91,10 @@ export function buildG5AU02S100QuestionDisplayModel(item) {
   }
 }
 
-function trialRowsText(rows) {
+function trialRowsScaffold(rows) {
   return rows
-    .map((row) => `${row.divisor}/${row.quotient}/${row.remainder}${row.isExact ? "✓" : "×"}`)
-    .join("、");
+    .map((row) => `除數 ${row.divisor}：商 ______，餘數 ______，是否整除 ______`)
+    .join("\n");
 }
 
 function compactScenarioText(model) {
@@ -133,13 +133,19 @@ function statementMarker(index) { return STATEMENT_MARKERS[index] ?? `（${index
 
 export function serializeG5AU02S100QuestionDisplayModel(model) {
   switch (model.kind) {
-    case "factor_relation_dual_witness": {
-      const multiply = model.multiplicationWitness;
-      const divide = model.divisionWitness;
-      return `用乘、除兩法判斷 ${model.candidateDivisor} 是否為 ${model.target} 的因數：乘 ${multiply.factorA}×${multiply.factorB}=${multiply.product}${multiply.product === model.target ? "" : `≠${model.target}`}；除 ${divide.dividend}÷${divide.divisor}=${divide.quotient} 餘 ${divide.remainder}。`;
-    }
+    case "factor_relation_dual_witness":
+      return [
+        `用乘法和除法判斷 ${model.candidateDivisor} 是否為 ${model.target} 的因數，並寫出理由。`,
+        "乘法：________________________________",
+        "除法：________________________________",
+        "判斷：________________________________",
+      ].join("\n");
     case "trial_division_table":
-      return `試除 1～${model.searchEnd}，列出 ${model.target} 的因數（除數/商/餘數，✓整除）：${trialRowsText(model.rows)}。整理所有 ✓ 的除數與商。`;
+      return [
+        `用試除法找出 ${model.target} 的所有因數。完成下列記錄，再整理所有因數。`,
+        trialRowsScaffold(model.rows),
+        "因數：________________________________",
+      ].join("\n");
     case "factor_pairs_to_ordered_list":
       return `由配對 ${model.factorPairs.map((pair) => `${pair[0]}×${pair[1]}`).join("、")} 整理 ${model.target} 的完整因數（展開、去重、升冪）：________。`;
     case "controlled_divisibility_statement":
@@ -227,6 +233,18 @@ export function validateG5AU02S100QuestionDisplayModel(item, model, promptText =
     errors.push("G5AU02_PROMPT_VISIBLE_DATA_INCOMPLETE");
   }
   if (/\b\d+\.\d+\s+是/.test(promptText)) errors.push("G5AU02_PUBLIC_STATEMENT_NUMBERING_AMBIGUOUS");
+  if (model.kind === "factor_relation_dual_witness") {
+    const multiply = model.multiplicationWitness;
+    const divide = model.divisionWitness;
+    if (promptText.includes(`${multiply.factorA}×${multiply.factorB}=${multiply.product}`)
+      || promptText.includes(`${divide.dividend}÷${divide.divisor}=${divide.quotient}`)) {
+      errors.push("G5AU02_PUBLIC_WORKED_SOLUTION_LEAKAGE");
+    }
+  }
+  if (model.kind === "trial_division_table") {
+    const leaked = model.rows.some((row) => promptText.includes(`${row.divisor}/${row.quotient}/${row.remainder}`));
+    if (leaked || promptText.includes("✓整除")) errors.push("G5AU02_PUBLIC_WORKED_SOLUTION_LEAKAGE");
+  }
 
   return deepFreeze({ ok: errors.length === 0, errors: [...new Set(errors)] });
 }
