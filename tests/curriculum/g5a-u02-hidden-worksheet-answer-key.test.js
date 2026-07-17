@@ -16,19 +16,20 @@ const specs = getG5AU02HiddenPatternSpecs();
 const patternIds = getG5AU02HiddenWorksheetPatternIds();
 function mutableClone(value) { return JSON.parse(JSON.stringify(value)); }
 
-test("S91 audit covers 22 routes, 14 Class C, 8 Class D, 17 routed and 18 supported answer models", () => {
+test("S91 audit covers 22 routes, 14 Class C, 8 Class D, 18 routed and 19 supported answer models", () => {
   const audit = auditG5AU02HiddenWorksheetIntegration();
   assert.equal(audit.ok, true, audit.errors.join(","));
   assert.equal(audit.patternSpecCount, 22);
   assert.equal(audit.classCCount, 14);
   assert.equal(audit.classDCount, 8);
-  assert.equal(audit.answerModelCount, 17);
-  assert.equal(audit.supportedAnswerModelCount, 18);
+  assert.equal(audit.answerModelCount, 18);
+  assert.equal(audit.supportedAnswerModelCount, 19);
   assert.equal(patternIds.length, 22);
   const supported = getG5AU02HiddenWorksheetAnswerModelIds();
-  assert.equal(supported.length, 18);
+  assert.equal(supported.length, 19);
   assert.ok(supported.includes("partitionPairListAnswer"));
   assert.ok(supported.includes("tileSideAreaPairListAnswer"));
+  assert.ok(supported.includes("commonFactorAndGcfAnswer"));
 });
 
 test("S91 normalizes and allocates an exact canonical round-robin count", () => {
@@ -61,7 +62,7 @@ test("S91 builds one hidden question and answer for every canonical PatternSpec"
   assert.equal(document.questionPages.length, 5);
   assert.equal(document.answerKeyPages.length, 4);
   assert.deepEqual(document.questionRecords.map((row) => row.patternSpecId), patternIds);
-  assert.equal(new Set(document.questionRecords.map((row) => row.answerModelId)).size, 17);
+  assert.equal(new Set(document.questionRecords.map((row) => row.answerModelId)).size, 18);
   assert.equal(document.questionRecords.filter((row) => row.implementationClass === "C").length, 14);
   assert.equal(document.questionRecords.filter((row) => row.implementationClass === "D").length, 8);
   assert.ok(document.questionRecords.every((row) => !("answer" in row) && !("answerText" in row)));
