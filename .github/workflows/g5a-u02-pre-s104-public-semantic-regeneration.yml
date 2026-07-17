@@ -123,7 +123,7 @@ jobs:
           if (diagnostic.pageCount !== manifest.expectedPdfPageCount) throw new Error(`HTML pages=${diagnostic.pageCount}/${manifest.expectedPdfPageCount}`);
           if (diagnostic.cellOverflowCount !== 0) throw new Error(`cell overflow=${diagnostic.cellOverflowCount}`);
           if (diagnostic.pageOverflowCount !== 0) throw new Error(`page overflow=${diagnostic.pageOverflowCount}`);
-          if (diagnostic.rendererProfile !== 'g5a_u02_pre_s104_semantic_v1') throw new Error(`renderer=${diagnostic.rendererProfile}`);
+          if (diagnostic.rendererProfile !== 'g5a_u02_s104_p0_integrated_v1') throw new Error(`renderer=${diagnostic.rendererProfile}`);
           for (const kind of ['partition_count_length_pairs','rectangle_square_partition_diagram','square_tile_side_area_chain']) {
             if (!diagnostic.s101Kinds.includes(kind)) throw new Error(`S101 kind missing: ${kind}`);
           }
