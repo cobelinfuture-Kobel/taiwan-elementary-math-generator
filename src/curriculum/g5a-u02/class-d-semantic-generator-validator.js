@@ -15,8 +15,8 @@ const CLASS_D_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_square_tile_area_possibilities",
   "ps_g5a_u02_multi_constraint_digit_code",
 ]);
-
 const CLASS_D_SET = new Set(CLASS_D_PATTERN_IDS);
+
 const LIFECYCLE = Object.freeze({
   unitId: "g5a_u02",
   generatorStatus: "class_d_semantic_implemented_hidden",
@@ -59,15 +59,17 @@ function createRng(seed = 1) {
 function factorsOf(value) {
   assertInteger(value, "value", 1);
   const result = [];
-  for (let i = 1; i <= value; i += 1) if (value % i === 0) result.push(i);
+  for (let candidate = 1; candidate <= value; candidate += 1) {
+    if (value % candidate === 0) result.push(candidate);
+  }
   return result;
 }
 
 function gcd(a, b) {
-  let x = a;
-  let y = b;
-  while (y !== 0) [x, y] = [y, x % y];
-  return x;
+  let left = a;
+  let right = b;
+  while (right !== 0) [left, right] = [right, left % right];
+  return left;
 }
 
 function commonFactorsOf(a, b) { return factorsOf(gcd(a, b)); }
@@ -109,8 +111,12 @@ function generateByPattern(patternSpecId, rng, seed) {
       const total = rng.int(4, 12) * rng.int(2, 8);
       const minRecipients = 2;
       const maxRecipients = Math.min(total, 12);
-      const values = factorsOf(total).filter((v) => v >= minRecipients && v <= maxRecipients);
-      return makeItem(patternSpecId, seed, { total, minRecipients, maxRecipients, unitLabel: "人", semanticRole: "equal_partition_range" }, `${total} 個物品平均分給 ${minRecipients} 到 ${maxRecipients} 人，每人同樣多且沒有剩下。可能有幾人？`, { values, unitLabel: "人" });
+      const values = factorsOf(total).filter((value) => value >= minRecipients && value <= maxRecipients);
+      return makeItem(patternSpecId, seed, {
+        total, minRecipients, maxRecipients, unitLabel: "人", semanticRole: "equal_partition_range",
+      }, `${total} 個物品平均分給 ${minRecipients} 到 ${maxRecipients} 人，每人同樣多且沒有剩下。可能有幾人？`, {
+        values, unitLabel: "人",
+      });
     }
     case "ps_g5a_u02_remainder_transfer": {
       const smallerDivisor = rng.int(2, 8);
@@ -119,19 +125,38 @@ function generateByPattern(patternSpecId, rng, seed) {
       const remainder = rng.int(0, smallerDivisor - 1);
       const quotient = rng.int(2, 12);
       const dividend = quotient * largerDivisor + remainder;
-      return makeItem(patternSpecId, seed, { dividend, largerDivisor, smallerDivisor, multiplier, knownRemainder: remainder, semanticRole: "remainder_transfer" }, `${dividend} 除以 ${largerDivisor} 餘 ${remainder}。因為 ${largerDivisor} 是 ${smallerDivisor} 的倍數，${dividend} 除以 ${smallerDivisor} 的餘數是多少？`, { remainder, smallerDivisor });
+      return makeItem(patternSpecId, seed, {
+        dividend, largerDivisor, smallerDivisor, multiplier, knownRemainder: remainder, semanticRole: "remainder_transfer",
+      }, `${dividend} 除以 ${largerDivisor} 餘 ${remainder}。因為 ${largerDivisor} 是 ${smallerDivisor} 的倍數，${dividend} 除以 ${smallerDivisor} 的餘數是多少？`, {
+        remainder, smallerDivisor,
+      });
     }
     case "ps_g5a_u02_maximum_equal_grouping": {
       const [red, blue] = pairedQuantities(rng);
-      return makeItem(patternSpecId, seed, { red, blue, unitLabel: "組", semanticRole: "maximum_equal_grouping" }, `${red} 個紅球和 ${blue} 個藍球要分成最多組，每組紅球數相同、藍球數也相同。最多可分成幾組？`, { value: gcd(red, blue) });
+      return makeItem(patternSpecId, seed, {
+        red, blue, unitLabel: "組", semanticRole: "maximum_equal_grouping",
+      }, `${red} 個紅球和 ${blue} 個藍球要分成最多組，每組紅球數相同、藍球數也相同。最多可分成幾組？`, {
+        value: gcd(red, blue),
+      });
     }
     case "ps_g5a_u02_possible_equal_packaging_counts": {
-      const [a, b] = pairedQuantities(rng);
-      return makeItem(patternSpecId, seed, { quantityA: a, quantityB: b, unitLabel: "盒", semanticRole: "possible_equal_packaging" }, `${a} 個甲物品和 ${b} 個乙物品分裝成若干盒，每盒兩類物品的數量分別相同且全部用完。可能裝成幾盒？`, { values: commonFactorsOf(a, b), unitLabel: "盒" });
+      const [quantityA, quantityB] = pairedQuantities(rng);
+      return makeItem(patternSpecId, seed, {
+        quantityA, quantityB, unitLabel: "盒", semanticRole: "possible_equal_packaging",
+      }, `${quantityA} 個甲物品和 ${quantityB} 個乙物品分裝成若干盒，每盒兩類物品的數量分別相同且全部用完。可能裝成幾盒？`, {
+        values: commonFactorsOf(quantityA, quantityB), unitLabel: "盒",
+      });
     }
     case "ps_g5a_u02_multi_constraint_digit_code":
-      return makeItem(patternSpecId, seed, { predicates: ["四位數", "四個數字互不相同", "千位為1", "百位為7", "十位為2", "個位為5"], sourceSolution: 1725, semanticRole: "source_password" }, "依照來源題的定位條件，找出唯一的四位數密碼。", { digits: [1, 7, 2, 5], value: 1725 });
-    default: throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${patternSpecId}`);
+      return makeItem(patternSpecId, seed, {
+        predicates: ["四位數", "四個數字互不相同", "千位為1", "百位為7", "十位為2", "個位為5"],
+        sourceSolution: 1725,
+        semanticRole: "source_password",
+      }, "依照來源題的定位條件，找出唯一的四位數密碼。", {
+        digits: [1, 7, 2, 5], value: 1725,
+      });
+    default:
+      throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${patternSpecId}`);
   }
 }
 
@@ -143,18 +168,24 @@ export function generateG5AU02ClassD(patternSpecId, options = {}) {
 
 function expectedAnswer(item) {
   if (isG5AU02S101Pattern(item.patternSpecId)) return expectedG5AU02S101Answer(item);
-  const d = item.data;
+  const data = item.data;
   switch (item.patternSpecId) {
-    case "ps_g5a_u02_equal_partition_range_constrained_recipients": return { values: factorsOf(d.total).filter((v) => v >= d.minRecipients && v <= d.maxRecipients), unitLabel: "人" };
-    case "ps_g5a_u02_remainder_transfer": return { remainder: d.dividend % d.smallerDivisor, smallerDivisor: d.smallerDivisor };
-    case "ps_g5a_u02_maximum_equal_grouping": return { value: gcd(d.red, d.blue) };
-    case "ps_g5a_u02_possible_equal_packaging_counts": return { values: commonFactorsOf(d.quantityA, d.quantityB), unitLabel: "盒" };
-    case "ps_g5a_u02_multi_constraint_digit_code": return { digits: [1, 7, 2, 5], value: 1725 };
-    default: throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${item.patternSpecId}`);
+    case "ps_g5a_u02_equal_partition_range_constrained_recipients":
+      return { values: factorsOf(data.total).filter((value) => value >= data.minRecipients && value <= data.maxRecipients), unitLabel: "人" };
+    case "ps_g5a_u02_remainder_transfer":
+      return { remainder: data.dividend % data.smallerDivisor, smallerDivisor: data.smallerDivisor };
+    case "ps_g5a_u02_maximum_equal_grouping":
+      return { value: gcd(data.red, data.blue) };
+    case "ps_g5a_u02_possible_equal_packaging_counts":
+      return { values: commonFactorsOf(data.quantityA, data.quantityB), unitLabel: "盒" };
+    case "ps_g5a_u02_multi_constraint_digit_code":
+      return { digits: [1, 7, 2, 5], value: 1725 };
+    default:
+      throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${item.patternSpecId}`);
   }
 }
 
-function errorCode(patternSpecId) {
+function legacyAnswerMismatchCode(patternSpecId) {
   if (patternSpecId.includes("remainder")) return "G5AU02_REMAINDER_NOT_REDUCED";
   if (patternSpecId.includes("maximum_equal_grouping")) return "G5AU02_GCF_NOT_MAXIMUM";
   if (patternSpecId.includes("packaging") || patternSpecId.includes("equal_partition")) return "G5AU02_EQUAL_PARTITION_NONDIVISOR";
@@ -175,21 +206,27 @@ export function validateG5AU02ClassD(item) {
   if (item.lifecycle?.productionUse !== "forbidden") errors.push("G5AU02_PRODUCTION_USE_FORBIDDEN");
   if (item.lifecycle?.genericFallback !== "forbidden") errors.push("G5AU02_GENERIC_FALLBACK_FORBIDDEN");
   if (item.lifecycle?.freeFormAI !== "forbidden") errors.push("G5AU02_FREE_FORM_AI_FORBIDDEN");
+
   if (errors.length === 0) {
     try {
       if (item.patternSpecId === "ps_g5a_u02_remainder_transfer") {
         if (item.data.largerDivisor % item.data.smallerDivisor !== 0) errors.push("G5AU02_REMAINDER_DIVISOR_RELATION_INVALID");
         if (item.data.knownRemainder >= item.data.smallerDivisor) errors.push("G5AU02_REMAINDER_RANGE_INVALID");
       }
+
+      const expected = expectedAnswer(item);
+      const answerMismatch = !deepEqual(item.answer, expected);
       if (isG5AU02S101Pattern(item.patternSpecId)) {
         errors.push(...validateG5AU02S101Pattern(item).errors);
-      } else if (!deepEqual(item.answer, expectedAnswer(item))) {
-        errors.push(errorCode(item.patternSpecId));
+        if (answerMismatch) errors.push(legacyAnswerMismatchCode(item.patternSpecId));
+      } else if (answerMismatch) {
+        errors.push(legacyAnswerMismatchCode(item.patternSpecId));
       }
     } catch {
       errors.push("G5AU02_ANSWER_SCHEMA_MISMATCH");
     }
   }
+
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze([...new Set(errors)]) });
 }
 
