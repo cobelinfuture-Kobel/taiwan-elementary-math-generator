@@ -8,6 +8,7 @@ import {
   getG5AU02BoundClassDSpecs,
   validateG5AU02ClassDFromHiddenProjection,
 } from "../../src/curriculum/g5a-u02/class-d-hidden-projection-binding.js";
+import { G5A_U02_S103_SOURCE_PROFILE_ID } from "../../src/curriculum/g5a-u02/s103-digit-code-runtime.js";
 
 const CLASS_C_ID = "ps_g5a_u02_greatest_common_factor";
 
@@ -110,11 +111,15 @@ test("S88 blocks template-family drift between projection and runtime", () => {
 });
 
 test("S88 retains Class D blocking validation after projection binding", () => {
-  const item = clone(generateG5AU02ClassDFromHiddenProjection("ps_g5a_u02_multi_constraint_digit_code", { seed: 8815 }));
-  item.answer.value = 1726;
+  const item = clone(generateG5AU02ClassDFromHiddenProjection("ps_g5a_u02_multi_constraint_digit_code", {
+    seed: 8815,
+    digitCodeProfileId: G5A_U02_S103_SOURCE_PROFILE_ID,
+  }));
+  item.answer = { digits: [1, 7, 2, 6], value: 1726 };
   const result = validateG5AU02ClassDFromHiddenProjection(item);
   assert.equal(result.ok, false);
   assert.ok(result.errors.includes("G5AU02_DIGIT_TUPLE_NOT_1725"));
+  assert.ok(result.errors.includes("G5AU02_P0_DIGIT_CODE_NOT_UNIQUE"));
 });
 
 test("S88 does not promote selector, canonical routing, production, fallback, or free-form AI", () => {
