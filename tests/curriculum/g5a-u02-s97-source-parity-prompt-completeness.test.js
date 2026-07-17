@@ -29,8 +29,9 @@ function assertVisibleByPattern(record) {
 
   switch (record.patternSpecId) {
     case "ps_g5a_u02_missing_factor_reconstruction":
-      assert.equal(model.kind, "masked_factor_sequence");
+      assert.equal(model.kind, "masked_factor_table_with_pair_cues");
       assert.match(record.prompt, /因數表：/);
+      assert.match(record.prompt, /配對提示：/);
       assert.match(record.prompt, /□/);
       break;
     case "ps_g5a_u02_divisor_candidate_selection":
