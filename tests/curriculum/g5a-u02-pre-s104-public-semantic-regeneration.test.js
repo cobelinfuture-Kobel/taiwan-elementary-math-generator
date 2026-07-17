@@ -67,6 +67,11 @@ function answersFor(document, patternSpecId) {
   return document.answerKeyItems.filter((item) => item.patternSpecId === patternSpecId);
 }
 
+function intersection(left, right) {
+  const rightSet = new Set(right);
+  return left.filter((value) => rightSet.has(value));
+}
+
 test("Pre-S104 regeneration produces 60 answerable questions across all 22 canonical patterns", () => {
   const { document } = buildRegeneratedDocument();
   assert.equal(document.questionItems.length, QUESTION_COUNT);
@@ -107,10 +112,16 @@ test("Pre-S104 regeneration uses nondegenerate S102 operands and visible factor-
       const model = item.questionDisplayModel;
       assert.notEqual(model.a, model.b);
       assert.notDeepEqual(model.factorSetA, model.factorSetB);
+      const expectedCommon = intersection(model.factorSetA, model.factorSetB);
       const answer = document.answerKeyItems.find((row) => row.questionNumber === item.questionNumber).structuredAnswer;
-      assert.ok(answer.commonFactors.length > 1);
-      assert.ok(answer.greatestCommonFactor >= 2);
-      assert.ok(answer.greatestCommonFactor < Math.min(model.a, model.b));
+      const commonFactors = patternSpecId === "ps_g5a_u02_common_factor_enumeration"
+        ? answer.values
+        : answer.commonFactors;
+      const greatest = expectedCommon.at(-1);
+      assert.deepEqual(commonFactors, expectedCommon);
+      assert.ok(greatest >= 2);
+      assert.ok(greatest < Math.min(model.a, model.b));
+      if (patternSpecId === "ps_g5a_u02_greatest_common_factor") assert.equal(answer.greatestCommonFactor, greatest);
     }
   }
   assert.match(html, /data-g5a-u02-s102-kind="parallel_factor_sets_with_intersection"/);
@@ -162,12 +173,12 @@ test("Pre-S104 answer key satisfies explanation and unit instructions", () => {
 });
 
 test("Pre-S104 public renderer emits the integrated semantic profile without answer leakage", () => {
-  const { html } = buildRegeneratedDocument();
+  const { document, html } = buildRegeneratedDocument();
   assert.match(html, /data-renderer-profile="g5a_u02_pre_s104_semantic_v1"/);
   assert.match(html, /data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"/);
   assert.doesNotMatch(html, /source_1725_reference/);
   assert.doesNotMatch(html, /ps_g5a_u02_|fm_g5a_u02_|fmc_g5a_u02_|pg_g5a_u02_|kp_g5a_u02_/);
   const questionSection = html.split("worksheet-section--answer-key")[0];
-  const digitAnswers = answersFor(buildRegeneratedDocument().document, "ps_g5a_u02_multi_constraint_digit_code");
+  const digitAnswers = answersFor(document, "ps_g5a_u02_multi_constraint_digit_code");
   for (const answer of digitAnswers) assert.equal(questionSection.includes(String(answer.structuredAnswer.value)), false);
 });
