@@ -1,3 +1,11 @@
+import {
+  compactG5AU02S106Prompt,
+  G5A_U02_S106_RENDER_KINDS,
+  G5A_U02_S106_STYLE,
+  isG5AU02S106RenderKind,
+  renderG5AU02S106Representation,
+} from "./g5a-u02-s106-public-representation.js";
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -23,12 +31,14 @@ const S102_KINDS = new Set([
   "common_factor_set_with_gcf",
 ]);
 const S103_KINDS = new Set(["unique_digit_code_constraints"]);
+const S106_KINDS = new Set(G5A_U02_S106_RENDER_KINDS);
 const PUBLIC_SYMBOL_KINDS = new Set(["symbolic_complete_factor_sequence"]);
 const STRUCTURED_KINDS = new Set([
   ...S100_STRUCTURED_KINDS,
   ...S101_KINDS,
   ...S102_KINDS,
   ...S103_KINDS,
+  ...S106_KINDS,
   ...PUBLIC_SYMBOL_KINDS,
 ]);
 
@@ -180,6 +190,7 @@ function symbolicSequenceRepresentation(model) {
 
 function representation(model) {
   if (!model || !STRUCTURED_KINDS.has(model.kind)) return "";
+  if (isG5AU02S106RenderKind(model.kind)) return renderG5AU02S106Representation(model, escapeHtml);
   if (model.kind === "factor_relation_dual_witness") return factorRelationRepresentation();
   if (model.kind === "trial_division_table") return trialDivisionRepresentation(model);
   if (model.kind === "factor_pairs_to_ordered_list") return factorPairsRepresentation(model);
@@ -201,6 +212,8 @@ function representation(model) {
 
 function compactPrompt(displayModel) {
   const model = displayModel?.questionDisplayModel;
+  const s106Prompt = compactG5AU02S106Prompt(model);
+  if (s106Prompt) return s106Prompt;
   if (model?.kind === "factor_relation_dual_witness") return `用乘法和除法判斷 ${model.candidateDivisor} 是否為 ${model.target} 的因數。`;
   if (model?.kind === "trial_division_table") return `用試除法找出 ${model.target} 的所有因數。`;
   if (model?.kind === "factor_pairs_to_ordered_list") return `根據配對因數，整理 ${model.target} 的完整因數。`;
@@ -289,6 +302,7 @@ const STYLE = [
   '.g5a-u02-semantic-sequence__item{border:1px solid #aeb8c2;border-radius:3px;padding:0 3px;}',
   '.g5a-u02-semantic-sequence__item--unknown{font-weight:700;border-style:dashed;}',
   '.g5a-u02-semantic-note{font-size:.56rem;line-height:1.08;}',
+  G5A_U02_S106_STYLE,
   '.g5a-u02-semantic-answer .worksheet-cell__prompt{font-size:.64rem;line-height:1.12;}',
   '.g5a-u02-semantic-answer .worksheet-cell__answer{font-size:.68rem;line-height:1.2;white-space:pre-wrap;overflow-wrap:anywhere;}',
   '.g5a-u02-density--high .worksheet-cell,.g5a-u02-density--ultra .worksheet-cell{padding:4px 5px;gap:1px;}',
