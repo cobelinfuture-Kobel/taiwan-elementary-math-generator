@@ -7,7 +7,7 @@ import { getG5AU02HiddenWorksheetPatternIds } from "../../src/curriculum/g5a-u02
 import { projectG5AU02DynamicDocumentForGlobalLayout } from "../../site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer-s73-extension.js";
 
-const TASK = "G5AU02_PreS104_PublicWorksheetSemanticProjectionFullFix_And_Regeneration";
+const TASK = "G5AU02_PreS104_WorkedSolutionLeakageAndResponseSpaceFullFix";
 const QUESTION_COUNT = 60;
 const GENERATION_SEED = 104001;
 const PAGE_SIZE = 6;
@@ -76,13 +76,35 @@ function semanticAudit(document, html) {
     "ps_g5a_u02_common_factor_enumeration",
     "ps_g5a_u02_greatest_common_factor",
   ].includes(item.patternSpecId));
+  const factorRelationQuestions = questions.filter((item) => item.patternSpecId === "ps_g5a_u02_factor_relation_equivalence");
+  const trialDivisionQuestions = questions.filter((item) => item.patternSpecId === "ps_g5a_u02_factor_enumeration_trial_division");
 
   const questionText = questions.map((item) => item.prompt).join("\n");
   const answerText = answers.map((item) => item.answerText).join("\n");
   const combined = `${questionText}\n${answerText}\n${html}`;
+  const questionSection = html.split("worksheet-section--answer-key")[0];
   const internalIdMatches = combined.match(/\b(?:ps|fm|fmc|pg|kp)_g5a_u02_[a-z0-9_]+\b/gi) ?? [];
   const internalPlaceholderMatches = combined.match(/\bp\d+\b/gi) ?? [];
   const decimalLikeNumberingMatches = combined.match(/\b\d+\.\d+\s+是/g) ?? [];
+
+  const factorRelationWorkedSolutionLeaks = factorRelationQuestions.filter((item) => {
+    const model = item.questionDisplayModel;
+    const multiply = model.multiplicationWitness;
+    const divide = model.divisionWitness;
+    return item.prompt.includes(`${multiply.factorA}×${multiply.factorB}=${multiply.product}`)
+      || item.prompt.includes(`${divide.dividend}÷${divide.divisor}=${divide.quotient}`)
+      || questionSection.includes(`${multiply.factorA}×${multiply.factorB}=${multiply.product}`)
+      || questionSection.includes(`${divide.dividend}÷${divide.divisor}=${divide.quotient}`);
+  });
+  const trialDivisionWorkedSolutionLeaks = trialDivisionQuestions.filter((item) => item.questionDisplayModel.rows.some((row) => {
+    const token = `${row.divisor}/${row.quotient}/${row.remainder}`;
+    return item.prompt.includes(token) || questionSection.includes(token);
+  }) || item.prompt.includes("✓整除"));
+  const factorRelationScaffoldMissing = factorRelationQuestions.filter((item) => !/乘法：_+/.test(item.prompt)
+    || !/除法：_+/.test(item.prompt)
+    || !/判斷：_+/.test(item.prompt));
+  const trialDivisionScaffoldMissing = trialDivisionQuestions.filter((item) => !item.questionDisplayModel.rows.every((row) => item.prompt.includes(`除數 ${row.divisor}：商`))
+    || !/因數：_+/.test(item.prompt));
 
   assert(questions.length === QUESTION_COUNT, "PRE_S104_QUESTION_COUNT_MISMATCH");
   assert(answers.length === QUESTION_COUNT, "PRE_S104_ANSWER_COUNT_MISMATCH");
@@ -90,6 +112,10 @@ function semanticAudit(document, html) {
   assert(internalIdMatches.length === 0, "PRE_S104_INTERNAL_ID_LEAKAGE");
   assert(internalPlaceholderMatches.length === 0, "PRE_S104_INTERNAL_PLACEHOLDER_LEAKAGE");
   assert(decimalLikeNumberingMatches.length === 0, "PRE_S104_STATEMENT_NUMBERING_AMBIGUOUS");
+  assert(factorRelationWorkedSolutionLeaks.length === 0, "PRE_S104_FACTOR_RELATION_WORKED_SOLUTION_LEAKAGE");
+  assert(trialDivisionWorkedSolutionLeaks.length === 0, "PRE_S104_TRIAL_DIVISION_WORKED_SOLUTION_LEAKAGE");
+  assert(factorRelationScaffoldMissing.length === 0, "PRE_S104_FACTOR_RELATION_RESPONSE_SPACE_MISSING");
+  assert(trialDivisionScaffoldMissing.length === 0, "PRE_S104_TRIAL_DIVISION_RESPONSE_SPACE_MISSING");
   assert(digitQuestions.length >= 2, "PRE_S104_DIGIT_CODE_SAMPLE_INSUFFICIENT");
   assert(digitQuestions.every((item) => item.questionDisplayModel.profileId === "generated_unique_code_v1"), "PRE_S104_SOURCE_PROFILE_REPEATED_AS_DEFAULT");
   assert(digitAnswers.every((item) => item.structuredAnswer.value !== 1725), "PRE_S104_SOURCE_1725_REPEATED_AS_DEFAULT");
@@ -115,7 +141,6 @@ function semanticAudit(document, html) {
     'data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"',
   ]) assert(html.includes(marker), `PRE_S104_SEMANTIC_MARKER_MISSING:${marker}`);
 
-  const questionSection = html.split("worksheet-section--answer-key")[0];
   for (const answer of digitAnswers) {
     assert(!questionSection.includes(String(answer.structuredAnswer.value)), "PRE_S104_DIGIT_ANSWER_LEAKAGE");
   }
@@ -132,6 +157,11 @@ function semanticAudit(document, html) {
     internalIdLeakCount: internalIdMatches.length,
     internalPlaceholderLeakCount: internalPlaceholderMatches.length,
     decimalLikeNumberingCount: decimalLikeNumberingMatches.length,
+    factorRelationWorkedSolutionLeakCount: factorRelationWorkedSolutionLeaks.length,
+    trialDivisionWorkedSolutionLeakCount: trialDivisionWorkedSolutionLeaks.length,
+    factorRelationResponseSpaceMissingCount: factorRelationScaffoldMissing.length,
+    trialDivisionResponseSpaceMissingCount: trialDivisionScaffoldMissing.length,
+    workedSolutionPolicy: "answer_key_only_question_scaffold_v1",
     generatedDigitCodes: digitAnswers.map((item) => item.structuredAnswer.value),
     s102QuestionCount: s102Questions.length,
   };
@@ -173,6 +203,11 @@ const manifest = {
   questionsPerPage: PAGE_SIZE,
   rendererProfile: "g5a_u02_pre_s104_semantic_v1",
   semanticAuditStatus: audit.status,
+  workedSolutionPolicy: audit.workedSolutionPolicy,
+  factorRelationWorkedSolutionLeakCount: audit.factorRelationWorkedSolutionLeakCount,
+  trialDivisionWorkedSolutionLeakCount: audit.trialDivisionWorkedSolutionLeakCount,
+  factorRelationResponseSpaceMissingCount: audit.factorRelationResponseSpaceMissingCount,
+  trialDivisionResponseSpaceMissingCount: audit.trialDivisionResponseSpaceMissingCount,
   sourceProfileDefaultRepeatCount: audit.sourceProfileDefaultRepeatCount,
   source1725DefaultRepeatCount: audit.source1725DefaultRepeatCount,
   internalPlaceholderLeakCount: audit.internalPlaceholderLeakCount,
