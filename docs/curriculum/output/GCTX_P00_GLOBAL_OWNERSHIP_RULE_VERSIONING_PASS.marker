@@ -1,0 +1,14 @@
+TASK=GCTX-P00_GlobalOwnershipScopeAndRuleVersioningContract
+STATUS=PASS_CI_ACCEPTED
+PULL_REQUEST=249
+ACCEPTED_HEAD=d649a1ec63c667bb58756eabd0be63172caa5edf
+TRIGGERED_WORKFLOWS=19
+ALL_TRIGGERED_WORKFLOWS_PASSED=true
+NODE_TEST_RUN=2265
+MATH_CI_READBACK_RUN=1935
+SCOPE=planning contract only; no runtime, registry seed, unit migration or renderer implementation
+GOAL_DISTANCE_BEFORE=D4_GCTX_REQUIREMENTS_AND_CORPUS_DISCUSSION
+GOAL_DISTANCE_AFTER=D3_GCTX_GLOBAL_OWNERSHIP_AND_RULE_VERSIONING_LOCKED
+DISTANCE_REDUCED=versioned ownership, layout, PBL closure, evidence inference and unit audit governance locked
+REMAINING_BLOCKERS=approved semantic-chain schema; PBL closure schema; layout contracts; existing-unit audits
+NEXT_SHORTEST_STEP=GCTX-P01_ApprovedSemanticChainSchema
