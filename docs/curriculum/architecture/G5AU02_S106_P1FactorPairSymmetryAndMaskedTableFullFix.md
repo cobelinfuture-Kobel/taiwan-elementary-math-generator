@@ -4,9 +4,10 @@
 
 ```text
 TASK = G5AU02-S106_P1FactorPairSymmetryAndMaskedTableFullFix
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_PENDING_MERGE
 SOURCE_PROGRAM = G5AU02-S105_P1P2SourceParityMilestoneDefinition
 PATTERN_ORDERS = 3,5,6
+ACCEPTED_HEAD_SHA = b4f3478e36f6c1be17cf18fd1b8f0775f3fe0f65
 D0_ELIGIBLE = false
 ```
 
@@ -105,14 +106,43 @@ G5AU02_P1_MISSING_FACTOR_NOT_UNIQUE
 ## Acceptance matrices
 
 ```text
-canonical scenarios       = 3 × 64 = 192
-public worksheet scenarios = 3 × 64 = 192
-actual layout projections = 3 × 18 = 54
-answer boundary           = 3 × 3 × 2 = 18
-bundled scenarios         = 3 × 64 = 192
+canonical scenarios        = 3 × 64 = 192 / 192 PASS
+public worksheet scenarios = 3 × 64 = 192 / 192 PASS
+actual layout projections  = 3 × 18 = 54 / 54 PASS
+answer boundary            = 3 × 3 × 2 = 18 / 18 PASS
+bundled scenarios          = 3 × 64 = 192 / 192 PASS
 ```
 
 The browser workflow rebuilds the canonical bundle and blocks unless the committed bundle is byte-equivalent to the generated output.
+
+## Accepted evidence
+
+```text
+S106_FINAL_WORKFLOW_RUN_ID = 29597170226
+S104_P0_WORKFLOW_RUN_ID    = 29597170445
+LEAKAGE_WORKFLOW_RUN_ID    = 29597170536
+S96D_BUNDLE_RUN_ID         = 29597170122
+NODE_TEST_RUN_ID           = 29597170127
+S96I_LIVE_BROWSER_RUN_ID   = 29597170117
+S96Q_BROWSER_DOM_RUN_ID    = 29597170353
+S97_PARITY_RUN_ID          = 29597170594
+```
+
+Accepted results:
+
+```text
+S106 source-contract = PASS
+S106 read-only browser-bundle and byte parity = PASS
+S106 complete Node regression = PASS
+S97 supersession regression = PASS
+S104 768-item P0 matrix = PASS
+S104 216-layout and 72-answer-boundary HTML/PDF = PASS
+worked-solution leakage boundary = PASS
+regenerated 60-question HTML/PDF = PASS
+S96D browser bundle authority = PASS
+S96I live browser = PASS
+S96Q browser DOM = PASS
+```
 
 ## Invariants
 
@@ -127,14 +157,15 @@ runtime generation is deterministic
 canonical answers are independently recomputed
 student answer leakage is forbidden
 Traditional Chinese public notation is required
+workflow permissions are read-only
 ```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_P1_P2_SOURCE_PARITY_PROGRAM_LOCKED
-GOAL_DISTANCE_AFTER  = D1_G5A_U02_S106_FACTOR_STRUCTURE_IMPLEMENTED_PENDING_CI
-DISTANCE_REDUCED     = orders 3,5,6 moved from P1 representation gaps to deterministic runtime, validator and renderer candidates
-REMAINING_BLOCKERS   = CI,bundle sync,merge,S107,S108,S109,S110
+GOAL_DISTANCE_AFTER  = D1_G5A_U02_S106_FACTOR_STRUCTURE_FIXED_PENDING_MERGE
+DISTANCE_REDUCED     = orders 3,5,6 moved from P1 representation gaps to accepted deterministic runtime, blocking validators, structured renderer and canonical browser bundle
+REMAINING_BLOCKERS   = merge,S107,S108,S109,S110
 NEXT_SHORT_STEP      = G5AU02-S107_P1CandidateSymbolicRelationAndCommonFactorMarkingFullFix
 ```
