@@ -1,0 +1,81 @@
+name: G5A-U02 S101 Partition Geometry Representation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/curriculum/g5a-u02/**"
+      - "site/modules/renderer/**"
+      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      - "tests/curriculum/g5a-u02-s101-partition-geometry-representation.test.js"
+      - "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs"
+      - "docs/curriculum/architecture/G5AU02_S101_P0PartitionAndGeometryRepresentationFullFix.md"
+      - "docs/curriculum/output/G5AU02_S101_P0_PARTITION_GEOMETRY_PENDING.marker"
+      - ".github/workflows/g5a-u02-s101-partition-geometry-representation.yml"
+  workflow_dispatch:
+
+jobs:
+  source-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run 192-scenario S101 source representation acceptance
+        run: node --test tests/curriculum/g5a-u02-s101-partition-geometry-representation.test.js
+
+  browser-bundle:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build current browser runtime from canonical source
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
+      - name: Verify bundled S101 representation authority
+        run: node tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs
+      - name: Upload bundled S101 authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s101-bundle-audit
+          retention-days: 30
+          if-no-files-found: error
+          path: docs/curriculum/output/g5a-u02-s101-bundle-audit/current.json
+
+  full-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run complete Node regression with inspectable readback
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/g5a-u02-s101-full-regression.log 2>&1
+          status=$?
+          tail -n 200 /tmp/g5a-u02-s101-full-regression.log
+          exit "$status"
+      - name: Upload full regression readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s101-full-regression
+          retention-days: 7
+          if-no-files-found: error
+          path: /tmp/g5a-u02-s101-full-regression.log
