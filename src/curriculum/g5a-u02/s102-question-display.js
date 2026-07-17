@@ -32,8 +32,8 @@ export function buildG5AU02S102QuestionDisplayModel(item) {
     b: data.b,
     factorSetA: clone(data.factorSetA),
     factorSetB: clone(data.factorSetB),
-    commonFactors: clone(data.commonFactors),
     samplingProfileId: data.samplingProfileId,
+    answerFieldsExcluded: true,
   };
 
   if (item.patternSpecId === "ps_g5a_u02_common_factor_enumeration") {
@@ -46,7 +46,6 @@ export function buildG5AU02S102QuestionDisplayModel(item) {
   return deepFreeze({
     ...base,
     kind: "common_factor_set_with_gcf",
-    greatestCommonFactor: data.greatestCommonFactor,
   });
 }
 
@@ -87,32 +86,29 @@ export function validateG5AU02S102QuestionDisplayModel(item, model, promptText =
   }
 
   const data = item.data ?? {};
+  const enumeration = item.patternSpecId === "ps_g5a_u02_common_factor_enumeration";
   if (model.a !== data.a || model.b !== data.b) {
-    errors.push(item.patternSpecId === "ps_g5a_u02_common_factor_enumeration"
+    errors.push(enumeration
       ? "G5AU02_P0_COMMON_FACTOR_OPERANDS_DEGENERATE"
       : "G5AU02_P0_GCF_OPERANDS_DEGENERATE");
   }
   if (!same(model.factorSetA, data.factorSetA) || !same(model.factorSetB, data.factorSetB)) {
-    errors.push(item.patternSpecId === "ps_g5a_u02_common_factor_enumeration"
+    errors.push(enumeration
       ? "G5AU02_P0_FACTOR_SET_WITNESS_MISSING"
       : "G5AU02_P0_GCF_COMMON_SET_MISSING");
   }
-  if (!same(model.commonFactors, data.commonFactors)) {
-    errors.push(item.patternSpecId === "ps_g5a_u02_common_factor_enumeration"
-      ? "G5AU02_P0_COMMON_FACTOR_INTERSECTION_MISMATCH"
-      : "G5AU02_P0_GCF_COMMON_SET_MISSING");
+  if (Object.prototype.hasOwnProperty.call(model, "commonFactors")
+    || Object.prototype.hasOwnProperty.call(model, "greatestCommonFactor")) {
+    errors.push("G5AU02_WORKSHEET_QUESTION_ANSWER_LEAKAGE");
   }
+  if (model.answerFieldsExcluded !== true) errors.push("G5AU02_WORKSHEET_QUESTION_ANSWER_LEAKAGE");
 
-  if (item.patternSpecId === "ps_g5a_u02_common_factor_enumeration") {
+  if (enumeration) {
     if (model.kind !== "parallel_factor_sets_with_intersection") {
       errors.push("G5AU02_P0_FACTOR_SET_WITNESS_MISSING");
     }
-  } else {
-    if (model.kind !== "common_factor_set_with_gcf") errors.push("G5AU02_P0_GCF_COMMON_SET_MISSING");
-    if (model.greatestCommonFactor !== data.greatestCommonFactor
-      || model.greatestCommonFactor !== Math.max(...(model.commonFactors ?? []))) {
-      errors.push("G5AU02_P0_GCF_NOT_MAXIMUM");
-    }
+  } else if (model.kind !== "common_factor_set_with_gcf") {
+    errors.push("G5AU02_P0_GCF_COMMON_SET_MISSING");
   }
 
   let expectedPrompt = "";
@@ -124,7 +120,7 @@ export function validateG5AU02S102QuestionDisplayModel(item, model, promptText =
   if (typeof promptText !== "string" || promptText.length === 0) errors.push("G5AU02_VISIBLE_PROMPT_REQUIRED");
   if (promptText !== expectedPrompt) errors.push("G5AU02_PROMPT_VISIBLE_DATA_INCOMPLETE");
   if (!promptText.includes(model.factorSetA.join("、")) || !promptText.includes(model.factorSetB.join("、"))) {
-    errors.push(item.patternSpecId === "ps_g5a_u02_common_factor_enumeration"
+    errors.push(enumeration
       ? "G5AU02_P0_FACTOR_SET_WITNESS_MISSING"
       : "G5AU02_P0_GCF_COMMON_SET_MISSING");
   }
