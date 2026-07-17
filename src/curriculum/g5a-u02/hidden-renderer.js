@@ -76,6 +76,7 @@ function answerLabel(answerModelId) {
     selectionSetAnswer: "選取結果",
     booleanAnswer: "判斷",
     integerListWithUnitAnswer: "所有可能值",
+    partitionPairListAnswer: "段數與每段長度",
     problemTypeLabelAnswer: "題型",
     structuredInferenceAnswer: "推理結果",
     booleanSetAnswer: "判斷組",
@@ -83,18 +84,15 @@ function answerLabel(answerModelId) {
     integerAnswer: "答案",
     lengthListAnswer: "邊長",
     areaListAnswer: "面積",
+    tileSideAreaPairListAnswer: "邊長與面積",
     digitTupleAnswer: "密碼",
   };
   return labels[answerModelId] ?? "答案";
 }
 
 function profileForModes(modes) {
-  if (modes.some((mode) => RENDERER_PROFILES.reasoning.supportedModes.includes(mode))) {
-    return RENDERER_PROFILES.reasoning;
-  }
-  if (modes.some((mode) => RENDERER_PROFILES.contextual.supportedModes.includes(mode))) {
-    return RENDERER_PROFILES.contextual;
-  }
+  if (modes.some((mode) => RENDERER_PROFILES.reasoning.supportedModes.includes(mode))) return RENDERER_PROFILES.reasoning;
+  if (modes.some((mode) => RENDERER_PROFILES.contextual.supportedModes.includes(mode))) return RENDERER_PROFILES.contextual;
   return RENDERER_PROFILES.compact;
 }
 
@@ -104,9 +102,7 @@ function pageHeader(document, pageNumber, answerKey, options) {
   return [
     '<header class="g5a-u02-page-header">',
     `<div><h1>${escapeHtml(title)}</h1><p>${escapeHtml(subtitle)}</p></div>`,
-    answerKey
-      ? ""
-      : '<div class="g5a-u02-student-fields"><span>姓名：____________</span><span>日期：____________</span></div>',
+    answerKey ? "" : '<div class="g5a-u02-student-fields"><span>姓名：____________</span><span>日期：____________</span></div>',
     `<span class="g5a-u02-page-number">${answerKey ? "答案" : "題目"} ${escapeHtml(pageNumber)}</span>`,
     "</header>",
   ].join("");
@@ -199,24 +195,16 @@ function createHtml(document, options = {}) {
   const answerPages = document.answerKeyPages.map((page) => renderAnswerPage(document, page, questionByNumber, options));
   const profileIds = [...new Set([...questionPages, ...answerPages].map((page) => page.profileId))];
   const html = [
-    "<!doctype html>",
-    '<html lang="zh-Hant">',
-    "<head>",
-    '<meta charset="utf-8">',
+    "<!doctype html>", '<html lang="zh-Hant">', "<head>", '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     `<title>${escapeHtml(title)}</title>`,
     stylesheetHref ? `<link rel="stylesheet" href="${escapeHtml(stylesheetHref)}">` : "",
-    STYLE,
-    "</head>",
-    '<body class="g5a-u02-renderer">',
-    '<main class="g5a-u02-document">',
+    STYLE, "</head>", '<body class="g5a-u02-renderer">', '<main class="g5a-u02-document">',
     `<section class="g5a-u02-section g5a-u02-section--questions">${questionPages.map((page) => page.html).join("")}</section>`,
     answerPages.length > 0
       ? `<section class="g5a-u02-section g5a-u02-section--answer-key">${answerPages.map((page) => page.html).join("")}</section>`
       : "",
-    "</main>",
-    "</body>",
-    "</html>",
+    "</main>", "</body>", "</html>",
   ].join("");
   return { html, profileIds };
 }
@@ -228,9 +216,7 @@ export function validateG5AU02HiddenRenderedWorksheet(renderedWorksheet, workshe
   if (!renderedWorksheet || typeof renderedWorksheet !== "object") {
     return deepFreeze({ ok: false, errors: ["G5AU02_RENDERER_OUTPUT_REQUIRED", ...errors] });
   }
-  if (renderedWorksheet.schemaName !== "G5AU02HiddenRenderedWorksheet" || renderedWorksheet.unitId !== "g5a_u02") {
-    errors.push("G5AU02_RENDERER_OUTPUT_SCHEMA_INVALID");
-  }
+  if (renderedWorksheet.schemaName !== "G5AU02HiddenRenderedWorksheet" || renderedWorksheet.unitId !== "g5a_u02") errors.push("G5AU02_RENDERER_OUTPUT_SCHEMA_INVALID");
   if (renderedWorksheet.lifecycle?.rendererStatus !== "hidden_html_integrated") errors.push("G5AU02_RENDERER_STATUS_INVALID");
   if (renderedWorksheet.lifecycle?.selectorStatus !== "hidden") errors.push("G5AU02_RENDERER_SELECTOR_SCOPE_BREACH");
   if (renderedWorksheet.lifecycle?.browserPipelineStatus !== "not_connected") errors.push("G5AU02_RENDERER_BROWSER_PIPELINE_SCOPE_BREACH");
@@ -318,16 +304,22 @@ export function auditG5AU02HiddenRendererIntegration() {
     if (!result.ok) errors.push(...result.errors);
     else for (const profileId of result.renderedWorksheet.profileIds) profilesSeen.add(profileId);
   }
-  const full = buildAndRenderG5AU02HiddenWorksheet({ questionCount: 22, baseSeed: 392, questionRowsPerPage: 22, answerRowsPerPage: 22 });
+  const full = buildAndRenderG5AU02HiddenWorksheet({
+    questionCount: 22,
+    baseSeed: 392,
+    questionRowsPerPage: 22,
+    answerRowsPerPage: 22,
+  });
   if (!full.ok) errors.push(...full.errors);
   else {
     const validation = validateG5AU02HiddenRenderedWorksheet(full.renderedWorksheet, full.worksheetDocument);
     if (!validation.ok) errors.push(...validation.errors);
-    if (full.renderedWorksheet.answerModelIds.length !== 16) errors.push("G5AU02_RENDERER_ANSWER_MODEL_COUNT_MISMATCH");
+    if (full.renderedWorksheet.answerModelIds.length !== 18) errors.push("G5AU02_RENDERER_ANSWER_MODEL_COUNT_MISMATCH");
   }
   const suppressed = buildAndRenderG5AU02HiddenWorksheet({ questionCount: 5, baseSeed: 492, includeAnswerKey: false });
   if (!suppressed.ok) errors.push(...suppressed.errors);
-  else if (suppressed.renderedWorksheet.answerPageCount !== 0 || suppressed.renderedWorksheet.html.includes("g5a-u02-section--answer-key")) {
+  else if (suppressed.renderedWorksheet.answerPageCount !== 0
+    || suppressed.renderedWorksheet.html.includes("g5a-u02-section--answer-key")) {
     errors.push("G5AU02_RENDERER_ANSWER_SUPPRESSION_FAILED");
   }
   if (profilesSeen.size !== 3) errors.push("G5AU02_RENDERER_PROFILE_COVERAGE_MISMATCH");
@@ -343,8 +335,5 @@ export function auditG5AU02HiddenRendererIntegration() {
   });
 }
 
-export function getG5AU02HiddenRendererProfiles() {
-  return RENDERER_PROFILES;
-}
-
+export function getG5AU02HiddenRendererProfiles() { return RENDERER_PROFILES; }
 export const G5A_U02_HIDDEN_RENDERER_LIFECYCLE = RENDERER_LIFECYCLE;
