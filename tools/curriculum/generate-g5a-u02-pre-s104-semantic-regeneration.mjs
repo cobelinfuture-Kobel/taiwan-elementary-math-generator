@@ -10,7 +10,12 @@ import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-
 const TASK = "G5AU02_PreS104_WorkedSolutionLeakageAndResponseSpaceFullFix";
 const QUESTION_COUNT = 60;
 const GENERATION_SEED = 104001;
-const PAGE_SIZE = 6;
+const QUESTION_PAGE_SIZE = 6;
+const QUESTION_COLUMNS = 2;
+const QUESTION_ROWS = 3;
+const ANSWER_PAGE_SIZE = 5;
+const ANSWER_COLUMNS = 1;
+const ANSWER_ROWS = 5;
 const outputDir = resolve("docs/curriculum/output/pre-s104");
 const htmlPath = resolve(outputDir, "G5AU02_PreS104_Regenerated60.html");
 const manifestPath = resolve(outputDir, "G5AU02_PreS104_Regenerated60.manifest.json");
@@ -41,23 +46,27 @@ function assert(condition, code) {
 }
 
 function buildPrintableDocument(document) {
-  const questionPages = chunk(document.questionDisplayModels, PAGE_SIZE).map((records, pageIndex) => ({
+  const questionPages = chunk(document.questionDisplayModels, QUESTION_PAGE_SIZE).map((records, pageIndex) => ({
     pageNumber: pageIndex + 1,
-    columns: 2,
+    columns: QUESTION_COLUMNS,
+    rowsPerPage: QUESTION_ROWS,
+    cellsPerPage: QUESTION_PAGE_SIZE,
     cells: records.map((displayModel) => ({
       cellType: "question",
       questionNumber: displayModel.questionNumber,
       displayModel,
     })),
   }));
-  const answerKeyPages = chunk(document.answerKeyItems, PAGE_SIZE).map((records, pageIndex) => ({
+  const answerKeyPages = chunk(document.answerKeyItems, ANSWER_PAGE_SIZE).map((records, pageIndex) => ({
     pageNumber: pageIndex + 1,
-    columns: 1,
+    columns: ANSWER_COLUMNS,
+    rowsPerPage: ANSWER_ROWS,
+    cellsPerPage: ANSWER_PAGE_SIZE,
     cells: records.map((answerKeyItem) => ({ cellType: "answerKey", answerKeyItem })),
   }));
   return {
     ...document,
-    title: "五上因數與公因數｜Pre-S104語意修正版",
+    title: "五上因數與公因數｜S104語意整合修正版",
     subtitle: "60題題目卷與答案卷",
     questionPages,
     answerKeyPages,
@@ -175,8 +184,8 @@ const result = buildG5AU02BrowserDynamicWorksheet({
   questionCount: QUESTION_COUNT,
   generationSeed: GENERATION_SEED,
   includeAnswerKey: true,
-  questionRowsPerPage: PAGE_SIZE,
-  answerRowsPerPage: PAGE_SIZE,
+  questionRowsPerPage: QUESTION_PAGE_SIZE,
+  answerRowsPerPage: ANSWER_PAGE_SIZE,
 });
 if (!result?.ok) throw new Error((result?.errors ?? ["PRE_S104_BUILD_FAILED"]).join("\n"));
 const projected = projectG5AU02DynamicDocumentForGlobalLayout(result);
@@ -198,10 +207,13 @@ const manifest = {
   questionPageCount: printable.questionPages.length,
   answerPageCount: printable.answerKeyPages.length,
   expectedPdfPageCount,
-  questionColumns: 2,
-  answerColumns: 1,
-  questionsPerPage: PAGE_SIZE,
-  rendererProfile: "g5a_u02_pre_s104_semantic_v1",
+  questionColumns: QUESTION_COLUMNS,
+  questionRowsPerPage: QUESTION_ROWS,
+  answerColumns: ANSWER_COLUMNS,
+  answerRowsPerPage: ANSWER_ROWS,
+  questionsPerPage: QUESTION_PAGE_SIZE,
+  answersPerPage: ANSWER_PAGE_SIZE,
+  rendererProfile: "g5a_u02_s104_p0_integrated_v1",
   semanticAuditStatus: audit.status,
   workedSolutionPolicy: audit.workedSolutionPolicy,
   factorRelationWorkedSolutionLeakCount: audit.factorRelationWorkedSolutionLeakCount,
