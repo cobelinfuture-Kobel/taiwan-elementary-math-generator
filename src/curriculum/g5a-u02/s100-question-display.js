@@ -92,7 +92,9 @@ export function buildG5AU02S100QuestionDisplayModel(item) {
 }
 
 function trialRowsText(rows) {
-  return rows.map((row) => `${row.divisor}｜${row.quotient}｜${row.remainder}｜${row.isExact ? "整除" : "不整除"}`).join("\n");
+  return rows
+    .map((row) => `${row.divisor}/${row.quotient}/${row.remainder}${row.isExact ? "✓" : "×"}`)
+    .join("、");
 }
 
 export function serializeG5AU02S100QuestionDisplayModel(model) {
@@ -101,18 +103,17 @@ export function serializeG5AU02S100QuestionDisplayModel(model) {
       const multiply = model.multiplicationWitness;
       const divide = model.divisionWitness;
       return [
-        `利用乘法分解和除法兩種方法，判斷 ${model.candidateDivisor} 是否為 ${model.target} 的因數。`,
-        `乘法見證：${multiply.factorA} × ${multiply.factorB} = ${multiply.product}${multiply.product === model.target ? "" : `（不等於 ${model.target}）`}`,
-        `除法見證：${divide.dividend} ÷ ${divide.divisor} = ${divide.quotient} 餘 ${divide.remainder}`,
-        model.learnerTaskMode === "compare_two_methods" ? "比較兩種方法的結果後作答。" : "完成兩種見證後作答。",
+        `用乘法與除法判斷 ${model.candidateDivisor} 是否為 ${model.target} 的因數。`,
+        `乘：${multiply.factorA}×${multiply.factorB}=${multiply.product}${multiply.product === model.target ? "" : `≠${model.target}`}`,
+        `除：${divide.dividend}÷${divide.divisor}=${divide.quotient} 餘 ${divide.remainder}`,
+        model.learnerTaskMode === "compare_two_methods" ? "比較兩法後作答。" : "完成兩法後作答。",
       ].join("\n");
     }
     case "trial_division_table":
       return [
-        `依序試除 1 到 ${model.searchEnd}，完成試除表，再列出 ${model.target} 的所有因數。`,
-        "除數｜商｜餘數｜結果",
-        trialRowsText(model.rows),
-        "請把所有整除列中的除數與對應商整理成完整因數表。",
+        `試除 1～${model.searchEnd}，再列出 ${model.target} 的所有因數。`,
+        `試除（除數/商/餘數；✓整除）：${trialRowsText(model.rows)}`,
+        "整理所有 ✓ 的除數與對應商。",
       ].join("\n");
     case "factor_pairs_to_ordered_list":
       return [
