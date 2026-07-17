@@ -37,6 +37,7 @@ function buildRegeneratedDocument() {
   const questionPages = chunk(document.questionDisplayModels, 6).map((records, pageIndex) => ({
     pageNumber: pageIndex + 1,
     columns: 2,
+    rowsPerPage: 3,
     cells: records.map((displayModel) => ({
       cellType: "question",
       questionNumber: displayModel.questionNumber,
@@ -46,6 +47,7 @@ function buildRegeneratedDocument() {
   const answerKeyPages = chunk(document.answerKeyItems, 6).map((records, pageIndex) => ({
     pageNumber: pageIndex + 1,
     columns: 1,
+    rowsPerPage: 6,
     cells: records.map((answerKeyItem) => ({ cellType: "answerKey", answerKeyItem })),
   }));
   const printable = {
@@ -174,7 +176,8 @@ test("Pre-S104 answer key satisfies explanation and unit instructions", () => {
 
 test("Pre-S104 public renderer emits the integrated semantic profile without answer leakage", () => {
   const { document, html } = buildRegeneratedDocument();
-  assert.match(html, /data-renderer-profile="g5a_u02_pre_s104_semantic_v1"/);
+  assert.match(html, /data-renderer-profile="g5a_u02_s104_p0_integrated_v1"/);
+  assert.match(html, /data-layout-columns="2" data-layout-rows="3"/);
   assert.match(html, /data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"/);
   assert.doesNotMatch(html, /source_1725_reference/);
   assert.doesNotMatch(html, /ps_g5a_u02_|fm_g5a_u02_|fmc_g5a_u02_|pg_g5a_u02_|kp_g5a_u02_/);

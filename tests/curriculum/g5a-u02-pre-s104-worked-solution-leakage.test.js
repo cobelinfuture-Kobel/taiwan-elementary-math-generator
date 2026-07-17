@@ -42,6 +42,7 @@ function render(document) {
     questionPages: chunk(projectedDocument.questionDisplayModels, 6).map((records, pageIndex) => ({
       pageNumber: pageIndex + 1,
       columns: 2,
+      rowsPerPage: 3,
       cells: records.map((displayModel) => ({
         cellType: "question",
         questionNumber: displayModel.questionNumber,
@@ -51,6 +52,7 @@ function render(document) {
     answerKeyPages: chunk(projectedDocument.answerKeyItems, 6).map((records, pageIndex) => ({
       pageNumber: pageIndex + 1,
       columns: 1,
+      rowsPerPage: 6,
       cells: records.map((answerKeyItem) => ({ cellType: "answerKey", answerKeyItem })),
     })),
   };
@@ -129,7 +131,7 @@ test("rendered student section contains no S100 worked solutions and answer sect
   const [questionSection, answerSection = ""] = html.split("worksheet-section--answer-key");
   assert.match(questionSection, /乘法：_+/);
   assert.match(questionSection, /除法：_+/);
-  assert.match(questionSection, /是否整除 _+/);
+  assert.match(questionSection, /是否整除 _+|整除□/);
   for (const item of document.questionItems) {
     const model = item.questionDisplayModel;
     if (model.kind === "factor_relation_dual_witness") {
