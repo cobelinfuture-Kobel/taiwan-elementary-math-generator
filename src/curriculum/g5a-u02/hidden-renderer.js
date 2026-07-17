@@ -42,6 +42,7 @@ const RENDERER_PROFILES = deepFreeze({
 
 const PROFILE_IDS = Object.freeze(Object.keys(RENDERER_PROFILES));
 const ANSWER_MODEL_IDS = Object.freeze(getG5AU02HiddenWorksheetAnswerModelIds());
+const EXPECTED_SUPPORTED_ANSWER_MODEL_COUNT = 19;
 
 const RENDERER_LIFECYCLE = deepFreeze({
   unitId: "g5a_u02",
@@ -85,6 +86,7 @@ function answerLabel(answerModelId) {
     lengthListAnswer: "邊長",
     areaListAnswer: "面積",
     tileSideAreaPairListAnswer: "邊長與面積",
+    commonFactorAndGcfAnswer: "公因數與最大公因數",
     digitTupleAnswer: "密碼",
   };
   return labels[answerModelId] ?? "答案";
@@ -314,7 +316,9 @@ export function auditG5AU02HiddenRendererIntegration() {
   else {
     const validation = validateG5AU02HiddenRenderedWorksheet(full.renderedWorksheet, full.worksheetDocument);
     if (!validation.ok) errors.push(...validation.errors);
-    if (full.renderedWorksheet.answerModelIds.length !== 18) errors.push("G5AU02_RENDERER_ANSWER_MODEL_COUNT_MISMATCH");
+    if (full.renderedWorksheet.answerModelIds.length !== EXPECTED_SUPPORTED_ANSWER_MODEL_COUNT) {
+      errors.push("G5AU02_RENDERER_ANSWER_MODEL_COUNT_MISMATCH");
+    }
   }
   const suppressed = buildAndRenderG5AU02HiddenWorksheet({ questionCount: 5, baseSeed: 492, includeAnswerKey: false });
   if (!suppressed.ok) errors.push(...suppressed.errors);
