@@ -64,7 +64,7 @@ function recordsFor(document, patternSpecId) {
 }
 
 function answersFor(document, patternSpecId) {
-  return document.answerKeyItems.filter((item) => item.patternSpecId === patternSpecId);
+  return document.answerKeyItems.filter((item) => (item.patternSpecId ?? item.patternId) === patternSpecId);
 }
 
 function intersection(left, right) {
