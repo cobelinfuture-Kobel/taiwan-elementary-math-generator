@@ -15,6 +15,7 @@ import {
 
 const SOURCE_ID = "g5a_u02_5a02";
 const PATTERN_IDS = getG5AU02PromptCompletenessPatternIds();
+const STATEMENT_MARKERS = Object.freeze(["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧"]);
 
 function seedFor(baseSeed, index) {
   return ((baseSeed + index - 1) % 0x7fffffff) + 1;
@@ -51,8 +52,9 @@ function assertVisibleByPattern(record) {
       assert.match(record.prompt, /因數個數(是|為)/);
       for (const factor of model.factorList) assert.ok(record.prompt.includes(String(factor)));
       for (let index = 0; index < model.statements.length; index += 1) {
-        assert.ok(record.prompt.includes(`${index + 1}.`));
+        assert.ok(record.prompt.includes(STATEMENT_MARKERS[index] ?? `（${index + 1}）`));
       }
+      assert.doesNotMatch(record.prompt, /\b\d+\.\d+\s+是/);
       break;
     case "ps_g5a_u02_common_factor_concept_identification":
       assert.equal(model.kind, "candidate_selection");
