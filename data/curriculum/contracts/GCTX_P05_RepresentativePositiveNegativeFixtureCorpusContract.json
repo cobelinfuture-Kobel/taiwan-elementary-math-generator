@@ -1,0 +1,271 @@
+{
+  "contractName": "GCTXRepresentativePositiveNegativeFixtureCorpusContract",
+  "contractVersion": 1,
+  "task": "GCTX-P05_RepresentativePositiveNegativeFixtureCorpus",
+  "status": "fixture_corpus_materialized_ci_accepted",
+  "rulesetVersion": "0.1.0",
+  "schemaPath": "data/curriculum/context/schemas/GCTX_P05_RepresentativeFixtureCorpus.schema.json",
+  "fixtureModulePath": "tests/fixtures/gctx-p05-representative-fixture-corpus.js",
+  "fixtureSupportModulePaths": [
+    "tests/fixtures/gctx-p05-fixture-helpers.js",
+    "tests/fixtures/gctx-p05-positive-chains-a.js",
+    "tests/fixtures/gctx-p05-positive-chains-b.js",
+    "tests/fixtures/gctx-p05-positive-chains.js",
+    "tests/fixtures/gctx-p05-pairwise-fixtures.js",
+    "tests/fixtures/gctx-p05-breadth-profile-fixtures.js"
+  ],
+  "scope": {
+    "syntheticFixtureCorpusOnly": true,
+    "containsRealWorldClaims": false,
+    "containsProductionPblChains": false,
+    "productionAdmissible": false,
+    "runtimeSelectable": false,
+    "runtimeBehaviorChange": false,
+    "unitMigrationChange": false,
+    "validatorImplementationChange": false,
+    "rendererImplementationChange": false,
+    "sourceCorpusChange": false
+  },
+  "upstreamDependencies": {
+    "p02Task": "GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract",
+    "p02Status": "contract_locked_ci_accepted",
+    "p03Task": "GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance",
+    "p03Status": "governance_locked_ci_accepted",
+    "p04Task": "GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract",
+    "p04Status": "contract_locked_ci_accepted",
+    "p02ClosureAuthorityUnchanged": true,
+    "p03EvidenceAuthorityUnchanged": true,
+    "p04FingerprintAuthorityUnchanged": true
+  },
+  "fixtureCounts": {
+    "positiveChainCount": 20,
+    "pairwiseFixtureCount": 5,
+    "breadthProfileFixtureCount": 10,
+    "positiveBreadthProfileCount": 1,
+    "negativeBreadthProfileCount": 9
+  },
+  "positiveCorpusExpectedMetrics": {
+    "pblArchetypeCount": 5,
+    "pblSemanticFamilyCount": 16,
+    "pblApprovedChainCount": 20,
+    "surfaceVariantCount": 450,
+    "numericInstanceCapacity": 41000,
+    "contextDomainCount": 5,
+    "eventFlowSignatureCount": 20,
+    "decisionModelCount": 20,
+    "totalProposedChainCount": 22,
+    "nearDuplicateCandidateCount": 2,
+    "rejectedDuplicateCount": 2,
+    "nearDuplicateRate": 0.090909,
+    "allApprovedFingerprintsUnique": true,
+    "expectedProductionEligible": true
+  },
+  "positiveCorpusIdentityContract": {
+    "eightIdentityDimensionsRequired": true,
+    "canonicalIdentityKeysRequired": true,
+    "canonicalIdentityKeysUnique": true,
+    "fixtureChainIdsUnique": true,
+    "p02ProjectionFixtureReferencesRequired": true,
+    "p03EvidenceFixtureReferencesRequired": true,
+    "allFiveArchetypesRepresented": true,
+    "allFiveContextDomainsRepresented": true,
+    "minimumSemanticFamilyFloorSatisfied": true,
+    "minimumApprovedChainFloorSatisfied": true
+  },
+  "pairwiseExpectedResults": [
+    {
+      "pairFixtureId": "p05_pair_exact_surface_reskin",
+      "expectedWeightedScore": 100,
+      "expectedClassification": "exact_semantic_duplicate",
+      "expectedBlocking": true,
+      "expectedCountsAsDistinctChain": false,
+      "expectedCountsAsDistinctFamily": false,
+      "expectedSurfaceReskinDetected": true,
+      "expectedBlockingCodes": [
+        "PBL_EXACT_SEMANTIC_DUPLICATE",
+        "PBL_SURFACE_RESKIN_DETECTED"
+      ]
+    },
+    {
+      "pairFixtureId": "p05_pair_near_duplicate",
+      "expectedWeightedScore": 87.25,
+      "expectedClassification": "near_duplicate",
+      "expectedBlocking": true,
+      "expectedCountsAsDistinctChain": false,
+      "expectedCountsAsDistinctFamily": false,
+      "expectedSurfaceReskinDetected": false,
+      "expectedBlockingCodes": ["PBL_NEAR_DUPLICATE_CHAIN"]
+    },
+    {
+      "pairFixtureId": "p05_pair_same_family_distinct_chain",
+      "expectedWeightedScore": 59.5,
+      "expectedClassification": "same_family_distinct_chain",
+      "expectedBlocking": false,
+      "expectedCountsAsDistinctChain": true,
+      "expectedCountsAsDistinctFamily": false,
+      "expectedSurfaceReskinDetected": false,
+      "expectedBlockingCodes": []
+    },
+    {
+      "pairFixtureId": "p05_pair_distinct_family",
+      "expectedWeightedScore": 18,
+      "expectedClassification": "distinct_family",
+      "expectedBlocking": false,
+      "expectedCountsAsDistinctChain": true,
+      "expectedCountsAsDistinctFamily": true,
+      "expectedSurfaceReskinDetected": false,
+      "expectedBlockingCodes": []
+    },
+    {
+      "pairFixtureId": "p05_pair_distinct_archetype",
+      "expectedWeightedScore": 20.5,
+      "expectedClassification": "distinct_archetype",
+      "expectedBlocking": false,
+      "expectedCountsAsDistinctChain": true,
+      "expectedCountsAsDistinctFamily": true,
+      "expectedSurfaceReskinDetected": false,
+      "expectedBlockingCodes": []
+    }
+  ],
+  "breadthProfileExpectedResults": [
+    {
+      "profileFixtureId": "p05_breadth_positive_floor_pass",
+      "expectedProductionEligible": true,
+      "expectedBlockingCodes": []
+    },
+    {
+      "profileFixtureId": "p05_breadth_archetype_floor_fail",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": ["PBL_ARCHETYPE_BREADTH_INSUFFICIENT"]
+    },
+    {
+      "profileFixtureId": "p05_breadth_family_floor_fail",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": ["PBL_SEMANTIC_FAMILY_BREADTH_INSUFFICIENT"]
+    },
+    {
+      "profileFixtureId": "p05_breadth_chain_floor_fail",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": ["PBL_APPROVED_CHAIN_BREADTH_INSUFFICIENT"]
+    },
+    {
+      "profileFixtureId": "p05_breadth_domain_floor_fail",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": ["PBL_CONTEXT_DOMAIN_COVERAGE_INSUFFICIENT"]
+    },
+    {
+      "profileFixtureId": "p05_breadth_event_flow_floor_fail",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": ["PBL_EVENT_FLOW_BREADTH_INSUFFICIENT"]
+    },
+    {
+      "profileFixtureId": "p05_breadth_decision_model_floor_fail",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": ["PBL_DECISION_MODEL_BREADTH_INSUFFICIENT"]
+    },
+    {
+      "profileFixtureId": "p05_breadth_near_duplicate_rate_fail",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": ["PBL_NEAR_DUPLICATE_RATE_EXCEEDED"]
+    },
+    {
+      "profileFixtureId": "p05_breadth_fingerprint_collision_fail",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": ["PBL_APPROVED_CHAIN_FINGERPRINT_COLLISION"]
+    },
+    {
+      "profileFixtureId": "p05_breadth_numeric_substitution_forbidden",
+      "expectedProductionEligible": false,
+      "expectedBlockingCodes": [
+        "PBL_APPROVED_CHAIN_BREADTH_INSUFFICIENT",
+        "PBL_NUMERIC_CAPACITY_COUNTING_FORBIDDEN"
+      ]
+    }
+  ],
+  "surfaceAndNumericBoundary": {
+    "exactSurfaceReskinUsesIdenticalCanonicalIdentity": true,
+    "surfaceReskinMayChangeActorPlaceObjectLanguageAndNumbers": true,
+    "surfaceReskinCountsAsDistinctChain": false,
+    "surfaceReskinCountsAsDistinctFamily": false,
+    "numericCapacityMaySubstituteForApprovedChainCount": false,
+    "surfaceVariantCountMaySubstituteForApprovedChainCount": false,
+    "fixtureSurfaceVariantCountIsProductionMetric": false,
+    "fixtureNumericInstanceCapacityIsProductionMetric": false
+  },
+  "fixtureSafetyContract": {
+    "allFixtureRecordsDeclareFixtureOnly": true,
+    "allFixtureRecordsDeclareProductionAdmissibleFalse": true,
+    "allFixtureRecordsDeclareRuntimeSelectableFalse": true,
+    "fixtureEvidenceIdsAreSynthetic": true,
+    "fixtureProjectionIdsAreSynthetic": true,
+    "fixtureMayBePromotedToProduction": false,
+    "fixtureMayBeUsedAsRealWorldClaim": false,
+    "fixtureMayBeLoadedByRuntime": false
+  },
+  "deferredToP06": [
+    "fingerprintCanonicalizerContract",
+    "weightedSimilarityCalculatorContract",
+    "nearDuplicateClassifierContract",
+    "breadthGateValidatorContract",
+    "blockingCodeExecutionContract"
+  ],
+  "deferredToRuntime": [
+    "fingerprintCanonicalizerImplementation",
+    "pairwiseSimilarityEngineImplementation",
+    "globalSameFamilyIndexImplementation",
+    "productionBreadthResolverImplementation"
+  ],
+  "compatibilityContract": {
+    "p02ClosureAuthorityUnchanged": true,
+    "p03EvidenceAuthorityUnchanged": true,
+    "p04FingerprintAuthorityUnchanged": true,
+    "existingKnowledgePointAuthorityUnchanged": true,
+    "existingPatternSpecAuthorityUnchanged": true,
+    "existingMathValidatorAuthorityUnchanged": true,
+    "existingUnitRuntimeUnchanged": true,
+    "existingRendererUnchanged": true,
+    "g5aU02FilesMayBeModified": false
+  },
+  "acceptance": {
+    "schemaAndCorpusResolve": true,
+    "fixtureCountsExact": true,
+    "twentyPositiveChainsCanonicalIdentityUnique": true,
+    "fivePairwiseClassificationsCovered": true,
+    "allBlockingBreadthFloorsCovered": true,
+    "numericSubstitutionRejected": true,
+    "fixtureOnlyBoundaryLocked": true,
+    "noProductionContentAdded": true,
+    "noRuntimeChanged": true
+  },
+  "ciPolicy": {
+    "ownedGatesMustPass": true,
+    "newFailureRelativeToMainAllowed": false,
+    "inheritedNonOwnedBaselineFailureMayBeRecordedByParity": true,
+    "inheritedFailureMayBeRepairedInP05": false
+  },
+  "ciAcceptance": {
+    "acceptedHeadSha": "43fa7dd0ae37595cfdfe4b6eaae4d5263ed67a0c",
+    "workflowCount": 19,
+    "successCount": 18,
+    "inheritedFailureCount": 1,
+    "inheritedFailureWorkflow": "S93 G5A-U02 Hidden HTML PDF Smoke",
+    "newOwnedFailures": 0,
+    "baselineParityAccepted": true,
+    "nodeTestRunNumber": 2331,
+    "mathCiReadbackRunNumber": 2001,
+    "productionStressRunNumber": 335
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_PBL_SEMANTIC_BREADTH_AND_DEDUP_CONTRACT_LOCKED",
+    "goalDistanceAfter": "D2_GCTX_REPRESENTATIVE_FIXTURE_CORPUS_LOCKED",
+    "distanceReduced": "materialized replayable positive and negative evidence for semantic identity, duplicate classification and breadth gates",
+    "remainingBlockers": [
+      "validator and blocking-code contracts",
+      "layout contracts",
+      "runtime fingerprint resolver",
+      "production population authoring",
+      "existing-unit audits"
+    ]
+  },
+  "nextTask": "GCTX-P06_ValidatorAndBlockingCodeContract"
+}

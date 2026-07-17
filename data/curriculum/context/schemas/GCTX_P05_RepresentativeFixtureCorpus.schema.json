@@ -1,0 +1,354 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taiwan-elementary-math-generator.example/schemas/gctx-p05-representative-fixture-corpus-v1.json",
+  "title": "GCTX-P05 Representative Positive and Negative Fixture Corpus",
+  "description": "Synthetic, non-production fixtures for P02 closure, P03 evidence traceability and P04 PBL semantic fingerprint, near-duplicate and breadth-gate validation.",
+  "$defs": {
+    "contextDomain": {
+      "type": "string",
+      "enum": ["daily_life", "sdg", "natural_science", "social_studies", "history"]
+    },
+    "archetype": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "comparison",
+        "resource_allocation",
+        "data_investigation",
+        "controlled_history_social_task"
+      ]
+    },
+    "signatureToken": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(?::[a-z0-9_]+)*$"
+    },
+    "fixtureOnlyFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixtureOnly", "productionAdmissible", "runtimeSelectable"],
+      "properties": {
+        "fixtureOnly": {"const": true},
+        "productionAdmissible": {"const": false},
+        "runtimeSelectable": {"const": false}
+      }
+    },
+    "identityVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectArchetype",
+        "projectGoal",
+        "requiredMilestones",
+        "eventFlow",
+        "quantityDependencyGraph",
+        "decisionModel",
+        "mathematicalComposition",
+        "terminalDeliverable"
+      ],
+      "properties": {
+        "projectArchetype": {"$ref": "#/$defs/archetype"},
+        "projectGoal": {"$ref": "#/$defs/signatureToken"},
+        "requiredMilestones": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "eventFlow": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "quantityDependencyGraph": {"$ref": "#/$defs/signatureToken"},
+        "decisionModel": {"$ref": "#/$defs/signatureToken"},
+        "mathematicalComposition": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "terminalDeliverable": {"$ref": "#/$defs/signatureToken"}
+      }
+    },
+    "surfaceEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actorNames",
+        "placeNames",
+        "objectNames",
+        "languageVariantIds",
+        "numericProfileIds",
+        "randomSeeds",
+        "surfaceVariantCount",
+        "numericInstanceCapacity"
+      ],
+      "properties": {
+        "actorNames": {"type": "array", "items": {"type": "string"}},
+        "placeNames": {"type": "array", "items": {"type": "string"}},
+        "objectNames": {"type": "array", "items": {"type": "string"}},
+        "languageVariantIds": {"type": "array", "items": {"type": "string"}},
+        "numericProfileIds": {"type": "array", "items": {"type": "string"}},
+        "randomSeeds": {"type": "array", "items": {"type": "integer"}},
+        "surfaceVariantCount": {"type": "integer", "minimum": 0},
+        "numericInstanceCapacity": {"type": "integer", "minimum": 0}
+      }
+    },
+    "positiveChainFixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixtureChainId",
+        "semanticFamilyId",
+        "contextDomain",
+        "identity",
+        "surface",
+        "p02ProjectionProfileIds",
+        "p03EvidenceFixtureIds",
+        "expectedCanonicalIdentityKey",
+        "flags"
+      ],
+      "properties": {
+        "fixtureChainId": {"type": "string", "pattern": "^p05_chain_[0-9]{3}$"},
+        "semanticFamilyId": {"type": "string", "pattern": "^p05_family_[0-9]{2}$"},
+        "contextDomain": {"$ref": "#/$defs/contextDomain"},
+        "identity": {"$ref": "#/$defs/identityVector"},
+        "surface": {"$ref": "#/$defs/surfaceEnvelope"},
+        "p02ProjectionProfileIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^p05_projection_[0-9]{3}_[2-5]q$"}
+        },
+        "p03EvidenceFixtureIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^p05_evidence_[a-z0-9_]+$"}
+        },
+        "expectedCanonicalIdentityKey": {"type": "string", "minLength": 1},
+        "flags": {"$ref": "#/$defs/fixtureOnlyFlags"}
+      }
+    },
+    "similarityComponents": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectArchetype",
+        "projectGoal",
+        "requiredMilestones",
+        "eventFlow",
+        "quantityDependencyGraph",
+        "decisionModel",
+        "mathematicalComposition",
+        "terminalDeliverable"
+      ],
+      "properties": {
+        "projectArchetype": {"type": "number", "minimum": 0, "maximum": 1},
+        "projectGoal": {"type": "number", "minimum": 0, "maximum": 1},
+        "requiredMilestones": {"type": "number", "minimum": 0, "maximum": 1},
+        "eventFlow": {"type": "number", "minimum": 0, "maximum": 1},
+        "quantityDependencyGraph": {"type": "number", "minimum": 0, "maximum": 1},
+        "decisionModel": {"type": "number", "minimum": 0, "maximum": 1},
+        "mathematicalComposition": {"type": "number", "minimum": 0, "maximum": 1},
+        "terminalDeliverable": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "pairwiseFixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pairFixtureId",
+        "chainARef",
+        "chainBRef",
+        "candidateBIdentityOverride",
+        "candidateBSurfaceOverride",
+        "componentSimilarities",
+        "expectedWeightedScore",
+        "expectedClassification",
+        "expectedBlocking",
+        "expectedCountsAsDistinctChain",
+        "expectedCountsAsDistinctFamily",
+        "expectedSurfaceReskinDetected",
+        "expectedBlockingCodes",
+        "flags"
+      ],
+      "properties": {
+        "pairFixtureId": {"type": "string", "pattern": "^p05_pair_[a-z0-9_]+$"},
+        "chainARef": {"type": "string", "pattern": "^p05_chain_[0-9]{3}$"},
+        "chainBRef": {"type": ["string", "null"], "pattern": "^p05_chain_[0-9]{3}$"},
+        "candidateBIdentityOverride": {
+          "oneOf": [
+            {"$ref": "#/$defs/identityVector"},
+            {"type": "null"}
+          ]
+        },
+        "candidateBSurfaceOverride": {
+          "oneOf": [
+            {"$ref": "#/$defs/surfaceEnvelope"},
+            {"type": "null"}
+          ]
+        },
+        "componentSimilarities": {"$ref": "#/$defs/similarityComponents"},
+        "expectedWeightedScore": {"type": "number", "minimum": 0, "maximum": 100},
+        "expectedClassification": {
+          "type": "string",
+          "enum": [
+            "exact_semantic_duplicate",
+            "near_duplicate",
+            "same_family_distinct_chain",
+            "distinct_family",
+            "distinct_archetype"
+          ]
+        },
+        "expectedBlocking": {"type": "boolean"},
+        "expectedCountsAsDistinctChain": {"type": "boolean"},
+        "expectedCountsAsDistinctFamily": {"type": "boolean"},
+        "expectedSurfaceReskinDetected": {"type": "boolean"},
+        "expectedBlockingCodes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^PBL_[A-Z0-9_]+$"}
+        },
+        "flags": {"$ref": "#/$defs/fixtureOnlyFlags"}
+      }
+    },
+    "breadthMetrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pblArchetypeCount",
+        "pblSemanticFamilyCount",
+        "pblApprovedChainCount",
+        "surfaceVariantCount",
+        "numericInstanceCapacity",
+        "contextDomainCount",
+        "eventFlowSignatureCount",
+        "decisionModelCount",
+        "totalProposedChainCount",
+        "nearDuplicateCandidateCount",
+        "rejectedDuplicateCount",
+        "nearDuplicateRate",
+        "allApprovedFingerprintsUnique"
+      ],
+      "properties": {
+        "pblArchetypeCount": {"type": "integer", "minimum": 0},
+        "pblSemanticFamilyCount": {"type": "integer", "minimum": 0},
+        "pblApprovedChainCount": {"type": "integer", "minimum": 0},
+        "surfaceVariantCount": {"type": "integer", "minimum": 0},
+        "numericInstanceCapacity": {"type": "integer", "minimum": 0},
+        "contextDomainCount": {"type": "integer", "minimum": 0},
+        "eventFlowSignatureCount": {"type": "integer", "minimum": 0},
+        "decisionModelCount": {"type": "integer", "minimum": 0},
+        "totalProposedChainCount": {"type": "integer", "minimum": 1},
+        "nearDuplicateCandidateCount": {"type": "integer", "minimum": 0},
+        "rejectedDuplicateCount": {"type": "integer", "minimum": 0},
+        "nearDuplicateRate": {"type": "number", "minimum": 0, "maximum": 1},
+        "allApprovedFingerprintsUnique": {"type": "boolean"}
+      }
+    },
+    "breadthProfileFixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profileFixtureId",
+        "description",
+        "metrics",
+        "attemptedSubstitution",
+        "expectedProductionEligible",
+        "expectedBlockingCodes",
+        "flags"
+      ],
+      "properties": {
+        "profileFixtureId": {"type": "string", "pattern": "^p05_breadth_[a-z0-9_]+$"},
+        "description": {"type": "string", "minLength": 1},
+        "metrics": {"$ref": "#/$defs/breadthMetrics"},
+        "attemptedSubstitution": {
+          "type": "string",
+          "enum": ["none", "surface_variants", "numeric_capacity"]
+        },
+        "expectedProductionEligible": {"type": "boolean"},
+        "expectedBlockingCodes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^PBL_[A-Z0-9_]+$"}
+        },
+        "flags": {"$ref": "#/$defs/fixtureOnlyFlags"}
+      }
+    },
+    "corpusEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixtureSchemaVersion",
+        "rulesetVersion",
+        "fixtureOnly",
+        "productionAdmissible",
+        "runtimeSelectable",
+        "upstreamContracts",
+        "fixturePolicy",
+        "positiveChains",
+        "pairwiseFixtures",
+        "breadthProfileFixtures"
+      ],
+      "properties": {
+        "fixtureSchemaVersion": {"const": "gctx-p05-representative-fixtures-v1"},
+        "rulesetVersion": {"const": "0.1.0"},
+        "fixtureOnly": {"const": true},
+        "productionAdmissible": {"const": false},
+        "runtimeSelectable": {"const": false},
+        "upstreamContracts": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract"},
+            {"const": "GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance"},
+            {"const": "GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract"}
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "fixturePolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "syntheticOnly",
+            "containsRealWorldClaims",
+            "mayBecomeProductionContent",
+            "mayBeSelectedByRuntime",
+            "expectedPositiveChainCount",
+            "expectedPairwiseFixtureCount",
+            "expectedBreadthProfileFixtureCount"
+          ],
+          "properties": {
+            "syntheticOnly": {"const": true},
+            "containsRealWorldClaims": {"const": false},
+            "mayBecomeProductionContent": {"const": false},
+            "mayBeSelectedByRuntime": {"const": false},
+            "expectedPositiveChainCount": {"const": 20},
+            "expectedPairwiseFixtureCount": {"const": 5},
+            "expectedBreadthProfileFixtureCount": {"const": 10}
+          }
+        },
+        "positiveChains": {
+          "type": "array",
+          "minItems": 20,
+          "maxItems": 20,
+          "items": {"$ref": "#/$defs/positiveChainFixture"}
+        },
+        "pairwiseFixtures": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {"$ref": "#/$defs/pairwiseFixture"}
+        },
+        "breadthProfileFixtures": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 10,
+          "items": {"$ref": "#/$defs/breadthProfileFixture"}
+        }
+      }
+    }
+  },
+  "$ref": "#/$defs/corpusEnvelope"
+}

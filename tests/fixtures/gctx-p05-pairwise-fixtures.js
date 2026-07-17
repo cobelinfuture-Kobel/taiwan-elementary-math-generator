@@ -1,0 +1,180 @@
+import {
+  P05_FIXTURE_FLAGS,
+  calculateP04WeightedScore,
+  cloneFixture,
+} from "./gctx-p05-fixture-helpers.js";
+import { GCTX_P05_POSITIVE_CHAIN_BY_ID } from "./gctx-p05-positive-chains.js";
+
+const surfaceReskin = Object.freeze({
+  actorNames: ["different_actor"],
+  placeNames: ["different_place"],
+  objectNames: ["different_object"],
+  languageVariantIds: ["different_wording"],
+  numericProfileIds: ["different_numbers"],
+  randomSeeds: [999999],
+  surfaceVariantCount: 9999,
+  numericInstanceCapacity: 1000000,
+});
+
+const nearDuplicateIdentity = cloneFixture(
+  GCTX_P05_POSITIVE_CHAIN_BY_ID.get("p05_chain_001").identity,
+);
+nearDuplicateIdentity.requiredMilestones = [
+  "collect_group_requirements",
+  "calculate_route_capacity",
+  "calculate_route_cost",
+  "compare_route_constraints",
+  "select_feasible_route",
+];
+nearDuplicateIdentity.eventFlow = [
+  "gather_requirements",
+  "compute_capacities",
+  "compute_costs",
+  "compare_routes",
+  "make_route_decision",
+];
+nearDuplicateIdentity.decisionModel = "capacity_sufficient_then_minimum_total_cost";
+
+function makePairFixture({
+  id,
+  chainARef,
+  chainBRef = null,
+  candidateBIdentityOverride = null,
+  candidateBSurfaceOverride = null,
+  componentSimilarities,
+  classification,
+  blocking,
+  distinctChain,
+  distinctFamily,
+  surfaceReskinDetected,
+  blockingCodes = [],
+}) {
+  return Object.freeze({
+    pairFixtureId: id,
+    chainARef,
+    chainBRef,
+    candidateBIdentityOverride,
+    candidateBSurfaceOverride,
+    componentSimilarities,
+    expectedWeightedScore: calculateP04WeightedScore(componentSimilarities),
+    expectedClassification: classification,
+    expectedBlocking: blocking,
+    expectedCountsAsDistinctChain: distinctChain,
+    expectedCountsAsDistinctFamily: distinctFamily,
+    expectedSurfaceReskinDetected: surfaceReskinDetected,
+    expectedBlockingCodes: blockingCodes,
+    flags: P05_FIXTURE_FLAGS,
+  });
+}
+
+export const GCTX_P05_PAIRWISE_FIXTURES = Object.freeze([
+  makePairFixture({
+    id: "p05_pair_exact_surface_reskin",
+    chainARef: "p05_chain_001",
+    candidateBIdentityOverride: cloneFixture(
+      GCTX_P05_POSITIVE_CHAIN_BY_ID.get("p05_chain_001").identity,
+    ),
+    candidateBSurfaceOverride: surfaceReskin,
+    componentSimilarities: {
+      projectArchetype: 1,
+      projectGoal: 1,
+      requiredMilestones: 1,
+      eventFlow: 1,
+      quantityDependencyGraph: 1,
+      decisionModel: 1,
+      mathematicalComposition: 1,
+      terminalDeliverable: 1,
+    },
+    classification: "exact_semantic_duplicate",
+    blocking: true,
+    distinctChain: false,
+    distinctFamily: false,
+    surfaceReskinDetected: true,
+    blockingCodes: [
+      "PBL_EXACT_SEMANTIC_DUPLICATE",
+      "PBL_SURFACE_RESKIN_DETECTED",
+    ],
+  }),
+  makePairFixture({
+    id: "p05_pair_near_duplicate",
+    chainARef: "p05_chain_001",
+    candidateBIdentityOverride: nearDuplicateIdentity,
+    candidateBSurfaceOverride: surfaceReskin,
+    componentSimilarities: {
+      projectArchetype: 1,
+      projectGoal: 0.9,
+      requiredMilestones: 0.85,
+      eventFlow: 0.8,
+      quantityDependencyGraph: 0.9,
+      decisionModel: 0.75,
+      mathematicalComposition: 0.9,
+      terminalDeliverable: 0.8,
+    },
+    classification: "near_duplicate",
+    blocking: true,
+    distinctChain: false,
+    distinctFamily: false,
+    surfaceReskinDetected: false,
+    blockingCodes: ["PBL_NEAR_DUPLICATE_CHAIN"],
+  }),
+  makePairFixture({
+    id: "p05_pair_same_family_distinct_chain",
+    chainARef: "p05_chain_009",
+    chainBRef: "p05_chain_011",
+    componentSimilarities: {
+      projectArchetype: 1,
+      projectGoal: 0.5,
+      requiredMilestones: 0.5,
+      eventFlow: 0.5,
+      quantityDependencyGraph: 0.5,
+      decisionModel: 0.5,
+      mathematicalComposition: 0.7,
+      terminalDeliverable: 0.5,
+    },
+    classification: "same_family_distinct_chain",
+    blocking: false,
+    distinctChain: true,
+    distinctFamily: false,
+    surfaceReskinDetected: false,
+  }),
+  makePairFixture({
+    id: "p05_pair_distinct_family",
+    chainARef: "p05_chain_005",
+    chainBRef: "p05_chain_013",
+    componentSimilarities: {
+      projectArchetype: 0,
+      projectGoal: 0.2,
+      requiredMilestones: 0.2,
+      eventFlow: 0.2,
+      quantityDependencyGraph: 0.2,
+      decisionModel: 0.2,
+      mathematicalComposition: 0.3,
+      terminalDeliverable: 0.2,
+    },
+    classification: "distinct_family",
+    blocking: false,
+    distinctChain: true,
+    distinctFamily: true,
+    surfaceReskinDetected: false,
+  }),
+  makePairFixture({
+    id: "p05_pair_distinct_archetype",
+    chainARef: "p05_chain_003",
+    chainBRef: "p05_chain_018",
+    componentSimilarities: {
+      projectArchetype: 0,
+      projectGoal: 0.25,
+      requiredMilestones: 0.25,
+      eventFlow: 0.2,
+      quantityDependencyGraph: 0.2,
+      decisionModel: 0.2,
+      mathematicalComposition: 0.4,
+      terminalDeliverable: 0.2,
+    },
+    classification: "distinct_archetype",
+    blocking: false,
+    distinctChain: true,
+    distinctFamily: true,
+    surfaceReskinDetected: false,
+  }),
+]);
