@@ -1,0 +1,448 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taiwan-elementary-math-generator.example/schemas/gctx-approved-semantic-chain-v1.json",
+  "title": "GCTX Approved Semantic Chain Schema",
+  "description": "Exact unit-owned semantic bindings. Runtime may select approved language and numeric variants but may not compose a new semantic binding.",
+  "$defs": {
+    "lifecycleStatus": {
+      "type": "string",
+      "enum": ["candidate", "reviewed", "approved", "deprecated", "blocked", "rejected"]
+    },
+    "gradeBand": {
+      "type": "string",
+      "enum": ["G3", "G4", "G5", "G6"]
+    },
+    "eraTag": {
+      "type": "string",
+      "enum": ["modern", "ancient"]
+    },
+    "semanticSlotBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slotId", "slotKind", "assetId", "semanticRole"],
+      "properties": {
+        "slotId": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "slotKind": {
+          "type": "string",
+          "enum": ["actor", "place", "object", "activity", "classifier", "unit"]
+        },
+        "assetId": {"type": "string", "minLength": 1},
+        "semanticRole": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "required": {"type": "boolean"}
+      }
+    },
+    "eventStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventStepId",
+        "order",
+        "eventType",
+        "actorSlotId",
+        "actionId",
+        "inputQuantityRoleIds",
+        "outputQuantityRoleIds",
+        "stateTransition"
+      ],
+      "properties": {
+        "eventStepId": {"type": "string", "pattern": "^evt_[a-z0-9_]+$"},
+        "order": {"type": "integer", "minimum": 1},
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "state_observation",
+            "quantity_introduction",
+            "quantity_change",
+            "quantity_grouping",
+            "quantity_comparison",
+            "unit_conversion",
+            "question_terminal"
+          ]
+        },
+        "actorSlotId": {"type": ["string", "null"]},
+        "placeSlotId": {"type": ["string", "null"]},
+        "objectSlotIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "actionId": {"type": "string", "minLength": 1},
+        "inputQuantityRoleIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^qty_[a-z0-9_]+$"}
+        },
+        "outputQuantityRoleIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^qty_[a-z0-9_]+$"}
+        },
+        "stateTransition": {"type": "string", "minLength": 1},
+        "mustPreserveOrder": {"const": true}
+      }
+    },
+    "quantityRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quantityRoleId",
+        "roleKind",
+        "semanticRole",
+        "entitySlotId",
+        "valueOrigin",
+        "unitDimension",
+        "numericProfileRoleKey",
+        "isQuestionTarget"
+      ],
+      "properties": {
+        "quantityRoleId": {"type": "string", "pattern": "^qty_[a-z0-9_]+$"},
+        "roleKind": {
+          "type": "string",
+          "enum": ["given", "sampled_base", "derived_intermediate", "answer_target"]
+        },
+        "semanticRole": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "entitySlotId": {"type": ["string", "null"]},
+        "valueOrigin": {
+          "type": "string",
+          "enum": ["stimulus", "numeric_profile", "formula", "canonical_answer"]
+        },
+        "unitDimension": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "allowedUnitIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "numericProfileRoleKey": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "isQuestionTarget": {"type": "boolean"}
+      }
+    },
+    "unitFlowEdge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fromQuantityRoleId", "toQuantityRoleId", "relationType", "mustBeExact"],
+      "properties": {
+        "fromQuantityRoleId": {"type": "string", "pattern": "^qty_[a-z0-9_]+$"},
+        "toQuantityRoleId": {"type": "string", "pattern": "^qty_[a-z0-9_]+$"},
+        "relationType": {
+          "type": "string",
+          "enum": ["same_unit", "conversion", "rate_composition", "dimensionless", "derived_unit"]
+        },
+        "conversionRuleId": {"type": ["string", "null"]},
+        "mustBeExact": {"type": "boolean"}
+      }
+    },
+    "questionRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "questionRoleId",
+        "intent",
+        "targetQuantityRoleIds",
+        "answerShape",
+        "mustUseEventStepIds",
+        "terminalForBinding"
+      ],
+      "properties": {
+        "questionRoleId": {"type": "string", "pattern": "^qrole_[a-z0-9_]+$"},
+        "intent": {
+          "type": "string",
+          "enum": ["calculate", "compare", "identify", "estimate", "select_from_approved_options"]
+        },
+        "targetQuantityRoleIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^qty_[a-z0-9_]+$"}
+        },
+        "answerShape": {
+          "type": "string",
+          "enum": ["integer", "decimal", "fraction", "quantity", "choice", "ordered_tuple", "text_label"]
+        },
+        "mustUseEventStepIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^evt_[a-z0-9_]+$"}
+        },
+        "terminalForBinding": {"const": true}
+      }
+    },
+    "compatibilityRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requiredSlotIds",
+        "forbiddenCombinationIds",
+        "allowedEraTags",
+        "allowedGradeBands",
+        "requiredCommonKnowledgeIds",
+        "forbiddenCommonKnowledgeIds",
+        "semanticGuardIds"
+      ],
+      "properties": {
+        "requiredSlotIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "forbiddenCombinationIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "allowedEraTags": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/eraTag"}
+        },
+        "allowedGradeBands": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/gradeBand"}
+        },
+        "requiredCommonKnowledgeIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^gctx_ck_[a-z0-9_]+$"}
+        },
+        "forbiddenCommonKnowledgeIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^gctx_ck_[a-z0-9_]+$"}
+        },
+        "semanticGuardIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^gctx_guard_[a-z0-9_]+$"}
+        }
+      }
+    },
+    "reviewEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approvalState",
+        "rulesetVersion",
+        "semanticReviewIds",
+        "mathematicalReviewIds",
+        "sourceEvidenceIds",
+        "semanticCompletenessConfirmed",
+        "mathematicalMeaningPreserved"
+      ],
+      "properties": {
+        "approvalState": {
+          "type": "string",
+          "enum": ["candidate", "semantic_reviewed", "mathematically_reviewed", "approved", "rejected"]
+        },
+        "rulesetVersion": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "semanticReviewIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "mathematicalReviewIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "sourceEvidenceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "semanticCompletenessConfirmed": {"type": "boolean"},
+        "mathematicalMeaningPreserved": {"type": "boolean"},
+        "approvedAt": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "randomnessPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "selectableAxes",
+        "mayCreateNewSemanticBinding",
+        "mayReplaceContextFamily",
+        "mayMutateSemanticSlotBindings",
+        "mayMutateEventFlow",
+        "mayChangeQuestionRole",
+        "fallbackPolicy"
+      ],
+      "properties": {
+        "mode": {"const": "select_approved_components_only"},
+        "selectableAxes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "enum": ["language_variant", "numeric_profile"]}
+        },
+        "mayCreateNewSemanticBinding": {"const": false},
+        "mayReplaceContextFamily": {"const": false},
+        "mayMutateSemanticSlotBindings": {"const": false},
+        "mayMutateEventFlow": {"const": false},
+        "mayChangeQuestionRole": {"const": false},
+        "fallbackPolicy": {"const": "block"}
+      }
+    },
+    "validationContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semanticValidatorHooks",
+        "mathValidatorHooks",
+        "canonicalAnswerRecomputationRequired",
+        "blocking",
+        "mustValidateSlotBindings",
+        "mustValidateEventFlow",
+        "mustValidateQuantityRoles",
+        "mustValidateUnitFlow",
+        "mustValidateQuestionRole"
+      ],
+      "properties": {
+        "semanticValidatorHooks": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "mathValidatorHooks": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "canonicalAnswerRecomputationRequired": {"const": true},
+        "blocking": {"const": true},
+        "mustValidateSlotBindings": {"const": true},
+        "mustValidateEventFlow": {"const": true},
+        "mustValidateQuantityRoles": {"const": true},
+        "mustValidateUnitFlow": {"const": true},
+        "mustValidateQuestionRole": {"const": true}
+      }
+    },
+    "answerUnitPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "allowedUnitIds", "studentAnswerMayOmitUnit"],
+      "properties": {
+        "mode": {"type": "string", "enum": ["required", "forbidden", "derived_from_target_role"]},
+        "allowedUnitIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        },
+        "studentAnswerMayOmitUnit": {"type": "boolean"}
+      }
+    },
+    "approvedSemanticBindingEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bindingId",
+        "rulesetVersion",
+        "sourceId",
+        "unitCode",
+        "knowledgePointId",
+        "patternSpecId",
+        "contextFamilyId",
+        "semanticVariantId",
+        "commonKnowledgeIds",
+        "semanticSlotBindings",
+        "operationSignature",
+        "eventFlow",
+        "quantityRoles",
+        "unitFlow",
+        "questionRole",
+        "languageVariantIds",
+        "numericProfileIds",
+        "compatibilityRules",
+        "reviewEvidence",
+        "randomnessPolicy",
+        "validationContract",
+        "answerUnitPolicy",
+        "lifecycleStatus"
+      ],
+      "properties": {
+        "bindingId": {"type": "string", "pattern": "^gctx_bind_[a-z0-9_]+$"},
+        "rulesetVersion": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "sourceId": {"type": "string", "minLength": 1},
+        "unitCode": {"type": "string", "pattern": "^[1-6][AB]-U[0-9]{2}$"},
+        "knowledgePointId": {"type": "string", "minLength": 1},
+        "patternSpecId": {"type": "string", "minLength": 1},
+        "contextFamilyId": {"type": "string", "pattern": "^gctx_cf_[a-z0-9_]+$"},
+        "semanticVariantId": {"type": "string", "pattern": "^gctx_semvar_[a-z0-9_]+$"},
+        "commonKnowledgeIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^gctx_ck_[a-z0-9_]+$"}
+        },
+        "semanticSlotBindings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/semanticSlotBinding"}
+        },
+        "operationSignature": {"type": "string", "minLength": 1},
+        "eventFlow": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/eventStep"}
+        },
+        "quantityRoles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/quantityRole"}
+        },
+        "unitFlow": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/unitFlowEdge"}
+        },
+        "questionRole": {"$ref": "#/$defs/questionRole"},
+        "languageVariantIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^gctx_lang_[a-z0-9_]+$"}
+        },
+        "numericProfileIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^gctx_num_[a-z0-9_]+$"}
+        },
+        "compatibilityRules": {"$ref": "#/$defs/compatibilityRules"},
+        "reviewEvidence": {"$ref": "#/$defs/reviewEvidence"},
+        "randomnessPolicy": {"$ref": "#/$defs/randomnessPolicy"},
+        "validationContract": {"$ref": "#/$defs/validationContract"},
+        "answerUnitPolicy": {"$ref": "#/$defs/answerUnitPolicy"},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "legacyAliases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "registryEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registryId", "schemaVersion", "rulesetVersion", "registryKind", "entries"],
+      "properties": {
+        "registryId": {"type": "string", "pattern": "^gctx_registry_[a-z0-9_]+$"},
+        "schemaVersion": {"const": 1},
+        "rulesetVersion": {"const": "0.1.0"},
+        "registryKind": {"const": "approved_semantic_binding_registry"},
+        "generatedAt": {"type": ["string", "null"], "format": "date-time"},
+        "entries": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/approvedSemanticBindingEntry"}
+        }
+      }
+    }
+  }
+}
