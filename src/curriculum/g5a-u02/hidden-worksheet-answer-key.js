@@ -26,6 +26,8 @@ const SUPPORTED_ANSWER_MODEL_IDS = Object.freeze([
   "tileSideAreaPairListAnswer", "commonFactorAndGcfAnswer", "digitTupleAnswer",
 ]);
 const SUPPORTED_ANSWER_MODEL_SET = new Set(SUPPORTED_ANSWER_MODEL_IDS);
+const PUBLIC_UNKNOWN_SYMBOLS = Object.freeze(["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛"]);
+const STATEMENT_MARKERS = Object.freeze(["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧"]);
 
 const WORKSHEET_LIFECYCLE = deepFreeze({
   unitId: "g5a_u02",
@@ -86,6 +88,12 @@ function formatBoolean(value) { return value ? "是" : "否"; }
 function formatProblemType(label) {
   return ({ factor: "因數", multiple: "倍數", common_factor: "公因數", common_multiple: "公倍數" })[label] ?? String(label);
 }
+function numericSuffix(value) {
+  const match = String(value ?? "").match(/(\d+)$/);
+  return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
+}
+function publicUnknownSymbol(index) { return PUBLIC_UNKNOWN_SYMBOLS[index] ?? `未知數${index + 1}`; }
+function statementMarker(index) { return STATEMENT_MARKERS[index] ?? `（${index + 1}）`; }
 
 export function formatG5AU02Answer(answerModelId, answer) {
   if (!SUPPORTED_ANSWER_MODEL_SET.has(answerModelId)) throw new Error(`G5AU02_WORKSHEET_ANSWER_MODEL_UNSUPPORTED:${answerModelId}`);
@@ -111,6 +119,37 @@ export function formatG5AU02Answer(answerModelId, answer) {
     case "digitTupleAnswer": return `${answer.value}（${answer.digits.join("、")}）`;
     default: throw new Error(`G5AU02_WORKSHEET_ANSWER_MODEL_UNSUPPORTED:${answerModelId}`);
   }
+}
+
+function formatDivisibilityExplanation(item) {
+  const data = item.data ?? {};
+  const candidateIsSubject = ["candidate_is_factor_of_target", "candidate_divides_target"].includes(data.grammarFamilyId);
+  const divisor = candidateIsSubject ? data.subjectValue : data.objectValue;
+  const dividend = candidateIsSubject ? data.objectValue : data.subjectValue;
+  const quotient = Math.floor(dividend / divisor);
+  const remainder = dividend % divisor;
+  return data.truthValue
+    ? `是，${dividend}÷${divisor}=${quotient}，沒有餘數。`
+    : `否，${dividend}÷${divisor}=${quotient} 餘 ${remainder}，不能整除。`;
+}
+
+function formatStructuredInferencePublic(answer) {
+  const values = Object.entries(answer.inferredValues ?? {})
+    .sort(([left], [right]) => numericSuffix(left) - numericSuffix(right));
+  return `目標數=${answer.targetNumber}；${values.map(([, value], index) => `${publicUnknownSymbol(index)}=${value}`).join("、")}`;
+}
+
+function formatBooleanSetPublic(answer) {
+  return (answer.values ?? []).map((value, index) => `${statementMarker(index)} ${formatBoolean(value)}`).join("、");
+}
+
+export function formatG5AU02AnswerForItem(item) {
+  const answerModelId = item?.canonicalRoute?.answerModelId;
+  if (item?.patternSpecId === "ps_g5a_u02_factor_statement_judgement") return formatDivisibilityExplanation(item);
+  if (item?.patternSpecId === "ps_g5a_u02_complete_factor_list_unknown_values") return formatStructuredInferencePublic(item.answer);
+  if (item?.patternSpecId === "ps_g5a_u02_complete_factor_list_statement_evaluation") return formatBooleanSetPublic(item.answer);
+  if (item?.patternSpecId === "ps_g5a_u02_maximum_equal_grouping") return `${item.answer.value} 組`;
+  return formatG5AU02Answer(answerModelId, item.answer);
 }
 
 function paginate(records, rowsPerPage, pageKind) {
@@ -139,7 +178,7 @@ function createAnswerRecord(questionNumber, item) {
     patternSpecId: item.patternSpecId,
     answerModelId,
     structuredAnswer: clone(item.answer),
-    answerText: formatG5AU02Answer(answerModelId, item.answer),
+    answerText: formatG5AU02AnswerForItem(item),
   });
 }
 
@@ -236,6 +275,7 @@ export function validateG5AU02HiddenWorksheetDocument(document) {
       if (question && answer.patternSpecId !== question.patternSpecId) errors.push("G5AU02_WORKSHEET_ANSWER_PATTERN_MISMATCH");
       if (question && answer.answerModelId !== question.answerModelId) errors.push("G5AU02_WORKSHEET_ANSWER_MODEL_MISMATCH");
       if (typeof answer.answerText !== "string" || !answer.answerText) errors.push("G5AU02_WORKSHEET_ANSWER_TEXT_MISSING");
+      if (/\bp\d+=/i.test(answer.answerText)) errors.push("G5AU02_WORKSHEET_PUBLIC_PLACEHOLDER_LEAKAGE");
     }
   } else if (answers.length || document.answerKeyPages?.length) {
     errors.push("G5AU02_WORKSHEET_ANSWER_SUPPRESSION_FAILED");

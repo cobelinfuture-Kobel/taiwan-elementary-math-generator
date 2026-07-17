@@ -1,7 +1,7 @@
 import { renderWorksheetDocumentToHtml as renderBaseWorksheetDocumentToHtml } from "./html-renderer-s60j-extension.js";
 import {
-  isG5AU02S101PublicDocument,
-  renderG5AU02S101PublicDocument,
+  isG5AU02PublicSemanticDocument,
+  renderG5AU02PublicSemanticDocument,
 } from "./g5a-u02-s101-public-renderer.js";
 import {
   normalizeG4BU04PublicAnswer,
@@ -120,7 +120,7 @@ const STYLE = [
 ].join("");
 
 export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
-  if (isG5AU02S101PublicDocument(worksheetDocument)) return renderG5AU02S101PublicDocument(worksheetDocument, options);
+  if (isG5AU02PublicSemanticDocument(worksheetDocument)) return renderG5AU02PublicSemanticDocument(worksheetDocument, options);
   if (!isG4BU04Document(worksheetDocument)) return renderBaseWorksheetDocumentToHtml(worksheetDocument, options);
   const title = options.title ?? worksheetDocument.title ?? "四下概數";
   const stylesheetHref = options.stylesheetHref ?? "./assets/styles/print-styles.css";

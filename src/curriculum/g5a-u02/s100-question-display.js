@@ -128,6 +128,9 @@ function compactStatementText(statement, target) {
   }
 }
 
+const STATEMENT_MARKERS = Object.freeze(["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧"]);
+function statementMarker(index) { return STATEMENT_MARKERS[index] ?? `（${index + 1}）`; }
+
 export function serializeG5AU02S100QuestionDisplayModel(model) {
   switch (model.kind) {
     case "factor_relation_dual_witness": {
@@ -144,7 +147,7 @@ export function serializeG5AU02S100QuestionDisplayModel(model) {
     case "number_theory_problem_type_scenario":
       return compactScenarioText(model);
     case "factor_list_reasoning_statement_set":
-      return `因數：${model.factorList.join("、")}。判斷：${model.statements.map((statement, index) => `${index + 1}.${compactStatementText(statement, model.target)}`).join("；")}。`;
+      return `因數：${model.factorList.join("、")}。判斷：\n${model.statements.map((statement, index) => `${statementMarker(index)} ${compactStatementText(statement, model.target)}`).join("\n")}。`;
     default:
       throw new Error(`G5AU02_S100_DISPLAY_KIND_UNSUPPORTED:${model.kind}`);
   }
@@ -223,6 +226,7 @@ export function validateG5AU02S100QuestionDisplayModel(item, model, promptText =
   } else if (promptText !== serializeG5AU02S100QuestionDisplayModel(model)) {
     errors.push("G5AU02_PROMPT_VISIBLE_DATA_INCOMPLETE");
   }
+  if (/\b\d+\.\d+\s+是/.test(promptText)) errors.push("G5AU02_PUBLIC_STATEMENT_NUMBERING_AMBIGUOUS");
 
   return deepFreeze({ ok: errors.length === 0, errors: [...new Set(errors)] });
 }

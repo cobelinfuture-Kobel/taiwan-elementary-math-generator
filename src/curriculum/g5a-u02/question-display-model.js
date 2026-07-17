@@ -40,6 +40,7 @@ const BLOCKING_PATTERN_IDS = Object.freeze([
 ]);
 
 const BLOCKING_PATTERN_SET = new Set(BLOCKING_PATTERN_IDS);
+const PUBLIC_UNKNOWN_SYMBOLS = Object.freeze(["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛"]);
 
 function clone(value) { return JSON.parse(JSON.stringify(value)); }
 function deepFreeze(value) {
@@ -57,8 +58,18 @@ function statementText(statement, target) {
   }
 }
 
+function unknownPosition(key) {
+  const match = String(key ?? "").match(/(\d+)$/);
+  return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
+}
+
 function unknownLabelByPosition(data) {
-  return new Map((data.unknownKeys ?? []).map((key) => [Number(String(key).slice(1)), String(key)]));
+  const orderedKeys = [...new Set(data.unknownKeys ?? [])]
+    .sort((left, right) => unknownPosition(left) - unknownPosition(right));
+  return new Map(orderedKeys.map((key, index) => [
+    unknownPosition(key),
+    PUBLIC_UNKNOWN_SYMBOLS[index] ?? `未知數${index + 1}`,
+  ]));
 }
 
 export function isG5AU02PromptCompletenessPattern(patternSpecId) {
@@ -89,12 +100,17 @@ export function buildG5AU02QuestionDisplayModel(item) {
       return deepFreeze({ schemaName: "G5AU02QuestionDisplayModel", schemaVersion: 1, kind: "candidate_selection", selectionRole: "factor", target: data.target, candidates: clone(data.candidates) });
     case "ps_g5a_u02_complete_factor_list_unknown_values": {
       const labels = unknownLabelByPosition(data);
+      let fallbackIndex = 0;
       return deepFreeze({
-        schemaName: "G5AU02QuestionDisplayModel", schemaVersion: 1, kind: "symbolic_complete_factor_sequence",
-        sequence: data.shownFactorList.map((value, index) => value === null
-          ? { position: index + 1, role: "unknown", symbol: labels.get(index) ?? `p${index}`, text: labels.get(index) ?? `p${index}` }
-          : { position: index + 1, role: "visible_factor", value, text: String(value) }),
+        schemaName: "G5AU02QuestionDisplayModel", schemaVersion: 6, kind: "symbolic_complete_factor_sequence",
+        sequence: data.shownFactorList.map((value, index) => {
+          if (value !== null) return { position: index + 1, role: "visible_factor", value, text: String(value) };
+          const symbol = labels.get(index) ?? PUBLIC_UNKNOWN_SYMBOLS[fallbackIndex] ?? `未知數${fallbackIndex + 1}`;
+          fallbackIndex += 1;
+          return { position: index + 1, role: "unknown", symbol, text: symbol };
+        }),
         targetRuleText: "完整因數表由小到大排列，最後一個數就是原數。",
+        publicSymbolPolicy: "traditional_chinese_ordered_symbols",
       });
     }
     case "ps_g5a_u02_complete_factor_list_statement_evaluation":
@@ -162,8 +178,9 @@ export function validateG5AU02QuestionDisplayModel(item, model, promptText = "")
       break;
     case "ps_g5a_u02_complete_factor_list_unknown_values":
       if (model.kind !== "symbolic_complete_factor_sequence") errors.push("G5AU02_DISPLAY_KIND_MISMATCH");
-      if (model.sequence?.filter((entry) => entry.role === "unknown").length !== data.unknownKeys?.length) errors.push("G5AU02_UNKNOWN_FACTOR_SYMBOL_COUNT_MISMATCH");
+      if (model.sequence?.filter((entry) => entry.role === "unknown").length !== new Set(data.unknownKeys ?? []).size) errors.push("G5AU02_UNKNOWN_FACTOR_SYMBOL_COUNT_MISMATCH");
       if (model.sequence?.at(-1)?.role !== "visible_factor") errors.push("G5AU02_TARGET_NUMBER_NOT_VISIBLE");
+      if (model.sequence?.some((entry) => entry.role === "unknown" && /^p\d+$/i.test(entry.text))) errors.push("G5AU02_PUBLIC_UNKNOWN_SYMBOL_INVALID");
       break;
     case "ps_g5a_u02_complete_factor_list_statement_evaluation":
       if (model.kind !== "factor_list_statement_set") errors.push("G5AU02_DISPLAY_KIND_MISMATCH");
