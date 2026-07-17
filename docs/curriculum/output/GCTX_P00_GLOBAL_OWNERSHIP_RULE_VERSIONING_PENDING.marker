@@ -1,9 +1,0 @@
-TASK=GCTX-P00_GlobalOwnershipScopeAndRuleVersioningContract
-STATUS=PENDING_CI
-BRANCH=design/gctx-p00-global-ownership-rule-versioning
-SCOPE=planning contract only; no runtime, registry seed, unit migration or renderer implementation
-GOAL_DISTANCE_BEFORE=D4_GCTX_REQUIREMENTS_AND_CORPUS_DISCUSSION
-GOAL_DISTANCE_AFTER=D3_GCTX_GLOBAL_OWNERSHIP_AND_RULE_VERSIONING_LOCKED_PENDING_CI
-DISTANCE_REDUCED=versioned ownership, layout, PBL closure, evidence inference and unit audit governance materialized
-REMAINING_BLOCKERS=CI acceptance and merge
-NEXT_SHORTEST_STEP=GCTX-P01_ApprovedSemanticChainSchema
