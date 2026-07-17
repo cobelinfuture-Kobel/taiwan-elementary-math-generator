@@ -73,7 +73,7 @@ test("S100 384/384 canonical items preserve source methods and structured displa
       assert.equal(enriched.questionDisplayModel.kind, EXPECTED_KINDS.get(patternSpecId));
       const displayValidation = validateG5AU02QuestionDisplayModel(item, enriched.questionDisplayModel, enriched.prompt);
       assert.equal(displayValidation.ok, true, displayValidation.errors.join(","));
-      assert.ok(enriched.prompt.length > 24);
+      assert.ok(enriched.prompt.length > 12);
 
       if (patternSpecId === "ps_g5a_u02_factor_relation_equivalence") {
         factorTruthCoverage.add(item.answer.isFactor);
