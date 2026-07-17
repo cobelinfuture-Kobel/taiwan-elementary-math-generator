@@ -15,6 +15,7 @@ function clone(value) { return JSON.parse(JSON.stringify(value)); }
 const CANONICAL_SPECS = getG5AU02HiddenPatternSpecs();
 const CANONICAL_IDS = Object.freeze(CANONICAL_SPECS.map((spec) => spec.patternSpecId));
 const CANONICAL_ID_SET = new Set(CANONICAL_IDS);
+const ROUTED_ANSWER_MODEL_IDS = Object.freeze([...new Set(CANONICAL_SPECS.map((spec) => spec.answerModel.shape))]);
 
 const SUPPORTED_ANSWER_MODEL_IDS = Object.freeze([
   "relationClassificationAnswer", "integerListAnswer", "factorPairListAnswer",
@@ -91,9 +92,9 @@ export function formatG5AU02Answer(answerModelId, answer) {
   switch (answerModelId) {
     case "relationClassificationAnswer": return answer.isFactor ? `是，商為 ${answer.quotient}` : "不是";
     case "integerListAnswer": return joinValues(answer.values);
-    case "factorPairListAnswer": return answer.pairs.map(([a, b]) => `${a}×${b}`).join("、");
-    case "orderedFactorRelationAnswer": return `因數：${joinValues(answer.factorList)}；配對：${answer.symmetricPairs.map(([a, b]) => `${a}×${b}`).join("、")}`;
-    case "missingValueMapAnswer": return Object.entries(answer.valuesByPosition).sort(([a], [b]) => Number(a) - Number(b)).map(([p, v]) => `第 ${Number(p) + 1} 格=${v}`).join("、");
+    case "factorPairListAnswer": return answer.pairs.map(([left, right]) => `${left}×${right}`).join("、");
+    case "orderedFactorRelationAnswer": return `因數：${joinValues(answer.factorList)}；配對：${answer.symmetricPairs.map(([left, right]) => `${left}×${right}`).join("、")}`;
+    case "missingValueMapAnswer": return Object.entries(answer.valuesByPosition).sort(([left], [right]) => Number(left) - Number(right)).map(([position, value]) => `第 ${Number(position) + 1} 格=${value}`).join("、");
     case "selectionSetAnswer": return joinValues(answer.selectedValues);
     case "booleanAnswer": return formatBoolean(answer.value);
     case "integerListWithUnitAnswer":
@@ -102,7 +103,7 @@ export function formatG5AU02Answer(answerModelId, answer) {
     case "partitionPairListAnswer": return answer.pairs.map((pair) => `${pair.segmentCount} 段｜每段 ${pair.lengthPerSegment} ${answer.lengthUnit}`).join("；");
     case "tileSideAreaPairListAnswer": return answer.pairs.map((pair) => `邊長 ${pair.sideLength} ${answer.sideUnit}｜面積 ${pair.tileArea} ${answer.areaUnit}`).join("；");
     case "problemTypeLabelAnswer": return formatProblemType(answer.label);
-    case "structuredInferenceAnswer": return `目標數=${answer.targetNumber}；${Object.entries(answer.inferredValues).map(([k, v]) => `${k}=${v}`).join("、")}`;
+    case "structuredInferenceAnswer": return `目標數=${answer.targetNumber}；${Object.entries(answer.inferredValues).map(([key, value]) => `${key}=${value}`).join("、")}`;
     case "booleanSetAnswer": return answer.values.map(formatBoolean).join("、");
     case "remainderAnswer": return `餘數 ${answer.remainder}`;
     case "integerAnswer": return String(answer.value);
@@ -129,42 +130,70 @@ function createQuestionRecord(questionNumber, item) {
     sourceIds: route.sourceMetadata.map((metadata) => metadata.sourceId),
   });
 }
+
 function createAnswerRecord(questionNumber, item) {
   const answerModelId = item.canonicalRoute.answerModelId;
-  return deepFreeze({ questionNumber, patternSpecId: item.patternSpecId, answerModelId, structuredAnswer: clone(item.answer), answerText: formatG5AU02Answer(answerModelId, item.answer) });
+  return deepFreeze({
+    questionNumber,
+    patternSpecId: item.patternSpecId,
+    answerModelId,
+    structuredAnswer: clone(item.answer),
+    answerText: formatG5AU02Answer(answerModelId, item.answer),
+  });
 }
 
 export function buildG5AU02HiddenWorksheetDocument(input = {}) {
   const allocated = allocateG5AU02HiddenWorksheet(input);
   if (!allocated.ok) return blocked(allocated.errors, allocated.plan);
-  const errors = []; const questionRecords = []; const answerKeyRecords = [];
+  const errors = [];
+  const questionRecords = [];
+  const answerKeyRecords = [];
   for (let index = 0; index < allocated.allocation.patternSequence.length; index += 1) {
     const patternSpecId = allocated.allocation.patternSequence[index];
     try {
       const item = generateG5AU02Canonical(patternSpecId, { seed: seedFor(allocated.plan.baseSeed, index) });
       const validation = validateG5AU02Canonical(item);
-      if (!validation.ok) { errors.push(...validation.errors.map((code) => `${code}:${patternSpecId}`)); continue; }
+      if (!validation.ok) {
+        errors.push(...validation.errors.map((code) => `${code}:${patternSpecId}`));
+        continue;
+      }
       questionRecords.push(createQuestionRecord(index + 1, item));
       if (allocated.plan.includeAnswerKey) answerKeyRecords.push(createAnswerRecord(index + 1, item));
-    } catch (error) { errors.push(error.message); }
+    } catch (error) {
+      errors.push(error.message);
+    }
   }
-  if (errors.length || questionRecords.length !== allocated.plan.questionCount) return blocked([...errors, ...(questionRecords.length !== allocated.plan.questionCount ? ["G5AU02_WORKSHEET_EXACT_QUESTION_COUNT_FAILED"] : [])], allocated.plan);
-  if (allocated.plan.includeAnswerKey && answerKeyRecords.length !== allocated.plan.questionCount) return blocked(["G5AU02_WORKSHEET_EXACT_ANSWER_COUNT_FAILED"], allocated.plan);
+  if (errors.length || questionRecords.length !== allocated.plan.questionCount) {
+    return blocked([...errors, ...(questionRecords.length !== allocated.plan.questionCount ? ["G5AU02_WORKSHEET_EXACT_QUESTION_COUNT_FAILED"] : [])], allocated.plan);
+  }
+  if (allocated.plan.includeAnswerKey && answerKeyRecords.length !== allocated.plan.questionCount) {
+    return blocked(["G5AU02_WORKSHEET_EXACT_ANSWER_COUNT_FAILED"], allocated.plan);
+  }
   const worksheetDocument = deepFreeze({
-    schemaName: "G5AU02HiddenWorksheetDocument", schemaVersion: 1,
+    schemaName: "G5AU02HiddenWorksheetDocument",
+    schemaVersion: 1,
     worksheetDocumentId: `g5a_u02_hidden_${allocated.plan.baseSeed}_${allocated.plan.questionCount}`,
-    unitId: "g5a_u02", unitTitle: "因數與公因數", allocation: allocated.allocation,
-    questionCount: questionRecords.length, questionRecords,
+    unitId: "g5a_u02",
+    unitTitle: "因數與公因數",
+    allocation: allocated.allocation,
+    questionCount: questionRecords.length,
+    questionRecords,
     questionPages: paginate(questionRecords, allocated.plan.questionRowsPerPage, "question"),
-    answerKeyEnabled: allocated.plan.includeAnswerKey, answerKeyRecords,
-    answerKeyPages: allocated.plan.includeAnswerKey ? paginate(answerKeyRecords, allocated.plan.answerRowsPerPage, "answer_key") : deepFreeze([]),
+    answerKeyEnabled: allocated.plan.includeAnswerKey,
+    answerKeyRecords,
+    answerKeyPages: allocated.plan.includeAnswerKey
+      ? paginate(answerKeyRecords, allocated.plan.answerRowsPerPage, "answer_key")
+      : deepFreeze([]),
     lifecycle: WORKSHEET_LIFECYCLE,
   });
   const validation = validateG5AU02HiddenWorksheetDocument(worksheetDocument);
-  return validation.ok ? deepFreeze({ ok: true, errors: [], plan: allocated.plan, worksheetDocument }) : blocked(validation.errors, allocated.plan);
+  return validation.ok
+    ? deepFreeze({ ok: true, errors: [], plan: allocated.plan, worksheetDocument })
+    : blocked(validation.errors, allocated.plan);
 }
 
 function flattenedRecords(pages) { return pages.flatMap((page) => page.records); }
+
 export function validateG5AU02HiddenWorksheetDocument(document) {
   const errors = [];
   if (!document || typeof document !== "object") return deepFreeze({ ok: false, errors: ["G5AU02_WORKSHEET_DOCUMENT_REQUIRED"] });
@@ -173,6 +202,7 @@ export function validateG5AU02HiddenWorksheetDocument(document) {
   if (document.lifecycle?.canonicalRouting !== "internal_explicit_only") errors.push("G5AU02_WORKSHEET_CANONICAL_ROUTE_INVALID");
   if (document.lifecycle?.rendererStatus !== "not_connected") errors.push("G5AU02_WORKSHEET_RENDERER_SCOPE_BREACH");
   if (document.lifecycle?.productionUse !== "forbidden") errors.push("G5AU02_WORKSHEET_PRODUCTION_USE_FORBIDDEN");
+
   const questions = Array.isArray(document.questionRecords) ? document.questionRecords : [];
   if (questions.length !== document.questionCount) errors.push("G5AU02_WORKSHEET_EXACT_QUESTION_COUNT_FAILED");
   for (let index = 0; index < questions.length; index += 1) {
@@ -187,17 +217,29 @@ export function validateG5AU02HiddenWorksheetDocument(document) {
       if (question.knowledgePointId !== route.knowledgePointId) errors.push("G5AU02_WORKSHEET_KP_ROUTE_MISMATCH");
       if (question.answerModelId !== route.answerModelId) errors.push("G5AU02_WORKSHEET_ANSWER_MODEL_ROUTE_MISMATCH");
       if (question.mode !== route.binding.mode) errors.push("G5AU02_WORKSHEET_MODE_ROUTE_MISMATCH");
-    } catch (error) { errors.push(error.message); }
+      if (JSON.stringify(question.sourceIds) !== JSON.stringify(route.sourceMetadata.map((row) => row.sourceId))) {
+        errors.push("G5AU02_WORKSHEET_SOURCE_ROUTE_MISMATCH");
+      }
+    } catch (error) {
+      errors.push(error.message);
+    }
   }
+
   const answers = Array.isArray(document.answerKeyRecords) ? document.answerKeyRecords : [];
   if (document.answerKeyEnabled) {
     if (answers.length !== questions.length) errors.push("G5AU02_WORKSHEET_EXACT_ANSWER_COUNT_FAILED");
     for (let index = 0; index < answers.length; index += 1) {
-      if (answers[index].questionNumber !== index + 1) errors.push("G5AU02_WORKSHEET_ANSWER_NUMBER_SEQUENCE_INVALID");
-      if (questions[index] && answers[index].answerModelId !== questions[index].answerModelId) errors.push("G5AU02_WORKSHEET_ANSWER_MODEL_MISMATCH");
-      if (typeof answers[index].answerText !== "string" || !answers[index].answerText) errors.push("G5AU02_WORKSHEET_ANSWER_TEXT_MISSING");
+      const answer = answers[index];
+      const question = questions[index];
+      if (answer.questionNumber !== index + 1) errors.push("G5AU02_WORKSHEET_ANSWER_NUMBER_SEQUENCE_INVALID");
+      if (question && answer.patternSpecId !== question.patternSpecId) errors.push("G5AU02_WORKSHEET_ANSWER_PATTERN_MISMATCH");
+      if (question && answer.answerModelId !== question.answerModelId) errors.push("G5AU02_WORKSHEET_ANSWER_MODEL_MISMATCH");
+      if (typeof answer.answerText !== "string" || !answer.answerText) errors.push("G5AU02_WORKSHEET_ANSWER_TEXT_MISSING");
     }
-  } else if (answers.length || document.answerKeyPages?.length) errors.push("G5AU02_WORKSHEET_ANSWER_SUPPRESSION_FAILED");
+  } else if (answers.length || document.answerKeyPages?.length) {
+    errors.push("G5AU02_WORKSHEET_ANSWER_SUPPRESSION_FAILED");
+  }
+
   if (JSON.stringify(flattenedRecords(document.questionPages ?? [])) !== JSON.stringify(questions)) errors.push("G5AU02_WORKSHEET_QUESTION_PAGINATION_MISMATCH");
   if (document.answerKeyEnabled && JSON.stringify(flattenedRecords(document.answerKeyPages ?? [])) !== JSON.stringify(answers)) errors.push("G5AU02_WORKSHEET_ANSWER_PAGINATION_MISMATCH");
   const allocatedTotal = Object.values(document.allocation?.patternCounts ?? {}).reduce((sum, count) => sum + count, 0);
@@ -212,9 +254,21 @@ export function auditG5AU02HiddenWorksheetIntegration() {
   if (CANONICAL_SPECS.length !== 22) errors.push("G5AU02_WORKSHEET_PATTERN_COUNT_MISMATCH");
   if (classCCount !== 14) errors.push("G5AU02_WORKSHEET_CLASS_C_COUNT_MISMATCH");
   if (classDCount !== 8) errors.push("G5AU02_WORKSHEET_CLASS_D_COUNT_MISMATCH");
+  if (ROUTED_ANSWER_MODEL_IDS.length !== 17) errors.push("G5AU02_WORKSHEET_ANSWER_MODEL_COUNT_MISMATCH");
+  for (const answerModelId of ROUTED_ANSWER_MODEL_IDS) {
+    if (!SUPPORTED_ANSWER_MODEL_SET.has(answerModelId)) errors.push(`G5AU02_WORKSHEET_ANSWER_MODEL_UNSUPPORTED:${answerModelId}`);
+  }
   const full = buildG5AU02HiddenWorksheetDocument({ questionCount: 22, baseSeed: 91 });
   if (!full.ok) errors.push(...full.errors);
-  return deepFreeze({ ok: errors.length === 0, errors: [...new Set(errors)], patternSpecCount: 22, classCCount, classDCount, answerModelCount: 18, supportedAnswerModelCount: SUPPORTED_ANSWER_MODEL_IDS.length });
+  return deepFreeze({
+    ok: errors.length === 0,
+    errors: [...new Set(errors)],
+    patternSpecCount: 22,
+    classCCount,
+    classDCount,
+    answerModelCount: ROUTED_ANSWER_MODEL_IDS.length,
+    supportedAnswerModelCount: SUPPORTED_ANSWER_MODEL_IDS.length,
+  });
 }
 
 export function getG5AU02HiddenWorksheetPatternIds() { return [...CANONICAL_IDS]; }
