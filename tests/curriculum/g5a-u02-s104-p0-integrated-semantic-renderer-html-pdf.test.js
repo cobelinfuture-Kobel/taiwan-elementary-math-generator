@@ -8,6 +8,7 @@ import { projectG5AU02DynamicDocumentForGlobalLayout } from "../../site/modules/
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer-s73-extension.js";
 
 const SOURCE_ID = "g5a_u02_5a02";
+const RENDERER_PROFILE = "g5a_u02_s104_p0_integrated_v1";
 const CONTRACT = JSON.parse(readFileSync(new URL("../../data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json", import.meta.url), "utf8"));
 const P0_PATTERNS = Object.freeze(CONTRACT.patternContracts.map((row) => row.patternSpecId));
 const EXPECTED_KIND = new Map(CONTRACT.patternContracts.map((row) => [row.patternSpecId, row.requiredDisplayModelKind]));
@@ -18,6 +19,7 @@ function printableDocument(document) {
     questionPages: [{
       pageNumber: 1,
       columns: 1,
+      rowsPerPage: 1,
       cells: document.questionDisplayModels.map((displayModel) => ({
         cellType: "question",
         questionNumber: displayModel.questionNumber,
@@ -27,6 +29,7 @@ function printableDocument(document) {
     answerKeyPages: [{
       pageNumber: 1,
       columns: 1,
+      rowsPerPage: 1,
       cells: document.answerKeyItems.map((answerKeyItem) => ({
         cellType: "answerKey",
         answerKeyItem,
@@ -86,7 +89,8 @@ test("S104 12-pattern x 64-seed canonical-to-bundle-to-renderer matrix passes 76
       assert.ok(publicDocument.answerKeyItems[0].answerText.length > 0);
 
       const html = renderWorksheetDocumentToHtml(printableDocument(publicDocument), { stylesheetHref: "" });
-      assert.match(html, /data-renderer-profile="g5a_u02_pre_s104_semantic_v1"/);
+      assert.match(html, new RegExp(`data-renderer-profile="${RENDERER_PROFILE}"`));
+      assert.match(html, /data-layout-columns="1" data-layout-rows="1"/);
       assert.match(html, /worksheet-section--questions/);
       assert.match(html, /worksheet-section--answer-key/);
       assert.ok(html.includes(`data-semantic-kind="${EXPECTED_KIND.get(patternSpecId)}"`));
