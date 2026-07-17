@@ -1,0 +1,208 @@
+name: G5A-U02 Pre-S104 Public Semantic Regeneration
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/curriculum/g5a-u02/**"
+      - "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js"
+      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
+      - "site/modules/renderer/html-renderer-s73-extension.js"
+      - "site/assets/styles/print-styles.css"
+      - "tests/curriculum/g5a-u02-pre-s104-public-semantic-regeneration.test.js"
+      - "tests/curriculum/g5a-u02-s101-partition-geometry-representation.test.js"
+      - "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs"
+      - "docs/curriculum/architecture/G5AU02_PreS104_PublicWorksheetSemanticProjectionFullFixAndRegeneration.md"
+      - "docs/curriculum/output/G5AU02_PRE_S104_PUBLIC_SEMANTIC_REGENERATION_PENDING.marker"
+      - ".github/workflows/g5a-u02-pre-s104-public-semantic-regeneration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semantic-source-and-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run focused 60-question semantic regeneration acceptance
+        run: node --test tests/curriculum/g5a-u02-pre-s104-public-semantic-regeneration.test.js
+      - name: Run S101-S103 backward semantic contracts
+        run: |
+          node --test tests/curriculum/g5a-u02-s101-partition-geometry-representation.test.js
+          node --test tests/curriculum/g5a-u02-s102-nontrivial-common-factor-witness.test.js
+          node --test tests/curriculum/g5a-u02-s103-digit-code-profile-separation.test.js
+      - name: Run complete Node regression with inspectable readback
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/g5a-u02-pre-s104-full-regression.log 2>&1
+          status=$?
+          tail -n 250 /tmp/g5a-u02-pre-s104-full-regression.log
+          exit "$status"
+      - name: Upload full regression readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-pre-s104-full-regression
+          retention-days: 7
+          if-no-files-found: error
+          path: /tmp/g5a-u02-pre-s104-full-regression.log
+
+  regenerated-html-pdf:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install project and browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          python3 -m pip install --break-system-packages pypdf pillow
+      - name: Build deployable canonical browser runtime
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
+      - name: Generate corrected 60-question HTML and semantic audit
+        run: node tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs
+      - name: Verify DOM semantics, containment and print PDF
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import { pathToFileURL } from 'node:url';
+          import { resolve } from 'node:path';
+          import { readFile } from 'node:fs/promises';
+          const root = resolve('docs/curriculum/output/pre-s104');
+          const htmlPath = resolve(root, 'G5AU02_PreS104_Regenerated60.html');
+          const pdfPath = resolve(root, 'G5AU02_PreS104_Regenerated60.pdf');
+          const manifest = JSON.parse(await readFile(resolve(root, 'G5AU02_PreS104_Regenerated60.manifest.json'), 'utf8'));
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage({ viewport: { width: 1280, height: 960 } });
+          await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
+          const diagnostic = await page.evaluate(() => {
+            const cells = [...document.querySelectorAll('.worksheet-cell')];
+            const pages = [...document.querySelectorAll('.worksheet-page')];
+            return {
+              questionCellCount: document.querySelectorAll('.worksheet-cell--question').length,
+              answerCellCount: document.querySelectorAll('.worksheet-cell--answer-key').length,
+              pageCount: pages.length,
+              cellOverflowCount: cells.filter((node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1).length,
+              pageOverflowCount: pages.filter((node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1).length,
+              rendererProfile: document.body.dataset.rendererProfile ?? null,
+              s101Kinds: [...document.querySelectorAll('[data-g5a-u02-s101-kind]')].map((node) => node.dataset.g5aU02S101Kind),
+              s102Kinds: [...document.querySelectorAll('[data-g5a-u02-s102-kind]')].map((node) => node.dataset.g5aU02S102Kind),
+              s103Count: document.querySelectorAll('[data-g5a-u02-s103-kind="unique_digit_code_constraints"]').length,
+              publicSymbolCount: document.querySelectorAll('[data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"]').length,
+              internalPlaceholderCount: (document.body.innerText.match(/\bp\d+\b/gi) ?? []).length,
+              decimalLikeNumberingCount: (document.body.innerText.match(/\b\d+\.\d+\s+是/g) ?? []).length,
+            };
+          });
+          console.log(JSON.stringify(diagnostic, null, 2));
+          if (diagnostic.questionCellCount !== 60) throw new Error(`question cells=${diagnostic.questionCellCount}`);
+          if (diagnostic.answerCellCount !== 60) throw new Error(`answer cells=${diagnostic.answerCellCount}`);
+          if (diagnostic.pageCount !== manifest.expectedPdfPageCount) throw new Error(`HTML pages=${diagnostic.pageCount}/${manifest.expectedPdfPageCount}`);
+          if (diagnostic.cellOverflowCount !== 0) throw new Error(`cell overflow=${diagnostic.cellOverflowCount}`);
+          if (diagnostic.pageOverflowCount !== 0) throw new Error(`page overflow=${diagnostic.pageOverflowCount}`);
+          if (diagnostic.rendererProfile !== 'g5a_u02_pre_s104_semantic_v1') throw new Error(`renderer=${diagnostic.rendererProfile}`);
+          for (const kind of ['partition_count_length_pairs','rectangle_square_partition_diagram','square_tile_side_area_chain']) {
+            if (!diagnostic.s101Kinds.includes(kind)) throw new Error(`S101 kind missing: ${kind}`);
+          }
+          for (const kind of ['parallel_factor_sets_with_intersection','common_factor_set_with_gcf']) {
+            if (!diagnostic.s102Kinds.includes(kind)) throw new Error(`S102 kind missing: ${kind}`);
+          }
+          if (diagnostic.s103Count < 2) throw new Error(`S103 count=${diagnostic.s103Count}`);
+          if (diagnostic.publicSymbolCount < 1) throw new Error(`public symbol count=${diagnostic.publicSymbolCount}`);
+          if (diagnostic.internalPlaceholderCount !== 0) throw new Error(`placeholder leak=${diagnostic.internalPlaceholderCount}`);
+          if (diagnostic.decimalLikeNumberingCount !== 0) throw new Error(`numbering ambiguity=${diagnostic.decimalLikeNumberingCount}`);
+          await page.emulateMedia({ media: 'print' });
+          await page.pdf({
+            path: pdfPath,
+            format: 'A4',
+            printBackground: true,
+            preferCSSPageSize: true,
+            margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' },
+          });
+          await browser.close();
+          NODE
+      - name: Verify PDF pages nonblank, contained and semantically readable
+        run: |
+          rm -rf /tmp/g5a-u02-pre-s104-pages && mkdir -p /tmp/g5a-u02-pre-s104-pages
+          pdftoppm -png -r 100 docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.pdf /tmp/g5a-u02-pre-s104-pages/page
+          pdftotext -bbox-layout docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.pdf /tmp/g5a-u02-pre-s104-bbox.html
+          pdftotext docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.pdf /tmp/g5a-u02-pre-s104-text.txt
+          python3 <<'PY'
+          import json, re
+          from pathlib import Path
+          from PIL import Image, ImageStat
+          from pypdf import PdfReader
+          root = Path('docs/curriculum/output/pre-s104')
+          manifest = json.loads((root / 'G5AU02_PreS104_Regenerated60.manifest.json').read_text(encoding='utf-8'))
+          audit = json.loads((root / 'G5AU02_PreS104_Regenerated60.audit.json').read_text(encoding='utf-8'))
+          pdf_path = root / 'G5AU02_PreS104_Regenerated60.pdf'
+          reader = PdfReader(str(pdf_path))
+          images = sorted(Path('/tmp/g5a-u02-pre-s104-pages').glob('page-*.png'))
+          expected = manifest['expectedPdfPageCount']
+          if len(reader.pages) != expected or len(images) != expected:
+              raise SystemExit(f'page mismatch pdf={len(reader.pages)} png={len(images)} expected={expected}')
+          for image_path in images:
+              stat = ImageStat.Stat(Image.open(image_path).convert('L'))
+              if stat.extrema[0][0] >= 245 or stat.var[0] <= 5:
+                  raise SystemExit(f'blank page: {image_path}')
+          bbox = Path('/tmp/g5a-u02-pre-s104-bbox.html').read_text(encoding='utf-8', errors='ignore')
+          page_re = re.compile(r'<page[^>]*width="([0-9.]+)"[^>]*height="([0-9.]+)"[^>]*>(.*?)</page>', re.S)
+          word_re = re.compile(r'<word[^>]*xMin="([0-9.]+)"[^>]*yMin="([0-9.]+)"[^>]*xMax="([0-9.]+)"[^>]*yMax="([0-9.]+)"', re.S)
+          overflow = []
+          for index, (width, height, body) in enumerate(page_re.findall(bbox), 1):
+              width, height = float(width), float(height)
+              for coords in word_re.findall(body):
+                  x0, y0, x1, y1 = map(float, coords)
+                  if x0 < -0.5 or y0 < -0.5 or x1 > width + 0.5 or y1 > height + 0.5:
+                      overflow.append((index, x0, y0, x1, y1))
+          if overflow:
+              raise SystemExit(f'bbox overflow count={len(overflow)} first={overflow[0]}')
+          text = Path('/tmp/g5a-u02-pre-s104-text.txt').read_text(encoding='utf-8', errors='ignore')
+          for required in ['甲', '公因數', '最大公因數', '四位數密碼', '沒有餘數', '組']:
+              if required not in text:
+                  raise SystemExit(f'missing semantic text: {required}')
+          if re.search(r'\bp\d+\b', text, re.I):
+              raise SystemExit('internal placeholder leaked into PDF')
+          if re.search(r'\b\d+\.\d+\s+是', text):
+              raise SystemExit('decimal-like statement numbering leaked into PDF')
+          if audit['source1725DefaultRepeatCount'] != 0 or audit['sourceProfileDefaultRepeatCount'] != 0:
+              raise SystemExit('source 1725 repeated as default')
+          if not (reader.pages[-1].extract_text() or '').strip():
+              raise SystemExit('final answer page blank')
+          print(f'Pre-S104 PDF verification PASS: {expected} pages')
+          PY
+      - name: Upload regenerated HTML PDF and semantic authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-pre-s104-regenerated-60
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.html
+            docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.pdf
+            docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.manifest.json
+            docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.audit.json
