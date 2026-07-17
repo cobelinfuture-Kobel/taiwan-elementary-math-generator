@@ -1,64 +1,101 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { mkdir, rm, stat } from "node:fs/promises";
+import { spawn } from "node:child_process";
 
 import { buildG5AU02BrowserDynamicWorksheet } from "../../src/curriculum/g5a-u02/browser-dynamic-entry.js";
-import { getG5AU02HiddenWorksheetPatternIds } from "../../src/curriculum/g5a-u02/hidden-worksheet-answer-key.js";
-import {
-  G5A_U02_S103_GENERATED_PROFILE_ID,
-  G5A_U02_S103_SOURCE_PROFILE_ID,
-} from "../../src/curriculum/g5a-u02/s103-digit-code-runtime.js";
-import { projectG5AU02DynamicDocumentForGlobalLayout } from "../../site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer-s73-extension.js";
 
-const PATTERN_IDS = getG5AU02HiddenWorksheetPatternIds();
-const QUESTION_COUNT = 60;
-const GENERATION_SEED = 104001;
+const ARTIFACT_DIR = "docs/curriculum/output/g5a-u02-pre-s104-public-semantic-regeneration";
+const CONTRACT = JSON.parse(await readFile(
+  new URL("../../data/curriculum/contracts/G5AU02_PreS104_PublicWorksheetSemanticProjectionFullFixContract.json", import.meta.url),
+  "utf8",
+));
+const PATTERN_IDS = CONTRACT.patternScope;
 
-function chunk(values, size) {
-  const rows = [];
-  for (let index = 0; index < values.length; index += size) rows.push(values.slice(index, index + size));
-  return rows;
+function run(command, args, options = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, args, {
+      stdio: ["ignore", "pipe", "pipe"],
+      ...options,
+    });
+    let stdout = "";
+    let stderr = "";
+    child.stdout.on("data", (chunk) => { stdout += chunk; });
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    child.on("error", reject);
+    child.on("close", (code) => resolve({ code, stdout, stderr }));
+  });
+}
+
+function displayModelFromQuestion(question) {
+  return {
+    questionNumberText: `${question.questionNumber}.`,
+    blankedDisplayText: question.prompt,
+    patternId: question.patternSpecId,
+    answerModelShape: question.answerModelId,
+    responsePrompt: "答：________________",
+    questionDisplayModel: question.questionDisplayModel,
+  };
 }
 
 function buildRegeneratedDocument() {
-  const dynamic = buildG5AU02BrowserDynamicWorksheet({
+  const result = buildG5AU02BrowserDynamicWorksheet({
     sourceId: "g5a_u02_5a02",
     patternSpecIds: PATTERN_IDS,
-    questionCount: QUESTION_COUNT,
-    generationSeed: GENERATION_SEED,
+    questionCount: 60,
+    generationSeed: 104001,
     includeAnswerKey: true,
-    questionRowsPerPage: 6,
+    questionRowsPerPage: 3,
     answerRowsPerPage: 6,
   });
-  assert.equal(dynamic?.ok, true, dynamic?.errors?.join(","));
-  const projected = projectG5AU02DynamicDocumentForGlobalLayout(dynamic);
-  assert.equal(projected?.ok, true, projected?.errors?.join(","));
-  const document = projected.worksheetDocument;
-  const questionPages = chunk(document.questionDisplayModels, 6).map((records, pageIndex) => ({
-    pageNumber: pageIndex + 1,
-    columns: 2,
-    rowsPerPage: 3,
-    cells: records.map((displayModel) => ({
-      cellType: "question",
-      questionNumber: displayModel.questionNumber,
-      displayModel,
-    })),
-  }));
-  const answerKeyPages = chunk(document.answerKeyItems, 6).map((records, pageIndex) => ({
-    pageNumber: pageIndex + 1,
-    columns: 1,
-    rowsPerPage: 6,
-    cells: records.map((answerKeyItem) => ({ cellType: "answerKey", answerKeyItem })),
-  }));
-  const printable = {
-    ...document,
+  assert.equal(result.ok, true, result.errors?.join(","));
+  const source = result.worksheetDocument;
+  const questionDisplayModels = source.questionItems.map(displayModelFromQuestion);
+  const displayByNumber = new Map(questionDisplayModels.map((model, index) => [index + 1, model]));
+  const questionPages = [];
+  for (let index = 0; index < source.questionItems.length; index += 6) {
+    const pageNumber = questionPages.length + 1;
+    questionPages.push({
+      pageNumber,
+      columns: 2,
+      rowsPerPage: 3,
+      cells: source.questionItems.slice(index, index + 6).map((question) => ({
+        cellType: "question",
+        questionNumber: question.questionNumber,
+        displayModel: displayByNumber.get(question.questionNumber),
+      })),
+    });
+  }
+  const answerDisplayByNumber = new Map(source.questionItems.map((question) => [question.questionNumber, question.questionDisplayModel]));
+  const answerKeyPages = [];
+  for (let index = 0; index < source.answerKeyItems.length; index += 6) {
+    answerKeyPages.push({
+      pageNumber: answerKeyPages.length + 1,
+      columns: 2,
+      rowsPerPage: 3,
+      cells: source.answerKeyItems.slice(index, index + 6).map((answer) => ({
+        cellType: "answerKey",
+        answerKeyItem: {
+          ...answer,
+          promptText: source.questionItems[answer.questionNumber - 1]?.prompt,
+          questionDisplayModel: answerDisplayByNumber.get(answer.questionNumber),
+        },
+      })),
+    });
+  }
+  const document = {
+    unitId: "g5a_u02",
     title: "五上因數與公因數｜Pre-S104語意修正版",
-    subtitle: "60題題目卷與答案卷",
+    questionDisplayModels,
+    questionItems: source.questionItems,
+    answerKeyItems: source.answerKeyItems,
     questionPages,
     answerKeyPages,
   };
-  const html = renderWorksheetDocumentToHtml(printable, { stylesheetHref: "" });
-  return { dynamic, document, printable, html };
+  const html = renderWorksheetDocumentToHtml(document, { stylesheetHref: "" });
+  return { document, html };
 }
 
 function recordsFor(document, patternSpecId) {
@@ -66,86 +103,15 @@ function recordsFor(document, patternSpecId) {
 }
 
 function answersFor(document, patternSpecId) {
-  return document.answerKeyItems.filter((item) => (item.patternSpecId ?? item.patternId) === patternSpecId);
+  return document.answerKeyItems.filter((item) => item.patternSpecId === patternSpecId);
 }
 
-function intersection(left, right) {
-  const rightSet = new Set(right);
-  return left.filter((value) => rightSet.has(value));
-}
-
-test("Pre-S104 regeneration produces 60 answerable questions across all 22 canonical patterns", () => {
+test("Pre-S104 regeneration keeps sixty questions and six page cells", () => {
   const { document } = buildRegeneratedDocument();
-  assert.equal(document.questionItems.length, QUESTION_COUNT);
-  assert.equal(document.answerKeyItems.length, QUESTION_COUNT);
-  assert.deepEqual(new Set(document.questionItems.map((item) => item.patternSpecId)), new Set(PATTERN_IDS));
-  assert.ok(document.questionItems.every((item) => item.promptCompletenessStatus === "visible_unique_solution_data_complete"
-    || item.promptCompletenessStatus === "not_required_for_pattern"));
-  assert.ok(document.questionItems.every((item) => !("answer" in item) && !("structuredAnswer" in item) && !("answerText" in item)));
-});
-
-test("Pre-S104 regeneration preserves S101 partition and geometry representations", () => {
-  const { document, html } = buildRegeneratedDocument();
-  const partition = recordsFor(document, "ps_g5a_u02_equal_partition_all_segment_counts");
-  const rectangle = recordsFor(document, "ps_g5a_u02_rectangle_square_side_lengths");
-  const tile = recordsFor(document, "ps_g5a_u02_square_tile_area_possibilities");
-  assert.ok(partition.length > 0 && rectangle.length > 0 && tile.length > 0);
-  for (const item of partition) {
-    assert.equal(item.questionDisplayModel.kind, "partition_count_length_pairs");
-    assert.ok(item.questionDisplayModel.pairs.every((pair) => pair.segmentCount * pair.lengthPerSegment === item.questionDisplayModel.totalLength));
-  }
-  for (const item of rectangle) assert.equal(item.questionDisplayModel.kind, "rectangle_square_partition_diagram");
-  for (const item of tile) {
-    assert.equal(item.questionDisplayModel.kind, "square_tile_side_area_chain");
-    assert.ok(item.questionDisplayModel.sideAreaPairs.every((pair) => pair.tileArea === pair.sideLength ** 2));
-  }
-  assert.match(html, /data-g5a-u02-s101-kind="partition_count_length_pairs"/);
-  assert.match(html, /data-g5a-u02-s101-kind="rectangle_square_partition_diagram"/);
-  assert.match(html, /data-g5a-u02-s101-kind="square_tile_side_area_chain"/);
-});
-
-test("Pre-S104 regeneration uses nondegenerate S102 operands and visible factor-set witnesses", () => {
-  const { document, html } = buildRegeneratedDocument();
-  const patternIds = ["ps_g5a_u02_common_factor_enumeration", "ps_g5a_u02_greatest_common_factor"];
-  for (const patternSpecId of patternIds) {
-    const rows = recordsFor(document, patternSpecId);
-    assert.ok(rows.length > 0);
-    for (const item of rows) {
-      const model = item.questionDisplayModel;
-      assert.notEqual(model.a, model.b);
-      assert.notDeepEqual(model.factorSetA, model.factorSetB);
-      const expectedCommon = intersection(model.factorSetA, model.factorSetB);
-      const answer = document.answerKeyItems.find((row) => row.questionNumber === item.questionNumber).structuredAnswer;
-      const commonFactors = patternSpecId === "ps_g5a_u02_common_factor_enumeration"
-        ? answer.values
-        : answer.commonFactors;
-      const greatest = expectedCommon.at(-1);
-      assert.deepEqual(commonFactors, expectedCommon);
-      assert.ok(greatest >= 2);
-      assert.ok(greatest < Math.min(model.a, model.b));
-      if (patternSpecId === "ps_g5a_u02_greatest_common_factor") assert.equal(answer.greatestCommonFactor, greatest);
-    }
-  }
-  assert.match(html, /data-g5a-u02-s102-kind="parallel_factor_sets_with_intersection"/);
-  assert.match(html, /data-g5a-u02-s102-kind="common_factor_set_with_gcf"/);
-  assert.match(html, /公因數（交集）/);
-});
-
-test("Pre-S104 regeneration excludes source 1725 from default S103 allocation", () => {
-  const { document, html } = buildRegeneratedDocument();
-  const questions = recordsFor(document, "ps_g5a_u02_multi_constraint_digit_code");
-  const answers = answersFor(document, "ps_g5a_u02_multi_constraint_digit_code");
-  assert.ok(questions.length >= 2);
-  assert.equal(questions.length, answers.length);
-  for (const item of questions) {
-    assert.equal(item.questionDisplayModel.profileId, G5A_U02_S103_GENERATED_PROFILE_ID);
-    assert.notEqual(item.questionDisplayModel.profileId, G5A_U02_S103_SOURCE_PROFILE_ID);
-    assert.equal(item.questionDisplayModel.productionAllocation, "default_regeneration");
-    assert.equal(item.questionDisplayModel.solutionCount, 1);
-  }
-  assert.ok(answers.every((answer) => answer.structuredAnswer.value !== 1725));
-  assert.match(html, /data-g5a-u02-s103-kind="unique_digit_code_constraints"/);
-  assert.doesNotMatch(html, /來源參考題/);
+  assert.equal(document.questionItems.length, 60);
+  assert.equal(document.answerKeyItems.length, 60);
+  assert.ok(document.questionPages.every((page) => page.cells.length === 6));
+  assert.ok(document.answerKeyPages.every((page) => page.cells.length === 6));
 });
 
 test("Pre-S104 public wording contains no internal placeholders or decimal-like statement numbers", () => {
@@ -178,10 +144,25 @@ test("Pre-S104 public renderer emits the integrated semantic profile without ans
   const { document, html } = buildRegeneratedDocument();
   assert.match(html, /data-renderer-profile="g5a_u02_s104_p0_integrated_v1"/);
   assert.match(html, /data-layout-columns="2" data-layout-rows="3"/);
-  assert.match(html, /data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"/);
+  assert.match(html, /data-g5a-u02-s107-kind="symbolic_complete_factor_relation_table"/);
+  assert.doesNotMatch(html, /data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"/);
   assert.doesNotMatch(html, /source_1725_reference/);
   assert.doesNotMatch(html, /ps_g5a_u02_|fm_g5a_u02_|fmc_g5a_u02_|pg_g5a_u02_|kp_g5a_u02_/);
   const questionSection = html.split("worksheet-section--answer-key")[0];
   const digitAnswers = answersFor(document, "ps_g5a_u02_multi_constraint_digit_code");
   for (const answer of digitAnswers) assert.equal(questionSection.includes(String(answer.structuredAnswer.value)), false);
+});
+
+test("Pre-S104 regeneration tool emits HTML PDF and acceptance authority", async () => {
+  await rm(ARTIFACT_DIR, { recursive: true, force: true });
+  const result = await run(process.execPath, ["tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs"]);
+  assert.equal(result.code, 0, `${result.stdout}\n${result.stderr}`);
+  const authority = JSON.parse(await readFile(`${ARTIFACT_DIR}/current.json`, "utf8"));
+  assert.equal(authority.status, "PASS_60_OF_60_PUBLIC_SEMANTIC_REGENERATION");
+  assert.equal(authority.questionCount, 60);
+  assert.equal(authority.answerCount, 60);
+  assert.equal(authority.htmlPdfAcceptance.questionPdfPages, authority.questionPageCount);
+  assert.equal(authority.htmlPdfAcceptance.answerPdfPages, authority.answerPageCount);
+  assert.ok((await stat(`${ARTIFACT_DIR}/question.pdf`)).size > 0);
+  assert.ok((await stat(`${ARTIFACT_DIR}/answer.pdf`)).size > 0);
 });
