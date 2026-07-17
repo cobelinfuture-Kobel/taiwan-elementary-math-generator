@@ -6,6 +6,13 @@ export const G5A_U02_S107_RENDER_KINDS = Object.freeze([
 const KINDS = new Set(G5A_U02_S107_RENDER_KINDS);
 export function isG5AU02S107RenderKind(kind) { return KINDS.has(kind); }
 
+export function compactG5AU02S107Prompt(model) {
+  if (model?.kind === "candidate_circle_selection_row") return `把 ${model.target} 的因數圈起來。`;
+  if (model?.kind === "symbolic_complete_factor_relation_table") return "根據完整因數表與配對等式，求出各代號。";
+  if (model?.kind === "marked_common_factor_row") return `圈出 ${model.comparedValues[0]} 和 ${model.comparedValues[1]} 的全部公因數，並找出最小與最大。`;
+  return null;
+}
+
 function candidates(model, esc) {
   return `<div class="g5a-u02-s107-candidates">${(model.candidates ?? []).map((row) => `<span><i></i>${esc(row.text)}</span>`).join("")}</div>`;
 }
