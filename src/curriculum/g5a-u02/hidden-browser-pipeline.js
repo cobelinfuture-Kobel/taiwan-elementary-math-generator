@@ -25,7 +25,7 @@ const BROWSER_PIPELINE_LIFECYCLE = deepFreeze({
 
 const PROFILE_IDS = Object.freeze(["compact", "contextual", "reasoning"]);
 const INTERNAL_ID_PATTERN = /\b(?:ps|fm|fmc|pg|kp)_g5a_u02_[a-z0-9_]+\b/gi;
-const EXPECTED_SUPPORTED_ANSWER_MODEL_COUNT = 18;
+const EXPECTED_SUPPORTED_ANSWER_MODEL_COUNT = 19;
 
 function countToken(text, token) { return text.split(token).length - 1; }
 function blocked(errors, source = null) {
