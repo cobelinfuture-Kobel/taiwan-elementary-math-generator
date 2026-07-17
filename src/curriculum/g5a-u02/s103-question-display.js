@@ -4,6 +4,14 @@ import {
   isG5AU02S103Pattern,
 } from "./s103-digit-code-runtime.js";
 
+const EXACT_SOURCE_TEXT_BY_ID = Object.freeze({
+  third_digit_common_factor: "第三個數字和第一個數字不同，且第三個數字是 6 和 8 的公因數。",
+  second_fourth_have_70_as_common_multiple: "70 是第二個數字和第四個數字的公倍數。",
+  first_digit_double_common_factor: "第一個數字同時是 22 和 33 的公因數，也是 45 和 60 的公因數。",
+  whole_number_multiple_of_3_and_5: "這個四位數同時是 3 的倍數和 5 的倍數。",
+  all_digits_distinct: "四個數字互不重複。",
+});
+
 function clone(value) { return JSON.parse(JSON.stringify(value)); }
 function same(left, right) { return JSON.stringify(left) === JSON.stringify(right); }
 function deepFreeze(value) {
@@ -23,6 +31,15 @@ function publicSourceReference(reference = {}) {
   };
 }
 
+function publicConditions(data) {
+  const conditions = clone(data.conditions ?? []);
+  if (data.profileId !== G5A_U02_S103_SOURCE_PROFILE_ID) return conditions;
+  return conditions.map((condition) => ({
+    ...condition,
+    text: EXACT_SOURCE_TEXT_BY_ID[condition.conditionId] ?? condition.text,
+  }));
+}
+
 export function isG5AU02S103DisplayModel(model) {
   return model?.kind === "unique_digit_code_constraints";
 }
@@ -38,7 +55,7 @@ export function buildG5AU02S103QuestionDisplayModel(item) {
     profileId: data.profileId,
     productionAllocation: data.productionAllocation,
     candidateDomain: clone(data.candidateDomain),
-    conditions: clone(data.conditions),
+    conditions: publicConditions(data),
     solutionCount: data.solutionCount,
     sourceReference: publicSourceReference(data.sourceReference),
   });
@@ -80,7 +97,7 @@ export function validateG5AU02S103QuestionDisplayModel(item, model, promptText =
     errors.push("G5AU02_P0_DIGIT_CODE_PROFILE_INVALID");
   }
   if (!same(model.candidateDomain, data.candidateDomain)
-    || !same(model.conditions, data.conditions)
+    || !same(model.conditions, publicConditions(data))
     || model.solutionCount !== 1
     || data.solutionCount !== 1) {
     errors.push("G5AU02_P0_DIGIT_CODE_CONDITION_INSUFFICIENT");
@@ -110,6 +127,10 @@ export function validateG5AU02S103QuestionDisplayModel(item, model, promptText =
     errors.push("G5AU02_PROMPT_VISIBLE_DATA_INCOMPLETE");
   }
   if (model.profileId === G5A_U02_S103_SOURCE_PROFILE_ID) {
+    if (!same(
+      model.conditions.map((condition) => condition.text),
+      Object.values(EXACT_SOURCE_TEXT_BY_ID),
+    )) errors.push("G5AU02_P0_DIGIT_CODE_PROFILE_INVALID");
     for (const leaked of ["千位為1", "百位為7", "十位為2", "個位為5"]) {
       if (promptText.includes(leaked)) errors.push("G5AU02_S103_SOURCE_ANSWER_LEAKAGE");
     }
