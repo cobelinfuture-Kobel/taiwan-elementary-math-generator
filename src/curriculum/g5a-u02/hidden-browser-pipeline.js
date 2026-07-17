@@ -26,10 +26,7 @@ const BROWSER_PIPELINE_LIFECYCLE = deepFreeze({
 const PROFILE_IDS = Object.freeze(["compact", "contextual", "reasoning"]);
 const INTERNAL_ID_PATTERN = /\b(?:ps|fm|fmc|pg|kp)_g5a_u02_[a-z0-9_]+\b/gi;
 
-function countToken(text, token) {
-  return text.split(token).length - 1;
-}
-
+function countToken(text, token) { return text.split(token).length - 1; }
 function blocked(errors, source = null) {
   return deepFreeze({
     ok: false,
@@ -63,38 +60,19 @@ export function validateG5AU02HiddenBrowserBundle(browserBundle, source = {}) {
   if (!browserBundle || typeof browserBundle !== "object") {
     return deepFreeze({ ok: false, errors: ["G5AU02_BROWSER_BUNDLE_REQUIRED", ...errors] });
   }
-  if (browserBundle.schemaName !== "G5AU02HiddenBrowserBundle" || browserBundle.unitId !== "g5a_u02") {
-    errors.push("G5AU02_BROWSER_BUNDLE_SCHEMA_INVALID");
-  }
-  if (browserBundle.lifecycle?.browserPipelineStatus !== "hidden_connected") {
-    errors.push("G5AU02_BROWSER_PIPELINE_STATUS_INVALID");
-  }
-  if (browserBundle.lifecycle?.selectorStatus !== "hidden") {
-    errors.push("G5AU02_BROWSER_SELECTOR_SCOPE_BREACH");
-  }
-  if (browserBundle.lifecycle?.htmlPdfSmokeStatus !== "pipeline_ready_pending_ci") {
-    errors.push("G5AU02_BROWSER_SMOKE_STATUS_INVALID");
-  }
-  if (browserBundle.lifecycle?.productionUse !== "forbidden") {
-    errors.push("G5AU02_BROWSER_PRODUCTION_USE_FORBIDDEN");
-  }
+  if (browserBundle.schemaName !== "G5AU02HiddenBrowserBundle" || browserBundle.unitId !== "g5a_u02") errors.push("G5AU02_BROWSER_BUNDLE_SCHEMA_INVALID");
+  if (browserBundle.lifecycle?.browserPipelineStatus !== "hidden_connected") errors.push("G5AU02_BROWSER_PIPELINE_STATUS_INVALID");
+  if (browserBundle.lifecycle?.selectorStatus !== "hidden") errors.push("G5AU02_BROWSER_SELECTOR_SCOPE_BREACH");
+  if (browserBundle.lifecycle?.htmlPdfSmokeStatus !== "pipeline_ready_pending_ci") errors.push("G5AU02_BROWSER_SMOKE_STATUS_INVALID");
+  if (browserBundle.lifecycle?.productionUse !== "forbidden") errors.push("G5AU02_BROWSER_PRODUCTION_USE_FORBIDDEN");
 
   const worksheet = source.worksheetDocument;
   const rendered = source.renderedWorksheet;
-  if (browserBundle.questionCount !== worksheet?.questionCount) {
-    errors.push("G5AU02_BROWSER_QUESTION_COUNT_MISMATCH");
-  }
-  if (browserBundle.answerCount !== (worksheet?.answerKeyRecords?.length ?? 0)) {
-    errors.push("G5AU02_BROWSER_ANSWER_COUNT_MISMATCH");
-  }
-  if (browserBundle.questionPageCount !== rendered?.questionPageCount) {
-    errors.push("G5AU02_BROWSER_QUESTION_PAGE_COUNT_MISMATCH");
-  }
-  if (browserBundle.answerPageCount !== rendered?.answerPageCount) {
-    errors.push("G5AU02_BROWSER_ANSWER_PAGE_COUNT_MISMATCH");
-  }
-  if (browserBundle.expectedPdfPageCount
-    !== browserBundle.questionPageCount + browserBundle.answerPageCount) {
+  if (browserBundle.questionCount !== worksheet?.questionCount) errors.push("G5AU02_BROWSER_QUESTION_COUNT_MISMATCH");
+  if (browserBundle.answerCount !== (worksheet?.answerKeyRecords?.length ?? 0)) errors.push("G5AU02_BROWSER_ANSWER_COUNT_MISMATCH");
+  if (browserBundle.questionPageCount !== rendered?.questionPageCount) errors.push("G5AU02_BROWSER_QUESTION_PAGE_COUNT_MISMATCH");
+  if (browserBundle.answerPageCount !== rendered?.answerPageCount) errors.push("G5AU02_BROWSER_ANSWER_PAGE_COUNT_MISMATCH");
+  if (browserBundle.expectedPdfPageCount !== browserBundle.questionPageCount + browserBundle.answerPageCount) {
     errors.push("G5AU02_BROWSER_EXPECTED_PDF_PAGE_COUNT_MISMATCH");
   }
 
@@ -104,36 +82,19 @@ export function validateG5AU02HiddenBrowserBundle(browserBundle, source = {}) {
   } else {
     if (!html.startsWith("<!doctype html>")) errors.push("G5AU02_BROWSER_DOCTYPE_MISSING");
     if (!html.includes('<html lang="zh-Hant">')) errors.push("G5AU02_BROWSER_LANGUAGE_INVALID");
-    if (!html.includes('data-s93-hidden-browser-pipeline="true"')) {
-      errors.push("G5AU02_BROWSER_PIPELINE_MARKER_MISSING");
-    }
-    if (!html.includes('name="robots" content="noindex,nofollow"')) {
-      errors.push("G5AU02_BROWSER_NOINDEX_MISSING");
-    }
-    const questionCards = countToken(html, 'class="g5a-u02-card g5a-u02-card--question');
-    const answerCards = countToken(html, 'class="g5a-u02-card g5a-u02-card--answer');
-    if (questionCards !== browserBundle.questionCount) {
-      errors.push("G5AU02_BROWSER_QUESTION_CARD_COUNT_MISMATCH");
-    }
-    if (answerCards !== browserBundle.answerCount) {
-      errors.push("G5AU02_BROWSER_ANSWER_CARD_COUNT_MISMATCH");
-    }
-    if ((html.match(INTERNAL_ID_PATTERN) ?? []).length > 0) {
-      errors.push("G5AU02_BROWSER_INTERNAL_ID_LEAK");
-    }
-    if ((html.match(/\{\{[^{}]+\}\}/g) ?? []).length > 0) {
-      errors.push("G5AU02_BROWSER_UNRESOLVED_PLACEHOLDER");
-    }
+    if (!html.includes('data-s93-hidden-browser-pipeline="true"')) errors.push("G5AU02_BROWSER_PIPELINE_MARKER_MISSING");
+    if (!html.includes('name="robots" content="noindex,nofollow"')) errors.push("G5AU02_BROWSER_NOINDEX_MISSING");
+    if (countToken(html, 'class="g5a-u02-card g5a-u02-card--question') !== browserBundle.questionCount) errors.push("G5AU02_BROWSER_QUESTION_CARD_COUNT_MISMATCH");
+    if (countToken(html, 'class="g5a-u02-card g5a-u02-card--answer') !== browserBundle.answerCount) errors.push("G5AU02_BROWSER_ANSWER_CARD_COUNT_MISMATCH");
+    if ((html.match(INTERNAL_ID_PATTERN) ?? []).length > 0) errors.push("G5AU02_BROWSER_INTERNAL_ID_LEAK");
+    if ((html.match(/\{\{[^{}]+\}\}/g) ?? []).length > 0) errors.push("G5AU02_BROWSER_UNRESOLVED_PLACEHOLDER");
   }
 
   for (const profileId of browserBundle.profileIds ?? []) {
     if (!PROFILE_IDS.includes(profileId)) errors.push(`G5AU02_BROWSER_PROFILE_INVALID:${profileId}`);
   }
   if ((browserBundle.profileIds ?? []).length === 0) errors.push("G5AU02_BROWSER_PROFILE_REQUIRED");
-  if (browserBundle.answerKeyEnabled === false && browserBundle.answerCount !== 0) {
-    errors.push("G5AU02_BROWSER_ANSWER_SUPPRESSION_FAILED");
-  }
-
+  if (browserBundle.answerKeyEnabled === false && browserBundle.answerCount !== 0) errors.push("G5AU02_BROWSER_ANSWER_SUPPRESSION_FAILED");
   return deepFreeze({ ok: errors.length === 0, errors: [...new Set(errors)] });
 }
 
@@ -152,14 +113,13 @@ export function buildG5AU02HiddenBrowserBundle(input = {}) {
   if (!source.ok) return blocked(source.errors, source);
 
   const { worksheetDocument, renderedWorksheet } = source;
-  const html = addHiddenBrowserMetadata(renderedWorksheet.html);
   const browserBundle = deepFreeze({
     schemaName: "G5AU02HiddenBrowserBundle",
     schemaVersion: 1,
     task: "S93_G5A_U02_HiddenBrowserPipelineAndHTMLPDFSmokeIntegration",
     unitId: "g5a_u02",
     bundleId: `${worksheetDocument.worksheetDocumentId}_browser`,
-    html,
+    html: addHiddenBrowserMetadata(renderedWorksheet.html),
     questionCount: worksheetDocument.questionCount,
     answerCount: worksheetDocument.answerKeyRecords.length,
     answerKeyEnabled: worksheetDocument.answerKeyEnabled,
@@ -170,16 +130,9 @@ export function buildG5AU02HiddenBrowserBundle(input = {}) {
     answerModelIds: [...renderedWorksheet.answerModelIds],
     lifecycle: BROWSER_PIPELINE_LIFECYCLE,
   });
-
   const validation = validateG5AU02HiddenBrowserBundle(browserBundle, source);
   if (!validation.ok) return blocked(validation.errors, source);
-  return deepFreeze({
-    ok: true,
-    errors: [],
-    worksheetDocument,
-    renderedWorksheet,
-    browserBundle,
-  });
+  return deepFreeze({ ok: true, errors: [], worksheetDocument, renderedWorksheet, browserBundle });
 }
 
 export function auditG5AU02HiddenBrowserPipeline() {
@@ -188,17 +141,11 @@ export function auditG5AU02HiddenBrowserPipeline() {
   if (!canonical.ok) errors.push(...canonical.errors);
   else {
     if (canonical.browserBundle.questionCount !== 22) errors.push("G5AU02_BROWSER_AUDIT_PATTERN_COUNT_MISMATCH");
-    if (canonical.browserBundle.answerModelIds.length !== 16) errors.push("G5AU02_BROWSER_AUDIT_ANSWER_MODEL_COUNT_MISMATCH");
-    if (PROFILE_IDS.some((profileId) => !canonical.browserBundle.profileIds.includes(profileId))) {
-      errors.push("G5AU02_BROWSER_AUDIT_PROFILE_COVERAGE_MISMATCH");
-    }
+    if (canonical.browserBundle.answerModelIds.length !== 17) errors.push("G5AU02_BROWSER_AUDIT_ANSWER_MODEL_COUNT_MISMATCH");
+    if (PROFILE_IDS.some((profileId) => !canonical.browserBundle.profileIds.includes(profileId))) errors.push("G5AU02_BROWSER_AUDIT_PROFILE_COVERAGE_MISMATCH");
   }
 
-  const suppressed = buildG5AU02HiddenBrowserBundle({
-    questionCount: 7,
-    baseSeed: 9301,
-    includeAnswerKey: false,
-  });
+  const suppressed = buildG5AU02HiddenBrowserBundle({ questionCount: 7, baseSeed: 9301, includeAnswerKey: false });
   if (!suppressed.ok) errors.push(...suppressed.errors);
   else if (suppressed.browserBundle.answerCount !== 0
     || suppressed.browserBundle.answerPageCount !== 0
