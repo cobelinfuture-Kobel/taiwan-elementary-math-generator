@@ -1,0 +1,280 @@
+{
+  "contractName": "GCTXSourceMiningCommonKnowledgeAndEvidenceGovernanceContract",
+  "contractVersion": 1,
+  "task": "GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance",
+  "status": "governance_locked_pending_ci",
+  "rulesetVersion": "0.1.0",
+  "schemaPath": "data/curriculum/context/schemas/GCTX_SourceEvidenceGovernance.schema.json",
+  "registryTargetPath": "data/curriculum/context/registry/source-evidence-governance.json",
+  "scope": {
+    "schemaAndContractOnly": true,
+    "sourceCorpusMaterialized": false,
+    "commonKnowledgeSeedMaterialized": false,
+    "authenticProblemSeedMaterialized": false,
+    "runtimeBehaviorChange": false,
+    "unitMigrationChange": false,
+    "semanticBreadthImplemented": false,
+    "nearDuplicateDetectionImplemented": false,
+    "rendererImplementationChange": false
+  },
+  "authorityDependencies": {
+    "p00SourceAndEvidenceAuthorityRequired": true,
+    "p01ApprovedSemanticBindingAuthorityUnchanged": true,
+    "p02ScenarioAndBoundedPblAuthorityUnchanged": true,
+    "historicalPr243MayBeUsedAsDesignInput": true,
+    "historicalPr243SchemaIsProductionAuthority": false
+  },
+  "sourceDiscoveryBoundary": {
+    "designTimeOnly": true,
+    "runtimeWebSearchAllowed": false,
+    "runtimeSourceDiscoveryAllowed": false,
+    "runtimeEvidenceMutationAllowed": false,
+    "discoveryRecordIsAdmissibleEvidence": false,
+    "admissionReviewRequiredAfterDiscovery": true,
+    "unapprovedEvidenceFallbackAllowed": false
+  },
+  "sourceAuthorityTiers": [
+    "official_public_authority",
+    "museum_library_university",
+    "education_or_science_institution",
+    "trusted_reference",
+    "discovery_only",
+    "disallowed"
+  ],
+  "sourceAdmissionContract": {
+    "authorityEntryRequired": true,
+    "authorityTierRequired": true,
+    "permittedEvidenceKindsRequired": true,
+    "permittedUsesRequired": true,
+    "approvedDomainsRequired": true,
+    "admissionDecisionRequired": true,
+    "discoveryOnlyMaySolelySupportApprovedEvidence": false,
+    "disallowedSourceMaySupportAnyEvidence": false,
+    "suspendedSourceMaySupportNewApproval": false,
+    "sourceReviewTimestampRequired": true
+  },
+  "humanVerificationAuthority": {
+    "aiMaySelfApproveEvidence": false,
+    "aiMayPromoteCandidateToVerified": false,
+    "ocrMayEstablishSourceBackedEvidence": false,
+    "ocrMayEstablishVerifiedEvidence": false,
+    "ocrMayCreateDraftCandidate": true,
+    "ocrDraftStatus": "candidate",
+    "ocrDraftRequiresHumanReview": true,
+    "visualPdfRequiresOperatorVisualReview": true,
+    "operatorProvidedVerificationNotesMayEstablishReviewedEvidence": true,
+    "reviewEventRequiredForStatusPromotion": true,
+    "automatedApprovalAllowed": false
+  },
+  "commonKnowledgeEvidenceContract": {
+    "claimTextRequired": true,
+    "domainRequired": true,
+    "topicAndScopeRequired": true,
+    "gradeBandRequired": true,
+    "generalCommonKnowledgeMinimumAdmissibleReferences": 1,
+    "specificSpeciesRegionEraInstitutionMinimumIndependentReferences": 2,
+    "exactFactMinimumAdmissibleReferences": 1,
+    "exactFactPrimarySourcePreferred": true,
+    "exactClaimMustBeSourceBound": true,
+    "exactValueMutationAllowed": false,
+    "exerciseNumbersDefaultPolicy": "fictionalized_for_practice",
+    "exactClaimExerciseNumbersPolicy": "source_bound_exact_values_only",
+    "evidenceMayOwnUnitMathematics": false,
+    "evidenceMayOwnOperationSignature": false,
+    "evidenceMayOwnAnswerModel": false
+  },
+  "authenticProblemEvidenceContract": {
+    "structureExtractionOnly": true,
+    "projectGoalSummaryRequired": true,
+    "projectArchetypeCandidateRequired": true,
+    "requiredMilestoneMinimum": 2,
+    "eventFlowSummaryRequired": true,
+    "decisionCriteriaSummaryRequired": true,
+    "terminalDeliverableSummaryRequired": true,
+    "mathematicalCompositionTagsRequired": true,
+    "sourceEvidenceIsApprovedPblChain": false,
+    "sourceEvidenceMayDirectlyPopulateRuntime": false,
+    "fullPromptCopyAllowed": false,
+    "answerKeyCopyAllowed": false,
+    "verbatimProblemReuseAllowed": false,
+    "structureOnlyParaphraseRequired": true,
+    "sourceAttributionRequired": true
+  },
+  "freshnessContract": {
+    "classes": [
+      "stable",
+      "slow_changing",
+      "time_bounded",
+      "rapidly_changing"
+    ],
+    "verifiedAtRequired": true,
+    "reviewDueAtRequired": true,
+    "validUntilRequiredForTimeBounded": true,
+    "validUntilRequiredForRapidlyChanging": true,
+    "autoApproveOnRefresh": false,
+    "expiredEvidenceProductionAdmissible": false,
+    "expiredEvidenceRequiresReverification": true,
+    "reverificationEventRequired": true
+  },
+  "contradictionContract": {
+    "contradictionStateRequired": true,
+    "unresolvedContradictionProductionAdmissible": false,
+    "unresolvedContradictionRequiresAtLeastTwoReferences": true,
+    "resolutionNoteRequired": true,
+    "resolutionReviewReferenceRequired": true,
+    "resolvedEvidenceRequiresHumanDecision": true
+  },
+  "productionAdmissionContract": {
+    "approvedLifecycleRequired": true,
+    "productionAdmissibleFlagRequired": true,
+    "approvedEvidenceMustBeProductionAdmissible": true,
+    "nonApprovedEvidenceMustNotBeProductionAdmissible": true,
+    "unresolvedContradictionForbidden": true,
+    "expiredEvidenceForbidden": true,
+    "missingHumanReviewForbidden": true,
+    "missingAdmissibleReferenceForbidden": true,
+    "consumerTraceabilityRequiredWhenUsed": true
+  },
+  "traceabilityContract": {
+    "supportedConsumers": [
+      "common_knowledge_asset",
+      "context_family",
+      "approved_semantic_binding",
+      "scenario_chain",
+      "bounded_pbl_chain"
+    ],
+    "consumerIdRequired": true,
+    "useModeRequired": true,
+    "consumerMayReferenceOnlyApprovedEvidence": true,
+    "evidenceIdMustRemainStable": true,
+    "evidenceStatusChangeMustBeAuditable": true,
+    "deprecatedOrExpiredEvidenceRequiresImpactAudit": true
+  },
+  "verificationLifecycle": {
+    "statuses": [
+      "candidate",
+      "reviewed",
+      "verified",
+      "approved",
+      "expired",
+      "disputed",
+      "deprecated",
+      "blocked",
+      "rejected"
+    ],
+    "promotionPath": [
+      "candidate",
+      "reviewed",
+      "verified",
+      "approved"
+    ],
+    "statusPromotionMaySkipHumanReview": false,
+    "approvalEventRequired": true,
+    "expiryEventRequired": true,
+    "disputeEventRequired": true,
+    "contradictionResolutionEventRequired": true,
+    "automatedApprovalAllowed": false
+  },
+  "blockingCodesReserved": [
+    "GCTX_SOURCE_NOT_ADMITTED",
+    "GCTX_SOURCE_USE_NOT_PERMITTED",
+    "GCTX_DISCOVERY_RECORD_NOT_EVIDENCE",
+    "GCTX_EVIDENCE_REFERENCE_MISSING",
+    "GCTX_SPECIFIC_CLAIM_REFERENCE_COUNT_INSUFFICIENT",
+    "GCTX_EVIDENCE_REVIEW_MISSING",
+    "GCTX_OCR_ONLY_PROMOTION_FORBIDDEN",
+    "GCTX_VISUAL_SOURCE_HUMAN_REVIEW_MISSING",
+    "GCTX_AI_SELF_APPROVAL_FORBIDDEN",
+    "GCTX_EVIDENCE_EXPIRED",
+    "GCTX_EVIDENCE_DISPUTED",
+    "GCTX_EVIDENCE_CONTRADICTION_UNRESOLVED",
+    "GCTX_EXACT_CLAIM_NOT_SOURCE_BOUND",
+    "GCTX_EXACT_VALUE_MUTATION_FORBIDDEN",
+    "GCTX_AUTHENTIC_PROBLEM_VERBATIM_COPY_FORBIDDEN",
+    "GCTX_RUNTIME_WEB_SEARCH_FORBIDDEN",
+    "GCTX_UNAPPROVED_EVIDENCE_FALLBACK_FORBIDDEN",
+    "GCTX_EVIDENCE_MATH_AUTHORITY_VIOLATION",
+    "GCTX_CONSUMER_TRACEABILITY_MISSING"
+  ],
+  "forbiddenBehavior": [
+    "runtime_web_search",
+    "runtime_source_discovery",
+    "runtime_evidence_mutation",
+    "ai_self_approval",
+    "ocr_only_source_backed_promotion",
+    "ocr_only_verified_promotion",
+    "visual_pdf_without_operator_review",
+    "discovery_record_used_as_evidence",
+    "discovery_only_source_as_sole_approved_support",
+    "expired_evidence_use",
+    "disputed_evidence_use",
+    "unresolved_contradiction_use",
+    "unapproved_evidence_fallback",
+    "exact_value_mutation",
+    "full_problem_prompt_copy",
+    "source_answer_key_copy",
+    "source_evidence_changing_unit_math"
+  ],
+  "deferredToP04": [
+    "pblSemanticFingerprint",
+    "nearDuplicateDetection",
+    "semanticFamilyRegistry",
+    "perUnitSemanticBreadthGate",
+    "crossDomainCoverageGate"
+  ],
+  "deferredToFixtures": [
+    "representativeSourceAuthoritySeeds",
+    "representativeCommonKnowledgeEvidence",
+    "representativeAuthenticProblemEvidence",
+    "positiveNegativeEvidenceFixtures"
+  ],
+  "deferredToRuntime": [
+    "evidenceRegistryLoader",
+    "approvedEvidenceResolver",
+    "expiryImpactResolver",
+    "consumerImpactAudit"
+  ],
+  "compatibilityContract": {
+    "existingKnowledgePointAuthorityUnchanged": true,
+    "existingPatternSpecAuthorityUnchanged": true,
+    "existingMathValidatorAuthorityUnchanged": true,
+    "p01ApprovedSemanticBindingAuthorityUnchanged": true,
+    "p02ScenarioClosureAuthorityUnchanged": true,
+    "existingUnitRuntimeUnchanged": true,
+    "existingRendererUnchanged": true,
+    "g5aU02FilesMayBeModified": false
+  },
+  "acceptance": {
+    "schemaSeparatesDiscoveryAndEvidence": true,
+    "schemaDefinesSourceAuthorityAdmission": true,
+    "schemaRequiresHumanVerification": true,
+    "schemaPreventsOcrOnlyPromotion": true,
+    "schemaRequiresFreshnessLifecycle": true,
+    "schemaBlocksUnresolvedContradictions": true,
+    "schemaDefinesCommonKnowledgeEvidence": true,
+    "schemaDefinesAuthenticProblemStructureEvidence": true,
+    "schemaRequiresConsumerTraceability": true,
+    "schemaContainsNoSeedContent": true,
+    "schemaChangesNoRuntime": true
+  },
+  "ciPolicy": {
+    "ownedGatesMustPass": true,
+    "newFailureRelativeToMainAllowed": false,
+    "inheritedNonOwnedBaselineFailureMayBeRecordedByParity": true,
+    "inheritedFailureMayBeRepairedInP03": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_SCENARIO_AND_BOUNDED_PBL_CLOSURE_CONTRACT_LOCKED",
+    "goalDistanceAfter": "D2_GCTX_SOURCE_EVIDENCE_GOVERNANCE_LOCKED",
+    "distanceReduced": "converted source discovery and common-knowledge use into reviewable, expiring, traceable evidence authority",
+    "remainingBlockers": [
+      "semantic breadth and deduplication",
+      "layout contracts",
+      "representative fixtures",
+      "validator implementation",
+      "runtime resolver",
+      "existing-unit audits"
+    ]
+  },
+  "nextTask": "GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract"
+}
