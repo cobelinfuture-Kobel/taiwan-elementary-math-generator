@@ -26,12 +26,12 @@ function buildFull(options = {}) {
   return result;
 }
 
-test("S92 renderer audit covers three profiles and all 18 supported answer models", () => {
+test("S92 renderer audit covers three profiles and all 19 supported answer models", () => {
   const audit = auditG5AU02HiddenRendererIntegration();
   assert.equal(audit.ok, true, audit.errors.join(","));
   assert.equal(audit.profileCount, 3);
   assert.deepEqual([...audit.profilesSeen].sort(), ["compact", "contextual", "reasoning"]);
-  assert.equal(audit.answerModelCount, 18);
+  assert.equal(audit.answerModelCount, 19);
   assert.equal(audit.selectorStatus, "hidden");
   assert.equal(audit.browserPipelineStatus, "not_connected");
   assert.equal(audit.productionUse, "forbidden");
@@ -43,9 +43,10 @@ test("S92 renders exact S91 question and answer pages as Traditional Chinese A4 
   assert.equal(renderedWorksheet.questionCount, 22);
   assert.equal(renderedWorksheet.questionPageCount, worksheetDocument.questionPages.length);
   assert.equal(renderedWorksheet.answerPageCount, worksheetDocument.answerKeyPages.length);
-  assert.equal(renderedWorksheet.answerModelIds.length, 18);
+  assert.equal(renderedWorksheet.answerModelIds.length, 19);
   assert.ok(renderedWorksheet.answerModelIds.includes("partitionPairListAnswer"));
   assert.ok(renderedWorksheet.answerModelIds.includes("tileSideAreaPairListAnswer"));
+  assert.ok(renderedWorksheet.answerModelIds.includes("commonFactorAndGcfAnswer"));
   assert.match(renderedWorksheet.html, /^<!doctype html>/);
   assert.match(renderedWorksheet.html, /<html lang="zh-Hant">/);
   assert.match(renderedWorksheet.html, /@page\{size:A4/);
