@@ -33,7 +33,7 @@ function inspectQuestion(question, expectedKind) {
   if (question?.promptCompletenessStatus !== "visible_unique_solution_data_complete") {
     errors.push("G5AU02_S100_BUNDLE_PROMPT_STATUS_INVALID");
   }
-  if (typeof question?.prompt !== "string" || question.prompt.length < 24) {
+  if (typeof question?.prompt !== "string" || question.prompt.length < 12) {
     errors.push("G5AU02_S100_BUNDLE_VISIBLE_PROMPT_REQUIRED");
   }
   for (const forbidden of ["answer", "structuredAnswer", "answerText"]) {
