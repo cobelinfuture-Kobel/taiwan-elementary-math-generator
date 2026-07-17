@@ -2,7 +2,7 @@
   "contractName": "GCTX_PBLSemanticBreadthFingerprintAndNearDuplicateContract",
   "contractVersion": 1,
   "task": "GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract",
-  "status": "contract_locked_pending_ci",
+  "status": "contract_locked_ci_accepted",
   "rulesetVersion": "0.1.0",
   "schemaPath": "data/curriculum/context/schemas/GCTX_PBLSemanticBreadthAndFingerprint.schema.json",
   "registryTargetPath": "data/curriculum/context/registry/pbl-semantic-breadth-and-fingerprints.json",
@@ -313,6 +313,18 @@
     "newFailureRelativeToMainAllowed": false,
     "inheritedNonOwnedBaselineFailureMayBeRecordedByParity": true,
     "inheritedFailureMayBeRepairedInP04": false
+  },
+  "ciAcceptance": {
+    "acceptedHeadSha": "3a42b5c209981696a1a1040f0a186cf198d62678",
+    "workflowCount": 19,
+    "successCount": 18,
+    "inheritedFailureCount": 1,
+    "inheritedFailureWorkflow": "S93 G5A-U02 Hidden HTML PDF Smoke",
+    "newOwnedFailures": 0,
+    "baselineParityAccepted": true,
+    "nodeTestRunNumber": 2326,
+    "mathCiReadbackRunNumber": 1996,
+    "productionStressRunNumber": 331
   },
   "distance": {
     "goalDistanceBefore": "D2_GCTX_SOURCE_EVIDENCE_GOVERNANCE_LOCKED",
