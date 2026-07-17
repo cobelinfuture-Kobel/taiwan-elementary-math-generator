@@ -67,31 +67,57 @@ Canonical answers are independently recomputed. Generic fallback and free-form A
 
 The exact-layout renderer consumes the structured question display model and emits:
 
-- blank segment-count/length response rows;
-- bounded proportional equal-square grids;
-- blank side-length/area reasoning rows;
+- a role-labelled compact grid for segment-count/length pairs;
+- bounded proportional equal-square diagrams;
+- a role-labelled compact grid for side-length/area reasoning pairs;
 - generic worksheet page/grid/card classes retained for global geometry QA.
 
-The renderer never creates more than 81 diagram cells per question.
+The renderer never creates more than 81 diagram cells per question. The pair grid preserves every structured pair while using two visual columns at high-density layouts.
+
+## Authority precedence
+
+The historical S84 materialization is not rewritten. S101 applies the two additive answer models through:
+
+```text
+S84 base materialization
+→ S99 additive answer-model contract
+→ S101 runtime overlay
+```
+
+The overlay changes only pattern orders 9 and 21 and their two PatternGroup answer-model declarations.
 
 ## Acceptance
 
 ```text
-source runtime: 3 patterns × 64 seeds = 192 / 192 required
-browser bundle: 3 patterns × 64 questions = 192 / 192 required
-full Node regression = required
-GLM-S05 exact 18-layout matrix = required
-GLM-S06 270 HTML/PDF matrix = required
-GLM-S07 90 answer-boundary matrix = required
-S95/S96G/S96I/S96Q/S96R = required
+source runtime: 3 patterns × 64 seeds = 192 / 192 PASS
+browser bundle: 3 patterns × 64 questions = 192 / 192 PASS
+full Node regression = 1595 / 1595 PASS
+S97 backward compatibility = 120 / 120 PASS
+S100 source and bundle = 384 / 384 PASS
+GLM-S05 exact 18-layout matrix = PASS
+GLM-S06 270 HTML/PDF matrix = 270 / 270 PASS
+GLM-S07 90 answer-boundary matrix = 90 / 90 PASS
+GLM-S09 actual column geometry = 270 / 270 PASS
+S95/S96D/S96G/S96I/S96Q/S96R = PASS
+```
+
+The initial GLM-S06 run found one `G5A-U02:3×5` page-container overflow. No card, prompt, response node or PDF bounding box overflowed. The public pair response representation was compacted from eight vertical rows to a two-column role-labelled grid. The final 270-scenario run passed with zero render findings.
+
+## Merge closeout
+
+```text
+PR_NUMBER = 248
+MERGE_SHA = c3ace42280424d4cd2657dea696cd373c4817adb
+STATUS = PASS_CI_SYNCED_AND_MERGED
 ```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_S100_METHOD_LANGUAGE_REASONING_FIXED
-GOAL_DISTANCE_TARGET = D1_G5A_U02_S101_PARTITION_GEOMETRY_REPRESENTATION_FIXED
-DISTANCE_REDUCED = three P0 application/geometry PatternSpecs gain paired semantic answers and bounded source-like representations
+GOAL_DISTANCE_AFTER = D1_G5A_U02_S101_PARTITION_GEOMETRY_REPRESENTATION_FIXED
+DISTANCE_REDUCED = three P0 application/geometry PatternSpecs gain paired semantic answers, bounded source-like diagrams and exact-layout-safe response representations
 D0_ELIGIBLE = false
 NEXT_SHORT_STEP = G5AU02-S102_P0NontrivialCommonFactorSamplingAndWitnessFullFix
+NEXT_STEP_REQUIRES_IMPLEMENTATION_APPROVAL = true
 ```
