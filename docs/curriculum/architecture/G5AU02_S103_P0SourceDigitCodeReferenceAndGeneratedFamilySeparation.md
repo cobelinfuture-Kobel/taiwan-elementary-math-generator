@@ -1,5 +1,13 @@
 # G5AU02-S103 P0 Source Digit-Code Reference and Generated-Family Separation
 
+## Status
+
+```text
+PASS_CI_SYNCED_AND_MERGED
+PR = 252
+MERGE_SHA = b067c4df1a4d89d14cb6123fa2fcec353d022e41
+```
+
 ## Authority
 
 S103 implements pattern order 22 from the merged S99 P0 source-method and representation contract.
@@ -52,6 +60,7 @@ The generated candidate domain is closed and deterministic:
 1000..9999
 four distinct digits
 nonzero thousands digit
+candidate count = 4536
 ```
 
 The finite grammar supports:
@@ -68,7 +77,7 @@ Eight approved blueprints are selected deterministically from the seed. No free-
 
 For every profile, the validator enumerates the complete candidate domain and evaluates the structured conditions independently of prompt text.
 
-Acceptance requires:
+Acceptance requires and now confirms:
 
 ```text
 solutionCount = 1
@@ -117,27 +126,35 @@ G5AU02_P0_DIGIT_CODE_CONDITION_INSUFFICIENT
 G5AU02_P0_SOURCE_REFERENCE_REPEATED_AS_DEFAULT
 ```
 
-The historical source-answer mismatch code remains available for explicit source fixture mutations:
+The historical source-answer mismatch code remains available only for explicit source fixture mutations:
 
 ```text
 G5AU02_DIGIT_TUPLE_NOT_1725
 ```
 
-## Acceptance
+## Accepted evidence
 
 ```text
-focused generated profile: 64 / 64 required
-explicit source reference fixture: 1 / 1 required
-bundled generated profile: 64 / 64 required
-source-reference default repeats: 0 required
-eight generated blueprints reached: required
-full Node regression: required
-S97/S100/S101/S102 backward compatibility: required
-GLM-S05 exact 18-layout matrix: required
-GLM-S06 270 HTML/PDF matrix: required
-GLM-S07 90 answer-boundary matrix: required
-delegated GLM-S09 270 actual-column geometry: required
-S95/S96D/S96G/S96I/S96Q/S96R: required
+focused generated profile                 = 64 / 64 PASS
+explicit source reference fixture         = 1 / 1 PASS
+bundled generated profile                 = 64 / 64 PASS
+source-reference default repeats          = 0 PASS
+eight generated blueprints reached        = 8 / 8 PASS
+full Node regression                      = 1619 / 1619 PASS
+S97 backward compatibility                = 120 / 120 PASS
+S100 backward compatibility               = 384 / 384 PASS
+S101 backward compatibility               = 192 / 192 PASS
+S102 backward compatibility               = 128 / 128 PASS
+GLM-S05 exact 18-layout matrix            = 15 units × 18 layouts PASS
+GLM-S06 HTML/PDF matrix                   = 270 / 270 PASS
+GLM-S07 answer-boundary matrix            = 90 / 90 PASS
+delegated GLM-S09 actual-column geometry  = 270 / 270 PASS
+S95 production stress                     = PASS
+S96D bundle/focused/full suite            = PASS
+S96G dynamic 200-question HTML/PDF        = PASS
+S96I live browser/print E2E               = PASS
+S96Q public-control DOM E2E               = PASS
+S96R 24-combination HTML/PDF              = PASS
 ```
 
 ## Fixed boundaries
@@ -152,8 +169,9 @@ S95/S96D/S96G/S96I/S96Q/S96R: required
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_S102_NONTRIVIAL_COMMON_FACTOR_WITNESS_FIXED
-GOAL_DISTANCE_TARGET = D1_G5A_U02_S103_SOURCE_AND_GENERATED_DIGIT_CODE_SEPARATED
+GOAL_DISTANCE_AFTER  = D1_G5A_U02_S103_SOURCE_AND_GENERATED_DIGIT_CODE_SEPARATED
 DISTANCE_REDUCED = fixed source example separated from deterministic unique generated-code production family
 D0_ELIGIBLE = false
 NEXT_SHORT_STEP = G5AU02-S104_P0IntegratedSemanticRendererHTMLPDFAcceptance
+NEXT_STEP_REQUIRES_IMPLEMENTATION_APPROVAL = true
 ```
