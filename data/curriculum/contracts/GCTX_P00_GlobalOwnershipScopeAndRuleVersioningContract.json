@@ -2,7 +2,15 @@
   "contractName": "GCTXGlobalOwnershipScopeAndRuleVersioningContract",
   "contractVersion": 1,
   "task": "GCTX-P00_GlobalOwnershipScopeAndRuleVersioningContract",
-  "status": "planning_contract_pending_ci",
+  "status": "pass_ci_accepted",
+  "completionEvidence": {
+    "pullRequest": 249,
+    "acceptedHeadCommit": "d649a1ec63c667bb58756eabd0be63172caa5edf",
+    "triggeredWorkflowCount": 19,
+    "allTriggeredWorkflowsPassed": true,
+    "nodeTestRunNumber": 2265,
+    "mathCiReadbackRunNumber": 1935
+  },
   "scope": {
     "planningOnly": true,
     "runtimeBehaviorChange": false,
