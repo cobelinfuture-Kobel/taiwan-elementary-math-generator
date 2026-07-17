@@ -35,15 +35,27 @@ function assertVisibleByPattern(record) {
       assert.match(record.prompt, /□/);
       break;
     case "ps_g5a_u02_divisor_candidate_selection":
-      assert.equal(model.kind, "candidate_selection");
+      assert.equal(model.kind, "candidate_circle_selection_row");
+      assert.equal(model.selectionRole, "factor");
+      assert.match(record.prompt, /因數圈起來/);
       assert.match(record.prompt, /候選數：/);
-      for (const candidate of model.candidates) assert.ok(record.prompt.includes(String(candidate)));
+      for (const candidate of model.candidates) {
+        assert.equal(candidate.markAffordance, "circle_blank");
+        assert.ok(record.prompt.includes(candidate.text));
+      }
       break;
     case "ps_g5a_u02_complete_factor_list_unknown_values":
-      assert.equal(model.kind, "symbolic_complete_factor_sequence");
-      assert.match(record.prompt, /最後一個數就是原數/);
+      assert.equal(model.kind, "symbolic_complete_factor_relation_table");
+      assert.equal(model.publicSymbolPolicy, "traditional_chinese_ordered_symbols");
+      assert.equal(model.solutionCount, 1);
+      assert.match(record.prompt, /完整因數表/);
+      assert.match(record.prompt, /配對關係/);
       assert.ok(model.sequence.some((entry) => entry.role === "unknown"));
       for (const entry of model.sequence) assert.ok(record.prompt.includes(entry.text));
+      for (const relation of model.relationRows) {
+        assert.ok(record.prompt.includes(relation.text));
+        assert.ok(record.prompt.includes(relation.responseText));
+      }
       break;
     case "ps_g5a_u02_complete_factor_list_statement_evaluation":
       assert.equal(model.kind, "factor_list_reasoning_statement_set");
@@ -58,11 +70,14 @@ function assertVisibleByPattern(record) {
       assert.doesNotMatch(record.prompt, /\b\d+\.\d+\s+是/);
       break;
     case "ps_g5a_u02_common_factor_concept_identification":
-      assert.equal(model.kind, "candidate_selection");
-      assert.equal(model.selectionRole, "common_factor");
-      assert.match(record.prompt, /所有公因數/);
+      assert.equal(model.kind, "marked_common_factor_row");
+      assert.match(record.prompt, /公因數全部圈起來/);
       assert.match(record.prompt, /候選數：/);
-      for (const candidate of model.candidates) assert.ok(record.prompt.includes(String(candidate)));
+      for (const candidate of model.candidates) {
+        assert.equal(candidate.markAffordance, "circle_blank");
+        assert.ok(record.prompt.includes(candidate.text));
+      }
+      assert.deepEqual(model.rolePrompts.map((row) => row.label), ["最小公因數", "最大公因數"]);
       break;
     case "ps_g5a_u02_multi_constraint_digit_code":
       assert.equal(model.kind, "unique_digit_code_constraints");

@@ -2,17 +2,16 @@ import {
   compactG5AU02S106Prompt,
   G5A_U02_S106_RENDER_KINDS,
   G5A_U02_S106_STYLE,
-  G5A_U02_S107_STYLE,
   isG5AU02S106RenderKind,
   renderG5AU02S106Representation,
 } from "./g5a-u02-s106-public-representation.js";
 import {
+  compactG5AU02S107Prompt,
   G5A_U02_S107_RENDER_KINDS,
   G5A_U02_S107_STYLE,
   isG5AU02S107RenderKind,
   renderG5AU02S107Representation,
 } from "./g5a-u02-s107-public-representation.js";
-import { compactG5AU02S107Prompt } from "../../../src/curriculum/g5a-u02/s107-question-display.js";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -316,6 +315,7 @@ const STYLE = [
   '.g5a-u02-semantic-sequence__item--unknown{font-weight:700;border-style:dashed;}',
   '.g5a-u02-semantic-note{font-size:.56rem;line-height:1.08;}',
   G5A_U02_S106_STYLE,
+  G5A_U02_S107_STYLE,
   '.g5a-u02-semantic-answer .worksheet-cell__prompt{font-size:.64rem;line-height:1.12;}',
   '.g5a-u02-semantic-answer .worksheet-cell__answer{font-size:.68rem;line-height:1.2;white-space:pre-wrap;overflow-wrap:anywhere;}',
   '.g5a-u02-density--high .worksheet-cell,.g5a-u02-density--ultra .worksheet-cell{padding:4px 5px;gap:1px;}',
