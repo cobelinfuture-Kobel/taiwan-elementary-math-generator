@@ -1,0 +1,309 @@
+{
+  "contractName": "GCTXGlobalOwnershipScopeAndRuleVersioningContract",
+  "contractVersion": 1,
+  "task": "GCTX-P00_GlobalOwnershipScopeAndRuleVersioningContract",
+  "status": "planning_contract_pending_ci",
+  "scope": {
+    "planningOnly": true,
+    "runtimeBehaviorChange": false,
+    "registrySeedChange": false,
+    "unitMigrationChange": false,
+    "rendererImplementationChange": false,
+    "s101ToS104RuntimeLineTouched": false,
+    "curriculumAuthoritiesPreserved": true,
+    "existingG3ToG6UnitArtifactsPreserved": true,
+    "applicationPblLayoutEvidenceGrades": ["G4", "G5", "G6"],
+    "g1ToG3LayoutEvidenceProfileRequired": false,
+    "grade7EvidenceRole": "structure_reference_only"
+  },
+  "primaryGoal": "define one versioned global governance authority before semantic-chain, bounded-PBL, layout and existing-unit compliance implementation",
+  "authorityLayers": [
+    {
+      "authority": "source_and_evidence_authority",
+      "owner": "global_governance",
+      "owns": [
+        "source admission policy",
+        "verification evidence",
+        "review and expiry metadata",
+        "exact source-bound claims"
+      ],
+      "mustNotOwn": [
+        "unit mathematics",
+        "question operations",
+        "numeric answer generation"
+      ]
+    },
+    {
+      "authority": "shared_context_authority",
+      "owner": "global_context_registry",
+      "owns": [
+        "context domains",
+        "common knowledge",
+        "context families",
+        "shared actors places objects activities",
+        "shared language assets",
+        "cross-context safety restrictions"
+      ],
+      "mustNotOwn": [
+        "complete mathematical prompt",
+        "operation signature",
+        "quantity dependency",
+        "answer model"
+      ]
+    },
+    {
+      "authority": "unit_semantic_binding_authority",
+      "owner": "unit_and_patternspec_binding",
+      "owns": [
+        "approved semantic binding",
+        "event flow",
+        "quantity roles",
+        "unit flow",
+        "question role",
+        "mathematical composition",
+        "numeric profile",
+        "approved language variant ids",
+        "validator hooks"
+      ],
+      "mustNotOwn": [
+        "unverified global common knowledge",
+        "global source admission policy"
+      ]
+    },
+    {
+      "authority": "scenario_and_bounded_pbl_authority",
+      "owner": "approved_unit_scenario_chain",
+      "owns": [
+        "project goal",
+        "required milestones",
+        "dependency graph",
+        "quantity ledger",
+        "decision criteria",
+        "terminal deliverable",
+        "approved complete question-count projections",
+        "semantic fingerprint"
+      ],
+      "mustNotOwn": [
+        "runtime-created semantic binding",
+        "unapproved question truncation"
+      ]
+    },
+    {
+      "authority": "layout_authority",
+      "owner": "renderer_contract",
+      "owns": [
+        "numeric layout profiles",
+        "application block packing",
+        "writing-space class",
+        "question-sheet projection",
+        "answer-key projection",
+        "approved page-break projection"
+      ],
+      "mustNotOwn": [
+        "semantic milestone removal",
+        "question-count mutation",
+        "answer recomputation",
+        "mathematical meaning"
+      ]
+    },
+    {
+      "authority": "runtime_selection_authority",
+      "owner": "deterministic_resolver",
+      "owns": [
+        "selection among approved assets",
+        "deterministic seed replay",
+        "approved projection selection"
+      ],
+      "mustNotOwn": [
+        "new semantic-chain composition",
+        "runtime web search",
+        "generic fallback",
+        "partial PBL extraction"
+      ]
+    }
+  ],
+  "nonNegotiableInvariants": {
+    "randomnessMaySelectApprovedBinding": true,
+    "randomnessMayCreateNewSemanticBinding": false,
+    "questionCountSelectsApprovedCompleteProjection": true,
+    "questionCountMayTruncatePblChain": false,
+    "sharedScenarioAloneQualifiesAsPbl": false,
+    "numericVariationCountsAsNewPblChain": false,
+    "surfaceLanguageVariationCountsAsNewPblChain": false,
+    "runtimeWebSearchAllowed": false,
+    "freeFormAIGenerationAllowed": false,
+    "genericFallbackAllowed": false,
+    "canonicalAnswerRecomputationRequired": true,
+    "blockingSemanticValidatorRequired": true
+  },
+  "itemStructureClasses": [
+    "independent_application",
+    "common_scenario_independent",
+    "scenario_chain_dependent",
+    "bounded_pbl_closed"
+  ],
+  "layoutBoundary": {
+    "numericLayoutProfiles": [
+      {"columns": 3, "rowsMinimum": 1, "rowsMaximum": 5},
+      {"columns": 2, "rowsMinimum": 1, "rowsMaximum": 6},
+      {"columns": 1, "rowsMinimum": 1, "rowsMaximum": 7}
+    ],
+    "applicationLayoutUsesNumericGrid": false,
+    "applicationPageMinimumScoringItems": 5,
+    "scenarioBlockCountSeparatedFromScoringItemCount": true,
+    "finalPageRebalanceRequired": true,
+    "unapprovedApplicationBlockSplitAllowed": false,
+    "approvedCompleteTwoPagePblProjectionAllowed": true,
+    "questionSheet": {
+      "allowedElements": ["question_number", "question_content", "required_visuals", "unlabeled_writing_space"],
+      "forbiddenLabels": ["答", "答案", "商", "餘", "餘數", "算式"],
+      "writingSpaceClasses": ["compact", "standard", "extended"]
+    },
+    "answerKey": {
+      "includesFullPrompt": true,
+      "includesAnswer": true,
+      "writingSpaceAllowed": false,
+      "answerVisualDistinction": ["accent_color", "bold"],
+      "answerLabelRequired": false,
+      "studentResponseSheetIsTeacherAnswerKey": false
+    }
+  },
+  "evidencePolicy": {
+    "externalExamCorpusRole": "layout_and_item_structure_evidence",
+    "grade7EvidenceMaySetElementaryCurriculumAuthority": false,
+    "missingExternalPblSampleIsBlocking": false,
+    "missingExternalTeacherAnswerKeySampleIsBlocking": false,
+    "missingSampleTreatment": "design_inference_with_executable_positive_negative_fixtures",
+    "designDerivedRuleRequires": [
+      "schema contract",
+      "positive fixture",
+      "negative fixture",
+      "html acceptance",
+      "pdf overflow acceptance",
+      "answer-boundary acceptance",
+      "existing-unit pilot"
+    ]
+  },
+  "rulesetVersioning": {
+    "currentPlannedVersion": "0.1.0",
+    "identifierFormat": "GCTX_RULESET_V<major>.<minor>.<patch>",
+    "statuses": ["draft", "candidate", "baseline", "deprecated"],
+    "changeClasses": {
+      "patch": [
+        "editorial clarification",
+        "non-behavioral documentation",
+        "test-message clarification"
+      ],
+      "minor": [
+        "backward-compatible field addition",
+        "new blocking code without changed ownership",
+        "new approved profile under existing semantics"
+      ],
+      "major": [
+        "authority ownership change",
+        "required-field removal or semantic reinterpretation",
+        "runtime resolver semantic change",
+        "PBL closure meaning change",
+        "question-sheet or answer-boundary meaning change"
+      ]
+    },
+    "impactAnalysisRequiredBeforeChange": true,
+    "affectedUnitMatrixRequired": true,
+    "migrationNoteRequired": true,
+    "impactedUnitRegressionRequired": true,
+    "silentRuleMutationAllowed": false,
+    "grandfatheringAllowedForBlockingCorrectness": false
+  },
+  "unitCompliance": {
+    "requiredDeclarations": [
+      "rulesetVersion",
+      "semanticChainStatus",
+      "pblClosureStatus",
+      "applicationLayoutStatus",
+      "questionSheetStatus",
+      "answerKeyStatus",
+      "validatorStatus"
+    ],
+    "statuses": [
+      "compliant_current",
+      "compliant_with_approved_exception",
+      "backfill_required",
+      "blocked_by_source_or_schema",
+      "not_applicable_numeric_only"
+    ],
+    "auditFindingClasses": [
+      "global_rule_defect",
+      "missing_global_rule",
+      "unit_implementation_defect",
+      "unit_specific_approved_exception",
+      "source_or_evidence_blocker"
+    ],
+    "globalRuleMayBeChangedForUnitImplementationDefect": false,
+    "approvedExceptionMayWeakenBlockingCorrectness": false
+  },
+  "rulesetMilestones": {
+    "candidateVersionAfter": [
+      "first_general_application_unit_pilot",
+      "first_scenario_chain_or_bounded_pbl_pilot"
+    ],
+    "candidateVersion": "0.5.0",
+    "baselineVersionAfterDistinctPilotCount": 3,
+    "baselineVersion": "1.0.0"
+  },
+  "taskSequence": [
+    "GCTX-P00_GlobalOwnershipScopeAndRuleVersioningContract",
+    "GCTX-P01_ApprovedSemanticChainSchema",
+    "GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract",
+    "GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance",
+    "GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract",
+    "GLM-APP-P00_NumericAndApplicationLayoutAuthoritySplit",
+    "GLM-APP-P01_ApplicationPackingQuestionSheetAndAnswerKeyContract",
+    "GCTX-P05_RepresentativePositiveNegativeFixtureCorpus",
+    "GCTX-P06_ValidatorAndBlockingCodeContract",
+    "GCTX-P07_ExistingUnitComplianceAuditSequence",
+    "GCTX-P08_DeterministicApprovedBindingResolver",
+    "GCTX-P09_EndToEndSemanticMathLayoutValidator",
+    "GCTX-P10_ProductionPopulationStressAndD0Closeout"
+  ],
+  "existingUnitAuditOrder": [
+    "G4A-U08",
+    "G4B-U04",
+    "G5A-U08",
+    "G5A-U02_AFTER_S104",
+    "G3B-U04_SEMANTIC_ONLY_UNLESS_LAYOUT_PROFILE_APPROVED",
+    "G3A-U01_CONTEXT_ELIGIBILITY_ONLY",
+    "remaining_public_units"
+  ],
+  "unitAuditPhases": [
+    "UA_compliance_audit",
+    "UB_bounded_fullfix",
+    "UC_renderer_html_pdf_acceptance",
+    "UD_closeout_and_rule_impact_readback"
+  ],
+  "supersession": {
+    "historicalScopeContractPreserved": "GCTX-S00_GlobalContextScopeArchitectureAndTaskSequenceLock",
+    "draftPr243SchemaIsNotProductionAuthority": true,
+    "draftPr243MayBeReusedOnlyAfterP00OwnershipReview": true,
+    "p00BecomesPlanningAuthorityAfterCiAndMerge": true
+  },
+  "acceptance": {
+    "allAuthorityLayersHaveOwnersAndForbiddenResponsibilities": true,
+    "layoutAndSemanticAuthoritiesSeparated": true,
+    "rulesetVersioningClosed": true,
+    "unitComplianceLifecycleClosed": true,
+    "externalEvidenceGapsDoNotBlockDesignInference": true,
+    "noRuntimeOrUnitMutation": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D4_GCTX_REQUIREMENTS_AND_CORPUS_DISCUSSION",
+    "goalDistanceAfter": "D3_GCTX_GLOBAL_OWNERSHIP_AND_RULE_VERSIONING_LOCKED",
+    "distanceReduced": "converted discussion into one versioned governance authority and bounded task sequence",
+    "remainingBlockers": [
+      "approved semantic-chain schema not yet implemented",
+      "PBL closure schema not yet implemented",
+      "layout authority contracts not yet implemented",
+      "existing units not yet audited"
+    ]
+  },
+  "nextTask": "GCTX-P01_ApprovedSemanticChainSchema"
+}
