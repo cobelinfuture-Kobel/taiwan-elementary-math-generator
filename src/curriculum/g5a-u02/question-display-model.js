@@ -19,6 +19,16 @@ import {
   serializeG5AU02S102QuestionDisplayModel,
   validateG5AU02S102QuestionDisplayModel,
 } from "./s102-question-display.js";
+import {
+  G5A_U02_S103_SOURCE_CONDITIONS,
+  isG5AU02S103Pattern,
+} from "./s103-digit-code-runtime.js";
+import {
+  buildG5AU02S103QuestionDisplayModel,
+  isG5AU02S103DisplayModel,
+  serializeG5AU02S103QuestionDisplayModel,
+  validateG5AU02S103QuestionDisplayModel,
+} from "./s103-question-display.js";
 
 const BLOCKING_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_missing_factor_reconstruction",
@@ -30,14 +40,6 @@ const BLOCKING_PATTERN_IDS = Object.freeze([
 ]);
 
 const BLOCKING_PATTERN_SET = new Set(BLOCKING_PATTERN_IDS);
-
-const SOURCE_PASSWORD_CONDITIONS = Object.freeze([
-  Object.freeze({ conditionId: "third_digit_common_factor", text: "第三個數字和第一個數字不同，且第三個數字是 6 和 8 的公因數。" }),
-  Object.freeze({ conditionId: "second_fourth_have_70_as_common_multiple", text: "70 是第二個數字和第四個數字的公倍數。" }),
-  Object.freeze({ conditionId: "first_digit_double_common_factor", text: "第一個數字同時是 22 和 33 的公因數，也是 45 和 60 的公因數。" }),
-  Object.freeze({ conditionId: "whole_number_multiple_of_3_and_5", text: "這個四位數同時是 3 的倍數和 5 的倍數。" }),
-  Object.freeze({ conditionId: "all_digits_distinct", text: "四個數字互不重複。" }),
-]);
 
 function clone(value) { return JSON.parse(JSON.stringify(value)); }
 function deepFreeze(value) {
@@ -63,7 +65,8 @@ export function isG5AU02PromptCompletenessPattern(patternSpecId) {
   return BLOCKING_PATTERN_SET.has(patternSpecId)
     || isG5AU02S100Pattern(patternSpecId)
     || isG5AU02S101Pattern(patternSpecId)
-    || isG5AU02S102Pattern(patternSpecId);
+    || isG5AU02S102Pattern(patternSpecId)
+    || isG5AU02S103Pattern(patternSpecId);
 }
 
 export function buildG5AU02QuestionDisplayModel(item) {
@@ -71,6 +74,7 @@ export function buildG5AU02QuestionDisplayModel(item) {
   if (isG5AU02S100Pattern(item.patternSpecId)) return buildG5AU02S100QuestionDisplayModel(item);
   if (isG5AU02S101Pattern(item.patternSpecId)) return buildG5AU02S101QuestionDisplayModel(item);
   if (isG5AU02S102Pattern(item.patternSpecId)) return buildG5AU02S102QuestionDisplayModel(item);
+  if (isG5AU02S103Pattern(item.patternSpecId)) return buildG5AU02S103QuestionDisplayModel(item);
   const data = item.data ?? {};
 
   switch (item.patternSpecId) {
@@ -101,8 +105,6 @@ export function buildG5AU02QuestionDisplayModel(item) {
       });
     case "ps_g5a_u02_common_factor_concept_identification":
       return deepFreeze({ schemaName: "G5AU02QuestionDisplayModel", schemaVersion: 1, kind: "candidate_selection", selectionRole: "common_factor", comparedValues: [data.a, data.b], candidates: clone(data.candidates) });
-    case "ps_g5a_u02_multi_constraint_digit_code":
-      return deepFreeze({ schemaName: "G5AU02QuestionDisplayModel", schemaVersion: 1, kind: "source_backed_digit_code_conditions", digitCount: 4, conditions: clone(SOURCE_PASSWORD_CONDITIONS), sourceEvidence: "5a02a1:p2:right-top" });
     default:
       return null;
   }
@@ -115,6 +117,7 @@ export function serializeG5AU02QuestionDisplayModel(basePrompt, model) {
   if (isG5AU02S100DisplayModel(model)) return serializeG5AU02S100QuestionDisplayModel(model);
   if (isG5AU02S101DisplayModel(model)) return serializeG5AU02S101QuestionDisplayModel(model);
   if (isG5AU02S102DisplayModel(model)) return serializeG5AU02S102QuestionDisplayModel(model);
+  if (isG5AU02S103DisplayModel(model)) return serializeG5AU02S103QuestionDisplayModel(model);
   switch (model.kind) {
     case "masked_factor_sequence": return `補回 ${model.target} 的完整因數表中的缺漏值。\n因數表：${sequenceText(model.sequence)}`;
     case "candidate_selection": {
@@ -125,7 +128,6 @@ export function serializeG5AU02QuestionDisplayModel(basePrompt, model) {
     }
     case "symbolic_complete_factor_sequence": return `觀察下列完整因數表，求出原數與所有代號。\n因數表：${sequenceText(model.sequence)}\n${model.targetRuleText}`;
     case "factor_list_statement_set": return `根據完整因數表，判斷下列敘述是否正確。\n因數表：${model.factorList.join("、")}\n${model.statements.map((row) => `${row.statementNumber}. ${row.text}`).join("\n")}`;
-    case "source_backed_digit_code_conditions": return `依照下列條件，找出唯一的四位數密碼。\n${model.conditions.map((row, index) => `${index + 1}. ${row.text}`).join("\n")}`;
     default: throw new Error(`G5AU02_DISPLAY_KIND_UNSUPPORTED:${model.kind}`);
   }
 }
@@ -138,6 +140,7 @@ export function validateG5AU02QuestionDisplayModel(item, model, promptText = "")
   if (isG5AU02S100Pattern(item?.patternSpecId)) return validateG5AU02S100QuestionDisplayModel(item, model, promptText);
   if (isG5AU02S101Pattern(item?.patternSpecId)) return validateG5AU02S101QuestionDisplayModel(item, model, promptText);
   if (isG5AU02S102Pattern(item?.patternSpecId)) return validateG5AU02S102QuestionDisplayModel(item, model, promptText);
+  if (isG5AU02S103Pattern(item?.patternSpecId)) return validateG5AU02S103QuestionDisplayModel(item, model, promptText);
 
   const errors = [];
   if (!BLOCKING_PATTERN_SET.has(item?.patternSpecId)) {
@@ -172,10 +175,6 @@ export function validateG5AU02QuestionDisplayModel(item, model, promptText = "")
       requireExactArray(model.candidates, data.candidates, "G5AU02_CANDIDATE_SET_NOT_VISIBLE", errors);
       requireExactArray(model.comparedValues, [data.a, data.b], "G5AU02_COMPARED_VALUES_NOT_VISIBLE", errors);
       break;
-    case "ps_g5a_u02_multi_constraint_digit_code":
-      if (model.kind !== "source_backed_digit_code_conditions") errors.push("G5AU02_DISPLAY_KIND_MISMATCH");
-      requireExactArray(model.conditions?.map((row) => row.conditionId), SOURCE_PASSWORD_CONDITIONS.map((row) => row.conditionId), "G5AU02_SOURCE_PASSWORD_CONDITIONS_MISSING", errors);
-      break;
     default: errors.push("G5AU02_PROMPT_COMPLETENESS_PATTERN_UNSUPPORTED");
   }
 
@@ -185,7 +184,6 @@ export function validateG5AU02QuestionDisplayModel(item, model, promptText = "")
   if (model.sequence) requiredVisibleTexts.push(...model.sequence.map((entry) => entry.text));
   if (model.factorList) requiredVisibleTexts.push(...model.factorList.map(String));
   if (model.statements) requiredVisibleTexts.push(...model.statements.map((entry) => entry.text));
-  if (model.conditions) requiredVisibleTexts.push(...model.conditions.map((entry) => entry.text));
   if (requiredVisibleTexts.some((text) => !promptText.includes(text))) errors.push("G5AU02_PROMPT_VISIBLE_DATA_INCOMPLETE");
 
   return deepFreeze({ ok: errors.length === 0, errors: [...new Set(errors)] });
@@ -200,4 +198,4 @@ export function enrichG5AU02GeneratedItemPrompt(item) {
 }
 
 export function getG5AU02PromptCompletenessPatternIds() { return [...BLOCKING_PATTERN_IDS]; }
-export const G5A_U02_SOURCE_PASSWORD_CONDITIONS = SOURCE_PASSWORD_CONDITIONS;
+export const G5A_U02_SOURCE_PASSWORD_CONDITIONS = G5A_U02_S103_SOURCE_CONDITIONS;

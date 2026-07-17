@@ -8,6 +8,10 @@ import {
   getG5AU02ClassDPatternIds,
   validateG5AU02ClassD,
 } from "../../src/curriculum/g5a-u02/class-d-semantic-generator-validator.js";
+import {
+  G5A_U02_S103_GENERATED_PROFILE_ID,
+  G5A_U02_S103_SOURCE_PROFILE_ID,
+} from "../../src/curriculum/g5a-u02/s103-digit-code-runtime.js";
 
 function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
@@ -102,12 +106,25 @@ test("S87 blocks invalid geometry side and area answers", () => {
   assert.ok(validateG5AU02ClassD(area).errors.includes("G5AU02_SQUARE_AREA_NOT_SIDE_SQUARED"));
 });
 
-test("S87 binds the source password to the unique tuple 1725", () => {
-  const item = generateG5AU02ClassD("ps_g5a_u02_multi_constraint_digit_code", { seed: 8771 });
-  assert.deepEqual(item.answer, { digits: [1, 7, 2, 5], value: 1725 });
-  const mutated = clone(item);
+test("S87 keeps 1725 as an explicit source reference and uses generated codes by default", () => {
+  const generated = generateG5AU02ClassD("ps_g5a_u02_multi_constraint_digit_code", { seed: 8771 });
+  assert.equal(generated.data.profileId, G5A_U02_S103_GENERATED_PROFILE_ID);
+  assert.equal(generated.data.productionAllocation, "default_regeneration");
+  assert.notEqual(generated.answer.value, 1725);
+  assert.deepEqual(validateG5AU02ClassD(generated), { ok: true, errors: [] });
+
+  const source = generateG5AU02ClassD("ps_g5a_u02_multi_constraint_digit_code", {
+    seed: 8771,
+    digitCodeProfileId: G5A_U02_S103_SOURCE_PROFILE_ID,
+  });
+  assert.equal(source.data.profileId, G5A_U02_S103_SOURCE_PROFILE_ID);
+  assert.equal(source.data.productionAllocation, "reference_only");
+  assert.deepEqual(source.answer, { digits: [1, 7, 2, 5], value: 1725 });
+  const mutated = clone(source);
   mutated.answer = { digits: [1, 7, 2, 6], value: 1726 };
-  assert.ok(validateG5AU02ClassD(mutated).errors.includes("G5AU02_DIGIT_TUPLE_NOT_1725"));
+  const errors = validateG5AU02ClassD(mutated).errors;
+  assert.ok(errors.includes("G5AU02_DIGIT_TUPLE_NOT_1725"));
+  assert.ok(errors.includes("G5AU02_P0_DIGIT_CODE_NOT_UNIQUE"));
 });
 
 test("S87 lifecycle cannot be promoted", () => {

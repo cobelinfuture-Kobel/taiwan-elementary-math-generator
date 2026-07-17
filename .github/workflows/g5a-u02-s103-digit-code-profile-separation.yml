@@ -1,0 +1,147 @@
+name: G5A-U02 S103 Digit Code Profile Separation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/curriculum/g5a-u02/**"
+      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      - "tests/curriculum/g5a-u02-s103-digit-code-profile-separation.test.js"
+      - "tests/curriculum/g5a-u02-class-d-semantic-generator-validator.test.js"
+      - "tests/curriculum/g5a-u02-s97-source-parity-prompt-completeness.test.js"
+      - "tools/curriculum/run-g5a-u02-s103-bundle-audit.mjs"
+      - "docs/curriculum/architecture/G5AU02_S103_P0SourceDigitCodeReferenceAndGeneratedFamilySeparation.md"
+      - "docs/curriculum/output/G5AU02_S103_P0_SOURCE_DIGIT_CODE_SEPARATION_PENDING.marker"
+      - ".github/workflows/g5a-u02-s103-digit-code-profile-separation.yml"
+  workflow_dispatch:
+
+jobs:
+  source-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run 64-scenario S103 generated profile and source-reference acceptance
+        run: node --test tests/curriculum/g5a-u02-s103-digit-code-profile-separation.test.js
+
+  browser-bundle:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build current browser runtime from canonical source
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
+      - name: Verify bundled S103 generated profile and source exclusion
+        run: node tools/curriculum/run-g5a-u02-s103-bundle-audit.mjs
+      - name: Upload bundled S103 authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s103-bundle-audit
+          retention-days: 30
+          if-no-files-found: error
+          path: docs/curriculum/output/g5a-u02-s103-bundle-audit/current.json
+
+  full-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run complete Node regression with inspectable readback
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/g5a-u02-s103-full-regression.log 2>&1
+          status=$?
+          tail -n 260 /tmp/g5a-u02-s103-full-regression.log
+          exit "$status"
+      - name: Upload full regression readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s103-full-regression
+          retention-days: 7
+          if-no-files-found: error
+          path: /tmp/g5a-u02-s103-full-regression.log
+
+  actual-column-geometry:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Run actual column geometry shard
+        run: node tools/curriculum/run-glm-s09-column-geometry-shard.mjs --shard=${{ matrix.shard }}
+      - name: Upload S103 geometry authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s103-column-geometry-shard-${{ matrix.shard }}
+          retention-days: 30
+          if-no-files-found: error
+          path: docs/curriculum/output/glm-s09-column-geometry/shard-${{ matrix.shard }}/manifest.json
+
+  actual-column-geometry-aggregate:
+    needs: actual-column-geometry
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: g5a-u02-s103-column-geometry-shard-*
+          path: /tmp/g5a-u02-s103-geometry
+          merge-multiple: false
+      - name: Validate all 270 S103 actual-column geometry scenarios
+        run: |
+          node --input-type=module <<'NODE'
+          import { readdirSync, readFileSync } from 'node:fs';
+          import path from 'node:path';
+          const root = '/tmp/g5a-u02-s103-geometry';
+          const manifests = readdirSync(root).map((name) => JSON.parse(readFileSync(path.join(root, name, 'manifest.json'), 'utf8')));
+          const scenarioCount = manifests.reduce((sum, row) => sum + row.scenarioCount, 0);
+          const passCount = manifests.reduce((sum, row) => sum + row.passCount, 0);
+          const failures = manifests.flatMap((row) => row.results.filter((item) => item.status !== 'PASS'));
+          const authority = {
+            task: 'G5AU02-S103_P0SourceDigitCodeReferenceAndGeneratedFamilySeparation',
+            delegatedGate: 'GLM-S09_ActualColumnGeometryAuditAndRendererFullFix',
+            shardCount: manifests.length,
+            scenarioCount,
+            passCount,
+            failureCount: failures.length,
+            status: manifests.length === 5 && scenarioCount === 270 && passCount === 270 && failures.length === 0
+              ? 'PASS_270_OF_270_ACTUAL_COLUMN_GEOMETRY'
+              : 'FAIL',
+            failures,
+          };
+          console.log(JSON.stringify(authority, null, 2));
+          if (authority.status !== 'PASS_270_OF_270_ACTUAL_COLUMN_GEOMETRY') process.exit(1);
+          NODE
