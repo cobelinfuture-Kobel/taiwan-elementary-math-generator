@@ -9,21 +9,36 @@ import {
 
 const PATTERN_ID = "ps_g5a_u02_complete_factor_list_unknown_values";
 
-test("S97 normalizes duplicate legacy unknown keys without changing the canonical answer", () => {
-  let witnessed = null;
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+test("S107 canonical runtime never emits duplicate unknown keys in the former legacy edge domain", () => {
   for (let seed = 1; seed <= 1000; seed += 1) {
     const item = generateG5AU02Canonical(PATTERN_ID, { seed });
-    if (new Set(item.data.unknownKeys).size !== item.data.unknownKeys.length) {
-      witnessed = item;
-      break;
-    }
+    assert.equal(
+      new Set(item.data.unknownKeys).size,
+      item.data.unknownKeys.length,
+      `seed ${seed} emitted duplicate unknown keys`,
+    );
+    assert.equal(item.data.solutionCount, 1);
   }
-  assert.ok(witnessed, "expected to witness the legacy duplicate-key edge case");
+});
 
-  const normalized = normalizeG5AU02SemanticDisplayItem(witnessed);
+test("S97 normalizer remains backward compatible with a legacy duplicate-key fixture", () => {
+  const canonical = generateG5AU02Canonical(PATTERN_ID, { seed: 97 });
+  assert.ok(canonical.data.unknownKeys.length >= 1);
+
+  const legacy = clone(canonical);
+  legacy.data.unknownKeys.push(legacy.data.unknownKeys[0]);
+  assert.notEqual(new Set(legacy.data.unknownKeys).size, legacy.data.unknownKeys.length);
+
+  const normalized = normalizeG5AU02SemanticDisplayItem(legacy);
   assert.equal(new Set(normalized.data.unknownKeys).size, normalized.data.unknownKeys.length);
-  assert.deepEqual(normalized.answer, witnessed.answer);
+  assert.deepEqual(normalized.answer, legacy.answer);
   assert.equal(normalized.semanticNormalization.code, "G5AU02_DUPLICATE_UNKNOWN_KEY_NORMALIZED");
+  assert.equal(normalized.semanticNormalization.originalUnknownKeyCount, legacy.data.unknownKeys.length);
+  assert.equal(normalized.semanticNormalization.normalizedUnknownKeyCount, canonical.data.unknownKeys.length);
 });
 
 test("S97 public runtime remains complete for every seed in the legacy edge domain", () => {
@@ -39,6 +54,8 @@ test("S97 public runtime remains complete for every seed in the legacy edge doma
     const question = result.worksheetDocument.questionItems[0];
     assert.equal(question.promptCompletenessStatus, "visible_unique_solution_data_complete");
     assert.ok(question.questionDisplayModel);
+    assert.equal(question.questionDisplayModel.kind, "symbolic_complete_factor_relation_table");
     assert.match(question.prompt, /完整因數表/);
+    assert.match(question.prompt, /代號方程/);
   }
 });
