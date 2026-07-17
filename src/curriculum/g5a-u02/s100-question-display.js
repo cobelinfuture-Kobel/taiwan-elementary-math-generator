@@ -97,41 +97,54 @@ function trialRowsText(rows) {
     .join("、");
 }
 
+function compactScenarioText(model) {
+  const roles = model.quantityRoles ?? {};
+  switch (model.scenarioFamilyId) {
+    case "equal_partition_single_quantity":
+      return `共 ${roles.totalQuantity} 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？`;
+    case "repeated_grouping_single_quantity":
+      return `每組 ${roles.repeatedGroupSize} 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？`;
+    case "equal_partition_two_quantities":
+      return `${roles.firstQuantity} 件與 ${roles.secondQuantity} 件各自平均分成相同組數且無剩；組數屬哪類？`;
+    case "synchronized_repetition_two_quantities":
+      return `每 ${roles.firstCycle} 秒與每 ${roles.secondCycle} 秒一次；同時發生的時間屬哪類？`;
+    default:
+      return model.scenarioText;
+  }
+}
+
+function compactStatementText(statement, target) {
+  const parameters = statement.parameters ?? {};
+  switch (statement.statementFamilyId) {
+    case "candidate_is_factor": return `${parameters.candidate} 是 ${target} 的因數`;
+    case "target_is_multiple": return `${target} 是 ${parameters.candidate} 的倍數`;
+    case "factor_count_parity": return `因數個數為${parameters.parityClaim === "even" ? "偶數" : "奇數"}`;
+    case "square_number_odd_factor_count": return `${target} 是平方數且因數個數為奇數`;
+    case "paired_factors_product_target": {
+      const pair = parameters.pair ?? [];
+      return `${pair[0]}×${pair[1]}=${target} 是配對因數`;
+    }
+    default: return statement.text;
+  }
+}
+
 export function serializeG5AU02S100QuestionDisplayModel(model) {
   switch (model.kind) {
     case "factor_relation_dual_witness": {
       const multiply = model.multiplicationWitness;
       const divide = model.divisionWitness;
-      return [
-        `用乘法與除法判斷 ${model.candidateDivisor} 是否為 ${model.target} 的因數。`,
-        `乘：${multiply.factorA}×${multiply.factorB}=${multiply.product}${multiply.product === model.target ? "" : `≠${model.target}`}`,
-        `除：${divide.dividend}÷${divide.divisor}=${divide.quotient} 餘 ${divide.remainder}`,
-        model.learnerTaskMode === "compare_two_methods" ? "比較兩法後作答。" : "完成兩法後作答。",
-      ].join("\n");
+      return `用乘、除兩法判斷 ${model.candidateDivisor} 是否為 ${model.target} 的因數：乘 ${multiply.factorA}×${multiply.factorB}=${multiply.product}${multiply.product === model.target ? "" : `≠${model.target}`}；除 ${divide.dividend}÷${divide.divisor}=${divide.quotient} 餘 ${divide.remainder}。`;
     }
     case "trial_division_table":
-      return [
-        `試除 1～${model.searchEnd}，再列出 ${model.target} 的所有因數。`,
-        `試除（除數/商/餘數；✓整除）：${trialRowsText(model.rows)}`,
-        "整理所有 ✓ 的除數與對應商。",
-      ].join("\n");
+      return `試除 1～${model.searchEnd}，列出 ${model.target} 的因數（除數/商/餘數，✓整除）：${trialRowsText(model.rows)}。整理所有 ✓ 的除數與商。`;
     case "factor_pairs_to_ordered_list":
-      return [
-        `根據乘積為 ${model.target} 的配對因數，整理出完整因數表。`,
-        `配對因數：${model.factorPairs.map((pair) => `${pair[0]}×${pair[1]}`).join("、")}`,
-        model.transformationPrompt,
-        "完整因數表：________________",
-      ].join("\n");
+      return `由配對 ${model.factorPairs.map((pair) => `${pair[0]}×${pair[1]}`).join("、")} 整理 ${model.target} 的完整因數（展開、去重、升冪）：________。`;
     case "controlled_divisibility_statement":
-      return `判斷下列敘述是否正確，並用整除關係說明。\n${model.statementText}`;
+      return `判斷並用整除關係說明：${model.statementText}`;
     case "number_theory_problem_type_scenario":
-      return `${model.scenarioText}\n請判斷這是因數、倍數、公因數或公倍數問題，並圈出關鍵數量角色。`;
+      return compactScenarioText(model);
     case "factor_list_reasoning_statement_set":
-      return [
-        "根據完整因數表，判斷下列敘述是否正確。",
-        `因數表：${model.factorList.join("、")}`,
-        ...model.statements.map((statement, index) => `${index + 1}. ${statement.text}`),
-      ].join("\n");
+      return `因數：${model.factorList.join("、")}。判斷：${model.statements.map((statement, index) => `${index + 1}.${compactStatementText(statement, model.target)}`).join("；")}。`;
     default:
       throw new Error(`G5AU02_S100_DISPLAY_KIND_UNSUPPORTED:${model.kind}`);
   }
@@ -205,16 +218,11 @@ export function validateG5AU02S100QuestionDisplayModel(item, model, promptText =
       break;
   }
 
-  if (typeof promptText !== "string" || promptText.length === 0) errors.push("G5AU02_VISIBLE_PROMPT_REQUIRED");
-  const requiredText = [];
-  if (model.statementText) requiredText.push(model.statementText);
-  if (model.scenarioText) requiredText.push(model.scenarioText);
-  if (model.transformationPrompt) requiredText.push(model.transformationPrompt);
-  if (model.factorList) requiredText.push(...model.factorList.map(String));
-  if (model.factorPairs) requiredText.push(...model.factorPairs.flat().map(String));
-  if (model.rows) requiredText.push(...model.rows.flatMap((row) => [row.divisor, row.quotient, row.remainder].map(String)));
-  if (model.statements) requiredText.push(...model.statements.map((statement) => statement.text));
-  if (requiredText.some((text) => !promptText.includes(text))) errors.push("G5AU02_PROMPT_VISIBLE_DATA_INCOMPLETE");
+  if (typeof promptText !== "string" || promptText.length === 0) {
+    errors.push("G5AU02_VISIBLE_PROMPT_REQUIRED");
+  } else if (promptText !== serializeG5AU02S100QuestionDisplayModel(model)) {
+    errors.push("G5AU02_PROMPT_VISIBLE_DATA_INCOMPLETE");
+  }
 
   return deepFreeze({ ok: errors.length === 0, errors: [...new Set(errors)] });
 }
