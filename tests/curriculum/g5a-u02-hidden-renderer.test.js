@@ -13,10 +13,7 @@ import {
   validateG5AU02HiddenWorksheetDocument,
 } from "../../src/curriculum/g5a-u02/hidden-worksheet-answer-key.js";
 
-function clone(value) {
-  return JSON.parse(JSON.stringify(value));
-}
-
+function clone(value) { return JSON.parse(JSON.stringify(value)); }
 function buildFull(options = {}) {
   const result = buildAndRenderG5AU02HiddenWorksheet({
     questionCount: 22,
@@ -29,12 +26,12 @@ function buildFull(options = {}) {
   return result;
 }
 
-test("S92 renderer audit covers three profiles and all 16 answer models", () => {
+test("S92 renderer audit covers three profiles and all 18 supported answer models", () => {
   const audit = auditG5AU02HiddenRendererIntegration();
   assert.equal(audit.ok, true, audit.errors.join(","));
   assert.equal(audit.profileCount, 3);
   assert.deepEqual([...audit.profilesSeen].sort(), ["compact", "contextual", "reasoning"]);
-  assert.equal(audit.answerModelCount, 16);
+  assert.equal(audit.answerModelCount, 18);
   assert.equal(audit.selectorStatus, "hidden");
   assert.equal(audit.browserPipelineStatus, "not_connected");
   assert.equal(audit.productionUse, "forbidden");
@@ -46,7 +43,9 @@ test("S92 renders exact S91 question and answer pages as Traditional Chinese A4 
   assert.equal(renderedWorksheet.questionCount, 22);
   assert.equal(renderedWorksheet.questionPageCount, worksheetDocument.questionPages.length);
   assert.equal(renderedWorksheet.answerPageCount, worksheetDocument.answerKeyPages.length);
-  assert.equal(renderedWorksheet.answerModelIds.length, 16);
+  assert.equal(renderedWorksheet.answerModelIds.length, 18);
+  assert.ok(renderedWorksheet.answerModelIds.includes("partitionPairListAnswer"));
+  assert.ok(renderedWorksheet.answerModelIds.includes("tileSideAreaPairListAnswer"));
   assert.match(renderedWorksheet.html, /^<!doctype html>/);
   assert.match(renderedWorksheet.html, /<html lang="zh-Hant">/);
   assert.match(renderedWorksheet.html, /@page\{size:A4/);
@@ -64,11 +63,7 @@ test("S92 selects compact, contextual, and reasoning profiles from canonical mod
     ["ps_g5a_u02_missing_factor_reconstruction", "reasoning"],
   ];
   for (const [patternSpecId, profileId] of scenarios) {
-    const result = buildAndRenderG5AU02HiddenWorksheet({
-      patternSpecIds: [patternSpecId],
-      questionCount: 3,
-      baseSeed: 921,
-    });
+    const result = buildAndRenderG5AU02HiddenWorksheet({ patternSpecIds: [patternSpecId], questionCount: 3, baseSeed: 921 });
     assert.equal(result.ok, true, `${patternSpecId}:${result.errors.join(",")}`);
     assert.deepEqual(result.renderedWorksheet.profileIds, [profileId]);
     assert.match(result.renderedWorksheet.html, new RegExp(`g5a-u02-profile--${profileId}`));
@@ -112,9 +107,7 @@ test("S92 escapes prompt, title, subtitle, and stylesheet values", () => {
   mutated.questionPages[0].records[0].prompt = hostilePrompt;
   assert.equal(validateG5AU02HiddenWorksheetDocument(mutated).ok, true);
   const result = renderG5AU02HiddenWorksheetDocument(mutated, {
-    title: '<b>標題</b>',
-    subtitle: 'A&B',
-    stylesheetHref: 'x" onload="alert(1)',
+    title: "<b>標題</b>", subtitle: "A&B", stylesheetHref: 'x" onload="alert(1)',
   });
   assert.equal(result.ok, true, result.errors.join(","));
   assert.doesNotMatch(result.renderedWorksheet.html.toLowerCase(), /<script/);
@@ -143,13 +136,11 @@ test("S92 rendered validator rejects lifecycle, page-count, and profile mutation
   let validation = validateG5AU02HiddenRenderedWorksheet(lifecycleMutation, worksheetDocument);
   assert.equal(validation.ok, false);
   assert.ok(validation.errors.includes("G5AU02_RENDERER_PRODUCTION_USE_FORBIDDEN"));
-
   const pageMutation = clone(renderedWorksheet);
   pageMutation.questionPageCount += 1;
   validation = validateG5AU02HiddenRenderedWorksheet(pageMutation, worksheetDocument);
   assert.equal(validation.ok, false);
   assert.ok(validation.errors.includes("G5AU02_RENDERER_QUESTION_PAGE_COUNT_MISMATCH"));
-
   const profileMutation = clone(renderedWorksheet);
   profileMutation.profileIds = ["unknown"];
   validation = validateG5AU02HiddenRenderedWorksheet(profileMutation, worksheetDocument);
@@ -174,16 +165,9 @@ test("S92 rendering is deterministic and does not mutate the closed S91 document
 test("S92 lifecycle remains hidden, unrouted publicly, unsmoked, and production-forbidden", () => {
   assert.equal(Object.isFrozen(G5A_U02_HIDDEN_RENDERER_LIFECYCLE), true);
   assert.deepEqual(G5A_U02_HIDDEN_RENDERER_LIFECYCLE, {
-    unitId: "g5a_u02",
-    rendererStatus: "hidden_html_integrated",
-    worksheetStatus: "hidden_exact_count_integrated",
-    answerKeyStatus: "hidden_integrated_optional",
-    selectorStatus: "hidden",
-    canonicalRouting: "internal_explicit_only",
-    browserPipelineStatus: "not_connected",
-    htmlPdfSmokeStatus: "not_run",
-    productionUse: "forbidden",
-    genericFallback: "forbidden",
-    freeFormAI: "forbidden",
+    unitId: "g5a_u02", rendererStatus: "hidden_html_integrated", worksheetStatus: "hidden_exact_count_integrated",
+    answerKeyStatus: "hidden_integrated_optional", selectorStatus: "hidden", canonicalRouting: "internal_explicit_only",
+    browserPipelineStatus: "not_connected", htmlPdfSmokeStatus: "not_run", productionUse: "forbidden",
+    genericFallback: "forbidden", freeFormAI: "forbidden",
   });
 });
