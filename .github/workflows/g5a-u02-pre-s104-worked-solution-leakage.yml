@@ -8,6 +8,7 @@ on:
       - "src/curriculum/g5a-u02/s100-question-display.js"
       - "src/curriculum/g5a-u02/hidden-worksheet-answer-key.js"
       - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
       - "tests/curriculum/g5a-u02-pre-s104-worked-solution-leakage.test.js"
       - "tests/curriculum/g5a-u02-s100-method-witness-language-reasoning.test.js"
       - "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs"
@@ -128,7 +129,7 @@ jobs:
               pageOverflowCount: pages.filter((node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1).length,
               hasMultiplicationScaffold: questionText.includes('乘法：'),
               hasDivisionScaffold: questionText.includes('除法：'),
-              hasTrialScaffold: questionText.includes('是否整除'),
+              hasTrialScaffold: questionText.includes('是否整除') || questionText.includes('整除□'),
               solvedTrialTokenCount: (questionText.match(/\d+\/\d+\/\d+[✓×]/g) ?? []).length,
               solvedTrialInstructionCount: (questionText.match(/✓整除/g) ?? []).length,
             };
@@ -180,9 +181,11 @@ jobs:
                   if x0 < -0.5 or y0 < -0.5 or x1 > width + 0.5 or y1 > height + 0.5:
                       raise SystemExit(f'bbox overflow page={index} coords={coords}')
           question_text = '\n'.join((reader.pages[i].extract_text() or '') for i in range(manifest['questionPageCount']))
-          for required in ['乘法：', '除法：', '判斷：', '是否整除', '因數：']:
+          for required in ['乘法：', '除法：', '判斷：', '因數：']:
               if required not in question_text:
                   raise SystemExit(f'missing question scaffold: {required}')
+          if '是否整除' not in question_text and '整除□' not in question_text:
+              raise SystemExit('missing question scaffold: trial judgement')
           if re.search(r'\d+/\d+/\d+[✓×]', question_text) or '✓整除' in question_text:
               raise SystemExit('worked trial solution leaked into question PDF pages')
           print(f'worked-solution question boundary PDF PASS: {expected} pages')
