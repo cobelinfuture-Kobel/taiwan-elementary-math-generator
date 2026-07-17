@@ -184,7 +184,8 @@ jobs:
           for required in ['乘法：', '除法：', '判斷：', '因數：']:
               if required not in question_text:
                   raise SystemExit(f'missing question scaffold: {required}')
-          if '是否整除' not in question_text and '整除□' not in question_text:
+          normalized_question_text = re.sub(r'\s+', '', question_text)
+          if '是否整除' not in normalized_question_text and '整除□' not in normalized_question_text:
               raise SystemExit('missing question scaffold: trial judgement')
           if re.search(r'\d+/\d+/\d+[✓×]', question_text) or '✓整除' in question_text:
               raise SystemExit('worked trial solution leaked into question PDF pages')
