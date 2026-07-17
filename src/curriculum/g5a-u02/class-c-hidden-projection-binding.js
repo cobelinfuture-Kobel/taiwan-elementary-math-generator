@@ -26,6 +26,12 @@ import {
   isG5AU02S106Pattern,
   validateG5AU02S106Pattern,
 } from "./s106-factor-structure-runtime.js";
+import {
+  expectedG5AU02S107Answer,
+  generateG5AU02S107Pattern,
+  isG5AU02S107Pattern,
+  validateG5AU02S107Pattern,
+} from "./s107-candidate-symbolic-runtime.js";
 
 const CLASS_C_IDS = Object.freeze(getG5AU02ClassCPatternIds());
 const CLASS_C_SET = new Set(CLASS_C_IDS);
@@ -109,6 +115,12 @@ function s106AnswerMismatchCode(patternSpecId) {
   return "G5AU02_P1_MISSING_FACTOR_NOT_UNIQUE";
 }
 
+function s107AnswerMismatchCode(patternSpecId) {
+  if (patternSpecId === "ps_g5a_u02_divisor_candidate_selection") return "G5AU02_P1_CANDIDATE_DIVISIBILITY_CLASSIFICATION_MISMATCH";
+  if (patternSpecId === "ps_g5a_u02_complete_factor_list_unknown_values") return "G5AU02_P1_SYMBOLIC_SOLUTION_NOT_UNIQUE";
+  return "G5AU02_P1_COMMON_FACTOR_INTERSECTION_MISMATCH";
+}
+
 function makeSpecialClassCItem(patternSpecId, options, generated, parityField, parityTask, parityStatus) {
   if (!generated) throw new Error(`G5AU02_SPECIAL_PATTERN_NOT_IMPLEMENTED:${patternSpecId}`);
   return deepFreeze({
@@ -161,6 +173,18 @@ function generateS106ClassC(patternSpecId, options = {}) {
     "p1FactorStructureParity",
     "G5AU02-S106_P1FactorPairSymmetryAndMaskedTableFullFix",
     "factor_search_symmetry_masked_table_runtime",
+  );
+}
+
+function generateS107ClassC(patternSpecId, options = {}) {
+  const seed = options.seed ?? 1;
+  return makeSpecialClassCItem(
+    patternSpecId,
+    options,
+    generateG5AU02S107Pattern(patternSpecId, createRng(seed)),
+    "p1CandidateSymbolicParity",
+    "G5AU02-S107_P1CandidateSymbolicRelationAndCommonFactorMarkingFullFix",
+    "candidate_symbolic_common_factor_runtime",
   );
 }
 
@@ -241,6 +265,22 @@ function validateS106ClassC(item) {
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze([...new Set(errors)]) });
 }
 
+function validateS107ClassC(item) {
+  const errors = [];
+  validateSpecialBase(item, isG5AU02S107Pattern, errors);
+  if (errors.length === 0) {
+    errors.push(...validateG5AU02S107Pattern(item).errors);
+    try {
+      if (JSON.stringify(item.answer) !== JSON.stringify(expectedG5AU02S107Answer(item))) {
+        errors.push(s107AnswerMismatchCode(item.patternSpecId));
+      }
+    } catch {
+      errors.push("G5AU02_ANSWER_SCHEMA_MISMATCH");
+    }
+  }
+  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze([...new Set(errors)]) });
+}
+
 export function getG5AU02BoundClassCSpecs() {
   return BOUND_CLASS_C_SPECS;
 }
@@ -275,6 +315,7 @@ export function auditG5AU02ClassCHiddenProjectionBinding() {
 }
 
 function generateRuntimeItem(patternSpecId, options) {
+  if (isG5AU02S107Pattern(patternSpecId)) return generateS107ClassC(patternSpecId, options);
   if (isG5AU02S106Pattern(patternSpecId)) return generateS106ClassC(patternSpecId, options);
   if (isG5AU02S100Pattern(patternSpecId)) return generateS100ClassC(patternSpecId, options);
   if (isG5AU02S102Pattern(patternSpecId)) return generateS102ClassC(patternSpecId, options);
@@ -282,6 +323,7 @@ function generateRuntimeItem(patternSpecId, options) {
 }
 
 function validateRuntimeItem(item) {
+  if (isG5AU02S107Pattern(item?.patternSpecId)) return validateS107ClassC(item);
   if (isG5AU02S106Pattern(item?.patternSpecId)) return validateS106ClassC(item);
   if (isG5AU02S100Pattern(item?.patternSpecId)) return validateS100ClassC(item);
   if (isG5AU02S102Pattern(item?.patternSpecId)) return validateS102ClassC(item);
