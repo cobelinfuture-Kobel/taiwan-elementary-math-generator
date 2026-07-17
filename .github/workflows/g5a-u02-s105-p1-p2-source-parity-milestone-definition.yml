@@ -1,0 +1,42 @@
+name: G5A-U02 S105 P1 P2 Source Parity Milestone Definition
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "data/curriculum/contracts/G5AU02_S105_P1P2SourceParityMilestoneDefinition.json"
+      - "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json"
+      - "data/curriculum/audits/G5AU02_S98_All22SourceMethodAndRepresentationParityAudit.json"
+      - "src/curriculum/g5a-u02/question-display-model.js"
+      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
+      - "docs/curriculum/architecture/G5AU02_S105_P1P2SourceParityMilestoneDefinition.md"
+      - "docs/curriculum/output/G5AU02_S105_P1_P2_SOURCE_PARITY_PROGRAM_PENDING.marker"
+      - "tests/curriculum/g5a-u02-s105-p1-p2-source-parity-milestone-definition.test.js"
+      - ".github/workflows/g5a-u02-s105-p1-p2-source-parity-milestone-definition.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  focused-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate bounded P1 P2 source-parity program
+        run: node --test tests/curriculum/g5a-u02-s105-p1-p2-source-parity-milestone-definition.test.js
+
+  full-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run complete Node regression
+        run: npm test
