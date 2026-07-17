@@ -4,6 +4,12 @@ import {
   isG5AU02S101Pattern,
   validateG5AU02S101Pattern,
 } from "./s101-representation-runtime.js";
+import {
+  expectedG5AU02S103Answer,
+  generateG5AU02S103Pattern,
+  isG5AU02S103Pattern,
+  validateG5AU02S103Pattern,
+} from "./s103-digit-code-runtime.js";
 
 const CLASS_D_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_equal_partition_all_segment_counts",
@@ -92,6 +98,12 @@ function makeItem(patternSpecId, seed, data, prompt, answer) {
       task: "G5AU02-S101_P0PartitionAndGeometryRepresentationFullFix",
       status: "structured_bounded_representation",
     } : null,
+    digitCodeProfileSeparation: isG5AU02S103Pattern(patternSpecId) ? {
+      task: "G5AU02-S103_P0SourceDigitCodeReferenceAndGeneratedFamilySeparation",
+      status: "source_reference_and_generated_default_separated",
+      profileId: data.profileId,
+      productionAllocation: data.productionAllocation,
+    } : null,
   });
 }
 
@@ -100,9 +112,13 @@ function pairedQuantities(rng) {
   return [common * rng.int(2, 9), common * rng.int(2, 9)];
 }
 
-function generateByPattern(patternSpecId, rng, seed) {
+function generateByPattern(patternSpecId, rng, seed, options = {}) {
   if (isG5AU02S101Pattern(patternSpecId)) {
     const generated = generateG5AU02S101Pattern(patternSpecId, rng);
+    return makeItem(patternSpecId, seed, generated.data, generated.prompt, generated.answer);
+  }
+  if (isG5AU02S103Pattern(patternSpecId)) {
+    const generated = generateG5AU02S103Pattern(patternSpecId, rng, options);
     return makeItem(patternSpecId, seed, generated.data, generated.prompt, generated.answer);
   }
 
@@ -147,14 +163,6 @@ function generateByPattern(patternSpecId, rng, seed) {
         values: commonFactorsOf(quantityA, quantityB), unitLabel: "盒",
       });
     }
-    case "ps_g5a_u02_multi_constraint_digit_code":
-      return makeItem(patternSpecId, seed, {
-        predicates: ["四位數", "四個數字互不相同", "千位為1", "百位為7", "十位為2", "個位為5"],
-        sourceSolution: 1725,
-        semanticRole: "source_password",
-      }, "依照來源題的定位條件，找出唯一的四位數密碼。", {
-        digits: [1, 7, 2, 5], value: 1725,
-      });
     default:
       throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${patternSpecId}`);
   }
@@ -163,11 +171,12 @@ function generateByPattern(patternSpecId, rng, seed) {
 export function generateG5AU02ClassD(patternSpecId, options = {}) {
   if (!CLASS_D_SET.has(patternSpecId)) throw new Error(`G5AU02_PATTERN_SPEC_ID_INVALID:${patternSpecId}`);
   const seed = options.seed ?? 1;
-  return generateByPattern(patternSpecId, createRng(seed), seed);
+  return generateByPattern(patternSpecId, createRng(seed), seed, options);
 }
 
 function expectedAnswer(item) {
   if (isG5AU02S101Pattern(item.patternSpecId)) return expectedG5AU02S101Answer(item);
+  if (isG5AU02S103Pattern(item.patternSpecId)) return expectedG5AU02S103Answer(item);
   const data = item.data;
   switch (item.patternSpecId) {
     case "ps_g5a_u02_equal_partition_range_constrained_recipients":
@@ -178,8 +187,6 @@ function expectedAnswer(item) {
       return { value: gcd(data.red, data.blue) };
     case "ps_g5a_u02_possible_equal_packaging_counts":
       return { values: commonFactorsOf(data.quantityA, data.quantityB), unitLabel: "盒" };
-    case "ps_g5a_u02_multi_constraint_digit_code":
-      return { digits: [1, 7, 2, 5], value: 1725 };
     default:
       throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${item.patternSpecId}`);
   }
@@ -191,7 +198,6 @@ function legacyAnswerMismatchCode(patternSpecId) {
   if (patternSpecId.includes("packaging") || patternSpecId.includes("equal_partition")) return "G5AU02_EQUAL_PARTITION_NONDIVISOR";
   if (patternSpecId.includes("rectangle")) return "G5AU02_RECTANGLE_SIDE_NOT_COMMON_DIVISOR";
   if (patternSpecId.includes("square_tile")) return "G5AU02_SQUARE_AREA_NOT_SIDE_SQUARED";
-  if (patternSpecId.includes("digit_code")) return "G5AU02_DIGIT_TUPLE_NOT_1725";
   return "G5AU02_ANSWER_SCHEMA_MISMATCH";
 }
 
@@ -219,6 +225,8 @@ export function validateG5AU02ClassD(item) {
       if (isG5AU02S101Pattern(item.patternSpecId)) {
         errors.push(...validateG5AU02S101Pattern(item).errors);
         if (answerMismatch) errors.push(legacyAnswerMismatchCode(item.patternSpecId));
+      } else if (isG5AU02S103Pattern(item.patternSpecId)) {
+        errors.push(...validateG5AU02S103Pattern(item).errors);
       } else if (answerMismatch) {
         errors.push(legacyAnswerMismatchCode(item.patternSpecId));
       }
