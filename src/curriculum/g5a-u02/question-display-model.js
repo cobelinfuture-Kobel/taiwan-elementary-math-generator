@@ -29,6 +29,13 @@ import {
   serializeG5AU02S103QuestionDisplayModel,
   validateG5AU02S103QuestionDisplayModel,
 } from "./s103-question-display.js";
+import { isG5AU02S106Pattern } from "./s106-factor-structure-runtime.js";
+import {
+  buildG5AU02S106QuestionDisplayModel,
+  isG5AU02S106DisplayModel,
+  serializeG5AU02S106QuestionDisplayModel,
+  validateG5AU02S106QuestionDisplayModel,
+} from "./s106-question-display.js";
 
 const BLOCKING_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_missing_factor_reconstruction",
@@ -77,11 +84,13 @@ export function isG5AU02PromptCompletenessPattern(patternSpecId) {
     || isG5AU02S100Pattern(patternSpecId)
     || isG5AU02S101Pattern(patternSpecId)
     || isG5AU02S102Pattern(patternSpecId)
-    || isG5AU02S103Pattern(patternSpecId);
+    || isG5AU02S103Pattern(patternSpecId)
+    || isG5AU02S106Pattern(patternSpecId);
 }
 
 export function buildG5AU02QuestionDisplayModel(item) {
   if (!item || typeof item !== "object") throw new Error("G5AU02_DISPLAY_ITEM_REQUIRED");
+  if (isG5AU02S106Pattern(item.patternSpecId)) return buildG5AU02S106QuestionDisplayModel(item);
   if (isG5AU02S100Pattern(item.patternSpecId)) return buildG5AU02S100QuestionDisplayModel(item);
   if (isG5AU02S101Pattern(item.patternSpecId)) return buildG5AU02S101QuestionDisplayModel(item);
   if (isG5AU02S102Pattern(item.patternSpecId)) return buildG5AU02S102QuestionDisplayModel(item);
@@ -130,6 +139,7 @@ function sequenceText(sequence) { return sequence.map((entry) => entry.text).joi
 
 export function serializeG5AU02QuestionDisplayModel(basePrompt, model) {
   if (!model) return String(basePrompt ?? "");
+  if (isG5AU02S106DisplayModel(model)) return serializeG5AU02S106QuestionDisplayModel(model);
   if (isG5AU02S100DisplayModel(model)) return serializeG5AU02S100QuestionDisplayModel(model);
   if (isG5AU02S101DisplayModel(model)) return serializeG5AU02S101QuestionDisplayModel(model);
   if (isG5AU02S102DisplayModel(model)) return serializeG5AU02S102QuestionDisplayModel(model);
@@ -153,6 +163,7 @@ function requireExactArray(actual, expected, errorCode, errors) {
 }
 
 export function validateG5AU02QuestionDisplayModel(item, model, promptText = "") {
+  if (isG5AU02S106Pattern(item?.patternSpecId)) return validateG5AU02S106QuestionDisplayModel(item, model, promptText);
   if (isG5AU02S100Pattern(item?.patternSpecId)) return validateG5AU02S100QuestionDisplayModel(item, model, promptText);
   if (isG5AU02S101Pattern(item?.patternSpecId)) return validateG5AU02S101QuestionDisplayModel(item, model, promptText);
   if (isG5AU02S102Pattern(item?.patternSpecId)) return validateG5AU02S102QuestionDisplayModel(item, model, promptText);
