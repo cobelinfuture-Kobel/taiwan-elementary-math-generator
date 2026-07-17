@@ -25,6 +25,20 @@ export const G4B_U04_RENDERER_INTEGRATION = Object.freeze({
   requiredNextGate: "S74_G4B_U04_PublicUIPrintAndQueryStateQA",
 });
 
+const G5A_U02_S104_DENSITY_STYLE = [
+  '<style id="g5a-u02-s104-density-style">',
+  '.worksheet-renderer--g5a-u02-semantic .worksheet-page__grid{grid-auto-rows:minmax(0,1fr);min-height:0;overflow:hidden;gap:8px;}',
+  '.worksheet-renderer--g5a-u02-semantic .worksheet-cell{min-width:0;min-height:0;overflow:hidden;padding:5px 6px;gap:2px;}',
+  '.worksheet-renderer--g5a-u02-semantic .g5a-u02-semantic-cell .worksheet-cell__prompt{font-size:.72rem;line-height:1.16;overflow-wrap:anywhere;}',
+  '.worksheet-renderer--g5a-u02-semantic .g5a-u02-semantic-cell .worksheet-cell__response{font-size:.62rem;line-height:1.12;white-space:pre-wrap;}',
+  '</style>',
+].join("");
+
+function injectG5AU02S104DensityStyle(html) {
+  if (html.includes('id="g5a-u02-s104-density-style"')) return html;
+  return html.replace("</head>", `${G5A_U02_S104_DENSITY_STYLE}</head>`);
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -120,7 +134,9 @@ const STYLE = [
 ].join("");
 
 export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
-  if (isG5AU02PublicSemanticDocument(worksheetDocument)) return renderG5AU02PublicSemanticDocument(worksheetDocument, options);
+  if (isG5AU02PublicSemanticDocument(worksheetDocument)) {
+    return injectG5AU02S104DensityStyle(renderG5AU02PublicSemanticDocument(worksheetDocument, options));
+  }
   if (!isG4BU04Document(worksheetDocument)) return renderBaseWorksheetDocumentToHtml(worksheetDocument, options);
   const title = options.title ?? worksheetDocument.title ?? "四下概數";
   const stylesheetHref = options.stylesheetHref ?? "./assets/styles/print-styles.css";
