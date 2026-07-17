@@ -1,5 +1,17 @@
 # GCTX-P00 Readback
 
+## Status
+
+```text
+STATUS = PASS_CI_ACCEPTED
+PULL_REQUEST = 249
+ACCEPTED_HEAD = d649a1ec63c667bb58756eabd0be63172caa5edf
+TRIGGERED_WORKFLOWS = 19
+ALL_TRIGGERED_WORKFLOWS_PASSED = true
+NODE_TEST_RUN = 2265
+MATH_CI_READBACK_RUN = 1935
+```
+
 ## Scope
 
 ```text
@@ -24,12 +36,22 @@ no S101–S104 file changes
 9. Missing external PBL and teacher-answer-key samples are handled by executable positive/negative fixtures, HTML/PDF acceptance and existing-unit pilots.
 10. Ruleset changes require versioning, impact analysis, affected-unit matrix, migration notes and impacted regression.
 
+## Task closeout
+
+```text
+1. DISTANCE SEGMENT SHORTENED = requirements discussion → versioned global governance authority
+2. SYSTEM NODE ADVANCED = global ruleset / ownership layer
+3. BLOCKER REMOVED = missing external PBL and teacher-answer-key examples are no longer evidence blockers
+4. NEW BLOCKER = none; downstream schema and implementation work remains
+5. NEXT SHORTEST STEP = GCTX-P01_ApprovedSemanticChainSchema
+```
+
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D4_GCTX_REQUIREMENTS_AND_CORPUS_DISCUSSION
-GOAL_DISTANCE_AFTER  = D3_GCTX_GLOBAL_OWNERSHIP_AND_RULE_VERSIONING_LOCKED_PENDING_CI
+GOAL_DISTANCE_AFTER  = D3_GCTX_GLOBAL_OWNERSHIP_AND_RULE_VERSIONING_LOCKED
 DISTANCE_REDUCED     = discussion converted into one versioned governance authority
-REMAINING_BLOCKERS   = [CI acceptance, merge]
+REMAINING_BLOCKERS   = [approved semantic-chain schema, PBL closure schema, layout contracts, existing-unit audits]
 NEXT_SHORTEST_STEP   = GCTX-P01_ApprovedSemanticChainSchema
 ```
