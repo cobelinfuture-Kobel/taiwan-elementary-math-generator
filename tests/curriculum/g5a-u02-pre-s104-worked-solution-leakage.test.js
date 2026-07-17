@@ -29,10 +29,14 @@ function build(patternSpecIds, questionCount, generationSeed) {
   return dynamic.worksheetDocument;
 }
 
-function render(document) {
+function project(document) {
   const projected = projectG5AU02DynamicDocumentForGlobalLayout({ ok: true, errors: [], worksheetDocument: document });
   assert.equal(projected?.ok, true, projected?.errors?.join(","));
-  const projectedDocument = projected.worksheetDocument;
+  return projected.worksheetDocument;
+}
+
+function render(document) {
+  const projectedDocument = project(document);
   const printable = {
     ...projectedDocument,
     questionPages: chunk(projectedDocument.questionDisplayModels, 6).map((records, pageIndex) => ({
@@ -50,7 +54,10 @@ function render(document) {
       cells: records.map((answerKeyItem) => ({ cellType: "answerKey", answerKeyItem })),
     })),
   };
-  return renderWorksheetDocumentToHtml(printable, { stylesheetHref: "" });
+  return {
+    projectedDocument,
+    html: renderWorksheetDocumentToHtml(printable, { stylesheetHref: "" }),
+  };
 }
 
 test("factor-relation questions retain blank method scaffolds without solved multiplication or division", () => {
@@ -81,9 +88,38 @@ test("trial-division questions prefill only divisors and leave quotient remainde
   }
 });
 
-test("rendered student section contains no S100 worked-solution strings while answer section remains separate", () => {
+test("public answer projection keeps complete factor-relation methods only in the answer key", () => {
+  const document = build([FACTOR_RELATION], 64, 104501);
+  const projected = project(document);
+  for (const answer of projected.answerKeyItems) {
+    assert.doesNotMatch(answer.promptText, /乘法：_+|除法：_+|判斷：_+/);
+    assert.match(answer.answerText, /乘法：/);
+    assert.match(answer.answerText, /除法：/);
+    assert.match(answer.answerText, /判斷：/);
+    assert.match(answer.answerText, /×/);
+    assert.match(answer.answerText, /÷/);
+  }
+});
+
+test("public answer projection keeps completed trial records only in the answer key", () => {
+  const document = build([TRIAL_DIVISION], 64, 104601);
+  const projected = project(document);
+  for (let index = 0; index < projected.answerKeyItems.length; index += 1) {
+    const answer = projected.answerKeyItems[index];
+    const model = document.questionItems[index].questionDisplayModel;
+    assert.doesNotMatch(answer.promptText, /商 _+|餘數 _+|是否整除 _+/);
+    assert.match(answer.answerText, /^試除：/);
+    assert.match(answer.answerText, /；因數：/);
+    for (const row of model.rows) {
+      assert.ok(answer.answerText.includes(`除數 ${row.divisor}：商 ${row.quotient}，餘數 ${row.remainder}`));
+      assert.ok(answer.answerText.includes(row.isExact ? "整除" : "不整除"));
+    }
+  }
+});
+
+test("rendered student section contains no S100 worked solutions and answer section contains the methods", () => {
   const document = build([FACTOR_RELATION, TRIAL_DIVISION], 12, 104401);
-  const html = render(document);
+  const { html } = render(document);
   const [questionSection, answerSection = ""] = html.split("worksheet-section--answer-key");
   assert.match(questionSection, /乘法：_+/);
   assert.match(questionSection, /除法：_+/);
@@ -102,5 +138,9 @@ test("rendered student section contains no S100 worked-solution strings while an
       }
     }
   }
-  assert.ok(answerSection.length > 0);
+  assert.match(answerSection, /乘法：/);
+  assert.match(answerSection, /除法：/);
+  assert.match(answerSection, /判斷：/);
+  assert.match(answerSection, /試除：/);
+  assert.match(answerSection, /因數：/);
 });
