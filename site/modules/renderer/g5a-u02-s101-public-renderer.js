@@ -18,14 +18,19 @@ export function isG5AU02S101PublicDocument(document = {}) {
     && (document.questionDisplayModels ?? []).some((row) => S101_KINDS.has(row?.questionDisplayModel?.kind));
 }
 
-function blankRows(count, leftLabel, rightLabel) {
-  return Array.from({ length: count }, (_, index) => [
-    '<div class="g5a-u02-s101-pair-row">',
-    `<span>${index + 1}.</span>`,
-    `<span>${escapeHtml(leftLabel)}：______</span>`,
-    `<span>${escapeHtml(rightLabel)}：______</span>`,
+function compactPairTable(count, leftLabel, rightLabel) {
+  const entries = Array.from({ length: count }, (_, index) => [
+    '<div class="g5a-u02-s101-pair-entry">',
+    `<span class="g5a-u02-s101-pair-entry__number">${index + 1}.</span>`,
+    '<span>____｜____</span>',
     "</div>",
   ].join("")).join("");
+  return [
+    '<div class="g5a-u02-s101-pair-table">',
+    `<div class="g5a-u02-s101-pair-table__header">${escapeHtml(leftLabel)}｜${escapeHtml(rightLabel)}</div>`,
+    `<div class="g5a-u02-s101-pair-table__entries">${entries}</div>`,
+    "</div>",
+  ].join("");
 }
 
 function diagram(model) {
@@ -46,12 +51,21 @@ function diagram(model) {
 function representation(model) {
   if (!S101_KINDS.has(model?.kind)) return "";
   if (model.kind === "partition_count_length_pairs") {
-    return `<div class="g5a-u02-s101-representation" data-g5a-u02-s101-kind="${model.kind}">${blankRows(model.pairs?.length ?? 0, "段數", `每段長度（${model.lengthUnit}）`)}</div>`;
+    return [
+      `<div class="g5a-u02-s101-representation" data-g5a-u02-s101-kind="${model.kind}">`,
+      compactPairTable(model.pairs?.length ?? 0, "段數", `每段長度（${model.lengthUnit}）`),
+      "</div>",
+    ].join("");
   }
   if (model.kind === "rectangle_square_partition_diagram") {
     return `<div class="g5a-u02-s101-representation" data-g5a-u02-s101-kind="${model.kind}">${diagram(model)}<div class="g5a-u02-s101-response">所有可能邊長：________________</div></div>`;
   }
-  return `<div class="g5a-u02-s101-representation" data-g5a-u02-s101-kind="${model.kind}">${diagram(model)}${blankRows(model.sideAreaPairs?.length ?? 0, `邊長（${model.lengthUnit}）`, `面積（${model.areaUnit}）`)}</div>`;
+  return [
+    `<div class="g5a-u02-s101-representation" data-g5a-u02-s101-kind="${model.kind}">`,
+    diagram(model),
+    compactPairTable(model.sideAreaPairs?.length ?? 0, `邊長（${model.lengthUnit}）`, `面積（${model.areaUnit}）`),
+    "</div>",
+  ].join("");
 }
 
 function renderQuestionCell(cell) {
@@ -95,20 +109,24 @@ function renderPage(page, answerKey) {
 
 const STYLE = [
   '<style id="g5a-u02-s101-public-renderer-style">',
-  '.g5a-u02-s101-cell{gap:4px;}',
-  '.g5a-u02-s101-cell .worksheet-cell__prompt{font-size:.82rem;line-height:1.35;}',
-  '.g5a-u02-s101-representation{display:flex;flex-direction:column;gap:4px;min-height:0;font-size:.72rem;}',
-  '.g5a-u02-s101-pair-row{display:grid;grid-template-columns:auto 1fr 1.35fr;gap:5px;border-bottom:1px dotted #aeb8c2;padding:1px 0;}',
-  '.g5a-u02-s101-diagram{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"width grid" ". length" "note note";gap:3px 5px;align-items:center;min-height:0;}',
-  '.g5a-u02-s101-diagram__width{grid-area:width;writing-mode:vertical-rl;font-size:.66rem;}',
-  '.g5a-u02-s101-diagram__grid{grid-area:grid;display:grid;grid-template-columns:repeat(var(--s101-cols),minmax(0,1fr));grid-template-rows:repeat(var(--s101-rows),minmax(0,1fr));width:min(100%,120px);max-height:82px;border:1px solid #596775;background:#fff;}',
+  '.g5a-u02-s101-cell{gap:3px;}',
+  '.g5a-u02-s101-cell .worksheet-cell__prompt{font-size:.8rem;line-height:1.28;}',
+  '.g5a-u02-s101-representation{display:flex;flex-direction:column;gap:3px;min-height:0;font-size:.68rem;}',
+  '.g5a-u02-s101-pair-table{display:flex;flex-direction:column;gap:1px;min-height:0;}',
+  '.g5a-u02-s101-pair-table__header{font-weight:700;font-size:.64rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}',
+  '.g5a-u02-s101-pair-table__entries{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:6px;row-gap:0;}',
+  '.g5a-u02-s101-pair-entry{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px;border-bottom:1px dotted #aeb8c2;padding:0;line-height:1.15;white-space:nowrap;}',
+  '.g5a-u02-s101-pair-entry__number{font-weight:600;}',
+  '.g5a-u02-s101-diagram{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"width grid" ". length" "note note";gap:2px 4px;align-items:center;min-height:0;}',
+  '.g5a-u02-s101-diagram__width{grid-area:width;writing-mode:vertical-rl;font-size:.62rem;}',
+  '.g5a-u02-s101-diagram__grid{grid-area:grid;display:grid;grid-template-columns:repeat(var(--s101-cols),minmax(0,1fr));grid-template-rows:repeat(var(--s101-rows),minmax(0,1fr));width:min(100%,112px);max-height:68px;border:1px solid #596775;background:#fff;}',
   '.g5a-u02-s101-diagram__cell{border:.5px solid #98a5b2;min-width:0;min-height:0;}',
-  '.g5a-u02-s101-diagram__length{grid-area:length;text-align:center;font-size:.66rem;}',
-  '.g5a-u02-s101-diagram__note{grid-area:note;font-size:.64rem;}',
-  '.g5a-u02-s101-response{font-size:.72rem;padding-top:2px;}',
-  '.g5a-u02-s101-answer .worksheet-cell__prompt{font-size:.72rem;line-height:1.25;}',
-  '.g5a-u02-s101-answer .worksheet-cell__answer{font-size:.76rem;line-height:1.3;}',
-  '@media print{.g5a-u02-s101-diagram__grid{max-height:72px;width:min(100%,108px);}.g5a-u02-s101-cell{padding:6px 7px;}}',
+  '.g5a-u02-s101-diagram__length{grid-area:length;text-align:center;font-size:.62rem;}',
+  '.g5a-u02-s101-diagram__note{grid-area:note;font-size:.6rem;line-height:1.15;}',
+  '.g5a-u02-s101-response{font-size:.68rem;padding-top:1px;}',
+  '.g5a-u02-s101-answer .worksheet-cell__prompt{font-size:.7rem;line-height:1.2;}',
+  '.g5a-u02-s101-answer .worksheet-cell__answer{font-size:.73rem;line-height:1.2;}',
+  '@media print{.g5a-u02-s101-diagram__grid{max-height:62px;width:min(100%,102px);}.g5a-u02-s101-cell{padding:5px 6px;}.g5a-u02-s101-pair-table__entries{column-gap:4px;}}',
   "</style>",
 ].join("");
 
