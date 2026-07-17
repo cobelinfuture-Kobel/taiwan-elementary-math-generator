@@ -1,0 +1,173 @@
+{
+  "contractName": "GCTXApprovedSemanticChainSchemaContract",
+  "contractVersion": 1,
+  "task": "GCTX-P01_ApprovedSemanticChainSchema",
+  "status": "schema_locked_pending_ci",
+  "rulesetVersion": "0.1.0",
+  "schemaPath": "data/curriculum/context/schemas/GCTX_ApprovedSemanticChain.schema.json",
+  "registryTargetPath": "data/curriculum/context/registry/approved-semantic-bindings.json",
+  "scope": {
+    "schemaOnly": true,
+    "seedContentMaterialized": false,
+    "runtimeBehaviorChange": false,
+    "unitMigrationChange": false,
+    "rendererImplementationChange": false,
+    "scenarioChainImplemented": false,
+    "boundedPblImplemented": false,
+    "sourceAdmissionGovernanceImplemented": false
+  },
+  "entryDefinition": "approvedSemanticBindingEntry",
+  "exactIdentityContract": {
+    "singleContextFamilyIdRequired": true,
+    "pluralContextFamilyIdsForbidden": true,
+    "semanticVariantIdRequired": true,
+    "explicitSemanticSlotBindingsRequired": true,
+    "orderedEventFlowRequired": true,
+    "quantityRolesRequired": true,
+    "unitFlowDeclared": true,
+    "questionRoleRequired": true,
+    "approvedLanguageVariantIdsRequired": true,
+    "approvedNumericProfileIdsRequired": true,
+    "compatibilityRulesRequired": true,
+    "reviewEvidenceRequired": true,
+    "randomnessPolicyRequired": true,
+    "validationContractRequired": true
+  },
+  "ownershipBoundary": {
+    "owner": "unit_and_patternspec_binding",
+    "globalContextMayOwnCompleteMathPrompt": false,
+    "globalContextMayOwnOperationSignature": false,
+    "globalContextMayOwnQuantityDependency": false,
+    "globalContextMayOwnAnswerModel": false,
+    "bindingMayChangePatternSpecMath": false,
+    "bindingMayReferenceApprovedGlobalAssets": true
+  },
+  "requiredBindingFields": [
+    "bindingId",
+    "rulesetVersion",
+    "sourceId",
+    "unitCode",
+    "knowledgePointId",
+    "patternSpecId",
+    "contextFamilyId",
+    "semanticVariantId",
+    "commonKnowledgeIds",
+    "semanticSlotBindings",
+    "operationSignature",
+    "eventFlow",
+    "quantityRoles",
+    "unitFlow",
+    "questionRole",
+    "languageVariantIds",
+    "numericProfileIds",
+    "compatibilityRules",
+    "reviewEvidence",
+    "randomnessPolicy",
+    "validationContract",
+    "answerUnitPolicy",
+    "lifecycleStatus"
+  ],
+  "randomnessBoundary": {
+    "mode": "select_approved_components_only",
+    "allowedAxes": ["language_variant", "numeric_profile"],
+    "mayCreateNewSemanticBinding": false,
+    "mayReplaceContextFamily": false,
+    "mayMutateSemanticSlotBindings": false,
+    "mayMutateEventFlow": false,
+    "mayChangeQuestionRole": false,
+    "fallbackPolicy": "block"
+  },
+  "semanticChainContract": {
+    "eventStepsMustHaveStableIds": true,
+    "eventStepOrderMustBeStrictlyIncreasing": true,
+    "eventFlowMayBeReorderedAtRuntime": false,
+    "quantityRoleIdsMustBeUnique": true,
+    "slotIdsMustBeUnique": true,
+    "questionTargetMustReferenceDeclaredQuantityRole": true,
+    "questionRoleMustReferenceDeclaredEventSteps": true,
+    "unitFlowMustReferenceDeclaredQuantityRoles": true,
+    "allRequiredSlotsMustBeExplicitlyBound": true
+  },
+  "reviewAndProductionContract": {
+    "productionLifecycleStatus": "approved",
+    "productionApprovalState": "approved",
+    "semanticCompletenessMustBeConfirmed": true,
+    "mathematicalMeaningMustBePreserved": true,
+    "semanticReviewReferenceRequired": true,
+    "mathematicalReviewReferenceRequired": true,
+    "sourceEvidenceReferenceShapeReservedForP03": true
+  },
+  "validationBoundary": {
+    "semanticValidatorHooksRequired": true,
+    "mathValidatorHooksRequired": true,
+    "canonicalAnswerRecomputationRequired": true,
+    "validationBlocking": true,
+    "slotBindingValidationRequired": true,
+    "eventFlowValidationRequired": true,
+    "quantityRoleValidationRequired": true,
+    "unitFlowValidationRequired": true,
+    "questionRoleValidationRequired": true
+  },
+  "forbiddenRuntimeBehavior": [
+    "cartesian_context_slot_composition",
+    "context_family_replacement",
+    "event_flow_mutation",
+    "question_role_mutation",
+    "unapproved_language_generation",
+    "unapproved_numeric_profile_generation",
+    "generic_fallback",
+    "runtime_web_search",
+    "free_form_ai_semantic_generation"
+  ],
+  "deferredToP02": [
+    "scenarioChainId",
+    "projectGoal",
+    "requiredMilestones",
+    "dependencyGraph",
+    "quantityLedgerAcrossQuestions",
+    "decisionCriteria",
+    "terminalDeliverable",
+    "approvedQuestionCountProfiles",
+    "completeProjection",
+    "approvedTwoPageProjection"
+  ],
+  "deferredTasks": {
+    "scenarioAndBoundedPbl": "GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract",
+    "sourceGovernance": "GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance",
+    "semanticBreadth": "GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract",
+    "layoutAuthority": "GLM-APP-P00_NumericAndApplicationLayoutAuthoritySplit",
+    "fixtures": "GCTX-P05_RepresentativePositiveNegativeFixtureCorpus",
+    "validatorCodes": "GCTX-P06_ValidatorAndBlockingCodeContract",
+    "runtimeResolver": "GCTX-P08_DeterministicApprovedBindingResolver"
+  },
+  "compatibilityContract": {
+    "historicalPr243MayBeUsedAsDesignInput": true,
+    "historicalPr243SchemaIsProductionAuthority": false,
+    "existingIdsPreservedAsCanonicalOrLegacyAlias": true,
+    "deterministicReplayMustRemainStable": true,
+    "existingKnowledgePointAuthorityUnchanged": true,
+    "existingPatternSpecAuthorityUnchanged": true,
+    "existingMathValidatorAuthorityUnchanged": true
+  },
+  "acceptance": {
+    "schemaUsesSingleExactContextFamily": true,
+    "schemaRequiresExplicitSemanticChain": true,
+    "schemaClosesRandomnessBoundary": true,
+    "schemaSeparatesP01FromP02": true,
+    "schemaContainsNoSeedContent": true,
+    "schemaChangesNoRuntime": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_GCTX_GLOBAL_OWNERSHIP_AND_RULE_VERSIONING_LOCKED",
+    "goalDistanceAfter": "D3_GCTX_APPROVED_SEMANTIC_BINDING_SCHEMA_LOCKED",
+    "distanceReduced": "converted loose context-family selection into exact unit-owned approved semantic bindings",
+    "remainingBlockers": [
+      "scenario and bounded PBL closure schema",
+      "source governance",
+      "semantic breadth and deduplication",
+      "layout contracts",
+      "runtime implementation"
+    ]
+  },
+  "nextTask": "GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract"
+}
