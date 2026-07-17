@@ -1,0 +1,13 @@
+TASK=GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract
+STATUS=PENDING_CI
+BRANCH=design/gctx-p02-scenario-bounded-pbl-complete-projection
+SCOPE=schema and contract only; no seed, runtime, migration, source governance, semantic breadth or renderer implementation
+QUESTION_COUNT_RANGE=2..5
+RUNTIME_TRUNCATION_ALLOWED=false
+RUNTIME_QUESTION_ASSEMBLY_ALLOWED=false
+SILENT_MILESTONE_REMOVAL_ALLOWED=false
+GOAL_DISTANCE_BEFORE=D3_GCTX_APPROVED_SEMANTIC_BINDING_SCHEMA_LOCKED
+GOAL_DISTANCE_AFTER=D2_GCTX_SCENARIO_AND_BOUNDED_PBL_CLOSURE_CONTRACT_LOCKED_PENDING_CI
+DISTANCE_REDUCED=complete multi-question dependency, quantity-ledger, milestone-coverage and terminal-outcome authority materialized
+REMAINING_BLOCKERS=CI acceptance and merge
+NEXT_SHORTEST_STEP=GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance
