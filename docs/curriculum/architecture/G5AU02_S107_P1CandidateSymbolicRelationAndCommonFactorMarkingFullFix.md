@@ -4,7 +4,7 @@
 
 ```text
 TASK = G5AU02-S107_P1CandidateSymbolicRelationAndCommonFactorMarkingFullFix
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_ACCEPTED_PENDING_MERGE
 SOURCE_PROGRAM = G5AU02-S105_P1P2SourceParityMilestoneDefinition
 PATTERN_ORDERS = 7,12,15
 D0_ELIGIBLE = false
@@ -56,6 +56,15 @@ answer boundary projections  = 3 × 3 × 2 = 18
 bundled scenarios            = 3 × 64 = 192
 ```
 
+Accepted CI authority:
+
+```text
+source-contract + S97 supersession = PASS
+browser-bundle audit and byte parity = PASS
+complete Node regression = PASS
+workflow permissions = contents: read
+```
+
 ## Invariants
 
 PatternSpec, KnowledgePoint, PatternGroup, FormalMapping and answer-model IDs remain stable. P0 and S106 accepted behavior remain immutable. Student questions contain blank marking/response affordances only; canonical answer records remain answer-key-only.
@@ -64,8 +73,8 @@ PatternSpec, KnowledgePoint, PatternGroup, FormalMapping and answer-model IDs re
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_S106_FACTOR_STRUCTURE_FIXED_AND_MERGED
-GOAL_DISTANCE_AFTER  = D1_G5A_U02_S107_SELECTION_SYMBOLIC_COMMON_IMPLEMENTED_PENDING_CI
-DISTANCE_REDUCED     = orders 7,12,15 moved from partial source representation to deterministic runtime, validator and renderer candidates
-REMAINING_BLOCKERS   = [CI,merge,S108,S109,S110]
+GOAL_DISTANCE_AFTER  = D1_G5A_U02_S107_SELECTION_SYMBOLIC_COMMON_FIXED
+DISTANCE_REDUCED     = orders 7,12,15 now have deterministic runtime, blocking validators, structured public rendering, bundle parity and complete regression acceptance
+REMAINING_BLOCKERS   = [merge,S108,S109,S110]
 NEXT_SHORT_STEP      = G5AU02-S108_P2ControlledRemainderTransferContextFullFix
 ```
