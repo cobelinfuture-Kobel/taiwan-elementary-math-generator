@@ -4,9 +4,10 @@
 
 ```text
 TASK = G5AU02-S107_P1CandidateSymbolicRelationAndCommonFactorMarkingFullFix
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_CI_PENDING_MERGE
 SOURCE_PROGRAM = G5AU02-S105_P1P2SourceParityMilestoneDefinition
 PATTERN_ORDERS = 7,12,15
+ACCEPTED_HEAD_SHA = 306142d2b808d0b4b4146339f7ff676e8ea9a6c0
 D0_ELIGIBLE = false
 ```
 
@@ -104,14 +105,56 @@ answer record fields
 ## Acceptance matrices
 
 ```text
-canonical scenarios        = 3 × 64 = 192
-public worksheet scenarios = 3 × 64 = 192
-actual layout projections  = 3 × 18 = 54
-answer boundary            = 3 × 3 × 2 = 18
-bundled scenarios          = 3 × 64 = 192
+canonical scenarios        = 3 × 64 = 192 / 192 PASS
+public worksheet scenarios = 3 × 64 = 192 / 192 PASS
+actual layout projections  = 3 × 18 = 54 / 54 PASS
+answer boundary            = 3 × 3 × 2 = 18 / 18 PASS
+bundled scenarios          = 3 × 64 = 192 / 192 PASS
 ```
 
-The S107 workflow is read-only. Existing canonical bundle authority must synchronize the generated browser bundle; S107 blocks unless committed byte parity is exact.
+The S107 workflow is read-only. Existing canonical bundle authority synchronized the generated browser bundle, and committed byte parity passed.
+
+## Accepted evidence
+
+```text
+S107_FINAL_WORKFLOW_RUN_ID = 29600831104
+PRE_S104_LEAKAGE_RUN_ID    = 29600831149
+S104_P0_WORKFLOW_RUN_ID    = 29600831065
+S106_REGRESSION_RUN_ID     = 29600831204
+NODE_TEST_RUN_ID           = 29600831102
+MATH_CI_READBACK_RUN_ID    = 29600831153
+S96I_LIVE_BROWSER_RUN_ID   = 29600831073
+S96Q_BROWSER_DOM_RUN_ID    = 29600831074
+S97_PARITY_RUN_ID          = 29600831148
+S96D_BUNDLE_RUN_ID         = 29600831186
+```
+
+Accepted results:
+
+```text
+S107 source-contract = PASS
+S107 read-only browser bundle and byte parity = PASS
+S107 complete Node regression = PASS
+S97 supersession regression = PASS
+S104 768-item P0 matrix = PASS
+S104 216-layout and 72-answer-boundary HTML/PDF = PASS
+S106 source, bundle and regression gates = PASS
+worked-solution leakage boundary = PASS
+regenerated 60-question HTML/PDF = PASS
+Node Test and Math CI Readback = PASS
+S96D canonical browser bundle authority = PASS
+S96I live browser = PASS
+S96Q browser DOM = PASS
+```
+
+## Regression supersession notes
+
+Two historical tests were updated without changing runtime behavior:
+
+1. The Pre-S104 renderer marker now recognizes `symbolic_complete_factor_relation_table` instead of the superseded linear symbolic-sequence marker.
+2. Legacy duplicate-key normalization remains covered by an explicit historical fixture, while S107 canonical generation is required never to emit duplicate keys.
+
+The regeneration audit was likewise updated to require the S107 semantic marker. All leakage, response-space, page-count and PDF readback assertions remain unchanged.
 
 ## Invariants
 
@@ -125,14 +168,15 @@ P0 and S106 accepted behavior remain immutable
 canonical answers are independently recomputed
 student answer leakage is forbidden
 Traditional Chinese public symbols are required
+workflow permissions are read-only
 ```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_S106_FACTOR_STRUCTURE_FIXED
-GOAL_DISTANCE_AFTER  = D1_G5A_U02_S107_CANDIDATE_SYMBOLIC_COMMON_FACTOR_IMPLEMENTED_PENDING_CI
-DISTANCE_REDUCED     = orders 7,12,15 moved from P1 display and reasoning gaps to deterministic runtime, validator and renderer candidates
-REMAINING_BLOCKERS   = CI,bundle sync,merge,S108,S109,S110
+GOAL_DISTANCE_AFTER  = D1_G5A_U02_S107_CANDIDATE_SYMBOLIC_COMMON_FACTOR_FIXED_PENDING_MERGE
+DISTANCE_REDUCED     = orders 7,12,15 moved from P1 display and reasoning gaps to accepted deterministic runtime, blocking validators, structured renderer and canonical browser bundle parity
+REMAINING_BLOCKERS   = merge,S108,S109,S110
 NEXT_SHORT_STEP      = G5AU02-S108_P2RemainderTransferStoryRoleFullFix
 ```
