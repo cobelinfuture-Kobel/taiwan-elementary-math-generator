@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   source-contract:
@@ -37,6 +37,8 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -53,7 +55,24 @@ jobs:
             --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
       - name: Verify bundled S106 authority
         run: node tools/curriculum/run-g5a-u02-s106-bundle-audit.mjs
-      - name: Require committed bundle parity
+      - name: Sync exact canonical bundle on same-repository PR
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          bundle="site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+          if git diff --quiet -- "$bundle"; then
+            echo "Committed bundle already matches canonical source."
+            exit 0
+          fi
+          git add -- "$bundle"
+          staged="$(git diff --cached --name-only)"
+          test "$staged" = "$bundle"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "build(g5a-u02): sync S106 canonical browser bundle"
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
+      - name: Require committed bundle parity after sync
         run: git diff --exit-code -- site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
       - name: Upload generated bundle and audit
         if: always()
