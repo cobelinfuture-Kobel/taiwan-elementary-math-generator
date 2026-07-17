@@ -1,5 +1,9 @@
 import { renderWorksheetDocumentToHtml as renderBaseWorksheetDocumentToHtml } from "./html-renderer-s60j-extension.js";
 import {
+  isG5AU02S101PublicDocument,
+  renderG5AU02S101PublicDocument,
+} from "./g5a-u02-s101-public-renderer.js";
+import {
   normalizeG4BU04PublicAnswer,
   normalizeG4BU04PublicPrompt,
 } from "./g4b-u04-public-semantic-format.js";
@@ -13,15 +17,8 @@ export const G4B_U04_RENDERER_INTEGRATION = Object.freeze({
     "g4b_u04_inverse_long_answer_v1",
   ]),
   answerShapes: Object.freeze([
-    "classificationAnswer",
-    "symbolReadingAnswer",
-    "methodComparisonAnswer",
-    "methodChoiceAnswer",
-    "numericAnswer",
-    "moneyAmountAnswer",
-    "banknoteCountAnswer",
-    "digitSetAnswer",
-    "possibleValuesAnswer",
+    "classificationAnswer", "symbolReadingAnswer", "methodComparisonAnswer", "methodChoiceAnswer",
+    "numericAnswer", "moneyAmountAnswer", "banknoteCountAnswer", "digitSetAnswer", "possibleValuesAnswer",
   ]),
   questionPageResponseMode: "question_only",
   internalIdVisible: false,
@@ -105,60 +102,36 @@ function renderPage(document, page, answerKey) {
 
 const STYLE = [
   '<style id="g4b-u04-s73-renderer-style">',
-  'body.worksheet-renderer--g4b-u04 { font-family:"Noto Sans CJK TC","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif; }',
-  '.worksheet-renderer--g4b-u04 .worksheet-document { gap:24px; }',
-  '.g4b-u04-page { break-after:page; page-break-after:always; break-inside:avoid; page-break-inside:avoid; overflow:hidden; }',
-  '.g4b-u04-page:last-child { break-after:auto; page-break-after:auto; }',
-  '.g4b-u04-page-header { display:grid; grid-template-columns:minmax(0,1fr) auto auto; align-items:start; gap:12px; border-bottom:1px solid #9aa7b3; padding-bottom:8px; }',
-  '.g4b-u04-page-header h1 { margin:0; font-size:1.15rem; }',
-  '.g4b-u04-page-header p { margin:3px 0 0; font-size:.82rem; }',
-  '.g4b-u04-student-fields { display:flex; gap:10px; font-size:.82rem; white-space:nowrap; }',
-  '.g4b-u04-page-number { font-size:.78rem; white-space:nowrap; }',
-  '.g4b-u04-grid { display:grid; grid-template-columns:repeat(var(--g4b-u04-columns),minmax(0,1fr)); grid-auto-rows:minmax(0,1fr); gap:10px; flex:1; min-height:0; }',
-  '.g4b-u04-cell { min-width:0; min-height:0; border:1px solid #b8c2cc; border-radius:4px; padding:9px 11px; display:flex; flex-direction:column; gap:6px; overflow:hidden; break-inside:avoid; page-break-inside:avoid; }',
-  '.g4b-u04-cell__number { font-weight:700; font-size:.85rem; }',
-  '.g4b-u04-cell__prompt { font-size:.91rem; line-height:1.55; white-space:pre-wrap; overflow-wrap:anywhere; word-break:normal; }',
-  '.g4b-u04-cell__response { margin-top:auto; padding-top:8px; font-size:.83rem; line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }',
-  '.g4b-u04-cell--numeric_rounding .g4b-u04-cell__prompt, .g4b-u04-cell--symbol_reading .g4b-u04-cell__prompt { font-variant-numeric:tabular-nums; font-size:1rem; }',
-  '.g4b-u04-cell--method_comparison .g4b-u04-cell__prompt, .g4b-u04-cell--inverse_digit_set .g4b-u04-cell__prompt { font-size:.88rem; }',
-  '.g4b-u04-cell--contextual_application .g4b-u04-cell__prompt, .g4b-u04-cell--operation_estimation .g4b-u04-cell__prompt, .g4b-u04-cell--inverse_possible_values .g4b-u04-cell__prompt { font-size:.87rem; }',
-  '.g4b-u04-cell--answer { display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-areas:"number prompt" "answer answer"; align-content:start; column-gap:8px; row-gap:4px; }',
-  '.g4b-u04-cell--answer .g4b-u04-cell__number { grid-area:number; }',
-  '.g4b-u04-cell--answer .g4b-u04-cell__prompt { grid-area:prompt; font-size:.79rem; line-height:1.35; }',
-  '.g4b-u04-cell__answer { grid-area:answer; font-size:.87rem; line-height:1.45; overflow-wrap:anywhere; white-space:pre-wrap; }',
-  '.g4b-u04-cell--inverse_possible_values.g4b-u04-cell--answer .g4b-u04-cell__answer, .g4b-u04-cell--method_comparison.g4b-u04-cell--answer .g4b-u04-cell__answer { font-size:.8rem; }',
-  '.g4b-u04-cell--filler { visibility:hidden; }',
-  '@media print {',
-  ' .worksheet-renderer--g4b-u04 .worksheet-document { padding:0; }',
-  ' .g4b-u04-page { width:210mm; height:296mm; min-height:296mm; max-height:296mm; padding:12mm 12mm; border:0; box-shadow:none; margin:0; }',
-  ' .g4b-u04-grid { gap:8px; }',
-  ' .g4b-u04-cell { padding:8px 9px; }',
-  '}',
-  '</style>',
+  'body.worksheet-renderer--g4b-u04{font-family:"Noto Sans CJK TC","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;}',
+  '.worksheet-renderer--g4b-u04 .worksheet-document{gap:24px;}',
+  '.g4b-u04-page{break-after:page;page-break-after:always;break-inside:avoid;page-break-inside:avoid;overflow:hidden;}',
+  '.g4b-u04-page:last-child{break-after:auto;page-break-after:auto;}',
+  '.g4b-u04-page-header{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:start;gap:12px;border-bottom:1px solid #9aa7b3;padding-bottom:8px;}',
+  '.g4b-u04-page-header h1{margin:0;font-size:1.15rem;}.g4b-u04-page-header p{margin:3px 0 0;font-size:.82rem;}',
+  '.g4b-u04-student-fields{display:flex;gap:10px;font-size:.82rem;white-space:nowrap;}.g4b-u04-page-number{font-size:.78rem;white-space:nowrap;}',
+  '.g4b-u04-grid{display:grid;grid-template-columns:repeat(var(--g4b-u04-columns),minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:10px;flex:1;min-height:0;}',
+  '.g4b-u04-cell{min-width:0;min-height:0;border:1px solid #b8c2cc;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;overflow:hidden;break-inside:avoid;page-break-inside:avoid;}',
+  '.g4b-u04-cell__number{font-weight:700;font-size:.85rem;}.g4b-u04-cell__prompt{font-size:.91rem;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;}',
+  '.g4b-u04-cell--answer{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"number prompt" "answer answer";align-content:start;column-gap:8px;row-gap:4px;}',
+  '.g4b-u04-cell--answer .g4b-u04-cell__number{grid-area:number;}.g4b-u04-cell--answer .g4b-u04-cell__prompt{grid-area:prompt;font-size:.79rem;line-height:1.35;}',
+  '.g4b-u04-cell__answer{grid-area:answer;font-size:.87rem;line-height:1.45;overflow-wrap:anywhere;white-space:pre-wrap;}.g4b-u04-cell--filler{visibility:hidden;}',
+  '@media print{.worksheet-renderer--g4b-u04 .worksheet-document{padding:0;}.g4b-u04-page{width:210mm;height:296mm;min-height:296mm;max-height:296mm;padding:12mm;border:0;box-shadow:none;margin:0;}.g4b-u04-grid{gap:8px;}.g4b-u04-cell{padding:8px 9px;}}',
+  "</style>",
 ].join("");
 
 export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
+  if (isG5AU02S101PublicDocument(worksheetDocument)) return renderG5AU02S101PublicDocument(worksheetDocument, options);
   if (!isG4BU04Document(worksheetDocument)) return renderBaseWorksheetDocumentToHtml(worksheetDocument, options);
   const title = options.title ?? worksheetDocument.title ?? "四下概數";
   const stylesheetHref = options.stylesheetHref ?? "./assets/styles/print-styles.css";
   const questionPages = (worksheetDocument.questionPages ?? []).map((page) => renderPage(worksheetDocument, page, false)).join("");
   const answerPages = (worksheetDocument.answerKeyPages ?? []).map((page) => renderPage(worksheetDocument, page, true)).join("");
   return [
-    "<!doctype html>",
-    '<html lang="zh-Hant">',
-    "<head>",
-    '<meta charset="utf-8">',
-    '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    `<title>${escapeHtml(title)}</title>`,
-    stylesheetHref ? `<link rel="stylesheet" href="${escapeHtml(stylesheetHref)}">` : "",
-    STYLE,
-    "</head>",
-    '<body class="worksheet-renderer worksheet-renderer--g4b-u04" data-renderer-profile="g4b_u04_s73">',
-    '<main class="worksheet-document" data-worksheet-kind="batchAWorksheet">',
+    "<!doctype html>", '<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">',
+    `<title>${escapeHtml(title)}</title>`, stylesheetHref ? `<link rel="stylesheet" href="${escapeHtml(stylesheetHref)}">` : "", STYLE,
+    '</head><body class="worksheet-renderer worksheet-renderer--g4b-u04" data-renderer-profile="g4b_u04_s73"><main class="worksheet-document" data-worksheet-kind="batchAWorksheet">',
     `<section class="worksheet-section worksheet-section--questions">${questionPages}</section>`,
     answerPages ? `<section class="worksheet-section worksheet-section--answer-key">${answerPages}</section>` : "",
-    "</main>",
-    "</body>",
-    "</html>",
+    "</main></body></html>",
   ].join("");
 }
