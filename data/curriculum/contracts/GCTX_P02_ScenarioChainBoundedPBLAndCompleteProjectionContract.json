@@ -2,7 +2,7 @@
   "contractName": "GCTXScenarioChainBoundedPBLAndCompleteProjectionContract",
   "contractVersion": 1,
   "task": "GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract",
-  "status": "contract_locked_pending_ci",
+  "status": "contract_locked_ci_accepted",
   "rulesetVersion": "0.1.0",
   "schemaPath": "data/curriculum/context/schemas/GCTX_ScenarioChainAndBoundedPBL.schema.json",
   "registryTargetPath": "data/curriculum/context/registry/scenario-and-bounded-pbl-chains.json",
@@ -238,6 +238,15 @@
     "newFailureRelativeToMainAllowed": false,
     "inheritedNonOwnedBaselineFailureMayBeRecordedByParity": true,
     "inheritedFailureMayBeRepairedInP02": false
+  },
+  "ciAcceptance": {
+    "headSha": "f9459d836bbd2b3af7e4045bd9742e526c2b4b48",
+    "workflowCount": 19,
+    "successCount": 18,
+    "inheritedFailureCount": 1,
+    "inheritedFailureWorkflow": "S93 G5A-U02 Hidden HTML PDF Smoke",
+    "newOwnedFailures": 0,
+    "baselineParityAccepted": true
   },
   "distance": {
     "goalDistanceBefore": "D3_GCTX_APPROVED_SEMANTIC_BINDING_SCHEMA_LOCKED",
