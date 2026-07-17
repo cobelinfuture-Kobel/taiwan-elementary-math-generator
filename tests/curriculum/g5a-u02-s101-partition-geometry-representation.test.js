@@ -136,9 +136,9 @@ test("S101 public renderer emits bounded CSS geometry and paired response rows",
     answerKeyPages: [{ pageNumber: 1, columns: 1, cells: source.worksheetDocument.answerKeyItems.map((answerKeyItem) => ({ cellType: "answerKey", answerKeyItem: { ...answerKeyItem, promptText: source.worksheetDocument.questionItems[answerKeyItem.questionNumber - 1].prompt } })) }],
   };
   const html = renderWorksheetDocumentToHtml(document, { stylesheetHref: "" });
-  assert.match(html, /data-renderer-profile="g5a_u02_s101_structured_geometry_v1"/);
+  assert.match(html, /data-renderer-profile="g5a_u02_pre_s104_semantic_v1"/);
   for (const kind of KINDS.values()) assert.ok(html.includes(`data-g5a-u02-s101-kind="${kind}"`));
-  assert.ok((html.match(/g5a-u02-s101-diagram__cell/g) ?? []).length <= 162);
+  assert.ok((html.match(/g5a-u02-semantic-diagram__cell/g) ?? []).length <= 162);
   assert.ok(html.includes("worksheet-page__grid"));
   assert.ok(html.includes("worksheet-cell--question"));
 });
