@@ -147,7 +147,7 @@ function semanticAudit(document, html) {
     'data-g5a-u02-s102-kind="parallel_factor_sets_with_intersection"',
     'data-g5a-u02-s102-kind="common_factor_set_with_gcf"',
     'data-g5a-u02-s103-kind="unique_digit_code_constraints"',
-    'data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"',
+    'data-g5a-u02-s107-kind="symbolic_complete_factor_relation_table"',
   ]) assert(html.includes(marker), `PRE_S104_SEMANTIC_MARKER_MISSING:${marker}`);
 
   for (const answer of digitAnswers) {
