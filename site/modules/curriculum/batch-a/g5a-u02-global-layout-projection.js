@@ -63,6 +63,51 @@ function isG5AU02DynamicDocument(document = {}) {
     && (publicDynamicSchema || canonicalDynamicSchema || legacyDynamicSchema || publicSourceIdentity || canonicalRecordIdentity);
 }
 
+function factorRelationAnswerText(record, fallback = "") {
+  const model = record?.questionDisplayModel ?? {};
+  const multiply = model.multiplicationWitness;
+  const divide = model.divisionWitness;
+  if (!multiply || !divide) return String(fallback);
+  const candidate = model.candidateDivisor;
+  const target = model.target;
+  if (divide.remainder === 0) {
+    return `乘法：${multiply.factorA}×${multiply.factorB}=${target}；除法：${divide.dividend}÷${divide.divisor}=${divide.quotient}，沒有餘數；判斷：${candidate} 是 ${target} 的因數。`;
+  }
+  const nextFactor = multiply.factorB + 1;
+  const nextProduct = multiply.factorA * nextFactor;
+  return `乘法：${multiply.factorA}×${multiply.factorB}=${multiply.product}，${multiply.factorA}×${nextFactor}=${nextProduct}，沒有整數乘以 ${candidate} 等於 ${target}；除法：${divide.dividend}÷${divide.divisor}=${divide.quotient} 餘 ${divide.remainder}；判斷：${candidate} 不是 ${target} 的因數。`;
+}
+
+function trialDivisionAnswerText(record, answer, fallback = "") {
+  const model = record?.questionDisplayModel ?? {};
+  const rows = Array.isArray(model.rows) ? model.rows : [];
+  if (rows.length === 0) return String(fallback);
+  const factorValues = answer?.structuredAnswer?.values ?? model.factorValues ?? [];
+  const trials = rows.map((row) => `除數 ${row.divisor}：商 ${row.quotient}，餘數 ${row.remainder}，${row.isExact ? "整除" : "不整除"}`).join("；");
+  return `試除：${trials}；因數：${factorValues.join("、")}`;
+}
+
+function publicAnswerText(record, answer = {}) {
+  if (record?.patternSpecId === "ps_g5a_u02_factor_relation_equivalence") {
+    return factorRelationAnswerText(record, answer.answerText ?? "");
+  }
+  if (record?.patternSpecId === "ps_g5a_u02_factor_enumeration_trial_division") {
+    return trialDivisionAnswerText(record, answer, answer.answerText ?? "");
+  }
+  return String(answer.answerText ?? "");
+}
+
+function publicAnswerPrompt(record, prompt) {
+  const model = record?.questionDisplayModel ?? {};
+  if (record?.patternSpecId === "ps_g5a_u02_factor_relation_equivalence") {
+    return `用乘法和除法判斷 ${model.candidateDivisor} 是否為 ${model.target} 的因數。`;
+  }
+  if (record?.patternSpecId === "ps_g5a_u02_factor_enumeration_trial_division") {
+    return `用試除法找出 ${model.target} 的所有因數。`;
+  }
+  return prompt;
+}
+
 export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
   const document = result?.worksheetDocument;
   if (!result?.ok || !document || !isG5AU02DynamicDocument(document)) return result;
@@ -114,14 +159,16 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
     const questionNumber = Number(record.questionNumber) || index + 1;
     const answer = answerByNumber.get(questionNumber) ?? {};
     const prompt = String(record.prompt ?? record.promptText ?? "");
+    const answerText = publicAnswerText(record, answer);
+    const answerPrompt = publicAnswerPrompt(record, prompt);
     return {
       questionId: record.questionId ?? `g5a-u02-${questionNumber}`,
       questionNumber,
       patternId: record.patternSpecId ?? answer.patternSpecId ?? null,
       knowledgePointId: record.knowledgePointId ?? null,
       patternGroupId: record.patternGroupId ?? null,
-      promptText: prompt,
-      answerText: String(answer.answerText ?? ""),
+      promptText: answerPrompt,
+      answerText,
       expressionText: answer.structuredAnswer?.expression ?? null,
       answerValue: clone(answer.structuredAnswer ?? answer.answerText ?? null),
       answerUnit: answer.structuredAnswer?.unitLabel ?? answer.structuredAnswer?.unit ?? null,
@@ -135,7 +182,7 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
         semanticProjectionVersion: record.questionDisplayModel ? G5A_U02_SEMANTIC_PROJECTION_VERSION : null,
       },
       layoutHints: {
-        estimatedTextLength: [...`${prompt}${answer.answerText ?? ""}`].length,
+        estimatedTextLength: [...`${answerPrompt}${answerText}`].length,
         avoidPageBreakInside: true,
         representation: `${renderKind(record)}_answer`,
         longTextCardPolicy: "avoidSplit",
