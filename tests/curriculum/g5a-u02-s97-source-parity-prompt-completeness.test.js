@@ -39,10 +39,15 @@ function assertVisibleByPattern(record) {
       for (const entry of model.sequence) assert.ok(record.prompt.includes(entry.text));
       break;
     case "ps_g5a_u02_complete_factor_list_statement_evaluation":
-      assert.equal(model.kind, "factor_list_statement_set");
-      assert.equal(model.statements.length, 3);
-      assert.match(record.prompt, /因數個數是偶數/);
-      for (const statement of model.statements) assert.ok(record.prompt.includes(statement.text));
+      assert.equal(model.kind, "factor_list_reasoning_statement_set");
+      assert.ok(model.statements.length >= 3);
+      assert.ok(model.truthPattern.includes(true));
+      assert.ok(model.truthPattern.includes(false));
+      assert.match(record.prompt, /因數個數(是|為)/);
+      for (const factor of model.factorList) assert.ok(record.prompt.includes(String(factor)));
+      for (let index = 0; index < model.statements.length; index += 1) {
+        assert.ok(record.prompt.includes(`${index + 1}.`));
+      }
       break;
     case "ps_g5a_u02_common_factor_concept_identification":
       assert.equal(model.kind, "candidate_selection");
