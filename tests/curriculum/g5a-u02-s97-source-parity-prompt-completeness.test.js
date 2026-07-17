@@ -35,15 +35,21 @@ function assertVisibleByPattern(record) {
       assert.match(record.prompt, /□/);
       break;
     case "ps_g5a_u02_divisor_candidate_selection":
-      assert.equal(model.kind, "candidate_selection");
+      assert.equal(model.kind, "candidate_circle_selection_row");
+      assert.equal(model.selectionAffordance, "empty_circle_per_candidate");
       assert.match(record.prompt, /候選數：/);
+      assert.doesNotMatch(record.prompt, /●|☑|✓|✔/);
       for (const candidate of model.candidates) assert.ok(record.prompt.includes(String(candidate)));
       break;
     case "ps_g5a_u02_complete_factor_list_unknown_values":
-      assert.equal(model.kind, "symbolic_complete_factor_sequence");
+      assert.equal(model.kind, "symbolic_complete_factor_relation_table");
       assert.match(record.prompt, /最後一個數就是原數/);
+      assert.match(record.prompt, /代號方程：/);
+      assert.equal(model.solutionCount, 1);
       assert.ok(model.sequence.some((entry) => entry.role === "unknown"));
+      assert.ok(model.symbolEquations.length >= 1);
       for (const entry of model.sequence) assert.ok(record.prompt.includes(entry.text));
+      for (const equation of model.symbolEquations) assert.ok(record.prompt.includes(equation.text));
       break;
     case "ps_g5a_u02_complete_factor_list_statement_evaluation":
       assert.equal(model.kind, "factor_list_reasoning_statement_set");
@@ -58,11 +64,12 @@ function assertVisibleByPattern(record) {
       assert.doesNotMatch(record.prompt, /\b\d+\.\d+\s+是/);
       break;
     case "ps_g5a_u02_common_factor_concept_identification":
-      assert.equal(model.kind, "candidate_selection");
-      assert.equal(model.selectionRole, "common_factor");
-      assert.match(record.prompt, /所有公因數/);
-      assert.match(record.prompt, /候選數：/);
-      for (const candidate of model.candidates) assert.ok(record.prompt.includes(String(candidate)));
+      assert.equal(model.kind, "marked_common_factor_row");
+      assert.equal(model.selectionAffordance, "empty_circle_per_candidate");
+      assert.match(record.prompt, /最小公因數：______/);
+      assert.match(record.prompt, /最大公因數：______/);
+      assert.doesNotMatch(record.prompt, /●|☑|✓|✔/);
+      for (const candidate of model.candidateRow) assert.ok(record.prompt.includes(String(candidate)));
       break;
     case "ps_g5a_u02_multi_constraint_digit_code":
       assert.equal(model.kind, "unique_digit_code_constraints");
