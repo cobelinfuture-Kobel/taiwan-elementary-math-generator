@@ -25,6 +25,7 @@ const BROWSER_PIPELINE_LIFECYCLE = deepFreeze({
 
 const PROFILE_IDS = Object.freeze(["compact", "contextual", "reasoning"]);
 const INTERNAL_ID_PATTERN = /\b(?:ps|fm|fmc|pg|kp)_g5a_u02_[a-z0-9_]+\b/gi;
+const EXPECTED_SUPPORTED_ANSWER_MODEL_COUNT = 18;
 
 function countToken(text, token) { return text.split(token).length - 1; }
 function blocked(errors, source = null) {
@@ -56,7 +57,6 @@ export function validateG5AU02HiddenBrowserBundle(browserBundle, source = {}) {
     source.worksheetDocument,
   );
   if (!sourceValidation.ok) errors.push(...sourceValidation.errors);
-
   if (!browserBundle || typeof browserBundle !== "object") {
     return deepFreeze({ ok: false, errors: ["G5AU02_BROWSER_BUNDLE_REQUIRED", ...errors] });
   }
@@ -72,9 +72,7 @@ export function validateG5AU02HiddenBrowserBundle(browserBundle, source = {}) {
   if (browserBundle.answerCount !== (worksheet?.answerKeyRecords?.length ?? 0)) errors.push("G5AU02_BROWSER_ANSWER_COUNT_MISMATCH");
   if (browserBundle.questionPageCount !== rendered?.questionPageCount) errors.push("G5AU02_BROWSER_QUESTION_PAGE_COUNT_MISMATCH");
   if (browserBundle.answerPageCount !== rendered?.answerPageCount) errors.push("G5AU02_BROWSER_ANSWER_PAGE_COUNT_MISMATCH");
-  if (browserBundle.expectedPdfPageCount !== browserBundle.questionPageCount + browserBundle.answerPageCount) {
-    errors.push("G5AU02_BROWSER_EXPECTED_PDF_PAGE_COUNT_MISMATCH");
-  }
+  if (browserBundle.expectedPdfPageCount !== browserBundle.questionPageCount + browserBundle.answerPageCount) errors.push("G5AU02_BROWSER_EXPECTED_PDF_PAGE_COUNT_MISMATCH");
 
   const html = browserBundle.html;
   if (typeof html !== "string" || html.length === 0) {
@@ -89,7 +87,6 @@ export function validateG5AU02HiddenBrowserBundle(browserBundle, source = {}) {
     if ((html.match(INTERNAL_ID_PATTERN) ?? []).length > 0) errors.push("G5AU02_BROWSER_INTERNAL_ID_LEAK");
     if ((html.match(/\{\{[^{}]+\}\}/g) ?? []).length > 0) errors.push("G5AU02_BROWSER_UNRESOLVED_PLACEHOLDER");
   }
-
   for (const profileId of browserBundle.profileIds ?? []) {
     if (!PROFILE_IDS.includes(profileId)) errors.push(`G5AU02_BROWSER_PROFILE_INVALID:${profileId}`);
   }
@@ -111,7 +108,6 @@ export function buildG5AU02HiddenBrowserBundle(input = {}) {
     stylesheetHref: input.stylesheetHref ?? "",
   });
   if (!source.ok) return blocked(source.errors, source);
-
   const { worksheetDocument, renderedWorksheet } = source;
   const browserBundle = deepFreeze({
     schemaName: "G5AU02HiddenBrowserBundle",
@@ -141,18 +137,14 @@ export function auditG5AU02HiddenBrowserPipeline() {
   if (!canonical.ok) errors.push(...canonical.errors);
   else {
     if (canonical.browserBundle.questionCount !== 22) errors.push("G5AU02_BROWSER_AUDIT_PATTERN_COUNT_MISMATCH");
-    if (canonical.browserBundle.answerModelIds.length !== 17) errors.push("G5AU02_BROWSER_AUDIT_ANSWER_MODEL_COUNT_MISMATCH");
+    if (canonical.browserBundle.answerModelIds.length !== EXPECTED_SUPPORTED_ANSWER_MODEL_COUNT) errors.push("G5AU02_BROWSER_AUDIT_ANSWER_MODEL_COUNT_MISMATCH");
     if (PROFILE_IDS.some((profileId) => !canonical.browserBundle.profileIds.includes(profileId))) errors.push("G5AU02_BROWSER_AUDIT_PROFILE_COVERAGE_MISMATCH");
   }
-
   const suppressed = buildG5AU02HiddenBrowserBundle({ questionCount: 7, baseSeed: 9301, includeAnswerKey: false });
   if (!suppressed.ok) errors.push(...suppressed.errors);
   else if (suppressed.browserBundle.answerCount !== 0
     || suppressed.browserBundle.answerPageCount !== 0
-    || suppressed.browserBundle.html.includes("g5a-u02-section--answer-key")) {
-    errors.push("G5AU02_BROWSER_AUDIT_ANSWER_SUPPRESSION_FAILED");
-  }
-
+    || suppressed.browserBundle.html.includes("g5a-u02-section--answer-key")) errors.push("G5AU02_BROWSER_AUDIT_ANSWER_SUPPRESSION_FAILED");
   return deepFreeze({
     ok: errors.length === 0,
     errors: [...new Set(errors)],
