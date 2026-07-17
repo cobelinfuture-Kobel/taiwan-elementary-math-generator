@@ -1,0 +1,343 @@
+{
+  "contractName": "GCTX_PBLSemanticBreadthFingerprintAndNearDuplicateContract",
+  "contractVersion": 1,
+  "task": "GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract",
+  "status": "contract_locked_ci_accepted",
+  "rulesetVersion": "0.1.0",
+  "schemaPath": "data/curriculum/context/schemas/GCTX_PBLSemanticBreadthAndFingerprint.schema.json",
+  "registryTargetPath": "data/curriculum/context/registry/pbl-semantic-breadth-and-fingerprints.json",
+  "scope": {
+    "schemaAndContractOnly": true,
+    "archetypeSeedsMaterialized": false,
+    "semanticFamilySeedsMaterialized": false,
+    "pblChainSeedsMaterialized": false,
+    "fingerprintsMaterialized": false,
+    "runtimeBehaviorChange": false,
+    "unitMigrationChange": false,
+    "layoutImplementationChange": false,
+    "validatorImplementationChange": false
+  },
+  "authorityDependencies": {
+    "p00GlobalOwnershipRequired": true,
+    "p02ApprovedCompleteChainRequired": true,
+    "p03ApprovedEvidenceRequired": true,
+    "p02ClosureAuthorityUnchanged": true,
+    "p03EvidenceAuthorityUnchanged": true
+  },
+  "fingerprintVersion": "pbl-semantic-fingerprint-v1",
+  "semanticIdentityDimensions": [
+    "project_archetype",
+    "project_goal",
+    "required_milestones",
+    "event_flow",
+    "quantity_dependency_graph",
+    "decision_model",
+    "mathematical_composition",
+    "terminal_deliverable"
+  ],
+  "excludedSurfaceDimensions": [
+    "numeric_values",
+    "numeric_profile_ids",
+    "random_seed",
+    "actor_names",
+    "place_names",
+    "object_names",
+    "language_variant_ids",
+    "wording_variants",
+    "cosmetic_context_nouns",
+    "context_domain_labels",
+    "source_urls"
+  ],
+  "dimensionWeights": {
+    "projectArchetype": 15,
+    "projectGoal": 15,
+    "requiredMilestones": 15,
+    "eventFlow": 15,
+    "quantityDependencyGraph": 15,
+    "decisionModel": 10,
+    "mathematicalComposition": 10,
+    "terminalDeliverable": 5,
+    "total": 100
+  },
+  "canonicalizationContract": {
+    "orderedMilestonesPreserved": true,
+    "orderedEventFlowPreserved": true,
+    "dependencyGraphCanonicalized": true,
+    "unorderedTagSetsSorted": true,
+    "rawWordingExcluded": true,
+    "numericValuesExcluded": true,
+    "stableIdsRequired": true,
+    "canonicalSha256Required": true,
+    "fingerprintVersionRequired": true
+  },
+  "semanticDifferenceContract": {
+    "numericVariationCreatesNewChain": false,
+    "numericProfileChangeCreatesNewChain": false,
+    "randomSeedChangeCreatesNewChain": false,
+    "actorNameChangeCreatesNewChain": false,
+    "placeNameChangeCreatesNewChain": false,
+    "objectNameChangeCreatesNewChain": false,
+    "languageVariantChangeCreatesNewChain": false,
+    "wordingChangeCreatesNewChain": false,
+    "cosmeticContextNounChangeCreatesNewChain": false,
+    "contextDomainChangeAloneCreatesNewChain": false,
+    "sourceUrlChangeCreatesNewChain": false,
+    "archetypeLabelChangeAloneCreatesNewChain": false,
+    "surfaceReskinCountsAsExactSemanticDuplicate": true,
+    "genuineChainDifferenceRequiresMaterialIdentityChange": true
+  },
+  "classificationContract": {
+    "exactSemanticDuplicate": {
+      "score": 100,
+      "allEightIdentityDimensionsEqual": true,
+      "blocking": true,
+      "countsAsDistinctApprovedChain": false,
+      "countsAsDistinctSemanticFamily": false
+    },
+    "nearDuplicate": {
+      "minimumScoreInclusive": 80,
+      "maximumScoreExclusive": 100,
+      "blocking": true,
+      "countsAsDistinctApprovedChain": false,
+      "countsAsDistinctSemanticFamily": false,
+      "waiverAllowed": false
+    },
+    "sameFamilyDistinctChain": {
+      "minimumScoreInclusive": 50,
+      "maximumScoreExclusive": 80,
+      "minimumMaterialIdentityDimensionChanges": 2,
+      "blocking": false,
+      "countsAsDistinctApprovedChain": true,
+      "countsAsDistinctSemanticFamily": false
+    },
+    "distinctFamily": {
+      "maximumScoreExclusive": 50,
+      "minimumFamilyDefiningDimensionChanges": 2,
+      "blocking": false,
+      "countsAsDistinctApprovedChain": true,
+      "countsAsDistinctSemanticFamily": true
+    },
+    "distinctArchetype": {
+      "archetypeChangeRequired": true,
+      "minimumAdditionalMaterialIdentityDimensionChanges": 1,
+      "blocking": false,
+      "countsAsDistinctApprovedChain": true,
+      "countsAsDistinctSemanticFamily": true
+    }
+  },
+  "semanticFamilyIdentity": {
+    "dimensions": [
+      "archetype_id",
+      "goal_class_signature",
+      "milestone_pattern_signature",
+      "decision_model_class",
+      "terminal_deliverable_class",
+      "mathematical_composition_class"
+    ],
+    "newFamilyRequiresMaterialDimensionChanges": 2,
+    "archetypeChangeRequiresAdditionalFamilyDimensionChange": true,
+    "contextDomainChangeAloneCreatesNewFamily": false,
+    "surfaceVariationCreatesNewFamily": false,
+    "numericVariationCreatesNewFamily": false
+  },
+  "pairwiseAssessmentContract": {
+    "candidateComparedAgainstEveryApprovedChainInUnit": true,
+    "candidateComparedAgainstGlobalSameFamilyIndex": true,
+    "allEightComponentScoresRequired": true,
+    "weightedTotalRequired": true,
+    "humanConfirmationRequired": true,
+    "nearDuplicateWaiverAllowed": false,
+    "assessmentNotesRequired": true,
+    "assessmentMustBeAuditable": true,
+    "blockedDuplicateRetainedForAudit": true
+  },
+  "pblArchetypes": [
+    "planning",
+    "comparison",
+    "resource_allocation",
+    "data_investigation",
+    "controlled_history_social_task"
+  ],
+  "breadthMetrics": [
+    "PBL_ARCHETYPE_COUNT",
+    "PBL_SEMANTIC_FAMILY_COUNT",
+    "PBL_APPROVED_CHAIN_COUNT",
+    "SURFACE_VARIANT_COUNT",
+    "NUMERIC_INSTANCE_CAPACITY",
+    "CONTEXT_DOMAIN_COUNT",
+    "EVENT_FLOW_SIGNATURE_COUNT",
+    "DECISION_MODEL_COUNT",
+    "NEAR_DUPLICATE_CANDIDATE_COUNT",
+    "REJECTED_DUPLICATE_COUNT",
+    "NEAR_DUPLICATE_RATE"
+  ],
+  "metricCountingContract": {
+    "theoreticalCombinationCountIsProductionMetric": false,
+    "surfaceVariantCountCountsAsApprovedChain": false,
+    "numericInstanceCapacityCountsAsApprovedChain": false,
+    "contextDomainChangeAloneCountsAsApprovedChain": false,
+    "nearDuplicateCountsTowardBreadth": false,
+    "rejectedDuplicateCountsTowardBreadth": false,
+    "approvedChainRequiresDistinctFingerprint": true,
+    "semanticFamilyCountUsesUniqueApprovedFamilyIds": true,
+    "archetypeCountUsesUniqueApprovedArchetypeIds": true,
+    "nearDuplicateRateFormula": "nearDuplicateCandidateCount / totalProposedChainCount"
+  },
+  "perUnitBreadthGate": {
+    "minimumArchetypeCount": 4,
+    "minimumSemanticFamilyCount": 12,
+    "minimumApprovedChainCount": 20,
+    "targetApprovedChainMinimum": 30,
+    "targetApprovedChainMaximum": 40,
+    "minimumContextDomainCount": 3,
+    "minimumEventFlowSignatureCount": 4,
+    "minimumDecisionModelCount": 3,
+    "maximumNearDuplicateRate": 0.2,
+    "allApprovedChainsFingerprintUnique": true,
+    "targetBandReachedIsBlocking": false,
+    "minimumFloorPassIsBlocking": true
+  },
+  "crossDomainCoverageContract": {
+    "availableDomains": [
+      "daily_life",
+      "sdg",
+      "natural_science",
+      "social_studies",
+      "history"
+    ],
+    "minimumCoveredDomainsPerProductionUnit": 3,
+    "sameChainRecontextualizedAcrossDomainsCountsOnce": true,
+    "domainCoverageMeasuredSeparatelyFromChainBreadth": true,
+    "domainLabelChangeMayIncreaseDomainCoverage": true,
+    "domainLabelChangeMayIncreaseChainCount": false
+  },
+  "productionEligibilityContract": {
+    "p02ApprovedCompleteProjectionRequired": true,
+    "p03ApprovedEvidenceReferencesRequired": true,
+    "canonicalFingerprintRequired": true,
+    "pairwiseAssessmentRequired": true,
+    "exactDuplicateForbidden": true,
+    "nearDuplicateForbidden": true,
+    "surfaceReskinForbidden": true,
+    "allBreadthFloorsMustPass": true,
+    "nearDuplicateRateMustPass": true,
+    "allApprovedFingerprintHashesUnique": true,
+    "productionEligibilityMayUseSurfaceOrNumericCapacityAsSubstitute": false
+  },
+  "blockingCodesReserved": [
+    "PBL_FINGERPRINT_MISSING",
+    "PBL_FINGERPRINT_VERSION_MISMATCH",
+    "PBL_FINGERPRINT_CANONICALIZATION_FAILED",
+    "PBL_EXACT_SEMANTIC_DUPLICATE",
+    "PBL_SURFACE_RESKIN_DETECTED",
+    "PBL_NEAR_DUPLICATE_CHAIN",
+    "PBL_NEAR_DUPLICATE_REVIEW_MISSING",
+    "PBL_NEAR_DUPLICATE_WAIVER_FORBIDDEN",
+    "PBL_ARCHETYPE_BREADTH_INSUFFICIENT",
+    "PBL_SEMANTIC_FAMILY_BREADTH_INSUFFICIENT",
+    "PBL_APPROVED_CHAIN_BREADTH_INSUFFICIENT",
+    "PBL_CONTEXT_DOMAIN_COVERAGE_INSUFFICIENT",
+    "PBL_EVENT_FLOW_BREADTH_INSUFFICIENT",
+    "PBL_DECISION_MODEL_BREADTH_INSUFFICIENT",
+    "PBL_NEAR_DUPLICATE_RATE_EXCEEDED",
+    "PBL_APPROVED_CHAIN_FINGERPRINT_COLLISION",
+    "PBL_SURFACE_VARIANT_COUNTING_FORBIDDEN",
+    "PBL_NUMERIC_CAPACITY_COUNTING_FORBIDDEN",
+    "PBL_P02_CLOSURE_REFERENCE_MISSING",
+    "PBL_P03_EVIDENCE_REFERENCE_MISSING"
+  ],
+  "forbiddenBehavior": [
+    "count_numeric_variants_as_new_chains",
+    "count_surface_variants_as_new_chains",
+    "count_context_domain_reskins_as_new_chains",
+    "count_random_seeds_as_new_chains",
+    "count_actor_place_object_swaps_as_new_chains",
+    "count_language_variants_as_new_chains",
+    "approve_duplicate_fingerprint_hash",
+    "approve_near_duplicate_with_waiver",
+    "skip_pairwise_assessment",
+    "use_theoretical_combination_count_as_breadth",
+    "use_numeric_capacity_as_semantic_breadth",
+    "use_surface_variant_capacity_as_semantic_breadth",
+    "change_p02_chain_closure",
+    "use_unapproved_p03_evidence"
+  ],
+  "deferredToP05": [
+    "representativeArchetypeFixtures",
+    "representativeSemanticFamilyFixtures",
+    "positiveDistinctChainPairs",
+    "negativeSurfaceReskinPairs",
+    "negativeNearDuplicatePairs",
+    "unitBreadthProfileFixture"
+  ],
+  "deferredToP06": [
+    "fingerprintValidatorImplementationContract",
+    "nearDuplicateClassifierValidatorContract",
+    "breadthGateValidatorContract",
+    "blockingCodeExecutionContract"
+  ],
+  "deferredToRuntime": [
+    "fingerprintCanonicalizer",
+    "pairwiseSimilarityEngine",
+    "globalSameFamilyIndex",
+    "populationBreadthResolver",
+    "productionAdmissionResolver"
+  ],
+  "compatibilityContract": {
+    "p00GlobalAuthorityUnchanged": true,
+    "p01ApprovedSemanticBindingAuthorityUnchanged": true,
+    "p02ClosureAuthorityUnchanged": true,
+    "p03EvidenceAuthorityUnchanged": true,
+    "existingKnowledgePointAuthorityUnchanged": true,
+    "existingPatternSpecAuthorityUnchanged": true,
+    "existingMathValidatorAuthorityUnchanged": true,
+    "existingUnitRuntimeUnchanged": true,
+    "existingRendererUnchanged": true,
+    "g5aU02FilesMayBeModified": false
+  },
+  "acceptance": {
+    "schemaDefinesEightIdentityDimensions": true,
+    "schemaExcludesSurfaceAndNumericVariation": true,
+    "schemaDefinesWeightedSimilarity": true,
+    "schemaBlocksExactAndNearDuplicates": true,
+    "schemaDefinesSemanticFamilies": true,
+    "schemaDefinesPerUnitBreadthMetrics": true,
+    "schemaDefinesProductionBreadthFloors": true,
+    "schemaSeparatesDomainCoverageFromChainBreadth": true,
+    "schemaRequiresP02AndP03Traceability": true,
+    "schemaContainsNoSeedContent": true,
+    "schemaChangesNoRuntime": true
+  },
+  "ciPolicy": {
+    "ownedGatesMustPass": true,
+    "newFailureRelativeToMainAllowed": false,
+    "inheritedNonOwnedBaselineFailureMayBeRecordedByParity": true,
+    "inheritedFailureMayBeRepairedInP04": false
+  },
+  "ciAcceptance": {
+    "acceptedHeadSha": "3a42b5c209981696a1a1040f0a186cf198d62678",
+    "workflowCount": 19,
+    "successCount": 18,
+    "inheritedFailureCount": 1,
+    "inheritedFailureWorkflow": "S93 G5A-U02 Hidden HTML PDF Smoke",
+    "newOwnedFailures": 0,
+    "baselineParityAccepted": true,
+    "nodeTestRunNumber": 2326,
+    "mathCiReadbackRunNumber": 1996,
+    "productionStressRunNumber": 331
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_SOURCE_EVIDENCE_GOVERNANCE_LOCKED",
+    "goalDistanceAfter": "D2_GCTX_PBL_SEMANTIC_BREADTH_AND_DEDUP_CONTRACT_LOCKED",
+    "distanceReduced": "separated genuine PBL semantic-chain breadth from surface and numeric capacity and added blocking duplicate gates",
+    "remainingBlockers": [
+      "representative fixtures",
+      "layout contracts",
+      "validator implementation",
+      "runtime fingerprint resolver",
+      "population authoring",
+      "existing-unit audits"
+    ]
+  },
+  "nextTask": "GCTX-P05_RepresentativePositiveNegativeFixtureCorpus"
+}

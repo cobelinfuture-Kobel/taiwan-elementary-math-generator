@@ -1,0 +1,720 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taiwan-elementary-math-generator.example/schemas/gctx-pbl-semantic-breadth-fingerprint-v1.json",
+  "title": "GCTX PBL Semantic Breadth, Fingerprint and Near-Duplicate Schema",
+  "description": "Canonical identity and breadth governance for genuinely distinct ScenarioChain and BoundedPBL assets. Numeric, surface-language and cosmetic context variation do not create new semantic chains.",
+  "$defs": {
+    "contextDomain": {
+      "type": "string",
+      "enum": ["daily_life", "sdg", "natural_science", "social_studies", "history"]
+    },
+    "lifecycleStatus": {
+      "type": "string",
+      "enum": ["candidate", "reviewed", "approved", "blocked", "rejected", "deprecated"]
+    },
+    "pblArchetypeValue": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "comparison",
+        "resource_allocation",
+        "data_investigation",
+        "controlled_history_social_task"
+      ]
+    },
+    "signatureToken": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(?::[a-z0-9_]+)*$"
+    },
+    "sha256Value": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fingerprintDimensionNames": {
+      "type": "string",
+      "enum": [
+        "project_archetype",
+        "project_goal",
+        "required_milestones",
+        "event_flow",
+        "quantity_dependency_graph",
+        "decision_model",
+        "mathematical_composition",
+        "terminal_deliverable"
+      ]
+    },
+    "surfaceOnlyDimensionNames": {
+      "type": "string",
+      "enum": [
+        "numeric_values",
+        "numeric_profile_ids",
+        "random_seed",
+        "actor_names",
+        "place_names",
+        "object_names",
+        "language_variant_ids",
+        "wording_variants",
+        "cosmetic_context_nouns",
+        "context_domain_labels",
+        "source_urls"
+      ]
+    },
+    "fingerprintPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fingerprintVersion",
+        "identityDimensions",
+        "excludedSurfaceDimensions",
+        "dimensionWeights",
+        "exactDuplicateScore",
+        "nearDuplicateMinimumScore",
+        "sameFamilyDistinctMinimumScore",
+        "contextChangeAloneCreatesNewChain",
+        "numericVariationCreatesNewChain",
+        "surfaceLanguageVariationCreatesNewChain",
+        "canonicalization"
+      ],
+      "properties": {
+        "fingerprintVersion": {"const": "pbl-semantic-fingerprint-v1"},
+        "identityDimensions": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "project_archetype"},
+            {"const": "project_goal"},
+            {"const": "required_milestones"},
+            {"const": "event_flow"},
+            {"const": "quantity_dependency_graph"},
+            {"const": "decision_model"},
+            {"const": "mathematical_composition"},
+            {"const": "terminal_deliverable"}
+          ],
+          "items": false,
+          "minItems": 8,
+          "maxItems": 8
+        },
+        "excludedSurfaceDimensions": {
+          "type": "array",
+          "minItems": 11,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/surfaceOnlyDimensionNames"}
+        },
+        "dimensionWeights": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "projectArchetype",
+            "projectGoal",
+            "requiredMilestones",
+            "eventFlow",
+            "quantityDependencyGraph",
+            "decisionModel",
+            "mathematicalComposition",
+            "terminalDeliverable",
+            "total"
+          ],
+          "properties": {
+            "projectArchetype": {"const": 15},
+            "projectGoal": {"const": 15},
+            "requiredMilestones": {"const": 15},
+            "eventFlow": {"const": 15},
+            "quantityDependencyGraph": {"const": 15},
+            "decisionModel": {"const": 10},
+            "mathematicalComposition": {"const": 10},
+            "terminalDeliverable": {"const": 5},
+            "total": {"const": 100}
+          }
+        },
+        "exactDuplicateScore": {"const": 100},
+        "nearDuplicateMinimumScore": {"const": 80},
+        "sameFamilyDistinctMinimumScore": {"const": 50},
+        "contextChangeAloneCreatesNewChain": {"const": false},
+        "numericVariationCreatesNewChain": {"const": false},
+        "surfaceLanguageVariationCreatesNewChain": {"const": false},
+        "canonicalization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "orderedMilestonesPreserved",
+            "orderedEventFlowPreserved",
+            "dependencyGraphCanonicalized",
+            "unorderedTagSetsSorted",
+            "rawWordingExcluded",
+            "numericValuesExcluded",
+            "stableIdsRequired"
+          ],
+          "properties": {
+            "orderedMilestonesPreserved": {"const": true},
+            "orderedEventFlowPreserved": {"const": true},
+            "dependencyGraphCanonicalized": {"const": true},
+            "unorderedTagSetsSorted": {"const": true},
+            "rawWordingExcluded": {"const": true},
+            "numericValuesExcluded": {"const": true},
+            "stableIdsRequired": {"const": true}
+          }
+        }
+      }
+    },
+    "pblArchetypeEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "archetypeId",
+        "value",
+        "labelZh",
+        "goalClassIds",
+        "allowedDecisionModelClasses",
+        "allowedTerminalDeliverableClasses",
+        "lifecycleStatus"
+      ],
+      "properties": {
+        "archetypeId": {
+          "type": "string",
+          "pattern": "^gctx_pbl_arch_[a-z0-9_]+$"
+        },
+        "value": {"$ref": "#/$defs/pblArchetypeValue"},
+        "labelZh": {"type": "string", "minLength": 1},
+        "goalClassIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "allowedDecisionModelClasses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "allowedTerminalDeliverableClasses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"}
+      }
+    },
+    "pblSemanticFamilyEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semanticFamilyId",
+        "archetypeId",
+        "goalClassSignature",
+        "milestonePatternSignature",
+        "decisionModelClass",
+        "terminalDeliverableClass",
+        "mathematicalCompositionClass",
+        "approvedChainIds",
+        "lifecycleStatus"
+      ],
+      "properties": {
+        "semanticFamilyId": {
+          "type": "string",
+          "pattern": "^gctx_pbl_family_[a-z0-9_]+$"
+        },
+        "archetypeId": {
+          "type": "string",
+          "pattern": "^gctx_pbl_arch_[a-z0-9_]+$"
+        },
+        "goalClassSignature": {"$ref": "#/$defs/signatureToken"},
+        "milestonePatternSignature": {"$ref": "#/$defs/sha256Value"},
+        "decisionModelClass": {"$ref": "#/$defs/signatureToken"},
+        "terminalDeliverableClass": {"$ref": "#/$defs/signatureToken"},
+        "mathematicalCompositionClass": {"$ref": "#/$defs/signatureToken"},
+        "approvedChainIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"}
+      }
+    },
+    "pblSemanticFingerprintEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fingerprintId",
+        "fingerprintVersion",
+        "chainId",
+        "chainKind",
+        "semanticFamilyId",
+        "archetypeId",
+        "projectGoalSignature",
+        "requiredMilestoneSignature",
+        "eventFlowSignature",
+        "quantityDependencyGraphSignature",
+        "decisionModelSignature",
+        "mathematicalCompositionSignature",
+        "terminalDeliverableSignature",
+        "canonicalFingerprintHash",
+        "contextDomains",
+        "p02ProjectionProfileIds",
+        "p03EvidenceIds",
+        "surfaceVariantCount",
+        "numericInstanceCapacity",
+        "lifecycleStatus"
+      ],
+      "properties": {
+        "fingerprintId": {
+          "type": "string",
+          "pattern": "^gctx_pbl_fp_[a-z0-9_]+$"
+        },
+        "fingerprintVersion": {"const": "pbl-semantic-fingerprint-v1"},
+        "chainId": {"type": "string", "minLength": 1},
+        "chainKind": {
+          "type": "string",
+          "enum": ["scenario_chain_dependent", "bounded_pbl_closed"]
+        },
+        "semanticFamilyId": {
+          "type": "string",
+          "pattern": "^gctx_pbl_family_[a-z0-9_]+$"
+        },
+        "archetypeId": {
+          "type": "string",
+          "pattern": "^gctx_pbl_arch_[a-z0-9_]+$"
+        },
+        "projectGoalSignature": {"$ref": "#/$defs/signatureToken"},
+        "requiredMilestoneSignature": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "eventFlowSignature": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "quantityDependencyGraphSignature": {"$ref": "#/$defs/sha256Value"},
+        "decisionModelSignature": {"$ref": "#/$defs/signatureToken"},
+        "mathematicalCompositionSignature": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/signatureToken"}
+        },
+        "terminalDeliverableSignature": {"$ref": "#/$defs/signatureToken"},
+        "canonicalFingerprintHash": {"$ref": "#/$defs/sha256Value"},
+        "contextDomains": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/contextDomain"}
+        },
+        "p02ProjectionProfileIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "p03EvidenceIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^gctx_evidence_(?:ck|problem)_[a-z0-9_]+$"
+          }
+        },
+        "surfaceVariantCount": {"type": "integer", "minimum": 0},
+        "numericInstanceCapacity": {"type": "integer", "minimum": 0},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"}
+      }
+    },
+    "dimensionSimilarity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["similarity", "weight", "weightedScore"],
+      "properties": {
+        "similarity": {"type": "number", "minimum": 0, "maximum": 1},
+        "weight": {"type": "integer", "minimum": 1, "maximum": 100},
+        "weightedScore": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "componentSimilarityScores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectArchetype",
+        "projectGoal",
+        "requiredMilestones",
+        "eventFlow",
+        "quantityDependencyGraph",
+        "decisionModel",
+        "mathematicalComposition",
+        "terminalDeliverable"
+      ],
+      "properties": {
+        "projectArchetype": {"$ref": "#/$defs/dimensionSimilarity"},
+        "projectGoal": {"$ref": "#/$defs/dimensionSimilarity"},
+        "requiredMilestones": {"$ref": "#/$defs/dimensionSimilarity"},
+        "eventFlow": {"$ref": "#/$defs/dimensionSimilarity"},
+        "quantityDependencyGraph": {"$ref": "#/$defs/dimensionSimilarity"},
+        "decisionModel": {"$ref": "#/$defs/dimensionSimilarity"},
+        "mathematicalComposition": {"$ref": "#/$defs/dimensionSimilarity"},
+        "terminalDeliverable": {"$ref": "#/$defs/dimensionSimilarity"}
+      }
+    },
+    "assessmentReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewedByRole",
+        "reviewedById",
+        "reviewedAt",
+        "humanConfirmed",
+        "nearDuplicateWaiverAllowed",
+        "notes"
+      ],
+      "properties": {
+        "reviewedByRole": {
+          "type": "string",
+          "enum": ["semantic_reviewer", "curriculum_reviewer"]
+        },
+        "reviewedById": {"type": "string", "minLength": 1},
+        "reviewedAt": {"type": "string", "format": "date-time"},
+        "humanConfirmed": {"const": true},
+        "nearDuplicateWaiverAllowed": {"const": false},
+        "notes": {"type": "string", "minLength": 1}
+      }
+    },
+    "nearDuplicateAssessmentEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessmentId",
+        "fingerprintVersion",
+        "chainAId",
+        "chainBId",
+        "componentScores",
+        "totalSimilarityScore",
+        "classification",
+        "exactIdentityCollision",
+        "surfaceReskinDetected",
+        "countsAsDistinctApprovedChain",
+        "countsAsDistinctSemanticFamily",
+        "blocking",
+        "review"
+      ],
+      "properties": {
+        "assessmentId": {
+          "type": "string",
+          "pattern": "^gctx_pbl_assessment_[a-z0-9_]+$"
+        },
+        "fingerprintVersion": {"const": "pbl-semantic-fingerprint-v1"},
+        "chainAId": {"type": "string", "minLength": 1},
+        "chainBId": {"type": "string", "minLength": 1},
+        "componentScores": {"$ref": "#/$defs/componentSimilarityScores"},
+        "totalSimilarityScore": {"type": "number", "minimum": 0, "maximum": 100},
+        "classification": {
+          "type": "string",
+          "enum": [
+            "exact_semantic_duplicate",
+            "near_duplicate",
+            "same_family_distinct_chain",
+            "distinct_family",
+            "distinct_archetype"
+          ]
+        },
+        "exactIdentityCollision": {"type": "boolean"},
+        "surfaceReskinDetected": {"type": "boolean"},
+        "countsAsDistinctApprovedChain": {"type": "boolean"},
+        "countsAsDistinctSemanticFamily": {"type": "boolean"},
+        "blocking": {"type": "boolean"},
+        "review": {"$ref": "#/$defs/assessmentReview"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {"const": "exact_semantic_duplicate"}
+            },
+            "required": ["classification"]
+          },
+          "then": {
+            "properties": {
+              "totalSimilarityScore": {"const": 100},
+              "exactIdentityCollision": {"const": true},
+              "countsAsDistinctApprovedChain": {"const": false},
+              "countsAsDistinctSemanticFamily": {"const": false},
+              "blocking": {"const": true}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"classification": {"const": "near_duplicate"}},
+            "required": ["classification"]
+          },
+          "then": {
+            "properties": {
+              "exactIdentityCollision": {"const": false},
+              "countsAsDistinctApprovedChain": {"const": false},
+              "countsAsDistinctSemanticFamily": {"const": false},
+              "blocking": {"const": true}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {"const": "same_family_distinct_chain"}
+            },
+            "required": ["classification"]
+          },
+          "then": {
+            "properties": {
+              "exactIdentityCollision": {"const": false},
+              "countsAsDistinctApprovedChain": {"const": true},
+              "countsAsDistinctSemanticFamily": {"const": false},
+              "blocking": {"const": false}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "enum": ["distinct_family", "distinct_archetype"]
+              }
+            },
+            "required": ["classification"]
+          },
+          "then": {
+            "properties": {
+              "exactIdentityCollision": {"const": false},
+              "countsAsDistinctApprovedChain": {"const": true},
+              "countsAsDistinctSemanticFamily": {"const": true},
+              "blocking": {"const": false}
+            }
+          }
+        }
+      ]
+    },
+    "breadthMetrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pblArchetypeCount",
+        "pblSemanticFamilyCount",
+        "pblApprovedChainCount",
+        "surfaceVariantCount",
+        "numericInstanceCapacity",
+        "contextDomainCount",
+        "eventFlowSignatureCount",
+        "decisionModelCount",
+        "nearDuplicateCandidateCount",
+        "rejectedDuplicateCount",
+        "nearDuplicateRate"
+      ],
+      "properties": {
+        "pblArchetypeCount": {"type": "integer", "minimum": 0},
+        "pblSemanticFamilyCount": {"type": "integer", "minimum": 0},
+        "pblApprovedChainCount": {"type": "integer", "minimum": 0},
+        "surfaceVariantCount": {"type": "integer", "minimum": 0},
+        "numericInstanceCapacity": {"type": "integer", "minimum": 0},
+        "contextDomainCount": {"type": "integer", "minimum": 0},
+        "eventFlowSignatureCount": {"type": "integer", "minimum": 0},
+        "decisionModelCount": {"type": "integer", "minimum": 0},
+        "nearDuplicateCandidateCount": {"type": "integer", "minimum": 0},
+        "rejectedDuplicateCount": {"type": "integer", "minimum": 0},
+        "nearDuplicateRate": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "breadthGateThresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimumArchetypeCount",
+        "minimumSemanticFamilyCount",
+        "minimumApprovedChainCount",
+        "targetApprovedChainMinimum",
+        "targetApprovedChainMaximum",
+        "minimumContextDomainCount",
+        "minimumEventFlowSignatureCount",
+        "minimumDecisionModelCount",
+        "maximumNearDuplicateRate"
+      ],
+      "properties": {
+        "minimumArchetypeCount": {"const": 4},
+        "minimumSemanticFamilyCount": {"const": 12},
+        "minimumApprovedChainCount": {"const": 20},
+        "targetApprovedChainMinimum": {"const": 30},
+        "targetApprovedChainMaximum": {"const": 40},
+        "minimumContextDomainCount": {"const": 3},
+        "minimumEventFlowSignatureCount": {"const": 4},
+        "minimumDecisionModelCount": {"const": 3},
+        "maximumNearDuplicateRate": {"const": 0.2}
+      }
+    },
+    "breadthGateResults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "archetypeFloorPass",
+        "semanticFamilyFloorPass",
+        "approvedChainFloorPass",
+        "contextDomainFloorPass",
+        "eventFlowFloorPass",
+        "decisionModelFloorPass",
+        "nearDuplicateRatePass",
+        "allApprovedChainsFingerprintUnique",
+        "targetBandReached"
+      ],
+      "properties": {
+        "archetypeFloorPass": {"type": "boolean"},
+        "semanticFamilyFloorPass": {"type": "boolean"},
+        "approvedChainFloorPass": {"type": "boolean"},
+        "contextDomainFloorPass": {"type": "boolean"},
+        "eventFlowFloorPass": {"type": "boolean"},
+        "decisionModelFloorPass": {"type": "boolean"},
+        "nearDuplicateRatePass": {"type": "boolean"},
+        "allApprovedChainsFingerprintUnique": {"type": "boolean"},
+        "targetBandReached": {"type": "boolean"}
+      }
+    },
+    "unitBreadthProfileEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unitBreadthProfileId",
+        "unitCode",
+        "sourceId",
+        "rulesetVersion",
+        "approvedChainIds",
+        "blockedDuplicateChainIds",
+        "coveredContextDomains",
+        "metrics",
+        "thresholds",
+        "gateResults",
+        "populationStatus",
+        "productionEligible"
+      ],
+      "properties": {
+        "unitBreadthProfileId": {
+          "type": "string",
+          "pattern": "^gctx_pbl_breadth_[a-z0-9_]+$"
+        },
+        "unitCode": {"type": "string", "pattern": "^[1-6][AB]-U[0-9]{2}$"},
+        "sourceId": {"type": "string", "minLength": 1},
+        "rulesetVersion": {"const": "0.1.0"},
+        "approvedChainIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "blockedDuplicateChainIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "coveredContextDomains": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/contextDomain"}
+        },
+        "metrics": {"$ref": "#/$defs/breadthMetrics"},
+        "thresholds": {"$ref": "#/$defs/breadthGateThresholds"},
+        "gateResults": {"$ref": "#/$defs/breadthGateResults"},
+        "populationStatus": {
+          "type": "string",
+          "enum": ["candidate", "reviewed", "approved", "blocked"]
+        },
+        "productionEligible": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"populationStatus": {"const": "approved"}},
+            "required": ["populationStatus"]
+          },
+          "then": {
+            "properties": {
+              "productionEligible": {"const": true},
+              "gateResults": {
+                "properties": {
+                  "archetypeFloorPass": {"const": true},
+                  "semanticFamilyFloorPass": {"const": true},
+                  "approvedChainFloorPass": {"const": true},
+                  "contextDomainFloorPass": {"const": true},
+                  "eventFlowFloorPass": {"const": true},
+                  "decisionModelFloorPass": {"const": true},
+                  "nearDuplicateRatePass": {"const": true},
+                  "allApprovedChainsFingerprintUnique": {"const": true}
+                }
+              }
+            }
+          },
+          "else": {"properties": {"productionEligible": {"const": false}}}
+        }
+      ]
+    },
+    "metricCountingPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "theoreticalCombinationCountIsProductionMetric",
+        "surfaceVariantCountCountsAsApprovedChain",
+        "numericInstanceCapacityCountsAsApprovedChain",
+        "contextDomainChangeAloneCountsAsApprovedChain",
+        "approvedChainRequiresDistinctFingerprint",
+        "semanticFamilyCountUsesUniqueFamilyIds",
+        "archetypeCountUsesUniqueApprovedArchetypeIds",
+        "nearDuplicatesCountTowardBreadth"
+      ],
+      "properties": {
+        "theoreticalCombinationCountIsProductionMetric": {"const": false},
+        "surfaceVariantCountCountsAsApprovedChain": {"const": false},
+        "numericInstanceCapacityCountsAsApprovedChain": {"const": false},
+        "contextDomainChangeAloneCountsAsApprovedChain": {"const": false},
+        "approvedChainRequiresDistinctFingerprint": {"const": true},
+        "semanticFamilyCountUsesUniqueFamilyIds": {"const": true},
+        "archetypeCountUsesUniqueApprovedArchetypeIds": {"const": true},
+        "nearDuplicatesCountTowardBreadth": {"const": false}
+      }
+    },
+    "registryEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "rulesetVersion",
+        "fingerprintPolicy",
+        "metricCountingPolicy",
+        "archetypes",
+        "semanticFamilies",
+        "fingerprints",
+        "nearDuplicateAssessments",
+        "unitBreadthProfiles"
+      ],
+      "properties": {
+        "schemaVersion": {"const": "gctx-pbl-semantic-breadth-v1"},
+        "rulesetVersion": {"const": "0.1.0"},
+        "fingerprintPolicy": {"$ref": "#/$defs/fingerprintPolicy"},
+        "metricCountingPolicy": {"$ref": "#/$defs/metricCountingPolicy"},
+        "archetypes": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/pblArchetypeEntry"}
+        },
+        "semanticFamilies": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/pblSemanticFamilyEntry"}
+        },
+        "fingerprints": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/pblSemanticFingerprintEntry"}
+        },
+        "nearDuplicateAssessments": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/nearDuplicateAssessmentEntry"}
+        },
+        "unitBreadthProfiles": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/unitBreadthProfileEntry"}
+        }
+      }
+    }
+  },
+  "$ref": "#/$defs/registryEnvelope"
+}
