@@ -88,6 +88,12 @@ test("trial-division questions prefill only divisors and leave quotient remainde
   }
 });
 
+test("self-contained method scaffolds suppress the redundant generic answer label", () => {
+  const document = build([FACTOR_RELATION, TRIAL_DIVISION], 64, 104451);
+  const projected = project(document);
+  assert.ok(projected.questionDisplayModels.every((item) => item.responsePrompt === ""));
+});
+
 test("public answer projection keeps complete factor-relation methods only in the answer key", () => {
   const document = build([FACTOR_RELATION], 64, 104501);
   const projected = project(document);
