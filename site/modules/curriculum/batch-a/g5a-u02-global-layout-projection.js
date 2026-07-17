@@ -3,6 +3,11 @@ import { G5A_U02_PUBLIC_SOURCE_ID } from "../batch-b/g5a-u02-browser-resolver.js
 export const G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION = "glm-s05-g5a-u02-projection-v1";
 export const G5A_U02_SEMANTIC_PROJECTION_VERSION = "g5a-u02-s97-visible-prompt-v1";
 
+const SELF_CONTAINED_RESPONSE_PATTERNS = new Set([
+  "ps_g5a_u02_factor_relation_equivalence",
+  "ps_g5a_u02_factor_enumeration_trial_division",
+]);
+
 function clone(value) {
   if (Array.isArray(value)) return value.map(clone);
   if (value && typeof value === "object") {
@@ -23,6 +28,7 @@ function renderKind(record = {}) {
 }
 
 function responsePrompt(record = {}) {
+  if (SELF_CONTAINED_RESPONSE_PATTERNS.has(record.patternSpecId)) return "";
   return String(record.responseLabel ?? record.responsePrompt ?? "答案：________________");
 }
 
