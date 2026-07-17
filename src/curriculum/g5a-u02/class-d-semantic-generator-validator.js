@@ -1,3 +1,10 @@
+import {
+  expectedG5AU02S101Answer,
+  generateG5AU02S101Pattern,
+  isG5AU02S101Pattern,
+  validateG5AU02S101Pattern,
+} from "./s101-representation-runtime.js";
+
 const CLASS_D_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_equal_partition_all_segment_counts",
   "ps_g5a_u02_equal_partition_range_constrained_recipients",
@@ -79,6 +86,10 @@ function makeItem(patternSpecId, seed, data, prompt, answer) {
     data: clone(data),
     answer: clone(answer),
     lifecycle: LIFECYCLE,
+    representationParity: isG5AU02S101Pattern(patternSpecId) ? {
+      task: "G5AU02-S101_P0PartitionAndGeometryRepresentationFullFix",
+      status: "structured_bounded_representation",
+    } : null,
   });
 }
 
@@ -88,11 +99,12 @@ function pairedQuantities(rng) {
 }
 
 function generateByPattern(patternSpecId, rng, seed) {
+  if (isG5AU02S101Pattern(patternSpecId)) {
+    const generated = generateG5AU02S101Pattern(patternSpecId, rng);
+    return makeItem(patternSpecId, seed, generated.data, generated.prompt, generated.answer);
+  }
+
   switch (patternSpecId) {
-    case "ps_g5a_u02_equal_partition_all_segment_counts": {
-      const total = rng.int(4, 12) * rng.int(2, 8);
-      return makeItem(patternSpecId, seed, { total, unitLabel: "段", semanticRole: "equal_partition_all" }, `一條長 ${total} 公尺的緞帶要等分，每段都是整數公尺。所有可能的段數是多少？`, { values: factorsOf(total), unitLabel: "段" });
-    }
     case "ps_g5a_u02_equal_partition_range_constrained_recipients": {
       const total = rng.int(4, 12) * rng.int(2, 8);
       const minRecipients = 2;
@@ -117,18 +129,8 @@ function generateByPattern(patternSpecId, rng, seed) {
       const [a, b] = pairedQuantities(rng);
       return makeItem(patternSpecId, seed, { quantityA: a, quantityB: b, unitLabel: "盒", semanticRole: "possible_equal_packaging" }, `${a} 個甲物品和 ${b} 個乙物品分裝成若干盒，每盒兩類物品的數量分別相同且全部用完。可能裝成幾盒？`, { values: commonFactorsOf(a, b), unitLabel: "盒" });
     }
-    case "ps_g5a_u02_rectangle_square_side_lengths": {
-      const [length, width] = pairedQuantities(rng);
-      return makeItem(patternSpecId, seed, { length, width, unitLabel: "公分", semanticRole: "rectangle_square_sides" }, `長 ${length} 公分、寬 ${width} 公分的長方形，要裁成邊長為整數公分且大小相同的正方形。所有可能的邊長是多少？`, { values: commonFactorsOf(length, width), unitLabel: "公分" });
-    }
-    case "ps_g5a_u02_square_tile_area_possibilities": {
-      const [length, width] = pairedQuantities(rng);
-      const sides = commonFactorsOf(length, width);
-      return makeItem(patternSpecId, seed, { length, width, sideUnitLabel: "公分", areaUnitLabel: "平方公分", semanticRole: "square_tile_areas" }, `長 ${length} 公分、寬 ${width} 公分的地面鋪滿相同正方形磁磚，磁磚邊長為整數公分。所有可能的磁磚面積是多少？`, { values: sides.map((side) => side * side), unitLabel: "平方公分" });
-    }
-    case "ps_g5a_u02_multi_constraint_digit_code": {
+    case "ps_g5a_u02_multi_constraint_digit_code":
       return makeItem(patternSpecId, seed, { predicates: ["四位數", "四個數字互不相同", "千位為1", "百位為7", "十位為2", "個位為5"], sourceSolution: 1725, semanticRole: "source_password" }, "依照來源題的定位條件，找出唯一的四位數密碼。", { digits: [1, 7, 2, 5], value: 1725 });
-    }
     default: throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${patternSpecId}`);
   }
 }
@@ -140,15 +142,13 @@ export function generateG5AU02ClassD(patternSpecId, options = {}) {
 }
 
 function expectedAnswer(item) {
+  if (isG5AU02S101Pattern(item.patternSpecId)) return expectedG5AU02S101Answer(item);
   const d = item.data;
   switch (item.patternSpecId) {
-    case "ps_g5a_u02_equal_partition_all_segment_counts": return { values: factorsOf(d.total), unitLabel: "段" };
     case "ps_g5a_u02_equal_partition_range_constrained_recipients": return { values: factorsOf(d.total).filter((v) => v >= d.minRecipients && v <= d.maxRecipients), unitLabel: "人" };
     case "ps_g5a_u02_remainder_transfer": return { remainder: d.dividend % d.smallerDivisor, smallerDivisor: d.smallerDivisor };
     case "ps_g5a_u02_maximum_equal_grouping": return { value: gcd(d.red, d.blue) };
     case "ps_g5a_u02_possible_equal_packaging_counts": return { values: commonFactorsOf(d.quantityA, d.quantityB), unitLabel: "盒" };
-    case "ps_g5a_u02_rectangle_square_side_lengths": return { values: commonFactorsOf(d.length, d.width), unitLabel: d.unitLabel };
-    case "ps_g5a_u02_square_tile_area_possibilities": return { values: commonFactorsOf(d.length, d.width).map((v) => v * v), unitLabel: d.areaUnitLabel };
     case "ps_g5a_u02_multi_constraint_digit_code": return { digits: [1, 7, 2, 5], value: 1725 };
     default: throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${item.patternSpecId}`);
   }
@@ -181,7 +181,11 @@ export function validateG5AU02ClassD(item) {
         if (item.data.largerDivisor % item.data.smallerDivisor !== 0) errors.push("G5AU02_REMAINDER_DIVISOR_RELATION_INVALID");
         if (item.data.knownRemainder >= item.data.smallerDivisor) errors.push("G5AU02_REMAINDER_RANGE_INVALID");
       }
-      if (!deepEqual(item.answer, expectedAnswer(item))) errors.push(errorCode(item.patternSpecId));
+      if (isG5AU02S101Pattern(item.patternSpecId)) {
+        errors.push(...validateG5AU02S101Pattern(item).errors);
+      } else if (!deepEqual(item.answer, expectedAnswer(item))) {
+        errors.push(errorCode(item.patternSpecId));
+      }
     } catch {
       errors.push("G5AU02_ANSWER_SCHEMA_MISMATCH");
     }
