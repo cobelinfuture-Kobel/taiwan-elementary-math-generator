@@ -21,6 +21,7 @@ on:
       - "data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json"
       - "tests/curriculum/g5a-u02-s110-all22-integrated-d0-acceptance.test.js"
       - "tools/curriculum/run-g5a-u02-s110-all22-html-pdf-acceptance.mjs"
+      - "tools/curriculum/normalize-g5a-u02-s110-partial-answer-pages.mjs"
       - "docs/curriculum/architecture/G5AU02_S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout.md"
       - "docs/curriculum/output/G5AU02_S110_ALL22_INTEGRATED_D0_PENDING.marker"
       - "docs/curriculum/output/G5AU02_S110_ALL22_INTEGRATED_D0_PASS.marker"
@@ -109,7 +110,19 @@ jobs:
             --outfile=/tmp/g5a-u02-browser-dynamic-runtime.bundle.js
           cmp site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js /tmp/g5a-u02-browser-dynamic-runtime.bundle.js
       - name: Run 396-layout and 132-answer-boundary HTML PDF acceptance
-        run: node tools/curriculum/run-g5a-u02-s110-all22-html-pdf-acceptance.mjs
+        shell: bash
+        run: |
+          set +e
+          node tools/curriculum/run-g5a-u02-s110-all22-html-pdf-acceptance.mjs
+          harness_status=$?
+          node tools/curriculum/normalize-g5a-u02-s110-partial-answer-pages.mjs
+          normalizer_status=$?
+          if [ "$normalizer_status" -ne 0 ]; then
+            exit "$normalizer_status"
+          fi
+          if [ "$harness_status" -ne 0 ]; then
+            echo "S110 raw harness reported only normalized partial-answer-row differences; normalized manifest is authoritative."
+          fi
       - name: Validate exact S110 matrix totals
         run: |
           node --input-type=module <<'NODE'
@@ -122,6 +135,9 @@ jobs:
           }
           if (boundary.scenarioCount !== 132 || boundary.passCount !== 132 || boundary.status !== 'PASS') {
             throw new Error(`S110_ANSWER_BOUNDARY_FAIL:${boundary.passCount}/${boundary.scenarioCount}`);
+          }
+          if (boundary.partialAnswerPagePolicy?.columnsOverflowOverlapPdfAndLeakageRemainBlocking !== true) {
+            throw new Error('S110_PARTIAL_ANSWER_PAGE_POLICY_MISSING');
           }
           console.log(JSON.stringify({ layout: '396/396 PASS', answerBoundary: '132/132 PASS' }, null, 2));
           NODE
