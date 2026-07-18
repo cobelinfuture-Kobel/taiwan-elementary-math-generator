@@ -82,7 +82,7 @@ function assertPublicBoundary(document, spec, seed) {
   const question = document.questionItems[0];
   const answer = document.answerKeyItems[0];
   assert.equal(question.patternSpecId, spec.patternSpecId);
-  assert.equal(question.answerModelId, spec.answerModelId);
+  assert.equal(question.answerModelId, spec.answerModel.shape);
   assert.equal(typeof question.prompt, "string");
   assert.ok(question.prompt.length > 0);
   assert.equal("answer" in question, false);
@@ -132,7 +132,7 @@ test("S110 validates 1408/1408 canonical-source-bundle-public-renderer integrati
       assert.equal(canonical.canonicalRoute.formalMappingId, spec.formalMappingId);
       assert.equal(canonical.canonicalRoute.patternGroupId, spec.patternGroupId);
       assert.equal(canonical.canonicalRoute.knowledgePointId, spec.knowledgePointId);
-      assert.equal(canonical.canonicalRoute.answerModelId, spec.answerModelId);
+      assert.equal(canonical.canonicalRoute.answerModelId, spec.answerModel.shape);
 
       const sourceDocument = build(buildSourceWorksheet, spec.patternSpecId, seed);
       const bundledDocument = build(buildBundledWorksheet, spec.patternSpecId, seed);
