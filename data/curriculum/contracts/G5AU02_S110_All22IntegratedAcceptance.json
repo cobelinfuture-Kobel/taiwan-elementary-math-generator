@@ -3,10 +3,14 @@
   "schemaVersion": 1,
   "task": "G5AU02-S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout",
   "unitId": "g5a_u02",
-  "status": "pass_accepted_pending_merge",
+  "status": "d0_declared_and_merged",
   "authority": {
     "acceptedHeadSha": "28b6bc76fe1478b59f07b04aa250c96bf2636382",
     "acceptedRunId": 29649774198,
+    "closeoutHeadSha": "3724194fbdaeeed4eac00ad7c2e0a731a82d67df",
+    "mergeCommitSha": "d6864926f2c3917c436895296d8e95bf6c1b7f3a",
+    "mergedPullRequest": 267,
+    "mergedAt": "2026-07-18T15:30:24Z",
     "p0Contract": "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json",
     "remainingProgramContract": "data/curriculum/contracts/G5AU02_S105_P1P2SourceParityMilestoneDefinition.json",
     "s104PassMarker": "docs/curriculum/output/G5AU02_S104_P0_INTEGRATED_ACCEPTANCE_PASS.marker",
@@ -109,12 +113,13 @@
   },
   "distance": {
     "goalDistanceBefore": "D1_G5A_U02_S109_REGRESSION_ONLY_SOURCE_PARITY_LOCKED_AND_MERGED",
-    "goalDistanceAfter": "D0_G5A_U02_ALL22_D0_ELIGIBLE_PENDING_MERGE",
-    "distanceReduced": "all 22 patterns passed canonical, validator, source-bundle, public renderer, actual 18-layout HTML/PDF, answer-boundary and full-regression gates",
+    "goalDistanceAfter": "D0_G5A_U02_ALL22_COMPLETE_AND_MERGED",
+    "distanceReduced": "all 22 patterns passed canonical, validator, source-bundle, public renderer, actual 18-layout HTML/PDF, answer-boundary and full-regression gates and were merged to main",
     "d0EligibleBeforeAcceptance": false,
     "d0EligibleAfterEveryGatePasses": true,
     "d0EligibleNow": true,
-    "remainingBlockers": ["merge PR #267 to main"]
+    "d0Declared": true,
+    "remainingBlockers": []
   },
-  "nextShortestStep": "COMMIT_PASS_MARKER_REMOVE_PENDING_AND_MERGE_PR_267"
+  "nextShortestStep": "PROGRAM_COMPLETE_STOP_OR_OPEN_NEW_APPROVED_SCOPE"
 }
