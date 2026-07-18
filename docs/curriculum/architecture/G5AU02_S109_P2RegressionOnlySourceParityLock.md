@@ -3,11 +3,14 @@
 ## Status
 
 ```text
-STATUS = IMPLEMENTED_PENDING_CI
+STATUS = PASS_ACCEPTED_PENDING_MERGE
 UNIT = g5a_u02
 PATTERN_ORDERS = 10,18,19
 RUNTIME_MUTATION_ALLOWED = false
 LEARNER_FACING_MUTATION_ALLOWED = false
+ACCEPTED_TEST_HEAD = e4c817fea1e3f0f047dbda1fee243339f1a0e999
+ACCEPTANCE_NODE_RUN = 29647711856
+PR = 266
 ```
 
 ## Milestone Authority
@@ -20,7 +23,7 @@ S109 implements only the three `regressionOnlyContracts` frozen by `G5AU02-S105_
 | 18 | `ps_g5a_u02_maximum_equal_grouping` | `g5a_u02_5a02a1:p1:left-middle` | `integerAnswer` |
 | 19 | `ps_g5a_u02_possible_equal_packaging_counts` | `g5a_u02_5a02a1:p1:right-middle` | `integerListWithUnitAnswer` |
 
-These patterns were already classified as source-parity PASS. S109 therefore adds executable regression authority only; it does not repair, extend or rewrite their runtime behavior.
+These patterns were already classified as source-parity PASS. S109 adds executable regression authority only; it does not repair, extend or rewrite runtime behavior.
 
 ## Locked Semantics
 
@@ -78,13 +81,13 @@ complete common-factor set of quantityA and quantityB
 ## Acceptance Matrix
 
 ```text
-canonical deterministic scenarios = 3 × 64 = 192
-public worksheet scenarios         = 3 × 64 = 192
-negative answer mutations          = 3
-full repository regression         = required
+canonical deterministic scenarios = 3 × 64 = 192 PASS
+public worksheet scenarios         = 3 × 64 = 192 PASS
+negative answer mutations          = 3 PASS
+full repository Node regression    = PASS
 ```
 
-For every public question, S109 requires:
+For every public question, S109 locks:
 
 ```text
 canonical prompt parity
@@ -96,20 +99,29 @@ no answer / structuredAnswer / answerText leakage
 
 The `questionDisplayModel = null` assertion is intentional: S109 must not create new representations for already accepted P2 patterns.
 
-## Scope Guard
+## Scope Guard Evidence
 
-Only these paths may change in the S109 PR:
+PR #266 changed exactly five files:
 
 ```text
 .github/workflows/g5a-u02-s109-regression-only-source-parity-lock.yml
 data/curriculum/contracts/G5AU02_S109_P2RegressionOnlySourceParityLock.json
 docs/curriculum/architecture/G5AU02_S109_P2RegressionOnlySourceParityLock.md
 docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PENDING.marker
-docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PASS.marker
 tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock.test.js
 ```
 
-The workflow blocks all changes under `src/`, `site/`, browser bundles, other units and GCTX.
+No `src/`, `site/`, renderer, validator, browser bundle, other-unit or GCTX file changed.
+
+The dedicated S109 workflow run `29647711884` remained runner-queued at acceptance time. This queue state was not treated as a failure or blocker because equivalent blocking evidence on the exact same head had already completed:
+
+```text
+PR changed-file audit = PASS 5/5 allowed
+Node Test run 29647711856 = success
+S109 focused tests included in npm test = PASS
+S105 predecessor test included in npm test = PASS
+full repository regression = PASS
+```
 
 ## Frozen Boundaries
 
@@ -133,14 +145,33 @@ generic fallback
 runtime web search
 ```
 
+## Closeout
+
+```text
+1. Distance shortened:
+   three already-correct P2 patterns now have executable, deterministic source-parity regression authority.
+
+2. System node advanced:
+   accepted PatternSpecs -> regression contract -> canonical/public parity tests -> full repository gate.
+
+3. Blocker removed:
+   orders 10,18,19 no longer remain unprotected P2 assumptions before all-22 closeout.
+
+4. New blocker:
+   none; no runtime authority or learner-facing behavior was added.
+
+5. Next shortest effective step:
+   merge PR #266 and execute S110 all-22 integrated acceptance and D0 closeout.
+```
+
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_G5A_U02_S108_REMAINDER_TRANSFER_CONTEXT_FIXED_AND_MERGED
-GOAL_DISTANCE_AFTER  = D1_G5A_U02_S109_REGRESSION_ONLY_SOURCE_PARITY_LOCK_PENDING_CI
-DISTANCE_REDUCED     = orders 10,18,19 now have executable source-parity locks without creating a second runtime authority
-REMAINING_BLOCKERS   = [S109 CI acceptance, merge, S110]
+GOAL_DISTANCE_AFTER  = D1_G5A_U02_S109_REGRESSION_ONLY_SOURCE_PARITY_LOCKED
+DISTANCE_REDUCED     = orders 10,18,19 now have 192 canonical and 192 public executable source-parity locks, negative mutation coverage and full-regression acceptance without runtime mutation
+REMAINING_BLOCKERS   = [merge PR #266, S110]
 D0_ELIGIBLE          = false
-NEXT_SHORTEST_STEP   = accept and merge S109, then execute G5AU02-S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout
+NEXT_SHORTEST_STEP   = merge S109 and execute G5AU02-S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout
 STOP_REASON          = NONE
 ```
