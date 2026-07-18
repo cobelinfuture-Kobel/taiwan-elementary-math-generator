@@ -27,14 +27,17 @@
     "g4a_u08_4a08",
     "g4b_u01_4b01",
     "g4b_u04_4b04",
-    "g5a_u02_5a02a",
+    "g5a_u02_5a02",
     "g5a_u08_5a08"
   ],
+  "sourceIdentityNotes": {
+    "g5a_u02_5a02": "Canonical selector source ID; source packet IDs such as g5a_u02_5a02a remain evidence aliases and are not selector keys."
+  },
   "existingContextAuthoritySourceIds": [
     "g3b_u04_3b04",
     "g3b_u08_3b08",
     "g4b_u04_4b04",
-    "g5a_u02_5a02a",
+    "g5a_u02_5a02",
     "g5a_u08_5a08"
   ],
   "eligibilityDecisions": {
@@ -71,7 +74,7 @@
       "eligiblePatternSpecCount": 6,
       "basis": "effective 13/13/19 authority with six application PatternSpecs"
     },
-    "g5a_u02_5a02a": {
+    "g5a_u02_5a02": {
       "eligiblePatternSpecCount": 8,
       "basis": "eight Class D application, reasoning-application, or geometry-application PatternSpecs"
     },
