@@ -26,9 +26,12 @@ try {
     if (question.questionDisplayModel?.kind !== kind) errors.push("display_kind");
     if (question.promptCompletenessStatus !== "visible_unique_solution_data_complete") errors.push("prompt_status");
     if (typeof question.prompt !== "string" || question.prompt.length < 24) errors.push("prompt_missing");
-    if (!question.prompt.includes("除數關係：") || !question.prompt.includes("原分裝：") || !question.prompt.includes("改分裝：")) errors.push("witness_missing");
+    if (!question.prompt.includes("除數關係：") || !question.prompt.includes("已知分裝：") || !question.prompt.includes("改分裝：")) errors.push("witness_missing");
+    if (!question.prompt.includes("餘 ______")) errors.push("target_remainder_not_blank");
     if (!question.questionDisplayModel?.scenarioFamilyId) errors.push("scenario_family_missing");
     else families.add(question.questionDisplayModel.scenarioFamilyId);
+    if (question.questionDisplayModel?.distributionWitness?.transferredDistribution?.quotientResponseText !== "______") errors.push("target_quotient_not_blank");
+    if (question.questionDisplayModel?.distributionWitness?.transferredDistribution?.remainderResponseText !== "______") errors.push("target_remainder_model_not_blank");
     for (const key of ["answer", "structuredAnswer", "answerText"]) if (key in question) errors.push(`leak:${key}`);
     if (errors.length) report.failures.push({ questionNumber: question.questionNumber, errors });
     else report.passCount += 1;
