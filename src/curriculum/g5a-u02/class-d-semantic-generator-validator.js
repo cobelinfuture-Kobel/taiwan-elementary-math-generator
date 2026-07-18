@@ -202,6 +202,22 @@ function legacyAnswerMismatchCode(patternSpecId) {
   return "G5AU02_ANSWER_SCHEMA_MISMATCH";
 }
 
+function validateLegacyRemainderContract(item, errors) {
+  const data = item.data ?? {};
+  if (!Number.isInteger(data.smallerDivisor) || data.smallerDivisor <= 0
+    || !Number.isInteger(data.largerDivisor) || data.largerDivisor % data.smallerDivisor !== 0) {
+    errors.push("G5AU02_REMAINDER_DIVISOR_RELATION_INVALID");
+  }
+  if (!Number.isInteger(data.knownRemainder) || data.knownRemainder < 0 || data.knownRemainder >= data.smallerDivisor) {
+    errors.push("G5AU02_REMAINDER_RANGE_INVALID");
+  }
+  try {
+    if (!deepEqual(item.answer, expectedG5AU02S108Answer(item))) errors.push("G5AU02_REMAINDER_NOT_REDUCED");
+  } catch {
+    errors.push("G5AU02_REMAINDER_NOT_REDUCED");
+  }
+}
+
 export function validateG5AU02ClassD(item) {
   const errors = [];
   if (!item || typeof item !== "object") return { ok: false, errors: ["G5AU02_ANSWER_SCHEMA_MISMATCH"] };
@@ -214,7 +230,13 @@ export function validateG5AU02ClassD(item) {
   if (item.lifecycle?.genericFallback !== "forbidden") errors.push("G5AU02_GENERIC_FALLBACK_FORBIDDEN");
   if (item.lifecycle?.freeFormAI !== "forbidden") errors.push("G5AU02_FREE_FORM_AI_FORBIDDEN");
 
-  if (errors.length === 0) {
+  if (isG5AU02S108Pattern(item.patternSpecId)) validateLegacyRemainderContract(item, errors);
+
+  if (errors.filter((code) => ![
+    "G5AU02_REMAINDER_DIVISOR_RELATION_INVALID",
+    "G5AU02_REMAINDER_RANGE_INVALID",
+    "G5AU02_REMAINDER_NOT_REDUCED",
+  ].includes(code)).length === 0) {
     try {
       const expected = expectedAnswer(item);
       const answerMismatch = !deepEqual(item.answer, expected);
@@ -225,7 +247,10 @@ export function validateG5AU02ClassD(item) {
         errors.push(...validateG5AU02S103Pattern(item).errors);
       } else if (isG5AU02S108Pattern(item.patternSpecId)) {
         errors.push(...validateG5AU02S108Pattern(item).errors);
-        if (answerMismatch) errors.push("G5AU02_P2_REMAINDER_TRANSFER_WITNESS_MISMATCH");
+        if (answerMismatch) {
+          errors.push("G5AU02_REMAINDER_NOT_REDUCED");
+          errors.push("G5AU02_P2_REMAINDER_TRANSFER_WITNESS_MISMATCH");
+        }
       } else if (answerMismatch) {
         errors.push(legacyAnswerMismatchCode(item.patternSpecId));
       }
