@@ -178,7 +178,10 @@ test("Pre-S104 public renderer emits the integrated semantic profile without ans
   const { document, html } = buildRegeneratedDocument();
   assert.match(html, /data-renderer-profile="g5a_u02_s104_p0_integrated_v1"/);
   assert.match(html, /data-layout-columns="2" data-layout-rows="3"/);
-  assert.match(html, /data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"/);
+  assert.match(html, /data-g5a-u02-s107-kind="symbolic_complete_factor_relation_table"/);
+  assert.match(html, /data-g5a-u02-s107-kind="candidate_circle_selection_row"/);
+  assert.match(html, /data-g5a-u02-s107-kind="marked_common_factor_row"/);
+  assert.doesNotMatch(html, /data-g5a-u02-public-symbol-kind="symbolic_complete_factor_sequence"/);
   assert.doesNotMatch(html, /source_1725_reference/);
   assert.doesNotMatch(html, /ps_g5a_u02_|fm_g5a_u02_|fmc_g5a_u02_|pg_g5a_u02_|kp_g5a_u02_/);
   const questionSection = html.split("worksheet-section--answer-key")[0];

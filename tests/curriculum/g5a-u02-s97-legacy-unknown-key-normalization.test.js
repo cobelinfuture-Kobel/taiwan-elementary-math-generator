@@ -9,20 +9,15 @@ import {
 
 const PATTERN_ID = "ps_g5a_u02_complete_factor_list_unknown_values";
 
-test("S97 normalizes duplicate legacy unknown keys without changing the canonical answer", () => {
-  let witnessed = null;
-  for (let seed = 1; seed <= 1000; seed += 1) {
-    const item = generateG5AU02Canonical(PATTERN_ID, { seed });
-    if (new Set(item.data.unknownKeys).size !== item.data.unknownKeys.length) {
-      witnessed = item;
-      break;
-    }
-  }
-  assert.ok(witnessed, "expected to witness the legacy duplicate-key edge case");
+test("S97 normalizes a synthetic legacy duplicate unknown-key record without changing its canonical answer", () => {
+  const canonical = generateG5AU02Canonical(PATTERN_ID, { seed: 97 });
+  assert.equal(new Set(canonical.data.unknownKeys).size, canonical.data.unknownKeys.length);
+  const legacy = JSON.parse(JSON.stringify(canonical));
+  legacy.data.unknownKeys = [canonical.data.unknownKeys[0], canonical.data.unknownKeys[0], canonical.data.unknownKeys[1]];
 
-  const normalized = normalizeG5AU02SemanticDisplayItem(witnessed);
-  assert.equal(new Set(normalized.data.unknownKeys).size, normalized.data.unknownKeys.length);
-  assert.deepEqual(normalized.answer, witnessed.answer);
+  const normalized = normalizeG5AU02SemanticDisplayItem(legacy);
+  assert.deepEqual(normalized.data.unknownKeys, canonical.data.unknownKeys);
+  assert.deepEqual(normalized.answer, canonical.answer);
   assert.equal(normalized.semanticNormalization.code, "G5AU02_DUPLICATE_UNKNOWN_KEY_NORMALIZED");
 });
 
