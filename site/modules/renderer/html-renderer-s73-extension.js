@@ -49,7 +49,15 @@ function isG5AU02PublicPlainDocument(document = {}) {
 
 function renderG5AU02PublicPlainDocument(document, options = {}) {
   return renderBaseWorksheetDocumentToHtml(document, options)
-    .replace(/ data-pattern-id="ps_g5a_u02_[^"]+"/g, "");
+    .replace(/ data-pattern-id="ps_g5a_u02_[^"]+"/g, "")
+    .replaceAll(
+      '<section class="worksheet-page worksheet-page--questions print-page"',
+      '<section class="worksheet-page worksheet-page--questions print-page" data-page-type="question"',
+    )
+    .replaceAll(
+      '<section class="worksheet-page worksheet-page--answer-key print-page"',
+      '<section class="worksheet-page worksheet-page--answer-key print-page" data-page-type="answer"',
+    );
 }
 
 function answerLabel(shape) {
