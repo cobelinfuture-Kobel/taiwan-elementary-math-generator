@@ -2,7 +2,7 @@
   "schemaName": "GCTXG3BU04CandidateReferenceRegistryAdmissionAndReviewGateContract",
   "schemaVersion": 1,
   "task": "GCTX-P11_G3BU04CandidateReferenceRegistryAdmissionAndReviewGate",
-  "status": "contract_locked_pending_ci",
+  "status": "accepted_pending_merge",
   "rulesetVersion": "0.1.0",
   "scope": {
     "sourceId": "g3b_u04_3b04",
@@ -88,13 +88,30 @@
     "formalApprovedRegistryEntryCount": 0,
     "errorCount": 0
   },
+  "dynamicRegistryAcceptance": {
+    "commonKnowledgeRegistryMustBeNonEmpty": true,
+    "answerUnitRegistryMustBeNonEmpty": true,
+    "quotaPolicy": "exact IDs and counts are derived from the complete P10 binding reference set; P11 does not invent a production quota"
+  },
+  "ciAcceptance": {
+    "headSha": "e7e44f890a2b5ace040fb70be21f756c7a5dbed5",
+    "nodeTestRun": 29653543088,
+    "nodeTestConclusion": "success",
+    "mathCiReadbackRun": 29653543108,
+    "mathCiReadbackConclusion": "success",
+    "tests": 1775,
+    "pass": 1775,
+    "fail": 0,
+    "workingTree": "clean",
+    "ownedGateFailures": 0,
+    "acceptanceMode": "owned_node_and_math_ci_gates_pass"
+  },
   "nextTask": "GCTX-P12_G3BU04HumanSemanticAndMathematicalReviewExecution",
   "distance": {
     "goalDistanceBefore": "D2_GCTX_G3BU04_FULL_CANDIDATE_BINDING_REGISTRY_MERGED",
-    "goalDistanceAfter": "D2_GCTX_G3BU04_REFERENCE_ADMISSION_AND_REVIEW_GATE_PENDING_CI",
+    "goalDistanceAfter": "D2_GCTX_G3BU04_REFERENCE_ADMISSION_AND_REVIEW_GATE_ACCEPTED_PENDING_MERGE",
     "distanceReduced": "all candidate binding references become resolvable and 117 deterministic human review packets are created without false approval",
     "remainingBlockers": [
-      "CI acceptance",
       "merge",
       "human semantic review",
       "human mathematical review",
