@@ -1,0 +1,125 @@
+{
+  "schemaName": "GCTXG3BU04CandidateReferenceRegistryAdmissionAndReviewGateContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P11_G3BU04CandidateReferenceRegistryAdmissionAndReviewGate",
+  "status": "accepted_pending_merge",
+  "rulesetVersion": "0.1.0",
+  "scope": {
+    "sourceId": "g3b_u04_3b04",
+    "unitCode": "3B-U04",
+    "bindingCount": 117,
+    "patternSpecCount": 32,
+    "contextFamilyCount": 32,
+    "semanticVariantCount": 117,
+    "languageVariantCount": 117,
+    "numericProfileCount": 32,
+    "reviewPacketCount": 117,
+    "runtimeBehaviorChanged": false,
+    "formalApprovedRegistryChanged": false,
+    "productionSelectable": false,
+    "humanReviewExecuted": false,
+    "rendererChanged": false
+  },
+  "inputs": {
+    "p10CandidateBindings": "data/curriculum/contracts/GCTX_P10_G3BU04RemainingExactSemanticBindingExtraction.json",
+    "p10Builder": "tools/curriculum/build-gctx-p10-g3b-u04-remaining-exact-bindings.mjs",
+    "formalApprovedRegistry": "data/curriculum/context/registry/approved-semantic-bindings.json"
+  },
+  "candidateRegistryKinds": [
+    "context_family",
+    "semantic_variant",
+    "common_knowledge",
+    "language_variant",
+    "numeric_profile",
+    "answer_unit"
+  ],
+  "admissionRules": [
+    "Every reference used by a P10 binding must resolve to exactly one candidate registry entry.",
+    "Candidate reference admission records provenance and consumers but does not assert external source approval or production readiness.",
+    "Context-family and numeric-profile entries must preserve PatternSpec ownership.",
+    "Semantic-variant and language-variant entries must preserve one-to-one binding ownership.",
+    "Common-knowledge and answer-unit entries may be shared across bindings but must list all consumers deterministically.",
+    "All candidate references remain lifecycleStatus candidate and approvalState candidate.",
+    "Formal approved semantic bindings remain empty."
+  ],
+  "reviewGate": {
+    "semanticChecks": [
+      "context_family_fit",
+      "slot_coherence",
+      "event_flow_coherence",
+      "question_target_alignment",
+      "language_naturalness",
+      "grade_age_appropriateness"
+    ],
+    "mathematicalChecks": [
+      "operation_signature_preserved",
+      "quantity_role_mapping_preserved",
+      "unit_flow_valid",
+      "answer_unit_valid",
+      "canonical_recomputation_valid"
+    ],
+    "requiredDecisionValues": ["approve","reject"],
+    "initialReviewStatus": "pending_human_review",
+    "automaticApprovalForbidden": true,
+    "reviewerIdRequiredForDecision": true,
+    "reviewEvidenceIdRequiredForDecision": true
+  },
+  "blockingRules": [
+    "Block on any unresolved or multiply-resolved cross-registry reference.",
+    "Block on duplicate candidate registry IDs or duplicate review packet IDs.",
+    "Block if candidate provenance or consumer ownership is empty.",
+    "Block if a review packet omits semantic or mathematical checks.",
+    "Block if any review packet contains an automatic approve/reject decision.",
+    "Block if any candidate or binding claims approved lifecycle, production selection or runtime resolution.",
+    "Block if the formal approved registry contains any entry."
+  ],
+  "acceptedSnapshot": {
+    "bindingCount": 117,
+    "contextFamilyCount": 32,
+    "semanticVariantCount": 117,
+    "languageVariantCount": 117,
+    "numericProfileCount": 32,
+    "reviewPacketCount": 117,
+    "crossRegistryUnresolvedCount": 0,
+    "humanSemanticReviewPendingCount": 117,
+    "humanMathematicalReviewPendingCount": 117,
+    "approvedReferenceCount": 0,
+    "approvedBindingCount": 0,
+    "formalApprovedRegistryEntryCount": 0,
+    "errorCount": 0
+  },
+  "dynamicRegistryAcceptance": {
+    "commonKnowledgeRegistryMustBeNonEmpty": true,
+    "answerUnitRegistryMustBeNonEmpty": true,
+    "quotaPolicy": "exact IDs and counts are derived from the complete P10 binding reference set; P11 does not invent a production quota"
+  },
+  "ciAcceptance": {
+    "headSha": "e7e44f890a2b5ace040fb70be21f756c7a5dbed5",
+    "nodeTestRun": 29653543088,
+    "nodeTestConclusion": "success",
+    "mathCiReadbackRun": 29653543108,
+    "mathCiReadbackConclusion": "success",
+    "tests": 1775,
+    "pass": 1775,
+    "fail": 0,
+    "workingTree": "clean",
+    "ownedGateFailures": 0,
+    "acceptanceMode": "owned_node_and_math_ci_gates_pass"
+  },
+  "nextTask": "GCTX-P12_G3BU04HumanSemanticAndMathematicalReviewExecution",
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_G3BU04_FULL_CANDIDATE_BINDING_REGISTRY_MERGED",
+    "goalDistanceAfter": "D2_GCTX_G3BU04_REFERENCE_ADMISSION_AND_REVIEW_GATE_ACCEPTED_PENDING_MERGE",
+    "distanceReduced": "all candidate binding references become resolvable and 117 deterministic human review packets are created without false approval",
+    "remainingBlockers": [
+      "merge",
+      "human semantic review",
+      "human mathematical review",
+      "formal production admission",
+      "runtime validator",
+      "runtime resolver",
+      "legacy adapter migration"
+    ],
+    "nextShortestStep": "GCTX-P12_G3BU04HumanSemanticAndMathematicalReviewExecution"
+  }
+}
