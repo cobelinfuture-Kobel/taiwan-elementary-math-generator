@@ -1,0 +1,147 @@
+name: G5A-U02 S110 All22 Integrated D0 Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/curriculum/g5a-u02/**"
+      - "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js"
+      - "site/modules/curriculum/batch-a/global-public-layout-overlay.js"
+      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      - "site/modules/curriculum/batch-b/source-pattern-g5a-u02-extension.js"
+      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
+      - "site/modules/renderer/g5a-u02-s106-public-representation.js"
+      - "site/modules/renderer/g5a-u02-s107-public-representation.js"
+      - "site/modules/renderer/g5a-u02-s108-public-representation.js"
+      - "site/modules/renderer/html-renderer-s73-extension.js"
+      - "site/assets/styles/print-styles.css"
+      - "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json"
+      - "data/curriculum/contracts/G5AU02_S105_P1P2SourceParityMilestoneDefinition.json"
+      - "data/curriculum/contracts/G5AU02_S110_All22IntegratedAcceptance.json"
+      - "data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json"
+      - "tests/curriculum/g5a-u02-s110-all22-integrated-d0-acceptance.test.js"
+      - "tools/curriculum/run-g5a-u02-s110-all22-html-pdf-acceptance.mjs"
+      - "docs/curriculum/architecture/G5AU02_S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout.md"
+      - "docs/curriculum/output/G5AU02_S110_ALL22_INTEGRATED_D0_PENDING.marker"
+      - "docs/curriculum/output/G5AU02_S110_ALL22_INTEGRATED_D0_PASS.marker"
+      - ".github/workflows/g5a-u02-s110-all22-integrated-d0-acceptance.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: g5a-u02-s110-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  all22-item-bundle-predecessor-gates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install --no-package-lock
+      - name: Require committed browser bundle byte parity
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=/tmp/g5a-u02-browser-dynamic-runtime.bundle.js
+          cmp site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js /tmp/g5a-u02-browser-dynamic-runtime.bundle.js
+      - name: Run S110 1408-item all-22 integrated matrix
+        run: node --test tests/curriculum/g5a-u02-s110-all22-integrated-d0-acceptance.test.js
+      - name: Run accepted predecessor focused gates
+        run: |
+          node --test tests/curriculum/g5a-u02-s104-p0-integrated-semantic-renderer-html-pdf.test.js
+          node --test tests/curriculum/g5a-u02-s106-factor-pair-symmetry-masked-table.test.js
+          node --test tests/curriculum/g5a-u02-s107-selection-symbolic-common-marking.test.js
+          node --test tests/curriculum/g5a-u02-s108-remainder-transfer-controlled-context.test.js
+          node --test tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock.test.js
+
+  all22-actual-layout-answer-boundary-html-pdf:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install project browser font and PDF dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+      - name: Require committed browser bundle byte parity
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=/tmp/g5a-u02-browser-dynamic-runtime.bundle.js
+          cmp site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js /tmp/g5a-u02-browser-dynamic-runtime.bundle.js
+      - name: Run 396-layout and 132-answer-boundary HTML PDF acceptance
+        run: node tools/curriculum/run-g5a-u02-s110-all22-html-pdf-acceptance.mjs
+      - name: Validate exact S110 matrix totals
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          const root = 'docs/curriculum/output/g5a-u02-s110';
+          const layout = JSON.parse(await readFile(`${root}/layout-manifest.json`, 'utf8'));
+          const boundary = JSON.parse(await readFile(`${root}/answer-boundary-manifest.json`, 'utf8'));
+          if (layout.scenarioCount !== 396 || layout.passCount !== 396 || layout.status !== 'PASS') {
+            throw new Error(`S110_LAYOUT_MATRIX_FAIL:${layout.passCount}/${layout.scenarioCount}`);
+          }
+          if (boundary.scenarioCount !== 132 || boundary.passCount !== 132 || boundary.status !== 'PASS') {
+            throw new Error(`S110_ANSWER_BOUNDARY_FAIL:${boundary.passCount}/${boundary.scenarioCount}`);
+          }
+          console.log(JSON.stringify({ layout: '396/396 PASS', answerBoundary: '132/132 PASS' }, null, 2));
+          NODE
+      - name: Upload S110 all-22 HTML PDF authority
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s110-all22-html-pdf-authority
+          retention-days: 30
+          if-no-files-found: error
+          path: docs/curriculum/output/g5a-u02-s110
+
+  full-repository-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run complete Node regression with inspectable readback
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/g5a-u02-s110-full-regression.log 2>&1
+          status=$?
+          tail -n 240 /tmp/g5a-u02-s110-full-regression.log
+          exit "$status"
+      - name: Upload full regression readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s110-full-regression
+          retention-days: 14
+          if-no-files-found: error
+          path: /tmp/g5a-u02-s110-full-regression.log
