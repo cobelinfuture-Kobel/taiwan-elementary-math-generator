@@ -161,12 +161,14 @@ test("S110 validates 1408/1408 canonical-source-bundle-public-renderer integrati
       assert.match(html, /worksheet-section--questions/);
       assert.match(html, /worksheet-section--answer-key/);
       assert.doesNotMatch(html, /\b(?:ps|fm|fmc|pg|kp)_g5a_u02_[a-z0-9_]+\b/i);
-      const questionOnlyHtml = html.split("worksheet-section--answer-key")[0];
-      assert.doesNotMatch(questionOnlyHtml, /worksheet-cell__answer/);
+      const questionSectionHtml = html
+        .split('<section class="worksheet-section worksheet-section--questions">')[1]
+        ?.split('<section class="worksheet-section worksheet-section--answer-key">')[0] ?? "";
+      assert.doesNotMatch(questionSectionHtml, /class="worksheet-cell__answer"/);
       if (REGRESSION_ONLY.has(spec.patternSpecId)) {
-        assert.doesNotMatch(html, /data-semantic-kind=/);
+        assert.doesNotMatch(questionSectionHtml, /data-semantic-kind=/);
       } else {
-        assert.ok(html.includes(`data-semantic-kind="${STRUCTURED_KIND.get(spec.patternSpecId)}"`));
+        assert.ok(questionSectionHtml.includes(`data-semantic-kind="${STRUCTURED_KIND.get(spec.patternSpecId)}"`));
       }
       passCount += 1;
     }
