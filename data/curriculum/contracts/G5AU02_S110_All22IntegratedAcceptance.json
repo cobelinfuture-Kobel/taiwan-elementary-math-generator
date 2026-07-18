@@ -3,8 +3,10 @@
   "schemaVersion": 1,
   "task": "G5AU02-S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout",
   "unitId": "g5a_u02",
-  "status": "implemented_pending_ci",
+  "status": "pass_accepted_pending_merge",
   "authority": {
+    "acceptedHeadSha": "28b6bc76fe1478b59f07b04aa250c96bf2636382",
+    "acceptedRunId": 29649774198,
     "p0Contract": "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json",
     "remainingProgramContract": "data/curriculum/contracts/G5AU02_S105_P1P2SourceParityMilestoneDefinition.json",
     "s104PassMarker": "docs/curriculum/output/G5AU02_S104_P0_INTEGRATED_ACCEPTANCE_PASS.marker",
@@ -34,6 +36,8 @@
       "patternCount": 22,
       "scenarioCount": 1408,
       "requiredPassCount": 1408,
+      "observedPassCount": 1408,
+      "status": "PASS",
       "requiresCanonicalValidation": true,
       "requiresSourceBundleByteSemanticParity": true,
       "requiresPublicProjection": true,
@@ -44,6 +48,8 @@
       "patternCount": 22,
       "scenarioCount": 396,
       "requiredPassCount": 396,
+      "observedPassCount": 396,
+      "status": "PASS",
       "requiresActualCardXGeometry": true,
       "requiresComputedGridGeometry": true,
       "requiresNoOverflowOverlapClipping": true,
@@ -55,12 +61,24 @@
       "patternCount": 22,
       "scenarioCount": 132,
       "requiredPassCount": 132,
+      "observedPassCount": 132,
+      "status": "PASS",
+      "partialFinalPageRows": ["capacity_rows", "occupied_rows"],
       "questionAnswerLeakageAllowed": false,
       "internalIdLeakageAllowed": false
     },
     "browserBundleParityRequired": true,
+    "browserBundleParityStatus": "PASS",
     "browserPrintAcceptanceRequired": true,
-    "fullRepositoryRegressionRequired": true
+    "browserPrintAcceptanceStatus": "PASS",
+    "predecessorGatesStatus": "PASS",
+    "fullRepositoryRegressionRequired": true,
+    "fullRepositoryRegression": {
+      "tests": 1720,
+      "pass": 1720,
+      "fail": 0,
+      "status": "PASS"
+    }
   },
   "blockingConditions": [
     "canonical validation failure",
@@ -91,10 +109,12 @@
   },
   "distance": {
     "goalDistanceBefore": "D1_G5A_U02_S109_REGRESSION_ONLY_SOURCE_PARITY_LOCKED_AND_MERGED",
-    "goalDistanceAfter": "D1_G5A_U02_ALL22_INTEGRATED_ACCEPTANCE_PENDING_CI",
+    "goalDistanceAfter": "D0_G5A_U02_ALL22_D0_ELIGIBLE_PENDING_MERGE",
+    "distanceReduced": "all 22 patterns passed canonical, validator, source-bundle, public renderer, actual 18-layout HTML/PDF, answer-boundary and full-regression gates",
     "d0EligibleBeforeAcceptance": false,
     "d0EligibleAfterEveryGatePasses": true,
-    "remainingBlockers": ["S110 item matrix", "S110 browser bundle parity", "S110 HTML/PDF layout matrix", "S110 answer-boundary matrix", "S110 full regression", "merge"]
+    "d0EligibleNow": true,
+    "remainingBlockers": ["merge PR #267 to main"]
   },
-  "nextShortestStep": "CI_ACCEPT_CLOSEOUT_MERGE_AND_DECLARE_G5A_U02_D0"
+  "nextShortestStep": "COMMIT_PASS_MARKER_REMOVE_PENDING_AND_MERGE_PR_267"
 }
