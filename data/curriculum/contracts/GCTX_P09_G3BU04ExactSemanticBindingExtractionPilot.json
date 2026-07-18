@@ -1,0 +1,122 @@
+{
+  "schemaName": "GCTXG3BU04ExactSemanticBindingExtractionPilotContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P09_G3BU04ExactSemanticBindingExtractionPilot",
+  "status": "accepted_pending_merge",
+  "rulesetVersion": "0.1.0",
+  "scope": {
+    "sourceId": "g3b_u04_3b04",
+    "unitCode": "3B-U04",
+    "pilotPatternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+    "pilotTemplateFamilyId": "tpl_g3b_u04_add_divide_joint_purchase_equal_share",
+    "pilotKnowledgePointId": "kp_g3b_u04_add_then_divide",
+    "expectedBindingCount": 4,
+    "expectedContextDomains": ["food","school_supplies","tickets","equipment_rental"],
+    "remainingG3BU04EligiblePatternSpecCount": 31,
+    "runtimeBehaviorChanged": false,
+    "approvedRegistryChanged": false,
+    "productionSelectable": false,
+    "unitAuthorityDeletedOrRewritten": false,
+    "rendererChanged": false
+  },
+  "inputs": {
+    "p01Schema": "data/curriculum/context/schemas/GCTX_ApprovedSemanticChain.schema.json",
+    "p08AdmissionContract": "data/curriculum/contracts/GCTX_P08_ApprovedSemanticBindingBackfillAndLegacyAuthorityNormalization.json",
+    "patternAuthority": "site/modules/curriculum/batch-a/source-pattern-g3b-u04-semantic-extension.js",
+    "scenarioAuthority": "site/modules/curriculum/batch-a/g3b-u04-semantic-scenarios.js",
+    "domainAuthority": "site/modules/curriculum/batch-a/g3b-u04-semantic-domain-rows.js",
+    "roleAuthority": "site/modules/curriculum/batch-a/g3b-u04-semantic-role-rows.js"
+  },
+  "candidateRegistry": {
+    "registryId": "gctx_registry_candidate_g3b_u04_exact_binding_pilot_v1",
+    "registryKind": "candidate_exact_semantic_binding_registry",
+    "formalApprovedRegistryTarget": "data/curriculum/context/registry/approved-semantic-bindings.json",
+    "mayWriteFormalApprovedRegistry": false,
+    "candidateLifecycleStatus": "candidate",
+    "candidateReviewState": "candidate"
+  },
+  "fixedGlobalCandidateRefs": {
+    "contextFamilyId": "gctx_cf_g3b_u04_add_divide_joint_purchase_equal_share",
+    "commonKnowledgeIds": [
+      "gctx_ck_equal_sharing",
+      "gctx_ck_shared_payment",
+      "gctx_ck_currency_twd"
+    ],
+    "numericProfileIds": [
+      "gctx_num_g3b_u04_joint_purchase_equal_share_positive_integer"
+    ],
+    "answerUnitIds": ["twd"]
+  },
+  "extractionRules": [
+    "One exact binding is created per legacy context domain; runtime may not replace the context family or domain.",
+    "PatternSpec, template family, semantic signature, equation shape, unknown role and quantity-role bindings must match legacy authority exactly.",
+    "Every binding must contain all P01 required fields and only P01-allowed top-level fields.",
+    "All event-flow quantity references, slot references and question targets must resolve inside the same binding.",
+    "Legacy required constraints must be preserved as semantic guard hooks.",
+    "Legacy validator reference and canonical answer recomputation must remain blocking.",
+    "Candidate bindings may be schema-valid but are not production approved until cross-registry refs and human review are admitted.",
+    "The formal approved registry must remain empty in P09."
+  ],
+  "expectedLegacyParity": {
+    "operationSignature": "(a+b)/c",
+    "unknownRole": "cost_per_person",
+    "quantityRoleBindings": {
+      "a": "first_shared_cost",
+      "b": "second_shared_cost",
+      "c": "payer_count"
+    },
+    "requiredConstraints": [
+      "SUM_DIVISIBLE_BY_C",
+      "C_AT_LEAST_2",
+      "COST_UNIT_FLOW",
+      "SHARED_OWNERSHIP_CLEAR"
+    ],
+    "semanticValidatorRef": "S57_G3B_U04_SemanticValidationContract",
+    "answerShape": "quantity",
+    "answerUnitPolicy": "required"
+  },
+  "blockingRules": [
+    "Block on P08 admission absence or non-legacy classification.",
+    "Block on missing or extra context domain.",
+    "Block on duplicate binding, semantic variant or language variant ID.",
+    "Block on P01 required-field, enum, pattern or reference failure.",
+    "Block on legacy equation, role, constraint, validator or unit-policy drift.",
+    "Block if any binding is approved, production selectable or runtime resolvable.",
+    "Block if the formal approved registry contains an entry."
+  ],
+  "acceptedSnapshot": {
+    "patternSpecCount": 1,
+    "bindingCount": 4,
+    "contextDomainCount": 4,
+    "schemaValidBindingCount": 4,
+    "legacyParityBindingCount": 4,
+    "approvedRegistryEntryCount": 0,
+    "productionSelectableBindingCount": 0,
+    "errorCount": 0
+  },
+  "ciAcceptance": {
+    "headSha": "de26e7f7ecf4530e5e0471e3f96f1985a4a89ce8",
+    "nodeTestRun": 29652846599,
+    "nodeTestConclusion": "success",
+    "mathCiReadbackRun": 29652846571,
+    "mathCiReadbackConclusion": "success",
+    "ownedGateFailures": 0,
+    "acceptanceMode": "owned_node_and_math_ci_gates_pass"
+  },
+  "nextTask": "GCTX-P10_G3BU04RemainingExactSemanticBindingExtraction",
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_BINDING_ADMISSION_AND_LEGACY_NORMALIZATION_MERGED",
+    "goalDistanceAfter": "D2_GCTX_FIRST_EXACT_BINDING_FAMILY_ACCEPTED_PENDING_MERGE",
+    "distanceReduced": "one admitted G3B-U04 PatternSpec is expanded into four fixed-domain P01-schema candidate bindings with legacy semantic parity",
+    "remainingBlockers": [
+      "merge",
+      "31 remaining G3B-U04 PatternSpecs",
+      "candidate common-knowledge and language-profile admission",
+      "human semantic review",
+      "production registry admission",
+      "runtime validator",
+      "runtime resolver"
+    ],
+    "nextShortestStep": "GCTX-P10_G3BU04RemainingExactSemanticBindingExtraction"
+  }
+}
