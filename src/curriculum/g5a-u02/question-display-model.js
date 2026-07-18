@@ -43,12 +43,20 @@ import {
   serializeG5AU02S107QuestionDisplayModel,
   validateG5AU02S107QuestionDisplayModel,
 } from "./s107-question-display.js";
+import { isG5AU02S108Pattern } from "./s108-remainder-transfer-runtime.js";
+import {
+  buildG5AU02S108QuestionDisplayModel,
+  isG5AU02S108DisplayModel,
+  serializeG5AU02S108QuestionDisplayModel,
+  validateG5AU02S108QuestionDisplayModel,
+} from "./s108-question-display.js";
 
 const BLOCKING_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_missing_factor_reconstruction",
   "ps_g5a_u02_divisor_candidate_selection",
   "ps_g5a_u02_complete_factor_list_unknown_values",
   "ps_g5a_u02_complete_factor_list_statement_evaluation",
+  "ps_g5a_u02_remainder_transfer",
   "ps_g5a_u02_common_factor_concept_identification",
   "ps_g5a_u02_multi_constraint_digit_code",
 ]);
@@ -93,11 +101,13 @@ export function isG5AU02PromptCompletenessPattern(patternSpecId) {
     || isG5AU02S102Pattern(patternSpecId)
     || isG5AU02S103Pattern(patternSpecId)
     || isG5AU02S106Pattern(patternSpecId)
-    || isG5AU02S107Pattern(patternSpecId);
+    || isG5AU02S107Pattern(patternSpecId)
+    || isG5AU02S108Pattern(patternSpecId);
 }
 
 export function buildG5AU02QuestionDisplayModel(item) {
   if (!item || typeof item !== "object") throw new Error("G5AU02_DISPLAY_ITEM_REQUIRED");
+  if (isG5AU02S108Pattern(item.patternSpecId)) return buildG5AU02S108QuestionDisplayModel(item);
   if (isG5AU02S107Pattern(item.patternSpecId)) return buildG5AU02S107QuestionDisplayModel(item);
   if (isG5AU02S106Pattern(item.patternSpecId)) return buildG5AU02S106QuestionDisplayModel(item);
   if (isG5AU02S100Pattern(item.patternSpecId)) return buildG5AU02S100QuestionDisplayModel(item);
@@ -148,6 +158,7 @@ function sequenceText(sequence) { return sequence.map((entry) => entry.text).joi
 
 export function serializeG5AU02QuestionDisplayModel(basePrompt, model) {
   if (!model) return String(basePrompt ?? "");
+  if (isG5AU02S108DisplayModel(model)) return serializeG5AU02S108QuestionDisplayModel(model);
   if (isG5AU02S107DisplayModel(model)) return serializeG5AU02S107QuestionDisplayModel(model);
   if (isG5AU02S106DisplayModel(model)) return serializeG5AU02S106QuestionDisplayModel(model);
   if (isG5AU02S100DisplayModel(model)) return serializeG5AU02S100QuestionDisplayModel(model);
@@ -173,6 +184,7 @@ function requireExactArray(actual, expected, errorCode, errors) {
 }
 
 export function validateG5AU02QuestionDisplayModel(item, model, promptText = "") {
+  if (isG5AU02S108Pattern(item?.patternSpecId)) return validateG5AU02S108QuestionDisplayModel(item, model, promptText);
   if (isG5AU02S107Pattern(item?.patternSpecId)) return validateG5AU02S107QuestionDisplayModel(item, model, promptText);
   if (isG5AU02S106Pattern(item?.patternSpecId)) return validateG5AU02S106QuestionDisplayModel(item, model, promptText);
   if (isG5AU02S100Pattern(item?.patternSpecId)) return validateG5AU02S100QuestionDisplayModel(item, model, promptText);
@@ -236,5 +248,5 @@ export function enrichG5AU02GeneratedItemPrompt(item) {
   return deepFreeze({ prompt, questionDisplayModel });
 }
 
-export function getG5AU02PromptCompletenessPatternIds() { return [...BLOCKING_PATTERN_IDS]; }
+export function getG5AU02PromptCompletenessPatternIds() { return BLOCKING_PATTERN_IDS.filter((patternSpecId) => patternSpecId !== "ps_g5a_u02_remainder_transfer"); }
 export const G5A_U02_SOURCE_PASSWORD_CONDITIONS = G5A_U02_S103_SOURCE_CONDITIONS;
