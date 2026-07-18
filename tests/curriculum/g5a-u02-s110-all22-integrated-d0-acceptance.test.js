@@ -76,7 +76,7 @@ function build(builder, patternSpecId, seed) {
 function assertPublicBoundary(document, spec, seed) {
   assert.equal(document.questionCount, 1);
   assert.equal(document.questionItems.length, 1);
-  assert.equal(document.questionDisplayModels.length, 1);
+  if (Array.isArray(document.questionDisplayModels)) assert.equal(document.questionDisplayModels.length, 1);
   assert.equal(document.answerKeyItems.length, 1);
 
   const question = document.questionItems[0];
@@ -146,6 +146,7 @@ test("S110 validates 1408/1408 canonical-source-bundle-public-renderer integrati
       });
       assert.equal(projected?.ok, true, `${spec.patternSpecId}:${seed}:${projected?.errors?.join(",")}`);
       const publicDocument = projected.worksheetDocument;
+      assert.equal(publicDocument.questionDisplayModels.length, 1);
       assertPublicBoundary(publicDocument, spec, seed);
 
       const html = renderWorksheetDocumentToHtml(printableDocument(publicDocument), { stylesheetHref: "" });
