@@ -89,8 +89,10 @@ export function validateG5AU02S108QuestionDisplayModel(item, model, promptText =
     || model.publicAnswerPolicy !== "target_distribution_and_remainder_are_blank_student_responses") {
     errors.push("G5AU02_P2_REMAINDER_TRANSFER_WITNESS_MISMATCH");
   }
-  if (model.distributionWitness?.transferredDistribution?.statementText?.includes(String(data.distributionWitness?.transferredDistribution?.quotient))
-    || model.distributionWitness?.transferredDistribution?.statementText?.endsWith(String(data.remainder))) {
+  const targetDistribution = model.distributionWitness?.transferredDistribution ?? {};
+  if (targetDistribution.quotientResponseText !== "______"
+    || targetDistribution.remainderResponseText !== "______"
+    || !targetDistribution.statementText?.endsWith("餘 ______")) {
     errors.push("G5AU02_P2_REMAINDER_TRANSFER_WITNESS_MISMATCH");
   }
   if (typeof promptText !== "string" || promptText.length === 0) errors.push("G5AU02_VISIBLE_PROMPT_REQUIRED");
