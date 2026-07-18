@@ -15,6 +15,7 @@ function sorted(values) {
 
 test("GCTX-P07 scope remains audit-only and consumes the canonical public selector", () => {
   assert.equal(contract.task, "GCTX-P07_ExistingPatternSpecSemanticEligibilityAudit");
+  assert.equal(contract.status, "accepted_pending_merge");
   assert.equal(contract.scope.selectorAuthority, "site/modules/curriculum/registry/batch-a-selector-composer.js");
   assert.equal(contract.scope.publicSourceCount, 15);
   assert.equal(contract.scope.auditLevel, "every selector-reachable PatternSpec");
@@ -77,6 +78,32 @@ test("GCTX-P07 preserves the five known unit context authorities without promoti
   for (const sourceId of authoritySet) {
     assert.equal(audit.bySource[sourceId].existingContextAuthority, true);
     assert.ok(audit.bySource[sourceId].eligiblePatternSpecCount > 0);
+  }
+});
+
+test("GCTX-P07 accepted audit snapshot remains exact", () => {
+  const expected = contract.acceptedAuditSummary;
+  assert.equal(audit.summary.sourceCount, expected.sourceCount);
+  assert.equal(audit.summary.knowledgePointCount, expected.knowledgePointCount);
+  assert.equal(audit.summary.patternSpecCount, expected.patternSpecCount);
+  assert.equal(audit.summary.eligiblePatternSpecCount, expected.eligiblePatternSpecCount);
+  assert.equal(
+    audit.summary.decisionCounts.eligible_existing_authority,
+    expected.eligibleExistingAuthorityCount,
+  );
+  assert.equal(
+    audit.summary.decisionCounts.eligible_binding_backfill,
+    expected.eligibleBindingBackfillCount,
+  );
+  assert.equal(
+    audit.summary.decisionCounts.not_applicable_non_semantic,
+    expected.notApplicableNonSemanticCount,
+  );
+  assert.equal(audit.summary.errorCount, expected.errorCount);
+
+  for (const [sourceId, sourceExpected] of Object.entries(contract.acceptedBySource)) {
+    assert.equal(audit.bySource[sourceId].patternSpecCount, sourceExpected.patternSpecCount);
+    assert.equal(audit.bySource[sourceId].eligiblePatternSpecCount, sourceExpected.eligiblePatternSpecCount);
   }
 });
 
