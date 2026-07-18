@@ -1,0 +1,120 @@
+{
+  "schemaName": "G5AU02All22IntegratedAcceptance",
+  "schemaVersion": 1,
+  "task": "G5AU02-S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout",
+  "unitId": "g5a_u02",
+  "status": "pass_accepted_pending_merge",
+  "authority": {
+    "acceptedHeadSha": "28b6bc76fe1478b59f07b04aa250c96bf2636382",
+    "acceptedRunId": 29649774198,
+    "p0Contract": "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json",
+    "remainingProgramContract": "data/curriculum/contracts/G5AU02_S105_P1P2SourceParityMilestoneDefinition.json",
+    "s104PassMarker": "docs/curriculum/output/G5AU02_S104_P0_INTEGRATED_ACCEPTANCE_PASS.marker",
+    "s106PassMarker": "docs/curriculum/output/G5AU02_S106_P1_FACTOR_STRUCTURE_FULLFIX_PASS.marker",
+    "s107PassMarker": "docs/curriculum/output/G5AU02_S107_P1_SELECTION_SYMBOLIC_COMMON_MARKING_PASS.marker",
+    "s108PassMarker": "docs/curriculum/output/G5AU02_S108_P2_REMAINDER_TRANSFER_CONTEXT_PASS.marker",
+    "s109PassMarker": "docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PASS.marker",
+    "canonicalSource": "src/curriculum/g5a-u02/browser-dynamic-entry.js",
+    "committedBrowserBundle": "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js",
+    "layoutContract": "data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json",
+    "layoutProjection": "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js",
+    "publicRenderer": "site/modules/renderer/html-renderer-s73-extension.js",
+    "rendererProfile": "g5a_u02_s104_p0_integrated_v1"
+  },
+  "patternPartition": {
+    "p0Orders": [1, 2, 4, 8, 9, 11, 13, 16, 17, 20, 21, 22],
+    "repairedOrders": [3, 5, 6, 7, 12, 14, 15],
+    "regressionOnlyOrders": [10, 18, 19],
+    "allOrders": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+    "structuredDisplayModelCount": 19,
+    "plainPromptRegressionCount": 3,
+    "totalPatternCount": 22
+  },
+  "acceptance": {
+    "seedsPerPattern": 64,
+    "itemIntegration": {
+      "patternCount": 22,
+      "scenarioCount": 1408,
+      "requiredPassCount": 1408,
+      "observedPassCount": 1408,
+      "status": "PASS",
+      "requiresCanonicalValidation": true,
+      "requiresSourceBundleByteSemanticParity": true,
+      "requiresPublicProjection": true,
+      "requiresSharedRenderer": true
+    },
+    "layoutMatrix": {
+      "layoutsPerPattern": 18,
+      "patternCount": 22,
+      "scenarioCount": 396,
+      "requiredPassCount": 396,
+      "observedPassCount": 396,
+      "status": "PASS",
+      "requiresActualCardXGeometry": true,
+      "requiresComputedGridGeometry": true,
+      "requiresNoOverflowOverlapClipping": true,
+      "requiresHtmlAndPdf": true
+    },
+    "answerBoundaryMatrix": {
+      "layouts": ["3x5", "2x6", "1x7"],
+      "answerStates": ["off", "on"],
+      "patternCount": 22,
+      "scenarioCount": 132,
+      "requiredPassCount": 132,
+      "observedPassCount": 132,
+      "status": "PASS",
+      "partialFinalPageRows": ["capacity_rows", "occupied_rows"],
+      "questionAnswerLeakageAllowed": false,
+      "internalIdLeakageAllowed": false
+    },
+    "browserBundleParityRequired": true,
+    "browserBundleParityStatus": "PASS",
+    "browserPrintAcceptanceRequired": true,
+    "browserPrintAcceptanceStatus": "PASS",
+    "predecessorGatesStatus": "PASS",
+    "fullRepositoryRegressionRequired": true,
+    "fullRepositoryRegression": {
+      "tests": 1720,
+      "pass": 1720,
+      "fail": 0,
+      "status": "PASS"
+    }
+  },
+  "blockingConditions": [
+    "canonical validation failure",
+    "source and committed browser bundle drift",
+    "missing or incorrect structured display model for a structured pattern",
+    "new display model or learner-facing mutation for S109 regression-only patterns",
+    "learner-visible answer leakage",
+    "internal PatternSpec FormalMapping PatternGroup or KnowledgePoint ID leakage",
+    "actual card-column geometry mismatch",
+    "computed CSS grid mismatch",
+    "DOM overflow overlap or clipping",
+    "blank PDF page",
+    "PDF bounding-box overflow",
+    "P0 S106 S107 S108 or S109 predecessor regression",
+    "generic fallback free-form AI or runtime web search"
+  ],
+  "globalInvariants": {
+    "patternSpecIdsStable": true,
+    "knowledgePointIdsStable": true,
+    "patternGroupIdsStable": true,
+    "formalMappingIdsStable": true,
+    "answerModelIdsStable": true,
+    "crossUnitChangeForbidden": true,
+    "gctxChangeForbidden": true,
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden",
+    "runtimeWebSearch": "forbidden"
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_G5A_U02_S109_REGRESSION_ONLY_SOURCE_PARITY_LOCKED_AND_MERGED",
+    "goalDistanceAfter": "D0_G5A_U02_ALL22_D0_ELIGIBLE_PENDING_MERGE",
+    "distanceReduced": "all 22 patterns passed canonical, validator, source-bundle, public renderer, actual 18-layout HTML/PDF, answer-boundary and full-regression gates",
+    "d0EligibleBeforeAcceptance": false,
+    "d0EligibleAfterEveryGatePasses": true,
+    "d0EligibleNow": true,
+    "remainingBlockers": ["merge PR #267 to main"]
+  },
+  "nextShortestStep": "COMMIT_PASS_MARKER_REMOVE_PENDING_AND_MERGE_PR_267"
+}
