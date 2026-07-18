@@ -10,6 +10,12 @@ import {
   isG5AU02S103Pattern,
   validateG5AU02S103Pattern,
 } from "./s103-digit-code-runtime.js";
+import {
+  expectedG5AU02S108Answer,
+  generateG5AU02S108Pattern,
+  isG5AU02S108Pattern,
+  validateG5AU02S108Pattern,
+} from "./s108-remainder-transfer-runtime.js";
 
 const CLASS_D_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_equal_partition_all_segment_counts",
@@ -104,6 +110,11 @@ function makeItem(patternSpecId, seed, data, prompt, answer) {
       profileId: data.profileId,
       productionAllocation: data.productionAllocation,
     } : null,
+    p2RemainderTransferParity: isG5AU02S108Pattern(patternSpecId) ? {
+      task: "G5AU02-S108_P2RemainderTransferControlledContextFullFix",
+      status: "finite_controlled_story_roles_and_witness_runtime",
+      scenarioFamilyId: data.scenarioFamilyId,
+    } : null,
   });
 }
 
@@ -121,6 +132,10 @@ function generateByPattern(patternSpecId, rng, seed, options = {}) {
     const generated = generateG5AU02S103Pattern(patternSpecId, rng, options);
     return makeItem(patternSpecId, seed, generated.data, generated.prompt, generated.answer);
   }
+  if (isG5AU02S108Pattern(patternSpecId)) {
+    const generated = generateG5AU02S108Pattern(patternSpecId, rng);
+    return makeItem(patternSpecId, seed, generated.data, generated.prompt, generated.answer);
+  }
 
   switch (patternSpecId) {
     case "ps_g5a_u02_equal_partition_range_constrained_recipients": {
@@ -132,19 +147,6 @@ function generateByPattern(patternSpecId, rng, seed, options = {}) {
         total, minRecipients, maxRecipients, unitLabel: "人", semanticRole: "equal_partition_range",
       }, `${total} 個物品平均分給 ${minRecipients} 到 ${maxRecipients} 人，每人同樣多且沒有剩下。可能有幾人？`, {
         values, unitLabel: "人",
-      });
-    }
-    case "ps_g5a_u02_remainder_transfer": {
-      const smallerDivisor = rng.int(2, 8);
-      const multiplier = rng.int(2, 5);
-      const largerDivisor = smallerDivisor * multiplier;
-      const remainder = rng.int(0, smallerDivisor - 1);
-      const quotient = rng.int(2, 12);
-      const dividend = quotient * largerDivisor + remainder;
-      return makeItem(patternSpecId, seed, {
-        dividend, largerDivisor, smallerDivisor, multiplier, knownRemainder: remainder, semanticRole: "remainder_transfer",
-      }, `${dividend} 除以 ${largerDivisor} 餘 ${remainder}。因為 ${largerDivisor} 是 ${smallerDivisor} 的倍數，${dividend} 除以 ${smallerDivisor} 的餘數是多少？`, {
-        remainder, smallerDivisor,
       });
     }
     case "ps_g5a_u02_maximum_equal_grouping": {
@@ -177,12 +179,11 @@ export function generateG5AU02ClassD(patternSpecId, options = {}) {
 function expectedAnswer(item) {
   if (isG5AU02S101Pattern(item.patternSpecId)) return expectedG5AU02S101Answer(item);
   if (isG5AU02S103Pattern(item.patternSpecId)) return expectedG5AU02S103Answer(item);
+  if (isG5AU02S108Pattern(item.patternSpecId)) return expectedG5AU02S108Answer(item);
   const data = item.data;
   switch (item.patternSpecId) {
     case "ps_g5a_u02_equal_partition_range_constrained_recipients":
       return { values: factorsOf(data.total).filter((value) => value >= data.minRecipients && value <= data.maxRecipients), unitLabel: "人" };
-    case "ps_g5a_u02_remainder_transfer":
-      return { remainder: data.dividend % data.smallerDivisor, smallerDivisor: data.smallerDivisor };
     case "ps_g5a_u02_maximum_equal_grouping":
       return { value: gcd(data.red, data.blue) };
     case "ps_g5a_u02_possible_equal_packaging_counts":
@@ -215,11 +216,6 @@ export function validateG5AU02ClassD(item) {
 
   if (errors.length === 0) {
     try {
-      if (item.patternSpecId === "ps_g5a_u02_remainder_transfer") {
-        if (item.data.largerDivisor % item.data.smallerDivisor !== 0) errors.push("G5AU02_REMAINDER_DIVISOR_RELATION_INVALID");
-        if (item.data.knownRemainder >= item.data.smallerDivisor) errors.push("G5AU02_REMAINDER_RANGE_INVALID");
-      }
-
       const expected = expectedAnswer(item);
       const answerMismatch = !deepEqual(item.answer, expected);
       if (isG5AU02S101Pattern(item.patternSpecId)) {
@@ -227,6 +223,9 @@ export function validateG5AU02ClassD(item) {
         if (answerMismatch) errors.push(legacyAnswerMismatchCode(item.patternSpecId));
       } else if (isG5AU02S103Pattern(item.patternSpecId)) {
         errors.push(...validateG5AU02S103Pattern(item).errors);
+      } else if (isG5AU02S108Pattern(item.patternSpecId)) {
+        errors.push(...validateG5AU02S108Pattern(item).errors);
+        if (answerMismatch) errors.push("G5AU02_P2_REMAINDER_TRANSFER_WITNESS_MISMATCH");
       } else if (answerMismatch) {
         errors.push(legacyAnswerMismatchCode(item.patternSpecId));
       }
