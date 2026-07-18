@@ -1,0 +1,474 @@
+{
+  "contractName": "GCTXValidatorAndBlockingCodeContract",
+  "contractVersion": 1,
+  "task": "GCTX-P06_ValidatorAndBlockingCodeContract",
+  "status": "validator_contract_locked_pending_ci",
+  "validatorContractVersion": "gctx-validator-contract-v1",
+  "rulesetVersion": "0.1.0",
+  "fingerprintVersion": "pbl-semantic-fingerprint-v1",
+  "schemaPath": "data/curriculum/context/schemas/GCTX_ValidatorAndBlockingCode.schema.json",
+  "registryTargetPath": "data/curriculum/context/registry/validator-and-blocking-codes.json",
+  "scope": {
+    "schemaAndContractOnly": true,
+    "blockingCodeRegistryMaterialized": false,
+    "validatorImplementationChange": false,
+    "runtimeBehaviorChange": false,
+    "unitMigrationChange": false,
+    "rendererImplementationChange": false,
+    "sourceCorpusChange": false,
+    "productionPopulationChange": false
+  },
+  "upstreamDependencies": {
+    "p02Task": "GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract",
+    "p02Status": "contract_locked_ci_accepted",
+    "p03Task": "GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance",
+    "p03Status": "governance_locked_ci_accepted",
+    "p04Task": "GCTX-P04_PBLSemanticBreadthFingerprintAndNearDuplicateContract",
+    "p04Status": "contract_locked_ci_accepted",
+    "p05Task": "GCTX-P05_RepresentativePositiveNegativeFixtureCorpus",
+    "p05Status": "fixture_corpus_materialized_ci_accepted",
+    "p02ClosureAuthorityUnchanged": true,
+    "p03EvidenceAuthorityUnchanged": true,
+    "p04FingerprintAuthorityUnchanged": true,
+    "p05FixtureExpectationAuthorityUnchanged": true
+  },
+  "deterministicPolicy": {
+    "deterministic": true,
+    "sameInputProducesSameOutput": true,
+    "failClosed": true,
+    "failFast": false,
+    "collectAllBlockingErrors": true,
+    "runtimeWebSearchAllowed": false,
+    "aiJudgmentAllowed": false,
+    "genericFallbackAllowed": false,
+    "unknownBlockingCodePolicy": "block",
+    "warningMayOverrideBlockingError": false,
+    "productionEligibilityRequiresZeroBlockingErrors": true,
+    "productionEligibilityRequiresAllStagesPass": true,
+    "inputDigestRequired": true,
+    "outputDigestRequired": true,
+    "stableIssueOrderingRequired": true,
+    "issueDeduplicationRequired": true
+  },
+  "validationModes": [
+    "authoring_gate",
+    "population_gate",
+    "production_gate"
+  ],
+  "stageOrder": [
+    "ruleset_and_request",
+    "p02_chain_closure",
+    "p03_evidence_admission",
+    "p04_fingerprint_canonicalization",
+    "p04_pairwise_similarity",
+    "p04_breadth_gate",
+    "production_admission"
+  ],
+  "stageDefinitions": [
+    {
+      "stageId": "ruleset_and_request",
+      "order": 1,
+      "requiredInputs": [
+        "validationRunId",
+        "validationMode",
+        "rulesetVersion",
+        "fingerprintVersion",
+        "candidateChainId",
+        "unitCode",
+        "sourceId",
+        "deterministicReplayKey",
+        "inputDigest"
+      ],
+      "blockingCodeGroups": ["p06RequestAndReplayCodes"],
+      "warningCodes": [],
+      "mustRun": true,
+      "mayMutateInput": false,
+      "passRequiresNoStageBlockingErrors": true
+    },
+    {
+      "stageId": "p02_chain_closure",
+      "order": 2,
+      "requiredInputs": [
+        "p02ChainId",
+        "p02ProjectionProfileIds"
+      ],
+      "blockingCodeGroups": ["p02ClosureCodes"],
+      "warningCodes": [],
+      "mustRun": true,
+      "mayMutateInput": false,
+      "passRequiresNoStageBlockingErrors": true
+    },
+    {
+      "stageId": "p03_evidence_admission",
+      "order": 3,
+      "requiredInputs": ["p03EvidenceIds"],
+      "blockingCodeGroups": ["p03EvidenceCodes"],
+      "warningCodes": ["GCTX_EVIDENCE_REVIEW_DUE_SOON"],
+      "mustRun": true,
+      "mayMutateInput": false,
+      "passRequiresNoStageBlockingErrors": true
+    },
+    {
+      "stageId": "p04_fingerprint_canonicalization",
+      "order": 4,
+      "requiredInputs": [
+        "p04FingerprintId",
+        "p02ChainId",
+        "p02ProjectionProfileIds",
+        "p03EvidenceIds"
+      ],
+      "blockingCodeGroups": ["p04FingerprintCodes"],
+      "warningCodes": [],
+      "mustRun": true,
+      "mayMutateInput": false,
+      "passRequiresNoStageBlockingErrors": true
+    },
+    {
+      "stageId": "p04_pairwise_similarity",
+      "order": 5,
+      "requiredInputs": [
+        "candidateCanonicalFingerprint",
+        "approvedUnitFingerprintIndex",
+        "globalSameFamilyFingerprintIndex"
+      ],
+      "blockingCodeGroups": ["p04PairwiseCodes"],
+      "warningCodes": [],
+      "mustRun": true,
+      "mayMutateInput": false,
+      "passRequiresNoStageBlockingErrors": true
+    },
+    {
+      "stageId": "p04_breadth_gate",
+      "order": 6,
+      "requiredInputs": ["unitBreadthProfileId"],
+      "blockingCodeGroups": ["p04BreadthCodes"],
+      "warningCodes": [
+        "PBL_TARGET_CHAIN_BAND_NOT_REACHED",
+        "PBL_SURFACE_VARIETY_BELOW_TARGET",
+        "PBL_NUMERIC_CAPACITY_BELOW_TARGET"
+      ],
+      "mustRun": true,
+      "mayMutateInput": false,
+      "passRequiresNoStageBlockingErrors": true
+    },
+    {
+      "stageId": "production_admission",
+      "order": 7,
+      "requiredInputs": [
+        "validationMode",
+        "stageResults",
+        "blockingErrors",
+        "warnings",
+        "canonicalFingerprintHash",
+        "pairwiseAssessmentIds",
+        "breadthGateResultRef"
+      ],
+      "blockingCodeGroups": ["p06ProductionConsistencyCodes"],
+      "warningCodes": [],
+      "mustRun": true,
+      "mayMutateInput": false,
+      "passRequiresNoStageBlockingErrors": true
+    }
+  ],
+  "blockingCodeGroups": {
+    "p02ClosureCodes": [
+      "PBL_CHAIN_INCOMPLETE",
+      "PBL_REQUIRED_MILESTONE_MISSING",
+      "PBL_TERMINAL_DELIVERABLE_MISSING",
+      "PBL_DECISION_STAGE_MISSING",
+      "PBL_DEPENDENCY_PATH_BROKEN",
+      "PBL_UNAPPROVED_QUESTION_COUNT_PROFILE",
+      "PBL_RUNTIME_TRUNCATION_FORBIDDEN",
+      "PBL_OMITTED_NODE_UNACCOUNTED",
+      "PBL_PROJECT_GOAL_NOT_REACHED",
+      "SCENARIO_QUANTITY_LEDGER_OPEN",
+      "SCENARIO_ORPHAN_SUBQUESTION",
+      "SCENARIO_UNDECLARED_PAGE_SPLIT"
+    ],
+    "p03EvidenceCodes": [
+      "GCTX_SOURCE_NOT_ADMITTED",
+      "GCTX_SOURCE_USE_NOT_PERMITTED",
+      "GCTX_DISCOVERY_RECORD_NOT_EVIDENCE",
+      "GCTX_EVIDENCE_REFERENCE_MISSING",
+      "GCTX_SPECIFIC_CLAIM_REFERENCE_COUNT_INSUFFICIENT",
+      "GCTX_EVIDENCE_REVIEW_MISSING",
+      "GCTX_OCR_ONLY_PROMOTION_FORBIDDEN",
+      "GCTX_VISUAL_SOURCE_HUMAN_REVIEW_MISSING",
+      "GCTX_AI_SELF_APPROVAL_FORBIDDEN",
+      "GCTX_EVIDENCE_EXPIRED",
+      "GCTX_EVIDENCE_DISPUTED",
+      "GCTX_EVIDENCE_CONTRADICTION_UNRESOLVED",
+      "GCTX_EXACT_CLAIM_NOT_SOURCE_BOUND",
+      "GCTX_EXACT_VALUE_MUTATION_FORBIDDEN",
+      "GCTX_AUTHENTIC_PROBLEM_VERBATIM_COPY_FORBIDDEN",
+      "GCTX_RUNTIME_WEB_SEARCH_FORBIDDEN",
+      "GCTX_UNAPPROVED_EVIDENCE_FALLBACK_FORBIDDEN",
+      "GCTX_EVIDENCE_MATH_AUTHORITY_VIOLATION",
+      "GCTX_CONSUMER_TRACEABILITY_MISSING"
+    ],
+    "p04FingerprintCodes": [
+      "PBL_FINGERPRINT_MISSING",
+      "PBL_FINGERPRINT_VERSION_MISMATCH",
+      "PBL_FINGERPRINT_CANONICALIZATION_FAILED",
+      "PBL_P02_CLOSURE_REFERENCE_MISSING",
+      "PBL_P03_EVIDENCE_REFERENCE_MISSING"
+    ],
+    "p04PairwiseCodes": [
+      "PBL_EXACT_SEMANTIC_DUPLICATE",
+      "PBL_SURFACE_RESKIN_DETECTED",
+      "PBL_NEAR_DUPLICATE_CHAIN",
+      "PBL_NEAR_DUPLICATE_REVIEW_MISSING",
+      "PBL_NEAR_DUPLICATE_WAIVER_FORBIDDEN"
+    ],
+    "p04BreadthCodes": [
+      "PBL_ARCHETYPE_BREADTH_INSUFFICIENT",
+      "PBL_SEMANTIC_FAMILY_BREADTH_INSUFFICIENT",
+      "PBL_APPROVED_CHAIN_BREADTH_INSUFFICIENT",
+      "PBL_CONTEXT_DOMAIN_COVERAGE_INSUFFICIENT",
+      "PBL_EVENT_FLOW_BREADTH_INSUFFICIENT",
+      "PBL_DECISION_MODEL_BREADTH_INSUFFICIENT",
+      "PBL_NEAR_DUPLICATE_RATE_EXCEEDED",
+      "PBL_APPROVED_CHAIN_FINGERPRINT_COLLISION",
+      "PBL_SURFACE_VARIANT_COUNTING_FORBIDDEN",
+      "PBL_NUMERIC_CAPACITY_COUNTING_FORBIDDEN"
+    ],
+    "p06RequestAndReplayCodes": [
+      "GCTX_VALIDATOR_REQUEST_INVALID",
+      "GCTX_VALIDATOR_RULESET_VERSION_MISMATCH",
+      "GCTX_VALIDATOR_INPUT_DIGEST_MISSING",
+      "GCTX_VALIDATOR_UNKNOWN_BLOCKING_CODE",
+      "GCTX_VALIDATOR_NONDETERMINISTIC_OUTPUT"
+    ],
+    "p06ProductionConsistencyCodes": [
+      "GCTX_VALIDATOR_STAGE_RESULT_MISSING",
+      "GCTX_VALIDATOR_PRODUCTION_ELIGIBILITY_INCONSISTENT"
+    ]
+  },
+  "recognizedBlockingCodeCount": 58,
+  "p06InternalBlockingCodes": [
+    "GCTX_VALIDATOR_REQUEST_INVALID",
+    "GCTX_VALIDATOR_RULESET_VERSION_MISMATCH",
+    "GCTX_VALIDATOR_INPUT_DIGEST_MISSING",
+    "GCTX_VALIDATOR_STAGE_RESULT_MISSING",
+    "GCTX_VALIDATOR_UNKNOWN_BLOCKING_CODE",
+    "GCTX_VALIDATOR_NONDETERMINISTIC_OUTPUT",
+    "GCTX_VALIDATOR_PRODUCTION_ELIGIBILITY_INCONSISTENT"
+  ],
+  "warningCodeDefinitions": [
+    {
+      "code": "PBL_TARGET_CHAIN_BAND_NOT_REACHED",
+      "sourceContract": "GCTX-P04",
+      "stageId": "p04_breadth_gate",
+      "blocking": false,
+      "productionEligibilityEffect": "none"
+    },
+    {
+      "code": "GCTX_EVIDENCE_REVIEW_DUE_SOON",
+      "sourceContract": "GCTX-P03",
+      "stageId": "p03_evidence_admission",
+      "blocking": false,
+      "productionEligibilityEffect": "none"
+    },
+    {
+      "code": "PBL_SURFACE_VARIETY_BELOW_TARGET",
+      "sourceContract": "GCTX-P04",
+      "stageId": "p04_breadth_gate",
+      "blocking": false,
+      "productionEligibilityEffect": "none"
+    },
+    {
+      "code": "PBL_NUMERIC_CAPACITY_BELOW_TARGET",
+      "sourceContract": "GCTX-P04",
+      "stageId": "p04_breadth_gate",
+      "blocking": false,
+      "productionEligibilityEffect": "none"
+    }
+  ],
+  "recognizedWarningCodeCount": 4,
+  "requestContract": {
+    "requiredFields": [
+      "validationRunId",
+      "validationMode",
+      "rulesetVersion",
+      "fingerprintVersion",
+      "candidateChainId",
+      "unitCode",
+      "sourceId",
+      "p02ChainId",
+      "p02ProjectionProfileIds",
+      "p03EvidenceIds",
+      "p04FingerprintId",
+      "unitBreadthProfileId",
+      "deterministicReplayKey",
+      "inputDigest"
+    ],
+    "unknownFieldsAllowed": false,
+    "rulesetVersionMustEqual": "0.1.0",
+    "fingerprintVersionMustEqual": "pbl-semantic-fingerprint-v1",
+    "inputDigestAlgorithm": "sha256",
+    "replayKeyRequired": true
+  },
+  "issueContract": {
+    "requiredFields": [
+      "code",
+      "severity",
+      "stageId",
+      "entityId",
+      "path",
+      "messageKey",
+      "context",
+      "blocking"
+    ],
+    "blockingErrorSeverity": "error",
+    "warningSeverity": "warning",
+    "blockingErrorBlockingFlag": true,
+    "warningBlockingFlag": false,
+    "stableSortKeys": [
+      "stageOrder",
+      "code",
+      "path",
+      "entityId"
+    ],
+    "deduplicationIdentity": "stageId|code|path|entityId",
+    "duplicateIssuesCollapsed": true,
+    "unknownCodeEmits": "GCTX_VALIDATOR_UNKNOWN_BLOCKING_CODE"
+  },
+  "stageResultContract": {
+    "exactStageResultCount": 7,
+    "stageOrderMustMatchContract": true,
+    "allStagesExecuted": true,
+    "stageMayMutateInput": false,
+    "stagePassedFormula": "blockingErrorCount === 0",
+    "inputDigestRequired": true,
+    "outputDigestRequired": true
+  },
+  "resultContract": {
+    "requiredFields": [
+      "validationRunId",
+      "validatorContractVersion",
+      "rulesetVersion",
+      "fingerprintVersion",
+      "deterministicReplayKey",
+      "inputDigest",
+      "outputDigest",
+      "valid",
+      "productionEligible",
+      "stageResults",
+      "blockingErrors",
+      "warnings",
+      "canonicalFingerprintHash",
+      "pairwiseAssessmentIds",
+      "breadthGateResultRef"
+    ],
+    "validFormula": "blockingErrors.length === 0 && stageResults.every(stage => stage.passed)",
+    "productionEligibleFormula": "validationMode === 'production_gate' && valid === true && allUpstreamProductionGatesPass === true",
+    "anyBlockingErrorForcesValidFalse": true,
+    "anyBlockingErrorForcesProductionEligibleFalse": true,
+    "nonProductionModeForcesProductionEligibleFalse": true,
+    "warningMayChangeValid": false,
+    "warningMayChangeProductionEligible": false,
+    "canonicalFingerprintHashRequiredWhenStage4Passes": true,
+    "canonicalFingerprintHashNullWhenStage4Fails": true,
+    "pairwiseAssessmentIdsRequiredWhenStage5Passes": true,
+    "breadthGateResultRequiredWhenStage6Passes": true,
+    "outputDigestAlgorithm": "sha256"
+  },
+  "replayContract": {
+    "sameReplayKeyAndInputDigestMustProduceSameOutputDigest": true,
+    "sameInputMayProduceDifferentIssueOrdering": false,
+    "sameInputMayProduceDifferentClassification": false,
+    "sameInputMayProduceDifferentProductionEligibility": false,
+    "digestIncludesValidatorContractVersion": true,
+    "digestIncludesRulesetVersion": true,
+    "digestIncludesFingerprintVersion": true,
+    "nonDeterministicOutputBlockingCode": "GCTX_VALIDATOR_NONDETERMINISTIC_OUTPUT"
+  },
+  "fixtureAcceptanceContract": {
+    "fixtureModulePath": "tests/fixtures/gctx-p05-representative-fixture-corpus.js",
+    "positiveChainCount": 20,
+    "pairwiseFixtureCount": 5,
+    "breadthProfileFixtureCount": 10,
+    "pairwiseExpectedScores": [100, 87.25, 59.5, 18, 20.5],
+    "pairwiseExpectedClassifications": [
+      "exact_semantic_duplicate",
+      "near_duplicate",
+      "same_family_distinct_chain",
+      "distinct_family",
+      "distinct_archetype"
+    ],
+    "positiveBreadthProfileMustPass": true,
+    "negativeBreadthProfileCount": 9,
+    "allNegativeBreadthProfilesMustFail": true,
+    "numericCapacitySubstitutionMustFail": true,
+    "fixtureOnlyRecordsMustRemainProductionIneligible": true
+  },
+  "productionEligibilityConsistency": {
+    "candidateMayBeProductionEligibleWithBlockingError": false,
+    "candidateMayBeProductionEligibleWithFailedStage": false,
+    "candidateMayBeProductionEligibleWithUnknownCode": false,
+    "candidateMayBeProductionEligibleWithExpiredEvidence": false,
+    "candidateMayBeProductionEligibleWithIncompleteP02Closure": false,
+    "candidateMayBeProductionEligibleWithMissingFingerprint": false,
+    "candidateMayBeProductionEligibleWithNearDuplicate": false,
+    "candidateMayBeProductionEligibleWithBreadthFloorFailure": false,
+    "fixtureMayBeProductionEligible": false
+  },
+  "deferredToP07": [
+    "existingPatternSpecSemanticEligibilityAudit",
+    "existingUnitCompatibilityMatrix",
+    "approvedBindingReadinessAudit",
+    "scenarioAndPblReadinessClassification"
+  ],
+  "deferredToP08": [
+    "validatorImplementation",
+    "fingerprintCanonicalizerImplementation",
+    "weightedSimilarityCalculatorImplementation",
+    "breadthGateValidatorImplementation",
+    "productionAdmissionResolverImplementation"
+  ],
+  "compatibilityContract": {
+    "p02ClosureAuthorityUnchanged": true,
+    "p03EvidenceAuthorityUnchanged": true,
+    "p04FingerprintAuthorityUnchanged": true,
+    "p05FixtureAuthorityUnchanged": true,
+    "existingKnowledgePointAuthorityUnchanged": true,
+    "existingPatternSpecAuthorityUnchanged": true,
+    "existingMathValidatorAuthorityUnchanged": true,
+    "existingUnitRuntimeUnchanged": true,
+    "existingRendererUnchanged": true,
+    "g5aU02FilesMayBeModified": false
+  },
+  "acceptance": {
+    "sevenStagePipelineLocked": true,
+    "allFiftyEightBlockingCodesRecognized": true,
+    "allBlockingCodesHaveExactlyOneStageOwner": true,
+    "fourWarningsNonBlocking": true,
+    "requestAndResultShapesLocked": true,
+    "issueOrderingAndDeduplicationLocked": true,
+    "deterministicReplayLocked": true,
+    "productionEligibilityConsistencyLocked": true,
+    "p05FixtureExpectationsLocked": true,
+    "noValidatorImplementationAdded": true,
+    "noRuntimeChanged": true
+  },
+  "ciPolicy": {
+    "ownedGatesMustPass": true,
+    "newFailureRelativeToMainAllowed": false,
+    "inheritedNonOwnedBaselineFailureMayBeRecordedByParity": true,
+    "inheritedFailureMayBeRepairedInP06": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_REPRESENTATIVE_FIXTURE_CORPUS_LOCKED",
+    "goalDistanceAfter": "D2_GCTX_VALIDATOR_AND_BLOCKING_CODE_CONTRACT_LOCKED",
+    "distanceReduced": "converted P02/P03/P04 governance and P05 fixtures into one deterministic seven-stage validation and production-admission contract",
+    "remainingBlockers": [
+      "existing PatternSpec semantic eligibility audit",
+      "layout contracts",
+      "validator implementation",
+      "runtime resolvers",
+      "production population authoring",
+      "unit migrations"
+    ]
+  },
+  "nextTask": "GCTX-P07_ExistingPatternSpecSemanticEligibilityAudit"
+}
