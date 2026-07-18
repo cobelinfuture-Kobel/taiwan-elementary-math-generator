@@ -38,6 +38,20 @@ function isG4BU04Document(document = {}) {
   return G4B_U04_RENDERER_INTEGRATION.profileIds.includes(document?.rendererProfile?.profileId);
 }
 
+function isG5AU02PublicPlainDocument(document = {}) {
+  const displays = document?.questionDisplayModels;
+  return document?.unitId === "g5a_u02"
+    && Array.isArray(displays)
+    && displays.length > 0
+    && displays.every((row) => row?.questionDisplayModel == null)
+    && displays.every((row) => String(row?.patternId ?? "").startsWith("ps_g5a_u02_"));
+}
+
+function renderG5AU02PublicPlainDocument(document, options = {}) {
+  return renderBaseWorksheetDocumentToHtml(document, options)
+    .replace(/ data-pattern-id="ps_g5a_u02_[^"]+"/g, "");
+}
+
 function answerLabel(shape) {
   switch (shape) {
     case "classificationAnswer": return "判斷";
@@ -121,6 +135,7 @@ const STYLE = [
 
 export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
   if (isG5AU02PublicSemanticDocument(worksheetDocument)) return renderG5AU02PublicSemanticDocument(worksheetDocument, options);
+  if (isG5AU02PublicPlainDocument(worksheetDocument)) return renderG5AU02PublicPlainDocument(worksheetDocument, options);
   if (!isG4BU04Document(worksheetDocument)) return renderBaseWorksheetDocumentToHtml(worksheetDocument, options);
   const title = options.title ?? worksheetDocument.title ?? "四下概數";
   const stylesheetHref = options.stylesheetHref ?? "./assets/styles/print-styles.css";
