@@ -1,0 +1,85 @@
+name: G5A-U02 S109 Regression-Only Source Parity Lock
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/g5a-u02-s109-regression-only-source-parity-lock.yml"
+      - "data/curriculum/contracts/G5AU02_S109_P2RegressionOnlySourceParityLock.json"
+      - "docs/curriculum/architecture/G5AU02_S109_P2RegressionOnlySourceParityLock.md"
+      - "docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PENDING.marker"
+      - "docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PASS.marker"
+      - "tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock.test.js"
+  workflow_dispatch:
+
+concurrency:
+  group: g5a-u02-s109-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  scope-guard:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref }}
+          fetch-depth: 0
+      - name: Require regression-only file scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            base_sha="${{ github.event.pull_request.base.sha }}"
+            git fetch origin "$base_sha" --depth=1
+            changed="$(git diff --name-only "$base_sha...HEAD")"
+          else
+            changed="$(git show --pretty='' --name-only HEAD)"
+          fi
+          printf '%s\n' "$changed"
+          allowed='^(\.github/workflows/g5a-u02-s109-regression-only-source-parity-lock\.yml|data/curriculum/contracts/G5AU02_S109_P2RegressionOnlySourceParityLock\.json|docs/curriculum/architecture/G5AU02_S109_P2RegressionOnlySourceParityLock\.md|docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_(PENDING|PASS)\.marker|tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock\.test\.js)$'
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev "$allowed" || true)"
+          if [ -n "$unexpected" ]; then
+            echo "S109_RUNTIME_MUTATION_FORBIDDEN"
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
+
+  focused-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run S109 192 canonical and 192 public parity locks
+        run: node --test tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock.test.js
+      - name: Run S105 program contract predecessor
+        run: node --test tests/curriculum/g5a-u02-s105-p1-p2-source-parity-milestone-definition.test.js
+
+  full-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run complete Node regression with inspectable readback
+        shell: bash
+        run: |
+          set +e
+          npm test > /tmp/g5a-u02-s109-full-regression.log 2>&1
+          status=$?
+          tail -n 180 /tmp/g5a-u02-s109-full-regression.log
+          exit "$status"
+      - name: Upload full regression readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-s109-full-regression
+          retention-days: 7
+          if-no-files-found: error
+          path: /tmp/g5a-u02-s109-full-regression.log
