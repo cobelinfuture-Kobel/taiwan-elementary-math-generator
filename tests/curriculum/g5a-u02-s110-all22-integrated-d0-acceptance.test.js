@@ -128,7 +128,10 @@ test("S110 validates 1408/1408 canonical-source-bundle-public-renderer integrati
       assert.deepEqual(canonicalReplay, canonical, `${spec.patternSpecId}:${seed}:nondeterministic canonical item`);
       const validation = validateG5AU02Canonical(canonical);
       assert.equal(validation.ok, true, `${spec.patternSpecId}:${seed}:${validation.errors.join(",")}`);
-      assert.equal(canonical.canonicalRoute.binding.patternOrder, spec.patternOrder);
+      assert.equal(canonical.canonicalRoute.patternSpecId, spec.patternSpecId);
+      assert.equal(canonical.canonicalRoute.formalMappingId, spec.formalMappingId);
+      assert.equal(canonical.canonicalRoute.patternGroupId, spec.patternGroupId);
+      assert.equal(canonical.canonicalRoute.knowledgePointId, spec.knowledgePointId);
       assert.equal(canonical.canonicalRoute.answerModelId, spec.answerModelId);
 
       const sourceDocument = build(buildSourceWorksheet, spec.patternSpecId, seed);
