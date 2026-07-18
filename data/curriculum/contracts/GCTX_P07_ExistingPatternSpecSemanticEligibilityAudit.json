@@ -1,0 +1,110 @@
+{
+  "schemaName": "GCTXExistingPatternSpecSemanticEligibilityAuditContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P07_ExistingPatternSpecSemanticEligibilityAudit",
+  "status": "audit_contract_locked_pending_ci",
+  "scope": {
+    "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+    "selectorAuthority": "site/modules/curriculum/registry/batch-a-selector-composer.js",
+    "publicSourceCount": 15,
+    "auditLevel": "every selector-reachable PatternSpec",
+    "runtimeBehaviorChanged": false,
+    "registryPopulationChanged": false,
+    "unitMigrationChanged": false,
+    "rendererChanged": false
+  },
+  "expectedSourceIds": [
+    "g3a_u01_3a01",
+    "g3a_u02_3a02",
+    "g3a_u03_3a03",
+    "g3a_u06_3a06",
+    "g3b_u01_3b01",
+    "g3b_u04_3b04",
+    "g3b_u08_3b08",
+    "g4a_u01_4a01",
+    "g4a_u02_4a02",
+    "g4a_u04_4a04",
+    "g4a_u08_4a08",
+    "g4b_u01_4b01",
+    "g4b_u04_4b04",
+    "g5a_u02_5a02a",
+    "g5a_u08_5a08"
+  ],
+  "existingContextAuthoritySourceIds": [
+    "g3b_u04_3b04",
+    "g3b_u08_3b08",
+    "g4b_u04_4b04",
+    "g5a_u02_5a02a",
+    "g5a_u08_5a08"
+  ],
+  "eligibilityDecisions": {
+    "eligible_existing_authority": "PatternSpec has a controlled semantic signal and its unit already owns structured or partially structured context authority.",
+    "eligible_binding_backfill": "PatternSpec has a controlled semantic signal but requires a future ApprovedSemanticBinding backfill before global resolver use.",
+    "not_applicable_non_semantic": "PatternSpec is numeric, concept, representation, or non-contextual reasoning only and must not be forced into a context binding."
+  },
+  "controlledSemanticSignals": {
+    "modeTokens": [
+      "application"
+    ],
+    "booleanFields": [
+      "contextualReasoning"
+    ],
+    "representationTags": [
+      "application",
+      "controlled_semantic_application",
+      "contextual_reasoning",
+      "semantic_word_problem",
+      "word_problem"
+    ],
+    "contextTypesPolicy": "A non-empty contextTypes array is a semantic signal only when paired with a non-numeric group mode or an approved representation tag."
+  },
+  "blockingRules": [
+    "Every selector-reachable PatternSpec must receive exactly one decision.",
+    "A PatternSpec may not receive conflicting decisions through multiple PatternGroups.",
+    "Unknown source IDs, empty PatternGroups, empty PatternSpec IDs, and unknown decisions block the audit.",
+    "Existing context authority does not make a numeric-only or concept-only PatternSpec eligible.",
+    "Non-semantic PatternSpecs remain usable by their current generator and are not migrated to GCTX.",
+    "P07 does not create ApprovedSemanticBinding rows or enable runtime resolution."
+  ],
+  "knownAuthorityAssertions": {
+    "g4b_u04_4b04": {
+      "eligiblePatternSpecCount": 6,
+      "basis": "effective 13/13/19 authority with six application PatternSpecs"
+    },
+    "g5a_u02_5a02a": {
+      "eligiblePatternSpecCount": 8,
+      "basis": "eight Class D application, reasoning-application, or geometry-application PatternSpecs"
+    },
+    "g5a_u08_5a08": {
+      "eligiblePatternSpecCount": 11,
+      "basis": "nine application PatternSpecs plus two contextual-reasoning PatternSpecs"
+    }
+  },
+  "consumerBoundary": {
+    "nextConsumer": "GCTX-P08_ApprovedSemanticBindingBackfillAndLegacyAuthorityNormalization",
+    "allowedInputDecisions": [
+      "eligible_existing_authority",
+      "eligible_binding_backfill"
+    ],
+    "forbiddenAsBindingInput": [
+      "not_applicable_non_semantic"
+    ],
+    "productionRuntimeUse": "forbidden_until_binding_validator_and_resolver_gates_pass"
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_VALIDATOR_CONTRACT_MERGED",
+    "goalDistanceAfter": "D2_GCTX_EXISTING_PATTERNSPEC_ELIGIBILITY_AUDIT_PENDING_CI",
+    "distanceReduced": "selector-reachable PatternSpecs gain deterministic semantic eligibility ownership without changing runtime",
+    "remainingBlockers": [
+      "CI acceptance",
+      "merge",
+      "ApprovedSemanticBinding backfill",
+      "legacy authority normalization",
+      "production registry population",
+      "runtime validator",
+      "runtime resolver",
+      "unit migrations"
+    ],
+    "nextShortestStep": "GCTX-P08_ApprovedSemanticBindingBackfillAndLegacyAuthorityNormalization"
+  }
+}
