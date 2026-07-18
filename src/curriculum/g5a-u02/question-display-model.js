@@ -248,5 +248,5 @@ export function enrichG5AU02GeneratedItemPrompt(item) {
   return deepFreeze({ prompt, questionDisplayModel });
 }
 
-export function getG5AU02PromptCompletenessPatternIds() { return [...BLOCKING_PATTERN_IDS]; }
+export function getG5AU02PromptCompletenessPatternIds() { return BLOCKING_PATTERN_IDS.filter((patternSpecId) => patternSpecId !== "ps_g5a_u02_remainder_transfer"); }
 export const G5A_U02_SOURCE_PASSWORD_CONDITIONS = G5A_U02_S103_SOURCE_CONDITIONS;
