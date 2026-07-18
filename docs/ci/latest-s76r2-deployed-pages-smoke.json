@@ -2,22 +2,24 @@
   "schemaVersion": "s76r2-deployed-pages-smoke-v1",
   "task": "S76R2_G4A_U08_DeployedPagesAndFreshMainD0Closeout",
   "status": "FAIL",
-  "deploymentSha": "caf56c0b1f09a3088626c016060e011960e11673",
-  "message": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-source-select')\n    - locator resolved to <select name=\"batchASourceId\" id=\"batch-a-source-select\"></select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n",
-  "details": null,
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?s76r2=caf56c0b1f09a3088626c016060e011960e11673-1784394936157",
-  "consoleErrors": [
-    "Failed to load resource: the server responded with a status of 503 ()"
-  ],
+  "deploymentSha": "e793e5a1f43c7a4f09143c19cc27e37d7bbcf554",
+  "message": "S76R2_DEPLOYED_PREVIEW_META_MISMATCH",
+  "details": {
+    "label": "加法交換、結合與湊整",
+    "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
+    "expected": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
+  },
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4a_u08_4a08&questionCount=8&ordering=groupedByPattern&answerKey=1&generationSeed=s76r2-g4a-u08-per-kp&columns=3&rowsPerPage=5&selectionMode=singleKnowledgePoint&kp=kp_g4a_u08_num_add_group_round&pg=pg_g4a_u08_num_add_group_round",
+  "consoleErrors": [],
   "pageErrors": [],
   "workflow": "S76R2 G4A-U08 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29653529633",
-    "number": "101",
+    "id": "29653962330",
+    "number": "102",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29653529633"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29653962330"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-18T17:16:41.564Z"
+  "verifiedAt": "2026-07-18T17:30:08.550Z"
 }
