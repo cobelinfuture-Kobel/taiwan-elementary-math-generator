@@ -101,15 +101,18 @@ test("S108 64/64 canonical scenarios preserve finite story roles and arithmetic 
     assert.equal(enriched.questionDisplayModel.kind, KIND);
     assert.equal(enriched.questionDisplayModel.scenarioFamilyId, item.data.scenarioFamilyId);
     assert.match(enriched.prompt, /除數關係：\d+＝\d+×\d+/);
-    assert.match(enriched.prompt, /原分裝：\d+＝\d+×\d+＋\d+/);
-    assert.match(enriched.prompt, /改分裝：\d+＝\d+×\d+＋\d+/);
+    assert.match(enriched.prompt, /已知分裝：\d+ ÷ \d+ 餘 \d+/);
+    assert.match(enriched.prompt, /改分裝：\d+ ÷ \d+ 餘 ______/);
+    assert.equal(enriched.prompt.includes(item.data.distributionWitness.transferredDistribution.equationText), false);
+    assert.equal(enriched.questionDisplayModel.distributionWitness.transferredDistribution.quotientResponseText, "______");
+    assert.equal(enriched.questionDisplayModel.distributionWitness.transferredDistribution.remainderResponseText, "______");
     const displayValidation = validateG5AU02QuestionDisplayModel(item, enriched.questionDisplayModel, enriched.prompt);
     assert.equal(displayValidation.ok, true, displayValidation.errors.join(","));
   }
   assert.deepEqual([...reachedFamilies].sort(), [...getG5AU02S108ScenarioFamilyIds()].sort());
 });
 
-test("S108 public worksheet retains 64 structured questions without answer-record leakage", () => {
+test("S108 public worksheet retains 64 structured questions without answer-record or worked-solution leakage", () => {
   const result = buildG5AU02BrowserDynamicWorksheet({
     sourceId: "g5a_u02_5a02",
     patternSpecIds: [PATTERN_ID],
@@ -125,6 +128,7 @@ test("S108 public worksheet retains 64 structured questions without answer-recor
     assert.equal(question.questionDisplayModel.kind, KIND);
     assert.equal(question.promptCompletenessStatus, "visible_unique_solution_data_complete");
     assert.equal(question.answerModelId, "remainderAnswer");
+    assert.match(question.questionDisplayModel.distributionWitness.transferredDistribution.statementText, /餘 ______$/);
     assert.equal("answer" in question, false);
     assert.equal("structuredAnswer" in question, false);
     assert.equal("answerText" in question, false);
@@ -164,6 +168,8 @@ test("S108 renderer accepts all 18 approved layout projections", () => {
     assert.ok(html.includes(`data-semantic-kind="${KIND}"`));
     assert.ok(html.includes(`data-g5a-u02-s108-kind="${KIND}"`));
     assert.ok(html.includes("data-scenario-family="));
+    assert.ok(html.includes("改分裝："));
+    assert.ok(html.includes("餘 ______"));
     assert.ok(html.includes(`data-layout-columns="${columns}" data-layout-rows="${rows}"`));
     inspected += 1;
   }
