@@ -2,7 +2,7 @@
   "schemaName": "GCTXBindingAdmissionAndLegacyAuthorityNormalizationContract",
   "schemaVersion": 1,
   "task": "GCTX-P08_ApprovedSemanticBindingBackfillAndLegacyAuthorityNormalization",
-  "status": "contract_locked_pending_ci",
+  "status": "accepted_pending_merge",
   "rulesetVersion": "0.1.0",
   "inputs": {
     "approvedBindingSchema": "data/curriculum/context/schemas/GCTX_ApprovedSemanticChain.schema.json",
@@ -104,13 +104,21 @@
     "approvedRegistryEntryCount": 0,
     "errorCount": 0
   },
+  "ciAcceptance": {
+    "headSha": "18bf11a15fc7d75b4a5079b871f59884bdce46f0",
+    "nodeTestRun": 29652390151,
+    "nodeTestConclusion": "success",
+    "mathCiReadbackRun": 29652390161,
+    "mathCiReadbackConclusion": "success",
+    "ownedGateFailures": 0,
+    "acceptanceMode": "owned_node_and_math_ci_gates_pass"
+  },
   "nextTask": "GCTX-P09_G3BU04ExactSemanticBindingExtractionPilot",
   "distance": {
     "goalDistanceBefore": "D2_GCTX_EXISTING_PATTERNSPEC_ELIGIBILITY_AUDIT_MERGED",
-    "goalDistanceAfter": "D2_GCTX_BINDING_ADMISSION_AND_LEGACY_NORMALIZATION_PENDING_CI",
+    "goalDistanceAfter": "D2_GCTX_BINDING_ADMISSION_AND_LEGACY_NORMALIZATION_ACCEPTED_PENDING_MERGE",
     "distanceReduced": "98 eligible PatternSpecs gain deterministic binding admission ownership and legacy extraction evidence without false production approval",
     "remainingBlockers": [
-      "CI acceptance",
       "merge",
       "exact P01 binding extraction",
       "semantic and mathematical review",
