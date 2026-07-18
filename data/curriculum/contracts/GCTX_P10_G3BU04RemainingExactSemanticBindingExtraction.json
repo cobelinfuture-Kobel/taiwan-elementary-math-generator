@@ -2,7 +2,7 @@
   "schemaName": "GCTXG3BU04RemainingExactSemanticBindingExtractionContract",
   "schemaVersion": 1,
   "task": "GCTX-P10_G3BU04RemainingExactSemanticBindingExtraction",
-  "status": "contract_locked_pending_ci",
+  "status": "accepted_pending_merge",
   "rulesetVersion": "0.1.0",
   "scope": {
     "sourceId": "g3b_u04_3b04",
@@ -79,13 +79,21 @@
     "productionSelectableBindingCount": 0,
     "errorCount": 0
   },
+  "ciAcceptance": {
+    "headSha": "ef4f0fe06657f89df8bfb849eb6e2001dcbb73da",
+    "nodeTestRun": 29653242899,
+    "nodeTestConclusion": "success",
+    "mathCiReadbackRun": 29653242924,
+    "mathCiReadbackConclusion": "success",
+    "ownedGateFailures": 0,
+    "acceptanceMode": "owned_node_and_math_ci_gates_pass"
+  },
   "nextTask": "GCTX-P11_G3BU04CandidateReferenceRegistryAdmissionAndReviewGate",
   "distance": {
     "goalDistanceBefore": "D2_GCTX_FIRST_EXACT_BINDING_FAMILY_MERGED",
-    "goalDistanceAfter": "D2_GCTX_G3BU04_FULL_CANDIDATE_BINDING_REGISTRY_PENDING_CI",
+    "goalDistanceAfter": "D2_GCTX_G3BU04_FULL_CANDIDATE_BINDING_REGISTRY_ACCEPTED_PENDING_MERGE",
     "distanceReduced": "all 32 G3B-U04 semantic PatternSpecs are projected into 117 fixed-domain P01-schema candidate bindings with legacy authority parity",
     "remainingBlockers": [
-      "CI acceptance",
       "merge",
       "candidate common-knowledge registry admission",
       "candidate language and numeric-profile registry admission",
