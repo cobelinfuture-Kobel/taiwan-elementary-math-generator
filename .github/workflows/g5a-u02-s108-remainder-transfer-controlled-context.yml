@@ -15,6 +15,10 @@ on:
       - ".github/workflows/g5a-u02-s108-remainder-transfer-controlled-context.yml"
   workflow_dispatch:
 
+concurrency:
+  group: g5a-u02-s108-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
