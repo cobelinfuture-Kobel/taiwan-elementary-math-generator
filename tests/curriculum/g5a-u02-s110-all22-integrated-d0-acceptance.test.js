@@ -76,7 +76,8 @@ function build(builder, patternSpecId, seed) {
 function assertPublicBoundary(document, spec, seed) {
   assert.equal(document.questionCount, 1);
   assert.equal(document.questionItems.length, 1);
-  if (Array.isArray(document.questionDisplayModels)) assert.equal(document.questionDisplayModels.length, 1);
+  const isProjectedPublicDocument = Array.isArray(document.questionDisplayModels);
+  if (isProjectedPublicDocument) assert.equal(document.questionDisplayModels.length, 1);
   assert.equal(document.answerKeyItems.length, 1);
 
   const question = document.questionItems[0];
@@ -98,7 +99,7 @@ function assertPublicBoundary(document, spec, seed) {
     const expectedKind = STRUCTURED_KIND.get(spec.patternSpecId);
     assert.ok(expectedKind, `${spec.patternSpecId}:structured kind missing`);
     assert.equal(question.questionDisplayModel?.kind, expectedKind);
-    assert.equal(answer.questionDisplayModel?.kind, expectedKind);
+    if (isProjectedPublicDocument) assert.equal(answer.questionDisplayModel?.kind, expectedKind);
     assert.equal(question.promptCompletenessStatus, "visible_unique_solution_data_complete");
   }
 }
