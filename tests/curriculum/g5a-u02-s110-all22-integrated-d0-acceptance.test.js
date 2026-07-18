@@ -89,7 +89,13 @@ function assertPublicBoundary(document, spec, seed) {
   assert.equal("answer" in question, false);
   assert.equal("structuredAnswer" in question, false);
   assert.equal("answerText" in question, false);
-  assert.equal(answer.patternSpecId, spec.patternSpecId);
+  if (isProjectedPublicDocument) {
+    assert.equal(answer.patternId, spec.patternSpecId);
+    assert.equal(answer.answerModelShape, spec.answerModel.shape);
+  } else {
+    assert.equal(answer.patternSpecId, spec.patternSpecId);
+    assert.equal(answer.answerModelId, spec.answerModel.shape);
+  }
   assert.ok(answer.answerText.length > 0, `${spec.patternSpecId}:${seed}:answer text missing`);
 
   if (REGRESSION_ONLY.has(spec.patternSpecId)) {
