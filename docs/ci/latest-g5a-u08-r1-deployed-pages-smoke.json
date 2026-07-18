@@ -2,24 +2,22 @@
   "schemaVersion": "g5a-u08-r1-deployed-pages-smoke-v1",
   "task": "G5A_U08_R1_DeployedControlsAndPrintRecloseout",
   "status": "FAIL",
-  "deploymentSha": "ec21c54a6b1ea11cc307ce1ca11d7315d87818d0",
-  "message": "G5A_U08_R1_DEPLOYED_PREVIEW_META_INVALID",
-  "details": {
-    "label": "無括號四則混合運算順序",
-    "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列",
-    "expectedSuffix": "｜6 題｜含答案頁"
-  },
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g5a_u08_5a08&questionCount=6&ordering=groupedByPattern&answerKey=1&generationSeed=g5a-u08-r1-kp-1&columns=3&rowsPerPage=5&questionMode=mixed&depthMode=mixed&contextMode=mixed&selectionMode=singleKnowledgePoint&kp=kp_g5a_u08_mixed_operation_order&pg=pg_g5a_u08_mixed_operation_order_numeric",
-  "consoleErrors": [],
+  "deploymentSha": "caf56c0b1f09a3088626c016060e011960e11673",
+  "message": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-source-select')\n    - locator resolved to <select name=\"batchASourceId\" id=\"batch-a-source-select\"></select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n",
+  "details": null,
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g5aU08R1=caf56c0b1f09a3088626c016060e011960e11673-1784394965904",
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 503 ()"
+  ],
   "pageErrors": [],
   "workflow": "G5A-U08-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29653133595",
-    "number": "92",
+    "id": "29653529616",
+    "number": "93",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29653133595"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29653529616"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-18T17:03:22.307Z"
+  "verifiedAt": "2026-07-18T17:17:39.569Z"
 }
