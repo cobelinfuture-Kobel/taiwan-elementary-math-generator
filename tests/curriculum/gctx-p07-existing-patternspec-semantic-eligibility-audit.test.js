@@ -90,7 +90,7 @@ test("GCTX-P07 known effective authorities retain their exact semantic eligibili
   }
 
   assert.equal(audit.bySource.g4b_u04_4b04.eligiblePatternSpecCount, 6);
-  assert.equal(audit.bySource.g5a_u02_5a02a.eligiblePatternSpecCount, 8);
+  assert.equal(audit.bySource.g5a_u02_5a02.eligiblePatternSpecCount, 8);
   assert.equal(audit.bySource.g5a_u08_5a08.eligiblePatternSpecCount, 11);
 });
 
