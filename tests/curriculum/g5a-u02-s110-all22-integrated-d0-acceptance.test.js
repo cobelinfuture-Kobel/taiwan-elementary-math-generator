@@ -157,7 +157,6 @@ test("S110 validates 1408/1408 canonical-source-bundle-public-renderer integrati
       assertPublicBoundary(publicDocument, spec, seed);
 
       const html = renderWorksheetDocumentToHtml(printableDocument(publicDocument), { stylesheetHref: "" });
-      assert.match(html, new RegExp(`data-renderer-profile="${RENDERER_PROFILE}"`));
       assert.match(html, /worksheet-section--questions/);
       assert.match(html, /worksheet-section--answer-key/);
       assert.doesNotMatch(html, /\b(?:ps|fm|fmc|pg|kp)_g5a_u02_[a-z0-9_]+\b/i);
@@ -166,8 +165,10 @@ test("S110 validates 1408/1408 canonical-source-bundle-public-renderer integrati
         ?.split('<section class="worksheet-section worksheet-section--answer-key">')[0] ?? "";
       assert.doesNotMatch(questionSectionHtml, /class="worksheet-cell__answer"/);
       if (REGRESSION_ONLY.has(spec.patternSpecId)) {
+        assert.doesNotMatch(html, /data-renderer-profile=/);
         assert.doesNotMatch(questionSectionHtml, /data-semantic-kind=/);
       } else {
+        assert.match(html, new RegExp(`data-renderer-profile="${RENDERER_PROFILE}"`));
         assert.ok(questionSectionHtml.includes(`data-semantic-kind="${STRUCTURED_KIND.get(spec.patternSpecId)}"`));
       }
       passCount += 1;
