@@ -1,0 +1,100 @@
+{
+  "schemaName": "G5AU02All22IntegratedAcceptance",
+  "schemaVersion": 1,
+  "task": "G5AU02-S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout",
+  "unitId": "g5a_u02",
+  "status": "implemented_pending_ci",
+  "authority": {
+    "p0Contract": "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json",
+    "remainingProgramContract": "data/curriculum/contracts/G5AU02_S105_P1P2SourceParityMilestoneDefinition.json",
+    "s104PassMarker": "docs/curriculum/output/G5AU02_S104_P0_INTEGRATED_ACCEPTANCE_PASS.marker",
+    "s106PassMarker": "docs/curriculum/output/G5AU02_S106_P1_FACTOR_STRUCTURE_FULLFIX_PASS.marker",
+    "s107PassMarker": "docs/curriculum/output/G5AU02_S107_P1_SELECTION_SYMBOLIC_COMMON_MARKING_PASS.marker",
+    "s108PassMarker": "docs/curriculum/output/G5AU02_S108_P2_REMAINDER_TRANSFER_CONTEXT_PASS.marker",
+    "s109PassMarker": "docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PASS.marker",
+    "canonicalSource": "src/curriculum/g5a-u02/browser-dynamic-entry.js",
+    "committedBrowserBundle": "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js",
+    "layoutContract": "data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json",
+    "layoutProjection": "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js",
+    "publicRenderer": "site/modules/renderer/html-renderer-s73-extension.js",
+    "rendererProfile": "g5a_u02_s104_p0_integrated_v1"
+  },
+  "patternPartition": {
+    "p0Orders": [1, 2, 4, 8, 9, 11, 13, 16, 17, 20, 21, 22],
+    "repairedOrders": [3, 5, 6, 7, 12, 14, 15],
+    "regressionOnlyOrders": [10, 18, 19],
+    "allOrders": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+    "structuredDisplayModelCount": 19,
+    "plainPromptRegressionCount": 3,
+    "totalPatternCount": 22
+  },
+  "acceptance": {
+    "seedsPerPattern": 64,
+    "itemIntegration": {
+      "patternCount": 22,
+      "scenarioCount": 1408,
+      "requiredPassCount": 1408,
+      "requiresCanonicalValidation": true,
+      "requiresSourceBundleByteSemanticParity": true,
+      "requiresPublicProjection": true,
+      "requiresSharedRenderer": true
+    },
+    "layoutMatrix": {
+      "layoutsPerPattern": 18,
+      "patternCount": 22,
+      "scenarioCount": 396,
+      "requiredPassCount": 396,
+      "requiresActualCardXGeometry": true,
+      "requiresComputedGridGeometry": true,
+      "requiresNoOverflowOverlapClipping": true,
+      "requiresHtmlAndPdf": true
+    },
+    "answerBoundaryMatrix": {
+      "layouts": ["3x5", "2x6", "1x7"],
+      "answerStates": ["off", "on"],
+      "patternCount": 22,
+      "scenarioCount": 132,
+      "requiredPassCount": 132,
+      "questionAnswerLeakageAllowed": false,
+      "internalIdLeakageAllowed": false
+    },
+    "browserBundleParityRequired": true,
+    "browserPrintAcceptanceRequired": true,
+    "fullRepositoryRegressionRequired": true
+  },
+  "blockingConditions": [
+    "canonical validation failure",
+    "source and committed browser bundle drift",
+    "missing or incorrect structured display model for a structured pattern",
+    "new display model or learner-facing mutation for S109 regression-only patterns",
+    "learner-visible answer leakage",
+    "internal PatternSpec FormalMapping PatternGroup or KnowledgePoint ID leakage",
+    "actual card-column geometry mismatch",
+    "computed CSS grid mismatch",
+    "DOM overflow overlap or clipping",
+    "blank PDF page",
+    "PDF bounding-box overflow",
+    "P0 S106 S107 S108 or S109 predecessor regression",
+    "generic fallback free-form AI or runtime web search"
+  ],
+  "globalInvariants": {
+    "patternSpecIdsStable": true,
+    "knowledgePointIdsStable": true,
+    "patternGroupIdsStable": true,
+    "formalMappingIdsStable": true,
+    "answerModelIdsStable": true,
+    "crossUnitChangeForbidden": true,
+    "gctxChangeForbidden": true,
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden",
+    "runtimeWebSearch": "forbidden"
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_G5A_U02_S109_REGRESSION_ONLY_SOURCE_PARITY_LOCKED_AND_MERGED",
+    "goalDistanceAfter": "D1_G5A_U02_ALL22_INTEGRATED_ACCEPTANCE_PENDING_CI",
+    "d0EligibleBeforeAcceptance": false,
+    "d0EligibleAfterEveryGatePasses": true,
+    "remainingBlockers": ["S110 item matrix", "S110 browser bundle parity", "S110 HTML/PDF layout matrix", "S110 answer-boundary matrix", "S110 full regression", "merge"]
+  },
+  "nextShortestStep": "CI_ACCEPT_CLOSEOUT_MERGE_AND_DECLARE_G5A_U02_D0"
+}
