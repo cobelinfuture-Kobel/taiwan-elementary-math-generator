@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "LIVE_PUBLIC_UI_PRODUCTION_REGRESSION_PASS_D0_COMPLETE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js",
+      "site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js",
+      "site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js",
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs",
+      ".github/workflows/gctx-p14-live-public-ui-d0.yml"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer-s73-extension.js",
+      "tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs",
+      ".github/workflows/gctx-p14-live-public-ui-d0.yml"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
+      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json",
+      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json",
+      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json",
+      "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.json"
+    ],
+    "reviewArtifactPaths": [
+      "data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json",
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
+      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf"
+    ],
+    "artifactHashes": [
+      {
+        "path": "data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json",
+        "sha256": "0b04ca9549dd9144ccc5b0565c8c8d9a6de3b6a56a2628c609a7b2f78d03b1fa"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
+        "sha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json",
+        "sha256": "28fe5d6d23efcc3abaaeb1e8168d52c96792602d00e95a1ab76067f35b8ea26e"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html",
+        "sha256": "6aecb66c010da60eb2b71aa4c41691c419c4b74fabee4ae30fdf2e4d3e1b2048"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf",
+        "sha256": "ab94e9b6d3c53227e9524d9b21aa4d05022272d191e8c8a078fc243ca79d57fa"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json",
+        "sha256": "3ee52d7dfb7b19900146c23479d59c67e4313cb717b4cc4f16a4f21d06e02a5a"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json",
+        "sha256": "1f74d2c1338f2d4a42a91b6c18334049ed0fe9d638679423a2348d08fc1d66c3"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.json",
+        "sha256": "9bc67166befb60c43335c4e7050f922fbd86ec35ce222a8abde7dc09edbd6974"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.html",
+        "sha256": "35d0b6c325de85b4f6af964d32a12693e3861f671f7f83c77a4fb54c33867eaf"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.png",
+        "sha256": "40f577c6cbb7ffec05f5b09e6d3341193bf6de45aaae9a977832662c7632e0c7"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.png",
+        "sha256": "977a95fc0d1de67f790b69f21db01e8ecd8e727411faf99f29401998a1a73189"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D0",
+    "distanceReduced": "The deployed GitHub Pages UI loads the exact P13 runtime, resolves the public G3B-U04 selector/query route, generates 25 validated questions with five approved contexts and 25 answer entries, and exposes stable worksheet output without hidden flags or legacy target leakage."
+  },
+  "nextStep": {
+    "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
+  }
+}

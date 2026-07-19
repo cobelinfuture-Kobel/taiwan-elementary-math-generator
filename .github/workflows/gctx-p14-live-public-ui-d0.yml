@@ -1,0 +1,128 @@
+name: GCTX-P14 Live Public UI D0
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs"
+      - "tools/governance/promote-gctx-p14-e6-d0-claim.mjs"
+      - "tools/governance/validate-gctx-p14-e6-live-evidence.mjs"
+      - "data/project/milestones/GCTX-P14.claim.json"
+      - "data/curriculum/contracts/GCTX_P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout.json"
+      - "docs/curriculum/output/GCTX_P14_G3BU04_LIVE_PUBLIC_UI_D0_PASS.marker"
+      - "docs/curriculum/output/GCTX_P14_G3BU04_LIVE_PUBLIC_UI_D0_READBACK.md"
+      - "docs/curriculum/output/gctx/p14-live/**"
+      - ".github/workflows/gctx-p14-live-public-ui-d0.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  live-public-ui-d0:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Detect committed E6 evidence
+        id: evidence_state
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const claim = JSON.parse(fs.readFileSync('data/project/milestones/GCTX-P14.claim.json', 'utf8'));
+          const required = [
+            'docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.json',
+            'docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.html',
+            'docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.png',
+            'docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.png'
+          ];
+          const committed = claim.actualEvidenceLevel === 'E6_D0_COMPLETE'
+            && claim.claims.d0Complete === true
+            && required.every((path) => fs.existsSync(path));
+          const outputDir = committed
+            ? '/tmp/gctx-p14-live'
+            : 'docs/curriculum/output/gctx/p14-live';
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e6=${committed}\noutput_dir=${outputDir}\n`);
+          NODE
+
+      - name: Install Chromium runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+
+      - name: Run live GitHub Pages UI regression
+        id: live_regression
+        continue-on-error: true
+        env:
+          GCTX_P14_OUTPUT_DIR: ${{ steps.evidence_state.outputs.output_dir }}
+          GCTX_P14_DEPLOYMENT_RETRIES: "40"
+          GCTX_P14_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+        run: |
+          set -o pipefail
+          node tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs \
+            2>&1 | tee /tmp/GCTX_P14_LIVE_REGRESSION.log
+
+      - name: Upload live UI diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p14-live-public-ui-diagnostics
+          path: |
+            /tmp/GCTX_P14_LIVE_REGRESSION.log
+            ${{ steps.evidence_state.outputs.output_dir }}
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Block after live regression failure
+        if: steps.live_regression.outcome == 'failure'
+        run: exit 1
+
+      - name: Promote live evidence to E6 D0
+        if: steps.evidence_state.outputs.committed_e6 != 'true'
+        run: node tools/governance/promote-gctx-p14-e6-d0-claim.mjs
+
+      - name: Validate live result and D0 artifact identity
+        env:
+          LIVE_EVIDENCE_DIR: ${{ steps.evidence_state.outputs.output_dir }}
+        run: node tools/governance/validate-gctx-p14-e6-live-evidence.mjs
+
+      - name: Upload live UI evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p14-live-public-ui-d0-evidence
+          path: ${{ steps.evidence_state.outputs.output_dir }}
+          retention-days: 30
+
+      - name: Commit exact E6 evidence to pull request branch
+        if: steps.evidence_state.outputs.committed_e6 != 'true' && github.event_name == 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/project/milestones/GCTX-P14.claim.json \
+            data/curriculum/contracts/GCTX_P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout.json \
+            docs/curriculum/output/GCTX_P14_G3BU04_LIVE_PUBLIC_UI_D0_PASS.marker \
+            docs/curriculum/output/GCTX_P14_G3BU04_LIVE_PUBLIC_UI_D0_READBACK.md \
+            docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.json \
+            docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.html \
+            docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.png \
+            docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.png
+          if git diff --cached --quiet; then
+            echo "Exact E6 evidence already committed."
+          else
+            git commit -m "docs(gctx): commit P14 live public UI D0 evidence"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
