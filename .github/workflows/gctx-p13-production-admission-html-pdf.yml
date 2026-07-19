@@ -117,18 +117,29 @@ jobs:
         if: steps.evidence_state.outputs.committed_e5 != 'true'
         run: node tools/curriculum/finalize-gctx-p13-public-production-evidence.mjs
 
-      - name: Promote exact artifacts to E5 claim
-        if: steps.evidence_state.outputs.committed_e5 != 'true'
+      - name: Reconcile exact artifacts and E5 claim hash chain
         run: node tools/governance/promote-gctx-p13-e5-claim.mjs
 
       - name: Validate E5 claim and public production artifacts
         run: |
           npm run governance:claims
           node - <<'NODE'
-          const manifest = require('./docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json');
-          const evidence = require('./docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json');
+          const crypto = require('node:crypto');
+          const fs = require('node:fs');
+          const manifestPath = './docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json';
+          const evidencePath = './docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json';
+          const htmlPath = './docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html';
+          const pdfPath = './docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf';
+          const manifest = require(manifestPath);
+          const evidence = require(evidencePath);
           const claim = require('./data/project/milestones/GCTX-P13.claim.json');
           const decision = require('./data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json');
+          const sha = (path) => crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex');
+          const claimHash = (path) => claim.evidence.artifactHashes.find((entry) => entry.path === path)?.sha256;
+          const repoEvidencePath = 'docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json';
+          const repoManifestPath = 'docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json';
+          const evidenceSha = sha(evidencePath);
+          const manifestSha = sha(manifestPath);
           if (manifest.status !== 'public_production_html_pdf_admission_pass'
             || manifest.evidenceLevel !== 'E5_PRODUCTION_ADMITTED'
             || manifest.productionAdmitted !== true
@@ -140,11 +151,17 @@ jobs:
             || manifest.mathematicalWitnessCount !== 5
             || manifest.extractedRequiredContextCount !== 5
             || manifest.leakedLegacyTargetPhraseCount !== 0
+            || manifest.evidenceHashChainVerified !== true
+            || manifest.productionEvidenceSha256 !== evidenceSha
+            || manifest.htmlSha256 !== sha(htmlPath)
+            || manifest.pdfSha256 !== sha(pdfPath)
             || evidence.status !== 'public_production_html_pdf_admission_pass'
             || evidence.productionAdmitted !== true
             || claim.actualEvidenceLevel !== 'E5_PRODUCTION_ADMITTED'
             || claim.claims.productionAdmitted !== true
             || claim.claims.d0Complete !== false
+            || claimHash(repoEvidencePath) !== evidenceSha
+            || claimHash(repoManifestPath) !== manifestSha
             || decision.decision !== 'approve_all') process.exit(1);
           NODE
 
@@ -162,7 +179,7 @@ jobs:
           retention-days: 30
 
       - name: Commit exact E5 artifacts to pull request branch
-        if: steps.evidence_state.outputs.committed_e5 != 'true' && github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -179,6 +196,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Exact E5 artifacts already committed."
           else
-            git commit -m "docs(gctx): commit P13 public production admission evidence"
+            git commit -m "docs(gctx): reconcile P13 E5 evidence hash chain"
             git push origin "HEAD:${GITHUB_HEAD_REF}"
           fi
