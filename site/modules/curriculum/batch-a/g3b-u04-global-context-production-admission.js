@@ -6,7 +6,6 @@ import {
   renderG3BU04GlobalContextExpansionQuestion
 } from "./g3b-u04-global-context-expansion-pilot.js";
 import {
-  G3B_U04_GLOBAL_CONTEXT_PRODUCTION_LIFECYCLE,
   G3B_U04_GLOBAL_CONTEXT_PRODUCTION_REGISTRY_ID,
   G3B_U04_GLOBAL_CONTEXT_REVIEW_ARTIFACT_SHA256,
   G3B_U04_GLOBAL_CONTEXT_REVIEW_DECISION_ID,
@@ -142,7 +141,27 @@ function projectQuestion(baseQuestion, variant, occurrenceIndex) {
   };
 }
 
-export function validateG3BU04GlobalContextProductionQuestion(question = {}, baseQuestion = {}) {
+function validateStandaloneMathematicalWitness(question, errors) {
+  const { a, b, c } = question.quantities ?? {};
+  const expectedAnswer = Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && c > 0
+    ? (a + b) / c
+    : Number.NaN;
+  if (![a, b, c].every((value) => Number.isInteger(value) && value > 0)
+    || !Number.isInteger(expectedAnswer)
+    || expectedAnswer <= 0
+    || question.equationModel !== `(${a} + ${b}) ÷ ${c}`
+    || question.finalAnswer !== expectedAnswer
+    || question.answerText !== `${expectedAnswer}元`
+    || question.answerUnit !== "元") {
+    errors.push(issue(
+      "GCTX_P13_MATHEMATICAL_WITNESS_INVALID",
+      "mathematicalWitness",
+      "Production question does not independently reconstruct to the approved (a+b)/c integer answer."
+    ));
+  }
+}
+
+export function validateG3BU04GlobalContextProductionQuestion(question = {}, baseQuestion = null) {
   const errors = [];
   const binding = question.globalContextProduction ?? {};
   const rendered = renderG3BU04GlobalContextExpansionQuestion({
@@ -161,18 +180,28 @@ export function validateG3BU04GlobalContextProductionQuestion(question = {}, bas
   if (!rendered || question.promptText !== rendered.promptText || question.blankedDisplayText !== rendered.promptText) {
     errors.push(issue("GCTX_P13_PROMPT_BINDING_MISMATCH", "promptText", "Visible prompt does not match the approved production language variant."));
   }
-  if (question.equationModel !== baseQuestion.equationModel
-    || question.finalAnswer !== baseQuestion.finalAnswer
-    || question.answerText !== baseQuestion.answerText
-    || JSON.stringify(question.quantities) !== JSON.stringify(baseQuestion.quantities)) {
-    errors.push(issue("GCTX_P13_MATHEMATICAL_WITNESS_DRIFT", "mathematicalWitness", "Production projection changed quantities, equation, answer, or unit-bearing answer text."));
+
+  const hasBaseQuestion = Boolean(baseQuestion?.patternSpecId);
+  if (hasBaseQuestion) {
+    if (question.equationModel !== baseQuestion.equationModel
+      || question.finalAnswer !== baseQuestion.finalAnswer
+      || question.answerText !== baseQuestion.answerText
+      || JSON.stringify(question.quantities) !== JSON.stringify(baseQuestion.quantities)) {
+      errors.push(issue("GCTX_P13_MATHEMATICAL_WITNESS_DRIFT", "mathematicalWitness", "Production projection changed quantities, equation, answer, or unit-bearing answer text."));
+    }
+    if (question.contextDomain !== baseQuestion.contextDomain
+      || question.scenarioId !== baseQuestion.scenarioId
+      || question.ownershipModel !== baseQuestion.ownershipModel
+      || JSON.stringify(question.quantityRoleBindings) !== JSON.stringify(baseQuestion.quantityRoleBindings)) {
+      errors.push(issue("GCTX_P13_VALIDATOR_AUTHORITY_DRIFT", "contextAuthority", "Production projection changed canonical validator authority fields."));
+    }
+  } else {
+    validateStandaloneMathematicalWitness(question, errors);
+    if (binding.validatorAuthorityContextDomain !== question.contextDomain) {
+      errors.push(issue("GCTX_P13_VALIDATOR_AUTHORITY_MISSING", "contextDomain", "Production question does not retain its canonical validator authority domain."));
+    }
   }
-  if (question.contextDomain !== baseQuestion.contextDomain
-    || question.scenarioId !== baseQuestion.scenarioId
-    || question.ownershipModel !== baseQuestion.ownershipModel
-    || JSON.stringify(question.quantityRoleBindings) !== JSON.stringify(baseQuestion.quantityRoleBindings)) {
-    errors.push(issue("GCTX_P13_VALIDATOR_AUTHORITY_DRIFT", "contextAuthority", "Production projection changed canonical validator authority fields."));
-  }
+
   if (binding.registryId !== G3B_U04_GLOBAL_CONTEXT_PRODUCTION_REGISTRY_ID
     || binding.reviewDecisionId !== G3B_U04_GLOBAL_CONTEXT_REVIEW_DECISION_ID
     || binding.reviewArtifactSha256 !== G3B_U04_GLOBAL_CONTEXT_REVIEW_ARTIFACT_SHA256) {
