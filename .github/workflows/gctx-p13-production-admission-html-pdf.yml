@@ -1,0 +1,184 @@
+name: GCTX-P13 Production Admission HTML PDF
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js"
+      - "site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js"
+      - "site/assets/browser/pipeline/build-worksheet-document.js"
+      - "tests/curriculum/gctx-p13-global-context-production-admission.test.js"
+      - "tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js"
+      - "tools/curriculum/generate-gctx-p13-g3b-u04-public-production-artifacts.mjs"
+      - "tools/curriculum/render-gctx-p13-public-production-pdf.mjs"
+      - "tools/curriculum/finalize-gctx-p13-public-production-evidence.mjs"
+      - "tools/governance/promote-gctx-p13-e5-claim.mjs"
+      - "data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json"
+      - "data/curriculum/contracts/GCTX_P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission.json"
+      - "data/project/milestones/GCTX-P13.claim.json"
+      - "docs/curriculum/output/GCTX_P13_G3BU04_PRODUCTION_ADMISSION_PASS.marker"
+      - "docs/curriculum/output/GCTX_P13_G3BU04_PRODUCTION_ADMISSION_READBACK.md"
+      - "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION*"
+      - ".github/workflows/gctx-p13-production-admission-html-pdf.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  public-production-admission-html-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Detect committed E5 evidence
+        id: evidence_state
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const claim = JSON.parse(fs.readFileSync('data/project/milestones/GCTX-P13.claim.json', 'utf8'));
+          const required = [
+            'docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html',
+            'docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf',
+            'docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.extracted.txt',
+            'docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json',
+            'docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json'
+          ];
+          const committed = claim.actualEvidenceLevel === 'E5_PRODUCTION_ADMITTED'
+            && claim.claims.productionAdmitted === true
+            && required.every((path) => fs.existsSync(path));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e5=${committed}\n`);
+          NODE
+
+      - name: Run P13 focused production-admission tests
+        id: focused_tests
+        continue-on-error: true
+        run: |
+          mkdir -p docs/curriculum/output/gctx
+          set -o pipefail
+          node --test \
+            tests/curriculum/gctx-p13-global-context-production-admission.test.js \
+            tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js \
+            2>&1 | tee docs/curriculum/output/gctx/GCTX_P13_FOCUSED_TEST.log
+
+      - name: Upload focused test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p13-focused-test-diagnostics
+          path: |
+            docs/curriculum/output/gctx/GCTX_P13_FOCUSED_TEST.log
+            site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js
+            site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js
+            site/modules/curriculum/batch-a/batch-a-browser-question-router.js
+            site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js
+            site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js
+          retention-days: 7
+
+      - name: Block after focused test failure
+        if: steps.focused_tests.outcome == 'failure'
+        run: exit 1
+
+      - name: Generate public production HTML evidence
+        if: steps.evidence_state.outputs.committed_e5 != 'true'
+        run: node tools/curriculum/generate-gctx-p13-g3b-u04-public-production-artifacts.mjs
+
+      - name: Install Chromium PDF runtime
+        if: steps.evidence_state.outputs.committed_e5 != 'true'
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+
+      - name: Render public production PDF with Chromium
+        if: steps.evidence_state.outputs.committed_e5 != 'true'
+        run: node tools/curriculum/render-gctx-p13-public-production-pdf.mjs
+
+      - name: Install PDF verification tools
+        if: steps.evidence_state.outputs.committed_e5 != 'true'
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Finalize and verify public production evidence
+        if: steps.evidence_state.outputs.committed_e5 != 'true'
+        run: node tools/curriculum/finalize-gctx-p13-public-production-evidence.mjs
+
+      - name: Promote exact artifacts to E5 claim
+        if: steps.evidence_state.outputs.committed_e5 != 'true'
+        run: node tools/governance/promote-gctx-p13-e5-claim.mjs
+
+      - name: Validate E5 claim and public production artifacts
+        run: |
+          npm run governance:claims
+          node - <<'NODE'
+          const manifest = require('./docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json');
+          const evidence = require('./docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json');
+          const claim = require('./data/project/milestones/GCTX-P13.claim.json');
+          const decision = require('./data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json');
+          if (manifest.status !== 'public_production_html_pdf_admission_pass'
+            || manifest.evidenceLevel !== 'E5_PRODUCTION_ADMITTED'
+            || manifest.productionAdmitted !== true
+            || manifest.publicQuerySelectable !== true
+            || manifest.publicProductionRegressionPassed !== true
+            || manifest.targetQuestionCount !== 5
+            || manifest.targetAnswerCount !== 5
+            || manifest.uniqueApprovedVariantCount !== 5
+            || manifest.mathematicalWitnessCount !== 5
+            || manifest.extractedRequiredContextCount !== 5
+            || manifest.leakedLegacyTargetPhraseCount !== 0
+            || evidence.status !== 'public_production_html_pdf_admission_pass'
+            || evidence.productionAdmitted !== true
+            || claim.actualEvidenceLevel !== 'E5_PRODUCTION_ADMITTED'
+            || claim.claims.productionAdmitted !== true
+            || claim.claims.d0Complete !== false
+            || decision.decision !== 'approve_all') process.exit(1);
+          NODE
+
+      - name: Upload exact public production evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p13-public-production-admission-evidence
+          path: |
+            data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.extracted.txt
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json
+          retention-days: 30
+
+      - name: Commit exact E5 artifacts to pull request branch
+        if: steps.evidence_state.outputs.committed_e5 != 'true' && github.event_name == 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/project/milestones/GCTX-P13.claim.json \
+            data/curriculum/contracts/GCTX_P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission.json \
+            docs/curriculum/output/GCTX_P13_G3BU04_PRODUCTION_ADMISSION_PASS.marker \
+            docs/curriculum/output/GCTX_P13_G3BU04_PRODUCTION_ADMISSION_READBACK.md \
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html \
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf \
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.extracted.txt \
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json \
+            docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json
+          if git diff --cached --quiet; then
+            echo "Exact E5 artifacts already committed."
+          else
+            git commit -m "docs(gctx): commit P13 public production admission evidence"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
