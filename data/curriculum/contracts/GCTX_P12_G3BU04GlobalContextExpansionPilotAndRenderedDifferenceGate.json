@@ -2,7 +2,7 @@
   "schemaName": "GCTXG3BU04GlobalContextExpansionPilotAndRenderedDifferenceGateContract",
   "schemaVersion": 1,
   "task": "GCTX-P12_G3BU04GlobalContextExpansionPilotAndRenderedDifferenceGate",
-  "status": "accepted_pending_merge",
+  "status": "merged_pending_human_review",
   "rulesetVersion": "0.1.0",
   "scope": {
     "sourceId": "g3b_u04_3b04",
@@ -84,20 +84,30 @@
     "productionAdmissionBeforeReview": false
   },
   "ciAcceptance": {
-    "acceptedHeadSha": "314b64b38a0701658d489a9332382541178e1048",
-    "nodeTestRun": 29667776313,
-    "nodeTestConclusion": "success",
-    "mathCiReadbackRun": 29667776302,
-    "mathCiReadbackConclusion": "success",
+    "implementationAcceptedHeadSha": "314b64b38a0701658d489a9332382541178e1048",
+    "implementationNodeTestRun": 29667776313,
+    "implementationNodeTestConclusion": "success",
+    "implementationMathCiReadbackRun": 29667776302,
+    "implementationMathCiReadbackConclusion": "success",
+    "finalPrHeadSha": "729c27e64af83ec6db244717a00eb0325559b66f",
+    "finalNodeTestRun": 29667872743,
+    "finalNodeTestConclusion": "success",
+    "finalMathCiReadbackRun": 29667872728,
+    "finalMathCiReadbackConclusion": "success",
     "workingTreeGate": "success",
-    "acceptanceMode": "full_node_and_math_ci_readback_pass"
+    "acceptanceMode": "implementation_and_final_pr_head_node_math_ci_pass"
+  },
+  "implementationMerge": {
+    "pullRequest": 274,
+    "merged": true,
+    "mergeMethod": "squash",
+    "mergeSha": "387db39503e4e41f74548ef5fcf388cdcc52a4fe"
   },
   "distance": {
     "goalDistanceBefore": "D2_GCTX_G3BU04_LEGACY_CONTEXT_STRUCTURE_READY",
-    "goalDistanceAfter": "D2_GCTX_G3BU04_NEW_VISIBLE_CONTEXT_PILOT_ACCEPTED_PENDING_MERGE_AND_HUMAN_REVIEW",
-    "distanceReduced": "five new learner-visible activity contexts and deterministic mathematical review packets replace the prior legacy-only output at the pilot evidence layer",
+    "goalDistanceAfter": "D2_GCTX_G3BU04_NEW_VISIBLE_CONTEXT_PILOT_MERGED_PENDING_HUMAN_REVIEW",
+    "distanceReduced": "five new learner-visible activity contexts, exact P01 candidate bindings, mathematical witnesses and rendered review evidence are merged beyond the four legacy prompts",
     "remainingBlockers": [
-      "merge",
       "human semantic review of five rendered prompts",
       "human mathematical review of five rendered prompts",
       "formal production admission",
