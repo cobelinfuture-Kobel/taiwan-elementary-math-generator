@@ -1,0 +1,75 @@
+{
+  "schemaName": "MilestoneClaimIntegrityAndHumanReviewReadinessGateContract",
+  "schemaVersion": 1,
+  "task": "GOV-S01_MilestoneClaimIntegrityAndHumanReviewReadinessGate",
+  "status": "implemented_pending_ci",
+  "scope": {
+    "repositoryWide": true,
+    "requiredOnPullRequests": true,
+    "requiredOnMainPush": true,
+    "claimManifestRequired": true,
+    "prBodyParityRequired": true,
+    "p12StateCorrectionIncluded": true,
+    "curriculumRuntimeBehaviorChanged": false,
+    "worksheetRendererChanged": false,
+    "publicSiteChanged": false
+  },
+  "evidenceLevels": [
+    "E0_PLANNING_ONLY",
+    "E1_DATA_STRUCTURE_READY",
+    "E2_CONTENT_AUTHORED",
+    "E3_SHADOW_RUNTIME_INTEGRATED",
+    "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+    "E5_PRODUCTION_ADMITTED",
+    "E6_D0_COMPLETE"
+  ],
+  "requiredArtifacts": {
+    "sop": "docs/project/MILESTONE_CLAIM_INTEGRITY_SOP.md",
+    "schema": "data/project/schema/milestone-claim-evidence.schema.json",
+    "validatorCore": "tools/governance/milestone-claim-integrity-core.mjs",
+    "validatorCli": "tools/governance/validate-milestone-claim-integrity.mjs",
+    "tests": "tests/governance/milestone-claim-integrity.test.js",
+    "negativeFixture": "tests/fixtures/governance/p12-false-human-review-ready.claim.json",
+    "workflow": ".github/workflows/milestone-claim-integrity.yml",
+    "pullRequestTemplate": ".github/pull_request_template.md",
+    "governanceClaim": "data/project/milestones/GOV-S01.claim.json",
+    "p12Claim": "data/project/milestones/GCTX-P12.claim.json"
+  },
+  "blockingCodeFamilies": [
+    "claim_manifest",
+    "claim_exceeds_evidence",
+    "runtime_output_dependency",
+    "renderer_pdf_dependency",
+    "visible_difference_evidence",
+    "human_review_readiness",
+    "production_review_e4_boundary",
+    "next_step_prerequisite",
+    "goal_distance_integrity",
+    "d0_full_pipeline",
+    "preview_production_evidence",
+    "pr_body_manifest_parity"
+  ],
+  "acceptance": {
+    "allCommittedClaimManifestsValid": true,
+    "p12FalseHumanReviewFixtureBlocked": true,
+    "missingManifestPrBlocked": true,
+    "prBodyManifestMismatchBlocked": true,
+    "e2HonestClaimAccepted": true,
+    "d0WithoutFullPipelineBlocked": true,
+    "draftReviewCannotUnlockProduction": true,
+    "p12HumanReviewReady": false,
+    "p12ActualEvidenceLevel": "E2_CONTENT_AUTHORED",
+    "p12NextStep": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix"
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_SYSTEM_PIPELINE_EXISTS_BUT_MILESTONE_CLAIMS_NOT_TRUSTWORTHY",
+    "goalDistanceAfter": "D2_MACHINE_ENFORCED_CLAIM_INTEGRITY_PENDING_CI",
+    "distanceReduced": "false milestone claims become machine-testable and merge-blocking; product pipeline distance remains D2",
+    "remainingBlockers": [
+      "CI acceptance",
+      "merge",
+      "GCTX-P12R runtime-renderer-PDF integration"
+    ],
+    "nextShortestStep": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix"
+  }
+}
