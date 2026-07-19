@@ -1,6 +1,5 @@
-// P13 entry preserves the complete R2E worksheet chain and appends the
-// Human Review-approved G3B-U04 global-context production admission.
-import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js";
+import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import { applyG3BU04GlobalContextPublicWorksheetAdmission } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js";
 import { projectG5AU02DynamicDocumentForGlobalLayout } from "../../../modules/curriculum/batch-a/g5a-u02-global-layout-projection.js";
 import { applyGlobalPublicLayoutOverlay } from "../../../modules/curriculum/batch-a/global-public-layout-overlay.js";
 import { adaptGlobalPublicSourceUnitPlan } from "../../../modules/curriculum/batch-a/global-public-source-unit-adapter.js";
@@ -36,6 +35,7 @@ export function buildWorksheetDocumentFromState(state) {
     const publicCandidate = buildG5AU02PublicCandidateWorksheet(resolution?.plan ?? plan);
     result = publicCandidate ?? buildBatchABrowserWorksheetDocument(plan);
   }
+  result = applyG3BU04GlobalContextPublicWorksheetAdmission(result);
   result = attachPublicControlOutputMetadata(result, resolution?.plan ?? plan);
   result = projectG5AU02DynamicDocumentForGlobalLayout(result);
   result = applyGlobalPublicLayoutOverlay(result, resolution?.plan ?? plan);
