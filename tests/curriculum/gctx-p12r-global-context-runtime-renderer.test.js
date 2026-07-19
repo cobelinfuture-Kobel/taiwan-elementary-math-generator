@@ -189,7 +189,7 @@ test("GCTX-P12R shadow path remains isolated after P13 activates the public prod
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     selectedKnowledgePointIds: [KP_ID],
     selectedPatternGroupIds: [groupId],
-    questionCount: 20,
+    questionCount: 25,
     ordering: "groupedByPattern",
     includeAnswerKey: true,
     generationSeed: "gctx-p13-public-regression",
