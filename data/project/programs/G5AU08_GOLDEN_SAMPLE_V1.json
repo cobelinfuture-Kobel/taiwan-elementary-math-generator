@@ -14,7 +14,7 @@
   ],
   "activeTask": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
   "activeBranch": "fix/gs01-g5a-u08-deployed-pages-smoke-recloseout",
-  "activePR": "PENDING_CREATION",
+  "activePR": 283,
   "lastCompletedTask": null,
   "nextAllowedTask": "GS02_G5AU08_GlobalContext18FamilyExpansion",
   "completedCount": 0,
