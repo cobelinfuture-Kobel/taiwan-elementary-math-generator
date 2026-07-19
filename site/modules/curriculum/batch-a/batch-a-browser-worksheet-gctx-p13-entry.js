@@ -35,7 +35,7 @@ function cloneValue(value) {
   return value;
 }
 
-function applyP13WorksheetAdmission(result) {
+export function applyG3BU04GlobalContextPublicWorksheetAdmission(result) {
   const document = result?.worksheetDocument;
   if (!result?.ok || !document || document.batchA?.sourceId !== G3B_U04_GLOBAL_CONTEXT_PRODUCTION_SOURCE_ID) {
     return result;
@@ -120,5 +120,5 @@ function applyP13WorksheetAdmission(result) {
 }
 
 export function buildBatchABrowserWorksheetDocument(options = {}) {
-  return applyP13WorksheetAdmission(buildR2EWorksheetDocument(options));
+  return applyG3BU04GlobalContextPublicWorksheetAdmission(buildR2EWorksheetDocument(options));
 }
