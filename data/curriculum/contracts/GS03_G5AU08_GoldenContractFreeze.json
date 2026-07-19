@@ -1,0 +1,72 @@
+{
+  "schemaName": "GS03G5AU08GoldenContractFreezeContract",
+  "schemaVersion": 1,
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "taskId": "GS03_G5AU08_GoldenContractFreeze",
+  "status": "implementation_active_pending_golden_snapshot",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "sourceId": "g5a_u08_5a08",
+  "prerequisite": {
+    "gs01MergeSha": "5286417b30dffe319f1d103fc2ea8b306be19b9a",
+    "gs02MergeSha": "348f001e9ede0bf852448e32cf1162d5502ea552",
+    "requiredGs01Evidence": "E5_PRODUCTION_ADMITTED",
+    "requiredGs02Evidence": "E2_CONTENT_AUTHORED"
+  },
+  "freezeLayers": [
+    "schema",
+    "binding",
+    "generator",
+    "validator",
+    "renderer"
+  ],
+  "acceptance": {
+    "authorityFileCount": 20,
+    "knowledgePointCount": 11,
+    "patternGroupCount": 17,
+    "patternSpecCount": 30,
+    "numericPatternSpecCount": 19,
+    "applicationPatternSpecCount": 11,
+    "templateFamilyCount": 10,
+    "globalContextFamilyCount": 18,
+    "unitContextBindingCount": 18,
+    "surfaceTemplateCount": 54,
+    "seedQACount": 90,
+    "allAuthorityHashesRequired": true,
+    "allRequiredTokensRequired": true,
+    "versionBumpForMutationRequired": true,
+    "perUnitNewGeneratorMax": 0,
+    "perUnitNewValidatorMax": 0,
+    "perUnitNewRendererMax": 0,
+    "perUnitNewWorkflowMax": 0,
+    "genericFallbackAllowed": false,
+    "freeFormAICompositionAllowed": false,
+    "blockingFailureReturnsOutput": false,
+    "internalIdVisible": false
+  },
+  "deliverables": {
+    "goldenContract": "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
+    "snapshotEvidence": "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json",
+    "builder": "tools/curriculum/build-gs03-g5a-u08-golden-contract.mjs",
+    "validator": "tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs",
+    "tests": "tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js"
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "newMilestoneForCIFixAllowed": false,
+    "runtimeConsumerImplementationAllowed": false,
+    "batchAdapterImplementationAllowed": false,
+    "contextProductionAdmissionAllowed": false,
+    "crossUnitPilotAllowed": false,
+    "generatorImplementationChangeAllowed": false,
+    "validatorImplementationChangeAllowed": false,
+    "rendererImplementationChangeAllowed": false,
+    "publicUIChangeAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_G5AU08_GLOBAL_18_FAMILY_CANDIDATE_CORPUS_READY",
+    "goalDistanceAfterTarget": "D2_G5AU08_GOLDEN_V1_CONTRACT_FROZEN",
+    "distanceReducedTarget": "Schema, binding, generator, validator and renderer authority become a versioned fail-closed snapshot consumable by GS04.",
+    "nextShortestStepAfterPass": "GS04_G5AU08_SharedRuntimeAndBatchAdapter"
+  }
+}
