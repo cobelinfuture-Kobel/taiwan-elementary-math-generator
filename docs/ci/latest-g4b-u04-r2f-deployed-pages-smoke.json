@@ -1,24 +1,154 @@
 {
   "schemaVersion": "g4b-u04-r2f-deployed-pages-smoke-v1",
   "task": "G4B_U04_R2F_ProductionStressAndD0Recloseout",
-  "status": "FAIL",
-  "deploymentSha": "387db39503e4e41f74548ef5fcf388cdcc52a4fe",
-  "message": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-source-select')\n    - locator resolved to <select name=\"batchASourceId\" id=\"batch-a-source-select\"></select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n",
-  "details": null,
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g4bU04R2F=387db39503e4e41f74548ef5fcf388cdcc52a4fe-1784423234561",
-  "consoleErrors": [
-    "Failed to load resource: the server responded with a status of 503 ()",
-    "Failed to load resource: the server responded with a status of 503 ()"
+  "status": "PASS",
+  "productionUse": "allowed_deployed_ui_print",
+  "goalDistance": "D0_G4B_U04_R2_CLOSED",
+  "deploymentSha": "11b695ae32ef092b3d218ae79fd624460860ad36",
+  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g4bU04R2F=11b695ae32ef092b3d218ae79fd624460860ad36-1784423584639",
+  "sourceId": "g4b_u04_4b04",
+  "localAuthority": {
+    "promotion": {
+      "ok": true,
+      "errors": [],
+      "counts": {
+        "knowledgePoints": 13,
+        "patternGroups": 13,
+        "patternSpecs": 19
+      },
+      "modes": {
+        "concept": 4,
+        "numeric": 3,
+        "application": 6,
+        "operation_estimation": 4,
+        "reasoning": 2
+      },
+      "layoutModes": [
+        "auto_safe",
+        "custom_with_caps"
+      ],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ]
+    },
+    "production": {
+      "ok": true,
+      "errors": [],
+      "counts": {
+        "knowledgePoints": 13,
+        "patternGroups": 13,
+        "patternSpecs": 19
+      }
+    },
+    "counts": {
+      "knowledgePoints": 13,
+      "patternGroups": 13,
+      "patternSpecs": 19
+    }
+  },
+  "knowledgePointCount": 13,
+  "selectedKnowledgePointCount": 13,
+  "patternGroupButtonCount": 0,
+  "selectedPatternGroupCount": 13,
+  "selectedPatternGroupIds": [
+    "pg_g4b_u04_approximation_language",
+    "pg_g4b_u04_approximation_symbol",
+    "pg_g4b_u04_method_comparison",
+    "pg_g4b_u04_round_down",
+    "pg_g4b_u04_round_up",
+    "pg_g4b_u04_round_half_up",
+    "pg_g4b_u04_context_floor_ceiling",
+    "pg_g4b_u04_payment_ceiling",
+    "pg_g4b_u04_estimate_add_subtract",
+    "pg_g4b_u04_estimate_multiply_divide",
+    "pg_g4b_u04_inverse_digit_set",
+    "pg_g4b_u04_inverse_original_values",
+    "pg_g4b_u04_discount_round_down"
   ],
-  "pageErrors": [],
+  "patternGroupSelectionAuthority": "query_state",
+  "patternSpecCount": 19,
+  "contextModes": [
+    "mixed",
+    "daily_life",
+    "sdg"
+  ],
+  "contextResults": [
+    {
+      "contextMode": "mixed",
+      "queryValue": null,
+      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
+      "questionCards": 12
+    },
+    {
+      "contextMode": "daily_life",
+      "queryValue": "daily_life",
+      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
+      "questionCards": 12
+    },
+    {
+      "contextMode": "sdg",
+      "queryValue": "sdg",
+      "previewMeta": "Batch B 4B-U04 概數｜12 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
+      "questionCards": 12
+    }
+  ],
+  "layoutModes": [
+    "auto_safe",
+    "custom_with_caps"
+  ],
+  "queryStateReplay": "pass",
+  "fullQuestionCount": 68,
+  "fullAnswerCount": 68,
+  "answerNumberSequenceConsistent": true,
+  "answerKeyOffQuestionCount": 12,
+  "answerKeyOffAnswerCount": 0,
+  "printCalled": true,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "genericFallback": false,
+  "freeFormAI": false,
+  "deployedAssets": {
+    "main": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/main.js",
+      "bytes": 20988,
+      "sha256": "e4bd1a56c394133aaadc0f22bd2712a109c4b0aea80e4fc3fa4a9e0c13dbebd2"
+    },
+    "controls": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/g4b-u04-public-controls.js",
+      "bytes": 10352,
+      "sha256": "052112d5768e1aa993bf7b55b319084c2a5802dc251b51eb78b2b4e3899cdf33"
+    },
+    "router": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-canonical-router-r2e.js",
+      "bytes": 7564,
+      "sha256": "6c6f183a08215a1660a16d5a64129a6af4447652694da5691aa0831a3b9941b2"
+    },
+    "contexts": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-controlled-context-variants.js",
+      "bytes": 23219,
+      "sha256": "cadf45e0d63b005ed8d68073af6f964df12ebdd8f6116579072d0498d53daf61"
+    },
+    "worksheet": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+      "bytes": 3822,
+      "sha256": "cbae3b2b6e6a2ab9d17c521963054cfeb72ea6e7f4e3456de6750bbc59af741b"
+    },
+    "renderer": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/html-renderer-s73-extension.js",
+      "bytes": 9358,
+      "sha256": "0619d53ee2e5cc0e3af91f8ddd9e236389c5f56607fd2b830d0fdbadedb19e7c"
+    }
+  },
   "workflow": "G4B-U04 R2F Deployed Pages Smoke",
   "run": {
-    "id": "29668016838",
-    "number": "82",
+    "id": "29668212586",
+    "number": "83",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29668016838"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29668212586"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-19T01:07:47.093Z"
+  "verifiedAt": "2026-07-19T01:13:11.225Z"
 }
