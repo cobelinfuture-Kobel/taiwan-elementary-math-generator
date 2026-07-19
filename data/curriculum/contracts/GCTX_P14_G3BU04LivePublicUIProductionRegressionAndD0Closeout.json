@@ -57,7 +57,7 @@
     "goalDistanceAfter": "D0_GCTX_G3BU04_LIVE_PUBLIC_UI_COMPLETE",
     "distanceReduced": "The final deployed UI/selector/runtime/validator/renderer/worksheet output path is verified against exact deployed assets and live DOM output.",
     "remainingBlockers": [],
-    "nextShortestStep": "GCTX-G3BU04_D0ClosedAwaitNextSourceSelection"
+    "nextShortestStep": "GS01_G5AU08_DeployedPagesSmokeRecloseout"
   },
   "liveAcceptance": {
     "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
