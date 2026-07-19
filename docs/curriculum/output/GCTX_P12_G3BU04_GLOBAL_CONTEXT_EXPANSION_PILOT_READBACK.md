@@ -1,9 +1,15 @@
-# GCTX-P12 G3B-U04 Global Context Expansion Pilot — Readback
+# GCTX-P12 G3B-U04 Global Context Expansion Pilot — Final Readback
 
 ## Status
 
 ```text
-PASS_ACCEPTED_PENDING_MERGE
+PASS_MERGED_PENDING_HUMAN_REVIEW
+```
+
+Implementation PR #274 was squash-merged to `main` as:
+
+```text
+387db39503e4e41f74548ef5fcf388cdcc52a4fe
 ```
 
 P12 is the first GCTX milestone in this sequence that creates actual new learner-visible context text. P09–P11 remain classified as legacy migration and review infrastructure.
@@ -83,13 +89,18 @@ production-selectable bindings     = 0
 runtime-resolvable bindings        = 0
 ```
 
-## CI
+## CI and merge
 
 ```text
-accepted head SHA    = 314b64b38a0701658d489a9332382541178e1048
-Node Test run        = 29667776313 — success
-Math CI Readback run = 29667776302 — success
-working-tree gate    = success
+implementation accepted head = 314b64b38a0701658d489a9332382541178e1048
+implementation Node Test      = run 29667776313 — success
+implementation Math CI        = run 29667776302 — success
+final PR head                  = 729c27e64af83ec6db244717a00eb0325559b66f
+final Node Test               = run 29667872743 — success
+final Math CI Readback        = run 29667872728 — success
+working-tree gate             = success
+implementation PR             = #274 — merged
+implementation merge SHA      = 387db39503e4e41f74548ef5fcf388cdcc52a4fe
 ```
 
 The full Node suite includes P12 positive, deterministic replay, semantic-axis uniqueness, non-divisible arithmetic, answer recomputation, legacy-prompt leakage, false-production-admission, and rendered-review-packet checks.
@@ -111,16 +122,24 @@ human review executed            = false
 
 ```text
 GOAL_DISTANCE_BEFORE = D2_GCTX_G3BU04_LEGACY_CONTEXT_STRUCTURE_READY
-GOAL_DISTANCE_AFTER  = D2_GCTX_G3BU04_NEW_VISIBLE_CONTEXT_PILOT_ACCEPTED_PENDING_MERGE_AND_HUMAN_REVIEW
-DISTANCE_REDUCED     = five exact learner-visible context candidates, P01 bindings, mathematical witnesses and rendered review evidence now exist beyond the four legacy prompts
-REMAINING_BLOCKERS   = [merge, human semantic review, human mathematical review, formal production admission, runtime resolver integration, public HTML/PDF verification]
+GOAL_DISTANCE_AFTER  = D2_GCTX_G3BU04_NEW_VISIBLE_CONTEXT_PILOT_MERGED_PENDING_HUMAN_REVIEW
+DISTANCE_REDUCED     = five exact learner-visible context candidates, P01 bindings, mathematical witnesses and rendered review evidence are merged beyond the four legacy prompts
+REMAINING_BLOCKERS   = [human semantic review, human mathematical review, formal production admission, runtime resolver integration, public HTML/PDF verification]
 NEXT_SHORTEST_STEP   = GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission
 ```
 
 ## Closeout
 
-1. **Distance shortened:** legacy-only candidate evidence → five new rendered activity-context candidates.
+1. **Distance shortened:** legacy-only candidate evidence → five merged rendered activity-context candidates.
 2. **Node advanced:** Global Context candidate binding and rendered-review evidence.
 3. **Blocker removed:** the pilot no longer lacks learner-visible new contexts.
-4. **New blocker:** five rendered prompts require explicit human approve/reject decisions before production admission.
+4. **Current blocker:** five rendered prompts require explicit human approve/reject decisions before production admission.
 5. **Next step:** review these exact five prompts and mathematical witnesses, then admit only approved variants.
+
+```text
+STOP_REASON=HUMAN_REVIEW_REQUIRED
+BLOCKER_TYPE=HUMAN_SEMANTIC_AND_MATHEMATICAL_REVIEW
+LAST_COMPLETED_STATUS=PASS_MERGED_PENDING_HUMAN_REVIEW
+REQUIRED_OPERATOR_ACTION=Approve or reject each of the five rendered pilot questions.
+NEXT_RESUME_TASK=GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission
+```
