@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 import {
   buildG3BU04GlobalContextPilotWorksheet
-} from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js";
+} from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet-fullfix.js";
 import {
   G3B_U04_GLOBAL_CONTEXT_PILOT_PATTERN_SPEC_ID
 } from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js";
@@ -61,6 +61,7 @@ const comparisons = beforeTargets.map((before, index) => ({
   equationModelAfter: afterTargets[index]?.equationModel ?? null,
   answerBefore: before.answerText,
   answerAfter: afterTargets[index]?.answerText ?? null,
+  authorityContextDomain: afterTargets[index]?.globalContextPilot?.authorityContextDomain ?? null,
   semanticVariantId: afterTargets[index]?.globalContextPilot?.semanticVariantId ?? null,
   globalContextDomainId: afterTargets[index]?.globalContextPilot?.globalContextDomainId ?? null
 }));
@@ -95,6 +96,7 @@ const manifest = {
   generationSeed: "gctx-p12r-formal-html-pdf-v1",
   targetPatternSpecId: G3B_U04_GLOBAL_CONTEXT_PILOT_PATTERN_SPEC_ID,
   productionEquivalentPath: beforeAfter.productionEquivalentPath,
+  resolverFamilyCount: result.resolverFamilyCount,
   questionCount: pilotDocument.summary.questionCount,
   targetQuestionCount: pilotDocument.summary.globalContextPilotQuestionCount,
   variantCount: pilotDocument.summary.globalContextPilotVariantCount,
@@ -128,6 +130,7 @@ await writeFile(PATHS.manifest, `${JSON.stringify(manifest, null, 2)}\n`, "utf8"
 process.stdout.write(`${JSON.stringify({
   ok: true,
   outputDir: repoPath(OUTPUT_DIR),
+  resolverFamilyCount: manifest.resolverFamilyCount,
   questionCount: manifest.questionCount,
   targetQuestionCount: manifest.targetQuestionCount,
   visibleChangedCount: manifest.visibleChangedCount,
