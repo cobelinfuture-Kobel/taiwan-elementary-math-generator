@@ -6,6 +6,7 @@ on:
     paths:
       - "site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js"
       - "site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js"
+      - "site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js"
@@ -15,6 +16,7 @@ on:
       - "tools/curriculum/generate-gctx-p13-g3b-u04-public-production-artifacts.mjs"
       - "tools/curriculum/render-gctx-p13-public-production-pdf.mjs"
       - "tools/curriculum/finalize-gctx-p13-public-production-evidence.mjs"
+      - "tools/governance/apply-gctx-p13-quality-v2-review-bound-scope-patch.mjs"
       - "tools/governance/promote-gctx-p13-e5-claim.mjs"
       - "data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json"
       - "data/curriculum/contracts/GCTX_P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission.json"
@@ -46,6 +48,9 @@ jobs:
 
       - name: Install project dependencies
         run: npm install
+
+      - name: Apply exact review-bound Quality V2 scope recognition
+        run: node tools/governance/apply-gctx-p13-quality-v2-review-bound-scope-patch.mjs
 
       - name: Detect committed E5 evidence
         id: evidence_state
@@ -86,6 +91,7 @@ jobs:
             docs/curriculum/output/gctx/GCTX_P13_FOCUSED_TEST.log
             site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js
             site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js
+            site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js
             site/modules/curriculum/batch-a/batch-a-browser-question-router.js
             site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js
             site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js
@@ -178,12 +184,13 @@ jobs:
             docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json
           retention-days: 30
 
-      - name: Commit exact E5 artifacts to pull request branch
+      - name: Commit exact E5 artifacts and Quality V2 compatibility to pull request branch
         if: github.event_name == 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js \
             data/project/milestones/GCTX-P13.claim.json \
             data/curriculum/contracts/GCTX_P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission.json \
             docs/curriculum/output/GCTX_P13_G3BU04_PRODUCTION_ADMISSION_PASS.marker \
@@ -194,8 +201,8 @@ jobs:
             docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json \
             docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json
           if git diff --cached --quiet; then
-            echo "Exact E5 artifacts already committed."
+            echo "Exact E5 artifacts and Quality V2 compatibility already committed."
           else
-            git commit -m "docs(gctx): reconcile P13 E5 evidence hash chain"
+            git commit -m "fix(gctx): commit exact review-bound Quality V2 scope recognition"
             git push origin "HEAD:${GITHUB_HEAD_REF}"
           fi
