@@ -82,6 +82,7 @@ function applyP13WorksheetAdmission(result) {
     ...result,
     worksheetDocument: {
       ...document,
+      globalContextProductionAdmission: cloneValue(admission),
       metadata: {
         ...(document.metadata ?? {}),
         globalContextProductionAdmission: cloneValue(admission)
