@@ -23,11 +23,15 @@ const paths = {
   publicManifest: "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json"
 };
 
-function sha256File(path) {
-  return createHash("sha256").update(readFileSync(repoPath(path))).digest("hex");
+function sha256Buffer(value) {
+  return createHash("sha256").update(value).digest("hex");
 }
 
-const manifest = JSON.parse(readFileSync(repoPath(paths.publicManifest), "utf8"));
+function sha256File(path) {
+  return sha256Buffer(readFileSync(repoPath(path)));
+}
+
+let manifest = JSON.parse(readFileSync(repoPath(paths.publicManifest), "utf8"));
 const productionEvidence = JSON.parse(readFileSync(repoPath(paths.publicEvidence), "utf8"));
 const reviewDecision = JSON.parse(readFileSync(repoPath(paths.reviewDecision), "utf8"));
 
@@ -49,6 +53,11 @@ if (manifest.status !== "public_production_html_pdf_admission_pass"
   throw new Error("GCTX-P13 E5 promotion prerequisites are incomplete.");
 }
 
+if (manifest.htmlSha256 !== sha256File(paths.publicHtml)
+  || manifest.pdfSha256 !== sha256File(paths.publicPdf)) {
+  throw new Error("GCTX-P13 HTML/PDF artifact identity drifted before E5 promotion.");
+}
+
 const finalizedEvidence = {
   ...productionEvidence,
   status: "public_production_html_pdf_admission_pass",
@@ -60,7 +69,20 @@ const finalizedEvidence = {
   extractedAnswerCount: manifest.extractedAnswerCount,
   publicProductionRegressionPassed: true
 };
-writeFileSync(repoPath(paths.publicEvidence), `${JSON.stringify(finalizedEvidence, null, 2)}\n`, "utf8");
+const finalizedEvidenceText = `${JSON.stringify(finalizedEvidence, null, 2)}\n`;
+writeFileSync(repoPath(paths.publicEvidence), finalizedEvidenceText, "utf8");
+
+const finalizedEvidenceSha256 = sha256Buffer(Buffer.from(finalizedEvidenceText, "utf8"));
+manifest = {
+  ...manifest,
+  productionEvidenceSha256: finalizedEvidenceSha256,
+  evidenceHashChainVerified: true
+};
+writeFileSync(repoPath(paths.publicManifest), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+
+if (manifest.productionEvidenceSha256 !== sha256File(paths.publicEvidence)) {
+  throw new Error("GCTX-P13 manifest does not match the finalized production evidence SHA-256.");
+}
 
 const artifactPaths = [
   paths.reviewDecision,
@@ -152,7 +174,9 @@ contract.productionAdmission = {
   worksheetQuestionCount: manifest.worksheetQuestionCount,
   targetQuestionCount: manifest.targetQuestionCount,
   uniqueApprovedVariantCount: manifest.uniqueApprovedVariantCount,
-  targetAnswerCount: manifest.targetAnswerCount
+  targetAnswerCount: manifest.targetAnswerCount,
+  productionEvidenceSha256: manifest.productionEvidenceSha256,
+  evidenceHashChainVerified: true
 };
 contract.pendingAcceptance = {};
 contract.distance = {
@@ -164,9 +188,9 @@ contract.distance = {
 };
 writeFileSync(repoPath(paths.contract), `${JSON.stringify(contract, null, 2)}\n`, "utf8");
 
-writeFileSync(repoPath(paths.marker), `TASK=GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission\nSTATUS=PASS_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_REGRESSION_VERIFIED\nTARGET_EVIDENCE_LEVEL=E5_PRODUCTION_ADMITTED\nACTUAL_EVIDENCE_LEVEL=E5_PRODUCTION_ADMITTED\nHUMAN_REVIEW_DECISION=approve_all\nHUMAN_REVIEW_DECISION_ID=gctx_p13_review_20260719_all_five_approved\nHUMAN_REVIEW_ARTIFACT_SHA256=777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0\nAPPROVED_VARIANT_COUNT=5\nWORKSHEET_QUESTION_COUNT=${manifest.worksheetQuestionCount}\nTARGET_QUESTION_COUNT=${manifest.targetQuestionCount}\nTARGET_ANSWER_COUNT=${manifest.targetAnswerCount}\nUNIQUE_APPROVED_VARIANT_COUNT=${manifest.uniqueApprovedVariantCount}\nMATHEMATICAL_WITNESS_COUNT=${manifest.mathematicalWitnessCount}\nPUBLIC_PDF_PAGES=${manifest.actualPdfPageCount}\nPUBLIC_PDF_BYTES=${manifest.pdfBytes}\nPUBLIC_PDF_SHA256=${manifest.pdfSha256}\nLEAKED_LEGACY_TARGET_PHRASE_COUNT=${manifest.leakedLegacyTargetPhraseCount}\nPRODUCTION_SELECTABLE=true\nPUBLIC_QUERY_SELECTABLE=true\nPRODUCTION_ADMITTED=true\nPUBLIC_HTML_VERIFIED=true\nPUBLIC_PDF_VERIFIED=true\nPUBLIC_PRODUCTION_REGRESSION_PASSED=true\nD0_COMPLETE=false\nSTOP_REASON=NONE\nNEXT_SHORTEST_STEP=GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout\n`, "utf8");
+writeFileSync(repoPath(paths.marker), `TASK=GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission\nSTATUS=PASS_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_REGRESSION_VERIFIED\nTARGET_EVIDENCE_LEVEL=E5_PRODUCTION_ADMITTED\nACTUAL_EVIDENCE_LEVEL=E5_PRODUCTION_ADMITTED\nHUMAN_REVIEW_DECISION=approve_all\nHUMAN_REVIEW_DECISION_ID=gctx_p13_review_20260719_all_five_approved\nHUMAN_REVIEW_ARTIFACT_SHA256=777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0\nAPPROVED_VARIANT_COUNT=5\nWORKSHEET_QUESTION_COUNT=${manifest.worksheetQuestionCount}\nTARGET_QUESTION_COUNT=${manifest.targetQuestionCount}\nTARGET_ANSWER_COUNT=${manifest.targetAnswerCount}\nUNIQUE_APPROVED_VARIANT_COUNT=${manifest.uniqueApprovedVariantCount}\nMATHEMATICAL_WITNESS_COUNT=${manifest.mathematicalWitnessCount}\nPUBLIC_PDF_PAGES=${manifest.actualPdfPageCount}\nPUBLIC_PDF_BYTES=${manifest.pdfBytes}\nPUBLIC_PDF_SHA256=${manifest.pdfSha256}\nPRODUCTION_EVIDENCE_SHA256=${manifest.productionEvidenceSha256}\nEVIDENCE_HASH_CHAIN_VERIFIED=true\nLEAKED_LEGACY_TARGET_PHRASE_COUNT=${manifest.leakedLegacyTargetPhraseCount}\nPRODUCTION_SELECTABLE=true\nPUBLIC_QUERY_SELECTABLE=true\nPRODUCTION_ADMITTED=true\nPUBLIC_HTML_VERIFIED=true\nPUBLIC_PDF_VERIFIED=true\nPUBLIC_PRODUCTION_REGRESSION_PASSED=true\nD0_COMPLETE=false\nSTOP_REASON=NONE\nNEXT_SHORTEST_STEP=GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout\n`, "utf8");
 
-writeFileSync(repoPath(paths.readback), `# GCTX-P13 G3B-U04 Human Review and Production Admission\n\n## Status\n\n\`\`\`text\nPASS_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_REGRESSION_VERIFIED\n\`\`\`\n\nAll five production-equivalent questions were explicitly approved for semantic and mathematical correctness. The decision is bound to PDF SHA-256 \`${reviewDecision.reviewArtifact.sha256}\`.\n\n## Production result\n\n\`\`\`text\nproductionSelectable     = true\npublicQuerySelectable    = true\nproductionAdmitted       = true\npublicHiddenModeFlagUsed = false\nworksheetQuestionCount   = ${manifest.worksheetQuestionCount}\ntargetQuestionCount      = ${manifest.targetQuestionCount}\nuniqueApprovedVariants   = ${manifest.uniqueApprovedVariantCount}\ntargetAnswerCount        = ${manifest.targetAnswerCount}\nmathematicalWitnessCount = ${manifest.mathematicalWitnessCount}\npublicPdfPages            = ${manifest.actualPdfPageCount}\npublicPdfSha256           = ${manifest.pdfSha256}\nlegacyTargetLeakage       = ${manifest.leakedLegacyTargetPhraseCount}\n\`\`\`\n\n## Distance\n\n\`\`\`text\nGOAL_DISTANCE_BEFORE = D1_GCTX_G3BU04_PAGES_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW\nGOAL_DISTANCE_AFTER  = D1_GCTX_G3BU04_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_VERIFIED\nDISTANCE_REDUCED     = Human Review and production admission blockers are removed; canonical public HTML/PDF output is verified.\nREMAINING_BLOCKERS   = [final exact-head CI, merge, live deployed public UI regression, D0 closeout]\nNEXT_SHORTEST_STEP   = GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout\n\`\`\`\n`, "utf8");
+writeFileSync(repoPath(paths.readback), `# GCTX-P13 G3B-U04 Human Review and Production Admission\n\n## Status\n\n\`\`\`text\nPASS_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_REGRESSION_VERIFIED\n\`\`\`\n\nAll five production-equivalent questions were explicitly approved for semantic and mathematical correctness. The decision is bound to PDF SHA-256 \`${reviewDecision.reviewArtifact.sha256}\`.\n\n## Production result\n\n\`\`\`text\nproductionSelectable     = true\npublicQuerySelectable    = true\nproductionAdmitted       = true\npublicHiddenModeFlagUsed = false\nworksheetQuestionCount   = ${manifest.worksheetQuestionCount}\ntargetQuestionCount      = ${manifest.targetQuestionCount}\nuniqueApprovedVariants   = ${manifest.uniqueApprovedVariantCount}\ntargetAnswerCount        = ${manifest.targetAnswerCount}\nmathematicalWitnessCount = ${manifest.mathematicalWitnessCount}\npublicPdfPages            = ${manifest.actualPdfPageCount}\npublicPdfSha256           = ${manifest.pdfSha256}\nproductionEvidenceSha256  = ${manifest.productionEvidenceSha256}\nevidenceHashChainVerified = true\nlegacyTargetLeakage       = ${manifest.leakedLegacyTargetPhraseCount}\n\`\`\`\n\n## Distance\n\n\`\`\`text\nGOAL_DISTANCE_BEFORE = D1_GCTX_G3BU04_PAGES_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW\nGOAL_DISTANCE_AFTER  = D1_GCTX_G3BU04_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_VERIFIED\nDISTANCE_REDUCED     = Human Review and production admission blockers are removed; canonical public HTML/PDF output is verified.\nREMAINING_BLOCKERS   = [final exact-head CI, merge, live deployed public UI regression, D0 closeout]\nNEXT_SHORTEST_STEP   = GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout\n\`\`\`\n`, "utf8");
 
 console.log(JSON.stringify({
   claimPath: paths.claim,
@@ -176,5 +200,7 @@ console.log(JSON.stringify({
   actualEvidenceLevel: claim.actualEvidenceLevel,
   productionAdmitted: claim.claims.productionAdmitted,
   publicPdfSha256: manifest.pdfSha256,
+  productionEvidenceSha256: manifest.productionEvidenceSha256,
+  evidenceHashChainVerified: manifest.evidenceHashChainVerified,
   artifactHashCount: artifactHashes.length
 }, null, 2));
