@@ -2,9 +2,9 @@
   "schemaName": "GCTXG3BU04LivePublicUIProductionRegressionD0Contract",
   "schemaVersion": 1,
   "task": "GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout",
-  "status": "live_public_ui_regression_pending",
+  "status": "live_public_ui_production_regression_pass_d0_complete",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
   "prerequisite": {
     "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
     "claimPath": "data/project/milestones/GCTX-P13.claim.json",
@@ -54,17 +54,28 @@
   },
   "distance": {
     "goalDistanceBefore": "D1_GCTX_G3BU04_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_VERIFIED",
-    "goalDistanceAfter": "D1_GCTX_G3BU04_LIVE_PUBLIC_UI_REGRESSION_PENDING",
-    "distanceReduced": "The D0 acceptance contract and exact live browser evidence path are defined; deployed UI verification remains pending.",
-    "remainingBlockers": [
-      "GitHub Pages P13 deployment",
-      "exact deployed asset identity",
-      "live selector and query regression",
-      "live preview and answer output regression",
-      "E6 Claim promotion",
-      "full CI",
-      "merge"
-    ],
-    "nextShortestStep": "GCTX-P14_LivePagesBrowserRegressionAndE6Promotion"
+    "goalDistanceAfter": "D0_GCTX_G3BU04_LIVE_PUBLIC_UI_COMPLETE",
+    "distanceReduced": "The final deployed UI/selector/runtime/validator/renderer/worksheet output path is verified against exact deployed assets and live DOM output.",
+    "remainingBlockers": [],
+    "nextShortestStep": "GCTX-G3BU04_D0ClosedAwaitNextSourceSelection"
+  },
+  "liveAcceptance": {
+    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+    "liveQueryUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/?sourceId=g3b_u04_3b04&selectionMode=singleKnowledgePoint&questionCount=25&ordering=groupedByPattern&answerKey=1&generationSeed=gctx-p14-live-public-ui-d0&columns=2&rowsPerPage=4&kp=kp_g3b_u04_add_then_divide&pg=pg_g3b_u04_add_then_divide",
+    "deploymentAttempt": 1,
+    "deployedAssetIdentityVerified": true,
+    "questionCount": 25,
+    "answerCount": 25,
+    "questionPageCount": 4,
+    "answerPageCount": 4,
+    "targetQuestionCount": 5,
+    "targetAnswerCount": 5,
+    "uniqueApprovedContextCount": 5,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "requestFailureCount": 0,
+    "hiddenQueryFlagCount": 0,
+    "legacyTargetLeakageCount": 0,
+    "d0Complete": true
   }
 }

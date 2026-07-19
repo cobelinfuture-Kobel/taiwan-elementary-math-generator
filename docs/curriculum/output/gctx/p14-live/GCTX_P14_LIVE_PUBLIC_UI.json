@@ -1,0 +1,144 @@
+{
+  "schemaName": "GCTXG3BU04LivePublicUID0Evidence",
+  "schemaVersion": 1,
+  "task": "GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout",
+  "status": "live_public_ui_production_regression_pass",
+  "evidenceLevel": "E6_D0_COMPLETE",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "liveQueryUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/?sourceId=g3b_u04_3b04&selectionMode=singleKnowledgePoint&questionCount=25&ordering=groupedByPattern&answerKey=1&generationSeed=gctx-p14-live-public-ui-d0&columns=2&rowsPerPage=4&kp=kp_g3b_u04_add_then_divide&pg=pg_g3b_u04_add_then_divide",
+  "sourceId": "g3b_u04_3b04",
+  "knowledgePointId": "kp_g3b_u04_add_then_divide",
+  "patternGroupId": "pg_g3b_u04_add_then_divide",
+  "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+  "p13PublicPdfSha256": "ab94e9b6d3c53227e9524d9b21aa4d05022272d191e8c8a078fc243ca79d57fa",
+  "deploymentAttempt": 1,
+  "deployedAssetIdentityVerified": true,
+  "deployedAssets": [
+    {
+      "repoPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "publicUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/pipeline/build-worksheet-document.js",
+      "expectedSha256": "043617126892310f2817a68b0a8f16560eb7bc1910c246d4d34eb27b5b1a65dc",
+      "liveSha256": "043617126892310f2817a68b0a8f16560eb7bc1910c246d4d34eb27b5b1a65dc",
+      "byteLength": 2690,
+      "missingTokenCount": 0
+    },
+    {
+      "repoPath": "site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js",
+      "publicUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js",
+      "expectedSha256": "8f1dcc7d3e3c76bc221979a66dc8e3d4f39512d481cce36931f92592eedc6aeb",
+      "liveSha256": "8f1dcc7d3e3c76bc221979a66dc8e3d4f39512d481cce36931f92592eedc6aeb",
+      "byteLength": 4123,
+      "missingTokenCount": 0
+    },
+    {
+      "repoPath": "site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js",
+      "publicUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js",
+      "expectedSha256": "6e7ad9c4f090b30a75a575820e2fa9869f27fcb0ada84878f191960aff570bb7",
+      "liveSha256": "6e7ad9c4f090b30a75a575820e2fa9869f27fcb0ada84878f191960aff570bb7",
+      "byteLength": 30472,
+      "missingTokenCount": 0
+    },
+    {
+      "repoPath": "site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js",
+      "publicUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js",
+      "expectedSha256": "00b215349cafc244322000cae859ee1bce5a15c5cdfe83b51e119d1640671654",
+      "liveSha256": "00b215349cafc244322000cae859ee1bce5a15c5cdfe83b51e119d1640671654",
+      "byteLength": 13531,
+      "missingTokenCount": 0
+    }
+  ],
+  "selectorState": {
+    "sourceId": "g3b_u04_3b04",
+    "selectionMode": "singleKnowledgePoint",
+    "questionCount": "25",
+    "ordering": "groupedByPattern",
+    "answerKey": true,
+    "generationSeed": "gctx-p14-live-public-ui-d0",
+    "columns": "2",
+    "rowsPerPage": "4",
+    "selectedKnowledgePoint": "true",
+    "selectedPatternGroup": "true",
+    "patternGroupSelectionMode": "auto-applied-single-representation",
+    "patternGroupSelectorVisible": "false",
+    "patternGroupHelp": "目前選取的知識點只有一種題目形式，系統已自動套用。",
+    "patternGroupQueryMatches": true,
+    "sourceMatches": true
+  },
+  "shellState": {
+    "statusText": "已產生 25 題，可預覽與列印。",
+    "statusTone": "success",
+    "validationText": "Wording repeats a recent prompt frame.Wording repeats a recent prompt frame.Wording repeats a recent prompt frame.Wording repeats a recent prompt frame.Wording repeats a recent prompt frame.Wording repeats a recent prompt frame.Wording repeats a recent prompt frame.Wording repeats a recent prompt frame.",
+    "validationHasErrors": "false",
+    "previewMeta": "Batch A 3B-U04 知識點加強｜25 題｜含答案頁｜題目 2 欄 × 4 列；答案 1 欄 × 8 列",
+    "printButtonDisabled": false,
+    "currentUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/?sourceId=g3b_u04_3b04&questionCount=25&ordering=groupedByPattern&answerKey=1&generationSeed=gctx-p14-live-public-ui-d0&columns=2&rowsPerPage=4&selectionMode=singleKnowledgePoint&kp=kp_g3b_u04_add_then_divide&pg=pg_g3b_u04_add_then_divide"
+  },
+  "output": {
+    "title": "Batch A 3B-U04 知識點加強",
+    "rendererProfile": "g3b_u04_semantic_long_text_v1",
+    "questionCount": 25,
+    "answerCount": 25,
+    "questionPageCount": 4,
+    "answerPageCount": 4,
+    "targetQuestionCount": 5,
+    "targetAnswerCount": 5,
+    "uniqueRequiredPhraseCount": 5,
+    "missingRequiredPhrases": [],
+    "leakedLegacyTargetPhrases": [],
+    "targetQuestions": [
+      "6位同學一起準備露營活動，營燈租借費255元，炊事用品費255元。兩項費用由6人平均分擔，每人要付多少元？",
+      "6位同學共同準備班級園遊會，布置材料費60元，點心材料費60元。兩項費用由6人平均分擔，每人要付多少元？",
+      "6位同學一起準備戶外學習，活動手冊印製費150元，導覽器材租借費150元。兩項費用由6人平均分擔，每人要付多少元？",
+      "2位同學一起安排運動練習，場地使用費110元，器材租借費110元。兩項費用由2人平均分擔，每人要付多少元？",
+      "2位同學共同準備社區清潔活動，工作手套費50元，清潔袋費50元。兩項費用由2人平均分擔，每人要付多少元？"
+    ],
+    "targetAnswers": [
+      {
+        "promptText": "6位同學一起準備露營活動，營燈租借費255元，炊事用品費255元。兩項費用由6人平均分擔，每人要付多少元？",
+        "answerText": "算式：(255 + 255) ÷ 6；答案：85元"
+      },
+      {
+        "promptText": "6位同學共同準備班級園遊會，布置材料費60元，點心材料費60元。兩項費用由6人平均分擔，每人要付多少元？",
+        "answerText": "算式：(60 + 60) ÷ 6；答案：20元"
+      },
+      {
+        "promptText": "6位同學一起準備戶外學習，活動手冊印製費150元，導覽器材租借費150元。兩項費用由6人平均分擔，每人要付多少元？",
+        "answerText": "算式：(150 + 150) ÷ 6；答案：50元"
+      },
+      {
+        "promptText": "2位同學一起安排運動練習，場地使用費110元，器材租借費110元。兩項費用由2人平均分擔，每人要付多少元？",
+        "answerText": "算式：(110 + 110) ÷ 2；答案：110元"
+      },
+      {
+        "promptText": "2位同學共同準備社區清潔活動，工作手套費50元，清潔袋費50元。兩項費用由2人平均分擔，每人要付多少元？",
+        "answerText": "算式：(50 + 50) ÷ 2；答案：50元"
+      }
+    ],
+    "targetAnswersWithEquationAndAnswer": 5,
+    "internalIdLeakage": [],
+    "bodyTextLength": 3256
+  },
+  "forbiddenQueryKeys": [],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "requestFailures": [],
+  "pageScreenshotPath": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.png",
+  "previewScreenshotPath": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.png",
+  "previewHtmlPath": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.html",
+  "pageScreenshotSha256": "40f577c6cbb7ffec05f5b09e6d3341193bf6de45aaae9a977832662c7632e0c7",
+  "previewScreenshotSha256": "977a95fc0d1de67f790b69f21db01e8ecd8e727411faf99f29401998a1a73189",
+  "previewHtmlSha256": "35d0b6c325de85b4f6af964d32a12693e3861f671f7f83c77a4fb54c33867eaf",
+  "fullPipeline": {
+    "sourceReady": true,
+    "knowledgePointReady": true,
+    "tagRegistryReady": true,
+    "formalMappingReady": true,
+    "patternSpecReady": true,
+    "generatorReady": true,
+    "validatorReady": true,
+    "worksheetOutputReady": true,
+    "publicUIReady": true,
+    "productionAdmitted": true,
+    "d0Complete": true
+  }
+}
