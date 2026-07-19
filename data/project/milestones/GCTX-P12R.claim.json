@@ -22,6 +22,7 @@
     "runtimeTestPaths": [
       "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js",
       "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js",
+      "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet-fullfix.js",
       "tests/curriculum/gctx-p12r-g3b-u04-runtime-renderer-pdf.test.js"
     ],
     "rendererTestPaths": [],
@@ -39,7 +40,7 @@
   "distance": {
     "before": "D2",
     "after": "D1",
-    "distanceReduced": "the five candidate contexts now execute through an isolated visible-resolver and canonical-generator pilot path; renderer and PDF evidence remain pending"
+    "distanceReduced": "the five candidate contexts now execute through the actual five-family visible-resolver allocation and canonical-generator pilot path; renderer and PDF evidence remain pending"
   },
   "nextStep": {
     "taskId": "GCTX-P12R_ArtifactGenerationAndVerification",
