@@ -1,6 +1,6 @@
-// R2E entry preserves the complete worksheet chain, including R2D layout
-// resolution, and appends controlled G4B-U04 context metadata.
-import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+// P13 entry preserves the complete R2E worksheet chain and appends the
+// Human Review-approved G3B-U04 global-context production admission.
+import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js";
 import { projectG5AU02DynamicDocumentForGlobalLayout } from "../../../modules/curriculum/batch-a/g5a-u02-global-layout-projection.js";
 import { applyGlobalPublicLayoutOverlay } from "../../../modules/curriculum/batch-a/global-public-layout-overlay.js";
 import { adaptGlobalPublicSourceUnitPlan } from "../../../modules/curriculum/batch-a/global-public-source-unit-adapter.js";
