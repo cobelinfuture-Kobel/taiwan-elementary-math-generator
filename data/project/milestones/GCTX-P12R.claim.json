@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "SHADOW_RUNTIME_INTEGRATED_HTML_PDF_PENDING",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js",
+      "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js",
+      "tests/curriculum/gctx-p12r-g3b-u04-runtime-renderer-pdf.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D1",
+    "distanceReduced": "the five candidate contexts now execute through an isolated visible-resolver and canonical-generator pilot path; renderer and PDF evidence remain pending"
+  },
+  "nextStep": {
+    "taskId": "GCTX-P12R_ArtifactGenerationAndVerification",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
