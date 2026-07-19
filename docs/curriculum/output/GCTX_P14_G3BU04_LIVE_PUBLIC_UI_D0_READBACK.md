@@ -37,13 +37,13 @@ GOAL_DISTANCE_BEFORE = D1_GCTX_G3BU04_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_VERIFI
 GOAL_DISTANCE_AFTER  = D0_GCTX_G3BU04_LIVE_PUBLIC_UI_COMPLETE
 DISTANCE_REDUCED     = The deployed public UI, selector, canonical runtime, blocking validator, renderer, worksheet and answer output are all verified.
 REMAINING_BLOCKERS   = []
-NEXT_SHORTEST_STEP   = GCTX-G3BU04_D0ClosedAwaitNextSourceSelection
+NEXT_SHORTEST_STEP   = GS01_G5AU08_DeployedPagesSmokeRecloseout
 ```
 
-## Stop boundary
+## Continuation boundary
 
 ```text
-STOP_REASON = HUMAN_SOURCE_SELECTION_REQUIRED
-BLOCKER_TYPE = NEXT_GLOBAL_CONTEXT_SOURCE_SELECTION
-REQUIRED_OPERATOR_ACTION = Select the next source / KnowledgePoint for global-context expansion.
+STOP_REASON = NONE
+BLOCKER_TYPE = NONE
+NEXT_RESUME_TASK = GS01_G5AU08_DeployedPagesSmokeRecloseout
 ```
