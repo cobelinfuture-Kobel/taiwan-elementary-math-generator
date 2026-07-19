@@ -5,10 +5,12 @@ import {
   G3B_U04_GLOBAL_CONTEXT_PILOT_MODE,
   G3B_U04_GLOBAL_CONTEXT_PILOT_RUNTIME,
   buildG3BU04GlobalContextPilotPlan,
-  buildG3BU04GlobalContextPilotWorksheetDocuments,
   generateG3BU04GlobalContextPilotQuestions,
   validateG3BU04GlobalContextPilotQuestion
 } from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js";
+import {
+  buildG3BU04GlobalContextPilotWorksheetDocuments
+} from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js";
 import {
   buildBatchABrowserWorksheetDocument
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-s57f5-extension.js";
