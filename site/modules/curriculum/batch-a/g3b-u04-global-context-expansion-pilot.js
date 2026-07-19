@@ -93,7 +93,7 @@ function issue(code, path, message, details = {}) {
 
 export const G3B_U04_GLOBAL_CONTEXT_EXPANSION_PILOT = deepFreeze({
   task: "GCTX-P12_G3BU04GlobalContextExpansionPilotAndRenderedDifferenceGate",
-  rulesetVersion: "0.1.0",
+  rulesetVersion: "0.1.1",
   sourceId: "g3b_u04_3b04",
   unitCode: "3B-U04",
   patternSpecId: PILOT_PATTERN_SPEC_ID,
@@ -101,10 +101,16 @@ export const G3B_U04_GLOBAL_CONTEXT_EXPANSION_PILOT = deepFreeze({
   contextFamilyId: PILOT_CONTEXT_FAMILY_ID,
   operationSignature: "(a+b)/c",
   variantCount: G3B_U04_GLOBAL_CONTEXT_EXPANSION_VARIANTS.length,
-  lifecycleStatus: "candidate_rendered_for_human_review",
+  actualEvidenceLevel: "E2_CONTENT_AUTHORED",
+  lifecycleStatus: "candidate_content_authored",
   productionSelectable: false,
   runtimeResolvable: false,
-  legacyContextPreservedAsFallback: false
+  productionEquivalentGeneratorUsed: false,
+  productionRendererUsed: false,
+  htmlOutputVerified: false,
+  pdfOutputVerified: false,
+  visibleOutputChanged: false,
+  humanReviewReady: false
 });
 
 export function getG3BU04GlobalContextExpansionVariant(variantId) {
@@ -119,9 +125,10 @@ export function selectG3BU04GlobalContextExpansionVariant(sequenceNumber = 1) {
 export function renderG3BU04GlobalContextExpansionQuestion({ variantId, a, b, c } = {}) {
   const variant = getG3BU04GlobalContextExpansionVariant(variantId);
   if (!variant) return null;
-  const values = { a, b, c };
-  const promptText = renderTemplate(variant.promptTemplateZh, values);
-  const finalAnswer = Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && c > 0 ? (a + b) / c : Number.NaN;
+  const promptText = renderTemplate(variant.promptTemplateZh, { a, b, c });
+  const finalAnswer = Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && c > 0
+    ? (a + b) / c
+    : Number.NaN;
   return {
     patternSpecId: PILOT_PATTERN_SPEC_ID,
     knowledgePointId: PILOT_KNOWLEDGE_POINT_ID,
@@ -152,9 +159,10 @@ export function renderG3BU04GlobalContextExpansionQuestion({ variantId, a, b, c 
       placeAssetId: variant.placeAssetId,
       activityAssetId: variant.activityAssetId,
       actorAssetId: variant.actorAssetId,
-      lifecycleStatus: "candidate_rendered_for_human_review",
+      lifecycleStatus: "candidate_content_authored",
       productionSelectable: false,
-      runtimeResolvable: false
+      runtimeResolvable: false,
+      humanReviewReady: false
     }
   };
 }
@@ -163,24 +171,26 @@ export function validateG3BU04GlobalContextExpansionQuestion(question = {}) {
   const errors = [];
   const variant = getG3BU04GlobalContextExpansionVariant(question.semanticVariantId);
   const { a, b, c } = question.quantities ?? {};
-  const expectedAnswer = Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && c > 0 ? (a + b) / c : Number.NaN;
+  const expectedAnswer = Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && c > 0
+    ? (a + b) / c
+    : Number.NaN;
 
-  if (!variant) errors.push(issue("GCTX_P12_VARIANT_UNREGISTERED", "semanticVariantId", "Global context semantic variant is not registered."));
-  if (question.patternSpecId !== PILOT_PATTERN_SPEC_ID) errors.push(issue("GCTX_P12_PATTERN_SPEC_MISMATCH", "patternSpecId", "Pilot question uses the wrong PatternSpec."));
-  if (question.knowledgePointId !== PILOT_KNOWLEDGE_POINT_ID) errors.push(issue("GCTX_P12_KNOWLEDGE_POINT_MISMATCH", "knowledgePointId", "Pilot question uses the wrong KnowledgePoint."));
+  if (!variant) errors.push(issue("GCTX_P12_VARIANT_UNREGISTERED", "semanticVariantId", "Candidate semantic variant is not registered."));
+  if (question.patternSpecId !== PILOT_PATTERN_SPEC_ID) errors.push(issue("GCTX_P12_PATTERN_SPEC_MISMATCH", "patternSpecId", "Candidate uses the wrong PatternSpec."));
+  if (question.knowledgePointId !== PILOT_KNOWLEDGE_POINT_ID) errors.push(issue("GCTX_P12_KNOWLEDGE_POINT_MISMATCH", "knowledgePointId", "Candidate uses the wrong KnowledgePoint."));
   if (![a, b, c].every((value) => Number.isInteger(value) && value > 0)) errors.push(issue("GCTX_P12_QUANTITY_INVALID", "quantities", "a, b and c must be positive integers."));
   if (!Number.isInteger(expectedAnswer) || expectedAnswer <= 0) errors.push(issue("GCTX_P12_SUM_NOT_DIVISIBLE", "quantities", "The combined cost must divide evenly by the payer count."));
   if (question.finalAnswer !== expectedAnswer || question.answerText !== `${expectedAnswer}元`) errors.push(issue("GCTX_P12_ANSWER_RECOMPUTATION_MISMATCH", "finalAnswer", "Answer does not equal (a+b)/c."));
   if (question.equationModel !== `(${a} + ${b}) ÷ ${c}`) errors.push(issue("GCTX_P12_EQUATION_MODEL_MISMATCH", "equationModel", "Equation model does not preserve (a+b)/c."));
-  if (variant && question.promptText !== renderTemplate(variant.promptTemplateZh, { a, b, c })) errors.push(issue("GCTX_P12_PROMPT_TEMPLATE_MISMATCH", "promptText", "Rendered prompt does not match the admitted language variant."));
+  if (variant && question.promptText !== renderTemplate(variant.promptTemplateZh, { a, b, c })) errors.push(issue("GCTX_P12_PROMPT_TEMPLATE_MISMATCH", "promptText", "Candidate prompt does not match its fixed language variant."));
   if (!question.promptText?.includes(`${a}元`) || !question.promptText?.includes(`${b}元`) || !question.promptText?.includes(`${c}人`) || !question.promptText?.includes("每人要付多少元")) {
-    errors.push(issue("GCTX_P12_VISIBLE_ROLE_EVIDENCE_MISSING", "promptText", "Prompt must visibly preserve both costs, payer count and per-person target."));
+    errors.push(issue("GCTX_P12_VISIBLE_ROLE_EVIDENCE_MISSING", "promptText", "Candidate prompt must visibly preserve both costs, payer count and target."));
   }
   if (/三明治費用共|筆記本費用共|門票費用共|帳篷租金共/.test(question.promptText ?? "")) {
-    errors.push(issue("GCTX_P12_LEGACY_CONTEXT_LEAKED", "promptText", "Pilot output still contains a legacy context prompt."));
+    errors.push(issue("GCTX_P12_LEGACY_CONTEXT_LEAKED", "promptText", "Candidate prompt contains a legacy prompt."));
   }
-  if (question.globalContextBinding?.productionSelectable !== false || question.globalContextBinding?.runtimeResolvable !== false) {
-    errors.push(issue("GCTX_P12_FALSE_PRODUCTION_ADMISSION", "globalContextBinding", "Candidate pilot must remain non-production until human review."));
+  if (question.globalContextBinding?.productionSelectable !== false || question.globalContextBinding?.runtimeResolvable !== false || question.globalContextBinding?.humanReviewReady !== false) {
+    errors.push(issue("GCTX_P12_FALSE_PIPELINE_ADMISSION", "globalContextBinding", "E2 candidate content cannot claim runtime, production, or human-review readiness."));
   }
   return { ok: errors.length === 0, errors, warnings: [] };
 }
@@ -196,6 +206,7 @@ export function buildG3BU04GlobalContextExpansionPreview({ a = 60, b = 90, c = 5
   const errors = validations.flatMap((validation) => validation.errors);
   return {
     ok: errors.length === 0,
+    artifactClass: "standalone_candidate_preview_not_production_evidence",
     baselinePromptText: `三明治費用共${a}元，果汁費用共${b}元。${c}人一起訂購並分享餐點，總費用平均分擔，每人要付多少元？`,
     questions,
     validations,
@@ -206,8 +217,9 @@ export function buildG3BU04GlobalContextExpansionPreview({ a = 60, b = 90, c = 5
       uniqueContextDomainCount: new Set(questions.map((question) => question.contextDomainId)).size,
       uniqueSemanticFingerprintCount: new Set(questions.map((question) => question.semanticFingerprint)).size,
       legacyPromptCount: questions.filter((question) => /三明治費用共|筆記本費用共|門票費用共|帳篷租金共/.test(question.promptText)).length,
-      productionSelectableCount: questions.filter((question) => question.globalContextBinding.productionSelectable).length,
-      runtimeResolvableCount: questions.filter((question) => question.globalContextBinding.runtimeResolvable).length,
+      productionSelectableCount: 0,
+      runtimeResolvableCount: 0,
+      humanReviewReadyCount: 0,
       errorCount: errors.length
     }
   };
