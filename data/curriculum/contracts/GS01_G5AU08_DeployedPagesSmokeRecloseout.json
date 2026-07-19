@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "G5AU08_GOLDEN_SAMPLE_V1",
   "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
-  "status": "implementation_active_pending_deployed_smoke",
+  "status": "pass_live_deployed_pages_smoke_pending_exact_head_ci_and_merge",
   "sourceId": "g5a_u08_5a08",
   "prerequisite": {
     "taskId": "GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout",
@@ -40,6 +40,32 @@
     "rendererChanged": false,
     "publicUIChanged": false
   },
+  "liveAcceptance": {
+    "workflowRunId": 29706832196,
+    "workflowRunNumber": 2,
+    "artifactId": 8448191906,
+    "artifactDigest": "sha256:4534d5d692cb3db96d9ff9bd63b62559d1a8ec374455e5cb2617d9265a224c45",
+    "rawManifestSha256": "849403c3a0108090235fbcd24f706ef27dbf487917d40eb4c2037f348a16ca22",
+    "evidenceSummaryPath": "docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/GS01_G5AU08_LIVE_EVIDENCE.json",
+    "productionUse": "allowed_deployed_ui_print",
+    "knowledgePointCount": 11,
+    "generatedKnowledgePointCount": 11,
+    "patternGroupCount": 17,
+    "patternSpecCount": 30,
+    "controlMatrixCount": 36,
+    "nonEmptyIntersectionCount": 33,
+    "emptyIntersectionCount": 3,
+    "questionCount": 72,
+    "answerCount": 72,
+    "answerKeyOffQuestionCount": 72,
+    "answerKeyOffAnswerCount": 0,
+    "answerNumberSequenceConsistent": true,
+    "queryStateReplay": "pass",
+    "printCalled": true,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "htmlPdfAuthorityVerified": true
+  },
   "acceptance": {
     "programTaskOrderLocked": true,
     "taskBudget": 6,
@@ -67,7 +93,12 @@
   },
   "distance": {
     "goalDistanceBefore": "D1_G5AU08_D0_RUNTIME_DEPLOYED_SMOKE_ASSERTION_STALE",
-    "goalDistanceAfterTarget": "D1_G5AU08_GS01_RECLOSEOUT_PASS_GOLDEN_FREEZE_PENDING",
-    "nextShortestStepAfterPass": "GS02_G5AU08_GlobalContext18FamilyExpansion"
+    "goalDistanceAfter": "D1_G5AU08_GS01_RECLOSEOUT_PASS_GOLDEN_FREEZE_PENDING",
+    "distanceReduced": "The stale preview metadata assertion no longer blocks the live deployed selector, controls, generator, validator, renderer, HTML/PDF, answer-key and print path.",
+    "remainingBlockers": [
+      "exact-head CI",
+      "merge"
+    ],
+    "nextShortestStep": "GS02_G5AU08_GlobalContext18FamilyExpansion"
   }
 }
