@@ -1,0 +1,100 @@
+{
+  "schemaName": "GCTXG3BU04GlobalContextExpansionPilotAndRenderedDifferenceGateContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P12_G3BU04GlobalContextExpansionPilotAndRenderedDifferenceGate",
+  "status": "implementation_pending_ci",
+  "rulesetVersion": "0.1.0",
+  "scope": {
+    "sourceId": "g3b_u04_3b04",
+    "unitCode": "3B-U04",
+    "knowledgePointId": "kp_g3b_u04_add_then_divide",
+    "patternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+    "operationSignature": "(a+b)/c",
+    "contextFamilyId": "gctx_cf_g3b_u04_add_divide_joint_purchase_equal_share",
+    "newSemanticVariantCount": 5,
+    "newLanguageVariantCount": 5,
+    "renderedPreviewCount": 5,
+    "productionSelectable": false,
+    "runtimeResolvable": false,
+    "publicRouterChanged": false,
+    "rendererChanged": false
+  },
+  "inputs": {
+    "p01Schema": "data/curriculum/schema/approved-semantic-binding.schema.json",
+    "p09CandidateValidator": "tools/curriculum/build-gctx-p09-g3b-u04-exact-binding-pilot.mjs",
+    "patternAuthority": "site/modules/curriculum/batch-a/source-pattern-g3b-u04-semantic-extension.js",
+    "legacyScenarioAuthority": "site/modules/curriculum/batch-a/g3b-u04-semantic-scenarios.js",
+    "pilotRuntimeModule": "site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js"
+  },
+  "contentCorrection": {
+    "priorMilestoneClassification": "legacy_context_migration_and_review_infrastructure_only",
+    "p12RequiredDifference": "new learner-visible activity contexts not present in the four legacy prompts",
+    "surfaceNounSwapAloneAccepted": false,
+    "requiredChangedAxes": [
+      "event_purpose",
+      "place_or_activity_scope",
+      "actor_group_relationship",
+      "two_cost_objects",
+      "language_variant"
+    ],
+    "requiredPreservedAxes": [
+      "patternSpecId",
+      "knowledgePointId",
+      "operationSignature",
+      "quantity_role_mapping",
+      "event_flow",
+      "question_target",
+      "answer_unit_policy"
+    ]
+  },
+  "pilotVariants": [
+    "gctx_semvar_g3b_u04_joint_purchase_class_festival",
+    "gctx_semvar_g3b_u04_joint_purchase_field_learning",
+    "gctx_semvar_g3b_u04_joint_purchase_sports_practice",
+    "gctx_semvar_g3b_u04_joint_purchase_community_cleanup",
+    "gctx_semvar_g3b_u04_joint_purchase_camping_activity"
+  ],
+  "acceptance": {
+    "p01CandidateBindingCount": 5,
+    "p01CandidateBindingErrorCount": 0,
+    "uniquePromptCount": 5,
+    "uniqueContextDomainCount": 5,
+    "uniqueSemanticFingerprintCount": 5,
+    "legacyPromptCount": 0,
+    "mathematicalRecomputationErrorCount": 0,
+    "productionSelectableCount": 0,
+    "runtimeResolvableCount": 0,
+    "humanReviewPacketCount": 5,
+    "humanDecisionCount": 0
+  },
+  "blockingRules": [
+    "Block if any P12 binding fails the exact P01 candidate schema validator.",
+    "Block if any rendered question retains a legacy prompt.",
+    "Block if fewer than five unique prompts, context domains or semantic fingerprints are rendered.",
+    "Block if a, b, c, (a+b)/c, the per-person question target or TWD answer unit changes.",
+    "Block if a candidate claims production selection, runtime resolution or human approval.",
+    "Block if the review packet omits the exact rendered prompt and mathematical witness."
+  ],
+  "humanReviewBoundary": {
+    "required": true,
+    "reviewTarget": "rendered_question_text_and_mathematical_witness",
+    "automaticApprovalForbidden": true,
+    "requiredDecisionValues": ["approve", "reject"],
+    "initialDecision": null,
+    "productionAdmissionBeforeReview": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_G3BU04_LEGACY_CONTEXT_STRUCTURE_READY",
+    "goalDistanceAfter": "D2_GCTX_G3BU04_NEW_VISIBLE_CONTEXT_PILOT_PENDING_CI_AND_HUMAN_REVIEW",
+    "distanceReduced": "five new learner-visible activity contexts and deterministic mathematical review packets replace the prior legacy-only output at the pilot evidence layer",
+    "remainingBlockers": [
+      "CI acceptance",
+      "merge",
+      "human semantic review of five rendered prompts",
+      "formal production admission",
+      "runtime resolver integration",
+      "public HTML/PDF verification"
+    ],
+    "nextShortestStep": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission"
+  }
+}
