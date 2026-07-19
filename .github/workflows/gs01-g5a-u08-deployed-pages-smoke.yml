@@ -1,0 +1,60 @@
+name: GS01 G5A-U08 Deployed Pages Smoke Recloseout
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs"
+      - "tests/site/g5a-u08-r1-deployed-gate-contract.test.js"
+      - ".github/workflows/g5a-u08-r1-deployed-pages-smoke.yml"
+      - ".github/workflows/gs01-g5a-u08-deployed-pages-smoke.yml"
+      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
+      - "data/project/milestones/GS01.claim.json"
+      - "data/curriculum/contracts/GS01_G5AU08_DeployedPagesSmokeRecloseout.json"
+      - "docs/curriculum/output/GS01_G5AU08_DEPLOYED_PAGES_SMOKE_RECLOSEOUT_PENDING.marker"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  G5A_U08_R1_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+
+jobs:
+  gs01-deployed-pages-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout GS01 head
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project and browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Run focused GS01 contract tests
+        run: node --test tests/site/g5a-u08-r1-deployed-gate-contract.test.js
+
+      - name: Run live deployed G5A-U08 smoke with GS01 compatibility contract
+        env:
+          G5A_U08_R1_DEPLOYMENT_SHA: ${{ github.event.pull_request.base.sha || github.sha }}
+        run: node tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs
+
+      - name: Upload GS01 deployed evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gs01-g5a-u08-deployed-pages-smoke
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/manifest.json
+            docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/failure.json
+            docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/failure.png
