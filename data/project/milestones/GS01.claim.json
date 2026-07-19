@@ -36,9 +36,9 @@
     "reviewArtifactRequired": false
   },
   "distance": {
-    "before": "D1",
-    "after": "D1",
-    "distanceReduced": "The six-task Golden program is active and the GS01 deployed-smoke compatibility fix is implemented; deployed proof is still pending."
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "The six-task Golden program state and GS01 compatibility contract exist, while deployed runtime and output proof remain pending."
   },
   "nextStep": {
     "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
