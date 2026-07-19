@@ -51,7 +51,8 @@ test("GCTX-P12R artifact manifest is either honestly pending E3 or complete E4",
   const manifest = readJson(MANIFEST);
   assert.equal(manifest.status, "production_equivalent_html_pdf_pass");
   assert.equal(manifest.actualEvidenceLevel, "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED");
-  assert.equal(manifest.questionCount, 20);
+  assert.equal(manifest.resolverFamilyCount, 5);
+  assert.equal(manifest.questionCount, 25);
   assert.equal(manifest.targetQuestionCount, 5);
   assert.equal(manifest.variantCount, 5);
   assert.equal(manifest.visibleChangedCount, 5);
@@ -94,6 +95,7 @@ test("GCTX-P12R before-after evidence proves visible change and mathematical par
   assert.equal(evidence.equationPreservedCount, 5);
   assert.equal(evidence.answerPreservedCount, 5);
   assert.equal(evidence.comparisons.every((row) => row.changed), true);
+  assert.equal(new Set(evidence.comparisons.map((row) => row.authorityContextDomain)).size >= 4, true);
   assert.equal(new Set(evidence.comparisons.map((row) => row.semanticVariantId)).size, 5);
   assert.equal(new Set(evidence.comparisons.map((row) => row.globalContextDomainId)).size, 5);
 });
