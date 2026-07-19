@@ -42,15 +42,17 @@ jobs:
           if start < 0 or end < 0:
               raise SystemExit('P14 combined validation block not found')
 
-          replacement = '''      - name: Validate milestone Claim schema and hashes
-        run: npm run governance:claims
-
-      - name: Validate live result and D0 artifact identity
-        env:
-          LIVE_EVIDENCE_DIR: ${{ steps.evidence_state.outputs.output_dir }}
-        run: node tools/governance/validate-gctx-p14-e6-live-evidence.mjs
-
-'''
+          output_expr = '$' + '{{ steps.evidence_state.outputs.output_dir }}'
+          replacement = (
+              '      - name: Validate milestone Claim schema and hashes\n'
+              '        run: npm run governance:claims\n'
+              '\n'
+              '      - name: Validate live result and D0 artifact identity\n'
+              '        env:\n'
+              f'          LIVE_EVIDENCE_DIR: {output_expr}\n'
+              '        run: node tools/governance/validate-gctx-p14-e6-live-evidence.mjs\n'
+              '\n'
+          )
           text = text[:start] + replacement + text[end:]
           path.write_text(text, encoding='utf-8')
           PY
