@@ -1,0 +1,94 @@
+name: GS02 G5A-U08 Global Context 18 Family Expansion
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "tools/curriculum/build-gs02-g5a-u08-global-context-expansion.mjs"
+      - "tools/curriculum/validate-gs02-g5a-u08-global-context-expansion.mjs"
+      - "tests/curriculum/gs02-g5a-u08-global-context-expansion.test.js"
+      - "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json"
+      - "data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json"
+      - "data/curriculum/contracts/GS02_G5AU08_GlobalContext18FamilyExpansion.json"
+      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
+      - "data/project/milestones/GS02.claim.json"
+      - "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_COVERAGE.json"
+      - "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_EXPANSION_PENDING.marker"
+      - "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_EXPANSION_PASS.marker"
+      - "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_EXPANSION_READBACK.md"
+      - ".github/workflows/gs02-g5a-u08-global-context-expansion.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize-and-validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout GS02 head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+
+      - name: Materialize 18 families, 54 templates and 90 seed QA rows
+        run: node tools/curriculum/build-gs02-g5a-u08-global-context-expansion.mjs --write
+
+      - name: Validate GS02 registries
+        run: node tools/curriculum/validate-gs02-g5a-u08-global-context-expansion.mjs
+
+      - name: Run focused positive and mutation tests
+        run: node --test tests/curriculum/gs02-g5a-u08-global-context-expansion.test.js
+
+      - name: Enforce GS02 candidate-only scope
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          const allowed = [
+            /^\.github\/workflows\/gs02-g5a-u08-global-context-expansion\.yml$/,
+            /^tools\/curriculum\/(build|validate)-gs02-g5a-u08-global-context-expansion\.mjs$/,
+            /^tests\/curriculum\/gs02-g5a-u08-global-context-expansion\.test\.js$/,
+            /^data\/curriculum\/context\/registry\/gs02-g5a-u08-(global-context-families|unit-context-bindings)\.json$/,
+            /^data\/curriculum\/contracts\/GS02_G5AU08_GlobalContext18FamilyExpansion\.json$/,
+            /^data\/project\/programs\/G5AU08_GOLDEN_SAMPLE_V1\.json$/,
+            /^data\/project\/milestones\/GS02\.claim\.json$/,
+            /^docs\/curriculum\/output\/GS02_G5AU08_GLOBAL_CONTEXT_(COVERAGE\.json|EXPANSION_(PENDING|PASS)\.marker|EXPANSION_READBACK\.md)$/,
+          ];
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          execFileSync('git', ['fetch', 'origin', base, '--depth=1'], { stdio: 'inherit' });
+          const files = execFileSync('git', ['diff', '--name-only', `origin/${base}...HEAD`], { encoding: 'utf8' })
+            .trim().split(/\r?\n/).filter(Boolean);
+          const drift = files.filter((path) => !allowed.some((rule) => rule.test(path)));
+          if (drift.length) {
+            console.error(`SCOPE_DRIFT_DETECTED=${JSON.stringify(drift)}`);
+            process.exit(1);
+          }
+          console.log(`GS02_SCOPE_AUDIT=${JSON.stringify({ changedFileCount: files.length, driftCount: 0 })}`);
+          NODE
+
+      - name: Commit deterministic registry materialization
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json \
+            data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json \
+            docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_COVERAGE.json
+          if git diff --cached --quiet; then
+            echo "GS02 registries already match the deterministic materializer."
+            exit 0
+          fi
+          git commit -m "data(gs02): materialize 18 global context families"
+          git push origin "HEAD:${GITHUB_HEAD_REF}"
