@@ -5,6 +5,9 @@ import { generateBatchABrowserQuestions as generateCoreBatchABrowserQuestions } 
 import { applyG4AU01FirstDifferenceFullFix } from "./g4a-u01-first-difference-fullfix.js";
 import { applyG4AU08GeneratorValidatorDomainFullFix } from "./g4a-u08-generator-validator-domain-fullfix.js";
 import {
+  applyG3BU04GlobalContextProductionAdmission
+} from "./g3b-u04-global-context-production-admission.js";
+import {
   generateG4AU08AllCanonicalPublicQuestions,
   normalizeG4AU08AllCanonicalPublicPlan,
   requestsG4AU08AllCanonicalPublicRoute,
@@ -165,6 +168,7 @@ export function generateBatchABrowserQuestions(options = {}) {
     return generateG5AU08CanonicalQuestions(g5aU08Plan);
   }
   const coreResult = generateCoreBatchABrowserQuestions(options);
-  const g4aU08DomainResult = applyG4AU08GeneratorValidatorDomainFullFix(coreResult, plan);
+  const g3bU04ProductionResult = applyG3BU04GlobalContextProductionAdmission(coreResult, plan);
+  const g4aU08DomainResult = applyG4AU08GeneratorValidatorDomainFullFix(g3bU04ProductionResult, plan);
   return applyG4AU01FirstDifferenceFullFix(g4aU08DomainResult, plan);
 }

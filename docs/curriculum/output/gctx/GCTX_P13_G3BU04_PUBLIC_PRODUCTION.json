@@ -1,0 +1,264 @@
+{
+  "schemaName": "GCTXG3BU04PublicProductionEvidence",
+  "schemaVersion": 1,
+  "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+  "status": "public_production_html_pdf_admission_pass",
+  "generationSeed": "gctx-p13-public-production-html-pdf",
+  "sourceId": "g3b_u04_3b04",
+  "knowledgePointId": "kp_g3b_u04_add_then_divide",
+  "patternGroupId": "pg_g3b_u04_add_then_divide",
+  "patternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+  "registryId": "gctx_p13_g3b_u04_global_context_production",
+  "reviewDecisionId": "gctx_p13_review_20260719_all_five_approved",
+  "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+  "productionSelectable": true,
+  "publicQuerySelectable": true,
+  "productionAdmitted": true,
+  "publicHiddenModeFlagUsed": false,
+  "canonicalResolverUsed": true,
+  "canonicalGeneratorUsed": true,
+  "productionRendererUsed": true,
+  "worksheetQuestionCount": 25,
+  "targetQuestionCount": 5,
+  "targetAnswerCount": 5,
+  "uniqueApprovedVariantCount": 5,
+  "mathematicalWitnessCount": 5,
+  "missingRequiredPhraseCount": 0,
+  "leakedLegacyTargetPromptCount": 0,
+  "questionPageCount": 4,
+  "answerKeyPageCount": 4,
+  "expectedPdfPageCount": 8,
+  "variantIds": [
+    "gctx_semvar_g3b_u04_joint_purchase_sports_practice",
+    "gctx_semvar_g3b_u04_joint_purchase_community_cleanup",
+    "gctx_semvar_g3b_u04_joint_purchase_camping_activity",
+    "gctx_semvar_g3b_u04_joint_purchase_class_festival",
+    "gctx_semvar_g3b_u04_joint_purchase_field_learning"
+  ],
+  "targetQuestions": [
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-1",
+      "promptText": "5位同學一起安排運動練習，場地使用費35元，器材租借費40元。兩項費用由5人平均分擔，每人要付多少元？",
+      "equationModel": "(35 + 40) ÷ 5",
+      "answerText": "15元",
+      "quantities": {
+        "a": 35,
+        "b": 40,
+        "c": 5
+      },
+      "contextDomain": "food",
+      "globalContextProduction": {
+        "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+        "registryId": "gctx_p13_g3b_u04_global_context_production",
+        "reviewDecisionId": "gctx_p13_review_20260719_all_five_approved",
+        "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+        "contextFamilyId": "gctx_cf_g3b_u04_add_divide_joint_purchase_equal_share",
+        "semanticVariantId": "gctx_semvar_g3b_u04_joint_purchase_sports_practice",
+        "languageVariantId": "gctx_lang_zh_tw_g3b_u04_joint_purchase_sports_practice",
+        "globalContextDomainId": "sports_practice_booking",
+        "validatorAuthorityContextDomain": "food",
+        "semanticFingerprint": "shared_cost|sports_practice|court_and_equipment|student_sports_team",
+        "runtimeResolvable": true,
+        "productionSelectable": true,
+        "publicQuerySelectable": true,
+        "productionAdmitted": true,
+        "productionUse": "allowed"
+      },
+      "canonicalRoute": {
+        "kind": "g3b_u04_pure_semantic",
+        "resolver": "visiblePatternGroupResolver",
+        "allocationStrategy": "balanced_by_group_then_family",
+        "publicHiddenModeFlagUsed": false,
+        "globalContextProductionAdmission": true,
+        "publicQuerySelectable": true
+      }
+    },
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-2",
+      "promptText": "6位同學共同準備社區清潔活動，工作手套費150元，清潔袋費150元。兩項費用由6人平均分擔，每人要付多少元？",
+      "equationModel": "(150 + 150) ÷ 6",
+      "answerText": "50元",
+      "quantities": {
+        "a": 150,
+        "b": 150,
+        "c": 6
+      },
+      "contextDomain": "school_supplies",
+      "globalContextProduction": {
+        "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+        "registryId": "gctx_p13_g3b_u04_global_context_production",
+        "reviewDecisionId": "gctx_p13_review_20260719_all_five_approved",
+        "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+        "contextFamilyId": "gctx_cf_g3b_u04_add_divide_joint_purchase_equal_share",
+        "semanticVariantId": "gctx_semvar_g3b_u04_joint_purchase_community_cleanup",
+        "languageVariantId": "gctx_lang_zh_tw_g3b_u04_joint_purchase_community_cleanup",
+        "globalContextDomainId": "community_cleanup_preparation",
+        "validatorAuthorityContextDomain": "school_supplies",
+        "semanticFingerprint": "shared_cost|community_cleanup|gloves_and_cleanup_bags|student_service_group",
+        "runtimeResolvable": true,
+        "productionSelectable": true,
+        "publicQuerySelectable": true,
+        "productionAdmitted": true,
+        "productionUse": "allowed"
+      },
+      "canonicalRoute": {
+        "kind": "g3b_u04_pure_semantic",
+        "resolver": "visiblePatternGroupResolver",
+        "allocationStrategy": "balanced_by_group_then_family",
+        "publicHiddenModeFlagUsed": false,
+        "globalContextProductionAdmission": true,
+        "publicQuerySelectable": true
+      }
+    },
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-3",
+      "promptText": "6位同學一起準備露營活動，營燈租借費195元，炊事用品費195元。兩項費用由6人平均分擔，每人要付多少元？",
+      "equationModel": "(195 + 195) ÷ 6",
+      "answerText": "65元",
+      "quantities": {
+        "a": 195,
+        "b": 195,
+        "c": 6
+      },
+      "contextDomain": "tickets",
+      "globalContextProduction": {
+        "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+        "registryId": "gctx_p13_g3b_u04_global_context_production",
+        "reviewDecisionId": "gctx_p13_review_20260719_all_five_approved",
+        "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+        "contextFamilyId": "gctx_cf_g3b_u04_add_divide_joint_purchase_equal_share",
+        "semanticVariantId": "gctx_semvar_g3b_u04_joint_purchase_camping_activity",
+        "languageVariantId": "gctx_lang_zh_tw_g3b_u04_joint_purchase_camping_activity",
+        "globalContextDomainId": "camping_activity_preparation",
+        "validatorAuthorityContextDomain": "tickets",
+        "semanticFingerprint": "shared_cost|camping_activity|lamp_and_cooking_supplies|student_camping_group",
+        "runtimeResolvable": true,
+        "productionSelectable": true,
+        "publicQuerySelectable": true,
+        "productionAdmitted": true,
+        "productionUse": "allowed"
+      },
+      "canonicalRoute": {
+        "kind": "g3b_u04_pure_semantic",
+        "resolver": "visiblePatternGroupResolver",
+        "allocationStrategy": "balanced_by_group_then_family",
+        "publicHiddenModeFlagUsed": false,
+        "globalContextProductionAdmission": true,
+        "publicQuerySelectable": true
+      }
+    },
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-4",
+      "promptText": "3位同學共同準備班級園遊會，布置材料費60元，點心材料費60元。兩項費用由3人平均分擔，每人要付多少元？",
+      "equationModel": "(60 + 60) ÷ 3",
+      "answerText": "40元",
+      "quantities": {
+        "a": 60,
+        "b": 60,
+        "c": 3
+      },
+      "contextDomain": "equipment_rental",
+      "globalContextProduction": {
+        "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+        "registryId": "gctx_p13_g3b_u04_global_context_production",
+        "reviewDecisionId": "gctx_p13_review_20260719_all_five_approved",
+        "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+        "contextFamilyId": "gctx_cf_g3b_u04_add_divide_joint_purchase_equal_share",
+        "semanticVariantId": "gctx_semvar_g3b_u04_joint_purchase_class_festival",
+        "languageVariantId": "gctx_lang_zh_tw_g3b_u04_joint_purchase_class_festival",
+        "globalContextDomainId": "class_festival_preparation",
+        "validatorAuthorityContextDomain": "equipment_rental",
+        "semanticFingerprint": "shared_cost|class_festival|decoration_and_snacks|student_planning_group",
+        "runtimeResolvable": true,
+        "productionSelectable": true,
+        "publicQuerySelectable": true,
+        "productionAdmitted": true,
+        "productionUse": "allowed"
+      },
+      "canonicalRoute": {
+        "kind": "g3b_u04_pure_semantic",
+        "resolver": "visiblePatternGroupResolver",
+        "allocationStrategy": "balanced_by_group_then_family",
+        "publicHiddenModeFlagUsed": false,
+        "globalContextProductionAdmission": true,
+        "publicQuerySelectable": true
+      }
+    },
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-5",
+      "promptText": "3位同學一起準備戶外學習，活動手冊印製費50元，導覽器材租借費55元。兩項費用由3人平均分擔，每人要付多少元？",
+      "equationModel": "(50 + 55) ÷ 3",
+      "answerText": "35元",
+      "quantities": {
+        "a": 50,
+        "b": 55,
+        "c": 3
+      },
+      "contextDomain": "food",
+      "globalContextProduction": {
+        "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+        "registryId": "gctx_p13_g3b_u04_global_context_production",
+        "reviewDecisionId": "gctx_p13_review_20260719_all_five_approved",
+        "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+        "contextFamilyId": "gctx_cf_g3b_u04_add_divide_joint_purchase_equal_share",
+        "semanticVariantId": "gctx_semvar_g3b_u04_joint_purchase_field_learning",
+        "languageVariantId": "gctx_lang_zh_tw_g3b_u04_joint_purchase_field_learning",
+        "globalContextDomainId": "field_learning_preparation",
+        "validatorAuthorityContextDomain": "food",
+        "semanticFingerprint": "shared_cost|field_learning|booklet_and_guide_equipment|student_field_group",
+        "runtimeResolvable": true,
+        "productionSelectable": true,
+        "publicQuerySelectable": true,
+        "productionAdmitted": true,
+        "productionUse": "allowed"
+      },
+      "canonicalRoute": {
+        "kind": "g3b_u04_pure_semantic",
+        "resolver": "visiblePatternGroupResolver",
+        "allocationStrategy": "balanced_by_group_then_family",
+        "publicHiddenModeFlagUsed": false,
+        "globalContextProductionAdmission": true,
+        "publicQuerySelectable": true
+      }
+    }
+  ],
+  "targetAnswerItems": [
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-1",
+      "equationText": "(35 + 40) ÷ 5",
+      "answerText": "15元",
+      "answerUnit": "元"
+    },
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-2",
+      "equationText": "(150 + 150) ÷ 6",
+      "answerText": "50元",
+      "answerUnit": "元"
+    },
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-3",
+      "equationText": "(195 + 195) ÷ 6",
+      "answerText": "65元",
+      "answerUnit": "元"
+    },
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-4",
+      "equationText": "(60 + 60) ÷ 3",
+      "answerText": "40元",
+      "answerUnit": "元"
+    },
+    {
+      "questionId": "ps_g3b_u04_add_divide_joint_purchase_equal_share-5",
+      "equationText": "(50 + 55) ÷ 3",
+      "answerText": "35元",
+      "answerUnit": "元"
+    }
+  ],
+  "evidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualPdfPageCount": 8,
+  "pdfSha256": "ab94e9b6d3c53227e9524d9b21aa4d05022272d191e8c8a078fc243ca79d57fa",
+  "pdfBytes": 81529,
+  "extractedRequiredContextCount": 5,
+  "extractedAnswerCount": 25,
+  "publicProductionRegressionPassed": true
+}

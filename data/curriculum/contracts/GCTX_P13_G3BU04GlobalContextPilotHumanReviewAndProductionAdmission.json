@@ -1,0 +1,76 @@
+{
+  "schemaName": "GCTXG3BU04GlobalContextProductionAdmissionContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+  "status": "public_production_admitted_html_pdf_regression_verified",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "humanReview": {
+    "decisionPath": "data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json",
+    "decisionId": "gctx_p13_review_20260719_all_five_approved",
+    "decision": "approve_all",
+    "semanticReviewApproved": true,
+    "mathematicalReviewApproved": true,
+    "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0"
+  },
+  "productionScope": {
+    "sourceId": "g3b_u04_3b04",
+    "knowledgePointId": "kp_g3b_u04_add_then_divide",
+    "patternGroupId": "pg_g3b_u04_add_then_divide",
+    "patternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+    "approvedVariantCount": 5,
+    "publicHiddenModeFlagAllowed": false,
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false
+  },
+  "implementation": {
+    "registry": "site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js",
+    "productionAdmission": "site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js",
+    "publicRouter": "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+    "blockingValidator": "site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js",
+    "publicWorksheetEntry": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js",
+    "publicSitePipeline": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "focusedTest": "tests/curriculum/gctx-p13-global-context-production-admission.test.js"
+  },
+  "invariants": {
+    "canonicalVisibleResolverRequired": true,
+    "canonicalGeneratorRequired": true,
+    "canonicalValidatorAuthorityFieldsPreserved": true,
+    "learnerVisiblePromptProjectionOnly": true,
+    "mathematicalWitnessPreserved": true,
+    "reviewEvidenceBindingRequired": true,
+    "blockingProductionValidatorRequired": true,
+    "allFiveVariantsRequiredForFiveTargetQuestions": true,
+    "legacyTargetPromptLeakageAllowed": false
+  },
+  "pendingAcceptance": {},
+  "distance": {
+    "goalDistanceBefore": "D1_GCTX_G3BU04_PAGES_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW",
+    "goalDistanceAfter": "D1_GCTX_G3BU04_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_VERIFIED",
+    "distanceReduced": "Human Review is resolved and all five approved contexts are now production-selectable and public-query-selectable through the canonical pipeline with verified HTML/PDF output.",
+    "remainingBlockers": [
+      "final exact-head CI",
+      "merge",
+      "live deployed public UI regression",
+      "D0 closeout"
+    ],
+    "nextShortestStep": "GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout"
+  },
+  "productionAdmission": {
+    "productionSelectable": true,
+    "publicQuerySelectable": true,
+    "productionAdmitted": true,
+    "publicHiddenModeFlagUsed": false,
+    "publicProductionRegressionPassed": true,
+    "publicHtmlPath": "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html",
+    "publicPdfPath": "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf",
+    "publicPdfSha256": "ab94e9b6d3c53227e9524d9b21aa4d05022272d191e8c8a078fc243ca79d57fa",
+    "publicPdfPageCount": 8,
+    "worksheetQuestionCount": 25,
+    "targetQuestionCount": 5,
+    "uniqueApprovedVariantCount": 5,
+    "targetAnswerCount": 5,
+    "productionEvidenceSha256": "3ee52d7dfb7b19900146c23479d59c67e4313cb717b4cc4f16a4f21d06e02a5a",
+    "evidenceHashChainVerified": true
+  }
+}
