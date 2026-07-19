@@ -1,0 +1,92 @@
+name: GCTX-P12S Pages Review Publication
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs"
+      - "tests/governance/gctx-p12s-pages-review-publication.test.js"
+      - "data/project/milestones/GCTX-P12S.claim.json"
+      - "data/curriculum/contracts/GCTX_P12S_G3BU04PagesHumanReviewArtifactPublication.json"
+      - "docs/curriculum/output/GCTX_P12S_G3BU04_PAGES_REVIEW_PUBLICATION_PASS.marker"
+      - "docs/curriculum/output/GCTX_P12S_G3BU04_PAGES_REVIEW_PUBLICATION_READBACK.md"
+      - ".github/workflows/gctx-p12s-pages-review-publication.yml"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pages-review-publication:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run P12S focused tests
+        run: node --test tests/governance/gctx-p12s-pages-review-publication.test.js
+
+      - name: Stage Pages review artifacts
+        run: node tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs --output-dir site/review/g3b-u04
+
+      - name: Verify staged publication
+        run: |
+          test -s site/review/g3b-u04/index.html
+          test -s site/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf
+          test -s site/review/g3b-u04/GCTX_P12R_G3BU04_VISIBLE_DIFF.json
+          test -s site/review/g3b-u04/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json
+          test -s site/review/g3b-u04/review-publication-manifest.json
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const crypto = require('node:crypto');
+          const publication = JSON.parse(fs.readFileSync('site/review/g3b-u04/review-publication-manifest.json', 'utf8'));
+          const pdf = fs.readFileSync('site/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf');
+          const pdfHash = crypto.createHash('sha256').update(pdf).digest('hex');
+          if (publication.status !== 'pages_review_artifacts_staged'
+            || publication.reviewOnly !== true
+            || publication.productionAdmitted !== false
+            || publication.publicGeneratorChanged !== false
+            || publication.questionCount !== 5
+            || publication.globalContextVariantCount !== 5
+            || publication.pdfPageCount !== 2
+            || publication.files[0].sha256 !== pdfHash
+            || pdfHash !== '777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0') {
+            process.exit(1);
+          }
+          NODE
+
+      - name: Install PDF verification tools
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Verify staged PDF structure and text
+        run: |
+          pdfinfo site/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf | tee /tmp/gctx-p12s-pdfinfo.txt
+          grep -q '^Pages:[[:space:]]*2$' /tmp/gctx-p12s-pdfinfo.txt
+          pdftotext -layout site/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf /tmp/gctx-p12s-pdf.txt
+          grep -q '班級園遊會' /tmp/gctx-p12s-pdf.txt
+          grep -q '戶外學習' /tmp/gctx-p12s-pdf.txt
+          grep -q '運動練習' /tmp/gctx-p12s-pdf.txt
+          grep -q '社區清潔活動' /tmp/gctx-p12s-pdf.txt
+          grep -q '露營活動' /tmp/gctx-p12s-pdf.txt
+          test "$(grep -o '答案：' /tmp/gctx-p12s-pdf.txt | wc -l)" -ge 5
+          ! grep -Eq '三明治費用|果汁費用|筆記本費用|彩色筆費用|門票費用|帳篷租金' /tmp/gctx-p12s-pdf.txt
+
+      - name: Validate milestone claim integrity
+        run: npm run governance:claims
+
+      - name: Upload staged Pages review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p12s-pages-review-publication
+          path: site/review/g3b-u04
+          retention-days: 30
