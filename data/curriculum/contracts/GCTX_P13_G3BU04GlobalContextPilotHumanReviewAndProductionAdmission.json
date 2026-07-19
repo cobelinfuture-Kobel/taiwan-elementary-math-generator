@@ -1,0 +1,70 @@
+{
+  "schemaName": "GCTXG3BU04GlobalContextProductionAdmissionContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+  "status": "implementation_complete_public_html_pdf_e5_gate_pending",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "humanReview": {
+    "decisionPath": "data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json",
+    "decisionId": "gctx_p13_review_20260719_all_five_approved",
+    "decision": "approve_all",
+    "semanticReviewApproved": true,
+    "mathematicalReviewApproved": true,
+    "reviewArtifactSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0"
+  },
+  "productionScope": {
+    "sourceId": "g3b_u04_3b04",
+    "knowledgePointId": "kp_g3b_u04_add_then_divide",
+    "patternGroupId": "pg_g3b_u04_add_then_divide",
+    "patternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+    "approvedVariantCount": 5,
+    "publicHiddenModeFlagAllowed": false,
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false
+  },
+  "implementation": {
+    "registry": "site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js",
+    "productionAdmission": "site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js",
+    "publicRouter": "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+    "blockingValidator": "site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js",
+    "publicWorksheetEntry": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js",
+    "publicSitePipeline": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "focusedTest": "tests/curriculum/gctx-p13-global-context-production-admission.test.js"
+  },
+  "invariants": {
+    "canonicalVisibleResolverRequired": true,
+    "canonicalGeneratorRequired": true,
+    "canonicalValidatorAuthorityFieldsPreserved": true,
+    "learnerVisiblePromptProjectionOnly": true,
+    "mathematicalWitnessPreserved": true,
+    "reviewEvidenceBindingRequired": true,
+    "blockingProductionValidatorRequired": true,
+    "allFiveVariantsRequiredForFiveTargetQuestions": true,
+    "legacyTargetPromptLeakageAllowed": false
+  },
+  "pendingAcceptance": {
+    "focusedTests": true,
+    "publicHTML": true,
+    "publicPDF": true,
+    "popplerTextVerification": true,
+    "artifactHashes": true,
+    "claimPromotionToE5": true,
+    "fullNodeCI": true,
+    "mathCIReadback": true,
+    "merge": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_GCTX_G3BU04_PAGES_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW",
+    "goalDistanceAfter": "D1_GCTX_G3BU04_PRODUCTION_ADMISSION_IMPLEMENTED_E5_OUTPUT_GATE_PENDING",
+    "distanceReduced": "Human Review is resolved and the approved contexts are wired into the canonical public generator, blocking validator and public worksheet entry; exact public HTML/PDF admission evidence remains pending.",
+    "remainingBlockers": [
+      "focused CI",
+      "public production HTML/PDF evidence",
+      "E5 claim promotion",
+      "full CI",
+      "merge"
+    ],
+    "nextShortestStep": "GCTX-P13_PublicProductionHTMLPDFAndE5Verification"
+  }
+}
