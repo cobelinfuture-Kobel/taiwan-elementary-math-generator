@@ -1,0 +1,69 @@
+{
+  "schemaName": "GCTXG3BU04GlobalContextPilotRuntimeRendererAndPDFFullFixContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix",
+  "status": "pass_e4_verified_pending_human_review",
+  "evidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "scope": {
+    "sourceId": "g3b_u04_3b04",
+    "knowledgePointId": "kp_g3b_u04_add_then_divide",
+    "patternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+    "pilotMode": "gctx_p12r_shadow",
+    "canonicalResolverUsed": true,
+    "canonicalGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "productionSelectable": false,
+    "publicQuerySelectable": false,
+    "publicRouterChanged": false,
+    "productionAdmitted": false
+  },
+  "acceptance": {
+    "questionCount": 5,
+    "globalContextVariantCount": 5,
+    "changedPromptCount": 5,
+    "preservedMathematicalWitnessCount": 5,
+    "extractedPromptCount": 5,
+    "extractedAnswerCount": 5,
+    "legacyPromptCountInAfter": 0,
+    "leakedLegacyPhraseCount": 0,
+    "expectedPdfPageCount": 2,
+    "actualPdfPageCount": 2,
+    "pdfBytes": 46315
+  },
+  "hashes": {
+    "beforeHtml": "3664b4f842b589ab0272ffa3aecfbcd61bab9c02566288f9fe35592aa19815ef",
+    "afterHtml": "1d31d5cb2b0a1860dfe757712ed9376d7947cb2a71bd09558327c8676ecab2d4",
+    "pdf": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+    "extracted": "515946a904893a756fa5353ceaa1708b72902139bc3babdf81adc8949699211a",
+    "diff": "28fe5d6d23efcc3abaaeb1e8168d52c96792602d00e95a1ab76067f35b8ea26e",
+    "manifest": "09f7d25b885920dba8adab986aa454767aa8dca8e696b87d30715a123fc3a021"
+  },
+  "workflow": {
+    "runId": "29671639064",
+    "runAttempt": "1",
+    "headSha": "fcbae804c93e1d27473c9831631156662f010f95"
+  },
+  "humanReview": {
+    "ready": true,
+    "type": "production_equivalent_output_review",
+    "artifactPaths": [
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.html",
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json",
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json"
+    ],
+    "productionAdmissionBeforeReview": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_G3BU04_CANDIDATE_TEXT_EXISTS",
+    "goalDistanceAfter": "D1_GCTX_G3BU04_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED_PENDING_HUMAN_REVIEW",
+    "distanceReduced": "the five global contexts now pass the canonical resolver, canonical generator, production semantic renderer, exact before-after HTML gate and verified Chromium PDF gate",
+    "remainingBlockers": [
+      "human semantic review",
+      "human mathematical review",
+      "formal production admission",
+      "public production regression after admission"
+    ],
+    "nextShortestStep": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission"
+  }
+}
