@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GCTX-P12S_G3BU04PagesHumanReviewArtifactPublication",
+  "taskClass": "renderer",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "PAGES_REVIEW_PUBLICATION_CONFIGURED_PENDING_CI_AND_DEPLOY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs",
+      "tests/governance/gctx-p12s-pages-review-publication.test.js"
+    ],
+    "rendererTestPaths": [
+      ".github/workflows/gctx-p12s-pages-review-publication.yml",
+      ".github/workflows/pages.yml",
+      "tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json",
+      "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.html",
+        "sha256": "1d31d5cb2b0a1860dfe757712ed9376d7947cb2a71bd09558327c8676ecab2d4"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
+        "sha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json",
+        "sha256": "28fe5d6d23efcc3abaaeb1e8168d52c96792602d00e95a1ab76067f35b8ea26e"
+      },
+      {
+        "path": "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json",
+        "sha256": "09f7d25b885920dba8adab986aa454767aa8dca8e696b87d30715a123fc3a021"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "the production-equivalent PDF remains at D1, while the Human Review accessibility blocker is removed by hash-locked GitHub Pages staging"
+  },
+  "nextStep": {
+    "taskId": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+  }
+}
