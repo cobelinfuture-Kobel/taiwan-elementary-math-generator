@@ -16,19 +16,25 @@ const artifactsExist = fs.existsSync(MANIFEST);
 const sha256 = (filePath) => crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
 const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, "utf8"));
 
-test("GCTX-P12R artifact state matches its Claim Manifest evidence level", () => {
+function assertPendingE3Boundary() {
   const claim = readJson(CLAIM);
+  assert.equal(artifactsExist, false);
+  assert.equal(claim.actualEvidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
+  assert.equal(claim.claims.runtimeIntegrated, true);
+  assert.equal(claim.claims.productionEquivalentGeneratorUsed, true);
+  assert.equal(claim.claims.productionRendererUsed, false);
+  assert.equal(claim.claims.htmlOutputVerified, false);
+  assert.equal(claim.claims.pdfOutputVerified, false);
+  assert.equal(claim.claims.visibleOutputChanged, false);
+  assert.equal(claim.claims.humanReviewReady, false);
+}
+
+test("GCTX-P12R artifact state matches its Claim Manifest evidence level", () => {
   if (!artifactsExist) {
-    assert.equal(claim.actualEvidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
-    assert.equal(claim.claims.runtimeIntegrated, true);
-    assert.equal(claim.claims.productionEquivalentGeneratorUsed, true);
-    assert.equal(claim.claims.productionRendererUsed, false);
-    assert.equal(claim.claims.htmlOutputVerified, false);
-    assert.equal(claim.claims.pdfOutputVerified, false);
-    assert.equal(claim.claims.visibleOutputChanged, false);
-    assert.equal(claim.claims.humanReviewReady, false);
+    assertPendingE3Boundary();
     return;
   }
+  const claim = readJson(CLAIM);
   assert.equal(claim.actualEvidenceLevel, "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED");
   assert.equal(claim.claims.productionRendererUsed, true);
   assert.equal(claim.claims.htmlOutputVerified, true);
@@ -37,7 +43,11 @@ test("GCTX-P12R artifact state matches its Claim Manifest evidence level", () =>
   assert.equal(claim.claims.humanReviewReady, true);
 });
 
-test("GCTX-P12R committed artifact manifest is E4 complete", { skip: !artifactsExist }, () => {
+test("GCTX-P12R artifact manifest is either honestly pending E3 or complete E4", () => {
+  if (!artifactsExist) {
+    assertPendingE3Boundary();
+    return;
+  }
   const manifest = readJson(MANIFEST);
   assert.equal(manifest.status, "production_equivalent_html_pdf_pass");
   assert.equal(manifest.actualEvidenceLevel, "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED");
@@ -52,7 +62,11 @@ test("GCTX-P12R committed artifact manifest is E4 complete", { skip: !artifactsE
   assert.equal(manifest.humanReviewReady, true);
 });
 
-test("GCTX-P12R committed HTML and PDF hashes match the final manifest", { skip: !artifactsExist }, () => {
+test("GCTX-P12R committed HTML and PDF hashes match the final manifest when E4", () => {
+  if (!artifactsExist) {
+    assertPendingE3Boundary();
+    return;
+  }
   const manifest = readJson(MANIFEST);
   for (const key of ["beforeHtml", "afterHtml", "beforePdf", "afterPdf", "beforeAfter"]) {
     const artifact = manifest.artifacts[key];
@@ -69,7 +83,11 @@ test("GCTX-P12R committed HTML and PDF hashes match the final manifest", { skip:
   }
 });
 
-test("GCTX-P12R before-after evidence proves visible change and mathematical parity", { skip: !artifactsExist }, () => {
+test("GCTX-P12R before-after evidence proves visible change and mathematical parity when E4", () => {
+  if (!artifactsExist) {
+    assertPendingE3Boundary();
+    return;
+  }
   const evidence = readJson(BEFORE_AFTER);
   assert.equal(evidence.comparisonCount, 5);
   assert.equal(evidence.visibleChangedCount, 5);
@@ -80,7 +98,11 @@ test("GCTX-P12R before-after evidence proves visible change and mathematical par
   assert.equal(new Set(evidence.comparisons.map((row) => row.globalContextDomainId)).size, 5);
 });
 
-test("GCTX-P12R formal after HTML contains all five contexts and no legacy target prompts", { skip: !artifactsExist }, () => {
+test("GCTX-P12R formal after HTML contains all five contexts and no legacy target prompts when E4", () => {
+  if (!artifactsExist) {
+    assertPendingE3Boundary();
+    return;
+  }
   const manifest = readJson(MANIFEST);
   const beforeHtml = fs.readFileSync(path.join(ROOT, manifest.artifacts.beforeHtml.path), "utf8");
   const afterHtml = fs.readFileSync(path.join(ROOT, manifest.artifacts.afterHtml.path), "utf8");
