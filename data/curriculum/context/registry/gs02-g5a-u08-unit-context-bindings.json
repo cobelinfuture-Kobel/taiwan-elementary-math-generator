@@ -1,0 +1,911 @@
+{
+  "schemaName": "GS02G5AU08UnitContextBindingRegistry",
+  "schemaVersion": 1,
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
+  "sourceId": "g5a_u08_5a08",
+  "familyRegistryRef": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+  "bindingCount": 18,
+  "bindings": [
+    {
+      "unitContextBindingId": "ucb_g5a_u08_school_class_activity",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_school_class_activity",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_average_share_transfer"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_household_daily_planning",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_household_daily_planning",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_average_inverse_or_update"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_store_budget_purchase",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_store_budget_purchase",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_two_product_groups_difference"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_transit_trip_capacity",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_transit_trip_capacity",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_sports_team_training",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_sports_team_training",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_average_inverse_or_update"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_community_public_service",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_community_public_service",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_two_same_rate_groups_sum"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_environmental_cleanup",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_environmental_cleanup",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_water_conservation",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_water_conservation",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update",
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_group_then_select_groups"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_energy_conservation",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_energy_conservation",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update",
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_near_round_unit_price"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_food_resource_distribution",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_food_resource_distribution",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_average_share_transfer"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_outdoor_trip_supplies",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_outdoor_trip_supplies",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_group_then_select_groups"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_science_observation",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_science_observation",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update",
+        "tf_g5a_u08_group_then_select_groups"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_agriculture_production",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_agriculture_production",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_two_product_groups_difference"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_recycling_circular_use",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_recycling_circular_use",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_two_product_groups_difference"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_charity_donation",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_charity_donation",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_average_share_transfer"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_cultural_event",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_cultural_event",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_two_product_groups_difference"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_health_activity_tracking",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_health_activity_tracking",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update",
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_near_round_unit_price"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    },
+    {
+      "unitContextBindingId": "ucb_g5a_u08_disaster_preparedness",
+      "sourceId": "g5a_u08_5a08",
+      "contextFamilyId": "gctx_family_disaster_preparedness",
+      "eligibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_two_same_rate_groups_sum"
+      ],
+      "eligibleKnowledgePointIds": [
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "eligiblePatternGroupIds": [
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "eligiblePatternSpecIds": [
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "operationSignatureAuthority": "S60D_G5A_U08_ApplicationTemplateAndSDGContextContract",
+      "quantityRoleAuthority": "unit_owned_existing_template_family",
+      "unitFlowAuthority": "unit_owned_existing_template_family",
+      "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model",
+      "eligibilityRules": {
+        "contextMayChangeMath": false,
+        "contextMayReplaceTemplateFamily": false,
+        "mustPassSemanticConstraints": true,
+        "mustPassForbiddenCombinationChecks": true,
+        "mustUseFictionalizedPracticeData": true,
+        "minimumCompatibleTemplateFamilies": 5
+      },
+      "lifecycle": {
+        "status": "candidate_binding_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false,
+        "admissionGate": "GS03_G5AU08_GoldenContractFreeze"
+      }
+    }
+  ],
+  "coverage": {
+    "boundContextFamilyCount": 18,
+    "minimumEligibleTemplateFamiliesPerBinding": 5,
+    "productionSelectableBindingCount": 0,
+    "runtimeResolvableBindingCount": 0
+  }
+}

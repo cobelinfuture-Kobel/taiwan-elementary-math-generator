@@ -1,0 +1,4255 @@
+{
+  "schemaName": "GS02G5AU08GlobalContextFamilyRegistry",
+  "schemaVersion": 1,
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
+  "sourceId": "g5a_u08_5a08",
+  "rulesetVersion": "1.0.0-candidate",
+  "authority": {
+    "globalOwns": [
+      "context family identity",
+      "domain",
+      "actors",
+      "places",
+      "objects",
+      "activities",
+      "surface templates",
+      "safety constraints"
+    ],
+    "unitBindingOwns": [
+      "knowledgePointId",
+      "patternGroupId",
+      "patternSpecId",
+      "operation signature",
+      "quantity roles",
+      "unit flow",
+      "answer witness"
+    ],
+    "runtimeComposition": "forbidden_until_GS04",
+    "productionSelection": "forbidden_until_GS03_GS04_and_review"
+  },
+  "acceptanceTargets": {
+    "minimumScenarioFamilies": 15,
+    "targetScenarioFamilies": 18,
+    "minimumDomainCount": 6,
+    "minimumTemplatesPerFamily": 3,
+    "minimumFamiliesPerWordPattern": 5,
+    "minimumGeneratedQASamples": 90
+  },
+  "contextFamilies": [
+    {
+      "contextFamilyId": "gctx_family_school_class_activity",
+      "labelZh": "校園與班級活動",
+      "domain": "school_education",
+      "scenarioPurpose": "班級共同準備、教材配置與活動費用分攤",
+      "canonicalSemanticModel": {
+        "eventStructureId": "class_prepares_shared_activity_resources",
+        "actorRelationship": "teacher_students_or_class_groups_coordinate_shared_resources",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "1e212bb2a8f7293691eb4b05"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_school_class_activity_01",
+          "textZh": "在學校教室，五年一班和五年二班為了班級成果展，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_school_class_activity_02",
+          "textZh": "為完成班級成果展，五年一班先處理{{firstEvent}}，五年二班再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_school_class_activity_03",
+          "textZh": "一份班級成果展紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_average_share_transfer"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "pack",
+        "box",
+        "TWD",
+        "point"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_4"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_school_class_activity_01",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在學校教室準備班級成果展時，五年一班做了5組、五年二班做了7組，每組都有8份活動材料包。兩組合計有多少份活動材料包？",
+          "parameters": {
+            "rate": 8,
+            "countA": 5,
+            "countB": 7
+          },
+          "equation": "8×5+8×7",
+          "answer": 96,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_school_class_activity_02",
+          "templateFamilyId": "tf_g5a_u08_discount_and_change",
+          "patternGroupId": "pg_g5a_u08_mixed_operation_order_application",
+          "patternSpecId": "ps_g5a_u08_app_discount_change",
+          "promptZh": "五年一班為班級成果展購買6份活動材料包，每份100元；每滿2份折20元。付700元，應找回多少元？",
+          "parameters": {
+            "unitPrice": 100,
+            "quantity": 6,
+            "discountGroupSize": 2,
+            "discountPerGroup": 20,
+            "payment": 700
+          },
+          "equation": "700-(100×6-20×3)",
+          "answer": 160,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_school_class_activity_03",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "五年一班把40份活動材料包平均分成4組，再取其中3組投入班級成果展。取出的共有多少份？",
+          "parameters": {
+            "total": 40,
+            "groupCount": 4,
+            "selectedGroupCount": 3
+          },
+          "equation": "40÷4×3",
+          "answer": 30,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_school_class_activity_04",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "五年二班為班級成果展購買9份活動材料包，每份198元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 198,
+            "quantity": 9,
+            "roundAnchor": 200
+          },
+          "equation": "198×9",
+          "answer": 1782,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_school_class_activity_05",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "學校教室有60份活動材料包，每6份綁成一組，再把每2組放進一個收納箱。共可裝成多少箱？",
+          "parameters": {
+            "total": 60,
+            "itemsPerFirstGroup": 6,
+            "secondGroupCount": 2
+          },
+          "equation": "60÷6÷2",
+          "answer": 5,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_household_daily_planning",
+      "labelZh": "家庭與日常生活",
+      "domain": "household_daily_life",
+      "scenarioPurpose": "家庭採買、家務資源與共同支出的規劃",
+      "canonicalSemanticModel": {
+        "eventStructureId": "household_plans_repeated_daily_resource_use",
+        "actorRelationship": "family_members_share_and_adjust_household_resources",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "668c3434722ee9152819995e"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_household_daily_planning_01",
+          "textZh": "在家中，哥哥和妹妹為了週末家庭整理，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_household_daily_planning_02",
+          "textZh": "為完成週末家庭整理，哥哥先處理{{firstEvent}}，妹妹再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_household_daily_planning_03",
+          "textZh": "一份週末家庭整理紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_average_inverse_or_update"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "box",
+        "TWD",
+        "mL",
+        "g",
+        "minute"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_household_daily_planning_01",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "家中原有12個置物盒，每箱有7份家庭用品；其中2箱已先保留。其餘共有多少份家庭用品？",
+          "parameters": {
+            "rate": 7,
+            "availableCount": 12,
+            "removedCount": 2
+          },
+          "equation": "7×12-7×2",
+          "answer": 70,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_household_daily_planning_02",
+          "templateFamilyId": "tf_g5a_u08_adjust_unit_then_remaining",
+          "patternGroupId": "pg_g5a_u08_distributive_expand_application",
+          "patternSpecId": "ps_g5a_u08_app_adjust_unit_remaining",
+          "promptZh": "家中有300單位的資源。原本每次週末家庭整理用50單位，改進後每次少用10單位，共進行4次。最後剩多少單位？",
+          "parameters": {
+            "startingTotal": 300,
+            "originalUnitAmount": 50,
+            "unitAdjustment": 10,
+            "count": 4
+          },
+          "equation": "300-(50-10)×4",
+          "answer": 140,
+          "answerUnit": "resource_unit",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_household_daily_planning_03",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "妹妹為週末家庭整理購買9份家庭用品，每份198元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 198,
+            "quantity": 9,
+            "roundAnchor": 200
+          },
+          "equation": "198×9",
+          "answer": 1782,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_household_daily_planning_04",
+          "templateFamilyId": "tf_g5a_u08_direct_average",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_direct_average",
+          "promptZh": "哥哥連續4次記錄週末家庭整理的數值為29、31、33、35。平均數是多少？",
+          "parameters": {
+            "values": [
+              29,
+              31,
+              33,
+              35
+            ],
+            "count": 4
+          },
+          "equation": "(29＋31＋33＋35)÷4",
+          "answer": 32,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_household_daily_planning_05",
+          "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_average_share_transfer",
+          "promptZh": "哥哥先為週末家庭整理付了270元，妹妹付了170元。兩人平均分擔，妹妹應再給哥哥多少元？",
+          "parameters": {
+            "payments": [
+              270,
+              170
+            ],
+            "count": 2
+          },
+          "equation": "(270＋170)÷2=220；270-220",
+          "answer": 50,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_store_budget_purchase",
+      "labelZh": "商店與預算",
+      "domain": "commerce_budget",
+      "scenarioPurpose": "固定單價、折扣、付款與找零的預算決策",
+      "canonicalSemanticModel": {
+        "eventStructureId": "buyer_selects_goods_under_fixed_budget_rule",
+        "actorRelationship": "buyer_and_shop_apply_one_explicit_price_rule",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "aeff39d2aee7542dca4aadda"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_store_budget_purchase_01",
+          "textZh": "在社區商店，小安和小美為了採買用品，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_store_budget_purchase_02",
+          "textZh": "為完成採買用品，小安先處理{{firstEvent}}，小美再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_store_budget_purchase_03",
+          "textZh": "一份採買用品紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_two_product_groups_difference"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "set",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_12"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_store_budget_purchase_01",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在社區商店準備採買用品時，小安做了3組、小美做了9組，每組都有10份文具組。兩組合計有多少份文具組？",
+          "parameters": {
+            "rate": 10,
+            "countA": 3,
+            "countB": 9
+          },
+          "equation": "10×3+10×9",
+          "answer": 120,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_store_budget_purchase_02",
+          "templateFamilyId": "tf_g5a_u08_discount_and_change",
+          "patternGroupId": "pg_g5a_u08_mixed_operation_order_application",
+          "patternSpecId": "ps_g5a_u08_app_discount_change",
+          "promptZh": "小安為採買用品購買20份文具組，每份70元；每滿4份折10元。付1500元，應找回多少元？",
+          "parameters": {
+            "unitPrice": 70,
+            "quantity": 20,
+            "discountGroupSize": 4,
+            "discountPerGroup": 10,
+            "payment": 1500
+          },
+          "equation": "1500-(70×20-10×5)",
+          "answer": 150,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_store_budget_purchase_03",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "小美為採買用品購買10份文具組，每份302元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 302,
+            "quantity": 10,
+            "roundAnchor": 300
+          },
+          "equation": "302×10",
+          "answer": 3020,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_store_budget_purchase_04",
+          "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_average_share_transfer",
+          "promptZh": "小安先為採買用品付了270元，小美付了170元。兩人平均分擔，小美應再給小安多少元？",
+          "parameters": {
+            "payments": [
+              270,
+              170
+            ],
+            "count": 2
+          },
+          "equation": "(270＋170)÷2=220；270-220",
+          "answer": 50,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_store_budget_purchase_05",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "社區商店原有12個購物袋，每箱有6份文具組；其中4箱已先保留。其餘共有多少份文具組？",
+          "parameters": {
+            "rate": 6,
+            "availableCount": 12,
+            "removedCount": 4
+          },
+          "equation": "6×12-6×4",
+          "answer": 48,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_transit_trip_capacity",
+      "labelZh": "交通與行程",
+      "domain": "transport_mobility",
+      "scenarioPurpose": "座位容量、班次配置與行程數據的估算",
+      "canonicalSemanticModel": {
+        "eventStructureId": "travelers_allocate_capacity_across_trip_segments",
+        "actorRelationship": "passengers_and_operator_manage_limited_transport_capacity",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "4caadce35b1c3dc72c4ca61c"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_transit_trip_capacity_01",
+          "textZh": "在公車轉運站，甲班學生和乙班學生為了校外教學行程，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_transit_trip_capacity_02",
+          "textZh": "為完成校外教學行程，甲班學生先處理{{firstEvent}}，乙班學生再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_transit_trip_capacity_03",
+          "textZh": "一份校外教學行程紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "person",
+        "seat",
+        "vehicle",
+        "trip",
+        "minute"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_11"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_transit_trip_capacity_01",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "公車轉運站原有9個接駁車，每箱有9份乘車名額；其中4箱已先保留。其餘共有多少份乘車名額？",
+          "parameters": {
+            "rate": 9,
+            "availableCount": 9,
+            "removedCount": 4
+          },
+          "equation": "9×9-9×4",
+          "answer": 45,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_transit_trip_capacity_02",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "甲班學生把42份乘車名額平均分成6組，再取其中3組投入校外教學行程。取出的共有多少份？",
+          "parameters": {
+            "total": 42,
+            "groupCount": 6,
+            "selectedGroupCount": 3
+          },
+          "equation": "42÷6×3",
+          "answer": 21,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_transit_trip_capacity_03",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "乙班學生為校外教學行程購買4份乘車名額，每份403元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 403,
+            "quantity": 4,
+            "roundAnchor": 400
+          },
+          "equation": "403×4",
+          "answer": 1612,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_transit_trip_capacity_04",
+          "templateFamilyId": "tf_g5a_u08_direct_average",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_direct_average",
+          "promptZh": "甲班學生連續4次記錄校外教學行程的數值為17、19、21、23。平均數是多少？",
+          "parameters": {
+            "values": [
+              17,
+              19,
+              21,
+              23
+            ],
+            "count": 4
+          },
+          "equation": "(17＋19＋21＋23)÷4",
+          "answer": 20,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_transit_trip_capacity_05",
+          "templateFamilyId": "tf_g5a_u08_average_inverse_or_update",
+          "patternGroupId": "pg_g5a_u08_average_reasoning",
+          "patternSpecId": "ps_g5a_u08_app_average_inverse",
+          "promptZh": "公車轉運站共有4次校外教學行程紀錄，平均是39，其中3次為34、40、44。另一次的數值是多少？",
+          "parameters": {
+            "mode": "inverse",
+            "average": 39,
+            "count": 4,
+            "knownValues": [
+              34,
+              40,
+              44
+            ]
+          },
+          "equation": "39×4-(34＋40＋44)",
+          "answer": 38,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_sports_team_training",
+      "labelZh": "運動與競賽",
+      "domain": "sports_competition",
+      "scenarioPurpose": "隊伍器材、訓練次數與平均表現的安排",
+      "canonicalSemanticModel": {
+        "eventStructureId": "teams_prepare_equipment_and_track_training_results",
+        "actorRelationship": "teams_share_equipment_and_compare_training_records",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "657311030235c2b7d66b000b"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_sports_team_training_01",
+          "textZh": "在學校操場，紅隊和藍隊為了接力訓練，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_sports_team_training_02",
+          "textZh": "為完成接力訓練，紅隊先處理{{firstEvent}}，藍隊再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_sports_team_training_03",
+          "textZh": "一份接力訓練紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_average_inverse_or_update"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "team",
+        "box",
+        "point",
+        "minute",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_3"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_sports_team_training_01",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在學校操場準備接力訓練時，紅隊做了5組、藍隊做了6組，每組都有7份訓練器材。兩組合計有多少份訓練器材？",
+          "parameters": {
+            "rate": 7,
+            "countA": 5,
+            "countB": 6
+          },
+          "equation": "7×5+7×6",
+          "answer": 77,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_sports_team_training_02",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "學校操場原有11個器材箱，每箱有5份訓練器材；其中3箱已先保留。其餘共有多少份訓練器材？",
+          "parameters": {
+            "rate": 5,
+            "availableCount": 11,
+            "removedCount": 3
+          },
+          "equation": "5×11-5×3",
+          "answer": 40,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_sports_team_training_03",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "藍隊為接力訓練購買5份訓練器材，每份97元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 97,
+            "quantity": 5,
+            "roundAnchor": 100
+          },
+          "equation": "97×5",
+          "answer": 485,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_sports_team_training_04",
+          "templateFamilyId": "tf_g5a_u08_direct_average",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_direct_average",
+          "promptZh": "紅隊連續4次記錄接力訓練的數值為19、21、23、25。平均數是多少？",
+          "parameters": {
+            "values": [
+              19,
+              21,
+              23,
+              25
+            ],
+            "count": 4
+          },
+          "equation": "(19＋21＋23＋25)÷4",
+          "answer": 22,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_sports_team_training_05",
+          "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_average_share_transfer",
+          "promptZh": "紅隊先為接力訓練付了320元，藍隊付了240元。兩人平均分擔，藍隊應再給紅隊多少元？",
+          "parameters": {
+            "payments": [
+              320,
+              240
+            ],
+            "count": 2
+          },
+          "equation": "(320＋240)÷2=280；320-280",
+          "answer": 40,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_community_public_service",
+      "labelZh": "社區與公共服務",
+      "domain": "community_public_service",
+      "scenarioPurpose": "公共物資、服務名額與志工資源的配置",
+      "canonicalSemanticModel": {
+        "eventStructureId": "community_center_allocates_shared_public_service_resources",
+        "actorRelationship": "volunteers_and_residents_coordinate_public_resources",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "228c41f185951c5b29093b70"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_community_public_service_01",
+          "textZh": "在社區活動中心，第一志工隊和第二志工隊為了社區服務日，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_community_public_service_02",
+          "textZh": "為完成社區服務日，第一志工隊先處理{{firstEvent}}，第二志工隊再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_community_public_service_03",
+          "textZh": "一份社區服務日紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_two_same_rate_groups_sum"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "pack",
+        "box",
+        "person",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_11"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_community_public_service_01",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "社區活動中心原有11個配送箱，每箱有5份服務物資包；其中3箱已先保留。其餘共有多少份服務物資包？",
+          "parameters": {
+            "rate": 5,
+            "availableCount": 11,
+            "removedCount": 3
+          },
+          "equation": "5×11-5×3",
+          "answer": 40,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_community_public_service_02",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "第一志工隊把36份服務物資包平均分成4組，再取其中3組投入社區服務日。取出的共有多少份？",
+          "parameters": {
+            "total": 36,
+            "groupCount": 4,
+            "selectedGroupCount": 3
+          },
+          "equation": "36÷4×3",
+          "answer": 27,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_community_public_service_03",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "社區活動中心有40份服務物資包，每5份綁成一組，再把每2組放進一個配送箱。共可裝成多少箱？",
+          "parameters": {
+            "total": 40,
+            "itemsPerFirstGroup": 5,
+            "secondGroupCount": 2
+          },
+          "equation": "40÷5÷2",
+          "answer": 4,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_community_public_service_04",
+          "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_average_share_transfer",
+          "promptZh": "第一志工隊先為社區服務日付了320元，第二志工隊付了240元。兩人平均分擔，第二志工隊應再給第一志工隊多少元？",
+          "parameters": {
+            "payments": [
+              320,
+              240
+            ],
+            "count": 2
+          },
+          "equation": "(320＋240)÷2=280；320-280",
+          "answer": 40,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_community_public_service_05",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在社區活動中心準備社區服務日時，第一志工隊做了6組、第二志工隊做了6組，每組都有7份服務物資包。兩組合計有多少份服務物資包？",
+          "parameters": {
+            "rate": 7,
+            "countA": 6,
+            "countB": 6
+          },
+          "equation": "7×6+7×6",
+          "answer": 84,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_environmental_cleanup",
+      "labelZh": "環境保護",
+      "domain": "environmental_protection",
+      "scenarioPurpose": "清理區域、工具使用與減量成效的追蹤",
+      "canonicalSemanticModel": {
+        "eventStructureId": "cleanup_teams_remove_and_measure_environmental_waste",
+        "actorRelationship": "cleanup_groups_divide_zones_and_record_removed_material",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "25083f23be95e729feb5df93"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_environmental_cleanup_01",
+          "textZh": "在河岸公園，河岸組和步道組為了環境清潔，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_environmental_cleanup_02",
+          "textZh": "為完成環境清潔，河岸組先處理{{firstEvent}}，步道組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_environmental_cleanup_03",
+          "textZh": "一份環境清潔紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "bag",
+        "zone",
+        "kg",
+        "minute"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_13",
+        "SDG_15"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_environmental_cleanup_01",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "河岸公園原有12個回收袋，每箱有6份清潔工具；其中4箱已先保留。其餘共有多少份清潔工具？",
+          "parameters": {
+            "rate": 6,
+            "availableCount": 12,
+            "removedCount": 4
+          },
+          "equation": "6×12-6×4",
+          "answer": 48,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_environmental_cleanup_02",
+          "templateFamilyId": "tf_g5a_u08_adjust_unit_then_remaining",
+          "patternGroupId": "pg_g5a_u08_distributive_expand_application",
+          "patternSpecId": "ps_g5a_u08_app_adjust_unit_remaining",
+          "promptZh": "河岸公園有365單位的資源。原本每次環境清潔用50單位，改進後每次少用5單位，共進行5次。最後剩多少單位？",
+          "parameters": {
+            "startingTotal": 365,
+            "originalUnitAmount": 50,
+            "unitAdjustment": 5,
+            "count": 5
+          },
+          "equation": "365-(50-5)×5",
+          "answer": 140,
+          "answerUnit": "resource_unit",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_environmental_cleanup_03",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "河岸組把36份清潔工具平均分成6組，再取其中2組投入環境清潔。取出的共有多少份？",
+          "parameters": {
+            "total": 36,
+            "groupCount": 6,
+            "selectedGroupCount": 2
+          },
+          "equation": "36÷6×2",
+          "answer": 12,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_environmental_cleanup_04",
+          "templateFamilyId": "tf_g5a_u08_direct_average",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_direct_average",
+          "promptZh": "河岸組連續4次記錄環境清潔的數值為23、25、27、29。平均數是多少？",
+          "parameters": {
+            "values": [
+              23,
+              25,
+              27,
+              29
+            ],
+            "count": 4
+          },
+          "equation": "(23＋25＋27＋29)÷4",
+          "answer": 26,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_environmental_cleanup_05",
+          "templateFamilyId": "tf_g5a_u08_average_inverse_or_update",
+          "patternGroupId": "pg_g5a_u08_average_reasoning",
+          "patternSpecId": "ps_g5a_u08_app_average_inverse",
+          "promptZh": "河岸公園共有4次環境清潔紀錄，平均是25，其中3次為20、26、30。另一次的數值是多少？",
+          "parameters": {
+            "mode": "inverse",
+            "average": 25,
+            "count": 4,
+            "knownValues": [
+              20,
+              26,
+              30
+            ]
+          },
+          "equation": "25×4-(20＋26＋30)",
+          "answer": 24,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_water_conservation",
+      "labelZh": "能源與用水－節水",
+      "domain": "water_conservation",
+      "scenarioPurpose": "每次用水量調整與多日平均用水追蹤",
+      "canonicalSemanticModel": {
+        "eventStructureId": "users_reduce_per_activity_water_and_monitor_totals",
+        "actorRelationship": "participants_follow_one_conservation_rule_and_compare_records",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "460241838c8ca40df36a7191"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_water_conservation_01",
+          "textZh": "在校園洗手區，上午班和下午班為了節水行動，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_water_conservation_02",
+          "textZh": "為完成節水行動，上午班先處理{{firstEvent}}，下午班再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_water_conservation_03",
+          "textZh": "一份節水行動紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update",
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_group_then_select_groups"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "L",
+        "mL",
+        "day",
+        "activity"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_6"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_water_conservation_01",
+          "templateFamilyId": "tf_g5a_u08_adjust_unit_then_remaining",
+          "patternGroupId": "pg_g5a_u08_distributive_expand_application",
+          "patternSpecId": "ps_g5a_u08_app_adjust_unit_remaining",
+          "promptZh": "校園洗手區有365單位的資源。原本每次節水行動用50單位，改進後每次少用5單位，共進行5次。最後剩多少單位？",
+          "parameters": {
+            "startingTotal": 365,
+            "originalUnitAmount": 50,
+            "unitAdjustment": 5,
+            "count": 5
+          },
+          "equation": "365-(50-5)×5",
+          "answer": 140,
+          "answerUnit": "resource_unit",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_water_conservation_02",
+          "templateFamilyId": "tf_g5a_u08_direct_average",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_direct_average",
+          "promptZh": "上午班連續4次記錄節水行動的數值為21、23、25、27。平均數是多少？",
+          "parameters": {
+            "values": [
+              21,
+              23,
+              25,
+              27
+            ],
+            "count": 4
+          },
+          "equation": "(21＋23＋25＋27)÷4",
+          "answer": 24,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_water_conservation_03",
+          "templateFamilyId": "tf_g5a_u08_average_inverse_or_update",
+          "patternGroupId": "pg_g5a_u08_average_reasoning",
+          "patternSpecId": "ps_g5a_u08_app_average_inverse",
+          "promptZh": "校園洗手區共有4次節水行動紀錄，平均是23，其中3次為18、24、28。另一次的數值是多少？",
+          "parameters": {
+            "mode": "inverse",
+            "average": 23,
+            "count": 4,
+            "knownValues": [
+              18,
+              24,
+              28
+            ]
+          },
+          "equation": "23×4-(18＋24＋28)",
+          "answer": 22,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_water_conservation_04",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "校園洗手區原有11個紀錄夾，每箱有4份節水紀錄卡；其中2箱已先保留。其餘共有多少份節水紀錄卡？",
+          "parameters": {
+            "rate": 4,
+            "availableCount": 11,
+            "removedCount": 2
+          },
+          "equation": "4×11-4×2",
+          "answer": 36,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_water_conservation_05",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "上午班把45份節水紀錄卡平均分成5組，再取其中3組投入節水行動。取出的共有多少份？",
+          "parameters": {
+            "total": 45,
+            "groupCount": 5,
+            "selectedGroupCount": 3
+          },
+          "equation": "45÷5×3",
+          "answer": 27,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_energy_conservation",
+      "labelZh": "能源與用水－節能",
+      "domain": "energy_conservation",
+      "scenarioPurpose": "設備節能、使用次數與平均耗能的管理",
+      "canonicalSemanticModel": {
+        "eventStructureId": "devices_apply_per_use_energy_reduction_and_update_average",
+        "actorRelationship": "users_apply_same_energy_rule_to_multiple_devices",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "1c80044bbc0f8f44bb6cf37e"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_energy_conservation_01",
+          "textZh": "在校園電腦教室，A 組和B 組為了節能觀察，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_energy_conservation_02",
+          "textZh": "為完成節能觀察，A 組先處理{{firstEvent}}，B 組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_energy_conservation_03",
+          "textZh": "一份節能觀察紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update",
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_near_round_unit_price"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "device",
+        "use",
+        "Wh",
+        "day"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_7"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_energy_conservation_01",
+          "templateFamilyId": "tf_g5a_u08_adjust_unit_then_remaining",
+          "patternGroupId": "pg_g5a_u08_distributive_expand_application",
+          "patternSpecId": "ps_g5a_u08_app_adjust_unit_remaining",
+          "promptZh": "校園電腦教室有220單位的資源。原本每次節能觀察用30單位，改進後每次少用10單位，共進行6次。最後剩多少單位？",
+          "parameters": {
+            "startingTotal": 220,
+            "originalUnitAmount": 30,
+            "unitAdjustment": 10,
+            "count": 6
+          },
+          "equation": "220-(30-10)×6",
+          "answer": 100,
+          "answerUnit": "resource_unit",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_energy_conservation_02",
+          "templateFamilyId": "tf_g5a_u08_direct_average",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_direct_average",
+          "promptZh": "A 組連續4次記錄節能觀察的數值為23、25、27、29。平均數是多少？",
+          "parameters": {
+            "values": [
+              23,
+              25,
+              27,
+              29
+            ],
+            "count": 4
+          },
+          "equation": "(23＋25＋27＋29)÷4",
+          "answer": 26,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_energy_conservation_03",
+          "templateFamilyId": "tf_g5a_u08_average_inverse_or_update",
+          "patternGroupId": "pg_g5a_u08_average_reasoning",
+          "patternSpecId": "ps_g5a_u08_app_average_inverse",
+          "promptZh": "校園電腦教室共有4次節能觀察紀錄，平均是25，其中3次為20、26、30。另一次的數值是多少？",
+          "parameters": {
+            "mode": "inverse",
+            "average": 25,
+            "count": 4,
+            "knownValues": [
+              20,
+              26,
+              30
+            ]
+          },
+          "equation": "25×4-(20＋26＋30)",
+          "answer": 24,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_energy_conservation_04",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在校園電腦教室準備節能觀察時，A 組做了4組、B 組做了8組，每組都有9份節能設備。兩組合計有多少份節能設備？",
+          "parameters": {
+            "rate": 9,
+            "countA": 4,
+            "countB": 8
+          },
+          "equation": "9×4+9×8",
+          "answer": 108,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_energy_conservation_05",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "B 組為節能觀察購買4份節能設備，每份302元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 302,
+            "quantity": 4,
+            "roundAnchor": 300
+          },
+          "equation": "302×4",
+          "answer": 1208,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_food_resource_distribution",
+      "labelZh": "食物與資源分配",
+      "domain": "food_resource_distribution",
+      "scenarioPurpose": "食物包裝、等分配送與剩餘資源管理",
+      "canonicalSemanticModel": {
+        "eventStructureId": "food_resources_are_packed_equally_then_allocated",
+        "actorRelationship": "preparation_team_and_recipient_groups_share_equal_portions",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "4b48fd3f89b65a370e1dd6ce"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_food_resource_distribution_01",
+          "textZh": "在學校餐飲教室，備餐組和配送組為了餐點分配，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_food_resource_distribution_02",
+          "textZh": "為完成餐點分配，備餐組先處理{{firstEvent}}，配送組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_food_resource_distribution_03",
+          "textZh": "一份餐點分配紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_average_share_transfer"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "pack",
+        "box",
+        "person",
+        "g"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_2",
+        "SDG_12"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_food_resource_distribution_01",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在學校餐飲教室準備餐點分配時，備餐組做了6組、配送組做了6組，每組都有7份餐點包。兩組合計有多少份餐點包？",
+          "parameters": {
+            "rate": 7,
+            "countA": 6,
+            "countB": 6
+          },
+          "equation": "7×6+7×6",
+          "answer": 84,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_food_resource_distribution_02",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "備餐組把32份餐點包平均分成4組，再取其中2組投入餐點分配。取出的共有多少份？",
+          "parameters": {
+            "total": 32,
+            "groupCount": 4,
+            "selectedGroupCount": 2
+          },
+          "equation": "32÷4×2",
+          "answer": 16,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_food_resource_distribution_03",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "學校餐飲教室有60份餐點包，每5份綁成一組，再把每3組放進一個保鮮箱。共可裝成多少箱？",
+          "parameters": {
+            "total": 60,
+            "itemsPerFirstGroup": 5,
+            "secondGroupCount": 3
+          },
+          "equation": "60÷5÷3",
+          "answer": 4,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_food_resource_distribution_04",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "學校餐飲教室原有13個保鮮箱，每箱有6份餐點包；其中4箱已先保留。其餘共有多少份餐點包？",
+          "parameters": {
+            "rate": 6,
+            "availableCount": 13,
+            "removedCount": 4
+          },
+          "equation": "6×13-6×4",
+          "answer": 54,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_food_resource_distribution_05",
+          "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_average_share_transfer",
+          "promptZh": "備餐組先為餐點分配付了310元，配送組付了210元。兩人平均分擔，配送組應再給備餐組多少元？",
+          "parameters": {
+            "payments": [
+              310,
+              210
+            ],
+            "count": 2
+          },
+          "equation": "(310＋210)÷2=260；310-260",
+          "answer": 50,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_outdoor_trip_supplies",
+      "labelZh": "旅遊與戶外活動",
+      "domain": "outdoor_travel",
+      "scenarioPurpose": "行前用品、分組裝備與共同費用的安排",
+      "canonicalSemanticModel": {
+        "eventStructureId": "travel_group_prepares_and_distributes_trip_supplies",
+        "actorRelationship": "trip_members_share_costs_and_group_equipment",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "0379cda95b08bb180d63580c"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_outdoor_trip_supplies_01",
+          "textZh": "在自然步道集合點，山線小隊和湖線小隊為了戶外探索，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_outdoor_trip_supplies_02",
+          "textZh": "為完成戶外探索，山線小隊先處理{{firstEvent}}，湖線小隊再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_outdoor_trip_supplies_03",
+          "textZh": "一份戶外探索紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_group_then_select_groups"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "set",
+        "box",
+        "person",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_15"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_outdoor_trip_supplies_01",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "自然步道集合點原有11個裝備箱，每箱有4份戶外用品組；其中2箱已先保留。其餘共有多少份戶外用品組？",
+          "parameters": {
+            "rate": 4,
+            "availableCount": 11,
+            "removedCount": 2
+          },
+          "equation": "4×11-4×2",
+          "answer": 36,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_outdoor_trip_supplies_02",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "湖線小隊為戶外探索購買10份戶外用品組，每份198元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 198,
+            "quantity": 10,
+            "roundAnchor": 200
+          },
+          "equation": "198×10",
+          "answer": 1980,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_outdoor_trip_supplies_03",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "自然步道集合點有120份戶外用品組，每6份綁成一組，再把每4組放進一個裝備箱。共可裝成多少箱？",
+          "parameters": {
+            "total": 120,
+            "itemsPerFirstGroup": 6,
+            "secondGroupCount": 4
+          },
+          "equation": "120÷6÷4",
+          "answer": 5,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_outdoor_trip_supplies_04",
+          "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_average_share_transfer",
+          "promptZh": "山線小隊先為戶外探索付了310元，湖線小隊付了210元。兩人平均分擔，湖線小隊應再給山線小隊多少元？",
+          "parameters": {
+            "payments": [
+              310,
+              210
+            ],
+            "count": 2
+          },
+          "equation": "(310＋210)÷2=260；310-260",
+          "answer": 50,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_outdoor_trip_supplies_05",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "山線小隊把28份戶外用品組平均分成4組，再取其中3組投入戶外探索。取出的共有多少份？",
+          "parameters": {
+            "total": 28,
+            "groupCount": 4,
+            "selectedGroupCount": 3
+          },
+          "equation": "28÷4×3",
+          "answer": 21,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_science_observation",
+      "labelZh": "科學觀察",
+      "domain": "science_observation",
+      "scenarioPurpose": "重複測量、樣本分組與平均數據的整理",
+      "canonicalSemanticModel": {
+        "eventStructureId": "student_scientists_collect_repeated_measurements_and_reconstruct_missing_data",
+        "actorRelationship": "observation_groups_follow_same_protocol_and_compare_measurements",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "55aa129f2aaa9e414b7e32bb"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_science_observation_01",
+          "textZh": "在自然科教室，觀察一組和觀察二組為了植物生長觀察，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_science_observation_02",
+          "textZh": "為完成植物生長觀察，觀察一組先處理{{firstEvent}}，觀察二組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_science_observation_03",
+          "textZh": "一份植物生長觀察紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update",
+        "tf_g5a_u08_group_then_select_groups"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "sample",
+        "tray",
+        "mm",
+        "cm",
+        "day"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_4",
+        "SDG_15"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_science_observation_01",
+          "templateFamilyId": "tf_g5a_u08_adjust_unit_then_remaining",
+          "patternGroupId": "pg_g5a_u08_distributive_expand_application",
+          "patternSpecId": "ps_g5a_u08_app_adjust_unit_remaining",
+          "promptZh": "自然科教室有305單位的資源。原本每次植物生長觀察用45單位，改進後每次少用10單位，共進行5次。最後剩多少單位？",
+          "parameters": {
+            "startingTotal": 305,
+            "originalUnitAmount": 45,
+            "unitAdjustment": 10,
+            "count": 5
+          },
+          "equation": "305-(45-10)×5",
+          "answer": 130,
+          "answerUnit": "resource_unit",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_science_observation_02",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "自然科教室有120份觀察樣本，每6份綁成一組，再把每4組放進一個樣本盤。共可裝成多少箱？",
+          "parameters": {
+            "total": 120,
+            "itemsPerFirstGroup": 6,
+            "secondGroupCount": 4
+          },
+          "equation": "120÷6÷4",
+          "answer": 5,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_science_observation_03",
+          "templateFamilyId": "tf_g5a_u08_direct_average",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_direct_average",
+          "promptZh": "觀察一組連續4次記錄植物生長觀察的數值為31、33、35、37。平均數是多少？",
+          "parameters": {
+            "values": [
+              31,
+              33,
+              35,
+              37
+            ],
+            "count": 4
+          },
+          "equation": "(31＋33＋35＋37)÷4",
+          "answer": 34,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_science_observation_04",
+          "templateFamilyId": "tf_g5a_u08_average_inverse_or_update",
+          "patternGroupId": "pg_g5a_u08_average_reasoning",
+          "patternSpecId": "ps_g5a_u08_app_average_inverse",
+          "promptZh": "自然科教室共有4次植物生長觀察紀錄，平均是33，其中3次為28、34、38。另一次的數值是多少？",
+          "parameters": {
+            "mode": "inverse",
+            "average": 33,
+            "count": 4,
+            "knownValues": [
+              28,
+              34,
+              38
+            ]
+          },
+          "equation": "33×4-(28＋34＋38)",
+          "answer": 32,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_science_observation_05",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "觀察一組把40份觀察樣本平均分成5組，再取其中3組投入植物生長觀察。取出的共有多少份？",
+          "parameters": {
+            "total": 40,
+            "groupCount": 5,
+            "selectedGroupCount": 3
+          },
+          "equation": "40÷5×3",
+          "answer": 24,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_agriculture_production",
+      "labelZh": "農業與生產",
+      "domain": "agriculture_production",
+      "scenarioPurpose": "作物批次、育苗分盤與產量資源的規劃",
+      "canonicalSemanticModel": {
+        "eventStructureId": "farm_team_groups_production_units_and_allocates_batches",
+        "actorRelationship": "growers_manage_equal_batches_across_fields_or_trays",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "55070785face7ed204952a01"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_agriculture_production_01",
+          "textZh": "在校園農園，蔬菜組和香草組為了農園育苗，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_agriculture_production_02",
+          "textZh": "為完成農園育苗，蔬菜組先處理{{firstEvent}}，香草組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_agriculture_production_03",
+          "textZh": "一份農園育苗紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_two_product_groups_difference"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "plant",
+        "tray",
+        "zone",
+        "kg",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_2",
+        "SDG_15"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_agriculture_production_01",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在校園農園準備農園育苗時，蔬菜組做了5組、香草組做了9組，每組都有10份幼苗。兩組合計有多少份幼苗？",
+          "parameters": {
+            "rate": 10,
+            "countA": 5,
+            "countB": 9
+          },
+          "equation": "10×5+10×9",
+          "answer": 140,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_agriculture_production_02",
+          "templateFamilyId": "tf_g5a_u08_adjust_unit_then_remaining",
+          "patternGroupId": "pg_g5a_u08_distributive_expand_application",
+          "patternSpecId": "ps_g5a_u08_app_adjust_unit_remaining",
+          "promptZh": "校園農園有275單位的資源。原本每次農園育苗用30單位，改進後每次少用5單位，共進行7次。最後剩多少單位？",
+          "parameters": {
+            "startingTotal": 275,
+            "originalUnitAmount": 30,
+            "unitAdjustment": 5,
+            "count": 7
+          },
+          "equation": "275-(30-5)×7",
+          "answer": 100,
+          "answerUnit": "resource_unit",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_agriculture_production_03",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "蔬菜組把28份幼苗平均分成4組，再取其中3組投入農園育苗。取出的共有多少份？",
+          "parameters": {
+            "total": 28,
+            "groupCount": 4,
+            "selectedGroupCount": 3
+          },
+          "equation": "28÷4×3",
+          "answer": 21,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_agriculture_production_04",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "校園農園有80份幼苗，每5份綁成一組，再把每4組放進一個育苗盤。共可裝成多少箱？",
+          "parameters": {
+            "total": 80,
+            "itemsPerFirstGroup": 5,
+            "secondGroupCount": 4
+          },
+          "equation": "80÷5÷4",
+          "answer": 4,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_agriculture_production_05",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "校園農園原有12個育苗盤，每箱有4份幼苗；其中2箱已先保留。其餘共有多少份幼苗？",
+          "parameters": {
+            "rate": 4,
+            "availableCount": 12,
+            "removedCount": 2
+          },
+          "equation": "4×12-4×2",
+          "answer": 40,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_recycling_circular_use",
+      "labelZh": "回收與循環利用",
+      "domain": "recycling_circular_economy",
+      "scenarioPurpose": "回收分類、再利用折抵與材料重新分裝",
+      "canonicalSemanticModel": {
+        "eventStructureId": "materials_are_collected_sorted_and_reused_under_fixed_rule",
+        "actorRelationship": "collection_team_and_reuse_team_transform_same_material_stream",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "b2ddfcd4a807de60241c050f"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_recycling_circular_use_01",
+          "textZh": "在校園資源回收站，收集組和再利用組為了資源循環活動，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_recycling_circular_use_02",
+          "textZh": "為完成資源循環活動，收集組先處理{{firstEvent}}，再利用組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_recycling_circular_use_03",
+          "textZh": "一份資源循環活動紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_two_product_groups_difference"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "kg",
+        "box",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_12"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_recycling_circular_use_01",
+          "templateFamilyId": "tf_g5a_u08_discount_and_change",
+          "patternGroupId": "pg_g5a_u08_mixed_operation_order_application",
+          "patternSpecId": "ps_g5a_u08_app_discount_change",
+          "promptZh": "收集組為資源循環活動購買6份回收材料，每份70元；每滿2份折20元。付500元，應找回多少元？",
+          "parameters": {
+            "unitPrice": 70,
+            "quantity": 6,
+            "discountGroupSize": 2,
+            "discountPerGroup": 20,
+            "payment": 500
+          },
+          "equation": "500-(70×6-20×3)",
+          "answer": 140,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_recycling_circular_use_02",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "收集組把28份回收材料平均分成4組，再取其中3組投入資源循環活動。取出的共有多少份？",
+          "parameters": {
+            "total": 28,
+            "groupCount": 4,
+            "selectedGroupCount": 3
+          },
+          "equation": "28÷4×3",
+          "answer": 21,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_recycling_circular_use_03",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "再利用組為資源循環活動購買7份回收材料，每份198元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 198,
+            "quantity": 7,
+            "roundAnchor": 200
+          },
+          "equation": "198×7",
+          "answer": 1386,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_recycling_circular_use_04",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "校園資源回收站有60份回收材料，每6份綁成一組，再把每2組放進一個分類箱。共可裝成多少箱？",
+          "parameters": {
+            "total": 60,
+            "itemsPerFirstGroup": 6,
+            "secondGroupCount": 2
+          },
+          "equation": "60÷6÷2",
+          "answer": 5,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_recycling_circular_use_05",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "校園資源回收站原有13個分類箱，每箱有5份回收材料；其中3箱已先保留。其餘共有多少份回收材料？",
+          "parameters": {
+            "rate": 5,
+            "availableCount": 13,
+            "removedCount": 3
+          },
+          "equation": "5×13-5×3",
+          "answer": 50,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_charity_donation",
+      "labelZh": "公益與捐贈",
+      "domain": "charity_donation",
+      "scenarioPurpose": "捐贈物資等量包裝、分配與共同費用分攤",
+      "canonicalSemanticModel": {
+        "eventStructureId": "donors_pool_resources_then_pack_and_allocate_aid",
+        "actorRelationship": "donor_groups_and_service_team_coordinate_equal_aid_packages",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "d2430c376339a13e0951922b"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_charity_donation_01",
+          "textZh": "在公益物資募集站，甲募集組和乙募集組為了公益募集，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_charity_donation_02",
+          "textZh": "為完成公益募集，甲募集組先處理{{firstEvent}}，乙募集組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_charity_donation_03",
+          "textZh": "一份公益募集紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_average_share_transfer"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_mul_div_equivalent_regroup"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "pack",
+        "box",
+        "person",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_1",
+        "SDG_2"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_charity_donation_01",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在公益物資募集站準備公益募集時，甲募集組做了3組、乙募集組做了6組，每組都有7份捐贈物資。兩組合計有多少份捐贈物資？",
+          "parameters": {
+            "rate": 7,
+            "countA": 3,
+            "countB": 6
+          },
+          "equation": "7×3+7×6",
+          "answer": 63,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_charity_donation_02",
+          "templateFamilyId": "tf_g5a_u08_discount_and_change",
+          "patternGroupId": "pg_g5a_u08_mixed_operation_order_application",
+          "patternSpecId": "ps_g5a_u08_app_discount_change",
+          "promptZh": "甲募集組為公益募集購買20份捐贈物資，每份90元；每滿4份折10元。付1900元，應找回多少元？",
+          "parameters": {
+            "unitPrice": 90,
+            "quantity": 20,
+            "discountGroupSize": 4,
+            "discountPerGroup": 10,
+            "payment": 1900
+          },
+          "equation": "1900-(90×20-10×5)",
+          "answer": 150,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_charity_donation_03",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "甲募集組把54份捐贈物資平均分成6組，再取其中5組投入公益募集。取出的共有多少份？",
+          "parameters": {
+            "total": 54,
+            "groupCount": 6,
+            "selectedGroupCount": 5
+          },
+          "equation": "54÷6×5",
+          "answer": 45,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_charity_donation_04",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "公益物資募集站有126份捐贈物資，每7份綁成一組，再把每3組放進一個愛心箱。共可裝成多少箱？",
+          "parameters": {
+            "total": 126,
+            "itemsPerFirstGroup": 7,
+            "secondGroupCount": 3
+          },
+          "equation": "126÷7÷3",
+          "answer": 6,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_charity_donation_05",
+          "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_average_share_transfer",
+          "promptZh": "甲募集組先為公益募集付了260元，乙募集組付了220元。兩人平均分擔，乙募集組應再給甲募集組多少元？",
+          "parameters": {
+            "payments": [
+              260,
+              220
+            ],
+            "count": 2
+          },
+          "equation": "(260＋220)÷2=240；260-240",
+          "answer": 20,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_cultural_event",
+      "labelZh": "文化活動",
+      "domain": "culture_event",
+      "scenarioPurpose": "展演票券、布置材料與活動共同支出的安排",
+      "canonicalSemanticModel": {
+        "eventStructureId": "event_team_budgets_materials_and_balances_shared_costs",
+        "actorRelationship": "performance_groups_share_venue_resources_and_costs",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "bc38390e324f21bbece28fb7"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_cultural_event_01",
+          "textZh": "在地方文化館，表演組和布置組為了文化展演，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_cultural_event_02",
+          "textZh": "為完成文化展演，表演組先處理{{firstEvent}}，布置組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_cultural_event_03",
+          "textZh": "一份文化展演紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_discount_and_change",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_average_share_transfer",
+        "tf_g5a_u08_two_product_groups_difference"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mixed_operation_order",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "ticket",
+        "item",
+        "box",
+        "person",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_11"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_cultural_event_01",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在地方文化館準備文化展演時，表演組做了4組、布置組做了7組，每組都有8份活動材料。兩組合計有多少份活動材料？",
+          "parameters": {
+            "rate": 8,
+            "countA": 4,
+            "countB": 7
+          },
+          "equation": "8×4+8×7",
+          "answer": 88,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_cultural_event_02",
+          "templateFamilyId": "tf_g5a_u08_discount_and_change",
+          "patternGroupId": "pg_g5a_u08_mixed_operation_order_application",
+          "patternSpecId": "ps_g5a_u08_app_discount_change",
+          "promptZh": "表演組為文化展演購買6份活動材料，每份100元；每滿2份折15元。付700元，應找回多少元？",
+          "parameters": {
+            "unitPrice": 100,
+            "quantity": 6,
+            "discountGroupSize": 2,
+            "discountPerGroup": 15,
+            "payment": 700
+          },
+          "equation": "700-(100×6-15×3)",
+          "answer": 145,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_cultural_event_03",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "布置組為文化展演購買9份活動材料，每份403元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 403,
+            "quantity": 9,
+            "roundAnchor": 400
+          },
+          "equation": "403×9",
+          "answer": 3627,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_cultural_event_04",
+          "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_average_share_transfer",
+          "promptZh": "表演組先為文化展演付了260元，布置組付了220元。兩人平均分擔，布置組應再給表演組多少元？",
+          "parameters": {
+            "payments": [
+              260,
+              220
+            ],
+            "count": 2
+          },
+          "equation": "(260＋220)÷2=240；260-240",
+          "answer": 20,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_cultural_event_05",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "地方文化館原有10個道具箱，每箱有7份活動材料；其中2箱已先保留。其餘共有多少份活動材料？",
+          "parameters": {
+            "rate": 7,
+            "availableCount": 10,
+            "removedCount": 2
+          },
+          "equation": "7×10-7×2",
+          "answer": 56,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_health_activity_tracking",
+      "labelZh": "健康與運動量",
+      "domain": "health_activity",
+      "scenarioPurpose": "每日運動量、健康紀錄與平均變化的追蹤",
+      "canonicalSemanticModel": {
+        "eventStructureId": "participants_record_repeated_health_activity_and_update_average",
+        "actorRelationship": "students_follow_same_activity_protocol_and_compare_records",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "e2ed3d737e7e73e23e9e3099"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_health_activity_tracking_01",
+          "textZh": "在健康中心，晨間組和午後組為了健康挑戰，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_health_activity_tracking_02",
+          "textZh": "為完成健康挑戰，晨間組先處理{{firstEvent}}，午後組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_health_activity_tracking_03",
+          "textZh": "一份健康挑戰紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_adjust_unit_then_remaining",
+        "tf_g5a_u08_direct_average",
+        "tf_g5a_u08_average_inverse_or_update",
+        "tf_g5a_u08_two_same_rate_groups_sum",
+        "tf_g5a_u08_near_round_unit_price"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_average_inverse_update",
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_distributive_expand",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning",
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update",
+        "ps_g5a_u08_app_direct_average",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "step",
+        "minute",
+        "day",
+        "point"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_3"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_health_activity_tracking_01",
+          "templateFamilyId": "tf_g5a_u08_adjust_unit_then_remaining",
+          "patternGroupId": "pg_g5a_u08_distributive_expand_application",
+          "patternSpecId": "ps_g5a_u08_app_adjust_unit_remaining",
+          "promptZh": "健康中心有370單位的資源。原本每次健康挑戰用45單位，改進後每次少用5單位，共進行6次。最後剩多少單位？",
+          "parameters": {
+            "startingTotal": 370,
+            "originalUnitAmount": 45,
+            "unitAdjustment": 5,
+            "count": 6
+          },
+          "equation": "370-(45-5)×6",
+          "answer": 130,
+          "answerUnit": "resource_unit",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_health_activity_tracking_02",
+          "templateFamilyId": "tf_g5a_u08_direct_average",
+          "patternGroupId": "pg_g5a_u08_average_application",
+          "patternSpecId": "ps_g5a_u08_app_direct_average",
+          "promptZh": "晨間組連續4次記錄健康挑戰的數值為23、25、27、29。平均數是多少？",
+          "parameters": {
+            "values": [
+              23,
+              25,
+              27,
+              29
+            ],
+            "count": 4
+          },
+          "equation": "(23＋25＋27＋29)÷4",
+          "answer": 26,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_health_activity_tracking_03",
+          "templateFamilyId": "tf_g5a_u08_average_inverse_or_update",
+          "patternGroupId": "pg_g5a_u08_average_reasoning",
+          "patternSpecId": "ps_g5a_u08_app_average_inverse",
+          "promptZh": "健康中心共有4次健康挑戰紀錄，平均是21，其中3次為16、22、26。另一次的數值是多少？",
+          "parameters": {
+            "mode": "inverse",
+            "average": 21,
+            "count": 4,
+            "knownValues": [
+              16,
+              22,
+              26
+            ]
+          },
+          "equation": "21×4-(16＋22＋26)",
+          "answer": 20,
+          "answerUnit": "same_as_values",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_health_activity_tracking_04",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在健康中心準備健康挑戰時，晨間組做了4組、午後組做了6組，每組都有7份健康紀錄卡。兩組合計有多少份健康紀錄卡？",
+          "parameters": {
+            "rate": 7,
+            "countA": 4,
+            "countB": 6
+          },
+          "equation": "7×4+7×6",
+          "answer": 70,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_health_activity_tracking_05",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "午後組為健康挑戰購買5份健康紀錄卡，每份302元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 302,
+            "quantity": 5,
+            "roundAnchor": 300
+          },
+          "equation": "302×5",
+          "answer": 1510,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    },
+    {
+      "contextFamilyId": "gctx_family_disaster_preparedness",
+      "labelZh": "災害準備",
+      "domain": "disaster_preparedness",
+      "scenarioPurpose": "緊急物資分箱、避難名額與備援資源的配置",
+      "canonicalSemanticModel": {
+        "eventStructureId": "response_team_prepositions_supplies_and_reserves_capacity",
+        "actorRelationship": "response_groups_allocate_limited_resources_under_readiness_rules",
+        "eventSequence": [
+          "introduce_context_and_roles",
+          "apply_one_fixed_quantity_rule",
+          "derive_terminal_quantity"
+        ],
+        "quantityRelationship": "selected_from_unit_owned_template_family",
+        "terminalQuestionPurpose": "calculate_one_reconstructable_integer_quantity",
+        "semanticFingerprint": "8faa1755eec0c935b91be3ba"
+      },
+      "surfaceTemplates": [
+        {
+          "templateId": "tpl_disaster_preparedness_01",
+          "textZh": "在校園防災倉庫，避難引導組和物資管理組為了防災演練，依同一數量規則處理{{quantityFacts}}，求{{targetQuantity}}。",
+          "surfaceVariantPurpose": "共同任務與雙角色協作",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "place",
+            "activity",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_disaster_preparedness_02",
+          "textZh": "為完成防災演練，避難引導組先處理{{firstEvent}}，物資管理組再處理{{secondEvent}}。根據{{quantityFacts}}，計算{{targetQuantity}}。",
+          "surfaceVariantPurpose": "先後事件與狀態轉移",
+          "requiredSlots": [
+            "actorA",
+            "actorB",
+            "firstEvent",
+            "secondEvent",
+            "quantityFacts",
+            "targetQuantity"
+          ]
+        },
+        {
+          "templateId": "tpl_disaster_preparedness_03",
+          "textZh": "一份防災演練紀錄顯示{{observedState}}。若遵守{{fixedRule}}，最後{{targetQuantity}}是多少？",
+          "surfaceVariantPurpose": "紀錄判讀與固定規則",
+          "requiredSlots": [
+            "observedState",
+            "fixedRule",
+            "targetQuantity"
+          ]
+        }
+      ],
+      "compatibleTemplateFamilyIds": [
+        "tf_g5a_u08_two_product_groups_difference",
+        "tf_g5a_u08_group_then_select_groups",
+        "tf_g5a_u08_near_round_unit_price",
+        "tf_g5a_u08_nested_grouping",
+        "tf_g5a_u08_two_same_rate_groups_sum"
+      ],
+      "compatibleKnowledgePoints": [
+        "kp_g5a_u08_common_factor_extract",
+        "kp_g5a_u08_mul_div_equivalent_regroup",
+        "kp_g5a_u08_near_round_multiply_compensation"
+      ],
+      "compatiblePatternGroups": [
+        "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_near_round_multiply_application"
+      ],
+      "compatiblePatternSpecs": [
+        "ps_g5a_u08_app_group_select",
+        "ps_g5a_u08_app_near_round_unit_price",
+        "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_app_two_same_rate_groups_sum"
+      ],
+      "parameterSchema": {
+        "dataPolicy": "fictionalized_for_practice",
+        "numberType": "positive_integer",
+        "requiredSemanticSlots": [
+          "actorA",
+          "actorB",
+          "place",
+          "activity",
+          "object",
+          "quantityFacts",
+          "targetQuantity"
+        ],
+        "roleBindingPolicy": "must_resolve_through_unit_template_family",
+        "externalKnowledgeRequired": false
+      },
+      "allowedUnits": [
+        "item",
+        "pack",
+        "box",
+        "person",
+        "TWD"
+      ],
+      "semanticConstraints": [
+        "preserve the selected G5A-U08 operation signature",
+        "bind every stated quantity to one explicit semantic role",
+        "keep one terminal question target",
+        "use Traditional Chinese suitable for Grade 5",
+        "recompute the canonical answer from parameters"
+      ],
+      "forbiddenCombinations": [
+        "decorative context with unchanged generic noun-only substitution",
+        "quantity without actor, object, or event ownership",
+        "unit mismatch across compared or combined quantities",
+        "real statistic without admitted source evidence",
+        "second independent semantic delta",
+        "free-form AI runtime composition"
+      ],
+      "sdgTags": [
+        "SDG_11",
+        "SDG_13"
+      ],
+      "difficultyRange": {
+        "min": "N",
+        "max": "N_PLUS_1",
+        "publicNPlus2": false
+      },
+      "answerWitnessContract": {
+        "mode": "reuse_unit_owned_canonical_witness",
+        "canonicalAnswerRecomputationRequired": true,
+        "preserveOperationSignature": true,
+        "preserveRoleBindings": true,
+        "preserveUnitFlow": true,
+        "validatorFailurePolicy": "block"
+      },
+      "seedQA": [
+        {
+          "seedId": "seed_disaster_preparedness_01",
+          "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_product_groups_difference",
+          "promptZh": "校園防災倉庫原有13個緊急箱，每箱有5份防災物資包；其中3箱已先保留。其餘共有多少份防災物資包？",
+          "parameters": {
+            "rate": 5,
+            "availableCount": 13,
+            "removedCount": 3
+          },
+          "equation": "5×13-5×3",
+          "answer": 50,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_disaster_preparedness_02",
+          "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_group_select",
+          "promptZh": "避難引導組把24份防災物資包平均分成4組，再取其中3組投入防災演練。取出的共有多少份？",
+          "parameters": {
+            "total": 24,
+            "groupCount": 4,
+            "selectedGroupCount": 3
+          },
+          "equation": "24÷4×3",
+          "answer": 18,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_disaster_preparedness_03",
+          "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+          "patternGroupId": "pg_g5a_u08_near_round_multiply_application",
+          "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
+          "promptZh": "物資管理組為防災演練購買4份防災物資包，每份198元。總共需要多少元？",
+          "parameters": {
+            "unitPrice": 198,
+            "quantity": 4,
+            "roundAnchor": 200
+          },
+          "equation": "198×4",
+          "answer": 792,
+          "answerUnit": "TWD",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_disaster_preparedness_04",
+          "templateFamilyId": "tf_g5a_u08_nested_grouping",
+          "patternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+          "patternSpecId": "ps_g5a_u08_app_nested_grouping",
+          "promptZh": "校園防災倉庫有90份防災物資包，每6份綁成一組，再把每3組放進一個緊急箱。共可裝成多少箱？",
+          "parameters": {
+            "total": 90,
+            "itemsPerFirstGroup": 6,
+            "secondGroupCount": 3
+          },
+          "equation": "90÷6÷3",
+          "answer": 5,
+          "answerUnit": "container",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        },
+        {
+          "seedId": "seed_disaster_preparedness_05",
+          "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+          "patternGroupId": "pg_g5a_u08_common_factor_application",
+          "patternSpecId": "ps_g5a_u08_app_two_same_rate_groups_sum",
+          "promptZh": "在校園防災倉庫準備防災演練時，避難引導組做了6組、物資管理組做了8組，每組都有9份防災物資包。兩組合計有多少份防災物資包？",
+          "parameters": {
+            "rate": 9,
+            "countA": 6,
+            "countB": 8
+          },
+          "equation": "9×6+9×8",
+          "answer": 126,
+          "answerUnit": "item",
+          "expectedValidation": "PASS",
+          "fictionalizedPracticeData": true
+        }
+      ],
+      "lifecycle": {
+        "status": "candidate_gs02",
+        "productionSelectable": false,
+        "runtimeResolvable": false
+      }
+    }
+  ],
+  "coverage": {
+    "contextFamilyCount": 18,
+    "domainCount": 18,
+    "surfaceTemplateCount": 54,
+    "seedQACount": 90,
+    "templateFamilyCompatibilityCount": {
+      "tf_g5a_u08_adjust_unit_then_remaining": 7,
+      "tf_g5a_u08_average_inverse_or_update": 8,
+      "tf_g5a_u08_average_share_transfer": 9,
+      "tf_g5a_u08_direct_average": 8,
+      "tf_g5a_u08_discount_and_change": 5,
+      "tf_g5a_u08_group_then_select_groups": 12,
+      "tf_g5a_u08_near_round_unit_price": 11,
+      "tf_g5a_u08_nested_grouping": 9,
+      "tf_g5a_u08_two_product_groups_difference": 13,
+      "tf_g5a_u08_two_same_rate_groups_sum": 11
+    },
+    "allPracticeDataFictionalized": true,
+    "externalKnowledgeClaimCount": 0,
+    "productionSelectableFamilyCount": 0
+  }
+}
