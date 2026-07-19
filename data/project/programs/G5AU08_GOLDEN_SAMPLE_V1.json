@@ -15,7 +15,7 @@
   "activeTask": "GS03_G5AU08_GoldenContractFreeze",
   "activeTaskStatus": "IMPLEMENTATION_ACTIVE_PENDING_GOLDEN_SNAPSHOT",
   "activeBranch": "contract/gs03-g5a-u08-golden-contract-freeze",
-  "activePR": "PENDING_CREATION",
+  "activePR": 285,
   "lastCompletedTask": "GS02_G5AU08_GlobalContext18FamilyExpansion",
   "nextAllowedTask": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
   "completedCount": 2,
