@@ -1,0 +1,70 @@
+{
+  "schemaName": "GCTXG3BU04LivePublicUIProductionRegressionD0Contract",
+  "schemaVersion": 1,
+  "task": "GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout",
+  "status": "live_public_ui_regression_pending",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "prerequisite": {
+    "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+    "claimPath": "data/project/milestones/GCTX-P13.claim.json",
+    "requiredEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "productionAdmitted": true,
+    "publicPdfSha256": "ab94e9b6d3c53227e9524d9b21aa4d05022272d191e8c8a078fc243ca79d57fa"
+  },
+  "liveTarget": {
+    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+    "sourceId": "g3b_u04_3b04",
+    "selectionMode": "singleKnowledgePoint",
+    "knowledgePointId": "kp_g3b_u04_add_then_divide",
+    "patternGroupId": "pg_g3b_u04_add_then_divide",
+    "questionCount": 25,
+    "ordering": "groupedByPattern",
+    "includeAnswerKey": true,
+    "columns": 2,
+    "rowsPerPage": 4
+  },
+  "acceptance": {
+    "exactDeployedAssetIdentityRequired": true,
+    "publicQueryStateRequired": true,
+    "classicUIRegenerateRequired": true,
+    "validationPanelPassRequired": true,
+    "printButtonEnabledRequired": true,
+    "questionCountRequired": 25,
+    "answerCountRequired": 25,
+    "questionPageCountRequired": 4,
+    "answerPageCountRequired": 4,
+    "approvedContextCountRequired": 5,
+    "approvedContextAnswerCountRequired": 5,
+    "legacyTargetLeakageAllowed": false,
+    "internalIdLeakageAllowed": false,
+    "consoleErrorsAllowed": false,
+    "pageErrorsAllowed": false,
+    "requestFailuresAllowed": false,
+    "hiddenPublicQueryFlagsAllowed": false
+  },
+  "evidencePlan": {
+    "runner": "tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs",
+    "promotion": "tools/governance/promote-gctx-p14-e6-d0-claim.mjs",
+    "workflow": ".github/workflows/gctx-p14-live-public-ui-d0.yml",
+    "liveEvidence": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.json",
+    "livePreviewHtml": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.html",
+    "livePageScreenshot": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.png",
+    "livePreviewScreenshot": "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.png"
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_GCTX_G3BU04_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_VERIFIED",
+    "goalDistanceAfter": "D1_GCTX_G3BU04_LIVE_PUBLIC_UI_REGRESSION_PENDING",
+    "distanceReduced": "The D0 acceptance contract and exact live browser evidence path are defined; deployed UI verification remains pending.",
+    "remainingBlockers": [
+      "GitHub Pages P13 deployment",
+      "exact deployed asset identity",
+      "live selector and query regression",
+      "live preview and answer output regression",
+      "E6 Claim promotion",
+      "full CI",
+      "merge"
+    ],
+    "nextShortestStep": "GCTX-P14_LivePagesBrowserRegressionAndE6Promotion"
+  }
+}
