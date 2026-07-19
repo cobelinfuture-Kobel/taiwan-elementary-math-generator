@@ -63,11 +63,31 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Run live GitHub Pages UI regression
+        id: live_regression
+        continue-on-error: true
         env:
           GCTX_P14_OUTPUT_DIR: ${{ steps.evidence_state.outputs.output_dir }}
           GCTX_P14_DEPLOYMENT_RETRIES: "40"
           GCTX_P14_DEPLOYMENT_RETRY_DELAY_MS: "15000"
-        run: node tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs
+        run: |
+          set -o pipefail
+          node tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs \
+            2>&1 | tee /tmp/GCTX_P14_LIVE_REGRESSION.log
+
+      - name: Upload live UI diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p14-live-public-ui-diagnostics
+          path: |
+            /tmp/GCTX_P14_LIVE_REGRESSION.log
+            ${{ steps.evidence_state.outputs.output_dir }}
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Block after live regression failure
+        if: steps.live_regression.outcome == 'failure'
+        run: exit 1
 
       - name: Promote live evidence to E6 D0
         if: steps.evidence_state.outputs.committed_e6 != 'true'
