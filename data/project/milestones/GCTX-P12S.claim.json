@@ -4,7 +4,7 @@
   "taskClass": "renderer",
   "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
   "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
-  "claimedStatus": "PAGES_REVIEW_PUBLIC_ROUTE_VERIFICATION_GATE_PENDING",
+  "claimedStatus": "PAGES_REVIEW_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -70,7 +70,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "the production-equivalent PDF remains at D1; the live GitHub Pages route must pass the public HTTP and artifact-identity gate before the accessibility blocker is closed"
+    "distanceReduced": "the Human Review accessibility blocker is removed: the live GitHub Pages review page and exact PDF passed HTTP, hash, page, content and legacy-leakage verification"
   },
   "nextStep": {
     "taskId": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
