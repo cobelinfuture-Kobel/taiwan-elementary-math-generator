@@ -46,7 +46,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: gctx-p12r-focused-test-diagnostics
-          path: docs/curriculum/output/gctx/GCTX_P12R_FOCUSED_TEST.log
+          path: |
+            docs/curriculum/output/gctx/GCTX_P12R_FOCUSED_TEST.log
+            site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js
           retention-days: 7
 
       - name: Block after focused test failure
