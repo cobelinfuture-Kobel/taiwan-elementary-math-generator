@@ -49,7 +49,7 @@ function publicOptions(overrides = {}) {
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     selectedKnowledgePointIds: [KP_ID],
     selectedPatternGroupIds: [applicationGroupId()],
-    questionCount: 20,
+    questionCount: 25,
     ordering: "groupedByPattern",
     includeAnswerKey: true,
     generationSeed: "gctx-p13-public-production",
@@ -81,7 +81,7 @@ test("GCTX-P13 records exact Human Review approval and activates the production 
 test("GCTX-P13 public canonical generator exposes all five approved contexts", () => {
   const result = generateBatchABrowserQuestions(publicOptions());
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.questions.length, 20);
+  assert.equal(result.questions.length, 25);
   assert.equal(result.productionAdmission.productionAdmitted, true);
   assert.equal(result.productionAdmission.publicQuerySelectable, true);
   assert.equal(result.productionAdmission.projectedQuestionCount, 5);
@@ -119,6 +119,12 @@ test("GCTX-P13 public canonical generator exposes all five approved contexts", (
   assert.equal(targetStages.length, 5);
   assert.equal(targetStages.every(({ stages }) => stages.some((stage) =>
     stage.stage === "gctx_p13_production_admission" && stage.ok === true
+  )), true);
+  assert.equal(targetStages.every(({ stages }) => stages.some((stage) =>
+    stage.stage === "gctx_p13_reviewed_prompt_compatibility"
+      && stage.ok === true
+      && stage.applied === true
+      && stage.resolvedErrorCodes.includes("G3B_U04_READBACK_SHARED_ACTIVITY_SCOPE_UNCLEAR")
   )), true);
 });
 
