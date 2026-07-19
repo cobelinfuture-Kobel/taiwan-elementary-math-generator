@@ -40,7 +40,7 @@ answer number sequence       = consistent
 query state replay           = PASS
 iframe print called          = true
 console errors               = 0
-page errors                  = 0
+page errors                   = 0
 productionUse                = allowed_deployed_ui_print
 ```
 
@@ -51,6 +51,18 @@ HTML SHA-256 = a213617579927111741b18323460177031cf5a48094ebbfbc97f9e1263f69d1b
 PDF SHA-256  = 4544387d68c69fc5601f1352b2eee9051ede1b4e4ed7e8adf6c0b28353514df4
 PDF pages    = 35
 ```
+
+## Claim and PR parity
+
+```text
+Actual Evidence Level = E5_PRODUCTION_ADMITTED
+Maximum Claim         = E5_PRODUCTION_ADMITTED
+Visible Output Changed = false
+Human Review Type      = none
+Human Review Ready     = false
+```
+
+This synchronization commit ensures exact-head CI reads the final E5 PR body and the final E5 Claim from the same pull-request event.
 
 ## Program state
 
