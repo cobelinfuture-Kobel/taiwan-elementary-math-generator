@@ -14,7 +14,7 @@
     "htmlOutputVerified": true,
     "pdfOutputVerified": true,
     "visibleOutputChanged": true,
-    "humanReviewReady": true,
+    "humanReviewReady": false,
     "productionAdmitted": true,
     "d0Complete": true
   },
@@ -36,8 +36,7 @@
       ".github/workflows/gctx-p14-live-public-ui-d0.yml"
     ],
     "htmlArtifactPaths": [
-      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html",
-      "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.html"
+      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.html"
     ],
     "pdfArtifactPaths": [
       "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
@@ -52,9 +51,7 @@
     "reviewArtifactPaths": [
       "data/curriculum/review/GCTX_P13_G3BU04_HUMAN_REVIEW_DECISION.json",
       "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
-      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf",
-      "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_UI.png",
-      "docs/curriculum/output/gctx/p14-live/GCTX_P14_LIVE_PUBLIC_PREVIEW.png"
+      "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.pdf"
     ],
     "artifactHashes": [
       {
@@ -104,9 +101,9 @@
     ]
   },
   "humanReview": {
-    "type": "production_equivalent_output_review",
-    "canUnlockProduction": true,
-    "reviewArtifactRequired": true
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
   },
   "distance": {
     "before": "D1",
@@ -114,7 +111,7 @@
     "distanceReduced": "The deployed GitHub Pages UI loads the exact P13 runtime, resolves the public G3B-U04 selector/query route, generates 25 validated questions with five approved contexts and 25 answer entries, and exposes stable worksheet output without hidden flags or legacy target leakage."
   },
   "nextStep": {
-    "taskId": "GCTX-G3BU04_D0ClosedAwaitNextSourceSelection",
+    "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
     "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
   }
 }
