@@ -13,13 +13,14 @@
     "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
   ],
   "activeTask": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+  "activeTaskStatus": "PASS_EVIDENCE_COMMITTED_PENDING_EXACT_HEAD_CI_AND_MERGE",
   "activeBranch": "fix/gs01-g5a-u08-deployed-pages-smoke-recloseout",
   "activePR": 283,
-  "lastCompletedTask": null,
+  "lastCompletedTask": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
   "nextAllowedTask": "GS02_G5AU08_GlobalContext18FamilyExpansion",
-  "completedCount": 0,
-  "remainingCount": 6,
-  "goalDistance": "D1_G5AU08_GOLDEN_PROGRAM_GS01_ACTIVE",
+  "completedCount": 1,
+  "remainingCount": 5,
+  "goalDistance": "D1_G5AU08_GS01_RECLOSEOUT_PASS_GOLDEN_FREEZE_PENDING",
   "programLock": "ACTIVE",
   "stopReason": "NONE",
   "scope": {
