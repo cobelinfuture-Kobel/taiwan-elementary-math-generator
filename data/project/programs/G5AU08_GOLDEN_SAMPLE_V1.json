@@ -15,7 +15,7 @@
   "activeTask": "GS02_G5AU08_GlobalContext18FamilyExpansion",
   "activeTaskStatus": "IMPLEMENTATION_ACTIVE_PENDING_REGISTRY_MATERIALIZATION",
   "activeBranch": "data/gs02-g5a-u08-global-context-18-family-expansion",
-  "activePR": "PENDING_CREATION",
+  "activePR": 284,
   "lastCompletedTask": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
   "nextAllowedTask": "GS03_G5AU08_GoldenContractFreeze",
   "completedCount": 1,
