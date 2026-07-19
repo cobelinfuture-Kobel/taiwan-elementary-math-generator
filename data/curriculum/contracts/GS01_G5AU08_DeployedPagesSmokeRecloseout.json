@@ -1,0 +1,73 @@
+{
+  "schemaName": "GS01G5AU08DeployedPagesSmokeRecloseoutContract",
+  "schemaVersion": 1,
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+  "status": "implementation_active_pending_deployed_smoke",
+  "sourceId": "g5a_u08_5a08",
+  "prerequisite": {
+    "taskId": "GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout",
+    "mergeSha": "c6361dc34036e7cccef8e884d96bae75093cec60",
+    "requiredStatus": "E6_D0_COMPLETE"
+  },
+  "observedFailure": {
+    "authorityPath": "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+    "status": "FAIL",
+    "errorCode": "G5A_U08_R1_DEPLOYED_PREVIEW_META_INVALID",
+    "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列",
+    "obsoleteExpectation": "preview metadata must end immediately after question count and answer-key status",
+    "rootCause": "The deployed UI appended valid question and answer layout metadata after the previously accepted required segments."
+  },
+  "fix": {
+    "type": "test_harness_compatibility_only",
+    "requiredSegments": [
+      "<questionCount> 題",
+      "含答案頁 or 不含答案頁"
+    ],
+    "allowedAdditionalSegments": [
+      "question layout metadata",
+      "answer layout metadata"
+    ],
+    "stillBlocking": [
+      "missing question-count segment",
+      "missing answer-key-status segment",
+      "undefined token",
+      "null token"
+    ],
+    "productionRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "publicUIChanged": false
+  },
+  "acceptance": {
+    "programTaskOrderLocked": true,
+    "taskBudget": 6,
+    "focusedNodeTestsRequired": true,
+    "fullNodeRegressionRequired": true,
+    "mathCIReadbackRequired": true,
+    "liveDeployedPagesSmokeRequired": true,
+    "controlMatrixCountRequired": 36,
+    "knowledgePointCountRequired": 11,
+    "patternGroupCountRequired": 17,
+    "patternSpecCountRequired": 30,
+    "questionPreviewRequired": true,
+    "answerPreviewRequired": true,
+    "iframePrintInvocationRequired": true,
+    "htmlOutputRequired": true,
+    "pdfOutputRequired": true,
+    "consoleErrorsAllowed": false,
+    "pageErrorsAllowed": false
+  },
+  "scope": {
+    "allowedTask": "GS01 only",
+    "gs02ContextExpansionAllowed": false,
+    "newMilestoneOnCIFixAllowed": false,
+    "primaryPRLimit": 1
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_G5AU08_D0_RUNTIME_DEPLOYED_SMOKE_ASSERTION_STALE",
+    "goalDistanceAfterTarget": "D1_G5AU08_GS01_RECLOSEOUT_PASS_GOLDEN_FREEZE_PENDING",
+    "nextShortestStepAfterPass": "GS02_G5AU08_GlobalContext18FamilyExpansion"
+  }
+}
