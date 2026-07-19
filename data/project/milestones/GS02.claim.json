@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
+  "taskClass": "content",
+  "targetEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "GS02_MATERIALIZER_AND_VALIDATOR_READY_PENDING_REGISTRY_CONTENT",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "The GS02 deterministic materializer, fail-closed validator and mutation-test contract exist; the 18-family registries are pending GitHub-hosted materialization."
+  },
+  "nextStep": {
+    "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
