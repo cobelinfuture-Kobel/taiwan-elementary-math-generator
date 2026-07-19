@@ -163,7 +163,24 @@ try {
   });
 
   await page.goto(liveUrl.href, { waitUntil: "networkidle", timeout: 120000 });
-  await page.waitForFunction(() => document.querySelector("#batch-a-source-select")?.options?.length > 0);
+  try {
+    await page.waitForFunction(
+      () => document.querySelector("#batch-a-source-select")?.options?.length > 0,
+      null,
+      { timeout: 120000 }
+    );
+  } catch (error) {
+    const readiness = await page.evaluate(() => ({
+      readyState: document.readyState,
+      sourceSelectExists: Boolean(document.querySelector("#batch-a-source-select")),
+      sourceOptionCount: document.querySelector("#batch-a-source-select")?.options?.length ?? null,
+      statusText: document.querySelector("#status-panel")?.textContent?.trim() ?? null,
+      validationText: document.querySelector("#validation-panel")?.textContent?.trim() ?? null,
+      bodyTextLength: document.body?.innerText?.length ?? 0,
+      scriptCount: document.scripts.length
+    }));
+    throw new Error(`Live UI source hydration timeout: ${JSON.stringify(readiness)}; ${error.message}`);
+  }
 
   const selectorStateBeforeGeneration = await page.evaluate(({ sourceId, kpId, groupId }) => {
     const patternGroupButton = document.querySelector(`[data-pattern-group-id="${groupId}"]`);
