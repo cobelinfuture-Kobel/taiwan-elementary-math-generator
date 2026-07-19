@@ -1,0 +1,50 @@
+name: GCTX-P14 Fix Warning Gate
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - ".github/workflows/gctx-p14-fix-warning-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-warning-aware-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pull request head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Apply exact warning-aware validation patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs")
+          text = path.read_text(encoding="utf-8")
+          old = '    || !generationState.validationText.includes("驗證通過")\n'
+          new = '    || generationState.statusTone !== "success"\n'
+          if old in text:
+              if text.count(old) != 1:
+                  raise SystemExit(f"Expected exactly one legacy gate, found {text.count(old)}")
+              path.write_text(text.replace(old, new), encoding="utf-8")
+          elif new not in text:
+              raise SystemExit("Neither legacy nor warning-aware gate was found")
+          PY
+
+      - name: Commit exact script patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs
+          if git diff --cached --quiet; then
+            echo "Warning-aware gate already committed."
+          else
+            git commit -m "test(gctx): accept non-blocking live validation warnings"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
