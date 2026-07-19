@@ -165,19 +165,37 @@ try {
   await page.goto(liveUrl.href, { waitUntil: "networkidle", timeout: 120000 });
   await page.waitForFunction(() => document.querySelector("#batch-a-source-select")?.options?.length > 0);
 
-  const selectorStateBeforeGeneration = await page.evaluate(({ sourceId, kpId, groupId }) => ({
-    sourceId: document.querySelector("#batch-a-source-select")?.value ?? null,
-    selectionMode: document.querySelector("#batch-a-selection-mode-select")?.value ?? null,
-    questionCount: document.querySelector("#batch-a-question-count-input")?.value ?? null,
-    ordering: document.querySelector("#batch-a-ordering-select")?.value ?? null,
-    answerKey: Boolean(document.querySelector("#batch-a-answer-key-input")?.checked),
-    generationSeed: document.querySelector("#generation-seed-input")?.value ?? null,
-    columns: document.querySelector("#columns-input")?.value ?? null,
-    rowsPerPage: document.querySelector("#rows-per-page-input")?.value ?? null,
-    selectedKnowledgePoint: document.querySelector(`[data-knowledge-point-id="${kpId}"]`)?.dataset?.selected ?? null,
-    selectedPatternGroup: document.querySelector(`[data-pattern-group-id="${groupId}"]`)?.dataset?.selected ?? null,
-    sourceMatches: document.querySelector("#batch-a-source-select")?.value === sourceId
-  }), { sourceId: SOURCE_ID, kpId: KP_ID, groupId: GROUP_ID });
+  const selectorStateBeforeGeneration = await page.evaluate(({ sourceId, kpId, groupId }) => {
+    const patternGroupButton = document.querySelector(`[data-pattern-group-id="${groupId}"]`);
+    const patternGroupSection = document.querySelector("#batch-a-pattern-group-selector");
+    const patternGroupHelp = document.querySelector("#batch-a-pattern-group-help")?.textContent?.trim() ?? "";
+    const patternGroupQueryMatches = new URL(location.href).searchParams.getAll("pg").includes(groupId);
+    const autoAppliedSingleRepresentation = !patternGroupButton
+      && patternGroupSection?.dataset?.visible === "false"
+      && patternGroupHelp.includes("只有一種題目形式，系統已自動套用")
+      && patternGroupQueryMatches;
+    return {
+      sourceId: document.querySelector("#batch-a-source-select")?.value ?? null,
+      selectionMode: document.querySelector("#batch-a-selection-mode-select")?.value ?? null,
+      questionCount: document.querySelector("#batch-a-question-count-input")?.value ?? null,
+      ordering: document.querySelector("#batch-a-ordering-select")?.value ?? null,
+      answerKey: Boolean(document.querySelector("#batch-a-answer-key-input")?.checked),
+      generationSeed: document.querySelector("#generation-seed-input")?.value ?? null,
+      columns: document.querySelector("#columns-input")?.value ?? null,
+      rowsPerPage: document.querySelector("#rows-per-page-input")?.value ?? null,
+      selectedKnowledgePoint: document.querySelector(`[data-knowledge-point-id="${kpId}"]`)?.dataset?.selected ?? null,
+      selectedPatternGroup: patternGroupButton?.dataset?.selected ?? (autoAppliedSingleRepresentation ? "true" : null),
+      patternGroupSelectionMode: patternGroupButton
+        ? "visible-control"
+        : autoAppliedSingleRepresentation
+          ? "auto-applied-single-representation"
+          : "unresolved",
+      patternGroupSelectorVisible: patternGroupSection?.dataset?.visible ?? null,
+      patternGroupHelp,
+      patternGroupQueryMatches,
+      sourceMatches: document.querySelector("#batch-a-source-select")?.value === sourceId
+    };
+  }, { sourceId: SOURCE_ID, kpId: KP_ID, groupId: GROUP_ID });
 
   if (!selectorStateBeforeGeneration.sourceMatches
     || selectorStateBeforeGeneration.selectionMode !== "singleKnowledgePoint"
@@ -187,7 +205,9 @@ try {
     || selectorStateBeforeGeneration.columns !== "2"
     || selectorStateBeforeGeneration.rowsPerPage !== "4"
     || selectorStateBeforeGeneration.selectedKnowledgePoint !== "true"
-    || selectorStateBeforeGeneration.selectedPatternGroup !== "true") {
+    || selectorStateBeforeGeneration.selectedPatternGroup !== "true"
+    || selectorStateBeforeGeneration.patternGroupQueryMatches !== true
+    || !["visible-control", "auto-applied-single-representation"].includes(selectorStateBeforeGeneration.patternGroupSelectionMode)) {
     throw new Error(`Public query did not bind the expected selector state: ${JSON.stringify(selectorStateBeforeGeneration)}`);
   }
 
@@ -333,6 +353,7 @@ try {
     answerCount: output.answerCount,
     targetQuestionCount: output.targetQuestionCount,
     targetAnswerCount: output.targetAnswerCount,
+    patternGroupSelectionMode: selectorStateBeforeGeneration.patternGroupSelectionMode,
     d0Complete: true
   }, null, 2));
 } finally {
