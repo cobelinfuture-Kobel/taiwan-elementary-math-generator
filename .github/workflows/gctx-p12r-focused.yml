@@ -1,0 +1,59 @@
+name: GCTX P12R Focused
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet-fullfix.js
+      - tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-renderer-artifacts.mjs
+      - tools/curriculum/finalize-gctx-p12r-g3b-u04-artifacts.mjs
+      - tests/curriculum/gctx-p12r-g3b-u04-runtime-renderer-pdf.test.js
+      - tests/curriculum/gctx-p12r-g3b-u04-artifacts.test.js
+      - data/project/milestones/GCTX-P12R.claim.json
+      - data/curriculum/contracts/GCTX_P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix.json
+      - .github/workflows/gctx-p12r-focused.yml
+
+permissions:
+  contents: read
+
+jobs:
+  focused:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Capture P12R focused runtime and artifact-boundary tests
+        shell: bash
+        run: |
+          set +e
+          node --test \
+            tests/curriculum/gctx-p12r-g3b-u04-runtime-renderer-pdf.test.js \
+            tests/curriculum/gctx-p12r-g3b-u04-artifacts.test.js \
+            > p12r-focused-test.log 2>&1
+          STATUS=$?
+          echo "$STATUS" > p12r-focused-test.exit
+          tail -n 160 p12r-focused-test.log
+          exit 0
+      - name: Upload P12R focused diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p12r-focused-diagnostics
+          path: |
+            p12r-focused-test.log
+            p12r-focused-test.exit
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce focused test exit code
+        shell: bash
+        run: |
+          STATUS="$(cat p12r-focused-test.exit)"
+          test "$STATUS" = "0"
