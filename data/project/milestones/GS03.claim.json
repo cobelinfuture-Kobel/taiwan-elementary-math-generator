@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS03_G5AU08_GoldenContractFreeze",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "GS03_GOLDEN_CONTRACT_BUILDER_READY_PENDING_SNAPSHOT",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "tools/curriculum/build-gs03-g5a-u08-golden-contract.mjs",
+      "tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs",
+      "tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "The deterministic Golden contract builder, authority-hash validator and anti-drift mutation suite exist; the frozen snapshot is pending GitHub-hosted materialization."
+  },
+  "nextStep": {
+    "taskId": "GS03_G5AU08_GoldenContractFreeze",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
