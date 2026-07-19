@@ -229,8 +229,39 @@ try {
   }
 
   await page.locator("#regenerate-button").click();
-  await page.waitForFunction(() => document.querySelector("#status-panel")?.textContent?.includes("已產生 25 題"), null, { timeout: 120000 });
-  await page.waitForFunction(() => document.querySelector("#validation-panel")?.textContent?.includes("驗證通過"), null, { timeout: 120000 });
+  try {
+    await page.waitForFunction(() => {
+      const status = document.querySelector("#status-panel")?.textContent ?? "";
+      return status.includes("已產生") || status.includes("產生失敗");
+    }, null, { timeout: 120000 });
+  } catch (error) {
+    const generationReadiness = await page.evaluate(() => ({
+      statusText: document.querySelector("#status-panel")?.textContent?.trim() ?? null,
+      statusTone: document.querySelector("#status-panel")?.dataset?.tone ?? null,
+      validationText: document.querySelector("#validation-panel")?.textContent?.trim() ?? null,
+      validationHasErrors: document.querySelector("#validation-panel")?.dataset?.hasErrors ?? null,
+      previewMeta: document.querySelector("#preview-meta")?.textContent?.trim() ?? null,
+      previewSrcdocLength: document.querySelector("#preview-frame")?.srcdoc?.length ?? 0,
+      printButtonDisabled: Boolean(document.querySelector("#print-button")?.disabled)
+    }));
+    throw new Error(`Live UI generation terminal-state timeout: ${JSON.stringify({ generationReadiness, consoleErrors, pageErrors, requestFailures })}; ${error.message}`);
+  }
+
+  const generationState = await page.evaluate(() => ({
+    statusText: document.querySelector("#status-panel")?.textContent?.trim() ?? "",
+    statusTone: document.querySelector("#status-panel")?.dataset?.tone ?? "",
+    validationText: document.querySelector("#validation-panel")?.textContent?.trim() ?? "",
+    validationHasErrors: document.querySelector("#validation-panel")?.dataset?.hasErrors ?? null,
+    previewMeta: document.querySelector("#preview-meta")?.textContent?.trim() ?? "",
+    previewSrcdocLength: document.querySelector("#preview-frame")?.srcdoc?.length ?? 0,
+    printButtonDisabled: Boolean(document.querySelector("#print-button")?.disabled)
+  }));
+  if (!generationState.statusText.includes("已產生 25 題")
+    || generationState.validationHasErrors !== "false"
+    || !generationState.validationText.includes("驗證通過")
+    || generationState.printButtonDisabled !== false) {
+    throw new Error(`Live UI generation did not pass: ${JSON.stringify({ generationState, consoleErrors, pageErrors, requestFailures })}`);
+  }
 
   const frameElement = await page.locator("#preview-frame").elementHandle();
   const frame = await frameElement?.contentFrame();
