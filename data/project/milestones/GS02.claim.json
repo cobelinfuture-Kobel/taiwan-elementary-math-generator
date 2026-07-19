@@ -3,11 +3,11 @@
   "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
   "taskClass": "content",
   "targetEvidenceLevel": "E2_CONTENT_AUTHORED",
-  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
-  "claimedStatus": "GS02_MATERIALIZER_AND_VALIDATOR_READY_PENDING_REGISTRY_CONTENT",
+  "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "claimedStatus": "GS02_18_FAMILY_CANDIDATE_CONTENT_PASS_PENDING_EXACT_HEAD_CI_AND_MERGE",
   "claims": {
     "dataStructureReady": true,
-    "contentAuthored": false,
+    "contentAuthored": true,
     "runtimeIntegrated": false,
     "productionEquivalentGeneratorUsed": false,
     "productionRendererUsed": false,
@@ -23,7 +23,14 @@
     "rendererTestPaths": [],
     "htmlArtifactPaths": [],
     "pdfArtifactPaths": [],
-    "beforeAfterEvidencePaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+      "data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json",
+      "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_COVERAGE.json",
+      "tools/curriculum/build-gs02-g5a-u08-global-context-expansion.mjs",
+      "tools/curriculum/validate-gs02-g5a-u08-global-context-expansion.mjs",
+      "tests/curriculum/gs02-g5a-u08-global-context-expansion.test.js"
+    ],
     "reviewArtifactPaths": [],
     "artifactHashes": []
   },
@@ -33,12 +40,12 @@
     "reviewArtifactRequired": false
   },
   "distance": {
-    "before": "D3",
-    "after": "D3",
-    "distanceReduced": "The GS02 deterministic materializer, fail-closed validator and mutation-test contract exist; the 18-family registries are pending GitHub-hosted materialization."
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "G5A-U08 now has an explicit global candidate corpus of 18 event-structure families, 54 surface templates, 90 recomputable QA seeds and 18 unit bindings, while production and runtime admission remain correctly blocked."
   },
   "nextStep": {
-    "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
-    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+    "taskId": "GS03_G5AU08_GoldenContractFreeze",
+    "requiredEvidenceLevelBeforeStart": "E2_CONTENT_AUTHORED"
   }
 }
