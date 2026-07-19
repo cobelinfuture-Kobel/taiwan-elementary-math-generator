@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
+    "governance:claims": "node tools/governance/validate-milestone-claim-integrity.mjs",
+    "governance:claims:pr": "node tools/governance/validate-milestone-claim-integrity.mjs --require-pr-manifest",
     "preview:build": "node tools/preview/generate-generator-backed-preview-html.js",
     "preview:serve": "node tools/preview/serve-preview.js",
     "site:serve": "node tools/site/serve-site.js"
