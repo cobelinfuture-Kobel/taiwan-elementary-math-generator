@@ -6,6 +6,7 @@ on:
     paths:
       - "tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs"
       - "tools/governance/promote-gctx-p14-e6-d0-claim.mjs"
+      - "tools/governance/validate-gctx-p14-e6-live-evidence.mjs"
       - "data/project/milestones/GCTX-P14.claim.json"
       - "data/curriculum/contracts/GCTX_P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout.json"
       - "docs/curriculum/output/GCTX_P14_G3BU04_LIVE_PUBLIC_UI_D0_PASS.marker"
@@ -93,54 +94,13 @@ jobs:
         if: steps.evidence_state.outputs.committed_e6 != 'true'
         run: node tools/governance/promote-gctx-p14-e6-d0-claim.mjs
 
-      - name: Validate live result and D0 Claim
+      - name: Validate milestone Claim schema and hashes
+        run: npm run governance:claims
+
+      - name: Validate live result and D0 artifact identity
         env:
           LIVE_EVIDENCE_DIR: ${{ steps.evidence_state.outputs.output_dir }}
-        run: |
-          npm run governance:claims
-          node - <<'NODE'
-          const crypto = require('node:crypto');
-          const fs = require('node:fs');
-          const path = require('node:path');
-          const liveDir = process.env.LIVE_EVIDENCE_DIR;
-          const livePath = path.join(liveDir, 'GCTX_P14_LIVE_PUBLIC_UI.json');
-          const previewHtmlPath = path.join(liveDir, 'GCTX_P14_LIVE_PUBLIC_PREVIEW.html');
-          const pageScreenshotPath = path.join(liveDir, 'GCTX_P14_LIVE_PUBLIC_UI.png');
-          const previewScreenshotPath = path.join(liveDir, 'GCTX_P14_LIVE_PUBLIC_PREVIEW.png');
-          const live = JSON.parse(fs.readFileSync(livePath, 'utf8'));
-          const claim = JSON.parse(fs.readFileSync('data/project/milestones/GCTX-P14.claim.json', 'utf8'));
-          const sha = (file) => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
-          if (live.status !== 'live_public_ui_production_regression_pass'
-            || live.evidenceLevel !== 'E6_D0_COMPLETE'
-            || live.deployedAssetIdentityVerified !== true
-            || live.output.questionCount !== 25
-            || live.output.answerCount !== 25
-            || live.output.questionPageCount !== 4
-            || live.output.answerPageCount !== 4
-            || live.output.targetQuestionCount !== 5
-            || live.output.targetAnswerCount !== 5
-            || live.output.uniqueRequiredPhraseCount !== 5
-            || live.output.targetAnswersWithEquationAndAnswer !== 5
-            || live.output.missingRequiredPhrases.length !== 0
-            || live.output.leakedLegacyTargetPhrases.length !== 0
-            || live.output.internalIdLeakage.length !== 0
-            || live.consoleErrors.length !== 0
-            || live.pageErrors.length !== 0
-            || live.requestFailures.length !== 0
-            || live.forbiddenQueryKeys.length !== 0
-            || live.pageScreenshotSha256 !== sha(pageScreenshotPath)
-            || live.previewScreenshotSha256 !== sha(previewScreenshotPath)
-            || live.previewHtmlSha256 !== sha(previewHtmlPath)) process.exit(1);
-          if (process.env.LIVE_EVIDENCE_DIR.startsWith('docs/')) {
-            if (claim.actualEvidenceLevel !== 'E6_D0_COMPLETE'
-              || claim.claims.productionAdmitted !== true
-              || claim.claims.d0Complete !== true
-              || claim.distance.after !== 'D0') process.exit(1);
-          } else {
-            if (claim.actualEvidenceLevel !== 'E6_D0_COMPLETE'
-              || claim.claims.d0Complete !== true) process.exit(1);
-          }
-          NODE
+        run: node tools/governance/validate-gctx-p14-e6-live-evidence.mjs
 
       - name: Upload live UI evidence
         uses: actions/upload-artifact@v4
