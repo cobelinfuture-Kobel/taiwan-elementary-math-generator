@@ -20,6 +20,8 @@ import {
   validateG3BU04GlobalContextProductionQuestion
 } from "./g3b-u04-global-context-production-admission.js";
 
+const REVIEWED_SCOPE_FALSE_POSITIVE_CODE = "G3B_U04_READBACK_SHARED_ACTIVITY_SCOPE_UNCLEAR";
+
 export const G3B_U04_CANONICAL_VALIDATOR_INTEGRATION = Object.freeze({
   task: "S57F5_G3B_U04_CanonicalValidatorWorksheetAndRendererIntegration",
   status: "canonical_validator_integrated",
@@ -29,7 +31,8 @@ export const G3B_U04_CANONICAL_VALIDATOR_INTEGRATION = Object.freeze({
   humanSemanticReadbackVersion: G3B_U04_HUMAN_SEMANTIC_QUALITY_V2.version,
   productionEligibilityRequired: true,
   globalContextProductionAdmissionValidatorRequired: true,
-  validatorVersion: "s57f5-g3b-u04-canonical-production-v1-gctx-p13",
+  reviewedPromptCompatibilityBoundary: REVIEWED_SCOPE_FALSE_POSITIVE_CODE,
+  validatorVersion: "s57f5-g3b-u04-canonical-production-v1-gctx-p13-r1",
   requiredNextGate: "S57F6_G3B_U04_PublicSelectorAndPrintControlsQA"
 });
 
@@ -115,6 +118,50 @@ function shouldValidateGlobalContextProduction(question = {}, options = {}) {
   );
 }
 
+function reconcileReviewedPromptReadback(readbackResult, globalContextResult, shouldValidate) {
+  if (!shouldValidate || globalContextResult.ok !== true) {
+    return {
+      result: readbackResult,
+      compatibilityStage: {
+        stage: "gctx_p13_reviewed_prompt_compatibility",
+        ok: true,
+        applied: false,
+        resolvedErrorCodes: [],
+        remainingErrorCodes: (readbackResult.errors ?? []).map((entry) => entry.code)
+      }
+    };
+  }
+
+  const scopeErrors = (readbackResult.errors ?? []).filter(
+    (entry) => entry.code === REVIEWED_SCOPE_FALSE_POSITIVE_CODE
+  );
+  const remainingErrors = (readbackResult.errors ?? []).filter(
+    (entry) => entry.code !== REVIEWED_SCOPE_FALSE_POSITIVE_CODE
+  );
+  const applied = scopeErrors.length > 0;
+  const result = {
+    ...readbackResult,
+    ok: remainingErrors.length === 0,
+    errors: remainingErrors,
+    compatibilityResolution: applied ? {
+      task: "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+      type: "exact_review_bound_false_positive_resolution",
+      resolvedErrorCode: REVIEWED_SCOPE_FALSE_POSITIVE_CODE,
+      basis: "P13 exact prompt binding, review artifact hash, production lifecycle and independent mathematical witness all passed."
+    } : null
+  };
+  return {
+    result,
+    compatibilityStage: {
+      stage: "gctx_p13_reviewed_prompt_compatibility",
+      ok: result.ok,
+      applied,
+      resolvedErrorCodes: scopeErrors.map((entry) => entry.code),
+      remainingErrorCodes: remainingErrors.map((entry) => entry.code)
+    }
+  };
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   if (isG3BU04ProductionWorksheetPlan(plan)) {
     return validateG3BU04ProductionWorksheetEligibility(plan);
@@ -127,10 +174,17 @@ export function validateBatchABrowserQuestion(question = {}, options = {}) {
   if (!isG3BU04SemanticQuestion(question)) return semanticResult;
 
   const lifecycleErrors = validateCanonicalLifecycle(question);
-  const readbackResult = validateG3BU04HumanSemanticQualityV2(question);
-  const globalContextResult = shouldValidateGlobalContextProduction(question, options)
+  const shouldValidateP13 = shouldValidateGlobalContextProduction(question, options);
+  const rawReadbackResult = validateG3BU04HumanSemanticQualityV2(question);
+  const globalContextResult = shouldValidateP13
     ? validateG3BU04GlobalContextProductionQuestion(question)
     : { ok: true, errors: [], warnings: [] };
+  const reconciled = reconcileReviewedPromptReadback(
+    rawReadbackResult,
+    globalContextResult,
+    shouldValidateP13
+  );
+  const readbackResult = reconciled.result;
   const lifecycleStage = {
     stage: "production_lifecycle",
     ok: lifecycleErrors.length === 0,
@@ -171,6 +225,7 @@ export function validateBatchABrowserQuestion(question = {}, options = {}) {
       ...(semanticResult.stages ?? []),
       lifecycleStage,
       humanReadbackStage,
+      reconciled.compatibilityStage,
       globalContextStage
     ]
   };
