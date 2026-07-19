@@ -8,6 +8,7 @@ on:
       - site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js
       - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js
       - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet-fullfix.js
       - tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-renderer-artifacts.mjs
       - tools/curriculum/finalize-gctx-p12r-g3b-u04-artifacts.mjs
       - tests/curriculum/gctx-p12r-g3b-u04-runtime-renderer-pdf.test.js
@@ -16,6 +17,10 @@ on:
       - data/curriculum/contracts/GCTX_P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix.json
       - .github/workflows/gctx-p12r-runtime-renderer-pdf.yml
   workflow_dispatch:
+
+concurrency:
+  group: gctx-p12r-runtime-renderer-pdf
+  cancel-in-progress: true
 
 permissions:
   contents: write
