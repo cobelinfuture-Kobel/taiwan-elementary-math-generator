@@ -258,7 +258,7 @@ try {
   }));
   if (!generationState.statusText.includes("已產生 25 題")
     || generationState.validationHasErrors !== "false"
-    || !generationState.validationText.includes("驗證通過")
+    || generationState.statusTone !== "success"
     || generationState.printButtonDisabled !== false) {
     throw new Error(`Live UI generation did not pass: ${JSON.stringify({ generationState, consoleErrors, pageErrors, requestFailures })}`);
   }
