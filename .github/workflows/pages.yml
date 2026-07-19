@@ -48,6 +48,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Stage G3B-U04 Human Review artifacts
+        run: node tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs --output-dir site/review/g3b-u04
+
+      - name: Verify staged Human Review PDF identity
+        run: |
+          test -s site/review/g3b-u04/index.html
+          test -s site/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf
+          test -s site/review/g3b-u04/review-publication-manifest.json
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const crypto = require('node:crypto');
+          const publication = JSON.parse(fs.readFileSync('site/review/g3b-u04/review-publication-manifest.json', 'utf8'));
+          const pdf = fs.readFileSync('site/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf');
+          const pdfHash = crypto.createHash('sha256').update(pdf).digest('hex');
+          if (publication.reviewOnly !== true
+            || publication.productionAdmitted !== false
+            || publication.publicGeneratorChanged !== false
+            || publication.files[0].sha256 !== pdfHash
+            || pdfHash !== '777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0') {
+            process.exit(1);
+          }
+          NODE
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
