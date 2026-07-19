@@ -2,7 +2,7 @@
   "schemaName": "MilestoneClaimIntegrityAndHumanReviewReadinessGateContract",
   "schemaVersion": 1,
   "task": "GOV-S01_MilestoneClaimIntegrityAndHumanReviewReadinessGate",
-  "status": "implemented_pending_ci",
+  "status": "pass_accepted_pending_merge",
   "scope": {
     "repositoryWide": true,
     "requiredOnPullRequests": true,
@@ -61,12 +61,20 @@
     "p12ActualEvidenceLevel": "E2_CONTENT_AUTHORED",
     "p12NextStep": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix"
   },
+  "ciAcceptance": {
+    "acceptedHeadSha": "9448cd3882901ff7897295b298f7130b6a1012a7",
+    "milestoneClaimIntegrityRun": 29670191882,
+    "milestoneClaimIntegrityConclusion": "success",
+    "nodeTestRun": 29670191868,
+    "nodeTestConclusion": "success",
+    "mathCiReadbackRun": 29670191856,
+    "mathCiReadbackConclusion": "success"
+  },
   "distance": {
     "goalDistanceBefore": "D2_SYSTEM_PIPELINE_EXISTS_BUT_MILESTONE_CLAIMS_NOT_TRUSTWORTHY",
-    "goalDistanceAfter": "D2_MACHINE_ENFORCED_CLAIM_INTEGRITY_PENDING_CI",
+    "goalDistanceAfter": "D2_MACHINE_ENFORCED_CLAIM_INTEGRITY_ACCEPTED_PENDING_MERGE",
     "distanceReduced": "false milestone claims become machine-testable and merge-blocking; product pipeline distance remains D2",
     "remainingBlockers": [
-      "CI acceptance",
       "merge",
       "GCTX-P12R runtime-renderer-PDF integration"
     ],
