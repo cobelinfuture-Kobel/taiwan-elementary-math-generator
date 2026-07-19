@@ -1,0 +1,5 @@
+task=GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout
+reason=warning-aware validation gate committed
+expected_status_tone=success
+expected_validation_has_errors=false
+non_blocking_warnings=allowed_and_preserved
