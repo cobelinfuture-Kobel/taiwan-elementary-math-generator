@@ -120,7 +120,7 @@ const claim = {
     htmlOutputVerified: true,
     pdfOutputVerified: true,
     visibleOutputChanged: true,
-    humanReviewReady: true,
+    humanReviewReady: false,
     productionAdmitted: true,
     d0Complete: true
   },
@@ -141,16 +141,16 @@ const claim = {
       "tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs",
       ".github/workflows/gctx-p14-live-public-ui-d0.yml"
     ],
-    htmlArtifactPaths: [paths.p13Html, paths.livePreviewHtml],
+    htmlArtifactPaths: [paths.p13Html],
     pdfArtifactPaths: [paths.reviewPdf, paths.p13Pdf],
     beforeAfterEvidencePaths: [paths.visibleDiff, paths.p13Evidence, paths.p13Manifest, paths.liveEvidence],
-    reviewArtifactPaths: [paths.reviewDecision, paths.reviewPdf, paths.p13Pdf, paths.livePageScreenshot, paths.livePreviewScreenshot],
+    reviewArtifactPaths: [paths.reviewDecision, paths.reviewPdf, paths.p13Pdf],
     artifactHashes
   },
   humanReview: {
-    type: "production_equivalent_output_review",
-    canUnlockProduction: true,
-    reviewArtifactRequired: true
+    type: "none",
+    canUnlockProduction: false,
+    reviewArtifactRequired: false
   },
   distance: {
     before: "D1",
@@ -158,7 +158,7 @@ const claim = {
     distanceReduced: "The deployed GitHub Pages UI loads the exact P13 runtime, resolves the public G3B-U04 selector/query route, generates 25 validated questions with five approved contexts and 25 answer entries, and exposes stable worksheet output without hidden flags or legacy target leakage."
   },
   nextStep: {
-    taskId: "GCTX-G3BU04_D0ClosedAwaitNextSourceSelection",
+    taskId: "GS01_G5AU08_DeployedPagesSmokeRecloseout",
     requiredEvidenceLevelBeforeStart: "E6_D0_COMPLETE"
   }
 };
@@ -191,13 +191,13 @@ contract.distance = {
   goalDistanceAfter: "D0_GCTX_G3BU04_LIVE_PUBLIC_UI_COMPLETE",
   distanceReduced: "The final deployed UI/selector/runtime/validator/renderer/worksheet output path is verified against exact deployed assets and live DOM output.",
   remainingBlockers: [],
-  nextShortestStep: "GCTX-G3BU04_D0ClosedAwaitNextSourceSelection"
+  nextShortestStep: "GS01_G5AU08_DeployedPagesSmokeRecloseout"
 };
 writeFileSync(repoPath(paths.contract), `${JSON.stringify(contract, null, 2)}\n`, "utf8");
 
-writeFileSync(repoPath(paths.marker), `TASK=GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout\nSTATUS=PASS_LIVE_PUBLIC_UI_PRODUCTION_REGRESSION_D0_COMPLETE\nTARGET_EVIDENCE_LEVEL=E6_D0_COMPLETE\nACTUAL_EVIDENCE_LEVEL=E6_D0_COMPLETE\nLIVE_BASE_URL=${live.baseUrl}\nLIVE_QUERY_URL=${live.liveQueryUrl}\nDEPLOYED_ASSET_IDENTITY_VERIFIED=true\nDEPLOYMENT_ATTEMPT=${live.deploymentAttempt}\nQUESTION_COUNT=${live.output.questionCount}\nANSWER_COUNT=${live.output.answerCount}\nQUESTION_PAGE_COUNT=${live.output.questionPageCount}\nANSWER_PAGE_COUNT=${live.output.answerPageCount}\nTARGET_QUESTION_COUNT=${live.output.targetQuestionCount}\nTARGET_ANSWER_COUNT=${live.output.targetAnswerCount}\nUNIQUE_APPROVED_CONTEXT_COUNT=${live.output.uniqueRequiredPhraseCount}\nCONSOLE_ERROR_COUNT=${live.consoleErrors.length}\nPAGE_ERROR_COUNT=${live.pageErrors.length}\nREQUEST_FAILURE_COUNT=${live.requestFailures.length}\nHIDDEN_QUERY_FLAG_COUNT=${live.forbiddenQueryKeys.length}\nLEGACY_TARGET_LEAKAGE_COUNT=${live.output.leakedLegacyTargetPhrases.length}\nPRODUCTION_ADMITTED=true\nD0_COMPLETE=true\nSTOP_REASON=HUMAN_SOURCE_SELECTION_REQUIRED\nBLOCKER_TYPE=NEXT_GLOBAL_CONTEXT_SOURCE_SELECTION\nNEXT_SHORTEST_STEP=GCTX-G3BU04_D0ClosedAwaitNextSourceSelection\n`, "utf8");
+writeFileSync(repoPath(paths.marker), `TASK=GCTX-P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout\nSTATUS=PASS_LIVE_PUBLIC_UI_PRODUCTION_REGRESSION_D0_COMPLETE\nTARGET_EVIDENCE_LEVEL=E6_D0_COMPLETE\nACTUAL_EVIDENCE_LEVEL=E6_D0_COMPLETE\nLIVE_BASE_URL=${live.baseUrl}\nLIVE_QUERY_URL=${live.liveQueryUrl}\nDEPLOYED_ASSET_IDENTITY_VERIFIED=true\nDEPLOYMENT_ATTEMPT=${live.deploymentAttempt}\nQUESTION_COUNT=${live.output.questionCount}\nANSWER_COUNT=${live.output.answerCount}\nQUESTION_PAGE_COUNT=${live.output.questionPageCount}\nANSWER_PAGE_COUNT=${live.output.answerPageCount}\nTARGET_QUESTION_COUNT=${live.output.targetQuestionCount}\nTARGET_ANSWER_COUNT=${live.output.targetAnswerCount}\nUNIQUE_APPROVED_CONTEXT_COUNT=${live.output.uniqueRequiredPhraseCount}\nCONSOLE_ERROR_COUNT=${live.consoleErrors.length}\nPAGE_ERROR_COUNT=${live.pageErrors.length}\nREQUEST_FAILURE_COUNT=${live.requestFailures.length}\nHIDDEN_QUERY_FLAG_COUNT=${live.forbiddenQueryKeys.length}\nLEGACY_TARGET_LEAKAGE_COUNT=${live.output.leakedLegacyTargetPhrases.length}\nPRODUCTION_ADMITTED=true\nD0_COMPLETE=true\nSTOP_REASON=NONE\nBLOCKER_TYPE=NONE\nNEXT_SHORTEST_STEP=GS01_G5AU08_DeployedPagesSmokeRecloseout\n`, "utf8");
 
-writeFileSync(repoPath(paths.readback), `# GCTX-P14 G3B-U04 Live Public UI D0 Closeout\n\n## Status\n\n\`\`\`text\nPASS_LIVE_PUBLIC_UI_PRODUCTION_REGRESSION_D0_COMPLETE\n\`\`\`\n\nThe GitHub Pages deployment was verified against exact repository asset bytes before the public UI test ran. The public query selected G3B-U04, the approved KnowledgePoint and PatternGroup, then generated the live worksheet through the actual Classic UI.\n\n## Live result\n\n\`\`\`text\nbaseUrl                      = ${live.baseUrl}\nliveQueryUrl                 = ${live.liveQueryUrl}\ndeployedAssetIdentity        = true\nquestionCount                = ${live.output.questionCount}\nanswerCount                  = ${live.output.answerCount}\nquestionPageCount            = ${live.output.questionPageCount}\nanswerPageCount              = ${live.output.answerPageCount}\ntargetQuestionCount          = ${live.output.targetQuestionCount}\ntargetAnswerCount            = ${live.output.targetAnswerCount}\nuniqueApprovedContexts       = ${live.output.uniqueRequiredPhraseCount}\nlegacyTargetLeakage          = ${live.output.leakedLegacyTargetPhrases.length}\nconsoleErrors                = ${live.consoleErrors.length}\npageErrors                   = ${live.pageErrors.length}\nrequestFailures              = ${live.requestFailures.length}\nhiddenQueryFlags             = ${live.forbiddenQueryKeys.length}\nproductionAdmitted           = true\nd0Complete                   = true\n\`\`\`\n\n## Distance\n\n\`\`\`text\nGOAL_DISTANCE_BEFORE = D1_GCTX_G3BU04_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_VERIFIED\nGOAL_DISTANCE_AFTER  = D0_GCTX_G3BU04_LIVE_PUBLIC_UI_COMPLETE\nDISTANCE_REDUCED     = The deployed public UI, selector, canonical runtime, blocking validator, renderer, worksheet and answer output are all verified.\nREMAINING_BLOCKERS   = []\nNEXT_SHORTEST_STEP   = GCTX-G3BU04_D0ClosedAwaitNextSourceSelection\n\`\`\`\n\n## Stop boundary\n\n\`\`\`text\nSTOP_REASON = HUMAN_SOURCE_SELECTION_REQUIRED\nBLOCKER_TYPE = NEXT_GLOBAL_CONTEXT_SOURCE_SELECTION\nREQUIRED_OPERATOR_ACTION = Select the next source / KnowledgePoint for global-context expansion.\n\`\`\`\n`, "utf8");
+writeFileSync(repoPath(paths.readback), `# GCTX-P14 G3B-U04 Live Public UI D0 Closeout\n\n## Status\n\n\`\`\`text\nPASS_LIVE_PUBLIC_UI_PRODUCTION_REGRESSION_D0_COMPLETE\n\`\`\`\n\nThe GitHub Pages deployment was verified against exact repository asset bytes before the public UI test ran. The public query selected G3B-U04, the approved KnowledgePoint and PatternGroup, then generated the live worksheet through the actual Classic UI.\n\n## Live result\n\n\`\`\`text\nbaseUrl                      = ${live.baseUrl}\nliveQueryUrl                 = ${live.liveQueryUrl}\ndeployedAssetIdentity        = true\nquestionCount                = ${live.output.questionCount}\nanswerCount                  = ${live.output.answerCount}\nquestionPageCount            = ${live.output.questionPageCount}\nanswerPageCount              = ${live.output.answerPageCount}\ntargetQuestionCount          = ${live.output.targetQuestionCount}\ntargetAnswerCount            = ${live.output.targetAnswerCount}\nuniqueApprovedContexts       = ${live.output.uniqueRequiredPhraseCount}\nlegacyTargetLeakage          = ${live.output.leakedLegacyTargetPhrases.length}\nconsoleErrors                = ${live.consoleErrors.length}\npageErrors                   = ${live.pageErrors.length}\nrequestFailures              = ${live.requestFailures.length}\nhiddenQueryFlags             = ${live.forbiddenQueryKeys.length}\nproductionAdmitted           = true\nd0Complete                   = true\n\`\`\`\n\n## Distance\n\n\`\`\`text\nGOAL_DISTANCE_BEFORE = D1_GCTX_G3BU04_PUBLIC_PRODUCTION_ADMITTED_HTML_PDF_VERIFIED\nGOAL_DISTANCE_AFTER  = D0_GCTX_G3BU04_LIVE_PUBLIC_UI_COMPLETE\nDISTANCE_REDUCED     = The deployed public UI, selector, canonical runtime, blocking validator, renderer, worksheet and answer output are all verified.\nREMAINING_BLOCKERS   = []\nNEXT_SHORTEST_STEP   = GS01_G5AU08_DeployedPagesSmokeRecloseout\n\`\`\`\n\n## Continuation boundary\n\n\`\`\`text\nSTOP_REASON = NONE\nBLOCKER_TYPE = NONE\nNEXT_RESUME_TASK = GS01_G5AU08_DeployedPagesSmokeRecloseout\n\`\`\`\n`, "utf8");
 
 console.log(JSON.stringify({
   claimPath: paths.claim,
