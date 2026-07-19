@@ -1,0 +1,151 @@
+name: GCTX-P12R Runtime Renderer HTML PDF
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js"
+      - "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js"
+      - "site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js"
+      - "tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-rendered-artifacts.mjs"
+      - "tools/curriculum/render-gctx-p12r-after-pdf.mjs"
+      - "tools/curriculum/finalize-gctx-p12r-g3b-u04-pdf-evidence.mjs"
+      - "tools/governance/promote-gctx-p12r-e4-claim.mjs"
+      - "tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js"
+      - "data/project/milestones/GCTX-P12R.claim.json"
+      - "data/curriculum/contracts/GCTX_P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix.json"
+      - "docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_PASS.marker"
+      - "docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_READBACK.md"
+      - "docs/curriculum/output/gctx/**"
+      - ".github/workflows/gctx-p12r-html-pdf.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  runtime-renderer-html-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Detect committed E4 evidence
+        id: evidence_state
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const claim = JSON.parse(fs.readFileSync('data/project/milestones/GCTX-P12R.claim.json', 'utf8'));
+          const required = [
+            'docs/curriculum/output/gctx/GCTX_P12R_G3BU04_BEFORE.html',
+            'docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.html',
+            'docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf',
+            'docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json',
+            'docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json'
+          ];
+          const committed = claim.actualEvidenceLevel === 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+            && required.every((path) => fs.existsSync(path));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
+          NODE
+
+      - name: Run P12R focused runtime and renderer tests
+        id: focused_tests
+        continue-on-error: true
+        run: |
+          mkdir -p docs/curriculum/output/gctx
+          set -o pipefail
+          node --test tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js 2>&1 | tee docs/curriculum/output/gctx/GCTX_P12R_FOCUSED_TEST.log
+
+      - name: Upload focused test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p12r-focused-test-diagnostics
+          path: |
+            docs/curriculum/output/gctx/GCTX_P12R_FOCUSED_TEST.log
+            site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js
+            site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js
+          retention-days: 7
+
+      - name: Block after focused test failure
+        if: steps.focused_tests.outcome == 'failure'
+        run: exit 1
+
+      - name: Generate production-equivalent before and after HTML
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: node tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-rendered-artifacts.mjs
+
+      - name: Install Chromium PDF runtime
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+
+      - name: Render after worksheet PDF with Chromium
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: node tools/curriculum/render-gctx-p12r-after-pdf.mjs
+
+      - name: Install PDF verification tools
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Finalize and verify PDF evidence
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: node tools/curriculum/finalize-gctx-p12r-g3b-u04-pdf-evidence.mjs
+
+      - name: Promote exact artifacts to E4 claim
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: node tools/governance/promote-gctx-p12r-e4-claim.mjs
+
+      - name: Validate E4 claim and committed artifact hashes
+        run: |
+          npm run governance:claims
+          node -e 'const m=require("./docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json"); const c=require("./data/project/milestones/GCTX-P12R.claim.json"); if(m.status!=="production_equivalent_html_pdf_visible_difference_pass"||m.evidenceLevel!=="E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"||m.changedPromptCount!==5||m.preservedMathematicalWitnessCount!==5||m.extractedPromptCount!==5||m.extractedAnswerCount!==5||m.leakedLegacyPhraseCount!==0||m.humanReviewReady!==true||c.actualEvidenceLevel!=="E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"||c.claims.humanReviewReady!==true||c.claims.productionAdmitted!==false) process.exit(1)'
+
+      - name: Upload exact Human Review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p12r-production-equivalent-review-evidence
+          path: |
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_BEFORE.html
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.html
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.extracted.txt
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json
+          retention-days: 30
+
+      - name: Commit exact E4 artifacts to pull request branch
+        if: steps.evidence_state.outputs.committed_e4 != 'true' && github.event_name == 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/project/milestones/GCTX-P12R.claim.json \
+            data/curriculum/contracts/GCTX_P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix.json \
+            docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_PASS.marker \
+            docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_READBACK.md \
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_BEFORE.html \
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.html \
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf \
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.extracted.txt \
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json \
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json
+          if git diff --cached --quiet; then
+            echo "Exact E4 artifacts already committed."
+          else
+            git commit -m "docs(gctx): commit P12R production-equivalent review evidence"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
