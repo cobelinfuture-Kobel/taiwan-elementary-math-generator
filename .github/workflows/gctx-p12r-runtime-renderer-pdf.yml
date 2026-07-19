@@ -1,0 +1,146 @@
+name: GCTX P12R Runtime Renderer PDF
+
+on:
+  push:
+    branches:
+      - feat/gctx-p12r-g3b-u04-runtime-renderer-pdf
+    paths:
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js
+      - tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-renderer-artifacts.mjs
+      - tools/curriculum/finalize-gctx-p12r-g3b-u04-artifacts.mjs
+      - tests/curriculum/gctx-p12r-g3b-u04-runtime-renderer-pdf.test.js
+      - tests/curriculum/gctx-p12r-g3b-u04-artifacts.test.js
+      - data/project/milestones/GCTX-P12R.claim.json
+      - data/curriculum/contracts/GCTX_P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix.json
+      - .github/workflows/gctx-p12r-runtime-renderer-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-verify-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout P12R branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/gctx-p12r-g3b-u04-runtime-renderer-pdf
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install CJK fonts and PDF inspection tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
+
+      - name: Generate formal before and after HTML
+        run: node tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-renderer-artifacts.mjs
+
+      - name: Print formal HTML artifacts to PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome-stable || command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME"
+          for NAME in Before After; do
+            HTML="$GITHUB_WORKSPACE/docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_${NAME}.html"
+            PDF="$GITHUB_WORKSPACE/docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_${NAME}.pdf"
+            test -s "$HTML"
+            "$CHROME" \
+              --headless=new \
+              --no-sandbox \
+              --disable-gpu \
+              --no-pdf-header-footer \
+              --print-to-pdf="$PDF" \
+              "file://$HTML"
+            test -s "$PDF"
+          done
+
+      - name: Verify PDF pages, text, visible differences, and mathematical surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          MANIFEST="docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_ArtifactManifest.json"
+          EXPECTED="$(node -p "JSON.parse(require('fs').readFileSync('$MANIFEST','utf8')).expectedPdfPageCount")"
+          BEFORE_PDF="docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_Before.pdf"
+          AFTER_PDF="docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_After.pdf"
+          BEFORE_TEXT="/tmp/gctx-p12r-before.txt"
+          AFTER_TEXT="/tmp/gctx-p12r-after.txt"
+          for PDF in "$BEFORE_PDF" "$AFTER_PDF"; do
+            head -c 5 "$PDF" | grep -q '%PDF-'
+            test "$(stat -c%s "$PDF")" -ge 20000
+            test "$(pdfinfo "$PDF" | awk '/^Pages:/ {print $2}')" = "$EXPECTED"
+          done
+          pdftotext "$BEFORE_PDF" "$BEFORE_TEXT"
+          pdftotext "$AFTER_PDF" "$AFTER_TEXT"
+          grep -q '三明治費用共' "$BEFORE_TEXT"
+          grep -q '筆記本費用共' "$BEFORE_TEXT"
+          grep -q '門票費用共' "$BEFORE_TEXT"
+          grep -q '帳篷租金共' "$BEFORE_TEXT"
+          grep -q '班級園遊會' "$AFTER_TEXT"
+          grep -q '戶外學習' "$AFTER_TEXT"
+          grep -q '運動練習' "$AFTER_TEXT"
+          grep -q '社區清潔活動' "$AFTER_TEXT"
+          grep -q '露營活動' "$AFTER_TEXT"
+          ! grep -q '三明治費用共' "$AFTER_TEXT"
+          ! grep -q '筆記本費用共' "$AFTER_TEXT"
+          ! grep -q '人的門票費用共' "$AFTER_TEXT"
+          ! grep -q '帳篷租金共' "$AFTER_TEXT"
+          grep -q '答案卷' "$AFTER_TEXT"
+          grep -q '算式' "$AFTER_TEXT"
+          grep -q '答案' "$AFTER_TEXT"
+
+      - name: Finalize E4 artifact manifest and Claim Manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE_PDF="docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_Before.pdf"
+          AFTER_PDF="docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_After.pdf"
+          export BEFORE_PAGES="$(pdfinfo "$BEFORE_PDF" | awk '/^Pages:/ {print $2}')"
+          export AFTER_PAGES="$(pdfinfo "$AFTER_PDF" | awk '/^Pages:/ {print $2}')"
+          node tools/curriculum/finalize-gctx-p12r-g3b-u04-artifacts.mjs
+
+      - name: Run full test and governance suites against generated artifacts
+        run: |
+          npm test
+          npm run governance:claims
+
+      - name: Verify exact generated scope
+        run: |
+          set -euo pipefail
+          test -f docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_Before.html
+          test -f docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_After.html
+          test -f docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_Before.pdf
+          test -f docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_After.pdf
+          test -f docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_BeforeAfter.json
+          test -f docs/curriculum/output/gctx-p12r/GCTX_P12R_G3BU04_ArtifactManifest.json
+          test -f docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_PASS.marker
+          test -f docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_READBACK.md
+          test ! -f docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_PENDING.marker
+          git status --short
+
+      - name: Commit immutable HTML PDF evidence and remove one-shot workflow
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/curriculum/output/gctx-p12r
+          git add docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_PASS.marker
+          git add docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_READBACK.md
+          git add -u docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_PENDING.marker
+          git add data/project/milestones/GCTX-P12R.claim.json
+          git add data/curriculum/contracts/GCTX_P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix.json
+          git rm .github/workflows/gctx-p12r-runtime-renderer-pdf.yml
+          git commit -m "docs(gctx): add P12R production-equivalent HTML PDF evidence"
+          git push origin HEAD:feat/gctx-p12r-g3b-u04-runtime-renderer-pdf
