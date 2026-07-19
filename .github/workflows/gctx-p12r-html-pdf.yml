@@ -13,6 +13,9 @@ on:
       - "tools/governance/promote-gctx-p12r-e4-claim.mjs"
       - "tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js"
       - "data/project/milestones/GCTX-P12R.claim.json"
+      - "data/curriculum/contracts/GCTX_P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix.json"
+      - "docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_PASS.marker"
+      - "docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_READBACK.md"
       - "docs/curriculum/output/gctx/**"
       - ".github/workflows/gctx-p12r-html-pdf.yml"
   workflow_dispatch:
