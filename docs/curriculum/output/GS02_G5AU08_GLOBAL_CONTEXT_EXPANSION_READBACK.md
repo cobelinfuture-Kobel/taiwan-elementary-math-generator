@@ -11,19 +11,19 @@ PASS_E2_CONTENT_AUTHORED_PENDING_EXACT_HEAD_CI_AND_MERGE
 GS02 separates mathematical TemplateFamilies from reusable life-context families. The existing ten G5A-U08 TemplateFamilies remain the unit-owned operation, role, unit-flow and answer-witness authority. The new global layer contributes only context identity, event structure, actors, places, objects, activities, surface language and semantic restrictions.
 
 ```text
-context families                 = 18
-unique domains                   = 18
-surface templates                = 54
-recomputable seed QA             = 90
-UnitContextBindings              = 18
+context families                  = 18
+unique domains                    = 18
+surface templates                 = 54
+recomputable seed QA              = 90
+UnitContextBindings               = 18
 minimum families / TemplateFamily = 5
 maximum families / TemplateFamily = 13
-duplicate semantic fingerprints  = 0
-unresolved authority references  = 0
-seed answer witness failures     = 0
-production-selectable families   = 0
-runtime-resolvable families      = 0
-runtime changed                  = false
+duplicate semantic fingerprints   = 0
+unresolved authority references   = 0
+seed answer witness failures      = 0
+production-selectable families    = 0
+runtime-resolvable families       = 0
+runtime changed                   = false
 ```
 
 ## Context-family breadth
@@ -94,6 +94,20 @@ data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json
 data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json
 docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_COVERAGE.json
 ```
+
+## Claim and PR parity
+
+```text
+Actual Evidence Level  = E2_CONTENT_AUTHORED
+Maximum Claim          = E2_CONTENT_AUTHORED
+Visible Output Changed = false
+Human Review Type      = none
+Human Review Ready     = false
+Runtime Integrated     = false
+Production Admitted    = false
+```
+
+This synchronization commit ensures exact-head CI reads the final E2 Claim and final E2 pull-request body from the same pull-request event.
 
 ## Program state
 
