@@ -1,0 +1,76 @@
+name: GCTX-P12R Runtime Renderer HTML PDF
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js"
+      - "site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js"
+      - "tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-rendered-artifacts.mjs"
+      - "tools/curriculum/render-gctx-p12r-after-pdf.mjs"
+      - "tools/curriculum/finalize-gctx-p12r-g3b-u04-pdf-evidence.mjs"
+      - "tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js"
+      - "data/project/milestones/GCTX-P12R.claim.json"
+      - ".github/workflows/gctx-p12r-html-pdf.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  runtime-renderer-html-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run P12R focused runtime and renderer tests
+        run: node --test tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js
+
+      - name: Generate production-equivalent before and after HTML
+        run: node tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-rendered-artifacts.mjs
+
+      - name: Install Chromium PDF runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+
+      - name: Render after worksheet PDF with Chromium
+        run: node tools/curriculum/render-gctx-p12r-after-pdf.mjs
+
+      - name: Install PDF verification tools
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Finalize and verify PDF evidence
+        run: node tools/curriculum/finalize-gctx-p12r-g3b-u04-pdf-evidence.mjs
+
+      - name: Verify generated artifacts
+        run: |
+          test -s docs/curriculum/output/gctx/GCTX_P12R_G3BU04_BEFORE.html
+          test -s docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.html
+          test -s docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf
+          test -s docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json
+          test -s docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json
+          node -e 'const m=require("./docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json"); if(m.status!=="production_equivalent_html_pdf_visible_difference_pass"||m.evidenceLevel!=="E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"||m.changedPromptCount!==5||m.preservedMathematicalWitnessCount!==5||m.extractedPromptCount!==5||m.leakedLegacyPhraseCount!==0||m.humanReviewReady!==true) process.exit(1)'
+
+      - name: Upload exact Human Review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p12r-production-equivalent-review-evidence
+          path: |
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_BEFORE.html
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.html
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.extracted.txt
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_VISIBLE_DIFF.json
+            docs/curriculum/output/gctx/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json
+          retention-days: 30
