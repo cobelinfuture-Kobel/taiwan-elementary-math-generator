@@ -16,6 +16,9 @@ import {
   auditG3BU04GlobalContextProductionRegistry
 } from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js";
 import {
+  validateG3BU04HumanSemanticQualityV2
+} from "../../site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js";
+import {
   generateBatchABrowserQuestions
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import {
@@ -134,6 +137,18 @@ test("GCTX-P13 public canonical generator exposes all five approved contexts", (
     assert.equal(question.canonicalRoute.publicHiddenModeFlagUsed, false);
     assert.equal(question.globalContextProduction.validatorAuthorityContextDomain, question.contextDomain);
     assert.equal(validateG3BU04GlobalContextProductionQuestion(question).ok, true);
+
+    const directQualityV2 = validateG3BU04HumanSemanticQualityV2(question);
+    assert.equal(directQualityV2.ok, true, JSON.stringify(directQualityV2.errors));
+    assert.equal(directQualityV2.reviewedPromptCompatibility?.applied, true);
+    assert.equal(
+      directQualityV2.reviewedPromptCompatibility?.reviewArtifactSha256,
+      G3B_U04_GLOBAL_CONTEXT_REVIEW_ARTIFACT_SHA256
+    );
+    assert.deepEqual(
+      directQualityV2.reviewedPromptCompatibility?.resolvedErrorCodes,
+      ["G3B_U04_READBACK_SHARED_ACTIVITY_SCOPE_UNCLEAR"]
+    );
   }
 
   const blocking = validateBatchABrowserQuestions(result.questions, { plan: result.plan });
@@ -151,6 +166,22 @@ test("GCTX-P13 public canonical generator exposes all five approved contexts", (
       && stage.applied === true
       && stage.resolvedErrorCodes.includes("G3B_U04_READBACK_SHARED_ACTIVITY_SCOPE_UNCLEAR")
   )), true);
+});
+
+test("GCTX-P13 raw Quality V2 rejects the same wording when exact review evidence is removed", () => {
+  const result = generateBatchABrowserQuestions(publicOptions());
+  assert.equal(result.ok, true);
+  const changed = structuredClone(targetQuestions(result)[0]);
+  changed.globalContextProduction.reviewArtifactSha256 = "0".repeat(64);
+
+  const directQualityV2 = validateG3BU04HumanSemanticQualityV2(changed);
+  assert.equal(directQualityV2.ok, false);
+  assert.equal(directQualityV2.reviewedPromptCompatibility?.applied, false);
+  assert.equal(
+    directQualityV2.errors.some((entry) => entry.code === "G3B_U04_READBACK_SHARED_ACTIVITY_SCOPE_UNCLEAR"),
+    true,
+    JSON.stringify(directQualityV2.errors)
+  );
 });
 
 test("GCTX-P13 public production output is deterministic and rotates by seed", () => {
