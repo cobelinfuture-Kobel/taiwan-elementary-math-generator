@@ -5,9 +5,11 @@ import { fileURLToPath } from "node:url";
 
 import {
   G3B_U04_GLOBAL_CONTEXT_PILOT_MODE,
-  G3B_U04_GLOBAL_CONTEXT_PILOT_RUNTIME,
-  buildG3BU04GlobalContextPilotWorksheetDocuments
+  G3B_U04_GLOBAL_CONTEXT_PILOT_RUNTIME
 } from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js";
+import {
+  buildG3BU04GlobalContextPilotWorksheetDocuments
+} from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer-s57f5-extension.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
