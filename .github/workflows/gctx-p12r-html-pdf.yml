@@ -34,7 +34,24 @@ jobs:
         run: npm install
 
       - name: Run P12R focused runtime and renderer tests
-        run: node --test tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js
+        id: focused_tests
+        continue-on-error: true
+        run: |
+          mkdir -p docs/curriculum/output/gctx
+          set -o pipefail
+          node --test tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js 2>&1 | tee docs/curriculum/output/gctx/GCTX_P12R_FOCUSED_TEST.log
+
+      - name: Upload focused test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p12r-focused-test-diagnostics
+          path: docs/curriculum/output/gctx/GCTX_P12R_FOCUSED_TEST.log
+          retention-days: 7
+
+      - name: Block after focused test failure
+        if: steps.focused_tests.outcome == 'failure'
+        run: exit 1
 
       - name: Generate production-equivalent before and after HTML
         run: node tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-rendered-artifacts.mjs
