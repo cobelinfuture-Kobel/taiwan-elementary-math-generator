@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -36,6 +38,9 @@ const SOURCE_ID = "g3b_u04_3b04";
 const KP_ID = "kp_g3b_u04_add_then_divide";
 const EXPECTED_PHRASES = ["班級園遊會", "戶外學習", "運動練習", "社區清潔活動", "露營活動"];
 const LEGACY_PATTERN = /三明治費用|果汁費用|筆記本費用|彩色筆費用|門票費用|帳篷租金/;
+const PUBLIC_EVIDENCE_PATH = "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json";
+const PUBLIC_MANIFEST_PATH = "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.manifest.json";
+const CLAIM_PATH = "data/project/milestones/GCTX-P13.claim.json";
 
 function applicationGroupId() {
   return getVisiblePatternGroupsForKnowledgePoint(KP_ID)
@@ -63,6 +68,10 @@ function targetQuestions(result) {
     .filter((question) => question.patternSpecId === G3B_U04_GLOBAL_CONTEXT_PRODUCTION_PATTERN_SPEC_ID);
 }
 
+function sha256File(path) {
+  return createHash("sha256").update(readFileSync(path)).digest("hex");
+}
+
 test("GCTX-P13 records exact Human Review approval and activates the production registry", () => {
   const audit = auditG3BU04GlobalContextProductionRegistry();
   assert.equal(audit.ok, true, JSON.stringify(audit.errors));
@@ -76,6 +85,22 @@ test("GCTX-P13 records exact Human Review approval and activates the production 
   assert.equal(G3B_U04_GLOBAL_CONTEXT_PRODUCTION_LIFECYCLE.publicQuerySelectable, true);
   assert.equal(G3B_U04_GLOBAL_CONTEXT_PRODUCTION_LIFECYCLE.productionAdmitted, true);
   assert.equal(G3B_U04_GLOBAL_CONTEXT_PRODUCTION_LIFECYCLE.productionUse, "allowed");
+});
+
+test("GCTX-P13 E5 production evidence, manifest and Claim preserve one exact SHA-256 chain", () => {
+  const manifest = JSON.parse(readFileSync(PUBLIC_MANIFEST_PATH, "utf8"));
+  const claim = JSON.parse(readFileSync(CLAIM_PATH, "utf8"));
+  const evidenceSha256 = sha256File(PUBLIC_EVIDENCE_PATH);
+  const manifestSha256 = sha256File(PUBLIC_MANIFEST_PATH);
+  const claimHash = (path) => claim.evidence.artifactHashes.find((entry) => entry.path === path)?.sha256;
+
+  assert.equal(manifest.evidenceLevel, "E5_PRODUCTION_ADMITTED");
+  assert.equal(manifest.evidenceHashChainVerified, true);
+  assert.equal(manifest.productionEvidenceSha256, evidenceSha256);
+  assert.equal(claim.actualEvidenceLevel, "E5_PRODUCTION_ADMITTED");
+  assert.equal(claim.claims.productionAdmitted, true);
+  assert.equal(claimHash(PUBLIC_EVIDENCE_PATH), evidenceSha256);
+  assert.equal(claimHash(PUBLIC_MANIFEST_PATH), manifestSha256);
 });
 
 test("GCTX-P13 public canonical generator exposes all five approved contexts", () => {
