@@ -21,6 +21,7 @@
   "evidence": {
     "runtimeTestPaths": [
       "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js",
+      "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js",
       "tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js",
       "tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-rendered-artifacts.mjs"
     ],
