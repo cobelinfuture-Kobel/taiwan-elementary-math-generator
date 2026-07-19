@@ -30,6 +30,16 @@ productionAdmitted           = true
 d0Complete                   = true
 ```
 
+## Governance parity
+
+```text
+P13 owns production-equivalent Human Review and production admission.
+P14 owns deployed live UI regression and D0 closeout.
+P14 Human Review Type  = none
+P14 Human Review Ready = false
+P14 preview artifacts  = live regression evidence, not Human Review evidence
+```
+
 ## Distance
 
 ```text
