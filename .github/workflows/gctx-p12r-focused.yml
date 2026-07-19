@@ -7,6 +7,7 @@ on:
       - site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js
       - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js
       - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js
+      - site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet-fullfix.js
       - tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-renderer-artifacts.mjs
       - tools/curriculum/finalize-gctx-p12r-g3b-u04-artifacts.mjs
       - tests/curriculum/gctx-p12r-g3b-u04-runtime-renderer-pdf.test.js
@@ -40,7 +41,7 @@ jobs:
             > p12r-focused-test.log 2>&1
           STATUS=$?
           echo "$STATUS" > p12r-focused-test.exit
-          tail -n 120 p12r-focused-test.log
+          tail -n 160 p12r-focused-test.log
           exit 0
       - name: Upload P12R focused diagnostics
         uses: actions/upload-artifact@v4
