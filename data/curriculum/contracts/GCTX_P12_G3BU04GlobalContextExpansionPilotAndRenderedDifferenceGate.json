@@ -2,8 +2,9 @@
   "schemaName": "GCTXG3BU04GlobalContextExpansionPilotAndRenderedDifferenceGateContract",
   "schemaVersion": 1,
   "task": "GCTX-P12_G3BU04GlobalContextExpansionPilotAndRenderedDifferenceGate",
-  "status": "merged_pending_human_review",
-  "rulesetVersion": "0.1.0",
+  "status": "candidate_content_merged_runtime_output_not_integrated",
+  "rulesetVersion": "0.1.1",
+  "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
   "scope": {
     "sourceId": "g3b_u04_3b04",
     "unitCode": "3B-U04",
@@ -13,23 +14,30 @@
     "contextFamilyId": "gctx_cf_g3b_u04_add_divide_joint_purchase_equal_share",
     "newSemanticVariantCount": 5,
     "newLanguageVariantCount": 5,
-    "renderedPreviewCount": 5,
+    "standalonePreviewCount": 5,
     "productionSelectable": false,
     "runtimeResolvable": false,
+    "productionEquivalentGeneratorUsed": false,
     "publicRouterChanged": false,
-    "rendererChanged": false
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleProductionOutputChanged": false,
+    "humanReviewReady": false
   },
   "inputs": {
     "p01Schema": "data/curriculum/schema/approved-semantic-binding.schema.json",
     "p09CandidateValidator": "tools/curriculum/build-gctx-p09-g3b-u04-exact-binding-pilot.mjs",
     "patternAuthority": "site/modules/curriculum/batch-a/source-pattern-g3b-u04-semantic-extension.js",
     "legacyScenarioAuthority": "site/modules/curriculum/batch-a/g3b-u04-semantic-scenarios.js",
-    "pilotRuntimeModule": "site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js"
+    "candidateContentModule": "site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js",
+    "claimManifest": "data/project/milestones/GCTX-P12.claim.json"
   },
   "contentCorrection": {
     "priorMilestoneClassification": "legacy_context_migration_and_review_infrastructure_only",
-    "p12RequiredDifference": "new learner-visible activity contexts not present in the four legacy prompts",
+    "p12ActualResult": "five new candidate question texts exist outside the production-equivalent runtime and renderer path",
     "surfaceNounSwapAloneAccepted": false,
+    "standalonePreviewIsProductionEvidence": false,
     "requiredChangedAxes": [
       "event_purpose",
       "place_or_activity_scope",
@@ -54,36 +62,33 @@
     "gctx_semvar_g3b_u04_joint_purchase_community_cleanup",
     "gctx_semvar_g3b_u04_joint_purchase_camping_activity"
   ],
-  "acceptance": {
+  "acceptedContentEvidence": {
     "p01CandidateBindingCount": 5,
     "p01CandidateBindingErrorCount": 0,
     "uniquePromptCount": 5,
     "uniqueContextDomainCount": 5,
     "uniqueSemanticFingerprintCount": 5,
-    "legacyPromptCount": 0,
+    "legacyPromptCountInsideStandaloneCandidatePreview": 0,
     "mathematicalRecomputationErrorCount": 0,
     "productionSelectableCount": 0,
     "runtimeResolvableCount": 0,
-    "humanReviewPacketCount": 5,
     "humanDecisionCount": 0
   },
-  "blockingRules": [
-    "Block if any P12 binding fails the exact P01 candidate schema validator.",
-    "Block if any rendered question retains a legacy prompt.",
-    "Block if fewer than five unique prompts, context domains or semantic fingerprints are rendered.",
-    "Block if a, b, c, (a+b)/c, the per-person question target or TWD answer unit changes.",
-    "Block if a candidate claims production selection, runtime resolution or human approval.",
-    "Block if the review packet omits the exact rendered prompt and mathematical witness."
-  ],
   "humanReviewBoundary": {
-    "required": true,
-    "reviewTarget": "rendered_question_text_and_mathematical_witness",
+    "ready": false,
+    "reviewType": "none",
+    "reason": "production-equivalent resolver, generator, renderer, HTML and PDF evidence do not exist",
     "automaticApprovalForbidden": true,
-    "requiredDecisionValues": ["approve", "reject"],
-    "initialDecision": null,
-    "productionAdmissionBeforeReview": false
+    "productionAdmissionBeforeE4": false
   },
-  "ciAcceptance": {
+  "blockingRules": [
+    "Block any claim above E2 until the candidate is consumed by the production-equivalent runtime path.",
+    "Block production-equivalent human review until exact renderer HTML and PDF artifacts exist.",
+    "Block standalone preview HTML from being used as production-output evidence.",
+    "Block production admission while runtimeResolvable is false.",
+    "Block visible-output claims while the generated worksheet PDF remains legacy-only."
+  ],
+  "historicalCiAcceptance": {
     "implementationAcceptedHeadSha": "314b64b38a0701658d489a9332382541178e1048",
     "implementationNodeTestRun": 29667776313,
     "implementationNodeTestConclusion": "success",
@@ -94,8 +99,7 @@
     "finalNodeTestConclusion": "success",
     "finalMathCiReadbackRun": 29667872728,
     "finalMathCiReadbackConclusion": "success",
-    "workingTreeGate": "success",
-    "acceptanceMode": "implementation_and_final_pr_head_node_math_ci_pass"
+    "interpretation": "tests proved candidate content consistency only; they did not prove runtime, renderer or PDF integration"
   },
   "implementationMerge": {
     "pullRequest": 274,
@@ -104,16 +108,18 @@
     "mergeSha": "387db39503e4e41f74548ef5fcf388cdcc52a4fe"
   },
   "distance": {
-    "goalDistanceBefore": "D2_GCTX_G3BU04_LEGACY_CONTEXT_STRUCTURE_READY",
-    "goalDistanceAfter": "D2_GCTX_G3BU04_NEW_VISIBLE_CONTEXT_PILOT_MERGED_PENDING_HUMAN_REVIEW",
-    "distanceReduced": "five new learner-visible activity contexts, exact P01 candidate bindings, mathematical witnesses and rendered review evidence are merged beyond the four legacy prompts",
+    "goalDistanceBefore": "D2_GCTX_G3BU04_CANDIDATE_TEXT_EXISTS",
+    "goalDistanceAfter": "D2_GCTX_G3BU04_CANDIDATE_TEXT_EXISTS",
+    "distanceReduced": "0; governance correction prevents a false E4 or human-review claim but does not integrate the output pipeline",
     "remainingBlockers": [
-      "human semantic review of five rendered prompts",
-      "human mathematical review of five rendered prompts",
-      "formal production admission",
-      "runtime resolver integration",
-      "public HTML/PDF verification"
+      "shadow runtime resolver integration",
+      "production-equivalent generator integration",
+      "production renderer integration",
+      "HTML visible-difference verification",
+      "PDF visible-difference verification",
+      "production-equivalent human review",
+      "formal production admission"
     ],
-    "nextShortestStep": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission"
+    "nextShortestStep": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix"
   }
 }
