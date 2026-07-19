@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "programStatus": "ACTIVE",
+  "goldenSampleUnitId": "g5a_u08_5a08",
+  "taskBudget": 6,
+  "taskOrder": [
+    "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+    "GS02_G5AU08_GlobalContext18FamilyExpansion",
+    "GS03_G5AU08_GoldenContractFreeze",
+    "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
+    "GS05_G5AU08_CrossUnitConformancePilot",
+    "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
+  ],
+  "activeTask": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+  "activeTaskStatus": "PASS_EVIDENCE_COMMITTED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "activeBranch": "fix/gs01-g5a-u08-deployed-pages-smoke-recloseout",
+  "activePR": 283,
+  "lastCompletedTask": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+  "nextAllowedTask": "GS02_G5AU08_GlobalContext18FamilyExpansion",
+  "completedCount": 1,
+  "remainingCount": 5,
+  "goalDistance": "D1_G5AU08_GS01_RECLOSEOUT_PASS_GOLDEN_FREEZE_PENDING",
+  "programLock": "ACTIVE",
+  "stopReason": "NONE",
+  "scope": {
+    "allowedPaths": [
+      ".github/workflows/g5a-u08-r1-deployed-pages-smoke.yml",
+      ".github/workflows/gs01-g5a-u08-deployed-pages-smoke.yml",
+      "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs",
+      "tests/site/g5a-u08-r1-deployed-gate-contract.test.js",
+      "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json",
+      "data/project/milestones/GS01.claim.json",
+      "data/curriculum/contracts/GS01_G5AU08_DeployedPagesSmokeRecloseout.json",
+      "docs/curriculum/output/GS01_G5AU08_DEPLOYED_PAGES_SMOKE_RECLOSEOUT_PENDING.marker",
+      "docs/curriculum/output/GS01_G5AU08_DEPLOYED_PAGES_SMOKE_RECLOSEOUT_PASS.marker",
+      "docs/curriculum/output/GS01_G5AU08_DEPLOYED_PAGES_SMOKE_RECLOSEOUT_READBACK.md",
+      "docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/**"
+    ],
+    "forbiddenCapabilities": [
+      "GS02 context-family population",
+      "Golden Contract freeze",
+      "shared runtime or batch adapter implementation",
+      "cross-unit conformance pilot",
+      "new unit-specific generator",
+      "new unit-specific validator",
+      "new unit-specific renderer",
+      "production worksheet behavior change"
+    ]
+  },
+  "continuation": {
+    "autoContinue": true,
+    "mergeIsStopPoint": false,
+    "closeoutIsStopPoint": false,
+    "nextTaskAfterPass": "GS02_G5AU08_GlobalContext18FamilyExpansion"
+  }
+}
