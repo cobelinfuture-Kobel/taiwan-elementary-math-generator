@@ -63,7 +63,7 @@ jobs:
           exit 1
 
       - name: Run deployed G5A-U08 three-control generate preview print audit
-        run: node tools/curriculum/run-g5a-u08-r1-deployed-pages-smoke.mjs
+        run: node tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs
 
       - name: Write deployed smoke authority
         if: always()
