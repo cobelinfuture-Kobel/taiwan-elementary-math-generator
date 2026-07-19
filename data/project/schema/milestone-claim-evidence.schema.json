@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/taiwan-elementary-math-generator/milestone-claim-evidence.schema.json",
+  "title": "Milestone Claim Evidence Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "taskId",
+    "taskClass",
+    "targetEvidenceLevel",
+    "actualEvidenceLevel",
+    "claimedStatus",
+    "claims",
+    "evidence",
+    "humanReview",
+    "distance",
+    "nextStep"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "taskId": { "type": "string", "minLength": 3 },
+    "taskClass": {
+      "enum": ["planning", "data", "content", "runtime", "renderer", "release", "governance"]
+    },
+    "targetEvidenceLevel": { "$ref": "#/$defs/evidenceLevel" },
+    "actualEvidenceLevel": { "$ref": "#/$defs/evidenceLevel" },
+    "claimedStatus": { "type": "string", "minLength": 3 },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dataStructureReady",
+        "contentAuthored",
+        "runtimeIntegrated",
+        "productionEquivalentGeneratorUsed",
+        "productionRendererUsed",
+        "htmlOutputVerified",
+        "pdfOutputVerified",
+        "visibleOutputChanged",
+        "humanReviewReady",
+        "productionAdmitted",
+        "d0Complete"
+      ],
+      "properties": {
+        "dataStructureReady": { "type": "boolean" },
+        "contentAuthored": { "type": "boolean" },
+        "runtimeIntegrated": { "type": "boolean" },
+        "productionEquivalentGeneratorUsed": { "type": "boolean" },
+        "productionRendererUsed": { "type": "boolean" },
+        "htmlOutputVerified": { "type": "boolean" },
+        "pdfOutputVerified": { "type": "boolean" },
+        "visibleOutputChanged": { "type": "boolean" },
+        "humanReviewReady": { "type": "boolean" },
+        "productionAdmitted": { "type": "boolean" },
+        "d0Complete": { "type": "boolean" }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtimeTestPaths",
+        "rendererTestPaths",
+        "htmlArtifactPaths",
+        "pdfArtifactPaths",
+        "beforeAfterEvidencePaths",
+        "reviewArtifactPaths",
+        "artifactHashes"
+      ],
+      "properties": {
+        "runtimeTestPaths": { "$ref": "#/$defs/pathArray" },
+        "rendererTestPaths": { "$ref": "#/$defs/pathArray" },
+        "htmlArtifactPaths": { "$ref": "#/$defs/pathArray" },
+        "pdfArtifactPaths": { "$ref": "#/$defs/pathArray" },
+        "beforeAfterEvidencePaths": { "$ref": "#/$defs/pathArray" },
+        "reviewArtifactPaths": { "$ref": "#/$defs/pathArray" },
+        "artifactHashes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "sha256"],
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
+        }
+      }
+    },
+    "humanReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "canUnlockProduction", "reviewArtifactRequired"],
+      "properties": {
+        "type": {
+          "enum": ["none", "draft_content_review", "production_equivalent_output_review"]
+        },
+        "canUnlockProduction": { "type": "boolean" },
+        "reviewArtifactRequired": { "type": "boolean" }
+      }
+    },
+    "distance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["before", "after", "distanceReduced"],
+      "properties": {
+        "before": { "$ref": "#/$defs/distance" },
+        "after": { "$ref": "#/$defs/distance" },
+        "distanceReduced": { "type": "string", "minLength": 1 }
+      }
+    },
+    "nextStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["taskId", "requiredEvidenceLevelBeforeStart"],
+      "properties": {
+        "taskId": { "type": "string", "minLength": 3 },
+        "requiredEvidenceLevelBeforeStart": { "$ref": "#/$defs/evidenceLevel" }
+      }
+    }
+  },
+  "$defs": {
+    "evidenceLevel": {
+      "enum": [
+        "E0_PLANNING_ONLY",
+        "E1_DATA_STRUCTURE_READY",
+        "E2_CONTENT_AUTHORED",
+        "E3_SHADOW_RUNTIME_INTEGRATED",
+        "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+        "E5_PRODUCTION_ADMITTED",
+        "E6_D0_COMPLETE"
+      ]
+    },
+    "distance": { "enum": ["D0", "D1", "D2", "D3", "D4", "D5"] },
+    "pathArray": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  }
+}
