@@ -24,6 +24,37 @@ export const G3B_U04_HUMAN_SEMANTIC_QUALITY_V2_ERROR_CODES = Object.freeze([
   "G3B_U04_READBACK_CONTEXT_LEXICON_UNNATURAL"
 ]);
 
+const G3B_U04_P13_REVIEW_BOUND_SHARED_SCOPE_SHA256 =
+  "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0";
+
+const G3B_U04_P13_REVIEW_BOUND_SHARED_SCOPE_VARIANTS = Object.freeze({
+  gctx_semvar_g3b_u04_joint_purchase_class_festival: "共同準備班級園遊會",
+  gctx_semvar_g3b_u04_joint_purchase_field_learning: "一起準備戶外學習",
+  gctx_semvar_g3b_u04_joint_purchase_sports_practice: "一起安排運動練習",
+  gctx_semvar_g3b_u04_joint_purchase_community_cleanup: "共同準備社區清潔活動",
+  gctx_semvar_g3b_u04_joint_purchase_camping_activity: "一起準備露營活動"
+});
+
+function isG3BU04P13ReviewBoundSharedActivityScope(question = {}, prompt = "") {
+  const binding = question.globalContextProduction ?? {};
+  const requiredPhrase = G3B_U04_P13_REVIEW_BOUND_SHARED_SCOPE_VARIANTS[binding.semanticVariantId];
+  const participantCount = question.quantities?.c;
+  return Boolean(
+    requiredPhrase
+    && binding.reviewArtifactSha256 === G3B_U04_P13_REVIEW_BOUND_SHARED_SCOPE_SHA256
+    && binding.productionAdmitted === true
+    && binding.publicQuerySelectable === true
+    && binding.productionUse === "allowed"
+    && question.productionUse === "allowed"
+    && Number.isInteger(participantCount)
+    && participantCount > 0
+    && prompt.startsWith(`${participantCount}位同學`)
+    && prompt.includes(requiredPhrase)
+    && prompt.includes(`兩項費用由${participantCount}人平均分擔`)
+    && prompt.endsWith("每人要付多少元？")
+  );
+}
+
 const PRICE_EQUIVALENCE = Object.freeze({
   bakery: Object.freeze({
     basePrice: 30,
@@ -480,6 +511,8 @@ export function validateG3BU04HumanSemanticQualityV2(question = {}) {
   errors.push(...(v1Result.errors ?? []));
   const prompt = String(question.promptText ?? "");
   const family = question.templateFamilyId;
+  const reviewedPromptCompatibilityApplied = family === "tpl_g3b_u04_add_divide_joint_purchase_equal_share"
+    && isG3BU04P13ReviewBoundSharedActivityScope(question, prompt);
 
   if (family === "tpl_g3b_u04_div_add_shared_cost_plus_personal_purchase"
   && !prompt.includes("小安和其他人共")) {
@@ -487,11 +520,12 @@ export function validateG3BU04HumanSemanticQualityV2(question = {}) {
 }
 
   if (family === "tpl_g3b_u04_add_divide_joint_purchase_equal_share") {
-    const allowed = question.contextDomain === "equipment_rental"
-      ? /共同租用|總租金/.test(prompt)
-      : question.contextDomain === "tickets"
-        ? /人的門票費用共/.test(prompt) && /車票費用共/.test(prompt)
-        : /共同購買|一起訂購/.test(prompt);
+    const allowed = reviewedPromptCompatibilityApplied
+      || (question.contextDomain === "equipment_rental"
+        ? /共同租用|總租金/.test(prompt)
+        : question.contextDomain === "tickets"
+          ? /人的門票費用共/.test(prompt) && /車票費用共/.test(prompt)
+          : /共同購買|一起訂購/.test(prompt));
     if (!allowed) errors.push(issue("G3B_U04_READBACK_SHARED_ACTIVITY_SCOPE_UNCLEAR", "promptText", "Shared purchase, use, or rental scope is unclear."));
   }
 
@@ -554,6 +588,15 @@ if (family === "tpl_g3b_u04_add_divide_combined_inventory_equal_distribution") {
     errors,
     warnings: [],
     stage: "human_semantic_quality_v2",
-    validatorVersion: G3B_U04_HUMAN_SEMANTIC_QUALITY_V2.version
+    validatorVersion: G3B_U04_HUMAN_SEMANTIC_QUALITY_V2.version,
+    reviewedPromptCompatibility: {
+      applied: reviewedPromptCompatibilityApplied,
+      reviewArtifactSha256: reviewedPromptCompatibilityApplied
+        ? G3B_U04_P13_REVIEW_BOUND_SHARED_SCOPE_SHA256
+        : null,
+      resolvedErrorCodes: reviewedPromptCompatibilityApplied
+        ? ["G3B_U04_READBACK_SHARED_ACTIVITY_SCOPE_UNCLEAR"]
+        : []
+    }
   };
 }
