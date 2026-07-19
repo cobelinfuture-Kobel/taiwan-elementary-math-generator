@@ -2,7 +2,7 @@
   "schemaName": "GCTXG3BU04PagesHumanReviewArtifactPublicationContract",
   "schemaVersion": 1,
   "task": "GCTX-P12S_G3BU04PagesHumanReviewArtifactPublication",
-  "status": "pages_publication_configured_pending_ci_and_deploy",
+  "status": "pages_public_route_verified_pending_human_review",
   "evidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
   "sourceAuthority": {
     "task": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix",
@@ -17,14 +17,32 @@
   "pagesPublication": {
     "deploymentSource": "site",
     "stagingDirectory": "site/review/g3b-u04",
-    "publicPath": "/review/g3b-u04/",
+    "publicBaseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/review/g3b-u04/",
+    "publicPdfUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf",
     "authoritativePublishedFile": "GCTX_P12R_G3BU04_AFTER.pdf",
     "builder": "tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs",
     "focusedWorkflow": ".github/workflows/gctx-p12s-pages-review-publication.yml",
+    "liveRouteWorkflow": ".github/workflows/gctx-p12s-public-route-verification.yml",
     "deploymentWorkflow": ".github/workflows/pages.yml",
+    "liveVerificationRunId": 29673829336,
     "copyAtDeployTime": true,
     "duplicateBinaryCommitted": false,
-    "reviewOnly": true
+    "reviewOnly": true,
+    "liveRouteVerified": true
+  },
+  "liveAcceptance": {
+    "reviewIndexFetched": true,
+    "pdfFetched": true,
+    "diffFetched": true,
+    "artifactManifestFetched": true,
+    "publicationManifestFetched": true,
+    "noindexVerified": true,
+    "reviewOnlyWarningVerified": true,
+    "livePdfHashVerified": true,
+    "livePdfPageCount": 2,
+    "requiredContextCount": 5,
+    "requiredAnswerCount": 5,
+    "legacyPromptCount": 0
   },
   "safetyBoundary": {
     "publicGeneratorChanged": false,
@@ -34,29 +52,15 @@
     "mainSiteNavigationChanged": false,
     "robotsIndexingAllowed": false
   },
-  "acceptance": {
-    "sourceHashMustMatch": true,
-    "stagedHashMustMatch": true,
-    "pdfPageCountMustEqual": 2,
-    "requiredContextCount": 5,
-    "requiredAnswerCount": 5,
-    "legacyPromptCountMustEqual": 0,
-    "pagesRouteMustReturnPdf": true,
-    "pagesRouteMustReturnReviewIndex": true
-  },
   "distance": {
-    "goalDistanceBefore": "D1_GCTX_G3BU04_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED_LOCAL_REPO_REVIEW_ONLY",
-    "goalDistanceAfter": "D1_GCTX_G3BU04_PAGES_REVIEW_PUBLICATION_PENDING_CI_AND_DEPLOY",
-    "distanceReduced": "removes the Human Review accessibility blocker without changing production admission",
+    "goalDistanceBefore": "D1_GCTX_G3BU04_PAGES_STAGING_VERIFIED",
+    "goalDistanceAfter": "D1_GCTX_G3BU04_PAGES_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW",
+    "distanceReduced": "the Human Review accessibility blocker is removed by a verified live Pages route and exact PDF identity",
     "remainingBlockers": [
-      "focused CI",
-      "full Node and Math CI",
-      "merge",
-      "GitHub Pages deployment",
-      "public route verification",
       "human semantic and mathematical review",
-      "formal production admission"
+      "formal production admission",
+      "public production regression after admission"
     ],
-    "nextShortestStep": "GCTX-P12S_PagesDeploymentAndPublicRouteVerification"
+    "nextShortestStep": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission"
   }
 }

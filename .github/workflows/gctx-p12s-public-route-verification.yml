@@ -1,0 +1,118 @@
+name: GCTX-P12S Public Route Verification
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - ".github/workflows/gctx-p12s-public-route-verification.yml"
+      - "data/project/milestones/GCTX-P12S.claim.json"
+      - "data/curriculum/contracts/GCTX_P12S_G3BU04PagesHumanReviewArtifactPublication.json"
+      - "docs/curriculum/output/GCTX_P12S_G3BU04_PAGES_REVIEW_PUBLICATION_PASS.marker"
+      - "docs/curriculum/output/GCTX_P12S_G3BU04_PAGES_REVIEW_PUBLICATION_READBACK.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live-pages-route:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/review/g3b-u04
+      EXPECTED_PDF_SHA256: 777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Wait for review index deployment
+        run: |
+          for attempt in $(seq 1 40); do
+            if curl -fsSL --connect-timeout 10 --max-time 30 "$BASE_URL/" -o /tmp/gctx-p12s-index.html; then
+              echo "Review index available on attempt $attempt."
+              exit 0
+            fi
+            echo "Review index not available yet (attempt $attempt/40)."
+            sleep 15
+          done
+          exit 1
+
+      - name: Fetch live review evidence
+        run: |
+          curl -fsSL --retry 5 --retry-delay 5 --retry-all-errors "$BASE_URL/GCTX_P12R_G3BU04_AFTER.pdf" -o /tmp/GCTX_P12R_G3BU04_AFTER.pdf
+          curl -fsSL --retry 5 --retry-delay 5 --retry-all-errors "$BASE_URL/GCTX_P12R_G3BU04_VISIBLE_DIFF.json" -o /tmp/GCTX_P12R_G3BU04_VISIBLE_DIFF.json
+          curl -fsSL --retry 5 --retry-delay 5 --retry-all-errors "$BASE_URL/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json" -o /tmp/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json
+          curl -fsSL --retry 5 --retry-delay 5 --retry-all-errors "$BASE_URL/review-publication-manifest.json" -o /tmp/review-publication-manifest.json
+
+      - name: Verify live review page contract
+        run: |
+          grep -q '<meta name="robots" content="noindex,nofollow">' /tmp/gctx-p12s-index.html
+          grep -q '人工審查用 - 尚未正式接入公開出題' /tmp/gctx-p12s-index.html
+          grep -q 'productionAdmitted</span><strong>false' /tmp/gctx-p12s-index.html
+          grep -q 'publicGeneratorChanged=false' /tmp/gctx-p12s-index.html
+          grep -q "$EXPECTED_PDF_SHA256" /tmp/gctx-p12s-index.html
+          grep -q '班級園遊會' /tmp/gctx-p12s-index.html
+          grep -q '戶外學習' /tmp/gctx-p12s-index.html
+          grep -q '運動練習' /tmp/gctx-p12s-index.html
+          grep -q '社區清潔活動' /tmp/gctx-p12s-index.html
+          grep -q '露營活動' /tmp/gctx-p12s-index.html
+
+      - name: Verify live JSON evidence
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const crypto = require('node:crypto');
+          const diff = JSON.parse(fs.readFileSync('/tmp/GCTX_P12R_G3BU04_VISIBLE_DIFF.json', 'utf8'));
+          const artifact = JSON.parse(fs.readFileSync('/tmp/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json', 'utf8'));
+          const publication = JSON.parse(fs.readFileSync('/tmp/review-publication-manifest.json', 'utf8'));
+          const pdf = fs.readFileSync('/tmp/GCTX_P12R_G3BU04_AFTER.pdf');
+          const pdfHash = crypto.createHash('sha256').update(pdf).digest('hex');
+          const expected = process.env.EXPECTED_PDF_SHA256;
+          if (pdfHash !== expected
+            || diff.changedPromptCount !== 5
+            || diff.preservedMathematicalWitnessCount !== 5
+            || diff.uniqueSemanticVariantCount !== 5
+            || diff.legacyPromptCountInAfter !== 0
+            || artifact.status !== 'production_equivalent_html_pdf_visible_difference_pass'
+            || artifact.pdfSha256 !== expected
+            || artifact.extractedPromptCount !== 5
+            || artifact.extractedAnswerCount !== 5
+            || artifact.humanReviewReady !== true
+            || publication.status !== 'pages_review_artifacts_staged'
+            || publication.reviewOnly !== true
+            || publication.productionAdmitted !== false
+            || publication.publicGeneratorChanged !== false
+            || publication.files[0].sha256 !== expected) {
+            process.exit(1);
+          }
+          NODE
+
+      - name: Install PDF verification tools
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Verify live PDF pages and text
+        run: |
+          pdfinfo /tmp/GCTX_P12R_G3BU04_AFTER.pdf | tee /tmp/gctx-p12s-live-pdfinfo.txt
+          grep -q '^Pages:[[:space:]]*2$' /tmp/gctx-p12s-live-pdfinfo.txt
+          pdftotext -layout /tmp/GCTX_P12R_G3BU04_AFTER.pdf /tmp/gctx-p12s-live-pdf.txt
+          grep -q '班級園遊會' /tmp/gctx-p12s-live-pdf.txt
+          grep -q '戶外學習' /tmp/gctx-p12s-live-pdf.txt
+          grep -q '運動練習' /tmp/gctx-p12s-live-pdf.txt
+          grep -q '社區清潔活動' /tmp/gctx-p12s-live-pdf.txt
+          grep -q '露營活動' /tmp/gctx-p12s-live-pdf.txt
+          test "$(grep -o '答案：' /tmp/gctx-p12s-live-pdf.txt | wc -l)" -ge 5
+          ! grep -Eq '三明治費用|果汁費用|筆記本費用|彩色筆費用|門票費用|帳篷租金' /tmp/gctx-p12s-live-pdf.txt
+
+      - name: Upload live-route verification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gctx-p12s-live-pages-verification
+          path: |
+            /tmp/gctx-p12s-index.html
+            /tmp/GCTX_P12R_G3BU04_AFTER.pdf
+            /tmp/GCTX_P12R_G3BU04_VISIBLE_DIFF.json
+            /tmp/GCTX_P12R_G3BU04_RENDERED_ARTIFACTS.manifest.json
+            /tmp/review-publication-manifest.json
+            /tmp/gctx-p12s-live-pdfinfo.txt
+            /tmp/gctx-p12s-live-pdf.txt
+          retention-days: 30

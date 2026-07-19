@@ -4,7 +4,7 @@
   "taskClass": "renderer",
   "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
   "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
-  "claimedStatus": "PAGES_REVIEW_PUBLICATION_CONFIGURED_PENDING_CI_AND_DEPLOY",
+  "claimedStatus": "PAGES_REVIEW_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -25,6 +25,7 @@
     ],
     "rendererTestPaths": [
       ".github/workflows/gctx-p12s-pages-review-publication.yml",
+      ".github/workflows/gctx-p12s-public-route-verification.yml",
       ".github/workflows/pages.yml",
       "tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs"
     ],
@@ -69,7 +70,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "the production-equivalent PDF remains at D1, while the Human Review accessibility blocker is removed by hash-locked GitHub Pages staging"
+    "distanceReduced": "the Human Review accessibility blocker is removed: the live GitHub Pages review page and exact PDF passed HTTP, hash, page, content and legacy-leakage verification"
   },
   "nextStep": {
     "taskId": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
