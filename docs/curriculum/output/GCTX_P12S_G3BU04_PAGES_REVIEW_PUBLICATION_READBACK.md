@@ -1,38 +1,39 @@
 # GCTX-P12S G3B-U04 Pages Human Review Artifact Publication
 
-## Current status
+## Final status
 
 ```text
-PAGES_PUBLIC_ROUTE_VERIFICATION_GATE_PENDING
+PASS_PAGES_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW
 ```
 
-The Pages staging gate has passed and PR #279 has been merged. This continuation adds a live HTTP gate against the deployed GitHub Pages review route before publication is declared complete.
+The hash-locked P12R AFTER PDF is now publicly available through GitHub Pages as a review-only artifact. The live route was fetched and verified by GitHub-hosted runner workflow run `29673829336`.
 
-## Public verification target
+## Public review links
 
 ```text
 Review page = https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/review/g3b-u04/
 AFTER PDF   = https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf
 PDF SHA-256 = 777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0
-PDF pages   = 2
-Questions   = 5
 ```
 
-## Live gate
+## Live verification result
 
-The `GCTX-P12S Public Route Verification` workflow must fetch the production Pages URLs and verify:
+```text
+review index fetched          = true
+PDF fetched                   = true
+visible diff fetched          = true
+artifact manifest fetched     = true
+publication manifest fetched  = true
+noindex verified              = true
+review-only warning verified  = true
+live PDF hash verified        = true
+live PDF pages                = 2
+live required contexts        = 5
+live answer entries           = 5
+live legacy prompt count      = 0
+```
 
-- review index HTTP success;
-- `noindex,nofollow` and the review-only warning;
-- `productionAdmitted=false` and `publicGeneratorChanged=false`;
-- exact live PDF SHA-256;
-- two PDF pages;
-- all five required context phrases;
-- at least five answer-key entries;
-- zero legacy prompt leakage;
-- live diff, artifact manifest and publication manifest consistency.
-
-No deployment-complete claim is allowed before this workflow passes.
+The workflow independently downloaded the deployed PDF, recomputed SHA-256, checked the two-page structure with `pdfinfo`, extracted text with `pdftotext`, confirmed all five contexts and answer entries, and rejected legacy prompt leakage.
 
 ## Safety boundary
 
@@ -46,12 +47,24 @@ mainSiteNavigationChanged = false
 robotsIndexingAllowed     = false
 ```
 
+Publishing this route does not make the five contexts available to ordinary worksheet generation.
+
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_GCTX_G3BU04_PAGES_STAGING_VERIFIED
-GOAL_DISTANCE_AFTER  = D1_GCTX_G3BU04_PAGES_PUBLIC_ROUTE_VERIFICATION_PENDING
-DISTANCE_REDUCED     = the live HTTP and artifact-identity gate is now defined; the accessibility blocker remains until it passes.
-REMAINING_BLOCKERS   = [live Pages route verification, final CI and merge, Human Review, production admission]
-NEXT_SHORTEST_STEP   = GCTX-P12S_LivePagesRouteVerificationAndCloseout
+GOAL_DISTANCE_AFTER  = D1_GCTX_G3BU04_PAGES_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW
+DISTANCE_REDUCED     = the Human Review accessibility blocker is removed by a verified live Pages route and exact PDF identity.
+REMAINING_BLOCKERS   = [human semantic and mathematical review, formal production admission, public production regression after admission]
+NEXT_SHORTEST_STEP   = GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission
+```
+
+## Stop boundary
+
+```text
+STOP_REASON=HUMAN_REVIEW_REQUIRED
+BLOCKER_TYPE=PRODUCTION_EQUIVALENT_OUTPUT_REVIEW
+LAST_COMPLETED_STATUS=PASS_PAGES_PUBLIC_ROUTE_VERIFIED_PENDING_HUMAN_REVIEW
+REQUIRED_OPERATOR_ACTION=Review the public Pages PDF and approve or reject each of the five rendered questions.
+NEXT_RESUME_TASK=GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission
 ```
