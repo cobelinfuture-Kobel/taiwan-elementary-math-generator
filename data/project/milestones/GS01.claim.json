@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "GS01_IMPLEMENTATION_ACTIVE_PENDING_DEPLOYED_SMOKE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs",
+      ".github/workflows/gs01-g5a-u08-deployed-pages-smoke.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The six-task Golden program is active and the GS01 deployed-smoke compatibility fix is implemented; deployed proof is still pending."
+  },
+  "nextStep": {
+    "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
