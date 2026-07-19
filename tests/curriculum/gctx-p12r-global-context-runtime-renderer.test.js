@@ -13,7 +13,7 @@ import {
 } from "../../site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js";
 import {
   buildBatchABrowserWorksheetDocument
-} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-s57f5-extension.js";
+} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js";
 import { getVisiblePatternGroupsForKnowledgePoint } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import { BATCH_A_RESOLVER_SELECTION_MODES } from "../../site/modules/curriculum/batch-a/visible-pattern-group-resolver.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer-s57f5-extension.js";
@@ -181,7 +181,7 @@ test("GCTX-P12R production renderer exposes visible before-after differences wit
   }
 });
 
-test("GCTX-P12R leaves the existing public canonical worksheet route unchanged", () => {
+test("GCTX-P12R shadow path remains isolated after P13 activates the public production route", () => {
   const groupId = applicationGroupId();
   assert.ok(groupId);
   const publicResult = buildBatchABrowserWorksheetDocument({
@@ -189,15 +189,19 @@ test("GCTX-P12R leaves the existing public canonical worksheet route unchanged",
     selectionMode: BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
     selectedKnowledgePointIds: [KP_ID],
     selectedPatternGroupIds: [groupId],
-    questionCount: 5,
+    questionCount: 20,
     ordering: "groupedByPattern",
     includeAnswerKey: true,
-    generationSeed: "gctx-p12r-public-regression",
+    generationSeed: "gctx-p13-public-regression",
     printLayout: { columns: 2, rowsPerPage: 4, showAnswerKeyPage: true }
   });
   assert.equal(publicResult.ok, true, JSON.stringify(publicResult.errors));
   assert.equal(publicResult.worksheetDocument.productionUse, "allowed");
   assert.equal(publicResult.worksheetDocument.visibilityStatus, "visible");
   assert.equal(publicResult.worksheetDocument.generatedQuestions.some((question) => question.globalContextPilot), false);
-  assert.equal(publicResult.worksheetDocument.generatedQuestions.some((question) => LEGACY_PATTERN.test(question.promptText)), true);
+  const targets = publicResult.worksheetDocument.generatedQuestions.filter((question) => question.patternSpecId === PATTERN_ID);
+  assert.equal(targets.length, 5);
+  assert.equal(targets.every((question) => question.globalContextProduction?.productionAdmitted === true), true);
+  assert.equal(targets.some((question) => LEGACY_PATTERN.test(question.promptText)), false);
+  assert.equal(new Set(targets.map((question) => question.globalContextProduction.semanticVariantId)).size, 5);
 });
