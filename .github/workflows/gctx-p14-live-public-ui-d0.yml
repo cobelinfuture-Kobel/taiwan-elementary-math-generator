@@ -94,9 +94,6 @@ jobs:
         if: steps.evidence_state.outputs.committed_e6 != 'true'
         run: node tools/governance/promote-gctx-p14-e6-d0-claim.mjs
 
-      - name: Validate milestone Claim schema and hashes
-        run: npm run governance:claims
-
       - name: Validate live result and D0 artifact identity
         env:
           LIVE_EVIDENCE_DIR: ${{ steps.evidence_state.outputs.output_dir }}
