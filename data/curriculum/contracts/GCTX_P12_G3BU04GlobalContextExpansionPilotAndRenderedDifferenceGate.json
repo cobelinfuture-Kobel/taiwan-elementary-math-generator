@@ -2,7 +2,7 @@
   "schemaName": "GCTXG3BU04GlobalContextExpansionPilotAndRenderedDifferenceGateContract",
   "schemaVersion": 1,
   "task": "GCTX-P12_G3BU04GlobalContextExpansionPilotAndRenderedDifferenceGate",
-  "status": "implementation_pending_ci",
+  "status": "accepted_pending_merge",
   "rulesetVersion": "0.1.0",
   "scope": {
     "sourceId": "g3b_u04_3b04",
@@ -83,14 +83,23 @@
     "initialDecision": null,
     "productionAdmissionBeforeReview": false
   },
+  "ciAcceptance": {
+    "acceptedHeadSha": "314b64b38a0701658d489a9332382541178e1048",
+    "nodeTestRun": 29667776313,
+    "nodeTestConclusion": "success",
+    "mathCiReadbackRun": 29667776302,
+    "mathCiReadbackConclusion": "success",
+    "workingTreeGate": "success",
+    "acceptanceMode": "full_node_and_math_ci_readback_pass"
+  },
   "distance": {
     "goalDistanceBefore": "D2_GCTX_G3BU04_LEGACY_CONTEXT_STRUCTURE_READY",
-    "goalDistanceAfter": "D2_GCTX_G3BU04_NEW_VISIBLE_CONTEXT_PILOT_PENDING_CI_AND_HUMAN_REVIEW",
+    "goalDistanceAfter": "D2_GCTX_G3BU04_NEW_VISIBLE_CONTEXT_PILOT_ACCEPTED_PENDING_MERGE_AND_HUMAN_REVIEW",
     "distanceReduced": "five new learner-visible activity contexts and deterministic mathematical review packets replace the prior legacy-only output at the pilot evidence layer",
     "remainingBlockers": [
-      "CI acceptance",
       "merge",
       "human semantic review of five rendered prompts",
+      "human mathematical review of five rendered prompts",
       "formal production admission",
       "runtime resolver integration",
       "public HTML/PDF verification"
