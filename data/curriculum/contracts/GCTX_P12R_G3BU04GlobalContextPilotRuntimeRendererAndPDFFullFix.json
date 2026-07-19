@@ -10,8 +10,11 @@
     "knowledgePointId": "kp_g3b_u04_add_then_divide",
     "patternGroupId": "pg_g3b_u04_add_then_divide",
     "patternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+    "resolverPatternSpecFamilyCount": 5,
     "variantCount": 5,
-    "worksheetQuestionCount": 20,
+    "worksheetQuestionCount": 25,
+    "targetQuestionCount": 5,
+    "allocationRule": "five_questions_per_visible_patternspec_family",
     "publicSelectorExposed": false,
     "productionSelectable": false,
     "publicSiteChanged": false
@@ -31,9 +34,17 @@
     "社區清潔活動",
     "露營活動"
   ],
+  "allowedCanonicalAuthorityDomains": [
+    "food",
+    "school_supplies",
+    "tickets",
+    "equipment_rental"
+  ],
   "blockingRules": [
-    "Block if the visible resolver does not allocate five target PatternSpec questions.",
+    "Block if the visible resolver does not expose five PatternSpec families in the selected group.",
+    "Block if the 25-question allocation does not produce exactly five target PatternSpec questions.",
     "Block if any pilot question bypasses the canonical semantic generator.",
+    "Block if the exact authority context domain produced by the canonical generator is not preserved.",
     "Block if any pilot question fails the S57E5 semantic authority or P12R runtime extension validator.",
     "Block if before and after prompts are identical.",
     "Block if any of the five required context phrases is absent from formal rendered HTML or extracted PDF text.",
@@ -63,8 +74,9 @@
   "distance": {
     "goalDistanceBefore": "D2_GCTX_G3BU04_CANDIDATE_TEXT_EXISTS",
     "goalDistanceAfter": "D1_GCTX_G3BU04_SHADOW_RUNTIME_INTEGRATED_OUTPUT_EVIDENCE_PENDING",
-    "distanceReduced": "the candidate contexts now execute through visible resolver and canonical generator; formal HTML/PDF artifact verification remains pending",
+    "distanceReduced": "the five candidate contexts now execute through the actual five-family visible resolver allocation and canonical generator; formal HTML/PDF artifact verification remains pending",
     "remainingBlockers": [
+      "focused runtime acceptance",
       "formal HTML generation",
       "formal PDF generation",
       "visible before-after verification",
