@@ -22,6 +22,8 @@ targetAnswerCount        = 5
 mathematicalWitnessCount = 5
 publicPdfPages            = 8
 publicPdfSha256           = ab94e9b6d3c53227e9524d9b21aa4d05022272d191e8c8a078fc243ca79d57fa
+productionEvidenceSha256  = 3ee52d7dfb7b19900146c23479d59c67e4313cb717b4cc4f16a4f21d06e02a5a
+evidenceHashChainVerified = true
 legacyTargetLeakage       = 0
 ```
 

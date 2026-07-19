@@ -24,7 +24,7 @@
   "extractedTextPath": "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.extracted.txt",
   "productionEvidencePath": "docs/curriculum/output/gctx/GCTX_P13_G3BU04_PUBLIC_PRODUCTION.json",
   "htmlSha256": "6aecb66c010da60eb2b71aa4c41691c419c4b74fabee4ae30fdf2e4d3e1b2048",
-  "productionEvidenceSha256": "a2b6b63ceb12962f355e7b3b69bb2ec831bd92a3a13a6ce025b9d0589ef521c9",
+  "productionEvidenceSha256": "3ee52d7dfb7b19900146c23479d59c67e4313cb717b4cc4f16a4f21d06e02a5a",
   "pdfSha256": "ab94e9b6d3c53227e9524d9b21aa4d05022272d191e8c8a078fc243ca79d57fa",
   "pdfBytes": 81529,
   "extractedRequiredContextCount": 5,
@@ -32,5 +32,6 @@
   "leakedLegacyTargetPhraseCount": 0,
   "missingRequiredPhraseCount": 0,
   "publicProductionRegressionPassed": true,
-  "humanReviewDecisionBound": true
+  "humanReviewDecisionBound": true,
+  "evidenceHashChainVerified": true
 }

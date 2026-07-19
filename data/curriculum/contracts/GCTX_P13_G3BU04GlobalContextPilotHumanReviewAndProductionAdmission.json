@@ -69,6 +69,8 @@
     "worksheetQuestionCount": 25,
     "targetQuestionCount": 5,
     "uniqueApprovedVariantCount": 5,
-    "targetAnswerCount": 5
+    "targetAnswerCount": 5,
+    "productionEvidenceSha256": "3ee52d7dfb7b19900146c23479d59c67e4313cb717b4cc4f16a4f21d06e02a5a",
+    "evidenceHashChainVerified": true
   }
 }
