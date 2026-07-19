@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "G5AU08_GOLDEN_SAMPLE_V1",
   "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
-  "status": "implementation_active_pending_registry_materialization",
+  "status": "pass_candidate_content_materialized_pending_exact_head_ci_and_merge",
   "sourceId": "g5a_u08_5a08",
   "prerequisite": {
     "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
@@ -11,26 +11,8 @@
     "requiredEvidenceLevel": "E5_PRODUCTION_ADMITTED"
   },
   "authority": {
-    "globalContextOwns": [
-      "context family identity",
-      "domain",
-      "scenario purpose",
-      "actors",
-      "places",
-      "objects",
-      "activities",
-      "surface templates",
-      "semantic safety restrictions"
-    ],
-    "unitContextBindingOwns": [
-      "KnowledgePoint eligibility",
-      "PatternGroup eligibility",
-      "PatternSpec eligibility",
-      "operation signature authority reference",
-      "quantity role authority reference",
-      "unit flow authority reference",
-      "answer witness authority reference"
-    ],
+    "globalContextOwns": ["context family identity","domain","scenario purpose","actors","places","objects","activities","surface templates","semantic safety restrictions"],
+    "unitContextBindingOwns": ["KnowledgePoint eligibility","PatternGroup eligibility","PatternSpec eligibility","operation signature authority reference","quantity role authority reference","unit flow authority reference","answer witness authority reference"],
     "mathAuthority": "existing S60D template families and existing G5A-U08 canonical validator",
     "oldDraftAuthorityForbidden": "PR_243_GCTX_S02_unmerged_historical_draft"
   },
@@ -53,6 +35,21 @@
     "productionSelectableAtGS02": false,
     "runtimeResolvableAtGS02": false
   },
+  "result": {
+    "contextFamilyCount": 18,
+    "domainCount": 18,
+    "surfaceTemplateCount": 54,
+    "seedQACount": 90,
+    "unitContextBindingCount": 18,
+    "minimumFamiliesPerWordPattern": 5,
+    "maximumFamiliesPerWordPattern": 13,
+    "allSeedAnswersRecomputed": true,
+    "allAuthorityReferencesResolved": true,
+    "semanticFingerprintDuplicateCount": 0,
+    "productionSelectableFamilyCount": 0,
+    "runtimeResolvableFamilyCount": 0,
+    "runtimeChanged": false
+  },
   "deliverables": {
     "familyRegistry": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
     "unitBindingRegistry": "data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json",
@@ -73,8 +70,9 @@
   },
   "distance": {
     "goalDistanceBefore": "D2_G5AU08_TEN_UNIT_OWNED_TEMPLATE_FAMILIES_ONLY",
-    "goalDistanceAfterTarget": "D2_G5AU08_GLOBAL_18_FAMILY_CANDIDATE_CORPUS_READY",
-    "distanceReducedTarget": "Global context breadth becomes explicit data with unit-owned mathematical eligibility and deterministic seed QA, without premature production admission.",
-    "nextShortestStepAfterPass": "GS03_G5AU08_GoldenContractFreeze"
+    "goalDistanceAfter": "D2_G5AU08_GLOBAL_18_FAMILY_CANDIDATE_CORPUS_READY",
+    "distanceReduced": "Global context breadth is now explicit data with 18 event-structure families, unit-owned mathematical eligibility and deterministic seed QA, without premature production admission.",
+    "remainingBlockers": ["exact-head CI","merge"],
+    "nextShortestStep": "GS03_G5AU08_GoldenContractFreeze"
   }
 }
