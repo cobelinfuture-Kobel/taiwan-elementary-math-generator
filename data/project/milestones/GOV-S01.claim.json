@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GOV-S01_MilestoneClaimIntegrityAndHumanReviewReadinessGate",
+  "taskClass": "governance",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "MACHINE_ENFORCED_CLAIM_INTEGRITY_GATE_IMPLEMENTED_PENDING_CI",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tools/governance/milestone-claim-integrity-core.mjs",
+      "tools/governance/validate-milestone-claim-integrity.mjs",
+      "tests/governance/milestone-claim-integrity.test.js",
+      ".github/workflows/milestone-claim-integrity.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "project product distance is unchanged, but false milestone claims are now machine-blocked before merge"
+  },
+  "nextStep": {
+    "taskId": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix",
+    "requiredEvidenceLevelBeforeStart": "E2_CONTENT_AUTHORED"
+  }
+}
