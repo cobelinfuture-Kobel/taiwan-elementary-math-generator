@@ -15,6 +15,10 @@ import {
   G3B_U04_HUMAN_SEMANTIC_QUALITY_V2,
   validateG3BU04HumanSemanticQualityV2
 } from "./g3b-u04-human-semantic-readback-quality-v2.js";
+import {
+  G3B_U04_GLOBAL_CONTEXT_PRODUCTION_PATTERN_SPEC_ID,
+  validateG3BU04GlobalContextProductionQuestion
+} from "./g3b-u04-global-context-production-admission.js";
 
 export const G3B_U04_CANONICAL_VALIDATOR_INTEGRATION = Object.freeze({
   task: "S57F5_G3B_U04_CanonicalValidatorWorksheetAndRendererIntegration",
@@ -24,7 +28,8 @@ export const G3B_U04_CANONICAL_VALIDATOR_INTEGRATION = Object.freeze({
   humanSemanticReadbackRequired: true,
   humanSemanticReadbackVersion: G3B_U04_HUMAN_SEMANTIC_QUALITY_V2.version,
   productionEligibilityRequired: true,
-  validatorVersion: "s57f5-g3b-u04-canonical-production-v1",
+  globalContextProductionAdmissionValidatorRequired: true,
+  validatorVersion: "s57f5-g3b-u04-canonical-production-v1-gctx-p13",
   requiredNextGate: "S57F6_G3B_U04_PublicSelectorAndPrintControlsQA"
 });
 
@@ -102,6 +107,14 @@ function validateCanonicalLifecycle(question = {}) {
   return errors;
 }
 
+function shouldValidateGlobalContextProduction(question = {}, options = {}) {
+  if (question.patternSpecId !== G3B_U04_GLOBAL_CONTEXT_PRODUCTION_PATTERN_SPEC_ID) return false;
+  return Boolean(
+    question.globalContextProduction
+    || options.plan?.globalContextProductionAdmission?.productionAdmitted === true
+  );
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   if (isG3BU04ProductionWorksheetPlan(plan)) {
     return validateG3BU04ProductionWorksheetEligibility(plan);
@@ -115,6 +128,9 @@ export function validateBatchABrowserQuestion(question = {}, options = {}) {
 
   const lifecycleErrors = validateCanonicalLifecycle(question);
   const readbackResult = validateG3BU04HumanSemanticQualityV2(question);
+  const globalContextResult = shouldValidateGlobalContextProduction(question, options)
+    ? validateG3BU04GlobalContextProductionQuestion(question)
+    : { ok: true, errors: [], warnings: [] };
   const lifecycleStage = {
     stage: "production_lifecycle",
     ok: lifecycleErrors.length === 0,
@@ -128,19 +144,35 @@ export function validateBatchABrowserQuestion(question = {}, options = {}) {
     warningCodes: (readbackResult.warnings ?? []).map((entry) => entry.code),
     validatorVersion: readbackResult.validatorVersion
   };
+  const globalContextStage = {
+    stage: "gctx_p13_production_admission",
+    ok: globalContextResult.ok,
+    errorCodes: (globalContextResult.errors ?? []).map((entry) => entry.code),
+    warningCodes: (globalContextResult.warnings ?? []).map((entry) => entry.code)
+  };
   return {
     ...semanticResult,
-    ok: semanticResult.ok === true && lifecycleErrors.length === 0 && readbackResult.ok === true,
+    ok: semanticResult.ok === true
+      && lifecycleErrors.length === 0
+      && readbackResult.ok === true
+      && globalContextResult.ok === true,
     errors: [
       ...(semanticResult.errors ?? []),
       ...lifecycleErrors,
-      ...(readbackResult.errors ?? [])
+      ...(readbackResult.errors ?? []),
+      ...(globalContextResult.errors ?? [])
     ],
     warnings: [
       ...(semanticResult.warnings ?? []),
-      ...(readbackResult.warnings ?? [])
+      ...(readbackResult.warnings ?? []),
+      ...(globalContextResult.warnings ?? [])
     ],
-    stages: [...(semanticResult.stages ?? []), lifecycleStage, humanReadbackStage]
+    stages: [
+      ...(semanticResult.stages ?? []),
+      lifecycleStage,
+      humanReadbackStage,
+      globalContextStage
+    ]
   };
 }
 
