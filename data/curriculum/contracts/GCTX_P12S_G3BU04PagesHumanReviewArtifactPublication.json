@@ -1,0 +1,62 @@
+{
+  "schemaName": "GCTXG3BU04PagesHumanReviewArtifactPublicationContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P12S_G3BU04PagesHumanReviewArtifactPublication",
+  "status": "pages_publication_configured_pending_ci_and_deploy",
+  "evidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "sourceAuthority": {
+    "task": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix",
+    "pdfPath": "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
+    "pdfSha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+    "questionCount": 5,
+    "globalContextVariantCount": 5,
+    "pdfPageCount": 2,
+    "humanReviewReady": true,
+    "productionAdmitted": false
+  },
+  "pagesPublication": {
+    "deploymentSource": "site",
+    "stagingDirectory": "site/review/g3b-u04",
+    "publicPath": "/review/g3b-u04/",
+    "authoritativePublishedFile": "GCTX_P12R_G3BU04_AFTER.pdf",
+    "builder": "tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs",
+    "focusedWorkflow": ".github/workflows/gctx-p12s-pages-review-publication.yml",
+    "deploymentWorkflow": ".github/workflows/pages.yml",
+    "copyAtDeployTime": true,
+    "duplicateBinaryCommitted": false,
+    "reviewOnly": true
+  },
+  "safetyBoundary": {
+    "publicGeneratorChanged": false,
+    "publicSelectorChanged": false,
+    "productionSelectable": false,
+    "productionAdmitted": false,
+    "mainSiteNavigationChanged": false,
+    "robotsIndexingAllowed": false
+  },
+  "acceptance": {
+    "sourceHashMustMatch": true,
+    "stagedHashMustMatch": true,
+    "pdfPageCountMustEqual": 2,
+    "requiredContextCount": 5,
+    "requiredAnswerCount": 5,
+    "legacyPromptCountMustEqual": 0,
+    "pagesRouteMustReturnPdf": true,
+    "pagesRouteMustReturnReviewIndex": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_GCTX_G3BU04_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED_LOCAL_REPO_REVIEW_ONLY",
+    "goalDistanceAfter": "D1_GCTX_G3BU04_PAGES_REVIEW_PUBLICATION_PENDING_CI_AND_DEPLOY",
+    "distanceReduced": "removes the Human Review accessibility blocker without changing production admission",
+    "remainingBlockers": [
+      "focused CI",
+      "full Node and Math CI",
+      "merge",
+      "GitHub Pages deployment",
+      "public route verification",
+      "human semantic and mathematical review",
+      "formal production admission"
+    ],
+    "nextShortestStep": "GCTX-P12S_PagesDeploymentAndPublicRouteVerification"
+  }
+}
