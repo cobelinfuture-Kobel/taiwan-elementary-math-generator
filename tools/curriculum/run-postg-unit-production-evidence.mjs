@@ -13,6 +13,9 @@ import {
   validateBatchABrowserQuestions,
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
 import {
+  validateG3BU08SemanticBatch,
+} from "../../site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js";
+import {
   buildBatchABrowserWorksheetDocument,
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
 import {
@@ -58,6 +61,19 @@ function pdfPageCount(bytes) {
 
 function unique(values) {
   return [...new Set(values.filter(Boolean))];
+}
+
+function validatePostGoldenEvidenceQuestions(sourceId, questions, plan) {
+  if (sourceId === "g3b_u08_3b08") {
+    const validation = validateG3BU08SemanticBatch(questions);
+    return {
+      ok: validation.valid,
+      errors: validation.blockingErrors,
+      warnings: validation.warnings,
+      validatorVersion: validation.validatorVersion,
+    };
+  }
+  return validateBatchABrowserQuestions(questions, { plan });
 }
 
 const args = parseArgs();
@@ -129,7 +145,11 @@ const questionDisplayModels = document.questionDisplayModels ?? [];
 const answerKeyItems = document.answerKeyItems ?? [];
 const questionPages = document.questionPages ?? [];
 const answerKeyPages = document.answerKeyPages ?? [];
-const validation = validateBatchABrowserQuestions(questions, { plan: result.generation?.plan ?? adaptation.plan });
+const validation = validatePostGoldenEvidenceQuestions(
+  sourceId,
+  questions,
+  result.generation?.plan ?? adaptation.plan,
+);
 const emittedPatternSpecIds = unique(questions.map((row) => row.patternSpecId));
 const emittedKnowledgePointIds = unique(questions.map((row) => row.knowledgePointId));
 const emittedPatternGroupIds = unique(questions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId));
@@ -201,7 +221,7 @@ try {
     return {
       bodyTextLength: document.body.innerText.length,
       printPageCount: document.querySelectorAll(".print-page, .worksheet-page").length,
-      internalIdLeak: /\b(?:kp|pg|ps)_g3a_u01_[a-z0-9_]+\b/i.test(document.body.innerText),
+      internalIdLeak: /\b(?:kp|pg|ps)_[a-z0-9_]+\b/i.test(document.body.innerText),
       placeholderLeak: /\{\{[^}]+\}\}|\[[A-Z_]+\]|undefined|null/.test(document.body.innerText),
       overflow,
     };
@@ -249,6 +269,7 @@ const readback = {
     ok: validation.ok,
     errorCount: validation.errors.length,
     warningCount: validation.warnings.length,
+    validatorVersion: validation.validatorVersion ?? null,
   },
   domReadback,
   artifacts: [
