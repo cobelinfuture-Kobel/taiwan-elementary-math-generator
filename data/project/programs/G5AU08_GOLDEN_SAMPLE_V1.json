@@ -13,7 +13,7 @@
     "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
   ],
   "activeTask": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
-  "activeTaskStatus": "IN_PROGRESS_CONTROLLER_CANDIDATE_PENDING_EXACT_HEAD_CI",
+  "activeTaskStatus": "IN_PROGRESS_CONTROLLER_CANDIDATE_PENDING_D0_GOVERNANCE_CI",
   "activeBranch": "feat/gs06-golden-batch-controller-d0",
   "activePR": 289,
   "lastCompletedTask": "GS05_G5AU08_CrossUnitConformancePilot",
@@ -27,7 +27,9 @@
     "allowedPaths": [
       ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml",
       "site/modules/curriculum/golden/golden-batch-controller.js",
+      "tools/governance/milestone-claim-integrity-core.mjs",
       "tools/governance/validate-gs06-golden-controller.mjs",
+      "tests/governance/milestone-claim-integrity.test.js",
       "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js",
       "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
       "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
@@ -46,6 +48,7 @@
       "add per-unit validator",
       "add per-unit renderer",
       "add per-unit workflow",
+      "weaken ordinary full-pipeline D0 evidence requirements",
       "start a seventh Golden Sample task"
     ]
   },
