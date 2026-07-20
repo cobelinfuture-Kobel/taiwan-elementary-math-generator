@@ -77,6 +77,7 @@ const ADAPTER_DESCRIPTORS = freeze([
     sourceId: G4B_U04_SOURCE_ID,
     adapterId: "g4b_u04_all_promoted_canonical",
     conformanceMode: "legacy_shared_adapter",
+    requiresExplicitGoldenActivation: false,
     planOverrides: {
       questionMode: "mixed",
       layoutMode: "custom_with_caps",
@@ -90,6 +91,7 @@ const ADAPTER_DESCRIPTORS = freeze([
     sourceId: G5A_U02_PUBLIC_SOURCE_ID,
     adapterId: "g5a_u02_all_promoted_dynamic",
     conformanceMode: "legacy_shared_adapter",
+    requiresExplicitGoldenActivation: false,
     planOverrides: {},
     expectedCounts: { knowledgePoints: 18, patternGroups: 18 },
     resolveKnowledgePointIds: () => sourceKnowledgePointIds(G5A_U02_PUBLIC_SOURCE_ID),
@@ -99,7 +101,8 @@ const ADAPTER_DESCRIPTORS = freeze([
   {
     sourceId: G5A_U08_SOURCE_ID,
     adapterId: "g5a_u08_golden_v1_shared_runtime",
-    conformanceMode: "golden_contract_v1",
+    conformanceMode: "golden_contract_v1_shadow",
+    requiresExplicitGoldenActivation: true,
     planOverrides: {
       questionMode: "mixed",
       depthMode: "mixed",
@@ -151,6 +154,9 @@ export function validateGlobalPublicSourceUnitAdapterRegistry() {
       errors.push(`GS04_SHARED_ADAPTER_GROUP_COUNT_INVALID:${descriptor.sourceId}`);
     }
     if (descriptor.goldenContractDescriptor) {
+      if (descriptor.requiresExplicitGoldenActivation !== true) {
+        errors.push(`GS04_GOLDEN_SHADOW_ACTIVATION_NOT_REQUIRED:${descriptor.sourceId}`);
+      }
       const consumed = consumeGoldenRuntimeContract(descriptor.goldenContractDescriptor, descriptor.sourceId);
       if (!consumed.ok) errors.push(`GS04_GOLDEN_CONSUMER_INVALID:${descriptor.sourceId}`);
     }
