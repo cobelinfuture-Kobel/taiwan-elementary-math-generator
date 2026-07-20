@@ -76,6 +76,7 @@ jobs:
 
       - name: Generate current-runtime HTML PDF and hash evidence
         run: |
+          set -o pipefail
           mkdir -p build/postg/${POSTG_SOURCE_ID}
           node tools/curriculum/run-postg-unit-production-evidence.mjs \
             --source-id "${POSTG_SOURCE_ID}" \
@@ -84,7 +85,7 @@ jobs:
             --output-dir "build/postg/${POSTG_SOURCE_ID}" \
             --output-prefix "${POSTG_OUTPUT_PREFIX}" \
             --title "3A-U01 10000以內的數｜Golden Conformance" \
-            | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_CLI_READBACK.json"
+            2>&1 | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_CLI_READBACK.json"
 
       - name: Validate exact production evidence readback
         run: |
