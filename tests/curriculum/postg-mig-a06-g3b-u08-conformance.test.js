@@ -19,8 +19,6 @@ import {
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_ID = "g3b_u08_3b08";
-const NEXT_SOURCE_ID = "g4a_u01_4a01";
-const NEXT_TASK_ID = "POSTG-MIG-A07_G4A_U01_GoldenConformanceAndKnowledgeOperationMigration";
 const KP = new Set([
   "kp_g3b_u08_total_from_groups",
   "kp_g3b_u08_group_count_from_total",
@@ -55,7 +53,6 @@ const PS = new Set([
   "ps_g3b_u08_same_price_compare_item_count",
   "ps_g3b_u08_same_price_compare_total_length",
 ]);
-
 const readJson = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
 
 function plan(overrides = {}) {
@@ -97,11 +94,7 @@ test("A06 knowledge authority registers six operation models and twenty-four bin
 
 test("A06 descriptor resolves six KP, six groups and twenty-four semantic specs", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
-  assert.deepEqual(descriptor.expectedCounts, {
-    knowledgePoints: 6,
-    patternGroups: 6,
-    patternSpecs: 24,
-  });
+  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 6, patternGroups: 6, patternSpecs: 24 });
   assert.deepEqual(new Set(descriptor.knowledgePointIds), KP);
   assert.equal(descriptor.patternGroupIds.length, 6);
   assert.deepEqual(new Set(descriptor.patternSpecIds), PS);
@@ -109,7 +102,7 @@ test("A06 descriptor resolves six KP, six groups and twenty-four semantic specs"
   assert.equal(validateGlobalPublicSourceUnitAdapters().ok, true);
 });
 
-test("A06 route reuses the existing S58 generator, validator and renderer", () => {
+test("A06 route reuses the existing S58 generator validator and renderer", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.deepEqual(descriptor.goldenContractDescriptor.perUnitRuntimeLimits, {
     generator: 0,
@@ -158,21 +151,12 @@ test("A06 selector retains one canonical lineage per semantic identity", () => {
 test("A06 preserves multiplication division and comparison semantic distinctions", async () => {
   const registry = await readJson("../../data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json");
   const bindings = Object.fromEntries(registry.existingQuestionBindings.map((row) => [row.questionId, row]));
-  assert.notEqual(
-    bindings.ps_g3b_u08_total_daily_saving_accumulation.operationModelId,
-    bindings.ps_g3b_u08_group_count_score_events.operationModelId,
-  );
-  assert.notEqual(
-    bindings.ps_g3b_u08_group_count_score_events.operationModelId,
-    bindings.ps_g3b_u08_per_group_equal_share_people.operationModelId,
-  );
-  assert.notEqual(
-    bindings.ps_g3b_u08_estimate_near_hundred_total.operationModelId,
-    bindings.ps_g3b_u08_same_price_compare_weight.operationModelId,
-  );
+  assert.notEqual(bindings.ps_g3b_u08_total_daily_saving_accumulation.operationModelId, bindings.ps_g3b_u08_group_count_score_events.operationModelId);
+  assert.notEqual(bindings.ps_g3b_u08_group_count_score_events.operationModelId, bindings.ps_g3b_u08_per_group_equal_share_people.operationModelId);
+  assert.notEqual(bindings.ps_g3b_u08_estimate_near_hundred_total.operationModelId, bindings.ps_g3b_u08_same_price_compare_weight.operationModelId);
 });
 
-test("A06 closes at D7 and advances exactly one queue item to A07", async () => {
+test("A06 historical closeout remains valid after later queue advancement", async () => {
   const [program, controller, conformance, master, readback] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
@@ -180,27 +164,25 @@ test("A06 closes at D7 and advances exactly one queue item to A07", async () => 
     readJson("../../data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json"),
     readJson("../../docs/curriculum/output/postg/a06-g3b-u08/POSTG_MIG_A06_G3BU08_RUNTIME_READBACK.json"),
   ]);
-  assert.equal(program.lastCompletedTask, G3B_U08_POSTG_TASK_ID);
-  assert.equal(program.activeTask, NEXT_TASK_ID);
-  assert.equal(program.completedCount, 7);
-  assert.equal(program.remainingCount, 7);
-  assert.equal(program.goalDistance, "D7_POST_GOLDEN_MIGRATION_G3BU08_CONFORMANT_G4AU01_ACTIVE");
-  assert.equal(controller.queue.activeSourceId, NEXT_SOURCE_ID);
+  const a06Index = program.taskOrder.indexOf(G3B_U08_POSTG_TASK_ID);
+  const lastCompletedIndex = program.taskOrder.indexOf(program.lastCompletedTask);
+  assert.ok(a06Index >= 0);
+  assert.ok(lastCompletedIndex >= a06Index);
+  assert.ok(program.completedCount >= a06Index + 1);
+  assert.equal(program.remainingCount, program.taskBudget - program.completedCount);
   assert.ok(controller.queue.completeSourceIds.includes(SOURCE_ID));
+  assert.notEqual(controller.queue.activeSourceId, SOURCE_ID);
   const closed = conformance.rows.find((entry) => entry.sourceId === SOURCE_ID);
   assert.equal(closed.queueState, "COMPLETE");
   assert.equal(closed.conformanceStatus, "GOLDEN_CONFORMANT");
   assert.equal(closed.goldenProductionEligible, true);
-  const active = conformance.rows.find((entry) => entry.sourceId === NEXT_SOURCE_ID);
-  assert.equal(active.queueState, "ACTIVE");
-  assert.equal(active.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
   const masterRow = master.rows.find((entry) => entry.sourceId === SOURCE_ID);
   assert.equal(masterRow.unitJsonExists, true);
   assert.equal(masterRow.knowledgePointCount, 6);
   assert.equal(masterRow.operationModelCount, 6);
   assert.equal(masterRow.existingQuestionBindingCount, 24);
-  assert.equal(master.statusSummary.unitJsonExistsCount, 9);
-  assert.equal(master.statusSummary.knowledgeRegistryCompleteCount, 9);
+  assert.ok(master.statusSummary.unitJsonExistsCount >= 9);
+  assert.ok(master.statusSummary.knowledgeRegistryCompleteCount >= 9);
   assert.equal(readback.verdict, "PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK");
   assert.equal(readback.canonicalWorksheetIdentityParity, true);
   assert.equal(readback.validator.errorCount, 0);
