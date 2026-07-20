@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "taskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
   "programId": "G5AU08_GOLDEN_SAMPLE_V1",
-  "status": "IMPLEMENTED_PENDING_GITHUB_CI",
+  "status": "PASS_E3_SHARED_RUNTIME_CONNECTED_PENDING_MERGE",
   "predecessor": {
     "taskId": "GS03_G5AU08_GoldenContractFreeze",
     "mergeSha": "a43552d4f6d44bbe725a0a8474ad4a8326b607d4",
