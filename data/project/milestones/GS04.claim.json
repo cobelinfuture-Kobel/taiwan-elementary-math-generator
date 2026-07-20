@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "taskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
   "taskClass": "runtime",
-  "targetEvidenceLevel": "E3_RUNTIME_INTEGRATED",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
   "claimedStatus": "GS04_SHARED_RUNTIME_IMPLEMENTED_PENDING_CI",
   "claims": {
