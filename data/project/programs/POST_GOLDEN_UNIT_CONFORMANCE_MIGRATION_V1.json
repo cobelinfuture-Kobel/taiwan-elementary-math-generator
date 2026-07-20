@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
-  "programStatus": "ACTIVE_A00_FOUNDATION_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "programStatus": "A00_PASS_ACCEPTED_PENDING_MERGE",
   "upstreamGoldenProgramId": "G5AU08_GOLDEN_SAMPLE_V1",
   "upstreamGoldenController": "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
   "upstreamConformanceRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
@@ -23,14 +23,14 @@
     "POSTG-MIG-A13_ProgramControllerAndKnowledgeRegistryCloseout"
   ],
   "activeTask": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
-  "activeTaskStatus": "E1_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "activeTaskStatus": "A00_PASS_ACCEPTED_PENDING_MERGE",
   "activeBranch": "feat/postg-mig-a00-program-foundation",
   "activePR": 290,
-  "lastCompletedTask": null,
+  "lastCompletedTask": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
   "nextAllowedTask": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
-  "completedCount": 0,
-  "remainingCount": 14,
-  "goalDistance": "D14_POST_GOLDEN_MIGRATION_PROGRAM_FOUNDATION_NOT_MERGED",
+  "completedCount": 1,
+  "remainingCount": 13,
+  "goalDistance": "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY",
   "programLock": "ACTIVE_ONE_UNIT_ONLY",
   "ultimateGoal": {
     "goldenConformantUnitCount": 15,
