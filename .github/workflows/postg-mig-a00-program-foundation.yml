@@ -13,7 +13,7 @@ on:
       - "tools/curriculum/export-postg-knowledge-master.py"
       - "tests/curriculum/postg-mig-a00-program-foundation.test.js"
       - "docs/curriculum/architecture/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.md"
-      - "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PENDING.marker"
+      - "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PASS.marker"
       - ".github/workflows/postg-mig-a00-program-foundation.yml"
   workflow_dispatch:
 
@@ -102,7 +102,7 @@ jobs:
             'tools/curriculum/export-postg-knowledge-master.py',
             'tests/curriculum/postg-mig-a00-program-foundation.test.js',
             'docs/curriculum/architecture/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.md',
-            'docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PENDING.marker',
+            'docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PASS.marker',
           ]);
           const files = execFileSync(
             'git',
