@@ -95,6 +95,11 @@ export const G3AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = freeze({
     patternGroupCount: 8,
     patternSpecCount: 20,
   },
+  expectedCounts: {
+    knowledgePointCount: 8,
+    patternGroupCount: 8,
+    patternSpecCount: 20,
+  },
   knowledgeRegistryPath: "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
   perUnitRuntimeLimits: {
     generator: 0,
