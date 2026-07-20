@@ -1,0 +1,116 @@
+name: GS06 Golden Batch Controller Anti-Drift and D0
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "site/modules/curriculum/**"
+      - "tools/governance/validate-gs06-golden-controller.mjs"
+      - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
+      - "data/curriculum/golden/**"
+      - "data/curriculum/contracts/GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout.json"
+      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
+      - "data/project/milestones/GS06.claim.json"
+      - "docs/curriculum/output/GS06_G5AU08_GOLDEN_CONTROLLER_PENDING.marker"
+      - "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_PASS.marker"
+      - "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_READBACK.md"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  golden-controller:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Golden controller head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+
+      - name: Run GS06 controller, production-gate and mutation tests
+        run: node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
+
+      - name: Validate current controller phase
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          import {
+            validateGoldenBatchController,
+            validateGoldenUnitConformanceRegistry,
+          } from './site/modules/curriculum/golden/golden-batch-controller.js';
+          const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
+          const registry = await readJson('data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json');
+          const controller = await readJson('data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json');
+          const program = await readJson('data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json');
+          const registryAudit = validateGoldenUnitConformanceRegistry(registry);
+          if (!registryAudit.ok) {
+            console.error(JSON.stringify(registryAudit, null, 2));
+            process.exit(1);
+          }
+          if (controller.status === 'ACTIVE_GOLDEN_D0_CONTROLLER') {
+            const finalAudit = validateGoldenBatchController(controller, registry, program);
+            console.log(`GS06_FINAL_CONTROLLER_AUDIT=${JSON.stringify(finalAudit)}`);
+            if (!finalAudit.ok) process.exit(1);
+          } else {
+            const candidateOk = controller.status === 'CANDIDATE_GOLDEN_D0_CONTROLLER_PENDING_CI'
+              && controller.programCompletion?.currentCompletedCount === 5
+              && controller.programCompletion?.currentRemainingCount === 1
+              && controller.programCompletion?.targetCompletedCount === 6
+              && controller.programCompletion?.targetRemainingCount === 0
+              && program.activeTask === 'GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout'
+              && program.completedCount === 5
+              && program.remainingCount === 1;
+            console.log(`GS06_CANDIDATE_CONTROLLER_AUDIT=${JSON.stringify({ candidateOk, registryAudit })}`);
+            if (!candidateOk) process.exit(1);
+          }
+          NODE
+
+      - name: Enforce persistent anti-drift gate
+        run: |
+          git fetch origin "${GITHUB_BASE_REF:-main}"
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          import { detectGoldenDiffDrift } from './site/modules/curriculum/golden/golden-batch-controller.js';
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          const nameStatus = execFileSync('git', ['diff', '--name-status', `origin/${base}...HEAD`], { encoding: 'utf8' });
+          const audit = detectGoldenDiffDrift(nameStatus);
+          console.log(`GS06_PERSISTENT_DIFF_AUDIT=${JSON.stringify(audit)}`);
+          if (!audit.ok) process.exit(1);
+          NODE
+
+      - name: Enforce GS06 milestone scope
+        if: github.head_ref == 'feat/gs06-golden-batch-controller-d0'
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          const allowed = new Set([
+            '.github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml',
+            'site/modules/curriculum/golden/golden-batch-controller.js',
+            'tools/governance/validate-gs06-golden-controller.mjs',
+            'tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js',
+            'data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json',
+            'data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json',
+            'data/curriculum/contracts/GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout.json',
+            'data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json',
+            'data/project/milestones/GS06.claim.json',
+            'docs/curriculum/output/GS06_G5AU08_GOLDEN_CONTROLLER_PENDING.marker',
+            'docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_PASS.marker',
+            'docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_READBACK.md',
+          ]);
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          const files = execFileSync('git', ['diff', '--name-only', `origin/${base}...HEAD`], { encoding: 'utf8' })
+            .trim().split(/\r?\n/).filter(Boolean);
+          const drift = files.filter((path) => !allowed.has(path));
+          console.log(`GS06_SCOPE_AUDIT=${JSON.stringify({ changedFileCount: files.length, drift })}`);
+          if (drift.length > 0) process.exit(1);
+          NODE
