@@ -10,7 +10,7 @@
     "contentAuthored": false,
     "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": true,
-    "productionRendererUsed": true,
+    "productionRendererUsed": false,
     "htmlOutputVerified": false,
     "pdfOutputVerified": false,
     "visibleOutputChanged": false,
