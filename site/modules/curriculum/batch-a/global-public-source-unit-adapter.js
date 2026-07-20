@@ -5,10 +5,7 @@ import {
   validateGlobalPublicSourceUnitAdapterRegistry,
 } from "./global-public-source-unit-adapter-registry.js";
 
-// Preserve the public adapter version used by existing G4B-U04 and G5A-U02
-// readbacks. GS04 adds a registry/consumer layer without rewriting their
-// established adapter identity.
-export const GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_VERSION = "glm-s05-source-unit-adapter-v1";
+export const GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_VERSION = "postg-a01-source-unit-adapter-v2";
 
 function clone(value) {
   if (Array.isArray(value)) return value.map(clone);
@@ -67,10 +64,12 @@ function hasPartialOrInvalidGoldenActivation(plan, descriptor) {
 function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer) {
   const knowledgePointIds = descriptor.knowledgePointIds;
   const patternGroupIds = descriptor.patternGroupIds;
+  const runtimeMode = descriptor.requiresExplicitGoldenActivation ? "shadow" : "conformant";
   const goldenMetadata = goldenRuntimeConsumer ? {
     goldenContractId: goldenRuntimeConsumer.goldenContractId,
     goldenContractVersion: goldenRuntimeConsumer.goldenContractVersion,
     goldenConnectionStatus: goldenRuntimeConsumer.connectionStatus,
+    goldenContractProfile: goldenRuntimeConsumer.contractProfile,
   } : {};
   const goldenResolverResult = goldenRuntimeConsumer ? {
     resolverResult: {
@@ -84,7 +83,7 @@ function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer) {
         resolver: "visiblePatternGroupResolver",
         sourceId: descriptor.sourceId,
         sharedGoldenAdapterApplied: true,
-        goldenRuntimeMode: "shadow",
+        goldenRuntimeMode: runtimeMode,
       },
     },
   } : {};
@@ -174,6 +173,7 @@ export function validateGlobalPublicSourceUnitAdapters() {
   const registry = validateGlobalPublicSourceUnitAdapterRegistry();
   const errors = [...registry.errors];
   for (const descriptor of [
+    resolveGlobalPublicSourceUnitAdapterDescriptor("g3a_u01_3a01"),
     resolveGlobalPublicSourceUnitAdapterDescriptor("g4b_u04_4b04"),
     resolveGlobalPublicSourceUnitAdapterDescriptor("g5a_u02_5a02"),
     resolveGlobalPublicSourceUnitAdapterDescriptor("g5a_u08_5a08"),
@@ -188,6 +188,15 @@ export function validateGlobalPublicSourceUnitAdapters() {
       || result.plan.selectedPatternGroupIds.length !== descriptor.expectedCounts.patternGroups) {
       errors.push(`GS04_SOURCE_UNIT_ADAPTER_INVALID:${descriptor.sourceId}`);
     }
+  }
+  const g3aU01 = adaptGlobalPublicSourceUnitPlan({
+    sourceId: "g3a_u01_3a01",
+    selectionMode: "sourceUnit",
+  });
+  if (!g3aU01.applied || g3aU01.blocked
+    || g3aU01.plan?.goldenRuntimeConsumer?.contractProfile !== "POST_GOLDEN_UNIT_CONFORMANCE"
+    || g3aU01.plan?.goldenRuntimeConsumer?.connectionStatus !== "FROZEN_AND_CONNECTED_TO_EXISTING_SHARED_RUNTIME") {
+    errors.push("POSTG_A01_G3A_U01_GOLDEN_RUNTIME_NOT_CONNECTED");
   }
   const publicG5AU08 = adaptGlobalPublicSourceUnitPlan({
     sourceId: "g5a_u08_5a08",
@@ -206,16 +215,6 @@ export function validateGlobalPublicSourceUnitAdapters() {
   if (!g5aU08.plan?.goldenRuntimeConsumer
     || g5aU08.plan.goldenRuntimeConsumer.connectionStatus !== "FROZEN_AND_CONNECTED_TO_EXISTING_SHARED_RUNTIME") {
     errors.push("GS04_G5AU08_GOLDEN_RUNTIME_NOT_CONNECTED");
-  }
-  const unregisteredGolden = adaptGlobalPublicSourceUnitPlan({
-    sourceId: "g3a_u01_3a01",
-    selectionMode: "sourceUnit",
-    goldenContractId: "G5AU08_GOLDEN_V1",
-    goldenContractVersion: "1.0.0",
-    goldenRuntimeMode: "shadow",
-  });
-  if (!unregisteredGolden.blocked || !unregisteredGolden.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED")) {
-    errors.push("GS05_UNREGISTERED_GOLDEN_UNIT_NOT_BLOCKED");
   }
   const result = {
     ok: errors.length === 0,
