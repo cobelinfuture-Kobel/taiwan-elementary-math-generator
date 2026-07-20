@@ -13,9 +13,9 @@
     "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
   ],
   "activeTask": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
-  "activeTaskStatus": "IMPLEMENTED_PENDING_GITHUB_CI",
+  "activeTaskStatus": "IMPLEMENTED_PENDING_EXACT_HEAD_CI",
   "activeBranch": "feat/gs04-shared-runtime-batch-adapter",
-  "activePR": null,
+  "activePR": 287,
   "lastCompletedTask": "GS03_G5AU08_GoldenContractFreeze",
   "nextAllowedTask": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
   "completedCount": 3,
