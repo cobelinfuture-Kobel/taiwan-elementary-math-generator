@@ -30,6 +30,8 @@ export const G3B_U01_POSTG_SOURCE_ID = "g3b_u01_3b01";
 export const G3B_U01_POSTG_TASK_ID = "POSTG-MIG-A05_G3B_U01_GoldenConformanceAndKnowledgeOperationMigration";
 export const G3B_U08_POSTG_SOURCE_ID = "g3b_u08_3b08";
 export const G3B_U08_POSTG_TASK_ID = "POSTG-MIG-A06_G3B_U08_GoldenConformanceAndKnowledgeOperationMigration";
+export const G4A_U01_POSTG_SOURCE_ID = "g4a_u01_4a01";
+export const G4A_U01_POSTG_TASK_ID = "POSTG-MIG-A07_G4A_U01_GoldenConformanceAndKnowledgeOperationMigration";
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -181,6 +183,17 @@ export const G3BU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescripto
   renderer: "site/modules/renderer/html-renderer-s58h-extension.js",
 });
 
+export const G4AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({
+  sourceId: G4A_U01_POSTG_SOURCE_ID,
+  knowledgeRegistryPath: "data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json",
+  counts: { knowledgePoints: 18, patternGroups: 18, patternSpecs: 18 },
+  authorityFileCount: 7,
+  generator: [
+    "site/modules/curriculum/batch-a/g4a-u01-phase1-generator.js",
+    "site/modules/curriculum/batch-a/g4a-u01-phase3-runtime-fix-generator.js",
+  ],
+});
+
 const BASE_ADAPTER_DESCRIPTORS = freeze([
   {
     sourceId: G4B_U04_SOURCE_ID,
@@ -273,6 +286,12 @@ const POST_GOLDEN_ADAPTER_DESCRIPTORS = freeze([
     taskId: G3B_U08_POSTG_TASK_ID,
     adapterId: "g3b_u08_postg_golden_shared_runtime",
     descriptor: G3BU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
+  }),
+  postGoldenAdapterDescriptor({
+    sourceId: G4A_U01_POSTG_SOURCE_ID,
+    taskId: G4A_U01_POSTG_TASK_ID,
+    adapterId: "g4a_u01_postg_golden_shared_runtime",
+    descriptor: G4AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
   }),
 ]);
 
