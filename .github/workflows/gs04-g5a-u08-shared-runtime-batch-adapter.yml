@@ -1,0 +1,114 @@
+name: GS04 G5A-U08 Shared Runtime and Batch Adapter
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "site/modules/curriculum/golden/golden-runtime-contract.js"
+      - "site/modules/curriculum/registry/golden-runtime-units.js"
+      - "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js"
+      - "site/assets/browser/pipeline/build-worksheet-document.js"
+      - "tests/curriculum/gs04-g5a-u08-shared-runtime-batch-adapter.test.js"
+      - "data/curriculum/contracts/GS04_G5AU08_SharedRuntimeAndBatchAdapter.json"
+      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
+      - "data/project/milestones/GS04.claim.json"
+      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_BATCH_ADAPTER_PENDING.marker"
+      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_BATCH_ADAPTER_PASS.marker"
+      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_BATCH_ADAPTER_READBACK.md"
+      - ".github/workflows/gs04-g5a-u08-shared-runtime-batch-adapter.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  shared-runtime-and-adapter:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout GS04 head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+
+      - name: Run focused shared runtime and adapter tests
+        id: focused
+        shell: bash
+        run: |
+          set +e
+          node --test tests/curriculum/gs04-g5a-u08-shared-runtime-batch-adapter.test.js > /tmp/gs04-focused.log 2>&1
+          status=$?
+          cat /tmp/gs04-focused.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload focused diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gs04-focused-runtime-diagnostics
+          path: /tmp/gs04-focused.log
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Persist focused failure diagnostics
+        if: github.event_name == 'pull_request' && steps.focused.outputs.exit_code != '0'
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile, mkdir, writeFile } from 'node:fs/promises';
+          const raw = await readFile('/tmp/gs04-focused.log', 'utf8');
+          const diagnostic = raw.split(/\r?\n/).filter((line) => /not ok|failureType|error:|code:|expected:|actual:|at .*gs04|GOLDEN_|AssertionError/.test(line)).join('\n');
+          const body = `# GS04 Focused Runtime Diagnostic\n\n\`\`\`text\n${diagnostic || raw.trim()}\n\`\`\`\n\nSTATUS = FAIL_DIAGNOSTIC_ONLY\nNEXT = Fix inside PR 286 without changing frozen runtime authorities.\n`;
+          await mkdir('docs/curriculum/output', { recursive: true });
+          await writeFile('docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_BATCH_ADAPTER_READBACK.md', body, 'utf8');
+          NODE
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_BATCH_ADAPTER_READBACK.md
+          if ! git diff --cached --quiet; then
+            git commit -m "test(gs04): record focused runtime diagnostics"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
+
+      - name: Block focused test failure
+        if: steps.focused.outputs.exit_code != '0'
+        run: exit 1
+
+      - name: Enforce GS04 shared-runtime-only scope
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          const allowed = new Set([
+            '.github/workflows/gs04-g5a-u08-shared-runtime-batch-adapter.yml',
+            'site/modules/curriculum/golden/golden-runtime-contract.js',
+            'site/modules/curriculum/registry/golden-runtime-units.js',
+            'site/modules/curriculum/batch-a/global-public-source-unit-adapter.js',
+            'site/assets/browser/pipeline/build-worksheet-document.js',
+            'tests/curriculum/gs04-g5a-u08-shared-runtime-batch-adapter.test.js',
+            'data/curriculum/contracts/GS04_G5AU08_SharedRuntimeAndBatchAdapter.json',
+            'data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json',
+            'data/project/milestones/GS04.claim.json',
+            'docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_BATCH_ADAPTER_PENDING.marker',
+            'docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_BATCH_ADAPTER_PASS.marker',
+            'docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_BATCH_ADAPTER_READBACK.md'
+          ]);
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          execFileSync('git', ['fetch', 'origin', base], { stdio: 'inherit' });
+          const files = execFileSync('git', ['diff', '--name-only', `origin/${base}...HEAD`], { encoding: 'utf8' }).trim().split(/\r?\n/).filter(Boolean);
+          const drift = files.filter((path) => !allowed.has(path));
+          if (drift.length) throw new Error(`GS04_SCOPE_DRIFT=${JSON.stringify(drift)}`);
+          const forbidden = files.filter((path) => /g5a-u08-(numeric|application)-(generator|validator)|html-renderer-s60j-extension|gs02-g5a-u08-global-context-families/.test(path));
+          if (forbidden.length) throw new Error(`GS04_FORBIDDEN_RUNTIME_COPY=${JSON.stringify(forbidden)}`);
+          console.log(`GS04_SCOPE_AUDIT=${JSON.stringify({ changedFileCount: files.length, driftCount: 0, forbiddenRuntimeCopyCount: 0 })}`);
+          NODE
