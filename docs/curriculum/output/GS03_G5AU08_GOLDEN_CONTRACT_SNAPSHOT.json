@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS03_G5AU08_GoldenContractFreeze",
+  "status": "FAIL_GOLDEN_CONTRACT_VALIDATION_DIAGNOSTIC",
+  "validatorLog": "file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs:17\nexport async function validateGS03GoldenContract(contract = await readCommittedGS03GoldenContract()) {\n                                                            ^^^^^\n\nSyntaxError: Illegal await-expression in formal parameters of async function\n    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)\n    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)\n    at #translate (node:internal/modules/esm/loader:497:12)\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)\n    at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)\n\nNode.js v20.20.2",
+  "nextAction": "Fix only the GS03 builder or validator inside PR 285."
+}
