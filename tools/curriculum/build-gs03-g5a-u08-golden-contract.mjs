@@ -22,15 +22,15 @@ const ROOT = resolve(HERE, "../..");
 const OUTPUT_PATH = resolve(ROOT, "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json");
 
 const AUTHORITY_DEFS = Object.freeze([
-  { layer: "schema", path: "data/curriculum/contracts/S60D_G5A_U08_ApplicationTemplateAndSDGContextContract.json", tokens: ["templateFamilies", "semanticDeltaContract"] },
+  { layer: "schema", path: "data/curriculum/contracts/S60D_G5A_U08_ApplicationTemplateAndSDGContextContract.json", tokens: ["templateFamilies", "allowedSemanticDeltaIds", "maxSemanticDeltaPerItem"] },
   { layer: "schema", path: "site/modules/curriculum/batch-a/source-pattern-g5a-u08-extension.js", tokens: ["G5A_U08_HIDDEN_PATTERN_GROUPS", "G5A_U08_HIDDEN_PATTERN_SPECS"] },
   { layer: "schema", path: "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json", tokens: ["GS02G5AU08GlobalContextFamilyRegistry", "contextFamilies"] },
   { layer: "binding", path: "data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json", tokens: ["GS02G5AU08UnitContextBindingRegistry", "bindings"] },
   { layer: "binding", path: "site/modules/curriculum/registry/g5a-u08-promotion.js", tokens: ["G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS", "G5A_U08_PROMOTED_PATTERN_SPEC_IDS"] },
   { layer: "binding", path: "site/modules/curriculum/registry/g5a-u08-production-promotion.js", tokens: ["G5A_U08_PRODUCTION_LIFECYCLE", "getG5AU08ProductionPromotionProjection"] },
   { layer: "binding", path: "site/modules/curriculum/registry/g5a-u08-worksheet-promotion.js", tokens: ["G5A_U08_WORKSHEET_PROMOTION_OVERLAY_ID"] },
-  { layer: "binding", path: "site/modules/curriculum/batch-a/g5a-u08-worksheet-eligibility.js", tokens: ["worksheet"] },
-  { layer: "binding", path: "site/modules/curriculum/batch-a/g5a-u08-canonical-router.js", tokens: ["g5a_u08_5a08"] },
+  { layer: "binding", path: "site/modules/curriculum/batch-a/g5a-u08-worksheet-eligibility.js", tokens: ["G5A_U08_WORKSHEET_ELIGIBILITY", "validateG5AU08WorksheetEligibility"] },
+  { layer: "binding", path: "site/modules/curriculum/batch-a/g5a-u08-canonical-router.js", tokens: ["g5a_u08_5a08", "validateG5AU08CanonicalPlan"] },
   { layer: "generator", path: "site/modules/curriculum/batch-a/g5a-u08-numeric-generator.js", tokens: ["G5A_U08_S60G_PATTERN_SPEC_IDS", "genericFallbackAllowed"] },
   { layer: "generator", path: "site/modules/curriculum/batch-a/g5a-u08-application-generator.js", tokens: ["generateG5AU08ApplicationQuestion", "generateG5AU08ApplicationBatch"] },
   { layer: "generator", path: "site/modules/curriculum/batch-a/g5a-u08-application-generator-core.js", tokens: ["G5A_U08_S60H_PATTERN_SPEC_IDS", "genericFallbackAllowed"] },
