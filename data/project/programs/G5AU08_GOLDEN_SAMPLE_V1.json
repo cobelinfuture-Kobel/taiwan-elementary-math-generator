@@ -15,7 +15,7 @@
   "activeTask": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
   "activeTaskStatus": "IMPLEMENTATION_ACTIVE_PENDING_RUNTIME_CI",
   "activeBranch": "feat/gs04-g5a-u08-shared-runtime-batch-adapter",
-  "activePR": "PENDING_CREATION",
+  "activePR": 286,
   "lastCompletedTask": "GS03_G5AU08_GoldenContractFreeze",
   "nextAllowedTask": "GS05_G5AU08_CrossUnitConformancePilot",
   "completedCount": 3,
