@@ -1,0 +1,38 @@
+{
+  "schemaName": "PostGoldenUnitConformanceMigrationTaskContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "taskId": "POSTG-MIG-A03_G3A_U03_GoldenConformanceAndKnowledgeOperationMigration",
+  "sourceId": "g3a_u03_3a03",
+  "status": "A03_KNOWLEDGE_OPERATION_CANDIDATE",
+  "goal": "Promote the complete effective G3A-U03 multiplication projection through the existing shared generator, validator and renderer, then close with exact-head production evidence.",
+  "distance": {
+    "before": "D11_POST_GOLDEN_MIGRATION_G3AU02_CONFORMANT_G3AU03_ACTIVE",
+    "after": "D11_A03_EFFECTIVE_SELECTOR_REGISTERED_PENDING_EXACT_HEAD_EVIDENCE",
+    "directlyShortensProgramDistance": false,
+    "classification": "DIRECT_TASK_PREREQUISITE"
+  },
+  "candidate": {
+    "conformanceState": "IN_PROGRESS_GOLDEN_NATIVE",
+    "productionEligibility": false,
+    "knowledgePointCount": 7,
+    "operationModelCount": 7,
+    "patternGroupCount": 7,
+    "patternSpecBindingCount": 7,
+    "schemaValidation": "PENDING_CI",
+    "sharedRuntimeBypass": false,
+    "runtimeIntegration": "CONNECTED_TO_EXISTING_SHARED_ADAPTER_PENDING_EVIDENCE",
+    "productionHTML": "PENDING",
+    "productionPDF": "PENDING",
+    "runtimeReadback": "PENDING"
+  },
+  "scopeBoundary": {
+    "applicationQuestionExpansion": false,
+    "newScenarioFamilyAuthoring": false,
+    "publicLayoutChange": false,
+    "studentPageLabelChange": false,
+    "newUnitSpecificRuntime": false,
+    "otherUnitMigration": false
+  },
+  "nextGate": "A03_EXACT_HEAD_HTML_PDF_HASH_AND_SCHEMA_EVIDENCE"
+}
