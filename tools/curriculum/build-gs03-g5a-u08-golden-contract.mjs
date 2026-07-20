@@ -41,7 +41,7 @@ const AUTHORITY_DEFS = Object.freeze([
   { layer: "renderer", path: "site/modules/renderer/html-renderer-s60j-extension.js", tokens: ["G5A_U08_RENDERER_INTEGRATION", "renderWorksheetDocumentToHtml"] },
   { layer: "renderer", path: "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s60j-extension.js", tokens: ["g5a_u08"] },
   { layer: "renderer", path: "site/assets/browser/pipeline/build-worksheet-document.js", tokens: ["questionPages", "answerKeyPages"] },
-  { layer: "renderer", path: "site/assets/browser/pipeline/render-preview-frame.js", tokens: ["iframe"] },
+  { layer: "renderer", path: "site/assets/browser/pipeline/render-preview-frame.js", tokens: ["renderPreviewFrame", "printPreviewFrame", "contentWindow"] },
 ]);
 
 function sha256(content) {
