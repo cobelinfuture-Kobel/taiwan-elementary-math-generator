@@ -50,8 +50,14 @@ export function validatePostGoldenMigrationProgram(program = {}) {
     || (!candidateProgress && !acceptedProgress)) {
     errors.push(issue("POSTG_A00_PROGRAM_PROGRESS_INVALID"));
   }
+  const continuation = program.continuation ?? {};
   if (program.programLock !== "ACTIVE_ONE_UNIT_ONLY"
-    || program.continuation?.autoContinueWithinApprovedProgram !== true) {
+    || continuation.autoContinueWithinApprovedProgram !== true
+    || continuation.ciPassIsStopPoint !== false
+    || continuation.prAcceptanceIsStopPoint !== false
+    || continuation.mergeIsStopPoint !== false
+    || continuation.closeoutIsStopPoint !== false
+    || continuation.readbackIsStopPoint !== false) {
     errors.push(issue("POSTG_A00_CONTINUATION_POLICY_INVALID"));
   }
   if (program.authority?.manualDualMaintenanceForbidden !== true

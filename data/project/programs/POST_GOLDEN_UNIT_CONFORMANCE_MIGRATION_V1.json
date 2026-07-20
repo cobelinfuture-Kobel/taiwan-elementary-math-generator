@@ -77,8 +77,11 @@
   },
   "continuation": {
     "autoContinueWithinApprovedProgram": true,
+    "ciPassIsStopPoint": false,
+    "prAcceptanceIsStopPoint": false,
     "mergeIsStopPoint": false,
-    "closeoutIsStopPoint": true,
+    "closeoutIsStopPoint": false,
+    "readbackIsStopPoint": false,
     "allowedStopReasons": [
       "CI_FAILURE",
       "GITHUB_OR_TOOL_SAFETY_BLOCKER",
