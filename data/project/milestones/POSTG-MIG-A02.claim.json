@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration",
+  "taskClass": "implementation",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "claimedStatus": "A02_KNOWLEDGE_OPERATION_CANDIDATE_PENDING_SHARED_RUNTIME",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/batch-a/source-pattern-index.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator-core.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator.js",
+      "data/curriculum/registry/batch_a_knowledge_points.json",
+      "data/curriculum/registry/batch_a_pattern_groups.json",
+      "data/curriculum/registry/batch_a_knowledge_point_pattern_map.json"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer-s60j-extension.js"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/contracts/POSTG_MIG_A02_G3AU02_GoldenConformanceAndKnowledgeOperationMigration.json",
+      "data/curriculum/knowledge/units/g3a_u02_3a02.knowledge-operation.json",
+      "docs/curriculum/output/POSTG_MIG_A02_G3AU02_CANDIDATE_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D2",
+    "distanceReduced": "G3A-U02 now has an authoritative schema-targeted KnowledgeOperation candidate covering the two current production-visible addition and subtraction capabilities; shared adapter integration and production evidence remain pending."
+  },
+  "nextStep": {
+    "taskId": "POSTG-MIG-A02_G3A_U02_SharedAdapterAndExactHeadEvidence",
+    "requiredEvidenceLevelBeforeStart": "E2_CONTENT_AUTHORED"
+  }
+}
