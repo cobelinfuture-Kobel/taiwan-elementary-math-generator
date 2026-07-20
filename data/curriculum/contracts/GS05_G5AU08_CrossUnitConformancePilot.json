@@ -41,6 +41,7 @@
     "newPerUnitWorkflowMax": 0
   },
   "authorities": {
+    "goldenContract": "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
     "pilotRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.cross-unit-pilots.json",
     "evaluator": "site/modules/curriculum/golden/cross-unit-golden-conformance.js",
     "sharedAdapter": "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
@@ -58,6 +59,8 @@
     "globalContextRegistryChanged": false,
     "newUnitRuntimeCreated": false,
     "predecessorScopeAuditsGeneralized": true,
+    "goldenAuthoritySnapshotRefreshed": true,
+    "goldenAuthoritySnapshotReason": "Refresh the frozen renderer authority hash to the GS04-connected build-worksheet-document.js digest; no authority path or required token changed.",
     "gs06ControllerCreated": false
   },
   "nextShortestStepAfterPass": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
