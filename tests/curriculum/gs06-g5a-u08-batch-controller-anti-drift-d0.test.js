@@ -31,6 +31,28 @@ function clone(value) {
   return structuredClone(value);
 }
 
+function finalState(controller, program) {
+  const finalController = clone(controller);
+  finalController.status = "ACTIVE_GOLDEN_D0_CONTROLLER";
+  finalController.programCompletion = {
+    taskBudget: 6,
+    completedCount: 6,
+    remainingCount: 0,
+    goalDistance: "D0_G5AU08_GOLDEN_V1_CONTROLLER_ACTIVE_AND_CLOSED",
+  };
+  const finalProgram = clone(program);
+  finalProgram.programStatus = "PASS_GOLDEN_D0_CLOSED";
+  finalProgram.activeTaskStatus = "PASS_GOLDEN_D0_CLOSED_PENDING_MERGE";
+  finalProgram.lastCompletedTask = "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout";
+  finalProgram.nextAllowedTask = null;
+  finalProgram.completedCount = 6;
+  finalProgram.remainingCount = 0;
+  finalProgram.goalDistance = "D0_G5AU08_GOLDEN_V1_CONTROLLER_ACTIVE_AND_CLOSED";
+  finalProgram.programLock = "CLOSED";
+  finalProgram.stopReason = "NEXT_STEP_OUTSIDE_APPROVED_SCOPE";
+  return { finalController, finalProgram };
+}
+
 test("GS06 registry covers the exact 15 public source-unit authority rows", async () => {
   const registry = await readJson(REGISTRY_PATH);
   const publicUnits = listBatchASourceUnits({ includePublicCandidates: true });
@@ -53,11 +75,24 @@ test("GS06 registry covers the exact 15 public source-unit authority rows", asyn
   });
 });
 
-test("GS06 controller closes the six-task program and exposes one deterministic resume queue", async () => {
+test("GS06 controller candidate has one deterministic queue and can close to a valid D0 state", async () => {
   const registry = await readJson(REGISTRY_PATH);
   const controller = await readJson(CONTROLLER_PATH);
   const program = await readJson(PROGRAM_PATH);
-  const audit = validateGoldenBatchController(controller, registry, program);
+  assert.ok([
+    "CANDIDATE_GOLDEN_D0_CONTROLLER_PENDING_CI",
+    "ACTIVE_GOLDEN_D0_CONTROLLER",
+  ].includes(controller.status));
+  assert.deepEqual(controller.queue.completeSourceIds, [
+    "g3b_u04_3b04",
+    "g5a_u08_5a08",
+    "g5a_u02_5a02",
+  ]);
+  assert.equal(controller.queue.activeSourceId, "g3a_u01_3a01");
+  assert.equal(controller.queue.pendingSourceIds.length, 11);
+
+  const { finalController, finalProgram } = finalState(controller, program);
+  const audit = validateGoldenBatchController(finalController, registry, finalProgram);
   assert.equal(audit.ok, true, audit.errors.map(({ code }) => code).join("\n"));
   assert.deepEqual(audit.queue, {
     completeCount: 3,
@@ -67,11 +102,6 @@ test("GS06 controller closes the six-task program and exposes one deterministic 
     exceptionCount: 0,
     nextResumeSourceId: "g3a_u01_3a01",
   });
-  assert.equal(program.programStatus, "PASS_GOLDEN_D0_CLOSED");
-  assert.equal(program.completedCount, 6);
-  assert.equal(program.remainingCount, 0);
-  assert.equal(program.nextAllowedTask, null);
-  assert.equal(program.stopReason, "NEXT_STEP_OUTSIDE_APPROVED_SCOPE");
 });
 
 test("GS06 production gate allows only GOLDEN_CONFORMANT units", async () => {
@@ -135,17 +165,18 @@ test("GS06 controller validator blocks queue and D0 program-state drift", async 
   const registry = await readJson(REGISTRY_PATH);
   const controller = await readJson(CONTROLLER_PATH);
   const program = await readJson(PROGRAM_PATH);
+  const { finalController, finalProgram } = finalState(controller, program);
 
-  const badQueue = clone(controller);
+  const badQueue = clone(finalController);
   badQueue.queue.pendingSourceIds.reverse();
-  let audit = validateGoldenBatchController(badQueue, registry, program);
+  let audit = validateGoldenBatchController(badQueue, registry, finalProgram);
   assert.equal(audit.errors.some(({ code }) => code === "GS06_PENDING_QUEUE_DRIFT"), true);
 
-  const badProgram = clone(program);
+  const badProgram = clone(finalProgram);
   badProgram.completedCount = 5;
   badProgram.remainingCount = 1;
   badProgram.programStatus = "ACTIVE";
-  audit = validateGoldenBatchController(controller, registry, badProgram);
+  audit = validateGoldenBatchController(finalController, registry, badProgram);
   assert.equal(audit.errors.some(({ code }) => code === "GS06_PROGRAM_STATE_NOT_D0_CLOSED"), true);
 });
 
