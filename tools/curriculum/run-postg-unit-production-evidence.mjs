@@ -13,6 +13,9 @@ import {
   validateBatchABrowserQuestions,
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
 import {
+  generateBatchABrowserQuestions,
+} from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
+import {
   validateG3BU08SemanticBatch,
 } from "../../site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js";
 import {
@@ -124,6 +127,17 @@ if (!adaptation.applied || adaptation.blocked || !adaptation.plan) {
   fail("POSTG_EVIDENCE_SHARED_ADAPTER_BLOCKED", { sourceId, taskId, adaptation });
 }
 
+const canonicalGeneration = sourceId === "g3b_u08_3b08"
+  ? generateBatchABrowserQuestions(adaptation.plan)
+  : null;
+if (canonicalGeneration && !canonicalGeneration.ok) {
+  fail("POSTG_EVIDENCE_CANONICAL_GENERATION_FAILED", {
+    sourceId,
+    errors: canonicalGeneration.errors ?? [],
+    warnings: canonicalGeneration.warnings ?? [],
+  });
+}
+
 const result = buildBatchABrowserWorksheetDocument({
   ...adaptation.plan,
   questionCount,
@@ -141,9 +155,7 @@ if (!result?.ok || !result.worksheetDocument) {
 
 const document = result.worksheetDocument;
 const documentQuestions = document.generatedQuestions ?? [];
-const canonicalQuestions = sourceId === "g3b_u08_3b08"
-  ? (result.generation?.questions ?? documentQuestions)
-  : documentQuestions;
+const canonicalQuestions = canonicalGeneration?.questions ?? documentQuestions;
 const questionDisplayModels = document.questionDisplayModels ?? [];
 const answerKeyItems = document.answerKeyItems ?? [];
 const questionPages = document.questionPages ?? [];
@@ -151,11 +163,13 @@ const answerKeyPages = document.answerKeyPages ?? [];
 const validation = validatePostGoldenEvidenceQuestions(
   sourceId,
   canonicalQuestions,
-  result.generation?.plan ?? adaptation.plan,
+  canonicalGeneration?.plan ?? result.generation?.plan ?? adaptation.plan,
 );
 const emittedPatternSpecIds = unique(canonicalQuestions.map((row) => row.patternSpecId));
 const emittedKnowledgePointIds = unique(canonicalQuestions.map((row) => row.knowledgePointId));
 const emittedPatternGroupIds = unique(canonicalQuestions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId));
+const canonicalQuestionIds = canonicalQuestions.map((row) => row.id);
+const documentQuestionIds = documentQuestions.map((row) => row.id);
 
 if (canonicalQuestions.length !== questionCount
   || documentQuestions.length !== questionCount
@@ -167,6 +181,13 @@ if (canonicalQuestions.length !== questionCount
     documentQuestions: documentQuestions.length,
     questionDisplayModels: questionDisplayModels.length,
     answerKeyItems: answerKeyItems.length,
+  });
+}
+if (canonicalGeneration
+  && JSON.stringify(canonicalQuestionIds) !== JSON.stringify(documentQuestionIds)) {
+  fail("POSTG_EVIDENCE_CANONICAL_WORKSHEET_IDENTITY_MISMATCH", {
+    canonicalQuestionIds,
+    documentQuestionIds,
   });
 }
 if (!validation.ok || validation.errors.length > 0) {
@@ -276,6 +297,7 @@ const readback = {
     warningCount: validation.warnings.length,
     validatorVersion: validation.validatorVersion ?? null,
   },
+  canonicalWorksheetIdentityParity: true,
   domReadback,
   artifacts: [
     { path: htmlPath, bytes: htmlBytes.length, sha256: sha256(htmlBytes) },
