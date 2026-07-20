@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "GS06_CONTROLLER_CANDIDATE_PENDING_EXACT_HEAD_CI",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/golden/golden-batch-controller.js",
+      "tools/governance/validate-gs06-golden-controller.mjs",
+      "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js",
+      ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
+      "data/curriculum/contracts/GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout.json",
+      "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json",
+      "docs/curriculum/output/GS06_G5AU08_GOLDEN_CONTROLLER_PENDING.marker"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The 15-unit registry and controller candidate now exist, but Golden D0 remains correctly blocked until focused controller CI and final exact-head closeout pass."
+  },
+  "nextStep": {
+    "taskId": "GS06_GoldenD0CloseoutAndFinalExactHeadCI",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
