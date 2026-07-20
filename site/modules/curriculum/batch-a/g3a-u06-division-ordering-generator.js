@@ -123,6 +123,44 @@ function allocateCounts(patternSpecIds, questionCount) {
   }).filter((entry) => entry.questionCount > 0);
 }
 
+function g3bU01WordProblemFamily(patternSpecId) {
+  if (patternSpecId.includes("_wp_partitive_")) return "partitive";
+  if (patternSpecId.includes("_wp_quotative_")) return "quotative";
+  if (patternSpecId.includes("_wp_remainder_floor_") || patternSpecId.includes("_wp_remainder_ceil_")) return "remainder_interpretation";
+  if (patternSpecId.includes("_wp_remainder_")) return "remainder";
+  if (patternSpecId.includes("_wp_two_step_")) return "two_step";
+  return null;
+}
+
+function expandG3BU01SourceUnitWordProblemAllocation(plan, options = {}) {
+  const allocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : [];
+  if (options.publicSelectionMode !== "sourceUnit") return allocation;
+
+  const wordProblemEntries = allocation.filter((entry) => g3bU01WordProblemSpecIds.includes(entry.patternSpecId));
+  if (wordProblemEntries.length === 0 || wordProblemEntries.length === g3bU01WordProblemSpecIds.length) return allocation;
+
+  const wordProblemQuestionCount = wordProblemEntries.reduce((sum, entry) => sum + entry.questionCount, 0);
+  const groupIdByFamily = new Map(wordProblemEntries.map((entry) => [g3bU01WordProblemFamily(entry.patternSpecId), entry.patternGroupId]));
+  const expandedWordProblemEntries = allocateCounts(g3bU01WordProblemSpecIds, wordProblemQuestionCount).map((entry) => ({
+    ...entry,
+    patternGroupId: groupIdByFamily.get(g3bU01WordProblemFamily(entry.patternSpecId)) ?? null
+  }));
+
+  const expanded = [];
+  let inserted = false;
+  for (const entry of allocation) {
+    if (!g3bU01WordProblemSpecIds.includes(entry.patternSpecId)) {
+      expanded.push(entry);
+      continue;
+    }
+    if (!inserted) {
+      expanded.push(...expandedWordProblemEntries);
+      inserted = true;
+    }
+  }
+  return expanded;
+}
+
 function isG3AU01Plan(plan) {
   return plan?.sourceId === g3aU01SourceId && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length > 0 && plan.patternSpecIds.every((id) => g3aU01SupportedSpecIds.includes(id));
 }
@@ -265,7 +303,7 @@ function generateCalculationEntryQuestions(options, plan, entry) {
 
 function generateG3BU01MixedCalculationWordProblemQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
-  const sourceAllocation = Array.isArray(plan.allocation) && plan.allocation.length > 0 ? cloneValue(plan.allocation) : [];
+  const sourceAllocation = expandG3BU01SourceUnitWordProblemAllocation(plan, options);
   const outputAllocation = [];
   const questions = [];
   const errors = [];
