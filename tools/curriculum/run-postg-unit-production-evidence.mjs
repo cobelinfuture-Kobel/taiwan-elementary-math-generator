@@ -7,7 +7,7 @@ import {
   adaptGlobalPublicSourceUnitPlan,
 } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter.js";
 import {
-  resolveGlobalPublicSourceUnitAdapterDescriptor,
+  resolvePostGoldenSourceUnitAdapterDescriptor,
 } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js";
 import {
   validateBatchABrowserQuestions,
@@ -63,10 +63,13 @@ function unique(values) {
 const args = parseArgs();
 const sourceId = String(args["source-id"] ?? "").trim();
 if (!sourceId) fail("POSTG_EVIDENCE_SOURCE_ID_REQUIRED");
-const descriptor = resolveGlobalPublicSourceUnitAdapterDescriptor(sourceId);
+const taskId = String(args["task-id"] ?? "").trim();
+if (!taskId) fail("POSTG_EVIDENCE_TASK_ID_REQUIRED");
+const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(sourceId);
 if (!descriptor?.goldenContractDescriptor
-  || descriptor.goldenContractDescriptor.descriptorMode !== "post_golden_unit_conformance") {
-  fail("POSTG_EVIDENCE_POST_GOLDEN_DESCRIPTOR_REQUIRED", { sourceId });
+  || descriptor.goldenContractDescriptor.descriptorMode !== "post_golden_unit_conformance"
+  || descriptor.taskId !== taskId) {
+  fail("POSTG_EVIDENCE_POST_GOLDEN_DESCRIPTOR_REQUIRED", { sourceId, taskId });
 }
 
 const questionCount = integer(args["question-count"], 40);
@@ -98,10 +101,11 @@ const request = {
   goldenContractId: golden.goldenContractId,
   goldenContractVersion: golden.goldenContractVersion,
   goldenRuntimeMode: descriptor.requiresExplicitGoldenActivation ? "shadow" : "production",
+  postGoldenMigrationTaskId: taskId,
 };
 const adaptation = adaptGlobalPublicSourceUnitPlan(request);
 if (!adaptation.applied || adaptation.blocked || !adaptation.plan) {
-  fail("POSTG_EVIDENCE_SHARED_ADAPTER_BLOCKED", { sourceId, adaptation });
+  fail("POSTG_EVIDENCE_SHARED_ADAPTER_BLOCKED", { sourceId, taskId, adaptation });
 }
 
 const result = buildBatchABrowserWorksheetDocument({
@@ -227,7 +231,7 @@ const readback = {
   schemaVersion: 1,
   programId: "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
   sourceId,
-  taskId: String(args["task-id"] ?? "POSTG_UNIT_CONFORMANCE_MIGRATION"),
+  taskId,
   runtimeSha: process.env.GITHUB_SHA ?? "local",
   goldenContractId: golden.goldenContractId,
   goldenContractVersion: golden.goldenContractVersion,
