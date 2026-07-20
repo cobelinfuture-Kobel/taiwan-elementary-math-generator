@@ -37,11 +37,13 @@ export function buildWorksheetDocumentFromState(state) {
     const publicCandidate = buildG5AU02PublicCandidateWorksheet(effectivePlan);
     result = publicCandidate ?? buildBatchABrowserWorksheetDocument(effectivePlan);
   }
-  result = applyRegisteredGoldenRuntimeContract(result, effectivePlan);
   result = applyG3BU04GlobalContextPublicWorksheetAdmission(result);
   result = attachPublicControlOutputMetadata(result, effectivePlan);
   result = projectG5AU02DynamicDocumentForGlobalLayout(result);
   result = applyGlobalPublicLayoutOverlay(result, effectivePlan);
+  // Golden verification is intentionally last: later metadata/layout overlays
+  // may add fields, but may not overwrite the final contract readback.
+  result = applyRegisteredGoldenRuntimeContract(result, effectivePlan);
   storeWorksheetResult(state, result);
   return result;
 }
