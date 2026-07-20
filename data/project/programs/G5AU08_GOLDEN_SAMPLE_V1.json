@@ -25,6 +25,7 @@
   "stopReason": "NONE",
   "scope": {
     "allowedPaths": [
+      ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml",
       ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml",
       "site/modules/curriculum/golden/cross-unit-golden-conformance.js",
       "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
