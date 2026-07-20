@@ -85,9 +85,9 @@ test("A07 E2 updates the Master Index without promoting production", async () =>
   assert.equal(row.existingQuestionBindingCount, 18);
   assert.equal(master.statusSummary.unitJsonExistsCount, 10);
   assert.equal(master.statusSummary.knowledgeRegistryCompleteCount, 10);
-  assert.equal(contract.candidate.evidenceLevel, "E2_DATA_STRUCTURE_READY");
+  assert.equal(contract.candidate.evidenceLevel, "E2_CONTENT_AUTHORED");
   assert.equal(contract.candidate.productionEligibility, false);
-  assert.equal(claim.actualEvidenceLevel, "E2_DATA_STRUCTURE_READY");
+  assert.equal(claim.actualEvidenceLevel, "E2_CONTENT_AUTHORED");
   assert.equal(claim.claims.runtimeIntegrated, false);
   assert.equal(claim.claims.productionAdmitted, false);
 });
