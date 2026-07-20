@@ -47,6 +47,8 @@
     "candidateMilestoneClaimIntegrityStatus": "PASS",
     "candidateNodeTestStatus": "PASS",
     "candidateMathCIReadbackStatus": "PASS",
+    "gs05CompatibilityRuntimeStatus": "PASS",
+    "gs05MilestoneScopeAuditRestrictedToOriginalBranch": true,
     "finalExactHeadCIRequired": true
   },
   "authorities": {
@@ -58,6 +60,7 @@
     "focusedTest": "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js",
     "d0GovernanceCore": "tools/governance/milestone-claim-integrity-core.mjs",
     "d0GovernanceTest": "tests/governance/milestone-claim-integrity.test.js",
+    "gs05CompatibilityWorkflow": ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml",
     "workflow": ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml",
     "claim": "data/project/milestones/GS06.claim.json",
     "passMarker": "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_PASS.marker",
@@ -68,6 +71,7 @@
     "changesPublicUI": false,
     "changesPendingUnitProductionAdmission": false,
     "weakensOrdinaryD0Evidence": false,
+    "generalizesGs05MilestoneScopeAudit": true,
     "createsSeventhGoldenTask": false
   },
   "closeout": {
