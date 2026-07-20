@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS03_G5AU08_GoldenContractFreeze",
+  "status": "PASS_FROZEN_CONTRACT_MATERIALIZED",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "authorityFileCount": 20,
+  "frozenCounts": {
+    "knowledgePointCount": 11,
+    "patternGroupCount": 17,
+    "patternSpecCount": 30,
+    "numericPatternSpecCount": 19,
+    "applicationPatternSpecCount": 11,
+    "generatorPatternSpecUnionCount": 30,
+    "templateFamilyCount": 10,
+    "globalContextFamilyCount": 18,
+    "unitContextBindingCount": 18,
+    "surfaceTemplateCount": 54,
+    "seedQACount": 90
+  },
+  "perUnitRuntimeLimits": {
+    "generator": 0,
+    "validator": 0,
+    "renderer": 0,
+    "workflow": 0
+  },
+  "gs04ConsumerImplemented": false,
+  "gs02ContextsProductionAdmitted": false,
+  "nextShortestStep": "GS04_G5AU08_SharedRuntimeAndBatchAdapter"
+}

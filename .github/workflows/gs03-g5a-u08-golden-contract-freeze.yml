@@ -1,0 +1,148 @@
+name: GS03 G5A-U08 Golden Contract Freeze
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "tools/curriculum/build-gs03-g5a-u08-golden-contract.mjs"
+      - "tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs"
+      - "tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js"
+      - "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json"
+      - "data/curriculum/contracts/GS03_G5AU08_GoldenContractFreeze.json"
+      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
+      - "data/project/milestones/GS03.claim.json"
+      - "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json"
+      - "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_PENDING.marker"
+      - "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_PASS.marker"
+      - "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_READBACK.md"
+      - ".github/workflows/gs03-g5a-u08-golden-contract-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  freeze-and-validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install --no-package-lock
+
+      - name: Materialize and validate Golden contract
+        id: golden
+        shell: bash
+        run: |
+          node tools/curriculum/build-gs03-g5a-u08-golden-contract.mjs --write
+          set +e
+          node tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs > /tmp/gs03-validate.log 2>&1
+          status=$?
+          cat /tmp/gs03-validate.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Persist exact validator diagnostics
+        if: github.event_name == 'pull_request' && steps.golden.outputs.exit_code != '0'
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile, mkdir, writeFile } from 'node:fs/promises';
+          const validatorLog = (await readFile('/tmp/gs03-validate.log', 'utf8')).trim();
+          const evidence = {
+            schemaVersion: 1,
+            taskId: 'GS03_G5AU08_GoldenContractFreeze',
+            status: 'FAIL_GOLDEN_CONTRACT_VALIDATION_DIAGNOSTIC',
+            validatorLog,
+            nextAction: 'Fix only the GS03 builder or validator inside PR 285.'
+          };
+          await mkdir('docs/curriculum/output', { recursive: true });
+          await writeFile('docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json', `${JSON.stringify(evidence, null, 2)}\n`, 'utf8');
+          NODE
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json
+          if ! git diff --cached --quiet; then
+            git commit -m "test(gs03): record Golden validator diagnostics"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
+
+      - name: Block invalid Golden contract
+        if: steps.golden.outputs.exit_code != '0'
+        run: exit 1
+
+      - name: Run focused anti-drift tests
+        run: node --test tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js
+
+      - name: Enforce GS03 scope
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          const allowed = new Set([
+            '.github/workflows/gs03-g5a-u08-golden-contract-freeze.yml',
+            'tools/curriculum/build-gs03-g5a-u08-golden-contract.mjs',
+            'tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs',
+            'tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js',
+            'data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json',
+            'data/curriculum/contracts/GS03_G5AU08_GoldenContractFreeze.json',
+            'data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json',
+            'data/project/milestones/GS03.claim.json',
+            'docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json',
+            'docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_PENDING.marker',
+            'docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_PASS.marker',
+            'docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_READBACK.md'
+          ]);
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          execFileSync('git', ['fetch', 'origin', base], { stdio: 'inherit' });
+          const files = execFileSync('git', ['diff', '--name-only', `origin/${base}...HEAD`], { encoding: 'utf8' }).trim().split(/\r?\n/).filter(Boolean);
+          const drift = files.filter((path) => !allowed.has(path));
+          if (drift.length) throw new Error(`SCOPE_DRIFT_DETECTED=${JSON.stringify(drift)}`);
+          console.log(`GS03_SCOPE_AUDIT=${JSON.stringify({ changedFileCount: files.length, driftCount: 0 })}`);
+          NODE
+
+      - name: Write PASS snapshot
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile, mkdir, writeFile } from 'node:fs/promises';
+          const contract = JSON.parse(await readFile('data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json', 'utf8'));
+          const evidence = {
+            schemaVersion: 1,
+            taskId: 'GS03_G5AU08_GoldenContractFreeze',
+            status: 'PASS_FROZEN_CONTRACT_MATERIALIZED',
+            goldenContractId: contract.goldenContractId,
+            goldenContractVersion: contract.goldenContractVersion,
+            authorityFileCount: contract.authoritySnapshot.length,
+            frozenCounts: contract.frozenCounts,
+            perUnitRuntimeLimits: {
+              generator: contract.extensionPolicy.perUnitNewGeneratorMax,
+              validator: contract.extensionPolicy.perUnitNewValidatorMax,
+              renderer: contract.extensionPolicy.perUnitNewRendererMax,
+              workflow: contract.extensionPolicy.perUnitNewWorkflowMax
+            },
+            gs04ConsumerImplemented: contract.consumerBoundary.runtimeConsumerImplementedByGS03,
+            gs02ContextsProductionAdmitted: contract.consumerBoundary.productionAdmissionOfGS02ContextsByGS03,
+            nextShortestStep: contract.consumerBoundary.nextTaskId
+          };
+          await mkdir('docs/curriculum/output', { recursive: true });
+          await writeFile('docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json', `${JSON.stringify(evidence, null, 2)}\n`, 'utf8');
+          NODE
+
+      - name: Commit deterministic Golden outputs
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json
+          if ! git diff --cached --quiet; then
+            git commit -m "contract(gs03): materialize G5AU08_GOLDEN_V1 snapshot"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
