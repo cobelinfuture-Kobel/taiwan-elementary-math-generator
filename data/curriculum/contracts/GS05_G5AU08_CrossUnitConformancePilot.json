@@ -46,14 +46,18 @@
     "sharedAdapter": "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
     "focusedTest": "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
     "workflow": ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml",
-    "gs04CompatibilityWorkflow": ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml"
+    "predecessorCompatibilityWorkflows": [
+      ".github/workflows/gs02-g5a-u08-global-context-expansion.yml",
+      ".github/workflows/gs03-g5a-u08-golden-contract-freeze.yml",
+      ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml"
+    ]
   },
   "scope": {
     "publicUIChanged": false,
     "productionAdmissionChanged": false,
     "globalContextRegistryChanged": false,
     "newUnitRuntimeCreated": false,
-    "gs04ScopeAuditGeneralized": true,
+    "predecessorScopeAuditsGeneralized": true,
     "gs06ControllerCreated": false
   },
   "nextShortestStepAfterPass": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
