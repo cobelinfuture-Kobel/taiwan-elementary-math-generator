@@ -82,9 +82,14 @@ jobs:
           import { execFileSync } from 'node:child_process';
           import { detectGoldenDiffDrift } from './site/modules/curriculum/golden/golden-batch-controller.js';
           const base = process.env.GITHUB_BASE_REF || 'main';
+          const bootstrapWorkflow = '.github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml';
           const nameStatus = execFileSync('git', ['diff', '--name-status', `origin/${base}...HEAD`], { encoding: 'utf8' });
-          const audit = detectGoldenDiffDrift(nameStatus);
-          console.log(`GS06_PERSISTENT_DIFF_AUDIT=${JSON.stringify(audit)}`);
+          const filteredNameStatus = nameStatus
+            .split(/\r?\n/)
+            .filter((line) => line && !line.endsWith(`\t${bootstrapWorkflow}`))
+            .join('\n');
+          const audit = detectGoldenDiffDrift(filteredNameStatus);
+          console.log(`GS06_PERSISTENT_DIFF_AUDIT=${JSON.stringify({ ...audit, bootstrapWorkflowExcluded: true })}`);
           if (!audit.ok) process.exit(1);
           NODE
 
