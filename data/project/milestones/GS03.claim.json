@@ -4,7 +4,7 @@
   "taskClass": "contract",
   "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
   "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
-  "claimedStatus": "GS03_GOLDEN_CONTRACT_BUILDER_READY_PENDING_SNAPSHOT",
+  "claimedStatus": "GS03_GOLDEN_V1_CONTRACT_FROZEN_PENDING_EXACT_HEAD_CI_AND_MERGE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": false,
@@ -24,6 +24,8 @@
     "htmlArtifactPaths": [],
     "pdfArtifactPaths": [],
     "beforeAfterEvidencePaths": [
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
+      "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json",
       "tools/curriculum/build-gs03-g5a-u08-golden-contract.mjs",
       "tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs",
       "tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js"
@@ -39,10 +41,10 @@
   "distance": {
     "before": "D3",
     "after": "D3",
-    "distanceReduced": "The deterministic Golden contract builder, authority-hash validator and anti-drift mutation suite exist; the frozen snapshot is pending GitHub-hosted materialization."
+    "distanceReduced": "G5AU08_GOLDEN_V1@1.0.0 now freezes the schema, binding, generator, validator and renderer authority as a deterministic 20-file SHA-256 snapshot; runtime consumption remains correctly deferred to GS04."
   },
   "nextStep": {
-    "taskId": "GS03_G5AU08_GoldenContractFreeze",
+    "taskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
     "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
   }
 }
