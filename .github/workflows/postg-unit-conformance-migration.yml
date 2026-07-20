@@ -61,6 +61,9 @@ jobs:
       - name: Install repository dependencies
         run: npm install --no-package-lock
 
+      - name: Install Playwright runtime package
+        run: npm install --no-save --no-package-lock playwright
+
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
