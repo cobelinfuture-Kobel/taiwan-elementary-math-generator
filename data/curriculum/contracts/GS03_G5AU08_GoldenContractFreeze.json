@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "G5AU08_GOLDEN_SAMPLE_V1",
   "taskId": "GS03_G5AU08_GoldenContractFreeze",
-  "status": "implementation_active_pending_golden_snapshot",
+  "status": "pass_golden_v1_frozen_pending_exact_head_ci_and_merge",
   "goldenContractId": "G5AU08_GOLDEN_V1",
   "goldenContractVersion": "1.0.0",
   "sourceId": "g5a_u08_5a08",
@@ -44,6 +44,21 @@
     "blockingFailureReturnsOutput": false,
     "internalIdVisible": false
   },
+  "result": {
+    "goldenContractStatus": "FROZEN_FOR_GS04_CONSUMPTION",
+    "snapshotStatus": "PASS_FROZEN_CONTRACT_MATERIALIZED",
+    "authorityFileCount": 20,
+    "authorityHashCount": 20,
+    "requiredTokenValidation": "PASS",
+    "exactCountValidation": "PASS",
+    "antiDriftMutationTests": "PASS",
+    "scopeAudit": "PASS",
+    "runtimeConsumerImplemented": false,
+    "batchAdapterImplemented": false,
+    "gs02ContextsProductionAdmitted": false,
+    "crossUnitPilotImplemented": false,
+    "runtimeImplementationChanged": false
+  },
   "deliverables": {
     "goldenContract": "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
     "snapshotEvidence": "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json",
@@ -65,8 +80,12 @@
   },
   "distance": {
     "goalDistanceBefore": "D2_G5AU08_GLOBAL_18_FAMILY_CANDIDATE_CORPUS_READY",
-    "goalDistanceAfterTarget": "D2_G5AU08_GOLDEN_V1_CONTRACT_FROZEN",
-    "distanceReducedTarget": "Schema, binding, generator, validator and renderer authority become a versioned fail-closed snapshot consumable by GS04.",
-    "nextShortestStepAfterPass": "GS04_G5AU08_SharedRuntimeAndBatchAdapter"
+    "goalDistanceAfter": "D2_G5AU08_GOLDEN_V1_CONTRACT_FROZEN",
+    "distanceReduced": "Schema, binding, generator, validator and renderer authority are now a versioned fail-closed snapshot consumable by GS04.",
+    "remainingBlockers": [
+      "exact-head CI",
+      "merge"
+    ],
+    "nextShortestStep": "GS04_G5AU08_SharedRuntimeAndBatchAdapter"
   }
 }
