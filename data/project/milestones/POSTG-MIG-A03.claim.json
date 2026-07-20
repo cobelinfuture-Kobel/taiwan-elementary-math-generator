@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-MIG-A03_G3A_U03_GoldenConformanceAndKnowledgeOperationMigration",
+  "taskClass": "implementation",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "claimedStatus": "A03_EFFECTIVE_SELECTOR_REGISTERED_PENDING_EXACT_HEAD_EVIDENCE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "data/curriculum/knowledge/units/g3a_u03_3a03.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator-core.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator.js",
+      "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js"
+    ],
+    "rendererTestPaths": ["site/modules/renderer/html-renderer-s60j-extension.js"],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/contracts/POSTG_MIG_A03_G3AU03_GoldenConformanceAndKnowledgeOperationMigration.json",
+      "docs/curriculum/output/POSTG_MIG_A03_G3AU03_CANDIDATE_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D2",
+    "distanceReduced": "G3A-U03 now has a schema-targeted KnowledgeOperation candidate covering all seven capabilities in the effective selector; exact-head evidence remains pending."
+  },
+  "nextStep": {
+    "taskId": "POSTG-MIG-A03_G3A_U03_SharedAdapterAndExactHeadEvidence",
+    "requiredEvidenceLevelBeforeStart": "E2_CONTENT_AUTHORED"
+  }
+}
