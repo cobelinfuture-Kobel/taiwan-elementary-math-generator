@@ -171,7 +171,7 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
     program,
   );
   assert.equal(audit.ok, false);
-  assert.equal(audit.errors.some(({ code }) => code === "POSTG_PENDING_QUEUE_DRIFT"), true);
+  assert.equal(audit.errors.some(({ code }) => code === "POSTG_A00_PENDING_QUEUE_DRIFT"), true);
 
   const badCompletion = clone(controller);
   badCompletion.programCompletion.remainingCount += 1;
@@ -183,7 +183,7 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
   );
   assert.equal(audit.ok, false);
   assert.equal(
-    audit.errors.some(({ code }) => code === "POSTG_CONTROLLER_COMPLETION_DRIFT"),
+    audit.errors.some(({ code }) => code === "POSTG_A00_CONTROLLER_COMPLETION_DRIFT"),
     true,
   );
 
@@ -192,7 +192,7 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
   audit = validateKnowledgeOperationMasterIndex(badMaster, registry, program);
   assert.equal(audit.ok, false);
   assert.equal(
-    audit.errors.some(({ code }) => code === "POSTG_MASTER_FLEET_COUNT_INVALID"),
+    audit.errors.some(({ code }) => code === "POSTG_A00_MASTER_FLEET_COUNT_INVALID"),
     true,
   );
 
@@ -201,7 +201,7 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
   audit = validatePostGoldenMigrationProgram(badProgram);
   assert.equal(audit.ok, false);
   assert.equal(
-    audit.errors.some(({ code }) => code === "POSTG_KNOWLEDGE_AUTHORITY_POLICY_INVALID"),
+    audit.errors.some(({ code }) => code === "POSTG_A00_KNOWLEDGE_AUTHORITY_POLICY_INVALID"),
     true,
   );
 });
