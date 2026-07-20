@@ -8,6 +8,10 @@ import {
   applyG3BU04GlobalContextProductionAdmission
 } from "./g3b-u04-global-context-production-admission.js";
 import {
+  generateG3AU01GoldenQuestions,
+  isG3AU01GoldenPlan,
+} from "./g3a-u01-golden-number-sense-runtime.js";
+import {
   generateG4AU08AllCanonicalPublicQuestions,
   normalizeG4AU08AllCanonicalPublicPlan,
   requestsG4AU08AllCanonicalPublicRoute,
@@ -124,6 +128,10 @@ function requestsG4AU08Phase2B(plan = {}) {
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+
+  if (isG3AU01GoldenPlan(plan)) {
+    return generateG3AU01GoldenQuestions(options);
+  }
 
   if (requestsG4AU08AllCanonicalPublicRoute(plan)) {
     const g4aU08Plan = normalizeG4AU08AllCanonicalPublicPlan(plan);
