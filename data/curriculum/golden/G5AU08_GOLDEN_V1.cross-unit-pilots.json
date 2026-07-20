@@ -4,7 +4,7 @@
   "taskId": "GS05_G5AU08_CrossUnitConformancePilot",
   "goldenContractId": "G5AU08_GOLDEN_V1",
   "goldenContractVersion": "1.0.0",
-  "status": "PILOT_REGISTRY_LOCKED_PENDING_CI",
+  "status": "PASS_THREE_CLASS_CROSS_UNIT_CONFORMANCE",
   "pilotPolicy": {
     "requiredPilotCount": 3,
     "requiredPilotClasses": [
@@ -19,6 +19,13 @@
     "legacyCompletedUnitsUseRevalidation": true,
     "unfinishedUnitMustFailClosedForGoldenProduction": true
   },
+  "resultSummary": {
+    "pilotCount": 3,
+    "goldenConformantCompletedUnitCount": 2,
+    "goldenNativeInProgressCount": 1,
+    "blockedConformanceCount": 0,
+    "newPerUnitRuntimeCount": 0
+  },
   "pilots": [
     {
       "pilotId": "gs05_legacy_numeric_g5a_u02",
@@ -28,6 +35,7 @@
       "unitTitle": "因數與公因數",
       "implementationStatus": "D0_PRODUCTION_COMPLETED",
       "expectedConformanceStatus": "GOLDEN_CONFORMANT",
+      "actualConformanceStatus": "GOLDEN_CONFORMANT",
       "goldenContractId": "G5AU08_GOLDEN_V1",
       "goldenContractVersion": "1.0.0",
       "authorityPaths": [
@@ -36,6 +44,14 @@
         "site/modules/curriculum/batch-b/g5a-u02-browser-resolver.js",
         "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
       ],
+      "runtimeEvidence": {
+        "questionCount": 12,
+        "answerKeyCount": 12,
+        "generator": "PASS",
+        "validator": "PASS",
+        "renderer": "PASS",
+        "productionAuthority": "PASS"
+      },
       "perUnitRuntimeAdditions": {
         "generator": 0,
         "validator": 0,
@@ -51,6 +67,7 @@
       "unitTitle": "兩步驟計算",
       "implementationStatus": "E6_D0_PRODUCTION_COMPLETED",
       "expectedConformanceStatus": "GOLDEN_CONFORMANT",
+      "actualConformanceStatus": "GOLDEN_CONFORMANT",
       "goldenContractId": "G5AU08_GOLDEN_V1",
       "goldenContractVersion": "1.0.0",
       "authorityPaths": [
@@ -60,6 +77,15 @@
         "site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js",
         "site/modules/renderer/html-renderer-s73-extension.js"
       ],
+      "runtimeEvidence": {
+        "questionCount": 25,
+        "answerKeyCount": 25,
+        "approvedContextCount": 5,
+        "generator": "PASS",
+        "blockingValidator": "PASS",
+        "renderer": "PASS",
+        "productionAuthority": "PASS"
+      },
       "perUnitRuntimeAdditions": {
         "generator": 0,
         "validator": 0,
@@ -75,6 +101,7 @@
       "unitTitle": "10000以內的數",
       "implementationStatus": "PARTIAL_MATERIALIZATION_NOT_PRODUCTION_ADMITTED",
       "expectedConformanceStatus": "IN_PROGRESS_GOLDEN_NATIVE",
+      "actualConformanceStatus": "IN_PROGRESS_GOLDEN_NATIVE",
       "goldenContractId": "G5AU08_GOLDEN_V1",
       "goldenContractVersion": "1.0.0",
       "authorityPaths": [
@@ -82,6 +109,11 @@
         "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js"
       ],
       "expectedGoldenActivationBlockCode": "GS05_GOLDEN_UNIT_NOT_REGISTERED",
+      "runtimeEvidence": {
+        "dataRegistry": "PASS",
+        "productionActivationFailClosed": "PASS",
+        "prematureProductionAdmission": false
+      },
       "perUnitRuntimeAdditions": {
         "generator": 0,
         "validator": 0,
