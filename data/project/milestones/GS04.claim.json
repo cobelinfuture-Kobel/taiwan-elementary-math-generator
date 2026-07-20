@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "GS04_SHARED_RUNTIME_IMPLEMENTED_PENDING_CI",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/golden/golden-runtime-contract.js",
+      "site/modules/curriculum/registry/golden-runtime-units.js",
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "tests/curriculum/gs04-g5a-u08-shared-runtime-batch-adapter.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "The shared Golden consumer, runtime descriptor registry and source-unit adapter are implemented; runtime acceptance remains pending GitHub CI."
+  },
+  "nextStep": {
+    "taskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
