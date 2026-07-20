@@ -1,0 +1,91 @@
+name: GS04 G5A-U08 Shared Runtime and Batch Adapter
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "site/modules/curriculum/golden/shared-golden-runtime-consumer.js"
+      - "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js"
+      - "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js"
+      - "site/assets/browser/pipeline/build-worksheet-document.js"
+      - "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js"
+      - "data/curriculum/contracts/GS04_G5AU08_SharedRuntimeAndBatchAdapter.json"
+      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
+      - "data/project/milestones/GS04.claim.json"
+      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_PENDING.marker"
+      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_PASS.marker"
+      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_READBACK.md"
+      - ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shared-runtime-and-adapter:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout GS04 head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+
+      - name: Run focused GS04 shared runtime suite
+        run: node --test tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js
+
+      - name: Audit shared adapter and Golden consumer
+        run: |
+          node --input-type=module <<'NODE'
+          import { validateGlobalPublicSourceUnitAdapterRegistry } from './site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js';
+          import { validateGlobalPublicSourceUnitAdapters } from './site/modules/curriculum/batch-a/global-public-source-unit-adapter.js';
+          const registry = validateGlobalPublicSourceUnitAdapterRegistry();
+          const adapters = validateGlobalPublicSourceUnitAdapters();
+          console.log(`GS04_REGISTRY_AUDIT=${JSON.stringify(registry)}`);
+          console.log(`GS04_ADAPTER_AUDIT=${JSON.stringify(adapters)}`);
+          if (!registry.ok || !adapters.ok || registry.affectedUnitCount < 2) process.exit(1);
+          NODE
+
+      - name: Enforce GS04 bounded scope
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          const allowed = new Set([
+            '.github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml',
+            'site/modules/curriculum/golden/shared-golden-runtime-consumer.js',
+            'site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js',
+            'site/modules/curriculum/batch-a/global-public-source-unit-adapter.js',
+            'site/assets/browser/pipeline/build-worksheet-document.js',
+            'tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js',
+            'data/curriculum/contracts/GS04_G5AU08_SharedRuntimeAndBatchAdapter.json',
+            'data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json',
+            'data/project/milestones/GS04.claim.json',
+            'docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_PENDING.marker',
+            'docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_PASS.marker',
+            'docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_READBACK.md',
+          ]);
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          execFileSync('git', ['fetch', 'origin', base], { stdio: 'inherit' });
+          const files = execFileSync('git', ['diff', '--name-only', `origin/${base}...HEAD`], { encoding: 'utf8' })
+            .trim().split(/\r?\n/).filter(Boolean);
+          const drift = files.filter((path) => !allowed.has(path));
+          if (drift.length > 0) {
+            console.error(`GS04_SCOPE_DRIFT=${JSON.stringify(drift)}`);
+            process.exit(1);
+          }
+          const forbiddenRuntime = files.filter((path) =>
+            /g5a-u08-(?:numeric|application)-(?:generator|validator)/.test(path)
+            || path === 'site/modules/renderer/html-renderer-s60j-extension.js');
+          if (forbiddenRuntime.length > 0) {
+            console.error(`GS04_PER_UNIT_RUNTIME_DUPLICATION=${JSON.stringify(forbiddenRuntime)}`);
+            process.exit(1);
+          }
+          console.log(`GS04_SCOPE_AUDIT=${JSON.stringify({ changedFileCount: files.length, driftCount: 0, files })}`);
+          NODE
