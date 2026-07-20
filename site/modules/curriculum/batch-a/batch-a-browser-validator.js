@@ -459,6 +459,45 @@ function validateG4AUnitWordProblem(question, errors) {
   if (intValue(question.finalAnswer) !== expected) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
 }
 
+function validateG4ADigitArrangement(question, errors) {
+  if (!Array.isArray(question.digits)
+    || question.digits.length !== 5
+    || question.digits.some((digit) => !Number.isInteger(digit) || digit < 0 || digit > 9)) {
+    errors.push(issue("batch_a_g4a_u01_arrangement_digits_invalid", "digits"));
+    return;
+  }
+  if (new Set(question.digits).size !== question.digits.length) {
+    errors.push(issue("batch_a_g4a_u01_arrangement_digits_not_unique", "digits"));
+  }
+  const maxDigits = [...question.digits].sort((left, right) => right - left);
+  const minDigits = [...question.digits].sort((left, right) => left - right);
+  if (minDigits[0] === 0) {
+    const firstNonZeroIndex = minDigits.findIndex((digit) => digit > 0);
+    if (firstNonZeroIndex < 0) {
+      errors.push(issue("batch_a_g4a_u01_arrangement_leading_digit_invalid", "digits"));
+      return;
+    }
+    const [firstNonZero] = minDigits.splice(firstNonZeroIndex, 1);
+    minDigits.unshift(firstNonZero);
+  }
+  const expectedMax = valueFromDigits(maxDigits);
+  const expectedMin = valueFromDigits(minDigits);
+  if (!Number.isSafeInteger(expectedMax) || expectedMax < 10000) errors.push(issue("batch_a_g4a_u01_arrangement_max_invalid", "maxNumber"));
+  if (!Number.isSafeInteger(expectedMin) || expectedMin < 10000) errors.push(issue("batch_a_g4a_u01_arrangement_min_invalid", "minNumber"));
+  if (question.maxNumber !== expectedMax) errors.push(issue("batch_a_g4a_u01_arrangement_max_invalid", "maxNumber"));
+  if (question.minNumber !== expectedMin) errors.push(issue("batch_a_g4a_u01_arrangement_min_invalid", "minNumber"));
+  if (!["numeric", "wordProblem"].includes(question.arrangementMode)) {
+    errors.push(issue("batch_a_g4a_u01_arrangement_mode_invalid", "arrangementMode"));
+  } else if (question.arrangementMode === "wordProblem") {
+    if (typeof question.unit !== "string" || question.unit.trim() === "") errors.push(issue("batch_a_g4a_u01_arrangement_unit_invalid", "unit"));
+  } else if (question.unit !== null) {
+    errors.push(issue("batch_a_g4a_u01_arrangement_unit_invalid", "unit"));
+  }
+  const expectedAnswer = `最大：${expectedMax}；最小：${expectedMin}`;
+  if (question.answerText !== expectedAnswer) errors.push(issue("batch_a_answer_incorrect", "answerText"));
+  if (question.finalAnswer !== expectedAnswer) errors.push(issue("batch_a_answer_incorrect", "finalAnswer"));
+}
+
 export function validateBatchABrowserPlan(plan = {}) {
   const scope = validateBatchAPlanScope(plan);
   const errors = [...scope.errors];
@@ -523,6 +562,7 @@ export function validateBatchABrowserQuestion(question = {}) {
   else if (definition.kind === "g4aU01BoundaryNumberDifference") validateG4ABoundaryDifference(question, errors);
   else if (definition.kind === "g4aU01ComparisonWordProblemTotal") validateG4AComparisonWordProblemTotal(question, errors);
   else if (definition.kind === "g4aU01LargeNumberUnitWordProblemAddSubtract") validateG4AUnitWordProblem(question, errors);
+  else if (definition.kind === "g4aU01DigitArrangementMaxMin") validateG4ADigitArrangement(question, errors);
   else if (hasRoundingShape(definition)) {
     const unit = Number.isSafeInteger(definition.unit) ? definition.unit : 1000;
     const expected = Number.isSafeInteger(question.value) ? roundByUnit(question.value, unit) : null;
