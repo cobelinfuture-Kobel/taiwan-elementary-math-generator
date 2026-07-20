@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "A00_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/contracts/POSTG_MIG_A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation.json",
+      "data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json",
+      "data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json",
+      "data/curriculum/knowledge/schema/knowledge-operation-unit.schema.json",
+      "data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json",
+      "site/modules/curriculum/golden/post-golden-migration-controller.js",
+      "tools/curriculum/export-postg-knowledge-master.py",
+      "tests/curriculum/postg-mig-a00-program-foundation.test.js",
+      ".github/workflows/postg-mig-a00-program-foundation.yml",
+      "docs/curriculum/architecture/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.md",
+      "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PENDING.marker"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D4",
+    "after": "D3",
+    "distanceReduced": "The registered POST_GOLDEN_PROGRAM_NOT_APPROVED blocker is removed by a machine-defined 14-task program, exact 12-unit queue, one-active controller, authoritative knowledge-operation schema/master index, and deterministic Excel/CSV export foundation. Program task count moves from 14 remaining tasks to 13 after merge; MCI capability distance moves D4 to D3. No unit conformance or production state changes in A00."
+  },
+  "nextStep": {
+    "taskId": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
