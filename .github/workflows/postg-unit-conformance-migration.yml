@@ -171,7 +171,7 @@ jobs:
           assert readback['unitCount']==15
           assert readback['sheetRowCounts']['Knowledge_Point_Map']>=48
           assert readback['sheetRowCounts']['Operation_Models']>=48
-          with zipfile.ZipFile('build/reports/Golden_KnowLEDGE_Operation_Master.xlsx') as archive:
+          with zipfile.ZipFile('build/reports/Golden_Knowledge_Operation_Master.xlsx') as archive:
               assert 'xl/workbook.xml' in archive.namelist()
           with open('build/reports/Golden_Knowledge_Operation_Master.summary.csv',encoding='utf-8',newline='') as handle:
               assert len(list(csv.DictReader(handle)))==15
