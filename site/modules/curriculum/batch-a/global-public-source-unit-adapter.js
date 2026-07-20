@@ -1,49 +1,69 @@
+import { consumeGoldenRuntimeContract } from "../golden/shared-golden-runtime-consumer.js";
 import {
-  getVisiblePatternGroupsForKnowledgePoint,
-  listVisibleBatchAKnowledgePoints,
-} from "../registry/batch-a-selector-extension.js";
-import {
-  G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
-  G4B_U04_PROMOTED_PATTERN_GROUP_IDS,
-  G4B_U04_SOURCE_ID,
-} from "../registry/g4b-u04-promotion.js";
-import { G5A_U02_PUBLIC_SOURCE_ID } from "../batch-b/g5a-u02-browser-resolver.js";
+  GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+  resolveGlobalPublicSourceUnitAdapterDescriptor,
+  validateGlobalPublicSourceUnitAdapterRegistry,
+} from "./global-public-source-unit-adapter-registry.js";
 
+// Preserve the public adapter version used by existing G4B-U04 and G5A-U02
+// readbacks. GS04 adds a registry/consumer layer without rewriting their
+// established adapter identity.
 export const GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_VERSION = "glm-s05-source-unit-adapter-v1";
 
-function unique(values) {
-  return [...new Set(values.filter(Boolean))];
+function clone(value) {
+  if (Array.isArray(value)) return value.map(clone);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, nested]) => [key, clone(nested)]));
+  }
+  return value;
 }
 
-function sourceKnowledgePointIds(sourceId) {
-  return listVisibleBatchAKnowledgePoints()
-    .filter((row) => row.sourceId === sourceId)
-    .map((row) => row.knowledgePointId);
+function blockedAdaptation(plan, descriptor, errors) {
+  return Object.freeze({
+    plan: null,
+    applied: false,
+    blocked: true,
+    errors: Object.freeze([...errors]),
+    adapter: Object.freeze({
+      version: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_VERSION,
+      registryVersion: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+      adapterId: descriptor?.adapterId ?? null,
+      sourceId: plan.sourceId ?? null,
+      applied: false,
+      blocked: true,
+    }),
+  });
 }
 
-function patternGroupIdsForKnowledgePoints(knowledgePointIds) {
-  return unique(knowledgePointIds.flatMap((knowledgePointId) => (
-    getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
-      .map((group) => group.patternGroupId)
-  )));
-}
-
-function canonicalSourceUnitPlan(plan, knowledgePointIds, patternGroupIds, adapterId) {
+function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer) {
+  const knowledgePointIds = descriptor.knowledgePointIds;
+  const patternGroupIds = descriptor.patternGroupIds;
+  const goldenMetadata = goldenRuntimeConsumer ? {
+    goldenContractId: goldenRuntimeConsumer.goldenContractId,
+    goldenContractVersion: goldenRuntimeConsumer.goldenContractVersion,
+    goldenConnectionStatus: goldenRuntimeConsumer.connectionStatus,
+  } : {};
   return {
     ...plan,
+    ...clone(descriptor.planOverrides ?? {}),
     publicSelectionMode: "sourceUnit",
     selectionMode: "mixedKnowledgePointsSameUnit",
     selectedKnowledgePointIds: [...knowledgePointIds],
     knowledgePointIds: [...knowledgePointIds],
     selectedPatternGroupIds: [...patternGroupIds],
+    ...(goldenRuntimeConsumer ? { goldenRuntimeConsumer: clone(goldenRuntimeConsumer) } : {}),
     sourceUnitAdapter: {
       version: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_VERSION,
-      adapterId,
+      registryVersion: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+      adapterId: descriptor.adapterId,
+      conformanceMode: descriptor.conformanceMode,
       applied: true,
+      blocked: false,
       publicSelectionMode: "sourceUnit",
       internalSelectionMode: "mixedKnowledgePointsSameUnit",
       knowledgePointCount: knowledgePointIds.length,
       patternGroupCount: patternGroupIds.length,
+      ...goldenMetadata,
     },
   };
 }
@@ -53,58 +73,84 @@ export function adaptGlobalPublicSourceUnitPlan(plan = {}) {
     return {
       plan: { ...plan },
       applied: false,
+      blocked: false,
+      errors: [],
       adapter: null,
     };
   }
 
-  if (plan.sourceId === G4B_U04_SOURCE_ID) {
-    const adapted = canonicalSourceUnitPlan(
-      {
-        ...plan,
-        questionMode: "mixed",
-        layoutMode: "custom_with_caps",
-      },
-      G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
-      G4B_U04_PROMOTED_PATTERN_GROUP_IDS,
-      "g4b_u04_all_promoted_canonical",
-    );
-    return { plan: adapted, applied: true, adapter: adapted.sourceUnitAdapter };
+  const descriptor = resolveGlobalPublicSourceUnitAdapterDescriptor(plan.sourceId);
+  if (!descriptor) {
+    return {
+      plan: { ...plan },
+      applied: false,
+      blocked: false,
+      errors: [],
+      adapter: null,
+    };
   }
 
-  if (plan.sourceId === G5A_U02_PUBLIC_SOURCE_ID) {
-    const knowledgePointIds = sourceKnowledgePointIds(plan.sourceId);
-    const patternGroupIds = patternGroupIdsForKnowledgePoints(knowledgePointIds);
-    const adapted = canonicalSourceUnitPlan(
-      plan,
-      knowledgePointIds,
-      patternGroupIds,
-      "g5a_u02_all_promoted_dynamic",
-    );
-    return { plan: adapted, applied: true, adapter: adapted.sourceUnitAdapter };
+  const registryValidation = validateGlobalPublicSourceUnitAdapterRegistry();
+  if (!registryValidation.ok) {
+    return blockedAdaptation(plan, descriptor, registryValidation.errors);
+  }
+  if (descriptor.knowledgePointIds.length !== descriptor.expectedCounts.knowledgePoints
+    || descriptor.patternGroupIds.length !== descriptor.expectedCounts.patternGroups) {
+    return blockedAdaptation(plan, descriptor, ["GS04_SOURCE_UNIT_DESCRIPTOR_COUNT_DRIFT"]);
   }
 
-  return {
-    plan: { ...plan },
-    applied: false,
-    adapter: null,
-  };
+  let goldenRuntimeConsumer = null;
+  if (descriptor.goldenContractDescriptor) {
+    const consumed = consumeGoldenRuntimeContract(descriptor.goldenContractDescriptor, plan.sourceId);
+    if (!consumed.ok) {
+      return blockedAdaptation(plan, descriptor, consumed.errors.map((entry) => entry.code));
+    }
+    goldenRuntimeConsumer = consumed.consumer;
+  }
+
+  const adapted = canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer);
+  return Object.freeze({
+    plan: adapted,
+    applied: true,
+    blocked: false,
+    errors: [],
+    adapter: Object.freeze({ ...adapted.sourceUnitAdapter }),
+  });
 }
 
 export function validateGlobalPublicSourceUnitAdapters() {
-  const errors = [];
-  const g4b = adaptGlobalPublicSourceUnitPlan({
-    sourceId: G4B_U04_SOURCE_ID,
+  const registry = validateGlobalPublicSourceUnitAdapterRegistry();
+  const errors = [...registry.errors];
+  for (const descriptor of [
+    resolveGlobalPublicSourceUnitAdapterDescriptor("g4b_u04_4b04"),
+    resolveGlobalPublicSourceUnitAdapterDescriptor("g5a_u02_5a02"),
+    resolveGlobalPublicSourceUnitAdapterDescriptor("g5a_u08_5a08"),
+  ]) {
+    if (!descriptor) {
+      errors.push("GS04_SOURCE_UNIT_DESCRIPTOR_MISSING");
+      continue;
+    }
+    const result = adaptGlobalPublicSourceUnitPlan({
+      sourceId: descriptor.sourceId,
+      selectionMode: "sourceUnit",
+    });
+    if (!result.applied || result.blocked
+      || result.plan.selectedKnowledgePointIds.length !== descriptor.expectedCounts.knowledgePoints
+      || result.plan.selectedPatternGroupIds.length !== descriptor.expectedCounts.patternGroups) {
+      errors.push(`GS04_SOURCE_UNIT_ADAPTER_INVALID:${descriptor.sourceId}`);
+    }
+  }
+  const g5aU08 = adaptGlobalPublicSourceUnitPlan({
+    sourceId: "g5a_u08_5a08",
     selectionMode: "sourceUnit",
   });
-  const g5a = adaptGlobalPublicSourceUnitPlan({
-    sourceId: G5A_U02_PUBLIC_SOURCE_ID,
-    selectionMode: "sourceUnit",
+  if (!g5aU08.plan?.goldenRuntimeConsumer
+    || g5aU08.plan.goldenRuntimeConsumer.connectionStatus !== "FROZEN_AND_CONNECTED_TO_EXISTING_SHARED_RUNTIME") {
+    errors.push("GS04_G5AU08_GOLDEN_RUNTIME_NOT_CONNECTED");
+  }
+  return Object.freeze({
+    ok: errors.length === 0,
+    errors: Object.freeze(errors),
+    affectedUnitCount: registry.affectedUnitCount,
   });
-  if (!g4b.applied || g4b.plan.selectedKnowledgePointIds.length !== 13 || g4b.plan.selectedPatternGroupIds.length !== 13) {
-    errors.push("g4b_source_unit_adapter_invalid");
-  }
-  if (!g5a.applied || g5a.plan.selectedKnowledgePointIds.length !== 18 || g5a.plan.selectedPatternGroupIds.length !== 18) {
-    errors.push("g5a_source_unit_adapter_invalid");
-  }
-  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) });
 }
