@@ -25,7 +25,7 @@
   "activeTask": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
   "activeTaskStatus": "E1_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE",
   "activeBranch": "feat/postg-mig-a00-program-foundation",
-  "activePR": null,
+  "activePR": 290,
   "lastCompletedTask": null,
   "nextAllowedTask": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
   "completedCount": 0,
