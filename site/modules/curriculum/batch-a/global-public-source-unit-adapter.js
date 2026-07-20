@@ -203,9 +203,15 @@ export function validateGlobalPublicSourceUnitAdapters() {
     || g5aU08.plan.goldenRuntimeConsumer.connectionStatus !== "FROZEN_AND_CONNECTED_TO_EXISTING_SHARED_RUNTIME") {
     errors.push("GS04_G5AU08_GOLDEN_RUNTIME_NOT_CONNECTED");
   }
-  return Object.freeze({
+  const result = {
     ok: errors.length === 0,
     errors: Object.freeze(errors),
-    affectedUnitCount: registry.affectedUnitCount,
+  };
+  Object.defineProperty(result, "affectedUnitCount", {
+    value: registry.affectedUnitCount,
+    enumerable: false,
+    writable: false,
+    configurable: false,
   });
+  return Object.freeze(result);
 }
