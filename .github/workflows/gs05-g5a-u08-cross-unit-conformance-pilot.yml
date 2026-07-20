@@ -14,6 +14,7 @@ on:
       - "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PENDING.marker"
       - "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PASS.marker"
       - "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_READBACK.md"
+      - ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml"
       - ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml"
   workflow_dispatch:
 
@@ -54,6 +55,7 @@ jobs:
           node --input-type=module <<'NODE'
           import { execFileSync } from 'node:child_process';
           const allowed = new Set([
+            '.github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml',
             '.github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml',
             'site/modules/curriculum/golden/cross-unit-golden-conformance.js',
             'site/modules/curriculum/batch-a/global-public-source-unit-adapter.js',
