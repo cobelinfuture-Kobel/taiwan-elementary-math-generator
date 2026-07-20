@@ -1,0 +1,60 @@
+{
+  "schemaName": "GS04G5AU08SharedRuntimeAndBatchAdapterContract",
+  "schemaVersion": 1,
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "taskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
+  "status": "implementation_active_pending_runtime_ci",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "sourceId": "g5a_u08_5a08",
+  "prerequisite": {
+    "taskId": "GS03_G5AU08_GoldenContractFreeze",
+    "mergeSha": "a43552d4f6d44bbe725a0a8474ad4a8326b607d4",
+    "requiredEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+    "requiredContractStatus": "FROZEN_FOR_GS04_CONSUMPTION"
+  },
+  "architecture": {
+    "sharedConsumer": "site/modules/curriculum/golden/golden-runtime-contract.js",
+    "centralRuntimeRegistry": "site/modules/curriculum/registry/golden-runtime-units.js",
+    "sharedSourceUnitAdapter": "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+    "publicPipeline": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "unitSpecificRuntimeCopied": false,
+    "unitDescriptorIsDataOnly": true
+  },
+  "acceptance": {
+    "descriptorMatchesFrozenContract": true,
+    "knowledgePointCount": 11,
+    "patternGroupCount": 17,
+    "patternSpecCount": 30,
+    "sourceUnitAdaptedTo": "mixedKnowledgePointsSameUnit",
+    "sourceUnitQuestionCount": 30,
+    "answerKeyOnRequired": true,
+    "answerKeyOffRequired": true,
+    "goldenRuntimeReadbackRequired": true,
+    "failClosedOnUnknownKnowledgePoint": true,
+    "failClosedOnUnknownPatternGroup": true,
+    "failClosedOnUnknownPatternSpec": true,
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false,
+    "existingG4BU04AdapterMustPass": true,
+    "existingG5AU02AdapterMustPass": true
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "newMilestoneForCIFixAllowed": false,
+    "newG5AU08GeneratorAllowed": false,
+    "newG5AU08ValidatorAllowed": false,
+    "newG5AU08RendererAllowed": false,
+    "newPerUnitProductionWorkflowAllowed": false,
+    "gs02ContextProductionAdmissionAllowed": false,
+    "crossUnitPilotAllowed": false,
+    "batchControllerAllowed": false,
+    "publicUIControlExpansionAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_G5AU08_GOLDEN_V1_CONTRACT_FROZEN",
+    "goalDistanceAfterTarget": "D1_G5AU08_GOLDEN_SHARED_RUNTIME_CONNECTED",
+    "distanceReducedTarget": "The frozen Golden contract becomes an effective public-runtime consumer and source-unit batch adapter without duplicating unit runtime.",
+    "nextShortestStepAfterPass": "GS05_G5AU08_CrossUnitConformancePilot"
+  }
+}
