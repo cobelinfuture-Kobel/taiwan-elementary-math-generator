@@ -22,10 +22,26 @@ const SOURCE_ID = "g3a_u02_3a02";
 const EXPECTED_KP_IDS = new Set([
   "kp_g3a_u02_add_multi_carry",
   "kp_g3a_u02_sub_multi_borrow",
+  "kp_g3a_u02_estimate_nearest_thousand",
+  "kp_g3a_u02_word_problem_estimation_add_sub",
+  "kp_g3a_u02_add_missing_digit_operand",
+  "kp_g3a_u02_sub_missing_digit_operand",
+  "kp_g3a_u02_add_missing_digit_equation",
+  "kp_g3a_u02_sub_missing_digit_equation",
+  "kp_g3a_u02_sub_middle_missing_digit",
+  "kp_g3a_u02_continuous_borrow_zero",
 ]);
 const EXPECTED_SPEC_IDS = new Set([
   "ps_g3a_u02_4digit_add_multi_carry",
   "ps_g3a_u02_4digit_sub_multi_borrow",
+  "ps_g3a_u02_estimate_nearest_thousand",
+  "ps_g3a_u02_word_problem_estimation_add_sub",
+  "ps_g3a_u02_add_missing_digit_operand",
+  "ps_g3a_u02_sub_missing_digit_operand",
+  "ps_g3a_u02_add_missing_digit_equation",
+  "ps_g3a_u02_sub_missing_digit_equation",
+  "ps_g3a_u02_sub_middle_missing_digit",
+  "ps_g3a_u02_continuous_borrow_zero",
 ]);
 const readJson = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
 
@@ -52,32 +68,32 @@ function adaptedPlan(overrides = {}) {
   return adapted.plan;
 }
 
-test("A02 authoritative candidate registers exactly the two production-visible capabilities", async () => {
+test("A02 authoritative candidate registers the complete effective selector projection", async () => {
   const registry = await readJson("../../data/curriculum/knowledge/units/g3a_u02_3a02.knowledge-operation.json");
   assert.equal(registry.conformanceState, "IN_PROGRESS_GOLDEN_NATIVE");
   assert.equal(registry.knowledgeRegistryState, "QUESTION_BINDINGS_COMPLETE");
   assert.equal(registry.review.status, "PENDING");
-  assert.equal(registry.knowledgePoints.length, 2);
-  assert.equal(registry.existingQuestionBindings.length, 2);
+  assert.equal(registry.knowledgePoints.length, 10);
+  assert.equal(registry.existingQuestionBindings.length, 10);
   assert.deepEqual(new Set(registry.knowledgePoints.map((row) => row.knowledgePointId)), EXPECTED_KP_IDS);
   assert.deepEqual(new Set(registry.existingQuestionBindings.map((row) => row.questionId)), EXPECTED_SPEC_IDS);
   assert.equal(registry.coverage.numeric, "COMPLETE");
-  assert.equal(registry.coverage.application, "UNASSESSED");
+  assert.equal(registry.coverage.application, "COMPLETE");
 });
 
-test("A02 shared descriptor resolves two KP, two groups and two PatternSpecs", () => {
+test("A02 shared descriptor resolves ten KP, ten groups and ten PatternSpecs", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.ok(descriptor);
-  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 2, patternGroups: 2, patternSpecs: 2 });
+  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 10, patternGroups: 10, patternSpecs: 10 });
   assert.deepEqual(new Set(descriptor.knowledgePointIds), EXPECTED_KP_IDS);
-  assert.equal(descriptor.patternGroupIds.length, 2);
+  assert.equal(descriptor.patternGroupIds.length, 10);
   assert.deepEqual(new Set(descriptor.patternSpecIds), EXPECTED_SPEC_IDS);
   assert.equal(validatePostGoldenSourceUnitAdapterRegistry().ok, true);
   const aggregate = validateGlobalPublicSourceUnitAdapters();
   assert.equal(aggregate.ok, true, JSON.stringify(aggregate.errors));
 });
 
-test("A02 existing shared runtime generates and validates both PatternSpecs", () => {
+test("A02 existing shared runtime generates and validates all ten PatternSpecs", () => {
   const generated = generateBatchABrowserQuestions(adaptedPlan());
   assert.equal(generated.ok, true, JSON.stringify(generated.errors));
   assert.equal(generated.questions.length, 40);
@@ -98,15 +114,14 @@ test("A02 adapter fails closed without the exact task authorization", () => {
   assert.ok(wrongTask.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED"));
 });
 
-test("A02 excludes estimation and application rows from the active migration descriptor", () => {
+test("A02 effective selector uses the formal source path and contains no bridge source", () => {
   const visible = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
   assert.deepEqual(new Set(visible.map((row) => row.knowledgePointId)), EXPECTED_KP_IDS);
   const specIds = new Set(visible.flatMap((row) => (
     getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId).flatMap((group) => group.patternSpecIds ?? [])
   )));
   assert.deepEqual(specIds, EXPECTED_SPEC_IDS);
-  assert.equal(specIds.has("ps_g3a_u02_estimate_nearest_thousand"), false);
-  assert.equal(specIds.has("ps_g3a_u02_word_problem_estimation_add_sub"), false);
+  assert.equal(visible.some((row) => row.sourceId === "g3a_u02_3a02_context_estimate_runtime"), false);
 });
 
 test("A02 program state is bound to PR 294 without advancing the queue", async () => {
