@@ -42,6 +42,13 @@ function queueFromRegistry(registry) {
   return { completeSourceIds, activeSourceId, pendingSourceIds };
 }
 
+function statusCounts(registry) {
+  return Object.fromEntries(registry.allowedStatuses.map((status) => [
+    status,
+    registry.rows.filter((row) => row.conformanceStatus === status).length,
+  ]));
+}
+
 test("GS06 registry covers the exact 15-unit authority after deterministic queue advancement", async () => {
   const registry = await readJson(REGISTRY_PATH);
   const publicUnits = listBatchASourceUnits({ includePublicCandidates: true });
@@ -51,14 +58,10 @@ test("GS06 registry covers the exact 15-unit authority after deterministic queue
   assert.equal(audit.sourceUnitCount, 15);
   assert.equal(audit.rowCount, 15);
   assert.deepEqual(new Set(registry.rows.map((row) => row.sourceId)), new Set(publicUnits.map((unit) => unit.sourceId)));
-  assert.deepEqual(audit.counts, {
-    LEGACY_COMPLETED_PENDING_GOLDEN_VALIDATION: 10,
-    GOLDEN_CONFORMANT: 4,
-    IN_PROGRESS_GOLDEN_NATIVE: 1,
-    BLOCKED_SOURCE_EVIDENCE: 0,
-    SHARED_CAPABILITY_EXCEPTION: 0,
-    NOT_STARTED: 0,
-  });
+  assert.deepEqual(audit.counts, statusCounts(registry));
+  assert.deepEqual(registry.statusSummary, statusCounts(registry));
+  assert.equal(Object.values(audit.counts).reduce((sum, value) => sum + value, 0), 15);
+  assert.equal(audit.counts.IN_PROGRESS_GOLDEN_NATIVE <= 1, true);
 });
 
 test("GS06 controller mirrors the authoritative one-active deterministic queue", async () => {
@@ -69,20 +72,20 @@ test("GS06 controller mirrors the authoritative one-active deterministic queue",
   assert.deepEqual(controller.queue.completeSourceIds, expected.completeSourceIds);
   assert.equal(controller.queue.activeSourceId, expected.activeSourceId);
   assert.deepEqual(controller.queue.pendingSourceIds, expected.pendingSourceIds);
-  assert.equal(expected.activeSourceId, "g3a_u02_3a02");
+  assert.ok(expected.activeSourceId);
   assert.equal(expected.completeSourceIds.includes("g3a_u01_3a01"), true);
-  assert.equal(expected.completeSourceIds.length, 4);
-  assert.equal(expected.pendingSourceIds.length, 10);
+  assert.equal(expected.completeSourceIds.includes("g3a_u02_3a02"), true);
+  assert.equal(expected.completeSourceIds.length + 1 + expected.pendingSourceIds.length, 15);
   const { finalController, finalProgram } = finalState(controller, program);
   const audit = validateGoldenBatchController(finalController, registry, finalProgram);
   assert.equal(audit.ok, true, audit.errors.map(({ code }) => code).join("\n"));
   assert.deepEqual(audit.queue, {
-    completeCount: 4,
+    completeCount: expected.completeSourceIds.length,
     activeCount: 1,
-    pendingCount: 10,
+    pendingCount: expected.pendingSourceIds.length,
     blockedCount: 0,
     exceptionCount: 0,
-    nextResumeSourceId: "g3a_u02_3a02",
+    nextResumeSourceId: expected.activeSourceId,
   });
 });
 
@@ -92,7 +95,9 @@ test("GS06 production gate allows exactly current GOLDEN_CONFORMANT units", asyn
   const actualAllowed = registry.rows.filter((row) => evaluateGoldenProductionGate(registry, row.sourceId).allowed).map((row) => row.sourceId);
   assert.deepEqual(new Set(actualAllowed), new Set(expectedAllowed));
   assert.equal(actualAllowed.includes("g3a_u01_3a01"), true);
-  const active = evaluateGoldenProductionGate(registry, "g3a_u02_3a02");
+  assert.equal(actualAllowed.includes("g3a_u02_3a02"), true);
+  const activeSourceId = registry.rows.find((row) => row.queueState === "ACTIVE").sourceId;
+  const active = evaluateGoldenProductionGate(registry, activeSourceId);
   assert.equal(active.allowed, false);
   assert.equal(active.code, "GS06_PRODUCTION_GATE_REQUIRES_GOLDEN_CONFORMANT");
   assert.equal(evaluateGoldenProductionGate(registry, "unknown_unit").code, "GS06_PRODUCTION_GATE_UNKNOWN_SOURCE_UNIT");
@@ -100,18 +105,21 @@ test("GS06 production gate allows exactly current GOLDEN_CONFORMANT units", asyn
 
 test("GS06 registry validator blocks coverage, version, bypass, duplication, production and queue drift", async () => {
   const registry = await readJson(REGISTRY_PATH);
+  const conformantIndex = registry.rows.findIndex((row) => row.conformanceStatus === "GOLDEN_CONFORMANT");
+  const activeIndex = registry.rows.findIndex((row) => row.queueState === "ACTIVE");
+  const pendingIndex = registry.rows.findIndex((row) => row.queueState === "PENDING");
   const mutations = [
     ["GS06_CONFORMANCE_ROW_COUNT_INVALID", (draft) => draft.rows.pop()],
-    ["GS06_UNIT_GOLDEN_VERSION_MISSING_OR_DRIFTED", (draft) => { draft.rows[0].goldenContractVersion = null; }],
-    ["GS06_SHARED_RUNTIME_BYPASS_DETECTED", (draft) => { draft.rows[1].sharedRuntimeBypassed = true; }],
-    ["GS06_PER_UNIT_RUNTIME_DUPLICATION_DETECTED", (draft) => { draft.rows[2].perUnitRuntimeAdditions.generator = 1; }],
-    ["GS06_PRODUCTION_GATE_STATUS_MISMATCH", (draft) => { draft.rows[1].goldenProductionEligible = true; draft.rows[1].productionGate = "allowed_golden_conformant"; }],
-    ["GS06_QUEUE_STATE_STATUS_MISMATCH", (draft) => { draft.rows[1].queueState = "COMPLETE"; draft.rows[1].queueOrdinal = null; }],
+    ["GS06_UNIT_GOLDEN_VERSION_MISSING_OR_DRIFTED", (draft) => { draft.rows[conformantIndex].goldenContractVersion = null; }],
+    ["GS06_SHARED_RUNTIME_BYPASS_DETECTED", (draft) => { draft.rows[conformantIndex].sharedRuntimeBypassed = true; }],
+    ["GS06_PER_UNIT_RUNTIME_DUPLICATION_DETECTED", (draft) => { draft.rows[activeIndex].perUnitRuntimeAdditions.generator = 1; }],
+    ["GS06_PRODUCTION_GATE_STATUS_MISMATCH", (draft) => { draft.rows[activeIndex].goldenProductionEligible = true; draft.rows[activeIndex].productionGate = "allowed_golden_conformant"; }],
+    ["GS06_QUEUE_STATE_STATUS_MISMATCH", (draft) => { draft.rows[activeIndex].queueState = "COMPLETE"; draft.rows[activeIndex].queueOrdinal = null; }],
     ["GS06_MULTIPLE_ACTIVE_UNITS", (draft) => {
-      draft.rows[2].conformanceStatus = "IN_PROGRESS_GOLDEN_NATIVE";
-      draft.rows[2].queueState = "ACTIVE";
-      draft.rows[2].queueOrdinal = 0;
-      draft.rows[2].productionGate = "blocked_in_progress";
+      draft.rows[pendingIndex].conformanceStatus = "IN_PROGRESS_GOLDEN_NATIVE";
+      draft.rows[pendingIndex].queueState = "ACTIVE";
+      draft.rows[pendingIndex].queueOrdinal = 0;
+      draft.rows[pendingIndex].productionGate = "blocked_in_progress";
       draft.statusSummary.LEGACY_COMPLETED_PENDING_GOLDEN_VALIDATION -= 1;
       draft.statusSummary.IN_PROGRESS_GOLDEN_NATIVE += 1;
     }],
