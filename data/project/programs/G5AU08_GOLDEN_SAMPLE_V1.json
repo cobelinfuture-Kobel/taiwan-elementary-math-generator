@@ -15,7 +15,7 @@
   "activeTask": "GS05_G5AU08_CrossUnitConformancePilot",
   "activeTaskStatus": "IN_PROGRESS_CROSS_UNIT_CONFORMANCE_PENDING_EXACT_HEAD_CI",
   "activeBranch": "test/gs05-cross-unit-conformance-pilot",
-  "activePR": null,
+  "activePR": 288,
   "lastCompletedTask": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
   "nextAllowedTask": "GS05_G5AU08_CrossUnitConformancePilot",
   "completedCount": 4,
