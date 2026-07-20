@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
-  "programStatus": "ACTIVE_A01_G3AU01_RUNTIME_CANDIDATE_PENDING_OUTPUT_CI",
+  "programStatus": "ACTIVE_A02_G3AU02_BASELINE_PENDING_MIGRATION",
   "upstreamGoldenProgramId": "G5AU08_GOLDEN_SAMPLE_V1",
   "upstreamGoldenController": "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
   "upstreamConformanceRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
@@ -22,15 +22,15 @@
     "POSTG-MIG-A12_G4B_U04_GoldenConformanceAndKnowledgeOperationMigration",
     "POSTG-MIG-A13_ProgramControllerAndKnowledgeRegistryCloseout"
   ],
-  "activeTask": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
-  "activeTaskStatus": "ACTIVE_A01_G3AU01_RUNTIME_CANDIDATE_PENDING_OUTPUT_CI",
-  "activeBranch": "feat/postg-mig-a01-g3a-u01-conformance",
-  "activePR": 293,
-  "lastCompletedTask": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
-  "nextAllowedTask": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
-  "completedCount": 1,
-  "remainingCount": 13,
-  "goalDistance": "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_ACTIVE",
+  "activeTask": "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration",
+  "activeTaskStatus": "ACTIVE_A02_G3AU02_BASELINE_PENDING_MIGRATION",
+  "activeBranch": "feat/postg-mig-a02-g3a-u02-conformance",
+  "activePR": null,
+  "lastCompletedTask": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+  "nextAllowedTask": "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration",
+  "completedCount": 2,
+  "remainingCount": 12,
+  "goalDistance": "D12_POST_GOLDEN_MIGRATION_G3AU01_CONFORMANT_G3AU02_ACTIVE",
   "programLock": "ACTIVE_ONE_UNIT_ONLY",
   "ultimateGoal": {
     "goldenConformantUnitCount": 15,
@@ -90,7 +90,7 @@
       "SHARED_CAPABILITY_EXCEPTION_REQUIRES_OPERATOR_APPROVAL",
       "NEXT_STEP_OUTSIDE_APPROVED_PROGRAM_SCOPE"
     ],
-    "nextTaskAfterA00": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
-    "nextSourceIdAfterA00": "g3a_u01_3a01"
+    "nextTaskAfterA01": "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration",
+    "nextSourceIdAfterA01": "g3a_u02_3a02"
   }
 }
