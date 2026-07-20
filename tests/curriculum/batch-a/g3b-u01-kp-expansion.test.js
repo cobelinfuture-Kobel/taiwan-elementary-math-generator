@@ -7,9 +7,9 @@ import { BATCH_A_SELECTOR_AVAILABILITY, getVisibleBatchAKnowledgePoint, listBatc
 
 const SOURCE_ID = "g3b_u01_3b01";
 const ROWS = Object.freeze([
-  ["kp_g3b_u01_2digit_division_place_value_cases", "pg_g3b_u01_2digit_division_place_value_cases", ["ps_g3b_u01_2digit_by_1digit_regroup_tens", "ps_g3b_u01_2digit_leading_digit_insufficient", "ps_g3b_u01_2digit_ones_quotient_zero", "ps_g3b_u01_2digit_leading_digit_exact"], "二位數除以一位數商位判斷"],
+  ["kp_g3b_u01_2digit_division_place_value_cases", "pg_g3b_u01_2digit_division_place_value_cases", ["ps_g3b_u01_2digit_by_1digit_regroup_tens", "ps_g3b_u01_2digit_leading_digit_insufficient", "ps_g3b_u01_2digit_leading_digit_exact"], "二位數除以一位數商位判斷"],
   ["kp_g3b_u01_3digit_by_1digit_regroup_hundreds", "pg_g3b_u01_3digit_by_1digit_regroup_hundreds", ["ps_g3b_u01_3digit_by_1digit_regroup_hundreds"], "三位數除以一位數"],
-  ["kp_g3b_u01_3digit_division_place_value_cases", "pg_g3b_u01_3digit_division_place_value_cases", ["ps_g3b_u01_3digit_hundreds_insufficient", "ps_g3b_u01_3digit_tens_quotient_zero", "ps_g3b_u01_3digit_ones_quotient_zero", "ps_g3b_u01_3digit_hundreds_exact"], "三位數除以一位數商位判斷"],
+  ["kp_g3b_u01_3digit_division_place_value_cases", "pg_g3b_u01_3digit_division_place_value_cases", ["ps_g3b_u01_3digit_hundreds_insufficient", "ps_g3b_u01_3digit_hundreds_exact"], "三位數除以一位數商位判斷"],
   ["kp_g3b_u01_quotient_zero_cases", "pg_g3b_u01_quotient_zero_cases", ["ps_g3b_u01_2digit_ones_quotient_zero", "ps_g3b_u01_3digit_tens_quotient_zero", "ps_g3b_u01_3digit_ones_quotient_zero"], "商中有 0 的除法"],
   ["kp_g3b_u01_division_with_remainder", "pg_g3b_u01_division_with_remainder", ["ps_g3b_u01_2digit_division_with_remainder", "ps_g3b_u01_3digit_division_with_remainder"], "有餘數除法"]
 ]);
