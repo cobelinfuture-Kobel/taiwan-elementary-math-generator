@@ -18,22 +18,38 @@ function blockedKnowledgePointResult(resolution) {
   });
 }
 
+function blockedSourceUnitAdapterResult(adaptation, publicPlan) {
+  return Object.freeze({
+    ok: false,
+    errors: adaptation.errors ?? ["GS04_SOURCE_UNIT_ADAPTER_BLOCKED"],
+    worksheetDocument: null,
+    sourceUnitAdaptation: adaptation,
+    browserResolution: null,
+    requestedPlan: publicPlan,
+  });
+}
+
 export function buildWorksheetDocumentFromState(state) {
   const publicPlan = getBatchAWorksheetPlan(state);
   const sourceUnitAdaptation = adaptGlobalPublicSourceUnitPlan(publicPlan);
-  const plan = sourceUnitAdaptation.plan;
-  const resolution = resolveG5AU02BrowserPlan(plan);
+  const plan = sourceUnitAdaptation.plan ?? publicPlan;
+  let resolution = null;
   let result;
-  if (resolution?.mode === "blocked") {
-    result = blockedKnowledgePointResult(resolution);
-  } else if (resolution?.mode === "singleKnowledgePoint" || resolution?.mode === "multiKnowledgePoint") {
-    result = buildG5AU02BrowserDynamicWorksheet(resolution.plan);
+  if (sourceUnitAdaptation.blocked) {
+    result = blockedSourceUnitAdapterResult(sourceUnitAdaptation, publicPlan);
   } else {
-    // G5A-U02 sourceUnit is adapted to the dynamic canonical route above.
-    // The fixed static candidate remains available only for legacy diagnostic
-    // callers that bypass the public source-unit adapter.
-    const publicCandidate = buildG5AU02PublicCandidateWorksheet(resolution?.plan ?? plan);
-    result = publicCandidate ?? buildBatchABrowserWorksheetDocument(plan);
+    resolution = resolveG5AU02BrowserPlan(plan);
+    if (resolution?.mode === "blocked") {
+      result = blockedKnowledgePointResult(resolution);
+    } else if (resolution?.mode === "singleKnowledgePoint" || resolution?.mode === "multiKnowledgePoint") {
+      result = buildG5AU02BrowserDynamicWorksheet(resolution.plan);
+    } else {
+      // G5A-U02 sourceUnit is adapted to the dynamic canonical route above.
+      // The fixed static candidate remains available only for legacy diagnostic
+      // callers that bypass the public source-unit adapter.
+      const publicCandidate = buildG5AU02PublicCandidateWorksheet(resolution?.plan ?? plan);
+      result = publicCandidate ?? buildBatchABrowserWorksheetDocument(plan);
+    }
   }
   result = applyG3BU04GlobalContextPublicWorksheetAdmission(result);
   result = attachPublicControlOutputMetadata(result, resolution?.plan ?? plan);
