@@ -1,0 +1,126 @@
+name: POSTG MIG A00 Program Foundation
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"
+      - "data/project/milestones/POSTG-MIG-A00.claim.json"
+      - "data/curriculum/contracts/POSTG_MIG_A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation.json"
+      - "data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"
+      - "data/curriculum/knowledge/**"
+      - "site/modules/curriculum/golden/post-golden-migration-controller.js"
+      - "tools/curriculum/export-postg-knowledge-master.py"
+      - "tests/curriculum/postg-mig-a00-program-foundation.test.js"
+      - "docs/curriculum/architecture/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.md"
+      - "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PENDING.marker"
+      - "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PASS.marker"
+      - ".github/workflows/postg-mig-a00-program-foundation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  foundation:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout A00 candidate
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install repository dependencies
+        run: npm install --no-package-lock
+
+      - name: Run A00 focused validation and mutation tests
+        run: node --test tests/curriculum/postg-mig-a00-program-foundation.test.js
+
+      - name: Generate designer Excel and audit CSV
+        run: |
+          mkdir -p build/reports
+          python3 tools/curriculum/export-postg-knowledge-master.py \
+            --xlsx build/reports/Golden_Knowledge_Operation_Master.xlsx \
+            --csv build/reports/Golden_Knowledge_Operation_Master.summary.csv \
+            | tee build/reports/POSTG_MIG_A00_EXPORT_READBACK.json
+
+      - name: Validate generated workbook and summary
+        run: |
+          python3 - <<'PY'
+          import csv
+          import json
+          import zipfile
+          from pathlib import Path
+
+          xlsx = Path("build/reports/Golden_Knowledge_Operation_Master.xlsx")
+          summary = Path("build/reports/Golden_Knowledge_Operation_Master.summary.csv")
+          readback = json.loads(Path("build/reports/POSTG_MIG_A00_EXPORT_READBACK.json").read_text(encoding="utf-8"))
+
+          assert readback["unitCount"] == 15
+          assert set(readback["sheetRowCounts"]) == {
+              "Unit_Index",
+              "Knowledge_Point_Map",
+              "Operation_Models",
+              "Number_Constraints",
+              "Question_Coverage",
+              "Migration_Review",
+          }
+          with zipfile.ZipFile(xlsx) as archive:
+              assert "xl/workbook.xml" in archive.namelist()
+              for number in range(1, 7):
+                  assert f"xl/worksheets/sheet{number}.xml" in archive.namelist()
+          with summary.open(encoding="utf-8-sig", newline="") as handle:
+              assert len(list(csv.DictReader(handle))) == 15
+          PY
+
+      - name: Run milestone claim integrity regression
+        run: node --test tests/governance/milestone-claim-integrity.test.js
+
+      - name: Enforce A00 bounded scope
+        if: github.head_ref == 'feat/postg-mig-a00-program-foundation'
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          const allowed = new Set([
+            '.github/workflows/postg-mig-a00-program-foundation.yml',
+            'data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json',
+            'data/project/milestones/POSTG-MIG-A00.claim.json',
+            'data/curriculum/contracts/POSTG_MIG_A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation.json',
+            'data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json',
+            'data/curriculum/knowledge/schema/knowledge-operation-unit.schema.json',
+            'data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json',
+            'site/modules/curriculum/golden/post-golden-migration-controller.js',
+            'tools/curriculum/export-postg-knowledge-master.py',
+            'tests/curriculum/postg-mig-a00-program-foundation.test.js',
+            'docs/curriculum/architecture/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.md',
+            'docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PENDING.marker',
+            'docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PASS.marker',
+          ]);
+          const files = execFileSync(
+            'git',
+            ['diff', '--name-only', `origin/${process.env.GITHUB_BASE_REF || 'main'}...HEAD`],
+            { encoding: 'utf8' },
+          ).trim().split(/\r?\n/).filter(Boolean);
+          const drift = files.filter((path) => !allowed.has(path));
+          console.log(JSON.stringify({ changedFileCount: files.length, drift }));
+          if (drift.length) process.exit(1);
+          NODE
+
+      - name: Upload A00 designer artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: postg-mig-a00-knowledge-master
+          path: |
+            build/reports/Golden_Knowledge_Operation_Master.xlsx
+            build/reports/Golden_Knowledge_Operation_Master.summary.csv
+            build/reports/POSTG_MIG_A00_EXPORT_READBACK.json

@@ -1,0 +1,138 @@
+{
+  "schemaName": "PostGoldenUnitConformanceMigrationProgramFoundationContract",
+  "schemaVersion": 1,
+  "taskId": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "status": "A00_PASS_ACCEPTED_PENDING_MERGE",
+  "goal": {
+    "ultimate": "Migrate the 12 non-conformant public units through the existing Golden shared runtime so all 15 public units are GOLDEN_CONFORMANT, while materializing one authoritative knowledge-point and canonical-operation-model registry for every unit.",
+    "a00": "Approve the post-Golden program, freeze its 14-task order and 12-unit queue, define the knowledge registry schema/master index/exporter, and create machine-enforced close gates without changing any unit conformance or production state."
+  },
+  "distanceGate": {
+    "classification": "PREREQUISITE",
+    "directlyShortensProgramDistance": true,
+    "declaredBlockerRemoved": "POST_GOLDEN_PROGRAM_NOT_APPROVED",
+    "distanceBefore": "D14_POST_GOLDEN_MIGRATION_PROGRAM_FOUNDATION_NOT_MERGED",
+    "distanceAfter": "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY",
+    "overallProgressIncreaseAllowed": true,
+    "reason": "A00 is one fixed task in the approved program and removes the only registered scope blocker that prevents A01 from executing."
+  },
+  "fleetBaseline": {
+    "totalPublicUnitCount": 15,
+    "goldenConformantCount": 3,
+    "activeGoldenNativeCount": 1,
+    "legacyPendingGoldenValidationCount": 11,
+    "migrationUnitCount": 12,
+    "activeSourceId": "g3a_u01_3a01",
+    "pendingSourceCount": 11,
+    "completeAnchorSourceIds": [
+      "g3b_u04_3b04",
+      "g5a_u08_5a08",
+      "g5a_u02_5a02"
+    ]
+  },
+  "taskSequence": [
+    "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
+    "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A03_G3A_U03_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A04_G3A_U06_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A05_G3B_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A06_G3B_U08_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A07_G4A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A08_G4A_U02_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A09_G4A_U04_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A10_G4A_U08_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A11_G4B_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A12_G4B_U04_GoldenConformanceAndKnowledgeOperationMigration",
+    "POSTG-MIG-A13_ProgramControllerAndKnowledgeRegistryCloseout"
+  ],
+  "authority": {
+    "sourceUnits": "site/modules/curriculum/batch-a/source-units.js",
+    "upstreamRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
+    "upstreamController": "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
+    "program": "data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json",
+    "controller": "data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json",
+    "knowledgeSchema": "data/curriculum/knowledge/schema/knowledge-operation-unit.schema.json",
+    "knowledgeMasterIndex": "data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json",
+    "unitKnowledgePattern": "data/curriculum/knowledge/units/<sourceId>.knowledge-operation.json",
+    "exporter": "tools/curriculum/export-postg-knowledge-master.py",
+    "validator": "site/modules/curriculum/golden/post-golden-migration-controller.js",
+    "focusedTest": "tests/curriculum/postg-mig-a00-program-foundation.test.js",
+    "workflow": ".github/workflows/postg-mig-a00-program-foundation.yml"
+  },
+  "knowledgeRegistryPolicy": {
+    "unitJsonIsOnlyKnowledgeAuthority": true,
+    "masterIndexOwnsFleetAndArtifactLocationsOnly": true,
+    "excelIsGeneratedDesignerView": true,
+    "csvIsGeneratedAuditView": true,
+    "manualExcelJsonDualMaintenanceForbidden": true,
+    "requiredFinalUnitJsonCount": 15,
+    "requiredUnitFields": [
+      "knowledge points",
+      "canonical operation models",
+      "operand roles",
+      "unknown roles",
+      "number constraints",
+      "equivalent forms",
+      "answer types",
+      "validation invariants",
+      "existing question bindings"
+    ],
+    "anchorBackfill": {
+      "sourceIds": [
+        "g3b_u04_3b04",
+        "g5a_u08_5a08",
+        "g5a_u02_5a02"
+      ],
+      "assignedTaskId": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+      "conformanceStateChangeForbidden": true
+    }
+  },
+  "unitCloseGate": {
+    "allKnowledgePointsRegistered": true,
+    "allOperationModelsRegistered": true,
+    "allExistingQuestionsBound": true,
+    "unitJsonSchemaPass": true,
+    "sharedGeneratorConnected": true,
+    "sharedValidatorConnected": true,
+    "sharedRendererConnected": true,
+    "sharedWorkflowConnected": true,
+    "sharedRuntimeBypass": false,
+    "productionHtmlPass": true,
+    "productionPdfPass": true,
+    "artifactHashesPass": true,
+    "runtimeReadbackPass": true,
+    "crossUnitRegressionPass": true,
+    "masterIndexUpdated": true,
+    "designerExcelRegenerated": true,
+    "summaryCsvRegenerated": true,
+    "artifactCountsMatched": true,
+    "remainingBlockers": []
+  },
+  "a00Acceptance": {
+    "programTaskBudget": 14,
+    "exactMigrationUnitCount": 12,
+    "oneActiveUnitMaximum": 1,
+    "exactFleetMasterRows": 15,
+    "programAndControllerMachineValidationRequired": true,
+    "knowledgeSchemaMachineValidationRequired": true,
+    "deterministicExcelAndCsvGenerationRequired": true,
+    "unitConformanceStateChangesAllowed": 0,
+    "productionAdmissionChangesAllowed": 0,
+    "publicOutputChangesAllowed": 0
+  },
+  "scopeBoundary": {
+    "applicationQuestionExpansion": false,
+    "newScenarioFamilyAuthoring": false,
+    "questionTypeOrLayoutChanges": false,
+    "studentPageLabelRemoval": false,
+    "unitSpecificRuntimeAdditions": false,
+    "unitMigrationDuringA00": false
+  },
+  "nextTask": {
+    "taskId": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    "sourceId": "g3a_u01_3a01",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "schemaName": "PostGoldenUnitConformanceMigrationController",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "controllerId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1_CONTROLLER",
+  "controllerVersion": "1.0.0",
+  "status": "A00_PASS_ACCEPTED_PENDING_MERGE",
+  "upstreamGoldenController": "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
+  "unitConformanceRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "programCompletion": {
+    "taskBudget": 14,
+    "completedCount": 1,
+    "remainingCount": 13,
+    "goalDistance": "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY"
+  },
+  "queue": {
+    "completeSourceIds": [
+      "g3b_u04_3b04",
+      "g5a_u08_5a08",
+      "g5a_u02_5a02"
+    ],
+    "activeSourceId": "g3a_u01_3a01",
+    "pendingSourceIds": [
+      "g3a_u02_3a02",
+      "g3a_u03_3a03",
+      "g3a_u06_3a06",
+      "g3b_u01_3b01",
+      "g3b_u08_3b08",
+      "g4a_u01_4a01",
+      "g4a_u02_4a02",
+      "g4a_u04_4a04",
+      "g4a_u08_4a08",
+      "g4b_u01_4b01",
+      "g4b_u04_4b04"
+    ],
+    "blockedSourceIds": [],
+    "exceptionSourceIds": [],
+    "nextResumeSourceId": "g3a_u01_3a01",
+    "queuePolicy": "finish_active_then_process_pending_in_existing_queue_ordinal_order",
+    "oneActiveUnitMaximum": 1
+  },
+  "taskAssignment": {
+    "foundationTaskId": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
+    "unitMigrationBySourceId": {
+      "g3a_u01_3a01": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+      "g3a_u02_3a02": "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration",
+      "g3a_u03_3a03": "POSTG-MIG-A03_G3A_U03_GoldenConformanceAndKnowledgeOperationMigration",
+      "g3a_u06_3a06": "POSTG-MIG-A04_G3A_U06_GoldenConformanceAndKnowledgeOperationMigration",
+      "g3b_u01_3b01": "POSTG-MIG-A05_G3B_U01_GoldenConformanceAndKnowledgeOperationMigration",
+      "g3b_u08_3b08": "POSTG-MIG-A06_G3B_U08_GoldenConformanceAndKnowledgeOperationMigration",
+      "g4a_u01_4a01": "POSTG-MIG-A07_G4A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+      "g4a_u02_4a02": "POSTG-MIG-A08_G4A_U02_GoldenConformanceAndKnowledgeOperationMigration",
+      "g4a_u04_4a04": "POSTG-MIG-A09_G4A_U04_GoldenConformanceAndKnowledgeOperationMigration",
+      "g4a_u08_4a08": "POSTG-MIG-A10_G4A_U08_GoldenConformanceAndKnowledgeOperationMigration",
+      "g4b_u01_4b01": "POSTG-MIG-A11_G4B_U01_GoldenConformanceAndKnowledgeOperationMigration",
+      "g4b_u04_4b04": "POSTG-MIG-A12_G4B_U04_GoldenConformanceAndKnowledgeOperationMigration"
+    },
+    "programCloseoutTaskId": "POSTG-MIG-A13_ProgramControllerAndKnowledgeRegistryCloseout"
+  },
+  "knowledgeRegistry": {
+    "schemaPath": "data/curriculum/knowledge/schema/knowledge-operation-unit.schema.json",
+    "masterIndexPath": "data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json",
+    "unitJsonPattern": "data/curriculum/knowledge/units/<sourceId>.knowledge-operation.json",
+    "designerWorkbookPath": "build/reports/Golden_Knowledge_Operation_Master.xlsx",
+    "auditSummaryCsvPath": "build/reports/Golden_Knowledge_Operation_Master.summary.csv",
+    "unitJsonIsAuthoritative": true,
+    "excelIsGeneratedReadOnlyView": true,
+    "csvIsGeneratedAuditView": true,
+    "requiredFinalUnitJsonCount": 15,
+    "anchorKnowledgeBackfill": {
+      "required": true,
+      "sourceIds": [
+        "g3b_u04_3b04",
+        "g5a_u08_5a08",
+        "g5a_u02_5a02"
+      ],
+      "assignedTaskId": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+      "changesAnchorConformanceState": false,
+      "reason": "A01 is the first cross-unit regression consumer and must normalize the three regression anchors into the new knowledge registry before relying on them."
+    }
+  },
+  "stateMachine": {
+    "allowedTransitions": [
+      "LEGACY_COMPLETED_PENDING_GOLDEN_VALIDATION->IN_PROGRESS_GOLDEN_NATIVE",
+      "IN_PROGRESS_GOLDEN_NATIVE->GOLDEN_CONFORMANT",
+      "IN_PROGRESS_GOLDEN_NATIVE->BLOCKED_SOURCE_EVIDENCE",
+      "BLOCKED_SOURCE_EVIDENCE->IN_PROGRESS_GOLDEN_NATIVE",
+      "IN_PROGRESS_GOLDEN_NATIVE->SHARED_CAPABILITY_EXCEPTION",
+      "SHARED_CAPABILITY_EXCEPTION->IN_PROGRESS_GOLDEN_NATIVE",
+      "SHARED_CAPABILITY_EXCEPTION->GOLDEN_CONFORMANT"
+    ],
+    "directPendingToConformantAllowed": false,
+    "productionAdmissionRequiresGoldenConformant": true,
+    "queueAdvanceRequiresCurrentUnitCloseGate": true
+  },
+  "antiDrift": {
+    "forbidSharedRuntimeBypass": true,
+    "forbidNewPerUnitGenerator": true,
+    "forbidNewPerUnitValidator": true,
+    "forbidNewPerUnitRenderer": true,
+    "forbidNewPerUnitWorkflow": true,
+    "forbidManualExcelJsonDualAuthority": true,
+    "requireExactSourceAuthorityCoverage": true,
+    "requireKnowledgeOperationGate": true,
+    "requireProductionHtmlPdfHashReadback": true,
+    "requireGoldenAnchorRegression": true
+  },
+  "scopeBoundary": {
+    "executesUnitMigrationDuringA00": false,
+    "changesPublicUI": false,
+    "changesQuestionContent": false,
+    "changesProductionAdmissionDuringA00": false,
+    "applicationCapabilityExpansionApproved": false,
+    "postGoldenMigrationProgramApproved": true
+  },
+  "continuation": {
+    "autoContinueWithinApprovedProgram": true,
+    "nextTaskAfterA00": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    "nextResumeSourceId": "g3a_u01_3a01"
+  }
+}
