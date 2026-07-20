@@ -6,6 +6,7 @@ import { adaptGlobalPublicSourceUnitPlan } from "../../../modules/curriculum/bat
 import { buildG5AU02PublicCandidateWorksheet } from "../../../modules/curriculum/batch-a/g5a-u02-public-candidate.js";
 import { resolveG5AU02BrowserPlan } from "../../../modules/curriculum/batch-b/g5a-u02-browser-resolver.js";
 import { buildG5AU02BrowserDynamicWorksheet } from "../../../modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js";
+import { applyRegisteredGoldenRuntimeContract } from "../../../modules/curriculum/registry/golden-runtime-units.js";
 import { getBatchAWorksheetPlan, storeWorksheetResult } from "../state/config-state.js";
 import { attachPublicControlOutputMetadata } from "./public-control-output-metadata.js";
 
@@ -23,6 +24,7 @@ export function buildWorksheetDocumentFromState(state) {
   const sourceUnitAdaptation = adaptGlobalPublicSourceUnitPlan(publicPlan);
   const plan = sourceUnitAdaptation.plan;
   const resolution = resolveG5AU02BrowserPlan(plan);
+  const effectivePlan = resolution?.plan ?? plan;
   let result;
   if (resolution?.mode === "blocked") {
     result = blockedKnowledgePointResult(resolution);
@@ -32,13 +34,14 @@ export function buildWorksheetDocumentFromState(state) {
     // G5A-U02 sourceUnit is adapted to the dynamic canonical route above.
     // The fixed static candidate remains available only for legacy diagnostic
     // callers that bypass the public source-unit adapter.
-    const publicCandidate = buildG5AU02PublicCandidateWorksheet(resolution?.plan ?? plan);
-    result = publicCandidate ?? buildBatchABrowserWorksheetDocument(plan);
+    const publicCandidate = buildG5AU02PublicCandidateWorksheet(effectivePlan);
+    result = publicCandidate ?? buildBatchABrowserWorksheetDocument(effectivePlan);
   }
+  result = applyRegisteredGoldenRuntimeContract(result, effectivePlan);
   result = applyG3BU04GlobalContextPublicWorksheetAdmission(result);
-  result = attachPublicControlOutputMetadata(result, resolution?.plan ?? plan);
+  result = attachPublicControlOutputMetadata(result, effectivePlan);
   result = projectG5AU02DynamicDocumentForGlobalLayout(result);
-  result = applyGlobalPublicLayoutOverlay(result, resolution?.plan ?? plan);
+  result = applyGlobalPublicLayoutOverlay(result, effectivePlan);
   storeWorksheetResult(state, result);
   return result;
 }
