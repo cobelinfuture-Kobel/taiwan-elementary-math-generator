@@ -25,6 +25,7 @@
   "stopReason": "NEXT_STEP_OUTSIDE_APPROVED_SCOPE",
   "scope": {
     "allowedPaths": [
+      ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml",
       ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml",
       "site/modules/curriculum/golden/golden-batch-controller.js",
       "tools/governance/milestone-claim-integrity-core.mjs",
