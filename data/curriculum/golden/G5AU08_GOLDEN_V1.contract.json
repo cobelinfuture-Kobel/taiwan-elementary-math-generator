@@ -1,0 +1,576 @@
+{
+  "schemaName": "G5AU08GoldenContract",
+  "schemaVersion": 1,
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "sourceId": "g5a_u08_5a08",
+  "unitCode": "5A-U08",
+  "status": "FROZEN_FOR_GS04_CONSUMPTION",
+  "freezeTaskId": "GS03_G5AU08_GoldenContractFreeze",
+  "predecessorEvidence": {
+    "gs01MergeSha": "5286417b30dffe319f1d103fc2ea8b306be19b9a",
+    "gs02MergeSha": "348f001e9ede0bf852448e32cf1162d5502ea552",
+    "gs01EvidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "gs02EvidenceLevel": "E2_CONTENT_AUTHORED"
+  },
+  "frozenCounts": {
+    "knowledgePointCount": 11,
+    "patternGroupCount": 17,
+    "patternSpecCount": 30,
+    "numericPatternSpecCount": 19,
+    "applicationPatternSpecCount": 11,
+    "generatorPatternSpecUnionCount": 30,
+    "templateFamilyCount": 10,
+    "globalContextFamilyCount": 18,
+    "unitContextBindingCount": 18,
+    "surfaceTemplateCount": 54,
+    "seedQACount": 90
+  },
+  "schemaContract": {
+    "sourcePatternAuthority": "site/modules/curriculum/batch-a/source-pattern-g5a-u08-extension.js",
+    "applicationTemplateAuthority": "data/curriculum/contracts/S60D_G5A_U08_ApplicationTemplateAndSDGContextContract.json",
+    "globalContextFamilyAuthority": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+    "unitContextBindingAuthority": "data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json",
+    "requiredNodeIdentityFields": [
+      "sourceId",
+      "knowledgePointId",
+      "patternGroupId",
+      "patternSpecId"
+    ],
+    "requiredQuestionFields": [
+      "sourceId",
+      "patternSpecId",
+      "patternGroupId",
+      "knowledgePointId",
+      "answerModelShape",
+      "finalAnswer",
+      "fallbackUsed",
+      "genericFallbackAllowed"
+    ],
+    "allowedDepths": [
+      "N",
+      "N_PLUS_1"
+    ],
+    "allowedContextTypes": [
+      "daily_life",
+      "sdg"
+    ],
+    "publicNPlus2": false,
+    "formalEquationPublicMode": false
+  },
+  "bindingContract": {
+    "promotionOverlayId": "s60l_g5a_u08_production_promotion",
+    "productionLifecycle": {
+      "task": "S60L_G5A_U08_ProductionStressHTMLPDFAndD0Closeout",
+      "status": "production_promoted",
+      "selectorStatus": "visible",
+      "runtimeStatus": "blocking_validated_canonical_runtime",
+      "validatorStatus": "blocking_validator_accepted",
+      "worksheetStatus": "worksheet_eligible",
+      "rendererStatus": "production_renderer_accepted",
+      "htmlPdfStatus": "production_smoke_required",
+      "productionUse": "allowed",
+      "distance": "D0_G5A_U08",
+      "requiredNextGate": "S60M_BatchA_AllUnitsProductionCloseout"
+    },
+    "productionUse": "allowed",
+    "productionSelectorStatus": "visible",
+    "globalContextLifecycleAtFreeze": "candidate_gs02",
+    "globalContextProductionSelectableAtFreeze": false,
+    "globalContextRuntimeResolvableAtFreeze": false,
+    "contextMayChangeMath": false,
+    "contextMayReplaceTemplateFamily": false,
+    "operationSignatureAuthority": "unit_owned_existing_template_family",
+    "quantityRoleAuthority": "unit_owned_existing_template_family",
+    "unitFlowAuthority": "unit_owned_existing_template_family",
+    "answerWitnessAuthority": "unit_owned_existing_validator_and_answer_model"
+  },
+  "generatorContract": {
+    "numericModule": "site/modules/curriculum/batch-a/g5a-u08-numeric-generator.js",
+    "applicationModule": "site/modules/curriculum/batch-a/g5a-u08-application-generator.js",
+    "numericPatternSpecIds": [
+      "ps_g5a_u08_add_sub_signed_regroup",
+      "ps_g5a_u08_common_factor_add",
+      "ps_g5a_u08_common_factor_sub",
+      "ps_g5a_u08_consecutive_subtraction",
+      "ps_g5a_u08_continuous_division",
+      "ps_g5a_u08_distributive_expand_add",
+      "ps_g5a_u08_distributive_expand_sub",
+      "ps_g5a_u08_equivalence_invalid_duplicate_factor",
+      "ps_g5a_u08_equivalence_valid",
+      "ps_g5a_u08_missing_operator_sequence",
+      "ps_g5a_u08_mixed_precedence_3op",
+      "ps_g5a_u08_mixed_precedence_4op",
+      "ps_g5a_u08_mul_div_factor_regroup",
+      "ps_g5a_u08_near_round_add_multi",
+      "ps_g5a_u08_near_round_multiply_above",
+      "ps_g5a_u08_near_round_multiply_below",
+      "ps_g5a_u08_near_round_sub_multi",
+      "ps_g5a_u08_near_round_sub_two",
+      "ps_g5a_u08_round_completion_add"
+    ],
+    "applicationPatternSpecIds": [
+      "ps_g5a_u08_app_adjust_unit_remaining",
+      "ps_g5a_u08_app_average_inverse",
+      "ps_g5a_u08_app_average_share_transfer",
+      "ps_g5a_u08_app_average_update",
+      "ps_g5a_u08_app_direct_average",
+      "ps_g5a_u08_app_discount_change",
+      "ps_g5a_u08_app_group_select",
+      "ps_g5a_u08_app_near_round_unit_price",
+      "ps_g5a_u08_app_nested_grouping",
+      "ps_g5a_u08_app_two_product_groups_difference",
+      "ps_g5a_u08_app_two_same_rate_groups_sum"
+    ],
+    "patternSpecUnionCount": 30,
+    "applicationSpecPolicy": {
+      "ps_g5a_u08_app_two_same_rate_groups_sum": {
+        "templateFamilyId": "tf_g5a_u08_two_same_rate_groups_sum",
+        "depths": [
+          "N",
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N": [],
+          "N_PLUS_1": [
+            "combine_groups"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_two_product_groups_difference": {
+        "templateFamilyId": "tf_g5a_u08_two_product_groups_difference",
+        "depths": [
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N_PLUS_1": [
+            "combine_groups"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_discount_change": {
+        "templateFamilyId": "tf_g5a_u08_discount_and_change",
+        "depths": [
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N_PLUS_1": [
+            "discount_or_compensation"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_adjust_unit_remaining": {
+        "templateFamilyId": "tf_g5a_u08_adjust_unit_then_remaining",
+        "depths": [
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N_PLUS_1": [
+            "adjust_unit_amount"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_group_select": {
+        "templateFamilyId": "tf_g5a_u08_group_then_select_groups",
+        "depths": [
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N_PLUS_1": [
+            "nested_grouping"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_near_round_unit_price": {
+        "templateFamilyId": "tf_g5a_u08_near_round_unit_price",
+        "depths": [
+          "N",
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N": [],
+          "N_PLUS_1": [
+            "discount_or_compensation"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_nested_grouping": {
+        "templateFamilyId": "tf_g5a_u08_nested_grouping",
+        "depths": [
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N_PLUS_1": [
+            "nested_grouping"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_direct_average": {
+        "templateFamilyId": "tf_g5a_u08_direct_average",
+        "depths": [
+          "N"
+        ],
+        "deltaByDepth": {
+          "N": []
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_average_share_transfer": {
+        "templateFamilyId": "tf_g5a_u08_average_share_transfer",
+        "depths": [
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N_PLUS_1": [
+            "reverse_from_total"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_average_inverse": {
+        "templateFamilyId": "tf_g5a_u08_average_inverse_or_update",
+        "depths": [
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N_PLUS_1": [
+            "reverse_from_average"
+          ]
+        },
+        "contexts": [
+          "daily_life",
+          "sdg"
+        ]
+      },
+      "ps_g5a_u08_app_average_update": {
+        "templateFamilyId": "tf_g5a_u08_average_inverse_or_update",
+        "depths": [
+          "N_PLUS_1"
+        ],
+        "deltaByDepth": {
+          "N_PLUS_1": [
+            "update_population"
+          ]
+        },
+        "contexts": [
+          "sdg"
+        ]
+      }
+    },
+    "allowedSdgIds": [
+      "SDG_2",
+      "SDG_4",
+      "SDG_6",
+      "SDG_7",
+      "SDG_11",
+      "SDG_12",
+      "SDG_13",
+      "SDG_15"
+    ],
+    "deterministicGenerationRequired": true,
+    "rejectionSamplingBounded": true,
+    "genericFallbackAllowed": false,
+    "freeFormAICompositionAllowed": false,
+    "unsupportedPatternPolicy": "block"
+  },
+  "validatorContract": {
+    "numericModule": "site/modules/curriculum/batch-a/g5a-u08-numeric-validator.js",
+    "applicationModule": "site/modules/curriculum/batch-a/g5a-u08-application-validator.js",
+    "applicationCoreModule": "site/modules/curriculum/batch-a/g5a-u08-application-validator-core.js",
+    "blockingFailureReturnsOutput": false,
+    "canonicalAnswerRecomputationRequired": true,
+    "patternSpecDepthContextAllocationParityRequired": true,
+    "unitFlowValidationRequired": true,
+    "semanticRoleValidationRequired": true,
+    "sdgLabelOnlyContextBlocked": true,
+    "unsupportedContextBindingBlocked": true,
+    "errorSeverityForBlockingFailure": "error"
+  },
+  "rendererContract": {
+    "module": "site/modules/renderer/html-renderer-s60j-extension.js",
+    "worksheetAssemblyModule": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s60j-extension.js",
+    "documentPipeline": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "previewPipeline": "site/assets/browser/pipeline/render-preview-frame.js",
+    "profileIds": [
+      "g5a_u08_numeric_reasoning_v1",
+      "g5a_u08_mixed_long_text_v1"
+    ],
+    "answerShapes": [
+      "numericAnswer",
+      "expressionAnswer",
+      "operatorSequenceAnswer",
+      "equalityJudgementAnswer",
+      "averageInverseAnswer",
+      "allocationTransferAnswer"
+    ],
+    "internalIdVisible": false,
+    "questionPageType": "question",
+    "answerPageType": "answer",
+    "questionAndAnswerNumberSequenceMustMatch": true,
+    "answerKeyMayBeOmitted": true,
+    "printPageWidthMm": 210,
+    "printPageHeightMm": 296,
+    "iframePrintInvocationRequired": true,
+    "genericRendererFallbackAllowedForG5AU08": false
+  },
+  "unitConformanceContract": {
+    "requiredFields": [
+      "unitId",
+      "implementationStatus",
+      "goldenContractVersion",
+      "knowledgePointCoverage",
+      "patternSpecCoverage",
+      "contextBindingStatus",
+      "generatorConformance",
+      "validatorConformance",
+      "rendererConformance",
+      "publicUIConformance",
+      "exceptionStatus"
+    ],
+    "allowedStatuses": [
+      "LEGACY_COMPLETED_PENDING_GOLDEN_VALIDATION",
+      "GOLDEN_CONFORMANT",
+      "IN_PROGRESS_GOLDEN_NATIVE",
+      "BLOCKED_SOURCE_EVIDENCE",
+      "SHARED_CAPABILITY_EXCEPTION",
+      "NOT_STARTED"
+    ],
+    "productionGateRequiresGoldenConformant": true
+  },
+  "extensionPolicy": {
+    "perUnitNewGeneratorMax": 0,
+    "perUnitNewValidatorMax": 0,
+    "perUnitNewRendererMax": 0,
+    "perUnitNewWorkflowMax": 0,
+    "affectedUnitCountForSharedCapability": 2,
+    "sharedCapabilityExtensionRequiresApproval": true,
+    "versionBumpRequiredForContractMutation": true,
+    "migrationNoteRequiredForBreakingChange": true
+  },
+  "consumerBoundary": {
+    "nextTaskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
+    "runtimeConsumerImplementedByGS03": false,
+    "batchAdapterImplementedByGS03": false,
+    "crossUnitPilotImplementedByGS03": false,
+    "productionAdmissionOfGS02ContextsByGS03": false
+  },
+  "authoritySnapshot": [
+    {
+      "layer": "schema",
+      "path": "data/curriculum/contracts/S60D_G5A_U08_ApplicationTemplateAndSDGContextContract.json",
+      "sha256": "587dbcaf860945402c9a16d8d6365462c9fa555d10d58d5de0f9099deb6fbdef",
+      "requiredTokens": [
+        "templateFamilies",
+        "allowedSemanticDeltaIds",
+        "maxSemanticDeltaPerItem"
+      ]
+    },
+    {
+      "layer": "schema",
+      "path": "site/modules/curriculum/batch-a/source-pattern-g5a-u08-extension.js",
+      "sha256": "780078f31a5238ea094fe585d1c4970206da6ed8e9f8c158ba81a573e9a712d0",
+      "requiredTokens": [
+        "G5A_U08_HIDDEN_PATTERN_GROUPS",
+        "G5A_U08_HIDDEN_PATTERN_SPECS"
+      ]
+    },
+    {
+      "layer": "schema",
+      "path": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+      "sha256": "95562bab2701f852b737e444ebce79d60a6d195fb1b564fc9918ea5b6d3c5c42",
+      "requiredTokens": [
+        "GS02G5AU08GlobalContextFamilyRegistry",
+        "contextFamilies"
+      ]
+    },
+    {
+      "layer": "binding",
+      "path": "data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json",
+      "sha256": "bb1a60212c8ebeb9c8f86e15694496a9221bf5fe703782f44258a22d768b5d10",
+      "requiredTokens": [
+        "GS02G5AU08UnitContextBindingRegistry",
+        "bindings"
+      ]
+    },
+    {
+      "layer": "binding",
+      "path": "site/modules/curriculum/registry/g5a-u08-promotion.js",
+      "sha256": "548ef83ea867356a42d7dc0230f434dd5f0f8216413b83485ee493934e904241",
+      "requiredTokens": [
+        "G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS",
+        "G5A_U08_PROMOTED_PATTERN_SPEC_IDS"
+      ]
+    },
+    {
+      "layer": "binding",
+      "path": "site/modules/curriculum/registry/g5a-u08-production-promotion.js",
+      "sha256": "745cac8e36f2fce9ff6037a97ab711e939bf542e6f2513f15e90eafbe1150aa5",
+      "requiredTokens": [
+        "G5A_U08_PRODUCTION_LIFECYCLE",
+        "getG5AU08ProductionPromotionProjection"
+      ]
+    },
+    {
+      "layer": "binding",
+      "path": "site/modules/curriculum/registry/g5a-u08-worksheet-promotion.js",
+      "sha256": "336af56a13b028911cdde337434977af9b60c94578ffaaed04772d0dbf288431",
+      "requiredTokens": [
+        "G5A_U08_WORKSHEET_PROMOTION_OVERLAY_ID"
+      ]
+    },
+    {
+      "layer": "binding",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-worksheet-eligibility.js",
+      "sha256": "20cc06058a0fb9701c959d7000a4c83d5a674f30e71f23f0ec7bfde7cbd1c822",
+      "requiredTokens": [
+        "G5A_U08_WORKSHEET_ELIGIBILITY",
+        "validateG5AU08WorksheetEligibility"
+      ]
+    },
+    {
+      "layer": "binding",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-canonical-router.js",
+      "sha256": "8afc4a77d23bdb60e90d3fc53a8d9d12957144df41cd61c9773f5a74885108c1",
+      "requiredTokens": [
+        "G5A_U08_CANONICAL_ROUTER_INTEGRATION",
+        "normalizeG5AU08ResolverPlan",
+        "validateG5AU08CanonicalPlan"
+      ]
+    },
+    {
+      "layer": "generator",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-numeric-generator.js",
+      "sha256": "1ff274968b9cf2e9a13206595bf115ec987278cddbf3d58dcb331887afca3861",
+      "requiredTokens": [
+        "G5A_U08_S60G_PATTERN_SPEC_IDS",
+        "genericFallbackAllowed"
+      ]
+    },
+    {
+      "layer": "generator",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-application-generator.js",
+      "sha256": "18a5dcbc1340c6e36f7d18d930827145d35ad341df2097bb3166dfc150b1e941",
+      "requiredTokens": [
+        "generateG5AU08ApplicationQuestion",
+        "generateG5AU08ApplicationBatch"
+      ]
+    },
+    {
+      "layer": "generator",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-application-generator-core.js",
+      "sha256": "8c71c18c6c97cad8e176a318050268d4f1443f08143deb11f2de09fe0e900b97",
+      "requiredTokens": [
+        "G5A_U08_S60H_PATTERN_SPEC_IDS",
+        "genericFallbackAllowed"
+      ]
+    },
+    {
+      "layer": "generator",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-application-batch-planner.js",
+      "sha256": "8c981a123644de88517d7fcaf465a41ddb0da6d41dd3630a76a3e769d5cb9c82",
+      "requiredTokens": [
+        "generateG5AU08ApplicationBatch",
+        "resolveJointPlan"
+      ]
+    },
+    {
+      "layer": "validator",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-numeric-validator.js",
+      "sha256": "cc53c31d21b155b9e01eb929de08a01a48e02f4f381fecd422ba3e04f1b1070f",
+      "requiredTokens": [
+        "valid",
+        "output"
+      ]
+    },
+    {
+      "layer": "validator",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-application-validator.js",
+      "sha256": "b4336b78c04e1da4df3ca254d709110699072ecb043096bfd0257bd384d68f73",
+      "requiredTokens": [
+        "G5A_U08_BLOCKING_CODES",
+        "validateG5AU08ApplicationBatch"
+      ]
+    },
+    {
+      "layer": "validator",
+      "path": "site/modules/curriculum/batch-a/g5a-u08-application-validator-core.js",
+      "sha256": "3dcc719616afcb0eac777cc2636c06fa7e04ecae3a3340127630b61464b8912d",
+      "requiredTokens": [
+        "G5A_U08_BLOCKING_CODES",
+        "acceptedQuestions"
+      ]
+    },
+    {
+      "layer": "renderer",
+      "path": "site/modules/renderer/html-renderer-s60j-extension.js",
+      "sha256": "e38964f62634e0742380f47ed1eae12c6de439afdd7016e663410846d7a9d5b2",
+      "requiredTokens": [
+        "G5A_U08_RENDERER_INTEGRATION",
+        "renderWorksheetDocumentToHtml"
+      ]
+    },
+    {
+      "layer": "renderer",
+      "path": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s60j-extension.js",
+      "sha256": "834821e0769117dfa18116b8b324d19446425191dd1b5de41ff2b571c7cf798f",
+      "requiredTokens": [
+        "G5A_U08_CANONICAL_WORKSHEET_INTEGRATION",
+        "buildBatchABrowserWorksheetDocument"
+      ]
+    },
+    {
+      "layer": "renderer",
+      "path": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "sha256": "043617126892310f2817a68b0a8f16560eb7bc1910c246d4d34eb27b5b1a65dc",
+      "requiredTokens": [
+        "buildWorksheetDocumentFromState",
+        "adaptGlobalPublicSourceUnitPlan",
+        "applyGlobalPublicLayoutOverlay"
+      ]
+    },
+    {
+      "layer": "renderer",
+      "path": "site/assets/browser/pipeline/render-preview-frame.js",
+      "sha256": "ac8004123e03fb8757ee3ebc5cd828703c4f31f6b8fcc286e13d4da95cd5b673",
+      "requiredTokens": [
+        "renderPreviewFrame",
+        "printPreviewFrame",
+        "contentWindow"
+      ]
+    }
+  ]
+}
