@@ -2,7 +2,7 @@
   "schemaVersion": "gs05-cross-unit-conformance-v1",
   "taskId": "GS05_G5AU08_CrossUnitConformancePilot",
   "programId": "G5AU08_GOLDEN_SAMPLE_V1",
-  "status": "IN_PROGRESS_PENDING_EXACT_HEAD_CI",
+  "status": "PASS_E3_THREE_CLASS_CROSS_UNIT_CONFORMANCE_PENDING_MERGE",
   "goldenContractId": "G5AU08_GOLDEN_V1",
   "goldenContractVersion": "1.0.0",
   "goal": "Prove the frozen Golden contract and shared runtime policy across a completed numeric unit, a completed application/context unit, and an unfinished Golden-native unit without creating parallel per-unit runtime.",
@@ -10,17 +10,20 @@
     {
       "sourceId": "g5a_u02_5a02",
       "pilotClass": "legacy_numeric_completed",
-      "expectedStatus": "GOLDEN_CONFORMANT"
+      "expectedStatus": "GOLDEN_CONFORMANT",
+      "actualStatus": "GOLDEN_CONFORMANT"
     },
     {
       "sourceId": "g3b_u04_3b04",
       "pilotClass": "legacy_application_completed",
-      "expectedStatus": "GOLDEN_CONFORMANT"
+      "expectedStatus": "GOLDEN_CONFORMANT",
+      "actualStatus": "GOLDEN_CONFORMANT"
     },
     {
       "sourceId": "g3a_u01_3a01",
       "pilotClass": "golden_native_in_progress",
-      "expectedStatus": "IN_PROGRESS_GOLDEN_NATIVE"
+      "expectedStatus": "IN_PROGRESS_GOLDEN_NATIVE",
+      "actualStatus": "IN_PROGRESS_GOLDEN_NATIVE"
     }
   ],
   "acceptance": {
@@ -38,7 +41,11 @@
     "newPerUnitGeneratorMax": 0,
     "newPerUnitValidatorMax": 0,
     "newPerUnitRendererMax": 0,
-    "newPerUnitWorkflowMax": 0
+    "newPerUnitWorkflowMax": 0,
+    "focusedWorkflowStatus": "PASS",
+    "milestoneClaimIntegrityStatus": "PASS",
+    "nodeTestStatus": "PASS",
+    "mathCIReadbackStatus": "PASS"
   },
   "authorities": {
     "goldenContract": "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
@@ -47,6 +54,8 @@
     "sharedAdapter": "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
     "focusedTest": "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
     "workflow": ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml",
+    "passMarker": "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PASS.marker",
+    "readback": "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_READBACK.md",
     "predecessorCompatibilityWorkflows": [
       ".github/workflows/gs02-g5a-u08-global-context-expansion.yml",
       ".github/workflows/gs03-g5a-u08-golden-contract-freeze.yml",
