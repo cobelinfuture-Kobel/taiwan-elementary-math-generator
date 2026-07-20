@@ -5,10 +5,10 @@ PROGRAM_ID = POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1
 TASK_ID = POSTG-MIG-A04_G3A_U06_GoldenConformanceAndKnowledgeOperationMigration
 SOURCE_ID = g3a_u06_3a06
 UNIT = 3A-U06 二位數除以一位數
-STATUS = A04_EFFECTIVE_SELECTOR_REGISTERED_PENDING_EXACT_HEAD_EVIDENCE
+STATUS = SUPERSEDED_BY_AUTHORITATIVE_CLOSEOUT
 ```
 
-## Authoritative candidate scope
+## Accepted candidate scope
 
 ```text
 KnowledgePoints = 6
@@ -32,10 +32,17 @@ The effective selector exposes:
 
 Quotative packaging and partitive equal-sharing remain separate semantic models even though both use division.
 
-## Remaining gates
+## Closeout authority
 
-1. Generate and validate all six PatternSpecs through the shared runtime.
-2. Validate the KnowledgeOperation JSON against the canonical schema.
-3. Generate exact-head HTML/PDF/hash/DOM evidence.
-4. Regenerate designer Excel and audit CSV.
-5. Promote to `GOLDEN_CONFORMANT` and activate G3B-U01 only after all gates pass.
+The candidate gates passed and this readback is retained as historical input evidence. The current authoritative results are:
+
+- `docs/curriculum/output/POSTG_MIG_A04_G3AU06_D0_READBACK.md`
+- `docs/curriculum/output/postg/a04-g3a-u06/POSTG_MIG_A04_G3AU06_RUNTIME_READBACK.json`
+- `data/project/milestones/POSTG-MIG-A04.claim.json`
+
+```text
+ConformanceState = GOLDEN_CONFORMANT
+KnowledgeRegistryState = VALIDATED_COMPLETE
+QueueTransition = G3A-U06 COMPLETE; G3B-U01 ACTIVE
+GOAL_DISTANCE = D9
+```
