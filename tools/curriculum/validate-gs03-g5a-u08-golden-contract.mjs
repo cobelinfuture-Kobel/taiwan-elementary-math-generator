@@ -14,18 +14,19 @@ export async function readCommittedGS03GoldenContract() {
   return JSON.parse(await readFile(CONTRACT_PATH, "utf8"));
 }
 
-export async function validateGS03GoldenContract(contract = await readCommittedGS03GoldenContract()) {
+export async function validateGS03GoldenContract(contract = null) {
+  const resolvedContract = contract ?? await readCommittedGS03GoldenContract();
   const expected = await buildGS03GoldenContract();
   const errors = [];
 
-  if (contract.goldenContractId !== "G5AU08_GOLDEN_V1") {
-    errors.push(issue("GS03_GOLDEN_CONTRACT_ID_INVALID", { actual: contract.goldenContractId }));
+  if (resolvedContract.goldenContractId !== "G5AU08_GOLDEN_V1") {
+    errors.push(issue("GS03_GOLDEN_CONTRACT_ID_INVALID", { actual: resolvedContract.goldenContractId }));
   }
-  if (contract.goldenContractVersion !== "1.0.0") {
-    errors.push(issue("GS03_GOLDEN_CONTRACT_VERSION_INVALID", { actual: contract.goldenContractVersion }));
+  if (resolvedContract.goldenContractVersion !== "1.0.0") {
+    errors.push(issue("GS03_GOLDEN_CONTRACT_VERSION_INVALID", { actual: resolvedContract.goldenContractVersion }));
   }
-  if (contract.status !== "FROZEN_FOR_GS04_CONSUMPTION") {
-    errors.push(issue("GS03_GOLDEN_CONTRACT_NOT_FROZEN", { actual: contract.status }));
+  if (resolvedContract.status !== "FROZEN_FOR_GS04_CONSUMPTION") {
+    errors.push(issue("GS03_GOLDEN_CONTRACT_NOT_FROZEN", { actual: resolvedContract.status }));
   }
 
   const exactCounts = {
@@ -42,12 +43,12 @@ export async function validateGS03GoldenContract(contract = await readCommittedG
     seedQACount: 90,
   };
   for (const [key, value] of Object.entries(exactCounts)) {
-    if (contract.frozenCounts?.[key] !== value) {
-      errors.push(issue("GS03_FROZEN_COUNT_DRIFT", { key, expected: value, actual: contract.frozenCounts?.[key] }));
+    if (resolvedContract.frozenCounts?.[key] !== value) {
+      errors.push(issue("GS03_FROZEN_COUNT_DRIFT", { key, expected: value, actual: resolvedContract.frozenCounts?.[key] }));
     }
   }
 
-  const authorityRows = contract.authoritySnapshot ?? [];
+  const authorityRows = resolvedContract.authoritySnapshot ?? [];
   if (authorityRows.length !== 20) {
     errors.push(issue("GS03_AUTHORITY_FILE_COUNT_INVALID", { actual: authorityRows.length }));
   }
@@ -66,35 +67,35 @@ export async function validateGS03GoldenContract(contract = await readCommittedG
     }
   }
 
-  if (contract.bindingContract?.productionUse !== "allowed"
-    || contract.bindingContract?.productionSelectorStatus !== "visible") {
+  if (resolvedContract.bindingContract?.productionUse !== "allowed"
+    || resolvedContract.bindingContract?.productionSelectorStatus !== "visible") {
     errors.push(issue("GS03_PRODUCTION_BASELINE_NOT_PRESERVED"));
   }
-  if (contract.bindingContract?.globalContextProductionSelectableAtFreeze !== false
-    || contract.bindingContract?.globalContextRuntimeResolvableAtFreeze !== false) {
+  if (resolvedContract.bindingContract?.globalContextProductionSelectableAtFreeze !== false
+    || resolvedContract.bindingContract?.globalContextRuntimeResolvableAtFreeze !== false) {
     errors.push(issue("GS03_PREMATURE_GLOBAL_CONTEXT_ADMISSION"));
   }
-  if (contract.bindingContract?.contextMayChangeMath !== false
-    || contract.bindingContract?.contextMayReplaceTemplateFamily !== false) {
+  if (resolvedContract.bindingContract?.contextMayChangeMath !== false
+    || resolvedContract.bindingContract?.contextMayReplaceTemplateFamily !== false) {
     errors.push(issue("GS03_CONTEXT_MATH_OWNERSHIP_INVALID"));
   }
 
-  if (contract.generatorContract?.genericFallbackAllowed !== false
-    || contract.generatorContract?.freeFormAICompositionAllowed !== false
-    || contract.generatorContract?.unsupportedPatternPolicy !== "block") {
+  if (resolvedContract.generatorContract?.genericFallbackAllowed !== false
+    || resolvedContract.generatorContract?.freeFormAICompositionAllowed !== false
+    || resolvedContract.generatorContract?.unsupportedPatternPolicy !== "block") {
     errors.push(issue("GS03_GENERATOR_SAFETY_CONTRACT_INVALID"));
   }
-  if (contract.validatorContract?.blockingFailureReturnsOutput !== false
-    || contract.validatorContract?.canonicalAnswerRecomputationRequired !== true) {
+  if (resolvedContract.validatorContract?.blockingFailureReturnsOutput !== false
+    || resolvedContract.validatorContract?.canonicalAnswerRecomputationRequired !== true) {
     errors.push(issue("GS03_VALIDATOR_FAIL_CLOSED_CONTRACT_INVALID"));
   }
-  if (contract.rendererContract?.internalIdVisible !== false
-    || contract.rendererContract?.questionAndAnswerNumberSequenceMustMatch !== true
-    || contract.rendererContract?.iframePrintInvocationRequired !== true) {
+  if (resolvedContract.rendererContract?.internalIdVisible !== false
+    || resolvedContract.rendererContract?.questionAndAnswerNumberSequenceMustMatch !== true
+    || resolvedContract.rendererContract?.iframePrintInvocationRequired !== true) {
     errors.push(issue("GS03_RENDERER_CONTRACT_INVALID"));
   }
 
-  const extension = contract.extensionPolicy ?? {};
+  const extension = resolvedContract.extensionPolicy ?? {};
   for (const field of ["perUnitNewGeneratorMax", "perUnitNewValidatorMax", "perUnitNewRendererMax", "perUnitNewWorkflowMax"]) {
     if (extension[field] !== 0) errors.push(issue("GS03_PER_UNIT_RUNTIME_LIMIT_INVALID", { field, actual: extension[field] }));
   }
@@ -104,7 +105,7 @@ export async function validateGS03GoldenContract(contract = await readCommittedG
     errors.push(issue("GS03_SHARED_EXTENSION_POLICY_INVALID"));
   }
 
-  const consumer = contract.consumerBoundary ?? {};
+  const consumer = resolvedContract.consumerBoundary ?? {};
   if (consumer.nextTaskId !== "GS04_G5AU08_SharedRuntimeAndBatchAdapter"
     || consumer.runtimeConsumerImplementedByGS03 !== false
     || consumer.batchAdapterImplementedByGS03 !== false
@@ -118,11 +119,11 @@ export async function validateGS03GoldenContract(contract = await readCommittedG
     "patternSpecCoverage", "contextBindingStatus", "generatorConformance", "validatorConformance",
     "rendererConformance", "publicUIConformance", "exceptionStatus"
   ];
-  if (stable(contract.unitConformanceContract?.requiredFields) !== stable(requiredConformanceFields)) {
+  if (stable(resolvedContract.unitConformanceContract?.requiredFields) !== stable(requiredConformanceFields)) {
     errors.push(issue("GS03_UNIT_CONFORMANCE_FIELDS_DRIFT"));
   }
 
-  if (stable(contract) !== stable(expected)) {
+  if (stable(resolvedContract) !== stable(expected)) {
     errors.push(issue("GS03_GOLDEN_SNAPSHOT_DRIFT"));
   }
 
@@ -130,12 +131,12 @@ export async function validateGS03GoldenContract(contract = await readCommittedG
     ok: errors.length === 0,
     errors,
     summary: {
-      goldenContractId: contract.goldenContractId,
-      goldenContractVersion: contract.goldenContractVersion,
+      goldenContractId: resolvedContract.goldenContractId,
+      goldenContractVersion: resolvedContract.goldenContractVersion,
       authorityFileCount: authorityRows.length,
-      frozenCounts: contract.frozenCounts,
-      status: contract.status,
-      snapshotMatchesCurrentAuthorities: stable(contract) === stable(expected),
+      frozenCounts: resolvedContract.frozenCounts,
+      status: resolvedContract.status,
+      snapshotMatchesCurrentAuthorities: stable(resolvedContract) === stable(expected),
     },
   };
 }
