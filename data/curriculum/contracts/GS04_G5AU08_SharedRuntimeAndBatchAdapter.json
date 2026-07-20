@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "status": "IMPLEMENTED_PENDING_GITHUB_CI",
+  "predecessor": {
+    "taskId": "GS03_G5AU08_GoldenContractFreeze",
+    "mergeSha": "a43552d4f6d44bbe725a0a8474ad4a8326b607d4",
+    "goldenContractId": "G5AU08_GOLDEN_V1",
+    "goldenContractVersion": "1.0.0",
+    "requiredStatus": "FROZEN_FOR_GS04_CONSUMPTION"
+  },
+  "goal": "Connect the frozen Golden contract to an existing shared runtime through a generic source-unit adapter registry, without creating per-unit generator, validator, renderer or workflow implementations.",
+  "sharedRuntime": {
+    "consumerModule": "site/modules/curriculum/golden/shared-golden-runtime-consumer.js",
+    "descriptorRegistryModule": "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+    "adapterModule": "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+    "publicPipelineModule": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "existingG5AU08WorksheetRuntime": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s60j-extension.js",
+    "connectionStatusTarget": "FROZEN_AND_CONNECTED_TO_EXISTING_SHARED_RUNTIME",
+    "failClosed": true
+  },
+  "affectedUnits": [
+    {
+      "sourceId": "g4b_u04_4b04",
+      "adapterId": "g4b_u04_all_promoted_canonical",
+      "role": "legacy compatibility consumer",
+      "goldenConformanceClaimed": false
+    },
+    {
+      "sourceId": "g5a_u02_5a02",
+      "adapterId": "g5a_u02_all_promoted_dynamic",
+      "role": "legacy compatibility consumer",
+      "goldenConformanceClaimed": false
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "adapterId": "g5a_u08_golden_v1_shared_runtime",
+      "role": "Golden V1 connected consumer",
+      "goldenConformanceClaimed": false
+    }
+  ],
+  "runtimeReuseLimits": {
+    "perUnitNewGeneratorMax": 0,
+    "perUnitNewValidatorMax": 0,
+    "perUnitNewRendererMax": 0,
+    "perUnitNewWorkflowMax": 0,
+    "minimumAffectedUnitCountForSharedCapability": 2
+  },
+  "contextBoundary": {
+    "gs02ContextsProductionSelectable": false,
+    "gs02ContextsRuntimeResolvable": false,
+    "productionAdmissionDeferredTo": "GS05_G5AU08_CrossUnitConformancePilot"
+  },
+  "acceptance": {
+    "goldenDescriptorMatchesFrozenContract": true,
+    "unsupportedContractVersionBlocks": true,
+    "registeredAdapterDriftBlocks": true,
+    "legacyAdapterIdentityAndCountsPreserved": true,
+    "g5aU08SourceUnitReachesExistingS60JRuntime": true,
+    "focusedTestPath": "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
+    "workflowPath": ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml"
+  },
+  "forbidden": [
+    "new G5A-U08 generator",
+    "new G5A-U08 validator",
+    "new G5A-U08 renderer",
+    "unit-specific production workflow",
+    "GS02 context production admission",
+    "cross-unit Golden conformance verdict",
+    "public UI change",
+    "HTML or PDF verification claim"
+  ],
+  "nextShortestStepAfterPass": "GS05_G5AU08_CrossUnitConformancePilot"
+}
