@@ -15,7 +15,7 @@
   "activeTask": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
   "activeTaskStatus": "IN_PROGRESS_CONTROLLER_CANDIDATE_PENDING_EXACT_HEAD_CI",
   "activeBranch": "feat/gs06-golden-batch-controller-d0",
-  "activePR": null,
+  "activePR": 289,
   "lastCompletedTask": "GS05_G5AU08_CrossUnitConformancePilot",
   "nextAllowedTask": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
   "completedCount": 5,
