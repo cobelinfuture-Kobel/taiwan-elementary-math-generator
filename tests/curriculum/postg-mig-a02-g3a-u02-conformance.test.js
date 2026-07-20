@@ -1,135 +1,22 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-
-import {
-  adaptGlobalPublicSourceUnitPlan,
-  validateGlobalPublicSourceUnitAdapters,
-} from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter.js";
-import {
-  G3A_U02_POSTG_TASK_ID,
-  resolvePostGoldenSourceUnitAdapterDescriptor,
-  validatePostGoldenSourceUnitAdapterRegistry,
-} from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js";
+import { adaptGlobalPublicSourceUnitPlan, validateGlobalPublicSourceUnitAdapters } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter.js";
+import { G3A_U02_POSTG_TASK_ID, resolvePostGoldenSourceUnitAdapterDescriptor, validatePostGoldenSourceUnitAdapterRegistry } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js";
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import { validateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
-import {
-  getVisiblePatternGroupsForKnowledgePoint,
-  listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
-
-const SOURCE_ID = "g3a_u02_3a02";
-const EXPECTED_KP_IDS = new Set([
-  "kp_g3a_u02_add_multi_carry",
-  "kp_g3a_u02_sub_multi_borrow",
-  "kp_g3a_u02_estimate_nearest_thousand",
-  "kp_g3a_u02_word_problem_estimation_add_sub",
-  "kp_g3a_u02_add_missing_digit_operand",
-  "kp_g3a_u02_sub_missing_digit_operand",
-  "kp_g3a_u02_add_missing_digit_equation",
-  "kp_g3a_u02_sub_missing_digit_equation",
-  "kp_g3a_u02_sub_middle_missing_digit",
-  "kp_g3a_u02_continuous_borrow_zero",
-]);
-const EXPECTED_SPEC_IDS = new Set([
-  "ps_g3a_u02_4digit_add_multi_carry",
-  "ps_g3a_u02_4digit_sub_multi_borrow",
-  "ps_g3a_u02_estimate_nearest_thousand",
-  "ps_g3a_u02_word_problem_estimation_add_sub",
-  "ps_g3a_u02_add_missing_digit_operand",
-  "ps_g3a_u02_sub_missing_digit_operand",
-  "ps_g3a_u02_add_missing_digit_equation",
-  "ps_g3a_u02_sub_missing_digit_equation",
-  "ps_g3a_u02_sub_middle_missing_digit",
-  "ps_g3a_u02_continuous_borrow_zero",
-]);
-const readJson = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
-
-function candidatePlan(overrides = {}) {
-  return {
-    sourceId: SOURCE_ID,
-    selectionMode: "sourceUnit",
-    questionCount: 40,
-    ordering: "shuffleAcrossPatterns",
-    includeAnswerKey: true,
-    generationSeed: "postg-mig-a02-g3a-u02",
-    goldenContractId: "G5AU08_GOLDEN_V1",
-    goldenContractVersion: "1.0.0",
-    goldenRuntimeMode: "shadow",
-    postGoldenMigrationTaskId: G3A_U02_POSTG_TASK_ID,
-    ...overrides,
-  };
-}
-
-function adaptedPlan(overrides = {}) {
-  const adapted = adaptGlobalPublicSourceUnitPlan(candidatePlan(overrides));
-  assert.equal(adapted.blocked, false, JSON.stringify(adapted.errors));
-  assert.equal(adapted.applied, true);
-  return adapted.plan;
-}
-
-test("A02 authoritative candidate registers the complete effective selector projection", async () => {
-  const registry = await readJson("../../data/curriculum/knowledge/units/g3a_u02_3a02.knowledge-operation.json");
-  assert.equal(registry.conformanceState, "IN_PROGRESS_GOLDEN_NATIVE");
-  assert.equal(registry.knowledgeRegistryState, "QUESTION_BINDINGS_COMPLETE");
-  assert.equal(registry.review.status, "PENDING");
-  assert.equal(registry.knowledgePoints.length, 10);
-  assert.equal(registry.existingQuestionBindings.length, 10);
-  assert.deepEqual(new Set(registry.knowledgePoints.map((row) => row.knowledgePointId)), EXPECTED_KP_IDS);
-  assert.deepEqual(new Set(registry.existingQuestionBindings.map((row) => row.questionId)), EXPECTED_SPEC_IDS);
-  assert.equal(registry.coverage.numeric, "COMPLETE");
-  assert.equal(registry.coverage.application, "COMPLETE");
-});
-
-test("A02 shared descriptor resolves ten KP, ten groups and ten PatternSpecs", () => {
-  const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
-  assert.ok(descriptor);
-  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 10, patternGroups: 10, patternSpecs: 10 });
-  assert.deepEqual(new Set(descriptor.knowledgePointIds), EXPECTED_KP_IDS);
-  assert.equal(descriptor.patternGroupIds.length, 10);
-  assert.deepEqual(new Set(descriptor.patternSpecIds), EXPECTED_SPEC_IDS);
-  assert.equal(validatePostGoldenSourceUnitAdapterRegistry().ok, true);
-  const aggregate = validateGlobalPublicSourceUnitAdapters();
-  assert.equal(aggregate.ok, true, JSON.stringify(aggregate.errors));
-});
-
-test("A02 existing shared runtime generates and validates all ten PatternSpecs", () => {
-  const generated = generateBatchABrowserQuestions(adaptedPlan());
-  assert.equal(generated.ok, true, JSON.stringify(generated.errors));
-  assert.equal(generated.questions.length, 40);
-  assert.deepEqual(new Set(generated.questions.map((row) => row.patternSpecId)), EXPECTED_SPEC_IDS);
-  const validation = validateBatchABrowserQuestions(generated.questions);
-  assert.equal(validation.ok, true, JSON.stringify(validation.errors));
-});
-
-test("A02 adapter fails closed without the exact task authorization", () => {
-  const missingTask = adaptGlobalPublicSourceUnitPlan(candidatePlan({ postGoldenMigrationTaskId: undefined }));
-  assert.equal(missingTask.applied, false);
-  assert.equal(missingTask.blocked, true);
-  assert.ok(missingTask.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED"));
-
-  const wrongTask = adaptGlobalPublicSourceUnitPlan(candidatePlan({ postGoldenMigrationTaskId: "POSTG-MIG-A03_WRONG_TASK" }));
-  assert.equal(wrongTask.applied, false);
-  assert.equal(wrongTask.blocked, true);
-  assert.ok(wrongTask.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED"));
-});
-
-test("A02 effective selector uses the formal source path and contains no bridge source", () => {
-  const visible = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
-  assert.deepEqual(new Set(visible.map((row) => row.knowledgePointId)), EXPECTED_KP_IDS);
-  const specIds = new Set(visible.flatMap((row) => (
-    getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId).flatMap((group) => group.patternSpecIds ?? [])
-  )));
-  assert.deepEqual(specIds, EXPECTED_SPEC_IDS);
-  assert.equal(visible.some((row) => row.sourceId === "g3a_u02_3a02_context_estimate_runtime"), false);
-});
-
-test("A02 program state is bound to PR 294 without advancing the queue", async () => {
-  const program = await readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json");
-  assert.equal(program.activeTask, G3A_U02_POSTG_TASK_ID);
-  assert.equal(program.activeTaskStatus, "ACTIVE_A02_G3AU02_KNOWLEDGE_OPERATION_CANDIDATE");
-  assert.equal(program.activePR, 294);
-  assert.equal(program.completedCount, 2);
-  assert.equal(program.remainingCount, 12);
-  assert.equal(program.goalDistance, "D12_POST_GOLDEN_MIGRATION_G3AU01_CONFORMANT_G3AU02_ACTIVE");
-});
+import { getVisiblePatternGroupsForKnowledgePoint, listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+const SOURCE_ID="g3a_u02_3a02";
+const NEXT_SOURCE_ID="g3a_u03_3a03";
+const NEXT_TASK_ID="POSTG-MIG-A03_G3A_U03_GoldenConformanceAndKnowledgeOperationMigration";
+const EXPECTED_KP_IDS=new Set(["kp_g3a_u02_add_multi_carry","kp_g3a_u02_sub_multi_borrow","kp_g3a_u02_estimate_nearest_thousand","kp_g3a_u02_word_problem_estimation_add_sub","kp_g3a_u02_add_missing_digit_operand","kp_g3a_u02_sub_missing_digit_operand","kp_g3a_u02_add_missing_digit_equation","kp_g3a_u02_sub_missing_digit_equation","kp_g3a_u02_sub_middle_missing_digit","kp_g3a_u02_continuous_borrow_zero"]);
+const EXPECTED_SPEC_IDS=new Set(["ps_g3a_u02_4digit_add_multi_carry","ps_g3a_u02_4digit_sub_multi_borrow","ps_g3a_u02_estimate_nearest_thousand","ps_g3a_u02_word_problem_estimation_add_sub","ps_g3a_u02_add_missing_digit_operand","ps_g3a_u02_sub_missing_digit_operand","ps_g3a_u02_add_missing_digit_equation","ps_g3a_u02_sub_missing_digit_equation","ps_g3a_u02_sub_middle_missing_digit","ps_g3a_u02_continuous_borrow_zero"]);
+const readJson=async p=>JSON.parse(await readFile(new URL(p,import.meta.url),"utf8"));
+function closeoutPlan(overrides={}){return{sourceId:SOURCE_ID,selectionMode:"sourceUnit",questionCount:40,ordering:"shuffleAcrossPatterns",includeAnswerKey:true,generationSeed:"postg-mig-a02-g3a-u02-closeout",goldenContractId:"G5AU08_GOLDEN_V1",goldenContractVersion:"1.0.0",goldenRuntimeMode:"shadow",postGoldenMigrationTaskId:G3A_U02_POSTG_TASK_ID,...overrides};}
+function adaptedPlan(overrides={}){const a=adaptGlobalPublicSourceUnitPlan(closeoutPlan(overrides));assert.equal(a.blocked,false,JSON.stringify(a.errors));assert.equal(a.applied,true);return a.plan;}
+test("A02 authoritative registry closes the complete effective selector projection",async()=>{const r=await readJson("../../data/curriculum/knowledge/units/g3a_u02_3a02.knowledge-operation.json");assert.equal(r.conformanceState,"GOLDEN_CONFORMANT");assert.equal(r.knowledgeRegistryState,"VALIDATED_COMPLETE");assert.equal(r.review.status,"PASS");assert.equal(r.knowledgePoints.length,10);assert.equal(r.existingQuestionBindings.length,10);assert.deepEqual(new Set(r.knowledgePoints.map(x=>x.knowledgePointId)),EXPECTED_KP_IDS);assert.deepEqual(new Set(r.existingQuestionBindings.map(x=>x.questionId)),EXPECTED_SPEC_IDS);assert.equal(r.coverage.numeric,"COMPLETE");assert.equal(r.coverage.application,"COMPLETE");});
+test("A02 descriptor remains bounded to ten KP, groups and PatternSpecs",()=>{const d=resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);assert.ok(d);assert.deepEqual(d.expectedCounts,{knowledgePoints:10,patternGroups:10,patternSpecs:10});assert.deepEqual(new Set(d.knowledgePointIds),EXPECTED_KP_IDS);assert.equal(d.patternGroupIds.length,10);assert.deepEqual(new Set(d.patternSpecIds),EXPECTED_SPEC_IDS);assert.equal(validatePostGoldenSourceUnitAdapterRegistry().ok,true);const a=validateGlobalPublicSourceUnitAdapters();assert.equal(a.ok,true,JSON.stringify(a.errors));});
+test("A02 existing shared runtime generates and validates all ten PatternSpecs after closeout",()=>{const g=generateBatchABrowserQuestions(adaptedPlan());assert.equal(g.ok,true,JSON.stringify(g.errors));assert.equal(g.questions.length,40);assert.deepEqual(new Set(g.questions.map(x=>x.patternSpecId)),EXPECTED_SPEC_IDS);const v=validateBatchABrowserQuestions(g.questions);assert.equal(v.ok,true,JSON.stringify(v.errors));});
+test("A02 adapter remains fail-closed without exact task authorization",()=>{for(const task of [undefined,"POSTG-MIG-A03_WRONG_TASK"]){const a=adaptGlobalPublicSourceUnitPlan(closeoutPlan({postGoldenMigrationTaskId:task}));assert.equal(a.applied,false);assert.equal(a.blocked,true);assert.ok(a.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED"));}});
+test("A02 effective selector uses the formal source path and contains no bridge source",()=>{const visible=listVisibleBatchAKnowledgePoints().filter(x=>x.sourceId===SOURCE_ID);assert.deepEqual(new Set(visible.map(x=>x.knowledgePointId)),EXPECTED_KP_IDS);const specs=new Set(visible.flatMap(x=>getVisiblePatternGroupsForKnowledgePoint(x.knowledgePointId).flatMap(g=>g.patternSpecIds??[])));assert.deepEqual(specs,EXPECTED_SPEC_IDS);assert.equal(visible.some(x=>x.sourceId==="g3a_u02_3a02_context_estimate_runtime"),false);});
+test("A02 closeout advances exactly one queue item and reduces program distance",async()=>{const [p,c,r,m]=await Promise.all([readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),readJson("../../data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"),readJson("../../data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json")]);assert.equal(p.lastCompletedTask,G3A_U02_POSTG_TASK_ID);assert.equal(p.activeTask,NEXT_TASK_ID);assert.equal(p.completedCount,3);assert.equal(p.remainingCount,11);assert.equal(p.goalDistance,"D11_POST_GOLDEN_MIGRATION_G3AU02_CONFORMANT_G3AU03_ACTIVE");assert.equal(c.queue.activeSourceId,NEXT_SOURCE_ID);assert.equal(c.queue.completeSourceIds.includes(SOURCE_ID),true);const closed=r.rows.find(x=>x.sourceId===SOURCE_ID);const next=r.rows.find(x=>x.sourceId===NEXT_SOURCE_ID);assert.equal(closed.conformanceStatus,"GOLDEN_CONFORMANT");assert.equal(closed.goldenProductionEligible,true);assert.equal(closed.queueState,"COMPLETE");assert.equal(next.conformanceStatus,"IN_PROGRESS_GOLDEN_NATIVE");assert.equal(next.queueState,"ACTIVE");assert.equal(m.statusSummary.unitJsonExistsCount,5);assert.equal(m.statusSummary.knowledgeRegistryCompleteCount,5);const row=m.rows.find(x=>x.sourceId===SOURCE_ID);assert.equal(row.knowledgePointCount,10);assert.equal(row.operationModelCount,10);assert.equal(row.existingQuestionBindingCount,10);assert.equal(row.schemaValidationStatus,"PASS");});

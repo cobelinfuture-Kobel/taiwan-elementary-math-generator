@@ -4,39 +4,30 @@
   "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
   "taskId": "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration",
   "sourceId": "g3a_u02_3a02",
-  "status": "A02_KNOWLEDGE_OPERATION_CANDIDATE",
+  "status": "PASS_GOLDEN_CONFORMANT_PENDING_MERGE",
   "goal": "Promote the complete effective G3A-U02 selector projection to GOLDEN_CONFORMANT through the existing shared generator, validator and renderer, exact-head production evidence and deterministic queue advance.",
   "distance": {
     "before": "D12_POST_GOLDEN_MIGRATION_G3AU01_CONFORMANT_G3AU02_ACTIVE",
-    "after": "D12_A02_EFFECTIVE_SELECTOR_REGISTERED_PENDING_EXACT_HEAD_EVIDENCE",
-    "directlyShortensProgramDistance": false,
-    "classification": "DIRECT_TASK_PREREQUISITE"
+    "after": "D11_POST_GOLDEN_MIGRATION_G3AU02_CONFORMANT_G3AU03_ACTIVE",
+    "directlyShortensProgramDistance": true,
+    "classification": "DIRECT"
   },
   "candidate": {
-    "conformanceState": "IN_PROGRESS_GOLDEN_NATIVE",
-    "productionEligibility": false,
+    "conformanceState": "GOLDEN_CONFORMANT",
+    "productionEligibility": true,
     "knowledgePointCount": 10,
     "operationModelCount": 10,
     "patternGroupCount": 10,
     "patternSpecBindingCount": 10,
-    "schemaValidation": "PENDING_CI",
+    "schemaValidation": "PASS",
     "sharedRuntimeBypass": false,
-    "runtimeIntegration": "CONNECTED_TO_EXISTING_SHARED_ADAPTER_PENDING_EVIDENCE",
-    "productionHTML": "PENDING",
-    "productionPDF": "PENDING",
-    "runtimeReadback": "PENDING",
-    "effectiveCapabilities": [
-      "four_digit_add_multi_carry",
-      "four_digit_sub_multi_borrow",
-      "nearest_thousand_estimation",
-      "estimation_word_problem",
-      "add_missing_digit_operand",
-      "sub_missing_digit_operand",
-      "add_missing_digit_equation",
-      "sub_missing_digit_equation",
-      "sub_middle_missing_digit",
-      "continuous_borrow_zero"
-    ]
+    "runtimeIntegration": "PASS_CONNECTED_TO_EXISTING_SHARED_RUNTIME",
+    "productionHTML": "PASS",
+    "productionPDF": "PASS",
+    "runtimeReadback": "PASS",
+    "workflowRunId": 29737440655,
+    "artifactId": 8458940949,
+    "artifactDigest": "sha256:ca219381c7eb9b6d80dc3e81084f6d4a4cc3e7ee29c8c29043ce1fe26a670b5c"
   },
   "scopeBoundary": {
     "applicationQuestionExpansion": false,
@@ -47,5 +38,5 @@
     "newUnitSpecificRuntime": false,
     "otherUnitMigration": false
   },
-  "nextGate": "A02_EXACT_HEAD_HTML_PDF_HASH_AND_SCHEMA_EVIDENCE"
+  "nextGate": "MERGE_PR_294_AND_BEGIN_A03"
 }

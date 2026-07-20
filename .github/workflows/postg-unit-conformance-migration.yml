@@ -52,40 +52,61 @@ jobs:
           python3 -m pip install --disable-pip-version-check jsonschema
           npx playwright install --with-deps chromium
 
-      - name: Resolve active post-Golden unit from authoritative program state
+      - name: Resolve migration under test from authoritative contract
         run: |
           node --input-type=module <<'NODE'
           import assert from 'node:assert/strict';
+          import { execFileSync } from 'node:child_process';
           import { appendFile, readFile } from 'node:fs/promises';
           import { resolvePostGoldenSourceUnitAdapterDescriptor } from './site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js';
 
           const program = JSON.parse(await readFile('data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json', 'utf8'));
           const conformance = JSON.parse(await readFile('data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json', 'utf8'));
-          const activeRows = conformance.rows.filter((row) => row.queueState === 'ACTIVE');
-          assert.equal(activeRows.length, 1, 'Exactly one active migration unit is required.');
-          const row = activeRows[0];
-          const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(row.sourceId);
-          assert.ok(descriptor, `Missing post-Golden descriptor for ${row.sourceId}`);
-          assert.equal(descriptor.taskId, program.activeTask, 'Active task and descriptor authorization drift.');
-          const taskMatch = /^POSTG-MIG-(A\d+)_/.exec(program.activeTask);
-          assert.ok(taskMatch, `Unsupported active task id: ${program.activeTask}`);
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          const changed = execFileSync('git', ['diff', '--name-only', `origin/${base}...HEAD`], { encoding: 'utf8' })
+            .split(/\r?\n/).map((value) => value.trim()).filter(Boolean);
+          const contractPaths = changed.filter((path) => /^data\/curriculum\/contracts\/POSTG_MIG_A\d+_.*\.json$/.test(path));
+          assert.ok(contractPaths.length <= 1, `Expected at most one changed unit contract: ${JSON.stringify(contractPaths)}`);
+
+          let taskId;
+          let sourceId;
+          if (contractPaths.length === 1) {
+            const contract = JSON.parse(await readFile(contractPaths[0], 'utf8'));
+            taskId = contract.taskId;
+            sourceId = contract.sourceId;
+          } else {
+            taskId = program.activeTask;
+            sourceId = conformance.rows.find((row) => row.queueState === 'ACTIVE')?.sourceId;
+          }
+          assert.ok(taskId && sourceId, 'Unable to resolve migration under test.');
+
+          const row = conformance.rows.find((candidate) => candidate.sourceId === sourceId);
+          assert.ok(row, `Missing conformance row for ${sourceId}`);
+          const candidateState = program.activeTask === taskId && row.queueState === 'ACTIVE';
+          const closeoutState = program.lastCompletedTask === taskId && row.queueState === 'COMPLETE';
+          assert.equal(candidateState || closeoutState, true, `Program/queue state does not authorize ${taskId} / ${sourceId}.`);
+
+          const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(sourceId);
+          assert.ok(descriptor, `Missing post-Golden descriptor for ${sourceId}`);
+          assert.equal(descriptor.taskId, taskId, 'Contract and descriptor authorization drift.');
+          const taskMatch = /^POSTG-MIG-(A\d+)_/.exec(taskId);
+          assert.ok(taskMatch, `Unsupported task id: ${taskId}`);
           const taskToken = taskMatch[1];
+          const sourceUnitToken = sourceId.split('_').slice(0, 2).join('-');
           const unitToken = row.unitCode.replaceAll('-', '');
-          const prefix = `POSTG_MIG_${taskToken}_${unitToken}`;
-          const sourceUnitToken = row.sourceId.split('_').slice(0, 2).join('-');
-          const focusedTest = `tests/curriculum/postg-mig-${taskToken.toLowerCase()}-${sourceUnitToken}-conformance.test.js`;
           const env = {
-            POSTG_SOURCE_ID: row.sourceId,
-            POSTG_TASK_ID: program.activeTask,
-            POSTG_OUTPUT_PREFIX: prefix,
+            POSTG_SOURCE_ID: sourceId,
+            POSTG_TASK_ID: taskId,
+            POSTG_OUTPUT_PREFIX: `POSTG_MIG_${taskToken}_${unitToken}`,
             POSTG_TITLE: `${row.unitCode} ${row.title}｜Golden Conformance`,
             POSTG_EXPECTED_KP: descriptor.expectedCounts.knowledgePoints,
             POSTG_EXPECTED_GROUPS: descriptor.expectedCounts.patternGroups,
             POSTG_EXPECTED_SPECS: descriptor.expectedCounts.patternSpecs,
-            POSTG_FOCUSED_TEST: focusedTest,
+            POSTG_FOCUSED_TEST: `tests/curriculum/postg-mig-${taskToken.toLowerCase()}-${sourceUnitToken}-conformance.test.js`,
+            POSTG_STATE_MODE: closeoutState ? 'closeout' : 'candidate',
           };
           await appendFile(process.env.GITHUB_ENV, Object.entries(env).map(([key, value]) => `${key}=${value}`).join('\n') + '\n');
-          console.log(JSON.stringify({ programStatus: program.programStatus, activePR: program.activePR, row, descriptor: { taskId: descriptor.taskId, expectedCounts: descriptor.expectedCounts }, env }, null, 2));
+          console.log(JSON.stringify({ contractPaths, programStatus: program.programStatus, row, env }, null, 2));
           NODE
 
       - name: Run focused and shared regressions
@@ -105,7 +126,6 @@ jobs:
       - name: Generate exact-head production evidence
         run: |
           set -o pipefail
-          mkdir -p build/postg/${POSTG_SOURCE_ID}
           node tools/curriculum/run-postg-unit-production-evidence.mjs \
             --source-id "${POSTG_SOURCE_ID}" \
             --task-id "${POSTG_TASK_ID}" \
@@ -115,7 +135,7 @@ jobs:
             --title "${POSTG_TITLE}" \
             2>&1 | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_CLI_READBACK.json"
 
-      - name: Validate production evidence against active descriptor
+      - name: Validate production evidence
         run: |
           node --input-type=module <<'NODE'
           import assert from 'node:assert/strict';
@@ -139,7 +159,7 @@ jobs:
           assert.ok(r.artifacts.every((artifact) => /^[a-f0-9]{64}$/.test(artifact.sha256)));
           NODE
 
-      - name: Validate every materialized KnowledgeOperation registry
+      - name: Validate KnowledgeOperation registries
         run: |
           python3 - <<'PY'
           import json
@@ -152,9 +172,8 @@ jobs:
           for path in paths:
               value=json.loads(path.read_text())
               errors.extend((str(path),list(e.absolute_path),e.message) for e in validator.iter_errors(value))
-          print(json.dumps({'validatedUnitCount':len(paths),'paths':[str(path) for path in paths],'errors':errors},ensure_ascii=False,indent=2))
-          assert paths
-          assert not errors
+          print(json.dumps({'validatedUnitCount':len(paths),'errors':errors},ensure_ascii=False,indent=2))
+          assert paths and not errors
           PY
 
       - name: Generate designer Excel and audit CSV
@@ -168,9 +187,14 @@ jobs:
           import csv,json,zipfile
           from pathlib import Path
           readback=json.loads(Path('build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json').read_text())
+          expected_kp=expected_models=0
+          for path in Path('data/curriculum/knowledge/units').glob('*.knowledge-operation.json'):
+              unit=json.loads(path.read_text())
+              expected_kp += len(unit['knowledgePoints'])
+              expected_models += sum(len(kp['operationModels']) for kp in unit['knowledgePoints'])
           assert readback['unitCount']==15
-          assert readback['sheetRowCounts']['Knowledge_Point_Map']>=48
-          assert readback['sheetRowCounts']['Operation_Models']>=48
+          assert readback['sheetRowCounts']['Knowledge_Point_Map']==expected_kp
+          assert readback['sheetRowCounts']['Operation_Models']==expected_models
           with zipfile.ZipFile('build/reports/Golden_Knowledge_Operation_Master.xlsx') as archive:
               assert 'xl/workbook.xml' in archive.namelist()
           with open('build/reports/Golden_Knowledge_Operation_Master.summary.csv',encoding='utf-8',newline='') as handle:
