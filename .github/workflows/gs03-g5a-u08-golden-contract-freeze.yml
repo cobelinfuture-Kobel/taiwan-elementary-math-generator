@@ -65,7 +65,29 @@ jobs:
         run: exit 1
 
       - name: Validate current authorities against frozen contract
-        run: node tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs
+        id: validate_contract
+        shell: bash
+        run: |
+          set +e
+          node tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs \
+            > /tmp/gs03-validate.log 2>&1
+          status=$?
+          cat /tmp/gs03-validate.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload validator diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gs03-golden-contract-validator-diagnostics
+          path: /tmp/gs03-validate.log
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Block after Golden contract validation failure
+        if: steps.validate_contract.outputs.exit_code != '0'
+        run: exit 1
 
       - name: Run focused anti-drift mutation tests
         run: node --test tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js
