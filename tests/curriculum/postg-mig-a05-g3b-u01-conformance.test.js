@@ -125,14 +125,15 @@ test("A05 adapter fails closed without exact task authorization", () => {
   }
 });
 
-test("A05 selector references collapse to the exact twenty-three-spec projection", () => {
+test("A05 selector resolves the exact twenty-three-spec projection without duplicate lineage", () => {
   const visible = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
   assert.deepEqual(new Set(visible.map((row) => row.knowledgePointId)), EXPECTED_KP_IDS);
   const references = visible.flatMap((row) => (
     getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId)
       .flatMap((group) => group.patternSpecIds ?? [])
   ));
-  assert.equal(references.length, 26);
+  assert.equal(references.length, 23);
+  assert.equal(new Set(references).size, 23);
   assert.deepEqual(new Set(references), EXPECTED_SPEC_IDS);
 });
 
@@ -156,6 +157,7 @@ test("A05 preserves division semantic distinctions", async () => {
 test("A05 program state remains D9 and authorizes only G3B-U01", async () => {
   const program = await readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json");
   assert.equal(program.activeTask, G3B_U01_POSTG_TASK_ID);
+  assert.equal(program.activePR, 297);
   assert.equal(program.completedCount, 5);
   assert.equal(program.remainingCount, 9);
   assert.equal(program.goalDistance, "D9_POST_GOLDEN_MIGRATION_G3AU06_CONFORMANT_G3BU01_ACTIVE");
