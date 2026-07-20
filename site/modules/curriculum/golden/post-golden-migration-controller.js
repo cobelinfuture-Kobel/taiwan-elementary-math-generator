@@ -12,6 +12,56 @@ function publicUnits() {
   return listBatchASourceUnits({ includePublicCandidates: true });
 }
 
+const GOLDEN_ANCHOR_SOURCE_IDS = Object.freeze([
+  "g3b_u04_3b04",
+  "g5a_u08_5a08",
+  "g5a_u02_5a02",
+]);
+const GOLDEN_ANCHOR_SOURCE_ID_SET = new Set(GOLDEN_ANCHOR_SOURCE_IDS);
+
+function validFoundationCandidate(program, taskOrder) {
+  return program.programStatus === "ACTIVE_A00_FOUNDATION_PENDING_EXACT_HEAD_CI_AND_MERGE"
+    && program.activeTaskStatus === "E1_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE"
+    && program.activeTask === taskOrder[0]
+    && program.nextAllowedTask === taskOrder[0]
+    && program.completedCount === 0
+    && program.remainingCount === 14
+    && program.lastCompletedTask == null
+    && program.goalDistance === "D14_POST_GOLDEN_MIGRATION_PROGRAM_FOUNDATION_NOT_MERGED";
+}
+
+function validFoundationAccepted(program, taskOrder) {
+  return program.programStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
+    && program.activeTaskStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
+    && program.activeTask === taskOrder[0]
+    && program.nextAllowedTask === taskOrder[1]
+    && program.completedCount === 1
+    && program.remainingCount === 13
+    && program.lastCompletedTask === taskOrder[0]
+    && program.goalDistance === "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY";
+}
+
+function validActiveUnitProgress(program, taskOrder) {
+  const completedCount = program.completedCount;
+  const remainingCount = program.remainingCount;
+  if (!Number.isInteger(completedCount) || completedCount < 1 || completedCount > 12) return false;
+  if (remainingCount !== 14 - completedCount) return false;
+
+  const expectedActiveTask = taskOrder[completedCount];
+  const expectedLastCompleted = taskOrder[completedCount - 1];
+  const status = String(program.programStatus ?? "");
+  const activeTaskStatus = String(program.activeTaskStatus ?? "");
+  const distance = String(program.goalDistance ?? "");
+
+  return program.activeTask === expectedActiveTask
+    && program.nextAllowedTask === expectedActiveTask
+    && program.lastCompletedTask === expectedLastCompleted
+    && status === activeTaskStatus
+    && /^ACTIVE_A\d{2}_[A-Z0-9_]+$/.test(status)
+    && distance.startsWith(`D${remainingCount}_POST_GOLDEN_MIGRATION_`)
+    && distance.endsWith("_ACTIVE");
+}
+
 export function validatePostGoldenMigrationProgram(program = {}) {
   const errors = [];
   const taskOrder = Array.isArray(program.taskOrder) ? program.taskOrder : [];
@@ -33,23 +83,11 @@ export function validatePostGoldenMigrationProgram(program = {}) {
     errors.push(issue("POSTG_A00_DUPLICATE_TASK_ID"));
   }
 
-  const candidateProgress = program.programStatus === "ACTIVE_A00_FOUNDATION_PENDING_EXACT_HEAD_CI_AND_MERGE"
-    && program.activeTaskStatus === "E1_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE"
-    && program.completedCount === 0
-    && program.remainingCount === 14
-    && program.lastCompletedTask == null
-    && program.goalDistance === "D14_POST_GOLDEN_MIGRATION_PROGRAM_FOUNDATION_NOT_MERGED";
-  const acceptedProgress = program.programStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
-    && program.activeTaskStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
-    && program.completedCount === 1
-    && program.remainingCount === 13
-    && program.lastCompletedTask === taskOrder[0]
-    && program.goalDistance === "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY";
-  if (program.activeTask !== taskOrder[0]
-    || program.nextAllowedTask !== taskOrder[1]
-    || (!candidateProgress && !acceptedProgress)) {
-    errors.push(issue("POSTG_A00_PROGRAM_PROGRESS_INVALID"));
-  }
+  const progressValid = validFoundationCandidate(program, taskOrder)
+    || validFoundationAccepted(program, taskOrder)
+    || validActiveUnitProgress(program, taskOrder);
+  if (!progressValid) errors.push(issue("POSTG_A00_PROGRAM_PROGRESS_INVALID"));
+
   const continuation = program.continuation ?? {};
   if (program.programLock !== "ACTIVE_ONE_UNIT_ONLY"
     || continuation.autoContinueWithinApprovedProgram !== true
@@ -136,7 +174,8 @@ export function validatePostGoldenMigrationController(
     errors.push(issue("POSTG_A00_UPSTREAM_CONTROLLER_QUEUE_DRIFT"));
   }
 
-  const expectedMigrationSources = [active, ...pending].filter(Boolean);
+  const completedMigrationSources = complete.filter((sourceId) => !GOLDEN_ANCHOR_SOURCE_ID_SET.has(sourceId));
+  const expectedMigrationSources = [...completedMigrationSources, active, ...pending].filter(Boolean);
   const assignments = controller.taskAssignment?.unitMigrationBySourceId ?? {};
   if (!same(Object.keys(assignments), expectedMigrationSources)) {
     errors.push(issue("POSTG_A00_TASK_ASSIGNMENT_SOURCE_DRIFT"));
@@ -147,10 +186,12 @@ export function validatePostGoldenMigrationController(
   }
 
   const anchorBackfill = controller.knowledgeRegistry?.anchorKnowledgeBackfill;
-  if (anchorBackfill?.required !== true
-    || anchorBackfill?.assignedTaskId !== program.taskOrder[1]
-    || !same(anchorBackfill?.sourceIds, complete)
-    || anchorBackfill?.changesAnchorConformanceState !== false) {
+  const anchorBackfillComplete = program.completedCount >= 2;
+  if (anchorBackfill?.assignedTaskId !== program.taskOrder[1]
+    || !same(anchorBackfill?.sourceIds, GOLDEN_ANCHOR_SOURCE_IDS)
+    || anchorBackfill?.changesAnchorConformanceState !== false
+    || anchorBackfill?.required !== !anchorBackfillComplete
+    || (anchorBackfillComplete && anchorBackfill?.status !== "COMPLETE")) {
     errors.push(issue("POSTG_A00_ANCHOR_KNOWLEDGE_BACKFILL_POLICY_INVALID"));
   }
 
@@ -161,6 +202,8 @@ export function validatePostGoldenMigrationController(
       completeCount: complete.length,
       activeCount: active ? 1 : 0,
       pendingCount: pending.length,
+      blockedCount: (controller.queue?.blockedSourceIds ?? []).length,
+      exceptionCount: (controller.queue?.exceptionSourceIds ?? []).length,
       nextResumeSourceId: active,
     }),
   });
@@ -194,7 +237,6 @@ export function validateKnowledgeOperationMasterIndex(
   }
 
   const migrationTaskIds = new Set(program.taskOrder.slice(1, 13));
-  const anchorIds = new Set(["g3b_u04_3b04", "g5a_u08_5a08", "g5a_u02_5a02"]);
   for (const row of rows) {
     const unit = expectedById.get(row.sourceId);
     const registryRow = registryById.get(row.sourceId);
@@ -215,24 +257,61 @@ export function validateKnowledgeOperationMasterIndex(
       errors.push(issue("POSTG_A00_MASTER_CONFORMANCE_DRIFT", { sourceId: row.sourceId }));
     }
     const expectedPath = `data/curriculum/knowledge/units/${row.sourceId}.knowledge-operation.json`;
-    if (row.unitJsonPath !== expectedPath || row.unitJsonExists !== false) {
-      errors.push(issue("POSTG_A00_MASTER_UNIT_JSON_BASELINE_INVALID", { sourceId: row.sourceId }));
+    if (row.unitJsonPath !== expectedPath || typeof row.unitJsonExists !== "boolean") {
+      errors.push(issue("POSTG_A00_MASTER_UNIT_JSON_STATE_INVALID", { sourceId: row.sourceId }));
     }
-    if (anchorIds.has(row.sourceId)) {
+    if (row.unitJsonExists === true) {
+      if (!Number.isInteger(row.knowledgePointCount) || row.knowledgePointCount < 1
+        || !Number.isInteger(row.operationModelCount) || row.operationModelCount < 1
+        || !Number.isInteger(row.existingQuestionBindingCount) || row.existingQuestionBindingCount < 1
+        || row.unmappedKnowledgePointCount !== 0
+        || row.unmappedExistingQuestionCount !== 0
+        || row.conflictingOperationModelCount !== 0
+        || row.schemaValidationStatus !== "PASS"
+        || row.knowledgeRegistryState !== "VALIDATED_COMPLETE") {
+        errors.push(issue("POSTG_A00_MASTER_UNIT_JSON_COMPLETE_STATE_INVALID", { sourceId: row.sourceId }));
+      }
+    } else if (row.knowledgePointCount != null
+      || row.operationModelCount != null
+      || row.existingQuestionBindingCount != null
+      || row.schemaValidationStatus !== "NOT_RUN") {
+      errors.push(issue("POSTG_A00_MASTER_UNIT_JSON_ABSENT_STATE_INVALID", { sourceId: row.sourceId }));
+    }
+
+    if (GOLDEN_ANCHOR_SOURCE_ID_SET.has(row.sourceId)) {
       if (row.assignedKnowledgeRegistryTaskId !== program.taskOrder[1]
         || row.programRole !== "GOLDEN_REGRESSION_ANCHOR") {
         errors.push(issue("POSTG_A00_MASTER_ANCHOR_ASSIGNMENT_INVALID", { sourceId: row.sourceId }));
       }
     } else if (!migrationTaskIds.has(row.assignedKnowledgeRegistryTaskId)) {
       errors.push(issue("POSTG_A00_MASTER_MIGRATION_TASK_INVALID", { sourceId: row.sourceId }));
+    } else {
+      const expectedRole = registryRow.queueState === "COMPLETE"
+        ? "COMPLETED_MIGRATION_UNIT"
+        : registryRow.queueState === "ACTIVE"
+          ? "ACTIVE_MIGRATION_UNIT"
+          : "PENDING_MIGRATION_UNIT";
+      if (row.programRole !== expectedRole) {
+        errors.push(issue("POSTG_A00_MASTER_PROGRAM_ROLE_DRIFT", { sourceId: row.sourceId }));
+      }
     }
   }
 
+  const goldenConformantCount = (goldenRegistry.rows ?? [])
+    .filter((row) => row.conformanceStatus === "GOLDEN_CONFORMANT").length;
+  const activeMigrationUnitCount = (goldenRegistry.rows ?? [])
+    .filter((row) => row.queueState === "ACTIVE").length;
+  const pendingMigrationUnitCount = (goldenRegistry.rows ?? [])
+    .filter((row) => row.queueState === "PENDING").length;
+  const unitJsonExistsCount = rows.filter((row) => row.unitJsonExists === true).length;
+  const knowledgeRegistryCompleteCount = rows
+    .filter((row) => row.knowledgeRegistryState === "VALIDATED_COMPLETE").length;
   if (masterIndex.statusSummary?.totalUnitCount !== 15
-    || masterIndex.statusSummary?.goldenConformantCount !== 3
-    || masterIndex.statusSummary?.activeMigrationUnitCount !== 1
-    || masterIndex.statusSummary?.pendingMigrationUnitCount !== 11
-    || masterIndex.statusSummary?.unitJsonExistsCount !== 0) {
+    || masterIndex.statusSummary?.goldenConformantCount !== goldenConformantCount
+    || masterIndex.statusSummary?.activeMigrationUnitCount !== activeMigrationUnitCount
+    || masterIndex.statusSummary?.pendingMigrationUnitCount !== pendingMigrationUnitCount
+    || masterIndex.statusSummary?.unitJsonExistsCount !== unitJsonExistsCount
+    || masterIndex.statusSummary?.knowledgeRegistryCompleteCount !== knowledgeRegistryCompleteCount) {
     errors.push(issue("POSTG_A00_MASTER_SUMMARY_INVALID"));
   }
 
