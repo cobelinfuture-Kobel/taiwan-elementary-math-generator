@@ -45,14 +45,23 @@ function clone(value) {
   return structuredClone(value);
 }
 
-test("A00 approves one exact 14-task post-Golden migration program", async () => {
+test("A00 accepts one exact 14-task post-Golden migration program", async () => {
   const program = await readJson(PROGRAM_PATH);
   const audit = validatePostGoldenMigrationProgram(program);
   assert.equal(audit.ok, true, JSON.stringify(audit.errors, null, 2));
+  assert.equal(program.programStatus, "A00_PASS_ACCEPTED_PENDING_MERGE");
   assert.equal(program.taskBudget, 14);
   assert.equal(program.taskOrder.length, 14);
-  assert.equal(program.completedCount, 0);
-  assert.equal(program.remainingCount, 14);
+  assert.equal(program.completedCount, 1);
+  assert.equal(program.remainingCount, 13);
+  assert.equal(
+    program.lastCompletedTask,
+    "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
+  );
+  assert.equal(
+    program.goalDistance,
+    "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY",
+  );
   assert.equal(
     program.nextAllowedTask,
     "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
@@ -74,6 +83,13 @@ test("A00 controller inherits the exact GS06 fleet queue without migrating a uni
     program,
   );
   assert.equal(audit.ok, true, JSON.stringify(audit.errors, null, 2));
+  assert.equal(controller.status, "A00_PASS_ACCEPTED_PENDING_MERGE");
+  assert.deepEqual(controller.programCompletion, {
+    taskBudget: 14,
+    completedCount: 1,
+    remainingCount: 13,
+    goalDistance: "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY",
+  });
   assert.deepEqual(audit.queue, {
     completeCount: 3,
     activeCount: 1,
@@ -134,7 +150,7 @@ test("A00 knowledge schema makes operation models and existing-question bindings
   }
 });
 
-test("A00 validators fail closed on queue, fleet and authority drift", async () => {
+test("A00 validators fail closed on queue, fleet, completion and authority drift", async () => {
   const [program, controller, registry, goldenController, masterIndex] = await Promise.all([
     readJson(PROGRAM_PATH),
     readJson(CONTROLLER_PATH),
@@ -153,6 +169,20 @@ test("A00 validators fail closed on queue, fleet and authority drift", async () 
   );
   assert.equal(audit.ok, false);
   assert.equal(audit.errors.some(({ code }) => code === "POSTG_A00_PENDING_QUEUE_DRIFT"), true);
+
+  const badCompletion = clone(controller);
+  badCompletion.programCompletion.remainingCount = 14;
+  audit = validatePostGoldenMigrationController(
+    badCompletion,
+    registry,
+    goldenController,
+    program,
+  );
+  assert.equal(audit.ok, false);
+  assert.equal(
+    audit.errors.some(({ code }) => code === "POSTG_A00_CONTROLLER_COMPLETION_DRIFT"),
+    true,
+  );
 
   const badMaster = clone(masterIndex);
   badMaster.rows.pop();
