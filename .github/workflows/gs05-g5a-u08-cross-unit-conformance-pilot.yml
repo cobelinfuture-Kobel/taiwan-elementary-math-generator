@@ -7,6 +7,7 @@ on:
       - "site/modules/curriculum/golden/cross-unit-golden-conformance.js"
       - "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js"
       - "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js"
+      - "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json"
       - "data/curriculum/golden/G5AU08_GOLDEN_V1.cross-unit-pilots.json"
       - "data/curriculum/contracts/GS05_G5AU08_CrossUnitConformancePilot.json"
       - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
@@ -64,6 +65,7 @@ jobs:
             'site/modules/curriculum/golden/cross-unit-golden-conformance.js',
             'site/modules/curriculum/batch-a/global-public-source-unit-adapter.js',
             'tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js',
+            'data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json',
             'data/curriculum/golden/G5AU08_GOLDEN_V1.cross-unit-pilots.json',
             'data/curriculum/contracts/GS05_G5AU08_CrossUnitConformancePilot.json',
             'data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json',
