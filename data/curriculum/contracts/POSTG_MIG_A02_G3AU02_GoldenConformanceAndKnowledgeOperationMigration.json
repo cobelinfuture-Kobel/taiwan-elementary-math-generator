@@ -5,39 +5,47 @@
   "taskId": "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration",
   "sourceId": "g3a_u02_3a02",
   "status": "A02_KNOWLEDGE_OPERATION_CANDIDATE",
-  "goal": "Promote G3A-U02 to GOLDEN_CONFORMANT using its existing shared addition/subtraction runtime, authoritative knowledge-operation registry, exact-head production evidence and deterministic queue advance.",
+  "goal": "Promote the complete effective G3A-U02 selector projection to GOLDEN_CONFORMANT through the existing shared generator, validator and renderer, exact-head production evidence and deterministic queue advance.",
   "distance": {
     "before": "D12_POST_GOLDEN_MIGRATION_G3AU01_CONFORMANT_G3AU02_ACTIVE",
-    "after": "D12_A02_KNOWLEDGE_OPERATION_CANDIDATE_PENDING_SHARED_RUNTIME",
+    "after": "D12_A02_EFFECTIVE_SELECTOR_REGISTERED_PENDING_EXACT_HEAD_EVIDENCE",
     "directlyShortensProgramDistance": false,
     "classification": "DIRECT_TASK_PREREQUISITE"
   },
   "candidate": {
     "conformanceState": "IN_PROGRESS_GOLDEN_NATIVE",
     "productionEligibility": false,
-    "knowledgePointCount": 2,
-    "operationModelCount": 2,
-    "patternGroupCount": 2,
-    "patternSpecBindingCount": 2,
+    "knowledgePointCount": 10,
+    "operationModelCount": 10,
+    "patternGroupCount": 10,
+    "patternSpecBindingCount": 10,
     "schemaValidation": "PENDING_CI",
     "sharedRuntimeBypass": false,
-    "runtimeIntegration": "PENDING_A02_SHARED_ADAPTER",
+    "runtimeIntegration": "CONNECTED_TO_EXISTING_SHARED_ADAPTER_PENDING_EVIDENCE",
     "productionHTML": "PENDING",
     "productionPDF": "PENDING",
     "runtimeReadback": "PENDING",
-    "excludedSourceCapabilities": [
+    "effectiveCapabilities": [
+      "four_digit_add_multi_carry",
+      "four_digit_sub_multi_borrow",
       "nearest_thousand_estimation",
-      "estimation_word_problem"
+      "estimation_word_problem",
+      "add_missing_digit_operand",
+      "sub_missing_digit_operand",
+      "add_missing_digit_equation",
+      "sub_missing_digit_equation",
+      "sub_middle_missing_digit",
+      "continuous_borrow_zero"
     ]
   },
   "scopeBoundary": {
     "applicationQuestionExpansion": false,
-    "estimationRuntimeExpansion": false,
+    "newEstimationCapability": false,
     "newScenarioFamilyAuthoring": false,
     "publicLayoutChange": false,
     "studentPageLabelChange": false,
     "newUnitSpecificRuntime": false,
     "otherUnitMigration": false
   },
-  "nextGate": "A02_SHARED_ADAPTER_AND_EXACT_HEAD_EVIDENCE"
+  "nextGate": "A02_EXACT_HEAD_HTML_PDF_HASH_AND_SCHEMA_EVIDENCE"
 }
