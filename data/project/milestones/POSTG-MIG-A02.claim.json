@@ -4,7 +4,7 @@
   "taskClass": "implementation",
   "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
   "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
-  "claimedStatus": "A02_KNOWLEDGE_OPERATION_CANDIDATE_PENDING_SHARED_RUNTIME",
+  "claimedStatus": "A02_EFFECTIVE_SELECTOR_REGISTERED_PENDING_EXACT_HEAD_EVIDENCE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -20,12 +20,14 @@
   },
   "evidence": {
     "runtimeTestPaths": [
+      "site/modules/curriculum/registry/batch-a-selector-equation-extension.js",
       "site/modules/curriculum/batch-a/source-pattern-index.js",
+      "site/modules/curriculum/batch-a/source-pattern-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
       "site/modules/curriculum/batch-a/batch-a-browser-generator-core.js",
       "site/modules/curriculum/batch-a/batch-a-browser-validator.js",
-      "data/curriculum/registry/batch_a_knowledge_points.json",
-      "data/curriculum/registry/batch_a_pattern_groups.json",
-      "data/curriculum/registry/batch_a_knowledge_point_pattern_map.json"
+      "tests/curriculum/postg-mig-a02-g3a-u02-conformance.test.js"
     ],
     "rendererTestPaths": [
       "site/modules/renderer/html-renderer-s60j-extension.js"
@@ -48,7 +50,7 @@
   "distance": {
     "before": "D3",
     "after": "D2",
-    "distanceReduced": "G3A-U02 now has an authoritative schema-targeted KnowledgeOperation candidate covering the two current production-visible addition and subtraction capabilities; shared adapter integration and production evidence remain pending."
+    "distanceReduced": "G3A-U02 now has an authoritative schema-targeted KnowledgeOperation candidate covering all ten capabilities in the current effective selector projection; exact-head generator, validator, HTML/PDF and hash evidence remain pending."
   },
   "nextStep": {
     "taskId": "POSTG-MIG-A02_G3A_U02_SharedAdapterAndExactHeadEvidence",
