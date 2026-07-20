@@ -4,7 +4,7 @@
   "programId": "G5AU08_GOLDEN_SAMPLE_V1",
   "controllerId": "G5AU08_GOLDEN_V1_BATCH_CONTROLLER",
   "controllerVersion": "1.0.0",
-  "status": "CANDIDATE_GOLDEN_D0_CONTROLLER_PENDING_CI",
+  "status": "ACTIVE_GOLDEN_D0_CONTROLLER",
   "goldenContractId": "G5AU08_GOLDEN_V1",
   "goldenContractVersion": "1.0.0",
   "unitConformanceRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
@@ -19,12 +19,9 @@
   ],
   "programCompletion": {
     "taskBudget": 6,
-    "currentCompletedCount": 5,
-    "currentRemainingCount": 1,
-    "targetCompletedCount": 6,
-    "targetRemainingCount": 0,
-    "currentGoalDistance": "D1_G5AU08_GOLDEN_V1_THREE_CLASS_CONFORMANCE_PROVEN",
-    "targetGoalDistance": "D0_G5AU08_GOLDEN_V1_CONTROLLER_ACTIVE_AND_CLOSED"
+    "completedCount": 6,
+    "remainingCount": 0,
+    "goalDistance": "D0_G5AU08_GOLDEN_V1_CONTROLLER_ACTIVE_AND_CLOSED"
   },
   "queue": {
     "completeSourceIds": [
@@ -76,7 +73,9 @@
     "forbidNewPerUnitWorkflow": true,
     "blockProductionWhenStatusNotGoldenConformant": true,
     "exceptionRequiresApprovedRegistryState": true,
-    "detectAddedUnitSpecificRuntimeFiles": true
+    "detectAddedUnitSpecificRuntimeFiles": true,
+    "d0CloseoutMode": "program_controller_closeout",
+    "ordinaryD0FullPipelineRequirementPreserved": true
   },
   "scopeBoundary": {
     "executesUnitMigration": false,
@@ -85,8 +84,7 @@
     "postGoldenMigrationProgramApproved": false
   },
   "continuation": {
-    "autoContinueWithinApprovedProgram": true,
-    "nextTaskBeforeCloseout": "GS06_ExactHeadControllerCandidateCI",
+    "autoContinueWithinApprovedProgram": false,
     "stopReasonAfterCloseout": "NEXT_STEP_OUTSIDE_APPROVED_SCOPE",
     "requiredOperatorActionAfterCloseout": "Approve a post-Golden unit migration program beginning with g3a_u01_3a01.",
     "nextResumeTaskAfterCloseout": "POST_GOLDEN_G3A_U01_CONFORMANCE_MIGRATION"
