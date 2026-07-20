@@ -5,7 +5,9 @@ on:
     branches: [ main ]
     paths:
       - "site/modules/curriculum/**"
+      - "tools/governance/milestone-claim-integrity-core.mjs"
       - "tools/governance/validate-gs06-golden-controller.mjs"
+      - "tests/governance/milestone-claim-integrity.test.js"
       - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
       - "data/curriculum/golden/**"
       - "data/curriculum/contracts/GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout.json"
@@ -39,6 +41,9 @@ jobs:
 
       - name: Run GS06 controller, production-gate and mutation tests
         run: node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
+
+      - name: Run program controller D0 governance tests
+        run: node --test tests/governance/milestone-claim-integrity.test.js
 
       - name: Validate current controller phase
         run: |
@@ -101,7 +106,9 @@ jobs:
           const allowed = new Set([
             '.github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml',
             'site/modules/curriculum/golden/golden-batch-controller.js',
+            'tools/governance/milestone-claim-integrity-core.mjs',
             'tools/governance/validate-gs06-golden-controller.mjs',
+            'tests/governance/milestone-claim-integrity.test.js',
             'tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js',
             'data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json',
             'data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json',
