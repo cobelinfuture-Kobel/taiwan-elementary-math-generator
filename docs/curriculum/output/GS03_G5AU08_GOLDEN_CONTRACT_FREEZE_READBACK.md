@@ -126,6 +126,20 @@ data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json
 docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json
 ```
 
+## Claim and PR parity
+
+```text
+Actual Evidence Level  = E1_DATA_STRUCTURE_READY
+Maximum Claim          = E1_DATA_STRUCTURE_READY
+Visible Output Changed = false
+Human Review Type      = none
+Human Review Ready     = false
+Runtime Integrated     = false
+Production Admitted    = false
+```
+
+This synchronization commit ensures exact-head CI reads the final E1 Claim, final PR body, frozen contract, PASS marker and closeout readback from the same pull-request event.
+
 ## Program state
 
 ```text
