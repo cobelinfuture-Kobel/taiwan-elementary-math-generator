@@ -25,7 +25,7 @@
   "activeTask": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
   "activeTaskStatus": "A01_E3_G3AU01_SHARED_RUNTIME_CANDIDATE_PENDING_OUTPUT_CI",
   "activeBranch": "feat/postg-mig-a01-g3a-u01-conformance",
-  "activePR": null,
+  "activePR": 293,
   "lastCompletedTask": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
   "nextAllowedTask": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
   "completedCount": 1,
