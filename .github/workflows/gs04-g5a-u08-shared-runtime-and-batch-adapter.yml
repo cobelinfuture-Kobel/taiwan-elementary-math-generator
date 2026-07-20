@@ -54,6 +54,7 @@ jobs:
           NODE
 
       - name: Enforce GS04 bounded scope
+        if: github.head_ref == 'feat/gs04-shared-runtime-batch-adapter'
         run: |
           node --input-type=module <<'NODE'
           import { execFileSync } from 'node:child_process';

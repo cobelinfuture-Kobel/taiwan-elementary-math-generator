@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "gs05-cross-unit-conformance-v1",
+  "taskId": "GS05_G5AU08_CrossUnitConformancePilot",
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "status": "PASS_E3_THREE_CLASS_CROSS_UNIT_CONFORMANCE_PENDING_MERGE",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "goal": "Prove the frozen Golden contract and shared runtime policy across a completed numeric unit, a completed application/context unit, and an unfinished Golden-native unit without creating parallel per-unit runtime.",
+  "pilots": [
+    {
+      "sourceId": "g5a_u02_5a02",
+      "pilotClass": "legacy_numeric_completed",
+      "expectedStatus": "GOLDEN_CONFORMANT",
+      "actualStatus": "GOLDEN_CONFORMANT"
+    },
+    {
+      "sourceId": "g3b_u04_3b04",
+      "pilotClass": "legacy_application_completed",
+      "expectedStatus": "GOLDEN_CONFORMANT",
+      "actualStatus": "GOLDEN_CONFORMANT"
+    },
+    {
+      "sourceId": "g3a_u01_3a01",
+      "pilotClass": "golden_native_in_progress",
+      "expectedStatus": "IN_PROGRESS_GOLDEN_NATIVE",
+      "actualStatus": "IN_PROGRESS_GOLDEN_NATIVE"
+    }
+  ],
+  "acceptance": {
+    "pilotCount": 3,
+    "requiredLifecycleClassCount": 3,
+    "completedUnitConformantCount": 2,
+    "goldenNativeInProgressCount": 1,
+    "completedRuntimeGenerationRequired": true,
+    "completedBlockingValidationRequired": true,
+    "completedRendererEvidenceRequired": true,
+    "completedAnswerKeyParityRequired": true,
+    "applicationApprovedContextMinimum": 5,
+    "unfinishedDataRegistryRequired": true,
+    "unfinishedGoldenProductionFailClosedRequired": true,
+    "newPerUnitGeneratorMax": 0,
+    "newPerUnitValidatorMax": 0,
+    "newPerUnitRendererMax": 0,
+    "newPerUnitWorkflowMax": 0,
+    "focusedWorkflowStatus": "PASS",
+    "milestoneClaimIntegrityStatus": "PASS",
+    "nodeTestStatus": "PASS",
+    "mathCIReadbackStatus": "PASS"
+  },
+  "authorities": {
+    "goldenContract": "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
+    "pilotRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.cross-unit-pilots.json",
+    "evaluator": "site/modules/curriculum/golden/cross-unit-golden-conformance.js",
+    "sharedAdapter": "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+    "focusedTest": "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+    "workflow": ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml",
+    "passMarker": "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PASS.marker",
+    "readback": "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_READBACK.md",
+    "predecessorCompatibilityWorkflows": [
+      ".github/workflows/gs02-g5a-u08-global-context-expansion.yml",
+      ".github/workflows/gs03-g5a-u08-golden-contract-freeze.yml",
+      ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml"
+    ]
+  },
+  "scope": {
+    "publicUIChanged": false,
+    "productionAdmissionChanged": false,
+    "globalContextRegistryChanged": false,
+    "newUnitRuntimeCreated": false,
+    "predecessorScopeAuditsGeneralized": true,
+    "goldenAuthoritySnapshotRefreshed": true,
+    "goldenAuthoritySnapshotReason": "Refresh the frozen renderer authority hash to the GS04-connected build-worksheet-document.js digest; no authority path or required token changed.",
+    "gs06ControllerCreated": false
+  },
+  "nextShortestStepAfterPass": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
+}

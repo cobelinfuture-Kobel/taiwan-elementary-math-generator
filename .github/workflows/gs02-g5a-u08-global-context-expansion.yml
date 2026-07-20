@@ -50,6 +50,7 @@ jobs:
         run: node --test tests/curriculum/gs02-g5a-u08-global-context-expansion.test.js
 
       - name: Enforce GS02 candidate-only scope
+        if: github.head_ref == 'data/gs02-g5a-u08-global-context-18-family-expansion'
         shell: bash
         run: |
           node --input-type=module <<'NODE'

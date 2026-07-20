@@ -555,7 +555,7 @@
     {
       "layer": "renderer",
       "path": "site/assets/browser/pipeline/build-worksheet-document.js",
-      "sha256": "043617126892310f2817a68b0a8f16560eb7bc1910c246d4d34eb27b5b1a65dc",
+      "sha256": "1932cc3231db6f21a618d5bd5c165bb84166b0679e876121b98bbb4a032eb04d",
       "requiredTokens": [
         "buildWorksheetDocumentFromState",
         "adaptGlobalPublicSourceUnitPlan",

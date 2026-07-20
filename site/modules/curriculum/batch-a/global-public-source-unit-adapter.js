@@ -45,12 +45,15 @@ function blockedAdaptation(plan, descriptor, errors) {
   });
 }
 
-function requestsGoldenActivation(plan, descriptor) {
-  if (!descriptor.requiresExplicitGoldenActivation) return true;
-  const supplied = plan.goldenContractId != null
+function hasGoldenActivationFields(plan) {
+  return plan.goldenContractId != null
     || plan.goldenContractVersion != null
     || plan.goldenRuntimeMode != null;
-  if (!supplied) return false;
+}
+
+function requestsGoldenActivation(plan, descriptor) {
+  if (!descriptor.requiresExplicitGoldenActivation) return true;
+  if (!hasGoldenActivationFields(plan)) return false;
   return plan.goldenContractId === descriptor.goldenContractDescriptor.goldenContractId
     && plan.goldenContractVersion === descriptor.goldenContractDescriptor.goldenContractVersion
     && plan.goldenRuntimeMode === "shadow";
@@ -58,10 +61,7 @@ function requestsGoldenActivation(plan, descriptor) {
 
 function hasPartialOrInvalidGoldenActivation(plan, descriptor) {
   if (!descriptor.requiresExplicitGoldenActivation) return false;
-  const supplied = plan.goldenContractId != null
-    || plan.goldenContractVersion != null
-    || plan.goldenRuntimeMode != null;
-  return supplied && !requestsGoldenActivation(plan, descriptor);
+  return hasGoldenActivationFields(plan) && !requestsGoldenActivation(plan, descriptor);
 }
 
 function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer) {
@@ -118,7 +118,11 @@ export function adaptGlobalPublicSourceUnitPlan(plan = {}) {
   if (plan.selectionMode !== "sourceUnit") return passthrough(plan);
 
   const descriptor = resolveGlobalPublicSourceUnitAdapterDescriptor(plan.sourceId);
-  if (!descriptor) return passthrough(plan);
+  if (!descriptor) {
+    return hasGoldenActivationFields(plan)
+      ? blockedAdaptation(plan, null, ["GS05_GOLDEN_UNIT_NOT_REGISTERED"])
+      : passthrough(plan);
+  }
   if (descriptor.requiresExplicitGoldenActivation && !requestsGoldenActivation(plan, descriptor)) {
     return hasPartialOrInvalidGoldenActivation(plan, descriptor)
       ? blockedAdaptation(plan, descriptor, ["GS04_GOLDEN_SHADOW_ACTIVATION_INVALID"])
@@ -202,6 +206,16 @@ export function validateGlobalPublicSourceUnitAdapters() {
   if (!g5aU08.plan?.goldenRuntimeConsumer
     || g5aU08.plan.goldenRuntimeConsumer.connectionStatus !== "FROZEN_AND_CONNECTED_TO_EXISTING_SHARED_RUNTIME") {
     errors.push("GS04_G5AU08_GOLDEN_RUNTIME_NOT_CONNECTED");
+  }
+  const unregisteredGolden = adaptGlobalPublicSourceUnitPlan({
+    sourceId: "g3a_u01_3a01",
+    selectionMode: "sourceUnit",
+    goldenContractId: "G5AU08_GOLDEN_V1",
+    goldenContractVersion: "1.0.0",
+    goldenRuntimeMode: "shadow",
+  });
+  if (!unregisteredGolden.blocked || !unregisteredGolden.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED")) {
+    errors.push("GS05_UNREGISTERED_GOLDEN_UNIT_NOT_BLOCKED");
   }
   const result = {
     ok: errors.length === 0,
