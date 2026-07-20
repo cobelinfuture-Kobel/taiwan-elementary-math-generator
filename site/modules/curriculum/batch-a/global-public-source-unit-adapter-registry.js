@@ -21,6 +21,8 @@ export const G3A_U01_POSTG_SOURCE_ID = "g3a_u01_3a01";
 export const G3A_U01_POSTG_TASK_ID = "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration";
 export const G3A_U02_POSTG_SOURCE_ID = "g3a_u02_3a02";
 export const G3A_U02_POSTG_TASK_ID = "POSTG-MIG-A02_G3A_U02_GoldenConformanceAndKnowledgeOperationMigration";
+export const G3A_U03_POSTG_SOURCE_ID = "g3a_u03_3a03";
+export const G3A_U03_POSTG_TASK_ID = "POSTG-MIG-A03_G3A_U03_GoldenConformanceAndKnowledgeOperationMigration";
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -40,8 +42,7 @@ function sourceKnowledgePointIds(sourceId) {
 
 function patternGroupIdsForKnowledgePoints(knowledgePointIds) {
   return unique(knowledgePointIds.flatMap((knowledgePointId) => (
-    getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
-      .map((group) => group.patternGroupId)
+    getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => group.patternGroupId)
   )));
 }
 
@@ -59,11 +60,7 @@ export const G5AU08_GOLDEN_V1_RUNTIME_DESCRIPTOR = freeze({
   contractStatus: "FROZEN_FOR_GS04_CONSUMPTION",
   sourceId: G5A_U08_SOURCE_ID,
   authorityFileCount: 20,
-  frozenCounts: {
-    knowledgePointCount: 11,
-    patternGroupCount: 17,
-    patternSpecCount: 30,
-  },
+  frozenCounts: { knowledgePointCount: 11, patternGroupCount: 17, patternSpecCount: 30 },
   perUnitRuntimeLimits: { generator: 0, validator: 0, renderer: 0, workflow: 0 },
   globalContextProductionSelectableAtFreeze: false,
   globalContextRuntimeResolvableAtFreeze: false,
@@ -131,6 +128,14 @@ export const G3AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescripto
   generator: "site/modules/curriculum/batch-a/batch-a-browser-generator-core.js",
 });
 
+export const G3AU03_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({
+  sourceId: G3A_U03_POSTG_SOURCE_ID,
+  knowledgeRegistryPath: "data/curriculum/knowledge/units/g3a_u03_3a03.knowledge-operation.json",
+  counts: { knowledgePoints: 7, patternGroups: 7, patternSpecs: 7 },
+  authorityFileCount: 4,
+  generator: "site/modules/curriculum/batch-a/batch-a-browser-generator-core.js",
+});
+
 const BASE_ADAPTER_DESCRIPTORS = freeze([
   {
     sourceId: G4B_U04_SOURCE_ID,
@@ -167,7 +172,7 @@ const BASE_ADAPTER_DESCRIPTORS = freeze([
   },
 ]);
 
-function postGoldenAdapterDescriptor({ sourceId, taskId, adapterId, descriptor, questionMode }) {
+function postGoldenAdapterDescriptor({ sourceId, taskId, adapterId, descriptor, questionMode = "mixed" }) {
   return {
     sourceId,
     taskId,
@@ -193,14 +198,18 @@ const POST_GOLDEN_ADAPTER_DESCRIPTORS = freeze([
     taskId: G3A_U01_POSTG_TASK_ID,
     adapterId: "g3a_u01_postg_golden_shared_runtime",
     descriptor: G3AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
-    questionMode: "mixed",
   }),
   postGoldenAdapterDescriptor({
     sourceId: G3A_U02_POSTG_SOURCE_ID,
     taskId: G3A_U02_POSTG_TASK_ID,
     adapterId: "g3a_u02_postg_golden_shared_runtime",
     descriptor: G3AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
-    questionMode: "mixed",
+  }),
+  postGoldenAdapterDescriptor({
+    sourceId: G3A_U03_POSTG_SOURCE_ID,
+    taskId: G3A_U03_POSTG_TASK_ID,
+    adapterId: "g3a_u03_postg_golden_shared_runtime",
+    descriptor: G3AU03_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
   }),
 ]);
 
@@ -248,41 +257,19 @@ function validateDescriptorCollection(descriptors, { minimumCount, tooSmallCode 
   return errors;
 }
 
-export function listGlobalPublicSourceUnitAdapterDescriptors() {
-  return [...BASE_ADAPTER_DESCRIPTORS];
-}
-
-export function getGlobalPublicSourceUnitAdapterDescriptor(sourceId) {
-  return BASE_ADAPTER_DESCRIPTORS.find((row) => row.sourceId === sourceId) ?? null;
-}
-
-export function resolveGlobalPublicSourceUnitAdapterDescriptor(sourceId) {
-  return resolveDescriptor(getGlobalPublicSourceUnitAdapterDescriptor(sourceId));
-}
-
-export function listPostGoldenSourceUnitAdapterDescriptors() {
-  return [...POST_GOLDEN_ADAPTER_DESCRIPTORS];
-}
-
-export function getPostGoldenSourceUnitAdapterDescriptor(sourceId) {
-  return POST_GOLDEN_ADAPTER_DESCRIPTORS.find((row) => row.sourceId === sourceId) ?? null;
-}
-
-export function resolvePostGoldenSourceUnitAdapterDescriptor(sourceId) {
-  return resolveDescriptor(getPostGoldenSourceUnitAdapterDescriptor(sourceId));
-}
+export function listGlobalPublicSourceUnitAdapterDescriptors() { return [...BASE_ADAPTER_DESCRIPTORS]; }
+export function getGlobalPublicSourceUnitAdapterDescriptor(sourceId) { return BASE_ADAPTER_DESCRIPTORS.find((row) => row.sourceId === sourceId) ?? null; }
+export function resolveGlobalPublicSourceUnitAdapterDescriptor(sourceId) { return resolveDescriptor(getGlobalPublicSourceUnitAdapterDescriptor(sourceId)); }
+export function listPostGoldenSourceUnitAdapterDescriptors() { return [...POST_GOLDEN_ADAPTER_DESCRIPTORS]; }
+export function getPostGoldenSourceUnitAdapterDescriptor(sourceId) { return POST_GOLDEN_ADAPTER_DESCRIPTORS.find((row) => row.sourceId === sourceId) ?? null; }
+export function resolvePostGoldenSourceUnitAdapterDescriptor(sourceId) { return resolveDescriptor(getPostGoldenSourceUnitAdapterDescriptor(sourceId)); }
 
 export function validateGlobalPublicSourceUnitAdapterRegistry() {
   const errors = validateDescriptorCollection(BASE_ADAPTER_DESCRIPTORS, {
     minimumCount: 3,
     tooSmallCode: "GS04_SHARED_ADAPTER_AFFECTED_UNIT_COUNT_TOO_SMALL",
   });
-  return freeze({
-    ok: errors.length === 0,
-    errors,
-    affectedUnitCount: BASE_ADAPTER_DESCRIPTORS.length,
-    registryVersion: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
-  });
+  return freeze({ ok: errors.length === 0, errors, affectedUnitCount: BASE_ADAPTER_DESCRIPTORS.length, registryVersion: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION });
 }
 
 export function validatePostGoldenSourceUnitAdapterRegistry() {
@@ -290,10 +277,5 @@ export function validatePostGoldenSourceUnitAdapterRegistry() {
     minimumCount: 1,
     tooSmallCode: "POSTG_SHARED_ADAPTER_AFFECTED_UNIT_COUNT_TOO_SMALL",
   });
-  return freeze({
-    ok: errors.length === 0,
-    errors,
-    affectedUnitCount: POST_GOLDEN_ADAPTER_DESCRIPTORS.length,
-    registryVersion: POST_GOLDEN_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
-  });
+  return freeze({ ok: errors.length === 0, errors, affectedUnitCount: POST_GOLDEN_ADAPTER_DESCRIPTORS.length, registryVersion: POST_GOLDEN_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION });
 }
