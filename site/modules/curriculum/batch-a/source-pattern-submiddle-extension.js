@@ -181,6 +181,6 @@ export function getBatchAPatternSpecIdsForSource(id) {
   const baseIds = baseGetPatternIds(id);
   if (id === u01) return [...baseIds, ...u01NumberStructureSpecIds];
   if (id === u06) return [...baseIds, ...u06NewSpecIds];
-  if (id === b01) return [...baseIds, ...b01NewSpecIds];
+  if (id === b01) return [...new Set([...baseIds, ...b01NewSpecIds, ...b01WordProblemSpecIds])];
   return baseIds;
 }
