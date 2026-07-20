@@ -44,9 +44,9 @@
     "reviewArtifactRequired": false
   },
   "distance": {
-    "before": "D1",
-    "after": "D1",
-    "distanceReduced": "The 15-unit registry and controller candidate now exist, but Golden D0 remains correctly blocked until focused controller CI and final exact-head closeout pass."
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "At E1 evidence level, the 15-unit registry and controller candidate are structurally ready; executable controller evidence and Golden D0 remain correctly deferred to candidate and final exact-head CI."
   },
   "nextStep": {
     "taskId": "GS06_GoldenD0CloseoutAndFinalExactHeadCI",
