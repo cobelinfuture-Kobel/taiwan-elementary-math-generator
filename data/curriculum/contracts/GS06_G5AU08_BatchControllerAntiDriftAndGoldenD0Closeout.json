@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "gs06-golden-controller-d0-v1",
+  "taskId": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "status": "IN_PROGRESS_CONTROLLER_CANDIDATE_PENDING_EXACT_HEAD_CI",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "goal": "Create the machine-enforced 15-unit conformance inventory, deterministic migration queue, production gate, anti-drift gate, and final Golden Sample program D0 closeout.",
+  "d0Definition": {
+    "means": [
+      "The six-task Golden Sample program is complete.",
+      "All 15 current public source units are present in one authoritative conformance registry.",
+      "Conformance and production states are machine validated.",
+      "One active unit and the remaining pending queue are deterministic.",
+      "New per-unit generator, validator, renderer, or workflow additions are blocked by CI.",
+      "Production eligibility requires GOLDEN_CONFORMANT."
+    ],
+    "doesNotMean": [
+      "All 15 source units are already GOLDEN_CONFORMANT.",
+      "The 11 pending units are migrated by GS06.",
+      "G3A-U01 is promoted to production.",
+      "A post-Golden unit migration program is approved."
+    ]
+  },
+  "acceptance": {
+    "sourceAuthorityCount": 15,
+    "conformanceRegistryCount": 15,
+    "goldenConformantCount": 3,
+    "goldenNativeActiveCount": 1,
+    "legacyPendingValidationCount": 11,
+    "blockedCount": 0,
+    "exceptionCount": 0,
+    "notStartedCount": 0,
+    "oneActiveUnitMaximum": 1,
+    "newPerUnitGeneratorMax": 0,
+    "newPerUnitValidatorMax": 0,
+    "newPerUnitRendererMax": 0,
+    "newPerUnitWorkflowMax": 0,
+    "productionGateRequiresGoldenConformant": true,
+    "controllerCandidateFocusedCIRequired": true,
+    "finalExactHeadCIRequired": true
+  },
+  "authorities": {
+    "sourceUnits": "site/modules/curriculum/batch-a/source-units.js",
+    "unitConformanceRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
+    "batchController": "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
+    "controllerCore": "site/modules/curriculum/golden/golden-batch-controller.js",
+    "validatorCLI": "tools/governance/validate-gs06-golden-controller.mjs",
+    "focusedTest": "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js",
+    "workflow": ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml"
+  },
+  "scope": {
+    "executesPostGoldenUnitMigration": false,
+    "changesPublicUI": false,
+    "changesPendingUnitProductionAdmission": false,
+    "createsSeventhGoldenTask": false
+  },
+  "closeoutTarget": {
+    "programStatus": "PASS_GOLDEN_D0_CLOSED",
+    "completedCount": 6,
+    "remainingCount": 0,
+    "goalDistance": "D0_G5AU08_GOLDEN_V1_CONTROLLER_ACTIVE_AND_CLOSED",
+    "stopReason": "NEXT_STEP_OUTSIDE_APPROVED_SCOPE",
+    "nextResumeTask": "POST_GOLDEN_G3A_U01_CONFORMANCE_MIGRATION"
+  }
+}
