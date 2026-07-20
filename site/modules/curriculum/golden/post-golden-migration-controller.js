@@ -32,10 +32,22 @@ export function validatePostGoldenMigrationProgram(program = {}) {
   if (new Set(taskOrder).size !== taskOrder.length) {
     errors.push(issue("POSTG_A00_DUPLICATE_TASK_ID"));
   }
+
+  const candidateProgress = program.programStatus === "ACTIVE_A00_FOUNDATION_PENDING_EXACT_HEAD_CI_AND_MERGE"
+    && program.activeTaskStatus === "E1_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE"
+    && program.completedCount === 0
+    && program.remainingCount === 14
+    && program.lastCompletedTask == null
+    && program.goalDistance === "D14_POST_GOLDEN_MIGRATION_PROGRAM_FOUNDATION_NOT_MERGED";
+  const acceptedProgress = program.programStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
+    && program.activeTaskStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
+    && program.completedCount === 1
+    && program.remainingCount === 13
+    && program.lastCompletedTask === taskOrder[0]
+    && program.goalDistance === "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY";
   if (program.activeTask !== taskOrder[0]
     || program.nextAllowedTask !== taskOrder[1]
-    || program.completedCount !== 0
-    || program.remainingCount !== 14) {
+    || (!candidateProgress && !acceptedProgress)) {
     errors.push(issue("POSTG_A00_PROGRAM_PROGRESS_INVALID"));
   }
   if (program.programLock !== "ACTIVE_ONE_UNIT_ONLY"
@@ -76,6 +88,13 @@ export function validatePostGoldenMigrationController(
   }
   if (controller.programId !== program.programId) {
     errors.push(issue("POSTG_A00_CONTROLLER_PROGRAM_DRIFT"));
+  }
+  if (controller.status !== program.programStatus
+    || controller.programCompletion?.taskBudget !== program.taskBudget
+    || controller.programCompletion?.completedCount !== program.completedCount
+    || controller.programCompletion?.remainingCount !== program.remainingCount
+    || controller.programCompletion?.goalDistance !== program.goalDistance) {
+    errors.push(issue("POSTG_A00_CONTROLLER_COMPLETION_DRIFT"));
   }
   if (controller.scopeBoundary?.postGoldenMigrationProgramApproved !== true
     || controller.scopeBoundary?.executesUnitMigrationDuringA00 !== false
