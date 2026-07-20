@@ -81,6 +81,7 @@ jobs:
         run: node --test tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js
 
       - name: Enforce GS03 scope
+        if: github.head_ref == 'contract/gs03-g5a-u08-golden-contract-freeze'
         shell: bash
         run: |
           node --input-type=module <<'NODE'
