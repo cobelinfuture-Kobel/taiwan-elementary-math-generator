@@ -90,13 +90,17 @@ jobs:
 
       - name: Run focused and shared regressions
         run: |
-          test -f "${POSTG_FOCUSED_TEST}"
-          node --test "${POSTG_FOCUSED_TEST}"
-          node --test tests/curriculum/postg-mig-a00-program-foundation.test.js
-          node --test tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js
-          node --test tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js
-          node --test tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js
-          node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
+          set -o pipefail
+          mkdir -p "build/postg/${POSTG_SOURCE_ID}"
+          {
+            test -f "${POSTG_FOCUSED_TEST}"
+            node --test "${POSTG_FOCUSED_TEST}"
+            node --test tests/curriculum/postg-mig-a00-program-foundation.test.js
+            node --test tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js
+            node --test tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js
+            node --test tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js
+            node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
+          } 2>&1 | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_REGRESSION_READBACK.log"
 
       - name: Generate exact-head production evidence
         run: |
@@ -167,7 +171,7 @@ jobs:
           assert readback['unitCount']==15
           assert readback['sheetRowCounts']['Knowledge_Point_Map']>=48
           assert readback['sheetRowCounts']['Operation_Models']>=48
-          with zipfile.ZipFile('build/reports/Golden_Knowledge_Operation_Master.xlsx') as archive:
+          with zipfile.ZipFile('build/reports/Golden_KnowLEDGE_Operation_Master.xlsx') as archive:
               assert 'xl/workbook.xml' in archive.namelist()
           with open('build/reports/Golden_Knowledge_Operation_Master.summary.csv',encoding='utf-8',newline='') as handle:
               assert len(list(csv.DictReader(handle)))==15
@@ -195,6 +199,7 @@ jobs:
             build/postg/${{ env.POSTG_SOURCE_ID }}/*.html
             build/postg/${{ env.POSTG_SOURCE_ID }}/*.pdf
             build/postg/${{ env.POSTG_SOURCE_ID }}/*.json
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.log
             build/reports/Golden_Knowledge_Operation_Master.xlsx
             build/reports/Golden_Knowledge_Operation_Master.summary.csv
             build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json
