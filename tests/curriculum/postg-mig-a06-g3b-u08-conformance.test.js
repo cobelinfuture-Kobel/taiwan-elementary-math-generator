@@ -12,7 +12,7 @@ import {
   validatePostGoldenSourceUnitAdapterRegistry,
 } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js";
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
-import { validateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
+import { validateG3BU08SemanticBatch } from "../../site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js";
 import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
@@ -79,6 +79,20 @@ function adapted() {
   return result.plan;
 }
 
+test("A06 knowledge authority registers six operation models and twenty-four bindings", async () => {
+  const registry = await readJson("../../data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json");
+  assert.equal(registry.conformanceState, "IN_PROGRESS_GOLDEN_NATIVE");
+  assert.equal(registry.knowledgeRegistryState, "VALIDATED_COMPLETE");
+  assert.equal(registry.review.status, "PASS");
+  assert.equal(registry.knowledgePoints.length, 6);
+  assert.equal(registry.knowledgePoints.flatMap((row) => row.operationModels).length, 6);
+  assert.equal(registry.existingQuestionBindings.length, 24);
+  assert.deepEqual(new Set(registry.knowledgePoints.map((row) => row.knowledgePointId)), KP);
+  assert.deepEqual(new Set(registry.existingQuestionBindings.map((row) => row.questionId)), PS);
+  assert.equal(registry.coverage.numeric, "ABSENT");
+  assert.equal(registry.coverage.application, "COMPLETE");
+});
+
 test("A06 descriptor resolves six KP, six groups and twenty-four semantic specs", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.deepEqual(descriptor.expectedCounts, {
@@ -111,13 +125,14 @@ test("A06 shadow route reuses the existing S58 generator, validator and renderer
   });
 });
 
-test("A06 shared route generates and validates every semantic PatternSpec", () => {
+test("A06 shared route generates and semantically validates every PatternSpec", () => {
   const generated = generateBatchABrowserQuestions(adapted());
   assert.equal(generated.ok, true, JSON.stringify(generated.errors));
   assert.equal(generated.questions.length, 48);
   assert.deepEqual(new Set(generated.questions.map((question) => question.patternSpecId)), PS);
-  const validation = validateBatchABrowserQuestions(generated.questions);
-  assert.equal(validation.ok, true, JSON.stringify(validation.errors));
+  const validation = validateG3BU08SemanticBatch(generated.questions);
+  assert.equal(validation.valid, true, JSON.stringify(validation.blockingErrors));
+  assert.equal(validation.blockingErrors.length, 0);
 });
 
 test("A06 adapter remains fail-closed without exact task authorization", () => {
@@ -138,8 +153,25 @@ test("A06 selector retains one canonical lineage per semantic identity", () => {
   assert.deepEqual(new Set(refs), PS);
 });
 
+test("A06 preserves multiplication division and comparison semantic distinctions", async () => {
+  const registry = await readJson("../../data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json");
+  const bindings = Object.fromEntries(registry.existingQuestionBindings.map((row) => [row.questionId, row]));
+  assert.notEqual(
+    bindings.ps_g3b_u08_total_daily_saving_accumulation.operationModelId,
+    bindings.ps_g3b_u08_group_count_score_events.operationModelId,
+  );
+  assert.notEqual(
+    bindings.ps_g3b_u08_group_count_score_events.operationModelId,
+    bindings.ps_g3b_u08_per_group_equal_share_people.operationModelId,
+  );
+  assert.notEqual(
+    bindings.ps_g3b_u08_estimate_near_hundred_total.operationModelId,
+    bindings.ps_g3b_u08_same_price_compare_weight.operationModelId,
+  );
+});
+
 test("A06 E3 candidate preserves D8 and the single active queue item", async () => {
-  const [program, controller, registry] = await Promise.all([
+  const [program, controller, conformance] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
     readJson("../../data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"),
@@ -149,7 +181,7 @@ test("A06 E3 candidate preserves D8 and the single active queue item", async () 
   assert.equal(program.remainingCount, 8);
   assert.equal(program.goalDistance, "D8_POST_GOLDEN_MIGRATION_G3BU01_CONFORMANT_G3BU08_ACTIVE");
   assert.equal(controller.queue.activeSourceId, SOURCE_ID);
-  const row = registry.rows.find((entry) => entry.sourceId === SOURCE_ID);
+  const row = conformance.rows.find((entry) => entry.sourceId === SOURCE_ID);
   assert.equal(row.queueState, "ACTIVE");
   assert.equal(row.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
   assert.equal(row.goldenProductionEligible, false);
