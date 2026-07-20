@@ -15,8 +15,10 @@ import {
 import { G5A_U02_PUBLIC_SOURCE_ID } from "../batch-b/g5a-u02-browser-resolver.js";
 import { consumeGoldenRuntimeContract } from "../golden/shared-golden-runtime-consumer.js";
 
-export const GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION = "postg-global-source-unit-adapter-registry-v2";
+export const GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION = "gs04-global-source-unit-adapter-registry-v1";
+export const POST_GOLDEN_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION = "postg-source-unit-adapter-registry-v1";
 export const G3A_U01_POSTG_SOURCE_ID = "g3a_u01_3a01";
+export const G3A_U01_POSTG_TASK_ID = "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration";
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -119,7 +121,7 @@ export const G3AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = freeze({
   },
 });
 
-const ADAPTER_DESCRIPTORS = freeze([
+const BASE_ADAPTER_DESCRIPTORS = freeze([
   {
     sourceId: G4B_U04_SOURCE_ID,
     adapterId: "g4b_u04_all_promoted_canonical",
@@ -160,14 +162,16 @@ const ADAPTER_DESCRIPTORS = freeze([
     resolvePatternGroupIds: () => [...G5A_U08_PROMOTED_PATTERN_GROUP_IDS],
     goldenContractDescriptor: G5AU08_GOLDEN_V1_RUNTIME_DESCRIPTOR,
   },
+]);
+
+const POST_GOLDEN_ADAPTER_DESCRIPTORS = freeze([
   {
     sourceId: G3A_U01_POSTG_SOURCE_ID,
+    taskId: G3A_U01_POSTG_TASK_ID,
     adapterId: "g3a_u01_postg_golden_shared_runtime",
     conformanceMode: "post_golden_candidate_shadow",
     requiresExplicitGoldenActivation: true,
-    planOverrides: {
-      questionMode: "mixed",
-    },
+    planOverrides: { questionMode: "mixed" },
     expectedCounts: { knowledgePoints: 8, patternGroups: 8, patternSpecs: 20 },
     resolveKnowledgePointIds: () => sourceKnowledgePointIds(G3A_U01_POSTG_SOURCE_ID),
     resolvePatternGroupIds: (knowledgePointIds) => patternGroupIdsForKnowledgePoints(knowledgePointIds),
@@ -176,41 +180,24 @@ const ADAPTER_DESCRIPTORS = freeze([
   },
 ]);
 
-export function listGlobalPublicSourceUnitAdapterDescriptors() {
-  return [...ADAPTER_DESCRIPTORS];
-}
-
-export function getGlobalPublicSourceUnitAdapterDescriptor(sourceId) {
-  return ADAPTER_DESCRIPTORS.find((row) => row.sourceId === sourceId) ?? null;
-}
-
-export function resolveGlobalPublicSourceUnitAdapterDescriptor(sourceId) {
-  const descriptor = getGlobalPublicSourceUnitAdapterDescriptor(sourceId);
+function resolveDescriptor(descriptor) {
   if (!descriptor) return null;
   const knowledgePointIds = unique(descriptor.resolveKnowledgePointIds());
   const patternGroupIds = unique(descriptor.resolvePatternGroupIds(knowledgePointIds));
   const patternSpecIds = descriptor.resolvePatternSpecIds
     ? unique(descriptor.resolvePatternSpecIds(knowledgePointIds))
-    : unique(knowledgePointIds.flatMap((knowledgePointId) => (
-      getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
-        .flatMap((group) => group.patternSpecIds ?? [])
-    )));
-  return freeze({
-    ...descriptor,
-    knowledgePointIds,
-    patternGroupIds,
-    patternSpecIds,
-  });
+    : patternSpecIdsForKnowledgePoints(knowledgePointIds);
+  return freeze({ ...descriptor, knowledgePointIds, patternGroupIds, patternSpecIds });
 }
 
-export function validateGlobalPublicSourceUnitAdapterRegistry() {
+function validateDescriptorCollection(descriptors, { minimumCount, tooSmallCode }) {
   const errors = [];
-  if (ADAPTER_DESCRIPTORS.length < 4) errors.push("POSTG_SHARED_ADAPTER_AFFECTED_UNIT_COUNT_TOO_SMALL");
-  if (new Set(ADAPTER_DESCRIPTORS.map((row) => row.sourceId)).size !== ADAPTER_DESCRIPTORS.length) {
+  if (descriptors.length < minimumCount) errors.push(tooSmallCode);
+  if (new Set(descriptors.map((row) => row.sourceId)).size !== descriptors.length) {
     errors.push("GS04_SHARED_ADAPTER_DUPLICATE_SOURCE_ID");
   }
-  for (const descriptor of ADAPTER_DESCRIPTORS) {
-    const resolved = resolveGlobalPublicSourceUnitAdapterDescriptor(descriptor.sourceId);
+  for (const descriptor of descriptors) {
+    const resolved = resolveDescriptor(descriptor);
     if (!resolved) {
       errors.push(`GS04_SHARED_ADAPTER_DESCRIPTOR_MISSING:${descriptor.sourceId}`);
       continue;
@@ -234,10 +221,55 @@ export function validateGlobalPublicSourceUnitAdapterRegistry() {
       if (!consumed.ok) errors.push(`GS04_GOLDEN_CONSUMER_INVALID:${descriptor.sourceId}`);
     }
   }
+  return errors;
+}
+
+export function listGlobalPublicSourceUnitAdapterDescriptors() {
+  return [...BASE_ADAPTER_DESCRIPTORS];
+}
+
+export function getGlobalPublicSourceUnitAdapterDescriptor(sourceId) {
+  return BASE_ADAPTER_DESCRIPTORS.find((row) => row.sourceId === sourceId) ?? null;
+}
+
+export function resolveGlobalPublicSourceUnitAdapterDescriptor(sourceId) {
+  return resolveDescriptor(getGlobalPublicSourceUnitAdapterDescriptor(sourceId));
+}
+
+export function listPostGoldenSourceUnitAdapterDescriptors() {
+  return [...POST_GOLDEN_ADAPTER_DESCRIPTORS];
+}
+
+export function getPostGoldenSourceUnitAdapterDescriptor(sourceId) {
+  return POST_GOLDEN_ADAPTER_DESCRIPTORS.find((row) => row.sourceId === sourceId) ?? null;
+}
+
+export function resolvePostGoldenSourceUnitAdapterDescriptor(sourceId) {
+  return resolveDescriptor(getPostGoldenSourceUnitAdapterDescriptor(sourceId));
+}
+
+export function validateGlobalPublicSourceUnitAdapterRegistry() {
+  const errors = validateDescriptorCollection(BASE_ADAPTER_DESCRIPTORS, {
+    minimumCount: 3,
+    tooSmallCode: "GS04_SHARED_ADAPTER_AFFECTED_UNIT_COUNT_TOO_SMALL",
+  });
   return freeze({
     ok: errors.length === 0,
     errors,
-    affectedUnitCount: ADAPTER_DESCRIPTORS.length,
+    affectedUnitCount: BASE_ADAPTER_DESCRIPTORS.length,
     registryVersion: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+  });
+}
+
+export function validatePostGoldenSourceUnitAdapterRegistry() {
+  const errors = validateDescriptorCollection(POST_GOLDEN_ADAPTER_DESCRIPTORS, {
+    minimumCount: 1,
+    tooSmallCode: "POSTG_SHARED_ADAPTER_AFFECTED_UNIT_COUNT_TOO_SMALL",
+  });
+  return freeze({
+    ok: errors.length === 0,
+    errors,
+    affectedUnitCount: POST_GOLDEN_ADAPTER_DESCRIPTORS.length,
+    registryVersion: POST_GOLDEN_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
   });
 }
