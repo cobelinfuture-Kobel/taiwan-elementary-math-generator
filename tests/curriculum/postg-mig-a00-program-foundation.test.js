@@ -45,31 +45,33 @@ function clone(value) {
   return structuredClone(value);
 }
 
-test("A00 accepts one exact 14-task post-Golden migration program", async () => {
+test("A00 foundation preserves the exact 14-task post-Golden program during later tasks", async () => {
   const program = await readJson(PROGRAM_PATH);
   const audit = validatePostGoldenMigrationProgram(program);
   assert.equal(audit.ok, true, JSON.stringify(audit.errors, null, 2));
-  assert.equal(program.programStatus, "A00_PASS_ACCEPTED_PENDING_MERGE");
   assert.equal(program.taskBudget, 14);
   assert.equal(program.taskOrder.length, 14);
-  assert.equal(program.completedCount, 1);
-  assert.equal(program.remainingCount, 13);
   assert.equal(
-    program.lastCompletedTask,
+    program.taskOrder[0],
     "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
   );
   assert.equal(
-    program.goalDistance,
-    "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY",
+    program.taskOrder.at(-1),
+    "POSTG-MIG-A13_ProgramControllerAndKnowledgeRegistryCloseout",
   );
+  assert.ok(program.completedCount >= 1);
+  assert.equal(program.remainingCount, 14 - program.completedCount);
   assert.equal(
-    program.nextAllowedTask,
-    "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    program.taskOrder.slice(0, program.completedCount).includes(
+      "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
+    ),
+    true,
   );
+  assert.equal(program.continuation.autoContinueWithinApprovedProgram, true);
   assert.equal(program.continuation.nextSourceIdAfterA00, "g3a_u01_3a01");
 });
 
-test("A00 controller inherits the exact GS06 fleet queue without migrating a unit", async () => {
+test("A00 controller continues to mirror the authoritative Golden fleet queue", async () => {
   const [program, controller, registry, goldenController] = await Promise.all([
     readJson(PROGRAM_PATH),
     readJson(CONTROLLER_PATH),
@@ -83,25 +85,24 @@ test("A00 controller inherits the exact GS06 fleet queue without migrating a uni
     program,
   );
   assert.equal(audit.ok, true, JSON.stringify(audit.errors, null, 2));
-  assert.equal(controller.status, "A00_PASS_ACCEPTED_PENDING_MERGE");
-  assert.deepEqual(controller.programCompletion, {
-    taskBudget: 14,
-    completedCount: 1,
-    remainingCount: 13,
-    goalDistance: "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY",
-  });
-  assert.deepEqual(audit.queue, {
-    completeCount: 3,
-    activeCount: 1,
-    pendingCount: 11,
-    nextResumeSourceId: "g3a_u01_3a01",
-  });
-  assert.equal(controller.scopeBoundary.executesUnitMigrationDuringA00, false);
-  assert.equal(controller.scopeBoundary.changesProductionAdmissionDuringA00, false);
+  assert.equal(controller.programCompletion.taskBudget, 14);
+  assert.equal(controller.programCompletion.completedCount, program.completedCount);
+  assert.equal(controller.programCompletion.remainingCount, program.remainingCount);
+  assert.equal(controller.queue.oneActiveUnitMaximum, 1);
+  assert.equal(audit.queue.activeCount <= 1, true);
+  assert.equal(
+    audit.queue.completeCount
+      + audit.queue.activeCount
+      + audit.queue.pendingCount
+      + audit.queue.blockedCount
+      + audit.queue.exceptionCount,
+    15,
+  );
   assert.equal(controller.scopeBoundary.postGoldenMigrationProgramApproved, true);
+  assert.equal(controller.scopeBoundary.applicationCapabilityExpansionApproved, false);
 });
 
-test("A00 master index covers all 15 public units and assigns the 12 migration tasks", async () => {
+test("A00 master index remains a complete 15-unit generated-view authority", async () => {
   const [program, registry, masterIndex] = await Promise.all([
     readJson(PROGRAM_PATH),
     readJson(GOLDEN_REGISTRY_PATH),
@@ -111,9 +112,11 @@ test("A00 master index covers all 15 public units and assigns the 12 migration t
   assert.equal(audit.ok, true, JSON.stringify(audit.errors, null, 2));
   assert.equal(audit.rowCount, 15);
   assert.equal(new Set(audit.sourceIds).size, 15);
-  assert.equal(masterIndex.statusSummary.goldenConformantCount, 3);
-  assert.equal(masterIndex.statusSummary.activeMigrationUnitCount, 1);
-  assert.equal(masterIndex.statusSummary.pendingMigrationUnitCount, 11);
+  assert.equal(masterIndex.statusSummary.totalUnitCount, 15);
+  assert.equal(
+    masterIndex.statusSummary.unitJsonExistsCount,
+    masterIndex.rows.filter((row) => row.unitJsonExists === true).length,
+  );
 
   const anchors = masterIndex.rows.filter((row) =>
     row.programRole === "GOLDEN_REGRESSION_ANCHOR"
@@ -125,7 +128,7 @@ test("A00 master index covers all 15 public units and assigns the 12 migration t
   ), true);
 });
 
-test("A00 knowledge schema makes operation models and existing-question bindings explicit", async () => {
+test("A00 knowledge schema keeps operation models and existing-question bindings explicit", async () => {
   const schema = await readJson(KNOWLEDGE_SCHEMA_PATH);
   assert.equal(schema.type, "object");
   assert.equal(schema.additionalProperties, false);
@@ -168,10 +171,10 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
     program,
   );
   assert.equal(audit.ok, false);
-  assert.equal(audit.errors.some(({ code }) => code === "POSTG_A00_PENDING_QUEUE_DRIFT"), true);
+  assert.equal(audit.errors.some(({ code }) => code === "POSTG_PENDING_QUEUE_DRIFT"), true);
 
   const badCompletion = clone(controller);
-  badCompletion.programCompletion.remainingCount = 14;
+  badCompletion.programCompletion.remainingCount += 1;
   audit = validatePostGoldenMigrationController(
     badCompletion,
     registry,
@@ -180,7 +183,7 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
   );
   assert.equal(audit.ok, false);
   assert.equal(
-    audit.errors.some(({ code }) => code === "POSTG_A00_CONTROLLER_COMPLETION_DRIFT"),
+    audit.errors.some(({ code }) => code === "POSTG_CONTROLLER_COMPLETION_DRIFT"),
     true,
   );
 
@@ -189,7 +192,7 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
   audit = validateKnowledgeOperationMasterIndex(badMaster, registry, program);
   assert.equal(audit.ok, false);
   assert.equal(
-    audit.errors.some(({ code }) => code === "POSTG_A00_MASTER_FLEET_COUNT_INVALID"),
+    audit.errors.some(({ code }) => code === "POSTG_MASTER_FLEET_COUNT_INVALID"),
     true,
   );
 
@@ -198,12 +201,12 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
   audit = validatePostGoldenMigrationProgram(badProgram);
   assert.equal(audit.ok, false);
   assert.equal(
-    audit.errors.some(({ code }) => code === "POSTG_A00_KNOWLEDGE_AUTHORITY_POLICY_INVALID"),
+    audit.errors.some(({ code }) => code === "POSTG_KNOWLEDGE_AUTHORITY_POLICY_INVALID"),
     true,
   );
 });
 
-test("A00 exporter creates deterministic six-sheet XLSX and 15-row audit CSV", async () => {
+test("A00 exporter continues to create deterministic six-sheet XLSX and 15-row audit CSV", async () => {
   const directory = await mkdtemp(join(tmpdir(), "postg-a00-"));
   const xlsx = join(directory, "master.xlsx");
   const csv = join(directory, "master.csv");

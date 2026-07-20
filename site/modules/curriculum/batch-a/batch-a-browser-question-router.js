@@ -33,6 +33,9 @@ import {
   generateG4BU04CanonicalQuestions,
   normalizeG4BU04ResolverPlan,
 } from "../batch-b/g4b-u04-canonical-router-r2e.js";
+import {
+  attachPostGoldenQuestionLineage,
+} from "../golden/post-golden-question-lineage.js";
 
 const G4A_U08_PHASE2B_GROUP_SET = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 
@@ -122,6 +125,10 @@ function requestsG4AU08Phase2B(plan = {}) {
     && plan.requestedPatternGroupIds.some((id) => G4A_U08_PHASE2B_GROUP_SET.has(id));
 }
 
+function finalizePostGoldenResult(result, options) {
+  return attachPostGoldenQuestionLineage(result, options);
+}
+
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
 
@@ -129,46 +136,59 @@ export function generateBatchABrowserQuestions(options = {}) {
     const g4aU08Plan = normalizeG4AU08AllCanonicalPublicPlan(plan);
     const result = generateG4AU08AllCanonicalPublicQuestions(g4aU08Plan);
     if (!result.ok) {
-      return invalidCanonicalResult(
+      return finalizePostGoldenResult(invalidCanonicalResult(
         result.plan,
         "G4A_U08_S76Q",
         "G4A-U08 公開選擇沒有可用的 canonical KnowledgePoint 或 PatternGroup。",
         result.errors,
-      );
+      ), options);
     }
-    return applyRequestedOrdering(result, g4aU08Plan, "g4a-u08-all-canonical");
+    return finalizePostGoldenResult(
+      applyRequestedOrdering(result, g4aU08Plan, "g4a-u08-all-canonical"),
+      options,
+    );
   }
 
   if (requestsG4AU08Phase2B(plan)) {
     const g4aU08Plan = normalizeG4AU08ResolverPlan(plan);
     const g4aU08RouteKind = classifyG4AU08CanonicalRouterPlan(g4aU08Plan);
     if (g4aU08RouteKind === G4A_U08_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) {
-      return invalidCanonicalResult(g4aU08Plan, "G4A_U08", "G4A-U08 公開選擇沒有可用的 Phase2B KnowledgePoint 或 PatternGroup。");
+      return finalizePostGoldenResult(
+        invalidCanonicalResult(g4aU08Plan, "G4A_U08", "G4A-U08 公開選擇沒有可用的 Phase2B KnowledgePoint 或 PatternGroup。"),
+        options,
+      );
     }
     if (g4aU08RouteKind === G4A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) {
-      return generateG4AU08CanonicalQuestions(g4aU08Plan);
+      return finalizePostGoldenResult(generateG4AU08CanonicalQuestions(g4aU08Plan), options);
     }
   }
 
   const g4bU04Plan = normalizeG4BU04ResolverPlan(plan);
   const g4bU04RouteKind = classifyG4BU04CanonicalRouterPlan(g4bU04Plan);
   if (g4bU04RouteKind === G4B_U04_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) {
-    return invalidCanonicalResult(g4bU04Plan, "G4B_U04", "G4B-U04 公開選擇沒有可用的 KnowledgePoint、PatternGroup 或題目模式。");
+    return finalizePostGoldenResult(
+      invalidCanonicalResult(g4bU04Plan, "G4B_U04", "G4B-U04 公開選擇沒有可用的 KnowledgePoint、PatternGroup 或題目模式。"),
+      options,
+    );
   }
   if (g4bU04RouteKind === G4B_U04_CANONICAL_ROUTE_KINDS.CANONICAL) {
-    return generateG4BU04CanonicalQuestions(g4bU04Plan);
+    return finalizePostGoldenResult(generateG4BU04CanonicalQuestions(g4bU04Plan), options);
   }
 
   const g5aU08Plan = normalizeG5AU08ResolverPlan(plan);
   const g5aU08RouteKind = classifyG5AU08CanonicalRouterPlan(g5aU08Plan);
   if (g5aU08RouteKind === G5A_U08_CANONICAL_ROUTE_KINDS.INVALID_SCOPE) {
-    return invalidCanonicalResult(g5aU08Plan, "G5A_U08", "G5A-U08 公開選擇沒有可用的 mode、depth 與 context 組合。");
+    return finalizePostGoldenResult(
+      invalidCanonicalResult(g5aU08Plan, "G5A_U08", "G5A-U08 公開選擇沒有可用的 mode、depth 與 context 組合。"),
+      options,
+    );
   }
   if (g5aU08RouteKind === G5A_U08_CANONICAL_ROUTE_KINDS.CANONICAL) {
-    return generateG5AU08CanonicalQuestions(g5aU08Plan);
+    return finalizePostGoldenResult(generateG5AU08CanonicalQuestions(g5aU08Plan), options);
   }
   const coreResult = generateCoreBatchABrowserQuestions(options);
   const g3bU04ProductionResult = applyG3BU04GlobalContextProductionAdmission(coreResult, plan);
   const g4aU08DomainResult = applyG4AU08GeneratorValidatorDomainFullFix(g3bU04ProductionResult, plan);
-  return applyG4AU01FirstDifferenceFullFix(g4aU08DomainResult, plan);
+  const finalResult = applyG4AU01FirstDifferenceFullFix(g4aU08DomainResult, plan);
+  return finalizePostGoldenResult(finalResult, options);
 }

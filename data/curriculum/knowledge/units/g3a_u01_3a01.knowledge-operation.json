@@ -1,0 +1,225 @@
+{
+  "schemaName": "KnowledgeOperationUnitRegistry",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "title": "10000以內的數",
+  "grade": 3,
+  "semester": "upper",
+  "conformanceState": "IN_PROGRESS_GOLDEN_NATIVE",
+  "knowledgeRegistryState": "QUESTION_BINDINGS_COMPLETE",
+  "authority": {
+    "producerPaths": [
+      "site/modules/curriculum/registry/batch-a-selector-equation-extension.js",
+      "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js",
+      "site/modules/curriculum/batch-a/g3a-u06-division-ordering-generator.js"
+    ],
+    "authoritativeStatePath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "runtimeConsumerPaths": [
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+      "site/modules/renderer/html-renderer-s60j-extension.js"
+    ],
+    "readbackPaths": [
+      "docs/curriculum/output/postg/a01-g3a-u01/POSTG_MIG_A01_G3AU01_RUNTIME_READBACK.json"
+    ]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3a_u01_4digit_compare",
+      "knowledgePointName": "四位數大小比較",
+      "scope": "比較兩個1000到9999的整數並判定大於、小於或等於。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u01_four_digit_compare",
+          "canonicalExpressions": ["comparison = sign(a - b)"],
+          "operandRoles": { "a": "第一個四位數", "b": "第二個四位數" },
+          "unknownRoles": ["comparison_symbol"],
+          "numberConstraints": ["1000 <= a <= 9999", "1000 <= b <= 9999"],
+          "equivalentForms": ["a > b", "a < b", "a = b"],
+          "answerType": "comparison_symbol",
+          "validationInvariants": ["answer is exactly one of >, <, =", "answer equals the mathematical ordering of a and b"]
+        }
+      ],
+      "existingNumericQuestionCount": 1,
+      "existingApplicationQuestionCount": 0
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_number_to_chinese",
+      "knowledgePointName": "四位數寫成中文數字",
+      "scope": "依千、百、十、個位與零位規則，把四位數轉寫為繁體中文數字。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u01_number_to_chinese",
+          "canonicalExpressions": ["text = encode_place_value_zh(n)"],
+          "operandRoles": { "n": "1000到9999的整數" },
+          "unknownRoles": ["traditional_chinese_number_text"],
+          "numberConstraints": ["1000 <= n <= 9999"],
+          "equivalentForms": ["n = 1000a + 100b + 10c + d"],
+          "answerType": "traditional_chinese_number_text",
+          "validationInvariants": ["zero placeholders follow canonical place-value rules", "decoding the answer returns n"]
+        }
+      ],
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_chinese_to_number",
+      "knowledgePointName": "中文數字寫成四位數",
+      "scope": "解析繁體中文千、百、十、個位表示並還原四位數。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u01_chinese_to_number",
+          "canonicalExpressions": ["n = decode_place_value_zh(text)", "n = 1000a + 100b + 10c + d"],
+          "operandRoles": { "text": "繁體中文四位數文字", "a": "千位數字", "b": "百位數字", "c": "十位數字", "d": "個位數字" },
+          "unknownRoles": ["four_digit_integer"],
+          "numberConstraints": ["a is 1..9", "b,c,d are 0..9"],
+          "equivalentForms": ["encode_place_value_zh(n) = text"],
+          "answerType": "integer",
+          "validationInvariants": ["1000 <= n <= 9999", "encoding n returns the canonical normalized text"]
+        }
+      ],
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_digit_place_value_decomposition",
+      "knowledgePointName": "四位數位值分解與數字位值辨識",
+      "scope": "把四位數分解為千、百、十、個位，辨識指定數字的位值及相同數字在不同位的值。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u01_place_value_decomposition",
+          "canonicalExpressions": ["n = 1000a + 100b + 10c + d", "digit_value(place_i) = digit_i * 10^i"],
+          "operandRoles": { "n": "四位數", "a": "千位數字", "b": "百位數字", "c": "十位數字", "d": "個位數字" },
+          "unknownRoles": ["place_value_components", "selected_digit_value"],
+          "numberConstraints": ["1000 <= n <= 9999", "a is 1..9", "b,c,d are 0..9"],
+          "equivalentForms": ["n = a個千 + b個百 + c個十 + d個一"],
+          "answerType": "structured_place_value",
+          "validationInvariants": ["recomposed components equal n", "selected digit value equals digit multiplied by its place unit"]
+        }
+      ],
+      "existingNumericQuestionCount": 3,
+      "existingApplicationQuestionCount": 0
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_place_value_composition",
+      "knowledgePointName": "位值組成四位數",
+      "scope": "由標準、非標準或部分千百十個單位數量組成整數。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u01_place_value_composition",
+          "canonicalExpressions": ["n = 1000a + 100b + 10c + d"],
+          "operandRoles": { "a": "千單位數量", "b": "百單位數量", "c": "十單位數量", "d": "一單位數量" },
+          "unknownRoles": ["composed_integer"],
+          "numberConstraints": ["a,b,c,d are nonnegative integers", "1000 <= n <= 9999", "nonstandard counts may require carrying"] ,
+          "equivalentForms": ["10個百 = 1個千", "10個十 = 1個百", "10個一 = 1個十"],
+          "answerType": "integer",
+          "validationInvariants": ["weighted sum equals the answer", "carrying does not change total value"]
+        }
+      ],
+      "existingNumericQuestionCount": 3,
+      "existingApplicationQuestionCount": 0
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion",
+      "knowledgePointName": "十進位單位換算",
+      "scope": "將個十換成個百、個百換成個千，或將低面額貨幣換成高面額並保留餘數。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u01_decimal_unit_exchange",
+          "canonicalExpressions": ["q = floor(a / 10)", "r = a mod 10", "a = 10q + r"],
+          "operandRoles": { "a": "來源單位數量", "q": "可換得的高一級單位數量", "r": "剩餘來源單位數量" },
+          "unknownRoles": ["quotient_units", "remainder_units"],
+          "numberConstraints": ["a >= 0", "0 <= r < 10"],
+          "equivalentForms": ["a source units = q target units + r source units"],
+          "answerType": "quotient_remainder_with_units",
+          "validationInvariants": ["a = 10q + r", "remainder uses the source unit", "quotient uses the target unit"]
+        }
+      ],
+      "existingNumericQuestionCount": 3,
+      "existingApplicationQuestionCount": 0
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_digit_arrangement_max_min",
+      "knowledgePointName": "數字卡排列最大與最小四位數",
+      "scope": "每個指定數字只用一次，排列成最大或最小四位數，且最小數首位不得為0。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u01_digit_arrangement_extrema",
+          "canonicalExpressions": ["max = digits sorted descending", "min = smallest nonzero digit followed by remaining digits ascending"],
+          "operandRoles": { "digits": "四張互異數字卡", "max": "可組成的最大四位數", "min": "可組成的最小四位數" },
+          "unknownRoles": ["maximum_number", "minimum_number"],
+          "numberConstraints": ["exactly four distinct digits", "at least one digit is nonzero", "each digit is used exactly once"],
+          "equivalentForms": ["lexicographically greatest valid permutation", "lexicographically least valid permutation without leading zero"],
+          "answerType": "integer_or_max_min_pair",
+          "validationInvariants": ["answer digits equal the input multiset", "no leading zero", "no other valid permutation exceeds max or is below min"]
+        }
+      ],
+      "existingNumericQuestionCount": 3,
+      "existingApplicationQuestionCount": 0
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_range_reasoning",
+      "knowledgePointName": "四位數範圍與連續編號推理",
+      "scope": "判定數值是否位於開區間內，計算含首尾連續編號數量，並判斷合理價格範圍。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u01_range_and_inclusive_count",
+          "canonicalExpressions": ["lower < x < upper", "count = end - start + 1"],
+          "operandRoles": { "lower": "範圍下界", "upper": "範圍上界", "x": "候選數值", "start": "第一個編號", "end": "最後一個編號" },
+          "unknownRoles": ["valid_range_choice", "inclusive_count"],
+          "numberConstraints": ["1000 <= lower < upper <= 9999", "start <= end"],
+          "equivalentForms": ["x is strictly between lower and upper", "inclusive integer interval cardinality"],
+          "answerType": "choice_label_or_integer",
+          "validationInvariants": ["exactly one choice satisfies the stated open interval", "inclusive count includes both start and end"]
+        }
+      ],
+      "existingNumericQuestionCount": 3,
+      "existingApplicationQuestionCount": 0
+    }
+  ],
+  "existingQuestionBindings": [
+    { "questionId": "ps_g3a_u01_4digit_compare", "knowledgePointId": "kp_g3a_u01_4digit_compare", "operationModelId": "op_g3a_u01_four_digit_compare", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u06-division-ordering-generator.js" },
+    { "questionId": "ps_g3a_u01_4digit_number_to_chinese_basic", "knowledgePointId": "kp_g3a_u01_number_to_chinese", "operationModelId": "op_g3a_u01_number_to_chinese", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_4digit_number_to_chinese_with_zero", "knowledgePointId": "kp_g3a_u01_number_to_chinese", "operationModelId": "op_g3a_u01_number_to_chinese", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_chinese_to_4digit_number_basic", "knowledgePointId": "kp_g3a_u01_chinese_to_number", "operationModelId": "op_g3a_u01_chinese_to_number", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_chinese_to_4digit_number_with_zero", "knowledgePointId": "kp_g3a_u01_chinese_to_number", "operationModelId": "op_g3a_u01_chinese_to_number", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_4digit_place_value_full_decomposition", "knowledgePointId": "kp_g3a_u01_digit_place_value_decomposition", "operationModelId": "op_g3a_u01_place_value_decomposition", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_4digit_digit_value_identification", "knowledgePointId": "kp_g3a_u01_digit_place_value_decomposition", "operationModelId": "op_g3a_u01_place_value_decomposition", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_4digit_same_digit_different_place", "knowledgePointId": "kp_g3a_u01_digit_place_value_decomposition", "operationModelId": "op_g3a_u01_place_value_decomposition", "questionType": "reasoning", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_place_value_standard_composition", "knowledgePointId": "kp_g3a_u01_place_value_composition", "operationModelId": "op_g3a_u01_place_value_composition", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_place_value_nonstandard_composition", "knowledgePointId": "kp_g3a_u01_place_value_composition", "operationModelId": "op_g3a_u01_place_value_composition", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_place_value_partial_composition", "knowledgePointId": "kp_g3a_u01_place_value_composition", "operationModelId": "op_g3a_u01_place_value_composition", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_tens_to_hundreds_conversion", "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion", "operationModelId": "op_g3a_u01_decimal_unit_exchange", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_hundreds_to_thousands_conversion", "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion", "operationModelId": "op_g3a_u01_decimal_unit_exchange", "questionType": "numeric", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_money_place_value_exchange", "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion", "operationModelId": "op_g3a_u01_decimal_unit_exchange", "questionType": "concept", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_digit_arrangement_max_4digit", "knowledgePointId": "kp_g3a_u01_digit_arrangement_max_min", "operationModelId": "op_g3a_u01_digit_arrangement_extrema", "questionType": "reasoning", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_digit_arrangement_min_4digit_no_leading_zero", "knowledgePointId": "kp_g3a_u01_digit_arrangement_max_min", "operationModelId": "op_g3a_u01_digit_arrangement_extrema", "questionType": "reasoning", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_digit_arrangement_max_min_pair", "knowledgePointId": "kp_g3a_u01_digit_arrangement_max_min", "operationModelId": "op_g3a_u01_digit_arrangement_extrema", "questionType": "reasoning", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_4digit_range_compare_reasoning", "knowledgePointId": "kp_g3a_u01_range_reasoning", "operationModelId": "op_g3a_u01_range_and_inclusive_count", "questionType": "reasoning", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_4digit_serial_number_range", "knowledgePointId": "kp_g3a_u01_range_reasoning", "operationModelId": "op_g3a_u01_range_and_inclusive_count", "questionType": "reasoning", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" },
+    { "questionId": "ps_g3a_u01_4digit_price_range_reasoning", "knowledgePointId": "kp_g3a_u01_range_reasoning", "operationModelId": "op_g3a_u01_range_and_inclusive_count", "questionType": "reasoning", "sourcePath": "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js" }
+  ],
+  "coverage": {
+    "numeric": "COMPLETE",
+    "application": "UNASSESSED"
+  },
+  "review": {
+    "status": "PENDING",
+    "notes": [
+      "A01 candidate maps all eight visible KnowledgePoints and all twenty current PatternSpecs.",
+      "Application capability classification is intentionally deferred to POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1.",
+      "Conformance remains IN_PROGRESS until current production HTML/PDF/hash/readback and cross-unit regression pass."
+    ]
+  }
+}

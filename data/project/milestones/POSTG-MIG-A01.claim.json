@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
+  "taskClass": "integration",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "A01_E3_G3AU01_SHARED_RUNTIME_CANDIDATE_PENDING_OUTPUT_CI",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+      "site/modules/curriculum/golden/shared-golden-runtime-consumer.js",
+      "site/modules/curriculum/golden/post-golden-question-lineage.js",
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+      "tools/curriculum/run-postg-unit-production-evidence.mjs",
+      "tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js",
+      ".github/workflows/postg-unit-conformance-migration.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/contracts/POSTG_MIG_A01_G3AU01_GoldenConformanceAndKnowledgeOperationMigration.json",
+      "docs/curriculum/output/POSTG_MIG_A01_G3AU01_CANDIDATE.marker",
+      "docs/curriculum/output/POSTG_MIG_A01_G3AU01_CANDIDATE_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D1",
+    "distanceReduced": "G3A-U01 now has an authoritative 8-KnowledgePoint, 8-operation-model and 20-PatternSpec registry and is explicitly connected through the generic Golden source adapter and shared question-lineage runtime. Production HTML/PDF/hash evidence, anchor backfill, production admission and queue advance remain pending."
+  },
+  "nextStep": {
+    "taskId": "POSTG-MIG-A01_G3A_U01_CURRENT_RUNTIME_HTML_PDF_HASH_READBACK",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
