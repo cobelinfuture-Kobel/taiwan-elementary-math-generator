@@ -12,10 +12,10 @@
     "GS05_G5AU08_CrossUnitConformancePilot",
     "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
   ],
-  "activeTask": "GS05_G5AU08_CrossUnitConformancePilot",
-  "activeTaskStatus": "PASS_E3_THREE_CLASS_CROSS_UNIT_CONFORMANCE_PENDING_MERGE",
-  "activeBranch": "test/gs05-cross-unit-conformance-pilot",
-  "activePR": 288,
+  "activeTask": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
+  "activeTaskStatus": "IN_PROGRESS_CONTROLLER_CANDIDATE_PENDING_EXACT_HEAD_CI",
+  "activeBranch": "feat/gs06-golden-batch-controller-d0",
+  "activePR": null,
   "lastCompletedTask": "GS05_G5AU08_CrossUnitConformancePilot",
   "nextAllowedTask": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
   "completedCount": 5,
@@ -25,38 +25,36 @@
   "stopReason": "NONE",
   "scope": {
     "allowedPaths": [
-      ".github/workflows/gs02-g5a-u08-global-context-expansion.yml",
-      ".github/workflows/gs03-g5a-u08-golden-contract-freeze.yml",
-      ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml",
-      ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml",
-      "site/modules/curriculum/golden/cross-unit-golden-conformance.js",
-      "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
-      "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
-      "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
-      "data/curriculum/golden/G5AU08_GOLDEN_V1.cross-unit-pilots.json",
-      "data/curriculum/contracts/GS05_G5AU08_CrossUnitConformancePilot.json",
+      ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml",
+      "site/modules/curriculum/golden/golden-batch-controller.js",
+      "tools/governance/validate-gs06-golden-controller.mjs",
+      "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js",
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
+      "data/curriculum/contracts/GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout.json",
       "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json",
-      "data/project/milestones/GS05.claim.json",
-      "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PENDING.marker",
-      "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PASS.marker",
-      "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_READBACK.md"
+      "data/project/milestones/GS06.claim.json",
+      "docs/curriculum/output/GS06_G5AU08_GOLDEN_CONTROLLER_PENDING.marker",
+      "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_PASS.marker",
+      "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_READBACK.md"
     ],
     "forbiddenCapabilities": [
-      "new per-unit generator implementation",
-      "new per-unit validator implementation",
-      "new per-unit renderer implementation",
-      "new per-unit production workflow",
-      "new global context production admission",
-      "public UI modification",
-      "G3A-U01 production promotion",
-      "GS06 batch controller implementation",
-      "Golden D0 closeout"
+      "execute post-Golden unit migration",
+      "change public UI",
+      "change production admission for pending units",
+      "add per-unit generator",
+      "add per-unit validator",
+      "add per-unit renderer",
+      "add per-unit workflow",
+      "start a seventh Golden Sample task"
     ]
   },
   "continuation": {
     "autoContinue": true,
     "mergeIsStopPoint": false,
-    "closeoutIsStopPoint": false,
-    "nextTaskAfterPass": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
+    "closeoutIsStopPoint": true,
+    "nextTaskAfterCandidatePass": "GS06_GoldenD0CloseoutAndFinalExactHeadCI",
+    "stopReasonAfterD0": "NEXT_STEP_OUTSIDE_APPROVED_SCOPE",
+    "nextResumeTaskAfterD0": "POST_GOLDEN_G3A_U01_CONFORMANCE_MIGRATION"
   }
 }
