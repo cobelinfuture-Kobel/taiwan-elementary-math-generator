@@ -140,26 +140,31 @@ if (!result?.ok || !result.worksheetDocument) {
 }
 
 const document = result.worksheetDocument;
-const questions = document.generatedQuestions ?? result.generation?.questions ?? [];
+const documentQuestions = document.generatedQuestions ?? [];
+const canonicalQuestions = sourceId === "g3b_u08_3b08"
+  ? (result.generation?.questions ?? documentQuestions)
+  : documentQuestions;
 const questionDisplayModels = document.questionDisplayModels ?? [];
 const answerKeyItems = document.answerKeyItems ?? [];
 const questionPages = document.questionPages ?? [];
 const answerKeyPages = document.answerKeyPages ?? [];
 const validation = validatePostGoldenEvidenceQuestions(
   sourceId,
-  questions,
+  canonicalQuestions,
   result.generation?.plan ?? adaptation.plan,
 );
-const emittedPatternSpecIds = unique(questions.map((row) => row.patternSpecId));
-const emittedKnowledgePointIds = unique(questions.map((row) => row.knowledgePointId));
-const emittedPatternGroupIds = unique(questions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId));
+const emittedPatternSpecIds = unique(canonicalQuestions.map((row) => row.patternSpecId));
+const emittedKnowledgePointIds = unique(canonicalQuestions.map((row) => row.knowledgePointId));
+const emittedPatternGroupIds = unique(canonicalQuestions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId));
 
-if (questions.length !== questionCount
+if (canonicalQuestions.length !== questionCount
+  || documentQuestions.length !== questionCount
   || questionDisplayModels.length !== questionCount
   || answerKeyItems.length !== questionCount) {
   fail("POSTG_EVIDENCE_QUESTION_ANSWER_COUNT_MISMATCH", {
     questionCount,
-    questions: questions.length,
+    canonicalQuestions: canonicalQuestions.length,
+    documentQuestions: documentQuestions.length,
     questionDisplayModels: questionDisplayModels.length,
     answerKeyItems: answerKeyItems.length,
   });
@@ -257,7 +262,7 @@ const readback = {
   goldenContractVersion: golden.goldenContractVersion,
   goldenConnectionStatus: adaptation.plan.goldenRuntimeConsumer?.connectionStatus ?? null,
   sourceUnitAdapter: adaptation.adapter,
-  questionCount: questions.length,
+  questionCount: canonicalQuestions.length,
   answerKeyCount: answerKeyItems.length,
   questionPageCount: questionPages.length,
   answerKeyPageCount: answerKeyPages.length,
