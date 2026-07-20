@@ -77,6 +77,18 @@ function validatePostGoldenDescriptor(descriptor, errors) {
   if (counts.patternSpecCount < counts.patternGroupCount) {
     errors.push(issue("POSTG_GOLDEN_PATTERN_SPEC_COVERAGE_INVALID", { counts: clone(counts) }));
   }
+  const expectedCounts = descriptor.expectedCounts ?? null;
+  if (expectedCounts) {
+    for (const field of ["knowledgePointCount", "patternGroupCount", "patternSpecCount"]) {
+      if (!Number.isInteger(expectedCounts[field]) || counts[field] !== expectedCounts[field]) {
+        errors.push(issue("POSTG_GOLDEN_FROZEN_COUNT_DRIFT", {
+          field,
+          expected: expectedCounts[field],
+          actual: counts[field],
+        }));
+      }
+    }
+  }
   if (descriptor.baseGoldenContractId !== "G5AU08_GOLDEN_V1"
     || descriptor.baseGoldenContractVersion !== "1.0.0") {
     errors.push(issue("POSTG_BASE_GOLDEN_CONTRACT_DRIFT"));
@@ -147,6 +159,7 @@ export function consumeGoldenRuntimeContract(descriptor = {}, expectedSourceId =
       sourceId: descriptor.sourceId,
       authorityFileCount: descriptor.authorityFileCount,
       frozenCounts: clone(descriptor.frozenCounts),
+      expectedCounts: clone(descriptor.expectedCounts ?? descriptor.frozenCounts),
       perUnitRuntimeLimits: clone(descriptor.perUnitRuntimeLimits),
       runtimeModules: clone(descriptor.runtimeModules),
       knowledgeRegistryPath: descriptor.knowledgeRegistryPath ?? null,
