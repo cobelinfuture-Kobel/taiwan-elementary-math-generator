@@ -1,0 +1,197 @@
+name: POSTG Unit Conformance Migration
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"
+      - "data/project/milestones/POSTG-MIG-*.claim.json"
+      - "data/curriculum/contracts/POSTG_MIG_*.json"
+      - "data/curriculum/golden/**"
+      - "data/curriculum/knowledge/**"
+      - "site/modules/curriculum/golden/**"
+      - "site/modules/curriculum/batch-a/global-public-source-unit-adapter*.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
+      - "tools/curriculum/run-postg-unit-production-evidence.mjs"
+      - "tools/curriculum/export-postg-knowledge-master.py"
+      - "tests/curriculum/postg-mig-*.test.js"
+      - "docs/curriculum/output/POSTG_MIG_*"
+      - ".github/workflows/postg-unit-conformance-migration.yml"
+  workflow_dispatch:
+    inputs:
+      source_id:
+        description: Migrated source ID
+        required: false
+        default: g3a_u01_3a01
+      task_id:
+        description: Migration task ID
+        required: false
+        default: POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration
+      output_prefix:
+        description: Artifact output prefix
+        required: false
+        default: POSTG_MIG_A01_G3AU01
+
+permissions:
+  contents: read
+
+jobs:
+  conformance:
+    runs-on: ubuntu-24.04
+    env:
+      POSTG_SOURCE_ID: ${{ inputs.source_id || 'g3a_u01_3a01' }}
+      POSTG_TASK_ID: ${{ inputs.task_id || 'POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration' }}
+      POSTG_OUTPUT_PREFIX: ${{ inputs.output_prefix || 'POSTG_MIG_A01_G3AU01' }}
+    steps:
+      - name: Checkout exact candidate head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install repository dependencies
+        run: npm install --no-package-lock
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run A01 focused knowledge, runtime, worksheet and mutation tests
+        if: env.POSTG_SOURCE_ID == 'g3a_u01_3a01'
+        run: node --test tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js
+
+      - name: Run shared Golden adapter regressions
+        run: |
+          node --test tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js
+          node --test tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js
+          node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
+
+      - name: Generate current-runtime HTML PDF and hash evidence
+        run: |
+          mkdir -p build/postg/${POSTG_SOURCE_ID}
+          node tools/curriculum/run-postg-unit-production-evidence.mjs \
+            --source-id "${POSTG_SOURCE_ID}" \
+            --task-id "${POSTG_TASK_ID}" \
+            --question-count 40 \
+            --output-dir "build/postg/${POSTG_SOURCE_ID}" \
+            --output-prefix "${POSTG_OUTPUT_PREFIX}" \
+            --title "3A-U01 10000以內的數｜Golden Conformance" \
+            | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_CLI_READBACK.json"
+
+      - name: Validate exact production evidence readback
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+          import { resolve } from 'node:path';
+          const sourceId = process.env.POSTG_SOURCE_ID;
+          const prefix = process.env.POSTG_OUTPUT_PREFIX;
+          const path = resolve(`build/postg/${sourceId}/${prefix}_RUNTIME_READBACK.json`);
+          const readback = JSON.parse(await readFile(path, 'utf8'));
+          const expected = {
+            sourceId,
+            questionCount: 40,
+            answerKeyCount: 40,
+            knowledgePointCount: 8,
+            patternGroupCount: 8,
+            patternSpecCount: 20,
+          };
+          const actual = {
+            sourceId: readback.sourceId,
+            questionCount: readback.questionCount,
+            answerKeyCount: readback.answerKeyCount,
+            knowledgePointCount: readback.knowledgePointIds.length,
+            patternGroupCount: readback.patternGroupIds.length,
+            patternSpecCount: readback.patternSpecIds.length,
+          };
+          const ok = JSON.stringify(actual) === JSON.stringify(expected)
+            && readback.validator?.ok === true
+            && readback.validator?.errorCount === 0
+            && readback.pdfPageCount > 0
+            && readback.domReadback?.internalIdLeak === false
+            && readback.domReadback?.placeholderLeak === false
+            && readback.artifacts?.length === 2
+            && readback.artifacts.every((row) => /^[a-f0-9]{64}$/.test(row.sha256));
+          console.log(JSON.stringify({ ok, expected, actual, readback }, null, 2));
+          if (!ok) process.exit(1);
+          NODE
+
+      - name: Generate designer Excel and audit CSV readback
+        run: |
+          mkdir -p build/reports
+          python3 tools/curriculum/export-postg-knowledge-master.py \
+            --xlsx build/reports/Golden_Knowledge_Operation_Master.xlsx \
+            --csv build/reports/Golden_Knowledge_Operation_Master.summary.csv \
+            | tee build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json
+
+      - name: Run milestone claim integrity regression
+        run: node --test tests/governance/milestone-claim-integrity.test.js
+
+      - name: Enforce shared-runtime and A01 bounded scope
+        if: github.head_ref == 'feat/postg-mig-a01-g3a-u01-conformance'
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          import { detectGoldenDiffDrift } from './site/modules/curriculum/golden/golden-batch-controller.js';
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          const nameStatus = execFileSync('git', ['diff', '--name-status', `origin/${base}...HEAD`], { encoding: 'utf8' });
+          const driftAudit = detectGoldenDiffDrift(nameStatus);
+          if (!driftAudit.ok) {
+            console.error(JSON.stringify(driftAudit, null, 2));
+            process.exit(1);
+          }
+          const allowedExact = new Set([
+            '.github/workflows/postg-unit-conformance-migration.yml',
+            'data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json',
+            'data/project/milestones/POSTG-MIG-A01.claim.json',
+            'data/curriculum/contracts/POSTG_MIG_A01_G3AU01_GoldenConformanceAndKnowledgeOperationMigration.json',
+            'data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json',
+            'data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json',
+            'data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json',
+            'data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json',
+            'data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json',
+            'data/curriculum/knowledge/units/g3b_u04_3b04.knowledge-operation.json',
+            'data/curriculum/knowledge/units/g5a_u08_5a08.knowledge-operation.json',
+            'data/curriculum/knowledge/units/g5a_u02_5a02.knowledge-operation.json',
+            'site/modules/curriculum/golden/post-golden-migration-controller.js',
+            'site/modules/curriculum/golden/shared-golden-runtime-consumer.js',
+            'site/modules/curriculum/golden/post-golden-question-lineage.js',
+            'site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js',
+            'site/modules/curriculum/batch-a/global-public-source-unit-adapter.js',
+            'site/modules/curriculum/batch-a/batch-a-browser-question-router.js',
+            'tools/curriculum/run-postg-unit-production-evidence.mjs',
+            'tests/curriculum/postg-mig-a00-program-foundation.test.js',
+            'tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js',
+            'docs/curriculum/output/POSTG_MIG_A01_G3AU01_CANDIDATE.marker',
+            'docs/curriculum/output/POSTG_MIG_A01_G3AU01_CANDIDATE_READBACK.md',
+            'docs/curriculum/output/POSTG_MIG_A01_G3AU01_PASS.marker',
+            'docs/curriculum/output/POSTG_MIG_A01_G3AU01_D0_READBACK.md',
+            'docs/curriculum/output/postg/a01-g3a-u01/POSTG_MIG_A01_G3AU01_Worksheet.html',
+            'docs/curriculum/output/postg/a01-g3a-u01/POSTG_MIG_A01_G3AU01_Worksheet.pdf',
+            'docs/curriculum/output/postg/a01-g3a-u01/POSTG_MIG_A01_G3AU01_RUNTIME_READBACK.json',
+          ]);
+          const changed = nameStatus.trim().split(/\r?\n/).filter(Boolean)
+            .map((line) => line.split(/\t+/).at(-1));
+          const unexpected = changed.filter((path) => !allowedExact.has(path));
+          console.log(JSON.stringify({ driftAudit, changedFileCount: changed.length, unexpected }, null, 2));
+          if (unexpected.length > 0) process.exit(1);
+          NODE
+
+      - name: Upload migrated-unit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: postg-unit-conformance-${{ env.POSTG_SOURCE_ID }}
+          path: |
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.html
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.pdf
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.json
+            build/reports/Golden_Knowledge_Operation_Master.xlsx
+            build/reports/Golden_Knowledge_Operation_Master.summary.csv
+            build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json
