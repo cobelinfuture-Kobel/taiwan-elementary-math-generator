@@ -47,7 +47,7 @@
   "distance": {
     "before": "D4",
     "after": "D3",
-    "distanceReduced": "The registered POST_GOLDEN_PROGRAM_NOT_APPROVED blocker is removed by a machine-defined 14-task program, exact 12-unit queue, one-active controller, authoritative knowledge-operation schema/master index, and deterministic Excel/CSV export foundation. Program task count moves from 14 remaining tasks to 13 after merge; MCI capability distance moves D4 to D3. No unit conformance or production state changes in A00."
+    "distanceReduced": "The registered POST_GOLDEN_PROGRAM_NOT_APPROVED blocker is removed by a machine-defined 14-task program, exact 12-unit queue, one-active controller, authoritative knowledge-operation schema/master index, and deterministic Excel/CSV export foundation. Program task count moves from 14 remaining tasks to 13 after merge; MCI capability distance moves D4 to D3. The continuation contract additionally fail-closes CI pass, PR acceptance, merge, closeout, and readback as non-stopping checkpoints. No unit conformance or production state changes in A00."
   },
   "nextStep": {
     "taskId": "POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration",
