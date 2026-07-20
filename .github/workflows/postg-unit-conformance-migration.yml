@@ -89,38 +89,54 @@ jobs:
       - name: Validate exact production evidence readback
         run: |
           node --input-type=module <<'NODE'
-          import { readFile } from 'node:fs/promises';
+          import assert from 'node:assert/strict';
+          import { readFile, writeFile } from 'node:fs/promises';
           import { resolve } from 'node:path';
+          import { resolvePostGoldenSourceUnitAdapterDescriptor } from './site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js';
+
           const sourceId = process.env.POSTG_SOURCE_ID;
+          const taskId = process.env.POSTG_TASK_ID;
           const prefix = process.env.POSTG_OUTPUT_PREFIX;
-          const path = resolve(`build/postg/${sourceId}/${prefix}_RUNTIME_READBACK.json`);
+          const directory = resolve(`build/postg/${sourceId}`);
+          const path = resolve(directory, `${prefix}_RUNTIME_READBACK.json`);
+          const validationPath = resolve(directory, `${prefix}_VALIDATION_READBACK.json`);
           const readback = JSON.parse(await readFile(path, 'utf8'));
+          const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(sourceId);
+          assert.ok(descriptor, `Missing post-Golden descriptor for ${sourceId}`);
+          assert.equal(descriptor.taskId, taskId, 'Descriptor task authorization drift');
+
           const expected = {
             sourceId,
+            taskId,
             questionCount: 40,
             answerKeyCount: 40,
-            knowledgePointCount: 8,
-            patternGroupCount: 8,
-            patternSpecCount: 20,
+            knowledgePointCount: descriptor.expectedCounts.knowledgePoints,
+            patternGroupCount: descriptor.expectedCounts.patternGroups,
+            patternSpecCount: descriptor.expectedCounts.patternSpecs,
           };
           const actual = {
             sourceId: readback.sourceId,
+            taskId: readback.taskId,
             questionCount: readback.questionCount,
             answerKeyCount: readback.answerKeyCount,
-            knowledgePointCount: readback.knowledgePointIds.length,
-            patternGroupCount: readback.patternGroupIds.length,
-            patternSpecCount: readback.patternSpecIds.length,
+            knowledgePointCount: readback.knowledgePointIds?.length ?? -1,
+            patternGroupCount: readback.patternGroupIds?.length ?? -1,
+            patternSpecCount: readback.patternSpecIds?.length ?? -1,
           };
-          const ok = JSON.stringify(actual) === JSON.stringify(expected)
-            && readback.validator?.ok === true
-            && readback.validator?.errorCount === 0
-            && readback.pdfPageCount > 0
-            && readback.domReadback?.internalIdLeak === false
-            && readback.domReadback?.placeholderLeak === false
-            && readback.artifacts?.length === 2
-            && readback.artifacts.every((row) => /^[a-f0-9]{64}$/.test(row.sha256));
-          console.log(JSON.stringify({ ok, expected, actual, readback }, null, 2));
-          if (!ok) process.exit(1);
+          const checks = {
+            identityAndCounts: JSON.stringify(actual) === JSON.stringify(expected),
+            verdict: readback.verdict === 'PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK',
+            validator: readback.validator?.ok === true && readback.validator?.errorCount === 0,
+            pdf: Number.isInteger(readback.pdfPageCount) && readback.pdfPageCount > 0,
+            dom: readback.domReadback?.internalIdLeak === false
+              && readback.domReadback?.placeholderLeak === false,
+            hashes: readback.artifacts?.length === 2
+              && readback.artifacts.every((row) => /^[a-f0-9]{64}$/.test(row.sha256)),
+          };
+          const validation = { ok: Object.values(checks).every(Boolean), expected, actual, checks, readback };
+          await writeFile(validationPath, `${JSON.stringify(validation, null, 2)}\n`, 'utf8');
+          console.log(JSON.stringify(validation, null, 2));
+          assert.equal(validation.ok, true, `Production evidence validation failed: ${JSON.stringify(checks)}`);
           NODE
 
       - name: Generate designer Excel and audit CSV readback
@@ -185,6 +201,7 @@ jobs:
           NODE
 
       - name: Upload migrated-unit evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: postg-unit-conformance-${{ env.POSTG_SOURCE_ID }}
