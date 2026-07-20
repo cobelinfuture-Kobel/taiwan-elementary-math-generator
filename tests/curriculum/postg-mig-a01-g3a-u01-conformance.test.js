@@ -8,8 +8,10 @@ import {
 } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter.js";
 import {
   G3AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
-  resolveGlobalPublicSourceUnitAdapterDescriptor,
+  G3A_U01_POSTG_TASK_ID,
+  resolvePostGoldenSourceUnitAdapterDescriptor,
   validateGlobalPublicSourceUnitAdapterRegistry,
+  validatePostGoldenSourceUnitAdapterRegistry,
 } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js";
 import {
   generateBatchABrowserQuestions,
@@ -57,6 +59,7 @@ function explicitGoldenPlan(overrides = {}) {
     goldenContractId: "G5AU08_GOLDEN_V1",
     goldenContractVersion: "1.0.0",
     goldenRuntimeMode: "shadow",
+    postGoldenMigrationTaskId: G3A_U01_POSTG_TASK_ID,
     ...overrides,
   });
   assert.equal(adaptation.blocked, false, JSON.stringify(adaptation.errors));
@@ -106,10 +109,25 @@ test("A01 maps the exact 8 G3A-U01 KnowledgePoints and 20 PatternSpecs", async (
   }
 });
 
-test("A01 shared adapter keeps public default unchanged and connects explicit Golden candidate", () => {
-  const registryAudit = validateGlobalPublicSourceUnitAdapterRegistry();
-  assert.equal(registryAudit.ok, true, JSON.stringify(registryAudit.errors));
-  assert.equal(registryAudit.affectedUnitCount, 4);
+test("A01 keeps the frozen GS04 registry unchanged and authorizes one post-Golden extension", () => {
+  const baseAudit = validateGlobalPublicSourceUnitAdapterRegistry();
+  assert.equal(baseAudit.ok, true, JSON.stringify(baseAudit.errors));
+  assert.equal(baseAudit.affectedUnitCount, 3);
+
+  const postGoldenAudit = validatePostGoldenSourceUnitAdapterRegistry();
+  assert.equal(postGoldenAudit.ok, true, JSON.stringify(postGoldenAudit.errors));
+  assert.equal(postGoldenAudit.affectedUnitCount, 1);
+
+  const unauthorized = adaptGlobalPublicSourceUnitPlan({
+    sourceId: SOURCE_ID,
+    selectionMode: "sourceUnit",
+    goldenContractId: "G5AU08_GOLDEN_V1",
+    goldenContractVersion: "1.0.0",
+    goldenRuntimeMode: "shadow",
+  });
+  assert.equal(unauthorized.applied, false);
+  assert.equal(unauthorized.blocked, true);
+  assert.ok(unauthorized.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED"));
 
   const defaultRoute = adaptGlobalPublicSourceUnitPlan({
     sourceId: SOURCE_ID,
@@ -130,9 +148,12 @@ test("A01 shared adapter keeps public default unchanged and connects explicit Go
   );
   assert.equal(plan.sourceUnitAdapter.patternSpecCount, 20);
   assert.equal(plan.sourceUnitAdapter.goldenDescriptorMode, "post_golden_unit_conformance");
+  assert.equal(plan.sourceUnitAdapter.postGoldenMigrationTaskId, G3A_U01_POSTG_TASK_ID);
 
   const allAdapters = validateGlobalPublicSourceUnitAdapters();
   assert.equal(allAdapters.ok, true, JSON.stringify(allAdapters.errors));
+  assert.equal(allAdapters.affectedUnitCount, 3);
+  assert.equal(allAdapters.postGoldenAffectedUnitCount, 1);
 });
 
 test("A01 shared question lineage binds every generated question to KP, group and PatternSpec", () => {
@@ -219,14 +240,10 @@ test("A01 candidate fails closed on descriptor count drift and unmapped runtime 
   const consumed = consumeGoldenRuntimeContract(badDescriptor, SOURCE_ID);
   assert.equal(consumed.ok, false);
   assert.equal(
-    consumed.errors.some(({ code }) => code === "POSTG_GOLDEN_PATTERN_SPEC_COVERAGE_INVALID"),
-    false,
+    consumed.errors.some(({ code }) => code === "POSTG_GOLDEN_FROZEN_COUNT_DRIFT"),
+    true,
   );
-  assert.equal(
-    consumed.errors.some(({ code }) => code === "POSTG_GOLDEN_UNIT_COUNT_INVALID"),
-    false,
-  );
-  const descriptor = resolveGlobalPublicSourceUnitAdapterDescriptor(SOURCE_ID);
+  const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.equal(descriptor.expectedCounts.patternSpecs, 20);
   assert.notEqual(badDescriptor.frozenCounts.patternSpecCount, descriptor.expectedCounts.patternSpecs);
 
