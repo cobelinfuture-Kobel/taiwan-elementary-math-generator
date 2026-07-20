@@ -1,14 +1,15 @@
 import { consumeGoldenRuntimeContract } from "../golden/shared-golden-runtime-consumer.js";
 import {
   GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+  POST_GOLDEN_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
   listGlobalPublicSourceUnitAdapterDescriptors,
+  listPostGoldenSourceUnitAdapterDescriptors,
   resolveGlobalPublicSourceUnitAdapterDescriptor,
+  resolvePostGoldenSourceUnitAdapterDescriptor,
   validateGlobalPublicSourceUnitAdapterRegistry,
+  validatePostGoldenSourceUnitAdapterRegistry,
 } from "./global-public-source-unit-adapter-registry.js";
 
-// Preserve the public adapter version used by existing G4B-U04 and G5A-U02
-// readbacks. Post-Golden migration extends the shared registry/consumer without
-// creating a unit-specific public adapter.
 export const GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_VERSION = "glm-s05-source-unit-adapter-v1";
 
 function clone(value) {
@@ -29,7 +30,7 @@ function passthrough(plan) {
   };
 }
 
-function blockedAdaptation(plan, descriptor, errors) {
+function blockedAdaptation(plan, descriptor, errors, registryVersion = GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION) {
   return Object.freeze({
     plan: null,
     applied: false,
@@ -37,7 +38,7 @@ function blockedAdaptation(plan, descriptor, errors) {
     errors: Object.freeze([...errors]),
     adapter: Object.freeze({
       version: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_VERSION,
-      registryVersion: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+      registryVersion,
       adapterId: descriptor?.adapterId ?? null,
       sourceId: plan.sourceId ?? null,
       applied: false,
@@ -65,7 +66,12 @@ function hasPartialOrInvalidGoldenActivation(plan, descriptor) {
   return hasGoldenActivationFields(plan) && !requestsGoldenActivation(plan, descriptor);
 }
 
-function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer) {
+function isAuthorizedPostGoldenPlan(plan, descriptor) {
+  return descriptor?.taskId != null
+    && plan.postGoldenMigrationTaskId === descriptor.taskId;
+}
+
+function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer, registryVersion) {
   const knowledgePointIds = descriptor.knowledgePointIds;
   const patternGroupIds = descriptor.patternGroupIds;
   const patternSpecIds = descriptor.patternSpecIds ?? [];
@@ -88,6 +94,7 @@ function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer) {
         resolver: "visiblePatternGroupResolver",
         sourceId: descriptor.sourceId,
         sharedGoldenAdapterApplied: true,
+        postGoldenMigrationTaskId: descriptor.taskId ?? null,
         goldenRuntimeMode: descriptor.requiresExplicitGoldenActivation ? "shadow" : "production",
       },
     },
@@ -105,7 +112,7 @@ function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer) {
     ...(goldenRuntimeConsumer ? { goldenRuntimeConsumer: clone(goldenRuntimeConsumer) } : {}),
     sourceUnitAdapter: {
       version: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_VERSION,
-      registryVersion: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+      registryVersion,
       adapterId: descriptor.adapterId,
       conformanceMode: descriptor.conformanceMode,
       applied: true,
@@ -115,47 +122,68 @@ function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer) {
       knowledgePointCount: knowledgePointIds.length,
       patternGroupCount: patternGroupIds.length,
       patternSpecCount: patternSpecIds.length,
+      postGoldenMigrationTaskId: descriptor.taskId ?? null,
       ...goldenMetadata,
     },
+  };
+}
+
+function resolveDescriptorForPlan(plan) {
+  const baseDescriptor = resolveGlobalPublicSourceUnitAdapterDescriptor(plan.sourceId);
+  if (baseDescriptor) {
+    return {
+      descriptor: baseDescriptor,
+      registryVersion: GLOBAL_PUBLIC_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+      registryValidation: validateGlobalPublicSourceUnitAdapterRegistry(),
+    };
+  }
+
+  const postGoldenDescriptor = resolvePostGoldenSourceUnitAdapterDescriptor(plan.sourceId);
+  if (!postGoldenDescriptor || !isAuthorizedPostGoldenPlan(plan, postGoldenDescriptor)) return null;
+  return {
+    descriptor: postGoldenDescriptor,
+    registryVersion: POST_GOLDEN_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+    registryValidation: validatePostGoldenSourceUnitAdapterRegistry(),
   };
 }
 
 export function adaptGlobalPublicSourceUnitPlan(plan = {}) {
   if (plan.selectionMode !== "sourceUnit") return passthrough(plan);
 
-  const descriptor = resolveGlobalPublicSourceUnitAdapterDescriptor(plan.sourceId);
-  if (!descriptor) {
+  const resolved = resolveDescriptorForPlan(plan);
+  if (!resolved) {
     return hasGoldenActivationFields(plan)
       ? blockedAdaptation(plan, null, ["GS05_GOLDEN_UNIT_NOT_REGISTERED"])
       : passthrough(plan);
   }
+  const { descriptor, registryVersion, registryValidation } = resolved;
+
   if (descriptor.requiresExplicitGoldenActivation && !requestsGoldenActivation(plan, descriptor)) {
     return hasPartialOrInvalidGoldenActivation(plan, descriptor)
-      ? blockedAdaptation(plan, descriptor, ["GS04_GOLDEN_SHADOW_ACTIVATION_INVALID"])
+      ? blockedAdaptation(plan, descriptor, ["GS04_GOLDEN_SHADOW_ACTIVATION_INVALID"], registryVersion)
       : passthrough(plan);
   }
 
-  const registryValidation = validateGlobalPublicSourceUnitAdapterRegistry();
   if (!registryValidation.ok) {
-    return blockedAdaptation(plan, descriptor, registryValidation.errors);
+    return blockedAdaptation(plan, descriptor, registryValidation.errors, registryVersion);
   }
   if (descriptor.knowledgePointIds.length !== descriptor.expectedCounts.knowledgePoints
     || descriptor.patternGroupIds.length !== descriptor.expectedCounts.patternGroups
     || (Number.isInteger(descriptor.expectedCounts.patternSpecs)
       && descriptor.patternSpecIds.length !== descriptor.expectedCounts.patternSpecs)) {
-    return blockedAdaptation(plan, descriptor, ["GS04_SOURCE_UNIT_DESCRIPTOR_COUNT_DRIFT"]);
+    return blockedAdaptation(plan, descriptor, ["GS04_SOURCE_UNIT_DESCRIPTOR_COUNT_DRIFT"], registryVersion);
   }
 
   let goldenRuntimeConsumer = null;
   if (descriptor.goldenContractDescriptor) {
     const consumed = consumeGoldenRuntimeContract(descriptor.goldenContractDescriptor, plan.sourceId);
     if (!consumed.ok) {
-      return blockedAdaptation(plan, descriptor, consumed.errors.map((entry) => entry.code));
+      return blockedAdaptation(plan, descriptor, consumed.errors.map((entry) => entry.code), registryVersion);
     }
     goldenRuntimeConsumer = consumed.consumer;
   }
 
-  const adapted = canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer);
+  const adapted = canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer, registryVersion);
   return Object.freeze({
     plan: adapted,
     applied: true,
@@ -170,6 +198,7 @@ function validationPlan(descriptor) {
     sourceId: descriptor.sourceId,
     selectionMode: "sourceUnit",
   };
+  if (descriptor.taskId) plan.postGoldenMigrationTaskId = descriptor.taskId;
   if (descriptor.requiresExplicitGoldenActivation) {
     plan.goldenContractId = descriptor.goldenContractDescriptor.goldenContractId;
     plan.goldenContractVersion = descriptor.goldenContractDescriptor.goldenContractVersion;
@@ -178,13 +207,11 @@ function validationPlan(descriptor) {
   return plan;
 }
 
-export function validateGlobalPublicSourceUnitAdapters() {
-  const registry = validateGlobalPublicSourceUnitAdapterRegistry();
-  const errors = [...registry.errors];
-  const descriptors = listGlobalPublicSourceUnitAdapterDescriptors()
-    .map((descriptor) => resolveGlobalPublicSourceUnitAdapterDescriptor(descriptor.sourceId));
-
-  for (const descriptor of descriptors) {
+function validateDescriptorAdaptations(descriptors, errors) {
+  for (const row of descriptors) {
+    const descriptor = row.taskId
+      ? resolvePostGoldenSourceUnitAdapterDescriptor(row.sourceId)
+      : resolveGlobalPublicSourceUnitAdapterDescriptor(row.sourceId);
     if (!descriptor) {
       errors.push("GS04_SOURCE_UNIT_DESCRIPTOR_MISSING");
       continue;
@@ -198,17 +225,21 @@ export function validateGlobalPublicSourceUnitAdapters() {
       errors.push(`GS04_SOURCE_UNIT_ADAPTER_INVALID:${descriptor.sourceId}`);
     }
   }
+}
 
-  for (const sourceId of ["g5a_u08_5a08", "g3a_u01_3a01"]) {
-    const publicDefault = adaptGlobalPublicSourceUnitPlan({
-      sourceId,
-      selectionMode: "sourceUnit",
-    });
-    const descriptor = resolveGlobalPublicSourceUnitAdapterDescriptor(sourceId);
-    if (descriptor?.requiresExplicitGoldenActivation
-      && (publicDefault.applied || publicDefault.blocked || publicDefault.adapter !== null)) {
-      errors.push(`GS04_PUBLIC_DEFAULT_BEHAVIOR_CHANGED:${sourceId}`);
-    }
+export function validateGlobalPublicSourceUnitAdapters() {
+  const registry = validateGlobalPublicSourceUnitAdapterRegistry();
+  const postGoldenRegistry = validatePostGoldenSourceUnitAdapterRegistry();
+  const errors = [...registry.errors, ...postGoldenRegistry.errors];
+  validateDescriptorAdaptations(listGlobalPublicSourceUnitAdapterDescriptors(), errors);
+  validateDescriptorAdaptations(listPostGoldenSourceUnitAdapterDescriptors(), errors);
+
+  const publicG5AU08 = adaptGlobalPublicSourceUnitPlan({
+    sourceId: "g5a_u08_5a08",
+    selectionMode: "sourceUnit",
+  });
+  if (publicG5AU08.applied || publicG5AU08.blocked || publicG5AU08.adapter !== null) {
+    errors.push("GS04_G5AU08_PUBLIC_DEFAULT_BEHAVIOR_CHANGED");
   }
 
   const g5aU08 = adaptGlobalPublicSourceUnitPlan({
@@ -223,37 +254,27 @@ export function validateGlobalPublicSourceUnitAdapters() {
     errors.push("GS04_G5AU08_GOLDEN_RUNTIME_NOT_CONNECTED");
   }
 
-  const g3aU01 = adaptGlobalPublicSourceUnitPlan({
+  const unauthorizedG3AU01 = adaptGlobalPublicSourceUnitPlan({
     sourceId: "g3a_u01_3a01",
     selectionMode: "sourceUnit",
     goldenContractId: "G5AU08_GOLDEN_V1",
     goldenContractVersion: "1.0.0",
     goldenRuntimeMode: "shadow",
   });
-  if (!g3aU01.plan?.goldenRuntimeConsumer
-    || g3aU01.plan.goldenRuntimeConsumer.connectionStatus !== "POST_GOLDEN_UNIT_CONNECTED_TO_EXISTING_SHARED_RUNTIME"
-    || g3aU01.plan.selectedKnowledgePointIds.length !== 8
-    || g3aU01.plan.selectedPatternGroupIds.length !== 8
-    || g3aU01.plan.patternSpecIds.length !== 20) {
-    errors.push("POSTG_G3AU01_GOLDEN_RUNTIME_NOT_CONNECTED");
-  }
-
-  const unregisteredGolden = adaptGlobalPublicSourceUnitPlan({
-    sourceId: "g3a_u02_3a02",
-    selectionMode: "sourceUnit",
-    goldenContractId: "G5AU08_GOLDEN_V1",
-    goldenContractVersion: "1.0.0",
-    goldenRuntimeMode: "shadow",
-  });
-  if (!unregisteredGolden.blocked || !unregisteredGolden.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED")) {
+  if (!unauthorizedG3AU01.blocked
+    || !unauthorizedG3AU01.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED")) {
     errors.push("GS05_UNREGISTERED_GOLDEN_UNIT_NOT_BLOCKED");
   }
-  const result = {
-    ok: errors.length === 0,
-    errors: Object.freeze(errors),
-  };
+
+  const result = { ok: errors.length === 0, errors: Object.freeze(errors) };
   Object.defineProperty(result, "affectedUnitCount", {
     value: registry.affectedUnitCount,
+    enumerable: false,
+    writable: false,
+    configurable: false,
+  });
+  Object.defineProperty(result, "postGoldenAffectedUnitCount", {
+    value: postGoldenRegistry.affectedUnitCount,
     enumerable: false,
     writable: false,
     configurable: false,
