@@ -4,7 +4,7 @@
   "taskClass": "integration",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "SHARED_RUNTIME_CONNECTED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claimedStatus": "PASS_E3_SHARED_RUNTIME_CONNECTED_PENDING_MERGE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": false,
@@ -32,7 +32,9 @@
     "pdfArtifactPaths": [],
     "beforeAfterEvidencePaths": [
       "data/curriculum/contracts/GS04_G5AU08_SharedRuntimeAndBatchAdapter.json",
-      "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json"
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
+      "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_PASS.marker",
+      "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_READBACK.md"
     ],
     "reviewArtifactPaths": [],
     "artifactHashes": []
@@ -45,7 +47,7 @@
   "distance": {
     "before": "D2",
     "after": "D2",
-    "distanceReduced": "The frozen G5AU08_GOLDEN_V1 contract is connected through a generic multi-unit source adapter to the existing S60J generator-validator-worksheet runtime; production admission and cross-unit conformance remain deferred."
+    "distanceReduced": "The frozen G5AU08_GOLDEN_V1 contract is connected through a generic multi-unit, explicit-shadow source adapter to the existing S60J generator-validator-worksheet runtime while default public behavior remains unchanged; production admission and cross-unit conformance remain deferred."
   },
   "nextStep": {
     "taskId": "GS05_G5AU08_CrossUnitConformancePilot",
