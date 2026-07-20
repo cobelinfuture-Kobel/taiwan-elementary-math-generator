@@ -16,6 +16,17 @@ import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curricul
 
 const CONTRACT_PATH = new URL("../../data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json", import.meta.url);
 
+function goldenShadowPlan(overrides = {}) {
+  return {
+    sourceId: "g5a_u08_5a08",
+    selectionMode: "sourceUnit",
+    goldenContractId: "G5AU08_GOLDEN_V1",
+    goldenContractVersion: "1.0.0",
+    goldenRuntimeMode: "shadow",
+    ...overrides,
+  };
+}
+
 test("GS04 descriptor exactly reflects the frozen GS03 contract", async () => {
   const contract = JSON.parse(await readFile(CONTRACT_PATH, "utf8"));
   const row = G5AU08_GOLDEN_V1_RUNTIME_DESCRIPTOR;
@@ -92,20 +103,39 @@ test("GS04 registry is shared and preserves legacy adapters", () => {
   }
 });
 
-test("GS04 G5A-U08 source-unit plan reaches existing S60J runtime", () => {
-  const adapted = adaptGlobalPublicSourceUnitPlan({
+test("GS04 leaves default public G5A-U08 source-unit behavior unchanged", () => {
+  const result = adaptGlobalPublicSourceUnitPlan({
     sourceId: "g5a_u08_5a08",
     selectionMode: "sourceUnit",
+  });
+  assert.equal(result.applied, false);
+  assert.equal(result.blocked, false);
+  assert.equal(result.adapter, null);
+  assert.equal(result.plan.selectionMode, "sourceUnit");
+
+  const invalid = adaptGlobalPublicSourceUnitPlan({
+    ...goldenShadowPlan(),
+    goldenContractVersion: "2.0.0",
+  });
+  assert.equal(invalid.applied, false);
+  assert.equal(invalid.blocked, true);
+  assert.ok(invalid.errors.includes("GS04_GOLDEN_SHADOW_ACTIVATION_INVALID"));
+});
+
+test("GS04 shadow plan reaches existing S60J runtime", () => {
+  const adapted = adaptGlobalPublicSourceUnitPlan(goldenShadowPlan({
     questionCount: 6,
     ordering: "groupedByPattern",
     includeAnswerKey: true,
     generationSeed: "gs04-shared-runtime-smoke",
-  });
+  }));
   assert.equal(adapted.applied, true);
   assert.equal(adapted.blocked, false);
   assert.equal(adapted.adapter.adapterId, "g5a_u08_golden_v1_shared_runtime");
+  assert.equal(adapted.adapter.conformanceMode, "golden_contract_v1_shadow");
   assert.equal(adapted.plan.selectedKnowledgePointIds.length, 11);
   assert.equal(adapted.plan.selectedPatternGroupIds.length, 17);
+  assert.equal(adapted.plan.resolverResult.ok, true);
   assert.equal(adapted.plan.goldenRuntimeConsumer.globalContextAdmission.runtimeResolvable, false);
 
   const result = buildBatchABrowserWorksheetDocument(adapted.plan);
