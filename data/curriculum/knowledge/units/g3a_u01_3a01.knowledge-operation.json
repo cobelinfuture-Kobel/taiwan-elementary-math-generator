@@ -1,0 +1,298 @@
+{
+  "schemaName": "KnowledgeOperationUnitRegistry",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "title": "10000以內的數",
+  "grade": 3,
+  "semester": "upper",
+  "conformanceState": "IN_PROGRESS_GOLDEN_NATIVE",
+  "knowledgeRegistryState": "QUESTION_BINDINGS_COMPLETE",
+  "authority": {
+    "producerPaths": [
+      "docs/curriculum/sources/g3a/u01/meow911_3a01_10000_numbers.pdf",
+      "docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md",
+      "site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js",
+      "site/modules/curriculum/batch-a/g3a-u01-golden-number-sense-runtime.js"
+    ],
+    "authoritativeStatePath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "runtimeConsumerPaths": [
+      "site/modules/curriculum/registry/g3a-u01-golden-selector-projection.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js",
+      "site/modules/renderer/html-renderer-s60j-extension.js"
+    ],
+    "readbackPaths": [
+      "tests/curriculum/postg-mig-a01-g3a-u01.test.js",
+      "docs/curriculum/output/POSTG_MIG_A01_G3A_U01_PASS.marker"
+    ]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3a_u01_place_value_decompose",
+      "knowledgePointName": "四位數位值分解",
+      "scope": "將四位數分解為千、百、十、個位數量，辨識指定數字的位值，並比較相同數字位於不同位置時的值。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 4,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_place_value_decompose",
+        "canonicalExpressions": ["n = 1000a + 100b + 10c + d", "placeValue(digit, position) = digit * 10^position"],
+        "operandRoles": {"n": "四位數", "a": "千位數字", "b": "百位數字", "c": "十位數字", "d": "個位數字"},
+        "unknownRoles": ["a", "b", "c", "d", "指定數字的位值"],
+        "numberConstraints": ["1000 <= n <= 9999", "a in 1..9", "b,c,d in 0..9"],
+        "equivalentForms": ["n = a千 + b百 + c十 + d一", "n = a*1000 + b*100 + c*10 + d"],
+        "answerType": "placeValueDecompositionAnswer",
+        "validationInvariants": ["a*1000+b*100+c*10+d=n", "指定位置的位值必須等於數字乘以該位單位"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_place_value_compose",
+      "knowledgePointName": "四位數位值組合",
+      "scope": "由標準或非標準的千、百、十、個位數量組合四位數，並進行十個低階位值換一個高階位值。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 6,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_place_value_compose",
+        "canonicalExpressions": ["n = 1000a + 100b + 10c + d", "10 lowerUnits = 1 higherUnit"],
+        "operandRoles": {"a": "千的個數", "b": "百的個數", "c": "十的個數", "d": "一的個數", "n": "組合後的數"},
+        "unknownRoles": ["n", "高階位值個數", "剩餘低階位值個數"],
+        "numberConstraints": ["0 <= a,b,c,d", "1000 <= n <= 9999", "非標準組合允許某低階位值個數 >= 10"],
+        "equivalentForms": ["carry = floor(lowerCount/10)", "remainder = lowerCount mod 10"],
+        "answerType": "placeValueCompositionAnswer",
+        "validationInvariants": ["所有位值總和必須等於 n", "換位前後總值不變"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_number_to_chinese",
+      "knowledgePointName": "四位數數字寫中文",
+      "scope": "將不含必要零讀法歧義的四位數阿拉伯數字轉寫為繁體中文數詞。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_number_to_chinese",
+        "canonicalExpressions": ["chineseText = formatZhHant(n)"],
+        "operandRoles": {"n": "四位數", "chineseText": "繁體中文數詞"},
+        "unknownRoles": ["chineseText"],
+        "numberConstraints": ["1000 <= n <= 9999"],
+        "equivalentForms": ["parseZhHant(formatZhHant(n)) = n"],
+        "answerType": "chineseNumberTextAnswer",
+        "validationInvariants": ["轉寫後反向解析必須還原 n", "使用繁體中文數詞"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_chinese_to_number",
+      "knowledgePointName": "四位數中文寫數字",
+      "scope": "將四位數繁體中文數詞轉寫為阿拉伯數字。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_chinese_to_number",
+        "canonicalExpressions": ["n = parseZhHant(chineseText)"],
+        "operandRoles": {"chineseText": "繁體中文數詞", "n": "四位數"},
+        "unknownRoles": ["n"],
+        "numberConstraints": ["1000 <= n <= 9999"],
+        "equivalentForms": ["formatZhHant(parseZhHant(chineseText)) = normalizedChineseText"],
+        "answerType": "integerAnswer",
+        "validationInvariants": ["解析結果必須為四位整數", "反向格式化必須與正規化數詞一致"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_zero_reading",
+      "knowledgePointName": "中間有 0 的四位數讀寫",
+      "scope": "處理百位或十位為 0 時的中文零讀法與反向數字轉換。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 3,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_zero_reading",
+        "canonicalExpressions": ["chineseText = formatZhHantWithZero(n)", "n = parseZhHantWithZero(chineseText)"],
+        "operandRoles": {"n": "含內部零的四位數", "chineseText": "含正確零讀法的繁體中文數詞"},
+        "unknownRoles": ["chineseText", "n"],
+        "numberConstraints": ["1000 <= n <= 9999", "hundredsDigit(n)=0 or tensDigit(n)=0"],
+        "equivalentForms": ["parse(format(n))=n"],
+        "answerType": "chineseOrIntegerAnswer",
+        "validationInvariants": ["零字不得遺漏或重複", "正反向轉換必須一致"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_place_sequence",
+      "knowledgePointName": "依位值步進的四位數規律",
+      "scope": "辨識每次增加固定一、十、百或千位單位的數列並補值。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_place_sequence",
+        "canonicalExpressions": ["x_i = start + i*step"],
+        "operandRoles": {"start": "起始數", "step": "固定步長", "i": "序位", "x_i": "第 i 項"},
+        "unknownRoles": ["缺少的數列項"],
+        "numberConstraints": ["1000 <= x_i <= 9999", "step in {10,100,1000}"],
+        "equivalentForms": ["x_(i+1)-x_i=step"],
+        "answerType": "sequenceAnswer",
+        "validationInvariants": ["相鄰兩項差固定", "所有項皆在四位數範圍"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_between_numbers",
+      "knowledgePointName": "兩數之間的規律",
+      "scope": "由已知位置推得兩數之間固定步長的缺項。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_between_numbers",
+        "canonicalExpressions": ["x_i = lower + i*step"],
+        "operandRoles": {"lower": "較小端點", "step": "固定步長", "x_i": "中間項"},
+        "unknownRoles": ["兩端點之間的缺項"],
+        "numberConstraints": ["1000 <= lower < upper <= 9999", "step in {1,10,100}"],
+        "equivalentForms": ["upper-lower = intervalCount*step"],
+        "answerType": "sequenceAnswer",
+        "validationInvariants": ["每個缺項必須符合相同步長", "答案順序由小到大"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_number_compare",
+      "knowledgePointName": "四位數比大小與範圍判斷",
+      "scope": "比較兩個四位數，判斷數值是否位於開區間，並處理連續編號與價格範圍。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 5,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_number_compare",
+        "canonicalExpressions": ["compare(a,b) in {<,=,>}", "lower < candidate < upper", "count = end-start+1"],
+        "operandRoles": {"a": "左側數", "b": "右側數", "lower": "下界", "upper": "上界", "candidate": "候選數"},
+        "unknownRoles": ["比較符號", "符合範圍的候選", "連續編號數量"],
+        "numberConstraints": ["1000 <= a,b,lower,upper,candidate <= 9999", "lower < upper"],
+        "equivalentForms": ["a>b iff firstDifferentDigit(a)>firstDifferentDigit(b)", "inclusiveCount=end-start+1"],
+        "answerType": "comparisonOrRangeAnswer",
+        "validationInvariants": ["比較符號與數值關係一致", "範圍題答案唯一", "連續編號包含首尾"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_digit_permutation",
+      "knowledgePointName": "指定數字組成最大與最小四位數",
+      "scope": "使用四個指定數字各一次，組成最大或最小四位數，且千位不得為 0。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 4,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_digit_permutation",
+        "canonicalExpressions": ["maxNumber = digits sorted descending", "minNumber = smallestNonZero + remainingDigits sorted ascending"],
+        "operandRoles": {"digits": "四個指定數字", "maxNumber": "最大四位數", "minNumber": "最小四位數"},
+        "unknownRoles": ["maxNumber", "minNumber"],
+        "numberConstraints": ["digits.length=4", "each digit used exactly once", "leading digit != 0"],
+        "equivalentForms": ["descending lexicographic order gives maximum", "smallest nonzero leading digit gives minimum"],
+        "answerType": "maxMinNumberAnswer",
+        "validationInvariants": ["答案使用相同多重集合的數字", "每個數字恰用一次", "千位不為 0"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_number_line_reading",
+      "knowledgePointName": "整數數線判讀",
+      "scope": "以已知起點、每格間距與位移格數判讀四位數數線位置；production 使用 deterministic text fallback。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_number_line_reading",
+        "canonicalExpressions": ["target = start + interval*offset"],
+        "operandRoles": {"start": "數線起點", "interval": "每格增加量", "offset": "向右格數", "target": "目標點表示的數"},
+        "unknownRoles": ["target"],
+        "numberConstraints": ["1000 <= start,target <= 9999", "interval in {10,100,1000}", "offset > 0"],
+        "equivalentForms": ["target-start=interval*offset"],
+        "answerType": "numericAnswer",
+        "validationInvariants": ["文字替代不得依賴未提供圖像", "目標值等於起點加間距乘格數"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_money_counting",
+      "knowledgePointName": "錢幣數量換算與合計",
+      "scope": "依 1000、100、10、1 元面額數量計算總金額；production 使用文字面額清單。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_money_counting",
+        "canonicalExpressions": ["total = 1000a + 100b + 10c + d"],
+        "operandRoles": {"a": "1000元張數", "b": "100元張數", "c": "10元個數", "d": "1元個數", "total": "總金額"},
+        "unknownRoles": ["total"],
+        "numberConstraints": ["a in 1..9", "b,c,d in 0..9", "1000 <= total <= 9999"],
+        "equivalentForms": ["金額位值結構與四位數位值結構相同"],
+        "answerType": "moneyAmountAnswer",
+        "validationInvariants": ["總金額等於各面額小計之和", "文字替代不得假設未辨識圖像面額"]
+      }]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_money_payment",
+      "knowledgePointName": "四位數錢幣付款與位值兌換",
+      "scope": "將十個低面額換為一個高面額，求可換張數與剩餘低面額數。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "existingNumericQuestionCount": 2,
+      "existingApplicationQuestionCount": 0,
+      "operationModels": [{
+        "modelId": "om_g3a_u01_money_payment",
+        "canonicalExpressions": ["higherCount = floor(lowerCount/10)", "remainder = lowerCount mod 10"],
+        "operandRoles": {"lowerCount": "低面額數量", "higherCount": "可換高面額數量", "remainder": "剩餘低面額數量"},
+        "unknownRoles": ["higherCount", "remainder"],
+        "numberConstraints": ["lowerCount >= 0", "0 <= remainder < 10"],
+        "equivalentForms": ["lowerCount = 10*higherCount + remainder"],
+        "answerType": "quotientRemainderMoneyAnswer",
+        "validationInvariants": ["兌換前後總金額相同", "餘數小於 10"]
+      }]
+    }
+  ],
+  "existingQuestionBindings": [
+    {"questionId":"src_pv_4digit_decompose","knowledgePointId":"kp_g3a_u01_place_value_decompose","operationModelId":"om_g3a_u01_place_value_decompose","questionType":"concept","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#pv_4digit_decompose"},
+    {"questionId":"ps_g3a_u01_4digit_place_value_full_decomposition","knowledgePointId":"kp_g3a_u01_place_value_decompose","operationModelId":"om_g3a_u01_place_value_decompose","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_4digit_digit_value_identification","knowledgePointId":"kp_g3a_u01_place_value_decompose","operationModelId":"om_g3a_u01_place_value_decompose","questionType":"concept","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_4digit_same_digit_different_place","knowledgePointId":"kp_g3a_u01_place_value_decompose","operationModelId":"om_g3a_u01_place_value_decompose","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"src_pv_4digit_compose","knowledgePointId":"kp_g3a_u01_place_value_compose","operationModelId":"om_g3a_u01_place_value_compose","questionType":"concept","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#pv_4digit_compose"},
+    {"questionId":"ps_g3a_u01_place_value_standard_composition","knowledgePointId":"kp_g3a_u01_place_value_compose","operationModelId":"om_g3a_u01_place_value_compose","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_place_value_nonstandard_composition","knowledgePointId":"kp_g3a_u01_place_value_compose","operationModelId":"om_g3a_u01_place_value_compose","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_place_value_partial_composition","knowledgePointId":"kp_g3a_u01_place_value_compose","operationModelId":"om_g3a_u01_place_value_compose","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_tens_to_hundreds_conversion","knowledgePointId":"kp_g3a_u01_place_value_compose","operationModelId":"om_g3a_u01_place_value_compose","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_hundreds_to_thousands_conversion","knowledgePointId":"kp_g3a_u01_place_value_compose","operationModelId":"om_g3a_u01_place_value_compose","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"src_rw_4digit_number_to_chinese","knowledgePointId":"kp_g3a_u01_number_to_chinese","operationModelId":"om_g3a_u01_number_to_chinese","questionType":"concept","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#rw_4digit_number_to_chinese"},
+    {"questionId":"ps_g3a_u01_4digit_number_to_chinese_basic","knowledgePointId":"kp_g3a_u01_number_to_chinese","operationModelId":"om_g3a_u01_number_to_chinese","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"src_rw_4digit_chinese_to_number","knowledgePointId":"kp_g3a_u01_chinese_to_number","operationModelId":"om_g3a_u01_chinese_to_number","questionType":"concept","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#rw_4digit_chinese_to_number"},
+    {"questionId":"ps_g3a_u01_chinese_to_4digit_number_basic","knowledgePointId":"kp_g3a_u01_chinese_to_number","operationModelId":"om_g3a_u01_chinese_to_number","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"src_rw_4digit_zero_reading","knowledgePointId":"kp_g3a_u01_zero_reading","operationModelId":"om_g3a_u01_zero_reading","questionType":"concept","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#rw_4digit_zero_reading"},
+    {"questionId":"ps_g3a_u01_4digit_number_to_chinese_with_zero","knowledgePointId":"kp_g3a_u01_zero_reading","operationModelId":"om_g3a_u01_zero_reading","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_chinese_to_4digit_number_with_zero","knowledgePointId":"kp_g3a_u01_zero_reading","operationModelId":"om_g3a_u01_zero_reading","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"src_seq_4digit_place_step","knowledgePointId":"kp_g3a_u01_place_sequence","operationModelId":"om_g3a_u01_place_sequence","questionType":"reasoning","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#seq_4digit_place_step"},
+    {"questionId":"ps_g3a_u01_place_sequence_step","knowledgePointId":"kp_g3a_u01_place_sequence","operationModelId":"om_g3a_u01_place_sequence","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-golden-number-sense-runtime.js"},
+    {"questionId":"src_seq_between_two_numbers","knowledgePointId":"kp_g3a_u01_between_numbers","operationModelId":"om_g3a_u01_between_numbers","questionType":"reasoning","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#seq_between_two_numbers"},
+    {"questionId":"ps_g3a_u01_between_numbers_sequence","knowledgePointId":"kp_g3a_u01_between_numbers","operationModelId":"om_g3a_u01_between_numbers","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-golden-number-sense-runtime.js"},
+    {"questionId":"src_cmp_4digit_compare","knowledgePointId":"kp_g3a_u01_number_compare","operationModelId":"om_g3a_u01_number_compare","questionType":"numeric","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#cmp_4digit_compare"},
+    {"questionId":"ps_g3a_u01_4digit_compare","knowledgePointId":"kp_g3a_u01_number_compare","operationModelId":"om_g3a_u01_number_compare","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u06-division-ordering-generator.js"},
+    {"questionId":"ps_g3a_u01_4digit_range_compare_reasoning","knowledgePointId":"kp_g3a_u01_number_compare","operationModelId":"om_g3a_u01_number_compare","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_4digit_serial_number_range","knowledgePointId":"kp_g3a_u01_number_compare","operationModelId":"om_g3a_u01_number_compare","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_4digit_price_range_reasoning","knowledgePointId":"kp_g3a_u01_number_compare","operationModelId":"om_g3a_u01_number_compare","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"src_perm_4digit_max_min_from_digits","knowledgePointId":"kp_g3a_u01_digit_permutation","operationModelId":"om_g3a_u01_digit_permutation","questionType":"reasoning","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#perm_4digit_max_min_from_digits"},
+    {"questionId":"ps_g3a_u01_digit_arrangement_max_4digit","knowledgePointId":"kp_g3a_u01_digit_permutation","operationModelId":"om_g3a_u01_digit_permutation","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_digit_arrangement_min_4digit_no_leading_zero","knowledgePointId":"kp_g3a_u01_digit_permutation","operationModelId":"om_g3a_u01_digit_permutation","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"ps_g3a_u01_digit_arrangement_max_min_pair","knowledgePointId":"kp_g3a_u01_digit_permutation","operationModelId":"om_g3a_u01_digit_permutation","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"},
+    {"questionId":"src_numline_integer_reading","knowledgePointId":"kp_g3a_u01_number_line_reading","operationModelId":"om_g3a_u01_number_line_reading","questionType":"concept","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#numline_integer_reading"},
+    {"questionId":"ps_g3a_u01_number_line_text_fallback","knowledgePointId":"kp_g3a_u01_number_line_reading","operationModelId":"om_g3a_u01_number_line_reading","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-golden-number-sense-runtime.js"},
+    {"questionId":"src_money_4digit_counting","knowledgePointId":"kp_g3a_u01_money_counting","operationModelId":"om_g3a_u01_money_counting","questionType":"concept","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#money_4digit_counting"},
+    {"questionId":"ps_g3a_u01_money_counting_text_fallback","knowledgePointId":"kp_g3a_u01_money_counting","operationModelId":"om_g3a_u01_money_counting","questionType":"numeric","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-golden-number-sense-runtime.js"},
+    {"questionId":"src_money_4digit_payment","knowledgePointId":"kp_g3a_u01_money_payment","operationModelId":"om_g3a_u01_money_payment","questionType":"reasoning","sourcePath":"docs/curriculum/mapping/S21B_G3A_U01_10000Numbers_FormalPatternMapping.md#money_4digit_payment"},
+    {"questionId":"ps_g3a_u01_money_place_value_exchange","knowledgePointId":"kp_g3a_u01_money_payment","operationModelId":"om_g3a_u01_money_payment","questionType":"reasoning","sourcePath":"site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js"}
+  ],
+  "coverage": {"numeric": "COMPLETE", "application": "NOT_APPLICABLE"},
+  "review": {
+    "status": "PENDING",
+    "notes": [
+      "12 source-backed KnowledgePoints and 12 source pattern bindings are registered from S21B manual source verification.",
+      "24 existing or migration-completion runtime PatternSpecs are bound to the same 12 canonical KnowledgePoints.",
+      "Number-line and money-counting production routes are deterministic text fallbacks; no unverified visual answer is promoted.",
+      "Application-question expansion remains outside Program A."
+    ]
+  }
+}
