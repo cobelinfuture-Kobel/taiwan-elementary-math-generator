@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "taskId": "POSTG-MIG-A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation",
   "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
-  "status": "A00_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "status": "A00_PASS_ACCEPTED_PENDING_MERGE",
   "goal": {
     "ultimate": "Migrate the 12 non-conformant public units through the existing Golden shared runtime so all 15 public units are GOLDEN_CONFORMANT, while materializing one authoritative knowledge-point and canonical-operation-model registry for every unit.",
     "a00": "Approve the post-Golden program, freeze its 14-task order and 12-unit queue, define the knowledge registry schema/master index/exporter, and create machine-enforced close gates without changing any unit conformance or production state."
