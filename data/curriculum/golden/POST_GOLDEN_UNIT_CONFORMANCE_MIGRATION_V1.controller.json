@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
   "controllerId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1_CONTROLLER",
   "controllerVersion": "1.0.0",
-  "status": "A00_PASS_ACCEPTED_PENDING_MERGE",
+  "status": "ACTIVE_A01_G3AU01_RUNTIME_CANDIDATE_PENDING_OUTPUT_CI",
   "upstreamGoldenController": "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
   "unitConformanceRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
   "goldenContractId": "G5AU08_GOLDEN_V1",
@@ -13,7 +13,7 @@
     "taskBudget": 14,
     "completedCount": 1,
     "remainingCount": 13,
-    "goalDistance": "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY"
+    "goalDistance": "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_ACTIVE"
   },
   "queue": {
     "completeSourceIds": [
