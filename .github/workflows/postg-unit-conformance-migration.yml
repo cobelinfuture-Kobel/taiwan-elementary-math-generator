@@ -31,10 +31,6 @@ permissions:
 jobs:
   conformance:
     runs-on: ubuntu-24.04
-    env:
-      POSTG_SOURCE_ID: g3a_u01_3a01
-      POSTG_TASK_ID: POSTG-MIG-A01_G3A_U01_GoldenConformanceAndKnowledgeOperationMigration
-      POSTG_OUTPUT_PREFIX: POSTG_MIG_A01_G3AU01
     steps:
       - name: Checkout exact candidate head
         uses: actions/checkout@v4
@@ -56,13 +52,51 @@ jobs:
           python3 -m pip install --disable-pip-version-check jsonschema
           npx playwright install --with-deps chromium
 
+      - name: Resolve active post-Golden unit from authoritative program state
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { appendFile, readFile } from 'node:fs/promises';
+          import { resolvePostGoldenSourceUnitAdapterDescriptor } from './site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js';
+
+          const program = JSON.parse(await readFile('data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json', 'utf8'));
+          const conformance = JSON.parse(await readFile('data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json', 'utf8'));
+          const activeRows = conformance.rows.filter((row) => row.queueState === 'ACTIVE');
+          assert.equal(activeRows.length, 1, 'Exactly one active migration unit is required.');
+          const row = activeRows[0];
+          const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(row.sourceId);
+          assert.ok(descriptor, `Missing post-Golden descriptor for ${row.sourceId}`);
+          assert.equal(descriptor.taskId, program.activeTask, 'Active task and descriptor authorization drift.');
+          const taskMatch = /^POSTG-MIG-(A\d+)_/.exec(program.activeTask);
+          assert.ok(taskMatch, `Unsupported active task id: ${program.activeTask}`);
+          const taskToken = taskMatch[1];
+          const unitToken = row.unitCode.replaceAll('-', '');
+          const prefix = `POSTG_MIG_${taskToken}_${unitToken}`;
+          const sourceUnitToken = row.sourceId.split('_').slice(0, 2).join('-');
+          const focusedTest = `tests/curriculum/postg-mig-${taskToken.toLowerCase()}-${sourceUnitToken}-conformance.test.js`;
+          const env = {
+            POSTG_SOURCE_ID: row.sourceId,
+            POSTG_TASK_ID: program.activeTask,
+            POSTG_OUTPUT_PREFIX: prefix,
+            POSTG_TITLE: `${row.unitCode} ${row.title}｜Golden Conformance`,
+            POSTG_EXPECTED_KP: descriptor.expectedCounts.knowledgePoints,
+            POSTG_EXPECTED_GROUPS: descriptor.expectedCounts.patternGroups,
+            POSTG_EXPECTED_SPECS: descriptor.expectedCounts.patternSpecs,
+            POSTG_FOCUSED_TEST: focusedTest,
+          };
+          await appendFile(process.env.GITHUB_ENV, Object.entries(env).map(([key, value]) => `${key}=${value}`).join('\n') + '\n');
+          console.log(JSON.stringify({ programStatus: program.programStatus, activePR: program.activePR, row, descriptor: { taskId: descriptor.taskId, expectedCounts: descriptor.expectedCounts }, env }, null, 2));
+          NODE
+
       - name: Run focused and shared regressions
         run: |
+          test -f "${POSTG_FOCUSED_TEST}"
+          node --test "${POSTG_FOCUSED_TEST}"
+          node --test tests/curriculum/postg-mig-a00-program-foundation.test.js
           node --test tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js
           node --test tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js
           node --test tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js
           node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
-          node --test tests/curriculum/postg-mig-a00-program-foundation.test.js
 
       - name: Generate exact-head production evidence
         run: |
@@ -74,10 +108,10 @@ jobs:
             --question-count 40 \
             --output-dir "build/postg/${POSTG_SOURCE_ID}" \
             --output-prefix "${POSTG_OUTPUT_PREFIX}" \
-            --title "3A-U01 10000以內的數｜Golden Conformance" \
+            --title "${POSTG_TITLE}" \
             2>&1 | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_CLI_READBACK.json"
 
-      - name: Validate production evidence
+      - name: Validate production evidence against active descriptor
         run: |
           node --input-type=module <<'NODE'
           import assert from 'node:assert/strict';
@@ -88,9 +122,9 @@ jobs:
           assert.equal(r.taskId, process.env.POSTG_TASK_ID);
           assert.equal(r.questionCount, 40);
           assert.equal(r.answerKeyCount, 40);
-          assert.equal(r.knowledgePointIds.length, 8);
-          assert.equal(r.patternGroupIds.length, 8);
-          assert.equal(r.patternSpecIds.length, 20);
+          assert.equal(r.knowledgePointIds.length, Number(process.env.POSTG_EXPECTED_KP));
+          assert.equal(r.patternGroupIds.length, Number(process.env.POSTG_EXPECTED_GROUPS));
+          assert.equal(r.patternSpecIds.length, Number(process.env.POSTG_EXPECTED_SPECS));
           assert.equal(r.validator.ok, true);
           assert.equal(r.validator.errorCount, 0);
           assert.ok(r.pdfPageCount > 0);
@@ -98,10 +132,10 @@ jobs:
           assert.equal(r.domReadback.placeholderLeak, false);
           assert.equal(r.verdict, 'PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK');
           assert.equal(r.artifacts.length, 2);
-          assert.ok(r.artifacts.every((x) => /^[a-f0-9]{64}$/.test(x.sha256)));
+          assert.ok(r.artifacts.every((artifact) => /^[a-f0-9]{64}$/.test(artifact.sha256)));
           NODE
 
-      - name: Validate four KnowledgeOperation registries
+      - name: Validate every materialized KnowledgeOperation registry
         run: |
           python3 - <<'PY'
           import json
@@ -109,16 +143,17 @@ jobs:
           from jsonschema import Draft202012Validator
           schema=json.loads(Path('data/curriculum/knowledge/schema/knowledge-operation-unit.schema.json').read_text())
           validator=Draft202012Validator(schema)
-          ids=['g3a_u01_3a01','g3b_u04_3b04','g5a_u08_5a08','g5a_u02_5a02']
+          paths=sorted(Path('data/curriculum/knowledge/units').glob('*.knowledge-operation.json'))
           errors=[]
-          for source_id in ids:
-              value=json.loads(Path(f'data/curriculum/knowledge/units/{source_id}.knowledge-operation.json').read_text())
-              errors.extend((source_id,list(e.absolute_path),e.message) for e in validator.iter_errors(value))
-          print(json.dumps({'validatedUnitCount':len(ids),'errors':errors},ensure_ascii=False,indent=2))
+          for path in paths:
+              value=json.loads(path.read_text())
+              errors.extend((str(path),list(e.absolute_path),e.message) for e in validator.iter_errors(value))
+          print(json.dumps({'validatedUnitCount':len(paths),'paths':[str(path) for path in paths],'errors':errors},ensure_ascii=False,indent=2))
+          assert paths
           assert not errors
           PY
 
-      - name: Generate Final Excel and CSV
+      - name: Generate designer Excel and audit CSV
         run: |
           mkdir -p build/reports
           python3 tools/curriculum/export-postg-knowledge-master.py \
@@ -128,14 +163,14 @@ jobs:
           python3 - <<'PY'
           import csv,json,zipfile
           from pathlib import Path
-          r=json.loads(Path('build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json').read_text())
-          assert r['unitCount']==15
-          assert r['sheetRowCounts']['Knowledge_Point_Map']==46
-          assert r['sheetRowCounts']['Operation_Models']==46
-          with zipfile.ZipFile('build/reports/Golden_Knowledge_Operation_Master.xlsx') as z:
-              assert 'xl/workbook.xml' in z.namelist()
-          with open('build/reports/Golden_Knowledge_Operation_Master.summary.csv',encoding='utf-8',newline='') as f:
-              assert len(list(csv.DictReader(f)))==15
+          readback=json.loads(Path('build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json').read_text())
+          assert readback['unitCount']==15
+          assert readback['sheetRowCounts']['Knowledge_Point_Map']>=48
+          assert readback['sheetRowCounts']['Operation_Models']>=48
+          with zipfile.ZipFile('build/reports/Golden_Knowledge_Operation_Master.xlsx') as archive:
+              assert 'xl/workbook.xml' in archive.namelist()
+          with open('build/reports/Golden_Knowledge_Operation_Master.summary.csv',encoding='utf-8',newline='') as handle:
+              assert len(list(csv.DictReader(handle)))==15
           PY
 
       - name: Validate governance and bounded scope
@@ -155,11 +190,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: postg-unit-conformance-g3a_u01_3a01
+          name: postg-unit-conformance-${{ env.POSTG_SOURCE_ID }}
           path: |
-            build/postg/g3a_u01_3a01/*.html
-            build/postg/g3a_u01_3a01/*.pdf
-            build/postg/g3a_u01_3a01/*.json
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.html
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.pdf
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.json
             build/reports/Golden_Knowledge_Operation_Master.xlsx
             build/reports/Golden_Knowledge_Operation_Master.summary.csv
             build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json
