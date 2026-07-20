@@ -19,8 +19,6 @@ import {
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_ID = "g3b_u08_3b08";
-const NEXT_SOURCE_ID = "g4a_u01_4a01";
-const NEXT_TASK_ID = "POSTG-MIG-A07_G4A_U01_GoldenConformanceAndKnowledgeOperationMigration";
 const KP = new Set([
   "kp_g3b_u08_total_from_groups",
   "kp_g3b_u08_group_count_from_total",
@@ -158,7 +156,7 @@ test("A06 preserves multiplication division and comparison semantic distinctions
   assert.notEqual(bindings.ps_g3b_u08_estimate_near_hundred_total.operationModelId, bindings.ps_g3b_u08_same_price_compare_weight.operationModelId);
 });
 
-test("A06 historical closeout remains valid after A07 knowledge registration", async () => {
+test("A06 historical closeout remains valid after later queue advancement", async () => {
   const [program, controller, conformance, master, readback] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
@@ -166,20 +164,18 @@ test("A06 historical closeout remains valid after A07 knowledge registration", a
     readJson("../../data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json"),
     readJson("../../docs/curriculum/output/postg/a06-g3b-u08/POSTG_MIG_A06_G3BU08_RUNTIME_READBACK.json"),
   ]);
-  assert.equal(program.lastCompletedTask, G3B_U08_POSTG_TASK_ID);
-  assert.equal(program.activeTask, NEXT_TASK_ID);
-  assert.equal(program.completedCount, 7);
-  assert.equal(program.remainingCount, 7);
-  assert.equal(program.goalDistance, "D7_POST_GOLDEN_MIGRATION_G3BU08_CONFORMANT_G4AU01_ACTIVE");
-  assert.equal(controller.queue.activeSourceId, NEXT_SOURCE_ID);
+  const a06Index = program.taskOrder.indexOf(G3B_U08_POSTG_TASK_ID);
+  const lastCompletedIndex = program.taskOrder.indexOf(program.lastCompletedTask);
+  assert.ok(a06Index >= 0);
+  assert.ok(lastCompletedIndex >= a06Index);
+  assert.ok(program.completedCount >= a06Index + 1);
+  assert.equal(program.remainingCount, program.taskBudget - program.completedCount);
   assert.ok(controller.queue.completeSourceIds.includes(SOURCE_ID));
+  assert.notEqual(controller.queue.activeSourceId, SOURCE_ID);
   const closed = conformance.rows.find((entry) => entry.sourceId === SOURCE_ID);
   assert.equal(closed.queueState, "COMPLETE");
   assert.equal(closed.conformanceStatus, "GOLDEN_CONFORMANT");
   assert.equal(closed.goldenProductionEligible, true);
-  const active = conformance.rows.find((entry) => entry.sourceId === NEXT_SOURCE_ID);
-  assert.equal(active.queueState, "ACTIVE");
-  assert.equal(active.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
   const masterRow = master.rows.find((entry) => entry.sourceId === SOURCE_ID);
   assert.equal(masterRow.unitJsonExists, true);
   assert.equal(masterRow.knowledgePointCount, 6);
