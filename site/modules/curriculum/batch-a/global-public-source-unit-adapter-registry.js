@@ -126,7 +126,7 @@ export const G3AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescripto
 export const G3AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({
   sourceId: G3A_U02_POSTG_SOURCE_ID,
   knowledgeRegistryPath: "data/curriculum/knowledge/units/g3a_u02_3a02.knowledge-operation.json",
-  counts: { knowledgePoints: 2, patternGroups: 2, patternSpecs: 2 },
+  counts: { knowledgePoints: 10, patternGroups: 10, patternSpecs: 10 },
   authorityFileCount: 6,
   generator: "site/modules/curriculum/batch-a/batch-a-browser-generator-core.js",
 });
@@ -200,7 +200,7 @@ const POST_GOLDEN_ADAPTER_DESCRIPTORS = freeze([
     taskId: G3A_U02_POSTG_TASK_ID,
     adapterId: "g3a_u02_postg_golden_shared_runtime",
     descriptor: G3AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
-    questionMode: "numeric",
+    questionMode: "mixed",
   }),
 ]);
 
