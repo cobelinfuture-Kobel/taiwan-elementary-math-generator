@@ -142,7 +142,7 @@ test("GS04 shadow plan reaches existing S60J runtime", () => {
   assert.equal(result.ok, true, JSON.stringify(result.errors ?? []));
   assert.equal(result.worksheetDocument.generatedQuestions.length, 6);
   assert.equal(result.worksheetDocument.answerKeyItems.length, 6);
-  assert.equal(result.worksheetDocument.productionUse, "allowed");
+  assert.equal(result.worksheetDocument.productionUse, "preview_only_pending_s60l");
   assert.ok(result.worksheetDocument.provenance.sourceTaskIds.includes("S60J_G5A_U08_WorksheetAnswerKeyAndRendererIntegration"));
 });
 
