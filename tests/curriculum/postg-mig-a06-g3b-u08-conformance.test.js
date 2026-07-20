@@ -19,6 +19,8 @@ import {
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 
 const SOURCE_ID = "g3b_u08_3b08";
+const NEXT_SOURCE_ID = "g4a_u01_4a01";
+const NEXT_TASK_ID = "POSTG-MIG-A07_G4A_U01_GoldenConformanceAndKnowledgeOperationMigration";
 const KP = new Set([
   "kp_g3b_u08_total_from_groups",
   "kp_g3b_u08_group_count_from_total",
@@ -81,7 +83,7 @@ function adapted() {
 
 test("A06 knowledge authority registers six operation models and twenty-four bindings", async () => {
   const registry = await readJson("../../data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json");
-  assert.equal(registry.conformanceState, "IN_PROGRESS_GOLDEN_NATIVE");
+  assert.equal(registry.conformanceState, "GOLDEN_CONFORMANT");
   assert.equal(registry.knowledgeRegistryState, "VALIDATED_COMPLETE");
   assert.equal(registry.review.status, "PASS");
   assert.equal(registry.knowledgePoints.length, 6);
@@ -107,7 +109,7 @@ test("A06 descriptor resolves six KP, six groups and twenty-four semantic specs"
   assert.equal(validateGlobalPublicSourceUnitAdapters().ok, true);
 });
 
-test("A06 shadow route reuses the existing S58 generator, validator and renderer", () => {
+test("A06 route reuses the existing S58 generator, validator and renderer", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.deepEqual(descriptor.goldenContractDescriptor.perUnitRuntimeLimits, {
     generator: 0,
@@ -170,19 +172,36 @@ test("A06 preserves multiplication division and comparison semantic distinctions
   );
 });
 
-test("A06 E3 candidate preserves D8 and the single active queue item", async () => {
-  const [program, controller, conformance] = await Promise.all([
+test("A06 closes at D7 and advances exactly one queue item to A07", async () => {
+  const [program, controller, conformance, master, readback] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
     readJson("../../data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"),
+    readJson("../../data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json"),
+    readJson("../../docs/curriculum/output/postg/a06-g3b-u08/POSTG_MIG_A06_G3BU08_RUNTIME_READBACK.json"),
   ]);
-  assert.equal(program.activeTask, G3B_U08_POSTG_TASK_ID);
-  assert.equal(program.completedCount, 6);
-  assert.equal(program.remainingCount, 8);
-  assert.equal(program.goalDistance, "D8_POST_GOLDEN_MIGRATION_G3BU01_CONFORMANT_G3BU08_ACTIVE");
-  assert.equal(controller.queue.activeSourceId, SOURCE_ID);
-  const row = conformance.rows.find((entry) => entry.sourceId === SOURCE_ID);
-  assert.equal(row.queueState, "ACTIVE");
-  assert.equal(row.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
-  assert.equal(row.goldenProductionEligible, false);
+  assert.equal(program.lastCompletedTask, G3B_U08_POSTG_TASK_ID);
+  assert.equal(program.activeTask, NEXT_TASK_ID);
+  assert.equal(program.completedCount, 7);
+  assert.equal(program.remainingCount, 7);
+  assert.equal(program.goalDistance, "D7_POST_GOLDEN_MIGRATION_G3BU08_CONFORMANT_G4AU01_ACTIVE");
+  assert.equal(controller.queue.activeSourceId, NEXT_SOURCE_ID);
+  assert.ok(controller.queue.completeSourceIds.includes(SOURCE_ID));
+  const closed = conformance.rows.find((entry) => entry.sourceId === SOURCE_ID);
+  assert.equal(closed.queueState, "COMPLETE");
+  assert.equal(closed.conformanceStatus, "GOLDEN_CONFORMANT");
+  assert.equal(closed.goldenProductionEligible, true);
+  const active = conformance.rows.find((entry) => entry.sourceId === NEXT_SOURCE_ID);
+  assert.equal(active.queueState, "ACTIVE");
+  assert.equal(active.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
+  const masterRow = master.rows.find((entry) => entry.sourceId === SOURCE_ID);
+  assert.equal(masterRow.unitJsonExists, true);
+  assert.equal(masterRow.knowledgePointCount, 6);
+  assert.equal(masterRow.operationModelCount, 6);
+  assert.equal(masterRow.existingQuestionBindingCount, 24);
+  assert.equal(master.statusSummary.unitJsonExistsCount, 9);
+  assert.equal(master.statusSummary.knowledgeRegistryCompleteCount, 9);
+  assert.equal(readback.verdict, "PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK");
+  assert.equal(readback.canonicalWorksheetIdentityParity, true);
+  assert.equal(readback.validator.errorCount, 0);
 });
