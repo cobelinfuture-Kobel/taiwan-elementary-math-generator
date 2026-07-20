@@ -54,6 +54,7 @@ jobs:
           NODE
 
       - name: Enforce GS05 bounded scope
+        if: github.head_ref == 'test/gs05-cross-unit-conformance-pilot'
         run: |
           node --input-type=module <<'NODE'
           import { execFileSync } from 'node:child_process';

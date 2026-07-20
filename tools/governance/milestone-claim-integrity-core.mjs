@@ -55,6 +55,54 @@ const EVIDENCE_ARRAYS = [
   "reviewArtifactPaths",
   "artifactHashes"
 ];
+const FULL_PIPELINE_CLAIMS = Object.freeze([
+  "dataStructureReady",
+  "contentAuthored",
+  "runtimeIntegrated",
+  "productionEquivalentGeneratorUsed",
+  "productionRendererUsed",
+  "htmlOutputVerified",
+  "pdfOutputVerified",
+  "visibleOutputChanged",
+  "productionAdmitted"
+]);
+const PROGRAM_CONTROLLER_PIPELINE_CLAIMS = Object.freeze(
+  FULL_PIPELINE_CLAIMS.filter((claim) => claim !== "visibleOutputChanged")
+);
+const PROGRAM_CONTROLLER_INHERITED_ROLES = Object.freeze({
+  productionOutput: Object.freeze({
+    minimumLevel: 5,
+    claims: Object.freeze([
+      "runtimeIntegrated",
+      "productionEquivalentGeneratorUsed",
+      "productionRendererUsed",
+      "htmlOutputVerified",
+      "pdfOutputVerified",
+      "productionAdmitted"
+    ]),
+    evidenceArrays: Object.freeze(["htmlArtifactPaths", "pdfArtifactPaths", "artifactHashes"])
+  }),
+  content: Object.freeze({
+    minimumLevel: 2,
+    claims: Object.freeze(["contentAuthored"]),
+    evidenceArrays: Object.freeze([])
+  }),
+  contract: Object.freeze({
+    minimumLevel: 1,
+    claims: Object.freeze(["dataStructureReady"]),
+    evidenceArrays: Object.freeze([])
+  }),
+  sharedRuntime: Object.freeze({
+    minimumLevel: 3,
+    claims: Object.freeze(["runtimeIntegrated"]),
+    evidenceArrays: Object.freeze([])
+  }),
+  crossUnitConformance: Object.freeze({
+    minimumLevel: 3,
+    claims: Object.freeze(["runtimeIntegrated", "productionEquivalentGeneratorUsed"]),
+    evidenceArrays: Object.freeze([])
+  })
+});
 
 const issue = (code, manifestPath, details = {}) => ({ code, manifestPath, ...details });
 const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
@@ -120,6 +168,116 @@ function validateEvidence(manifest, manifestPath, errors, checkPaths) {
   }
 }
 
+function artifactHashKey(row) {
+  return `${row?.path ?? ""}:${row?.sha256 ?? ""}`;
+}
+
+function validateProgramControllerCloseout(manifest, manifestPath, errors, checkPaths) {
+  const closeout = manifest.d0Closeout;
+  const claims = manifest.claims;
+  if (!isObject(closeout) || closeout.mode !== "program_controller_closeout") {
+    errors.push(issue("MCI_D0_CLOSEOUT_MODE_INVALID", manifestPath));
+    return;
+  }
+  if (manifest.taskClass !== "release"
+    || typeof closeout.programId !== "string"
+    || closeout.programId.length < 3
+    || closeout.currentTaskVisibleOutputChanged !== false) {
+    errors.push(issue("MCI_PROGRAM_CLOSEOUT_SCHEMA_INVALID", manifestPath));
+  }
+  if (claims.visibleOutputChanged !== false || claims.humanReviewReady !== false || manifest.humanReview?.type !== "none") {
+    errors.push(issue("MCI_PROGRAM_CLOSEOUT_CURRENT_TASK_VISIBLE_OUTPUT_INVALID", manifestPath));
+  }
+  if (PROGRAM_CONTROLLER_PIPELINE_CLAIMS.some((claim) => claims[claim] !== true)) {
+    errors.push(issue("MCI_PROGRAM_CLOSEOUT_WITHOUT_INHERITED_PIPELINE", manifestPath));
+  }
+
+  const inherited = closeout.inheritedMilestoneClaims;
+  if (!isObject(inherited)) {
+    errors.push(issue("MCI_PROGRAM_CLOSEOUT_SCHEMA_INVALID", manifestPath, { path: "d0Closeout.inheritedMilestoneClaims" }));
+    return;
+  }
+
+  const expectedRoles = Object.keys(PROGRAM_CONTROLLER_INHERITED_ROLES);
+  const suppliedRoles = Object.keys(inherited);
+  for (const role of expectedRoles) {
+    if (typeof inherited[role] !== "string" || !inherited[role]) {
+      errors.push(issue("MCI_PROGRAM_CLOSEOUT_INHERITED_ROLE_MISSING", manifestPath, { role }));
+    }
+  }
+  for (const role of suppliedRoles) {
+    if (!expectedRoles.includes(role)) {
+      errors.push(issue("MCI_PROGRAM_CLOSEOUT_SCHEMA_INVALID", manifestPath, { path: `d0Closeout.inheritedMilestoneClaims.${role}` }));
+    }
+  }
+
+  const paths = expectedRoles.map((role) => inherited[role]).filter((repoPath) => typeof repoPath === "string" && repoPath);
+  if (new Set(paths).size !== paths.length) {
+    errors.push(issue("MCI_PROGRAM_CLOSEOUT_INHERITED_CLAIM_DUPLICATED", manifestPath));
+  }
+
+  const linkedPaths = new Set(manifest.evidence?.beforeAfterEvidencePaths ?? []);
+  const currentHtmlPaths = new Set(manifest.evidence?.htmlArtifactPaths ?? []);
+  const currentPdfPaths = new Set(manifest.evidence?.pdfArtifactPaths ?? []);
+  const currentHashKeys = new Set((manifest.evidence?.artifactHashes ?? []).map(artifactHashKey));
+
+  for (const role of expectedRoles) {
+    const repoPath = inherited[role];
+    if (typeof repoPath !== "string" || !repoPath) continue;
+    if (!/^data\/project\/milestones\/.*\.claim\.json$/.test(repoPath) || repoPath === manifestPath) {
+      errors.push(issue("MCI_PROGRAM_CLOSEOUT_INHERITED_CLAIM_INVALID", manifestPath, { role, path: repoPath }));
+      continue;
+    }
+    if (!linkedPaths.has(repoPath)) {
+      errors.push(issue("MCI_PROGRAM_CLOSEOUT_INHERITED_EVIDENCE_NOT_LINKED", manifestPath, { role, path: repoPath }));
+    }
+
+    const absolutePath = resolveRepoPath(repoPath);
+    if (!fs.existsSync(absolutePath)) {
+      if (checkPaths) errors.push(issue("MCI_PROGRAM_CLOSEOUT_INHERITED_CLAIM_MISSING", manifestPath, { role, path: repoPath }));
+      continue;
+    }
+
+    let inheritedManifest;
+    try {
+      inheritedManifest = readJson(absolutePath);
+    } catch (error) {
+      errors.push(issue("MCI_PROGRAM_CLOSEOUT_INHERITED_CLAIM_INVALID", manifestPath, { role, path: repoPath, message: error.message }));
+      continue;
+    }
+
+    const requirement = PROGRAM_CONTROLLER_INHERITED_ROLES[role];
+    const inheritedLevel = LEVEL_INDEX.get(inheritedManifest.actualEvidenceLevel);
+    const capabilityMissing = inheritedLevel === undefined
+      || inheritedLevel < requirement.minimumLevel
+      || requirement.claims.some((claim) => inheritedManifest.claims?.[claim] !== true);
+    if (capabilityMissing) {
+      errors.push(issue("MCI_PROGRAM_CLOSEOUT_INHERITED_CAPABILITY_MISSING", manifestPath, {
+        role,
+        path: repoPath,
+        actualEvidenceLevel: inheritedManifest.actualEvidenceLevel,
+        requiredMinimumLevel: EVIDENCE_LEVELS[requirement.minimumLevel],
+        requiredClaims: requirement.claims
+      }));
+    }
+
+    if (role === "productionOutput") {
+      const inheritedHtml = inheritedManifest.evidence?.htmlArtifactPaths ?? [];
+      const inheritedPdf = inheritedManifest.evidence?.pdfArtifactPaths ?? [];
+      const inheritedHashes = inheritedManifest.evidence?.artifactHashes ?? [];
+      const evidencePresent = inheritedHtml.length > 0
+        && inheritedPdf.length > 0
+        && inheritedHashes.length > 0
+        && inheritedHtml.every((artifactPath) => currentHtmlPaths.has(artifactPath))
+        && inheritedPdf.every((artifactPath) => currentPdfPaths.has(artifactPath))
+        && inheritedHashes.every((row) => currentHashKeys.has(artifactHashKey(row)));
+      if (!evidencePresent) {
+        errors.push(issue("MCI_PROGRAM_CLOSEOUT_PRODUCTION_EVIDENCE_NOT_INHERITED", manifestPath, { role, path: repoPath }));
+      }
+    }
+  }
+}
+
 export function validateManifest(manifest, options = {}) {
   const manifestPath = options.manifestPath ?? "<memory>";
   const checkPaths = options.checkPaths ?? true;
@@ -172,18 +330,16 @@ export function validateManifest(manifest, options = {}) {
       errors.push(issue("MCI_VISIBLE_DIFF_EVIDENCE_MISSING", manifestPath));
     }
     if (claims.d0Complete) {
-      const fullPipeline = [
-        "dataStructureReady",
-        "contentAuthored",
-        "runtimeIntegrated",
-        "productionEquivalentGeneratorUsed",
-        "productionRendererUsed",
-        "htmlOutputVerified",
-        "pdfOutputVerified",
-        "visibleOutputChanged",
-        "productionAdmitted"
-      ];
-      if (fullPipeline.some((claim) => claims[claim] !== true)) errors.push(issue("MCI_D0_WITHOUT_FULL_PIPELINE", manifestPath));
+      const closeoutMode = manifest.d0Closeout?.mode ?? "full_pipeline";
+      if (closeoutMode === "full_pipeline") {
+        if (FULL_PIPELINE_CLAIMS.some((claim) => claims[claim] !== true)) {
+          errors.push(issue("MCI_D0_WITHOUT_FULL_PIPELINE", manifestPath));
+        }
+      } else if (closeoutMode === "program_controller_closeout") {
+        validateProgramControllerCloseout(manifest, manifestPath, errors, checkPaths);
+      } else {
+        errors.push(issue("MCI_D0_CLOSEOUT_MODE_INVALID", manifestPath, { actual: closeoutMode }));
+      }
     }
   }
 
@@ -286,7 +442,8 @@ export function parsePrBodyFields(body = "") {
     maximumClaim: field("Maximum Claim"),
     visibleOutputChanged: field("Visible Output Changed"),
     humanReviewType: field("Human Review Type"),
-    humanReviewReady: field("Human Review Ready")
+    humanReviewReady: field("Human Review Ready"),
+    d0CloseoutMode: field("D0 Closeout Mode")
   };
 }
 
@@ -329,6 +486,7 @@ export function validatePullRequestManifest(options = {}) {
     humanReviewType: manifest.humanReview.type,
     humanReviewReady: String(manifest.claims.humanReviewReady)
   };
+  if (manifest.d0Closeout?.mode) expected.d0CloseoutMode = manifest.d0Closeout.mode;
   for (const [key, expectedValue] of Object.entries(expected)) {
     if (fields[key] !== expectedValue) {
       errors.push(issue("MCI_PR_BODY_MANIFEST_MISMATCH", "<pull_request>", {

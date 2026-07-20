@@ -14,6 +14,15 @@ import {
 
 const fixturePath = path.join(ROOT, "tests/fixtures/governance/p12-false-human-review-ready.claim.json");
 const p12FalseReviewFixture = JSON.parse(fs.readFileSync(fixturePath, "utf8"));
+const gs01ClaimPath = "data/project/milestones/GS01.claim.json";
+const gs01Claim = JSON.parse(fs.readFileSync(path.join(ROOT, gs01ClaimPath), "utf8"));
+const goldenProgramClaimPaths = Object.freeze({
+  productionOutput: gs01ClaimPath,
+  content: "data/project/milestones/GS02.claim.json",
+  contract: "data/project/milestones/GS03.claim.json",
+  sharedRuntime: "data/project/milestones/GS04.claim.json",
+  crossUnitConformance: "data/project/milestones/GS05.claim.json"
+});
 
 function baseManifest() {
   return {
@@ -62,6 +71,61 @@ function baseManifest() {
   };
 }
 
+function programControllerCloseoutManifest() {
+  const manifest = baseManifest();
+  manifest.taskId = "GS06_TEST_PROGRAM_CONTROLLER_CLOSEOUT";
+  manifest.taskClass = "release";
+  manifest.targetEvidenceLevel = "E6_D0_COMPLETE";
+  manifest.actualEvidenceLevel = "E6_D0_COMPLETE";
+  manifest.claimedStatus = "PASS_PROGRAM_CONTROLLER_D0";
+  manifest.claims = {
+    dataStructureReady: true,
+    contentAuthored: true,
+    runtimeIntegrated: true,
+    productionEquivalentGeneratorUsed: true,
+    productionRendererUsed: true,
+    htmlOutputVerified: true,
+    pdfOutputVerified: true,
+    visibleOutputChanged: false,
+    humanReviewReady: false,
+    productionAdmitted: true,
+    d0Complete: true
+  };
+  manifest.evidence = {
+    runtimeTestPaths: [
+      "site/modules/curriculum/golden/golden-batch-controller.js",
+      "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
+    ],
+    rendererTestPaths: [...gs01Claim.evidence.rendererTestPaths],
+    htmlArtifactPaths: [...gs01Claim.evidence.htmlArtifactPaths],
+    pdfArtifactPaths: [...gs01Claim.evidence.pdfArtifactPaths],
+    beforeAfterEvidencePaths: Object.values(goldenProgramClaimPaths),
+    reviewArtifactPaths: [],
+    artifactHashes: structuredClone(gs01Claim.evidence.artifactHashes)
+  };
+  manifest.humanReview = {
+    type: "none",
+    canUnlockProduction: false,
+    reviewArtifactRequired: false
+  };
+  manifest.distance = {
+    before: "D1",
+    after: "D0",
+    distanceReduced: "program controller and inherited Golden pipeline evidence close the bounded six-task program"
+  };
+  manifest.nextStep = {
+    taskId: "PROGRAM_COMPLETE",
+    requiredEvidenceLevelBeforeStart: "E6_D0_COMPLETE"
+  };
+  manifest.d0Closeout = {
+    mode: "program_controller_closeout",
+    programId: "G5AU08_GOLDEN_SAMPLE_V1",
+    currentTaskVisibleOutputChanged: false,
+    inheritedMilestoneClaims: { ...goldenProgramClaimPaths }
+  };
+  return manifest;
+}
+
 function errorCodes(result) {
   return new Set(result.errors.map((entry) => entry.code));
 }
@@ -96,7 +160,7 @@ test("GOV-S01 blocks output claims when runtime is not integrated", () => {
   assert.ok(codes.has("MCI_RENDERER_FALSE_BUT_PDF_CLAIMED"));
 });
 
-test("GOV-S01 blocks D0 without the complete pipeline", () => {
+test("GOV-S01 blocks ordinary D0 without the complete current-task pipeline", () => {
   const manifest = baseManifest();
   manifest.actualEvidenceLevel = "E6_D0_COMPLETE";
   manifest.targetEvidenceLevel = "E6_D0_COMPLETE";
@@ -105,6 +169,38 @@ test("GOV-S01 blocks D0 without the complete pipeline", () => {
   const result = validateManifest(manifest, { checkPaths: false });
   assert.equal(result.ok, false);
   assert.ok(errorCodes(result).has("MCI_D0_WITHOUT_FULL_PIPELINE"));
+});
+
+test("GOV-S01 accepts an evidence-backed program controller closeout without a fake visible change", () => {
+  const result = validateManifest(programControllerCloseoutManifest());
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.deepEqual(result.errors, []);
+});
+
+test("GOV-S01 blocks program controller closeout when a lineage role lacks its required capability", () => {
+  const manifest = programControllerCloseoutManifest();
+  manifest.d0Closeout.inheritedMilestoneClaims.productionOutput = goldenProgramClaimPaths.content;
+  const result = validateManifest(manifest);
+  assert.equal(result.ok, false);
+  assert.ok(errorCodes(result).has("MCI_PROGRAM_CLOSEOUT_INHERITED_CAPABILITY_MISSING"));
+});
+
+test("GOV-S01 blocks program controller closeout when GS01 production artifacts are not re-inherited", () => {
+  const manifest = programControllerCloseoutManifest();
+  manifest.evidence.htmlArtifactPaths = [];
+  const result = validateManifest(manifest);
+  assert.equal(result.ok, false);
+  assert.ok(errorCodes(result).has("MCI_PROGRAM_CLOSEOUT_PRODUCTION_EVIDENCE_NOT_INHERITED"));
+});
+
+test("GOV-S01 blocks program controller closeout that falsely claims a current-task visible change", () => {
+  const manifest = programControllerCloseoutManifest();
+  manifest.claims.visibleOutputChanged = true;
+  manifest.d0Closeout.currentTaskVisibleOutputChanged = true;
+  const result = validateManifest(manifest);
+  assert.equal(result.ok, false);
+  assert.ok(errorCodes(result).has("MCI_PROGRAM_CLOSEOUT_SCHEMA_INVALID"));
+  assert.ok(errorCodes(result).has("MCI_PROGRAM_CLOSEOUT_CURRENT_TASK_VISIBLE_OUTPUT_INVALID"));
 });
 
 test("GOV-S01 distinguishes draft review from production-equivalent review", () => {
@@ -135,8 +231,22 @@ test("GOV-S01 parses required PR body fields deterministically", () => {
     maximumClaim: "E3_SHADOW_RUNTIME_INTEGRATED",
     visibleOutputChanged: "false",
     humanReviewType: "none",
-    humanReviewReady: "false"
+    humanReviewReady: "false",
+    d0CloseoutMode: null
   });
+});
+
+test("GOV-S01 parses the program controller closeout mode", () => {
+  const fields = parsePrBodyFields([
+    "Milestone Claim Manifest: `data/project/milestones/GS06.claim.json`",
+    "Actual Evidence Level: `E6_D0_COMPLETE`",
+    "Maximum Claim: `E6_D0_COMPLETE`",
+    "Visible Output Changed: `false`",
+    "Human Review Type: `none`",
+    "Human Review Ready: `false`",
+    "D0 Closeout Mode: `program_controller_closeout`"
+  ].join("\n"));
+  assert.equal(fields.d0CloseoutMode, "program_controller_closeout");
 });
 
 test("GOV-S01 blocks a PR that changes files without a claim manifest", () => {

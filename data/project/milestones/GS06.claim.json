@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "PASS_GOLDEN_D0_CLOSED_PENDING_FINAL_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/golden/golden-batch-controller.js",
+      "tools/governance/milestone-claim-integrity-core.mjs",
+      "tools/governance/validate-gs06-golden-controller.mjs",
+      "tests/governance/milestone-claim-integrity.test.js",
+      "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js",
+      ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml",
+      "tools/curriculum/run-g5a-u08-r1-deployed-pages-smoke.mjs",
+      "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer-s60j-extension.js",
+      "tools/curriculum/run-g5a-u08-r1-deployed-pages-smoke.mjs",
+      "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/GS01.claim.json",
+      "data/project/milestones/GS02.claim.json",
+      "data/project/milestones/GS03.claim.json",
+      "data/project/milestones/GS04.claim.json",
+      "data/project/milestones/GS05.claim.json",
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
+      "data/curriculum/contracts/GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout.json",
+      "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json",
+      "docs/curriculum/output/GS06_G5AU08_GOLDEN_CONTROLLER_PENDING.marker",
+      "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_PASS.marker",
+      "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html",
+        "sha256": "a213617579927111741b18323460177031cf5a48094ebbfbc97f9e1263f69d1b"
+      },
+      {
+        "path": "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf",
+        "sha256": "4544387d68c69fc5601f1352b2eee9051ede1b4e4ed7e8adf6c0b28353514df4"
+      },
+      {
+        "path": "docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/GS01_G5AU08_LIVE_EVIDENCE.json",
+        "sha256": "6d53e3a04915d20dbe8e71f651a2561f02d097013b3e6155b462fb668f159086"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "d0Closeout": {
+    "mode": "program_controller_closeout",
+    "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+    "currentTaskVisibleOutputChanged": false,
+    "inheritedMilestoneClaims": {
+      "productionOutput": "data/project/milestones/GS01.claim.json",
+      "content": "data/project/milestones/GS02.claim.json",
+      "contract": "data/project/milestones/GS03.claim.json",
+      "sharedRuntime": "data/project/milestones/GS04.claim.json",
+      "crossUnitConformance": "data/project/milestones/GS05.claim.json"
+    }
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D0",
+    "distanceReduced": "The fixed six-task Golden Sample program now has an active 15-unit controller, deterministic queue, production gate, persistent anti-drift enforcement, and machine-validated inheritance of GS01 through GS05 production, content, contract, shared-runtime and cross-unit evidence."
+  },
+  "nextStep": {
+    "taskId": "PROGRAM_COMPLETE_POST_GOLDEN_SCOPE_REQUIRES_APPROVAL",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
+  }
+}
