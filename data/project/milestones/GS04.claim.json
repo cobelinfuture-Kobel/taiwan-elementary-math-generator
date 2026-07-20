@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS04_G5AU08_SharedRuntimeAndBatchAdapter",
+  "taskClass": "integration",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "SHARED_RUNTIME_CONNECTED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/golden/shared-golden-runtime-consumer.js",
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
+      ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/contracts/GS04_G5AU08_SharedRuntimeAndBatchAdapter.json",
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "The frozen G5AU08_GOLDEN_V1 contract is connected through a generic multi-unit source adapter to the existing S60J generator-validator-worksheet runtime; production admission and cross-unit conformance remain deferred."
+  },
+  "nextStep": {
+    "taskId": "GS05_G5AU08_CrossUnitConformancePilot",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
