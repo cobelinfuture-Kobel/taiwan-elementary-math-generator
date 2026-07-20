@@ -28,6 +28,8 @@ export const G3A_U06_POSTG_SOURCE_ID = "g3a_u06_3a06";
 export const G3A_U06_POSTG_TASK_ID = "POSTG-MIG-A04_G3A_U06_GoldenConformanceAndKnowledgeOperationMigration";
 export const G3B_U01_POSTG_SOURCE_ID = "g3b_u01_3b01";
 export const G3B_U01_POSTG_TASK_ID = "POSTG-MIG-A05_G3B_U01_GoldenConformanceAndKnowledgeOperationMigration";
+export const G3B_U08_POSTG_SOURCE_ID = "g3b_u08_3b08";
+export const G3B_U08_POSTG_TASK_ID = "POSTG-MIG-A06_G3B_U08_GoldenConformanceAndKnowledgeOperationMigration";
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -87,7 +89,15 @@ export const G5AU08_GOLDEN_V1_RUNTIME_DESCRIPTOR = freeze({
   },
 });
 
-function postGoldenRuntimeDescriptor({ sourceId, knowledgeRegistryPath, counts, authorityFileCount, generator }) {
+function postGoldenRuntimeDescriptor({
+  sourceId,
+  knowledgeRegistryPath,
+  counts,
+  authorityFileCount,
+  generator,
+  validator = "site/modules/curriculum/batch-a/batch-a-browser-validator.js",
+  renderer = "site/modules/renderer/html-renderer-s60j-extension.js",
+}) {
   return freeze({
     descriptorMode: "post_golden_unit_conformance",
     baseGoldenContractId: "G5AU08_GOLDEN_V1",
@@ -111,11 +121,7 @@ function postGoldenRuntimeDescriptor({ sourceId, knowledgeRegistryPath, counts, 
     perUnitRuntimeLimits: { generator: 0, validator: 0, renderer: 0, workflow: 0 },
     globalContextProductionSelectableAtFreeze: false,
     globalContextRuntimeResolvableAtFreeze: false,
-    runtimeModules: {
-      generator,
-      validator: "site/modules/curriculum/batch-a/batch-a-browser-validator.js",
-      renderer: "site/modules/renderer/html-renderer-s60j-extension.js",
-    },
+    runtimeModules: { generator, validator, renderer },
   });
 }
 
@@ -160,6 +166,19 @@ export const G3BU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescripto
   counts: { knowledgePoints: 10, patternGroups: 10, patternSpecs: 23 },
   authorityFileCount: 6,
   generator: "site/modules/curriculum/batch-a/batch-a-browser-generator-core.js",
+});
+
+export const G3BU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({
+  sourceId: G3B_U08_POSTG_SOURCE_ID,
+  knowledgeRegistryPath: "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+  counts: { knowledgePoints: 6, patternGroups: 6, patternSpecs: 24 },
+  authorityFileCount: 9,
+  generator: [
+    "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+    "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+  ],
+  validator: "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+  renderer: "site/modules/renderer/html-renderer-s58h-extension.js",
 });
 
 const BASE_ADAPTER_DESCRIPTORS = freeze([
@@ -249,6 +268,12 @@ const POST_GOLDEN_ADAPTER_DESCRIPTORS = freeze([
     adapterId: "g3b_u01_postg_golden_shared_runtime",
     descriptor: G3BU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
   }),
+  postGoldenAdapterDescriptor({
+    sourceId: G3B_U08_POSTG_SOURCE_ID,
+    taskId: G3B_U08_POSTG_TASK_ID,
+    adapterId: "g3b_u08_postg_golden_shared_runtime",
+    descriptor: G3BU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
+  }),
 ]);
 
 function resolveDescriptor(descriptor) {
@@ -277,7 +302,7 @@ function validateDescriptorCollection(descriptors, { minimumCount, tooSmallCode 
       errors.push(`GS04_SHARED_ADAPTER_KP_COUNT_INVALID:${descriptor.sourceId}`);
     }
     if (resolved.patternGroupIds.length !== descriptor.expectedCounts.patternGroups) {
-      errors.push(`GS04_SHARED_ADAPTER_GROUP_COUNT_INVALID:${descriptor.sourceId}`);
+      errors.push(`GS04_SHARED_ADAPTER_PATTERN_GROUP_COUNT_INVALID:${descriptor.sourceId}`);
     }
     if (Number.isInteger(descriptor.expectedCounts.patternSpecs)
       && resolved.patternSpecIds.length !== descriptor.expectedCounts.patternSpecs) {
