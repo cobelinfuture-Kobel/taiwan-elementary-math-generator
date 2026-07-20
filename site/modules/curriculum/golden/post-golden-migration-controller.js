@@ -12,6 +12,49 @@ function publicUnits() {
   return listBatchASourceUnits({ includePublicCandidates: true });
 }
 
+function validFoundationCandidate(program, taskOrder) {
+  return program.programStatus === "ACTIVE_A00_FOUNDATION_PENDING_EXACT_HEAD_CI_AND_MERGE"
+    && program.activeTaskStatus === "E1_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE"
+    && program.activeTask === taskOrder[0]
+    && program.nextAllowedTask === taskOrder[0]
+    && program.completedCount === 0
+    && program.remainingCount === 14
+    && program.lastCompletedTask == null
+    && program.goalDistance === "D14_POST_GOLDEN_MIGRATION_PROGRAM_FOUNDATION_NOT_MERGED";
+}
+
+function validFoundationAccepted(program, taskOrder) {
+  return program.programStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
+    && program.activeTaskStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
+    && program.activeTask === taskOrder[0]
+    && program.nextAllowedTask === taskOrder[1]
+    && program.completedCount === 1
+    && program.remainingCount === 13
+    && program.lastCompletedTask === taskOrder[0]
+    && program.goalDistance === "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY";
+}
+
+function validActiveUnitProgress(program, taskOrder) {
+  const completedCount = program.completedCount;
+  const remainingCount = program.remainingCount;
+  if (!Number.isInteger(completedCount) || completedCount < 1 || completedCount > 12) return false;
+  if (remainingCount !== 14 - completedCount) return false;
+
+  const expectedActiveTask = taskOrder[completedCount];
+  const expectedLastCompleted = taskOrder[completedCount - 1];
+  const status = String(program.programStatus ?? "");
+  const activeTaskStatus = String(program.activeTaskStatus ?? "");
+  const distance = String(program.goalDistance ?? "");
+
+  return program.activeTask === expectedActiveTask
+    && program.nextAllowedTask === expectedActiveTask
+    && program.lastCompletedTask === expectedLastCompleted
+    && status === activeTaskStatus
+    && /^ACTIVE_A\d{2}_[A-Z0-9_]+$/.test(status)
+    && distance.startsWith(`D${remainingCount}_POST_GOLDEN_MIGRATION_`)
+    && distance.endsWith("_ACTIVE");
+}
+
 export function validatePostGoldenMigrationProgram(program = {}) {
   const errors = [];
   const taskOrder = Array.isArray(program.taskOrder) ? program.taskOrder : [];
@@ -33,23 +76,11 @@ export function validatePostGoldenMigrationProgram(program = {}) {
     errors.push(issue("POSTG_A00_DUPLICATE_TASK_ID"));
   }
 
-  const candidateProgress = program.programStatus === "ACTIVE_A00_FOUNDATION_PENDING_EXACT_HEAD_CI_AND_MERGE"
-    && program.activeTaskStatus === "E1_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE"
-    && program.completedCount === 0
-    && program.remainingCount === 14
-    && program.lastCompletedTask == null
-    && program.goalDistance === "D14_POST_GOLDEN_MIGRATION_PROGRAM_FOUNDATION_NOT_MERGED";
-  const acceptedProgress = program.programStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
-    && program.activeTaskStatus === "A00_PASS_ACCEPTED_PENDING_MERGE"
-    && program.completedCount === 1
-    && program.remainingCount === 13
-    && program.lastCompletedTask === taskOrder[0]
-    && program.goalDistance === "D13_POST_GOLDEN_MIGRATION_PROGRAM_APPROVED_A01_READY";
-  if (program.activeTask !== taskOrder[0]
-    || program.nextAllowedTask !== taskOrder[1]
-    || (!candidateProgress && !acceptedProgress)) {
-    errors.push(issue("POSTG_A00_PROGRAM_PROGRESS_INVALID"));
-  }
+  const progressValid = validFoundationCandidate(program, taskOrder)
+    || validFoundationAccepted(program, taskOrder)
+    || validActiveUnitProgress(program, taskOrder);
+  if (!progressValid) errors.push(issue("POSTG_A00_PROGRAM_PROGRESS_INVALID"));
+
   const continuation = program.continuation ?? {};
   if (program.programLock !== "ACTIVE_ONE_UNIT_ONLY"
     || continuation.autoContinueWithinApprovedProgram !== true
@@ -161,6 +192,8 @@ export function validatePostGoldenMigrationController(
       completeCount: complete.length,
       activeCount: active ? 1 : 0,
       pendingCount: pending.length,
+      blockedCount: (controller.queue?.blockedSourceIds ?? []).length,
+      exceptionCount: (controller.queue?.exceptionSourceIds ?? []).length,
       nextResumeSourceId: active,
     }),
   });
