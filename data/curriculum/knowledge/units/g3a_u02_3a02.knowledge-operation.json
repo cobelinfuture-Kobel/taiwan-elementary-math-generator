@@ -1,0 +1,143 @@
+{
+  "schemaName": "KnowledgeOperationUnitRegistry",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "sourceId": "g3a_u02_3a02",
+  "unitCode": "3A-U02",
+  "title": "四位數的加減",
+  "grade": 3,
+  "semester": "upper",
+  "conformanceState": "IN_PROGRESS_GOLDEN_NATIVE",
+  "knowledgeRegistryState": "QUESTION_BINDINGS_COMPLETE",
+  "authority": {
+    "producerPaths": [
+      "data/curriculum/registry/batch_a_knowledge_points.json",
+      "data/curriculum/registry/batch_a_pattern_groups.json",
+      "data/curriculum/registry/batch_a_knowledge_point_pattern_map.json",
+      "site/modules/curriculum/batch-a/source-pattern-index.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator-core.js",
+      "site/modules/curriculum/batch-a/carry-policy.js"
+    ],
+    "authoritativeStatePath": "data/curriculum/knowledge/units/g3a_u02_3a02.knowledge-operation.json",
+    "runtimeConsumerPaths": [
+      "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+      "site/modules/renderer/html-renderer-s60j-extension.js"
+    ],
+    "readbackPaths": [
+      "docs/curriculum/output/POSTG_MIG_A02_G3AU02_CANDIDATE_READBACK.md",
+      "docs/curriculum/output/postg/a02-g3a-u02/POSTG_MIG_A02_G3AU02_RUNTIME_READBACK.json"
+    ]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3a_u02_add_multi_carry",
+      "knowledgePointName": "四位數加法多次進位",
+      "scope": "計算四位數與一至四位數的加法，至少在個、十、百位中的兩個位次發生進位，且結果不超過9999。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u02_four_digit_add_multi_carry",
+          "canonicalExpressions": [
+            "sum = a + b",
+            "carry_i = floor((digit_i(a) + digit_i(b) + carry_(i-1)) / 10)"
+          ],
+          "operandRoles": {
+            "a": "四位數被加數",
+            "b": "一至四位數加數",
+            "sum": "加法結果"
+          },
+          "unknownRoles": ["sum"],
+          "numberConstraints": [
+            "1000 <= a <= 9999",
+            "1 <= b <= 9999",
+            "0 <= sum <= 9999",
+            "carry count across ones tens hundreds is at least 2",
+            "no carry into ten-thousands"
+          ],
+          "equivalentForms": [
+            "a + b = sum",
+            "sum - a = b",
+            "sum - b = a"
+          ],
+          "answerType": "integer",
+          "validationInvariants": [
+            "sum equals a + b",
+            "at least two checked columns generate a carry",
+            "result remains within the four-digit worksheet boundary"
+          ]
+        }
+      ],
+      "existingNumericQuestionCount": 1,
+      "existingApplicationQuestionCount": 0
+    },
+    {
+      "knowledgePointId": "kp_g3a_u02_sub_multi_borrow",
+      "knowledgePointName": "四位數減法多次退位",
+      "scope": "計算四位數減去一至四位數，至少在個、十、百位中的兩個位次發生退位，結果為非負整數。",
+      "applicationCapability": "UNASSESSED_IN_PROGRAM_A",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u02_four_digit_sub_multi_borrow",
+          "canonicalExpressions": [
+            "difference = a - b",
+            "borrow_i is required when adjusted_digit_i(a) < digit_i(b)"
+          ],
+          "operandRoles": {
+            "a": "四位數被減數",
+            "b": "一至四位數減數",
+            "difference": "減法結果"
+          },
+          "unknownRoles": ["difference"],
+          "numberConstraints": [
+            "1000 <= a <= 9999",
+            "1 <= b <= a",
+            "0 <= difference <= 9999",
+            "regroup count across ones tens hundreds is at least 2"
+          ],
+          "equivalentForms": [
+            "a - b = difference",
+            "difference + b = a"
+          ],
+          "answerType": "integer",
+          "validationInvariants": [
+            "difference equals a - b",
+            "at least two checked columns require regrouping",
+            "difference is nonnegative"
+          ]
+        }
+      ],
+      "existingNumericQuestionCount": 1,
+      "existingApplicationQuestionCount": 0
+    }
+  ],
+  "existingQuestionBindings": [
+    {
+      "questionId": "ps_g3a_u02_4digit_add_multi_carry",
+      "knowledgePointId": "kp_g3a_u02_add_multi_carry",
+      "operationModelId": "op_g3a_u02_four_digit_add_multi_carry",
+      "questionType": "numeric",
+      "sourcePath": "site/modules/curriculum/batch-a/source-pattern-index.js"
+    },
+    {
+      "questionId": "ps_g3a_u02_4digit_sub_multi_borrow",
+      "knowledgePointId": "kp_g3a_u02_sub_multi_borrow",
+      "operationModelId": "op_g3a_u02_four_digit_sub_multi_borrow",
+      "questionType": "numeric",
+      "sourcePath": "site/modules/curriculum/batch-a/source-pattern-index.js"
+    }
+  ],
+  "coverage": {
+    "numeric": "COMPLETE",
+    "application": "UNASSESSED"
+  },
+  "review": {
+    "status": "PENDING",
+    "notes": [
+      "The current production-visible scope contains two A-class KnowledgePoints, two PatternGroups and two PatternSpecs.",
+      "Nearest-thousand estimation and estimation word-problem rows remain explicit D-class exclusions and are not promoted by this migration.",
+      "Shared-runtime adapter integration, exact-head HTML/PDF evidence and queue closeout are pending in A02."
+    ]
+  }
+}
