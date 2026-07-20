@@ -77,6 +77,38 @@ jobs:
           node --test tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js
           node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
 
+      - name: Export Golden anchor runtime inventory
+        run: |
+          mkdir -p build/postg/${POSTG_SOURCE_ID}
+          node --input-type=module <<'NODE'
+          import { writeFile } from 'node:fs/promises';
+          import {
+            listVisibleBatchAKnowledgePoints,
+            getVisiblePatternGroupsForKnowledgePoint,
+            resolveVisiblePatternSpecIdsForKnowledgePoint,
+          } from './site/modules/curriculum/registry/batch-a-selector-extension.js';
+          const sourceIds = ['g3b_u04_3b04', 'g5a_u08_5a08', 'g5a_u02_5a02'];
+          const allRows = listVisibleBatchAKnowledgePoints();
+          const units = sourceIds.map((sourceId) => {
+            const knowledgePoints = allRows.filter((row) => row.sourceId === sourceId).map((row) => {
+              const patternGroups = getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId);
+              const patternSpecIds = resolveVisiblePatternSpecIdsForKnowledgePoint(row.knowledgePointId);
+              return { row, patternGroups, patternSpecIds };
+            });
+            return {
+              sourceId,
+              knowledgePointCount: knowledgePoints.length,
+              patternGroupCount: new Set(knowledgePoints.flatMap((entry) => entry.patternGroups.map((group) => group.patternGroupId))).size,
+              patternSpecCount: new Set(knowledgePoints.flatMap((entry) => entry.patternSpecIds)).size,
+              knowledgePoints,
+            };
+          });
+          const inventory = { schemaName: 'PostGoldenAnchorRuntimeInventory', schemaVersion: 1, units };
+          const path = `build/postg/${process.env.POSTG_SOURCE_ID}/POSTG_MIG_A01_ANCHOR_RUNTIME_INVENTORY.json`;
+          await writeFile(path, `${JSON.stringify(inventory, null, 2)}\n`, 'utf8');
+          console.log(JSON.stringify(inventory.units.map(({ sourceId, knowledgePointCount, patternGroupCount, patternSpecCount }) => ({ sourceId, knowledgePointCount, patternGroupCount, patternSpecCount })), null, 2));
+          NODE
+
       - name: Generate current-runtime HTML PDF and hash evidence
         run: |
           set -o pipefail
