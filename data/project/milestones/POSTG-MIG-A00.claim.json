@@ -4,7 +4,7 @@
   "taskClass": "contract",
   "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
   "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
-  "claimedStatus": "A00_FOUNDATION_CANDIDATE_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claimedStatus": "A00_PASS_ACCEPTED_PENDING_MERGE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": false,
@@ -34,7 +34,7 @@
       "tests/curriculum/postg-mig-a00-program-foundation.test.js",
       ".github/workflows/postg-mig-a00-program-foundation.yml",
       "docs/curriculum/architecture/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.md",
-      "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PENDING.marker"
+      "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PASS.marker"
     ],
     "reviewArtifactPaths": [],
     "artifactHashes": []
