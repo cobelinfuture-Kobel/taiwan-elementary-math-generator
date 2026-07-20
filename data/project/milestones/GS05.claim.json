@@ -4,7 +4,7 @@
   "taskClass": "integration",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "IN_PROGRESS_CROSS_UNIT_CONFORMANCE_PENDING_EXACT_HEAD_CI",
+  "claimedStatus": "PASS_E3_THREE_CLASS_CROSS_UNIT_CONFORMANCE_PENDING_MERGE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": false,
@@ -34,12 +34,15 @@
     "htmlArtifactPaths": [],
     "pdfArtifactPaths": [],
     "beforeAfterEvidencePaths": [
+      "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json",
       "data/curriculum/golden/G5AU08_GOLDEN_V1.cross-unit-pilots.json",
       "data/curriculum/contracts/GS05_G5AU08_CrossUnitConformancePilot.json",
       "data/curriculum/contracts/S96T_G5A_U02_ProductionRecloseout.json",
       "data/project/milestones/GCTX-P14.claim.json",
       "data/curriculum/registry/batch_a_knowledge_points.json",
-      "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PENDING.marker"
+      "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PENDING.marker",
+      "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PASS.marker",
+      "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_READBACK.md"
     ],
     "reviewArtifactPaths": [],
     "artifactHashes": []
@@ -52,7 +55,7 @@
   "distance": {
     "before": "D2",
     "after": "D1",
-    "distanceReduced": "The shared Golden contract is exercised across completed numeric and application runtimes while an unfinished Golden-native unit proves data onboarding and explicit production fail-closed behavior; GS06 controller and D0 remain pending."
+    "distanceReduced": "The shared Golden contract has executable conformance evidence for completed numeric migration, completed application-context migration, and unfinished Golden-native onboarding; GS06 controller and D0 remain pending."
   },
   "nextStep": {
     "taskId": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
