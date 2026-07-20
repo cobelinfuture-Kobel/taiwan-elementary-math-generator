@@ -1,0 +1,86 @@
+name: GS05 G5A-U08 Cross-Unit Conformance Pilot
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "site/modules/curriculum/golden/cross-unit-golden-conformance.js"
+      - "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js"
+      - "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js"
+      - "data/curriculum/golden/G5AU08_GOLDEN_V1.cross-unit-pilots.json"
+      - "data/curriculum/contracts/GS05_G5AU08_CrossUnitConformancePilot.json"
+      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
+      - "data/project/milestones/GS05.claim.json"
+      - "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PENDING.marker"
+      - "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PASS.marker"
+      - "docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_READBACK.md"
+      - ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cross-unit-conformance:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout GS05 head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+
+      - name: Run focused GS05 cross-unit suite
+        run: node --test tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js
+
+      - name: Audit shared adapter fail-closed behavior
+        run: |
+          node --input-type=module <<'NODE'
+          import { validateGlobalPublicSourceUnitAdapters } from './site/modules/curriculum/batch-a/global-public-source-unit-adapter.js';
+          const audit = validateGlobalPublicSourceUnitAdapters();
+          console.log(`GS05_SHARED_ADAPTER_AUDIT=${JSON.stringify(audit)}`);
+          if (!audit.ok) process.exit(1);
+          NODE
+
+      - name: Enforce GS05 bounded scope
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          const allowed = new Set([
+            '.github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml',
+            'site/modules/curriculum/golden/cross-unit-golden-conformance.js',
+            'site/modules/curriculum/batch-a/global-public-source-unit-adapter.js',
+            'tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js',
+            'data/curriculum/golden/G5AU08_GOLDEN_V1.cross-unit-pilots.json',
+            'data/curriculum/contracts/GS05_G5AU08_CrossUnitConformancePilot.json',
+            'data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json',
+            'data/project/milestones/GS05.claim.json',
+            'docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PENDING.marker',
+            'docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_PASS.marker',
+            'docs/curriculum/output/GS05_G5AU08_CROSS_UNIT_CONFORMANCE_READBACK.md',
+          ]);
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          execFileSync('git', ['fetch', 'origin', base], { stdio: 'inherit' });
+          const files = execFileSync('git', ['diff', '--name-only', `origin/${base}...HEAD`], { encoding: 'utf8' })
+            .trim().split(/\r?\n/).filter(Boolean);
+          const drift = files.filter((path) => !allowed.has(path));
+          if (drift.length > 0) {
+            console.error(`GS05_SCOPE_DRIFT=${JSON.stringify(drift)}`);
+            process.exit(1);
+          }
+          const forbiddenRuntime = files.filter((path) =>
+            /site\/modules\/curriculum\/(?:batch-a|batch-b)\/(?:g5a-u02|g3b-u04|g3a-u01).*(?:generator|validator|renderer)/.test(path)
+            || /\.github\/workflows\/(?:g5a-u02|g3b-u04|g3a-u01)-/.test(path));
+          if (forbiddenRuntime.length > 0) {
+            console.error(`GS05_PER_UNIT_RUNTIME_DUPLICATION=${JSON.stringify(forbiddenRuntime)}`);
+            process.exit(1);
+          }
+          console.log(`GS05_SCOPE_AUDIT=${JSON.stringify({ changedFileCount: files.length, driftCount: 0, files })}`);
+          NODE
