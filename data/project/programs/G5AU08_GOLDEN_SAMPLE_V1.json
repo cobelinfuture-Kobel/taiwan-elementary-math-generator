@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "programId": "G5AU08_GOLDEN_SAMPLE_V1",
-  "programStatus": "ACTIVE",
+  "programStatus": "PASS_GOLDEN_D0_CLOSED",
   "goldenSampleUnitId": "g5a_u08_5a08",
   "taskBudget": 6,
   "taskOrder": [
@@ -13,16 +13,16 @@
     "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout"
   ],
   "activeTask": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
-  "activeTaskStatus": "IN_PROGRESS_CONTROLLER_CANDIDATE_PENDING_D0_GOVERNANCE_CI",
+  "activeTaskStatus": "PASS_GOLDEN_D0_CLOSED_PENDING_FINAL_EXACT_HEAD_CI_AND_MERGE",
   "activeBranch": "feat/gs06-golden-batch-controller-d0",
   "activePR": 289,
-  "lastCompletedTask": "GS05_G5AU08_CrossUnitConformancePilot",
-  "nextAllowedTask": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
-  "completedCount": 5,
-  "remainingCount": 1,
-  "goalDistance": "D1_G5AU08_GOLDEN_V1_THREE_CLASS_CONFORMANCE_PROVEN",
-  "programLock": "ACTIVE",
-  "stopReason": "NONE",
+  "lastCompletedTask": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
+  "nextAllowedTask": null,
+  "completedCount": 6,
+  "remainingCount": 0,
+  "goalDistance": "D0_G5AU08_GOLDEN_V1_CONTROLLER_ACTIVE_AND_CLOSED",
+  "programLock": "CLOSED",
+  "stopReason": "NEXT_STEP_OUTSIDE_APPROVED_SCOPE",
   "scope": {
     "allowedPaths": [
       ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml",
@@ -53,11 +53,11 @@
     ]
   },
   "continuation": {
-    "autoContinue": true,
+    "autoContinue": false,
     "mergeIsStopPoint": false,
     "closeoutIsStopPoint": true,
-    "nextTaskAfterCandidatePass": "GS06_GoldenD0CloseoutAndFinalExactHeadCI",
     "stopReasonAfterD0": "NEXT_STEP_OUTSIDE_APPROVED_SCOPE",
+    "requiredOperatorActionAfterD0": "Approve a post-Golden unit migration program beginning with g3a_u01_3a01.",
     "nextResumeTaskAfterD0": "POST_GOLDEN_G3A_U01_CONFORMANCE_MIGRATION"
   }
 }
