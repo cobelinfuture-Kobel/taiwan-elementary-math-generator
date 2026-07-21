@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "taskId": "APP-SOP-A01_SingleApplicationItemDetailedSOPAndSchemaContract",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "A01_SCHEMA_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/contracts/Single_Application_Item_SOP_V1.md",
+      "data/curriculum/application/schema/single-application-item.schema.json",
+      "data/curriculum/application/contracts/APP-SOP-A01_SingleApplicationItemDetailedSOPAndSchemaContract.json",
+      "tests/curriculum/application-problem-sop-a01.test.js"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "SINGLE_DIRECT and SINGLE_N_PLUS_1 now have a detailed normative SOP and a Draft 2020-12 JSON Schema that machine-lock one primary target, authority lineage, semantic role graph, global-context binding, answer meaning, N+1 interpretation evidence, misconception models, counterfactual evidence, and PBL-field exclusion. No runtime, content, renderer, UI, production admission, or POST_GOLDEN migration state changes in A01."
+  },
+  "nextStep": {
+    "taskId": "APP-SOP-A02_NPlusOneInterpretationProofAndMisconceptionContract",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
