@@ -2,8 +2,8 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
-  "status": "W01_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS_PENDING_CI_AND_MERGE",
+  "taskId": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
+  "status": "W01_WORKSHEET_SHADOW_PASS_PRODUCTION_REVIEW_DEFERRED_PENDING_CI_AND_MERGE",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
@@ -12,7 +12,8 @@
     "masterControllerTaskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
     "w01AssessmentTaskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
     "w01AtomicContextTaskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
-    "w01NPlusOnePBLTaskId": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract"
+    "w01NPlusOnePBLTaskId": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+    "w01ValidatorShadowTaskId": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -35,20 +36,26 @@
     "w01ValidatorFixturePolicy": "data/curriculum/application/assessment/w01-validator-fixture-shadow-policy.json",
     "w01ValidatorFixtureSchema": "data/curriculum/application/schema/w01-validator-shadow-fixture.schema.json",
     "w01ValidatorShadowRuntime": "src/curriculum/application/w01-validator-fixture-shadow-runtime.mjs",
-    "w01ValidatorShadowValidationCli": "tools/curriculum/validate-postg-app-w01-a03-runtime-shadow.mjs"
+    "w01ValidatorShadowValidationCli": "tools/curriculum/validate-postg-app-w01-a03-runtime-shadow.mjs",
+    "w01WorksheetShadowReviewIndex": "data/curriculum/application/assessment/w01-worksheet-shadow-review-index.json",
+    "w01WorksheetShadowReviewPolicy": "data/curriculum/application/assessment/w01-worksheet-shadow-review-policy.json",
+    "w01WorksheetShadowProjectionSchema": "data/curriculum/application/schema/w01-worksheet-shadow-projection.schema.json",
+    "w01WorksheetShadowReviewRuntime": "src/curriculum/application/w01-worksheet-shadow-review.mjs",
+    "w01WorksheetShadowReviewValidationCli": "tools/curriculum/validate-postg-app-w01-a04-worksheet-shadow-review.mjs"
   },
   "currentWaveId": "W01",
-  "currentCapability": "GOLDEN15_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS",
-  "currentMainlineBlocker": "WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_NOT_COMPLETE",
+  "currentCapability": "GOLDEN15_WORKSHEET_SHADOW_PROJECTED_AND_PRODUCTION_REVIEWED_DEFERRED",
+  "currentMainlineBlocker": "UNIT_FLOW_EXACT_GENERATOR_RENDERER_HTML_PDF_PUBLIC_SELECTION_AND_HUMAN_REVIEW_EVIDENCE_INCOMPLETE",
   "productionAdmission": {
     "applicationUnitCount": 0,
     "waveCount": 0,
-    "allowed": false
+    "allowed": false,
+    "lastReviewDecision": "DEFERRED_PENDING_PRODUCTION_EVIDENCE"
   },
   "waveStates": [
     {
       "waveId":"W01",
-      "state":"SHADOW_READY",
+      "state":"PRODUCTION_REVIEW_REQUIRED",
       "completedGates":[
         "SOURCE_NODE_REGISTERED",
         "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
@@ -59,10 +66,12 @@
         "N_PLUS_1_CONTRACT_COMPLETE",
         "VALIDATOR_CONTRACT_COMPLETE",
         "POSITIVE_NEGATIVE_FIXTURES_COMPLETE",
-        "SHARED_RUNTIME_SHADOW_PASS"
+        "SHARED_RUNTIME_SHADOW_PASS",
+        "PRODUCTION_ADMISSION_REVIEWED"
       ],
-      "admissionGateComplete":false,
-      "productionAdmissionGranted":false
+      "admissionGateComplete":true,
+      "productionAdmissionGranted":false,
+      "reviewDecision":"DEFERRED_PENDING_PRODUCTION_EVIDENCE"
     },
     {"waveId":"W02","state":"QUEUED","completedGates":[],"admissionGateComplete":false,"productionAdmissionGranted":false},
     {"waveId":"W03","state":"BLOCKED_BY_PREVIOUS_WAVE","completedGates":[],"admissionGateComplete":false,"productionAdmissionGranted":false},
@@ -78,6 +87,7 @@
       "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
       "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
       "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+      "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
       "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
     ],
     "authoritativeState": [
@@ -91,23 +101,27 @@
       "w01-nplusone-pbl-candidate-pack-index.json",
       "w01-nplusone-pbl-candidate-policy.json",
       "w01-validator-fixture-shadow-index.json",
-      "w01-validator-fixture-shadow-policy.json"
+      "w01-validator-fixture-shadow-policy.json",
+      "w01-worksheet-shadow-review-index.json",
+      "w01-worksheet-shadow-review-policy.json"
     ],
     "runtimeConsumer": [
       "postg-app-master-controller.mjs",
       "w01-golden15-application-assessment.mjs",
       "w01-atomic-context-single-application-candidate-pack.mjs",
       "w01-nplusone-pbl-candidate-pack.mjs",
-      "w01-validator-fixture-shadow-runtime.mjs"
+      "w01-validator-fixture-shadow-runtime.mjs",
+      "w01-worksheet-shadow-review.mjs"
     ],
     "readback": [
       "validate-postg-app-m00-master-controller.mjs",
       "validate-postg-app-w01-a00-assessment.mjs",
       "validate-postg-app-w01-a01-candidate-pack.mjs",
       "validate-postg-app-w01-a02-candidate-pack.mjs",
-      "validate-postg-app-w01-a03-runtime-shadow.mjs"
+      "validate-postg-app-w01-a03-runtime-shadow.mjs",
+      "validate-postg-app-w01-a04-worksheet-shadow-review.mjs"
     ]
   },
-  "nextShortestStep": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
+  "nextShortestStep": "POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation",
   "stopReason": "NONE"
 }

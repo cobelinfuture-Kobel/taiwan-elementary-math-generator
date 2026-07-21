@@ -31,10 +31,7 @@ test('M00 validates the exact 79-node source scope and six-wave queue', () => {
 });
 
 test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
-  assert.deepEqual(
-    controller.unitRegistry.batches.map((row) => [row.batchId, row.sourceNodeIds.length]),
-    [['A', 13], ['B', 24], ['C', 17], ['D', 16], ['E', 9]]
-  );
+  assert.deepEqual(controller.unitRegistry.batches.map((row) => [row.batchId, row.sourceNodeIds.length]), [['A', 13], ['B', 24], ['C', 17], ['D', 16], ['E', 9]]);
   assert.equal(new Set(controller.sourceNodes.map((row) => row.sourceNodeId)).size, 79);
   assert.deepEqual(controller.sourceNodes.map((row) => row.queueOrdinal), Array.from({ length: 79 }, (_, index) => index + 1));
 });
@@ -44,7 +41,8 @@ test('Wave 01 distinguishes 15 golden units from 16 source nodes', () => {
   assert.equal(w01.goldenUnitIds.length, 15);
   assert.equal(w01.sourceNodes.length, 16);
   assert.equal(w01.productionSelectable, false);
-  assert.equal(w01.currentState.state, 'SHADOW_READY');
+  assert.equal(w01.currentState.state, 'PRODUCTION_REVIEW_REQUIRED');
+  assert.equal(w01.currentState.reviewDecision, 'DEFERRED_PENDING_PRODUCTION_EVIDENCE');
   const composite = controller.unitRegistry.goldenBaselineUnits.find((row) => row.goldenUnitId === 'g5a_u02_5a02');
   assert.deepEqual(composite.sourceNodeRefs, ['g5a_u02_5a02a', 'g5a_u02_5a02a1']);
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
@@ -81,7 +79,7 @@ test('W02 to W06 cover the remaining 63 nodes in deterministic source order', ()
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
 });
 
-test('admission gate order stays frozen while W01 progresses', () => {
+test('all admission stages are reviewed while production stays closed', () => {
   assert.deepEqual(controller.wavePlan.admissionGateOrder, [
     'SOURCE_NODE_REGISTERED',
     'KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED',
@@ -96,26 +94,19 @@ test('admission gate order stays frozen while W01 progresses', () => {
     'PRODUCTION_ADMISSION_REVIEWED'
   ]);
   assert.deepEqual(controller.controllerState.waveStates.map((row) => row.state), [
-    'SHADOW_READY',
+    'PRODUCTION_REVIEW_REQUIRED',
     'QUEUED',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE'
   ]);
-  assert.deepEqual(controller.controllerState.waveStates[0].completedGates, [
-    'SOURCE_NODE_REGISTERED',
-    'KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED',
-    'KP_APPLICATION_CLASSIFICATION_COMPLETE',
-    'CANONICAL_OPERATION_MODEL_COMPLETE',
-    'SINGLE_APPLICATION_ADMISSION_COMPLETE',
-    'GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE',
-    'N_PLUS_1_CONTRACT_COMPLETE',
-    'VALIDATOR_CONTRACT_COMPLETE',
-    'POSITIVE_NEGATIVE_FIXTURES_COMPLETE',
-    'SHARED_RUNTIME_SHADOW_PASS'
-  ]);
-  assert.equal(controller.controllerState.currentMainlineBlocker, 'WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_NOT_COMPLETE');
+  assert.deepEqual(controller.controllerState.waveStates[0].completedGates, controller.wavePlan.admissionGateOrder);
+  assert.equal(controller.controllerState.waveStates[0].admissionGateComplete, true);
+  assert.equal(controller.controllerState.waveStates[0].productionAdmissionGranted, false);
+  assert.equal(controller.controllerState.productionAdmission.allowed, false);
+  assert.equal(controller.controllerState.productionAdmission.lastReviewDecision, 'DEFERRED_PENDING_PRODUCTION_EVIDENCE');
+  assert.equal(controller.controllerState.currentMainlineBlocker, 'UNIT_FLOW_EXACT_GENERATOR_RENDERER_HTML_PDF_PUBLIC_SELECTION_AND_HUMAN_REVIEW_EVIDENCE_INCOMPLETE');
 });
 
 test('duplicate source nodes and premature production admissions fail closed', () => {
@@ -139,10 +130,7 @@ test('missing source coverage and altered wave order fail closed', () => {
   assert.equal(missingCodes.includes('POSTG_APP_REMAINING_QUEUE_ORDER_MISMATCH'), true);
 
   const orderCase = structuredClone(controller);
-  [orderCase.wavePlan.waves[1].sourceNodeIds[0], orderCase.wavePlan.waves[1].sourceNodeIds[1]] = [
-    orderCase.wavePlan.waves[1].sourceNodeIds[1],
-    orderCase.wavePlan.waves[1].sourceNodeIds[0]
-  ];
+  [orderCase.wavePlan.waves[1].sourceNodeIds[0], orderCase.wavePlan.waves[1].sourceNodeIds[1]] = [orderCase.wavePlan.waves[1].sourceNodeIds[1], orderCase.wavePlan.waves[1].sourceNodeIds[0]];
   assert.equal(codes(validatePOSTGAPPMasterController(orderCase)).includes('POSTG_APP_REMAINING_QUEUE_ORDER_MISMATCH'), true);
 });
 
