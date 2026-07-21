@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/w01-atomic-context-single-application-candidate.schema.json",
+  "title": "POSTGAPPW01AtomicContextSingleApplicationCandidateV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "bindingCandidateId",
+    "itemCandidateId",
+    "sourceId",
+    "sourceNodeRefs",
+    "knowledgePointId",
+    "canonicalOperationModelId",
+    "classification",
+    "applicationMode",
+    "applicationCapabilityLevel",
+    "primaryTargetCount",
+    "contextSelection",
+    "roleBindingCandidates",
+    "targetRoleCandidate",
+    "unitFlowCandidate",
+    "promptBlueprint",
+    "answerModelCandidate",
+    "validationCandidate",
+    "admissionStatus",
+    "productionAdmissionAllowed",
+    "lineage"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "bindingCandidateId": {"type":"string","pattern":"^w01_bind_"},
+    "itemCandidateId": {"type":"string","pattern":"^w01_item_"},
+    "sourceId": {"type":"string","pattern":"^g[3-6][ab]_u"},
+    "sourceNodeRefs": {"type":"array","minItems":1,"items":{"type":"string"},"uniqueItems":true},
+    "knowledgePointId": {"type":"string","pattern":"^kp_"},
+    "canonicalOperationModelId": {"type":"string","pattern":"^op_"},
+    "classification": {"enum":["APPLICATION_REQUIRED","APPLICATION_COMPATIBLE"]},
+    "applicationMode": {"enum":["SINGLE_DIRECT","SINGLE_N_PLUS_1"]},
+    "applicationCapabilityLevel": {"enum":["N","N_PLUS_1"]},
+    "primaryTargetCount": {"const":1},
+    "contextSelection": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["macroContextId","mesoSituationId","microScenarioId","atomicEpisodeId","surfaceTemplateId","facetRefs","selectionReason","preferredProfileSatisfied","legacyLineagePreserved"],
+      "properties": {
+        "macroContextId":{"type":"string","pattern":"^gctx_macro_"},
+        "mesoSituationId":{"type":"string","pattern":"^gctx_meso_"},
+        "microScenarioId":{"type":"string","pattern":"^gctx_micro_"},
+        "atomicEpisodeId":{"type":"string","pattern":"^gctx_episode_"},
+        "surfaceTemplateId":{"type":"string","pattern":"^tpl_"},
+        "facetRefs":{"type":"array","minItems":2,"items":{"type":"string","pattern":"^facet_"},"uniqueItems":true},
+        "selectionReason":{"enum":["EXISTING_PILOT_LEGACY_MAPPING","BALANCED_MACRO_THEN_SEMANTIC_SCORE"]},
+        "preferredProfileSatisfied":{"type":"boolean"},
+        "legacyLineagePreserved":{"type":"boolean"}
+      }
+    },
+    "roleBindingCandidates": {
+      "type":"array",
+      "minItems":1,
+      "items": {
+        "type":"object",
+        "additionalProperties":false,
+        "required":["mathRoleId","mathSemanticMeaning","contextRoleId","contextSemanticMeaning","unitCandidate","isAnswerRole"],
+        "properties": {
+          "mathRoleId":{"type":"string","minLength":1},
+          "mathSemanticMeaning":{"type":"string","minLength":1},
+          "contextRoleId":{"type":"string","minLength":1},
+          "contextSemanticMeaning":{"type":"string","minLength":1},
+          "unitCandidate":{"type":"string","minLength":1},
+          "isAnswerRole":{"const":false}
+        }
+      }
+    },
+    "targetRoleCandidate": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["mathRoleId","mathSemanticMeaning","contextRoleId","contextSemanticMeaning","answerUnitCandidate","isAnswerRole"],
+      "properties": {
+        "mathRoleId":{"type":"string","minLength":1},
+        "mathSemanticMeaning":{"type":"string","minLength":1},
+        "contextRoleId":{"type":"string","minLength":1},
+        "contextSemanticMeaning":{"type":"string","minLength":1},
+        "answerUnitCandidate":{"type":"string","minLength":1},
+        "isAnswerRole":{"const":true}
+      }
+    },
+    "unitFlowCandidate": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["inputRoleIds","inputUnitCandidates","answerRoleId","answerUnitCandidate","canonicalRelations","resolutionStatus"],
+      "properties": {
+        "inputRoleIds":{"type":"array","minItems":1,"items":{"type":"string"},"uniqueItems":true},
+        "inputUnitCandidates":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "answerRoleId":{"type":"string"},
+        "answerUnitCandidate":{"type":"string"},
+        "canonicalRelations":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "resolutionStatus":{"enum":["CANDIDATE_RESOLVED","SEMANTIC_REVIEW_REQUIRED"]}
+      }
+    },
+    "promptBlueprint": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["textZh","requiredSurfaceSlots","mathFactSlots","numberConstraints","fullyInstantiated"],
+      "properties": {
+        "textZh":{"type":"string","minLength":10},
+        "requiredSurfaceSlots":{"type":"array","items":{"type":"string"},"uniqueItems":true},
+        "mathFactSlots":{"type":"array","minItems":1,"items":{"type":"string"},"uniqueItems":true},
+        "numberConstraints":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "fullyInstantiated":{"const":false}
+      }
+    },
+    "answerModelCandidate": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["answerShape","answerRole","answerUnitCandidate","canonicalReconstruction","interpretationStatementCandidate","numericAnswerInstantiated"],
+      "properties": {
+        "answerShape":{"enum":["QUANTITY_WITH_UNIT","QUOTIENT_REMAINDER","DECISION_WITH_REASON","COMPARISON_CHOICE","ERROR_DIAGNOSIS"]},
+        "answerRole":{"type":"string"},
+        "answerUnitCandidate":{"type":"string"},
+        "canonicalReconstruction":{"type":"string","minLength":3},
+        "interpretationStatementCandidate":{"type":"string","minLength":3},
+        "numericAnswerInstantiated":{"const":false}
+      }
+    },
+    "validationCandidate": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["operationInvariants","contextConstraints","requiredContextAffordances","providedContextAffordances","pendingChecks"],
+      "properties": {
+        "operationInvariants":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "contextConstraints":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "requiredContextAffordances":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "providedContextAffordances":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "pendingChecks":{"type":"array","minItems":1,"items":{"type":"string"}}
+      }
+    },
+    "admissionStatus":{"const":"CONTEXT_BOUND_CANDIDATE"},
+    "productionAdmissionAllowed":{"const":false},
+    "lineage": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["knowledgeOperationAuthorityPath","w01AssessmentTaskId","m01ContextAuthorityPath","selectionPolicyPath"],
+      "properties": {
+        "knowledgeOperationAuthorityPath":{"type":"string"},
+        "w01AssessmentTaskId":{"const":"POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline"},
+        "m01ContextAuthorityPath":{"type":"string"},
+        "selectionPolicyPath":{"type":"string"},
+        "existingPilotBindingId":{"type":"string"}
+      }
+    }
+  },
+  "allOf": [
+    {"if":{"properties":{"applicationMode":{"const":"SINGLE_DIRECT"}}},"then":{"properties":{"applicationCapabilityLevel":{"const":"N"}}}},
+    {"if":{"properties":{"applicationMode":{"const":"SINGLE_N_PLUS_1"}}},"then":{"properties":{"applicationCapabilityLevel":{"const":"N_PLUS_1"}}}}
+  ]
+}
