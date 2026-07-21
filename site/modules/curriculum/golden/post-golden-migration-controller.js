@@ -73,6 +73,17 @@ function validProgramCloseoutActive(program, taskOrder) {
     && program.goalDistance === "D1_POST_GOLDEN_ALL_UNITS_CONFORMANT_A13_ACTIVE";
 }
 
+function validProgramCloseoutComplete(program, taskOrder) {
+  return program.programStatus === "PASS_D0_CLOSED"
+    && program.activeTaskStatus === "PASS_D0_CLOSED"
+    && program.activeTask == null
+    && program.nextAllowedTask == null
+    && program.lastCompletedTask === taskOrder[13]
+    && program.completedCount === 14
+    && program.remainingCount === 0
+    && program.goalDistance === "D0_POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1_COMPLETE";
+}
+
 export function validatePostGoldenMigrationProgram(program = {}) {
   const errors = [];
   const taskOrder = Array.isArray(program.taskOrder) ? program.taskOrder : [];
@@ -94,23 +105,34 @@ export function validatePostGoldenMigrationProgram(program = {}) {
     errors.push(issue("POSTG_A00_DUPLICATE_TASK_ID"));
   }
 
+  const programClosed = validProgramCloseoutComplete(program, taskOrder);
+  const programCloseoutActive = validProgramCloseoutActive(program, taskOrder);
   const progressValid = validFoundationCandidate(program, taskOrder)
     || validFoundationAccepted(program, taskOrder)
     || validActiveUnitProgress(program, taskOrder)
-    || validProgramCloseoutActive(program, taskOrder);
+    || programCloseoutActive
+    || programClosed;
   if (!progressValid) errors.push(issue("POSTG_A00_PROGRAM_PROGRESS_INVALID"));
 
   const continuation = program.continuation ?? {};
-  const validProgramLock = validProgramCloseoutActive(program, taskOrder)
-    ? program.programLock === "ACTIVE_PROGRAM_CLOSEOUT_ONLY"
-    : program.programLock === "ACTIVE_ONE_UNIT_ONLY";
-  if (!validProgramLock
-    || continuation.autoContinueWithinApprovedProgram !== true
-    || continuation.ciPassIsStopPoint !== false
-    || continuation.prAcceptanceIsStopPoint !== false
-    || continuation.mergeIsStopPoint !== false
-    || continuation.closeoutIsStopPoint !== false
-    || continuation.readbackIsStopPoint !== false) {
+  const validProgramLock = programClosed
+    ? program.programLock === "CLOSED"
+    : programCloseoutActive
+      ? program.programLock === "ACTIVE_PROGRAM_CLOSEOUT_ONLY"
+      : program.programLock === "ACTIVE_ONE_UNIT_ONLY";
+  const checkpointsAreNotStopPoints = continuation.ciPassIsStopPoint === false
+    && continuation.prAcceptanceIsStopPoint === false
+    && continuation.mergeIsStopPoint === false
+    && continuation.closeoutIsStopPoint === false
+    && continuation.readbackIsStopPoint === false;
+  const continuationPolicyValid = programClosed
+    ? continuation.autoContinueWithinApprovedProgram === false
+      && continuation.stopReason === "NEXT_STEP_OUTSIDE_APPROVED_PROGRAM_SCOPE"
+      && typeof continuation.requiredOperatorAction === "string"
+      && continuation.requiredOperatorAction.length > 0
+      && continuation.nextResumeTask == null
+    : continuation.autoContinueWithinApprovedProgram === true;
+  if (!validProgramLock || !checkpointsAreNotStopPoints || !continuationPolicyValid) {
     errors.push(issue("POSTG_A00_CONTINUATION_POLICY_INVALID"));
   }
   if (program.authority?.manualDualMaintenanceForbidden !== true
