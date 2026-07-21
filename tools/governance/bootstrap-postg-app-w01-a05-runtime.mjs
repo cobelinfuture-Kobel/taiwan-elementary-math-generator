@@ -115,11 +115,51 @@ if (next.includes(sourceIdMathSnapshotLine)) {
   changed = true;
 }
 
+const oldPromptConstruction = `  const beforeSnapshot = exactMathSnapshot(original);
+  const unitFlow = resolveUnitFlow(candidate, original, chain);
+  const prompt = candidateSurfacePrompt(candidate, original, chain, macro);`;
+const newPromptConstruction = `  const beforeSnapshot = exactMathSnapshot(original);
+  const unitFlow = resolveUnitFlow(candidate, original, chain);
+  const exactDisplayModel = exact.exactWorksheetDocument?.questionDisplayModels?.[0] ?? null;
+  const originalPrompt = normalizeVisiblePrompt(
+    exactDisplayModel?.blankedDisplayText
+      ?? exactDisplayModel?.promptText
+      ?? exactDisplayModel?.displayText
+      ?? original.blankedDisplayText
+      ?? original.promptText
+      ?? original.displayText
+      ?? original.questionText
+      ?? original.text
+      ?? original.prompt
+      ?? original.stem
+      ?? ''
+  );
+  const prompt = candidateSurfacePrompt(
+    candidate,
+    { ...original, blankedDisplayText: originalPrompt },
+    chain,
+    macro
+  );`;
+
+if (!next.includes(newPromptConstruction)) {
+  const first = next.indexOf(oldPromptConstruction);
+  const second = first < 0 ? -1 : next.indexOf(oldPromptConstruction, first + oldPromptConstruction.length);
+  if (first < 0 || second >= 0) {
+    throw new Error(JSON.stringify({
+      code: 'POSTG_APP_W01_A05_PROMPT_CONSTRUCTION_ANCHOR_INVALID',
+      first,
+      second
+    }));
+  }
+  next = next.replace(oldPromptConstruction, newPromptConstruction);
+  changed = true;
+}
+
 const oldReviewTrace = `    exactWorksheetId: exact.exactWorksheetDocument.worksheetId
       ?? exact.exactWorksheetDocument.worksheetDocumentId
       ?? null,
     transformed,`;
-const newReviewTrace = `    exactWorksheetId: exact.exactWorksheetDocument.worksheetId
+const oldReviewTraceV1 = `    exactWorksheetId: exact.exactWorksheetDocument.worksheetId
       ?? exact.exactWorksheetDocument.worksheetDocumentId
       ?? null,
     originalPrompt: normalizeVisiblePrompt(
@@ -127,19 +167,30 @@ const newReviewTrace = `    exactWorksheetId: exact.exactWorksheetDocument.works
     ),
     reviewPrompt: prompt,
     transformed,`;
+const newReviewTrace = `    exactWorksheetId: exact.exactWorksheetDocument.worksheetId
+      ?? exact.exactWorksheetDocument.worksheetDocumentId
+      ?? null,
+    originalPrompt,
+    reviewPrompt: prompt,
+    transformed,`;
 
 if (!next.includes(newReviewTrace)) {
-  const first = next.indexOf(oldReviewTrace);
-  const second = first < 0 ? -1 : next.indexOf(oldReviewTrace, first + oldReviewTrace.length);
-  if (first < 0 || second >= 0) {
-    throw new Error(JSON.stringify({
-      code: 'POSTG_APP_W01_A05_REVIEW_TRACE_ANCHOR_INVALID',
-      first,
-      second
-    }));
+  if (next.includes(oldReviewTraceV1)) {
+    next = next.replace(oldReviewTraceV1, newReviewTrace);
+    changed = true;
+  } else {
+    const first = next.indexOf(oldReviewTrace);
+    const second = first < 0 ? -1 : next.indexOf(oldReviewTrace, first + oldReviewTrace.length);
+    if (first < 0 || second >= 0) {
+      throw new Error(JSON.stringify({
+        code: 'POSTG_APP_W01_A05_REVIEW_TRACE_ANCHOR_INVALID',
+        first,
+        second
+      }));
+    }
+    next = next.replace(oldReviewTrace, newReviewTrace);
+    changed = true;
   }
-  next = next.replace(oldReviewTrace, newReviewTrace);
-  changed = true;
 }
 
 const readbackExportMarker = 'export function buildW01E4ProductionReviewReadback';
@@ -202,6 +253,7 @@ console.log(JSON.stringify({
   eligibilityAuthorityAligned: next.includes(newEligibility),
   transformedSourceIdentityAligned: next.includes(newTransformedIdentity),
   mathSnapshotLineageSeparated: !next.includes(sourceIdMathSnapshotLine),
+  canonicalPromptExtractionAligned: next.includes(newPromptConstruction),
   reviewTraceAligned: next.includes(newReviewTrace),
   artifactReadbackAligned: next.includes(readbackExportMarker)
 }, null, 2));
