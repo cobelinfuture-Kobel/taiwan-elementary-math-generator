@@ -221,6 +221,9 @@ function exactGenerationForCandidate(candidate, generationSeed) {
 
 function materializeViableRows(a02, generationSeed) {
   const macroMap = new Map(a02.a01.assessment.masterController.contextAuthority.hierarchy.macroDomains.map((row) => [row.nodeId, row]));
+  const proofByBindingCandidateId = new Map(
+    a02.nPlusOneProofCandidates.map((row) => [row.bindingCandidateId, row])
+  );
   const rows = [];
   const failures = [];
   for (const candidate of a02.a01.candidates) {
@@ -237,7 +240,13 @@ function materializeViableRows(a02, generationSeed) {
     }
     const chain = a02.a01.contextIndexes.episodeChains.get(candidate.contextSelection.atomicEpisodeId);
     const macro = macroMap.get(candidate.contextSelection.macroContextId);
-    rows.push({ candidate, exact, chain, macro });
+    rows.push({
+      candidate,
+      exact,
+      chain,
+      macro,
+      proofCandidate: proofByBindingCandidateId.get(candidate.bindingCandidateId) ?? null
+    });
   }
   return { rows, failures };
 }
@@ -266,7 +275,7 @@ function selectReviewCohort(viableRows, eligibleSources, requiredMacros) {
 }
 
 function transformReviewQuestion(row, sequenceNumber) {
-  const { candidate, exact, chain, macro } = row;
+  const { candidate, exact, chain, macro, proofCandidate } = row;
   const original = exact.exactQuestion;
   const beforeSnapshot = exactMathSnapshot(original);
   const unitFlow = resolveUnitFlow(candidate, original, chain);
@@ -308,10 +317,21 @@ function transformReviewQuestion(row, sequenceNumber) {
     semanticSnapshot: {
       ...(clone(original.semanticSnapshot) ?? {}),
       applicationReview: {
-        newInterpretiveAct: candidate.applicationMode === 'SINGLE_N_PLUS_1' ? 'N_PLUS_1_REVIEW_REQUIRED' : 'DIRECT_APPLICATION',
+        newInterpretiveAct: proofCandidate?.newInterpretiveAct ?? 'DIRECT_APPLICATION',
         answerWitness: clone(candidate.answerModelCandidate),
-        proofTrace: clone(candidate.proofCandidate.proofTrace),
-        misconceptionFixtureRefs: clone(candidate.misconceptionFixtureRefs),
+        proofTrace: proofCandidate == null ? null : {
+          proofCandidateId: proofCandidate.proofCandidateId,
+          candidateStatus: proofCandidate.candidateStatus,
+          capabilityEdge: clone(proofCandidate.capabilityEdge),
+          interpretationFork: clone(proofCandidate.interpretationFork),
+          interpretationWitnessBlueprint: clone(proofCandidate.interpretationWitnessBlueprint),
+          counterfactualBlueprint: clone(proofCandidate.counterfactualBlueprint),
+          crossContextProofCandidate: clone(proofCandidate.crossContextProofCandidate),
+          validatorDeltaCandidate: clone(proofCandidate.validatorDeltaCandidate),
+          pendingProofChecks: clone(proofCandidate.pendingProofChecks)
+        },
+        misconceptionFixtureRefs: proofCandidate?.misconceptionCandidates
+          ?.map((row) => row.misconceptionId) ?? [],
         contextSelection: clone(candidate.contextSelection),
         unitFlow: clone(unitFlow)
       }
