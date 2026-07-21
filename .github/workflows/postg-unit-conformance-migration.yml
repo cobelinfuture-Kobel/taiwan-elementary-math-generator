@@ -94,6 +94,7 @@ jobs:
           const taskToken = taskMatch[1];
           const sourceUnitToken = sourceId.split('_').slice(0, 2).join('-');
           const unitToken = row.unitCode.replaceAll('-', '');
+          const questionCount = sourceId === 'g4a_u08_4a08' ? 112 : 40;
           const env = {
             POSTG_SOURCE_ID: sourceId,
             POSTG_TASK_ID: taskId,
@@ -102,6 +103,7 @@ jobs:
             POSTG_EXPECTED_KP: descriptor.expectedCounts.knowledgePoints,
             POSTG_EXPECTED_GROUPS: descriptor.expectedCounts.patternGroups,
             POSTG_EXPECTED_SPECS: descriptor.expectedCounts.patternSpecs,
+            POSTG_QUESTION_COUNT: questionCount,
             POSTG_FOCUSED_TEST: `tests/curriculum/postg-mig-${taskToken.toLowerCase()}-${sourceUnitToken}-conformance.test.js`,
             POSTG_STATE_MODE: closeoutState ? 'closeout' : 'candidate',
           };
@@ -129,7 +131,7 @@ jobs:
           node tools/curriculum/run-postg-unit-production-evidence.mjs \
             --source-id "${POSTG_SOURCE_ID}" \
             --task-id "${POSTG_TASK_ID}" \
-            --question-count 40 \
+            --question-count "${POSTG_QUESTION_COUNT}" \
             --output-dir "build/postg/${POSTG_SOURCE_ID}" \
             --output-prefix "${POSTG_OUTPUT_PREFIX}" \
             --title "${POSTG_TITLE}" \
@@ -142,10 +144,11 @@ jobs:
           import { readFile } from 'node:fs/promises';
           const path = `build/postg/${process.env.POSTG_SOURCE_ID}/${process.env.POSTG_OUTPUT_PREFIX}_RUNTIME_READBACK.json`;
           const r = JSON.parse(await readFile(path, 'utf8'));
+          const expectedCount = Number(process.env.POSTG_QUESTION_COUNT);
           assert.equal(r.sourceId, process.env.POSTG_SOURCE_ID);
           assert.equal(r.taskId, process.env.POSTG_TASK_ID);
-          assert.equal(r.questionCount, 40);
-          assert.equal(r.answerKeyCount, 40);
+          assert.equal(r.questionCount, expectedCount);
+          assert.equal(r.answerKeyCount, expectedCount);
           assert.equal(r.knowledgePointIds.length, Number(process.env.POSTG_EXPECTED_KP));
           assert.equal(r.patternGroupIds.length, Number(process.env.POSTG_EXPECTED_GROUPS));
           assert.equal(r.patternSpecIds.length, Number(process.env.POSTG_EXPECTED_SPECS));

@@ -139,7 +139,12 @@ test("GS06 controller validator blocks queue and D0 program-state drift", async 
   const program = await readJson(PROGRAM_PATH);
   const { finalController, finalProgram } = finalState(controller, program);
   const badQueue = clone(finalController);
-  badQueue.queue.pendingSourceIds.reverse();
+  badQueue.queue.pendingSourceIds = [...badQueue.queue.pendingSourceIds];
+  if (badQueue.queue.pendingSourceIds.length > 1) {
+    badQueue.queue.pendingSourceIds.reverse();
+  } else {
+    badQueue.queue.pendingSourceIds.push("g4a_u08_4a08");
+  }
   let audit = validateGoldenBatchController(badQueue, registry, finalProgram);
   assert.equal(audit.errors.some(({ code }) => code === "GS06_PENDING_QUEUE_DRIFT"), true);
   const badProgram = clone(finalProgram);

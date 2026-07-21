@@ -1,0 +1,67 @@
+{
+  "schemaName": "PostGoldenUnitProductionEvidenceReadback",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "sourceId": "g4a_u08_4a08",
+  "taskId": "POSTG-MIG-A10_G4A_U08_GoldenConformanceAndKnowledgeOperationMigration",
+  "candidateHeadSha": "d8d3a1dda5dab57842984ac6d5659dd09ff3dcb5",
+  "workflowRuntimeSha": "c38ad3d4a31399bfd6d8bc3004148be9de1d4fb4",
+  "workflowRunId": 29797976653,
+  "artifactId": 8482700774,
+  "artifactDigest": "sha256:b62db967e7b71630e3cf00d4b3682d296521af3e2926ff0e9a4f97b516676295",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "goldenConnectionStatus": "POST_GOLDEN_UNIT_CONNECTED_TO_EXISTING_SHARED_RUNTIME",
+  "sourceUnitAdapter": {
+    "version": "glm-s05-source-unit-adapter-v1",
+    "registryVersion": "postg-source-unit-adapter-registry-v1",
+    "adapterId": "g4a_u08_postg_golden_shared_runtime",
+    "conformanceMode": "post_golden_candidate_shadow",
+    "applied": true,
+    "blocked": false,
+    "publicSelectionMode": "sourceUnit",
+    "internalSelectionMode": "mixedKnowledgePointsSameUnit",
+    "knowledgePointCount": 15,
+    "patternGroupCount": 28,
+    "patternSpecCount": 33,
+    "postGoldenMigrationTaskId": "POSTG-MIG-A10_G4A_U08_GoldenConformanceAndKnowledgeOperationMigration",
+    "goldenContractId": "G5AU08_GOLDEN_V1",
+    "goldenContractVersion": "1.0.0",
+    "goldenConnectionStatus": "POST_GOLDEN_UNIT_CONNECTED_TO_EXISTING_SHARED_RUNTIME",
+    "goldenDescriptorMode": "post_golden_unit_conformance"
+  },
+  "questionCount": 112,
+  "answerKeyCount": 112,
+  "questionPageCount": 14,
+  "answerKeyPageCount": 19,
+  "pdfPageCount": 11,
+  "knowledgePointCount": 15,
+  "patternGroupCount": 28,
+  "patternSpecCount": 33,
+  "validator": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "validatorVersion": "s76q-g4a-u08-all-canonical-public-v1"
+  },
+  "canonicalWorksheetIdentityParity": true,
+  "domReadback": {
+    "bodyTextLength": 9770,
+    "printPageCount": 33,
+    "internalIdLeak": false,
+    "placeholderLeak": false
+  },
+  "artifacts": [
+    {
+      "kind": "html",
+      "bytes": 117548,
+      "sha256": "3997f8c10f13fc7e8fe98b7383ce6d738cca19adbbe3d8a2ad0af25523a36f65"
+    },
+    {
+      "kind": "pdf",
+      "bytes": 99028,
+      "sha256": "8050e5200c72f94d89143f0021e1f2e21d4ba2ba26e3245c7699bab3d2f5ebec"
+    }
+  ],
+  "verdict": "PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK"
+}
