@@ -18,7 +18,7 @@ test('M00 validates the exact 79-node source scope and six-wave queue', () => {
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, 'READY_FOR_WAVE01_ASSESSMENT');
+  assert.equal(result.status, 'WAVE01_IN_PROGRESS');
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -44,6 +44,7 @@ test('Wave 01 distinguishes 15 golden units from 16 source nodes', () => {
   assert.equal(w01.goldenUnitIds.length, 15);
   assert.equal(w01.sourceNodes.length, 16);
   assert.equal(w01.productionSelectable, false);
+  assert.equal(w01.currentState.state, 'ASSESSMENT_IN_PROGRESS');
   const composite = controller.unitRegistry.goldenBaselineUnits.find((row) => row.goldenUnitId === 'g5a_u02_5a02');
   assert.deepEqual(composite.sourceNodeRefs, ['g5a_u02_5a02a', 'g5a_u02_5a02a1']);
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
@@ -80,7 +81,7 @@ test('W02 to W06 cover the remaining 63 nodes in deterministic source order', ()
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
 });
 
-test('admission gate order and initial controller states are frozen', () => {
+test('admission gate order stays frozen while W01 progresses', () => {
   assert.deepEqual(controller.wavePlan.admissionGateOrder, [
     'SOURCE_NODE_REGISTERED',
     'KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED',
@@ -95,12 +96,18 @@ test('admission gate order and initial controller states are frozen', () => {
     'PRODUCTION_ADMISSION_REVIEWED'
   ]);
   assert.deepEqual(controller.controllerState.waveStates.map((row) => row.state), [
-    'BASELINE_READY',
+    'ASSESSMENT_IN_PROGRESS',
     'QUEUED',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE'
+  ]);
+  assert.deepEqual(controller.controllerState.waveStates[0].completedGates, [
+    'SOURCE_NODE_REGISTERED',
+    'KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED',
+    'KP_APPLICATION_CLASSIFICATION_COMPLETE',
+    'CANONICAL_OPERATION_MODEL_COMPLETE'
   ]);
 });
 
@@ -130,4 +137,10 @@ test('missing source coverage and altered wave order fail closed', () => {
     orderCase.wavePlan.waves[1].sourceNodeIds[0]
   ];
   assert.equal(codes(validatePOSTGAPPMasterController(orderCase)).includes('POSTG_APP_REMAINING_QUEUE_ORDER_MISMATCH'), true);
+});
+
+test('unknown completed gate fails closed', () => {
+  const changed = structuredClone(controller);
+  changed.controllerState.waveStates[0].completedGates.push('UNKNOWN_GATE');
+  assert.equal(codes(validatePOSTGAPPMasterController(changed)).includes('POSTG_APP_CONTROLLER_COMPLETED_GATE_UNKNOWN'), true);
 });
