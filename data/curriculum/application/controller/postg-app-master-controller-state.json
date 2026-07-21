@@ -2,14 +2,15 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
-  "status": "W01_APPLICATION_CAPABILITY_ASSESSMENT_SHADOW_READY_PENDING_CI_AND_MERGE",
+  "taskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+  "status": "W01_ATOMIC_CONTEXT_AND_SINGLE_APPLICATION_CANDIDATE_SHADOW_READY_PENDING_CI_AND_MERGE",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
     "globalContextResolver": "src/curriculum/context/global-context-ontology-resolver.mjs",
     "requiredContextEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-    "masterControllerTaskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract"
+    "masterControllerTaskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+    "w01AssessmentTaskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -19,11 +20,15 @@
     "w01AssessmentIndex": "data/curriculum/application/assessment/w01-golden15-application-assessment-index.json",
     "w01AssessmentPolicy": "data/curriculum/application/assessment/w01-golden15-application-capability-policy.json",
     "w01AssessmentResolver": "src/curriculum/application/w01-golden15-application-assessment.mjs",
-    "w01AssessmentValidationCli": "tools/curriculum/validate-postg-app-w01-a00-assessment.mjs"
+    "w01AssessmentValidationCli": "tools/curriculum/validate-postg-app-w01-a00-assessment.mjs",
+    "w01AtomicContextPackIndex": "data/curriculum/application/assessment/w01-atomic-context-single-application-candidate-pack-index.json",
+    "w01AtomicContextPolicy": "data/curriculum/application/assessment/w01-atomic-context-binding-policy.json",
+    "w01AtomicContextResolver": "src/curriculum/application/w01-atomic-context-single-application-candidate-pack.mjs",
+    "w01AtomicContextValidationCli": "tools/curriculum/validate-postg-app-w01-a01-candidate-pack.mjs"
   },
   "currentWaveId": "W01",
-  "currentCapability": "GOLDEN15_KP_APPLICATION_CLASSIFICATION_COMPLETE",
-  "currentMainlineBlocker": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_PACK_NOT_COMPLETE",
+  "currentCapability": "GOLDEN15_ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_PACK_COMPLETE",
+  "currentMainlineBlocker": "N_PLUS_1_PROOF_MISCONCEPTION_AND_PBL_CANDIDATE_CONTRACT_NOT_COMPLETE",
   "productionAdmission": {
     "applicationUnitCount": 0,
     "waveCount": 0,
@@ -32,12 +37,14 @@
   "waveStates": [
     {
       "waveId":"W01",
-      "state":"ASSESSMENT_IN_PROGRESS",
+      "state":"SHADOW_READY",
       "completedGates":[
         "SOURCE_NODE_REGISTERED",
         "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
         "KP_APPLICATION_CLASSIFICATION_COMPLETE",
-        "CANONICAL_OPERATION_MODEL_COMPLETE"
+        "CANONICAL_OPERATION_MODEL_COMPLETE",
+        "SINGLE_APPLICATION_ADMISSION_COMPLETE",
+        "GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE"
       ],
       "admissionGateComplete":false,
       "productionAdmissionGranted":false
@@ -53,6 +60,7 @@
       "S29C_G3G6_OCRBatchAssignmentPlan",
       "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
       "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+      "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
       "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
     ],
     "authoritativeState": [
@@ -60,17 +68,21 @@
       "postg-app-wave-plan.json",
       "postg-app-master-controller-state.json",
       "w01-golden15-application-assessment-index.json",
-      "w01-golden15-application-capability-policy.json"
+      "w01-golden15-application-capability-policy.json",
+      "w01-atomic-context-single-application-candidate-pack-index.json",
+      "w01-atomic-context-binding-policy.json"
     ],
     "runtimeConsumer": [
       "postg-app-master-controller.mjs",
-      "w01-golden15-application-assessment.mjs"
+      "w01-golden15-application-assessment.mjs",
+      "w01-atomic-context-single-application-candidate-pack.mjs"
     ],
     "readback": [
       "validate-postg-app-m00-master-controller.mjs",
-      "validate-postg-app-w01-a00-assessment.mjs"
+      "validate-postg-app-w01-a00-assessment.mjs",
+      "validate-postg-app-w01-a01-candidate-pack.mjs"
     ]
   },
-  "nextShortestStep": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+  "nextShortestStep": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
   "stopReason": "NONE"
 }
