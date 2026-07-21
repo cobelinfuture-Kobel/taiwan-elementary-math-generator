@@ -1,0 +1,76 @@
+{
+  "schemaName": "PostGoldenUnitProductionEvidenceReadback",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "sourceId": "g4b_u04_4b04",
+  "taskId": "POSTG-MIG-A12_G4B_U04_GoldenConformanceAndKnowledgeOperationMigration",
+  "candidateHeadSha": "62873b22d48293bc5fcdbc7e5a25b222d5fc2325",
+  "workflowRuntimeSha": "5f4625383a29e4c1ce52f1a47d427f0bf184ec79",
+  "workflowRunId": 29805096090,
+  "artifactId": 8485202138,
+  "artifactDigest": "sha256:2be498f2de18c44613ebdfde86710ee0b5601c92c5dedb2f0417cee4eb306035",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "goldenConnectionStatus": "POST_GOLDEN_UNIT_CONNECTED_TO_EXISTING_SHARED_RUNTIME",
+  "sourceUnitAdapter": {
+    "version": "glm-s05-source-unit-adapter-v1",
+    "registryVersion": "postg-source-unit-adapter-registry-v1",
+    "adapterId": "g4b_u04_postg_golden_shared_runtime",
+    "conformanceMode": "post_golden_candidate_shadow",
+    "applied": true,
+    "blocked": false,
+    "knowledgePointCount": 13,
+    "patternGroupCount": 13,
+    "patternSpecCount": 19,
+    "postGoldenMigrationTaskId": "POSTG-MIG-A12_G4B_U04_GoldenConformanceAndKnowledgeOperationMigration"
+  },
+  "questionCount": 68,
+  "answerKeyCount": 68,
+  "questionPageCount": 9,
+  "answerKeyPageCount": 14,
+  "pdfPageCount": 23,
+  "knowledgePointCount": 13,
+  "patternGroupCount": 13,
+  "patternSpecCount": 19,
+  "modeCount": 5,
+  "answerShapeCount": 9,
+  "validator": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "validatorVersion": "g4b-u04-s73-s75-r2-production-v1"
+  },
+  "promptDeduplication": {
+    "unique": true,
+    "signatureCount": 68
+  },
+  "domReadback": {
+    "bodyTextLength": 9418,
+    "printPageCount": 23,
+    "questionCellCount": 68,
+    "answerCellCount": 68,
+    "internalIdLeak": false,
+    "placeholderLeak": false,
+    "overflowCount": 0
+  },
+  "artifacts": [
+    {
+      "kind": "html",
+      "bytes": 68785,
+      "sha256": "3081ce364e223e5942d0bec48e061877da1cb33b416929723981f15d8db648b0"
+    },
+    {
+      "kind": "pdf",
+      "bytes": 301835,
+      "sha256": "cd50e3b2f2c7f708e3f9f40c3c9ca3802ba704dfc5536b39fe17ddda71c82647"
+    }
+  ],
+  "designerViews": {
+    "unitCount": 15,
+    "knowledgePointRowCount": 156,
+    "operationModelRowCount": 156,
+    "xlsxSha256": "e296cbce380411e04a0053848b2550b0b4aac8f4e6aec9d82fb1431726df1b9b",
+    "csvSha256": "cba1c12a74f538d2803667b3ac83b206138f97b46405e2945fbce086fb3d3303"
+  },
+  "verdict": "PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK"
+}
