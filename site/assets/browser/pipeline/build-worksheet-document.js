@@ -29,8 +29,7 @@ function blockedSourceUnitAdapterResult(adaptation, publicPlan) {
   });
 }
 
-export function buildWorksheetDocumentFromState(state) {
-  const publicPlan = getBatchAWorksheetPlan(state);
+export function buildWorksheetDocumentFromPlan(publicPlan) {
   const sourceUnitAdaptation = adaptGlobalPublicSourceUnitPlan(publicPlan);
   const plan = sourceUnitAdaptation.plan ?? publicPlan;
   let resolution = null;
@@ -54,7 +53,12 @@ export function buildWorksheetDocumentFromState(state) {
   result = applyG3BU04GlobalContextPublicWorksheetAdmission(result);
   result = attachPublicControlOutputMetadata(result, resolution?.plan ?? plan);
   result = projectG5AU02DynamicDocumentForGlobalLayout(result);
-  result = applyGlobalPublicLayoutOverlay(result, resolution?.plan ?? plan);
+  return applyGlobalPublicLayoutOverlay(result, resolution?.plan ?? plan);
+}
+
+export function buildWorksheetDocumentFromState(state) {
+  const publicPlan = getBatchAWorksheetPlan(state);
+  const result = buildWorksheetDocumentFromPlan(publicPlan);
   storeWorksheetResult(state, result);
   return result;
 }
