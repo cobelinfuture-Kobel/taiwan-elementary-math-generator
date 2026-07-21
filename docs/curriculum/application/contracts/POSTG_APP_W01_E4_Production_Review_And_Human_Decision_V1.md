@@ -109,6 +109,33 @@ productionAdmitted = false
 
 The review artifact is hidden and non-selectable. Public routes remain unchanged.
 
+## Verified E4 result
+
+```text
+STATUS = PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY
+EVIDENCE_LEVEL = E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED
+REVIEW_QUESTION_COUNT = 16
+ELIGIBLE_SOURCE_COUNT = 12
+MACRO_CONTEXT_COUNT = 16
+EXACT_GENERATOR_FAILURE_COUNT = 0
+MATH_PRESERVED_COUNT = 16
+PROMPT_CHANGED_COUNT = 16
+PBL_REVIEW_SECTION_COUNT = 9
+UNRESOLVED_UNIT_REVIEW_COUNT = 0
+PDF_PAGE_COUNT = 18
+FORBIDDEN_VISIBLE_LABEL_COUNT = 0
+HUMAN_REVIEW_READY = true
+PRODUCTION_ADMITTED = false
+REVIEW_DECISION = PENDING_OPERATOR_DECISION
+```
+
+The hash-locked evidence paths and SHA-256 values are authoritative in:
+
+```text
+data/project/milestones/POSTG-APP-W01-A05.claim.json
+docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_MANIFEST.json
+```
+
 ## Fail-closed invariants
 
 ```text
@@ -133,6 +160,8 @@ After E4 artifacts are generated, verified, committed and merged:
 
 ```text
 STOP_REASON = HUMAN_REVIEW_REQUIRED
+BLOCKER_TYPE = OPERATOR_SEMANTIC_VISUAL_REVIEW
+NEXT_RESUME_TASK = POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation
 ```
 
 No automated task may infer approval.
