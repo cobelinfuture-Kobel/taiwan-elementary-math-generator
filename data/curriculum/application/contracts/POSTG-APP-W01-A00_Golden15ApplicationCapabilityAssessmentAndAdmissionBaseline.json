@@ -1,0 +1,87 @@
+{
+  "schemaName": "POSTGAPPW01A00Golden15ApplicationCapabilityAssessmentContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+  "contractId": "POSTG_APP_W01_GOLDEN15_APPLICATION_CAPABILITY_ASSESSMENT_V1",
+  "status": "DETERMINISTIC_BASELINE_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "dependencies": {
+    "masterControllerTask": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+    "globalContextTask": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_W01_Golden15_Application_Capability_Assessment_V1.md",
+    "assessmentIndex": "data/curriculum/application/assessment/w01-golden15-application-assessment-index.json",
+    "policy": "data/curriculum/application/assessment/w01-golden15-application-capability-policy.json",
+    "resolver": "src/curriculum/application/w01-golden15-application-assessment.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a00-assessment.mjs"
+  },
+  "coverage": {
+    "goldenUnitCount": 15,
+    "sourceNodeCoverageCount": 16,
+    "knowledgePointCount": 156,
+    "operationModelOwnerCount": 156,
+    "unclassifiedCount": 0,
+    "productionAdmittedRecordCount": 0
+  },
+  "classificationSet": [
+    "APPLICATION_REQUIRED",
+    "APPLICATION_COMPATIBLE",
+    "APPLICATION_NOT_APPLICABLE"
+  ],
+  "allowedApplicationModes": [
+    "SINGLE_DIRECT",
+    "SINGLE_N_PLUS_1",
+    "SINGLE_DIAGNOSTIC",
+    "PBL_TASK_SET"
+  ],
+  "baselineAdmission": {
+    "APPLICATION_REQUIRED": "ADMITTED_TO_W01_DESIGN_BACKLOG",
+    "APPLICATION_COMPATIBLE": "ADMITTED_TO_W01_DESIGN_BACKLOG",
+    "APPLICATION_NOT_APPLICABLE": "EXCLUDED_FROM_APPLICATION_AUTHORING",
+    "productionAdmissionAllowed": false
+  },
+  "acceptance": {
+    "validationStatus": "PASS_POSTG_APP_W01_A00_GOLDEN15_APPLICATION_CAPABILITY_ASSESSMENT",
+    "allKnowledgePointsClassifiedExactlyOnce": true,
+    "existingApplicationEvidencePreserved": true,
+    "unsuitableKnowledgePointsHaveNoStoryMode": true,
+    "suitableKnowledgePointsHaveDirectMode": true,
+    "suitableKnowledgePointsHaveAtomicEpisodeCandidates": true,
+    "controllerBlockerAdvanced": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "readOnlyKnowledgeOperationAssessmentAllowed": true,
+    "deterministicClassificationAllowed": true,
+    "modeCandidateAssignmentAllowed": true,
+    "atomicEpisodeCandidateQueryAllowed": true,
+    "controllerStateAdvancementAllowed": true,
+    "knowledgeOperationMutationAllowed": false,
+    "newApplicationQuestionAuthoringAllowed": false,
+    "finalContextBindingAllowed": false,
+    "newPatternSpecAuthoringAllowed": false,
+    "nPlusOneProofAuthoringAllowed": false,
+    "pblGraphAuthoringAllowed": false,
+    "runtimeGenerationAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "productionAdmissionAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_79_UNIT_CONTROLLER_EXISTS_BUT_GOLDEN15_APPLICATION_FIT_UNCLASSIFIED",
+    "goalDistanceAfterTarget": "D3_GOLDEN15_KP_APPLICATION_CLASSIFICATION_AND_DESIGN_BACKLOG_READY",
+    "distanceReduced": "Every one of the 156 golden KnowledgePoints gains a deterministic required/compatible/not-applicable baseline, suitable points gain mode and Atomic Task Episode candidates, unsuitable points are excluded from forced stories, and the next blocker becomes final context binding rather than unknown suitability.",
+    "remainingBlockers": [
+      "Atomic Task Episode candidates are not yet final semantic bindings",
+      "Single-application role, unit, constraint and witness contracts are not populated across Wave 01",
+      "N+1 proofs and misconception models are not authored across Wave 01",
+      "PBL dependency graphs are not authored across Wave 01",
+      "Shared runtime and validator evidence remain absent",
+      "Production admission remains intentionally zero"
+    ],
+    "nextShortestStep": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack"
+  }
+}
