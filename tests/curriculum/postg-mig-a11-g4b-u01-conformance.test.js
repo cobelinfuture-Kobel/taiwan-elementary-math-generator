@@ -22,6 +22,8 @@ import {
 
 const SOURCE_ID = "g4b_u01_4b01";
 const TASK_ID = "POSTG-MIG-A11_G4B_U01_GoldenConformanceAndKnowledgeOperationMigration";
+const NEXT_SOURCE_ID = "g4b_u04_4b04";
+const NEXT_TASK_ID = "POSTG-MIG-A12_G4B_U04_GoldenConformanceAndKnowledgeOperationMigration";
 const KP = new Set(G4B_U01_PROMOTED_KNOWLEDGE_POINT_IDS);
 const PG = new Set(G4B_U01_PROMOTED_PATTERN_GROUP_IDS);
 const PS = new Set(G4B_U01_PROMOTED_PATTERN_SPEC_IDS);
@@ -142,9 +144,20 @@ test("A11 candidate or closeout state remains exactly one authorized queue trans
     assert.equal(contract.candidate.evidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
     assert.equal(claim.actualEvidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
   } else {
+    const nextRow = conformance.rows.find((entry) => entry.sourceId === NEXT_SOURCE_ID);
+    const nextMasterRow = master.rows.find((entry) => entry.sourceId === NEXT_SOURCE_ID);
     assert.equal(row.conformanceStatus, "GOLDEN_CONFORMANT");
     assert.equal(row.goldenProductionEligible, true);
+    assert.equal(masterRow.conformanceStatus, "GOLDEN_CONFORMANT");
+    assert.equal(masterRow.programRole, "COMPLETED_MIGRATION_UNIT");
     assert.equal(contract.candidate.evidenceLevel, "E5_PRODUCTION_ADMITTED");
     assert.equal(claim.actualEvidenceLevel, "E5_PRODUCTION_ADMITTED");
+    assert.equal(program.activeTask, NEXT_TASK_ID);
+    assert.equal(program.nextAllowedTask, NEXT_TASK_ID);
+    assert.equal(nextRow.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
+    assert.equal(nextRow.queueState, "ACTIVE");
+    assert.equal(nextRow.queueOrdinal, 0);
+    assert.equal(nextMasterRow.programRole, "ACTIVE_MIGRATION_UNIT");
+    assert.equal(nextMasterRow.queueState, "ACTIVE");
   }
 });
