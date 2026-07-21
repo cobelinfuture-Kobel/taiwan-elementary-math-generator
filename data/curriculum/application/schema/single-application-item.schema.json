@@ -1,0 +1,568 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/single-application-item.schema.json",
+  "title": "SingleApplicationItemV1",
+  "description": "Machine-readable contract for SINGLE_DIRECT and SINGLE_N_PLUS_1 items. PBL-only fields are forbidden.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "itemId",
+    "applicationMode",
+    "sourceId",
+    "knowledgePointId",
+    "canonicalOperationModelId",
+    "admissionStatus",
+    "promptZh",
+    "primaryTargetCount",
+    "givenRoles",
+    "targetRole",
+    "relationGraph",
+    "operationOrder",
+    "contextConstraints",
+    "globalContextFamilyId",
+    "unitContextBindingId",
+    "surfaceTemplateId",
+    "numericDifficultyLevel",
+    "applicationCapabilityLevel",
+    "answerModel",
+    "validationContract",
+    "lineage"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "itemId": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[a-z0-9][a-z0-9_-]+$"
+    },
+    "applicationMode": {
+      "enum": ["SINGLE_DIRECT", "SINGLE_N_PLUS_1"]
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 3
+    },
+    "knowledgePointId": {
+      "type": "string",
+      "pattern": "^kp_"
+    },
+    "canonicalOperationModelId": {
+      "type": "string",
+      "pattern": "^op_"
+    },
+    "patternSpecId": {
+      "type": "string",
+      "pattern": "^ps_"
+    },
+    "admissionStatus": {
+      "enum": [
+        "OBSERVED",
+        "SEMANTIC_MODEL_EXTRACTED",
+        "KNOWLEDGE_POINT_MAPPED",
+        "CONTEXT_BOUND",
+        "PATTERN_CANDIDATE",
+        "VALIDATOR_READY",
+        "QA_VALIDATED",
+        "PRODUCTION_ADMITTED",
+        "REJECTED_DECORATIVE_CONTEXT",
+        "REJECTED_ROLE_MISMATCH",
+        "REJECTED_NON_UNIQUE_ANSWER",
+        "REJECTED_MISSING_INTERPRETATION",
+        "DEFERRED_MISSING_PREREQUISITE",
+        "DEFERRED_N_PLUS_2"
+      ]
+    },
+    "promptZh": {
+      "type": "string",
+      "minLength": 10
+    },
+    "primaryTargetCount": {
+      "const": 1
+    },
+    "givenRoles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/roleBinding"
+      }
+    },
+    "targetRole": {
+      "$ref": "#/$defs/targetRole"
+    },
+    "relationGraph": {
+      "$ref": "#/$defs/relationGraph"
+    },
+    "operationOrder": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "contextConstraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "requiredContextAffordances": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      },
+      "uniqueItems": true
+    },
+    "globalContextFamilyId": {
+      "type": "string",
+      "pattern": "^gctx_"
+    },
+    "unitContextBindingId": {
+      "type": "string",
+      "minLength": 3
+    },
+    "surfaceTemplateId": {
+      "type": "string",
+      "pattern": "^tpl_"
+    },
+    "numericDifficultyLevel": {
+      "enum": ["EASY", "STANDARD", "ADVANCED", "CHALLENGE"]
+    },
+    "applicationCapabilityLevel": {
+      "enum": ["N", "N_PLUS_1"]
+    },
+    "answerModel": {
+      "$ref": "#/$defs/answerModel"
+    },
+    "interpretationWitness": {
+      "$ref": "#/$defs/interpretationWitness"
+    },
+    "nPlusOneEvidence": {
+      "$ref": "#/$defs/nPlusOneEvidence"
+    },
+    "validationContract": {
+      "$ref": "#/$defs/validationContract"
+    },
+    "lineage": {
+      "$ref": "#/$defs/lineage"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "applicationMode": {
+            "const": "SINGLE_DIRECT"
+          }
+        },
+        "required": ["applicationMode"]
+      },
+      "then": {
+        "properties": {
+          "applicationCapabilityLevel": {
+            "const": "N"
+          }
+        },
+        "not": {
+          "required": ["nPlusOneEvidence"]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "applicationMode": {
+            "const": "SINGLE_N_PLUS_1"
+          }
+        },
+        "required": ["applicationMode"]
+      },
+      "then": {
+        "required": ["nPlusOneEvidence", "interpretationWitness", "requiredContextAffordances"],
+        "properties": {
+          "applicationCapabilityLevel": {
+            "const": "N_PLUS_1"
+          }
+        }
+      }
+    }
+  ],
+  "not": {
+    "anyOf": [
+      { "required": ["dependencyGraph"] },
+      { "required": ["milestones"] },
+      { "required": ["finalProductType"] },
+      { "required": ["decisionWitnessesByTask"] }
+    ]
+  },
+  "$defs": {
+    "roleBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["roleId", "semanticMeaning", "value", "unit"],
+      "properties": {
+        "roleId": {
+          "type": "string",
+          "minLength": 2
+        },
+        "semanticMeaning": {
+          "type": "string",
+          "minLength": 2
+        },
+        "value": {
+          "type": ["integer", "number", "string"]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "targetRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["roleId", "semanticMeaning", "answerUnit"],
+      "properties": {
+        "roleId": {
+          "type": "string",
+          "minLength": 2
+        },
+        "semanticMeaning": {
+          "type": "string",
+          "minLength": 2
+        },
+        "answerUnit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "relationGraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes", "edges", "terminalNodeId"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["nodeId", "kind"],
+            "properties": {
+              "nodeId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": ["GIVEN", "DERIVED", "DECISION", "ANSWER"]
+              }
+            }
+          }
+        },
+        "edges": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["from", "to", "relation"],
+            "properties": {
+              "from": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" }
+              },
+              "to": {
+                "type": "string"
+              },
+              "relation": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "terminalNodeId": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "answerModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "answerShape",
+        "numericAnswer",
+        "answerRole",
+        "answerUnits",
+        "canonicalReconstruction",
+        "interpretationStatement"
+      ],
+      "properties": {
+        "answerShape": {
+          "enum": [
+            "QUANTITY_WITH_UNIT",
+            "QUOTIENT_REMAINDER",
+            "DECISION_WITH_REASON",
+            "COMPARISON_CHOICE",
+            "ERROR_DIAGNOSIS"
+          ]
+        },
+        "numericAnswer": {
+          "type": ["integer", "number", "array", "object", "string"]
+        },
+        "answerRole": {
+          "type": "string",
+          "minLength": 2
+        },
+        "answerUnits": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "canonicalReconstruction": {
+          "type": "string",
+          "minLength": 3
+        },
+        "interpretationStatement": {
+          "type": "string",
+          "minLength": 3
+        },
+        "decisionRule": {
+          "type": "string",
+          "minLength": 3
+        },
+        "decisionWitness": {
+          "type": "string",
+          "minLength": 3
+        }
+      }
+    },
+    "interpretationWitness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["witnessType", "promptZh", "expectedEvidence"],
+      "properties": {
+        "witnessType": {
+          "enum": [
+            "TARGET_ROLE_SELECTION",
+            "RELATION_ORDER_SELECTION",
+            "DECISION_REASON_SELECTION",
+            "COMPARISON_EVIDENCE",
+            "ERROR_DIAGNOSIS",
+            "SHORT_ANSWER_MEANING"
+          ]
+        },
+        "promptZh": {
+          "type": "string",
+          "minLength": 3
+        },
+        "expectedEvidence": {
+          "type": ["string", "array", "object"]
+        }
+      }
+    },
+    "misconceptionModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["misconceptionId", "misconceptionType", "diagnosticMeaning"],
+      "properties": {
+        "misconceptionId": {
+          "type": "string",
+          "minLength": 3
+        },
+        "misconceptionType": {
+          "type": "string",
+          "minLength": 3
+        },
+        "expectedWrongAnswer": {},
+        "expectedWrongDecision": {},
+        "diagnosticMeaning": {
+          "type": "string",
+          "minLength": 3
+        }
+      },
+      "anyOf": [
+        { "required": ["expectedWrongAnswer"] },
+        { "required": ["expectedWrongDecision"] }
+      ]
+    },
+    "pairedControlItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseItemId",
+        "sameNumericPrerequisites",
+        "sameOrEquivalentNumbers",
+        "semanticDeltaOnly",
+        "baseExpectedAnswer",
+        "candidateExpectedAnswer"
+      ],
+      "properties": {
+        "baseItemId": {
+          "type": "string",
+          "minLength": 3
+        },
+        "sameNumericPrerequisites": {
+          "const": true
+        },
+        "sameOrEquivalentNumbers": {
+          "const": true
+        },
+        "semanticDeltaOnly": {
+          "const": true
+        },
+        "baseExpectedAnswer": {},
+        "candidateExpectedAnswer": {}
+      }
+    },
+    "counterfactualVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "changedCondition",
+        "numericPrerequisitesPreserved",
+        "expectedInterpretationChanged",
+        "expectedAnswerOrDecision"
+      ],
+      "properties": {
+        "changedCondition": {
+          "type": "string",
+          "minLength": 3
+        },
+        "numericPrerequisitesPreserved": {
+          "const": true
+        },
+        "expectedInterpretationChanged": {
+          "const": true
+        },
+        "expectedAnswerOrDecision": {}
+      }
+    },
+    "nPlusOneEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseCapabilityId",
+        "candidateCapabilityId",
+        "sharedNumericPrerequisites",
+        "newInterpretiveAct",
+        "intermediateSemanticNodeRequired",
+        "pairedControlItem",
+        "misconceptionModels",
+        "counterfactualVariant",
+        "answerMeaningValidation"
+      ],
+      "properties": {
+        "baseCapabilityId": {
+          "type": "string",
+          "minLength": 3
+        },
+        "candidateCapabilityId": {
+          "type": "string",
+          "minLength": 3
+        },
+        "sharedNumericPrerequisites": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3 },
+          "uniqueItems": true
+        },
+        "newInterpretiveAct": {
+          "enum": [
+            "UNKNOWN_ROLE_SHIFT",
+            "REMAINDER_INTERPRETATION",
+            "RELATION_CHAIN",
+            "DUAL_CONSTRAINT_RESOLUTION",
+            "CONSERVATION_OR_TRANSFER",
+            "COMPARISON_DECISION",
+            "UNIT_ROLE_INTERPRETATION",
+            "IRRELEVANT_INFORMATION_FILTER"
+          ]
+        },
+        "intermediateSemanticNodeRequired": {
+          "const": false
+        },
+        "pairedControlItem": {
+          "$ref": "#/$defs/pairedControlItem"
+        },
+        "misconceptionModels": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/misconceptionModel"
+          }
+        },
+        "counterfactualVariant": {
+          "$ref": "#/$defs/counterfactualVariant"
+        },
+        "answerMeaningValidation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["answerRoleValidated", "answerUnitValidated", "contextDecisionValidated"],
+          "properties": {
+            "answerRoleValidated": { "const": true },
+            "answerUnitValidated": { "const": true },
+            "contextDecisionValidated": { "const": true }
+          }
+        }
+      }
+    },
+    "validationContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identityAndAuthority",
+        "numeric",
+        "semanticRole",
+        "operationRelation",
+        "contextBinding",
+        "interpretation",
+        "answerMeaning",
+        "blockingFailureReturnsNoItem"
+      ],
+      "properties": {
+        "identityAndAuthority": { "const": true },
+        "numeric": { "const": true },
+        "semanticRole": { "const": true },
+        "operationRelation": { "const": true },
+        "contextBinding": { "const": true },
+        "interpretation": { "type": "boolean" },
+        "answerMeaning": { "const": true },
+        "blockingFailureReturnsNoItem": { "const": true }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "knowledgeOperationAuthorityPath",
+        "globalContextAuthorityPath",
+        "unitContextBindingAuthorityPath"
+      ],
+      "properties": {
+        "knowledgeOperationAuthorityPath": {
+          "type": "string",
+          "pattern": "^data/curriculum/knowledge/units/"
+        },
+        "globalContextAuthorityPath": {
+          "type": "string",
+          "pattern": "^data/curriculum/context/registry/"
+        },
+        "unitContextBindingAuthorityPath": {
+          "type": "string",
+          "pattern": "^data/curriculum/context/registry/"
+        }
+      }
+    }
+  }
+}
