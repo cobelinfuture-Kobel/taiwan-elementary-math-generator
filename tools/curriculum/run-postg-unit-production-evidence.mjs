@@ -13,6 +13,9 @@ import {
   validateBatchABrowserQuestions,
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator.js";
 import {
+  validateBatchABrowserQuestions as validateG4ABatchABrowserQuestions,
+} from "../../site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js";
+import {
   generateBatchABrowserQuestions,
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import {
@@ -24,6 +27,11 @@ import {
 import {
   renderWorksheetDocumentToHtml,
 } from "../../site/modules/renderer/html-renderer-s60j-extension.js";
+
+const CANONICAL_EVIDENCE_SOURCE_IDS = new Set([
+  "g3b_u08_3b08",
+  "g4a_u02_4a02",
+]);
 
 function parseArgs(argv = process.argv.slice(2)) {
   const values = {};
@@ -76,6 +84,9 @@ function validatePostGoldenEvidenceQuestions(sourceId, questions, plan) {
       validatorVersion: validation.validatorVersion,
     };
   }
+  if (sourceId === "g4a_u02_4a02") {
+    return validateG4ABatchABrowserQuestions(questions, { plan });
+  }
   return validateBatchABrowserQuestions(questions, { plan });
 }
 
@@ -127,7 +138,7 @@ if (!adaptation.applied || adaptation.blocked || !adaptation.plan) {
   fail("POSTG_EVIDENCE_SHARED_ADAPTER_BLOCKED", { sourceId, taskId, adaptation });
 }
 
-const canonicalGeneration = sourceId === "g3b_u08_3b08"
+const canonicalGeneration = CANONICAL_EVIDENCE_SOURCE_IDS.has(sourceId)
   ? generateBatchABrowserQuestions(adaptation.plan)
   : null;
 if (canonicalGeneration && !canonicalGeneration.ok) {
