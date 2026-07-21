@@ -32,6 +32,7 @@ const CANONICAL_EVIDENCE_SOURCE_IDS = new Set([
   "g3b_u08_3b08",
   "g4a_u02_4a02",
   "g4a_u04_4a04",
+  "g4a_u08_4a08",
 ]);
 
 function parseArgs(argv = process.argv.slice(2)) {
@@ -85,7 +86,7 @@ function validatePostGoldenEvidenceQuestions(sourceId, questions, plan) {
       validatorVersion: validation.validatorVersion,
     };
   }
-  if (sourceId === "g4a_u02_4a02" || sourceId === "g4a_u04_4a04") {
+  if (["g4a_u02_4a02", "g4a_u04_4a04", "g4a_u08_4a08"].includes(sourceId)) {
     return validateG4ABatchABrowserQuestions(questions, { plan });
   }
   return validateBatchABrowserQuestions(questions, { plan });
