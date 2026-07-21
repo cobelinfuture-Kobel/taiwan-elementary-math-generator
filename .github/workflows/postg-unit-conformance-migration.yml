@@ -14,6 +14,7 @@ on:
       - "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
       - "tools/curriculum/run-postg-unit-production-evidence.mjs"
       - "tools/curriculum/run-postg-g4b-u01-production-evidence.mjs"
+      - "tools/curriculum/run-postg-g4b-u04-production-evidence.mjs"
       - "tools/curriculum/export-postg-knowledge-master.py"
       - "tests/curriculum/postg-mig-*.test.js"
       - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
@@ -95,10 +96,18 @@ jobs:
           const taskToken = taskMatch[1];
           const sourceUnitToken = sourceId.split('_').slice(0, 2).join('-');
           const unitToken = row.unitCode.replaceAll('-', '');
-          const questionCount = sourceId === 'g4a_u08_4a08' ? 112 : sourceId === 'g4b_u01_4b01' ? 72 : 40;
+          const questionCount = sourceId === 'g4a_u08_4a08'
+            ? 112
+            : sourceId === 'g4b_u01_4b01'
+              ? 72
+              : sourceId === 'g4b_u04_4b04'
+                ? 68
+                : 40;
           const evidenceScript = sourceId === 'g4b_u01_4b01'
             ? 'tools/curriculum/run-postg-g4b-u01-production-evidence.mjs'
-            : 'tools/curriculum/run-postg-unit-production-evidence.mjs';
+            : sourceId === 'g4b_u04_4b04'
+              ? 'tools/curriculum/run-postg-g4b-u04-production-evidence.mjs'
+              : 'tools/curriculum/run-postg-unit-production-evidence.mjs';
           const env = {
             POSTG_SOURCE_ID: sourceId,
             POSTG_TASK_ID: taskId,
