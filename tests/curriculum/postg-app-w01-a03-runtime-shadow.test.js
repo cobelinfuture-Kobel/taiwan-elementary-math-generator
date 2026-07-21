@@ -36,11 +36,15 @@ test('fixture cardinality follows the candidate, N+1 and PBL coverage contract',
   assert.equal(new Set(materialized.fixtures.map((row) => row.fixtureId)).size, expected);
 });
 
-test('all 15 Golden units and all 16 Macro Context Domains remain covered', () => {
+test('all 15 Golden units remain assessed while runtime covers only application-eligible units', () => {
   const validation = validateW01ValidatorShadowRuntime(materialized);
-  assert.equal(validation.counts.goldenUnitCoverageCount, 15);
+  assert.equal(validation.counts.goldenAssessmentUnitCoverageCount, 15);
+  assert.equal(validation.assessmentSourceCoverage.length, 15);
+  assert.equal(validation.counts.applicationRuntimeUnitCoverageCount, validation.eligibleSourceCoverage.length);
+  assert.deepEqual(validation.runtimeSourceCoverage, validation.eligibleSourceCoverage);
+  assert.equal(validation.counts.applicationExcludedUnitCount, validation.excludedSourceCoverage.length);
+  assert.equal(validation.counts.applicationRuntimeUnitCoverageCount + validation.counts.applicationExcludedUnitCount, 15);
   assert.equal(validation.counts.macroContextCoverageCount, 16);
-  assert.equal(validation.sourceCoverage.length, 15);
   assert.equal(validation.macroCoverage.length, 16);
 });
 
