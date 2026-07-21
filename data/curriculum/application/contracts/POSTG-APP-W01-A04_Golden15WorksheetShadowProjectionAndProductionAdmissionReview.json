@@ -1,0 +1,86 @@
+{
+  "schemaName": "POSTGAPPW01A04Golden15WorksheetShadowProjectionAndProductionAdmissionReviewContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
+  "contractId": "POSTG_APP_W01_WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_V1",
+  "status": "SHADOW_PROJECTION_AND_REVIEW_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "dependencies": {
+    "w01ValidatorShadowTask": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_W01_Worksheet_Shadow_Projection_And_Production_Admission_Review_V1.md",
+    "policy": "data/curriculum/application/assessment/w01-worksheet-shadow-review-policy.json",
+    "index": "data/curriculum/application/assessment/w01-worksheet-shadow-review-index.json",
+    "projectionSchema": "data/curriculum/application/schema/w01-worksheet-shadow-projection.schema.json",
+    "runtime": "src/curriculum/application/w01-worksheet-shadow-review.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a04-worksheet-shadow-review.mjs"
+  },
+  "projectionRules": {
+    "goldenAssessmentUnitCount": 15,
+    "eligibleSourceProjectionRule": "exact A01 application-eligible source set",
+    "excludedUnitProjectionCount": 0,
+    "oneQuestionPerA01Candidate": true,
+    "oneAnswerKeyPerQuestion": true,
+    "allA02PBLCandidatesProjected": true,
+    "PBL3Projection": "APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE",
+    "PBL5Projection": "APPROVED_COMPLETE_TWO_PAGE_CANDIDATE",
+    "arbitraryPBLSplitAllowed": false,
+    "productionSelectable": false
+  },
+  "review": {
+    "expectedDecision": "DEFERRED_PENDING_PRODUCTION_EVIDENCE",
+    "completedProcessGate": "PRODUCTION_ADMISSION_REVIEWED",
+    "admissionGateComplete": true,
+    "productionAdmissionGranted": false,
+    "requiredBlockingEvidence": [
+      "UNIT_FLOW_RESOLUTION_COMPLETE",
+      "EXACT_PRODUCTION_GENERATOR_EVIDENCE",
+      "PRODUCTION_RENDERER_EVIDENCE",
+      "HTML_PDF_EVIDENCE",
+      "PUBLIC_SELECTION_EVIDENCE",
+      "HUMAN_VISUAL_REVIEW_EVIDENCE"
+    ]
+  },
+  "acceptance": {
+    "validationStatus": "PASS_POSTG_APP_W01_A04_WORKSHEET_SHADOW_PROJECTION_REVIEW_DEFERRED",
+    "eligibleProjectionCoverageRequired": true,
+    "excludedUnitsRemainProjectionFree": true,
+    "candidateAnswerPairingRequired": true,
+    "pblProjectionIntegrityRequired": true,
+    "forbiddenVisibleLabelsRejected": true,
+    "reviewDecisionMustRemainDeferred": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "structuralWorksheetShadowAllowed": true,
+    "nonPublicShadowHTMLAllowed": true,
+    "answerKeyPairingAllowed": true,
+    "pblProjectionPlanningAllowed": true,
+    "productionAdmissionReviewAllowed": true,
+    "controllerReviewGateAdvancementAllowed": true,
+    "productionPatternSpecGeneratorChangeAllowed": false,
+    "productionRendererChangeAllowed": false,
+    "publicUIChangeAllowed": false,
+    "htmlPdfDeploymentAllowed": false,
+    "humanApprovalFabricationAllowed": false,
+    "productionAdmissionAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_GOLDEN15_APPLICATION_CANDIDATES_EXECUTED_IN_SHARED_VALIDATOR_SHADOW",
+    "goalDistanceAfterTarget": "D1_GOLDEN15_WORKSHEET_SHADOW_PROJECTED_AND_PRODUCTION_GAPS_EXPLICIT",
+    "distanceReduced": "Every application-eligible Wave 01 source is structurally projected into a worksheet shadow with exact question-answer pairing, N+1 references and complete PBL page plans. All 15 units are represented in the admission review, and missing production evidence is converted into an explicit deferred decision instead of an implicit unknown state.",
+    "remainingBlockers": [
+      "Unresolved unit-flow candidates require semantic remediation",
+      "Exact production PatternSpec generator evidence is absent",
+      "Production renderer evidence is absent",
+      "HTML/PDF application artifacts are absent",
+      "Public selection evidence is absent",
+      "Human visual review evidence is absent",
+      "Production admission remains zero"
+    ],
+    "nextShortestStep": "POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation"
+  }
+}
