@@ -110,8 +110,12 @@ test('admission gate order stays frozen while W01 progresses', () => {
     'CANONICAL_OPERATION_MODEL_COMPLETE',
     'SINGLE_APPLICATION_ADMISSION_COMPLETE',
     'GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE',
-    'N_PLUS_1_CONTRACT_COMPLETE'
+    'N_PLUS_1_CONTRACT_COMPLETE',
+    'VALIDATOR_CONTRACT_COMPLETE',
+    'POSITIVE_NEGATIVE_FIXTURES_COMPLETE',
+    'SHARED_RUNTIME_SHADOW_PASS'
   ]);
+  assert.equal(controller.controllerState.currentMainlineBlocker, 'WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_NOT_COMPLETE');
 });
 
 test('duplicate source nodes and premature production admissions fail closed', () => {
