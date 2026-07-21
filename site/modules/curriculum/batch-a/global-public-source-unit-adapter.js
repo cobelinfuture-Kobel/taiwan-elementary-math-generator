@@ -129,6 +129,19 @@ function canonicalSourceUnitPlan(plan, descriptor, goldenRuntimeConsumer, regist
 }
 
 function resolveDescriptorForPlan(plan) {
+  const postGoldenDescriptor = resolvePostGoldenSourceUnitAdapterDescriptor(plan.sourceId);
+  if (postGoldenDescriptor && isAuthorizedPostGoldenPlan(plan, postGoldenDescriptor)) {
+    return {
+      descriptor: postGoldenDescriptor,
+      registryVersion: POST_GOLDEN_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
+      registryValidation: validatePostGoldenSourceUnitAdapterRegistry(),
+    };
+  }
+  if (postGoldenDescriptor
+    && (plan.postGoldenMigrationTaskId != null || hasGoldenActivationFields(plan))) {
+    return null;
+  }
+
   const baseDescriptor = resolveGlobalPublicSourceUnitAdapterDescriptor(plan.sourceId);
   if (baseDescriptor) {
     return {
@@ -137,14 +150,7 @@ function resolveDescriptorForPlan(plan) {
       registryValidation: validateGlobalPublicSourceUnitAdapterRegistry(),
     };
   }
-
-  const postGoldenDescriptor = resolvePostGoldenSourceUnitAdapterDescriptor(plan.sourceId);
-  if (!postGoldenDescriptor || !isAuthorizedPostGoldenPlan(plan, postGoldenDescriptor)) return null;
-  return {
-    descriptor: postGoldenDescriptor,
-    registryVersion: POST_GOLDEN_SOURCE_UNIT_ADAPTER_REGISTRY_VERSION,
-    registryValidation: validatePostGoldenSourceUnitAdapterRegistry(),
-  };
+  return null;
 }
 
 export function adaptGlobalPublicSourceUnitPlan(plan = {}) {
@@ -152,7 +158,7 @@ export function adaptGlobalPublicSourceUnitPlan(plan = {}) {
 
   const resolved = resolveDescriptorForPlan(plan);
   if (!resolved) {
-    return hasGoldenActivationFields(plan)
+    return hasGoldenActivationFields(plan) || plan.postGoldenMigrationTaskId != null
       ? blockedAdaptation(plan, null, ["GS05_GOLDEN_UNIT_NOT_REGISTERED"])
       : passthrough(plan);
   }
