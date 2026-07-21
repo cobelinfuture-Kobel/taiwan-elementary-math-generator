@@ -163,7 +163,12 @@ test("A00 validators fail closed on queue, fleet, completion and authority drift
   ]);
 
   const badController = clone(controller);
-  badController.queue.pendingSourceIds.reverse();
+  badController.queue.pendingSourceIds = [...badController.queue.pendingSourceIds];
+  if (badController.queue.pendingSourceIds.length > 1) {
+    badController.queue.pendingSourceIds.reverse();
+  } else {
+    badController.queue.pendingSourceIds.push("g4a_u08_4a08");
+  }
   let audit = validatePostGoldenMigrationController(
     badController,
     registry,
