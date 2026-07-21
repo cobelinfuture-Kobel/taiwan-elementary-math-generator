@@ -107,8 +107,17 @@ test('artifact readback exposes renderer input and complete review dossier', () 
     assert.equal(typeof pair.reviewPrompt, 'string');
     assert.equal(pair.reviewPrompt.length > 0, true);
   }
+  const expectedPblCandidateIds = materialized.a02.pblTaskSetCandidates
+    .filter((row) => validation.selectedSources.includes(row.sourceId))
+    .map((row) => row.pblCandidateId)
+    .sort();
+  assert.deepEqual(
+    readback.pblReviewSections.map((section) => section.pblCandidateId).sort(),
+    expectedPblCandidateIds
+  );
   for (const section of readback.pblReviewSections) {
-    assert.equal(String(section.pblCandidateId).startsWith('postg-app-w01-pbl-'), true);
+    assert.equal(typeof section.pblCandidateId, 'string');
+    assert.equal(section.pblCandidateId.length > 0, true);
     assert.equal(typeof section.drivingProblemCandidate?.problemStatementZh, 'string');
     assert.equal(section.drivingProblemCandidate.problemStatementZh.length > 0, true);
   }
