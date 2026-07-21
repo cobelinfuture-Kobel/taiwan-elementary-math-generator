@@ -24,15 +24,26 @@ A01 context-bound candidates
 
 ## Review cohort
 
-The cohort is deterministic and must cover:
+The A01 design set and the A05 E4 cohort are distinct:
 
 ```text
-all application-eligible Wave 01 source units
-all 16 M01 Macro Context Domains
-at least one exact production PatternSpec route per selected candidate
+A01 assessed application-design source set
+→ exact production route discovery
+→ exact-route-eligible source set
+→ E4 Human Review cohort
 ```
 
-The cohort may contain more than one item per source when needed for Macro Context coverage.
+The deterministic E4 cohort must cover:
+
+```text
+all Wave 01 sources that currently expose at least one exact production PatternSpec route
+all 16 M01 Macro Context Domains
+an exact production PatternSpec route for every selected review item
+```
+
+Sources that have A01 application candidates but no consumable production PatternSpec remain explicit `EXACT_PRODUCTION_GENERATOR_ROUTE_NOT_AVAILABLE` remediation blockers. They are not dropped silently, are not counted as E4-reviewed, and keep production admission disabled.
+
+The cohort may contain more than one item per exact-route-eligible source when needed for Macro Context coverage.
 
 ## Exact generator requirement
 
@@ -47,6 +58,8 @@ KnowledgePoint
 ```
 
 A05 may alter only the visible context wording and application metadata. Final answer, expression, quantities and operation witness must remain unchanged.
+
+A05 must not implement missing unit PatternSpecs, introduce a generic fallback, or relabel a blocked source as exact-route-eligible. Missing production consumers remain follow-up remediation work.
 
 ## Unit-flow remediation
 
@@ -77,6 +90,7 @@ answer and unit
 math-preservation result
 unit-flow matrix
 PBL driving problem, dependency graph and projection plan
+exact-route-blocked source and candidate appendix
 review checkboxes
 ```
 
@@ -103,13 +117,17 @@ humanReviewReady = true
 productionAdmitted = false
 ```
 
+These E4 claims apply only to the exact-route-eligible cohort. They do not claim that exact production generation exists for every A01 design candidate or source.
+
 The review artifact is hidden and non-selectable. Public routes remain unchanged.
 
 ## Fail-closed invariants
 
 ```text
 A02 and A03 must validate
-eligible source coverage must be exact
+A01 assessed source set must be recorded
+exact-route-eligible source coverage must be exact
+exact-route-blocked sources must be explicit
 Macro Context coverage must equal 16
 all selected review items must use exact production generator routes
 all mathematical witnesses must be preserved
