@@ -48,8 +48,28 @@ jobs:
 
       - name: Run A13 D0 and A00 compatibility gates
         run: |
-          node --test tests/curriculum/postg-mig-a13-program-closeout.test.js
-          node --test tests/curriculum/postg-mig-a00-program-foundation.test.js
+          mkdir -p build/reports
+          set +e
+          node --test tests/curriculum/postg-mig-a13-program-closeout.test.js 2>&1 \
+            | tee build/reports/POSTG_MIG_A13_FOCUSED_TEST.log
+          A13_STATUS=${PIPESTATUS[0]}
+          if [ "$A13_STATUS" -ne 0 ]; then
+            exit "$A13_STATUS"
+          fi
+          node --test tests/curriculum/postg-mig-a00-program-foundation.test.js 2>&1 \
+            | tee build/reports/POSTG_MIG_A00_COMPATIBILITY_TEST.log
+          A00_STATUS=${PIPESTATUS[0]}
+          exit "$A00_STATUS"
+
+      - name: Upload A13 diagnostic logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postg-mig-a13-diagnostic-logs
+          path: |
+            build/reports/POSTG_MIG_A13_FOCUSED_TEST.log
+            build/reports/POSTG_MIG_A00_COMPATIBILITY_TEST.log
+          if-no-files-found: warn
 
       - name: Run persistent Golden anti-drift gate
         run: node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
