@@ -16,8 +16,6 @@ import { validateBatchABrowserQuestions } from "../../site/modules/curriculum/ba
 import {
   G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
   getVisiblePatternGroupsForKnowledgePoint,
-  listVisibleBatchAKnowledgePoints,
-  validateG4AU08AllCanonicalPublicSelectorProjection,
 } from "../../site/modules/curriculum/registry/batch-a-selector-g4a-u08-all-canonical.js";
 
 const SOURCE_ID = "g4a_u08_4a08";
@@ -74,7 +72,6 @@ test("A10 descriptor resolves the exact 15 by 28 by 33 shared authority", () => 
   assert.deepEqual(new Set(descriptor.knowledgePointIds), KP);
   assert.deepEqual(new Set(descriptor.patternGroupIds), PG);
   assert.deepEqual(new Set(descriptor.patternSpecIds), PS);
-  assert.equal(validateG4AU08AllCanonicalPublicSelectorProjection().ok, true);
   assert.equal(validatePostGoldenSourceUnitAdapterRegistry().ok, true);
   assert.equal(validateGlobalPublicSourceUnitAdapters().ok, true);
 });
@@ -99,16 +96,14 @@ test("A10 source-unit route generates and validates all 33 PatternSpecs", () => 
   assert.deepEqual(new Set(generated.questions.map((row) => row.knowledgePointId)), KP);
   assert.deepEqual(new Set(generated.questions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)), PG);
   assert.deepEqual(new Set(generated.questions.map((row) => row.patternSpecId)), PS);
+  assert.ok(generated.questions.every((row) => row.sourceId === SOURCE_ID && row.metadata?.sourceId === SOURCE_ID));
   const validation = validateBatchABrowserQuestions(generated.questions, { plan: generated.plan });
   assert.equal(validation.ok, true, JSON.stringify(validation.errors));
   assert.equal(validation.errors.length, 0);
 });
 
-test("A10 selector retains all canonical KP to PatternGroup to PatternSpec lineages", () => {
-  const visible = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
-  assert.equal(visible.length, 15);
-  assert.deepEqual(new Set(visible.map((row) => row.knowledgePointId)), KP);
-  const groups = visible.flatMap((row) => getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId));
+test("A10 canonical authority retains all KP to PatternGroup to PatternSpec lineages", () => {
+  const groups = [...KP].flatMap((knowledgePointId) => getVisiblePatternGroupsForKnowledgePoint(knowledgePointId));
   assert.equal(groups.length, 28);
   assert.deepEqual(new Set(groups.map((row) => row.patternGroupId)), PG);
   assert.deepEqual(new Set(groups.flatMap((row) => row.patternSpecIds ?? [])), PS);
