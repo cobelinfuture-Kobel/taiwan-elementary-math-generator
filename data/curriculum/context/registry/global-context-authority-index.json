@@ -1,0 +1,103 @@
+{
+  "schemaName": "GlobalContextAuthorityIndexV1",
+  "schemaVersion": 1,
+  "contractId": "GLOBAL_CONTEXT_HIERARCHY_ONTOLOGY_V1",
+  "taskId": "GCTX-HIER-A00_AuthorityIndexAndExtractionContract",
+  "status": "CANONICAL_EXTRACTION_ENTRY_POINT",
+  "canonicalEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
+  "authorityOrder": [
+    {
+      "priority": 1,
+      "role": "HIERARCHY_SEMANTICS",
+      "path": "docs/curriculum/context/contracts/Global_Context_Hierarchy_Ontology_V1.md"
+    },
+    {
+      "priority": 2,
+      "role": "MACHINE_READABLE_ONTOLOGY",
+      "path": "data/curriculum/context/registry/global-context-hierarchy-ontology.json"
+    },
+    {
+      "priority": 3,
+      "role": "HIERARCHY_NODE_SCHEMA",
+      "path": "data/curriculum/context/schema/global-context-hierarchy-node.schema.json"
+    },
+    {
+      "priority": 4,
+      "role": "LEGACY_SEED_SOURCE",
+      "path": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json"
+    },
+    {
+      "priority": 5,
+      "role": "APPLICATION_CONTEXT_BINDINGS",
+      "path": "data/curriculum/application/registry/application-context-bindings.json"
+    },
+    {
+      "priority": 6,
+      "role": "APPLICATION_ADMISSION_STATE",
+      "path": "data/curriculum/application/registry/application-admission-registry.json"
+    }
+  ],
+  "extractionAliases": {
+    "zhTW": [
+      "全域情境",
+      "全域生活情境",
+      "大情境",
+      "中情境",
+      "小情境",
+      "微觀情境",
+      "情境本體",
+      "情境階層",
+      "情境樹",
+      "生活應用題情境"
+    ],
+    "en": [
+      "global context",
+      "global context ontology",
+      "context hierarchy",
+      "macro context",
+      "meso situation",
+      "micro scenario",
+      "atomic task episode",
+      "scenario diversity"
+    ]
+  },
+  "canonicalDefinitions": {
+    "largeContext": "MACRO_CONTEXT_DOMAIN",
+    "mediumContext": "MESO_SITUATION_FAMILY",
+    "smallContext": "MICRO_EVENT_SCENARIO",
+    "microscopicContext": "ATOMIC_TASK_EPISODE",
+    "surfaceTemplate": "SURFACE_REALIZATION_NON_ONTOLOGY_LAYER",
+    "numericInstance": "NUMERIC_INSTANCE_NON_ONTOLOGY_LAYER"
+  },
+  "extractionRules": [
+    "Always read this authority index before interpreting any individual global-context registry.",
+    "Treat the hierarchy ontology as the authority for large, medium, small, and microscopic context semantics.",
+    "Treat the GS02 registry as a legacy flat seed source, not as the complete global-context universe.",
+    "Do not use the count of legacy contextFamilies as the total scenario capacity.",
+    "Do not count surface templates, changed nouns, changed names, or changed numbers as new ontology nodes.",
+    "Do not infer a legacy contextFamilyId hierarchy level without an explicit V1 mapping.",
+    "Select production application contexts at ATOMIC_TASK_EPISODE level after KnowledgePoint and operation-model binding.",
+    "Report current hierarchy population as incomplete until all completeness flags are true."
+  ],
+  "prohibitedInferences": [
+    "18 legacy context families equals 18 total student-visible contexts",
+    "54 surface templates equals the maximum scenario capacity",
+    "every legacy context family is automatically a macro domain",
+    "a wording variant creates a new semantic scenario",
+    "a number-only or noun-only change creates a new atomic episode",
+    "hierarchy content is complete because the structure contract exists"
+  ],
+  "currentAuthorityState": {
+    "hierarchyStructureDefined": true,
+    "hierarchyPopulationComplete": false,
+    "legacyMappingComplete": false,
+    "productionConsumptionComplete": false,
+    "safeSummary": "Global-context hierarchy semantics and extraction order are defined, but macro, meso, micro, and atomic episode populations are not yet complete."
+  },
+  "consumerContract": {
+    "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+    "firstRequiredConsumerTask": "POSTG-APP-A00_ProgramControllerCapabilityBaselineAndFixedQueue",
+    "applicationBindingTargetLevel": "ATOMIC_TASK_EPISODE",
+    "failClosedWhenHierarchyUnmapped": true
+  }
+}
