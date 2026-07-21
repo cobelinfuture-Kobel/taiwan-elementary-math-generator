@@ -46,7 +46,7 @@
     "distanceReduced": "pending exact E4 HTML/PDF generation and Human Review package verification"
   },
   "nextStep": {
-    "taskId": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation",
-    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+    "taskId": "POSTG-APP-W01-A05_ExactHeadE4ArtifactGenerationAndReviewPackageVerification",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
