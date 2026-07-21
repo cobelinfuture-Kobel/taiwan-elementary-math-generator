@@ -72,11 +72,32 @@ if (!next.includes(newEligibility)) {
   changed = true;
 }
 
+const oldTransformedIdentity = `    answerUnit: unitFlow.resolvedAnswerUnitCandidate,
+    knowledgePointId: candidate.knowledgePointId,`;
+const newTransformedIdentity = `    answerUnit: unitFlow.resolvedAnswerUnitCandidate,
+    sourceId: candidate.sourceId,
+    knowledgePointId: candidate.knowledgePointId,`;
+
+if (!next.includes(newTransformedIdentity)) {
+  const first = next.indexOf(oldTransformedIdentity);
+  const second = first < 0 ? -1 : next.indexOf(oldTransformedIdentity, first + oldTransformedIdentity.length);
+  if (first < 0 || second >= 0) {
+    throw new Error(JSON.stringify({
+      code: 'POSTG_APP_W01_A05_TRANSFORMED_SOURCE_IDENTITY_ANCHOR_INVALID',
+      first,
+      second
+    }));
+  }
+  next = next.replace(oldTransformedIdentity, newTransformedIdentity);
+  changed = true;
+}
+
 if (changed) fs.writeFileSync(runtimePath, next, 'utf8');
 
 console.log(JSON.stringify({
   status: changed ? 'POSTG_APP_W01_A05_RUNTIME_BOOTSTRAPPED' : 'POSTG_APP_W01_A05_RUNTIME_ALREADY_ALIGNED',
   changed,
   pblAuthorityAligned: next.includes(pblReadyMarker),
-  eligibilityAuthorityAligned: next.includes(newEligibility)
+  eligibilityAuthorityAligned: next.includes(newEligibility),
+  transformedSourceIdentityAligned: next.includes(newTransformedIdentity)
 }, null, 2));
