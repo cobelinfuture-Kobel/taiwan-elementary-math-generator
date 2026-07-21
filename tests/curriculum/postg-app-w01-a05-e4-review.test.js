@@ -11,8 +11,15 @@ const materialized = materializeW01E4ProductionReview({
 });
 const validation = validateW01E4ProductionReview(materialized);
 
+function focusedFailureDiagnostics() {
+  return JSON.stringify({
+    issues: validation.issues,
+    exactGenerationFailures: materialized.exactGenerationFailures
+  }, null, 2);
+}
+
 test('W01-A05 builds an exact-generator E4 review cohort', () => {
-  assert.equal(validation.ok, true, JSON.stringify(validation.issues, null, 2));
+  assert.equal(validation.ok, true, focusedFailureDiagnostics());
   assert.equal(validation.status, 'W01_E4_PRODUCTION_EQUIVALENT_REVIEW_RUNTIME_READY');
   assert.equal(validation.humanReviewReady, true);
   assert.equal(validation.productionAdmissionGranted, false);
