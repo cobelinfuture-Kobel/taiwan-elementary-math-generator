@@ -3,6 +3,11 @@ import {
   listVisibleBatchAKnowledgePoints,
 } from "../registry/batch-a-selector-extension.js";
 import {
+  G4B_U01_PROMOTED_KNOWLEDGE_POINT_IDS,
+  G4B_U01_PROMOTED_PATTERN_GROUP_IDS,
+  G4B_U01_PROMOTED_PATTERN_SPEC_IDS,
+} from "../registry/g4b-u01-horizontal-promotion.js";
+import {
   G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
   G4B_U04_PROMOTED_PATTERN_GROUP_IDS,
   G4B_U04_SOURCE_ID,
@@ -38,6 +43,8 @@ export const G4A_U04_POSTG_SOURCE_ID = "g4a_u04_4a04";
 export const G4A_U04_POSTG_TASK_ID = "POSTG-MIG-A09_G4A_U04_GoldenConformanceAndKnowledgeOperationMigration";
 export const G4A_U08_POSTG_SOURCE_ID = "g4a_u08_4a08";
 export const G4A_U08_POSTG_TASK_ID = "POSTG-MIG-A10_G4A_U08_GoldenConformanceAndKnowledgeOperationMigration";
+export const G4B_U01_POSTG_SOURCE_ID = "g4b_u01_4b01";
+export const G4B_U01_POSTG_TASK_ID = "POSTG-MIG-A11_G4B_U01_GoldenConformanceAndKnowledgeOperationMigration";
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -218,6 +225,21 @@ export const G4AU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescripto
     "site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js",
   ],
 });
+export const G4BU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({
+  sourceId: G4B_U01_POSTG_SOURCE_ID,
+  knowledgeRegistryPath: "data/curriculum/knowledge/units/g4b_u01_4b01.knowledge-operation.json",
+  counts: { knowledgePoints: 9, patternGroups: 9, patternSpecs: 12 },
+  authorityFileCount: 10,
+  generator: [
+    "site/modules/curriculum/batch-a/g4b-u01-horizontal-generator.js",
+    "site/modules/curriculum/batch-a/g4b-u01-canonical-horizontal-router.js",
+  ],
+  validator: [
+    "site/modules/curriculum/batch-a/g4b-u01-horizontal-validator.js",
+    "site/modules/curriculum/batch-a/batch-a-browser-validator-s59h-extension.js",
+  ],
+  renderer: "site/modules/renderer/html-renderer-s59h-extension.js",
+});
 
 const BASE_ADAPTER_DESCRIPTORS = freeze([
   {
@@ -255,7 +277,15 @@ const BASE_ADAPTER_DESCRIPTORS = freeze([
   },
 ]);
 
-function postGoldenAdapterDescriptor({ sourceId, taskId, adapterId, descriptor }) {
+function postGoldenAdapterDescriptor({
+  sourceId,
+  taskId,
+  adapterId,
+  descriptor,
+  knowledgePointIds = null,
+  patternGroupIds = null,
+  patternSpecIds = null,
+}) {
   return {
     sourceId,
     taskId,
@@ -268,26 +298,38 @@ function postGoldenAdapterDescriptor({ sourceId, taskId, adapterId, descriptor }
       patternGroups: descriptor.expectedCounts.patternGroupCount,
       patternSpecs: descriptor.expectedCounts.patternSpecCount,
     },
-    resolveKnowledgePointIds: () => sourceKnowledgePointIds(sourceId),
-    resolvePatternGroupIds: (knowledgePointIds) => patternGroupIdsForKnowledgePoints(knowledgePointIds),
-    resolvePatternSpecIds: (knowledgePointIds) => patternSpecIdsForKnowledgePoints(knowledgePointIds),
+    resolveKnowledgePointIds: () => knowledgePointIds ? [...knowledgePointIds] : sourceKnowledgePointIds(sourceId),
+    resolvePatternGroupIds: (resolvedKnowledgePointIds) => patternGroupIds
+      ? [...patternGroupIds]
+      : patternGroupIdsForKnowledgePoints(resolvedKnowledgePointIds),
+    resolvePatternSpecIds: (resolvedKnowledgePointIds) => patternSpecIds
+      ? [...patternSpecIds]
+      : patternSpecIdsForKnowledgePoints(resolvedKnowledgePointIds),
     goldenContractDescriptor: descriptor,
   };
 }
+
 const POST_GOLDEN_ADAPTER_DESCRIPTORS = freeze([
-  [G3A_U01_POSTG_SOURCE_ID, G3A_U01_POSTG_TASK_ID, "g3a_u01_postg_golden_shared_runtime", G3AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G3A_U02_POSTG_SOURCE_ID, G3A_U02_POSTG_TASK_ID, "g3a_u02_postg_golden_shared_runtime", G3AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G3A_U03_POSTG_SOURCE_ID, G3A_U03_POSTG_TASK_ID, "g3a_u03_postg_golden_shared_runtime", G3AU03_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G3A_U06_POSTG_SOURCE_ID, G3A_U06_POSTG_TASK_ID, "g3a_u06_postg_golden_shared_runtime", G3AU06_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G3B_U01_POSTG_SOURCE_ID, G3B_U01_POSTG_TASK_ID, "g3b_u01_postg_golden_shared_runtime", G3BU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G3B_U08_POSTG_SOURCE_ID, G3B_U08_POSTG_TASK_ID, "g3b_u08_postg_golden_shared_runtime", G3BU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G4A_U01_POSTG_SOURCE_ID, G4A_U01_POSTG_TASK_ID, "g4a_u01_postg_golden_shared_runtime", G4AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G4A_U02_POSTG_SOURCE_ID, G4A_U02_POSTG_TASK_ID, "g4a_u02_postg_golden_shared_runtime", G4AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G4A_U04_POSTG_SOURCE_ID, G4A_U04_POSTG_TASK_ID, "g4a_u04_postg_golden_shared_runtime", G4AU04_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-  [G4A_U08_POSTG_SOURCE_ID, G4A_U08_POSTG_TASK_ID, "g4a_u08_postg_golden_shared_runtime", G4AU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR],
-].map(([sourceId, taskId, adapterId, descriptor]) => (
-  postGoldenAdapterDescriptor({ sourceId, taskId, adapterId, descriptor })
-)));
+  postGoldenAdapterDescriptor({ sourceId: G3A_U01_POSTG_SOURCE_ID, taskId: G3A_U01_POSTG_TASK_ID, adapterId: "g3a_u01_postg_golden_shared_runtime", descriptor: G3AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G3A_U02_POSTG_SOURCE_ID, taskId: G3A_U02_POSTG_TASK_ID, adapterId: "g3a_u02_postg_golden_shared_runtime", descriptor: G3AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G3A_U03_POSTG_SOURCE_ID, taskId: G3A_U03_POSTG_TASK_ID, adapterId: "g3a_u03_postg_golden_shared_runtime", descriptor: G3AU03_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G3A_U06_POSTG_SOURCE_ID, taskId: G3A_U06_POSTG_TASK_ID, adapterId: "g3a_u06_postg_golden_shared_runtime", descriptor: G3AU06_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G3B_U01_POSTG_SOURCE_ID, taskId: G3B_U01_POSTG_TASK_ID, adapterId: "g3b_u01_postg_golden_shared_runtime", descriptor: G3BU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G3B_U08_POSTG_SOURCE_ID, taskId: G3B_U08_POSTG_TASK_ID, adapterId: "g3b_u08_postg_golden_shared_runtime", descriptor: G3BU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G4A_U01_POSTG_SOURCE_ID, taskId: G4A_U01_POSTG_TASK_ID, adapterId: "g4a_u01_postg_golden_shared_runtime", descriptor: G4AU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G4A_U02_POSTG_SOURCE_ID, taskId: G4A_U02_POSTG_TASK_ID, adapterId: "g4a_u02_postg_golden_shared_runtime", descriptor: G4AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G4A_U04_POSTG_SOURCE_ID, taskId: G4A_U04_POSTG_TASK_ID, adapterId: "g4a_u04_postg_golden_shared_runtime", descriptor: G4AU04_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({ sourceId: G4A_U08_POSTG_SOURCE_ID, taskId: G4A_U08_POSTG_TASK_ID, adapterId: "g4a_u08_postg_golden_shared_runtime", descriptor: G4AU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR }),
+  postGoldenAdapterDescriptor({
+    sourceId: G4B_U01_POSTG_SOURCE_ID,
+    taskId: G4B_U01_POSTG_TASK_ID,
+    adapterId: "g4b_u01_postg_golden_shared_runtime",
+    descriptor: G4BU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
+    knowledgePointIds: G4B_U01_PROMOTED_KNOWLEDGE_POINT_IDS,
+    patternGroupIds: G4B_U01_PROMOTED_PATTERN_GROUP_IDS,
+    patternSpecIds: G4B_U01_PROMOTED_PATTERN_SPEC_IDS,
+  }),
+]);
 
 function resolveDescriptor(descriptor) {
   if (!descriptor) return null;

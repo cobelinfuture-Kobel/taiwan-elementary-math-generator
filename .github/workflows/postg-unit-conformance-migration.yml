@@ -13,6 +13,7 @@ on:
       - "site/modules/curriculum/batch-a/global-public-source-unit-adapter*.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
       - "tools/curriculum/run-postg-unit-production-evidence.mjs"
+      - "tools/curriculum/run-postg-g4b-u01-production-evidence.mjs"
       - "tools/curriculum/export-postg-knowledge-master.py"
       - "tests/curriculum/postg-mig-*.test.js"
       - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
@@ -94,7 +95,10 @@ jobs:
           const taskToken = taskMatch[1];
           const sourceUnitToken = sourceId.split('_').slice(0, 2).join('-');
           const unitToken = row.unitCode.replaceAll('-', '');
-          const questionCount = sourceId === 'g4a_u08_4a08' ? 112 : 40;
+          const questionCount = sourceId === 'g4a_u08_4a08' ? 112 : sourceId === 'g4b_u01_4b01' ? 72 : 40;
+          const evidenceScript = sourceId === 'g4b_u01_4b01'
+            ? 'tools/curriculum/run-postg-g4b-u01-production-evidence.mjs'
+            : 'tools/curriculum/run-postg-unit-production-evidence.mjs';
           const env = {
             POSTG_SOURCE_ID: sourceId,
             POSTG_TASK_ID: taskId,
@@ -104,6 +108,7 @@ jobs:
             POSTG_EXPECTED_GROUPS: descriptor.expectedCounts.patternGroups,
             POSTG_EXPECTED_SPECS: descriptor.expectedCounts.patternSpecs,
             POSTG_QUESTION_COUNT: questionCount,
+            POSTG_EVIDENCE_SCRIPT: evidenceScript,
             POSTG_FOCUSED_TEST: `tests/curriculum/postg-mig-${taskToken.toLowerCase()}-${sourceUnitToken}-conformance.test.js`,
             POSTG_STATE_MODE: closeoutState ? 'closeout' : 'candidate',
           };
@@ -128,7 +133,7 @@ jobs:
       - name: Generate exact-head production evidence
         run: |
           set -o pipefail
-          node tools/curriculum/run-postg-unit-production-evidence.mjs \
+          node "${POSTG_EVIDENCE_SCRIPT}" \
             --source-id "${POSTG_SOURCE_ID}" \
             --task-id "${POSTG_TASK_ID}" \
             --question-count "${POSTG_QUESTION_COUNT}" \

@@ -108,6 +108,9 @@ test("GS06 registry validator blocks coverage, version, bypass, duplication, pro
   const conformantIndex = registry.rows.findIndex((row) => row.conformanceStatus === "GOLDEN_CONFORMANT");
   const activeIndex = registry.rows.findIndex((row) => row.queueState === "ACTIVE");
   const pendingIndex = registry.rows.findIndex((row) => row.queueState === "PENDING");
+  const secondActiveIndex = pendingIndex >= 0
+    ? pendingIndex
+    : registry.rows.findIndex((row, index) => index !== activeIndex && row.conformanceStatus === "GOLDEN_CONFORMANT");
   const mutations = [
     ["GS06_CONFORMANCE_ROW_COUNT_INVALID", (draft) => draft.rows.pop()],
     ["GS06_UNIT_GOLDEN_VERSION_MISSING_OR_DRIFTED", (draft) => { draft.rows[conformantIndex].goldenContractVersion = null; }],
@@ -116,11 +119,14 @@ test("GS06 registry validator blocks coverage, version, bypass, duplication, pro
     ["GS06_PRODUCTION_GATE_STATUS_MISMATCH", (draft) => { draft.rows[activeIndex].goldenProductionEligible = true; draft.rows[activeIndex].productionGate = "allowed_golden_conformant"; }],
     ["GS06_QUEUE_STATE_STATUS_MISMATCH", (draft) => { draft.rows[activeIndex].queueState = "COMPLETE"; draft.rows[activeIndex].queueOrdinal = null; }],
     ["GS06_MULTIPLE_ACTIVE_UNITS", (draft) => {
-      draft.rows[pendingIndex].conformanceStatus = "IN_PROGRESS_GOLDEN_NATIVE";
-      draft.rows[pendingIndex].queueState = "ACTIVE";
-      draft.rows[pendingIndex].queueOrdinal = 0;
-      draft.rows[pendingIndex].productionGate = "blocked_in_progress";
-      draft.statusSummary.LEGACY_COMPLETED_PENDING_GOLDEN_VALIDATION -= 1;
+      const row = draft.rows[secondActiveIndex];
+      const previousStatus = row.conformanceStatus;
+      row.conformanceStatus = "IN_PROGRESS_GOLDEN_NATIVE";
+      row.queueState = "ACTIVE";
+      row.queueOrdinal = 0;
+      row.productionGate = "blocked_in_progress";
+      row.goldenProductionEligible = false;
+      draft.statusSummary[previousStatus] -= 1;
       draft.statusSummary.IN_PROGRESS_GOLDEN_NATIVE += 1;
     }],
   ];
