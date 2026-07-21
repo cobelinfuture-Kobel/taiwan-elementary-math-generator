@@ -35,7 +35,9 @@ export function runPOSTGAPPW01A03Validation() {
     && readback.counts.negativeFixtureCount > 0
     && readback.counts.unexpectedPassCount === 0
     && readback.counts.unexpectedRejectCount === 0
-    && readback.counts.goldenUnitCoverageCount === 15
+    && readback.counts.goldenAssessmentUnitCoverageCount === 15
+    && readback.counts.applicationRuntimeUnitCoverageCount === readback.eligibleSourceCoverage.length
+    && readback.counts.applicationExcludedUnitCount === readback.excludedSourceCoverage.length
     && readback.counts.macroContextCoverageCount === 16
     && readback.counts.productionAdmittedCount === 0
     && interpretationResult?.errorCode === 'INTERPRETATION_WITNESS_MISSING'
