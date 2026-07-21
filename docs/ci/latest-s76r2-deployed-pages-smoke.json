@@ -2,7 +2,7 @@
   "schemaVersion": "s76r2-deployed-pages-smoke-v1",
   "task": "S76R2_G4A_U08_DeployedPagesAndFreshMainD0Closeout",
   "status": "FAIL",
-  "deploymentSha": "20f78880306a8ac74397a9a9a65914fc33ab1e66",
+  "deploymentSha": "e48a0a6b6b2033844524a9d4471f058533624657",
   "message": "S76R2_DEPLOYED_PREVIEW_META_MISMATCH",
   "details": {
     "label": "加法交換、結合與湊整",
@@ -14,12 +14,12 @@
   "pageErrors": [],
   "workflow": "S76R2 G4A-U08 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "29803644336",
-    "number": "129",
+    "id": "29804714412",
+    "number": "130",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29803644336"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29804714412"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-21T05:19:44.684Z"
+  "verifiedAt": "2026-07-21T05:42:18.555Z"
 }
