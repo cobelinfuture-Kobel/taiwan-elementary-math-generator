@@ -98,8 +98,30 @@ jobs:
         run: exit 1
 
       - name: Generate production-equivalent review HTML and data
+        id: review_generation
+        continue-on-error: true
         if: steps.evidence_state.outputs.committed_e4 != 'true'
-        run: node tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs
+        run: |
+          set -o pipefail
+          node tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs 2>&1 | tee docs/curriculum/output/postg-app/POSTG_APP_W01_A05_GENERATION.log
+
+      - name: Upload generation diagnostics
+        if: always() && steps.evidence_state.outputs.committed_e4 != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: postg-app-w01-a05-generation-diagnostics
+          path: |
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A05_GENERATION.log
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.html
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_MANIFEST.json
+            tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Block after review generation failure
+        if: steps.review_generation.outcome == 'failure'
+        run: exit 1
 
       - name: Install Chromium PDF runtime
         if: steps.evidence_state.outputs.committed_e4 != 'true'
