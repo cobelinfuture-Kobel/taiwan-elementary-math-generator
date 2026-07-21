@@ -74,30 +74,13 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
+          import textwrap
 
           path = Path('src/curriculum/application/w01-e4-production-review-runtime.mjs')
           source = path.read_text(encoding='utf-8')
-          old_pbl = '''function buildPblReviewSections(a02, selectedSources) {
-            return a02.pblTaskSetCandidates
-              .filter((candidate) => selectedSources.has(candidate.sourceId))
-              .map((candidate) => ({
-                pblTaskSetId: candidate.pblTaskSetId,
-                sourceId: candidate.sourceId,
-                knowledgePointId: candidate.knowledgePointId,
-                graphType: candidate.graphCandidate.graphType,
-                nodes: clone(candidate.graphCandidate.nodes),
-                edges: clone(candidate.graphCandidate.edges),
-                finalProductCandidate: clone(candidate.graphCandidate.finalProductCandidate),
-                taskBlueprints: clone(candidate.taskBlueprints),
-                projectionCandidate: candidate.graphCandidate.graphType === 'PBL3_LINEAR'
-                  ? 'APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE'
-                  : 'APPROVED_COMPLETE_TWO_PAGE_CANDIDATE',
-                unapprovedPageSplitForbidden: true,
-                productionAdmissionAllowed: false
-              }));
-          }
-          '''
-          new_pbl = '''function buildPblReviewSections(a02, selectedSources) {
+          new_pbl = textwrap.dedent('''\
+          function buildPblReviewSections(a02, selectedSources) {
             return a02.pblTaskSetCandidates
               .filter((candidate) => selectedSources.has(candidate.sourceId))
               .map((candidate) => ({
@@ -123,24 +106,31 @@ jobs:
                 productionAdmissionAllowed: false
               }));
           }
-          '''
-          old_eligibility = '''  const eligibleSources = uniqueSorted(a02.a01.assessment.records
-            .filter((record) => record.suitableForApplication === true)
-            .map((record) => record.sourceId));'''
-          new_eligibility = '''  const eligibleSources = uniqueSorted(a02.a01.assessment.records
-            .filter((record) => record.classification !== 'APPLICATION_NOT_APPLICABLE')
-            .map((record) => record.sourceId));'''
+          ''')
+          pbl_boundary = re.compile(
+              r'function buildPblReviewSections\(a02, selectedSources\) \{.*?\n\}\n\n(?=export function materializeW01E4ProductionReview)',
+              re.S,
+          )
           changed = False
-          if new_pbl not in source:
-              if old_pbl not in source:
-                  raise SystemExit('A05 PBL candidate shape anchor not found.')
-              source = source.replace(old_pbl, new_pbl)
+          if 'pblTaskSetId: candidate.pblCandidateId' not in source:
+              matches = pbl_boundary.findall(source)
+              if len(matches) != 1:
+                  raise SystemExit(f'A05 PBL function boundary count invalid: {len(matches)}')
+              source = pbl_boundary.sub(new_pbl + '\n', source, count=1)
               changed = True
+
+          old_eligibility = """  const eligibleSources = uniqueSorted(a02.a01.assessment.records
+            .filter((record) => record.suitableForApplication === true)
+            .map((record) => record.sourceId));"""
+          new_eligibility = """  const eligibleSources = uniqueSorted(a02.a01.assessment.records
+            .filter((record) => record.classification !== 'APPLICATION_NOT_APPLICABLE')
+            .map((record) => record.sourceId));"""
           if new_eligibility not in source:
-              if old_eligibility not in source:
-                  raise SystemExit('A05 eligible-source authority anchor not found.')
-              source = source.replace(old_eligibility, new_eligibility)
+              if source.count(old_eligibility) != 1:
+                  raise SystemExit(f'A05 eligible-source authority anchor count invalid: {source.count(old_eligibility)}')
+              source = source.replace(old_eligibility, new_eligibility, 1)
               changed = True
+
           if changed:
               path.write_text(source, encoding='utf-8')
           PY
