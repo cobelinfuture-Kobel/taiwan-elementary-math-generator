@@ -115,6 +115,84 @@ if (next.includes(sourceIdMathSnapshotLine)) {
   changed = true;
 }
 
+const oldReviewTrace = `    exactWorksheetId: exact.exactWorksheetDocument.worksheetId
+      ?? exact.exactWorksheetDocument.worksheetDocumentId
+      ?? null,
+    transformed,`;
+const newReviewTrace = `    exactWorksheetId: exact.exactWorksheetDocument.worksheetId
+      ?? exact.exactWorksheetDocument.worksheetDocumentId
+      ?? null,
+    originalPrompt: normalizeVisiblePrompt(
+      original.blankedDisplayText ?? original.promptText ?? original.displayText ?? ''
+    ),
+    reviewPrompt: prompt,
+    transformed,`;
+
+if (!next.includes(newReviewTrace)) {
+  const first = next.indexOf(oldReviewTrace);
+  const second = first < 0 ? -1 : next.indexOf(oldReviewTrace, first + oldReviewTrace.length);
+  if (first < 0 || second >= 0) {
+    throw new Error(JSON.stringify({
+      code: 'POSTG_APP_W01_A05_REVIEW_TRACE_ANCHOR_INVALID',
+      first,
+      second
+    }));
+  }
+  next = next.replace(oldReviewTrace, newReviewTrace);
+  changed = true;
+}
+
+const readbackExportMarker = 'export function buildW01E4ProductionReviewReadback';
+const readbackExport = `
+
+export function buildW01E4ProductionReviewReadback(options = {}) {
+  const materialized = materializeW01E4ProductionReview(options);
+  const validation = validateW01E4ProductionReview(materialized);
+  const reviewPairs = materialized.transformedRows.map((row) => ({
+    bindingCandidateId: row.candidate.bindingCandidateId,
+    sourceId: row.transformed.sourceId,
+    knowledgePointId: row.transformed.knowledgePointId,
+    macroContextId: row.transformed.applicationReview.contextSelection.macroContextId,
+    exactPatternSpecId: row.exactPatternSpecId,
+    exactPatternGroupId: row.exactPatternGroupId,
+    originalPrompt: row.originalPrompt,
+    reviewPrompt: row.reviewPrompt,
+    answerText: row.transformed.answerText,
+    answerUnit: row.transformed.answerUnit,
+    mathPreserved: row.mathPreserved,
+    promptChanged: row.promptChanged
+  }));
+  return {
+    ok: validation.ok,
+    issues: clone(validation.issues),
+    taskId: materialized.taskId,
+    status: validation.status,
+    actualEvidenceLevel: validation.actualEvidenceLevel,
+    humanReviewReady: validation.humanReviewReady,
+    productionAdmissionGranted: false,
+    counts: {
+      ...clone(validation.counts),
+      unresolvedUnitReviewCount: validation.counts.unresolvedUnitFlowCount,
+      questionPageCount: materialized.worksheetDocument?.questionPages?.length ?? 0,
+      answerKeyPageCount: materialized.worksheetDocument?.answerKeyPages?.length ?? 0
+    },
+    selectedSources: clone(validation.selectedSources),
+    selectedMacros: clone(validation.selectedMacros),
+    worksheetDocument: clone(materialized.worksheetDocument),
+    reviewPairs,
+    unitFlowReviewRows: clone(materialized.unitFlowReviewRows),
+    pblReviewSections: clone(materialized.pblReviewSections),
+    exactGenerationFailures: clone(materialized.exactGenerationFailures),
+    reviewBoundary: clone(materialized.reviewBoundary)
+  };
+}
+`;
+
+if (!next.includes(readbackExportMarker)) {
+  next = `${next.trimEnd()}${readbackExport}`;
+  changed = true;
+}
+
 if (changed) fs.writeFileSync(runtimePath, next, 'utf8');
 
 console.log(JSON.stringify({
@@ -123,5 +201,7 @@ console.log(JSON.stringify({
   pblAuthorityAligned: next.includes(pblReadyMarker),
   eligibilityAuthorityAligned: next.includes(newEligibility),
   transformedSourceIdentityAligned: next.includes(newTransformedIdentity),
-  mathSnapshotLineageSeparated: !next.includes(sourceIdMathSnapshotLine)
+  mathSnapshotLineageSeparated: !next.includes(sourceIdMathSnapshotLine),
+  reviewTraceAligned: next.includes(newReviewTrace),
+  artifactReadbackAligned: next.includes(readbackExportMarker)
 }, null, 2));
