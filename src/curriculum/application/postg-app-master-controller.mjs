@@ -203,9 +203,23 @@ export function validatePOSTGAPPMasterController(controller) {
     issues.push(issue('POSTG_APP_ADMISSION_GATE_ORDER_INVALID', 'admissionGateOrder'));
   }
 
-  const expectedStates = ['BASELINE_READY', 'QUEUED', 'BLOCKED_BY_PREVIOUS_WAVE', 'BLOCKED_BY_PREVIOUS_WAVE', 'BLOCKED_BY_PREVIOUS_WAVE', 'BLOCKED_BY_PREVIOUS_WAVE'];
-  if (JSON.stringify(controllerState.waveStates.map((row) => row.state)) !== JSON.stringify(expectedStates)) {
-    issues.push(issue('POSTG_APP_CONTROLLER_WAVE_STATE_INVALID', 'controllerState.waveStates'));
+  const controllerWaveStates = controllerState.waveStates.map((row) => row.state);
+  const allowedW01States = new Set([
+    'BASELINE_READY',
+    'ASSESSMENT_IN_PROGRESS',
+    'SHADOW_READY',
+    'PRODUCTION_REVIEW_REQUIRED',
+    'PRODUCTION_ADMITTED',
+    'CLOSED'
+  ]);
+  if (!allowedW01States.has(controllerWaveStates[0])
+      || controllerWaveStates[1] !== 'QUEUED'
+      || controllerWaveStates.slice(2).some((state) => state !== 'BLOCKED_BY_PREVIOUS_WAVE')) {
+    issues.push(issue('POSTG_APP_CONTROLLER_WAVE_STATE_INVALID', 'controllerState.waveStates', { controllerWaveStates }));
+  }
+  const w01CompletedGates = controllerState.waveStates[0].completedGates ?? [];
+  if (!w01CompletedGates.every((gate) => requiredGateOrder.includes(gate))) {
+    issues.push(issue('POSTG_APP_CONTROLLER_COMPLETED_GATE_UNKNOWN', 'controllerState.waveStates.W01.completedGates'));
   }
   if (controllerState.productionAdmission.applicationUnitCount !== 0
       || controllerState.productionAdmission.waveCount !== 0
@@ -252,7 +266,7 @@ export function validatePOSTGAPPMasterController(controller) {
     currentWaveId: controllerState.currentWaveId,
     nextShortestStep: controllerState.nextShortestStep,
     status: issues.length === 0
-      ? 'READY_FOR_WAVE01_ASSESSMENT'
+      ? (controllerWaveStates[0] === 'BASELINE_READY' ? 'READY_FOR_WAVE01_ASSESSMENT' : 'WAVE01_IN_PROGRESS')
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
   };
 }
@@ -263,6 +277,7 @@ export function resolvePOSTGAPPWave(controller, waveId) {
   const sourceMap = new Map(controller.sourceNodes.map((row) => [row.sourceNodeId, row]));
   return {
     ...wave,
+    currentState: controller.controllerState.waveStates.find((row) => row.waveId === waveId) ?? null,
     sourceNodes: wave.sourceNodeIds.map((id) => sourceMap.get(id)).filter(Boolean),
     gateOrder: controller.wavePlan.admissionGateOrder,
     productionSelectable: false
@@ -279,7 +294,8 @@ export function buildPOSTGAPPMasterReadback({ root = process.cwd() } = {}) {
     producerStateConsumerReadback: controller.controllerState.producerStateConsumerReadback,
     waveSummary: controller.wavePlan.waves.map((wave) => ({
       waveId: wave.waveId,
-      state: wave.controllerState,
+      plannedState: wave.controllerState,
+      currentState: controller.controllerState.waveStates.find((row) => row.waveId === wave.waveId)?.state ?? null,
       sourceNodeCount: wave.sourceNodeIds.length,
       goldenUnitCount: wave.goldenUnitIds?.length ?? 0,
       productionAdmissionGranted: wave.productionAdmissionGranted
