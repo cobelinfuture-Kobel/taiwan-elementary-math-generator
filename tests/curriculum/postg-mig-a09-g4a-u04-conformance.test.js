@@ -2,6 +2,17 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
+import {
+  adaptGlobalPublicSourceUnitPlan,
+  validateGlobalPublicSourceUnitAdapters,
+} from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter.js";
+import {
+  G4A_U04_POSTG_TASK_ID,
+  resolvePostGoldenSourceUnitAdapterDescriptor,
+  validatePostGoldenSourceUnitAdapterRegistry,
+} from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js";
+import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
+import { validateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js";
 import { G4A_U04_PATTERN_SPEC_IDS } from "../../site/modules/curriculum/batch-a/source-pattern-g4a-u04-extension.js";
 import {
   getVisiblePatternGroupsForKnowledgePoint,
@@ -20,9 +31,33 @@ const KP = new Set([
   "kp_g4a_u04_division_check_with_remainder",
 ]);
 const PS = new Set(G4A_U04_PATTERN_SPEC_IDS);
+const PG = new Set([...KP].map((id) => id.replace(/^kp_/, "pg_")));
 const readJson = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
 
-test("A09 E2 authority contains seven unique KP operation models and bindings", async () => {
+function plan(overrides = {}) {
+  return {
+    sourceId: SOURCE_ID,
+    selectionMode: "sourceUnit",
+    questionCount: 35,
+    ordering: "shuffleAcrossPatterns",
+    includeAnswerKey: true,
+    generationSeed: "postg-mig-a09-runtime",
+    goldenContractId: "G5AU08_GOLDEN_V1",
+    goldenContractVersion: "1.0.0",
+    goldenRuntimeMode: "shadow",
+    postGoldenMigrationTaskId: G4A_U04_POSTG_TASK_ID,
+    ...overrides,
+  };
+}
+
+function adapted() {
+  const result = adaptGlobalPublicSourceUnitPlan(plan());
+  assert.equal(result.blocked, false, JSON.stringify(result.errors));
+  assert.equal(result.applied, true);
+  return result.plan;
+}
+
+test("A09 authority contains seven unique KP operation models and bindings", async () => {
   const registry = await readJson("../../data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json");
   assert.equal(registry.sourceId, SOURCE_ID);
   assert.equal(registry.conformanceState, "IN_PROGRESS_GOLDEN_NATIVE");
@@ -38,34 +73,74 @@ test("A09 E2 authority contains seven unique KP operation models and bindings", 
   assert.equal(registry.coverage.application, "ABSENT");
 });
 
-test("A09 selector authority exposes seven one-to-one KP PatternGroup PatternSpec lineages", () => {
+test("A09 descriptor resolves seven KP PatternGroups and PatternSpecs", () => {
+  const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
+  assert.ok(descriptor);
+  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 7, patternGroups: 7, patternSpecs: 7 });
+  assert.deepEqual(new Set(descriptor.knowledgePointIds), KP);
+  assert.deepEqual(new Set(descriptor.patternGroupIds), PG);
+  assert.deepEqual(new Set(descriptor.patternSpecIds), PS);
+  assert.equal(validatePostGoldenSourceUnitAdapterRegistry().ok, true);
+  assert.equal(validateGlobalPublicSourceUnitAdapters().ok, true);
+});
+
+test("A09 descriptor reuses the existing division generator G4A validator extension and S60J renderer", () => {
+  const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
+  assert.deepEqual(descriptor.goldenContractDescriptor.perUnitRuntimeLimits, {
+    generator: 0, validator: 0, renderer: 0, workflow: 0,
+  });
+  assert.deepEqual(descriptor.goldenContractDescriptor.runtimeModules, {
+    generator: "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+    validator: "site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js",
+    renderer: "site/modules/renderer/html-renderer-s60j-extension.js",
+  });
+});
+
+test("A09 shared route generates and validates all seven PatternSpecs", () => {
+  const generated = generateBatchABrowserQuestions(adapted());
+  assert.equal(generated.ok, true, JSON.stringify(generated.errors));
+  assert.equal(generated.questions.length, 35);
+  assert.deepEqual(new Set(generated.questions.map((question) => question.patternSpecId)), PS);
+  const validation = validateBatchABrowserQuestions(generated.questions, { plan: generated.plan });
+  assert.equal(validation.ok, true, JSON.stringify(validation.errors));
+  assert.equal(validation.errors.length, 0);
+});
+
+test("A09 generated division witnesses preserve quotient remainder and verification invariants", () => {
+  const generated = generateBatchABrowserQuestions(adapted());
+  for (const question of generated.questions) {
+    assert.equal(question.divisor * question.quotient + question.remainder, question.dividend);
+    assert.ok(question.remainder >= 0 && question.remainder < question.divisor);
+    if (question.patternSpecId === "ps_g4a_u04_division_check_with_remainder") {
+      assert.ok(question.remainder > 0);
+      assert.equal(question.checkValue, question.dividend);
+      assert.equal(question.answerText, `${question.divisor} × ${question.quotient} + ${question.remainder} = ${question.dividend}`);
+    } else {
+      assert.equal(question.answerText, `商 ${question.quotient}，餘 ${question.remainder}`);
+    }
+  }
+});
+
+test("A09 adapter remains fail-closed without exact task authorization", () => {
+  for (const taskId of [undefined, "POSTG-MIG-A10_WRONG_TASK"]) {
+    const result = adaptGlobalPublicSourceUnitPlan(plan({ postGoldenMigrationTaskId: taskId }));
+    assert.equal(result.applied, false);
+    assert.equal(result.blocked, true);
+    assert.ok(result.errors.includes("GS05_GOLDEN_UNIT_NOT_REGISTERED"));
+  }
+});
+
+test("A09 selector retains seven one-to-one canonical lineages", () => {
   const visible = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
   assert.equal(visible.length, 7);
   assert.deepEqual(new Set(visible.map((row) => row.knowledgePointId)), KP);
   const groups = visible.flatMap((row) => getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId));
   assert.equal(groups.length, 7);
-  const refs = groups.flatMap((group) => group.patternSpecIds ?? []);
-  assert.equal(refs.length, 7);
-  assert.deepEqual(new Set(refs), PS);
+  assert.deepEqual(new Set(groups.map((group) => group.patternGroupId)), PG);
+  assert.deepEqual(new Set(groups.flatMap((group) => group.patternSpecIds ?? [])), PS);
 });
 
-test("A09 preserves quotient-start divisor-structure and verification semantics", async () => {
-  const registry = await readJson("../../data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json");
-  const bindings = Object.fromEntries(registry.existingQuestionBindings.map((row) => [row.questionId, row]));
-  assert.notEqual(bindings.ps_g4a_u04_4digit_by_1digit_thousands_sufficient.operationModelId, bindings.ps_g4a_u04_4digit_by_1digit_thousands_insufficient.operationModelId);
-  assert.notEqual(bindings.ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor.operationModelId, bindings.ps_g4a_u04_3digit_by_2digit_tens_sufficient.operationModelId);
-  assert.notEqual(bindings.ps_g4a_u04_3digit_by_2digit_tens_insufficient.operationModelId, bindings.ps_g4a_u04_division_check_with_remainder.operationModelId);
-});
-
-test("A09 does not force life stories or optional long-division visuals into Program A", async () => {
-  const registry = await readJson("../../data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json");
-  assert.equal(registry.knowledgePoints.every((row) => row.applicationCapability === "NOT_APPLICABLE"), true);
-  assert.equal(registry.knowledgePoints.reduce((sum, row) => sum + row.existingApplicationQuestionCount, 0), 0);
-  assert.equal(registry.existingQuestionBindings.every((row) => row.questionType === "numeric"), true);
-  assert.ok(registry.review.notes.some((note) => note.includes("optional long-division visual scaffold")));
-});
-
-test("A09 E2 updates the Master Index without promoting production or advancing queue", async () => {
+test("A09 E3 keeps the queue active and production closed pending exact-head artifacts", async () => {
   const [program, controller, conformance, master, contract, claim] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
@@ -89,9 +164,10 @@ test("A09 E2 updates the Master Index without promoting production or advancing 
   assert.equal(row.existingQuestionBindingCount, 7);
   assert.equal(master.statusSummary.unitJsonExistsCount, 12);
   assert.equal(master.statusSummary.knowledgeRegistryCompleteCount, 12);
-  assert.equal(contract.candidate.evidenceLevel, "E2_CONTENT_AUTHORED");
+  assert.equal(contract.candidate.evidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
   assert.equal(contract.candidate.productionEligibility, false);
-  assert.equal(claim.actualEvidenceLevel, "E2_CONTENT_AUTHORED");
-  assert.equal(claim.claims.runtimeIntegrated, false);
+  assert.equal(contract.candidate.runtimeIntegration, "PASS_CONNECTED_TO_EXISTING_G4A_U04_SHARED_RUNTIME");
+  assert.equal(claim.actualEvidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
+  assert.equal(claim.claims.runtimeIntegrated, true);
   assert.equal(claim.claims.productionAdmitted, false);
 });
