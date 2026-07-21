@@ -67,6 +67,28 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
           NODE
 
+      - name: Apply bounded text answer-key compatibility patch
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/curriculum/application/w01-e4-production-review-runtime.mjs')
+          source = path.read_text(encoding='utf-8')
+          source = source.replace('  createAnswerKeyItem,\n', '')
+          source = source.replace(
+              'function textAnswerKeyItem(question, displayModel) {\n'
+              '  const base = createAnswerKeyItem(question, displayModel);\n'
+              '  return {\n'
+              '    ...base,\n',
+              'function textAnswerKeyItem(question, displayModel) {\n'
+              '  return {\n'
+          )
+          if 'createAnswerKeyItem' in source:
+              raise SystemExit('A05 bounded compatibility patch did not remove the NumberValue-only answer-key path.')
+          path.write_text(source, encoding='utf-8')
+          PY
+
       - name: Run A05 focused runtime tests
         id: focused_tests
         continue-on-error: true
@@ -162,6 +184,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            src/curriculum/application/w01-e4-production-review-runtime.mjs \
             data/project/milestones/POSTG-APP-W01-A05.claim.json \
             data/curriculum/application/contracts/POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation.json \
             docs/curriculum/output/POSTG_APP_W01_A05_E4_HUMAN_REVIEW_READY.marker \
