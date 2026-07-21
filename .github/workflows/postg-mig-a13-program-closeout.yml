@@ -14,6 +14,7 @@ on:
       - "site/modules/curriculum/golden/post-golden-migration-controller.js"
       - "tools/curriculum/export-postg-knowledge-master.py"
       - "tests/curriculum/postg-mig-a00-program-foundation.test.js"
+      - "tests/curriculum/postg-mig-a12-g4b-u04-conformance.test.js"
       - "tests/curriculum/postg-mig-a13-program-closeout.test.js"
       - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
       - "docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_PASS.marker"
@@ -144,6 +145,7 @@ jobs:
             'data/curriculum/knowledge/units/g4b_u01_4b01.knowledge-operation.json',
             'site/modules/curriculum/golden/post-golden-migration-controller.js',
             'tests/curriculum/postg-mig-a00-program-foundation.test.js',
+            'tests/curriculum/postg-mig-a12-g4b-u04-conformance.test.js',
             'tests/curriculum/postg-mig-a13-program-closeout.test.js',
             'docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_PASS.marker',
             'docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_READBACK.md',
