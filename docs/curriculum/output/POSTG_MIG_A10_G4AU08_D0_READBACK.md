@@ -25,7 +25,7 @@ No new question, scenario family, semantic definition, public layout, student-pa
 
 ## Exact-head production evidence
 
-Candidate head `d8d3a1dda5dab57842984ac6d5659dd09ff3dcb5`, workflow run `29797976653`, artifact `8482700774`:
+Production-evidence head `d8d3a1dda5dab57842984ac6d5659dd09ff3dcb5`, workflow run `29797976653`, artifact `8482700774`; the final closeout head must replay the same conformance gate before merge:
 
 ```text
 Questions = 112
