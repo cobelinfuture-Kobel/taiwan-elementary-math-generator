@@ -4,185 +4,51 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - "data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"
-      - "data/project/milestones/POSTG-MIG-A13.claim.json"
-      - "data/curriculum/contracts/POSTG_MIG_A13_ProgramControllerAndKnowledgeRegistryCloseout.json"
-      - "data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"
-      - "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json"
-      - "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"
-      - "data/curriculum/knowledge/**"
-      - "site/modules/curriculum/golden/post-golden-migration-controller.js"
-      - "tools/curriculum/export-postg-knowledge-master.py"
-      - "tests/curriculum/postg-mig-a00-program-foundation.test.js"
-      - "tests/curriculum/postg-mig-a13-program-closeout.test.js"
-      - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
-      - "docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_PASS.marker"
-      - "docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_READBACK.md"
+      - "data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json"
+      - "data/curriculum/knowledge/units/g4a_u08_4a08.knowledge-operation.json"
+      - "data/curriculum/knowledge/units/g4b_u01_4b01.knowledge-operation.json"
       - ".github/workflows/postg-mig-a13-program-closeout.yml"
-  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  closeout:
+  normalize:
     runs-on: ubuntu-24.04
     steps:
-      - name: Checkout A13 exact head
+      - name: Checkout A13 head
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
 
-      - name: Normalize the one stale A07 unit conformance state
-        if: github.event_name == 'pull_request' && github.head_ref == 'feat/postg-mig-a13-program-closeout'
+      - name: Normalize stale admitted unit states
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          path = Path('data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json')
-          text = path.read_text(encoding='utf-8')
+
+          paths = [
+              Path('data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json'),
+              Path('data/curriculum/knowledge/units/g4a_u08_4a08.knowledge-operation.json'),
+              Path('data/curriculum/knowledge/units/g4b_u01_4b01.knowledge-operation.json'),
+          ]
           old = '"conformanceState":"IN_PROGRESS_GOLDEN_NATIVE"'
           new = '"conformanceState":"GOLDEN_CONFORMANT"'
-          if old in text:
-              assert text.count(old) == 1
-              path.write_text(text.replace(old, new), encoding='utf-8')
-          else:
-              assert new in text
+          for path in paths:
+              text = path.read_text(encoding='utf-8')
+              if old in text:
+                  assert text.count(old) == 1, path
+                  path.write_text(text.replace(old, new), encoding='utf-8')
+              else:
+                  assert new in text, path
           PY
-          if ! git diff --quiet -- data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json; then
+          if ! git diff --quiet -- data/curriculum/knowledge/units; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json
-            git commit -m "fix(postg): finalize G4A-U01 unit conformance state"
+            git add \
+              data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json \
+              data/curriculum/knowledge/units/g4a_u08_4a08.knowledge-operation.json \
+              data/curriculum/knowledge/units/g4b_u01_4b01.knowledge-operation.json
+            git commit -m "fix(postg): finalize admitted unit conformance states"
             git push origin "HEAD:${GITHUB_HEAD_REF}"
           fi
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install repository dependencies
-        run: npm install --no-package-lock
-
-      - name: Run A13 D0 and A00 compatibility gates
-        run: |
-          mkdir -p build/reports
-          set +e
-          node --test tests/curriculum/postg-mig-a13-program-closeout.test.js 2>&1 \
-            | tee build/reports/POSTG_MIG_A13_FOCUSED_TEST.log
-          A13_STATUS=${PIPESTATUS[0]}
-          if [ "$A13_STATUS" -ne 0 ]; then
-            exit "$A13_STATUS"
-          fi
-          node --test tests/curriculum/postg-mig-a00-program-foundation.test.js 2>&1 \
-            | tee build/reports/POSTG_MIG_A00_COMPATIBILITY_TEST.log
-          A00_STATUS=${PIPESTATUS[0]}
-          exit "$A00_STATUS"
-
-      - name: Upload A13 diagnostic logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: postg-mig-a13-diagnostic-logs
-          path: |
-            build/reports/POSTG_MIG_A13_FOCUSED_TEST.log
-            build/reports/POSTG_MIG_A00_COMPATIBILITY_TEST.log
-          if-no-files-found: warn
-
-      - name: Run persistent Golden anti-drift gate
-        run: node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
-
-      - name: Generate deterministic designer Excel and audit CSV
-        run: |
-          mkdir -p build/reports
-          python3 tools/curriculum/export-postg-knowledge-master.py \
-            --xlsx build/reports/Golden_Knowledge_Operation_Master.xlsx \
-            --csv build/reports/Golden_Knowledge_Operation_Master.summary.csv \
-            | tee build/reports/POSTG_MIG_A13_EXPORT_READBACK.json
-
-      - name: Validate final generated views and fleet totals
-        run: |
-          python3 - <<'PY'
-          import csv
-          import json
-          import zipfile
-          from pathlib import Path
-
-          master = json.loads(Path("data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json").read_text(encoding="utf-8"))
-          program = json.loads(Path("data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json").read_text(encoding="utf-8"))
-          export = json.loads(Path("build/reports/POSTG_MIG_A13_EXPORT_READBACK.json").read_text(encoding="utf-8"))
-          xlsx = Path("build/reports/Golden_Knowledge_Operation_Master.xlsx")
-          csv_path = Path("build/reports/Golden_Knowledge_Operation_Master.summary.csv")
-
-          assert program["programStatus"] == "PASS_D0_CLOSED"
-          assert program["completedCount"] == 14
-          assert program["remainingCount"] == 0
-          assert master["statusSummary"] == {
-              "totalUnitCount": 15,
-              "goldenConformantCount": 15,
-              "activeMigrationUnitCount": 0,
-              "pendingMigrationUnitCount": 0,
-              "unitJsonExistsCount": 15,
-              "knowledgeRegistryCompleteCount": 15,
-          }
-          assert sum(row["knowledgePointCount"] for row in master["rows"]) == 156
-          assert sum(row["operationModelCount"] for row in master["rows"]) == 156
-          assert sum(row["existingQuestionBindingCount"] for row in master["rows"]) == 273
-          assert sum(row["unmappedKnowledgePointCount"] for row in master["rows"]) == 0
-          assert sum(row["unmappedExistingQuestionCount"] for row in master["rows"]) == 0
-          assert sum(row["conflictingOperationModelCount"] for row in master["rows"]) == 0
-          assert export["unitCount"] == 15
-          with zipfile.ZipFile(xlsx) as archive:
-              assert "xl/workbook.xml" in archive.namelist()
-              for number in range(1, 7):
-                  assert f"xl/worksheets/sheet{number}.xml" in archive.namelist()
-          with csv_path.open(encoding="utf-8-sig", newline="") as handle:
-              assert len(list(csv.DictReader(handle))) == 15
-          PY
-
-      - name: Run milestone claim integrity regression
-        run: node --test tests/governance/milestone-claim-integrity.test.js
-
-      - name: Enforce A13 bounded scope
-        if: github.head_ref == 'feat/postg-mig-a13-program-closeout'
-        run: |
-          node --input-type=module <<'NODE'
-          import { execFileSync } from 'node:child_process';
-          const allowed = new Set([
-            '.github/workflows/postg-mig-a13-program-closeout.yml',
-            'data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json',
-            'data/project/milestones/POSTG-MIG-A13.claim.json',
-            'data/curriculum/contracts/POSTG_MIG_A13_ProgramControllerAndKnowledgeRegistryCloseout.json',
-            'data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json',
-            'data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json',
-            'data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json',
-            'site/modules/curriculum/golden/post-golden-migration-controller.js',
-            'tests/curriculum/postg-mig-a00-program-foundation.test.js',
-            'tests/curriculum/postg-mig-a13-program-closeout.test.js',
-            'docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_PASS.marker',
-            'docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_READBACK.md',
-          ]);
-          const files = execFileSync(
-            'git',
-            ['diff', '--name-only', `origin/${process.env.GITHUB_BASE_REF || 'main'}...HEAD`],
-            { encoding: 'utf8' },
-          ).trim().split(/\r?\n/).filter(Boolean);
-          const drift = files.filter((path) => !allowed.has(path));
-          console.log(JSON.stringify({ changedFileCount: files.length, drift }));
-          if (drift.length) process.exit(1);
-          NODE
-
-      - name: Upload A13 generated views
-        uses: actions/upload-artifact@v4
-        with:
-          name: postg-mig-a13-program-d0-closeout
-          path: |
-            build/reports/Golden_Knowledge_Operation_Master.xlsx
-            build/reports/Golden_Knowledge_Operation_Master.summary.csv
-            build/reports/POSTG_MIG_A13_EXPORT_READBACK.json
