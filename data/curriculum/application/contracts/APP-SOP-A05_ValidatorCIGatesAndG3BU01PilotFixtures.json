@@ -1,0 +1,116 @@
+{
+  "schemaName": "APPSOPA05ValidatorCIGatesAndG3BU01PilotFixturesContract",
+  "schemaVersion": 1,
+  "contractId": "APPLICATION_PROBLEM_SOP_V1",
+  "taskId": "APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures",
+  "status": "A05_SHADOW_RUNTIME_READY_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "prerequisite": {
+    "taskId": "APP-SOP-A04_GlobalContextBindingAndAdmissionRegistries",
+    "mergeSha": "1d07b8e51d2bed8628feb35b9e92e23921150005",
+    "requiredEvidenceLevel": "E1_DATA_STRUCTURE_READY"
+  },
+  "authority": {
+    "unitKnowledgeOperation": "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
+    "globalContextRegistry": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+    "applicationContextBindings": "data/curriculum/application/registry/application-context-bindings.json",
+    "applicationAdmissionRegistry": "data/curriculum/application/registry/application-admission-registry.json",
+    "pilotBundle": "data/curriculum/application/pilots/g3b_u01/g3b-u01-application-sop-pilot.json",
+    "shadowValidator": "src/curriculum/application/application-sop-validator.mjs",
+    "validationCli": "tools/curriculum/validate-application-sop-pilot.mjs"
+  },
+  "pilotScope": {
+    "sourceId": "g3b_u01_3b01",
+    "singleDirectItemCount": 1,
+    "singleNPlusOneItemCount": 1,
+    "nPlusOneProofCount": 1,
+    "pblTaskSetCount": 1,
+    "contextBindingCount": 3,
+    "admissionRecordCount": 4,
+    "productionAdmissionCount": 0
+  },
+  "validatorCapabilities": [
+    "KnowledgePoint and operation-model lineage validation",
+    "global-context family and surface-template existence validation",
+    "context affordance, role binding, and unit-flow validation",
+    "single direct arithmetic and answer-meaning validation",
+    "N+1 prerequisite, adjacency, paired-control, interpretation-fork, misconception, counterfactual, cross-context, keyword, and validator-delta validation",
+    "PBL graph, milestone, final-task, final-product, authenticity, misconception, and projection validation",
+    "admission-record fail-closed validation",
+    "aggregate zero-production-admission gate"
+  ],
+  "pilotResultTarget": {
+    "status": "PASS_A05_SHADOW_PILOT",
+    "proofs": 1,
+    "contextBindings": 3,
+    "singleItems": 2,
+    "pblTaskSets": 1,
+    "admissionRecords": 4,
+    "productionAdmissions": 0
+  },
+  "negativeGateCoverage": [
+    "wrong arithmetic answer",
+    "missing N+1 interpretation witness",
+    "unadmitted surface template",
+    "non-adjacent N+1 proof",
+    "missing calculation-pass interpretation-fail misconception",
+    "counterfactual failure",
+    "missing validator delta",
+    "missing context affordance",
+    "answer-unit flow mismatch",
+    "missing N+1 proof reference",
+    "production binding attempted in A05",
+    "independent PBL task",
+    "unresolved PBL milestone reference",
+    "orphan PBL milestone",
+    "multiple PBL final tasks",
+    "unapproved PBL page split",
+    "non-production admission record incorrectly enabled"
+  ],
+  "result": {
+    "shadowValidatorImplemented": true,
+    "deterministicCliImplemented": true,
+    "g3bU01PilotAuthored": true,
+    "candidateBindingsPopulated": true,
+    "candidateAdmissionRecordsPopulated": true,
+    "productionRuntimeIntegrated": false,
+    "productionGeneratorModified": false,
+    "productionRendererModified": false,
+    "publicUIChanged": false,
+    "productionAdmissionChanged": false,
+    "postGoldenMigrationControllerChanged": false
+  },
+  "deliverables": {
+    "shadowValidator": "src/curriculum/application/application-sop-validator.mjs",
+    "validationCli": "tools/curriculum/validate-application-sop-pilot.mjs",
+    "pilotBundle": "data/curriculum/application/pilots/g3b_u01/g3b-u01-application-sop-pilot.json",
+    "bindingRegistry": "data/curriculum/application/registry/application-context-bindings.json",
+    "admissionRegistry": "data/curriculum/application/registry/application-admission-registry.json",
+    "tests": "tests/curriculum/application-problem-sop-a05.test.js",
+    "claim": "data/project/milestones/APP-SOP-A05.claim.json"
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "shadowValidatorImplementationAllowed": true,
+    "pilotFixtureAuthoringAllowed": true,
+    "candidateRegistryPopulationAllowed": true,
+    "productionRuntimeIntegrationAllowed": false,
+    "productionGeneratorModificationAllowed": false,
+    "productionRendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "productionAdmissionAllowed": false,
+    "newGlobalContextFamilyAuthoringAllowed": false,
+    "postGoldenMigrationControllerModificationAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_APPLICATION_CONTEXT_BINDING_AND_ADMISSION_REGISTRIES_BOOTSTRAPPED",
+    "goalDistanceAfterTarget": "D2_APPLICATION_SOP_SHADOW_VALIDATOR_AND_G3BU01_PILOT_VERIFIED",
+    "distanceReduced": "The SOP moves from machine-readable contracts to executable fail-closed shadow validation using real G3B-U01 KnowledgePoints, existing global contexts, direct and N+1 single items, and a dependent PBL task set, while keeping production runtime and admission unchanged.",
+    "remainingBlockers": [
+      "A06 shared production runtime consumption",
+      "A06 worksheet and answer-key projection QA",
+      "A06 production-equivalent HTML/PDF evidence and human review",
+      "No application binding is production admitted"
+    ],
+    "nextShortestStep": "APP-SOP-A06_SharedRuntimeWorksheetQAAndCloseout"
+  }
+}
