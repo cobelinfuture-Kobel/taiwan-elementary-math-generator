@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  buildW01E4ProductionReviewReadback,
   materializeW01E4ProductionReview,
   validateW01E4ProductionReview
 } from '../../src/curriculum/application/w01-e4-production-review-runtime.mjs';
@@ -85,6 +86,32 @@ test('production worksheet document has exact question-answer pairing', () => {
   assert.equal(document.reviewRuntime.exactProductionGeneratorUsed, true);
   assert.equal(document.reviewRuntime.productionRendererRequired, true);
   assert.equal(document.reviewRuntime.productionSelectable, false);
+});
+
+test('artifact readback exposes renderer input and complete review dossier', () => {
+  const readback = buildW01E4ProductionReviewReadback({
+    generationSeed: 'postg-app-w01-a05-focused-test'
+  });
+  assert.equal(readback.ok, true, JSON.stringify(readback.issues));
+  assert.equal(readback.humanReviewReady, true);
+  assert.equal(readback.productionAdmissionGranted, false);
+  assert.equal(readback.counts.reviewCohortSourceCount, 12);
+  assert.equal(readback.counts.reviewCohortMacroContextCount, 16);
+  assert.equal(readback.reviewPairs.length, readback.counts.reviewCohortQuestionCount);
+  assert.equal(readback.worksheetDocument.generatedQuestions.length, readback.reviewPairs.length);
+  assert.equal(readback.counts.questionPageCount, readback.worksheetDocument.questionPages.length);
+  assert.equal(readback.counts.answerKeyPageCount, readback.worksheetDocument.answerKeyPages.length);
+  for (const pair of readback.reviewPairs) {
+    assert.equal(typeof pair.originalPrompt, 'string');
+    assert.equal(pair.originalPrompt.length > 0, true);
+    assert.equal(typeof pair.reviewPrompt, 'string');
+    assert.equal(pair.reviewPrompt.length > 0, true);
+  }
+  for (const section of readback.pblReviewSections) {
+    assert.equal(String(section.pblCandidateId).startsWith('postg-app-w01-pbl-'), true);
+    assert.equal(typeof section.drivingProblemCandidate?.problemStatementZh, 'string');
+    assert.equal(section.drivingProblemCandidate.problemStatementZh.length > 0, true);
+  }
 });
 
 test('PBL review sections preserve graph and complete projection policy', () => {
