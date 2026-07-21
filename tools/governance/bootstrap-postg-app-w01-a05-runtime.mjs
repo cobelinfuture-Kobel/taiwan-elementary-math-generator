@@ -7,15 +7,17 @@ let changed = false;
 
 const pblStartMarker = 'function buildPblReviewSections(a02, selectedSources) {';
 const pblEndMarker = '\n\nexport function materializeW01E4ProductionReview';
-const pblReadyMarker = 'pblTaskSetId: candidate.pblCandidateId';
+const pblReadyMarker = 'drivingProblemCandidate: clone(candidate.drivingProblemCandidate)';
 const pblReplacement = `function buildPblReviewSections(a02, selectedSources) {
   return a02.pblTaskSetCandidates
     .filter((candidate) => selectedSources.has(candidate.sourceId))
     .map((candidate) => ({
+      pblCandidateId: candidate.pblCandidateId,
       pblTaskSetId: candidate.pblCandidateId,
       sourceId: candidate.sourceId,
       knowledgePointId: candidate.primaryKnowledgePointId,
       graphType: candidate.graphType,
+      drivingProblemCandidate: clone(candidate.drivingProblemCandidate),
       nodes: clone(candidate.taskBlueprints.map((task) => ({
         taskId: task.taskId,
         outputMilestoneId: task.outputMilestoneId,
