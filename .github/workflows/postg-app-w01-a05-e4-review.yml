@@ -69,23 +69,6 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
           NODE
 
-      - name: Normalize optional per-item N+1 proof trace
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('src/curriculum/application/w01-e4-production-review-runtime.mjs')
-          source = path.read_text(encoding='utf-8')
-          old = '        proofTrace: clone(candidate.proofCandidate.proofTrace),'
-          new = '        proofTrace: candidate.proofCandidate?.proofTrace == null ? null : clone(candidate.proofCandidate.proofTrace),'
-          if new not in source:
-              if old not in source:
-                  raise SystemExit('A05 optional proof-trace anchor not found.')
-              source = source.replace(old, new)
-          path.write_text(source, encoding='utf-8')
-          PY
-
       - name: Run A05 focused runtime tests
         id: focused_tests
         continue-on-error: true
@@ -183,7 +166,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
-            src/curriculum/application/w01-e4-production-review-runtime.mjs \
             data/project/milestones/POSTG-APP-W01-A05.claim.json \
             data/curriculum/application/contracts/POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation.json \
             docs/curriculum/output/POSTG_APP_W01_A05_E4_HUMAN_REVIEW_READY.marker \
