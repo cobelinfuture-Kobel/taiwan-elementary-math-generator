@@ -136,7 +136,7 @@ test("A12 adapter fails closed for missing or mismatched task authorization", ()
   }
 });
 
-test("A12 candidate or closeout state remains the only active migration transition", async () => {
+test("A12 E5 closeout remains valid after the program advances through A13 D0", async () => {
   const [program, conformance, master, contract, claim] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"),
@@ -146,9 +146,11 @@ test("A12 candidate or closeout state remains the only active migration transiti
   ]);
   const row = conformance.rows.find((entry) => entry.sourceId === SOURCE_ID);
   const masterRow = master.rows.find((entry) => entry.sourceId === SOURCE_ID);
+  const taskIndex = program.taskOrder.indexOf(TASK_ID);
+  const completedIndex = program.taskOrder.indexOf(program.lastCompletedTask);
   const candidate = program.activeTask === TASK_ID && row.queueState === "ACTIVE";
-  const closeout = program.lastCompletedTask === TASK_ID && row.queueState === "COMPLETE";
-  assert.equal(candidate || closeout, true);
+  const closed = completedIndex >= taskIndex && row.queueState === "COMPLETE";
+  assert.equal(candidate || closed, true);
   assert.equal(masterRow.assignedKnowledgeRegistryTaskId, TASK_ID);
   assert.equal(contract.taskId, TASK_ID);
   assert.equal(claim.taskId, TASK_ID);
@@ -168,5 +170,6 @@ test("A12 candidate or closeout state remains the only active migration transiti
     assert.equal(masterRow.existingQuestionBindingCount, 19);
     assert.equal(contract.candidate.evidenceLevel, "E5_PRODUCTION_ADMITTED");
     assert.equal(claim.actualEvidenceLevel, "E5_PRODUCTION_ADMITTED");
+    assert.equal(program.taskOrder[taskIndex + 1], "POSTG-MIG-A13_ProgramControllerAndKnowledgeRegistryCloseout");
   }
 });
