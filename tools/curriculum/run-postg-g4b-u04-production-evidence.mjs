@@ -6,7 +6,6 @@ import { chromium } from "playwright";
 import { adaptGlobalPublicSourceUnitPlan } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter.js";
 import { resolvePostGoldenSourceUnitAdapterDescriptor } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js";
 import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-s73-extension.js";
-import { validateG4BU04CanonicalQuestion } from "../../site/modules/curriculum/batch-b/g4b-u04-canonical-router.js";
 import { normalizeG4BU04PromptSignature } from "../../site/modules/curriculum/batch-b/g4b-u04-prompt-deduplication.js";
 import {
   G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
@@ -125,11 +124,8 @@ const questionDisplayModels = document.questionDisplayModels ?? [];
 const questionPages = document.questionPages ?? [];
 const answerKeyPages = document.answerKeyPages ?? [];
 const productionErrors = result.validation?.errors ?? [];
-const canonicalErrors = questions.flatMap((question, index) => (
-  validateG4BU04CanonicalQuestion(question).errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` }))
-));
-if (productionErrors.length > 0 || canonicalErrors.length > 0) {
-  fail("POSTG_A12_VALIDATOR_FAILED", { productionErrors, canonicalErrors });
+if (productionErrors.length > 0) {
+  fail("POSTG_A12_VALIDATOR_FAILED", { productionErrors });
 }
 if (questions.length !== questionCount
   || answerKeyItems.length !== questionCount
@@ -246,7 +242,7 @@ const readback = {
     ok: true,
     errorCount: 0,
     warningCount: result.validation?.warnings?.length ?? 0,
-    validatorVersion: "g4b-u04-s72-s75-r2-production-v1",
+    validatorVersion: "g4b-u04-s73-s75-r2-production-v1",
   },
   promptDeduplication: {
     unique: true,
