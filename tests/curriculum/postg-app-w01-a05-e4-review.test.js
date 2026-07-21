@@ -14,27 +14,20 @@ const validation = validateW01E4ProductionReview(materialized);
 function focusedFailureDiagnostics() {
   return JSON.stringify({
     issues: validation.issues,
-    assessedSources: materialized.assessedSources,
     eligibleSources: materialized.eligibleSources,
-    blockedSources: materialized.blockedSources,
     exactGenerationFailures: materialized.exactGenerationFailures
   }, null, 2);
 }
 
-test('W01-A05 builds an exact-generator E4 review cohort', () => {
+test('W01-A05 builds a complete exact-generator E4 review cohort', () => {
   assert.equal(validation.ok, true, focusedFailureDiagnostics());
   assert.equal(validation.status, 'W01_E4_PRODUCTION_EQUIVALENT_REVIEW_RUNTIME_READY');
   assert.equal(validation.humanReviewReady, true);
   assert.equal(validation.productionAdmissionGranted, false);
-  assert.equal(validation.counts.assessedSourceCount, 12);
-  assert.equal(validation.counts.eligibleSourceCount, validation.counts.reviewCohortSourceCount);
-  assert.equal(validation.counts.exactRouteBlockedSourceCount, 4);
-  assert.deepEqual(validation.blockedSources, [
-    'g3b_u08_3b08',
-    'g4b_u04_4b04',
-    'g5a_u02_5a02',
-    'g5a_u08_5a08'
-  ]);
+  assert.equal(validation.counts.eligibleSourceCount, 12);
+  assert.equal(validation.counts.reviewCohortSourceCount, 12);
+  assert.equal(validation.counts.exactGeneratorFailureCount, 0);
+  assert.deepEqual(validation.selectedSources, materialized.eligibleSources);
   assert.equal(validation.counts.requiredMacroContextCount, 16);
   assert.equal(validation.counts.reviewCohortMacroContextCount, 16);
   assert.equal(validation.counts.reviewCohortQuestionCount >= validation.counts.reviewCohortSourceCount, true);
@@ -56,14 +49,14 @@ test('context overlay changes only visible wording and preserves exact mathemati
   for (const row of materialized.transformedRows) {
     assert.equal(row.mathPreserved, true, row.transformed.id);
     assert.equal(row.promptChanged, true, row.transformed.id);
-    assert.equal(row.reviewPrompt.includes('{{'), false);
-    assert.equal(/算式|答：|_{5,}/.test(row.reviewPrompt), false);
+    assert.equal(row.transformed.blankedDisplayText.includes('{{'), false);
+    assert.equal(/算式|答案|答\s*[:：]|_{5,}/.test(row.transformed.blankedDisplayText), false);
     assert.equal(row.transformed.productionUse, 'forbidden_pending_human_review');
     assert.equal(row.transformed.applicationReview.productionAdmissionAllowed, false);
   }
 });
 
-test('review cohort covers every exact-route-eligible source and all 16 macro contexts', () => {
+test('review cohort covers every application-eligible source and all 16 macro contexts', () => {
   assert.deepEqual(validation.selectedSources, materialized.eligibleSources);
   assert.deepEqual(validation.selectedMacros, materialized.requiredMacros);
   assert.equal(validation.selectedMacros.length, 16);
