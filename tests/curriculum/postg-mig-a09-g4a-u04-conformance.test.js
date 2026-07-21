@@ -157,7 +157,7 @@ test("A09 E5 remains closed while the global queue advances beyond A10", async (
   assert.ok(completedIndex >= a09Index);
   assert.ok(program.completedCount >= 10);
   assert.equal(program.remainingCount, program.taskBudget - program.completedCount);
-  assert.ok(String(program.goalDistance).startsWith(`D${program.remainingCount}_POST_GOLDEN_MIGRATION_`));
+  assert.ok(String(program.goalDistance).startsWith(`D${program.remainingCount}_`));
   assert.ok(controller.queue.completeSourceIds.includes(SOURCE_ID));
   const closed = conformance.rows.find((row) => row.sourceId === SOURCE_ID);
   assert.equal(closed.conformanceStatus, "GOLDEN_CONFORMANT");

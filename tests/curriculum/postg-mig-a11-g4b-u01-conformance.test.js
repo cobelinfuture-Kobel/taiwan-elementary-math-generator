@@ -22,8 +22,6 @@ import {
 
 const SOURCE_ID = "g4b_u01_4b01";
 const TASK_ID = "POSTG-MIG-A11_G4B_U01_GoldenConformanceAndKnowledgeOperationMigration";
-const NEXT_SOURCE_ID = "g4b_u04_4b04";
-const NEXT_TASK_ID = "POSTG-MIG-A12_G4B_U04_GoldenConformanceAndKnowledgeOperationMigration";
 const KP = new Set(G4B_U01_PROMOTED_KNOWLEDGE_POINT_IDS);
 const PG = new Set(G4B_U01_PROMOTED_PATTERN_GROUP_IDS);
 const PS = new Set(G4B_U01_PROMOTED_PATTERN_SPEC_IDS);
@@ -118,7 +116,7 @@ test("A11 adapter remains fail-closed without exact task authorization", () => {
   }
 });
 
-test("A11 candidate or closeout state remains exactly one authorized queue transition", async () => {
+test("A11 candidate or permanently closed state remains authorized as the queue advances", async () => {
   const [program, conformance, master, contract, claim] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"),
@@ -128,9 +126,13 @@ test("A11 candidate or closeout state remains exactly one authorized queue trans
   ]);
   const row = conformance.rows.find((entry) => entry.sourceId === SOURCE_ID);
   const masterRow = master.rows.find((entry) => entry.sourceId === SOURCE_ID);
+  const taskIndex = program.taskOrder.indexOf(TASK_ID);
+  const lastCompletedIndex = program.taskOrder.indexOf(program.lastCompletedTask);
   const candidate = program.activeTask === TASK_ID && row.queueState === "ACTIVE";
-  const closeout = program.lastCompletedTask === TASK_ID && row.queueState === "COMPLETE";
-  assert.equal(candidate || closeout, true);
+  const permanentlyClosed = row.queueState === "COMPLETE"
+    && row.conformanceStatus === "GOLDEN_CONFORMANT"
+    && lastCompletedIndex >= taskIndex;
+  assert.equal(candidate || permanentlyClosed, true);
   assert.equal(masterRow.assignedKnowledgeRegistryTaskId, TASK_ID);
   assert.equal(masterRow.unitJsonExists, true);
   assert.equal(masterRow.knowledgePointCount, 9);
@@ -144,20 +146,12 @@ test("A11 candidate or closeout state remains exactly one authorized queue trans
     assert.equal(contract.candidate.evidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
     assert.equal(claim.actualEvidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
   } else {
-    const nextRow = conformance.rows.find((entry) => entry.sourceId === NEXT_SOURCE_ID);
-    const nextMasterRow = master.rows.find((entry) => entry.sourceId === NEXT_SOURCE_ID);
     assert.equal(row.conformanceStatus, "GOLDEN_CONFORMANT");
     assert.equal(row.goldenProductionEligible, true);
     assert.equal(masterRow.conformanceStatus, "GOLDEN_CONFORMANT");
+    assert.equal(masterRow.queueState, "COMPLETE");
     assert.equal(masterRow.programRole, "COMPLETED_MIGRATION_UNIT");
     assert.equal(contract.candidate.evidenceLevel, "E5_PRODUCTION_ADMITTED");
     assert.equal(claim.actualEvidenceLevel, "E5_PRODUCTION_ADMITTED");
-    assert.equal(program.activeTask, NEXT_TASK_ID);
-    assert.equal(program.nextAllowedTask, NEXT_TASK_ID);
-    assert.equal(nextRow.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
-    assert.equal(nextRow.queueState, "ACTIVE");
-    assert.equal(nextRow.queueOrdinal, 0);
-    assert.equal(nextMasterRow.programRole, "ACTIVE_MIGRATION_UNIT");
-    assert.equal(nextMasterRow.queueState, "ACTIVE");
   }
 });

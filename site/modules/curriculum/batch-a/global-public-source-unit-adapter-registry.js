@@ -10,6 +10,7 @@ import {
 import {
   G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
   G4B_U04_PROMOTED_PATTERN_GROUP_IDS,
+  G4B_U04_PROMOTED_PATTERN_SPEC_IDS,
   G4B_U04_SOURCE_ID,
 } from "../registry/g4b-u04-promotion.js";
 import {
@@ -45,6 +46,8 @@ export const G4A_U08_POSTG_SOURCE_ID = "g4a_u08_4a08";
 export const G4A_U08_POSTG_TASK_ID = "POSTG-MIG-A10_G4A_U08_GoldenConformanceAndKnowledgeOperationMigration";
 export const G4B_U01_POSTG_SOURCE_ID = "g4b_u01_4b01";
 export const G4B_U01_POSTG_TASK_ID = "POSTG-MIG-A11_G4B_U01_GoldenConformanceAndKnowledgeOperationMigration";
+export const G4B_U04_POSTG_SOURCE_ID = "g4b_u04_4b04";
+export const G4B_U04_POSTG_TASK_ID = "POSTG-MIG-A12_G4B_U04_GoldenConformanceAndKnowledgeOperationMigration";
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -240,6 +243,25 @@ export const G4BU01_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescripto
   ],
   renderer: "site/modules/renderer/html-renderer-s59h-extension.js",
 });
+export const G4BU04_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({
+  sourceId: G4B_U04_POSTG_SOURCE_ID,
+  knowledgeRegistryPath: "data/curriculum/knowledge/units/g4b_u04_4b04.knowledge-operation.json",
+  counts: { knowledgePoints: 13, patternGroups: 13, patternSpecs: 19 },
+  authorityFileCount: 16,
+  generator: [
+    "site/modules/curriculum/batch-b/g4b-u04-class-c-generator.js",
+    "site/modules/curriculum/batch-b/g4b-u04-class-d-semantic-generator.js",
+    "site/modules/curriculum/batch-b/g4b-u04-class-c-d-integration-gate.js",
+    "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+  ],
+  validator: [
+    "site/modules/curriculum/batch-b/g4b-u04-class-c-validator.js",
+    "site/modules/curriculum/batch-b/g4b-u04-class-d-semantic-validator.js",
+    "site/modules/curriculum/batch-b/g4b-u04-class-c-d-integration-gate.js",
+    "site/modules/curriculum/batch-b/g4b-u04-worksheet-eligibility.js",
+  ],
+  renderer: "site/modules/renderer/html-renderer-s73-extension.js",
+});
 
 const BASE_ADAPTER_DESCRIPTORS = freeze([
   {
@@ -285,6 +307,7 @@ function postGoldenAdapterDescriptor({
   knowledgePointIds = null,
   patternGroupIds = null,
   patternSpecIds = null,
+  planOverrides = { questionMode: "mixed" },
 }) {
   return {
     sourceId,
@@ -292,7 +315,7 @@ function postGoldenAdapterDescriptor({
     adapterId,
     conformanceMode: "post_golden_candidate_shadow",
     requiresExplicitGoldenActivation: true,
-    planOverrides: { questionMode: "mixed" },
+    planOverrides,
     expectedCounts: {
       knowledgePoints: descriptor.expectedCounts.knowledgePointCount,
       patternGroups: descriptor.expectedCounts.patternGroupCount,
@@ -328,6 +351,16 @@ const POST_GOLDEN_ADAPTER_DESCRIPTORS = freeze([
     knowledgePointIds: G4B_U01_PROMOTED_KNOWLEDGE_POINT_IDS,
     patternGroupIds: G4B_U01_PROMOTED_PATTERN_GROUP_IDS,
     patternSpecIds: G4B_U01_PROMOTED_PATTERN_SPEC_IDS,
+  }),
+  postGoldenAdapterDescriptor({
+    sourceId: G4B_U04_POSTG_SOURCE_ID,
+    taskId: G4B_U04_POSTG_TASK_ID,
+    adapterId: "g4b_u04_postg_golden_shared_runtime",
+    descriptor: G4BU04_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
+    knowledgePointIds: G4B_U04_PROMOTED_KNOWLEDGE_POINT_IDS,
+    patternGroupIds: G4B_U04_PROMOTED_PATTERN_GROUP_IDS,
+    patternSpecIds: G4B_U04_PROMOTED_PATTERN_SPEC_IDS,
+    planOverrides: { questionMode: "mixed", layoutMode: "custom_with_caps", contextMode: "mixed" },
   }),
 ]);
 
