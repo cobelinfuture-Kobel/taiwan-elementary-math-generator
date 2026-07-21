@@ -33,11 +33,14 @@ const forbiddenVisibleLabelCount = ['算式', '答：', '_____']
 const extractedSourceCount = data.selectedSources.filter((sourceId) => extracted.includes(sourceId)).length;
 const extractedMacroCount = data.selectedMacros.filter((macroId) => extracted.includes(macroId)).length;
 const extractedHumanReviewHeadingCount = extracted.includes('Wave 01 Application Human Review Dossier') ? 1 : 0;
+const exactGeneratorFailureCount = data.counts.exactGeneratorFailureCount ?? data.exactGenerationFailures?.length ?? 0;
 
 const failures = [];
 if (pdf.length < 10000) failures.push('PDF_TOO_SMALL');
 if (actualPdfPageCount < manifest.expectedMinimumPdfPageCount) failures.push('PDF_PAGE_COUNT_BELOW_WORKSHEET_MINIMUM');
 if (forbiddenVisibleLabelCount !== 0) failures.push('FORBIDDEN_VISIBLE_LABEL_FOUND');
+if (data.counts.reviewCohortSourceCount !== 12 || data.selectedSources.length !== 12) failures.push('ELIGIBLE_SOURCE_COUNT_MISMATCH');
+if (exactGeneratorFailureCount !== 0) failures.push('EXACT_GENERATOR_FAILURE_REMAINS');
 if (extractedSourceCount !== data.selectedSources.length) failures.push('PDF_SOURCE_COVERAGE_MISMATCH');
 if (extractedMacroCount !== data.selectedMacros.length) failures.push('PDF_MACRO_CONTEXT_COVERAGE_MISMATCH');
 if (extractedHumanReviewHeadingCount !== 1) failures.push('HUMAN_REVIEW_DOSSIER_MISSING');
@@ -50,6 +53,7 @@ const finalized = {
   ...manifest,
   status: 'PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY',
   evidenceLevel: 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED',
+  exactGeneratorFailureCount,
   actualPdfPageCount,
   extractedSourceCount,
   extractedMacroCount,
@@ -70,6 +74,7 @@ console.log(JSON.stringify({
   manifestPath: MANIFEST_PATH,
   status: finalized.status,
   evidenceLevel: finalized.evidenceLevel,
+  exactGeneratorFailureCount,
   actualPdfPageCount,
   pdfBytes: finalized.pdfBytes,
   extractedSourceCount,
