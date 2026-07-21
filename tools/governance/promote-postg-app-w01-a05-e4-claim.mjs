@@ -49,6 +49,10 @@ claim.evidence.beforeAfterEvidencePaths = [DATA_REL];
 claim.evidence.reviewArtifactPaths = artifactPaths;
 claim.evidence.artifactHashes = artifactHashes;
 claim.distance.distanceReduced = 'exact production generator routes and the shared production renderer now produce a hash-locked HTML/PDF review cohort covering every eligible source and all 16 Macro Context Domains; production remains closed pending operator decision';
+claim.nextStep = {
+  taskId: 'POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation',
+  requiredEvidenceLevelBeforeStart: 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+};
 writeFileSync(repoPath(CLAIM_REL), `${JSON.stringify(claim, null, 2)}\n`, 'utf8');
 
 const contract = JSON.parse(readFileSync(repoPath(CONTRACT_REL), 'utf8'));
