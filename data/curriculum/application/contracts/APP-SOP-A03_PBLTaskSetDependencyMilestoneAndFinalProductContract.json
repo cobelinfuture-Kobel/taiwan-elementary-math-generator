@@ -1,0 +1,110 @@
+{
+  "schemaName": "APPSOPA03PBLTaskSetDependencyMilestoneAndFinalProductContract",
+  "schemaVersion": 1,
+  "contractId": "PBL_TASK_SET_SOP_V1",
+  "parentContractId": "APPLICATION_PROBLEM_SOP_V1",
+  "taskId": "APP-SOP-A03_PBLTaskSetDependencyMilestoneAndFinalProductContract",
+  "status": "A03_SCHEMA_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "prerequisite": {
+    "taskId": "APP-SOP-A02_NPlusOneInterpretationProofAndMisconceptionContract",
+    "mergeSha": "d78c6fa3c88c128dac3d1e4be641ab56a2daf2aa",
+    "requiredEvidenceLevel": "E1_DATA_STRUCTURE_READY"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/contracts/PBL_Task_Set_SOP_V1.md",
+    "jsonSchema": "data/curriculum/application/schema/pbl-task-set.schema.json",
+    "parentContract": "data/curriculum/contracts/APPLICATION_PROBLEM_SOP_V1.json"
+  },
+  "graphTypes": {
+    "PBL3_LINEAR": 3,
+    "PBL4_BRANCH_MERGE": 4,
+    "PBL5_BOUNDED_DECISION": 5
+  },
+  "taskSetInvariants": {
+    "minimumTaskCount": 3,
+    "maximumTaskCount": 5,
+    "oneDrivingProblem": true,
+    "onePrimaryKnowledgePoint": true,
+    "everyNonInitialTaskConsumesPriorMilestone": true,
+    "allInputRefsResolve": true,
+    "cyclesAllowed": false,
+    "oneFinalTask": true,
+    "allRequiredPathsReachFinalTask": true,
+    "orphanMilestonesAllowed": false,
+    "finalProductRequired": true,
+    "authenticityEvidenceRequired": true,
+    "minimumMisconceptionModels": 3,
+    "counterfactualRequired": true,
+    "unapprovedPageSplitAllowed": false
+  },
+  "allowedFinalProductTypes": [
+    "ALLOCATION_PLAN",
+    "PURCHASE_DECISION",
+    "BUDGET_RECOMMENDATION",
+    "TRANSPORT_PLAN",
+    "PACKAGING_PLAN",
+    "SCHEDULE",
+    "COMPARISON_REPORT",
+    "RESOURCE_PLAN"
+  ],
+  "allowedProjections": [
+    "APPROVED_COMPLETE_SINGLE_PAGE",
+    "APPROVED_COMPLETE_TWO_PAGE"
+  ],
+  "validationOrder": [
+    "IDENTITY_AND_AUTHORITY",
+    "MATH",
+    "SEMANTIC_ROLE",
+    "DEPENDENCY",
+    "MILESTONE_COMPLETENESS",
+    "DECISION",
+    "AUTHENTICITY",
+    "PROJECTION",
+    "ADMISSION_STATUS"
+  ],
+  "result": {
+    "taskCountMachineLocked": true,
+    "graphTypesMachineLocked": true,
+    "dependencyClosureMachineRepresented": true,
+    "milestoneClosureMachineRepresented": true,
+    "finalProductMandatory": true,
+    "decisionWitnessMandatory": true,
+    "authenticityMandatory": true,
+    "counterfactualMandatory": true,
+    "projectionRestricted": true,
+    "runtimeChanged": false,
+    "questionContentAdded": false,
+    "productionAdmissionChanged": false
+  },
+  "deliverables": {
+    "normativeDocument": "docs/curriculum/contracts/PBL_Task_Set_SOP_V1.md",
+    "jsonSchema": "data/curriculum/application/schema/pbl-task-set.schema.json",
+    "contract": "data/curriculum/application/contracts/APP-SOP-A03_PBLTaskSetDependencyMilestoneAndFinalProductContract.json",
+    "claim": "data/project/milestones/APP-SOP-A03.claim.json",
+    "tests": "tests/curriculum/application-problem-sop-a03.test.js"
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "productionPBLAuthoringAllowed": false,
+    "runtimeGeneratorModificationAllowed": false,
+    "runtimeValidatorModificationAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "globalContextFamilyAuthoringAllowed": false,
+    "unitContextBindingAdmissionAllowed": false,
+    "singleItemSchemaModificationAllowed": false,
+    "productionAdmissionChangeAllowed": false,
+    "postGoldenMigrationControllerModificationAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_N_PLUS_ONE_INTERPRETATION_PROOF_CONTRACT_MACHINE_LOCKED",
+    "goalDistanceAfterTarget": "D3_PBL_TASK_SET_SCHEMA_CONTRACT_MACHINE_LOCKED",
+    "distanceReduced": "PBL is now machine-distinguishable from multi-question worksheets through a bounded dependency graph, necessary milestone reuse, one final decision or product, authenticity evidence, counterfactual propagation, and approved projection constraints.",
+    "remainingBlockers": [
+      "A04 global-context binding admission registries",
+      "A05 executable validators and G3B-U01 pilot fixtures",
+      "A06 shared runtime and worksheet QA"
+    ],
+    "nextShortestStep": "APP-SOP-A04_GlobalContextBindingAndAdmissionRegistries"
+  }
+}
