@@ -1,0 +1,106 @@
+{
+  "schemaName": "POSTGAPPW01A05UnitFlowExactGeneratorRendererAndHumanReviewRemediationContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation",
+  "contractId": "POSTG_APP_W01_E4_PRODUCTION_REVIEW_AND_HUMAN_DECISION_V1",
+  "status": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED_HUMAN_REVIEW_READY",
+  "dependencies": {
+    "w01WorksheetReviewTask": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_W01_E4_Production_Review_And_Human_Decision_V1.md",
+    "runtime": "src/curriculum/application/w01-e4-production-review-runtime.mjs",
+    "productionWorksheetPlanConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "artifactGenerator": "tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs",
+    "pdfRenderer": "tools/curriculum/render-postg-app-w01-a05-review-pdf.mjs",
+    "evidenceFinalizer": "tools/curriculum/finalize-postg-app-w01-a05-review-evidence.mjs",
+    "workflow": ".github/workflows/postg-app-w01-a05-e4-review.yml"
+  },
+  "coverage": {
+    "eligibleSourceCoverage": "exact A01 application-eligible source set",
+    "expectedEligibleSourceCount": 12,
+    "requiredMacroContextCount": 16,
+    "exactProductionRouteRequiredPerReviewItem": true,
+    "exactProductionRouteFailureAllowed": false,
+    "pblReviewCoverage": "all A02 PBL candidates whose sourceId is represented by the cohort"
+  },
+  "evidenceTarget": {
+    "level": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": false
+  },
+  "unitFlowPolicy": {
+    "exactGeneratorUnitPreferred": true,
+    "semanticInferenceAllowed": true,
+    "silentGenericFallbackAllowed": false,
+    "shadowGeneratorSubstitutionAllowed": false,
+    "unresolvedStatus": "HUMAN_REVIEW_REQUIRED",
+    "productionAdmissionAllowed": false
+  },
+  "acceptance": {
+    "eligibleSourceCoverageExact": true,
+    "exactGeneratorFailureCount": 0,
+    "macroContextCoverageCount": 16,
+    "mathPreservedForEveryReviewItem": true,
+    "visiblePromptChangedForEveryReviewItem": true,
+    "questionAnswerPairingExact": true,
+    "pblProjectionIntegrityRequired": true,
+    "forbiddenVisibleLabelsRejected": true,
+    "artifactHashesRequired": true,
+    "operatorDecisionRequired": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_GOLDEN15_WORKSHEET_SHADOW_PROJECTED_AND_PRODUCTION_GAPS_EXPLICIT",
+    "goalDistanceAfterTarget": "D1_GOLDEN15_E4_PRODUCTION_EQUIVALENT_HUMAN_REVIEW_READY",
+    "distanceReduced": "The application expansion moves from structural shadow output to a complete 12-source exact-generator and shared-renderer HTML/PDF review cohort with unit-flow and PBL review evidence. The remaining blocker becomes an explicit human decision rather than missing production evidence.",
+    "remainingBlockers": [
+      "Operator semantic, mathematical, unit-flow and PBL review decision is required",
+      "Rejected items, if any, require remediation",
+      "Production admission remains disabled until explicit approval"
+    ],
+    "nextShortestStep": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation"
+  },
+  "evidenceResult": {
+    "evidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+    "reviewCohortQuestionCount": 16,
+    "reviewCohortSourceCount": 12,
+    "reviewCohortMacroContextCount": 16,
+    "mathPreservedCount": 16,
+    "promptChangedCount": 16,
+    "pblReviewSectionCount": 9,
+    "unresolvedUnitReviewCount": 0,
+    "actualPdfPageCount": 18,
+    "humanReviewReady": true,
+    "productionAdmissionGranted": false,
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.html",
+        "sha256": "d65b7306dcde6a501728d05d5c32bcb223008353f7babece4cb6dc226fdbbb48"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.pdf",
+        "sha256": "9fc820862c13bea400ad6762cd42181227516b0c401a16d9d0868175d2205197"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.extracted.txt",
+        "sha256": "f1bae56353361dd5d01f5c51ac636d60f821a765d44b0e18679c20ea4499857c"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
+        "sha256": "42115ad518c23742939e46fdd38609e026ed0b0c89d06c660a81751de95c64b9"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_MANIFEST.json",
+        "sha256": "a4afc925781f32e1a723236072186319f07c0232d87cffaffe87070ad0e9f05e"
+      }
+    ]
+  }
+}

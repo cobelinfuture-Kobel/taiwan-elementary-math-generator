@@ -136,12 +136,15 @@ export function createQuestionDisplayModel(question, questionNumber, options = {
 }
 
 export function createAnswerKeyItem(question, questionDisplayModel) {
+  const explicitAnswerText = typeof question?.answerText === "string" && question.answerText.length > 0
+    ? question.answerText
+    : null;
   return {
     questionId: question.id,
     questionNumber: questionDisplayModel.questionNumber,
     patternId: questionDisplayModel.patternId,
     promptText: questionDisplayModel.blankedDisplayText,
-    answerText: formatAnswerText(question.finalAnswer),
+    answerText: explicitAnswerText ?? formatAnswerText(question.finalAnswer),
     metadataSnapshot: createMetadataSnapshot(question)
   };
 }
