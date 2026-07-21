@@ -1,0 +1,51 @@
+{
+  "schemaName": "POSTGAPPMasterControllerStateV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+  "status": "READY_FOR_WAVE01_ASSESSMENT_PENDING_CI_AND_MERGE",
+  "dependencies": {
+    "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+    "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
+    "globalContextResolver": "src/curriculum/context/global-context-ontology-resolver.mjs",
+    "requiredContextEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authoritativeState": {
+    "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+    "wavePlan": "data/curriculum/application/controller/postg-app-wave-plan.json",
+    "controller": "src/curriculum/application/postg-app-master-controller.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-m00-master-controller.mjs"
+  },
+  "currentWaveId": "W01",
+  "currentCapability": "79_UNIT_SCOPE_AND_FIXED_WAVE_QUEUE_RESOLVABLE",
+  "currentMainlineBlocker": "GOLDEN_15_APPLICATION_CAPABILITY_ASSESSMENT_NOT_STARTED",
+  "productionAdmission": {
+    "applicationUnitCount": 0,
+    "waveCount": 0,
+    "allowed": false
+  },
+  "waveStates": [
+    {"waveId":"W01","state":"BASELINE_READY","admissionGateComplete":false,"productionAdmissionGranted":false},
+    {"waveId":"W02","state":"QUEUED","admissionGateComplete":false,"productionAdmissionGranted":false},
+    {"waveId":"W03","state":"BLOCKED_BY_PREVIOUS_WAVE","admissionGateComplete":false,"productionAdmissionGranted":false},
+    {"waveId":"W04","state":"BLOCKED_BY_PREVIOUS_WAVE","admissionGateComplete":false,"productionAdmissionGranted":false},
+    {"waveId":"W05","state":"BLOCKED_BY_PREVIOUS_WAVE","admissionGateComplete":false,"productionAdmissionGranted":false},
+    {"waveId":"W06","state":"BLOCKED_BY_PREVIOUS_WAVE","admissionGateComplete":false,"productionAdmissionGranted":false}
+  ],
+  "producerStateConsumerReadback": {
+    "producer": [
+      "S29C_G3G6_OCRBatchAssignmentPlan",
+      "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+      "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
+    ],
+    "authoritativeState": [
+      "postg-app-79-unit-registry.json",
+      "postg-app-wave-plan.json",
+      "postg-app-master-controller-state.json"
+    ],
+    "runtimeConsumer": "postg-app-master-controller.mjs",
+    "readback": "validate-postg-app-m00-master-controller.mjs"
+  },
+  "nextShortestStep": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+  "stopReason": "NONE"
+}
