@@ -134,14 +134,14 @@ test('missing context affordance and answer role fail closed', () => {
   assert.equal(validateBinding(missingAnswerRole).includes('missing:answerRoleBinding'), true);
 });
 
-test('A04 bootstrap registries are intentionally empty and admit nothing', () => {
-  assert.deepEqual(bindingRegistry.bindings, []);
-  assert.deepEqual(admissionRegistry.admissionRecords, []);
-  assert.equal(bindingRegistry.status, 'BOOTSTRAP_EMPTY_NO_PRODUCTION_ADMISSIONS');
-  assert.equal(admissionRegistry.status, 'BOOTSTRAP_EMPTY_NO_PRODUCTION_ADMISSIONS');
+test('A04 bootstrap claim remains zero while later candidate population remains production fail-closed', () => {
   assert.equal(contract.registryBootstrap.bindingCount, 0);
   assert.equal(contract.registryBootstrap.admissionRecordCount, 0);
   assert.equal(contract.registryBootstrap.productionAdmissionCount, 0);
+  assert.equal(bindingRegistry.bindings.every((row) => row.admissionStatus !== 'PRODUCTION_ADMITTED'), true);
+  assert.equal(admissionRegistry.admissionRecords.every((row) => row.productionAdmissionAllowed === false), true);
+  assert.equal(bindingRegistry.bindings.filter((row) => row.admissionStatus === 'PRODUCTION_ADMITTED').length, 0);
+  assert.equal(admissionRegistry.admissionRecords.filter((row) => row.decision === 'PRODUCTION_ADMITTED').length, 0);
 });
 
 test('admission schema requires evidence and review before production admission', () => {

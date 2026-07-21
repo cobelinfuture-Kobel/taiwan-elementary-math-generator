@@ -3,6 +3,99 @@
   "schemaVersion": 1,
   "contractId": "APPLICATION_GLOBAL_CONTEXT_BINDING_SOP_V1",
   "itemSchema": "data/curriculum/application/schema/application-admission-record.schema.json",
-  "status": "BOOTSTRAP_EMPTY_NO_PRODUCTION_ADMISSIONS",
-  "admissionRecords": []
+  "status": "A05_SHADOW_PILOT_NO_PRODUCTION_ADMISSIONS",
+  "admissionRecords": [
+    {
+      "schemaVersion": 1,
+      "candidateId": "candidate_g3b_u01_direct_school_grouping_001",
+      "candidateType": "SINGLE_APPLICATION_BINDING",
+      "bindingId": "appctx_g3b_u01_direct_school_grouping_001",
+      "currentStage": "QA_VALIDATED",
+      "decision": "ACCEPTED_FOR_NEXT_STAGE",
+      "evidenceRefs": [
+        "data/curriculum/application/pilots/g3b_u01/g3b-u01-application-sop-pilot.json",
+        "tests/curriculum/application-problem-sop-a05.test.js"
+      ],
+      "blockingReasons": [
+        "A06 shared runtime and worksheet QA not completed"
+      ],
+      "productionAdmissionAllowed": false,
+      "review": {
+        "reviewStatus": "NOT_REQUIRED_YET",
+        "reviewType": "AUTOMATED",
+        "reviewEvidenceRefs": [
+          "tests/curriculum/application-problem-sop-a05.test.js"
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "candidateId": "candidate_g3b_u01_n1_proof_remainder_decision_001",
+      "candidateType": "N_PLUS_ONE_PROOF",
+      "bindingId": "appctx_g3b_u01_n1_transit_capacity_001",
+      "currentStage": "QA_VALIDATED",
+      "decision": "ACCEPTED_FOR_NEXT_STAGE",
+      "evidenceRefs": [
+        "data/curriculum/application/pilots/g3b_u01/g3b-u01-application-sop-pilot.json",
+        "tests/curriculum/application-problem-sop-a05.test.js"
+      ],
+      "blockingReasons": [
+        "A06 shared runtime and worksheet QA not completed"
+      ],
+      "productionAdmissionAllowed": false,
+      "review": {
+        "reviewStatus": "NOT_REQUIRED_YET",
+        "reviewType": "AUTOMATED",
+        "reviewEvidenceRefs": [
+          "tests/curriculum/application-problem-sop-a05.test.js"
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "candidateId": "candidate_g3b_u01_n1_transit_binding_001",
+      "candidateType": "SINGLE_APPLICATION_BINDING",
+      "bindingId": "appctx_g3b_u01_n1_transit_capacity_001",
+      "currentStage": "QA_VALIDATED",
+      "decision": "ACCEPTED_FOR_NEXT_STAGE",
+      "evidenceRefs": [
+        "data/curriculum/application/pilots/g3b_u01/g3b-u01-application-sop-pilot.json",
+        "tests/curriculum/application-problem-sop-a05.test.js"
+      ],
+      "blockingReasons": [
+        "A06 shared runtime and worksheet QA not completed"
+      ],
+      "productionAdmissionAllowed": false,
+      "review": {
+        "reviewStatus": "NOT_REQUIRED_YET",
+        "reviewType": "AUTOMATED",
+        "reviewEvidenceRefs": [
+          "tests/curriculum/application-problem-sop-a05.test.js"
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "candidateId": "candidate_g3b_u01_pbl_transit_binding_001",
+      "candidateType": "PBL_CONTEXT_BINDING",
+      "bindingId": "appctx_g3b_u01_pbl_transit_capacity_001",
+      "currentStage": "QA_VALIDATED",
+      "decision": "ACCEPTED_FOR_NEXT_STAGE",
+      "evidenceRefs": [
+        "data/curriculum/application/pilots/g3b_u01/g3b-u01-application-sop-pilot.json",
+        "tests/curriculum/application-problem-sop-a05.test.js"
+      ],
+      "blockingReasons": [
+        "A06 shared runtime and worksheet QA not completed"
+      ],
+      "productionAdmissionAllowed": false,
+      "review": {
+        "reviewStatus": "NOT_REQUIRED_YET",
+        "reviewType": "AUTOMATED",
+        "reviewEvidenceRefs": [
+          "tests/curriculum/application-problem-sop-a05.test.js"
+        ]
+      }
+    }
+  ]
 }

@@ -1,0 +1,649 @@
+{
+  "schemaName": "G3BU01ApplicationSOPPilotV1",
+  "schemaVersion": 1,
+  "taskId": "APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures",
+  "sourceId": "g3b_u01_3b01",
+  "status": "SHADOW_VALIDATOR_PILOT_NO_PRODUCTION_ADMISSION",
+  "contextBindingIds": [
+    "appctx_g3b_u01_direct_school_grouping_001",
+    "appctx_g3b_u01_n1_transit_capacity_001",
+    "appctx_g3b_u01_pbl_transit_capacity_001"
+  ],
+  "admissionCandidateIds": [
+    "candidate_g3b_u01_direct_school_grouping_001",
+    "candidate_g3b_u01_n1_proof_remainder_decision_001",
+    "candidate_g3b_u01_n1_transit_binding_001",
+    "candidate_g3b_u01_pbl_transit_binding_001"
+  ],
+  "nPlusOneProofs": [
+    {
+      "schemaVersion": 1,
+      "proofId": "n1proof_g3b_u01_remainder_min_resource_001",
+      "sourceId": "g3b_u01_3b01",
+      "knowledgePointId": "kp_g3b_u01_wp_remainder_interpretation",
+      "baseCapabilityId": "cap_g3b_u01_report_quotient_remainder",
+      "candidateCapabilityId": "cap_g3b_u01_minimum_resource_decision",
+      "capabilityEdge": {
+        "from": "cap_g3b_u01_report_quotient_remainder",
+        "to": "cap_g3b_u01_minimum_resource_decision",
+        "shortestSemanticDistance": 1,
+        "intermediateSemanticNodeRequired": false
+      },
+      "prerequisiteClosure": {
+        "requiredPrerequisiteCapabilityIds": [
+          "cap_g3b_u01_division_with_remainder",
+          "cap_g3b_u01_quotient_remainder_context_meaning"
+        ],
+        "availablePrerequisiteCapabilityIds": [
+          "cap_g3b_u01_division_with_remainder",
+          "cap_g3b_u01_quotient_remainder_context_meaning"
+        ],
+        "missingPrerequisiteCapabilityIds": []
+      },
+      "newInterpretiveAct": "REMAINDER_INTERPRETATION",
+      "pairedControl": {
+        "basePrompt": "50位學生，每輛車坐6人，可以坐滿幾輛車，還剩幾位學生？",
+        "candidatePrompt": "50位學生參加校外教學，每輛車最多坐6人。要準備幾輛車，才不會有人沒有座位？",
+        "baseTargetRole": "fullVehicleCountAndRemainingPeople",
+        "candidateTargetRole": "minimumResourceCount",
+        "baseExpectedAnswer": {
+          "quotient": 8,
+          "remainder": 2
+        },
+        "candidateExpectedAnswer": 9,
+        "sameNumericPrerequisites": true,
+        "sameOrEquivalentNumbers": true,
+        "sameNumberDomain": true,
+        "sameOrEquivalentSurfaceLoad": true,
+        "semanticDeltaOnly": true
+      },
+      "interpretationFork": {
+        "forkPoint": "50除以6得到商8餘2",
+        "validInterpretationPath": "所有學生都要有座位，所以餘下2人仍需要另一輛車",
+        "plausibleMisinterpretationPath": "只取商8作為車輛數",
+        "contextConditionThatResolvesFork": "每一位學生都必須有座位"
+      },
+      "interpretationWitness": {
+        "witnessType": "DECISION_REASON_SELECTION",
+        "promptZh": "為什麼8輛車不夠？",
+        "expectedEvidence": "還有2位學生沒有座位，需要再準備1輛車。",
+        "witnessTargetsNewInterpretiveAct": true,
+        "witnessCanDistinguishCorrectArithmeticFromCorrectInterpretation": true,
+        "witnessDoesNotRevealAnswer": true
+      },
+      "misconceptionModels": [
+        {
+          "misconceptionId": "mis_g3b_u01_quotient_only",
+          "misconceptionType": "QUOTIENT_ONLY",
+          "triggerCondition": "學生正確算出商與餘數，但只回報商",
+          "expectedWrongAnswerOrDecision": 8,
+          "diagnosticMeaning": "會計算但忽略餘數所代表的未安置學生",
+          "diagnosticClassification": "CALCULATION_PASS_INTERPRETATION_FAIL",
+          "severity": "BLOCKING"
+        },
+        {
+          "misconceptionId": "mis_g3b_u01_remainder_as_target",
+          "misconceptionType": "REMAINDER_AS_TARGET",
+          "triggerCondition": "學生把餘數誤認為車輛數",
+          "expectedWrongAnswerOrDecision": 2,
+          "diagnosticMeaning": "混淆餘數與問題要求的資源數",
+          "diagnosticClassification": "ANSWER_ROLE_OR_UNIT_FAIL",
+          "severity": "DIAGNOSTIC"
+        },
+        {
+          "misconceptionId": "mis_g3b_u01_computed_not_interpreted",
+          "misconceptionType": "COMPUTED_NOT_INTERPRETED",
+          "triggerCondition": "學生回答8輛車又剩2人，沒有完成全部載運的決策",
+          "expectedWrongAnswerOrDecision": "8輛車，剩2人",
+          "diagnosticMeaning": "知道商與餘數，但未把結果轉成生活決策",
+          "diagnosticClassification": "CALCULATION_PASS_INTERPRETATION_FAIL",
+          "severity": "BLOCKING"
+        }
+      ],
+      "counterfactualEvidence": {
+        "changedContextCondition": "只計算可以坐滿的車輛數，不要求載走全部學生",
+        "numericPrerequisitesPreserved": true,
+        "expectedInterpretationChanged": true,
+        "expectedAnswerOrDecisionChanged": true,
+        "expectedAnswerOrDecision": 8
+      },
+      "crossContextEvidence": {
+        "contextFamilyA": "gctx_family_transit_trip_capacity",
+        "contextFamilyB": "gctx_family_household_daily_planning",
+        "sharedRoleGraph": true,
+        "sharedNewInterpretiveAct": true,
+        "contextSpecificUnits": [
+          "輛",
+          "箱"
+        ],
+        "sameValidatorDelta": true
+      },
+      "keywordRobustnessEvidence": {
+        "originalSurfaceTemplate": "至少需要幾輛車，才能讓所有學生都有座位？",
+        "paraphrasedSurfaceTemplate": "要準備多少輛車，才不會有人沒有座位？",
+        "roleGraphEquivalent": true,
+        "expectedAnswerEquivalent": true
+      },
+      "validatorDelta": {
+        "baseValidatorChecks": [
+          "被除數等於除數乘商加餘數",
+          "餘數大於0且小於除數"
+        ],
+        "candidateAdditionalValidatorChecks": [
+          "全部人員必須被安置",
+          "非零餘數必須增加一個資源",
+          "答案角色必須是車輛數而不是人數"
+        ]
+      },
+      "answerMeaningValidation": {
+        "answerRoleValidated": true,
+        "answerUnitValidated": true,
+        "contextDecisionValidated": true,
+        "interpretationStatementValidated": true
+      },
+      "evidenceLifecycleState": "PROVEN_N_PLUS_1_CANDIDATE",
+      "verdict": "PROVEN_N_PLUS_1_CANDIDATE"
+    }
+  ],
+  "singleItems": [
+    {
+      "schemaVersion": 1,
+      "itemId": "item_g3b_u01_direct_school_grouping_001",
+      "applicationMode": "SINGLE_DIRECT",
+      "sourceId": "g3b_u01_3b01",
+      "knowledgePointId": "kp_g3b_u01_wp_quotative_division",
+      "canonicalOperationModelId": "op_g3b_u01_quotative_division",
+      "admissionStatus": "QA_VALIDATED",
+      "promptZh": "班級成果展有24份材料，每箱裝6份，可以裝成幾箱？",
+      "primaryTargetCount": 1,
+      "givenRoles": [
+        {
+          "roleId": "totalAmount",
+          "semanticMeaning": "材料總數",
+          "value": 24,
+          "unit": "份"
+        },
+        {
+          "roleId": "amountPerGroup",
+          "semanticMeaning": "每箱材料數",
+          "value": 6,
+          "unit": "份/箱"
+        }
+      ],
+      "targetRole": {
+        "roleId": "groupCount",
+        "semanticMeaning": "箱數",
+        "answerUnit": "箱"
+      },
+      "relationGraph": {
+        "nodes": [
+          {
+            "nodeId": "totalAmount",
+            "kind": "GIVEN"
+          },
+          {
+            "nodeId": "amountPerGroup",
+            "kind": "GIVEN"
+          },
+          {
+            "nodeId": "groupCount",
+            "kind": "ANSWER"
+          }
+        ],
+        "edges": [
+          {
+            "from": [
+              "totalAmount",
+              "amountPerGroup"
+            ],
+            "to": "groupCount",
+            "relation": "groupCount = totalAmount / amountPerGroup"
+          }
+        ],
+        "terminalNodeId": "groupCount"
+      },
+      "operationOrder": [
+        "總量除以每箱量"
+      ],
+      "contextConstraints": [
+        "每箱裝入相同數量"
+      ],
+      "globalContextFamilyId": "gctx_family_school_class_activity",
+      "unitContextBindingId": "appctx_g3b_u01_direct_school_grouping_001",
+      "surfaceTemplateId": "tpl_school_class_activity_01",
+      "numericDifficultyLevel": "STANDARD",
+      "applicationCapabilityLevel": "N",
+      "answerModel": {
+        "answerShape": "QUANTITY_WITH_UNIT",
+        "numericAnswer": 4,
+        "answerRole": "groupCount",
+        "answerUnits": [
+          "箱"
+        ],
+        "canonicalReconstruction": "24 / 6 = 4",
+        "interpretationStatement": "可以裝成4箱。"
+      },
+      "validationContract": {
+        "identityAndAuthority": true,
+        "numeric": true,
+        "semanticRole": true,
+        "operationRelation": true,
+        "contextBinding": true,
+        "interpretation": false,
+        "answerMeaning": true,
+        "blockingFailureReturnsNoItem": true
+      },
+      "lineage": {
+        "knowledgeOperationAuthorityPath": "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
+        "globalContextAuthorityPath": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+        "unitContextBindingAuthorityPath": "data/curriculum/application/registry/application-context-bindings.json"
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "itemId": "item_g3b_u01_n1_transit_capacity_001",
+      "applicationMode": "SINGLE_N_PLUS_1",
+      "sourceId": "g3b_u01_3b01",
+      "knowledgePointId": "kp_g3b_u01_wp_remainder_interpretation",
+      "canonicalOperationModelId": "op_g3b_u01_remainder_floor_ceil_decision",
+      "admissionStatus": "QA_VALIDATED",
+      "promptZh": "50位學生參加校外教學，每輛車最多坐6人。要準備幾輛車，才不會有人沒有座位？",
+      "primaryTargetCount": 1,
+      "givenRoles": [
+        {
+          "roleId": "total",
+          "semanticMeaning": "學生總數",
+          "value": 50,
+          "unit": "人"
+        },
+        {
+          "roleId": "capacity",
+          "semanticMeaning": "每輛車最多座位數",
+          "value": 6,
+          "unit": "人/輛"
+        }
+      ],
+      "targetRole": {
+        "roleId": "minimumResourceCount",
+        "semanticMeaning": "最少車輛數",
+        "answerUnit": "輛"
+      },
+      "relationGraph": {
+        "nodes": [
+          {
+            "nodeId": "total",
+            "kind": "GIVEN"
+          },
+          {
+            "nodeId": "capacity",
+            "kind": "GIVEN"
+          },
+          {
+            "nodeId": "quotient",
+            "kind": "DERIVED"
+          },
+          {
+            "nodeId": "remainder",
+            "kind": "DERIVED"
+          },
+          {
+            "nodeId": "minimumResourceCount",
+            "kind": "ANSWER"
+          }
+        ],
+        "edges": [
+          {
+            "from": [
+              "total",
+              "capacity"
+            ],
+            "to": "quotient",
+            "relation": "quotient = floor(total / capacity)"
+          },
+          {
+            "from": [
+              "total",
+              "capacity"
+            ],
+            "to": "remainder",
+            "relation": "remainder = total % capacity"
+          },
+          {
+            "from": [
+              "quotient",
+              "remainder"
+            ],
+            "to": "minimumResourceCount",
+            "relation": "minimumResourceCount = quotient + indicator(remainder > 0)"
+          }
+        ],
+        "terminalNodeId": "minimumResourceCount"
+      },
+      "operationOrder": [
+        "求商與餘數",
+        "餘數不為0時增加1輛車"
+      ],
+      "contextConstraints": [
+        "每位學生都必須有座位",
+        "每輛車不得超過6人"
+      ],
+      "requiredContextAffordances": [
+        "固定最大容量",
+        "全部人員必須被安置",
+        "非零餘數需要額外資源"
+      ],
+      "globalContextFamilyId": "gctx_family_transit_trip_capacity",
+      "unitContextBindingId": "appctx_g3b_u01_n1_transit_capacity_001",
+      "surfaceTemplateId": "tpl_transit_trip_capacity_03",
+      "numericDifficultyLevel": "STANDARD",
+      "applicationCapabilityLevel": "N_PLUS_1",
+      "answerModel": {
+        "answerShape": "DECISION_WITH_REASON",
+        "numericAnswer": 9,
+        "answerRole": "minimumResourceCount",
+        "answerUnits": [
+          "輛"
+        ],
+        "canonicalReconstruction": "50 = 6 * 8 + 2; 8 + 1 = 9",
+        "interpretationStatement": "剩下2位學生仍需要另一輛車。",
+        "decisionRule": "餘數大於0時增加一個資源",
+        "decisionWitness": "所有學生都必須有座位。"
+      },
+      "interpretationWitness": {
+        "witnessType": "DECISION_REASON_SELECTION",
+        "promptZh": "為什麼8輛車不夠？",
+        "expectedEvidence": "剩下2位學生仍需要另一輛車。"
+      },
+      "nPlusOneEvidence": {
+        "baseCapabilityId": "cap_g3b_u01_report_quotient_remainder",
+        "candidateCapabilityId": "cap_g3b_u01_minimum_resource_decision",
+        "sharedNumericPrerequisites": [
+          "division_with_remainder"
+        ],
+        "newInterpretiveAct": "REMAINDER_INTERPRETATION",
+        "intermediateSemanticNodeRequired": false,
+        "pairedControlItem": {
+          "baseItemId": "item_g3b_u01_report_quotient_remainder_control_001",
+          "sameNumericPrerequisites": true,
+          "sameOrEquivalentNumbers": true,
+          "semanticDeltaOnly": true,
+          "baseExpectedAnswer": {
+            "quotient": 8,
+            "remainder": 2
+          },
+          "candidateExpectedAnswer": 9
+        },
+        "misconceptionModels": [
+          {
+            "misconceptionId": "mis_g3b_u01_quotient_only",
+            "misconceptionType": "QUOTIENT_ONLY",
+            "expectedWrongAnswer": 8,
+            "diagnosticMeaning": "只取商，忽略餘下學生"
+          },
+          {
+            "misconceptionId": "mis_g3b_u01_remainder_as_target",
+            "misconceptionType": "REMAINDER_AS_TARGET",
+            "expectedWrongAnswer": 2,
+            "diagnosticMeaning": "把餘數誤當成車輛數"
+          }
+        ],
+        "counterfactualVariant": {
+          "changedCondition": "只計算坐滿的車輛數",
+          "numericPrerequisitesPreserved": true,
+          "expectedInterpretationChanged": true,
+          "expectedAnswerOrDecision": 8
+        },
+        "answerMeaningValidation": {
+          "answerRoleValidated": true,
+          "answerUnitValidated": true,
+          "contextDecisionValidated": true
+        }
+      },
+      "validationContract": {
+        "identityAndAuthority": true,
+        "numeric": true,
+        "semanticRole": true,
+        "operationRelation": true,
+        "contextBinding": true,
+        "interpretation": true,
+        "answerMeaning": true,
+        "blockingFailureReturnsNoItem": true
+      },
+      "lineage": {
+        "knowledgeOperationAuthorityPath": "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
+        "globalContextAuthorityPath": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+        "unitContextBindingAuthorityPath": "data/curriculum/application/registry/application-context-bindings.json"
+      }
+    }
+  ],
+  "pblTaskSets": [
+    {
+      "schemaVersion": 1,
+      "pblTaskSetId": "pbl_g3b_u01_transit_capacity_001",
+      "sourceId": "g3b_u01_3b01",
+      "primaryKnowledgePointId": "kp_g3b_u01_wp_remainder_interpretation",
+      "supportingKnowledgePointIds": [
+        "kp_g3b_u01_wp_division_with_remainder"
+      ],
+      "canonicalOperationModelIds": [
+        "op_g3b_u01_remainder_context_interpretation",
+        "op_g3b_u01_remainder_floor_ceil_decision"
+      ],
+      "applicationCapabilityIds": [
+        "cap_g3b_u01_report_quotient_remainder",
+        "cap_g3b_u01_minimum_resource_decision"
+      ],
+      "globalContextFamilyId": "gctx_family_transit_trip_capacity",
+      "unitContextBindingId": "appctx_g3b_u01_pbl_transit_capacity_001",
+      "drivingProblem": {
+        "stakeholder": "校外教學帶隊老師",
+        "realWorldGoal": "安排足夠且不超載的接駁車",
+        "problemStatementZh": "學校要安排50位學生搭接駁車參加校外教學，每輛車最多坐6人。請完成一份讓每位學生都有座位的車輛安排。",
+        "constraints": [
+          "每輛車最多坐6人",
+          "所有50位學生都必須有座位"
+        ],
+        "successCriteria": [
+          "車輛數足夠",
+          "任何一輛車都不超載"
+        ],
+        "consequenceOfIncorrectDecision": "可能有學生沒有座位或車輛超載",
+        "finalProductType": "TRANSPORT_PLAN"
+      },
+      "graphType": "PBL3_LINEAR",
+      "tasks": [
+        {
+          "taskId": "Q1",
+          "sequenceIndex": 1,
+          "promptZh": "先算出可以坐滿幾輛車，還剩幾位學生。",
+          "inputRefs": [],
+          "outputMilestoneId": "M1_QUOTIENT_REMAINDER",
+          "knowledgePointIds": [
+            "kp_g3b_u01_wp_division_with_remainder"
+          ],
+          "operationModelIds": [
+            "op_g3b_u01_remainder_context_interpretation"
+          ],
+          "numericWitnessContract": "50 = 6 * 8 + 2",
+          "interpretationWitnessContract": "8表示坐滿的車數，2表示尚未有座位的學生數",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "Q2",
+          "sequenceIndex": 2,
+          "promptZh": "利用前面的結果，決定至少需要幾輛車。",
+          "inputRefs": [
+            "M1_QUOTIENT_REMAINDER"
+          ],
+          "outputMilestoneId": "M2_MINIMUM_VEHICLE_COUNT",
+          "knowledgePointIds": [
+            "kp_g3b_u01_wp_remainder_interpretation"
+          ],
+          "operationModelIds": [
+            "op_g3b_u01_remainder_floor_ceil_decision"
+          ],
+          "numericWitnessContract": "8 + 1 = 9",
+          "interpretationWitnessContract": "餘下2人仍需要另一輛車",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "Q3",
+          "sequenceIndex": 3,
+          "promptZh": "根據商、餘數和最少車輛數，完成不超載的車輛安排。",
+          "inputRefs": [
+            "M1_QUOTIENT_REMAINDER",
+            "M2_MINIMUM_VEHICLE_COUNT"
+          ],
+          "outputMilestoneId": "M3_TRANSPORT_PLAN",
+          "knowledgePointIds": [
+            "kp_g3b_u01_wp_remainder_interpretation"
+          ],
+          "operationModelIds": [
+            "op_g3b_u01_remainder_floor_ceil_decision"
+          ],
+          "numericWitnessContract": "8輛各坐6人，另1輛坐2人",
+          "interpretationWitnessContract": "所有學生有座位且沒有車輛超過6人",
+          "isFinalTask": true
+        }
+      ],
+      "milestones": [
+        {
+          "milestoneId": "M1_QUOTIENT_REMAINDER",
+          "producerTaskId": "Q1",
+          "semanticRole": "fullVehicleCountAndRemainingPeople",
+          "valueType": "COMPARISON",
+          "unit": "輛與人",
+          "requiredByTaskIds": [
+            "Q2",
+            "Q3"
+          ],
+          "canonicalReconstruction": "50 = 6 * 8 + 2"
+        },
+        {
+          "milestoneId": "M2_MINIMUM_VEHICLE_COUNT",
+          "producerTaskId": "Q2",
+          "semanticRole": "minimumVehicleCount",
+          "valueType": "INTEGER",
+          "unit": "輛",
+          "requiredByTaskIds": [
+            "Q3"
+          ],
+          "canonicalReconstruction": "ceil(50 / 6) = 9"
+        },
+        {
+          "milestoneId": "M3_TRANSPORT_PLAN",
+          "producerTaskId": "Q3",
+          "semanticRole": "transportPlan",
+          "valueType": "PLAN",
+          "unit": "方案",
+          "requiredByTaskIds": [],
+          "canonicalReconstruction": "8 full vehicles and 1 partial vehicle"
+        }
+      ],
+      "finalProduct": {
+        "finalProductType": "TRANSPORT_PLAN",
+        "finalTaskId": "Q3",
+        "requiredMilestoneIds": [
+          "M1_QUOTIENT_REMAINDER",
+          "M2_MINIMUM_VEHICLE_COUNT"
+        ],
+        "decisionOrProductModel": {
+          "fullVehicleCount": 8,
+          "remainingPeople": 2,
+          "minimumVehicleCount": 9
+        },
+        "decisionWitness": {
+          "selectedDecisionOrPlan": "安排9輛車，其中8輛各坐6人，另1輛坐2人",
+          "supportingMilestoneIds": [
+            "M1_QUOTIENT_REMAINDER",
+            "M2_MINIMUM_VEHICLE_COUNT"
+          ],
+          "constraintChecks": [
+            "50位學生都有座位",
+            "每輛車不超過6人"
+          ],
+          "shortJustification": "8輛車只能坐48人，剩下2人需要第9輛車。"
+        },
+        "constraintSatisfactionChecks": [
+          "總座位安排涵蓋50人",
+          "任何一輛車都不超過6人"
+        ]
+      },
+      "authenticityEvidence": {
+        "contextNecessaryForDecision": true,
+        "removingContextDestroysTaskMeaning": true,
+        "finalProductUsableInContext": true,
+        "constraintsAreEventRealistic": true
+      },
+      "primaryInterpretiveAct": "REMAINDER_INTERPRETATION",
+      "interpretationWitnessTaskIds": [
+        "Q1",
+        "Q2",
+        "Q3"
+      ],
+      "calculationPassInterpretationFailModelExists": true,
+      "misconceptionModels": [
+        {
+          "misconceptionId": "mis_pbl_quotient_only",
+          "earliestDetectedTaskId": "Q2",
+          "diagnosticClassification": "CALCULATION_PASS_INTERPRETATION_FAIL",
+          "diagnosticMeaning": "只取商8，忽略剩下2人"
+        },
+        {
+          "misconceptionId": "mis_pbl_wrong_milestone",
+          "earliestDetectedTaskId": "Q2",
+          "diagnosticClassification": "DEPENDENCY_FAIL",
+          "diagnosticMeaning": "沒有使用Q1的商與餘數結果"
+        },
+        {
+          "misconceptionId": "mis_pbl_capacity_ignored",
+          "earliestDetectedTaskId": "Q3",
+          "diagnosticClassification": "CONSTRAINT_DECISION_FAIL",
+          "diagnosticMeaning": "最終安排超過每輛車6人的限制"
+        }
+      ],
+      "counterfactualVariant": {
+        "changedConstraint": "每輛車最多可坐10人",
+        "expectedAffectedTaskIds": [
+          "Q1",
+          "Q2",
+          "Q3"
+        ],
+        "expectedMilestoneChanges": [
+          "M1變為5輛坐滿且餘0人",
+          "M2變為5輛車"
+        ],
+        "expectedFinalProductChange": "安排5輛車，每輛坐10人"
+      },
+      "validationContract": {
+        "identityAndAuthority": true,
+        "math": true,
+        "semanticRole": true,
+        "dependency": true,
+        "milestoneCompleteness": true,
+        "decision": true,
+        "authenticity": true,
+        "projection": true,
+        "blockingFailureReturnsNoTaskSet": true
+      },
+      "approvedProjection": "APPROVED_COMPLETE_SINGLE_PAGE",
+      "admissionStatus": "PBL_VALIDATED_CANDIDATE",
+      "lineage": {
+        "knowledgeOperationAuthorityPaths": [
+          "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json"
+        ],
+        "globalContextAuthorityPath": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+        "unitContextBindingAuthorityPath": "data/curriculum/application/registry/application-context-bindings.json"
+      }
+    }
+  ],
+  "expectedValidation": {
+    "ok": true,
+    "proofCount": 1,
+    "contextBindingCount": 3,
+    "singleItemCount": 2,
+    "pblTaskSetCount": 1,
+    "admissionRecordCount": 4,
+    "productionAdmissionCount": 0
+  }
+}
