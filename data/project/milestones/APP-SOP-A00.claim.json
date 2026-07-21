@@ -4,7 +4,7 @@
   "taskClass": "contract",
   "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
   "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
-  "claimedStatus": "A00_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claimedStatus": "A00_CONTRACT_LOCKED_CI_RERUN_REQUESTED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": false,
