@@ -16,8 +16,6 @@ import { validateBatchABrowserQuestions } from "../../site/modules/curriculum/ba
 
 const SOURCE_ID = "g4a_u01_4a01";
 const TASK_ID = "POSTG-MIG-A07_G4A_U01_GoldenConformanceAndKnowledgeOperationMigration";
-const NEXT_SOURCE_ID = "g4a_u02_4a02";
-const NEXT_TASK_ID = "POSTG-MIG-A08_G4A_U02_GoldenConformanceAndKnowledgeOperationMigration";
 const PS = new Set([
   "ps_g4a_u01_compare_8digit",
   "ps_g4a_u01_within_100million_compare",
@@ -49,7 +47,7 @@ function plan(overrides = {}) {
     questionCount: 36,
     ordering: "shuffleAcrossPatterns",
     includeAnswerKey: true,
-    generationSeed: "postg-mig-a07-closeout",
+    generationSeed: "postg-mig-a07-historical",
     goldenContractId: "G5AU08_GOLDEN_V1",
     goldenContractVersion: "1.0.0",
     goldenRuntimeMode: "shadow",
@@ -124,7 +122,7 @@ test("A07 adapter remains fail-closed without exact task authorization", () => {
   }
 });
 
-test("A07 E5 closes at D6 and advances exactly one queue item to A08", async () => {
+test("A07 historical closeout remains valid after later queue advancement", async () => {
   const [program, controller, conformance, master, contract, claim, readback] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
@@ -134,28 +132,25 @@ test("A07 E5 closes at D6 and advances exactly one queue item to A08", async () 
     readJson("../../data/project/milestones/POSTG-MIG-A07.claim.json"),
     readJson("../../docs/curriculum/output/postg/a07-g4a-u01/POSTG_MIG_A07_G4AU01_RUNTIME_READBACK.json"),
   ]);
-  assert.equal(program.lastCompletedTask, TASK_ID);
-  assert.equal(program.activeTask, NEXT_TASK_ID);
-  assert.equal(program.completedCount, 8);
-  assert.equal(program.remainingCount, 6);
-  assert.equal(program.goalDistance, "D6_POST_GOLDEN_MIGRATION_G4AU01_CONFORMANT_G4AU02_ACTIVE");
-  assert.equal(controller.queue.activeSourceId, NEXT_SOURCE_ID);
+  const a07Index = program.taskOrder.indexOf(TASK_ID);
+  const lastCompletedIndex = program.taskOrder.indexOf(program.lastCompletedTask);
+  assert.ok(a07Index >= 0);
+  assert.ok(lastCompletedIndex >= a07Index);
+  assert.ok(program.completedCount >= a07Index + 1);
+  assert.equal(program.remainingCount, program.taskBudget - program.completedCount);
   assert.ok(controller.queue.completeSourceIds.includes(SOURCE_ID));
+  assert.notEqual(controller.queue.activeSourceId, SOURCE_ID);
   const closed = conformance.rows.find((row) => row.sourceId === SOURCE_ID);
   assert.equal(closed.conformanceStatus, "GOLDEN_CONFORMANT");
   assert.equal(closed.queueState, "COMPLETE");
   assert.equal(closed.goldenProductionEligible, true);
-  const active = conformance.rows.find((row) => row.sourceId === NEXT_SOURCE_ID);
-  assert.equal(active.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
-  assert.equal(active.queueState, "ACTIVE");
-  assert.equal(active.goldenProductionEligible, false);
   const masterRow = master.rows.find((row) => row.sourceId === SOURCE_ID);
   assert.equal(masterRow.conformanceStatus, "GOLDEN_CONFORMANT");
   assert.equal(masterRow.programRole, "COMPLETED_MIGRATION_UNIT");
   assert.equal(masterRow.knowledgePointCount, 18);
   assert.equal(masterRow.operationModelCount, 18);
   assert.equal(masterRow.existingQuestionBindingCount, 18);
-  assert.equal(master.statusSummary.goldenConformantCount, 10);
+  assert.ok(master.statusSummary.goldenConformantCount >= 10);
   assert.equal(contract.candidate.evidenceLevel, "E5_PRODUCTION_ADMITTED");
   assert.equal(contract.candidate.productionEligibility, true);
   assert.equal(claim.actualEvidenceLevel, "E5_PRODUCTION_ADMITTED");
