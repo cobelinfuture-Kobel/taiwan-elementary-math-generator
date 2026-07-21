@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "FIXED_QUEUE_AND_SHADOW_CONTROLLER_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/postg-app-master-controller.mjs",
+      "tools/curriculum/validate-postg-app-m00-master-controller.mjs",
+      "tests/curriculum/postg-app-m00-master-controller.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/application/contracts/POSTG_APP_Master_Controller_79_Unit_Wave_Admission_V1.md",
+      "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+      "data/curriculum/application/controller/postg-app-wave-plan.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "data/curriculum/application/contracts/POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "The full 79-source-node scope is no longer an external planning list. It is now an executable fail-closed controller with exact batch totals, a 15-golden-unit baseline covering 16 source nodes, a deterministic six-wave queue covering the remaining 63 nodes, and an enforced dependency on the M01 fused context authority."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
