@@ -92,6 +92,27 @@ if (!next.includes(newTransformedIdentity)) {
   changed = true;
 }
 
+const oldMathSnapshotTail = `    intermediateResults: clone(question.intermediateResults ?? null),
+    patternSpecId: question.patternSpecId ?? question.metadata?.patternId ?? null,
+    sourceId: question.sourceId ?? null`;
+const newMathSnapshotTail = `    intermediateResults: clone(question.intermediateResults ?? null),
+    patternSpecId: question.patternSpecId ?? question.metadata?.patternId ?? null`;
+const sourceIdMathSnapshotLine = '    sourceId: question.sourceId ?? null';
+
+if (next.includes(sourceIdMathSnapshotLine)) {
+  const first = next.indexOf(oldMathSnapshotTail);
+  const second = first < 0 ? -1 : next.indexOf(oldMathSnapshotTail, first + oldMathSnapshotTail.length);
+  if (first < 0 || second >= 0) {
+    throw new Error(JSON.stringify({
+      code: 'POSTG_APP_W01_A05_MATH_SNAPSHOT_BOUNDARY_INVALID',
+      first,
+      second
+    }));
+  }
+  next = next.replace(oldMathSnapshotTail, newMathSnapshotTail);
+  changed = true;
+}
+
 if (changed) fs.writeFileSync(runtimePath, next, 'utf8');
 
 console.log(JSON.stringify({
@@ -99,5 +120,6 @@ console.log(JSON.stringify({
   changed,
   pblAuthorityAligned: next.includes(pblReadyMarker),
   eligibilityAuthorityAligned: next.includes(newEligibility),
-  transformedSourceIdentityAligned: next.includes(newTransformedIdentity)
+  transformedSourceIdentityAligned: next.includes(newTransformedIdentity),
+  mathSnapshotLineageSeparated: !next.includes(sourceIdMathSnapshotLine)
 }, null, 2));
