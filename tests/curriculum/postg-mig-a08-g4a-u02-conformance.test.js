@@ -127,7 +127,7 @@ test("A08 selector retains nine one-to-one canonical lineages", () => {
   assert.deepEqual(new Set(groups.flatMap((group) => group.patternSpecIds ?? [])), PS);
 });
 
-test("A08 E5 closes at D5 and advances exactly one queue item to A09", async () => {
+test("A08 E5 remains closed while the global queue advances beyond A09", async () => {
   const [program, controller, conformance, master, contract, claim, readback] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
@@ -137,28 +137,27 @@ test("A08 E5 closes at D5 and advances exactly one queue item to A09", async () 
     readJson("../../data/project/milestones/POSTG-MIG-A08.claim.json"),
     readJson("../../docs/curriculum/output/postg/a08-g4a-u02/POSTG_MIG_A08_G4AU02_RUNTIME_READBACK.json"),
   ]);
-  assert.equal(program.lastCompletedTask, TASK_ID);
-  assert.equal(program.activeTask, NEXT_TASK_ID);
-  assert.equal(program.completedCount, 9);
-  assert.equal(program.remainingCount, 5);
-  assert.equal(program.goalDistance, "D5_POST_GOLDEN_MIGRATION_G4AU02_CONFORMANT_G4AU04_ACTIVE");
-  assert.equal(controller.queue.activeSourceId, NEXT_SOURCE_ID);
+  const a08Index = program.taskOrder.indexOf(TASK_ID);
+  const completedIndex = program.taskOrder.indexOf(program.lastCompletedTask);
+  assert.ok(completedIndex >= a08Index);
+  assert.ok(program.completedCount >= 9);
+  assert.equal(program.remainingCount, program.taskBudget - program.completedCount);
+  assert.ok(String(program.goalDistance).startsWith(`D${program.remainingCount}_POST_GOLDEN_MIGRATION_`));
   assert.ok(controller.queue.completeSourceIds.includes(SOURCE_ID));
   const closed = conformance.rows.find((row) => row.sourceId === SOURCE_ID);
   assert.equal(closed.conformanceStatus, "GOLDEN_CONFORMANT");
   assert.equal(closed.queueState, "COMPLETE");
   assert.equal(closed.goldenProductionEligible, true);
-  const active = conformance.rows.find((row) => row.sourceId === NEXT_SOURCE_ID);
-  assert.equal(active.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
-  assert.equal(active.queueState, "ACTIVE");
-  assert.equal(active.goldenProductionEligible, false);
+  const successor = conformance.rows.find((row) => row.sourceId === NEXT_SOURCE_ID);
+  assert.ok(["ACTIVE", "COMPLETE"].includes(successor.queueState));
+  assert.ok(["IN_PROGRESS_GOLDEN_NATIVE", "GOLDEN_CONFORMANT"].includes(successor.conformanceStatus));
   const masterRow = master.rows.find((row) => row.sourceId === SOURCE_ID);
   assert.equal(masterRow.conformanceStatus, "GOLDEN_CONFORMANT");
   assert.equal(masterRow.programRole, "COMPLETED_MIGRATION_UNIT");
   assert.equal(masterRow.knowledgePointCount, 9);
   assert.equal(masterRow.operationModelCount, 9);
   assert.equal(masterRow.existingQuestionBindingCount, 9);
-  assert.equal(master.statusSummary.goldenConformantCount, 11);
+  assert.ok(master.statusSummary.goldenConformantCount >= 11);
   assert.equal(contract.candidate.evidenceLevel, "E5_PRODUCTION_ADMITTED");
   assert.equal(contract.candidate.productionEligibility, true);
   assert.equal(claim.actualEvidenceLevel, "E5_PRODUCTION_ADMITTED");
@@ -167,4 +166,5 @@ test("A08 E5 closes at D5 and advances exactly one queue item to A09", async () 
   assert.equal(readback.canonicalWorksheetIdentityParity, true);
   assert.equal(readback.validator.errorCount, 0);
   assert.equal(readback.patternSpecCount, 9);
+  assert.equal(program.taskOrder[a08Index + 1], NEXT_TASK_ID);
 });
