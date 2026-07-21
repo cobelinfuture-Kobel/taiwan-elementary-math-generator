@@ -45,7 +45,7 @@ function clone(value) {
   return structuredClone(value);
 }
 
-test("A00 foundation preserves the exact 14-task post-Golden program during later tasks", async () => {
+test("A00 foundation preserves the exact 14-task post-Golden program through D0 closeout", async () => {
   const program = await readJson(PROGRAM_PATH);
   const audit = validatePostGoldenMigrationProgram(program);
   assert.equal(audit.ok, true, JSON.stringify(audit.errors, null, 2));
@@ -67,7 +67,16 @@ test("A00 foundation preserves the exact 14-task post-Golden program during late
     ),
     true,
   );
-  assert.equal(program.continuation.autoContinueWithinApprovedProgram, true);
+  const closed = program.programStatus === "PASS_D0_CLOSED";
+  assert.equal(program.continuation.autoContinueWithinApprovedProgram, !closed);
+  if (closed) {
+    assert.equal(program.completedCount, 14);
+    assert.equal(program.activeTask, null);
+    assert.equal(program.nextAllowedTask, null);
+    assert.equal(program.programLock, "CLOSED");
+    assert.equal(program.continuation.stopReason, "NEXT_STEP_OUTSIDE_APPROVED_PROGRAM_SCOPE");
+    assert.equal(program.continuation.nextResumeTask, null);
+  }
   assert.equal(program.continuation.nextSourceIdAfterA00, "g3a_u01_3a01");
 });
 
