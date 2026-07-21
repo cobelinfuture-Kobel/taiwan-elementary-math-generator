@@ -1,0 +1,355 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/n-plus-one-interpretation-proof.schema.json",
+  "title": "NPlusOneApplicationInterpretationProofV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "proofId",
+    "sourceId",
+    "knowledgePointId",
+    "baseCapabilityId",
+    "candidateCapabilityId",
+    "capabilityEdge",
+    "prerequisiteClosure",
+    "newInterpretiveAct",
+    "pairedControl",
+    "interpretationFork",
+    "interpretationWitness",
+    "misconceptionModels",
+    "counterfactualEvidence",
+    "crossContextEvidence",
+    "keywordRobustnessEvidence",
+    "validatorDelta",
+    "answerMeaningValidation",
+    "evidenceLifecycleState",
+    "verdict"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "proofId": { "type": "string", "pattern": "^n1proof_" },
+    "sourceId": { "type": "string", "minLength": 3 },
+    "knowledgePointId": { "type": "string", "pattern": "^kp_" },
+    "baseCapabilityId": { "type": "string", "minLength": 3 },
+    "candidateCapabilityId": { "type": "string", "minLength": 3 },
+    "capabilityEdge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "shortestSemanticDistance", "intermediateSemanticNodeRequired"],
+      "properties": {
+        "from": { "type": "string", "minLength": 3 },
+        "to": { "type": "string", "minLength": 3 },
+        "shortestSemanticDistance": { "const": 1 },
+        "intermediateSemanticNodeRequired": { "const": false }
+      }
+    },
+    "prerequisiteClosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requiredPrerequisiteCapabilityIds",
+        "availablePrerequisiteCapabilityIds",
+        "missingPrerequisiteCapabilityIds"
+      ],
+      "properties": {
+        "requiredPrerequisiteCapabilityIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3 },
+          "uniqueItems": true
+        },
+        "availablePrerequisiteCapabilityIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3 },
+          "uniqueItems": true
+        },
+        "missingPrerequisiteCapabilityIds": {
+          "type": "array",
+          "maxItems": 0,
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "newInterpretiveAct": {
+      "enum": [
+        "UNKNOWN_ROLE_SHIFT",
+        "REMAINDER_INTERPRETATION",
+        "RELATION_CHAIN",
+        "DUAL_CONSTRAINT_RESOLUTION",
+        "CONSERVATION_OR_TRANSFER",
+        "COMPARISON_DECISION",
+        "UNIT_ROLE_INTERPRETATION",
+        "IRRELEVANT_INFORMATION_FILTER"
+      ]
+    },
+    "pairedControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "basePrompt",
+        "candidatePrompt",
+        "baseTargetRole",
+        "candidateTargetRole",
+        "baseExpectedAnswer",
+        "candidateExpectedAnswer",
+        "sameNumericPrerequisites",
+        "sameOrEquivalentNumbers",
+        "sameNumberDomain",
+        "sameOrEquivalentSurfaceLoad",
+        "semanticDeltaOnly"
+      ],
+      "properties": {
+        "basePrompt": { "type": "string", "minLength": 10 },
+        "candidatePrompt": { "type": "string", "minLength": 10 },
+        "baseTargetRole": { "type": "string", "minLength": 2 },
+        "candidateTargetRole": { "type": "string", "minLength": 2 },
+        "baseExpectedAnswer": {},
+        "candidateExpectedAnswer": {},
+        "sameNumericPrerequisites": { "const": true },
+        "sameOrEquivalentNumbers": { "const": true },
+        "sameNumberDomain": { "const": true },
+        "sameOrEquivalentSurfaceLoad": { "const": true },
+        "semanticDeltaOnly": { "const": true }
+      }
+    },
+    "interpretationFork": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "forkPoint",
+        "validInterpretationPath",
+        "plausibleMisinterpretationPath",
+        "contextConditionThatResolvesFork"
+      ],
+      "properties": {
+        "forkPoint": { "type": "string", "minLength": 3 },
+        "validInterpretationPath": { "type": "string", "minLength": 3 },
+        "plausibleMisinterpretationPath": { "type": "string", "minLength": 3 },
+        "contextConditionThatResolvesFork": { "type": "string", "minLength": 3 }
+      }
+    },
+    "interpretationWitness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "witnessType",
+        "promptZh",
+        "expectedEvidence",
+        "witnessTargetsNewInterpretiveAct",
+        "witnessCanDistinguishCorrectArithmeticFromCorrectInterpretation",
+        "witnessDoesNotRevealAnswer"
+      ],
+      "properties": {
+        "witnessType": {
+          "enum": [
+            "TARGET_ROLE_SELECTION",
+            "RELATION_ORDER_SELECTION",
+            "DECISION_REASON_SELECTION",
+            "COMPARISON_EVIDENCE",
+            "ERROR_DIAGNOSIS",
+            "SHORT_ANSWER_MEANING"
+          ]
+        },
+        "promptZh": { "type": "string", "minLength": 3 },
+        "expectedEvidence": {},
+        "witnessTargetsNewInterpretiveAct": { "const": true },
+        "witnessCanDistinguishCorrectArithmeticFromCorrectInterpretation": { "const": true },
+        "witnessDoesNotRevealAnswer": { "const": true }
+      }
+    },
+    "misconceptionModels": {
+      "type": "array",
+      "minItems": 2,
+      "contains": {
+        "type": "object",
+        "properties": {
+          "diagnosticClassification": {
+            "const": "CALCULATION_PASS_INTERPRETATION_FAIL"
+          }
+        },
+        "required": ["diagnosticClassification"]
+      },
+      "minContains": 1,
+      "items": { "$ref": "#/$defs/misconceptionModel" }
+    },
+    "counterfactualEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "changedContextCondition",
+        "numericPrerequisitesPreserved",
+        "expectedInterpretationChanged",
+        "expectedAnswerOrDecisionChanged",
+        "expectedAnswerOrDecision"
+      ],
+      "properties": {
+        "changedContextCondition": { "type": "string", "minLength": 3 },
+        "numericPrerequisitesPreserved": { "const": true },
+        "expectedInterpretationChanged": { "const": true },
+        "expectedAnswerOrDecisionChanged": { "const": true },
+        "expectedAnswerOrDecision": {}
+      }
+    },
+    "crossContextEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contextFamilyA",
+        "contextFamilyB",
+        "sharedRoleGraph",
+        "sharedNewInterpretiveAct",
+        "contextSpecificUnits",
+        "sameValidatorDelta"
+      ],
+      "properties": {
+        "contextFamilyA": { "type": "string", "pattern": "^gctx_" },
+        "contextFamilyB": { "type": "string", "pattern": "^gctx_" },
+        "sharedRoleGraph": { "const": true },
+        "sharedNewInterpretiveAct": { "const": true },
+        "contextSpecificUnits": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "sameValidatorDelta": { "const": true }
+      }
+    },
+    "keywordRobustnessEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "originalSurfaceTemplate",
+        "paraphrasedSurfaceTemplate",
+        "roleGraphEquivalent",
+        "expectedAnswerEquivalent"
+      ],
+      "properties": {
+        "originalSurfaceTemplate": { "type": "string", "minLength": 10 },
+        "paraphrasedSurfaceTemplate": { "type": "string", "minLength": 10 },
+        "roleGraphEquivalent": { "const": true },
+        "expectedAnswerEquivalent": { "const": true }
+      }
+    },
+    "validatorDelta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseValidatorChecks", "candidateAdditionalValidatorChecks"],
+      "properties": {
+        "baseValidatorChecks": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3 }
+        },
+        "candidateAdditionalValidatorChecks": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 3 }
+        }
+      }
+    },
+    "answerMeaningValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "answerRoleValidated",
+        "answerUnitValidated",
+        "contextDecisionValidated",
+        "interpretationStatementValidated"
+      ],
+      "properties": {
+        "answerRoleValidated": { "const": true },
+        "answerUnitValidated": { "const": true },
+        "contextDecisionValidated": { "const": true },
+        "interpretationStatementValidated": { "const": true }
+      }
+    },
+    "evidenceLifecycleState": {
+      "enum": [
+        "DRAFT_PROOF",
+        "PREREQUISITE_VERIFIED",
+        "PAIRED_CONTROL_VERIFIED",
+        "MISCONCEPTION_COVERAGE_VERIFIED",
+        "COUNTERFACTUAL_VERIFIED",
+        "CROSS_CONTEXT_VERIFIED",
+        "VALIDATOR_DELTA_VERIFIED",
+        "PROVEN_N_PLUS_1_CANDIDATE"
+      ]
+    },
+    "verdict": {
+      "enum": [
+        "PROVEN_N_PLUS_1_CANDIDATE",
+        "NOT_N_PLUS_1_SAME_CAPABILITY",
+        "DEFERRED_MISSING_PREREQUISITE",
+        "DEFERRED_NOT_ADJACENT",
+        "REJECTED_NUMERIC_LOAD_ONLY",
+        "REJECTED_DECORATIVE_CONTEXT",
+        "REJECTED_NO_INTERPRETATION_FORK",
+        "REJECTED_VALIDATOR_DELTA_MISSING",
+        "REJECTED_NON_UNIQUE_INTERPRETATION"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": { "const": "PROVEN_N_PLUS_1_CANDIDATE" }
+        },
+        "required": ["verdict"]
+      },
+      "then": {
+        "properties": {
+          "evidenceLifecycleState": { "const": "PROVEN_N_PLUS_1_CANDIDATE" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "misconceptionModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "misconceptionId",
+        "misconceptionType",
+        "triggerCondition",
+        "expectedWrongAnswerOrDecision",
+        "diagnosticMeaning",
+        "diagnosticClassification",
+        "severity"
+      ],
+      "properties": {
+        "misconceptionId": { "type": "string", "minLength": 3 },
+        "misconceptionType": {
+          "enum": [
+            "TARGET_ROLE_CONFUSION",
+            "OPERATION_KEYWORD_MATCHING",
+            "QUOTIENT_ONLY",
+            "REMAINDER_AS_TARGET",
+            "COMPUTED_NOT_INTERPRETED",
+            "RELATION_ORDER_REVERSAL",
+            "CONSTRAINT_IGNORED",
+            "UNIT_ROLE_CONFUSION",
+            "IRRELEVANT_INFORMATION_USED",
+            "PART_WHOLE_ROLE_SWAP",
+            "COMPARISON_DIRECTION_REVERSAL",
+            "CONSERVATION_VIOLATION"
+          ]
+        },
+        "triggerCondition": { "type": "string", "minLength": 3 },
+        "expectedWrongAnswerOrDecision": {},
+        "diagnosticMeaning": { "type": "string", "minLength": 3 },
+        "diagnosticClassification": {
+          "enum": [
+            "CALCULATION_FAIL",
+            "CALCULATION_PASS_INTERPRETATION_FAIL",
+            "ANSWER_ROLE_OR_UNIT_FAIL",
+            "FULL_FAIL"
+          ]
+        },
+        "severity": { "enum": ["BLOCKING", "DIAGNOSTIC"] }
+      }
+    }
+  }
+}
