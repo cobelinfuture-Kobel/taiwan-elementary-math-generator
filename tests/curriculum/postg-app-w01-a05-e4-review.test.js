@@ -14,6 +14,9 @@ const validation = validateW01E4ProductionReview(materialized);
 function focusedFailureDiagnostics() {
   return JSON.stringify({
     issues: validation.issues,
+    assessedSources: materialized.assessedSources,
+    eligibleSources: materialized.eligibleSources,
+    blockedSources: materialized.blockedSources,
     exactGenerationFailures: materialized.exactGenerationFailures
   }, null, 2);
 }
@@ -23,7 +26,15 @@ test('W01-A05 builds an exact-generator E4 review cohort', () => {
   assert.equal(validation.status, 'W01_E4_PRODUCTION_EQUIVALENT_REVIEW_RUNTIME_READY');
   assert.equal(validation.humanReviewReady, true);
   assert.equal(validation.productionAdmissionGranted, false);
+  assert.equal(validation.counts.assessedSourceCount, 12);
   assert.equal(validation.counts.eligibleSourceCount, validation.counts.reviewCohortSourceCount);
+  assert.equal(validation.counts.exactRouteBlockedSourceCount, 4);
+  assert.deepEqual(validation.blockedSources, [
+    'g3b_u08_3b08',
+    'g4b_u04_4b04',
+    'g5a_u02_5a02',
+    'g5a_u08_5a08'
+  ]);
   assert.equal(validation.counts.requiredMacroContextCount, 16);
   assert.equal(validation.counts.reviewCohortMacroContextCount, 16);
   assert.equal(validation.counts.reviewCohortQuestionCount >= validation.counts.reviewCohortSourceCount, true);
@@ -52,7 +63,7 @@ test('context overlay changes only visible wording and preserves exact mathemati
   }
 });
 
-test('review cohort covers every application-eligible source and all 16 macro contexts', () => {
+test('review cohort covers every exact-route-eligible source and all 16 macro contexts', () => {
   assert.deepEqual(validation.selectedSources, materialized.eligibleSources);
   assert.deepEqual(validation.selectedMacros, materialized.requiredMacros);
   assert.equal(validation.selectedMacros.length, 16);
