@@ -5,6 +5,8 @@ on:
     branches: [ main ]
     paths:
       - "src/curriculum/application/w01-e4-production-review-runtime.mjs"
+      - "site/assets/browser/pipeline/build-worksheet-document.js"
+      - "site/modules/core/worksheet-formatting.js"
       - "tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs"
       - "tools/curriculum/render-postg-app-w01-a05-review-pdf.mjs"
       - "tools/curriculum/finalize-postg-app-w01-a05-review-evidence.mjs"
@@ -67,118 +69,6 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
           NODE
 
-      - name: Apply bounded A05 runtime remediation
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('src/curriculum/application/w01-e4-production-review-runtime.mjs')
-          source = path.read_text(encoding='utf-8')
-
-          source = source.replace('  createAnswerKeyItem,\n', '')
-          answer_old = (
-              'function textAnswerKeyItem(question, displayModel) {\n'
-              '  const base = createAnswerKeyItem(question, displayModel);\n'
-              '  return {\n'
-              '    ...base,\n'
-          )
-          answer_new = (
-              'function textAnswerKeyItem(question, displayModel) {\n'
-              '  return {\n'
-          )
-          if answer_old in source:
-              source = source.replace(answer_old, answer_new)
-          if 'createAnswerKeyItem' in source:
-              raise SystemExit('A05 answer-key remediation did not remove the NumberValue-only path.')
-
-          surface_old = (
-              "    .replaceAll('答案：', '')\n"
-              "    .replace(/_{2,}/g, '□')"
-          )
-          surface_new = (
-              "    .replaceAll('答案：', '')\n"
-              "    .replaceAll('答：', '')\n"
-              "    .replaceAll('算式', '')\n"
-              "    .replace(/_{2,}/g, '□')"
-          )
-          if surface_new not in source:
-              if surface_old not in source:
-                  raise SystemExit('A05 visible-label sanitization anchor not found.')
-              source = source.replace(surface_old, surface_new)
-
-          materialize_old = (
-              "  const eligibleSources = uniqueSorted(a02.a01.candidates.map((row) => row.sourceId));\n"
-              "  const requiredMacros = uniqueSorted(a02.a01.candidates.map((row) => row.contextSelection.macroContextId));\n"
-              "  const viable = materializeViableRows(a02, generationSeed);\n"
-              "  const cohortRows = selectReviewCohort(viable.rows, eligibleSources, requiredMacros);"
-          )
-          materialize_new = (
-              "  const assessedSources = uniqueSorted(a02.a01.candidates.map((row) => row.sourceId));\n"
-              "  const requiredMacros = uniqueSorted(a02.a01.candidates.map((row) => row.contextSelection.macroContextId));\n"
-              "  const viable = materializeViableRows(a02, generationSeed);\n"
-              "  const eligibleSources = uniqueSorted(viable.rows.map((row) => row.candidate.sourceId));\n"
-              "  const blockedSources = assessedSources.filter((sourceId) => !eligibleSources.includes(sourceId));\n"
-              "  const cohortRows = selectReviewCohort(viable.rows, eligibleSources, requiredMacros);"
-          )
-          if materialize_new not in source:
-              if materialize_old not in source:
-                  raise SystemExit('A05 exact-route eligibility materialization anchor not found.')
-              source = source.replace(materialize_old, materialize_new)
-
-          return_old = (
-              "    generationSeed,\n"
-              "    eligibleSources,\n"
-              "    requiredMacros,"
-          )
-          return_new = (
-              "    generationSeed,\n"
-              "    assessedSources,\n"
-              "    eligibleSources,\n"
-              "    blockedSources,\n"
-              "    requiredMacros,"
-          )
-          if return_new not in source:
-              if return_old not in source:
-                  raise SystemExit('A05 source-set return anchor not found.')
-              source = source.replace(return_old, return_new)
-
-          counts_old = (
-              "    counts: {\n"
-              "      eligibleSourceCount: materialized.eligibleSources.length,\n"
-              "      requiredMacroContextCount: materialized.requiredMacros.length,"
-          )
-          counts_new = (
-              "    counts: {\n"
-              "      assessedSourceCount: materialized.assessedSources.length,\n"
-              "      eligibleSourceCount: materialized.eligibleSources.length,\n"
-              "      exactRouteBlockedSourceCount: materialized.blockedSources.length,\n"
-              "      requiredMacroContextCount: materialized.requiredMacros.length,"
-          )
-          if counts_new not in source:
-              if counts_old not in source:
-                  raise SystemExit('A05 count readback anchor not found.')
-              source = source.replace(counts_old, counts_new)
-
-          selected_old = (
-              "    selectedSources,\n"
-              "    selectedMacros,\n"
-              "    humanReviewReady: issues.length === 0,"
-          )
-          selected_new = (
-              "    selectedSources,\n"
-              "    selectedMacros,\n"
-              "    blockedSources: materialized.blockedSources,\n"
-              "    humanReviewReady: issues.length === 0,"
-          )
-          if selected_new not in source:
-              if selected_old not in source:
-                  raise SystemExit('A05 blocked-source readback anchor not found.')
-              source = source.replace(selected_old, selected_new)
-
-          path.write_text(source, encoding='utf-8')
-          PY
-
       - name: Run A05 focused runtime tests
         id: focused_tests
         continue-on-error: true
@@ -228,7 +118,7 @@ jobs:
         if: steps.evidence_state.outputs.committed_e4 != 'true'
         run: node tools/governance/promote-postg-app-w01-a05-e4-claim.mjs
 
-      - name: Validate E4 claim and committed artifact contract
+      - name: Validate E4 claim and artifact contract
         run: |
           npm run governance:claims
           node - <<'NODE'
@@ -274,7 +164,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
-            src/curriculum/application/w01-e4-production-review-runtime.mjs \
             data/project/milestones/POSTG-APP-W01-A05.claim.json \
             data/curriculum/application/contracts/POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation.json \
             docs/curriculum/output/POSTG_APP_W01_A05_E4_HUMAN_REVIEW_READY.marker \
