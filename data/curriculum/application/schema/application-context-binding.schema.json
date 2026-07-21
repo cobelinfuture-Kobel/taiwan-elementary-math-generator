@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/application-context-binding.schema.json",
+  "title": "ApplicationContextBindingV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "bindingId",
+    "sourceId",
+    "knowledgePointId",
+    "canonicalOperationModelId",
+    "applicationModes",
+    "contextFamilyId",
+    "requiredContextAffordances",
+    "providedContextAffordances",
+    "roleBindings",
+    "unitFlow",
+    "semanticConstraints",
+    "forbiddenCombinations",
+    "admittedSurfaceTemplateIds",
+    "answerWitnessContract",
+    "admissionStatus",
+    "lineage"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "bindingId": { "type": "string", "pattern": "^appctx_" },
+    "sourceId": { "type": "string", "minLength": 3 },
+    "knowledgePointId": { "type": "string", "pattern": "^kp_" },
+    "canonicalOperationModelId": { "type": "string", "pattern": "^op_" },
+    "applicationModes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["SINGLE_DIRECT", "SINGLE_N_PLUS_1", "PBL_TASK_SET"] }
+    },
+    "contextFamilyId": { "type": "string", "pattern": "^gctx_" },
+    "requiredContextAffordances": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "providedContextAffordances": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "roleBindings": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/roleBinding" }
+    },
+    "unitFlow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inputUnits", "transformationRule", "answerUnit", "validated"],
+      "properties": {
+        "inputUnits": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "transformationRule": { "type": "string", "minLength": 3 },
+        "answerUnit": { "type": "string", "minLength": 1 },
+        "validated": { "const": true }
+      }
+    },
+    "semanticConstraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/semanticConstraint" }
+    },
+    "forbiddenCombinations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/forbiddenCombination" }
+    },
+    "admittedSurfaceTemplateIds": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^tpl_" },
+      "uniqueItems": true
+    },
+    "answerWitnessContract": { "$ref": "#/$defs/answerWitnessContract" },
+    "nPlusOneProofRef": { "type": "string", "pattern": "^n1proof_" },
+    "pblContractRef": { "type": "string", "pattern": "^pbl_" },
+    "allowedPBLGraphTypes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["PBL3_LINEAR", "PBL4_BRANCH_MERGE", "PBL5_BOUNDED_DECISION"] }
+    },
+    "allowedPBLFinalProductTypes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "ALLOCATION_PLAN",
+          "PURCHASE_DECISION",
+          "BUDGET_RECOMMENDATION",
+          "TRANSPORT_PLAN",
+          "PACKAGING_PLAN",
+          "SCHEDULE",
+          "COMPARISON_REPORT",
+          "RESOURCE_PLAN"
+        ]
+      }
+    },
+    "admissionStatus": {
+      "enum": [
+        "DRAFT",
+        "KNOWLEDGE_POINT_ELIGIBILITY_VERIFIED",
+        "OPERATION_MODEL_VERIFIED",
+        "CONTEXT_AFFORDANCES_VERIFIED",
+        "ROLE_BINDING_VERIFIED",
+        "UNIT_FLOW_VERIFIED",
+        "SEMANTIC_CONSTRAINTS_VERIFIED",
+        "SURFACE_TEMPLATES_VERIFIED",
+        "ANSWER_WITNESS_VERIFIED",
+        "VALIDATOR_READY",
+        "QA_VALIDATED",
+        "PRODUCTION_ADMITTED",
+        "REJECTED_DECORATIVE_CONTEXT",
+        "REJECTED_AFFORDANCE_MISMATCH",
+        "REJECTED_ROLE_MISMATCH",
+        "REJECTED_UNIT_FLOW_MISMATCH",
+        "REJECTED_SEMANTIC_CONSTRAINT_MISSING",
+        "REJECTED_FORBIDDEN_COMBINATION",
+        "REJECTED_NON_UNIQUE_ANSWER",
+        "REJECTED_TEMPLATE_OPERATION_LEAKAGE",
+        "DEFERRED_MISSING_N_PLUS_ONE_PROOF",
+        "DEFERRED_MISSING_PBL_CONTRACT",
+        "DEFERRED_VALIDATOR_NOT_READY"
+      ]
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["knowledgeOperationAuthorityPath", "globalContextAuthorityPath"],
+      "properties": {
+        "knowledgeOperationAuthorityPath": { "type": "string", "pattern": "^data/curriculum/knowledge/units/" },
+        "globalContextAuthorityPath": { "type": "string", "pattern": "^data/curriculum/context/registry/" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "applicationModes": { "contains": { "const": "SINGLE_N_PLUS_1" } }
+        },
+        "required": ["applicationModes"]
+      },
+      "then": { "required": ["nPlusOneProofRef"] }
+    },
+    {
+      "if": {
+        "properties": {
+          "applicationModes": { "contains": { "const": "PBL_TASK_SET" } }
+        },
+        "required": ["applicationModes"]
+      },
+      "then": {
+        "required": ["pblContractRef", "allowedPBLGraphTypes", "allowedPBLFinalProductTypes"]
+      }
+    }
+  ],
+  "$defs": {
+    "roleBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mathRoleId", "contextRoleId", "semanticMeaning", "quantityType", "unit", "cardinality", "isAnswerRole"],
+      "properties": {
+        "mathRoleId": { "type": "string", "minLength": 2 },
+        "contextRoleId": { "type": "string", "minLength": 2 },
+        "semanticMeaning": { "type": "string", "minLength": 2 },
+        "quantityType": { "enum": ["COUNT", "MEASURE", "RATE", "MONEY", "TIME", "DECISION", "PLAN"] },
+        "unit": { "type": "string", "minLength": 1 },
+        "cardinality": { "enum": ["ONE", "MANY", "OPTIONAL"] },
+        "isAnswerRole": { "type": "boolean" }
+      }
+    },
+    "semanticConstraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraintId", "statement", "decisionRelevant", "requiredInPrompt"],
+      "properties": {
+        "constraintId": { "type": "string", "minLength": 3 },
+        "statement": { "type": "string", "minLength": 3 },
+        "decisionRelevant": { "type": "boolean" },
+        "requiredInPrompt": { "type": "boolean" }
+      }
+    },
+    "forbiddenCombination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["forbiddenId", "condition", "reason", "blocking"],
+      "properties": {
+        "forbiddenId": { "type": "string", "minLength": 3 },
+        "condition": { "type": "string", "minLength": 3 },
+        "reason": { "type": "string", "minLength": 3 },
+        "blocking": { "const": true }
+      }
+    },
+    "answerWitnessContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["answerRole", "answerUnit", "interpretationStatementPattern", "allowedWitnessTypes", "misconceptionCompatibility", "counterfactualCompatibility"],
+      "properties": {
+        "answerRole": { "type": "string", "minLength": 2 },
+        "answerUnit": { "type": "string", "minLength": 1 },
+        "interpretationStatementPattern": { "type": "string", "minLength": 3 },
+        "allowedWitnessTypes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "TARGET_ROLE_SELECTION",
+              "RELATION_ORDER_SELECTION",
+              "DECISION_REASON_SELECTION",
+              "COMPARISON_EVIDENCE",
+              "ERROR_DIAGNOSIS",
+              "SHORT_ANSWER_MEANING",
+              "PBL_MILESTONE_WITNESS",
+              "PBL_FINAL_PRODUCT_WITNESS"
+            ]
+          }
+        },
+        "misconceptionCompatibility": { "const": true },
+        "counterfactualCompatibility": { "const": true }
+      }
+    }
+  }
+}
