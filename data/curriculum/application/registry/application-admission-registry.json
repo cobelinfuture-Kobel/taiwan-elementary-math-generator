@@ -1,0 +1,8 @@
+{
+  "schemaName": "ApplicationAdmissionRegistryV1",
+  "schemaVersion": 1,
+  "contractId": "APPLICATION_GLOBAL_CONTEXT_BINDING_SOP_V1",
+  "itemSchema": "data/curriculum/application/schema/application-admission-record.schema.json",
+  "status": "BOOTSTRAP_EMPTY_NO_PRODUCTION_ADMISSIONS",
+  "admissionRecords": []
+}
