@@ -10,6 +10,7 @@ on:
       - "tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs"
       - "tools/curriculum/render-postg-app-w01-a05-review-pdf.mjs"
       - "tools/curriculum/finalize-postg-app-w01-a05-review-evidence.mjs"
+      - "tools/governance/bootstrap-postg-app-w01-a05-runtime.mjs"
       - "tools/governance/promote-postg-app-w01-a05-e4-claim.mjs"
       - "tests/curriculum/postg-app-w01-a05-e4-review.test.js"
       - "data/project/milestones/POSTG-APP-W01-A05.claim.json"
@@ -71,69 +72,7 @@ jobs:
 
       - name: Apply A02 authority compatibility
         if: steps.evidence_state.outputs.committed_e4 != 'true'
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          import textwrap
-
-          path = Path('src/curriculum/application/w01-e4-production-review-runtime.mjs')
-          source = path.read_text(encoding='utf-8')
-          new_pbl = textwrap.dedent('''\
-          function buildPblReviewSections(a02, selectedSources) {
-            return a02.pblTaskSetCandidates
-              .filter((candidate) => selectedSources.has(candidate.sourceId))
-              .map((candidate) => ({
-                pblTaskSetId: candidate.pblCandidateId,
-                sourceId: candidate.sourceId,
-                knowledgePointId: candidate.primaryKnowledgePointId,
-                graphType: candidate.graphType,
-                nodes: clone(candidate.taskBlueprints.map((task) => ({
-                  taskId: task.taskId,
-                  outputMilestoneId: task.outputMilestoneId,
-                  isFinalTask: task.isFinalTask
-                }))),
-                edges: clone(candidate.taskBlueprints.flatMap((task) => (
-                  task.inputRefs.map((inputRef) => ({
-                    fromMilestoneId: inputRef,
-                    toTaskId: task.taskId
-                  }))
-                ))),
-                finalProductCandidate: clone(candidate.finalProductCandidate),
-                taskBlueprints: clone(candidate.taskBlueprints),
-                projectionCandidate: candidate.projectionCandidate,
-                unapprovedPageSplitForbidden: true,
-                productionAdmissionAllowed: false
-              }));
-          }
-          ''')
-          pbl_boundary = re.compile(
-              r'function buildPblReviewSections\(a02, selectedSources\) \{.*?\n\}\n\n(?=export function materializeW01E4ProductionReview)',
-              re.S,
-          )
-          changed = False
-          if 'pblTaskSetId: candidate.pblCandidateId' not in source:
-              matches = pbl_boundary.findall(source)
-              if len(matches) != 1:
-                  raise SystemExit(f'A05 PBL function boundary count invalid: {len(matches)}')
-              source = pbl_boundary.sub(new_pbl + '\n', source, count=1)
-              changed = True
-
-          old_eligibility = """  const eligibleSources = uniqueSorted(a02.a01.assessment.records
-            .filter((record) => record.suitableForApplication === true)
-            .map((record) => record.sourceId));"""
-          new_eligibility = """  const eligibleSources = uniqueSorted(a02.a01.assessment.records
-            .filter((record) => record.classification !== 'APPLICATION_NOT_APPLICABLE')
-            .map((record) => record.sourceId));"""
-          if new_eligibility not in source:
-              if source.count(old_eligibility) != 1:
-                  raise SystemExit(f'A05 eligible-source authority anchor count invalid: {source.count(old_eligibility)}')
-              source = source.replace(old_eligibility, new_eligibility, 1)
-              changed = True
-
-          if changed:
-              path.write_text(source, encoding='utf-8')
-          PY
+        run: node tools/governance/bootstrap-postg-app-w01-a05-runtime.mjs
 
       - name: Run A05 focused runtime tests
         id: focused_tests
