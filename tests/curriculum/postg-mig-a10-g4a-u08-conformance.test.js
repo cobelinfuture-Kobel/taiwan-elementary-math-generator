@@ -12,7 +12,7 @@ import {
   validatePostGoldenSourceUnitAdapterRegistry,
 } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js";
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
-import { validateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js";
+import { validateG4AU08AllCanonicalPublicQuestion } from "../../site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js";
 import {
   G4A_U08_ALL_CANONICAL_PUBLIC_GROUPS,
   getVisiblePatternGroupsForKnowledgePoint,
@@ -97,9 +97,10 @@ test("A10 source-unit route generates and validates all 33 PatternSpecs", () => 
   assert.deepEqual(new Set(generated.questions.map((row) => row.resolvedPatternGroupId ?? row.patternGroupId)), PG);
   assert.deepEqual(new Set(generated.questions.map((row) => row.patternSpecId)), PS);
   assert.ok(generated.questions.every((row) => row.sourceId === SOURCE_ID && row.metadata?.sourceId === SOURCE_ID));
-  const validation = validateBatchABrowserQuestions(generated.questions, { plan: generated.plan });
-  assert.equal(validation.ok, true, JSON.stringify(validation.errors));
-  assert.equal(validation.errors.length, 0);
+  const validationErrors = generated.questions.flatMap((question, index) => (
+    validateG4AU08AllCanonicalPublicQuestion(question).errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` }))
+  ));
+  assert.deepEqual(validationErrors, []);
 });
 
 test("A10 canonical authority retains all KP to PatternGroup to PatternSpec lineages", () => {
