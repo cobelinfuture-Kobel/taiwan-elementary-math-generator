@@ -1,0 +1,66 @@
+{
+  "schemaName": "POSTGAPPW01A05UnitFlowExactGeneratorRendererAndHumanReviewRemediationContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation",
+  "contractId": "POSTG_APP_W01_E4_PRODUCTION_REVIEW_AND_HUMAN_DECISION_V1",
+  "status": "E4_ARTIFACT_GENERATION_PENDING_EXACT_HEAD_CI",
+  "dependencies": {
+    "w01WorksheetReviewTask": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_W01_E4_Production_Review_And_Human_Decision_V1.md",
+    "runtime": "src/curriculum/application/w01-e4-production-review-runtime.mjs",
+    "artifactGenerator": "tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs",
+    "pdfRenderer": "tools/curriculum/render-postg-app-w01-a05-review-pdf.mjs",
+    "evidenceFinalizer": "tools/curriculum/finalize-postg-app-w01-a05-review-evidence.mjs",
+    "workflow": ".github/workflows/postg-app-w01-a05-e4-review.yml"
+  },
+  "coverage": {
+    "eligibleSourceCoverage": "exact A01 application-eligible source set",
+    "requiredMacroContextCount": 16,
+    "exactProductionRouteRequiredPerReviewItem": true,
+    "pblReviewCoverage": "all A02 PBL candidates whose sourceId is represented by the cohort"
+  },
+  "evidenceTarget": {
+    "level": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": false
+  },
+  "unitFlowPolicy": {
+    "exactGeneratorUnitPreferred": true,
+    "semanticInferenceAllowed": true,
+    "silentGenericFallbackAllowed": false,
+    "unresolvedStatus": "HUMAN_REVIEW_REQUIRED",
+    "productionAdmissionAllowed": false
+  },
+  "acceptance": {
+    "eligibleSourceCoverageExact": true,
+    "macroContextCoverageCount": 16,
+    "mathPreservedForEveryReviewItem": true,
+    "visiblePromptChangedForEveryReviewItem": true,
+    "questionAnswerPairingExact": true,
+    "pblProjectionIntegrityRequired": true,
+    "forbiddenVisibleLabelsRejected": true,
+    "artifactHashesRequired": true,
+    "operatorDecisionRequired": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_GOLDEN15_WORKSHEET_SHADOW_PROJECTED_AND_PRODUCTION_GAPS_EXPLICIT",
+    "goalDistanceAfterTarget": "D1_GOLDEN15_E4_PRODUCTION_EQUIVALENT_HUMAN_REVIEW_READY",
+    "distanceReduced": "The application expansion moves from structural shadow output to an exact-generator and shared-renderer HTML/PDF review cohort with unit-flow and PBL review evidence. The remaining blocker becomes an explicit human decision rather than missing review artifacts.",
+    "remainingBlockers": [
+      "Operator semantic, mathematical, unit-flow and PBL review decision is required",
+      "Rejected items, if any, require remediation",
+      "Production admission remains disabled until explicit approval"
+    ],
+    "nextShortestStep": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation"
+  }
+}
