@@ -18,10 +18,12 @@
     "workflow": ".github/workflows/postg-app-w01-a05-e4-review.yml"
   },
   "coverage": {
-    "eligibleSourceCoverage": "exact A01 application-eligible source set",
+    "assessedSourceCoverage": "complete A01 application-design source set",
+    "eligibleSourceCoverage": "all A01 sources with at least one currently consumable exact production PatternSpec route",
+    "blockedSourcePolicy": "A01 sources without an exact production route remain explicit remediation blockers and are excluded from E4-reviewed counts",
     "requiredMacroContextCount": 16,
     "exactProductionRouteRequiredPerReviewItem": true,
-    "pblReviewCoverage": "all A02 PBL candidates whose sourceId is represented by the cohort"
+    "pblReviewCoverage": "all A02 PBL candidates whose sourceId is represented by the exact-route-eligible cohort"
   },
   "evidenceTarget": {
     "level": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
@@ -37,11 +39,14 @@
     "exactGeneratorUnitPreferred": true,
     "semanticInferenceAllowed": true,
     "silentGenericFallbackAllowed": false,
+    "missingPatternImplementationByA05Allowed": false,
     "unresolvedStatus": "HUMAN_REVIEW_REQUIRED",
     "productionAdmissionAllowed": false
   },
   "acceptance": {
-    "eligibleSourceCoverageExact": true,
+    "assessedSourceSetRecorded": true,
+    "exactRouteEligibleSourceCoverageExact": true,
+    "exactRouteBlockedSourcesExplicit": true,
     "macroContextCoverageCount": 16,
     "mathPreservedForEveryReviewItem": true,
     "visiblePromptChangedForEveryReviewItem": true,
@@ -55,11 +60,12 @@
   "distance": {
     "goalDistanceBefore": "D1_GOLDEN15_WORKSHEET_SHADOW_PROJECTED_AND_PRODUCTION_GAPS_EXPLICIT",
     "goalDistanceAfterTarget": "D1_GOLDEN15_E4_PRODUCTION_EQUIVALENT_HUMAN_REVIEW_READY",
-    "distanceReduced": "The application expansion moves from structural shadow output to an exact-generator and shared-renderer HTML/PDF review cohort with unit-flow and PBL review evidence. The remaining blocker becomes an explicit human decision rather than missing review artifacts.",
+    "distanceReduced": "The application expansion moves from structural shadow output to a hash-locked exact-route cohort rendered through the shared production renderer, while all sources lacking consumable production PatternSpecs remain explicit and non-admitted.",
     "remainingBlockers": [
       "Operator semantic, mathematical, unit-flow and PBL review decision is required",
+      "Exact production PatternSpec consumption remains missing for the explicit blocked-source backlog",
       "Rejected items, if any, require remediation",
-      "Production admission remains disabled until explicit approval"
+      "Production admission remains disabled until explicit approval and blocked-source policy resolution"
     ],
     "nextShortestStep": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation"
   }
