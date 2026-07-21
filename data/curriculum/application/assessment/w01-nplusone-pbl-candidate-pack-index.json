@@ -1,0 +1,39 @@
+{
+  "schemaName": "POSTGAPPW01NPlusOneAndPBLCandidatePackIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+  "contractId": "POSTG_APP_W01_NPLUSONE_PROOF_MISCONCEPTION_AND_PBL_CANDIDATE_V1",
+  "status": "DETERMINISTIC_SHADOW_MATERIALIZATION_PENDING_CI",
+  "inputAuthority": {
+    "a00AssessmentTaskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "a01CandidateTaskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+    "a01PackIndex": "data/curriculum/application/assessment/w01-atomic-context-single-application-candidate-pack-index.json",
+    "policy": "data/curriculum/application/assessment/w01-nplusone-pbl-candidate-policy.json"
+  },
+  "materializedAuthority": {
+    "nPlusOneCandidateSchema": "data/curriculum/application/schema/w01-nplusone-proof-candidate.schema.json",
+    "pblCandidateSchema": "data/curriculum/application/schema/w01-pbl-task-set-candidate.schema.json",
+    "resolver": "src/curriculum/application/w01-nplusone-pbl-candidate-pack.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a02-candidate-pack.mjs",
+    "test": "tests/curriculum/postg-app-w01-a02-candidate-pack.test.js"
+  },
+  "countRules": {
+    "nPlusOneProofCandidateCount": "equals A00 records containing SINGLE_N_PLUS_1",
+    "pblTaskSetCandidateCount": "equals A00 records containing PBL_TASK_SET",
+    "productionAdmittedCount": 0
+  },
+  "proofBoundary": {
+    "provenNPlusOneClaimAllowed": false,
+    "numericFixturesInstantiated": false,
+    "misconceptionEvidenceExecuted": false,
+    "crossContextEvidenceExecuted": false,
+    "candidateStatus": "N_PLUS_1_PROOF_BLUEPRINT_COMPLETE"
+  },
+  "pblBoundary": {
+    "taskCountsAllowed": [3,5],
+    "productionAdmissionAllowed": false,
+    "candidateStatus": "PBL_TASK_SET_BLUEPRINT_COMPLETE"
+  },
+  "nextShortestStep": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow"
+}

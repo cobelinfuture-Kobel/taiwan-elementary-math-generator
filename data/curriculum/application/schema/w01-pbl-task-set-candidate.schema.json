@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/w01-pbl-task-set-candidate.schema.json",
+  "title": "POSTGAPPW01PBLTaskSetCandidateV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion","pblCandidateId","sourceId","primaryKnowledgePointId","canonicalOperationModelId","bindingCandidateId",
+    "macroContextId","atomicEpisodeId","drivingProblemCandidate","graphType","taskBlueprints","milestoneBlueprints",
+    "finalProductCandidate","primaryInterpretiveAct","misconceptionCandidates","counterfactualPropagationCandidate",
+    "projectionCandidate","candidateStatus","productionAdmissionAllowed","lineage"
+  ],
+  "properties": {
+    "schemaVersion":{"const":1},
+    "pblCandidateId":{"type":"string","pattern":"^w01_pbl_"},
+    "sourceId":{"type":"string"},
+    "primaryKnowledgePointId":{"type":"string","pattern":"^kp_"},
+    "canonicalOperationModelId":{"type":"string","pattern":"^op_"},
+    "bindingCandidateId":{"type":"string","pattern":"^w01_bind_"},
+    "macroContextId":{"type":"string","pattern":"^gctx_macro_"},
+    "atomicEpisodeId":{"type":"string","pattern":"^gctx_episode_"},
+    "drivingProblemCandidate":{
+      "type":"object","additionalProperties":false,
+      "required":["stakeholder","realWorldGoal","problemStatementZh","constraints","successCriteria","consequenceOfIncorrectDecision","finalProductType","authenticityExecutionVerified"],
+      "properties":{
+        "stakeholder":{"type":"string","minLength":2},"realWorldGoal":{"type":"string","minLength":5},
+        "problemStatementZh":{"type":"string","minLength":15},"constraints":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "successCriteria":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "consequenceOfIncorrectDecision":{"type":"string","minLength":5},
+        "finalProductType":{"enum":["ALLOCATION_PLAN","PURCHASE_DECISION","BUDGET_RECOMMENDATION","TRANSPORT_PLAN","PACKAGING_PLAN","SCHEDULE","COMPARISON_REPORT","RESOURCE_PLAN"]},
+        "authenticityExecutionVerified":{"const":false}
+      }
+    },
+    "graphType":{"enum":["PBL3_LINEAR","PBL5_BOUNDED_DECISION"]},
+    "taskBlueprints":{
+      "type":"array","minItems":3,"maxItems":5,
+      "items":{
+        "type":"object","additionalProperties":false,
+        "required":["taskId","sequenceIndex","promptZh","inputRefs","outputMilestoneId","isFinalTask","fullyInstantiated"],
+        "properties":{
+          "taskId":{"type":"string"},"sequenceIndex":{"type":"integer","minimum":1,"maximum":5},
+          "promptZh":{"type":"string","minLength":8},"inputRefs":{"type":"array","items":{"type":"string"},"uniqueItems":true},
+          "outputMilestoneId":{"type":"string"},"isFinalTask":{"type":"boolean"},"fullyInstantiated":{"const":false}
+        }
+      }
+    },
+    "milestoneBlueprints":{
+      "type":"array","minItems":2,
+      "items":{
+        "type":"object","additionalProperties":false,
+        "required":["milestoneId","producerTaskId","semanticRole","requiredByTaskIds","canonicalReconstructionCandidate"],
+        "properties":{
+          "milestoneId":{"type":"string"},"producerTaskId":{"type":"string"},"semanticRole":{"type":"string"},
+          "requiredByTaskIds":{"type":"array","items":{"type":"string"},"uniqueItems":true},
+          "canonicalReconstructionCandidate":{"type":"string"}
+        }
+      }
+    },
+    "finalProductCandidate":{
+      "type":"object","additionalProperties":false,
+      "required":["finalProductType","finalTaskId","requiredMilestoneIds","decisionWitnessCandidate","constraintSatisfactionChecks","executed"],
+      "properties":{
+        "finalProductType":{"enum":["ALLOCATION_PLAN","PURCHASE_DECISION","BUDGET_RECOMMENDATION","TRANSPORT_PLAN","PACKAGING_PLAN","SCHEDULE","COMPARISON_REPORT","RESOURCE_PLAN"]},
+        "finalTaskId":{"type":"string"},"requiredMilestoneIds":{"type":"array","minItems":2,"items":{"type":"string"},"uniqueItems":true},
+        "decisionWitnessCandidate":{"type":"string","minLength":5},
+        "constraintSatisfactionChecks":{"type":"array","minItems":1,"items":{"type":"string"}},"executed":{"const":false}
+      }
+    },
+    "primaryInterpretiveAct":{"enum":["UNKNOWN_ROLE_SHIFT","REMAINDER_INTERPRETATION","RELATION_CHAIN","DUAL_CONSTRAINT_RESOLUTION","CONSERVATION_OR_TRANSFER","COMPARISON_DECISION","UNIT_ROLE_INTERPRETATION","IRRELEVANT_INFORMATION_FILTER"]},
+    "misconceptionCandidates":{"type":"array","minItems":3,"items":{"type":"string"},"uniqueItems":true},
+    "counterfactualPropagationCandidate":{
+      "type":"object","additionalProperties":false,
+      "required":["changedContextConstraint","affectedTaskIds","affectedMilestoneIds","finalDecisionMustChange","executed"],
+      "properties":{
+        "changedContextConstraint":{"type":"string"},"affectedTaskIds":{"type":"array","minItems":1,"items":{"type":"string"},"uniqueItems":true},
+        "affectedMilestoneIds":{"type":"array","minItems":1,"items":{"type":"string"},"uniqueItems":true},
+        "finalDecisionMustChange":{"const":true},"executed":{"const":false}
+      }
+    },
+    "projectionCandidate":{"enum":["APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE","APPROVED_COMPLETE_TWO_PAGE_CANDIDATE"]},
+    "candidateStatus":{"const":"PBL_TASK_SET_BLUEPRINT_COMPLETE"},
+    "productionAdmissionAllowed":{"const":false},
+    "lineage":{
+      "type":"object","additionalProperties":false,
+      "required":["a00AssessmentTaskId","a01BindingCandidateId","pblNormativeSchema"],
+      "properties":{
+        "a00AssessmentTaskId":{"const":"POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline"},
+        "a01BindingCandidateId":{"type":"string","pattern":"^w01_bind_"},
+        "pblNormativeSchema":{"const":"data/curriculum/application/schema/pbl-task-set.schema.json"}
+      }
+    }
+  },
+  "allOf": [
+    {"if":{"properties":{"graphType":{"const":"PBL3_LINEAR"}}},"then":{"properties":{"taskBlueprints":{"minItems":3,"maxItems":3}}}},
+    {"if":{"properties":{"graphType":{"const":"PBL5_BOUNDED_DECISION"}}},"then":{"properties":{"taskBlueprints":{"minItems":5,"maxItems":5}}}}
+  ]
+}
