@@ -10,7 +10,6 @@ on:
       - "tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs"
       - "tools/curriculum/render-postg-app-w01-a05-review-pdf.mjs"
       - "tools/curriculum/finalize-postg-app-w01-a05-review-evidence.mjs"
-      - "tools/governance/bootstrap-postg-app-w01-a05-runtime.mjs"
       - "tools/governance/promote-postg-app-w01-a05-e4-claim.mjs"
       - "tests/curriculum/postg-app-w01-a05-e4-review.test.js"
       - "data/project/milestones/POSTG-APP-W01-A05.claim.json"
@@ -69,10 +68,6 @@ jobs:
             && required.every((path) => fs.existsSync(path));
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
           NODE
-
-      - name: Apply A02 authority compatibility
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
-        run: node tools/governance/bootstrap-postg-app-w01-a05-runtime.mjs
 
       - name: Run A05 focused runtime tests
         id: focused_tests
