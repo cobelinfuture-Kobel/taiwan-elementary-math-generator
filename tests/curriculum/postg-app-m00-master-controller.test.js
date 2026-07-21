@@ -44,7 +44,7 @@ test('Wave 01 distinguishes 15 golden units from 16 source nodes', () => {
   assert.equal(w01.goldenUnitIds.length, 15);
   assert.equal(w01.sourceNodes.length, 16);
   assert.equal(w01.productionSelectable, false);
-  assert.equal(w01.currentState.state, 'ASSESSMENT_IN_PROGRESS');
+  assert.equal(w01.currentState.state, 'SHADOW_READY');
   const composite = controller.unitRegistry.goldenBaselineUnits.find((row) => row.goldenUnitId === 'g5a_u02_5a02');
   assert.deepEqual(composite.sourceNodeRefs, ['g5a_u02_5a02a', 'g5a_u02_5a02a1']);
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
@@ -96,7 +96,7 @@ test('admission gate order stays frozen while W01 progresses', () => {
     'PRODUCTION_ADMISSION_REVIEWED'
   ]);
   assert.deepEqual(controller.controllerState.waveStates.map((row) => row.state), [
-    'ASSESSMENT_IN_PROGRESS',
+    'SHADOW_READY',
     'QUEUED',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
@@ -107,7 +107,9 @@ test('admission gate order stays frozen while W01 progresses', () => {
     'SOURCE_NODE_REGISTERED',
     'KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED',
     'KP_APPLICATION_CLASSIFICATION_COMPLETE',
-    'CANONICAL_OPERATION_MODEL_COMPLETE'
+    'CANONICAL_OPERATION_MODEL_COMPLETE',
+    'SINGLE_APPLICATION_ADMISSION_COMPLETE',
+    'GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE'
   ]);
 });
 
