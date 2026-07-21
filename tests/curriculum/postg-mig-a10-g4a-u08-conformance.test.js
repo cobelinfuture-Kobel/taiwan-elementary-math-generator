@@ -119,7 +119,7 @@ test("A10 adapter remains fail-closed without exact task authorization", () => {
   }
 });
 
-test("A10 candidate or closeout state remains exactly one authorized queue transition", async () => {
+test("A10 candidate or permanently closed state remains authorized as the queue advances", async () => {
   const [program, conformance, master, contract, claim] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"),
@@ -129,9 +129,13 @@ test("A10 candidate or closeout state remains exactly one authorized queue trans
   ]);
   const row = conformance.rows.find((entry) => entry.sourceId === SOURCE_ID);
   const masterRow = master.rows.find((entry) => entry.sourceId === SOURCE_ID);
+  const taskIndex = program.taskOrder.indexOf(TASK_ID);
+  const lastCompletedIndex = program.taskOrder.indexOf(program.lastCompletedTask);
   const candidate = program.activeTask === TASK_ID && row.queueState === "ACTIVE";
-  const closeout = program.lastCompletedTask === TASK_ID && row.queueState === "COMPLETE";
-  assert.equal(candidate || closeout, true);
+  const permanentlyClosed = row.queueState === "COMPLETE"
+    && row.conformanceStatus === "GOLDEN_CONFORMANT"
+    && lastCompletedIndex >= taskIndex;
+  assert.equal(candidate || permanentlyClosed, true);
   assert.equal(masterRow.assignedKnowledgeRegistryTaskId, TASK_ID);
   assert.equal(contract.taskId, TASK_ID);
   assert.equal(claim.taskId, TASK_ID);
@@ -143,6 +147,8 @@ test("A10 candidate or closeout state remains exactly one authorized queue trans
   } else {
     assert.equal(row.conformanceStatus, "GOLDEN_CONFORMANT");
     assert.equal(row.goldenProductionEligible, true);
+    assert.equal(masterRow.queueState, "COMPLETE");
+    assert.equal(masterRow.programRole, "COMPLETED_MIGRATION_UNIT");
     assert.equal(masterRow.unitJsonExists, true);
     assert.equal(masterRow.knowledgePointCount, 15);
     assert.equal(masterRow.operationModelCount, 15);
