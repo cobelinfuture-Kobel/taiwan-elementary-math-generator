@@ -26,6 +26,7 @@
     "beforeAfterEvidencePaths": [
       "data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json",
       "docs/curriculum/application/contracts/POSTG_APP_W01_A06_Human_Review_Decision_And_Semantic_Remediation_V1.md",
+      "docs/curriculum/output/POSTG_APP_W01_A06A_SEMANTIC_CONTRACT_READY.marker",
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
       "data/project/milestones/POSTG-APP-W01-A05.claim.json"
     ],
