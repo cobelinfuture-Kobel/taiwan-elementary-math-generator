@@ -19,6 +19,7 @@ on:
       - "docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_PASS.marker"
       - "docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_READBACK.md"
       - ".github/workflows/postg-mig-a13-program-closeout.yml"
+      - ".github/workflows/postg-unit-conformance-migration.yml"
   workflow_dispatch:
 
 permissions:
@@ -132,6 +133,7 @@ jobs:
           import { execFileSync } from 'node:child_process';
           const allowed = new Set([
             '.github/workflows/postg-mig-a13-program-closeout.yml',
+            '.github/workflows/postg-unit-conformance-migration.yml',
             'data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json',
             'data/project/milestones/POSTG-MIG-A13.claim.json',
             'data/curriculum/contracts/POSTG_MIG_A13_ProgramControllerAndKnowledgeRegistryCloseout.json',
