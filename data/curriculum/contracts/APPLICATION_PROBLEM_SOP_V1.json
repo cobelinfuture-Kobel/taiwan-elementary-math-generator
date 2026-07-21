@@ -1,0 +1,218 @@
+{
+  "schemaName": "ApplicationProblemSOPV1Contract",
+  "schemaVersion": 1,
+  "contractId": "APPLICATION_PROBLEM_SOP_V1",
+  "taskId": "APP-SOP-A00_ScopeDefinitionsAndAdmissionBoundary",
+  "status": "A00_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "normativeDocument": "docs/curriculum/contracts/Application_Problem_SOP_V1.md",
+  "productModes": [
+    {
+      "mode": "SINGLE_DIRECT",
+      "taskCount": 1,
+      "requiresNewInterpretiveAct": false,
+      "requiresDependencyGraph": false,
+      "requiresFinalProduct": false
+    },
+    {
+      "mode": "SINGLE_N_PLUS_1",
+      "taskCount": 1,
+      "requiresNewInterpretiveAct": true,
+      "requiresDependencyGraph": false,
+      "requiresFinalProduct": false
+    },
+    {
+      "mode": "PBL_TASK_SET",
+      "taskCountMin": 3,
+      "taskCountMax": 5,
+      "requiresNewInterpretiveAct": true,
+      "requiresDependencyGraph": true,
+      "requiresFinalProduct": true
+    }
+  ],
+  "knowledgePointApplicationStates": [
+    "APPLICATION_REQUIRED",
+    "APPLICATION_COMPATIBLE",
+    "APPLICATION_NOT_APPLICABLE",
+    "UNASSESSED"
+  ],
+  "applicationDepthStates": [
+    "N",
+    "N_PLUS_1",
+    "N_PLUS_2_CANDIDATE"
+  ],
+  "publicAdmission": {
+    "admittedDepthsAtV1": ["N", "N_PLUS_1"],
+    "nPlus2ProductionAdmitted": false,
+    "freeFormAIRuntimeCompositionAllowed": false,
+    "contextMayOwnMathematics": false,
+    "contextMayChangeCanonicalAnswer": false
+  },
+  "authority": {
+    "knowledgeOperationAuthority": "data/curriculum/knowledge/units/<sourceId>.knowledge-operation.json",
+    "globalContextAuthority": "data/curriculum/context/registry/",
+    "applicationCapabilityOwns": [
+      "application mode",
+      "base semantic node",
+      "new interpretive act",
+      "interpretation witness",
+      "misconception models",
+      "counterfactual variant"
+    ],
+    "globalContextOwns": [
+      "event structure",
+      "actors",
+      "place",
+      "objects",
+      "activities",
+      "surface templates",
+      "semantic safety restrictions"
+    ],
+    "unitContextBindingOwns": [
+      "KnowledgePoint eligibility",
+      "PatternGroup eligibility",
+      "PatternSpec eligibility",
+      "role bindings",
+      "unit flow",
+      "forbidden combinations"
+    ]
+  },
+  "singleApplicationRequiredFields": [
+    "sourceId",
+    "knowledgePointId",
+    "canonicalOperationModelId",
+    "applicationMode",
+    "operandRoles",
+    "unknownRole",
+    "answerRole",
+    "answerUnit",
+    "globalContextBindingId",
+    "numericConstraints",
+    "validationInvariants"
+  ],
+  "nPlusOneRequiredFields": [
+    "baseCapabilityId",
+    "candidateCapabilityId",
+    "sharedNumericPrerequisites",
+    "newInterpretiveAct",
+    "intermediateSemanticNodeRequired",
+    "pairedControlItem",
+    "interpretationWitness",
+    "misconceptionModels",
+    "counterfactualVariant",
+    "answerMeaningValidation"
+  ],
+  "pblRequiredFields": [
+    "drivingProblem",
+    "stakeholder",
+    "realWorldGoal",
+    "constraints",
+    "primaryKnowledgePointId",
+    "supportingKnowledgePointIds",
+    "dependencyGraph",
+    "milestones",
+    "finalProductType",
+    "decisionWitness",
+    "misconceptionModels",
+    "counterfactualVariant",
+    "approvedProjection"
+  ],
+  "allowedInterpretiveActs": [
+    "UNKNOWN_ROLE_SHIFT",
+    "REMAINDER_INTERPRETATION",
+    "RELATION_CHAIN",
+    "DUAL_CONSTRAINT_RESOLUTION",
+    "CONSERVATION_OR_TRANSFER",
+    "COMPARISON_DECISION",
+    "UNIT_ROLE_INTERPRETATION",
+    "IRRELEVANT_INFORMATION_FILTER"
+  ],
+  "allowedPBLGraphTypes": [
+    "PBL3_LINEAR",
+    "PBL4_BRANCH_MERGE",
+    "PBL5_BOUNDED_DECISION"
+  ],
+  "allowedPBLFinalProductTypes": [
+    "ALLOCATION_PLAN",
+    "PURCHASE_DECISION",
+    "BUDGET_RECOMMENDATION",
+    "TRANSPORT_PLAN",
+    "PACKAGING_PLAN",
+    "SCHEDULE",
+    "COMPARISON_REPORT",
+    "RESOURCE_PLAN"
+  ],
+  "validationLayers": {
+    "singleApplication": [
+      "NUMERIC",
+      "SEMANTIC_ROLE",
+      "OPERATION_RELATION",
+      "INTERPRETATION",
+      "ANSWER_MEANING"
+    ],
+    "pblTaskSet": [
+      "MATH",
+      "SEMANTIC",
+      "DEPENDENCY",
+      "DECISION",
+      "COMPLETENESS",
+      "AUTHENTICITY"
+    ]
+  },
+  "admissionLifecycle": [
+    "OBSERVED",
+    "SEMANTIC_MODEL_EXTRACTED",
+    "KNOWLEDGE_POINT_MAPPED",
+    "CONTEXT_BOUND",
+    "PATTERN_CANDIDATE",
+    "VALIDATOR_READY",
+    "QA_VALIDATED",
+    "PRODUCTION_ADMITTED"
+  ],
+  "blockingStatuses": [
+    "REJECTED_DECORATIVE_CONTEXT",
+    "REJECTED_ROLE_MISMATCH",
+    "REJECTED_NON_UNIQUE_ANSWER",
+    "REJECTED_MISSING_INTERPRETATION",
+    "REJECTED_BROKEN_DEPENDENCY",
+    "DEFERRED_MISSING_PREREQUISITE",
+    "DEFERRED_N_PLUS_2"
+  ],
+  "taskOrder": [
+    "APP-SOP-A00_ScopeDefinitionsAndAdmissionBoundary",
+    "APP-SOP-A01_SingleApplicationItemDetailedSOPAndSchemaContract",
+    "APP-SOP-A02_NPlusOneInterpretationProofAndMisconceptionContract",
+    "APP-SOP-A03_PBLTaskSetDependencyMilestoneAndFinalProductContract",
+    "APP-SOP-A04_GlobalContextBindingAndAdmissionRegistries",
+    "APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures",
+    "APP-SOP-A06_SharedRuntimeWorksheetQAAndCloseout"
+  ],
+  "scope": {
+    "primaryPRLimit": 1,
+    "generatorModificationAllowed": false,
+    "runtimeValidatorModificationAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "questionContentAuthoringAllowed": false,
+    "newContextFamilyAuthoringAllowed": false,
+    "productionAdmissionChangeAllowed": false,
+    "postGoldenMigrationControllerModificationAllowed": false
+  },
+  "firstPilot": {
+    "sourceId": "g3b_u01_3b01",
+    "scheduledTask": "APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures",
+    "implementedAtA00": false,
+    "candidateCapabilities": [
+      "partitive division",
+      "quotative division",
+      "quotient and remainder interpretation",
+      "maximum complete groups versus minimum containers",
+      "two-step division operation order"
+    ]
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_APPLICATION_PBL_CONCEPTS_DISCUSSION_ONLY",
+    "goalDistanceAfterTarget": "D3_APPLICATION_SOP_SCOPE_AND_ADMISSION_CONTRACT_MACHINE_LOCKED",
+    "distanceReduced": "Single direct, N+1 single application, and PBL task-set boundaries become one normative and machine-verifiable authority without changing runtime or production output.",
+    "nextShortestStep": "APP-SOP-A01_SingleApplicationItemDetailedSOPAndSchemaContract"
+  }
+}
