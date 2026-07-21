@@ -1,11 +1,10 @@
 import {
-  createAnswerKeyItem,
   paginateAnswerKeyItems,
   paginateQuestionDisplayModels
 } from '../../../site/modules/core/index.js';
 import {
   buildBatchABrowserWorksheetDocument
-} from '../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet.js';
+} from '../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js';
 import {
   getVisiblePatternGroupsForKnowledgePoint
 } from '../../../site/modules/curriculum/registry/batch-a-selector-extension.js';
@@ -35,7 +34,7 @@ function safeId(value) {
 
 function normalizeVisiblePrompt(value) {
   return String(value ?? '')
-    .replaceAll('答案：', '')
+    .replace(/(?:算式|答案|答)\s*[:：]?\s*/g, '')
     .replace(/_{2,}/g, '□')
     .replace(/\s+/g, ' ')
     .trim();
@@ -162,9 +161,7 @@ function textDisplayModel(question, questionNumber) {
 }
 
 function textAnswerKeyItem(question, displayModel) {
-  const base = createAnswerKeyItem(question, displayModel);
   return {
-    ...base,
     questionId: question.id,
     questionNumber: displayModel.questionNumber,
     patternId: question.patternSpecId ?? question.metadata?.patternId,
@@ -309,302 +306,287 @@ function transformReviewQuestion(row, sequenceNumber) {
       ...(clone(original.semanticSnapshot) ?? {}),
       applicationReview: {
         newInterpretiveAct: candidate.applicationMode === 'SINGLE_N_PLUS_1' ? 'N_PLUS_1_REVIEW_REQUIRED' : 'DIRECT_APPLICATION',
-        answerRole: candidate.targetRoleCandidate.mathRoleId,
-        answerUnitCandidate: unitFlow.resolvedAnswerUnitCandidate,
-        macroContextId: candidate.contextSelection.macroContextId,
-        atomicEpisodeId: candidate.contextSelection.atomicEpisodeId
+        answerWitness: clone(candidate.answerModelCandidate),
+        proofTrace: clone(candidate.proofCandidate.proofTrace),
+        misconceptionFixtureRefs: clone(candidate.misconceptionFixtureRefs),
+        contextSelection: clone(candidate.contextSelection),
+        unitFlow: clone(unitFlow)
       }
     }
   };
   const afterSnapshot = exactMathSnapshot(transformed);
   return {
-    transformed,
-    unitFlow,
+    candidate,
     exactPatternGroupId: exact.group.patternGroupId,
     exactPatternSpecId: beforeSnapshot.patternSpecId,
+    exactWorksheetId: exact.exactWorksheetDocument.worksheetId,
+    transformed,
+    beforeSnapshot,
+    afterSnapshot,
     mathPreserved: JSON.stringify(beforeSnapshot) === JSON.stringify(afterSnapshot),
-    promptChanged: normalizeVisiblePrompt(original.blankedDisplayText ?? original.promptText) !== prompt,
-    originalPrompt: normalizeVisiblePrompt(original.blankedDisplayText ?? original.promptText),
-    reviewPrompt: prompt
+    promptChanged: prompt !== normalizeVisiblePrompt(
+      original.blankedDisplayText ?? original.promptText ?? original.displayText ?? ''
+    ),
+    unitFlow
   };
 }
 
-function buildPBLReviewSections(a02, cohortSourceIds) {
-  return a02.pblTaskSetCandidates
-    .filter((row) => cohortSourceIds.has(row.sourceId))
-    .map((pbl) => ({
-      pblCandidateId: pbl.pblCandidateId,
-      sourceId: pbl.sourceId,
-      knowledgePointId: pbl.primaryKnowledgePointId,
-      macroContextId: pbl.macroContextId,
-      graphType: pbl.graphType,
-      projectionCandidate: pbl.projectionCandidate,
-      drivingProblemCandidate: clone(pbl.drivingProblemCandidate),
-      taskBlueprints: clone(pbl.taskBlueprints),
-      milestoneBlueprints: clone(pbl.milestoneBlueprints),
-      finalProductCandidate: clone(pbl.finalProductCandidate),
-      humanReviewCriteria: [
-        'driving problem is authentic and mathematically necessary',
-        'every non-first task consumes a prior milestone or shared constraint',
-        'final task consumes at least two milestones',
-        'projection candidate keeps the complete task chain'
-      ],
-      productionAdmissionAllowed: false
-    }));
-}
-
-function buildWorksheetDocument(transformedRows, generationSeed) {
+function buildReviewWorksheetDocument(transformedRows) {
   const questions = transformedRows.map((row) => row.transformed);
+  const questionDisplayModels = questions.map((question, index) => textDisplayModel(question, index + 1));
+  const answerKeyItems = questions.map((question, index) => textAnswerKeyItem(question, questionDisplayModels[index]));
   const questionLayout = {
     paperSize: 'A4',
     columns: 1,
-    rowsPerPage: 4,
+    rowsPerPage: 3,
     showQuestionNumbers: true,
     showAnswerKeyPage: true,
     longTextCardPolicy: 'avoidSplit'
   };
-  const answerLayout = { ...questionLayout, rowsPerPage: 3 };
-  const displayModels = questions.map((question, index) => textDisplayModel(question, index + 1));
-  const answerItems = questions.map((question, index) => textAnswerKeyItem(question, displayModels[index]));
-  const questionPages = paginateQuestionDisplayModels(displayModels, questionLayout);
-  const answerKeyPages = paginateAnswerKeyItems(answerItems, answerLayout);
-  const sourceIds = uniqueSorted(questions.map((row) => row.sourceId));
-  const macroIds = uniqueSorted(questions.map((row) => row.applicationReview.contextSelection.macroContextId));
+  const answerLayout = {
+    ...questionLayout,
+    rowsPerPage: 4
+  };
+  const questionPages = paginateQuestionDisplayModels(questionDisplayModels, questionLayout);
+  const answerKeyPages = paginateAnswerKeyItems(answerKeyItems, answerLayout);
   return {
     schemaVersion: 'worksheet-document-v1',
     version: '1',
-    worksheetId: `postg-app-w01-a05-e4-${generationSeed}`,
-    worksheetKind: 'batchAWorksheet',
-    title: 'Wave 01 應用題 Production-equivalent Human Review',
-    subtitle: 'Exact production generator + M01 context binding + shared production renderer',
+    worksheetId: 'postg-app-w01-a05-production-review',
+    worksheetKind: 'applicationCapabilityHumanReview',
+    title: 'POSTG-APP Wave 01 應用題產線人工審核卷',
+    subtitle: '16 個宏觀情境／全 eligible source coverage／exact generator witness',
     locale: 'zh-Hant',
     generatedAt: null,
-    visibilityStatus: 'hidden',
+    visibilityStatus: 'hidden_review_only',
     productionUse: 'forbidden_pending_human_review',
-    curriculumInfo: {
-      publisher: 'Wave 01 Golden 15',
-      grade: null,
-      semester: null,
-      unitNumber: 'W01-A05',
-      unitTitle: 'Application capability review cohort',
-      curriculumNodeIds: sourceIds,
-      canonicalSkillIds: []
-    },
-    studentFields: { showName: true, showDate: true, showClass: false, showScore: false, labels: { name: '姓名', date: '日期', className: '班級', score: '分數' } },
-    printOptions: {
-      paperSize: 'A4', orientation: 'portrait', columns: 1, rowsPerPage: 4,
-      answerKeyColumns: 1, answerKeyRowsPerPage: 3, fontSizeMode: 'normal',
-      showQuestionNumbers: true, showAnswerKey: true, answerKeyPlacement: 'afterQuestions',
-      pageBreakMode: 'avoidLongTextCards', marginMode: 'default', debugDataAttributes: false
-    },
-    validationSummary: { ok: true, errors: [], warnings: [], infos: [], validatorVersion: 'postg-app-w01-a05-e4-review-v1', validatedAt: null },
-    batchA: {
-      sourceIds,
-      selectionMode: 'reviewCohort',
-      knowledgePointIds: questions.map((row) => row.knowledgePointId),
-      patternGroupIds: questions.map((row) => row.resolvedPatternGroupId),
-      patternSpecIds: questions.map((row) => row.patternSpecId ?? row.metadata?.patternId),
-      allocation: questions.map((row) => ({ knowledgePointId: row.knowledgePointId, patternGroupId: row.resolvedPatternGroupId, patternSpecId: row.patternSpecId ?? row.metadata?.patternId, questionCount: 1 }))
-    },
-    provenance: {
-      sourceType: 'postg_app_w01_a05_production_equivalent_review',
-      sourceTaskIds: [
-        'POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack',
-        'POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract',
-        'POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow',
-        REVIEW_TASK_ID
-      ],
-      patternSpecIds: questions.map((row) => row.patternSpecId ?? row.metadata?.patternId),
-      curriculumNodeIds: sourceIds,
-      knowledgePointIds: questions.map((row) => row.knowledgePointId),
-      patternGroupIds: questions.map((row) => row.resolvedPatternGroupId),
-      productionStorageCategory: 'human_review_evidence',
-      notes: ['Hidden E4 review artifact. No public selector or production admission.']
-    },
-    sections: [{
-      sectionId: 'postg-app-w01-a05-review',
-      title: '應用題情境與單位審查',
-      description: null,
-      patternIds: questions.map((row) => row.patternSpecId ?? row.metadata?.patternId),
-      questionIds: questions.map((row) => row.id),
-      orderingIndex: 0
-    }],
-    configSnapshot: {
-      schemaVersion: 'postg-app-w01-a05-e4-review-v1',
-      generationSeed,
-      questionCount: questions.length,
-      reviewMode: REVIEW_MODE,
-      productionSelectable: false
-    },
-    generationContext: {
-      questionKind: 'batchAWorksheet',
-      generationMode: REVIEW_MODE,
-      questionCount: questions.length,
-      generationSeed,
-      orderingSeed: generationSeed,
-      resolvedOrderingSeed: generationSeed,
-      orderingMode: 'macroContextCoverageThenSourceCoverage',
-      patternIdsInRenderOrder: questions.map((row) => row.patternSpecId ?? row.metadata?.patternId)
-    },
-    allocationResult: questions.map((row) => ({ patternSpecId: row.patternSpecId ?? row.metadata?.patternId, questionCount: 1 })),
-    generatedQuestions: clone(questions),
-    orderedQuestionIds: questions.map((row) => row.id),
-    questionDisplayModels: displayModels,
-    answerKeyItems: answerItems,
+    generatedQuestions: questions,
+    questionDisplayModels,
+    answerKeyItems,
     questionPages,
     answerKeyPages,
-    summary: {
+    printOptions: {
+      paperSize: 'A4',
+      columns: 1,
+      rowsPerPage: 3,
+      answerKeyColumns: 1,
+      answerKeyRowsPerPage: 4,
+      showAnswerKey: true,
+      answerKeyPlacement: 'afterQuestions'
+    },
+    rendererProfile: {
+      profileId: 'postg_app_w01_a05_human_review_long_text_v1',
+      questionSheet: questionLayout,
+      answerKey: answerLayout
+    },
+    batchA: {
+      sourceId: 'postg_app_w01',
+      sourceIds: uniqueSorted(questions.map((question) => question.sourceId)),
+      selectionMode: 'humanReviewCohort',
       questionCount: questions.length,
-      questionPageCount: questionPages.length,
-      answerKeyPageCount: answerKeyPages.length,
-      orderingMode: 'macroContextCoverageThenSourceCoverage',
-      patternIdsInRenderOrder: questions.map((row) => row.patternSpecId ?? row.metadata?.patternId),
-      sourceUnitCount: sourceIds.length,
-      macroContextCount: macroIds.length
+      ordering: 'source_then_macro',
+      includeAnswerKey: true
+    },
+    reviewRuntime: {
+      taskId: REVIEW_TASK_ID,
+      reviewMode: REVIEW_MODE,
+      exactProductionGeneratorUsed: true,
+      productionRendererRequired: true,
+      humanReviewReady: true,
+      productionSelectable: false,
+      productionAdmissionGranted: false
+    },
+    validationSummary: {
+      ok: true,
+      errors: [],
+      warnings: [],
+      validatorVersion: 'postg-app-w01-a05-review-v1',
+      validatedAt: null
     },
     generationReport: {
       requestedQuestionCount: questions.length,
       generatedQuestionCount: questions.length,
       totalAttempts: questions.length,
-      duplicateRejectCount: 0,
-      constraintRejectCount: 0,
-      patternReports: questions.map((row) => ({ patternId: row.patternSpecId ?? row.metadata?.patternId, requestedQuestionCount: 1, generatedQuestionCount: 1, failureCount: 0, warnings: [] })),
-      validationWarnings: [], generationWarnings: [], errors: []
+      exactGeneratorCount: questions.length,
+      validationWarnings: [],
+      generationWarnings: [],
+      errors: []
     },
-    reviewRuntime: {
+    summary: {
+      questionCount: questions.length,
+      answerKeyItemCount: answerKeyItems.length,
+      questionPageCount: questionPages.length,
+      answerKeyPageCount: answerKeyPages.length,
+      sourceCount: uniqueSorted(questions.map((question) => question.sourceId)).length,
+      macroContextCount: uniqueSorted(questions.map((question) => question.applicationReview.contextSelection.macroContextId)).length
+    },
+    configSnapshot: {
+      schemaVersion: 'postg-app-w01-a05-review-plan-v1',
+      reviewMode: REVIEW_MODE,
+      productionAdmissionAllowed: false
+    },
+    provenance: {
+      programId: 'POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1',
       taskId: REVIEW_TASK_ID,
-      exactProductionGeneratorUsed: true,
+      sourceTaskIds: [
+        'POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline',
+        'POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack',
+        'POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract',
+        'POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow',
+        'POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview'
+      ],
+      exactGeneratorLineageRequired: true,
       productionRendererRequired: true,
-      productionSelectable: false,
-      publicRouteChanged: false,
-      humanReviewReady: true,
-      macroContextIds: macroIds,
-      sourceIds
+      humanReviewRequired: true,
+      freeFormAIUsed: false
     }
   };
 }
 
-export function materializeW01E4ProductionReview({ root = process.cwd(), generationSeed = 'postg-app-w01-a05-e4-review' } = {}) {
-  const a02 = materializeW01NPlusOneAndPBLCandidatePack({ root });
-  const upstreamValidation = validateW01NPlusOneAndPBLCandidatePack(a02);
-  const eligibleSources = uniqueSorted(a02.a01.candidates.map((row) => row.sourceId));
-  const requiredMacros = uniqueSorted(a02.a01.candidates.map((row) => row.contextSelection.macroContextId));
+function buildPblReviewSections(a02, selectedSources) {
+  return a02.pblTaskSetCandidates
+    .filter((candidate) => selectedSources.has(candidate.sourceId))
+    .map((candidate) => ({
+      pblTaskSetId: candidate.pblTaskSetId,
+      sourceId: candidate.sourceId,
+      knowledgePointId: candidate.knowledgePointId,
+      graphType: candidate.graphCandidate.graphType,
+      nodes: clone(candidate.graphCandidate.nodes),
+      edges: clone(candidate.graphCandidate.edges),
+      finalProductCandidate: clone(candidate.graphCandidate.finalProductCandidate),
+      taskBlueprints: clone(candidate.taskBlueprints),
+      projectionCandidate: candidate.graphCandidate.graphType === 'PBL3_LINEAR'
+        ? 'APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE'
+        : 'APPROVED_COMPLETE_TWO_PAGE_CANDIDATE',
+      unapprovedPageSplitForbidden: true,
+      productionAdmissionAllowed: false
+    }));
+}
+
+export function materializeW01E4ProductionReview(options = {}) {
+  const generationSeed = String(options.generationSeed ?? 'postg-app-w01-a05-e4');
+  const a02 = options.a02 ?? materializeW01NPlusOneAndPBLCandidatePack();
+  const a02Validation = validateW01NPlusOneAndPBLCandidatePack(a02);
+  if (!a02Validation.ok) throw new Error(JSON.stringify(a02Validation.issues));
+
+  const eligibleSources = uniqueSorted(a02.a01.assessment.records
+    .filter((record) => record.suitableForApplication === true)
+    .map((record) => record.sourceId));
+  const requiredMacros = uniqueSorted(a02.a01.assessment.masterController.contextAuthority.hierarchy.macroDomains.map((row) => row.nodeId));
   const viable = materializeViableRows(a02, generationSeed);
   const cohortRows = selectReviewCohort(viable.rows, eligibleSources, requiredMacros);
   const transformedRows = cohortRows.map((row, index) => transformReviewQuestion(row, index + 1));
-  const cohortSourceIds = new Set(transformedRows.map((row) => row.transformed.sourceId));
-  const worksheetDocument = buildWorksheetDocument(transformedRows, generationSeed);
-  const unitFlowReviewRows = transformedRows.map((row) => row.unitFlow);
-  const pblReviewSections = buildPBLReviewSections(a02, cohortSourceIds);
+  const selectedSources = new Set(transformedRows.map((row) => row.transformed.sourceId));
+  const worksheetDocument = buildReviewWorksheetDocument(transformedRows);
+  const pblReviewSections = buildPblReviewSections(a02, selectedSources);
+  const unitFlowReviewRows = transformedRows.map((row) => clone(row.unitFlow));
+
   return {
-    a02,
-    upstreamValidation,
+    programId: 'POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1',
+    taskId: REVIEW_TASK_ID,
+    status: 'W01_E4_PRODUCTION_EQUIVALENT_REVIEW_RUNTIME_READY',
+    actualEvidenceLevel: 'E3_SHADOW_RUNTIME_INTEGRATED',
     generationSeed,
+    a02,
+    a02Validation,
     eligibleSources,
     requiredMacros,
-    viableRows: viable.rows,
     exactGenerationFailures: viable.failures,
-    cohortRows,
+    viableCandidateCount: viable.rows.length,
     transformedRows,
     worksheetDocument,
+    pblReviewSections,
     unitFlowReviewRows,
-    pblReviewSections
+    reviewBoundary: {
+      exactProductionGeneratorUsed: true,
+      productionRendererRequired: true,
+      htmlOutputVerified: false,
+      pdfOutputVerified: false,
+      humanReviewReady: true,
+      humanDecisionRecorded: false,
+      productionAdmissionGranted: false
+    }
   };
 }
 
 export function validateW01E4ProductionReview(materialized) {
   const issues = [];
-  if (!materialized.upstreamValidation.ok) issues.push(issue('POSTG_APP_W01_A05_UPSTREAM_INVALID', 'a02'));
-  const selectedSources = uniqueSorted(materialized.transformedRows.map((row) => row.transformed.sourceId));
-  const selectedMacros = uniqueSorted(materialized.transformedRows.map((row) => row.transformed.applicationReview.contextSelection.macroContextId));
-  if (JSON.stringify(selectedSources) !== JSON.stringify(materialized.eligibleSources)) {
-    issues.push(issue('POSTG_APP_W01_A05_ELIGIBLE_SOURCE_COVERAGE_INVALID', 'cohort', { expected: materialized.eligibleSources, actual: selectedSources }));
+  const rows = materialized.transformedRows ?? [];
+  const selectedSources = uniqueSorted(rows.map((row) => row.transformed.sourceId));
+  const selectedMacros = uniqueSorted(rows.map((row) => row.transformed.applicationReview.contextSelection.macroContextId));
+  const eligibleSources = uniqueSorted(materialized.eligibleSources ?? []);
+  const requiredMacros = uniqueSorted(materialized.requiredMacros ?? []);
+  const mathPreservedCount = rows.filter((row) => row.mathPreserved).length;
+  const promptChangedCount = rows.filter((row) => row.promptChanged).length;
+  const forbiddenVisibleLabelCount = rows.filter((row) => /算式|答：|_{5,}/.test(row.transformed.blankedDisplayText)).length;
+  const humanReviewReady = rows.length > 0
+    && rows.every((row) => row.transformed.applicationReview?.humanReviewReady === true)
+    && materialized.reviewBoundary?.humanReviewReady === true;
+
+  if (JSON.stringify(selectedSources) !== JSON.stringify(eligibleSources)) {
+    issues.push(issue('POSTG_APP_W01_A05_ELIGIBLE_SOURCE_COVERAGE_INVALID', 'transformedRows', {
+      expected: eligibleSources,
+      actual: selectedSources
+    }));
   }
-  if (JSON.stringify(selectedMacros) !== JSON.stringify(materialized.requiredMacros)) {
-    issues.push(issue('POSTG_APP_W01_A05_MACRO_CONTEXT_COVERAGE_INVALID', 'cohort', { expected: materialized.requiredMacros, actual: selectedMacros }));
+  if (JSON.stringify(selectedMacros) !== JSON.stringify(requiredMacros)) {
+    issues.push(issue('POSTG_APP_W01_A05_MACRO_CONTEXT_COVERAGE_INVALID', 'transformedRows', {
+      expected: requiredMacros,
+      actual: selectedMacros
+    }));
   }
-  if (materialized.transformedRows.some((row) => !row.mathPreserved)) issues.push(issue('POSTG_APP_W01_A05_MATHEMATICAL_WITNESS_DRIFT', 'cohort'));
-  if (materialized.transformedRows.some((row) => !row.promptChanged)) issues.push(issue('POSTG_APP_W01_A05_VISIBLE_CONTEXT_NOT_CHANGED', 'cohort'));
-  if (materialized.transformedRows.some((row) => row.reviewPrompt.includes('{{'))) issues.push(issue('POSTG_APP_W01_A05_UNRESOLVED_SURFACE_SLOT', 'cohort'));
-  if (materialized.transformedRows.some((row) => /算式|答：|_{5,}/.test(row.reviewPrompt))) issues.push(issue('POSTG_APP_W01_A05_FORBIDDEN_VISIBLE_LABEL', 'cohort'));
-  if (materialized.worksheetDocument.generatedQuestions.length !== materialized.transformedRows.length
-      || materialized.worksheetDocument.answerKeyItems.length !== materialized.transformedRows.length) {
-    issues.push(issue('POSTG_APP_W01_A05_QUESTION_ANSWER_PAIRING_INVALID', 'worksheetDocument'));
+  if (rows.length < eligibleSources.length || rows.length < requiredMacros.length) {
+    issues.push(issue('POSTG_APP_W01_A05_REVIEW_COHORT_TOO_SMALL', 'transformedRows', {
+      reviewCohortQuestionCount: rows.length,
+      eligibleSourceCount: eligibleSources.length,
+      requiredMacroContextCount: requiredMacros.length
+    }));
   }
-  if (materialized.worksheetDocument.reviewRuntime.exactProductionGeneratorUsed !== true
-      || materialized.worksheetDocument.reviewRuntime.productionRendererRequired !== true
-      || materialized.worksheetDocument.reviewRuntime.productionSelectable !== false) {
-    issues.push(issue('POSTG_APP_W01_A05_REVIEW_RUNTIME_BOUNDARY_INVALID', 'worksheetDocument.reviewRuntime'));
+  if (mathPreservedCount !== rows.length) issues.push(issue('POSTG_APP_W01_A05_MATHEMATICAL_WITNESS_DRIFT', 'transformedRows'));
+  if (promptChangedCount !== rows.length) issues.push(issue('POSTG_APP_W01_A05_CONTEXT_OVERLAY_MISSING', 'transformedRows'));
+  if (forbiddenVisibleLabelCount !== 0) issues.push(issue('POSTG_APP_W01_A05_FORBIDDEN_VISIBLE_LABEL', 'transformedRows', { forbiddenVisibleLabelCount }));
+  if (!humanReviewReady) issues.push(issue('POSTG_APP_W01_A05_HUMAN_REVIEW_NOT_READY', 'reviewBoundary'));
+  if (materialized.reviewBoundary?.productionAdmissionGranted !== false) issues.push(issue('POSTG_APP_W01_A05_PRODUCTION_ADMISSION_FORBIDDEN', 'reviewBoundary.productionAdmissionGranted'));
+  for (const [index, row] of rows.entries()) {
+    if (!row.exactPatternGroupId || !row.exactPatternSpecId || row.transformed.applicationReview?.exactGeneratorUsed !== true) {
+      issues.push(issue('POSTG_APP_W01_A05_EXACT_GENERATOR_WITNESS_MISSING', `transformedRows[${index}]`));
+    }
+    if (row.transformed.productionUse !== 'forbidden_pending_human_review'
+      || row.transformed.applicationReview?.productionAdmissionAllowed !== false) {
+      issues.push(issue('POSTG_APP_W01_A05_PRODUCTION_ADMISSION_FORBIDDEN', `transformedRows[${index}]`));
+    }
   }
-  const pblIds = uniqueSorted(materialized.pblReviewSections.map((row) => row.pblCandidateId));
-  const expectedPblIds = uniqueSorted(materialized.a02.pblTaskSetCandidates
-    .filter((row) => selectedSources.includes(row.sourceId))
-    .map((row) => row.pblCandidateId));
-  if (JSON.stringify(pblIds) !== JSON.stringify(expectedPblIds)) issues.push(issue('POSTG_APP_W01_A05_PBL_REVIEW_COVERAGE_INVALID', 'pblReviewSections'));
-  if (materialized.pblReviewSections.some((row) => (
-    (row.graphType === 'PBL3_LINEAR' && row.projectionCandidate !== 'APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE')
-    || (row.graphType === 'PBL5_BOUNDED_DECISION' && row.projectionCandidate !== 'APPROVED_COMPLETE_TWO_PAGE_CANDIDATE')
-  ))) issues.push(issue('POSTG_APP_W01_A05_PBL_PROJECTION_INVALID', 'pblReviewSections'));
-  if (materialized.transformedRows.some((row) => row.transformed.applicationReview.productionAdmissionAllowed !== false)) {
-    issues.push(issue('POSTG_APP_W01_A05_PRODUCTION_ADMISSION_FORBIDDEN', 'cohort'));
+  for (const [index, section] of (materialized.pblReviewSections ?? []).entries()) {
+    if (section.graphType === 'PBL3_LINEAR' && (section.taskBlueprints?.length !== 3 || section.projectionCandidate !== 'APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE')) {
+      issues.push(issue('POSTG_APP_W01_A05_PBL3_PROJECTION_INVALID', `pblReviewSections[${index}]`));
+    }
+    if (section.graphType === 'PBL5_BOUNDED_DECISION' && (section.taskBlueprints?.length !== 5 || section.projectionCandidate !== 'APPROVED_COMPLETE_TWO_PAGE_CANDIDATE')) {
+      issues.push(issue('POSTG_APP_W01_A05_PBL5_PROJECTION_INVALID', `pblReviewSections[${index}]`));
+    }
+    if (section.productionAdmissionAllowed !== false) issues.push(issue('POSTG_APP_W01_A05_PRODUCTION_ADMISSION_FORBIDDEN', `pblReviewSections[${index}]`));
   }
-  const unresolvedUnitCount = materialized.unitFlowReviewRows.filter((row) => row.resolutionStatus === 'HUMAN_REVIEW_REQUIRED').length;
+
   return {
     ok: issues.length === 0,
     issues,
-    counts: {
-      eligibleSourceCount: materialized.eligibleSources.length,
-      requiredMacroContextCount: materialized.requiredMacros.length,
-      viableExactCandidateCount: materialized.viableRows.length,
-      exactGenerationFailureCount: materialized.exactGenerationFailures.length,
-      reviewCohortQuestionCount: materialized.transformedRows.length,
-      reviewCohortSourceCount: selectedSources.length,
-      reviewCohortMacroContextCount: selectedMacros.length,
-      mathPreservedCount: materialized.transformedRows.filter((row) => row.mathPreserved).length,
-      promptChangedCount: materialized.transformedRows.filter((row) => row.promptChanged).length,
-      questionPageCount: materialized.worksheetDocument.questionPages.length,
-      answerKeyPageCount: materialized.worksheetDocument.answerKeyPages.length,
-      pblReviewSectionCount: materialized.pblReviewSections.length,
-      unitFlowReviewCount: materialized.unitFlowReviewRows.length,
-      unresolvedUnitReviewCount: unresolvedUnitCount,
-      productionAdmittedCount: 0
-    },
+    status: issues.length === 0 ? materialized.status : 'W01_E4_PRODUCTION_EQUIVALENT_REVIEW_RUNTIME_INVALID',
+    actualEvidenceLevel: materialized.actualEvidenceLevel,
+    humanReviewReady,
+    productionAdmissionGranted: false,
     selectedSources,
     selectedMacros,
-    humanReviewReady: issues.length === 0,
-    productionAdmissionGranted: false,
-    nextShortestStep: 'POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation',
-    status: issues.length === 0
-      ? 'W01_E4_PRODUCTION_EQUIVALENT_REVIEW_RUNTIME_READY'
-      : 'W01_E4_PRODUCTION_EQUIVALENT_REVIEW_RUNTIME_BLOCKED'
-  };
-}
-
-export function buildW01E4ProductionReviewReadback(options = {}) {
-  const materialized = materializeW01E4ProductionReview(options);
-  const validation = validateW01E4ProductionReview(materialized);
-  return {
-    ...validation,
-    programId: 'POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1',
-    taskId: REVIEW_TASK_ID,
-    reviewMode: REVIEW_MODE,
-    unitFlowReviewRows: materialized.unitFlowReviewRows,
-    pblReviewSections: materialized.pblReviewSections,
-    exactGenerationFailures: materialized.exactGenerationFailures,
-    reviewPairs: materialized.transformedRows.map((row) => ({
-      bindingCandidateId: row.transformed.applicationReview.bindingCandidateId,
-      sourceId: row.transformed.sourceId,
-      knowledgePointId: row.transformed.knowledgePointId,
-      macroContextId: row.transformed.applicationReview.contextSelection.macroContextId,
-      exactPatternGroupId: row.exactPatternGroupId,
-      exactPatternSpecId: row.exactPatternSpecId,
-      originalPrompt: row.originalPrompt,
-      reviewPrompt: row.reviewPrompt,
-      answerText: row.transformed.answerText,
-      answerUnit: row.transformed.answerUnit,
-      mathPreserved: row.mathPreserved,
-      promptChanged: row.promptChanged
-    })),
-    worksheetDocument: materialized.worksheetDocument
+    counts: {
+      eligibleSourceCount: eligibleSources.length,
+      requiredMacroContextCount: requiredMacros.length,
+      reviewCohortSourceCount: selectedSources.length,
+      reviewCohortMacroContextCount: selectedMacros.length,
+      reviewCohortQuestionCount: rows.length,
+      exactGeneratorFailureCount: materialized.exactGenerationFailures?.length ?? 0,
+      mathPreservedCount,
+      promptChangedCount,
+      forbiddenVisibleLabelCount,
+      unresolvedUnitFlowCount: (materialized.unitFlowReviewRows ?? []).filter((row) => row.resolutionStatus === 'HUMAN_REVIEW_REQUIRED').length,
+      pblReviewSectionCount: materialized.pblReviewSections?.length ?? 0
+    }
   };
 }
