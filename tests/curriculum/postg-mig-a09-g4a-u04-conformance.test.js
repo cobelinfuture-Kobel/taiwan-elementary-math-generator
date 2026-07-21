@@ -142,7 +142,7 @@ test("A09 selector retains seven one-to-one canonical lineages", () => {
   assert.deepEqual(new Set(groups.flatMap((group) => group.patternSpecIds ?? [])), PS);
 });
 
-test("A09 E5 closes G4A-U04 and advances exactly one queue item to A10", async () => {
+test("A09 E5 remains closed while the global queue advances beyond A10", async () => {
   const [program, controller, conformance, master, contract, claim, readback] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
@@ -152,21 +152,20 @@ test("A09 E5 closes G4A-U04 and advances exactly one queue item to A10", async (
     readJson("../../data/project/milestones/POSTG-MIG-A09.claim.json"),
     readJson("../../docs/curriculum/output/postg/a09-g4a-u04/POSTG_MIG_A09_G4AU04_RUNTIME_READBACK.json"),
   ]);
-  assert.equal(program.activeTask, NEXT_TASK_ID);
-  assert.equal(program.lastCompletedTask, TASK_ID);
-  assert.equal(program.completedCount, 10);
-  assert.equal(program.remainingCount, 4);
-  assert.equal(program.goalDistance, "D4_POST_GOLDEN_MIGRATION_G4AU04_CONFORMANT_G4AU08_ACTIVE");
-  assert.equal(controller.queue.activeSourceId, NEXT_SOURCE_ID);
-  assert.equal(controller.queue.completeSourceIds.includes(SOURCE_ID), true);
-  const conformanceRow = conformance.rows.find((row) => row.sourceId === SOURCE_ID);
-  assert.equal(conformanceRow.conformanceStatus, "GOLDEN_CONFORMANT");
-  assert.equal(conformanceRow.goldenProductionEligible, true);
-  assert.equal(conformanceRow.queueState, "COMPLETE");
-  const nextRow = conformance.rows.find((row) => row.sourceId === NEXT_SOURCE_ID);
-  assert.equal(nextRow.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
-  assert.equal(nextRow.queueState, "ACTIVE");
-  assert.equal(nextRow.queueOrdinal, 0);
+  const a09Index = program.taskOrder.indexOf(TASK_ID);
+  const completedIndex = program.taskOrder.indexOf(program.lastCompletedTask);
+  assert.ok(completedIndex >= a09Index);
+  assert.ok(program.completedCount >= 10);
+  assert.equal(program.remainingCount, program.taskBudget - program.completedCount);
+  assert.ok(String(program.goalDistance).startsWith(`D${program.remainingCount}_POST_GOLDEN_MIGRATION_`));
+  assert.ok(controller.queue.completeSourceIds.includes(SOURCE_ID));
+  const closed = conformance.rows.find((row) => row.sourceId === SOURCE_ID);
+  assert.equal(closed.conformanceStatus, "GOLDEN_CONFORMANT");
+  assert.equal(closed.queueState, "COMPLETE");
+  assert.equal(closed.goldenProductionEligible, true);
+  const successor = conformance.rows.find((row) => row.sourceId === NEXT_SOURCE_ID);
+  assert.ok(["ACTIVE", "COMPLETE"].includes(successor.queueState));
+  assert.ok(["IN_PROGRESS_GOLDEN_NATIVE", "GOLDEN_CONFORMANT"].includes(successor.conformanceStatus));
   const row = master.rows.find((entry) => entry.sourceId === SOURCE_ID);
   assert.equal(row.unitJsonExists, true);
   assert.equal(row.knowledgeRegistryState, "VALIDATED_COMPLETE");
@@ -175,11 +174,7 @@ test("A09 E5 closes G4A-U04 and advances exactly one queue item to A10", async (
   assert.equal(row.existingQuestionBindingCount, 7);
   assert.equal(row.conformanceStatus, "GOLDEN_CONFORMANT");
   assert.equal(row.queueState, "COMPLETE");
-  assert.equal(master.statusSummary.goldenConformantCount, 12);
-  assert.equal(master.statusSummary.activeMigrationUnitCount, 1);
-  assert.equal(master.statusSummary.pendingMigrationUnitCount, 2);
-  assert.equal(master.statusSummary.unitJsonExistsCount, 12);
-  assert.equal(master.statusSummary.knowledgeRegistryCompleteCount, 12);
+  assert.ok(master.statusSummary.goldenConformantCount >= 12);
   assert.equal(contract.candidate.evidenceLevel, "E5_PRODUCTION_ADMITTED");
   assert.equal(contract.candidate.productionEligibility, true);
   assert.equal(contract.candidate.runtimeIntegration, "PASS_CONNECTED_TO_EXISTING_G4A_U04_SHARED_RUNTIME");
@@ -201,4 +196,5 @@ test("A09 E5 closes G4A-U04 and advances exactly one queue item to A10", async (
   assert.equal(readback.domReadback.internalIdLeak, false);
   assert.equal(readback.domReadback.placeholderLeak, false);
   assert.equal(readback.verdict, "PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK");
+  assert.equal(program.taskOrder[a09Index + 1], NEXT_TASK_ID);
 });
