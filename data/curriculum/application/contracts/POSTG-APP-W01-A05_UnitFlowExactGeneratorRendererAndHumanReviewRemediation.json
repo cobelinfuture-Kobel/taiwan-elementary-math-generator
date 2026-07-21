@@ -12,18 +12,19 @@
   "authority": {
     "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_W01_E4_Production_Review_And_Human_Decision_V1.md",
     "runtime": "src/curriculum/application/w01-e4-production-review-runtime.mjs",
+    "productionWorksheetPlanConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
     "artifactGenerator": "tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs",
     "pdfRenderer": "tools/curriculum/render-postg-app-w01-a05-review-pdf.mjs",
     "evidenceFinalizer": "tools/curriculum/finalize-postg-app-w01-a05-review-evidence.mjs",
     "workflow": ".github/workflows/postg-app-w01-a05-e4-review.yml"
   },
   "coverage": {
-    "assessedSourceCoverage": "complete A01 application-design source set",
-    "eligibleSourceCoverage": "all A01 sources with at least one currently consumable exact production PatternSpec route",
-    "blockedSourcePolicy": "A01 sources without an exact production route remain explicit remediation blockers and are excluded from E4-reviewed counts",
+    "eligibleSourceCoverage": "exact A01 application-eligible source set",
+    "expectedEligibleSourceCount": 12,
     "requiredMacroContextCount": 16,
     "exactProductionRouteRequiredPerReviewItem": true,
-    "pblReviewCoverage": "all A02 PBL candidates whose sourceId is represented by the exact-route-eligible cohort"
+    "exactProductionRouteFailureAllowed": false,
+    "pblReviewCoverage": "all A02 PBL candidates whose sourceId is represented by the cohort"
   },
   "evidenceTarget": {
     "level": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
@@ -39,14 +40,13 @@
     "exactGeneratorUnitPreferred": true,
     "semanticInferenceAllowed": true,
     "silentGenericFallbackAllowed": false,
-    "missingPatternImplementationByA05Allowed": false,
+    "shadowGeneratorSubstitutionAllowed": false,
     "unresolvedStatus": "HUMAN_REVIEW_REQUIRED",
     "productionAdmissionAllowed": false
   },
   "acceptance": {
-    "assessedSourceSetRecorded": true,
-    "exactRouteEligibleSourceCoverageExact": true,
-    "exactRouteBlockedSourcesExplicit": true,
+    "eligibleSourceCoverageExact": true,
+    "exactGeneratorFailureCount": 0,
     "macroContextCoverageCount": 16,
     "mathPreservedForEveryReviewItem": true,
     "visiblePromptChangedForEveryReviewItem": true,
@@ -60,12 +60,11 @@
   "distance": {
     "goalDistanceBefore": "D1_GOLDEN15_WORKSHEET_SHADOW_PROJECTED_AND_PRODUCTION_GAPS_EXPLICIT",
     "goalDistanceAfterTarget": "D1_GOLDEN15_E4_PRODUCTION_EQUIVALENT_HUMAN_REVIEW_READY",
-    "distanceReduced": "The application expansion moves from structural shadow output to a hash-locked exact-route cohort rendered through the shared production renderer, while all sources lacking consumable production PatternSpecs remain explicit and non-admitted.",
+    "distanceReduced": "The application expansion moves from structural shadow output to a complete 12-source exact-generator and shared-renderer HTML/PDF review cohort with unit-flow and PBL review evidence. The remaining blocker becomes an explicit human decision rather than missing production evidence.",
     "remainingBlockers": [
       "Operator semantic, mathematical, unit-flow and PBL review decision is required",
-      "Exact production PatternSpec consumption remains missing for the explicit blocked-source backlog",
       "Rejected items, if any, require remediation",
-      "Production admission remains disabled until explicit approval and blocked-source policy resolution"
+      "Production admission remains disabled until explicit approval"
     ],
     "nextShortestStep": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation"
   }
