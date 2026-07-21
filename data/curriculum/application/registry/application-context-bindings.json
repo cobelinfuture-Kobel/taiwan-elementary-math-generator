@@ -1,0 +1,8 @@
+{
+  "schemaName": "ApplicationContextBindingRegistryV1",
+  "schemaVersion": 1,
+  "contractId": "APPLICATION_GLOBAL_CONTEXT_BINDING_SOP_V1",
+  "itemSchema": "data/curriculum/application/schema/application-context-binding.schema.json",
+  "status": "BOOTSTRAP_EMPTY_NO_PRODUCTION_ADMISSIONS",
+  "bindings": []
+}
