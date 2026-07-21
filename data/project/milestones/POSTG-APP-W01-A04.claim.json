@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "SHADOW_PROJECTION_AND_REVIEW_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w01-worksheet-shadow-review.mjs",
+      "tools/curriculum/validate-postg-app-w01-a04-worksheet-shadow-review.mjs",
+      "tests/curriculum/postg-app-w01-a04-worksheet-shadow-review.test.js",
+      "src/curriculum/application/postg-app-master-controller.mjs",
+      "tests/curriculum/postg-app-m00-master-controller.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/application/contracts/POSTG_APP_W01_Worksheet_Shadow_Projection_And_Production_Admission_Review_V1.md",
+      "data/curriculum/application/assessment/w01-worksheet-shadow-review-policy.json",
+      "data/curriculum/application/assessment/w01-worksheet-shadow-review-index.json",
+      "data/curriculum/application/schema/w01-worksheet-shadow-projection.schema.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "data/curriculum/application/contracts/POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Wave 01 application-eligible units now have structural worksheet shadows with complete candidate-to-answer-key pairing, N+1 lineage and approved complete PBL projection plans. The production review is executed and deferred with explicit blockers rather than leaving admission status unresolved."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
