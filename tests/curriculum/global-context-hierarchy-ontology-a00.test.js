@@ -10,12 +10,14 @@ const contract = readJson('data/curriculum/context/contracts/GCTX-HIER-A00_Autho
 const claim = readJson('data/project/milestones/GCTX-HIER-A00.claim.json');
 const legacy = readJson('data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json');
 
-test('one canonical extraction entry point resolves ontology before legacy seeds', () => {
-  assert.equal(index.status, 'CANONICAL_EXTRACTION_ENTRY_POINT');
+test('one canonical extraction entry point resolves fused ontology before legacy seeds', () => {
+  assert.equal(index.status, 'CANONICAL_EXTRACTION_ENTRY_POINT_BOOTSTRAP_FACET_FUSED');
   assert.equal(index.canonicalEntryPoint, 'data/curriculum/context/registry/global-context-authority-index.json');
-  assert.deepEqual(index.authorityOrder.map((row) => row.priority), [1, 2, 3, 4, 5, 6]);
-  assert.equal(index.authorityOrder[1].role, 'MACHINE_READABLE_ONTOLOGY');
-  assert.equal(index.authorityOrder[3].role, 'LEGACY_SEED_SOURCE');
+  assert.deepEqual(index.authorityOrder.map((row) => row.priority), Array.from({ length: 14 }, (_, indexValue) => indexValue + 1));
+  assert.equal(index.authorityOrder[1].role, 'FACET_FUSION_AND_POPULATION_CONTRACT');
+  assert.equal(index.authorityOrder[2].role, 'MACHINE_READABLE_ONTOLOGY_STATE');
+  assert.equal(index.authorityOrder[6].role, 'EXPLICIT_LEGACY_MAPPING');
+  assert.equal(index.authorityOrder[11].role, 'LEGACY_FLAT_SEED_SOURCE');
 });
 
 test('four hierarchy levels are distinct from wording and numeric instances', () => {
@@ -31,17 +33,19 @@ test('four hierarchy levels are distinct from wording and numeric instances', ()
   assert.equal(ontology.nonOntologyLayers.every((row) => row.createsNewScenarioIdentity === false), true);
 });
 
-test('node schema locks parent prefixes and atomic semantic evidence', () => {
+test('node schema locks parent prefixes, facets and atomic semantic evidence', () => {
   assert.equal(schema.$schema, 'https://json-schema.org/draft/2020-12/schema');
   assert.equal(schema.allOf[0].then.properties.parentNodeId.const, null);
   assert.equal(schema.allOf[1].then.properties.parentNodeId.pattern, '^gctx_macro_');
   assert.equal(schema.allOf[2].then.properties.parentNodeId.pattern, '^gctx_meso_');
   assert.equal(schema.allOf[3].then.properties.parentNodeId.pattern, '^gctx_micro_');
   assert.equal(schema.allOf[3].then.required.includes('compatibleOperationFamilies'), true);
+  assert.equal(schema.allOf[3].then.required.includes('facetRefs'), true);
+  assert.equal(schema.allOf[3].then.required.includes('sourcePolicy'), true);
   assert.equal(schema.allOf[3].then.required.includes('semanticFingerprintComponents'), true);
 });
 
-test('GS02 is preserved as an 18-entry legacy seed, not the complete universe', () => {
+test('GS02 remains an 18-entry legacy seed and is explicitly mapped without becoming the universe', () => {
   assert.equal(legacy.schemaName, 'GS02G5AU08GlobalContextFamilyRegistry');
   assert.equal(legacy.contextFamilies.length, 18);
   const mapping = ontology.legacyRegistryMappings[0];
@@ -50,30 +54,46 @@ test('GS02 is preserved as an 18-entry legacy seed, not the complete universe', 
   assert.equal(mapping.contextFamilyCountIsScenarioCapacity, false);
   assert.equal(mapping.surfaceTemplatesAreHierarchyNodes, false);
   assert.equal(mapping.automaticHierarchyLevelInferenceAllowed, false);
-  assert.equal(mapping.mappingStatus, 'UNMAPPED_TO_V1_HIERARCHY');
+  assert.equal(mapping.mappingStatus, '18_OF_18_EXPLICITLY_MAPPED_TO_V1_BOOTSTRAP');
+  assert.equal(mapping.productionAdmissionGranted, false);
 });
 
-test('retrieval aliases expose Chinese and English hierarchy terms', () => {
-  for (const alias of ['全域情境', '大情境', '中情境', '小情境', '微觀情境', '情境本體']) {
+test('retrieval aliases expose hierarchy and facet terms in Chinese and English', () => {
+  for (const alias of ['全域情境', '大情境', '中情境', '小情境', '微觀情境', '情境本體', 'SDG情境', '古代情境', '時事情境']) {
     assert.equal(index.extractionAliases.zhTW.includes(alias), true);
   }
-  for (const alias of ['global context', 'context hierarchy', 'atomic task episode']) {
+  for (const alias of ['global context', 'context hierarchy', 'atomic task episode', 'temporal lens', 'current affairs context']) {
     assert.equal(index.extractionAliases.en.includes(alias), true);
   }
   assert.equal(index.prohibitedInferences.includes('18 legacy context families equals 18 total student-visible contexts'), true);
+  assert.equal(index.prohibitedInferences.includes('bootstrap population means the global context universe is complete'), true);
 });
 
-test('hierarchy nodes remain empty and completeness remains false', () => {
-  for (const rows of Object.values(ontology.hierarchyNodes)) assert.deepEqual(rows, []);
-  assert.equal(ontology.completeness.hierarchySemanticsDefined, true);
-  assert.equal(ontology.completeness.macroNodePopulationComplete, false);
-  assert.equal(ontology.completeness.mesoNodePopulationComplete, false);
-  assert.equal(ontology.completeness.microNodePopulationComplete, false);
-  assert.equal(ontology.completeness.atomicEpisodePopulationComplete, false);
-  assert.equal(ontology.completeness.legacyMappingComplete, false);
+test('M01 bootstrap is populated and queryable while the global universe and production remain open', () => {
+  assert.equal(ontology.status, 'BOOTSTRAP_POPULATED_FACET_FUSED_SHADOW_RESOLVABLE');
+  assert.deepEqual(ontology.population, {
+    materializationMode: 'DETERMINISTIC_FROM_VERSIONED_SEEDS',
+    macroDomainCount: 16,
+    mesoSituationCount: 48,
+    microScenarioCount: 48,
+    atomicEpisodeCount: 96,
+    surfaceRealizationCount: 96,
+    facetCount: 48,
+    legacyMappingCount: 18,
+    productionAdmittedNodeCount: 0,
+    globalUniverseClosed: false
+  });
+  assert.equal(ontology.completeness.bootstrapMacroPopulationComplete, true);
+  assert.equal(ontology.completeness.bootstrapMesoPopulationComplete, true);
+  assert.equal(ontology.completeness.bootstrapMicroPopulationComplete, true);
+  assert.equal(ontology.completeness.bootstrapAtomicEpisodePopulationComplete, true);
+  assert.equal(ontology.completeness.knownLegacyGS02MappingComplete, true);
+  assert.equal(ontology.completeness.globalContextUniverseComplete, false);
+  assert.equal(ontology.completeness.applicationBindingMigrationComplete, false);
+  assert.equal(ontology.completeness.productionRuntimeConsumptionComplete, false);
 });
 
-test('milestone remains E1, non-runtime, and required by POSTG-APP-A00', () => {
+test('A00 historical milestone remains E1 and is superseded rather than rewritten', () => {
   assert.equal(contract.result.hierarchySemanticsDefined, true);
   assert.equal(contract.result.hierarchyNodesPopulated, false);
   assert.equal(contract.result.runtimeChanged, false);
@@ -87,4 +107,5 @@ test('milestone remains E1, non-runtime, and required by POSTG-APP-A00', () => {
   assert.equal(claim.claims.productionAdmitted, false);
   assert.equal(claim.nextStep.taskId, 'POSTG-APP-A00_ProgramControllerCapabilityBaselineAndFixedQueue');
   assert.equal(claim.nextStep.requiredContractId, 'GLOBAL_CONTEXT_HIERARCHY_ONTOLOGY_V1');
+  assert.equal(ontology.nextProgramConsumer.producerTask, 'POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping');
 });

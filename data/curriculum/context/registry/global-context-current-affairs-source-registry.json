@@ -1,0 +1,106 @@
+{
+  "schemaName": "GlobalContextCurrentAffairsSourceRegistryV1",
+  "schemaVersion": 1,
+  "contractId": "GLOBAL_CONTEXT_ONTOLOGY_FACET_FUSION_V1",
+  "status": "SOURCE_AUTHORITY_IMPORTED_NO_REALTIME_NUMBERS_ADMITTED",
+  "defaultPolicy": {
+    "fictionalExerciseData": true,
+    "newsOnlyAuthorityAllowed": false,
+    "socialOnlyAuthorityAllowed": false,
+    "realtimeStatisticsCopiedIntoGeneralItems": false,
+    "validityWindowRequired": true,
+    "expiredFallback": "ALLOWLISTED_EVERGREEN_FICTIONALIZED_ONLY"
+  },
+  "anchors": [
+    {
+      "anchorId":"ca_un_sdg",
+      "labelZh":"聯合國永續發展目標主題邊界",
+      "sourceAuthorityTier":"A",
+      "sourceRef":"https://sdgs.un.org/goals",
+      "allowedTopics":["SDG 1 至 SDG 17 的官方目標名稱與主題邊界"],
+      "forbiddenUse":["直接複製全球即時或歷史統計數字到一般生成題"],
+      "reviewCadenceDays":365,
+      "sourceReviewedAt":"2026-07-14",
+      "validUntil":"2027-07-14",
+      "status":"active",
+      "fictionalExerciseData":true,
+      "sourceRefs":["docs/curriculum/context/G4B_U04_SDG_CurrentAffairsSourceRegistry.md"]
+    },
+    {
+      "anchorId":"ca_water_resources",
+      "labelZh":"水資源與節水教育主題",
+      "sourceAuthorityTier":"A",
+      "sourceRef":"https://www.wra.gov.tw/",
+      "allowedTopics":["供水節水","水情教育","雨水利用","河川與水環境建設"],
+      "forbiddenUse":["未核實即時蓄水率","災情或缺水數字"],
+      "reviewCadenceDays":90,
+      "sourceReviewedAt":"2026-07-14",
+      "validUntil":"2026-10-12",
+      "status":"active",
+      "fictionalExerciseData":true,
+      "sourceRefs":["docs/curriculum/context/G4B_U04_SDG_CurrentAffairsSourceRegistry.md"]
+    },
+    {
+      "anchorId":"ca_resource_circulation",
+      "labelZh":"資源循環與重複使用主題",
+      "sourceAuthorityTier":"A",
+      "sourceRef":"https://www.reca.gov.tw/",
+      "allowedTopics":["源頭減量","資源回收","循環利用","重複使用","包裝減量"],
+      "forbiddenUse":["品牌或企業宣傳","未核實回收成果數字"],
+      "reviewCadenceDays":90,
+      "sourceReviewedAt":"2026-07-14",
+      "validUntil":"2026-10-12",
+      "status":"active",
+      "fictionalExerciseData":true,
+      "sourceRefs":["docs/curriculum/context/G4B_U04_SDG_CurrentAffairsSourceRegistry.md"]
+    },
+    {
+      "anchorId":"ca_energy_education",
+      "labelZh":"能源效率與再生能源教育主題",
+      "sourceAuthorityTier":"A",
+      "sourceRef":"https://www.moeaea.gov.tw/",
+      "allowedTopics":["節約能源","能源效率","再生能源","能源教育"],
+      "forbiddenUse":["未核實發電量","節電成效","電價或設備性能宣稱"],
+      "reviewCadenceDays":90,
+      "sourceReviewedAt":"2026-07-14",
+      "validUntil":"2026-10-12",
+      "status":"active",
+      "fictionalExerciseData":true,
+      "sourceRefs":["docs/curriculum/context/G4B_U04_SDG_CurrentAffairsSourceRegistry.md"]
+    },
+    {
+      "anchorId":"ca_motc_public_transport",
+      "labelZh":"公共運輸與綠色交通主題",
+      "sourceAuthorityTier":"A",
+      "sourceRef":"https://www.motc.gov.tw/",
+      "allowedTopics":["公共運輸","人本交通","綠色交通","運輸資料入口"],
+      "forbiddenUse":["即時事故與傷亡","未核實載客量","特定政策評價"],
+      "reviewCadenceDays":90,
+      "sourceReviewedAt":"2026-07-14",
+      "validUntil":"2026-10-12",
+      "status":"active",
+      "fictionalExerciseData":true,
+      "sourceRefs":["docs/curriculum/context/G4B_U04_SDG_CurrentAffairsSourceRegistry.md"]
+    },
+    {
+      "anchorId":"ca_forest_conservation",
+      "labelZh":"森林、棲地與自然保育教育主題",
+      "sourceAuthorityTier":"A",
+      "sourceRef":"https://www.forest.gov.tw/",
+      "allowedTopics":["森林","棲地","自然保育","步道","環境教育","植樹與復育"],
+      "forbiddenUse":["動物受傷細節","恐懼敘事","未核實族群數字"],
+      "reviewCadenceDays":90,
+      "sourceReviewedAt":"2026-07-14",
+      "validUntil":"2026-10-12",
+      "status":"active",
+      "fictionalExerciseData":true,
+      "sourceRefs":["docs/curriculum/context/G4B_U04_SDG_CurrentAffairsSourceRegistry.md"]
+    }
+  ],
+  "coverage": {
+    "tierAAnchorCount": 6,
+    "activeAnchorCount": 6,
+    "realtimeNumericFactCount": 0,
+    "productionQuestionCount": 0
+  }
+}

@@ -84,6 +84,27 @@
       "items": { "type": "string", "minLength": 3 },
       "uniqueItems": true
     },
+    "facetRefs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^facet_" },
+      "uniqueItems": true
+    },
+    "legacyFamilyRefs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^gctx_family_" },
+      "uniqueItems": true
+    },
+    "sourcePolicy": {
+      "enum": [
+        "FICTIONALIZED_PRACTICE_DATA",
+        "CURRENT_AFFAIRS_SOURCE_REQUIRED"
+      ]
+    },
+    "currentAffairsAnchorRefs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^ca_" },
+      "uniqueItems": true
+    },
     "semanticFingerprintComponents": {
       "type": "array",
       "items": {
@@ -177,6 +198,8 @@
           "requiredContextAffordances",
           "compatibleOperationFamilies",
           "surfaceTemplateRefs",
+          "facetRefs",
+          "sourcePolicy",
           "semanticFingerprintComponents"
         ],
         "properties": {
@@ -186,7 +209,21 @@
             "minItems": 8,
             "contains": { "const": "atomicEpisodeId" }
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "sourcePolicy": { "const": "CURRENT_AFFAIRS_SOURCE_REQUIRED" } },
+              "required": ["sourcePolicy"]
+            },
+            "then": {
+              "required": ["currentAffairsAnchorRefs"],
+              "properties": {
+                "currentAffairsAnchorRefs": { "minItems": 1 }
+              }
+            }
+          }
+        ]
       }
     }
   ]

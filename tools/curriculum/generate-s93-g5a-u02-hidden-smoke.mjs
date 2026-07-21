@@ -12,6 +12,7 @@ const OUT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "../../docs/cur
 const HTML_PATH = resolve(OUT_DIR, "S93_G5A_U02_HiddenWorksheet.html");
 const MANIFEST_PATH = resolve(OUT_DIR, "S93_G5A_U02_HiddenWorksheet.manifest.json");
 const QUESTION_COUNT = 22;
+const EXPECTED_ANSWER_MODEL_COUNT = 19;
 
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
@@ -45,8 +46,8 @@ for (const profileId of requiredProfiles) {
 if (browserBundle.questionCount !== QUESTION_COUNT || browserBundle.answerCount !== QUESTION_COUNT) {
   throw new Error(`S93 exact count mismatch: ${browserBundle.questionCount}/${browserBundle.answerCount}`);
 }
-if (browserBundle.answerModelIds.length !== 16) {
-  throw new Error(`S93 answer model coverage mismatch: ${browserBundle.answerModelIds.length}/16`);
+if (browserBundle.answerModelIds.length !== EXPECTED_ANSWER_MODEL_COUNT) {
+  throw new Error(`S93 answer model coverage mismatch: ${browserBundle.answerModelIds.length}/${EXPECTED_ANSWER_MODEL_COUNT}`);
 }
 if (browserBundle.expectedPdfPageCount !== 44) {
   throw new Error(`S93 expected PDF page count mismatch: ${browserBundle.expectedPdfPageCount}/44`);
