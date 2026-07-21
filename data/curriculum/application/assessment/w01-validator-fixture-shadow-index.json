@@ -1,0 +1,38 @@
+{
+  "schemaName": "POSTGAPPW01ValidatorFixtureShadowIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
+  "contractId": "POSTG_APP_W01_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_V1",
+  "status": "DETERMINISTIC_SHADOW_RUNTIME_PENDING_CI",
+  "inputAuthority": {
+    "a01CandidateTaskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+    "a02CandidateTaskId": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+    "fixturePolicy": "data/curriculum/application/assessment/w01-validator-fixture-shadow-policy.json"
+  },
+  "materializedAuthority": {
+    "fixtureSchema": "data/curriculum/application/schema/w01-validator-shadow-fixture.schema.json",
+    "runtime": "src/curriculum/application/w01-validator-fixture-shadow-runtime.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a03-runtime-shadow.mjs",
+    "test": "tests/curriculum/postg-app-w01-a03-runtime-shadow.test.js"
+  },
+  "coverageRules": {
+    "singleApplicationPositivePerCandidate": 1,
+    "singleApplicationWrongRoleNegativePerCandidate": 1,
+    "singleApplicationUnitMismatchNegativePerCandidate": 1,
+    "nPlusOneInterpretationFailPerProof": 1,
+    "nPlusOneCounterfactualPositivePerProof": 1,
+    "pblPositivePerCandidate": 1,
+    "pblBrokenDependencyNegativePerCandidate": 1,
+    "requiredGoldenUnitCoverage": 15,
+    "requiredMacroContextCoverage": 16
+  },
+  "runtimeBoundary": {
+    "shadowRuntime": true,
+    "productionPatternSpecGeneratorReplaced": false,
+    "publicRuntimeChanged": false,
+    "rendererChanged": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextShortestStep": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview"
+}
