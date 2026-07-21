@@ -24,7 +24,9 @@
     "nPlusOneCounterfactualPositivePerProof": 1,
     "pblPositivePerCandidate": 1,
     "pblBrokenDependencyNegativePerCandidate": 1,
-    "requiredGoldenUnitCoverage": 15,
+    "requiredGoldenAssessmentUnitCoverage": 15,
+    "applicationRuntimeCoverageRule": "exactly the distinct sourceIds with A01 application candidates",
+    "excludedUnitRule": "units with no suitable application KnowledgePoint remain assessed but receive no forced runtime story fixture",
     "requiredMacroContextCoverage": 16
   },
   "runtimeBoundary": {
