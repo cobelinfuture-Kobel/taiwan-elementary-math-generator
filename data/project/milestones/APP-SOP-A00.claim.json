@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "taskId": "APP-SOP-A00_ScopeDefinitionsAndAdmissionBoundary",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "A00_CONTRACT_LOCKED_CI_RERUN_REQUESTED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/contracts/Application_Problem_SOP_V1.md",
+      "data/curriculum/contracts/APPLICATION_PROBLEM_SOP_V1.json",
+      "tests/curriculum/application-problem-sop-a00.test.js"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "Application-question design moves from discussion-only concepts to a bounded normative and machine-readable authority that separates SINGLE_DIRECT, SINGLE_N_PLUS_1, and PBL_TASK_SET, fixes global-context ownership, and defines fail-closed admission boundaries. No runtime, question content, production admission, or post-Golden migration state changes in A00."
+  },
+  "nextStep": {
+    "taskId": "APP-SOP-A01_SingleApplicationItemDetailedSOPAndSchemaContract",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
