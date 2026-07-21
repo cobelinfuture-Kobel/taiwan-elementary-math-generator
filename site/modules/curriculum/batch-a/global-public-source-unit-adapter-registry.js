@@ -34,6 +34,8 @@ export const G4A_U01_POSTG_SOURCE_ID = "g4a_u01_4a01";
 export const G4A_U01_POSTG_TASK_ID = "POSTG-MIG-A07_G4A_U01_GoldenConformanceAndKnowledgeOperationMigration";
 export const G4A_U02_POSTG_SOURCE_ID = "g4a_u02_4a02";
 export const G4A_U02_POSTG_TASK_ID = "POSTG-MIG-A08_G4A_U02_GoldenConformanceAndKnowledgeOperationMigration";
+export const G4A_U04_POSTG_SOURCE_ID = "g4a_u04_4a04";
+export const G4A_U04_POSTG_TASK_ID = "POSTG-MIG-A09_G4A_U04_GoldenConformanceAndKnowledgeOperationMigration";
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -205,6 +207,15 @@ export const G4AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescripto
   validator: "site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js",
 });
 
+export const G4AU04_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({
+  sourceId: G4A_U04_POSTG_SOURCE_ID,
+  knowledgeRegistryPath: "data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json",
+  counts: { knowledgePoints: 7, patternGroups: 7, patternSpecs: 7 },
+  authorityFileCount: 7,
+  generator: "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+  validator: "site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js",
+});
+
 const BASE_ADAPTER_DESCRIPTORS = freeze([
   {
     sourceId: G4B_U04_SOURCE_ID,
@@ -309,6 +320,12 @@ const POST_GOLDEN_ADAPTER_DESCRIPTORS = freeze([
     taskId: G4A_U02_POSTG_TASK_ID,
     adapterId: "g4a_u02_postg_golden_shared_runtime",
     descriptor: G4AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
+  }),
+  postGoldenAdapterDescriptor({
+    sourceId: G4A_U04_POSTG_SOURCE_ID,
+    taskId: G4A_U04_POSTG_TASK_ID,
+    adapterId: "g4a_u04_postg_golden_shared_runtime",
+    descriptor: G4AU04_POSTG_GOLDEN_RUNTIME_DESCRIPTOR,
   }),
 ]);
 
