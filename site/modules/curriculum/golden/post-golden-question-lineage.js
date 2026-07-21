@@ -83,15 +83,19 @@ export function attachPostGoldenQuestionLineage(result = {}, options = {}) {
       }));
       return clone(question);
     }
-    if (question.sourceId !== sourceId || question.metadata?.sourceId !== sourceId) {
+    const declaredSourceIds = [question.sourceId, question.metadata?.sourceId]
+      .filter((value) => value !== undefined && value !== null && value !== "");
+    if (declaredSourceIds.some((declaredSourceId) => declaredSourceId !== sourceId)) {
       errors.push(issue("POSTG_QUESTION_SOURCE_DRIFT", {
         sourceId,
         patternSpecId,
         questionIndex: index,
+        declaredSourceIds,
       }));
     }
     return {
       ...clone(question),
+      sourceId,
       knowledgePointId: binding.knowledgePointId,
       patternGroupId: binding.patternGroupId,
       resolvedPatternGroupId: binding.patternGroupId,
