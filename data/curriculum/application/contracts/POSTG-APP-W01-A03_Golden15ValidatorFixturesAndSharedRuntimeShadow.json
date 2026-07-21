@@ -42,7 +42,9 @@
     "PRODUCTION_GUARD"
   ],
   "coverage": {
-    "requiredGoldenUnitCount": 15,
+    "requiredGoldenAssessmentUnitCount": 15,
+    "applicationRuntimeUnitRule": "exactly the distinct sourceIds with A01 application candidates",
+    "excludedUnitRule": "assessed units without a suitable application KnowledgePoint receive no forced story fixture",
     "requiredMacroContextCount": 16,
     "unexpectedPassCount": 0,
     "unexpectedRejectCount": 0,
@@ -66,7 +68,9 @@
     "negativeFixtureExpectedRejectRequired": true,
     "calculationPassInterpretationFailSeparationRequired": true,
     "pblDependencyFailureRequired": true,
-    "fifteenUnitCoverageRequired": true,
+    "fifteenUnitAssessmentCoverageRequired": true,
+    "eligibleApplicationRuntimeCoverageRequired": true,
+    "notApplicableUnitsMustRemainWithoutForcedFixtures": true,
     "sixteenMacroCoverageRequired": true,
     "productionAdmissionRequiredToRemainZero": true
   },
@@ -86,7 +90,7 @@
   "distance": {
     "goalDistanceBefore": "D2_GOLDEN15_NPLUSONE_AND_PBL_BLUEPRINTS_VALIDATOR_READY",
     "goalDistanceAfterTarget": "D1_GOLDEN15_APPLICATION_CANDIDATES_EXECUTED_IN_SHARED_VALIDATOR_SHADOW",
-    "distanceReduced": "Every A01 candidate and A02 semantic/PBL blueprint gains deterministic positive and negative runtime evidence. Numeric witnesses are recomputed through registered operation-family adapters, answer-role and unit failures are isolated, calculation-pass/interpretation-fail is executed, PBL dependency failures are executed, and the Wave 01 validator/runtime gates close while production remains disabled.",
+    "distanceReduced": "All 15 Golden units remain in the application assessment authority. The shared runtime executes every eligible A01 application candidate, while units with no suitable application KnowledgePoint remain explicitly excluded rather than receiving forced story fixtures. Numeric witnesses, answer-role and unit failures, calculation-pass/interpretation-fail, and PBL dependency failures are executed across all 16 Macro Context Domains with production disabled.",
     "remainingBlockers": [
       "Shadow worksheet projection has not been generated or reviewed",
       "Exact production PatternSpec numeric generation is not claimed by the shadow adapters",
