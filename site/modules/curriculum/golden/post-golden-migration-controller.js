@@ -62,6 +62,17 @@ function validActiveUnitProgress(program, taskOrder) {
     && distance.endsWith("_ACTIVE");
 }
 
+function validProgramCloseoutActive(program, taskOrder) {
+  return program.programStatus === "ACTIVE_A13_PROGRAM_CONTROLLER_AND_KNOWLEDGE_REGISTRY_CLOSEOUT"
+    && program.activeTaskStatus === "ACTIVE_A13_PROGRAM_CONTROLLER_AND_KNOWLEDGE_REGISTRY_CLOSEOUT"
+    && program.activeTask === taskOrder[13]
+    && program.nextAllowedTask === taskOrder[13]
+    && program.lastCompletedTask === taskOrder[12]
+    && program.completedCount === 13
+    && program.remainingCount === 1
+    && program.goalDistance === "D1_POST_GOLDEN_ALL_UNITS_CONFORMANT_A13_ACTIVE";
+}
+
 export function validatePostGoldenMigrationProgram(program = {}) {
   const errors = [];
   const taskOrder = Array.isArray(program.taskOrder) ? program.taskOrder : [];
@@ -85,11 +96,15 @@ export function validatePostGoldenMigrationProgram(program = {}) {
 
   const progressValid = validFoundationCandidate(program, taskOrder)
     || validFoundationAccepted(program, taskOrder)
-    || validActiveUnitProgress(program, taskOrder);
+    || validActiveUnitProgress(program, taskOrder)
+    || validProgramCloseoutActive(program, taskOrder);
   if (!progressValid) errors.push(issue("POSTG_A00_PROGRAM_PROGRESS_INVALID"));
 
   const continuation = program.continuation ?? {};
-  if (program.programLock !== "ACTIVE_ONE_UNIT_ONLY"
+  const validProgramLock = validProgramCloseoutActive(program, taskOrder)
+    ? program.programLock === "ACTIVE_PROGRAM_CLOSEOUT_ONLY"
+    : program.programLock === "ACTIVE_ONE_UNIT_ONLY";
+  if (!validProgramLock
     || continuation.autoContinueWithinApprovedProgram !== true
     || continuation.ciPassIsStopPoint !== false
     || continuation.prAcceptanceIsStopPoint !== false
