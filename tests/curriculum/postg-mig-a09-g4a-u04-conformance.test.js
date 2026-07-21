@@ -21,6 +21,8 @@ import {
 
 const SOURCE_ID = "g4a_u04_4a04";
 const TASK_ID = "POSTG-MIG-A09_G4A_U04_GoldenConformanceAndKnowledgeOperationMigration";
+const NEXT_TASK_ID = "POSTG-MIG-A10_G4A_U08_GoldenConformanceAndKnowledgeOperationMigration";
+const NEXT_SOURCE_ID = "g4a_u08_4a08";
 const KP = new Set([
   "kp_g4a_u04_4digit_by_1digit_thousands_sufficient",
   "kp_g4a_u04_4digit_by_1digit_thousands_insufficient",
@@ -60,7 +62,7 @@ function adapted() {
 test("A09 authority contains seven unique KP operation models and bindings", async () => {
   const registry = await readJson("../../data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json");
   assert.equal(registry.sourceId, SOURCE_ID);
-  assert.equal(registry.conformanceState, "IN_PROGRESS_GOLDEN_NATIVE");
+  assert.equal(registry.conformanceState, "GOLDEN_CONFORMANT");
   assert.equal(registry.knowledgeRegistryState, "VALIDATED_COMPLETE");
   assert.equal(registry.review.status, "PASS");
   assert.equal(registry.knowledgePoints.length, 7);
@@ -140,34 +142,63 @@ test("A09 selector retains seven one-to-one canonical lineages", () => {
   assert.deepEqual(new Set(groups.flatMap((group) => group.patternSpecIds ?? [])), PS);
 });
 
-test("A09 E3 keeps the queue active and production closed pending exact-head artifacts", async () => {
-  const [program, controller, conformance, master, contract, claim] = await Promise.all([
+test("A09 E5 closes G4A-U04 and advances exactly one queue item to A10", async () => {
+  const [program, controller, conformance, master, contract, claim, readback] = await Promise.all([
     readJson("../../data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"),
     readJson("../../data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"),
     readJson("../../data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"),
     readJson("../../data/curriculum/knowledge/master/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.master-index.json"),
     readJson("../../data/curriculum/contracts/POSTG_MIG_A09_G4AU04_GoldenConformanceAndKnowledgeOperationMigration.json"),
     readJson("../../data/project/milestones/POSTG-MIG-A09.claim.json"),
+    readJson("../../docs/curriculum/output/postg/a09-g4a-u04/POSTG_MIG_A09_G4AU04_RUNTIME_READBACK.json"),
   ]);
-  assert.equal(program.activeTask, TASK_ID);
-  assert.equal(program.goalDistance, "D5_POST_GOLDEN_MIGRATION_G4AU02_CONFORMANT_G4AU04_ACTIVE");
-  assert.equal(controller.queue.activeSourceId, SOURCE_ID);
+  assert.equal(program.activeTask, NEXT_TASK_ID);
+  assert.equal(program.lastCompletedTask, TASK_ID);
+  assert.equal(program.completedCount, 10);
+  assert.equal(program.remainingCount, 4);
+  assert.equal(program.goalDistance, "D4_POST_GOLDEN_MIGRATION_G4AU04_CONFORMANT_G4AU08_ACTIVE");
+  assert.equal(controller.queue.activeSourceId, NEXT_SOURCE_ID);
+  assert.equal(controller.queue.completeSourceIds.includes(SOURCE_ID), true);
   const conformanceRow = conformance.rows.find((row) => row.sourceId === SOURCE_ID);
-  assert.equal(conformanceRow.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
-  assert.equal(conformanceRow.goldenProductionEligible, false);
-  assert.equal(conformanceRow.queueState, "ACTIVE");
+  assert.equal(conformanceRow.conformanceStatus, "GOLDEN_CONFORMANT");
+  assert.equal(conformanceRow.goldenProductionEligible, true);
+  assert.equal(conformanceRow.queueState, "COMPLETE");
+  const nextRow = conformance.rows.find((row) => row.sourceId === NEXT_SOURCE_ID);
+  assert.equal(nextRow.conformanceStatus, "IN_PROGRESS_GOLDEN_NATIVE");
+  assert.equal(nextRow.queueState, "ACTIVE");
+  assert.equal(nextRow.queueOrdinal, 0);
   const row = master.rows.find((entry) => entry.sourceId === SOURCE_ID);
   assert.equal(row.unitJsonExists, true);
   assert.equal(row.knowledgeRegistryState, "VALIDATED_COMPLETE");
   assert.equal(row.knowledgePointCount, 7);
   assert.equal(row.operationModelCount, 7);
   assert.equal(row.existingQuestionBindingCount, 7);
+  assert.equal(row.conformanceStatus, "GOLDEN_CONFORMANT");
+  assert.equal(row.queueState, "COMPLETE");
+  assert.equal(master.statusSummary.goldenConformantCount, 12);
+  assert.equal(master.statusSummary.activeMigrationUnitCount, 1);
+  assert.equal(master.statusSummary.pendingMigrationUnitCount, 2);
   assert.equal(master.statusSummary.unitJsonExistsCount, 12);
   assert.equal(master.statusSummary.knowledgeRegistryCompleteCount, 12);
-  assert.equal(contract.candidate.evidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
-  assert.equal(contract.candidate.productionEligibility, false);
+  assert.equal(contract.candidate.evidenceLevel, "E5_PRODUCTION_ADMITTED");
+  assert.equal(contract.candidate.productionEligibility, true);
   assert.equal(contract.candidate.runtimeIntegration, "PASS_CONNECTED_TO_EXISTING_G4A_U04_SHARED_RUNTIME");
-  assert.equal(claim.actualEvidenceLevel, "E3_SHADOW_RUNTIME_INTEGRATED");
+  assert.equal(contract.candidate.productionHTML, "PASS");
+  assert.equal(contract.candidate.productionPDF, "PASS");
+  assert.equal(claim.actualEvidenceLevel, "E5_PRODUCTION_ADMITTED");
   assert.equal(claim.claims.runtimeIntegrated, true);
-  assert.equal(claim.claims.productionAdmitted, false);
+  assert.equal(claim.claims.productionAdmitted, true);
+  assert.equal(readback.workflowRunId, 29792638602);
+  assert.equal(readback.artifactId, 8480900097);
+  assert.equal(readback.questionCount, 40);
+  assert.equal(readback.answerKeyCount, 40);
+  assert.equal(readback.knowledgePointCount, 7);
+  assert.equal(readback.patternGroupCount, 7);
+  assert.equal(readback.patternSpecCount, 7);
+  assert.equal(readback.validator.ok, true);
+  assert.equal(readback.validator.errorCount, 0);
+  assert.equal(readback.canonicalWorksheetIdentityParity, true);
+  assert.equal(readback.domReadback.internalIdLeak, false);
+  assert.equal(readback.domReadback.placeholderLeak, false);
+  assert.equal(readback.verdict, "PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK");
 });
