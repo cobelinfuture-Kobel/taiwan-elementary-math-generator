@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/context/schema/global-context-legacy-mapping.schema.json",
+  "title": "GlobalContextLegacyMappingV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "legacyContextFamilyId",
+    "macroContextId",
+    "mesoSituationId",
+    "microScenarioId",
+    "atomicEpisodeIds",
+    "surfaceTemplateIds",
+    "facetRefs",
+    "mappingDecision",
+    "automaticLevelInferenceUsed",
+    "productionAdmissionGranted",
+    "sourceRefs"
+  ],
+  "properties": {
+    "legacyContextFamilyId": {
+      "type": "string",
+      "pattern": "^gctx_family_"
+    },
+    "macroContextId": {
+      "type": "string",
+      "pattern": "^gctx_macro_"
+    },
+    "mesoSituationId": {
+      "type": "string",
+      "pattern": "^gctx_meso_"
+    },
+    "microScenarioId": {
+      "type": "string",
+      "pattern": "^gctx_micro_"
+    },
+    "atomicEpisodeIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^gctx_episode_"
+      },
+      "uniqueItems": true
+    },
+    "surfaceTemplateIds": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "string",
+        "pattern": "^tpl_"
+      },
+      "uniqueItems": true
+    },
+    "facetRefs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "pattern": "^facet_"
+      },
+      "uniqueItems": true
+    },
+    "mappingDecision": {
+      "const": "EXPLICIT_V1_MAPPING"
+    },
+    "automaticLevelInferenceUsed": {
+      "const": false
+    },
+    "productionAdmissionGranted": {
+      "const": false
+    },
+    "sourceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      },
+      "uniqueItems": true
+    }
+  }
+}
