@@ -1,4 +1,4 @@
-name: Node Test
+﻿name: Node Test
 
 on:
   push:
@@ -23,17 +23,4 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: |
-          mkdir -p build/reports
-          set +e
-          npm test 2>&1 | tee build/reports/NODE_TEST_FULL.log
-          STATUS=${PIPESTATUS[0]}
-          exit "$STATUS"
-
-      - name: Upload Node test diagnostic
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-test-full-log
-          path: build/reports/NODE_TEST_FULL.log
-          if-no-files-found: error
+        run: npm test
