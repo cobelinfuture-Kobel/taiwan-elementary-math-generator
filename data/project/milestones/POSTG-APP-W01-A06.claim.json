@@ -38,9 +38,9 @@
     "reviewArtifactRequired": false
   },
   "distance": {
-    "before": "D1",
-    "after": "D1",
-    "distanceReduced": "The operator review is converted from an informal rejection into a bounded semantic remediation contract: visible Macro Context headings are forbidden, application suitability moves to KnowledgePoint plus PatternSpec level, operands require quantity and unit bindings, and comparison/range/total/division relations receive separate fail-closed gates."
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "At the A06 task-evidence level, the operator review is converted from an informal rejection into a bounded semantic remediation contract: visible Macro Context headings are forbidden, application suitability moves to KnowledgePoint plus PatternSpec level, operands require quantity and unit bindings, and comparison/range/total/division relations receive separate fail-closed gates. The overall program remains at D1 because A05 E4 production-equivalent evidence already exists but is rejected pending remediation."
   },
   "nextStep": {
     "taskId": "POSTG-APP-W01-A06B_SemanticClassQuantitySchemaAndValidatorRuntime",
