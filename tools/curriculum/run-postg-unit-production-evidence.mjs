@@ -22,6 +22,9 @@ import {
   validateG3BU08SemanticBatch,
 } from "../../site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js";
 import {
+  validateG4AU08AllCanonicalPublicQuestion,
+} from "../../site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js";
+import {
   buildBatchABrowserWorksheetDocument,
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
 import {
@@ -76,6 +79,22 @@ function unique(values) {
   return [...new Set(values.filter(Boolean))];
 }
 
+function validateG4AU08EvidenceQuestions(questions) {
+  const errors = [];
+  const warnings = [];
+  for (const [index, question] of questions.entries()) {
+    const result = validateG4AU08AllCanonicalPublicQuestion(question);
+    errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
+    warnings.push(...result.warnings);
+  }
+  return {
+    ok: errors.length === 0,
+    errors,
+    warnings,
+    validatorVersion: "s76q-g4a-u08-all-canonical-public-v1",
+  };
+}
+
 function validatePostGoldenEvidenceQuestions(sourceId, questions, plan) {
   if (sourceId === "g3b_u08_3b08") {
     const validation = validateG3BU08SemanticBatch(questions);
@@ -86,7 +105,8 @@ function validatePostGoldenEvidenceQuestions(sourceId, questions, plan) {
       validatorVersion: validation.validatorVersion,
     };
   }
-  if (["g4a_u02_4a02", "g4a_u04_4a04", "g4a_u08_4a08"].includes(sourceId)) {
+  if (sourceId === "g4a_u08_4a08") return validateG4AU08EvidenceQuestions(questions);
+  if (["g4a_u02_4a02", "g4a_u04_4a04"].includes(sourceId)) {
     return validateG4ABatchABrowserQuestions(questions, { plan });
   }
   return validateBatchABrowserQuestions(questions, { plan });
