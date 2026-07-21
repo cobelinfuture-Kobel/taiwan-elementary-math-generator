@@ -69,7 +69,7 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
           NODE
 
-      - name: Apply A02 PBL candidate shape compatibility
+      - name: Apply A02 authority compatibility
         if: steps.evidence_state.outputs.committed_e4 != 'true'
         run: |
           python - <<'PY'
@@ -77,7 +77,7 @@ jobs:
 
           path = Path('src/curriculum/application/w01-e4-production-review-runtime.mjs')
           source = path.read_text(encoding='utf-8')
-          old = '''function buildPblReviewSections(a02, selectedSources) {
+          old_pbl = '''function buildPblReviewSections(a02, selectedSources) {
             return a02.pblTaskSetCandidates
               .filter((candidate) => selectedSources.has(candidate.sourceId))
               .map((candidate) => ({
@@ -97,7 +97,7 @@ jobs:
               }));
           }
           '''
-          new = '''function buildPblReviewSections(a02, selectedSources) {
+          new_pbl = '''function buildPblReviewSections(a02, selectedSources) {
             return a02.pblTaskSetCandidates
               .filter((candidate) => selectedSources.has(candidate.sourceId))
               .map((candidate) => ({
@@ -124,10 +124,24 @@ jobs:
               }));
           }
           '''
-          if new not in source:
-              if old not in source:
+          old_eligibility = '''  const eligibleSources = uniqueSorted(a02.a01.assessment.records
+            .filter((record) => record.suitableForApplication === true)
+            .map((record) => record.sourceId));'''
+          new_eligibility = '''  const eligibleSources = uniqueSorted(a02.a01.assessment.records
+            .filter((record) => record.classification !== 'APPLICATION_NOT_APPLICABLE')
+            .map((record) => record.sourceId));'''
+          changed = False
+          if new_pbl not in source:
+              if old_pbl not in source:
                   raise SystemExit('A05 PBL candidate shape anchor not found.')
-              source = source.replace(old, new)
+              source = source.replace(old_pbl, new_pbl)
+              changed = True
+          if new_eligibility not in source:
+              if old_eligibility not in source:
+                  raise SystemExit('A05 eligible-source authority anchor not found.')
+              source = source.replace(old_eligibility, new_eligibility)
+              changed = True
+          if changed:
               path.write_text(source, encoding='utf-8')
           PY
 
