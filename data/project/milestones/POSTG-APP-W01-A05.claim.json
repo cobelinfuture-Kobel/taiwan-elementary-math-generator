@@ -3,18 +3,18 @@
   "taskId": "POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation",
   "taskClass": "renderer",
   "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
-  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "E4_ARTIFACT_GENERATION_PENDING_EXACT_HEAD_CI",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
-    "productionEquivalentGeneratorUsed": false,
-    "productionRendererUsed": false,
-    "htmlOutputVerified": false,
-    "pdfOutputVerified": false,
-    "visibleOutputChanged": false,
-    "humanReviewReady": false,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
     "productionAdmitted": false,
     "d0Complete": false
   },
@@ -29,11 +29,44 @@
       "tools/curriculum/render-postg-app-w01-a05-review-pdf.mjs",
       ".github/workflows/postg-app-w01-a05-e4-review.yml"
     ],
-    "htmlArtifactPaths": [],
-    "pdfArtifactPaths": [],
-    "beforeAfterEvidencePaths": [],
-    "reviewArtifactPaths": [],
-    "artifactHashes": []
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.html",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.pdf",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.extracted.txt",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_MANIFEST.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.html",
+        "sha256": "d65b7306dcde6a501728d05d5c32bcb223008353f7babece4cb6dc226fdbbb48"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.pdf",
+        "sha256": "9fc820862c13bea400ad6762cd42181227516b0c401a16d9d0868175d2205197"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.extracted.txt",
+        "sha256": "f1bae56353361dd5d01f5c51ac636d60f821a765d44b0e18679c20ea4499857c"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
+        "sha256": "42115ad518c23742939e46fdd38609e026ed0b0c89d06c660a81751de95c64b9"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_MANIFEST.json",
+        "sha256": "a4afc925781f32e1a723236072186319f07c0232d87cffaffe87070ad0e9f05e"
+      }
+    ]
   },
   "humanReview": {
     "type": "production_equivalent_output_review",
@@ -43,10 +76,10 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "pending exact E4 HTML/PDF generation and Human Review package verification"
+    "distanceReduced": "exact production generator routes and the shared production renderer now produce a hash-locked HTML/PDF review cohort covering every eligible source and all 16 Macro Context Domains; production remains closed pending operator decision"
   },
   "nextStep": {
-    "taskId": "POSTG-APP-W01-A05_ExactHeadE4ArtifactGenerationAndReviewPackageVerification",
-    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+    "taskId": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
   }
 }

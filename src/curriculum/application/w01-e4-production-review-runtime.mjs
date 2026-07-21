@@ -52,8 +52,7 @@ function exactMathSnapshot(question = {}) {
     equationModel: question.equationModel ?? null,
     operatorsUsed: clone(question.operatorsUsed ?? null),
     intermediateResults: clone(question.intermediateResults ?? null),
-    patternSpecId: question.patternSpecId ?? question.metadata?.patternId ?? null,
-    sourceId: question.sourceId ?? null
+    patternSpecId: question.patternSpecId ?? question.metadata?.patternId ?? null
   };
 }
 
@@ -279,7 +278,26 @@ function transformReviewQuestion(row, sequenceNumber) {
   const original = exact.exactQuestion;
   const beforeSnapshot = exactMathSnapshot(original);
   const unitFlow = resolveUnitFlow(candidate, original, chain);
-  const prompt = candidateSurfacePrompt(candidate, original, chain, macro);
+  const exactDisplayModel = exact.exactWorksheetDocument?.questionDisplayModels?.[0] ?? null;
+  const originalPrompt = normalizeVisiblePrompt(
+    exactDisplayModel?.blankedDisplayText
+      ?? exactDisplayModel?.promptText
+      ?? exactDisplayModel?.displayText
+      ?? original.blankedDisplayText
+      ?? original.promptText
+      ?? original.displayText
+      ?? original.questionText
+      ?? original.text
+      ?? original.prompt
+      ?? original.stem
+      ?? ''
+  );
+  const prompt = candidateSurfacePrompt(
+    candidate,
+    { ...original, blankedDisplayText: originalPrompt },
+    chain,
+    macro
+  );
   const transformed = {
     ...clone(original),
     id: `postg-app-w01-a05-${sequenceNumber}-${safeId(candidate.bindingCandidateId)}`,
@@ -287,6 +305,7 @@ function transformReviewQuestion(row, sequenceNumber) {
     blankedDisplayText: prompt,
     displayText: `${prompt} ${original.answerText ?? ''}`.trim(),
     answerUnit: unitFlow.resolvedAnswerUnitCandidate,
+    sourceId: candidate.sourceId,
     knowledgePointId: candidate.knowledgePointId,
     resolvedPatternGroupId: exact.group.patternGroupId,
     productionUse: 'forbidden_pending_human_review',
@@ -345,6 +364,8 @@ function transformReviewQuestion(row, sequenceNumber) {
     exactWorksheetId: exact.exactWorksheetDocument.worksheetId
       ?? exact.exactWorksheetDocument.worksheetDocumentId
       ?? null,
+    originalPrompt,
+    reviewPrompt: prompt,
     transformed,
     beforeSnapshot,
     afterSnapshot,
@@ -472,17 +493,26 @@ function buildPblReviewSections(a02, selectedSources) {
   return a02.pblTaskSetCandidates
     .filter((candidate) => selectedSources.has(candidate.sourceId))
     .map((candidate) => ({
-      pblTaskSetId: candidate.pblTaskSetId,
+      pblCandidateId: candidate.pblCandidateId,
+      pblTaskSetId: candidate.pblCandidateId,
       sourceId: candidate.sourceId,
-      knowledgePointId: candidate.knowledgePointId,
-      graphType: candidate.graphCandidate.graphType,
-      nodes: clone(candidate.graphCandidate.nodes),
-      edges: clone(candidate.graphCandidate.edges),
-      finalProductCandidate: clone(candidate.graphCandidate.finalProductCandidate),
+      knowledgePointId: candidate.primaryKnowledgePointId,
+      graphType: candidate.graphType,
+      drivingProblemCandidate: clone(candidate.drivingProblemCandidate),
+      nodes: clone(candidate.taskBlueprints.map((task) => ({
+        taskId: task.taskId,
+        outputMilestoneId: task.outputMilestoneId,
+        isFinalTask: task.isFinalTask
+      }))),
+      edges: clone(candidate.taskBlueprints.flatMap((task) => (
+        task.inputRefs.map((inputRef) => ({
+          fromMilestoneId: inputRef,
+          toTaskId: task.taskId
+        }))
+      ))),
+      finalProductCandidate: clone(candidate.finalProductCandidate),
       taskBlueprints: clone(candidate.taskBlueprints),
-      projectionCandidate: candidate.graphCandidate.graphType === 'PBL3_LINEAR'
-        ? 'APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE'
-        : 'APPROVED_COMPLETE_TWO_PAGE_CANDIDATE',
+      projectionCandidate: candidate.projectionCandidate,
       unapprovedPageSplitForbidden: true,
       productionAdmissionAllowed: false
     }));
@@ -495,7 +525,7 @@ export function materializeW01E4ProductionReview(options = {}) {
   if (!a02Validation.ok) throw new Error(JSON.stringify(a02Validation.issues));
 
   const eligibleSources = uniqueSorted(a02.a01.assessment.records
-    .filter((record) => record.suitableForApplication === true)
+    .filter((record) => record.classification !== 'APPLICATION_NOT_APPLICABLE')
     .map((record) => record.sourceId));
   const requiredMacros = uniqueSorted(a02.a01.assessment.masterController.contextAuthority.hierarchy.macroDomains.map((row) => row.nodeId));
   const viable = materializeViableRows(a02, generationSeed);
@@ -613,5 +643,47 @@ export function validateW01E4ProductionReview(materialized) {
       unresolvedUnitFlowCount: (materialized.unitFlowReviewRows ?? []).filter((row) => row.resolutionStatus === 'HUMAN_REVIEW_REQUIRED').length,
       pblReviewSectionCount: materialized.pblReviewSections?.length ?? 0
     }
+  };
+}
+
+export function buildW01E4ProductionReviewReadback(options = {}) {
+  const materialized = materializeW01E4ProductionReview(options);
+  const validation = validateW01E4ProductionReview(materialized);
+  const reviewPairs = materialized.transformedRows.map((row) => ({
+    bindingCandidateId: row.candidate.bindingCandidateId,
+    sourceId: row.transformed.sourceId,
+    knowledgePointId: row.transformed.knowledgePointId,
+    macroContextId: row.transformed.applicationReview.contextSelection.macroContextId,
+    exactPatternSpecId: row.exactPatternSpecId,
+    exactPatternGroupId: row.exactPatternGroupId,
+    originalPrompt: row.originalPrompt,
+    reviewPrompt: row.reviewPrompt,
+    answerText: row.transformed.answerText,
+    answerUnit: row.transformed.answerUnit,
+    mathPreserved: row.mathPreserved,
+    promptChanged: row.promptChanged
+  }));
+  return {
+    ok: validation.ok,
+    issues: clone(validation.issues),
+    taskId: materialized.taskId,
+    status: validation.status,
+    actualEvidenceLevel: validation.actualEvidenceLevel,
+    humanReviewReady: validation.humanReviewReady,
+    productionAdmissionGranted: false,
+    counts: {
+      ...clone(validation.counts),
+      unresolvedUnitReviewCount: validation.counts.unresolvedUnitFlowCount,
+      questionPageCount: materialized.worksheetDocument?.questionPages?.length ?? 0,
+      answerKeyPageCount: materialized.worksheetDocument?.answerKeyPages?.length ?? 0
+    },
+    selectedSources: clone(validation.selectedSources),
+    selectedMacros: clone(validation.selectedMacros),
+    worksheetDocument: clone(materialized.worksheetDocument),
+    reviewPairs,
+    unitFlowReviewRows: clone(materialized.unitFlowReviewRows),
+    pblReviewSections: clone(materialized.pblReviewSections),
+    exactGenerationFailures: clone(materialized.exactGenerationFailures),
+    reviewBoundary: clone(materialized.reviewBoundary)
   };
 }
