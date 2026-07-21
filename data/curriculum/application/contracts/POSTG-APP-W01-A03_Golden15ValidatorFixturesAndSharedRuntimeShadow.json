@@ -1,0 +1,100 @@
+{
+  "schemaName": "POSTGAPPW01A03Golden15ValidatorFixturesAndSharedRuntimeShadowContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
+  "contractId": "POSTG_APP_W01_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_V1",
+  "status": "SHADOW_RUNTIME_AND_FIXTURES_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "dependencies": {
+    "w01AssessmentTask": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "w01AtomicContextTask": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+    "w01NPlusOnePBLTask": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_W01_Validator_Fixtures_And_Shared_Runtime_Shadow_V1.md",
+    "fixturePolicy": "data/curriculum/application/assessment/w01-validator-fixture-shadow-policy.json",
+    "fixtureIndex": "data/curriculum/application/assessment/w01-validator-fixture-shadow-index.json",
+    "fixtureSchema": "data/curriculum/application/schema/w01-validator-shadow-fixture.schema.json",
+    "runtime": "src/curriculum/application/w01-validator-fixture-shadow-runtime.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a03-runtime-shadow.mjs"
+  },
+  "fixtureRules": {
+    "positiveSingleApplicationPerCandidate": 1,
+    "wrongAnswerRoleNegativePerCandidate": 1,
+    "unitMismatchNegativePerCandidate": 1,
+    "calculationPassInterpretationFailPerNPlusOneProof": 1,
+    "counterfactualPositivePerNPlusOneProof": 1,
+    "pblDependencyPositivePerPBLCandidate": 1,
+    "pblDependencyBrokenNegativePerPBLCandidate": 1,
+    "fixtureIdentityUnique": true,
+    "deterministicRecomputationRequired": true
+  },
+  "validatorLayers": [
+    "CANDIDATE_LINEAGE",
+    "CONTEXT_CHAIN",
+    "ROLE_COVERAGE",
+    "SHADOW_NUMERIC_WITNESS",
+    "ANSWER_ROLE_AND_UNIT",
+    "INTERPRETATION_WITNESS",
+    "N_PLUS_ONE_DIAGNOSTIC",
+    "PBL_DEPENDENCY",
+    "PRODUCTION_GUARD"
+  ],
+  "coverage": {
+    "requiredGoldenUnitCount": 15,
+    "requiredMacroContextCount": 16,
+    "unexpectedPassCount": 0,
+    "unexpectedRejectCount": 0,
+    "productionAdmittedCount": 0
+  },
+  "controllerAdvancement": {
+    "waveId": "W01",
+    "stateAfterTarget": "SHADOW_READY",
+    "completedGatesAdded": [
+      "VALIDATOR_CONTRACT_COMPLETE",
+      "POSITIVE_NEGATIVE_FIXTURES_COMPLETE",
+      "SHARED_RUNTIME_SHADOW_PASS"
+    ],
+    "nextBlocker": "WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_NOT_COMPLETE",
+    "productionAdmissionGranted": false
+  },
+  "acceptance": {
+    "validationStatus": "PASS_POSTG_APP_W01_A03_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW",
+    "fixtureCountContractRequired": true,
+    "positiveFixturePassRequired": true,
+    "negativeFixtureExpectedRejectRequired": true,
+    "calculationPassInterpretationFailSeparationRequired": true,
+    "pblDependencyFailureRequired": true,
+    "fifteenUnitCoverageRequired": true,
+    "sixteenMacroCoverageRequired": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "shadowFixtureMaterializationAllowed": true,
+    "operationFamilyAdapterAllowed": true,
+    "sharedShadowValidatorAllowed": true,
+    "positiveNegativeExecutionAllowed": true,
+    "controllerStateAdvancementAllowed": true,
+    "productionPatternSpecGeneratorReplacementAllowed": false,
+    "publicApplicationSelectionAllowed": false,
+    "rendererModificationAllowed": false,
+    "htmlPdfApplicationOutputAllowed": false,
+    "productionAdmissionAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GOLDEN15_NPLUSONE_AND_PBL_BLUEPRINTS_VALIDATOR_READY",
+    "goalDistanceAfterTarget": "D1_GOLDEN15_APPLICATION_CANDIDATES_EXECUTED_IN_SHARED_VALIDATOR_SHADOW",
+    "distanceReduced": "Every A01 candidate and A02 semantic/PBL blueprint gains deterministic positive and negative runtime evidence. Numeric witnesses are recomputed through registered operation-family adapters, answer-role and unit failures are isolated, calculation-pass/interpretation-fail is executed, PBL dependency failures are executed, and the Wave 01 validator/runtime gates close while production remains disabled.",
+    "remainingBlockers": [
+      "Shadow worksheet projection has not been generated or reviewed",
+      "Exact production PatternSpec numeric generation is not claimed by the shadow adapters",
+      "Some unresolved unit candidates still require final semantic admission review",
+      "Production renderer and public selection remain unchanged",
+      "PRODUCTION_ADMISSION_REVIEWED is incomplete",
+      "Production admission remains intentionally zero"
+    ],
+    "nextShortestStep": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview"
+  }
+}
