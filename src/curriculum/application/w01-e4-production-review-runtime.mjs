@@ -3,8 +3,8 @@ import {
   paginateQuestionDisplayModels
 } from '../../../site/modules/core/index.js';
 import {
-  buildBatchABrowserWorksheetDocument
-} from '../../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js';
+  buildWorksheetDocumentFromPlan
+} from '../../../site/assets/browser/pipeline/build-worksheet-document.js';
 import {
   getVisiblePatternGroupsForKnowledgePoint
 } from '../../../site/modules/curriculum/registry/batch-a-selector-extension.js';
@@ -200,15 +200,18 @@ function exactGenerationForCandidate(candidate, generationSeed) {
       printLayout: { columns: 1, rowsPerPage: 4, showQuestionNumbers: true, showAnswerKeyPage: true },
       ...(descriptor?.taskId ? { postGoldenMigrationTaskId: descriptor.taskId } : {})
     };
-    const result = buildBatchABrowserWorksheetDocument(options);
+    const result = buildWorksheetDocumentFromPlan(options);
+    const exactQuestions = result.worksheetDocument?.generatedQuestions
+      ?? result.worksheetDocument?.questionItems
+      ?? [];
     attempts.push({ patternGroupId: group.patternGroupId, ok: result.ok, errors: result.errors ?? [] });
-    if (result.ok && result.worksheetDocument?.generatedQuestions?.length === 1) {
+    if (result.ok && exactQuestions.length === 1) {
       return {
         ok: true,
         group,
         options,
         exactWorksheetDocument: result.worksheetDocument,
-        exactQuestion: result.worksheetDocument.generatedQuestions[0],
+        exactQuestion: exactQuestions[0],
         attempts
       };
     }
@@ -319,7 +322,9 @@ function transformReviewQuestion(row, sequenceNumber) {
     candidate,
     exactPatternGroupId: exact.group.patternGroupId,
     exactPatternSpecId: beforeSnapshot.patternSpecId,
-    exactWorksheetId: exact.exactWorksheetDocument.worksheetId,
+    exactWorksheetId: exact.exactWorksheetDocument.worksheetId
+      ?? exact.exactWorksheetDocument.worksheetDocumentId
+      ?? null,
     transformed,
     beforeSnapshot,
     afterSnapshot,
