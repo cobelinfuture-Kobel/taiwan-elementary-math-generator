@@ -1,0 +1,173 @@
+{
+  "schemaName": "POSTGAPPW01A06HumanReviewDecisionAndSemanticRemediationV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation",
+  "parentTaskId": "POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation",
+  "decisionDate": "2026-07-22",
+  "humanReviewDecision": "REMEDIATION_REQUIRED",
+  "productionAdmissionGranted": false,
+  "reviewedArtifact": {
+    "htmlPath": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.html",
+    "pdfPath": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW.pdf",
+    "dataPath": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
+    "questionCount": 16,
+    "sourceCount": 12,
+    "macroContextCount": 16
+  },
+  "operatorFindings": [
+    {
+      "findingId": "A06-HR-001",
+      "category": "VISIBLE_CONTEXT_HEADING_OVEREMPHASIS",
+      "decision": "REJECT",
+      "statement": "宏觀情境名稱不需要逐題特別顯示、加粗或作為固定題幹開頭。情境分類應主要保留在 metadata；可見題目只呈現自然事件。"
+    },
+    {
+      "findingId": "A06-HR-002",
+      "category": "FORCED_APPLICATION_LANGUAGE",
+      "decision": "REJECT",
+      "statement": "不得把原數字題或計算式直接放進宏觀情境句，再以『求出總量／需求／結論』收尾。應用題必須具有完整事件、量的角色與自然問題。"
+    },
+    {
+      "findingId": "A06-HR-003",
+      "category": "QUANTITY_AND_UNIT_BINDING_MISSING",
+      "decision": "REJECT",
+      "statement": "每個作為情境事實的數值都必須綁定同一可理解的實體、量詞或計量單位；不得只出現 1594、6 等裸數後再宣稱是生活情境。"
+    },
+    {
+      "findingId": "A06-HR-004",
+      "category": "MATHEMATICAL_RELATION_SEMANTIC_MISMATCH",
+      "decision": "REJECT",
+      "statement": "比較、範圍、位值、分組、平均分配與總量不是同一語意。題幹目標必須由 KnowledgePoint／PatternSpec 的數學關係決定，不得固定套用『求總量』。"
+    },
+    {
+      "findingId": "A06-HR-005",
+      "category": "COMPARE_AND_RANGE_REQUIRE_RELATIONAL_GROUPS",
+      "decision": "REJECT",
+      "statement": "大小比較必須呈現兩個可比較群組或兩個同量綱數量；範圍判斷必須呈現上下界、候選群組與相同量綱。"
+    },
+    {
+      "findingId": "A06-HR-006",
+      "category": "FORCED_STORY_FOR_NUMERIC_ONLY_PATTERN",
+      "decision": "REJECT",
+      "statement": "情境無法增加真實數學意義時，KnowledgePoint／PatternSpec 應標為 NUMERIC_ONLY 或 APPLICATION_OPTIONAL，不得為了覆蓋數量硬套故事。"
+    }
+  ],
+  "systemicEvidence": [
+    {
+      "bindingCandidateId": "w01_bind_g3a_u02_3a02_kp_g3a_u02_add_multi_carry_op_g3a_u02_four_digit_add_multi_carry",
+      "defects": [
+        "VISIBLE_MACRO_PREFIX",
+        "EXPRESSION_WRAPPER_PROSE",
+        "OPERAND_QUANTITY_BINDING_MISSING",
+        "GENERIC_TOTAL_TARGET"
+      ]
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_4digit_compare_op_g3a_u01_four_digit_compare",
+      "defects": [
+        "COMPARE_GROUP_SCHEMA_MISSING",
+        "GENERIC_TOTAL_TARGET_FOR_RELATION",
+        "ANSWER_UNIT_INVALID_FOR_RELATION_SYMBOL"
+      ]
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_range_reasoning_op_g3a_u01_range_and_inclusive_count",
+      "defects": [
+        "RANGE_BOUND_CONTEXT_MISSING",
+        "GENERIC_TOTAL_TARGET_FOR_RANGE",
+        "ANSWER_UNIT_INVALID_FOR_OPTION_SELECTION"
+      ]
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u06_3a06_kp_g3a_u06_exact_division_check_op_g3a_u06_two_digit_exact_division",
+      "defects": [
+        "DIVISION_ROLE_SCHEMA_MISSING",
+        "GENERIC_TOTAL_TARGET_FOR_EQUAL_SHARE",
+        "OPERAND_UNIT_BINDING_MISSING"
+      ]
+    }
+  ],
+  "applicationSuitabilityPolicy": {
+    "allowedValues": [
+      "APPLICATION_REQUIRED",
+      "APPLICATION_OPTIONAL",
+      "NUMERIC_ONLY"
+    ],
+    "rule": "Suitability is decided at KnowledgePoint plus PatternSpec level, not only at source-unit level.",
+    "forcedStoryAuthoringAllowed": false
+  },
+  "mathSemanticClasses": [
+    "COMPARE_TWO_GROUPS_SAME_MEASURE",
+    "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE",
+    "JOIN_RESULT_TOTAL",
+    "SEPARATE_REMAINDER_OR_DIFFERENCE",
+    "EQUAL_GROUPS_TOTAL",
+    "EQUAL_SHARE_PER_GROUP",
+    "COMPLETE_GROUP_COUNT_FLOOR",
+    "REQUIRED_GROUP_COUNT_CEILING",
+    "PLACE_VALUE_COMPOSITION",
+    "PLACE_VALUE_EXCHANGE",
+    "MULTI_STEP_STRUCTURED",
+    "NUMERIC_ONLY"
+  ],
+  "quantityBindingContract": {
+    "requiredPerOperandFields": [
+      "quantityRole",
+      "entityType",
+      "measureType",
+      "unitText",
+      "valueSource"
+    ],
+    "sameMeasureRequiredFor": [
+      "COMPARE_TWO_GROUPS_SAME_MEASURE",
+      "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE",
+      "JOIN_RESULT_TOTAL",
+      "SEPARATE_REMAINDER_OR_DIFFERENCE"
+    ],
+    "bareNumericOperandsAllowedInApplicationPrompt": false,
+    "genericFallbackUnitsAllowed": false
+  },
+  "visiblePromptPolicy": {
+    "macroContextHeadingVisiblePerQuestion": false,
+    "macroContextIdRetainedInMetadata": true,
+    "fixedPrefixTemplateAllowed": false,
+    "expressionEmbeddedAsProseAllowed": false,
+    "genericTargetAllowedOnlyWhenSemanticClassMatches": true,
+    "forbiddenGenericTargets": [
+      "總量",
+      "需求",
+      "結論",
+      "安排"
+    ]
+  },
+  "requiredValidatorCodes": [
+    "APPSEM_VISIBLE_MACRO_LABEL_FORBIDDEN",
+    "APPSEM_EXPRESSION_WRAPPER_PROSE_FORBIDDEN",
+    "APPSEM_OPERAND_QUANTITY_BINDING_MISSING",
+    "APPSEM_OPERAND_UNIT_INCONSISTENT",
+    "APPSEM_RELATION_TARGET_MISMATCH",
+    "APPSEM_COMPARE_GROUP_SCHEMA_REQUIRED",
+    "APPSEM_RANGE_BOUND_SCHEMA_REQUIRED",
+    "APPSEM_GENERIC_TOTAL_TARGET_FORBIDDEN",
+    "APPSEM_FORCED_APPLICATION_FOR_NUMERIC_ONLY",
+    "APPSEM_ANSWER_UNIT_MISMATCH",
+    "APPSEM_HUMAN_NATURALNESS_REVIEW_REQUIRED"
+  ],
+  "acceptance": {
+    "allA05ReviewItemsMustBeReclassified": true,
+    "mathWitnessMustRemainExact": true,
+    "macroHeadingMustNotAppearAsQuestionTitle": true,
+    "everyApplicationOperandMustHaveQuantityBinding": true,
+    "compareMustUseTwoComparableGroups": true,
+    "rangeMustUseBoundsAndCandidateWithSameMeasure": true,
+    "nonTotalRelationsMustRejectGenericTotalTarget": true,
+    "numericOnlyPatternsMustNotReceiveForcedStory": true,
+    "regeneratedHtmlPdfHumanReviewRequired": true,
+    "productionAdmissionMustRemainFalse": true
+  },
+  "nextPhase": {
+    "taskId": "POSTG-APP-W01-A06B_SemanticClassQuantitySchemaAndValidatorRuntime",
+    "scope": "Implement semantic classification, quantity binding and fail-closed validators before rewriting the review cohort."
+  }
+}
