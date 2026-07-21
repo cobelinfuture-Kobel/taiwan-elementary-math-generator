@@ -1,0 +1,160 @@
+{
+  "schemaName": "GlobalContextHierarchyOntologyV1",
+  "schemaVersion": 1,
+  "contractId": "GLOBAL_CONTEXT_HIERARCHY_ONTOLOGY_V1",
+  "taskId": "GCTX-HIER-A00_AuthorityIndexAndExtractionContract",
+  "status": "STRUCTURE_DEFINED_CONTENT_NOT_POPULATED",
+  "normativeDocument": "docs/curriculum/context/contracts/Global_Context_Hierarchy_Ontology_V1.md",
+  "nodeSchema": "data/curriculum/context/schema/global-context-hierarchy-node.schema.json",
+  "hierarchyLevels": [
+    {
+      "level": 1,
+      "nodeType": "MACRO_CONTEXT_DOMAIN",
+      "labelZh": "大情境",
+      "idPrefix": "gctx_macro_",
+      "parentNodeType": null,
+      "childNodeType": "MESO_SITUATION_FAMILY",
+      "directlyGenerated": false,
+      "countsAsStudentVisibleScenario": false
+    },
+    {
+      "level": 2,
+      "nodeType": "MESO_SITUATION_FAMILY",
+      "labelZh": "中情境",
+      "idPrefix": "gctx_meso_",
+      "parentNodeType": "MACRO_CONTEXT_DOMAIN",
+      "childNodeType": "MICRO_EVENT_SCENARIO",
+      "directlyGenerated": false,
+      "countsAsStudentVisibleScenario": false
+    },
+    {
+      "level": 3,
+      "nodeType": "MICRO_EVENT_SCENARIO",
+      "labelZh": "小情境",
+      "idPrefix": "gctx_micro_",
+      "parentNodeType": "MESO_SITUATION_FAMILY",
+      "childNodeType": "ATOMIC_TASK_EPISODE",
+      "directlyGenerated": false,
+      "countsAsStudentVisibleScenario": true
+    },
+    {
+      "level": 4,
+      "nodeType": "ATOMIC_TASK_EPISODE",
+      "labelZh": "微觀情境",
+      "idPrefix": "gctx_episode_",
+      "parentNodeType": "MICRO_EVENT_SCENARIO",
+      "childNodeType": null,
+      "directlyGenerated": true,
+      "countsAsStudentVisibleScenario": true,
+      "primaryGeneratorSelectionUnit": true
+    }
+  ],
+  "nonOntologyLayers": [
+    {
+      "level": 5,
+      "type": "SURFACE_REALIZATION",
+      "labelZh": "文字表達",
+      "countsAsContextNode": false,
+      "createsNewScenarioIdentity": false
+    },
+    {
+      "level": 6,
+      "type": "NUMERIC_INSTANCE",
+      "labelZh": "數字與名稱實例",
+      "countsAsContextNode": false,
+      "createsNewScenarioIdentity": false
+    }
+  ],
+  "requiredResolutionChain": [
+    "macroContextId",
+    "mesoSituationId",
+    "microScenarioId",
+    "atomicEpisodeId",
+    "surfaceTemplateId",
+    "numericInstance"
+  ],
+  "generatorBindingOrder": [
+    "KnowledgePoint",
+    "Canonical Operation Model",
+    "Application Capability",
+    "requiredContextAffordances",
+    "eligible Atomic Task Episode",
+    "admitted Context Binding",
+    "Surface Realization",
+    "Numeric Instance"
+  ],
+  "semanticFingerprintComponents": [
+    "macroContextId",
+    "mesoSituationId",
+    "microScenarioId",
+    "atomicEpisodeId",
+    "eventGoal",
+    "actorRelationship",
+    "resourceRoleSet",
+    "constraintModel",
+    "targetRole",
+    "interpretiveAct",
+    "decisionModel"
+  ],
+  "nonIdentityVariation": [
+    "personName",
+    "numericValue",
+    "color",
+    "nounOnlySubstitution",
+    "surfaceWordingOnly",
+    "randomSeed"
+  ],
+  "legacyRegistryMappings": [
+    {
+      "registryPath": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+      "schemaName": "GS02G5AU08GlobalContextFamilyRegistry",
+      "legacyEntryCollection": "contextFamilies",
+      "legacyTemplateCollection": "surfaceTemplates",
+      "authoritativeRole": "LEGACY_FLAT_CONTEXT_FAMILY_AND_SURFACE_TEMPLATE_SEED_REGISTRY",
+      "completeGlobalContextUniverse": false,
+      "contextFamilyCountIsScenarioCapacity": false,
+      "surfaceTemplatesAreHierarchyNodes": false,
+      "automaticHierarchyLevelInferenceAllowed": false,
+      "mappingStatus": "UNMAPPED_TO_V1_HIERARCHY",
+      "requiredMigrationAction": "Explicitly map each legacy contextFamilyId to one or more V1 hierarchy nodes before making population or production claims."
+    }
+  ],
+  "hierarchyNodes": {
+    "macroDomains": [],
+    "mesoSituationFamilies": [],
+    "microEventScenarios": [],
+    "atomicTaskEpisodes": []
+  },
+  "diversityMetricNames": [
+    "macroDomainRepeatRate",
+    "mesoSituationRepeatRate",
+    "microScenarioRepeatRate",
+    "atomicEpisodeRepeatRate",
+    "semanticFingerprintRepeatRate",
+    "surfaceTemplateRepeatRate",
+    "exactPromptRepeatRate"
+  ],
+  "plannedPackHardGates": {
+    "atomicEpisodeRepeatRate": 0,
+    "semanticFingerprintRepeatRate": 0,
+    "exactPromptRepeatRate": 0,
+    "implementedByThisContract": false
+  },
+  "completeness": {
+    "hierarchySemanticsDefined": true,
+    "authorityIndexDefined": true,
+    "nodeSchemaDefined": true,
+    "legacySourceClassificationDefined": true,
+    "macroNodePopulationComplete": false,
+    "mesoNodePopulationComplete": false,
+    "microNodePopulationComplete": false,
+    "atomicEpisodePopulationComplete": false,
+    "legacyMappingComplete": false,
+    "applicationBindingMigrationComplete": false,
+    "productionRuntimeConsumptionComplete": false
+  },
+  "nextProgram": {
+    "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+    "requiredConsumptionPoint": "POSTG-APP-A00_ProgramControllerCapabilityBaselineAndFixedQueue"
+  }
+}

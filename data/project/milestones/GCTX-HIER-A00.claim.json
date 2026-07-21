@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GCTX-HIER-A00_AuthorityIndexAndExtractionContract",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "GLOBAL_CONTEXT_HIERARCHY_EXTRACTION_AUTHORITY_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/context/contracts/Global_Context_Hierarchy_Ontology_V1.md",
+      "data/curriculum/context/schema/global-context-hierarchy-node.schema.json",
+      "data/curriculum/context/registry/global-context-hierarchy-ontology.json",
+      "data/curriculum/context/registry/global-context-authority-index.json",
+      "data/curriculum/context/contracts/GCTX-HIER-A00_AuthorityIndexAndExtractionContract.json",
+      "tests/curriculum/global-context-hierarchy-ontology-a00.test.js"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D4",
+    "after": "D3",
+    "distanceReduced": "The existing flat context-family registry can no longer be correctly extracted as the complete global-context universe. A canonical authority index now resolves four hierarchy levels, separates wording and numeric instances, reclassifies GS02 as a legacy seed registry, and records incomplete population without changing runtime or production behavior."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-A00_ProgramControllerCapabilityBaselineAndFixedQueue",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY",
+    "requiredContractId": "GLOBAL_CONTEXT_HIERARCHY_ONTOLOGY_V1"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/context/schema/global-context-hierarchy-node.schema.json",
+  "title": "GlobalContextHierarchyNodeV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "nodeId",
+    "nodeType",
+    "labelZh",
+    "descriptionZh",
+    "parentNodeId",
+    "lifecycle",
+    "sourceRefs"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "nodeId": {
+      "type": "string",
+      "pattern": "^gctx_(macro|meso|micro|episode)_[a-z0-9_]+$"
+    },
+    "nodeType": {
+      "enum": [
+        "MACRO_CONTEXT_DOMAIN",
+        "MESO_SITUATION_FAMILY",
+        "MICRO_EVENT_SCENARIO",
+        "ATOMIC_TASK_EPISODE"
+      ]
+    },
+    "labelZh": { "type": "string", "minLength": 2 },
+    "descriptionZh": { "type": "string", "minLength": 5 },
+    "parentNodeId": {
+      "type": ["string", "null"]
+    },
+    "eventGoal": { "type": "string", "minLength": 3 },
+    "actorRoles": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "actorRelationship": { "type": "string", "minLength": 3 },
+    "resourceRoles": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "eventFlow": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 }
+    },
+    "constraintModel": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 },
+      "uniqueItems": true
+    },
+    "targetRoles": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 },
+      "uniqueItems": true
+    },
+    "interpretiveActs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 },
+      "uniqueItems": true
+    },
+    "decisionModels": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 },
+      "uniqueItems": true
+    },
+    "requiredContextAffordances": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 },
+      "uniqueItems": true
+    },
+    "compatibleOperationFamilies": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 },
+      "uniqueItems": true
+    },
+    "surfaceTemplateRefs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3 },
+      "uniqueItems": true
+    },
+    "semanticFingerprintComponents": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "macroContextId",
+          "mesoSituationId",
+          "microScenarioId",
+          "atomicEpisodeId",
+          "eventGoal",
+          "actorRelationship",
+          "resourceRoleSet",
+          "constraintModel",
+          "targetRole",
+          "interpretiveAct",
+          "decisionModel"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "lifecycle": {
+      "enum": [
+        "DRAFT",
+        "MAPPED_FROM_LEGACY",
+        "SEMANTIC_REVIEW_READY",
+        "QA_VALIDATED",
+        "PRODUCTION_ADMITTED",
+        "REJECTED",
+        "DEFERRED"
+      ]
+    },
+    "sourceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 3 },
+      "uniqueItems": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "nodeType": { "const": "MACRO_CONTEXT_DOMAIN" } },
+        "required": ["nodeType"]
+      },
+      "then": {
+        "properties": {
+          "nodeId": { "pattern": "^gctx_macro_[a-z0-9_]+$" },
+          "parentNodeId": { "const": null }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "nodeType": { "const": "MESO_SITUATION_FAMILY" } },
+        "required": ["nodeType"]
+      },
+      "then": {
+        "properties": {
+          "nodeId": { "pattern": "^gctx_meso_[a-z0-9_]+$" },
+          "parentNodeId": { "type": "string", "pattern": "^gctx_macro_" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "nodeType": { "const": "MICRO_EVENT_SCENARIO" } },
+        "required": ["nodeType"]
+      },
+      "then": {
+        "required": ["eventGoal", "actorRoles", "resourceRoles", "eventFlow", "constraintModel"],
+        "properties": {
+          "nodeId": { "pattern": "^gctx_micro_[a-z0-9_]+$" },
+          "parentNodeId": { "type": "string", "pattern": "^gctx_meso_" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "nodeType": { "const": "ATOMIC_TASK_EPISODE" } },
+        "required": ["nodeType"]
+      },
+      "then": {
+        "required": [
+          "eventGoal",
+          "actorRoles",
+          "actorRelationship",
+          "resourceRoles",
+          "constraintModel",
+          "targetRoles",
+          "interpretiveActs",
+          "decisionModels",
+          "requiredContextAffordances",
+          "compatibleOperationFamilies",
+          "surfaceTemplateRefs",
+          "semanticFingerprintComponents"
+        ],
+        "properties": {
+          "nodeId": { "pattern": "^gctx_episode_[a-z0-9_]+$" },
+          "parentNodeId": { "type": "string", "pattern": "^gctx_micro_" },
+          "semanticFingerprintComponents": {
+            "minItems": 8,
+            "contains": { "const": "atomicEpisodeId" }
+          }
+        }
+      }
+    }
+  ]
+}
