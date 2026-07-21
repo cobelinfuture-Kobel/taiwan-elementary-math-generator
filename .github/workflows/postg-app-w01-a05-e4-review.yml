@@ -69,6 +69,68 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
           NODE
 
+      - name: Apply A02 PBL candidate shape compatibility
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/curriculum/application/w01-e4-production-review-runtime.mjs')
+          source = path.read_text(encoding='utf-8')
+          old = '''function buildPblReviewSections(a02, selectedSources) {
+            return a02.pblTaskSetCandidates
+              .filter((candidate) => selectedSources.has(candidate.sourceId))
+              .map((candidate) => ({
+                pblTaskSetId: candidate.pblTaskSetId,
+                sourceId: candidate.sourceId,
+                knowledgePointId: candidate.knowledgePointId,
+                graphType: candidate.graphCandidate.graphType,
+                nodes: clone(candidate.graphCandidate.nodes),
+                edges: clone(candidate.graphCandidate.edges),
+                finalProductCandidate: clone(candidate.graphCandidate.finalProductCandidate),
+                taskBlueprints: clone(candidate.taskBlueprints),
+                projectionCandidate: candidate.graphCandidate.graphType === 'PBL3_LINEAR'
+                  ? 'APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE'
+                  : 'APPROVED_COMPLETE_TWO_PAGE_CANDIDATE',
+                unapprovedPageSplitForbidden: true,
+                productionAdmissionAllowed: false
+              }));
+          }
+          '''
+          new = '''function buildPblReviewSections(a02, selectedSources) {
+            return a02.pblTaskSetCandidates
+              .filter((candidate) => selectedSources.has(candidate.sourceId))
+              .map((candidate) => ({
+                pblTaskSetId: candidate.pblCandidateId,
+                sourceId: candidate.sourceId,
+                knowledgePointId: candidate.primaryKnowledgePointId,
+                graphType: candidate.graphType,
+                nodes: clone(candidate.taskBlueprints.map((task) => ({
+                  taskId: task.taskId,
+                  outputMilestoneId: task.outputMilestoneId,
+                  isFinalTask: task.isFinalTask
+                }))),
+                edges: clone(candidate.taskBlueprints.flatMap((task) => (
+                  task.inputRefs.map((inputRef) => ({
+                    fromMilestoneId: inputRef,
+                    toTaskId: task.taskId
+                  }))
+                ))),
+                finalProductCandidate: clone(candidate.finalProductCandidate),
+                taskBlueprints: clone(candidate.taskBlueprints),
+                projectionCandidate: candidate.projectionCandidate,
+                unapprovedPageSplitForbidden: true,
+                productionAdmissionAllowed: false
+              }));
+          }
+          '''
+          if new not in source:
+              if old not in source:
+                  raise SystemExit('A05 PBL candidate shape anchor not found.')
+              source = source.replace(old, new)
+              path.write_text(source, encoding='utf-8')
+          PY
+
       - name: Run A05 focused runtime tests
         id: focused_tests
         continue-on-error: true
@@ -166,6 +228,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            src/curriculum/application/w01-e4-production-review-runtime.mjs \
             data/project/milestones/POSTG-APP-W01-A05.claim.json \
             data/curriculum/application/contracts/POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation.json \
             docs/curriculum/output/POSTG_APP_W01_A05_E4_HUMAN_REVIEW_READY.marker \
