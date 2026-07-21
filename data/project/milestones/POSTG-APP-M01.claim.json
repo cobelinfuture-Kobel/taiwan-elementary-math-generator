@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "M01_BOOTSTRAP_FACET_FUSION_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/context/global-context-ontology-resolver.mjs",
+      "tools/curriculum/validate-global-context-facet-fusion.mjs",
+      "tests/curriculum/global-context-facet-fusion-m01.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/context/contracts/Global_Context_Ontology_Facet_Fusion_V1.md",
+      "data/curriculum/context/registry/global-context-authority-index.json",
+      "data/curriculum/context/registry/global-context-hierarchy-ontology.json",
+      "data/curriculum/context/registry/global-context-facet-registry.json",
+      "data/curriculum/context/registry/global-context-fusion-population-index.json",
+      "data/curriculum/context/registry/global-context-legacy-mapping.json",
+      "data/curriculum/context/registry/global-context-current-affairs-source-registry.json",
+      "data/curriculum/context/contracts/POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D4",
+    "after": "D3",
+    "distanceReduced": "Global context moves from an empty hierarchy shell and fragmented SDG/current-affairs documents to a fused, populated, queryable bootstrap: 16 macro domains, 48 meso situations, 48 micro scenarios, 96 atomic episodes, 48 cross-cutting facets, six current-affairs source anchors, and explicit 18-of-18 legacy mappings. The executable resolver is shadow-only and grants no production admission."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
