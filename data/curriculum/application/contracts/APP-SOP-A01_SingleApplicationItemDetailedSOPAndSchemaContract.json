@@ -1,0 +1,129 @@
+{
+  "schemaName": "APPSOPA01SingleApplicationItemDetailedSOPAndSchemaContract",
+  "schemaVersion": 1,
+  "contractId": "SINGLE_APPLICATION_ITEM_SOP_V1",
+  "parentContractId": "APPLICATION_PROBLEM_SOP_V1",
+  "taskId": "APP-SOP-A01_SingleApplicationItemDetailedSOPAndSchemaContract",
+  "status": "A01_SCHEMA_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "prerequisite": {
+    "taskId": "APP-SOP-A00_ScopeDefinitionsAndAdmissionBoundary",
+    "mergeSha": "e48a0a6b6b2033844524a9d4471f058533624657",
+    "requiredEvidenceLevel": "E1_DATA_STRUCTURE_READY"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/contracts/Single_Application_Item_SOP_V1.md",
+    "jsonSchema": "data/curriculum/application/schema/single-application-item.schema.json",
+    "parentContract": "data/curriculum/contracts/APPLICATION_PROBLEM_SOP_V1.json",
+    "knowledgeOperationAuthorityPattern": "data/curriculum/knowledge/units/<sourceId>.knowledge-operation.json",
+    "globalContextAuthorityRoot": "data/curriculum/context/registry/"
+  },
+  "supportedModes": [
+    "SINGLE_DIRECT",
+    "SINGLE_N_PLUS_1"
+  ],
+  "forbiddenModes": [
+    "PBL_TASK_SET",
+    "N_PLUS_2_PRODUCTION"
+  ],
+  "singleItemInvariants": {
+    "primaryTargetCount": 1,
+    "crossQuestionDependencyGraphAllowed": false,
+    "pblMilestonesAllowed": false,
+    "pblFinalProductAllowed": false,
+    "uniqueAnswerRequired": true,
+    "knowledgePointLineageRequired": true,
+    "canonicalOperationLineageRequired": true,
+    "globalContextBindingRequired": true,
+    "answerRoleRequired": true,
+    "answerUnitRequired": true,
+    "blockingFailureReturnsNoItem": true
+  },
+  "nPlusOneInvariants": {
+    "numericLoadDefinesNPlusOne": false,
+    "baseCapabilityRequired": true,
+    "newInterpretiveActRequired": true,
+    "intermediateSemanticNodeRequired": false,
+    "pairedControlRequired": true,
+    "sameNumericPrerequisitesRequired": true,
+    "interpretationWitnessRequired": true,
+    "minimumMisconceptionModels": 2,
+    "counterfactualVariantRequired": true,
+    "answerMeaningValidationRequired": true
+  },
+  "validationOrder": [
+    "IDENTITY_AND_AUTHORITY",
+    "NUMERIC",
+    "SEMANTIC_ROLE",
+    "OPERATION_RELATION",
+    "CONTEXT_BINDING",
+    "INTERPRETATION",
+    "ANSWER_MEANING",
+    "ADMISSION_STATUS"
+  ],
+  "answerShapes": [
+    "QUANTITY_WITH_UNIT",
+    "QUOTIENT_REMAINDER",
+    "DECISION_WITH_REASON",
+    "COMPARISON_CHOICE",
+    "ERROR_DIAGNOSIS"
+  ],
+  "interpretationWitnessTypes": [
+    "TARGET_ROLE_SELECTION",
+    "RELATION_ORDER_SELECTION",
+    "DECISION_REASON_SELECTION",
+    "COMPARISON_EVIDENCE",
+    "ERROR_DIAGNOSIS",
+    "SHORT_ANSWER_MEANING"
+  ],
+  "responseClassifications": [
+    "FULL_PASS",
+    "CALCULATION_PASS_INTERPRETATION_FAIL",
+    "INTERPRETATION_PASS_CALCULATION_FAIL",
+    "ANSWER_ROLE_OR_UNIT_FAIL",
+    "FULL_FAIL"
+  ],
+  "result": {
+    "normativeDocumentCreated": true,
+    "jsonSchemaCreated": true,
+    "schemaDraft": "2020-12",
+    "singleDirectSchemaDistinguishable": true,
+    "singleNPlusOneSchemaDistinguishable": true,
+    "onePrimaryTargetMachineLocked": true,
+    "pblOnlyFieldsForbidden": true,
+    "runtimeChanged": false,
+    "questionContentAdded": false,
+    "productionAdmissionChanged": false
+  },
+  "deliverables": {
+    "normativeDocument": "docs/curriculum/contracts/Single_Application_Item_SOP_V1.md",
+    "jsonSchema": "data/curriculum/application/schema/single-application-item.schema.json",
+    "contract": "data/curriculum/application/contracts/APP-SOP-A01_SingleApplicationItemDetailedSOPAndSchemaContract.json",
+    "claim": "data/project/milestones/APP-SOP-A01.claim.json",
+    "tests": "tests/curriculum/application-problem-sop-a01.test.js"
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "generatorModificationAllowed": false,
+    "runtimeValidatorModificationAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "questionContentAuthoringAllowed": false,
+    "contextFamilyAuthoringAllowed": false,
+    "pblSchemaImplementationAllowed": false,
+    "productionAdmissionChangeAllowed": false,
+    "postGoldenMigrationControllerModificationAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_APPLICATION_SOP_SCOPE_AND_ADMISSION_CONTRACT_MACHINE_LOCKED",
+    "goalDistanceAfterTarget": "D3_SINGLE_APPLICATION_ITEM_SCHEMA_CONTRACT_MACHINE_LOCKED",
+    "distanceReduced": "Single direct and interpretation-based N+1 items now have distinct machine-enforced structures, authority lineage, one-target closure, answer meaning, misconception, counterfactual, and fail-closed validation requirements without runtime or production changes.",
+    "remainingBlockers": [
+      "A02 N+1 paired-control and misconception evidence contract",
+      "A03 PBL dependency and final-product schema",
+      "A04 context binding admission registries",
+      "A05 executable validators and G3B-U01 fixtures",
+      "A06 shared runtime and worksheet QA"
+    ],
+    "nextShortestStep": "APP-SOP-A02_NPlusOneInterpretationProofAndMisconceptionContract"
+  }
+}
