@@ -2,102 +2,98 @@
   "schemaName": "GlobalContextAuthorityIndexV1",
   "schemaVersion": 1,
   "contractId": "GLOBAL_CONTEXT_HIERARCHY_ONTOLOGY_V1",
-  "taskId": "GCTX-HIER-A00_AuthorityIndexAndExtractionContract",
-  "status": "CANONICAL_EXTRACTION_ENTRY_POINT",
+  "activeFusionContractId": "GLOBAL_CONTEXT_ONTOLOGY_FACET_FUSION_V1",
+  "taskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+  "status": "CANONICAL_EXTRACTION_ENTRY_POINT_BOOTSTRAP_FACET_FUSED",
   "canonicalEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
   "authorityOrder": [
-    {
-      "priority": 1,
-      "role": "HIERARCHY_SEMANTICS",
-      "path": "docs/curriculum/context/contracts/Global_Context_Hierarchy_Ontology_V1.md"
-    },
-    {
-      "priority": 2,
-      "role": "MACHINE_READABLE_ONTOLOGY",
-      "path": "data/curriculum/context/registry/global-context-hierarchy-ontology.json"
-    },
-    {
-      "priority": 3,
-      "role": "HIERARCHY_NODE_SCHEMA",
-      "path": "data/curriculum/context/schema/global-context-hierarchy-node.schema.json"
-    },
-    {
-      "priority": 4,
-      "role": "LEGACY_SEED_SOURCE",
-      "path": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json"
-    },
-    {
-      "priority": 5,
-      "role": "APPLICATION_CONTEXT_BINDINGS",
-      "path": "data/curriculum/application/registry/application-context-bindings.json"
-    },
-    {
-      "priority": 6,
-      "role": "APPLICATION_ADMISSION_STATE",
-      "path": "data/curriculum/application/registry/application-admission-registry.json"
-    }
+    {"priority":1,"role":"HIERARCHY_SEMANTICS","path":"docs/curriculum/context/contracts/Global_Context_Hierarchy_Ontology_V1.md"},
+    {"priority":2,"role":"FACET_FUSION_AND_POPULATION_CONTRACT","path":"docs/curriculum/context/contracts/Global_Context_Ontology_Facet_Fusion_V1.md"},
+    {"priority":3,"role":"MACHINE_READABLE_ONTOLOGY_STATE","path":"data/curriculum/context/registry/global-context-hierarchy-ontology.json"},
+    {"priority":4,"role":"FUSED_POPULATION_INDEX","path":"data/curriculum/context/registry/global-context-fusion-population-index.json"},
+    {"priority":5,"role":"CROSS_CUTTING_FACETS","path":"data/curriculum/context/registry/global-context-facet-registry.json"},
+    {"priority":6,"role":"CURRENT_AFFAIRS_SOURCE_AUTHORITY","path":"data/curriculum/context/registry/global-context-current-affairs-source-registry.json"},
+    {"priority":7,"role":"EXPLICIT_LEGACY_MAPPING","path":"data/curriculum/context/registry/global-context-legacy-mapping.json"},
+    {"priority":8,"role":"HIERARCHY_NODE_SCHEMA","path":"data/curriculum/context/schema/global-context-hierarchy-node.schema.json"},
+    {"priority":9,"role":"FACET_SCHEMA","path":"data/curriculum/context/schema/global-context-facet.schema.json"},
+    {"priority":10,"role":"POPULATION_SEED_SCHEMA","path":"data/curriculum/context/schema/global-context-fusion-seed.schema.json"},
+    {"priority":11,"role":"LEGACY_MAPPING_SCHEMA","path":"data/curriculum/context/schema/global-context-legacy-mapping.schema.json"},
+    {"priority":12,"role":"LEGACY_FLAT_SEED_SOURCE","path":"data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json"},
+    {"priority":13,"role":"APPLICATION_CONTEXT_BINDINGS","path":"data/curriculum/application/registry/application-context-bindings.json"},
+    {"priority":14,"role":"APPLICATION_ADMISSION_STATE","path":"data/curriculum/application/registry/application-admission-registry.json"}
   ],
   "extractionAliases": {
     "zhTW": [
-      "全域情境",
-      "全域生活情境",
-      "大情境",
-      "中情境",
-      "小情境",
-      "微觀情境",
-      "情境本體",
-      "情境階層",
-      "情境樹",
-      "生活應用題情境"
+      "全域情境","全域生活情境","大情境","中情境","小情境","微觀情境","情境本體","情境階層","情境樹","生活應用題情境",
+      "SDG情境","永續情境","古代情境","歷史情境","文化情境","時事情境","當代議題","未來情境","在地情境","公共資料情境"
     ],
     "en": [
-      "global context",
-      "global context ontology",
-      "context hierarchy",
-      "macro context",
-      "meso situation",
-      "micro scenario",
-      "atomic task episode",
-      "scenario diversity"
+      "global context","global context ontology","context hierarchy","macro context","meso situation","micro scenario","atomic task episode","scenario diversity",
+      "SDG context","temporal lens","ancient context","historical context","current affairs context","geography lens","context facet fusion"
     ]
   },
   "canonicalDefinitions": {
-    "largeContext": "MACRO_CONTEXT_DOMAIN",
-    "mediumContext": "MESO_SITUATION_FAMILY",
-    "smallContext": "MICRO_EVENT_SCENARIO",
-    "microscopicContext": "ATOMIC_TASK_EPISODE",
-    "surfaceTemplate": "SURFACE_REALIZATION_NON_ONTOLOGY_LAYER",
-    "numericInstance": "NUMERIC_INSTANCE_NON_ONTOLOGY_LAYER"
+    "largeContext":"MACRO_CONTEXT_DOMAIN",
+    "mediumContext":"MESO_SITUATION_FAMILY",
+    "smallContext":"MICRO_EVENT_SCENARIO",
+    "microscopicContext":"ATOMIC_TASK_EPISODE",
+    "sdg":"SDG_GOAL_FACET",
+    "ancientHistoricalCurrentAffairs":"TEMPORAL_LENS_FACET",
+    "geography":"GEOGRAPHY_LENS_FACET",
+    "theme":"THEME_FACET",
+    "dataFreshness":"DATA_FRESHNESS_FACET",
+    "surfaceTemplate":"SURFACE_REALIZATION_NON_ONTOLOGY_LAYER",
+    "numericInstance":"NUMERIC_INSTANCE_NON_ONTOLOGY_LAYER"
   },
   "extractionRules": [
     "Always read this authority index before interpreting any individual global-context registry.",
-    "Treat the hierarchy ontology as the authority for large, medium, small, and microscopic context semantics.",
+    "Resolve hierarchy and cross-cutting facets together; neither a facet nor a legacy family alone is a complete student-visible scenario.",
+    "Use the fused population index and read-only resolver to materialize the bootstrap macro, meso, micro, atomic, and surface layers.",
     "Treat the GS02 registry as a legacy flat seed source, not as the complete global-context universe.",
     "Do not use the count of legacy contextFamilies as the total scenario capacity.",
     "Do not count surface templates, changed nouns, changed names, or changed numbers as new ontology nodes.",
-    "Do not infer a legacy contextFamilyId hierarchy level without an explicit V1 mapping.",
-    "Select production application contexts at ATOMIC_TASK_EPISODE level after KnowledgePoint and operation-model binding.",
-    "Report current hierarchy population as incomplete until all completeness flags are true."
+    "Do not infer a legacy contextFamilyId hierarchy level without the explicit mapping registry.",
+    "Select application contexts at ATOMIC_TASK_EPISODE level after KnowledgePoint, operation model, application capability, and affordance matching.",
+    "Use CURRENT_AFFAIRS_SOURCE_REQUIRED only with an admitted source anchor, validity window, current-affairs facet, and current-snapshot freshness facet.",
+    "M01 bootstrap nodes are connectable candidates but are not production admitted.",
+    "The ontology remains extensible; bootstrap population completion does not mean the global context universe is closed."
   ],
   "prohibitedInferences": [
     "18 legacy context families equals 18 total student-visible contexts",
     "54 surface templates equals the maximum scenario capacity",
     "every legacy context family is automatically a macro domain",
+    "SDG, ancient, historical, or current-affairs labels automatically create a new hierarchy node",
     "a wording variant creates a new semantic scenario",
     "a number-only or noun-only change creates a new atomic episode",
-    "hierarchy content is complete because the structure contract exists"
+    "bootstrap population means the global context universe is complete",
+    "a current-affairs theme authorizes copying realtime statistics into general generated items"
   ],
   "currentAuthorityState": {
     "hierarchyStructureDefined": true,
-    "hierarchyPopulationComplete": false,
-    "legacyMappingComplete": false,
+    "facetAxesDefined": true,
+    "bootstrapMacroDomainCount": 16,
+    "bootstrapMesoSituationCount": 48,
+    "bootstrapMicroScenarioCount": 48,
+    "bootstrapAtomicEpisodeCount": 96,
+    "bootstrapSurfaceRealizationCount": 96,
+    "facetCount": 48,
+    "legacyFamilyMappingCount": 18,
+    "legacyMappingCompleteForKnownGS02Families": true,
+    "bootstrapPopulationShadowResolvable": true,
+    "globalContextUniverseComplete": false,
+    "applicationBindingMigrationComplete": false,
     "productionConsumptionComplete": false,
-    "safeSummary": "Global-context hierarchy semantics and extraction order are defined, but macro, meso, micro, and atomic episode populations are not yet complete."
+    "productionAdmittedContextCount": 0,
+    "safeSummary": "A fused and queryable bootstrap now combines hierarchy with SDG, temporal, geography, theme, and freshness facets. All 18 legacy families map explicitly. Application binding migration and production admission remain incomplete."
   },
-  "consumerContract": {
-    "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-    "firstRequiredConsumerTask": "POSTG-APP-A00_ProgramControllerCapabilityBaselineAndFixedQueue",
-    "applicationBindingTargetLevel": "ATOMIC_TASK_EPISODE",
-    "failClosedWhenHierarchyUnmapped": true
+  "producerConsumerContract": {
+    "programId":"POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+    "producerTask":"POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+    "firstRequiredConsumerTask":"POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+    "applicationBindingTargetLevel":"ATOMIC_TASK_EPISODE",
+    "resolver":"src/curriculum/context/global-context-ontology-resolver.mjs",
+    "validationCli":"tools/curriculum/validate-global-context-facet-fusion.mjs",
+    "failClosedWhenHierarchyOrFacetUnresolved":true,
+    "productionAdmissionByM01":false
   }
 }
