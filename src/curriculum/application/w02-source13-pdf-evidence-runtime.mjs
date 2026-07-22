@@ -5,6 +5,7 @@ import { buildW02Source13ApplicationAssessmentReadback } from './w02-source13-ap
 
 const INVENTORY_PATH = 'data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json';
 const POLICY_PATH = 'data/curriculum/application/evidence/w02-source13-pdf-evidence-policy.json';
+const A00_BASELINE_PATH = 'data/curriculum/application/assessment/w02-source13-source-authority-baseline.json';
 
 const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...details });
 const unique = (values) => new Set(values).size === values.length;
@@ -28,13 +29,14 @@ export function materializeW02Source13PdfEvidence({ root = process.cwd() } = {})
     root,
     inventory: readJson(root, INVENTORY_PATH),
     policy: readJson(root, POLICY_PATH),
+    a00Baseline: readJson(root, A00_BASELINE_PATH),
     a00Readback: buildW02Source13ApplicationAssessmentReadback({ root })
   };
 }
 
 export function validateW02Source13PdfEvidence(materialized) {
   const issues = [];
-  const { inventory, policy, a00Readback } = materialized;
+  const { inventory, policy, a00Baseline, a00Readback } = materialized;
   const records = inventory.records ?? [];
 
   if (!a00Readback.ok || a00Readback.counts.sourceNodeCount !== 13) {
@@ -52,19 +54,13 @@ export function validateW02Source13PdfEvidence(materialized) {
     }));
   }
 
-  const expectedIds = a00Readback.ok
-    ? materialized.a00Readback == null
-      ? []
-      : null
-    : [];
-  const a00MaterializedIds = readJson(materialized.root, 'data/curriculum/application/assessment/w02-source13-source-authority-baseline.json')
-    .records.map((row) => row.sourceNodeId);
+  const expectedIds = a00Baseline.records.map((row) => row.sourceNodeId);
   const actualIds = records.map((row) => row.sourceNodeId);
   if (!unique(actualIds)
-      || JSON.stringify(actualIds) !== JSON.stringify(a00MaterializedIds)
+      || JSON.stringify(actualIds) !== JSON.stringify(expectedIds)
       || !records.every((row, index) => row.queueOrdinal === index + 1)) {
     issues.push(issue('POSTG_APP_W02_A01A_SOURCE_ORDER_INVALID', 'records', {
-      expected: a00MaterializedIds,
+      expected: expectedIds,
       actual: actualIds
     }));
   }
