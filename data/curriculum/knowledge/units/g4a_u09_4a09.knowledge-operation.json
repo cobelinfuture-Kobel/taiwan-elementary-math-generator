@@ -1,0 +1,20 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g4a_u09_4a09", "queueOrdinal": 5, "sourceCode": "4a09", "sourceTitle": "2位小數", "domainFamily": "decimal_place_value_two_places",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "6da5a27b0cddc5a44be55efc2d9d790d7423898d88e9aa9fdf8658f648a723bf", "contentIdentityGroup": "pdf_6da5a27b0cdd", "pageCount": 2, "reviewedPages": [1, 2], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g4a_u09_hundredth_representation", "name": "百分位與二位小數", "scope": "以 0.01 為單位讀寫二位小數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "核心是百分位及小數記號的建立。"},
+    {"candidateId": "kp_g4a_u09_decimal_compose_decompose", "name": "二位小數組成分解", "scope": "依個、十分位與百分位組成或分解小數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬位值結構，不需生活敘事。"},
+    {"candidateId": "kp_g4a_u09_place_value_factor_relation", "name": "相鄰小數位值倍數關係", "scope": "辨識相鄰位值間 10 倍或十分之一的關係。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬十進位系統內部結構。"},
+    {"candidateId": "kp_g4a_u09_decimal_compare", "name": "二位小數比較", "scope": "比較二位小數及尾零等值形式。", "evidencePages": [1], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可比較測量量，也可用位值直接判斷。"},
+    {"candidateId": "kp_g4a_u09_missing_digit_inequality", "name": "小數不等式未知數字", "scope": "由大小關係推定未知位數的可行值。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬位值推理與數字約束。"},
+    {"candidateId": "kp_g4a_u09_decimal_sequence", "name": "小數數列規律", "scope": "依固定小數增量延伸數列。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "來源呈現為數列規律推理。"},
+    {"candidateId": "kp_g4a_u09_missing_digit_column_operation", "name": "小數直式缺位推理", "scope": "在小數加減直式中推定缺失數字。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬直式結構與逆向推理。"},
+    {"candidateId": "kp_g4a_u09_decimal_length_conversion", "name": "二位小數長度換算", "scope": "在公尺、公分及二位小數公尺之間換算。", "evidencePages": [2], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以實際長度單位建立百分位數量意義。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 8, "applicationRequiredCount": 1, "applicationCompatibleCount": 1, "applicationNotApplicableCount": 6},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

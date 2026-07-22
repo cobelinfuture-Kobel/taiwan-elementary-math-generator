@@ -1,0 +1,20 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g3b_u07_3b07", "queueOrdinal": 2, "sourceCode": "3b07", "sourceTitle": "分數的加減", "domainFamily": "fraction_addition_subtraction",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "0ffee8179c4b26394e821ae64dcc26f96c0534ed15f2c825d69df6de52934579", "contentIdentityGroup": "pdf_0ffee8179c4b", "pageCount": 3, "reviewedPages": [1, 2, 3], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g3b_u07_quotient_as_fraction", "name": "除法結果的分數表示", "scope": "把整數除法的商表示為分數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "重點是除法與分數記號的形式連結。"},
+    {"candidateId": "kp_g3b_u07_fraction_unit_conversion", "name": "單位分數與離散單位換算", "scope": "依每大單位含有的個數，在分數單位與個數間換算。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以盒裝物與個數建立量的對應，角色不可省略。"},
+    {"candidateId": "kp_g3b_u07_same_denominator_compare", "name": "同分母分數比較與整數改寫", "scope": "比較同分母分數，必要時將 1 改寫為 d/d。", "evidencePages": [1, 3], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬符號比較與等值改寫，可直接以數學形式評量。"},
+    {"candidateId": "kp_g3b_u07_same_denominator_add_sub", "name": "同分母分數加減", "scope": "分母不變，對分子進行加減。", "evidencePages": [2, 3], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可由線段或物品份量承載，也能以算式直接呈現。"},
+    {"candidateId": "kp_g3b_u07_whole_and_fraction_add_sub", "name": "整數與真分數加減", "scope": "將整數化為同分母分數後進行加減。", "evidencePages": [3], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可對應剩餘量，但核心仍可由等值改寫運算評量。"},
+    {"candidateId": "kp_g3b_u07_combined_fraction_context", "name": "同一整體的分數合併", "scope": "由兩次取得或使用的同單位分數求合計。", "evidencePages": [2, 3], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以食物盒與長度的兩段量明確表達合併關係。"},
+    {"candidateId": "kp_g3b_u07_fraction_plus_count_context", "name": "分數量與絕對個數合併", "scope": "先換算共同單位，再合併分數量與個數。", "evidencePages": [2], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "題意依賴盒數和顆數兩層單位，須保留情境角色。"},
+    {"candidateId": "kp_g3b_u07_original_or_difference_context", "name": "由已用、剩餘或差量求未知", "scope": "依使用量與剩餘量重建原量，或比較兩個分數量的差。", "evidencePages": [2, 3], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源題的未知角色取決於原量、剩餘與差量語意。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 8, "applicationRequiredCount": 4, "applicationCompatibleCount": 2, "applicationNotApplicableCount": 2},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

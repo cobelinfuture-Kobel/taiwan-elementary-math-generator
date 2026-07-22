@@ -125,7 +125,10 @@ export function validateW01A06EOperatorApproval(materialized) {
   if (w01?.state !== 'PRODUCTION_ADMITTED'
       || w01?.productionAdmissionGranted !== true
       || w01?.reviewDecision !== 'APPROVE'
-      || w02?.state !== 'ASSESSMENT_READY'
+      || w02?.state === 'BLOCKED_BY_PREVIOUS_WAVE'
+      || w02?.state === 'PRODUCTION_ADMITTED'
+      || !w02?.completedGates?.includes('SOURCE_NODE_REGISTERED')
+      || !w02?.completedGates?.includes('KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED')
       || w02?.productionAdmissionGranted !== false
       || controller.controllerState.currentWaveId !== 'W02') {
     issues.push(issue('POSTG_APP_W01_A06E_WAVE_TRANSITION_INVALID', 'controllerState.waveStates'));

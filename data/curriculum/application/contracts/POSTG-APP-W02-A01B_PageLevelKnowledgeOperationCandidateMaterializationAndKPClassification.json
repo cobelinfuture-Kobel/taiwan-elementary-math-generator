@@ -1,0 +1,66 @@
+{
+  "schemaName": "POSTGAPPW02A01BPageKnowledgeOperationCandidateContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "status": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_PENDING_CI_AND_MERGE",
+  "scope": {
+    "sourceNodeCount": 13,
+    "uniquePdfContentCount": 12,
+    "sourceNodePageCount": 31,
+    "knowledgePointCandidateCount": 90,
+    "uniqueContentKnowledgePointCandidateCount": 84,
+    "applicationRequiredCount": 17,
+    "applicationCompatibleCount": 27,
+    "applicationNotApplicableCount": 46
+  },
+  "authority": {
+    "candidatePathPattern": "data/curriculum/knowledge/units/{sourceNodeId}.knowledge-operation.json",
+    "candidateSchema": "data/curriculum/application/schema/w02-knowledge-operation-candidate.schema.json",
+    "sourcePdfInventory": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "runtime": "src/curriculum/application/w02-page-knowledge-operation-candidates.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a01b-page-knowledge-operation-candidates.mjs",
+    "test": "tests/curriculum/postg-app-w02-a01b-page-knowledge-operation-candidates.test.js"
+  },
+  "classificationPolicy": {
+    "allowed": ["APPLICATION_REQUIRED", "APPLICATION_COMPATIBLE", "APPLICATION_NOT_APPLICABLE"],
+    "unitOfDecision": "KNOWLEDGE_POINT_CANDIDATE",
+    "requiredMeaning": "SOURCE_EVIDENCE_DEPENDS_ON_QUANTITY_ROLES_UNITS_OR_CONTEXT_RELATION",
+    "compatibleMeaning": "CONTEXT_CAN_PRESERVE_THE_MATH_BUT_IS_NOT_REQUIRED",
+    "notApplicableMeaning": "FORMAL_REPRESENTATION_STRUCTURE_OR_RULE_SHOULD_NOT_BE_FORCED_INTO_STORY"
+  },
+  "deduplicationDecision": {
+    "contentIdentityGroup": "pdf_5ba57aff6a97",
+    "sourceNodeIds": ["g4a_u06_4a06", "g4b_u03_4b03"],
+    "policy": "PARSE_ONCE_PROJECT_TO_SEPARATE_SOURCE_NODES",
+    "contentKnowledgePointCandidateCount": 6,
+    "sourceNodeProjectedKnowledgePointCandidateCount": 12
+  },
+  "acceptanceGates": [
+    "A01A_SOURCE_PDF_EVIDENCE_PASS",
+    "SOURCE_NODE_COUNT_13",
+    "SOURCE_NODE_PAGE_COUNT_31",
+    "ALL_SOURCE_PAGES_VISUALLY_REVIEWED_AND_COVERED",
+    "ALL_KP_CANDIDATES_HAVE_PAGE_EVIDENCE",
+    "ALL_KP_CANDIDATES_CLASSIFIED",
+    "DUPLICATE_CONTENT_PROJECTED_WITH_EXACT_SEMANTIC_PARITY",
+    "NO_CANONICAL_OPERATION_MODEL_CLAIM",
+    "NO_PATTERN_SPEC_OR_STORY_TEMPLATE",
+    "NO_RUNTIME_OR_WORKSHEET_CONSUMER",
+    "NO_PRODUCTION_ADMISSION",
+    "MILESTONE_CLAIM_INTEGRITY_PASS",
+    "NODE_TEST_PASS",
+    "MATH_CI_PASS"
+  ],
+  "claimBoundary": {
+    "canonicalOperationModelCountClaimed": 0,
+    "patternSpecCountClaimed": 0,
+    "storyTemplateCountClaimed": 0,
+    "worksheetOutput": false,
+    "publicRouteChanged": false,
+    "publicSelectionEnabledForW02": false,
+    "productionAdmissionAllowed": false,
+    "programD0Complete": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization"
+}
