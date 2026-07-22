@@ -2,8 +2,8 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
-  "status": "W02_HIDDEN_PATTERNSPECS_MATERIALIZED",
+  "taskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
+  "status": "W02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
@@ -21,7 +21,8 @@
     "w02SourcePdfEvidenceTaskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
     "w02KnowledgeOperationCandidateTaskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
     "w02CanonicalOperationModelTaskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
-    "w02PatternSpecTaskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization"
+    "w02PatternSpecTaskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+    "w02AtomicContextTaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -77,11 +78,17 @@
     "w02PatternSpecPathPattern": "data/curriculum/application/pattern-specs/w02/{sourceNodeId}.hidden-pattern-spec.json",
     "w02PatternSpecResolver": "src/curriculum/application/w02-hidden-pattern-specs.mjs",
     "w02PatternSpecValidationCli": "tools/curriculum/validate-postg-app-w02-a01d-hidden-pattern-specs.mjs",
-    "w02A01DMilestoneClaim": "data/project/milestones/POSTG-APP-W02-A01D.claim.json"
+    "w02A01DMilestoneClaim": "data/project/milestones/POSTG-APP-W02-A01D.claim.json",
+    "w02AtomicContextPolicy": "data/curriculum/application/assessment/w02-atomic-context-binding-policy.json",
+    "w02AtomicContextPackIndex": "data/curriculum/application/assessment/w02-atomic-context-single-application-candidate-pack-index.json",
+    "w02AtomicContextSchema": "data/curriculum/application/schema/w02-atomic-context-single-application-candidate.schema.json",
+    "w02AtomicContextResolver": "src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs",
+    "w02AtomicContextValidationCli": "tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs",
+    "w02A02MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A02.claim.json"
   },
   "currentWaveId": "W02",
-  "currentCapability": "W02_HIDDEN_PATTERNSPECS_MATERIALIZED",
-  "currentMainlineBlocker": "W02_ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_PENDING",
+  "currentCapability": "W02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED",
+  "currentMainlineBlocker": "W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_CANDIDATES_PENDING",
   "productionAdmission": {
     "applicationUnitCount": 12,
     "waveCount": 1,
@@ -115,12 +122,14 @@
     },
     {
       "waveId": "W02",
-      "state": "HIDDEN_PATTERNSPECS_MATERIALIZED",
+      "state": "ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED",
       "completedGates": [
         "SOURCE_NODE_REGISTERED",
         "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
         "KP_APPLICATION_CLASSIFICATION_COMPLETE",
-        "CANONICAL_OPERATION_MODEL_COMPLETE"
+        "CANONICAL_OPERATION_MODEL_COMPLETE",
+        "SINGLE_APPLICATION_ADMISSION_COMPLETE",
+        "GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE"
       ],
       "admissionGateComplete": false,
       "productionAdmissionGranted": false,
@@ -153,12 +162,18 @@
       "hiddenPatternSpecCount": 195,
       "visiblePatternSpecCount": 0,
       "hiddenPatternSpecsComplete": true,
-      "forcedStoryAuthoringAllowed": false
+      "forcedStoryAuthoringAllowed": false,
+      "atomicContextBindingCount": 61,
+      "singleApplicationCandidateCount": 61,
+      "macroContextDomainCount": 16,
+      "duplicateContentProjectionParity": true,
+      "atomicContextBindingsComplete": true,
+      "productionAdmittedCandidateCount": 0
     },
-    {"waveId":"W03","state":"BLOCKED_BY_PREVIOUS_WAVE","completedGates":[],"admissionGateComplete":false,"productionAdmissionGranted":false},
-    {"waveId":"W04","state":"BLOCKED_BY_PREVIOUS_WAVE","completedGates":[],"admissionGateComplete":false,"productionAdmissionGranted":false},
-    {"waveId":"W05","state":"BLOCKED_BY_PREVIOUS_WAVE","completedGates":[],"admissionGateComplete":false,"productionAdmissionGranted":false},
-    {"waveId":"W06","state":"BLOCKED_BY_PREVIOUS_WAVE","completedGates":[],"admissionGateComplete":false,"productionAdmissionGranted":false}
+    {"waveId": "W03", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
+    {"waveId": "W04", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
+    {"waveId": "W05", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
+    {"waveId": "W06", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false}
   ],
   "producerStateConsumerReadback": {
     "producer": [
@@ -178,6 +193,7 @@
       "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
       "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
       "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+      "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
       "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
     ],
     "authoritativeState": [
@@ -201,7 +217,11 @@
       "POSTG-APP-W02-A01A.claim.json",
       "POSTG-APP-W02-A01B.claim.json",
       "POSTG-APP-W02-A01C.claim.json",
-      "POSTG-APP-W02-A01D.claim.json"
+      "POSTG-APP-W02-A01D.claim.json",
+      "w02-atomic-context-binding-policy.json",
+      "w02-atomic-context-single-application-candidate-pack-index.json",
+      "w02-atomic-context-single-application-candidate.schema.json",
+      "POSTG-APP-W02-A02.claim.json"
     ],
     "runtimeConsumer": [
       "postg-app-master-controller.mjs",
@@ -215,7 +235,8 @@
       "w02-source13-pdf-evidence-runtime.mjs",
       "w02-page-knowledge-operation-candidates.mjs",
       "w02-canonical-operation-models.mjs",
-      "w02-hidden-pattern-specs.mjs"
+      "w02-hidden-pattern-specs.mjs",
+      "w02-atomic-context-single-application-candidate-pack.mjs"
     ],
     "readback": [
       "validate-postg-app-m00-master-controller.mjs",
@@ -229,9 +250,10 @@
       "validate-postg-app-w02-a01a-source-pdf-evidence.mjs",
       "validate-postg-app-w02-a01b-page-knowledge-operation-candidates.mjs",
       "validate-postg-app-w02-a01c-canonical-operation-models.mjs",
-      "validate-postg-app-w02-a01d-hidden-pattern-specs.mjs"
+      "validate-postg-app-w02-a01d-hidden-pattern-specs.mjs",
+      "validate-postg-app-w02-a02-candidate-pack.mjs"
     ]
   },
-  "nextShortestStep": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
+  "nextShortestStep": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
   "stopReason": "NONE"
 }
