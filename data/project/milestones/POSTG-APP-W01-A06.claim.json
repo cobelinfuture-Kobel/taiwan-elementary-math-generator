@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "RELATION_SPECIFIC_SURFACE_SHADOW_RUNTIME_READY",
+  "claimedStatus": "REGENERATED_PRODUCTION_REVIEW_DOCUMENT_READY",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -27,9 +27,17 @@
       "src/curriculum/application/w01-relation-surface-remediation-runtime.mjs",
       "tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js",
       "tools/curriculum/validate-postg-app-w01-a06c-relation-surfaces.mjs",
-      ".github/workflows/postg-app-w01-a06c-relation-surfaces.yml"
+      ".github/workflows/postg-app-w01-a06c-relation-surfaces.yml",
+      "src/curriculum/application/w01-a06d-production-review-runtime.mjs",
+      "tests/curriculum/postg-app-w01-a06d-production-review.test.js"
     ],
-    "rendererTestPaths": [],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer-s57f5-extension.js",
+      "tools/curriculum/generate-postg-app-w01-a06d-review-artifacts.mjs",
+      "tools/curriculum/render-postg-app-w01-a06d-review-pdf.mjs",
+      "tools/curriculum/finalize-postg-app-w01-a06d-review-evidence.mjs",
+      ".github/workflows/postg-app-w01-a06d-regenerated-review.yml"
+    ],
     "htmlArtifactPaths": [],
     "pdfArtifactPaths": [],
     "beforeAfterEvidencePaths": [
@@ -40,6 +48,7 @@
       "docs/curriculum/output/POSTG_APP_W01_A06A_SEMANTIC_CONTRACT_READY.marker",
       "docs/curriculum/output/POSTG_APP_W01_A06B_SEMANTIC_RUNTIME_READY.marker",
       "docs/curriculum/output/POSTG_APP_W01_A06C_RELATION_SURFACES_READY.marker",
+      "docs/curriculum/output/POSTG_APP_W01_A06D_REVIEW_DOCUMENT_READY.marker",
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
       "data/project/milestones/POSTG-APP-W01-A05.claim.json"
     ],
@@ -54,10 +63,10 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "The exact 16-item A05 cohort now has deterministic relation-specific shadow surfaces: question-level Macro headings are removed, comparison uses two same-measure groups, range uses explicit bounds and candidates, arithmetic facts receive concrete entity units, authentic applications are preserved, and numeric-only or unadmitted optional Patterns remain numeric. Exact mathematical witnesses and original numeric facts remain unchanged; production-equivalent output has not yet been regenerated."
+    "distanceReduced": "The deterministic A06C relation-specific surfaces are now assembled into the existing worksheet document contract with exact question-answer pairing, hidden question-level Macro titles, concrete answer units and a second Human Review dossier. The existing production renderer is wired as the only E4 consumer; HTML/PDF generation and verification remain pending."
   },
   "nextStep": {
-    "taskId": "POSTG-APP-W01-A06D_RegeneratedHTMLPDFHumanReviewPackage",
+    "taskId": "POSTG-APP-W01-A06D_E4ArtifactGenerationAndVerification",
     "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
