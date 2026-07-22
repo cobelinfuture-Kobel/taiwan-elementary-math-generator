@@ -14,6 +14,7 @@ const W01_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W01-A06.claim.json';
 const W02_A00_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A00.claim.json';
 const W02_A01A_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A01A.claim.json';
 const W02_A01B_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A01B.claim.json';
+const W02_A01C_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A01C.claim.json';
 const GOLDEN_UNIT_DIR = 'data/curriculum/knowledge/units';
 
 const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...details });
@@ -87,6 +88,7 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
   const w02A00Claim = readJsonIfExists(root, W02_A00_CLAIM_PATH);
   const w02A01AClaim = readJsonIfExists(root, W02_A01A_CLAIM_PATH);
   const w02A01BClaim = readJsonIfExists(root, W02_A01B_CLAIM_PATH);
+  const w02A01CClaim = readJsonIfExists(root, W02_A01C_CLAIM_PATH);
   const goldenRegistries = unitRegistry.goldenBaselineUnits.map((mapping) => {
     const registryPath = goldenRegistryPath(mapping.goldenUnitId);
     const absolutePath = path.join(root, registryPath);
@@ -109,7 +111,8 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
     w01Claim,
     w02A00Claim,
     w02A01AClaim,
-    w02A01BClaim
+    w02A01BClaim,
+    w02A01CClaim
   };
 }
 
@@ -125,7 +128,8 @@ export function validatePOSTGAPPMasterController(controller) {
     w01Claim,
     w02A00Claim,
     w02A01AClaim,
-    w02A01BClaim
+    w02A01BClaim,
+    w02A01CClaim
   } = controller;
   const sourceIds = sourceNodes.map((row) => row.sourceNodeId);
   const sourceSet = new Set(sourceIds);
@@ -257,7 +261,7 @@ export function validatePOSTGAPPMasterController(controller) {
   const controllerWaveStates = controllerState.waveStates.map((row) => row.state);
   const expectedStates = [
     'PRODUCTION_ADMITTED',
-    'KP_CLASSIFICATION_COMPLETE',
+    'CANONICAL_OPERATION_MODEL_COMPLETE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
@@ -275,7 +279,7 @@ export function validatePOSTGAPPMasterController(controller) {
   }
   const w02State = controllerState.waveStates[1];
   if (!Array.isArray(w02State.completedGates)
-      || JSON.stringify(w02State.completedGates) !== JSON.stringify(requiredGateOrder.slice(0, 3))
+      || JSON.stringify(w02State.completedGates) !== JSON.stringify(requiredGateOrder.slice(0, 4))
       || w02State.productionAdmissionGranted !== false
       || w02State.admissionGateComplete !== false
       || w02State.assessmentBaselineState !== 'SOURCE_AUTHORITY_BASELINE_READY'
@@ -291,21 +295,23 @@ export function validatePOSTGAPPMasterController(controller) {
       || w02State.sourcePdfTextLayerAvailableCount !== 13
       || w02State.sourcePdfRenderAvailableCount !== 13
       || w02State.duplicateSourcePdfContentGroupCount !== 1
-      || w02State.knowledgeOperationCandidateState !== 'PAGE_EVIDENCED_CANONICAL_MODEL_PENDING'
+      || w02State.knowledgeOperationCandidateState !== 'PAGE_EVIDENCED_CANONICAL_MODEL_COMPLETE'
       || w02State.knowledgePointCandidateCount !== 90
       || w02State.uniqueContentKnowledgePointCandidateCount !== 84
       || w02State.applicationRequiredCount !== 17
       || w02State.applicationCompatibleCount !== 27
       || w02State.applicationNotApplicableCount !== 46
       || w02State.kpApplicationClassificationComplete !== true
-      || w02State.canonicalOperationModelsComplete !== false
+      || w02State.canonicalOperationModelCount !== 90
+      || w02State.uniqueContentCanonicalOperationModelCount !== 84
+      || w02State.canonicalOperationModelsComplete !== true
       || w02State.forcedStoryAuthoringAllowed !== false) {
     issues.push(issue('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W02'));
   }
   if (controllerState.currentWaveId !== 'W02'
-      || controllerState.currentCapability !== 'W02_PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED'
-      || controllerState.currentMainlineBlocker !== 'W02_CANONICAL_OPERATION_MODEL_MATERIALIZATION_PENDING'
-      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization') {
+      || controllerState.currentCapability !== 'W02_CANONICAL_OPERATION_MODELS_MATERIALIZED'
+      || controllerState.currentMainlineBlocker !== 'W02_PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION_PENDING'
+      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization') {
     issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
   }
   if (controllerState.productionAdmission.applicationUnitCount !== 12
@@ -357,6 +363,15 @@ export function validatePOSTGAPPMasterController(controller) {
       || w02A01BClaim.nextStep?.taskId !== 'POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization') {
     issues.push(issue('POSTG_APP_W02_A01B_CLAIM_INVALID', W02_A01B_CLAIM_PATH));
   }
+  if (!w02A01CClaim
+      || w02A01CClaim.actualEvidenceLevel !== 'E3_SHADOW_RUNTIME_INTEGRATED'
+      || w02A01CClaim.claimedStatus !== 'W02_CANONICAL_OPERATION_MODELS_MATERIALIZED'
+      || w02A01CClaim.claims?.runtimeIntegrated !== true
+      || w02A01CClaim.claims?.productionAdmitted !== false
+      || w02A01CClaim.claims?.d0Complete !== false
+      || w02A01CClaim.nextStep?.taskId !== 'POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization') {
+    issues.push(issue('POSTG_APP_W02_A01C_CLAIM_INVALID', W02_A01C_CLAIM_PATH));
+  }
 
   const contextValidation = validateGlobalContextAuthority(controller.contextAuthority);
   if (!contextValidation.ok) {
@@ -397,7 +412,7 @@ export function validatePOSTGAPPMasterController(controller) {
     currentWaveId: controllerState.currentWaveId,
     nextShortestStep: controllerState.nextShortestStep,
     status: issues.length === 0
-      ? 'W02_PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED'
+      ? 'W02_CANONICAL_OPERATION_MODELS_MATERIALIZED'
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
   };
 }

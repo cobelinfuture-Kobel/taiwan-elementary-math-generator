@@ -1,0 +1,344 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g4b_u08_4b08",
+  "queueOrdinal": 8,
+  "sourceCode": "4b08",
+  "sourceTitle": "等值分數",
+  "domainFamily": "equivalent_fraction_structure",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g4b_u08_4b08.knowledge-operation.json",
+    "sha256": "3f8707507cfeaf7645258eda54fc1ac1c6307be5b995a6ac14a8f9eb6a496162",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "fbc1dc932ca4598d6e3ce5f06d661e5c9a6c201c3224f6d9fd6d2339939265b4",
+    "contentIdentityGroup": "pdf_fbc1dc932ca4",
+    "pageCount": 3,
+    "reviewedPages": [
+      1,
+      2,
+      3
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4b_u08_generate_equivalent_fraction",
+      "knowledgePointName": "擴分與約分產生等值分數",
+      "scope": "以分子分母同乘或同除產生等值分數及補缺數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬分數等值的形式操作。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u08_generate_equivalent_fraction",
+          "operationFamilyId": "equivalent_fraction",
+          "canonicalExpressions": [
+            "equivalentNumerator = numerator * factor",
+            "equivalentDenominator = denominator * factor"
+          ],
+          "operandRoles": {
+            "numerator": "原分子",
+            "denominator": "原分母",
+            "factor": "非零擴約倍率",
+            "equivalentNumerator": "等值分子",
+            "equivalentDenominator": "等值分母"
+          },
+          "unknownRoles": [
+            "factor",
+            "equivalentNumerator",
+            "equivalentDenominator"
+          ],
+          "numberConstraints": [
+            "denominator > 0",
+            "factor > 0"
+          ],
+          "equivalentForms": [
+            "expansion",
+            "reduction"
+          ],
+          "answerType": "fraction_or_missing_integer",
+          "validationInvariants": [
+            "numerator and denominator change by the same factor",
+            "value is preserved"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_equivalence_cross_product",
+      "knowledgePointName": "交叉乘積判定等值",
+      "scope": "以交叉乘積判斷兩分數是否等值。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "重點是代數式判定而非情境關係。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u08_equivalence_cross_product",
+          "operationFamilyId": "cross_product_equivalence",
+          "canonicalExpressions": [
+            "equivalent = leftNumerator * rightDenominator == rightNumerator * leftDenominator"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分子",
+            "leftDenominator": "左分母",
+            "rightNumerator": "右分子",
+            "rightDenominator": "右分母",
+            "equivalent": "是否等值"
+          },
+          "unknownRoles": [
+            "equivalent"
+          ],
+          "numberConstraints": [
+            "both denominators > 0"
+          ],
+          "equivalentForms": [
+            "common-denominator equality"
+          ],
+          "answerType": "boolean",
+          "validationInvariants": [
+            "equivalence holds iff cross products are equal"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_fraction_compare_cross_product",
+      "knowledgePointName": "異分母分數比較",
+      "scope": "以交叉乘積或等值分數比較異分母分數。",
+      "evidencePages": [
+        1,
+        3
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可比較份量，也可維持純分數比較。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u08_fraction_compare_cross_product",
+          "operationFamilyId": "fraction_compare",
+          "canonicalExpressions": [
+            "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "comparison": "大小關係"
+          },
+          "unknownRoles": [
+            "comparison"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0"
+          ],
+          "equivalentForms": [
+            "common-denominator comparison",
+            "cross-product comparison",
+            "number-line comparison"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "validationInvariants": [
+            "comparison must equal the exact rational-number relation"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_unlike_denominator_add_sub",
+      "knowledgePointName": "異分母分數加減",
+      "scope": "先通分再進行分數加減。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可處理合併與差量，但來源亦包含純算式。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u08_unlike_denominator_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "canonicalExpressions": [
+            "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+            "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "result": "和或差"
+          },
+          "unknownRoles": [
+            "result"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0",
+            "subtraction result must satisfy the source scope"
+          ],
+          "equivalentForms": [
+            "common-denominator form",
+            "improper-fraction form",
+            "mixed-number form"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "result equals exact rational arithmetic",
+            "final form preserves value"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_fraction_decimal_conversion",
+      "knowledgePointName": "分數與有限小數互換",
+      "scope": "把分母可化為 10 或 100 的分數轉為小數，並反向轉換。",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬表徵與等值轉換。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u08_fraction_decimal_conversion",
+          "operationFamilyId": "fraction_decimal_conversion",
+          "canonicalExpressions": [
+            "decimal = numerator / denominator",
+            "numerator = decimal * denominator"
+          ],
+          "operandRoles": {
+            "numerator": "分數分子",
+            "denominator": "分數分母",
+            "decimal": "有限小數"
+          },
+          "unknownRoles": [
+            "decimal",
+            "numerator"
+          ],
+          "numberConstraints": [
+            "denominator > 0",
+            "denominator is convertible to the required decimal scale"
+          ],
+          "equivalentForms": [
+            "tenths or hundredths fraction",
+            "finite decimal"
+          ],
+          "answerType": "fraction_or_decimal",
+          "validationInvariants": [
+            "conversion preserves exact rational value"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_fraction_number_line_distance",
+      "knowledgePointName": "分數數線座標、移動與距離",
+      "scope": "在分數數線上定位、移動並求兩點距離。",
+      "evidencePages": [
+        2,
+        3
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "來源以抽象數線作為核心表徵。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u08_fraction_number_line_distance",
+          "operationFamilyId": "number_line",
+          "canonicalExpressions": [
+            "coordinate = origin + stepCount * unitStep",
+            "distance = abs(rightCoordinate - leftCoordinate)"
+          ],
+          "operandRoles": {
+            "origin": "數線起點",
+            "unitStep": "每格代表值",
+            "stepCount": "格數",
+            "coordinate": "座標",
+            "distance": "兩點距離"
+          },
+          "unknownRoles": [
+            "coordinate",
+            "distance"
+          ],
+          "numberConstraints": [
+            "unitStep > 0",
+            "stepCount is integer"
+          ],
+          "equivalentForms": [
+            "fraction coordinate",
+            "decimal coordinate"
+          ],
+          "answerType": "number_or_distance",
+          "validationInvariants": [
+            "coordinate respects tick spacing",
+            "distance is nonnegative"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_mixed_fraction_order_constraints",
+      "knowledgePointName": "等值帶分數排序與界限",
+      "scope": "比較等值或帶分數，並依上下界推定未知分子。",
+      "evidencePages": [
+        3
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "比較可承載份量，但界限推理宜保留結構題。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u08_mixed_fraction_order_constraints",
+          "operationFamilyId": "fraction_bounds",
+          "canonicalExpressions": [
+            "possibleValues = {x | lowerBound < value(x) < upperBound}"
+          ],
+          "operandRoles": {
+            "lowerBound": "下界分數",
+            "upperBound": "上界分數",
+            "unknownPart": "未知分子或帶分數部分",
+            "possibleValues": "可行集合"
+          },
+          "unknownRoles": [
+            "possibleValues"
+          ],
+          "numberConstraints": [
+            "lowerBound <= upperBound",
+            "denominators > 0"
+          ],
+          "equivalentForms": [
+            "common-denominator bounds",
+            "cross-product bounds"
+          ],
+          "answerType": "integer_or_fraction_set",
+          "validationInvariants": [
+            "set contains exactly all values satisfying the bounds"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 7,
+    "canonicalOperationModelCount": 7
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

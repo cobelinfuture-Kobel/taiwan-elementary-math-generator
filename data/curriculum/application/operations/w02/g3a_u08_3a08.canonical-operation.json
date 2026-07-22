@@ -1,0 +1,328 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g3a_u08_3a08",
+  "queueOrdinal": 1,
+  "sourceCode": "3a08",
+  "sourceTitle": "分數",
+  "domainFamily": "fraction_representation_and_part_whole",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g3a_u08_3a08.knowledge-operation.json",
+    "sha256": "c4e01dc0dac8fd08ee6c5dfd094ce194defa292fe4643b4f368c435a68f357bd",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "bd36711350928994abe921a4a3b801dd3333566a83ff1586c74c1ad7990c2708",
+    "contentIdentityGroup": "pdf_bd3671135092",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3a_u08_part_whole_fraction",
+      "knowledgePointName": "等分整體與分數意義",
+      "scope": "由連續量或離散集合的等分圖辨識分母、分子與所取部分。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "核心是表徵與名詞辨識，不應為此強加生活故事。",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u08_part_whole_fraction",
+          "operationFamilyId": "fraction_part_whole",
+          "canonicalExpressions": [
+            "fraction = selectedParts / equalParts"
+          ],
+          "operandRoles": {
+            "selectedParts": "所取等份數",
+            "equalParts": "整體等分數",
+            "fraction": "部分占整體的分數"
+          },
+          "unknownRoles": [
+            "fraction"
+          ],
+          "numberConstraints": [
+            "0 <= selectedParts <= equalParts",
+            "equalParts > 0"
+          ],
+          "equivalentForms": [
+            "diagram shading",
+            "discrete-set partition"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "denominator equals the number of equal parts",
+            "numerator equals the selected equal parts"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u08_unit_fraction_accumulation",
+      "knowledgePointName": "單位分數累積",
+      "scope": "以若干個單位分數組成指定分數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可用分食或測量份量承載，但純圖示與數線亦完整。",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u08_unit_fraction_accumulation",
+          "operationFamilyId": "fraction_accumulation",
+          "canonicalExpressions": [
+            "fraction = unitFractionCount / denominator"
+          ],
+          "operandRoles": {
+            "unitFractionCount": "單位分數個數",
+            "denominator": "每一整體的等分數",
+            "fraction": "累積後分數"
+          },
+          "unknownRoles": [
+            "fraction"
+          ],
+          "numberConstraints": [
+            "unitFractionCount >= 0",
+            "denominator > 0"
+          ],
+          "equivalentForms": [
+            "unitFractionCount × (1/denominator)"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "the denominator remains fixed",
+            "the numerator equals the accumulated unit-fraction count"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u08_discrete_set_fraction",
+      "knowledgePointName": "離散集合的分數與單位換算",
+      "scope": "由每盒固定個數，在個數與盒的分數之間互換。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源題以蛋糕盒與顆數的數量角色建立分數意義。",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u08_discrete_set_fraction",
+          "operationFamilyId": "discrete_fraction_conversion",
+          "canonicalExpressions": [
+            "itemCount = wholeUnits * itemsPerWhole + numerator * itemsPerWhole / denominator",
+            "fractionalUnits = itemCount / itemsPerWhole"
+          ],
+          "operandRoles": {
+            "wholeUnits": "完整大單位數",
+            "itemsPerWhole": "每大單位所含個數",
+            "numerator": "部分單位分子",
+            "denominator": "部分單位分母",
+            "itemCount": "換算後個數",
+            "fractionalUnits": "換算後分數單位數"
+          },
+          "unknownRoles": [
+            "itemCount",
+            "fractionalUnits"
+          ],
+          "numberConstraints": [
+            "itemsPerWhole > 0",
+            "denominator > 0",
+            "numerator * itemsPerWhole must be divisible by denominator when an integer count is required"
+          ],
+          "equivalentForms": [
+            "itemCount / itemsPerWhole",
+            "mixed unit plus fractional unit"
+          ],
+          "answerType": "fraction_or_integer_quantity",
+          "validationInvariants": [
+            "both directions preserve total quantity",
+            "unit roles are not interchangeable"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u08_measurement_fraction",
+      "knowledgePointName": "測量量的分數表示",
+      "scope": "在等分刻度上表示長度或容量的分數量。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源直接使用公尺與杯量，單位和量尺語意不可移除。",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u08_measurement_fraction",
+          "operationFamilyId": "measurement_fraction",
+          "canonicalExpressions": [
+            "measure = wholeUnits + numerator / denominator"
+          ],
+          "operandRoles": {
+            "wholeUnits": "完整測量單位數",
+            "numerator": "部分單位分子",
+            "denominator": "單位等分數",
+            "measure": "帶單位測量值"
+          },
+          "unknownRoles": [
+            "measure"
+          ],
+          "numberConstraints": [
+            "denominator > 0",
+            "0 <= numerator < denominator"
+          ],
+          "equivalentForms": [
+            "number-line coordinate",
+            "mixed-number measure"
+          ],
+          "answerType": "fraction_measure",
+          "validationInvariants": [
+            "the measurement unit is preserved",
+            "tick spacing equals one unit divided by denominator"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u08_whole_as_fraction",
+      "knowledgePointName": "整體等於分母分之分母",
+      "scope": "辨認一個完整整體可寫成 d/d。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬分數等值結構，可由圖示或符號直接評量。",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u08_whole_as_fraction",
+          "operationFamilyId": "whole_as_fraction",
+          "canonicalExpressions": [
+            "wholeCount = numerator / denominator",
+            "numerator = wholeCount * denominator"
+          ],
+          "operandRoles": {
+            "wholeCount": "完整整體數",
+            "numerator": "等份總數",
+            "denominator": "每整體等分數"
+          },
+          "unknownRoles": [
+            "numerator"
+          ],
+          "numberConstraints": [
+            "wholeCount >= 0",
+            "denominator > 0"
+          ],
+          "equivalentForms": [
+            "1 = denominator/denominator"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "numerator and denominator represent the same number of equal parts for one whole"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u08_same_denominator_compare",
+      "knowledgePointName": "同分母分數比較",
+      "scope": "比較同分母分數及其與 1 的大小。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可比較實際份量，也可維持數線或符號比較。",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u08_same_denominator_compare",
+          "operationFamilyId": "fraction_compare",
+          "canonicalExpressions": [
+            "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "comparison": "大小關係"
+          },
+          "unknownRoles": [
+            "comparison"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0"
+          ],
+          "equivalentForms": [
+            "common-denominator comparison",
+            "cross-product comparison",
+            "number-line comparison"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "validationInvariants": [
+            "comparison must equal the exact rational-number relation"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u08_unlike_denominator_comparison_limit",
+      "knowledgePointName": "異分母比較限制",
+      "scope": "辨識異分母時不可只比較分子。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "這是比較策略的概念邊界，不是情境數量關係。",
+      "operationModels": [
+        {
+          "modelId": "op_g3a_u08_unlike_denominator_comparison_limit",
+          "operationFamilyId": "comparison_limit",
+          "canonicalExpressions": [
+            "validStrategy = denominatorsEqual ? compare(numerators) : requireEquivalentRepresentation"
+          ],
+          "operandRoles": {
+            "denominatorsEqual": "分母是否相同",
+            "numerators": "待比較分子",
+            "validStrategy": "可採比較策略"
+          },
+          "unknownRoles": [
+            "validStrategy"
+          ],
+          "numberConstraints": [
+            "all denominators > 0"
+          ],
+          "equivalentForms": [
+            "counterexample to numerator-only comparison"
+          ],
+          "answerType": "strategy_classification",
+          "validationInvariants": [
+            "numerator-only comparison is valid only for equal positive denominators"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 7,
+    "canonicalOperationModelCount": 7
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

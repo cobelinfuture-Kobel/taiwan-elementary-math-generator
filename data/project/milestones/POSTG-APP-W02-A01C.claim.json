@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W02_CANONICAL_OPERATION_MODELS_MATERIALIZED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tools/curriculum/materialize-postg-app-w02-a01c-canonical-operation-models.mjs",
+      "src/curriculum/application/w02-canonical-operation-models.mjs",
+      "tools/curriculum/validate-postg-app-w02-a01c-canonical-operation-models.mjs",
+      "tests/curriculum/postg-app-w02-a01c-canonical-operation-models.test.js",
+      ".github/workflows/postg-app-w02-a01c-canonical-operation-models.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/schema/w02-canonical-operation-unit.schema.json",
+      "data/curriculum/application/contracts/POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization.json",
+      "data/curriculum/application/operations/w02",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "docs/curriculum/output/POSTG_APP_W02_A01C_CANONICAL_OPERATION_MODELS_MATERIALIZED.marker",
+      "docs/curriculum/output/POSTG_APP_W02_A01C_CANONICAL_OPERATION_MODELS_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D2",
+    "distanceReduced": "All 90 page-evidenced W02 KnowledgePoints now have explicit canonical expressions, operand and unknown roles, constraints, equivalent forms, answer types and validation invariants. PatternSpec, generation and production gates remain closed."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

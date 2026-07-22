@@ -1,0 +1,361 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g5a_u01_5a01",
+  "queueOrdinal": 9,
+  "sourceCode": "5a01",
+  "sourceTitle": "多位小數與加減",
+  "domainFamily": "decimal_multi_place_addition_subtraction",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g5a_u01_5a01.knowledge-operation.json",
+    "sha256": "22ca2776eb458319610843badb3549561f14e39ec75a71e7e092db837c9c9817",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "f56cfe9e3bed688313a29d2fa6e0b90c2aa854b953f7dcfff2822effe439fefe",
+    "contentIdentityGroup": "pdf_f56cfe9e3bed",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_read_place",
+      "knowledgePointName": "多位小數讀法與位名",
+      "scope": "讀寫並辨識到百萬分位的多位小數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬小數記數法與位名辨識。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u01_decimal_read_place",
+          "operationFamilyId": "decimal_representation",
+          "canonicalExpressions": [
+            "decimal = whole + fractionalUnits * placeUnit"
+          ],
+          "operandRoles": {
+            "whole": "整數部分",
+            "fractionalUnits": "小數位單位個數",
+            "placeUnit": "0.1、0.01 或更小位值單位",
+            "decimal": "小數值"
+          },
+          "unknownRoles": [
+            "decimal"
+          ],
+          "numberConstraints": [
+            "whole >= 0",
+            "0 <= each place digit <= 9"
+          ],
+          "equivalentForms": [
+            "place-value table",
+            "expanded decimal form"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "place-value expansion recombines to the decimal exactly"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_compose_decompose",
+      "knowledgePointName": "多位小數組成分解",
+      "scope": "依各位數值組成或展開多位小數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬位值結構與數的組成。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u01_decimal_compose_decompose",
+          "operationFamilyId": "decimal_representation",
+          "canonicalExpressions": [
+            "decimal = whole + fractionalUnits * placeUnit"
+          ],
+          "operandRoles": {
+            "whole": "整數部分",
+            "fractionalUnits": "小數位單位個數",
+            "placeUnit": "0.1、0.01 或更小位值單位",
+            "decimal": "小數值"
+          },
+          "unknownRoles": [
+            "decimal"
+          ],
+          "numberConstraints": [
+            "whole >= 0",
+            "0 <= each place digit <= 9"
+          ],
+          "equivalentForms": [
+            "place-value table",
+            "expanded decimal form"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "place-value expansion recombines to the decimal exactly"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_place_value_factor_relation",
+      "knowledgePointName": "小數位值倍數關係",
+      "scope": "辨識相鄰位值的十倍與十分之一關係。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬十進位內部結構。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u01_place_value_factor_relation",
+          "operationFamilyId": "place_factor",
+          "canonicalExpressions": [
+            "higherPlaceValue = lowerPlaceValue * 10",
+            "lowerPlaceValue = higherPlaceValue / 10"
+          ],
+          "operandRoles": {
+            "higherPlaceValue": "較高位值",
+            "lowerPlaceValue": "相鄰較低位值"
+          },
+          "unknownRoles": [
+            "higherPlaceValue",
+            "lowerPlaceValue"
+          ],
+          "numberConstraints": [
+            "place values are adjacent in base ten"
+          ],
+          "equivalentForms": [
+            "ten times",
+            "one tenth"
+          ],
+          "answerType": "numeric_relation",
+          "validationInvariants": [
+            "adjacent decimal places differ by exactly a factor of ten"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_compare",
+      "knowledgePointName": "多位小數比較",
+      "scope": "依位值比較多位小數或先組成再比較。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可比較測量數據，也可直接以位值判斷。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u01_decimal_compare",
+          "operationFamilyId": "decimal_compare",
+          "canonicalExpressions": [
+            "comparison = compare(normalizeScale(left), normalizeScale(right))"
+          ],
+          "operandRoles": {
+            "left": "左側小數",
+            "right": "右側小數",
+            "comparison": "大小關係"
+          },
+          "unknownRoles": [
+            "comparison"
+          ],
+          "numberConstraints": [
+            "inputs are finite decimals within the source precision"
+          ],
+          "equivalentForms": [
+            "place-value comparison",
+            "append trailing zeros"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "validationInvariants": [
+            "trailing zeros do not change value",
+            "comparison is numerically correct"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_missing_digit_inequality",
+      "knowledgePointName": "多位小數不等式缺位",
+      "scope": "由大小關係推定未知數字。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬位值與約束推理。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u01_missing_digit_inequality",
+          "operationFamilyId": "missing_digit_inequality",
+          "canonicalExpressions": [
+            "possibleDigits = {d in 0..9 | relation(left(d), right(d))}"
+          ],
+          "operandRoles": {
+            "missingDigit": "未知位數",
+            "left": "左側小數",
+            "right": "右側小數",
+            "possibleDigits": "所有可行數字"
+          },
+          "unknownRoles": [
+            "possibleDigits"
+          ],
+          "numberConstraints": [
+            "0 <= missingDigit <= 9"
+          ],
+          "equivalentForms": [
+            "place-value case analysis"
+          ],
+          "answerType": "digit_set",
+          "validationInvariants": [
+            "set is complete",
+            "every listed digit satisfies the inequality"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_add_sub",
+      "knowledgePointName": "多位小數加減",
+      "scope": "對齊小數點並補零完成多位小數加減。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可承載測量合併與差量，也可純計算。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u01_decimal_add_sub",
+          "operationFamilyId": "decimal_add_sub",
+          "canonicalExpressions": [
+            "result = alignDecimal(left) + alignDecimal(right)",
+            "result = alignDecimal(left) - alignDecimal(right)"
+          ],
+          "operandRoles": {
+            "left": "第一個小數",
+            "right": "第二個小數",
+            "result": "和或差"
+          },
+          "unknownRoles": [
+            "result"
+          ],
+          "numberConstraints": [
+            "inputs and result stay within source precision",
+            "subtraction result must satisfy the source scope"
+          ],
+          "equivalentForms": [
+            "column algorithm with aligned decimal points",
+            "equivalent trailing-zero form"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "decimal points are aligned",
+            "result equals exact decimal arithmetic"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_round_estimate",
+      "knowledgePointName": "多位小數取概數與估算",
+      "scope": "四捨五入到指定位數並用概數估計加減結果。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "估算可用真實量，也可維持數值近似題。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u01_decimal_round_estimate",
+          "operationFamilyId": "rounding",
+          "canonicalExpressions": [
+            "rounded = roundToPlace(value, targetPlace)",
+            "estimate = operate(round(left), round(right))"
+          ],
+          "operandRoles": {
+            "value": "原小數",
+            "targetPlace": "指定取概數位",
+            "rounded": "概數",
+            "estimate": "估算結果"
+          },
+          "unknownRoles": [
+            "rounded",
+            "estimate"
+          ],
+          "numberConstraints": [
+            "targetPlace is within source precision"
+          ],
+          "equivalentForms": [
+            "half-up interval",
+            "front-end estimate"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "rounding boundary is applied at the next lower place"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_inverse_rounding_range",
+      "knowledgePointName": "由概數反推原數範圍",
+      "scope": "依四捨五入結果求原小數的可能上下界。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬區間與逆向取概數推理。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u01_inverse_rounding_range",
+          "operationFamilyId": "inverse_rounding",
+          "canonicalExpressions": [
+            "range = {x | roundToPlace(x, targetPlace) = roundedValue}"
+          ],
+          "operandRoles": {
+            "roundedValue": "已知概數",
+            "targetPlace": "取概數位",
+            "range": "原數範圍"
+          },
+          "unknownRoles": [
+            "range"
+          ],
+          "numberConstraints": [
+            "precision and rounding rule are fixed"
+          ],
+          "equivalentForms": [
+            "half-open rounding interval"
+          ],
+          "answerType": "decimal_range",
+          "validationInvariants": [
+            "every value in range rounds to roundedValue",
+            "bounds are tight"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 8,
+    "canonicalOperationModelCount": 8
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

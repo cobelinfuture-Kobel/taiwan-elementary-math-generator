@@ -66,7 +66,7 @@ test('controller preserves W01 admission while W02 advances without production a
   const states = materialized.controller.controllerState.waveStates;
   assert.deepEqual(states.map((row) => row.state), [
     'PRODUCTION_ADMITTED',
-    'KP_CLASSIFICATION_COMPLETE',
+    'CANONICAL_OPERATION_MODEL_COMPLETE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
@@ -75,7 +75,7 @@ test('controller preserves W01 admission while W02 advances without production a
   assert.equal(states[0].productionAdmissionGranted, true);
   assert.equal(states[1].productionAdmissionGranted, false);
   assert.equal(states[1].kpApplicationClassificationComplete, true);
-  assert.equal(states[1].canonicalOperationModelsComplete, false);
+  assert.equal(states[1].canonicalOperationModelsComplete, true);
   assert.equal(materialized.controller.wavePlan.coverage.productionAdmittedWaveCount, 1);
 });
 
