@@ -25,14 +25,14 @@ const REQUIRED_GATES = [
   'PRODUCTION_ADMISSION_REVIEWED'
 ];
 
-test('M00 validates the exact 79-node scope with W01 admitted and W02 source baseline ready', () => {
+test('M00 validates the exact 79-node scope with W01 admitted and W02 PDF evidence ready', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, 'W02_SOURCE_ASSESSMENT_BASELINE_READY');
+  assert.equal(result.status, 'W02_SOURCE_PDF_EVIDENCE_READY');
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -43,7 +43,7 @@ test('M00 validates the exact 79-node scope with W01 admitted and W02 source bas
     productionAdmittedApplicationUnitCount: 12
   });
   assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification');
+  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification');
 });
 
 test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
@@ -66,7 +66,7 @@ test('Wave 01 distinguishes 15 golden units from 16 source nodes and is producti
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
 });
 
-test('Wave 02 remains assessment-ready with the A00 source baseline complete', () => {
+test('Wave 02 remains assessment-ready with A00 and A01A evidence complete', () => {
   const w02 = resolvePOSTGAPPWave(controller, 'W02');
   assert.equal(w02.sourceNodes.length, 13);
   assert.equal(w02.productionAdmissionGranted, false);
@@ -77,6 +77,13 @@ test('Wave 02 remains assessment-ready with the A00 source baseline complete', (
   assert.equal(w02.currentState.sourceMetadataAvailableCount, 13);
   assert.equal(w02.currentState.sourceNodeCount, 13);
   assert.equal(w02.currentState.sourceLevelApplicationPotential, 'MIXED_KP_SPLIT_REQUIRED');
+  assert.equal(w02.currentState.sourcePdfEvidenceState, 'HASH_LOCKED_RENDERABLE');
+  assert.equal(w02.currentState.sourcePdfReferenceCount, 13);
+  assert.equal(w02.currentState.uniquePdfContentCount, 12);
+  assert.equal(w02.currentState.totalSourcePdfPageCount, 31);
+  assert.equal(w02.currentState.sourcePdfTextLayerAvailableCount, 13);
+  assert.equal(w02.currentState.sourcePdfRenderAvailableCount, 13);
+  assert.equal(w02.currentState.duplicateSourcePdfContentGroupCount, 1);
   assert.equal(w02.currentState.kpApplicationClassificationComplete, false);
   assert.equal(w02.currentState.forcedStoryAuthoringAllowed, false);
 });
@@ -112,7 +119,7 @@ test('W02 to W06 cover the remaining 63 nodes in deterministic source order', ()
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
 });
 
-test('W01 admission remains backed by explicit approval while W02 A00 is E3 only', () => {
+test('W01 stays E5 while W02 A00 and A01A remain E3 non-production', () => {
   assert.equal(controller.approvalDecision.operatorDecision, 'APPROVE');
   assert.equal(controller.approvalDecision.productionAdmission.granted, true);
   assert.equal(controller.approvalDecision.productionAdmission.publicRouteChanged, false);
@@ -122,6 +129,9 @@ test('W01 admission remains backed by explicit approval while W02 A00 is E3 only
   assert.equal(controller.w02A00Claim.actualEvidenceLevel, 'E3_SHADOW_RUNTIME_INTEGRATED');
   assert.equal(controller.w02A00Claim.claims.productionAdmitted, false);
   assert.equal(controller.w02A00Claim.claims.d0Complete, false);
+  assert.equal(controller.w02A01AClaim.actualEvidenceLevel, 'E3_SHADOW_RUNTIME_INTEGRATED');
+  assert.equal(controller.w02A01AClaim.claims.productionAdmitted, false);
+  assert.equal(controller.w02A01AClaim.claims.d0Complete, false);
   assert.deepEqual(controller.controllerState.waveStates[0].completedGates, REQUIRED_GATES);
   assert.deepEqual(controller.controllerState.productionAdmission.admittedWaveIds, ['W01']);
   assert.equal(controller.controllerState.productionAdmission.applicationUnitCount, 12);
@@ -141,18 +151,22 @@ test('duplicate source nodes and non-contiguous production admissions fail close
   assert.equal(codes(validatePOSTGAPPMasterController(productionCase)).includes('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID'), true);
 });
 
-test('forged approval, W02 claim and baseline state fail closed', () => {
+test('forged approval, A00/A01A claims and PDF evidence state fail closed', () => {
   const approvalCase = structuredClone(controller);
   approvalCase.approvalDecision.operatorDecision = 'REJECT';
   assert.equal(codes(validatePOSTGAPPMasterController(approvalCase)).includes('POSTG_APP_W01_OPERATOR_APPROVAL_EVIDENCE_INVALID'), true);
 
-  const claimCase = structuredClone(controller);
-  claimCase.w02A00Claim.claims.productionAdmitted = true;
-  assert.equal(codes(validatePOSTGAPPMasterController(claimCase)).includes('POSTG_APP_W02_A00_CLAIM_INVALID'), true);
+  const a00ClaimCase = structuredClone(controller);
+  a00ClaimCase.w02A00Claim.claims.productionAdmitted = true;
+  assert.equal(codes(validatePOSTGAPPMasterController(a00ClaimCase)).includes('POSTG_APP_W02_A00_CLAIM_INVALID'), true);
 
-  const baselineCase = structuredClone(controller);
-  baselineCase.controllerState.waveStates[1].kpApplicationClassificationComplete = true;
-  assert.equal(codes(validatePOSTGAPPMasterController(baselineCase)).includes('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID'), true);
+  const a01aClaimCase = structuredClone(controller);
+  a01aClaimCase.w02A01AClaim.claims.productionAdmitted = true;
+  assert.equal(codes(validatePOSTGAPPMasterController(a01aClaimCase)).includes('POSTG_APP_W02_A01A_CLAIM_INVALID'), true);
+
+  const evidenceCase = structuredClone(controller);
+  evidenceCase.controllerState.waveStates[1].sourcePdfReferenceCount = 12;
+  assert.equal(codes(validatePOSTGAPPMasterController(evidenceCase)).includes('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID'), true);
 });
 
 test('missing source coverage and altered wave order fail closed', () => {
