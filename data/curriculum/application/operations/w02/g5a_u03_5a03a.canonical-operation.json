@@ -1,0 +1,334 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g5a_u03_5a03a",
+  "queueOrdinal": 10,
+  "sourceCode": "5a03a",
+  "sourceTitle": "倍數",
+  "domainFamily": "multiple_enumeration_and_periodicity",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g5a_u03_5a03a.knowledge-operation.json",
+    "sha256": "64369eb8ded9ee4b5fa4f39964ecddedf83c7e66518296053a36ad165f090b2a",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "ad8b88287fe7de3fbe5e733ca8365c830ba6cc391ae9f7e541cf379ad2e15f8c",
+    "contentIdentityGroup": "pdf_ad8b88287fe7",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u03a_multiple_identify_enumerate",
+      "knowledgePointName": "倍數辨識與列舉",
+      "scope": "以乘法或整除關係判定並列出某數的倍數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬倍數定義與形式判定。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a_multiple_identify_enumerate",
+          "operationFamilyId": "multiple_enumeration",
+          "canonicalExpressions": [
+            "isMultiple = candidate mod base == 0",
+            "multiples = {base * k | k is positive integer}"
+          ],
+          "operandRoles": {
+            "base": "基準整數",
+            "candidate": "候選整數",
+            "isMultiple": "是否為倍數",
+            "multiples": "倍數集合"
+          },
+          "unknownRoles": [
+            "isMultiple",
+            "multiples"
+          ],
+          "numberConstraints": [
+            "base > 0",
+            "candidate >= 0"
+          ],
+          "equivalentForms": [
+            "multiplication table",
+            "exact divisibility"
+          ],
+          "answerType": "boolean_or_integer_list",
+          "validationInvariants": [
+            "every listed value is divisible by base",
+            "bounded list is complete"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_bounded_or_nearest_multiple",
+      "knowledgePointName": "範圍內與最接近的倍數",
+      "scope": "找指定範圍內的倍數或最接近目標的倍數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可對應分裝數量，也可直接用數列求解。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a_bounded_or_nearest_multiple",
+          "operationFamilyId": "nearest_multiple",
+          "canonicalExpressions": [
+            "boundedMultiples = {base*k | lower <= base*k <= upper}",
+            "nearest = argmin(abs(base*k - target))"
+          ],
+          "operandRoles": {
+            "base": "基準整數",
+            "lower": "下界",
+            "upper": "上界",
+            "target": "目標數",
+            "boundedMultiples": "範圍內倍數",
+            "nearest": "最接近倍數"
+          },
+          "unknownRoles": [
+            "boundedMultiples",
+            "nearest"
+          ],
+          "numberConstraints": [
+            "base > 0",
+            "lower <= upper"
+          ],
+          "equivalentForms": [
+            "floor/ceiling quotient candidates"
+          ],
+          "answerType": "integer_or_integer_list",
+          "validationInvariants": [
+            "bounds are respected",
+            "nearest minimizes absolute distance"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_divisibility_rules",
+      "knowledgePointName": "2、3、5、10 的倍數判別",
+      "scope": "依末位或各位數字和判斷整除性。",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬數字特徵與整除規則。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a_divisibility_rules",
+          "operationFamilyId": "divisibility",
+          "canonicalExpressions": [
+            "divisible = divisibilityRule(value, divisor)"
+          ],
+          "operandRoles": {
+            "value": "待判定整數",
+            "divisor": "2、3、5 或 10",
+            "divisible": "是否整除"
+          },
+          "unknownRoles": [
+            "divisible"
+          ],
+          "numberConstraints": [
+            "divisor in {2,3,5,10}"
+          ],
+          "equivalentForms": [
+            "last-digit rule",
+            "digit-sum rule"
+          ],
+          "answerType": "boolean",
+          "validationInvariants": [
+            "rule result equals value mod divisor == 0"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_factor_multiple_relation",
+      "knowledgePointName": "乘法算式中的因數倍數關係",
+      "scope": "由乘法等式判定因數與倍數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬關係名詞與算式結構。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a_factor_multiple_relation",
+          "operationFamilyId": "factor_multiple_relation",
+          "canonicalExpressions": [
+            "isFactor = product mod factor == 0",
+            "isMultiple = value mod base == 0"
+          ],
+          "operandRoles": {
+            "factor": "候選因數",
+            "product": "被整除數",
+            "value": "候選倍數",
+            "base": "基準數",
+            "isFactor": "是否為因數",
+            "isMultiple": "是否為倍數"
+          },
+          "unknownRoles": [
+            "isFactor",
+            "isMultiple"
+          ],
+          "numberConstraints": [
+            "positive integer domain"
+          ],
+          "equivalentForms": [
+            "multiplication equation",
+            "division equation"
+          ],
+          "answerType": "classification_or_boolean",
+          "validationInvariants": [
+            "classification agrees with exact divisibility"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_divisor_multiple_classification",
+      "knowledgePointName": "因數與倍數集合分類",
+      "scope": "從候選數列選出因數或倍數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬集合辨識與整除判斷。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a_divisor_multiple_classification",
+          "operationFamilyId": "factor_multiple_relation",
+          "canonicalExpressions": [
+            "isFactor = product mod factor == 0",
+            "isMultiple = value mod base == 0"
+          ],
+          "operandRoles": {
+            "factor": "候選因數",
+            "product": "被整除數",
+            "value": "候選倍數",
+            "base": "基準數",
+            "isFactor": "是否為因數",
+            "isMultiple": "是否為倍數"
+          },
+          "unknownRoles": [
+            "isFactor",
+            "isMultiple"
+          ],
+          "numberConstraints": [
+            "positive integer domain"
+          ],
+          "equivalentForms": [
+            "multiplication equation",
+            "division equation"
+          ],
+          "answerType": "classification_or_boolean",
+          "validationInvariants": [
+            "classification agrees with exact divisibility"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_count_multiples_interval",
+      "knowledgePointName": "區間內倍數個數",
+      "scope": "計算號碼或整數區間中符合倍數條件的個數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可用號碼卡情境，也可視為區間計數。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a_count_multiples_interval",
+          "operationFamilyId": "interval_multiple_count",
+          "canonicalExpressions": [
+            "count = floor(upper/base) - floor((lower-1)/base)"
+          ],
+          "operandRoles": {
+            "base": "倍數基準",
+            "lower": "區間下界",
+            "upper": "區間上界",
+            "count": "符合倍數條件個數"
+          },
+          "unknownRoles": [
+            "count"
+          ],
+          "numberConstraints": [
+            "base > 0",
+            "lower <= upper"
+          ],
+          "equivalentForms": [
+            "enumeration of bounded multiples"
+          ],
+          "answerType": "integer",
+          "validationInvariants": [
+            "count equals the complete bounded set size"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_exact_grouping_feasibility",
+      "knowledgePointName": "整除分組方案可行性",
+      "scope": "判斷物品數量能否依指定規格整組分配。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源以兌換卡與合併數量的完整分組決策呈現。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a_exact_grouping_feasibility",
+          "operationFamilyId": "exact_grouping",
+          "canonicalExpressions": [
+            "feasible = total mod groupSize == 0"
+          ],
+          "operandRoles": {
+            "total": "物品總數",
+            "groupSize": "每組量或組數",
+            "feasible": "能否整組分配"
+          },
+          "unknownRoles": [
+            "feasible"
+          ],
+          "numberConstraints": [
+            "total >= 0",
+            "groupSize > 0"
+          ],
+          "equivalentForms": [
+            "factor membership",
+            "integer quotient"
+          ],
+          "answerType": "boolean_or_integer_selection",
+          "validationInvariants": [
+            "no remainder is allowed for a feasible plan"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 7,
+    "canonicalOperationModelCount": 7
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

@@ -1,0 +1,59 @@
+{
+  "schemaName": "POSTGAPPW02A01CCanonicalOperationModelContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "status": "CANONICAL_OPERATION_MODELS_MATERIALIZED_PENDING_CI_AND_MERGE",
+  "scope": {
+    "sourceNodeCount": 13,
+    "uniquePdfContentCount": 12,
+    "knowledgePointCount": 90,
+    "uniqueContentKnowledgePointCount": 84,
+    "canonicalOperationModelCount": 90,
+    "uniqueContentCanonicalOperationModelCount": 84
+  },
+  "authority": {
+    "candidatePathPattern": "data/curriculum/knowledge/units/{sourceNodeId}.knowledge-operation.json",
+    "canonicalPathPattern": "data/curriculum/application/operations/w02/{sourceNodeId}.canonical-operation.json",
+    "canonicalSchema": "data/curriculum/application/schema/w02-canonical-operation-unit.schema.json",
+    "materializer": "tools/curriculum/materialize-postg-app-w02-a01c-canonical-operation-models.mjs",
+    "runtime": "src/curriculum/application/w02-canonical-operation-models.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a01c-canonical-operation-models.mjs",
+    "test": "tests/curriculum/postg-app-w02-a01c-canonical-operation-models.test.js"
+  },
+  "modelContract": {
+    "oneModelPerKnowledgePoint": true,
+    "requiredFields": ["modelId", "operationFamilyId", "canonicalExpressions", "operandRoles", "unknownRoles", "numberConstraints", "equivalentForms", "answerType", "validationInvariants"],
+    "unknownRolesMustBeDeclaredOperands": true,
+    "candidateIdentityEvidenceAndClassificationImmutable": true,
+    "duplicatePdfSemanticProjectionExact": true
+  },
+  "acceptanceGates": [
+    "A01B_PAGE_EVIDENCED_KP_CLASSIFICATION_PASS",
+    "SOURCE_NODE_COUNT_13",
+    "KNOWLEDGE_POINT_COUNT_90",
+    "CANONICAL_OPERATION_MODEL_COUNT_90",
+    "ONE_EXPLICIT_MODEL_PER_KP",
+    "ALL_MODELS_HAVE_OPERAND_AND_UNKNOWN_ROLES",
+    "ALL_MODELS_HAVE_CONSTRAINTS_AND_VALIDATION_INVARIANTS",
+    "A01B_IDENTITY_EVIDENCE_AND_CLASSIFICATION_PRESERVED",
+    "DUPLICATE_CONTENT_PROJECTED_WITH_EXACT_SEMANTIC_PARITY",
+    "NO_PATTERNSPEC_OR_STORY_TEMPLATE",
+    "NO_GENERATOR_VALIDATOR_RENDERER_OR_WORKSHEET_CONSUMER",
+    "NO_PUBLIC_SELECTION_OR_PRODUCTION_ADMISSION",
+    "MILESTONE_CLAIM_INTEGRITY_PASS",
+    "NODE_TEST_PASS",
+    "MATH_CI_PASS"
+  ],
+  "claimBoundary": {
+    "canonicalOperationModelsComplete": true,
+    "patternSpecCountClaimed": 0,
+    "storyTemplateCountClaimed": 0,
+    "worksheetOutput": false,
+    "publicRouteChanged": false,
+    "publicSelectionEnabledForW02": false,
+    "productionAdmissionAllowed": false,
+    "programD0Complete": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization"
+}

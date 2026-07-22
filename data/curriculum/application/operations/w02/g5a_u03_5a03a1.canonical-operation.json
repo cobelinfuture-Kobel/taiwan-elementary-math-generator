@@ -1,0 +1,290 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g5a_u03_5a03a1",
+  "queueOrdinal": 11,
+  "sourceCode": "5a03a1",
+  "sourceTitle": "公倍數",
+  "domainFamily": "common_multiple_and_cycle_alignment",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g5a_u03_5a03a1.knowledge-operation.json",
+    "sha256": "732b75afa8b50e84179d67d5bc7192b9bd585c5ef58cbd8181631d70c93eb065",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "b329b79c2e4518ac42725b026ddd61ec6740020e33e74269824da967e477b393",
+    "contentIdentityGroup": "pdf_b329b79c2e45",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u03a1_common_multiple_lcm",
+      "knowledgePointName": "公倍數與最小公倍數",
+      "scope": "由兩個數的倍數集合找公倍數與最小公倍數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬定義、列舉與集合交集。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a1_common_multiple_lcm",
+          "operationFamilyId": "lcm",
+          "canonicalExpressions": [
+            "commonMultiples = multiples(left) intersection multiples(right)",
+            "leastCommonMultiple = min(commonMultiples)"
+          ],
+          "operandRoles": {
+            "left": "第一個正整數",
+            "right": "第二個正整數",
+            "commonMultiples": "公倍數集合",
+            "leastCommonMultiple": "最小公倍數"
+          },
+          "unknownRoles": [
+            "commonMultiples",
+            "leastCommonMultiple"
+          ],
+          "numberConstraints": [
+            "left > 0",
+            "right > 0"
+          ],
+          "equivalentForms": [
+            "prime-factor LCM",
+            "bounded enumeration"
+          ],
+          "answerType": "integer_or_integer_list",
+          "validationInvariants": [
+            "every common multiple is divisible by both inputs",
+            "leastCommonMultiple is the smallest positive member"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_grouping_constraints",
+      "knowledgePointName": "兩種分組規格的共同總量",
+      "scope": "求同一總量可被兩種組數或每組量整除的最小值。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源以兩種分組方式建立共同總量與最小需求。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a1_grouping_constraints",
+          "operationFamilyId": "common_group_total",
+          "canonicalExpressions": [
+            "minimumTotal = lcm(firstGrouping, secondGrouping)"
+          ],
+          "operandRoles": {
+            "firstGrouping": "第一種分組規格",
+            "secondGrouping": "第二種分組規格",
+            "minimumTotal": "最小共同總量"
+          },
+          "unknownRoles": [
+            "minimumTotal"
+          ],
+          "numberConstraints": [
+            "grouping values are positive integers"
+          ],
+          "equivalentForms": [
+            "simultaneous divisibility",
+            "first common multiple"
+          ],
+          "answerType": "integer_quantity",
+          "validationInvariants": [
+            "total is divisible by both grouping specifications",
+            "no smaller positive total satisfies both"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_bounded_common_multiples",
+      "knowledgePointName": "指定範圍內的公倍數",
+      "scope": "列出上下界內符合兩個或多個倍數條件的數。",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可用包裝或用品數量承載，也可直接列舉。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a1_bounded_common_multiples",
+          "operationFamilyId": "lcm",
+          "canonicalExpressions": [
+            "commonMultiples = multiples(left) intersection multiples(right)",
+            "leastCommonMultiple = min(commonMultiples)"
+          ],
+          "operandRoles": {
+            "left": "第一個正整數",
+            "right": "第二個正整數",
+            "commonMultiples": "公倍數集合",
+            "leastCommonMultiple": "最小公倍數"
+          },
+          "unknownRoles": [
+            "commonMultiples",
+            "leastCommonMultiple"
+          ],
+          "numberConstraints": [
+            "left > 0",
+            "right > 0"
+          ],
+          "equivalentForms": [
+            "prime-factor LCM",
+            "bounded enumeration"
+          ],
+          "answerType": "integer_or_integer_list",
+          "validationInvariants": [
+            "every common multiple is divisible by both inputs",
+            "leastCommonMultiple is the smallest positive member"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_rectangle_square_tiling",
+      "knowledgePointName": "長方形拼成最小正方形",
+      "scope": "以長寬公倍數求無縫拼成正方形的最小邊長。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源的鋪排幾何限制直接決定最小公倍數模型。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a1_rectangle_square_tiling",
+          "operationFamilyId": "square_tiling",
+          "canonicalExpressions": [
+            "squareSide = lcm(rectangleLength, rectangleWidth)"
+          ],
+          "operandRoles": {
+            "rectangleLength": "長方形長",
+            "rectangleWidth": "長方形寬",
+            "squareSide": "最小正方形邊長"
+          },
+          "unknownRoles": [
+            "squareSide"
+          ],
+          "numberConstraints": [
+            "lengths are positive compatible measures"
+          ],
+          "equivalentForms": [
+            "common-multiple tiling"
+          ],
+          "answerType": "length",
+          "validationInvariants": [
+            "square side is divisible by both rectangle dimensions",
+            "tiling has no gaps or overlaps"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_factor_multiple_language",
+      "knowledgePointName": "因數倍數公倍數語句辨識",
+      "scope": "判定敘述使用因數、倍數或公倍數是否正確。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬數學語言與關係辨識。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a1_factor_multiple_language",
+          "operationFamilyId": "factor_multiple_relation",
+          "canonicalExpressions": [
+            "isFactor = product mod factor == 0",
+            "isMultiple = value mod base == 0"
+          ],
+          "operandRoles": {
+            "factor": "候選因數",
+            "product": "被整除數",
+            "value": "候選倍數",
+            "base": "基準數",
+            "isFactor": "是否為因數",
+            "isMultiple": "是否為倍數"
+          },
+          "unknownRoles": [
+            "isFactor",
+            "isMultiple"
+          ],
+          "numberConstraints": [
+            "positive integer domain"
+          ],
+          "equivalentForms": [
+            "multiplication equation",
+            "division equation"
+          ],
+          "answerType": "classification_or_boolean",
+          "validationInvariants": [
+            "classification agrees with exact divisibility"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_number_constraint_construction",
+      "knowledgePointName": "倍數條件的數字組成",
+      "scope": "以指定數字卡組成符合倍數條件的整數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬位數排列與整除約束推理。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u03a1_number_constraint_construction",
+          "operationFamilyId": "number_constraint",
+          "canonicalExpressions": [
+            "solutions = {n formed from allowedDigits | all divisibility constraints hold}"
+          ],
+          "operandRoles": {
+            "allowedDigits": "可用數字卡",
+            "constraints": "倍數或位數限制",
+            "solutions": "所有合格整數"
+          },
+          "unknownRoles": [
+            "solutions"
+          ],
+          "numberConstraints": [
+            "digit-use rule is explicit",
+            "leading digit is nonzero"
+          ],
+          "equivalentForms": [
+            "divisibility-rule filtering"
+          ],
+          "answerType": "integer_set",
+          "validationInvariants": [
+            "every solution uses only allowed digits",
+            "solution set is complete"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 6,
+    "canonicalOperationModelCount": 6
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

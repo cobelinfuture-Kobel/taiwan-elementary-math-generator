@@ -1,0 +1,348 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g5a_u04_5a04",
+  "queueOrdinal": 12,
+  "sourceCode": "5a04",
+  "sourceTitle": "擴分約分通分",
+  "domainFamily": "fraction_equivalence_simplification_common_denominator",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g5a_u04_5a04.knowledge-operation.json",
+    "sha256": "9b6b15e263d5033184649b177985dd9f1d2c65282075c0068c1469fc3e7a3176",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "d90c2fea0808fdefde0b3e3cf98eaad0844d63332d1be85bd0a951e4ce86ee87",
+    "contentIdentityGroup": "pdf_d90c2fea0808",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u04_expand_reduce_simplest",
+      "knowledgePointName": "擴分、約分與最簡分數",
+      "scope": "以共同倍數或因數產生等值分數並約成最簡。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬分數形式與等值操作。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u04_expand_reduce_simplest",
+          "operationFamilyId": "simplify_fraction",
+          "canonicalExpressions": [
+            "simplestNumerator = numerator / gcd(numerator, denominator)",
+            "simplestDenominator = denominator / gcd(numerator, denominator)"
+          ],
+          "operandRoles": {
+            "numerator": "原分子",
+            "denominator": "原分母",
+            "commonFactor": "共同因數",
+            "simplestNumerator": "最簡分子",
+            "simplestDenominator": "最簡分母"
+          },
+          "unknownRoles": [
+            "commonFactor",
+            "simplestNumerator",
+            "simplestDenominator"
+          ],
+          "numberConstraints": [
+            "denominator > 0"
+          ],
+          "equivalentForms": [
+            "successive reduction",
+            "greatest-common-factor reduction"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "value is preserved",
+            "final numerator and denominator are coprime"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u04_divisibility_supported_reduction",
+      "knowledgePointName": "利用整除規則約分",
+      "scope": "用整除特徵選擇共同因數並連續約分。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬數字結構與化簡策略。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u04_divisibility_supported_reduction",
+          "operationFamilyId": "simplify_fraction",
+          "canonicalExpressions": [
+            "simplestNumerator = numerator / gcd(numerator, denominator)",
+            "simplestDenominator = denominator / gcd(numerator, denominator)"
+          ],
+          "operandRoles": {
+            "numerator": "原分子",
+            "denominator": "原分母",
+            "commonFactor": "共同因數",
+            "simplestNumerator": "最簡分子",
+            "simplestDenominator": "最簡分母"
+          },
+          "unknownRoles": [
+            "commonFactor",
+            "simplestNumerator",
+            "simplestDenominator"
+          ],
+          "numberConstraints": [
+            "denominator > 0"
+          ],
+          "equivalentForms": [
+            "successive reduction",
+            "greatest-common-factor reduction"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "value is preserved",
+            "final numerator and denominator are coprime"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u04_common_denominator",
+      "knowledgePointName": "通分",
+      "scope": "將異分母分數化為同分母等值分數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬後續比較運算的形式轉換工具。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u04_common_denominator",
+          "operationFamilyId": "common_denominator",
+          "canonicalExpressions": [
+            "leftEquivalent = leftNumerator*(commonDenominator/leftDenominator)/commonDenominator",
+            "rightEquivalent = rightNumerator*(commonDenominator/rightDenominator)/commonDenominator"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分子",
+            "leftDenominator": "左分母",
+            "rightNumerator": "右分子",
+            "rightDenominator": "右分母",
+            "commonDenominator": "共同分母",
+            "leftEquivalent": "左側等值分數",
+            "rightEquivalent": "右側等值分數"
+          },
+          "unknownRoles": [
+            "commonDenominator",
+            "leftEquivalent",
+            "rightEquivalent"
+          ],
+          "numberConstraints": [
+            "commonDenominator is a common multiple of both denominators"
+          ],
+          "equivalentForms": [
+            "least-common-denominator form",
+            "any valid common-denominator form"
+          ],
+          "answerType": "fraction_pair",
+          "validationInvariants": [
+            "both fraction values are preserved",
+            "resulting denominators are equal"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u04_unlike_fraction_compare",
+      "knowledgePointName": "通分後比較異分母分數",
+      "scope": "通分或交叉乘積後比較真分數與假分數。",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可比較實際份量，也可保留純分數題。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u04_unlike_fraction_compare",
+          "operationFamilyId": "fraction_compare",
+          "canonicalExpressions": [
+            "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "comparison": "大小關係"
+          },
+          "unknownRoles": [
+            "comparison"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0"
+          ],
+          "equivalentForms": [
+            "common-denominator comparison",
+            "cross-product comparison",
+            "number-line comparison"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "validationInvariants": [
+            "comparison must equal the exact rational-number relation"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u04_quotient_as_fraction_context",
+      "knowledgePointName": "整數相除與平均分配的分數商",
+      "scope": "把總量平均分給若干人或容器，將每份量寫成分數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源以平均分配和容器數建立被除數、除數與每份量角色。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u04_quotient_as_fraction_context",
+          "operationFamilyId": "quotient_fraction_context",
+          "canonicalExpressions": [
+            "sharePerRecipient = totalQuantity / recipientCount"
+          ],
+          "operandRoles": {
+            "totalQuantity": "待平均分配總量",
+            "recipientCount": "人數或容器數",
+            "sharePerRecipient": "每份分數量"
+          },
+          "unknownRoles": [
+            "sharePerRecipient"
+          ],
+          "numberConstraints": [
+            "recipientCount > 0",
+            "totalQuantity >= 0"
+          ],
+          "equivalentForms": [
+            "division quotient",
+            "fraction per recipient"
+          ],
+          "answerType": "fraction_measure",
+          "validationInvariants": [
+            "all recipients receive equal shares",
+            "shares recombine to totalQuantity"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u04_fraction_measurement_segments",
+      "knowledgePointName": "分數測量與等長分段",
+      "scope": "由總長與段數求每段分數長度，或由容量求所需單位數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源使用繩長與容量單位，測量語意決定答案單位。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u04_fraction_measurement_segments",
+          "operationFamilyId": "segment_measure",
+          "canonicalExpressions": [
+            "segmentLength = totalLength / segmentCount",
+            "segmentCount = totalMeasure / unitMeasure"
+          ],
+          "operandRoles": {
+            "totalLength": "總長或總容量",
+            "segmentCount": "等分段數或所需單位數",
+            "unitMeasure": "每段或每單位量",
+            "segmentLength": "每段長度"
+          },
+          "unknownRoles": [
+            "segmentLength",
+            "segmentCount"
+          ],
+          "numberConstraints": [
+            "divisor or unitMeasure > 0"
+          ],
+          "equivalentForms": [
+            "equal partition",
+            "measurement iteration"
+          ],
+          "answerType": "fraction_measure_or_integer",
+          "validationInvariants": [
+            "equal segments recombine to the total measure"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u04_equivalent_mixed_selection",
+      "knowledgePointName": "等值帶分數辨識",
+      "scope": "選出與指定假分數或帶分數等值的形式。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬等值表徵的選擇與轉換。",
+      "operationModels": [
+        {
+          "modelId": "op_g5a_u04_equivalent_mixed_selection",
+          "operationFamilyId": "improper_mixed_conversion",
+          "canonicalExpressions": [
+            "whole = floor(numerator / denominator)",
+            "remainder = numerator mod denominator",
+            "improperNumerator = whole * denominator + remainder"
+          ],
+          "operandRoles": {
+            "numerator": "假分數分子",
+            "denominator": "固定分母",
+            "whole": "帶分數整數部分",
+            "remainder": "帶分數分子",
+            "improperNumerator": "換算後假分數分子"
+          },
+          "unknownRoles": [
+            "whole",
+            "remainder",
+            "improperNumerator"
+          ],
+          "numberConstraints": [
+            "denominator > 0",
+            "0 <= remainder < denominator"
+          ],
+          "equivalentForms": [
+            "improper fraction",
+            "mixed number",
+            "integer"
+          ],
+          "answerType": "fraction_or_mixed_number",
+          "validationInvariants": [
+            "both representations have equal value"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 7,
+    "canonicalOperationModelCount": 7
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}
