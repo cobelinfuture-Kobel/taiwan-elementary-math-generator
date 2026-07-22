@@ -1,0 +1,562 @@
+1.
+甲隊有5979張運動會集點卡，乙隊有2172張運動會集點卡。比較兩組的數量，應填入哪一個符
+號：>、< 或 =？
+
+
+
+
+2.
+清理小組已記錄1594個寶特瓶，最後巡查時又發現6個寶特瓶。這次一共記錄多少個寶特瓶？
+
+
+
+
+3.
+每盤有27株幼苗，共有7盤。一共有多少株幼苗？
+4.
+共有77公升飲用水，平均分給7個水桶。每個水桶分到多少公升飲用水？
+
+
+
+
+5.
+共有56顆水餃，平均分給7人。每人分到多少顆水餃？
+
+
+
+
+6.
+6位同學一起安排運動練習，場地使用費225元，器材租借費225元。兩項費用由6人平均分擔，
+每人要付多少元？
+7.
+小安每天存45元，連續存了8天，一共存了多少元？
+
+
+
+
+8.
+用 1、2、5、8、9這五個數字各一次，組成五位數。最大的數是多少？最小的數是多少？ □
+
+
+
+
+9.
+一張公車票原價63元，活動折扣5元。小明付了100元，可以找回多少元？
+10.
+物資整理小組有5886顆橘子，每盒裝10顆。最多可以裝滿幾盒？
+
+
+
+
+11.
+一條長 48公尺的緞帶要等分，每段長度都是整數公尺。請列出所有「段數｜每段長度」配對。
+
+
+
+
+12.
+共有1430顆球，平均裝成22箱。取出其中16箱，取出的球共有多少顆？
+13.
+倉庫規定每批貨物必須超過2478箱，而且少於3437箱。A批有2395箱，B批有3276箱。哪一批
+符合規定？
+
+
+
+
+14.
+校園設計小組原有5702張節能貼紙，布置活動時用了9張節能貼紙。還剩多少張節能貼紙？
+
+
+
+
+15.
+7個千、6個百、8個十、3個一，合起來是多少？
+16.
+41個十可以換成幾個百，還剩幾個十？
+1.
+甲隊有5979張運動會集點卡，乙隊有2172張運動會集點卡。比較兩組的數量，應填入哪一個符
+號：>、< 或 =？
+>
+
+
+
+
+2.
+清理小組已記錄1594個寶特瓶，最後巡查時又發現6個寶特瓶。這次一共記錄多少個寶特瓶？
+個
+
+
+
+
+3.
+每盤有27株幼苗，共有7盤。一共有多少株幼苗？
+株
+
+
+
+
+4.
+共有77公升飲用水，平均分給7個水桶。每個水桶分到多少公升飲用水？
+公升
+5.
+共有56顆水餃，平均分給7人。每人分到多少顆水餃？
+顆
+
+
+
+
+6.
+6位同學一起安排運動練習，場地使用費225元，器材租借費225元。兩項費用由6人平均分擔，
+每人要付多少元？
+75元
+
+
+
+
+7.
+小安每天存45元，連續存了8天，一共存了多少元？
+360元
+
+
+
+
+8.
+用 1、2、5、8、9這五個數字各一次，組成五位數。最大的數是多少？最小的數是多少？ □
+最大：98521；最小：12589
+9.
+一張公車票原價63元，活動折扣5元。小明付了100元，可以找回多少元？
+42 元
+
+
+
+
+10.
+物資整理小組有5886顆橘子，每盒裝10顆。最多可以裝滿幾盒？
+588盒
+
+
+
+
+11.
+一條長 48公尺的緞帶要等分，每段長度都是整數公尺。請列出所有「段數｜每段長度」配對。
+
+
+
+
+12.
+共有1430顆球，平均裝成22箱。取出其中16箱，取出的球共有多少顆？
+1430÷22×16＝1040顆
+13.
+倉庫規定每批貨物必須超過2478箱，而且少於3437箱。A批有2395箱，B批有3276箱。哪一批
+符合規定？
+B
+
+
+
+
+14.
+校園設計小組原有5702張節能貼紙，布置活動時用了9張節能貼紙。還剩多少張節能貼紙？
+張
+
+
+
+
+15.
+7個千、6個百、8個十、3個一，合起來是多少？
+7683
+
+
+
+
+16.
+41個十可以換成幾個百，還剩幾個十？
+4個百又1個十
+Wave 01 應用題語意修正版人工審核
+
+任務 POSTG-APP-W01-A06D_RegeneratedHTMLPDFHumanReviewPackage
+
+
+範圍 16 題、12 個來源單元；16 個 Macro Context 僅保留於 metadata，不作為題目標題或固定開頭。
+
+
+固定邊界 使用既有 exact generator lineage 與 production renderer；公開選單與 production admission 均未開放。
+
+
+本次審核 檢查語句自然度、數量角色、單位、比較／範圍／總量／分組語意與 numeric-only 邊界。
+
+
+
+
+逐題審核
+
+1. kp_g3a_u01_4digit_compare
+COMPARE_TWO_GROUPS_SAME_MEASURE · APPLICATION_REQUIRED · REL_COMPARE_TWO_GROUPS_V1
+原始數學題意 在 □ 中填入 >、< 或 =，比較 5979和 2172的大小。 5979 □ 2172
+
+修正版題目 甲隊有5979張運動會集點卡，乙隊有2172張運動會集點卡。比較兩組的數量，應填入哪一個符號：>、< 或 =？
+
+核對結果 >
+
+數量角色
+
+   leftGroupQuantity：5979張 運動會集點卡
+   rightGroupQuantity：2172張 運動會集點卡
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+  第二次人工審核
+
+ 語句自然         數量角色正確           單位正確    數學關係正確     核准      退回
+
+
+
+
+2. kp_g3a_u02_add_multi_carry
+JOIN_RESULT_TOTAL · APPLICATION_REQUIRED · REL_JOIN_TOTAL_V1
+原始數學題意 1594 + 6 = □
+
+修正版題目 清理小組已記錄1594個寶特瓶，最後巡查時又發現6個寶特瓶。這次一共記錄多少個寶特瓶？
+
+核對結果 個
+
+數量角色
+
+   initialQuantity：1594個 寶特瓶
+   joinedQuantity：6個 寶特瓶
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+  第二次人工審核
+
+ 語句自然         數量角色正確           單位正確    數學關係正確     核准      退回
+
+
+
+
+3. kp_g3a_u03_2digit_by_1digit_carry
+EQUAL_GROUPS_TOTAL · APPLICATION_REQUIRED · REL_EQUAL_GROUPS_TOTAL_V1
+原始數學題意 27 × 7 = □
+
+修正版題目 每盤有27株幼苗，共有7盤。一共有多少株幼苗？
+
+核對結果 株
+
+數量角色
+
+   perGroupQuantity：27株 幼苗
+   groupCount：7盤 盤
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+  第二次人工審核
+
+ 語句自然         數量角色正確           單位正確    數學關係正確     核准      退回
+
+
+
+
+4. kp_g3a_u06_exact_division_check
+EQUAL_SHARE_PER_GROUP · APPLICATION_REQUIRED · REL_EQUAL_SHARE_V1
+原始數學題意 77 ÷ 7 = □
+
+修正版題目 共有77公升飲用水，平均分給7個水桶。每個水桶分到多少公升飲用水？
+
+核對結果 公升
+
+數量角色
+
+   totalQuantity：77公升 飲用水
+   groupCount：7個水桶 個水桶
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+  第二次人工審核
+
+ 語句自然         數量角色正確           單位正確    數學關係正確     核准      退回
+5. kp_g3b_u01_2digit_division_place_value_cases
+EQUAL_SHARE_PER_GROUP · APPLICATION_REQUIRED · REL_EQUAL_SHARE_V1
+原始數學題意 56 ÷ 7 = □
+
+修正版題目 共有56顆水餃，平均分給7人。每人分到多少顆水餃？
+
+核對結果 顆
+
+數量角色
+
+   totalQuantity：56顆 水餃
+   groupCount：7人 人
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確          單位正確   數學關係正確        核准     退回
+
+
+
+
+6. kp_g3b_u04_add_then_divide
+MULTI_STEP_STRUCTURED · APPLICATION_REQUIRED · REL_EXISTING_JOINT_PURCHASE_EQUAL_SHARE_V1
+原始數學題意 6位同學一起安排運動練習，場地使用費225元，器材租借費225元。兩項費用由6人平均分擔，每人要付多少元？
+
+修正版題目 6位同學一起安排運動練習，場地使用費225元，器材租借費225元。兩項費用由6人平均分擔，每人要付多少元？
+
+核對結果 75元
+
+數量角色
+
+   participantCount：6人 同學
+   costA：225元 場地使用費
+   costB：225元 器材租借費
+   shareCount：6人 同學
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確          單位正確   數學關係正確        核准     退回
+
+
+
+
+7. kp_g3b_u08_total_from_groups
+EQUAL_GROUPS_TOTAL · APPLICATION_REQUIRED · REL_EXISTING_DAILY_SAVING_TOTAL_V1
+原始數學題意 小安每天存45元，連續存了8天，一共存了多少元？
+
+修正版題目 小安每天存45元，連續存了8天，一共存了多少元？
+
+核對結果 360元
+
+數量角色
+
+   perDayAmount：45元 每日存款
+   dayCount：8天 天數
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確          單位正確   數學關係正確        核准     退回
+
+
+
+
+8. kp_g4a_u01_digit_arrangement_max_min
+NUMERIC_ONLY · NUMERIC_ONLY · NUMERIC_PRESERVED_V1
+原始數學題意 用 1、2、5、8、9這五個數字各一次，組成五位數。最大的數是多少？最小的數是多少？ □
+
+修正版題目 用 1、2、5、8、9這五個數字各一次，組成五位數。最大的數是多少？最小的數是多少？ □
+
+核對結果 最大：98521；最小：12589
+
+數量角色
+
+此題保留數字題形式，未強套生活情境。
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確          單位正確   數學關係正確        核准     退回
+
+
+
+
+9. kp_g4a_u08_app_parentheses_grouping
+MULTI_STEP_STRUCTURED · APPLICATION_REQUIRED · REL_TICKET_DISCOUNT_CHANGE_V1
+原始數學題意 公車站每張車票原價63元，活動折扣5元。付100元，找回多少元？
+
+修正版題目 一張公車票原價63元，活動折扣5元。小明付了100元，可以找回多少元？
+
+核對結果 42 元
+
+數量角色
+
+   originalPrice：63元 公車票原價
+   discount：5元 折扣
+   payment：100元 付款金額
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確          單位正確   數學關係正確        核准     退回
+10. kp_g4b_u04_context_floor_ceiling_selection
+COMPLETE_GROUP_COUNT_FLOOR · APPLICATION_REQUIRED · REL_COMPLETE_GROUPS_FLOOR_V1
+原始數學題意 有 5,886顆，每 10顆 裝成一盒橘子，最多可以裝成幾盒完整的橘子？
+
+修正版題目 物資整理小組有5886顆橘子，每盒裝10顆。最多可以裝滿幾盒？
+
+核對結果 588盒
+
+數量角色
+
+   totalQuantity：5886顆 橘子
+   groupCapacity：10顆 橘子
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確             單位正確   數學關係正確       核准   退回
+
+
+
+
+11. kp_g5a_u02_equal_partition_factor_application
+EQUAL_SHARE_PER_GROUP · APPLICATION_REQUIRED · REL_EXISTING_EQUAL_PARTITION_PAIR_SET_V1
+原始數學題意 一條長 48公尺的緞帶要等分，每段長度都是整數公尺。請列出所有「段數｜每段長度」配對。
+
+修正版題目 一條長 48公尺的緞帶要等分，每段長度都是整數公尺。請列出所有「段數｜每段長度」配對。
+
+核對結果
+
+數量角色
+
+   totalLength：48公尺 緞帶長度
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確             單位正確   數學關係正確       核准   退回
+
+
+
+
+12. kp_g5a_u08_mul_div_equivalent_regroup
+MULTI_STEP_STRUCTURED · APPLICATION_REQUIRED · REL_GROUP_SELECT_FROM_EQUAL_BOXES_V1
+原始數學題意 共有1430顆球，平均裝成22箱，取出其中16箱。取出的球共有多少顆？
+
+修正版題目 共有1430顆球，平均裝成22箱。取出其中16箱，取出的球共有多少顆？
+
+核對結果 1430÷22×16＝1040顆
+
+數量角色
+
+   totalQuantity：1430顆 球
+   totalGroupCount：22箱 箱
+   selectedGroupCount：16箱 箱
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確             單位正確   數學關係正確       核准   退回
+
+
+
+
+13. kp_g3a_u01_range_reasoning
+RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE · APPLICATION_REQUIRED · REL_RANGE_MEMBERSHIP_V1
+原始數學題意 哪一個數大於 2478且小於 3437？A 2395 B 3276
+
+修正版題目 倉庫規定每批貨物必須超過2478箱，而且少於3437箱。A批有2395箱，B批有3276箱。哪一批符合規定？
+
+核對結果 B
+
+數量角色
+
+   lowerBound：2478箱 貨物
+   upperBound：3437箱 貨物
+   candidateA：2395箱 貨物
+   candidateB：3276箱 貨物
+
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確             單位正確   數學關係正確       核准   退回
+
+
+
+
+14. kp_g3a_u02_sub_multi_borrow
+SEPARATE_REMAINDER_OR_DIFFERENCE · APPLICATION_REQUIRED · REL_SEPARATE_REMAINDER_V1
+原始數學題意 5702 - 9 = □
+
+修正版題目 校園設計小組原有5702張節能貼紙，布置活動時用了9張節能貼紙。還剩多少張節能貼紙？
+
+核對結果 張
+
+數量角色
+
+   initialQuantity：5702張 節能貼紙
+   removedQuantity：9張 節能貼紙
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+ 第二次人工審核
+
+ 語句自然        數量角色正確             單位正確   數學關係正確       核准   退回
+15. kp_g3a_u01_place_value_composition
+PLACE_VALUE_COMPOSITION · APPLICATION_OPTIONAL · NUMERIC_PLACE_VALUE_COMPOSITION_V1
+原始數學題意 7個千、6個百、8個十、3個一，合起來是多少？
+
+修正版題目 7個千、6個百、8個十、3個一，合起來是多少？
+
+核對結果 7683
+
+數量角色
+
+此題保留數字題形式，未強套生活情境。
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+  第二次人工審核
+
+ 語句自然             數量角色正確                單位正確              數學關係正確         核准          退回
+
+
+
+
+16. kp_g3a_u01_place_value_unit_conversion
+PLACE_VALUE_EXCHANGE · APPLICATION_OPTIONAL · NUMERIC_PLACE_VALUE_EXCHANGE_V1
+原始數學題意 41個十可以換成幾個百，還剩幾個十？
+
+修正版題目 41個十可以換成幾個百，還剩幾個十？
+
+核對結果 4個百又1個十
+
+數量角色
+
+此題保留數字題形式，未強套生活情境。
+固定證據 數學 witness：PASS · 數字事實：PASS · 題目級情境標題：HIDDEN
+
+  第二次人工審核
+
+ 語句自然             數量角色正確                單位正確              數學關係正確         核准          退回
+
+
+
+
+單位與結果形狀矩陣
+
+   Source                          KP                                       Semantic class                Suitability      Review                  Answer shape                 Unit policy
+                                                                                                                            unit
+g3a_u01_3a01 kp_g3a_u01_4digit_compare                       COMPARE_TWO_GROUPS_SAME_MEASURE        APPLICATION_REQUIRED            RELATION_SYMBOL                   NO_UNIT
+g3a_u02_3a02 kp_g3a_u02_add_multi_carry                      JOIN_RESULT_TOTAL                      APPLICATION_REQUIRED 個          QUANTITY_WITH_UNIT                SAME_MEASURE_AS_INPUTS
+
+g3a_u03_3a03 kp_g3a_u03_2digit_by_1digit_carry               EQUAL_GROUPS_TOTAL                     APPLICATION_REQUIRED 株          QUANTITY_WITH_UNIT                ENTITY_COUNT_OR_MEASURE
+
+g3a_u06_3a06 kp_g3a_u06_exact_division_check                 EQUAL_SHARE_PER_GROUP                  APPLICATION_REQUIRED 公升         QUANTITY_WITH_UNIT_OR_PARTITION_SET PER_GROUP_MEASURE
+
+g3b_u01_3b01 kp_g3b_u01_2digit_division_place_value_cases EQUAL_SHARE_PER_GROUP                     APPLICATION_REQUIRED 顆          QUANTITY_WITH_UNIT_OR_PARTITION_SET PER_GROUP_MEASURE
+
+g3b_u04_3b04 kp_g3b_u04_add_then_divide                      MULTI_STEP_STRUCTURED                  APPLICATION_REQUIRED 元          INHERIT_EXACT_PATTERN             INHERIT_EXACT_PATTERN
+
+g3b_u08_3b08 kp_g3b_u08_total_from_groups                    EQUAL_GROUPS_TOTAL                     APPLICATION_REQUIRED 元          QUANTITY_WITH_UNIT                ENTITY_COUNT_OR_MEASURE
+
+g4a_u01_4a01 kp_g4a_u01_digit_arrangement_max_min            NUMERIC_ONLY                           NUMERIC_ONLY                    INHERIT_EXACT_PATTERN             NO_FORCED_CONTEXT_UNIT
+
+g4a_u08_4a08 kp_g4a_u08_app_parentheses_grouping             MULTI_STEP_STRUCTURED                  APPLICATION_REQUIRED 元          INHERIT_EXACT_PATTERN             INHERIT_EXACT_PATTERN
+
+g4b_u04_4b04 kp_g4b_u04_context_floor_ceiling_selection      COMPLETE_GROUP_COUNT_FLOOR             APPLICATION_REQUIRED 盒          COMPLETE_GROUP_COUNT              GROUP_UNIT
+
+g5a_u02_5a02 kp_g5a_u02_equal_partition_factor_application   EQUAL_SHARE_PER_GROUP                  APPLICATION_REQUIRED            QUANTITY_WITH_UNIT_OR_PARTITION_SET PER_GROUP_MEASURE
+
+g5a_u08_5a08 kp_g5a_u08_mul_div_equivalent_regroup           MULTI_STEP_STRUCTURED                  APPLICATION_REQUIRED 顆          INHERIT_EXACT_PATTERN             INHERIT_EXACT_PATTERN
+
+g3a_u01_3a01 kp_g3a_u01_range_reasoning                      RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE APPLICATION_REQUIRED             SELECTION_ID                      NO_UNIT
+g3a_u02_3a02 kp_g3a_u02_sub_multi_borrow                     SEPARATE_REMAINDER_OR_DIFFERENCE       APPLICATION_REQUIRED 張          QUANTITY_WITH_UNIT                SAME_MEASURE_AS_INPUTS
+
+g3a_u01_3a01 kp_g3a_u01_place_value_composition              PLACE_VALUE_COMPOSITION                APPLICATION_OPTIONAL            NUMBER_VALUE                      NO_PHYSICAL_UNIT
+
+g3a_u01_3a01 kp_g3a_u01_place_value_unit_conversion          PLACE_VALUE_EXCHANGE                   APPLICATION_OPTIONAL            PLACE_VALUE_DECOMPOSITION         PLACE_VALUE_UNIT
+

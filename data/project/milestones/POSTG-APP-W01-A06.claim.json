@@ -3,18 +3,18 @@
   "taskId": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation",
   "taskClass": "runtime",
   "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
-  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "REGENERATED_PRODUCTION_REVIEW_DOCUMENT_READY",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "REGENERATED_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
-    "productionEquivalentGeneratorUsed": false,
-    "productionRendererUsed": false,
-    "htmlOutputVerified": false,
-    "pdfOutputVerified": false,
-    "visibleOutputChanged": false,
-    "humanReviewReady": false,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
     "productionAdmitted": false,
     "d0Complete": false
   },
@@ -38,8 +38,12 @@
       "tools/curriculum/finalize-postg-app-w01-a06d-review-evidence.mjs",
       ".github/workflows/postg-app-w01-a06d-regenerated-review.yml"
     ],
-    "htmlArtifactPaths": [],
-    "pdfArtifactPaths": [],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf"
+    ],
     "beforeAfterEvidencePaths": [
       "data/curriculum/application/contracts/w01-application-semantic-remediation-policy.json",
       "data/curriculum/application/contracts/w01-relation-surface-remediation-policy.json",
@@ -50,23 +54,52 @@
       "docs/curriculum/output/POSTG_APP_W01_A06C_RELATION_SURFACES_READY.marker",
       "docs/curriculum/output/POSTG_APP_W01_A06D_REVIEW_DOCUMENT_READY.marker",
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
-      "data/project/milestones/POSTG-APP-W01-A05.claim.json"
+      "data/project/milestones/POSTG-APP-W01-A05.claim.json",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json"
     ],
-    "reviewArtifactPaths": [],
-    "artifactHashes": []
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html",
+        "sha256": "ea755bf9334acdaa524e8d52c50871bd5dee71d2a64f684ee0a2b4d89fb354a9"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf",
+        "sha256": "08c8892703b59b860dbf041f913c2e8aa0e3987c1d993383107d9481dbc34cfe"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt",
+        "sha256": "f261f55eae7225f4057f59581b0439413b861b983e92e2dbc044fc8245b6b574"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
+        "sha256": "94044b3e6c75c414f6d64ee3bef315164c9a352a8b2b4231171aee0ec0535035"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json",
+        "sha256": "595ff5e5fd21ee11eca6f2b2ac28d2d82dabeae9369c25986fa6c9cc55fca6f8"
+      }
+    ]
   },
   "humanReview": {
-    "type": "draft_content_review",
-    "canUnlockProduction": false,
-    "reviewArtifactRequired": false
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
   },
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "The deterministic A06C relation-specific surfaces are now assembled into the existing worksheet document contract with exact question-answer pairing, hidden question-level Macro titles, concrete answer units and a second Human Review dossier. The existing production renderer is wired as the only E4 consumer; HTML/PDF generation and verification remain pending."
+    "distanceReduced": "The relation-specific A06C shadow surfaces now run through the existing production renderer and produce a hash-locked HTML/PDF second Human Review package. Question-level Macro Context titles are absent, mathematical and numeric facts remain exact, concrete units replace generic placeholders, and production admission remains closed pending explicit operator approval."
   },
   "nextStep": {
-    "taskId": "POSTG-APP-W01-A06D_E4ArtifactGenerationAndVerification",
-    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+    "taskId": "POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
   }
 }
