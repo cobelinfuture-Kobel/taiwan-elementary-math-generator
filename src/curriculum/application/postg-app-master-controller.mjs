@@ -9,6 +9,8 @@ import {
 const UNIT_REGISTRY_PATH = 'data/curriculum/application/controller/postg-app-79-unit-registry.json';
 const WAVE_PLAN_PATH = 'data/curriculum/application/controller/postg-app-wave-plan.json';
 const CONTROLLER_STATE_PATH = 'data/curriculum/application/controller/postg-app-master-controller-state.json';
+const W01_APPROVAL_PATH = 'data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json';
+const W01_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W01-A06.claim.json';
 const GOLDEN_UNIT_DIR = 'data/curriculum/knowledge/units';
 
 const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...details });
@@ -16,6 +18,11 @@ const unique = (values) => new Set(values).size === values.length;
 
 function readJson(root, repoPath) {
   return JSON.parse(fs.readFileSync(path.join(root, repoPath), 'utf8'));
+}
+
+function readJsonIfExists(root, repoPath) {
+  const absolutePath = path.join(root, repoPath);
+  return fs.existsSync(absolutePath) ? readJson(root, repoPath) : null;
 }
 
 function parseSourceNodeId(sourceNodeId) {
@@ -52,12 +59,28 @@ function goldenRegistryPath(goldenUnitId) {
   return `${GOLDEN_UNIT_DIR}/${goldenUnitId}.knowledge-operation.json`;
 }
 
+function admissionPrefix(waves) {
+  const admitted = [];
+  let closed = false;
+  for (const wave of waves) {
+    if (wave.productionAdmissionGranted === true) {
+      if (closed) return { admitted, contiguous: false };
+      admitted.push(wave.waveId);
+    } else {
+      closed = true;
+    }
+  }
+  return { admitted, contiguous: true };
+}
+
 export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
   const unitRegistry = readJson(root, UNIT_REGISTRY_PATH);
   const wavePlan = readJson(root, WAVE_PLAN_PATH);
   const controllerState = readJson(root, CONTROLLER_STATE_PATH);
   const contextAuthority = loadGlobalContextAuthority({ root });
   const sourceNodes = materializeSourceNodes(unitRegistry);
+  const approvalDecision = readJsonIfExists(root, W01_APPROVAL_PATH);
+  const w01Claim = readJsonIfExists(root, W01_CLAIM_PATH);
   const goldenRegistries = unitRegistry.goldenBaselineUnits.map((mapping) => {
     const registryPath = goldenRegistryPath(mapping.goldenUnitId);
     const absolutePath = path.join(root, registryPath);
@@ -75,13 +98,23 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
     controllerState,
     contextAuthority,
     sourceNodes,
-    goldenRegistries
+    goldenRegistries,
+    approvalDecision,
+    w01Claim
   };
 }
 
 export function validatePOSTGAPPMasterController(controller) {
   const issues = [];
-  const { unitRegistry, wavePlan, controllerState, sourceNodes, goldenRegistries } = controller;
+  const {
+    unitRegistry,
+    wavePlan,
+    controllerState,
+    sourceNodes,
+    goldenRegistries,
+    approvalDecision,
+    w01Claim
+  } = controller;
   const sourceIds = sourceNodes.map((row) => row.sourceNodeId);
   const sourceSet = new Set(sourceIds);
 
@@ -181,10 +214,16 @@ export function validatePOSTGAPPMasterController(controller) {
         actual: wave.sourceNodeIds.length
       }));
     }
-    if (wave.productionAdmissionGranted !== false) {
-      issues.push(issue('POSTG_APP_M00_PRODUCTION_WAVE_FORBIDDEN', `waves.${wave.waveId}`));
-    }
   });
+
+  const admitted = admissionPrefix(wavePlan.waves);
+  if (!admitted.contiguous) issues.push(issue('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID', 'waves'));
+  if (JSON.stringify(admitted.admitted) !== JSON.stringify(['W01'])) {
+    issues.push(issue('POSTG_APP_PRODUCTION_ADMITTED_WAVE_SET_INVALID', 'waves', { admittedWaveIds: admitted.admitted }));
+  }
+  if (wavePlan.coverage?.productionAdmittedWaveCount !== admitted.admitted.length) {
+    issues.push(issue('POSTG_APP_PRODUCTION_ADMITTED_WAVE_COUNT_MISMATCH', 'coverage.productionAdmittedWaveCount'));
+  }
 
   const requiredGateOrder = [
     'SOURCE_NODE_REGISTERED',
@@ -204,27 +243,57 @@ export function validatePOSTGAPPMasterController(controller) {
   }
 
   const controllerWaveStates = controllerState.waveStates.map((row) => row.state);
-  const allowedW01States = new Set([
-    'BASELINE_READY',
-    'ASSESSMENT_IN_PROGRESS',
-    'SHADOW_READY',
-    'PRODUCTION_REVIEW_REQUIRED',
+  const expectedStates = [
     'PRODUCTION_ADMITTED',
-    'CLOSED'
-  ]);
-  if (!allowedW01States.has(controllerWaveStates[0])
-      || controllerWaveStates[1] !== 'QUEUED'
-      || controllerWaveStates.slice(2).some((state) => state !== 'BLOCKED_BY_PREVIOUS_WAVE')) {
+    'ASSESSMENT_READY',
+    'BLOCKED_BY_PREVIOUS_WAVE',
+    'BLOCKED_BY_PREVIOUS_WAVE',
+    'BLOCKED_BY_PREVIOUS_WAVE',
+    'BLOCKED_BY_PREVIOUS_WAVE'
+  ];
+  if (JSON.stringify(controllerWaveStates) !== JSON.stringify(expectedStates)) {
     issues.push(issue('POSTG_APP_CONTROLLER_WAVE_STATE_INVALID', 'controllerState.waveStates', { controllerWaveStates }));
   }
-  const w01CompletedGates = controllerState.waveStates[0].completedGates ?? [];
-  if (!w01CompletedGates.every((gate) => requiredGateOrder.includes(gate))) {
-    issues.push(issue('POSTG_APP_CONTROLLER_COMPLETED_GATE_UNKNOWN', 'controllerState.waveStates.W01.completedGates'));
+  const w01State = controllerState.waveStates[0];
+  if (JSON.stringify(w01State.completedGates ?? []) !== JSON.stringify(requiredGateOrder)
+      || w01State.admissionGateComplete !== true
+      || w01State.productionAdmissionGranted !== true
+      || w01State.reviewDecision !== 'APPROVE') {
+    issues.push(issue('POSTG_APP_W01_PRODUCTION_ADMISSION_STATE_INVALID', 'controllerState.waveStates.W01'));
   }
-  if (controllerState.productionAdmission.applicationUnitCount !== 0
-      || controllerState.productionAdmission.waveCount !== 0
-      || controllerState.productionAdmission.allowed !== false) {
-    issues.push(issue('POSTG_APP_M00_PRODUCTION_ADMISSION_FORBIDDEN', 'controllerState.productionAdmission'));
+  const w02State = controllerState.waveStates[1];
+  if (!Array.isArray(w02State.completedGates)
+      || w02State.completedGates.some((gate) => !requiredGateOrder.slice(0, 2).includes(gate))
+      || w02State.productionAdmissionGranted !== false
+      || w02State.admissionGateComplete !== false) {
+    issues.push(issue('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W02'));
+  }
+  if (controllerState.currentWaveId !== 'W02'
+      || controllerState.currentMainlineBlocker !== 'W02_KP_APPLICATION_CLASSIFICATION_NOT_STARTED'
+      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline') {
+    issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
+  }
+  if (controllerState.productionAdmission.applicationUnitCount !== 12
+      || controllerState.productionAdmission.waveCount !== 1
+      || controllerState.productionAdmission.allowed !== true
+      || controllerState.productionAdmission.lastReviewDecision !== 'APPROVE'
+      || JSON.stringify(controllerState.productionAdmission.admittedWaveIds ?? []) !== JSON.stringify(['W01'])
+      || controllerState.productionAdmission.publicRouteChanged !== false) {
+    issues.push(issue('POSTG_APP_PRODUCTION_ADMISSION_STATE_INVALID', 'controllerState.productionAdmission'));
+  }
+
+  if (!approvalDecision
+      || approvalDecision.operatorDecision !== 'APPROVE'
+      || approvalDecision.productionAdmission?.granted !== true
+      || approvalDecision.productionAdmission?.evidenceLevel !== 'E5_PRODUCTION_ADMITTED'
+      || approvalDecision.controllerTransition?.nextWaveId !== 'W02') {
+    issues.push(issue('POSTG_APP_W01_OPERATOR_APPROVAL_EVIDENCE_INVALID', W01_APPROVAL_PATH));
+  }
+  if (!w01Claim
+      || w01Claim.actualEvidenceLevel !== 'E5_PRODUCTION_ADMITTED'
+      || w01Claim.claims?.productionAdmitted !== true
+      || w01Claim.claims?.d0Complete !== false) {
+    issues.push(issue('POSTG_APP_W01_E5_CLAIM_INVALID', W01_CLAIM_PATH));
   }
 
   const contextValidation = validateGlobalContextAuthority(controller.contextAuthority);
@@ -266,7 +335,7 @@ export function validatePOSTGAPPMasterController(controller) {
     currentWaveId: controllerState.currentWaveId,
     nextShortestStep: controllerState.nextShortestStep,
     status: issues.length === 0
-      ? (controllerWaveStates[0] === 'BASELINE_READY' ? 'READY_FOR_WAVE01_ASSESSMENT' : 'WAVE01_IN_PROGRESS')
+      ? 'W02_ASSESSMENT_READY'
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
   };
 }
