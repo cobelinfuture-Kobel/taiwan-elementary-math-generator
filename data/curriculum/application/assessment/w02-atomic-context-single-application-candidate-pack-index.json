@@ -1,0 +1,40 @@
+{
+  "schemaName": "POSTGAPPW02AtomicContextSingleApplicationCandidatePackIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
+  "contractId": "POSTG_APP_W02_ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_PACK_V1",
+  "status": "DETERMINISTIC_SHADOW_MATERIALIZATION_PENDING_CI",
+  "inputAuthority": {
+    "w02PatternSpecTaskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+    "w02PatternSpecPathPattern": "data/curriculum/application/pattern-specs/w02/{sourceNodeId}.hidden-pattern-spec.json",
+    "m01ContextAuthority": "data/curriculum/context/registry/global-context-authority-index.json",
+    "selectionPolicy": "data/curriculum/application/assessment/w02-atomic-context-binding-policy.json"
+  },
+  "materializedAuthority": {
+    "recordSchema": "data/curriculum/application/schema/w02-atomic-context-single-application-candidate.schema.json",
+    "resolver": "src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs",
+    "test": "tests/curriculum/postg-app-w02-a02-candidate-pack.test.js",
+    "candidateCountRule": "candidateCount equals W02-A01D applicationPatternSpecCount",
+    "candidateIdentity": "sourceId + patternSpecId + requestedUnknownRole",
+    "oneCandidatePerApplicationPatternSpec": true
+  },
+  "selectionSemantics": {
+    "duplicateContentProjectionPriority": true,
+    "macroDomainBalancePriority": true,
+    "semanticAffinityPriority": true,
+    "lexicalTieBreak": true,
+    "preferredDirectQuantityFallbackReported": true
+  },
+  "diversityGate": {
+    "requiredGlobalMacroDomainCount": 16,
+    "minimumMacroDomainsPerUnitWhenCandidateCountAtLeastThree": 3
+  },
+  "admission": {
+    "candidateStatus": "CONTEXT_BOUND_CANDIDATE",
+    "productionAdmissionAllowed": false,
+    "productionAdmittedCandidateCount": 0
+  },
+  "nextShortestStep": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract"
+}
