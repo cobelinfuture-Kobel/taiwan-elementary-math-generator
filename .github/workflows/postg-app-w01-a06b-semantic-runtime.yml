@@ -1,0 +1,46 @@
+name: POSTG-APP W01-A06B Semantic Runtime
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/contracts/w01-application-semantic-remediation-policy.json"
+      - "src/curriculum/application/w01-semantic-class-quantity-schema-runtime.mjs"
+      - "tests/curriculum/postg-app-w01-a06b-semantic-runtime.test.js"
+      - "tools/curriculum/validate-postg-app-w01-a06b-semantic-runtime.mjs"
+      - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
+      - "docs/curriculum/output/POSTG_APP_W01_A06B_SEMANTIC_RUNTIME_READY.marker"
+      - ".github/workflows/postg-app-w01-a06b-semantic-runtime.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w01-a06b-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  semantic-runtime:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run A06B focused runtime tests
+        run: node --test tests/curriculum/postg-app-w01-a06b-semantic-runtime.test.js
+
+      - name: Run deterministic A06B validator CLI
+        run: node tools/curriculum/validate-postg-app-w01-a06b-semantic-runtime.mjs
+
+      - name: Validate milestone claims
+        run: npm run governance:claims
