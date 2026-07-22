@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "claimedStatus": "HUMAN_REVIEW_REMEDIATION_REQUIRED_SEMANTIC_CONTRACT_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json",
+      "docs/curriculum/application/contracts/POSTG_APP_W01_A06_Human_Review_Decision_And_Semantic_Remediation_V1.md",
+      "docs/curriculum/output/POSTG_APP_W01_A06A_SEMANTIC_CONTRACT_READY.marker",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
+      "data/project/milestones/POSTG-APP-W01-A05.claim.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "draft_content_review",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "At the A06 task-evidence level, the operator review is converted from an informal rejection into a bounded semantic remediation contract: visible Macro Context headings are forbidden, application suitability moves to KnowledgePoint plus PatternSpec level, operands require quantity and unit bindings, and comparison/range/total/division relations receive separate fail-closed gates. The overall program remains at D1 because A05 E4 production-equivalent evidence already exists but is rejected pending remediation."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W01-A06B_SemanticClassQuantitySchemaAndValidatorRuntime",
+    "requiredEvidenceLevelBeforeStart": "E2_CONTENT_AUTHORED"
+  }
+}
