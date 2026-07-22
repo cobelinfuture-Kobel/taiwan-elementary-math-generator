@@ -1,0 +1,71 @@
+{
+  "schemaName": "POSTGAPPW02A01DPatternSpecContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "status": "HIDDEN_PATTERNSPECS_MATERIALIZED_PENDING_CI_AND_MERGE",
+  "scope": {
+    "sourceNodeCount": 13,
+    "uniquePdfContentCount": 12,
+    "knowledgePointCount": 90,
+    "uniqueContentKnowledgePointCount": 84,
+    "answerBearingUnknownRoleCount": 134,
+    "numericPatternSpecCount": 134,
+    "applicationPatternSpecCount": 61,
+    "hiddenPatternSpecCount": 195,
+    "visiblePatternSpecCount": 0
+  },
+  "authority": {
+    "canonicalOperationPathPattern": "data/curriculum/application/operations/w02/{sourceNodeId}.canonical-operation.json",
+    "patternSpecPathPattern": "data/curriculum/application/pattern-specs/w02/{sourceNodeId}.hidden-pattern-spec.json",
+    "patternSpecSchema": "data/curriculum/application/schema/w02-hidden-pattern-spec-unit.schema.json",
+    "materializer": "tools/curriculum/materialize-postg-app-w02-a01d-hidden-pattern-specs.mjs",
+    "shadowReadback": "src/curriculum/application/w02-hidden-pattern-specs.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a01d-hidden-pattern-specs.mjs",
+    "test": "tests/curriculum/postg-app-w02-a01d-hidden-pattern-specs.test.js"
+  },
+  "patternSpecContract": {
+    "oneNumericSpecPerAnswerBearingUnknownRole": true,
+    "applicationSpecPolicy": "REQUIRED_AND_COMPATIBLE_ONLY",
+    "numericAndApplicationSeparated": true,
+    "oneRequestedUnknownRolePerSpec": true,
+    "canonicalOperationSemanticsImmutable": true,
+    "notApplicableStoryAuthoringForbidden": true,
+    "applicationContextBindingDeferred": true,
+    "forbiddenWorksheetLabels": ["算式", "_____", "答"],
+    "duplicatePdfSemanticProjectionExact": true
+  },
+  "acceptanceGates": [
+    "A01C_CANONICAL_OPERATION_MODEL_PASS",
+    "SOURCE_NODE_COUNT_13",
+    "KNOWLEDGE_POINT_COUNT_90",
+    "NUMERIC_PATTERNSPEC_COUNT_134",
+    "APPLICATION_PATTERNSPEC_COUNT_61",
+    "HIDDEN_PATTERNSPEC_COUNT_195",
+    "VISIBLE_PATTERNSPEC_COUNT_0",
+    "ONE_REQUESTED_UNKNOWN_ROLE_PER_SPEC",
+    "REQUIRED_AND_COMPATIBLE_HAVE_SEPARATE_NUMERIC_AND_APPLICATION_SPECS",
+    "NOT_APPLICABLE_HAS_NUMERIC_ONLY",
+    "NO_STORY_TEMPLATE_OR_CONTEXT_BINDING",
+    "NO_GENERATOR_VALIDATOR_RENDERER_OR_WORKSHEET_CONSUMER",
+    "NO_PUBLIC_SELECTION_OR_PRODUCTION_ADMISSION",
+    "DUPLICATE_CONTENT_PROJECTED_WITH_EXACT_SEMANTIC_PARITY",
+    "MILESTONE_CLAIM_INTEGRITY_PASS",
+    "NODE_TEST_PASS",
+    "MATH_CI_PASS"
+  ],
+  "claimBoundary": {
+    "hiddenPatternSpecsComplete": true,
+    "storyTemplateCountClaimed": 0,
+    "contextBindingCountClaimed": 0,
+    "generatorConnected": false,
+    "runtimeValidatorConnected": false,
+    "rendererConnected": false,
+    "worksheetOutput": false,
+    "publicRouteChanged": false,
+    "publicSelectionEnabledForW02": false,
+    "productionAdmissionAllowed": false,
+    "programD0Complete": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization"
+}

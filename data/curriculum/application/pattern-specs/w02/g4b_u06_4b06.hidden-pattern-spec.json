@@ -1,0 +1,703 @@
+{
+  "schemaName": "POSTGAPPW02HiddenPatternSpecUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "sourceNodeId": "g4b_u06_4b06",
+  "queueOrdinal": 7,
+  "sourceCode": "4b06",
+  "sourceTitle": "小數乘法",
+  "domainFamily": "decimal_multiplication",
+  "patternSpecState": "HIDDEN_PATTERNSPECS_MATERIALIZED_RUNTIME_PENDING",
+  "canonicalOperationAuthority": {
+    "path": "data/curriculum/application/operations/w02/g4b_u06_4b06.canonical-operation.json",
+    "sha256": "e955cb6289028cb922ab37296e47949ab8345ed8136ffb1494bb67566604b4f5",
+    "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+    "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4b_u06_one_decimal_times_integer",
+      "knowledgePointName": "一位小數乘整數",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g4b_u06_one_decimal_times_integer",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+          "patternGroupId": "pg_g4b_u06_one_decimal_times_integer_numeric",
+          "knowledgePointId": "kp_g4b_u06_one_decimal_times_integer",
+          "operationModelId": "op_g4b_u06_one_decimal_times_integer",
+          "operationFamilyId": "decimal_multiply",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "product",
+          "givenRoles": [
+            "decimalFactor",
+            "integerFactor"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "product = decimalFactor * integerFactor"
+            ],
+            "numberConstraints": [
+              "integerFactor is an integer",
+              "factors are nonnegative within source scope"
+            ],
+            "equivalentForms": [
+              "scaled integer multiplication",
+              "column multiplication"
+            ],
+            "validationInvariants": [
+              "product has correct place value",
+              "product equals exact multiplication"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+          "patternGroupId": "pg_g4b_u06_one_decimal_times_integer_application",
+          "knowledgePointId": "kp_g4b_u06_one_decimal_times_integer",
+          "operationModelId": "op_g4b_u06_one_decimal_times_integer",
+          "operationFamilyId": "decimal_multiply",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "product",
+          "givenRoles": [
+            "decimalFactor",
+            "integerFactor"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "product = decimalFactor * integerFactor"
+            ],
+            "numberConstraints": [
+              "integerFactor is an integer",
+              "factors are nonnegative within source scope"
+            ],
+            "equivalentForms": [
+              "scaled integer multiplication",
+              "column multiplication"
+            ],
+            "validationInvariants": [
+              "product has correct place value",
+              "product equals exact multiplication"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_two_decimal_times_integer",
+      "knowledgePointName": "二位小數乘整數",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g4b_u06_two_decimal_times_integer",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u06_two_decimal_times_integer_product_numeric",
+          "patternGroupId": "pg_g4b_u06_two_decimal_times_integer_numeric",
+          "knowledgePointId": "kp_g4b_u06_two_decimal_times_integer",
+          "operationModelId": "op_g4b_u06_two_decimal_times_integer",
+          "operationFamilyId": "decimal_multiply",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "product",
+          "givenRoles": [
+            "decimalFactor",
+            "integerFactor"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "product = decimalFactor * integerFactor"
+            ],
+            "numberConstraints": [
+              "integerFactor is an integer",
+              "factors are nonnegative within source scope"
+            ],
+            "equivalentForms": [
+              "scaled integer multiplication",
+              "column multiplication"
+            ],
+            "validationInvariants": [
+              "product has correct place value",
+              "product equals exact multiplication"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u06_two_decimal_times_integer_product_application",
+          "patternGroupId": "pg_g4b_u06_two_decimal_times_integer_application",
+          "knowledgePointId": "kp_g4b_u06_two_decimal_times_integer",
+          "operationModelId": "op_g4b_u06_two_decimal_times_integer",
+          "operationFamilyId": "decimal_multiply",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "product",
+          "givenRoles": [
+            "decimalFactor",
+            "integerFactor"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "product = decimalFactor * integerFactor"
+            ],
+            "numberConstraints": [
+              "integerFactor is an integer",
+              "factors are nonnegative within source scope"
+            ],
+            "equivalentForms": [
+              "scaled integer multiplication",
+              "column multiplication"
+            ],
+            "validationInvariants": [
+              "product has correct place value",
+              "product equals exact multiplication"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_decimal_scale_ten_hundred",
+      "knowledgePointName": "小數乘 10、100 與 0.1、0.01",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4b_u06_decimal_scale_ten_hundred",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u06_decimal_scale_ten_hundred_result_numeric",
+          "patternGroupId": "pg_g4b_u06_decimal_scale_ten_hundred_numeric",
+          "knowledgePointId": "kp_g4b_u06_decimal_scale_ten_hundred",
+          "operationModelId": "op_g4b_u06_decimal_scale_ten_hundred",
+          "operationFamilyId": "decimal_scale",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "value",
+            "scaleFactor"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = value * scaleFactor"
+            ],
+            "numberConstraints": [
+              "scaleFactor in {10,100,0.1,0.01}"
+            ],
+            "equivalentForms": [
+              "decimal-point shift",
+              "place-value scaling"
+            ],
+            "validationInvariants": [
+              "each digit changes place consistently with scaleFactor"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_infer_decimal_product",
+      "knowledgePointName": "由整數積推定小數積",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4b_u06_infer_decimal_product",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u06_infer_decimal_product_decimal_product_numeric",
+          "patternGroupId": "pg_g4b_u06_infer_decimal_product_numeric",
+          "knowledgePointId": "kp_g4b_u06_infer_decimal_product",
+          "operationModelId": "op_g4b_u06_infer_decimal_product",
+          "operationFamilyId": "infer_decimal_product",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "decimalProduct",
+          "givenRoles": [
+            "integerProduct",
+            "decimalPlaceCount"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "decimalProduct = integerProduct / 10^decimalPlaceCount"
+            ],
+            "numberConstraints": [
+              "decimalPlaceCount >= 0"
+            ],
+            "equivalentForms": [
+              "scaled integer product"
+            ],
+            "validationInvariants": [
+              "decimal places in the product equal the total scaling of the factors"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_rate_distance_context",
+      "knowledgePointName": "小數單位率與距離總量",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g4b_u06_rate_distance_context",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u06_rate_distance_context_total_numeric",
+          "patternGroupId": "pg_g4b_u06_rate_distance_context_numeric",
+          "knowledgePointId": "kp_g4b_u06_rate_distance_context",
+          "operationModelId": "op_g4b_u06_rate_distance_context",
+          "operationFamilyId": "rate_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "total",
+          "givenRoles": [
+            "ratePerUnit",
+            "unitCount",
+            "firstTotal",
+            "secondTotal",
+            "combined"
+          ],
+          "answerType": "decimal_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = ratePerUnit * unitCount",
+              "combined = firstTotal + secondTotal"
+            ],
+            "numberConstraints": [
+              "unitCount >= 0",
+              "rates and totals use compatible units"
+            ],
+            "equivalentForms": [
+              "repeated equal rate",
+              "same-direction or opposite-direction aggregation"
+            ],
+            "validationInvariants": [
+              "rate units cancel correctly",
+              "direction rule matches the requested total"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u06_rate_distance_context_combined_numeric",
+          "patternGroupId": "pg_g4b_u06_rate_distance_context_numeric",
+          "knowledgePointId": "kp_g4b_u06_rate_distance_context",
+          "operationModelId": "op_g4b_u06_rate_distance_context",
+          "operationFamilyId": "rate_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "combined",
+          "givenRoles": [
+            "ratePerUnit",
+            "unitCount",
+            "firstTotal",
+            "secondTotal",
+            "total"
+          ],
+          "answerType": "decimal_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = ratePerUnit * unitCount",
+              "combined = firstTotal + secondTotal"
+            ],
+            "numberConstraints": [
+              "unitCount >= 0",
+              "rates and totals use compatible units"
+            ],
+            "equivalentForms": [
+              "repeated equal rate",
+              "same-direction or opposite-direction aggregation"
+            ],
+            "validationInvariants": [
+              "rate units cancel correctly",
+              "direction rule matches the requested total"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u06_rate_distance_context_total_application",
+          "patternGroupId": "pg_g4b_u06_rate_distance_context_application",
+          "knowledgePointId": "kp_g4b_u06_rate_distance_context",
+          "operationModelId": "op_g4b_u06_rate_distance_context",
+          "operationFamilyId": "rate_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "total",
+          "givenRoles": [
+            "ratePerUnit",
+            "unitCount",
+            "firstTotal",
+            "secondTotal",
+            "combined"
+          ],
+          "answerType": "decimal_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = ratePerUnit * unitCount",
+              "combined = firstTotal + secondTotal"
+            ],
+            "numberConstraints": [
+              "unitCount >= 0",
+              "rates and totals use compatible units"
+            ],
+            "equivalentForms": [
+              "repeated equal rate",
+              "same-direction or opposite-direction aggregation"
+            ],
+            "validationInvariants": [
+              "rate units cancel correctly",
+              "direction rule matches the requested total"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u06_rate_distance_context_combined_application",
+          "patternGroupId": "pg_g4b_u06_rate_distance_context_application",
+          "knowledgePointId": "kp_g4b_u06_rate_distance_context",
+          "operationModelId": "op_g4b_u06_rate_distance_context",
+          "operationFamilyId": "rate_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "combined",
+          "givenRoles": [
+            "ratePerUnit",
+            "unitCount",
+            "firstTotal",
+            "secondTotal",
+            "total"
+          ],
+          "answerType": "decimal_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = ratePerUnit * unitCount",
+              "combined = firstTotal + secondTotal"
+            ],
+            "numberConstraints": [
+              "unitCount >= 0",
+              "rates and totals use compatible units"
+            ],
+            "equivalentForms": [
+              "repeated equal rate",
+              "same-direction or opposite-direction aggregation"
+            ],
+            "validationInvariants": [
+              "rate units cancel correctly",
+              "direction rule matches the requested total"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_decimal_number_line",
+      "knowledgePointName": "小數數線座標與距離",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4b_u06_decimal_number_line",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u06_decimal_number_line_coordinate_numeric",
+          "patternGroupId": "pg_g4b_u06_decimal_number_line_numeric",
+          "knowledgePointId": "kp_g4b_u06_decimal_number_line",
+          "operationModelId": "op_g4b_u06_decimal_number_line",
+          "operationFamilyId": "number_line",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "coordinate",
+          "givenRoles": [
+            "origin",
+            "unitStep",
+            "stepCount",
+            "distance"
+          ],
+          "answerType": "number_or_distance",
+          "operationContract": {
+            "canonicalExpressions": [
+              "coordinate = origin + stepCount * unitStep",
+              "distance = abs(rightCoordinate - leftCoordinate)"
+            ],
+            "numberConstraints": [
+              "unitStep > 0",
+              "stepCount is integer"
+            ],
+            "equivalentForms": [
+              "fraction coordinate",
+              "decimal coordinate"
+            ],
+            "validationInvariants": [
+              "coordinate respects tick spacing",
+              "distance is nonnegative"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u06_decimal_number_line_distance_numeric",
+          "patternGroupId": "pg_g4b_u06_decimal_number_line_numeric",
+          "knowledgePointId": "kp_g4b_u06_decimal_number_line",
+          "operationModelId": "op_g4b_u06_decimal_number_line",
+          "operationFamilyId": "number_line",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "distance",
+          "givenRoles": [
+            "origin",
+            "unitStep",
+            "stepCount",
+            "coordinate"
+          ],
+          "answerType": "number_or_distance",
+          "operationContract": {
+            "canonicalExpressions": [
+              "coordinate = origin + stepCount * unitStep",
+              "distance = abs(rightCoordinate - leftCoordinate)"
+            ],
+            "numberConstraints": [
+              "unitStep > 0",
+              "stepCount is integer"
+            ],
+            "equivalentForms": [
+              "fraction coordinate",
+              "decimal coordinate"
+            ],
+            "validationInvariants": [
+              "coordinate respects tick spacing",
+              "distance is nonnegative"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 6,
+    "numericPatternSpecCount": 8,
+    "applicationPatternSpecCount": 4,
+    "hiddenPatternSpecCount": 12,
+    "visiblePatternSpecCount": 0
+  },
+  "productionBoundary": {
+    "storyTemplatesAuthored": false,
+    "contextBindingsAuthored": false,
+    "generatorConnected": false,
+    "runtimeValidatorConnected": false,
+    "rendererConnected": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_MATERIALIZATION"
+}

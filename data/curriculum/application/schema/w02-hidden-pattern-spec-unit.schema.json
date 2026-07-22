@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/curriculum/w02-hidden-pattern-spec-unit.schema.json",
+  "title": "W02 hidden PatternSpec unit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaName", "schemaVersion", "programId", "taskId", "sourceNodeId", "queueOrdinal", "sourceCode", "sourceTitle", "domainFamily", "patternSpecState", "canonicalOperationAuthority", "knowledgePoints", "counts", "productionBoundary", "nextRequiredGate"],
+  "properties": {
+    "schemaName": { "const": "POSTGAPPW02HiddenPatternSpecUnitV1" },
+    "schemaVersion": { "const": 1 },
+    "programId": { "const": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1" },
+    "taskId": { "const": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization" },
+    "sourceNodeId": { "type": "string", "pattern": "^g[3-5][ab]_u\\d{2}_[3-5][ab]\\d{2}(a1|a)?$" },
+    "queueOrdinal": { "type": "integer", "minimum": 1, "maximum": 13 },
+    "sourceCode": { "type": "string", "minLength": 1 },
+    "sourceTitle": { "type": "string", "minLength": 1 },
+    "domainFamily": { "type": "string", "minLength": 1 },
+    "patternSpecState": { "const": "HIDDEN_PATTERNSPECS_MATERIALIZED_RUNTIME_PENDING" },
+    "canonicalOperationAuthority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "taskId", "canonicalState"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^data/curriculum/application/operations/w02/.+\\.canonical-operation\\.json$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "taskId": { "const": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization" },
+        "canonicalState": { "const": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING" }
+      }
+    },
+    "knowledgePoints": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["knowledgePointId", "knowledgePointName", "applicationClassification", "operationModelId", "patternSpecs"],
+        "properties": {
+          "knowledgePointId": { "type": "string", "pattern": "^kp_" },
+          "knowledgePointName": { "type": "string", "minLength": 1 },
+          "applicationClassification": { "enum": ["APPLICATION_REQUIRED", "APPLICATION_COMPATIBLE", "APPLICATION_NOT_APPLICABLE"] },
+          "operationModelId": { "type": "string", "pattern": "^op_" },
+          "patternSpecs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/patternSpec" } }
+        }
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["knowledgePointCount", "numericPatternSpecCount", "applicationPatternSpecCount", "hiddenPatternSpecCount", "visiblePatternSpecCount"],
+      "properties": {
+        "knowledgePointCount": { "type": "integer", "minimum": 1 },
+        "numericPatternSpecCount": { "type": "integer", "minimum": 1 },
+        "applicationPatternSpecCount": { "type": "integer", "minimum": 0 },
+        "hiddenPatternSpecCount": { "type": "integer", "minimum": 1 },
+        "visiblePatternSpecCount": { "const": 0 }
+      }
+    },
+    "productionBoundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["storyTemplatesAuthored", "contextBindingsAuthored", "generatorConnected", "runtimeValidatorConnected", "rendererConnected", "worksheetOutputAllowed", "publicSelectionEnabled", "productionAdmissionAllowed"],
+      "properties": {
+        "storyTemplatesAuthored": { "const": false }, "contextBindingsAuthored": { "const": false },
+        "generatorConnected": { "const": false }, "runtimeValidatorConnected": { "const": false },
+        "rendererConnected": { "const": false }, "worksheetOutputAllowed": { "const": false },
+        "publicSelectionEnabled": { "const": false }, "productionAdmissionAllowed": { "const": false }
+      }
+    },
+    "nextRequiredGate": { "const": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_MATERIALIZATION" }
+  },
+  "$defs": {
+    "patternSpec": {
+      "type": "object", "additionalProperties": false,
+      "required": ["patternSpecId", "patternGroupId", "knowledgePointId", "operationModelId", "operationFamilyId", "mode", "requestedUnknownRole", "givenRoles", "answerType", "operationContract", "presentationContract", "lifecycle"],
+      "properties": {
+        "patternSpecId": { "type": "string", "pattern": "^ps_" }, "patternGroupId": { "type": "string", "pattern": "^pg_" },
+        "knowledgePointId": { "type": "string", "pattern": "^kp_" }, "operationModelId": { "type": "string", "pattern": "^op_" },
+        "operationFamilyId": { "type": "string", "minLength": 1 }, "mode": { "enum": ["NUMERIC", "APPLICATION"] },
+        "requestedUnknownRole": { "type": "string", "minLength": 1 },
+        "givenRoles": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "answerType": { "type": "string", "minLength": 1 },
+        "operationContract": {
+          "type": "object", "additionalProperties": false,
+          "required": ["canonicalExpressions", "numberConstraints", "equivalentForms", "validationInvariants"],
+          "properties": {
+            "canonicalExpressions": { "$ref": "#/$defs/nonEmptyStringArray" }, "numberConstraints": { "$ref": "#/$defs/nonEmptyStringArray" },
+            "equivalentForms": { "$ref": "#/$defs/nonEmptyStringArray" }, "validationInvariants": { "$ref": "#/$defs/nonEmptyStringArray" }
+          }
+        },
+        "presentationContract": {
+          "type": "object", "additionalProperties": false,
+          "required": ["numericAndApplicationSeparated", "contextRequired", "contextBindingState", "surfaceMode", "forbiddenWorksheetLabels"],
+          "properties": {
+            "numericAndApplicationSeparated": { "const": true }, "contextRequired": { "type": "boolean" },
+            "contextBindingState": { "enum": ["NOT_APPLICABLE", "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING"] },
+            "surfaceMode": { "enum": ["DIRECT_NUMERIC_OR_STRUCTURAL", "LIFE_CONTEXT_QUANTITY_RELATION"] },
+            "forbiddenWorksheetLabels": { "const": ["算式", "_____", "答"] }
+          }
+        },
+        "lifecycle": {
+          "type": "object", "additionalProperties": false,
+          "required": ["selectorVisibility", "generatorStatus", "validatorStatus", "rendererStatus", "canonicalRouting", "productionUse"],
+          "properties": {
+            "selectorVisibility": { "const": "hidden" }, "generatorStatus": { "const": "not_implemented" },
+            "validatorStatus": { "const": "contract_only_not_runtime" }, "rendererStatus": { "const": "not_connected" },
+            "canonicalRouting": { "const": "disabled" }, "productionUse": { "const": "forbidden" }
+          }
+        }
+      }
+    },
+    "nonEmptyStringArray": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+  }
+}

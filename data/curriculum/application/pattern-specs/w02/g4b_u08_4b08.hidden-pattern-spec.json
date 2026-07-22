@@ -1,0 +1,822 @@
+{
+  "schemaName": "POSTGAPPW02HiddenPatternSpecUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "sourceNodeId": "g4b_u08_4b08",
+  "queueOrdinal": 8,
+  "sourceCode": "4b08",
+  "sourceTitle": "等值分數",
+  "domainFamily": "equivalent_fraction_structure",
+  "patternSpecState": "HIDDEN_PATTERNSPECS_MATERIALIZED_RUNTIME_PENDING",
+  "canonicalOperationAuthority": {
+    "path": "data/curriculum/application/operations/w02/g4b_u08_4b08.canonical-operation.json",
+    "sha256": "f21afbf6a42aa3fb8fb25908ac65614c92c56a41d9fc70635a6d9d3d942fdfef",
+    "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+    "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4b_u08_generate_equivalent_fraction",
+      "knowledgePointName": "擴分與約分產生等值分數",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4b_u08_generate_equivalent_fraction",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
+          "patternGroupId": "pg_g4b_u08_generate_equivalent_fraction_numeric",
+          "knowledgePointId": "kp_g4b_u08_generate_equivalent_fraction",
+          "operationModelId": "op_g4b_u08_generate_equivalent_fraction",
+          "operationFamilyId": "equivalent_fraction",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "factor",
+          "givenRoles": [
+            "numerator",
+            "denominator",
+            "equivalentNumerator",
+            "equivalentDenominator"
+          ],
+          "answerType": "fraction_or_missing_integer",
+          "operationContract": {
+            "canonicalExpressions": [
+              "equivalentNumerator = numerator * factor",
+              "equivalentDenominator = denominator * factor"
+            ],
+            "numberConstraints": [
+              "denominator > 0",
+              "factor > 0"
+            ],
+            "equivalentForms": [
+              "expansion",
+              "reduction"
+            ],
+            "validationInvariants": [
+              "numerator and denominator change by the same factor",
+              "value is preserved"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric",
+          "patternGroupId": "pg_g4b_u08_generate_equivalent_fraction_numeric",
+          "knowledgePointId": "kp_g4b_u08_generate_equivalent_fraction",
+          "operationModelId": "op_g4b_u08_generate_equivalent_fraction",
+          "operationFamilyId": "equivalent_fraction",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "equivalentNumerator",
+          "givenRoles": [
+            "numerator",
+            "denominator",
+            "factor",
+            "equivalentDenominator"
+          ],
+          "answerType": "fraction_or_missing_integer",
+          "operationContract": {
+            "canonicalExpressions": [
+              "equivalentNumerator = numerator * factor",
+              "equivalentDenominator = denominator * factor"
+            ],
+            "numberConstraints": [
+              "denominator > 0",
+              "factor > 0"
+            ],
+            "equivalentForms": [
+              "expansion",
+              "reduction"
+            ],
+            "validationInvariants": [
+              "numerator and denominator change by the same factor",
+              "value is preserved"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
+          "patternGroupId": "pg_g4b_u08_generate_equivalent_fraction_numeric",
+          "knowledgePointId": "kp_g4b_u08_generate_equivalent_fraction",
+          "operationModelId": "op_g4b_u08_generate_equivalent_fraction",
+          "operationFamilyId": "equivalent_fraction",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "equivalentDenominator",
+          "givenRoles": [
+            "numerator",
+            "denominator",
+            "factor",
+            "equivalentNumerator"
+          ],
+          "answerType": "fraction_or_missing_integer",
+          "operationContract": {
+            "canonicalExpressions": [
+              "equivalentNumerator = numerator * factor",
+              "equivalentDenominator = denominator * factor"
+            ],
+            "numberConstraints": [
+              "denominator > 0",
+              "factor > 0"
+            ],
+            "equivalentForms": [
+              "expansion",
+              "reduction"
+            ],
+            "validationInvariants": [
+              "numerator and denominator change by the same factor",
+              "value is preserved"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_equivalence_cross_product",
+      "knowledgePointName": "交叉乘積判定等值",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4b_u08_equivalence_cross_product",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
+          "patternGroupId": "pg_g4b_u08_equivalence_cross_product_numeric",
+          "knowledgePointId": "kp_g4b_u08_equivalence_cross_product",
+          "operationModelId": "op_g4b_u08_equivalence_cross_product",
+          "operationFamilyId": "cross_product_equivalence",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "equivalent",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "boolean",
+          "operationContract": {
+            "canonicalExpressions": [
+              "equivalent = leftNumerator * rightDenominator == rightNumerator * leftDenominator"
+            ],
+            "numberConstraints": [
+              "both denominators > 0"
+            ],
+            "equivalentForms": [
+              "common-denominator equality"
+            ],
+            "validationInvariants": [
+              "equivalence holds iff cross products are equal"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_fraction_compare_cross_product",
+      "knowledgePointName": "異分母分數比較",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g4b_u08_fraction_compare_cross_product",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+          "patternGroupId": "pg_g4b_u08_fraction_compare_cross_product_numeric",
+          "knowledgePointId": "kp_g4b_u08_fraction_compare_cross_product",
+          "operationModelId": "op_g4b_u08_fraction_compare_cross_product",
+          "operationFamilyId": "fraction_compare",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "comparison",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "operationContract": {
+            "canonicalExpressions": [
+              "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0"
+            ],
+            "equivalentForms": [
+              "common-denominator comparison",
+              "cross-product comparison",
+              "number-line comparison"
+            ],
+            "validationInvariants": [
+              "comparison must equal the exact rational-number relation"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u08_fraction_compare_cross_product_comparison_application",
+          "patternGroupId": "pg_g4b_u08_fraction_compare_cross_product_application",
+          "knowledgePointId": "kp_g4b_u08_fraction_compare_cross_product",
+          "operationModelId": "op_g4b_u08_fraction_compare_cross_product",
+          "operationFamilyId": "fraction_compare",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "comparison",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "operationContract": {
+            "canonicalExpressions": [
+              "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0"
+            ],
+            "equivalentForms": [
+              "common-denominator comparison",
+              "cross-product comparison",
+              "number-line comparison"
+            ],
+            "validationInvariants": [
+              "comparison must equal the exact rational-number relation"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_unlike_denominator_add_sub",
+      "knowledgePointName": "異分母分數加減",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g4b_u08_unlike_denominator_add_sub",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u08_unlike_denominator_add_sub_result_numeric",
+          "patternGroupId": "pg_g4b_u08_unlike_denominator_add_sub_numeric",
+          "knowledgePointId": "kp_g4b_u08_unlike_denominator_add_sub",
+          "operationModelId": "op_g4b_u08_unlike_denominator_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "fraction",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+              "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0",
+              "subtraction result must satisfy the source scope"
+            ],
+            "equivalentForms": [
+              "common-denominator form",
+              "improper-fraction form",
+              "mixed-number form"
+            ],
+            "validationInvariants": [
+              "result equals exact rational arithmetic",
+              "final form preserves value"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u08_unlike_denominator_add_sub_result_application",
+          "patternGroupId": "pg_g4b_u08_unlike_denominator_add_sub_application",
+          "knowledgePointId": "kp_g4b_u08_unlike_denominator_add_sub",
+          "operationModelId": "op_g4b_u08_unlike_denominator_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "fraction",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+              "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0",
+              "subtraction result must satisfy the source scope"
+            ],
+            "equivalentForms": [
+              "common-denominator form",
+              "improper-fraction form",
+              "mixed-number form"
+            ],
+            "validationInvariants": [
+              "result equals exact rational arithmetic",
+              "final form preserves value"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_fraction_decimal_conversion",
+      "knowledgePointName": "分數與有限小數互換",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4b_u08_fraction_decimal_conversion",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+          "patternGroupId": "pg_g4b_u08_fraction_decimal_conversion_numeric",
+          "knowledgePointId": "kp_g4b_u08_fraction_decimal_conversion",
+          "operationModelId": "op_g4b_u08_fraction_decimal_conversion",
+          "operationFamilyId": "fraction_decimal_conversion",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "decimal",
+          "givenRoles": [
+            "numerator",
+            "denominator"
+          ],
+          "answerType": "fraction_or_decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "decimal = numerator / denominator",
+              "numerator = decimal * denominator"
+            ],
+            "numberConstraints": [
+              "denominator > 0",
+              "denominator is convertible to the required decimal scale"
+            ],
+            "equivalentForms": [
+              "tenths or hundredths fraction",
+              "finite decimal"
+            ],
+            "validationInvariants": [
+              "conversion preserves exact rational value"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric",
+          "patternGroupId": "pg_g4b_u08_fraction_decimal_conversion_numeric",
+          "knowledgePointId": "kp_g4b_u08_fraction_decimal_conversion",
+          "operationModelId": "op_g4b_u08_fraction_decimal_conversion",
+          "operationFamilyId": "fraction_decimal_conversion",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "numerator",
+          "givenRoles": [
+            "denominator",
+            "decimal"
+          ],
+          "answerType": "fraction_or_decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "decimal = numerator / denominator",
+              "numerator = decimal * denominator"
+            ],
+            "numberConstraints": [
+              "denominator > 0",
+              "denominator is convertible to the required decimal scale"
+            ],
+            "equivalentForms": [
+              "tenths or hundredths fraction",
+              "finite decimal"
+            ],
+            "validationInvariants": [
+              "conversion preserves exact rational value"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_fraction_number_line_distance",
+      "knowledgePointName": "分數數線座標、移動與距離",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4b_u08_fraction_number_line_distance",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u08_fraction_number_line_distance_coordinate_numeric",
+          "patternGroupId": "pg_g4b_u08_fraction_number_line_distance_numeric",
+          "knowledgePointId": "kp_g4b_u08_fraction_number_line_distance",
+          "operationModelId": "op_g4b_u08_fraction_number_line_distance",
+          "operationFamilyId": "number_line",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "coordinate",
+          "givenRoles": [
+            "origin",
+            "unitStep",
+            "stepCount",
+            "distance"
+          ],
+          "answerType": "number_or_distance",
+          "operationContract": {
+            "canonicalExpressions": [
+              "coordinate = origin + stepCount * unitStep",
+              "distance = abs(rightCoordinate - leftCoordinate)"
+            ],
+            "numberConstraints": [
+              "unitStep > 0",
+              "stepCount is integer"
+            ],
+            "equivalentForms": [
+              "fraction coordinate",
+              "decimal coordinate"
+            ],
+            "validationInvariants": [
+              "coordinate respects tick spacing",
+              "distance is nonnegative"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u08_fraction_number_line_distance_distance_numeric",
+          "patternGroupId": "pg_g4b_u08_fraction_number_line_distance_numeric",
+          "knowledgePointId": "kp_g4b_u08_fraction_number_line_distance",
+          "operationModelId": "op_g4b_u08_fraction_number_line_distance",
+          "operationFamilyId": "number_line",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "distance",
+          "givenRoles": [
+            "origin",
+            "unitStep",
+            "stepCount",
+            "coordinate"
+          ],
+          "answerType": "number_or_distance",
+          "operationContract": {
+            "canonicalExpressions": [
+              "coordinate = origin + stepCount * unitStep",
+              "distance = abs(rightCoordinate - leftCoordinate)"
+            ],
+            "numberConstraints": [
+              "unitStep > 0",
+              "stepCount is integer"
+            ],
+            "equivalentForms": [
+              "fraction coordinate",
+              "decimal coordinate"
+            ],
+            "validationInvariants": [
+              "coordinate respects tick spacing",
+              "distance is nonnegative"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_mixed_fraction_order_constraints",
+      "knowledgePointName": "等值帶分數排序與界限",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g4b_u08_mixed_fraction_order_constraints",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4b_u08_mixed_fraction_order_constraints_possible_values_numeric",
+          "patternGroupId": "pg_g4b_u08_mixed_fraction_order_constraints_numeric",
+          "knowledgePointId": "kp_g4b_u08_mixed_fraction_order_constraints",
+          "operationModelId": "op_g4b_u08_mixed_fraction_order_constraints",
+          "operationFamilyId": "fraction_bounds",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "possibleValues",
+          "givenRoles": [
+            "lowerBound",
+            "upperBound",
+            "unknownPart"
+          ],
+          "answerType": "integer_or_fraction_set",
+          "operationContract": {
+            "canonicalExpressions": [
+              "possibleValues = {x | lowerBound < value(x) < upperBound}"
+            ],
+            "numberConstraints": [
+              "lowerBound <= upperBound",
+              "denominators > 0"
+            ],
+            "equivalentForms": [
+              "common-denominator bounds",
+              "cross-product bounds"
+            ],
+            "validationInvariants": [
+              "set contains exactly all values satisfying the bounds"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4b_u08_mixed_fraction_order_constraints_possible_values_application",
+          "patternGroupId": "pg_g4b_u08_mixed_fraction_order_constraints_application",
+          "knowledgePointId": "kp_g4b_u08_mixed_fraction_order_constraints",
+          "operationModelId": "op_g4b_u08_mixed_fraction_order_constraints",
+          "operationFamilyId": "fraction_bounds",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "possibleValues",
+          "givenRoles": [
+            "lowerBound",
+            "upperBound",
+            "unknownPart"
+          ],
+          "answerType": "integer_or_fraction_set",
+          "operationContract": {
+            "canonicalExpressions": [
+              "possibleValues = {x | lowerBound < value(x) < upperBound}"
+            ],
+            "numberConstraints": [
+              "lowerBound <= upperBound",
+              "denominators > 0"
+            ],
+            "equivalentForms": [
+              "common-denominator bounds",
+              "cross-product bounds"
+            ],
+            "validationInvariants": [
+              "set contains exactly all values satisfying the bounds"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 7,
+    "numericPatternSpecCount": 11,
+    "applicationPatternSpecCount": 3,
+    "hiddenPatternSpecCount": 14,
+    "visiblePatternSpecCount": 0
+  },
+  "productionBoundary": {
+    "storyTemplatesAuthored": false,
+    "contextBindingsAuthored": false,
+    "generatorConnected": false,
+    "runtimeValidatorConnected": false,
+    "rendererConnected": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_MATERIALIZATION"
+}
