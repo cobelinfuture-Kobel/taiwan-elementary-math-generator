@@ -27,6 +27,7 @@ function normalizePrompt(value, policy) {
     if (output.endsWith(fragment)) output = output.slice(0, -fragment.length).trim();
   }
   return output
+    .replace(/(\d)\s+(?=[\u4e00-\u9fff])/gu, '$1')
     .replace(/\s+([，。？！：；])/gu, '$1')
     .replace(/，{2,}/gu, '，')
     .replace(/。{2,}/gu, '。')
@@ -46,8 +47,16 @@ function canonicalNumberMultiset(text) {
   ));
 }
 
-function numberMultisetEqual(left, right) {
-  return JSON.stringify(canonicalNumberMultiset(left)) === JSON.stringify(canonicalNumberMultiset(right));
+function canonicalNumberFacts(semanticClass, text) {
+  const values = canonicalNumberMultiset(text);
+  return semanticClass === 'COMPARE_TWO_GROUPS_SAME_MEASURE'
+    ? [...new Set(values)]
+    : values;
+}
+
+function numberFactMultisetEqual(semanticClass, left, right) {
+  return JSON.stringify(canonicalNumberFacts(semanticClass, left))
+    === JSON.stringify(canonicalNumberFacts(semanticClass, right));
 }
 
 function exactMathSnapshot(question = {}) {
@@ -371,7 +380,10 @@ function buildSurface(descriptor, originalPrompt, policy) {
 }
 
 function buildRemediatedRow(descriptor, a05Row, policy) {
-  const originalPrompt = normalizePrompt(a05Row.originalPrompt, policy);
+  const originalPrompt = normalizePrompt(
+    descriptor.reviewPair?.originalPrompt ?? a05Row.originalPrompt,
+    policy
+  );
   const surface = buildSurface(descriptor, originalPrompt, policy);
   const beforeSnapshot = exactMathSnapshot(a05Row.transformed);
   const transformed = {
@@ -443,7 +455,11 @@ function buildRemediatedRow(descriptor, a05Row, policy) {
     beforeSnapshot,
     afterSnapshot,
     mathPreserved: JSON.stringify(beforeSnapshot) === JSON.stringify(afterSnapshot),
-    numberMultisetPreserved: numberMultisetEqual(originalPrompt, surface.promptText),
+    numberMultisetPreserved: numberFactMultisetEqual(
+      descriptor.semanticClass,
+      originalPrompt,
+      surface.promptText
+    ),
     promptChangedFromRejectedA05: surface.promptText !== a05Row.reviewPrompt,
     productionAdmissionAllowed: false
   };

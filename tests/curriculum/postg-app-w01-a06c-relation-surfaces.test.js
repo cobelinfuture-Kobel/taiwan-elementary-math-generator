@@ -104,7 +104,7 @@ test('division and floor relations expose total, groups and target roles', () =>
   assert.match(water.remediatedPrompt, /每個水桶分到多少公升飲用水/);
   assert.equal(water.surface.answerUnit, '公升');
 
-  const floor = rowByKnowledgePointId.get('kp_g4b_u02_floor_complete_groups');
+  const floor = rowByKnowledgePointId.get('kp_g4b_u04_context_floor_ceiling_selection');
   assert.equal(floor.semanticClass, 'COMPLETE_GROUP_COUNT_FLOOR');
   assert.match(floor.remediatedPrompt, /5886顆橘子/);
   assert.match(floor.remediatedPrompt, /每盒裝10顆/);
@@ -114,13 +114,13 @@ test('division and floor relations expose total, groups and target roles', () =>
 });
 
 test('existing authentic application items are preserved without the A05 wrapper', () => {
-  const saving = rowByKnowledgePointId.get('kp_g3b_u08_total_daily_saving');
+  const saving = rowByKnowledgePointId.get('kp_g3b_u08_total_from_groups');
   assert.equal(saving.surface.surfaceMode, 'RELATION_APPLICATION_PRESERVED');
   assert.equal(saving.remediatedPrompt, saving.originalPrompt);
   assert.notEqual(saving.remediatedPrompt, saving.oldReviewPrompt);
   assert.equal(saving.surface.answerUnit, '元');
 
-  const ribbon = rowByKnowledgePointId.get('kp_g5a_u02_equal_partition');
+  const ribbon = rowByKnowledgePointId.get('kp_g5a_u02_equal_partition_factor_application');
   assert.equal(ribbon.surface.surfaceMode, 'RELATION_APPLICATION_PRESERVED');
   assert.equal(ribbon.remediatedPrompt, ribbon.originalPrompt);
   assert.equal(ribbon.surface.answerUnit, null);
@@ -133,7 +133,7 @@ test('numeric-only and non-admitted optional Patterns remain numeric', () => {
   assert.equal(digitArrangement.remediatedPrompt, digitArrangement.originalPrompt);
   assert.equal(digitArrangement.remediatedPrompt.includes('社區'), false);
 
-  const placeValue = rowByKnowledgePointId.get('kp_g6a_u01_place_value_composition');
+  const placeValue = rowByKnowledgePointId.get('kp_g3a_u01_place_value_composition');
   assert.equal(placeValue.suitability, 'APPLICATION_OPTIONAL');
   assert.equal(placeValue.surface.surfaceMode, 'NUMERIC_PRESERVED_PENDING_SURFACE_ADMISSION');
   assert.equal(placeValue.remediatedPrompt, placeValue.originalPrompt);
