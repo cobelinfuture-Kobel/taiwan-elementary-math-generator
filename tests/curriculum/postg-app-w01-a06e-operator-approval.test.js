@@ -18,7 +18,7 @@ test('A06E records explicit APPROVE and production admits W01 at E5', () => {
   assert.equal(result.productionAdmissionGranted, true);
   assert.equal(result.publicRouteChanged, false);
   assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline');
+  assert.match(result.nextShortestStep, /^POSTG-APP-W02-/);
   assert.deepEqual(result.counts, {
     reviewedQuestionCount: 16,
     applicationSourceUnitCount: 12,

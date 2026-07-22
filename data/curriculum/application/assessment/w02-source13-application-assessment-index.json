@@ -1,0 +1,40 @@
+{
+  "schemaName": "POSTGAPPW02Source13ApplicationAssessmentIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
+  "contractId": "POSTG_APP_W02_SOURCE13_APPLICATION_CAPABILITY_ASSESSMENT_BASELINE_V1",
+  "status": "DETERMINISTIC_SOURCE_BASELINE_PENDING_CI",
+  "inputAuthority": {
+    "masterController": "data/curriculum/application/controller/postg-app-master-controller-state.json",
+    "waveId": "W02",
+    "sourceNodeCount": 13,
+    "sourceAuthorityBaseline": "data/curriculum/application/assessment/w02-source13-source-authority-baseline.json",
+    "policy": "data/curriculum/application/assessment/w02-source13-application-capability-policy.json",
+    "contextAuthority": "data/curriculum/context/registry/global-context-authority-index.json"
+  },
+  "materializedAuthority": {
+    "resolver": "src/curriculum/application/w02-source13-application-assessment.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a00-assessment.mjs",
+    "test": "tests/curriculum/postg-app-w02-a00-assessment.test.js",
+    "recordIdentity": "sourceNodeId",
+    "recordCount": 13
+  },
+  "readinessStates": [
+    "KNOWLEDGE_OPERATION_MATERIALIZATION_REQUIRED",
+    "READY_FOR_KP_APPLICATION_CLASSIFICATION"
+  ],
+  "sourceLevelApplicationPotential": "MIXED_KP_SPLIT_REQUIRED",
+  "kpClassificationAtA00": "NOT_PERMITTED_AT_SOURCE_BASELINE",
+  "productionAdmission": {
+    "allowed": false,
+    "admittedRecordCount": 0
+  },
+  "distanceBoundary": {
+    "knowledgePointCountClaimed": 0,
+    "canonicalOperationModelCountClaimed": 0,
+    "applicationPatternCountClaimed": 0,
+    "worksheetOutputClaimed": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification"
+}
