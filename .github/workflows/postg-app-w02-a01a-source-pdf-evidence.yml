@@ -10,6 +10,7 @@ on:
       - "data/project/milestones/POSTG-APP-W02-A01A.claim.json"
       - "src/curriculum/application/w02-source13-pdf-evidence-runtime.mjs"
       - "tools/curriculum/validate-postg-app-w02-a01a-source-pdf-evidence.mjs"
+      - "tools/governance/bootstrap-postg-app-w02-a01a-controller.mjs"
       - "tests/curriculum/postg-app-w02-a01a-source-pdf-evidence.test.js"
       - "data/curriculum/application/controller/postg-app-master-controller-state.json"
       - "src/curriculum/application/postg-app-master-controller.mjs"
@@ -20,7 +21,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: postg-app-w02-a01a-${{ github.event.pull_request.number || github.ref }}
@@ -31,8 +32,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout pull request head branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -41,6 +45,9 @@ jobs:
 
       - name: Install project dependencies
         run: npm install
+
+      - name: Apply bounded A01A controller patch
+        run: node tools/governance/bootstrap-postg-app-w02-a01a-controller.mjs
 
       - name: Run W02 A01A focused tests
         run: node --test tests/curriculum/postg-app-w02-a01a-source-pdf-evidence.test.js
@@ -65,3 +72,16 @@ jobs:
 
       - name: Validate milestone claims
         run: npm run governance:claims
+
+      - name: Commit bounded A01A controller changes
+        if: github.event_name == 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/curriculum/application/postg-app-master-controller.mjs
+          if git diff --cached --quiet; then
+            echo "A01A controller already aligned."
+          else
+            git commit -m "fix(application): align controller with A01A PDF evidence"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
