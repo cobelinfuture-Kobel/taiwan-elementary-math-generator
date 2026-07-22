@@ -11,14 +11,28 @@ import { runPOSTGAPPM00Validation } from '../../tools/curriculum/validate-postg-
 const controller = loadPOSTGAPPMasterController();
 const codes = (result) => result.issues.map((row) => row.code);
 
-test('M00 validates the exact 79-node source scope and six-wave queue', () => {
+const REQUIRED_GATES = [
+  'SOURCE_NODE_REGISTERED',
+  'KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED',
+  'KP_APPLICATION_CLASSIFICATION_COMPLETE',
+  'CANONICAL_OPERATION_MODEL_COMPLETE',
+  'SINGLE_APPLICATION_ADMISSION_COMPLETE',
+  'GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE',
+  'N_PLUS_1_CONTRACT_COMPLETE',
+  'VALIDATOR_CONTRACT_COMPLETE',
+  'POSITIVE_NEGATIVE_FIXTURES_COMPLETE',
+  'SHARED_RUNTIME_SHADOW_PASS',
+  'PRODUCTION_ADMISSION_REVIEWED'
+];
+
+test('M00 validates the exact 79-node scope with W01 admitted and W02 ready', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, 'WAVE01_IN_PROGRESS');
+  assert.equal(result.status, 'W02_ASSESSMENT_READY');
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -26,8 +40,10 @@ test('M00 validates the exact 79-node source scope and six-wave queue', () => {
     goldenBaselineSourceNodeCount: 16,
     remainingSourceNodeCount: 63,
     waveCount: 6,
-    productionAdmittedApplicationUnitCount: 0
+    productionAdmittedApplicationUnitCount: 12
   });
+  assert.equal(result.currentWaveId, 'W02');
+  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline');
 });
 
 test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
@@ -36,19 +52,30 @@ test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
   assert.deepEqual(controller.sourceNodes.map((row) => row.queueOrdinal), Array.from({ length: 79 }, (_, index) => index + 1));
 });
 
-test('Wave 01 distinguishes 15 golden units from 16 source nodes', () => {
+test('Wave 01 distinguishes 15 golden units from 16 source nodes and is production admitted', () => {
   const w01 = resolvePOSTGAPPWave(controller, 'W01');
   assert.equal(w01.goldenUnitIds.length, 15);
   assert.equal(w01.sourceNodes.length, 16);
   assert.equal(w01.productionSelectable, false);
-  assert.equal(w01.currentState.state, 'PRODUCTION_REVIEW_REQUIRED');
-  assert.equal(w01.currentState.reviewDecision, 'DEFERRED_PENDING_PRODUCTION_EVIDENCE');
+  assert.equal(w01.productionAdmissionGranted, true);
+  assert.equal(w01.currentState.state, 'PRODUCTION_ADMITTED');
+  assert.equal(w01.currentState.reviewDecision, 'APPROVE');
+  assert.equal(w01.currentState.productionAdmissionGranted, true);
   const composite = controller.unitRegistry.goldenBaselineUnits.find((row) => row.goldenUnitId === 'g5a_u02_5a02');
   assert.deepEqual(composite.sourceNodeRefs, ['g5a_u02_5a02a', 'g5a_u02_5a02a1']);
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
 });
 
-test('all 15 golden KnowledgeOperation registries are present and validated', () => {
+test('Wave 02 is the sole assessment-ready wave', () => {
+  const w02 = resolvePOSTGAPPWave(controller, 'W02');
+  assert.equal(w02.sourceNodes.length, 13);
+  assert.equal(w02.productionAdmissionGranted, false);
+  assert.equal(w02.currentState.state, 'ASSESSMENT_READY');
+  assert.deepEqual(w02.currentState.completedGates, REQUIRED_GATES.slice(0, 2));
+  assert.equal(w02.currentState.admissionGateComplete, false);
+});
+
+test('all 15 golden KnowledgeOperation registries remain present and validated', () => {
   assert.equal(controller.goldenRegistries.length, 15);
   for (const row of controller.goldenRegistries) {
     assert.equal(row.exists, true, row.registryPath);
@@ -79,47 +106,42 @@ test('W02 to W06 cover the remaining 63 nodes in deterministic source order', ()
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
 });
 
-test('all admission stages are reviewed while production stays closed', () => {
-  assert.deepEqual(controller.wavePlan.admissionGateOrder, [
-    'SOURCE_NODE_REGISTERED',
-    'KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED',
-    'KP_APPLICATION_CLASSIFICATION_COMPLETE',
-    'CANONICAL_OPERATION_MODEL_COMPLETE',
-    'SINGLE_APPLICATION_ADMISSION_COMPLETE',
-    'GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE',
-    'N_PLUS_1_CONTRACT_COMPLETE',
-    'VALIDATOR_CONTRACT_COMPLETE',
-    'POSITIVE_NEGATIVE_FIXTURES_COMPLETE',
-    'SHARED_RUNTIME_SHADOW_PASS',
-    'PRODUCTION_ADMISSION_REVIEWED'
-  ]);
-  assert.deepEqual(controller.controllerState.waveStates.map((row) => row.state), [
-    'PRODUCTION_REVIEW_REQUIRED',
-    'QUEUED',
-    'BLOCKED_BY_PREVIOUS_WAVE',
-    'BLOCKED_BY_PREVIOUS_WAVE',
-    'BLOCKED_BY_PREVIOUS_WAVE',
-    'BLOCKED_BY_PREVIOUS_WAVE'
-  ]);
-  assert.deepEqual(controller.controllerState.waveStates[0].completedGates, controller.wavePlan.admissionGateOrder);
-  assert.equal(controller.controllerState.waveStates[0].admissionGateComplete, true);
-  assert.equal(controller.controllerState.waveStates[0].productionAdmissionGranted, false);
-  assert.equal(controller.controllerState.productionAdmission.allowed, false);
-  assert.equal(controller.controllerState.productionAdmission.lastReviewDecision, 'DEFERRED_PENDING_PRODUCTION_EVIDENCE');
-  assert.equal(controller.controllerState.currentMainlineBlocker, 'UNIT_FLOW_EXACT_GENERATOR_RENDERER_HTML_PDF_PUBLIC_SELECTION_AND_HUMAN_REVIEW_EVIDENCE_INCOMPLETE');
+test('W01 admission is backed by the explicit operator approval and E5 claim', () => {
+  assert.equal(controller.approvalDecision.operatorDecision, 'APPROVE');
+  assert.equal(controller.approvalDecision.productionAdmission.granted, true);
+  assert.equal(controller.approvalDecision.productionAdmission.publicRouteChanged, false);
+  assert.equal(controller.w01Claim.actualEvidenceLevel, 'E5_PRODUCTION_ADMITTED');
+  assert.equal(controller.w01Claim.claims.productionAdmitted, true);
+  assert.equal(controller.w01Claim.claims.d0Complete, false);
+  assert.deepEqual(controller.controllerState.waveStates[0].completedGates, REQUIRED_GATES);
+  assert.deepEqual(controller.controllerState.productionAdmission.admittedWaveIds, ['W01']);
+  assert.equal(controller.controllerState.productionAdmission.applicationUnitCount, 12);
+  assert.equal(controller.controllerState.productionAdmission.waveCount, 1);
+  assert.equal(controller.controllerState.productionAdmission.allowed, true);
+  assert.equal(controller.controllerState.productionAdmission.lastReviewDecision, 'APPROVE');
 });
 
-test('duplicate source nodes and premature production admissions fail closed', () => {
+test('duplicate source nodes and non-contiguous production admissions fail closed', () => {
   const duplicateCase = structuredClone(controller);
   duplicateCase.sourceNodes[1].sourceNodeId = duplicateCase.sourceNodes[0].sourceNodeId;
   assert.equal(codes(validatePOSTGAPPMasterController(duplicateCase)).includes('POSTG_APP_SOURCE_NODE_DUPLICATED'), true);
 
   const productionCase = structuredClone(controller);
-  productionCase.wavePlan.waves[0].productionAdmissionGranted = true;
-  productionCase.controllerState.productionAdmission.applicationUnitCount = 1;
+  productionCase.wavePlan.waves[2].productionAdmissionGranted = true;
+  productionCase.wavePlan.coverage.productionAdmittedWaveCount = 2;
   const productionCodes = codes(validatePOSTGAPPMasterController(productionCase));
-  assert.equal(productionCodes.includes('POSTG_APP_M00_PRODUCTION_WAVE_FORBIDDEN'), true);
-  assert.equal(productionCodes.includes('POSTG_APP_M00_PRODUCTION_ADMISSION_FORBIDDEN'), true);
+  assert.equal(productionCodes.includes('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID'), true);
+  assert.equal(productionCodes.includes('POSTG_APP_PRODUCTION_ADMITTED_WAVE_SET_INVALID'), true);
+});
+
+test('forged approval and mismatched controller counts fail closed', () => {
+  const approvalCase = structuredClone(controller);
+  approvalCase.approvalDecision.operatorDecision = 'REJECT';
+  assert.equal(codes(validatePOSTGAPPMasterController(approvalCase)).includes('POSTG_APP_W01_OPERATOR_APPROVAL_EVIDENCE_INVALID'), true);
+
+  const countCase = structuredClone(controller);
+  countCase.controllerState.productionAdmission.applicationUnitCount = 13;
+  assert.equal(codes(validatePOSTGAPPMasterController(countCase)).includes('POSTG_APP_PRODUCTION_ADMISSION_STATE_INVALID'), true);
 });
 
 test('missing source coverage and altered wave order fail closed', () => {
@@ -137,5 +159,5 @@ test('missing source coverage and altered wave order fail closed', () => {
 test('unknown completed gate fails closed', () => {
   const changed = structuredClone(controller);
   changed.controllerState.waveStates[0].completedGates.push('UNKNOWN_GATE');
-  assert.equal(codes(validatePOSTGAPPMasterController(changed)).includes('POSTG_APP_CONTROLLER_COMPLETED_GATE_UNKNOWN'), true);
+  assert.equal(codes(validatePOSTGAPPMasterController(changed)).includes('POSTG_APP_W01_PRODUCTION_ADMISSION_STATE_INVALID'), true);
 });
