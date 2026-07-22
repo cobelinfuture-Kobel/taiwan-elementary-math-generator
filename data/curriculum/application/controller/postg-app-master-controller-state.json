@@ -2,8 +2,8 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
-  "status": "W02_SOURCE_ASSESSMENT_BASELINE_READY",
+  "taskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
+  "status": "W02_SOURCE_PDF_EVIDENCE_READY",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
@@ -17,7 +17,8 @@
     "w01WorksheetShadowTaskId": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
     "w01ProductionEvidenceTaskId": "POSTG-APP-W01-A06D_RegeneratedHTMLPDFHumanReviewPackage",
     "w01OperatorDecisionTaskId": "POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision",
-    "w02SourceAssessmentTaskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline"
+    "w02SourceAssessmentTaskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "w02SourcePdfEvidenceTaskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -54,11 +55,16 @@
     "w02SourceAssessmentIndex": "data/curriculum/application/assessment/w02-source13-application-assessment-index.json",
     "w02SourceAssessmentResolver": "src/curriculum/application/w02-source13-application-assessment.mjs",
     "w02SourceAssessmentValidationCli": "tools/curriculum/validate-postg-app-w02-a00-assessment.mjs",
-    "w02A00MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A00.claim.json"
+    "w02A00MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A00.claim.json",
+    "w02SourcePdfEvidenceInventory": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "w02SourcePdfEvidencePolicy": "data/curriculum/application/evidence/w02-source13-pdf-evidence-policy.json",
+    "w02SourcePdfEvidenceResolver": "src/curriculum/application/w02-source13-pdf-evidence-runtime.mjs",
+    "w02SourcePdfEvidenceValidationCli": "tools/curriculum/validate-postg-app-w02-a01a-source-pdf-evidence.mjs",
+    "w02A01AMilestoneClaim": "data/project/milestones/POSTG-APP-W02-A01A.claim.json"
   },
   "currentWaveId": "W02",
-  "currentCapability": "W02_SOURCE13_AUTHORITY_AND_READINESS_BASELINE_READY",
-  "currentMainlineBlocker": "W02_KNOWLEDGE_OPERATION_MATERIALIZATION_PENDING",
+  "currentCapability": "W02_SOURCE13_PDF_EVIDENCE_HASH_LOCKED_RENDERABLE",
+  "currentMainlineBlocker": "W02_PAGE_LEVEL_KNOWLEDGE_OPERATION_EXTRACTION_PENDING",
   "productionAdmission": {
     "applicationUnitCount": 12,
     "waveCount": 1,
@@ -105,6 +111,14 @@
       "sourceMetadataAvailableCount": 13,
       "sourceNodeCount": 13,
       "sourceLevelApplicationPotential": "MIXED_KP_SPLIT_REQUIRED",
+      "sourcePdfEvidenceState": "HASH_LOCKED_RENDERABLE",
+      "sourcePdfEvidenceTaskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
+      "sourcePdfReferenceCount": 13,
+      "uniquePdfContentCount": 12,
+      "totalSourcePdfPageCount": 31,
+      "sourcePdfTextLayerAvailableCount": 13,
+      "sourcePdfRenderAvailableCount": 13,
+      "duplicateSourcePdfContentGroupCount": 1,
       "kpApplicationClassificationComplete": false,
       "forcedStoryAuthoringAllowed": false
     },
@@ -127,6 +141,7 @@
       "POSTG-APP-W01-A06D_RegeneratedHTMLPDFHumanReviewPackage",
       "POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision",
       "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
+      "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
       "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
     ],
     "authoritativeState": [
@@ -144,7 +159,10 @@
       "w02-source13-source-authority-baseline.json",
       "w02-source13-application-capability-policy.json",
       "w02-source13-application-assessment-index.json",
-      "POSTG-APP-W02-A00.claim.json"
+      "POSTG-APP-W02-A00.claim.json",
+      "w02-source13-pdf-evidence-inventory.json",
+      "w02-source13-pdf-evidence-policy.json",
+      "POSTG-APP-W02-A01A.claim.json"
     ],
     "runtimeConsumer": [
       "postg-app-master-controller.mjs",
@@ -154,7 +172,8 @@
       "w01-validator-fixture-shadow-runtime.mjs",
       "w01-worksheet-shadow-review.mjs",
       "w01-a06e-operator-approval-runtime.mjs",
-      "w02-source13-application-assessment.mjs"
+      "w02-source13-application-assessment.mjs",
+      "w02-source13-pdf-evidence-runtime.mjs"
     ],
     "readback": [
       "validate-postg-app-m00-master-controller.mjs",
@@ -164,9 +183,10 @@
       "validate-postg-app-w01-a03-runtime-shadow.mjs",
       "validate-postg-app-w01-a04-worksheet-shadow-review.mjs",
       "validate-postg-app-w01-a06e-operator-approval.mjs",
-      "validate-postg-app-w02-a00-assessment.mjs"
+      "validate-postg-app-w02-a00-assessment.mjs",
+      "validate-postg-app-w02-a01a-source-pdf-evidence.mjs"
     ]
   },
-  "nextShortestStep": "POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "nextShortestStep": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
   "stopReason": "NONE"
 }

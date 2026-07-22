@@ -1,0 +1,67 @@
+name: POSTG-APP W02-A01A Source PDF Evidence
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json"
+      - "data/curriculum/application/evidence/w02-source13-pdf-evidence-policy.json"
+      - "data/curriculum/application/contracts/POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification.json"
+      - "data/project/milestones/POSTG-APP-W02-A01A.claim.json"
+      - "src/curriculum/application/w02-source13-pdf-evidence-runtime.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a01a-source-pdf-evidence.mjs"
+      - "tests/curriculum/postg-app-w02-a01a-source-pdf-evidence.test.js"
+      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
+      - "src/curriculum/application/postg-app-master-controller.mjs"
+      - "tests/curriculum/postg-app-m00-master-controller.test.js"
+      - "docs/curriculum/output/POSTG_APP_W02_A01A_SOURCE_PDF_EVIDENCE_READY.marker"
+      - "docs/curriculum/output/POSTG_APP_W02_A01A_SOURCE_PDF_EVIDENCE_READBACK.md"
+      - ".github/workflows/postg-app-w02-a01a-source-pdf-evidence.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a01a-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-pdf-evidence:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run W02 A01A focused tests
+        run: node --test tests/curriculum/postg-app-w02-a01a-source-pdf-evidence.test.js
+
+      - name: Run deterministic W02 A01A validator
+        run: node tools/curriculum/validate-postg-app-w02-a01a-source-pdf-evidence.mjs
+
+      - name: Verify W02 A00 baseline regression
+        run: |
+          node --test tests/curriculum/postg-app-w02-a00-assessment.test.js
+          node tools/curriculum/validate-postg-app-w02-a00-assessment.mjs
+
+      - name: Validate master controller
+        run: |
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+
+      - name: Verify W01 E5 admission regression
+        run: |
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+
+      - name: Validate milestone claims
+        run: npm run governance:claims
