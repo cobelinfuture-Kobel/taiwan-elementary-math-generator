@@ -1,0 +1,80 @@
+{
+  "schemaName": "POSTGAPPW01A06EOperatorSecondHumanReviewDecisionV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision",
+  "parentTaskId": "POSTG-APP-W01-A06D_RegeneratedHTMLPDFHumanReviewPackage",
+  "decisionDate": "2026-07-22",
+  "operatorDecision": "APPROVE",
+  "decisionSource": "EXPLICIT_OPERATOR_CHAT_DECISION",
+  "reviewedArtifact": {
+    "manifestPath": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json",
+    "htmlPath": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html",
+    "pdfPath": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf",
+    "dataPath": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
+    "extractedTextPath": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt",
+    "questionCount": 16,
+    "sourceCount": 12,
+    "macroContextMetadataCount": 16,
+    "pdfPageCount": 14
+  },
+  "reviewedArtifactHashes": [
+    {
+      "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html",
+      "sha256": "ea755bf9334acdaa524e8d52c50871bd5dee71d2a64f684ee0a2b4d89fb354a9"
+    },
+    {
+      "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf",
+      "sha256": "08c8892703b59b860dbf041f913c2e8aa0e3987c1d993383107d9481dbc34cfe"
+    },
+    {
+      "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt",
+      "sha256": "f261f55eae7225f4057f59581b0439413b861b983e92e2dbc044fc8245b6b574"
+    },
+    {
+      "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
+      "sha256": "94044b3e6c75c414f6d64ee3bef315164c9a352a8b2b4231171aee0ec0535035"
+    },
+    {
+      "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json",
+      "sha256": "595ff5e5fd21ee11eca6f2b2ac28d2d82dabeae9369c25986fa6c9cc55fca6f8"
+    }
+  ],
+  "operatorAcceptance": {
+    "semanticNaturalnessAccepted": true,
+    "quantityRoleBindingAccepted": true,
+    "unitBindingAccepted": true,
+    "relationSpecificWordingAccepted": true,
+    "macroTitleSuppressionAccepted": true,
+    "numericOnlyBoundaryAccepted": true,
+    "mathematicalWitnessPreservationAccepted": true,
+    "productionEquivalentHtmlPdfAccepted": true
+  },
+  "productionAdmission": {
+    "granted": true,
+    "evidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "scopeType": "WAVE_APPLICATION_CAPABILITY",
+    "waveId": "W01",
+    "applicationSourceUnitCount": 12,
+    "reviewQuestionCount": 16,
+    "applicationSurfaceCount": 13,
+    "numericPreservedCount": 3,
+    "publicRouteChanged": false,
+    "publicSelectionEnabled": false,
+    "authorizedUse": "PRODUCTION_ADMITTED_FOR_AUTHORIZED_RUNTIME_CONSUMERS"
+  },
+  "controllerTransition": {
+    "completedWaveId": "W01",
+    "completedWaveState": "PRODUCTION_ADMITTED",
+    "nextWaveId": "W02",
+    "nextWaveState": "ASSESSMENT_READY",
+    "nextTaskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline"
+  },
+  "failClosedBoundaries": {
+    "automaticApprovalAllowed": false,
+    "approvalArtifactMutationAllowed": false,
+    "publicRouteActivationImpliedByApproval": false,
+    "wavesW02ToW06ProductionAdmissionGranted": false,
+    "programD0Complete": false
+  }
+}
