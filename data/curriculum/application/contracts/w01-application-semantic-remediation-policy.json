@@ -1,0 +1,227 @@
+{
+  "schemaName": "POSTGAPPW01ApplicationSemanticRemediationPolicyV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A06B_SemanticClassQuantitySchemaAndValidatorRuntime",
+  "status": "SHADOW_SEMANTIC_RUNTIME_POLICY_PRODUCTION_ADMISSION_FORBIDDEN",
+  "authority": {
+    "sourceCandidateRuntime": "src/curriculum/application/w01-atomic-context-single-application-candidate-pack.mjs",
+    "humanReviewDecision": "data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json",
+    "a05ReviewData": "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json"
+  },
+  "allowedSemanticClasses": [
+    "COMPARE_TWO_GROUPS_SAME_MEASURE",
+    "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE",
+    "JOIN_RESULT_TOTAL",
+    "SEPARATE_REMAINDER_OR_DIFFERENCE",
+    "EQUAL_GROUPS_TOTAL",
+    "EQUAL_SHARE_PER_GROUP",
+    "COMPLETE_GROUP_COUNT_FLOOR",
+    "REQUIRED_GROUP_COUNT_CEILING",
+    "PLACE_VALUE_COMPOSITION",
+    "PLACE_VALUE_EXCHANGE",
+    "MULTI_STEP_STRUCTURED",
+    "NUMERIC_ONLY"
+  ],
+  "allowedSuitability": [
+    "APPLICATION_REQUIRED",
+    "APPLICATION_OPTIONAL",
+    "NUMERIC_ONLY"
+  ],
+  "semanticClassRules": [
+    {
+      "ruleId": "SEM_FLOOR_COMPLETE_GROUPS",
+      "tokens": ["floor_complete_groups", "complete_groups", "最多可以裝成幾", "最多可以裝滿幾"],
+      "semanticClass": "COMPLETE_GROUP_COUNT_FLOOR"
+    },
+    {
+      "ruleId": "SEM_CEILING_REQUIRED_GROUPS",
+      "tokens": ["ceiling", "minimum_groups", "至少需要幾", "才能全部裝完"],
+      "semanticClass": "REQUIRED_GROUP_COUNT_CEILING"
+    },
+    {
+      "ruleId": "SEM_RANGE_MEMBERSHIP",
+      "tokens": ["range_reasoning", "range_compare", "大於", "小於"],
+      "semanticClass": "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE"
+    },
+    {
+      "ruleId": "SEM_COMPARE_GROUPS",
+      "tokens": ["4digit_compare", "four_digit_compare", "comparison", "比較"],
+      "semanticClass": "COMPARE_TWO_GROUPS_SAME_MEASURE"
+    },
+    {
+      "ruleId": "SEM_PLACE_VALUE_EXCHANGE",
+      "tokens": ["place_value_unit_conversion", "decimal_unit_exchange", "tens_to_hundreds", "可以換成幾個百"],
+      "semanticClass": "PLACE_VALUE_EXCHANGE"
+    },
+    {
+      "ruleId": "SEM_PLACE_VALUE_COMPOSITION",
+      "tokens": ["place_value_composition", "standard_composition", "個千", "個百"],
+      "semanticClass": "PLACE_VALUE_COMPOSITION"
+    },
+    {
+      "ruleId": "SEM_DIGIT_ARRANGEMENT_NUMERIC_ONLY",
+      "tokens": ["digit_arrangement", "arrangement_max_min", "組成五位數"],
+      "semanticClass": "NUMERIC_ONLY"
+    },
+    {
+      "ruleId": "SEM_MULTI_STEP",
+      "tokens": ["add_then_divide", "add_divide", "parentheses_grouping", "adjusted_amount_then_subtract", "mul_div_equivalent_regroup", "app_group_select"],
+      "semanticClass": "MULTI_STEP_STRUCTURED"
+    },
+    {
+      "ruleId": "SEM_EQUAL_SHARE",
+      "tokens": ["exact_division", "two_digit_division", "equal_partition", "division_place_value", "平均分", "等分"],
+      "semanticClass": "EQUAL_SHARE_PER_GROUP"
+    },
+    {
+      "ruleId": "SEM_EQUAL_GROUP_TOTAL",
+      "tokens": ["total_from_groups", "2digit_by_1digit", "by_1digit", "每盤", "每組", "連續存了"],
+      "semanticClass": "EQUAL_GROUPS_TOTAL"
+    },
+    {
+      "ruleId": "SEM_JOIN_TOTAL",
+      "tokens": ["add_multi_carry", "four_digit_add", "addition", "加法"],
+      "semanticClass": "JOIN_RESULT_TOTAL"
+    },
+    {
+      "ruleId": "SEM_SEPARATE_DIFFERENCE",
+      "tokens": ["sub_multi_borrow", "four_digit_sub", "subtraction", "減法"],
+      "semanticClass": "SEPARATE_REMAINDER_OR_DIFFERENCE"
+    }
+  ],
+  "fallbackSemanticClass": "NUMERIC_ONLY",
+  "suitabilityBySemanticClass": {
+    "COMPARE_TWO_GROUPS_SAME_MEASURE": "APPLICATION_REQUIRED",
+    "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE": "APPLICATION_REQUIRED",
+    "JOIN_RESULT_TOTAL": "APPLICATION_REQUIRED",
+    "SEPARATE_REMAINDER_OR_DIFFERENCE": "APPLICATION_REQUIRED",
+    "EQUAL_GROUPS_TOTAL": "APPLICATION_REQUIRED",
+    "EQUAL_SHARE_PER_GROUP": "APPLICATION_REQUIRED",
+    "COMPLETE_GROUP_COUNT_FLOOR": "APPLICATION_REQUIRED",
+    "REQUIRED_GROUP_COUNT_CEILING": "APPLICATION_REQUIRED",
+    "PLACE_VALUE_COMPOSITION": "APPLICATION_OPTIONAL",
+    "PLACE_VALUE_EXCHANGE": "APPLICATION_OPTIONAL",
+    "MULTI_STEP_STRUCTURED": "APPLICATION_REQUIRED",
+    "NUMERIC_ONLY": "NUMERIC_ONLY"
+  },
+  "measureByUnit": {
+    "元": "currency",
+    "人": "count",
+    "輛": "count",
+    "箱": "count",
+    "盒": "count",
+    "組": "count",
+    "個": "count",
+    "顆": "count",
+    "本": "count",
+    "株": "count",
+    "份": "generic_count_fallback",
+    "公分": "length",
+    "公尺": "length",
+    "公里": "length",
+    "平方公分": "area",
+    "平方公尺": "area",
+    "公克": "mass",
+    "公斤": "mass",
+    "毫升": "capacity",
+    "公升": "capacity",
+    "分鐘": "time",
+    "小時": "time",
+    "天": "time",
+    "倍": "ratio",
+    "度": "angle",
+    "UNBOUND_UNIT_CANDIDATE": "unbound"
+  },
+  "genericFallbackUnits": [
+    "份",
+    "UNBOUND_UNIT_CANDIDATE"
+  ],
+  "answerSchemaBySemanticClass": {
+    "COMPARE_TWO_GROUPS_SAME_MEASURE": {
+      "answerShape": "RELATION_SYMBOL",
+      "unitPolicy": "NO_UNIT"
+    },
+    "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE": {
+      "answerShape": "SELECTION_ID",
+      "unitPolicy": "NO_UNIT"
+    },
+    "JOIN_RESULT_TOTAL": {
+      "answerShape": "QUANTITY_WITH_UNIT",
+      "unitPolicy": "SAME_MEASURE_AS_INPUTS"
+    },
+    "SEPARATE_REMAINDER_OR_DIFFERENCE": {
+      "answerShape": "QUANTITY_WITH_UNIT",
+      "unitPolicy": "SAME_MEASURE_AS_INPUTS"
+    },
+    "EQUAL_GROUPS_TOTAL": {
+      "answerShape": "QUANTITY_WITH_UNIT",
+      "unitPolicy": "ENTITY_COUNT_OR_MEASURE"
+    },
+    "EQUAL_SHARE_PER_GROUP": {
+      "answerShape": "QUANTITY_WITH_UNIT_OR_PARTITION_SET",
+      "unitPolicy": "PER_GROUP_MEASURE"
+    },
+    "COMPLETE_GROUP_COUNT_FLOOR": {
+      "answerShape": "COMPLETE_GROUP_COUNT",
+      "unitPolicy": "GROUP_UNIT"
+    },
+    "REQUIRED_GROUP_COUNT_CEILING": {
+      "answerShape": "REQUIRED_GROUP_COUNT",
+      "unitPolicy": "GROUP_UNIT"
+    },
+    "PLACE_VALUE_COMPOSITION": {
+      "answerShape": "NUMBER_VALUE",
+      "unitPolicy": "NO_PHYSICAL_UNIT"
+    },
+    "PLACE_VALUE_EXCHANGE": {
+      "answerShape": "PLACE_VALUE_DECOMPOSITION",
+      "unitPolicy": "PLACE_VALUE_UNIT"
+    },
+    "MULTI_STEP_STRUCTURED": {
+      "answerShape": "INHERIT_EXACT_PATTERN",
+      "unitPolicy": "INHERIT_EXACT_PATTERN"
+    },
+    "NUMERIC_ONLY": {
+      "answerShape": "INHERIT_EXACT_PATTERN",
+      "unitPolicy": "NO_FORCED_CONTEXT_UNIT"
+    }
+  },
+  "visibleMacroLabels": [
+    "公益、合作與資源共享",
+    "商業、交易與預算",
+    "社區、公民與公共服務",
+    "文化、歷史與地方記憶",
+    "資料、統計與公共資訊",
+    "防災、應變與韌性",
+    "環境保護與生態保育",
+    "食物、農業與生產",
+    "未來生活與永續設計",
+    "健康、運動與競賽",
+    "家庭與日常生活",
+    "學校與學習",
+    "科學、科技與觀察",
+    "交通、移動與行程",
+    "水資源與能源",
+    "工作流程、物流與配送"
+  ],
+  "genericTargetTokens": [
+    "求出總量",
+    "判斷總量",
+    "求出需求",
+    "判斷需求",
+    "求出資料結論",
+    "判斷輪值安排"
+  ],
+  "relationClassesThatForbidGenericTotal": [
+    "COMPARE_TWO_GROUPS_SAME_MEASURE",
+    "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE",
+    "EQUAL_SHARE_PER_GROUP",
+    "COMPLETE_GROUP_COUNT_FLOOR",
+    "REQUIRED_GROUP_COUNT_CEILING",
+    "PLACE_VALUE_COMPOSITION",
+    "PLACE_VALUE_EXCHANGE",
+    "NUMERIC_ONLY"
+  ],
+  "productionAdmissionAllowed": false
+}
