@@ -1,0 +1,19 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g5a_u04_5a04", "queueOrdinal": 12, "sourceCode": "5a04", "sourceTitle": "擴分約分通分", "domainFamily": "fraction_equivalence_simplification_common_denominator",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "d90c2fea0808fdefde0b3e3cf98eaad0844d63332d1be85bd0a951e4ce86ee87", "contentIdentityGroup": "pdf_d90c2fea0808", "pageCount": 2, "reviewedPages": [1, 2], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g5a_u04_expand_reduce_simplest", "name": "擴分、約分與最簡分數", "scope": "以共同倍數或因數產生等值分數並約成最簡。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬分數形式與等值操作。"},
+    {"candidateId": "kp_g5a_u04_divisibility_supported_reduction", "name": "利用整除規則約分", "scope": "用整除特徵選擇共同因數並連續約分。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬數字結構與化簡策略。"},
+    {"candidateId": "kp_g5a_u04_common_denominator", "name": "通分", "scope": "將異分母分數化為同分母等值分數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬後續比較運算的形式轉換工具。"},
+    {"candidateId": "kp_g5a_u04_unlike_fraction_compare", "name": "通分後比較異分母分數", "scope": "通分或交叉乘積後比較真分數與假分數。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可比較實際份量，也可保留純分數題。"},
+    {"candidateId": "kp_g5a_u04_quotient_as_fraction_context", "name": "整數相除與平均分配的分數商", "scope": "把總量平均分給若干人或容器，將每份量寫成分數。", "evidencePages": [2], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以平均分配和容器數建立被除數、除數與每份量角色。"},
+    {"candidateId": "kp_g5a_u04_fraction_measurement_segments", "name": "分數測量與等長分段", "scope": "由總長與段數求每段分數長度，或由容量求所需單位數。", "evidencePages": [2], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源使用繩長與容量單位，測量語意決定答案單位。"},
+    {"candidateId": "kp_g5a_u04_equivalent_mixed_selection", "name": "等值帶分數辨識", "scope": "選出與指定假分數或帶分數等值的形式。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬等值表徵的選擇與轉換。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 7, "applicationRequiredCount": 2, "applicationCompatibleCount": 1, "applicationNotApplicableCount": 4},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

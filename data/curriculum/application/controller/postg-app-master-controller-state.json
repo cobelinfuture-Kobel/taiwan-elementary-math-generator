@@ -2,8 +2,8 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
-  "status": "W02_SOURCE_PDF_EVIDENCE_READY",
+  "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "status": "W02_PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
@@ -18,7 +18,8 @@
     "w01ProductionEvidenceTaskId": "POSTG-APP-W01-A06D_RegeneratedHTMLPDFHumanReviewPackage",
     "w01OperatorDecisionTaskId": "POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision",
     "w02SourceAssessmentTaskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
-    "w02SourcePdfEvidenceTaskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification"
+    "w02SourcePdfEvidenceTaskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
+    "w02KnowledgeOperationCandidateTaskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -60,11 +61,15 @@
     "w02SourcePdfEvidencePolicy": "data/curriculum/application/evidence/w02-source13-pdf-evidence-policy.json",
     "w02SourcePdfEvidenceResolver": "src/curriculum/application/w02-source13-pdf-evidence-runtime.mjs",
     "w02SourcePdfEvidenceValidationCli": "tools/curriculum/validate-postg-app-w02-a01a-source-pdf-evidence.mjs",
-    "w02A01AMilestoneClaim": "data/project/milestones/POSTG-APP-W02-A01A.claim.json"
+    "w02A01AMilestoneClaim": "data/project/milestones/POSTG-APP-W02-A01A.claim.json",
+    "w02KnowledgeOperationCandidateSchema": "data/curriculum/application/schema/w02-knowledge-operation-candidate.schema.json",
+    "w02KnowledgeOperationCandidateResolver": "src/curriculum/application/w02-page-knowledge-operation-candidates.mjs",
+    "w02KnowledgeOperationCandidateValidationCli": "tools/curriculum/validate-postg-app-w02-a01b-page-knowledge-operation-candidates.mjs",
+    "w02A01BMilestoneClaim": "data/project/milestones/POSTG-APP-W02-A01B.claim.json"
   },
   "currentWaveId": "W02",
-  "currentCapability": "W02_SOURCE13_PDF_EVIDENCE_HASH_LOCKED_RENDERABLE",
-  "currentMainlineBlocker": "W02_PAGE_LEVEL_KNOWLEDGE_OPERATION_EXTRACTION_PENDING",
+  "currentCapability": "W02_PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED",
+  "currentMainlineBlocker": "W02_CANONICAL_OPERATION_MODEL_MATERIALIZATION_PENDING",
   "productionAdmission": {
     "applicationUnitCount": 12,
     "waveCount": 1,
@@ -98,10 +103,11 @@
     },
     {
       "waveId": "W02",
-      "state": "ASSESSMENT_READY",
+      "state": "KP_CLASSIFICATION_COMPLETE",
       "completedGates": [
         "SOURCE_NODE_REGISTERED",
-        "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED"
+        "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
+        "KP_APPLICATION_CLASSIFICATION_COMPLETE"
       ],
       "admissionGateComplete": false,
       "productionAdmissionGranted": false,
@@ -119,7 +125,14 @@
       "sourcePdfTextLayerAvailableCount": 13,
       "sourcePdfRenderAvailableCount": 13,
       "duplicateSourcePdfContentGroupCount": 1,
-      "kpApplicationClassificationComplete": false,
+      "knowledgeOperationCandidateState": "PAGE_EVIDENCED_CANONICAL_MODEL_PENDING",
+      "knowledgePointCandidateCount": 90,
+      "uniqueContentKnowledgePointCandidateCount": 84,
+      "applicationRequiredCount": 17,
+      "applicationCompatibleCount": 27,
+      "applicationNotApplicableCount": 46,
+      "kpApplicationClassificationComplete": true,
+      "canonicalOperationModelsComplete": false,
       "forcedStoryAuthoringAllowed": false
     },
     {"waveId":"W03","state":"BLOCKED_BY_PREVIOUS_WAVE","completedGates":[],"admissionGateComplete":false,"productionAdmissionGranted":false},
@@ -142,6 +155,7 @@
       "POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision",
       "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
       "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
+      "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
       "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
     ],
     "authoritativeState": [
@@ -163,6 +177,7 @@
       "w02-source13-pdf-evidence-inventory.json",
       "w02-source13-pdf-evidence-policy.json",
       "POSTG-APP-W02-A01A.claim.json"
+      ,"POSTG-APP-W02-A01B.claim.json"
     ],
     "runtimeConsumer": [
       "postg-app-master-controller.mjs",
@@ -173,7 +188,8 @@
       "w01-worksheet-shadow-review.mjs",
       "w01-a06e-operator-approval-runtime.mjs",
       "w02-source13-application-assessment.mjs",
-      "w02-source13-pdf-evidence-runtime.mjs"
+      "w02-source13-pdf-evidence-runtime.mjs",
+      "w02-page-knowledge-operation-candidates.mjs"
     ],
     "readback": [
       "validate-postg-app-m00-master-controller.mjs",
@@ -184,9 +200,10 @@
       "validate-postg-app-w01-a04-worksheet-shadow-review.mjs",
       "validate-postg-app-w01-a06e-operator-approval.mjs",
       "validate-postg-app-w02-a00-assessment.mjs",
-      "validate-postg-app-w02-a01a-source-pdf-evidence.mjs"
+      "validate-postg-app-w02-a01a-source-pdf-evidence.mjs",
+      "validate-postg-app-w02-a01b-page-knowledge-operation-candidates.mjs"
     ]
   },
-  "nextShortestStep": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "nextShortestStep": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
   "stopReason": "NONE"
 }

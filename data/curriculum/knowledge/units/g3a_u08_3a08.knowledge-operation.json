@@ -1,0 +1,19 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g3a_u08_3a08", "queueOrdinal": 1, "sourceCode": "3a08", "sourceTitle": "分數", "domainFamily": "fraction_representation_and_part_whole",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "bd36711350928994abe921a4a3b801dd3333566a83ff1586c74c1ad7990c2708", "contentIdentityGroup": "pdf_bd3671135092", "pageCount": 2, "reviewedPages": [1, 2], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g3a_u08_part_whole_fraction", "name": "等分整體與分數意義", "scope": "由連續量或離散集合的等分圖辨識分母、分子與所取部分。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "核心是表徵與名詞辨識，不應為此強加生活故事。"},
+    {"candidateId": "kp_g3a_u08_unit_fraction_accumulation", "name": "單位分數累積", "scope": "以若干個單位分數組成指定分數。", "evidencePages": [1], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可用分食或測量份量承載，但純圖示與數線亦完整。"},
+    {"candidateId": "kp_g3a_u08_discrete_set_fraction", "name": "離散集合的分數與單位換算", "scope": "由每盒固定個數，在個數與盒的分數之間互換。", "evidencePages": [1], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源題以蛋糕盒與顆數的數量角色建立分數意義。"},
+    {"candidateId": "kp_g3a_u08_measurement_fraction", "name": "測量量的分數表示", "scope": "在等分刻度上表示長度或容量的分數量。", "evidencePages": [1], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源直接使用公尺與杯量，單位和量尺語意不可移除。"},
+    {"candidateId": "kp_g3a_u08_whole_as_fraction", "name": "整體等於分母分之分母", "scope": "辨認一個完整整體可寫成 d/d。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬分數等值結構，可由圖示或符號直接評量。"},
+    {"candidateId": "kp_g3a_u08_same_denominator_compare", "name": "同分母分數比較", "scope": "比較同分母分數及其與 1 的大小。", "evidencePages": [2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可比較實際份量，也可維持數線或符號比較。"},
+    {"candidateId": "kp_g3a_u08_unlike_denominator_comparison_limit", "name": "異分母比較限制", "scope": "辨識異分母時不可只比較分子。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "這是比較策略的概念邊界，不是情境數量關係。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 7, "applicationRequiredCount": 2, "applicationCompatibleCount": 2, "applicationNotApplicableCount": 3},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

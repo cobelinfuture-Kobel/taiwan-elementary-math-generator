@@ -1,0 +1,19 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g4b_u08_4b08", "queueOrdinal": 8, "sourceCode": "4b08", "sourceTitle": "等值分數", "domainFamily": "equivalent_fraction_structure",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "fbc1dc932ca4598d6e3ce5f06d661e5c9a6c201c3224f6d9fd6d2339939265b4", "contentIdentityGroup": "pdf_fbc1dc932ca4", "pageCount": 3, "reviewedPages": [1, 2, 3], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g4b_u08_generate_equivalent_fraction", "name": "擴分與約分產生等值分數", "scope": "以分子分母同乘或同除產生等值分數及補缺數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬分數等值的形式操作。"},
+    {"candidateId": "kp_g4b_u08_equivalence_cross_product", "name": "交叉乘積判定等值", "scope": "以交叉乘積判斷兩分數是否等值。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "重點是代數式判定而非情境關係。"},
+    {"candidateId": "kp_g4b_u08_fraction_compare_cross_product", "name": "異分母分數比較", "scope": "以交叉乘積或等值分數比較異分母分數。", "evidencePages": [1, 3], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可比較份量，也可維持純分數比較。"},
+    {"candidateId": "kp_g4b_u08_unlike_denominator_add_sub", "name": "異分母分數加減", "scope": "先通分再進行分數加減。", "evidencePages": [1], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可處理合併與差量，但來源亦包含純算式。"},
+    {"candidateId": "kp_g4b_u08_fraction_decimal_conversion", "name": "分數與有限小數互換", "scope": "把分母可化為 10 或 100 的分數轉為小數，並反向轉換。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬表徵與等值轉換。"},
+    {"candidateId": "kp_g4b_u08_fraction_number_line_distance", "name": "分數數線座標、移動與距離", "scope": "在分數數線上定位、移動並求兩點距離。", "evidencePages": [2, 3], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "來源以抽象數線作為核心表徵。"},
+    {"candidateId": "kp_g4b_u08_mixed_fraction_order_constraints", "name": "等值帶分數排序與界限", "scope": "比較等值或帶分數，並依上下界推定未知分子。", "evidencePages": [3], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "比較可承載份量，但界限推理宜保留結構題。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 7, "applicationRequiredCount": 0, "applicationCompatibleCount": 3, "applicationNotApplicableCount": 4},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

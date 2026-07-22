@@ -1,0 +1,20 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g5a_u01_5a01", "queueOrdinal": 9, "sourceCode": "5a01", "sourceTitle": "多位小數與加減", "domainFamily": "decimal_multi_place_addition_subtraction",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "f56cfe9e3bed688313a29d2fa6e0b90c2aa854b953f7dcfff2822effe439fefe", "contentIdentityGroup": "pdf_f56cfe9e3bed", "pageCount": 2, "reviewedPages": [1, 2], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g5a_u01_decimal_read_place", "name": "多位小數讀法與位名", "scope": "讀寫並辨識到百萬分位的多位小數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬小數記數法與位名辨識。"},
+    {"candidateId": "kp_g5a_u01_decimal_compose_decompose", "name": "多位小數組成分解", "scope": "依各位數值組成或展開多位小數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬位值結構與數的組成。"},
+    {"candidateId": "kp_g5a_u01_place_value_factor_relation", "name": "小數位值倍數關係", "scope": "辨識相鄰位值的十倍與十分之一關係。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬十進位內部結構。"},
+    {"candidateId": "kp_g5a_u01_decimal_compare", "name": "多位小數比較", "scope": "依位值比較多位小數或先組成再比較。", "evidencePages": [2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可比較測量數據，也可直接以位值判斷。"},
+    {"candidateId": "kp_g5a_u01_missing_digit_inequality", "name": "多位小數不等式缺位", "scope": "由大小關係推定未知數字。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬位值與約束推理。"},
+    {"candidateId": "kp_g5a_u01_decimal_add_sub", "name": "多位小數加減", "scope": "對齊小數點並補零完成多位小數加減。", "evidencePages": [2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可承載測量合併與差量，也可純計算。"},
+    {"candidateId": "kp_g5a_u01_decimal_round_estimate", "name": "多位小數取概數與估算", "scope": "四捨五入到指定位數並用概數估計加減結果。", "evidencePages": [2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "估算可用真實量，也可維持數值近似題。"},
+    {"candidateId": "kp_g5a_u01_inverse_rounding_range", "name": "由概數反推原數範圍", "scope": "依四捨五入結果求原小數的可能上下界。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬區間與逆向取概數推理。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 8, "applicationRequiredCount": 0, "applicationCompatibleCount": 3, "applicationNotApplicableCount": 5},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

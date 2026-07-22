@@ -62,11 +62,11 @@ test('E5 admission does not imply public route activation or program D0', () => 
   assert.equal(materialized.controller.controllerState.productionAdmission.publicRouteChanged, false);
 });
 
-test('controller closes W01 admission blocker and activates only W02 assessment', () => {
+test('controller preserves W01 admission while W02 advances without production admission', () => {
   const states = materialized.controller.controllerState.waveStates;
   assert.deepEqual(states.map((row) => row.state), [
     'PRODUCTION_ADMITTED',
-    'ASSESSMENT_READY',
+    'KP_CLASSIFICATION_COMPLETE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
@@ -74,6 +74,8 @@ test('controller closes W01 admission blocker and activates only W02 assessment'
   ]);
   assert.equal(states[0].productionAdmissionGranted, true);
   assert.equal(states[1].productionAdmissionGranted, false);
+  assert.equal(states[1].kpApplicationClassificationComplete, true);
+  assert.equal(states[1].canonicalOperationModelsComplete, false);
   assert.equal(materialized.controller.wavePlan.coverage.productionAdmittedWaveCount, 1);
 });
 
