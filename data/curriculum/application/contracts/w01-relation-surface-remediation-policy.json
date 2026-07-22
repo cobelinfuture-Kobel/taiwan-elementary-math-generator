@@ -1,0 +1,164 @@
+{
+  "schemaName": "POSTGAPPW01RelationSurfaceRemediationPolicyV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A06C_RelationSpecificSurfaceTemplatesAndTitleSuppression",
+  "status": "SHADOW_SURFACE_REMEDIATION_PRODUCTION_ADMISSION_FORBIDDEN",
+  "semanticRuntime": "src/curriculum/application/w01-semantic-class-quantity-schema-runtime.mjs",
+  "a05ExactRuntime": "src/curriculum/application/w01-e4-production-review-runtime.mjs",
+  "visibleTitlePolicy": {
+    "questionLevelMacroTitleAllowed": false,
+    "questionLevelMacroPrefixAllowed": false,
+    "macroContextRetainedInMetadata": true,
+    "visibleTitleValue": null
+  },
+  "surfaceModeBySuitability": {
+    "APPLICATION_REQUIRED": "RELATION_APPLICATION",
+    "APPLICATION_OPTIONAL": "NUMERIC_PRESERVED_PENDING_SURFACE_ADMISSION",
+    "NUMERIC_ONLY": "NUMERIC_PRESERVED"
+  },
+  "templateFamilyBySemanticClass": {
+    "COMPARE_TWO_GROUPS_SAME_MEASURE": "REL_COMPARE_TWO_GROUPS_V1",
+    "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE": "REL_RANGE_MEMBERSHIP_V1",
+    "JOIN_RESULT_TOTAL": "REL_JOIN_TOTAL_V1",
+    "SEPARATE_REMAINDER_OR_DIFFERENCE": "REL_SEPARATE_REMAINDER_V1",
+    "EQUAL_GROUPS_TOTAL": "REL_EQUAL_GROUPS_TOTAL_V1",
+    "EQUAL_SHARE_PER_GROUP": "REL_EQUAL_SHARE_V1",
+    "COMPLETE_GROUP_COUNT_FLOOR": "REL_COMPLETE_GROUPS_FLOOR_V1",
+    "REQUIRED_GROUP_COUNT_CEILING": "REL_REQUIRED_GROUPS_CEILING_V1",
+    "PLACE_VALUE_COMPOSITION": "NUMERIC_PLACE_VALUE_COMPOSITION_V1",
+    "PLACE_VALUE_EXCHANGE": "NUMERIC_PLACE_VALUE_EXCHANGE_V1",
+    "MULTI_STEP_STRUCTURED": "REL_EXISTING_STRUCTURED_APPLICATION_V1",
+    "NUMERIC_ONLY": "NUMERIC_PRESERVED_V1"
+  },
+  "scenarioProfiles": {
+    "gctx_macro_health_sports": {
+      "actorA": "甲隊",
+      "actorB": "乙隊",
+      "entity": "運動會集點卡",
+      "unit": "張"
+    },
+    "gctx_macro_environment_conservation": {
+      "actor": "清理小組",
+      "entity": "寶特瓶",
+      "unit": "個"
+    },
+    "gctx_macro_food_agriculture": {
+      "actor": "育苗人員",
+      "entity": "幼苗",
+      "unit": "株",
+      "groupUnit": "盤"
+    },
+    "gctx_macro_water_energy": {
+      "actor": "管理人員",
+      "entity": "飲用水",
+      "unit": "公升",
+      "groupUnit": "個水桶"
+    },
+    "gctx_macro_household_family": {
+      "actor": "家人",
+      "entity": "水餃",
+      "unit": "顆",
+      "groupUnit": "人"
+    },
+    "gctx_macro_disaster_resilience": {
+      "actor": "物資整理小組",
+      "entity": "橘子",
+      "unit": "顆",
+      "groupUnit": "盒"
+    },
+    "gctx_macro_commerce_budget": {
+      "actor": "倉庫人員",
+      "entity": "貨物",
+      "unit": "箱",
+      "candidateA": "A批",
+      "candidateB": "B批"
+    },
+    "gctx_macro_future_sustainability": {
+      "actor": "校園設計小組",
+      "entity": "節能貼紙",
+      "unit": "張"
+    }
+  },
+  "preserveAuthenticApplicationPatternSpecs": [
+    "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+    "ps_g3b_u08_total_daily_saving_accumulation",
+    "ps_g5a_u02_equal_partition_all_segment_counts"
+  ],
+  "specificPatternOverrides": {
+    "ps_g4a_u08_app_adjusted_amount_then_subtract": "REL_TICKET_DISCOUNT_CHANGE_V1",
+    "ps_g5a_u08_app_group_select": "REL_GROUP_SELECT_FROM_EQUAL_BOXES_V1"
+  },
+  "naturalPromptCleanup": {
+    "removeTrailingFragments": [
+      "請列成一個。",
+      "請列成一個算式。"
+    ],
+    "collapseWhitespace": true,
+    "normalizeChinesePunctuation": true
+  },
+  "numericPreservation": {
+    "arabicNumberMultisetMustMatchOriginalPrompt": true,
+    "exactMathWitnessMustRemainEqual": true,
+    "newNumericFactsAllowed": false
+  },
+  "quantityVisibility": {
+    "everyDistinctApplicationNumberMustAppearWithUnitAtLeastOnce": true,
+    "symbolicRestatementAfterBoundFactsAllowed": true,
+    "genericUnitAllowed": false,
+    "forbiddenUnits": [
+      "份",
+      "UNBOUND_UNIT_CANDIDATE"
+    ]
+  },
+  "relationSurfaceRequirements": {
+    "COMPARE_TWO_GROUPS_SAME_MEASURE": [
+      "TWO_NAMED_GROUPS",
+      "SAME_ENTITY",
+      "SAME_UNIT",
+      "RELATION_SYMBOL_TARGET"
+    ],
+    "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE": [
+      "LOWER_BOUND",
+      "UPPER_BOUND",
+      "AT_LEAST_TWO_CANDIDATES",
+      "SAME_UNIT",
+      "SELECTION_TARGET"
+    ],
+    "JOIN_RESULT_TOTAL": [
+      "INITIAL_QUANTITY",
+      "JOINED_QUANTITY",
+      "SAME_ENTITY_AND_UNIT",
+      "TOTAL_TARGET"
+    ],
+    "SEPARATE_REMAINDER_OR_DIFFERENCE": [
+      "INITIAL_QUANTITY",
+      "REMOVED_OR_COMPARED_QUANTITY",
+      "SAME_ENTITY_AND_UNIT",
+      "REMAINDER_OR_DIFFERENCE_TARGET"
+    ],
+    "EQUAL_GROUPS_TOTAL": [
+      "PER_GROUP_QUANTITY",
+      "GROUP_COUNT",
+      "TOTAL_TARGET"
+    ],
+    "EQUAL_SHARE_PER_GROUP": [
+      "TOTAL_QUANTITY",
+      "GROUP_COUNT_OR_PARTITION_RULE",
+      "PER_GROUP_OR_PARTITION_SET_TARGET"
+    ],
+    "COMPLETE_GROUP_COUNT_FLOOR": [
+      "TOTAL_QUANTITY",
+      "GROUP_CAPACITY",
+      "COMPLETE_GROUP_TARGET",
+      "REMAINDER_NOT_COUNTED"
+    ]
+  },
+  "forbiddenVisiblePatterns": [
+    "^在(?:公益、合作與資源共享|商業、交易與預算|社區、公民與公共服務|文化、歷史與地方記憶|資料、統計與公共資訊|防災、應變與韌性|環境保護與生態保育|食物、農業與生產|未來生活與永續設計|健康、運動與競賽|家庭與日常生活|學校與學習|科學、科技與觀察|交通、移動與行程|水資源與能源|工作流程、物流與配送)",
+    "(?:依照|根據)[^。！？]{0,260}(?:[+\\-×÷=]|□|○)[^。！？]{0,260}(?:求出|判斷)",
+    "(?:求出|判斷)[^。！？]{0,24}(?:總量|需求|結論|安排)"
+  ],
+  "humanNaturalnessReviewRequired": true,
+  "productionAdmissionAllowed": false
+}
