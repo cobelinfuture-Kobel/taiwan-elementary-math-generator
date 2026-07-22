@@ -4,8 +4,8 @@
   "status": "PASS",
   "productionUse": "allowed_deployed_ui_print",
   "goalDistance": "D0_G4B_U04_R2_CLOSED",
-  "deploymentSha": "63e8560eea012d00f525b94bc8afd723d905cc5b",
-  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g4bU04R2F=63e8560eea012d00f525b94bc8afd723d905cc5b-1784687610980",
+  "deploymentSha": "4b6cf5d03fd34e7355ac172971e9fcbbb2ce4297",
+  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g4bU04R2F=4b6cf5d03fd34e7355ac172971e9fcbbb2ce4297-1784689583305",
   "sourceId": "g4b_u04_4b04",
   "localAuthority": {
     "promotion": {
@@ -143,12 +143,12 @@
   },
   "workflow": "G4B-U04 R2F Deployed Pages Smoke",
   "run": {
-    "id": "29886107451",
-    "number": "133",
+    "id": "29887531992",
+    "number": "134",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29886107451"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/29887531992"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-22T02:33:33.867Z"
+  "verifiedAt": "2026-07-22T03:06:30.061Z"
 }
