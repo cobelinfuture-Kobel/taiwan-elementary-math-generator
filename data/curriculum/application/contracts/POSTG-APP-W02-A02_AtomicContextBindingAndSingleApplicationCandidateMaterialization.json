@@ -1,0 +1,96 @@
+{
+  "schemaName": "POSTGAPPW02A02AtomicContextBindingAndSingleApplicationCandidateMaterializationContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
+  "contractId": "POSTG_APP_W02_ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_PACK_V1",
+  "status": "SHADOW_CANDIDATE_PACK_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "dependencies": {
+    "w02PatternSpecTask": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+    "masterControllerTask": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+    "globalContextTask": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authority": {
+    "recordSchema": "data/curriculum/application/schema/w02-atomic-context-single-application-candidate.schema.json",
+    "selectionPolicy": "data/curriculum/application/assessment/w02-atomic-context-binding-policy.json",
+    "packIndex": "data/curriculum/application/assessment/w02-atomic-context-single-application-candidate-pack-index.json",
+    "resolver": "src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs"
+  },
+  "candidateRules": {
+    "oneCandidatePerApplicationPatternSpec": true,
+    "expectedApplicationPatternSpecCount": 61,
+    "expectedAtomicContextBindingCount": 61,
+    "expectedSingleApplicationCandidateCount": 61,
+    "primaryTargetCount": 1,
+    "applicationMode": "SINGLE_DIRECT",
+    "candidateStatus": "CONTEXT_BOUND_CANDIDATE",
+    "fullyInstantiatedNumericQuestion": false,
+    "productionAdmissionAllowed": false
+  },
+  "largeContextDiversity": {
+    "selectionPolicy": "DUPLICATE_PARITY_THEN_UNIT_AND_GLOBAL_MACRO_BALANCE_THEN_SEMANTIC_AFFINITY",
+    "requiredGlobalMacroDomainCount": 16,
+    "minimumMacroDomainsPerUnitWhenCandidateCountAtLeastThree": 3,
+    "nounOnlyVariationCountsAsDiversity": false,
+    "surfaceOnlyVariationCountsAsDiversity": false
+  },
+  "duplicateContentProjection": {
+    "contentIdentityGroup": "pdf_5ba57aff6a97",
+    "sourceNodes": ["g4a_u06_4a06", "g4b_u03_4b03"],
+    "sameNormalizedPatternSpecMustUseSameContextProjection": true
+  },
+  "controllerAdvancement": {
+    "waveId": "W02",
+    "stateAfterTarget": "ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED",
+    "completedGatesAdded": [
+      "SINGLE_APPLICATION_ADMISSION_COMPLETE",
+      "GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE"
+    ],
+    "productionAdmissionGranted": false
+  },
+  "acceptance": {
+    "validationStatus": "PASS_POSTG_APP_W02_A02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATE_PACK",
+    "candidateCountEqualsA01DApplicationPatternSpecCount": true,
+    "contextParentChainMustClose": true,
+    "selectedSurfaceMustBelongToEpisode": true,
+    "allPatternSpecRolesMustRemainTraceable": true,
+    "globalMacroDiversityGateRequired": true,
+    "perUnitMacroDiversityGateRequired": true,
+    "duplicateContentProjectionParityRequired": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "candidateMaterializationAllowed": true,
+    "atomicContextSelectionAllowed": true,
+    "largeContextBalancingAllowed": true,
+    "duplicateContentProjectionPreservationAllowed": true,
+    "roleAndUnitCandidateMaterializationAllowed": true,
+    "controllerStateAdvancementAllowed": true,
+    "knowledgeOperationMutationAllowed": false,
+    "patternSpecMutationAllowed": false,
+    "finalProductionContextAdmissionAllowed": false,
+    "fullyInstantiatedQuestionAuthoringAllowed": false,
+    "nPlusOneProofCompletionAllowed": false,
+    "misconceptionAuthoringAllowed": false,
+    "pblGraphAuthoringAllowed": false,
+    "sharedProductionGeneratorChangeAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_HIDDEN_APPLICATION_PATTERNSPECS_MAIN_VERIFIED",
+    "goalDistanceAfterTarget": "D2_ATOMIC_CONTEXT_AND_SINGLE_APPLICATION_CANDIDATES_MAIN_VERIFIED",
+    "distanceReduced": "All 61 W02 application PatternSpecs receive deterministic atomic-context bindings and non-production single-application candidates across all 16 Macro Context Domains while duplicate PDF projections remain semantically identical.",
+    "remainingBlockers": [
+      "N+1 proof, paired controls and misconception models are incomplete",
+      "PBL dependency and final-product candidates are incomplete",
+      "Numeric fixtures and unique-answer validation are absent",
+      "Shared production runtime and renderer evidence are absent",
+      "Production admission remains intentionally zero"
+    ],
+    "nextShortestStep": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract"
+  }
+}
