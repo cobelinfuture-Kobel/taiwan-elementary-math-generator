@@ -1,0 +1,46 @@
+name: POSTG-APP W01-A06C Relation Surfaces
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/contracts/w01-relation-surface-remediation-policy.json"
+      - "src/curriculum/application/w01-relation-surface-remediation-runtime.mjs"
+      - "tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js"
+      - "tools/curriculum/validate-postg-app-w01-a06c-relation-surfaces.mjs"
+      - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
+      - "docs/curriculum/output/POSTG_APP_W01_A06C_RELATION_SURFACES_READY.marker"
+      - ".github/workflows/postg-app-w01-a06c-relation-surfaces.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w01-a06c-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  relation-surfaces:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run A06C focused relation-surface tests
+        run: node --test tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js
+
+      - name: Run deterministic A06C validator CLI
+        run: node tools/curriculum/validate-postg-app-w01-a06c-relation-surfaces.mjs
+
+      - name: Validate milestone claims
+        run: npm run governance:claims
