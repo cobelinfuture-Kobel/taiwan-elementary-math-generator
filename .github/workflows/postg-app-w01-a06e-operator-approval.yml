@@ -49,9 +49,27 @@ jobs:
         run: node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
 
       - name: Validate master controller transition
+        id: controller_transition
+        continue-on-error: true
         run: |
-          node --test tests/curriculum/postg-app-m00-master-controller.test.js
-          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          mkdir -p docs/curriculum/output/postg-app
+          set -o pipefail
+          {
+            node --test tests/curriculum/postg-app-m00-master-controller.test.js
+            node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          } 2>&1 | tee docs/curriculum/output/postg-app/POSTG_APP_W01_A06E_CONTROLLER_TRANSITION.log
+
+      - name: Upload A06E controller diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postg-app-w01-a06e-controller-diagnostics
+          path: docs/curriculum/output/postg-app/POSTG_APP_W01_A06E_CONTROLLER_TRANSITION.log
+          retention-days: 7
+
+      - name: Block after controller transition failure
+        if: steps.controller_transition.outcome == 'failure'
+        run: exit 1
 
       - name: Run A06 semantic and renderer regressions
         run: |
