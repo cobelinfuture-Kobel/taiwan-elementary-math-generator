@@ -9,6 +9,7 @@ on:
       - "tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js"
       - "tools/curriculum/validate-postg-app-w01-a06c-relation-surfaces.mjs"
       - "tools/governance/bootstrap-postg-app-w01-a06c-surface-fix.mjs"
+      - "tools/governance/bootstrap-postg-app-w01-a06c-compare-fact-fix.mjs"
       - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
       - "docs/curriculum/output/POSTG_APP_W01_A06C_RELATION_SURFACES_READY.marker"
       - ".github/workflows/postg-app-w01-a06c-relation-surfaces.yml"
@@ -40,8 +41,10 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
-      - name: Apply bounded A06C surface fix
-        run: node tools/governance/bootstrap-postg-app-w01-a06c-surface-fix.mjs
+      - name: Apply bounded A06C surface fixes
+        run: |
+          node tools/governance/bootstrap-postg-app-w01-a06c-surface-fix.mjs
+          node tools/governance/bootstrap-postg-app-w01-a06c-compare-fact-fix.mjs
 
       - name: Run A06C focused relation-surface tests
         id: focused_tests
@@ -84,6 +87,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "A06C bounded fixes already committed."
           else
-            git commit -m "fix(application): align A06C prompt authority and KP fixtures"
+            git commit -m "fix(application): align A06C prompt authority and semantic facts"
             git push origin "HEAD:${GITHUB_HEAD_REF}"
           fi
