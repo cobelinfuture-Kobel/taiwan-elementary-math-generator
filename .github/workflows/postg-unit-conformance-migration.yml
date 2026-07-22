@@ -218,15 +218,29 @@ jobs:
           import json
           from pathlib import Path
           from jsonschema import Draft202012Validator
-          schema=json.loads(Path('data/curriculum/knowledge/schema/knowledge-operation-unit.schema.json').read_text())
-          validator=Draft202012Validator(schema)
+          formal_schema=json.loads(Path('data/curriculum/knowledge/schema/knowledge-operation-unit.schema.json').read_text())
+          candidate_schema=json.loads(Path('data/curriculum/application/schema/w02-knowledge-operation-candidate.schema.json').read_text())
+          validators={
+              'KnowledgeOperationUnitRegistry': Draft202012Validator(formal_schema),
+              'POSTGAPPW02KnowledgeOperationCandidateUnitV1': Draft202012Validator(candidate_schema),
+          }
           paths=sorted(Path('data/curriculum/knowledge/units').glob('*.knowledge-operation.json'))
           errors=[]
+          counts={name:0 for name in validators}
           for path in paths:
               value=json.loads(path.read_text())
+              schema_name=value.get('schemaName')
+              validator=validators.get(schema_name)
+              if validator is None:
+                  errors.append((str(path),['schemaName'],f'unsupported registry schemaName: {schema_name!r}'))
+                  continue
+              counts[schema_name] += 1
               errors.extend((str(path),list(e.absolute_path),e.message) for e in validator.iter_errors(value))
-          print(json.dumps({'validatedUnitCount':len(paths),'errors':errors},ensure_ascii=False,indent=2))
-          assert len(paths)==15 and not errors
+          print(json.dumps({'validatedRegistryCount':len(paths),'registryCounts':counts,'errors':errors},ensure_ascii=False,indent=2))
+          assert counts=={
+              'KnowledgeOperationUnitRegistry':15,
+              'POSTGAPPW02KnowledgeOperationCandidateUnitV1':13,
+          } and not errors
           PY
 
       - name: Generate designer Excel and audit CSV
@@ -243,6 +257,8 @@ jobs:
           expected_kp=expected_models=expected_bindings=0
           for path in Path('data/curriculum/knowledge/units').glob('*.knowledge-operation.json'):
               unit=json.loads(path.read_text())
+              if unit.get('schemaName')!='KnowledgeOperationUnitRegistry':
+                  continue
               expected_kp += len(unit['knowledgePoints'])
               expected_models += sum(len(kp['operationModels']) for kp in unit['knowledgePoints'])
               expected_bindings += len(unit['existingQuestionBindings'])
