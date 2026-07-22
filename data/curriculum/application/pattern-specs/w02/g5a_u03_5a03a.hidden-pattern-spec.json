@@ -1,0 +1,862 @@
+{
+  "schemaName": "POSTGAPPW02HiddenPatternSpecUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "sourceNodeId": "g5a_u03_5a03a",
+  "queueOrdinal": 10,
+  "sourceCode": "5a03a",
+  "sourceTitle": "倍數",
+  "domainFamily": "multiple_enumeration_and_periodicity",
+  "patternSpecState": "HIDDEN_PATTERNSPECS_MATERIALIZED_RUNTIME_PENDING",
+  "canonicalOperationAuthority": {
+    "path": "data/curriculum/application/operations/w02/g5a_u03_5a03a.canonical-operation.json",
+    "sha256": "49152186aacf6eb30f7ce854251592e26aef3b04d0dcb19a7e5a2ef4b033c9b1",
+    "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+    "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u03a_multiple_identify_enumerate",
+      "knowledgePointName": "倍數辨識與列舉",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u03a_multiple_identify_enumerate",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a_multiple_identify_enumerate_is_multiple_numeric",
+          "patternGroupId": "pg_g5a_u03a_multiple_identify_enumerate_numeric",
+          "knowledgePointId": "kp_g5a_u03a_multiple_identify_enumerate",
+          "operationModelId": "op_g5a_u03a_multiple_identify_enumerate",
+          "operationFamilyId": "multiple_enumeration",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "isMultiple",
+          "givenRoles": [
+            "base",
+            "candidate",
+            "multiples"
+          ],
+          "answerType": "boolean_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "isMultiple = candidate mod base == 0",
+              "multiples = {base * k | k is positive integer}"
+            ],
+            "numberConstraints": [
+              "base > 0",
+              "candidate >= 0"
+            ],
+            "equivalentForms": [
+              "multiplication table",
+              "exact divisibility"
+            ],
+            "validationInvariants": [
+              "every listed value is divisible by base",
+              "bounded list is complete"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a_multiple_identify_enumerate_multiples_numeric",
+          "patternGroupId": "pg_g5a_u03a_multiple_identify_enumerate_numeric",
+          "knowledgePointId": "kp_g5a_u03a_multiple_identify_enumerate",
+          "operationModelId": "op_g5a_u03a_multiple_identify_enumerate",
+          "operationFamilyId": "multiple_enumeration",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "multiples",
+          "givenRoles": [
+            "base",
+            "candidate",
+            "isMultiple"
+          ],
+          "answerType": "boolean_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "isMultiple = candidate mod base == 0",
+              "multiples = {base * k | k is positive integer}"
+            ],
+            "numberConstraints": [
+              "base > 0",
+              "candidate >= 0"
+            ],
+            "equivalentForms": [
+              "multiplication table",
+              "exact divisibility"
+            ],
+            "validationInvariants": [
+              "every listed value is divisible by base",
+              "bounded list is complete"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_bounded_or_nearest_multiple",
+      "knowledgePointName": "範圍內與最接近的倍數",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g5a_u03a_bounded_or_nearest_multiple",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a_bounded_or_nearest_multiple_bounded_multiples_numeric",
+          "patternGroupId": "pg_g5a_u03a_bounded_or_nearest_multiple_numeric",
+          "knowledgePointId": "kp_g5a_u03a_bounded_or_nearest_multiple",
+          "operationModelId": "op_g5a_u03a_bounded_or_nearest_multiple",
+          "operationFamilyId": "nearest_multiple",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "boundedMultiples",
+          "givenRoles": [
+            "base",
+            "lower",
+            "upper",
+            "target",
+            "nearest"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "boundedMultiples = {base*k | lower <= base*k <= upper}",
+              "nearest = argmin(abs(base*k - target))"
+            ],
+            "numberConstraints": [
+              "base > 0",
+              "lower <= upper"
+            ],
+            "equivalentForms": [
+              "floor/ceiling quotient candidates"
+            ],
+            "validationInvariants": [
+              "bounds are respected",
+              "nearest minimizes absolute distance"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a_bounded_or_nearest_multiple_nearest_numeric",
+          "patternGroupId": "pg_g5a_u03a_bounded_or_nearest_multiple_numeric",
+          "knowledgePointId": "kp_g5a_u03a_bounded_or_nearest_multiple",
+          "operationModelId": "op_g5a_u03a_bounded_or_nearest_multiple",
+          "operationFamilyId": "nearest_multiple",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "nearest",
+          "givenRoles": [
+            "base",
+            "lower",
+            "upper",
+            "target",
+            "boundedMultiples"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "boundedMultiples = {base*k | lower <= base*k <= upper}",
+              "nearest = argmin(abs(base*k - target))"
+            ],
+            "numberConstraints": [
+              "base > 0",
+              "lower <= upper"
+            ],
+            "equivalentForms": [
+              "floor/ceiling quotient candidates"
+            ],
+            "validationInvariants": [
+              "bounds are respected",
+              "nearest minimizes absolute distance"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a_bounded_or_nearest_multiple_bounded_multiples_application",
+          "patternGroupId": "pg_g5a_u03a_bounded_or_nearest_multiple_application",
+          "knowledgePointId": "kp_g5a_u03a_bounded_or_nearest_multiple",
+          "operationModelId": "op_g5a_u03a_bounded_or_nearest_multiple",
+          "operationFamilyId": "nearest_multiple",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "boundedMultiples",
+          "givenRoles": [
+            "base",
+            "lower",
+            "upper",
+            "target",
+            "nearest"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "boundedMultiples = {base*k | lower <= base*k <= upper}",
+              "nearest = argmin(abs(base*k - target))"
+            ],
+            "numberConstraints": [
+              "base > 0",
+              "lower <= upper"
+            ],
+            "equivalentForms": [
+              "floor/ceiling quotient candidates"
+            ],
+            "validationInvariants": [
+              "bounds are respected",
+              "nearest minimizes absolute distance"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a_bounded_or_nearest_multiple_nearest_application",
+          "patternGroupId": "pg_g5a_u03a_bounded_or_nearest_multiple_application",
+          "knowledgePointId": "kp_g5a_u03a_bounded_or_nearest_multiple",
+          "operationModelId": "op_g5a_u03a_bounded_or_nearest_multiple",
+          "operationFamilyId": "nearest_multiple",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "nearest",
+          "givenRoles": [
+            "base",
+            "lower",
+            "upper",
+            "target",
+            "boundedMultiples"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "boundedMultiples = {base*k | lower <= base*k <= upper}",
+              "nearest = argmin(abs(base*k - target))"
+            ],
+            "numberConstraints": [
+              "base > 0",
+              "lower <= upper"
+            ],
+            "equivalentForms": [
+              "floor/ceiling quotient candidates"
+            ],
+            "validationInvariants": [
+              "bounds are respected",
+              "nearest minimizes absolute distance"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_divisibility_rules",
+      "knowledgePointName": "2、3、5、10 的倍數判別",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u03a_divisibility_rules",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a_divisibility_rules_divisible_numeric",
+          "patternGroupId": "pg_g5a_u03a_divisibility_rules_numeric",
+          "knowledgePointId": "kp_g5a_u03a_divisibility_rules",
+          "operationModelId": "op_g5a_u03a_divisibility_rules",
+          "operationFamilyId": "divisibility",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "divisible",
+          "givenRoles": [
+            "value",
+            "divisor"
+          ],
+          "answerType": "boolean",
+          "operationContract": {
+            "canonicalExpressions": [
+              "divisible = divisibilityRule(value, divisor)"
+            ],
+            "numberConstraints": [
+              "divisor in {2,3,5,10}"
+            ],
+            "equivalentForms": [
+              "last-digit rule",
+              "digit-sum rule"
+            ],
+            "validationInvariants": [
+              "rule result equals value mod divisor == 0"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_factor_multiple_relation",
+      "knowledgePointName": "乘法算式中的因數倍數關係",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u03a_factor_multiple_relation",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a_factor_multiple_relation_is_factor_numeric",
+          "patternGroupId": "pg_g5a_u03a_factor_multiple_relation_numeric",
+          "knowledgePointId": "kp_g5a_u03a_factor_multiple_relation",
+          "operationModelId": "op_g5a_u03a_factor_multiple_relation",
+          "operationFamilyId": "factor_multiple_relation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "isFactor",
+          "givenRoles": [
+            "factor",
+            "product",
+            "value",
+            "base",
+            "isMultiple"
+          ],
+          "answerType": "classification_or_boolean",
+          "operationContract": {
+            "canonicalExpressions": [
+              "isFactor = product mod factor == 0",
+              "isMultiple = value mod base == 0"
+            ],
+            "numberConstraints": [
+              "positive integer domain"
+            ],
+            "equivalentForms": [
+              "multiplication equation",
+              "division equation"
+            ],
+            "validationInvariants": [
+              "classification agrees with exact divisibility"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a_factor_multiple_relation_is_multiple_numeric",
+          "patternGroupId": "pg_g5a_u03a_factor_multiple_relation_numeric",
+          "knowledgePointId": "kp_g5a_u03a_factor_multiple_relation",
+          "operationModelId": "op_g5a_u03a_factor_multiple_relation",
+          "operationFamilyId": "factor_multiple_relation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "isMultiple",
+          "givenRoles": [
+            "factor",
+            "product",
+            "value",
+            "base",
+            "isFactor"
+          ],
+          "answerType": "classification_or_boolean",
+          "operationContract": {
+            "canonicalExpressions": [
+              "isFactor = product mod factor == 0",
+              "isMultiple = value mod base == 0"
+            ],
+            "numberConstraints": [
+              "positive integer domain"
+            ],
+            "equivalentForms": [
+              "multiplication equation",
+              "division equation"
+            ],
+            "validationInvariants": [
+              "classification agrees with exact divisibility"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_divisor_multiple_classification",
+      "knowledgePointName": "因數與倍數集合分類",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u03a_divisor_multiple_classification",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a_divisor_multiple_classification_is_factor_numeric",
+          "patternGroupId": "pg_g5a_u03a_divisor_multiple_classification_numeric",
+          "knowledgePointId": "kp_g5a_u03a_divisor_multiple_classification",
+          "operationModelId": "op_g5a_u03a_divisor_multiple_classification",
+          "operationFamilyId": "factor_multiple_relation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "isFactor",
+          "givenRoles": [
+            "factor",
+            "product",
+            "value",
+            "base",
+            "isMultiple"
+          ],
+          "answerType": "classification_or_boolean",
+          "operationContract": {
+            "canonicalExpressions": [
+              "isFactor = product mod factor == 0",
+              "isMultiple = value mod base == 0"
+            ],
+            "numberConstraints": [
+              "positive integer domain"
+            ],
+            "equivalentForms": [
+              "multiplication equation",
+              "division equation"
+            ],
+            "validationInvariants": [
+              "classification agrees with exact divisibility"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a_divisor_multiple_classification_is_multiple_numeric",
+          "patternGroupId": "pg_g5a_u03a_divisor_multiple_classification_numeric",
+          "knowledgePointId": "kp_g5a_u03a_divisor_multiple_classification",
+          "operationModelId": "op_g5a_u03a_divisor_multiple_classification",
+          "operationFamilyId": "factor_multiple_relation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "isMultiple",
+          "givenRoles": [
+            "factor",
+            "product",
+            "value",
+            "base",
+            "isFactor"
+          ],
+          "answerType": "classification_or_boolean",
+          "operationContract": {
+            "canonicalExpressions": [
+              "isFactor = product mod factor == 0",
+              "isMultiple = value mod base == 0"
+            ],
+            "numberConstraints": [
+              "positive integer domain"
+            ],
+            "equivalentForms": [
+              "multiplication equation",
+              "division equation"
+            ],
+            "validationInvariants": [
+              "classification agrees with exact divisibility"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_count_multiples_interval",
+      "knowledgePointName": "區間內倍數個數",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g5a_u03a_count_multiples_interval",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a_count_multiples_interval_count_numeric",
+          "patternGroupId": "pg_g5a_u03a_count_multiples_interval_numeric",
+          "knowledgePointId": "kp_g5a_u03a_count_multiples_interval",
+          "operationModelId": "op_g5a_u03a_count_multiples_interval",
+          "operationFamilyId": "interval_multiple_count",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "count",
+          "givenRoles": [
+            "base",
+            "lower",
+            "upper"
+          ],
+          "answerType": "integer",
+          "operationContract": {
+            "canonicalExpressions": [
+              "count = floor(upper/base) - floor((lower-1)/base)"
+            ],
+            "numberConstraints": [
+              "base > 0",
+              "lower <= upper"
+            ],
+            "equivalentForms": [
+              "enumeration of bounded multiples"
+            ],
+            "validationInvariants": [
+              "count equals the complete bounded set size"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a_count_multiples_interval_count_application",
+          "patternGroupId": "pg_g5a_u03a_count_multiples_interval_application",
+          "knowledgePointId": "kp_g5a_u03a_count_multiples_interval",
+          "operationModelId": "op_g5a_u03a_count_multiples_interval",
+          "operationFamilyId": "interval_multiple_count",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "count",
+          "givenRoles": [
+            "base",
+            "lower",
+            "upper"
+          ],
+          "answerType": "integer",
+          "operationContract": {
+            "canonicalExpressions": [
+              "count = floor(upper/base) - floor((lower-1)/base)"
+            ],
+            "numberConstraints": [
+              "base > 0",
+              "lower <= upper"
+            ],
+            "equivalentForms": [
+              "enumeration of bounded multiples"
+            ],
+            "validationInvariants": [
+              "count equals the complete bounded set size"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a_exact_grouping_feasibility",
+      "knowledgePointName": "整除分組方案可行性",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g5a_u03a_exact_grouping_feasibility",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a_exact_grouping_feasibility_feasible_numeric",
+          "patternGroupId": "pg_g5a_u03a_exact_grouping_feasibility_numeric",
+          "knowledgePointId": "kp_g5a_u03a_exact_grouping_feasibility",
+          "operationModelId": "op_g5a_u03a_exact_grouping_feasibility",
+          "operationFamilyId": "exact_grouping",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "feasible",
+          "givenRoles": [
+            "total",
+            "groupSize"
+          ],
+          "answerType": "boolean_or_integer_selection",
+          "operationContract": {
+            "canonicalExpressions": [
+              "feasible = total mod groupSize == 0"
+            ],
+            "numberConstraints": [
+              "total >= 0",
+              "groupSize > 0"
+            ],
+            "equivalentForms": [
+              "factor membership",
+              "integer quotient"
+            ],
+            "validationInvariants": [
+              "no remainder is allowed for a feasible plan"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a_exact_grouping_feasibility_feasible_application",
+          "patternGroupId": "pg_g5a_u03a_exact_grouping_feasibility_application",
+          "knowledgePointId": "kp_g5a_u03a_exact_grouping_feasibility",
+          "operationModelId": "op_g5a_u03a_exact_grouping_feasibility",
+          "operationFamilyId": "exact_grouping",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "feasible",
+          "givenRoles": [
+            "total",
+            "groupSize"
+          ],
+          "answerType": "boolean_or_integer_selection",
+          "operationContract": {
+            "canonicalExpressions": [
+              "feasible = total mod groupSize == 0"
+            ],
+            "numberConstraints": [
+              "total >= 0",
+              "groupSize > 0"
+            ],
+            "equivalentForms": [
+              "factor membership",
+              "integer quotient"
+            ],
+            "validationInvariants": [
+              "no remainder is allowed for a feasible plan"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 7,
+    "numericPatternSpecCount": 11,
+    "applicationPatternSpecCount": 4,
+    "hiddenPatternSpecCount": 15,
+    "visiblePatternSpecCount": 0
+  },
+  "productionBoundary": {
+    "storyTemplatesAuthored": false,
+    "contextBindingsAuthored": false,
+    "generatorConnected": false,
+    "runtimeValidatorConnected": false,
+    "rendererConnected": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_MATERIALIZATION"
+}

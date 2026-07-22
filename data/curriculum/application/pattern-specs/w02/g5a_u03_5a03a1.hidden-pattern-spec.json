@@ -1,0 +1,745 @@
+{
+  "schemaName": "POSTGAPPW02HiddenPatternSpecUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "sourceNodeId": "g5a_u03_5a03a1",
+  "queueOrdinal": 11,
+  "sourceCode": "5a03a1",
+  "sourceTitle": "公倍數",
+  "domainFamily": "common_multiple_and_cycle_alignment",
+  "patternSpecState": "HIDDEN_PATTERNSPECS_MATERIALIZED_RUNTIME_PENDING",
+  "canonicalOperationAuthority": {
+    "path": "data/curriculum/application/operations/w02/g5a_u03_5a03a1.canonical-operation.json",
+    "sha256": "e030039e8f5a026aa996c81613d4efd4c690106c445493c4f7161e753410f593",
+    "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+    "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u03a1_common_multiple_lcm",
+      "knowledgePointName": "公倍數與最小公倍數",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u03a1_common_multiple_lcm",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a1_common_multiple_lcm_common_multiples_numeric",
+          "patternGroupId": "pg_g5a_u03a1_common_multiple_lcm_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_common_multiple_lcm",
+          "operationModelId": "op_g5a_u03a1_common_multiple_lcm",
+          "operationFamilyId": "lcm",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "commonMultiples",
+          "givenRoles": [
+            "left",
+            "right",
+            "leastCommonMultiple"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "commonMultiples = multiples(left) intersection multiples(right)",
+              "leastCommonMultiple = min(commonMultiples)"
+            ],
+            "numberConstraints": [
+              "left > 0",
+              "right > 0"
+            ],
+            "equivalentForms": [
+              "prime-factor LCM",
+              "bounded enumeration"
+            ],
+            "validationInvariants": [
+              "every common multiple is divisible by both inputs",
+              "leastCommonMultiple is the smallest positive member"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a1_common_multiple_lcm_least_common_multiple_numeric",
+          "patternGroupId": "pg_g5a_u03a1_common_multiple_lcm_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_common_multiple_lcm",
+          "operationModelId": "op_g5a_u03a1_common_multiple_lcm",
+          "operationFamilyId": "lcm",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "leastCommonMultiple",
+          "givenRoles": [
+            "left",
+            "right",
+            "commonMultiples"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "commonMultiples = multiples(left) intersection multiples(right)",
+              "leastCommonMultiple = min(commonMultiples)"
+            ],
+            "numberConstraints": [
+              "left > 0",
+              "right > 0"
+            ],
+            "equivalentForms": [
+              "prime-factor LCM",
+              "bounded enumeration"
+            ],
+            "validationInvariants": [
+              "every common multiple is divisible by both inputs",
+              "leastCommonMultiple is the smallest positive member"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_grouping_constraints",
+      "knowledgePointName": "兩種分組規格的共同總量",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g5a_u03a1_grouping_constraints",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a1_grouping_constraints_minimum_total_numeric",
+          "patternGroupId": "pg_g5a_u03a1_grouping_constraints_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_grouping_constraints",
+          "operationModelId": "op_g5a_u03a1_grouping_constraints",
+          "operationFamilyId": "common_group_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "minimumTotal",
+          "givenRoles": [
+            "firstGrouping",
+            "secondGrouping"
+          ],
+          "answerType": "integer_quantity",
+          "operationContract": {
+            "canonicalExpressions": [
+              "minimumTotal = lcm(firstGrouping, secondGrouping)"
+            ],
+            "numberConstraints": [
+              "grouping values are positive integers"
+            ],
+            "equivalentForms": [
+              "simultaneous divisibility",
+              "first common multiple"
+            ],
+            "validationInvariants": [
+              "total is divisible by both grouping specifications",
+              "no smaller positive total satisfies both"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a1_grouping_constraints_minimum_total_application",
+          "patternGroupId": "pg_g5a_u03a1_grouping_constraints_application",
+          "knowledgePointId": "kp_g5a_u03a1_grouping_constraints",
+          "operationModelId": "op_g5a_u03a1_grouping_constraints",
+          "operationFamilyId": "common_group_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "minimumTotal",
+          "givenRoles": [
+            "firstGrouping",
+            "secondGrouping"
+          ],
+          "answerType": "integer_quantity",
+          "operationContract": {
+            "canonicalExpressions": [
+              "minimumTotal = lcm(firstGrouping, secondGrouping)"
+            ],
+            "numberConstraints": [
+              "grouping values are positive integers"
+            ],
+            "equivalentForms": [
+              "simultaneous divisibility",
+              "first common multiple"
+            ],
+            "validationInvariants": [
+              "total is divisible by both grouping specifications",
+              "no smaller positive total satisfies both"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_bounded_common_multiples",
+      "knowledgePointName": "指定範圍內的公倍數",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g5a_u03a1_bounded_common_multiples",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a1_bounded_common_multiples_common_multiples_numeric",
+          "patternGroupId": "pg_g5a_u03a1_bounded_common_multiples_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_bounded_common_multiples",
+          "operationModelId": "op_g5a_u03a1_bounded_common_multiples",
+          "operationFamilyId": "lcm",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "commonMultiples",
+          "givenRoles": [
+            "left",
+            "right",
+            "leastCommonMultiple"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "commonMultiples = multiples(left) intersection multiples(right)",
+              "leastCommonMultiple = min(commonMultiples)"
+            ],
+            "numberConstraints": [
+              "left > 0",
+              "right > 0"
+            ],
+            "equivalentForms": [
+              "prime-factor LCM",
+              "bounded enumeration"
+            ],
+            "validationInvariants": [
+              "every common multiple is divisible by both inputs",
+              "leastCommonMultiple is the smallest positive member"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a1_bounded_common_multiples_least_common_multiple_numeric",
+          "patternGroupId": "pg_g5a_u03a1_bounded_common_multiples_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_bounded_common_multiples",
+          "operationModelId": "op_g5a_u03a1_bounded_common_multiples",
+          "operationFamilyId": "lcm",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "leastCommonMultiple",
+          "givenRoles": [
+            "left",
+            "right",
+            "commonMultiples"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "commonMultiples = multiples(left) intersection multiples(right)",
+              "leastCommonMultiple = min(commonMultiples)"
+            ],
+            "numberConstraints": [
+              "left > 0",
+              "right > 0"
+            ],
+            "equivalentForms": [
+              "prime-factor LCM",
+              "bounded enumeration"
+            ],
+            "validationInvariants": [
+              "every common multiple is divisible by both inputs",
+              "leastCommonMultiple is the smallest positive member"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a1_bounded_common_multiples_common_multiples_application",
+          "patternGroupId": "pg_g5a_u03a1_bounded_common_multiples_application",
+          "knowledgePointId": "kp_g5a_u03a1_bounded_common_multiples",
+          "operationModelId": "op_g5a_u03a1_bounded_common_multiples",
+          "operationFamilyId": "lcm",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "commonMultiples",
+          "givenRoles": [
+            "left",
+            "right",
+            "leastCommonMultiple"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "commonMultiples = multiples(left) intersection multiples(right)",
+              "leastCommonMultiple = min(commonMultiples)"
+            ],
+            "numberConstraints": [
+              "left > 0",
+              "right > 0"
+            ],
+            "equivalentForms": [
+              "prime-factor LCM",
+              "bounded enumeration"
+            ],
+            "validationInvariants": [
+              "every common multiple is divisible by both inputs",
+              "leastCommonMultiple is the smallest positive member"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a1_bounded_common_multiples_least_common_multiple_application",
+          "patternGroupId": "pg_g5a_u03a1_bounded_common_multiples_application",
+          "knowledgePointId": "kp_g5a_u03a1_bounded_common_multiples",
+          "operationModelId": "op_g5a_u03a1_bounded_common_multiples",
+          "operationFamilyId": "lcm",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "leastCommonMultiple",
+          "givenRoles": [
+            "left",
+            "right",
+            "commonMultiples"
+          ],
+          "answerType": "integer_or_integer_list",
+          "operationContract": {
+            "canonicalExpressions": [
+              "commonMultiples = multiples(left) intersection multiples(right)",
+              "leastCommonMultiple = min(commonMultiples)"
+            ],
+            "numberConstraints": [
+              "left > 0",
+              "right > 0"
+            ],
+            "equivalentForms": [
+              "prime-factor LCM",
+              "bounded enumeration"
+            ],
+            "validationInvariants": [
+              "every common multiple is divisible by both inputs",
+              "leastCommonMultiple is the smallest positive member"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_rectangle_square_tiling",
+      "knowledgePointName": "長方形拼成最小正方形",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g5a_u03a1_rectangle_square_tiling",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a1_rectangle_square_tiling_square_side_numeric",
+          "patternGroupId": "pg_g5a_u03a1_rectangle_square_tiling_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_rectangle_square_tiling",
+          "operationModelId": "op_g5a_u03a1_rectangle_square_tiling",
+          "operationFamilyId": "square_tiling",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "squareSide",
+          "givenRoles": [
+            "rectangleLength",
+            "rectangleWidth"
+          ],
+          "answerType": "length",
+          "operationContract": {
+            "canonicalExpressions": [
+              "squareSide = lcm(rectangleLength, rectangleWidth)"
+            ],
+            "numberConstraints": [
+              "lengths are positive compatible measures"
+            ],
+            "equivalentForms": [
+              "common-multiple tiling"
+            ],
+            "validationInvariants": [
+              "square side is divisible by both rectangle dimensions",
+              "tiling has no gaps or overlaps"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a1_rectangle_square_tiling_square_side_application",
+          "patternGroupId": "pg_g5a_u03a1_rectangle_square_tiling_application",
+          "knowledgePointId": "kp_g5a_u03a1_rectangle_square_tiling",
+          "operationModelId": "op_g5a_u03a1_rectangle_square_tiling",
+          "operationFamilyId": "square_tiling",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "squareSide",
+          "givenRoles": [
+            "rectangleLength",
+            "rectangleWidth"
+          ],
+          "answerType": "length",
+          "operationContract": {
+            "canonicalExpressions": [
+              "squareSide = lcm(rectangleLength, rectangleWidth)"
+            ],
+            "numberConstraints": [
+              "lengths are positive compatible measures"
+            ],
+            "equivalentForms": [
+              "common-multiple tiling"
+            ],
+            "validationInvariants": [
+              "square side is divisible by both rectangle dimensions",
+              "tiling has no gaps or overlaps"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_factor_multiple_language",
+      "knowledgePointName": "因數倍數公倍數語句辨識",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u03a1_factor_multiple_language",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a1_factor_multiple_language_is_factor_numeric",
+          "patternGroupId": "pg_g5a_u03a1_factor_multiple_language_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_factor_multiple_language",
+          "operationModelId": "op_g5a_u03a1_factor_multiple_language",
+          "operationFamilyId": "factor_multiple_relation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "isFactor",
+          "givenRoles": [
+            "factor",
+            "product",
+            "value",
+            "base",
+            "isMultiple"
+          ],
+          "answerType": "classification_or_boolean",
+          "operationContract": {
+            "canonicalExpressions": [
+              "isFactor = product mod factor == 0",
+              "isMultiple = value mod base == 0"
+            ],
+            "numberConstraints": [
+              "positive integer domain"
+            ],
+            "equivalentForms": [
+              "multiplication equation",
+              "division equation"
+            ],
+            "validationInvariants": [
+              "classification agrees with exact divisibility"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u03a1_factor_multiple_language_is_multiple_numeric",
+          "patternGroupId": "pg_g5a_u03a1_factor_multiple_language_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_factor_multiple_language",
+          "operationModelId": "op_g5a_u03a1_factor_multiple_language",
+          "operationFamilyId": "factor_multiple_relation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "isMultiple",
+          "givenRoles": [
+            "factor",
+            "product",
+            "value",
+            "base",
+            "isFactor"
+          ],
+          "answerType": "classification_or_boolean",
+          "operationContract": {
+            "canonicalExpressions": [
+              "isFactor = product mod factor == 0",
+              "isMultiple = value mod base == 0"
+            ],
+            "numberConstraints": [
+              "positive integer domain"
+            ],
+            "equivalentForms": [
+              "multiplication equation",
+              "division equation"
+            ],
+            "validationInvariants": [
+              "classification agrees with exact divisibility"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u03a1_number_constraint_construction",
+      "knowledgePointName": "倍數條件的數字組成",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u03a1_number_constraint_construction",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u03a1_number_constraint_construction_solutions_numeric",
+          "patternGroupId": "pg_g5a_u03a1_number_constraint_construction_numeric",
+          "knowledgePointId": "kp_g5a_u03a1_number_constraint_construction",
+          "operationModelId": "op_g5a_u03a1_number_constraint_construction",
+          "operationFamilyId": "number_constraint",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "solutions",
+          "givenRoles": [
+            "allowedDigits",
+            "constraints"
+          ],
+          "answerType": "integer_set",
+          "operationContract": {
+            "canonicalExpressions": [
+              "solutions = {n formed from allowedDigits | all divisibility constraints hold}"
+            ],
+            "numberConstraints": [
+              "digit-use rule is explicit",
+              "leading digit is nonzero"
+            ],
+            "equivalentForms": [
+              "divisibility-rule filtering"
+            ],
+            "validationInvariants": [
+              "every solution uses only allowed digits",
+              "solution set is complete"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 6,
+    "numericPatternSpecCount": 9,
+    "applicationPatternSpecCount": 4,
+    "hiddenPatternSpecCount": 13,
+    "visiblePatternSpecCount": 0
+  },
+  "productionBoundary": {
+    "storyTemplatesAuthored": false,
+    "contextBindingsAuthored": false,
+    "generatorConnected": false,
+    "runtimeValidatorConnected": false,
+    "rendererConnected": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_MATERIALIZATION"
+}

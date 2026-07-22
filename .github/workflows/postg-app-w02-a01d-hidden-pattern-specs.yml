@@ -1,0 +1,73 @@
+name: POSTG-APP W02-A01D Hidden PatternSpecs
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/pattern-specs/w02/**"
+      - "data/curriculum/application/schema/w02-hidden-pattern-spec-unit.schema.json"
+      - "data/curriculum/application/contracts/POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization.json"
+      - "data/project/milestones/POSTG-APP-W02-A01D.claim.json"
+      - "tools/curriculum/materialize-postg-app-w02-a01d-hidden-pattern-specs.mjs"
+      - "src/curriculum/application/w02-hidden-pattern-specs.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a01d-hidden-pattern-specs.mjs"
+      - "tests/curriculum/postg-app-w02-a01d-hidden-pattern-specs.test.js"
+      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
+      - "src/curriculum/application/postg-app-master-controller.mjs"
+      - "tests/curriculum/postg-app-m00-master-controller.test.js"
+      - "docs/curriculum/output/POSTG_APP_W02_A01D_HIDDEN_PATTERNSPECS_MATERIALIZED.marker"
+      - "docs/curriculum/output/POSTG_APP_W02_A01D_HIDDEN_PATTERNSPECS_READBACK.md"
+      - ".github/workflows/postg-app-w02-a01d-hidden-pattern-specs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a01d-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  hidden-pattern-specs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: npm install
+      - name: Validate all 13 unit registries against the A01D schema
+        run: |
+          python -m pip install jsonschema
+          python - <<'PY'
+          import glob, json
+          from jsonschema import Draft202012Validator
+
+          schema_path = 'data/curriculum/application/schema/w02-hidden-pattern-spec-unit.schema.json'
+          with open(schema_path, encoding='utf-8') as handle:
+              schema = json.load(handle)
+          validator = Draft202012Validator(schema)
+          paths = sorted(glob.glob('data/curriculum/application/pattern-specs/w02/*.hidden-pattern-spec.json'))
+          assert len(paths) == 13, paths
+          for path in paths:
+              with open(path, encoding='utf-8') as handle:
+                  instance = json.load(handle)
+              errors = sorted(validator.iter_errors(instance), key=lambda error: list(error.path))
+              assert not errors, f'{path}: {errors}'
+          PY
+      - name: Run W02 A01D focused tests and validator
+        run: |
+          node --test tests/curriculum/postg-app-w02-a01d-hidden-pattern-specs.test.js
+          node tools/curriculum/validate-postg-app-w02-a01d-hidden-pattern-specs.mjs
+      - name: Verify materializer is idempotent
+        run: |
+          node tools/curriculum/materialize-postg-app-w02-a01d-hidden-pattern-specs.mjs
+          git diff --exit-code
+      - name: Verify A01C and controller regressions
+        run: |
+          node --test tests/curriculum/postg-app-w02-a01c-canonical-operation-models.test.js
+          node tools/curriculum/validate-postg-app-w02-a01c-canonical-operation-models.mjs
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          npm run governance:claims

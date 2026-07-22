@@ -1,0 +1,1668 @@
+{
+  "schemaName": "POSTGAPPW02HiddenPatternSpecUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "sourceNodeId": "g3b_u07_3b07",
+  "queueOrdinal": 2,
+  "sourceCode": "3b07",
+  "sourceTitle": "分數的加減",
+  "domainFamily": "fraction_addition_subtraction",
+  "patternSpecState": "HIDDEN_PATTERNSPECS_MATERIALIZED_RUNTIME_PENDING",
+  "canonicalOperationAuthority": {
+    "path": "data/curriculum/application/operations/w02/g3b_u07_3b07.canonical-operation.json",
+    "sha256": "e74643db0985fe5c95bd84618f1c372fd211088ccdad59519d8c980b665d7327",
+    "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+    "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3b_u07_quotient_as_fraction",
+      "knowledgePointName": "除法結果的分數表示",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g3b_u07_quotient_as_fraction",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3b_u07_quotient_as_fraction_quotient_numeric",
+          "patternGroupId": "pg_g3b_u07_quotient_as_fraction_numeric",
+          "knowledgePointId": "kp_g3b_u07_quotient_as_fraction",
+          "operationModelId": "op_g3b_u07_quotient_as_fraction",
+          "operationFamilyId": "quotient_fraction",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "quotient",
+          "givenRoles": [
+            "dividend",
+            "divisor"
+          ],
+          "answerType": "fraction",
+          "operationContract": {
+            "canonicalExpressions": [
+              "quotient = dividend / divisor"
+            ],
+            "numberConstraints": [
+              "divisor > 0"
+            ],
+            "equivalentForms": [
+              "dividend ÷ divisor",
+              "dividend/divisor"
+            ],
+            "validationInvariants": [
+              "fraction value equals the division result"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_fraction_unit_conversion",
+      "knowledgePointName": "單位分數與離散單位換算",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g3b_u07_fraction_unit_conversion",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+          "patternGroupId": "pg_g3b_u07_fraction_unit_conversion_numeric",
+          "knowledgePointId": "kp_g3b_u07_fraction_unit_conversion",
+          "operationModelId": "op_g3b_u07_fraction_unit_conversion",
+          "operationFamilyId": "discrete_fraction_conversion",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "itemCount",
+          "givenRoles": [
+            "wholeUnits",
+            "itemsPerWhole",
+            "numerator",
+            "denominator",
+            "fractionalUnits"
+          ],
+          "answerType": "fraction_or_integer_quantity",
+          "operationContract": {
+            "canonicalExpressions": [
+              "itemCount = wholeUnits * itemsPerWhole + numerator * itemsPerWhole / denominator",
+              "fractionalUnits = itemCount / itemsPerWhole"
+            ],
+            "numberConstraints": [
+              "itemsPerWhole > 0",
+              "denominator > 0",
+              "numerator * itemsPerWhole must be divisible by denominator when an integer count is required"
+            ],
+            "equivalentForms": [
+              "itemCount / itemsPerWhole",
+              "mixed unit plus fractional unit"
+            ],
+            "validationInvariants": [
+              "both directions preserve total quantity",
+              "unit roles are not interchangeable"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric",
+          "patternGroupId": "pg_g3b_u07_fraction_unit_conversion_numeric",
+          "knowledgePointId": "kp_g3b_u07_fraction_unit_conversion",
+          "operationModelId": "op_g3b_u07_fraction_unit_conversion",
+          "operationFamilyId": "discrete_fraction_conversion",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "fractionalUnits",
+          "givenRoles": [
+            "wholeUnits",
+            "itemsPerWhole",
+            "numerator",
+            "denominator",
+            "itemCount"
+          ],
+          "answerType": "fraction_or_integer_quantity",
+          "operationContract": {
+            "canonicalExpressions": [
+              "itemCount = wholeUnits * itemsPerWhole + numerator * itemsPerWhole / denominator",
+              "fractionalUnits = itemCount / itemsPerWhole"
+            ],
+            "numberConstraints": [
+              "itemsPerWhole > 0",
+              "denominator > 0",
+              "numerator * itemsPerWhole must be divisible by denominator when an integer count is required"
+            ],
+            "equivalentForms": [
+              "itemCount / itemsPerWhole",
+              "mixed unit plus fractional unit"
+            ],
+            "validationInvariants": [
+              "both directions preserve total quantity",
+              "unit roles are not interchangeable"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
+          "patternGroupId": "pg_g3b_u07_fraction_unit_conversion_application",
+          "knowledgePointId": "kp_g3b_u07_fraction_unit_conversion",
+          "operationModelId": "op_g3b_u07_fraction_unit_conversion",
+          "operationFamilyId": "discrete_fraction_conversion",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "itemCount",
+          "givenRoles": [
+            "wholeUnits",
+            "itemsPerWhole",
+            "numerator",
+            "denominator",
+            "fractionalUnits"
+          ],
+          "answerType": "fraction_or_integer_quantity",
+          "operationContract": {
+            "canonicalExpressions": [
+              "itemCount = wholeUnits * itemsPerWhole + numerator * itemsPerWhole / denominator",
+              "fractionalUnits = itemCount / itemsPerWhole"
+            ],
+            "numberConstraints": [
+              "itemsPerWhole > 0",
+              "denominator > 0",
+              "numerator * itemsPerWhole must be divisible by denominator when an integer count is required"
+            ],
+            "equivalentForms": [
+              "itemCount / itemsPerWhole",
+              "mixed unit plus fractional unit"
+            ],
+            "validationInvariants": [
+              "both directions preserve total quantity",
+              "unit roles are not interchangeable"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
+          "patternGroupId": "pg_g3b_u07_fraction_unit_conversion_application",
+          "knowledgePointId": "kp_g3b_u07_fraction_unit_conversion",
+          "operationModelId": "op_g3b_u07_fraction_unit_conversion",
+          "operationFamilyId": "discrete_fraction_conversion",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "fractionalUnits",
+          "givenRoles": [
+            "wholeUnits",
+            "itemsPerWhole",
+            "numerator",
+            "denominator",
+            "itemCount"
+          ],
+          "answerType": "fraction_or_integer_quantity",
+          "operationContract": {
+            "canonicalExpressions": [
+              "itemCount = wholeUnits * itemsPerWhole + numerator * itemsPerWhole / denominator",
+              "fractionalUnits = itemCount / itemsPerWhole"
+            ],
+            "numberConstraints": [
+              "itemsPerWhole > 0",
+              "denominator > 0",
+              "numerator * itemsPerWhole must be divisible by denominator when an integer count is required"
+            ],
+            "equivalentForms": [
+              "itemCount / itemsPerWhole",
+              "mixed unit plus fractional unit"
+            ],
+            "validationInvariants": [
+              "both directions preserve total quantity",
+              "unit roles are not interchangeable"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_same_denominator_compare",
+      "knowledgePointName": "同分母分數比較與整數改寫",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g3b_u07_same_denominator_compare",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3b_u07_same_denominator_compare_comparison_numeric",
+          "patternGroupId": "pg_g3b_u07_same_denominator_compare_numeric",
+          "knowledgePointId": "kp_g3b_u07_same_denominator_compare",
+          "operationModelId": "op_g3b_u07_same_denominator_compare",
+          "operationFamilyId": "fraction_compare",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "comparison",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "operationContract": {
+            "canonicalExpressions": [
+              "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0"
+            ],
+            "equivalentForms": [
+              "common-denominator comparison",
+              "cross-product comparison",
+              "number-line comparison"
+            ],
+            "validationInvariants": [
+              "comparison must equal the exact rational-number relation"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_same_denominator_add_sub",
+      "knowledgePointName": "同分母分數加減",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g3b_u07_same_denominator_add_sub",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3b_u07_same_denominator_add_sub_result_numeric",
+          "patternGroupId": "pg_g3b_u07_same_denominator_add_sub_numeric",
+          "knowledgePointId": "kp_g3b_u07_same_denominator_add_sub",
+          "operationModelId": "op_g3b_u07_same_denominator_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "fraction",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+              "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0",
+              "subtraction result must satisfy the source scope"
+            ],
+            "equivalentForms": [
+              "common-denominator form",
+              "improper-fraction form",
+              "mixed-number form"
+            ],
+            "validationInvariants": [
+              "result equals exact rational arithmetic",
+              "final form preserves value"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_same_denominator_add_sub_result_application",
+          "patternGroupId": "pg_g3b_u07_same_denominator_add_sub_application",
+          "knowledgePointId": "kp_g3b_u07_same_denominator_add_sub",
+          "operationModelId": "op_g3b_u07_same_denominator_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "fraction",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+              "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0",
+              "subtraction result must satisfy the source scope"
+            ],
+            "equivalentForms": [
+              "common-denominator form",
+              "improper-fraction form",
+              "mixed-number form"
+            ],
+            "validationInvariants": [
+              "result equals exact rational arithmetic",
+              "final form preserves value"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_whole_and_fraction_add_sub",
+      "knowledgePointName": "整數與真分數加減",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g3b_u07_whole_and_fraction_add_sub",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
+          "patternGroupId": "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
+          "knowledgePointId": "kp_g3b_u07_whole_and_fraction_add_sub",
+          "operationModelId": "op_g3b_u07_whole_and_fraction_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "fraction",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+              "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0",
+              "subtraction result must satisfy the source scope"
+            ],
+            "equivalentForms": [
+              "common-denominator form",
+              "improper-fraction form",
+              "mixed-number form"
+            ],
+            "validationInvariants": [
+              "result equals exact rational arithmetic",
+              "final form preserves value"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_whole_and_fraction_add_sub_result_application",
+          "patternGroupId": "pg_g3b_u07_whole_and_fraction_add_sub_application",
+          "knowledgePointId": "kp_g3b_u07_whole_and_fraction_add_sub",
+          "operationModelId": "op_g3b_u07_whole_and_fraction_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "leftNumerator",
+            "leftDenominator",
+            "rightNumerator",
+            "rightDenominator"
+          ],
+          "answerType": "fraction",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+              "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+            ],
+            "numberConstraints": [
+              "leftDenominator > 0",
+              "rightDenominator > 0",
+              "subtraction result must satisfy the source scope"
+            ],
+            "equivalentForms": [
+              "common-denominator form",
+              "improper-fraction form",
+              "mixed-number form"
+            ],
+            "validationInvariants": [
+              "result equals exact rational arithmetic",
+              "final form preserves value"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_combined_fraction_context",
+      "knowledgePointName": "同一整體的分數合併",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g3b_u07_combined_fraction_context",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3b_u07_combined_fraction_context_total_numeric",
+          "patternGroupId": "pg_g3b_u07_combined_fraction_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_combined_fraction_context",
+          "operationModelId": "op_g3b_u07_combined_fraction_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "total",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "original",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_combined_fraction_context_original_numeric",
+          "patternGroupId": "pg_g3b_u07_combined_fraction_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_combined_fraction_context",
+          "operationModelId": "op_g3b_u07_combined_fraction_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "original",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_combined_fraction_context_difference_numeric",
+          "patternGroupId": "pg_g3b_u07_combined_fraction_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_combined_fraction_context",
+          "operationModelId": "op_g3b_u07_combined_fraction_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "difference",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "original"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_combined_fraction_context_total_application",
+          "patternGroupId": "pg_g3b_u07_combined_fraction_context_application",
+          "knowledgePointId": "kp_g3b_u07_combined_fraction_context",
+          "operationModelId": "op_g3b_u07_combined_fraction_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "total",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "original",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_combined_fraction_context_original_application",
+          "patternGroupId": "pg_g3b_u07_combined_fraction_context_application",
+          "knowledgePointId": "kp_g3b_u07_combined_fraction_context",
+          "operationModelId": "op_g3b_u07_combined_fraction_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "original",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_combined_fraction_context_difference_application",
+          "patternGroupId": "pg_g3b_u07_combined_fraction_context_application",
+          "knowledgePointId": "kp_g3b_u07_combined_fraction_context",
+          "operationModelId": "op_g3b_u07_combined_fraction_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "difference",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "original"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_fraction_plus_count_context",
+      "knowledgePointName": "分數量與絕對個數合併",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g3b_u07_fraction_plus_count_context",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+          "patternGroupId": "pg_g3b_u07_fraction_plus_count_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_fraction_plus_count_context",
+          "operationModelId": "op_g3b_u07_fraction_plus_count_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "total",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "original",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+          "patternGroupId": "pg_g3b_u07_fraction_plus_count_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_fraction_plus_count_context",
+          "operationModelId": "op_g3b_u07_fraction_plus_count_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "original",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+          "patternGroupId": "pg_g3b_u07_fraction_plus_count_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_fraction_plus_count_context",
+          "operationModelId": "op_g3b_u07_fraction_plus_count_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "difference",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "original"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_total_application",
+          "patternGroupId": "pg_g3b_u07_fraction_plus_count_context_application",
+          "knowledgePointId": "kp_g3b_u07_fraction_plus_count_context",
+          "operationModelId": "op_g3b_u07_fraction_plus_count_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "total",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "original",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_original_application",
+          "patternGroupId": "pg_g3b_u07_fraction_plus_count_context_application",
+          "knowledgePointId": "kp_g3b_u07_fraction_plus_count_context",
+          "operationModelId": "op_g3b_u07_fraction_plus_count_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "original",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_difference_application",
+          "patternGroupId": "pg_g3b_u07_fraction_plus_count_context_application",
+          "knowledgePointId": "kp_g3b_u07_fraction_plus_count_context",
+          "operationModelId": "op_g3b_u07_fraction_plus_count_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "difference",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "original"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_original_or_difference_context",
+      "knowledgePointName": "由已用、剩餘或差量求未知",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g3b_u07_original_or_difference_context",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3b_u07_original_or_difference_context_total_numeric",
+          "patternGroupId": "pg_g3b_u07_original_or_difference_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_original_or_difference_context",
+          "operationModelId": "op_g3b_u07_original_or_difference_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "total",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "original",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_original_or_difference_context_original_numeric",
+          "patternGroupId": "pg_g3b_u07_original_or_difference_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_original_or_difference_context",
+          "operationModelId": "op_g3b_u07_original_or_difference_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "original",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_original_or_difference_context_difference_numeric",
+          "patternGroupId": "pg_g3b_u07_original_or_difference_context_numeric",
+          "knowledgePointId": "kp_g3b_u07_original_or_difference_context",
+          "operationModelId": "op_g3b_u07_original_or_difference_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "difference",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "original"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_original_or_difference_context_total_application",
+          "patternGroupId": "pg_g3b_u07_original_or_difference_context_application",
+          "knowledgePointId": "kp_g3b_u07_original_or_difference_context",
+          "operationModelId": "op_g3b_u07_original_or_difference_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "total",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "original",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_original_or_difference_context_original_application",
+          "patternGroupId": "pg_g3b_u07_original_or_difference_context_application",
+          "knowledgePointId": "kp_g3b_u07_original_or_difference_context",
+          "operationModelId": "op_g3b_u07_original_or_difference_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "original",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "difference"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g3b_u07_original_or_difference_context_difference_application",
+          "patternGroupId": "pg_g3b_u07_original_or_difference_context_application",
+          "knowledgePointId": "kp_g3b_u07_original_or_difference_context",
+          "operationModelId": "op_g3b_u07_original_or_difference_context",
+          "operationFamilyId": "fraction_context_total",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "difference",
+          "givenRoles": [
+            "firstQuantity",
+            "secondQuantity",
+            "used",
+            "remaining",
+            "total",
+            "original"
+          ],
+          "answerType": "fraction_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "total = firstQuantity + secondQuantity",
+              "original = used + remaining",
+              "difference = larger - smaller"
+            ],
+            "numberConstraints": [
+              "all quantities use a common measure before arithmetic",
+              "result >= 0"
+            ],
+            "equivalentForms": [
+              "join",
+              "part-whole reconstruction",
+              "comparison difference"
+            ],
+            "validationInvariants": [
+              "operation follows the quantity relation",
+              "measurement units remain consistent"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 8,
+    "numericPatternSpecCount": 15,
+    "applicationPatternSpecCount": 13,
+    "hiddenPatternSpecCount": 28,
+    "visiblePatternSpecCount": 0
+  },
+  "productionBoundary": {
+    "storyTemplatesAuthored": false,
+    "contextBindingsAuthored": false,
+    "generatorConnected": false,
+    "runtimeValidatorConnected": false,
+    "rendererConnected": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_MATERIALIZATION"
+}
