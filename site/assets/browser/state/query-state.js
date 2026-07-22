@@ -16,6 +16,9 @@ import {
   getPublicControlProfile,
   normalizePublicControlValue,
 } from "../../../modules/curriculum/registry/public-control-profiles.js";
+import {
+  listW01PublicApplicationGroupsForKnowledgePoint,
+} from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
 const G4A_U08_SOURCE_ID = "g4a_u08_4a08";
@@ -73,12 +76,13 @@ function getVisibleBatchAKnowledgePoint(knowledgePointId) {
 }
 function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
   const latest = approvedLatestKnowledgePoint(knowledgePointId);
+  const w01Groups = listW01PublicApplicationGroupsForKnowledgePoint(knowledgePointId);
   if (latest && LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS.has(latest.sourceId)) {
-    return getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+    return [...getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId), ...w01Groups];
   }
   const baseGroups = getBaseVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
-  if (baseGroups.length > 0) return baseGroups;
-  if (latest) return getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+  if (baseGroups.length > 0) return [...baseGroups, ...w01Groups];
+  if (latest) return [...getLatestVisiblePatternGroupsForKnowledgePoint(knowledgePointId), ...w01Groups];
   if (knowledgePointId !== G3A_U03_WORD_PROBLEM.knowledgePointId) return [];
   return [{
     patternGroupId: G3A_U03_WORD_PROBLEM.patternGroupId,

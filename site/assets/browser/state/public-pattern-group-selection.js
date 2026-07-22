@@ -2,6 +2,9 @@ import {
   getVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
+import {
+  listW01PublicApplicationGroupsForKnowledgePoint,
+} from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 
 const SOURCE_UNIT_MODE = "sourceUnit";
 
@@ -22,11 +25,15 @@ function clone(value) {
 }
 
 function groupsForKnowledgePoint(knowledgePointId) {
-  return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
+  return [
+    ...getVisiblePatternGroupsForKnowledgePoint(knowledgePointId),
+    ...listW01PublicApplicationGroupsForKnowledgePoint(knowledgePointId),
+  ]
     .filter((group) => group?.visibilityStatus === "visible" || group?.visibilityStatus === undefined);
 }
 
 export function getPublicPatternGroupDisplayLabel(group = {}) {
+  if (group.globalContextAdmission === "POSTG-APP-W01-A06E") return "全域情境應用題";
   if (group.representationTag === "numeric") return "計算題";
   if (group.representationTag === "application_word_problem") return "應用題";
   return String(group.displayName ?? "題目形式");
