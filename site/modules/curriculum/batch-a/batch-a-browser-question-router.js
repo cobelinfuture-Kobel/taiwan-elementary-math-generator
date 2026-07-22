@@ -36,6 +36,9 @@ import {
 import {
   attachPostGoldenQuestionLineage,
 } from "../golden/post-golden-question-lineage.js";
+import {
+  applyW01PublicApplicationAdmission,
+} from "./w01-public-application-admission.js";
 
 const G4A_U08_PHASE2B_GROUP_SET = new Set(G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS);
 
@@ -126,7 +129,10 @@ function requestsG4AU08Phase2B(plan = {}) {
 }
 
 function finalizePostGoldenResult(result, options) {
-  return attachPostGoldenQuestionLineage(result, options);
+  return attachPostGoldenQuestionLineage(
+    applyW01PublicApplicationAdmission(result, options),
+    options,
+  );
 }
 
 export function generateBatchABrowserQuestions(options = {}) {

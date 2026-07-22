@@ -4,6 +4,9 @@ import {
   listVisibleBatchAKnowledgePoints,
   resolveVisiblePatternSpecIdsForKnowledgePoint
 } from "../registry/batch-a-selector-extension.js";
+import {
+  listW01PublicApplicationGroupsForKnowledgePoint,
+} from "../registry/w01-public-application-groups.js";
 
 export const BATCH_A_RESOLVER_SELECTION_MODES = Object.freeze({
   SOURCE_UNIT: "sourceUnit",
@@ -281,7 +284,10 @@ function expandPatternGroups({ knowledgePointIds, selectedPatternGroupIds, regis
       rejectedCodes.push(BATCH_A_RESOLVER_ERROR_CODES.KP_NOT_VISIBLE);
       continue;
     }
-    const groups = registry.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+    const baseGroups = registry.getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+    const requestedW01Groups = listW01PublicApplicationGroupsForKnowledgePoint(knowledgePointId)
+      .filter((group) => selectedGroupSet.has(group.patternGroupId));
+    const groups = [...baseGroups, ...requestedW01Groups];
     if (groups.length === 0) {
       rejectedCodes.push(BATCH_A_RESOLVER_ERROR_CODES.PATTERN_GROUP_NOT_VISIBLE);
       continue;
