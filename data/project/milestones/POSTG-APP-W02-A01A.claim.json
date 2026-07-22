@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W02_SOURCE13_PDF_EVIDENCE_HASH_LOCKED_RENDERABLE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w02-source13-pdf-evidence-runtime.mjs",
+      "tools/curriculum/validate-postg-app-w02-a01a-source-pdf-evidence.mjs",
+      "tests/curriculum/postg-app-w02-a01a-source-pdf-evidence.test.js",
+      ".github/workflows/postg-app-w02-a01a-source-pdf-evidence.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+      "data/curriculum/application/evidence/w02-source13-pdf-evidence-policy.json",
+      "data/curriculum/application/contracts/POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification.json",
+      "data/curriculum/application/assessment/w02-source13-source-authority-baseline.json",
+      "data/project/milestones/POSTG-APP-W02-A00.claim.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "docs/curriculum/output/POSTG_APP_W02_A01A_SOURCE_PDF_EVIDENCE_READY.marker",
+      "docs/curriculum/output/POSTG_APP_W02_A01A_SOURCE_PDF_EVIDENCE_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D4",
+    "after": "D4",
+    "distanceReduced": "All 13 W02 source PDF references are now explicitly identified, hash-locked, page-counted, text-layer checked and renderability verified. One byte-identical duplicate evidence group is normalized to 12 unique PDF contents, so A01B can parse evidence once and project source-node-specific KnowledgeOperation candidates without treating duplicate files as independent curriculum evidence."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
