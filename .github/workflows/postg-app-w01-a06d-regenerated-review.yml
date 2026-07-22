@@ -12,6 +12,7 @@ on:
       - "tools/governance/promote-postg-app-w01-a06d-e4-claim.mjs"
       - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
       - "data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json"
+      - "data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json"
       - "docs/curriculum/application/contracts/POSTG_APP_W01_A06_Human_Review_Decision_And_Semantic_Remediation_V1.md"
       - "docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READY.marker"
       - "docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READBACK.md"
@@ -45,12 +46,21 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
-      - name: Detect committed A06D E4 evidence
+      - name: Detect committed A06D evidence and admission level
         id: evidence_state
         run: |
           node - <<'NODE'
           const fs = require('node:fs');
           const claim = JSON.parse(fs.readFileSync('data/project/milestones/POSTG-APP-W01-A06.claim.json', 'utf8'));
+          const levelOrder = new Map([
+            ['E0_PLANNING_ONLY', 0],
+            ['E1_DATA_STRUCTURE_READY', 1],
+            ['E2_CONTENT_AUTHORED', 2],
+            ['E3_SHADOW_RUNTIME_INTEGRATED', 3],
+            ['E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED', 4],
+            ['E5_PRODUCTION_ADMITTED', 5],
+            ['E6_D0_COMPLETE', 6]
+          ]);
           const required = [
             'docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html',
             'docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf',
@@ -60,11 +70,14 @@ jobs:
             'docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READY.marker',
             'docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READBACK.md'
           ];
-          const committed = claim.actualEvidenceLevel === 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+          const level = levelOrder.get(claim.actualEvidenceLevel) ?? -1;
+          const committedEvidence = level >= 4
             && claim.claims?.humanReviewReady === true
-            && claim.claims?.productionAdmitted === false
             && required.every((path) => fs.existsSync(path));
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
+          const admittedE5 = level >= 5 && claim.claims?.productionAdmitted === true;
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_evidence=${committedEvidence}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `admitted_e5=${admittedE5}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `actual_level=${claim.actualEvidenceLevel}\n`);
           NODE
 
       - name: Run A06D focused review-document tests
@@ -77,40 +90,45 @@ jobs:
         run: node --test tests/curriculum/postg-app-w01-a06b-semantic-runtime.test.js
 
       - name: Generate regenerated review HTML and data
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        if: steps.evidence_state.outputs.committed_evidence != 'true'
         run: node tools/curriculum/generate-postg-app-w01-a06d-review-artifacts.mjs
 
       - name: Install Chromium PDF runtime
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        if: steps.evidence_state.outputs.committed_evidence != 'true'
         run: |
           npm install --no-save --package-lock=false playwright@1.51.1
           npx playwright install --with-deps chromium
 
       - name: Render regenerated review PDF with Chromium
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        if: steps.evidence_state.outputs.committed_evidence != 'true'
         run: node tools/curriculum/render-postg-app-w01-a06d-review-pdf.mjs
 
       - name: Install PDF verification tools
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        if: steps.evidence_state.outputs.committed_evidence != 'true'
         run: sudo apt-get update && sudo apt-get install -y poppler-utils
 
       - name: Finalize and verify regenerated E4 evidence
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        if: steps.evidence_state.outputs.committed_evidence != 'true'
         run: node tools/curriculum/finalize-postg-app-w01-a06d-review-evidence.mjs
 
       - name: Promote A06D exact artifacts to E4 claim
-        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        if: steps.evidence_state.outputs.committed_evidence != 'true'
         run: node tools/governance/promote-postg-app-w01-a06d-e4-claim.mjs
 
-      - name: Validate A06D claim and artifact contract
+      - name: Validate A06D evidence without admission regression
         run: |
           npm run governance:claims
           node - <<'NODE'
           const fs = require('node:fs');
           const manifest = JSON.parse(fs.readFileSync('docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json', 'utf8'));
           const claim = JSON.parse(fs.readFileSync('data/project/milestones/POSTG-APP-W01-A06.claim.json', 'utf8'));
-          const review = JSON.parse(fs.readFileSync('data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json', 'utf8'));
-          const ok = manifest.status === 'REGENERATED_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY'
+          const remediation = JSON.parse(fs.readFileSync('data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json', 'utf8'));
+          const levelAllowed = new Set([
+            'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED',
+            'E5_PRODUCTION_ADMITTED',
+            'E6_D0_COMPLETE'
+          ]).has(claim.actualEvidenceLevel);
+          const baseEvidenceOk = manifest.status === 'REGENERATED_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY'
             && manifest.evidenceLevel === 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
             && manifest.exactProductionGeneratorUsed === true
             && manifest.productionRendererUsed === true
@@ -125,13 +143,32 @@ jobs:
             && manifest.promptChangedCount === 16
             && manifest.humanReviewReady === true
             && manifest.productionAdmissionGranted === false
-            && claim.actualEvidenceLevel === 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
             && claim.claims?.humanReviewReady === true
-            && claim.claims?.productionAdmitted === false
-            && review.a06dEvidenceResult?.secondHumanReviewDecision === 'PENDING_SECOND_OPERATOR_DECISION'
-            && review.a06dEvidenceResult?.productionAdmissionGranted === false;
-          if (!ok) process.exit(1);
+            && levelAllowed;
+          let lifecycleOk = false;
+          if (claim.actualEvidenceLevel === 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED') {
+            lifecycleOk = claim.claims?.productionAdmitted === false
+              && remediation.a06dEvidenceResult?.secondHumanReviewDecision === 'PENDING_SECOND_OPERATOR_DECISION'
+              && remediation.a06dEvidenceResult?.productionAdmissionGranted === false;
+          } else {
+            const decisionPath = 'data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json';
+            const decision = fs.existsSync(decisionPath) ? JSON.parse(fs.readFileSync(decisionPath, 'utf8')) : null;
+            lifecycleOk = claim.claims?.productionAdmitted === true
+              && claim.claims?.d0Complete === (claim.actualEvidenceLevel === 'E6_D0_COMPLETE')
+              && decision?.operatorDecision === 'APPROVE'
+              && decision?.productionAdmission?.granted === true;
+          }
+          if (!baseEvidenceOk || !lifecycleOk) process.exit(1);
           NODE
+
+      - name: Assert admitted evidence remains immutable
+        if: steps.evidence_state.outputs.admitted_e5 == 'true'
+        run: |
+          if ! git diff --quiet; then
+            echo "A06D workflow modified files after E5 admission."
+            git diff --stat
+            exit 1
+          fi
 
       - name: Upload regenerated Human Review evidence
         uses: actions/upload-artifact@v4
@@ -148,7 +185,7 @@ jobs:
           retention-days: 30
 
       - name: Commit regenerated E4 artifacts to pull request branch
-        if: steps.evidence_state.outputs.committed_e4 != 'true' && github.event_name == 'pull_request'
+        if: steps.evidence_state.outputs.committed_evidence != 'true' && steps.evidence_state.outputs.admitted_e5 != 'true' && github.event_name == 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
