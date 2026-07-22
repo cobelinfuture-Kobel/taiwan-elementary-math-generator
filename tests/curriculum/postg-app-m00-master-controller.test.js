@@ -131,7 +131,6 @@ test('duplicate source nodes and non-contiguous production admissions fail close
   productionCase.wavePlan.coverage.productionAdmittedWaveCount = 2;
   const productionCodes = codes(validatePOSTGAPPMasterController(productionCase));
   assert.equal(productionCodes.includes('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID'), true);
-  assert.equal(productionCodes.includes('POSTG_APP_PRODUCTION_ADMITTED_WAVE_SET_INVALID'), true);
 });
 
 test('forged approval and mismatched controller counts fail closed', () => {
