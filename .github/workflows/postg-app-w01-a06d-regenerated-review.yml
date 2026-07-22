@@ -1,0 +1,171 @@
+name: POSTG-APP W01-A06D Regenerated Review
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "src/curriculum/application/w01-a06d-production-review-runtime.mjs"
+      - "tests/curriculum/postg-app-w01-a06d-production-review.test.js"
+      - "tools/curriculum/generate-postg-app-w01-a06d-review-artifacts.mjs"
+      - "tools/curriculum/render-postg-app-w01-a06d-review-pdf.mjs"
+      - "tools/curriculum/finalize-postg-app-w01-a06d-review-evidence.mjs"
+      - "tools/governance/promote-postg-app-w01-a06d-e4-claim.mjs"
+      - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
+      - "data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json"
+      - "docs/curriculum/application/contracts/POSTG_APP_W01_A06_Human_Review_Decision_And_Semantic_Remediation_V1.md"
+      - "docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READY.marker"
+      - "docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READBACK.md"
+      - "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW*"
+      - ".github/workflows/postg-app-w01-a06d-regenerated-review.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: postg-app-w01-a06d-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regenerated-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Detect committed A06D E4 evidence
+        id: evidence_state
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const claim = JSON.parse(fs.readFileSync('data/project/milestones/POSTG-APP-W01-A06.claim.json', 'utf8'));
+          const required = [
+            'docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html',
+            'docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf',
+            'docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt',
+            'docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json',
+            'docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json',
+            'docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READY.marker',
+            'docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READBACK.md'
+          ];
+          const committed = claim.actualEvidenceLevel === 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+            && claim.claims?.humanReviewReady === true
+            && claim.claims?.productionAdmitted === false
+            && required.every((path) => fs.existsSync(path));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `committed_e4=${committed}\n`);
+          NODE
+
+      - name: Run A06D focused review-document tests
+        run: node --test tests/curriculum/postg-app-w01-a06d-production-review.test.js
+
+      - name: Run A06C relation-surface regression
+        run: node --test tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js
+
+      - name: Run A06B semantic-runtime regression
+        run: node --test tests/curriculum/postg-app-w01-a06b-semantic-runtime.test.js
+
+      - name: Generate regenerated review HTML and data
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: node tools/curriculum/generate-postg-app-w01-a06d-review-artifacts.mjs
+
+      - name: Install Chromium PDF runtime
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+
+      - name: Render regenerated review PDF with Chromium
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: node tools/curriculum/render-postg-app-w01-a06d-review-pdf.mjs
+
+      - name: Install PDF verification tools
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Finalize and verify regenerated E4 evidence
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: node tools/curriculum/finalize-postg-app-w01-a06d-review-evidence.mjs
+
+      - name: Promote A06D exact artifacts to E4 claim
+        if: steps.evidence_state.outputs.committed_e4 != 'true'
+        run: node tools/governance/promote-postg-app-w01-a06d-e4-claim.mjs
+
+      - name: Validate A06D claim and artifact contract
+        run: |
+          npm run governance:claims
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const manifest = JSON.parse(fs.readFileSync('docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json', 'utf8'));
+          const claim = JSON.parse(fs.readFileSync('data/project/milestones/POSTG-APP-W01-A06.claim.json', 'utf8'));
+          const review = JSON.parse(fs.readFileSync('data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json', 'utf8'));
+          const ok = manifest.status === 'REGENERATED_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY'
+            && manifest.evidenceLevel === 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+            && manifest.exactProductionGeneratorUsed === true
+            && manifest.productionRendererUsed === true
+            && manifest.questionLevelMacroTitleVisible === false
+            && manifest.forbiddenMacroLabelCount === 0
+            && manifest.genericVisibleUnitCount === 0
+            && manifest.reviewCohortQuestionCount === 16
+            && manifest.reviewCohortSourceCount === 12
+            && manifest.reviewCohortMacroContextCount === 16
+            && manifest.mathPreservedCount === 16
+            && manifest.numberFactsPreservedCount === 16
+            && manifest.promptChangedCount === 16
+            && manifest.humanReviewReady === true
+            && manifest.productionAdmissionGranted === false
+            && claim.actualEvidenceLevel === 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+            && claim.claims?.humanReviewReady === true
+            && claim.claims?.productionAdmitted === false
+            && review.a06dEvidenceResult?.secondHumanReviewDecision === 'PENDING_SECOND_OPERATOR_DECISION'
+            && review.a06dEvidenceResult?.productionAdmissionGranted === false;
+          if (!ok) process.exit(1);
+          NODE
+
+      - name: Upload regenerated Human Review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: postg-app-w01-a06d-regenerated-human-review
+          path: |
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json
+            docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READY.marker
+            docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READBACK.md
+          retention-days: 30
+
+      - name: Commit regenerated E4 artifacts to pull request branch
+        if: steps.evidence_state.outputs.committed_e4 != 'true' && github.event_name == 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/project/milestones/POSTG-APP-W01-A06.claim.json \
+            data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json \
+            docs/curriculum/application/contracts/POSTG_APP_W01_A06_Human_Review_Decision_And_Semantic_Remediation_V1.md \
+            docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READY.marker \
+            docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READBACK.md \
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html \
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf \
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt \
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json \
+            docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json
+          if git diff --cached --quiet; then
+            echo "A06D exact E4 artifacts already committed."
+          else
+            git commit -m "docs(application): commit A06D regenerated Human Review evidence"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
