@@ -8,15 +8,13 @@ on:
       - "src/curriculum/application/w01-relation-surface-remediation-runtime.mjs"
       - "tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js"
       - "tools/curriculum/validate-postg-app-w01-a06c-relation-surfaces.mjs"
-      - "tools/governance/bootstrap-postg-app-w01-a06c-surface-fix.mjs"
-      - "tools/governance/bootstrap-postg-app-w01-a06c-compare-fact-fix.mjs"
       - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
       - "docs/curriculum/output/POSTG_APP_W01_A06C_RELATION_SURFACES_READY.marker"
       - ".github/workflows/postg-app-w01-a06c-relation-surfaces.yml"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: postg-app-w01-a06c-${{ github.event.pull_request.number || github.ref }}
@@ -27,11 +25,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout pull request head branch
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,11 +35,6 @@ jobs:
 
       - name: Install project dependencies
         run: npm install
-
-      - name: Apply bounded A06C surface fixes
-        run: |
-          node tools/governance/bootstrap-postg-app-w01-a06c-surface-fix.mjs
-          node tools/governance/bootstrap-postg-app-w01-a06c-compare-fact-fix.mjs
 
       - name: Run A06C focused relation-surface tests
         id: focused_tests
@@ -75,18 +65,3 @@ jobs:
 
       - name: Validate milestone claims
         run: npm run governance:claims
-
-      - name: Commit bounded A06C fixes to pull request branch
-        if: github.event_name == 'pull_request'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            src/curriculum/application/w01-relation-surface-remediation-runtime.mjs \
-            tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js
-          if git diff --cached --quiet; then
-            echo "A06C bounded fixes already committed."
-          else
-            git commit -m "fix(application): align A06C prompt authority and semantic facts"
-            git push origin "HEAD:${GITHUB_HEAD_REF}"
-          fi
