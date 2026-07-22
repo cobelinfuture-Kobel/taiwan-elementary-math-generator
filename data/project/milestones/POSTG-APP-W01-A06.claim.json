@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "taskId": "POSTG-APP-W01-A06_HumanReviewDecisionAndProductionAdmissionRemediation",
   "taskClass": "runtime",
-  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
-  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
-  "claimedStatus": "REGENERATED_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W01_APPLICATION_CAPABILITY_PRODUCTION_ADMITTED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -15,7 +15,7 @@
     "pdfOutputVerified": true,
     "visibleOutputChanged": true,
     "humanReviewReady": true,
-    "productionAdmitted": false,
+    "productionAdmitted": true,
     "d0Complete": false
   },
   "evidence": {
@@ -29,7 +29,11 @@
       "tools/curriculum/validate-postg-app-w01-a06c-relation-surfaces.mjs",
       ".github/workflows/postg-app-w01-a06c-relation-surfaces.yml",
       "src/curriculum/application/w01-a06d-production-review-runtime.mjs",
-      "tests/curriculum/postg-app-w01-a06d-production-review.test.js"
+      "tests/curriculum/postg-app-w01-a06d-production-review.test.js",
+      "src/curriculum/application/w01-a06e-operator-approval-runtime.mjs",
+      "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js",
+      "tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs",
+      ".github/workflows/postg-app-w01-a06e-operator-approval.yml"
     ],
     "rendererTestPaths": [
       "site/modules/renderer/html-renderer-s57f5-extension.js",
@@ -48,22 +52,27 @@
       "data/curriculum/application/contracts/w01-application-semantic-remediation-policy.json",
       "data/curriculum/application/contracts/w01-relation-surface-remediation-policy.json",
       "data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json",
+      "data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json",
       "docs/curriculum/application/contracts/POSTG_APP_W01_A06_Human_Review_Decision_And_Semantic_Remediation_V1.md",
       "docs/curriculum/output/POSTG_APP_W01_A06A_SEMANTIC_CONTRACT_READY.marker",
       "docs/curriculum/output/POSTG_APP_W01_A06B_SEMANTIC_RUNTIME_READY.marker",
       "docs/curriculum/output/POSTG_APP_W01_A06C_RELATION_SURFACES_READY.marker",
       "docs/curriculum/output/POSTG_APP_W01_A06D_REVIEW_DOCUMENT_READY.marker",
+      "docs/curriculum/output/POSTG_APP_W01_A06E_OPERATOR_APPROVAL_READY.marker",
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A05_REVIEW_DATA.json",
       "data/project/milestones/POSTG-APP-W01-A05.claim.json",
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
-      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json"
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json",
+      "data/curriculum/application/controller/postg-app-wave-plan.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json"
     ],
     "reviewArtifactPaths": [
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html",
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf",
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt",
       "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
-      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json"
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json",
+      "data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json"
     ],
     "artifactHashes": [
       {
@@ -96,10 +105,10 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "The relation-specific A06C shadow surfaces now run through the existing production renderer and produce a hash-locked HTML/PDF second Human Review package. Question-level Macro Context titles are absent, mathematical and numeric facts remain exact, concrete units replace generic placeholders, and production admission remains closed pending explicit operator approval."
+    "distanceReduced": "The explicit second operator APPROVE decision removes the final W01 admission blocker. The hash-locked A06D production-equivalent HTML/PDF evidence, relation-specific semantic runtime, quantity and unit bindings, numeric-only boundary and exact mathematical witnesses are now production admitted for authorized runtime consumers; public route activation remains a separate action and the six-wave program is not D0 complete."
   },
   "nextStep": {
-    "taskId": "POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision",
-    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+    "taskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
   }
 }
