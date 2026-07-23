@@ -3,4 +3,4 @@ export {
   validateStudentFacingOperationSurface,
   instantiateStudentFacingPblTaskSet,
   validateStudentFacingPblTaskSet
-} from './student-facing-semantic-context-bridge.mjs';
+} from './student-facing-semantic-v3-adapter.mjs';
