@@ -18,6 +18,7 @@ function visiblePblText(record) {
     ...(record.drivingProblem?.constraints ?? []),
     ...(record.drivingProblem?.successCriteria ?? []),
     ...(record.tasks ?? []).map((task) => task.promptZh),
+    ...(record.finalProduct?.constraintSatisfactionChecks ?? []),
     record.finalProduct?.decisionWitnessCandidate
   ].join(' ');
 }
@@ -71,6 +72,11 @@ test('all 31 PBL records remove governance prose and retain authentic calculatio
     assert.equal(visible.includes('代回原題'), true, visible);
     assert.equal(visible.includes('正確單位'), true, visible);
     assert.notEqual(record.drivingProblem.finalProductType, '可執行方案');
+    assert.deepEqual(record.finalProduct.constraintSatisfactionChecks, [
+      '主要計算答案與題目條件一致',
+      '所有數量都使用正確單位',
+      '最終決定引用至少兩個前段結果'
+    ]);
   }
 });
 
