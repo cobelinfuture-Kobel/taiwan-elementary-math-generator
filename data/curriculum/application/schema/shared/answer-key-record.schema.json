@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/shared/answer-key-record.schema.json",
+  "title": "SharedAnswerKeyRecordV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion","answerKeyRecordId","applicationQuestionRecordId","waveId","sourceNodeId","answerPayload","answerRole","answerUnitCandidate","interpretationStatementCandidate","validationEvidenceRef","productionSelectable"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "answerKeyRecordId": {"type": "string", "pattern": "^answer_key_"},
+    "applicationQuestionRecordId": {"type": "string", "pattern": "^app_qr_"},
+    "waveId": {"type": "string", "pattern": "^W0[1-6]$"},
+    "sourceNodeId": {"type": "string", "pattern": "^g[3-6][ab]_u"},
+    "answerPayload": {},
+    "answerRole": {"type": "string", "minLength": 1},
+    "answerUnitCandidate": {"type": "string", "minLength": 1},
+    "interpretationStatementCandidate": {"type": "string", "minLength": 1},
+    "validationEvidenceRef": {"type": "string", "pattern": "^w02_fixture_"},
+    "productionSelectable": {"const": false}
+  }
+}
