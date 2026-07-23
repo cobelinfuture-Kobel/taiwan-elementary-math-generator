@@ -23,7 +23,7 @@ test('W02 A08 records a fail-closed REVISE decision from the full review cohort'
   assert.equal(result.findings.numeric.rawSlotLeakageCount, 48);
   assert.equal(result.findings.pbl.reviewedCount, 31);
   assert.equal(result.findings.pbl.notFullyInstantiatedCount, 31);
-  assert.equal(result.findings.pbl.internalOperationIdLeakageCount, 31);
+  assert.equal(result.findings.pbl.internalTokenLeakageCount, 31);
   assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview');
 });
 
