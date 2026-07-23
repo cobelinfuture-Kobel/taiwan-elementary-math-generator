@@ -1,0 +1,125 @@
+name: POSTG-APP W02-A07 Human Review Package
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "src/curriculum/application/w02-a07-human-review-package.mjs"
+      - "tools/curriculum/generate-postg-app-w02-a07-review-artifacts.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs"
+      - "tests/curriculum/postg-app-w02-a07-human-review-package.test.js"
+      - "data/curriculum/application/reviews/POSTG-APP-W02-A07_*.json"
+      - "data/project/milestones/POSTG-APP-W02-A07.claim.json"
+      - "docs/curriculum/output/POSTG_APP_W02_A07_*.json"
+      - "docs/curriculum/output/POSTG_APP_W02_A07_*.marker"
+      - ".github/workflows/postg-app-w02-a07-human-review-package.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a07-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  human-review-package:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install project dependencies
+        run: npm install --silent
+      - name: Verify A07 runtime and fail-closed review boundary
+        run: |
+          node --test tests/curriculum/postg-app-w02-a07-human-review-package.test.js
+          node tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs
+      - name: Verify A06 production-equivalent dependency
+        run: |
+          node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
+          node tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs
+      - name: Install Chromium and PDF verification dependencies
+        run: |
+          npm install --silent --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk poppler-utils >/dev/null
+          python -m pip install --quiet pypdf pillow
+      - name: Regenerate exact A06 production-equivalent artifacts
+        run: |
+          node tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs
+          node tools/curriculum/render-postg-app-w02-a06-pdf.mjs
+          node tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs > w02-a06-final-manifest.json
+          python tools/curriculum/verify-postg-app-w02-a06-pdf.py | tee w02-a06-pdf-verification.log
+      - name: Generate A07 human review index, data and manifest
+        run: |
+          node tools/curriculum/generate-postg-app-w02-a07-review-artifacts.mjs | tee w02-a07-generation.log
+      - name: Verify review HTML and artifact hashes
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import { pathToFileURL } from 'node:url';
+          import { resolve } from 'node:path';
+          const browser = await chromium.launch({ headless: true });
+          try {
+            const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+            await page.goto(pathToFileURL(resolve('docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html')).href, { waitUntil: 'load' });
+            const result = await page.evaluate(() => ({
+              marker: document.body.dataset.postgAppW02A07,
+              ready: document.body.dataset.humanReviewReady,
+              applicationRows: document.querySelectorAll('tbody tr').length,
+              links: [...document.querySelectorAll('.artifacts a')].map((a) => a.getAttribute('href'))
+            }));
+            console.log(JSON.stringify(result, null, 2));
+            if (result.marker !== 'true' || result.ready !== 'true') throw new Error('A07 marker invalid');
+            if (result.applicationRows < 92) throw new Error(`Review rows incomplete: ${result.applicationRows}`);
+            if (result.links.length !== 4) throw new Error(`Artifact links invalid: ${result.links.length}`);
+          } finally {
+            await browser.close();
+          }
+          NODE
+          python <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          manifest_path = Path('docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json')
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          assert manifest['status'] == 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY'
+          assert manifest['humanReviewReady'] is True
+          assert manifest['reviewDecision'] == 'NOT_STARTED'
+          assert manifest['productionAdmissionGranted'] is False
+          assert manifest['publicSelectable'] is False
+          assert manifest['artifactHashCount'] == 9
+          for artifact in manifest['artifacts']:
+              path = Path(artifact['path'])
+              assert path.exists(), path
+              assert path.stat().st_size == artifact['sizeBytes'], path
+              assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact['sha256'], path
+          print(json.dumps(manifest, ensure_ascii=False, indent=2))
+          PY
+      - name: Upload A07 human review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a07-production-equivalent-human-review-package
+          path: |
+            docs/curriculum/output/postg-app/w02-a06/
+            docs/curriculum/output/postg-app/w02-a07/
+            w02-a06-final-manifest.json
+            w02-a06-pdf-verification.log
+            w02-a07-generation.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Verify prior waves, controller and governance
+        run: |
+          node --test tests/curriculum/postg-app-w02-a05-shared-worksheet-projection.test.js
+          node --test tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
+      - name: Run full regression suite
+        run: npm test

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W02_HUMAN_REVIEW_PACKAGE_IMPLEMENTED_CI_PENDING",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w02-a07-human-review-package.mjs",
+      "tests/curriculum/postg-app-w02-a07-human-review-package.test.js",
+      "tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs"
+    ],
+    "rendererTestPaths": [
+      "tools/curriculum/generate-postg-app-w02-a07-review-artifacts.mjs",
+      ".github/workflows/postg-app-w02-a07-human-review-package.yml"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/reviews/POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "A07 runtime, full 61-question application review cohort, all 31 PBL task-set review rows, numeric operation-family boundary references and fail-closed review package workflow implemented; exact-head HTML/PDF evidence remains pending."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A07_FinalExactHeadHumanReviewArtifactCIAndControllerPromotion",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
