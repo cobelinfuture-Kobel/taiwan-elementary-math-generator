@@ -31,17 +31,20 @@ const A08R2_TASK = 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDe
 const A08R3_TASK = 'POSTG-APP-W02-A08R3_NumericStudentFacingUnknownRoleGivenSetAndNotationRemediation';
 const A08R3_STATUS = 'W02_A08R3_NUMERIC_SURFACE_REMEDIATED_THIRD_REVIEW_READY';
 const A08R4_TASK = 'POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision';
+const A08R4_STATUS = 'W02_PRODUCTION_ADMITTED_W03_ASSESSMENT_READY';
+const W03_A00_TASK = 'POSTG-APP-W03-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline';
+const A08R4_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json';
 const A08_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08_OperatorHumanReviewDecision.json';
 const A08R2_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision.json';
 
-test('M00 validates the exact 79-node scope with W01 admitted and W02 A08R3 third-review ready', () => {
+test('M00 validates W01 and W02 admitted with W03 assessment-ready', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, A08R3_STATUS);
+  assert.equal(result.status, A08R4_STATUS);
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -49,10 +52,10 @@ test('M00 validates the exact 79-node scope with W01 admitted and W02 A08R3 thir
     goldenBaselineSourceNodeCount: 16,
     remainingSourceNodeCount: 63,
     waveCount: 6,
-    productionAdmittedApplicationUnitCount: 12
+    productionAdmittedApplicationUnitCount: 25
   });
-  assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, A08R4_TASK);
+  assert.equal(result.currentWaveId, 'W03');
+  assert.equal(result.nextShortestStep, W03_A00_TASK);
 });
 
 test('S29C registry and deterministic 79-node queue remain unchanged', () => {
@@ -67,18 +70,18 @@ test('S29C registry and deterministic 79-node queue remain unchanged', () => {
   );
 });
 
-test('Wave 01 remains the only production-admitted wave', () => {
+test('W01 and W02 form the contiguous production-admitted prefix', () => {
   const w01 = resolvePOSTGAPPWave(controller, 'W01');
   assert.equal(w01.goldenUnitIds.length, 15);
   assert.equal(w01.sourceNodes.length, 16);
-  assert.equal(w01.productionSelectable, false);
+  assert.equal(w01.productionSelectable, true);
   assert.equal(w01.productionAdmissionGranted, true);
   assert.equal(w01.currentState.state, 'PRODUCTION_ADMITTED');
   assert.equal(w01.currentState.reviewDecision, 'APPROVE');
   assert.deepEqual(w01.currentState.completedGates, REQUIRED_GATES);
-  assert.deepEqual(controller.controllerState.productionAdmission.admittedWaveIds, ['W01']);
-  assert.equal(controller.controllerState.productionAdmission.applicationUnitCount, 12);
-  assert.equal(controller.controllerState.productionAdmission.waveCount, 1);
+  assert.deepEqual(controller.controllerState.productionAdmission.admittedWaveIds, ['W01', 'W02']);
+  assert.equal(controller.controllerState.productionAdmission.applicationUnitCount, 25);
+  assert.equal(controller.controllerState.productionAdmission.waveCount, 2);
   assert.equal(controller.controllerState.productionAdmission.lastReviewDecision, 'APPROVE');
 
   const composite = controller.unitRegistry.goldenBaselineUnits.find((row) => row.goldenUnitId === 'g5a_u02_5a02');
@@ -86,25 +89,25 @@ test('Wave 01 remains the only production-admitted wave', () => {
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
 });
 
-test('Wave 02 records A08R3 numeric remediation without admission', () => {
+test('Wave 02 records A08R4 approval and production admission', () => {
   const w02 = resolvePOSTGAPPWave(controller, 'W02');
   const state = w02.currentState;
 
   assert.equal(w02.sourceNodes.length, 13);
-  assert.equal(w02.productionAdmissionGranted, false);
-  assert.equal(w02.productionSelectable, false);
-  assert.equal(state.state, A08R3_STATUS);
-  assert.deepEqual(state.completedGates, REQUIRED_GATES.slice(0, 10));
-  assert.equal(state.admissionGateComplete, false);
-  assert.equal(state.productionAdmissionGranted, false);
-  assert.equal(state.reviewDecision, 'REVISE');
-  assert.equal(state.decisionEvidence, A08R2_DECISION_PATH);
-  assert.equal(state.operatorDecisionState, 'SECOND_REVISE_RECORDED');
+  assert.equal(w02.productionAdmissionGranted, true);
+  assert.equal(w02.productionSelectable, true);
+  assert.equal(state.state, 'PRODUCTION_ADMITTED');
+  assert.deepEqual(state.completedGates, REQUIRED_GATES);
+  assert.equal(state.admissionGateComplete, true);
+  assert.equal(state.productionAdmissionGranted, true);
+  assert.equal(state.reviewDecision, 'APPROVE');
+  assert.equal(state.decisionEvidence, A08R4_DECISION_PATH);
+  assert.equal(state.operatorDecisionState, 'THIRD_APPROVE_RECORDED');
   assert.equal(state.remediationState, 'PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY');
   assert.equal(state.studentFacingSemanticRevision, 3);
   assert.equal(state.regeneratedHtmlPdfReviewReady, true);
   assert.equal(state.studentFacingSemanticAuditPass, true);
-  assert.equal(state.productionAdmittedCandidateCount, 0);
+  assert.equal(state.productionAdmittedCandidateCount, 195);
   assert.equal(state.publicSelectableCandidateCount, 0);
 
   assert.equal(state.generatedItemCount, 195);
@@ -205,14 +208,14 @@ test('W02 to W06 preserve deterministic coverage of the remaining 63 nodes', () 
   assert.deepEqual(actual, expected);
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
   assert.deepEqual(controller.controllerState.waveStates.slice(2).map((row) => row.state), [
-    'BLOCKED_BY_PREVIOUS_WAVE',
+    'ASSESSMENT_READY',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE'
   ]);
 });
 
-test('prior evidence levels remain unchanged while A08 stays non-production E4', () => {
+test('prior evidence remains immutable while A08R4 adds the E5 admission claim', () => {
   assert.equal(controller.w01Claim.actualEvidenceLevel, 'E5_PRODUCTION_ADMITTED');
   assert.equal(controller.w01Claim.claims.productionAdmitted, true);
 
@@ -237,6 +240,8 @@ test('prior evidence levels remain unchanged while A08 stays non-production E4',
     assert.equal(claim.claims.productionAdmitted, false);
     assert.equal(claim.claims.d0Complete, false);
   }
+  assert.equal(controller.w02A08R4Claim.actualEvidenceLevel, 'E5_PRODUCTION_ADMITTED');
+  assert.equal(controller.w02A08R4Claim.claims.productionAdmitted, true);
 });
 
 test('duplicate nodes, non-contiguous admissions and unknown gates fail closed', () => {
@@ -245,8 +250,8 @@ test('duplicate nodes, non-contiguous admissions and unknown gates fail closed',
   assert.equal(codes(validatePOSTGAPPMasterController(duplicateCase)).includes('POSTG_APP_SOURCE_NODE_DUPLICATED'), true);
 
   const productionCase = structuredClone(controller);
-  productionCase.wavePlan.waves[2].productionAdmissionGranted = true;
-  productionCase.wavePlan.coverage.productionAdmittedWaveCount = 2;
+  productionCase.wavePlan.waves[3].productionAdmissionGranted = true;
+  productionCase.wavePlan.coverage.productionAdmittedWaveCount = 3;
   assert.equal(codes(validatePOSTGAPPMasterController(productionCase)).includes('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID'), true);
 
   const gateCase = structuredClone(controller);
@@ -269,11 +274,11 @@ test('forged A08 approval, premature admission and semantic-readback failure fai
   assert.equal(codes(validatePOSTGAPPMasterController(readbackCase)).includes('POSTG_APP_W02_A08R1_READBACK_INVALID'), true);
 
   const stateCase = structuredClone(controller);
-  stateCase.controllerState.waveStates[1].productionAdmissionGranted = true;
-  assert.equal(codes(validatePOSTGAPPMasterController(stateCase)).includes('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID'), true);
+  stateCase.controllerState.waveStates[1].productionAdmissionGranted = false;
+  assert.equal(codes(validatePOSTGAPPMasterController(stateCase)).includes('POSTG_APP_W02_PRODUCTION_ADMISSION_STATE_INVALID'), true);
 
   const transitionCase = structuredClone(controller);
-  transitionCase.controllerState.nextShortestStep = 'POSTG-APP-W03-A00';
+  transitionCase.controllerState.nextShortestStep = 'POSTG-APP-W04-A00';
   assert.equal(codes(validatePOSTGAPPMasterController(transitionCase)).includes('POSTG_APP_CONTROLLER_TRANSITION_INVALID'), true);
 });
 

@@ -17,14 +17,14 @@ test('A06E records explicit APPROVE and production admits W01 at E5', () => {
   assert.equal(result.decision, 'APPROVE');
   assert.equal(result.productionAdmissionGranted, true);
   assert.equal(result.publicRouteChanged, false);
-  assert.equal(result.currentWaveId, 'W02');
-  assert.match(result.nextShortestStep, /^POSTG-APP-W02-/);
+  assert.equal(result.currentWaveId, 'W03');
+  assert.equal(result.nextShortestStep, 'POSTG-APP-W03-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline');
   assert.deepEqual(result.counts, {
     reviewedQuestionCount: 16,
     applicationSourceUnitCount: 12,
     macroContextMetadataCount: 16,
     artifactHashCount: 5,
-    productionAdmittedWaveCount: 1
+    productionAdmittedWaveCount: 2
   });
 });
 
@@ -88,7 +88,8 @@ test('controller preserves W01 admission while W02 advances monotonically withou
     'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY',
     'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY',
     'W02_A08R2_SECOND_OPERATOR_REVIEW_REVISE_REQUIRED',
-    'W02_A08R3_NUMERIC_SURFACE_REMEDIATED_THIRD_REVIEW_READY'
+    'W02_A08R3_NUMERIC_SURFACE_REMEDIATED_THIRD_REVIEW_READY',
+    'PRODUCTION_ADMITTED'
   ]);
   const expectedW02HumanReviewReady = reviewReadyStates.has(w02.state);
   assert.equal(w02.humanReviewReady, expectedW02HumanReviewReady);

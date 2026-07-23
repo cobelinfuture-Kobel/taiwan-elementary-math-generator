@@ -4,7 +4,14 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "registryId": "POSTG_APP_SHARED_APPLICATION_CAPABILITY_REGISTRY_V1",
   "status": "SHARED_PROVIDER_REGISTRY_ACTIVE",
-  "providerOrder": ["W01","W02","W03","W04","W05","W06"],
+  "providerOrder": [
+    "W01",
+    "W02",
+    "W03",
+    "W04",
+    "W05",
+    "W06"
+  ],
   "waveProviders": [
     {
       "waveId": "W01",
@@ -20,19 +27,21 @@
       "waveId": "W02",
       "providerId": "W02_A03_A04_SHARED_SHADOW_PROVIDER",
       "providerType": "DYNAMIC_WAVE_PROVIDER",
-      "lifecycleState": "SHARED_SHADOW_VALIDATED",
+      "lifecycleState": "PRODUCTION_ADMITTED",
       "entryMaterialization": "src/curriculum/application/shared/worksheet-projection-runtime.mjs",
       "candidateAuthority": "src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs",
       "validatorAuthority": "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs",
       "shadowProjectionAllowed": true,
-      "productionAdmitted": false,
-      "publicSelectable": false
+      "productionAdmitted": true,
+      "publicSelectable": false,
+      "admissionDecisionPath": "data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json",
+      "productionEvidencePath": "docs/curriculum/output/postg-app/w02-a08r4/POSTG_APP_W02_A08R4_THIRD_OPERATOR_REVIEW_EVIDENCE.json"
     },
     {
       "waveId": "W03",
       "providerId": "W03_RESERVED_APPLICATION_PROVIDER_SLOT",
       "providerType": "RESERVED_FUTURE_WAVE_SLOT",
-      "lifecycleState": "BLOCKED_BY_PREVIOUS_WAVE",
+      "lifecycleState": "ASSESSMENT_READY",
       "entryMaterialization": null,
       "shadowProjectionAllowed": false,
       "productionAdmitted": false,

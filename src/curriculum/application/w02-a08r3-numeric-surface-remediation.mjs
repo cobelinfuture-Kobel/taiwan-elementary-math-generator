@@ -115,9 +115,11 @@ export function validateW02A08R3NumericRemediation(materialized) {
         || record.studentFacingSemanticRevision !== 3)) {
     issues.push(issue('POSTG_APP_W02_A08R3_NON_NUMERIC_SURFACE_DRIFT', 'applicationOrPbl'));
   }
-  if (a06Package.generatedItems.some((item) => item.productionSelectable || item.publicSelectable)
-      || a06Package.projection.access.w02.provider.productionAdmitted
-      || a06Package.projection.access.w02.provider.publicSelectable) {
+  const successorAdmissionPresent = fs.existsSync(path.join(materialized.root, 'data/project/milestones/POSTG-APP-W02-A08R4.claim.json'));
+  const itemAdmissionLeak = a06Package.generatedItems.some((item) => item.productionSelectable || item.publicSelectable);
+  const registryAdmissionLeak = a06Package.projection.access.w02.provider.productionAdmitted
+    || a06Package.projection.access.w02.provider.publicSelectable;
+  if (itemAdmissionLeak || (!successorAdmissionPresent && registryAdmissionLeak)) {
     issues.push(issue('POSTG_APP_W02_A08R3_PREMATURE_ADMISSION', 'boundaries'));
   }
 

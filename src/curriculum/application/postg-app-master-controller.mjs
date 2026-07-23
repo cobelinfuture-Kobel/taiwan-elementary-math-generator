@@ -25,6 +25,15 @@ import {
   W02_A08R3_STATUS,
   W02_A08R4_TASK
 } from './w02-a08r3-numeric-surface-remediation.mjs';
+import {
+  applyW02A08R4ControllerOverlay,
+  loadW02A08R4ControllerEvidence,
+  validateW02A08R4ControllerEvidence
+} from './w02-a08r4-controller-overlay.mjs';
+import {
+  W02_A08R4_STATUS,
+  W03_A00_TASK
+} from './w02-a08r4-third-operator-approval.mjs';
 
 const UNIT_REGISTRY_PATH = 'data/curriculum/application/controller/postg-app-79-unit-registry.json';
 const WAVE_PLAN_PATH = 'data/curriculum/application/controller/postg-app-wave-plan.json';
@@ -124,7 +133,9 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
   const a08r2Evidence = loadW02A08R2ControllerEvidence({ root });
   const a08r2ControllerState = applyW02A08R2ControllerOverlay({ root, controllerState: baseControllerState });
   const a08r3Evidence = loadW02A08R3ControllerEvidence({ root });
-  const controllerState = applyW02A08R3ControllerOverlay({ root, controllerState: a08r2ControllerState });
+  const a08r3ControllerState = applyW02A08R3ControllerOverlay({ root, controllerState: a08r2ControllerState });
+  const a08r4Evidence = loadW02A08R4ControllerEvidence({ root });
+  const controllerState = applyW02A08R4ControllerOverlay({ root, controllerState: a08r3ControllerState });
   const contextAuthority = loadGlobalContextAuthority({ root });
   const sourceNodes = materializeSourceNodes(unitRegistry);
   const goldenRegistries = unitRegistry.goldenBaselineUnits.map((mapping) => {
@@ -162,7 +173,8 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
     w02A08Decision: readJsonIfExists(root, W02_A08_DECISION_PATH),
     w02A08R1Readback: buildW02A08R1Readback({ root }),
     ...a08r2Evidence,
-    ...a08r3Evidence
+    ...a08r3Evidence,
+    ...a08r4Evidence
   };
 }
 
@@ -411,14 +423,14 @@ export function validatePOSTGAPPMasterController(controller) {
 
   const admitted = admissionPrefix(wavePlan.waves);
   if (!admitted.contiguous) issues.push(issue('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID', 'waves'));
-  if (JSON.stringify(admitted.admitted) !== JSON.stringify(['W01'])) issues.push(issue('POSTG_APP_PRODUCTION_ADMITTED_WAVE_SET_INVALID', 'waves'));
+  if (JSON.stringify(admitted.admitted) !== JSON.stringify(['W01', 'W02'])) issues.push(issue('POSTG_APP_PRODUCTION_ADMITTED_WAVE_SET_INVALID', 'waves'));
   if (wavePlan.coverage?.productionAdmittedWaveCount !== admitted.admitted.length) issues.push(issue('POSTG_APP_PRODUCTION_ADMITTED_WAVE_COUNT_MISMATCH', 'coverage.productionAdmittedWaveCount'));
   if (JSON.stringify(wavePlan.admissionGateOrder) !== JSON.stringify(REQUIRED_GATE_ORDER)) issues.push(issue('POSTG_APP_ADMISSION_GATE_ORDER_INVALID', 'admissionGateOrder'));
 
   const expectedStates = [
     'PRODUCTION_ADMITTED',
-    W02_A08R3_STATUS,
-    'BLOCKED_BY_PREVIOUS_WAVE',
+    'PRODUCTION_ADMITTED',
+    'ASSESSMENT_READY',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE'
@@ -435,26 +447,43 @@ export function validatePOSTGAPPMasterController(controller) {
   }
   const w02State = controllerState.waveStates[1];
   if (!Array.isArray(w02State.completedGates)
-      || JSON.stringify(w02State.completedGates) !== JSON.stringify(REQUIRED_GATE_ORDER.slice(0, 10))
-      || w02State.productionAdmissionGranted !== false
-      || w02State.admissionGateComplete !== false
-      || w02State.reviewDecision !== 'REVISE'
-      || w02State.reviewEvidence !== W02_A08R2_EVIDENCE_PATH
-      || w02State.decisionEvidence !== W02_A08R2_DECISION_PATH
-      || !validateW02Metrics(w02State)) {
-    issues.push(issue('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W02'));
+      || JSON.stringify(w02State.completedGates) !== JSON.stringify(REQUIRED_GATE_ORDER)
+      || w02State.productionAdmissionGranted !== true
+      || w02State.admissionGateComplete !== true
+      || w02State.reviewDecision !== 'APPROVE'
+      || w02State.reviewEvidence !== W02_A08R4_EVIDENCE_PATH
+      || w02State.decisionEvidence !== W02_A08R4_DECISION_PATH
+      || w02State.operatorDecisionState !== 'THIRD_APPROVE_RECORDED'
+      || w02State.generatedItemCount !== 195
+      || w02State.numericGeneratedItemCount !== 134
+      || w02State.applicationGeneratedItemCount !== 61
+      || w02State.pblReviewCount !== 31
+      || w02State.numericStudentFacingSemanticRevision !== 4
+      || w02State.unresolvedRequestedRoleSurfaceCount !== 0
+      || w02State.answerEquivalentGivenLeakageCount !== 0
+      || w02State.malformedOrIncoherentNumericSurfaceCount !== 0
+      || w02State.gradeUnsafeNotationCount !== 0
+      || w02State.productionRuntimeAccessEnabled !== true
+      || w02State.publicSelectableCandidateCount !== 0) {
+    issues.push(issue('POSTG_APP_W02_PRODUCTION_ADMISSION_STATE_INVALID', 'controllerState.waveStates.W02'));
   }
-  if (controllerState.currentWaveId !== 'W02'
-      || controllerState.currentCapability !== W02_A08R3_STATUS
-      || controllerState.currentMainlineBlocker !== W02_A08R3_BLOCKER
-      || controllerState.nextShortestStep !== W02_A08R4_TASK) {
+  const w03State = controllerState.waveStates[2];
+  if (w03State.state !== 'ASSESSMENT_READY'
+      || w03State.productionAdmissionGranted !== false
+      || w03State.shadowProjectionAllowed !== false) {
+    issues.push(issue('POSTG_APP_W03_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W03'));
+  }
+  if (controllerState.currentWaveId !== 'W03'
+      || controllerState.currentCapability !== 'W03_ASSESSMENT_READY'
+      || controllerState.currentMainlineBlocker !== 'W03_SOURCE_ASSESSMENT_PENDING'
+      || controllerState.nextShortestStep !== W03_A00_TASK) {
     issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
   }
-  if (controllerState.productionAdmission.applicationUnitCount !== 12
-      || controllerState.productionAdmission.waveCount !== 1
+  if (controllerState.productionAdmission.applicationUnitCount !== 25
+      || controllerState.productionAdmission.waveCount !== 2
       || controllerState.productionAdmission.allowed !== true
       || controllerState.productionAdmission.lastReviewDecision !== 'APPROVE'
-      || JSON.stringify(controllerState.productionAdmission.admittedWaveIds ?? []) !== JSON.stringify(['W01'])
+      || JSON.stringify(controllerState.productionAdmission.admittedWaveIds ?? []) !== JSON.stringify(['W01', 'W02'])
       || controllerState.productionAdmission.publicRouteChanged !== false) {
     issues.push(issue('POSTG_APP_PRODUCTION_ADMISSION_STATE_INVALID', 'controllerState.productionAdmission'));
   }
@@ -524,6 +553,7 @@ export function validatePOSTGAPPMasterController(controller) {
   issues.push(...validateA08Evidence(controller));
   issues.push(...validateW02A08R2ControllerEvidence(controller));
   issues.push(...validateW02A08R3ControllerEvidence(controller));
+  issues.push(...validateW02A08R4ControllerEvidence(controller));
 
   const contextValidation = validateGlobalContextAuthority(controller.contextAuthority);
   if (!contextValidation.ok) issues.push(issue('POSTG_APP_M01_CONTEXT_AUTHORITY_INVALID', 'globalContextAuthority', { contextIssues: contextValidation.issues }));
@@ -560,7 +590,7 @@ export function validatePOSTGAPPMasterController(controller) {
     currentWaveId: controllerState.currentWaveId,
     nextShortestStep: controllerState.nextShortestStep,
     status: issues.length === 0
-      ? W02_A08R3_STATUS
+      ? W02_A08R4_STATUS
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
   };
 }
@@ -574,7 +604,8 @@ export function resolvePOSTGAPPWave(controller, waveId) {
     currentState: controller.controllerState.waveStates.find((row) => row.waveId === waveId) ?? null,
     sourceNodes: wave.sourceNodeIds.map((id) => sourceMap.get(id)).filter(Boolean),
     gateOrder: controller.wavePlan.admissionGateOrder,
-    productionSelectable: false
+    productionSelectable: Boolean(controller.controllerState.waveStates.find((row) => row.waveId === waveId)?.productionAdmissionGranted),
+    publicSelectable: false
   };
 }
 

@@ -122,15 +122,24 @@ export function validateW01A06EOperatorApproval(materialized) {
 
   const w01 = controller.controllerState.waveStates.find((row) => row.waveId === 'W01');
   const w02 = controller.controllerState.waveStates.find((row) => row.waveId === 'W02');
-  if (w01?.state !== 'PRODUCTION_ADMITTED'
-      || w01?.productionAdmissionGranted !== true
-      || w01?.reviewDecision !== 'APPROVE'
-      || w02?.state === 'BLOCKED_BY_PREVIOUS_WAVE'
+  const w03 = controller.controllerState.waveStates.find((row) => row.waveId === 'W03');
+  const successorAdmissionPresent = fs.existsSync(path.join(materialized.root, 'data/project/milestones/POSTG-APP-W02-A08R4.claim.json'));
+  const baseInvalid = w01?.state !== 'PRODUCTION_ADMITTED'
+    || w01?.productionAdmissionGranted !== true
+    || w01?.reviewDecision !== 'APPROVE'
+    || !w02?.completedGates?.includes('SOURCE_NODE_REGISTERED')
+    || !w02?.completedGates?.includes('KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED');
+  const successorInvalid = successorAdmissionPresent
+    ? w02?.state !== 'PRODUCTION_ADMITTED'
+      || w02?.productionAdmissionGranted !== true
+      || w02?.reviewDecision !== 'APPROVE'
+      || w03?.state !== 'ASSESSMENT_READY'
+      || controller.controllerState.currentWaveId !== 'W03'
+    : w02?.state === 'BLOCKED_BY_PREVIOUS_WAVE'
       || w02?.state === 'PRODUCTION_ADMITTED'
-      || !w02?.completedGates?.includes('SOURCE_NODE_REGISTERED')
-      || !w02?.completedGates?.includes('KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED')
       || w02?.productionAdmissionGranted !== false
-      || controller.controllerState.currentWaveId !== 'W02') {
+      || controller.controllerState.currentWaveId !== 'W02';
+  if (baseInvalid || successorInvalid) {
     issues.push(issue('POSTG_APP_W01_A06E_WAVE_TRANSITION_INVALID', 'controllerState.waveStates'));
   }
 

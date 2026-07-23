@@ -4,13 +4,52 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "registryId": "POSTG_APP_SHARED_WAVE_APPLICATION_ADMISSION_REGISTRY_V1",
   "status": "MONOTONIC_ADMISSION_PREFIX_ACTIVE",
-  "admittedWaveIds": ["W01"],
+  "admittedWaveIds": [
+    "W01",
+    "W02"
+  ],
   "waves": [
-    {"waveId":"W01","admissionState":"PRODUCTION_ADMITTED","shadowProjectionAllowed":true,"productionAdmitted":true,"publicSelectable":true},
-    {"waveId":"W02","admissionState":"SHADOW_VALIDATED_NOT_ADMITTED","shadowProjectionAllowed":true,"productionAdmitted":false,"publicSelectable":false},
-    {"waveId":"W03","admissionState":"BLOCKED_BY_PREVIOUS_WAVE","shadowProjectionAllowed":false,"productionAdmitted":false,"publicSelectable":false},
-    {"waveId":"W04","admissionState":"BLOCKED_BY_PREVIOUS_WAVE","shadowProjectionAllowed":false,"productionAdmitted":false,"publicSelectable":false},
-    {"waveId":"W05","admissionState":"BLOCKED_BY_PREVIOUS_WAVE","shadowProjectionAllowed":false,"productionAdmitted":false,"publicSelectable":false},
-    {"waveId":"W06","admissionState":"BLOCKED_BY_PREVIOUS_WAVE","shadowProjectionAllowed":false,"productionAdmitted":false,"publicSelectable":false}
+    {
+      "waveId": "W01",
+      "admissionState": "PRODUCTION_ADMITTED",
+      "shadowProjectionAllowed": true,
+      "productionAdmitted": true,
+      "publicSelectable": true
+    },
+    {
+      "waveId": "W02",
+      "admissionState": "PRODUCTION_ADMITTED",
+      "shadowProjectionAllowed": true,
+      "productionAdmitted": true,
+      "publicSelectable": false
+    },
+    {
+      "waveId": "W03",
+      "admissionState": "ASSESSMENT_READY",
+      "shadowProjectionAllowed": false,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    },
+    {
+      "waveId": "W04",
+      "admissionState": "BLOCKED_BY_PREVIOUS_WAVE",
+      "shadowProjectionAllowed": false,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    },
+    {
+      "waveId": "W05",
+      "admissionState": "BLOCKED_BY_PREVIOUS_WAVE",
+      "shadowProjectionAllowed": false,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    },
+    {
+      "waveId": "W06",
+      "admissionState": "BLOCKED_BY_PREVIOUS_WAVE",
+      "shadowProjectionAllowed": false,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    }
   ]
 }

@@ -50,32 +50,36 @@ export function validateSharedApplicationRegistries(registries) {
     }
   }
 
-  const w01 = providers[0];
-  const w02 = providers[1];
-  if (w01.lifecycleState !== 'PRODUCTION_ADMITTED'
-      || w01.productionAdmitted !== true
-      || w01.publicSelectable !== true) {
-    issues.push(issue('POSTG_APP_SHARED_W01_PROVIDER_STATE_INVALID', 'W01'));
+  const admittedWaveIds = registries.admissionRegistry.admittedWaveIds ?? [];
+  const expectedPrefix = WAVE_ORDER.slice(0, admittedWaveIds.length);
+  if (admittedWaveIds.length === 0
+      || JSON.stringify(admittedWaveIds) !== JSON.stringify(expectedPrefix)) {
+    issues.push(issue('POSTG_APP_SHARED_ADMISSION_PREFIX_INVALID', 'admissionRegistry.admittedWaveIds'));
   }
-  if (w02.providerType !== 'DYNAMIC_WAVE_PROVIDER'
-      || w02.lifecycleState !== 'SHARED_SHADOW_VALIDATED'
-      || w02.shadowProjectionAllowed !== true
-      || w02.productionAdmitted !== false
-      || w02.publicSelectable !== false) {
-    issues.push(issue('POSTG_APP_SHARED_W02_PROVIDER_STATE_INVALID', 'W02'));
-  }
-  for (const provider of providers.slice(2)) {
+  const nextWaveId = WAVE_ORDER[admittedWaveIds.length] ?? null;
+  for (const provider of providers) {
+    const admitted = admittedWaveIds.includes(provider.waveId);
+    if (admitted) {
+      const providerTypeValid = provider.waveId === 'W01'
+        ? provider.providerType === 'EXISTING_RUNTIME_PROVIDER'
+        : provider.providerType === 'DYNAMIC_WAVE_PROVIDER';
+      if (!providerTypeValid
+          || provider.lifecycleState !== 'PRODUCTION_ADMITTED'
+          || provider.shadowProjectionAllowed !== true
+          || provider.productionAdmitted !== true) {
+        issues.push(issue('POSTG_APP_SHARED_ADMITTED_PROVIDER_STATE_INVALID', provider.waveId));
+      }
+      continue;
+    }
+    const expectedState = provider.waveId === nextWaveId ? 'ASSESSMENT_READY' : 'BLOCKED_BY_PREVIOUS_WAVE';
     if (provider.providerType !== 'RESERVED_FUTURE_WAVE_SLOT'
-        || provider.lifecycleState !== 'BLOCKED_BY_PREVIOUS_WAVE'
+        || provider.lifecycleState !== expectedState
         || provider.entryMaterialization !== null
         || provider.shadowProjectionAllowed !== false
         || provider.productionAdmitted !== false
         || provider.publicSelectable !== false) {
       issues.push(issue('POSTG_APP_SHARED_FUTURE_WAVE_SLOT_INVALID', provider.waveId));
     }
-  }
-  if (JSON.stringify(registries.admissionRegistry.admittedWaveIds) !== JSON.stringify(['W01'])) {
-    issues.push(issue('POSTG_APP_SHARED_ADMISSION_PREFIX_INVALID', 'admissionRegistry.admittedWaveIds'));
   }
 
   return {

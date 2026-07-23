@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
+  "taskClass": "operator_review",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W02_PRODUCTION_ADMITTED_W03_ASSESSMENT_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w02-a08r4-third-operator-approval.mjs",
+      "src/curriculum/application/shared/application-capability-resolver.mjs",
+      "tests/curriculum/postg-app-w02-a08r4-third-operator-approval.test.js",
+      "tools/curriculum/validate-postg-app-w02-a08r4-third-operator-approval.mjs"
+    ],
+    "rendererTestPaths": [
+      "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs",
+      "tools/curriculum/verify-postg-app-w02-a06-pdf.py"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json",
+      "docs/curriculum/output/postg-app/w02-a08r4/POSTG_APP_W02_A08R4_THIRD_OPERATOR_REVIEW_EVIDENCE.json"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a08r4/POSTG_APP_W02_A08R4_THIRD_OPERATOR_REVIEW_EVIDENCE.json",
+      "data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a08r4/POSTG_APP_W02_A08R4_THIRD_OPERATOR_REVIEW_EVIDENCE.json",
+        "sha256": "f16b8f4a6538a97cc44bbe81aa49d53bab83d0af897b1d85eaf12fadb04b2f08"
+      },
+      {
+        "path": "data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json",
+        "sha256": "ca8f1aff0d2f246dda88a22234fdb1cc0eca405d920688448c0f774ef6c4da7a"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true,
+    "decision": "APPROVE"
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "W02 has passed the third complete-cohort operator review and is connected to the shared production runtime at E5; W03 is now the next assessment-ready wave."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W03-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}
