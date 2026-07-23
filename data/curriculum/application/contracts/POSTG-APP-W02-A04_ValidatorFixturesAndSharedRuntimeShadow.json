@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
   "contractId": "POSTG_APP_W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_V1",
-  "status": "SHARED_SHADOW_RUNTIME_VERIFIED_PENDING_CONTROLLER_CI_AND_MERGE",
+  "status": "SHARED_SHADOW_RUNTIME_VERIFIED",
   "dependencies": {
     "a02TaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
     "a03TaskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
@@ -95,5 +95,5 @@
     "prCiGreenRequired": true,
     "mergeToMainRequired": true
   },
-  "nextShortestStep": "POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview"
+  "nextShortestStep": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection"
 }
