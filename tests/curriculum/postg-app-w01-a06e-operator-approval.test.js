@@ -75,7 +75,12 @@ test('controller preserves W01 admission while W02 advances monotonically withou
   assert.equal(w02.hiddenPatternSpecsComplete, true);
   assert.equal(w02.atomicContextBindingsComplete, true);
   assert.equal(w02.completedGates.includes('N_PLUS_1_CONTRACT_COMPLETE'), true);
+  assert.equal(w02.completedGates.includes('VALIDATOR_CONTRACT_COMPLETE'), true);
+  assert.equal(w02.completedGates.includes('POSITIVE_NEGATIVE_FIXTURES_COMPLETE'), true);
+  assert.equal(w02.completedGates.includes('SHARED_RUNTIME_SHADOW_PASS'), true);
   assert.equal(w02.nPlusOnePblBlueprintsComplete, true);
+  assert.equal(w02.validatorFixturesComplete, true);
+  assert.equal(w02.sharedRuntimeShadowPass, true);
   assert.deepEqual(states.slice(2).map((row) => row.state), [
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
