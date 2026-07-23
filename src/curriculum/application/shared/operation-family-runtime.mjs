@@ -171,14 +171,14 @@ function evaluateUnknown(spec, givens) {
       return spec.requestedUnknownRole === 'boundedMultiples' ? values : values.reduce((best, value) => Math.abs(value - givens.target) < Math.abs(best - givens.target) ? value : best);
     }
     case 'number_constraint': return [126, 132, 162, 216, 231, 312, 321, 612, 621];
-    case 'number_line': return spec.requestedUnknownRole === 'coordinate' ? round(givens.origin + givens.stepCount * givens.unitStep) : round(Math.abs(givens.rightCoordinate - givens.leftCoordinate));
+    case 'number_line': return spec.requestedUnknownRole === 'coordinate' ? round(givens.origin + givens.stepCount * givens.unitStep) : round(Math.abs(givens.coordinate - givens.origin));
     case 'place_factor': return spec.requestedUnknownRole === 'higherPlaceValue' ? givens.lowerPlaceValue * 10 : givens.higherPlaceValue / 10;
     case 'quotient_fraction': return fraction(givens.dividend, givens.divisor);
     case 'quotient_fraction_context': return fraction(givens.totalQuantity, givens.recipientCount);
     case 'rate_total': return spec.requestedUnknownRole === 'total' ? round(givens.ratePerUnit * givens.unitCount) : round(givens.firstTotal + givens.secondTotal);
     case 'reciprocal_sum': return addFractions(fraction(1, givens.firstDenominator), fraction(1, givens.secondDenominator));
     case 'rounding': return spec.requestedUnknownRole === 'rounded' ? round(Math.round(givens.value * 10) / 10) : round(givens.rounded * 2);
-    case 'segment_measure': return spec.requestedUnknownRole === 'segmentLength' ? round(givens.totalLength / givens.segmentCount) : round(givens.totalMeasure / givens.unitMeasure);
+    case 'segment_measure': return spec.requestedUnknownRole === 'segmentLength' ? round(givens.totalLength / givens.segmentCount) : round(givens.totalLength / givens.segmentLength);
     case 'simplify_fraction': {
       const factorValue = gcd(givens.numerator, givens.denominator);
       if (spec.requestedUnknownRole === 'commonFactor') return factorValue;
