@@ -6,7 +6,7 @@
 
 This milestone consumes the 61 W02 A02 single-application candidates. It does not instantiate numeric fixtures, execute misconception evidence, connect the production validator, render worksheets, change public UI, or grant production admission.
 
-## N+1 capability
+## Verified N+1 capability
 
 ```text
 61 A02 single-application candidates
@@ -24,20 +24,34 @@ Each proof adds exactly one interpretive act while preserving the same numeric p
 - a different-Macro cross-context proof candidate;
 - a validator-delta candidate.
 
-## PBL capability
+## Verified PBL capability
 
 PBL task-set candidates are created only for A02 candidates classified `APPLICATION_REQUIRED`.
 
 ```text
-APPLICATION_REQUIRED → PBL3_LINEAR or PBL5_BOUNDED_DECISION
-APPLICATION_COMPATIBLE → no automatic PBL candidate
+PBL eligible APPLICATION_REQUIRED candidates = 31
+PBL task-set candidates                       = 31
+PBL3_LINEAR candidates                        = 19
+PBL5_BOUNDED_DECISION candidates              = 12
+APPLICATION_COMPATIBLE automatic PBL          = 0
 ```
 
 This prevents forced PBL authoring for knowledge points that are merely compatible with life-context questions.
 
+## Interpretive-act coverage
+
+```text
+UNIT_ROLE_INTERPRETATION      = 23
+COMPARISON_DECISION           = 15
+DUAL_CONSTRAINT_RESOLUTION    = 11
+CONSERVATION_OR_TRANSFER      = 9
+REMAINDER_INTERPRETATION      = 2
+RELATION_CHAIN                = 1
+```
+
 ## Duplicate content parity
 
-The duplicate PDF content group `pdf_5ba57aff6a97` (`g4a_u06_4a06` and `g4b_u03_4b03`) must preserve normalized N+1 proof projection parity and, when PBL-eligible, normalized PBL graph projection parity.
+The duplicate PDF content group `pdf_5ba57aff6a97` (`g4a_u06_4a06` and `g4b_u03_3b03`) preserves one normalized N+1 proof projection group and one normalized PBL projection group. Both parity gates pass.
 
 ## Boundary
 
@@ -54,6 +68,6 @@ The duplicate PDF content group `pdf_5ba57aff6a97` (`g4a_u06_4a06` and `g4b_u03_
 GOAL_DISTANCE_BEFORE = D2_ATOMIC_CONTEXT_AND_SINGLE_APPLICATION_CANDIDATES_MAIN_VERIFIED
 GOAL_DISTANCE_AFTER  = D2_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MAIN_VERIFIED
 DISTANCE_REDUCED     = Single-Application Candidate → N+1 Proof + Misconception + PBL Candidate Contract
-REMAINING_BLOCKERS   = [NUMERIC_FIXTURE_EXECUTION_PENDING, MISCONCEPTION_EXECUTION_PENDING, COUNTERFACTUAL_EXECUTION_PENDING, CROSS_CONTEXT_EXECUTION_PENDING, UNIQUE_ANSWER_VALIDATION_PENDING, PRODUCTION_RUNTIME_PENDING]
+REMAINING_BLOCKERS   = [NUMERIC_FIXTURE_EXECUTION_PENDING, MISCONCEPTION_EXECUTION_PENDING, COUNTERFACTUAL_EXECUTION_PENDING, CROSS_CONTEXT_EXECUTION_PENDING, UNIQUE_ANSWER_VALIDATION_PENDING, SHARED_RUNTIME_PENDING, PRODUCTION_RUNTIME_PENDING]
 NEXT_SHORTEST_STEP   = POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow
 ```
