@@ -45,11 +45,17 @@ jobs:
           with open('data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json', encoding='utf-8') as handle:
               Draft202012Validator.check_schema(json.load(handle))
           PY
-      - name: Run W02 A04 focused tests and validator
+      - name: Run W02 A04 focused tests and validator with diagnostics
         run: |
-          node --test tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js
-          node tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs
+          set +e
+          node --test tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js > w02-a04-focused.log 2>&1
+          test_status=$?
+          node tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs > w02-a04-validator.json 2>&1
+          validator_status=$?
+          printf '%s %s\n' "$test_status" "$validator_status" > w02-a04-status.txt
+          exit 0
       - name: Write deterministic A04 runtime readback
+        if: always()
         run: |
           node --input-type=module - <<'NODE'
           import fs from 'node:fs';
@@ -62,14 +68,25 @@ jobs:
             operationFamilyCoverage: readback.operationFamilyCoverage,
             answerShapeCoverage: readback.answerShapeCoverage,
             adapterCoverage: readback.adapterCoverage,
-            duplicateComparisons: readback.duplicateComparisons
+            duplicateComparisons: readback.duplicateComparisons,
+            issues: readback.issues
           }, null, 2)}\n`);
           NODE
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: w02-a04-runtime-readback
-          path: w02-a04-runtime-readback.json
+          name: w02-a04-runtime-diagnostics
+          path: |
+            w02-a04-focused.log
+            w02-a04-validator.json
+            w02-a04-status.txt
+            w02-a04-runtime-readback.json
           if-no-files-found: error
+      - name: Enforce A04 focused gate
+        run: |
+          read test_status validator_status < w02-a04-status.txt
+          test "$test_status" -eq 0
+          test "$validator_status" -eq 0
       - name: Verify A03 and A02 regressions
         run: |
           node --test tests/curriculum/postg-app-w02-a03-candidate-pack.test.js
