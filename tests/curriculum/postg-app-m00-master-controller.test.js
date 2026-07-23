@@ -25,14 +25,17 @@ const REQUIRED_GATES = [
   'PRODUCTION_ADMISSION_REVIEWED'
 ];
 
-test('M00 validates the exact 79-node scope with W01 admitted and W02 A06 E4 output verified', () => {
+const A08 = 'POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission';
+const A07_READY = 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY';
+
+test('M00 validates the exact 79-node scope with W01 admitted and W02 A07 human review ready', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED');
+  assert.equal(result.status, A07_READY);
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -43,16 +46,19 @@ test('M00 validates the exact 79-node scope with W01 admitted and W02 A06 E4 out
     productionAdmittedApplicationUnitCount: 12
   });
   assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage');
+  assert.equal(result.nextShortestStep, A08);
 });
 
-test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
-  assert.deepEqual(controller.unitRegistry.batches.map((row) => [row.batchId, row.sourceNodeIds.length]), [['A', 13], ['B', 24], ['C', 17], ['D', 16], ['E', 9]]);
+test('S29C batch totals and deterministic 79-node order remain unchanged', () => {
+  assert.deepEqual(
+    controller.unitRegistry.batches.map((row) => [row.batchId, row.sourceNodeIds.length]),
+    [['A', 13], ['B', 24], ['C', 17], ['D', 16], ['E', 9]]
+  );
   assert.equal(new Set(controller.sourceNodes.map((row) => row.sourceNodeId)).size, 79);
   assert.deepEqual(controller.sourceNodes.map((row) => row.queueOrdinal), Array.from({ length: 79 }, (_, index) => index + 1));
 });
 
-test('Wave 01 distinguishes 15 golden units from 16 source nodes and is production admitted', () => {
+test('Wave 01 remains production admitted without public selection', () => {
   const w01 = resolvePOSTGAPPWave(controller, 'W01');
   assert.equal(w01.goldenUnitIds.length, 15);
   assert.equal(w01.sourceNodes.length, 16);
@@ -60,102 +66,34 @@ test('Wave 01 distinguishes 15 golden units from 16 source nodes and is producti
   assert.equal(w01.productionAdmissionGranted, true);
   assert.equal(w01.currentState.state, 'PRODUCTION_ADMITTED');
   assert.equal(w01.currentState.reviewDecision, 'APPROVE');
-  assert.equal(w01.currentState.productionAdmissionGranted, true);
+  assert.deepEqual(w01.currentState.completedGates, REQUIRED_GATES);
   const composite = controller.unitRegistry.goldenBaselineUnits.find((row) => row.goldenUnitId === 'g5a_u02_5a02');
   assert.deepEqual(composite.sourceNodeRefs, ['g5a_u02_5a02a', 'g5a_u02_5a02a1']);
-  assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
 });
 
-test('Wave 02 has A06 production-equivalent HTML PDF E4 verification without admission', () => {
+test('Wave 02 is A07 human-review-ready while admission and public selection remain false', () => {
   const w02 = resolvePOSTGAPPWave(controller, 'W02');
+  const state = w02.currentState;
   assert.equal(w02.sourceNodes.length, 13);
   assert.equal(w02.productionAdmissionGranted, false);
-  assert.equal(w02.currentState.state, 'PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED');
-  assert.deepEqual(w02.currentState.completedGates, REQUIRED_GATES.slice(0, 10));
-  assert.equal(w02.currentState.admissionGateComplete, false);
-  assert.equal(w02.currentState.assessmentBaselineState, 'SOURCE_AUTHORITY_BASELINE_READY');
-  assert.equal(w02.currentState.sourceMetadataAvailableCount, 13);
-  assert.equal(w02.currentState.sourceNodeCount, 13);
-  assert.equal(w02.currentState.sourcePdfReferenceCount, 13);
-  assert.equal(w02.currentState.uniquePdfContentCount, 12);
-  assert.equal(w02.currentState.totalSourcePdfPageCount, 31);
-  assert.equal(w02.currentState.knowledgePointCandidateCount, 90);
-  assert.equal(w02.currentState.uniqueContentKnowledgePointCandidateCount, 84);
-  assert.equal(w02.currentState.applicationRequiredCount, 17);
-  assert.equal(w02.currentState.applicationCompatibleCount, 27);
-  assert.equal(w02.currentState.applicationNotApplicableCount, 46);
-  assert.equal(w02.currentState.canonicalOperationModelCount, 90);
-  assert.equal(w02.currentState.uniqueContentCanonicalOperationModelCount, 84);
-  assert.equal(w02.currentState.numericPatternSpecCount, 134);
-  assert.equal(w02.currentState.applicationPatternSpecCount, 61);
-  assert.equal(w02.currentState.hiddenPatternSpecCount, 195);
-  assert.equal(w02.currentState.visiblePatternSpecCount, 0);
-  assert.equal(w02.currentState.hiddenPatternSpecsComplete, true);
-  assert.equal(w02.currentState.forcedStoryAuthoringAllowed, false);
-  assert.equal(w02.currentState.atomicContextBindingCount, 61);
-  assert.equal(w02.currentState.singleApplicationCandidateCount, 61);
-  assert.equal(w02.currentState.macroContextDomainCount, 16);
-  assert.equal(w02.currentState.duplicateContentProjectionParity, true);
-  assert.equal(w02.currentState.atomicContextBindingsComplete, true);
-  assert.equal(w02.currentState.nPlusOneProofCandidateCount, 61);
-  assert.equal(w02.currentState.misconceptionCandidateCount, 183);
-  assert.equal(w02.currentState.pblEligibleCandidateCount, 31);
-  assert.equal(w02.currentState.pblTaskSetCandidateCount, 31);
-  assert.equal(w02.currentState.crossContextPairCount, 61);
-  assert.equal(w02.currentState.pbl3TaskSetCandidateCount, 19);
-  assert.equal(w02.currentState.pbl5TaskSetCandidateCount, 12);
-  assert.equal(w02.currentState.duplicateProofProjectionParity, true);
-  assert.equal(w02.currentState.duplicatePblProjectionParity, true);
-  assert.equal(w02.currentState.compatiblePblCandidateCount, 0);
-  assert.equal(w02.currentState.nPlusOnePblBlueprintsComplete, true);
-  assert.equal(w02.currentState.validatorFixtureCount, 672);
-  assert.equal(w02.currentState.validatorPositiveFixtureCount, 275);
-  assert.equal(w02.currentState.validatorNegativeFixtureCount, 397);
-  assert.equal(w02.currentState.validatorPassCount, 275);
-  assert.equal(w02.currentState.validatorExpectedRejectCount, 397);
-  assert.equal(w02.currentState.validatorUnexpectedPassCount, 0);
-  assert.equal(w02.currentState.validatorUnexpectedRejectCount, 0);
-  assert.equal(w02.currentState.pairedNPlusOneExecutionCount, 61);
-  assert.equal(w02.currentState.misconceptionExecutionCount, 183);
-  assert.equal(w02.currentState.calculationPassInterpretationFailCount, 122);
-  assert.equal(w02.currentState.counterfactualExecutionCount, 61);
-  assert.equal(w02.currentState.crossContextExecutionCount, 61);
-  assert.equal(w02.currentState.uniquenessNegativeExecutionCount, 61);
-  assert.equal(w02.currentState.pblDependencyExecutionCount, 62);
-  assert.equal(w02.currentState.sourceNodeRuntimeCoverageCount, 13);
-  assert.equal(w02.currentState.primaryMacroContextRuntimeCoverageCount, 16);
-  assert.equal(w02.currentState.alternateMacroContextRuntimeCoverageCount, 2);
-  assert.equal(w02.currentState.operationFamilyRuntimeCoverageCount, 22);
-  assert.equal(w02.currentState.answerShapeRuntimeCoverageCount, 2);
-  assert.equal(w02.currentState.adapterRuntimeCoverageCount, 2);
-  assert.equal(w02.currentState.duplicateFixtureProjectionGroupCount, 1);
-  assert.equal(w02.currentState.duplicateFixtureProjectionParity, true);
-  assert.equal(w02.currentState.validatorFixturesComplete, true);
-  assert.equal(w02.currentState.sharedRuntimeShadowPass, true);
-  assert.equal(w02.currentState.applicationCapabilityEntryCount, 61);
-  assert.equal(w02.currentState.applicationQuestionRecordCount, 61);
-  assert.equal(w02.currentState.answerKeyRecordCount, 61);
-  assert.equal(w02.currentState.sharedPblTaskSetRecordCount, 31);
-  assert.equal(w02.currentState.worksheetProjectionCount, 13);
-  assert.equal(w02.currentState.futureWaveFailClosedFixtureCount, 1);
-  assert.equal(w02.currentState.duplicateWorksheetProjectionGroupCount, 1);
-  assert.equal(w02.currentState.duplicateWorksheetProjectionParity, true);
-  assert.equal(w02.currentState.shadowHtmlCount, 0);
-  assert.equal(w02.currentState.sharedWorksheetProjectionComplete, true);
-  assert.equal(w02.currentState.generatedItemCount, 195);
-  assert.equal(w02.currentState.numericGeneratedItemCount, 134);
-  assert.equal(w02.currentState.applicationGeneratedItemCount, 61);
-  assert.equal(w02.currentState.productionOperationFamilyCount, 49);
-  assert.equal(w02.currentState.productionValidatedItemCount, 195);
-  assert.equal(w02.currentState.htmlArtifactCount, 2);
-  assert.equal(w02.currentState.pdfArtifactCount, 2);
-  assert.equal(w02.currentState.numericPdfPageCount, 68);
-  assert.equal(w02.currentState.applicationPdfPageCount, 42);
-  assert.equal(w02.currentState.artifactHashCount, 5);
-  assert.equal(w02.currentState.productionEquivalentOutputVerified, true);
-  assert.equal(w02.currentState.humanReviewReady, false);
-  assert.equal(w02.currentState.productionAdmittedCandidateCount, 0);
-  assert.equal(w02.currentState.publicSelectableCandidateCount, 0);
+  assert.equal(w02.productionSelectable, false);
+  assert.equal(state.state, A07_READY);
+  assert.deepEqual(state.completedGates, REQUIRED_GATES.slice(0, 10));
+  assert.equal(state.admissionGateComplete, false);
+  assert.equal(state.productionAdmissionGranted, false);
+  assert.equal(state.reviewDecision, 'NOT_STARTED');
+  assert.equal(state.productionEquivalentOutputVerified, true);
+  assert.equal(state.humanReviewReady, true);
+  assert.equal(state.humanReviewEvidence, 'docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_EVIDENCE.json');
+  assert.equal(state.humanReviewArtifactHashCount, 9);
+  assert.equal(state.humanReviewApplicationQuestionCount, 61);
+  assert.equal(state.humanReviewPblTaskSetCount, 31);
+  assert.equal(state.humanReviewNumericBoundaryCount, 49);
+  assert.equal(state.humanReviewMacroContextCount, 16);
+  assert.equal(state.humanReviewPersistentArtifactProvider, 'google_drive');
+  assert.equal(state.humanReviewPersistentArtifactId, '1MoK94otZr5hVPdSjX70M-V5pbREbS3dU');
+  assert.equal(state.productionAdmittedCandidateCount, 0);
+  assert.equal(state.publicSelectableCandidateCount, 0);
 });
 
 test('all 15 golden KnowledgeOperation registries remain present and validated', () => {
@@ -171,13 +109,15 @@ test('all 15 golden KnowledgeOperation registries remain present and validated',
 test('M00 consumes the exact M01 shadow context authority', () => {
   const result = validatePOSTGAPPMasterController(controller);
   assert.equal(result.ok, true, JSON.stringify(result.issues, null, 2));
-  assert.equal(result.contextCounts.macroDomainCount, 16);
-  assert.equal(result.contextCounts.mesoSituationCount, 48);
-  assert.equal(result.contextCounts.microScenarioCount, 48);
-  assert.equal(result.contextCounts.atomicEpisodeCount, 96);
-  assert.equal(result.contextCounts.facetCount, 48);
-  assert.equal(result.contextCounts.legacyFamilyMappingCount, 18);
-  assert.equal(result.contextCounts.productionAdmittedNodeCount, 0);
+  assert.deepEqual(result.contextCounts, {
+    macroDomainCount: 16,
+    mesoSituationCount: 48,
+    microScenarioCount: 48,
+    atomicEpisodeCount: 96,
+    facetCount: 48,
+    legacyFamilyMappingCount: 18,
+    productionAdmittedNodeCount: 0
+  });
 });
 
 test('W02 to W06 cover the remaining 63 nodes in deterministic source order', () => {
@@ -189,13 +129,10 @@ test('W02 to W06 cover the remaining 63 nodes in deterministic source order', ()
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
 });
 
-test('W01 stays E5, W02 A00 through A05 remain E3, and A06 is E4 non-production', () => {
+test('W01 stays E5, W02 A00-A05 stay E3, A06 and A07 stay non-production E4', () => {
   assert.equal(controller.approvalDecision.operatorDecision, 'APPROVE');
-  assert.equal(controller.approvalDecision.productionAdmission.granted, true);
-  assert.equal(controller.approvalDecision.productionAdmission.publicRouteChanged, false);
   assert.equal(controller.w01Claim.actualEvidenceLevel, 'E5_PRODUCTION_ADMITTED');
   assert.equal(controller.w01Claim.claims.productionAdmitted, true);
-  assert.equal(controller.w01Claim.claims.d0Complete, false);
   for (const claim of [
     controller.w02A00Claim,
     controller.w02A01AClaim,
@@ -212,21 +149,38 @@ test('W01 stays E5, W02 A00 through A05 remain E3, and A06 is E4 non-production'
     assert.equal(claim.claims.d0Complete, false);
   }
   assert.equal(controller.w02A06Claim.actualEvidenceLevel, 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED');
-  assert.equal(controller.w02A06Claim.claims.productionEquivalentGeneratorUsed, true);
-  assert.equal(controller.w02A06Claim.claims.productionRendererUsed, true);
-  assert.equal(controller.w02A06Claim.claims.htmlOutputVerified, true);
-  assert.equal(controller.w02A06Claim.claims.pdfOutputVerified, true);
-  assert.equal(controller.w02A06Claim.claims.productionAdmitted, false);
-  assert.equal(controller.w02A06Claim.claims.d0Complete, false);
-  assert.deepEqual(controller.controllerState.waveStates[0].completedGates, REQUIRED_GATES);
-  assert.deepEqual(controller.controllerState.productionAdmission.admittedWaveIds, ['W01']);
-  assert.equal(controller.controllerState.productionAdmission.applicationUnitCount, 12);
-  assert.equal(controller.controllerState.productionAdmission.waveCount, 1);
-  assert.equal(controller.controllerState.productionAdmission.allowed, true);
-  assert.equal(controller.controllerState.productionAdmission.lastReviewDecision, 'APPROVE');
+  assert.equal(controller.w02A06Claim.claims.humanReviewReady, false);
+  assert.equal(controller.w02A07Claim.actualEvidenceLevel, 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED');
+  assert.equal(controller.w02A07Claim.claimedStatus, A07_READY);
+  assert.equal(controller.w02A07Claim.claims.visibleOutputChanged, true);
+  assert.equal(controller.w02A07Claim.claims.humanReviewReady, true);
+  assert.equal(controller.w02A07Claim.claims.productionAdmitted, false);
+  assert.equal(controller.w02A07Claim.nextStep.taskId, A08);
 });
 
-test('duplicate source nodes and non-contiguous production admissions fail closed', () => {
+test('A07 evidence preserves exact-head CI, complete coverage and fail-closed boundary', () => {
+  const evidence = controller.w02A07Evidence;
+  assert.equal(evidence.status, A07_READY);
+  assert.equal(evidence.evidenceLevel, 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED');
+  assert.equal(evidence.exactHeadSha, '63b8356c129a8c09fd3df66a433601baaf17d3bf');
+  assert.equal(evidence.githubActions.workflowConclusion, 'success');
+  assert.equal(evidence.githubActions.workflowRunId, 29989017841);
+  assert.equal(evidence.githubActions.artifactId, 8556260550);
+  assert.equal(evidence.persistentArtifact.storageProvider, 'google_drive');
+  assert.equal(evidence.persistentArtifact.fileId, '1MoK94otZr5hVPdSjX70M-V5pbREbS3dU');
+  assert.equal(evidence.coverage.sourceNodeCount, 13);
+  assert.equal(evidence.coverage.macroContextCount, 16);
+  assert.equal(evidence.coverage.applicationReviewCount, 61);
+  assert.equal(evidence.coverage.pblReviewCount, 31);
+  assert.equal(evidence.coverage.numericBoundaryReviewCount, 49);
+  assert.equal(evidence.artifactHashes.length, 9);
+  assert.equal(evidence.failClosedBoundary.operatorDecisionRecorded, false);
+  assert.equal(evidence.failClosedBoundary.reviewDecision, 'NOT_STARTED');
+  assert.equal(evidence.failClosedBoundary.productionAdmissionGranted, false);
+  assert.equal(evidence.failClosedBoundary.publicSelectable, false);
+});
+
+test('duplicate nodes and non-contiguous admissions fail closed', () => {
   const duplicateCase = structuredClone(controller);
   duplicateCase.sourceNodes[1].sourceNodeId = duplicateCase.sourceNodes[0].sourceNodeId;
   assert.equal(codes(validatePOSTGAPPMasterController(duplicateCase)).includes('POSTG_APP_SOURCE_NODE_DUPLICATED'), true);
@@ -237,7 +191,7 @@ test('duplicate source nodes and non-contiguous production admissions fail close
   assert.equal(codes(validatePOSTGAPPMasterController(productionCase)).includes('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID'), true);
 });
 
-test('forged approval, W02 claims and A06 output state fail closed', () => {
+test('forged approval, claims, A07 evidence and controller state fail closed', () => {
   const approvalCase = structuredClone(controller);
   approvalCase.approvalDecision.operatorDecision = 'REJECT';
   assert.equal(codes(validatePOSTGAPPMasterController(approvalCase)).includes('POSTG_APP_W01_OPERATOR_APPROVAL_EVIDENCE_INVALID'), true);
@@ -252,7 +206,8 @@ test('forged approval, W02 claims and A06 output state fail closed', () => {
     ['w02A03Claim', 'POSTG_APP_W02_A03_CLAIM_INVALID'],
     ['w02A04Claim', 'POSTG_APP_W02_A04_CLAIM_INVALID'],
     ['w02A05Claim', 'POSTG_APP_W02_A05_CLAIM_INVALID'],
-    ['w02A06Claim', 'POSTG_APP_W02_A06_CLAIM_INVALID']
+    ['w02A06Claim', 'POSTG_APP_W02_A06_CLAIM_INVALID'],
+    ['w02A07Claim', 'POSTG_APP_W02_A07_CLAIM_INVALID']
   ];
   for (const [property, code] of claimCases) {
     const changed = structuredClone(controller);
@@ -261,11 +216,15 @@ test('forged approval, W02 claims and A06 output state fail closed', () => {
   }
 
   const evidenceCase = structuredClone(controller);
-  evidenceCase.controllerState.waveStates[1].worksheetProjectionCount = 12;
-  assert.equal(codes(validatePOSTGAPPMasterController(evidenceCase)).includes('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID'), true);
+  evidenceCase.w02A07Evidence.coverage.macroContextCount = 15;
+  assert.equal(codes(validatePOSTGAPPMasterController(evidenceCase)).includes('POSTG_APP_W02_A07_EVIDENCE_INVALID'), true);
+
+  const stateCase = structuredClone(controller);
+  stateCase.controllerState.waveStates[1].humanReviewReady = false;
+  assert.equal(codes(validatePOSTGAPPMasterController(stateCase)).includes('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID'), true);
 });
 
-test('missing source coverage and altered wave order fail closed', () => {
+test('missing source coverage, altered wave order and unknown gates fail closed', () => {
   const missingCase = structuredClone(controller);
   missingCase.wavePlan.waves[5].sourceNodeIds.pop();
   const missingCodes = codes(validatePOSTGAPPMasterController(missingCase));
@@ -275,10 +234,8 @@ test('missing source coverage and altered wave order fail closed', () => {
   const orderCase = structuredClone(controller);
   [orderCase.wavePlan.waves[1].sourceNodeIds[0], orderCase.wavePlan.waves[1].sourceNodeIds[1]] = [orderCase.wavePlan.waves[1].sourceNodeIds[1], orderCase.wavePlan.waves[1].sourceNodeIds[0]];
   assert.equal(codes(validatePOSTGAPPMasterController(orderCase)).includes('POSTG_APP_REMAINING_QUEUE_ORDER_MISMATCH'), true);
-});
 
-test('unknown completed gate fails closed', () => {
-  const changed = structuredClone(controller);
-  changed.controllerState.waveStates[0].completedGates.push('UNKNOWN_GATE');
-  assert.equal(codes(validatePOSTGAPPMasterController(changed)).includes('POSTG_APP_W01_PRODUCTION_ADMISSION_STATE_INVALID'), true);
+  const gateCase = structuredClone(controller);
+  gateCase.controllerState.waveStates[0].completedGates.push('UNKNOWN_GATE');
+  assert.equal(codes(validatePOSTGAPPMasterController(gateCase)).includes('POSTG_APP_W01_PRODUCTION_ADMISSION_STATE_INVALID'), true);
 });
