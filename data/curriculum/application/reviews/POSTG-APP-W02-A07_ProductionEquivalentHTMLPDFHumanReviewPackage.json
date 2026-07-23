@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
   "parentTaskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
-  "status": "IMPLEMENTED_PENDING_EXACT_HEAD_CI",
+  "status": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
   "requiredEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
   "reviewScope": {
     "sourceNodeCount": 13,
@@ -46,5 +46,22 @@
     "publicUIChanged": false,
     "futureWaveContentAuthored": false
   },
-  "nextShortestStepAfterPass": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission"
+  "nextShortestStepAfterPass": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "humanReviewReady": true,
+  "reviewDecision": "NOT_STARTED",
+  "productionAdmissionGranted": false,
+  "publicSelectable": false,
+  "verifiedCoverage": {
+    "sourceNodeCount": 13,
+    "macroContextCount": 16,
+    "applicationQuestionCount": 61,
+    "numericQuestionCount": 134,
+    "pblTaskSetCount": 31,
+    "pbl3TaskSetCount": 19,
+    "pbl5TaskSetCount": 12,
+    "numericBoundaryReviewCount": 49,
+    "operationFamilyCount": 49,
+    "reviewArtifactCount": 10
+  }
 }
