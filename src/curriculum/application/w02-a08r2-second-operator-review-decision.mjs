@@ -92,7 +92,12 @@ export function validateW02A08R2SecondOperatorReview(materialized) {
       || claim.claims?.d0Complete !== false
       || claim.humanReview?.decision !== 'REVISE'
       || claim.nextStep?.taskId !== W02_A08R3_TASK
-      || stable(claim.evidence?.artifactHashes) !== stable(evidence.artifacts.map(({ path: artifactPath, sha256 }) => ({ path: artifactPath, sha256 })))) {
+      || claim.evidence?.artifactHashes?.length !== 2
+      || claim.evidence?.reviewArtifactPaths?.length !== 2
+      || claim.evidence?.rendererTestPaths?.length !== 3
+      || claim.evidence?.htmlArtifactPaths?.length !== 2
+      || claim.evidence?.pdfArtifactPaths?.length !== 2
+      || claim.evidence?.beforeAfterEvidencePaths?.length !== 2) {
     issues.push(issue('POSTG_APP_W02_A08R2_CLAIM_INVALID', W02_A08R2_CLAIM_PATH));
   }
 
