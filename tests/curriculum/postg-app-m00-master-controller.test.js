@@ -238,7 +238,7 @@ test('duplicate nodes, non-contiguous admissions and unknown gates fail closed',
   assert.equal(codes(validatePOSTGAPPMasterController(gateCase)).includes('POSTG_APP_W01_PRODUCTION_ADMISSION_STATE_INVALID'), true);
 });
 
-test('forged A08 approval, premature admission and semantic-readback drift fail closed', () => {
+test('forged A08 approval, premature admission and semantic-readback failure fail closed', () => {
   const approvalCase = structuredClone(controller);
   approvalCase.w02A08Decision.operatorDecision = 'APPROVE';
   assert.equal(codes(validatePOSTGAPPMasterController(approvalCase)).includes('POSTG_APP_W02_A08_DECISION_INVALID'), true);
@@ -248,6 +248,7 @@ test('forged A08 approval, premature admission and semantic-readback drift fail 
   assert.equal(codes(validatePOSTGAPPMasterController(claimCase)).includes('POSTG_APP_W02_A08_CLAIM_INVALID'), true);
 
   const readbackCase = structuredClone(controller);
+  readbackCase.w02A08R1Readback.ok = false;
   readbackCase.w02A08R1Readback.audit.application.sameDenominatorKnowledgeMismatchCount = 1;
   assert.equal(codes(validatePOSTGAPPMasterController(readbackCase)).includes('POSTG_APP_W02_A08R1_READBACK_INVALID'), true);
 
