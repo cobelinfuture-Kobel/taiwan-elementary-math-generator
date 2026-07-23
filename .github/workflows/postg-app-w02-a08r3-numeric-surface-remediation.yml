@@ -55,25 +55,26 @@ jobs:
           node tools/curriculum/materialize-postg-app-w02-a08r3-contract-fix.mjs | tee w02-a08r3-contract-materialization.json
           node tools/curriculum/materialize-postg-app-w02-a08r3-evidence.mjs | tee w02-a08r3-evidence-materialization.json
           node tools/curriculum/materialize-postg-app-w02-a08r3-controller.mjs | tee w02-a08r3-controller-materialization.json
-          if [[ -n "$(git status --porcelain)" ]]; then
+          MATERIALIZED_PATHS=(
+            src/curriculum/application/shared/operation-family-runtime.mjs
+            src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs
+            src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs
+            src/curriculum/application/w02-a08r1-student-facing-remediation.mjs
+            src/curriculum/application/postg-app-master-controller.mjs
+            data/curriculum/application/controller/postg-app-master-controller-state.json
+            data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json
+            docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json
+            data/project/milestones/POSTG-APP-W02-A08R3.claim.json
+            tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
+            tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js
+            tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js
+            tests/curriculum/postg-app-m00-master-controller.test.js
+            tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          )
+          if [[ -n "$(git status --porcelain -- "${MATERIALIZED_PATHS[@]}")" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add \
-              src/curriculum/application/shared/operation-family-runtime.mjs \
-              src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs \
-              src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs \
-              src/curriculum/application/w02-a08r1-student-facing-remediation.mjs \
-              src/curriculum/application/postg-app-master-controller.mjs \
-              data/curriculum/application/controller/postg-app-master-controller-state.json \
-              data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json \
-              docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json \
-              data/project/milestones/POSTG-APP-W02-A08R3.claim.json \
-              tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js \
-              tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js \
-              tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js \
-              tests/curriculum/postg-app-m00-master-controller.test.js \
-              tests/curriculum/postg-app-w01-a06e-operator-approval.test.js \
-              .github/workflows/postg-app-w02-a08r2-second-operator-review.yml
+            git add "${MATERIALIZED_PATHS[@]}"
             git commit -m "chore(application): materialize W02 A08R3 remediation state"
             if [[ "${{ github.event_name }}" == "pull_request" ]]; then
               git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
