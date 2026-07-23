@@ -5,6 +5,7 @@ import {
   loadGlobalContextAuthority,
   validateGlobalContextAuthority
 } from '../context/global-context-ontology-resolver.mjs';
+import { buildW02A08R1Readback } from './w02-a08r1-student-facing-remediation.mjs';
 
 const UNIT_REGISTRY_PATH = 'data/curriculum/application/controller/postg-app-79-unit-registry.json';
 const WAVE_PLAN_PATH = 'data/curriculum/application/controller/postg-app-wave-plan.json';
@@ -22,6 +23,8 @@ const W02_A04_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A04.claim.json
 const W02_A05_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A05.claim.json';
 const W02_A06_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A06.claim.json';
 const W02_A07_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A07.claim.json';
+const W02_A08_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A08.claim.json';
+const W02_A08_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08_OperatorHumanReviewDecision.json';
 const GOLDEN_UNIT_DIR = 'data/curriculum/knowledge/units';
 
 const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...details });
@@ -131,7 +134,10 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
     w02A04Claim: readJsonIfExists(root, W02_A04_CLAIM_PATH),
     w02A05Claim: readJsonIfExists(root, W02_A05_CLAIM_PATH),
     w02A06Claim: readJsonIfExists(root, W02_A06_CLAIM_PATH),
-    w02A07Claim: readJsonIfExists(root, W02_A07_CLAIM_PATH)
+    w02A07Claim: readJsonIfExists(root, W02_A07_CLAIM_PATH),
+    w02A08Claim: readJsonIfExists(root, W02_A08_CLAIM_PATH),
+    w02A08Decision: readJsonIfExists(root, W02_A08_DECISION_PATH),
+    w02A08R1Readback: buildW02A08R1Readback({ root })
   };
 }
 
@@ -145,6 +151,150 @@ function validateShadowClaim({ claim, pathValue, code, claimedStatus, nextTaskId
     && claim.claims?.d0Complete === false
     && claim.nextStep?.taskId === nextTaskId
   ) ? [] : [issue(code, pathValue)];
+}
+
+function validateW02Metrics(w02State) {
+  const expected = {
+    assessmentBaselineState: 'SOURCE_AUTHORITY_BASELINE_READY',
+    sourceMetadataAvailableCount: 13,
+    sourceNodeCount: 13,
+    sourcePdfReferenceCount: 13,
+    uniquePdfContentCount: 12,
+    totalSourcePdfPageCount: 31,
+    knowledgePointCandidateCount: 90,
+    uniqueContentKnowledgePointCandidateCount: 84,
+    applicationRequiredCount: 17,
+    applicationCompatibleCount: 27,
+    applicationNotApplicableCount: 46,
+    canonicalOperationModelCount: 90,
+    uniqueContentCanonicalOperationModelCount: 84,
+    numericPatternSpecCount: 134,
+    applicationPatternSpecCount: 61,
+    hiddenPatternSpecCount: 195,
+    visiblePatternSpecCount: 0,
+    hiddenPatternSpecsComplete: true,
+    forcedStoryAuthoringAllowed: false,
+    atomicContextBindingCount: 61,
+    singleApplicationCandidateCount: 61,
+    macroContextDomainCount: 16,
+    duplicateContentProjectionParity: true,
+    atomicContextBindingsComplete: true,
+    nPlusOneProofCandidateCount: 61,
+    misconceptionCandidateCount: 183,
+    pblEligibleCandidateCount: 31,
+    pblTaskSetCandidateCount: 31,
+    crossContextPairCount: 61,
+    pbl3TaskSetCandidateCount: 19,
+    pbl5TaskSetCandidateCount: 12,
+    duplicateProofProjectionParity: true,
+    duplicatePblProjectionParity: true,
+    compatiblePblCandidateCount: 0,
+    nPlusOnePblBlueprintsComplete: true,
+    validatorFixtureCount: 672,
+    validatorPositiveFixtureCount: 275,
+    validatorNegativeFixtureCount: 397,
+    validatorPassCount: 275,
+    validatorExpectedRejectCount: 397,
+    validatorUnexpectedPassCount: 0,
+    validatorUnexpectedRejectCount: 0,
+    pairedNPlusOneExecutionCount: 61,
+    misconceptionExecutionCount: 183,
+    calculationPassInterpretationFailCount: 122,
+    counterfactualExecutionCount: 61,
+    crossContextExecutionCount: 61,
+    uniquenessNegativeExecutionCount: 61,
+    pblDependencyExecutionCount: 62,
+    sourceNodeRuntimeCoverageCount: 13,
+    primaryMacroContextRuntimeCoverageCount: 16,
+    alternateMacroContextRuntimeCoverageCount: 2,
+    operationFamilyRuntimeCoverageCount: 22,
+    answerShapeRuntimeCoverageCount: 2,
+    adapterRuntimeCoverageCount: 2,
+    duplicateFixtureProjectionGroupCount: 1,
+    duplicateFixtureProjectionParity: true,
+    validatorFixturesComplete: true,
+    sharedRuntimeShadowPass: true,
+    applicationCapabilityEntryCount: 61,
+    applicationQuestionRecordCount: 61,
+    answerKeyRecordCount: 61,
+    sharedPblTaskSetRecordCount: 31,
+    worksheetProjectionCount: 13,
+    futureWaveFailClosedFixtureCount: 1,
+    duplicateWorksheetProjectionGroupCount: 1,
+    duplicateWorksheetProjectionParity: true,
+    shadowHtmlCount: 0,
+    sharedWorksheetProjectionComplete: true,
+    generatedItemCount: 195,
+    numericGeneratedItemCount: 134,
+    applicationGeneratedItemCount: 61,
+    productionOperationFamilyCount: 49,
+    productionValidatedItemCount: 195,
+    htmlArtifactCount: 2,
+    pdfArtifactCount: 2,
+    numericPdfPageCount: 68,
+    applicationPdfPageCount: 42,
+    artifactHashCount: 10,
+    productionEquivalentOutputVerified: true,
+    humanReviewReady: true,
+    humanReviewPackageComplete: true,
+    applicationReviewCount: 61,
+    pblReviewCount: 31,
+    pbl3ReviewCount: 19,
+    pbl5ReviewCount: 12,
+    numericBoundaryReviewCount: 49,
+    reviewMacroContextCount: 16,
+    reviewArtifactCount: 10,
+    productionAdmittedCandidateCount: 0,
+    publicSelectableCandidateCount: 0,
+    operatorDecisionState: 'REVISE_RECORDED',
+    remediationState: 'PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY',
+    studentFacingSemanticRevision: 3,
+    remediatedGeneratedItemCount: 195,
+    remediatedApplicationReviewCount: 61,
+    remediatedNumericBoundaryReviewCount: 49,
+    remediatedPblReviewCount: 31,
+    studentFacingSemanticAuditPass: true,
+    regeneratedHtmlPdfReviewReady: true
+  };
+  return Object.entries(expected).every(([key, value]) => w02State[key] === value);
+}
+
+function validateA08Evidence(controller) {
+  const issues = [];
+  const { w02A08Claim, w02A08Decision, w02A08R1Readback } = controller;
+  if (!w02A08Claim
+      || w02A08Claim.actualEvidenceLevel !== 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+      || w02A08Claim.claimedStatus !== 'W02_OPERATOR_REVIEW_REVISE_REQUIRED'
+      || w02A08Claim.claims?.operatorDecisionRecorded !== true
+      || w02A08Claim.claims?.operatorDecision !== 'REVISE'
+      || w02A08Claim.claims?.productionAdmitted !== false
+      || w02A08Claim.claims?.publicSelectable !== false
+      || w02A08Claim.claims?.d0Complete !== false
+      || w02A08Claim.nextStep?.taskId !== 'POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview') {
+    issues.push(issue('POSTG_APP_W02_A08_CLAIM_INVALID', W02_A08_CLAIM_PATH));
+  }
+  if (!w02A08Decision
+      || w02A08Decision.operatorDecision !== 'REVISE'
+      || w02A08Decision.productionAdmission?.granted !== false
+      || w02A08Decision.controllerTransition?.waveState !== 'OPERATOR_REVIEW_REVISE_REQUIRED'
+      || w02A08Decision.controllerTransition?.reviewDecision !== 'REVISE'
+      || w02A08Decision.failClosedBoundaries?.publicSelectable !== false
+      || w02A08Decision.failClosedBoundaries?.w03ToW06Unblocked !== false
+      || w02A08Decision.remediation?.taskId !== 'POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview') {
+    issues.push(issue('POSTG_APP_W02_A08_DECISION_INVALID', W02_A08_DECISION_PATH));
+  }
+  if (!w02A08R1Readback?.ok
+      || w02A08R1Readback.status !== 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY'
+      || w02A08R1Readback.studentFacingSemanticRevision !== 3
+      || w02A08R1Readback.productionAdmissionGranted !== false
+      || w02A08R1Readback.counts?.generatedItemCount !== 195
+      || w02A08R1Readback.counts?.applicationReviewCount !== 61
+      || w02A08R1Readback.counts?.numericBoundaryReviewCount !== 49
+      || w02A08R1Readback.counts?.pblReviewCount !== 31
+      || w02A08R1Readback.nextShortestStep !== 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision') {
+    issues.push(issue('POSTG_APP_W02_A08R1_READBACK_INVALID', 'w02A08R1Readback'));
+  }
+  return issues;
 }
 
 export function validatePOSTGAPPMasterController(controller) {
@@ -242,7 +392,7 @@ export function validatePOSTGAPPMasterController(controller) {
 
   const expectedStates = [
     'PRODUCTION_ADMITTED',
-    'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY',
+    'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
@@ -263,105 +413,16 @@ export function validatePOSTGAPPMasterController(controller) {
       || JSON.stringify(w02State.completedGates) !== JSON.stringify(REQUIRED_GATE_ORDER.slice(0, 10))
       || w02State.productionAdmissionGranted !== false
       || w02State.admissionGateComplete !== false
-      || w02State.assessmentBaselineState !== 'SOURCE_AUTHORITY_BASELINE_READY'
-      || w02State.sourceMetadataAvailableCount !== 13
-      || w02State.sourceNodeCount !== 13
-      || w02State.sourcePdfReferenceCount !== 13
-      || w02State.uniquePdfContentCount !== 12
-      || w02State.totalSourcePdfPageCount !== 31
-      || w02State.knowledgePointCandidateCount !== 90
-      || w02State.uniqueContentKnowledgePointCandidateCount !== 84
-      || w02State.applicationRequiredCount !== 17
-      || w02State.applicationCompatibleCount !== 27
-      || w02State.applicationNotApplicableCount !== 46
-      || w02State.canonicalOperationModelCount !== 90
-      || w02State.uniqueContentCanonicalOperationModelCount !== 84
-      || w02State.numericPatternSpecCount !== 134
-      || w02State.applicationPatternSpecCount !== 61
-      || w02State.hiddenPatternSpecCount !== 195
-      || w02State.visiblePatternSpecCount !== 0
-      || w02State.hiddenPatternSpecsComplete !== true
-      || w02State.forcedStoryAuthoringAllowed !== false
-      || w02State.atomicContextBindingCount !== 61
-      || w02State.singleApplicationCandidateCount !== 61
-      || w02State.macroContextDomainCount !== 16
-      || w02State.duplicateContentProjectionParity !== true
-      || w02State.atomicContextBindingsComplete !== true
-      || w02State.nPlusOneProofCandidateCount !== 61
-      || w02State.misconceptionCandidateCount !== 183
-      || w02State.pblEligibleCandidateCount !== 31
-      || w02State.pblTaskSetCandidateCount !== 31
-      || w02State.crossContextPairCount !== 61
-      || w02State.pbl3TaskSetCandidateCount !== 19
-      || w02State.pbl5TaskSetCandidateCount !== 12
-      || w02State.duplicateProofProjectionParity !== true
-      || w02State.duplicatePblProjectionParity !== true
-      || w02State.compatiblePblCandidateCount !== 0
-      || w02State.nPlusOnePblBlueprintsComplete !== true
-      || w02State.validatorFixtureCount !== 672
-      || w02State.validatorPositiveFixtureCount !== 275
-      || w02State.validatorNegativeFixtureCount !== 397
-      || w02State.validatorPassCount !== 275
-      || w02State.validatorExpectedRejectCount !== 397
-      || w02State.validatorUnexpectedPassCount !== 0
-      || w02State.validatorUnexpectedRejectCount !== 0
-      || w02State.pairedNPlusOneExecutionCount !== 61
-      || w02State.misconceptionExecutionCount !== 183
-      || w02State.calculationPassInterpretationFailCount !== 122
-      || w02State.counterfactualExecutionCount !== 61
-      || w02State.crossContextExecutionCount !== 61
-      || w02State.uniquenessNegativeExecutionCount !== 61
-      || w02State.pblDependencyExecutionCount !== 62
-      || w02State.sourceNodeRuntimeCoverageCount !== 13
-      || w02State.primaryMacroContextRuntimeCoverageCount !== 16
-      || w02State.alternateMacroContextRuntimeCoverageCount !== 2
-      || w02State.operationFamilyRuntimeCoverageCount !== 22
-      || w02State.answerShapeRuntimeCoverageCount !== 2
-      || w02State.adapterRuntimeCoverageCount !== 2
-      || w02State.duplicateFixtureProjectionGroupCount !== 1
-      || w02State.duplicateFixtureProjectionParity !== true
-      || w02State.validatorFixturesComplete !== true
-      || w02State.sharedRuntimeShadowPass !== true
-      || w02State.applicationCapabilityEntryCount !== 61
-      || w02State.applicationQuestionRecordCount !== 61
-      || w02State.answerKeyRecordCount !== 61
-      || w02State.sharedPblTaskSetRecordCount !== 31
-      || w02State.worksheetProjectionCount !== 13
-      || w02State.futureWaveFailClosedFixtureCount !== 1
-      || w02State.duplicateWorksheetProjectionGroupCount !== 1
-      || w02State.duplicateWorksheetProjectionParity !== true
-      || w02State.shadowHtmlCount !== 0
-      || w02State.sharedWorksheetProjectionComplete !== true
-      || w02State.generatedItemCount !== 195
-      || w02State.numericGeneratedItemCount !== 134
-      || w02State.applicationGeneratedItemCount !== 61
-      || w02State.productionOperationFamilyCount !== 49
-      || w02State.productionValidatedItemCount !== 195
-      || w02State.htmlArtifactCount !== 2
-      || w02State.pdfArtifactCount !== 2
-      || w02State.numericPdfPageCount !== 68
-      || w02State.applicationPdfPageCount !== 42
-      || w02State.artifactHashCount !== 10
-      || w02State.productionEquivalentOutputVerified !== true
-      || w02State.humanReviewReady !== true
-      || w02State.humanReviewPackageComplete !== true
-      || w02State.reviewDecision !== 'NOT_STARTED'
-      || w02State.applicationReviewCount !== 61
-      || w02State.pblReviewCount !== 31
-      || w02State.pbl3ReviewCount !== 19
-      || w02State.pbl5ReviewCount !== 12
-      || w02State.numericBoundaryReviewCount !== 49
-      || w02State.reviewMacroContextCount !== 16
-      || w02State.reviewArtifactCount !== 10
+      || w02State.reviewDecision !== 'REVISE'
       || w02State.reviewEvidence !== 'docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json'
-      || w02State.productionAdmittedCandidateCount !== 0
-      || w02State.publicSelectableCandidateCount !== 0) {
+      || w02State.decisionEvidence !== W02_A08_DECISION_PATH
+      || !validateW02Metrics(w02State)) {
     issues.push(issue('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W02'));
   }
   if (controllerState.currentWaveId !== 'W02'
-      || controllerState.currentCapability !== 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY'
-      || controllerState.currentMainlineBlocker !== 'W02_OPERATOR_HUMAN_REVIEW_DECISION_PENDING'
-      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission') {
+      || controllerState.currentCapability !== 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY'
+      || controllerState.currentMainlineBlocker !== 'W02_REGENERATED_HTML_PDF_SECOND_OPERATOR_REVIEW_DECISION_PENDING'
+      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision') {
     issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
   }
   if (controllerState.productionAdmission.applicationUnitCount !== 12
@@ -386,69 +447,22 @@ export function validatePOSTGAPPMasterController(controller) {
       || w01Claim.claims?.d0Complete !== false) {
     issues.push(issue('POSTG_APP_W01_E5_CLAIM_INVALID', W01_CLAIM_PATH));
   }
-  issues.push(...validateShadowClaim({
-    claim: w02A00Claim,
-    pathValue: W02_A00_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A00_CLAIM_INVALID',
-    claimedStatus: 'W02_SOURCE13_AUTHORITY_AND_READINESS_BASELINE_READY',
-    nextTaskId: 'POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification'
-  }));
-  issues.push(...validateShadowClaim({
-    claim: w02A01AClaim,
-    pathValue: W02_A01A_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A01A_CLAIM_INVALID',
-    claimedStatus: 'W02_SOURCE13_PDF_EVIDENCE_HASH_LOCKED_RENDERABLE',
-    nextTaskId: 'POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification'
-  }));
-  issues.push(...validateShadowClaim({
-    claim: w02A01BClaim,
-    pathValue: W02_A01B_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A01B_CLAIM_INVALID',
-    claimedStatus: 'W02_PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED',
-    nextTaskId: 'POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization'
-  }));
-  issues.push(...validateShadowClaim({
-    claim: w02A01CClaim,
-    pathValue: W02_A01C_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A01C_CLAIM_INVALID',
-    claimedStatus: 'W02_CANONICAL_OPERATION_MODELS_MATERIALIZED',
-    nextTaskId: 'POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization'
-  }));
-  issues.push(...validateShadowClaim({
-    claim: w02A01DClaim,
-    pathValue: W02_A01D_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A01D_CLAIM_INVALID',
-    claimedStatus: 'W02_HIDDEN_PATTERNSPECS_MATERIALIZED',
-    nextTaskId: 'POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization'
-  }));
-  issues.push(...validateShadowClaim({
-    claim: w02A02Claim,
-    pathValue: W02_A02_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A02_CLAIM_INVALID',
-    claimedStatus: 'W02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED',
-    nextTaskId: 'POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract'
-  }));
-  issues.push(...validateShadowClaim({
-    claim: w02A03Claim,
-    pathValue: W02_A03_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A03_CLAIM_INVALID',
-    claimedStatus: 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED',
-    nextTaskId: 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow'
-  }));
-  issues.push(...validateShadowClaim({
-    claim: w02A04Claim,
-    pathValue: W02_A04_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A04_CLAIM_INVALID',
-    claimedStatus: 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS',
-    nextTaskId: 'POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection'
-  }));
-  issues.push(...validateShadowClaim({
-    claim: w02A05Claim,
-    pathValue: W02_A05_CLAIM_PATH,
-    code: 'POSTG_APP_W02_A05_CLAIM_INVALID',
-    claimedStatus: 'W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS',
-    nextTaskId: 'POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration'
-  }));
+
+  const shadowClaims = [
+    [w02A00Claim, W02_A00_CLAIM_PATH, 'POSTG_APP_W02_A00_CLAIM_INVALID', 'W02_SOURCE13_AUTHORITY_AND_READINESS_BASELINE_READY', 'POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification'],
+    [w02A01AClaim, W02_A01A_CLAIM_PATH, 'POSTG_APP_W02_A01A_CLAIM_INVALID', 'W02_SOURCE13_PDF_EVIDENCE_HASH_LOCKED_RENDERABLE', 'POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification'],
+    [w02A01BClaim, W02_A01B_CLAIM_PATH, 'POSTG_APP_W02_A01B_CLAIM_INVALID', 'W02_PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED', 'POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization'],
+    [w02A01CClaim, W02_A01C_CLAIM_PATH, 'POSTG_APP_W02_A01C_CLAIM_INVALID', 'W02_CANONICAL_OPERATION_MODELS_MATERIALIZED', 'POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization'],
+    [w02A01DClaim, W02_A01D_CLAIM_PATH, 'POSTG_APP_W02_A01D_CLAIM_INVALID', 'W02_HIDDEN_PATTERNSPECS_MATERIALIZED', 'POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization'],
+    [w02A02Claim, W02_A02_CLAIM_PATH, 'POSTG_APP_W02_A02_CLAIM_INVALID', 'W02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED', 'POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract'],
+    [w02A03Claim, W02_A03_CLAIM_PATH, 'POSTG_APP_W02_A03_CLAIM_INVALID', 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED', 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow'],
+    [w02A04Claim, W02_A04_CLAIM_PATH, 'POSTG_APP_W02_A04_CLAIM_INVALID', 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS', 'POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection'],
+    [w02A05Claim, W02_A05_CLAIM_PATH, 'POSTG_APP_W02_A05_CLAIM_INVALID', 'W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS', 'POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration']
+  ];
+  for (const [claim, pathValue, code, claimedStatus, nextTaskId] of shadowClaims) {
+    issues.push(...validateShadowClaim({ claim, pathValue, code, claimedStatus, nextTaskId }));
+  }
+
   if (!w02A06Claim
       || w02A06Claim.actualEvidenceLevel !== 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
       || w02A06Claim.claimedStatus !== 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED'
@@ -464,7 +478,6 @@ export function validatePOSTGAPPMasterController(controller) {
       || w02A06Claim.nextStep?.taskId !== 'POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage') {
     issues.push(issue('POSTG_APP_W02_A06_CLAIM_INVALID', W02_A06_CLAIM_PATH));
   }
-
   if (!w02A07Claim
       || w02A07Claim.actualEvidenceLevel !== 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
       || w02A07Claim.claimedStatus !== 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY'
@@ -483,6 +496,7 @@ export function validatePOSTGAPPMasterController(controller) {
       || w02A07Claim.nextStep?.taskId !== 'POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission') {
     issues.push(issue('POSTG_APP_W02_A07_CLAIM_INVALID', W02_A07_CLAIM_PATH));
   }
+  issues.push(...validateA08Evidence(controller));
 
   const contextValidation = validateGlobalContextAuthority(controller.contextAuthority);
   if (!contextValidation.ok) issues.push(issue('POSTG_APP_M01_CONTEXT_AUTHORITY_INVALID', 'globalContextAuthority', { contextIssues: contextValidation.issues }));
@@ -519,7 +533,7 @@ export function validatePOSTGAPPMasterController(controller) {
     currentWaveId: controllerState.currentWaveId,
     nextShortestStep: controllerState.nextShortestStep,
     status: issues.length === 0
-      ? 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY'
+      ? 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY'
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
   };
 }
