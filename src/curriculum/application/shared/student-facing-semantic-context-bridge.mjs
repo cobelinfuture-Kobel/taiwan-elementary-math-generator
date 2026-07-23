@@ -6,6 +6,8 @@ import {
 } from './student-facing-semantic-remediation-v2.mjs';
 
 const PBL_PRODUCT_LABELS = Object.freeze({
+  fraction_accumulation: '分數使用說明',
+  measurement_fraction: '測量換算紀錄',
   decimal_add_sub: '資源使用紀錄',
   decimal_multiply: '材料準備方案',
   fraction_add_sub: '資源使用紀錄',
@@ -30,11 +32,12 @@ export function validateStudentFacingOperationSurface(args = {}) {
   return { ...result, ok: issues.length === 0, issues };
 }
 
-function replaceProductLabel(record, operationFamilyId) {
-  const replacement = PBL_PRODUCT_LABELS[operationFamilyId];
-  const current = record.drivingProblem?.finalProductType;
-  if (!replacement || current !== '可執行方案') return record;
+function sanitizePblRecord(record, operationFamilyId) {
   const revised = structuredClone(record);
+  const current = revised.drivingProblem?.finalProductType;
+  const replacement = current === '可執行方案'
+    ? (PBL_PRODUCT_LABELS[operationFamilyId] ?? '數學成果報告')
+    : current;
   const replace = (text) => String(text ?? '').replaceAll(current, replacement);
   revised.drivingProblem.problemStatementZh = replace(revised.drivingProblem.problemStatementZh);
   revised.drivingProblem.successCriteria = revised.drivingProblem.successCriteria.map(replace);
@@ -48,6 +51,11 @@ function replaceProductLabel(record, operationFamilyId) {
   }));
   revised.finalProduct.finalProductType = replacement;
   revised.finalProduct.decisionWitnessCandidate = replace(revised.finalProduct.decisionWitnessCandidate);
+  revised.finalProduct.constraintSatisfactionChecks = [
+    '主要計算答案與題目條件一致',
+    '所有數量都使用正確單位',
+    '最終決定引用至少兩個前段結果'
+  ];
   return Object.freeze(revised);
 }
 
@@ -60,9 +68,21 @@ export function instantiateStudentFacingPblTaskSet({ record, item } = {}) {
     ? { contextLineage: { macroContextId: item.studentFacingMacroContextId } }
     : null;
   const materialized = instantiateStudentFacingPblTaskSetV2({ record: enrichedRecord, item, applicationRecord });
-  return replaceProductLabel(materialized, item?.operationFamilyId);
+  return sanitizePblRecord(materialized, item?.operationFamilyId);
 }
 
 export function validateStudentFacingPblTaskSet(record) {
-  return validateStudentFacingPblTaskSetV2(record);
+  const result = validateStudentFacingPblTaskSetV2(record);
+  const visible = [
+    ...(record.finalProduct?.constraintSatisfactionChecks ?? []),
+    record.drivingProblem?.finalProductType
+  ].join(' ');
+  const issues = [...result.issues];
+  if (record.drivingProblem?.finalProductType === '可執行方案') {
+    issues.push({ code: 'POSTG_APP_STUDENT_PBL_GENERIC_PRODUCT_LABEL' });
+  }
+  if (/使用虛構練習數據|不宣稱未提供的史實細節|新聞不可作為唯一權威|有效期間到期須重新審核|不涉及個資或監控|設備性能不得虛構宣稱|不使用災害恐懼敘事|安全敘事不呈現傷亡細節/.test(visible)) {
+    issues.push({ code: 'POSTG_APP_STUDENT_PBL_GOVERNANCE_CHECK_LEAKAGE' });
+  }
+  return { ...result, ok: issues.length === 0, issues };
 }
