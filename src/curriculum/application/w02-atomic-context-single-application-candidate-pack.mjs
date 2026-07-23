@@ -287,7 +287,13 @@ export function materializeW02AtomicContextSingleApplicationCandidatePack({ root
   const controller = loadPOSTGAPPMasterController({ root });
   const contextIndexes = buildContextIndexes(controller.contextAuthority);
   const applicationPatternRows = buildApplicationPatternRows({ root, hidden });
-  const sourceCountByContent = countBy(applicationPatternRows, (row) => row.sourceContentIdentityGroup);
+  const sourceIdsByContent = new Map();
+  for (const row of applicationPatternRows) {
+    if (!sourceIdsByContent.has(row.sourceContentIdentityGroup)) {
+      sourceIdsByContent.set(row.sourceContentIdentityGroup, new Set());
+    }
+    sourceIdsByContent.get(row.sourceContentIdentityGroup).add(row.sourceId);
+  }
   const duplicateProjectionCache = new Map();
   const globalMacroUsage = new Map();
   const unitMacroUsage = new Map();
@@ -296,7 +302,7 @@ export function materializeW02AtomicContextSingleApplicationCandidatePack({ root
   for (const row of applicationPatternRows) {
     const perUnitUsage = unitMacroUsage.get(row.sourceId) ?? new Map();
     const duplicateProjectionKey = `${row.sourceContentIdentityGroup}::${normalizeDuplicatePatternSpecId(row.patternSpec.patternSpecId)}`;
-    const duplicateGroup = sourceCountByContent[row.sourceContentIdentityGroup] > 1;
+    const duplicateGroup = (sourceIdsByContent.get(row.sourceContentIdentityGroup)?.size ?? 0) > 1;
     let selection = duplicateGroup ? duplicateProjectionCache.get(duplicateProjectionKey) : null;
     const reusedDuplicateProjection = Boolean(selection);
     if (!selection) {
