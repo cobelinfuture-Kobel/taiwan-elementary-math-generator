@@ -175,6 +175,7 @@ test('all 15 golden registries and the M01 context authority remain valid', () =
     mesoSituationCount: 48,
     microScenarioCount: 48,
     atomicEpisodeCount: 96,
+    surfaceRealizationCount: 96,
     facetCount: 48,
     legacyFamilyMappingCount: 18,
     productionAdmittedNodeCount: 0
