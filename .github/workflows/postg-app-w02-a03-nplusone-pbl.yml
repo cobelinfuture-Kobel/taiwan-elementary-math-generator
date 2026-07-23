@@ -67,9 +67,16 @@ jobs:
           name: w02-a03-count-readback
           path: w02-a03-count-readback.json
           if-no-files-found: error
-      - name: Verify A02 regression
+      - name: Verify A02 and controller regressions
         run: |
           node --test tests/curriculum/postg-app-w02-a02-candidate-pack.test.js
           node tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+      - name: Verify W01 E5 admission and governance claims
+        run: |
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
       - name: Run full regression suite
         run: npm test
