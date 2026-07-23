@@ -11,7 +11,7 @@ import {
 import {
   validateStudentFacingOperationSurface,
   W02_A08R3_TARGET_FINDING_CODES
-} from '../../src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs';
+} from '../../src/curriculum/application/shared/student-facing-numeric-full-cohort-adapter-v4.mjs';
 
 const materialized = materializeW02A08R3NumericRemediation();
 const pkg = materialized.a06Package;
@@ -27,7 +27,7 @@ function validateMutated(patternSpecId, mutate) {
   return validateStudentFacingOperationSurface({ spec, item });
 }
 
-test('A08R3 remediates all four A08R2 numeric finding classes across the full cohort', () => {
+test('A08R3 remediates all four numeric finding classes across all 71 operation-role contracts', () => {
   const result = buildW02A08R3NumericRemediationReadback();
   assert.equal(result.ok, true, JSON.stringify(result.issues, null, 2));
   assert.equal(result.status, W02_A08R3_STATUS);
@@ -37,8 +37,10 @@ test('A08R3 remediates all four A08R2 numeric finding classes across the full co
     applicationQuestionCount: 61,
     pblTaskSetCount: 31,
     operationFamilyCount: 49,
+    operationRoleContractCount: 71,
     historicalAffectedItemCount: 45
   });
+  assert.equal(result.audit.operationRoleContractCount, 71);
   assert.deepEqual(result.audit.counts, {
     unresolvedRequestedUnknown: 0,
     answerEquivalentOrNonMinimalGivenSet: 0,
@@ -52,7 +54,7 @@ test('A08R3 remediates all four A08R2 numeric finding classes across the full co
   assert.equal(result.nextShortestStep, W02_A08R4_TASK);
 });
 
-test('all 134 numeric items use revision 4 and explicit student-facing prompts', () => {
+test('all 134 numeric items use revision 4, explicit prompts and contract-minimal givens', () => {
   assert.equal(pkg.numericItems.length, 134);
   for (const item of pkg.numericItems) {
     const spec = specByPattern.get(item.patternSpecId);
@@ -61,6 +63,7 @@ test('all 134 numeric items use revision 4 and explicit student-facing prompts',
     assert.equal(item.studentFacingSurfaceVersion, 'W02_A08R3_V1');
     assert.equal(item.studentFacingSemanticRevision, 4);
     assert.equal(item.prompt.includes('指定數量'), false, item.prompt);
+    assert.equal(item.prompt.includes('求計算結果'), false, item.prompt);
     assert.equal(/\bx\s*\/\s*\d+/i.test(item.prompt), false, item.prompt);
     assert.equal(/^\s*[\[(].*[,，].*[\])]/.test(String(item.answerText)), false, String(item.answerText));
     assert.equal(Object.prototype.hasOwnProperty.call(item.givenRoleValues, item.requestedUnknownRole), false, item.generatedItemId);
@@ -91,7 +94,11 @@ test('fraction context, mixed conversion and rate totals use minimal independent
   assert.equal(difference.prompt, '1/2和1/4相差多少？');
 
   const mixed = itemByPattern.get('ps_g4a_u06_improper_mixed_conversion_improper_numerator_numeric');
+  const mixedWhole = itemByPattern.get('ps_g4a_u06_improper_mixed_conversion_whole_numeric');
+  const mixedRemainder = itemByPattern.get('ps_g4a_u06_improper_mixed_conversion_remainder_numeric');
   assert.deepEqual(keys(mixed), ['denominator', 'remainder', 'whole']);
+  assert.deepEqual(keys(mixedWhole), ['denominator', 'numerator']);
+  assert.deepEqual(keys(mixedRemainder), ['denominator', 'numerator']);
   assert.equal(mixed.prompt.includes('帶分數3又2/5'), true, mixed.prompt);
 
   const rateTotal = itemByPattern.get('ps_g4b_u06_rate_distance_context_total_numeric');
@@ -100,7 +107,7 @@ test('fraction context, mixed conversion and rate totals use minimal independent
   assert.deepEqual(keys(rateCombined), ['firstTotal', 'secondTotal']);
 });
 
-test('rounding, multiple and factor surfaces are bounded and coherent', () => {
+test('rounding, multiple, LCM and nearest-multiple surfaces are bounded and coherent', () => {
   const rounded = itemByPattern.get('ps_g5a_u01_decimal_round_estimate_rounded_numeric');
   const estimate = itemByPattern.get('ps_g5a_u01_decimal_round_estimate_estimate_numeric');
   assert.deepEqual(keys(rounded), ['targetPlace', 'value']);
@@ -113,10 +120,34 @@ test('rounding, multiple and factor surfaces are bounded and coherent', () => {
   assert.deepEqual(keys(multiples), ['base', 'upperBound']);
   assert.equal(multiples.prompt.includes('不超過20'), true, multiples.prompt);
 
-  const isFactor = itemByPattern.get('ps_g5a_u03a_factor_multiple_relation_is_factor_numeric');
-  const relationMultiple = itemByPattern.get('ps_g5a_u03a_factor_multiple_relation_is_multiple_numeric');
-  assert.deepEqual(keys(isFactor), ['factor', 'product']);
-  assert.deepEqual(keys(relationMultiple), ['base', 'value']);
+  const commonMultiples = itemByPattern.get('ps_g5a_u03a1_common_multiple_lcm_common_multiples_numeric');
+  const leastCommonMultiple = itemByPattern.get('ps_g5a_u03a1_common_multiple_lcm_least_common_multiple_numeric');
+  assert.deepEqual(keys(commonMultiples), ['left', 'right']);
+  assert.deepEqual(keys(leastCommonMultiple), ['left', 'right']);
+  assert.equal(commonMultiples.prompt.includes('最小的三個正公倍數'), true, commonMultiples.prompt);
+
+  const bounded = itemByPattern.get('ps_g5a_u03a_nearest_multiple_bounded_multiples_numeric');
+  const nearest = itemByPattern.get('ps_g5a_u03a_nearest_multiple_nearest_numeric');
+  assert.deepEqual(keys(bounded), ['base', 'lower', 'upper']);
+  assert.deepEqual(keys(nearest), ['base', 'lower', 'target', 'upper']);
+});
+
+test('simplification, number-line and missing-digit surfaces remove answer-equivalent givens', () => {
+  const simplestNumerator = itemByPattern.get('ps_g5a_u04_expand_reduce_simplest_simplest_numerator_numeric');
+  const simplestDenominator = itemByPattern.get('ps_g5a_u04_expand_reduce_simplest_simplest_denominator_numeric');
+  const commonFactor = itemByPattern.get('ps_g5a_u04_expand_reduce_simplest_common_factor_numeric');
+  assert.deepEqual(keys(simplestNumerator), ['denominator', 'numerator']);
+  assert.deepEqual(keys(simplestDenominator), ['denominator', 'numerator']);
+  assert.deepEqual(keys(commonFactor), ['denominator', 'numerator']);
+
+  const coordinate = itemByPattern.get('ps_g4a_u06_fraction_number_line_coordinate_numeric');
+  const distance = itemByPattern.get('ps_g4a_u06_fraction_number_line_distance_numeric');
+  assert.deepEqual(keys(coordinate), ['origin', 'stepCount', 'unitStep']);
+  assert.deepEqual(keys(distance), ['coordinate', 'origin']);
+
+  const missing = itemByPattern.get('ps_g4a_u09_missing_digit_inequality_possible_digits_numeric');
+  assert.deepEqual(keys(missing), ['left', 'right']);
+  assert.equal(missing.prompt.includes('＜'), true, missing.prompt);
 });
 
 test('segment, fraction bounds and inverse rounding use elementary-grade notation', () => {
