@@ -55,6 +55,7 @@ test('remediated application and numeric samples are readable and token-safe', (
   const numeric = materialized.a06Package.numericItems[0];
   for (const item of [application, numeric]) {
     assert.equal(item.studentFacingSurfaceVersion, 'W02_A08R1_V1');
+    assert.equal(item.studentFacingSemanticRevision, 2);
     assert.equal(item.prompt.length > 10, true, item.prompt);
     assert.equal(/([A-Za-z][A-Za-z0-9_]*)為/.test(item.prompt), false, item.prompt);
     assert.equal(/\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i.test(item.prompt), false, item.prompt);
@@ -68,6 +69,7 @@ test('all PBL task sets contain materialized dependency and final-decision surfa
   const materialized = materializeW02A08R1Remediation();
   for (const record of materialized.a06Package.pblTaskSetRecords) {
     assert.equal(record.studentFacingInstantiationVersion, 'W02_A08R1_V1');
+    assert.equal(record.studentFacingSemanticRevision, 2);
     assert.equal(record.drivingProblem.authenticityExecutionVerified, true);
     assert.equal(record.tasks.every((task) => task.fullyInstantiated === true), true);
     assert.equal(record.dependencyGraph.length > 0, true);
@@ -90,7 +92,7 @@ test('raw role regression and incomplete PBL regression fail closed', () => {
 });
 
 test('production or public selection cannot be enabled by remediation', () => {
-  const materialized = materializeW02A08R1Remediation();
+  const materialized = structuredClone(materializeW02A08R1Remediation());
   materialized.a06Package.generatedItems[0].productionSelectable = true;
   const result = validateW02A08R1Remediation(materialized);
   assert.equal(result.ok, false);
