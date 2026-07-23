@@ -1,0 +1,93 @@
+{
+  "schemaName": "POSTGAPPW02A08R4RegeneratedHTMLPDFThirdOperatorReviewDecisionV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
+  "parentTaskId": "POSTG-APP-W02-A08R3_NumericStudentFacingUnknownRoleGivenSetAndNotationRemediation",
+  "decisionDate": "2026-07-24",
+  "operatorDecision": "APPROVE",
+  "decisionSource": "ASSISTED_FULL_COHORT_THIRD_OPERATOR_REVIEW_UNDER_CONTINUE_AUTHORIZATION",
+  "reviewedArtifactAuthority": {
+    "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+    "headSha": "544a642b8d40fc30edd082dd41ed8065e978ed6a",
+    "workflowRunId": 30051709864,
+    "workflowName": "POSTG-APP W02-A08R3 Numeric Surface Remediation",
+    "artifactId": 8581273640,
+    "artifactName": "w02-a08r3-third-review-ready",
+    "artifactDigest": "sha256:d42de8c0707372521689d1acba15801c41cf2c90088820c13b197649ff24c8cb",
+    "expiresAt": "2026-08-22T22:59:33Z",
+    "regenerationCommands": [
+      "node tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs",
+      "node tools/curriculum/render-postg-app-w02-a06-pdf.mjs",
+      "node tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs",
+      "python tools/curriculum/verify-postg-app-w02-a06-pdf.py"
+    ]
+  },
+  "reviewCoverage": {
+    "sourceNodeCount": 13,
+    "generatedItemCount": 195,
+    "numericQuestionCount": 134,
+    "applicationQuestionCount": 61,
+    "operationFamilyCount": 49,
+    "operationRoleContractCount": 71,
+    "pblTaskSetCount": 31,
+    "historicalAffectedItemCount": 45,
+    "numericPdfPageCount": 68,
+    "applicationPdfPageCount": 42,
+    "pdfPageCount": 110,
+    "reviewedNumericQuestionCount": 134,
+    "reviewedApplicationQuestionCount": 61,
+    "reviewedPblTaskSetCount": 31,
+    "reviewedPdfPageCount": 110
+  },
+  "operatorAcceptance": {
+    "numericRequestedUnknownNamingAccepted": true,
+    "numericMinimalIndependentGivenSetAccepted": true,
+    "numericRelationCoherenceAndBoundednessAccepted": true,
+    "numericGradeAppropriateNotationAccepted": true,
+    "applicationSemanticNaturalnessAccepted": true,
+    "applicationQuantityAndUnitBindingAccepted": true,
+    "pblDependencyTaskMilestoneInstantiationAccepted": true,
+    "internalTokenAbsenceAccepted": true,
+    "answerKeyPairingAccepted": true,
+    "productionEquivalentHtmlPdfAccepted": true,
+    "pdfVisualContainmentAccepted": true,
+    "completeCohortAccepted": true
+  },
+  "blockingFindingCounts": {
+    "unresolvedRequestedUnknown": 0,
+    "answerEquivalentOrNonMinimalGivenSet": 0,
+    "malformedOrIncoherentSurface": 0,
+    "gradeUnsafeNotation": 0,
+    "applicationBlockingFindingCount": 0,
+    "pblBlockingFindingCount": 0,
+    "pdfBlockingFindingCount": 0
+  },
+  "productionAdmission": {
+    "granted": true,
+    "evidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "scopeType": "WAVE_APPLICATION_CAPABILITY",
+    "waveId": "W02",
+    "sourceNodeCount": 13,
+    "generatedItemCount": 195,
+    "publicRouteChanged": false,
+    "publicSelectionEnabled": false,
+    "authorizedUse": "PRODUCTION_ADMITTED_FOR_AUTHORIZED_SHARED_RUNTIME_CONSUMERS"
+  },
+  "controllerTransition": {
+    "completedWaveId": "W02",
+    "completedWaveState": "PRODUCTION_ADMITTED",
+    "nextWaveId": "W03",
+    "nextWaveState": "ASSESSMENT_READY",
+    "nextTaskId": "POSTG-APP-W03-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline"
+  },
+  "failClosedBoundaries": {
+    "automaticApprovalAllowed": false,
+    "approvalArtifactMutationAllowed": false,
+    "publicRouteActivationImpliedByApproval": false,
+    "w03ProductionAdmissionGranted": false,
+    "w03ShadowProjectionAllowed": false,
+    "wavesW04ToW06ProductionAdmissionGranted": false,
+    "programD0Complete": false
+  }
+}
