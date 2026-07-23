@@ -2,8 +2,8 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
-  "status": "W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED",
+  "taskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
+  "status": "W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
@@ -23,7 +23,8 @@
     "w02CanonicalOperationModelTaskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
     "w02PatternSpecTaskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
     "w02AtomicContextTaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
-    "w02NPlusOnePBLTaskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract"
+    "w02NPlusOnePBLTaskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
+    "w02ValidatorShadowTaskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -92,11 +93,17 @@
     "w02PBLTaskSetSchema": "data/curriculum/application/schema/w02-pbl-task-set-candidate.schema.json",
     "w02NPlusOnePBLResolver": "src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs",
     "w02NPlusOnePBLValidationCli": "tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs",
-    "w02A03MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A03.claim.json"
+    "w02A03MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A03.claim.json",
+    "w02ValidatorFixturePolicy": "data/curriculum/application/assessment/w02-validator-fixture-shadow-policy.json",
+    "w02ValidatorFixtureIndex": "data/curriculum/application/assessment/w02-validator-fixture-shadow-index.json",
+    "w02ValidatorFixtureSchema": "data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json",
+    "w02ValidatorShadowRuntime": "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs",
+    "w02ValidatorShadowValidationCli": "tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs",
+    "w02A04MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A04.claim.json"
   },
   "currentWaveId": "W02",
-  "currentCapability": "W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED",
-  "currentMainlineBlocker": "W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_PENDING",
+  "currentCapability": "W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS",
+  "currentMainlineBlocker": "W02_WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_PENDING",
   "productionAdmission": {
     "applicationUnitCount": 12,
     "waveCount": 1,
@@ -130,7 +137,7 @@
     },
     {
       "waveId": "W02",
-      "state": "N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED",
+      "state": "VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS",
       "completedGates": [
         "SOURCE_NODE_REGISTERED",
         "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
@@ -138,7 +145,10 @@
         "CANONICAL_OPERATION_MODEL_COMPLETE",
         "SINGLE_APPLICATION_ADMISSION_COMPLETE",
         "GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE",
-        "N_PLUS_1_CONTRACT_COMPLETE"
+        "N_PLUS_1_CONTRACT_COMPLETE",
+        "VALIDATOR_CONTRACT_COMPLETE",
+        "POSITIVE_NEGATIVE_FIXTURES_COMPLETE",
+        "SHARED_RUNTIME_SHADOW_PASS"
       ],
       "admissionGateComplete": false,
       "productionAdmissionGranted": false,
@@ -188,6 +198,30 @@
       "duplicatePblProjectionParity": true,
       "compatiblePblCandidateCount": 0,
       "nPlusOnePblBlueprintsComplete": true,
+      "validatorFixtureCount": 672,
+      "validatorPositiveFixtureCount": 275,
+      "validatorNegativeFixtureCount": 397,
+      "validatorPassCount": 275,
+      "validatorExpectedRejectCount": 397,
+      "validatorUnexpectedPassCount": 0,
+      "validatorUnexpectedRejectCount": 0,
+      "pairedNPlusOneExecutionCount": 61,
+      "misconceptionExecutionCount": 183,
+      "calculationPassInterpretationFailCount": 122,
+      "counterfactualExecutionCount": 61,
+      "crossContextExecutionCount": 61,
+      "uniquenessNegativeExecutionCount": 61,
+      "pblDependencyExecutionCount": 62,
+      "sourceNodeRuntimeCoverageCount": 13,
+      "primaryMacroContextRuntimeCoverageCount": 16,
+      "alternateMacroContextRuntimeCoverageCount": 2,
+      "operationFamilyRuntimeCoverageCount": 22,
+      "answerShapeRuntimeCoverageCount": 2,
+      "adapterRuntimeCoverageCount": 2,
+      "duplicateFixtureProjectionGroupCount": 1,
+      "duplicateFixtureProjectionParity": true,
+      "validatorFixturesComplete": true,
+      "sharedRuntimeShadowPass": true,
       "productionAdmittedCandidateCount": 0
     },
     {"waveId": "W03", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
@@ -215,6 +249,7 @@
       "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
       "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
       "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
+      "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
       "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
     ],
     "authoritativeState": [
@@ -247,7 +282,11 @@
       "w02-nplusone-pbl-candidate-pack-index.json",
       "w02-nplusone-proof-candidate.schema.json",
       "w02-pbl-task-set-candidate.schema.json",
-      "POSTG-APP-W02-A03.claim.json"
+      "POSTG-APP-W02-A03.claim.json",
+      "w02-validator-fixture-shadow-policy.json",
+      "w02-validator-fixture-shadow-index.json",
+      "w02-validator-shadow-fixture.schema.json",
+      "POSTG-APP-W02-A04.claim.json"
     ],
     "runtimeConsumer": [
       "postg-app-master-controller.mjs",
@@ -263,7 +302,8 @@
       "w02-canonical-operation-models.mjs",
       "w02-hidden-pattern-specs.mjs",
       "w02-atomic-context-single-application-candidate-pack.mjs",
-      "w02-nplusone-pbl-candidate-pack.mjs"
+      "w02-nplusone-pbl-candidate-pack.mjs",
+      "w02-validator-fixture-shadow-runtime.mjs"
     ],
     "readback": [
       "validate-postg-app-m00-master-controller.mjs",
@@ -279,9 +319,10 @@
       "validate-postg-app-w02-a01c-canonical-operation-models.mjs",
       "validate-postg-app-w02-a01d-hidden-pattern-specs.mjs",
       "validate-postg-app-w02-a02-candidate-pack.mjs",
-      "validate-postg-app-w02-a03-candidate-pack.mjs"
+      "validate-postg-app-w02-a03-candidate-pack.mjs",
+      "validate-postg-app-w02-a04-runtime-shadow.mjs"
     ]
   },
-  "nextShortestStep": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
+  "nextShortestStep": "POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview",
   "stopReason": "NONE"
 }
