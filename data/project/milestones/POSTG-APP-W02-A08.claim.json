@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission",
+  "taskClass": "operator_review",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E4_OPERATOR_REVIEW_REVISE_REQUIRED",
+  "claimedStatus": "W02_OPERATOR_REVIEW_REVISE_REQUIRED",
+  "claims": {
+    "humanReviewCompleted": true,
+    "operatorDecisionRecorded": true,
+    "operatorDecision": "REVISE",
+    "blockingFindingsRecorded": true,
+    "productionAdmitted": false,
+    "publicSelectable": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "decisionPath": "data/curriculum/application/reviews/POSTG-APP-W02-A08_OperatorHumanReviewDecision.json",
+    "reviewManifestPath": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json",
+    "reviewDataPath": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json",
+    "reviewIndexPath": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html",
+    "runtimeTestPaths": [
+      "src/curriculum/application/w02-a08-operator-review-decision.mjs",
+      "tests/curriculum/postg-app-w02-a08-operator-review-decision.test.js",
+      "tools/curriculum/validate-postg-app-w02-a08-operator-review-decision.mjs"
+    ],
+    "findingCounts": {
+      "applicationRawSlotLeakage": 61,
+      "applicationMalformedSurface": 61,
+      "numericRawSlotLeakage": 48,
+      "pblNotFullyInstantiated": 31,
+      "pblInternalTokenLeakage": 31,
+      "pblDependencyGraphMissing": 31
+    }
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The mandatory operator gate is no longer ambiguous: W02 is explicitly rejected for production admission, six systemic student-facing defect classes are quantified, and one bounded remediation task is selected. No invalid E5 progress is claimed."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview",
+    "requiredEvidenceLevelBeforeStart": "E4_OPERATOR_REVIEW_REVISE_REQUIRED"
+  }
+}
