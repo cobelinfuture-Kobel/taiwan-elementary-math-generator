@@ -36,11 +36,33 @@ jobs:
         with: { python-version: "3.12" }
       - name: Install project dependencies
         run: npm install --silent
-      - name: Run A06 focused tests and deterministic validator
+      - name: Capture A06 focused tests and deterministic validator
         run: |
-          set -o pipefail
-          node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js 2>&1 | tee w02-a06-focused-test.log
-          node tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs > w02-a06-validator.json
+          set +e
+          node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js > w02-a06-focused-test.log 2>&1
+          test_status=$?
+          node tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs > w02-a06-validator.json 2>&1
+          validator_status=$?
+          printf '%s\n' "$test_status" > w02-a06-focused-test.status
+          printf '%s\n' "$validator_status" > w02-a06-validator.status
+          cat w02-a06-focused-test.log
+          cat w02-a06-validator.json
+          exit 0
+      - name: Upload A06 focused diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a06-focused-diagnostics
+          path: |
+            w02-a06-focused-test.log
+            w02-a06-focused-test.status
+            w02-a06-validator.json
+            w02-a06-validator.status
+          if-no-files-found: error
+          retention-days: 30
+      - name: Enforce A06 focused gate
+        run: |
+          test "$(cat w02-a06-focused-test.status)" = "0"
+          test "$(cat w02-a06-validator.status)" = "0"
       - name: Install artifact dependencies
         run: |
           npm install --silent --no-save playwright@1.55.0
