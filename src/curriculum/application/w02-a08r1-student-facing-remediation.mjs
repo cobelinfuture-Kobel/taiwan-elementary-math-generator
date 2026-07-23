@@ -12,6 +12,8 @@ const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...de
 const internalRolePattern = /([A-Za-z][A-Za-z0-9_]*)為/;
 const internalIdPattern = /\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i;
 const internalTokenPattern = /[A-Z]{2,}(?:_[A-Z]+)+/;
+const genericPblPattern = /指出題目中最重要的限制|使用前面結果擬定一個|比較計算、檢查與草案結果/;
+const governancePblPattern = /使用虛構練習數據|不宣稱未提供的史實細節|新聞不可作為唯一權威|有效期間到期須重新審核|不涉及個資或監控|設備性能不得虛構宣稱|不使用災害恐懼敘事|安全敘事不呈現傷亡細節/;
 
 function applicationAudit(rows) {
   return {
@@ -22,7 +24,19 @@ function applicationAudit(rows) {
     malformedSurfaceCount: rows.filter((row) => /^在[^。]+為了/.test(String(row.promptText))
       || String(row.promptText).includes('情境中')
       || String(row.promptText).includes('{{')).length,
-    missingAnswerCount: rows.filter((row) => row.answerText == null || String(row.answerText).trim() === '').length
+    missingAnswerCount: rows.filter((row) => row.answerText == null || String(row.answerText).trim() === '').length,
+    sameDenominatorKnowledgeMismatchCount: rows.filter((row) => row.knowledgePointId === 'kp_g3a_u08_same_denominator_compare'
+      && row.item?.givenRoleValues?.leftDenominator !== row.item?.givenRoleValues?.rightDenominator).length,
+    lengthConversionSurfaceMismatchCount: rows.filter((row) => (row.knowledgePointId === 'kp_g3b_u09_length_decimal_conversion'
+      || row.knowledgePointId === 'kp_g4a_u09_decimal_length_conversion')
+      && (!String(row.promptText).includes('公尺') || !String(row.promptText).includes('公里') || /公升|毫升/.test(String(row.promptText)))).length,
+    rateDistanceSurfaceMismatchCount: rows.filter((row) => String(row.patternSpecId).includes('rate_distance_context')
+      && (!String(row.promptText).includes('公里') || /公升|公斤|公尺/.test(String(row.promptText)))).length,
+    fractionalCapacityDisplayMismatchCount: rows.filter((row) => row.item?.operationFamilyId === 'discrete_fraction_conversion'
+      && row.item?.requestedUnknownRole === 'fractionalUnits'
+      && (!String(row.promptText).includes('可裝滿1') || !String(row.answerText).includes('又'))).length,
+    gradeInappropriateFractionVariableCount: rows.filter((row) => row.item?.operationFamilyId === 'fraction_bounds'
+      && (/\bx\//i.test(String(row.promptText)) || !String(row.promptText).includes('分母是'))).length
   };
 }
 
@@ -40,8 +54,10 @@ function pblVisibleText(row) {
   const record = row.record ?? row;
   return [
     record.drivingProblem?.problemStatementZh,
+    ...(record.drivingProblem?.constraints ?? []),
     ...(record.drivingProblem?.successCriteria ?? []),
     ...(record.tasks ?? []).map((task) => task.promptZh),
+    ...(record.finalProduct?.constraintSatisfactionChecks ?? []),
     record.finalProduct?.decisionWitnessCandidate
   ].join(' ');
 }
@@ -55,7 +71,14 @@ function pblAudit(rows) {
     finalDecisionIncompleteCount: rows.filter((row) => row.record?.finalProduct?.executed !== true || row.finalDecisionRequired !== true).length,
     internalIdLeakageCount: rows.filter((row) => internalIdPattern.test(pblVisibleText(row))).length,
     internalTokenLeakageCount: rows.filter((row) => internalTokenPattern.test(pblVisibleText(row))).length,
-    malformedSurfaceCount: rows.filter((row) => pblVisibleText(row).includes('在在') || pblVisibleText(row).includes('{{')).length
+    malformedSurfaceCount: rows.filter((row) => pblVisibleText(row).includes('在在') || pblVisibleText(row).includes('{{')).length,
+    genericTaskSurfaceCount: rows.filter((row) => genericPblPattern.test(pblVisibleText(row))).length,
+    governancePhraseLeakageCount: rows.filter((row) => governancePblPattern.test(pblVisibleText(row))).length,
+    genericProductLabelCount: rows.filter((row) => ['可執行方案', '數學成果報告'].includes(row.record?.drivingProblem?.finalProductType)).length,
+    duplicatedTaskSurfaceCount: rows.filter((row) => {
+      const prompts = (row.record?.tasks ?? []).map((task) => task.promptZh);
+      return new Set(prompts).size !== prompts.length;
+    }).length
   };
 }
 
@@ -89,7 +112,12 @@ export function validateW02A08R1Remediation(materialized) {
       internalIdLeakageCount: 0,
       internalTokenLeakageCount: 0,
       malformedSurfaceCount: 0,
-      missingAnswerCount: 0
+      missingAnswerCount: 0,
+      sameDenominatorKnowledgeMismatchCount: 0,
+      lengthConversionSurfaceMismatchCount: 0,
+      rateDistanceSurfaceMismatchCount: 0,
+      fractionalCapacityDisplayMismatchCount: 0,
+      gradeInappropriateFractionVariableCount: 0
     },
     numeric: {
       reviewedCount: 49,
@@ -106,17 +134,23 @@ export function validateW02A08R1Remediation(materialized) {
       finalDecisionIncompleteCount: 0,
       internalIdLeakageCount: 0,
       internalTokenLeakageCount: 0,
-      malformedSurfaceCount: 0
+      malformedSurfaceCount: 0,
+      genericTaskSurfaceCount: 0,
+      governancePhraseLeakageCount: 0,
+      genericProductLabelCount: 0,
+      duplicatedTaskSurfaceCount: 0
     }
   };
   if (JSON.stringify(audit) !== JSON.stringify(expectedAudit)) {
     issues.push(issue('POSTG_APP_W02_A08R1_SEMANTIC_AUDIT_FAILED', 'audit', { expected: expectedAudit, actual: audit }));
   }
 
-  if (a06Package.generatedItems.some((item) => item.studentFacingSurfaceVersion !== 'W02_A08R1_V1')) {
+  if (a06Package.generatedItems.some((item) => item.studentFacingSurfaceVersion !== 'W02_A08R1_V1'
+      || item.studentFacingSemanticRevision !== 3)) {
     issues.push(issue('POSTG_APP_W02_A08R1_SURFACE_VERSION_INVALID', 'generatedItems'));
   }
-  if (a06Package.pblTaskSetRecords.some((row) => row.studentFacingInstantiationVersion !== 'W02_A08R1_V1')) {
+  if (a06Package.pblTaskSetRecords.some((row) => row.studentFacingInstantiationVersion !== 'W02_A08R1_V1'
+      || row.studentFacingSemanticRevision !== 3)) {
     issues.push(issue('POSTG_APP_W02_A08R1_PBL_VERSION_INVALID', 'pblTaskSetRecords'));
   }
   if (a06Package.generatedItems.some((item) => item.productionSelectable || item.publicSelectable)
@@ -129,7 +163,7 @@ export function validateW02A08R1Remediation(materialized) {
     ok: issues.length === 0,
     issues,
     status: issues.length === 0
-      ? 'W02_A08R1_STUDENT_FACING_SEMANTIC_SURFACE_PBL_REVIEW_READY'
+      ? 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY'
       : 'W02_A08R1_REMEDIATION_BLOCKED',
     counts: {
       generatedItemCount: a06Package.generatedItems.length,
@@ -139,6 +173,7 @@ export function validateW02A08R1Remediation(materialized) {
       operationFamilyCount: new Set(a06Package.generatedItems.map((item) => item.operationFamilyId)).size
     },
     audit,
+    studentFacingSemanticRevision: 3,
     productionAdmissionGranted: false,
     nextShortestStep: 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision'
   };
