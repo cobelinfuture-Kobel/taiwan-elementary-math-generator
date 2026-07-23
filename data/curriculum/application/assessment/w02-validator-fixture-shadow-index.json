@@ -1,0 +1,51 @@
+{
+  "schemaName": "POSTGAPPW02ValidatorFixtureShadowIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
+  "contractId": "POSTG_APP_W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_V1",
+  "status": "DETERMINISTIC_SHARED_SHADOW_RUNTIME_PENDING_CI",
+  "inputAuthority": {
+    "a02CandidateTaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
+    "a03ProofTaskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
+    "fixturePolicy": "data/curriculum/application/assessment/w02-validator-fixture-shadow-policy.json"
+  },
+  "materializedAuthority": {
+    "fixtureSchema": "data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json",
+    "runtime": "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs",
+    "test": "tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js"
+  },
+  "verifiedInputCounts": {
+    "a02SingleApplicationCandidateCount": 61,
+    "a03NPlusOneProofCandidateCount": 61,
+    "a03MisconceptionCandidateCount": 183,
+    "a03PblTaskSetCandidateCount": 31
+  },
+  "expectedFixtureCounts": {
+    "singleApplicationFixtureCount": 183,
+    "nPlusOnePositiveFixtureCount": 61,
+    "misconceptionNegativeFixtureCount": 183,
+    "counterfactualPositiveFixtureCount": 61,
+    "crossContextPositiveFixtureCount": 61,
+    "nonUniqueNegativeFixtureCount": 61,
+    "pblFixtureCount": 62,
+    "totalFixtureCount": 672,
+    "positiveFixtureCount": 275,
+    "negativeFixtureCount": 397
+  },
+  "executionBoundary": {
+    "numericFixtureExecutionAllowedInShadow": true,
+    "misconceptionExecutionAllowedInShadow": true,
+    "counterfactualExecutionAllowedInShadow": true,
+    "crossContextExecutionAllowedInShadow": true,
+    "uniqueAnswerWitnessExecutionAllowedInShadow": true,
+    "pblDependencyExecutionAllowedInShadow": true,
+    "productionGeneratorChanged": false,
+    "productionValidatorChanged": false,
+    "rendererChanged": false,
+    "publicRuntimeChanged": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview"
+}
