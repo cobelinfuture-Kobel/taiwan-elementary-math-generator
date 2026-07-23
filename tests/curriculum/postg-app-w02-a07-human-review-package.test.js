@@ -14,6 +14,7 @@ test('W02 A07 materializes the full production-equivalent human review package',
   assert.equal(result.ok, true, JSON.stringify(result.issues));
   assert.equal(result.status, 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY');
   assert.equal(model.summary.sourceNodeCount, 13);
+  assert.equal(model.summary.macroContextCount, 16);
   assert.equal(model.summary.totalGeneratedItemCount, 195);
   assert.equal(model.summary.numericGeneratedItemCount, 134);
   assert.equal(model.summary.applicationReviewCount, 61);
@@ -23,11 +24,20 @@ test('W02 A07 materializes the full production-equivalent human review package',
   assert.equal(model.summary.operationFamilyCount, 49);
 });
 
-test('W02 A07 exposes 61 application rows and all approved PBL task sets for human review', () => {
+test('W02 A07 exposes 61 application rows with complete context lineage and all approved PBL task sets', () => {
   const model = materializeW02A07HumanReviewPackage({ root });
   assert.equal(model.applicationReviewRows.length, 61);
   assert.equal(model.pblReviewRows.length, 31);
   assert.equal(model.applicationReviewRows.every((row) => row.promptText && row.answerText != null), true);
+  assert.equal(model.applicationReviewRows.every((row) => (
+    row.contextLineage?.macroContextId
+    && row.contextLineage?.mesoSituationId
+    && row.contextLineage?.microScenarioId
+    && row.contextLineage?.atomicEpisodeId
+    && row.contextLineage?.surfaceTemplateId
+    && row.contextMacroId === row.contextLineage.macroContextId
+  )), true);
+  assert.equal(new Set(model.applicationReviewRows.map((row) => row.contextMacroId)).size, 16);
   assert.equal(model.applicationReviewRows.every((row) => !row.productionSelectable && !row.publicSelectable), true);
   assert.deepEqual([...new Set(model.pblReviewRows.map((row) => row.graphType))].sort(), [
     'PBL3_LINEAR',
@@ -42,6 +52,7 @@ test('W02 A07 review index links the exact A06 production-equivalent HTML and PD
   assert.match(model.reviewIndexHtml, /POSTG_APP_W02_A06_NUMERIC_WORKSHEET\.pdf/);
   assert.match(model.reviewIndexHtml, /POSTG_APP_W02_A06_APPLICATION_WORKSHEET\.html/);
   assert.match(model.reviewIndexHtml, /POSTG_APP_W02_A06_APPLICATION_WORKSHEET\.pdf/);
+  assert.match(model.reviewIndexHtml, /gctx_macro_/);
   assert.doesNotMatch(model.reviewIndexHtml, /\{\{/);
 });
 
