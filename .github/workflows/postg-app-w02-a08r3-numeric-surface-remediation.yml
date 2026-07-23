@@ -51,37 +51,44 @@ jobs:
       - name: Materialize A08R3 runtime, evidence and controller
         id: materialize
         run: |
-          node tools/curriculum/materialize-postg-app-w02-a08r3-runtime.mjs | tee w02-a08r3-runtime-materialization.json
-          node tools/curriculum/materialize-postg-app-w02-a08r3-contract-fix.mjs | tee w02-a08r3-contract-materialization.json
-          node tools/curriculum/materialize-postg-app-w02-a08r3-evidence.mjs | tee w02-a08r3-evidence-materialization.json
-          node tools/curriculum/materialize-postg-app-w02-a08r3-controller.mjs | tee w02-a08r3-controller-materialization.json
-          MATERIALIZED_PATHS=(
-            src/curriculum/application/shared/operation-family-runtime.mjs
-            src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs
-            src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs
-            src/curriculum/application/w02-a08r1-student-facing-remediation.mjs
-            src/curriculum/application/postg-app-master-controller.mjs
-            data/curriculum/application/controller/postg-app-master-controller-state.json
-            data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json
-            docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json
-            data/project/milestones/POSTG-APP-W02-A08R3.claim.json
-            tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
-            tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js
-            tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js
-            tests/curriculum/postg-app-m00-master-controller.test.js
-            tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
-          )
-          if [[ -n "$(git status --porcelain -- "${MATERIALIZED_PATHS[@]}")" ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add "${MATERIALIZED_PATHS[@]}"
-            git commit -m "chore(application): materialize W02 A08R3 remediation state"
-            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
-            fi
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
+          if [[ -f data/project/milestones/POSTG-APP-W02-A08R4.claim.json ]]; then
+            for name in runtime contract evidence controller; do
+              echo '{"ok":true,"skipped":true,"reason":"A08R4_SUCCESSOR_ADMISSION_PRESENT"}' > "w02-a08r3-${name}-materialization.json"
+            done
             echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            node tools/curriculum/materialize-postg-app-w02-a08r3-runtime.mjs | tee w02-a08r3-runtime-materialization.json
+            node tools/curriculum/materialize-postg-app-w02-a08r3-contract-fix.mjs | tee w02-a08r3-contract-materialization.json
+            node tools/curriculum/materialize-postg-app-w02-a08r3-evidence.mjs | tee w02-a08r3-evidence-materialization.json
+            node tools/curriculum/materialize-postg-app-w02-a08r3-controller.mjs | tee w02-a08r3-controller-materialization.json
+            MATERIALIZED_PATHS=(
+              src/curriculum/application/shared/operation-family-runtime.mjs
+              src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs
+              src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs
+              src/curriculum/application/w02-a08r1-student-facing-remediation.mjs
+              src/curriculum/application/postg-app-master-controller.mjs
+              data/curriculum/application/controller/postg-app-master-controller-state.json
+              data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json
+              docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json
+              data/project/milestones/POSTG-APP-W02-A08R3.claim.json
+              tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
+              tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js
+              tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js
+              tests/curriculum/postg-app-m00-master-controller.test.js
+              tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+            )
+            if [[ -n "$(git status --porcelain -- "${MATERIALIZED_PATHS[@]}")" ]]; then
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add "${MATERIALIZED_PATHS[@]}"
+              git commit -m "chore(application): materialize W02 A08R3 remediation state"
+              if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+                git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
+              fi
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+            fi
           fi
       - name: Capture focused remediation diagnostics
         id: focused
@@ -157,8 +164,10 @@ jobs:
         run: npm test
       - name: Enforce materializer idempotence
         run: |
-          node tools/curriculum/materialize-postg-app-w02-a08r3-runtime.mjs
-          node tools/curriculum/materialize-postg-app-w02-a08r3-contract-fix.mjs
-          node tools/curriculum/materialize-postg-app-w02-a08r3-evidence.mjs
-          node tools/curriculum/materialize-postg-app-w02-a08r3-controller.mjs
+          if [[ ! -f data/project/milestones/POSTG-APP-W02-A08R4.claim.json ]]; then
+            node tools/curriculum/materialize-postg-app-w02-a08r3-runtime.mjs
+            node tools/curriculum/materialize-postg-app-w02-a08r3-contract-fix.mjs
+            node tools/curriculum/materialize-postg-app-w02-a08r3-evidence.mjs
+            node tools/curriculum/materialize-postg-app-w02-a08r3-controller.mjs
+          fi
           git diff --exit-code
