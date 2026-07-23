@@ -38,7 +38,8 @@
     ],
     "beforeAfterEvidencePaths": [
       "data/curriculum/application/contracts/POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration.json",
-      "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json"
+      "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json",
+      "docs/curriculum/output/POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED.marker"
     ],
     "reviewArtifactPaths": [],
     "artifactHashes": [
@@ -56,7 +57,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Shared 49-family generator and validator produced 195 validated items; canonical worksheet rendering produced two verified HTML artifacts and two verified PDFs with 68 numeric pages, 42 application pages, containment checks and hash-locked evidence."
+    "distanceReduced": "Shared 49-family generator and validator produced 195 validated items; canonical worksheet rendering produced two verified HTML artifacts and two verified PDFs with 68 numeric pages, 42 application pages, containment checks, hash-locked evidence and main-controller-ready E4 readback."
   },
   "nextStep": {
     "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
