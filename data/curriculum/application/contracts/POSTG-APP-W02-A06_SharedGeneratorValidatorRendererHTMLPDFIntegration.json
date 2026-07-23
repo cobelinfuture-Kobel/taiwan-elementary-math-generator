@@ -4,19 +4,25 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
   "contractId": "POSTG_APP_SHARED_PRODUCTION_EQUIVALENT_W02_HTML_PDF_V1",
-  "status": "IMPLEMENTATION_PENDING_ARTIFACT_CI",
+  "status": "E4_PRODUCTION_EQUIVALENT_HTML_PDF_VERIFIED",
   "dependencies": {
     "a05TaskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
     "requiredA05Status": "W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
     "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
   },
-  "targetCoverage": {
+  "verifiedCoverage": {
     "sourceNodeCount": 13,
     "numericPatternSpecCount": 134,
     "applicationPatternSpecCount": 61,
     "totalPatternSpecCount": 195,
+    "validatedItemCount": 195,
     "pblTaskSetRecordCount": 31,
-    "operationFamilyCount": 49
+    "operationFamilyCount": 49,
+    "numericPdfPageCount": 68,
+    "applicationPdfPageCount": 42,
+    "htmlArtifactCount": 2,
+    "pdfArtifactCount": 2,
+    "artifactHashCount": 5
   },
   "requiredSharedConsumers": {
     "generatorAdapter": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
@@ -24,14 +30,21 @@
     "worksheetProjectionAdapter": "SHARED_APPLICATION_WORKSHEET_PROJECTION_V1",
     "worksheetDocumentConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
     "renderer": "site/modules/renderer/html-renderer-s57f5-extension.js",
+    "printStylesheet": "src/renderer/print-styles.css",
     "pdfRenderer": "CHROMIUM_PRINT_TO_PDF"
   },
-  "evidenceTarget": {
+  "evidence": {
     "level": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+    "evidencePath": "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json",
+    "workflowRunId": 29981218627,
+    "workflowHeadSha": "f121e4cad9922e48de6c240293cee65798dc8ed3",
     "productionEquivalentGeneratorUsed": true,
     "productionRendererUsed": true,
     "htmlOutputVerified": true,
     "pdfOutputVerified": true,
+    "domGeometryVerified": true,
+    "pdfContainmentVerified": true,
+    "artifactHashesVerified": true,
     "visibleOutputChanged": false,
     "humanReviewReady": false,
     "productionAdmitted": false
