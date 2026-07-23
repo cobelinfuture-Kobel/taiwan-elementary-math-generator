@@ -59,9 +59,11 @@ export function validateStudentFacingPblTaskSet(record) {
       issues.push({ code: 'POSTG_APP_STUDENT_PBL_RATE_RELATION_MISSING' });
     }
   }
-  if (record.operationFamilyId === 'discrete_fraction_conversion'
-      && (!visible.includes('完整') || !visible.includes('分數'))) {
-    issues.push({ code: 'POSTG_APP_STUDENT_PBL_DISCRETE_FRACTION_RELATION_MISSING' });
+  if (record.operationFamilyId === 'discrete_fraction_conversion') {
+    const explicitFractionRelation = visible.includes('分數') || /\d+\s*\/\s*\d+/.test(visible);
+    if (!visible.includes('完整') || !explicitFractionRelation) {
+      issues.push({ code: 'POSTG_APP_STUDENT_PBL_DISCRETE_FRACTION_RELATION_MISSING' });
+    }
   }
   return { ...result, ok: issues.length === 0, issues };
 }
