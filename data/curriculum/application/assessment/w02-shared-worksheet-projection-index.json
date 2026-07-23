@@ -1,0 +1,45 @@
+{
+  "schemaName": "POSTGAPPW02SharedWorksheetProjectionIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
+  "contractId": "POSTG_APP_SHARED_WORKSHEET_PROJECTION_AND_W02_SHADOW_V1",
+  "status": "SHARED_WORKSHEET_PROJECTION_VERIFIED",
+  "inputAuthority": {
+    "a03Runtime": "src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs",
+    "a04Runtime": "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs",
+    "capabilityRegistry": "data/curriculum/application/registry/application-capability-registry.json",
+    "admissionRegistry": "data/curriculum/application/registry/wave-application-admission-registry.json",
+    "policy": "data/curriculum/application/assessment/w02-shared-worksheet-projection-policy.json"
+  },
+  "sharedAuthority": {
+    "capabilityEntrySchema": "data/curriculum/application/schema/shared/application-capability-entry.schema.json",
+    "questionRecordSchema": "data/curriculum/application/schema/shared/application-question-record.schema.json",
+    "answerKeyRecordSchema": "data/curriculum/application/schema/shared/answer-key-record.schema.json",
+    "pblTaskSetRecordSchema": "data/curriculum/application/schema/shared/pbl-task-set-record.schema.json",
+    "printMetadataSchema": "data/curriculum/application/schema/shared/print-metadata.schema.json",
+    "worksheetProjectionSchema": "data/curriculum/application/schema/shared/worksheet-projection.schema.json",
+    "resolver": "src/curriculum/application/shared/application-capability-resolver.mjs",
+    "runtime": "src/curriculum/application/shared/worksheet-projection-runtime.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a05-shared-worksheet-projection.mjs",
+    "test": "tests/curriculum/postg-app-w02-a05-shared-worksheet-projection.test.js"
+  },
+  "expectedCounts": {
+    "sourceNodeCount": 13,
+    "applicationCapabilityEntryCount": 61,
+    "applicationQuestionRecordCount": 61,
+    "answerKeyRecordCount": 61,
+    "pblTaskSetRecordCount": 31,
+    "pbl3TaskSetRecordCount": 19,
+    "pbl5TaskSetRecordCount": 12,
+    "futureWaveFailClosedFixtureCount": 1,
+    "productionAdmittedCount": 0,
+    "publicSelectableCount": 0
+  },
+  "verifiedAdditionalCounts": {
+    "worksheetProjectionCount": 13,
+    "shadowHtmlCount": 0,
+    "duplicateProjectionGroupCount": 1
+  },
+  "nextShortestStep": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration"
+}

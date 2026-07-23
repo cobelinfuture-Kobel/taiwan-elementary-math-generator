@@ -2,8 +2,8 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
-  "status": "W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS",
+  "taskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
+  "status": "W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
@@ -24,7 +24,8 @@
     "w02PatternSpecTaskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
     "w02AtomicContextTaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
     "w02NPlusOnePBLTaskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
-    "w02ValidatorShadowTaskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow"
+    "w02ValidatorShadowTaskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
+    "w02SharedWorksheetProjectionTaskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -99,11 +100,25 @@
     "w02ValidatorFixtureSchema": "data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json",
     "w02ValidatorShadowRuntime": "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs",
     "w02ValidatorShadowValidationCli": "tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs",
-    "w02A04MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A04.claim.json"
+    "w02A04MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A04.claim.json",
+    "sharedApplicationCapabilityRegistry": "data/curriculum/application/registry/application-capability-registry.json",
+    "sharedWaveApplicationAdmissionRegistry": "data/curriculum/application/registry/wave-application-admission-registry.json",
+    "w02SharedWorksheetProjectionPolicy": "data/curriculum/application/assessment/w02-shared-worksheet-projection-policy.json",
+    "w02SharedWorksheetProjectionIndex": "data/curriculum/application/assessment/w02-shared-worksheet-projection-index.json",
+    "sharedApplicationCapabilityEntrySchema": "data/curriculum/application/schema/shared/application-capability-entry.schema.json",
+    "sharedApplicationQuestionRecordSchema": "data/curriculum/application/schema/shared/application-question-record.schema.json",
+    "sharedAnswerKeyRecordSchema": "data/curriculum/application/schema/shared/answer-key-record.schema.json",
+    "sharedPBLTaskSetRecordSchema": "data/curriculum/application/schema/shared/pbl-task-set-record.schema.json",
+    "sharedPrintMetadataSchema": "data/curriculum/application/schema/shared/print-metadata.schema.json",
+    "sharedWorksheetProjectionSchema": "data/curriculum/application/schema/shared/worksheet-projection.schema.json",
+    "sharedApplicationCapabilityResolver": "src/curriculum/application/shared/application-capability-resolver.mjs",
+    "sharedWorksheetProjectionRuntime": "src/curriculum/application/shared/worksheet-projection-runtime.mjs",
+    "w02SharedWorksheetProjectionValidationCli": "tools/curriculum/validate-postg-app-w02-a05-shared-worksheet-projection.mjs",
+    "w02A05MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A05.claim.json"
   },
   "currentWaveId": "W02",
-  "currentCapability": "W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS",
-  "currentMainlineBlocker": "W02_SHARED_WORKSHEET_PROJECTION_PENDING",
+  "currentCapability": "W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
+  "currentMainlineBlocker": "W02_SHARED_GENERATOR_VALIDATOR_RENDERER_HTML_PDF_PENDING",
   "productionAdmission": {
     "applicationUnitCount": 12,
     "waveCount": 1,
@@ -137,7 +152,7 @@
     },
     {
       "waveId": "W02",
-      "state": "VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS",
+      "state": "SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
       "completedGates": [
         "SOURCE_NODE_REGISTERED",
         "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
@@ -222,7 +237,18 @@
       "duplicateFixtureProjectionParity": true,
       "validatorFixturesComplete": true,
       "sharedRuntimeShadowPass": true,
-      "productionAdmittedCandidateCount": 0
+      "applicationCapabilityEntryCount": 61,
+      "applicationQuestionRecordCount": 61,
+      "answerKeyRecordCount": 61,
+      "sharedPblTaskSetRecordCount": 31,
+      "worksheetProjectionCount": 13,
+      "futureWaveFailClosedFixtureCount": 1,
+      "duplicateWorksheetProjectionGroupCount": 1,
+      "duplicateWorksheetProjectionParity": true,
+      "shadowHtmlCount": 0,
+      "sharedWorksheetProjectionComplete": true,
+      "productionAdmittedCandidateCount": 0,
+      "publicSelectableCandidateCount": 0
     },
     {"waveId": "W03", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
     {"waveId": "W04", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
@@ -250,6 +276,7 @@
       "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
       "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
       "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
+      "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
       "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
     ],
     "authoritativeState": [
@@ -286,7 +313,18 @@
       "w02-validator-fixture-shadow-policy.json",
       "w02-validator-fixture-shadow-index.json",
       "w02-validator-shadow-fixture.schema.json",
-      "POSTG-APP-W02-A04.claim.json"
+      "POSTG-APP-W02-A04.claim.json",
+      "application-capability-registry.json",
+      "wave-application-admission-registry.json",
+      "w02-shared-worksheet-projection-policy.json",
+      "w02-shared-worksheet-projection-index.json",
+      "application-capability-entry.schema.json",
+      "application-question-record.schema.json",
+      "answer-key-record.schema.json",
+      "pbl-task-set-record.schema.json",
+      "print-metadata.schema.json",
+      "worksheet-projection.schema.json",
+      "POSTG-APP-W02-A05.claim.json"
     ],
     "runtimeConsumer": [
       "postg-app-master-controller.mjs",
@@ -303,7 +341,9 @@
       "w02-hidden-pattern-specs.mjs",
       "w02-atomic-context-single-application-candidate-pack.mjs",
       "w02-nplusone-pbl-candidate-pack.mjs",
-      "w02-validator-fixture-shadow-runtime.mjs"
+      "w02-validator-fixture-shadow-runtime.mjs",
+      "application-capability-resolver.mjs",
+      "worksheet-projection-runtime.mjs"
     ],
     "readback": [
       "validate-postg-app-m00-master-controller.mjs",
@@ -320,9 +360,10 @@
       "validate-postg-app-w02-a01d-hidden-pattern-specs.mjs",
       "validate-postg-app-w02-a02-candidate-pack.mjs",
       "validate-postg-app-w02-a03-candidate-pack.mjs",
-      "validate-postg-app-w02-a04-runtime-shadow.mjs"
+      "validate-postg-app-w02-a04-runtime-shadow.mjs",
+      "validate-postg-app-w02-a05-shared-worksheet-projection.mjs"
     ]
   },
-  "nextShortestStep": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
+  "nextShortestStep": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
   "stopReason": "NONE"
 }
