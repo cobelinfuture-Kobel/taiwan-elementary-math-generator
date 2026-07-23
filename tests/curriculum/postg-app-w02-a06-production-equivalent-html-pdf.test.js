@@ -16,6 +16,10 @@ const countCells = (pages, cellType) => pages
 const countRenderedCards = (html, modifierClass) => (
   html.match(new RegExp(`<article class="worksheet-cell ${modifierClass}"`, 'g')) ?? []
 ).length;
+const visibleTextFromHtml = (html) => String(html).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+  .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/\s+/g, ' ');
 const visiblePblText = (record) => [
   record.drivingProblem?.problemStatementZh,
   ...(record.drivingProblem?.successCriteria ?? []),
@@ -94,16 +98,17 @@ test('rendered HTML contains exact card counts and no visible internal labels', 
     ['NUMERIC', pkg.numericHtml, 134],
     ['APPLICATION', pkg.applicationHtml, 61]
   ]) {
+    const visibleText = visibleTextFromHtml(html);
     assert.equal(html.includes('data-postg-app-w02-a06="true"'), true);
     assert.equal(html.includes(`data-question-mode="${mode}"`), true);
     assert.equal(html.includes('data-student-facing-surface="W02_A08R1_V1"'), true);
     assert.equal(countRenderedCards(html, 'worksheet-cell--question'), expected);
     assert.equal(countRenderedCards(html, 'worksheet-cell--answer-key'), expected);
-    assert.equal(html.includes('{{'), false);
-    assert.equal(html.includes('答：'), false);
-    assert.equal(html.includes('_____'), false);
-    assert.equal(/([A-Za-z][A-Za-z0-9_]*)為/.test(html), false);
-    assert.equal(/\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i.test(html), false);
+    assert.equal(visibleText.includes('{{'), false);
+    assert.equal(visibleText.includes('答：'), false);
+    assert.equal(visibleText.includes('_____'), false);
+    assert.equal(/([A-Za-z][A-Za-z0-9_]*)為/.test(visibleText), false);
+    assert.equal(/\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i.test(visibleText), false);
   }
 });
 
