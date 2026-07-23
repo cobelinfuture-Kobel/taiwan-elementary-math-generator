@@ -27,7 +27,8 @@ const REVIEW_CHECKLIST = Object.freeze([
   'FORBIDDEN_INTERNAL_LABEL_ABSENCE'
 ]);
 
-function applicationReviewRow(item) {
+function applicationReviewRow(item, questionRecord = null) {
+  const contextLineage = clone(questionRecord?.contextLineage ?? null);
   return {
     generatedItemId: item.generatedItemId,
     sourceNodeId: item.sourceNodeId,
@@ -35,7 +36,8 @@ function applicationReviewRow(item) {
     knowledgePointId: item.knowledgePointId,
     patternSpecId: item.patternSpecId,
     operationFamilyId: item.operationFamilyId,
-    contextMacroId: item.contextMacroId ?? item.metadata?.contextMacroId ?? null,
+    contextMacroId: contextLineage?.macroContextId ?? null,
+    contextLineage,
     promptText: item.prompt ?? item.promptText ?? item.displayText ?? null,
     answerText: item.answerText ?? null,
     answerValue: clone(item.answerValue ?? item.answer ?? null),
@@ -92,6 +94,7 @@ function renderReviewIndex(model) {
     <tr>
       <td>${index + 1}</td>
       <td>${esc(row.sourceNodeId)}</td>
+      <td>${esc(row.contextMacroId)}</td>
       <td>${esc(row.operationFamilyId)}</td>
       <td>${esc(row.promptText)}</td>
       <td>${esc(row.answerText ?? row.answerValue)}</td>
@@ -139,7 +142,7 @@ th,td{border:1px solid #aaa;padding:6px;vertical-align:top}th{background:#eee;po
 <a href="../w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf">應用題 PDF</a>
 </div>
 <h2>61 題應用題逐題審核</h2>
-<table><thead><tr><th>#</th><th>Source</th><th>Family</th><th>題目</th><th>答案</th><th>決定</th></tr></thead><tbody>${applicationRows}</tbody></table>
+<table><thead><tr><th>#</th><th>Source</th><th>Context</th><th>Family</th><th>題目</th><th>答案</th><th>決定</th></tr></thead><tbody>${applicationRows}</tbody></table>
 <h2>31 組 PBL 題組審核</h2>
 <table><thead><tr><th>#</th><th>Source</th><th>Graph</th><th>Tasks</th><th>決定</th></tr></thead><tbody>${pblRows}</tbody></table>
 </body></html>`;
@@ -148,7 +151,12 @@ th,td{border:1px solid #aaa;padding:6px;vertical-align:top}th{background:#eee;po
 export function materializeW02A07HumanReviewPackage({ root = process.cwd(), a06Package = null } = {}) {
   const productionPackage = a06Package ?? materializeW02A06ProductionEquivalentPackage({ root });
   const a06Validation = validateW02A06ProductionEquivalentPackage(productionPackage);
-  const applicationReviewRows = productionPackage.applicationItems.map(applicationReviewRow);
+  const questionRecordByPattern = new Map(
+    productionPackage.projection.applicationQuestionRecords.map((row) => [row.patternSpecId, row])
+  );
+  const applicationReviewRows = productionPackage.applicationItems.map((item) => (
+    applicationReviewRow(item, questionRecordByPattern.get(item.patternSpecId) ?? null)
+  ));
   const pblReviewRows = productionPackage.pblTaskSetRecords.map(pblReviewRow);
   const numericReviews = numericBoundaryRows(productionPackage.numericItems);
   const sourceNodeIds = sortedUnique(productionPackage.generatedItems.map((row) => row.sourceNodeId));
@@ -209,6 +217,7 @@ export function validateW02A07HumanReviewPackage(model) {
   const issues = [];
   const expected = {
     sourceNodeCount: 13,
+    macroContextCount: 16,
     totalGeneratedItemCount: 195,
     numericGeneratedItemCount: 134,
     applicationReviewCount: 61,
@@ -224,7 +233,10 @@ export function validateW02A07HumanReviewPackage(model) {
   if (!Array.isArray(model.reviewChecklist) || model.reviewChecklist.length !== REVIEW_CHECKLIST.length) {
     issues.push(issue('POSTG_APP_W02_A07_REVIEW_CHECKLIST_INVALID', 'reviewChecklist'));
   }
+  const contextFields = ['macroContextId', 'mesoSituationId', 'microScenarioId', 'atomicEpisodeId', 'surfaceTemplateId'];
   if (model.applicationReviewRows.some((row) => !row.promptText || row.answerText == null
+      || !row.contextLineage || contextFields.some((field) => !row.contextLineage[field])
+      || row.contextMacroId !== row.contextLineage.macroContextId
       || row.productionSelectable || row.publicSelectable)) {
     issues.push(issue('POSTG_APP_W02_A07_APPLICATION_REVIEW_ROW_INVALID', 'applicationReviewRows'));
   }
