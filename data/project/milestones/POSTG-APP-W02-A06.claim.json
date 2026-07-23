@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W02_SHARED_GENERATOR_VALIDATOR_RENDERER_IMPLEMENTED_ARTIFACT_CI_PENDING",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/shared/operation-family-runtime.mjs",
+      "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs",
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/contracts/POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Shared 49-family generator, validator and worksheet-document integration are implemented; production-equivalent HTML/PDF artifact verification remains pending."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A06_ArtifactCIGenerationHashLockAndE4Promotion",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
