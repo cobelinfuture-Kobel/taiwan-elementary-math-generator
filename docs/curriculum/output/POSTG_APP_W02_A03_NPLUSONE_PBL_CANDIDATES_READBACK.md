@@ -51,7 +51,7 @@ RELATION_CHAIN                = 1
 
 ## Duplicate content parity
 
-The duplicate PDF content group `pdf_5ba57aff6a97` (`g4a_u06_4a06` and `g4b_u03_3b03`) preserves one normalized N+1 proof projection group and one normalized PBL projection group. Both parity gates pass.
+The duplicate PDF content group `pdf_5ba57aff6a97` (`g4a_u06_4a06` and `g4b_u03_4b03`) preserves one normalized N+1 proof projection group and one normalized PBL projection group. Both parity gates pass.
 
 ## Boundary
 
