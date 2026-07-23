@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
   "contractId": "POSTG_APP_SHARED_WORKSHEET_PROJECTION_AND_W02_SHADOW_V1",
-  "status": "IMPLEMENTATION_IN_PROGRESS",
+  "status": "SHARED_WORKSHEET_PROJECTION_VERIFIED",
   "dependencies": {
     "a04TaskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
     "requiredA04Status": "W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS",
@@ -14,20 +14,24 @@
     "APPLICATION_CAPABILITY_ENTRY",
     "APPLICATION_QUESTION_RECORD",
     "ANSWER_KEY_RECORD",
+    "PBL_TASK_SET_RECORD",
     "WORKSHEET_PROJECTION",
     "PRINT_METADATA"
   ],
-  "expectedMaterialization": {
+  "verifiedMaterialization": {
     "waveId": "W02",
     "sourceNodeCount": 13,
+    "applicationCapabilityEntryCount": 61,
     "applicationQuestionRecordCount": 61,
     "answerKeyRecordCount": 61,
     "pblTaskSetRecordCount": 31,
     "pbl3TaskSetRecordCount": 19,
     "pbl5TaskSetRecordCount": 12,
+    "worksheetProjectionCount": 13,
     "futureWaveFailClosedFixtureCount": 1,
     "productionAdmittedCount": 0,
-    "publicSelectableCount": 0
+    "publicSelectableCount": 0,
+    "shadowHtmlCount": 0
   },
   "architectureBoundary": {
     "registryDriven": true,
@@ -39,6 +43,18 @@
     "publicUIChanged": false,
     "productionAdmissionAllowed": false,
     "futureWaveContentAuthored": false
+  },
+  "acceptance": {
+    "sharedSchemaValidation": true,
+    "focusedRuntimeValidation": true,
+    "a04Regression": true,
+    "a03Regression": true,
+    "controllerRegression": true,
+    "w01E5Regression": true,
+    "governanceClaims": true,
+    "fullRegression": true,
+    "prCiGreenRequired": true,
+    "mergeToMainRequired": true
   },
   "nextShortestStep": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration"
 }
