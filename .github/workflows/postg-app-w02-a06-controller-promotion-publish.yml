@@ -1,0 +1,70 @@
+name: POSTG-APP W02-A06 Controller Promotion Publish
+
+on:
+  push:
+    branches:
+      - postg-app-w02-a06
+    paths:
+      - ".github/workflows/postg-app-w02-a06-controller-promotion-publish.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: postg-app-w02-a06-controller-promotion-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: postg-app-w02-a06
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install --silent
+      - name: Materialize validated controller candidates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('tools/curriculum/materialize-postg-app-w02-a06-controller-promotion.mjs')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace('"  ]);\\n    assert.equal(claim.actualEvidenceLevel', '"  ]) {\\n    assert.equal(claim.actualEvidenceLevel')
+          path.write_text(text, encoding='utf-8')
+          PY
+          rm -rf /tmp/a06-controller-promotion
+          node tools/curriculum/materialize-postg-app-w02-a06-controller-promotion.mjs /tmp/a06-controller-promotion
+          cp -R /tmp/a06-controller-promotion/src ./
+          cp -R /tmp/a06-controller-promotion/data ./
+          cp -R /tmp/a06-controller-promotion/tests ./
+      - name: Validate promoted controller state
+        run: |
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
+      - name: Remove one-shot promotion tooling
+        run: |
+          rm -f tools/curriculum/materialize-postg-app-w02-a06-controller-promotion.mjs
+          rm -f .github/workflows/postg-app-w02-a06-controller-promotion-preview.yml
+          rm -f .github/workflows/postg-app-w02-a06-controller-promotion-publish.yml
+      - name: Commit and push validated promotion
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/curriculum/application/postg-app-master-controller.mjs \
+            data/curriculum/application/controller/postg-app-master-controller-state.json \
+            tests/curriculum/postg-app-m00-master-controller.test.js \
+            tests/curriculum/postg-app-w01-a06e-operator-approval.test.js \
+            tools/curriculum/materialize-postg-app-w02-a06-controller-promotion.mjs \
+            .github/workflows/postg-app-w02-a06-controller-promotion-preview.yml \
+            .github/workflows/postg-app-w02-a06-controller-promotion-publish.yml
+          git diff --cached --check
+          git commit -m "feat(application): promote W02 A06 E4 controller state"
+          git push origin HEAD:postg-app-w02-a06
