@@ -25,14 +25,14 @@ const REQUIRED_GATES = [
   'PRODUCTION_ADMISSION_REVIEWED'
 ];
 
-test('M00 validates the exact 79-node scope with W01 admitted and W02 A04 validator shadow passed', () => {
+test('M00 validates the exact 79-node scope with W01 admitted and W02 A05 shared projection passed', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS');
+  assert.equal(result.status, 'W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS');
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -43,7 +43,7 @@ test('M00 validates the exact 79-node scope with W01 admitted and W02 A04 valida
     productionAdmittedApplicationUnitCount: 12
   });
   assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection');
+  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration');
 });
 
 test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
@@ -66,11 +66,11 @@ test('Wave 01 distinguishes 15 golden units from 16 source nodes and is producti
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
 });
 
-test('Wave 02 has A04 validator fixtures and shared shadow runtime complete', () => {
+test('Wave 02 has A05 shared worksheet projection complete without admission', () => {
   const w02 = resolvePOSTGAPPWave(controller, 'W02');
   assert.equal(w02.sourceNodes.length, 13);
   assert.equal(w02.productionAdmissionGranted, false);
-  assert.equal(w02.currentState.state, 'VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS');
+  assert.equal(w02.currentState.state, 'SHARED_WORKSHEET_PROJECTION_SHADOW_PASS');
   assert.deepEqual(w02.currentState.completedGates, REQUIRED_GATES.slice(0, 10));
   assert.equal(w02.currentState.admissionGateComplete, false);
   assert.equal(w02.currentState.assessmentBaselineState, 'SOURCE_AUTHORITY_BASELINE_READY');
@@ -132,7 +132,18 @@ test('Wave 02 has A04 validator fixtures and shared shadow runtime complete', ()
   assert.equal(w02.currentState.duplicateFixtureProjectionParity, true);
   assert.equal(w02.currentState.validatorFixturesComplete, true);
   assert.equal(w02.currentState.sharedRuntimeShadowPass, true);
+  assert.equal(w02.currentState.applicationCapabilityEntryCount, 61);
+  assert.equal(w02.currentState.applicationQuestionRecordCount, 61);
+  assert.equal(w02.currentState.answerKeyRecordCount, 61);
+  assert.equal(w02.currentState.sharedPblTaskSetRecordCount, 31);
+  assert.equal(w02.currentState.worksheetProjectionCount, 13);
+  assert.equal(w02.currentState.futureWaveFailClosedFixtureCount, 1);
+  assert.equal(w02.currentState.duplicateWorksheetProjectionGroupCount, 1);
+  assert.equal(w02.currentState.duplicateWorksheetProjectionParity, true);
+  assert.equal(w02.currentState.shadowHtmlCount, 0);
+  assert.equal(w02.currentState.sharedWorksheetProjectionComplete, true);
   assert.equal(w02.currentState.productionAdmittedCandidateCount, 0);
+  assert.equal(w02.currentState.publicSelectableCandidateCount, 0);
 });
 
 test('all 15 golden KnowledgeOperation registries remain present and validated', () => {
@@ -166,7 +177,7 @@ test('W02 to W06 cover the remaining 63 nodes in deterministic source order', ()
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
 });
 
-test('W01 stays E5 while W02 A00 through A04 remain E3 non-production', () => {
+test('W01 stays E5 while W02 A00 through A05 remain E3 non-production', () => {
   assert.equal(controller.approvalDecision.operatorDecision, 'APPROVE');
   assert.equal(controller.approvalDecision.productionAdmission.granted, true);
   assert.equal(controller.approvalDecision.productionAdmission.publicRouteChanged, false);
@@ -181,7 +192,8 @@ test('W01 stays E5 while W02 A00 through A04 remain E3 non-production', () => {
     controller.w02A01DClaim,
     controller.w02A02Claim,
     controller.w02A03Claim,
-    controller.w02A04Claim
+    controller.w02A04Claim,
+    controller.w02A05Claim
   ]) {
     assert.equal(claim.actualEvidenceLevel, 'E3_SHADOW_RUNTIME_INTEGRATED');
     assert.equal(claim.claims.productionAdmitted, false);
@@ -206,7 +218,7 @@ test('duplicate source nodes and non-contiguous production admissions fail close
   assert.equal(codes(validatePOSTGAPPMasterController(productionCase)).includes('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID'), true);
 });
 
-test('forged approval, W02 claims and A04 runtime state fail closed', () => {
+test('forged approval, W02 claims and A05 projection state fail closed', () => {
   const approvalCase = structuredClone(controller);
   approvalCase.approvalDecision.operatorDecision = 'REJECT';
   assert.equal(codes(validatePOSTGAPPMasterController(approvalCase)).includes('POSTG_APP_W01_OPERATOR_APPROVAL_EVIDENCE_INVALID'), true);
@@ -219,7 +231,8 @@ test('forged approval, W02 claims and A04 runtime state fail closed', () => {
     ['w02A01DClaim', 'POSTG_APP_W02_A01D_CLAIM_INVALID'],
     ['w02A02Claim', 'POSTG_APP_W02_A02_CLAIM_INVALID'],
     ['w02A03Claim', 'POSTG_APP_W02_A03_CLAIM_INVALID'],
-    ['w02A04Claim', 'POSTG_APP_W02_A04_CLAIM_INVALID']
+    ['w02A04Claim', 'POSTG_APP_W02_A04_CLAIM_INVALID'],
+    ['w02A05Claim', 'POSTG_APP_W02_A05_CLAIM_INVALID']
   ];
   for (const [property, code] of claimCases) {
     const changed = structuredClone(controller);
@@ -228,7 +241,7 @@ test('forged approval, W02 claims and A04 runtime state fail closed', () => {
   }
 
   const evidenceCase = structuredClone(controller);
-  evidenceCase.controllerState.waveStates[1].validatorFixtureCount = 671;
+  evidenceCase.controllerState.waveStates[1].worksheetProjectionCount = 12;
   assert.equal(codes(validatePOSTGAPPMasterController(evidenceCase)).includes('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID'), true);
 });
 
