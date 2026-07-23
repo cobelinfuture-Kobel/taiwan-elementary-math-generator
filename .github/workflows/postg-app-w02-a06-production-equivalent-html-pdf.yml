@@ -8,6 +8,9 @@ on:
       - "data/project/milestones/POSTG-APP-W02-A06.claim.json"
       - "src/curriculum/application/shared/operation-family-runtime.mjs"
       - "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
+      - "src/curriculum/application/shared/student-facing-operation-surface.mjs"
+      - "src/curriculum/application/shared/student-facing-semantic-remediation-v2.mjs"
+      - "src/curriculum/application/shared/student-facing-semantic-context-bridge.mjs"
       - "site/assets/browser/pipeline/build-worksheet-document.js"
       - "tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs"
       - "tools/curriculum/render-postg-app-w02-a06-pdf.mjs"
@@ -15,6 +18,7 @@ on:
       - "tools/curriculum/verify-postg-app-w02-a06-pdf.py"
       - "tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs"
       - "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
+      - "tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js"
       - ".github/workflows/postg-app-w02-a06-production-equivalent-html-pdf.yml"
   workflow_dispatch:
 
@@ -42,9 +46,12 @@ jobs:
           set +e
           node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js > w02-a06-focused-test.log 2>&1
           test_status=$?
+          node --test tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js >> w02-a06-focused-test.log 2>&1
+          semantic_status=$?
           node tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs > w02-a06-validator.json 2>&1
           validator_status=$?
           printf '%s\n' "$test_status" > w02-a06-focused-test.status
+          printf '%s\n' "$semantic_status" > w02-a06-semantic-test.status
           printf '%s\n' "$validator_status" > w02-a06-validator.status
           cat w02-a06-focused-test.log
           cat w02-a06-validator.json
@@ -56,6 +63,7 @@ jobs:
           path: |
             w02-a06-focused-test.log
             w02-a06-focused-test.status
+            w02-a06-semantic-test.status
             w02-a06-validator.json
             w02-a06-validator.status
           if-no-files-found: error
@@ -63,7 +71,16 @@ jobs:
       - name: Enforce A06 focused gate
         run: |
           test "$(cat w02-a06-focused-test.status)" = "0"
+          test "$(cat w02-a06-semantic-test.status)" = "0"
           test "$(cat w02-a06-validator.status)" = "0"
+      - name: Verify frozen controller, W01 E5, governance and full regression before regeneration
+        run: |
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
+          npm test
       - name: Install artifact dependencies
         run: |
           npm install --silent --no-save playwright@1.55.0
@@ -186,18 +203,9 @@ jobs:
             w02-a06-pdf-verification.log
           if-no-files-found: error
           retention-days: 30
-      - name: Verify A05 and A04 regressions
+      - name: Verify A05 and A04 regressions after artifact generation
         run: |
           node --test tests/curriculum/postg-app-w02-a05-shared-worksheet-projection.test.js
           node tools/curriculum/validate-postg-app-w02-a05-shared-worksheet-projection.mjs
           node --test tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js
           node tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs
-      - name: Verify controller, W01 E5 and governance
-        run: |
-          node --test tests/curriculum/postg-app-m00-master-controller.test.js
-          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
-          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
-          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
-          npm run governance:claims
-      - name: Run full regression suite
-        run: npm test
