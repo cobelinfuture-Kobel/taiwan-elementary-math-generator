@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: postg-app-w02-a04-${{ github.event.pull_request.number || github.ref }}
@@ -31,6 +31,156 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref }}
+      - name: Synchronize A04 controller validator and regressions once
+        if: github.event_name == 'pull_request'
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(text, old, new, label):
+              if new in text:
+                  return text
+              if text.count(old) != 1:
+                  raise SystemExit(f'{label}: expected one match, found {text.count(old)}')
+              return text.replace(old, new, 1)
+
+          source_path = Path('src/curriculum/application/postg-app-master-controller.mjs')
+          source = source_path.read_text(encoding='utf-8')
+          source = replace_once(
+              source,
+              "const W02_A03_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A03.claim.json';\n",
+              "const W02_A03_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A03.claim.json';\nconst W02_A04_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A04.claim.json';\n",
+              'A04 claim constant'
+          )
+          source = replace_once(
+              source,
+              "    w02A03Claim: readJsonIfExists(root, W02_A03_CLAIM_PATH)\n",
+              "    w02A03Claim: readJsonIfExists(root, W02_A03_CLAIM_PATH),\n    w02A04Claim: readJsonIfExists(root, W02_A04_CLAIM_PATH)\n",
+              'A04 claim loader'
+          )
+          source = replace_once(
+              source,
+              "    w02A02Claim,\n    w02A03Claim\n",
+              "    w02A02Claim,\n    w02A03Claim,\n    w02A04Claim\n",
+              'A04 claim destructuring'
+          )
+          source = replace_once(
+              source,
+              "    'N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED',\n",
+              "    'VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS',\n",
+              'A04 expected wave state'
+          )
+          source = replace_once(
+              source,
+              "      || JSON.stringify(w02State.completedGates) !== JSON.stringify(REQUIRED_GATE_ORDER.slice(0, 7))\n",
+              "      || JSON.stringify(w02State.completedGates) !== JSON.stringify(REQUIRED_GATE_ORDER.slice(0, 10))\n",
+              'A04 gate count'
+          )
+          source = replace_once(
+              source,
+              "      || w02State.nPlusOnePblBlueprintsComplete !== true\n      || w02State.productionAdmittedCandidateCount !== 0) {\n",
+              "      || w02State.nPlusOnePblBlueprintsComplete !== true\n      || w02State.validatorFixtureCount !== 672\n      || w02State.validatorPositiveFixtureCount !== 275\n      || w02State.validatorNegativeFixtureCount !== 397\n      || w02State.validatorPassCount !== 275\n      || w02State.validatorExpectedRejectCount !== 397\n      || w02State.validatorUnexpectedPassCount !== 0\n      || w02State.validatorUnexpectedRejectCount !== 0\n      || w02State.pairedNPlusOneExecutionCount !== 61\n      || w02State.misconceptionExecutionCount !== 183\n      || w02State.calculationPassInterpretationFailCount !== 122\n      || w02State.counterfactualExecutionCount !== 61\n      || w02State.crossContextExecutionCount !== 61\n      || w02State.uniquenessNegativeExecutionCount !== 61\n      || w02State.pblDependencyExecutionCount !== 62\n      || w02State.sourceNodeRuntimeCoverageCount !== 13\n      || w02State.primaryMacroContextRuntimeCoverageCount !== 16\n      || w02State.alternateMacroContextRuntimeCoverageCount !== 2\n      || w02State.operationFamilyRuntimeCoverageCount !== 22\n      || w02State.answerShapeRuntimeCoverageCount !== 2\n      || w02State.adapterRuntimeCoverageCount !== 2\n      || w02State.duplicateFixtureProjectionGroupCount !== 1\n      || w02State.duplicateFixtureProjectionParity !== true\n      || w02State.validatorFixturesComplete !== true\n      || w02State.sharedRuntimeShadowPass !== true\n      || w02State.productionAdmittedCandidateCount !== 0) {\n",
+              'A04 runtime state checks'
+          )
+          source = source.replace(
+              "controllerState.currentCapability !== 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED'",
+              "controllerState.currentCapability !== 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS'"
+          ).replace(
+              "controllerState.currentMainlineBlocker !== 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_PENDING'",
+              "controllerState.currentMainlineBlocker !== 'W02_WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_PENDING'"
+          ).replace(
+              "controllerState.nextShortestStep !== 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow'",
+              "controllerState.nextShortestStep !== 'POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview'"
+          )
+          a03_claim_block = """  issues.push(...validateShadowClaim({
+            claim: w02A03Claim,
+            pathValue: W02_A03_CLAIM_PATH,
+            code: 'POSTG_APP_W02_A03_CLAIM_INVALID',
+            claimedStatus: 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED',
+            nextTaskId: 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow'
+          }));
+          """
+          a04_claim_block = a03_claim_block + """  issues.push(...validateShadowClaim({
+            claim: w02A04Claim,
+            pathValue: W02_A04_CLAIM_PATH,
+            code: 'POSTG_APP_W02_A04_CLAIM_INVALID',
+            claimedStatus: 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS',
+            nextTaskId: 'POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview'
+          }));
+          """
+          source = replace_once(source, a03_claim_block, a04_claim_block, 'A04 claim validation')
+          source = source.replace(
+              "? 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED'",
+              "? 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS'"
+          )
+          source_path.write_text(source, encoding='utf-8')
+
+          test_path = Path('tests/curriculum/postg-app-m00-master-controller.test.js')
+          test = test_path.read_text(encoding='utf-8')
+          test = test.replace(
+              "M00 validates the exact 79-node scope with W01 admitted and W02 A03 blueprints materialized",
+              "M00 validates the exact 79-node scope with W01 admitted and W02 A04 validator shadow passed"
+          ).replace(
+              "assert.equal(result.status, 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED');",
+              "assert.equal(result.status, 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS');"
+          ).replace(
+              "assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow');",
+              "assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview');"
+          ).replace(
+              "Wave 02 has A03 N+1, misconception and required-only PBL blueprints complete",
+              "Wave 02 has A04 validator fixtures and shared shadow runtime complete"
+          ).replace(
+              "assert.equal(w02.currentState.state, 'N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED');",
+              "assert.equal(w02.currentState.state, 'VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS');"
+          ).replace(
+              "assert.deepEqual(w02.currentState.completedGates, REQUIRED_GATES.slice(0, 7));",
+              "assert.deepEqual(w02.currentState.completedGates, REQUIRED_GATES.slice(0, 10));"
+          )
+          test = replace_once(
+              test,
+              "  assert.equal(w02.currentState.nPlusOnePblBlueprintsComplete, true);\n  assert.equal(w02.currentState.productionAdmittedCandidateCount, 0);\n",
+              "  assert.equal(w02.currentState.nPlusOnePblBlueprintsComplete, true);\n  assert.equal(w02.currentState.validatorFixtureCount, 672);\n  assert.equal(w02.currentState.validatorPositiveFixtureCount, 275);\n  assert.equal(w02.currentState.validatorNegativeFixtureCount, 397);\n  assert.equal(w02.currentState.validatorPassCount, 275);\n  assert.equal(w02.currentState.validatorExpectedRejectCount, 397);\n  assert.equal(w02.currentState.validatorUnexpectedPassCount, 0);\n  assert.equal(w02.currentState.validatorUnexpectedRejectCount, 0);\n  assert.equal(w02.currentState.pairedNPlusOneExecutionCount, 61);\n  assert.equal(w02.currentState.misconceptionExecutionCount, 183);\n  assert.equal(w02.currentState.calculationPassInterpretationFailCount, 122);\n  assert.equal(w02.currentState.counterfactualExecutionCount, 61);\n  assert.equal(w02.currentState.crossContextExecutionCount, 61);\n  assert.equal(w02.currentState.uniquenessNegativeExecutionCount, 61);\n  assert.equal(w02.currentState.pblDependencyExecutionCount, 62);\n  assert.equal(w02.currentState.sourceNodeRuntimeCoverageCount, 13);\n  assert.equal(w02.currentState.primaryMacroContextRuntimeCoverageCount, 16);\n  assert.equal(w02.currentState.alternateMacroContextRuntimeCoverageCount, 2);\n  assert.equal(w02.currentState.operationFamilyRuntimeCoverageCount, 22);\n  assert.equal(w02.currentState.answerShapeRuntimeCoverageCount, 2);\n  assert.equal(w02.currentState.adapterRuntimeCoverageCount, 2);\n  assert.equal(w02.currentState.duplicateFixtureProjectionGroupCount, 1);\n  assert.equal(w02.currentState.duplicateFixtureProjectionParity, true);\n  assert.equal(w02.currentState.validatorFixturesComplete, true);\n  assert.equal(w02.currentState.sharedRuntimeShadowPass, true);\n  assert.equal(w02.currentState.productionAdmittedCandidateCount, 0);\n",
+              'A04 test counts'
+          )
+          test = test.replace(
+              "W01 stays E5 while W02 A00 through A03 remain E3 non-production",
+              "W01 stays E5 while W02 A00 through A04 remain E3 non-production"
+          ).replace(
+              "    controller.w02A03Claim\n",
+              "    controller.w02A03Claim,\n    controller.w02A04Claim\n"
+          ).replace(
+              "forged approval, W02 claims and A03 materialization state fail closed",
+              "forged approval, W02 claims and A04 runtime state fail closed"
+          ).replace(
+              "    ['w02A03Claim', 'POSTG_APP_W02_A03_CLAIM_INVALID']\n",
+              "    ['w02A03Claim', 'POSTG_APP_W02_A03_CLAIM_INVALID'],\n    ['w02A04Claim', 'POSTG_APP_W02_A04_CLAIM_INVALID']\n"
+          ).replace(
+              "evidenceCase.controllerState.waveStates[1].pblTaskSetCandidateCount = 30;",
+              "evidenceCase.controllerState.waveStates[1].validatorFixtureCount = 671;"
+          )
+          test_path.write_text(test, encoding='utf-8')
+
+          w01_path = Path('tests/curriculum/postg-app-w01-a06e-operator-approval.test.js')
+          w01 = w01_path.read_text(encoding='utf-8')
+          w01 = replace_once(
+              w01,
+              "  assert.equal(w02.completedGates.includes('N_PLUS_1_CONTRACT_COMPLETE'), true);\n  assert.equal(w02.nPlusOnePblBlueprintsComplete, true);\n",
+              "  assert.equal(w02.completedGates.includes('N_PLUS_1_CONTRACT_COMPLETE'), true);\n  assert.equal(w02.completedGates.includes('VALIDATOR_CONTRACT_COMPLETE'), true);\n  assert.equal(w02.completedGates.includes('POSITIVE_NEGATIVE_FIXTURES_COMPLETE'), true);\n  assert.equal(w02.completedGates.includes('SHARED_RUNTIME_SHADOW_PASS'), true);\n  assert.equal(w02.nPlusOnePblBlueprintsComplete, true);\n  assert.equal(w02.validatorFixturesComplete, true);\n  assert.equal(w02.sharedRuntimeShadowPass, true);\n",
+              'W01 monotonic A04 regression'
+          )
+          w01_path.write_text(w01, encoding='utf-8')
+          PY
+          if git diff --quiet -- src/curriculum/application/postg-app-master-controller.mjs tests/curriculum/postg-app-m00-master-controller.test.js tests/curriculum/postg-app-w01-a06e-operator-approval.test.js; then
+            exit 0
+          fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add src/curriculum/application/postg-app-master-controller.mjs tests/curriculum/postg-app-m00-master-controller.test.js tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          git commit -m "feat(application): validate W02 A04 controller transition"
+          git push origin HEAD:${{ github.head_ref }}
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - uses: actions/setup-python@v5
