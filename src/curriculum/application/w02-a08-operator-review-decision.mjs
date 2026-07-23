@@ -141,15 +141,29 @@ export function validateW02A08OperatorReviewDecision(materialized) {
     issues.push(issue('POSTG_APP_W02_A08_REMEDIATION_TRANSITION_INVALID', `${DECISION_PATH}.remediation`));
   }
 
-  if (claim.actualEvidenceLevel !== 'E4_OPERATOR_REVIEW_REVISE_REQUIRED'
+  const claimPipelineReady = claim.claims?.dataStructureReady === true
+    && claim.claims?.contentAuthored === true
+    && claim.claims?.runtimeIntegrated === true
+    && claim.claims?.productionEquivalentGeneratorUsed === true
+    && claim.claims?.productionRendererUsed === true
+    && claim.claims?.htmlOutputVerified === true
+    && claim.claims?.pdfOutputVerified === true
+    && claim.claims?.visibleOutputChanged === true
+    && claim.claims?.humanReviewReady === true;
+  if (claim.actualEvidenceLevel !== 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+      || claim.targetEvidenceLevel !== 'E5_PRODUCTION_ADMITTED'
       || claim.claimedStatus !== 'W02_OPERATOR_REVIEW_REVISE_REQUIRED'
+      || !claimPipelineReady
       || claim.claims?.humanReviewCompleted !== true
       || claim.claims?.operatorDecisionRecorded !== true
       || claim.claims?.operatorDecision !== 'REVISE'
       || claim.claims?.productionAdmitted !== false
       || claim.claims?.publicSelectable !== false
       || claim.claims?.d0Complete !== false
-      || claim.nextStep?.taskId !== decision.remediation.taskId) {
+      || claim.humanReview?.type !== 'production_equivalent_output_review'
+      || claim.humanReview?.decision !== 'REVISE'
+      || claim.nextStep?.taskId !== decision.remediation.taskId
+      || claim.nextStep?.requiredEvidenceLevelBeforeStart !== 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED') {
     issues.push(issue('POSTG_APP_W02_A08_CLAIM_INVALID', CLAIM_PATH));
   }
 
