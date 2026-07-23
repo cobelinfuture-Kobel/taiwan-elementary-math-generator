@@ -43,6 +43,13 @@ jobs:
           printf '%s\n' "$?" > /tmp/a06-controller-promotion/materialization.status
           cat /tmp/a06-controller-promotion/materialization.log
           exit 0
+      - name: Capture branch parent and base tree
+        run: |
+          git fetch --no-tags --depth=1 origin postg-app-w02-a06
+          git rev-parse FETCH_HEAD > /tmp/a06-controller-promotion/parent-sha.txt
+          git rev-parse FETCH_HEAD^{tree} > /tmp/a06-controller-promotion/base-tree-sha.txt
+          cat /tmp/a06-controller-promotion/parent-sha.txt
+          cat /tmp/a06-controller-promotion/base-tree-sha.txt
       - name: Upload controller promotion diagnostics
         uses: actions/upload-artifact@v4
         with:
