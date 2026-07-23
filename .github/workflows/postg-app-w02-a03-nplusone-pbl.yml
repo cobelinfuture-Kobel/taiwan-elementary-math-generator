@@ -54,6 +54,19 @@ jobs:
         run: |
           node --test tests/curriculum/postg-app-w02-a03-candidate-pack.test.js
           node tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs
+      - name: Write deterministic A03 count readback
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import { buildW02NPlusOneAndPBLCandidateReadback } from './src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs';
+          const readback = buildW02NPlusOneAndPBLCandidateReadback();
+          fs.writeFileSync('w02-a03-count-readback.json', `${JSON.stringify({ counts: readback.counts, actCounts: readback.actCounts, graphCounts: readback.graphCounts, productCounts: readback.productCounts }, null, 2)}\n`);
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: w02-a03-count-readback
+          path: w02-a03-count-readback.json
+          if-no-files-found: error
       - name: Verify A02 regression
         run: |
           node --test tests/curriculum/postg-app-w02-a02-candidate-pack.test.js
