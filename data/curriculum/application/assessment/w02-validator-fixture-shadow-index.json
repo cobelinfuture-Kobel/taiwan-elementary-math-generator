@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
   "contractId": "POSTG_APP_W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_V1",
-  "status": "DETERMINISTIC_SHARED_SHADOW_RUNTIME_PENDING_CI",
+  "status": "DETERMINISTIC_SHARED_SHADOW_RUNTIME_VERIFIED_PENDING_CONTROLLER_CI_AND_MERGE",
   "inputAuthority": {
     "a02CandidateTaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
     "a03ProofTaskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
@@ -16,13 +16,11 @@
     "validationCli": "tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs",
     "test": "tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js"
   },
-  "verifiedInputCounts": {
+  "verifiedCounts": {
     "a02SingleApplicationCandidateCount": 61,
     "a03NPlusOneProofCandidateCount": 61,
     "a03MisconceptionCandidateCount": 183,
-    "a03PblTaskSetCandidateCount": 31
-  },
-  "expectedFixtureCounts": {
+    "a03PblTaskSetCandidateCount": 31,
     "singleApplicationFixtureCount": 183,
     "nPlusOnePositiveFixtureCount": 61,
     "misconceptionNegativeFixtureCount": 183,
@@ -32,8 +30,29 @@
     "pblFixtureCount": 62,
     "totalFixtureCount": 672,
     "positiveFixtureCount": 275,
-    "negativeFixtureCount": 397
+    "negativeFixtureCount": 397,
+    "passCount": 275,
+    "expectedRejectCount": 397,
+    "unexpectedPassCount": 0,
+    "unexpectedRejectCount": 0,
+    "calculationPassInterpretationFailCount": 122,
+    "sourceNodeCoverageCount": 13,
+    "primaryMacroContextCoverageCount": 16,
+    "alternateMacroContextCoverageCount": 2,
+    "operationFamilyCoverageCount": 22,
+    "answerShapeCoverageCount": 2,
+    "adapterCoverageCount": 2,
+    "duplicateFixtureProjectionGroupCount": 1,
+    "productionAdmittedCount": 0
   },
+  "verifiedAnswerShapes": ["COMPARISON_CHOICE", "QUANTITY_WITH_UNIT"],
+  "verifiedAdapters": ["COMPARISON_CHOICE_RECONSTRUCTION", "GENERIC_QUANTITY_RECONSTRUCTION"],
+  "verifiedOperationFamilies": [
+    "common_group_total","decimal_add_sub","decimal_compare","decimal_measure_conversion","decimal_multiply",
+    "discrete_fraction_conversion","exact_grouping","fraction_accumulation","fraction_add_sub","fraction_bounds",
+    "fraction_compare","fraction_context_total","fraction_times_integer","interval_multiple_count","lcm",
+    "measurement_fraction","nearest_multiple","quotient_fraction_context","rate_total","rounding","segment_measure","square_tiling"
+  ],
   "executionBoundary": {
     "numericFixtureExecutionAllowedInShadow": true,
     "misconceptionExecutionAllowedInShadow": true,
@@ -41,6 +60,7 @@
     "crossContextExecutionAllowedInShadow": true,
     "uniqueAnswerWitnessExecutionAllowedInShadow": true,
     "pblDependencyExecutionAllowedInShadow": true,
+    "representativeNumericWitnessOnly": true,
     "productionGeneratorChanged": false,
     "productionValidatorChanged": false,
     "rendererChanged": false,
