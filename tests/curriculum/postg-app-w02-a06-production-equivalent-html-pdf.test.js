@@ -10,6 +10,9 @@ import { supportedSharedOperationFamilies } from '../../src/curriculum/applicati
 import { buildWorksheetDocumentFromGeneratedItems } from '../../site/assets/browser/pipeline/build-worksheet-document.js';
 
 const pkg = materializeW02A06ProductionEquivalentPackage();
+const countCells = (pages, cellType) => pages
+  .flatMap((page) => page.cells)
+  .filter((cell) => cell.cellType === cellType).length;
 
 test('A06 generates and validates the exact 195 PatternSpec cohort', () => {
   const result = validateW02A06ProductionEquivalentPackage(pkg);
@@ -45,8 +48,8 @@ test('numeric and application worksheets remain separate and pair answers one-to
   assert.equal(pkg.applicationWorksheetResult.worksheetDocument.questionCount, 61);
   assert.equal(pkg.numericWorksheetResult.worksheetDocument.questions.every((item) => item.mode === 'NUMERIC'), true);
   assert.equal(pkg.applicationWorksheetResult.worksheetDocument.questions.every((item) => item.mode === 'APPLICATION'), true);
-  assert.equal(pkg.numericWorksheetResult.worksheetDocument.answerKeyPages.flatMap((page) => page.items).length, 134);
-  assert.equal(pkg.applicationWorksheetResult.worksheetDocument.answerKeyPages.flatMap((page) => page.items).length, 61);
+  assert.equal(countCells(pkg.numericWorksheetResult.worksheetDocument.answerKeyPages, 'answerKey'), 134);
+  assert.equal(countCells(pkg.applicationWorksheetResult.worksheetDocument.answerKeyPages, 'answerKey'), 61);
 });
 
 test('A06 uses the generic generated-item worksheet consumer rather than a W02 renderer', () => {
