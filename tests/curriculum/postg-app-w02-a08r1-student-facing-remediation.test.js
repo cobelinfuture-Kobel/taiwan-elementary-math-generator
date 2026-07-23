@@ -12,7 +12,7 @@ const codes = (result) => result.issues.map((row) => row.code);
 test('W02 A08R1 remediates all quantified student-facing defects without admission', () => {
   const result = buildW02A08R1Readback();
   assert.equal(result.ok, true, JSON.stringify(result.issues, null, 2));
-  assert.equal(result.status, 'W02_A08R1_STUDENT_FACING_SEMANTIC_SURFACE_PBL_REVIEW_READY');
+  assert.equal(result.status, 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY');
   assert.deepEqual(result.counts, {
     generatedItemCount: 195,
     applicationReviewCount: 61,
@@ -26,7 +26,12 @@ test('W02 A08R1 remediates all quantified student-facing defects without admissi
     internalIdLeakageCount: 0,
     internalTokenLeakageCount: 0,
     malformedSurfaceCount: 0,
-    missingAnswerCount: 0
+    missingAnswerCount: 0,
+    sameDenominatorKnowledgeMismatchCount: 0,
+    lengthConversionSurfaceMismatchCount: 0,
+    rateDistanceSurfaceMismatchCount: 0,
+    fractionalCapacityDisplayMismatchCount: 0,
+    gradeInappropriateFractionVariableCount: 0
   });
   assert.deepEqual(result.audit.numeric, {
     reviewedCount: 49,
@@ -43,8 +48,13 @@ test('W02 A08R1 remediates all quantified student-facing defects without admissi
     finalDecisionIncompleteCount: 0,
     internalIdLeakageCount: 0,
     internalTokenLeakageCount: 0,
-    malformedSurfaceCount: 0
+    malformedSurfaceCount: 0,
+    genericTaskSurfaceCount: 0,
+    governancePhraseLeakageCount: 0,
+    genericProductLabelCount: 0,
+    duplicatedTaskSurfaceCount: 0
   });
+  assert.equal(result.studentFacingSemanticRevision, 3);
   assert.equal(result.productionAdmissionGranted, false);
   assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision');
 });
@@ -55,7 +65,7 @@ test('remediated application and numeric samples are readable and token-safe', (
   const numeric = materialized.a06Package.numericItems[0];
   for (const item of [application, numeric]) {
     assert.equal(item.studentFacingSurfaceVersion, 'W02_A08R1_V1');
-    assert.equal(item.studentFacingSemanticRevision, 2);
+    assert.equal(item.studentFacingSemanticRevision, 3);
     assert.equal(item.prompt.length > 10, true, item.prompt);
     assert.equal(/([A-Za-z][A-Za-z0-9_]*)為/.test(item.prompt), false, item.prompt);
     assert.equal(/\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i.test(item.prompt), false, item.prompt);
@@ -65,16 +75,19 @@ test('remediated application and numeric samples are readable and token-safe', (
   assert.equal(/^在[^。]+為了/.test(application.prompt), false);
 });
 
-test('all PBL task sets contain materialized dependency and final-decision surfaces', () => {
+test('all PBL task sets contain operation-specific dependency and final-decision surfaces', () => {
   const materialized = materializeW02A08R1Remediation();
   for (const record of materialized.a06Package.pblTaskSetRecords) {
     assert.equal(record.studentFacingInstantiationVersion, 'W02_A08R1_V1');
-    assert.equal(record.studentFacingSemanticRevision, 2);
+    assert.equal(record.studentFacingSemanticRevision, 3);
     assert.equal(record.drivingProblem.authenticityExecutionVerified, true);
     assert.equal(record.tasks.every((task) => task.fullyInstantiated === true), true);
+    assert.equal(new Set(record.tasks.map((task) => task.promptZh)).size, record.tasks.length);
     assert.equal(record.dependencyGraph.length > 0, true);
     assert.equal(record.finalProduct.executed, true);
     assert.equal(record.finalDecisionRequired, true);
+    assert.notEqual(record.drivingProblem.finalProductType, '可執行方案');
+    assert.notEqual(record.drivingProblem.finalProductType, '數學成果報告');
   }
 });
 
@@ -87,7 +100,7 @@ test('raw role regression and incomplete PBL regression fail closed', () => {
   assert.equal(codes(validateW02A08R1Remediation(rawRole)).includes('POSTG_APP_W02_A08R1_SEMANTIC_AUDIT_FAILED'), true);
 
   const incompletePbl = structuredClone(materialized);
-  incompletePbl.a06Package.pblTaskSetRecords[0].studentFacingInstantiationVersion = 'INVALID';
+  incompletePbl.a06Package.pblTaskSetRecords[0].studentFacingSemanticRevision = 2;
   assert.equal(codes(validateW02A08R1Remediation(incompletePbl)).includes('POSTG_APP_W02_A08R1_PBL_VERSION_INVALID'), true);
 });
 
