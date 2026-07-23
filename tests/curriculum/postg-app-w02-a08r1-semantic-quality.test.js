@@ -91,7 +91,7 @@ test('rounding application prompts distinguish rounded value from two-unit estim
 
 test('fraction-times-integer, bounds and quotient contexts are grade-appropriate', () => {
   const fractionTimes = itemByPattern.get('ps_g4a_u06_fraction_times_integer_quantity_total_application');
-  const bounds = itemByPattern.get('ps_g4b_u03_fraction_bounds_possible_values_application');
+  const bounds = itemByPattern.get('ps_g4b_u08_mixed_fraction_order_constraints_possible_values_application');
   const quotient = itemByPattern.get('ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application');
   assert.equal(fractionTimes.answerText, '3');
   assert.equal(fractionTimes.prompt.includes('4段相同路線'), true, fractionTimes.prompt);
