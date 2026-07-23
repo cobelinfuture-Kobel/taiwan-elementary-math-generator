@@ -10,7 +10,7 @@ import {
   validateStudentFacingOperationSurface,
   W02_A08R3_NUMERIC_SEMANTIC_REVISION,
   W02_A08R3_NUMERIC_SURFACE_VERSION
-} from './shared/student-facing-numeric-remediation-v4.mjs';
+} from './shared/student-facing-numeric-full-cohort-adapter-v4.mjs';
 import { buildW02A08R2SecondOperatorReviewReadback } from './w02-a08r2-second-operator-review-decision.mjs';
 
 export const W02_A08R3_TASK = 'POSTG-APP-W02-A08R3_NumericStudentFacingUnknownRoleGivenSetAndNotationRemediation';
@@ -84,8 +84,13 @@ export function validateW02A08R3NumericRemediation(materialized) {
     malformedOrIncoherentSurface: 0,
     gradeUnsafeNotation: 0
   };
-  if (audit.reviewedCount !== 134 || stable(audit.counts) !== stable(expectedZero)) {
-    issues.push(issue('POSTG_APP_W02_A08R3_NUMERIC_AUDIT_FAILED', 'audit', { expected: expectedZero, actual: audit }));
+  if (audit.reviewedCount !== 134
+      || audit.operationRoleContractCount !== 71
+      || stable(audit.counts) !== stable(expectedZero)) {
+    issues.push(issue('POSTG_APP_W02_A08R3_NUMERIC_AUDIT_FAILED', 'audit', {
+      expected: { reviewedCount: 134, operationRoleContractCount: 71, counts: expectedZero },
+      actual: audit
+    }));
   }
   if (historicalFindingReadback.length !== 45
       || historicalFindingReadback.some((row) => !row.ok || !row.prompt || !row.answerText)) {
@@ -128,6 +133,7 @@ export function validateW02A08R3NumericRemediation(materialized) {
       applicationQuestionCount: a06Package.applicationItems.length,
       pblTaskSetCount: a06Package.pblTaskSetRecords.length,
       operationFamilyCount: new Set(a06Package.generatedItems.map((item) => item.operationFamilyId)).size,
+      operationRoleContractCount: audit.operationRoleContractCount,
       historicalAffectedItemCount: historicalFindingReadback.length
     },
     audit,
