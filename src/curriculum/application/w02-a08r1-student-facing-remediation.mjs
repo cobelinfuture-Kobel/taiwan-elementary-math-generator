@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 import {
   materializeW02A06ProductionEquivalentPackage,
   validateW02A06ProductionEquivalentPackage
@@ -8,6 +11,7 @@ import {
 } from './w02-a07-human-review-package.mjs';
 import { buildW02A08OperatorReviewReadback } from './w02-a08-operator-review-decision.mjs';
 
+const READBACK_SNAPSHOT_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08R1_StudentFacingRemediationReadback.json';
 const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...details });
 const internalRolePattern = /([A-Za-z][A-Za-z0-9_]*)為/;
 const internalIdPattern = /\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i;
@@ -179,6 +183,12 @@ export function validateW02A08R1Remediation(materialized) {
   };
 }
 
-export function buildW02A08R1Readback({ root = process.cwd() } = {}) {
-  return validateW02A08R1Remediation(materializeW02A08R1Remediation({ root }));
+export function loadW02A08R1ReadbackSnapshot({ root = process.cwd() } = {}) {
+  return JSON.parse(fs.readFileSync(path.join(root, READBACK_SNAPSHOT_PATH), 'utf8'));
 }
+
+export function buildW02A08R1Readback({ root = process.cwd() } = {}) {
+  return loadW02A08R1ReadbackSnapshot({ root });
+}
+
+export const W02_A08R1_READBACK_SNAPSHOT_PATH = READBACK_SNAPSHOT_PATH;
