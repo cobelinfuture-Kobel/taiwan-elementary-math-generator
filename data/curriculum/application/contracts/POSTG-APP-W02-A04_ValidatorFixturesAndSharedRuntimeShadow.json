@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
   "contractId": "POSTG_APP_W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_V1",
-  "status": "SHARED_SHADOW_RUNTIME_PENDING_EXACT_HEAD_CI_AND_CONTROLLER_TRANSITION",
+  "status": "SHARED_SHADOW_RUNTIME_VERIFIED_PENDING_CONTROLLER_CI_AND_MERGE",
   "dependencies": {
     "a02TaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
     "a03TaskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
@@ -18,7 +18,7 @@
     "validationCli": "tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs",
     "test": "tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js"
   },
-  "expectedCounts": {
+  "verifiedCounts": {
     "candidateCount": 61,
     "nPlusOneProofCount": 61,
     "misconceptionCandidateCount": 183,
@@ -26,6 +26,10 @@
     "fixtureCount": 672,
     "positiveFixtureCount": 275,
     "negativeFixtureCount": 397,
+    "passCount": 275,
+    "expectedRejectCount": 397,
+    "unexpectedPassCount": 0,
+    "unexpectedRejectCount": 0,
     "pairedNPlusOneExecutionCount": 61,
     "misconceptionExecutionCount": 183,
     "calculationPassInterpretationFailCount": 122,
@@ -35,12 +39,18 @@
     "pblDependencyExecutionCount": 62,
     "sourceNodeCoverageCount": 13,
     "primaryMacroContextCoverageCount": 16,
+    "alternateMacroContextCoverageCount": 2,
+    "operationFamilyCoverageCount": 22,
+    "answerShapeCoverageCount": 2,
+    "adapterCoverageCount": 2,
     "duplicateFixtureProjectionGroupCount": 1,
     "productionAdmittedCount": 0
   },
   "runtimeRequirements": {
     "a02CandidateLineageValidated": true,
     "a03ProofAndPblLineageValidated": true,
+    "singleFixturesDoNotRequireA03ProofLineage": true,
+    "proofDerivedFixturesRequireA03ProofLineage": true,
     "numericWitnessRecomputed": true,
     "answerRoleAndUnitValidated": true,
     "nToNPlusOnePairingValidated": true,
@@ -53,10 +63,16 @@
     "unexpectedPassCountRequired": 0,
     "unexpectedRejectCountRequired": 0
   },
+  "verifiedCoverage": {
+    "answerShapes": ["COMPARISON_CHOICE", "QUANTITY_WITH_UNIT"],
+    "adapters": ["COMPARISON_CHOICE_RECONSTRUCTION", "GENERIC_QUANTITY_RECONSTRUCTION"],
+    "operationFamilyCount": 22
+  },
   "duplicateContentRule": {
     "contentIdentityGroup": "pdf_5ba57aff6a97",
     "sourceNodeIds": ["g4a_u06_4a06", "g4b_u03_4b03"],
-    "normalizedFixtureProjectionParityRequired": true
+    "normalizedFixtureProjectionParityRequired": true,
+    "normalizedFixtureProjectionParityVerified": true
   },
   "productionBoundary": {
     "representativeNumericWitnessOnly": true,
