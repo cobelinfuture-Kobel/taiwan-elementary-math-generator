@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
   "contractId": "POSTG_APP_W02_NPLUSONE_PROOF_MISCONCEPTION_AND_PBL_CANDIDATE_V1",
-  "status": "DETERMINISTIC_SHADOW_MATERIALIZATION_PENDING_CI",
+  "status": "DETERMINISTIC_SHADOW_MATERIALIZATION_COUNTS_VERIFIED_PENDING_CI_AND_MERGE",
   "inputAuthority": {
     "a02TaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
     "a02PackIndex": "data/curriculum/application/assessment/w02-atomic-context-single-application-candidate-pack-index.json",
@@ -17,10 +17,18 @@
     "validationCli": "tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs",
     "test": "tests/curriculum/postg-app-w02-a03-candidate-pack.test.js"
   },
-  "countRules": {
-    "nPlusOneProofCandidateCount": "equals W02 A02 singleApplicationCandidateCount",
-    "misconceptionCandidateCount": "three per N+1 proof candidate",
-    "pblTaskSetCandidateCount": "equals W02 A02 candidates classified APPLICATION_REQUIRED",
+  "verifiedCounts": {
+    "a02SingleApplicationCandidateCount": 61,
+    "nPlusOneProofCandidateCount": 61,
+    "misconceptionCandidateCount": 183,
+    "pblEligibleCandidateCount": 31,
+    "pblTaskSetCandidateCount": 31,
+    "pbl3TaskSetCandidateCount": 19,
+    "pbl5TaskSetCandidateCount": 12,
+    "crossContextPairCount": 61,
+    "duplicateProofProjectionGroupCount": 1,
+    "duplicatePblProjectionGroupCount": 1,
+    "compatiblePblCandidateCount": 0,
     "productionAdmittedCount": 0
   },
   "proofBoundary": {
@@ -32,6 +40,7 @@
     "candidateStatus": "N_PLUS_1_PROOF_BLUEPRINT_COMPLETE"
   },
   "pblBoundary": {
+    "eligibility": "APPLICATION_REQUIRED_ONLY",
     "taskCountsAllowed": [3, 5],
     "compatibleClassificationAutomaticallyAdmitted": false,
     "productionAdmissionAllowed": false,
