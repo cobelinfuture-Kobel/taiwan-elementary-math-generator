@@ -1,0 +1,87 @@
+name: POSTG-APP W02-A04 Validator Shadow
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/assessment/w02-validator-fixture-shadow-*.json"
+      - "data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json"
+      - "data/curriculum/application/contracts/POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow.json"
+      - "data/project/milestones/POSTG-APP-W02-A04.claim.json"
+      - "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs"
+      - "tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js"
+      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
+      - "src/curriculum/application/postg-app-master-controller.mjs"
+      - "tests/curriculum/postg-app-m00-master-controller.test.js"
+      - "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js"
+      - "docs/curriculum/output/POSTG_APP_W02_A04_*"
+      - ".github/workflows/postg-app-w02-a04-validator-shadow.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a04-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validator-shadow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: npm install
+      - name: Validate A04 schema document
+        run: |
+          python -m pip install jsonschema
+          python - <<'PY'
+          import json
+          from jsonschema import Draft202012Validator
+          with open('data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json', encoding='utf-8') as handle:
+              Draft202012Validator.check_schema(json.load(handle))
+          PY
+      - name: Run W02 A04 focused tests and validator
+        run: |
+          node --test tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js
+          node tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs
+      - name: Write deterministic A04 runtime readback
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import { buildW02ValidatorShadowReadback } from './src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs';
+          const readback = buildW02ValidatorShadowReadback();
+          fs.writeFileSync('w02-a04-runtime-readback.json', `${JSON.stringify({
+            counts: readback.counts,
+            fixtureTypeCounts: readback.fixtureTypeCounts,
+            errorCodeCounts: readback.errorCodeCounts,
+            operationFamilyCoverage: readback.operationFamilyCoverage,
+            answerShapeCoverage: readback.answerShapeCoverage,
+            adapterCoverage: readback.adapterCoverage,
+            duplicateComparisons: readback.duplicateComparisons
+          }, null, 2)}\n`);
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: w02-a04-runtime-readback
+          path: w02-a04-runtime-readback.json
+          if-no-files-found: error
+      - name: Verify A03 and A02 regressions
+        run: |
+          node --test tests/curriculum/postg-app-w02-a03-candidate-pack.test.js
+          node tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs
+          node --test tests/curriculum/postg-app-w02-a02-candidate-pack.test.js
+          node tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs
+      - name: Verify controller, W01 E5 and governance
+        run: |
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
+      - name: Run full regression suite
+        run: npm test
