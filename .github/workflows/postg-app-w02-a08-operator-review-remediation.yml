@@ -1,0 +1,139 @@
+name: POSTG-APP W02-A08 Operator Review Remediation
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "src/curriculum/application/shared/student-facing-operation-surface.mjs"
+      - "src/curriculum/application/shared/student-facing-semantic-remediation-v2.mjs"
+      - "src/curriculum/application/shared/student-facing-semantic-context-bridge.mjs"
+      - "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
+      - "src/curriculum/application/w02-a08-operator-review-decision.mjs"
+      - "src/curriculum/application/w02-a08r1-student-facing-remediation.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a08-operator-review-decision.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a08r1-student-facing-remediation.mjs"
+      - "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
+      - "tests/curriculum/postg-app-w02-a08-operator-review-decision.test.js"
+      - "tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js"
+      - "tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js"
+      - "tests/curriculum/postg-app-m00-master-controller.test.js"
+      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
+      - "data/curriculum/application/reviews/POSTG-APP-W02-A08*.json"
+      - "data/project/milestones/POSTG-APP-W02-A08.claim.json"
+      - ".github/workflows/postg-app-w02-a08-operator-review-remediation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a08-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  operator-review-remediation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Install project dependencies
+        run: npm install --silent
+      - name: Capture frozen A08 decision diagnostics
+        id: a08_decision
+        run: |
+          set +e
+          {
+            node --test tests/curriculum/postg-app-w02-a08-operator-review-decision.test.js
+            node tools/curriculum/validate-postg-app-w02-a08-operator-review-decision.mjs
+          } > w02-a08-decision-diagnostics.log 2>&1
+          status=$?
+          cat w02-a08-decision-diagnostics.log
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload frozen decision diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a08-decision-diagnostics
+          path: w02-a08-decision-diagnostics.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Enforce frozen A08 decision result
+        if: steps.a08_decision.outputs.status != '0'
+        run: exit 1
+      - name: Capture shared runtime and A08R1 diagnostics
+        id: a08r1
+        run: |
+          set +e
+          {
+            node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
+            node --test tests/curriculum/postg-app-w02-a07-human-review-package.test.js
+            node --test tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js
+            node --test tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js
+            node tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs
+            node tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs
+            node tools/curriculum/validate-postg-app-w02-a08r1-student-facing-remediation.mjs
+          } > w02-a08r1-diagnostics.log 2>&1
+          status=$?
+          cat w02-a08r1-diagnostics.log
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload shared runtime diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a08r1-diagnostics
+          path: w02-a08r1-diagnostics.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Enforce A08R1 zero-defect result
+        if: steps.a08r1.outputs.status != '0'
+        run: exit 1
+      - name: Capture controller and claim governance diagnostics
+        id: governance
+        run: |
+          set +e
+          {
+            node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+            node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+            node --test tests/curriculum/postg-app-m00-master-controller.test.js
+            node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+            npm run governance:claims
+          } > w02-a08-controller-governance-diagnostics.log 2>&1
+          status=$?
+          cat w02-a08-controller-governance-diagnostics.log
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload controller and claim governance diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a08-controller-governance-diagnostics
+          path: w02-a08-controller-governance-diagnostics.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Enforce controller and claim governance result
+        if: steps.governance.outputs.status != '0'
+        run: exit 1
+      - name: Capture full regression suite
+        id: full_regression
+        run: |
+          set +e
+          npm test > w02-a08-full-regression.log 2>&1
+          status=$?
+          tail -n 600 w02-a08-full-regression.log
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload full regression diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a08-full-regression-diagnostics
+          path: w02-a08-full-regression.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Enforce full regression result
+        if: steps.full_regression.outputs.status != '0'
+        run: exit 1

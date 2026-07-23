@@ -1,0 +1,57 @@
+{
+  "schemaName": "POSTGAPPW02A08R1StudentFacingRemediationReadbackV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview",
+  "ok": true,
+  "issues": [],
+  "status": "W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY",
+  "counts": {
+    "generatedItemCount": 195,
+    "applicationReviewCount": 61,
+    "numericBoundaryReviewCount": 49,
+    "pblReviewCount": 31,
+    "operationFamilyCount": 49
+  },
+  "audit": {
+    "application": {
+      "reviewedCount": 61,
+      "rawRoleLeakageCount": 0,
+      "internalIdLeakageCount": 0,
+      "internalTokenLeakageCount": 0,
+      "malformedSurfaceCount": 0,
+      "missingAnswerCount": 0,
+      "sameDenominatorKnowledgeMismatchCount": 0,
+      "lengthConversionSurfaceMismatchCount": 0,
+      "rateDistanceSurfaceMismatchCount": 0,
+      "fractionalCapacityDisplayMismatchCount": 0,
+      "gradeInappropriateFractionVariableCount": 0
+    },
+    "numeric": {
+      "reviewedCount": 49,
+      "rawRoleLeakageCount": 0,
+      "internalIdLeakageCount": 0,
+      "internalTokenLeakageCount": 0,
+      "malformedSurfaceCount": 0
+    },
+    "pbl": {
+      "reviewedCount": 31,
+      "dependencyGraphMissingCount": 0,
+      "authenticityNotVerifiedCount": 0,
+      "notFullyInstantiatedCount": 0,
+      "finalDecisionIncompleteCount": 0,
+      "internalIdLeakageCount": 0,
+      "internalTokenLeakageCount": 0,
+      "malformedSurfaceCount": 0,
+      "genericTaskSurfaceCount": 0,
+      "governancePhraseLeakageCount": 0,
+      "genericProductLabelCount": 0,
+      "duplicatedTaskSurfaceCount": 0
+    }
+  },
+  "studentFacingSemanticRevision": 3,
+  "productionAdmissionGranted": false,
+  "publicSelectable": false,
+  "w03ToW06Unblocked": false,
+  "nextShortestStep": "POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision"
+}

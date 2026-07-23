@@ -83,11 +83,23 @@ test('controller preserves W01 admission while W02 advances monotonically withou
   assert.equal(w02.sharedRuntimeShadowPass, true);
   assert.equal(w02.sharedWorksheetProjectionComplete, true);
   assert.equal(w02.productionEquivalentOutputVerified, true);
-  const expectedW02HumanReviewReady = w02.state === 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY';
+
+  const reviewReadyStates = new Set([
+    'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY',
+    'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY'
+  ]);
+  const expectedW02HumanReviewReady = reviewReadyStates.has(w02.state);
   assert.equal(w02.humanReviewReady, expectedW02HumanReviewReady);
-  if (expectedW02HumanReviewReady) {
+  if (w02.state === 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY') {
     assert.equal(w02.humanReviewPackageComplete, true);
     assert.equal(w02.reviewDecision, 'NOT_STARTED');
+  }
+  if (w02.state === 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY') {
+    assert.equal(w02.humanReviewPackageComplete, true);
+    assert.equal(w02.reviewDecision, 'REVISE');
+    assert.equal(w02.operatorDecisionState, 'REVISE_RECORDED');
+    assert.equal(w02.studentFacingSemanticRevision, 3);
+    assert.equal(w02.regeneratedHtmlPdfReviewReady, true);
   }
   assert.deepEqual(states.slice(2).map((row) => row.state), [
     'BLOCKED_BY_PREVIOUS_WAVE',
