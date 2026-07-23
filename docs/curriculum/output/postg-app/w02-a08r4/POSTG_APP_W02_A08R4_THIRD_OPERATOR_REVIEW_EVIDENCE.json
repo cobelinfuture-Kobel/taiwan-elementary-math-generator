@@ -1,0 +1,77 @@
+{
+  "schemaName": "POSTGAPPW02A08R4ThirdOperatorReviewEvidenceV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
+  "status": "W02_PRODUCTION_ADMITTED_W03_ASSESSMENT_READY",
+  "operatorDecision": "APPROVE",
+  "reviewedArtifactAuthority": {
+    "headSha": "544a642b8d40fc30edd082dd41ed8065e978ed6a",
+    "workflowRunId": 30051709864,
+    "artifactId": 8581273640,
+    "artifactDigest": "sha256:d42de8c0707372521689d1acba15801c41cf2c90088820c13b197649ff24c8cb"
+  },
+  "reviewCoverage": {
+    "generatedItemCount": 195,
+    "numericQuestionCount": 134,
+    "applicationQuestionCount": 61,
+    "pblTaskSetCount": 31,
+    "operationFamilyCount": 49,
+    "operationRoleContractCount": 71,
+    "historicalAffectedItemCount": 45,
+    "pdfPageCount": 110
+  },
+  "reviewMethods": {
+    "fullCohortProgrammaticReview": true,
+    "allNumericOperationRoleContractsReviewed": true,
+    "historicalFindingReplayReviewed": true,
+    "applicationAndPblRegressionReviewed": true,
+    "pdfRenderFirstVisualReview": true,
+    "firstMiddleLastAndHighRiskPagesReviewed": true,
+    "exactHeadCiReviewed": true
+  },
+  "blockingFindingCounts": {
+    "numericUnresolvedRequestedUnknown": 0,
+    "numericAnswerEquivalentOrNonMinimalGivenSet": 0,
+    "numericMalformedOrIncoherentSurface": 0,
+    "numericGradeUnsafeNotation": 0,
+    "applicationBlockingFindingCount": 0,
+    "pblBlockingFindingCount": 0,
+    "pdfBlockingFindingCount": 0,
+    "ciBlockingFindingCount": 0
+  },
+  "acceptedStudentFacingVersions": {
+    "numericSurfaceVersion": "W02_A08R3_V1",
+    "numericSemanticRevision": 4,
+    "applicationSurfaceVersion": "W02_A08R1_V1",
+    "applicationSemanticRevision": 3,
+    "pblInstantiationVersion": "W02_A08R1_V1",
+    "pblSemanticRevision": 3
+  },
+  "exactHeadCi": {
+    "a08r3RunId": 30051709864,
+    "a08r3Conclusion": "success",
+    "a08r2HistoricalRunId": 30051709891,
+    "a08r2HistoricalConclusion": "success",
+    "nodeTestConclusion": "success",
+    "mathCiConclusion": "success",
+    "claimIntegrityConclusion": "success",
+    "a06HtmlPdfConclusion": "success",
+    "repositoryWideRendererAndStressConclusion": "success"
+  },
+  "productionAdmission": {
+    "waveId": "W02",
+    "granted": true,
+    "evidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "productionRuntimeAccessEnabled": true,
+    "publicSelectionEnabled": false,
+    "publicRouteChanged": false
+  },
+  "nextWaveActivation": {
+    "waveId": "W03",
+    "state": "ASSESSMENT_READY",
+    "shadowProjectionAllowed": false,
+    "productionAdmissionGranted": false,
+    "nextTaskId": "POSTG-APP-W03-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline"
+  }
+}
