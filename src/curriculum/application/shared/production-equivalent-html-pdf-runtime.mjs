@@ -21,6 +21,9 @@ const countBy = (rows, selector) => rows.reduce((counts, row) => {
   return counts;
 }, {});
 const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...details });
+const countRenderedCards = (html, modifierClass) => (
+  html.match(new RegExp(`<article class="worksheet-cell ${modifierClass}"`, 'g')) ?? []
+).length;
 
 function flattenSpecs(hidden) {
   return hidden.records.flatMap(({ actual }) => actual.knowledgePoints.flatMap((kp) => (
@@ -187,8 +190,8 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
     ['NUMERIC', pkg.numericHtml, 134],
     ['APPLICATION', pkg.applicationHtml, 61]
   ]) {
-    const questionCards = (html.match(/worksheet-cell--question/g) ?? []).length;
-    const answerCards = (html.match(/worksheet-cell--answer-key/g) ?? []).length;
+    const questionCards = countRenderedCards(html, 'worksheet-cell--question');
+    const answerCards = countRenderedCards(html, 'worksheet-cell--answer-key');
     if (!html.includes('data-postg-app-w02-a06="true"')
         || !html.includes(`data-question-mode="${mode}"`)
         || questionCards !== expectedQuestions
