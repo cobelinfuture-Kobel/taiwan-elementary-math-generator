@@ -318,8 +318,8 @@ export function validatePOSTGAPPMasterController(controller) {
   }
   if (controllerState.currentWaveId !== 'W02'
       || controllerState.currentCapability !== 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS'
-      || controllerState.currentMainlineBlocker !== 'W02_WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_PENDING'
-      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview') {
+      || controllerState.currentMainlineBlocker !== 'W02_SHARED_WORKSHEET_PROJECTION_PENDING'
+      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection') {
     issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
   }
   if (controllerState.productionAdmission.applicationUnitCount !== 12
@@ -393,14 +393,13 @@ export function validatePOSTGAPPMasterController(controller) {
     claimedStatus: 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED',
     nextTaskId: 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow'
   }));
-
   issues.push(...validateShadowClaim({
-  claim: w02A04Claim,
-  pathValue: W02_A04_CLAIM_PATH,
-  code: 'POSTG_APP_W02_A04_CLAIM_INVALID',
-  claimedStatus: 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS',
-  nextTaskId: 'POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview'
-}));
+    claim: w02A04Claim,
+    pathValue: W02_A04_CLAIM_PATH,
+    code: 'POSTG_APP_W02_A04_CLAIM_INVALID',
+    claimedStatus: 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS',
+    nextTaskId: 'POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection'
+  }));
 
   const contextValidation = validateGlobalContextAuthority(controller.contextAuthority);
   if (!contextValidation.ok) issues.push(issue('POSTG_APP_M01_CONTEXT_AUTHORITY_INVALID', 'globalContextAuthority', { contextIssues: contextValidation.issues }));
