@@ -43,7 +43,7 @@ test('M00 validates the exact 79-node scope with W01 admitted and W02 A04 valida
     productionAdmittedApplicationUnitCount: 12
   });
   assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A05_WorksheetShadowProjectionAndProductionAdmissionReview');
+  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection');
 });
 
 test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
