@@ -3,18 +3,18 @@
   "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
   "taskClass": "runtime",
   "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
-  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W02_HUMAN_REVIEW_PACKAGE_IMPLEMENTED_CI_PENDING",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": true,
-    "productionRendererUsed": false,
-    "htmlOutputVerified": false,
-    "pdfOutputVerified": false,
-    "visibleOutputChanged": false,
-    "humanReviewReady": false,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
     "productionAdmitted": false,
     "d0Complete": false
   },
@@ -28,13 +28,25 @@
       "tools/curriculum/generate-postg-app-w02-a07-review-artifacts.mjs",
       ".github/workflows/postg-app-w02-a07-human-review-package.yml"
     ],
-    "htmlArtifactPaths": [],
-    "pdfArtifactPaths": [],
-    "beforeAfterEvidencePaths": [
-      "data/curriculum/application/reviews/POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage.json"
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_EVIDENCE.json"
     ],
-    "reviewArtifactPaths": [],
-    "artifactHashes": []
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_EVIDENCE.json"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/reviews/POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage.json",
+      "docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_EVIDENCE.json"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_EVIDENCE.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_EVIDENCE.json",
+        "sha256": "c577b695554f93a663a04d7918618b3860b55c99aacd2c6d8e9fc6d1f61c0d05"
+      }
+    ]
   },
   "humanReview": {
     "type": "production_equivalent_output_review",
@@ -44,10 +56,10 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "A07 runtime, full 61-question application review cohort, all 31 PBL task-set review rows, numeric operation-family boundary references and fail-closed review package workflow implemented; exact-head HTML/PDF evidence remains pending."
+    "distanceReduced": "Exact-head CI generated and hash-verified the complete W02 production-equivalent human-review package: 61 application questions with complete 16-macro-context lineage, 31 PBL task sets, 49 numeric operation-family boundary references, 68 numeric PDF pages and 42 application PDF pages. The immutable GitHub Actions artifact is persisted to Google Drive; operator decision, production admission, public selection and A08 remain fail-closed."
   },
   "nextStep": {
-    "taskId": "POSTG-APP-W02-A07_FinalExactHeadHumanReviewArtifactCIAndControllerPromotion",
-    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+    "taskId": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
   }
 }
