@@ -43,21 +43,26 @@ jobs:
       - name: Materialize A08R2 central controller transition
         id: materialize
         run: |
-          node tools/curriculum/materialize-postg-app-w02-a08r2-controller.mjs | tee w02-a08r2-controller-materialization.json
-          if [[ -n "$(git status --porcelain -- src/curriculum/application/postg-app-master-controller.mjs data/curriculum/application/controller/postg-app-master-controller-state.json tests/curriculum/postg-app-m00-master-controller.test.js tests/curriculum/postg-app-w01-a06e-operator-approval.test.js)" ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add src/curriculum/application/postg-app-master-controller.mjs \
-              data/curriculum/application/controller/postg-app-master-controller-state.json \
-              tests/curriculum/postg-app-m00-master-controller.test.js \
-              tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
-            git commit -m "chore(application): materialize W02 A08R2 controller state"
-            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
-            fi
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
+          if [[ -f data/project/milestones/POSTG-APP-W02-A08R3.claim.json ]]; then
+            echo '{"ok":true,"skipped":true,"reason":"A08R3_SUCCESSOR_STATE_PRESENT"}' | tee w02-a08r2-controller-materialization.json
             echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            node tools/curriculum/materialize-postg-app-w02-a08r2-controller.mjs | tee w02-a08r2-controller-materialization.json
+            if [[ -n "$(git status --porcelain -- src/curriculum/application/postg-app-master-controller.mjs data/curriculum/application/controller/postg-app-master-controller-state.json tests/curriculum/postg-app-m00-master-controller.test.js tests/curriculum/postg-app-w01-a06e-operator-approval.test.js)" ]]; then
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add src/curriculum/application/postg-app-master-controller.mjs \
+                data/curriculum/application/controller/postg-app-master-controller-state.json \
+                tests/curriculum/postg-app-m00-master-controller.test.js \
+                tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+              git commit -m "chore(application): materialize W02 A08R2 controller state"
+              if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+                git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
+              fi
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+            fi
           fi
       - name: Capture static second-review and controller diagnostics
         id: focused
@@ -111,7 +116,12 @@ jobs:
           node tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs > w02-a08r2-regenerated-manifest.json
           python tools/curriculum/verify-postg-app-w02-a06-pdf.py 2>&1 | tee w02-a08r2-pdf-verification.log
       - name: Verify artifact hashes and finding-to-item binding
-        run: node tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs --verify-regenerated-artifacts | tee w02-a08r2-decision-readback.json
+        run: |
+          if [[ -f data/project/milestones/POSTG-APP-W02-A08R3.claim.json ]]; then
+            node tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs | tee w02-a08r2-decision-readback.json
+          else
+            node tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs --verify-regenerated-artifacts | tee w02-a08r2-decision-readback.json
+          fi
       - name: Upload A08R2 review evidence
         uses: actions/upload-artifact@v4
         with:
@@ -132,7 +142,9 @@ jobs:
         run: npm test
       - name: Enforce materializer idempotence
         run: |
-          node tools/curriculum/materialize-postg-app-w02-a08r2-controller.mjs
+          if [[ ! -f data/project/milestones/POSTG-APP-W02-A08R3.claim.json ]]; then
+            node tools/curriculum/materialize-postg-app-w02-a08r2-controller.mjs
+          fi
           git diff --exit-code -- src/curriculum/application/postg-app-master-controller.mjs \
             data/curriculum/application/controller/postg-app-master-controller-state.json \
             tests/curriculum/postg-app-m00-master-controller.test.js \

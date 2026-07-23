@@ -164,7 +164,13 @@ function evaluateUnknown(spec, givens) {
     case 'missing_column_digit': return [7];
     case 'missing_digit_inequality': return [0, 1, 2, 3, 4];
     case 'missing_fraction_addend': return addFractions(givens.total, givens.known, true);
-    case 'multiple_enumeration': return spec.requestedUnknownRole === 'isMultiple' ? givens.candidate % givens.base === 0 : [givens.base, givens.base * 2, givens.base * 3, givens.base * 4, givens.base * 5];
+    case 'multiple_enumeration': {
+      if (spec.requestedUnknownRole === 'isMultiple') return givens.candidate % givens.base === 0;
+      const upperBound = Number(givens.upperBound ?? givens.base * 5);
+      const values = [];
+      for (let value = Number(givens.base); value <= upperBound; value += Number(givens.base)) values.push(value);
+      return values;
+    }
     case 'nearest_multiple': {
       const values = [];
       for (let value = Math.ceil(givens.lower / givens.base) * givens.base; value <= givens.upper; value += givens.base) values.push(value);
@@ -177,7 +183,11 @@ function evaluateUnknown(spec, givens) {
     case 'quotient_fraction_context': return fraction(givens.totalQuantity, givens.recipientCount);
     case 'rate_total': return spec.requestedUnknownRole === 'total' ? round(givens.ratePerUnit * givens.unitCount) : round(givens.firstTotal + givens.secondTotal);
     case 'reciprocal_sum': return addFractions(fraction(1, givens.firstDenominator), fraction(1, givens.secondDenominator));
-    case 'rounding': return spec.requestedUnknownRole === 'rounded' ? round(Math.round(givens.value * 10) / 10) : round(givens.rounded * 2);
+    case 'rounding': {
+      const placeFactor = givens.targetPlace === 'hundredths' ? 100 : givens.targetPlace === 'thousandths' ? 1000 : 10;
+      const roundedValue = round(Math.round(givens.value * placeFactor) / placeFactor);
+      return spec.requestedUnknownRole === 'rounded' ? roundedValue : round(roundedValue * 2);
+    }
     case 'segment_measure': return spec.requestedUnknownRole === 'segmentLength' ? round(givens.totalLength / givens.segmentCount) : round(givens.totalLength / givens.segmentLength);
     case 'simplify_fraction': {
       const factorValue = gcd(givens.numerator, givens.denominator);

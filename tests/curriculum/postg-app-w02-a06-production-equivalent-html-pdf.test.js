@@ -56,7 +56,8 @@ test('all 49 operation families use shared adapters and student-facing surfaces'
   );
   assert.equal(pkg.generatedItems.every((item) => item.generatorAdapterId === 'SHARED_OPERATION_FAMILY_GENERATOR_V1'), true);
   assert.equal(pkg.generatedItems.every((item) => item.validatorAdapterId === 'SHARED_OPERATION_FAMILY_VALIDATOR_V1'), true);
-  assert.equal(pkg.generatedItems.every((item) => item.studentFacingSurfaceVersion === 'W02_A08R1_V1'), true);
+  assert.equal(pkg.numericItems.every((item) => item.studentFacingSurfaceVersion === 'W02_A08R3_V1' && item.studentFacingSemanticRevision === 4), true);
+  assert.equal(pkg.applicationItems.every((item) => item.studentFacingSurfaceVersion === 'W02_A08R1_V1' && item.studentFacingSemanticRevision === 3), true);
 });
 
 test('numeric and application worksheets remain separate and pair answers one-to-one', () => {
@@ -101,7 +102,7 @@ test('rendered HTML contains exact card counts and no visible internal labels', 
     const visibleText = visibleTextFromHtml(html);
     assert.equal(html.includes('data-postg-app-w02-a06="true"'), true);
     assert.equal(html.includes(`data-question-mode="${mode}"`), true);
-    assert.equal(html.includes('data-student-facing-surface="W02_A08R1_V1"'), true);
+    assert.equal(html.includes(`data-student-facing-surface="${mode === 'NUMERIC' ? 'W02_A08R3_V1' : 'W02_A08R1_V1'}"`), true);
     assert.equal(countRenderedCards(html, 'worksheet-cell--question'), expected);
     assert.equal(countRenderedCards(html, 'worksheet-cell--answer-key'), expected);
     assert.equal(visibleText.includes('{{'), false);

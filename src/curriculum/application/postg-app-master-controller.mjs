@@ -15,6 +15,16 @@ import {
   W02_A08R2_STATUS,
   W02_A08R3_TASK
 } from './w02-a08r2-controller-overlay.mjs';
+import {
+  applyW02A08R3ControllerOverlay,
+  loadW02A08R3ControllerEvidence,
+  validateW02A08R3ControllerEvidence,
+  W02_A08R3_BLOCKER
+} from './w02-a08r3-controller-overlay.mjs';
+import {
+  W02_A08R3_STATUS,
+  W02_A08R4_TASK
+} from './w02-a08r3-numeric-surface-remediation.mjs';
 
 const UNIT_REGISTRY_PATH = 'data/curriculum/application/controller/postg-app-79-unit-registry.json';
 const WAVE_PLAN_PATH = 'data/curriculum/application/controller/postg-app-wave-plan.json';
@@ -112,7 +122,9 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
   const wavePlan = readJson(root, WAVE_PLAN_PATH);
   const baseControllerState = readJson(root, CONTROLLER_STATE_PATH);
   const a08r2Evidence = loadW02A08R2ControllerEvidence({ root });
-  const controllerState = applyW02A08R2ControllerOverlay({ root, controllerState: baseControllerState });
+  const a08r2ControllerState = applyW02A08R2ControllerOverlay({ root, controllerState: baseControllerState });
+  const a08r3Evidence = loadW02A08R3ControllerEvidence({ root });
+  const controllerState = applyW02A08R3ControllerOverlay({ root, controllerState: a08r2ControllerState });
   const contextAuthority = loadGlobalContextAuthority({ root });
   const sourceNodes = materializeSourceNodes(unitRegistry);
   const goldenRegistries = unitRegistry.goldenBaselineUnits.map((mapping) => {
@@ -149,7 +161,8 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
     w02A08Claim: readJsonIfExists(root, W02_A08_CLAIM_PATH),
     w02A08Decision: readJsonIfExists(root, W02_A08_DECISION_PATH),
     w02A08R1Readback: buildW02A08R1Readback({ root }),
-    ...a08r2Evidence
+    ...a08r2Evidence,
+    ...a08r3Evidence
   };
 }
 
@@ -404,7 +417,7 @@ export function validatePOSTGAPPMasterController(controller) {
 
   const expectedStates = [
     'PRODUCTION_ADMITTED',
-    W02_A08R2_STATUS,
+    W02_A08R3_STATUS,
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
@@ -432,9 +445,9 @@ export function validatePOSTGAPPMasterController(controller) {
     issues.push(issue('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W02'));
   }
   if (controllerState.currentWaveId !== 'W02'
-      || controllerState.currentCapability !== W02_A08R2_STATUS
-      || controllerState.currentMainlineBlocker !== 'W02_NUMERIC_STUDENT_FACING_SURFACE_REMEDIATION_REQUIRED'
-      || controllerState.nextShortestStep !== W02_A08R3_TASK) {
+      || controllerState.currentCapability !== W02_A08R3_STATUS
+      || controllerState.currentMainlineBlocker !== W02_A08R3_BLOCKER
+      || controllerState.nextShortestStep !== W02_A08R4_TASK) {
     issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
   }
   if (controllerState.productionAdmission.applicationUnitCount !== 12
@@ -510,6 +523,7 @@ export function validatePOSTGAPPMasterController(controller) {
   }
   issues.push(...validateA08Evidence(controller));
   issues.push(...validateW02A08R2ControllerEvidence(controller));
+  issues.push(...validateW02A08R3ControllerEvidence(controller));
 
   const contextValidation = validateGlobalContextAuthority(controller.contextAuthority);
   if (!contextValidation.ok) issues.push(issue('POSTG_APP_M01_CONTEXT_AUTHORITY_INVALID', 'globalContextAuthority', { contextIssues: contextValidation.issues }));
@@ -546,7 +560,7 @@ export function validatePOSTGAPPMasterController(controller) {
     currentWaveId: controllerState.currentWaveId,
     nextShortestStep: controllerState.nextShortestStep,
     status: issues.length === 0
-      ? W02_A08R2_STATUS
+      ? W02_A08R3_STATUS
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
   };
 }

@@ -50,8 +50,9 @@ function flattenSpecs(hidden) {
 }
 
 function injectArtifactMarker(html, mode) {
+  const surfaceVersion = mode === 'NUMERIC' ? 'W02_A08R3_V1' : 'W02_A08R1_V1';
   return html
-    .replace('<body class="worksheet-renderer">', `<body class="worksheet-renderer" data-postg-app-w02-a06="true" data-question-mode="${mode}" data-student-facing-surface="W02_A08R1_V1">`)
+    .replace('<body class="worksheet-renderer">', `<body class="worksheet-renderer" data-postg-app-w02-a06="true" data-question-mode="${mode}" data-student-facing-surface="${surfaceVersion}">`)
     .replace('</head>', [
       '<style>',
       '.worksheet-cell__prompt{font-size:13px;line-height:1.45;overflow-wrap:anywhere;}',
@@ -88,9 +89,12 @@ function buildDocument(items, mode) {
     },
     metadata: {
       taskId: 'POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration',
-      remediationTaskId: 'POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview',
+      remediationTaskId: isApplication
+        ? 'POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview'
+        : 'POSTG-APP-W02-A08R3_NumericStudentFacingUnknownRoleGivenSetAndNotationRemediation',
       evidenceLevel: 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED',
-      studentFacingSurfaceVersion: 'W02_A08R1_V1',
+      studentFacingSurfaceVersion: isApplication ? 'W02_A08R1_V1' : 'W02_A08R3_V1',
+      studentFacingSemanticRevision: isApplication ? 3 : 4,
       productionSelectable: false,
       publicSelectable: false
     }
@@ -227,7 +231,9 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
   if (pkg.numericItems.some((item) => item.mode !== 'NUMERIC') || pkg.applicationItems.some((item) => item.mode !== 'APPLICATION')) {
     issues.push(issue('POSTG_APP_W02_A06_MODE_SEPARATION_INVALID', 'generatedItems'));
   }
-  if (pkg.generatedItems.some((item) => item.studentFacingSurfaceVersion !== 'W02_A08R1_V1')) {
+  if (pkg.generatedItems.some((item) => item.mode === 'NUMERIC'
+    ? item.studentFacingSurfaceVersion !== 'W02_A08R3_V1' || item.studentFacingSemanticRevision !== 4
+    : item.studentFacingSurfaceVersion !== 'W02_A08R1_V1' || item.studentFacingSemanticRevision !== 3)) {
     issues.push(issue('POSTG_APP_W02_A06_STUDENT_SURFACE_VERSION_INVALID', 'generatedItems'));
   }
   if (pkg.pblTaskSetRecords.some((row) => row.studentFacingInstantiationVersion !== 'W02_A08R1_V1')) {
@@ -242,7 +248,7 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
     const visibleText = visibleTextFromHtml(html);
     if (!html.includes('data-postg-app-w02-a06="true"')
         || !html.includes(`data-question-mode="${mode}"`)
-        || !html.includes('data-student-facing-surface="W02_A08R1_V1"')
+        || !html.includes(`data-student-facing-surface="${mode === 'NUMERIC' ? 'W02_A08R3_V1' : 'W02_A08R1_V1'}"`)
         || !html.includes(`href="${ARTIFACT_STYLESHEET_HREF}"`)
         || questionCards !== expectedQuestions
         || answerCards !== expectedQuestions

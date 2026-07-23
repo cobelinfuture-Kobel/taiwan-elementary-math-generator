@@ -1,0 +1,164 @@
+name: POSTG-APP W02-A08R3 Numeric Surface Remediation
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs"
+      - "src/curriculum/application/shared/student-facing-operation-surface.mjs"
+      - "src/curriculum/application/shared/operation-family-runtime.mjs"
+      - "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
+      - "src/curriculum/application/w02-a08r1-student-facing-remediation.mjs"
+      - "src/curriculum/application/w02-a08r3-*.mjs"
+      - "src/curriculum/application/postg-app-master-controller.mjs"
+      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
+      - "data/curriculum/application/reviews/POSTG-APP-W02-A08R3_*.json"
+      - "docs/curriculum/output/postg-app/w02-a08r3/**"
+      - "data/project/milestones/POSTG-APP-W02-A08R3.claim.json"
+      - "tools/curriculum/materialize-postg-app-w02-a08r3-*.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a08r3-*.mjs"
+      - "tests/curriculum/postg-app-w02-a08r3-*.test.js"
+      - "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
+      - "tests/curriculum/postg-app-w02-a08r1-*.test.js"
+      - "tests/curriculum/postg-app-m00-master-controller.test.js"
+      - "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js"
+      - ".github/workflows/postg-app-w02-a08r2-second-operator-review.yml"
+      - ".github/workflows/postg-app-w02-a08r3-numeric-surface-remediation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: postg-app-w02-a08r3-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  numeric-surface-remediation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install project dependencies
+        run: npm install --silent
+      - name: Materialize A08R3 runtime, evidence and controller
+        id: materialize
+        run: |
+          node tools/curriculum/materialize-postg-app-w02-a08r3-runtime.mjs | tee w02-a08r3-runtime-materialization.json
+          node tools/curriculum/materialize-postg-app-w02-a08r3-contract-fix.mjs | tee w02-a08r3-contract-materialization.json
+          node tools/curriculum/materialize-postg-app-w02-a08r3-evidence.mjs | tee w02-a08r3-evidence-materialization.json
+          node tools/curriculum/materialize-postg-app-w02-a08r3-controller.mjs | tee w02-a08r3-controller-materialization.json
+          MATERIALIZED_PATHS=(
+            src/curriculum/application/shared/operation-family-runtime.mjs
+            src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs
+            src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs
+            src/curriculum/application/w02-a08r1-student-facing-remediation.mjs
+            src/curriculum/application/postg-app-master-controller.mjs
+            data/curriculum/application/controller/postg-app-master-controller-state.json
+            data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json
+            docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json
+            data/project/milestones/POSTG-APP-W02-A08R3.claim.json
+            tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
+            tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js
+            tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js
+            tests/curriculum/postg-app-m00-master-controller.test.js
+            tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          )
+          if [[ -n "$(git status --porcelain -- "${MATERIALIZED_PATHS[@]}")" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "${MATERIALIZED_PATHS[@]}"
+            git commit -m "chore(application): materialize W02 A08R3 remediation state"
+            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+              git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
+            fi
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Capture focused remediation diagnostics
+        id: focused
+        run: |
+          set +e
+          : > w02-a08r3-focused-diagnostics.log
+          status=0
+          run_check() {
+            label="$1"; shift
+            echo "===== ${label} =====" | tee -a w02-a08r3-focused-diagnostics.log
+            "$@" >> w02-a08r3-focused-diagnostics.log 2>&1
+            code=$?
+            echo "STATUS=${code}" | tee -a w02-a08r3-focused-diagnostics.log
+            if [[ $code -ne 0 ]]; then status=$code; fi
+          }
+          run_check a08r3-test node --test tests/curriculum/postg-app-w02-a08r3-numeric-surface-remediation.test.js
+          run_check a08r3-validator node tools/curriculum/validate-postg-app-w02-a08r3-numeric-surface-remediation.mjs
+          run_check a06-test node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
+          run_check a08r1-test node --test tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js
+          run_check m00-test node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          run_check m00-validator node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          run_check w01-test node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          run_check w01-validator node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          run_check claim-governance npm run governance:claims
+          cat w02-a08r3-focused-diagnostics.log
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload focused diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a08r3-focused-diagnostics
+          path: |
+            w02-a08r3-*-materialization.json
+            w02-a08r3-focused-diagnostics.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Enforce focused validation
+        if: steps.focused.outputs.status != '0'
+        run: exit 1
+      - name: Install artifact dependencies
+        run: |
+          npm install --silent --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk poppler-utils >/dev/null
+          python -m pip install --quiet pypdf pillow
+      - name: Regenerate revision-4 HTML and package
+        run: node tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs
+      - name: Render and verify 110 PDF pages
+        run: |
+          node tools/curriculum/render-postg-app-w02-a06-pdf.mjs
+          node tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs | tee w02-a08r3-regenerated-manifest.json
+          python tools/curriculum/verify-postg-app-w02-a06-pdf.py 2>&1 | tee w02-a08r3-pdf-verification.log
+      - name: Re-run remediation audit against regenerated artifacts
+        run: node tools/curriculum/validate-postg-app-w02-a08r3-numeric-surface-remediation.mjs | tee w02-a08r3-readback.json
+      - name: Upload A08R3 third-review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a08r3-third-review-ready
+          path: |
+            docs/curriculum/output/postg-app/w02-a06/
+            docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json
+            data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json
+            w02-a08r3-regenerated-manifest.json
+            w02-a08r3-pdf-verification.log
+            w02-a08r3-readback.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Restore generated working artifacts
+        run: git restore docs/curriculum/output/postg-app/w02-a06/
+      - name: Run full regression suite
+        run: npm test
+      - name: Enforce materializer idempotence
+        run: |
+          node tools/curriculum/materialize-postg-app-w02-a08r3-runtime.mjs
+          node tools/curriculum/materialize-postg-app-w02-a08r3-contract-fix.mjs
+          node tools/curriculum/materialize-postg-app-w02-a08r3-evidence.mjs
+          node tools/curriculum/materialize-postg-app-w02-a08r3-controller.mjs
+          git diff --exit-code

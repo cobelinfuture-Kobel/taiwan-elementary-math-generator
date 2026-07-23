@@ -87,9 +87,11 @@ test('remediated application and numeric samples are readable and token-safe', (
   const materialized = materializeW02A08R1Remediation();
   const application = materialized.a06Package.applicationItems[0];
   const numeric = materialized.a06Package.numericItems[0];
+  assert.equal(application.studentFacingSurfaceVersion, 'W02_A08R1_V1');
+  assert.equal(application.studentFacingSemanticRevision, 3);
+  assert.equal(numeric.studentFacingSurfaceVersion, 'W02_A08R3_V1');
+  assert.equal(numeric.studentFacingSemanticRevision, 4);
   for (const item of [application, numeric]) {
-    assert.equal(item.studentFacingSurfaceVersion, 'W02_A08R1_V1');
-    assert.equal(item.studentFacingSemanticRevision, 3);
     assert.equal(item.prompt.length > 10, true, item.prompt);
     assert.equal(/([A-Za-z][A-Za-z0-9_]*)為/.test(item.prompt), false, item.prompt);
     assert.equal(/\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i.test(item.prompt), false, item.prompt);
