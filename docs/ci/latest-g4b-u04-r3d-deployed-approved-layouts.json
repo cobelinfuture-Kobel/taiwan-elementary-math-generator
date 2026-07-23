@@ -2,9 +2,9 @@
   "schemaVersion": "g4b-u04-r3d-deployed-approved-layouts-v1",
   "task": "G4B_U04_R3D_DeployedQuestionOnly3x5And2x6Audit",
   "status": "FAIL",
-  "deploymentSha": "a60f8e28523912155246198f7e805472ea863b49",
+  "deploymentSha": "d54dd129cb199a8c4f2f33481bd2132e604a2c32",
   "scenarioId": "auto-safe-3x5",
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r3d-auto-safe-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R3D=a60f8e28523912155246198f7e805472ea863b49-auto-safe-3x5-1784818443453",
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r3d-auto-safe-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R3D=d54dd129cb199a8c4f2f33481bd2132e604a2c32-auto-safe-3x5-1784823863321",
   "message": "G4B_U04_R3D_CONTROL_LAYOUT_REPLAY_MISMATCH",
   "details": {
     "scenario": {
@@ -27,19 +27,19 @@
       "rowsPerPage": 5,
       "answerKeyChecked": false
     },
-    "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r3d-auto-safe-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R3D=a60f8e28523912155246198f7e805472ea863b49-auto-safe-3x5-1784818443453"
+    "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r3d-auto-safe-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R3D=d54dd129cb199a8c4f2f33481bd2132e604a2c32-auto-safe-3x5-1784823863321"
   },
   "consoleErrors": [],
   "pageErrors": [],
   "workflow": "G4B-U04 R3D Deployed Approved Layouts",
   "eventName": "workflow_run",
   "run": {
-    "id": "30017922863",
-    "number": "145",
+    "id": "30024902884",
+    "number": "146",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30017922863"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30024902884"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-23T14:54:05.965Z"
+  "verifiedAt": "2026-07-23T16:24:24.850Z"
 }
