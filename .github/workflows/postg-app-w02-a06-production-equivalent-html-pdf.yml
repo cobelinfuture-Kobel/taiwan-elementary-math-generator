@@ -1,0 +1,203 @@
+name: POSTG-APP W02-A06 Production-equivalent HTML PDF
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/contracts/POSTG-APP-W02-A06_*.json"
+      - "data/project/milestones/POSTG-APP-W02-A06.claim.json"
+      - "src/curriculum/application/shared/operation-family-runtime.mjs"
+      - "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
+      - "site/assets/browser/pipeline/build-worksheet-document.js"
+      - "tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs"
+      - "tools/curriculum/render-postg-app-w02-a06-pdf.mjs"
+      - "tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs"
+      - "tools/curriculum/verify-postg-app-w02-a06-pdf.py"
+      - "tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs"
+      - "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
+      - ".github/workflows/postg-app-w02-a06-production-equivalent-html-pdf.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a06-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  production-equivalent-html-pdf:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install project dependencies
+        run: npm install --silent
+      - name: Capture A06 focused tests and deterministic validator
+        run: |
+          set +e
+          node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js > w02-a06-focused-test.log 2>&1
+          test_status=$?
+          node tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs > w02-a06-validator.json 2>&1
+          validator_status=$?
+          printf '%s\n' "$test_status" > w02-a06-focused-test.status
+          printf '%s\n' "$validator_status" > w02-a06-validator.status
+          cat w02-a06-focused-test.log
+          cat w02-a06-validator.json
+          exit 0
+      - name: Upload A06 focused diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a06-focused-diagnostics
+          path: |
+            w02-a06-focused-test.log
+            w02-a06-focused-test.status
+            w02-a06-validator.json
+            w02-a06-validator.status
+          if-no-files-found: error
+          retention-days: 30
+      - name: Enforce A06 focused gate
+        run: |
+          test "$(cat w02-a06-focused-test.status)" = "0"
+          test "$(cat w02-a06-validator.status)" = "0"
+      - name: Install artifact dependencies
+        run: |
+          npm install --silent --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk poppler-utils >/dev/null
+          python -m pip install --quiet pypdf pillow
+      - name: Generate production-equivalent HTML and package artifacts
+        run: node tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs
+      - name: Verify HTML DOM geometry and card containment
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import { pathToFileURL } from 'node:url';
+          import { resolve } from 'node:path';
+          import { readFile } from 'node:fs/promises';
+          const root = resolve('docs/curriculum/output/postg-app/w02-a06');
+          const packageData = JSON.parse(await readFile(resolve(root, 'POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_PACKAGE.json'), 'utf8'));
+          const jobs = [
+            {
+              mode: 'NUMERIC',
+              html: 'POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html',
+              expectedQuestions: 134,
+              expectedPages: packageData.numericWorksheetDocument.questionPages.length + packageData.numericWorksheetDocument.answerKeyPages.length,
+            },
+            {
+              mode: 'APPLICATION',
+              html: 'POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html',
+              expectedQuestions: 61,
+              expectedPages: packageData.applicationWorksheetDocument.questionPages.length + packageData.applicationWorksheetDocument.answerKeyPages.length,
+            },
+          ];
+          const browser = await chromium.launch({ headless: true });
+          try {
+            const page = await browser.newPage({ viewport: { width: 1400, height: 1800 } });
+            for (const job of jobs) {
+              await page.goto(pathToFileURL(resolve(root, job.html)).href, { waitUntil: 'load' });
+              const result = await page.evaluate(() => {
+                const pages = [...document.querySelectorAll('.worksheet-page')];
+                const cells = [...document.querySelectorAll('.worksheet-cell')];
+                const violations = [];
+                for (const pageNode of pages) {
+                  const pageRect = pageNode.getBoundingClientRect();
+                  if (pageRect.width <= 0 || pageRect.height <= 0) violations.push({ type: 'page-size', width: pageRect.width, height: pageRect.height });
+                  for (const cell of pageNode.querySelectorAll('.worksheet-cell')) {
+                    const rect = cell.getBoundingClientRect();
+                    if (rect.left < pageRect.left - 1 || rect.top < pageRect.top - 1 || rect.right > pageRect.right + 1 || rect.bottom > pageRect.bottom + 1) {
+                      violations.push({ type: 'cell-containment', page: pageNode.dataset.pageNumber, cell: cell.dataset.cellIndex });
+                    }
+                    if (cell.scrollWidth > cell.clientWidth + 1 || cell.scrollHeight > cell.clientHeight + 1) {
+                      violations.push({ type: 'cell-overflow', page: pageNode.dataset.pageNumber, cell: cell.dataset.cellIndex, scrollWidth: cell.scrollWidth, clientWidth: cell.clientWidth, scrollHeight: cell.scrollHeight, clientHeight: cell.clientHeight });
+                    }
+                  }
+                }
+                return {
+                  marker: document.body.dataset.postgAppW02A06 ?? null,
+                  mode: document.body.dataset.questionMode ?? null,
+                  pageCount: pages.length,
+                  cellCount: cells.length,
+                  questionCount: document.querySelectorAll('.worksheet-cell--question').length,
+                  answerCount: document.querySelectorAll('.worksheet-cell--answer-key').length,
+                  violations,
+                };
+              });
+              console.log(JSON.stringify({ job, result }, null, 2));
+              if (result.marker !== 'true' || result.mode !== job.mode) throw new Error(`${job.mode}: artifact marker invalid`);
+              if (result.questionCount !== job.expectedQuestions || result.answerCount !== job.expectedQuestions) throw new Error(`${job.mode}: card count invalid`);
+              if (result.pageCount !== job.expectedPages) throw new Error(`${job.mode}: page count ${result.pageCount}/${job.expectedPages}`);
+              if (result.violations.length) throw new Error(`${job.mode}: geometry violations ${JSON.stringify(result.violations.slice(0, 5))}`);
+            }
+          } finally {
+            await browser.close();
+          }
+          NODE
+      - name: Render Chromium PDFs and finalize hashes
+        run: |
+          node tools/curriculum/render-postg-app-w02-a06-pdf.mjs
+          node tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs > w02-a06-final-manifest.json
+      - name: Verify PDF pages are nonblank and contained
+        run: |
+          set -o pipefail
+          python tools/curriculum/verify-postg-app-w02-a06-pdf.py 2>&1 | tee w02-a06-pdf-verification.log
+      - name: Upload A06 PDF diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a06-pdf-diagnostics
+          path: |
+            docs/curriculum/output/postg-app/w02-a06/
+            w02-a06-final-manifest.json
+            w02-a06-pdf-verification.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Verify artifact manifest and hashes
+        run: |
+          python <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root = Path('docs/curriculum/output/postg-app/w02-a06')
+          manifest = json.loads((root / 'POSTG_APP_W02_A06_ARTIFACT_MANIFEST.json').read_text(encoding='utf-8'))
+          assert manifest['status'] == 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+          assert manifest['htmlArtifactCount'] == 2
+          assert manifest['pdfArtifactCount'] == 2
+          assert manifest['artifactHashCount'] == 5
+          for artifact in manifest['artifacts']:
+              path = Path(artifact['path'])
+              digest = hashlib.sha256(path.read_bytes()).hexdigest()
+              assert digest == artifact['sha256'], (path, digest, artifact['sha256'])
+              assert path.stat().st_size == artifact['sizeBytes']
+          print(json.dumps(manifest, indent=2, ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: w02-a06-production-equivalent-html-pdf
+          path: |
+            docs/curriculum/output/postg-app/w02-a06/
+            w02-a06-focused-test.log
+            w02-a06-validator.json
+            w02-a06-final-manifest.json
+            w02-a06-pdf-verification.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Verify A05 and A04 regressions
+        run: |
+          node --test tests/curriculum/postg-app-w02-a05-shared-worksheet-projection.test.js
+          node tools/curriculum/validate-postg-app-w02-a05-shared-worksheet-projection.mjs
+          node --test tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js
+          node tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs
+      - name: Verify controller, W01 E5 and governance
+        run: |
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
+      - name: Run full regression suite
+        run: npm test

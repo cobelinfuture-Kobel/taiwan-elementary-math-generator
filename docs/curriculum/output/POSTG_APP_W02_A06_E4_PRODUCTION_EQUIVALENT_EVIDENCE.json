@@ -1,0 +1,77 @@
+{
+  "schemaName": "POSTGAPPW02A06E4ProductionEquivalentEvidenceV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
+  "status": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "evidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "githubActions": {
+    "workflowName": "POSTG-APP W02-A06 Production-equivalent HTML PDF",
+    "workflowRunId": 29981218627,
+    "headSha": "f121e4cad9922e48de6c240293cee65798dc8ed3",
+    "workflowArtifactId": 8553278279,
+    "workflowArtifactName": "w02-a06-production-equivalent-html-pdf",
+    "workflowArtifactZipSha256": "d5893b11f3f3ed3ec5bf9a0e80e987311042ea10acf8b470fd09621fc90ce998"
+  },
+  "coverage": {
+    "sourceNodeCount": 13,
+    "numericPatternSpecCount": 134,
+    "applicationPatternSpecCount": 61,
+    "totalPatternSpecCount": 195,
+    "operationFamilyCount": 49,
+    "validatedItemCount": 195,
+    "pblTaskSetRecordCount": 31,
+    "pbl3TaskSetRecordCount": 19,
+    "pbl5TaskSetRecordCount": 12
+  },
+  "renderVerification": {
+    "htmlArtifactCount": 2,
+    "pdfArtifactCount": 2,
+    "numericPdfPageCount": 68,
+    "applicationPdfPageCount": 42,
+    "domGeometryPass": true,
+    "pdfNonblankPass": true,
+    "pdfBoundingBoxContainmentPass": true,
+    "artifactHashVerificationPass": true
+  },
+  "artifacts": [
+    {
+      "artifactType": "numericHtml",
+      "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+      "sha256": "1abd92aedecb3e65c6a6f09a1cbaf661b94acc97aeb9a4faf61c786c24527767",
+      "sizeBytes": 167119
+    },
+    {
+      "artifactType": "applicationHtml",
+      "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html",
+      "sha256": "bc44c61bbe2af266bc1fcfec1605a6908b57b18f163e659e1fba72764c9fb23d",
+      "sizeBytes": 96599
+    },
+    {
+      "artifactType": "packageJson",
+      "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_PACKAGE.json",
+      "sha256": "fc54ed7caf4175a8e94ada1e6f14d3a15234eccc48fea6c56d272c9562cbbdf0",
+      "sizeBytes": 1392331
+    },
+    {
+      "artifactType": "numericPdf",
+      "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+      "sha256": "1ae1860f3cf1a17bb0bdb3ff92c902c5bd7ae514649156bb07c4095aaf585823",
+      "sizeBytes": 133781
+    },
+    {
+      "artifactType": "applicationPdf",
+      "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf",
+      "sha256": "bcc79a63555f3bdca86a2c36c821df99313d9e92766d03efe0bcf961edd99b08",
+      "sizeBytes": 127958
+    }
+  ],
+  "productionBoundary": {
+    "productionSelectable": false,
+    "publicSelectable": false,
+    "publicUIChanged": false,
+    "productionAdmissionAllowed": false,
+    "humanReviewReady": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage"
+}

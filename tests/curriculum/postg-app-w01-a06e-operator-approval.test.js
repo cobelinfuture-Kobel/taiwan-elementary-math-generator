@@ -82,6 +82,8 @@ test('controller preserves W01 admission while W02 advances monotonically withou
   assert.equal(w02.validatorFixturesComplete, true);
   assert.equal(w02.sharedRuntimeShadowPass, true);
   assert.equal(w02.sharedWorksheetProjectionComplete, true);
+  assert.equal(w02.productionEquivalentOutputVerified, true);
+  assert.equal(w02.humanReviewReady, false);
   assert.deepEqual(states.slice(2).map((row) => row.state), [
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',

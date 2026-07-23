@@ -25,14 +25,14 @@ const REQUIRED_GATES = [
   'PRODUCTION_ADMISSION_REVIEWED'
 ];
 
-test('M00 validates the exact 79-node scope with W01 admitted and W02 A05 shared projection passed', () => {
+test('M00 validates the exact 79-node scope with W01 admitted and W02 A06 E4 output verified', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, 'W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS');
+  assert.equal(result.status, 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED');
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -43,7 +43,7 @@ test('M00 validates the exact 79-node scope with W01 admitted and W02 A05 shared
     productionAdmittedApplicationUnitCount: 12
   });
   assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration');
+  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage');
 });
 
 test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
@@ -66,11 +66,11 @@ test('Wave 01 distinguishes 15 golden units from 16 source nodes and is producti
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
 });
 
-test('Wave 02 has A05 shared worksheet projection complete without admission', () => {
+test('Wave 02 has A06 production-equivalent HTML PDF E4 verification without admission', () => {
   const w02 = resolvePOSTGAPPWave(controller, 'W02');
   assert.equal(w02.sourceNodes.length, 13);
   assert.equal(w02.productionAdmissionGranted, false);
-  assert.equal(w02.currentState.state, 'SHARED_WORKSHEET_PROJECTION_SHADOW_PASS');
+  assert.equal(w02.currentState.state, 'PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED');
   assert.deepEqual(w02.currentState.completedGates, REQUIRED_GATES.slice(0, 10));
   assert.equal(w02.currentState.admissionGateComplete, false);
   assert.equal(w02.currentState.assessmentBaselineState, 'SOURCE_AUTHORITY_BASELINE_READY');
@@ -142,6 +142,18 @@ test('Wave 02 has A05 shared worksheet projection complete without admission', (
   assert.equal(w02.currentState.duplicateWorksheetProjectionParity, true);
   assert.equal(w02.currentState.shadowHtmlCount, 0);
   assert.equal(w02.currentState.sharedWorksheetProjectionComplete, true);
+  assert.equal(w02.currentState.generatedItemCount, 195);
+  assert.equal(w02.currentState.numericGeneratedItemCount, 134);
+  assert.equal(w02.currentState.applicationGeneratedItemCount, 61);
+  assert.equal(w02.currentState.productionOperationFamilyCount, 49);
+  assert.equal(w02.currentState.productionValidatedItemCount, 195);
+  assert.equal(w02.currentState.htmlArtifactCount, 2);
+  assert.equal(w02.currentState.pdfArtifactCount, 2);
+  assert.equal(w02.currentState.numericPdfPageCount, 68);
+  assert.equal(w02.currentState.applicationPdfPageCount, 42);
+  assert.equal(w02.currentState.artifactHashCount, 5);
+  assert.equal(w02.currentState.productionEquivalentOutputVerified, true);
+  assert.equal(w02.currentState.humanReviewReady, false);
   assert.equal(w02.currentState.productionAdmittedCandidateCount, 0);
   assert.equal(w02.currentState.publicSelectableCandidateCount, 0);
 });
@@ -177,7 +189,7 @@ test('W02 to W06 cover the remaining 63 nodes in deterministic source order', ()
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
 });
 
-test('W01 stays E5 while W02 A00 through A05 remain E3 non-production', () => {
+test('W01 stays E5, W02 A00 through A05 remain E3, and A06 is E4 non-production', () => {
   assert.equal(controller.approvalDecision.operatorDecision, 'APPROVE');
   assert.equal(controller.approvalDecision.productionAdmission.granted, true);
   assert.equal(controller.approvalDecision.productionAdmission.publicRouteChanged, false);
@@ -199,6 +211,13 @@ test('W01 stays E5 while W02 A00 through A05 remain E3 non-production', () => {
     assert.equal(claim.claims.productionAdmitted, false);
     assert.equal(claim.claims.d0Complete, false);
   }
+  assert.equal(controller.w02A06Claim.actualEvidenceLevel, 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED');
+  assert.equal(controller.w02A06Claim.claims.productionEquivalentGeneratorUsed, true);
+  assert.equal(controller.w02A06Claim.claims.productionRendererUsed, true);
+  assert.equal(controller.w02A06Claim.claims.htmlOutputVerified, true);
+  assert.equal(controller.w02A06Claim.claims.pdfOutputVerified, true);
+  assert.equal(controller.w02A06Claim.claims.productionAdmitted, false);
+  assert.equal(controller.w02A06Claim.claims.d0Complete, false);
   assert.deepEqual(controller.controllerState.waveStates[0].completedGates, REQUIRED_GATES);
   assert.deepEqual(controller.controllerState.productionAdmission.admittedWaveIds, ['W01']);
   assert.equal(controller.controllerState.productionAdmission.applicationUnitCount, 12);
@@ -218,7 +237,7 @@ test('duplicate source nodes and non-contiguous production admissions fail close
   assert.equal(codes(validatePOSTGAPPMasterController(productionCase)).includes('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID'), true);
 });
 
-test('forged approval, W02 claims and A05 projection state fail closed', () => {
+test('forged approval, W02 claims and A06 output state fail closed', () => {
   const approvalCase = structuredClone(controller);
   approvalCase.approvalDecision.operatorDecision = 'REJECT';
   assert.equal(codes(validatePOSTGAPPMasterController(approvalCase)).includes('POSTG_APP_W01_OPERATOR_APPROVAL_EVIDENCE_INVALID'), true);
@@ -232,7 +251,8 @@ test('forged approval, W02 claims and A05 projection state fail closed', () => {
     ['w02A02Claim', 'POSTG_APP_W02_A02_CLAIM_INVALID'],
     ['w02A03Claim', 'POSTG_APP_W02_A03_CLAIM_INVALID'],
     ['w02A04Claim', 'POSTG_APP_W02_A04_CLAIM_INVALID'],
-    ['w02A05Claim', 'POSTG_APP_W02_A05_CLAIM_INVALID']
+    ['w02A05Claim', 'POSTG_APP_W02_A05_CLAIM_INVALID'],
+    ['w02A06Claim', 'POSTG_APP_W02_A06_CLAIM_INVALID']
   ];
   for (const [property, code] of claimCases) {
     const changed = structuredClone(controller);
