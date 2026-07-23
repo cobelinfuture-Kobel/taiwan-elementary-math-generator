@@ -1,0 +1,51 @@
+name: POSTG-APP W02-A06 Controller Promotion Preview
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/project/milestones/POSTG-APP-W02-A06.claim.json"
+      - "data/curriculum/application/contracts/POSTG-APP-W02-A06_*.json"
+      - "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json"
+      - "tools/curriculum/materialize-postg-app-w02-a06-controller-promotion.mjs"
+      - ".github/workflows/postg-app-w02-a06-controller-promotion-preview.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a06-controller-promotion-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  promotion-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Install dependencies
+        run: npm install --silent
+      - name: Materialize candidate controller files
+        run: node tools/curriculum/materialize-postg-app-w02-a06-controller-promotion.mjs /tmp/a06-controller-promotion
+      - name: Apply candidates to checkout for validation
+        run: |
+          cp -R /tmp/a06-controller-promotion/src ./
+          cp -R /tmp/a06-controller-promotion/data ./
+          cp -R /tmp/a06-controller-promotion/tests ./
+      - name: Validate controller and W01 monotonic regression
+        run: |
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
+      - name: Upload validated controller promotion candidates
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a06-controller-promotion-candidates
+          path: /tmp/a06-controller-promotion/
+          if-no-files-found: error
+          retention-days: 30
