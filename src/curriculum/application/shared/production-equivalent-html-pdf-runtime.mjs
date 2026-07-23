@@ -11,6 +11,12 @@ import {
   supportedSharedOperationFamilies,
   validateSharedOperationFamilyItem
 } from './operation-family-runtime.mjs';
+import {
+  applyStudentFacingOperationSurface,
+  instantiateStudentFacingPblTaskSet,
+  validateStudentFacingOperationSurface,
+  validateStudentFacingPblTaskSet
+} from './student-facing-operation-surface.mjs';
 import { buildWorksheetDocumentFromGeneratedItems } from '../../../../site/assets/browser/pipeline/build-worksheet-document.js';
 import { renderWorksheetDocumentToHtml } from '../../../../site/modules/renderer/html-renderer-s57f5-extension.js';
 
@@ -41,7 +47,7 @@ function flattenSpecs(hidden) {
 
 function injectArtifactMarker(html, mode) {
   return html
-    .replace('<body class="worksheet-renderer">', `<body class="worksheet-renderer" data-postg-app-w02-a06="true" data-question-mode="${mode}">`)
+    .replace('<body class="worksheet-renderer">', `<body class="worksheet-renderer" data-postg-app-w02-a06="true" data-question-mode="${mode}" data-student-facing-surface="W02_A08R1_V1">`)
     .replace('</head>', [
       '<style>',
       '.worksheet-cell__prompt{font-size:13px;line-height:1.45;overflow-wrap:anywhere;}',
@@ -78,7 +84,9 @@ function buildDocument(items, mode) {
     },
     metadata: {
       taskId: 'POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration',
+      remediationTaskId: 'POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview',
       evidenceLevel: 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED',
+      studentFacingSurfaceVersion: 'W02_A08R1_V1',
       productionSelectable: false,
       publicSelectable: false
     }
@@ -94,17 +102,37 @@ export function materializeW02A06ProductionEquivalentPackage({ root = process.cw
     projection.applicationQuestionRecords.map((row) => [row.patternSpecId, row])
   );
   const specs = flattenSpecs(hidden);
-  const generatedItems = specs.map((spec, index) => generateSharedOperationFamilyItem({
-    spec,
-    applicationRecord: applicationRecordByPattern.get(spec.patternSpecId) ?? null,
-    ordinal: index + 1
-  }));
-  const validationResults = generatedItems.map((item, index) => validateSharedOperationFamilyItem({
-    spec: specs[index],
-    item
-  }));
+  const generatedItems = specs.map((spec, index) => {
+    const applicationRecord = applicationRecordByPattern.get(spec.patternSpecId) ?? null;
+    const rawItem = generateSharedOperationFamilyItem({
+      spec,
+      applicationRecord,
+      ordinal: index + 1
+    });
+    return applyStudentFacingOperationSurface({
+      spec,
+      item: { ...rawItem, sourceTitle: spec.sourceTitle },
+      applicationRecord
+    });
+  });
+  const validationResults = generatedItems.map((item, index) => {
+    const operation = validateSharedOperationFamilyItem({ spec: specs[index], item });
+    const surface = validateStudentFacingOperationSurface({ spec: specs[index], item });
+    return {
+      ok: operation.ok && surface.ok,
+      issues: [...operation.issues, ...surface.issues],
+      operation,
+      surface
+    };
+  });
   const numericItems = generatedItems.filter((item) => item.mode === 'NUMERIC');
   const applicationItems = generatedItems.filter((item) => item.mode === 'APPLICATION');
+  const applicationItemByPattern = new Map(applicationItems.map((item) => [item.patternSpecId, item]));
+  const pblTaskSetRecords = projection.pblTaskSetRecords.map((record) => instantiateStudentFacingPblTaskSet({
+    record,
+    item: applicationItemByPattern.get(record.patternSpecId)
+  }));
+  const pblValidationResults = pblTaskSetRecords.map((record) => validateStudentFacingPblTaskSet(record));
   const numericResult = buildDocument(numericItems, 'NUMERIC');
   const applicationResult = buildDocument(applicationItems, 'APPLICATION');
   const numericHtml = injectArtifactMarker(renderWorksheetDocumentToHtml(numericResult.worksheetDocument, {
@@ -131,7 +159,8 @@ export function materializeW02A06ProductionEquivalentPackage({ root = process.cw
     validationResults,
     numericItems,
     applicationItems,
-    pblTaskSetRecords: projection.pblTaskSetRecords,
+    pblTaskSetRecords,
+    pblValidationResults,
     numericWorksheetResult: numericResult,
     applicationWorksheetResult: applicationResult,
     numericHtml,
@@ -148,6 +177,9 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
   pkg.validationResults.forEach((result, index) => {
     if (!result.ok) issues.push(issue('POSTG_APP_W02_A06_GENERATED_ITEM_INVALID', `generatedItems.${index}`, { itemIssues: result.issues }));
   });
+  pkg.pblValidationResults.forEach((result, index) => {
+    if (!result.ok) issues.push(issue('POSTG_APP_W02_A06_PBL_STUDENT_SURFACE_INVALID', `pblTaskSetRecords.${index}`, { pblIssues: result.issues }));
+  });
 
   const counts = {
     sourceNodeCount: sortedUnique(pkg.generatedItems.map((item) => item.sourceNodeId)).length,
@@ -156,7 +188,9 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
     totalPatternSpecCount: pkg.generatedItems.length,
     operationFamilyCount: sortedUnique(pkg.generatedItems.map((item) => item.operationFamilyId)).length,
     validatedItemCount: pkg.validationResults.filter((result) => result.ok).length,
+    studentFacingValidatedItemCount: pkg.validationResults.filter((result) => result.surface.ok).length,
     pblTaskSetRecordCount: pkg.pblTaskSetRecords.length,
+    pblValidatedTaskSetCount: pkg.pblValidationResults.filter((result) => result.ok).length,
     pbl3TaskSetRecordCount: pkg.pblTaskSetRecords.filter((row) => row.graphType === 'PBL3_LINEAR').length,
     pbl5TaskSetRecordCount: pkg.pblTaskSetRecords.filter((row) => row.graphType === 'PBL5_BOUNDED_DECISION').length,
     numericQuestionPageCount: pkg.numericWorksheetResult.worksheetDocument.questionPages.length,
@@ -173,7 +207,9 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
     totalPatternSpecCount: 195,
     operationFamilyCount: 49,
     validatedItemCount: 195,
+    studentFacingValidatedItemCount: 195,
     pblTaskSetRecordCount: 31,
+    pblValidatedTaskSetCount: 31,
     pbl3TaskSetRecordCount: 19,
     pbl5TaskSetRecordCount: 12,
     productionSelectableCount: 0,
@@ -187,6 +223,12 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
   if (pkg.numericItems.some((item) => item.mode !== 'NUMERIC') || pkg.applicationItems.some((item) => item.mode !== 'APPLICATION')) {
     issues.push(issue('POSTG_APP_W02_A06_MODE_SEPARATION_INVALID', 'generatedItems'));
   }
+  if (pkg.generatedItems.some((item) => item.studentFacingSurfaceVersion !== 'W02_A08R1_V1')) {
+    issues.push(issue('POSTG_APP_W02_A06_STUDENT_SURFACE_VERSION_INVALID', 'generatedItems'));
+  }
+  if (pkg.pblTaskSetRecords.some((row) => row.studentFacingInstantiationVersion !== 'W02_A08R1_V1')) {
+    issues.push(issue('POSTG_APP_W02_A06_PBL_INSTANTIATION_VERSION_INVALID', 'pblTaskSetRecords'));
+  }
   for (const [mode, html, expectedQuestions] of [
     ['NUMERIC', pkg.numericHtml, 134],
     ['APPLICATION', pkg.applicationHtml, 61]
@@ -195,12 +237,15 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
     const answerCards = countRenderedCards(html, 'worksheet-cell--answer-key');
     if (!html.includes('data-postg-app-w02-a06="true"')
         || !html.includes(`data-question-mode="${mode}"`)
+        || !html.includes('data-student-facing-surface="W02_A08R1_V1"')
         || !html.includes(`href="${ARTIFACT_STYLESHEET_HREF}"`)
         || questionCards !== expectedQuestions
         || answerCards !== expectedQuestions
         || html.includes('{{')
         || html.includes('答：')
-        || html.includes('_____')) {
+        || html.includes('_____')
+        || /([A-Za-z][A-Za-z0-9_]*)為/.test(html)
+        || /\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i.test(html)) {
       issues.push(issue('POSTG_APP_W02_A06_HTML_STRUCTURE_INVALID', `html.${mode}`, { questionCards, answerCards, expectedQuestions }));
     }
   }
@@ -223,7 +268,7 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
       manifestCount: 1
     },
     status: issues.length === 0
-      ? 'W02_SHARED_GENERATOR_VALIDATOR_RENDERER_HTML_READY_PDF_PENDING'
+      ? 'W02_SHARED_GENERATOR_VALIDATOR_RENDERER_STUDENT_SURFACE_HTML_READY_PDF_PENDING'
       : 'W02_SHARED_GENERATOR_VALIDATOR_RENDERER_BLOCKED'
   };
 }
@@ -235,6 +280,7 @@ export function buildW02A06Readback({ root = process.cwd() } = {}) {
     ...validation,
     programId: 'POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1',
     taskId: 'POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration',
+    remediationTaskId: 'POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview',
     nextShortestStep: 'POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage',
     sampleNumericItem: pkg.numericItems[0] ?? null,
     sampleApplicationItem: pkg.applicationItems[0] ?? null,
