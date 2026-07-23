@@ -24,6 +24,7 @@ const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...de
 const countRenderedCards = (html, modifierClass) => (
   html.match(new RegExp(`<article class="worksheet-cell ${modifierClass}"`, 'g')) ?? []
 ).length;
+const ARTIFACT_STYLESHEET_HREF = '../../../../../src/renderer/print-styles.css';
 
 function flattenSpecs(hidden) {
   return hidden.records.flatMap(({ actual }) => actual.knowledgePoints.flatMap((kp) => (
@@ -108,13 +109,13 @@ export function materializeW02A06ProductionEquivalentPackage({ root = process.cw
   const applicationResult = buildDocument(applicationItems, 'APPLICATION');
   const numericHtml = injectArtifactMarker(renderWorksheetDocumentToHtml(numericResult.worksheetDocument, {
     title: 'W02 數字題 Production-equivalent Worksheet',
-    stylesheetHref: '../../../../../site/src/renderer/print-styles.css',
+    stylesheetHref: ARTIFACT_STYLESHEET_HREF,
     debugDataAttributes: true,
     renderFillerCells: false
   }), 'NUMERIC');
   const applicationHtml = injectArtifactMarker(renderWorksheetDocumentToHtml(applicationResult.worksheetDocument, {
     title: 'W02 應用題 Production-equivalent Worksheet',
-    stylesheetHref: '../../../../../site/src/renderer/print-styles.css',
+    stylesheetHref: ARTIFACT_STYLESHEET_HREF,
     debugDataAttributes: true,
     renderFillerCells: false
   }), 'APPLICATION');
@@ -194,6 +195,7 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
     const answerCards = countRenderedCards(html, 'worksheet-cell--answer-key');
     if (!html.includes('data-postg-app-w02-a06="true"')
         || !html.includes(`data-question-mode="${mode}"`)
+        || !html.includes(`href="${ARTIFACT_STYLESHEET_HREF}"`)
         || questionCards !== expectedQuestions
         || answerCards !== expectedQuestions
         || html.includes('{{')
