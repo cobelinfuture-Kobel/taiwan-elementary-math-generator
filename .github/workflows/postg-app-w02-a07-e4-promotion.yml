@@ -1,4 +1,4 @@
-# diagnostic-revision: 3
+# final-promotion-revision: 1
 name: POSTG-APP W02-A07 E4 Promotion
 
 on:
@@ -19,14 +19,14 @@ concurrency:
 
 jobs:
   promote-e4:
-    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'postg-app-w02-a07-e4-diagnostic'
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'postg-app-w02-a07-final'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - name: Checkout final A07 diagnostic branch
+      - name: Checkout final A07 branch
         uses: actions/checkout@v4
         with:
-          ref: postg-app-w02-a07-e4-diagnostic
+          ref: postg-app-w02-a07-final
           fetch-depth: 0
           token: ${{ github.token }}
 
@@ -127,4 +127,4 @@ jobs:
           git diff --cached --check
           git diff --cached --quiet && { echo "No promotion changes produced"; exit 1; }
           git commit -m "feat(application): promote W02 A07 human review package to E4"
-          git push origin HEAD:postg-app-w02-a07-e4-diagnostic
+          git push origin HEAD:postg-app-w02-a07-final
