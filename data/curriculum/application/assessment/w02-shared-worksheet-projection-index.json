@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
   "contractId": "POSTG_APP_SHARED_WORKSHEET_PROJECTION_AND_W02_SHADOW_V1",
-  "status": "IMPLEMENTATION_PENDING_CI",
+  "status": "SHARED_WORKSHEET_PROJECTION_VERIFIED",
   "inputAuthority": {
     "a03Runtime": "src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs",
     "a04Runtime": "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs",
@@ -35,6 +35,11 @@
     "futureWaveFailClosedFixtureCount": 1,
     "productionAdmittedCount": 0,
     "publicSelectableCount": 0
+  },
+  "verifiedAdditionalCounts": {
+    "worksheetProjectionCount": 13,
+    "shadowHtmlCount": 0,
+    "duplicateProjectionGroupCount": 1
   },
   "nextShortestStep": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration"
 }
