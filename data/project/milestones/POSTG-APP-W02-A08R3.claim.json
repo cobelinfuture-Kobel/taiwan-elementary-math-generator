@@ -49,11 +49,11 @@
     "artifactHashes": [
       {
         "path": "docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json",
-        "sha256": "a378bae112feb865118e6d7a0fb902f2b48e1f132130d037043f550921d3a7f3"
+        "sha256": "99d3f96ea748c2733b430fe153a34fe7504c91518ffbe9b5f7a9205cecabfc81"
       },
       {
         "path": "data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json",
-        "sha256": "a2964cb0558f9c9d6a467b089dbd08aea098bc4f546291706ed5d4ed9db454a1"
+        "sha256": "52f329601c4fa1b2237a520fe4ccc06b61f33ff2d97ef4c1f5a73bda3548075a"
       }
     ]
   },

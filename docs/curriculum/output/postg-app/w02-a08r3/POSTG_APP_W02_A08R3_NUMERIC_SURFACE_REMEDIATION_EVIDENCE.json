@@ -31,6 +31,7 @@
     "applicationQuestionCount": 61,
     "pblTaskSetCount": 31,
     "operationFamilyCount": 49,
+    "operationRoleContractCount": 71,
     "historicalAffectedItemCount": 45,
     "numericPdfPageCount": 68,
     "applicationPdfPageCount": 42,
@@ -530,13 +531,11 @@
       "generatedItemId": "shared_generated_ps_g5a_u04_common_denominator_common_denominator_numeric",
       "ordinal": 166,
       "patternSpecId": "ps_g5a_u04_common_denominator_common_denominator_numeric",
-      "prompt": "把1/2和2/3通分，最小公分母是多少？",
+      "prompt": "分母2和3的最小公分母是多少？",
       "answerText": "6",
       "givenRoleNames": [
         "leftDenominator",
-        "leftNumerator",
-        "rightDenominator",
-        "rightNumerator"
+        "rightDenominator"
       ],
       "ok": true,
       "issues": []
