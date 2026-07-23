@@ -62,21 +62,22 @@ test('E5 admission does not imply public route activation or program D0', () => 
   assert.equal(materialized.controller.controllerState.productionAdmission.publicRouteChanged, false);
 });
 
-test('controller preserves W01 admission while W02 advances without production admission', () => {
+test('controller preserves W01 admission while W02 advances monotonically without production admission', () => {
   const states = materialized.controller.controllerState.waveStates;
-  assert.deepEqual(states.map((row) => row.state), [
-    'PRODUCTION_ADMITTED',
-    'HIDDEN_PATTERNSPECS_MATERIALIZED',
+  assert.equal(states[0].state, 'PRODUCTION_ADMITTED');
+  assert.equal(states[0].productionAdmissionGranted, true);
+  assert.equal(states[1].state, 'ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED');
+  assert.equal(states[1].productionAdmissionGranted, false);
+  assert.equal(states[1].kpApplicationClassificationComplete, true);
+  assert.equal(states[1].canonicalOperationModelsComplete, true);
+  assert.equal(states[1].hiddenPatternSpecsComplete, true);
+  assert.equal(states[1].atomicContextBindingsComplete, true);
+  assert.deepEqual(states.slice(2).map((row) => row.state), [
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE'
   ]);
-  assert.equal(states[0].productionAdmissionGranted, true);
-  assert.equal(states[1].productionAdmissionGranted, false);
-  assert.equal(states[1].kpApplicationClassificationComplete, true);
-  assert.equal(states[1].canonicalOperationModelsComplete, true);
-  assert.equal(states[1].hiddenPatternSpecsComplete, true);
   assert.equal(materialized.controller.wavePlan.coverage.productionAdmittedWaveCount, 1);
 });
 
