@@ -28,6 +28,7 @@ test('all 195 student-facing records pass semantic revision 2 validation', () =>
     const result = validateStudentFacingOperationSurface({ spec, item });
     assert.equal(result.ok, true, `${item.patternSpecId}\n${item.prompt}\n${JSON.stringify(result.issues)}`);
     assert.equal(item.studentFacingSemanticRevision, 2);
+    if (item.mode === 'APPLICATION') assert.equal(typeof item.studentFacingMacroContextId, 'string');
   }
 });
 
@@ -69,6 +70,7 @@ test('all 31 PBL records remove governance prose and retain authentic calculatio
     assert.equal(forbiddenPblPhrases.some((phrase) => visible.includes(phrase)), false, visible);
     assert.equal(visible.includes('代回原題'), true, visible);
     assert.equal(visible.includes('正確單位'), true, visible);
+    assert.notEqual(record.drivingProblem.finalProductType, '可執行方案');
   }
 });
 
