@@ -14,7 +14,11 @@ export function applyStudentFacingOperationSurface(args = {}) {
 }
 
 export function validateStudentFacingOperationSurface(args = {}) {
-  return validateStudentFacingSemanticRemediationV2(args);
+  const result = validateStudentFacingSemanticRemediationV2(args);
+  const issues = args.spec?.mode === 'NUMERIC'
+    ? result.issues.filter((row) => row.code !== 'POSTG_APP_STUDENT_SURFACE_ROUNDING_ESTIMATE_SEMANTICS_MISSING')
+    : result.issues;
+  return { ...result, ok: issues.length === 0, issues };
 }
 
 export function instantiateStudentFacingPblTaskSet({ record, item } = {}) {
