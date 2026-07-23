@@ -1,0 +1,58 @@
+name: POSTG-APP W02-A08 Operator Review Remediation
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "src/curriculum/application/shared/student-facing-operation-surface.mjs"
+      - "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
+      - "src/curriculum/application/w02-a08-operator-review-decision.mjs"
+      - "src/curriculum/application/w02-a08r1-student-facing-remediation.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a08-operator-review-decision.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a08r1-student-facing-remediation.mjs"
+      - "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
+      - "tests/curriculum/postg-app-w02-a08-operator-review-decision.test.js"
+      - "tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js"
+      - "data/curriculum/application/reviews/POSTG-APP-W02-A08_*.json"
+      - "data/project/milestones/POSTG-APP-W02-A08.claim.json"
+      - ".github/workflows/postg-app-w02-a08-operator-review-remediation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a08-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  operator-review-remediation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Install project dependencies
+        run: npm install --silent
+      - name: Verify frozen A08 REVISE decision
+        run: |
+          node --test tests/curriculum/postg-app-w02-a08-operator-review-decision.test.js
+          node tools/curriculum/validate-postg-app-w02-a08-operator-review-decision.mjs
+      - name: Verify shared student-facing runtime and A08R1 zero-defect gate
+        run: |
+          node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
+          node --test tests/curriculum/postg-app-w02-a07-human-review-package.test.js
+          node --test tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js
+          node tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs
+          node tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs
+          node tools/curriculum/validate-postg-app-w02-a08r1-student-facing-remediation.mjs
+      - name: Verify prior wave, controller and claim governance
+        run: |
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          npm run governance:claims
+      - name: Run full regression suite
+        run: npm test
