@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/shared/operation-family-runtime.mjs",
+      "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs",
+      "src/curriculum/application/w02-a07-human-review-package.mjs",
+      "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js",
+      "tests/curriculum/postg-app-w02-a07-human-review-package.test.js",
+      "tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs"
+    ],
+    "rendererTestPaths": [
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "site/modules/renderer/html-renderer-s57f5-extension.js",
+      "tools/curriculum/render-postg-app-w02-a06-pdf.mjs",
+      "tools/curriculum/verify-postg-app-w02-a06-pdf.py",
+      "tools/curriculum/generate-postg-app-w02-a07-review-artifacts.mjs",
+      ".github/workflows/postg-app-w02-a07-human-review-package.yml"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/reviews/POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage.json",
+      "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json",
+      "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json",
+      "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_READY.marker"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html",
+      "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json",
+      "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW.extracted.txt",
+      "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_PACKAGE.json",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_ARTIFACT_MANIFEST.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html",
+        "sha256": "d29793d3b28cdfe98760b6361e3a83b72f256e23662bcaa85bee60b8f317bc6c"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json",
+        "sha256": "df1e4fae31732f843d2f7e5dc8cf825f8cdac2359dec2c2f73db9ce241ce7f30"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW.extracted.txt",
+        "sha256": "67604b79155db93269f05fce9d497709019839355c9dcba51a2765c32c4340b1"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json",
+        "sha256": "cd5d5b341701411b77fb9d37337c13e4c14295f2e049362ef46a17e13118ba80"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+        "sha256": "1abd92aedecb3e65c6a6f09a1cbaf661b94acc97aeb9a4faf61c786c24527767"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+        "sha256": "ad6cfe385d3705492f7bcdd8e7dc106d86b2817a0dbf969984c6c3b86d51ea6b"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html",
+        "sha256": "bc44c61bbe2af266bc1fcfec1605a6908b57b18f163e659e1fba72764c9fb23d"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf",
+        "sha256": "fb081539f01b51debf0bd9584fac910c6aba4b9f6bb19d1171f3a72db78719c2"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_PACKAGE.json",
+        "sha256": "fc54ed7caf4175a8e94ada1e6f14d3a15234eccc48fea6c56d272c9562cbbdf0"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_ARTIFACT_MANIFEST.json",
+        "sha256": "3b5ae6cc43b029c64d0e50f6889230b75dd85afd7084410a9c23018d30353331"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Exact W02 generation and rendering now provide 61 application rows with complete 16-macro-context lineage, 31 PBL task sets, 49 numeric family references and ten hash-locked repository artifacts. Operator decision and production admission remain pending."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+  },
+  "evidenceRun": {
+    "workflowRunId": 29991238948,
+    "artifactSourceHeadSha": "d116561699a7beeb479d65bec57323fbad6f5d8a",
+    "artifactManifestHash": "cd5d5b341701411b77fb9d37337c13e4c14295f2e049362ef46a17e13118ba80",
+    "reviewArtifactCount": 10,
+    "manifestArtifactHashCount": 9
+  }
+}

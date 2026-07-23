@@ -83,7 +83,12 @@ test('controller preserves W01 admission while W02 advances monotonically withou
   assert.equal(w02.sharedRuntimeShadowPass, true);
   assert.equal(w02.sharedWorksheetProjectionComplete, true);
   assert.equal(w02.productionEquivalentOutputVerified, true);
-  assert.equal(w02.humanReviewReady, false);
+  const expectedW02HumanReviewReady = w02.state === 'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY';
+  assert.equal(w02.humanReviewReady, expectedW02HumanReviewReady);
+  if (expectedW02HumanReviewReady) {
+    assert.equal(w02.humanReviewPackageComplete, true);
+    assert.equal(w02.reviewDecision, 'NOT_STARTED');
+  }
   assert.deepEqual(states.slice(2).map((row) => row.state), [
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',

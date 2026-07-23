@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>W02 Production-equivalent HTML/PDF 人工審核包</title>
+<style>
+body{font-family:Arial,"Noto Sans TC",sans-serif;margin:24px;line-height:1.45;color:#111}
+h1,h2{margin:.5em 0}.summary{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:8px}
+.card{border:1px solid #888;padding:10px;border-radius:6px}table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{border:1px solid #aaa;padding:6px;vertical-align:top}th{background:#eee;position:sticky;top:0}
+.boundary{border:2px solid #222;padding:12px;margin:12px 0}.artifacts a{display:block;margin:4px 0}
+@media print{body{margin:10mm}.summary{grid-template-columns:repeat(2,1fr)}th{position:static}.no-print{display:none}}
+</style>
+</head>
+<body data-postg-app-w02-a07="true" data-human-review-ready="true">
+<h1>W02 Production-equivalent HTML/PDF 人工審核包</h1>
+<div class="boundary"><strong>Fail-closed：</strong>本文件只代表人工審核材料已備妥；尚未記錄 operator decision，production admission 與 public selection 均維持 false。</div>
+<div class="summary">
+<div class="card">來源節點<br><strong>13</strong></div>
+<div class="card">應用題<br><strong>61</strong></div>
+<div class="card">PBL 題組<br><strong>31</strong></div>
+<div class="card">數字題邊界樣本<br><strong>49</strong></div>
+</div>
+<h2>審核準則</h2><ul><li>□ APPLICATION_SEMANTIC_NATURALNESS</li><li>□ QUANTITY_ROLE_AND_UNIT_BINDING</li><li>□ MATHEMATICAL_WITNESS_PRESERVATION</li><li>□ ANSWER_UNIQUENESS_AND_ANSWER_KEY_PAIRING</li><li>□ PBL_DEPENDENCY_AND_FINAL_DECISION_COMPLETENESS</li><li>□ NUMERIC_APPLICATION_MODE_SEPARATION</li><li>□ HTML_PDF_LAYOUT_AND_PAGE_CONTAINMENT</li><li>□ FORBIDDEN_INTERNAL_LABEL_ABSENCE</li></ul>
+<h2>Production-equivalent artifacts</h2>
+<div class="artifacts">
+<a href="../w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html">數字題 HTML（134 題）</a>
+<a href="../w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf">數字題 PDF</a>
+<a href="../w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html">應用題 HTML（61 題）</a>
+<a href="../w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf">應用題 PDF</a>
+</div>
+<h2>61 題應用題逐題審核</h2>
+<table><thead><tr><th>#</th><th>Source</th><th>Context</th><th>Family</th><th>題目</th><th>答案</th><th>決定</th></tr></thead><tbody>
+    <tr>
+      <td>1</td>
+      <td>g3a_u08_3a08</td>
+      <td>gctx_macro_health_sports</td>
+      <td>fraction_accumulation</td>
+      <td>在4，8為了讓參與者取得足夠且合理的活動補給，依照4求出8。 請依題目中的數量關係作答。 情境中unitFractionCount為4，denominator為8，請求出分數。</td>
+      <td>1/2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>g3a_u08_3a08</td>
+      <td>gctx_macro_culture_history</td>
+      <td>discrete_fraction_conversion</td>
+      <td>在2，12為了依古代交易機制計算或比較交換結果，依照1求出3。 請依題目中的數量關係作答。 情境中wholeUnits為2，itemsPerWhole為12，分子為1，denominator為3，分數單位量為7/3，請求出物品數量。</td>
+      <td>28</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>g3a_u08_3a08</td>
+      <td>gctx_macro_household_family</td>
+      <td>discrete_fraction_conversion</td>
+      <td>在1，12為了在可用時間內公平完成家務，依照1求出3。 請依題目中的數量關係作答。 情境中wholeUnits為1，itemsPerWhole為12，分子為1，denominator為3，物品數量為16，請求出分數單位量。</td>
+      <td>4/3</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>g3a_u08_3a08</td>
+      <td>gctx_macro_science_technology</td>
+      <td>measurement_fraction</td>
+      <td>在2，1為了讓使用者在設備與時間限制內完成任務，依照4求出2。 請依題目中的數量關係作答。 情境中wholeUnits為2，分子為1，denominator為4，請求出測量值。</td>
+      <td>2.25</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>g3a_u08_3a08</td>
+      <td>gctx_macro_school_learning</td>
+      <td>fraction_compare</td>
+      <td>在3，5為了完成班級活動所需的資源安排，依照1求出2。 請依題目中的數量關係作答。 情境中leftNumerator為3，leftDenominator為5，rightNumerator為1，rightDenominator為2，請求出比較結果。</td>
+      <td>&gt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_environment_conservation</td>
+      <td>discrete_fraction_conversion</td>
+      <td>在2，12為了完成指定區域的環境清理與成果紀錄，依照1求出3。 請依題目中的數量關係作答。 情境中wholeUnits為2，itemsPerWhole為12，分子為1，denominator為3，分數單位量為7/3，請求出物品數量。</td>
+      <td>28</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_future_sustainability</td>
+      <td>discrete_fraction_conversion</td>
+      <td>在1，12為了選出符合需求與限制的氣候調適方案，依照1求出3。 請依題目中的數量關係作答。 情境中wholeUnits為1，itemsPerWhole為12，分子為1，denominator為3，物品數量為16，請求出分數單位量。</td>
+      <td>4/3</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_community_civic</td>
+      <td>fraction_add_sub</td>
+      <td>在5，6為了以透明規則完成社區共同活動，依照1求出6。 請依題目中的數量關係作答。 情境中leftNumerator為5，leftDenominator為6，rightNumerator為1，rightDenominator為6，請求出結果。</td>
+      <td>2/3</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_food_agriculture</td>
+      <td>fraction_add_sub</td>
+      <td>在5，6為了完成可追溯的農業生產批次安排，依照1求出3。 請依題目中的數量關係作答。 情境中leftNumerator為5，leftDenominator為6，rightNumerator為1，rightDenominator為3，請求出結果。</td>
+      <td>1/2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_data_public_information</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了在不複製未核實即時數字下理解近期公共議題，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，原量為3/4，相差量為1/4，請求出總量。</td>
+      <td>3/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_work_logistics</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了選出容量足夠且能準時完成的配送方案，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，總量為3/4，相差量為1/4，請求出原量。</td>
+      <td>3/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_charity_cooperation</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了讓捐贈資源依需求合理送達，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，總量為3/4，原量為3/4，請求出相差量。</td>
+      <td>1/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_disaster_resilience</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了讓演練或緊急需求獲得足夠備援物資，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，原量為3/4，相差量為1/4，請求出總量。</td>
+      <td>3/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_water_energy</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了選出符合需求且較節能的使用方案，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，總量為3/4，相差量為1/4，請求出原量。</td>
+      <td>3/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_commerce_budget</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了依交易規則計算交換或購買結果，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，總量為3/4，原量為3/4，請求出相差量。</td>
+      <td>1/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_transport_mobility</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了讓小隊攜帶足夠裝備並完成安全行程，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，原量為3/4，相差量為1/4，請求出總量。</td>
+      <td>3/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_science_technology</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了讓使用者在設備與時間限制內完成任務，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，總量為3/4，相差量為1/4，請求出原量。</td>
+      <td>3/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>g3b_u07_3b07</td>
+      <td>gctx_macro_health_sports</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了讓參與者取得足夠且合理的活動補給，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，總量為3/4，原量為3/4，請求出相差量。</td>
+      <td>1/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>g3b_u09_3b09</td>
+      <td>gctx_macro_culture_history</td>
+      <td>decimal_compare</td>
+      <td>在2.33，2.23為了依古代交易機制計算或比較交換結果，依照2.33求出2.23。 請依題目中的數量關係作答。 情境中left為2.33，right為2.23，請求出比較結果。</td>
+      <td>&gt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>g3b_u09_3b09</td>
+      <td>gctx_macro_household_family</td>
+      <td>decimal_add_sub</td>
+      <td>在3.5，1.1為了在可用時間內公平完成家務，依照3.5求出1.1。 請依題目中的數量關係作答。 情境中left為3.5，right為1.1，請求出結果。</td>
+      <td>2.4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>g3b_u09_3b09</td>
+      <td>gctx_macro_school_learning</td>
+      <td>decimal_measure_conversion</td>
+      <td>在1600，1000為了完成班級活動所需的資源安排，依照1600求出1000。 請依題目中的數量關係作答。 情境中小單位數量為1600，conversionFactor為1000，請求出大單位數量。</td>
+      <td>1.6</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>g3b_u09_3b09</td>
+      <td>gctx_macro_environment_conservation</td>
+      <td>decimal_measure_conversion</td>
+      <td>在1.7，1000為了完成指定區域的環境清理與成果紀錄，依照1.7求出1000。 請依題目中的數量關係作答。 情境中大單位數量為1.7，conversionFactor為1000，請求出小單位數量。</td>
+      <td>1700</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>g4a_u06_4a06</td>
+      <td>gctx_macro_future_sustainability</td>
+      <td>fraction_compare</td>
+      <td>在2，5為了選出符合需求與限制的氣候調適方案，依照1求出2。 請依題目中的數量關係作答。 情境中leftNumerator為2，leftDenominator為5，rightNumerator為1，rightDenominator為2，請求出比較結果。</td>
+      <td>&lt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>g4a_u06_4a06</td>
+      <td>gctx_macro_community_civic</td>
+      <td>fraction_add_sub</td>
+      <td>在5，6為了以透明規則完成社區共同活動，依照1求出3。 請依題目中的數量關係作答。 情境中leftNumerator為5，leftDenominator為6，rightNumerator為1，rightDenominator為3，請求出結果。</td>
+      <td>1/2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>g4a_u06_4a06</td>
+      <td>gctx_macro_transport_mobility</td>
+      <td>fraction_times_integer</td>
+      <td>在3/4，4為了讓小隊攜帶足夠裝備並完成安全行程，依照3/4求出4。 請依題目中的數量關係作答。 情境中amountPerGroup為3/4，groupCount為4，請求出總量。</td>
+      <td>3/1</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>g4a_u09_4a09</td>
+      <td>gctx_macro_food_agriculture</td>
+      <td>decimal_compare</td>
+      <td>在2.32，2.22為了完成可追溯的農業生產批次安排，依照2.32求出2.22。 請依題目中的數量關係作答。 情境中left為2.32，right為2.22，請求出比較結果。</td>
+      <td>&gt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>g4a_u09_4a09</td>
+      <td>gctx_macro_data_public_information</td>
+      <td>decimal_measure_conversion</td>
+      <td>在1700，1000為了在不複製未核實即時數字下理解近期公共議題，依照1700求出1000。 請依題目中的數量關係作答。 情境中小單位數量為1700，conversionFactor為1000，請求出大單位數量。</td>
+      <td>1.7</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>g4a_u09_4a09</td>
+      <td>gctx_macro_work_logistics</td>
+      <td>decimal_measure_conversion</td>
+      <td>在1.8，1000為了選出容量足夠且能準時完成的配送方案，依照1.8求出1000。 請依題目中的數量關係作答。 情境中大單位數量為1.8，conversionFactor為1000，請求出小單位數量。</td>
+      <td>1800</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>g4b_u03_4b03</td>
+      <td>gctx_macro_future_sustainability</td>
+      <td>fraction_compare</td>
+      <td>在2，5為了選出符合需求與限制的氣候調適方案，依照1求出2。 請依題目中的數量關係作答。 情境中leftNumerator為2，leftDenominator為5，rightNumerator為1，rightDenominator為2，請求出比較結果。</td>
+      <td>&lt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>g4b_u03_4b03</td>
+      <td>gctx_macro_community_civic</td>
+      <td>fraction_add_sub</td>
+      <td>在5，6為了以透明規則完成社區共同活動，依照1求出3。 請依題目中的數量關係作答。 情境中leftNumerator為5，leftDenominator為6，rightNumerator為1，rightDenominator為3，請求出結果。</td>
+      <td>1/2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>g4b_u03_4b03</td>
+      <td>gctx_macro_transport_mobility</td>
+      <td>fraction_times_integer</td>
+      <td>在3/4，4為了讓小隊攜帶足夠裝備並完成安全行程，依照3/4求出4。 請依題目中的數量關係作答。 情境中amountPerGroup為3/4，groupCount為4，請求出總量。</td>
+      <td>3/1</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>g4b_u06_4b06</td>
+      <td>gctx_macro_charity_cooperation</td>
+      <td>decimal_multiply</td>
+      <td>在1.5，6為了讓捐贈資源依需求合理送達，依照1.5求出6。 請依題目中的數量關係作答。 情境中decimalFactor為1.5，integerFactor為6，請求出乘積。</td>
+      <td>9</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td>g4b_u06_4b06</td>
+      <td>gctx_macro_disaster_resilience</td>
+      <td>decimal_multiply</td>
+      <td>在1.4，5為了讓演練或緊急需求獲得足夠備援物資，依照1.4求出5。 請依題目中的數量關係作答。 情境中decimalFactor為1.4，integerFactor為5，請求出乘積。</td>
+      <td>7</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td>g4b_u06_4b06</td>
+      <td>gctx_macro_water_energy</td>
+      <td>rate_total</td>
+      <td>在1.6，4為了選出符合需求且較節能的使用方案，依照3.2求出3.2。 請依題目中的數量關係作答。 情境中ratePerUnit為1.6，unitCount為4，firstTotal為3.2，secondTotal為3.2，合計量為6.4，請求出總量。</td>
+      <td>6.4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td>g4b_u06_4b06</td>
+      <td>gctx_macro_commerce_budget</td>
+      <td>rate_total</td>
+      <td>在1.9，4為了依交易規則計算交換或購買結果，依照3.8求出3.8。 請依題目中的數量關係作答。 情境中ratePerUnit為1.9，unitCount為4，firstTotal為3.8，secondTotal為3.8，總量為7.6，請求出合計量。</td>
+      <td>7.6</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td>g4b_u08_4b08</td>
+      <td>gctx_macro_health_sports</td>
+      <td>fraction_compare</td>
+      <td>在2，5為了讓參與者取得足夠且合理的活動補給，依照1求出2。 請依題目中的數量關係作答。 情境中leftNumerator為2，leftDenominator為5，rightNumerator為1，rightDenominator為2，請求出比較結果。</td>
+      <td>&lt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td>g4b_u08_4b08</td>
+      <td>gctx_macro_culture_history</td>
+      <td>fraction_add_sub</td>
+      <td>在5，6為了依古代交易機制計算或比較交換結果，依照1求出3。 請依題目中的數量關係作答。 情境中leftNumerator為5，leftDenominator為6，rightNumerator為1，rightDenominator為3，請求出結果。</td>
+      <td>1/2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td>g4b_u08_4b08</td>
+      <td>gctx_macro_household_family</td>
+      <td>fraction_bounds</td>
+      <td>在1/4，3/4為了在可用時間內公平完成家務，依照x/8求出1/4。 請依題目中的數量關係作答。 情境中lowerBound為1/4，upperBound為3/4，unknownPart為x/8，請求出可能值。</td>
+      <td>3/8、4/8、5/8</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td>g5a_u01_5a01</td>
+      <td>gctx_macro_school_learning</td>
+      <td>decimal_compare</td>
+      <td>在2.32，2.22為了完成班級活動所需的資源安排，依照2.32求出2.22。 請依題目中的數量關係作答。 情境中left為2.32，right為2.22，請求出比較結果。</td>
+      <td>&gt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>g5a_u01_5a01</td>
+      <td>gctx_macro_environment_conservation</td>
+      <td>decimal_add_sub</td>
+      <td>在3.7，1.1為了完成指定區域的環境清理與成果紀錄，依照3.7求出1.1。 請依題目中的數量關係作答。 情境中left為3.7，right為1.1，請求出結果。</td>
+      <td>2.6</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td>g5a_u01_5a01</td>
+      <td>gctx_macro_food_agriculture</td>
+      <td>rounding</td>
+      <td>在3.74，tenths為了完成可追溯的農業生產批次安排，依照7.4求出3.74。 請依題目中的數量關係作答。 情境中value為3.74，targetPlace為tenths，估算結果為7.4，請求出四捨五入結果。</td>
+      <td>3.7</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td>g5a_u01_5a01</td>
+      <td>gctx_macro_data_public_information</td>
+      <td>rounding</td>
+      <td>在3.34，tenths為了在不複製未核實即時數字下理解近期公共議題，依照3.3求出3.34。 請依題目中的數量關係作答。 情境中value為3.34，targetPlace為tenths，四捨五入結果為3.3，請求出估算結果。</td>
+      <td>6.6</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td>g5a_u03_5a03a</td>
+      <td>gctx_macro_work_logistics</td>
+      <td>nearest_multiple</td>
+      <td>在6，10為了選出容量足夠且能準時完成的配送方案，依照40求出29。 請依題目中的數量關係作答。 情境中base為6，lower為10，upper為40，target為29，最接近的倍數為30，請求出範圍內倍數。</td>
+      <td>12、18、24、30、36</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td>g5a_u03_5a03a</td>
+      <td>gctx_macro_science_technology</td>
+      <td>nearest_multiple</td>
+      <td>在6，10為了讓使用者在設備與時間限制內完成任務，依照40求出28。 請依題目中的數量關係作答。 情境中base為6，lower為10，upper為40，target為28，範圍內倍數為12、18、24、30、36，請求出最接近的倍數。</td>
+      <td>30</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td>g5a_u03_5a03a</td>
+      <td>gctx_macro_charity_cooperation</td>
+      <td>interval_multiple_count</td>
+      <td>在4，9為了讓捐贈資源依需求合理送達，依照34求出4。 請依題目中的數量關係作答。 情境中base為4，lower為9，upper為34，請求出個數。</td>
+      <td>6</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td>g5a_u03_5a03a</td>
+      <td>gctx_macro_disaster_resilience</td>
+      <td>exact_grouping</td>
+      <td>在24，4為了讓演練或緊急需求獲得足夠備援物資，依照24求出4。 請依題目中的數量關係作答。 情境中總量為24，groupSize為4，請求出是否可整組分配。</td>
+      <td>是</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td>g5a_u03_5a03a1</td>
+      <td>gctx_macro_water_energy</td>
+      <td>common_group_total</td>
+      <td>在4，6為了選出符合需求且較節能的使用方案，依照4求出6。 請依題目中的數量關係作答。 情境中firstGrouping為4，secondGrouping為6，請求出最少總數。</td>
+      <td>12</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td>g5a_u03_5a03a1</td>
+      <td>gctx_macro_commerce_budget</td>
+      <td>lcm</td>
+      <td>在4，6為了依交易規則計算交換或購買結果，依照12求出4。 請依題目中的數量關係作答。 情境中left為4，right為6，最小公倍數為12，請求出公倍數。</td>
+      <td>12、24、36</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td>g5a_u03_5a03a1</td>
+      <td>gctx_macro_health_sports</td>
+      <td>lcm</td>
+      <td>在4，6為了讓參與者取得足夠且合理的活動補給，依照12、24、36求出4。 請依題目中的數量關係作答。 情境中left為4，right為6，公倍數為12、24、36，請求出最小公倍數。</td>
+      <td>12</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>g5a_u03_5a03a1</td>
+      <td>gctx_macro_culture_history</td>
+      <td>square_tiling</td>
+      <td>在4，6為了依古代交易機制計算或比較交換結果，依照4求出6。 請依題目中的數量關係作答。 情境中rectangleLength為4，rectangleWidth為6，請求出正方形邊長。</td>
+      <td>12</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td>g5a_u04_5a04</td>
+      <td>gctx_macro_household_family</td>
+      <td>fraction_compare</td>
+      <td>在3，5為了在可用時間內公平完成家務，依照1求出2。 請依題目中的數量關係作答。 情境中leftNumerator為3，leftDenominator為5，rightNumerator為1，rightDenominator為2，請求出比較結果。</td>
+      <td>&gt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>52</td>
+      <td>g5a_u04_5a04</td>
+      <td>gctx_macro_food_agriculture</td>
+      <td>quotient_fraction_context</td>
+      <td>在6，4為了完成可追溯的農業生產批次安排，依照6求出4。 請依題目中的數量關係作答。 情境中totalQuantity為6，recipientCount為4，請求出每人分得量。</td>
+      <td>3/2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td>g5a_u04_5a04</td>
+      <td>gctx_macro_science_technology</td>
+      <td>segment_measure</td>
+      <td>在10，5為了讓使用者在設備與時間限制內完成任務，依照2求出10。 請依題目中的數量關係作答。 情境中totalLength為10，段數為5，unitMeasure為2，請求出每段長度。</td>
+      <td>2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>54</td>
+      <td>g5a_u04_5a04</td>
+      <td>gctx_macro_disaster_resilience</td>
+      <td>segment_measure</td>
+      <td>在10，2為了讓演練或緊急需求獲得足夠備援物資，依照2求出10。 請依題目中的數量關係作答。 情境中totalLength為10，unitMeasure為2，每段長度為2，請求出段數。</td>
+      <td>5</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>55</td>
+      <td>g5a_u06_5a06</td>
+      <td>gctx_macro_school_learning</td>
+      <td>fraction_add_sub</td>
+      <td>在2，6為了完成班級活動所需的資源安排，依照1求出3。 請依題目中的數量關係作答。 情境中leftNumerator為2，leftDenominator為6，rightNumerator為1，rightDenominator為3，請求出結果。</td>
+      <td>2/3</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td>g5a_u06_5a06</td>
+      <td>gctx_macro_environment_conservation</td>
+      <td>fraction_add_sub</td>
+      <td>在5，6為了完成指定區域的環境清理與成果紀錄，依照1求出3。 請依題目中的數量關係作答。 情境中leftNumerator為5，leftDenominator為6，rightNumerator為1，rightDenominator為3，請求出結果。</td>
+      <td>1/2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>57</td>
+      <td>g5a_u06_5a06</td>
+      <td>gctx_macro_future_sustainability</td>
+      <td>fraction_add_sub</td>
+      <td>在5，6為了選出符合需求與限制的氣候調適方案，依照1求出3。 請依題目中的數量關係作答。 情境中leftNumerator為5，leftDenominator為6，rightNumerator為1，rightDenominator為3，請求出結果。</td>
+      <td>1/2</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>58</td>
+      <td>g5a_u06_5a06</td>
+      <td>gctx_macro_community_civic</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了以透明規則完成社區共同活動，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，原量為3/4，相差量為1/4，請求出總量。</td>
+      <td>3/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>59</td>
+      <td>g5a_u06_5a06</td>
+      <td>gctx_macro_data_public_information</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了在不複製未核實即時數字下理解近期公共議題，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，總量為3/4，相差量為1/4，請求出原量。</td>
+      <td>3/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>60</td>
+      <td>g5a_u06_5a06</td>
+      <td>gctx_macro_work_logistics</td>
+      <td>fraction_context_total</td>
+      <td>在1/4，1/2為了選出容量足夠且能準時完成的配送方案，依照1/4求出1/2。 請依題目中的數量關係作答。 情境中firstQuantity為1/4，secondQuantity為1/2，used為1/4，remaining為1/2，總量為3/4，原量為3/4，請求出相差量。</td>
+      <td>1/4</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr>
+    <tr>
+      <td>61</td>
+      <td>g5a_u06_5a06</td>
+      <td>gctx_macro_charity_cooperation</td>
+      <td>fraction_compare</td>
+      <td>在2，5為了讓捐贈資源依需求合理送達，依照1求出2。 請依題目中的數量關係作答。 情境中leftNumerator為2，leftDenominator為5，rightNumerator為1，rightDenominator為2，請求出比較結果。</td>
+      <td>&lt;</td>
+      <td>□ 通過 □ 修正 □ 拒絕</td>
+    </tr></tbody></table>
+<h2>31 組 PBL 題組審核</h2>
+<table><thead><tr><th>#</th><th>Source</th><th>Graph</th><th>Tasks</th><th>決定</th></tr></thead><tbody>
+    <tr>
+      <td>1</td>
+      <td>g3a_u08_3a08</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>g3a_u08_3a08</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>g3a_u08_3a08</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>g3b_u07_3b07</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>g3b_u09_3b09</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>g3b_u09_3b09</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>g4a_u06_4a06</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>g4a_u09_4a09</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>g4a_u09_4a09</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>g4b_u03_4b03</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>g4b_u06_4b06</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>g4b_u06_4b06</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>g5a_u03_5a03a</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>g5a_u03_5a03a1</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>g5a_u03_5a03a1</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>g5a_u04_5a04</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>g5a_u04_5a04</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>g5a_u04_5a04</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>g5a_u06_5a06</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>g5a_u06_5a06</td>
+      <td>PBL3_LINEAR</td>
+      <td>3</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>g5a_u06_5a06</td>
+      <td>PBL5_BOUNDED_DECISION</td>
+      <td>5</td>
+      <td>□ 依賴完整 □ 最終決策完整 □ 修正</td>
+    </tr></tbody></table>
+</body></html>
