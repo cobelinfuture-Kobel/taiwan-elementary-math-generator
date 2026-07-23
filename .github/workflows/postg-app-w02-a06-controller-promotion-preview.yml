@@ -32,6 +32,13 @@ jobs:
         run: |
           set +e
           mkdir -p /tmp/a06-controller-promotion
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('tools/curriculum/materialize-postg-app-w02-a06-controller-promotion.mjs')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace('"  ]);\\n    assert.equal(claim.actualEvidenceLevel', '"  ]) {\\n    assert.equal(claim.actualEvidenceLevel')
+          path.write_text(text, encoding='utf-8')
+          PY
           node tools/curriculum/materialize-postg-app-w02-a06-controller-promotion.mjs /tmp/a06-controller-promotion > /tmp/a06-controller-promotion/materialization.log 2>&1
           printf '%s\n' "$?" > /tmp/a06-controller-promotion/materialization.status
           cat /tmp/a06-controller-promotion/materialization.log
