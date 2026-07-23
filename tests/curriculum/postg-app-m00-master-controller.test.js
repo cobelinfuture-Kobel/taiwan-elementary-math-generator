@@ -25,14 +25,14 @@ const REQUIRED_GATES = [
   'PRODUCTION_ADMISSION_REVIEWED'
 ];
 
-test('M00 validates the exact 79-node scope with W01 admitted and W02 A03 blueprints materialized', () => {
+test('M00 validates the exact 79-node scope with W01 admitted and W02 A04 validator shadow passed', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED');
+  assert.equal(result.status, 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS');
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -43,7 +43,7 @@ test('M00 validates the exact 79-node scope with W01 admitted and W02 A03 bluepr
     productionAdmittedApplicationUnitCount: 12
   });
   assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow');
+  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection');
 });
 
 test('S29C batch totals remain 13, 24, 17, 16 and 9', () => {
@@ -66,12 +66,12 @@ test('Wave 01 distinguishes 15 golden units from 16 source nodes and is producti
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
 });
 
-test('Wave 02 has A03 N+1, misconception and required-only PBL blueprints complete', () => {
+test('Wave 02 has A04 validator fixtures and shared shadow runtime complete', () => {
   const w02 = resolvePOSTGAPPWave(controller, 'W02');
   assert.equal(w02.sourceNodes.length, 13);
   assert.equal(w02.productionAdmissionGranted, false);
-  assert.equal(w02.currentState.state, 'N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED');
-  assert.deepEqual(w02.currentState.completedGates, REQUIRED_GATES.slice(0, 7));
+  assert.equal(w02.currentState.state, 'VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_PASS');
+  assert.deepEqual(w02.currentState.completedGates, REQUIRED_GATES.slice(0, 10));
   assert.equal(w02.currentState.admissionGateComplete, false);
   assert.equal(w02.currentState.assessmentBaselineState, 'SOURCE_AUTHORITY_BASELINE_READY');
   assert.equal(w02.currentState.sourceMetadataAvailableCount, 13);
@@ -108,6 +108,30 @@ test('Wave 02 has A03 N+1, misconception and required-only PBL blueprints comple
   assert.equal(w02.currentState.duplicatePblProjectionParity, true);
   assert.equal(w02.currentState.compatiblePblCandidateCount, 0);
   assert.equal(w02.currentState.nPlusOnePblBlueprintsComplete, true);
+  assert.equal(w02.currentState.validatorFixtureCount, 672);
+  assert.equal(w02.currentState.validatorPositiveFixtureCount, 275);
+  assert.equal(w02.currentState.validatorNegativeFixtureCount, 397);
+  assert.equal(w02.currentState.validatorPassCount, 275);
+  assert.equal(w02.currentState.validatorExpectedRejectCount, 397);
+  assert.equal(w02.currentState.validatorUnexpectedPassCount, 0);
+  assert.equal(w02.currentState.validatorUnexpectedRejectCount, 0);
+  assert.equal(w02.currentState.pairedNPlusOneExecutionCount, 61);
+  assert.equal(w02.currentState.misconceptionExecutionCount, 183);
+  assert.equal(w02.currentState.calculationPassInterpretationFailCount, 122);
+  assert.equal(w02.currentState.counterfactualExecutionCount, 61);
+  assert.equal(w02.currentState.crossContextExecutionCount, 61);
+  assert.equal(w02.currentState.uniquenessNegativeExecutionCount, 61);
+  assert.equal(w02.currentState.pblDependencyExecutionCount, 62);
+  assert.equal(w02.currentState.sourceNodeRuntimeCoverageCount, 13);
+  assert.equal(w02.currentState.primaryMacroContextRuntimeCoverageCount, 16);
+  assert.equal(w02.currentState.alternateMacroContextRuntimeCoverageCount, 2);
+  assert.equal(w02.currentState.operationFamilyRuntimeCoverageCount, 22);
+  assert.equal(w02.currentState.answerShapeRuntimeCoverageCount, 2);
+  assert.equal(w02.currentState.adapterRuntimeCoverageCount, 2);
+  assert.equal(w02.currentState.duplicateFixtureProjectionGroupCount, 1);
+  assert.equal(w02.currentState.duplicateFixtureProjectionParity, true);
+  assert.equal(w02.currentState.validatorFixturesComplete, true);
+  assert.equal(w02.currentState.sharedRuntimeShadowPass, true);
   assert.equal(w02.currentState.productionAdmittedCandidateCount, 0);
 });
 
@@ -142,7 +166,7 @@ test('W02 to W06 cover the remaining 63 nodes in deterministic source order', ()
   assert.deepEqual(controller.wavePlan.waves.map((row) => row.sourceNodeIds.length), [16, 13, 13, 13, 12, 12]);
 });
 
-test('W01 stays E5 while W02 A00 through A03 remain E3 non-production', () => {
+test('W01 stays E5 while W02 A00 through A04 remain E3 non-production', () => {
   assert.equal(controller.approvalDecision.operatorDecision, 'APPROVE');
   assert.equal(controller.approvalDecision.productionAdmission.granted, true);
   assert.equal(controller.approvalDecision.productionAdmission.publicRouteChanged, false);
@@ -156,7 +180,8 @@ test('W01 stays E5 while W02 A00 through A03 remain E3 non-production', () => {
     controller.w02A01CClaim,
     controller.w02A01DClaim,
     controller.w02A02Claim,
-    controller.w02A03Claim
+    controller.w02A03Claim,
+    controller.w02A04Claim
   ]) {
     assert.equal(claim.actualEvidenceLevel, 'E3_SHADOW_RUNTIME_INTEGRATED');
     assert.equal(claim.claims.productionAdmitted, false);
@@ -181,7 +206,7 @@ test('duplicate source nodes and non-contiguous production admissions fail close
   assert.equal(codes(validatePOSTGAPPMasterController(productionCase)).includes('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID'), true);
 });
 
-test('forged approval, W02 claims and A03 materialization state fail closed', () => {
+test('forged approval, W02 claims and A04 runtime state fail closed', () => {
   const approvalCase = structuredClone(controller);
   approvalCase.approvalDecision.operatorDecision = 'REJECT';
   assert.equal(codes(validatePOSTGAPPMasterController(approvalCase)).includes('POSTG_APP_W01_OPERATOR_APPROVAL_EVIDENCE_INVALID'), true);
@@ -193,7 +218,8 @@ test('forged approval, W02 claims and A03 materialization state fail closed', ()
     ['w02A01CClaim', 'POSTG_APP_W02_A01C_CLAIM_INVALID'],
     ['w02A01DClaim', 'POSTG_APP_W02_A01D_CLAIM_INVALID'],
     ['w02A02Claim', 'POSTG_APP_W02_A02_CLAIM_INVALID'],
-    ['w02A03Claim', 'POSTG_APP_W02_A03_CLAIM_INVALID']
+    ['w02A03Claim', 'POSTG_APP_W02_A03_CLAIM_INVALID'],
+    ['w02A04Claim', 'POSTG_APP_W02_A04_CLAIM_INVALID']
   ];
   for (const [property, code] of claimCases) {
     const changed = structuredClone(controller);
@@ -202,7 +228,7 @@ test('forged approval, W02 claims and A03 materialization state fail closed', ()
   }
 
   const evidenceCase = structuredClone(controller);
-  evidenceCase.controllerState.waveStates[1].pblTaskSetCandidateCount = 30;
+  evidenceCase.controllerState.waveStates[1].validatorFixtureCount = 671;
   assert.equal(codes(validatePOSTGAPPMasterController(evidenceCase)).includes('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID'), true);
 });
 
