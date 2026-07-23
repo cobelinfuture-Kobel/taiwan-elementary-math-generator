@@ -1,0 +1,48 @@
+{
+  "schemaName": "POSTGAPPW02A06SharedGeneratorValidatorRendererHTMLPDFIntegrationContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
+  "contractId": "POSTG_APP_SHARED_PRODUCTION_EQUIVALENT_W02_HTML_PDF_V1",
+  "status": "DESIGNSCAN_IN_PROGRESS",
+  "dependencies": {
+    "a05TaskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
+    "requiredA05Status": "W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "targetCoverage": {
+    "sourceNodeCount": 13,
+    "numericPatternSpecCount": 134,
+    "applicationPatternSpecCount": 61,
+    "totalPatternSpecCount": 195,
+    "pblTaskSetRecordCount": 31,
+    "operationFamilyCount": 22
+  },
+  "requiredSharedConsumers": {
+    "generatorAdapter": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "validatorAdapter": "SHARED_OPERATION_FAMILY_VALIDATOR_V1",
+    "worksheetProjectionAdapter": "SHARED_APPLICATION_WORKSHEET_PROJECTION_V1",
+    "worksheetDocumentConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "renderer": "site/modules/renderer/html-renderer-s57f5-extension.js",
+    "pdfRenderer": "CHROMIUM_PRINT_TO_PDF"
+  },
+  "evidenceTarget": {
+    "level": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false
+  },
+  "architectureBoundary": {
+    "w02SpecificGeneratorAllowed": false,
+    "w02SpecificRendererAllowed": false,
+    "secondWorksheetPipelineAllowed": false,
+    "publicUIChanged": false,
+    "productionAdmissionAllowed": false,
+    "futureWaveContentAuthored": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage"
+}
