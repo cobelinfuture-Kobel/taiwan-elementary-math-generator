@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/shared/pbl-task-set-record.schema.json",
+  "title": "SharedPBLTaskSetRecordV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion","pblTaskSetRecordId","pblCandidateId","waveId","sourceNodeId","patternSpecId","primaryKnowledgePointId","graphType","drivingProblem","tasks","milestones","finalProduct","pageProjectionCandidate","productionSelectable"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "pblTaskSetRecordId": {"type": "string", "pattern": "^pbl_record_"},
+    "pblCandidateId": {"type": "string", "pattern": "^w02_pbl_"},
+    "waveId": {"const": "W02"},
+    "sourceNodeId": {"type": "string", "pattern": "^g[3-6][ab]_u"},
+    "patternSpecId": {"type": "string"},
+    "primaryKnowledgePointId": {"type": "string", "pattern": "^kp_"},
+    "graphType": {"enum": ["PBL3_LINEAR","PBL5_BOUNDED_DECISION"]},
+    "drivingProblem": {"type": "object"},
+    "tasks": {"type": "array", "minItems": 3, "maxItems": 5, "items": {"type": "object"}},
+    "milestones": {"type": "array", "minItems": 3, "maxItems": 5, "items": {"type": "object"}},
+    "finalProduct": {"type": "object"},
+    "pageProjectionCandidate": {"enum": ["APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE","APPROVED_COMPLETE_TWO_PAGE_CANDIDATE"]},
+    "productionSelectable": {"const": false}
+  }
+}
