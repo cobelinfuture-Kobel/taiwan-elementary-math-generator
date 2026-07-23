@@ -29,7 +29,8 @@ test('all 195 student-facing records pass semantic revision 3 validation', () =>
     const spec = specByPattern.get(item.patternSpecId);
     const result = validateStudentFacingOperationSurface({ spec, item });
     assert.equal(result.ok, true, `${item.patternSpecId}\n${item.prompt}\n${JSON.stringify(result.issues)}`);
-    assert.equal(item.studentFacingSemanticRevision, 3);
+    assert.equal(item.studentFacingSemanticRevision, item.mode === 'NUMERIC' ? 4 : 3);
+    assert.equal(item.studentFacingSurfaceVersion, item.mode === 'NUMERIC' ? 'W02_A08R3_V1' : 'W02_A08R1_V1');
     if (item.mode === 'APPLICATION') assert.equal(typeof item.studentFacingMacroContextId, 'string');
   }
 });

@@ -91,8 +91,13 @@ function numericContract(spec, sourceItem) {
         const keys = ['used', 'remaining'];
         return { keys, givens: pick(values, keys), prompt: `已使用${values.used}，還剩${values.remaining}。原來共有多少？` };
       }
-      const candidates = [values.firstQuantity, values.secondQuantity].sort((a, b) => fractionValue(b) - fractionValue(a));
-      const givens = { larger: candidates[0], smaller: candidates[1] };
+      const givens = values.larger != null && values.smaller != null
+        ? { larger: values.larger, smaller: values.smaller }
+        : (() => {
+            const candidates = [values.firstQuantity, values.secondQuantity]
+              .sort((a, b) => fractionValue(b) - fractionValue(a));
+            return { larger: candidates[0], smaller: candidates[1] };
+          })();
       return { keys: ['larger', 'smaller'], givens, prompt: `${givens.larger}和${givens.smaller}相差多少？` };
     }
     case 'improper_mixed_conversion': {
@@ -141,7 +146,7 @@ function numericContract(spec, sourceItem) {
         const keys = ['base', 'candidate'];
         return { keys, givens: pick(values, keys), prompt: `${values.candidate}是不是${values.base}的倍數？` };
       }
-      const upperBound = Number(values.base) * 5;
+      const upperBound = Number(values.upperBound ?? Number(values.base) * 5);
       return {
         keys: ['base', 'upperBound'],
         givens: { base: values.base, upperBound },
@@ -157,7 +162,7 @@ function numericContract(spec, sourceItem) {
       return { keys, givens: pick(values, keys), prompt: `${values.value}是不是${values.base}的倍數？` };
     }
     case 'fraction_bounds': {
-      const denominator = Number(String(values.unknownPart ?? '').split('/')[1]);
+      const denominator = Number(values.denominator ?? String(values.unknownPart ?? '').split('/')[1]);
       const givens = { lowerBound: values.lowerBound, upperBound: values.upperBound, denominator };
       return {
         keys: ['lowerBound', 'upperBound', 'denominator'],

@@ -1,0 +1,688 @@
+{
+  "schemaName": "POSTGAPPW02A08R3NumericSurfaceRemediationEvidenceV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A08R3_NumericStudentFacingUnknownRoleGivenSetAndNotationRemediation",
+  "parentTaskId": "POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision",
+  "status": "W02_A08R3_NUMERIC_SURFACE_REMEDIATED_THIRD_REVIEW_READY",
+  "priorDecision": "REVISE",
+  "priorEvidencePath": "docs/curriculum/output/postg-app/w02-a08r2/POSTG_APP_W02_A08R2_SECOND_REVIEW_EVIDENCE.json",
+  "remediationScope": [
+    "NUMERIC_REQUESTED_UNKNOWN_NAMING",
+    "NUMERIC_MINIMAL_INDEPENDENT_GIVEN_SET",
+    "NUMERIC_RELATION_COHERENCE_AND_BOUNDEDNESS",
+    "NUMERIC_GRADE_APPROPRIATE_NOTATION"
+  ],
+  "beforeFindingCounts": {
+    "unresolvedRequestedUnknown": 13,
+    "answerEquivalentOrNonMinimalGivenSet": 19,
+    "malformedOrIncoherentSurface": 12,
+    "gradeUnsafeNotation": 2
+  },
+  "afterFindingCounts": {
+    "unresolvedRequestedUnknown": 0,
+    "answerEquivalentOrNonMinimalGivenSet": 0,
+    "malformedOrIncoherentSurface": 0,
+    "gradeUnsafeNotation": 0
+  },
+  "coverage": {
+    "generatedItemCount": 195,
+    "numericQuestionCount": 134,
+    "applicationQuestionCount": 61,
+    "pblTaskSetCount": 31,
+    "operationFamilyCount": 49,
+    "historicalAffectedItemCount": 45,
+    "numericPdfPageCount": 68,
+    "applicationPdfPageCount": 42,
+    "pdfPageCount": 110
+  },
+  "studentFacingVersions": {
+    "numeric": "W02_A08R3_V1",
+    "numericSemanticRevision": 4,
+    "application": "W02_A08R1_V1",
+    "applicationSemanticRevision": 3,
+    "pbl": "W02_A08R1_V1",
+    "pblSemanticRevision": 3
+  },
+  "historicalFindingReadback": [
+    {
+      "generatedItemId": "shared_generated_ps_g3a_u08_same_denominator_compare_comparison_numeric",
+      "ordinal": 11,
+      "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_numeric",
+      "prompt": "比較3/5和1/5，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "leftDenominator",
+        "leftNumerator",
+        "rightDenominator",
+        "rightNumerator"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_combined_fraction_context_difference_numeric",
+      "ordinal": 26,
+      "patternSpecId": "ps_g3b_u07_combined_fraction_context_difference_numeric",
+      "prompt": "1/2和1/4相差多少？",
+      "answerText": "1/4",
+      "givenRoleNames": [
+        "larger",
+        "smaller"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_combined_fraction_context_original_numeric",
+      "ordinal": 25,
+      "patternSpecId": "ps_g3b_u07_combined_fraction_context_original_numeric",
+      "prompt": "已使用1/4，還剩1/2。原來共有多少？",
+      "answerText": "3/4",
+      "givenRoleNames": [
+        "remaining",
+        "used"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_combined_fraction_context_total_numeric",
+      "ordinal": 24,
+      "patternSpecId": "ps_g3b_u07_combined_fraction_context_total_numeric",
+      "prompt": "計算1/4和1/2的總和。",
+      "answerText": "3/4",
+      "givenRoleNames": [
+        "firstQuantity",
+        "secondQuantity"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+      "ordinal": 32,
+      "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+      "prompt": "1/2和1/4相差多少？",
+      "answerText": "1/4",
+      "givenRoleNames": [
+        "larger",
+        "smaller"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_fraction_plus_count_context_original_numeric",
+      "ordinal": 31,
+      "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+      "prompt": "已使用1/4，還剩1/2。原來共有多少？",
+      "answerText": "3/4",
+      "givenRoleNames": [
+        "remaining",
+        "used"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_fraction_plus_count_context_total_numeric",
+      "ordinal": 30,
+      "patternSpecId": "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+      "prompt": "計算1/4和1/2的總和。",
+      "answerText": "3/4",
+      "givenRoleNames": [
+        "firstQuantity",
+        "secondQuantity"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_original_or_difference_context_difference_numeric",
+      "ordinal": 38,
+      "patternSpecId": "ps_g3b_u07_original_or_difference_context_difference_numeric",
+      "prompt": "1/2和1/4相差多少？",
+      "answerText": "1/4",
+      "givenRoleNames": [
+        "larger",
+        "smaller"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_original_or_difference_context_original_numeric",
+      "ordinal": 37,
+      "patternSpecId": "ps_g3b_u07_original_or_difference_context_original_numeric",
+      "prompt": "已使用1/4，還剩1/2。原來共有多少？",
+      "answerText": "3/4",
+      "givenRoleNames": [
+        "remaining",
+        "used"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_original_or_difference_context_total_numeric",
+      "ordinal": 36,
+      "patternSpecId": "ps_g3b_u07_original_or_difference_context_total_numeric",
+      "prompt": "計算1/4和1/2的總和。",
+      "answerText": "3/4",
+      "givenRoleNames": [
+        "firstQuantity",
+        "secondQuantity"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u07_same_denominator_compare_comparison_numeric",
+      "ordinal": 19,
+      "patternSpecId": "ps_g3b_u07_same_denominator_compare_comparison_numeric",
+      "prompt": "比較3/5和1/2，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "leftDenominator",
+        "leftNumerator",
+        "rightDenominator",
+        "rightNumerator"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u09_decimal_compare_comparison_numeric",
+      "ordinal": 45,
+      "patternSpecId": "ps_g3b_u09_decimal_compare_comparison_numeric",
+      "prompt": "比較2.32和2.22，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "left",
+        "right"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g3b_u09_decimal_read_write_decimal_text_numeric",
+      "ordinal": 43,
+      "patternSpecId": "ps_g3b_u09_decimal_read_write_decimal_text_numeric",
+      "prompt": "個位是4，小數第一位是4，小數第二位是7。寫出這個小數。",
+      "answerText": "4.47",
+      "givenRoleNames": [
+        "digitsByPlace"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4a_u06_fraction_compare_order_comparison_numeric",
+      "ordinal": 59,
+      "patternSpecId": "ps_g4a_u06_fraction_compare_order_comparison_numeric",
+      "prompt": "比較3/5和1/2，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "leftDenominator",
+        "leftNumerator",
+        "rightDenominator",
+        "rightNumerator"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4a_u06_improper_mixed_conversion_improper_numerator_numeric",
+      "ordinal": 58,
+      "patternSpecId": "ps_g4a_u06_improper_mixed_conversion_improper_numerator_numeric",
+      "prompt": "把帶分數3又2/5化成假分數，分子是多少？",
+      "answerText": "17",
+      "givenRoleNames": [
+        "denominator",
+        "remainder",
+        "whole"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4a_u09_decimal_compare_comparison_numeric",
+      "ordinal": 71,
+      "patternSpecId": "ps_g4a_u09_decimal_compare_comparison_numeric",
+      "prompt": "比較2.33和2.23，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "left",
+        "right"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4b_u03_fraction_compare_order_comparison_numeric",
+      "ordinal": 84,
+      "patternSpecId": "ps_g4b_u03_fraction_compare_order_comparison_numeric",
+      "prompt": "比較3/5和1/2，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "leftDenominator",
+        "leftNumerator",
+        "rightDenominator",
+        "rightNumerator"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4b_u03_improper_mixed_conversion_improper_numerator_numeric",
+      "ordinal": 83,
+      "patternSpecId": "ps_g4b_u03_improper_mixed_conversion_improper_numerator_numeric",
+      "prompt": "把帶分數3又2/5化成假分數，分子是多少？",
+      "answerText": "17",
+      "givenRoleNames": [
+        "denominator",
+        "remainder",
+        "whole"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4b_u06_infer_decimal_product_decimal_product_numeric",
+      "ordinal": 97,
+      "patternSpecId": "ps_g4b_u06_infer_decimal_product_decimal_product_numeric",
+      "prompt": "未標小數點的乘積是1238，兩個因數合計有2位小數。正確乘積是多少？",
+      "answerText": "12.38",
+      "givenRoleNames": [
+        "decimalPlaceCount",
+        "integerProduct"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4b_u06_rate_distance_context_combined_numeric",
+      "ordinal": 99,
+      "patternSpecId": "ps_g4b_u06_rate_distance_context_combined_numeric",
+      "prompt": "第一部分是3.4，第二部分是3.4，合計是多少？",
+      "answerText": "6.8",
+      "givenRoleNames": [
+        "firstTotal",
+        "secondTotal"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4b_u06_rate_distance_context_total_numeric",
+      "ordinal": 98,
+      "patternSpecId": "ps_g4b_u06_rate_distance_context_total_numeric",
+      "prompt": "每組有1.8，共有4組，總量是多少？",
+      "answerText": "7.2",
+      "givenRoleNames": [
+        "ratePerUnit",
+        "unitCount"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+      "ordinal": 108,
+      "patternSpecId": "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+      "prompt": "比較3/5和1/2，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "leftDenominator",
+        "leftNumerator",
+        "rightDenominator",
+        "rightNumerator"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g4b_u08_mixed_fraction_order_constraints_possible_values_numeric",
+      "ordinal": 116,
+      "patternSpecId": "ps_g4b_u08_mixed_fraction_order_constraints_possible_values_numeric",
+      "prompt": "分母是8、大於1/4且小於3/4的分數有哪些？",
+      "answerText": "3/8、4/8、5/8",
+      "givenRoleNames": [
+        "denominator",
+        "lowerBound",
+        "upperBound"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u01_decimal_compare_comparison_numeric",
+      "ordinal": 122,
+      "patternSpecId": "ps_g5a_u01_decimal_compare_comparison_numeric",
+      "prompt": "比較2.34和2.24，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "left",
+        "right"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u01_decimal_round_estimate_estimate_numeric",
+      "ordinal": 128,
+      "patternSpecId": "ps_g5a_u01_decimal_round_estimate_estimate_numeric",
+      "prompt": "先把3.34四捨五入到小數第一位，再估算兩個相同數量的總和。結果約是多少？",
+      "answerText": "6.6",
+      "givenRoleNames": [
+        "targetPlace",
+        "value"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u01_decimal_round_estimate_rounded_numeric",
+      "ordinal": 127,
+      "patternSpecId": "ps_g5a_u01_decimal_round_estimate_rounded_numeric",
+      "prompt": "把3.54四捨五入到小數第一位，結果是多少？",
+      "answerText": "3.5",
+      "givenRoleNames": [
+        "targetPlace",
+        "value"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u01_inverse_rounding_range_range_numeric",
+      "ordinal": 131,
+      "patternSpecId": "ps_g5a_u01_inverse_rounding_range_range_numeric",
+      "prompt": "一個小數四捨五入到小數第一位後是3.5。原數大於或等於多少，且必須小於多少？",
+      "answerText": "大於或等於3.45且小於3.55",
+      "givenRoleNames": [
+        "roundedValue",
+        "targetPlace"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a1_factor_multiple_language_is_factor_numeric",
+      "ordinal": 157,
+      "patternSpecId": "ps_g5a_u03a1_factor_multiple_language_is_factor_numeric",
+      "prompt": "3是不是21的因數？",
+      "answerText": "是",
+      "givenRoleNames": [
+        "factor",
+        "product"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a1_factor_multiple_language_is_multiple_numeric",
+      "ordinal": 158,
+      "patternSpecId": "ps_g5a_u03a1_factor_multiple_language_is_multiple_numeric",
+      "prompt": "36是不是4的倍數？",
+      "answerText": "是",
+      "givenRoleNames": [
+        "base",
+        "value"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a_count_multiples_interval_count_numeric",
+      "ordinal": 143,
+      "patternSpecId": "ps_g5a_u03a_count_multiples_interval_count_numeric",
+      "prompt": "從8到33之間（包含兩端），共有幾個4的倍數？",
+      "answerText": "7",
+      "givenRoleNames": [
+        "base",
+        "lower",
+        "upper"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a_divisor_multiple_classification_is_factor_numeric",
+      "ordinal": 141,
+      "patternSpecId": "ps_g5a_u03a_divisor_multiple_classification_is_factor_numeric",
+      "prompt": "3是不是30的因數？",
+      "answerText": "是",
+      "givenRoleNames": [
+        "factor",
+        "product"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a_divisor_multiple_classification_is_multiple_numeric",
+      "ordinal": 142,
+      "patternSpecId": "ps_g5a_u03a_divisor_multiple_classification_is_multiple_numeric",
+      "prompt": "36是不是4的倍數？",
+      "answerText": "是",
+      "givenRoleNames": [
+        "base",
+        "value"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a_factor_multiple_relation_is_factor_numeric",
+      "ordinal": 139,
+      "patternSpecId": "ps_g5a_u03a_factor_multiple_relation_is_factor_numeric",
+      "prompt": "3是不是24的因數？",
+      "answerText": "是",
+      "givenRoleNames": [
+        "factor",
+        "product"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a_factor_multiple_relation_is_multiple_numeric",
+      "ordinal": 140,
+      "patternSpecId": "ps_g5a_u03a_factor_multiple_relation_is_multiple_numeric",
+      "prompt": "28是不是4的倍數？",
+      "answerText": "是",
+      "givenRoleNames": [
+        "base",
+        "value"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a_multiple_identify_enumerate_is_multiple_numeric",
+      "ordinal": 132,
+      "patternSpecId": "ps_g5a_u03a_multiple_identify_enumerate_is_multiple_numeric",
+      "prompt": "40是不是4的倍數？",
+      "answerText": "是",
+      "givenRoleNames": [
+        "base",
+        "candidate"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u03a_multiple_identify_enumerate_multiples_numeric",
+      "ordinal": 133,
+      "patternSpecId": "ps_g5a_u03a_multiple_identify_enumerate_multiples_numeric",
+      "prompt": "列出所有不超過20的4的正倍數。",
+      "answerText": "4、8、12、16、20",
+      "givenRoleNames": [
+        "base",
+        "upperBound"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u04_common_denominator_common_denominator_numeric",
+      "ordinal": 166,
+      "patternSpecId": "ps_g5a_u04_common_denominator_common_denominator_numeric",
+      "prompt": "把1/2和2/3通分，最小公分母是多少？",
+      "answerText": "6",
+      "givenRoleNames": [
+        "leftDenominator",
+        "leftNumerator",
+        "rightDenominator",
+        "rightNumerator"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u04_equivalent_mixed_selection_improper_numerator_numeric",
+      "ordinal": 179,
+      "patternSpecId": "ps_g5a_u04_equivalent_mixed_selection_improper_numerator_numeric",
+      "prompt": "把帶分數3又2/5化成假分數，分子是多少？",
+      "answerText": "17",
+      "givenRoleNames": [
+        "denominator",
+        "remainder",
+        "whole"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u04_fraction_measurement_segments_segment_count_numeric",
+      "ordinal": 174,
+      "patternSpecId": "ps_g5a_u04_fraction_measurement_segments_segment_count_numeric",
+      "prompt": "總長是8，每段長2，可以分成多少段？",
+      "answerText": "4",
+      "givenRoleNames": [
+        "segmentLength",
+        "totalLength"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u04_fraction_measurement_segments_segment_length_numeric",
+      "ordinal": 173,
+      "patternSpecId": "ps_g5a_u04_fraction_measurement_segments_segment_length_numeric",
+      "prompt": "把總長6平均分成3段，每段長多少？",
+      "answerText": "2",
+      "givenRoleNames": [
+        "segmentCount",
+        "totalLength"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u04_unlike_fraction_compare_comparison_numeric",
+      "ordinal": 169,
+      "patternSpecId": "ps_g5a_u04_unlike_fraction_compare_comparison_numeric",
+      "prompt": "比較3/5和1/2，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "leftDenominator",
+        "leftNumerator",
+        "rightDenominator",
+        "rightNumerator"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u06_measurement_difference_context_difference_numeric",
+      "ordinal": 188,
+      "patternSpecId": "ps_g5a_u06_measurement_difference_context_difference_numeric",
+      "prompt": "1/2和1/4相差多少？",
+      "answerText": "1/4",
+      "givenRoleNames": [
+        "larger",
+        "smaller"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u06_measurement_difference_context_original_numeric",
+      "ordinal": 187,
+      "patternSpecId": "ps_g5a_u06_measurement_difference_context_original_numeric",
+      "prompt": "已使用1/4，還剩1/2。原來共有多少？",
+      "answerText": "3/4",
+      "givenRoleNames": [
+        "remaining",
+        "used"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u06_measurement_difference_context_total_numeric",
+      "ordinal": 186,
+      "patternSpecId": "ps_g5a_u06_measurement_difference_context_total_numeric",
+      "prompt": "計算1/4和1/2的總和。",
+      "answerText": "3/4",
+      "givenRoleNames": [
+        "firstQuantity",
+        "secondQuantity"
+      ],
+      "ok": true,
+      "issues": []
+    },
+    {
+      "generatedItemId": "shared_generated_ps_g5a_u06_unlike_fraction_compare_comparison_numeric",
+      "ordinal": 194,
+      "patternSpecId": "ps_g5a_u06_unlike_fraction_compare_comparison_numeric",
+      "prompt": "比較3/5和1/2，請填入「＞、＜或＝」。",
+      "answerText": "＞",
+      "givenRoleNames": [
+        "leftDenominator",
+        "leftNumerator",
+        "rightDenominator",
+        "rightNumerator"
+      ],
+      "ok": true,
+      "issues": []
+    }
+  ],
+  "runtimeAuthority": {
+    "sharedGenerator": "src/curriculum/application/shared/operation-family-runtime.mjs",
+    "studentFacingEntryPoint": "src/curriculum/application/shared/student-facing-operation-surface.mjs",
+    "numericRemediationAdapter": "src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs",
+    "productionEquivalentRuntime": "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
+  },
+  "artifactRegeneration": {
+    "exactHeadRequired": true,
+    "commands": [
+      "node tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs",
+      "node tools/curriculum/render-postg-app-w02-a06-pdf.mjs",
+      "node tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs",
+      "python tools/curriculum/verify-postg-app-w02-a06-pdf.py"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf"
+    ],
+    "expectedPdfPageCount": 110,
+    "workflowArtifactBoundAtThirdReview": true
+  },
+  "boundaries": {
+    "productionAdmissionGranted": false,
+    "publicSelectable": false,
+    "publicRouteChanged": false,
+    "w03ToW06Unblocked": false,
+    "automaticApprovalAllowed": false
+  },
+  "thirdOperatorReviewReady": true,
+  "nextShortestStep": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision"
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A08R3_NumericStudentFacingUnknownRoleGivenSetAndNotationRemediation",
+  "taskClass": "implementation",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "W02_A08R3_NUMERIC_SURFACE_REMEDIATED_THIRD_REVIEW_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs",
+      "src/curriculum/application/w02-a08r3-numeric-surface-remediation.mjs",
+      "tests/curriculum/postg-app-w02-a08r3-numeric-surface-remediation.test.js",
+      "tools/curriculum/validate-postg-app-w02-a08r3-numeric-surface-remediation.mjs"
+    ],
+    "rendererTestPaths": [
+      "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs",
+      "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js",
+      "tools/curriculum/verify-postg-app-w02-a06-pdf.py"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+      "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/postg-app/w02-a08r2/POSTG_APP_W02_A08R2_SECOND_REVIEW_EVIDENCE.json",
+      "docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json",
+      "data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/postg-app/w02-a08r3/POSTG_APP_W02_A08R3_NUMERIC_SURFACE_REMEDIATION_EVIDENCE.json",
+        "sha256": "a378bae112feb865118e6d7a0fb902f2b48e1f132130d037043f550921d3a7f3"
+      },
+      {
+        "path": "data/curriculum/application/reviews/POSTG-APP-W02-A08R3_NumericSurfaceRemediationReadback.json",
+        "sha256": "a2964cb0558f9c9d6a467b089dbd08aea098bc4f546291706ed5d4ed9db454a1"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true,
+    "decision": "PENDING_THIRD_OPERATOR_REVIEW"
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "All four A08R2 numeric student-facing defect classes are remediated and the complete 195-item cohort is ready for a third production-equivalent HTML/PDF operator review."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+  }
+}

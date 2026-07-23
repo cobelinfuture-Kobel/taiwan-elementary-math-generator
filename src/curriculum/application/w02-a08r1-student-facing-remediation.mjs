@@ -149,8 +149,9 @@ export function validateW02A08R1Remediation(materialized) {
     issues.push(issue('POSTG_APP_W02_A08R1_SEMANTIC_AUDIT_FAILED', 'audit', { expected: expectedAudit, actual: audit }));
   }
 
-  if (a06Package.generatedItems.some((item) => item.studentFacingSurfaceVersion !== 'W02_A08R1_V1'
-      || item.studentFacingSemanticRevision !== 3)) {
+  if (a06Package.generatedItems.some((item) => item.mode === 'NUMERIC'
+      ? item.studentFacingSurfaceVersion !== 'W02_A08R3_V1' || item.studentFacingSemanticRevision !== 4
+      : item.studentFacingSurfaceVersion !== 'W02_A08R1_V1' || item.studentFacingSemanticRevision !== 3)) {
     issues.push(issue('POSTG_APP_W02_A08R1_SURFACE_VERSION_INVALID', 'generatedItems'));
   }
   if (a06Package.pblTaskSetRecords.some((row) => row.studentFacingInstantiationVersion !== 'W02_A08R1_V1'

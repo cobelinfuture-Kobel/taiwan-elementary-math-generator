@@ -87,7 +87,8 @@ test('controller preserves W01 admission while W02 advances monotonically withou
   const reviewReadyStates = new Set([
     'W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY',
     'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY',
-    'W02_A08R2_SECOND_OPERATOR_REVIEW_REVISE_REQUIRED'
+    'W02_A08R2_SECOND_OPERATOR_REVIEW_REVISE_REQUIRED',
+    'W02_A08R3_NUMERIC_SURFACE_REMEDIATED_THIRD_REVIEW_READY'
   ]);
   const expectedW02HumanReviewReady = reviewReadyStates.has(w02.state);
   assert.equal(w02.humanReviewReady, expectedW02HumanReviewReady);
@@ -107,6 +108,13 @@ test('controller preserves W01 admission while W02 advances monotonically withou
     assert.equal(w02.reviewDecision, 'REVISE');
     assert.equal(w02.operatorDecisionState, 'SECOND_REVISE_RECORDED');
     assert.equal(w02.secondOperatorReviewComplete, true);
+    assert.equal(w02.productionAdmissionGranted, false);
+  }
+  if (w02.state === 'W02_A08R3_NUMERIC_SURFACE_REMEDIATED_THIRD_REVIEW_READY') {
+    assert.equal(w02.humanReviewPackageComplete, true);
+    assert.equal(w02.reviewDecision, 'REVISE');
+    assert.equal(w02.numericStudentFacingSemanticRevision, 4);
+    assert.equal(w02.thirdOperatorReviewReady, true);
     assert.equal(w02.productionAdmissionGranted, false);
   }
   assert.deepEqual(states.slice(2).map((row) => row.state), [
