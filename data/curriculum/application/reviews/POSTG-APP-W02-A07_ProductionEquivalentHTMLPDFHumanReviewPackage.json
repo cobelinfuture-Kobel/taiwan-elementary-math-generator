@@ -4,16 +4,19 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
   "parentTaskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
-  "status": "IMPLEMENTED_PENDING_EXACT_HEAD_CI",
+  "status": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
   "requiredEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
   "reviewScope": {
     "sourceNodeCount": 13,
+    "macroContextCount": 16,
     "applicationQuestionCount": 61,
     "numericQuestionCount": 134,
     "pblTaskSetCount": 31,
     "pbl3TaskSetCount": 19,
     "pbl5TaskSetCount": 12,
     "operationFamilyCount": 49,
+    "numericBoundaryReviewCount": 49,
     "applicationQuestionReviewMode": "FULL_COHORT",
     "pblReviewMode": "FULL_COHORT",
     "numericReviewMode": "OPERATION_FAMILY_BOUNDARY_REFERENCE"
@@ -28,6 +31,14 @@
     "reviewExtractedText": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW.extracted.txt",
     "reviewManifest": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json"
   },
+  "evidence": {
+    "repositoryEvidence": "docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_EVIDENCE.json",
+    "githubActionsWorkflowRunId": 29989017841,
+    "githubActionsArtifactId": 8556260550,
+    "githubActionsArtifactDigest": "sha256:8264fc31c40858ab09d27f019c9d9c56613e1ed73f09731f64b39296ae7b946a",
+    "persistentGoogleDriveFileId": "1MoK94otZr5hVPdSjX70M-V5pbREbS3dU",
+    "exactHeadSha": "63b8356c129a8c09fd3df66a433601baaf17d3bf"
+  },
   "reviewChecklist": [
     "APPLICATION_SEMANTIC_NATURALNESS",
     "QUANTITY_ROLE_AND_UNIT_BINDING",
@@ -39,8 +50,10 @@
     "FORBIDDEN_INTERNAL_LABEL_ABSENCE"
   ],
   "failClosedBoundary": {
+    "humanReviewReady": true,
     "automaticApprovalAllowed": false,
     "operatorDecisionRecorded": false,
+    "reviewDecision": "NOT_STARTED",
     "productionAdmissionGranted": false,
     "publicSelectable": false,
     "publicUIChanged": false,
