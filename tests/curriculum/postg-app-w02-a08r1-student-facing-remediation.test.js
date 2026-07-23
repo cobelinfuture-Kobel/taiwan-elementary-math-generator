@@ -8,11 +8,12 @@ import {
 } from '../../src/curriculum/application/w02-a08r1-student-facing-remediation.mjs';
 
 const codes = (result) => result.issues.map((row) => row.code);
+const A08R1_STATUS = 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY';
+const A08R2_TASK = 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision';
 
-test('W02 A08R1 remediates all quantified student-facing defects without admission', () => {
-  const result = buildW02A08R1Readback();
+function assertReadback(result) {
   assert.equal(result.ok, true, JSON.stringify(result.issues, null, 2));
-  assert.equal(result.status, 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY');
+  assert.equal(result.status, A08R1_STATUS);
   assert.deepEqual(result.counts, {
     generatedItemCount: 195,
     applicationReviewCount: 61,
@@ -56,7 +57,30 @@ test('W02 A08R1 remediates all quantified student-facing defects without admissi
   });
   assert.equal(result.studentFacingSemanticRevision, 3);
   assert.equal(result.productionAdmissionGranted, false);
-  assert.equal(result.nextShortestStep, 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision');
+  assert.equal(result.nextShortestStep, A08R2_TASK);
+}
+
+test('W02 A08R1 persisted readback records the zero-defect non-production state', () => {
+  assertReadback(buildW02A08R1Readback());
+});
+
+test('persisted A08R1 readback matches a fresh dynamic materialization', () => {
+  const snapshot = buildW02A08R1Readback();
+  const dynamic = validateW02A08R1Remediation(materializeW02A08R1Remediation());
+  assertReadback(dynamic);
+  assert.deepEqual(
+    {
+      ok: snapshot.ok,
+      issues: snapshot.issues,
+      status: snapshot.status,
+      counts: snapshot.counts,
+      audit: snapshot.audit,
+      studentFacingSemanticRevision: snapshot.studentFacingSemanticRevision,
+      productionAdmissionGranted: snapshot.productionAdmissionGranted,
+      nextShortestStep: snapshot.nextShortestStep
+    },
+    dynamic
+  );
 });
 
 test('remediated application and numeric samples are readable and token-safe', () => {
