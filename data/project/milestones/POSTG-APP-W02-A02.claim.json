@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs",
+      "tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs",
+      "tests/curriculum/postg-app-w02-a02-candidate-pack.test.js",
+      ".github/workflows/postg-app-w02-a02-candidate-pack.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/assessment/w02-atomic-context-binding-policy.json",
+      "data/curriculum/application/assessment/w02-atomic-context-single-application-candidate-pack-index.json",
+      "data/curriculum/application/schema/w02-atomic-context-single-application-candidate.schema.json",
+      "data/curriculum/application/contracts/POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "docs/curriculum/output/POSTG_APP_W02_A02_ATOMIC_CONTEXT_CANDIDATES_MATERIALIZED.marker",
+      "docs/curriculum/output/POSTG_APP_W02_A02_ATOMIC_CONTEXT_CANDIDATES_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {"type": "none", "canUnlockProduction": false, "reviewArtifactRequired": false},
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "All 61 W02 application PatternSpecs now have deterministic atomic-context bindings and non-production single-application candidates across 16 Macro Context Domains; duplicate PDF projections remain identical."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
