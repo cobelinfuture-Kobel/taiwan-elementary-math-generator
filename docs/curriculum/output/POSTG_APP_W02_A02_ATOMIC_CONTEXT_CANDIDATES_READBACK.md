@@ -46,6 +46,19 @@ The duplicate PDF content group `pdf_5ba57aff6a97` (`g4a_u06_4a06` and `g4b_u03_
 - Runtime generator, renderer, and public selection remain unchanged.
 - Production admission remains false.
 
+## Governance claim parity
+
+```text
+Milestone Claim Manifest = data/project/milestones/POSTG-APP-W02-A02.claim.json
+Actual Evidence Level    = E3_SHADOW_RUNTIME_INTEGRATED
+Maximum Claim            = E3_SHADOW_RUNTIME_INTEGRATED
+Visible Output Changed   = false
+Human Review Type        = none
+Human Review Ready       = false
+```
+
+These fields are mirrored in PR #332 so the pull-request claim-integrity gate reads the same authoritative milestone claim.
+
 ## Distance
 
 ```text
