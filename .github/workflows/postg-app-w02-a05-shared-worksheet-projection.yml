@@ -1,0 +1,108 @@
+name: POSTG-APP W02-A05 Shared Worksheet Projection
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/registry/application-capability-registry.json"
+      - "data/curriculum/application/registry/wave-application-admission-registry.json"
+      - "data/curriculum/application/assessment/w02-shared-worksheet-projection-*.json"
+      - "data/curriculum/application/schema/shared/*.schema.json"
+      - "data/curriculum/application/contracts/POSTG-APP-W02-A05_*.json"
+      - "data/project/milestones/POSTG-APP-W02-A05.claim.json"
+      - "src/curriculum/application/shared/application-capability-resolver.mjs"
+      - "src/curriculum/application/shared/worksheet-projection-runtime.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a05-shared-worksheet-projection.mjs"
+      - "tests/curriculum/postg-app-w02-a05-shared-worksheet-projection.test.js"
+      - "tests/fixtures/curriculum/postg-app-w02-a05-future-wave-registry.json"
+      - "docs/curriculum/output/POSTG_APP_W02_A05_*"
+      - ".github/workflows/postg-app-w02-a05-shared-worksheet-projection.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a05-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  shared-worksheet-projection:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: npm install
+      - name: Validate shared schema documents
+        run: |
+          python -m pip install jsonschema
+          python - <<'PY'
+          import glob, json
+          from jsonschema import Draft202012Validator
+          paths = sorted(glob.glob('data/curriculum/application/schema/shared/*.schema.json'))
+          assert len(paths) >= 6, paths
+          for path in paths:
+              with open(path, encoding='utf-8') as handle:
+                  Draft202012Validator.check_schema(json.load(handle))
+          print({'schema_count': len(paths), 'status': 'PASS'})
+          PY
+      - name: Run A05 focused tests and validator
+        run: |
+          set +e
+          node --test tests/curriculum/postg-app-w02-a05-shared-worksheet-projection.test.js > w02-a05-focused.log 2>&1
+          test_status=$?
+          node tools/curriculum/validate-postg-app-w02-a05-shared-worksheet-projection.mjs > w02-a05-validator.json 2>&1
+          validator_status=$?
+          printf '%s %s\n' "$test_status" "$validator_status" > w02-a05-status.txt
+          exit 0
+      - name: Write deterministic A05 readback artifact
+        if: always()
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import { buildSharedW02WorksheetProjectionReadback } from './src/curriculum/application/shared/worksheet-projection-runtime.mjs';
+          const readback = buildSharedW02WorksheetProjectionReadback();
+          fs.writeFileSync('w02-a05-readback.json', `${JSON.stringify({
+            ok: readback.ok,
+            status: readback.status,
+            counts: readback.counts,
+            classificationCounts: readback.classificationCounts,
+            pblGraphCounts: readback.pblGraphCounts,
+            duplicateComparisons: readback.duplicateComparisons,
+            accessReadback: readback.accessReadback,
+            issues: readback.issues
+          }, null, 2)}\n`);
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-a05-shared-worksheet-projection-diagnostics
+          path: |
+            w02-a05-focused.log
+            w02-a05-validator.json
+            w02-a05-status.txt
+            w02-a05-readback.json
+          if-no-files-found: error
+      - name: Enforce A05 focused gate
+        run: |
+          read test_status validator_status < w02-a05-status.txt
+          test "$test_status" -eq 0
+          test "$validator_status" -eq 0
+      - name: Verify A04 and A03 regressions
+        run: |
+          node --test tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js
+          node tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs
+          node --test tests/curriculum/postg-app-w02-a03-candidate-pack.test.js
+          node tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs
+      - name: Verify controller, W01 E5 and governance
+        run: |
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
+      - name: Run full regression suite
+        run: npm test
