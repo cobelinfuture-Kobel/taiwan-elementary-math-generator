@@ -18,14 +18,14 @@ concurrency:
 
 jobs:
   promote-e4:
-    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'postg-app-w02-a07-exact-head'
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.number == 339
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - name: Checkout exact PR head branch
+      - name: Checkout final A07 branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
+          ref: postg-app-w02-a07-e4
           fetch-depth: 0
           token: ${{ github.token }}
 
@@ -69,20 +69,28 @@ jobs:
           python tools/governance/promote-postg-app-w02-a07-e4-state.py
           python tools/governance/promote-postg-app-w02-a07-e4-controller.py
 
-      - name: Verify promoted A07, controller and governance
+      - name: Verify promoted A07 package
         run: |
           node --test tests/curriculum/postg-app-w02-a07-human-review-package.test.js
           node tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs
+
+      - name: Verify inherited A06 package
+        run: |
           node --test tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js
           node tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs
+
+      - name: Verify promoted master controller
+        run: |
           node --test tests/curriculum/postg-app-m00-master-controller.test.js
           node tools/curriculum/validate-postg-app-m00-master-controller.mjs
-          npm run governance:claims
-          npm test
+
+      - name: Verify milestone claim governance
+        run: npm run governance:claims
+
+      - name: Run full regression suite
+        run: npm test
 
       - name: Remove one-shot workflow and commit exact promotion
-        env:
-          HEAD_BRANCH: ${{ github.head_ref || github.ref_name }}
         run: |
           rm .github/workflows/postg-app-w02-a07-e4-promotion.yml
           git config user.name "github-actions[bot]"
@@ -103,4 +111,4 @@ jobs:
           git diff --cached --check
           git diff --cached --quiet && { echo "No promotion changes produced"; exit 1; }
           git commit -m "feat(application): promote W02 A07 human review package to E4"
-          git push origin "HEAD:${HEAD_BRANCH}"
+          git push origin HEAD:postg-app-w02-a07-e4
