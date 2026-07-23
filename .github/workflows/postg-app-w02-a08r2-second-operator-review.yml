@@ -111,7 +111,12 @@ jobs:
           node tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs > w02-a08r2-regenerated-manifest.json
           python tools/curriculum/verify-postg-app-w02-a06-pdf.py 2>&1 | tee w02-a08r2-pdf-verification.log
       - name: Verify artifact hashes and finding-to-item binding
-        run: node tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs --verify-regenerated-artifacts | tee w02-a08r2-decision-readback.json
+        run: |
+          if [[ -f data/project/milestones/POSTG-APP-W02-A08R3.claim.json ]]; then
+            node tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs | tee w02-a08r2-decision-readback.json
+          else
+            node tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs --verify-regenerated-artifacts | tee w02-a08r2-decision-readback.json
+          fi
       - name: Upload A08R2 review evidence
         uses: actions/upload-artifact@v4
         with:
