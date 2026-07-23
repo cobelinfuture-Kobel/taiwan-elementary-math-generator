@@ -1,0 +1,33 @@
+name: POSTG-APP W02-A06 Pattern Inventory
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/contracts/POSTG-APP-W02-A06_*.json"
+      - "tools/curriculum/readback-postg-app-w02-a06-pattern-inventory.mjs"
+      - ".github/workflows/postg-app-w02-a06-pattern-inventory.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a06-inventory-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install
+      - name: Materialize exact operation-family inventory
+        run: node tools/curriculum/readback-postg-app-w02-a06-pattern-inventory.mjs > w02-a06-pattern-inventory.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: w02-a06-pattern-inventory
+          path: w02-a06-pattern-inventory.json
+          if-no-files-found: error
