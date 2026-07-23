@@ -36,46 +36,38 @@ jobs:
       - name: Apply verified single-fixture lineage fix once
         if: github.event_name == 'pull_request'
         run: |
+          set -euo pipefail
           python - <<'PY'
           from pathlib import Path
+
           path = Path('src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs')
           text = path.read_text(encoding='utf-8')
-          old = """  const pbl = materialized.pblByPatternSpecId.get(fixture.patternSpecId) ?? null;
-          if (!candidate
-              || candidate.bindingCandidateId !== fixture.bindingCandidateId
-              || candidate.sourceId !== fixture.sourceId
-              || candidate.sourceContentIdentityGroup !== fixture.sourceContentIdentityGroup
-              || candidate.knowledgePointId !== fixture.knowledgePointId
-              || candidate.canonicalOperationModelId !== fixture.canonicalOperationModelId
-              || fixture.lineage.a02BindingCandidateId !== candidate.bindingCandidateId
-              || fixture.lineage.a03ProofCandidateId !== (proof?.proofCandidateId ?? null)
-              || fixture.lineage.a03PBLCandidateId !== (fixture.pblEvidence.required ? pbl?.pblCandidateId ?? null : null)) {
-            return fail('CANDIDATE_LINEAGE_INVALID');
-          }
-          """
-          new = """  const pbl = materialized.pblByPatternSpecId.get(fixture.patternSpecId) ?? null;
-          const expectedProofCandidateId = fixture.pairingEvidence.baseFixtureId
+          anchor = "  const pbl = materialized.pblByPatternSpecId.get(fixture.patternSpecId) ?? null;\n"
+          insertion = anchor + """  const expectedProofCandidateId = fixture.pairingEvidence.baseFixtureId
             ? proof?.proofCandidateId ?? null
             : null;
           const expectedPBLCandidateId = fixture.pblEvidence.required
             ? pbl?.pblCandidateId ?? null
             : null;
-          if (!candidate
-              || candidate.bindingCandidateId !== fixture.bindingCandidateId
-              || candidate.sourceId !== fixture.sourceId
-              || candidate.sourceContentIdentityGroup !== fixture.sourceContentIdentityGroup
-              || candidate.knowledgePointId !== fixture.knowledgePointId
-              || candidate.canonicalOperationModelId !== fixture.canonicalOperationModelId
-              || fixture.lineage.a02BindingCandidateId !== candidate.bindingCandidateId
-              || fixture.lineage.a03ProofCandidateId !== expectedProofCandidateId
-              || fixture.lineage.a03PBLCandidateId !== expectedPBLCandidateId) {
-            return fail('CANDIDATE_LINEAGE_INVALID');
-          }
           """
-          if old in text:
-              path.write_text(text.replace(old, new, 1), encoding='utf-8')
-          elif new not in text:
-              raise SystemExit('Expected A04 lineage gate block not found')
+          proof_old = "      || fixture.lineage.a03ProofCandidateId !== (proof?.proofCandidateId ?? null)\n"
+          proof_new = "      || fixture.lineage.a03ProofCandidateId !== expectedProofCandidateId\n"
+          pbl_old = "      || fixture.lineage.a03PBLCandidateId !== (fixture.pblEvidence.required ? pbl?.pblCandidateId ?? null : null)) {\n"
+          pbl_new = "      || fixture.lineage.a03PBLCandidateId !== expectedPBLCandidateId) {\n"
+
+          if 'const expectedProofCandidateId = fixture.pairingEvidence.baseFixtureId' not in text:
+              if text.count(anchor) != 1:
+                  raise SystemExit(f'Expected one PBL lineage anchor, found {text.count(anchor)}')
+              text = text.replace(anchor, insertion, 1)
+          if proof_old in text:
+              text = text.replace(proof_old, proof_new, 1)
+          elif proof_new not in text:
+              raise SystemExit('Proof lineage comparison not found')
+          if pbl_old in text:
+              text = text.replace(pbl_old, pbl_new, 1)
+          elif pbl_new not in text:
+              raise SystemExit('PBL lineage comparison not found')
+          path.write_text(text, encoding='utf-8')
           PY
           if git diff --quiet -- src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs; then
             exit 0
