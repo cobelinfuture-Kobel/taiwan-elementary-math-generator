@@ -1,4 +1,4 @@
-# final-promotion-revision: 1
+# final-promotion-revision: 2
 name: POSTG-APP W02-A07 E4 Promotion
 
 on:
@@ -119,6 +119,7 @@ jobs:
             data/curriculum/application/controller/postg-app-master-controller-state.json \
             src/curriculum/application/postg-app-master-controller.mjs \
             tests/curriculum/postg-app-m00-master-controller.test.js \
+            tests/curriculum/postg-app-w01-a06e-operator-approval.test.js \
             docs/curriculum/output/POSTG_APP_W02_A07_E4_HUMAN_REVIEW_READY.marker \
             docs/curriculum/output/POSTG_APP_W02_A07_E4_READBACK.md \
             docs/curriculum/output/POSTG_APP_W02_A07_GATE_MATRIX.md \
