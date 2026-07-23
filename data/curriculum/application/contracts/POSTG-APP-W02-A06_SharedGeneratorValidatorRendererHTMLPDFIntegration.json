@@ -4,7 +4,7 @@
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
   "contractId": "POSTG_APP_SHARED_PRODUCTION_EQUIVALENT_W02_HTML_PDF_V1",
-  "status": "DESIGNSCAN_IN_PROGRESS",
+  "status": "IMPLEMENTATION_PENDING_ARTIFACT_CI",
   "dependencies": {
     "a05TaskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
     "requiredA05Status": "W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
@@ -16,7 +16,7 @@
     "applicationPatternSpecCount": 61,
     "totalPatternSpecCount": 195,
     "pblTaskSetRecordCount": 31,
-    "operationFamilyCount": 22
+    "operationFamilyCount": 49
   },
   "requiredSharedConsumers": {
     "generatorAdapter": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
