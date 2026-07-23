@@ -1,0 +1,139 @@
+name: POSTG-APP W02-A08R2 Second Operator Review
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "docs/curriculum/output/postg-app/w02-a08r2/**"
+      - "data/curriculum/application/reviews/POSTG-APP-W02-A08R2_*.json"
+      - "data/project/milestones/POSTG-APP-W02-A08R2.claim.json"
+      - "src/curriculum/application/w02-a08r2-*.mjs"
+      - "src/curriculum/application/postg-app-master-controller.mjs"
+      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
+      - "tools/curriculum/materialize-postg-app-w02-a08r2-controller.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs"
+      - "tests/curriculum/postg-app-w02-a08r2-second-operator-review-decision.test.js"
+      - "tests/curriculum/postg-app-m00-master-controller.test.js"
+      - "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js"
+      - ".github/workflows/postg-app-w02-a08r2-second-operator-review.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: postg-app-w02-a08r2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  second-operator-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install project dependencies
+        run: npm install --silent
+      - name: Materialize A08R2 central controller transition
+        id: materialize
+        run: |
+          node tools/curriculum/materialize-postg-app-w02-a08r2-controller.mjs | tee w02-a08r2-controller-materialization.json
+          if [[ -n "$(git status --porcelain -- src/curriculum/application/postg-app-master-controller.mjs data/curriculum/application/controller/postg-app-master-controller-state.json tests/curriculum/postg-app-m00-master-controller.test.js tests/curriculum/postg-app-w01-a06e-operator-approval.test.js)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/curriculum/application/postg-app-master-controller.mjs \
+              data/curriculum/application/controller/postg-app-master-controller-state.json \
+              tests/curriculum/postg-app-m00-master-controller.test.js \
+              tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+            git commit -m "chore(application): materialize W02 A08R2 controller state"
+            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+              git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
+            fi
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Capture static second-review and controller diagnostics
+        id: focused
+        run: |
+          set +e
+          : > w02-a08r2-focused-diagnostics.log
+          status=0
+          run_check() {
+            label="$1"; shift
+            echo "===== ${label} =====" | tee -a w02-a08r2-focused-diagnostics.log
+            "$@" >> w02-a08r2-focused-diagnostics.log 2>&1
+            code=$?
+            echo "STATUS=${code}" | tee -a w02-a08r2-focused-diagnostics.log
+            if [[ $code -ne 0 ]]; then status=$code; fi
+          }
+          run_check a08r2-test node --test tests/curriculum/postg-app-w02-a08r2-second-operator-review-decision.test.js
+          run_check a08r2-validator node tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs
+          run_check m00-test node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          run_check m00-validator node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          run_check w01-test node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          run_check w01-validator node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          run_check claim-governance npm run governance:claims
+          cat w02-a08r2-focused-diagnostics.log
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload focused diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a08r2-focused-diagnostics
+          path: |
+            w02-a08r2-focused-diagnostics.log
+            w02-a08r2-controller-materialization.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Enforce focused validation
+        if: steps.focused.outputs.status != '0'
+        run: exit 1
+      - name: Install artifact dependencies
+        run: |
+          npm install --silent --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium >/dev/null
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk poppler-utils >/dev/null
+          python -m pip install --quiet pypdf pillow
+      - name: Regenerate revision-3 HTML and package
+        run: node tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs
+      - name: Render and verify 110 PDF pages
+        run: |
+          node tools/curriculum/render-postg-app-w02-a06-pdf.mjs
+          node tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs > w02-a08r2-regenerated-manifest.json
+          python tools/curriculum/verify-postg-app-w02-a06-pdf.py 2>&1 | tee w02-a08r2-pdf-verification.log
+      - name: Verify artifact hashes and finding-to-item binding
+        run: node tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs --verify-regenerated-artifacts | tee w02-a08r2-decision-readback.json
+      - name: Upload A08R2 review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: w02-a08r2-second-operator-review
+          path: |
+            docs/curriculum/output/postg-app/w02-a06/
+            docs/curriculum/output/postg-app/w02-a08r2/POSTG_APP_W02_A08R2_SECOND_REVIEW_EVIDENCE.json
+            data/curriculum/application/reviews/POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision.json
+            w02-a08r2-controller-materialization.json
+            w02-a08r2-regenerated-manifest.json
+            w02-a08r2-pdf-verification.log
+            w02-a08r2-decision-readback.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Restore generated working artifacts
+        run: git restore docs/curriculum/output/postg-app/w02-a06/
+      - name: Run full regression suite
+        run: npm test
+      - name: Enforce materializer idempotence
+        run: |
+          node tools/curriculum/materialize-postg-app-w02-a08r2-controller.mjs
+          git diff --exit-code -- src/curriculum/application/postg-app-master-controller.mjs \
+            data/curriculum/application/controller/postg-app-master-controller-state.json \
+            tests/curriculum/postg-app-m00-master-controller.test.js \
+            tests/curriculum/postg-app-w01-a06e-operator-approval.test.js

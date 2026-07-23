@@ -26,17 +26,20 @@ const REQUIRED_GATES = [
 ];
 
 const A08R1_STATUS = 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY';
+const A08R2_STATUS = 'W02_A08R2_SECOND_OPERATOR_REVIEW_REVISE_REQUIRED';
 const A08R2_TASK = 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision';
+const A08R3_TASK = 'POSTG-APP-W02-A08R3_NumericStudentFacingUnknownRoleGivenSetAndNotationRemediation';
 const A08_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08_OperatorHumanReviewDecision.json';
+const A08R2_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision.json';
 
-test('M00 validates the exact 79-node scope with W01 admitted and W02 A08R1 review ready', () => {
+test('M00 validates the exact 79-node scope with W01 admitted and W02 A08R2 second REVISE recorded', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, A08R1_STATUS);
+  assert.equal(result.status, A08R2_STATUS);
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -47,7 +50,7 @@ test('M00 validates the exact 79-node scope with W01 admitted and W02 A08R1 revi
     productionAdmittedApplicationUnitCount: 12
   });
   assert.equal(result.currentWaveId, 'W02');
-  assert.equal(result.nextShortestStep, A08R2_TASK);
+  assert.equal(result.nextShortestStep, A08R3_TASK);
 });
 
 test('S29C registry and deterministic 79-node queue remain unchanged', () => {
@@ -81,20 +84,20 @@ test('Wave 01 remains the only production-admitted wave', () => {
   assert.equal(composite.mappingType, 'EXPLICIT_COMPOSITE_GOLDEN_BASELINE');
 });
 
-test('Wave 02 records A08 REVISE and A08R1 semantic review readiness without admission', () => {
+test('Wave 02 records A08R2 second REVISE without admission', () => {
   const w02 = resolvePOSTGAPPWave(controller, 'W02');
   const state = w02.currentState;
 
   assert.equal(w02.sourceNodes.length, 13);
   assert.equal(w02.productionAdmissionGranted, false);
   assert.equal(w02.productionSelectable, false);
-  assert.equal(state.state, A08R1_STATUS);
+  assert.equal(state.state, A08R2_STATUS);
   assert.deepEqual(state.completedGates, REQUIRED_GATES.slice(0, 10));
   assert.equal(state.admissionGateComplete, false);
   assert.equal(state.productionAdmissionGranted, false);
   assert.equal(state.reviewDecision, 'REVISE');
-  assert.equal(state.decisionEvidence, A08_DECISION_PATH);
-  assert.equal(state.operatorDecisionState, 'REVISE_RECORDED');
+  assert.equal(state.decisionEvidence, A08R2_DECISION_PATH);
+  assert.equal(state.operatorDecisionState, 'SECOND_REVISE_RECORDED');
   assert.equal(state.remediationState, 'PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY');
   assert.equal(state.studentFacingSemanticRevision, 3);
   assert.equal(state.regeneratedHtmlPdfReviewReady, true);
@@ -119,6 +122,12 @@ test('Wave 02 records A08 REVISE and A08R1 semantic review readiness without adm
   assert.equal(state.applicationPdfPageCount, 42);
   assert.equal(state.artifactHashCount, 10);
   assert.equal(state.productionEquivalentOutputVerified, true);
+  assert.equal(state.secondOperatorReviewComplete, true);
+  assert.equal(state.secondOperatorReviewDecision, 'REVISE');
+  assert.equal(state.unresolvedRequestedRoleSurfaceCount, 13);
+  assert.equal(state.answerEquivalentGivenLeakageCount, 19);
+  assert.equal(state.malformedOrIncoherentNumericSurfaceCount, 12);
+  assert.equal(state.gradeUnsafeNotationCount, 2);
 });
 
 test('A08 claim, operator decision and A08R1 executable readback form one fail-closed lineage', () => {
@@ -217,7 +226,7 @@ test('prior evidence levels remain unchanged while A08 stays non-production E4',
     assert.equal(claim.claims.d0Complete, false);
   }
 
-  for (const claim of [controller.w02A06Claim, controller.w02A07Claim, controller.w02A08Claim]) {
+  for (const claim of [controller.w02A06Claim, controller.w02A07Claim, controller.w02A08Claim, controller.w02A08R2Claim]) {
     assert.equal(claim.actualEvidenceLevel, 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED');
     assert.equal(claim.claims.productionAdmitted, false);
     assert.equal(claim.claims.d0Complete, false);
