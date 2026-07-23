@@ -138,13 +138,13 @@ export function materializeW02A06ProductionEquivalentPackage({ root = process.cw
   const numericHtml = injectArtifactMarker(renderWorksheetDocumentToHtml(numericResult.worksheetDocument, {
     title: 'W02 數字題 Production-equivalent Worksheet',
     stylesheetHref: ARTIFACT_STYLESHEET_HREF,
-    debugDataAttributes: true,
+    debugDataAttributes: false,
     renderFillerCells: false
   }), 'NUMERIC');
   const applicationHtml = injectArtifactMarker(renderWorksheetDocumentToHtml(applicationResult.worksheetDocument, {
     title: 'W02 應用題 Production-equivalent Worksheet',
     stylesheetHref: ARTIFACT_STYLESHEET_HREF,
-    debugDataAttributes: true,
+    debugDataAttributes: false,
     renderFillerCells: false
   }), 'APPLICATION');
 
