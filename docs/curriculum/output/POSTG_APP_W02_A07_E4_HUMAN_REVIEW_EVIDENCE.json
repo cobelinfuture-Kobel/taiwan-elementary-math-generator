@@ -1,0 +1,64 @@
+{
+  "schemaName": "POSTGAPPW02A07E4HumanReviewEvidenceV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
+  "status": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
+  "evidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "exactHeadSha": "63b8356c129a8c09fd3df66a433601baaf17d3bf",
+  "githubActions": {
+    "workflowName": "POSTG-APP W02-A07 Human Review Package",
+    "workflowRunId": 29989017841,
+    "workflowConclusion": "success",
+    "artifactId": 8556260550,
+    "artifactName": "w02-a07-production-equivalent-human-review-package",
+    "artifactDigest": "sha256:8264fc31c40858ab09d27f019c9d9c56613e1ed73f09731f64b39296ae7b946a",
+    "artifactSizeBytes": 363096,
+    "artifactExpiresAt": "2026-08-22T07:43:35Z"
+  },
+  "persistentArtifact": {
+    "storageProvider": "google_drive",
+    "fileId": "1MoK94otZr5hVPdSjX70M-V5pbREbS3dU",
+    "fileName": "POSTG_APP_W02_A07_exact-head_63b8356c_HumanReviewPackage.zip",
+    "mimeType": "application/zip",
+    "sha256": "8264fc31c40858ab09d27f019c9d9c56613e1ed73f09731f64b39296ae7b946a",
+    "sizeBytes": 363096,
+    "parentFolderId": "1AcDSpHA5OpRMYOdsppeKtyF_vFhH_k0Z"
+  },
+  "coverage": {
+    "sourceNodeCount": 13,
+    "macroContextCount": 16,
+    "totalGeneratedItemCount": 195,
+    "numericGeneratedItemCount": 134,
+    "applicationReviewCount": 61,
+    "pblReviewCount": 31,
+    "pbl3ReviewCount": 19,
+    "pbl5ReviewCount": 12,
+    "numericBoundaryReviewCount": 49,
+    "operationFamilyCount": 49,
+    "numericPdfPageCount": 68,
+    "applicationPdfPageCount": 42
+  },
+  "artifactHashes": [
+    {"path":"docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html","sha256":"d29793d3b28cdfe98760b6361e3a83b72f256e23662bcaa85bee60b8f317bc6c","sizeBytes":35963},
+    {"path":"docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json","sha256":"df1e4fae31732f843d2f7e5dc8cf825f8cdac2359dec2c2f73db9ce241ce7f30","sizeBytes":364721},
+    {"path":"docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW.extracted.txt","sha256":"67604b79155db93269f05fce9d497709019839355c9dcba51a2765c32c4340b1","sizeBytes":188528},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html","sha256":"1abd92aedecb3e65c6a6f09a1cbaf661b94acc97aeb9a4faf61c786c24527767","sizeBytes":167119},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf","sha256":"79fbf4217f0341ca9a9475bb678feba23e34ccb68aa56e7535d59a21704a6b67","sizeBytes":133781},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html","sha256":"bc44c61bbe2af266bc1fcfec1605a6908b57b18f163e659e1fba72764c9fb23d","sizeBytes":96599},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf","sha256":"b9b222a9c005a13fbbba41582a037c06248295faf89e6f79a25d57e908c1c2bb","sizeBytes":127958},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_PACKAGE.json","sha256":"fc54ed7caf4175a8e94ada1e6f14d3a15234eccc48fea6c56d272c9562cbbdf0","sizeBytes":1392331},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_ARTIFACT_MANIFEST.json","sha256":"66c65407c90faa7e3e5aaed16e12f0e2826dba453bcd6512e0f69891763cd3c8","sizeBytes":2271}
+  ],
+  "failClosedBoundary": {
+    "humanReviewReady": true,
+    "operatorDecisionRecorded": false,
+    "reviewDecision": "NOT_STARTED",
+    "automaticApprovalAllowed": false,
+    "productionAdmissionGranted": false,
+    "publicSelectable": false,
+    "publicUIChanged": false,
+    "futureWaveContentAuthored": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission"
+}
