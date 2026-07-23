@@ -1,0 +1,72 @@
+{
+  "schemaName": "POSTGAPPW02NPlusOneAndPBLCandidatePolicyV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
+  "status": "SHADOW_BLUEPRINT_POLICY_NOT_PRODUCTION_ADMISSION",
+  "nPlusOneEligibility": "EVERY_W02_A02_SINGLE_APPLICATION_CANDIDATE",
+  "pblEligibility": {
+    "requiredClassification": "APPLICATION_REQUIRED",
+    "compatibleClassificationAutomaticallyAdmitted": false,
+    "forcedPBLAuthoringAllowed": false
+  },
+  "interpretiveActRules": [
+    {"act":"REMAINDER_INTERPRETATION","tokens":["remainder","餘數","有餘數","quotient","完整組","最少容器"]},
+    {"act":"COMPARISON_DECISION","tokens":["compare","comparison","order","estimate","estimation","budget","price","judgment","decision","比較","排序","估算","預算","判斷"]},
+    {"act":"DUAL_CONSTRAINT_RESOLUTION","tokens":["maximum","minimum","capacity","constraint","at_least","at_most","最多","最少","容量","限制"]},
+    {"act":"CONSERVATION_OR_TRANSFER","tokens":["transfer","remaining","conservation","share","轉移","剩餘","守恆","分配"]},
+    {"act":"UNIT_ROLE_INTERPRETATION","tokens":["measurement","unit_conversion","length","mass","capacity","area","perimeter","time","fraction","decimal","測量","單位","長度","重量","容量","面積","周長","時間","分數","小數"]},
+    {"act":"UNKNOWN_ROLE_SHIFT","tokens":["inverse","unknown","missing","requestedunknownrole","反推","未知","缺少"]},
+    {"act":"IRRELEVANT_INFORMATION_FILTER","tokens":["irrelevant","extra_information","多餘資訊","不相關"]},
+    {"act":"RELATION_CHAIN","tokens":["two_step","mixed_operation","relation_chain","nested","combined","兩步驟","混合運算","關係鏈","多層","複合"]}
+  ],
+  "fallbackInterpretiveAct": "RELATION_CHAIN",
+  "witnessTypeByAct": {
+    "UNKNOWN_ROLE_SHIFT": "TARGET_ROLE_SELECTION",
+    "REMAINDER_INTERPRETATION": "DECISION_REASON_SELECTION",
+    "RELATION_CHAIN": "RELATION_ORDER_SELECTION",
+    "DUAL_CONSTRAINT_RESOLUTION": "DECISION_REASON_SELECTION",
+    "CONSERVATION_OR_TRANSFER": "SHORT_ANSWER_MEANING",
+    "COMPARISON_DECISION": "COMPARISON_EVIDENCE",
+    "UNIT_ROLE_INTERPRETATION": "TARGET_ROLE_SELECTION",
+    "IRRELEVANT_INFORMATION_FILTER": "ERROR_DIAGNOSIS"
+  },
+  "actSpecificMisconceptionType": {
+    "UNKNOWN_ROLE_SHIFT": "TARGET_ROLE_CONFUSION",
+    "REMAINDER_INTERPRETATION": "QUOTIENT_ONLY",
+    "RELATION_CHAIN": "RELATION_ORDER_REVERSAL",
+    "DUAL_CONSTRAINT_RESOLUTION": "CONSTRAINT_IGNORED",
+    "CONSERVATION_OR_TRANSFER": "CONSERVATION_VIOLATION",
+    "COMPARISON_DECISION": "COMPARISON_DIRECTION_REVERSAL",
+    "UNIT_ROLE_INTERPRETATION": "UNIT_ROLE_CONFUSION",
+    "IRRELEVANT_INFORMATION_FILTER": "IRRELEVANT_INFORMATION_USED"
+  },
+  "minimumMisconceptionCount": 3,
+  "requiredCommonMisconceptions": ["OPERATION_KEYWORD_MATCHING", "COMPUTED_NOT_INTERPRETED"],
+  "pblGraphRules": {
+    "PBL5_BOUNDED_DECISION": ["DUAL_CONSTRAINT_RESOLUTION", "COMPARISON_DECISION"],
+    "fallback": "PBL3_LINEAR"
+  },
+  "finalProductByMacro": {
+    "gctx_macro_commerce_budget": "PURCHASE_DECISION",
+    "gctx_macro_transport_mobility": "TRANSPORT_PLAN",
+    "gctx_macro_work_logistics": "PACKAGING_PLAN",
+    "gctx_macro_data_public_information": "COMPARISON_REPORT",
+    "gctx_macro_science_technology": "COMPARISON_REPORT",
+    "gctx_macro_health_sports": "SCHEDULE",
+    "gctx_macro_household_family": "ALLOCATION_PLAN",
+    "gctx_macro_community_civic": "RESOURCE_PLAN",
+    "gctx_macro_environment_conservation": "RESOURCE_PLAN",
+    "gctx_macro_water_energy": "RESOURCE_PLAN",
+    "gctx_macro_food_agriculture": "ALLOCATION_PLAN",
+    "gctx_macro_disaster_resilience": "RESOURCE_PLAN",
+    "gctx_macro_charity_cooperation": "ALLOCATION_PLAN",
+    "gctx_macro_school_learning": "RESOURCE_PLAN",
+    "gctx_macro_culture_history": "RESOURCE_PLAN",
+    "gctx_macro_future_sustainability": "RESOURCE_PLAN"
+  },
+  "fallbackFinalProductType": "RESOURCE_PLAN",
+  "nPlusOneCandidateStatus": "N_PLUS_1_PROOF_BLUEPRINT_COMPLETE",
+  "pblCandidateStatus": "PBL_TASK_SET_BLUEPRINT_COMPLETE",
+  "productionAdmissionAllowed": false
+}

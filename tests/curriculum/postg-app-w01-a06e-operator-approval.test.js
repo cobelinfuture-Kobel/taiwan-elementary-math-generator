@@ -64,14 +64,18 @@ test('E5 admission does not imply public route activation or program D0', () => 
 
 test('controller preserves W01 admission while W02 advances monotonically without production admission', () => {
   const states = materialized.controller.controllerState.waveStates;
+  const w02 = states[1];
   assert.equal(states[0].state, 'PRODUCTION_ADMITTED');
   assert.equal(states[0].productionAdmissionGranted, true);
-  assert.equal(states[1].state, 'ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED');
-  assert.equal(states[1].productionAdmissionGranted, false);
-  assert.equal(states[1].kpApplicationClassificationComplete, true);
-  assert.equal(states[1].canonicalOperationModelsComplete, true);
-  assert.equal(states[1].hiddenPatternSpecsComplete, true);
-  assert.equal(states[1].atomicContextBindingsComplete, true);
+  assert.notEqual(w02.state, 'BLOCKED_BY_PREVIOUS_WAVE');
+  assert.notEqual(w02.state, 'PRODUCTION_ADMITTED');
+  assert.equal(w02.productionAdmissionGranted, false);
+  assert.equal(w02.kpApplicationClassificationComplete, true);
+  assert.equal(w02.canonicalOperationModelsComplete, true);
+  assert.equal(w02.hiddenPatternSpecsComplete, true);
+  assert.equal(w02.atomicContextBindingsComplete, true);
+  assert.equal(w02.completedGates.includes('N_PLUS_1_CONTRACT_COMPLETE'), true);
+  assert.equal(w02.nPlusOnePblBlueprintsComplete, true);
   assert.deepEqual(states.slice(2).map((row) => row.state), [
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',

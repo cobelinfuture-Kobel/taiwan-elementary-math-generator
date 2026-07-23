@@ -1,0 +1,82 @@
+name: POSTG-APP W02-A03 NPlusOne PBL
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "data/curriculum/application/assessment/w02-nplusone-pbl-*.json"
+      - "data/curriculum/application/schema/w02-nplusone-proof-candidate.schema.json"
+      - "data/curriculum/application/schema/w02-pbl-task-set-candidate.schema.json"
+      - "data/curriculum/application/contracts/POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract.json"
+      - "data/project/milestones/POSTG-APP-W02-A03.claim.json"
+      - "src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs"
+      - "tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs"
+      - "tests/curriculum/postg-app-w02-a03-candidate-pack.test.js"
+      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
+      - "src/curriculum/application/postg-app-master-controller.mjs"
+      - "tests/curriculum/postg-app-m00-master-controller.test.js"
+      - "docs/curriculum/output/POSTG_APP_W02_A03_*"
+      - ".github/workflows/postg-app-w02-a03-nplusone-pbl.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w02-a03-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nplusone-pbl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: npm install
+      - name: Validate A03 schema documents
+        run: |
+          python -m pip install jsonschema
+          python - <<'PY'
+          import json
+          from jsonschema import Draft202012Validator
+          paths = [
+              'data/curriculum/application/schema/w02-nplusone-proof-candidate.schema.json',
+              'data/curriculum/application/schema/w02-pbl-task-set-candidate.schema.json',
+          ]
+          for path in paths:
+              with open(path, encoding='utf-8') as handle:
+                  Draft202012Validator.check_schema(json.load(handle))
+          PY
+      - name: Run W02 A03 focused tests and validator
+        run: |
+          node --test tests/curriculum/postg-app-w02-a03-candidate-pack.test.js
+          node tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs
+      - name: Write deterministic A03 count readback
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import { buildW02NPlusOneAndPBLCandidateReadback } from './src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs';
+          const readback = buildW02NPlusOneAndPBLCandidateReadback();
+          fs.writeFileSync('w02-a03-count-readback.json', `${JSON.stringify({ counts: readback.counts, actCounts: readback.actCounts, graphCounts: readback.graphCounts, productCounts: readback.productCounts }, null, 2)}\n`);
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: w02-a03-count-readback
+          path: w02-a03-count-readback.json
+          if-no-files-found: error
+      - name: Verify A02 and controller regressions
+        run: |
+          node --test tests/curriculum/postg-app-w02-a02-candidate-pack.test.js
+          node tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+      - name: Verify W01 E5 admission and governance claims
+        run: |
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+          npm run governance:claims
+      - name: Run full regression suite
+        run: npm test

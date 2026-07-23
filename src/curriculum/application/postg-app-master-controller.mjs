@@ -17,6 +17,7 @@ const W02_A01B_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A01B.claim.js
 const W02_A01C_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A01C.claim.json';
 const W02_A01D_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A01D.claim.json';
 const W02_A02_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A02.claim.json';
+const W02_A03_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A03.claim.json';
 const GOLDEN_UNIT_DIR = 'data/curriculum/knowledge/units';
 
 const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...details });
@@ -48,10 +49,7 @@ function readJsonIfExists(root, repoPath) {
 function parseSourceNodeId(sourceNodeId) {
   const match = /^g([3-6])([ab])_u\d+_[a-z0-9]+$/.exec(sourceNodeId);
   if (!match) return null;
-  return {
-    grade: Number(match[1]),
-    semester: match[2] === 'a' ? 'upper' : 'lower'
-  };
+  return { grade: Number(match[1]), semester: match[2] === 'a' ? 'upper' : 'lower' };
 }
 
 function materializeSourceNodes(unitRegistry) {
@@ -124,7 +122,8 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
     w02A01BClaim: readJsonIfExists(root, W02_A01B_CLAIM_PATH),
     w02A01CClaim: readJsonIfExists(root, W02_A01C_CLAIM_PATH),
     w02A01DClaim: readJsonIfExists(root, W02_A01D_CLAIM_PATH),
-    w02A02Claim: readJsonIfExists(root, W02_A02_CLAIM_PATH)
+    w02A02Claim: readJsonIfExists(root, W02_A02_CLAIM_PATH),
+    w02A03Claim: readJsonIfExists(root, W02_A03_CLAIM_PATH)
   };
 }
 
@@ -155,7 +154,8 @@ export function validatePOSTGAPPMasterController(controller) {
     w02A01BClaim,
     w02A01CClaim,
     w02A01DClaim,
-    w02A02Claim
+    w02A02Claim,
+    w02A03Claim
   } = controller;
   const sourceIds = sourceNodes.map((row) => row.sourceNodeId);
   const sourceSet = new Set(sourceIds);
@@ -230,7 +230,7 @@ export function validatePOSTGAPPMasterController(controller) {
 
   const expectedStates = [
     'PRODUCTION_ADMITTED',
-    'ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED',
+    'N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
@@ -248,7 +248,7 @@ export function validatePOSTGAPPMasterController(controller) {
   }
   const w02State = controllerState.waveStates[1];
   if (!Array.isArray(w02State.completedGates)
-      || JSON.stringify(w02State.completedGates) !== JSON.stringify(REQUIRED_GATE_ORDER.slice(0, 6))
+      || JSON.stringify(w02State.completedGates) !== JSON.stringify(REQUIRED_GATE_ORDER.slice(0, 7))
       || w02State.productionAdmissionGranted !== false
       || w02State.admissionGateComplete !== false
       || w02State.assessmentBaselineState !== 'SOURCE_AUTHORITY_BASELINE_READY'
@@ -275,13 +275,24 @@ export function validatePOSTGAPPMasterController(controller) {
       || w02State.macroContextDomainCount !== 16
       || w02State.duplicateContentProjectionParity !== true
       || w02State.atomicContextBindingsComplete !== true
+      || w02State.nPlusOneProofCandidateCount !== 61
+      || w02State.misconceptionCandidateCount !== 183
+      || w02State.pblEligibleCandidateCount !== 31
+      || w02State.pblTaskSetCandidateCount !== 31
+      || w02State.crossContextPairCount !== 61
+      || w02State.pbl3TaskSetCandidateCount !== 19
+      || w02State.pbl5TaskSetCandidateCount !== 12
+      || w02State.duplicateProofProjectionParity !== true
+      || w02State.duplicatePblProjectionParity !== true
+      || w02State.compatiblePblCandidateCount !== 0
+      || w02State.nPlusOnePblBlueprintsComplete !== true
       || w02State.productionAdmittedCandidateCount !== 0) {
     issues.push(issue('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W02'));
   }
   if (controllerState.currentWaveId !== 'W02'
-      || controllerState.currentCapability !== 'W02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED'
-      || controllerState.currentMainlineBlocker !== 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_CANDIDATES_PENDING'
-      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract') {
+      || controllerState.currentCapability !== 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED'
+      || controllerState.currentMainlineBlocker !== 'W02_VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_PENDING'
+      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow') {
     issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
   }
   if (controllerState.productionAdmission.applicationUnitCount !== 12
@@ -348,6 +359,13 @@ export function validatePOSTGAPPMasterController(controller) {
     claimedStatus: 'W02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED',
     nextTaskId: 'POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract'
   }));
+  issues.push(...validateShadowClaim({
+    claim: w02A03Claim,
+    pathValue: W02_A03_CLAIM_PATH,
+    code: 'POSTG_APP_W02_A03_CLAIM_INVALID',
+    claimedStatus: 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED',
+    nextTaskId: 'POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow'
+  }));
 
   const contextValidation = validateGlobalContextAuthority(controller.contextAuthority);
   if (!contextValidation.ok) issues.push(issue('POSTG_APP_M01_CONTEXT_AUTHORITY_INVALID', 'globalContextAuthority', { contextIssues: contextValidation.issues }));
@@ -384,7 +402,7 @@ export function validatePOSTGAPPMasterController(controller) {
     currentWaveId: controllerState.currentWaveId,
     nextShortestStep: controllerState.nextShortestStep,
     status: issues.length === 0
-      ? 'W02_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATES_MATERIALIZED'
+      ? 'W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED'
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
   };
 }
