@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: postg-app-w02-a04-${{ github.event.pull_request.number || github.ref }}
@@ -31,52 +31,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref }}
-      - name: Apply verified single-fixture lineage fix once
-        if: github.event_name == 'pull_request'
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs')
-          text = path.read_text(encoding='utf-8')
-          anchor = "  const pbl = materialized.pblByPatternSpecId.get(fixture.patternSpecId) ?? null;\n"
-          insertion = anchor + """  const expectedProofCandidateId = fixture.pairingEvidence.baseFixtureId
-            ? proof?.proofCandidateId ?? null
-            : null;
-          const expectedPBLCandidateId = fixture.pblEvidence.required
-            ? pbl?.pblCandidateId ?? null
-            : null;
-          """
-          proof_old = "      || fixture.lineage.a03ProofCandidateId !== (proof?.proofCandidateId ?? null)\n"
-          proof_new = "      || fixture.lineage.a03ProofCandidateId !== expectedProofCandidateId\n"
-          pbl_old = "      || fixture.lineage.a03PBLCandidateId !== (fixture.pblEvidence.required ? pbl?.pblCandidateId ?? null : null)) {\n"
-          pbl_new = "      || fixture.lineage.a03PBLCandidateId !== expectedPBLCandidateId) {\n"
-
-          if 'const expectedProofCandidateId = fixture.pairingEvidence.baseFixtureId' not in text:
-              if text.count(anchor) != 1:
-                  raise SystemExit(f'Expected one PBL lineage anchor, found {text.count(anchor)}')
-              text = text.replace(anchor, insertion, 1)
-          if proof_old in text:
-              text = text.replace(proof_old, proof_new, 1)
-          elif proof_new not in text:
-              raise SystemExit('Proof lineage comparison not found')
-          if pbl_old in text:
-              text = text.replace(pbl_old, pbl_new, 1)
-          elif pbl_new not in text:
-              raise SystemExit('PBL lineage comparison not found')
-          path.write_text(text, encoding='utf-8')
-          PY
-          if git diff --quiet -- src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs; then
-            exit 0
-          fi
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs
-          git commit -m "fix(application): scope A04 proof lineage to derived fixtures"
-          git push origin HEAD:${{ github.head_ref }}
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - uses: actions/setup-python@v5
