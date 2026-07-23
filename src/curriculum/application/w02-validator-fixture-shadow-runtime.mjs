@@ -509,6 +509,12 @@ export function validateW02ShadowFixture(materialized, fixture) {
   const candidate = materialized.a03.candidateByPatternSpecId.get(fixture.patternSpecId);
   const proof = materialized.a03.proofByPatternSpecId.get(fixture.patternSpecId) ?? null;
   const pbl = materialized.pblByPatternSpecId.get(fixture.patternSpecId) ?? null;
+  const expectedProofCandidateId = fixture.pairingEvidence.baseFixtureId
+  ? proof?.proofCandidateId ?? null
+  : null;
+const expectedPBLCandidateId = fixture.pblEvidence.required
+  ? pbl?.pblCandidateId ?? null
+  : null;
   if (!candidate
       || candidate.bindingCandidateId !== fixture.bindingCandidateId
       || candidate.sourceId !== fixture.sourceId
@@ -516,8 +522,8 @@ export function validateW02ShadowFixture(materialized, fixture) {
       || candidate.knowledgePointId !== fixture.knowledgePointId
       || candidate.canonicalOperationModelId !== fixture.canonicalOperationModelId
       || fixture.lineage.a02BindingCandidateId !== candidate.bindingCandidateId
-      || fixture.lineage.a03ProofCandidateId !== (proof?.proofCandidateId ?? null)
-      || fixture.lineage.a03PBLCandidateId !== (fixture.pblEvidence.required ? pbl?.pblCandidateId ?? null : null)) {
+      || fixture.lineage.a03ProofCandidateId !== expectedProofCandidateId
+      || fixture.lineage.a03PBLCandidateId !== expectedPBLCandidateId) {
     return fail('CANDIDATE_LINEAGE_INVALID');
   }
   if (!validateContext(materialized, candidate, proof, fixture)) return fail('CONTEXT_CHAIN_INVALID');
