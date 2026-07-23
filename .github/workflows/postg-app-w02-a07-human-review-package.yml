@@ -5,9 +5,12 @@ on:
     branches: [ main ]
     paths:
       - "src/curriculum/application/w02-a07-human-review-package.mjs"
+      - "src/curriculum/application/postg-app-master-controller*.mjs"
       - "tools/curriculum/generate-postg-app-w02-a07-review-artifacts.mjs"
       - "tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs"
       - "tests/curriculum/postg-app-w02-a07-human-review-package.test.js"
+      - "tests/curriculum/postg-app-m00-master-controller.test.js"
+      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
       - "data/curriculum/application/reviews/POSTG-APP-W02-A07_*.json"
       - "data/project/milestones/POSTG-APP-W02-A07.claim.json"
       - "docs/curriculum/output/POSTG_APP_W02_A07_*.json"
