@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W02_N_PLUS_ONE_PROOF_MISCONCEPTION_AND_PBL_BLUEPRINTS_MATERIALIZED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs",
+      "tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs",
+      "tests/curriculum/postg-app-w02-a03-candidate-pack.test.js",
+      ".github/workflows/postg-app-w02-a03-nplusone-pbl.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/assessment/w02-nplusone-pbl-candidate-policy.json",
+      "data/curriculum/application/assessment/w02-nplusone-pbl-candidate-pack-index.json",
+      "data/curriculum/application/schema/w02-nplusone-proof-candidate.schema.json",
+      "data/curriculum/application/schema/w02-pbl-task-set-candidate.schema.json",
+      "data/curriculum/application/contracts/POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "docs/curriculum/output/POSTG_APP_W02_A03_NPLUSONE_PBL_CANDIDATES_MATERIALIZED.marker",
+      "docs/curriculum/output/POSTG_APP_W02_A03_NPLUSONE_PBL_CANDIDATES_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "All 61 W02 A02 application candidates now have deterministic N+1 proof and misconception blueprints; APPLICATION_REQUIRED candidates receive non-production PBL task-set blueprints. Executed validator fixtures and production runtime remain pending."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
