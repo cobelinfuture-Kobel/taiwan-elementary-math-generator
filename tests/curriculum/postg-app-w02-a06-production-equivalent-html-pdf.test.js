@@ -13,6 +13,9 @@ const pkg = materializeW02A06ProductionEquivalentPackage();
 const countCells = (pages, cellType) => pages
   .flatMap((page) => page.cells)
   .filter((cell) => cell.cellType === cellType).length;
+const countRenderedCards = (html, modifierClass) => (
+  html.match(new RegExp(`<article class="worksheet-cell ${modifierClass}"`, 'g')) ?? []
+).length;
 
 test('A06 generates and validates the exact 195 PatternSpec cohort', () => {
   const result = validateW02A06ProductionEquivalentPackage(pkg);
@@ -72,8 +75,8 @@ test('rendered HTML contains exact question and answer card counts with no inter
   ]) {
     assert.equal(html.includes('data-postg-app-w02-a06="true"'), true);
     assert.equal(html.includes(`data-question-mode="${mode}"`), true);
-    assert.equal((html.match(/worksheet-cell--question/g) ?? []).length, expected);
-    assert.equal((html.match(/worksheet-cell--answer-key/g) ?? []).length, expected);
+    assert.equal(countRenderedCards(html, 'worksheet-cell--question'), expected);
+    assert.equal(countRenderedCards(html, 'worksheet-cell--answer-key'), expected);
     assert.equal(html.includes('{{'), false);
     assert.equal(html.includes('答：'), false);
     assert.equal(html.includes('_____'), false);
