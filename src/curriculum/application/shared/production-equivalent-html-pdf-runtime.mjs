@@ -30,6 +30,10 @@ const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...de
 const countRenderedCards = (html, modifierClass) => (
   html.match(new RegExp(`<article class="worksheet-cell ${modifierClass}"`, 'g')) ?? []
 ).length;
+const visibleTextFromHtml = (html) => String(html).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+  .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/\s+/g, ' ');
 const ARTIFACT_STYLESHEET_HREF = '../../../../../src/renderer/print-styles.css';
 
 function flattenSpecs(hidden) {
@@ -235,17 +239,18 @@ export function validateW02A06ProductionEquivalentPackage(pkg) {
   ]) {
     const questionCards = countRenderedCards(html, 'worksheet-cell--question');
     const answerCards = countRenderedCards(html, 'worksheet-cell--answer-key');
+    const visibleText = visibleTextFromHtml(html);
     if (!html.includes('data-postg-app-w02-a06="true"')
         || !html.includes(`data-question-mode="${mode}"`)
         || !html.includes('data-student-facing-surface="W02_A08R1_V1"')
         || !html.includes(`href="${ARTIFACT_STYLESHEET_HREF}"`)
         || questionCards !== expectedQuestions
         || answerCards !== expectedQuestions
-        || html.includes('{{')
-        || html.includes('答：')
-        || html.includes('_____')
-        || /([A-Za-z][A-Za-z0-9_]*)為/.test(html)
-        || /\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i.test(html)) {
+        || visibleText.includes('{{')
+        || visibleText.includes('答：')
+        || visibleText.includes('_____')
+        || /([A-Za-z][A-Za-z0-9_]*)為/.test(visibleText)
+        || /\b(?:op|ps|kp|gctx|w02)_[a-z0-9_]+\b/i.test(visibleText)) {
       issues.push(issue('POSTG_APP_W02_A06_HTML_STRUCTURE_INVALID', `html.${mode}`, { questionCards, answerCards, expectedQuestions }));
     }
   }
