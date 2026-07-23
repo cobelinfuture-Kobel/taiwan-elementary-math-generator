@@ -2,8 +2,8 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
-  "status": "W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
+  "taskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
+  "status": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
@@ -25,7 +25,8 @@
     "w02AtomicContextTaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
     "w02NPlusOnePBLTaskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
     "w02ValidatorShadowTaskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
-    "w02SharedWorksheetProjectionTaskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection"
+    "w02SharedWorksheetProjectionTaskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
+    "w02ProductionEquivalentOutputTaskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -114,17 +115,24 @@
     "sharedApplicationCapabilityResolver": "src/curriculum/application/shared/application-capability-resolver.mjs",
     "sharedWorksheetProjectionRuntime": "src/curriculum/application/shared/worksheet-projection-runtime.mjs",
     "w02SharedWorksheetProjectionValidationCli": "tools/curriculum/validate-postg-app-w02-a05-shared-worksheet-projection.mjs",
-    "w02A05MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A05.claim.json"
+    "w02A05MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A05.claim.json",
+    "sharedOperationFamilyRuntime": "src/curriculum/application/shared/operation-family-runtime.mjs",
+    "w02ProductionEquivalentRuntime": "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs",
+    "w02ProductionEquivalentValidationCli": "tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs",
+    "w02ProductionEquivalentEvidence": "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json",
+    "w02A06MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A06.claim.json"
   },
   "currentWaveId": "W02",
-  "currentCapability": "W02_SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
-  "currentMainlineBlocker": "W02_SHARED_GENERATOR_VALIDATOR_RENDERER_HTML_PDF_PENDING",
+  "currentCapability": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED",
+  "currentMainlineBlocker": "W02_HUMAN_REVIEW_PACKAGE_PENDING",
   "productionAdmission": {
     "applicationUnitCount": 12,
     "waveCount": 1,
     "allowed": true,
     "lastReviewDecision": "APPROVE",
-    "admittedWaveIds": ["W01"],
+    "admittedWaveIds": [
+      "W01"
+    ],
     "publicRouteChanged": false
   },
   "waveStates": [
@@ -152,7 +160,7 @@
     },
     {
       "waveId": "W02",
-      "state": "SHARED_WORKSHEET_PROJECTION_SHADOW_PASS",
+      "state": "PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED",
       "completedGates": [
         "SOURCE_NODE_REGISTERED",
         "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
@@ -248,12 +256,48 @@
       "shadowHtmlCount": 0,
       "sharedWorksheetProjectionComplete": true,
       "productionAdmittedCandidateCount": 0,
-      "publicSelectableCandidateCount": 0
+      "publicSelectableCandidateCount": 0,
+      "generatedItemCount": 195,
+      "numericGeneratedItemCount": 134,
+      "applicationGeneratedItemCount": 61,
+      "productionOperationFamilyCount": 49,
+      "productionValidatedItemCount": 195,
+      "htmlArtifactCount": 2,
+      "pdfArtifactCount": 2,
+      "numericPdfPageCount": 68,
+      "applicationPdfPageCount": 42,
+      "artifactHashCount": 5,
+      "productionEquivalentOutputVerified": true,
+      "humanReviewReady": false
     },
-    {"waveId": "W03", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
-    {"waveId": "W04", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
-    {"waveId": "W05", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false},
-    {"waveId": "W06", "state": "BLOCKED_BY_PREVIOUS_WAVE", "completedGates": [], "admissionGateComplete": false, "productionAdmissionGranted": false}
+    {
+      "waveId": "W03",
+      "state": "BLOCKED_BY_PREVIOUS_WAVE",
+      "completedGates": [],
+      "admissionGateComplete": false,
+      "productionAdmissionGranted": false
+    },
+    {
+      "waveId": "W04",
+      "state": "BLOCKED_BY_PREVIOUS_WAVE",
+      "completedGates": [],
+      "admissionGateComplete": false,
+      "productionAdmissionGranted": false
+    },
+    {
+      "waveId": "W05",
+      "state": "BLOCKED_BY_PREVIOUS_WAVE",
+      "completedGates": [],
+      "admissionGateComplete": false,
+      "productionAdmissionGranted": false
+    },
+    {
+      "waveId": "W06",
+      "state": "BLOCKED_BY_PREVIOUS_WAVE",
+      "completedGates": [],
+      "admissionGateComplete": false,
+      "productionAdmissionGranted": false
+    }
   ],
   "producerStateConsumerReadback": {
     "producer": [
@@ -277,6 +321,7 @@
       "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
       "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
       "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
+      "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
       "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1"
     ],
     "authoritativeState": [
@@ -324,7 +369,9 @@
       "pbl-task-set-record.schema.json",
       "print-metadata.schema.json",
       "worksheet-projection.schema.json",
-      "POSTG-APP-W02-A05.claim.json"
+      "POSTG-APP-W02-A05.claim.json",
+      "POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json",
+      "POSTG-APP-W02-A06.claim.json"
     ],
     "runtimeConsumer": [
       "postg-app-master-controller.mjs",
@@ -343,7 +390,11 @@
       "w02-nplusone-pbl-candidate-pack.mjs",
       "w02-validator-fixture-shadow-runtime.mjs",
       "application-capability-resolver.mjs",
-      "worksheet-projection-runtime.mjs"
+      "worksheet-projection-runtime.mjs",
+      "operation-family-runtime.mjs",
+      "production-equivalent-html-pdf-runtime.mjs",
+      "build-worksheet-document.js",
+      "html-renderer-s57f5-extension.js"
     ],
     "readback": [
       "validate-postg-app-m00-master-controller.mjs",
@@ -361,9 +412,11 @@
       "validate-postg-app-w02-a02-candidate-pack.mjs",
       "validate-postg-app-w02-a03-candidate-pack.mjs",
       "validate-postg-app-w02-a04-runtime-shadow.mjs",
-      "validate-postg-app-w02-a05-shared-worksheet-projection.mjs"
+      "validate-postg-app-w02-a05-shared-worksheet-projection.mjs",
+      "validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs",
+      "verify-postg-app-w02-a06-pdf.py"
     ]
   },
-  "nextShortestStep": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
+  "nextShortestStep": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
   "stopReason": "NONE"
 }
