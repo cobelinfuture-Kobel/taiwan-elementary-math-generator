@@ -6,6 +6,15 @@ import {
   validateGlobalContextAuthority
 } from '../context/global-context-ontology-resolver.mjs';
 import { buildW02A08R1Readback } from './w02-a08r1-student-facing-remediation.mjs';
+import {
+  applyW02A08R2ControllerOverlay,
+  loadW02A08R2ControllerEvidence,
+  validateW02A08R2ControllerEvidence,
+  W02_A08R2_DECISION_PATH,
+  W02_A08R2_EVIDENCE_PATH,
+  W02_A08R2_STATUS,
+  W02_A08R3_TASK
+} from './w02-a08r2-controller-overlay.mjs';
 
 const UNIT_REGISTRY_PATH = 'data/curriculum/application/controller/postg-app-79-unit-registry.json';
 const WAVE_PLAN_PATH = 'data/curriculum/application/controller/postg-app-wave-plan.json';
@@ -101,7 +110,9 @@ function admissionPrefix(waves) {
 export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
   const unitRegistry = readJson(root, UNIT_REGISTRY_PATH);
   const wavePlan = readJson(root, WAVE_PLAN_PATH);
-  const controllerState = readJson(root, CONTROLLER_STATE_PATH);
+  const baseControllerState = readJson(root, CONTROLLER_STATE_PATH);
+  const a08r2Evidence = loadW02A08R2ControllerEvidence({ root });
+  const controllerState = applyW02A08R2ControllerOverlay({ root, controllerState: baseControllerState });
   const contextAuthority = loadGlobalContextAuthority({ root });
   const sourceNodes = materializeSourceNodes(unitRegistry);
   const goldenRegistries = unitRegistry.goldenBaselineUnits.map((mapping) => {
@@ -137,7 +148,8 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
     w02A07Claim: readJsonIfExists(root, W02_A07_CLAIM_PATH),
     w02A08Claim: readJsonIfExists(root, W02_A08_CLAIM_PATH),
     w02A08Decision: readJsonIfExists(root, W02_A08_DECISION_PATH),
-    w02A08R1Readback: buildW02A08R1Readback({ root })
+    w02A08R1Readback: buildW02A08R1Readback({ root }),
+    ...a08r2Evidence
   };
 }
 
@@ -246,7 +258,7 @@ function validateW02Metrics(w02State) {
     reviewArtifactCount: 10,
     productionAdmittedCandidateCount: 0,
     publicSelectableCandidateCount: 0,
-    operatorDecisionState: 'REVISE_RECORDED',
+    operatorDecisionState: 'SECOND_REVISE_RECORDED',
     remediationState: 'PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY',
     studentFacingSemanticRevision: 3,
     remediatedGeneratedItemCount: 195,
@@ -392,7 +404,7 @@ export function validatePOSTGAPPMasterController(controller) {
 
   const expectedStates = [
     'PRODUCTION_ADMITTED',
-    'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY',
+    W02_A08R2_STATUS,
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
     'BLOCKED_BY_PREVIOUS_WAVE',
@@ -414,15 +426,15 @@ export function validatePOSTGAPPMasterController(controller) {
       || w02State.productionAdmissionGranted !== false
       || w02State.admissionGateComplete !== false
       || w02State.reviewDecision !== 'REVISE'
-      || w02State.reviewEvidence !== 'docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json'
-      || w02State.decisionEvidence !== W02_A08_DECISION_PATH
+      || w02State.reviewEvidence !== W02_A08R2_EVIDENCE_PATH
+      || w02State.decisionEvidence !== W02_A08R2_DECISION_PATH
       || !validateW02Metrics(w02State)) {
     issues.push(issue('POSTG_APP_W02_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W02'));
   }
   if (controllerState.currentWaveId !== 'W02'
-      || controllerState.currentCapability !== 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY'
-      || controllerState.currentMainlineBlocker !== 'W02_REGENERATED_HTML_PDF_SECOND_OPERATOR_REVIEW_DECISION_PENDING'
-      || controllerState.nextShortestStep !== 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision') {
+      || controllerState.currentCapability !== W02_A08R2_STATUS
+      || controllerState.currentMainlineBlocker !== 'W02_NUMERIC_STUDENT_FACING_SURFACE_REMEDIATION_REQUIRED'
+      || controllerState.nextShortestStep !== W02_A08R3_TASK) {
     issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
   }
   if (controllerState.productionAdmission.applicationUnitCount !== 12
@@ -497,6 +509,7 @@ export function validatePOSTGAPPMasterController(controller) {
     issues.push(issue('POSTG_APP_W02_A07_CLAIM_INVALID', W02_A07_CLAIM_PATH));
   }
   issues.push(...validateA08Evidence(controller));
+  issues.push(...validateW02A08R2ControllerEvidence(controller));
 
   const contextValidation = validateGlobalContextAuthority(controller.contextAuthority);
   if (!contextValidation.ok) issues.push(issue('POSTG_APP_M01_CONTEXT_AUTHORITY_INVALID', 'globalContextAuthority', { contextIssues: contextValidation.issues }));
@@ -533,7 +546,7 @@ export function validatePOSTGAPPMasterController(controller) {
     currentWaveId: controllerState.currentWaveId,
     nextShortestStep: controllerState.nextShortestStep,
     status: issues.length === 0
-      ? 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY'
+      ? W02_A08R2_STATUS
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
   };
 }
