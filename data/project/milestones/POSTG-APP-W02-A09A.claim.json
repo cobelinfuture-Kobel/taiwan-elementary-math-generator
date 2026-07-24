@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
+  "taskClass": "runtime_governance",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w02-a09a-authority-reconciliation-freeze.mjs",
+      "tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs",
+      "tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js",
+      ".github/workflows/postg-app-w02-a09a-authority-freeze.yml"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+      "data/curriculum/application/assessment/w02-source13-source-authority-baseline.json",
+      "data/curriculum/knowledge/units/{sourceNodeId}.knowledge-operation.json"
+    ],
+    "artifactHashes": []
+  },
+  "authorityFinding": {
+    "w02SourceNodeCount": 13,
+    "w02KnowledgePointCandidateCount": 90,
+    "canonicalBatchBKnowledgePointRegistryPresent": false,
+    "w03ExecutionAllowed": false,
+    "globalContextSingleApplicationAuthorityRequired": true,
+    "legacyApplicationRoutesFrozen": true
+  },
+  "distance": {
+    "before": "D1_PARALLEL_APPLICATION_WAVE_AND_PUBLIC_UI_AUTHORITY_DRIFT",
+    "after": "D1_CANONICAL_BATCH_B_KP_AUTHORITY_MATERIALIZATION_REQUIRED",
+    "distanceReduced": "The parallel W03 expansion path is now fail-closed, the 90 W02 rows are explicitly classified as application-program candidates rather than canonical curriculum KnowledgePoints, and new unit-specific application routes are forbidden pending shared Global Context migration."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
