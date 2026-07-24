@@ -41,7 +41,6 @@ test("five approved units materialize complete PBL worksheets through the public
 
     const document = result.worksheetDocument;
     assert.ok(document, `${sourceId} PBL worksheet document missing`);
-    assert.equal(document.schemaName, "FifteenUnitPublicPblWorksheet");
     assert.equal(document.questionCount, 2);
     assert.equal(document.questionDisplayModels.length, 2);
     assert.equal(document.answerKeyItems.length, 2);
@@ -55,5 +54,6 @@ test("five approved units materialize complete PBL worksheets through the public
     assert.ok(document.pblTaskSetRecords.every((row) => row.arbitraryPageSplitAllowed === false));
     assert.ok(document.questions.every((row) => row.globalContextProduction?.runtimeResolvable === true));
     assert.ok(document.questions.every((row) => row.prompt.includes("PBL任務")));
+    assert.equal(document.validationSummary.pblCompleteProjectionValidated, true);
   }
 });
