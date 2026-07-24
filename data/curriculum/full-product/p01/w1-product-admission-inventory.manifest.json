@@ -3,12 +3,14 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P01A_W1ProductAdmissionInventoryAndGapMatrix",
-  "status": "W1_PRODUCT_ADMISSION_INVENTORY_GATE_ACTIVE",
+  "status": "W1_PRODUCT_ADMISSION_INVENTORY_PASS_PENDING_FINAL_CI",
   "sourceAuthorities": {
     "deliveryWaveTask": "R05_DeliveryWaveRebase",
     "runtimeCapabilityTask": "R04_SharedRuntimeCapabilityMatrix",
     "prerequisiteTask": "R03_GlobalPrerequisiteGraph",
-    "expectedKnowledgePointCount": 22
+    "knowledgePointCount": 22,
+    "sourceNodeCount": 5,
+    "publicProductVerticalSliceRequiredCount": 22
   },
   "policyPath": "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
   "runtimePath": "src/curriculum/full-product/p01-w1-product-admission-inventory.mjs",
@@ -19,6 +21,8 @@
     "existing15UnitProductionUsePreserved": true,
     "w2ToW8WorkStarted": false,
     "recursiveImprovementAdminAllowed": false,
-    "nextTask": "P01B_W1ExistingPatternAdmission"
+    "emptyExistingPatternTaskSkipped": true,
+    "emptyPartialBindingTaskSkipped": true,
+    "nextTask": "P01D1_G4AU07QuantityMultiplicativePatternVerticalSlice"
   }
 }
