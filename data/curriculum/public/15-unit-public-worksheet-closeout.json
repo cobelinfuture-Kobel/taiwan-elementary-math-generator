@@ -1,0 +1,58 @@
+{
+  "schemaName": "FifteenUnitPublicWorksheetCloseoutV1",
+  "schemaVersion": 1,
+  "programId": "BATCH_A13_BATCH_B2_PUBLIC_WORKSHEET_CLOSEOUT_V1",
+  "status": "EXECUTABLE_PRODUCT_GATE_ACTIVE",
+  "scopePolicy": {
+    "unitCount": 15,
+    "newCurriculumUnitsAllowed": false,
+    "newGovernanceOnlyMilestonesAllowed": false,
+    "w03ToW06WorkAllowed": false,
+    "canonicalAuthorityDetourAllowed": false,
+    "completionCanBeReplacedBySuccessorTask": false
+  },
+  "requiredProductCapabilities": {
+    "publicUiSelectable": true,
+    "numericWorksheet": true,
+    "applicationWorksheetForEligibleUnits": true,
+    "approvedPblWorksheetForEligibleUnits": true,
+    "globalContextRuntimeForApplicationQuestions": true,
+    "sharedValidatorPass": true,
+    "answerKey": true,
+    "htmlPreview": true,
+    "browserPrint": true,
+    "browserSaveAsPdfSmoke": true
+  },
+  "units": [
+    { "sourceId": "g3a_u01_3a01", "batch": "A", "unitCode": "3A-U01", "title": "10000以內的數", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g3a_u02_3a02", "batch": "A", "unitCode": "3A-U02", "title": "四位數的加減", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g3a_u03_3a03", "batch": "A", "unitCode": "3A-U03", "title": "乘法", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g3a_u06_3a06", "batch": "A", "unitCode": "3A-U06", "title": "二位數除以一位數", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g3b_u01_3b01", "batch": "A", "unitCode": "3B-U01", "title": "除法", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g3b_u04_3b04", "batch": "A", "unitCode": "3B-U04", "title": "兩步驟計算", "applicationRequired": true, "pblRequired": true },
+    { "sourceId": "g3b_u08_3b08", "batch": "A", "unitCode": "3B-U08", "title": "乘法與除法", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g4a_u01_4a01", "batch": "A", "unitCode": "4A-U01", "title": "1億以內的數", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g4a_u02_4a02", "batch": "A", "unitCode": "4A-U02", "title": "整數的乘法", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g4a_u04_4a04", "batch": "A", "unitCode": "4A-U04", "title": "整數的除法", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g4a_u08_4a08", "batch": "A", "unitCode": "4A-U08", "title": "整數四則", "applicationRequired": true, "pblRequired": true },
+    { "sourceId": "g4b_u01_4b01", "batch": "A", "unitCode": "4B-U01", "title": "多位數的乘與除", "applicationRequired": true, "pblRequired": false },
+    { "sourceId": "g5a_u08_5a08", "batch": "A", "unitCode": "5A-U08", "title": "整數四則", "applicationRequired": true, "pblRequired": true },
+    { "sourceId": "g4b_u04_4b04", "batch": "B", "unitCode": "4B-U04", "title": "概數", "applicationRequired": true, "pblRequired": true },
+    { "sourceId": "g5a_u02_5a02", "batch": "B", "unitCode": "5A-U02", "title": "因數與公因數", "applicationRequired": true, "pblRequired": true }
+  ],
+  "closeCondition": {
+    "publicSelectable": "15/15",
+    "numericWorksheetPass": "15/15",
+    "applicationEligibleUnitsPass": "15/15",
+    "approvedPblUnitsPass": "5/5",
+    "globalContextBindingPass": "15/15",
+    "answerKeyPass": "15/15",
+    "htmlPreviewPass": "15/15",
+    "browserPrintPass": "15/15",
+    "browserSaveAsPdfSmokePass": "15/15",
+    "blockingFindingCount": 0,
+    "productionUse": "allowed",
+    "goalDistance": "D0",
+    "nextShortestStep": null
+  }
+}
