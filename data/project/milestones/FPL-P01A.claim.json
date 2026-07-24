@@ -44,10 +44,10 @@
   "distance": {
     "before": "D2",
     "after": "D2",
-    "distanceReduced": "The 22 W1 KnowledgePoints are converted from an abstract wave count into a machine-validated source and product-admission gap matrix without silently promoting capability-ready nodes to production."
+    "distanceReduced": "The 22 W1 KnowledgePoints are converted into an exact five-source product queue; zero-row existing-pattern and partial-binding tasks are removed, and the one-KP G4A-U07 vertical slice becomes the shortest valid next step."
   },
   "nextStep": {
-    "taskId": "P01B_W1ExistingPatternAdmission",
+    "taskId": "P01D1_G4AU07QuantityMultiplicativePatternVerticalSlice",
     "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
