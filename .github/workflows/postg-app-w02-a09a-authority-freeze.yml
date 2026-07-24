@@ -87,5 +87,24 @@ jobs:
       - name: Enforce focused validation
         if: steps.focused.outputs.status != '0'
         run: exit 1
-      - name: Full regression
-        run: npm test
+      - name: Capture full regression
+        id: full
+        shell: bash
+        run: |
+          set +e
+          npm test > a09a-full-regression.log 2>&1
+          status=$?
+          tail -n 240 a09a-full-regression.log
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload full regression diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a09a-full-regression-diagnostics
+          path: a09a-full-regression.log
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce full regression
+        if: steps.full.outputs.status != '0'
+        run: exit 1
