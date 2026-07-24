@@ -14,6 +14,13 @@ import {
 } from "../../site/modules/curriculum/global/r07-authoritative-consumer-cutover.js";
 import { validateR07AuthoritativeConsumerCutover } from "../../tools/curriculum/validate-r07-authoritative-consumer-cutover.mjs";
 
+const G4A_U08_LEGACY_KP_ALIASES = Object.freeze([
+  "kp_g4a_u08_parentheses_first",
+  "kp_g4a_u08_mul_div_before_add_sub",
+  "kp_g4a_u08_left_to_right_same_level",
+  "kp_g4a_u08_comprehensive_order_of_operations",
+]);
+
 
 test("R07 materializes the 15-unit Global-primary authority", () => {
   const cutover = materializeR07AuthoritativeConsumerCutover();
@@ -81,6 +88,25 @@ test("R07 preserves an explicit KnowledgePoint and PatternGroup selection", () =
   assert.deepEqual(result.plan.selectedPatternGroupIds, [patternGroupId]);
   assert.equal(result.dualReadParity.requestedKnowledgePointIdsPreserved, true);
   assert.equal(result.dualReadParity.requestedPatternGroupIdsPreserved, true);
+});
+
+
+test("R07 keeps G4A-U08 production KP aliases routable as read-only compatibility identities", () => {
+  const descriptor = resolveR07GlobalAuthorityDescriptor("g4a_u08_4a08");
+  assert.ok(G4A_U08_LEGACY_KP_ALIASES.every((id) => descriptor.compatibilityKnowledgePointAliasIds.includes(id)));
+  for (const knowledgePointId of G4A_U08_LEGACY_KP_ALIASES) {
+    const result = applyR07AuthoritativeConsumerCutover({
+      sourceId: "g4a_u08_4a08",
+      selectionMode: "singleKnowledgePoint",
+      selectedKnowledgePointIds: [knowledgePointId],
+    });
+    assert.equal(result.applied, true, knowledgePointId);
+    assert.equal(result.blocked, false, knowledgePointId);
+    assert.deepEqual(result.plan.selectedKnowledgePointIds, [knowledgePointId]);
+    assert.ok(result.plan.selectedPatternGroupIds.length > 0, knowledgePointId);
+    assert.equal(result.plan.globalAuthorityCutover.compatibilityAliasKnowledgePointCount, 1);
+    assert.deepEqual(result.plan.legacyCompatibilityAlias.knowledgePointIds, [knowledgePointId]);
+  }
 });
 
 
