@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P01D1_G5BU05LargeNumberVerticalSlice",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "G5B_U05_FOUR_KP_PUBLIC_VERTICAL_SLICE_PENDING_FINAL_CI",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g5b-u05-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p01d1-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p01d1-extension.js",
+      "site/modules/curriculum/batch-a/g5b-u05-large-number-generator.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p01d1.js",
+      "tools/curriculum/validate-p01d1-g5b-u05-large-number.mjs",
+      "tests/curriculum/p01d1-g5b-u05-large-number-vertical-slice.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet.js",
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p01d1-g5b-u05-pdf-smoke.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "tmp/p01d1-g5b-u05-pdf-smoke/g5b-u05-large-number.html"
+    ],
+    "pdfArtifactPaths": [
+      "tmp/p01d1-g5b-u05-pdf-smoke/g5b-u05-large-number.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/full-product/p01d1/g5b-u05-large-number-pattern-authority.json",
+      "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
+      "docs/curriculum/contracts/P01D1_G5B_U05_LARGE_NUMBER_VERTICAL_SLICE_CONTRACT_V1.md",
+      "docs/curriculum/output/P01D1_G5B_U05_LARGE_NUMBER_VERTICAL_SLICE_READBACK.md",
+      "docs/curriculum/output/P01A_W1_PRODUCT_ADMISSION_INVENTORY_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2_W1_21_VERTICAL_SLICES_REQUIRED",
+    "after": "D2_W1_4_ADMITTED_17_REMAINING",
+    "distanceReduced": "Four G5B-U05 KnowledgePoints now use the public selector, shared planner, deterministic generator and validator, WorksheetDocument, answer key, HTML renderer and Chromium PDF path."
+  },
+  "nextStep": {
+    "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
