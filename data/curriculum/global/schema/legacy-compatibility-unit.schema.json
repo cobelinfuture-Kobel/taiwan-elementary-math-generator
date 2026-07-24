@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "R06LegacyCompatibilityUnitV1",
+  "title": "R06 Legacy Compatibility Unit",
+  "type": "object",
+  "required": [
+    "productUnitId",
+    "legacySourceNodeIds",
+    "canonicalKnowledgePointIds",
+    "legacyKnowledgePointMappings",
+    "legacyQuestionBindings",
+    "compatibilityState"
+  ],
+  "properties": {
+    "productUnitId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "legacySourceNodeIds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "canonicalKnowledgePointIds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "legacyKnowledgePointMappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "legacyKnowledgePointId",
+          "canonicalKnowledgePointId",
+          "migrationType"
+        ]
+      }
+    },
+    "legacyQuestionBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "legacyQuestionId",
+          "canonicalKnowledgePointId",
+          "sourcePath"
+        ]
+      }
+    },
+    "compatibilityState": {
+      "const": "SHADOW_COMPATIBILITY_READY_R07_CUTOVER_DEFERRED"
+    }
+  },
+  "additionalProperties": true
+}
