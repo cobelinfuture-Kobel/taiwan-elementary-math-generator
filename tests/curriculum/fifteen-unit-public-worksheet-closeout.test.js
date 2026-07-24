@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { auditFifteenUnitPublicWorksheetCloseout } from "../../tools/curriculum/audit-15-unit-public-worksheet-closeout.mjs";
+import { auditFifteenUnitPublicWorksheetCloseout } from "../../tools/curriculum/audit-15-unit-public-worksheet-closeout-v2.mjs";
 
 test("15-unit public worksheet closeout reaches the original D0 product endpoint", () => {
   const report = auditFifteenUnitPublicWorksheetCloseout();
