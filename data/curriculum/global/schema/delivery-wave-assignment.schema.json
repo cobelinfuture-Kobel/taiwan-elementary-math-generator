@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/curriculum/global/delivery-wave-assignment.schema.json",
+  "title": "R05 Delivery Wave Assignment",
+  "type": "object",
+  "required": [
+    "assignmentId",
+    "knowledgePointId",
+    "baseDeliveryWaveId",
+    "deliveryWaveId",
+    "intraWavePrerequisiteRank",
+    "requiredRuntimeCapabilityIds",
+    "contractOnlyRequiredCapabilityIds",
+    "legacyBatchUsedForAssignment",
+    "productionAdmissionState"
+  ],
+  "properties": {
+    "assignmentId": {
+      "type": "string",
+      "pattern": "^r05wave_"
+    },
+    "knowledgePointId": {
+      "type": "string",
+      "pattern": "^kp_"
+    },
+    "baseDeliveryWaveId": {
+      "type": "string",
+      "pattern": "^R05-W[0-8]$"
+    },
+    "deliveryWaveId": {
+      "type": "string",
+      "pattern": "^R05-W[0-8]$"
+    },
+    "intraWavePrerequisiteRank": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "requiredRuntimeCapabilityIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "contractOnlyRequiredCapabilityIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "contractOnlyCapabilityWaveIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^R05-W[3-7]$"
+      },
+      "uniqueItems": true
+    },
+    "protectedPublicProductUnitIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "legacyBatchRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "legacyBatchUsedForAssignment": {
+      "const": false
+    },
+    "productionAdmissionState": {
+      "enum": [
+        "PROTECTED_EXISTING_D0",
+        "PLANNED_NOT_ADMITTED"
+      ]
+    },
+    "r06CompatibilityMigrationRequired": {
+      "type": "boolean"
+    },
+    "waveEscalatedByPrerequisite": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}
