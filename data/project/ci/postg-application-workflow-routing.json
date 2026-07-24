@@ -1,0 +1,33 @@
+{
+  "schemaName": "POSTGApplicationWorkflowRoutingPolicyV1",
+  "schemaVersion": 1,
+  "taskId": "POSTG-CI-GOV-W01_WorkflowFanoutAuditAndCentralRouterConsolidation",
+  "status": "HISTORICAL_MILESTONE_PR_TRIGGERS_DISABLED_CENTRAL_ROUTER_REQUIRED",
+  "centralPullRequestWorkflow": ".github/workflows/postg-application-pr-router.yml",
+  "maximumApplicationPullRequestWorkflowCount": 1,
+  "expectedRepositoryPullRequestGateCount": 3,
+  "expectedRepositoryPullRequestGates": [
+    "POSTG Application PR Router",
+    "Node Test",
+    "Milestone Claim Integrity"
+  ],
+  "historicalManualReadbackWorkflows": [
+    ".github/workflows/postg-app-w02-a00-source-assessment.yml",
+    ".github/workflows/postg-app-w02-a01a-source-pdf-evidence.yml",
+    ".github/workflows/postg-app-w02-a01b-page-knowledge-operation-candidates.yml",
+    ".github/workflows/postg-app-w02-a01c-canonical-operation-models.yml",
+    ".github/workflows/postg-app-w02-a01d-hidden-pattern-specs.yml",
+    ".github/workflows/postg-app-w02-a02-candidate-pack.yml",
+    ".github/workflows/postg-app-w02-a03-nplusone-pbl.yml",
+    ".github/workflows/postg-app-w02-a04-validator-shadow.yml",
+    ".github/workflows/postg-app-w02-a05-shared-worksheet-projection.yml"
+  ],
+  "rules": {
+    "historicalWorkflowPullRequestTriggerAllowed": false,
+    "historicalWorkflowDispatchRequired": true,
+    "centralRouterRunsFocusedApplicationTests": true,
+    "fullRepositoryRegressionAuthority": "Node Test",
+    "milestoneClaimAuthority": "Milestone Claim Integrity",
+    "markerCommitForCITriggerAllowed": false
+  }
+}
