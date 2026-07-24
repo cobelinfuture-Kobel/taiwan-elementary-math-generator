@@ -45,8 +45,8 @@
     "reviewArtifactRequired": false
   },
   "distance": {
-    "before": "D2_GLOBAL_KP_DECOMPOSITION_CONTRACT_READY",
-    "after": "D2_ALL_79_SOURCE_NODES_GLOBAL_KP_CANDIDATE_AUTHORITY_READY",
+    "before": "D2",
+    "after": "D2",
     "distanceReduced": "All 79 source nodes now resolve to machine-validated KnowledgePoint candidate views while existing D0 IDs and the production consumer remain intact."
   },
   "nextStep": {
