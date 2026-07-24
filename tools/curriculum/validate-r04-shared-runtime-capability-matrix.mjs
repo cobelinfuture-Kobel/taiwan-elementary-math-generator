@@ -1,5 +1,5 @@
 import { pathToFileURL } from "node:url";
-import { materializeR04SharedRuntimeCapabilityMatrix } from "../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+import { materializeR04SharedRuntimeCapabilityMatrix } from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
 
 function finding(code, details = {}) { return Object.freeze({ code, ...details }); }
 function detectCapabilityCycle(capabilities) {
