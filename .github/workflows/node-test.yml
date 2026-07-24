@@ -27,3 +27,11 @@ jobs:
         run: npm install
       - name: Run tests
         run: npm test
+      - name: Upload 15-unit public worksheet closeout report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fifteen-unit-public-worksheet-closeout-report
+          path: tmp/15-unit-public-worksheet-closeout-report.json
+          if-no-files-found: warn
+          retention-days: 30
