@@ -46,7 +46,20 @@ jobs:
         if: steps.focused_tests.outcome == 'failure'
         run: exit 1
       - name: Governance claim integrity
-        run: node tools/governance/validate-milestone-claim-integrity.mjs
+        id: governance
+        continue-on-error: true
+        run: node tools/governance/validate-milestone-claim-integrity.mjs > tmp/r02-governance.log 2>&1
+      - name: Upload governance diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r02-governance-diagnostics
+          path: tmp/r02-governance.log
+          if-no-files-found: error
+          retention-days: 7
+      - name: Block after governance failure
+        if: steps.governance.outcome == 'failure'
+        run: exit 1
       - name: Commit finalized text pack
         run: |
           git config user.name "github-actions[bot]"
