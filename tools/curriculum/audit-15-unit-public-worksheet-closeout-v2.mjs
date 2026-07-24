@@ -1,5 +1,9 @@
 import { auditFifteenUnitPublicWorksheetCloseout as auditBase } from "./audit-15-unit-public-worksheet-closeout.mjs";
 import { buildWorksheetDocumentFromPlan } from "../../site/assets/browser/pipeline/build-worksheet-document.js";
+import {
+  getVisiblePatternGroupsForKnowledgePoint,
+  listVisibleBatchAKnowledgePoints,
+} from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 
 function pblPlan(sourceId) {
   return {
@@ -81,6 +85,60 @@ function isComplete(metrics) {
     && metrics.blockingFindingCount === 0;
 }
 
+function looksApplication(group) {
+  return JSON.stringify(group).toLowerCase().includes("application")
+    || JSON.stringify(group).toLowerCase().includes("word_problem");
+}
+
+function compactRecord(record) {
+  if (!record) return null;
+  return {
+    keys: Object.keys(record),
+    record,
+  };
+}
+
+function applicationShape(sourceId) {
+  const knowledgePoints = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === sourceId);
+  const groups = knowledgePoints.flatMap((knowledgePoint) => getVisiblePatternGroupsForKnowledgePoint(knowledgePoint.knowledgePointId).filter(looksApplication));
+  const group = groups[0];
+  if (!group) return { sourceId, error: "application_group_missing" };
+  const selectedKnowledgePointIds = [...new Set([group.primaryKnowledgePointId, ...(group.knowledgePointIds ?? [])].filter(Boolean))];
+  let result;
+  try {
+    result = buildWorksheetDocumentFromPlan({
+      sourceId,
+      questionCount: 1,
+      ordering: "groupedByPattern",
+      includeAnswerKey: true,
+      generationSeed: `shape-${sourceId}`,
+      selectionMode: "singleKnowledgePoint",
+      selectedKnowledgePointIds,
+      selectedPatternGroupIds: [group.patternGroupId],
+      questionMode: "numeric",
+      printLayout: { paperSize: "A4", columns: 1, rowsPerPage: 1, showAnswerKeyPage: true },
+    });
+  } catch (error) {
+    return { sourceId, group, error: String(error?.stack ?? error) };
+  }
+  const document = result?.worksheetDocument;
+  const first = document?.generatedQuestions?.[0]
+    ?? document?.questions?.[0]
+    ?? document?.questionItems?.[0]
+    ?? document?.questionRecords?.[0]
+    ?? null;
+  return {
+    sourceId,
+    group,
+    resultOk: result?.ok,
+    resultErrors: issueCodes(result),
+    documentKeys: document ? Object.keys(document) : [],
+    firstQuestion: compactRecord(first),
+    firstDisplayModel: compactRecord(document?.questionDisplayModels?.[0]),
+    firstAnswerKeyItem: compactRecord(document?.answerKeyItems?.[0]),
+  };
+}
+
 export function auditFifteenUnitPublicWorksheetCloseout() {
   const base = auditBase();
   const rows = base.rows.map((row) => {
@@ -104,6 +162,9 @@ export function auditFifteenUnitPublicWorksheetCloseout() {
   });
   const metrics = recomputeMetrics(rows);
   const closeoutComplete = isComplete(metrics);
+  const debugApplicationShapes = rows
+    .filter((row) => row.applicationRequired && !row.checks.applicationWorksheet)
+    .map((row) => applicationShape(row.sourceId));
   return Object.freeze({
     schemaName: "FifteenUnitPublicWorksheetCloseoutAuditV2",
     programId: base.programId,
@@ -111,6 +172,7 @@ export function auditFifteenUnitPublicWorksheetCloseout() {
     closeoutComplete,
     metrics: Object.freeze(metrics),
     rows: Object.freeze(rows),
+    debugApplicationShapes: Object.freeze(debugApplicationShapes),
   });
 }
 
