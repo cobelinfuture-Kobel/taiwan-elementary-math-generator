@@ -1,29 +1,13 @@
 name: POSTG-APP W02-A04 Validator Shadow
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/assessment/w02-validator-fixture-shadow-*.json"
-      - "data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow.json"
-      - "data/project/milestones/POSTG-APP-W02-A04.claim.json"
-      - "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs"
-      - "tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js"
-      - "docs/curriculum/output/POSTG_APP_W02_A04_*"
-      - ".github/workflows/postg-app-w02-a04-validator-shadow.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: postg-app-w02-a04-${{ github.event.pull_request.number || github.ref }}
+  group: postg-app-w02-a04-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
