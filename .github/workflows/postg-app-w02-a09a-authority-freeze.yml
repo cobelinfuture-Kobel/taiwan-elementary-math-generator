@@ -27,11 +27,30 @@ jobs:
         run: npm install --silent --no-audit --no-fund
       - name: Apply idempotent A09A authoritative materialization
         run: |
-          node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
-          node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
-          node tools/curriculum/normalize-postg-app-w02-a09a-m00-compat-materializer.mjs
-          node tools/curriculum/materialize-postg-app-w02-a09a-m00-compat-repair.mjs
-          git diff --stat
+          set -o pipefail
+          {
+            node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
+            node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
+            node tools/curriculum/normalize-postg-app-w02-a09a-m00-compat-materializer.mjs
+            node tools/curriculum/materialize-postg-app-w02-a09a-m00-compat-repair.mjs
+            git diff --stat
+          } 2>&1 | tee a09a-materialization.log
+      - name: Upload materialized A09A diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a09a-materialized-controller-diagnostics
+          path: |
+            a09a-materialization.log
+            src/curriculum/application/postg-app-master-controller.mjs
+            tests/curriculum/postg-app-m00-master-controller.test.js
+            tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
+            data/curriculum/application/controller/postg-app-master-controller-state.json
+            data/curriculum/application/controller/postg-app-wave-plan.json
+            data/curriculum/application/registry/application-capability-registry.json
+            data/curriculum/application/registry/wave-application-admission-registry.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Validate canonical authority gap and W03 freeze
         run: node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
       - name: Enforce frozen mainline against new W03 and legacy routes
