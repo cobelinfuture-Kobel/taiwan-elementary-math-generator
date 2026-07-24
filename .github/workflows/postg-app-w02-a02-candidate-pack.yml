@@ -1,28 +1,13 @@
 name: POSTG-APP W02-A02 Candidate Pack
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/assessment/w02-atomic-context-*.json"
-      - "data/curriculum/application/schema/w02-atomic-context-single-application-candidate.schema.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization.json"
-      - "data/project/milestones/POSTG-APP-W02-A02.claim.json"
-      - "src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs"
-      - "tests/curriculum/postg-app-w02-a02-candidate-pack.test.js"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "docs/curriculum/output/POSTG_APP_W02_A02_ATOMIC_CONTEXT_CANDIDATES_*"
-      - ".github/workflows/postg-app-w02-a02-candidate-pack.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: postg-app-w02-a02-${{ github.event.pull_request.number || github.ref }}
+  group: postg-app-w02-a02-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
