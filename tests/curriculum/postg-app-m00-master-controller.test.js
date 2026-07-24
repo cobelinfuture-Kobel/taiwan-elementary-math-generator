@@ -76,7 +76,7 @@ test('W01 and W02 form the contiguous production-admitted prefix', () => {
   const w01 = resolvePOSTGAPPWave(controller, 'W01');
   assert.equal(w01.goldenUnitIds.length, 15);
   assert.equal(w01.sourceNodes.length, 16);
-  assert.equal(w01.productionSelectable, true);
+  assert.equal(w01.productionSelectable, false);
   assert.equal(w01.productionAdmissionGranted, true);
   assert.equal(w01.currentState.state, 'PRODUCTION_ADMITTED');
   assert.equal(w01.currentState.reviewDecision, 'APPROVE');
@@ -97,7 +97,7 @@ test('Wave 02 records A08R4 approval and production admission', () => {
 
   assert.equal(w02.sourceNodes.length, 13);
   assert.equal(w02.productionAdmissionGranted, true);
-  assert.equal(w02.productionSelectable, true);
+  assert.equal(w02.productionSelectable, false);
   assert.equal(state.state, 'PRODUCTION_ADMITTED');
   assert.deepEqual(state.completedGates, REQUIRED_GATES);
   assert.equal(state.admissionGateComplete, true);

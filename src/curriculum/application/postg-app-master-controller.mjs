@@ -120,6 +120,42 @@ function readJson(root, repoPath) {
   return JSON.parse(fs.readFileSync(path.join(root, repoPath), 'utf8'));
 }
 
+function readJsonIfExists(root, repoPath) {
+  const absolutePath = path.join(root, repoPath);
+  return fs.existsSync(absolutePath) ? readJson(root, repoPath) : null;
+}
+
+function parseSourceNodeId(sourceNodeId) {
+  const match = /^g([3-6])([ab])_u\d+_[a-z0-9]+$/.exec(sourceNodeId);
+  if (!match) return null;
+  return { grade: Number(match[1]), semester: match[2] === 'a' ? 'upper' : 'lower' };
+}
+
+function materializeSourceNodes(unitRegistry) {
+  const rows = [];
+  let queueOrdinal = 1;
+  for (const batch of unitRegistry.batches ?? []) {
+    for (const sourceNodeId of batch.sourceNodeIds ?? []) {
+      const parsed = parseSourceNodeId(sourceNodeId);
+      rows.push({
+        sourceNodeId,
+        queueOrdinal,
+        primaryBatchId: batch.batchId,
+        sourceScope: batch.scope,
+        grade: parsed?.grade ?? null,
+        semester: parsed?.semester ?? null,
+        sourceNodeType: 'SOURCE_UNIT_MACRO_NODE'
+      });
+      queueOrdinal += 1;
+    }
+  }
+  return rows;
+}
+
+function goldenRegistryPath(goldenUnitId) {
+  return `${GOLDEN_UNIT_DIR}/${goldenUnitId}.knowledge-operation.json`;
+}
+
 function listGoldenUnitFiles(root) {
   const dir = path.join(root, GOLDEN_UNIT_DIR);
   if (!fs.existsSync(dir)) return [];
@@ -133,36 +169,32 @@ function validateRegistry(registry, issues) {
   if (registry.schemaName !== 'POSTGAPP79UnitRegistryV1'
       || registry.schemaVersion !== 1
       || registry.programId !== 'POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1'
-      || registry.totalApplicationUnitCount !== 79
-      || registry.units.length !== 79) {
+      || registry.batches?.length !== 5
+      || registry.goldenBaselineUnits?.length !== 15) {
     issues.push(issue('POSTG_APP_UNIT_REGISTRY_SCHEMA_INVALID', UNIT_REGISTRY_PATH));
     return;
   }
-  const ids = registry.units.map((row) => row.sourceNodeId);
-  if (!unique(ids)) issues.push(issue('POSTG_APP_UNIT_ID_DUPLICATED', UNIT_REGISTRY_PATH));
-  const actualWaveCounts = Object.fromEntries(Object.keys(WAVE_SOURCE_COUNTS).map((waveId) => [
-    waveId,
-    registry.units.filter((row) => row.waveId === waveId).length
-  ]));
-  if (JSON.stringify(actualWaveCounts) !== JSON.stringify(WAVE_SOURCE_COUNTS)) {
-    issues.push(issue('POSTG_APP_UNIT_REGISTRY_WAVE_COUNT_INVALID', UNIT_REGISTRY_PATH, { actualWaveCounts }));
-  }
-  if (JSON.stringify(registry.units.slice(0, 15).map((row) => row.sourceNodeId)) !== JSON.stringify(W01_REQUIRED_SOURCE_IDS)) {
-    issues.push(issue('POSTG_APP_W01_SOURCE_ORDER_INVALID', UNIT_REGISTRY_PATH));
-  }
-  if (JSON.stringify(registry.units.slice(15, 28).map((row) => row.sourceNodeId)) !== JSON.stringify(W02_REQUIRED_SOURCE_IDS)) {
-    issues.push(issue('POSTG_APP_W02_SOURCE_ORDER_INVALID', UNIT_REGISTRY_PATH));
-  }
-  for (const [waveId, offset] of Object.entries(WAVE_SOURCE_OFFSETS)) {
-    const rows = registry.units.filter((row) => row.waveId === waveId);
-    for (const [index, row] of rows.entries()) {
-      if (row.globalOrdinal !== offset + index + 1 || row.waveOrdinal !== index + 1) {
-        issues.push(issue('POSTG_APP_UNIT_REGISTRY_ORDINAL_INVALID', `units.${row.sourceNodeId}`));
-      }
-      if (!['APPLICATION_REQUIRED', 'APPLICATION_COMPATIBLE', 'APPLICATION_NOT_APPLICABLE', 'ASSESSMENT_PENDING'].includes(row.kpApplicationClass)) {
-        issues.push(issue('POSTG_APP_UNIT_REGISTRY_CLASS_INVALID', `units.${row.sourceNodeId}`));
-      }
+  const expectedBatchCounts = { A: 13, B: 24, C: 17, D: 16, E: 9 };
+  for (const batch of registry.batches) {
+    if (batch.expectedCount !== expectedBatchCounts[batch.batchId]
+        || batch.sourceNodeIds?.length !== expectedBatchCounts[batch.batchId]) {
+      issues.push(issue('POSTG_APP_BATCH_COUNT_MISMATCH', `batches.${batch.batchId}`));
     }
+  }
+  const sourceIds = registry.batches.flatMap((row) => row.sourceNodeIds);
+  if (sourceIds.length !== 79 || !unique(sourceIds)) {
+    issues.push(issue('POSTG_APP_SOURCE_NODE_COUNT_OR_IDENTITY_INVALID', UNIT_REGISTRY_PATH));
+  }
+  const goldenIds = registry.goldenBaselineUnits.map((row) => row.goldenUnitId);
+  const goldenSourceIds = registry.goldenBaselineUnits.flatMap((row) => row.sourceNodeRefs);
+  if (!unique(goldenIds) || goldenSourceIds.length !== 16 || !unique(goldenSourceIds)) {
+    issues.push(issue('POSTG_APP_GOLDEN_BASELINE_INVALID', 'goldenBaselineUnits'));
+  }
+  const composite = registry.goldenBaselineUnits.filter((row) => row.sourceNodeRefs.length > 1);
+  if (composite.length !== 1
+      || composite[0].goldenUnitId !== 'g5a_u02_5a02'
+      || JSON.stringify(composite[0].sourceNodeRefs) !== JSON.stringify(['g5a_u02_5a02a', 'g5a_u02_5a02a1'])) {
+    issues.push(issue('POSTG_APP_COMPOSITE_GOLDEN_MAPPING_INVALID', 'goldenBaselineUnits'));
   }
 }
 
@@ -297,6 +329,8 @@ function validateA08Evidence(controller, issues) {
 }
 
 export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
+  const unitRegistry = readJson(root, UNIT_REGISTRY_PATH);
+  const wavePlan = readJson(root, WAVE_PLAN_PATH);
   const baseControllerState = readJson(root, CONTROLLER_STATE_PATH);
   const a08r2Evidence = loadW02A08R2ControllerEvidence({ root });
   const a08r2ControllerState = applyW02A08R2ControllerOverlay({ root, controllerState: baseControllerState });
@@ -304,28 +338,45 @@ export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
   const a08r3ControllerState = applyW02A08R3ControllerOverlay({ root, controllerState: a08r2ControllerState });
   const a08r4Evidence = loadW02A08R4ControllerEvidence({ root });
   const controllerState = applyW02A08R4ControllerOverlay({ root, controllerState: a08r3ControllerState });
+  const contextAuthority = loadGlobalContextAuthority({ root });
+  const sourceNodes = materializeSourceNodes(unitRegistry);
+  const goldenRegistries = unitRegistry.goldenBaselineUnits.map((mapping) => {
+    const registryPath = goldenRegistryPath(mapping.goldenUnitId);
+    const absolutePath = path.join(root, registryPath);
+    return {
+      mapping,
+      registryPath,
+      exists: fs.existsSync(absolutePath),
+      registry: fs.existsSync(absolutePath) ? readJson(root, registryPath) : null
+    };
+  });
+  const approvalDecision = readJsonIfExists(root, W01_APPROVAL_PATH);
   return {
     root,
-    unitRegistry: readJson(root, UNIT_REGISTRY_PATH),
-    wavePlan: readJson(root, WAVE_PLAN_PATH),
+    unitRegistry,
+    wavePlan,
     controllerState,
-    goldenUnitFiles: listGoldenUnitFiles(root),
-    globalContextAuthority: loadGlobalContextAuthority({ root }),
-    w01Approval: readJson(root, W01_APPROVAL_PATH),
-    w01Claim: readJson(root, W01_CLAIM_PATH),
-    w02A00Claim: readJson(root, W02_A00_CLAIM_PATH),
-    w02A01AClaim: readJson(root, W02_A01A_CLAIM_PATH),
-    w02A01BClaim: readJson(root, W02_A01B_CLAIM_PATH),
-    w02A01CClaim: readJson(root, W02_A01C_CLAIM_PATH),
-    w02A01DClaim: readJson(root, W02_A01D_CLAIM_PATH),
-    w02A02Claim: readJson(root, W02_A02_CLAIM_PATH),
-    w02A03Claim: readJson(root, W02_A03_CLAIM_PATH),
-    w02A04Claim: readJson(root, W02_A04_CLAIM_PATH),
-    w02A05Claim: readJson(root, W02_A05_CLAIM_PATH),
-    w02A06Claim: readJson(root, W02_A06_CLAIM_PATH),
-    w02A07Claim: readJson(root, W02_A07_CLAIM_PATH),
-    w02A08Decision: readJson(root, W02_A08_DECISION_PATH),
-    w02A08Claim: readJson(root, W02_A08_CLAIM_PATH),
+    contextAuthority,
+    globalContextAuthority: contextAuthority,
+    sourceNodes,
+    goldenRegistries,
+    goldenUnitFiles: goldenRegistries.map((row) => row.mapping.goldenUnitId),
+    approvalDecision,
+    w01Approval: approvalDecision,
+    w01Claim: readJsonIfExists(root, W01_CLAIM_PATH),
+    w02A00Claim: readJsonIfExists(root, W02_A00_CLAIM_PATH),
+    w02A01AClaim: readJsonIfExists(root, W02_A01A_CLAIM_PATH),
+    w02A01BClaim: readJsonIfExists(root, W02_A01B_CLAIM_PATH),
+    w02A01CClaim: readJsonIfExists(root, W02_A01C_CLAIM_PATH),
+    w02A01DClaim: readJsonIfExists(root, W02_A01D_CLAIM_PATH),
+    w02A02Claim: readJsonIfExists(root, W02_A02_CLAIM_PATH),
+    w02A03Claim: readJsonIfExists(root, W02_A03_CLAIM_PATH),
+    w02A04Claim: readJsonIfExists(root, W02_A04_CLAIM_PATH),
+    w02A05Claim: readJsonIfExists(root, W02_A05_CLAIM_PATH),
+    w02A06Claim: readJsonIfExists(root, W02_A06_CLAIM_PATH),
+    w02A07Claim: readJsonIfExists(root, W02_A07_CLAIM_PATH),
+    w02A08Decision: readJsonIfExists(root, W02_A08_DECISION_PATH),
+    w02A08Claim: readJsonIfExists(root, W02_A08_CLAIM_PATH),
     w02A08R1Readback: buildW02A08R1Readback({ root }),
     ...a08r2Evidence,
     ...a08r3Evidence,
@@ -338,7 +389,10 @@ export function validatePOSTGAPPMasterController(controller) {
   const { unitRegistry, wavePlan, controllerState, goldenUnitFiles, globalContextAuthority } = controller;
   validateRegistry(unitRegistry, issues);
   validateWavePlan(wavePlan, unitRegistry, issues);
-  issues.push(...validateGlobalContextAuthority(globalContextAuthority));
+  const contextValidation = validateGlobalContextAuthority(globalContextAuthority);
+  if (!contextValidation.ok) {
+    issues.push(issue('POSTG_APP_M01_CONTEXT_AUTHORITY_INVALID', 'globalContextAuthority', { contextIssues: contextValidation.issues }));
+  }
   validateW01Evidence(controller, issues);
   if (goldenUnitFiles.length !== 15) {
     issues.push(issue('POSTG_APP_GOLDEN_UNIT_COUNT_INVALID', GOLDEN_UNIT_DIR, { actual: goldenUnitFiles.length }));
@@ -423,24 +477,43 @@ export function validatePOSTGAPPMasterController(controller) {
   issues.push(...validateW02A08R2ControllerEvidence(controller));
   issues.push(...validateW02A08R3ControllerEvidence(controller));
   issues.push(...validateW02A08R4ControllerEvidence(controller));
-  return { ok: issues.length === 0, issues };
+  for (const row of controller.goldenRegistries) {
+    if (!row.exists
+        || row.registry?.sourceId !== row.mapping.goldenUnitId
+        || row.registry?.conformanceState !== 'GOLDEN_CONFORMANT'
+        || row.registry?.knowledgeRegistryState !== 'VALIDATED_COMPLETE') {
+      issues.push(issue('POSTG_APP_GOLDEN_REGISTRY_INVALID', row.registryPath));
+    }
+  }
+  return {
+    ok: issues.length === 0,
+    issues,
+    counts: {
+      sourceNodeCount: controller.sourceNodes.length,
+      goldenBaselineUnitCount: controller.unitRegistry.goldenBaselineUnits.length,
+      goldenBaselineSourceNodeCount: controller.unitRegistry.goldenBaselineUnits.flatMap((row) => row.sourceNodeRefs).length,
+      remainingSourceNodeCount: 63,
+      waveCount: controller.wavePlan.waves.length,
+      productionAdmittedApplicationUnitCount: controller.controllerState.productionAdmission.applicationUnitCount
+    },
+    contextCounts: contextValidation.counts,
+    currentWaveId: controller.controllerState.currentWaveId,
+    nextShortestStep: controller.controllerState.nextShortestStep,
+    status: issues.length === 0 ? W02_A09A_STATUS : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'
+  };
 }
 
 export function resolvePOSTGAPPWave(controller, waveId) {
   const wave = controller.wavePlan.waves.find((row) => row.waveId === waveId);
-  const state = controller.controllerState.waveStates.find((row) => row.waveId === waveId);
-  if (!wave || !state) return null;
-  const units = controller.unitRegistry.units.filter((row) => row.waveId === waveId);
+  if (!wave) return null;
+  const sourceMap = new Map(controller.sourceNodes.map((row) => [row.sourceNodeId, row]));
   return {
-    waveId,
-    sourceNodeCount: units.length,
-    sourceNodeIds: units.map((row) => row.sourceNodeId),
-    sourceNodes: units,
-    controllerState: state.state,
-    productionAdmissionGranted: state.productionAdmissionGranted,
-    reviewDecision: state.reviewDecision,
-    assessmentReady: state.state === 'ASSESSMENT_READY',
-    productionSelectable: Boolean(controller.controllerState.waveStates.find((row) => row.waveId === waveId)?.productionAdmissionGranted),
+    ...wave,
+    currentState: controller.controllerState.waveStates.find((row) => row.waveId === waveId) ?? null,
+    sourceNodes: wave.sourceNodeIds.map((id) => sourceMap.get(id)).filter(Boolean),
+    goldenUnitIds: wave.goldenUnitIds ?? [],
+    gateOrder: controller.wavePlan.admissionGateOrder,
+    productionSelectable: false,
     publicSelectable: false
   };
 }
@@ -448,30 +521,21 @@ export function resolvePOSTGAPPWave(controller, waveId) {
 export function buildPOSTGAPPMasterReadback({ root = process.cwd() } = {}) {
   const controller = loadPOSTGAPPMasterController({ root });
   const validation = validatePOSTGAPPMasterController(controller);
-  const totalKnowledgeOperationCount = controller.unitRegistry.units.filter((row) => row.knowledgeOperationPath).length;
-  const totalApplicationClassifiedCount = controller.unitRegistry.units.filter((row) => row.kpApplicationClass !== 'ASSESSMENT_PENDING').length;
-  const productionAdmittedApplicationUnitCount = controller.controllerState.waveStates
-    .filter((row) => row.productionAdmissionGranted)
-    .reduce((total, row) => total + row.sourceNodeCount, 0);
   return {
-    ok: validation.ok,
-    issues: validation.issues,
-    programId: controller.unitRegistry.programId,
+    ...validation,
+    programId: controller.controllerState.programId,
     taskId: controller.controllerState.taskId,
-    status: validation.ok
-      ? W02_A09A_STATUS
-      : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION',
-    counts: {
-      totalApplicationUnitCount: controller.unitRegistry.totalApplicationUnitCount,
-      totalGoldenUnitCount: controller.goldenUnitFiles.length,
-      totalWaveCount: controller.wavePlan.waveCount,
-      totalKnowledgeOperationCount,
-      totalApplicationClassifiedCount,
-      productionAdmittedApplicationUnitCount
-    },
-    currentWaveId: controller.controllerState.currentWaveId,
+    producerStateConsumerReadback: controller.controllerState.producerStateConsumerReadback,
     currentMainlineBlocker: controller.controllerState.currentMainlineBlocker,
-    nextShortestStep: controller.controllerState.nextShortestStep,
-    productionAdmission: controller.controllerState.productionAdmission
+    productionAdmission: controller.controllerState.productionAdmission,
+    waveSummary: controller.wavePlan.waves.map((wave) => ({
+      waveId: wave.waveId,
+      plannedState: wave.controllerState,
+      currentState: controller.controllerState.waveStates.find((row) => row.waveId === wave.waveId)?.state ?? null,
+      sourceNodeCount: wave.sourceNodeIds.length,
+      goldenUnitCount: wave.goldenUnitIds?.length ?? 0,
+      productionAdmissionGranted: wave.productionAdmissionGranted,
+      executionFrozen: wave.executionFrozen === true
+    }))
   };
 }

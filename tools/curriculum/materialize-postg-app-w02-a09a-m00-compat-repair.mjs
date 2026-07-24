@@ -212,7 +212,11 @@ const readbackBlock = `export function buildPOSTGAPPMasterReadback({ root = proc
   };
 }
 `;
-source = replaceBetween(source, 'export function buildPOSTGAPPMasterReadback', '', readbackBlock);
+{
+  const readbackStart = source.indexOf('export function buildPOSTGAPPMasterReadback');
+  if (readbackStart < 0) throw new Error('Missing buildPOSTGAPPMasterReadback marker');
+  source = `${source.slice(0, readbackStart)}${readbackBlock}`;
+}
 
 fs.writeFileSync(FILE, source);
 
