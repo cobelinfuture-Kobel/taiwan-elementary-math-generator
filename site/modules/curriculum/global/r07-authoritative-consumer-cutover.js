@@ -132,9 +132,17 @@ function mergeDescriptors(sourceId, descriptors) {
     .map((row) => [row.patternGroupId, row])).values()];
   const primary = available[0];
   const primaryKnowledgePointSet = new Set(primary.knowledgePointIds);
+  const primaryPatternGroupSet = new Set(primary.patternGroupIds);
+  const primaryPatternSpecSet = new Set(primary.patternSpecIds);
   const compatibilityKnowledgePointAliasIds = unique(available.slice(1)
     .flatMap((row) => row.knowledgePointIds)
     .filter((id) => !primaryKnowledgePointSet.has(id)));
+  const compatibilityPatternGroupAliasIds = unique(available.slice(1)
+    .flatMap((row) => row.patternGroupIds)
+    .filter((id) => !primaryPatternGroupSet.has(id)));
+  const compatibilityPatternSpecAliasIds = unique(available.slice(1)
+    .flatMap((row) => row.patternSpecIds)
+    .filter((id) => !primaryPatternSpecSet.has(id)));
   return Object.freeze({
     sourceId,
     descriptorOrigin: "GLOBAL_BROWSER_AUTHORITY_WITH_READ_ONLY_COMPATIBILITY",
@@ -142,7 +150,11 @@ function mergeDescriptors(sourceId, descriptors) {
     canonicalKnowledgePointIds: freezeArray(primary.knowledgePointIds),
     compatibilityKnowledgePointAliasIds: freezeArray(compatibilityKnowledgePointAliasIds),
     patternGroupIds: freezeArray(unique(available.flatMap((row) => row.patternGroupIds))),
+    canonicalPatternGroupIds: freezeArray(primary.patternGroupIds),
+    compatibilityPatternGroupAliasIds: freezeArray(compatibilityPatternGroupAliasIds),
     patternSpecIds: freezeArray(unique(available.flatMap((row) => row.patternSpecIds))),
+    canonicalPatternSpecIds: freezeArray(primary.patternSpecIds),
+    compatibilityPatternSpecAliasIds: freezeArray(compatibilityPatternSpecAliasIds),
     patternGroups: freezeArray(patternGroups),
     authoritySources: freezeArray(available.map((row) => row.descriptorOrigin)),
   });
@@ -185,34 +197,35 @@ export function applyR07AuthoritativeConsumerCutover(plan = {}) {
   if (!PRODUCT_UNIT_ID_SET.has(plan.sourceId)) return passthrough(plan);
 
   const descriptor = resolveR07GlobalAuthorityDescriptor(plan.sourceId);
-  if (!descriptor || descriptor.knowledgePointIds.length === 0 || descriptor.patternGroupIds.length === 0) {
+  if (!descriptor || descriptor.canonicalKnowledgePointIds.length === 0 || descriptor.canonicalPatternGroupIds.length === 0) {
     return blocked(plan, descriptor, ["R07_GLOBAL_AUTHORITY_DESCRIPTOR_MISSING"]);
   }
 
   const requestedKnowledgePointIds = unique(plan.selectedKnowledgePointIds ?? plan.knowledgePointIds ?? []);
+  const requestedPatternGroupIds = unique(plan.selectedPatternGroupIds ?? []);
+  const requestedPatternSpecIds = unique(plan.patternSpecIds ?? []);
+  const sourceUnitParityMode = requestedKnowledgePointIds.length === 0
+    && requestedPatternGroupIds.length === 0
+    && requestedPatternSpecIds.length === 0
+    && (plan.selectionMode === "sourceUnit" || plan.selectionMode == null);
   const unknownKnowledgePointIds = requestedKnowledgePointIds.filter((id) => !descriptor.knowledgePointIds.includes(id));
   if (unknownKnowledgePointIds.length > 0) {
     return blocked(plan, descriptor, unknownKnowledgePointIds.map((id) => `R07_UNKNOWN_KNOWLEDGE_POINT:${id}`));
   }
 
-  const selectedKnowledgePointIds = requestedKnowledgePointIds.length > 0
-    ? requestedKnowledgePointIds
-    : [...descriptor.canonicalKnowledgePointIds];
-  const requestedPatternGroupIds = unique(plan.selectedPatternGroupIds ?? []);
+  const selectedKnowledgePointIds = sourceUnitParityMode ? [] : requestedKnowledgePointIds;
   const derivedPatternGroupIds = groupsForSelectedKnowledgePoints(descriptor, selectedKnowledgePointIds);
-  const selectedPatternGroupIds = requestedPatternGroupIds.length > 0
-    ? requestedPatternGroupIds
-    : (requestedKnowledgePointIds.length === 0
-      ? [...descriptor.patternGroupIds]
-      : (derivedPatternGroupIds.length > 0 ? derivedPatternGroupIds : [...descriptor.patternGroupIds]));
+  const selectedPatternGroupIds = sourceUnitParityMode
+    ? []
+    : (requestedPatternGroupIds.length > 0
+      ? requestedPatternGroupIds
+      : (derivedPatternGroupIds.length > 0 ? derivedPatternGroupIds : [...descriptor.canonicalPatternGroupIds]));
   const extensionPatternGroupIds = selectedPatternGroupIds.filter((id) => !descriptor.patternGroupIds.includes(id));
-  const requestedPatternSpecIds = unique(plan.patternSpecIds ?? []);
-  const patternSpecIds = requestedPatternSpecIds.length > 0
-    ? requestedPatternSpecIds
-    : patternSpecsForSelectedGroups(descriptor, selectedPatternGroupIds);
-  const selectionMode = plan.selectionMode === "sourceUnit" || plan.selectionMode == null
-    ? (selectedKnowledgePointIds.length > 1 ? "mixedKnowledgePointsSameUnit" : "singleKnowledgePoint")
-    : plan.selectionMode;
+  const patternSpecIds = sourceUnitParityMode
+    ? []
+    : (requestedPatternSpecIds.length > 0
+      ? requestedPatternSpecIds
+      : patternSpecsForSelectedGroups(descriptor, selectedPatternGroupIds));
   const selectedCompatibilityAliasIds = selectedKnowledgePointIds.filter((id) => (
     descriptor.compatibilityKnowledgePointAliasIds.includes(id)
   ));
@@ -223,30 +236,38 @@ export function applyR07AuthoritativeConsumerCutover(plan = {}) {
     authorityMode: "GLOBAL_PRIMARY",
     legacyAuthorityRole: "COMPATIBILITY_ALIAS_READ_ONLY",
     descriptorOrigin: descriptor.descriptorOrigin,
-    knowledgePointCount: selectedKnowledgePointIds.length,
-    patternGroupCount: selectedPatternGroupIds.length,
-    patternSpecCount: patternSpecIds.length,
+    canonicalKnowledgePointCount: descriptor.canonicalKnowledgePointIds.length,
+    canonicalPatternGroupCount: descriptor.canonicalPatternGroupIds.length,
+    canonicalPatternSpecCount: descriptor.canonicalPatternSpecIds.length,
+    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
+    selectedPatternGroupCount: selectedPatternGroupIds.length,
+    selectedPatternSpecCount: patternSpecIds.length,
     extensionPatternGroupCount: extensionPatternGroupIds.length,
     compatibilityAliasKnowledgePointCount: selectedCompatibilityAliasIds.length,
+    sourceUnitPlanPreserved: sourceUnitParityMode,
     applied: true,
     blocked: false,
   });
   const dualReadParity = Object.freeze({
     sourceIdPreserved: true,
+    sourceUnitPlanPreserved: sourceUnitParityMode,
     requestedKnowledgePointIdsPreserved: requestedKnowledgePointIds.every((id) => selectedKnowledgePointIds.includes(id)),
     requestedPatternGroupIdsPreserved: requestedPatternGroupIds.every((id) => selectedPatternGroupIds.includes(id)),
+    requestedPatternSpecIdsPreserved: requestedPatternSpecIds.every((id) => patternSpecIds.includes(id)),
     selectedCompatibilityAliasIds: freezeArray(selectedCompatibilityAliasIds),
     legacySelectionMode: plan.selectionMode ?? null,
-    globalSelectionMode: selectionMode,
+    globalSelectionMode: plan.selectionMode ?? null,
     visibleOutputChangeExpected: false,
   });
-  const cutoverPlan = Object.freeze({
-    ...plan,
-    selectionMode,
+  const selectionProjection = sourceUnitParityMode ? {} : {
     selectedKnowledgePointIds: freezeArray(selectedKnowledgePointIds),
     knowledgePointIds: freezeArray(selectedKnowledgePointIds),
     selectedPatternGroupIds: freezeArray(selectedPatternGroupIds),
     patternSpecIds: freezeArray(patternSpecIds),
+  };
+  const cutoverPlan = Object.freeze({
+    ...plan,
+    ...selectionProjection,
     globalAuthorityCutover: adapter,
     legacyCompatibilityAlias: Object.freeze({
       sourceId: plan.sourceId,
@@ -279,9 +300,12 @@ export function validateR07BrowserAuthorityRegistry() {
       continue;
     }
     if (descriptor.canonicalKnowledgePointIds.length === 0) errors.push(`R07_BROWSER_AUTHORITY_KP_EMPTY:${sourceId}`);
-    if (descriptor.patternGroupIds.length === 0) errors.push(`R07_BROWSER_AUTHORITY_PATTERN_GROUP_EMPTY:${sourceId}`);
+    if (descriptor.canonicalPatternGroupIds.length === 0) errors.push(`R07_BROWSER_AUTHORITY_PATTERN_GROUP_EMPTY:${sourceId}`);
     const cutover = applyR07AuthoritativeConsumerCutover({ sourceId, selectionMode: "sourceUnit" });
-    if (!cutover.applied || cutover.blocked || cutover.plan?.globalAuthorityCutover?.authorityMode !== "GLOBAL_PRIMARY") {
+    if (!cutover.applied
+      || cutover.blocked
+      || cutover.plan?.globalAuthorityCutover?.authorityMode !== "GLOBAL_PRIMARY"
+      || cutover.plan?.globalAuthorityCutover?.sourceUnitPlanPreserved !== true) {
       errors.push(`R07_BROWSER_AUTHORITY_CUTOVER_INVALID:${sourceId}`);
     }
   }
