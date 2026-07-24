@@ -1,0 +1,61 @@
+name: POSTG Application PR Gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/curriculum/application/**"
+      - "data/curriculum/knowledge/units/*.knowledge-operation.json"
+      - "data/project/milestones/POSTG-APP-*.claim.json"
+      - "data/project/governance/postg-ci-two-gate-policy.json"
+      - "src/curriculum/application/**"
+      - "tools/curriculum/*postg-app*"
+      - "tests/curriculum/postg-app-*.test.js"
+      - "tests/governance/postg-ci-two-gate-policy.test.js"
+      - "docs/curriculum/output/POSTG_APP_*"
+      - "docs/curriculum/output/postg-app/**"
+      - "site/assets/browser/pipeline/build-worksheet-document.js"
+      - "site/modules/core/worksheet-formatting.js"
+      - ".github/workflows/postg-app-*.yml"
+      - ".github/workflows/postg-application-pr-gate.yml"
+      - ".github/workflows/node-test.yml"
+      - ".github/workflows/milestone-claim-integrity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-application-pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  application-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Validate two-gate routing contract
+        run: node --test tests/governance/postg-ci-two-gate-policy.test.js
+      - name: Run POSTG application focused suite
+        run: node --test tests/curriculum/postg-app-*.test.js
+      - name: Validate master controller
+        run: node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+      - name: Validate milestone claims
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            base="${{ github.event.pull_request.base.sha }}"
+            if git diff --name-only "$base" HEAD | grep -Eq '^data/project/milestones/POSTG-APP-.*\.claim\.json$'; then
+              npm run governance:claims:pr
+              exit 0
+            fi
+          fi
+          npm run governance:claims

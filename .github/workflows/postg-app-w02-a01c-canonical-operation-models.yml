@@ -1,58 +1,25 @@
-name: POSTG-APP W02-A01C Canonical Operation Models
+name: Historical POSTG Milestone Readback
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/operations/w02/**"
-      - "data/curriculum/application/schema/w02-canonical-operation-unit.schema.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization.json"
-      - "data/project/milestones/POSTG-APP-W02-A01C.claim.json"
-      - "tools/curriculum/materialize-postg-app-w02-a01c-canonical-operation-models.mjs"
-      - "src/curriculum/application/w02-canonical-operation-models.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a01c-canonical-operation-models.mjs"
-      - "tests/curriculum/postg-app-w02-a01c-canonical-operation-models.test.js"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "docs/curriculum/output/POSTG_APP_W02_A01C_CANONICAL_OPERATION_MODELS_MATERIALIZED.marker"
-      - "docs/curriculum/output/POSTG_APP_W02_A01C_CANONICAL_OPERATION_MODELS_READBACK.md"
-      - ".github/workflows/postg-app-w02-a01c-canonical-operation-models.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: postg-app-w02-a01c-${{ github.event.pull_request.number || github.ref }}
+  group: historical-postg-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  canonical-operation-models:
-    runs-on: ubuntu-latest
+  historical-readback:
+    runs-on: ubuntu-24.04
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Install project dependencies
+          node-version: 22
+      - name: Install dependencies
         run: npm install
-      - name: Run W02 A01C focused tests
-        run: node --test tests/curriculum/postg-app-w02-a01c-canonical-operation-models.test.js
-      - name: Run deterministic W02 A01C validator
-        run: node tools/curriculum/validate-postg-app-w02-a01c-canonical-operation-models.mjs
-      - name: Verify materializer is idempotent
-        run: |
-          node tools/curriculum/materialize-postg-app-w02-a01c-canonical-operation-models.mjs
-          git diff --exit-code
-      - name: Verify W02 A01B regression
-        run: |
-          node --test tests/curriculum/postg-app-w02-a01b-page-knowledge-operation-candidates.test.js
-          node tools/curriculum/validate-postg-app-w02-a01b-page-knowledge-operation-candidates.mjs
-      - name: Validate master controller and milestone claims
-        run: |
-          node --test tests/curriculum/postg-app-m00-master-controller.test.js
-          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
-          npm run governance:claims
+      - name: Run consolidated historical POSTG readback
+        run: node --test tests/curriculum/postg-app-*.test.js

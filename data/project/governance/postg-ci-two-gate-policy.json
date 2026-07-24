@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "postg-ci-two-gate-policy-v1",
+  "task": "POSTG-CI-GOV-W01_CleanSingleCommitTwoGateWorkflowConsolidation",
+  "status": "IMPLEMENTED_PENDING_PR_CI",
+  "scope": "POSTG application pull-request routing",
+  "requiredPullRequestGates": [
+    "POSTG Application PR Gate",
+    "Node Test"
+  ],
+  "maxRequiredPullRequestGateCount": 2,
+  "historicalWorkflowMode": "workflow_call_and_workflow_dispatch_only",
+  "historicalWorkflowPaths": [
+    ".github/workflows/postg-app-w01-a05-e4-review.yml",
+    ".github/workflows/postg-app-w01-a06e-operator-approval.yml",
+    ".github/workflows/postg-app-w02-a00-source-assessment.yml",
+    ".github/workflows/postg-app-w02-a01a-source-pdf-evidence.yml",
+    ".github/workflows/postg-app-w02-a01b-page-knowledge-operation-candidates.yml",
+    ".github/workflows/postg-app-w02-a01c-canonical-operation-models.yml",
+    ".github/workflows/postg-app-w02-a01d-hidden-pattern-specs.yml",
+    ".github/workflows/postg-app-w02-a02-candidate-pack.yml",
+    ".github/workflows/postg-app-w02-a03-nplusone-pbl.yml",
+    ".github/workflows/postg-app-w02-a04-validator-shadow.yml",
+    ".github/workflows/postg-app-w02-a05-shared-worksheet-projection.yml",
+    ".github/workflows/postg-app-w02-a06-production-equivalent-html-pdf.yml",
+    ".github/workflows/postg-app-w02-a08-operator-review-remediation.yml",
+    ".github/workflows/postg-app-w02-a08r2-second-operator-review.yml",
+    ".github/workflows/postg-app-w02-a08r3-numeric-surface-remediation.yml"
+  ],
+  "publicationContract": {
+    "singleTree": true,
+    "singleCommitBeforePullRequest": true,
+    "singlePullRequest": true,
+    "actionsAsFilePublisher": false,
+    "actionsAsIterativeDebugger": false,
+    "markerCommitTriggerAllowed": false
+  },
+  "nextShortestStep": "POSTG-CI-GOV-W02_GlobalLegacyUnitWorkflowPullRequestFanoutIsolation"
+}
