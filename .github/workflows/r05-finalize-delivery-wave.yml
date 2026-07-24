@@ -70,7 +70,12 @@ jobs:
           replace_exact(
               'tests/curriculum/r05-delivery-wave-rebase.test.js',
               '  assert.equal(sameUnit.deliveryWaveId, "R05-W2");',
-              '  assert.equal(sameUnit.baseDeliveryWaveId, "R05-W2");\n  assert.equal(sameUnit.deliveryWaveId, "R05-W4");\n  assert.equal(sameUnit.waveEscalatedByPrerequisite, true);',
+              '  assert.equal(sameUnit.baseDeliveryWaveId, "R05-W4");\n  assert.equal(sameUnit.deliveryWaveId, "R05-W4");\n  assert.equal(sameUnit.waveEscalatedByPrerequisite, false);',
+          )
+          replace_exact(
+              'tests/curriculum/r05-delivery-wave-rebase.test.js',
+              '  assert.equal(sameUnit.contractOnlyRequiredCapabilityIds.length, 0);',
+              '  assert.ok(sameUnit.contractOnlyRequiredCapabilityIds.includes("cap_quantity_domain_validator"));\n  assert.ok(!sameUnit.contractOnlyRequiredCapabilityIds.includes("cap_unit_conversion"));\n  assert.ok(!sameUnit.contractOnlyRequiredCapabilityIds.includes("cap_mixed_unit_normalization"));',
           )
           replace_exact(
               'tests/curriculum/r05-delivery-wave-rebase.test.js',
@@ -90,7 +95,7 @@ jobs:
           replace_exact(
               'docs/curriculum/contracts/GLOBAL_DELIVERY_WAVE_REBASE_CONTRACT_V1.md',
               '```text\nkp_mass_times_integer\n→ shadow quantity identity and same-unit arithmetic\n→ R05-W2\n\nkp_mass_mixed_unit_add_sub\n→ contract-only conversion and mixed-unit normalization\n→ R05-W4\n```\n\nThis preserves the distinction established in R04: same-unit arithmetic is not blocked by the complete conversion subsystem.',
-              '```text\nkp_mass_times_integer\n→ capability-only base wave R05-W2\n→ current R03 prerequisite lower bound raises final delivery to R05-W4\n→ contractOnlyRequiredCapabilityIds remains empty\n\nkp_mass_mixed_unit_add_sub\n→ contract-only conversion and mixed-unit normalization\n→ base and final delivery R05-W4\n```\n\nThis preserves the R04 capability distinction while obeying the current R03 graph. R05 records prerequisite escalation explicitly; it does not silently mutate R03 edges.',
+              '```text\nkp_mass_times_integer\n→ shadow quantity identity and same-unit arithmetic\n→ contract-only quantity-domain validator\n→ base and final delivery R05-W4\n→ unit conversion and mixed-unit normalization remain unnecessary\n\nkp_mass_mixed_unit_add_sub\n→ contract-only quantity-domain validator, conversion, and mixed-unit normalization\n→ base and final delivery R05-W4\n```\n\nThis preserves the R04 capability distinction: both require a quantity validator, but only mixed-unit arithmetic requires conversion and normalization.',
           )
           replace_exact(
               'docs/curriculum/output/GCKG_R05_DELIVERY_WAVE_REBASE_READBACK.md',
@@ -100,7 +105,7 @@ jobs:
           replace_exact(
               'docs/curriculum/output/GCKG_R05_DELIVERY_WAVE_REBASE_READBACK.md',
               'W2 shadow authority and same-unit/shared semantic hardening',
-              'W2 shadow authority and shared semantic hardening (base wave; prerequisite escalation may move a KP later)',
+              'W2 shadow authority and shared semantic capability hardening; KP admission may remain in a later validator/domain wave',
           )
           replace_exact(
               'docs/curriculum/output/GCKG_R05_DELIVERY_WAVE_REBASE_READBACK.md',
