@@ -46,6 +46,10 @@ export function attachPublicControlOutputMetadata(result, plan = {}) {
   if (!publicControls) return result;
   const questionCount = resolveWorksheetQuestionCount(result.worksheetDocument);
   const title = resolveWorksheetTitle(result.worksheetDocument, plan);
+  const mergedPublicControls = freeze({
+    ...(result.worksheetDocument.publicControls ?? {}),
+    ...publicControls,
+  });
   const worksheetDocument = {
     ...result.worksheetDocument,
     title,
@@ -53,18 +57,12 @@ export function attachPublicControlOutputMetadata(result, plan = {}) {
       ...(result.worksheetDocument.summary ?? {}),
       questionCount,
     },
-    publicControls: {
-      ...(result.worksheetDocument.publicControls ?? {}),
-      ...publicControls,
-    },
+    publicControls: mergedPublicControls,
     metadata: {
       ...(result.worksheetDocument.metadata ?? {}),
       title,
       questionCount,
-      publicControls: {
-        ...(result.worksheetDocument.publicControls ?? {}),
-        ...publicControls,
-      },
+      publicControls: mergedPublicControls,
     },
   };
   return freeze({ ...result, worksheetDocument });
