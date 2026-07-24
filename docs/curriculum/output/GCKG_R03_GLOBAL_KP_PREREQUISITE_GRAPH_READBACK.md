@@ -34,6 +34,8 @@ all 482 nodes are accounted for
 root nodes have no incoming distance edge
 supporting edges do not block readiness
 existing production consumer remains unchanged
+artifact archive SHA-256 = cda67fa8389d28b80e8fd8a935f4ae0d399607559e5346820a046786a003db1d
+focused graph test / validator CLI / governance = PASS
 ```
 
 ## Mainline effect
