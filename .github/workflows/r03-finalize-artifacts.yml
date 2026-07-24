@@ -1,0 +1,44 @@
+name: R03 Finalize Global KP Graph
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/r03-finalize-artifacts.yml"
+      - "tools/curriculum/finalize-r03-artifacts.py"
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.head_ref == 'curriculum/global-kp-rebase-r03'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout R03 branch
+        uses: actions/checkout@v4
+        with:
+          ref: curriculum/global-kp-rebase-r03
+          fetch-depth: 1
+          show-progress: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Materialize verified R03 artifacts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/curriculum/finalize-r03-artifacts.py
+      - name: Focused R03 tests
+        run: node --test tests/curriculum/r03-global-kp-prerequisite-graph.test.js
+      - name: R03 validator CLI
+        run: node tools/curriculum/validate-r03-global-kp-prerequisite-graph.mjs
+      - name: Governance claim integrity
+        run: node tools/governance/validate-milestone-claim-integrity.mjs
+      - name: Commit finalized R03 graph
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "R03: materialize global KnowledgePoint prerequisite graph"
+          git push origin HEAD:curriculum/global-kp-rebase-r03
