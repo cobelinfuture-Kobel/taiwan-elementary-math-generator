@@ -37,6 +37,8 @@ function binaryOperands(question) {
 function applicationProjection(question, binding, promptText, answerText, relationEvidence) {
   return {
     ...clone(question),
+    sourceId: binding.sourceId,
+    patternSpecId: binding.patternSpecIds[0],
     knowledgePointId: binding.primaryKnowledgePointId,
     mode: "application",
     questionMode: "application",
@@ -63,6 +65,9 @@ function applicationProjection(question, binding, promptText, answerText, relati
     },
     metadata: {
       ...clone(question.metadata ?? {}),
+      patternId: binding.patternSpecIds[0],
+      sourceId: binding.sourceId,
+      curriculumNodeIds: [...new Set([...(question.metadata?.curriculumNodeIds ?? []), binding.sourceId])],
       patternTags: [...new Set([
         ...(question.metadata?.patternTags ?? []),
         "fifteen_unit_closeout_application",
@@ -151,6 +156,8 @@ function attachGlobalContext(question, options, index) {
   if (!lineage) return clone(question);
   return {
     ...clone(question),
+    sourceId,
+    patternSpecId,
     mode: "application",
     questionMode: "application",
     applicationText: true,
@@ -158,6 +165,8 @@ function attachGlobalContext(question, options, index) {
     globalContextProduction: clone(lineage),
     metadata: {
       ...clone(question.metadata ?? {}),
+      sourceId,
+      patternId: patternSpecId,
       globalContextProduction: clone(lineage),
       patternTags: [...new Set([
         ...(question.metadata?.patternTags ?? []),
