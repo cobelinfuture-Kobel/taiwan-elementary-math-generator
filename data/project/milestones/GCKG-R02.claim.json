@@ -34,7 +34,14 @@
       "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
       "docs/curriculum/contracts/GLOBAL_KP_R02_RECONCILIATION_V1.md",
       "docs/curriculum/output/GCKG_R02_GLOBAL_KP_CANDIDATE_RECONCILIATION_READBACK.md",
-      "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.json.gz"
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-04.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json"
     ],
     "reviewArtifactPaths": [],
     "artifactHashes": []

@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import zlib from "node:zlib";
 
 const ROOT = process.cwd();
 const INDEX_PATH = "data/curriculum/global/candidates/r02/source-authority-reconciliation-index.json";
@@ -12,9 +11,12 @@ const EXISTING_CONSUMER = "site/assets/browser/pipeline/build-worksheet-document
 const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
 function loadReviewedPack(root, manifestPath = REVIEWED_PACK_PATH) {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, manifestPath), "utf8"));
-  const compressed = fs.readFileSync(path.join(root, manifest.compressedPackPath));
-  const decoded = JSON.parse(zlib.gunzipSync(compressed).toString("utf8"));
-  return { ...manifest, sourceRecords: decoded.sourceRecords ?? [] };
+  const chunkPaths = manifest.chunkPaths ?? manifest.shardPaths ?? [];
+  const sourceRecords = chunkPaths.flatMap((repoPath) => {
+    const chunk = JSON.parse(fs.readFileSync(path.join(root, repoPath), "utf8"));
+    return chunk.sourceRecords ?? [];
+  });
+  return { ...manifest, sourceRecords };
 }
 const unique = (values) => [...new Set(values)];
 const slug = (value) => String(value ?? "")

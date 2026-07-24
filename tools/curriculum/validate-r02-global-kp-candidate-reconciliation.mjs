@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import zlib from "node:zlib";
 import { pathToFileURL } from "node:url";
 
 import {
@@ -19,9 +18,12 @@ const CONSUMER_PATH = "site/assets/browser/pipeline/build-worksheet-document.js"
 
 function loadReviewedPack(root) {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, REVIEWED_PACK_PATH), "utf8"));
-  const compressed = fs.readFileSync(path.join(root, manifest.compressedPackPath));
-  const decoded = JSON.parse(zlib.gunzipSync(compressed).toString("utf8"));
-  return { ...manifest, sourceRecords: decoded.sourceRecords ?? [] };
+  const chunkPaths = manifest.chunkPaths ?? manifest.shardPaths ?? [];
+  const sourceRecords = chunkPaths.flatMap((repoPath) => {
+    const chunk = JSON.parse(fs.readFileSync(path.join(root, repoPath), "utf8"));
+    return chunk.sourceRecords ?? [];
+  });
+  return { ...manifest, sourceRecords };
 }
 const issue = (code, pathValue, message, details = {}) => ({ code, path: pathValue, message, ...details });
 const unique = (values) => new Set(values).size === values.length;
