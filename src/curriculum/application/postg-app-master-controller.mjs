@@ -37,6 +37,11 @@ import {
   W02_A08R4_STATUS,
   W03_A00_TASK
 } from './w02-a08r4-third-operator-approval.mjs';
+import {
+  W02_A09A_NEXT_TASK,
+  W02_A09A_STATUS,
+  W02_A09A_TASK
+} from './w02-a09a-authority-reconciliation-freeze.mjs';
 
 const UNIT_REGISTRY_PATH = 'data/curriculum/application/controller/postg-app-79-unit-registry.json';
 const WAVE_PLAN_PATH = 'data/curriculum/application/controller/postg-app-wave-plan.json';
@@ -187,6 +192,18 @@ function validateWavePlan(wavePlan, registry, issues) {
   }
   if (wavePlan.coverage?.productionAdmittedWaveCount !== 2) {
     issues.push(issue('POSTG_APP_WAVE_PLAN_COVERAGE_INVALID', WAVE_PLAN_PATH));
+  }
+  const w03 = wavePlan.waves.find((row) => row.waveId === 'W03');
+  if (w03?.executionFrozen !== true
+      || w03?.implementationAllowed !== false
+      || w03?.freezeAuthorityPath !== W02_A09A_POLICY_PATH) {
+    issues.push(issue('POSTG_APP_WAVE_PLAN_W03_FREEZE_INVALID', 'waves.W03'));
+  }
+  if (wavePlan.lastTransition?.taskId !== W02_A09A_TASK
+      || wavePlan.lastTransition?.decision !== 'FREEZE'
+      || wavePlan.lastTransition?.frozenWaveId !== 'W03'
+      || wavePlan.lastTransition?.nextTaskId !== W02_A09A_NEXT_TASK) {
+    issues.push(issue('POSTG_APP_WAVE_PLAN_A09A_TRANSITION_INVALID', 'lastTransition'));
   }
 }
 
@@ -369,19 +386,28 @@ export function validatePOSTGAPPMasterController(controller) {
       || w02State.malformedOrIncoherentNumericSurfaceCount !== 0
       || w02State.gradeUnsafeNotationCount !== 0
       || w02State.productionRuntimeAccessEnabled !== true
-      || w02State.publicSelectableCandidateCount !== 0) {
+      || w02State.publicSelectableCandidateCount !== 0
+      || w02State.canonicalCurriculumAuthorityReconciliationRequired !== true
+      || w02State.canonicalCurriculumAuthorityReconciled !== false
+      || w02State.globalContextSingleApplicationAuthorityRequired !== true
+      || w02State.legacyApplicationRoutesFrozen !== true) {
     issues.push(issue('POSTG_APP_W02_PRODUCTION_ADMISSION_STATE_INVALID', 'controllerState.waveStates.W02'));
   }
   const w03State = controllerState.waveStates[2];
   if (w03State.state !== 'ASSESSMENT_READY'
       || w03State.productionAdmissionGranted !== false
-      || w03State.shadowProjectionAllowed !== false) {
-    issues.push(issue('POSTG_APP_W03_ASSESSMENT_READY_STATE_INVALID', 'controllerState.waveStates.W03'));
+      || w03State.shadowProjectionAllowed !== false
+      || w03State.executionFrozen !== true
+      || w03State.implementationAllowed !== false
+      || w03State.freezeStatus !== W02_A09A_STATUS) {
+    issues.push(issue('POSTG_APP_W03_ASSESSMENT_READY_FREEZE_INVALID', 'controllerState.waveStates.W03'));
   }
-  if (controllerState.currentWaveId !== 'W03'
-      || controllerState.currentCapability !== 'W03_ASSESSMENT_READY'
-      || controllerState.currentMainlineBlocker !== 'W03_SOURCE_ASSESSMENT_PENDING'
-      || controllerState.nextShortestStep !== W03_A00_TASK) {
+  if (controllerState.currentWaveId !== 'W02'
+      || controllerState.currentCapability !== W02_A09A_STATUS
+      || controllerState.currentMainlineBlocker !== 'BATCH_B_CANONICAL_KNOWLEDGE_POINT_AUTHORITY_AND_SHARED_PUBLIC_APPLICATION_CONSUMER_PENDING'
+      || controllerState.nextShortestStep !== W02_A09A_NEXT_TASK
+      || controllerState.mainlineExecutionFreeze?.active !== true
+      || controllerState.mainlineExecutionFreeze?.authorityPath !== W02_A09A_POLICY_PATH) {
     issues.push(issue('POSTG_APP_CONTROLLER_TRANSITION_INVALID', 'controllerState'));
   }
   if (controllerState.productionAdmission.applicationUnitCount !== 25
@@ -432,7 +458,7 @@ export function buildPOSTGAPPMasterReadback({ root = process.cwd() } = {}) {
     programId: controller.unitRegistry.programId,
     taskId: controller.controllerState.taskId,
     status: validation.ok
-      ? W02_A08R4_STATUS
+      ? W02_A09A_STATUS
       : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION',
     counts: {
       totalApplicationUnitCount: controller.unitRegistry.totalApplicationUnitCount,

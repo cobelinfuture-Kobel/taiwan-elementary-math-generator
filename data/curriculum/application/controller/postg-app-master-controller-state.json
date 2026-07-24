@@ -2,8 +2,8 @@
   "schemaName": "POSTGAPPMasterControllerStateV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
-  "status": "W02_PRODUCTION_ADMITTED_W03_ASSESSMENT_READY",
+  "taskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
+  "status": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
   "dependencies": {
     "globalContextAuthorityTaskId": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
     "globalContextAuthorityEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
@@ -29,7 +29,8 @@
     "w02ProductionEquivalentOutputTaskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
     "w02HumanReviewPackageTaskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
     "w02OperatorDecisionTaskId": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission",
-    "w02StudentFacingRemediationTaskId": "POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview"
+    "w02StudentFacingRemediationTaskId": "POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview",
+    "w02CanonicalAuthorityFreezeTaskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze"
   },
   "authoritativeState": {
     "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
@@ -134,11 +135,15 @@
     "w02OperatorDecisionValidationCli": "tools/curriculum/validate-postg-app-w02-a08-operator-review-decision.mjs",
     "w02A08MilestoneClaim": "data/project/milestones/POSTG-APP-W02-A08.claim.json",
     "w02StudentFacingRemediationRuntime": "src/curriculum/application/w02-a08r1-student-facing-remediation.mjs",
-    "w02StudentFacingRemediationValidationCli": "tools/curriculum/validate-postg-app-w02-a08r1-student-facing-remediation.mjs"
+    "w02StudentFacingRemediationValidationCli": "tools/curriculum/validate-postg-app-w02-a08r1-student-facing-remediation.mjs",
+    "w02CanonicalAuthorityFreezePolicy": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+    "w02CanonicalAuthorityFreezeClaim": "data/project/milestones/POSTG-APP-W02-A09A.claim.json",
+    "w02CanonicalAuthorityFreezeRuntime": "src/curriculum/application/w02-a09a-authority-reconciliation-freeze.mjs",
+    "w02CanonicalAuthorityFreezeValidationCli": "tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs"
   },
-  "currentWaveId": "W03",
-  "currentCapability": "W03_ASSESSMENT_READY",
-  "currentMainlineBlocker": "W03_SOURCE_ASSESSMENT_PENDING",
+  "currentWaveId": "W02",
+  "currentCapability": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
+  "currentMainlineBlocker": "BATCH_B_CANONICAL_KNOWLEDGE_POINT_AUTHORITY_AND_SHARED_PUBLIC_APPLICATION_CONSUMER_PENDING",
   "productionAdmission": {
     "applicationUnitCount": 25,
     "waveCount": 2,
@@ -330,7 +335,10 @@
       "productionRuntimeAccessEnabled": true,
       "publicRouteChanged": false,
       "canonicalCurriculumAuthorityReconciliationRequired": true,
-      "canonicalCurriculumAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json"
+      "canonicalCurriculumAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+      "canonicalCurriculumAuthorityReconciled": false,
+      "globalContextSingleApplicationAuthorityRequired": true,
+      "legacyApplicationRoutesFrozen": true
     },
     {
       "waveId": "W03",
@@ -344,7 +352,8 @@
       "executionFrozen": true,
       "implementationAllowed": false,
       "freezeStatus": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
-      "freezeAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json"
+      "freezeAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+      "nextAllowedTaskId": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
     },
     {
       "waveId": "W04",
@@ -369,10 +378,11 @@
     }
   ],
   "producerStateConsumerReadback": {
-    "producerTaskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
-    "authoritativeState": "data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json",
-    "runtimeConsumer": "src/curriculum/application/shared/application-capability-resolver.mjs",
-    "readbackStatus": "W02_PRODUCTION_ADMITTED_W03_ASSESSMENT_READY",
+    "producerTaskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
+    "authoritativeState": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+    "runtimeConsumer": "src/curriculum/application/postg-app-master-controller.mjs",
+    "readbackStatus": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
+    "productionEvidence": "docs/curriculum/output/postg-app/w02-a08r4/POSTG_APP_W02_A08R4_THIRD_OPERATOR_REVIEW_EVIDENCE.json",
     "mainlineExecutionFreezeAuthority": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json"
   },
   "nextShortestStep": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation",
@@ -381,6 +391,7 @@
     "active": true,
     "status": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
     "authorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+    "claimPath": "data/project/milestones/POSTG-APP-W02-A09A.claim.json",
     "blockedWaveIds": [
       "W03",
       "W04",

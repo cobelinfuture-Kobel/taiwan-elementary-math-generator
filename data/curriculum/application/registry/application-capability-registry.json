@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "registryId": "POSTG_APP_SHARED_APPLICATION_CAPABILITY_REGISTRY_V1",
-  "status": "SHARED_PROVIDER_REGISTRY_ACTIVE",
+  "status": "SHARED_PROVIDER_REGISTRY_ACTIVE_W03_EXECUTION_FROZEN",
   "providerOrder": [
     "W01",
     "W02",
@@ -35,7 +35,8 @@
       "productionAdmitted": true,
       "publicSelectable": false,
       "admissionDecisionPath": "data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json",
-      "productionEvidencePath": "docs/curriculum/output/postg-app/w02-a08r4/POSTG_APP_W02_A08R4_THIRD_OPERATOR_REVIEW_EVIDENCE.json"
+      "productionEvidencePath": "docs/curriculum/output/postg-app/w02-a08r4/POSTG_APP_W02_A08R4_THIRD_OPERATOR_REVIEW_EVIDENCE.json",
+      "canonicalCurriculumAuthorityReconciliationRequired": true
     },
     {
       "waveId": "W03",
@@ -45,7 +46,11 @@
       "entryMaterialization": null,
       "shadowProjectionAllowed": false,
       "productionAdmitted": false,
-      "publicSelectable": false
+      "publicSelectable": false,
+      "executionFrozen": true,
+      "implementationAllowed": false,
+      "freezeAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+      "nextAllowedTaskId": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
     },
     {
       "waveId": "W04",

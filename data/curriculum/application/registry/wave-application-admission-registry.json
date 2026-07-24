@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "registryId": "POSTG_APP_SHARED_WAVE_APPLICATION_ADMISSION_REGISTRY_V1",
-  "status": "MONOTONIC_ADMISSION_PREFIX_ACTIVE",
+  "status": "MONOTONIC_ADMISSION_PREFIX_ACTIVE_W03_EXECUTION_FROZEN",
   "admittedWaveIds": [
     "W01",
     "W02"
@@ -21,14 +21,19 @@
       "admissionState": "PRODUCTION_ADMITTED",
       "shadowProjectionAllowed": true,
       "productionAdmitted": true,
-      "publicSelectable": false
+      "publicSelectable": false,
+      "canonicalCurriculumAuthorityReconciliationRequired": true
     },
     {
       "waveId": "W03",
       "admissionState": "ASSESSMENT_READY",
       "shadowProjectionAllowed": false,
       "productionAdmitted": false,
-      "publicSelectable": false
+      "publicSelectable": false,
+      "executionFrozen": true,
+      "implementationAllowed": false,
+      "freezeAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+      "nextAllowedTaskId": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
     },
     {
       "waveId": "W04",

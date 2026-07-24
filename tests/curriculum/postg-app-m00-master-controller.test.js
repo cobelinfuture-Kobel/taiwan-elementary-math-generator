@@ -33,18 +33,20 @@ const A08R3_STATUS = 'W02_A08R3_NUMERIC_SURFACE_REMEDIATED_THIRD_REVIEW_READY';
 const A08R4_TASK = 'POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision';
 const A08R4_STATUS = 'W02_PRODUCTION_ADMITTED_W03_ASSESSMENT_READY';
 const W03_A00_TASK = 'POSTG-APP-W03-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline';
+const A09A_STATUS = 'W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN';
+const A09A_TASK = 'POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation';
 const A08R4_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json';
 const A08_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08_OperatorHumanReviewDecision.json';
 const A08R2_DECISION_PATH = 'data/curriculum/application/reviews/POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision.json';
 
-test('M00 validates W01 and W02 admitted with W03 assessment-ready', () => {
+test('M00 validates W01 and W02 admitted while W03 execution is frozen by A09A', () => {
   const result = runPOSTGAPPM00Validation();
   assert.equal(
     result.validationStatus,
     'PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION',
     JSON.stringify(result.issues, null, 2)
   );
-  assert.equal(result.status, A08R4_STATUS);
+  assert.equal(result.status, A09A_STATUS);
   assert.equal(result.consumerGate, true);
   assert.deepEqual(result.counts, {
     sourceNodeCount: 79,
@@ -54,8 +56,8 @@ test('M00 validates W01 and W02 admitted with W03 assessment-ready', () => {
     waveCount: 6,
     productionAdmittedApplicationUnitCount: 25
   });
-  assert.equal(result.currentWaveId, 'W03');
-  assert.equal(result.nextShortestStep, W03_A00_TASK);
+  assert.equal(result.currentWaveId, 'W02');
+  assert.equal(result.nextShortestStep, A09A_TASK);
 });
 
 test('S29C registry and deterministic 79-node queue remain unchanged', () => {
@@ -109,6 +111,10 @@ test('Wave 02 records A08R4 approval and production admission', () => {
   assert.equal(state.studentFacingSemanticAuditPass, true);
   assert.equal(state.productionAdmittedCandidateCount, 195);
   assert.equal(state.publicSelectableCandidateCount, 0);
+  assert.equal(state.canonicalCurriculumAuthorityReconciliationRequired, true);
+  assert.equal(state.canonicalCurriculumAuthorityReconciled, false);
+  assert.equal(state.globalContextSingleApplicationAuthorityRequired, true);
+  assert.equal(state.legacyApplicationRoutesFrozen, true);
 
   assert.equal(state.generatedItemCount, 195);
   assert.equal(state.numericGeneratedItemCount, 134);
@@ -137,6 +143,21 @@ test('Wave 02 records A08R4 approval and production admission', () => {
   assert.equal(state.numericStudentFacingSemanticRevision, 4);
   assert.equal(state.historicalAffectedItemCount, 45);
   assert.equal(state.thirdOperatorReviewReady, true);
+});
+
+test('A09A is the authoritative current state and W03 cannot start implementation', () => {
+  const w03 = controller.controllerState.waveStates.find((row) => row.waveId === 'W03');
+  assert.equal(controller.controllerState.taskId, 'POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze');
+  assert.equal(controller.controllerState.status, A09A_STATUS);
+  assert.equal(controller.controllerState.currentWaveId, 'W02');
+  assert.equal(controller.controllerState.nextShortestStep, A09A_TASK);
+  assert.equal(controller.controllerState.mainlineExecutionFreeze.active, true);
+  assert.equal(w03.state, 'ASSESSMENT_READY');
+  assert.equal(w03.executionFrozen, true);
+  assert.equal(w03.implementationAllowed, false);
+  assert.equal(w03.shadowProjectionAllowed, false);
+  assert.equal(w03.productionAdmissionGranted, false);
+  assert.equal(w03.publicSelectable, false);
 });
 
 test('A08 claim, operator decision and A08R1 executable readback form one fail-closed lineage', () => {
@@ -242,6 +263,9 @@ test('prior evidence remains immutable while A08R4 adds the E5 admission claim',
   }
   assert.equal(controller.w02A08R4Claim.actualEvidenceLevel, 'E5_PRODUCTION_ADMITTED');
   assert.equal(controller.w02A08R4Claim.claims.productionAdmitted, true);
+  assert.equal(controller.w02A09AClaim.actualEvidenceLevel, 'E3_SHADOW_RUNTIME_INTEGRATED');
+  assert.equal(controller.w02A09AClaim.claimedStatus, A09A_STATUS);
+  assert.equal(controller.w02A09AClaim.authorityFinding.w03ExecutionAllowed, false);
 });
 
 test('duplicate nodes, non-contiguous admissions and unknown gates fail closed', () => {

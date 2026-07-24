@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
-  "status": "FIXED_SIX_WAVE_QUEUE_W01_W02_ADMITTED_W03_ASSESSMENT_READY",
+  "status": "FIXED_SIX_WAVE_QUEUE_W01_W02_ADMITTED_W03_EXECUTION_FROZEN",
   "orderingPolicy": "S29C_PRIMARY_BATCH_ORDER_WITH_W01_SOURCE_COVERAGE_REMOVED_FROM_W02_TO_W06",
   "admissionGateOrder": [
     "SOURCE_NODE_REGISTERED",
@@ -103,7 +103,12 @@
         "g4b_u07_4b07"
       ],
       "predecessorWaveId": "W02",
-      "productionAdmissionGranted": false
+      "productionAdmissionGranted": false,
+      "executionFrozen": true,
+      "implementationAllowed": false,
+      "freezeReason": "BATCH_B_CANONICAL_KNOWLEDGE_POINT_AUTHORITY_MISSING",
+      "freezeAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+      "nextAllowedTaskId": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
     },
     {
       "waveId": "W04",
@@ -179,10 +184,12 @@
     "productionAdmittedWaveCount": 2
   },
   "lastTransition": {
-    "taskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
-    "decision": "APPROVE",
+    "taskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
+    "decision": "FREEZE",
     "completedWaveId": "W02",
-    "activatedWaveId": "W03",
-    "transitionDate": "2026-07-24"
+    "activatedWaveId": null,
+    "frozenWaveId": "W03",
+    "transitionDate": "2026-07-24",
+    "nextTaskId": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
   }
 }
