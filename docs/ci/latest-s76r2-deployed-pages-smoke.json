@@ -2,24 +2,24 @@
   "schemaVersion": "s76r2-deployed-pages-smoke-v1",
   "task": "S76R2_G4A_U08_DeployedPagesAndFreshMainD0Closeout",
   "status": "FAIL",
-  "deploymentSha": "00b8b99718d5b4416df8ac67d147abe813f31ee8",
+  "deploymentSha": "9846627e1263d9dfb3e9e2318989cc5ae94c35dd",
   "message": "S76R2_DEPLOYED_PREVIEW_META_MISMATCH",
   "details": {
     "label": "加法交換、結合與湊整",
     "previewMeta": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
     "expected": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
   },
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4a_u08_4a08&questionCount=8&ordering=groupedByPattern&answerKey=1&generationSeed=s76r2-g4a-u08-per-kp&columns=3&rowsPerPage=5&selectionMode=singleKnowledgePoint&kp=kp_g4a_u08_num_add_group_round&pg=pg_g4a_u08_num_add_group_round",
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4a_u08_4a08&questionCount=8&ordering=groupedByPattern&answerKey=1&generationSeed=s76r2-g4a-u08-per-kp&columns=3&rowsPerPage=5&questionMode=numeric&selectionMode=singleKnowledgePoint&kp=kp_g4a_u08_num_add_group_round&pg=pg_g4a_u08_num_add_group_round",
   "consoleErrors": [],
   "pageErrors": [],
   "workflow": "S76R2 G4A-U08 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "30060798026",
-    "number": "169",
+    "id": "30071101532",
+    "number": "170",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30060798026"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30071101532"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-24T02:07:58.083Z"
+  "verifiedAt": "2026-07-24T06:03:22.050Z"
 }
