@@ -3,15 +3,15 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID = P01A_W1ProductAdmissionInventoryAndGapMatrix
-STATUS = PASS_CI_W1_PRODUCT_GAP_INVENTORY
+STATUS = PASS_REBASED_PENDING_CI_W1_PRODUCT_GAP_INVENTORY
 ```
 
-## Executable result
+## Corrected executable result
 
 ```text
-R05-W1 KnowledgePoints                         = 22
-source nodes                                  = 5
-all required capabilities production-admitted = 22
+R05-W1 KnowledgePoints                         = 21
+source nodes                                  = 4
+all required capabilities production-admitted = 21
 shadow capability gaps                        = 0
 contract-only capability gaps                 = 0
 public KnowledgePoints currently visible      = 0
@@ -19,7 +19,7 @@ public Pattern bindings currently present     = 0
 public source nodes currently selectable      = 0
 existing public-pattern admissions ready      = 0
 partial PatternGroup / PatternSpec gaps        = 0
-full public vertical slices required           = 22
+full public vertical slices required           = 21
 production admission performed                 = 0
 ```
 
@@ -27,7 +27,6 @@ production admission performed                 = 0
 
 | Source node | KnowledgePoints | Current product state |
 |---|---:|---|
-| `g4a_u07_4a07` | 1 | full vertical slice required |
 | `g5b_u05_5b05a` | 4 | full vertical slice required |
 | `g6a_u01_6a01` | 5 | full vertical slice required |
 | `g5a_u03_5a03a` | 7 | full vertical slice required |
@@ -35,9 +34,20 @@ production admission performed                 = 0
 
 The two G5A-U03 source nodes form one 12-KP factor / multiple product cluster.
 
-## Meaning of W1
+## Removed false W1 row
 
-All effective required software capabilities for these 22 KnowledgePoints are already production-admitted. The remaining distance is product materialization:
+```text
+knowledgePointId = kp_g4a_u07_quantity_multiplicative_pattern
+canonicalNameZh  = 倍數型數量規律
+correct profile  = profile_pattern_relation
+correct wave     = R05-W6
+```
+
+The canonical capability is fixed-ratio pattern recognition. It was previously classified as factor/multiple reasoning because the term `倍數` appeared before the explicit pattern semantics were considered. P01A1 corrects the semantic collision and removes this row from W1.
+
+## Meaning of corrected W1
+
+All effective required software capabilities for these 21 KnowledgePoints are already production-admitted. The remaining distance is product materialization:
 
 ```text
 source evidence and canonical KP
@@ -52,34 +62,29 @@ Capability readiness must not be reported as print readiness.
 
 ## Empty-task elimination
 
-The inventory proved:
-
 ```text
 P01B_W1ExistingPatternAdmission rows = 0
 P01C_W1PatternBindingMaterialization partial rows = 0
 ```
 
-These empty tasks must not be executed. All 22 rows route to bounded vertical-slice materialization.
+All 21 valid W1 rows require bounded vertical-slice materialization.
 
-## Selected implementation order
+## Corrected implementation order
 
 ```text
-P01D1 g4a_u07_4a07  quantity multiplicative pattern  = 1 KP
-P01D2 g5b_u05_5b05a large-number extension           = 4 KP
-P01D3 g6a_u01_6a01  number theory                     = 5 KP
-P01D4 g5a_u03_5a03a + 5a03a1 factor / multiple       = 12 KP
-P01E  W1 public UI / HTML / PDF / print closeout      = 22 KP
+P01D1 g5b_u05_5b05a large-number extension           = 4 KP
+P01D2 g6a_u01_6a01  number theory                     = 5 KP
+P01D3 g5a_u03_5a03a + 5a03a1 factor / multiple       = 12 KP
+P01E  W1 public UI / HTML / PDF / print closeout      = 21 KP
 ```
-
-The one-KP G4A-U07 node is the shortest valid production pilot.
 
 ## Inventory boundary
 
 ```text
 existing 15-unit W0 baseline changed = false
-W2–W8 work started                 = false
-direct production admission        = false
-recursive-improvement admin         = false
+W2–W8 implementation started         = false
+direct production admission          = false
+recursive-improvement admin           = false
 ```
 
 ## Distance
@@ -87,7 +92,7 @@ recursive-improvement admin         = false
 ```text
 GOAL_DISTANCE_BEFORE = D2_FULL_PRODUCT_LINE
 GOAL_DISTANCE_AFTER  = D2_FULL_PRODUCT_LINE
-DISTANCE_REDUCED     = The 22 W1 nodes are converted from an abstract delivery-wave count into an exact five-source product implementation queue; two empty tasks are removed from the mainline.
-REMAINING_BLOCKERS   = [22 W1 vertical slices, W1 UI/HTML/PDF closeout, W2–W8 product delivery, P09 79-source UI, P10 full closeout]
-NEXT_SHORTEST_STEP   = P01D1_G4AU07QuantityMultiplicativePatternVerticalSlice
+DISTANCE_REDUCED     = The W1 inventory is corrected from 22 to 21 product candidates; the invalid G4A-U07 pilot is removed and the four-KP G5B-U05 cluster becomes the shortest valid step.
+REMAINING_BLOCKERS   = [21 W1 vertical slices, W1 UI/HTML/PDF closeout, W2-W8 capability and product delivery, P09 79-source UI, P10 full closeout]
+NEXT_SHORTEST_STEP   = P01D1_G5BU05LargeNumberVerticalSlice
 ```
