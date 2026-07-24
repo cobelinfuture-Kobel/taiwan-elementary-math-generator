@@ -6,6 +6,13 @@ import { validateP01AW1ProductAdmissionInventory } from "../../tools/curriculum/
 
 const PATTERN_KP_ID = "kp_g4a_u07_quantity_multiplicative_pattern";
 const ORDINARY_MULTIPLE_KP_ID = "kp_g5a_u03a_multiple_identify_enumerate";
+const G5B_U05_SOURCE_ID = "g5b_u05_5b05a";
+const G5B_U05_KP_IDS = Object.freeze([
+  "kp_g5b_u05a_large_number_place_value_extension",
+  "kp_g5b_u05a_large_number_read_write",
+  "kp_g5b_u05a_power_of_ten_scaling",
+  "kp_g5b_u05a_large_number_decompose_compare",
+]);
 
 
 test("P01A materializes exactly the corrected 21 W1 KnowledgePoints", () => {
@@ -49,7 +56,7 @@ test("P01A1 leaves ordinary multiple reasoning in the factor multiple profile", 
 });
 
 
-test("P01A proves shared runtime capability readiness without claiming product readiness", () => {
+test("P01A proves shared runtime capability readiness without claiming direct admission in inventory", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   assert.equal(inventory.metrics.allRequiredCapabilitiesProductionAdmittedCount, 21);
   assert.equal(inventory.metrics.shadowCapabilityGapCount, 0);
@@ -60,7 +67,7 @@ test("P01A proves shared runtime capability readiness without claiming product r
 });
 
 
-test("P01A accounts for every corrected W1 product gap and source node", () => {
+test("P01A accounts for the four admitted G5B-U05 patterns and 17 remaining vertical slices", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   const gapCount = inventory.metrics.admissionReadyExistingPublicPatternCount
     + inventory.metrics.patternGroupOrSpecBindingRequiredCount
@@ -68,8 +75,19 @@ test("P01A accounts for every corrected W1 product gap and source node", () => {
   assert.equal(gapCount, 21);
   assert.equal(inventory.metrics.sourceNodeCount, 4);
   assert.equal(inventory.sourceSummaries.length, 4);
+  assert.equal(inventory.metrics.admissionReadyExistingPublicPatternCount, 4);
+  assert.equal(inventory.metrics.patternGroupOrSpecBindingRequiredCount, 0);
+  assert.equal(inventory.metrics.publicProductVerticalSliceRequiredCount, 17);
+  assert.equal(inventory.metrics.publicKnowledgePointVisibleCount, 4);
+  assert.equal(inventory.metrics.publicPatternBindingPresentCount, 4);
+  assert.equal(inventory.metrics.publicSourceSelectableCount, 1);
   assert.equal(inventory.rows.every((row) => row.sourceNodeIds.length > 0), true);
   assert.equal(inventory.rows.every((row) => row.nextAdmissionActions.length > 0), true);
+  for (const knowledgePointId of G5B_U05_KP_IDS) {
+    const row = inventory.getRow(knowledgePointId);
+    assert.equal(row.productGapState, "ADMISSION_READY_EXISTING_PUBLIC_PATTERN");
+    assert.equal(row.currentProductCoverage.publicSourceSelectable, true);
+  }
 
   console.log(`P01A_REBASED_INVENTORY_READBACK=${JSON.stringify({
     metrics: inventory.metrics,
@@ -94,24 +112,30 @@ test("P01A accounts for every corrected W1 product gap and source node", () => {
 });
 
 
-test("P01A excludes the protected W0 baseline from W1 product population", () => {
+test("P01A preserves the protected W0 baseline while allowing the new W1 public source", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   const baselineSourceIds = new Set(inventory.deliveryWaveAuthority.policy.publicBaseline.sourceNodeIds);
   assert.equal(inventory.rows.every((row) => row.sourceNodeIds.every((id) => !baselineSourceIds.has(id))), true);
-  assert.equal(inventory.rows.every((row) => row.currentProductCoverage.publicSourceSelectable === false), true);
+  const g5bRows = inventory.rows.filter((row) => row.sourceNodeIds.includes(G5B_U05_SOURCE_ID));
+  const remainingRows = inventory.rows.filter((row) => !row.sourceNodeIds.includes(G5B_U05_SOURCE_ID));
+  assert.equal(g5bRows.length, 4);
+  assert.equal(g5bRows.every((row) => row.currentProductCoverage.publicSourceSelectable === true), true);
+  assert.equal(remainingRows.every((row) => row.currentProductCoverage.publicSourceSelectable === false), true);
 });
 
 
-test("P01A validator passes the rebased executable gap matrix", () => {
+test("P01A validator passes the post-P01D1 executable gap matrix", () => {
   const report = validateP01AW1ProductAdmissionInventory();
   assert.equal(report.ok, true, JSON.stringify(report.errors, null, 2));
   assert.equal(report.summary.knowledgePointCount, 21);
   assert.equal(report.summary.sourceNodeCount, 4);
+  assert.equal(report.summary.admissionReadyExistingPublicPatternCount, 4);
+  assert.equal(report.summary.publicProductVerticalSliceRequiredCount, 17);
   assert.equal(report.summary.directProductionAdmissionCount, 0);
 });
 
 
-test("P01A validator fails closed if inventory is misreported as admitted", () => {
+test("P01A validator fails closed if inventory is misreported as directly admitted", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   const rows = inventory.rows.map((row, index) => index === 0 ? {
     ...row,
