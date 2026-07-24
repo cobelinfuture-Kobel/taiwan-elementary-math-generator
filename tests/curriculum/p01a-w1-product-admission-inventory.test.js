@@ -4,19 +4,38 @@ import assert from "node:assert/strict";
 import { materializeP01AW1ProductAdmissionInventory } from "../../src/curriculum/full-product/p01-w1-product-admission-inventory.mjs";
 import { validateP01AW1ProductAdmissionInventory } from "../../tools/curriculum/validate-p01a-w1-product-admission-inventory.mjs";
 
+const PATTERN_KP_ID = "kp_g4a_u07_quantity_multiplicative_pattern";
 
-test("P01A materializes exactly the 22 W1 KnowledgePoints", () => {
+
+test("P01A materializes exactly the corrected 21 W1 KnowledgePoints", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
-  assert.equal(inventory.rows.length, 22);
-  assert.equal(inventory.metrics.knowledgePointCount, 22);
-  assert.equal(new Set(inventory.rows.map((row) => row.knowledgePointId)).size, 22);
+  assert.equal(inventory.rows.length, 21);
+  assert.equal(inventory.metrics.knowledgePointCount, 21);
+  assert.equal(new Set(inventory.rows.map((row) => row.knowledgePointId)).size, 21);
   assert.equal(inventory.rows.every((row) => row.deliveryWaveId === "R05-W1"), true);
+  assert.equal(inventory.getRow(PATTERN_KP_ID), null);
+});
+
+
+test("P01A1 classifies multiplicative quantity pattern as pattern relation and routes it to W6", () => {
+  const inventory = materializeP01AW1ProductAdmissionInventory();
+  const r05 = inventory.deliveryWaveAuthority;
+  const mapping = r05.runtimeCapabilityMatrix.getMapping(PATTERN_KP_ID);
+  const assignment = r05.getAssignment(PATTERN_KP_ID);
+  assert.equal(mapping.primaryRuntimeProfileId, "profile_pattern_relation");
+  assert.equal(mapping.classificationRuleId, "rule_pattern_relation");
+  assert.ok(mapping.requiredRuntimeCapabilityIds.includes("cap_pattern_sequence_reasoning"));
+  assert.ok(mapping.requiredRuntimeCapabilityIds.includes("cap_pattern_relation_validator"));
+  assert.ok(mapping.undeliveredRequiredCapabilityIds.includes("cap_pattern_sequence_reasoning"));
+  assert.ok(mapping.undeliveredRequiredCapabilityIds.includes("cap_pattern_relation_validator"));
+  assert.equal(mapping.runtimeCapabilityDeliveryState, "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES");
+  assert.equal(assignment.deliveryWaveId, "R05-W6");
 });
 
 
 test("P01A proves shared runtime capability readiness without claiming product readiness", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
-  assert.equal(inventory.metrics.allRequiredCapabilitiesProductionAdmittedCount, 22);
+  assert.equal(inventory.metrics.allRequiredCapabilitiesProductionAdmittedCount, 21);
   assert.equal(inventory.metrics.shadowCapabilityGapCount, 0);
   assert.equal(inventory.metrics.contractOnlyCapabilityGapCount, 0);
   assert.equal(inventory.metrics.directProductionAdmissionCount, 0);
@@ -25,28 +44,30 @@ test("P01A proves shared runtime capability readiness without claiming product r
 });
 
 
-test("P01A accounts for every W1 product gap and source node", () => {
+test("P01A accounts for every corrected W1 product gap and source node", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   const gapCount = inventory.metrics.admissionReadyExistingPublicPatternCount
     + inventory.metrics.patternGroupOrSpecBindingRequiredCount
     + inventory.metrics.publicProductVerticalSliceRequiredCount;
-  assert.equal(gapCount, 22);
-  assert.ok(inventory.metrics.sourceNodeCount > 0);
-  assert.equal(inventory.sourceSummaries.length, inventory.metrics.sourceNodeCount);
+  assert.equal(gapCount, 21);
+  assert.equal(inventory.metrics.sourceNodeCount, 4);
+  assert.equal(inventory.sourceSummaries.length, 4);
   assert.equal(inventory.rows.every((row) => row.sourceNodeIds.length > 0), true);
   assert.equal(inventory.rows.every((row) => row.nextAdmissionActions.length > 0), true);
 
-  console.log(`P01A_INVENTORY_READBACK=${JSON.stringify({
+  console.log(`P01A_REBASED_INVENTORY_READBACK=${JSON.stringify({
     metrics: inventory.metrics,
     sourceSummaries: inventory.sourceSummaries,
+    correctedPatternKnowledgePoint: {
+      knowledgePointId: PATTERN_KP_ID,
+      deliveryWaveId: inventory.deliveryWaveAuthority.getAssignment(PATTERN_KP_ID).deliveryWaveId,
+      profileId: inventory.deliveryWaveAuthority.runtimeCapabilityMatrix.getMapping(PATTERN_KP_ID).primaryRuntimeProfileId,
+    },
     rows: inventory.rows.map((row) => ({
       knowledgePointId: row.knowledgePointId,
       canonicalNameZh: row.canonicalNameZh,
       sourceNodeIds: row.sourceNodeIds,
       productGapState: row.productGapState,
-      publicKnowledgePointVisible: row.currentProductCoverage.publicKnowledgePointVisible,
-      patternGroupIds: row.currentProductCoverage.patternGroupIds,
-      patternSpecIds: row.currentProductCoverage.patternSpecIds,
     })),
   })}`);
 });
@@ -60,10 +81,11 @@ test("P01A excludes the protected W0 baseline from W1 product population", () =>
 });
 
 
-test("P01A validator passes the executable gap matrix", () => {
+test("P01A validator passes the rebased executable gap matrix", () => {
   const report = validateP01AW1ProductAdmissionInventory();
   assert.equal(report.ok, true, JSON.stringify(report.errors, null, 2));
-  assert.equal(report.summary.knowledgePointCount, 22);
+  assert.equal(report.summary.knowledgePointCount, 21);
+  assert.equal(report.summary.sourceNodeCount, 4);
   assert.equal(report.summary.directProductionAdmissionCount, 0);
 });
 
