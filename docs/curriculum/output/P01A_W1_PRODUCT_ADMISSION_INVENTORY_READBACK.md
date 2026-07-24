@@ -3,10 +3,10 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID = P01A_W1ProductAdmissionInventoryAndGapMatrix
-STATUS = PASS_REBASED_PENDING_CI_W1_PRODUCT_GAP_INVENTORY
+STATUS = PASS_PARTIAL_W1_PRODUCT_ADMISSION_PENDING_P01D1_CI
 ```
 
-## Corrected executable result
+## Current executable result
 
 ```text
 R05-W1 KnowledgePoints                         = 21
@@ -14,25 +14,51 @@ source nodes                                  = 4
 all required capabilities production-admitted = 21
 shadow capability gaps                        = 0
 contract-only capability gaps                 = 0
-public KnowledgePoints currently visible      = 0
-public Pattern bindings currently present     = 0
-public source nodes currently selectable      = 0
-existing public-pattern admissions ready      = 0
+public KnowledgePoints currently visible      = 4
+public Pattern bindings currently present     = 4
+public source nodes currently selectable      = 1
+existing public-pattern admissions ready      = 4
 partial PatternGroup / PatternSpec gaps        = 0
-full public vertical slices required           = 21
-production admission performed                 = 0
+full public vertical slices required           = 17
+inventory direct admission count               = 0
 ```
+
+Production admission evidence for the four visible rows is owned by `P01D1_G5BU05LargeNumberVerticalSlice`; P01A remains an inventory authority and does not claim production admission itself.
 
 ## Source clusters
 
 | Source node | KnowledgePoints | Current product state |
 |---|---:|---|
-| `g5b_u05_5b05a` | 4 | full vertical slice required |
+| `g5b_u05_5b05a` | 4 | public Pattern path admitted by P01D1 |
 | `g6a_u01_6a01` | 5 | full vertical slice required |
 | `g5a_u03_5a03a` | 7 | full vertical slice required |
 | `g5a_u03_5a03a1` | 5 | full vertical slice required |
 
 The two G5A-U03 source nodes form one 12-KP factor / multiple product cluster.
+
+## P01D1 admitted rows
+
+```text
+kp_g5b_u05a_large_number_place_value_extension
+kp_g5b_u05a_large_number_read_write
+kp_g5b_u05a_power_of_ten_scaling
+kp_g5b_u05a_large_number_decompose_compare
+```
+
+Each row now has:
+
+```text
+canonical KP
+→ FormalMapping
+→ one visible PatternGroup
+→ two PatternSpecs
+→ shared deterministic generator and validator route
+→ public source selection
+→ worksheet and answer key
+→ HTML and Chromium PDF acceptance
+```
+
+`kp_g5b_u05a_decimal_base10_structure` remains excluded because it is not assigned to W1.
 
 ## Removed false W1 row
 
@@ -43,56 +69,33 @@ correct profile  = profile_pattern_relation
 correct wave     = R05-W6
 ```
 
-The canonical capability is fixed-ratio pattern recognition. It was previously classified as factor/multiple reasoning because the term `倍數` appeared before the explicit pattern semantics were considered. P01A1 corrects the semantic collision and removes this row from W1.
+P01A1 corrected the semantic collision between factor/multiple vocabulary and explicit pattern-relation semantics. P01D1 does not reverse or bypass that correction.
 
-## Meaning of corrected W1
-
-All effective required software capabilities for these 21 KnowledgePoints are already production-admitted. The remaining distance is product materialization:
+## Remaining implementation order
 
 ```text
-source evidence and canonical KP
-→ FormalMapping / PatternSpec
-→ existing shared generator / validator binding
-→ public source adapter and UI
-→ worksheet and answer key
-→ HTML / PDF / print acceptance
-```
-
-Capability readiness must not be reported as print readiness.
-
-## Empty-task elimination
-
-```text
-P01B_W1ExistingPatternAdmission rows = 0
-P01C_W1PatternBindingMaterialization partial rows = 0
-```
-
-All 21 valid W1 rows require bounded vertical-slice materialization.
-
-## Corrected implementation order
-
-```text
-P01D1 g5b_u05_5b05a large-number extension           = 4 KP
-P01D2 g6a_u01_6a01  number theory                     = 5 KP
-P01D3 g5a_u03_5a03a + 5a03a1 factor / multiple       = 12 KP
-P01E  W1 public UI / HTML / PDF / print closeout      = 21 KP
+P01D1 g5b_u05_5b05a large-number extension           = 4 KP admitted
+P01D2 g6a_u01_6a01  number theory                     = 5 KP next
+P01D3 g5a_u03_5a03a + 5a03a1 factor / multiple       = 12 KP queued
+P01E  W1 public UI / HTML / PDF / print closeout      = after all 21 KP admitted
 ```
 
 ## Inventory boundary
 
 ```text
 existing 15-unit W0 baseline changed = false
-W2–W8 implementation started         = false
-direct production admission          = false
-recursive-improvement admin           = false
+protected baseline source count       = 13
+public source count after P01D1        = 16
+W2–W8 implementation started          = false
+recursive-improvement admin            = false
 ```
 
 ## Distance
 
 ```text
-GOAL_DISTANCE_BEFORE = D2_FULL_PRODUCT_LINE
-GOAL_DISTANCE_AFTER  = D2_FULL_PRODUCT_LINE
-DISTANCE_REDUCED     = The W1 inventory is corrected from 22 to 21 product candidates; the invalid G4A-U07 pilot is removed and the four-KP G5B-U05 cluster becomes the shortest valid step.
-REMAINING_BLOCKERS   = [21 W1 vertical slices, W1 UI/HTML/PDF closeout, W2-W8 capability and product delivery, P09 79-source UI, P10 full closeout]
-NEXT_SHORTEST_STEP   = P01D1_G5BU05LargeNumberVerticalSlice
+GOAL_DISTANCE_BEFORE = D2_W1_21_VERTICAL_SLICES_REQUIRED
+GOAL_DISTANCE_AFTER  = D2_W1_4_ADMITTED_17_REMAINING
+DISTANCE_REDUCED     = Four G5B-U05 W1 KnowledgePoints now have a complete source-to-public-pattern path; the remaining W1 product gap falls from 21 to 17 KnowledgePoints.
+REMAINING_BLOCKERS   = [17 W1 vertical slices, W1 final UI/HTML/PDF closeout, W2-W8 delivery, P09 79-source UI, P10 full closeout]
+NEXT_SHORTEST_STEP   = P01D2_G6AU01NumberTheoryVerticalSlice
 ```
