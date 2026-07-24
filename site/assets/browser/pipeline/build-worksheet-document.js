@@ -12,6 +12,7 @@ import {
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/fifteen-unit-public-application-groups.js";
 import { buildFifteenUnitPublicPblWorksheetResult } from "../../../modules/curriculum/public/fifteen-unit-public-pbl-worksheet.js";
+import { applyR07AuthoritativeConsumerCutover } from "../../../modules/curriculum/global/r07-authoritative-consumer-cutover.js";
 import { getBatchAWorksheetPlan, storeWorksheetResult } from "../state/config-state.js";
 
 const CLOSEOUT_PROGRAM_ID = "BATCH_A13_BATCH_B2_PUBLIC_WORKSHEET_CLOSEOUT_V1";
@@ -58,11 +59,51 @@ function resolveCloseoutApplicationPlan(publicPlan = {}) {
   };
 }
 
+function blockedAuthoritativeCutoverResult(cutover, publicPlan) {
+  return Object.freeze({
+    ok: false,
+    errors: cutover.errors,
+    warnings: Object.freeze([]),
+    worksheetDocument: null,
+    authoritativeConsumerCutover: cutover,
+    requestedPlan: publicPlan,
+  });
+}
+
+function attachAuthoritativeCutover(result, cutover) {
+  if (!cutover.applied || !result || typeof result !== "object") return result;
+  const worksheetDocument = result.worksheetDocument;
+  const projectedDocument = worksheetDocument ? {
+    ...worksheetDocument,
+    metadata: {
+      ...(worksheetDocument.metadata ?? {}),
+      r07AuthoritativeConsumerCutover: cutover.adapter,
+    },
+    configSnapshot: {
+      ...(worksheetDocument.configSnapshot ?? {}),
+      globalAuthorityCutover: cutover.adapter,
+    },
+    publicControls: {
+      ...(worksheetDocument.publicControls ?? {}),
+      authorityMode: "GLOBAL_PRIMARY",
+    },
+  } : worksheetDocument;
+  return Object.freeze({
+    ...result,
+    worksheetDocument: projectedDocument,
+    authoritativeConsumerCutover: cutover,
+  });
+}
+
 export function buildWorksheetDocumentFromPlan(publicPlan) {
-  if (publicPlan?.questionMode === "pbl") {
-    return buildFifteenUnitPublicPblWorksheetResult(publicPlan);
-  }
-  return buildCoreWorksheetDocumentFromPlan(resolveCloseoutApplicationPlan(publicPlan));
+  const requestedPlan = resolveCloseoutApplicationPlan(publicPlan);
+  const cutover = applyR07AuthoritativeConsumerCutover(requestedPlan);
+  if (cutover.blocked) return blockedAuthoritativeCutoverResult(cutover, requestedPlan);
+  const plan = cutover.plan ?? requestedPlan;
+  const result = plan?.questionMode === "pbl"
+    ? buildFifteenUnitPublicPblWorksheetResult(plan)
+    : buildCoreWorksheetDocumentFromPlan(plan);
+  return attachAuthoritativeCutover(result, cutover);
 }
 
 export function buildWorksheetDocumentFromState(state) {

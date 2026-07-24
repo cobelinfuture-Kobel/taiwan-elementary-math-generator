@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "taskId": "R07_AuthoritativeConsumerCutover",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "GLOBAL_AUTHORITY_PRIMARY_15_UNIT_CUTOVER_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r07-authoritative-consumer-cutover.mjs",
+      "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "tools/curriculum/validate-r07-authoritative-consumer-cutover.mjs",
+      "tests/curriculum/r07-authoritative-consumer-cutover.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/GCKG-R06.claim.json",
+      "data/curriculum/global/cutover/r07/authoritative-consumer-cutover-policy.json",
+      "data/curriculum/global/cutover/r07/authoritative-consumer-cutover.manifest.json",
+      "docs/curriculum/contracts/GLOBAL_AUTHORITATIVE_CONSUMER_CUTOVER_CONTRACT_V1.md",
+      "docs/curriculum/output/GCKG_R07_AUTHORITATIVE_CONSUMER_CUTOVER_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D1",
+    "distanceReduced": "The existing 15-unit production consumer now resolves through Global authority by default while preserving the current public entry point, IDs, and production runtime implementations."
+  },
+  "nextStep": {
+    "taskId": "R08_15UnitGlobalMigrationUIHTMLPDFCloseout",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}
