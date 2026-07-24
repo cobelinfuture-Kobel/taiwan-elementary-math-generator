@@ -10,8 +10,10 @@ import {
   W03_A00_TASK
 } from './w02-a08r4-third-operator-approval.mjs';
 import {
+  W02_A09A_NEXT_TASK,
   W02_A09A_POLICY_PATH,
-  W02_A09A_STATUS
+  W02_A09A_STATUS,
+  W02_A09A_TASK
 } from './w02-a09a-authority-reconciliation-freeze.mjs';
 
 const readJsonIfExists = (root, repoPath) => {
@@ -38,18 +40,22 @@ export function applyW02A08R4ControllerOverlay({ root = process.cwd(), controlle
   const w03 = revised.waveStates.find((row) => row.waveId === 'W03');
   if (!w02 || !w03) return controllerState;
 
-  revised.taskId = W02_A08R4_TASK;
-  revised.status = W02_A08R4_STATUS;
-  revised.currentWaveId = 'W03';
-  revised.currentCapability = 'W03_ASSESSMENT_READY';
-  revised.currentMainlineBlocker = 'W03_SOURCE_ASSESSMENT_PENDING';
-  revised.nextShortestStep = W03_A00_TASK;
+  const freezeActive = loaded.w02A09AFreezePolicy?.executionFreeze?.active === true;
+
+  revised.taskId = freezeActive ? W02_A09A_TASK : W02_A08R4_TASK;
+  revised.status = freezeActive ? W02_A09A_STATUS : W02_A08R4_STATUS;
+  revised.currentWaveId = freezeActive ? 'W02' : 'W03';
+  revised.currentCapability = freezeActive ? W02_A09A_STATUS : 'W03_ASSESSMENT_READY';
+  revised.currentMainlineBlocker = freezeActive
+    ? 'BATCH_B_CANONICAL_KNOWLEDGE_POINT_AUTHORITY_AND_SHARED_PUBLIC_APPLICATION_CONSUMER_PENDING'
+    : 'W03_SOURCE_ASSESSMENT_PENDING';
+  revised.nextShortestStep = freezeActive ? W02_A09A_NEXT_TASK : W03_A00_TASK;
   revised.mainlineExecutionFreeze = {
-    active: Boolean(loaded.w02A09AFreezePolicy?.executionFreeze?.active),
+    active: freezeActive,
     status: loaded.w02A09AFreezePolicy?.status ?? null,
     authorityPath: W02_A09A_POLICY_PATH,
     blockedWaveIds: loaded.w02A09AFreezePolicy?.executionFreeze?.blockedWaveIds ?? [],
-    nextShortestStep: loaded.w02A09AFreezePolicy?.mainline?.nextShortestStep ?? W03_A00_TASK
+    nextShortestStep: freezeActive ? W02_A09A_NEXT_TASK : W03_A00_TASK
   };
   revised.productionAdmission = {
     ...(revised.productionAdmission ?? {}),
@@ -87,8 +93,11 @@ export function applyW02A08R4ControllerOverlay({ root = process.cwd(), controlle
     publicSelectableCandidateCount: 0,
     productionRuntimeAccessEnabled: true,
     publicRouteChanged: false,
-    canonicalCurriculumAuthorityReconciliationRequired: true,
-    canonicalCurriculumAuthorityPath: W02_A09A_POLICY_PATH
+    canonicalCurriculumAuthorityReconciliationRequired: freezeActive,
+    canonicalCurriculumAuthorityReconciled: false,
+    canonicalCurriculumAuthorityPath: freezeActive ? W02_A09A_POLICY_PATH : null,
+    globalContextSingleApplicationAuthorityRequired: freezeActive,
+    legacyApplicationRoutesFrozen: freezeActive
   });
 
   Object.assign(w03, {
@@ -98,18 +107,19 @@ export function applyW02A08R4ControllerOverlay({ root = process.cwd(), controlle
     reviewDecision: null,
     shadowProjectionAllowed: false,
     publicSelectable: false,
-    executionFrozen: true,
+    executionFrozen: freezeActive,
     implementationAllowed: false,
-    freezeStatus: W02_A09A_STATUS,
-    freezeAuthorityPath: W02_A09A_POLICY_PATH
+    freezeStatus: freezeActive ? W02_A09A_STATUS : null,
+    freezeAuthorityPath: freezeActive ? W02_A09A_POLICY_PATH : null
   });
 
   revised.producerStateConsumerReadback = {
-    producerTaskId: W02_A08R4_TASK,
-    authoritativeState: W02_A08R4_DECISION_PATH,
-    runtimeConsumer: 'src/curriculum/application/shared/application-capability-resolver.mjs',
-    readbackStatus: W02_A08R4_STATUS,
-    mainlineExecutionFreezeAuthority: W02_A09A_POLICY_PATH
+    producerTaskId: freezeActive ? W02_A09A_TASK : W02_A08R4_TASK,
+    authoritativeState: freezeActive ? W02_A09A_POLICY_PATH : W02_A08R4_DECISION_PATH,
+    runtimeConsumer: 'src/curriculum/application/postg-app-master-controller.mjs',
+    readbackStatus: freezeActive ? W02_A09A_STATUS : W02_A08R4_STATUS,
+    productionEvidence: W02_A08R4_EVIDENCE_PATH,
+    mainlineExecutionFreezeAuthority: freezeActive ? W02_A09A_POLICY_PATH : null
   };
   return revised;
 }
