@@ -10,14 +10,14 @@ fs.writeFileSync(outputPath, `${JSON.stringify({
   schemaVersion: 1,
   producerTaskId: "R03_GlobalPrerequisiteGraph",
   sourceRegistryTaskId: registry.taskId,
-  metrics: registry.metrics,
+  counts: registry.counts,
   knowledgePoints: registry.knowledgePoints,
   sourceViews: registry.sourceViews,
 }, null, 2)}\n`);
 
 process.stdout.write(`R03_NODE_SNAPSHOT=${JSON.stringify({
-  sourceNodeCount: registry.metrics.sourceNodeCount,
-  knowledgePointCount: registry.metrics.knowledgePointCount,
-  conflictCount: registry.conflicts.length,
+  sourceNodeCount: registry.counts.sourceNodeCount,
+  knowledgePointCount: registry.counts.globalKnowledgePointCount,
+  conflictCount: registry.counts.semanticIdentityConflictCount,
 })}\n`);
 process.stdout.write(`R03_NODE_SNAPSHOT_PATH=${path.relative(process.cwd(), outputPath).replaceAll("\\", "/")}\n`);
