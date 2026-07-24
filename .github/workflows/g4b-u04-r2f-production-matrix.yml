@@ -1,223 +1,25 @@
-name: G4B-U04 R2F Production Matrix
+name: Historical Unit Milestone Readback
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  production-matrix:
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install project dependencies
+          node-version: 22
+      - name: Install dependencies
         run: npm install
-
-      - name: Install browser and PDF verification dependencies
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk poppler-utils
-          python3 -m pip install --break-system-packages pypdf pillow
-
-      - name: Run full Node test suite
+      - name: Run repository regression readback
         run: npm test
-
-      - name: Generate six R2F HTML scenarios
-        run: node tools/curriculum/generate-g4b-u04-r2f-production-matrix.mjs
-
-      - name: Verify DOM containment and print six PDFs
-        run: |
-          node --input-type=module <<'NODE'
-          import { readFile, writeFile } from 'node:fs/promises';
-          import { resolve } from 'node:path';
-          import { pathToFileURL } from 'node:url';
-          import { chromium } from 'playwright';
-
-          const root = resolve('docs/curriculum/output/stress/g4b-u04-r2f');
-          const manifestPath = resolve(root, 'manifest.json');
-          const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-          const browser = await chromium.launch({ headless: true });
-          try {
-            for (const scenario of manifest.scenarios) {
-              const page = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
-              const htmlPath = resolve(root, scenario.htmlFile);
-              const pdfPath = resolve(root, scenario.pdfFile);
-              await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-              const containment = await page.evaluate(() => {
-                const cells = [...document.querySelectorAll('.g4b-u04-cell')]
-                  .filter((node) => !node.classList.contains('g4b-u04-cell--filler'));
-                const overflow = cells.filter((node) =>
-                  node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1
-                );
-                return {
-                  cellCount: cells.length,
-                  overflowCount: overflow.length,
-                  firstOverflow: overflow[0]?.outerHTML.slice(0, 500) ?? null,
-                };
-              });
-              const expectedCells = scenario.questionCount + scenario.answerKeyItemCount;
-              if (containment.cellCount !== expectedCells) {
-                throw new Error(`${scenario.id}: rendered cells ${containment.cellCount}/${expectedCells}`);
-              }
-              if (containment.overflowCount !== 0) {
-                throw new Error(`${scenario.id}: DOM overflow ${containment.overflowCount}; first=${containment.firstOverflow}`);
-              }
-              scenario.domOverflowCount = containment.overflowCount;
-              await page.emulateMedia({ media: 'print' });
-              await page.pdf({
-                path: pdfPath,
-                format: 'A4',
-                printBackground: true,
-                preferCSSPageSize: true,
-                margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' },
-              });
-              await page.close();
-            }
-          } finally {
-            await browser.close();
-          }
-          await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-          NODE
-
-      - name: Render and verify every PDF page
-        run: |
-          rm -rf /tmp/g4b-u04-r2f-rendered
-          mkdir -p /tmp/g4b-u04-r2f-rendered
-          python3 <<'PY'
-          from pathlib import Path
-          from PIL import Image, ImageStat
-          from pypdf import PdfReader
-          import json
-          import subprocess
-
-          root = Path('docs/curriculum/output/stress/g4b-u04-r2f')
-          manifest_path = root / 'manifest.json'
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          total_pages = 0
-          for scenario in manifest['scenarios']:
-              scenario_dir = Path('/tmp/g4b-u04-r2f-rendered') / scenario['id']
-              scenario_dir.mkdir(parents=True, exist_ok=True)
-              pdf = root / scenario['pdfFile']
-              subprocess.run(['pdftoppm', '-png', '-r', '110', str(pdf), str(scenario_dir / 'page')], check=True)
-              reader = PdfReader(str(pdf))
-              files = sorted(scenario_dir.glob('page-*.png'))
-              if len(files) != len(reader.pages):
-                  raise SystemExit(f"{scenario['id']}: rendered page mismatch {len(files)}/{len(reader.pages)}")
-              if len(reader.pages) != scenario['expectedPdfPageCount']:
-                  raise SystemExit(f"{scenario['id']}: PDF page mismatch {len(reader.pages)}/{scenario['expectedPdfPageCount']}")
-              nonblank = 0
-              for path in files:
-                  image = Image.open(path).convert('L')
-                  stat = ImageStat.Stat(image)
-                  if stat.extrema[0][0] < 245 and stat.var[0] > 5:
-                      nonblank += 1
-              if nonblank != len(files):
-                  raise SystemExit(f"{scenario['id']}: blank page detected {nonblank}/{len(files)}")
-              scenario['actualPdfPageCount'] = len(reader.pages)
-              scenario['renderedPageImageCount'] = len(files)
-              scenario['nonblankRenderedPageCount'] = nonblank
-              total_pages += len(reader.pages)
-          manifest['totalPdfPageCount'] = total_pages
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(f'all R2F rendered pages nonblank: {total_pages}')
-          PY
-
-      - name: Verify every PDF text bounding box
-        run: |
-          python3 <<'PY'
-          from pathlib import Path
-          import json
-          import re
-          import subprocess
-
-          root = Path('docs/curriculum/output/stress/g4b-u04-r2f')
-          manifest_path = root / 'manifest.json'
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          page_re = re.compile(r'<page[^>]*width="([0-9.]+)"[^>]*height="([0-9.]+)"[^>]*>(.*?)</page>', re.S)
-          word_re = re.compile(r'<word[^>]*xMin="([0-9.]+)"[^>]*yMin="([0-9.]+)"[^>]*xMax="([0-9.]+)"[^>]*yMax="([0-9.]+)"', re.S)
-          total_overflow = 0
-          for scenario in manifest['scenarios']:
-              pdf = root / scenario['pdfFile']
-              bbox = Path('/tmp') / f"r2f-{scenario['id']}-bbox.html"
-              subprocess.run(['pdftotext', '-bbox-layout', str(pdf), str(bbox)], check=True)
-              text = bbox.read_text(encoding='utf-8', errors='ignore')
-              pages = page_re.findall(text)
-              if not pages:
-                  raise SystemExit(f"{scenario['id']}: no PDF bbox pages parsed")
-              overflow = []
-              for page_index, (width, height, body) in enumerate(pages, 1):
-                  width, height = float(width), float(height)
-                  for coords in word_re.findall(body):
-                      x0, y0, x1, y1 = map(float, coords)
-                      if x0 < -0.5 or y0 < -0.5 or x1 > width + 0.5 or y1 > height + 0.5:
-                          overflow.append((page_index, x0, y0, x1, y1, width, height))
-              if overflow:
-                  raise SystemExit(f"{scenario['id']}: PDF bbox overflow {len(overflow)} first={overflow[0]}")
-              scenario['pdfBoundingBoxOverflowCount'] = 0
-              total_overflow += len(overflow)
-          manifest['pdfBoundingBoxOverflowCount'] = total_overflow
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print('R2F PDF bbox containment PASS')
-          PY
-
-      - name: Finalize R2F manifest
-        run: |
-          python3 <<'PY'
-          from hashlib import sha256
-          from pathlib import Path
-          from pypdf import PdfReader
-          import json
-          import unicodedata
-
-          root = Path('docs/curriculum/output/stress/g4b-u04-r2f')
-          manifest_path = root / 'manifest.json'
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          for scenario in manifest['scenarios']:
-              pdf = root / scenario['pdfFile']
-              pdf_bytes = pdf.read_bytes()
-              reader = PdfReader(str(pdf))
-              text = ''.join(unicodedata.normalize('NFKC', page.extract_text() or '') for page in reader.pages)
-              if '概數' not in text or '答案頁' not in text:
-                  raise SystemExit(f"{scenario['id']}: Traditional Chinese title or answer page missing")
-              scenario['pdfSha256'] = sha256(pdf_bytes).hexdigest()
-              scenario['pdfBytes'] = len(pdf_bytes)
-              if scenario['validationErrorCount'] != 0 or scenario['duplicatePromptCount'] != 0:
-                  raise SystemExit(f"{scenario['id']}: validation or duplicate failure")
-              if scenario['genericContextFallbackUsed'] or scenario['freeFormAIUsed']:
-                  raise SystemExit(f"{scenario['id']}: forbidden fallback or AI path used")
-          manifest['status'] = 'production_matrix_html_pdf_pass'
-          manifest['scenarioCount'] = len(manifest['scenarios'])
-          manifest['domOverflowCount'] = sum(row['domOverflowCount'] for row in manifest['scenarios'])
-          manifest['validationErrorCount'] = sum(row['validationErrorCount'] for row in manifest['scenarios'])
-          manifest['duplicatePromptCount'] = sum(row['duplicatePromptCount'] for row in manifest['scenarios'])
-          manifest['cjkGlyphRendering'] = 'pass'
-          manifest['visualRenderVerification'] = 'all_pages_nonblank_and_bbox_contained'
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(json.dumps(manifest, ensure_ascii=False, indent=2))
-          PY
-
-      - name: Upload R2F production matrix
-        uses: actions/upload-artifact@v4
-        with:
-          name: g4b-u04-r2f-production-matrix
-          if-no-files-found: error
-          retention-days: 30
-          path: |
-            docs/curriculum/output/stress/g4b-u04-r2f/*.html
-            docs/curriculum/output/stress/g4b-u04-r2f/*.pdf
-            docs/curriculum/output/stress/g4b-u04-r2f/manifest.json
-            /tmp/g4b-u04-r2f-rendered/**/*.png

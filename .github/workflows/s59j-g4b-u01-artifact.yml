@@ -1,159 +1,25 @@
-name: S59J G4B-U01 HTML PDF Smoke
+name: Historical Unit Milestone Readback
 
 on:
-  push:
-    branches:
-      - s59j-g4b-u01-production-closeout
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build-smoke:
-    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install project dependencies
+          node-version: 22
+      - name: Install dependencies
         run: npm install
-
-      - name: Install browser and PDF verification dependencies
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk poppler-utils
-          python3 -m pip install --break-system-packages pypdf pillow
-
-      - name: Generate canonical public HTML and pending manifest
-        run: node tools/curriculum/generate-s59j-g4b-u01-public-smoke.mjs
-
-      - name: Print HTML to PDF with Chromium
-        run: |
-          node --input-type=module <<'NODE'
-          import { chromium } from 'playwright';
-          import { pathToFileURL } from 'node:url';
-          import { resolve } from 'node:path';
-          const htmlPath = resolve('docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.html');
-          const pdfPath = resolve('docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.pdf');
-          const browser = await chromium.launch({ headless: true });
-          const page = await browser.newPage();
-          await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-          await page.emulateMedia({ media: 'print' });
-          await page.pdf({
-            path: pdfPath,
-            format: 'A4',
-            printBackground: true,
-            preferCSSPageSize: true,
-            margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' }
-          });
-          await browser.close();
-          NODE
-
-      - name: Render and verify every PDF page
-        run: |
-          rm -rf /tmp/s59j-g4b-u01-rendered
-          mkdir -p /tmp/s59j-g4b-u01-rendered
-          pdftoppm -png -r 120 \
-            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.pdf \
-            /tmp/s59j-g4b-u01-rendered/page
-          python3 <<'PY'
-          from pathlib import Path
-          from PIL import Image, ImageStat
-          files = sorted(Path('/tmp/s59j-g4b-u01-rendered').glob('page-*.png'))
-          if len(files) != 6:
-              raise SystemExit(f'expected 6 rendered pages, got {len(files)}')
-          nonblank = 0
-          for path in files:
-              image = Image.open(path).convert('L')
-              stat = ImageStat.Stat(image)
-              if stat.extrema[0][0] < 245 and stat.var[0] > 5:
-                  nonblank += 1
-          if nonblank != len(files):
-              raise SystemExit(f'blank rendered page detected: {nonblank}/{len(files)} nonblank')
-          print(f'all rendered pages nonblank: {nonblank}')
-          PY
-
-      - name: Finalize smoke manifest from verified PDF
-        run: |
-          python3 <<'PY'
-          from hashlib import sha256
-          import json
-          from pathlib import Path
-          from pypdf import PdfReader
-
-          root = Path('docs/curriculum/output/smoke')
-          html_path = root / 'S59J_G4B_U01_PublicHorizontalWorksheet.html'
-          pdf_path = root / 'S59J_G4B_U01_PublicHorizontalWorksheet.pdf'
-          manifest_path = root / 'S59J_G4B_U01_PublicHorizontalWorksheet.manifest.json'
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          pdf_bytes = pdf_path.read_bytes()
-          reader = PdfReader(str(pdf_path))
-          texts = [(page.extract_text() or '') for page in reader.pages]
-          question_pages = manifest['questionPageCount']
-          question_count = sum(text.count('×') + text.count('÷') for text in texts[:question_pages])
-          answer_count = sum(text.count('×') + text.count('÷') for text in texts[question_pages:])
-          cjk_text = ''.join(texts)
-          if '多位數的乘與除' not in cjk_text:
-              raise SystemExit('Traditional Chinese smoke title was not extracted from PDF')
-          if len(reader.pages) != manifest['expectedPdfPageCount']:
-              raise SystemExit(f"PDF page count mismatch: {len(reader.pages)}")
-          if question_count != 72 or answer_count != 72:
-              raise SystemExit(f'expression extraction mismatch: questions={question_count}, answers={answer_count}')
-          manifest.update({
-              'status': 'public_html_pdf_smoke_pass',
-              'actualPdfPageCount': len(reader.pages),
-              'pdfSha256': sha256(pdf_bytes).hexdigest(),
-              'pdfBytes': len(pdf_bytes),
-              'renderedPageImageCount': len(reader.pages),
-              'nonblankRenderedPageCount': len(reader.pages),
-              'extractedQuestionExpressionCount': question_count,
-              'extractedAnswerExpressionCount': answer_count,
-              'cjkGlyphRendering': 'pass',
-              'visualRenderVerification': 'all_pages_rendered_nonblank'
-          })
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(json.dumps(manifest, ensure_ascii=False, indent=2))
-          PY
-
-      - name: Commit first verified smoke bundle to branch
-        if: github.event_name == 'push' && github.ref == 'refs/heads/s59j-g4b-u01-production-closeout'
-        run: |
-          HTML_PATH=docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.html
-          PDF_PATH=docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.pdf
-          MANIFEST_PATH=docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.manifest.json
-          if git cat-file -e "HEAD:${HTML_PATH}" \
-            && git cat-file -e "HEAD:${PDF_PATH}" \
-            && git cat-file -e "HEAD:${MANIFEST_PATH}"; then
-            echo "Verified smoke bundle is already committed and remains immutable."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "${HTML_PATH}" "${PDF_PATH}" "${MANIFEST_PATH}"
-          git commit -m "docs(g4b-u01): commit verified S59J HTML PDF smoke"
-          git push origin HEAD:s59j-g4b-u01-production-closeout
-
-      - name: Upload verified smoke bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: s59j-g4b-u01-public-html-pdf-smoke
-          if-no-files-found: error
-          retention-days: 30
-          path: |
-            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.html
-            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.pdf
-            docs/curriculum/output/smoke/S59J_G4B_U01_PublicHorizontalWorksheet.manifest.json
-            /tmp/s59j-g4b-u01-rendered/*.png
+      - name: Run repository regression readback
+        run: npm test

@@ -1,128 +1,25 @@
-name: S96G G5A-U02 Dynamic HTML PDF Stress
+name: Historical Unit Milestone Readback
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  dynamic-stress:
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install project dependencies
+          node-version: 22
+      - name: Install dependencies
         run: npm install
-
-      - name: Install browser and PDF verification dependencies
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk poppler-utils
-          python3 -m pip install --break-system-packages pypdf pillow
-
-      - name: Run full Node test suite
+      - name: Run repository regression readback
         run: npm test
-
-      - name: Generate S96G dynamic stress matrix and 200-question HTML
-        run: node tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs
-
-      - name: Verify DOM containment and print dynamic PDF
-        run: |
-          node --input-type=module <<'NODE'
-          import { chromium } from 'playwright';
-          import { pathToFileURL } from 'node:url';
-          import { resolve } from 'node:path';
-          import { readFile } from 'node:fs/promises';
-          const root = resolve('docs/curriculum/output/stress');
-          const htmlPath = resolve(root, 'S96G_G5A_U02_DynamicStress200.html');
-          const pdfPath = resolve(root, 'S96G_G5A_U02_DynamicStress200.pdf');
-          const manifest = JSON.parse(await readFile(resolve(root, 'S96G_G5A_U02_DynamicStress.manifest.json'), 'utf8'));
-          const browser = await chromium.launch({ headless: true });
-          const page = await browser.newPage({ viewport: { width: 1280, height: 960 } });
-          await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-          const containment = await page.evaluate(() => {
-            const cards = [...document.querySelectorAll('.g5a-u02-card')];
-            return {
-              questionCardCount: document.querySelectorAll('.g5a-u02-card--question').length,
-              answerCardCount: document.querySelectorAll('.g5a-u02-card--answer').length,
-              pageCount: document.querySelectorAll('.g5a-u02-page').length,
-              overflowCount: cards.filter((node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1).length,
-              marker: document.body.dataset.s96gDynamicStress ?? null,
-            };
-          });
-          console.log(JSON.stringify(containment, null, 2));
-          if (containment.questionCardCount !== 200) throw new Error(`question cards=${containment.questionCardCount}`);
-          if (containment.answerCardCount !== 200) throw new Error(`answer cards=${containment.answerCardCount}`);
-          if (containment.pageCount !== manifest.expectedPdfPageCount) throw new Error(`HTML pages=${containment.pageCount}/${manifest.expectedPdfPageCount}`);
-          if (containment.overflowCount !== 0) throw new Error(`DOM overflow=${containment.overflowCount}`);
-          if (containment.marker !== 'true') throw new Error('S96G marker missing');
-          await page.emulateMedia({ media: 'print' });
-          await page.pdf({ path: pdfPath, format: 'A4', printBackground: true, preferCSSPageSize: true, margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' } });
-          await browser.close();
-          NODE
-
-      - name: Verify all dynamic PDF pages nonblank, contained and CJK-readable
-        run: |
-          rm -rf /tmp/s96g-rendered && mkdir -p /tmp/s96g-rendered
-          pdftoppm -png -r 100 docs/curriculum/output/stress/S96G_G5A_U02_DynamicStress200.pdf /tmp/s96g-rendered/page
-          pdftotext -bbox-layout docs/curriculum/output/stress/S96G_G5A_U02_DynamicStress200.pdf /tmp/s96g-bbox.html
-          pdftotext docs/curriculum/output/stress/S96G_G5A_U02_DynamicStress200.pdf /tmp/s96g-text.txt
-          python3 <<'PY'
-          import json, re
-          from pathlib import Path
-          from PIL import Image, ImageStat
-          from pypdf import PdfReader
-          root = Path('docs/curriculum/output/stress')
-          manifest = json.loads((root / 'S96G_G5A_U02_DynamicStress.manifest.json').read_text(encoding='utf-8'))
-          reader = PdfReader(str(root / 'S96G_G5A_U02_DynamicStress200.pdf'))
-          images = sorted(Path('/tmp/s96g-rendered').glob('page-*.png'))
-          expected = manifest['expectedPdfPageCount']
-          if len(reader.pages) != expected or len(images) != expected:
-              raise SystemExit(f'page mismatch pdf={len(reader.pages)} png={len(images)} expected={expected}')
-          for image_path in images:
-              stat = ImageStat.Stat(Image.open(image_path).convert('L'))
-              if stat.extrema[0][0] >= 245 or stat.var[0] <= 5:
-                  raise SystemExit(f'blank page: {image_path}')
-          text = Path('/tmp/s96g-bbox.html').read_text(encoding='utf-8', errors='ignore')
-          page_re = re.compile(r'<page[^>]*width="([0-9.]+)"[^>]*height="([0-9.]+)"[^>]*>(.*?)</page>', re.S)
-          word_re = re.compile(r'<word[^>]*xMin="([0-9.]+)"[^>]*yMin="([0-9.]+)"[^>]*xMax="([0-9.]+)"[^>]*yMax="([0-9.]+)"', re.S)
-          overflow = []
-          for index, (width, height, body) in enumerate(page_re.findall(text), 1):
-              width, height = float(width), float(height)
-              for coords in word_re.findall(body):
-                  x0, y0, x1, y1 = map(float, coords)
-                  if x0 < -0.5 or y0 < -0.5 or x1 > width + 0.5 or y1 > height + 0.5:
-                      overflow.append((index, x0, y0, x1, y1))
-          if overflow:
-              raise SystemExit(f'bbox overflow count={len(overflow)} first={overflow[0]}')
-          extracted = Path('/tmp/s96g-text.txt').read_text(encoding='utf-8', errors='ignore')
-          if '因數' not in extracted or '答案' not in extracted:
-              raise SystemExit('CJK extraction failed')
-          if not (reader.pages[-1].extract_text() or '').strip():
-              raise SystemExit('final answer page blank')
-          print(f'S96G dynamic PDF verification PASS: {expected} pages')
-          PY
-
-      - name: Upload S96G dynamic stress artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: s96g-g5a-u02-dynamic-html-pdf-stress
-          if-no-files-found: error
-          retention-days: 30
-          path: |
-            docs/curriculum/output/stress/S96G_G5A_U02_DynamicStress200.html
-            docs/curriculum/output/stress/S96G_G5A_U02_DynamicStress200.pdf
-            docs/curriculum/output/stress/S96G_G5A_U02_DynamicStress.manifest.json

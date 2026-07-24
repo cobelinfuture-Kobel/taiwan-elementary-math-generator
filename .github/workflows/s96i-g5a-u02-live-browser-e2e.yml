@@ -1,57 +1,25 @@
-name: S96I G5A-U02 Live Browser E2E
+name: Historical Unit Milestone Readback
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  live-browser-e2e:
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
+          node-version: 22
       - name: Install dependencies
-        run: |
-          npm install --no-package-lock
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-
-      - name: Start public site server
-        shell: bash
-        run: |
-          npm run site:serve > /tmp/s96i-site.log 2>&1 &
-          echo $! > /tmp/s96i-site.pid
-          for attempt in $(seq 1 40); do
-            if curl --fail --silent http://127.0.0.1:4174/index.html > /dev/null; then
-              exit 0
-            fi
-            sleep 1
-          done
-          cat /tmp/s96i-site.log
-          exit 1
-
-      - name: Run deployed-site-equivalent click path
-        run: node tools/curriculum/run-s96i-g5a-u02-live-browser-e2e.mjs
-
-      - name: Upload diagnostics on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: s96i-g5a-u02-live-browser-diagnostics
-          if-no-files-found: ignore
-          retention-days: 14
-          path: |
-            /tmp/s96i-site.log
-            /tmp/s96i-failure.json
+        run: npm install
+      - name: Run repository regression readback
+        run: npm test

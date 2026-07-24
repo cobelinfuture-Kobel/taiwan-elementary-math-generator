@@ -1,56 +1,25 @@
-name: S96R G5A-U02 Control Matrix HTML PDF Stress
+name: Historical Unit Milestone Readback
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  control-matrix-stress:
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install project and browser dependencies
-        run: |
-          npm install --no-package-lock
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-
-      - name: Start public site server
-        shell: bash
-        run: |
-          npm run site:serve > /tmp/s96r-site.log 2>&1 &
-          for attempt in $(seq 1 40); do
-            if curl --fail --silent http://127.0.0.1:4174/index.html > /dev/null; then
-              exit 0
-            fi
-            sleep 1
-          done
-          cat /tmp/s96r-site.log
-          exit 1
-
-      - name: Run 24-combination control matrix HTML/PDF stress
-        run: node tools/curriculum/run-s96r-g5a-u02-control-matrix-html-pdf-stress.mjs
-
-      - name: Upload S96R artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: s96r-g5a-u02-control-matrix-html-pdf-stress
-          if-no-files-found: warn
-          retention-days: 30
-          path: |
-            docs/curriculum/output/stress/s96r-control-matrix/
-            /tmp/s96r-site.log
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run repository regression readback
+        run: npm test

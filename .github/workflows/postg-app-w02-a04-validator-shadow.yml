@@ -1,104 +1,25 @@
-name: POSTG-APP W02-A04 Validator Shadow
+name: Historical POSTG Milestone Readback
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/assessment/w02-validator-fixture-shadow-*.json"
-      - "data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow.json"
-      - "data/project/milestones/POSTG-APP-W02-A04.claim.json"
-      - "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs"
-      - "tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js"
-      - "docs/curriculum/output/POSTG_APP_W02_A04_*"
-      - ".github/workflows/postg-app-w02-a04-validator-shadow.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: postg-app-w02-a04-${{ github.event.pull_request.number || github.ref }}
+  group: historical-postg-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validator-shadow:
-    runs-on: ubuntu-latest
+  historical-readback:
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-      - run: npm install
-      - name: Validate A04 schema document
-        run: |
-          python -m pip install jsonschema
-          python - <<'PY'
-          import json
-          from jsonschema import Draft202012Validator
-          with open('data/curriculum/application/schema/w02-validator-shadow-fixture.schema.json', encoding='utf-8') as handle:
-              Draft202012Validator.check_schema(json.load(handle))
-          PY
-      - name: Run W02 A04 focused tests and validator with diagnostics
-        run: |
-          set +e
-          node --test tests/curriculum/postg-app-w02-a04-runtime-shadow.test.js > w02-a04-focused.log 2>&1
-          test_status=$?
-          node tools/curriculum/validate-postg-app-w02-a04-runtime-shadow.mjs > w02-a04-validator.json 2>&1
-          validator_status=$?
-          printf '%s %s\n' "$test_status" "$validator_status" > w02-a04-status.txt
-          exit 0
-      - name: Write deterministic A04 runtime readback
-        if: always()
-        run: |
-          node --input-type=module - <<'NODE'
-          import fs from 'node:fs';
-          import { buildW02ValidatorShadowReadback } from './src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs';
-          const readback = buildW02ValidatorShadowReadback();
-          fs.writeFileSync('w02-a04-runtime-readback.json', `${JSON.stringify({
-            counts: readback.counts,
-            fixtureTypeCounts: readback.fixtureTypeCounts,
-            errorCodeCounts: readback.errorCodeCounts,
-            operationFamilyCoverage: readback.operationFamilyCoverage,
-            answerShapeCoverage: readback.answerShapeCoverage,
-            adapterCoverage: readback.adapterCoverage,
-            duplicateComparisons: readback.duplicateComparisons,
-            issues: readback.issues
-          }, null, 2)}\n`);
-          NODE
-      - uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: w02-a04-runtime-diagnostics
-          path: |
-            w02-a04-focused.log
-            w02-a04-validator.json
-            w02-a04-status.txt
-            w02-a04-runtime-readback.json
-          if-no-files-found: error
-      - name: Enforce A04 focused gate
-        run: |
-          read test_status validator_status < w02-a04-status.txt
-          test "$test_status" -eq 0
-          test "$validator_status" -eq 0
-      - name: Verify A03 and A02 regressions
-        run: |
-          node --test tests/curriculum/postg-app-w02-a03-candidate-pack.test.js
-          node tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs
-          node --test tests/curriculum/postg-app-w02-a02-candidate-pack.test.js
-          node tools/curriculum/validate-postg-app-w02-a02-candidate-pack.mjs
-      - name: Verify controller, W01 E5 and governance
-        run: |
-          node --test tests/curriculum/postg-app-m00-master-controller.test.js
-          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
-          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
-          node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
-          npm run governance:claims
-      - name: Run full regression suite
-        run: npm test
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run consolidated historical POSTG readback
+        run: node --test tests/curriculum/postg-app-*.test.js

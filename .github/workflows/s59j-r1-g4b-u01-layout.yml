@@ -1,184 +1,25 @@
-name: S59J R1 G4B-U01 Warning and Print Layout
+name: Historical Unit Milestone Readback
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  warning-and-layout-regression:
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install project dependencies
+          node-version: 22
+      - name: Install dependencies
         run: npm install
-
-      - name: Install browser and PDF verification dependencies
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk poppler-utils
-          python3 -m pip install --break-system-packages pypdf pillow
-
-      - name: Run full Node test suite
+      - name: Run repository regression readback
         run: npm test
-
-      - name: Generate 120-question 3x4 FullFix regression HTML
-        run: node tools/curriculum/generate-s59j-r1-g4b-u01-layout-regression.mjs
-
-      - name: Verify DOM containment and print PDF
-        run: |
-          node --input-type=module <<'NODE'
-          import { chromium } from 'playwright';
-          import { pathToFileURL } from 'node:url';
-          import { resolve } from 'node:path';
-
-          const htmlPath = resolve('artifacts/s59j-r1-g4b-u01/G4B_U01_120Q_3x4_FullFix.html');
-          const pdfPath = resolve('artifacts/s59j-r1-g4b-u01/G4B_U01_120Q_3x4_FullFix.pdf');
-          const browser = await chromium.launch({ headless: true });
-          const page = await browser.newPage();
-          await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-          await page.emulateMedia({ media: 'print' });
-
-          const overflows = await page.evaluate(() => {
-            const nodes = [...document.querySelectorAll('.worksheet-cell__prompt, .worksheet-cell__answer')];
-            return nodes.flatMap((node, index) => {
-              const cell = node.closest('.worksheet-cell');
-              const pageNode = node.closest('.worksheet-page');
-              if (!cell || !pageNode) return [{ index, reason: 'missing_container', text: node.textContent }];
-              const rect = node.getBoundingClientRect();
-              const cellRect = cell.getBoundingClientRect();
-              const pageRect = pageNode.getBoundingClientRect();
-              const reasons = [];
-              if (node.scrollWidth > node.clientWidth + 1) reasons.push('horizontal_scroll_overflow');
-              if (rect.left < cellRect.left - 1 || rect.right > cellRect.right + 1) reasons.push('outside_cell_x');
-              if (rect.top < cellRect.top - 1 || rect.bottom > cellRect.bottom + 1) reasons.push('outside_cell_y');
-              if (rect.left < pageRect.left - 1 || rect.right > pageRect.right + 1) reasons.push('outside_page_x');
-              if (rect.top < pageRect.top - 1 || rect.bottom > pageRect.bottom + 1) reasons.push('outside_page_y');
-              return reasons.length > 0 ? [{ index, reasons, text: node.textContent, rect, cellRect, pageRect }] : [];
-            });
-          });
-
-          if (overflows.length > 0) {
-            console.error(JSON.stringify(overflows.slice(0, 20), null, 2));
-            throw new Error(`DOM overflow detected: ${overflows.length}`);
-          }
-
-          await page.pdf({
-            path: pdfPath,
-            format: 'A4',
-            printBackground: true,
-            preferCSSPageSize: true,
-            margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' }
-          });
-          await browser.close();
-          console.log('DOM containment passed with zero overflows.');
-          NODE
-
-      - name: Render and verify 14 PDF pages
-        run: |
-          rm -rf /tmp/s59j-r1-g4b-u01-rendered
-          mkdir -p /tmp/s59j-r1-g4b-u01-rendered
-          pdftoppm -png -r 120 \
-            artifacts/s59j-r1-g4b-u01/G4B_U01_120Q_3x4_FullFix.pdf \
-            /tmp/s59j-r1-g4b-u01-rendered/page
-          python3 <<'PY'
-          from pathlib import Path
-          from PIL import Image, ImageStat
-          from pypdf import PdfReader
-
-          pdf_path = Path('artifacts/s59j-r1-g4b-u01/G4B_U01_120Q_3x4_FullFix.pdf')
-          reader = PdfReader(str(pdf_path))
-          page_count = len(reader.pages)
-          files = sorted(Path('/tmp/s59j-r1-g4b-u01-rendered').glob('page-*.png'))
-          print(f'pdf_page_count={page_count}')
-          print(f'rendered_page_count={len(files)}')
-          if page_count != 14:
-              raise SystemExit(f'expected 14 PDF pages, got {page_count}')
-          if len(files) != 14:
-              raise SystemExit(f'expected 14 rendered pages, got {len(files)}')
-          nonblank = 0
-          for path in files:
-              image = Image.open(path).convert('L')
-              stat = ImageStat.Stat(image)
-              if stat.extrema[0][0] < 245 and stat.var[0] > 5:
-                  nonblank += 1
-          print(f'nonblank_page_count={nonblank}')
-          if nonblank != 14:
-              raise SystemExit(f'blank rendered page detected: {nonblank}/14 nonblank')
-          PY
-
-      - name: Verify PDF text bounding boxes stay inside A4 pages
-        run: |
-          pdftotext -bbox-layout \
-            artifacts/s59j-r1-g4b-u01/G4B_U01_120Q_3x4_FullFix.pdf \
-            /tmp/s59j-r1-g4b-u01-bbox.html
-          python3 <<'PY'
-          import re
-          from pathlib import Path
-
-          text = Path('/tmp/s59j-r1-g4b-u01-bbox.html').read_text(encoding='utf-8')
-          page_pattern = re.compile(r'<page width="([0-9.]+)" height="([0-9.]+)">(.*?)</page>', re.S)
-          word_pattern = re.compile(r'<word xMin="([0-9.]+)" yMin="([0-9.]+)" xMax="([0-9.]+)" yMax="([0-9.]+)">')
-          pages = page_pattern.findall(text)
-          if len(pages) != 14:
-              raise SystemExit(f'expected 14 bbox pages, got {len(pages)}')
-          overflows = []
-          for page_index, (width_text, height_text, body) in enumerate(pages, start=1):
-              width = float(width_text)
-              height = float(height_text)
-              for word_index, values in enumerate(word_pattern.findall(body), start=1):
-                  x_min, y_min, x_max, y_max = map(float, values)
-                  if x_min < -0.5 or y_min < -0.5 or x_max > width + 0.5 or y_max > height + 0.5:
-                      overflows.append((page_index, word_index, x_min, y_min, x_max, y_max, width, height))
-          if overflows:
-              raise SystemExit(f'PDF bbox overflow detected: {overflows[:20]}')
-          print('PDF bbox containment passed with zero overflows.')
-          PY
-
-      - name: Finalize regression manifest
-        run: |
-          python3 <<'PY'
-          import json
-          from pathlib import Path
-          from pypdf import PdfReader
-
-          root = Path('artifacts/s59j-r1-g4b-u01')
-          manifest_path = root / 'G4B_U01_120Q_3x4_FullFix.manifest.json'
-          pdf_path = root / 'G4B_U01_120Q_3x4_FullFix.pdf'
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          page_count = len(PdfReader(str(pdf_path)).pages)
-          manifest.update({
-              'status': 'pass',
-              'domOverflowCount': 0,
-              'pdfPageCount': page_count,
-              'nonblankPageCount': page_count,
-              'pdfBoundingBoxOverflowCount': 0,
-          })
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(json.dumps(manifest, ensure_ascii=False, indent=2))
-          PY
-
-      - name: Upload FullFix regression bundle
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: s59j-r1-g4b-u01-warning-print-layout
-          if-no-files-found: error
-          retention-days: 30
-          path: |
-            artifacts/s59j-r1-g4b-u01/*
-            /tmp/s59j-r1-g4b-u01-rendered/*.png

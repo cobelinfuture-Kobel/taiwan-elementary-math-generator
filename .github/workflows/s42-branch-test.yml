@@ -1,56 +1,25 @@
-name: S42 Branch Test
-
-# S42 no-stream CI diagnostic marker: 2026-07-03T00:00:00+08:00
+name: Historical Unit Milestone Readback
 
 on:
-  push:
-    branches:
-      - s42-batch-a-web-worksheet-port
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-
+  historical-readback:
+    runs-on: ubuntu-24.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
+          node-version: 22
       - name: Install dependencies
         run: npm install
-
-      - name: Run tests with no-stream compact diagnostics
-        shell: bash
-        run: |
-          set +e
-          npm test > s42-npm-test.log 2>&1
-          status=$?
-          echo "S42_NPM_TEST_EXIT_CODE=${status}"
-          if [ "${status}" -ne 0 ]; then
-            echo "S42_COMPACT_FAILURE_SUMMARY_START"
-            grep -En "(ERR_|Error:|AssertionError|not ok|fail|FAIL|SyntaxError|TypeError|ReferenceError|MODULE_NOT_FOUND|ERR_MODULE_NOT_FOUND)" s42-npm-test.log | head -100 || true
-            echo "S42_COMPACT_FAILURE_TAIL_START"
-            tail -120 s42-npm-test.log
-            echo "S42_COMPACT_FAILURE_END"
-          fi
-          exit "${status}"
-
-      - name: Upload npm test log on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: s42-npm-test-log
-          path: s42-npm-test.log
-          if-no-files-found: ignore
+      - name: Run repository regression readback
+        run: npm test

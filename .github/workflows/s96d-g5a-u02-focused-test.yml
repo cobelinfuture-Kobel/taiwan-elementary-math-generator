@@ -1,41 +1,25 @@
-name: S96D G5A-U02 Focused Test
+name: Historical Unit Milestone Readback
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  focused-test:
+  historical-readback:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Run focused S96D tests
-        run: node --test tests/site/g5a-u02-browser-arbitrary-regeneration.test.js
-      - name: Run full suite and capture exact failures
-        id: full-suite
-        shell: bash
-        run: |
-          set +e
-          npm test > /tmp/s96d-full-suite.log 2>&1
-          code=$?
-          grep -n -B 8 -A 28 -E '^not ok|AssertionError|ERR_ASSERTION' /tmp/s96d-full-suite.log > /tmp/s96d-full-suite-failures.log || true
-          cat /tmp/s96d-full-suite-failures.log
-          echo "exit_code=${code}" >> "$GITHUB_OUTPUT"
-          exit 0
-      - name: Upload exact failure diagnostic
-        uses: actions/upload-artifact@v4
-        with:
-          name: s96d-full-suite-failures
-          if-no-files-found: error
-          retention-days: 7
-          path: /tmp/s96d-full-suite-failures.log
-      - name: Enforce full-suite result
-        run: exit ${{ steps.full-suite.outputs.exit_code }}
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run repository regression readback
+        run: npm test

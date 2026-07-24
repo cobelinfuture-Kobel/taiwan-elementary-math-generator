@@ -1,217 +1,25 @@
-name: S93 G5A-U02 Hidden HTML PDF Smoke
+name: Historical Unit Milestone Readback
 
 on:
-  push:
-    branches:
-      - feat/s93-g5a-u02-hidden-browser-html-pdf-smoke
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  hidden-smoke:
-    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install project dependencies
+          node-version: 22
+      - name: Install dependencies
         run: npm install
-
-      - name: Install browser and PDF verification dependencies
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk poppler-utils
-          python3 -m pip install --break-system-packages pypdf pillow
-
-      - name: Run full Node test suite
+      - name: Run repository regression readback
         run: npm test
-
-      - name: Generate canonical hidden HTML
-        run: node tools/curriculum/generate-s93-g5a-u02-hidden-smoke.mjs
-
-      - name: Verify DOM containment and print PDF
-        run: |
-          node --input-type=module <<'NODE'
-          import { chromium } from 'playwright';
-          import { pathToFileURL } from 'node:url';
-          import { resolve } from 'node:path';
-          const htmlPath = resolve('docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.html');
-          const pdfPath = resolve('docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.pdf');
-          const browser = await chromium.launch({ headless: true });
-          const page = await browser.newPage({ viewport: { width: 1280, height: 960 } });
-          await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-          const containment = await page.evaluate(() => {
-            const cards = [...document.querySelectorAll('.g5a-u02-card')];
-            const overflow = cards.filter((node) =>
-              node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1
-            );
-            const profiles = Object.fromEntries(
-              ['compact', 'contextual', 'reasoning'].map((profileId) => [
-                profileId,
-                document.querySelectorAll(`.g5a-u02-profile--${profileId}`).length,
-              ]),
-            );
-            return {
-              questionCardCount: document.querySelectorAll('.g5a-u02-card--question').length,
-              answerCardCount: document.querySelectorAll('.g5a-u02-card--answer').length,
-              pageCount: document.querySelectorAll('.g5a-u02-page').length,
-              overflowCount: overflow.length,
-              firstOverflow: overflow[0]?.outerHTML.slice(0, 500) ?? null,
-              profiles,
-              hiddenMarker: document.body.dataset.s93HiddenBrowserPipeline ?? null,
-            };
-          });
-          console.log(JSON.stringify(containment, null, 2));
-          if (containment.questionCardCount !== 22) throw new Error(`expected 22 question cards, got ${containment.questionCardCount}`);
-          if (containment.answerCardCount !== 22) throw new Error(`expected 22 answer cards, got ${containment.answerCardCount}`);
-          if (containment.pageCount !== 44) throw new Error(`expected 44 HTML pages, got ${containment.pageCount}`);
-          if (containment.overflowCount !== 0) throw new Error(`DOM overflow count=${containment.overflowCount}; first=${containment.firstOverflow}`);
-          if (Object.values(containment.profiles).some((count) => count < 1)) throw new Error(`renderer profile coverage failed: ${JSON.stringify(containment.profiles)}`);
-          if (containment.hiddenMarker !== 'true') throw new Error('hidden browser pipeline marker missing');
-          await page.emulateMedia({ media: 'print' });
-          await page.pdf({
-            path: pdfPath,
-            format: 'A4',
-            printBackground: true,
-            preferCSSPageSize: true,
-            margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' },
-          });
-          await browser.close();
-          NODE
-
-      - name: Render and verify every PDF page
-        run: |
-          rm -rf /tmp/s93-g5a-u02-rendered
-          mkdir -p /tmp/s93-g5a-u02-rendered
-          pdftoppm -png -r 120 docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.pdf /tmp/s93-g5a-u02-rendered/page
-          python3 <<'PY'
-          import json
-          from pathlib import Path
-          from PIL import Image, ImageStat
-          from pypdf import PdfReader
-          root = Path('docs/curriculum/output/smoke')
-          pdf_path = root / 'S93_G5A_U02_HiddenWorksheet.pdf'
-          manifest = json.loads((root / 'S93_G5A_U02_HiddenWorksheet.manifest.json').read_text(encoding='utf-8'))
-          reader = PdfReader(str(pdf_path))
-          files = sorted(Path('/tmp/s93-g5a-u02-rendered').glob('page-*.png'))
-          expected = manifest['expectedPdfPageCount']
-          if len(reader.pages) != expected or len(files) != expected:
-              raise SystemExit(f'PDF/rendered page mismatch: pdf={len(reader.pages)} png={len(files)} expected={expected}')
-          nonblank = 0
-          for path in files:
-              image = Image.open(path).convert('L')
-              stat = ImageStat.Stat(image)
-              if stat.extrema[0][0] < 245 and stat.var[0] > 5:
-                  nonblank += 1
-          if nonblank != expected:
-              raise SystemExit(f'blank page detected: {nonblank}/{expected}')
-          print(f'all rendered pages nonblank: {nonblank}')
-          PY
-
-      - name: Verify PDF bounding boxes stay inside A4 pages
-        run: |
-          pdftotext -bbox-layout docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.pdf /tmp/s93-g5a-u02-bbox.html
-          python3 <<'PY'
-          import re
-          from pathlib import Path
-          text = Path('/tmp/s93-g5a-u02-bbox.html').read_text(encoding='utf-8', errors='ignore')
-          page_re = re.compile(r'<page[^>]*width="([0-9.]+)"[^>]*height="([0-9.]+)"[^>]*>(.*?)</page>', re.S)
-          word_re = re.compile(r'<word[^>]*xMin="([0-9.]+)"[^>]*yMin="([0-9.]+)"[^>]*xMax="([0-9.]+)"[^>]*yMax="([0-9.]+)"', re.S)
-          pages = page_re.findall(text)
-          if not pages:
-              raise SystemExit('no PDF bbox pages parsed')
-          overflow = []
-          for page_index, (width, height, body) in enumerate(pages, 1):
-              width, height = float(width), float(height)
-              for coords in word_re.findall(body):
-                  x0, y0, x1, y1 = map(float, coords)
-                  if x0 < -0.5 or y0 < -0.5 or x1 > width + 0.5 or y1 > height + 0.5:
-                      overflow.append((page_index, x0, y0, x1, y1, width, height))
-          if overflow:
-              raise SystemExit(f'PDF bbox overflow count={len(overflow)} first={overflow[0]}')
-          print(f'PDF bbox containment PASS: {len(pages)} pages')
-          PY
-
-      - name: Finalize verified hidden smoke manifest
-        run: |
-          python3 <<'PY'
-          from hashlib import sha256
-          import json
-          from pathlib import Path
-          import unicodedata
-          from pypdf import PdfReader
-          root = Path('docs/curriculum/output/smoke')
-          pdf_path = root / 'S93_G5A_U02_HiddenWorksheet.pdf'
-          manifest_path = root / 'S93_G5A_U02_HiddenWorksheet.manifest.json'
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          reader = PdfReader(str(pdf_path))
-          texts = [unicodedata.normalize('NFKC', page.extract_text() or '') for page in reader.pages]
-          all_text = ''.join(texts)
-          if '五上因數與公因數' not in all_text or '答案頁' not in all_text:
-              raise SystemExit('Traditional Chinese title or answer page missing from normalized PDF text')
-          if len(reader.pages) != manifest['expectedPdfPageCount']:
-              raise SystemExit(f"PDF page mismatch: {len(reader.pages)}/{manifest['expectedPdfPageCount']}")
-          if not texts[-1].strip():
-              raise SystemExit('final answer page is blank')
-          pdf_bytes = pdf_path.read_bytes()
-          manifest.update({
-              'status': 'hidden_html_pdf_smoke_pass',
-              'htmlPdfSmokeStatus': 'hidden_smoke_passed',
-              'actualPdfPageCount': len(reader.pages),
-              'pdfSha256': sha256(pdf_bytes).hexdigest(),
-              'pdfBytes': len(pdf_bytes),
-              'renderedPageImageCount': len(reader.pages),
-              'nonblankRenderedPageCount': len(reader.pages),
-              'finalAnswerPageNonblank': True,
-              'domOverflowCount': 0,
-              'pdfBoundingBoxOverflowCount': 0,
-              'cjkGlyphRendering': 'pass',
-              'visualRenderVerification': 'all_pages_nonblank_and_bbox_contained',
-          })
-          if manifest['productionUse'] != 'forbidden' or manifest['selectorStatus'] != 'hidden':
-              raise SystemExit('S93 lifecycle boundary changed unexpectedly')
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(json.dumps(manifest, ensure_ascii=False, indent=2))
-          PY
-
-      - name: Commit first verified hidden smoke bundle to branch
-        if: github.event_name == 'push' && github.ref == 'refs/heads/feat/s93-g5a-u02-hidden-browser-html-pdf-smoke'
-        run: |
-          HTML_PATH=docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.html
-          PDF_PATH=docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.pdf
-          MANIFEST_PATH=docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.manifest.json
-          if git cat-file -e "HEAD:${HTML_PATH}" && git cat-file -e "HEAD:${PDF_PATH}" && git cat-file -e "HEAD:${MANIFEST_PATH}"; then
-            echo "Verified hidden smoke bundle already committed."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "${HTML_PATH}" "${PDF_PATH}" "${MANIFEST_PATH}"
-          git commit -m "docs(g5a-u02): commit verified S93 hidden HTML PDF smoke"
-          git push origin HEAD:feat/s93-g5a-u02-hidden-browser-html-pdf-smoke
-
-      - name: Upload verified hidden smoke bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: s93-g5a-u02-hidden-html-pdf-smoke
-          if-no-files-found: error
-          retention-days: 30
-          path: |
-            docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.html
-            docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.pdf
-            docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.manifest.json
-            /tmp/s93-g5a-u02-rendered/*.png

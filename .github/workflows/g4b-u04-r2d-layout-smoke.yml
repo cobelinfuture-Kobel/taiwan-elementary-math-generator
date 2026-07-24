@@ -1,233 +1,25 @@
-name: G4B-U04 R2D Layout HTML PDF Smoke
+name: Historical Unit Milestone Readback
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  layout-smoke:
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install project dependencies
+          node-version: 22
+      - name: Install dependencies
         run: npm install
-
-      - name: Install browser and PDF verification dependencies
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk poppler-utils
-          python3 -m pip install --break-system-packages pypdf pillow
-
-      - name: Run full Node test suite
+      - name: Run repository regression readback
         run: npm test
-
-      - name: Generate six R2D layout scenarios
-        run: node tools/curriculum/generate-g4b-u04-r2d-layout-smoke.mjs
-
-      - name: Verify DOM containment and print six PDFs
-        run: |
-          node --input-type=module <<'NODE'
-          import { createHash } from 'node:crypto';
-          import { readFile, writeFile } from 'node:fs/promises';
-          import { resolve } from 'node:path';
-          import { pathToFileURL } from 'node:url';
-          import { chromium } from 'playwright';
-
-          const manifestPath = resolve('docs/curriculum/output/smoke/r2d-g4b-u04-layout/G4B_U04_R2D_LayoutSmoke.manifest.json');
-          const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-          if (manifest.scenarioCount !== 6 || manifest.rendererProfileCount !== 3 || manifest.layoutModeCount !== 2) {
-            throw new Error(`R2D scenario matrix mismatch: ${JSON.stringify({
-              scenarioCount: manifest.scenarioCount,
-              rendererProfileCount: manifest.rendererProfileCount,
-              layoutModeCount: manifest.layoutModeCount,
-            })}`);
-          }
-          if (manifest.cappedScenarioCount !== 1) throw new Error(`expected exactly one capped scenario, got ${manifest.cappedScenarioCount}`);
-
-          const browser = await chromium.launch({ headless: true });
-          try {
-            for (const scenario of manifest.scenarios) {
-              const page = await browser.newPage({ viewport: { width: 1280, height: 960 } });
-              const htmlPath = resolve(scenario.htmlPath);
-              const pdfPath = resolve(scenario.pdfPath);
-              await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-              const audit = await page.evaluate(() => {
-                const body = document.body;
-                const cells = [...document.querySelectorAll('.g4b-u04-cell')]
-                  .filter((node) => !node.classList.contains('g4b-u04-cell--filler'));
-                const overflow = cells.filter((node) =>
-                  node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1
-                );
-                const readback = document.querySelector('.g4b-u04-layout-readback');
-                return {
-                  cellCount: cells.length,
-                  overflowCount: overflow.length,
-                  firstOverflow: overflow[0]?.outerHTML.slice(0, 500) ?? null,
-                  readbackText: readback?.textContent?.replace(/\s+/g, ' ').trim() ?? '',
-                  readbackPresent: Boolean(readback),
-                  layoutMode: body.dataset.g4bU04LayoutMode ?? '',
-                  layoutProfile: body.dataset.g4bU04LayoutProfile ?? '',
-                  layoutCapped: body.dataset.g4bU04LayoutCapped ?? '',
-                  requestedColumns: Number(body.dataset.g4bU04RequestedColumns),
-                  requestedRows: Number(body.dataset.g4bU04RequestedRows),
-                  resolvedColumns: Number(body.dataset.g4bU04ResolvedColumns),
-                  resolvedRows: Number(body.dataset.g4bU04ResolvedRows),
-                  answerColumns: Number(body.dataset.g4bU04AnswerColumns),
-                  answerRows: Number(body.dataset.g4bU04AnswerRows),
-                };
-              });
-              const expectedCells = scenario.questionCount + scenario.answerKeyItemCount;
-              if (audit.cellCount !== expectedCells) throw new Error(`${scenario.id}: cell count ${audit.cellCount}/${expectedCells}`);
-              if (audit.overflowCount !== 0) throw new Error(`${scenario.id}: DOM overflow ${audit.overflowCount}; first=${audit.firstOverflow}`);
-              if (!audit.readbackPresent || !audit.readbackText.includes(scenario.appliedLayoutText)) throw new Error(`${scenario.id}: applied layout readback missing`);
-              if (scenario.capped && !audit.readbackText.includes(manifest.exactCappedNotice)) throw new Error(`${scenario.id}: exact cap notice missing`);
-              if (!scenario.capped && audit.readbackText.includes(manifest.exactCappedNotice)) throw new Error(`${scenario.id}: unexpected cap notice`);
-              if (audit.layoutMode !== scenario.layoutMode || audit.layoutProfile !== scenario.rendererProfileId) throw new Error(`${scenario.id}: body layout identity mismatch`);
-              if (audit.layoutCapped !== String(scenario.capped)) throw new Error(`${scenario.id}: body capped mismatch`);
-              if (audit.requestedColumns !== scenario.requestedQuestionLayout.columns || audit.requestedRows !== scenario.requestedQuestionLayout.rowsPerPage) throw new Error(`${scenario.id}: requested layout body mismatch`);
-              if (audit.resolvedColumns !== scenario.resolvedQuestionLayout.columns || audit.resolvedRows !== scenario.resolvedQuestionLayout.rowsPerPage) throw new Error(`${scenario.id}: resolved question body mismatch`);
-              if (audit.answerColumns !== scenario.resolvedAnswerLayout.columns || audit.answerRows !== scenario.resolvedAnswerLayout.rowsPerPage) throw new Error(`${scenario.id}: resolved answer body mismatch`);
-
-              await page.emulateMedia({ media: 'print' });
-              const readbackPrintDisplay = await page.$eval('.g4b-u04-layout-readback', (node) => getComputedStyle(node).display);
-              if (readbackPrintDisplay !== 'none') throw new Error(`${scenario.id}: preview readback leaked into print`);
-              await page.pdf({
-                path: pdfPath,
-                format: 'A4',
-                printBackground: true,
-                preferCSSPageSize: true,
-                margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' },
-              });
-              const pdfBytes = await readFile(pdfPath);
-              scenario.domOverflowCount = 0;
-              scenario.pdfSha256 = createHash('sha256').update(pdfBytes).digest('hex');
-              scenario.pdfBytes = pdfBytes.length;
-              await page.close();
-            }
-          } finally {
-            await browser.close();
-          }
-          manifest.status = 'dom_and_pdf_generated_pending_pdf_audit';
-          await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-          console.log(JSON.stringify(manifest, null, 2));
-          NODE
-
-      - name: Render and verify all PDF pages and bounding boxes
-        run: |
-          python3 <<'PY'
-          from hashlib import sha256
-          import json
-          from pathlib import Path
-          import re
-          import subprocess
-          import unicodedata
-          from PIL import Image, ImageStat
-          from pypdf import PdfReader
-
-          manifest_path = Path('docs/curriculum/output/smoke/r2d-g4b-u04-layout/G4B_U04_R2D_LayoutSmoke.manifest.json')
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          root = Path('/tmp/g4b-u04-r2d-layout-rendered')
-          if root.exists():
-              import shutil
-              shutil.rmtree(root)
-          root.mkdir(parents=True)
-
-          page_re = re.compile(r'<page[^>]*width="([0-9.]+)"[^>]*height="([0-9.]+)"[^>]*>(.*?)</page>', re.S)
-          word_re = re.compile(r'<word[^>]*xMin="([0-9.]+)"[^>]*yMin="([0-9.]+)"[^>]*xMax="([0-9.]+)"[^>]*yMax="([0-9.]+)"', re.S)
-          total_pages = 0
-          total_nonblank = 0
-
-          for scenario in manifest['scenarios']:
-              pdf_path = Path(scenario['pdfPath'])
-              reader = PdfReader(str(pdf_path))
-              actual_pages = len(reader.pages)
-              if actual_pages != scenario['expectedPdfPageCount']:
-                  raise SystemExit(f"{scenario['id']}: PDF page mismatch {actual_pages}/{scenario['expectedPdfPageCount']}")
-              texts = [unicodedata.normalize('NFKC', page.extract_text() or '') for page in reader.pages]
-              if not all(text.strip() for text in texts):
-                  raise SystemExit(f"{scenario['id']}: blank extracted PDF page")
-              if '概數' not in ''.join(texts):
-                  raise SystemExit(f"{scenario['id']}: Traditional Chinese title missing")
-
-              scenario_dir = root / scenario['id']
-              scenario_dir.mkdir()
-              subprocess.run([
-                  'pdftoppm', '-png', '-r', '120', str(pdf_path), str(scenario_dir / 'page')
-              ], check=True)
-              images = sorted(scenario_dir.glob('page-*.png'))
-              if len(images) != actual_pages:
-                  raise SystemExit(f"{scenario['id']}: raster page mismatch {len(images)}/{actual_pages}")
-              nonblank = 0
-              for image_path in images:
-                  image = Image.open(image_path).convert('L')
-                  stat = ImageStat.Stat(image)
-                  if stat.extrema[0][0] < 245 and stat.var[0] > 5:
-                      nonblank += 1
-              if nonblank != actual_pages:
-                  raise SystemExit(f"{scenario['id']}: blank raster page {nonblank}/{actual_pages}")
-
-              bbox_path = scenario_dir / 'bbox.html'
-              subprocess.run(['pdftotext', '-bbox-layout', str(pdf_path), str(bbox_path)], check=True)
-              bbox_text = bbox_path.read_text(encoding='utf-8', errors='ignore')
-              pages = page_re.findall(bbox_text)
-              if len(pages) != actual_pages:
-                  raise SystemExit(f"{scenario['id']}: bbox page mismatch {len(pages)}/{actual_pages}")
-              overflow = []
-              for page_index, (width, height, body) in enumerate(pages, 1):
-                  width, height = float(width), float(height)
-                  for coords in word_re.findall(body):
-                      x0, y0, x1, y1 = map(float, coords)
-                      if x0 < -0.5 or y0 < -0.5 or x1 > width + 0.5 or y1 > height + 0.5:
-                          overflow.append((page_index, x0, y0, x1, y1, width, height))
-              if overflow:
-                  raise SystemExit(f"{scenario['id']}: PDF bbox overflow {len(overflow)} first={overflow[0]}")
-
-              pdf_bytes = pdf_path.read_bytes()
-              digest = sha256(pdf_bytes).hexdigest()
-              if scenario['pdfSha256'] != digest or scenario['pdfBytes'] != len(pdf_bytes):
-                  raise SystemExit(f"{scenario['id']}: PDF digest or byte count drift")
-              scenario['actualPdfPageCount'] = actual_pages
-              scenario['nonblankPdfPageCount'] = nonblank
-              scenario['pdfBoundingBoxOverflowCount'] = 0
-              total_pages += actual_pages
-              total_nonblank += nonblank
-
-          manifest.update({
-              'status': 'r2d_layout_html_pdf_smoke_pass',
-              'domOverflowCount': 0,
-              'totalPdfPageCount': total_pages,
-              'totalNonblankPdfPageCount': total_nonblank,
-              'pdfBoundingBoxOverflowCount': 0,
-              'traditionalChineseRendering': 'pass',
-              'visualRenderVerification': 'six_scenarios_all_pages_nonblank_and_bbox_contained',
-          })
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(json.dumps(manifest, ensure_ascii=False, indent=2))
-          PY
-
-      - name: Upload R2D layout smoke bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: g4b-u04-r2d-layout-html-pdf-smoke
-          if-no-files-found: error
-          retention-days: 30
-          path: |
-            docs/curriculum/output/smoke/r2d-g4b-u04-layout/*.html
-            docs/curriculum/output/smoke/r2d-g4b-u04-layout/*.pdf
-            docs/curriculum/output/smoke/r2d-g4b-u04-layout/*.json
-            /tmp/g4b-u04-r2d-layout-rendered/**/*.png

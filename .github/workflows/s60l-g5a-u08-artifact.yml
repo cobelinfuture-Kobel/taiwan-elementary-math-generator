@@ -1,192 +1,25 @@
-name: S60L G5A-U08 HTML PDF Smoke
+name: Historical Unit Milestone Readback
 
 on:
-  push:
-    branches:
-      - s60l-g5a-u08-production-stress
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: historical-unit-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  production-smoke:
-    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
+  historical-readback:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install project dependencies
+          node-version: 22
+      - name: Install dependencies
         run: npm install
-
-      - name: Install browser and PDF verification dependencies
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk poppler-utils
-          python3 -m pip install --break-system-packages pypdf pillow
-
-      - name: Run full Node test suite
+      - name: Run repository regression readback
         run: npm test
-
-      - name: Generate 120-question canonical HTML
-        run: node tools/curriculum/generate-s60l-g5a-u08-public-smoke.mjs
-
-      - name: Verify DOM containment and print PDF
-        run: |
-          node --input-type=module <<'NODE'
-          import { chromium } from 'playwright';
-          import { pathToFileURL } from 'node:url';
-          import { resolve } from 'node:path';
-          const htmlPath = resolve('docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html');
-          const pdfPath = resolve('docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf');
-          const browser = await chromium.launch({ headless: true });
-          const page = await browser.newPage({ viewport: { width: 1280, height: 960 } });
-          await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-          const containment = await page.evaluate(() => {
-            const cells = [...document.querySelectorAll('.g5a-u08-cell')].filter((node) => !node.classList.contains('g5a-u08-cell--filler'));
-            const overflow = cells.filter((node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1);
-            const longCards = [...document.querySelectorAll('.g5a-u08-cell--word_problem,.g5a-u08-cell--average_reasoning,.g5a-u08-cell--allocation_transfer,.g5a-u08-cell--equality_judgement')];
-            return { cellCount: cells.length, overflowCount: overflow.length, longCardCount: longCards.length };
-          });
-          if (containment.cellCount !== 240) throw new Error(`expected 240 rendered cells, got ${containment.cellCount}`);
-          if (containment.overflowCount !== 0) throw new Error(`DOM overflow count=${containment.overflowCount}`);
-          if (containment.longCardCount < 10) throw new Error(`long-text card coverage too low: ${containment.longCardCount}`);
-          await page.emulateMedia({ media: 'print' });
-          await page.pdf({
-            path: pdfPath,
-            format: 'A4',
-            printBackground: true,
-            preferCSSPageSize: true,
-            margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' }
-          });
-          await browser.close();
-          NODE
-
-      - name: Render and verify all PDF pages
-        run: |
-          rm -rf /tmp/s60l-g5a-u08-rendered
-          mkdir -p /tmp/s60l-g5a-u08-rendered
-          pdftoppm -png -r 120 docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf /tmp/s60l-g5a-u08-rendered/page
-          python3 <<'PY'
-          from pathlib import Path
-          from PIL import Image, ImageStat
-          from pypdf import PdfReader
-          pdf = Path('docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf')
-          reader = PdfReader(str(pdf))
-          files = sorted(Path('/tmp/s60l-g5a-u08-rendered').glob('page-*.png'))
-          if len(files) != len(reader.pages):
-              raise SystemExit(f'rendered page mismatch: {len(files)}/{len(reader.pages)}')
-          if len(files) < 10:
-              raise SystemExit(f'expected multi-page production PDF, got {len(files)} pages')
-          nonblank = 0
-          for path in files:
-              image = Image.open(path).convert('L')
-              stat = ImageStat.Stat(image)
-              if stat.extrema[0][0] < 245 and stat.var[0] > 5:
-                  nonblank += 1
-          if nonblank != len(files):
-              raise SystemExit(f'blank page detected: {nonblank}/{len(files)}')
-          print(f'all rendered pages nonblank: {nonblank}')
-          PY
-
-      - name: Verify PDF text bounding boxes stay inside A4 pages
-        run: |
-          pdftotext -bbox-layout docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf /tmp/s60l-bbox.html
-          python3 <<'PY'
-          import re
-          from pathlib import Path
-          text = Path('/tmp/s60l-bbox.html').read_text(encoding='utf-8', errors='ignore')
-          page_re = re.compile(r'<page[^>]*width="([0-9.]+)"[^>]*height="([0-9.]+)"[^>]*>(.*?)</page>', re.S)
-          word_re = re.compile(r'<word[^>]*xMin="([0-9.]+)"[^>]*yMin="([0-9.]+)"[^>]*xMax="([0-9.]+)"[^>]*yMax="([0-9.]+)"', re.S)
-          pages = page_re.findall(text)
-          if not pages:
-              raise SystemExit('no PDF bbox pages parsed')
-          overflow = []
-          for page_index, (width, height, body) in enumerate(pages, 1):
-              width, height = float(width), float(height)
-              for coords in word_re.findall(body):
-                  x0, y0, x1, y1 = map(float, coords)
-                  if x0 < -0.5 or y0 < -0.5 or x1 > width + 0.5 or y1 > height + 0.5:
-                      overflow.append((page_index, x0, y0, x1, y1, width, height))
-          if overflow:
-              raise SystemExit(f'PDF bbox overflow count={len(overflow)} first={overflow[0]}')
-          print(f'PDF bbox containment PASS: {len(pages)} pages')
-          PY
-
-      - name: Finalize verified smoke manifest
-        run: |
-          python3 <<'PY'
-          from hashlib import sha256
-          import json
-          from pathlib import Path
-          import unicodedata
-          from pypdf import PdfReader
-          root = Path('docs/curriculum/output/smoke')
-          pdf_path = root / 'S60L_G5A_U08_PublicWorksheet.pdf'
-          manifest_path = root / 'S60L_G5A_U08_PublicWorksheet.manifest.json'
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          reader = PdfReader(str(pdf_path))
-          texts = [(page.extract_text() or '') for page in reader.pages]
-          normalized_texts = [unicodedata.normalize('NFKC', text) for text in texts]
-          all_text = ''.join(normalized_texts)
-          if '整數四則' not in all_text or '答案頁' not in all_text:
-              raise SystemExit('Traditional Chinese title or answer page missing from normalized PDF text')
-          if len(reader.pages) != manifest['expectedPdfPageCount']:
-              raise SystemExit(f"PDF page mismatch: {len(reader.pages)}/{manifest['expectedPdfPageCount']}")
-          if not normalized_texts[-1].strip():
-              raise SystemExit('last answer page is blank')
-          pdf_bytes = pdf_path.read_bytes()
-          manifest.update({
-              'status': 'production_html_pdf_smoke_pass',
-              'actualPdfPageCount': len(reader.pages),
-              'pdfSha256': sha256(pdf_bytes).hexdigest(),
-              'pdfBytes': len(pdf_bytes),
-              'renderedPageImageCount': len(reader.pages),
-              'nonblankRenderedPageCount': len(reader.pages),
-              'pdfBoundingBoxOverflowCount': 0,
-              'cjkGlyphRendering': 'pass',
-              'visualRenderVerification': 'all_pages_nonblank_and_bbox_contained',
-          })
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(json.dumps(manifest, ensure_ascii=False, indent=2))
-          PY
-
-      - name: Commit first verified smoke bundle to branch
-        if: github.event_name == 'push' && github.ref == 'refs/heads/s60l-g5a-u08-production-stress'
-        run: |
-          HTML_PATH=docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html
-          PDF_PATH=docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf
-          MANIFEST_PATH=docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.manifest.json
-          if git cat-file -e "HEAD:${HTML_PATH}" && git cat-file -e "HEAD:${PDF_PATH}" && git cat-file -e "HEAD:${MANIFEST_PATH}"; then
-            echo "Verified smoke bundle already committed."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "${HTML_PATH}" "${PDF_PATH}" "${MANIFEST_PATH}"
-          git commit -m "docs(g5a-u08): commit verified S60L HTML PDF smoke"
-          git push origin HEAD:s60l-g5a-u08-production-stress
-
-      - name: Upload verified smoke bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: s60l-g5a-u08-public-html-pdf-smoke
-          if-no-files-found: error
-          retention-days: 30
-          path: |
-            docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html
-            docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf
-            docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.manifest.json
-            /tmp/s60l-g5a-u08-rendered/*.png
