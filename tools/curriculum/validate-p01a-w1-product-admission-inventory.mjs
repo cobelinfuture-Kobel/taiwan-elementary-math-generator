@@ -19,22 +19,30 @@ export function validateP01AW1ProductAdmissionInventory(candidate = materializeP
   const sourceSummaries = candidate.sourceSummaries ?? [];
   const metrics = candidate.metrics ?? {};
   const policy = candidate.policy ?? {};
+  const expectedCount = policy.sourceAuthorities?.expectedKnowledgePointCount ?? 0;
   const expectedW1Ids = candidate.deliveryWaveAuthority.knowledgePointAssignments
     .filter((row) => row.deliveryWaveId === "R05-W1")
     .map((row) => row.knowledgePointId)
     .sort();
   const actualIds = rows.map((row) => row.knowledgePointId).sort();
 
-  if (rows.length !== 22 || metrics.knowledgePointCount !== 22) {
-    errors.push(issue("P01A_W1_KNOWLEDGE_POINT_COUNT_INVALID", { rowCount: rows.length, metricCount: metrics.knowledgePointCount }));
+  if (rows.length !== expectedCount || metrics.knowledgePointCount !== expectedCount) {
+    errors.push(issue("P01A_W1_KNOWLEDGE_POINT_COUNT_INVALID", {
+      expectedCount,
+      rowCount: rows.length,
+      metricCount: metrics.knowledgePointCount,
+    }));
   }
   if (!sameMembers(actualIds, expectedW1Ids)) errors.push(issue("P01A_W1_IDENTITY_SET_INVALID"));
   if (new Set(actualIds).size !== actualIds.length) errors.push(issue("P01A_DUPLICATE_KNOWLEDGE_POINT"));
   if (sourceSummaries.length === 0 || metrics.sourceNodeCount !== sourceSummaries.length) {
     errors.push(issue("P01A_SOURCE_SUMMARY_INVALID", { sourceSummaryCount: sourceSummaries.length, metricCount: metrics.sourceNodeCount }));
   }
-  if (metrics.allRequiredCapabilitiesProductionAdmittedCount !== 22) {
-    errors.push(issue("P01A_PRODUCTION_CAPABILITY_PROOF_INCOMPLETE", { actual: metrics.allRequiredCapabilitiesProductionAdmittedCount }));
+  if (metrics.allRequiredCapabilitiesProductionAdmittedCount !== expectedCount) {
+    errors.push(issue("P01A_PRODUCTION_CAPABILITY_PROOF_INCOMPLETE", {
+      expectedCount,
+      actual: metrics.allRequiredCapabilitiesProductionAdmittedCount,
+    }));
   }
   if (metrics.shadowCapabilityGapCount !== 0) errors.push(issue("P01A_SHADOW_CAPABILITY_GAP_PRESENT", { actual: metrics.shadowCapabilityGapCount }));
   if (metrics.contractOnlyCapabilityGapCount !== 0) errors.push(issue("P01A_CONTRACT_CAPABILITY_GAP_PRESENT", { actual: metrics.contractOnlyCapabilityGapCount }));
@@ -43,7 +51,12 @@ export function validateP01AW1ProductAdmissionInventory(candidate = materializeP
   const gapTotal = (metrics.admissionReadyExistingPublicPatternCount ?? 0)
     + (metrics.patternGroupOrSpecBindingRequiredCount ?? 0)
     + (metrics.publicProductVerticalSliceRequiredCount ?? 0);
-  if (gapTotal !== 22) errors.push(issue("P01A_GAP_ACCOUNTING_INVALID", { actual: gapTotal }));
+  if (gapTotal !== expectedCount) errors.push(issue("P01A_GAP_ACCOUNTING_INVALID", { expectedCount, actual: gapTotal }));
+
+  const excludedMisclassifiedId = policy.inventoryDecision?.excludedMisclassifiedKnowledgePointId;
+  if (excludedMisclassifiedId && actualIds.includes(excludedMisclassifiedId)) {
+    errors.push(issue("P01A_MISCLASSIFIED_PATTERN_KP_STILL_IN_W1", { knowledgePointId: excludedMisclassifiedId }));
+  }
 
   for (const row of rows) {
     if (row.deliveryWaveId !== "R05-W1") errors.push(issue("P01A_NON_W1_ROW", { knowledgePointId: row.knowledgePointId }));

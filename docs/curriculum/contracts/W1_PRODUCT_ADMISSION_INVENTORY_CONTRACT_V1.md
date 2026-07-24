@@ -4,11 +4,12 @@
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID = P01A_W1ProductAdmissionInventoryAndGapMatrix
 SOURCE_WAVE = R05-W1
+CURRENT_W1_KNOWLEDGE_POINTS = 21
 ```
 
 ## Purpose
 
-P01A identifies the exact product work required to turn the 22 W1 KnowledgePoints into public worksheet capabilities.
+P01A identifies the exact product work required to turn the current W1 KnowledgePoints into public worksheet capabilities.
 
 R05-W1 means:
 
@@ -19,6 +20,14 @@ KnowledgePoint is outside the protected 15-unit W0 baseline
 ```
 
 It does not mean the KnowledgePoint already has a public PatternSpec, source adapter, UI option, worksheet acceptance, HTML, PDF, or print evidence.
+
+P01A1 corrected one semantic collision:
+
+```text
+kp_g4a_u07_quantity_multiplicative_pattern
+```
+
+is a pattern-relation capability, not factor/multiple reasoning. It is therefore in W6 and is excluded from this W1 inventory.
 
 ## Required inventory row
 
@@ -61,9 +70,9 @@ A row uses `PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED` when no current public Knowl
 ```text
 direct production admission in P01A = forbidden
 new shared capability implementation = forbidden
-W2–W8 work = forbidden
+W2–W8 implementation = forbidden
 existing 15-unit modification = forbidden
 recursive-improvement admin = forbidden before P10
 ```
 
-P01A closes only when all 22 rows are accounted for, all required capability closures are production-admitted, every row has source traceability and a next action, and no row is silently promoted to production.
+P01A closes only when all 21 current W1 rows are accounted for, all required capability closures are production-admitted, every row has source traceability and a next action, and no row is silently promoted to production.

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "taskId": "P01A_W1ProductAdmissionInventoryAndGapMatrix",
+  "taskId": "P01A1_R04PatternRelationClassificationCorrectionAndW1Rebase",
   "taskClass": "runtime",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W1_PRODUCT_ADMISSION_GAP_MATRIX_REBASED_AFTER_CLASSIFICATION_CORRECTION",
+  "claimedStatus": "PATTERN_RELATION_CLASSIFICATION_AND_W1_REBASE_READY",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -29,11 +29,13 @@
     "htmlArtifactPaths": [],
     "pdfArtifactPaths": [],
     "beforeAfterEvidencePaths": [
-      "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
-      "data/curriculum/full-product/p01/w1-product-admission-inventory.manifest.json",
+      "docs/curriculum/contracts/R04_PATTERN_RELATION_CLASSIFICATION_RECONCILIATION_CONTRACT_V1.md",
+      "docs/curriculum/output/P01A1_R04_PATTERN_RELATION_CLASSIFICATION_RECONCILIATION_READBACK.md",
       "docs/curriculum/output/GCKG_R04_SHARED_RUNTIME_CAPABILITY_MATRIX_READBACK.md",
       "docs/curriculum/output/GCKG_R05_DELIVERY_WAVE_REBASE_READBACK.md",
-      "docs/curriculum/output/P01A_W1_PRODUCT_ADMISSION_INVENTORY_READBACK.md"
+      "docs/curriculum/output/P01A_W1_PRODUCT_ADMISSION_INVENTORY_READBACK.md",
+      "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
+      "data/curriculum/full-product/p01/w1-product-admission-inventory.manifest.json"
     ],
     "reviewArtifactPaths": [],
     "artifactHashes": []
@@ -46,7 +48,7 @@
   "distance": {
     "before": "D2",
     "after": "D2",
-    "distanceReduced": "The false W1 classification of kp_g4a_u07_quantity_multiplicative_pattern is removed; W1 now contains 21 capability-ready product candidates across four source nodes, and G4A-U07 is routed to W6."
+    "distanceReduced": "The canonical pattern-relation KnowledgePoint is removed from the false W1 capability-ready set, moved to W6, and the W1 product queue is rebased to 21 KnowledgePoints across four source nodes."
   },
   "nextStep": {
     "taskId": "P01D1_G5BU05LargeNumberVerticalSlice",
