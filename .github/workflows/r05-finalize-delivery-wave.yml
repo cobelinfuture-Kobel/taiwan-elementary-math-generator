@@ -1,0 +1,56 @@
+name: R05 Finalize Delivery Wave Payload
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'data/project/staging/r05/**'
+      - '.github/workflows/r05-finalize-delivery-wave.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Materialize and verify R05 artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/r05
+          cat data/project/staging/r05/payload-*.b64 > /tmp/r05/payload.b64
+          base64 --decode /tmp/r05/payload.b64 > /tmp/r05/payload.tar.gz
+          echo '0dcaed4fe7c2c490a8f543b5ada116ef969ff73c9420bb60660e0c22bc8fcd73  /tmp/r05/payload.tar.gz' | sha256sum --check --strict
+          tar -xzf /tmp/r05/payload.tar.gz -C .
+          node --check src/curriculum/global/r05-delivery-wave-rebase.mjs
+          node --check tools/curriculum/validate-r05-delivery-wave-rebase.mjs
+          node --check tests/curriculum/r05-delivery-wave-rebase.test.js
+          node --test tests/curriculum/r05-delivery-wave-rebase.test.js
+          node tools/curriculum/validate-r05-delivery-wave-rebase.mjs > /tmp/r05/validator.json
+          node -e 'const r=require("/tmp/r05/validator.json"); if(!r.ok){console.error(JSON.stringify(r.errors,null,2)); process.exit(1)}; console.log("R05_VALIDATOR_SUMMARY="+JSON.stringify(r.summary))'
+
+      - name: Commit finalized R05 artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf data/project/staging/r05
+          rm -f .github/workflows/r05-finalize-delivery-wave.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'feat(curriculum): materialize R05 capability delivery waves'
+          git push origin HEAD:${{ github.head_ref }}
