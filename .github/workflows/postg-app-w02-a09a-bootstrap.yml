@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  normalize-controller-imports:
+  materialize-authoritative-freeze:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,17 +19,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Materialize exact controller import normalization
+      - name: Normalize historical controller imports
         run: node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
+      - name: Materialize authoritative A09A mainline freeze
+        run: node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
       - name: Commit exact materialization when needed
         shell: bash
         run: |
-          if git diff --quiet -- src/curriculum/application/postg-app-master-controller.mjs; then
-            echo "Controller imports already normalized."
+          if git diff --quiet; then
+            echo "A09A authoritative freeze is already materialized."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/curriculum/application/postg-app-master-controller.mjs
-          git commit -m "fix(application): normalize A08R4 controller imports"
+          git add \
+            src/curriculum/application/postg-app-master-controller.mjs \
+            data/curriculum/application/controller/postg-app-master-controller-state.json \
+            data/curriculum/application/controller/postg-app-wave-plan.json \
+            data/curriculum/application/registry/application-capability-registry.json \
+            data/curriculum/application/registry/wave-application-admission-registry.json \
+            tests/curriculum/postg-app-m00-master-controller.test.js \
+            tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
+          git commit -m "fix(application): make A09A freeze authoritative"
           git push origin HEAD:postg-app-w02-a08r4-third-operator-approval
