@@ -1,0 +1,72 @@
+{
+  "schemaName": "R07AuthoritativeConsumerCutoverPolicyV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R07_AuthoritativeConsumerCutover",
+  "status": "GLOBAL_AUTHORITY_PRIMARY_CUTOVER_POLICY_READY",
+  "authorities": {
+    "legacyCompatibilityRuntime": "src/curriculum/global/r06-legacy-compatibility-migration.mjs",
+    "browserKnowledgePointRegistry": "site/modules/curriculum/registry/batch-a-selector-extension.js",
+    "publicConsumerEntryPoint": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "legacyAdapter": "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js"
+  },
+  "publicBaseline": {
+    "productUnitCount": 15,
+    "sourceNodeCount": 16,
+    "protectedKnowledgePointCount": 156,
+    "productUnitIds": [
+      "g3a_u01_3a01",
+      "g3a_u02_3a02",
+      "g3a_u03_3a03",
+      "g3a_u06_3a06",
+      "g3b_u01_3b01",
+      "g3b_u04_3b04",
+      "g3b_u08_3b08",
+      "g4a_u01_4a01",
+      "g4a_u02_4a02",
+      "g4a_u04_4a04",
+      "g4a_u08_4a08",
+      "g4b_u01_4b01",
+      "g4b_u04_4b04",
+      "g5a_u02_5a02",
+      "g5a_u08_5a08"
+    ]
+  },
+  "rules": {
+    "globalAuthorityIsPrimaryForPublicBaseline": true,
+    "legacyAuthorityRoleAfterCutover": "COMPATIBILITY_ALIAS_READ_ONLY",
+    "legacySourceIdsPreserved": true,
+    "legacyKnowledgePointIdsPreserved": true,
+    "legacyPatternSpecIdsPreserved": true,
+    "existingSelectedKnowledgePointsPreserved": true,
+    "existingSelectedPatternGroupsPreserved": true,
+    "applicationAndPblRoutesPreserved": true,
+    "unknownKnowledgePointFailsClosed": true,
+    "nonBaselineSourcePassesThrough": true,
+    "parallelRuntimePipelineAllowed": false,
+    "newGeneratorAllowed": false,
+    "newValidatorAllowed": false,
+    "newRendererAllowed": false,
+    "visibleOutputChangeExpected": false,
+    "uiHtmlPdfParityDeferredTo": "R08_15UnitGlobalMigrationUIHTMLPDFCloseout"
+  },
+  "postMigrationSequence": {
+    "migrationCloseTask": "R08_15UnitGlobalMigrationUIHTMLPDFCloseout",
+    "fullProductLineProgram": "FULL_PRODUCT_LINE_D0_V1",
+    "fullProductLineTasks": [
+      "P01_W1ExistingCapabilityProductAdmission",
+      "P02_W2SharedShadowCapabilityHardening",
+      "P03_W3DecimalFractionProductDelivery",
+      "P04_W4QuantityMeasurementTimeProductDelivery",
+      "P05_W5GeometrySpatialProductDelivery",
+      "P06_W6DataPatternRelationProductDelivery",
+      "P07_W7RatioPercentRateProductDelivery",
+      "P08_W8MultiDomainProductCompletion",
+      "P09_79SourceGlobalPublicUIIntegration",
+      "P10_FullUIHTMLPDFPrintProductCloseout"
+    ],
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "recursiveImprovementAdminProgram": "FULL_PRODUCT_RECURSIVE_IMPROVEMENT_V1",
+    "recursiveImprovementAdminStartAllowedAfter": "P10_FullUIHTMLPDFPrintProductCloseout"
+  }
+}
