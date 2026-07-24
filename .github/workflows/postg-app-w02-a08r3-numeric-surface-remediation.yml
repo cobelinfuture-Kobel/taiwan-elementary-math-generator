@@ -1,29 +1,7 @@
 name: POSTG-APP W02-A08R3 Numeric Surface Remediation
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "src/curriculum/application/shared/student-facing-numeric-remediation-v4.mjs"
-      - "src/curriculum/application/shared/student-facing-operation-surface.mjs"
-      - "src/curriculum/application/shared/operation-family-runtime.mjs"
-      - "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
-      - "src/curriculum/application/w02-a08r1-student-facing-remediation.mjs"
-      - "src/curriculum/application/w02-a08r3-*.mjs"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "data/curriculum/application/reviews/POSTG-APP-W02-A08R3_*.json"
-      - "docs/curriculum/output/postg-app/w02-a08r3/**"
-      - "data/project/milestones/POSTG-APP-W02-A08R3.claim.json"
-      - "tools/curriculum/materialize-postg-app-w02-a08r3-*.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a08r3-*.mjs"
-      - "tests/curriculum/postg-app-w02-a08r3-*.test.js"
-      - "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
-      - "tests/curriculum/postg-app-w02-a08r1-*.test.js"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js"
-      - ".github/workflows/postg-app-w02-a08r2-second-operator-review.yml"
-      - ".github/workflows/postg-app-w02-a08r3-numeric-surface-remediation.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:

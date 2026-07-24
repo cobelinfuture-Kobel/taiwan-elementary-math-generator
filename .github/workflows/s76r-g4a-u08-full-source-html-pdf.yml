@@ -1,9 +1,7 @@
 name: S76R G4A-U08 Full Source HTML PDF
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

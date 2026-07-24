@@ -1,12 +1,7 @@
 name: S93 G5A-U02 Hidden HTML PDF Smoke
 
 on:
-  push:
-    branches:
-      - feat/s93-g5a-u02-hidden-browser-html-pdf-smoke
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

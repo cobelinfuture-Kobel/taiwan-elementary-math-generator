@@ -1,9 +1,7 @@
 name: G4B-U04 R2F Production Matrix
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

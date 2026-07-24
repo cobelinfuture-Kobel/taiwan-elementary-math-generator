@@ -1,9 +1,7 @@
 name: S95 G5A-U02 Production Stress HTML PDF
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

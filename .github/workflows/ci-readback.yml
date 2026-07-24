@@ -7,9 +7,6 @@ on:
       - main
     paths-ignore:
       - "docs/ci/latest-public-math-ci-readback.json"
-  pull_request:
-    branches:
-      - main
 
 permissions:
   contents: write

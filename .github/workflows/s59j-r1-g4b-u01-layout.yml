@@ -1,9 +1,7 @@
 name: S59J R1 G4B-U01 Warning and Print Layout
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:
