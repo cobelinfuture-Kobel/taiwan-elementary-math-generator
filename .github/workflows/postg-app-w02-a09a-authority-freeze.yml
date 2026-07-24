@@ -25,6 +25,13 @@ jobs:
           node-version: 22
       - name: Install project dependencies
         run: npm install --silent --no-audit --no-fund
+      - name: Apply idempotent A09A authoritative materialization
+        run: |
+          node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
+          node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
+          node tools/curriculum/normalize-postg-app-w02-a09a-m00-compat-materializer.mjs
+          node tools/curriculum/materialize-postg-app-w02-a09a-m00-compat-repair.mjs
+          git diff --stat
       - name: Validate canonical authority gap and W03 freeze
         run: node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
       - name: Enforce frozen mainline against new W03 and legacy routes
@@ -55,6 +62,18 @@ jobs:
             exit 1
           fi
       - name: Focused A09A tests
-        run: node --test tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
+        run: |
+          node --test tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+      - name: Enforce materializer idempotence
+        run: |
+          git diff > /tmp/a09a-first.diff
+          node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
+          node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
+          node tools/curriculum/normalize-postg-app-w02-a09a-m00-compat-materializer.mjs
+          node tools/curriculum/materialize-postg-app-w02-a09a-m00-compat-repair.mjs
+          git diff > /tmp/a09a-second.diff
+          cmp /tmp/a09a-first.diff /tmp/a09a-second.diff
       - name: Full regression
         run: npm test
