@@ -2,8 +2,9 @@
   "schemaName": "POSTGAPPWavePlanV1",
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
-  "taskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
-  "status": "FIXED_SIX_WAVE_QUEUE_W01_W02_ADMITTED_W03_ASSESSMENT_READY",
+  "taskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
+  "status": "FIXED_SIX_WAVE_QUEUE_W01_W02_ADMITTED_W03_ASSESSMENT_READY_EXECUTION_FROZEN",
+  "waveCount": 6,
   "orderingPolicy": "S29C_PRIMARY_BATCH_ORDER_WITH_W01_SOURCE_COVERAGE_REMOVED_FROM_W02_TO_W06",
   "admissionGateOrder": [
     "SOURCE_NODE_REGISTERED",
@@ -22,6 +23,7 @@
     {
       "waveId": "W01",
       "label": "Golden 15 Application Assessment Baseline",
+      "sourceNodeCount": 15,
       "controllerState": "PRODUCTION_ADMITTED",
       "goldenUnitIds": [
         "g3a_u01_3a01",
@@ -59,11 +61,14 @@
         "g5a_u08_5a08"
       ],
       "predecessorWaveId": null,
-      "productionAdmissionGranted": true
+      "productionAdmissionGranted": true,
+      "publicRouteChanged": false,
+      "publicSelectable": false
     },
     {
       "waveId": "W02",
       "label": "Deterministic Number Domains I",
+      "sourceNodeCount": 13,
       "controllerState": "PRODUCTION_ADMITTED",
       "sourceNodeIds": [
         "g3a_u08_3a08",
@@ -81,11 +86,17 @@
         "g5a_u06_5a06"
       ],
       "predecessorWaveId": "W01",
-      "productionAdmissionGranted": true
+      "productionAdmissionGranted": true,
+      "publicRouteChanged": false,
+      "publicSelectable": false,
+      "canonicalCurriculumAuthorityReconciliationRequired": true,
+      "globalContextSingleApplicationAuthorityRequired": true,
+      "legacyApplicationRoutesFrozen": true
     },
     {
       "waveId": "W03",
       "label": "Deterministic Number Domains II and Measurement Entry",
+      "sourceNodeCount": 13,
       "controllerState": "ASSESSMENT_READY",
       "sourceNodeIds": [
         "g5b_u02_5b02",
@@ -104,6 +115,8 @@
       ],
       "predecessorWaveId": "W02",
       "productionAdmissionGranted": false,
+      "publicRouteChanged": false,
+      "publicSelectable": false,
       "executionFrozen": true,
       "implementationAllowed": false,
       "freezeReason": "BATCH_B_CANONICAL_KNOWLEDGE_POINT_AUTHORITY_MISSING",
@@ -113,6 +126,7 @@
     {
       "waveId": "W04",
       "label": "Measurement Formula and Visual Entry",
+      "sourceNodeCount": 13,
       "controllerState": "BLOCKED_BY_PREVIOUS_WAVE",
       "sourceNodeIds": [
         "g4b_u09_4b09",
@@ -130,11 +144,14 @@
         "g3a_u04_3a04"
       ],
       "predecessorWaveId": "W03",
-      "productionAdmissionGranted": false
+      "productionAdmissionGranted": false,
+      "publicRouteChanged": false,
+      "publicSelectable": false
     },
     {
       "waveId": "W05",
       "label": "Visual Geometry and Data",
+      "sourceNodeCount": 13,
       "controllerState": "BLOCKED_BY_PREVIOUS_WAVE",
       "sourceNodeIds": [
         "g3a_u05_3a05",
@@ -151,11 +168,14 @@
         "g5a_u10_5a10a"
       ],
       "predecessorWaveId": "W04",
-      "productionAdmissionGranted": false
+      "productionAdmissionGranted": false,
+      "publicRouteChanged": false,
+      "publicSelectable": false
     },
     {
       "waveId": "W06",
       "label": "Visual Completion, Ratio, Speed and Fusion",
+      "sourceNodeCount": 12,
       "controllerState": "BLOCKED_BY_PREVIOUS_WAVE",
       "sourceNodeIds": [
         "g5b_u11_5b11",
@@ -172,7 +192,9 @@
         "g6b_u05_6b05"
       ],
       "predecessorWaveId": "W05",
-      "productionAdmissionGranted": false
+      "productionAdmissionGranted": false,
+      "publicRouteChanged": false,
+      "publicSelectable": false
     }
   ],
   "coverage": {
@@ -184,10 +206,11 @@
     "productionAdmittedWaveCount": 2
   },
   "lastTransition": {
-    "taskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
-    "decision": "APPROVE",
+    "taskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
+    "decision": "FREEZE_W03_PENDING_CANONICAL_AUTHORITY",
     "completedWaveId": "W02",
-    "activatedWaveId": "W03",
+    "assessmentReadyWaveId": "W03",
+    "implementationActivatedWaveId": null,
     "transitionDate": "2026-07-24"
   }
 }
