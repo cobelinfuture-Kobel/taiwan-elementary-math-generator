@@ -13,21 +13,22 @@ import {
   G5A_U08_PUBLIC_CONTROLS,
 } from "../../../modules/curriculum/registry/g5a-u08-promotion.js";
 import {
-  getPublicControlProfile,
-  normalizePublicControlValue,
-} from "../../../modules/curriculum/registry/public-control-profiles.js";
+  getFifteenUnitPublicControlProfile,
+  normalizeFifteenUnitPublicControlValue,
+} from "../../../modules/curriculum/registry/fifteen-unit-public-control-profiles.js";
+import { getPublicControlProfile } from "../../../modules/curriculum/registry/public-control-profiles.js";
 
 function normalizedControls(sourceId, input = {}) {
-  const profile = getPublicControlProfile(sourceId);
+  const profile = getFifteenUnitPublicControlProfile(sourceId);
   const normalized = {};
   if (profile?.questionTypeControl.supported) {
-    normalized.questionMode = normalizePublicControlValue(profile, "questionTypeControl", input.questionMode);
+    normalized.questionMode = normalizeFifteenUnitPublicControlValue(profile, "questionTypeControl", input.questionMode);
   }
   if (profile?.reasoningDepthControl.supported) {
-    normalized.depthMode = normalizePublicControlValue(profile, "reasoningDepthControl", input.depthMode);
+    normalized.depthMode = normalizeFifteenUnitPublicControlValue(profile, "reasoningDepthControl", input.depthMode);
   }
   if (profile?.contextControl.supported) {
-    normalized.contextMode = normalizePublicControlValue(profile, "contextControl", input.contextMode);
+    normalized.contextMode = normalizeFifteenUnitPublicControlValue(profile, "contextControl", input.contextMode);
   }
   if (sourceId === G4B_U04_SOURCE_ID) {
     normalized.layoutMode = G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(input.layoutMode)
@@ -140,7 +141,7 @@ export function getBatchAWorksheetPlan(state) {
     },
     globalLayoutNormalization: globalLayout,
   };
-  const profile = getPublicControlProfile(plan.sourceId);
+  const profile = getFifteenUnitPublicControlProfile(plan.sourceId);
   if (plan.sourceId === G4B_U04_SOURCE_ID) {
     const publicControls = {
       questionMode: controls.questionMode,
@@ -174,7 +175,7 @@ function setControl(state, field, value, controlName) {
   if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "layoutMode") {
     if (G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value)) state.batchA[field] = value;
   } else {
-    const profile = getPublicControlProfile(state.batchA.sourceId);
+    const profile = getFifteenUnitPublicControlProfile(state.batchA.sourceId);
     const definition = profile?.[controlName];
     if (!definition?.supported || !definition.options.some((option) => option.value === value)) return state;
     state.batchA[field] = value;
