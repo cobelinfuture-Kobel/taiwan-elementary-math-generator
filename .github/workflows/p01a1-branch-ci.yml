@@ -1,0 +1,32 @@
+name: P01A1 Branch CI
+
+on:
+  push:
+    branches:
+      - full-product/p01a1-pattern-classification-fix
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p01a1-branch-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run P01A1 focused tests
+        run: node --test tests/curriculum/p01a-w1-product-admission-inventory.test.js
+      - name: Validate milestone claims
+        run: npm run test:milestone-claim-integrity
+      - name: Run full regression
+        run: npm test
