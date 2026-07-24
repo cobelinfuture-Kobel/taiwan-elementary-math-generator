@@ -1,57 +1,91 @@
 name: POSTG APP W02 A09A Authority Freeze
 
 on:
+  pull_request:
   push:
-    branches: [postg-app-w02-a08r4-third-operator-approval]
+    branches: [main, postg-app-w02-a08r4-third-operator-approval]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: postg-app-w02-a09a-successor-invariant-fix
+  group: postg-app-w02-a09a-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  one-shot-successor-invariant-fix:
+  authority-freeze:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: postg-app-w02-a08r4-third-operator-approval
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Remove obsolete A08R2 mutable-state invariants
+      - name: Install project dependencies
+        run: npm install --silent --no-audit --no-fund
+      - name: Validate canonical authority gap and W03 freeze
+        run: node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
+      - name: Enforce frozen mainline against new W03 and legacy routes
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          path = Path('src/curriculum/application/postg-app-master-controller.mjs')
-          text = path.read_text()
-          before = """    productionAdmittedCandidateCount: 0,
-              publicSelectableCandidateCount: 0,
-              operatorDecisionState: 'SECOND_REVISE_RECORDED',
-          """
-          after = """    publicSelectableCandidateCount: 0,
-          """
-          if after in text and before not in text:
-              print('successor invariant correction already applied')
-          else:
-              if before not in text:
-                  raise SystemExit('obsolete invariant anchor not found')
-              path.write_text(text.replace(before, after, 1))
-          PY
-      - name: Commit exact correction when needed
-        shell: bash
-        run: |
-          if git diff --quiet; then
-            echo "No correction commit required."
+          if [[ "$(node -p "require('./data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json').executionFreeze.active")" != "true" ]]; then
+            echo "A09A execution freeze is released."
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/curriculum/application/postg-app-master-controller.mjs
-          git commit -m "fix(application): separate immutable W02 metrics from admission state"
-          git push origin HEAD:postg-app-w02-a08r4-third-operator-approval
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            base="${{ github.event.pull_request.base.sha }}"
+          else
+            base="${{ github.event.before }}"
+            if [[ -z "$base" || "$base" =~ ^0+$ ]]; then
+              base="$(git rev-parse HEAD^)"
+            fi
+          fi
+          changed="$(git diff --name-only "$base" HEAD)"
+          added="$(git diff --diff-filter=A --name-only "$base" HEAD)"
+          if grep -Eiq '(^|/)(w03|postg-app-w03|POSTG-APP-W03)' <<<"$changed"; then
+            echo "W03 implementation is frozen pending canonical curriculum authority reconciliation."
+            grep -Ei '(^|/)(w03|postg-app-w03|POSTG-APP-W03)' <<<"$changed" || true
+            exit 1
+          fi
+          if grep -Eiq '^site/assets/browser/.*(application|global-context).*\.js$' <<<"$added"; then
+            echo "New browser application/global-context routes are forbidden while legacy routes are frozen."
+            grep -Ei '^site/assets/browser/.*(application|global-context).*\.js$' <<<"$added" || true
+            exit 1
+          fi
+      - name: Capture focused A09A and M00 diagnostics
+        id: focused
+        shell: bash
+        run: |
+          set +e
+          : > a09a-final-focused.log
+          status=0
+          run_check() {
+            label="$1"; shift
+            echo "===== ${label} =====" | tee -a a09a-final-focused.log
+            "$@" >> a09a-final-focused.log 2>&1
+            code=$?
+            echo "STATUS=${code}" | tee -a a09a-final-focused.log
+            if [[ $code -ne 0 ]]; then status=$code; fi
+          }
+          run_check a09a-test node --test tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
+          run_check a09a-validator node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
+          run_check m00-test node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          run_check m00-validator node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          cat a09a-final-focused.log
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload focused diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a09a-final-focused-diagnostics
+          path: a09a-final-focused.log
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce focused validation
+        if: steps.focused.outputs.status != '0'
+        run: exit 1
+      - name: Full regression
+        run: npm test
