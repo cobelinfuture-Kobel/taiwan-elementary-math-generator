@@ -19,7 +19,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
-          fetch-depth: 0
+          fetch-depth: 1
+          show-progress: false
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
@@ -39,7 +40,12 @@ jobs:
           node --check src/curriculum/global/r05-delivery-wave-rebase.mjs
           node --check tools/curriculum/validate-r05-delivery-wave-rebase.mjs
           node --check tests/curriculum/r05-delivery-wave-rebase.test.js
-          node --test tests/curriculum/r05-delivery-wave-rebase.test.js
+          set +e
+          node --test tests/curriculum/r05-delivery-wave-rebase.test.js > /tmp/r05/focused.log 2>&1
+          focused_status=$?
+          set -e
+          tail -n 180 /tmp/r05/focused.log
+          if [ "$focused_status" -ne 0 ]; then exit "$focused_status"; fi
           node tools/curriculum/validate-r05-delivery-wave-rebase.mjs > /tmp/r05/validator.json
           node -e 'const r=require("/tmp/r05/validator.json"); if(!r.ok){console.error(JSON.stringify(r.errors,null,2)); process.exit(1)}; console.log("R05_VALIDATOR_SUMMARY="+JSON.stringify(r.summary))'
 
