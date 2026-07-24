@@ -11,6 +11,7 @@ import {
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/fifteen-unit-public-application-groups.js";
+import { buildFifteenUnitPublicPblWorksheetResult } from "../../../modules/curriculum/public/fifteen-unit-public-pbl-worksheet.js";
 import { getBatchAWorksheetPlan, storeWorksheetResult } from "../state/config-state.js";
 
 const CLOSEOUT_PROGRAM_ID = "BATCH_A13_BATCH_B2_PUBLIC_WORKSHEET_CLOSEOUT_V1";
@@ -58,6 +59,9 @@ function resolveCloseoutApplicationPlan(publicPlan = {}) {
 }
 
 export function buildWorksheetDocumentFromPlan(publicPlan) {
+  if (publicPlan?.questionMode === "pbl") {
+    return buildFifteenUnitPublicPblWorksheetResult(publicPlan);
+  }
   return buildCoreWorksheetDocumentFromPlan(resolveCloseoutApplicationPlan(publicPlan));
 }
 
