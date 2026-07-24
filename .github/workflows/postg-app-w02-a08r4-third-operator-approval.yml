@@ -7,12 +7,14 @@ on:
       - "data/curriculum/application/reviews/POSTG-APP-W02-A08R4_*.json"
       - "docs/curriculum/output/postg-app/w02-a08r4/**"
       - "data/project/milestones/POSTG-APP-W02-A08R4.claim.json"
+      - "data/project/milestones/POSTG-APP-W02-A09A.claim.json"
       - "data/curriculum/application/registry/**"
       - "data/curriculum/application/controller/postg-app-wave-plan.json"
       - "data/curriculum/application/controller/postg-app-master-controller-state.json"
       - "src/curriculum/application/shared/application-capability-resolver.mjs"
       - "src/curriculum/application/w02-a08r3-numeric-surface-remediation.mjs"
       - "src/curriculum/application/w02-a08r4-*.mjs"
+      - "src/curriculum/application/w02-a09a-*.mjs"
       - "src/curriculum/application/w01-a06e-operator-approval-runtime.mjs"
       - "src/curriculum/application/postg-app-master-controller.mjs"
       - "tools/curriculum/materialize-postg-app-w02-a08r4-*.mjs"
@@ -25,7 +27,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: postg-app-w02-a08r4-${{ github.event.pull_request.number || github.ref }}
@@ -38,43 +40,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
+        with: { node-version: 22 }
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - name: Install project dependencies
-        run: npm install --silent
-      - name: Materialize E5 admission and successor compatibility
-        id: materialize
+        run: npm ci --silent
+      - name: Verify frozen A08R4 evidence without rewriting successor state
         run: |
-          node tools/curriculum/materialize-postg-app-w02-a08r4-admission.mjs | tee w02-a08r4-admission-materialization.json
-          node tools/curriculum/materialize-postg-app-w02-a08r4-successor-compat.mjs | tee w02-a08r4-compat-materialization.json
-          MATERIALIZED_PATHS=(
-            data/project/milestones/POSTG-APP-W02-A08R4.claim.json
-            data/curriculum/application/registry/application-capability-registry.json
-            data/curriculum/application/registry/wave-application-admission-registry.json
-            data/curriculum/application/controller/postg-app-wave-plan.json
-            data/curriculum/application/controller/postg-app-master-controller-state.json
-            src/curriculum/application/shared/application-capability-resolver.mjs
-            src/curriculum/application/w02-a08r3-numeric-surface-remediation.mjs
-            src/curriculum/application/postg-app-master-controller.mjs
-            src/curriculum/application/w01-a06e-operator-approval-runtime.mjs
-            tests/curriculum/postg-app-m00-master-controller.test.js
-            tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
-          )
-          if [[ -n "$(git status --porcelain -- "${MATERIALIZED_PATHS[@]}")" ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add "${MATERIALIZED_PATHS[@]}"
-            git commit -m "chore(application): materialize W02 A08R4 E5 admission"
-            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-              git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
-            fi
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+          test -f data/project/milestones/POSTG-APP-W02-A08R4.claim.json
+          test -f data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json
+          test -f docs/curriculum/output/postg-app/w02-a08r4/POSTG_APP_W02_A08R4_THIRD_OPERATOR_REVIEW_EVIDENCE.json
+          if [[ ! -f data/project/milestones/POSTG-APP-W02-A09A.claim.json ]]; then
+            node tools/curriculum/materialize-postg-app-w02-a08r4-admission.mjs
+            node tools/curriculum/materialize-postg-app-w02-a08r4-successor-compat.mjs
+            git diff --exit-code
           fi
       - name: Capture focused E5 diagnostics
         id: focused
@@ -108,9 +89,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: w02-a08r4-focused-diagnostics
-          path: |
-            w02-a08r4-*-materialization.json
-            w02-a08r4-focused-diagnostics.log
+          path: w02-a08r4-focused-diagnostics.log
           if-no-files-found: error
           retention-days: 30
       - name: Enforce focused validation
@@ -153,8 +132,5 @@ jobs:
         run: git restore docs/curriculum/output/postg-app/w02-a06/
       - name: Run full regression suite
         run: npm test
-      - name: Enforce materializer idempotence
-        run: |
-          node tools/curriculum/materialize-postg-app-w02-a08r4-admission.mjs
-          node tools/curriculum/materialize-postg-app-w02-a08r4-successor-compat.mjs
-          git diff --exit-code
+      - name: Enforce clean successor-aware checkout
+        run: git diff --exit-code
