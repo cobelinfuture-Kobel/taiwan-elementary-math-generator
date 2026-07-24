@@ -1,0 +1,70 @@
+{
+  "schemaName": "POSTGAPPW02A09ACanonicalAuthorityFreezeV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
+  "status": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
+  "canonicalCurriculumAuthority": {
+    "requiredKnowledgePointRegistryPath": "data/curriculum/registry/batch_b_knowledge_points.json",
+    "requiredFormalMappingAuthorityPattern": "data/curriculum/mapping/{sourceNodeId}.formal-mapping.json",
+    "postgCandidatePathPattern": "data/curriculum/knowledge/units/{sourceNodeId}.knowledge-operation.json",
+    "requiredSourceNodeCount": 13,
+    "expectedCandidateCount": 90,
+    "candidateAuthorityStatus": "APPLICATION_PROGRAM_CANDIDATE_ONLY_NOT_CANONICAL_CURRICULUM_AUTHORITY",
+    "canonicalRegistryStateAtFreeze": "MISSING",
+    "allowedReconciliationDispositions": [
+      "PROMOTE_TO_CANONICAL",
+      "MERGE_WITH_EXISTING",
+      "SPLIT_REQUIRED",
+      "REJECT_NOT_SOURCE_BACKED",
+      "HUMAN_REVIEW_REQUIRED"
+    ]
+  },
+  "executionFreeze": {
+    "active": true,
+    "blockedWaveIds": ["W03", "W04", "W05", "W06"],
+    "blockedTaskPrefixes": ["POSTG-APP-W03-", "POSTG-APP-W04-", "POSTG-APP-W05-", "POSTG-APP-W06-"],
+    "w03AssessmentDataMayBeRead": true,
+    "w03ImplementationMayStart": false,
+    "releaseConditions": [
+      "BATCH_B_CANONICAL_KNOWLEDGE_POINT_REGISTRY_EXISTS",
+      "W02_90_CANDIDATES_RECONCILED",
+      "CANONICAL_FORMAL_MAPPING_AUTHORITY_LINKED",
+      "GLOBAL_CONTEXT_IS_SINGLE_APPLICATION_AUTHORITY",
+      "LEGACY_APPLICATION_ROUTE_MIGRATION_PLAN_ACCEPTED"
+    ]
+  },
+  "globalContextAuthority": {
+    "authorityIndexPath": "data/curriculum/context/registry/global-context-authority-index.json",
+    "resolverPath": "src/curriculum/context/global-context-ontology-resolver.mjs",
+    "requiredForEveryNewApplicationRoute": true,
+    "postGenerationTextOverlayAllowed": false,
+    "unitSpecificApplicationGeneratorAllowed": false,
+    "unitSpecificGlobalContextOverlayAllowed": false
+  },
+  "legacyApplicationRoutes": {
+    "status": "GRANDFATHERED_READ_ONLY_PENDING_SHARED_CONSUMER_MIGRATION",
+    "newLegacyRouteAllowed": false,
+    "inventory": [
+      {
+        "path": "site/assets/browser/pipeline/build-worksheet-document.js",
+        "symbols": ["resolveG5AU02BrowserPlan", "buildG5AU02BrowserDynamicWorksheet", "applyG3BU04GlobalContextPublicWorksheetAdmission"]
+      },
+      {
+        "path": "site/assets/browser/main.js",
+        "symbols": ["syncG5AU08Controls"]
+      },
+      {
+        "path": "site/assets/browser/public-control-ui.js",
+        "symbols": ["g5a-u08-public-controls", "getPublicControlProfile"]
+      }
+    ]
+  },
+  "mainline": {
+    "ultimateGoal": "CANONICAL_CURRICULUM_TO_GLOBAL_CONTEXT_APPLICATION_TO_PUBLIC_HTML_PDF",
+    "w02ProductionEvidencePreserved": true,
+    "w02PublicSelectable": false,
+    "w03ActivatedForImplementation": false,
+    "nextShortestStep": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
+  }
+}
