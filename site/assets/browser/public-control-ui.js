@@ -1,5 +1,5 @@
 import "./global-public-layout-controls.js";
-import { getPublicControlProfile } from "../../modules/curriculum/registry/public-control-profiles.js";
+import { getFifteenUnitPublicControlProfile } from "../../modules/curriculum/registry/fifteen-unit-public-control-profiles.js";
 
 const sourceSelect = document.getElementById("batch-a-source-select");
 const selectionModeSelect = document.getElementById("batch-a-selection-mode-select");
@@ -44,7 +44,7 @@ function syncPublicControlUi() {
   applying = true;
   try {
     const sourceId = sourceSelect?.value;
-    const profile = getPublicControlProfile(sourceId);
+    const profile = getFifteenUnitPublicControlProfile(sourceId);
     const visible = Boolean(profile);
     if (section) {
       section.dataset.visible = visible ? "true" : "false";
@@ -83,7 +83,7 @@ for (const select of [questionSelect, depthSelect, contextSelect]) {
 if (section) {
   new MutationObserver(() => {
     const sourceId = sourceSelect?.value;
-    const expected = Boolean(getPublicControlProfile(sourceId));
+    const expected = Boolean(getFifteenUnitPublicControlProfile(sourceId));
     if ((section.dataset.visible === "true") !== expected || section.dataset.sourceId !== (sourceId ?? "")) {
       syncAfterMainHandler();
     }
