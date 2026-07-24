@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "taskId": "R06_LegacyCompatibilityMigration",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "LEGACY_15_UNIT_COMPATIBILITY_SHADOW_AUTHORITY_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r06-legacy-compatibility-migration.mjs",
+      "tools/curriculum/validate-r06-legacy-compatibility-migration.mjs",
+      "tests/curriculum/r06-legacy-compatibility-migration.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/global/compatibility/r06/legacy-compatibility-policy.json",
+      "data/curriculum/global/compatibility/r06/legacy-compatibility-migration.manifest.json",
+      "data/curriculum/global/schema/legacy-compatibility-unit.schema.json",
+      "docs/curriculum/contracts/GLOBAL_LEGACY_COMPATIBILITY_MIGRATION_CONTRACT_V1.md",
+      "docs/curriculum/output/GCKG_R06_LEGACY_COMPATIBILITY_MIGRATION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "The existing 15-unit D0 source, KnowledgePoint, operation-model, and PatternSpec identities are now connected to Global authorities through a validated compatibility adapter without changing the production consumer."
+  },
+  "nextStep": {
+    "taskId": "R07_AuthoritativeConsumerCutover",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
