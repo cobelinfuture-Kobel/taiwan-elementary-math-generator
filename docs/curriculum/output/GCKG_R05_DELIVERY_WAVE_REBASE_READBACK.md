@@ -32,6 +32,29 @@ r06CompatibilityMigrationRequired
 
 The executable runtime and validator emit the authoritative per-wave counts. The sum of all wave assignments must remain 482. Existing D0 rows whose legacy runtime proof is narrower than the new Global model are retained in W0 and counted as R06 reconciliation requirements rather than product failures.
 
+## Executable wave metrics
+
+```text
+R05-W0  KnowledgePoints = 156   capability plans = 22
+R05-W1  KnowledgePoints =  22   capability plans =  0
+R05-W2  KnowledgePoints =   0   capability plans =  5
+R05-W3  KnowledgePoints =  84   capability plans =  7
+R05-W4  KnowledgePoints =  53   capability plans =  5
+R05-W5  KnowledgePoints =  79   capability plans =  7
+R05-W6  KnowledgePoints =  32   capability plans =  9
+R05-W7  KnowledgePoints =  32   capability plans =  3
+R05-W8  KnowledgePoints =  24   capability plans =  0
+------------------------------------------------------
+Total    KnowledgePoints = 482   capability plans = 58
+```
+
+```text
+prerequisite-escalated KnowledgePoints = 48
+protected Global-model reconciliation = 9
+```
+
+`R05-W2` contains five shadow capability-hardening actions but no direct KnowledgePoint admission. KnowledgePoints needing those shadow facilities also require a later domain validator or prerequisite and therefore remain in W4 or another later wave.
+
 ## Rebased sequence
 
 ```text
@@ -56,7 +79,7 @@ The 15 completed units are not rebuilt. Their current UI, generators, validators
 15_UNITS_REVALIDATION                  = required
 15_UNITS_CURRENT_PRODUCTION_USE        = preserved
 15_UNITS_PUBLIC_OUTPUT_CHANGE_EXPECTED = false
-GLOBAL_MODEL_DIFFERENCES              = recorded for R06, not treated as D0 demotion
+GLOBAL_MODEL_DIFFERENCES               = recorded for R06, not treated as D0 demotion
 ```
 
 ## Anti-parallel-line proof
