@@ -23,7 +23,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm ci
+      - name: Install project dependencies
+        run: npm install --silent --no-audit --no-fund
       - name: Validate canonical authority gap and W03 freeze
         run: node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
       - name: Enforce frozen mainline against new W03 and legacy routes
