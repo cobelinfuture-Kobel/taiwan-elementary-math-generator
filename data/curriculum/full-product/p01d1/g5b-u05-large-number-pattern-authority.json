@@ -1,0 +1,132 @@
+{
+  "schemaName": "P01D1G5BU05LargeNumberPatternAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P01D1_G5BU05LargeNumberVerticalSlice",
+  "sourceNodeId": "g5b_u05_5b05a",
+  "sourceTitle": "數的十進位結構與億以上的數",
+  "sourceEvidence": {
+    "driveFileId": "1ptyCeL_HYvYA2A43b0flyQgNuJy8FsgB",
+    "sourcePdfTitle": "meow911_5b05a_source.pdf",
+    "reviewedPages": [1, 2, 3],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "scope": {
+    "deliveryWaveId": "R05-W1",
+    "admittedKnowledgePointCount": 4,
+    "excludedKnowledgePointIds": [
+      "kp_g5b_u05a_decimal_base10_structure"
+    ],
+    "exclusionReason": "Decimal place-value structure is not assigned to W1 and is outside this vertical slice."
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5b_u05a_large_number_place_value_extension",
+      "canonicalNameZh": "億以上大數位值",
+      "formalMappingId": "fm_g5b_u05a_large_number_place_value_extension",
+      "reasoningInvariant": "每相鄰位值為10倍，四位分節不改變十進位結構。",
+      "patternGroupId": "pg_g5b_u05a_large_number_place_value",
+      "patternSpecIds": [
+        "ps_g5b_u05a_large_number_digit_value",
+        "ps_g5b_u05a_large_number_place_composition"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5b_u05a_large_number_read_write",
+      "canonicalNameZh": "億以上大數讀寫",
+      "formalMappingId": "fm_g5b_u05a_large_number_read_write",
+      "reasoningInvariant": "各數級依萬進結構讀寫，零位須按規則處理。",
+      "patternGroupId": "pg_g5b_u05a_large_number_read_write",
+      "patternSpecIds": [
+        "ps_g5b_u05a_large_number_to_chinese",
+        "ps_g5b_u05a_chinese_to_large_number"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5b_u05a_power_of_ten_scaling",
+      "canonicalNameZh": "乘除10的次方與位值移動",
+      "formalMappingId": "fm_g5b_u05a_power_of_ten_scaling",
+      "reasoningInvariant": "數字本身不變而所在位值按10倍關係移動。",
+      "patternGroupId": "pg_g5b_u05a_power_of_ten_scaling",
+      "patternSpecIds": [
+        "ps_g5b_u05a_multiply_power_of_ten",
+        "ps_g5b_u05a_divide_power_of_ten_exact"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5b_u05a_large_number_decompose_compare",
+      "canonicalNameZh": "大數分解與比較",
+      "formalMappingId": "fm_g5b_u05a_large_number_decompose_compare",
+      "reasoningInvariant": "最高不同位決定大小，分解後加總必須重建原數。",
+      "patternGroupId": "pg_g5b_u05a_large_number_decompose_compare",
+      "patternSpecIds": [
+        "ps_g5b_u05a_large_number_expanded_form",
+        "ps_g5b_u05a_large_number_compare"
+      ]
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g5b_u05a_large_number_digit_value",
+      "operation": "digit_value",
+      "answerModel": "single_integer",
+      "parameterContract": { "minimumValue": 100000000, "maximumValue": 999999999999999 }
+    },
+    {
+      "patternSpecId": "ps_g5b_u05a_large_number_place_composition",
+      "operation": "place_composition",
+      "answerModel": "single_integer",
+      "parameterContract": { "minimumNonZeroPlaces": 3, "maximumValue": 999999999999999 }
+    },
+    {
+      "patternSpecId": "ps_g5b_u05a_large_number_to_chinese",
+      "operation": "numeric_to_chinese",
+      "answerModel": "chinese_number_text",
+      "parameterContract": { "sectionUnits": ["萬", "億", "兆"] }
+    },
+    {
+      "patternSpecId": "ps_g5b_u05a_chinese_to_large_number",
+      "operation": "chinese_to_numeric",
+      "answerModel": "single_integer",
+      "parameterContract": { "sectionUnits": ["萬", "億", "兆"] }
+    },
+    {
+      "patternSpecId": "ps_g5b_u05a_multiply_power_of_ten",
+      "operation": "multiply_power_of_ten",
+      "answerModel": "single_integer",
+      "parameterContract": { "minimumExponent": 1, "maximumExponent": 4 }
+    },
+    {
+      "patternSpecId": "ps_g5b_u05a_divide_power_of_ten_exact",
+      "operation": "divide_power_of_ten_exact",
+      "answerModel": "single_integer",
+      "parameterContract": { "minimumExponent": 1, "maximumExponent": 4, "requireExactQuotient": true }
+    },
+    {
+      "patternSpecId": "ps_g5b_u05a_large_number_expanded_form",
+      "operation": "expanded_form",
+      "answerModel": "ordered_place_value_sum",
+      "parameterContract": { "omitZeroComponents": true }
+    },
+    {
+      "patternSpecId": "ps_g5b_u05a_large_number_compare",
+      "operation": "comparison",
+      "answerModel": "comparison_symbol",
+      "parameterContract": { "allowedAnswers": [">", "<", "="] }
+    }
+  ],
+  "counts": {
+    "knowledgePoints": 4,
+    "formalMappings": 4,
+    "patternGroups": 4,
+    "patternSpecs": 8
+  },
+  "productionBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlPrintRendererRequired": true,
+    "parallelPipelineAllowed": false,
+    "applicationStoryGenerationAllowed": false,
+    "recursiveImprovementAdminAllowed": false
+  }
+}
