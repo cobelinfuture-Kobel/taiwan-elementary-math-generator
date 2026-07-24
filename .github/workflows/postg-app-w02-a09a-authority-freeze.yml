@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: postg-app-w02-a09a-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   authority-freeze:
     runs-on: ubuntu-latest
@@ -19,7 +23,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - run: npm ci
       - name: Validate canonical authority gap and W03 freeze
         run: node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
