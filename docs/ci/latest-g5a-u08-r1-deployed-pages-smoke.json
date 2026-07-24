@@ -1,23 +1,566 @@
 {
   "schemaVersion": "g5a-u08-r1-deployed-pages-smoke-v1",
   "task": "G5A_U08_R1_DeployedControlsAndPrintRecloseout",
-  "status": "FAIL",
-  "deploymentSha": "811058e2f393dcbd045a54ed3cbd607bc17a953b",
-  "message": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-source-select')\n    - locator resolved to <select name=\"batchASourceId\" id=\"batch-a-source-select\"></select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n",
-  "details": null,
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g5aU08R1=811058e2f393dcbd045a54ed3cbd607bc17a953b-1784908155267",
-  "consoleErrors": [
-    "Failed to load resource: the server responded with a status of 503 ()"
+  "status": "PASS",
+  "productionUse": "allowed_deployed_ui_print",
+  "goalDistance": "D0",
+  "deploymentSha": "842365757a99ccd5fc011c0fb3f97568a948c13a",
+  "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g5aU08R1=842365757a99ccd5fc011c0fb3f97568a948c13a-1784910618890",
+  "sourceId": "g5a_u08_5a08",
+  "audit": {
+    "publicSelectorComplete": true,
+    "threeControlFamiliesConnected": true,
+    "queryStatePreserved": true,
+    "nonEmptyIntersectionGenerates": true,
+    "emptyIntersectionBlocks": true,
+    "generatorValidatorRendererConsistent": true
+  },
+  "knowledgePointCount": 11,
+  "generatedKnowledgePointCount": 11,
+  "generatedKnowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u08_mixed_operation_order",
+      "label": "無括號四則混合運算順序",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_add_sub_equivalent_regroup",
+      "label": "加減連算的等值重組與湊整",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_mul_div_equivalent_regroup",
+      "label": "乘除連算的等值重組、約分與整數化",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_distributive_expand",
+      "label": "分配律展開",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_common_factor_extract",
+      "label": "分配律提取公因數",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_near_round_add_compensation",
+      "label": "接近整數的連加補償",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_near_round_sub_compensation",
+      "label": "接近整數的連減補償",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_near_round_multiply_compensation",
+      "label": "接近整數的乘法補償與簡算",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_missing_operator_inference",
+      "label": "反向推算運算符號",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_equivalence_error_judgement",
+      "label": "算式等值判斷與錯誤分配律辨識",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u08_average_inverse_update",
+      "label": "平均數、平均分攤、逆推平均與平均更新",
+      "questionCards": 6,
+      "answerCards": 6,
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    }
   ],
-  "pageErrors": [],
+  "selectedKnowledgePointCount": 11,
+  "selectedPatternGroupCount": 17,
+  "selectedPatternGroupIds": [
+    "pg_g5a_u08_mixed_operation_order_numeric",
+    "pg_g5a_u08_mixed_operation_order_application",
+    "pg_g5a_u08_add_sub_regroup_numeric",
+    "pg_g5a_u08_mul_div_regroup_numeric",
+    "pg_g5a_u08_mul_div_regroup_application",
+    "pg_g5a_u08_distributive_expand_numeric",
+    "pg_g5a_u08_distributive_expand_application",
+    "pg_g5a_u08_common_factor_numeric",
+    "pg_g5a_u08_common_factor_application",
+    "pg_g5a_u08_near_round_add_numeric",
+    "pg_g5a_u08_near_round_sub_numeric",
+    "pg_g5a_u08_near_round_multiply_numeric",
+    "pg_g5a_u08_near_round_multiply_application",
+    "pg_g5a_u08_missing_operator_reasoning",
+    "pg_g5a_u08_equivalence_reasoning",
+    "pg_g5a_u08_average_application",
+    "pg_g5a_u08_average_reasoning"
+  ],
+  "patternSpecCount": 30,
+  "controls": {
+    "questionModes": [
+      "mixed",
+      "numeric",
+      "application",
+      "reasoning"
+    ],
+    "depthModes": [
+      "mixed",
+      "N",
+      "N_PLUS_1"
+    ],
+    "contextModes": [
+      "mixed",
+      "daily_life",
+      "sdg"
+    ],
+    "defaults": {
+      "questionMode": "mixed",
+      "depthMode": "mixed",
+      "contextMode": "mixed"
+    },
+    "publicNPlus2": false,
+    "publicFormalEquation": false
+  },
+  "controlMatrixCount": 36,
+  "nonEmptyIntersectionCount": 33,
+  "emptyIntersectionCount": 3,
+  "controlMatrixResults": [
+    {
+      "questionMode": "mixed",
+      "depthMode": "mixed",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 17,
+      "patternSpecCount": 11,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "mixed",
+      "depthMode": "mixed",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 17,
+      "patternSpecCount": 11,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "mixed",
+      "depthMode": "mixed",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 17,
+      "patternSpecCount": 11,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "mixed",
+      "depthMode": "N",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 13,
+      "patternSpecCount": 11,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "mixed",
+      "depthMode": "N",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 13,
+      "patternSpecCount": 11,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "mixed",
+      "depthMode": "N",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 13,
+      "patternSpecCount": 11,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "mixed",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 7,
+      "patternSpecCount": 8,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "mixed",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 7,
+      "patternSpecCount": 8,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "mixed",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 7,
+      "patternSpecCount": 8,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "mixed",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 8,
+      "patternSpecCount": 12,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "mixed",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 8,
+      "patternSpecCount": 12,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "mixed",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 8,
+      "patternSpecCount": 12,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "N",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 8,
+      "patternSpecCount": 12,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "N",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 8,
+      "patternSpecCount": 12,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "N",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 8,
+      "patternSpecCount": 12,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 3 欄 × 10 列"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "mixed",
+      "expected": "block",
+      "patternGroupCount": 0,
+      "patternSpecCount": 0,
+      "actual": "blocked",
+      "status": "產生失敗，請檢查知識點、題目形式、深度、情境與題數設定。"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "daily_life",
+      "expected": "block",
+      "patternGroupCount": 0,
+      "patternSpecCount": 0,
+      "actual": "blocked",
+      "status": "產生失敗，請檢查知識點、題目形式、深度、情境與題數設定。"
+    },
+    {
+      "questionMode": "numeric",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "sdg",
+      "expected": "block",
+      "patternGroupCount": 0,
+      "patternSpecCount": 0,
+      "actual": "blocked",
+      "status": "產生失敗，請檢查知識點、題目形式、深度、情境與題數設定。"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "mixed",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 6,
+      "patternSpecCount": 9,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "mixed",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 6,
+      "patternSpecCount": 9,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "mixed",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 6,
+      "patternSpecCount": 9,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "N",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 3,
+      "patternSpecCount": 3,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "N",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 3,
+      "patternSpecCount": 3,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "N",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 3,
+      "patternSpecCount": 3,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 6,
+      "patternSpecCount": 8,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 6,
+      "patternSpecCount": 8,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "application",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 6,
+      "patternSpecCount": 8,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "mixed",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 3,
+      "patternSpecCount": 5,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "mixed",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 3,
+      "patternSpecCount": 4,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "mixed",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 3,
+      "patternSpecCount": 5,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "N",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 2,
+      "patternSpecCount": 3,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "N",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 2,
+      "patternSpecCount": 3,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "N",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 2,
+      "patternSpecCount": 3,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "mixed",
+      "expected": "generate",
+      "patternGroupCount": 1,
+      "patternSpecCount": 2,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "daily_life",
+      "expected": "generate",
+      "patternGroupCount": 1,
+      "patternSpecCount": 1,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    },
+    {
+      "questionMode": "reasoning",
+      "depthMode": "N_PLUS_1",
+      "contextMode": "sdg",
+      "expected": "generate",
+      "patternGroupCount": 1,
+      "patternSpecCount": 2,
+      "actual": "generated",
+      "previewMeta": "Batch A 5A-U08 整數四則｜6 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列"
+    }
+  ],
+  "replayControls": {
+    "questionMode": "application",
+    "depthMode": "N_PLUS_1",
+    "contextMode": "sdg"
+  },
+  "questionCount": 72,
+  "answerKeyItemCount": 72,
+  "questionNumberCount": 72,
+  "answerNumberCount": 72,
+  "answerNumberSequenceConsistent": true,
+  "answerKeyOffQuestionCount": 72,
+  "answerKeyOffAnswerCount": 0,
+  "publicStatus": "已產生 72 題，可預覽與列印。",
+  "publicPreviewMeta": "Batch A 5A-U08 整數四則｜72 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
+  "answerKeyOffPreviewMeta": "Batch A 5A-U08 整數四則｜72 題｜不含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
+  "queryStateReplay": "pass",
+  "printCalled": true,
+  "previewTitleUndefined": false,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "genericFallback": false,
+  "publicNPlus2": false,
+  "publicFormalEquation": false,
+  "deployedAssets": {
+    "main": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/main.js",
+      "bytes": 20988,
+      "sha256": "e4bd1a56c394133aaadc0f22bd2712a109c4b0aea80e4fc3fa4a9e0c13dbebd2"
+    },
+    "router": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g5a-u08-canonical-router.js",
+      "bytes": 18568,
+      "sha256": "8afc4a77d23bdb60e90d3fc53a8d9d12957144df41cd61c9773f5a74885108c1"
+    },
+    "renderer": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/html-renderer-s60j-extension.js",
+      "bytes": 8596,
+      "sha256": "e38964f62634e0742380f47ed1eae12c6de439afdd7016e663410846d7a9d5b2"
+    },
+    "promotion": {
+      "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5a-u08-promotion.js",
+      "bytes": 3952,
+      "sha256": "548ef83ea867356a42d7dc0230f434dd5f0f8216413b83485ee493934e904241"
+    }
+  },
   "workflow": "G5A-U08-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "30106864115",
-    "number": "169",
+    "id": "30109231773",
+    "number": "170",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30106864115"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30109231773"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-24T15:49:47.362Z"
+  "verifiedAt": "2026-07-24T16:30:28.667Z"
 }
