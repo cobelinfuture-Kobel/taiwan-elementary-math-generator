@@ -25,12 +25,22 @@
       "tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js",
       ".github/workflows/postg-app-w02-a09a-authority-freeze.yml"
     ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
     "beforeAfterEvidencePaths": [
       "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
       "data/curriculum/application/assessment/w02-source13-source-authority-baseline.json",
-      "data/curriculum/knowledge/units/{sourceNodeId}.knowledge-operation.json"
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "data/curriculum/application/controller/postg-app-wave-plan.json"
     ],
+    "reviewArtifactPaths": [],
     "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
   },
   "authorityFinding": {
     "w02SourceNodeCount": 13,
@@ -41,8 +51,8 @@
     "legacyApplicationRoutesFrozen": true
   },
   "distance": {
-    "before": "D1_PARALLEL_APPLICATION_WAVE_AND_PUBLIC_UI_AUTHORITY_DRIFT",
-    "after": "D1_CANONICAL_BATCH_B_KP_AUTHORITY_MATERIALIZATION_REQUIRED",
+    "before": "D1",
+    "after": "D1",
     "distanceReduced": "The parallel W03 expansion path is now fail-closed, the 90 W02 rows are explicitly classified as application-program candidates rather than canonical curriculum KnowledgePoints, and new unit-specific application routes are forbidden pending shared Global Context migration."
   },
   "nextStep": {
