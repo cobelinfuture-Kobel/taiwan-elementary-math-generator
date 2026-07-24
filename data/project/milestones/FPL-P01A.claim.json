@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W1_PRODUCT_ADMISSION_GAP_MATRIX_READY",
+  "claimedStatus": "W1_PRODUCT_ADMISSION_GAP_MATRIX_REBASED_AFTER_CLASSIFICATION_CORRECTION",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -20,6 +20,7 @@
   },
   "evidence": {
     "runtimeTestPaths": [
+      "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
       "src/curriculum/full-product/p01-w1-product-admission-inventory.mjs",
       "tools/curriculum/validate-p01a-w1-product-admission-inventory.mjs",
       "tests/curriculum/p01a-w1-product-admission-inventory.test.js"
@@ -30,7 +31,8 @@
     "beforeAfterEvidencePaths": [
       "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
       "data/curriculum/full-product/p01/w1-product-admission-inventory.manifest.json",
-      "docs/curriculum/contracts/W1_PRODUCT_ADMISSION_INVENTORY_CONTRACT_V1.md",
+      "docs/curriculum/output/GCKG_R04_SHARED_RUNTIME_CAPABILITY_MATRIX_READBACK.md",
+      "docs/curriculum/output/GCKG_R05_DELIVERY_WAVE_REBASE_READBACK.md",
       "docs/curriculum/output/P01A_W1_PRODUCT_ADMISSION_INVENTORY_READBACK.md"
     ],
     "reviewArtifactPaths": [],
@@ -44,10 +46,10 @@
   "distance": {
     "before": "D2",
     "after": "D2",
-    "distanceReduced": "The 22 W1 KnowledgePoints are converted into an exact five-source product queue; zero-row existing-pattern and partial-binding tasks are removed, and the one-KP G4A-U07 vertical slice becomes the shortest valid next step."
+    "distanceReduced": "The false W1 classification of kp_g4a_u07_quantity_multiplicative_pattern is removed; W1 now contains 21 capability-ready product candidates across four source nodes, and G4A-U07 is routed to W6."
   },
   "nextStep": {
-    "taskId": "P01D1_G4AU07QuantityMultiplicativePatternVerticalSlice",
+    "taskId": "P01D1_G5BU05LargeNumberVerticalSlice",
     "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
