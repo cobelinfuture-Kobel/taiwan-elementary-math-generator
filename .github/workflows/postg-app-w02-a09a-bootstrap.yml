@@ -1,6 +1,8 @@
 name: POSTG APP W02 A09A Bootstrap
 
 on:
+  pull_request:
+    branches: [main]
   push:
     branches: [postg-app-w02-a08r4-third-operator-approval]
   workflow_dispatch:
