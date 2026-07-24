@@ -10,6 +10,7 @@ import {
   W03_A00_TASK
 } from './w02-a08r4-third-operator-approval.mjs';
 import {
+  W02_A09A_CLAIM_PATH,
   W02_A09A_NEXT_TASK,
   W02_A09A_POLICY_PATH,
   W02_A09A_STATUS,
@@ -27,7 +28,8 @@ export function loadW02A08R4ControllerEvidence({ root = process.cwd() } = {}) {
     w02A08R4Decision: readJsonIfExists(root, W02_A08R4_DECISION_PATH),
     w02A08R4Evidence: readJsonIfExists(root, W02_A08R4_EVIDENCE_PATH),
     w02A08R4Claim: readJsonIfExists(root, W02_A08R4_CLAIM_PATH),
-    w02A09AFreezePolicy: readJsonIfExists(root, W02_A09A_POLICY_PATH)
+    w02A09AFreezePolicy: readJsonIfExists(root, W02_A09A_POLICY_PATH),
+    w02A09AClaim: readJsonIfExists(root, W02_A09A_CLAIM_PATH)
   };
 }
 
@@ -40,7 +42,8 @@ export function applyW02A08R4ControllerOverlay({ root = process.cwd(), controlle
   const w03 = revised.waveStates.find((row) => row.waveId === 'W03');
   if (!w02 || !w03) return controllerState;
 
-  const freezeActive = loaded.w02A09AFreezePolicy?.executionFreeze?.active === true;
+  const freezeActive = loaded.w02A09AFreezePolicy?.executionFreeze?.active === true
+    && loaded.w02A09AClaim?.claimedStatus === W02_A09A_STATUS;
 
   revised.taskId = freezeActive ? W02_A09A_TASK : W02_A08R4_TASK;
   revised.status = freezeActive ? W02_A09A_STATUS : W02_A08R4_STATUS;
@@ -54,6 +57,7 @@ export function applyW02A08R4ControllerOverlay({ root = process.cwd(), controlle
     active: freezeActive,
     status: loaded.w02A09AFreezePolicy?.status ?? null,
     authorityPath: W02_A09A_POLICY_PATH,
+    claimPath: W02_A09A_CLAIM_PATH,
     blockedWaveIds: loaded.w02A09AFreezePolicy?.executionFreeze?.blockedWaveIds ?? [],
     nextShortestStep: freezeActive ? W02_A09A_NEXT_TASK : W03_A00_TASK
   };
@@ -130,7 +134,8 @@ export function validateW02A08R4ControllerEvidence(controller) {
     w02A08R4Decision: decision,
     w02A08R4Evidence: evidence,
     w02A08R4Claim: claim,
-    w02A09AFreezePolicy: freezePolicy
+    w02A09AFreezePolicy: freezePolicy,
+    w02A09AClaim: freezeClaim
   } = controller;
   if (!decision || decision.operatorDecision !== 'APPROVE' || decision.productionAdmission?.granted !== true) {
     issues.push(issue('POSTG_APP_W02_A08R4_CONTROLLER_DECISION_INVALID', W02_A08R4_DECISION_PATH));
@@ -146,6 +151,13 @@ export function validateW02A08R4ControllerEvidence(controller) {
       || freezePolicy.executionFreeze?.active !== true
       || freezePolicy.executionFreeze?.w03ImplementationMayStart !== false) {
     issues.push(issue('POSTG_APP_W02_A09A_CONTROLLER_FREEZE_INVALID', W02_A09A_POLICY_PATH));
+  }
+  if (!freezeClaim
+      || freezeClaim.actualEvidenceLevel !== 'E3_SHADOW_RUNTIME_INTEGRATED'
+      || freezeClaim.claimedStatus !== W02_A09A_STATUS
+      || freezeClaim.authorityFinding?.w03ExecutionAllowed !== false
+      || freezeClaim.nextStep?.taskId !== W02_A09A_NEXT_TASK) {
+    issues.push(issue('POSTG_APP_W02_A09A_CONTROLLER_CLAIM_INVALID', W02_A09A_CLAIM_PATH));
   }
   return issues;
 }
