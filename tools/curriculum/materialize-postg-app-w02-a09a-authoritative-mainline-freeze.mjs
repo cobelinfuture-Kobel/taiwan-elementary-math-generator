@@ -39,7 +39,7 @@ const controllerPath = 'src/curriculum/application/postg-app-master-controller.m
 insertAfterExact(
   controllerPath,
   `} from './w02-a08r4-third-operator-approval.mjs';\n`,
-  `import {\n  W02_A09A_NEXT_TASK,\n  W02_A09A_STATUS,\n  W02_A09A_TASK\n} from './w02-a09a-authority-reconciliation-freeze.mjs';\n`
+  `import {\n  W02_A09A_NEXT_TASK,\n  W02_A09A_POLICY_PATH,\n  W02_A09A_STATUS,\n  W02_A09A_TASK\n} from './w02-a09a-authority-reconciliation-freeze.mjs';\n`
 );
 insertAfterExact(
   controllerPath,
