@@ -1,0 +1,76 @@
+{
+  "schemaName": "R02SourceAuthorityReconciliationIndexV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R02_G3toG6_79SourceNodeKnowledgePointCandidateReconciliation",
+  "status": "ALL_79_SOURCE_NODES_BOUND_TO_EVIDENCE",
+  "productBaselineMergeSha": "9846627e1263d9dfb3e9e2318989cc5ae94c35dd",
+  "sourceScope": {
+    "sourceRegistryPath": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+    "sourceNodeCount": 79,
+    "existingProductionAuthoritySourceCount": 16,
+    "existingW02CandidateAuthoritySourceCount": 13,
+    "fullPageReviewedMissingSourceCount": 50,
+    "rawSourcePdfCommittedToRepository": false
+  },
+  "existingAuthoritySources": [
+    {"sourceNodeId":"g3a_u01_3a01","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g3a_u02_3a02","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g3a_u02_3a02.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g3a_u03_3a03","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g3a_u03_3a03.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g3a_u06_3a06","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g3a_u06_3a06.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g3a_u08_3a08","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g3a_u08_3a08.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g3b_u01_3b01","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g3b_u04_3b04","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g3b_u04_3b04.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g3b_u07_3b07","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g3b_u07_3b07.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g3b_u08_3b08","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g3b_u09_3b09","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g3b_u09_3b09.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g4a_u01_4a01","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g4a_u01_4a01.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g4a_u02_4a02","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g4a_u02_4a02.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g4a_u04_4a04","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g4a_u06_4a06","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g4a_u06_4a06.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g4a_u08_4a08","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g4a_u08_4a08.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g4a_u09_4a09","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g4a_u09_4a09.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g4b_u01_4b01","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g4b_u01_4b01.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g4b_u03_4b03","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g4b_u03_4b03.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g4b_u04_4b04","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g4b_u04_4b04.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g4b_u06_4b06","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g4b_u06_4b06.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g4b_u08_4b08","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g4b_u08_4b08.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g5a_u01_5a01","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g5a_u01_5a01.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g5a_u02_5a02a","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g5a_u02_5a02a.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g5a_u02_5a02a1","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g5a_u02_5a02a1.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"},
+    {"sourceNodeId":"g5a_u03_5a03a","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g5a_u03_5a03a.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g5a_u03_5a03a1","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g5a_u03_5a03a1.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g5a_u04_5a04","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g5a_u04_5a04.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g5a_u06_5a06","legacyBatchId":"B","authorityPath":"data/curriculum/knowledge/units/g5a_u06_5a06.knowledge-operation.json","projectionMode":"PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION","candidateStatus":"CANDIDATE_ONLY"},
+    {"sourceNodeId":"g5a_u08_5a08","legacyBatchId":"A","authorityPath":"data/curriculum/knowledge/units/g5a_u08_5a08.knowledge-operation.json","projectionMode":"PRODUCTION_AUTHORITY_RECONCILIATION","candidateStatus":"RECONCILED_EXISTING_KP"}
+  ],
+  "reviewedSourceCandidatePackPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+  "semanticIdentityRules": {
+    "canonicalKnowledgePointAliases": {
+      "kp_g4a_u06_fraction_type_classification": "kp_fraction_true_improper_mixed_classification",
+      "kp_g4a_u06_improper_mixed_conversion": "kp_fraction_improper_mixed_integer_conversion",
+      "kp_g4a_u06_fraction_compare_order": "kp_fraction_improper_mixed_compare_order",
+      "kp_g4a_u06_fraction_number_line": "kp_fraction_improper_mixed_number_line",
+      "kp_g4a_u06_mixed_fraction_add_sub": "kp_fraction_same_denominator_mixed_add_sub",
+      "kp_g4a_u06_fraction_times_integer_quantity": "kp_fraction_times_integer_quantity",
+      "kp_g4b_u03_fraction_type_classification": "kp_fraction_true_improper_mixed_classification",
+      "kp_g4b_u03_improper_mixed_conversion": "kp_fraction_improper_mixed_integer_conversion",
+      "kp_g4b_u03_fraction_compare_order": "kp_fraction_improper_mixed_compare_order",
+      "kp_g4b_u03_fraction_number_line": "kp_fraction_improper_mixed_number_line",
+      "kp_g4b_u03_mixed_fraction_add_sub": "kp_fraction_same_denominator_mixed_add_sub",
+      "kp_g4b_u03_fraction_times_integer_quantity": "kp_fraction_times_integer_quantity"
+    },
+    "sharedReviewedKnowledgePointIds": {
+      "sourceNodeIds": ["g6a_u08_6a08", "g6b_u02_6b02"],
+      "knowledgePointIds": ["kp_speed_distance_time_relation","kp_speed_unit_conversion","kp_average_speed_total_distance_time","kp_relative_speed_meeting_chasing","kp_effective_speed_current_wind"],
+      "policy": "MERGE_SOURCE_REFS_KEEP_ONE_SEMANTIC_IDENTITY"
+    }
+  },
+  "mainlineBoundary": {
+    "currentProductionConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "productionCutoverAllowed": false,
+    "parallelAuthorityAllowed": false,
+    "parallelRuntimePipelineAllowed": false,
+    "nextCutoverTask": "R07_AuthoritativeConsumerCutover"
+  }
+}
