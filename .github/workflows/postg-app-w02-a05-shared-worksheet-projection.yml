@@ -1,22 +1,7 @@
 name: POSTG-APP W02-A05 Shared Worksheet Projection
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/registry/application-capability-registry.json"
-      - "data/curriculum/application/registry/wave-application-admission-registry.json"
-      - "data/curriculum/application/assessment/w02-shared-worksheet-projection-*.json"
-      - "data/curriculum/application/schema/shared/*.schema.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W02-A05_*.json"
-      - "data/project/milestones/POSTG-APP-W02-A05.claim.json"
-      - "src/curriculum/application/shared/application-capability-resolver.mjs"
-      - "src/curriculum/application/shared/worksheet-projection-runtime.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a05-shared-worksheet-projection.mjs"
-      - "tests/curriculum/postg-app-w02-a05-shared-worksheet-projection.test.js"
-      - "tests/fixtures/curriculum/postg-app-w02-a05-future-wave-registry.json"
-      - "docs/curriculum/output/POSTG_APP_W02_A05_*"
-      - ".github/workflows/postg-app-w02-a05-shared-worksheet-projection.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:

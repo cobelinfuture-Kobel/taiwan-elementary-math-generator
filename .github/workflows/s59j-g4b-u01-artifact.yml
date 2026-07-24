@@ -1,12 +1,7 @@
 name: S59J G4B-U01 HTML PDF Smoke
 
 on:
-  push:
-    branches:
-      - s59j-g4b-u01-production-closeout
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

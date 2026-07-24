@@ -1,12 +1,7 @@
 name: S60L G5A-U08 HTML PDF Smoke
 
 on:
-  push:
-    branches:
-      - s60l-g5a-u08-production-stress
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

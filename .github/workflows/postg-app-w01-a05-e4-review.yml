@@ -1,24 +1,7 @@
 name: POSTG-APP W01-A05 E4 Human Review
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "src/curriculum/application/w01-e4-production-review-runtime.mjs"
-      - "site/assets/browser/pipeline/build-worksheet-document.js"
-      - "site/modules/core/worksheet-formatting.js"
-      - "tools/curriculum/generate-postg-app-w01-a05-review-artifacts.mjs"
-      - "tools/curriculum/render-postg-app-w01-a05-review-pdf.mjs"
-      - "tools/curriculum/finalize-postg-app-w01-a05-review-evidence.mjs"
-      - "tools/governance/promote-postg-app-w01-a05-e4-claim.mjs"
-      - "tests/curriculum/postg-app-w01-a05-e4-review.test.js"
-      - "data/project/milestones/POSTG-APP-W01-A05.claim.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation.json"
-      - "docs/curriculum/application/contracts/POSTG_APP_W01_E4_Production_Review_And_Human_Decision_V1.md"
-      - "docs/curriculum/output/POSTG_APP_W01_A05_E4_HUMAN_REVIEW_READY.marker"
-      - "docs/curriculum/output/POSTG_APP_W01_A05_E4_HUMAN_REVIEW_READBACK.md"
-      - "docs/curriculum/output/postg-app/**"
-      - ".github/workflows/postg-app-w01-a05-e4-review.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:

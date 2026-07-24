@@ -1,22 +1,7 @@
 name: GS06 Golden Batch Controller Anti-Drift and D0
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "site/modules/curriculum/**"
-      - "tools/governance/milestone-claim-integrity-core.mjs"
-      - "tools/governance/validate-gs06-golden-controller.mjs"
-      - "tests/governance/milestone-claim-integrity.test.js"
-      - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
-      - "data/curriculum/golden/**"
-      - "data/curriculum/contracts/GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout.json"
-      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
-      - "data/project/milestones/GS06.claim.json"
-      - "docs/curriculum/output/GS06_G5AU08_GOLDEN_CONTROLLER_PENDING.marker"
-      - "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_PASS.marker"
-      - "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_READBACK.md"
-      - ".github/workflows/**"
+  workflow_call:
   workflow_dispatch:
 
 permissions:

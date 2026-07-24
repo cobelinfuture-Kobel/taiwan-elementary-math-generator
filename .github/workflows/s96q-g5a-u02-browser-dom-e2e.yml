@@ -1,9 +1,7 @@
 name: S96Q G5A-U02 Browser DOM E2E
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

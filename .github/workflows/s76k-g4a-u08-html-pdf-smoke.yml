@@ -1,12 +1,7 @@
 name: S76K G4A-U08 HTML PDF Smoke
 
 on:
-  push:
-    branches:
-      - s76k-g4a-u08-full-source-stress-semantic-qa
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

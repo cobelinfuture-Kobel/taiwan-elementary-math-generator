@@ -1,21 +1,7 @@
 name: POSTG-APP W02-A08R2 Second Operator Review
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "docs/curriculum/output/postg-app/w02-a08r2/**"
-      - "data/curriculum/application/reviews/POSTG-APP-W02-A08R2_*.json"
-      - "data/project/milestones/POSTG-APP-W02-A08R2.claim.json"
-      - "src/curriculum/application/w02-a08r2-*.mjs"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "tools/curriculum/materialize-postg-app-w02-a08r2-controller.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a08r2-second-operator-review-decision.mjs"
-      - "tests/curriculum/postg-app-w02-a08r2-second-operator-review-decision.test.js"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js"
-      - ".github/workflows/postg-app-w02-a08r2-second-operator-review.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:

@@ -1,26 +1,7 @@
 name: POSTG-APP W02-A08 Operator Review Remediation
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "src/curriculum/application/shared/student-facing-operation-surface.mjs"
-      - "src/curriculum/application/shared/student-facing-semantic-remediation-v2.mjs"
-      - "src/curriculum/application/shared/student-facing-semantic-context-bridge.mjs"
-      - "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
-      - "src/curriculum/application/w02-a08-operator-review-decision.mjs"
-      - "src/curriculum/application/w02-a08r1-student-facing-remediation.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a08-operator-review-decision.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a08r1-student-facing-remediation.mjs"
-      - "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
-      - "tests/curriculum/postg-app-w02-a08-operator-review-decision.test.js"
-      - "tests/curriculum/postg-app-w02-a08r1-student-facing-remediation.test.js"
-      - "tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "data/curriculum/application/reviews/POSTG-APP-W02-A08*.json"
-      - "data/project/milestones/POSTG-APP-W02-A08.claim.json"
-      - ".github/workflows/postg-app-w02-a08-operator-review-remediation.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:

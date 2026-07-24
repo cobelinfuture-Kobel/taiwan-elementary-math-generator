@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "postg-ci-two-gate-policy-v3",
+  "task": "POSTG-CI-GOV-W01W02R1_TriggerOnlyPreservingHistoricalWorkflowContracts",
+  "status": "IMPLEMENTED_PENDING_PR_CI",
+  "scope": "repository pull-request trigger routing with historical workflow body preservation",
+  "requiredPullRequestGates": [
+    "POSTG Application PR Gate",
+    "Node Test"
+  ],
+  "maxRequiredPullRequestGateCount": 2,
+  "historicalWorkflowMode": "workflow_call_and_workflow_dispatch_only",
+  "historicalBodyContract": "name_permissions_concurrency_jobs_steps_preserved_trigger_only_changed",
+  "historicalPostgWorkflowPaths": [
+    ".github/workflows/postg-app-w01-a05-e4-review.yml",
+    ".github/workflows/postg-app-w01-a06e-operator-approval.yml",
+    ".github/workflows/postg-app-w02-a00-source-assessment.yml",
+    ".github/workflows/postg-app-w02-a01a-source-pdf-evidence.yml",
+    ".github/workflows/postg-app-w02-a01b-page-knowledge-operation-candidates.yml",
+    ".github/workflows/postg-app-w02-a01c-canonical-operation-models.yml",
+    ".github/workflows/postg-app-w02-a01d-hidden-pattern-specs.yml",
+    ".github/workflows/postg-app-w02-a02-candidate-pack.yml",
+    ".github/workflows/postg-app-w02-a03-nplusone-pbl.yml",
+    ".github/workflows/postg-app-w02-a04-validator-shadow.yml",
+    ".github/workflows/postg-app-w02-a05-shared-worksheet-projection.yml",
+    ".github/workflows/postg-app-w02-a06-production-equivalent-html-pdf.yml",
+    ".github/workflows/postg-app-w02-a08-operator-review-remediation.yml",
+    ".github/workflows/postg-app-w02-a08r2-second-operator-review.yml",
+    ".github/workflows/postg-app-w02-a08r3-numeric-surface-remediation.yml"
+  ],
+  "historicalLegacyWorkflowPaths": [
+    ".github/workflows/s59j-g4b-u01-artifact.yml",
+    ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml",
+    ".github/workflows/s96g-g5a-u02-dynamic-html-pdf-stress.yml",
+    ".github/workflows/s95-g5a-u02-production-stress-html-pdf.yml",
+    ".github/workflows/s96d-g5a-u02-focused-test.yml",
+    ".github/workflows/s42-branch-test.yml",
+    ".github/workflows/s96q-g5a-u02-browser-dom-e2e.yml",
+    ".github/workflows/s60l-g5a-u08-artifact.yml",
+    ".github/workflows/s96i-g5a-u02-live-browser-e2e.yml",
+    ".github/workflows/s96r-g5a-u02-control-matrix-html-pdf-stress.yml",
+    ".github/workflows/s59j-r1-g4b-u01-layout.yml",
+    ".github/workflows/g4b-u04-r2d-layout-smoke.yml",
+    ".github/workflows/s75-g4b-u04-artifact.yml",
+    ".github/workflows/g4b-u04-r2f-production-matrix.yml",
+    ".github/workflows/s76k-g4a-u08-html-pdf-smoke.yml",
+    ".github/workflows/s76r-g4a-u08-full-source-html-pdf.yml",
+    ".github/workflows/s93-g5a-u02-hidden-html-pdf-smoke.yml",
+    ".github/workflows/s96d-g5a-u02-browser-bundle.yml"
+  ],
+  "activeGlobalWorkflowContracts": [
+    {
+      "path": ".github/workflows/ci-readback.yml",
+      "mode": "push_main_and_workflow_dispatch_without_pull_request",
+      "preserveMainReadbackPublication": true
+    }
+  ],
+  "publicationContract": {
+    "singleTree": true,
+    "singleCommitBeforePullRequest": true,
+    "singlePullRequest": true,
+    "actionsAsFilePublisher": false,
+    "actionsAsIterativeDebugger": false,
+    "markerCommitTriggerAllowed": false
+  },
+  "exactHeadAcceptance": {
+    "expectedWorkflowNames": [
+      "POSTG Application PR Gate",
+      "Node Test"
+    ],
+    "maximumWorkflowRunCount": 2,
+    "unrelatedUnitWorkflowRunCount": 0
+  },
+  "nextShortestStep": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
+}

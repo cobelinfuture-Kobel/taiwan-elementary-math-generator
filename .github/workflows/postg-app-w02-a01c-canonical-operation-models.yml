@@ -1,23 +1,7 @@
 name: POSTG-APP W02-A01C Canonical Operation Models
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/operations/w02/**"
-      - "data/curriculum/application/schema/w02-canonical-operation-unit.schema.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization.json"
-      - "data/project/milestones/POSTG-APP-W02-A01C.claim.json"
-      - "tools/curriculum/materialize-postg-app-w02-a01c-canonical-operation-models.mjs"
-      - "src/curriculum/application/w02-canonical-operation-models.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a01c-canonical-operation-models.mjs"
-      - "tests/curriculum/postg-app-w02-a01c-canonical-operation-models.test.js"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "docs/curriculum/output/POSTG_APP_W02_A01C_CANONICAL_OPERATION_MODELS_MATERIALIZED.marker"
-      - "docs/curriculum/output/POSTG_APP_W02_A01C_CANONICAL_OPERATION_MODELS_READBACK.md"
-      - ".github/workflows/postg-app-w02-a01c-canonical-operation-models.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:

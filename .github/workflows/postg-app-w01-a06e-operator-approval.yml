@@ -1,22 +1,7 @@
 name: POSTG-APP W01-A06E Operator Approval
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json"
-      - "data/curriculum/application/controller/postg-app-wave-plan.json"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "src/curriculum/application/w01-a06e-operator-approval-runtime.mjs"
-      - "tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs"
-      - "tests/curriculum/postg-app-w01-a06e-operator-approval.test.js"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "docs/curriculum/output/POSTG_APP_W01_A06E_OPERATOR_APPROVAL_READY.marker"
-      - "docs/curriculum/output/POSTG_APP_W01_A06E_OPERATOR_APPROVAL_READBACK.md"
-      - ".github/workflows/postg-app-w01-a06e-operator-approval.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:

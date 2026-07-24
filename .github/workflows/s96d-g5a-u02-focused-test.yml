@@ -1,9 +1,7 @@
 name: S96D G5A-U02 Focused Test
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

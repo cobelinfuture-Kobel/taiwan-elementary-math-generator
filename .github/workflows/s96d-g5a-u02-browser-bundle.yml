@@ -1,12 +1,7 @@
 name: S96D G5A-U02 Browser Bundle
 
 on:
-  push:
-    branches:
-      - feat/s96d-g5a-u02-arbitrary-regeneration
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

@@ -1,12 +1,7 @@
 name: S75 G4B-U04 HTML PDF Smoke
 
 on:
-  push:
-    branches:
-      - s75-g4b-u04-production-stress-html-pdf-d0
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

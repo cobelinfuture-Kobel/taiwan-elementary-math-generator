@@ -3,12 +3,7 @@ name: S42 Branch Test
 # S42 no-stream CI diagnostic marker: 2026-07-03T00:00:00+08:00
 
 on:
-  push:
-    branches:
-      - s42-batch-a-web-worksheet-port
-  pull_request:
-    branches:
-      - main
+  workflow_call:
   workflow_dispatch:
 
 permissions:

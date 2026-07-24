@@ -1,25 +1,7 @@
 name: POSTG-APP W02-A06 Production-equivalent HTML PDF
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/contracts/POSTG-APP-W02-A06_*.json"
-      - "data/project/milestones/POSTG-APP-W02-A06.claim.json"
-      - "src/curriculum/application/shared/operation-family-runtime.mjs"
-      - "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs"
-      - "src/curriculum/application/shared/student-facing-operation-surface.mjs"
-      - "src/curriculum/application/shared/student-facing-semantic-remediation-v2.mjs"
-      - "src/curriculum/application/shared/student-facing-semantic-context-bridge.mjs"
-      - "site/assets/browser/pipeline/build-worksheet-document.js"
-      - "tools/curriculum/generate-postg-app-w02-a06-artifacts.mjs"
-      - "tools/curriculum/render-postg-app-w02-a06-pdf.mjs"
-      - "tools/curriculum/finalize-postg-app-w02-a06-artifacts.mjs"
-      - "tools/curriculum/verify-postg-app-w02-a06-pdf.py"
-      - "tools/curriculum/validate-postg-app-w02-a06-production-equivalent-html-pdf.mjs"
-      - "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
-      - "tests/curriculum/postg-app-w02-a08r1-semantic-quality.test.js"
-      - ".github/workflows/postg-app-w02-a06-production-equivalent-html-pdf.yml"
+  workflow_call:
   workflow_dispatch:
 
 permissions:
