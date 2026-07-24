@@ -32,6 +32,15 @@ export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
     title: "因數與公因數",
     domain: "factors_common_factors",
     lifecycle: "public_canonical_static_release"
+  }),
+  Object.freeze({
+    sourceId: "g5b_u05_5b05a",
+    grade: 5,
+    semester: "lower",
+    unitCode: "5B-U05",
+    title: "數的十進位結構與億以上的數",
+    domain: "large_number_place_value",
+    lifecycle: "full_product_w1_vertical_slice"
   })
 ]);
 
