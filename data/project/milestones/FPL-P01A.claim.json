@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P01A_W1ProductAdmissionInventoryAndGapMatrix",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W1_PRODUCT_ADMISSION_GAP_MATRIX_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p01-w1-product-admission-inventory.mjs",
+      "tools/curriculum/validate-p01a-w1-product-admission-inventory.mjs",
+      "tests/curriculum/p01a-w1-product-admission-inventory.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
+      "data/curriculum/full-product/p01/w1-product-admission-inventory.manifest.json",
+      "docs/curriculum/contracts/W1_PRODUCT_ADMISSION_INVENTORY_CONTRACT_V1.md",
+      "docs/curriculum/output/P01A_W1_PRODUCT_ADMISSION_INVENTORY_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "The 22 W1 KnowledgePoints are converted from an abstract wave count into a machine-validated source and product-admission gap matrix without silently promoting capability-ready nodes to production."
+  },
+  "nextStep": {
+    "taskId": "P01B_W1ExistingPatternAdmission",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
