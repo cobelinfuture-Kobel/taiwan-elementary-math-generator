@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "taskId": "R03_GlobalPrerequisiteGraph",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "GLOBAL_KP_PREREQUISITE_GRAPH_SHADOW_AUTHORITY_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r03-global-kp-prerequisite-graph.mjs",
+      "tools/curriculum/validate-r03-global-kp-prerequisite-graph.mjs",
+      "tests/curriculum/r03-global-kp-prerequisite-graph.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/global/graph/r03/global-kp-prerequisite-graph.manifest.json",
+      "data/curriculum/global/graph/r03/root-knowledge-points.json",
+      "data/curriculum/global/graph/r03/edge-pack/edge-pack-01.b64.txt",
+      "data/curriculum/global/graph/r03/edge-pack/edge-pack-02.b64.txt",
+      "data/curriculum/global/graph/r03/edge-pack/edge-pack-03.b64.txt",
+      "data/curriculum/global/graph/r03/edge-pack/edge-pack-04.b64.txt",
+      "data/curriculum/global/schema/global-kp-prerequisite-edge.schema.json",
+      "docs/curriculum/contracts/GLOBAL_KP_PREREQUISITE_GRAPH_CONTRACT_V1.md",
+      "docs/curriculum/output/GCKG_R03_GLOBAL_KP_PREREQUISITE_GRAPH_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "All 482 canonical KnowledgePoints now participate in a machine-validated direct prerequisite graph with mastered-set N+1 readiness while production consumers remain unchanged."
+  },
+  "nextStep": {
+    "taskId": "R04_SharedRuntimeCapabilityMatrix",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
