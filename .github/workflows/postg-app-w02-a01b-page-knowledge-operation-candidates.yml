@@ -1,29 +1,13 @@
 name: POSTG-APP W02-A01B Page KnowledgeOperation Candidates
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/knowledge/units/*.knowledge-operation.json"
-      - "data/curriculum/application/schema/w02-knowledge-operation-candidate.schema.json"
-      - "data/curriculum/application/contracts/POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification.json"
-      - "data/project/milestones/POSTG-APP-W02-A01B.claim.json"
-      - "src/curriculum/application/w02-page-knowledge-operation-candidates.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a01b-page-knowledge-operation-candidates.mjs"
-      - "tests/curriculum/postg-app-w02-a01b-page-knowledge-operation-candidates.test.js"
-      - "data/curriculum/application/controller/postg-app-master-controller-state.json"
-      - "src/curriculum/application/postg-app-master-controller.mjs"
-      - "tests/curriculum/postg-app-m00-master-controller.test.js"
-      - "docs/curriculum/output/POSTG_APP_W02_A01B_KP_CANDIDATES_CLASSIFIED.marker"
-      - "docs/curriculum/output/POSTG_APP_W02_A01B_KP_CANDIDATES_READBACK.md"
-      - ".github/workflows/postg-app-w02-a01b-page-knowledge-operation-candidates.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: postg-app-w02-a01b-${{ github.event.pull_request.number || github.ref }}
+  group: postg-app-w02-a01b-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
