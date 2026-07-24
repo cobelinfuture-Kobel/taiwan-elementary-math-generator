@@ -1,0 +1,32 @@
+name: R03 Export Global KP Node Snapshot
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "tools/curriculum/export-r03-global-kp-node-snapshot.mjs"
+      - ".github/workflows/r03-export-kp-node-snapshot.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    if: github.head_ref == 'curriculum/global-kp-rebase-r03'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Export canonical KP snapshot
+        run: node tools/curriculum/export-r03-global-kp-node-snapshot.mjs
+      - name: Upload canonical KP snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: r03-global-kp-node-snapshot
+          path: tmp/r03-global-kp-node-snapshot.json
+          if-no-files-found: error
+          retention-days: 7
