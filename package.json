@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "pretest": "node --input-type=module -e \"import('./tools/curriculum/audit-15-unit-public-worksheet-closeout.mjs').then(({auditFifteenUnitPublicWorksheetCloseout:a})=>{const r=a();console.log('CLOSEOUT_METRICS='+JSON.stringify(r.metrics));console.log('CLOSEOUT_BLOCKERS='+JSON.stringify(r.rows.filter(x=>x.blockers.length).map(({sourceId,blockers,errors})=>({sourceId,blockers,errors}))));})\"",
+    "pretest": "node --input-type=module -e \"import fs from 'node:fs';import {auditFifteenUnitPublicWorksheetCloseout as a} from './tools/curriculum/audit-15-unit-public-worksheet-closeout.mjs';const r=a();fs.mkdirSync('tmp',{recursive:true});fs.writeFileSync('tmp/15-unit-public-worksheet-closeout-report.json',JSON.stringify(r,null,2));console.log('CLOSEOUT_METRICS='+JSON.stringify(r.metrics));console.log('CLOSEOUT_BLOCKERS='+JSON.stringify(r.rows.filter(x=>x.blockers.length).map(({sourceId,blockers})=>({sourceId,blockers}))));\"",
     "test": "node --test",
     "governance:claims": "node tools/governance/validate-milestone-claim-integrity.mjs",
     "governance:claims:pr": "node tools/governance/validate-milestone-claim-integrity.mjs --require-pr-manifest",
