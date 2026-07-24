@@ -82,8 +82,8 @@ import {
 function normalizeAuthoritativeMaterializer() {
   const original = fs.readFileSync(authoritativeMaterializerPath, 'utf8');
   const next = original.split(incompleteA09AImport).join(completeA09AImport);
-  if (!next.includes(completeA09AImport) || next.includes(incompleteA09AImport)) {
-    throw new Error('A09A authoritative materializer still emits the incomplete import');
+  if (!next.includes(completeA09AImport)) {
+    throw new Error('A09A authoritative materializer does not emit the complete import');
   }
   if (next !== original) {
     fs.writeFileSync(authoritativeMaterializerPath, next);
