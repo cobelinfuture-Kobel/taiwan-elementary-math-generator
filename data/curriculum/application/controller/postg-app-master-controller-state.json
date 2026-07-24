@@ -328,7 +328,9 @@
       "thirdOperatorReviewReady": true,
       "thirdOperatorReviewComplete": true,
       "productionRuntimeAccessEnabled": true,
-      "publicRouteChanged": false
+      "publicRouteChanged": false,
+      "canonicalCurriculumAuthorityReconciliationRequired": true,
+      "canonicalCurriculumAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json"
     },
     {
       "waveId": "W03",
@@ -338,7 +340,11 @@
       "productionAdmissionGranted": false,
       "reviewDecision": null,
       "shadowProjectionAllowed": false,
-      "publicSelectable": false
+      "publicSelectable": false,
+      "executionFrozen": true,
+      "implementationAllowed": false,
+      "freezeStatus": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
+      "freezeAuthorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json"
     },
     {
       "waveId": "W04",
@@ -366,8 +372,21 @@
     "producerTaskId": "POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision",
     "authoritativeState": "data/curriculum/application/reviews/POSTG-APP-W02-A08R4_RegeneratedHTMLPDFThirdOperatorReviewDecision.json",
     "runtimeConsumer": "src/curriculum/application/shared/application-capability-resolver.mjs",
-    "readbackStatus": "W02_PRODUCTION_ADMITTED_W03_ASSESSMENT_READY"
+    "readbackStatus": "W02_PRODUCTION_ADMITTED_W03_ASSESSMENT_READY",
+    "mainlineExecutionFreezeAuthority": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json"
   },
-  "nextShortestStep": "POSTG-APP-W03-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
-  "stopReason": "NONE"
+  "nextShortestStep": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation",
+  "stopReason": "NONE",
+  "mainlineExecutionFreeze": {
+    "active": true,
+    "status": "W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN",
+    "authorityPath": "data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json",
+    "blockedWaveIds": [
+      "W03",
+      "W04",
+      "W05",
+      "W06"
+    ],
+    "nextShortestStep": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
+  }
 }
