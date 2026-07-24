@@ -69,9 +69,30 @@ function answerKeyCount(document) {
     ?? 0;
 }
 
+function authorityEvidence(document) {
+  const metadata = document?.metadata?.r07AuthoritativeConsumerCutover;
+  const config = document?.configSnapshot?.globalAuthorityCutover;
+  const publicMode = document?.publicControls?.authorityMode;
+  const authorityMode = metadata?.authorityMode ?? config?.authorityMode ?? null;
+  const legacyAuthorityRole = metadata?.legacyAuthorityRole ?? config?.legacyAuthorityRole ?? null;
+  return {
+    authorityMode,
+    legacyAuthorityRole,
+    metadataPresent: Boolean(metadata),
+    configSnapshotPresent: Boolean(config),
+    publicControlsAuthorityMode: publicMode ?? null,
+    valid: metadata?.authorityMode === "GLOBAL_PRIMARY"
+      && config?.authorityMode === "GLOBAL_PRIMARY"
+      && publicMode === "GLOBAL_PRIMARY"
+      && legacyAuthorityRole === "COMPATIBILITY_ALIAS_READ_ONLY",
+  };
+}
+
 function assertDocument(document, testCase) {
   if (!document || questionCount(document) <= 0) throw new Error(`WORKSHEET_EMPTY:${testCase.sourceId}:${testCase.questionMode}`);
   if (answerKeyCount(document) <= 0) throw new Error(`ANSWER_KEY_EMPTY:${testCase.sourceId}:${testCase.questionMode}`);
+  const authority = authorityEvidence(document);
+  if (!authority.valid) throw new Error(`GLOBAL_AUTHORITY_EVIDENCE_INVALID:${testCase.sourceId}:${testCase.questionMode}:${JSON.stringify(authority)}`);
   const corpus = JSON.stringify(document).toLowerCase();
   if (testCase.questionMode === "application" && (!corpus.includes("application") || !corpus.includes("globalcontext"))) {
     throw new Error(`APPLICATION_GLOBAL_CONTEXT_EVIDENCE_MISSING:${testCase.sourceId}`);
@@ -105,6 +126,7 @@ async function renderPdfCases(browser) {
     }
     const document = result.worksheetDocument;
     assertDocument(document, testCase);
+    const authority = authorityEvidence(document);
     const html = renderWorksheetDocumentToHtml(document, {
       title: `${testCase.unitCode} ${testCase.title} ${testCase.questionMode}`,
       stylesheetHref: pathToFileURL(STYLE_PATH).href,
@@ -146,6 +168,9 @@ async function renderPdfCases(browser) {
       questionMode: testCase.questionMode,
       questionCount: questionCount(document),
       answerKeyCount: answerKeyCount(document),
+      authorityMode: authority.authorityMode,
+      legacyAuthorityRole: authority.legacyAuthorityRole,
+      globalAuthorityEvidencePass: authority.valid,
       htmlBytes: Buffer.byteLength(html),
       htmlSha256: sha256(html),
       pdfBytes: pdf.length,
@@ -217,12 +242,14 @@ try {
   report = {
     schemaName: "FifteenUnitPublicWorksheetChromiumAcceptanceV1",
     programId: contract.programId,
+    migrationTaskId: "R08_15UnitGlobalMigrationUIHTMLPDFCloseout",
     status: "PASS",
     expectedCaseCount: 35,
     actualCaseCount: pdfRows.length,
     numericPdfPass: pdfRows.filter((row) => row.questionMode === "numeric").length,
     applicationPdfPass: pdfRows.filter((row) => row.questionMode === "application").length,
     pblPdfPass: pdfRows.filter((row) => row.questionMode === "pbl").length,
+    globalAuthorityPrimaryPass: pdfRows.filter((row) => row.globalAuthorityEvidencePass).length,
     overflowFindingCount: pdfRows.reduce((sum, row) => sum + row.overflowFindingCount, 0),
     ui,
     rows: pdfRows,
@@ -231,6 +258,7 @@ try {
     || report.numericPdfPass !== 15
     || report.applicationPdfPass !== 15
     || report.pblPdfPass !== 5
+    || report.globalAuthorityPrimaryPass !== 35
     || report.overflowFindingCount !== 0
     || report.ui.status !== "PASS") {
     throw new Error(`CHROMIUM_ACCEPTANCE_COUNT_MISMATCH:${JSON.stringify(report)}`);
