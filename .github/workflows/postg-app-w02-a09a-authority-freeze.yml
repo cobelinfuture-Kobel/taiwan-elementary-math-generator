@@ -1,0 +1,27 @@
+name: POSTG APP W02 A09A Authority Freeze
+
+on:
+  pull_request:
+  push:
+    branches: [main, postg-app-w02-a08r4-third-operator-approval]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  authority-freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Validate canonical authority gap and W03 freeze
+        run: node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
+      - name: Focused A09A tests
+        run: node --test tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
+      - name: Full regression
+        run: npm test
