@@ -5,9 +5,10 @@ import { listW01PublicApplicationGroupsForKnowledgePoint } from "./w01-public-ap
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "./fifteen-unit-public-application-groups.js";
 
 const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
-const G4A_U01_APPLICATION_KNOWLEDGE_POINTS = new Set([
+const BASE_APPLICATION_KNOWLEDGE_POINTS = new Set([
   "kp_g4a_u01_comparison_word_problem_total",
   "kp_g4a_u01_large_number_unit_word_problem_add_subtract",
+  "kp_g4b_u01_3digit_by_3digit",
 ]);
 
 function dedupeGroups(groups) {
@@ -15,7 +16,7 @@ function dedupeGroups(groups) {
 }
 
 function normalizeBaseGroup(group, knowledgePointId) {
-  if (!G4A_U01_APPLICATION_KNOWLEDGE_POINTS.has(knowledgePointId)) return group;
+  if (!BASE_APPLICATION_KNOWLEDGE_POINTS.has(knowledgePointId)) return group;
   return {
     ...group,
     mode: "application",
@@ -71,7 +72,7 @@ export function validateFifteenUnitApplicationSelectorComposition() {
     ["kp_g4a_u01_comparison_word_problem_total", "pg_g4a_u01_comparison_word_problem_total"],
     ["kp_g4a_u02_3digit_by_1digit_review", "closeout_app_pg_g4a_u02_3digit_by_1digit"],
     ["kp_g4a_u04_4digit_by_1digit_thousands_exact", "closeout_app_pg_g4a_u04_4digit_by_1digit"],
-    ["kp_g4b_u01_3digit_by_3digit", "closeout_app_pg_g4b_u01_3digit_by_3digit"],
+    ["kp_g4b_u01_3digit_by_3digit", "pg_g4b_u01_3digit_by_3digit"],
   ];
   for (const [knowledgePointId, patternGroupId] of expected) {
     const groups = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
