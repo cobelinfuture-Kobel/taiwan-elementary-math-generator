@@ -9,6 +9,10 @@ import {
   W02_A08R4_TASK,
   W03_A00_TASK
 } from './w02-a08r4-third-operator-approval.mjs';
+import {
+  W02_A09A_POLICY_PATH,
+  W02_A09A_STATUS
+} from './w02-a09a-authority-reconciliation-freeze.mjs';
 
 const readJsonIfExists = (root, repoPath) => {
   const absolute = path.join(root, repoPath);
@@ -20,7 +24,8 @@ export function loadW02A08R4ControllerEvidence({ root = process.cwd() } = {}) {
   return {
     w02A08R4Decision: readJsonIfExists(root, W02_A08R4_DECISION_PATH),
     w02A08R4Evidence: readJsonIfExists(root, W02_A08R4_EVIDENCE_PATH),
-    w02A08R4Claim: readJsonIfExists(root, W02_A08R4_CLAIM_PATH)
+    w02A08R4Claim: readJsonIfExists(root, W02_A08R4_CLAIM_PATH),
+    w02A09AFreezePolicy: readJsonIfExists(root, W02_A09A_POLICY_PATH)
   };
 }
 
@@ -39,6 +44,13 @@ export function applyW02A08R4ControllerOverlay({ root = process.cwd(), controlle
   revised.currentCapability = 'W03_ASSESSMENT_READY';
   revised.currentMainlineBlocker = 'W03_SOURCE_ASSESSMENT_PENDING';
   revised.nextShortestStep = W03_A00_TASK;
+  revised.mainlineExecutionFreeze = {
+    active: Boolean(loaded.w02A09AFreezePolicy?.executionFreeze?.active),
+    status: loaded.w02A09AFreezePolicy?.status ?? null,
+    authorityPath: W02_A09A_POLICY_PATH,
+    blockedWaveIds: loaded.w02A09AFreezePolicy?.executionFreeze?.blockedWaveIds ?? [],
+    nextShortestStep: loaded.w02A09AFreezePolicy?.mainline?.nextShortestStep ?? W03_A00_TASK
+  };
   revised.productionAdmission = {
     ...(revised.productionAdmission ?? {}),
     applicationUnitCount: 25,
@@ -74,7 +86,9 @@ export function applyW02A08R4ControllerOverlay({ root = process.cwd(), controlle
     productionAdmittedCandidateCount: 195,
     publicSelectableCandidateCount: 0,
     productionRuntimeAccessEnabled: true,
-    publicRouteChanged: false
+    publicRouteChanged: false,
+    canonicalCurriculumAuthorityReconciliationRequired: true,
+    canonicalCurriculumAuthorityPath: W02_A09A_POLICY_PATH
   });
 
   Object.assign(w03, {
@@ -83,21 +97,31 @@ export function applyW02A08R4ControllerOverlay({ root = process.cwd(), controlle
     productionAdmissionGranted: false,
     reviewDecision: null,
     shadowProjectionAllowed: false,
-    publicSelectable: false
+    publicSelectable: false,
+    executionFrozen: true,
+    implementationAllowed: false,
+    freezeStatus: W02_A09A_STATUS,
+    freezeAuthorityPath: W02_A09A_POLICY_PATH
   });
 
   revised.producerStateConsumerReadback = {
     producerTaskId: W02_A08R4_TASK,
     authoritativeState: W02_A08R4_DECISION_PATH,
     runtimeConsumer: 'src/curriculum/application/shared/application-capability-resolver.mjs',
-    readbackStatus: W02_A08R4_STATUS
+    readbackStatus: W02_A08R4_STATUS,
+    mainlineExecutionFreezeAuthority: W02_A09A_POLICY_PATH
   };
   return revised;
 }
 
 export function validateW02A08R4ControllerEvidence(controller) {
   const issues = [];
-  const { w02A08R4Decision: decision, w02A08R4Evidence: evidence, w02A08R4Claim: claim } = controller;
+  const {
+    w02A08R4Decision: decision,
+    w02A08R4Evidence: evidence,
+    w02A08R4Claim: claim,
+    w02A09AFreezePolicy: freezePolicy
+  } = controller;
   if (!decision || decision.operatorDecision !== 'APPROVE' || decision.productionAdmission?.granted !== true) {
     issues.push(issue('POSTG_APP_W02_A08R4_CONTROLLER_DECISION_INVALID', W02_A08R4_DECISION_PATH));
   }
@@ -106,6 +130,12 @@ export function validateW02A08R4ControllerEvidence(controller) {
   }
   if (!claim || claim.actualEvidenceLevel !== 'E5_PRODUCTION_ADMITTED' || claim.claims?.productionAdmitted !== true) {
     issues.push(issue('POSTG_APP_W02_A08R4_CONTROLLER_CLAIM_INVALID', W02_A08R4_CLAIM_PATH));
+  }
+  if (!freezePolicy
+      || freezePolicy.status !== W02_A09A_STATUS
+      || freezePolicy.executionFreeze?.active !== true
+      || freezePolicy.executionFreeze?.w03ImplementationMayStart !== false) {
+    issues.push(issue('POSTG_APP_W02_A09A_CONTROLLER_FREEZE_INVALID', W02_A09A_POLICY_PATH));
   }
   return issues;
 }
