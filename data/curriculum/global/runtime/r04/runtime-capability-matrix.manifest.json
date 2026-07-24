@@ -1,0 +1,45 @@
+{
+  "schemaName": "R04SharedRuntimeCapabilityMatrixManifestV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R04_SharedRuntimeCapabilityMatrix",
+  "status": "SHARED_RUNTIME_CAPABILITY_MATRIX_SHADOW_AUTHORITY_READY",
+  "sourceAuthorities": {
+    "knowledgePoints": "R02_G3toG6_79SourceNodeKnowledgePointCandidateReconciliation",
+    "prerequisiteGraph": "R03_GlobalPrerequisiteGraph",
+    "knowledgePointCount": 482
+  },
+  "registryPaths": {
+    "capabilities": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "profiles": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "mappingPolicy": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json"
+  },
+  "runtimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+  "metrics": {
+    "capabilityCount": 58,
+    "profileCount": 18,
+    "classificationRuleCount": 18,
+    "modifierCount": 14,
+    "knowledgePointMappingCount": 482
+  },
+  "matrixPolicy": {
+    "sharedCapabilitiesOnly": true,
+    "oneOffKnowledgePointCapabilityForbidden": true,
+    "legacyBatchMayAffectClassification": false,
+    "legacyBatchRole": "delivery_provenance_only",
+    "requiredOptionalForbiddenDisjoint": true,
+    "productionAdmissionDeferred": true,
+    "mappingMustCoverAllKnowledgePoints": true,
+    "unclassifiedKnowledgePointForbidden": true
+  },
+  "mainlineBoundary": {
+    "currentProductionConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "productionConsumerChanged": false,
+    "runtimeCapabilityMappingsMaterialized": true,
+    "deliveryWaveRebased": false,
+    "legacyCompatibilityMigrated": false,
+    "productionCutoverAllowed": false,
+    "parallelRuntimePipelineAllowed": false,
+    "nextTask": "R05_DeliveryWaveRebase"
+  }
+}

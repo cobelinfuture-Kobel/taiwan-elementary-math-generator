@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "taskId": "R04_SharedRuntimeCapabilityMatrix",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "SHARED_RUNTIME_CAPABILITY_MATRIX_SHADOW_AUTHORITY_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+      "tools/curriculum/validate-r04-shared-runtime-capability-matrix.mjs",
+      "tests/curriculum/r04-shared-runtime-capability-matrix.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+      "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+      "data/curriculum/global/runtime/r04/runtime-capability-matrix.manifest.json",
+      "data/curriculum/global/schema/runtime-capability-mapping.schema.json",
+      "docs/curriculum/contracts/GLOBAL_SHARED_RUNTIME_CAPABILITY_MATRIX_CONTRACT_V1.md",
+      "docs/curriculum/output/GCKG_R04_SHARED_RUNTIME_CAPABILITY_MATRIX_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {"type":"none","canUnlockProduction":false,"reviewArtifactRequired":false},
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "All 482 canonical KnowledgePoints now have machine-readable shared runtime capability demands, software evidence status, and missing-capability readback without changing the production consumer."
+  },
+  "nextStep": {"taskId":"R05_DeliveryWaveRebase","requiredEvidenceLevelBeforeStart":"E3_SHADOW_RUNTIME_INTEGRATED"}
+}
