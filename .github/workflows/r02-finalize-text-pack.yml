@@ -1,17 +1,18 @@
 name: R02 Finalize Text Candidate Pack
 
 on:
-  push:
-    branches:
-      - curriculum/global-kp-rebase-r02
+  pull_request:
+    branches: [main]
     paths:
-      - .github/workflows/r02-finalize-text-pack.yml
+      - ".github/workflows/r02-finalize-text-pack.yml"
+      - "data/curriculum/global/candidates/r02/chunks/**"
 
 permissions:
   contents: write
 
 jobs:
   finalize:
+    if: github.head_ref == 'curriculum/global-kp-rebase-r02'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout R02 branch
