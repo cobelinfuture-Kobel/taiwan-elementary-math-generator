@@ -6,6 +6,7 @@ import {
   loadW02A08R4Approval,
   validateW02A08R4Approval,
   W02_A08R4_STATUS,
+  W03_A00_HISTORICAL_TASK,
   W03_A00_TASK
 } from '../../src/curriculum/application/w02-a08r4-third-operator-approval.mjs';
 
@@ -30,6 +31,7 @@ test('A08R4 records APPROVE and production-admits W02 at E5', () => {
   assert.equal(result.publicRouteChanged, false);
   assert.equal(result.publicSelectable, false);
   assert.equal(result.activatedWaveId, 'W03');
+  assert.equal(result.w03ExecutionFrozen, true);
   assert.equal(result.nextShortestStep, W03_A00_TASK);
 });
 
@@ -56,13 +58,21 @@ test('shared access connects W02 production while public and W03 shadow remain c
   assert.deepEqual(loaded.registries.admissionRegistry.admittedWaveIds, ['W01', 'W02']);
 });
 
+test('historical A08R4 artifacts remain immutable while A09A supersedes their next task', () => {
+  assert.equal(loaded.decision.controllerTransition.nextTaskId, W03_A00_HISTORICAL_TASK);
+  assert.equal(loaded.evidence.nextWaveActivation.nextTaskId, W03_A00_HISTORICAL_TASK);
+  assert.equal(loaded.claim.nextStep.taskId, W03_A00_HISTORICAL_TASK);
+  assert.equal(loaded.authorityFreeze.ok, true, JSON.stringify(loaded.authorityFreeze.issues, null, 2));
+  assert.equal(loaded.authorityFreeze.w03ExecutionAllowed, false);
+  assert.equal(W03_A00_TASK, loaded.authorityFreeze.nextShortestStep);
+});
+
 test('E5 approval does not claim public route activation or program D0', () => {
   assert.equal(loaded.decision.productionAdmission.publicRouteChanged, false);
   assert.equal(loaded.decision.productionAdmission.publicSelectionEnabled, false);
   assert.equal(loaded.decision.failClosedBoundaries.programD0Complete, false);
   assert.equal(loaded.claim.claims.productionAdmitted, true);
   assert.equal(loaded.claim.claims.d0Complete, false);
-  assert.equal(loaded.claim.nextStep.taskId, W03_A00_TASK);
 });
 
 test('forged approval, public exposure and non-contiguous admission fail closed', () => {
@@ -78,4 +88,8 @@ test('forged approval, public exposure and non-contiguous admission fail closed'
   registryCase.registries.admissionRegistry.admittedWaveIds = ['W01', 'W03'];
   registryCase.registryValidation = { ok: false, issues: [{ code: 'FORGED_NON_CONTIGUOUS' }] };
   assert.equal(codes(validateW02A08R4Approval(registryCase)).includes('POSTG_APP_W02_A08R4_SHARED_REGISTRY_INVALID'), true);
+
+  const freezeCase = structuredClone(loaded);
+  freezeCase.authorityFreeze = { ok: false, issues: [{ code: 'FORGED_FREEZE' }] };
+  assert.equal(codes(validateW02A08R4Approval(freezeCase)).includes('POSTG_APP_W02_A08R4_A09A_SUCCESSOR_FREEZE_INVALID'), true);
 });
