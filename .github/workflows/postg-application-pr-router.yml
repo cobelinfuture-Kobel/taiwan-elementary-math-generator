@@ -1,0 +1,50 @@
+name: POSTG Application PR Router
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/curriculum/application/**"
+      - "data/curriculum/knowledge/units/**"
+      - "data/project/milestones/POSTG-APP-*.claim.json"
+      - "data/project/ci/postg-application-workflow-routing.json"
+      - "src/curriculum/application/**"
+      - "tools/curriculum/*postg-app*.mjs"
+      - "tools/ci/validate-postg-application-workflow-routing.mjs"
+      - "tests/curriculum/postg-app-*.test.js"
+      - ".github/workflows/postg-app-*.yml"
+      - ".github/workflows/postg-application-pr-router.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-application-pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-application-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install project dependencies
+        run: npm install --silent --no-audit --no-fund
+      - name: Validate workflow fanout routing
+        run: node tools/ci/validate-postg-application-workflow-routing.mjs
+      - name: Run central controller and W01 admission regression
+        run: |
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+      - name: Run W02 application focused suite
+        run: node --test tests/curriculum/postg-app-w02-*.test.js
+      - name: Validate milestone claims
+        run: npm run governance:claims
