@@ -26,7 +26,21 @@ jobs:
         with:
           node-version: 22
       - name: Normalize historical controller and materializer imports
-        run: node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
+        run: |
+          set -o pipefail
+          node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs 2>&1 | tee a09a-bootstrap-normalize.log
+      - name: Upload bootstrap normalize diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a09a-bootstrap-normalize-diagnostics
+          path: |
+            a09a-bootstrap-normalize.log
+            tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
+            tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
+            src/curriculum/application/postg-app-master-controller.mjs
+          if-no-files-found: error
+          retention-days: 7
       - name: Materialize authoritative A09A mainline freeze
         run: node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
       - name: Normalize M00 compatibility materializer
