@@ -5,6 +5,7 @@ PROGRAM_ID = GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1
 TASK_ID = R03_GlobalPrerequisiteGraph
 STATUS = PASS_R03_GLOBAL_KP_PREREQUISITE_GRAPH
 MAINLINE_INTEGRATION_STATUS = MAPPING_ONLY
+CI_STATUS = PASS_FULL_NODE_TEST
 ```
 
 ## Result
@@ -36,6 +37,7 @@ supporting edges do not block readiness
 existing production consumer remains unchanged
 artifact archive SHA-256 = cda67fa8389d28b80e8fd8a935f4ae0d399607559e5346820a046786a003db1d
 focused graph test / validator CLI / governance = PASS
+full Node Test = PASS
 ```
 
 ## Mainline effect
