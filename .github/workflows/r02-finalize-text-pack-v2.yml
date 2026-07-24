@@ -28,13 +28,22 @@ jobs:
       - name: Finalize validated text pack
         run: python tools/curriculum/finalize-r02-text-pack.py
       - name: Focused R02 tests
+        id: focused_tests
+        continue-on-error: true
         run: |
           mkdir -p tmp
-          node --test tests/curriculum/r02-global-kp-candidate-reconciliation.test.js > tmp/r02-focused.log 2>&1 || {
-            tail -n 120 tmp/r02-focused.log
-            exit 1
-          }
-          tail -n 40 tmp/r02-focused.log
+          node --test tests/curriculum/r02-global-kp-candidate-reconciliation.test.js > tmp/r02-focused.log 2>&1
+      - name: Upload focused R02 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r02-focused-test-diagnostics
+          path: tmp/r02-focused.log
+          if-no-files-found: error
+          retention-days: 7
+      - name: Block after focused R02 failure
+        if: steps.focused_tests.outcome == 'failure'
+        run: exit 1
       - name: Governance claim integrity
         run: node tools/governance/validate-milestone-claim-integrity.mjs
       - name: Commit finalized text pack
