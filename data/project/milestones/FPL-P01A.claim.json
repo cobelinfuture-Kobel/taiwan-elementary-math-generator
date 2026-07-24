@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W1_PRODUCT_ADMISSION_GAP_MATRIX_REBASED_AFTER_CLASSIFICATION_CORRECTION",
+  "claimedStatus": "W1_INVENTORY_4_PATTERN_READY_17_VERTICAL_SLICES_REMAIN",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -44,12 +44,12 @@
     "reviewArtifactRequired": false
   },
   "distance": {
-    "before": "D2",
-    "after": "D2",
-    "distanceReduced": "The false W1 classification of kp_g4a_u07_quantity_multiplicative_pattern is removed; W1 now contains 21 capability-ready product candidates across four source nodes, and G4A-U07 is routed to W6."
+    "before": "D2_W1_21_VERTICAL_SLICES_REQUIRED",
+    "after": "D2_W1_4_ADMITTED_17_REMAINING",
+    "distanceReduced": "P01A now records four G5B-U05 KnowledgePoints with complete visible Pattern bindings while preserving its inventory-only authority; 17 W1 KnowledgePoints remain without product vertical slices."
   },
   "nextStep": {
-    "taskId": "P01D1_G5BU05LargeNumberVerticalSlice",
+    "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
     "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
