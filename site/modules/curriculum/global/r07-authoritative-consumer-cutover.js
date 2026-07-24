@@ -135,6 +135,10 @@ function groupsForSelectedKnowledgePoints(descriptor, selectedKnowledgePointIds)
 function patternSpecsForSelectedGroups(descriptor, selectedPatternGroupIds) {
   const selectedSet = new Set(selectedPatternGroupIds);
   const matching = descriptor.patternGroups.filter((group) => selectedSet.has(group.patternGroupId));
+  const matchedGroupIds = new Set(matching.map((group) => group.patternGroupId));
+  if (selectedPatternGroupIds.some((id) => !matchedGroupIds.has(id))) {
+    return [...descriptor.patternSpecIds];
+  }
   const ids = unique(matching.flatMap((group) => group.patternSpecIds ?? []));
   return ids.length > 0 ? ids : [...descriptor.patternSpecIds];
 }
@@ -160,7 +164,9 @@ export function applyR07AuthoritativeConsumerCutover(plan = {}) {
   const derivedPatternGroupIds = groupsForSelectedKnowledgePoints(descriptor, selectedKnowledgePointIds);
   const selectedPatternGroupIds = requestedPatternGroupIds.length > 0
     ? requestedPatternGroupIds
-    : (derivedPatternGroupIds.length > 0 ? derivedPatternGroupIds : [...descriptor.patternGroupIds]);
+    : (requestedKnowledgePointIds.length === 0
+      ? [...descriptor.patternGroupIds]
+      : (derivedPatternGroupIds.length > 0 ? derivedPatternGroupIds : [...descriptor.patternGroupIds]));
   const extensionPatternGroupIds = selectedPatternGroupIds.filter((id) => !descriptor.patternGroupIds.includes(id));
   const requestedPatternSpecIds = unique(plan.patternSpecIds ?? []);
   const patternSpecIds = requestedPatternSpecIds.length > 0
