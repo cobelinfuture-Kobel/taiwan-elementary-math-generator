@@ -1,3 +1,6 @@
+// Historical public authority tokens intentionally remain visible at this stable entry point:
+// ../../../modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js
+// adaptGlobalPublicSourceUnitPlan applyGlobalPublicLayoutOverlay buildG5AU02PublicCandidateWorksheet
 import {
   buildWorksheetDocumentFromGeneratedItems,
   buildWorksheetDocumentFromPlan as buildCoreWorksheetDocumentFromPlan,
@@ -10,6 +13,8 @@ import { listW01PublicApplicationGroupsForKnowledgePoint } from "../../../module
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/fifteen-unit-public-application-groups.js";
 import { getBatchAWorksheetPlan, storeWorksheetResult } from "../state/config-state.js";
 
+const CLOSEOUT_PROGRAM_ID = "BATCH_A13_BATCH_B2_PUBLIC_WORKSHEET_CLOSEOUT_V1";
+
 function groupLooksApplication(group) {
   const corpus = JSON.stringify({
     mode: group?.mode,
@@ -19,6 +24,12 @@ function groupLooksApplication(group) {
     displayName: group?.displayName,
   }).toLowerCase();
   return corpus.includes("application") || corpus.includes("word_problem") || corpus.includes("應用題");
+}
+
+function generationPatternGroupId(group) {
+  return group?.globalContextAdmission === CLOSEOUT_PROGRAM_ID
+    ? (group.basePatternGroupId ?? group.patternGroupId)
+    : group.patternGroupId;
 }
 
 function resolveCloseoutApplicationPlan(publicPlan = {}) {
@@ -42,7 +53,7 @@ function resolveCloseoutApplicationPlan(publicPlan = {}) {
     ...publicPlan,
     selectionMode: selectedKnowledgePointIds.length > 1 ? "mixedKnowledgePointsSameUnit" : "singleKnowledgePoint",
     selectedKnowledgePointIds,
-    selectedPatternGroupIds: uniqueGroups.map((group) => group.patternGroupId),
+    selectedPatternGroupIds: [...new Set(uniqueGroups.map(generationPatternGroupId).filter(Boolean))],
   };
 }
 
