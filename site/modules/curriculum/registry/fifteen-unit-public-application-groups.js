@@ -56,12 +56,13 @@ export const FIFTEEN_UNIT_PUBLIC_APPLICATION_GROUPS = Object.freeze(rows.map(([
 })));
 
 const byKnowledgePoint = new Map();
-const byPatternGroup = new Map();
+const bySelectionPatternGroup = new Map();
 for (const row of FIFTEEN_UNIT_PUBLIC_APPLICATION_GROUPS) {
   const list = byKnowledgePoint.get(row.primaryKnowledgePointId) ?? [];
   list.push(row);
   byKnowledgePoint.set(row.primaryKnowledgePointId, list);
-  byPatternGroup.set(row.patternGroupId, row);
+  bySelectionPatternGroup.set(row.patternGroupId, row);
+  bySelectionPatternGroup.set(row.basePatternGroupId, row);
 }
 
 export function listFifteenUnitPublicApplicationGroupsForKnowledgePoint(knowledgePointId) {
@@ -69,7 +70,7 @@ export function listFifteenUnitPublicApplicationGroupsForKnowledgePoint(knowledg
 }
 
 export function getFifteenUnitPublicApplicationGroup(patternGroupId) {
-  return clone(byPatternGroup.get(patternGroupId) ?? null);
+  return clone(bySelectionPatternGroup.get(patternGroupId) ?? null);
 }
 
 export function listSelectedFifteenUnitPublicApplicationGroups(patternGroupIds = []) {
