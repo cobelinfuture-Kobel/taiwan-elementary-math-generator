@@ -4,6 +4,7 @@ import path from 'node:path';
 export const W02_A09A_TASK = 'POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze';
 export const W02_A09A_STATUS = 'W02_CANONICAL_AUTHORITY_GAP_MATERIALIZED_W03_EXECUTION_FROZEN';
 export const W02_A09A_POLICY_PATH = 'data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json';
+export const W02_A09A_CLAIM_PATH = 'data/project/milestones/POSTG-APP-W02-A09A.claim.json';
 export const W02_A09A_NEXT_TASK = 'POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation';
 
 const BASELINE_PATH = 'data/curriculum/application/assessment/w02-source13-source-authority-baseline.json';
