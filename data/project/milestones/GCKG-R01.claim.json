@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "taskId": "R01_GlobalKnowledgePointDecompositionContract_From_PR350MergeSHA",
+  "taskClass": "content",
+  "targetEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "claimedStatus": "GLOBAL_KP_DECOMPOSITION_CONTRACT_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tools/curriculum/validate-global-knowledge-point-decomposition-contract.mjs",
+      "tests/curriculum/global-knowledge-point-decomposition-contract.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/public/15-unit-public-worksheet-closeout.json",
+      "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+      "data/curriculum/global/contracts/R01_GlobalKnowledgePointDecompositionContract.json",
+      "data/curriculum/global/schema/global-knowledge-point-candidate.schema.json",
+      "docs/curriculum/contracts/GLOBAL_KNOWLEDGE_POINT_DECOMPOSITION_CONTRACT_V1.md",
+      "docs/curriculum/output/GCKG_R01_GLOBAL_KP_DECOMPOSITION_CONTRACT_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D2",
+    "distanceReduced": "The 79-node curriculum scope now has one machine-checkable KnowledgePoint decomposition boundary tied to the merged 15-unit D0 product baseline, while production cutover remains forbidden."
+  },
+  "nextStep": {
+    "taskId": "R02_G3toG6_79SourceNodeKnowledgePointCandidateReconciliation",
+    "requiredEvidenceLevelBeforeStart": "E2_CONTENT_AUTHORED"
+  }
+}

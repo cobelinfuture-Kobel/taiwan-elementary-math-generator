@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/taiwan-elementary-math/global-knowledge-point-candidate.schema.json",
+  "title": "Global KnowledgePoint Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "knowledgePointId",
+    "canonicalNameZh",
+    "capabilityStatement",
+    "indispensableConcepts",
+    "reasoningInvariant",
+    "misconceptionFamilies",
+    "validatorCapability",
+    "allowedVariationAxes",
+    "sourceRefs",
+    "legacyBatchRefs",
+    "candidateStatus",
+    "prerequisiteDeclaration",
+    "runtimeCapabilityDeclaration",
+    "mainlineBinding"
+  ],
+  "properties": {
+    "knowledgePointId": {
+      "type": "string",
+      "pattern": "^kp_[a-z0-9_]+$",
+      "minLength": 6
+    },
+    "canonicalNameZh": {
+      "type": "string",
+      "minLength": 2
+    },
+    "capabilityStatement": {
+      "type": "string",
+      "minLength": 8
+    },
+    "indispensableConcepts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 2 }
+    },
+    "reasoningInvariant": {
+      "type": "string",
+      "minLength": 8
+    },
+    "misconceptionFamilies": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "validatorCapability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["validatorCapabilityId", "acceptanceCriteria", "rejectionCodes"],
+      "properties": {
+        "validatorCapabilityId": {
+          "type": "string",
+          "pattern": "^valcap_[a-z0-9_]+$"
+        },
+        "acceptanceCriteria": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 4 }
+        },
+        "rejectionCodes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]+$" }
+        }
+      }
+    },
+    "allowedVariationAxes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "direction_reversal",
+          "unknown_shift",
+          "representation_transfer",
+          "error_detection",
+          "constraint_extension",
+          "reasoning_extension",
+          "same_unit_fusion",
+          "spiral_fusion",
+          "context_projection",
+          "difficulty_parameterization"
+        ]
+      }
+    },
+    "sourceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sourceNodeId", "evidenceRole", "evidenceRefs"],
+        "properties": {
+          "sourceNodeId": {
+            "type": "string",
+            "pattern": "^g[3-6][ab]_u[0-9]{2}_[a-z0-9]+$"
+          },
+          "evidenceRole": {
+            "type": "string",
+            "enum": ["PRIMARY_EVIDENCE", "CORROBORATING_EVIDENCE", "PREREQUISITE_EVIDENCE"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 3 }
+          }
+        }
+      }
+    },
+    "legacyBatchRefs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["A", "B", "C", "D", "E"] }
+    },
+    "candidateStatus": {
+      "type": "string",
+      "enum": [
+        "CANDIDATE_ONLY",
+        "BOUNDARY_REVIEW_REQUIRED",
+        "RECONCILED_EXISTING_KP",
+        "REJECTED_DUPLICATE",
+        "REJECTED_AMBIGUOUS_CAPABILITY"
+      ]
+    },
+    "prerequisiteDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "directPrerequisiteKnowledgePointIds"],
+      "properties": {
+        "mode": { "const": "DEFERRED_TO_R03" },
+        "directPrerequisiteKnowledgePointIds": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    },
+    "runtimeCapabilityDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "requiredRuntimeCapabilityIds"],
+      "properties": {
+        "mode": { "const": "DEFERRED_TO_R04" },
+        "requiredRuntimeCapabilityIds": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    },
+    "mainlineBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "productBaselineMergeSha",
+        "existingConsumerEntryPoint",
+        "productionCutoverAllowed"
+      ],
+      "properties": {
+        "productBaselineMergeSha": {
+          "const": "9846627e1263d9dfb3e9e2318989cc5ae94c35dd"
+        },
+        "existingConsumerEntryPoint": {
+          "const": "site/assets/browser/pipeline/build-worksheet-document.js"
+        },
+        "productionCutoverAllowed": {
+          "const": false
+        }
+      }
+    }
+  }
+}
