@@ -1,0 +1,52 @@
+{
+  "schemaName": "P01AW1ProductAdmissionInventoryPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P01A_W1ProductAdmissionInventoryAndGapMatrix",
+  "status": "W1_PRODUCT_ADMISSION_INVENTORY_POLICY_READY",
+  "sourceAuthorities": {
+    "deliveryWaveTask": "R05_DeliveryWaveRebase",
+    "deliveryWaveId": "R05-W1",
+    "expectedKnowledgePointCount": 22,
+    "capabilityRequirement": "ALL_EFFECTIVE_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED",
+    "baselineExclusion": "R05-W0"
+  },
+  "productLayers": [
+    "CANONICAL_KNOWLEDGE_POINT",
+    "PREREQUISITE_READINESS",
+    "SHARED_RUNTIME_CAPABILITY",
+    "FORMAL_PATTERN_BINDING",
+    "PUBLIC_SOURCE_ADAPTER",
+    "PUBLIC_UI_SELECTION",
+    "WORKSHEET_ANSWER_KEY",
+    "HTML_PDF_PRINT_ACCEPTANCE"
+  ],
+  "gapStates": [
+    "ADMISSION_READY_EXISTING_PUBLIC_PATTERN",
+    "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED",
+    "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED"
+  ],
+  "rules": {
+    "capabilityReadyDoesNotEqualProductReady": true,
+    "directProductionAdmissionAllowed": false,
+    "newCapabilityImplementationAllowed": false,
+    "w2ToW8WorkAllowed": false,
+    "existing15UnitModificationAllowed": false,
+    "recursiveImprovementAdminAllowed": false,
+    "legacyBatchMayDetermineAdmission": false,
+    "sourceEvidenceMustRemainTraceable": true,
+    "everyKnowledgePointRequiresExplicitGapState": true,
+    "everyKnowledgePointRequiresNextAdmissionActions": true
+  },
+  "nextTasks": {
+    "readyExistingPattern": "P01B_W1ExistingPatternAdmission",
+    "patternBindingGap": "P01C_W1PatternBindingMaterialization",
+    "verticalSliceGap": "P01D_W1SharedVerticalSliceMaterialization",
+    "waveClose": "P01E_W1PublicUIHTMLPDFPrintCloseout"
+  },
+  "fullProductBoundary": {
+    "fullProductLineClosed": false,
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "recursiveImprovementAdminStartAllowedAfter": "P10_FullUIHTMLPDFPrintProductCloseout"
+  }
+}
