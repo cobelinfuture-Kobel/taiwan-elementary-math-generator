@@ -16,6 +16,8 @@ const completeA09AImport = `import {
   W02_A09A_STATUS,
   W02_A09A_TASK
 } from './w02-a09a-authority-reconciliation-freeze.mjs';`;
+const incompleteEmitter = String.raw`import {\n  W02_A09A_NEXT_TASK,\n  W02_A09A_STATUS,\n  W02_A09A_TASK\n} from './w02-a09a-authority-reconciliation-freeze.mjs';\n`;
+const completeEmitter = String.raw`import {\n  W02_A09A_NEXT_TASK,\n  W02_A09A_POLICY_PATH,\n  W02_A09A_STATUS,\n  W02_A09A_TASK\n} from './w02-a09a-authority-reconciliation-freeze.mjs';\n`;
 
 function normalizeController() {
   const original = fs.readFileSync(controllerPath, 'utf8');
@@ -81,9 +83,9 @@ import {
 
 function normalizeAuthoritativeMaterializer() {
   const original = fs.readFileSync(authoritativeMaterializerPath, 'utf8');
-  const next = original.split(incompleteA09AImport).join(completeA09AImport);
-  if (!next.includes(completeA09AImport)) {
-    throw new Error('A09A authoritative materializer does not emit the complete import');
+  const next = original.split(incompleteEmitter).join(completeEmitter);
+  if (!next.includes(completeEmitter) || next.includes(incompleteEmitter)) {
+    throw new Error('A09A authoritative materializer does not emit exactly the complete import');
   }
   if (next !== original) {
     fs.writeFileSync(authoritativeMaterializerPath, next);
