@@ -36,6 +36,18 @@ function matchesTerms(corpus, terms = []) {
 }
 
 function selectProfile(corpus, policy) {
+  const patternRule = policy.classificationRules.find((rule) => rule.ruleId === "rule_pattern_relation");
+  const factorMultipleRule = policy.classificationRules.find((rule) => rule.ruleId === "rule_factor_multiple");
+  const explicitPatternFactorCollision = patternRule
+    && factorMultipleRule
+    && matchesTerms(corpus, patternRule.anyTerms)
+    && matchesTerms(corpus, factorMultipleRule.anyTerms);
+
+  // A phrase such as「倍數型數量規律」contains factor/multiple vocabulary but its
+  // invariant is a repeated sequence relation. Explicit pattern semantics must win
+  // this narrow collision; ordinary factor/multiple KPs keep their existing profile.
+  if (explicitPatternFactorCollision) return patternRule;
+
   for (const rule of policy.classificationRules) {
     if (rule.default === true || matchesTerms(corpus, rule.anyTerms)) {
       return rule;
@@ -126,6 +138,7 @@ function materializeMapping(knowledgePoint, registry) {
       semanticFieldsOnly: true,
       legacyBatchUsedForClassification: false,
       sourceTitleOnlyClassificationAllowed: false,
+      patternFactorCollisionPolicy: "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE",
     }),
   });
 }
