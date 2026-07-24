@@ -5,6 +5,7 @@ import { materializeP01AW1ProductAdmissionInventory } from "../../src/curriculum
 import { validateP01AW1ProductAdmissionInventory } from "../../tools/curriculum/validate-p01a-w1-product-admission-inventory.mjs";
 
 const PATTERN_KP_ID = "kp_g4a_u07_quantity_multiplicative_pattern";
+const ORDINARY_MULTIPLE_KP_ID = "kp_g5a_u03a_multiple_identify_enumerate";
 
 
 test("P01A materializes exactly the corrected 21 W1 KnowledgePoints", () => {
@@ -30,6 +31,21 @@ test("P01A1 classifies multiplicative quantity pattern as pattern relation and r
   assert.ok(mapping.undeliveredRequiredCapabilityIds.includes("cap_pattern_relation_validator"));
   assert.equal(mapping.runtimeCapabilityDeliveryState, "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES");
   assert.equal(assignment.deliveryWaveId, "R05-W6");
+});
+
+
+test("P01A1 leaves ordinary multiple reasoning in the factor multiple profile", () => {
+  const inventory = materializeP01AW1ProductAdmissionInventory();
+  const r05 = inventory.deliveryWaveAuthority;
+  const mapping = r05.runtimeCapabilityMatrix.getMapping(ORDINARY_MULTIPLE_KP_ID);
+  const assignment = r05.getAssignment(ORDINARY_MULTIPLE_KP_ID);
+  assert.ok(mapping, ORDINARY_MULTIPLE_KP_ID);
+  assert.equal(mapping.primaryRuntimeProfileId, "profile_factor_multiple");
+  assert.equal(mapping.classificationRuleId, "rule_factor_multiple");
+  assert.ok(mapping.requiredRuntimeCapabilityIds.includes("cap_factor_multiple_reasoning"));
+  assert.ok(mapping.requiredRuntimeCapabilityIds.includes("cap_factor_multiple_validator"));
+  assert.equal(mapping.runtimeCapabilityDeliveryState, "ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED");
+  assert.equal(assignment.deliveryWaveId, "R05-W1");
 });
 
 
@@ -62,6 +78,11 @@ test("P01A accounts for every corrected W1 product gap and source node", () => {
       knowledgePointId: PATTERN_KP_ID,
       deliveryWaveId: inventory.deliveryWaveAuthority.getAssignment(PATTERN_KP_ID).deliveryWaveId,
       profileId: inventory.deliveryWaveAuthority.runtimeCapabilityMatrix.getMapping(PATTERN_KP_ID).primaryRuntimeProfileId,
+    },
+    ordinaryMultipleKnowledgePoint: {
+      knowledgePointId: ORDINARY_MULTIPLE_KP_ID,
+      deliveryWaveId: inventory.deliveryWaveAuthority.getAssignment(ORDINARY_MULTIPLE_KP_ID).deliveryWaveId,
+      profileId: inventory.deliveryWaveAuthority.runtimeCapabilityMatrix.getMapping(ORDINARY_MULTIPLE_KP_ID).primaryRuntimeProfileId,
     },
     rows: inventory.rows.map((row) => ({
       knowledgePointId: row.knowledgePointId,
