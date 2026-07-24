@@ -15,7 +15,8 @@
     "prerequisiteEdgesDeferredTo": "R03_GlobalPrerequisiteGraph",
     "runtimeCapabilityMappingDeferredTo": "R04_SharedRuntimeCapabilityMatrix"
   },
-  "compressedEncoding": "gzip+utf8+json",
+  "storageMode": "JSON_CHUNKS",
+  "chunkEncoding": "utf8+json",
   "counts": {
     "sourceNodeCount": 50,
     "candidateProjectionCount": 247,
@@ -23,7 +24,6 @@
     "semanticDuplicateProjectionCount": 5,
     "renderedPageCount": 99
   },
-  "storageMode": "JSON_CHUNKS",
   "chunkPaths": [
     "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
     "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
