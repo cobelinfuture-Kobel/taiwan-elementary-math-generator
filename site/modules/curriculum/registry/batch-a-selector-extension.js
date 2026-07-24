@@ -1,1 +1,1 @@
-export * from "./batch-a-selector-closeout-extension.js";
+export * from "./batch-a-selector-composer.js";
