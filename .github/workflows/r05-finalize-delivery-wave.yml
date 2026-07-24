@@ -49,6 +49,16 @@ jobs:
           node tools/curriculum/validate-r05-delivery-wave-rebase.mjs > /tmp/r05/validator.json
           node -e 'const r=require("/tmp/r05/validator.json"); if(!r.ok){console.error(JSON.stringify(r.errors,null,2)); process.exit(1)}; console.log("R05_VALIDATOR_SUMMARY="+JSON.stringify(r.summary))'
 
+      - name: Upload R05 focused diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r05-delivery-wave-focused-diagnostics
+          path: |
+            /tmp/r05/focused.log
+            /tmp/r05/validator.json
+          if-no-files-found: warn
+
       - name: Commit finalized R05 artifacts
         shell: bash
         run: |
