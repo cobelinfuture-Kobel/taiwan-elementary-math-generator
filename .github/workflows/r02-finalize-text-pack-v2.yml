@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/r02-finalize-text-pack-v2.yml"
       - "tools/curriculum/finalize-r02-text-pack.py"
+      - "data/curriculum/global/candidates/r02/source-authority-reconciliation-index.json"
 
 permissions:
   contents: write
