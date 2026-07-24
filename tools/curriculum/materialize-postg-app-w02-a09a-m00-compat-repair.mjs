@@ -60,7 +60,7 @@ function materializeSourceNodes(unitRegistry) {
 }
 
 function goldenRegistryPath(goldenUnitId) {
-  return \`${'${GOLDEN_UNIT_DIR}'}\/${'${goldenUnitId}'}.knowledge-operation.json\`;
+  return \`${'${GOLDEN_UNIT_DIR}'}/${'${goldenUnitId}'}.knowledge-operation.json\`;
 }
 
 `;
@@ -99,8 +99,72 @@ const registryValidator = `function validateRegistry(registry, issues) {
   }
 }
 
+function validateSourceNodeProjection(controller, issues) {
+  const ids = controller.sourceNodes.map((row) => row.sourceNodeId);
+  if (ids.length !== 79 || !unique(ids)) {
+    issues.push(issue('POSTG_APP_SOURCE_NODE_DUPLICATED', 'sourceNodes'));
+  }
+  if (JSON.stringify(controller.sourceNodes.map((row) => row.queueOrdinal))
+      !== JSON.stringify(Array.from({ length: 79 }, (_, index) => index + 1))) {
+    issues.push(issue('POSTG_APP_SOURCE_NODE_QUEUE_INVALID', 'sourceNodes'));
+  }
+  const goldenSourceIds = new Set(controller.unitRegistry.goldenBaselineUnits.flatMap((row) => row.sourceNodeRefs));
+  const expectedRemaining = ids.filter((id) => !goldenSourceIds.has(id));
+  const actualRemaining = controller.wavePlan.waves.slice(1).flatMap((row) => row.sourceNodeIds);
+  if (actualRemaining.length !== 63 || !unique(actualRemaining)
+      || actualRemaining.some((id) => !expectedRemaining.includes(id))) {
+    issues.push(issue('POSTG_APP_WAVE_SOURCE_COVERAGE_INVALID', 'wavePlan.waves.W02-W06'));
+  }
+  if (JSON.stringify(actualRemaining) !== JSON.stringify(expectedRemaining)) {
+    issues.push(issue('POSTG_APP_REMAINING_QUEUE_ORDER_MISMATCH', 'wavePlan.waves.W02-W06'));
+  }
+}
+
 `;
 source = replaceBetween(source, 'function validateRegistry(registry, issues) {', 'function validateWavePlan(wavePlan, registry, issues) {', registryValidator);
+
+const a08Validator = `function validateA08Evidence(controller, issues) {
+  const a08Decision = controller.w02A08Decision;
+  const a08Claim = controller.w02A08Claim;
+  const a08r1 = controller.w02A08R1Readback;
+  if (a08Decision?.operatorDecision !== 'REVISE'
+      || a08Decision?.productionAdmission?.granted !== false
+      || a08Decision?.remediation?.taskId !== 'POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview') {
+    issues.push(issue('POSTG_APP_W02_A08_DECISION_INVALID', W02_A08_DECISION_PATH));
+  }
+  if (a08Claim?.actualEvidenceLevel !== 'E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED'
+      || a08Claim?.claims?.productionAdmitted !== false
+      || a08Claim?.claims?.humanReviewReady !== true
+      || a08Claim?.humanReview?.decision !== 'REVISE') {
+    issues.push(issue('POSTG_APP_W02_A08_CLAIM_INVALID', W02_A08_CLAIM_PATH));
+  }
+  const counts = a08r1?.counts ?? {};
+  const applicationAudit = a08r1?.audit?.application ?? {};
+  const pblAudit = a08r1?.audit?.pbl ?? {};
+  if (!a08r1?.ok
+      || a08r1?.status !== 'W02_A08R1_PATTERN_SEMANTIC_AND_OPERATION_SPECIFIC_PBL_REVIEW_READY'
+      || counts.generatedItemCount !== 195
+      || counts.applicationReviewCount !== 61
+      || counts.numericBoundaryReviewCount !== 49
+      || counts.pblReviewCount !== 31
+      || counts.operationFamilyCount !== 49
+      || applicationAudit.rawRoleLeakageCount !== 0
+      || applicationAudit.sameDenominatorKnowledgeMismatchCount !== 0
+      || applicationAudit.lengthConversionSurfaceMismatchCount !== 0
+      || applicationAudit.rateDistanceSurfaceMismatchCount !== 0
+      || pblAudit.genericTaskSurfaceCount !== 0
+      || pblAudit.governancePhraseLeakageCount !== 0
+      || pblAudit.genericProductLabelCount !== 0
+      || a08r1?.studentFacingSemanticRevision !== 3
+      || a08r1?.productionAdmissionGranted !== false
+      || a08r1?.publicSelectable !== false
+      || a08r1?.nextShortestStep !== 'POSTG-APP-W02-A08R2_RegeneratedHTMLPDFSecondOperatorReviewDecision') {
+    issues.push(issue('POSTG_APP_W02_A08R1_READBACK_INVALID', 'POSTG-APP-W02-A08R1'));
+  }
+}
+
+`;
+source = replaceBetween(source, 'function validateA08Evidence(controller, issues) {', 'export function loadPOSTGAPPMasterController', a08Validator);
 
 const loadBlock = `export function loadPOSTGAPPMasterController({ root = process.cwd() } = {}) {
   const unitRegistry = readJson(root, UNIT_REGISTRY_PATH);
@@ -161,6 +225,15 @@ const loadBlock = `export function loadPOSTGAPPMasterController({ root = process
 `;
 source = replaceBetween(source, 'export function loadPOSTGAPPMasterController', 'export function validatePOSTGAPPMasterController', loadBlock);
 
+source = replaceExact(
+  source,
+  `  validateRegistry(unitRegistry, issues);\n  validateWavePlan(wavePlan, unitRegistry, issues);`,
+  `  validateRegistry(unitRegistry, issues);\n  validateSourceNodeProjection(controller, issues);\n  validateWavePlan(wavePlan, unitRegistry, issues);`
+);
+source = source
+  .split('POSTG_APP_WAVE_PLAN_ADMISSION_PREFIX_INVALID').join('POSTG_APP_PRODUCTION_ADMISSION_PREFIX_INVALID')
+  .split('POSTG_APP_W01_ADMISSION_STATE_INVALID').join('POSTG_APP_W01_PRODUCTION_ADMISSION_STATE_INVALID')
+  .split('POSTG_APP_W02_A08_REVISE_DECISION_INVALID').join('POSTG_APP_W02_A08_DECISION_INVALID');
 source = replaceExact(
   source,
   `  issues.push(...validateGlobalContextAuthority(globalContextAuthority));`,
