@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -21,6 +23,33 @@ jobs:
       - run: npm ci
       - name: Validate canonical authority gap and W03 freeze
         run: node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
+      - name: Enforce frozen mainline against new W03 and legacy routes
+        shell: bash
+        run: |
+          if [[ "$(node -p "require('./data/curriculum/application/governance/postg-app-w02-a09a-authority-freeze.json').executionFreeze.active")" != "true" ]]; then
+            echo "A09A execution freeze is released."
+            exit 0
+          fi
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            base="${{ github.event.pull_request.base.sha }}"
+          else
+            base="${{ github.event.before }}"
+            if [[ -z "$base" || "$base" =~ ^0+$ ]]; then
+              base="$(git rev-parse HEAD^)"
+            fi
+          fi
+          changed="$(git diff --name-only "$base" HEAD)"
+          added="$(git diff --diff-filter=A --name-only "$base" HEAD)"
+          if grep -Eiq '(^|/)(w03|postg-app-w03|POSTG-APP-W03)' <<<"$changed"; then
+            echo "W03 implementation is frozen pending canonical curriculum authority reconciliation."
+            grep -Ei '(^|/)(w03|postg-app-w03|POSTG-APP-W03)' <<<"$changed" || true
+            exit 1
+          fi
+          if grep -Eiq '^site/assets/browser/.*(application|global-context).*\.js$' <<<"$added"; then
+            echo "New browser application/global-context routes are forbidden while legacy routes are frozen."
+            grep -Ei '^site/assets/browser/.*(application|global-context).*\.js$' <<<"$added" || true
+            exit 1
+          fi
       - name: Focused A09A tests
         run: node --test tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
       - name: Full regression
