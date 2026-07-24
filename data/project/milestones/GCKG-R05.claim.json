@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "taskId": "R05_DeliveryWaveRebase",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "CAPABILITY_BASED_DELIVERY_WAVE_SHADOW_AUTHORITY_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+      "tools/curriculum/validate-r05-delivery-wave-rebase.mjs",
+      "tests/curriculum/r05-delivery-wave-rebase.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/global/delivery/r05/delivery-wave-policy.json",
+      "data/curriculum/global/delivery/r05/delivery-wave-rebase.manifest.json",
+      "data/curriculum/global/schema/delivery-wave-assignment.schema.json",
+      "docs/curriculum/contracts/GLOBAL_DELIVERY_WAVE_REBASE_CONTRACT_V1.md",
+      "docs/curriculum/output/GCKG_R05_DELIVERY_WAVE_REBASE_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "All 482 canonical KnowledgePoints and 58 shared capabilities now have one bounded capability-based delivery sequence while the existing 15-unit D0 production baseline remains protected."
+  },
+  "nextStep": {
+    "taskId": "R06_LegacyCompatibilityMigration",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
