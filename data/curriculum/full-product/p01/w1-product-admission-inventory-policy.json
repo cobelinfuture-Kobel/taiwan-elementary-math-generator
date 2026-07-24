@@ -38,12 +38,47 @@
     "everyKnowledgePointRequiresExplicitGapState": true,
     "everyKnowledgePointRequiresNextAdmissionActions": true
   },
-  "nextTasks": {
-    "readyExistingPattern": "P01B_W1ExistingPatternAdmission",
-    "patternBindingGap": "P01C_W1PatternBindingMaterialization",
-    "verticalSliceGap": "P01D_W1SharedVerticalSliceMaterialization",
-    "waveClose": "P01E_W1PublicUIHTMLPDFPrintCloseout"
+  "inventoryDecision": {
+    "admissionReadyExistingPublicPatternCount": 0,
+    "patternGroupOrSpecBindingRequiredCount": 0,
+    "publicProductVerticalSliceRequiredCount": 22,
+    "selectedRoute": "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED",
+    "selectedNextTask": "P01D1_G4AU07QuantityMultiplicativePatternVerticalSlice",
+    "reason": "g4a_u07_4a07 is the smallest bounded W1 source cluster with one canonical KnowledgePoint and therefore the shortest valid production pilot."
   },
+  "verticalSliceOrder": [
+    {
+      "taskId": "P01D1_G4AU07QuantityMultiplicativePatternVerticalSlice",
+      "sourceNodeIds": ["g4a_u07_4a07"],
+      "knowledgePointCount": 1
+    },
+    {
+      "taskId": "P01D2_G5BU05LargeNumberVerticalSlice",
+      "sourceNodeIds": ["g5b_u05_5b05a"],
+      "knowledgePointCount": 4
+    },
+    {
+      "taskId": "P01D3_G6AU01NumberTheoryVerticalSlice",
+      "sourceNodeIds": ["g6a_u01_6a01"],
+      "knowledgePointCount": 5
+    },
+    {
+      "taskId": "P01D4_G5AU03FactorMultipleVerticalSlice",
+      "sourceNodeIds": ["g5a_u03_5a03a", "g5a_u03_5a03a1"],
+      "knowledgePointCount": 12
+    },
+    {
+      "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",
+      "sourceNodeIds": [
+        "g4a_u07_4a07",
+        "g5b_u05_5b05a",
+        "g6a_u01_6a01",
+        "g5a_u03_5a03a",
+        "g5a_u03_5a03a1"
+      ],
+      "knowledgePointCount": 22
+    }
+  ],
   "fullProductBoundary": {
     "fullProductLineClosed": false,
     "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
