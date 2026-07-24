@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
   "taskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
-  "status": "FIXED_SIX_WAVE_QUEUE_W01_W02_ADMITTED_W03_ASSESSMENT_READY_EXECUTION_FROZEN",
+  "status": "FIXED_SIX_WAVE_QUEUE_W01_W02_ADMITTED_W03_EXECUTION_FROZEN",
   "waveCount": 6,
   "orderingPolicy": "S29C_PRIMARY_BATCH_ORDER_WITH_W01_SOURCE_COVERAGE_REMOVED_FROM_W02_TO_W06",
   "admissionGateOrder": [
@@ -207,10 +207,11 @@
   },
   "lastTransition": {
     "taskId": "POSTG-APP-W02-A09A_CanonicalCurriculumAuthorityReconciliationAndLegacyApplicationRouteFreeze",
-    "decision": "FREEZE_W03_PENDING_CANONICAL_AUTHORITY",
+    "decision": "FREEZE",
     "completedWaveId": "W02",
-    "assessmentReadyWaveId": "W03",
-    "implementationActivatedWaveId": null,
-    "transitionDate": "2026-07-24"
+    "activatedWaveId": null,
+    "frozenWaveId": "W03",
+    "transitionDate": "2026-07-24",
+    "nextTaskId": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
   }
 }

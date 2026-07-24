@@ -31,15 +31,6 @@ import {
   validateW02A08R4ControllerEvidence
 } from './w02-a08r4-controller-overlay.mjs';
 import {
-  W02_A08R4_STATUS,
-  W03_A00_TASK
-} from './w02-a08r4-third-operator-approval.mjs';
-import {
-  applyW02A08R4ControllerOverlay,
-  loadW02A08R4ControllerEvidence,
-  validateW02A08R4ControllerEvidence
-} from './w02-a08r4-controller-overlay.mjs';
-import {
   W02_A08R4_CLAIM_PATH,
   W02_A08R4_DECISION_PATH,
   W02_A08R4_EVIDENCE_PATH,
