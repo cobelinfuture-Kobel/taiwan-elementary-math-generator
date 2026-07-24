@@ -6,6 +6,10 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
 } from "../registry/batch-a-selector-extension.js";
+import {
+  getVisiblePatternGroupsForKnowledgePoint as getLegacyVisiblePatternGroupsForKnowledgePoint,
+  listVisibleBatchAKnowledgePoints as listLegacyVisibleBatchAKnowledgePoints,
+} from "../registry/batch-a-selector-g4a-u08-extension.js";
 
 export const R07_AUTHORITATIVE_CONSUMER_VERSION = "r07-global-authority-primary-v1";
 export const R07_PUBLIC_PRODUCT_UNIT_IDS = Object.freeze([
@@ -73,21 +77,38 @@ function blocked(plan, descriptor, errors) {
   });
 }
 
-function visibleDescriptor(sourceId) {
-  const knowledgePoints = listVisibleBatchAKnowledgePoints()
-    .filter((row) => row.sourceId === sourceId);
+function descriptorFromSelector(sourceId, listKnowledgePoints, listGroups, descriptorOrigin) {
+  const knowledgePoints = listKnowledgePoints().filter((row) => row.sourceId === sourceId);
   const patternGroups = [...new Map(knowledgePoints.flatMap((knowledgePoint) => (
-    getVisiblePatternGroupsForKnowledgePoint(knowledgePoint.knowledgePointId)
+    listGroups(knowledgePoint.knowledgePointId)
   )).map((row) => [row.patternGroupId, row])).values()];
   if (knowledgePoints.length === 0 || patternGroups.length === 0) return null;
   return {
     sourceId,
-    descriptorOrigin: "GLOBAL_BROWSER_VISIBLE_REGISTRY",
+    descriptorOrigin,
     knowledgePointIds: unique(knowledgePoints.map((row) => row.knowledgePointId)),
     patternGroupIds: unique(patternGroups.map((row) => row.patternGroupId)),
     patternSpecIds: unique(patternGroups.flatMap((row) => row.patternSpecIds ?? [])),
     patternGroups,
   };
+}
+
+function visibleDescriptor(sourceId) {
+  return descriptorFromSelector(
+    sourceId,
+    listVisibleBatchAKnowledgePoints,
+    getVisiblePatternGroupsForKnowledgePoint,
+    "GLOBAL_BROWSER_VISIBLE_REGISTRY",
+  );
+}
+
+function legacySelectorAliasDescriptor(sourceId) {
+  return descriptorFromSelector(
+    sourceId,
+    listLegacyVisibleBatchAKnowledgePoints,
+    getLegacyVisiblePatternGroupsForKnowledgePoint,
+    "LEGACY_SELECTOR_COMPATIBILITY_ALIAS",
+  );
 }
 
 function legacyDescriptorFallback(sourceId) {
@@ -104,19 +125,36 @@ function legacyDescriptorFallback(sourceId) {
   };
 }
 
+function mergeDescriptors(sourceId, descriptors) {
+  const available = descriptors.filter(Boolean);
+  if (available.length === 0) return null;
+  const patternGroups = [...new Map(available.flatMap((row) => row.patternGroups ?? [])
+    .map((row) => [row.patternGroupId, row])).values()];
+  const primary = available[0];
+  const primaryKnowledgePointSet = new Set(primary.knowledgePointIds);
+  const compatibilityKnowledgePointAliasIds = unique(available.slice(1)
+    .flatMap((row) => row.knowledgePointIds)
+    .filter((id) => !primaryKnowledgePointSet.has(id)));
+  return Object.freeze({
+    sourceId,
+    descriptorOrigin: "GLOBAL_BROWSER_AUTHORITY_WITH_READ_ONLY_COMPATIBILITY",
+    knowledgePointIds: freezeArray(unique(available.flatMap((row) => row.knowledgePointIds))),
+    canonicalKnowledgePointIds: freezeArray(primary.knowledgePointIds),
+    compatibilityKnowledgePointAliasIds: freezeArray(compatibilityKnowledgePointAliasIds),
+    patternGroupIds: freezeArray(unique(available.flatMap((row) => row.patternGroupIds))),
+    patternSpecIds: freezeArray(unique(available.flatMap((row) => row.patternSpecIds))),
+    patternGroups: freezeArray(patternGroups),
+    authoritySources: freezeArray(available.map((row) => row.descriptorOrigin)),
+  });
+}
+
 export function resolveR07GlobalAuthorityDescriptor(sourceId) {
   if (!PRODUCT_UNIT_ID_SET.has(sourceId)) return null;
-  const visible = visibleDescriptor(sourceId);
-  const fallback = legacyDescriptorFallback(sourceId);
-  if (!visible) return fallback ? Object.freeze({ ...fallback }) : null;
-  if (!fallback) return Object.freeze({ ...visible });
-  return Object.freeze({
-    ...visible,
-    descriptorOrigin: "GLOBAL_BROWSER_VISIBLE_REGISTRY_WITH_LEGACY_PARITY_READ",
-    knowledgePointIds: freezeArray(unique([...visible.knowledgePointIds, ...fallback.knowledgePointIds])),
-    patternGroupIds: freezeArray(unique([...visible.patternGroupIds, ...fallback.patternGroupIds])),
-    patternSpecIds: freezeArray(unique([...visible.patternSpecIds, ...fallback.patternSpecIds])),
-  });
+  return mergeDescriptors(sourceId, [
+    visibleDescriptor(sourceId),
+    legacySelectorAliasDescriptor(sourceId),
+    legacyDescriptorFallback(sourceId),
+  ]);
 }
 
 export function listR07GlobalAuthorityDescriptors() {
@@ -159,7 +197,7 @@ export function applyR07AuthoritativeConsumerCutover(plan = {}) {
 
   const selectedKnowledgePointIds = requestedKnowledgePointIds.length > 0
     ? requestedKnowledgePointIds
-    : [...descriptor.knowledgePointIds];
+    : [...descriptor.canonicalKnowledgePointIds];
   const requestedPatternGroupIds = unique(plan.selectedPatternGroupIds ?? []);
   const derivedPatternGroupIds = groupsForSelectedKnowledgePoints(descriptor, selectedKnowledgePointIds);
   const selectedPatternGroupIds = requestedPatternGroupIds.length > 0
@@ -175,6 +213,9 @@ export function applyR07AuthoritativeConsumerCutover(plan = {}) {
   const selectionMode = plan.selectionMode === "sourceUnit" || plan.selectionMode == null
     ? (selectedKnowledgePointIds.length > 1 ? "mixedKnowledgePointsSameUnit" : "singleKnowledgePoint")
     : plan.selectionMode;
+  const selectedCompatibilityAliasIds = selectedKnowledgePointIds.filter((id) => (
+    descriptor.compatibilityKnowledgePointAliasIds.includes(id)
+  ));
 
   const adapter = Object.freeze({
     version: R07_AUTHORITATIVE_CONSUMER_VERSION,
@@ -186,6 +227,7 @@ export function applyR07AuthoritativeConsumerCutover(plan = {}) {
     patternGroupCount: selectedPatternGroupIds.length,
     patternSpecCount: patternSpecIds.length,
     extensionPatternGroupCount: extensionPatternGroupIds.length,
+    compatibilityAliasKnowledgePointCount: selectedCompatibilityAliasIds.length,
     applied: true,
     blocked: false,
   });
@@ -193,6 +235,7 @@ export function applyR07AuthoritativeConsumerCutover(plan = {}) {
     sourceIdPreserved: true,
     requestedKnowledgePointIdsPreserved: requestedKnowledgePointIds.every((id) => selectedKnowledgePointIds.includes(id)),
     requestedPatternGroupIdsPreserved: requestedPatternGroupIds.every((id) => selectedPatternGroupIds.includes(id)),
+    selectedCompatibilityAliasIds: freezeArray(selectedCompatibilityAliasIds),
     legacySelectionMode: plan.selectionMode ?? null,
     globalSelectionMode: selectionMode,
     visibleOutputChangeExpected: false,
@@ -208,6 +251,7 @@ export function applyR07AuthoritativeConsumerCutover(plan = {}) {
     legacyCompatibilityAlias: Object.freeze({
       sourceId: plan.sourceId,
       role: "COMPATIBILITY_ALIAS_READ_ONLY",
+      knowledgePointIds: freezeArray(selectedCompatibilityAliasIds),
       postGoldenMigrationTaskId: plan.postGoldenMigrationTaskId ?? null,
     }),
   });
@@ -234,7 +278,7 @@ export function validateR07BrowserAuthorityRegistry() {
       errors.push(`R07_BROWSER_AUTHORITY_DESCRIPTOR_MISSING:${sourceId}`);
       continue;
     }
-    if (descriptor.knowledgePointIds.length === 0) errors.push(`R07_BROWSER_AUTHORITY_KP_EMPTY:${sourceId}`);
+    if (descriptor.canonicalKnowledgePointIds.length === 0) errors.push(`R07_BROWSER_AUTHORITY_KP_EMPTY:${sourceId}`);
     if (descriptor.patternGroupIds.length === 0) errors.push(`R07_BROWSER_AUTHORITY_PATTERN_GROUP_EMPTY:${sourceId}`);
     const cutover = applyR07AuthoritativeConsumerCutover({ sourceId, selectionMode: "sourceUnit" });
     if (!cutover.applied || cutover.blocked || cutover.plan?.globalAuthorityCutover?.authorityMode !== "GLOBAL_PRIMARY") {
