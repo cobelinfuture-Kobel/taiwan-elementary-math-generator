@@ -1,4 +1,5 @@
 import { G5A_U02_PUBLIC_SOURCE_ID } from "../batch-b/g5a-u02-browser-resolver.js";
+import { buildFifteenUnitGlobalContextLineage } from "../public/fifteen-unit-global-context-registry.js";
 
 export const G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION = "glm-s05-g5a-u02-projection-v1";
 export const G5A_U02_SEMANTIC_PROJECTION_VERSION = "g5a-u02-s97-visible-prompt-v1";
@@ -25,6 +26,20 @@ function renderKind(record = {}) {
   if (record.mode === "representation") return "representation";
   if (record.mode === "concept") return "concept";
   return "numeric";
+}
+
+function isApplicationRecord(record = {}) {
+  return String(record.mode ?? "").includes("application") || String(record.renderKind ?? "").includes("application");
+}
+
+function globalContextForRecord(record, questionNumber) {
+  if (!isApplicationRecord(record)) return null;
+  return buildFifteenUnitGlobalContextLineage({
+    sourceId: G5A_U02_PUBLIC_SOURCE_ID,
+    generationSeed: "g5a-u02-public-application",
+    sequenceNumber: questionNumber,
+    patternSpecId: record.patternSpecId,
+  });
 }
 
 function responsePrompt(record = {}) {
@@ -122,11 +137,14 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
   const answerByNumber = new Map(
     answerRecords(document).map((record) => [record.questionNumber, record]),
   );
+  const contextLineages = [];
   const questionDisplayModels = records.map((record, index) => {
     const questionNumber = Number(record.questionNumber) || index + 1;
     const prompt = String(record.prompt ?? record.promptText ?? "");
     const response = responsePrompt(record);
     const structuredDisplayModel = clone(record.questionDisplayModel ?? null);
+    const globalContextProduction = globalContextForRecord(record, questionNumber);
+    if (globalContextProduction) contextLineages.push(globalContextProduction);
     return {
       questionId: record.questionId ?? `g5a-u02-${questionNumber}`,
       questionNumber,
@@ -140,7 +158,7 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
       responsePrompt: response,
       answerModelShape: record.answerModelId ?? null,
       renderKind: renderKind(record),
-      applicationText: String(record.mode ?? "").includes("application"),
+      applicationText: isApplicationRecord(record),
       mode: record.mode ?? null,
       implementationClass: record.implementationClass ?? null,
       questionDisplayModel: structuredDisplayModel,
@@ -150,6 +168,8 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
         projectionVersion: G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION,
         semanticProjectionVersion: structuredDisplayModel ? G5A_U02_SEMANTIC_PROJECTION_VERSION : null,
         promptCompletenessStatus: record.promptCompletenessStatus ?? null,
+        globalContextProduction: clone(globalContextProduction),
+        sdgTags: clone(globalContextProduction?.sdgTags ?? []),
       },
       layoutHints: {
         estimatedTextLength: [...prompt].length,
@@ -167,6 +187,7 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
     const prompt = String(record.prompt ?? record.promptText ?? "");
     const answerText = publicAnswerText(record, answer);
     const answerPrompt = publicAnswerPrompt(record, prompt);
+    const globalContextProduction = globalContextForRecord(record, questionNumber);
     return {
       questionId: record.questionId ?? `g5a-u02-${questionNumber}`,
       questionNumber,
@@ -186,6 +207,8 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
         sourceIds: clone(record.sourceIds ?? []),
         projectionVersion: G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION,
         semanticProjectionVersion: record.questionDisplayModel ? G5A_U02_SEMANTIC_PROJECTION_VERSION : null,
+        globalContextProduction: clone(globalContextProduction),
+        sdgTags: clone(globalContextProduction?.sdgTags ?? []),
       },
       layoutHints: {
         estimatedTextLength: [...`${answerPrompt}${answerText}`].length,
@@ -207,11 +230,15 @@ export function projectG5AU02DynamicDocumentForGlobalLayout(result) {
         ...(document.metadata ?? {}),
         g5aU02GlobalLayoutProjectionVersion: G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION,
         g5aU02SemanticProjectionVersion: G5A_U02_SEMANTIC_PROJECTION_VERSION,
+        globalContextRegistryId: "GCTX_15_UNIT_PUBLIC_WORKSHEET_V1",
+        globalContextBoundQuestionCount: contextLineages.length,
+        globalContextProduction: clone(contextLineages),
       },
       provenance: {
         ...(document.provenance ?? {}),
         g5aU02GlobalLayoutProjectionVersion: G5A_U02_GLOBAL_LAYOUT_PROJECTION_VERSION,
         g5aU02SemanticProjectionVersion: G5A_U02_SEMANTIC_PROJECTION_VERSION,
+        globalContextRegistryId: "GCTX_15_UNIT_PUBLIC_WORKSHEET_V1",
       },
     },
   };

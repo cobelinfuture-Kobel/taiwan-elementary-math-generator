@@ -26,4 +26,44 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run tests
-        run: npm test
+        id: full_tests
+        continue-on-error: true
+        run: |
+          mkdir -p tmp
+          set -o pipefail
+          npm test 2>&1 | tee tmp/npm-test.log
+      - name: Install Chromium for 15-unit closeout
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'closeout/15-unit-public-worksheet-v1'
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Run 15-unit Chromium PDF and live UI acceptance
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'closeout/15-unit-public-worksheet-v1'
+        run: node tools/curriculum/render-15-unit-public-worksheet-pdf-smoke.mjs
+      - name: Upload full regression diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-test-full-regression-diagnostics
+          path: tmp/npm-test.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload 15-unit public worksheet closeout report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fifteen-unit-public-worksheet-closeout-report
+          path: tmp/15-unit-public-worksheet-closeout-report.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Upload 15-unit Chromium acceptance artifacts
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'closeout/15-unit-public-worksheet-v1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: fifteen-unit-public-worksheet-chromium-acceptance
+          path: tmp/15-unit-public-worksheet-pdf-smoke
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Block after full regression failure
+        if: steps.full_tests.outcome == 'failure'
+        run: exit 1

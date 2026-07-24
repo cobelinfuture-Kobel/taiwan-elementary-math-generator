@@ -13,30 +13,33 @@ import {
   G5A_U08_PUBLIC_CONTROLS,
 } from "../../../modules/curriculum/registry/g5a-u08-promotion.js";
 import {
-  getPublicControlProfile,
-  normalizePublicControlValue,
-} from "../../../modules/curriculum/registry/public-control-profiles.js";
+  getFifteenUnitPublicControlProfile,
+  normalizeFifteenUnitPublicControlValue,
+} from "../../../modules/curriculum/registry/fifteen-unit-public-control-profiles.js";
+import { getPublicControlProfile } from "../../../modules/curriculum/registry/public-control-profiles.js";
 
 function normalizedControls(sourceId, input = {}) {
-  if (sourceId === G4B_U04_SOURCE_ID) {
-    return {
-      questionMode: G4B_U04_PUBLIC_CONTROLS.questionModes.includes(input.questionMode)
-        ? input.questionMode
-        : G4B_U04_PUBLIC_CONTROLS.defaults.questionMode,
-      layoutMode: G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(input.layoutMode)
-        ? input.layoutMode
-        : G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode,
-      contextMode: G4B_U04_PUBLIC_CONTROLS.contextModes.includes(input.contextMode)
-        ? input.contextMode
-        : G4B_U04_PUBLIC_CONTROLS.defaults.contextMode,
-    };
-  }
-  const profile = getPublicControlProfile(sourceId);
-  if (!profile) return {};
+  const profile = getFifteenUnitPublicControlProfile(sourceId);
   const normalized = {};
-  if (profile.questionTypeControl.supported) normalized.questionMode = normalizePublicControlValue(profile, "questionTypeControl", input.questionMode);
-  if (profile.reasoningDepthControl.supported) normalized.depthMode = normalizePublicControlValue(profile, "reasoningDepthControl", input.depthMode);
-  if (profile.contextControl.supported) normalized.contextMode = normalizePublicControlValue(profile, "contextControl", input.contextMode);
+  if (profile?.questionTypeControl.supported) {
+    normalized.questionMode = normalizeFifteenUnitPublicControlValue(profile, "questionTypeControl", input.questionMode);
+  }
+  if (profile?.reasoningDepthControl.supported) {
+    normalized.depthMode = normalizeFifteenUnitPublicControlValue(profile, "reasoningDepthControl", input.depthMode);
+  }
+  if (profile?.contextControl.supported) {
+    normalized.contextMode = normalizeFifteenUnitPublicControlValue(profile, "contextControl", input.contextMode);
+  }
+  if (sourceId === G4B_U04_SOURCE_ID) {
+    normalized.layoutMode = G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(input.layoutMode)
+      ? input.layoutMode
+      : G4B_U04_PUBLIC_CONTROLS.defaults.layoutMode;
+    if (!normalized.contextMode) {
+      normalized.contextMode = G4B_U04_PUBLIC_CONTROLS.contextModes.includes(input.contextMode)
+        ? input.contextMode
+        : G4B_U04_PUBLIC_CONTROLS.defaults.contextMode;
+    }
+  }
   return normalized;
 }
 
@@ -104,7 +107,7 @@ export function createConfigState(options = {}) {
 
 export function setBatchASourceId(state, sourceId) {
   core.setBatchASourceId(state, sourceId);
-  return applyControlsToState(state, state?.batchA ?? {});
+  return applyControlsToState(state, {});
 }
 
 export function setBatchAPrintLayout(state, patch = {}) {
@@ -138,6 +141,7 @@ export function getBatchAWorksheetPlan(state) {
     },
     globalLayoutNormalization: globalLayout,
   };
+  const profile = getFifteenUnitPublicControlProfile(plan.sourceId);
   if (plan.sourceId === G4B_U04_SOURCE_ID) {
     const publicControls = {
       questionMode: controls.questionMode,
@@ -148,13 +152,12 @@ export function getBatchAWorksheetPlan(state) {
     }
     return {
       ...common,
-      questionMode: controls.questionMode,
-      layoutMode: controls.layoutMode,
-      contextMode: controls.contextMode,
+      ...controls,
       publicControls,
+      genericFallback: false,
+      freeFormAI: false,
     };
   }
-  const profile = getPublicControlProfile(plan.sourceId);
   if (!profile) return common;
   return {
     ...common,
@@ -169,14 +172,10 @@ export function getBatchAWorksheetPlan(state) {
 
 function setControl(state, field, value, controlName) {
   if (!state?.batchA) return state;
-  if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "questionMode") {
-    if (G4B_U04_PUBLIC_CONTROLS.questionModes.includes(value)) state.batchA[field] = value;
-  } else if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "layoutMode") {
+  if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "layoutMode") {
     if (G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value)) state.batchA[field] = value;
-  } else if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "contextMode") {
-    if (G4B_U04_PUBLIC_CONTROLS.contextModes.includes(value)) state.batchA[field] = value;
   } else {
-    const profile = getPublicControlProfile(state.batchA.sourceId);
+    const profile = getFifteenUnitPublicControlProfile(state.batchA.sourceId);
     const definition = profile?.[controlName];
     if (!definition?.supported || !definition.options.some((option) => option.value === value)) return state;
     state.batchA[field] = value;
