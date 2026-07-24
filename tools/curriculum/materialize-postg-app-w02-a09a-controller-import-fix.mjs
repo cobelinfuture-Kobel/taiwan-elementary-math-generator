@@ -18,6 +18,14 @@ const completeA09AImport = `import {
 } from './w02-a09a-authority-reconciliation-freeze.mjs';`;
 const incompleteEmitter = String.raw`import {\n  W02_A09A_NEXT_TASK,\n  W02_A09A_STATUS,\n  W02_A09A_TASK\n} from './w02-a09a-authority-reconciliation-freeze.mjs';\n`;
 const completeEmitter = String.raw`import {\n  W02_A09A_NEXT_TASK,\n  W02_A09A_POLICY_PATH,\n  W02_A09A_STATUS,\n  W02_A09A_TASK\n} from './w02-a09a-authority-reconciliation-freeze.mjs';\n`;
+const obsoleteReadbackReplacement = [
+  'replaceExact(',
+  '  controllerPath,',
+  "  `    status: validation.ok\\n      ? W02_A08R4_STATUS\\n      : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION',`,",
+  "  `    status: validation.ok\\n      ? W02_A09A_STATUS\\n      : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION',`",
+  ');',
+  ''
+].join('\n');
 
 function normalizeController() {
   const original = fs.readFileSync(controllerPath, 'utf8');
@@ -83,9 +91,13 @@ import {
 
 function normalizeAuthoritativeMaterializer() {
   const original = fs.readFileSync(authoritativeMaterializerPath, 'utf8');
-  const next = original.split(incompleteEmitter).join(completeEmitter);
+  let next = original.split(incompleteEmitter).join(completeEmitter);
+  next = next.split(obsoleteReadbackReplacement).join('');
   if (!next.includes(completeEmitter) || next.includes(incompleteEmitter)) {
     throw new Error('A09A authoritative materializer does not emit exactly the complete import');
+  }
+  if (next.includes("? W02_A08R4_STATUS\\n      : 'BLOCKED_BY_M00_CONTROLLER_VALIDATION'")) {
+    throw new Error('A09A authoritative materializer still contains the obsolete M00 readback replacement');
   }
   if (next !== original) {
     fs.writeFileSync(authoritativeMaterializerPath, next);
