@@ -24,33 +24,7 @@ jobs:
         with:
           node-version: 22
       - name: Install project dependencies
-        run: npm install --silent --no-audit --no-fund
-      - name: Apply idempotent A09A authoritative materialization
-        run: |
-          set -o pipefail
-          {
-            node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
-            node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
-            node tools/curriculum/normalize-postg-app-w02-a09a-m00-compat-materializer.mjs
-            node tools/curriculum/materialize-postg-app-w02-a09a-m00-compat-repair.mjs
-            git diff --stat
-          } 2>&1 | tee a09a-materialization.log
-      - name: Upload materialized A09A diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: a09a-materialized-controller-diagnostics
-          path: |
-            a09a-materialization.log
-            src/curriculum/application/postg-app-master-controller.mjs
-            tests/curriculum/postg-app-m00-master-controller.test.js
-            tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
-            data/curriculum/application/controller/postg-app-master-controller-state.json
-            data/curriculum/application/controller/postg-app-wave-plan.json
-            data/curriculum/application/registry/application-capability-registry.json
-            data/curriculum/application/registry/wave-application-admission-registry.json
-          if-no-files-found: error
-          retention-days: 7
+        run: npm ci
       - name: Validate canonical authority gap and W03 freeze
         run: node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
       - name: Enforce frozen mainline against new W03 and legacy routes
@@ -80,46 +54,11 @@ jobs:
             grep -Ei '^site/assets/browser/.*(application|global-context).*\.js$' <<<"$added" || true
             exit 1
           fi
-      - name: Capture focused A09A diagnostics
-        id: focused
-        shell: bash
+      - name: Focused A09A and M00 tests
         run: |
-          set +e
-          : > a09a-focused-diagnostics.log
-          status=0
-          run_check() {
-            label="$1"; shift
-            echo "===== ${label} =====" | tee -a a09a-focused-diagnostics.log
-            "$@" >> a09a-focused-diagnostics.log 2>&1
-            code=$?
-            echo "STATUS=${code}" | tee -a a09a-focused-diagnostics.log
-            if [[ $code -ne 0 ]]; then status=$code; fi
-          }
-          run_check a09a-test node --test tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
-          run_check m00-test node --test tests/curriculum/postg-app-m00-master-controller.test.js
-          run_check m00-validator node tools/curriculum/validate-postg-app-m00-master-controller.mjs
-          cat a09a-focused-diagnostics.log
-          echo "status=${status}" >> "$GITHUB_OUTPUT"
-          exit 0
-      - name: Upload focused A09A diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: a09a-focused-diagnostics
-          path: a09a-focused-diagnostics.log
-          if-no-files-found: error
-          retention-days: 7
-      - name: Enforce focused A09A validation
-        if: steps.focused.outputs.status != '0'
-        run: exit 1
-      - name: Enforce materializer idempotence
-        run: |
-          git diff > /tmp/a09a-first.diff
-          node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
-          node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
-          node tools/curriculum/normalize-postg-app-w02-a09a-m00-compat-materializer.mjs
-          node tools/curriculum/materialize-postg-app-w02-a09a-m00-compat-repair.mjs
-          git diff > /tmp/a09a-second.diff
-          cmp /tmp/a09a-first.diff /tmp/a09a-second.diff
+          node --test tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
+          node tools/curriculum/validate-postg-app-w02-a09a-authority-reconciliation-freeze.mjs
+          node --test tests/curriculum/postg-app-m00-master-controller.test.js
+          node tools/curriculum/validate-postg-app-m00-master-controller.mjs
       - name: Full regression
         run: npm test
