@@ -12,9 +12,14 @@ function issue(code, path, message) {
 
 function integerAnswer(question) {
   const raw = question?.finalAnswer?.raw?.value
+    ?? question?.finalAnswer?.value
+    ?? question?.finalAnswer?.answer
     ?? question?.finalAnswer
     ?? question?.answer?.raw?.value
+    ?? question?.answer?.value
     ?? question?.answer
+    ?? question?.product
+    ?? question?.quantities?.answer
     ?? question?.quotient;
   return Number.isInteger(raw) ? raw : null;
 }
@@ -22,12 +27,18 @@ function integerAnswer(question) {
 function binaryOperands(question) {
   return {
     left: question?.left
+      ?? question?.multiplicand
       ?? question?.dividend
+      ?? question?.operands?.[0]
+      ?? question?.quantities?.a
       ?? question?.expression?.left?.value?.raw?.value
       ?? question?.expression?.left?.raw?.value
       ?? null,
     right: question?.right
+      ?? question?.multiplier
       ?? question?.divisor
+      ?? question?.operands?.[1]
+      ?? question?.quantities?.b
       ?? question?.expression?.right?.value?.raw?.value
       ?? question?.expression?.right?.raw?.value
       ?? null,
@@ -80,7 +91,6 @@ function applicationProjection(question, binding, promptText, answerText, relati
 function projectCloseoutQuestion(question, binding, options, index) {
   const specId = binding.patternSpecIds[0];
   const { left, right } = binaryOperands(question);
-  const answer = integerAnswer(question);
   const lineage = buildFifteenUnitGlobalContextLineage({
     sourceId: binding.sourceId,
     generationSeed: options.generationSeed,
@@ -88,9 +98,10 @@ function projectCloseoutQuestion(question, binding, options, index) {
     patternSpecId: specId,
   });
   const contextName = lineage?.displayNameZh ?? "校園活動";
-  if (![left, right, answer].every(Number.isInteger)) return null;
 
   if (specId === "ps_g4a_u02_3digit_by_1digit_review") {
+    const answer = integerAnswer(question);
+    if (![left, right, answer].every(Number.isInteger)) return null;
     return applicationProjection(
       question,
       binding,
@@ -100,15 +111,23 @@ function projectCloseoutQuestion(question, binding, options, index) {
     );
   }
   if (specId === "ps_g4a_u04_4digit_by_1digit_thousands_exact") {
+    const quotient = Number.isInteger(question?.quotient) ? question.quotient : integerAnswer(question);
+    const remainder = Number.isInteger(question?.remainder) ? question.remainder : 0;
+    if (![left, right, quotient, remainder].every(Number.isInteger)) return null;
+    const answerText = remainder === 0
+      ? `每組${quotient}件`
+      : `每組${quotient}件，剩下${remainder}件`;
     return applicationProjection(
       question,
       binding,
-      `${contextName}共有${left}件物資，平均分給${right}組。每組可以分到多少件物資？`,
-      `${answer}件`,
-      { relation: "EQUAL_SHARE", total: left, groupCount: right, target: "PER_GROUP_QUANTITY" },
+      `${contextName}共有${left}件物資，平均分給${right}組。每組可以分到多少件物資？還會剩下多少件？`,
+      answerText,
+      { relation: "EQUAL_SHARE_WITH_REMAINDER", total: left, groupCount: right, quotient, remainder, target: "PER_GROUP_AND_REMAINDER" },
     );
   }
   if (specId === "ps_g4b_u01_3digit_by_3digit") {
+    const answer = integerAnswer(question);
+    if (![left, right, answer].every(Number.isInteger)) return null;
     return applicationProjection(
       question,
       binding,
