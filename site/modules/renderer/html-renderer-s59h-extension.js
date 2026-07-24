@@ -27,6 +27,12 @@ const HORIZONTAL_RENDERER_STYLE = [
   '  word-break: keep-all;',
   '  font-variant-numeric: tabular-nums;',
   '}',
+  '.worksheet-renderer--g4b-u01-application .worksheet-cell__prompt,',
+  '.worksheet-renderer--g4b-u01-application .worksheet-cell__answer {',
+  '  white-space: normal;',
+  '  overflow-wrap: anywhere;',
+  '  word-break: normal;',
+  '}',
   '.worksheet-renderer--g4b-u01-horizontal .worksheet-cell--answer-key .worksheet-cell__answer {',
   '  line-height: 1.45;',
   '}',
@@ -42,14 +48,30 @@ export function isG4BU01HorizontalRendererDocument(worksheetDocument = {}) {
     ));
 }
 
+export function isG4BU01ApplicationRendererDocument(worksheetDocument = {}) {
+  const records = [
+    ...(worksheetDocument?.questionDisplayModels ?? []),
+    ...(worksheetDocument?.generatedQuestions ?? []),
+    ...(worksheetDocument?.questions ?? []),
+  ];
+  return records.some((record) => (
+    record?.applicationText === true
+    || String(record?.mode ?? record?.questionMode ?? "").toLowerCase().includes("application")
+    || String(record?.renderKind ?? "").toLowerCase().includes("application")
+  ));
+}
+
 export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
   if (!isG4BU01HorizontalRendererDocument(worksheetDocument)) {
     return renderBaseWorksheetDocumentToHtml(worksheetDocument, options);
   }
+  const applicationClass = isG4BU01ApplicationRendererDocument(worksheetDocument)
+    ? " worksheet-renderer--g4b-u01-application"
+    : "";
   return renderBaseWorksheetDocumentToHtml(worksheetDocument, options)
     .replace(
       '<body class="worksheet-renderer">',
-      '<body class="worksheet-renderer worksheet-renderer--g4b-u01-horizontal" data-renderer-profile="g4b_u01_horizontal_numeric_v1">',
+      `<body class="worksheet-renderer worksheet-renderer--g4b-u01-horizontal${applicationClass}" data-renderer-profile="g4b_u01_horizontal_numeric_v1">`,
     )
     .replace("</head>", `${HORIZONTAL_RENDERER_STYLE}</head>`);
 }
