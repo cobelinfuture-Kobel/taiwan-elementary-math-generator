@@ -1,0 +1,35 @@
+name: POSTG APP W02 A09A Bootstrap
+
+on:
+  push:
+    branches: [postg-app-w02-a08r4-third-operator-approval]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize-controller-imports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: postg-app-w02-a08r4-third-operator-approval
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Materialize exact controller import normalization
+        run: node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
+      - name: Commit exact materialization when needed
+        shell: bash
+        run: |
+          if git diff --quiet -- src/curriculum/application/postg-app-master-controller.mjs; then
+            echo "Controller imports already normalized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/curriculum/application/postg-app-master-controller.mjs
+          git commit -m "fix(application): normalize A08R4 controller imports"
+          git push origin HEAD:postg-app-w02-a08r4-third-operator-approval
