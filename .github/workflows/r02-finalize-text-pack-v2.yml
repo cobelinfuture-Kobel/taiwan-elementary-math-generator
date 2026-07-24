@@ -1,0 +1,45 @@
+name: R02 Finalize Text Candidate Pack V2
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/r02-finalize-text-pack-v2.yml"
+      - "tools/curriculum/finalize-r02-text-pack.py"
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.head_ref == 'curriculum/global-kp-rebase-r02'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout R02 branch
+        uses: actions/checkout@v4
+        with:
+          ref: curriculum/global-kp-rebase-r02
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Finalize validated text pack
+        run: python tools/curriculum/finalize-r02-text-pack.py
+      - name: Focused R02 tests
+        run: |
+          mkdir -p tmp
+          node --test tests/curriculum/r02-global-kp-candidate-reconciliation.test.js > tmp/r02-focused.log 2>&1 || {
+            tail -n 120 tmp/r02-focused.log
+            exit 1
+          }
+          tail -n 40 tmp/r02-focused.log
+      - name: Governance claim integrity
+        run: node tools/governance/validate-milestone-claim-integrity.mjs
+      - name: Commit finalized text pack
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "R02 fix: replace truncated gzip with validated text chunks"
+          git push origin HEAD:curriculum/global-kp-rebase-r02
