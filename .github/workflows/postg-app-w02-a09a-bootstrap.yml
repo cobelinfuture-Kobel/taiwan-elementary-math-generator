@@ -23,11 +23,15 @@ jobs:
         run: node tools/curriculum/materialize-postg-app-w02-a09a-controller-import-fix.mjs
       - name: Materialize authoritative A09A mainline freeze
         run: node tools/curriculum/materialize-postg-app-w02-a09a-authoritative-mainline-freeze.mjs
+      - name: Normalize M00 compatibility materializer
+        run: node tools/curriculum/normalize-postg-app-w02-a09a-m00-compat-materializer.mjs
+      - name: Repair M00 consumer compatibility
+        run: node tools/curriculum/materialize-postg-app-w02-a09a-m00-compat-repair.mjs
       - name: Commit exact materialization when needed
         shell: bash
         run: |
           if git diff --quiet; then
-            echo "A09A authoritative freeze is already materialized."
+            echo "A09A authoritative freeze and M00 compatibility are already materialized."
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -39,6 +43,7 @@ jobs:
             data/curriculum/application/registry/application-capability-registry.json \
             data/curriculum/application/registry/wave-application-admission-registry.json \
             tests/curriculum/postg-app-m00-master-controller.test.js \
-            tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js
-          git commit -m "fix(application): make A09A freeze authoritative"
+            tests/curriculum/postg-app-w02-a09a-authority-reconciliation-freeze.test.js \
+            tools/curriculum/materialize-postg-app-w02-a09a-m00-compat-repair.mjs
+          git commit -m "fix(application): make A09A freeze and M00 contract authoritative"
           git push origin HEAD:postg-app-w02-a08r4-third-operator-approval
