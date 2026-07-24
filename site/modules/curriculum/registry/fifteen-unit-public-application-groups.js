@@ -18,7 +18,7 @@ const rows = [
     "REL_EQUAL_SHARE_V2"
   ],
   [
-    "closeout_app_pg_g4b_u01_3digit_by_3digit",
+    "pg_g4b_u01_3digit_by_3digit",
     "pg_g4b_u01_3digit_by_3digit",
     "g4b_u01_4b01",
     "kp_g4b_u01_3digit_by_3digit",
