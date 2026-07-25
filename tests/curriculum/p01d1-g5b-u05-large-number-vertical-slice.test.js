@@ -12,7 +12,10 @@ import {
   G5B_U05_SOURCE_ID,
   validateP01D1PatternDefinitions,
 } from "../../site/modules/curriculum/batch-a/source-pattern-full-product-p01d1-extension.js";
-import { listBatchASourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
+import {
+  listBatchASourceUnits,
+  listFullProductSourceUnits,
+} from "../../site/modules/curriculum/batch-a/source-units.js";
 import { buildBatchABrowserPlan } from "../../site/modules/curriculum/batch-a/batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import {
@@ -69,12 +72,15 @@ test("P01D1 publishes exactly four W1 KnowledgePoints and eight PatternSpecs", (
   assert.equal(listVisibleBatchAKnowledgePoints().some((row) => row.knowledgePointId === DECIMAL_KP_ID), false);
 });
 
-test("P01D1 exposes G5B-U05 as the sixteenth public source without changing the protected 13-source baseline", () => {
+test("P01D1 exposes a separate sixteenth full-product source without changing protected source registries", () => {
   const protectedBaseline = listBatchASourceUnits({ includePublicCandidates: false });
-  const publicSources = listBatchASourceUnits({ includePublicCandidates: true });
+  const protectedPublicFleet = listBatchASourceUnits({ includePublicCandidates: true });
+  const fullProductSources = listFullProductSourceUnits();
   assert.equal(protectedBaseline.length, 13);
-  assert.equal(publicSources.length, 16);
-  const source = publicSources.find((row) => row.sourceId === G5B_U05_SOURCE_ID);
+  assert.equal(protectedPublicFleet.length, 15);
+  assert.equal(protectedPublicFleet.some((row) => row.sourceId === G5B_U05_SOURCE_ID), false);
+  assert.equal(fullProductSources.length, 16);
+  const source = fullProductSources.find((row) => row.sourceId === G5B_U05_SOURCE_ID);
   assert.equal(source?.unitCode, "5B-U05");
   assert.equal(source?.lifecycle, "full_product_w1_vertical_slice");
 });
