@@ -1,0 +1,39 @@
+{
+  "schemaName": "P02EQuantitySemanticRoleBindingManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
+  "status": "QUANTITY_SEMANTIC_ROLE_BINDING_CONSUMER_IMPLEMENTED_PENDING_CI",
+  "expectedCounts": {
+    "effectiveDependentKnowledgePointCount": 26,
+    "classificationErrorCount": 0,
+    "promotedCapabilityCount": 4,
+    "newPromotionCount": 1,
+    "remainingShadowFoundationCount": 1
+  },
+  "policyPath": "data/curriculum/full-product/p02e/quantity-semantic-role-binding-policy.json",
+  "promotionRegistryPath": "data/curriculum/full-product/p02e/w2-capability-promotion-registry.json",
+  "runtimePath": "src/curriculum/full-product/p02e-quantity-semantic-role-binding-consumer.mjs",
+  "validatorPath": "tools/curriculum/validate-p02e-quantity-semantic-role-binding-consumer.mjs",
+  "mainlineBoundary": {
+    "p02InventoryReused": true,
+    "p02bGlobalAuthorityReused": true,
+    "p02cQuantityIdentityReused": true,
+    "parallelSemanticAuthorityCreated": false,
+    "r04HistoricalBaselineMutated": false,
+    "effectiveCapabilityPromotionChanged": true,
+    "productionReadOnlyConsumerAdded": true,
+    "productionAdmissionChanged": true,
+    "sameUnitArithmeticImplemented": false,
+    "unitConversionImplemented": false,
+    "storyTemplateImplemented": false,
+    "publicUiChanged": false,
+    "patternSpecImplementationStarted": false,
+    "generatorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "existing19SourceProductPreserved": true,
+    "p03ToP08WorkStarted": false,
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P02F_W2SameUnitQuantityArithmeticConsumerAdmission"
+  }
+}
