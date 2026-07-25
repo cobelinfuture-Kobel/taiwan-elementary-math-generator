@@ -1,4 +1,4 @@
-import { listBatchASourceUnits } from "../batch-a/source-units.js";
+import { listProtectedFifteenPublicSourceUnits } from "../batch-a/source-units.js";
 
 export const GOLDEN_UNIT_CONFORMANCE_STATUSES = Object.freeze([
   "LEGACY_COMPLETED_PENDING_GOLDEN_VALIDATION",
@@ -24,7 +24,7 @@ function issue(code, details = {}) {
 }
 
 function sourceUnits() {
-  return listBatchASourceUnits({ includePublicCandidates: true });
+  return listProtectedFifteenPublicSourceUnits();
 }
 
 function expectedUnitMap() {
@@ -258,77 +258,44 @@ export function validateGoldenBatchController(controller = {}, registry = {}, pr
     ok: errors.length === 0,
     errors,
     registryAudit,
-    queue: {
+    queue: freeze({
       completeCount: expectedComplete.length,
       activeCount: expectedActive ? 1 : 0,
       pendingCount: expectedPending.length,
       blockedCount: expectedBlocked.length,
       exceptionCount: expectedExceptions.length,
       nextResumeSourceId: expectedActive,
-    },
+    }),
   });
 }
 
 export function evaluateGoldenProductionGate(registry = {}, sourceId) {
-  const row = registry.rows?.find((entry) => entry.sourceId === sourceId) ?? null;
+  const row = registry.rows?.find((candidate) => candidate.sourceId === sourceId);
   if (!row) {
-    return freeze({
-      allowed: false,
-      code: "GS06_PRODUCTION_GATE_UNKNOWN_SOURCE_UNIT",
-      sourceId,
-      conformanceStatus: null,
-    });
+    return freeze({ allowed: false, code: "GS06_PRODUCTION_GATE_UNKNOWN_SOURCE_UNIT", sourceId });
   }
-  if (row.conformanceStatus !== PRODUCTION_ALLOWED_STATUS
-    || row.goldenProductionEligible !== true
-    || row.productionGate !== "allowed_golden_conformant") {
-    return freeze({
-      allowed: false,
-      code: "GS06_PRODUCTION_GATE_REQUIRES_GOLDEN_CONFORMANT",
-      sourceId,
-      conformanceStatus: row.conformanceStatus,
-    });
-  }
+  const allowed = row.conformanceStatus === PRODUCTION_ALLOWED_STATUS
+    && row.goldenProductionEligible === true
+    && row.productionGate === "allowed_golden_conformant";
   return freeze({
-    allowed: true,
-    code: "GS06_PRODUCTION_GATE_ALLOWED",
+    allowed,
+    code: allowed ? "GS06_PRODUCTION_GATE_ALLOWED" : "GS06_PRODUCTION_GATE_REQUIRES_GOLDEN_CONFORMANT",
     sourceId,
     conformanceStatus: row.conformanceStatus,
   });
 }
 
-function parseNameStatus(nameStatusText = "") {
-  return String(nameStatusText)
-    .trim()
-    .split(/\r?\n/)
-    .filter(Boolean)
-    .map((line) => {
-      const [status, ...parts] = line.split(/\t+/);
-      return { status, path: parts.at(-1) ?? "" };
-    });
-}
-
-function unitSpecificRuntimePath(path) {
-  const unitToken = /(?:g[3-6][ab][-_]u\d{1,2})/i.test(path);
-  const runtimeToken = /(?:generator|validator|renderer)/i.test(path);
-  const curriculumModule = /^site\/modules\/curriculum\//.test(path);
-  const unitWorkflow = /^\.github\/workflows\//.test(path)
-    && /(?:g[3-6][ab][-_]u\d{1,2})/i.test(path);
-  return (curriculumModule && unitToken && runtimeToken) || unitWorkflow;
-}
-
-export function detectGoldenDiffDrift(nameStatusText = "") {
-  const errors = [];
-  const entries = parseNameStatus(nameStatusText);
-  for (const entry of entries) {
-    if (entry.status.startsWith("A") && unitSpecificRuntimePath(entry.path)) {
-      errors.push(issue("GS06_ADDED_UNIT_SPECIFIC_RUNTIME_FILE", { path: entry.path }));
-    }
-  }
+export function detectGoldenDiffDrift(changedPaths = []) {
+  const paths = [...new Set(changedPaths)].sort();
+  const forbidden = paths.filter((path) => (
+    path.startsWith("site/modules/core/")
+    || path.startsWith("site/modules/curriculum/batch-a/")
+    || path.startsWith("site/modules/renderer/")
+    || path.startsWith("src/")
+  ));
   return freeze({
-    ok: errors.length === 0,
-    errors,
-    changedFileCount: entries.length,
-    addedUnitSpecificRuntimeCount: errors.length,
+    ok: forbidden.length === 0,
+    changedPaths: paths,
+    forbiddenPaths: forbidden,
   });
 }
