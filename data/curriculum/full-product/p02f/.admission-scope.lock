@@ -1,0 +1,8 @@
+P02F_W2SameUnitQuantityArithmeticConsumerAdmission
+scope=2_KP_QUANTITY_TIMES_INTEGER_ONLY
+unit_conversion=false
+mixed_unit_normalization=false
+story_generation=false
+patternspec=false
+worksheet=false
+public_ui=false
