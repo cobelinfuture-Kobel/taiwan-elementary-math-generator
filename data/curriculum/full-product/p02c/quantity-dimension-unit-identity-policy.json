@@ -55,12 +55,12 @@
       "dimensionId": "SOURCE_DECLARED_QUANTITY",
       "unitFamilyId": "SOURCE_DECLARED_UNIT_FAMILY",
       "canonicalUnitIds": ["source_declared_unit"],
-      "unitIdentityMode": "SOURCE_DECLARED_PER_ITEM"
+      "unitIdentityMode": "SOURCE_DECLARED_ONLY"
     },
     {
       "ruleId": "quantity_identity_mass",
       "profileIds": ["profile_quantity_measurement"],
-      "anyTerms": ["mass_", "kg_g", "metric_ton", "weight", "重量", "質量", "公克", "公斤", "毫克", "公噸"],
+      "anyTerms": ["mass_", "kg_g", "metric_ton", "公克", "公斤", "毫克", "公噸"],
       "dimensionId": "MASS",
       "unitFamilyId": "METRIC_MASS",
       "canonicalUnitIds": ["milligram", "gram", "kilogram", "metric_ton"],
@@ -69,7 +69,7 @@
     {
       "ruleId": "quantity_identity_capacity",
       "profileIds": ["profile_quantity_measurement"],
-      "anyTerms": ["capacity_", "l_ml", "liter", "litre", "容量", "公升", "毫升"],
+      "anyTerms": ["capacity_", "l_ml", "liter", "litre", "公升", "毫升"],
       "dimensionId": "CAPACITY",
       "unitFamilyId": "METRIC_CAPACITY",
       "canonicalUnitIds": ["millilitre", "litre"],
@@ -78,7 +78,7 @@
     {
       "ruleId": "quantity_identity_length",
       "profileIds": ["profile_quantity_measurement"],
-      "anyTerms": ["length_", "kilometer", "kilometre", "millimeter", "millimetre", "centimeter", "centimetre", "metre", "meter", "distance", "長度", "公尺", "公分", "毫米", "公里"],
+      "anyTerms": ["length_", "kilometer", "kilometre", "millimeter", "millimetre", "centimeter", "centimetre", "metre", "meter", "公尺", "公分", "毫米", "公里"],
       "dimensionId": "LENGTH",
       "unitFamilyId": "METRIC_LENGTH",
       "canonicalUnitIds": ["millimetre", "centimetre", "metre", "kilometre"],
