@@ -33,7 +33,7 @@ jobs:
           set -o pipefail
           npm test 2>&1 | tee tmp/npm-test.log
       - name: Install Chromium for product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number')
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory')
         run: |
           npm install --no-save --package-lock=false playwright@1.51.1
           npx playwright install --with-deps chromium
@@ -43,6 +43,9 @@ jobs:
       - name: Run P01D1 G5B-U05 Chromium PDF acceptance
         if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01d1-g5b-u05-large-number'
         run: node tools/curriculum/render-p01d1-g5b-u05-pdf-smoke.mjs
+      - name: Run P01D2 G6A-U01 Chromium PDF acceptance
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01d2-g6a-u01-number-theory'
+        run: node tools/curriculum/render-p01d2-g6a-u01-pdf-smoke.mjs
       - name: Upload full regression diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -73,6 +76,14 @@ jobs:
         with:
           name: p01d1-g5b-u05-chromium-acceptance
           path: tmp/p01d1-g5b-u05-pdf-smoke
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Upload P01D2 Chromium acceptance artifacts
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01d2-g6a-u01-number-theory'
+        uses: actions/upload-artifact@v4
+        with:
+          name: p01d2-g6a-u01-chromium-acceptance
+          path: tmp/p01d2-g6a-u01-pdf-smoke
           if-no-files-found: warn
           retention-days: 30
       - name: Block after full regression failure
