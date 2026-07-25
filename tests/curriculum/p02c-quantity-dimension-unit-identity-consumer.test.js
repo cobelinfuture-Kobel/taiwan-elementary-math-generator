@@ -102,6 +102,7 @@ test("P02C identity contract does not implement conversion, roles or arithmetic"
 
 test("P02C fail-closed validator accepts exact production admission", () => {
   const result = validateP02CQuantityDimensionUnitIdentityConsumer();
+  console.log(`# P02C_QUANTITY_IDENTITY_READBACK=${JSON.stringify(result.counts)}`);
   assert.equal(result.ok, true, result.errors.join("\n"));
   assert.equal(result.counts.effectiveDependentKnowledgePoints, 51);
   assert.equal(result.counts.classifiedKnowledgePoints, 51);
