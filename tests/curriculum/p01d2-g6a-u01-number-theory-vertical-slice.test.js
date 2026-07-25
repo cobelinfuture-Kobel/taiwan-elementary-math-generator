@@ -70,15 +70,15 @@ test("P01D2 publishes exactly five W1 KnowledgePoints and ten PatternSpecs", () 
   }
 });
 
-test("P01D2 extends full-product source authority to seventeen without changing protected fifteen-unit registry", () => {
+test("P01D2 extends its bounded source authority without changing protected fifteen-unit registry", () => {
   const protectedBaseline = listBatchASourceUnits({ includePublicCandidates: false });
   const protectedPublicFleet = listBatchASourceUnits({ includePublicCandidates: true });
-  const fullProductSources = listFullProductSourceUnits();
+  const p01d2Sources = listFullProductSourceUnits();
   assert.equal(protectedBaseline.length, 13);
   assert.equal(protectedPublicFleet.length, 15);
   assert.equal(protectedPublicFleet.some((row) => row.sourceId === G6A_U01_SOURCE_ID), false);
-  assert.equal(fullProductSources.length, 17);
-  const source = fullProductSources.find((row) => row.sourceId === G6A_U01_SOURCE_ID);
+  assert.equal(p01d2Sources.length, 17);
+  const source = p01d2Sources.find((row) => row.sourceId === G6A_U01_SOURCE_ID);
   assert.equal(source?.unitCode, "6A-U01");
   assert.equal(source?.lifecycle, "full_product_w1_vertical_slice");
 });
@@ -158,16 +158,16 @@ test("P01D2 produces worksheet, answer key, paginated HTML and print metadata on
   assert.doesNotMatch(html, /\{[A-Za-z_][^}]*\}/);
 });
 
-test("P01D2 updates W1 inventory to nine admitted KnowledgePoints and twelve remaining", () => {
+test("P01D2 remains admitted after later W1 slices advance the cumulative inventory", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   assert.equal(inventory.metrics.knowledgePointCount, 21);
   assert.equal(inventory.metrics.sourceNodeCount, 4);
-  assert.equal(inventory.metrics.publicKnowledgePointVisibleCount, 9);
-  assert.equal(inventory.metrics.publicPatternBindingPresentCount, 9);
-  assert.equal(inventory.metrics.publicSourceSelectableCount, 2);
-  assert.equal(inventory.metrics.admissionReadyExistingPublicPatternCount, 9);
+  assert.ok(inventory.metrics.publicKnowledgePointVisibleCount >= 9);
+  assert.ok(inventory.metrics.publicPatternBindingPresentCount >= 9);
+  assert.ok(inventory.metrics.publicSourceSelectableCount >= 2);
+  assert.ok(inventory.metrics.admissionReadyExistingPublicPatternCount >= 9);
   assert.equal(inventory.metrics.patternGroupOrSpecBindingRequiredCount, 0);
-  assert.equal(inventory.metrics.publicProductVerticalSliceRequiredCount, 12);
+  assert.ok(inventory.metrics.publicProductVerticalSliceRequiredCount <= 12);
   for (const knowledgePointId of KP_IDS) {
     const row = inventory.getRow(knowledgePointId);
     assert.equal(row.productGapState, "ADMISSION_READY_EXISTING_PUBLIC_PATTERN");
