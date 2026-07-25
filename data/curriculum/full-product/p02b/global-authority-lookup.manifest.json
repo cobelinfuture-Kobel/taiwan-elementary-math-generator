@@ -1,0 +1,50 @@
+{
+  "schemaName": "P02BGlobalAuthorityLookupManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02B_W2GlobalAuthorityLookupConsumerAdmission",
+  "status": "GLOBAL_AUTHORITY_LOOKUP_CONSUMER_PRODUCTION_ADMITTED",
+  "expectedCounts": {
+    "globalSourceNodeCount": 79,
+    "canonicalKnowledgePointCount": 482,
+    "currentPublicSourceNodeCount": 19,
+    "compatibilitySourceAliasCount": 1,
+    "sourceKnowledgePointBindingCount": 511,
+    "knowledgePointSourceBindingCount": 511,
+    "promotedCapabilityCount": 1,
+    "remainingShadowFoundationCount": 4
+  },
+  "exactAcceptance": {
+    "nodeTestsPassed": 2342,
+    "nodeTestsFailed": 0,
+    "canonicalSourceRoundTripPassed": true,
+    "canonicalKnowledgePointRoundTripPassed": true,
+    "publicSourceLookupPassed": true,
+    "unknownIdentityFailClosedPassed": true,
+    "sourceKnowledgePointMismatchFailClosedPassed": true,
+    "r04HistoricalBaselinePreserved": true,
+    "successorPromotionAuthorityValidated": true,
+    "chromiumRequired": false
+  },
+  "policyPath": "data/curriculum/full-product/p02b/global-authority-lookup-policy.json",
+  "promotionRegistryPath": "data/curriculum/full-product/p02b/w2-capability-promotion-registry.json",
+  "runtimePath": "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+  "validatorPath": "tools/curriculum/validate-p02b-global-authority-lookup-consumer.mjs",
+  "mainlineBoundary": {
+    "r02AuthorityReused": true,
+    "parallelRegistryCreated": false,
+    "r04HistoricalBaselineMutated": false,
+    "effectiveCapabilityPromotionChanged": true,
+    "productionReadOnlyConsumerAdded": true,
+    "productionAdmissionChanged": true,
+    "publicUiChanged": false,
+    "patternSpecImplementationStarted": false,
+    "generatorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "existing19SourceProductPreserved": true,
+    "p03ToP08WorkStarted": false,
+    "recursiveImprovementAdminAllowed": false,
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission"
+  }
+}

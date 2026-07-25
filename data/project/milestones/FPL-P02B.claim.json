@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P02B_W2GlobalAuthorityLookupConsumerAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W2_GLOBAL_AUTHORITY_LOOKUP_79_SOURCE_482_KP_PRODUCTION_ADMITTED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r02-global-kp-candidate-reconciliation.mjs",
+      "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+      "tools/curriculum/validate-p02b-global-authority-lookup-consumer.mjs",
+      "tests/curriculum/p02b-global-authority-lookup-consumer.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P02A.claim.json",
+      "data/project/milestones/GCKG-R02.claim.json",
+      "data/project/milestones/GCKG-R04.claim.json",
+      "data/project/milestones/GCKG-R07.claim.json",
+      "data/project/milestones/FPL-P01E.claim.json",
+      "data/curriculum/full-product/p02b/global-authority-lookup-policy.json",
+      "data/curriculum/full-product/p02b/global-authority-lookup.manifest.json",
+      "data/curriculum/full-product/p02b/w2-capability-promotion-registry.json",
+      "docs/curriculum/contracts/W2_GLOBAL_AUTHORITY_LOOKUP_CONSUMER_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P02B_W2_GLOBAL_AUTHORITY_LOOKUP_CONSUMER_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D1",
+    "distanceReduced": "The first W2 foundation now has one production-admitted read-only consumer over the complete R02 authority, covering all seventy-nine source nodes and four hundred eighty-two canonical KnowledgePoints with bidirectional identity validation and fail-closed unknown or mismatched lookup behavior."
+  },
+  "nextStep": {
+    "taskId": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}
