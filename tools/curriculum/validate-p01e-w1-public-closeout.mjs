@@ -89,7 +89,10 @@ export function validateP01EW1PublicCloseout() {
   const errors = [];
   const contract = JSON.parse(fs.readFileSync(CONTRACT_PATH, "utf8"));
   const baseline = listBatchASourceUnits({ includePublicCandidates: false });
-  const publicFleet = listBatchASourceUnits({ includePublicCandidates: true });
+  const publicFleet = listBatchASourceUnits({
+    includePublicCandidates: true,
+    includeFullProductPublic: true,
+  });
   const selector = auditP01EPublicSelectorComposition();
   const applications = auditW1FullProductPublicApplicationGroups();
   const controls = auditFullProductPublicControlProfiles();
