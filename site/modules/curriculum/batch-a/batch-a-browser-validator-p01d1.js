@@ -10,7 +10,7 @@ import {
   G5B_U05_SOURCE_ID,
   getBatchABrowserPatternDefinition,
 } from "./source-pattern-full-product-p01d1-extension.js";
-import { validateG5BU05LargeNumberQuestion } from "./g5b-u05-large-number-generator.js";
+import { validateG5BU05LargeNumberQuestion } from "./large-number-place-value-runtime.js";
 
 const SPEC_SET = new Set(G5B_U05_PATTERN_SPEC_IDS);
 
