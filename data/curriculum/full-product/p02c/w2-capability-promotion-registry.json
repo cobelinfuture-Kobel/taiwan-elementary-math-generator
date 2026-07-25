@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission",
-  "status": "TWO_W2_FOUNDATIONS_PRODUCTION_ADMITTED_PENDING_CI",
+  "status": "TWO_W2_FOUNDATIONS_PRODUCTION_ADMITTED",
   "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
   "predecessorPromotionRegistryPath": "data/curriculum/full-product/p02b/w2-capability-promotion-registry.json",
   "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
@@ -20,14 +20,15 @@
       "validatorPath": "tools/curriculum/validate-p02c-quantity-dimension-unit-identity-consumer.mjs",
       "scope": {
         "effectiveDependentKnowledgePointCount": 51,
-        "dependentSourceNodeCount": 20
+        "dependentSourceNodeCount": 20,
+        "quantityIdentityBindingCount": 57
       },
       "readOnly": true,
       "unitConversionAllowed": false,
       "semanticRoleBindingAllowed": false,
       "quantityArithmeticAllowed": false,
       "publicUiRequired": false,
-      "promotionEvidenceState": "COMPLETE_PENDING_CI"
+      "promotionEvidenceState": "COMPLETE"
     }
   ],
   "effectivePromotionCapabilityIds": [
