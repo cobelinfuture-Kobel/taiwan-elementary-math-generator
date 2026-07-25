@@ -42,6 +42,22 @@
       "unitIdentityMode": "COMPOSITE_FIXED_FAMILY"
     },
     {
+      "ruleId": "quantity_identity_cross_dimension_source_declared",
+      "profileIds": ["profile_quantity_measurement"],
+      "genericOverrideForProfile": true,
+      "anyTerms": [
+        "kp_g3b_u08_reverse_base_from_multiple",
+        "kp_g3b_u08_same_price_value_comparison",
+        "kp_g3a_u08_measurement_fraction",
+        "kp_fraction_times_integer_quantity",
+        "kp_g5a_u04_fraction_measurement_segments"
+      ],
+      "dimensionId": "SOURCE_DECLARED_QUANTITY",
+      "unitFamilyId": "SOURCE_DECLARED_UNIT_FAMILY",
+      "canonicalUnitIds": ["source_declared_unit"],
+      "unitIdentityMode": "SOURCE_DECLARED_PER_ITEM"
+    },
+    {
       "ruleId": "quantity_identity_mass",
       "profileIds": ["profile_quantity_measurement"],
       "anyTerms": ["mass_", "kg_g", "metric_ton", "weight", "重量", "質量", "公克", "公斤", "毫克", "公噸"],
@@ -85,6 +101,7 @@
     "unitAssertionValidationRequired": true,
     "unknownIdentityFailsClosed": true,
     "ambiguousIdentityFailsClosed": true,
+    "crossDimensionKnowledgePointRequiresSourceDeclaredIdentity": true,
     "conversionAllowed": false,
     "semanticRoleBindingAllowed": false,
     "quantityArithmeticAllowed": false,
