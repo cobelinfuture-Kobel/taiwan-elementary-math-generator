@@ -20,7 +20,7 @@
       },
       "readOnly": true,
       "publicUiRequired": false,
-      "promotionEvidenceState": "COMPLETE_PENDING_CI"
+      "promotionEvidenceState": "COMPLETE_EXACT_HEAD_CI_VERIFIED"
     }
   ],
   "remainingShadowFoundationCapabilityIds": [
