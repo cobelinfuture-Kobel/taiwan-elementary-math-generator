@@ -4,15 +4,15 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
   "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "G5B_U05_FOUR_KP_PUBLIC_VERTICAL_SLICE_PENDING_FINAL_CI",
+  "claimedStatus": "G5B_U05_FOUR_KP_PUBLIC_VERTICAL_SLICE_GATE_ACTIVE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": true,
     "productionRendererUsed": true,
-    "htmlOutputVerified": true,
-    "pdfOutputVerified": true,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
     "visibleOutputChanged": true,
     "humanReviewReady": false,
     "productionAdmitted": true,
@@ -33,12 +33,8 @@
       "site/modules/renderer/html-renderer.js",
       "tools/curriculum/render-p01d1-g5b-u05-pdf-smoke.mjs"
     ],
-    "htmlArtifactPaths": [
-      "tmp/p01d1-g5b-u05-pdf-smoke/g5b-u05-large-number.html"
-    ],
-    "pdfArtifactPaths": [
-      "tmp/p01d1-g5b-u05-pdf-smoke/g5b-u05-large-number.pdf"
-    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
     "beforeAfterEvidencePaths": [
       "data/curriculum/full-product/p01d1/g5b-u05-large-number-pattern-authority.json",
       "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
@@ -55,9 +51,9 @@
     "reviewArtifactRequired": false
   },
   "distance": {
-    "before": "D2_W1_21_VERTICAL_SLICES_REQUIRED",
-    "after": "D2_W1_4_ADMITTED_17_REMAINING",
-    "distanceReduced": "Four G5B-U05 KnowledgePoints now use the public selector, shared planner, deterministic generator and validator, WorksheetDocument, answer key, HTML renderer and Chromium PDF path."
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "Four G5B-U05 KnowledgePoints now use the public selector, shared planner, deterministic generator and validator, WorksheetDocument, answer key, HTML renderer and the CI-gated Chromium PDF path; the W1 gap falls from 21 to 17 KnowledgePoints."
   },
   "nextStep": {
     "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
