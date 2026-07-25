@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W2_PRODUCT_ADMISSION_INVENTORY_IMPLEMENTED_PENDING_EXACT_METRICS",
+  "claimedStatus": "W2_CAPABILITY_ONLY_5_FOUNDATIONS_51_DEPENDENTS_MATRIX_READY",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -35,6 +35,7 @@
       "docs/curriculum/contracts/W2_PRODUCT_ADMISSION_INVENTORY_CONTRACT_V1.md",
       "docs/curriculum/output/GCKG_R04_SHARED_RUNTIME_CAPABILITY_MATRIX_READBACK.md",
       "docs/curriculum/output/GCKG_R05_DELIVERY_WAVE_REBASE_READBACK.md",
+      "data/curriculum/global/cutover/r07/authoritative-consumer-cutover-policy.json",
       "docs/curriculum/output/P01E_W1_PUBLIC_UI_HTML_PDF_PRINT_CLOSEOUT_READBACK.md",
       "docs/curriculum/output/P02_W2_PRODUCT_ADMISSION_INVENTORY_READBACK.md"
     ],
@@ -49,10 +50,10 @@
   "distance": {
     "before": "D2",
     "after": "D2",
-    "distanceReduced": "The R05-W2 shadow wave now has an executable capability-first product inventory model that separates shared-capability blockers from downstream PatternSpec, source-adapter, UI, worksheet and output blockers without starting implementation."
+    "distanceReduced": "R05-W2 is now correctly modeled as five shared shadow foundations with zero direct product KnowledgePoints and an executable dependency matrix covering fifty-one KnowledgePoints, twenty source nodes and five assigned delivery waves. The matrix separates shared-capability blockers from forty-eight later-wave product vertical slices without starting implementation."
   },
   "nextStep": {
-    "taskId": "P02_ExactHeadMetricsAndGapMatrixCloseout",
+    "taskId": "P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation",
     "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
