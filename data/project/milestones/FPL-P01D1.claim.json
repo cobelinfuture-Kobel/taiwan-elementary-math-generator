@@ -4,16 +4,16 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
   "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "G5B_U05_FOUR_KP_PUBLIC_VERTICAL_SLICE_GATE_ACTIVE",
+  "claimedStatus": "G5B_U05_FOUR_KP_RUNTIME_VERTICAL_SLICE_E5",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": true,
     "productionRendererUsed": true,
-    "htmlOutputVerified": false,
-    "pdfOutputVerified": false,
-    "visibleOutputChanged": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": false,
     "humanReviewReady": false,
     "productionAdmitted": true,
     "d0Complete": false
@@ -22,6 +22,7 @@
     "runtimeTestPaths": [
       "site/modules/curriculum/registry/g5b-u05-selector-projection.js",
       "site/modules/curriculum/registry/batch-a-selector-p01d1-extension.js",
+      "site/modules/curriculum/batch-a/full-product-source-units-p01d1.js",
       "site/modules/curriculum/batch-a/source-pattern-full-product-p01d1-extension.js",
       "site/modules/curriculum/batch-a/g5b-u05-large-number-generator.js",
       "site/modules/curriculum/batch-a/batch-a-browser-validator-p01d1.js",
@@ -53,7 +54,7 @@
   "distance": {
     "before": "D2",
     "after": "D2",
-    "distanceReduced": "Four G5B-U05 KnowledgePoints now use the public selector, shared planner, deterministic generator and validator, WorksheetDocument, answer key, HTML renderer and the CI-gated Chromium PDF path; the W1 gap falls from 21 to 17 KnowledgePoints."
+    "distanceReduced": "Four G5B-U05 KnowledgePoints now use the full-product selector extension, shared planner, deterministic generator and validator, WorksheetDocument, answer key, HTML renderer and CI-gated Chromium PDF path; the W1 gap falls from 21 to 17 KnowledgePoints without cutting over the public UI before P01E."
   },
   "nextStep": {
     "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
