@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P01A_W1ProductAdmissionInventoryAndGapMatrix",
-  "status": "W1_PRODUCT_ADMISSION_INVENTORY_UPDATED_AFTER_P01D2",
+  "status": "W1_PRODUCT_ADMISSION_INVENTORY_UPDATED_AFTER_P01D3",
   "sourceAuthorities": {
     "deliveryWaveTask": "R05_DeliveryWaveRebase",
     "deliveryWaveId": "R05-W1",
@@ -13,7 +13,8 @@
     "classificationCorrectionTask": "P01A1_R04PatternRelationClassificationCorrectionAndW1Rebase",
     "admissionTasks": [
       "P01D1_G5BU05LargeNumberVerticalSlice",
-      "P01D2_G6AU01NumberTheoryVerticalSlice"
+      "P01D2_G6AU01NumberTheoryVerticalSlice",
+      "P01D3_G5AU03FactorMultipleVerticalSlice"
     ]
   },
   "productLayers": [
@@ -44,47 +45,22 @@
     "everyKnowledgePointRequiresNextAdmissionActions": true
   },
   "inventoryDecision": {
-    "admissionReadyExistingPublicPatternCount": 9,
+    "admissionReadyExistingPublicPatternCount": 21,
     "patternGroupOrSpecBindingRequiredCount": 0,
-    "publicProductVerticalSliceRequiredCount": 12,
-    "selectedRoute": "PARTIAL_W1_PRODUCT_ADMISSION",
-    "completedSourceNodeIds": ["g5b_u05_5b05a", "g6a_u01_6a01"],
-    "completedKnowledgePointCount": 9,
+    "publicProductVerticalSliceRequiredCount": 0,
+    "selectedRoute": "ALL_W1_VERTICAL_SLICES_PRODUCTION_ADMITTED",
+    "completedSourceNodeIds": ["g5b_u05_5b05a", "g6a_u01_6a01", "g5a_u03_5a03a", "g5a_u03_5a03a1"],
+    "completedKnowledgePointCount": 21,
     "excludedMisclassifiedKnowledgePointId": "kp_g4a_u07_quantity_multiplicative_pattern",
     "excludedKnowledgePointCorrectWave": "R05-W6",
-    "selectedNextTask": "P01D3_G5AU03FactorMultipleVerticalSlice",
-    "reason": "P01D1 and P01D2 admit nine W1 KnowledgePoints through shared full-product runtime paths; the remaining W1 product cluster is the twelve-KP G5A-U03 factor/multiple slice."
+    "selectedNextTask": "P01E_W1PublicUIHTMLPDFPrintCloseout",
+    "reason": "P01D1, P01D2 and P01D3 admit all twenty-one W1 KnowledgePoints through isolated full-product source authorities and the existing shared worksheet path; the remaining W1 blocker is public UI, HTML, PDF and print closeout."
   },
   "verticalSliceOrder": [
-    {
-      "taskId": "P01D1_G5BU05LargeNumberVerticalSlice",
-      "sourceNodeIds": ["g5b_u05_5b05a"],
-      "knowledgePointCount": 4,
-      "status": "PRODUCTION_ADMITTED_MERGED"
-    },
-    {
-      "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
-      "sourceNodeIds": ["g6a_u01_6a01"],
-      "knowledgePointCount": 5,
-      "status": "PRODUCTION_ADMITTED_PENDING_FINAL_CI"
-    },
-    {
-      "taskId": "P01D3_G5AU03FactorMultipleVerticalSlice",
-      "sourceNodeIds": ["g5a_u03_5a03a", "g5a_u03_5a03a1"],
-      "knowledgePointCount": 12,
-      "status": "NEXT"
-    },
-    {
-      "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",
-      "sourceNodeIds": [
-        "g5b_u05_5b05a",
-        "g6a_u01_6a01",
-        "g5a_u03_5a03a",
-        "g5a_u03_5a03a1"
-      ],
-      "knowledgePointCount": 21,
-      "status": "BLOCKED_UNTIL_ALL_W1_SLICES_ADMITTED"
-    }
+    {"taskId":"P01D1_G5BU05LargeNumberVerticalSlice","sourceNodeIds":["g5b_u05_5b05a"],"knowledgePointCount":4,"status":"PRODUCTION_ADMITTED_MERGED"},
+    {"taskId":"P01D2_G6AU01NumberTheoryVerticalSlice","sourceNodeIds":["g6a_u01_6a01"],"knowledgePointCount":5,"status":"PRODUCTION_ADMITTED_MERGED"},
+    {"taskId":"P01D3_G5AU03FactorMultipleVerticalSlice","sourceNodeIds":["g5a_u03_5a03a","g5a_u03_5a03a1"],"knowledgePointCount":12,"status":"PRODUCTION_ADMITTED_PENDING_FINAL_CI"},
+    {"taskId":"P01E_W1PublicUIHTMLPDFPrintCloseout","sourceNodeIds":["g5b_u05_5b05a","g6a_u01_6a01","g5a_u03_5a03a","g5a_u03_5a03a1"],"knowledgePointCount":21,"status":"NEXT_AFTER_P01D3_MERGE"}
   ],
   "fullProductBoundary": {
     "fullProductLineClosed": false,
