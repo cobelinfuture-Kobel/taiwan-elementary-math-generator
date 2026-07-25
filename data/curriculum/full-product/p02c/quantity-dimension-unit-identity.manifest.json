@@ -1,0 +1,39 @@
+{
+  "schemaName": "P02CQuantityDimensionUnitIdentityManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission",
+  "status": "QUANTITY_DIMENSION_UNIT_IDENTITY_CONSUMER_IMPLEMENTED_PENDING_CI",
+  "expectedCounts": {
+    "effectiveDependentKnowledgePointCount": 51,
+    "dependentSourceNodeCount": 20,
+    "promotedCapabilityCount": 2,
+    "newPromotionCount": 1,
+    "remainingShadowFoundationCount": 3,
+    "classificationErrorCount": 0
+  },
+  "policyPath": "data/curriculum/full-product/p02c/quantity-dimension-unit-identity-policy.json",
+  "promotionRegistryPath": "data/curriculum/full-product/p02c/w2-capability-promotion-registry.json",
+  "runtimePath": "src/curriculum/full-product/p02c-quantity-dimension-unit-identity-consumer.mjs",
+  "validatorPath": "tools/curriculum/validate-p02c-quantity-dimension-unit-identity-consumer.mjs",
+  "mainlineBoundary": {
+    "p02InventoryReused": true,
+    "p02bGlobalAuthorityReused": true,
+    "parallelRegistryCreated": false,
+    "r04HistoricalBaselineMutated": false,
+    "effectiveCapabilityPromotionChanged": true,
+    "productionReadOnlyConsumerAdded": true,
+    "productionAdmissionChanged": true,
+    "unitConversionImplemented": false,
+    "semanticRoleImplemented": false,
+    "sameUnitArithmeticImplemented": false,
+    "publicUiChanged": false,
+    "patternSpecImplementationStarted": false,
+    "generatorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "existing19SourceProductPreserved": true,
+    "p03ToP08WorkStarted": false,
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P02D_W2PrerequisiteReadinessConsumerAdmission"
+  }
+}
