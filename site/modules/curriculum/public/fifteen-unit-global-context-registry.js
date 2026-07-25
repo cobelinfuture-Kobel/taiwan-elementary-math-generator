@@ -5,6 +5,7 @@ function deepFreeze(value) {
 }
 
 export const FIFTEEN_UNIT_GLOBAL_CONTEXT_REGISTRY_ID = "GCTX_15_UNIT_PUBLIC_WORKSHEET_V1";
+export const FULL_PRODUCT_PUBLIC_GLOBAL_CONTEXT_REGISTRY_ID = FIFTEEN_UNIT_GLOBAL_CONTEXT_REGISTRY_ID;
 
 export const FIFTEEN_UNIT_GLOBAL_CONTEXT_FAMILIES = deepFreeze([
   { contextFamilyId: "gctx_school_library", domain: "school", displayNameZh: "校園圖書館", sdgTags: ["SDG4"] },
@@ -41,43 +42,27 @@ const compatibility = deepFreeze({
   g4b_u01_4b01: ["gctx_agriculture_production", "gctx_transport_trip", "gctx_recycling"],
   g5a_u08_5a08: ["gctx_shopping_budget", "gctx_energy_saving", "gctx_community_service", "gctx_cultural_event"],
   g4b_u04_4b04: ["gctx_transport_trip", "gctx_shopping_budget", "gctx_disaster_preparation"],
-  g5a_u02_5a02: ["gctx_class_activity", "gctx_recycling", "gctx_cultural_event"]
+  g5a_u02_5a02: ["gctx_class_activity", "gctx_recycling", "gctx_cultural_event"],
+  g5b_u05_5b05a: ["gctx_science_observation", "gctx_transport_trip", "gctx_energy_saving"],
+  g6a_u01_6a01: ["gctx_class_activity", "gctx_cultural_event", "gctx_recycling"],
+  g5a_u03_5a03a: ["gctx_recycling", "gctx_class_activity", "gctx_food_distribution"],
+  g5a_u03_5a03a1: ["gctx_cultural_event", "gctx_transport_trip", "gctx_community_service"]
 });
 
 function hashSeed(value) {
   let acc = 2166136261;
-  for (const char of String(value ?? "15-unit-global-context")) {
-    acc ^= char.charCodeAt(0);
-    acc = Math.imul(acc, 16777619);
-  }
+  for (const char of String(value ?? "15-unit-global-context")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619); }
   return acc >>> 0;
 }
 
-export function listCompatibleFifteenUnitGlobalContexts(sourceId) {
-  return (compatibility[sourceId] ?? []).map((id) => familyById.get(id)).filter(Boolean);
-}
-
+export function listCompatibleFifteenUnitGlobalContexts(sourceId) { return (compatibility[sourceId] ?? []).map((id) => familyById.get(id)).filter(Boolean); }
 export function selectFifteenUnitGlobalContext({ sourceId, generationSeed = "public", sequenceNumber = 1 } = {}) {
   const candidates = listCompatibleFifteenUnitGlobalContexts(sourceId);
   if (candidates.length === 0) return null;
-  const index = hashSeed(`${sourceId}:${generationSeed}:${sequenceNumber}`) % candidates.length;
-  return candidates[index];
+  return candidates[hashSeed(`${sourceId}:${generationSeed}:${sequenceNumber}`) % candidates.length];
 }
-
 export function buildFifteenUnitGlobalContextLineage({ sourceId, generationSeed, sequenceNumber, patternSpecId } = {}) {
   const family = selectFifteenUnitGlobalContext({ sourceId, generationSeed, sequenceNumber });
   if (!family) return null;
-  return deepFreeze({
-    registryId: FIFTEEN_UNIT_GLOBAL_CONTEXT_REGISTRY_ID,
-    contextFamilyId: family.contextFamilyId,
-    contextDomain: family.domain,
-    displayNameZh: family.displayNameZh,
-    sdgTags: [...family.sdgTags],
-    sourceId,
-    patternSpecId: patternSpecId ?? null,
-    runtimeResolvable: true,
-    productionSelectable: true,
-    publicQuerySelectable: true,
-    productionUse: "allowed"
-  });
+  return deepFreeze({ registryId: FIFTEEN_UNIT_GLOBAL_CONTEXT_REGISTRY_ID, contextFamilyId: family.contextFamilyId, contextDomain: family.domain, displayNameZh: family.displayNameZh, sdgTags: [...family.sdgTags], sourceId, patternSpecId: patternSpecId ?? null, runtimeResolvable: true, productionSelectable: true, publicQuerySelectable: true, productionUse: "allowed" });
 }
