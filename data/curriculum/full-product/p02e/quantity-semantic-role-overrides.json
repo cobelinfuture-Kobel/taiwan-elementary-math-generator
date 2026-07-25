@@ -1,0 +1,80 @@
+{
+  "schemaName": "P02EQuantitySemanticRoleOverridesV1",
+  "schemaVersion": 1,
+  "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
+  "overrideRule": "EXACT_KP_AUTHORITY_OVERRIDE_BEFORE_PROFILE_RULES",
+  "bindings": [
+    {
+      "knowledgePointId": "kp_fraction_times_integer_quantity",
+      "relationFamilyId": "FRACTIONAL_QUANTITY_SCALING",
+      "knownRoleIds": ["BASE_FRACTIONAL_QUANTITY", "INTEGER_MULTIPLIER"],
+      "targetRoleId": "SCALED_QUANTITY",
+      "targetRoleMode": "FIXED",
+      "allowedTargetRoleIds": ["SCALED_QUANTITY"]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u10_route_distance_application",
+      "relationFamilyId": "ROUTE_DISTANCE_TOTAL",
+      "knownRoleIds": ["ROUTE_SEGMENT_QUANTITIES"],
+      "targetRoleId": "TOTAL_ROUTE_DISTANCE",
+      "targetRoleMode": "FIXED",
+      "allowedTargetRoleIds": ["TOTAL_ROUTE_DISTANCE"]
+    },
+    {
+      "knowledgePointId": "kp_g5b_u10a_large_unit_estimation_application",
+      "relationFamilyId": "QUANTITY_ESTIMATION_DECISION",
+      "knownRoleIds": ["SOURCE_QUANTITY", "ESTIMATION_RULE"],
+      "targetRoleId": "ESTIMATED_QUANTITY_OR_DECISION",
+      "targetRoleMode": "SOURCE_DECLARED_ALLOWED",
+      "allowedTargetRoleIds": ["ESTIMATED_QUANTITY", "COMPARISON_DECISION", "ESTIMATED_QUANTITY_OR_DECISION"]
+    },
+    {
+      "knowledgePointId": "kp_g5b_u09_time_quantity_divided_by_integer",
+      "relationFamilyId": "PARTITIVE_TIME_DIVISION",
+      "knownRoleIds": ["TOTAL_TIME_QUANTITY", "GROUP_COUNT"],
+      "targetRoleId": "PER_GROUP_TIME_QUANTITY",
+      "targetRoleMode": "FIXED",
+      "allowedTargetRoleIds": ["PER_GROUP_TIME_QUANTITY"]
+    },
+    {
+      "knowledgePointId": "kp_g5b_u09_time_quantity_times_integer",
+      "relationFamilyId": "EQUAL_TIME_GROUPS_TOTAL",
+      "knownRoleIds": ["PER_GROUP_TIME_QUANTITY", "GROUP_COUNT"],
+      "targetRoleId": "TOTAL_TIME_QUANTITY",
+      "targetRoleMode": "FIXED",
+      "allowedTargetRoleIds": ["TOTAL_TIME_QUANTITY"]
+    },
+    {
+      "knowledgePointId": "kp_time_add_sub_with_regrouping",
+      "relationFamilyId": "TIME_QUANTITY_ADDITIVE_CHANGE",
+      "knownRoleIds": ["INITIAL_TIME_QUANTITY", "CHANGE_TIME_QUANTITY"],
+      "targetRoleId": "FINAL_TIME_QUANTITY",
+      "targetRoleMode": "SOURCE_DECLARED_ALLOWED",
+      "allowedTargetRoleIds": ["INITIAL_TIME_QUANTITY", "CHANGE_TIME_QUANTITY", "FINAL_TIME_QUANTITY"]
+    },
+    {
+      "knowledgePointId": "kp_speed_unit_conversion",
+      "relationFamilyId": "EQUIVALENT_RATE_REPRESENTATION",
+      "knownRoleIds": ["SOURCE_SPEED_REPRESENTATION"],
+      "targetRoleId": "EQUIVALENT_SPEED_REPRESENTATION",
+      "targetRoleMode": "FIXED",
+      "allowedTargetRoleIds": ["EQUIVALENT_SPEED_REPRESENTATION"]
+    },
+    {
+      "knowledgePointId": "kp_effective_speed_current_wind",
+      "relationFamilyId": "EFFECTIVE_SPEED_COMPOSITION",
+      "knownRoleIds": ["STILL_WATER_OR_AIR_SPEED", "CURRENT_OR_WIND_SPEED", "DIRECTION_RELATION"],
+      "targetRoleId": "EFFECTIVE_SPEED",
+      "targetRoleMode": "SOURCE_DECLARED_ALLOWED",
+      "allowedTargetRoleIds": ["STILL_WATER_OR_AIR_SPEED", "CURRENT_OR_WIND_SPEED", "EFFECTIVE_SPEED"]
+    },
+    {
+      "knowledgePointId": "kp_relative_speed_meeting_chasing",
+      "relationFamilyId": "RELATIVE_SPEED_COMPOSITION",
+      "knownRoleIds": ["SPEED_A", "SPEED_B", "MOTION_RELATION"],
+      "targetRoleId": "RELATIVE_SPEED",
+      "targetRoleMode": "FIXED",
+      "allowedTargetRoleIds": ["RELATIVE_SPEED"]
+    }
+  ]
+}
