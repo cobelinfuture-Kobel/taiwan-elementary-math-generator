@@ -5,17 +5,17 @@ import { readFile } from "node:fs/promises";
 import { G5A_U02_PUBLIC_SOURCE_ID } from "../../site/modules/curriculum/batch-a/g5a-u02-public-candidate.js";
 import {
   listPixelKnowledgePointsForSource,
-  listPixelSourceOptions
+  listPixelSourceOptions,
 } from "../../site/pixel/pixel-registry-bridge.js";
 import {
   BATCH_A_SELECTION_MODES,
-  createPixelKnowledgePointSelectorState
+  createPixelKnowledgePointSelectorState,
 } from "../../site/pixel/pixel-selector-state.js";
 import { runPixelWorksheetGeneration } from "../../site/pixel/pixel-generation-controller.js";
 import { renderPixelWorksheetPreview } from "../../site/pixel/pixel-preview-controller.js";
 import {
   printPixelWorksheet,
-  summarizePixelPrintAvailability
+  summarizePixelPrintAvailability,
 } from "../../site/pixel/pixel-print-controller.js";
 import { createPixelWorksheetState } from "../../site/pixel/pixel-worksheet-state.js";
 
@@ -43,7 +43,7 @@ const REQUIRED_PIXEL_IDS = Object.freeze([
   "pixel-preview-meta",
   "pixel-preview-frame",
   "pixel-output-summary",
-  "pixel-print-button"
+  "pixel-print-button",
 ]);
 
 function createFrame() {
@@ -55,15 +55,15 @@ function createFrame() {
       dataset: {},
       contentWindow: {
         focus() { focusCount += 1; },
-        print() { printCount += 1; }
+        print() { printCount += 1; },
       },
       removeAttribute(name) {
         if (name === "srcdoc") this.srcdoc = "";
-      }
+      },
     },
     counters() {
       return { focusCount, printCount };
-    }
+    },
   };
 }
 
@@ -89,20 +89,28 @@ function assertSuccessfulExecution(execution, {
   assert.equal(execution.summary.validationOk, true, sourceId);
   assert.ok(execution.result.worksheetDocument, sourceId);
   const document = execution.result.worksheetDocument;
-  assert.equal(document.schemaVersion, "worksheet-document-v1", sourceId);
-  assert.equal(document.batchA?.sourceId ?? document.sourceId, sourceId);
   assert.equal(execution.summary.questionCount, questionCount, sourceId);
   assert.equal(execution.summary.answerKeyItemCount, answerKeyItemCount, sourceId);
-  assert.equal(document.printOptions.showAnswerKey, answerKeyItemCount > 0, sourceId);
+
   if (staticCanonical) {
-    assert.equal(document.staticPublicCandidate, true, sourceId);
-    assert.equal(document.staticPublicCandidateStatus, "STATIC_CANONICAL_RELEASE", sourceId);
+    assert.equal(document.schemaName, "G5AU02PublicCanonicalWorksheet", sourceId);
+    assert.equal(document.schemaVersion, 1, sourceId);
+    assert.equal(document.sourceId, sourceId);
+    assert.equal(document.summary.publicCanonicalRelease, true, sourceId);
+    assert.equal(document.lifecycle.productionUse, "allowed_canonical_static_release", sourceId);
+    assert.equal(document.lifecycle.arbitraryRegeneration, false, sourceId);
     assert.equal(typeof document.staticHtmlUrl, "string", sourceId);
+    assert.equal(document.staticHtmlUrl.includes("5bd0e6d3aa904768e8436ab19d49e9aa12b4b32a"), true, sourceId);
     assert.equal(Array.isArray(document.generatedQuestions), false, sourceId);
-  } else {
-    assert.equal(document.generatedQuestions.length, questionCount, sourceId);
     assert.equal(document.answerKeyItems.length, answerKeyItemCount, sourceId);
+    return;
   }
+
+  assert.equal(document.schemaVersion, "worksheet-document-v1", sourceId);
+  assert.equal(document.batchA.sourceId, sourceId);
+  assert.equal(document.generatedQuestions.length, questionCount, sourceId);
+  assert.equal(document.answerKeyItems.length, answerKeyItemCount, sourceId);
+  assert.equal(document.printOptions.showAnswerKey, answerKeyItemCount > 0, sourceId);
 }
 
 test("Pixel public route exposes the complete selector, generation, preview, answer, and print surface", async () => {
@@ -110,7 +118,7 @@ test("Pixel public route exposes the complete selector, generation, preview, ans
     readFile(PIXEL_INDEX_PATH, "utf8"),
     readFile(PIXEL_UI_PATH, "utf8"),
     readFile(PIXEL_LIVE_PREVIEW_PATH, "utf8"),
-    readFile(PIXEL_PRINT_SURFACE_PATH, "utf8")
+    readFile(PIXEL_PRINT_SURFACE_PATH, "utf8"),
   ]);
 
   for (const id of REQUIRED_PIXEL_IDS) {
@@ -141,8 +149,8 @@ test("Pixel source-unit full chain handles eighteen generated sources and the G5
     const includeAnswerKey = index % 2 === 0;
     const expectedQuestionCount = staticCanonical ? 22 : requestedQuestionCount;
     const expectedAnswerKeyItemCount = staticCanonical
-      ? 22
-      : includeAnswerKey ? requestedQuestionCount : 0;
+      ? (includeAnswerKey ? 22 : 0)
+      : (includeAnswerKey ? requestedQuestionCount : 0);
     const state = createPixelWorksheetState({
       sourceId: source.sourceId,
       questionCount: requestedQuestionCount,
@@ -150,7 +158,7 @@ test("Pixel source-unit full chain handles eighteen generated sources and the G5
       includeAnswerKey,
       generationSeed: `s49b-pixel-${source.sourceId}`,
       columns: 2,
-      rowsPerPage: 2
+      rowsPerPage: 2,
     });
 
     const execution = runPixelWorksheetGeneration(state);
@@ -162,10 +170,7 @@ test("Pixel source-unit full chain handles eighteen generated sources and the G5
     });
 
     const fixture = createFrame();
-    const preview = renderPixelWorksheetPreview(
-      fixture.frame,
-      execution.result.worksheetDocument,
-    );
+    const preview = renderPixelWorksheetPreview(fixture.frame, execution.result.worksheetDocument);
     const printSummary = summarizePixelPrintAvailability(execution);
 
     assert.equal(preview.worksheetId, execution.summary.worksheetId, source.sourceId);
@@ -175,7 +180,7 @@ test("Pixel source-unit full chain handles eighteen generated sources and the G5
     assert.equal(printSummary.includesAnswerKey, expectedAnswerKeyItemCount > 0, source.sourceId);
     if (staticCanonical) {
       assert.equal(preview.html, null, source.sourceId);
-      assert.equal(preview.staticHtmlUrl, "../assets/static/g5a-u02-canonical.html", source.sourceId);
+      assert.equal(preview.staticHtmlUrl, execution.result.worksheetDocument.staticHtmlUrl, source.sourceId);
       assert.equal(fixture.frame.dataset.staticCandidateStatus, "loading", source.sourceId);
     } else {
       assert.equal(fixture.frame.srcdoc, preview.html, source.sourceId);
@@ -202,7 +207,7 @@ test("Pixel single-KnowledgePoint and same-unit mixed modes preserve authoritati
   const singleSelector = createPixelKnowledgePointSelectorState({
     sourceId,
     selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [knowledgePoints[0].knowledgePointId]
+    selectedKnowledgePointIds: [knowledgePoints[0].knowledgePointId],
   });
   const singleState = createPixelWorksheetState({
     sourceId,
@@ -211,7 +216,7 @@ test("Pixel single-KnowledgePoint and same-unit mixed modes preserve authoritati
     includeAnswerKey: false,
     generationSeed: "s49b-single-kp",
     columns: 2,
-    rowsPerPage: 3
+    rowsPerPage: 3,
   });
   const singleExecution = runPixelWorksheetGeneration(singleState);
   assertSuccessfulExecution(singleExecution, {
@@ -221,17 +226,17 @@ test("Pixel single-KnowledgePoint and same-unit mixed modes preserve authoritati
   });
   assert.deepEqual(
     sorted(singleExecution.result.worksheetDocument.batchA.knowledgePointIds),
-    sorted(singleSelector.selectedKnowledgePointIds)
+    sorted(singleSelector.selectedKnowledgePointIds),
   );
   assert.deepEqual(
     sorted(singleExecution.result.worksheetDocument.batchA.patternGroupIds),
-    sorted(singleSelector.selectedPatternGroupIds)
+    sorted(singleSelector.selectedPatternGroupIds),
   );
 
   const mixedSelector = createPixelKnowledgePointSelectorState({
     sourceId,
     selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-    selectedKnowledgePointIds: knowledgePoints.slice(0, 2).map((entry) => entry.knowledgePointId)
+    selectedKnowledgePointIds: knowledgePoints.slice(0, 2).map((entry) => entry.knowledgePointId),
   });
   assert.equal(mixedSelector.selectedKnowledgePointIds.length >= 2, true);
   assert.equal(mixedSelector.selectedPatternGroupIds.length >= 2, true);
@@ -244,7 +249,7 @@ test("Pixel single-KnowledgePoint and same-unit mixed modes preserve authoritati
     includeAnswerKey: true,
     generationSeed: "s49b-mixed-kp",
     columns: 2,
-    rowsPerPage: 4
+    rowsPerPage: 4,
   });
   const mixedExecution = runPixelWorksheetGeneration(mixedState);
   assertSuccessfulExecution(mixedExecution, {
@@ -254,11 +259,11 @@ test("Pixel single-KnowledgePoint and same-unit mixed modes preserve authoritati
   });
   assert.deepEqual(
     sorted(mixedExecution.result.worksheetDocument.batchA.knowledgePointIds),
-    sorted(mixedSelector.selectedKnowledgePointIds)
+    sorted(mixedSelector.selectedKnowledgePointIds),
   );
   assert.deepEqual(
     sorted(mixedExecution.result.worksheetDocument.batchA.patternGroupIds),
-    sorted(mixedSelector.selectedPatternGroupIds)
+    sorted(mixedSelector.selectedPatternGroupIds),
   );
 });
 
@@ -268,7 +273,7 @@ test("Pixel selector drops unknown KnowledgePoint IDs before generation", () => 
   const selector = createPixelKnowledgePointSelectorState({
     sourceId,
     selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: ["kp_not_public", knowledgePoints[0].knowledgePointId]
+    selectedKnowledgePointIds: ["kp_not_public", knowledgePoints[0].knowledgePointId],
   });
 
   assert.deepEqual(selector.selectedKnowledgePointIds, [knowledgePoints[0].knowledgePointId]);
@@ -282,7 +287,7 @@ test("Pixel selector drops unknown KnowledgePoint IDs before generation", () => 
     selectorState: selector,
     questionCount: 4,
     includeAnswerKey: true,
-    generationSeed: "s49b-sanitized-kp"
+    generationSeed: "s49b-sanitized-kp",
   });
   const execution = runPixelWorksheetGeneration(state);
   assertSuccessfulExecution(execution, {
