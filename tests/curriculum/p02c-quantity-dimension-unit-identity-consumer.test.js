@@ -12,13 +12,14 @@ import { validateP02CQuantityDimensionUnitIdentityConsumer } from "../../tools/c
 
 test("P02C admits all 51 quantity-identity dependents through one read-only consumer", () => {
   const runtime = materializeP02CQuantityDimensionUnitIdentityConsumer();
+  const classificationReadback = runtime.classificationErrors.join("\n");
   assert.equal(runtime.metrics.effectiveDependentKnowledgePointCount, 51);
-  assert.equal(runtime.metrics.classifiedKnowledgePointCount, 51);
-  assert.equal(runtime.metrics.classificationErrorCount, 0);
-  assert.equal(runtime.metrics.dependentSourceNodeCount, 20);
-  assert.equal(runtime.identities.length, 51);
-  assert.equal(new Set(runtime.identities.map((row) => row.knowledgePointId)).size, 51);
-  assert.equal(Object.values(runtime.metrics.dimensionCounts).reduce((sum, count) => sum + count, 0), 51);
+  assert.equal(runtime.metrics.classifiedKnowledgePointCount, 51, classificationReadback);
+  assert.equal(runtime.metrics.classificationErrorCount, 0, classificationReadback);
+  assert.equal(runtime.metrics.dependentSourceNodeCount, 20, classificationReadback);
+  assert.equal(runtime.identities.length, 51, classificationReadback);
+  assert.equal(new Set(runtime.identities.map((row) => row.knowledgePointId)).size, 51, classificationReadback);
+  assert.equal(Object.values(runtime.metrics.dimensionCounts).reduce((sum, count) => sum + count, 0), 51, classificationReadback);
   assert.equal(runtime.consumerMode, "PRODUCTION_READ_ONLY_QUANTITY_IDENTITY");
   assert.equal(runtime.productionAdmissionState, "PRODUCTION_ADMITTED");
 });
