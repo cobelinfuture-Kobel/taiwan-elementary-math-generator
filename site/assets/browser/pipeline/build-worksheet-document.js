@@ -4,7 +4,7 @@
 import {
   buildWorksheetDocumentFromGeneratedItems,
   buildWorksheetDocumentFromPlan as buildCoreWorksheetDocumentFromPlan,
-} from "./build-worksheet-document-core-closeout.js";
+} from "./build-worksheet-document-p01e-closeout.js";
 import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
