@@ -20,6 +20,14 @@ const EXPECTED_ALL_KP_DEPENDENT_COUNTS = Object.freeze({
   cap_same_unit_quantity_arithmetic: 2,
 });
 
+const EXPECTED_WAVE_COUNTS = Object.freeze({
+  "R05-W0": 3,
+  "R05-W4": 41,
+  "R05-W5": 1,
+  "R05-W7": 5,
+  "R05-W8": 1,
+});
+
 test("P02 proves R05-W2 has zero direct KnowledgePoints and is capability-only", () => {
   const inventory = materializeP02W2ProductAdmissionInventory();
   assert.equal(inventory.directW2KnowledgePointRows.length, 0);
@@ -34,6 +42,8 @@ test("P02 inventories the exact five-capability W2 shadow foundation plan", () =
     [...EXPECTED_SHADOW_CAPABILITIES].sort(),
   );
   assert.equal(inventory.metrics.shadowFoundationCapabilityCount, 5);
+  assert.equal(inventory.metrics.capabilityWithKnowledgePointDependentsCount, 3);
+  assert.equal(inventory.metrics.capabilityWithoutKnowledgePointDependentsCount, 2);
   assert.equal(inventory.capabilitySummaries.every((row) => row.deliveryStatusBeforeP02 === "shadow_available"), true);
   assert.equal(inventory.capabilitySummaries.every((row) => row.nextAction === "HARDEN_AND_ADMIT_SHARED_CAPABILITY"), true);
   assert.equal(inventory.capabilitySummaries.every((row) => row.productionAdmissionState === "CAPABILITY_INVENTORIED_NOT_ADMITTED"), true);
@@ -64,19 +74,29 @@ test("P02 preserves the W2 foundation dependency order", () => {
   );
 });
 
-test("P02 materializes downstream dependents across later delivery waves", () => {
+test("P02 materializes the exact cross-wave dependent fleet", () => {
   const inventory = materializeP02W2ProductAdmissionInventory();
   assert.equal(inventory.dependentKnowledgePointRows.length, 51);
   assert.equal(inventory.metrics.dependentKnowledgePointCount, 51);
+  assert.equal(inventory.metrics.dependentSourceNodeCount, 20);
+  assert.equal(inventory.metrics.dependentWaveCount, 5);
   assert.equal(new Set(inventory.dependentKnowledgePointRows.map((row) => row.knowledgePointId)).size, 51);
   assert.equal(inventory.dependentKnowledgePointRows.every((row) => row.w2FoundationCapabilityIds.length > 0), true);
   assert.equal(inventory.dependentKnowledgePointRows.every((row) => row.assignedDeliveryWaveId !== "R05-W2"), true);
-  assert.equal(inventory.waveSummaries.length > 0, true);
-  assert.equal(inventory.sourceSummaries.length > 0, true);
+  assert.deepEqual(
+    Object.fromEntries(inventory.waveSummaries.map((row) => [row.deliveryWaveId, row.dependentKnowledgePointCount])),
+    EXPECTED_WAVE_COUNTS,
+  );
 });
 
-test("P02 separates W2 capability blockers from downstream product blockers", () => {
+test("P02 separates W2 capability blockers from exact downstream product blockers", () => {
   const inventory = materializeP02W2ProductAdmissionInventory();
+  assert.equal(inventory.metrics.publicKnowledgePointVisibleCount, 3);
+  assert.equal(inventory.metrics.publicPatternBindingPresentCount, 3);
+  assert.equal(inventory.metrics.publicSourceSelectableCount, 2);
+  assert.equal(inventory.metrics.admissionReadyExistingPublicPatternAfterCapabilityCount, 3);
+  assert.equal(inventory.metrics.patternGroupOrSpecBindingRequiredAfterCapabilityCount, 0);
+  assert.equal(inventory.metrics.publicProductVerticalSliceRequiredAfterCapabilityCount, 48);
   const productGapTotal = inventory.metrics.admissionReadyExistingPublicPatternAfterCapabilityCount
     + inventory.metrics.patternGroupOrSpecBindingRequiredAfterCapabilityCount
     + inventory.metrics.publicProductVerticalSliceRequiredAfterCapabilityCount;
@@ -111,6 +131,7 @@ test("P02 validator passes the capability-first dependency matrix", () => {
   assert.equal(report.ok, true, JSON.stringify(report.errors, null, 2));
   assert.equal(report.summary.directW2KnowledgePointCount, 0);
   assert.equal(report.summary.dependentKnowledgePointCount, 51);
+  assert.equal(report.summary.dependentSourceNodeCount, 20);
   assert.equal(report.summary.shadowFoundationCapabilityCount, 5);
   assert.equal(report.summary.directProductionAdmissionCount, 0);
 });
