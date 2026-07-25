@@ -3,17 +3,20 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P01A_W1ProductAdmissionInventoryAndGapMatrix",
-  "status": "W1_PRODUCT_ADMISSION_INVENTORY_PARTIALLY_ADMITTED_PENDING_P01D1_CI",
+  "status": "W1_PRODUCT_ADMISSION_INVENTORY_PARTIALLY_ADMITTED_PENDING_P01D2_CI",
   "sourceAuthorities": {
     "deliveryWaveTask": "R05_DeliveryWaveRebase",
     "runtimeCapabilityTask": "R04_SharedRuntimeCapabilityMatrix",
     "prerequisiteTask": "R03_GlobalPrerequisiteGraph",
     "classificationCorrectionTask": "P01A1_R04PatternRelationClassificationCorrectionAndW1Rebase",
-    "firstProductAdmissionTask": "P01D1_G5BU05LargeNumberVerticalSlice",
+    "productAdmissionTasks": [
+      "P01D1_G5BU05LargeNumberVerticalSlice",
+      "P01D2_G6AU01NumberTheoryVerticalSlice"
+    ],
     "knowledgePointCount": 21,
     "sourceNodeCount": 4,
-    "admissionReadyExistingPublicPatternCount": 4,
-    "publicProductVerticalSliceRequiredCount": 17
+    "admissionReadyExistingPublicPatternCount": 9,
+    "publicProductVerticalSliceRequiredCount": 12
   },
   "policyPath": "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
   "runtimePath": "src/curriculum/full-product/p01-w1-product-admission-inventory.mjs",
@@ -21,13 +24,17 @@
   "mainlineBoundary": {
     "inventoryOnly": true,
     "productionAdmissionChanged": false,
-    "productionAdmissionEvidenceOwnedBy": "P01D1_G5BU05LargeNumberVerticalSlice",
+    "productionAdmissionEvidenceOwnedBy": [
+      "P01D1_G5BU05LargeNumberVerticalSlice",
+      "P01D2_G6AU01NumberTheoryVerticalSlice"
+    ],
     "existing15UnitProductionUsePreserved": true,
+    "publicDropdownCutoverDeferredTo": "P01E_W1PublicUIHTMLPDFPrintCloseout",
     "w2ToW8WorkStarted": false,
     "recursiveImprovementAdminAllowed": false,
     "emptyExistingPatternTaskSkipped": true,
     "emptyPartialBindingTaskSkipped": true,
     "misclassifiedPatternKnowledgePointRemoved": true,
-    "nextTask": "P01D2_G6AU01NumberTheoryVerticalSlice"
+    "nextTask": "P01D3_G5AU03FactorMultipleVerticalSlice"
   }
 }
