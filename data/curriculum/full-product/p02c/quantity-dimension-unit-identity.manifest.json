@@ -3,14 +3,41 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission",
-  "status": "QUANTITY_DIMENSION_UNIT_IDENTITY_CONSUMER_IMPLEMENTED_PENDING_CI",
+  "status": "QUANTITY_DIMENSION_UNIT_IDENTITY_CONSUMER_PRODUCTION_ADMITTED",
   "expectedCounts": {
     "effectiveDependentKnowledgePointCount": 51,
     "dependentSourceNodeCount": 20,
+    "quantityIdentityBindingCount": 57,
+    "sourceDeclaredIdentityCount": 10,
     "promotedCapabilityCount": 2,
     "newPromotionCount": 1,
     "remainingShadowFoundationCount": 3,
-    "classificationErrorCount": 0
+    "classificationErrorCount": 0,
+    "dimensionCounts": {
+      "CAPACITY": 5,
+      "LENGTH": 10,
+      "MASS": 7,
+      "SCALAR_MEASUREMENT": 5,
+      "SOURCE_DECLARED_QUANTITY": 5,
+      "SPEED": 5,
+      "TIME": 14
+    }
+  },
+  "exactAcceptance": {
+    "nodeTestsPassed": 2348,
+    "nodeTestsFailed": 0,
+    "dependentKnowledgePointRoundTripPassed": true,
+    "sourceKnowledgePointBindingRoundTripPassed": true,
+    "nonDependentKnowledgePointFailClosedPassed": true,
+    "unknownIdentityFailClosedPassed": true,
+    "sourceKnowledgePointMismatchFailClosedPassed": true,
+    "dimensionMismatchFailClosedPassed": true,
+    "unitMismatchFailClosedPassed": true,
+    "crossDimensionSourceDeclaredIdentityPassed": true,
+    "predecessorPromotionPreserved": true,
+    "successorPromotionAuthorityValidated": true,
+    "r04HistoricalBaselinePreserved": true,
+    "chromiumRequired": false
   },
   "policyPath": "data/curriculum/full-product/p02c/quantity-dimension-unit-identity-policy.json",
   "promotionRegistryPath": "data/curriculum/full-product/p02c/w2-capability-promotion-registry.json",
