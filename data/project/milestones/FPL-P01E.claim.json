@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W1_PUBLIC_CLOSEOUT_IMPLEMENTED_PENDING_EXACT_HEAD_OUTPUT_EVIDENCE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/batch-a/source-units.js",
+      "site/modules/curriculum/registry/w1-full-product-public-application-groups.js",
+      "site/modules/curriculum/registry/batch-a-selector-p01e-extension.js",
+      "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+      "site/modules/curriculum/batch-a/w1-full-product-public-application-admission.js",
+      "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
+      "site/assets/browser/state/config-state.js",
+      "site/assets/browser/public-control-ui.js",
+      "site/pixel/pixel-full-product-public-controls.js",
+      "site/pixel/pixel-registry-bridge.js",
+      "tools/curriculum/validate-p01e-w1-public-closeout.mjs",
+      "tests/curriculum/p01e-w1-public-ui-html-pdf-print-closeout.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p01e-w1-public-closeout.mjs"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/full-product/p01e/w1-public-ui-html-pdf-print-closeout.json",
+      "docs/curriculum/contracts/P01E_W1_PUBLIC_UI_HTML_PDF_PRINT_CLOSEOUT_CONTRACT_V1.md",
+      "docs/curriculum/output/P01E_W1_PUBLIC_UI_HTML_PDF_PRINT_CLOSEOUT_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "The W1 public source, numeric/application control, shared worksheet and print routes are implemented for Classic and Pixel; exact-head HTML/PDF evidence and final production admission remain pending."
+  },
+  "nextStep": {
+    "taskId": "P01E_ExactHeadCIArtifactCommitAndMerge",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
