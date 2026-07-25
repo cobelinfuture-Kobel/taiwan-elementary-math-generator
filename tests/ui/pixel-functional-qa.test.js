@@ -108,9 +108,9 @@ test("Pixel public route exposes the complete selector, generation, preview, ans
   assert.match(printSurface, /printPixelWorksheet/);
 });
 
-test("Pixel source-unit full chain generates, validates, previews, and prints every public Batch A source", () => {
+test("Pixel source-unit full chain generates, validates, previews, and prints all nineteen public sources", () => {
   const sources = listPixelSourceOptions();
-  assert.equal(sources.length, 13);
+  assert.equal(sources.length, 19);
 
   for (const [index, source] of sources.entries()) {
     const questionCount = 4;
