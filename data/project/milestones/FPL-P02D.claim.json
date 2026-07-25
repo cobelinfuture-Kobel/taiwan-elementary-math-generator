@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
   "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "W2_PREREQUISITE_READINESS_482_KP_668_EDGE_PRODUCTION_ADMITTED_PENDING_CI",
+  "claimedStatus": "W2_PREREQUISITE_READINESS_482_KP_668_EDGE_PRODUCTION_ADMITTED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -15,7 +15,7 @@
     "pdfOutputVerified": false,
     "visibleOutputChanged": false,
     "humanReviewReady": false,
-    "productionAdmitted": false,
+    "productionAdmitted": true,
     "d0Complete": false
   },
   "evidence": {
@@ -50,7 +50,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "The third W2 foundation now has one production-intended read-only mastered-set N+1 readiness consumer covering all four hundred eighty-two canonical KnowledgePoints and six hundred sixty-eight direct prerequisite edges, pending exact-head CI before production admission is finalized."
+    "distanceReduced": "The third W2 foundation now has one production-admitted read-only mastered-set N+1 readiness consumer covering all four hundred eighty-two canonical KnowledgePoints and six hundred sixty-eight direct prerequisite edges with fail-closed target and mastered-set identity validation."
   },
   "nextStep": {
     "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
