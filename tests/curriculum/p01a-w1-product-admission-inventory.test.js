@@ -7,11 +7,17 @@ import { validateP01AW1ProductAdmissionInventory } from "../../tools/curriculum/
 const PATTERN_KP_ID = "kp_g4a_u07_quantity_multiplicative_pattern";
 const ORDINARY_MULTIPLE_KP_ID = "kp_g5a_u03a_multiple_identify_enumerate";
 const G5B_U05_SOURCE_ID = "g5b_u05_5b05a";
-const G5B_U05_KP_IDS = Object.freeze([
+const G6A_U01_SOURCE_ID = "g6a_u01_6a01";
+const ADMITTED_KP_IDS = Object.freeze([
   "kp_g5b_u05a_large_number_place_value_extension",
   "kp_g5b_u05a_large_number_read_write",
   "kp_g5b_u05a_power_of_ten_scaling",
   "kp_g5b_u05a_large_number_decompose_compare",
+  "kp_g6a_u01_prime_composite_classification",
+  "kp_g6a_u01_prime_factorization",
+  "kp_g6a_u01_short_division_common_factors",
+  "kp_g6a_u01_greatest_common_factor",
+  "kp_g6a_u01_least_common_multiple",
 ]);
 
 
@@ -67,7 +73,7 @@ test("P01A proves shared runtime capability readiness without claiming direct ad
 });
 
 
-test("P01A accounts for the four admitted G5B-U05 patterns and 17 remaining vertical slices", () => {
+test("P01A accounts for nine admitted patterns and twelve remaining vertical slices", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   const gapCount = inventory.metrics.admissionReadyExistingPublicPatternCount
     + inventory.metrics.patternGroupOrSpecBindingRequiredCount
@@ -75,15 +81,15 @@ test("P01A accounts for the four admitted G5B-U05 patterns and 17 remaining vert
   assert.equal(gapCount, 21);
   assert.equal(inventory.metrics.sourceNodeCount, 4);
   assert.equal(inventory.sourceSummaries.length, 4);
-  assert.equal(inventory.metrics.admissionReadyExistingPublicPatternCount, 4);
+  assert.equal(inventory.metrics.admissionReadyExistingPublicPatternCount, 9);
   assert.equal(inventory.metrics.patternGroupOrSpecBindingRequiredCount, 0);
-  assert.equal(inventory.metrics.publicProductVerticalSliceRequiredCount, 17);
-  assert.equal(inventory.metrics.publicKnowledgePointVisibleCount, 4);
-  assert.equal(inventory.metrics.publicPatternBindingPresentCount, 4);
-  assert.equal(inventory.metrics.publicSourceSelectableCount, 1);
+  assert.equal(inventory.metrics.publicProductVerticalSliceRequiredCount, 12);
+  assert.equal(inventory.metrics.publicKnowledgePointVisibleCount, 9);
+  assert.equal(inventory.metrics.publicPatternBindingPresentCount, 9);
+  assert.equal(inventory.metrics.publicSourceSelectableCount, 2);
   assert.equal(inventory.rows.every((row) => row.sourceNodeIds.length > 0), true);
   assert.equal(inventory.rows.every((row) => row.nextAdmissionActions.length > 0), true);
-  for (const knowledgePointId of G5B_U05_KP_IDS) {
+  for (const knowledgePointId of ADMITTED_KP_IDS) {
     const row = inventory.getRow(knowledgePointId);
     assert.equal(row.productGapState, "ADMISSION_READY_EXISTING_PUBLIC_PATTERN");
     assert.equal(row.currentProductCoverage.publicSourceSelectable, true);
@@ -112,25 +118,26 @@ test("P01A accounts for the four admitted G5B-U05 patterns and 17 remaining vert
 });
 
 
-test("P01A preserves the protected W0 baseline while allowing the new W1 public source", () => {
+test("P01A preserves protected W0 while admitting two isolated W1 full-product sources", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   const baselineSourceIds = new Set(inventory.deliveryWaveAuthority.policy.publicBaseline.sourceNodeIds);
   assert.equal(inventory.rows.every((row) => row.sourceNodeIds.every((id) => !baselineSourceIds.has(id))), true);
-  const g5bRows = inventory.rows.filter((row) => row.sourceNodeIds.includes(G5B_U05_SOURCE_ID));
-  const remainingRows = inventory.rows.filter((row) => !row.sourceNodeIds.includes(G5B_U05_SOURCE_ID));
-  assert.equal(g5bRows.length, 4);
-  assert.equal(g5bRows.every((row) => row.currentProductCoverage.publicSourceSelectable === true), true);
+  const admittedRows = inventory.rows.filter((row) => row.sourceNodeIds.some((id) => [G5B_U05_SOURCE_ID, G6A_U01_SOURCE_ID].includes(id)));
+  const remainingRows = inventory.rows.filter((row) => !row.sourceNodeIds.some((id) => [G5B_U05_SOURCE_ID, G6A_U01_SOURCE_ID].includes(id)));
+  assert.equal(admittedRows.length, 9);
+  assert.equal(admittedRows.every((row) => row.currentProductCoverage.publicSourceSelectable === true), true);
+  assert.equal(remainingRows.length, 12);
   assert.equal(remainingRows.every((row) => row.currentProductCoverage.publicSourceSelectable === false), true);
 });
 
 
-test("P01A validator passes the post-P01D1 executable gap matrix", () => {
+test("P01A validator passes the post-P01D2 executable gap matrix", () => {
   const report = validateP01AW1ProductAdmissionInventory();
   assert.equal(report.ok, true, JSON.stringify(report.errors, null, 2));
   assert.equal(report.summary.knowledgePointCount, 21);
   assert.equal(report.summary.sourceNodeCount, 4);
-  assert.equal(report.summary.admissionReadyExistingPublicPatternCount, 4);
-  assert.equal(report.summary.publicProductVerticalSliceRequiredCount, 17);
+  assert.equal(report.summary.admissionReadyExistingPublicPatternCount, 9);
+  assert.equal(report.summary.publicProductVerticalSliceRequiredCount, 12);
   assert.equal(report.summary.directProductionAdmissionCount, 0);
 });
 
