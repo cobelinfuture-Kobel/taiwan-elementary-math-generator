@@ -9,7 +9,7 @@ DELIVERY_WAVE = R05-W1
 
 ## Purpose
 
-Admit the four G5B-U05 KnowledgePoints whose complete required runtime capability closure was already production-admitted in R04/R05. This milestone materializes the missing product layers without creating a parallel worksheet system.
+Admit the four G5B-U05 KnowledgePoints whose complete required runtime capability closure was already production-admitted in R04/R05. This milestone materializes the missing runtime, worksheet, HTML, and PDF layers without creating a parallel worksheet system or prematurely changing the public source dropdown.
 
 ## Admitted KnowledgePoints
 
@@ -66,7 +66,9 @@ large-number comparison
 source evidence
 → canonical KnowledgePoint
 → FormalMapping / PatternGroup / PatternSpec
+→ isolated full-product source authority
 → existing Batch A plan
+→ shared large-number place-value runtime
 → P01D1 thin question route
 → stable validator facade
 → existing WorksheetDocument assembly
@@ -75,7 +77,7 @@ source evidence
 → Chromium PDF / print acceptance
 ```
 
-The pre-P01D1 router and validator chains remain the complete authority for all other sources.
+The pre-P01D1 router and validator chains remain the complete authority for all other sources. The protected 15-unit source registry is unchanged.
 
 ## Numeric boundary
 
@@ -88,13 +90,15 @@ integer requirement  = Number.isSafeInteger
 
 Chinese-number conversion must round-trip deterministically across all admitted section units.
 
-## Public product gate
+## P01D1 admission gate
 
 P01D1 closes only when all of the following pass:
 
 ```text
-public source option present
-4/4 visible KnowledgePoints
+isolated full-product source authority present
+protected 15-unit source registry unchanged
+public source dropdown unchanged pending P01E
+4/4 full-product selector KnowledgePoints
 4/4 PatternGroups
 8/8 PatternSpecs
 source-unit generation covers all 8 PatternSpecs
@@ -109,6 +113,13 @@ no page overflow findings
 P01A inventory reports 4 admitted / 17 remaining
 full Node regression passes
 milestone claim integrity passes
+Golden anti-drift passes without exception
+```
+
+Public UI source-dropdown cutover belongs to:
+
+```text
+P01E_W1PublicUIHTMLPDFPrintCloseout
 ```
 
 ## Hard boundaries
@@ -119,6 +130,7 @@ free-form AI generation       = forbidden
 new worksheet planner         = forbidden
 new renderer                   = forbidden
 new PDF pipeline               = forbidden
+public dropdown cutover        = forbidden before P01E
 W2-W8 implementation          = forbidden
 recursive-improvement admin    = forbidden before P10
 ```
