@@ -1,6 +1,7 @@
 import { pathToFileURL } from "node:url";
 
 import { materializeP02CQuantityDimensionUnitIdentityConsumer } from "../../src/curriculum/full-product/p02c-quantity-dimension-unit-identity-consumer.mjs";
+import { materializeP02BGlobalAuthorityLookupConsumer } from "../../src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs";
 
 const TARGET_CAPABILITY_ID = "cap_quantity_dimension_unit_identity";
 const PREDECESSOR_CAPABILITY_ID = "cap_kp_authority_lookup";
@@ -20,6 +21,7 @@ function sameSet(left, right) {
 
 export function validateP02CQuantityDimensionUnitIdentityConsumer({ consumer = null } = {}) {
   const runtime = consumer ?? materializeP02CQuantityDimensionUnitIdentityConsumer();
+  const globalAuthority = materializeP02BGlobalAuthorityLookupConsumer();
   const errors = [];
   const expected = runtime.manifest.expectedCounts;
   const metrics = runtime.metrics;
@@ -29,6 +31,10 @@ export function validateP02CQuantityDimensionUnitIdentityConsumer({ consumer = n
   }
   if (runtime.productionAdmissionState !== "PRODUCTION_ADMITTED") {
     errors.push("P02C_PRODUCTION_ADMISSION_STATE_INVALID");
+  }
+  if (globalAuthority.metrics.globalSourceNodeCount !== 79
+    || globalAuthority.metrics.canonicalKnowledgePointCount !== 482) {
+    errors.push("P02C_P02B_GLOBAL_AUTHORITY_SCOPE_INVALID");
   }
   if (metrics.effectiveDependentKnowledgePointCount !== expected.effectiveDependentKnowledgePointCount) {
     errors.push(`P02C_DEPENDENT_KP_COUNT_INVALID:${metrics.effectiveDependentKnowledgePointCount}`);
@@ -102,14 +108,15 @@ export function validateP02CQuantityDimensionUnitIdentityConsumer({ consumer = n
     errors.push("P02C_UNKNOWN_KP_NOT_BLOCKED");
   }
   const dependentSet = new Set(knowledgePointIds);
-  const nonDependent = runtime.predecessorPromotionRegistry
-    && runtime.identities.length > 0
-    ? runtime.predecessorPromotionRegistry
-    : null;
-  const nonDependentKnowledgePointId = runtime.identities.length > 0
-    ? runtime.identities[0].knowledgePointId
-    : null;
-  if (!nonDependent || !nonDependentKnowledgePointId) errors.push("P02C_TEST_FIXTURE_UNAVAILABLE");
+  const nonDependent = globalAuthority.knowledgePointDescriptors.find((row) => !dependentSet.has(row.knowledgePointId));
+  if (!nonDependent) {
+    errors.push("P02C_NON_DEPENDENT_FIXTURE_MISSING");
+  } else {
+    const rejected = runtime.resolve({ knowledgePointId: nonDependent.knowledgePointId });
+    if (!rejected.blocked || !rejected.errors.some((code) => code.startsWith("P02C_KP_NOT_QUANTITY_IDENTITY_DEPENDENT:"))) {
+      errors.push("P02C_NON_DEPENDENT_KP_NOT_BLOCKED");
+    }
+  }
 
   const first = runtime.identities[0];
   if (first) {
