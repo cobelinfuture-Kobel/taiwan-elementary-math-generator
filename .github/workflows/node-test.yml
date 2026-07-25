@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: node-test-${{ github.event.pull_request.number || github.ref }}
@@ -52,6 +52,32 @@ jobs:
       - name: Run P01E W1 public UI HTML PDF print closeout
         if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout'
         run: node tools/curriculum/render-p01e-w1-public-closeout.mjs
+      - name: Commit exact P01E HTML PDF evidence once
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout'
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+          target="docs/curriculum/output/p01e-w1-public-closeout"
+          if git cat-file -e "origin/${HEAD_BRANCH}:${target}/report.json" 2>/dev/null; then
+            echo "Committed P01E artifacts already exist; skip materialization."
+            exit 0
+          fi
+          git fetch origin "$HEAD_BRANCH"
+          git switch -C "$HEAD_BRANCH" "origin/$HEAD_BRANCH"
+          rm -rf "$target"
+          mkdir -p "$target"
+          cp tmp/p01e-w1-public-closeout/*.html "$target"/
+          cp tmp/p01e-w1-public-closeout/*.pdf "$target"/
+          cp tmp/p01e-w1-public-closeout/report.json "$target"/
+          sha256sum "$target"/*.html "$target"/*.pdf "$target"/report.json > "$target"/SHA256SUMS
+          test "$(find "$target" -maxdepth 1 -name '*.html' | wc -l)" -eq 8
+          test "$(find "$target" -maxdepth 1 -name '*.pdf' | wc -l)" -eq 8
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$target"
+          git commit -m "P01E: commit exact HTML PDF artifacts [p01e-artifacts]"
+          git push origin "HEAD:${HEAD_BRANCH}"
       - name: Upload full regression diagnostics
         if: always()
         uses: actions/upload-artifact@v4
