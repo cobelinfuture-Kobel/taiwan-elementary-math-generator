@@ -72,6 +72,9 @@ function buildSourceDescriptors(r02) {
     knowledgePointIds: freezeArray(unique(view.knowledgePointIds).sort()),
     candidateProjectionCount: view.candidateProjectionCount,
     authorityMode: "GLOBAL_PRIMARY",
+    legacyAuthorityRole: null,
+    sourceAliasApplied: false,
+    canonicalSourceNodeIds: freezeArray([view.sourceNodeId]),
     consumerMode: "PRODUCTION_READ_ONLY_GLOBAL_AUTHORITY",
     productionAdmissionState: "PRODUCTION_ADMITTED",
   })).sort((a, b) => a.sourceNodeId.localeCompare(b.sourceNodeId));
@@ -93,6 +96,43 @@ function buildKnowledgePointDescriptors(r02) {
   })).sort((a, b) => a.knowledgePointId.localeCompare(b.knowledgePointId));
 }
 
+function buildCompatibilitySourceAliases(policy, canonicalSourceById) {
+  const descriptors = [];
+  const errorsByAlias = new Map();
+  for (const [aliasSourceId, canonicalSourceNodeIds] of Object.entries(
+    policy.compatibilitySourceAliases ?? {},
+  )) {
+    const missing = canonicalSourceNodeIds.filter((sourceNodeId) => !canonicalSourceById.has(sourceNodeId));
+    if (missing.length > 0) {
+      errorsByAlias.set(aliasSourceId, missing.map((sourceNodeId) => (
+        `P02B_SOURCE_ALIAS_TARGET_MISSING:${aliasSourceId}:${sourceNodeId}`
+      )));
+      continue;
+    }
+    const canonicalRows = canonicalSourceNodeIds.map((sourceNodeId) => canonicalSourceById.get(sourceNodeId));
+    descriptors.push(Object.freeze({
+      sourceNodeId: aliasSourceId,
+      legacyBatchId: canonicalRows[0]?.legacyBatchId ?? null,
+      evidenceClass: "PUBLIC_PRODUCT_COMPATIBILITY_SOURCE_ALIAS",
+      authorityPath: null,
+      driveFileId: null,
+      sourcePdfTitle: null,
+      knowledgePointIds: freezeArray(unique(canonicalRows.flatMap((row) => row.knowledgePointIds)).sort()),
+      candidateProjectionCount: canonicalRows.reduce((sum, row) => sum + (row.candidateProjectionCount ?? 0), 0),
+      authorityMode: "GLOBAL_PRIMARY",
+      legacyAuthorityRole: "COMPATIBILITY_ALIAS_READ_ONLY",
+      sourceAliasApplied: true,
+      canonicalSourceNodeIds: freezeArray([...canonicalSourceNodeIds]),
+      consumerMode: "PRODUCTION_READ_ONLY_GLOBAL_AUTHORITY",
+      productionAdmissionState: "PRODUCTION_ADMITTED",
+    }));
+  }
+  return {
+    descriptors: descriptors.sort((a, b) => a.sourceNodeId.localeCompare(b.sourceNodeId)),
+    errorsByAlias,
+  };
+}
+
 export function materializeP02BGlobalAuthorityLookupConsumer() {
   const policy = readJson("global-authority-lookup-policy.json");
   const manifest = readJson("global-authority-lookup.manifest.json");
@@ -100,7 +140,15 @@ export function materializeP02BGlobalAuthorityLookupConsumer() {
   const r02 = materializeR02GlobalKnowledgePointRegistry({ root: ROOT });
   const sourceDescriptors = buildSourceDescriptors(r02);
   const knowledgePointDescriptors = buildKnowledgePointDescriptors(r02);
-  const sourceById = new Map(sourceDescriptors.map((row) => [row.sourceNodeId, row]));
+  const canonicalSourceById = new Map(sourceDescriptors.map((row) => [row.sourceNodeId, row]));
+  const {
+    descriptors: compatibilitySourceAliasDescriptors,
+    errorsByAlias: compatibilitySourceAliasErrors,
+  } = buildCompatibilitySourceAliases(policy, canonicalSourceById);
+  const sourceLookupById = new Map([
+    ...canonicalSourceById.entries(),
+    ...compatibilitySourceAliasDescriptors.map((row) => [row.sourceNodeId, row]),
+  ]);
   const knowledgePointById = new Map(knowledgePointDescriptors.map((row) => [row.knowledgePointId, row]));
   const promotionByCapabilityId = new Map(
     promotionRegistry.promotions.map((row) => [row.capabilityId, Object.freeze({ ...row })]),
@@ -109,6 +157,7 @@ export function materializeP02BGlobalAuthorityLookupConsumer() {
   const metrics = Object.freeze({
     globalSourceNodeCount: sourceDescriptors.length,
     canonicalKnowledgePointCount: knowledgePointDescriptors.length,
+    compatibilitySourceAliasCount: compatibilitySourceAliasDescriptors.length,
     sourceKnowledgePointBindingCount: sourceDescriptors.reduce((sum, row) => sum + row.knowledgePointIds.length, 0),
     knowledgePointSourceBindingCount: knowledgePointDescriptors.reduce((sum, row) => sum + row.sourceNodeIds.length, 0),
     reconciledExistingKnowledgePointCount: knowledgePointDescriptors.filter((row) => (
@@ -129,7 +178,10 @@ export function materializeP02BGlobalAuthorityLookupConsumer() {
     if (!request.sourceNodeId && !request.knowledgePointId) {
       return blockedResult(request, ["P02B_LOOKUP_ID_REQUIRED"]);
     }
-    const source = request.sourceNodeId ? sourceById.get(request.sourceNodeId) ?? null : null;
+    if (request.sourceNodeId && compatibilitySourceAliasErrors.has(request.sourceNodeId)) {
+      return blockedResult(request, compatibilitySourceAliasErrors.get(request.sourceNodeId));
+    }
+    const source = request.sourceNodeId ? sourceLookupById.get(request.sourceNodeId) ?? null : null;
     if (request.sourceNodeId && !source) {
       return blockedResult(request, [`P02B_UNKNOWN_SOURCE_NODE:${request.sourceNodeId}`]);
     }
@@ -161,12 +213,13 @@ export function materializeP02BGlobalAuthorityLookupConsumer() {
     manifest: Object.freeze(manifest),
     promotionRegistry: Object.freeze(promotionRegistry),
     sourceDescriptors: freezeArray(sourceDescriptors),
+    compatibilitySourceAliasDescriptors: freezeArray(compatibilitySourceAliasDescriptors),
     knowledgePointDescriptors: freezeArray(knowledgePointDescriptors),
     metrics,
     upstreamAuthority: r02,
     resolve,
     getSource(sourceNodeId) {
-      return sourceById.get(sourceNodeId) ?? null;
+      return sourceLookupById.get(sourceNodeId) ?? null;
     },
     getKnowledgePoint(knowledgePointId) {
       return knowledgePointById.get(knowledgePointId) ?? null;
