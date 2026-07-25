@@ -37,7 +37,9 @@ export function summarizePixelGenerationResult(result = {}) {
   const questionCount = worksheetDocument?.summary?.questionCount
     ?? worksheetDocument?.generatedQuestions?.length
     ?? 0;
-  const answerKeyItemCount = worksheetDocument?.answerKeyItems?.length ?? 0;
+  const answerKeyItemCount = worksheetDocument?.summary?.answerKeyItemCount
+    ?? worksheetDocument?.answerKeyItems?.length
+    ?? 0;
   const questionPageCount = worksheetDocument?.summary?.questionPageCount
     ?? worksheetDocument?.questionPages?.length
     ?? 0;
