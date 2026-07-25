@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED_PENDING_CI",
+  "claimedStatus": "W2_QUANTITY_IDENTITY_51_KP_20_SOURCE_IMPLEMENTED_PENDING_CI",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p02-w2-product-admission-inventory.mjs",
+      "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+      "src/curriculum/full-product/p02c-quantity-dimension-unit-identity-consumer.mjs",
+      "tools/curriculum/validate-p02c-quantity-dimension-unit-identity-consumer.mjs",
+      "tests/curriculum/p02c-quantity-dimension-unit-identity-consumer.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P02A.claim.json",
+      "data/project/milestones/FPL-P02B.claim.json",
+      "data/project/milestones/GCKG-R04.claim.json",
+      "data/curriculum/full-product/p02c/quantity-dimension-unit-identity-policy.json",
+      "data/curriculum/full-product/p02c/quantity-dimension-unit-identity.manifest.json",
+      "data/curriculum/full-product/p02c/w2-capability-promotion-registry.json",
+      "docs/curriculum/contracts/W2_QUANTITY_DIMENSION_UNIT_IDENTITY_CONSUMER_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P02C_W2_QUANTITY_DIMENSION_UNIT_IDENTITY_CONSUMER_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The second W2 foundation now has one production-intended read-only identity consumer covering all fifty-one effective dependent KnowledgePoints and twenty source nodes, pending exact-head CI before production admission is claimed."
+  },
+  "nextStep": {
+    "taskId": "P02D_W2PrerequisiteReadinessConsumerAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}
