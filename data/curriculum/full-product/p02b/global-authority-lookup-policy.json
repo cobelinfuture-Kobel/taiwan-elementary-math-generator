@@ -19,12 +19,20 @@
     "authorityMode": "GLOBAL_PRIMARY",
     "legacyAuthorityRole": "COMPATIBILITY_ALIAS_READ_ONLY"
   },
+  "compatibilitySourceAliases": {
+    "g5a_u02_5a02": [
+      "g5a_u02_5a02a",
+      "g5a_u02_5a02a1"
+    ]
+  },
   "consumerContract": {
     "sourceLookupRequired": true,
     "knowledgePointLookupRequired": true,
     "sourceKnowledgePointPairValidationRequired": true,
     "sourceToKnowledgePointRoundTripRequired": true,
     "knowledgePointToSourceRoundTripRequired": true,
+    "publicProductSourceAliasResolutionRequired": true,
+    "compatibilityAliasesDoNotIncreaseGlobalSourceCount": true,
     "unknownIdentityFailsClosed": true,
     "readOnly": true
   },
@@ -32,7 +40,8 @@
     "P02B_LOOKUP_ID_REQUIRED",
     "P02B_UNKNOWN_SOURCE_NODE",
     "P02B_UNKNOWN_KNOWLEDGE_POINT",
-    "P02B_SOURCE_KP_MISMATCH"
+    "P02B_SOURCE_KP_MISMATCH",
+    "P02B_SOURCE_ALIAS_TARGET_MISSING"
   ],
   "promotion": {
     "capabilityId": "cap_kp_authority_lookup",
