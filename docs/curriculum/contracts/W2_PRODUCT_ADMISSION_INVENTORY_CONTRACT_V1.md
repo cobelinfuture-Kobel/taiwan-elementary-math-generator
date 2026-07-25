@@ -7,16 +7,17 @@ WAVE_ID    = R05-W2
 MODE       = INVENTORY_ONLY
 ```
 
-## Purpose
+## Authoritative classification
 
-P02 converts the R05 `SHADOW_FOUNDATION_HARDENING` wave into an executable product-admission inventory. It must distinguish two independent blockers:
+R05-W2 is a **shared capability wave**, not a KnowledgePoint product cohort.
 
 ```text
-shared capability blocker
-→ product PatternSpec / source adapter / UI blocker
+direct R05-W2 KnowledgePoints = 0
+R05-W2 capability-plan rows    = 5
+cross-wave dependent KPs       = 51
 ```
 
-A KnowledgePoint cannot be treated as product-ready merely because its canonical node and prerequisite edges exist. Likewise, product Pattern bindings cannot bypass a shadow shared-capability blocker.
+P02 must not create a product vertical-slice task for an empty direct cohort. Instead, it must inventory the five shared foundations and every KnowledgePoint in W3-W8 or another assigned wave whose effective capability closure depends on them.
 
 ## Required authorities
 
@@ -24,28 +25,56 @@ A KnowledgePoint cannot be treated as product-ready merely because its canonical
 R02 canonical KnowledgePoints
 → R03 prerequisite graph
 → R04 shared runtime capability matrix
-→ R05 delivery-wave assignment
-→ P01E nineteen-source product baseline
+→ R05 capability and delivery-wave assignments
+→ R07 Global-primary consumer authority
+→ P01E nineteen-source public product baseline
 ```
 
-The earlier POSTG `W02` application-program cohort is not the R05-W2 delivery wave and must not determine P02 membership.
+The earlier POSTG application-program label `W02` is unrelated to the R05-W2 delivery wave and must not determine P02 membership.
 
-## Required inventory row
+## Five shared foundations
 
-Every R05-W2 KnowledgePoint must expose:
+```text
+rank 0  cap_kp_authority_lookup
+rank 0  cap_quantity_dimension_unit_identity
+rank 1  cap_prerequisite_readiness
+rank 1  cap_quantity_semantic_role_binding
+rank 1  cap_same_unit_quantity_arithmetic
+```
+
+`cap_prerequisite_readiness` depends on `cap_kp_authority_lookup`.
+`cap_quantity_semantic_role_binding` and `cap_same_unit_quantity_arithmetic` depend on `cap_quantity_dimension_unit_identity`.
+
+Authority lookup and prerequisite readiness are infrastructure capabilities and may have zero direct KnowledgePoint mappings while remaining mandatory shared foundations.
+
+## Required capability row
+
+Every R05-W2 capability-plan row must expose:
+
+- capability identity and class;
+- pre-P02 delivery status;
+- dependency capability IDs;
+- hardening sequence rank;
+- direct and effective dependent KnowledgePoint counts;
+- dependent KnowledgePoint, source-node and delivery-wave sets;
+- current runtime evidence paths;
+- explicit `HARDEN_AND_ADMIT_SHARED_CAPABILITY` next action;
+- fail-closed `CAPABILITY_INVENTORIED_NOT_ADMITTED` state.
+
+## Required dependency row
+
+Every cross-wave dependent KnowledgePoint must expose:
 
 - canonical identity and source references;
-- prerequisite rank and wave lower bound;
-- required, effective, production, shadow and contract-only capabilities;
-- explicit capability gap state;
+- actual assigned delivery wave and prerequisite rank;
+- intersection with the five W2 foundation capabilities;
+- required, effective, production, shadow and contract-only capability sets;
 - current public source/KP/PatternSpec coverage;
-- explicit downstream product gap state;
-- ordered next admission actions;
-- fail-closed `INVENTORIED_NOT_ADMITTED` status.
+- downstream product gap state;
+- capability-first ordered next actions;
+- fail-closed `DEPENDENCY_INVENTORIED_NOT_ADMITTED` state.
 
-## Shared foundation capability plan
-
-P02 must separately inventory every R05-W2 capability-plan entry, including capabilities whose dependents occur in later waves. The plan must preserve dependency order and report both W2 and outside-W2 dependent counts.
+Contract-only capabilities on a downstream W3-W8 row do not constitute W2 drift; P02 records them only as later-wave blockers.
 
 ## Hard boundaries
 
@@ -62,22 +91,23 @@ recursive-improvement admin      = forbidden before P10
 
 ## Acceptance
 
-- exact R05-W2 identity set with no duplicates;
-- every row source-traceable;
-- every row has at least one shadow capability blocker;
-- contract-only capability drift = 0;
-- five R05-W2 shadow foundation capabilities accounted;
+- direct R05-W2 KnowledgePoint count = 0;
+- five exact shadow foundation capability IDs;
+- 51 unique cross-wave dependent KnowledgePoints;
 - capability dependency order materialized;
-- current product coverage and downstream gap state explicit;
+- source-node and delivery-wave distributions explicit;
+- current product coverage and downstream gap states explicit;
+- capability-first next actions on every dependent row;
+- fabricated W2 product cohort fails closed;
 - direct production admissions = 0;
 - full Node regression and milestone-claim integrity pass.
 
 ## Closeout transition
 
 ```text
-before = W1 publicly admitted; W2 remains an undifferentiated shadow wave
+before = W1 publicly admitted; W2 incorrectly appears to be an undifferentiated product wave
 
-after  = W2 has an exact capability-first product implementation queue
+after  = W2 is correctly defined as five shared foundations with a cross-wave dependency matrix
 
-next   = the shortest bounded W2 shared-foundation hardening task selected by the exact inventory
+next   = P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation
 ```
