@@ -20,7 +20,7 @@ import {
   chineseLargeToNumber,
   numberToChineseLarge,
   validateG5BU05LargeNumberQuestion,
-} from "../../site/modules/curriculum/batch-a/g5b-u05-large-number-generator.js";
+} from "../../site/modules/curriculum/batch-a/large-number-place-value-runtime.js";
 import {
   validateBatchABrowserPlan,
   validateBatchABrowserQuestions,
