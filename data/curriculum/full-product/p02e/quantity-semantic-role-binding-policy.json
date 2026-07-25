@@ -1,0 +1,212 @@
+{
+  "schemaName": "P02EQuantitySemanticRoleBindingPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
+  "status": "GLOBAL_QUANTITY_SEMANTIC_ROLE_POLICY_READY",
+  "authorities": {
+    "dependentKnowledgePoints": "src/curriculum/full-product/p02-w2-product-admission-inventory.mjs",
+    "globalAuthorityConsumer": "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+    "quantityIdentityConsumer": "src/curriculum/full-product/p02c-quantity-dimension-unit-identity-consumer.mjs",
+    "predecessorPromotionRegistry": "data/curriculum/full-product/p02d/w2-capability-promotion-registry.json"
+  },
+  "scope": {
+    "capabilityId": "cap_quantity_semantic_role_binding",
+    "effectiveDependentKnowledgePointCount": 26,
+    "consumerMode": "PRODUCTION_READ_ONLY_QUANTITY_SEMANTIC_ROLE_BINDING",
+    "bindingCardinality": "EXACTLY_ONE_PER_DEPENDENT_KP",
+    "quantityIdentityRequired": true,
+    "allowedPrimaryRuntimeProfileIds": [
+      "profile_quantity_measurement",
+      "profile_time",
+      "profile_speed_rate"
+    ]
+  },
+  "roleFamilyRules": [
+    {
+      "ruleId": "role_equal_groups_total",
+      "priority": 10,
+      "profileIds": ["profile_quantity_measurement"],
+      "anyTerms": ["total_from_groups", "equal_groups_total", "times_integer", "quantity_times", "每組量", "等組量乘法", "求總量"],
+      "relationFamilyId": "EQUAL_GROUPS_TOTAL",
+      "knownRoleIds": ["PER_GROUP_QUANTITY", "GROUP_COUNT"],
+      "targetRoleId": "TOTAL_QUANTITY",
+      "targetRoleMode": "FIXED"
+    },
+    {
+      "ruleId": "role_partitive_division",
+      "priority": 10,
+      "profileIds": ["profile_quantity_measurement"],
+      "anyTerms": ["per_group_from_total", "divided_by_integer", "equal_share", "partitive", "等分除", "每人", "每容器", "每段"],
+      "relationFamilyId": "PARTITIVE_DIVISION",
+      "knownRoleIds": ["TOTAL_QUANTITY", "GROUP_COUNT"],
+      "targetRoleId": "PER_GROUP_QUANTITY",
+      "targetRoleMode": "FIXED"
+    },
+    {
+      "ruleId": "role_quotative_division",
+      "priority": 10,
+      "profileIds": ["profile_quantity_measurement"],
+      "anyTerms": ["group_count_from_total", "quotative", "包含除", "求組數", "多少組", "多少次", "多少段"],
+      "relationFamilyId": "QUOTATIVE_DIVISION",
+      "knownRoleIds": ["TOTAL_QUANTITY", "PER_GROUP_QUANTITY"],
+      "targetRoleId": "GROUP_COUNT",
+      "targetRoleMode": "FIXED"
+    },
+    {
+      "ruleId": "role_multiplicative_comparison",
+      "priority": 20,
+      "profileIds": ["profile_quantity_measurement"],
+      "anyTerms": ["reverse_base", "multiple", "times_as", "倍數", "幾倍", "基準量", "比較量"],
+      "relationFamilyId": "MULTIPLICATIVE_COMPARISON",
+      "knownRoleIds": ["COMPARISON_QUANTITY", "MULTIPLIER"],
+      "targetRoleId": "BASE_QUANTITY",
+      "targetRoleMode": "SOURCE_DECLARED_ALLOWED",
+      "allowedTargetRoleIds": ["BASE_QUANTITY", "COMPARISON_QUANTITY", "MULTIPLIER"]
+    },
+    {
+      "ruleId": "role_fraction_of_quantity",
+      "priority": 20,
+      "profileIds": ["profile_quantity_measurement"],
+      "anyTerms": ["fraction_measurement", "fraction_of", "fraction_times_integer", "measurement_fraction", "分數量", "測量量的分數", "幾分之"],
+      "relationFamilyId": "FRACTION_OF_QUANTITY",
+      "knownRoleIds": ["WHOLE_QUANTITY", "FRACTION_OPERATOR"],
+      "targetRoleId": "PART_QUANTITY",
+      "targetRoleMode": "SOURCE_DECLARED_ALLOWED",
+      "allowedTargetRoleIds": ["WHOLE_QUANTITY", "FRACTION_OPERATOR", "PART_QUANTITY"]
+    },
+    {
+      "ruleId": "role_additive_change",
+      "priority": 30,
+      "profileIds": ["profile_quantity_measurement"],
+      "anyTerms": ["add_sub", "increase", "decrease", "change", "displacement", "增加", "減少", "變化", "位移"],
+      "relationFamilyId": "ADDITIVE_CHANGE",
+      "knownRoleIds": ["INITIAL_QUANTITY", "CHANGE_QUANTITY"],
+      "targetRoleId": "FINAL_QUANTITY",
+      "targetRoleMode": "SOURCE_DECLARED_ALLOWED",
+      "allowedTargetRoleIds": ["INITIAL_QUANTITY", "CHANGE_QUANTITY", "FINAL_QUANTITY"]
+    },
+    {
+      "ruleId": "role_quantity_comparison",
+      "priority": 40,
+      "profileIds": ["profile_quantity_measurement"],
+      "anyTerms": ["compare", "comparison", "same_price", "difference", "比較", "相差", "較多", "較少"],
+      "relationFamilyId": "QUANTITY_COMPARISON",
+      "knownRoleIds": ["REFERENCE_QUANTITY", "COMPARISON_QUANTITY"],
+      "targetRoleId": "COMPARISON_RESULT",
+      "targetRoleMode": "SOURCE_DECLARED_ALLOWED",
+      "allowedTargetRoleIds": ["REFERENCE_QUANTITY", "COMPARISON_QUANTITY", "DIFFERENCE_QUANTITY", "COMPARISON_RESULT"]
+    },
+    {
+      "ruleId": "role_time_interval",
+      "priority": 10,
+      "profileIds": ["profile_time"],
+      "anyTerms": ["elapsed", "duration", "start_end", "schedule", "經過時間", "起訖", "時刻", "時程"],
+      "relationFamilyId": "TIME_INTERVAL",
+      "knownRoleIds": ["START_TIME", "END_TIME"],
+      "targetRoleId": "ELAPSED_TIME",
+      "targetRoleMode": "SOURCE_DECLARED_ALLOWED",
+      "allowedTargetRoleIds": ["START_TIME", "END_TIME", "ELAPSED_TIME"]
+    },
+    {
+      "ruleId": "role_time_source_declared",
+      "priority": 900,
+      "profileIds": ["profile_time"],
+      "fallbackForProfile": true,
+      "relationFamilyId": "SOURCE_DECLARED_TIME_RELATION",
+      "knownRoleIds": ["KNOWN_TIME_QUANTITY_A", "KNOWN_TIME_QUANTITY_B"],
+      "targetRoleId": "SOURCE_DECLARED_TARGET_TIME_QUANTITY",
+      "targetRoleMode": "SOURCE_DECLARED_ONLY",
+      "allowedTargetRoleIds": ["START_TIME", "END_TIME", "ELAPSED_TIME", "SOURCE_DECLARED_TARGET_TIME_QUANTITY"]
+    },
+    {
+      "ruleId": "role_speed_average",
+      "priority": 10,
+      "profileIds": ["profile_speed_rate"],
+      "anyTerms": ["average_speed", "average_rate", "平均速率", "平均速度"],
+      "relationFamilyId": "AVERAGE_SPEED",
+      "knownRoleIds": ["TOTAL_DISTANCE", "TOTAL_ELAPSED_TIME"],
+      "targetRoleId": "AVERAGE_SPEED",
+      "targetRoleMode": "FIXED"
+    },
+    {
+      "ruleId": "role_speed_distance_time",
+      "priority": 900,
+      "profileIds": ["profile_speed_rate"],
+      "fallbackForProfile": true,
+      "relationFamilyId": "SPEED_DISTANCE_TIME",
+      "knownRoleIds": ["DISTANCE", "ELAPSED_TIME", "SPEED"],
+      "targetRoleId": "SOURCE_DECLARED_TARGET_RATE_QUANTITY",
+      "targetRoleMode": "SOURCE_DECLARED_ONLY",
+      "allowedTargetRoleIds": ["DISTANCE", "ELAPSED_TIME", "SPEED", "SOURCE_DECLARED_TARGET_RATE_QUANTITY"]
+    },
+    {
+      "ruleId": "role_quantity_source_declared",
+      "priority": 1000,
+      "profileIds": ["profile_quantity_measurement"],
+      "fallbackForProfile": true,
+      "relationFamilyId": "SOURCE_DECLARED_QUANTITY_RELATION",
+      "knownRoleIds": ["KNOWN_QUANTITY_A", "KNOWN_QUANTITY_B"],
+      "targetRoleId": "SOURCE_DECLARED_TARGET_QUANTITY",
+      "targetRoleMode": "SOURCE_DECLARED_ONLY",
+      "allowedTargetRoleIds": ["TOTAL_QUANTITY", "PER_GROUP_QUANTITY", "GROUP_COUNT", "BASE_QUANTITY", "COMPARISON_QUANTITY", "PART_QUANTITY", "FINAL_QUANTITY", "DIFFERENCE_QUANTITY", "SOURCE_DECLARED_TARGET_QUANTITY"]
+    }
+  ],
+  "consumerContract": {
+    "knowledgePointLookupRequired": true,
+    "quantityIdentityResolutionRequired": true,
+    "optionalSourceKnowledgePointPairValidation": true,
+    "relationFamilyAssertionValidationRequired": true,
+    "targetRoleAssertionValidationRequired": true,
+    "dimensionAndUnitAssertionsDelegatedToP02C": true,
+    "unknownBindingFailsClosed": true,
+    "ambiguousBindingFailsClosed": true,
+    "storyTemplateGenerationAllowed": false,
+    "numericComputationAllowed": false,
+    "quantityArithmeticAllowed": false,
+    "readOnly": true
+  },
+  "blockingCodes": [
+    "P02E_SEMANTIC_ROLE_KP_ID_REQUIRED",
+    "P02E_UNKNOWN_KNOWLEDGE_POINT",
+    "P02E_KP_NOT_SEMANTIC_ROLE_DEPENDENT",
+    "P02E_PRIMARY_PROFILE_INVALID",
+    "P02E_QUANTITY_IDENTITY_REQUIRED",
+    "P02E_ROLE_BINDING_UNCLASSIFIED",
+    "P02E_ROLE_BINDING_AMBIGUOUS",
+    "P02E_SOURCE_KP_MISMATCH",
+    "P02E_RELATION_FAMILY_MISMATCH",
+    "P02E_TARGET_ROLE_MISMATCH",
+    "P02E_DIMENSION_ASSERTION_INVALID",
+    "P02E_UNIT_ASSERTION_INVALID"
+  ],
+  "promotion": {
+    "capabilityId": "cap_quantity_semantic_role_binding",
+    "previousDeliveryStatus": "shadow_available",
+    "effectiveDeliveryStatus": "production_admitted",
+    "r04HistoricalBaselineMutated": false,
+    "completeDependentCoverageRequired": true,
+    "quantityIdentityPredecessorRequired": true,
+    "capabilitySpecificConsumerRequired": true,
+    "failClosedValidatorRequired": true
+  },
+  "rules": {
+    "parallelAuthorityAllowed": false,
+    "parallelKnowledgePointRegistryAllowed": false,
+    "sameUnitArithmeticImplementationAllowed": false,
+    "unitConversionImplementationAllowed": false,
+    "storyTemplateImplementationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "worksheetImplementationAllowed": false,
+    "rendererImplementationAllowed": false,
+    "publicUiChangeAllowed": false,
+    "p03ToP08ImplementationAllowed": false,
+    "existing19SourceProductModificationAllowed": false
+  },
+  "nextTask": {
+    "taskId": "P02F_W2SameUnitQuantityArithmeticConsumerAdmission",
+    "implementationBoundary": true,
+    "separateApprovalRequired": true
+  }
+}
