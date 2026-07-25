@@ -3,6 +3,14 @@ import path from "node:path";
 
 import { materializeP02W2ProductAdmissionInventory } from "../../src/curriculum/full-product/p02-w2-product-admission-inventory.mjs";
 
+const EXPECTED_CAPABILITY_IDS = Object.freeze([
+  "cap_kp_authority_lookup",
+  "cap_prerequisite_readiness",
+  "cap_quantity_dimension_unit_identity",
+  "cap_quantity_semantic_role_binding",
+  "cap_same_unit_quantity_arithmetic",
+]);
+
 function issue(code, details = {}) {
   return Object.freeze({ code, ...details });
 }
@@ -14,8 +22,10 @@ function count(rows, predicate) {
 export function validateP02W2ProductAdmissionInventory(candidate = null) {
   const inventory = candidate ?? materializeP02W2ProductAdmissionInventory();
   const errors = [];
-  const rows = inventory.rows ?? [];
+  const directW2Rows = inventory.directW2KnowledgePointRows ?? [];
+  const dependentRows = inventory.dependentKnowledgePointRows ?? inventory.rows ?? [];
   const sourceSummaries = inventory.sourceSummaries ?? [];
+  const waveSummaries = inventory.waveSummaries ?? [];
   const capabilitySummaries = inventory.capabilitySummaries ?? [];
   const metrics = inventory.metrics ?? {};
 
@@ -25,43 +35,58 @@ export function validateP02W2ProductAdmissionInventory(candidate = null) {
   if (inventory.taskId !== "P02_W2ProductAdmissionInventoryAndGapMatrix") {
     errors.push(issue("P02_TASK_ID_INVALID", { actual: inventory.taskId }));
   }
-  if (rows.length === 0) errors.push(issue("P02_W2_INVENTORY_EMPTY"));
-  if (new Set(rows.map((row) => row.knowledgePointId)).size !== rows.length) {
-    errors.push(issue("P02_DUPLICATE_KNOWLEDGE_POINT"));
+  if (directW2Rows.length !== 0) {
+    errors.push(issue("P02_DIRECT_W2_PRODUCT_COHORT_MUST_BE_EMPTY", {
+      actual: directW2Rows.length,
+      knowledgePointIds: directW2Rows.map((row) => row.knowledgePointId),
+    }));
+  }
+  if (dependentRows.length === 0) errors.push(issue("P02_DEPENDENCY_MATRIX_EMPTY"));
+  if (new Set(dependentRows.map((row) => row.knowledgePointId)).size !== dependentRows.length) {
+    errors.push(issue("P02_DUPLICATE_DEPENDENT_KNOWLEDGE_POINT"));
   }
 
-  for (const row of rows) {
-    if (row.deliveryWaveId !== "R05-W2") {
-      errors.push(issue("P02_NON_W2_ROW", { knowledgePointId: row.knowledgePointId, deliveryWaveId: row.deliveryWaveId }));
-    }
+  const expectedCapabilityIds = [...EXPECTED_CAPABILITY_IDS].sort();
+  const actualCapabilityIds = capabilitySummaries.map((row) => row.capabilityId).sort();
+  if (JSON.stringify(actualCapabilityIds) !== JSON.stringify(expectedCapabilityIds)) {
+    errors.push(issue("P02_W2_CAPABILITY_IDENTITY_DRIFT", {
+      expected: expectedCapabilityIds,
+      actual: actualCapabilityIds,
+    }));
+  }
+
+  const capabilityIdSet = new Set(actualCapabilityIds);
+  for (const row of dependentRows) {
     if (!Array.isArray(row.sourceNodeIds) || row.sourceNodeIds.length === 0) {
       errors.push(issue("P02_SOURCE_TRACE_MISSING", { knowledgePointId: row.knowledgePointId }));
     }
-    if (!Array.isArray(row.shadowRequiredCapabilityIds) || row.shadowRequiredCapabilityIds.length === 0) {
-      errors.push(issue("P02_SHADOW_CAPABILITY_GAP_MISSING", { knowledgePointId: row.knowledgePointId }));
-    }
-    if ((row.contractOnlyRequiredCapabilityIds ?? []).length > 0
-      || row.capabilityGapState === "OUT_OF_W2_CONTRACT_CAPABILITY_DRIFT") {
-      errors.push(issue("P02_CONTRACT_ONLY_CAPABILITY_DRIFT", {
+    if (!Array.isArray(row.w2FoundationCapabilityIds) || row.w2FoundationCapabilityIds.length === 0) {
+      errors.push(issue("P02_W2_FOUNDATION_DEPENDENCY_MISSING", { knowledgePointId: row.knowledgePointId }));
+    } else if (row.w2FoundationCapabilityIds.some((id) => !capabilityIdSet.has(id))) {
+      errors.push(issue("P02_UNKNOWN_W2_FOUNDATION_CAPABILITY", {
         knowledgePointId: row.knowledgePointId,
-        capabilityIds: row.contractOnlyRequiredCapabilityIds,
-      }));
-    }
-    if (row.capabilityGapState !== "SHADOW_CAPABILITY_HARDENING_REQUIRED") {
-      errors.push(issue("P02_CAPABILITY_GAP_STATE_INVALID", {
-        knowledgePointId: row.knowledgePointId,
-        state: row.capabilityGapState,
+        capabilityIds: row.w2FoundationCapabilityIds,
       }));
     }
     if (!Array.isArray(row.nextAdmissionActions) || row.nextAdmissionActions.length === 0) {
       errors.push(issue("P02_NEXT_ACTIONS_MISSING", { knowledgePointId: row.knowledgePointId }));
+    } else if (!row.nextAdmissionActions[0].startsWith("HARDEN_AND_ADMIT_SHARED_CAPABILITY:")) {
+      errors.push(issue("P02_CAPABILITY_FIRST_ACTION_REQUIRED", { knowledgePointId: row.knowledgePointId }));
     }
-    if (row.directProductionAdmissionAllowed !== false || row.productionAdmissionState !== "INVENTORIED_NOT_ADMITTED") {
-      errors.push(issue("P02_INVENTORY_BOUNDARY_VIOLATION", { knowledgePointId: row.knowledgePointId }));
+    if (row.directProductionAdmissionAllowed !== false
+      || row.productionAdmissionState !== "DEPENDENCY_INVENTORIED_NOT_ADMITTED") {
+      errors.push(issue("P02_DEPENDENCY_INVENTORY_BOUNDARY_VIOLATION", {
+        knowledgePointId: row.knowledgePointId,
+      }));
     }
   }
 
-  if (capabilitySummaries.length === 0) errors.push(issue("P02_SHADOW_FOUNDATION_CAPABILITY_PLAN_EMPTY"));
+  if (capabilitySummaries.length !== EXPECTED_CAPABILITY_IDS.length) {
+    errors.push(issue("P02_SHADOW_FOUNDATION_CAPABILITY_COUNT_INVALID", {
+      expected: EXPECTED_CAPABILITY_IDS.length,
+      actual: capabilitySummaries.length,
+    }));
+  }
   for (const capability of capabilitySummaries) {
     if (capability.deliveryStatusBeforeP02 !== "shadow_available") {
       errors.push(issue("P02_CAPABILITY_NOT_SHADOW_AVAILABLE", {
@@ -73,40 +98,65 @@ export function validateP02W2ProductAdmissionInventory(candidate = null) {
       errors.push(issue("P02_CAPABILITY_ACTION_INVALID", { capabilityId: capability.capabilityId }));
     }
     if (capability.directProductionAdmissionAllowed !== false
-      || capability.productionAdmissionState !== "INVENTORIED_NOT_ADMITTED") {
-      errors.push(issue("P02_CAPABILITY_INVENTORY_BOUNDARY_VIOLATION", { capabilityId: capability.capabilityId }));
+      || capability.productionAdmissionState !== "CAPABILITY_INVENTORIED_NOT_ADMITTED") {
+      errors.push(issue("P02_CAPABILITY_INVENTORY_BOUNDARY_VIOLATION", {
+        capabilityId: capability.capabilityId,
+      }));
+    }
+    const actualDependentCount = dependentRows.filter((row) => (
+      row.w2FoundationCapabilityIds.includes(capability.capabilityId)
+    )).length;
+    if (capability.effectiveDependentKnowledgePointCount !== actualDependentCount) {
+      errors.push(issue("P02_CAPABILITY_DEPENDENT_COUNT_MISMATCH", {
+        capabilityId: capability.capabilityId,
+        expected: actualDependentCount,
+        actual: capability.effectiveDependentKnowledgePointCount,
+      }));
     }
   }
 
   const expectedMetrics = {
-    knowledgePointCount: rows.length,
-    sourceNodeCount: sourceSummaries.length,
+    directW2KnowledgePointCount: directW2Rows.length,
+    dependentKnowledgePointCount: dependentRows.length,
+    dependentSourceNodeCount: sourceSummaries.length,
+    dependentWaveCount: waveSummaries.length,
     shadowFoundationCapabilityCount: capabilitySummaries.length,
-    shadowCapabilityGapKnowledgePointCount: count(rows, (row) => row.capabilityGapState === "SHADOW_CAPABILITY_HARDENING_REQUIRED"),
-    capabilityReadyForProductAdmissionCount: count(rows, (row) => row.capabilityGapState === "CAPABILITY_READY_FOR_PRODUCT_ADMISSION"),
-    contractOnlyCapabilityDriftCount: count(rows, (row) => row.capabilityGapState === "OUT_OF_W2_CONTRACT_CAPABILITY_DRIFT"),
-    publicKnowledgePointVisibleCount: count(rows, (row) => row.currentProductCoverage?.publicKnowledgePointVisible === true),
-    publicPatternBindingPresentCount: count(rows, (row) => row.currentProductCoverage?.publicPatternBindingPresent === true),
+    capabilityWithKnowledgePointDependentsCount: count(capabilitySummaries, (row) => (
+      row.effectiveDependentKnowledgePointCount > 0
+    )),
+    capabilityWithoutKnowledgePointDependentsCount: count(capabilitySummaries, (row) => (
+      row.effectiveDependentKnowledgePointCount === 0
+    )),
+    publicKnowledgePointVisibleCount: count(dependentRows, (row) => (
+      row.currentProductCoverage?.publicKnowledgePointVisible === true
+    )),
+    publicPatternBindingPresentCount: count(dependentRows, (row) => (
+      row.currentProductCoverage?.publicPatternBindingPresent === true
+    )),
     publicSourceSelectableCount: count(sourceSummaries, (row) => row.publicSourceSelectable === true),
-    admissionReadyExistingPublicPatternAfterCapabilityCount: count(rows, (row) => (
+    admissionReadyExistingPublicPatternAfterCapabilityCount: count(dependentRows, (row) => (
       row.productGapState === "ADMISSION_READY_EXISTING_PUBLIC_PATTERN_AFTER_CAPABILITY"
     )),
-    patternGroupOrSpecBindingRequiredAfterCapabilityCount: count(rows, (row) => (
+    patternGroupOrSpecBindingRequiredAfterCapabilityCount: count(dependentRows, (row) => (
       row.productGapState === "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED_AFTER_CAPABILITY"
     )),
-    publicProductVerticalSliceRequiredAfterCapabilityCount: count(rows, (row) => (
+    publicProductVerticalSliceRequiredAfterCapabilityCount: count(dependentRows, (row) => (
       row.productGapState === "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED_AFTER_CAPABILITY"
     )),
-    directProductionAdmissionCount: count(rows, (row) => row.directProductionAdmissionAllowed === true),
+    directProductionAdmissionCount: count(dependentRows, (row) => row.directProductionAdmissionAllowed === true)
+      + count(capabilitySummaries, (row) => row.directProductionAdmissionAllowed === true),
   };
   for (const [key, expected] of Object.entries(expectedMetrics)) {
-    if (metrics[key] !== expected) errors.push(issue("P02_METRIC_MISMATCH", { key, expected, actual: metrics[key] }));
+    if (metrics[key] !== expected) {
+      errors.push(issue("P02_METRIC_MISMATCH", { key, expected, actual: metrics[key] }));
+    }
   }
 
   const sourceAuthority = inventory.manifest?.sourceAuthorities ?? {};
   for (const [key, actual] of [
-    ["knowledgePointCount", metrics.knowledgePointCount],
-    ["sourceNodeCount", metrics.sourceNodeCount],
+    ["directW2KnowledgePointCount", metrics.directW2KnowledgePointCount],
+    ["dependentKnowledgePointCount", metrics.dependentKnowledgePointCount],
+    ["dependentSourceNodeCount", metrics.dependentSourceNodeCount],
     ["shadowFoundationCapabilityCount", metrics.shadowFoundationCapabilityCount],
   ]) {
     const expected = sourceAuthority[key];
@@ -127,9 +177,16 @@ export function validateP02W2ProductAdmissionInventory(candidate = null) {
     "recursiveImprovementAdminAllowed",
   ];
   for (const key of forbiddenTrueRules) {
-    if (policyRules[key] !== false) errors.push(issue("P02_POLICY_BOUNDARY_INVALID", { key, actual: policyRules[key] }));
+    if (policyRules[key] !== false) {
+      errors.push(issue("P02_POLICY_BOUNDARY_INVALID", { key, actual: policyRules[key] }));
+    }
   }
   if (policyRules.inventoryOnly !== true) errors.push(issue("P02_POLICY_INVENTORY_ONLY_REQUIRED"));
+  if (inventory.policy?.inventoryDecision?.selectedRoute !== "CAPABILITY_ONLY_W2_NO_DIRECT_PRODUCT_COHORT") {
+    errors.push(issue("P02_SELECTED_ROUTE_INVALID", {
+      actual: inventory.policy?.inventoryDecision?.selectedRoute,
+    }));
+  }
 
   const boundary = inventory.manifest?.mainlineBoundary ?? {};
   if (boundary.inventoryOnly !== true
