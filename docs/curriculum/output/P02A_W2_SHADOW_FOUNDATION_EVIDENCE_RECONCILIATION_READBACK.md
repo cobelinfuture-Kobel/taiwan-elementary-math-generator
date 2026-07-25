@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation
-STATUS     = IMPLEMENTED_PENDING_EXACT_HEAD_CI
+STATUS     = PASS_CI_W2_FOUNDATION_EVIDENCE_RECONCILED
 EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
 ```
 
@@ -15,6 +15,7 @@ partial production evidence     = 3
 shadow-only evidence            = 2
 promotion evidence complete     = 0
 promotion allowed               = 0
+full Node regression            = PASS
 ```
 
 No R04 `shadow_available` capability is upgraded by this task.
@@ -37,19 +38,9 @@ current public source nodes  = 19
 | 4 | `cap_quantity_semantic_role_binding` | R04 E3 | 2 claims | 2 / 26 KPs | 24 | Partial production evidence |
 | 5 | `cap_same_unit_quantity_arithmetic` | R04 E3 | 0 claims | 0 / 2 KPs | 2 | Shadow only |
 
-The E5 claims for R07, R08 and P01E are accepted as product evidence but rejected as full capability-promotion evidence because they do not provide complete scope plus a capability-specific fail-closed validator.
+R07, R08 and P01E E5 claims remain valid product evidence, but they are not accepted as complete shared-capability promotion evidence because global scope and capability-specific fail-closed validators are absent.
 
-## Hardening order
-
-```text
-1. Global authority lookup
-2. Quantity dimension / unit identity
-3. Prerequisite readiness
-4. Quantity semantic-role binding
-5. Same-unit quantity arithmetic
-```
-
-Dependency constraints:
+## Dependency-safe order
 
 ```text
 cap_kp_authority_lookup
@@ -60,47 +51,38 @@ cap_quantity_dimension_unit_identity
 → cap_same_unit_quantity_arithmetic
 ```
 
+Operational order:
+
+```text
+1. Global authority lookup
+2. Quantity dimension / unit identity
+3. Prerequisite readiness
+4. Quantity semantic-role binding
+5. Same-unit quantity arithmetic
+```
+
 ## Missing evidence
 
-### Authority lookup
-
 ```text
-remaining consumer scope = 60 source nodes
-required                  = capability-specific lookup consumer
-required                  = fail-closed unknown-KP/source validator
-required                  = E5 global proof before R04 promotion
-```
+cap_kp_authority_lookup
+  missing 60 source-node consumers
+  missing capability-specific fail-closed lookup validator
 
-### Quantity identity
+cap_quantity_dimension_unit_identity
+  missing 48 dependent KPs
+  missing Global Quantity Identity contract and shared validator
 
-```text
-remaining dependent KPs = 48
-required                = Global Quantity Identity contract
-required                = shared quantity-domain validator
-```
+cap_prerequisite_readiness
+  missing production learner/planner consumer for 482 KPs
+  missing mastered-set N+1 fail-closed gate
 
-### Prerequisite readiness
+cap_quantity_semantic_role_binding
+  missing 24 dependent KPs
+  missing semantic-role contract and validator
 
-```text
-remaining global scope = 482 KPs
-required               = production learner/planner consumer
-required               = mastered-set N+1 fail-closed gate
-```
-
-### Semantic-role binding
-
-```text
-remaining dependent KPs = 24
-required                = semantic-role binding contract
-required                = semantic-role validator
-```
-
-### Same-unit arithmetic
-
-```text
-remaining dependent KPs = 2
-required                = shared arithmetic runtime
-required                = same-unit arithmetic validator
+cap_same_unit_quantity_arithmetic
+  missing 2 dependent KPs
+  missing shared runtime and validator
 ```
 
 ## Boundary
@@ -112,6 +94,7 @@ production admission        = false
 public UI changed           = false
 P03-P08 started             = false
 existing 19-source product  = preserved
+Chromium required           = false
 ```
 
 ## Distance
@@ -125,6 +108,6 @@ NEXT_SHORTEST_STEP   = P02B_W2GlobalAuthorityLookupConsumerAdmission
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+IMPLEMENTATION_BOUNDARY      = true
+SEPARATE_APPROVAL_REQUIRED   = true
 ```
