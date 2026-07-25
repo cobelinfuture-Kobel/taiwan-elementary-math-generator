@@ -1,5 +1,9 @@
 import { buildWorksheetDocumentFromState } from "../assets/browser/pipeline/build-worksheet-document.js";
 import { BATCH_A_SELECTION_MODES } from "../assets/browser/state/config-state.js";
+import {
+  buildG5AU02PublicCandidateWorksheet,
+  G5A_U02_PUBLIC_SOURCE_ID,
+} from "../modules/curriculum/batch-a/g5a-u02-public-candidate.js";
 import { getPixelWorksheetPlan } from "./pixel-worksheet-state.js";
 
 export const PIXEL_GENERATION_ERROR_CODES = Object.freeze({
@@ -65,6 +69,14 @@ export function resolvePixelWorksheetGenerationRequest(state) {
   });
 }
 
+function buildFromResolvedPixelPlan(state, plan) {
+  if (plan.sourceId === G5A_U02_PUBLIC_SOURCE_ID
+    && plan.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT) {
+    return buildG5AU02PublicCandidateWorksheet(plan);
+  }
+  return buildWorksheetDocumentFromState(state);
+}
+
 export function buildPixelWorksheetDocument(state) {
   const request = resolvePixelWorksheetGenerationRequest(state);
   if (!request.ok) {
@@ -79,7 +91,7 @@ export function buildPixelWorksheetDocument(state) {
     });
   }
 
-  const result = buildWorksheetDocumentFromState(state);
+  const result = buildFromResolvedPixelPlan(state, request.plan);
   return Object.freeze({
     ...result,
     stage: result.ok ? "complete" : "build",
