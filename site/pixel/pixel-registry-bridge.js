@@ -1,4 +1,7 @@
-import { listBatchASourceUnits } from "../modules/curriculum/batch-a/source-units.js";
+import {
+  listBatchASourceUnits,
+  listFullProductPublicSourceUnits,
+} from "../modules/curriculum/batch-a/source-units.js";
 import {
   BATCH_A_SELECTOR_AVAILABILITY,
   listBatchAKnowledgePointAvailabilityBySource,
@@ -59,9 +62,7 @@ function listLegacyS74PixelSourceOptions() {
 }
 
 export function listPixelSourceOptions() {
-  return mapPixelSourceOptions(
-    listBatchASourceUnits({ includePublicCandidates: true }),
-  );
+  return mapPixelSourceOptions(listFullProductPublicSourceUnits());
 }
 
 function listPixelSurfaceSourceOptions() {
