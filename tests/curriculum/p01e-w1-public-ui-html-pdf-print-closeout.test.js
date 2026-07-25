@@ -1,7 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { listBatchASourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
+import {
+  listBatchASourceUnits,
+  listFullProductPublicSourceUnits,
+} from "../../site/modules/curriculum/batch-a/source-units.js";
 import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
 import { buildWorksheetDocumentFromPlan } from "../../site/assets/browser/pipeline/build-worksheet-document.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
@@ -90,7 +93,7 @@ function assertPrintDocument(document, expectedCount) {
 
 test("P01E publishes nineteen sources while preserving the thirteen-unit protected baseline", () => {
   const baseline = listBatchASourceUnits({ includePublicCandidates: false });
-  const publicFleet = listBatchASourceUnits({ includePublicCandidates: true });
+  const publicFleet = listFullProductPublicSourceUnits();
   assert.equal(baseline.length, 13);
   assert.equal(publicFleet.length, 19);
   for (const sourceId of W1_SOURCE_IDS) {
