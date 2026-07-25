@@ -11,6 +11,7 @@ import {
 const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(MODULE_DIR, "../../..");
 const P02_DIR = path.join(ROOT, "data/curriculum/full-product/p02");
+const W2_WAVE_ID = "R05-W2";
 
 function readJson(fileName) {
   return JSON.parse(fs.readFileSync(path.join(P02_DIR, fileName), "utf8"));
@@ -33,16 +34,6 @@ function displayNameOf(knowledgePoint) {
     ?? knowledgePoint.displayName
     ?? knowledgePoint.knowledgePointName
     ?? knowledgePoint.knowledgePointId;
-}
-
-function classifyCapabilityGap(assignment) {
-  if (assignment.contractOnlyRequiredCapabilityIds.length > 0) {
-    return "OUT_OF_W2_CONTRACT_CAPABILITY_DRIFT";
-  }
-  if (assignment.shadowRequiredCapabilityIds.length > 0) {
-    return "SHADOW_CAPABILITY_HARDENING_REQUIRED";
-  }
-  return "CAPABILITY_READY_FOR_PRODUCT_ADMISSION";
 }
 
 function classifyProductGap({ visibleKnowledgePoint, patternGroupIds, patternSpecIds }) {
@@ -81,79 +72,126 @@ function productAdmissionActions(productGapState) {
   ];
 }
 
-function nextAdmissionActions(capabilityGapState, shadowCapabilityIds, productGapState) {
-  const actions = [];
-  if (capabilityGapState === "OUT_OF_W2_CONTRACT_CAPABILITY_DRIFT") {
-    actions.push("FAIL_CLOSED_AND_REASSIGN_TO_CORRECT_DELIVERY_WAVE");
-  } else if (capabilityGapState === "SHADOW_CAPABILITY_HARDENING_REQUIRED") {
-    actions.push(...shadowCapabilityIds.map((capabilityId) => (
-      `HARDEN_AND_ADMIT_SHARED_CAPABILITY:${capabilityId}`
-    )));
-  }
-  actions.push(...productAdmissionActions(productGapState));
-  return actions;
-}
-
-function buildSourceSummaries(rows) {
-  const bySource = new Map();
-  for (const row of rows) {
-    for (const sourceNodeId of row.sourceNodeIds) {
-      if (!bySource.has(sourceNodeId)) bySource.set(sourceNodeId, []);
-      bySource.get(sourceNodeId).push(row);
-    }
-  }
-  const productStates = [
-    "ADMISSION_READY_EXISTING_PUBLIC_PATTERN_AFTER_CAPABILITY",
-    "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED_AFTER_CAPABILITY",
-    "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED_AFTER_CAPABILITY",
-  ];
-  return [...bySource.entries()].map(([sourceNodeId, sourceRows]) => Object.freeze({
-    sourceNodeId,
-    knowledgePointCount: sourceRows.length,
-    knowledgePointIds: freezeArray(sourceRows.map((row) => row.knowledgePointId).sort()),
-    shadowCapabilityIds: freezeArray(unique(sourceRows.flatMap((row) => row.shadowRequiredCapabilityIds)).sort()),
-    capabilityGapStateCounts: Object.freeze({
-      SHADOW_CAPABILITY_HARDENING_REQUIRED: sourceRows.filter((row) => (
-        row.capabilityGapState === "SHADOW_CAPABILITY_HARDENING_REQUIRED"
-      )).length,
-      CAPABILITY_READY_FOR_PRODUCT_ADMISSION: sourceRows.filter((row) => (
-        row.capabilityGapState === "CAPABILITY_READY_FOR_PRODUCT_ADMISSION"
-      )).length,
-      OUT_OF_W2_CONTRACT_CAPABILITY_DRIFT: sourceRows.filter((row) => (
-        row.capabilityGapState === "OUT_OF_W2_CONTRACT_CAPABILITY_DRIFT"
-      )).length,
-    }),
-    productGapStateCounts: Object.freeze(Object.fromEntries(
-      productStates.map((state) => [state, sourceRows.filter((row) => row.productGapState === state).length]),
-    )),
-    publicSourceSelectable: sourceRows.some((row) => row.currentProductCoverage.publicSourceSelectable),
-  })).sort((a, b) => a.sourceNodeId.localeCompare(b.sourceNodeId));
-}
-
 function capabilitySequenceRank(capabilityId, capabilityById, w2CapabilityIds, memo = new Map(), visiting = new Set()) {
   if (memo.has(capabilityId)) return memo.get(capabilityId);
   if (visiting.has(capabilityId)) throw new Error(`P02_CAPABILITY_DEPENDENCY_CYCLE:${capabilityId}`);
   visiting.add(capabilityId);
   const dependencyRanks = (capabilityById.get(capabilityId)?.dependsOnCapabilityIds ?? [])
     .filter((dependencyId) => w2CapabilityIds.has(dependencyId))
-    .map((dependencyId) => capabilitySequenceRank(dependencyId, capabilityById, w2CapabilityIds, memo, visiting));
+    .map((dependencyId) => capabilitySequenceRank(
+      dependencyId,
+      capabilityById,
+      w2CapabilityIds,
+      memo,
+      visiting,
+    ));
   visiting.delete(capabilityId);
   const rank = dependencyRanks.length > 0 ? Math.max(...dependencyRanks) + 1 : 0;
   memo.set(capabilityId, rank);
   return rank;
 }
 
-function buildCapabilitySummaries(rows, r05, capabilityById) {
-  const w2Plan = r05.capabilityDeliveryPlan.filter((row) => row.deliveryWaveId === "R05-W2");
-  const w2CapabilityIds = new Set(w2Plan.map((row) => row.capabilityId));
-  const rankMemo = new Map();
-  return w2Plan.map((plan) => {
-    const capability = capabilityById.get(plan.capabilityId);
-    const effectiveRows = rows.filter((row) => (
-      row.effectiveRequiredRuntimeCapabilityIds.includes(plan.capabilityId)
+function buildDependentKnowledgePointRows({
+  assignments,
+  w2CapabilityIds,
+  knowledgePointById,
+  mappingById,
+  capabilityById,
+  visibleKnowledgePointById,
+  visibleSourceIds,
+}) {
+  return assignments
+    .filter((assignment) => assignment.effectiveRequiredRuntimeCapabilityIds.some((id) => w2CapabilityIds.has(id)))
+    .map((assignment) => {
+      const knowledgePoint = knowledgePointById.get(assignment.knowledgePointId);
+      const mapping = mappingById.get(assignment.knowledgePointId);
+      if (!knowledgePoint || !mapping) throw new Error(`P02_KP_OR_MAPPING_MISSING:${assignment.knowledgePointId}`);
+      const visibleKnowledgePoint = visibleKnowledgePointById.get(assignment.knowledgePointId) ?? null;
+      const patternGroups = visibleKnowledgePoint
+        ? getVisiblePatternGroupsForKnowledgePoint(assignment.knowledgePointId)
+        : [];
+      const patternGroupIds = unique(patternGroups.map((row) => row.patternGroupId)).sort();
+      const patternSpecIds = unique(patternGroups.flatMap((row) => row.patternSpecIds ?? [])).sort();
+      const sourceNodeIds = unique([
+        ...assignment.sourceNodeIds,
+        ...(knowledgePoint.sourceRefs ?? []).map(sourceNodeIdOf),
+      ]).sort();
+      const w2FoundationCapabilityIds = assignment.effectiveRequiredRuntimeCapabilityIds
+        .filter((id) => w2CapabilityIds.has(id))
+        .sort();
+      const directlyRequiredW2CapabilityIds = assignment.requiredRuntimeCapabilityIds
+        .filter((id) => w2CapabilityIds.has(id))
+        .sort();
+      const runtimeEvidencePaths = unique(w2FoundationCapabilityIds.flatMap((capabilityId) => (
+        capabilityById.get(capabilityId)?.runtimeEvidencePaths ?? []
+      ))).sort();
+      const productGapState = classifyProductGap({
+        visibleKnowledgePoint: Boolean(visibleKnowledgePoint),
+        patternGroupIds,
+        patternSpecIds,
+      });
+      const nextAdmissionActions = [
+        ...w2FoundationCapabilityIds.map((capabilityId) => `HARDEN_AND_ADMIT_SHARED_CAPABILITY:${capabilityId}`),
+        ...productAdmissionActions(productGapState),
+      ];
+
+      return Object.freeze({
+        inventoryRowId: `p02dep_${assignment.knowledgePointId.replace(/^kp_/, "")}`,
+        knowledgePointId: assignment.knowledgePointId,
+        canonicalNameZh: displayNameOf(knowledgePoint),
+        capabilityStatement: knowledgePoint.capabilityStatement ?? null,
+        reasoningInvariant: knowledgePoint.reasoningInvariant ?? null,
+        sourceNodeIds: freezeArray(sourceNodeIds),
+        sourceRefs: freezeArray(knowledgePoint.sourceRefs ?? []),
+        assignedDeliveryWaveId: assignment.deliveryWaveId,
+        baseDeliveryWaveId: assignment.baseDeliveryWaveId,
+        intraWavePrerequisiteRank: assignment.intraWavePrerequisiteRank,
+        prerequisiteWaveLowerBound: assignment.prerequisiteWaveLowerBound,
+        waveEscalatedByPrerequisite: assignment.waveEscalatedByPrerequisite,
+        primaryRuntimeProfileId: assignment.primaryRuntimeProfileId,
+        requiredRuntimeCapabilityIds: freezeArray(assignment.requiredRuntimeCapabilityIds),
+        effectiveRequiredRuntimeCapabilityIds: freezeArray(assignment.effectiveRequiredRuntimeCapabilityIds),
+        w2FoundationCapabilityIds: freezeArray(w2FoundationCapabilityIds),
+        directlyRequiredW2CapabilityIds: freezeArray(directlyRequiredW2CapabilityIds),
+        productionAdmittedRequiredCapabilityIds: freezeArray(assignment.productionAdmittedRequiredCapabilityIds),
+        shadowRequiredCapabilityIds: freezeArray(assignment.shadowRequiredCapabilityIds),
+        contractOnlyRequiredCapabilityIds: freezeArray(assignment.contractOnlyRequiredCapabilityIds),
+        capabilityProof: Object.freeze({
+          w2FoundationCapabilityBlocked: true,
+          runtimeEvidencePaths: freezeArray(runtimeEvidencePaths),
+        }),
+        currentProductCoverage: Object.freeze({
+          publicSourceSelectable: sourceNodeIds.some((sourceNodeId) => visibleSourceIds.has(sourceNodeId)),
+          publicKnowledgePointVisible: Boolean(visibleKnowledgePoint),
+          publicPatternBindingPresent: patternGroupIds.length > 0 && patternSpecIds.length > 0,
+          patternGroupIds: freezeArray(patternGroupIds),
+          patternSpecIds: freezeArray(patternSpecIds),
+        }),
+        productGapState,
+        nextAdmissionActions: freezeArray(nextAdmissionActions),
+        directProductionAdmissionAllowed: false,
+        productionAdmissionState: "DEPENDENCY_INVENTORIED_NOT_ADMITTED",
+      });
+    })
+    .sort((a, b) => (
+      a.assignedDeliveryWaveId.localeCompare(b.assignedDeliveryWaveId)
+      || a.intraWavePrerequisiteRank - b.intraWavePrerequisiteRank
+      || a.knowledgePointId.localeCompare(b.knowledgePointId)
     ));
-    const directRows = rows.filter((row) => (
-      row.requiredRuntimeCapabilityIds.includes(plan.capabilityId)
+}
+
+function buildCapabilitySummaries({ capabilityPlan, dependentRows, capabilityById }) {
+  const w2CapabilityIds = new Set(capabilityPlan.map((row) => row.capabilityId));
+  const rankMemo = new Map();
+  return capabilityPlan.map((plan) => {
+    const capability = capabilityById.get(plan.capabilityId);
+    const effectiveRows = dependentRows.filter((row) => row.w2FoundationCapabilityIds.includes(plan.capabilityId));
+    const directRows = dependentRows.filter((row) => row.directlyRequiredW2CapabilityIds.includes(plan.capabilityId));
+    const dependentCountsByWave = Object.freeze(Object.fromEntries(
+      unique(effectiveRows.map((row) => row.assignedDeliveryWaveId)).sort().map((waveId) => [
+        waveId,
+        effectiveRows.filter((row) => row.assignedDeliveryWaveId === waveId).length,
+      ]),
     ));
     return Object.freeze({
       capabilityId: plan.capabilityId,
@@ -167,55 +205,90 @@ function buildCapabilitySummaries(rows, r05, capabilityById) {
         rankMemo,
       ),
       requiredByAllKnowledgePointCount: plan.requiredByKnowledgePointCount,
-      requiredByW2KnowledgePointCount: effectiveRows.length,
-      directlyRequiredByW2KnowledgePointCount: directRows.length,
-      outsideW2KnowledgePointCount: Math.max(0, plan.requiredByKnowledgePointCount - effectiveRows.length),
-      w2KnowledgePointIds: freezeArray(effectiveRows.map((row) => row.knowledgePointId).sort()),
-      w2SourceNodeIds: freezeArray(unique(effectiveRows.flatMap((row) => row.sourceNodeIds)).sort()),
+      effectiveDependentKnowledgePointCount: effectiveRows.length,
+      directlyRequiredDependentKnowledgePointCount: directRows.length,
+      dependentKnowledgePointIds: freezeArray(effectiveRows.map((row) => row.knowledgePointId).sort()),
+      dependentSourceNodeIds: freezeArray(unique(effectiveRows.flatMap((row) => row.sourceNodeIds)).sort()),
+      dependentCountsByWave,
       runtimeEvidencePaths: freezeArray(capability?.runtimeEvidencePaths ?? []),
       nextAction: "HARDEN_AND_ADMIT_SHARED_CAPABILITY",
       directProductionAdmissionAllowed: false,
-      productionAdmissionState: "INVENTORIED_NOT_ADMITTED",
+      productionAdmissionState: "CAPABILITY_INVENTORIED_NOT_ADMITTED",
     });
   }).sort((a, b) => (
     a.foundationSequenceRank - b.foundationSequenceRank
-    || b.requiredByW2KnowledgePointCount - a.requiredByW2KnowledgePointCount
+    || b.effectiveDependentKnowledgePointCount - a.effectiveDependentKnowledgePointCount
     || a.capabilityId.localeCompare(b.capabilityId)
   ));
 }
 
-function buildMetrics(rows, sourceSummaries, capabilitySummaries) {
-  const productStateCount = (state) => rows.filter((row) => row.productGapState === state).length;
-  const shadowCapabilityIds = unique(rows.flatMap((row) => row.shadowRequiredCapabilityIds));
+function buildSourceSummaries(rows) {
+  const bySource = new Map();
+  for (const row of rows) {
+    for (const sourceNodeId of row.sourceNodeIds) {
+      if (!bySource.has(sourceNodeId)) bySource.set(sourceNodeId, []);
+      bySource.get(sourceNodeId).push(row);
+    }
+  }
+  return [...bySource.entries()].map(([sourceNodeId, sourceRows]) => Object.freeze({
+    sourceNodeId,
+    dependentKnowledgePointCount: sourceRows.length,
+    dependentKnowledgePointIds: freezeArray(sourceRows.map((row) => row.knowledgePointId).sort()),
+    w2FoundationCapabilityIds: freezeArray(unique(sourceRows.flatMap((row) => row.w2FoundationCapabilityIds)).sort()),
+    deliveryWaveIds: freezeArray(unique(sourceRows.map((row) => row.assignedDeliveryWaveId)).sort()),
+    publicSourceSelectable: sourceRows.some((row) => row.currentProductCoverage.publicSourceSelectable),
+    publicKnowledgePointVisibleCount: sourceRows.filter((row) => row.currentProductCoverage.publicKnowledgePointVisible).length,
+    publicPatternBindingPresentCount: sourceRows.filter((row) => row.currentProductCoverage.publicPatternBindingPresent).length,
+  })).sort((a, b) => a.sourceNodeId.localeCompare(b.sourceNodeId));
+}
+
+function buildWaveSummaries(rows) {
+  const waveIds = unique(rows.map((row) => row.assignedDeliveryWaveId)).sort();
+  return waveIds.map((waveId) => {
+    const waveRows = rows.filter((row) => row.assignedDeliveryWaveId === waveId);
+    return Object.freeze({
+      deliveryWaveId: waveId,
+      dependentKnowledgePointCount: waveRows.length,
+      dependentSourceNodeCount: new Set(waveRows.flatMap((row) => row.sourceNodeIds)).size,
+      w2FoundationCapabilityIds: freezeArray(unique(waveRows.flatMap((row) => row.w2FoundationCapabilityIds)).sort()),
+      publicKnowledgePointVisibleCount: waveRows.filter((row) => row.currentProductCoverage.publicKnowledgePointVisible).length,
+      publicPatternBindingPresentCount: waveRows.filter((row) => row.currentProductCoverage.publicPatternBindingPresent).length,
+    });
+  });
+}
+
+function buildMetrics({ directW2Rows, dependentRows, sourceSummaries, capabilitySummaries, waveSummaries }) {
+  const productGapCount = (state) => dependentRows.filter((row) => row.productGapState === state).length;
   return Object.freeze({
-    knowledgePointCount: rows.length,
-    sourceNodeCount: sourceSummaries.length,
+    directW2KnowledgePointCount: directW2Rows.length,
+    dependentKnowledgePointCount: dependentRows.length,
+    dependentSourceNodeCount: sourceSummaries.length,
+    dependentWaveCount: waveSummaries.length,
     shadowFoundationCapabilityCount: capabilitySummaries.length,
-    w2RequiredShadowCapabilityCount: shadowCapabilityIds.length,
-    shadowCapabilityGapKnowledgePointCount: rows.filter((row) => (
-      row.capabilityGapState === "SHADOW_CAPABILITY_HARDENING_REQUIRED"
+    capabilityWithKnowledgePointDependentsCount: capabilitySummaries.filter((row) => (
+      row.effectiveDependentKnowledgePointCount > 0
     )).length,
-    capabilityReadyForProductAdmissionCount: rows.filter((row) => (
-      row.capabilityGapState === "CAPABILITY_READY_FOR_PRODUCT_ADMISSION"
+    capabilityWithoutKnowledgePointDependentsCount: capabilitySummaries.filter((row) => (
+      row.effectiveDependentKnowledgePointCount === 0
     )).length,
-    contractOnlyCapabilityDriftCount: rows.filter((row) => (
-      row.capabilityGapState === "OUT_OF_W2_CONTRACT_CAPABILITY_DRIFT"
+    publicKnowledgePointVisibleCount: dependentRows.filter((row) => (
+      row.currentProductCoverage.publicKnowledgePointVisible
     )).length,
-    publicKnowledgePointVisibleCount: rows.filter((row) => row.currentProductCoverage.publicKnowledgePointVisible).length,
-    publicPatternBindingPresentCount: rows.filter((row) => row.currentProductCoverage.publicPatternBindingPresent).length,
+    publicPatternBindingPresentCount: dependentRows.filter((row) => (
+      row.currentProductCoverage.publicPatternBindingPresent
+    )).length,
     publicSourceSelectableCount: sourceSummaries.filter((row) => row.publicSourceSelectable).length,
-    admissionReadyExistingPublicPatternAfterCapabilityCount: productStateCount(
+    admissionReadyExistingPublicPatternAfterCapabilityCount: productGapCount(
       "ADMISSION_READY_EXISTING_PUBLIC_PATTERN_AFTER_CAPABILITY",
     ),
-    patternGroupOrSpecBindingRequiredAfterCapabilityCount: productStateCount(
+    patternGroupOrSpecBindingRequiredAfterCapabilityCount: productGapCount(
       "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED_AFTER_CAPABILITY",
     ),
-    publicProductVerticalSliceRequiredAfterCapabilityCount: productStateCount(
+    publicProductVerticalSliceRequiredAfterCapabilityCount: productGapCount(
       "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED_AFTER_CAPABILITY",
     ),
-    capabilityWithW2DependentsCount: capabilitySummaries.filter((row) => row.requiredByW2KnowledgePointCount > 0).length,
-    capabilityWithoutW2DependentsCount: capabilitySummaries.filter((row) => row.requiredByW2KnowledgePointCount === 0).length,
-    directProductionAdmissionCount: rows.filter((row) => row.directProductionAdmissionAllowed).length,
+    directProductionAdmissionCount: dependentRows.filter((row) => row.directProductionAdmissionAllowed).length
+      + capabilitySummaries.filter((row) => row.directProductionAdmissionAllowed).length,
   });
 }
 
@@ -230,84 +303,36 @@ export function materializeP02W2ProductAdmissionInventory() {
   const visibleRows = listVisibleBatchAKnowledgePoints();
   const visibleKnowledgePointById = new Map(visibleRows.map((row) => [row.knowledgePointId, row]));
   const visibleSourceIds = new Set(visibleRows.map((row) => row.sourceId));
-  const assignments = r05.knowledgePointAssignments.filter((row) => row.deliveryWaveId === "R05-W2");
+  const directW2KnowledgePointRows = r05.knowledgePointAssignments.filter((row) => row.deliveryWaveId === W2_WAVE_ID);
+  const w2CapabilityPlan = r05.capabilityDeliveryPlan.filter((row) => row.deliveryWaveId === W2_WAVE_ID);
+  const w2CapabilityIds = new Set(w2CapabilityPlan.map((row) => row.capabilityId));
 
-  const rows = assignments.map((assignment) => {
-    const knowledgePoint = knowledgePointById.get(assignment.knowledgePointId);
-    const mapping = mappingById.get(assignment.knowledgePointId);
-    if (!knowledgePoint || !mapping) throw new Error(`P02_KP_OR_MAPPING_MISSING:${assignment.knowledgePointId}`);
-    const visibleKnowledgePoint = visibleKnowledgePointById.get(assignment.knowledgePointId) ?? null;
-    const patternGroups = visibleKnowledgePoint
-      ? getVisiblePatternGroupsForKnowledgePoint(assignment.knowledgePointId)
-      : [];
-    const patternGroupIds = unique(patternGroups.map((row) => row.patternGroupId)).sort();
-    const patternSpecIds = unique(patternGroups.flatMap((row) => row.patternSpecIds ?? [])).sort();
-    const sourceNodeIds = unique([
-      ...assignment.sourceNodeIds,
-      ...(knowledgePoint.sourceRefs ?? []).map(sourceNodeIdOf),
-    ]).sort();
-    const runtimeEvidencePaths = unique(assignment.effectiveRequiredRuntimeCapabilityIds.flatMap((capabilityId) => (
-      capabilityById.get(capabilityId)?.runtimeEvidencePaths ?? []
-    ))).sort();
-    const publicSourceSelectable = sourceNodeIds.some((sourceNodeId) => visibleSourceIds.has(sourceNodeId));
-    const capabilityGapState = classifyCapabilityGap(assignment);
-    const productGapState = classifyProductGap({
-      visibleKnowledgePoint: Boolean(visibleKnowledgePoint),
-      patternGroupIds,
-      patternSpecIds,
-    });
-
-    return Object.freeze({
-      inventoryRowId: `p02_${assignment.knowledgePointId.replace(/^kp_/, "")}`,
-      knowledgePointId: assignment.knowledgePointId,
-      canonicalNameZh: displayNameOf(knowledgePoint),
-      capabilityStatement: knowledgePoint.capabilityStatement ?? null,
-      reasoningInvariant: knowledgePoint.reasoningInvariant ?? null,
-      sourceNodeIds: freezeArray(sourceNodeIds),
-      sourceRefs: freezeArray(knowledgePoint.sourceRefs ?? []),
-      deliveryWaveId: assignment.deliveryWaveId,
-      baseDeliveryWaveId: assignment.baseDeliveryWaveId,
-      intraWavePrerequisiteRank: assignment.intraWavePrerequisiteRank,
-      prerequisiteWaveLowerBound: assignment.prerequisiteWaveLowerBound,
-      waveEscalatedByPrerequisite: assignment.waveEscalatedByPrerequisite,
-      primaryRuntimeProfileId: assignment.primaryRuntimeProfileId,
-      requiredRuntimeCapabilityIds: freezeArray(assignment.requiredRuntimeCapabilityIds),
-      effectiveRequiredRuntimeCapabilityIds: freezeArray(assignment.effectiveRequiredRuntimeCapabilityIds),
-      productionAdmittedRequiredCapabilityIds: freezeArray(assignment.productionAdmittedRequiredCapabilityIds),
-      shadowRequiredCapabilityIds: freezeArray(assignment.shadowRequiredCapabilityIds),
-      contractOnlyRequiredCapabilityIds: freezeArray(assignment.contractOnlyRequiredCapabilityIds),
-      capabilityProof: Object.freeze({
-        allRequiredCapabilitiesAvailableWithoutContractOnlyGap: assignment.contractOnlyRequiredCapabilityIds.length === 0,
-        allRequiredCapabilitiesProductionAdmitted: assignment.shadowRequiredCapabilityIds.length === 0
-          && assignment.contractOnlyRequiredCapabilityIds.length === 0,
-        runtimeEvidencePaths: freezeArray(runtimeEvidencePaths),
-      }),
-      currentProductCoverage: Object.freeze({
-        publicSourceSelectable,
-        publicKnowledgePointVisible: Boolean(visibleKnowledgePoint),
-        publicPatternBindingPresent: patternGroupIds.length > 0 && patternSpecIds.length > 0,
-        patternGroupIds: freezeArray(patternGroupIds),
-        patternSpecIds: freezeArray(patternSpecIds),
-      }),
-      capabilityGapState,
-      productGapState,
-      nextAdmissionActions: freezeArray(nextAdmissionActions(
-        capabilityGapState,
-        assignment.shadowRequiredCapabilityIds,
-        productGapState,
-      )),
-      directProductionAdmissionAllowed: false,
-      productionAdmissionState: "INVENTORIED_NOT_ADMITTED",
-    });
-  }).sort((a, b) => (
-    a.intraWavePrerequisiteRank - b.intraWavePrerequisiteRank
-    || a.knowledgePointId.localeCompare(b.knowledgePointId)
-  ));
-
-  const sourceSummaries = buildSourceSummaries(rows);
-  const capabilitySummaries = buildCapabilitySummaries(rows, r05, capabilityById);
-  const metrics = buildMetrics(rows, sourceSummaries, capabilitySummaries);
-  const rowByKnowledgePointId = new Map(rows.map((row) => [row.knowledgePointId, row]));
+  const dependentKnowledgePointRows = buildDependentKnowledgePointRows({
+    assignments: r05.knowledgePointAssignments,
+    w2CapabilityIds,
+    knowledgePointById,
+    mappingById,
+    capabilityById,
+    visibleKnowledgePointById,
+    visibleSourceIds,
+  });
+  const capabilitySummaries = buildCapabilitySummaries({
+    capabilityPlan: w2CapabilityPlan,
+    dependentRows: dependentKnowledgePointRows,
+    capabilityById,
+  });
+  const sourceSummaries = buildSourceSummaries(dependentKnowledgePointRows);
+  const waveSummaries = buildWaveSummaries(dependentKnowledgePointRows);
+  const metrics = buildMetrics({
+    directW2Rows: directW2KnowledgePointRows,
+    dependentRows: dependentKnowledgePointRows,
+    sourceSummaries,
+    capabilitySummaries,
+    waveSummaries,
+  });
+  const rowByKnowledgePointId = new Map(
+    dependentKnowledgePointRows.map((row) => [row.knowledgePointId, row]),
+  );
 
   return Object.freeze({
     schemaName: manifest.schemaName,
@@ -317,21 +342,24 @@ export function materializeP02W2ProductAdmissionInventory() {
     status: manifest.status,
     policy: Object.freeze(policy),
     manifest: Object.freeze(manifest),
-    rows: freezeArray(rows),
-    sourceSummaries: freezeArray(sourceSummaries),
+    directW2KnowledgePointRows: freezeArray(directW2KnowledgePointRows),
+    dependentKnowledgePointRows: freezeArray(dependentKnowledgePointRows),
+    rows: freezeArray(dependentKnowledgePointRows),
     capabilitySummaries: freezeArray(capabilitySummaries),
+    sourceSummaries: freezeArray(sourceSummaries),
+    waveSummaries: freezeArray(waveSummaries),
     metrics,
     deliveryWaveAuthority: r05,
-    getRow(knowledgePointId) {
+    getDependentRow(knowledgePointId) {
       return rowByKnowledgePointId.get(knowledgePointId) ?? null;
     },
   });
 }
 
-export function listP02W2InventoryRows() {
-  return materializeP02W2ProductAdmissionInventory().rows;
+export function listP02W2DependentKnowledgePointRows() {
+  return materializeP02W2ProductAdmissionInventory().dependentKnowledgePointRows;
 }
 
-export function getP02W2InventoryRow(knowledgePointId) {
-  return materializeP02W2ProductAdmissionInventory().getRow(knowledgePointId);
+export function getP02W2DependentKnowledgePointRow(knowledgePointId) {
+  return materializeP02W2ProductAdmissionInventory().getDependentRow(knowledgePointId);
 }
