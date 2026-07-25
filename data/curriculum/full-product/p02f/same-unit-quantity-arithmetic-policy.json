@@ -1,0 +1,73 @@
+{
+  "schemaName": "P02FSameUnitQuantityArithmeticPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02F_W2SameUnitQuantityArithmeticConsumerAdmission",
+  "status": "GLOBAL_SAME_UNIT_QUANTITY_ARITHMETIC_POLICY_READY",
+  "authorities": {
+    "dependentKnowledgePoints": "src/curriculum/full-product/p02-w2-product-admission-inventory.mjs",
+    "globalAuthorityConsumer": "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+    "quantityIdentityConsumer": "src/curriculum/full-product/p02c-quantity-dimension-unit-identity-consumer.mjs",
+    "semanticRoleConsumer": "src/curriculum/full-product/p02e-quantity-semantic-role-binding-consumer.mjs",
+    "predecessorPromotionRegistry": "data/curriculum/full-product/p02e/w2-capability-promotion-registry.json"
+  },
+  "scope": {
+    "capabilityId": "cap_same_unit_quantity_arithmetic",
+    "effectiveDependentKnowledgePointCount": 2,
+    "directCapabilityRequirementRequired": true,
+    "allowedPrimaryRuntimeProfileIds": ["profile_quantity_measurement"],
+    "operationFamilyId": "QUANTITY_TIMES_INTEGER",
+    "consumerMode": "PRODUCTION_DETERMINISTIC_SAME_UNIT_QUANTITY_ARITHMETIC"
+  },
+  "arithmeticContract": {
+    "quantityValueType": "NON_NEGATIVE_SAFE_INTEGER",
+    "integerMultiplierType": "NON_NEGATIVE_SAFE_INTEGER",
+    "resultValueType": "NON_NEGATIVE_SAFE_INTEGER",
+    "inputUnitRule": "P02C_CANONICAL_UNIT_REQUIRED",
+    "resultUnitRule": "PRESERVE_INPUT_UNIT_ID_EXACTLY",
+    "dimensionRule": "PRESERVE_P02C_DIMENSION_ID",
+    "unitFamilyRule": "PRESERVE_P02C_UNIT_FAMILY_ID",
+    "zeroAllowed": true,
+    "negativeAllowed": false,
+    "fractionalValueAllowed": false,
+    "fractionalMultiplierAllowed": false,
+    "unitConversionAllowed": false,
+    "mixedUnitNormalizationAllowed": false,
+    "crossDimensionArithmeticAllowed": false,
+    "storyTemplateGenerationAllowed": false,
+    "questionGenerationAllowed": false,
+    "readOnlyAuthorityInputs": true
+  },
+  "blockingCodes": [
+    "P02F_ARITHMETIC_KP_ID_REQUIRED",
+    "P02F_UNKNOWN_KNOWLEDGE_POINT",
+    "P02F_KP_NOT_SAME_UNIT_ARITHMETIC_DEPENDENT",
+    "P02F_DIRECT_CAPABILITY_REQUIREMENT_MISSING",
+    "P02F_PRIMARY_PROFILE_INVALID",
+    "P02F_QUANTITY_IDENTITY_REQUIRED",
+    "P02F_CANONICAL_UNIT_REQUIRED",
+    "P02F_OPERATION_DESCRIPTOR_MISSING",
+    "P02F_SOURCE_KP_MISMATCH",
+    "P02F_QUANTITY_INPUT_REQUIRED",
+    "P02F_UNIT_ID_REQUIRED",
+    "P02F_UNIT_ID_INVALID",
+    "P02F_QUANTITY_VALUE_INVALID",
+    "P02F_INTEGER_MULTIPLIER_INVALID",
+    "P02F_OPERATION_FAMILY_MISMATCH",
+    "P02F_RESULT_UNIT_MISMATCH",
+    "P02F_RESULT_OVERFLOW"
+  ],
+  "mainlineBoundary": {
+    "unitConversionImplemented": false,
+    "mixedUnitNormalizationImplemented": false,
+    "timeArithmeticImplemented": false,
+    "semanticRoleReauthored": false,
+    "storyTemplateImplemented": false,
+    "patternSpecImplementationStarted": false,
+    "generatorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "publicUiChanged": false,
+    "existing19SourceProductPreserved": true,
+    "p03ToP08WorkStarted": false
+  }
+}
