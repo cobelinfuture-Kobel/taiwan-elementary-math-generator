@@ -1,0 +1,60 @@
+{
+  "schemaName": "P02W2ProductAdmissionInventoryPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02_W2ProductAdmissionInventoryAndGapMatrix",
+  "status": "W2_PRODUCT_ADMISSION_INVENTORY_DIAGNOSTIC_READY",
+  "sourceAuthorities": {
+    "deliveryWaveTask": "R05_DeliveryWaveRebase",
+    "deliveryWaveId": "R05-W2",
+    "runtimeCapabilityTask": "R04_SharedRuntimeCapabilityMatrix",
+    "prerequisiteTask": "R03_GlobalPrerequisiteGraph",
+    "previousProductCloseoutTask": "P01E_W1PublicUIHTMLPDFPrintCloseout"
+  },
+  "productLayers": [
+    "CANONICAL_KNOWLEDGE_POINT",
+    "PREREQUISITE_READINESS",
+    "SHARED_RUNTIME_CAPABILITY",
+    "FORMAL_PATTERN_BINDING",
+    "PUBLIC_SOURCE_ADAPTER",
+    "PUBLIC_UI_SELECTION",
+    "WORKSHEET_ANSWER_KEY",
+    "HTML_PDF_PRINT_ACCEPTANCE"
+  ],
+  "capabilityGapStates": [
+    "SHADOW_CAPABILITY_HARDENING_REQUIRED",
+    "CAPABILITY_READY_FOR_PRODUCT_ADMISSION",
+    "OUT_OF_W2_CONTRACT_CAPABILITY_DRIFT"
+  ],
+  "productGapStates": [
+    "ADMISSION_READY_EXISTING_PUBLIC_PATTERN_AFTER_CAPABILITY",
+    "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED_AFTER_CAPABILITY",
+    "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED_AFTER_CAPABILITY"
+  ],
+  "rules": {
+    "inventoryOnly": true,
+    "directProductionAdmissionAllowed": false,
+    "sharedCapabilityHardeningAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "publicSourceAdapterImplementationAllowed": false,
+    "publicUiChangeAllowed": false,
+    "w3ToW8ImplementationAllowed": false,
+    "existing19SourceProductModificationAllowed": false,
+    "recursiveImprovementAdminAllowed": false,
+    "legacyBatchMayDetermineAdmission": false,
+    "sourceEvidenceMustRemainTraceable": true,
+    "everyKnowledgePointRequiresExplicitCapabilityGapState": true,
+    "everyKnowledgePointRequiresExplicitProductGapState": true,
+    "everyKnowledgePointRequiresNextAdmissionActions": true
+  },
+  "inventoryDecision": {
+    "selectedRoute": "DIAGNOSTIC_PENDING_EXACT_W2_COUNTS",
+    "selectedNextTask": "P02A_W2SharedFoundationCapabilityHardeningPlan",
+    "reason": "P02 must first distinguish shared shadow-capability blockers from downstream product vertical-slice blockers before any W2 implementation is allowed."
+  },
+  "fullProductBoundary": {
+    "fullProductLineClosed": false,
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "recursiveImprovementAdminStartAllowedAfter": "P10_FullUIHTMLPDFPrintProductCloseout"
+  }
+}
