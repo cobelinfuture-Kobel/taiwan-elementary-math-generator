@@ -54,7 +54,7 @@ test("P02E retains only the mathematically multi-target speed relation as source
   const runtime = materializeP02EQuantitySemanticRoleBindingConsumer();
   const sourceDeclaredOnly = runtime.bindings.filter((row) => row.targetRoleMode === "SOURCE_DECLARED_ONLY");
   assert.deepEqual(sourceDeclaredOnly.map((row) => row.knowledgePointId), ["kp_speed_distance_time_relation"]);
-  assert.deepEqual(sourceDeclaredOnly[0].allowedTargetRoleIds.sort(), [
+  assert.deepEqual([...sourceDeclaredOnly[0].allowedTargetRoleIds].sort(), [
     "DISTANCE",
     "ELAPSED_TIME",
     "SOURCE_DECLARED_TARGET_RATE_QUANTITY",
