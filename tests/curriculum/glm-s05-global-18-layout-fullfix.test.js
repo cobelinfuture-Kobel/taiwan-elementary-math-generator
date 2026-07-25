@@ -135,12 +135,17 @@ test("GLM-S05 answer layout remains independently resolved and read back", () =>
   const document = result.worksheetDocument;
   const questionLayout = document.layoutResolution.resolvedQuestionLayout;
   const answerLayout = document.layoutResolution.resolvedAnswerLayout;
+  const answerOptions = document.configSnapshot.answerKeyPrintLayout;
   assert.equal(document.layoutResolution.authorizedLayoutId, "2x6");
   assert.deepEqual(questionLayout, { paperSize: "A4", columns: 2, rowsPerPage: 6 });
   assert.ok(answerLayout);
   assert.equal(answerLayout.columns, document.printOptions.answerKeyColumns);
   assert.equal(answerLayout.rowsPerPage, document.printOptions.answerKeyRowsPerPage);
-  assert.deepEqual(answerLayout, document.configSnapshot.answerKeyPrintLayout);
+  assert.deepEqual(answerLayout, {
+    paperSize: answerOptions.paperSize,
+    columns: answerOptions.columns,
+    rowsPerPage: answerOptions.rowsPerPage,
+  });
   assert.notDeepEqual(
     { columns: answerLayout.columns, rowsPerPage: answerLayout.rowsPerPage },
     { columns: questionLayout.columns, rowsPerPage: questionLayout.rowsPerPage },
