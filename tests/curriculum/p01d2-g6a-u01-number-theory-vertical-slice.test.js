@@ -83,7 +83,10 @@ test("P01D2 keeps exactly five W1 KnowledgePoints and ten numeric PatternSpecs a
 
 test("P01D2 preserves the protected thirteen-unit baseline while P01E publishes the nineteen-source fleet", () => {
   const protectedBaseline = listBatchASourceUnits({ includePublicCandidates: false });
-  const publicFleet = listBatchASourceUnits({ includePublicCandidates: true });
+  const publicFleet = listBatchASourceUnits({
+    includePublicCandidates: true,
+    includeFullProductPublic: true,
+  });
   const p01d2Sources = listFullProductSourceUnits();
   assert.equal(protectedBaseline.length, 13);
   assert.equal(publicFleet.length, 19);
