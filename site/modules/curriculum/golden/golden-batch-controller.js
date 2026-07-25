@@ -285,17 +285,38 @@ export function evaluateGoldenProductionGate(registry = {}, sourceId) {
   });
 }
 
-export function detectGoldenDiffDrift(changedPaths = []) {
-  const paths = [...new Set(changedPaths)].sort();
-  const forbidden = paths.filter((path) => (
-    path.startsWith("site/modules/core/")
-    || path.startsWith("site/modules/curriculum/batch-a/")
-    || path.startsWith("site/modules/renderer/")
-    || path.startsWith("src/")
-  ));
+function parseNameStatus(nameStatusText = "") {
+  return String(nameStatusText)
+    .trim()
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .map((line) => {
+      const [status, ...parts] = line.split(/\t+/);
+      return { status, path: parts.at(-1) ?? "" };
+    });
+}
+
+function unitSpecificRuntimePath(path) {
+  const unitToken = /(?:g[3-6][ab][-_]u\d{1,2})/i.test(path);
+  const runtimeToken = /(?:generator|validator|renderer)/i.test(path);
+  const curriculumModule = /^site\/modules\/curriculum\//.test(path);
+  const unitWorkflow = /^\.github\/workflows\//.test(path)
+    && /(?:g[3-6][ab][-_]u\d{1,2})/i.test(path);
+  return (curriculumModule && unitToken && runtimeToken) || unitWorkflow;
+}
+
+export function detectGoldenDiffDrift(nameStatusText = "") {
+  const errors = [];
+  const entries = parseNameStatus(nameStatusText);
+  for (const entry of entries) {
+    if (entry.status.startsWith("A") && unitSpecificRuntimePath(entry.path)) {
+      errors.push(issue("GS06_ADDED_UNIT_SPECIFIC_RUNTIME_FILE", { path: entry.path }));
+    }
+  }
   return freeze({
-    ok: forbidden.length === 0,
-    changedPaths: paths,
-    forbiddenPaths: forbidden,
+    ok: errors.length === 0,
+    errors,
+    changedFileCount: entries.length,
+    addedUnitSpecificRuntimeCount: errors.length,
   });
 }
