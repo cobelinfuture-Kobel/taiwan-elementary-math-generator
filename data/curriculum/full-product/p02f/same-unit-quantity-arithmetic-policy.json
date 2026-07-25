@@ -19,17 +19,28 @@
     "operationFamilyId": "QUANTITY_TIMES_INTEGER",
     "consumerMode": "PRODUCTION_DETERMINISTIC_SAME_UNIT_QUANTITY_ARITHMETIC"
   },
+  "numericDomains": {
+    "NON_NEGATIVE_SAFE_INTEGER": {
+      "inputForms": ["SAFE_INTEGER"],
+      "resultForm": "SAFE_INTEGER"
+    },
+    "NON_NEGATIVE_RATIONAL": {
+      "inputForms": ["SAFE_INTEGER", "RATIONAL", "MIXED_NUMBER"],
+      "resultForm": "REDUCED_RATIONAL",
+      "exactArithmeticRequired": true,
+      "floatingPointApproximationAllowed": false
+    }
+  },
   "arithmeticContract": {
-    "quantityValueType": "NON_NEGATIVE_SAFE_INTEGER",
     "integerMultiplierType": "NON_NEGATIVE_SAFE_INTEGER",
-    "resultValueType": "NON_NEGATIVE_SAFE_INTEGER",
-    "inputUnitRule": "P02C_CANONICAL_UNIT_REQUIRED",
     "resultUnitRule": "PRESERVE_INPUT_UNIT_ID_EXACTLY",
     "dimensionRule": "PRESERVE_P02C_DIMENSION_ID",
     "unitFamilyRule": "PRESERVE_P02C_UNIT_FAMILY_ID",
+    "fixedFamilyInputUnitRule": "P02C_CANONICAL_UNIT_REQUIRED",
+    "sourceDeclaredInputUnitRule": "EXPLICIT_SOURCE_DECLARED_UNIT_REQUIRED_AND_PLACEHOLDER_FORBIDDEN",
+    "sourceDeclaredUnitRequiresSourceNode": true,
     "zeroAllowed": true,
     "negativeAllowed": false,
-    "fractionalValueAllowed": false,
     "fractionalMultiplierAllowed": false,
     "unitConversionAllowed": false,
     "mixedUnitNormalizationAllowed": false,
@@ -51,7 +62,12 @@
     "P02F_QUANTITY_INPUT_REQUIRED",
     "P02F_UNIT_ID_REQUIRED",
     "P02F_UNIT_ID_INVALID",
+    "P02F_SOURCE_DECLARED_UNIT_SOURCE_REQUIRED",
+    "P02F_SOURCE_DECLARED_UNIT_REQUIRED",
+    "P02F_SOURCE_DECLARED_UNIT_PLACEHOLDER_FORBIDDEN",
+    "P02F_SOURCE_DECLARED_UNIT_MISMATCH",
     "P02F_QUANTITY_VALUE_INVALID",
+    "P02F_RATIONAL_VALUE_INVALID",
     "P02F_INTEGER_MULTIPLIER_INVALID",
     "P02F_OPERATION_FAMILY_MISMATCH",
     "P02F_RESULT_UNIT_MISMATCH",
