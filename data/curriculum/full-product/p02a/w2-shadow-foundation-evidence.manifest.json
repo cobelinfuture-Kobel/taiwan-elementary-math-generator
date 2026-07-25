@@ -1,0 +1,24 @@
+{
+  "schemaName": "P02AW2ShadowFoundationEvidenceManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation",
+  "status": "W2_FOUNDATION_EVIDENCE_RECONCILIATION_IMPLEMENTED_PENDING_CI",
+  "expectedCapabilityCount": 5,
+  "expectedPromotionReadyCount": 0,
+  "expectedPartialProductionEvidenceCount": 3,
+  "expectedShadowOnlyCount": 2,
+  "policyPath": "data/curriculum/full-product/p02a/w2-shadow-foundation-evidence-policy.json",
+  "runtimePath": "src/curriculum/full-product/p02a-w2-shadow-foundation-evidence-reconciliation.mjs",
+  "validatorPath": "tools/curriculum/validate-p02a-w2-shadow-foundation-evidence-reconciliation.mjs",
+  "mainlineBoundary": {
+    "evidenceReconciliationOnly": true,
+    "r04CapabilityStatusChanged": false,
+    "productionConsumerChanged": false,
+    "productionAdmissionChanged": false,
+    "publicUiChanged": false,
+    "existing19SourceProductPreserved": true,
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P02B_W2GlobalAuthorityLookupConsumerAdmission"
+  }
+}
