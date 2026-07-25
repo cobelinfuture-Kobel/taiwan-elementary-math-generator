@@ -11,17 +11,20 @@ export function renderPixelWorksheetPreview(previewFrame, worksheetDocument) {
     title: worksheetDocument.title,
     outputMode: "studentPrint",
     stylesheetHref: PIXEL_PREVIEW_STYLESHEET_HREF,
-    debugDataAttributes: true
+    debugDataAttributes: true,
   });
 
   return Object.freeze({
     html: rendered.html,
+    staticHtmlUrl: rendered.staticHtmlUrl ?? null,
+    dynamic: rendered.dynamic === true,
+    sharedExactLayout: rendered.sharedExactLayout === true,
     worksheetId: worksheetDocument.worksheetId ?? null,
     title: worksheetDocument.title ?? null,
     questionCount: worksheetDocument.summary?.questionCount ?? worksheetDocument.generatedQuestions?.length ?? 0,
     answerKeyItemCount: worksheetDocument.answerKeyItems?.length ?? 0,
     questionPageCount: worksheetDocument.summary?.questionPageCount ?? worksheetDocument.questionPages?.length ?? 0,
-    answerKeyPageCount: worksheetDocument.summary?.answerKeyPageCount ?? worksheetDocument.answerKeyPages?.length ?? 0
+    answerKeyPageCount: worksheetDocument.summary?.answerKeyPageCount ?? worksheetDocument.answerKeyPages?.length ?? 0,
   });
 }
 
