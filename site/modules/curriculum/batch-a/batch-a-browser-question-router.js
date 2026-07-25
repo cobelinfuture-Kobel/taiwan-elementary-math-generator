@@ -5,7 +5,7 @@ import { generateBatchABrowserQuestions as generatePreP01D1Questions } from "./b
 import {
   canGenerateG5BU05LargeNumberQuestions,
   generateG5BU05LargeNumberQuestions,
-} from "./g5b-u05-large-number-generator.js";
+} from "./large-number-place-value-runtime.js";
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
