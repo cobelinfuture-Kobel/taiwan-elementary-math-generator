@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
-  "status": "FOUR_W2_FOUNDATIONS_PRODUCTION_ADMITTED_PENDING_CI",
+  "status": "FOUR_W2_FOUNDATIONS_PRODUCTION_ADMITTED",
   "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
   "predecessorPromotionRegistryPath": "data/curriculum/full-product/p02d/w2-capability-promotion-registry.json",
   "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
@@ -21,14 +21,19 @@
       "consumerPath": "src/curriculum/full-product/p02e-quantity-semantic-role-binding-consumer.mjs",
       "validatorPath": "tools/curriculum/validate-p02e-quantity-semantic-role-binding-consumer.mjs",
       "scope": {
-        "effectiveDependentKnowledgePointCount": 26
+        "effectiveDependentKnowledgePointCount": 26,
+        "dependentSourceNodeCount": 13,
+        "sourceKnowledgePointBindingCount": 32,
+        "relationFamilyCount": 16,
+        "authorityOverrideBindingCount": 9,
+        "genericFallbackBindingCount": 0
       },
       "readOnly": true,
       "quantityIdentityRequired": true,
       "storyTemplateGenerationAllowed": false,
       "quantityArithmeticAllowed": false,
       "publicUiRequired": false,
-      "promotionEvidenceState": "COMPLETE_PENDING_CI"
+      "promotionEvidenceState": "COMPLETE"
     }
   ],
   "effectivePromotionCapabilityIds": [
