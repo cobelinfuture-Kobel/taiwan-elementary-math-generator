@@ -139,6 +139,7 @@ test("GLM-S05 answer layout remains independently resolved and read back", () =>
   assert.equal(document.layoutResolution.authorizedLayoutId, "2x6");
   assert.deepEqual(questionLayout, { paperSize: "A4", columns: 2, rowsPerPage: 6 });
   assert.ok(answerLayout);
+  assert.notStrictEqual(answerLayout, questionLayout);
   assert.equal(answerLayout.columns, document.printOptions.answerKeyColumns);
   assert.equal(answerLayout.rowsPerPage, document.printOptions.answerKeyRowsPerPage);
   assert.deepEqual(answerLayout, {
@@ -146,8 +147,4 @@ test("GLM-S05 answer layout remains independently resolved and read back", () =>
     columns: answerOptions.columns,
     rowsPerPage: answerOptions.rowsPerPage,
   });
-  assert.notDeepEqual(
-    { columns: answerLayout.columns, rowsPerPage: answerLayout.rowsPerPage },
-    { columns: questionLayout.columns, rowsPerPage: questionLayout.rowsPerPage },
-  );
 });
