@@ -44,9 +44,9 @@
     "reviewArtifactRequired": false
   },
   "distance": {
-    "before": "D2_W1_21_VERTICAL_SLICES_REQUIRED",
-    "after": "D2_W1_4_ADMITTED_17_REMAINING",
-    "distanceReduced": "P01A now records four G5B-U05 KnowledgePoints with complete visible Pattern bindings while preserving its inventory-only authority; 17 W1 KnowledgePoints remain without product vertical slices."
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "P01A now records four G5B-U05 KnowledgePoints with complete visible Pattern bindings while preserving its inventory-only authority; the W1 product gap falls from 21 to 17 KnowledgePoints."
   },
   "nextStep": {
     "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
