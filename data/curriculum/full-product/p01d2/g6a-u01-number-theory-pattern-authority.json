@@ -18,87 +18,24 @@
     "applicationDeferralTask": "P01E_W1PublicUIHTMLPDFPrintCloseout"
   },
   "knowledgePoints": [
-    {
-      "knowledgePointId": "kp_g6a_u01_prime_composite_classification",
-      "canonicalNameZh": "質數合數分類",
-      "formalMappingId": "fm_g6a_u01_prime_composite_classification",
-      "reasoningInvariant": "大於1的整數若正因數恰為1與本身即為質數；多於兩個正因數即為合數；1兩者皆非。",
-      "patternGroupId": "pg_g6a_u01_prime_composite_classification",
-      "patternSpecIds": [
-        "ps_g6a_u01_classify_prime_composite_neither",
-        "ps_g6a_u01_list_primes_in_interval"
-      ]
-    },
-    {
-      "knowledgePointId": "kp_g6a_u01_prime_factorization",
-      "canonicalNameZh": "質因數分解",
-      "formalMappingId": "fm_g6a_u01_prime_factorization",
-      "reasoningInvariant": "每個大於1的整數可唯一分解為質因數乘積，僅因排列順序不同而等價。",
-      "patternGroupId": "pg_g6a_u01_prime_factorization",
-      "patternSpecIds": [
-        "ps_g6a_u01_prime_factorization_product",
-        "ps_g6a_u01_prime_factorization_exponents"
-      ]
-    },
-    {
-      "knowledgePointId": "kp_g6a_u01_short_division_common_factors",
-      "canonicalNameZh": "短除法分解共同因數",
-      "formalMappingId": "fm_g6a_u01_short_division_common_factors",
-      "reasoningInvariant": "每次以共同質因數同除兩數，原數等於共同因數乘積與各自末端商的乘積，末端兩商互質。",
-      "patternGroupId": "pg_g6a_u01_short_division_common_factors",
-      "patternSpecIds": [
-        "ps_g6a_u01_short_division_trace",
-        "ps_g6a_u01_short_division_common_product"
-      ]
-    },
-    {
-      "knowledgePointId": "kp_g6a_u01_greatest_common_factor",
-      "canonicalNameZh": "最大公因數",
-      "formalMappingId": "fm_g6a_u01_greatest_common_factor",
-      "reasoningInvariant": "最大公因數是同時整除兩數的最大正整數，等於各共同質因數最低次方的乘積。",
-      "patternGroupId": "pg_g6a_u01_greatest_common_factor",
-      "patternSpecIds": [
-        "ps_g6a_u01_gcf_direct",
-        "ps_g6a_u01_gcf_from_prime_exponents"
-      ]
-    },
-    {
-      "knowledgePointId": "kp_g6a_u01_least_common_multiple",
-      "canonicalNameZh": "最小公倍數",
-      "formalMappingId": "fm_g6a_u01_least_common_multiple",
-      "reasoningInvariant": "最小公倍數是兩數共同倍數中最小的正整數，等於所有質因數最高次方的乘積。",
-      "patternGroupId": "pg_g6a_u01_least_common_multiple",
-      "patternSpecIds": [
-        "ps_g6a_u01_lcm_direct",
-        "ps_g6a_u01_lcm_from_prime_exponents"
-      ]
-    }
+    {"knowledgePointId":"kp_g6a_u01_prime_composite_classification","canonicalNameZh":"質數合數分類","formalMappingId":"fm_g6a_u01_prime_composite_classification","reasoningInvariant":"大於1的整數若正因數恰為1與本身即為質數；多於兩個正因數即為合數；1兩者皆非。","patternGroupId":"pg_g6a_u01_prime_composite_classification","patternSpecIds":["ps_g6a_u01_classify_prime_composite_neither","ps_g6a_u01_list_primes_in_interval"]},
+    {"knowledgePointId":"kp_g6a_u01_prime_factorization","canonicalNameZh":"質因數分解","formalMappingId":"fm_g6a_u01_prime_factorization","reasoningInvariant":"每個大於1的整數可唯一分解為質因數乘積，僅因排列順序不同而等價。","patternGroupId":"pg_g6a_u01_prime_factorization","patternSpecIds":["ps_g6a_u01_prime_factorization_product","ps_g6a_u01_prime_factorization_exponents"]},
+    {"knowledgePointId":"kp_g6a_u01_short_division_common_factors","canonicalNameZh":"短除法分解共同因數","formalMappingId":"fm_g6a_u01_short_division_common_factors","reasoningInvariant":"每次以共同質因數同除兩數，原數等於共同因數乘積與各自末端商的乘積，末端兩商互質。","patternGroupId":"pg_g6a_u01_short_division_common_factors","patternSpecIds":["ps_g6a_u01_short_division_trace","ps_g6a_u01_short_division_common_product"]},
+    {"knowledgePointId":"kp_g6a_u01_greatest_common_factor","canonicalNameZh":"最大公因數","formalMappingId":"fm_g6a_u01_greatest_common_factor","reasoningInvariant":"最大公因數是同時整除兩數的最大正整數，等於各共同質因數最低次方的乘積。","patternGroupId":"pg_g6a_u01_greatest_common_factor","patternSpecIds":["ps_g6a_u01_gcf_direct","ps_g6a_u01_gcf_from_prime_exponents"]},
+    {"knowledgePointId":"kp_g6a_u01_least_common_multiple","canonicalNameZh":"最小公倍數","formalMappingId":"fm_g6a_u01_least_common_multiple","reasoningInvariant":"最小公倍數是兩數共同倍數中最小的正整數，等於所有質因數最高次方的乘積。","patternGroupId":"pg_g6a_u01_least_common_multiple","patternSpecIds":["ps_g6a_u01_lcm_direct","ps_g6a_u01_lcm_from_prime_exponents"]}
   ],
   "patternSpecs": [
     {"patternSpecId":"ps_g6a_u01_classify_prime_composite_neither","operation":"classify_prime_composite_neither","answerModel":"classification_text","parameterContract":{"minimum":1,"maximum":120,"allowedAnswers":["質數","合數","兩者皆非"]}},
     {"patternSpecId":"ps_g6a_u01_list_primes_in_interval","operation":"list_primes_in_interval","answerModel":"ordered_integer_list","parameterContract":{"minimumStart":1,"maximumEnd":100,"minimumWidth":10,"maximumWidth":30}},
     {"patternSpecId":"ps_g6a_u01_prime_factorization_product","operation":"prime_factorization_product","answerModel":"ordered_prime_product","parameterContract":{"minimum":12,"maximum":500}},
     {"patternSpecId":"ps_g6a_u01_prime_factorization_exponents","operation":"prime_factorization_exponents","answerModel":"prime_exponent_map","parameterContract":{"minimum":12,"maximum":500}},
-    {"patternSpecId":"ps_g6a_u01_short_division_trace","operation":"short_division_trace","answerModel":"ordered_short_division_steps","parameterContract":{"minimumOperand":12,"maximumOperand":180,"requireSharedPrime":true}},
-    {"patternSpecId":"ps_g6a_u01_short_division_common_product","operation":"short_division_common_product","answerModel":"common_product_and_coprime_remainders","parameterContract":{"minimumOperand":12,"maximumOperand":180,"requireCoprimeRemainders":true}},
-    {"patternSpecId":"ps_g6a_u01_gcf_direct","operation":"gcf_direct","answerModel":"single_integer","parameterContract":{"minimumOperand":12,"maximumOperand":240,"requireNontrivialGcf":true}},
-    {"patternSpecId":"ps_g6a_u01_gcf_from_prime_exponents","operation":"gcf_from_prime_exponents","answerModel":"single_integer","parameterContract":{"minimumOperand":12,"maximumOperand":240}},
+    {"patternSpecId":"ps_g6a_u01_short_division_trace","operation":"short_division_trace","answerModel":"ordered_short_division_steps","parameterContract":{"minimumOperand":12,"maximumOperand":360,"requireSharedPrime":true}},
+    {"patternSpecId":"ps_g6a_u01_short_division_common_product","operation":"short_division_common_product","answerModel":"common_product_and_coprime_remainders","parameterContract":{"minimumOperand":12,"maximumOperand":360,"requireCoprimeRemainders":true}},
+    {"patternSpecId":"ps_g6a_u01_gcf_direct","operation":"gcf_direct","answerModel":"single_integer","parameterContract":{"minimumOperand":12,"maximumOperand":360,"requireNontrivialGcf":true}},
+    {"patternSpecId":"ps_g6a_u01_gcf_from_prime_exponents","operation":"gcf_from_prime_exponents","answerModel":"single_integer","parameterContract":{"minimumOperand":12,"maximumOperand":360}},
     {"patternSpecId":"ps_g6a_u01_lcm_direct","operation":"lcm_direct","answerModel":"single_integer","parameterContract":{"minimumOperand":4,"maximumOperand":60,"maximumAnswer":1200}},
     {"patternSpecId":"ps_g6a_u01_lcm_from_prime_exponents","operation":"lcm_from_prime_exponents","answerModel":"single_integer","parameterContract":{"minimumOperand":4,"maximumOperand":60,"maximumAnswer":1200}}
   ],
-  "counts": {
-    "knowledgePoints": 5,
-    "formalMappings": 5,
-    "patternGroups": 5,
-    "patternSpecs": 10
-  },
-  "productionBoundary": {
-    "sharedPlannerRequired": true,
-    "sharedWorksheetAssemblerRequired": true,
-    "sharedHtmlPrintRendererRequired": true,
-    "parallelPipelineAllowed": false,
-    "applicationStoryGenerationAllowed": false,
-    "publicDropdownCutoverAllowed": false,
-    "recursiveImprovementAdminAllowed": false
-  }
+  "counts": {"knowledgePoints":5,"formalMappings":5,"patternGroups":5,"patternSpecs":10},
+  "productionBoundary": {"sharedPlannerRequired":true,"sharedWorksheetAssemblerRequired":true,"sharedHtmlPrintRendererRequired":true,"parallelPipelineAllowed":false,"applicationStoryGenerationAllowed":false,"publicDropdownCutoverAllowed":false,"recursiveImprovementAdminAllowed":false}
 }
