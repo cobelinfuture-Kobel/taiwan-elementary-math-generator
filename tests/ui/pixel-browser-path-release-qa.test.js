@@ -4,7 +4,7 @@ import { access, readFile, stat } from "node:fs/promises";
 import { dirname, isAbsolute, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { listBatchASourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
+import { listFullProductPublicSourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   listPixelGrades,
   listPixelSemestersForGrade,
@@ -136,11 +136,11 @@ test("Classic and Pixel browser module graphs contain only existing site-local i
   assert.equal([...visited].every((entry) => entry.startsWith(SITE_ROOT)), true);
 });
 
-test("Pixel release registry exposes the same 13 Batch A sources with valid grade-semester routes", () => {
-  const sharedSources = listBatchASourceUnits();
+test("Pixel release registry exposes the same nineteen public sources with valid grade-semester routes", () => {
+  const sharedSources = listFullProductPublicSourceUnits();
   const pixelSources = listPixelSourceOptions();
-  assert.equal(sharedSources.length, 13);
-  assert.equal(pixelSources.length, 13);
+  assert.equal(sharedSources.length, 19);
+  assert.equal(pixelSources.length, 19);
   assert.deepEqual(
     pixelSources.map((entry) => entry.sourceId).sort(),
     sharedSources.map((entry) => entry.sourceId).sort()
@@ -148,7 +148,7 @@ test("Pixel release registry exposes the same 13 Batch A sources with valid grad
   assert.equal(new Set(pixelSources.map((entry) => entry.sourceId)).size, pixelSources.length);
 
   const grades = listPixelGrades();
-  assert.equal(grades.length > 0, true);
+  assert.deepEqual(grades, [3, 4, 5, 6]);
   for (const grade of grades) {
     const semesters = listPixelSemestersForGrade(grade);
     assert.equal(semesters.length > 0, true, `grade ${grade}`);

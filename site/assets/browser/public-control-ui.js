@@ -1,5 +1,5 @@
 import "./global-public-layout-controls.js";
-import { getFifteenUnitPublicControlProfile } from "../../modules/curriculum/registry/fifteen-unit-public-control-profiles.js";
+import { getFullProductPublicControlProfile } from "../../modules/curriculum/registry/full-product-public-control-profiles.js";
 
 const sourceSelect = document.getElementById("batch-a-source-select");
 const selectionModeSelect = document.getElementById("batch-a-selection-mode-select");
@@ -24,27 +24,21 @@ function populate(select, definition) {
     option.textContent = row.label;
     select.append(option);
   }
-  select.value = definition.options.some((row) => row.value === current)
-    ? current
-    : definition.defaultValue;
+  select.value = definition.options.some((row) => row.value === current) ? current : definition.defaultValue;
 }
-
 function setFieldVisibility(field, definition) {
   if (!field) return;
   field.hidden = definition?.supported !== true;
   field.dataset.visible = definition?.supported === true ? "true" : "false";
 }
-
-function unitLabel() {
-  return sourceSelect?.selectedOptions?.[0]?.textContent?.trim() ?? "目前單元";
-}
+function unitLabel() { return sourceSelect?.selectedOptions?.[0]?.textContent?.trim() ?? "目前單元"; }
 
 function syncPublicControlUi() {
   if (applying) return;
   applying = true;
   try {
     const sourceId = sourceSelect?.value;
-    const profile = getFifteenUnitPublicControlProfile(sourceId);
+    const profile = getFullProductPublicControlProfile(sourceId);
     const visible = Boolean(profile);
     if (section) {
       section.dataset.visible = visible ? "true" : "false";
@@ -63,31 +57,19 @@ function syncPublicControlUi() {
       const pblEnabled = profile.questionTypeControl.options.some((option) => option.value === "pbl");
       help.textContent = pblEnabled
         ? "可分開產生數字題、應用題與核准 PBL 題組；PBL 會完整保留共同題幹、相依小題與最終決策。"
-        : "可分開產生數字題與應用題；此單元未核准 PBL，因此不顯示 PBL 選項。";
+        : "可分開產生數字題與應用題；只有適合生活情境化的知識點會進入應用題，不會為了數量硬套故事。";
     }
-  } finally {
-    applying = false;
-  }
+  } finally { applying = false; }
 }
-
-function syncAfterMainHandler() {
-  queueMicrotask(syncPublicControlUi);
-}
-
+function syncAfterMainHandler() { queueMicrotask(syncPublicControlUi); }
 sourceSelect?.addEventListener("change", syncAfterMainHandler);
 selectionModeSelect?.addEventListener("change", syncAfterMainHandler);
-for (const select of [questionSelect, depthSelect, contextSelect]) {
-  select?.addEventListener("change", syncAfterMainHandler);
-}
-
+for (const select of [questionSelect, depthSelect, contextSelect]) select?.addEventListener("change", syncAfterMainHandler);
 if (section) {
   new MutationObserver(() => {
     const sourceId = sourceSelect?.value;
-    const expected = Boolean(getFifteenUnitPublicControlProfile(sourceId));
-    if ((section.dataset.visible === "true") !== expected || section.dataset.sourceId !== (sourceId ?? "")) {
-      syncAfterMainHandler();
-    }
+    const expected = Boolean(getFullProductPublicControlProfile(sourceId));
+    if ((section.dataset.visible === "true") !== expected || section.dataset.sourceId !== (sourceId ?? "")) syncAfterMainHandler();
   }).observe(section, { attributes: true, attributeFilter: ["data-visible", "data-source-id"] });
 }
-
 syncAfterMainHandler();

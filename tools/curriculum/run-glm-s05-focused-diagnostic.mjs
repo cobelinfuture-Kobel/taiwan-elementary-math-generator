@@ -16,7 +16,7 @@ import {
 } from "../../site/assets/browser/state/config-state.js";
 import { buildWorksheetDocumentFromState } from "../../site/assets/browser/pipeline/build-worksheet-document.js";
 import { GLOBAL_PUBLIC_APPROVED_LAYOUTS } from "../../site/modules/curriculum/batch-a/global-public-layout-contract.js";
-import { listBatchASourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
+import { listProtectedFifteenPublicSourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
 
 const toolDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(toolDirectory, "../..");
@@ -42,23 +42,31 @@ function issues(result) {
     ...(result?.validation?.errors ?? []),
     ...(result?.warnings ?? []),
     ...(result?.validation?.warnings ?? []),
-  ].map((issue) => ({
-    code: issue?.code ?? String(issue),
-    path: issue?.path ?? null,
-    message: issue?.message ?? null,
+  ].map((entry) => ({
+    code: entry?.code ?? String(entry),
+    path: entry?.path ?? null,
+    message: entry?.message ?? null,
   }));
 }
 
+const protectedSources = listProtectedFifteenPublicSourceUnits();
 const scenarios = [];
-for (const unit of listBatchASourceUnits({ includePublicCandidates: true })) {
+for (const unit of protectedSources) {
   for (const layout of GLOBAL_PUBLIC_APPROVED_LAYOUTS) {
     let result;
     let exception = null;
     try {
       result = buildWorksheetDocumentFromState(createScenarioState(unit.sourceId, layout));
     } catch (error) {
-      exception = { name: error?.name ?? "Error", message: String(error?.message ?? error), stack: error?.stack ?? null };
-      result = { ok: false, errors: [{ code: "GLM_S05_DIAGNOSTIC_EXCEPTION", message: exception.message }] };
+      exception = {
+        name: error?.name ?? "Error",
+        message: String(error?.message ?? error),
+        stack: error?.stack ?? null,
+      };
+      result = {
+        ok: false,
+        errors: [{ code: "GLM_S05_DIAGNOSTIC_EXCEPTION", message: exception.message }],
+      };
     }
     const document = result?.worksheetDocument ?? null;
     const resolved = document?.layoutResolution?.resolvedQuestionLayout ?? null;
@@ -86,7 +94,7 @@ for (const unit of listBatchASourceUnits({ includePublicCandidates: true })) {
       actualCount,
       resolved,
       layoutResolution: document?.layoutResolution ?? null,
-      issueCodes: [...new Set(issues(result).map((issue) => issue.code))],
+      issueCodes: [...new Set(issues(result).map((entry) => entry.code))],
       issues: issues(result),
       exception,
     });
@@ -94,7 +102,7 @@ for (const unit of listBatchASourceUnits({ includePublicCandidates: true })) {
 }
 
 const failures = scenarios.filter((scenario) => !scenario.exact);
-const sourceSummaries = listBatchASourceUnits({ includePublicCandidates: true }).map((unit) => {
+const sourceSummaries = protectedSources.map((unit) => {
   const rows = scenarios.filter((scenario) => scenario.sourceId === unit.sourceId);
   return {
     sourceId: unit.sourceId,
@@ -102,13 +110,16 @@ const sourceSummaries = listBatchASourceUnits({ includePublicCandidates: true })
     scenarioCount: rows.length,
     exactCount: rows.filter((scenario) => scenario.exact).length,
     failureCount: rows.filter((scenario) => !scenario.exact).length,
-    failureLayouts: rows.filter((scenario) => !scenario.exact).map((scenario) => scenario.layoutId),
+    failureLayouts: rows
+      .filter((scenario) => !scenario.exact)
+      .map((scenario) => scenario.layoutId),
     issueCodes: [...new Set(rows.flatMap((scenario) => scenario.issueCodes))],
   };
 });
 const manifest = {
   schemaVersion: "glm-s05-focused-diagnostic-v1",
   task: "GLM-S05_Global18LayoutFullFix",
+  sourceAuthority: "PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS",
   status: failures.length === 0 ? "ALL_270_EXACT" : "GAPS_DETECTED",
   scenarioCount: scenarios.length,
   exactCount: scenarios.length - failures.length,

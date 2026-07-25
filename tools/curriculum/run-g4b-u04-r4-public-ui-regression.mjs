@@ -175,11 +175,17 @@ try {
       || output.requestedRows !== scenario.rowsPerPage
       || output.resolvedColumns !== scenario.columns
       || output.resolvedRows !== scenario.rowsPerPage
-      || output.layoutMode !== "custom_with_caps"
+      || output.layoutMode !== "exact_approved_matrix"
       || output.layoutCapped !== "false") {
       fail("G4B_U04_R4_LAYOUT_UI_MISMATCH", { scenario, output, url: page.url() });
     }
-    layoutResults.push({ scenario, output, url: page.url() });
+    layoutResults.push({
+      scenario,
+      requestedControlMode: "custom_with_caps",
+      resolvedRendererMode: output.layoutMode,
+      output,
+      url: page.url(),
+    });
     await page.close();
     activePage = null;
   }

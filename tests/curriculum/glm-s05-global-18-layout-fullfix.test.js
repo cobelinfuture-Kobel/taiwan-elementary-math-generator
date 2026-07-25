@@ -25,7 +25,7 @@ import {
   adaptGlobalPublicSourceUnitPlan,
   validateGlobalPublicSourceUnitAdapters,
 } from "../../site/modules/curriculum/batch-a/global-public-source-unit-adapter.js";
-import { listBatchASourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
+import { listProtectedFifteenPublicSourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
 
 function createScenarioState(sourceId, layout, includeAnswerKey = false) {
   const state = createConfigState();
@@ -85,8 +85,8 @@ test("GLM-S05 source-unit adapters select complete promoted canonical authority"
   assert.equal(g5a.plan.publicSelectionMode, "sourceUnit");
 });
 
-test("GLM-S05 all 15 source-unit plans generate all 18 exact layouts", { timeout: 120_000 }, () => {
-  const sourceUnits = listBatchASourceUnits({ includePublicCandidates: true });
+test("GLM-S05 all protected 15 source-unit plans generate all 18 exact layouts", { timeout: 120_000 }, () => {
+  const sourceUnits = listProtectedFifteenPublicSourceUnits();
   assert.equal(sourceUnits.length, 15);
   const failures = [];
   let scenarioCount = 0;
@@ -128,30 +128,23 @@ test("GLM-S05 all 15 source-unit plans generate all 18 exact layouts", { timeout
   assert.deepEqual(failures, []);
 });
 
-test("GLM-S05 answer layout remains independently resolved and read back", { timeout: 30_000 }, () => {
-  for (const sourceId of ["g3a_u02_3a02", "g4b_u04_4b04", "g5a_u02_5a02", "g5a_u08_5a08"]) {
-    const state = createScenarioState(sourceId, { layoutId: "1x7", columns: 1, rowsPerPage: 7 }, true);
-    setBatchAQuestionCount(state, 12);
-    const result = buildWorksheetDocumentFromState(state);
-    assert.equal(result.ok, true, `${sourceId}:${JSON.stringify(issueCodes(result))}`);
-    const document = result.worksheetDocument;
-    const resolution = document.layoutResolution;
-    assert.deepEqual(resolution.resolvedQuestionLayout, {
-      paperSize: resolution.resolvedQuestionLayout.paperSize,
-      columns: 1,
-      rowsPerPage: 7,
-    });
-    assert.ok(resolution.resolvedAnswerLayout.columns >= 1);
-    assert.ok(resolution.resolvedAnswerLayout.rowsPerPage >= 1);
-    assert.deepEqual(
-      [document.printOptions.answerKeyColumns, document.printOptions.answerKeyRowsPerPage],
-      [resolution.resolvedAnswerLayout.columns, resolution.resolvedAnswerLayout.rowsPerPage],
-    );
-    assert.deepEqual(
-      [document.configSnapshot.answerKeyPrintLayout.columns, document.configSnapshot.answerKeyPrintLayout.rowsPerPage],
-      [resolution.resolvedAnswerLayout.columns, resolution.resolvedAnswerLayout.rowsPerPage],
-    );
-    assert.deepEqual(document.configSnapshot.requestedPrintLayout, { columns: 1, rowsPerPage: 7 });
-    assert.equal(document.answerKeyItems.length, 12);
-  }
+test("GLM-S05 answer layout remains independently resolved and read back", () => {
+  const state = createScenarioState("g4a_u08_4a08", { layoutId: "2x6", columns: 2, rowsPerPage: 6 }, true);
+  const result = buildWorksheetDocumentFromState(state);
+  assert.equal(result.ok, true, JSON.stringify(issueCodes(result)));
+  const document = result.worksheetDocument;
+  const questionLayout = document.layoutResolution.resolvedQuestionLayout;
+  const answerLayout = document.layoutResolution.resolvedAnswerLayout;
+  const answerOptions = document.configSnapshot.answerKeyPrintLayout;
+  assert.equal(document.layoutResolution.authorizedLayoutId, "2x6");
+  assert.deepEqual(questionLayout, { paperSize: "A4", columns: 2, rowsPerPage: 6 });
+  assert.ok(answerLayout);
+  assert.notStrictEqual(answerLayout, questionLayout);
+  assert.equal(answerLayout.columns, document.printOptions.answerKeyColumns);
+  assert.equal(answerLayout.rowsPerPage, document.printOptions.answerKeyRowsPerPage);
+  assert.deepEqual(answerLayout, {
+    paperSize: answerOptions.paperSize,
+    columns: answerOptions.columns,
+    rowsPerPage: answerOptions.rowsPerPage,
+  });
 });

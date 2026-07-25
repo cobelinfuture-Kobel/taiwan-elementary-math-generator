@@ -1,4 +1,7 @@
-import { listBatchASourceUnits } from "../modules/curriculum/batch-a/source-units.js";
+import {
+  listBatchASourceUnits,
+  listFullProductPublicSourceUnits,
+} from "../modules/curriculum/batch-a/source-units.js";
 import {
   BATCH_A_SELECTOR_AVAILABILITY,
   listBatchAKnowledgePointAvailabilityBySource,
@@ -45,31 +48,36 @@ function mapPixelSourceOptions(units) {
       semesterLabel: unit.semester === "upper" ? "上學期" : "下學期",
       visibleKnowledgePointCount: visibleKnowledgePoints.length,
       hiddenPendingCount: availability.hiddenPendingCount ?? 0,
-      notSelectableCount: availability.notSelectableCount ?? 0
+      notSelectableCount: availability.notSelectableCount ?? 0,
     });
   });
 }
 
-function listS74PixelSourceOptions() {
-  const units = listBatchASourceUnits();
-  if (!units.some((unit) => unit.sourceId === G4B_U04_SOURCE_ID)) units.splice(12, 0, { ...G4B_U04_PIXEL_SOURCE_UNIT });
+function listLegacyS74PixelSourceOptions() {
+  const units = listBatchASourceUnits({ includePublicCandidates: false });
+  if (!units.some((unit) => unit.sourceId === G4B_U04_SOURCE_ID)) {
+    units.splice(12, 0, { ...G4B_U04_PIXEL_SOURCE_UNIT });
+  }
   return mapPixelSourceOptions(units);
 }
 
-function listPixelSurfaceSourceOptions() {
-  return typeof document === "undefined" ? listPixelSourceOptions() : listS74PixelSourceOptions();
+export function listPixelSourceOptions() {
+  return mapPixelSourceOptions(listFullProductPublicSourceUnits());
 }
 
-export function listPixelSourceOptions() {
-  return mapPixelSourceOptions(listBatchASourceUnits());
+function listPixelSurfaceSourceOptions() {
+  return listPixelSourceOptions();
 }
 
 export function listPixelGrades() {
-  return [...new Set(listPixelSourceOptions().map((entry) => entry.grade))].sort((a, b) => a - b);
+  return [...new Set(listPixelSourceOptions().map((entry) => entry.grade))]
+    .sort((a, b) => a - b);
 }
 
 export function listPixelSemestersForGrade(grade) {
-  return [...new Set(listPixelSourceOptions().filter((entry) => entry.grade === grade).map((entry) => entry.semester))];
+  return [...new Set(listPixelSourceOptions()
+    .filter((entry) => entry.grade === grade)
+    .map((entry) => entry.semester))];
 }
 
 export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
@@ -81,7 +89,7 @@ export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
 }
 
 export function listS74PixelSourceOptionsByFilter({ grade, semester } = {}) {
-  return listS74PixelSourceOptions().filter((entry) => {
+  return listLegacyS74PixelSourceOptions().filter((entry) => {
     if (Number.isInteger(grade) && entry.grade !== grade) return false;
     if (semester && entry.semester !== semester) return false;
     return true;
@@ -89,11 +97,13 @@ export function listS74PixelSourceOptionsByFilter({ grade, semester } = {}) {
 }
 
 export function getPixelSourceOption(sourceId) {
-  return listPixelSurfaceSourceOptions().find((unit) => unit.sourceId === sourceId) ?? null;
+  return listPixelSurfaceSourceOptions()
+    .find((unit) => unit.sourceId === sourceId) ?? null;
 }
 
 export function getS74PixelSourceOption(sourceId) {
-  return listS74PixelSourceOptions().find((unit) => unit.sourceId === sourceId) ?? null;
+  return listLegacyS74PixelSourceOptions()
+    .find((unit) => unit.sourceId === sourceId) ?? null;
 }
 
 export function listPixelKnowledgePointsForSource(sourceId) {
@@ -107,7 +117,7 @@ export function listPixelKnowledgePointsForSource(sourceId) {
       supportClass: entry.supportClass,
       qaStatusLabel: entry.qaStatusLabel,
       patternGroupIds: [...(entry.patternGroupIds ?? [])],
-      patternSpecIds: [...(entry.patternSpecIds ?? [])]
+      patternSpecIds: [...(entry.patternSpecIds ?? [])],
     }));
 }
 
@@ -118,7 +128,7 @@ function buildPixelSourceSummary(sourceOption) {
     ...clone(sourceOption),
     visibleKnowledgePoints: knowledgePoints,
     summaryText: `${sourceOption.unitCode}｜${sourceOption.title}｜${sourceOption.grade} 年級${sourceOption.semesterLabel}`,
-    previewText: `目前選擇 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。`
+    previewText: `目前選擇 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。`,
   });
 }
 
@@ -137,6 +147,8 @@ export function getPixelRegistrySnapshot() {
     visibleKnowledgePointCount: BATCH_A_SELECTOR_AVAILABILITY.visibleCount,
     grades: listPixelGrades(),
     sources,
-    bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)])))
+    bySourceId: Object.freeze(Object.fromEntries(
+      sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)]),
+    )),
   });
 }

@@ -57,44 +57,75 @@ function sourceOptions(sourceId, overrides = {}) {
     ordering: "groupedByPattern",
     includeAnswerKey: true,
     generationSeed: `p01d3-${sourceId}`,
-    printLayout: { paperSize: "A4", columns: 2, rowsPerPage: 5, showQuestionNumbers: true, showAnswerKeyPage: true },
+    printLayout: {
+      paperSize: "A4",
+      columns: 2,
+      rowsPerPage: 5,
+      showQuestionNumbers: true,
+      showAnswerKeyPage: true,
+    },
     ...overrides,
   };
 }
 
-test("P01D3 publishes exactly twelve W1 KnowledgePoints and twenty-four PatternSpecs", () => {
+function numericGroup(knowledgePointId) {
+  return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
+    .find((group) => group.publicQuestionMode === "numeric" || group.mode === "numeric");
+}
+
+test("P01D3 keeps exactly twelve W1 KnowledgePoints and twenty-four numeric PatternSpecs after public closeout", () => {
   const selector = auditP01D3BatchASelectorComposition();
   const patterns = validateP01D3PatternDefinitions();
   assert.equal(selector.ok, true, JSON.stringify(selector.errors));
   assert.equal(patterns.ok, true, JSON.stringify(patterns.errors));
-  assert.deepEqual(selector.counts, { addedKnowledgePoints: 12, globalVisibleKnowledgePoints: selector.counts.globalVisibleKnowledgePoints, patternGroups: 12, patternSpecs: 24, sourceNodes: 2 });
+  assert.deepEqual(selector.counts, {
+    addedKnowledgePoints: 12,
+    globalVisibleKnowledgePoints: selector.counts.globalVisibleKnowledgePoints,
+    patternGroups: 12,
+    patternSpecs: 24,
+    sourceNodes: 2,
+  });
   assert.equal(G5A_U03_PATTERN_SPEC_IDS.length, 24);
   assert.equal(getP01D3PatternSpecIdsForSource(G5A_U03_SOURCE_ID).length, 14);
   assert.equal(getP01D3PatternSpecIdsForSource(G5A_U03A1_SOURCE_ID).length, 10);
   for (const knowledgePointId of KP_IDS) {
     const row = getVisibleBatchAKnowledgePoint(knowledgePointId);
-    const groups = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+    const group = numericGroup(knowledgePointId);
     assert.ok(G5A_U03_SOURCE_IDS.includes(row?.sourceId));
-    assert.equal(groups.length, 1);
-    assert.equal(groups[0].patternSpecIds.length, 2);
+    assert.ok(group, knowledgePointId);
+    assert.equal(group.patternSpecIds.length, 2);
   }
 });
 
-test("P01D3 extends isolated full-product authority to nineteen without changing the protected fifteen-unit registry", () => {
+test("P01D3 preserves the protected thirteen-unit baseline while P01E publishes both factor-multiple sources", () => {
   const protectedBaseline = listBatchASourceUnits({ includePublicCandidates: false });
-  const protectedPublicFleet = listBatchASourceUnits({ includePublicCandidates: true });
+  const publicFleet = listBatchASourceUnits({
+    includePublicCandidates: true,
+    includeFullProductPublic: true,
+  });
   const fullProductSources = listFullProductSourceUnits();
   assert.equal(protectedBaseline.length, 13);
-  assert.equal(protectedPublicFleet.length, 15);
-  assert.equal(G5A_U03_SOURCE_IDS.some((sourceId) => protectedPublicFleet.some((row) => row.sourceId === sourceId)), false);
+  assert.equal(publicFleet.length, 19);
+  assert.equal(
+    G5A_U03_SOURCE_IDS.every((sourceId) => publicFleet.some((row) => (
+      row.sourceId === sourceId
+      && row.lifecycle === "public_full_product_w1_release"
+    ))),
+    true,
+  );
   assert.equal(fullProductSources.length, 19);
-  assert.deepEqual(G5A_U03_SOURCE_IDS.map((sourceId) => fullProductSources.find((row) => row.sourceId === sourceId)?.lifecycle), ["full_product_w1_vertical_slice", "full_product_w1_vertical_slice"]);
+  assert.deepEqual(
+    G5A_U03_SOURCE_IDS.map((sourceId) => (
+      fullProductSources.find((row) => row.sourceId === sourceId)?.lifecycle
+    )),
+    ["full_product_w1_vertical_slice", "full_product_w1_vertical_slice"],
+  );
 });
 
 test("P01D3 shared factor-multiple primitives preserve mathematical invariants", () => {
-  assert.deepEqual(divisorsOf(36), [1,2,3,4,6,9,12,18,36]);
-  assert.deepEqual(multiplesInInterval(6, 13, 43), [18,24,30,36,42]);
-  assert.deepEqual(divisibilitySet23510(330), [2,3,5,10]);
+  assert.deepEqual(divisorsOf(36), [1, 2, 3, 4, 6, 9, 12, 18, 36]);
+  assert.deepEqual(multiplesInInterval(6, 13, 43), [18, 24, 30, 36, 42]);
+  assert.deepEqual(divisibilitySet23510(330), [2, 3, 5, 10]);
   assert.equal(classifyRelativeToBase(12, 3), "因數");
   assert.equal(classifyRelativeToBase(12, 24), "倍數");
   assert.equal(classifyRelativeToBase(12, 12), "兩者都是");
@@ -113,18 +144,25 @@ test("P01D3 source-unit plans deterministically cover all source-specific Patter
     assert.equal(first.ok, true, JSON.stringify(first.errors));
     assert.deepEqual(first.questions, second.questions);
     assert.equal(first.questions.length, expectedIds.length * 2);
-    assert.deepEqual([...new Set(first.questions.map((row) => row.patternSpecId))].sort(), [...expectedIds].sort());
-    assert.equal(new Set(first.questions.map((row) => row.operation)).size, expectedIds.length);
+    assert.deepEqual(
+      [...new Set(first.questions.map((row) => row.patternSpecId))].sort(),
+      [...expectedIds].sort(),
+    );
+    assert.equal(
+      new Set(first.questions.map((row) => row.operation)).size,
+      expectedIds.length,
+    );
     const validation = validateBatchABrowserQuestions(first.questions);
     assert.equal(validation.ok, true, JSON.stringify(validation.errors));
     assert.equal(validation.validatorVersion, "p01d3-g5a-u03-factor-multiple-v1");
   }
 });
 
-test("P01D3 supports bounded single-KP generation for all twelve KnowledgePoints", () => {
+test("P01D3 supports bounded single-KP numeric generation for all twelve KnowledgePoints", () => {
   for (const knowledgePointId of KP_IDS) {
     const row = getVisibleBatchAKnowledgePoint(knowledgePointId);
-    const group = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)[0];
+    const group = numericGroup(knowledgePointId);
+    assert.ok(group, knowledgePointId);
     const result = generateBatchABrowserQuestions(sourceOptions(row.sourceId, {
       selectionMode: "singleKnowledgePoint",
       selectedKnowledgePointIds: [knowledgePointId],
@@ -134,17 +172,28 @@ test("P01D3 supports bounded single-KP generation for all twelve KnowledgePoints
     }));
     assert.equal(result.ok, true, `${knowledgePointId}: ${JSON.stringify(result.errors)}`);
     assert.equal(result.questions.length, 4);
-    assert.equal(result.questions.every((question) => group.patternSpecIds.includes(question.patternSpecId)), true);
-    assert.equal(result.questions.every((question) => question.metadata.knowledgePointId === knowledgePointId), true);
+    assert.equal(
+      result.questions.every((question) => group.patternSpecIds.includes(question.patternSpecId)),
+      true,
+    );
+    assert.equal(
+      result.questions.every((question) => question.metadata.knowledgePointId === knowledgePointId),
+      true,
+    );
   }
 });
 
 test("P01D3 validator fails closed for every admitted PatternSpec when the answer is tampered", () => {
   for (const sourceId of G5A_U03_SOURCE_IDS) {
-    const generated = generateBatchABrowserQuestions(sourceOptions(sourceId, { questionCount: getP01D3PatternSpecIdsForSource(sourceId).length }));
+    const generated = generateBatchABrowserQuestions(sourceOptions(sourceId, {
+      questionCount: getP01D3PatternSpecIdsForSource(sourceId).length,
+    }));
     assert.equal(generated.ok, true, JSON.stringify(generated.errors));
     for (const original of generated.questions) {
-      const report = validateG5AU03FactorMultipleQuestion({ ...original, answerText: "錯誤答案" });
+      const report = validateG5AU03FactorMultipleQuestion({
+        ...original,
+        answerText: "錯誤答案",
+      });
       assert.equal(report.ok, false, original.patternSpecId);
     }
   }
@@ -169,7 +218,7 @@ test("P01D3 produces two source worksheets, answer keys, paginated HTML and prin
   }
 });
 
-test("P01D3 completes all twenty-one W1 product bindings while public dropdown cutover remains deferred", () => {
+test("P01D3 remains admitted after P01E completes the twenty-one-KP public source cutover", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   assert.equal(inventory.metrics.knowledgePointCount, 21);
   assert.equal(inventory.metrics.sourceNodeCount, 4);
@@ -185,5 +234,10 @@ test("P01D3 completes all twenty-one W1 product bindings while public dropdown c
     assert.equal(row.currentProductCoverage.publicSourceSelectable, true);
     assert.equal(row.currentProductCoverage.patternSpecIds.length, 2);
   }
-  console.log(`P01D3_G5A_U03_READBACK=${JSON.stringify({ sourceIds: G5A_U03_SOURCE_IDS, admittedKnowledgePointIds: KP_IDS, patternSpecIds: G5A_U03_PATTERN_SPEC_IDS, inventoryMetrics: inventory.metrics })}`);
+  console.log(`P01D3_G5A_U03_READBACK=${JSON.stringify({
+    sourceIds: G5A_U03_SOURCE_IDS,
+    admittedKnowledgePointIds: KP_IDS,
+    patternSpecIds: G5A_U03_PATTERN_SPEC_IDS,
+    inventoryMetrics: inventory.metrics,
+  })}`);
 });
