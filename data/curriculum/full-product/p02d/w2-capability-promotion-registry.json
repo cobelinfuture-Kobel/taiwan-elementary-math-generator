@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P02D_W2PrerequisiteReadinessConsumerAdmission",
-  "status": "THREE_W2_FOUNDATIONS_PRODUCTION_ADMITTED_PENDING_CI",
+  "status": "THREE_W2_FOUNDATIONS_PRODUCTION_ADMITTED",
   "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
   "predecessorPromotionRegistryPath": "data/curriculum/full-product/p02c/w2-capability-promotion-registry.json",
   "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
@@ -23,14 +23,16 @@
         "canonicalKnowledgePointCount": 482,
         "directPrerequisiteEdgeCount": 668,
         "rootKnowledgePointCount": 25,
-        "alternativeGroupCount": 1
+        "alternativeGroupCount": 1,
+        "fullySatisfiedReadinessCount": 482,
+        "requiredBlockingWitnessCount": 456
       },
       "readOnly": true,
       "learnerStatePersistenceAllowed": false,
       "masteryMutationAllowed": false,
       "lessonSchedulingAllowed": false,
       "publicUiRequired": false,
-      "promotionEvidenceState": "COMPLETE_PENDING_CI"
+      "promotionEvidenceState": "COMPLETE"
     }
   ],
   "effectivePromotionCapabilityIds": [
