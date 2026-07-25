@@ -1,0 +1,45 @@
+{
+  "schemaName": "P02DW2CapabilityPromotionRegistryV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02D_W2PrerequisiteReadinessConsumerAdmission",
+  "status": "THREE_W2_FOUNDATIONS_PRODUCTION_ADMITTED_PENDING_CI",
+  "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+  "predecessorPromotionRegistryPath": "data/curriculum/full-product/p02c/w2-capability-promotion-registry.json",
+  "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
+  "inheritedPromotionCapabilityIds": [
+    "cap_kp_authority_lookup",
+    "cap_quantity_dimension_unit_identity"
+  ],
+  "promotions": [
+    {
+      "capabilityId": "cap_prerequisite_readiness",
+      "previousDeliveryStatus": "shadow_available",
+      "effectiveDeliveryStatus": "production_admitted",
+      "admissionTaskId": "P02D_W2PrerequisiteReadinessConsumerAdmission",
+      "consumerPath": "src/curriculum/full-product/p02d-prerequisite-readiness-consumer.mjs",
+      "validatorPath": "tools/curriculum/validate-p02d-prerequisite-readiness-consumer.mjs",
+      "scope": {
+        "canonicalKnowledgePointCount": 482,
+        "directPrerequisiteEdgeCount": 668,
+        "rootKnowledgePointCount": 25,
+        "alternativeGroupCount": 1
+      },
+      "readOnly": true,
+      "learnerStatePersistenceAllowed": false,
+      "masteryMutationAllowed": false,
+      "lessonSchedulingAllowed": false,
+      "publicUiRequired": false,
+      "promotionEvidenceState": "COMPLETE_PENDING_CI"
+    }
+  ],
+  "effectivePromotionCapabilityIds": [
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity"
+  ],
+  "remainingShadowFoundationCapabilityIds": [
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ]
+}
