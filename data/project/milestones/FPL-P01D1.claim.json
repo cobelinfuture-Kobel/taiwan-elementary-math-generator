@@ -24,7 +24,7 @@
       "site/modules/curriculum/registry/batch-a-selector-p01d1-extension.js",
       "site/modules/curriculum/batch-a/full-product-source-units-p01d1.js",
       "site/modules/curriculum/batch-a/source-pattern-full-product-p01d1-extension.js",
-      "site/modules/curriculum/batch-a/g5b-u05-large-number-generator.js",
+      "site/modules/curriculum/batch-a/large-number-place-value-runtime.js",
       "site/modules/curriculum/batch-a/batch-a-browser-validator-p01d1.js",
       "tools/curriculum/validate-p01d1-g5b-u05-large-number.mjs",
       "tests/curriculum/p01d1-g5b-u05-large-number-vertical-slice.test.js"
@@ -54,7 +54,7 @@
   "distance": {
     "before": "D2",
     "after": "D2",
-    "distanceReduced": "Four G5B-U05 KnowledgePoints now use the full-product selector extension, shared planner, deterministic generator and validator, WorksheetDocument, answer key, HTML renderer and CI-gated Chromium PDF path; the W1 gap falls from 21 to 17 KnowledgePoints without cutting over the public UI before P01E."
+    "distanceReduced": "Four G5B-U05 KnowledgePoints now use the full-product selector extension, shared planner, shared large-number place-value runtime, deterministic validator, WorksheetDocument, answer key, HTML renderer and CI-gated Chromium PDF path; the W1 gap falls from 21 to 17 KnowledgePoints without cutting over the public UI before P01E."
   },
   "nextStep": {
     "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
