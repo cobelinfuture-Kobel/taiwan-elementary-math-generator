@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P02D_W2PrerequisiteReadinessConsumerAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W2_PREREQUISITE_READINESS_482_KP_668_EDGE_PRODUCTION_ADMITTED_PENDING_CI",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r03-global-kp-prerequisite-graph.mjs",
+      "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+      "src/curriculum/full-product/p02d-prerequisite-readiness-consumer.mjs",
+      "tools/curriculum/validate-p02d-prerequisite-readiness-consumer.mjs",
+      "tests/curriculum/p02d-prerequisite-readiness-consumer.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P02C.claim.json",
+      "data/project/milestones/GCKG-R03.claim.json",
+      "data/project/milestones/GCKG-R04.claim.json",
+      "data/curriculum/full-product/p02d/prerequisite-readiness-policy.json",
+      "data/curriculum/full-product/p02d/prerequisite-readiness.manifest.json",
+      "data/curriculum/full-product/p02d/w2-capability-promotion-registry.json",
+      "docs/curriculum/contracts/W2_PREREQUISITE_READINESS_CONSUMER_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P02D_W2_PREREQUISITE_READINESS_CONSUMER_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The third W2 foundation now has one production-intended read-only mastered-set N+1 readiness consumer covering all four hundred eighty-two canonical KnowledgePoints and six hundred sixty-eight direct prerequisite edges, pending exact-head CI before production admission is finalized."
+  },
+  "nextStep": {
+    "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}
