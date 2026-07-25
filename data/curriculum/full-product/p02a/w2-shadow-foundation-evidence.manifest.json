@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation",
-  "status": "W2_FOUNDATION_EVIDENCE_RECONCILIATION_IMPLEMENTED_PENDING_CI",
+  "status": "W2_FOUNDATION_EVIDENCE_RECONCILIATION_CLOSED",
   "expectedCapabilityCount": 5,
   "expectedPromotionReadyCount": 0,
   "expectedPartialProductionEvidenceCount": 3,
