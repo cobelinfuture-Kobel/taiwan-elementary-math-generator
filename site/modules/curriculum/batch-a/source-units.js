@@ -14,8 +14,6 @@ export const BATCH_A_SOURCE_UNITS = Object.freeze([
   { sourceId: "g5a_u08_5a08", grade: 5, semester: "upper", unitCode: "5A-U08", title: "整數四則", domain: "integer_mixed_operations" }
 ]);
 
-// Frozen authority for the completed 15-unit migration program.
-// Full-product additions must never be inserted into this array.
 export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
   Object.freeze({
     sourceId: "g4b_u04_4b04",
@@ -37,38 +35,17 @@ export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
   })
 ]);
 
-// New W1-W8 product-line sources are isolated from the protected 15-unit fleet.
-export const FULL_PRODUCT_SOURCE_UNITS = Object.freeze([
-  Object.freeze({
-    sourceId: "g5b_u05_5b05a",
-    grade: 5,
-    semester: "lower",
-    unitCode: "5B-U05",
-    title: "數的十進位結構與億以上的數",
-    domain: "large_number_place_value",
-    lifecycle: "full_product_w1_vertical_slice"
-  })
-]);
-
-const PROTECTED_PUBLIC_SOURCE_UNITS = Object.freeze([
+const ALL_PUBLIC_SOURCE_UNITS = Object.freeze([
   ...BATCH_A_SOURCE_UNITS,
   ...PUBLIC_CANDIDATE_SOURCE_UNITS
 ]);
-const ALL_PRODUCT_SOURCE_UNITS = Object.freeze([
-  ...PROTECTED_PUBLIC_SOURCE_UNITS,
-  ...FULL_PRODUCT_SOURCE_UNITS
-]);
-const SOURCE_UNIT_BY_ID = new Map(ALL_PRODUCT_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
+const SOURCE_UNIT_BY_ID = new Map(ALL_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
 
 export function listBatchASourceUnits(options = {}) {
   const includePublicCandidates = options.includePublicCandidates
     ?? (typeof document !== "undefined");
-  const units = includePublicCandidates ? PROTECTED_PUBLIC_SOURCE_UNITS : BATCH_A_SOURCE_UNITS;
+  const units = includePublicCandidates ? ALL_PUBLIC_SOURCE_UNITS : BATCH_A_SOURCE_UNITS;
   return units.map((unit) => ({ ...unit }));
-}
-
-export function listFullProductSourceUnits() {
-  return ALL_PRODUCT_SOURCE_UNITS.map((unit) => ({ ...unit }));
 }
 
 export function getBatchASourceUnit(sourceId) {
