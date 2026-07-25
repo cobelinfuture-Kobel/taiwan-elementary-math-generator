@@ -12,10 +12,8 @@ import {
   G5B_U05_SOURCE_ID,
   validateP01D1PatternDefinitions,
 } from "../../site/modules/curriculum/batch-a/source-pattern-full-product-p01d1-extension.js";
-import {
-  listBatchASourceUnits,
-  listFullProductSourceUnits,
-} from "../../site/modules/curriculum/batch-a/source-units.js";
+import { listBatchASourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
+import { listFullProductSourceUnits } from "../../site/modules/curriculum/batch-a/full-product-source-units-p01d1.js";
 import { buildBatchABrowserPlan } from "../../site/modules/curriculum/batch-a/batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import {
@@ -99,6 +97,7 @@ test("P01D1 source-unit plan and generator cover all eight PatternSpecs determin
   const options = sourceUnitOptions();
   const plan = buildBatchABrowserPlan(options);
   assert.equal(plan.sourceId, G5B_U05_SOURCE_ID);
+  assert.equal(plan.sourceUnit?.unitCode, "5B-U05");
   assert.deepEqual(plan.patternSpecIds, [...G5B_U05_PATTERN_SPEC_IDS]);
   assert.equal(validateBatchABrowserPlan(plan).ok, true);
   const first = generateBatchABrowserQuestions(options);
