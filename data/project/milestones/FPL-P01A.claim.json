@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W1_INVENTORY_4_PATTERN_READY_17_VERTICAL_SLICES_REMAIN",
+  "claimedStatus": "W1_INVENTORY_9_PATTERN_READY_12_VERTICAL_SLICES_REMAIN",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -46,10 +46,10 @@
   "distance": {
     "before": "D2",
     "after": "D2",
-    "distanceReduced": "P01A now records four G5B-U05 KnowledgePoints with complete visible Pattern bindings while preserving its inventory-only authority; the W1 product gap falls from 21 to 17 KnowledgePoints."
+    "distanceReduced": "P01A now records nine G5B-U05 and G6A-U01 KnowledgePoints with complete full-product Pattern bindings while preserving its inventory-only authority; the W1 product gap falls from 17 to 12 KnowledgePoints."
   },
   "nextStep": {
-    "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
+    "taskId": "P01D3_G5AU03FactorMultipleVerticalSlice",
     "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }

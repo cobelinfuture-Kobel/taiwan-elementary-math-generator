@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P01A_W1ProductAdmissionInventoryAndGapMatrix",
-  "status": "W1_PRODUCT_ADMISSION_INVENTORY_UPDATED_AFTER_P01D1",
+  "status": "W1_PRODUCT_ADMISSION_INVENTORY_UPDATED_AFTER_P01D2",
   "sourceAuthorities": {
     "deliveryWaveTask": "R05_DeliveryWaveRebase",
     "deliveryWaveId": "R05-W1",
@@ -11,7 +11,10 @@
     "capabilityRequirement": "ALL_EFFECTIVE_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED",
     "baselineExclusion": "R05-W0",
     "classificationCorrectionTask": "P01A1_R04PatternRelationClassificationCorrectionAndW1Rebase",
-    "firstProductAdmissionTask": "P01D1_G5BU05LargeNumberVerticalSlice"
+    "admissionTasks": [
+      "P01D1_G5BU05LargeNumberVerticalSlice",
+      "P01D2_G6AU01NumberTheoryVerticalSlice"
+    ]
   },
   "productLayers": [
     "CANONICAL_KNOWLEDGE_POINT",
@@ -41,35 +44,35 @@
     "everyKnowledgePointRequiresNextAdmissionActions": true
   },
   "inventoryDecision": {
-    "admissionReadyExistingPublicPatternCount": 4,
+    "admissionReadyExistingPublicPatternCount": 9,
     "patternGroupOrSpecBindingRequiredCount": 0,
-    "publicProductVerticalSliceRequiredCount": 17,
+    "publicProductVerticalSliceRequiredCount": 12,
     "selectedRoute": "PARTIAL_W1_PRODUCT_ADMISSION",
-    "completedSourceNodeIds": ["g5b_u05_5b05a"],
-    "completedKnowledgePointCount": 4,
+    "completedSourceNodeIds": ["g5b_u05_5b05a", "g6a_u01_6a01"],
+    "completedKnowledgePointCount": 9,
     "excludedMisclassifiedKnowledgePointId": "kp_g4a_u07_quantity_multiplicative_pattern",
     "excludedKnowledgePointCorrectWave": "R05-W6",
-    "selectedNextTask": "P01D2_G6AU01NumberTheoryVerticalSlice",
-    "reason": "P01D1 admits the four G5B-U05 W1 KnowledgePoints through the shared public pipeline; the next smallest remaining W1 source cluster is G6A-U01 with five KnowledgePoints."
+    "selectedNextTask": "P01D3_G5AU03FactorMultipleVerticalSlice",
+    "reason": "P01D1 and P01D2 admit nine W1 KnowledgePoints through shared full-product runtime paths; the remaining W1 product cluster is the twelve-KP G5A-U03 factor/multiple slice."
   },
   "verticalSliceOrder": [
     {
       "taskId": "P01D1_G5BU05LargeNumberVerticalSlice",
       "sourceNodeIds": ["g5b_u05_5b05a"],
       "knowledgePointCount": 4,
-      "status": "PRODUCTION_ADMITTED_PENDING_FINAL_CI"
+      "status": "PRODUCTION_ADMITTED_MERGED"
     },
     {
       "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
       "sourceNodeIds": ["g6a_u01_6a01"],
       "knowledgePointCount": 5,
-      "status": "NEXT"
+      "status": "PRODUCTION_ADMITTED_PENDING_FINAL_CI"
     },
     {
       "taskId": "P01D3_G5AU03FactorMultipleVerticalSlice",
       "sourceNodeIds": ["g5a_u03_5a03a", "g5a_u03_5a03a1"],
       "knowledgePointCount": 12,
-      "status": "QUEUED"
+      "status": "NEXT"
     },
     {
       "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",

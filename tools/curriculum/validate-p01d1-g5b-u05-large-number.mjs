@@ -28,9 +28,7 @@ const EXPECTED_KP_IDS = Object.freeze([
 ]);
 const EXCLUDED_KP_ID = "kp_g5b_u05a_decimal_base10_structure";
 
-function issue(code, details = {}) {
-  return Object.freeze({ code, ...details });
-}
+function issue(code, details = {}) { return Object.freeze({ code, ...details }); }
 
 function sourceOptions(overrides = {}) {
   return {
@@ -54,9 +52,7 @@ export function validateP01D1G5BU05LargeNumber() {
   errors.push(...definitions.errors.map((code) => issue(code)));
 
   if (authority.counts?.knowledgePoints !== 4 || authority.counts?.formalMappings !== 4
-    || authority.counts?.patternGroups !== 4 || authority.counts?.patternSpecs !== 8) {
-    errors.push(issue("P01D1_AUTHORITY_COUNTS_INVALID", { counts: authority.counts }));
-  }
+    || authority.counts?.patternGroups !== 4 || authority.counts?.patternSpecs !== 8) errors.push(issue("P01D1_AUTHORITY_COUNTS_INVALID", { counts: authority.counts }));
   const authorityKpIds = authority.knowledgePoints.map((row) => row.knowledgePointId).sort();
   if (JSON.stringify(authorityKpIds) !== JSON.stringify([...EXPECTED_KP_IDS].sort())) errors.push(issue("P01D1_AUTHORITY_KP_SET_INVALID"));
   if (!authority.scope?.excludedKnowledgePointIds?.includes(EXCLUDED_KP_ID)) errors.push(issue("P01D1_DECIMAL_SCOPE_EXCLUSION_MISSING"));
@@ -80,19 +76,18 @@ export function validateP01D1G5BU05LargeNumber() {
   if (!worksheet.ok || worksheet.worksheetDocument?.generatedQuestions?.length !== 16
     || worksheet.worksheetDocument?.answerKeyItems?.length !== 16
     || worksheet.worksheetDocument?.questionPages?.length < 1
-    || worksheet.worksheetDocument?.answerKeyPages?.length < 1) {
-    errors.push(issue("P01D1_WORKSHEET_VERTICAL_SLICE_INVALID", { worksheetErrors: worksheet.errors }));
-  }
+    || worksheet.worksheetDocument?.answerKeyPages?.length < 1) errors.push(issue("P01D1_WORKSHEET_VERTICAL_SLICE_INVALID", { worksheetErrors: worksheet.errors }));
   let html = "";
   if (worksheet.worksheetDocument) html = renderWorksheetDocumentToHtml(worksheet.worksheetDocument, { stylesheetHref: "" });
   if (!html.includes("worksheet-page--questions") || !html.includes("worksheet-page--answer-key")) errors.push(issue("P01D1_HTML_RENDER_INVALID"));
 
   const inventory = materializeP01AW1ProductAdmissionInventory();
   if (inventory.metrics.knowledgePointCount !== 21
-    || inventory.metrics.admissionReadyExistingPublicPatternCount !== 4
-    || inventory.metrics.publicProductVerticalSliceRequiredCount !== 17
-    || inventory.metrics.publicSourceSelectableCount !== 1) {
-    errors.push(issue("P01D1_W1_INVENTORY_DELTA_INVALID", { metrics: inventory.metrics }));
+    || inventory.metrics.admissionReadyExistingPublicPatternCount < 4
+    || inventory.metrics.publicProductVerticalSliceRequiredCount > 17
+    || inventory.metrics.publicSourceSelectableCount < 1) errors.push(issue("P01D1_CUMULATIVE_W1_INVENTORY_INVALID", { metrics: inventory.metrics }));
+  for (const knowledgePointId of EXPECTED_KP_IDS) {
+    if (inventory.getRow(knowledgePointId)?.productGapState !== "ADMISSION_READY_EXISTING_PUBLIC_PATTERN") errors.push(issue("P01D1_ADMITTED_ROW_REGRESSED", { knowledgePointId }));
   }
 
   return Object.freeze({
@@ -108,8 +103,8 @@ export function validateP01D1G5BU05LargeNumber() {
       answerKeyItemCount: worksheet.worksheetDocument?.answerKeyItems?.length ?? 0,
       questionPageCount: worksheet.worksheetDocument?.questionPages?.length ?? 0,
       answerKeyPageCount: worksheet.worksheetDocument?.answerKeyPages?.length ?? 0,
-      w1AdmittedCount: inventory.metrics.admissionReadyExistingPublicPatternCount,
-      w1RemainingCount: inventory.metrics.publicProductVerticalSliceRequiredCount,
+      cumulativeW1AdmittedCount: inventory.metrics.admissionReadyExistingPublicPatternCount,
+      cumulativeW1RemainingCount: inventory.metrics.publicProductVerticalSliceRequiredCount,
       excludedKnowledgePointId: EXCLUDED_KP_ID,
     }),
   });
