@@ -132,9 +132,17 @@ test("GLM-S05 answer layout remains independently resolved and read back", () =>
   const state = createScenarioState("g4a_u08_4a08", { layoutId: "2x6", columns: 2, rowsPerPage: 6 }, true);
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true, JSON.stringify(issueCodes(result)));
-  assert.equal(result.worksheetDocument.layoutResolution.authorizedLayoutId, "2x6");
-  assert.equal(result.worksheetDocument.layoutResolution.resolvedQuestionLayout.columns, 2);
-  assert.equal(result.worksheetDocument.layoutResolution.resolvedQuestionLayout.rowsPerPage, 6);
-  assert.ok(result.worksheetDocument.layoutResolution.resolvedAnswerLayout);
-  assert.equal(result.worksheetDocument.layoutResolution.answerKeyLayoutIndependent, true);
+  const document = result.worksheetDocument;
+  const questionLayout = document.layoutResolution.resolvedQuestionLayout;
+  const answerLayout = document.layoutResolution.resolvedAnswerLayout;
+  assert.equal(document.layoutResolution.authorizedLayoutId, "2x6");
+  assert.deepEqual(questionLayout, { paperSize: "A4", columns: 2, rowsPerPage: 6 });
+  assert.ok(answerLayout);
+  assert.equal(answerLayout.columns, document.printOptions.answerKeyColumns);
+  assert.equal(answerLayout.rowsPerPage, document.printOptions.answerKeyRowsPerPage);
+  assert.deepEqual(answerLayout, document.configSnapshot.answerKeyPrintLayout);
+  assert.notDeepEqual(
+    { columns: answerLayout.columns, rowsPerPage: answerLayout.rowsPerPage },
+    { columns: questionLayout.columns, rowsPerPage: questionLayout.rowsPerPage },
+  );
 });
