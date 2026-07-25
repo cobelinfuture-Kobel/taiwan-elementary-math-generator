@@ -21,8 +21,17 @@ import {
   G6A_U01_PATTERN_SPEC_IDS,
   G6A_U01_SOURCE_ID,
 } from "../registry/g6a-u01-selector-projection.js";
+import {
+  G5A_U03_PATTERN_GROUPS,
+  G5A_U03_SOURCE_ID,
+  G5A_U03A1_SOURCE_ID,
+} from "../registry/g5a-u03-factor-multiple-selector-projection.js";
 import { G5B_U05_FULL_PRODUCT_SOURCE_UNIT } from "./full-product-source-units-p01d1.js";
 import { G6A_U01_FULL_PRODUCT_SOURCE_UNIT } from "./full-product-source-units-p01d2.js";
+import {
+  G5A_U03_FULL_PRODUCT_SOURCE_UNIT,
+  G5A_U03A1_FULL_PRODUCT_SOURCE_UNIT,
+} from "./full-product-source-units-p01d3.js";
 
 function normalize(value, allowed, fallback) {
   return allowed.includes(value) ? value : fallback;
@@ -68,8 +77,20 @@ function fullProductPlan(plan, options, sourceUnit, patternSpecIds, taskId) {
   };
 }
 
+function p01d3PatternSpecIds(sourceId) {
+  return G5A_U03_PATTERN_GROUPS
+    .filter((group) => group.sourceId === sourceId)
+    .flatMap((group) => group.patternSpecIds);
+}
+
 export function buildBatchABrowserPlan(options = {}) {
   const plan = core.buildBatchABrowserPlan(options);
+  if (options.sourceId === G5A_U03_SOURCE_ID) {
+    return fullProductPlan(plan, options, G5A_U03_FULL_PRODUCT_SOURCE_UNIT, p01d3PatternSpecIds(G5A_U03_SOURCE_ID), "P01D3_G5AU03FactorMultipleVerticalSlice");
+  }
+  if (options.sourceId === G5A_U03A1_SOURCE_ID) {
+    return fullProductPlan(plan, options, G5A_U03A1_FULL_PRODUCT_SOURCE_UNIT, p01d3PatternSpecIds(G5A_U03A1_SOURCE_ID), "P01D3_G5AU03FactorMultipleVerticalSlice");
+  }
   if (options.sourceId === G6A_U01_SOURCE_ID) {
     return fullProductPlan(plan, options, G6A_U01_FULL_PRODUCT_SOURCE_UNIT, G6A_U01_PATTERN_SPEC_IDS, "P01D2_G6AU01NumberTheoryVerticalSlice");
   }

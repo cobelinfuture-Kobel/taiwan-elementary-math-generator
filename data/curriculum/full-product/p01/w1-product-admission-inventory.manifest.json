@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P01A_W1ProductAdmissionInventoryAndGapMatrix",
-  "status": "W1_PRODUCT_ADMISSION_INVENTORY_PARTIALLY_ADMITTED_PENDING_P01D2_CI",
+  "status": "W1_ALL_VERTICAL_SLICES_ADMITTED_PENDING_P01D3_FINAL_CI",
   "sourceAuthorities": {
     "deliveryWaveTask": "R05_DeliveryWaveRebase",
     "runtimeCapabilityTask": "R04_SharedRuntimeCapabilityMatrix",
@@ -11,12 +11,13 @@
     "classificationCorrectionTask": "P01A1_R04PatternRelationClassificationCorrectionAndW1Rebase",
     "productAdmissionTasks": [
       "P01D1_G5BU05LargeNumberVerticalSlice",
-      "P01D2_G6AU01NumberTheoryVerticalSlice"
+      "P01D2_G6AU01NumberTheoryVerticalSlice",
+      "P01D3_G5AU03FactorMultipleVerticalSlice"
     ],
     "knowledgePointCount": 21,
     "sourceNodeCount": 4,
-    "admissionReadyExistingPublicPatternCount": 9,
-    "publicProductVerticalSliceRequiredCount": 12
+    "admissionReadyExistingPublicPatternCount": 21,
+    "publicProductVerticalSliceRequiredCount": 0
   },
   "policyPath": "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
   "runtimePath": "src/curriculum/full-product/p01-w1-product-admission-inventory.mjs",
@@ -26,7 +27,8 @@
     "productionAdmissionChanged": false,
     "productionAdmissionEvidenceOwnedBy": [
       "P01D1_G5BU05LargeNumberVerticalSlice",
-      "P01D2_G6AU01NumberTheoryVerticalSlice"
+      "P01D2_G6AU01NumberTheoryVerticalSlice",
+      "P01D3_G5AU03FactorMultipleVerticalSlice"
     ],
     "existing15UnitProductionUsePreserved": true,
     "publicDropdownCutoverDeferredTo": "P01E_W1PublicUIHTMLPDFPrintCloseout",
@@ -35,6 +37,6 @@
     "emptyExistingPatternTaskSkipped": true,
     "emptyPartialBindingTaskSkipped": true,
     "misclassifiedPatternKnowledgePointRemoved": true,
-    "nextTask": "P01D3_G5AU03FactorMultipleVerticalSlice"
+    "nextTask": "P01E_W1PublicUIHTMLPDFPrintCloseout"
   }
 }
