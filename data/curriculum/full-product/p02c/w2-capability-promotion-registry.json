@@ -1,0 +1,43 @@
+{
+  "schemaName": "P02CW2CapabilityPromotionRegistryV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission",
+  "status": "TWO_W2_FOUNDATIONS_PRODUCTION_ADMITTED",
+  "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+  "predecessorPromotionRegistryPath": "data/curriculum/full-product/p02b/w2-capability-promotion-registry.json",
+  "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
+  "inheritedPromotionCapabilityIds": [
+    "cap_kp_authority_lookup"
+  ],
+  "promotions": [
+    {
+      "capabilityId": "cap_quantity_dimension_unit_identity",
+      "previousDeliveryStatus": "shadow_available",
+      "effectiveDeliveryStatus": "production_admitted",
+      "admissionTaskId": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission",
+      "consumerPath": "src/curriculum/full-product/p02c-quantity-dimension-unit-identity-consumer.mjs",
+      "validatorPath": "tools/curriculum/validate-p02c-quantity-dimension-unit-identity-consumer.mjs",
+      "scope": {
+        "effectiveDependentKnowledgePointCount": 51,
+        "dependentSourceNodeCount": 20,
+        "quantityIdentityBindingCount": 57
+      },
+      "readOnly": true,
+      "unitConversionAllowed": false,
+      "semanticRoleBindingAllowed": false,
+      "quantityArithmeticAllowed": false,
+      "publicUiRequired": false,
+      "promotionEvidenceState": "COMPLETE"
+    }
+  ],
+  "effectivePromotionCapabilityIds": [
+    "cap_kp_authority_lookup",
+    "cap_quantity_dimension_unit_identity"
+  ],
+  "remainingShadowFoundationCapabilityIds": [
+    "cap_prerequisite_readiness",
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ]
+}
