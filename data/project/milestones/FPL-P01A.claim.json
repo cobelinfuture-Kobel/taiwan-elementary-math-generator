@@ -51,6 +51,6 @@
   },
   "nextStep": {
     "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",
-    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
