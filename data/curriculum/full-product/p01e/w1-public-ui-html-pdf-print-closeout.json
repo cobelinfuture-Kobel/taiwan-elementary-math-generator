@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",
-  "status": "IMPLEMENTED_PENDING_EXACT_HEAD_ACCEPTANCE",
+  "status": "E5_PRODUCTION_ADMITTED",
   "publicFleet": {
     "protectedBaselineSourceCount": 13,
     "priorPublicSourceCount": 15,
@@ -52,14 +52,16 @@
       "knowledgePointSelection": true,
       "numericApplicationModeSelection": true,
       "htmlPreview": true,
-      "printControl": true
+      "printControl": true,
+      "exactHeadStatus": "PASS"
     },
     "pixel": {
       "sourceSelection": true,
       "knowledgePointSelection": true,
       "numericApplicationModeSelection": true,
       "htmlPreview": true,
-      "printControl": true
+      "printControl": true,
+      "exactHeadStatus": "PASS"
     }
   },
   "sharedLineage": [
@@ -80,11 +82,16 @@
     "applicationCases": 4,
     "classicLiveUiCases": 8,
     "pixelLiveUiCases": 8,
-    "requiredOverflowFindingCount": 0,
-    "requiredConsoleErrorCount": 0,
-    "requiredPageErrorCount": 0,
+    "actualPdfCaseCount": 8,
+    "actualRenderedPageCount": 16,
+    "actualOverflowFindingCount": 0,
+    "actualConsoleErrorCount": 0,
+    "actualPageErrorCount": 0,
     "answerKeyRequired": true,
-    "printEnabledRequired": true
+    "printEnabledRequired": true,
+    "visualInspectionStatus": "PASS_NO_CLIPPING_OVERLAP_BROKEN_GLYPHS_OR_BLACK_SQUARES",
+    "reportPath": "docs/curriculum/output/p01e-w1-public-closeout/report.json",
+    "hashManifestPath": "docs/curriculum/output/p01e-w1-public-closeout/SHA256SUMS"
   },
   "scopeBoundary": {
     "w2ToW8ImplementationAllowed": false,
@@ -95,6 +102,13 @@
     "freeFormAiGenerationAllowed": false,
     "applicationIneligibleKpStoryCoercionAllowed": false,
     "recursiveImprovementAdminAllowed": false
+  },
+  "productionAdmission": {
+    "evidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "htmlArtifactCount": 8,
+    "pdfArtifactCount": 8,
+    "artifactHashCount": 17,
+    "d0Complete": false
   },
   "nextTask": "P02_W2ProductAdmissionInventoryAndGapMatrix"
 }
