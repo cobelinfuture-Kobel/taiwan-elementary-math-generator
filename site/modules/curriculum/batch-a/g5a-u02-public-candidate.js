@@ -1,4 +1,5 @@
 export const G5A_U02_SOURCE_ID = "g5a_u02_5a02";
+export const G5A_U02_PUBLIC_SOURCE_ID = G5A_U02_SOURCE_ID;
 
 export const G5A_U02_PUBLIC_CANDIDATE = Object.freeze({
   task: "S95_G5A_U02_ProductionStressHTMLPDFAndD0Closeout",
