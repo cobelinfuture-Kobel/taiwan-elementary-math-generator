@@ -3,8 +3,8 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P02B_W2GlobalAuthorityLookupConsumerAdmission
-STATUS     = IMPLEMENTED_PENDING_EXACT_HEAD_CI
-EVIDENCE   = E5_PRODUCTION_ADMITTED_PENDING_CI
+STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+EVIDENCE   = E5_PRODUCTION_ADMITTED
 ```
 
 ## Admitted capability
@@ -19,21 +19,34 @@ consumer mode                    = PRODUCTION_READ_ONLY_GLOBAL_AUTHORITY
 
 R04 remains an immutable historical baseline. P02B is the validated successor authority for the effective delivery status.
 
-## Scope
+## Exact scope
 
 ```text
-global source nodes              = 79
+global canonical source nodes    = 79
 canonical KnowledgePoints        = 482
-current public source nodes      = 19
+source → KP bindings             = 511
+KP → source bindings             = 511
+current public source IDs        = 19
+public compatibility aliases     = 1
 promoted W2 foundations          = 1
 remaining shadow foundations     = 4
 ```
+
+The public product ID `g5a_u02_5a02` is a read-only compatibility alias over:
+
+```text
+g5a_u02_5a02a
+g5a_u02_5a02a1
+```
+
+It does not create an 80th Global source node.
 
 ## Consumer lineage
 
 ```text
 R02 reconciled authority
-→ P02B source/KP maps
+→ P02B canonical source/KP maps
+→ read-only compatibility source aliases
 → source lookup
 → KnowledgePoint lookup
 → source/KP pair validation
@@ -50,6 +63,7 @@ empty request          → P02B_LOOKUP_ID_REQUIRED
 unknown source         → P02B_UNKNOWN_SOURCE_NODE
 unknown KnowledgePoint → P02B_UNKNOWN_KNOWLEDGE_POINT
 source/KP mismatch     → P02B_SOURCE_KP_MISMATCH
+broken alias target    → P02B_SOURCE_ALIAS_TARGET_MISSING
 ```
 
 ## Promotion boundary
@@ -69,6 +83,21 @@ cap_quantity_semantic_role_binding
 cap_same_unit_quantity_arithmetic
 ```
 
+## Acceptance
+
+```text
+full Node regression                 = 2342 / 2342 PASS
+canonical source round trip          = 79 / 79 PASS
+canonical KnowledgePoint round trip  = 482 / 482 PASS
+source / KP bindings                 = 511 / 511 PASS
+current public source lookup         = 19 / 19 PASS
+unknown identity fail closed         = PASS
+source / KP mismatch fail closed     = PASS
+premature expanded promotion blocked = PASS
+R04 historical baseline preserved    = PASS
+Chromium required                     = false
+```
+
 ## Product boundary
 
 ```text
@@ -81,24 +110,13 @@ existing 19-source product    = preserved
 P03-P08 started               = false
 ```
 
-## Acceptance pending exact-head CI
-
-- exact 79 unique source descriptors;
-- exact 482 unique KP descriptors;
-- complete source↔KP round trips;
-- all 19 public sources resolve;
-- unknown and mismatched identities fail closed;
-- exactly one promotion;
-- R04 historical baseline unchanged;
-- full Node regression and milestone-claim integrity.
-
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D2_W2_EVIDENCE_GAPS_AND_HARDENING_ORDER_CLOSED
-GOAL_DISTANCE_AFTER  = D1_GLOBAL_AUTHORITY_LOOKUP_IMPLEMENTED_PENDING_CI
-DISTANCE_REDUCED     = The first W2 foundation has a complete 79-source / 482-KP read-only production consumer and successor promotion authority pending exact-head verification.
-REMAINING_BLOCKERS   = [exact-head CI, four W2 foundations remain shadow]
+GOAL_DISTANCE_AFTER  = D1_GLOBAL_AUTHORITY_LOOKUP_PRODUCTION_ADMITTED
+DISTANCE_REDUCED     = The first W2 shared foundation now resolves all 79 canonical source nodes and 482 canonical KnowledgePoints through one production-admitted read-only consumer with complete bidirectional identity validation and fail-closed compatibility alias handling.
+REMAINING_BLOCKERS   = [four W2 foundations remain shadow]
 NEXT_SHORTEST_STEP   = P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission
 ```
 
