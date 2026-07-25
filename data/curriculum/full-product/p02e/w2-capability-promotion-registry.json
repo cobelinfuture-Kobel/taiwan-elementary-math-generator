@@ -1,0 +1,43 @@
+{
+  "schemaName": "P02EW2CapabilityPromotionRegistryV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
+  "status": "FOUR_W2_FOUNDATIONS_PRODUCTION_ADMITTED_PENDING_CI",
+  "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+  "predecessorPromotionRegistryPath": "data/curriculum/full-product/p02d/w2-capability-promotion-registry.json",
+  "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
+  "inheritedPromotionCapabilityIds": [
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity"
+  ],
+  "promotions": [
+    {
+      "capabilityId": "cap_quantity_semantic_role_binding",
+      "previousDeliveryStatus": "shadow_available",
+      "effectiveDeliveryStatus": "production_admitted",
+      "admissionTaskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
+      "consumerPath": "src/curriculum/full-product/p02e-quantity-semantic-role-binding-consumer.mjs",
+      "validatorPath": "tools/curriculum/validate-p02e-quantity-semantic-role-binding-consumer.mjs",
+      "scope": {
+        "effectiveDependentKnowledgePointCount": 26
+      },
+      "readOnly": true,
+      "quantityIdentityRequired": true,
+      "storyTemplateGenerationAllowed": false,
+      "quantityArithmeticAllowed": false,
+      "publicUiRequired": false,
+      "promotionEvidenceState": "COMPLETE_PENDING_CI"
+    }
+  ],
+  "effectivePromotionCapabilityIds": [
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity",
+    "cap_quantity_semantic_role_binding"
+  ],
+  "remainingShadowFoundationCapabilityIds": [
+    "cap_same_unit_quantity_arithmetic"
+  ]
+}
