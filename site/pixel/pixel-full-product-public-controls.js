@@ -9,30 +9,46 @@ const depthField = document.getElementById("pixel-g5a-depth-mode-field");
 const contextField = document.getElementById("pixel-g5a-context-mode-field");
 const help = document.getElementById("pixel-g5a-control-help");
 let syncing = false;
+let scheduled = false;
+
+function optionSignature(definition) {
+  return (definition?.options ?? []).map((row) => `${row.value}:${row.label}`).join("|");
+}
 
 function populate(select, definition) {
   if (!select || !definition?.supported) return;
-  const current = select.value;
-  select.replaceChildren();
-  for (const row of definition.options) {
-    const option = document.createElement("option");
-    option.value = row.value;
-    option.textContent = row.label;
-    select.append(option);
+  const desiredSignature = optionSignature(definition);
+  const currentSignature = [...select.options].map((row) => `${row.value}:${row.textContent}`).join("|");
+  const currentValue = select.value;
+  if (desiredSignature !== currentSignature) {
+    select.replaceChildren();
+    for (const row of definition.options) {
+      const option = document.createElement("option");
+      option.value = row.value;
+      option.textContent = row.label;
+      select.append(option);
+    }
   }
-  select.value = definition.options.some((row) => row.value === current)
-    ? current
+  const nextValue = definition.options.some((row) => row.value === currentValue)
+    ? currentValue
     : definition.defaultValue;
+  if (select.value !== nextValue) select.value = nextValue;
 }
 
 function setVisible(element, definition) {
   if (!element) return;
   const visible = definition?.supported === true;
-  element.dataset.visible = visible ? "true" : "false";
-  element.hidden = !visible;
+  const value = visible ? "true" : "false";
+  if (element.dataset.visible !== value) element.dataset.visible = value;
+  if (element.hidden === visible) element.hidden = !visible;
+}
+
+function setBodyData(name, value) {
+  if (document.body.dataset[name] !== value) document.body.dataset[name] = value;
 }
 
 function syncPixelPublicControls() {
+  scheduled = false;
   if (syncing) return;
   syncing = true;
   try {
@@ -45,21 +61,26 @@ function syncPixelPublicControls() {
     setVisible(depthField, profile?.reasoningDepthControl);
     setVisible(contextField, profile?.contextControl);
     if (help) {
-      help.dataset.visible = profile ? "true" : "false";
-      help.hidden = !profile;
+      const visible = Boolean(profile);
+      const value = visible ? "true" : "false";
+      if (help.dataset.visible !== value) help.dataset.visible = value;
+      if (help.hidden === visible) help.hidden = !visible;
       const hasPbl = profile?.questionTypeControl?.options?.some((row) => row.value === "pbl") === true;
-      help.textContent = hasPbl
+      const text = hasPbl
         ? "可分開產生數字題、應用題與核准 PBL 題組。"
         : "可分開產生數字題與應用題；只有適合生活情境化的知識點會使用應用題。";
+      if (help.textContent !== text) help.textContent = text;
     }
-    document.body.dataset.pixelPublicControlSourceId = sourceId;
-    document.body.dataset.pixelPublicQuestionModeCount = String(profile?.questionTypeControl?.options?.length ?? 0);
+    setBodyData("pixelPublicControlSourceId", sourceId);
+    setBodyData("pixelPublicQuestionModeCount", String(profile?.questionTypeControl?.options?.length ?? 0));
   } finally {
     syncing = false;
   }
 }
 
 function scheduleSync() {
+  if (scheduled) return;
+  scheduled = true;
   queueMicrotask(syncPixelPublicControls);
 }
 
