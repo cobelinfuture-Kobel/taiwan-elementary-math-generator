@@ -13,6 +13,11 @@ import {
   G4A_U08_PHASE2B_PUBLIC_CONTROLS,
   G4A_U08_SOURCE_ID,
 } from "../registry/g4a-u08-phase2b-promotion.js";
+import {
+  G5B_U05_PATTERN_SPEC_IDS,
+  G5B_U05_SOURCE_ID,
+} from "../registry/g5b-u05-selector-projection.js";
+import { G5B_U05_FULL_PRODUCT_SOURCE_UNIT } from "./full-product-source-units-p01d1.js";
 
 function normalize(value, allowed, fallback) {
   return allowed.includes(value) ? value : fallback;
@@ -41,6 +46,26 @@ export function normalizeG4AU08PublicControls(options = {}) {
 
 export function buildBatchABrowserPlan(options = {}) {
   const plan = core.buildBatchABrowserPlan(options);
+  if (options.sourceId === G5B_U05_SOURCE_ID) {
+    const sourceUnitMode = (options.selectionMode ?? "sourceUnit") === "sourceUnit";
+    return {
+      ...plan,
+      sourceUnit: { ...G5B_U05_FULL_PRODUCT_SOURCE_UNIT },
+      ...(sourceUnitMode ? {
+        patternSpecIds: [...G5B_U05_PATTERN_SPEC_IDS],
+        allocation: null,
+      } : {}),
+      questionMode: "numeric",
+      publicControls: {
+        sourceId: G5B_U05_SOURCE_ID,
+        questionMode: "numeric",
+        productWave: "R05-W1",
+        productAdmissionTask: "P01D1_G5BU05LargeNumberVerticalSlice",
+      },
+      publicPatternSpecInjectionUsed: false,
+      genericFallbackAllowed: false,
+    };
+  }
   if (options.sourceId === G4A_U08_SOURCE_ID) {
     const controls = normalizeG4AU08PublicControls(options);
     return {
