@@ -78,12 +78,12 @@ test("S50 release gate requires the accepted S49 QA layers and Pages test-before
   assert.match(workflow, /uses:\s*actions\/deploy-pages@v4/);
 });
 
-test("S50 release gate executes every public source through Pixel generation, validation, preview, answer, and print", () => {
-  const sharedSources = listBatchASourceUnits();
+test("S50 release gate executes all nineteen public sources through Pixel generation, validation, preview, answer, and print", () => {
+  const sharedSources = listBatchASourceUnits({ includePublicCandidates: true });
   const pixelSources = listPixelSourceOptions();
 
-  assert.equal(sharedSources.length, 13);
-  assert.equal(pixelSources.length, 13);
+  assert.equal(sharedSources.length, 19);
+  assert.equal(pixelSources.length, 19);
   assert.deepEqual(
     pixelSources.map((entry) => entry.sourceId).sort(),
     sharedSources.map((entry) => entry.sourceId).sort()
@@ -102,7 +102,7 @@ test("S50 release gate executes every public source through Pixel generation, va
     });
 
     const execution = runPixelWorksheetGeneration(state);
-    assert.equal(execution.summary.ok, true, source.sourceId);
+    assert.equal(execution.summary.ok, true, `${source.sourceId}: ${JSON.stringify(execution.result.errors ?? [])}`);
     assert.equal(execution.summary.validationOk, true, source.sourceId);
     assert.equal(execution.summary.questionCount, 4, source.sourceId);
     assert.equal(execution.summary.answerKeyItemCount, includeAnswerKey ? 4 : 0, source.sourceId);
