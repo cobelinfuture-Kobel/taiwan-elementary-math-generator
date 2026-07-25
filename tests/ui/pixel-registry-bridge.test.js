@@ -10,15 +10,16 @@ import {
   listPixelSourceOptions,
   listPixelSourceOptionsByFilter
 } from "../../site/pixel/pixel-registry-bridge.js";
-import { listBatchASourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
+import { listFullProductPublicSourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   BATCH_A_SELECTOR_AVAILABILITY,
   listVisibleBatchAKnowledgePoints
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 
 test("Pixel registry bridge exposes the nineteen-source public registry without duplicating data", () => {
-  const sourceUnits = listBatchASourceUnits({ includePublicCandidates: true });
+  const sourceUnits = listFullProductPublicSourceUnits();
   const options = listPixelSourceOptions();
+  assert.equal(sourceUnits.length, 19);
   assert.equal(options.length, sourceUnits.length);
   assert.equal(options.length, 19);
   assert.deepEqual(options.map((entry) => entry.sourceId), sourceUnits.map((entry) => entry.sourceId));
