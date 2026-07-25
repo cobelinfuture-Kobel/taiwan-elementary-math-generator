@@ -1,0 +1,71 @@
+{
+  "schemaName": "P02W2ProductAdmissionInventoryPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02_W2ProductAdmissionInventoryAndGapMatrix",
+  "status": "W2_CAPABILITY_ONLY_DEPENDENCY_MATRIX_READY",
+  "sourceAuthorities": {
+    "deliveryWaveTask": "R05_DeliveryWaveRebase",
+    "deliveryWaveId": "R05-W2",
+    "runtimeCapabilityTask": "R04_SharedRuntimeCapabilityMatrix",
+    "prerequisiteTask": "R03_GlobalPrerequisiteGraph",
+    "authoritativeConsumerTask": "R07_AuthoritativeConsumerCutover",
+    "previousProductCloseoutTask": "P01E_W1PublicUIHTMLPDFPrintCloseout"
+  },
+  "inventoryShape": {
+    "directW2KnowledgePointCount": 0,
+    "shadowFoundationCapabilityCount": 5,
+    "dependentKnowledgePointCount": 51,
+    "membershipRule": "R05_W2_CAPABILITY_PLAN_PLUS_ALL_CROSS_WAVE_EFFECTIVE_DEPENDENTS"
+  },
+  "shadowFoundationCapabilityIds": [
+    "cap_kp_authority_lookup",
+    "cap_quantity_dimension_unit_identity",
+    "cap_prerequisite_readiness",
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ],
+  "productLayers": [
+    "CANONICAL_KNOWLEDGE_POINT",
+    "PREREQUISITE_READINESS",
+    "SHARED_RUNTIME_CAPABILITY",
+    "FORMAL_PATTERN_BINDING",
+    "PUBLIC_SOURCE_ADAPTER",
+    "PUBLIC_UI_SELECTION",
+    "WORKSHEET_ANSWER_KEY",
+    "HTML_PDF_PRINT_ACCEPTANCE"
+  ],
+  "productGapStates": [
+    "ADMISSION_READY_EXISTING_PUBLIC_PATTERN_AFTER_CAPABILITY",
+    "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED_AFTER_CAPABILITY",
+    "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED_AFTER_CAPABILITY"
+  ],
+  "rules": {
+    "inventoryOnly": true,
+    "directProductionAdmissionAllowed": false,
+    "sharedCapabilityHardeningAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "publicSourceAdapterImplementationAllowed": false,
+    "publicUiChangeAllowed": false,
+    "w3ToW8ImplementationAllowed": false,
+    "existing19SourceProductModificationAllowed": false,
+    "recursiveImprovementAdminAllowed": false,
+    "legacyBatchMayDetermineAdmission": false,
+    "postgApplicationW02MayDetermineMembership": false,
+    "sourceEvidenceMustRemainTraceable": true,
+    "everyDependentKnowledgePointRequiresW2CapabilityIntersection": true,
+    "everyDependentKnowledgePointRequiresExplicitProductGapState": true,
+    "everyDependentKnowledgePointRequiresCapabilityFirstActions": true
+  },
+  "inventoryDecision": {
+    "selectedRoute": "CAPABILITY_ONLY_W2_NO_DIRECT_PRODUCT_COHORT",
+    "emptyProductVerticalSliceTaskSkipped": true,
+    "selectedNextTask": "P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation",
+    "reason": "R05 assigns zero KnowledgePoints directly to W2 and assigns five shadow capabilities. P02 therefore inventories those five shared foundations and their fifty-one cross-wave dependents; creating a W2 product vertical-slice queue would fabricate a cohort that does not exist."
+  },
+  "fullProductBoundary": {
+    "fullProductLineClosed": false,
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "recursiveImprovementAdminStartAllowedAfter": "P10_FullUIHTMLPDFPrintProductCloseout"
+  }
+}
