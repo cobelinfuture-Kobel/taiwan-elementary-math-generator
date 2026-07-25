@@ -1,3 +1,4 @@
+import "./pixel-full-product-public-controls.js";
 import { subscribePixelGeneration } from "./pixel-generation-controller.js";
 import {
   clearPixelWorksheetPreview,
