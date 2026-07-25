@@ -99,7 +99,10 @@ test("P01D3 keeps exactly twelve W1 KnowledgePoints and twenty-four numeric Patt
 
 test("P01D3 preserves the protected thirteen-unit baseline while P01E publishes both factor-multiple sources", () => {
   const protectedBaseline = listBatchASourceUnits({ includePublicCandidates: false });
-  const publicFleet = listBatchASourceUnits({ includePublicCandidates: true });
+  const publicFleet = listBatchASourceUnits({
+    includePublicCandidates: true,
+    includeFullProductPublic: true,
+  });
   const fullProductSources = listFullProductSourceUnits();
   assert.equal(protectedBaseline.length, 13);
   assert.equal(publicFleet.length, 19);
