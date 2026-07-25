@@ -14,8 +14,8 @@ export const BATCH_A_SOURCE_UNITS = Object.freeze([
   { sourceId: "g5a_u08_5a08", grade: 5, semester: "upper", unitCode: "5A-U08", title: "整數四則", domain: "integer_mixed_operations" }
 ]);
 
-// This constant is the protected 13 + 2 public baseline consumed by the GLM
-// 15-unit layout program. P01E must not expand or redefine that authority.
+// Historical public-candidate authority used by the protected 15-unit GLM,
+// Golden and POSTG programs. P01E must not redefine this two-source set.
 export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
   Object.freeze({ sourceId: "g4b_u04_4b04", grade: 4, semester: "lower", unitCode: "4B-U04", title: "概數", domain: "number_sense", lifecycle: "public_canonical_specialized_release" }),
   Object.freeze({ sourceId: "g5a_u02_5a02", grade: 5, semester: "upper", unitCode: "5A-U02", title: "因數與公因數", domain: "factors_common_factors", lifecycle: "public_canonical_static_release" })
@@ -40,13 +40,24 @@ const ALL_PUBLIC_SOURCE_UNITS = Object.freeze([
 const SOURCE_UNIT_BY_ID = new Map(ALL_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
 
 export function listBatchASourceUnits(options = {}) {
-  const includePublicCandidates = options.includePublicCandidates ?? (typeof document !== "undefined");
-  const units = includePublicCandidates ? ALL_PUBLIC_SOURCE_UNITS : BATCH_A_SOURCE_UNITS;
+  const browserDefault = typeof document !== "undefined";
+  const includePublicCandidates = options.includePublicCandidates ?? browserDefault;
+  const includeFullProductPublic = options.includeFullProductPublic
+    ?? (browserDefault && options.includePublicCandidates === undefined);
+  const units = includeFullProductPublic
+    ? ALL_PUBLIC_SOURCE_UNITS
+    : includePublicCandidates
+      ? PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS
+      : BATCH_A_SOURCE_UNITS;
   return units.map((unit) => ({ ...unit }));
 }
 
 export function listProtectedFifteenPublicSourceUnits() {
   return PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit }));
+}
+
+export function listFullProductPublicSourceUnits() {
+  return ALL_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit }));
 }
 
 export function getBatchASourceUnit(sourceId) {
