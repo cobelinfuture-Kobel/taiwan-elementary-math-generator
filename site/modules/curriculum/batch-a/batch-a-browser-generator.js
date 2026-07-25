@@ -17,6 +17,7 @@ import {
   G5B_U05_PATTERN_SPEC_IDS,
   G5B_U05_SOURCE_ID,
 } from "../registry/g5b-u05-selector-projection.js";
+import { G5B_U05_FULL_PRODUCT_SOURCE_UNIT } from "./full-product-source-units-p01d1.js";
 
 function normalize(value, allowed, fallback) {
   return allowed.includes(value) ? value : fallback;
@@ -49,6 +50,7 @@ export function buildBatchABrowserPlan(options = {}) {
     const sourceUnitMode = (options.selectionMode ?? "sourceUnit") === "sourceUnit";
     return {
       ...plan,
+      sourceUnit: { ...G5B_U05_FULL_PRODUCT_SOURCE_UNIT },
       ...(sourceUnitMode ? {
         patternSpecIds: [...G5B_U05_PATTERN_SPEC_IDS],
         allocation: null,
