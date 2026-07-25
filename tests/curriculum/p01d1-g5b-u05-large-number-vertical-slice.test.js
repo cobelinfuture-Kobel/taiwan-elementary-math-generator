@@ -45,12 +45,23 @@ function sourceUnitOptions(overrides = {}) {
     ordering: "groupedByPattern",
     includeAnswerKey: true,
     generationSeed: "p01d1-source-unit",
-    printLayout: { paperSize: "A4", columns: 2, rowsPerPage: 4, showQuestionNumbers: true, showAnswerKeyPage: true },
+    printLayout: {
+      paperSize: "A4",
+      columns: 2,
+      rowsPerPage: 4,
+      showQuestionNumbers: true,
+      showAnswerKeyPage: true,
+    },
     ...overrides,
   };
 }
 
-test("P01D1 publishes exactly four W1 KnowledgePoints and eight PatternSpecs", () => {
+function numericGroup(knowledgePointId) {
+  return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
+    .find((group) => group.publicQuestionMode === "numeric" || group.mode === "numeric");
+}
+
+test("P01D1 keeps exactly four W1 KnowledgePoints and eight numeric PatternSpecs after public closeout", () => {
   const selectorAudit = auditP01D1BatchASelectorComposition();
   const patternAudit = validateP01D1PatternDefinitions();
   assert.equal(selectorAudit.ok, true, JSON.stringify(selectorAudit.errors));
@@ -61,22 +72,27 @@ test("P01D1 publishes exactly four W1 KnowledgePoints and eight PatternSpecs", (
   assert.equal(G5B_U05_PATTERN_SPEC_IDS.length, 8);
   for (const knowledgePointId of KP_IDS) {
     const row = getVisibleBatchAKnowledgePoint(knowledgePointId);
-    const groups = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
+    const group = numericGroup(knowledgePointId);
     assert.equal(row?.sourceId, G5B_U05_SOURCE_ID);
-    assert.equal(groups.length, 1);
-    assert.equal(groups[0].patternSpecIds.length, 2);
+    assert.ok(group, knowledgePointId);
+    assert.equal(group.patternSpecIds.length, 2);
   }
   assert.equal(getVisibleBatchAKnowledgePoint(DECIMAL_KP_ID), null);
-  assert.equal(listVisibleBatchAKnowledgePoints().some((row) => row.knowledgePointId === DECIMAL_KP_ID), false);
+  assert.equal(
+    listVisibleBatchAKnowledgePoints().some((row) => row.knowledgePointId === DECIMAL_KP_ID),
+    false,
+  );
 });
 
-test("P01D1 exposes its bounded source authority without changing protected source registries", () => {
+test("P01D1 preserves the protected thirteen-unit baseline while P01E publishes the nineteen-source fleet", () => {
   const protectedBaseline = listBatchASourceUnits({ includePublicCandidates: false });
-  const protectedPublicFleet = listBatchASourceUnits({ includePublicCandidates: true });
+  const publicFleet = listBatchASourceUnits({ includePublicCandidates: true });
   const p01d1Sources = listFullProductSourceUnits();
   assert.equal(protectedBaseline.length, 13);
-  assert.equal(protectedPublicFleet.length, 15);
-  assert.equal(protectedPublicFleet.some((row) => row.sourceId === G5B_U05_SOURCE_ID), false);
+  assert.equal(publicFleet.length, 19);
+  const publicSource = publicFleet.find((row) => row.sourceId === G5B_U05_SOURCE_ID);
+  assert.equal(publicSource?.unitCode, "5B-U05");
+  assert.equal(publicSource?.lifecycle, "public_full_product_w1_release");
   assert.equal(p01d1Sources.length, 16);
   const source = p01d1Sources.find((row) => row.sourceId === G5B_U05_SOURCE_ID);
   assert.equal(source?.unitCode, "5B-U05");
@@ -105,16 +121,20 @@ test("P01D1 source-unit plan and generator cover all eight PatternSpecs determin
   assert.equal(first.ok, true, JSON.stringify(first.errors));
   assert.equal(first.questions.length, 16);
   assert.deepEqual(first.questions, second.questions);
-  assert.deepEqual([...new Set(first.questions.map((question) => question.patternSpecId))].sort(), [...G5B_U05_PATTERN_SPEC_IDS].sort());
+  assert.deepEqual(
+    [...new Set(first.questions.map((question) => question.patternSpecId))].sort(),
+    [...G5B_U05_PATTERN_SPEC_IDS].sort(),
+  );
   assert.equal(new Set(first.questions.map((question) => question.operation)).size, 8);
   const validation = validateBatchABrowserQuestions(first.questions);
   assert.equal(validation.ok, true, JSON.stringify(validation.errors));
   assert.equal(validation.validatorVersion, "p01d1-g5b-u05-large-number-v1");
 });
 
-test("P01D1 supports bounded single-KP selection through the shared visible resolver", () => {
+test("P01D1 supports bounded single-KP numeric selection through the shared visible resolver", () => {
   for (const knowledgePointId of KP_IDS) {
-    const group = getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)[0];
+    const group = numericGroup(knowledgePointId);
+    assert.ok(group, knowledgePointId);
     const result = generateBatchABrowserQuestions(sourceUnitOptions({
       selectionMode: "singleKnowledgePoint",
       selectedKnowledgePointIds: [knowledgePointId],
@@ -124,8 +144,14 @@ test("P01D1 supports bounded single-KP selection through the shared visible reso
     }));
     assert.equal(result.ok, true, `${knowledgePointId}: ${JSON.stringify(result.errors)}`);
     assert.equal(result.questions.length, 4);
-    assert.equal(result.questions.every((question) => group.patternSpecIds.includes(question.patternSpecId)), true);
-    assert.equal(result.questions.every((question) => question.metadata.knowledgePointId === knowledgePointId), true);
+    assert.equal(
+      result.questions.every((question) => group.patternSpecIds.includes(question.patternSpecId)),
+      true,
+    );
+    assert.equal(
+      result.questions.every((question) => question.metadata.knowledgePointId === knowledgePointId),
+      true,
+    );
   }
 });
 
@@ -133,7 +159,10 @@ test("P01D1 validator fails closed when a generated answer is tampered", () => {
   const generated = generateBatchABrowserQuestions(sourceUnitOptions({ questionCount: 8 }));
   assert.equal(generated.ok, true);
   const original = generated.questions[0];
-  const report = validateG5BU05LargeNumberQuestion({ ...original, answerText: "錯誤答案" });
+  const report = validateG5BU05LargeNumberQuestion({
+    ...original,
+    answerText: "錯誤答案",
+  });
   assert.equal(report.ok, false);
   assert.ok(report.errors.length > 0);
 });
@@ -148,7 +177,12 @@ test("P01D1 produces worksheet, answer key, paginated HTML and print-ready metad
   assert.ok(document.questionPages.length > 0);
   assert.ok(document.answerKeyPages.length > 0);
   assert.equal(document.batchA.patternSpecIds.length, 8);
-  assert.equal(document.generatedQuestions.every((question) => question.metadata.sourceId === G5B_U05_SOURCE_ID), true);
+  assert.equal(
+    document.generatedQuestions.every(
+      (question) => question.metadata.sourceId === G5B_U05_SOURCE_ID,
+    ),
+    true,
+  );
   const html = renderWorksheetDocumentToHtml(document, { stylesheetHref: "" });
   assert.match(html, /<!doctype html>/);
   assert.match(html, /worksheet-page--questions/);
@@ -156,23 +190,22 @@ test("P01D1 produces worksheet, answer key, paginated HTML and print-ready metad
   assert.doesNotMatch(html, /\{[A-Za-z_][^}]*\}/);
 });
 
-test("P01D1 remains admitted after later W1 slices advance the cumulative inventory", () => {
+test("P01D1 remains admitted after P01E advances the cumulative W1 public closeout", () => {
   const inventory = materializeP01AW1ProductAdmissionInventory();
   assert.equal(inventory.metrics.knowledgePointCount, 21);
   assert.equal(inventory.metrics.sourceNodeCount, 4);
-  assert.ok(inventory.metrics.publicKnowledgePointVisibleCount >= 4);
-  assert.ok(inventory.metrics.publicPatternBindingPresentCount >= 4);
-  assert.ok(inventory.metrics.publicSourceSelectableCount >= 1);
-  assert.ok(inventory.metrics.admissionReadyExistingPublicPatternCount >= 4);
+  assert.equal(inventory.metrics.publicKnowledgePointVisibleCount, 21);
+  assert.equal(inventory.metrics.publicPatternBindingPresentCount, 21);
+  assert.equal(inventory.metrics.publicSourceSelectableCount, 4);
+  assert.equal(inventory.metrics.admissionReadyExistingPublicPatternCount, 21);
   assert.equal(inventory.metrics.patternGroupOrSpecBindingRequiredCount, 0);
-  assert.ok(inventory.metrics.publicProductVerticalSliceRequiredCount <= 17);
+  assert.equal(inventory.metrics.publicProductVerticalSliceRequiredCount, 0);
   for (const knowledgePointId of KP_IDS) {
     const row = inventory.getRow(knowledgePointId);
     assert.equal(row.productGapState, "ADMISSION_READY_EXISTING_PUBLIC_PATTERN");
     assert.equal(row.currentProductCoverage.publicSourceSelectable, true);
     assert.equal(row.currentProductCoverage.patternSpecIds.length, 2);
   }
-
   console.log(`P01D1_G5B_U05_READBACK=${JSON.stringify({
     sourceId: G5B_U05_SOURCE_ID,
     admittedKnowledgePointIds: KP_IDS,
