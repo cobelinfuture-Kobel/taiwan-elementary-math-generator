@@ -51,7 +51,37 @@ function matchesAny(corpus, terms = []) {
   return terms.some((term) => corpus.includes(String(term).toLowerCase()));
 }
 
-function classifyRoleBinding(row, authority, quantityIdentity, policy) {
+function bindingFromRule({ row, authority, quantityIdentity, rule, classificationRuleId }) {
+  const allowedTargetRoleIds = unique(rule.allowedTargetRoleIds ?? [rule.targetRoleId]);
+  return Object.freeze({
+    bindingId: `p02esr_${row.knowledgePointId.replace(/^kp_/, "")}`,
+    knowledgePointId: row.knowledgePointId,
+    canonicalNameZh: authority?.canonicalNameZh ?? row.canonicalNameZh,
+    primaryRuntimeProfileId: row.primaryRuntimeProfileId,
+    classificationRuleId,
+    relationFamilyId: rule.relationFamilyId,
+    knownRoleIds: freezeArray(unique(rule.knownRoleIds)),
+    targetRoleId: rule.targetRoleId,
+    targetRoleMode: rule.targetRoleMode,
+    allowedTargetRoleIds: freezeArray(allowedTargetRoleIds),
+    relationDirection: "KNOWN_ROLES_TO_TARGET_ROLE",
+    quantityIdentityId: quantityIdentity.identityId,
+    dimensionId: quantityIdentity.dimensionId,
+    unitFamilyId: quantityIdentity.unitFamilyId,
+    canonicalUnitIds: freezeArray(quantityIdentity.canonicalUnitIds),
+    unitIdentityMode: quantityIdentity.unitIdentityMode,
+    sourceNodeIds: freezeArray(unique(row.sourceNodeIds).sort()),
+    assignedDeliveryWaveId: row.assignedDeliveryWaveId,
+    authorityMode: "GLOBAL_PRIMARY",
+    consumerMode: "PRODUCTION_READ_ONLY_QUANTITY_SEMANTIC_ROLE_BINDING",
+    productionAdmissionState: "PRODUCTION_ADMITTED",
+    storyTemplateGenerationAllowed: false,
+    numericComputationAllowed: false,
+    quantityArithmeticAllowed: false,
+  });
+}
+
+function classifyRoleBinding(row, authority, quantityIdentity, policy, overrideByKnowledgePointId) {
   const profileId = row.primaryRuntimeProfileId;
   if (!policy.scope.allowedPrimaryRuntimeProfileIds.includes(profileId)) {
     return {
@@ -63,6 +93,20 @@ function classifyRoleBinding(row, authority, quantityIdentity, policy) {
     return {
       binding: null,
       errors: [`P02E_QUANTITY_IDENTITY_REQUIRED:${row.knowledgePointId}`],
+    };
+  }
+
+  const exactOverride = overrideByKnowledgePointId.get(row.knowledgePointId);
+  if (exactOverride) {
+    return {
+      errors: [],
+      binding: bindingFromRule({
+        row,
+        authority,
+        quantityIdentity,
+        rule: exactOverride,
+        classificationRuleId: `override:${row.knowledgePointId}`,
+      }),
     };
   }
 
@@ -93,36 +137,14 @@ function classifyRoleBinding(row, authority, quantityIdentity, policy) {
       errors: [`P02E_ROLE_BINDING_AMBIGUOUS:${row.knowledgePointId}:${matches.map((rule) => rule.ruleId).join(",")}`],
     };
   }
-
-  const rule = matches[0];
-  const allowedTargetRoleIds = unique(rule.allowedTargetRoleIds ?? [rule.targetRoleId]);
   return {
     errors: [],
-    binding: Object.freeze({
-      bindingId: `p02esr_${row.knowledgePointId.replace(/^kp_/, "")}`,
-      knowledgePointId: row.knowledgePointId,
-      canonicalNameZh: authority?.canonicalNameZh ?? row.canonicalNameZh,
-      primaryRuntimeProfileId: profileId,
-      classificationRuleId: rule.ruleId,
-      relationFamilyId: rule.relationFamilyId,
-      knownRoleIds: freezeArray(unique(rule.knownRoleIds)),
-      targetRoleId: rule.targetRoleId,
-      targetRoleMode: rule.targetRoleMode,
-      allowedTargetRoleIds: freezeArray(allowedTargetRoleIds),
-      relationDirection: "KNOWN_ROLES_TO_TARGET_ROLE",
-      quantityIdentityId: quantityIdentity.identityId,
-      dimensionId: quantityIdentity.dimensionId,
-      unitFamilyId: quantityIdentity.unitFamilyId,
-      canonicalUnitIds: freezeArray(quantityIdentity.canonicalUnitIds),
-      unitIdentityMode: quantityIdentity.unitIdentityMode,
-      sourceNodeIds: freezeArray(unique(row.sourceNodeIds).sort()),
-      assignedDeliveryWaveId: row.assignedDeliveryWaveId,
-      authorityMode: "GLOBAL_PRIMARY",
-      consumerMode: "PRODUCTION_READ_ONLY_QUANTITY_SEMANTIC_ROLE_BINDING",
-      productionAdmissionState: "PRODUCTION_ADMITTED",
-      storyTemplateGenerationAllowed: false,
-      numericComputationAllowed: false,
-      quantityArithmeticAllowed: false,
+    binding: bindingFromRule({
+      row,
+      authority,
+      quantityIdentity,
+      rule: matches[0],
+      classificationRuleId: matches[0].ruleId,
     }),
   };
 }
@@ -157,12 +179,16 @@ function successResult(request, binding, quantityIdentity) {
 
 export function materializeP02EQuantitySemanticRoleBindingConsumer() {
   const policy = readJson("quantity-semantic-role-binding-policy.json");
+  const overrideRegistry = readJson("quantity-semantic-role-overrides.json");
   const manifest = readJson("quantity-semantic-role-binding.manifest.json");
   const promotionRegistry = readJson("w2-capability-promotion-registry.json");
   const predecessorPromotionRegistry = readRepoJson(promotionRegistry.predecessorPromotionRegistryPath);
   const p02 = materializeP02W2ProductAdmissionInventory();
   const p02b = materializeP02BGlobalAuthorityLookupConsumer();
   const p02c = materializeP02CQuantityDimensionUnitIdentityConsumer();
+  const overrideByKnowledgePointId = new Map(
+    (overrideRegistry.bindings ?? []).map((row) => [row.knowledgePointId, row]),
+  );
   const dependentRows = p02.dependentKnowledgePointRows.filter((row) => (
     row.w2FoundationCapabilityIds.includes(TARGET_CAPABILITY_ID)
   ));
@@ -175,8 +201,13 @@ export function materializeP02EQuantitySemanticRoleBindingConsumer() {
       classificationErrors.push(`P02E_UNKNOWN_KNOWLEDGE_POINT:${row.knowledgePointId}`);
       continue;
     }
-    const quantityIdentity = p02c.getIdentity(row.knowledgePointId);
-    const classified = classifyRoleBinding(row, authority, quantityIdentity, policy);
+    const classified = classifyRoleBinding(
+      row,
+      authority,
+      p02c.getIdentity(row.knowledgePointId),
+      policy,
+      overrideByKnowledgePointId,
+    );
     classificationErrors.push(...classified.errors);
     if (classified.binding) bindings.push(classified.binding);
   }
@@ -261,13 +292,6 @@ export function materializeP02EQuantitySemanticRoleBindingConsumer() {
         `P02E_TARGET_ROLE_MISMATCH:${request.knowledgePointId}:${request.assertedTargetRoleId}:${binding.targetRoleId}`,
       ]);
     }
-    if (binding.targetRoleMode === "FIXED"
-      && request.assertedTargetRoleId
-      && request.assertedTargetRoleId !== binding.targetRoleId) {
-      return blockedResult(request, [
-        `P02E_TARGET_ROLE_MISMATCH:${request.knowledgePointId}:${request.assertedTargetRoleId}:${binding.targetRoleId}`,
-      ]);
-    }
     return successResult(request, binding, quantityResolution.identity);
   }
 
@@ -281,6 +305,7 @@ export function materializeP02EQuantitySemanticRoleBindingConsumer() {
     consumerMode: "PRODUCTION_READ_ONLY_QUANTITY_SEMANTIC_ROLE_BINDING",
     productionAdmissionState: "PRODUCTION_ADMITTED",
     policy: Object.freeze(policy),
+    overrideRegistry: Object.freeze(overrideRegistry),
     manifest: Object.freeze(manifest),
     promotionRegistry: Object.freeze(promotionRegistry),
     predecessorPromotionRegistry: Object.freeze(predecessorPromotionRegistry),
@@ -292,6 +317,8 @@ export function materializeP02EQuantitySemanticRoleBindingConsumer() {
       classificationErrorCount: classificationErrors.length,
       dependentSourceNodeCount: sourceNodeIds.length,
       sourceKnowledgePointBindingCount: bindings.reduce((sum, row) => sum + row.sourceNodeIds.length, 0),
+      authorityOverrideBindingCount: bindings.filter((row) => row.classificationRuleId.startsWith("override:")).length,
+      genericFallbackBindingCount: bindings.filter((row) => row.relationFamilyId.startsWith("SOURCE_DECLARED_")).length,
       sourceDeclaredRoleBindingCount: bindings.filter((row) => row.targetRoleMode !== "FIXED").length,
       fixedRoleBindingCount: bindings.filter((row) => row.targetRoleMode === "FIXED").length,
       relationFamilyCounts: Object.freeze(relationFamilyCounts),
