@@ -1,10 +1,10 @@
-export * from "./batch-a-browser-validator-g4a-u08-pre-p01d1.js";
+export * from "./batch-a-browser-validator-pre-p01d1.js";
 
 import {
   validateBatchABrowserPlan as validateBasePlan,
   validateBatchABrowserQuestion as validateBaseQuestion,
   validateBatchABrowserQuestions as validateBaseQuestions,
-} from "./batch-a-browser-validator-g4a-u08-pre-p01d1.js";
+} from "./batch-a-browser-validator-pre-p01d1.js";
 import {
   G5B_U05_PATTERN_SPEC_IDS,
   G5B_U05_SOURCE_ID,
