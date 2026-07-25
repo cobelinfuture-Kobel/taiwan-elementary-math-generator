@@ -3,15 +3,17 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P02_W2ProductAdmissionInventoryAndGapMatrix",
-  "status": "W2_INVENTORY_IMPLEMENTED_PENDING_EXACT_HEAD_METRICS",
+  "status": "W2_CAPABILITY_ONLY_MATRIX_PENDING_FINAL_SOURCE_AND_WAVE_COUNTS",
   "sourceAuthorities": {
     "deliveryWaveTask": "R05_DeliveryWaveRebase",
     "runtimeCapabilityTask": "R04_SharedRuntimeCapabilityMatrix",
     "prerequisiteTask": "R03_GlobalPrerequisiteGraph",
+    "authoritativeConsumerTask": "R07_AuthoritativeConsumerCutover",
     "previousProductCloseoutTask": "P01E_W1PublicUIHTMLPDFPrintCloseout",
-    "knowledgePointCount": null,
-    "sourceNodeCount": null,
-    "shadowFoundationCapabilityCount": null
+    "directW2KnowledgePointCount": 0,
+    "dependentKnowledgePointCount": 51,
+    "dependentSourceNodeCount": null,
+    "shadowFoundationCapabilityCount": 5
   },
   "policyPath": "data/curriculum/full-product/p02/w2-product-admission-inventory-policy.json",
   "runtimePath": "src/curriculum/full-product/p02-w2-product-admission-inventory.mjs",
@@ -25,6 +27,7 @@
     "existing19SourceProductPreserved": true,
     "w3ToW8WorkStarted": false,
     "recursiveImprovementAdminAllowed": false,
-    "nextTask": "P02A_W2SharedFoundationCapabilityHardeningPlan"
+    "emptyW2ProductCohortTaskSkipped": true,
+    "nextTask": "P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation"
   }
 }
