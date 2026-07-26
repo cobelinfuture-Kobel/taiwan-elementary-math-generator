@@ -9,9 +9,9 @@
     "directW3KnowledgePointCount": 45,
     "protectedExistingD0KnowledgePointCount": 3,
     "newProductDependentKnowledgePointCount": 48,
-    "directRequirementKnowledgePointCount": 0,
-    "dependentSourceNodeCount": 0,
-    "sourceKnowledgePointBindingCount": 0,
+    "directRequirementKnowledgePointCount": 46,
+    "dependentSourceNodeCount": 12,
+    "sourceKnowledgePointBindingCount": 51,
     "descriptorErrorCount": 0,
     "acceptedInputFormCount": 4,
     "allowedActionCount": 4,
@@ -20,7 +20,7 @@
     "remainingW3ContractCapabilityCount": 5
   },
   "exactAcceptance": {
-    "nodeTestsPassed": 0,
+    "nodeTestsPassed": 2405,
     "nodeTestsFailed": 0,
     "milestoneClaimIntegrityPassed": true,
     "hardeningQueueEntryPassed": true,
