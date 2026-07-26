@@ -9,12 +9,7 @@ EVIDENCE   = E5_PRODUCTION_ADMITTED
 
 ## 1. Purpose
 
-P02F promotes the final R05-W2 shadow foundation through one deterministic production arithmetic consumer. It covers the exact two KnowledgePoints selected by the P02 effective dependency inventory and does not create a second KnowledgePoint, quantity-identity or semantic-role authority.
-
-```text
-kp_fraction_times_integer_quantity = exact rational quantity × integer
-kp_mass_times_integer              = whole-number mass quantity × integer
-```
+P02F promotes the final R05-W2 shadow foundation through one deterministic production arithmetic consumer. It covers the exact two KnowledgePoints selected by the P02 dependency inventory and does not create a second KnowledgePoint, quantity-identity, semantic-role, fraction-arithmetic or unit-conversion authority.
 
 ## 2. Authoritative lineage
 
@@ -24,7 +19,7 @@ P02 exact two-KP capability cohort
 → P02C quantity dimension / unit identity
 → P02E semantic-role trace
 → QUANTITY_TIMES_INTEGER descriptor
-→ exact integer or rational execution
+→ non-negative safe-integer coefficient execution
 → exact input-unit preservation
 → fail-closed validator
 → P02F successor promotion registry
@@ -34,67 +29,34 @@ P02 exact two-KP capability cohort
 
 ```text
 operationFamilyId = QUANTITY_TIMES_INTEGER
-inputs            = BASE_QUANTITY, INTEGER_MULTIPLIER
-result            = PRODUCT_QUANTITY
-expression        = resultQuantity = baseQuantity × integerMultiplier
+inputs            = BASE_QUANTITY_COEFFICIENT, INTEGER_MULTIPLIER
+result            = PRODUCT_QUANTITY_COEFFICIENT
+expression        = resultCoefficient = quantityCoefficient × integerMultiplier
 ```
 
-The integer multiplier must be a non-negative JavaScript safe integer. Zero is valid.
+The quantity coefficient, multiplier and result must all be non-negative JavaScript safe integers. Zero is valid. Negative numbers, decimals, rational objects, mixed-number objects, non-numeric values and unsafe results are blocked.
 
-### 3.1 Whole-number mass domain
-
-```text
-numericDomainId = NON_NEGATIVE_SAFE_INTEGER
-input value     = non-negative safe integer
-result value    = non-negative safe integer
-```
-
-Unsafe multiplication results fail closed.
-
-### 3.2 Fraction or mixed-number quantity domain
-
-```text
-numericDomainId = NON_NEGATIVE_RATIONAL
-accepted inputs = safe integer | numerator/denominator | whole-number mixed fraction
-result          = reduced exact rational
-```
-
-P02F uses BigInt for intermediate multiplication and greatest-common-divisor reduction. Floating-point approximation is not allowed. The result exposes its reduced improper numerator and denominator plus the equivalent whole-number and remainder-numerator projection.
+P02F does not parse or simplify a fractional magnitude. For `kp_fraction_times_integer_quantity`, the fractional quantity identity remains inside an explicit source-declared unit identity; P02F multiplies only the integer coefficient attached to that opaque unit.
 
 ## 4. Unit invariant
 
-### 4.1 Fixed P02C unit family
-
-`kp_mass_times_integer` accepts only:
+Fixed-family descriptor:
 
 ```text
-milligram
-gram
-kilogram
-metric_ton
+input unit  = one executable canonical P02C unit ID
+result unit = the exact same unit ID
 ```
 
-### 4.2 Source-declared quantity unit
-
-`kp_fraction_times_integer_quantity` has `SOURCE_DECLARED_ONLY` unit identity. The P02C value `source_declared_unit` is an authority placeholder, not an executable unit ID.
-
-A valid request must therefore provide:
+Source-declared descriptor:
 
 ```text
-sourceNodeId
-quantity.unitId
-sourceDeclaredUnitId
+sourceNodeId         = required
+sourceDeclaredUnitId = required and explicit
+quantity.unitId      = sourceDeclaredUnitId
+result unit           = the exact same explicit unit ID
 ```
 
-The two unit IDs must be identical, non-empty and different from `source_declared_unit`. This binds the operation to the unit explicitly declared by the source item without inventing a global unit or performing conversion.
-
-### 4.3 Result invariant
-
-```text
-result unit = exact input unit ID
-```
-
-P02F does not convert units, normalize mixed units or combine different dimensions. A different asserted result unit is invalid even when both units belong to the same dimension or family.
+The generic `source_declared_unit` placeholder is not executable. P02F does not convert units, normalize mixed units or combine dimensions. A different result unit is invalid even when two units belong to the same family.
 
 ## 5. Fail-closed behavior
 
@@ -110,52 +72,38 @@ missing operation descriptor       → P02F_OPERATION_DESCRIPTOR_MISSING
 source / KP mismatch               → P02F_SOURCE_KP_MISMATCH
 missing quantity input             → P02F_QUANTITY_INPUT_REQUIRED
 missing unit ID                    → P02F_UNIT_ID_REQUIRED
-invalid fixed-family unit ID       → P02F_UNIT_ID_INVALID
+invalid fixed unit ID              → P02F_UNIT_ID_INVALID
 missing source for declared unit   → P02F_SOURCE_DECLARED_UNIT_SOURCE_REQUIRED
-missing declared unit              → P02F_SOURCE_DECLARED_UNIT_REQUIRED
-placeholder used as actual unit    → P02F_SOURCE_DECLARED_UNIT_PLACEHOLDER_FORBIDDEN
-source-declared unit mismatch      → P02F_SOURCE_DECLARED_UNIT_MISMATCH
-invalid whole-number value         → P02F_QUANTITY_VALUE_INVALID
-invalid rational or mixed value    → P02F_RATIONAL_VALUE_INVALID
+missing declared unit ID           → P02F_SOURCE_DECLARED_UNIT_REQUIRED
+placeholder declared unit          → P02F_SOURCE_DECLARED_UNIT_PLACEHOLDER_FORBIDDEN
+declared/input unit mismatch       → P02F_SOURCE_DECLARED_UNIT_MISMATCH
+invalid quantity coefficient       → P02F_QUANTITY_VALUE_INVALID
 invalid integer multiplier         → P02F_INTEGER_MULTIPLIER_INVALID
 wrong operation family             → P02F_OPERATION_FAMILY_MISMATCH
 changed result unit                → P02F_RESULT_UNIT_MISMATCH
-unsafe numeric result              → P02F_RESULT_OVERFLOW
+unsafe integer result              → P02F_RESULT_OVERFLOW
 ```
 
 ## 6. Promotion boundary
 
-P02F inherits the four validated P02B-P02E promotions and adds exactly one promotion:
+P02F inherits four validated P02B-P02E promotions and adds exactly one:
 
 ```text
 cap_same_unit_quantity_arithmetic = production_admitted
 ```
 
-All five R05-W2 foundations are then production admitted. R04 remains the immutable historical baseline.
+After exact-head CI, all five R05-W2 foundations are production admitted. R04 remains the immutable historical baseline.
 
-## 7. Exact acceptance
-
-```text
-Node tests                    = 2372 / 2372 PASS
-KnowledgePoints               = 2 / 2
-source nodes                  = 3
-source / KP bindings          = 3
-fixed canonical mass units    = 4 / 4
-source-declared unit modes     = 1
-exact rational modes          = 1
-semantic-role bindings        = 2 / 2
-remaining W2 shadow           = 0
-```
-
-## 8. Explicit exclusions
+## 7. Explicit exclusions
 
 ```text
-unit conversion              = excluded
-mixed-unit normalization     = excluded
-time-system arithmetic       = excluded
-story generation             = excluded
-question generation          = excluded
-PatternSpec                  = excluded
-worksheet / renderer / UI    = unchanged
-P03-P08                      = not started
+fraction parsing / reduction  = excluded
+unit conversion               = excluded
+mixed-unit normalization      = excluded
+time-system arithmetic        = excluded
+story generation              = excluded
+question generation           = excluded
+PatternSpec                   = excluded
+worksheet / renderer / UI     = unchanged
+P03-P08                       = not started
 ```
