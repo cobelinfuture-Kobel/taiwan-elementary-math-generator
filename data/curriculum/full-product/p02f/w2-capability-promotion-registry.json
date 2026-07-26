@@ -23,10 +23,25 @@
       "validatorPath": "tools/curriculum/validate-p02f-same-unit-quantity-arithmetic-consumer.mjs",
       "scope": {
         "effectiveDependentKnowledgePointCount": 2,
-        "operationFamilyId": "QUANTITY_TIMES_INTEGER"
+        "dependentSourceNodeCount": 3,
+        "sourceKnowledgePointBindingCount": 3,
+        "operationFamilyId": "QUANTITY_TIMES_INTEGER",
+        "knowledgePointIds": [
+          "kp_fraction_times_integer_quantity",
+          "kp_mass_times_integer"
+        ],
+        "numericDomainIds": [
+          "NON_NEGATIVE_RATIONAL",
+          "NON_NEGATIVE_SAFE_INTEGER"
+        ],
+        "fixedCanonicalUnitBindingCount": 4,
+        "sourceDeclaredUnitDescriptorCount": 1
       },
+      "canonicalOperationAuthorityRequired": true,
       "deterministicArithmetic": true,
+      "exactRationalArithmetic": true,
       "sameUnitRequired": true,
+      "sourceDeclaredUnitRequiresExplicitBinding": true,
       "unitConversionAllowed": false,
       "mixedUnitNormalizationAllowed": false,
       "storyTemplateGenerationAllowed": false,
