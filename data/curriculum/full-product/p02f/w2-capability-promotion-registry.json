@@ -1,0 +1,61 @@
+{
+  "schemaName": "P02FW2CapabilityPromotionRegistryV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02F_W2SameUnitQuantityArithmeticConsumerAdmission",
+  "status": "ALL_FIVE_W2_FOUNDATIONS_PRODUCTION_ADMITTED",
+  "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+  "predecessorPromotionRegistryPath": "data/curriculum/full-product/p02e/w2-capability-promotion-registry.json",
+  "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
+  "inheritedPromotionCapabilityIds": [
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity",
+    "cap_quantity_semantic_role_binding"
+  ],
+  "promotions": [
+    {
+      "capabilityId": "cap_same_unit_quantity_arithmetic",
+      "previousDeliveryStatus": "shadow_available",
+      "effectiveDeliveryStatus": "production_admitted",
+      "admissionTaskId": "P02F_W2SameUnitQuantityArithmeticConsumerAdmission",
+      "consumerPath": "src/curriculum/full-product/p02f-same-unit-quantity-arithmetic-consumer.mjs",
+      "validatorPath": "tools/curriculum/validate-p02f-same-unit-quantity-arithmetic-consumer.mjs",
+      "scope": {
+        "effectiveDependentKnowledgePointCount": 2,
+        "dependentSourceNodeCount": 3,
+        "sourceKnowledgePointBindingCount": 3,
+        "operationFamilyId": "QUANTITY_TIMES_INTEGER",
+        "knowledgePointIds": [
+          "kp_fraction_times_integer_quantity",
+          "kp_mass_times_integer"
+        ],
+        "coefficientDomainId": "NON_NEGATIVE_SAFE_INTEGER",
+        "safeIntegerDescriptorCount": 2,
+        "fixedCanonicalUnitBindingCount": 4,
+        "sourceDeclaredUnitDescriptorCount": 1
+      },
+      "canonicalOperationAuthorityRequired": true,
+      "deterministicArithmetic": true,
+      "safeIntegerCoefficientOnly": true,
+      "exactRationalArithmetic": false,
+      "fractionMagnitudeParsingAllowed": false,
+      "sameUnitRequired": true,
+      "sourceDeclaredUnitIsOpaqueIdentity": true,
+      "sourceDeclaredUnitRequiresExplicitBinding": true,
+      "unitConversionAllowed": false,
+      "mixedUnitNormalizationAllowed": false,
+      "storyTemplateGenerationAllowed": false,
+      "publicUiRequired": false,
+      "promotionEvidenceState": "COMPLETE"
+    }
+  ],
+  "effectivePromotionCapabilityIds": [
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity",
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ],
+  "remainingShadowFoundationCapabilityIds": []
+}

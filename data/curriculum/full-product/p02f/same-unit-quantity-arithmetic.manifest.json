@@ -1,0 +1,86 @@
+{
+  "schemaName": "P02FSameUnitQuantityArithmeticManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02F_W2SameUnitQuantityArithmeticConsumerAdmission",
+  "status": "SAME_UNIT_QUANTITY_ARITHMETIC_CONSUMER_PRODUCTION_ADMITTED",
+  "expectedCounts": {
+    "effectiveDependentKnowledgePointCount": 2,
+    "operationDescriptorCount": 2,
+    "dependentSourceNodeCount": 3,
+    "sourceKnowledgePointBindingCount": 3,
+    "fixedCanonicalUnitBindingCount": 4,
+    "sourceDeclaredUnitDescriptorCount": 1,
+    "exactRationalDescriptorCount": 1,
+    "semanticRoleBindingCount": 2,
+    "descriptorErrorCount": 0,
+    "promotedCapabilityCount": 5,
+    "newPromotionCount": 1,
+    "remainingShadowFoundationCount": 0,
+    "knowledgePointIds": [
+      "kp_fraction_times_integer_quantity",
+      "kp_mass_times_integer"
+    ],
+    "numericDomainCounts": {
+      "NON_NEGATIVE_RATIONAL": 1,
+      "NON_NEGATIVE_SAFE_INTEGER": 1
+    },
+    "dimensionCounts": {
+      "MASS": 1,
+      "SOURCE_DECLARED_QUANTITY": 1
+    },
+    "unitFamilyCounts": {
+      "METRIC_MASS": 1,
+      "SOURCE_DECLARED_UNIT_FAMILY": 1
+    }
+  },
+  "exactAcceptance": {
+    "nodeTestsPassed": 2373,
+    "nodeTestsFailed": 0,
+    "canonicalOperationAuthorityPassed": true,
+    "exactKnowledgePointIdentityPassed": true,
+    "sourceKnowledgePointBindingSweepPassed": true,
+    "allFixedCanonicalMassUnitsPassed": true,
+    "exactRationalMixedNumberExecutionPassed": true,
+    "rationalReductionPassed": true,
+    "sourceDeclaredUnitRequiresSourcePassed": true,
+    "sourceDeclaredUnitPlaceholderBlocked": true,
+    "sourceDeclaredUnitMismatchBlocked": true,
+    "unitPreservationPassed": true,
+    "negativeAndFractionalMultiplierBlocked": true,
+    "invalidRationalBlocked": true,
+    "unsafeResultOverflowBlocked": true,
+    "predecessorPromotionsPreserved": true,
+    "allFiveW2FoundationsProductionAdmitted": true,
+    "r04HistoricalBaselinePreserved": true,
+    "chromiumRequired": false
+  },
+  "policyPath": "data/curriculum/full-product/p02f/same-unit-quantity-arithmetic-policy.json",
+  "promotionRegistryPath": "data/curriculum/full-product/p02f/w2-capability-promotion-registry.json",
+  "runtimePath": "src/curriculum/full-product/p02f-same-unit-quantity-arithmetic-consumer.mjs",
+  "validatorPath": "tools/curriculum/validate-p02f-same-unit-quantity-arithmetic-consumer.mjs",
+  "mainlineBoundary": {
+    "p02InventoryReused": true,
+    "p02bGlobalAuthorityReused": true,
+    "p02cQuantityIdentityReused": true,
+    "p02eSemanticRoleAuthorityReused": true,
+    "canonicalOperationAuthorityReused": true,
+    "parallelQuantityAuthorityCreated": false,
+    "r04HistoricalBaselineMutated": false,
+    "effectiveCapabilityPromotionChanged": true,
+    "productionDeterministicArithmeticConsumerAdded": true,
+    "productionAdmissionChanged": true,
+    "allFiveW2FoundationsProductionAdmitted": true,
+    "unitConversionImplemented": false,
+    "mixedUnitNormalizationImplemented": false,
+    "storyTemplateImplemented": false,
+    "publicUiChanged": false,
+    "patternSpecImplementationStarted": false,
+    "questionGeneratorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "existing19SourceProductPreserved": true,
+    "p03ToP08WorkStarted": false,
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix"
+  }
+}
