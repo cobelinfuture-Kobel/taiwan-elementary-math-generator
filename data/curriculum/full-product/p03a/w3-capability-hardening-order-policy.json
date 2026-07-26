@@ -1,0 +1,117 @@
+{
+  "schemaName": "P03AW3CapabilityHardeningOrderPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03A_W3ContractCapabilityHardeningOrderAndEvidenceReconciliation",
+  "status": "W3_HARDENING_ORDER_POLICY_READY",
+  "sourceAuthorities": {
+    "runtimeCapabilityMatrix": "R04_SharedRuntimeCapabilityMatrix",
+    "deliveryWaveAuthority": "R05_DeliveryWaveRebase",
+    "productInventory": "P03_W3ProductAdmissionInventoryAndGapMatrix",
+    "w2SuccessorAuthority": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix"
+  },
+  "evidenceClasses": [
+    "AUTHORITATIVE_CONTRACT",
+    "SOURCE_DEPENDENT_COHORT",
+    "PARTIAL_COMPONENT_CANDIDATE",
+    "PRODUCT_COMPATIBILITY_WITNESS_ONLY",
+    "MISSING_BLOCKING_EVIDENCE"
+  ],
+  "requiredAdmissionEvidenceBundle": [
+    "AUTHORITATIVE_CONTRACT",
+    "SOURCE_DEPENDENT_COHORT",
+    "RUNTIME_CONSUMER",
+    "DETERMINISTIC_VALIDATOR",
+    "FOCUSED_TESTS",
+    "INTEGRATION_TESTS",
+    "PROMOTION_CLAIM"
+  ],
+  "partialCandidateEvidence": {
+    "cap_fraction_number_system": [
+      "src/curriculum/full-product/p02f-same-unit-quantity-arithmetic-consumer.mjs",
+      "tools/curriculum/validate-p02f-same-unit-quantity-arithmetic-consumer.mjs",
+      "tests/curriculum/p02f-same-unit-quantity-arithmetic-consumer.test.js"
+    ],
+    "cap_fraction_arithmetic": [
+      "src/curriculum/full-product/p02f-same-unit-quantity-arithmetic-consumer.mjs",
+      "tools/curriculum/validate-p02f-same-unit-quantity-arithmetic-consumer.mjs",
+      "tests/curriculum/p02f-same-unit-quantity-arithmetic-consumer.test.js"
+    ],
+    "cap_mixed_number_domain_normalization": [
+      "src/curriculum/full-product/p02f-same-unit-quantity-arithmetic-consumer.mjs",
+      "tools/curriculum/validate-p02f-same-unit-quantity-arithmetic-consumer.mjs",
+      "tests/curriculum/p02f-same-unit-quantity-arithmetic-consumer.test.js"
+    ]
+  },
+  "hardeningQueue": [
+    {
+      "order": 1,
+      "stageId": "W3-H0-NUMBER-SYSTEM",
+      "capabilityId": "cap_fraction_number_system",
+      "hardeningGateCapabilityIds": [],
+      "nextTaskId": "P03B1_W3FractionNumberSystemConsumerAdmission"
+    },
+    {
+      "order": 2,
+      "stageId": "W3-H0-NUMBER-SYSTEM",
+      "capabilityId": "cap_decimal_number_system",
+      "hardeningGateCapabilityIds": [],
+      "nextTaskId": "P03B2_W3DecimalNumberSystemConsumerAdmission"
+    },
+    {
+      "order": 3,
+      "stageId": "W3-H1-DOMAIN-VALIDATOR",
+      "capabilityId": "cap_fraction_domain_validator",
+      "hardeningGateCapabilityIds": ["cap_fraction_number_system"],
+      "nextTaskId": "P03B3_W3FractionDomainValidatorAdmission"
+    },
+    {
+      "order": 4,
+      "stageId": "W3-H1-DOMAIN-VALIDATOR",
+      "capabilityId": "cap_decimal_domain_validator",
+      "hardeningGateCapabilityIds": ["cap_decimal_number_system"],
+      "nextTaskId": "P03B4_W3DecimalDomainValidatorAdmission"
+    },
+    {
+      "order": 5,
+      "stageId": "W3-H2-ARITHMETIC",
+      "capabilityId": "cap_fraction_arithmetic",
+      "hardeningGateCapabilityIds": ["cap_fraction_number_system", "cap_fraction_domain_validator"],
+      "nextTaskId": "P03B5_W3FractionArithmeticConsumerAdmission"
+    },
+    {
+      "order": 6,
+      "stageId": "W3-H2-ARITHMETIC",
+      "capabilityId": "cap_decimal_arithmetic",
+      "hardeningGateCapabilityIds": ["cap_decimal_number_system", "cap_decimal_domain_validator"],
+      "nextTaskId": "P03B6_W3DecimalArithmeticConsumerAdmission"
+    },
+    {
+      "order": 7,
+      "stageId": "W3-H3-CROSS-DOMAIN-NORMALIZATION",
+      "capabilityId": "cap_mixed_number_domain_normalization",
+      "hardeningGateCapabilityIds": [
+        "cap_fraction_number_system",
+        "cap_decimal_number_system",
+        "cap_fraction_domain_validator",
+        "cap_decimal_domain_validator",
+        "cap_fraction_arithmetic",
+        "cap_decimal_arithmetic"
+      ],
+      "nextTaskId": "P03B7_W3MixedNumberDomainNormalizationAdmission"
+    }
+  ],
+  "rules": {
+    "planningAndEvidenceReconciliationOnly": true,
+    "r04CanonicalDependenciesMayBeMutated": false,
+    "hardeningGateMayStrengthenTaskOrderWithoutMutatingR04": true,
+    "partialCandidateMaySatisfyProductionEvidence": false,
+    "protectedProductMaySatisfyGlobalCapabilityEvidence": false,
+    "capabilityImplementationAllowed": false,
+    "capabilityPromotionAllowed": false,
+    "newProductAdmissionAllowed": false,
+    "formalMappingPatternSpecGeneratorUiWorksheetChangeAllowed": false,
+    "everyQueueEntryRequiresSeparateImplementationAdmission": true
+  },
+  "nextTask": "P03B1_W3FractionNumberSystemConsumerAdmission"
+}
