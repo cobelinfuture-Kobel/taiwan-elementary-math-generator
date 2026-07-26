@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03B5_W3FractionArithmeticAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_FRACTION_ARITHMETIC_EXACT_BINARY_OPERATIONS_PRODUCTION_ADMITTED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03b5-fraction-arithmetic-consumer.mjs",
+      "tools/curriculum/validate-p03b5-fraction-arithmetic-consumer.mjs",
+      "tests/curriculum/p03b5-fraction-arithmetic-consumer.test.js",
+      "tests/curriculum/p03b5-fraction-arithmetic-integration.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03B4.claim.json",
+      "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "data/curriculum/full-product/p03b1/fraction-number-system-policy.json",
+      "data/curriculum/full-product/p03b3/fraction-domain-validator-policy.json",
+      "data/curriculum/full-product/p03b5/fraction-arithmetic-policy.json",
+      "data/curriculum/full-product/p03b5/w3-capability-promotion-registry.json",
+      "data/curriculum/full-product/p03b5/fraction-arithmetic.manifest.json",
+      "docs/curriculum/contracts/W3_FRACTION_ARITHMETIC_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P03B5_W3_FRACTION_ARITHMETIC_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The first W3 arithmetic capability is production admitted. Its exact cohort can now execute deterministic addition, subtraction, multiplication and division over non-negative rational values through the admitted fraction number-system and domain-validator authorities."
+  },
+  "nextStep": {
+    "taskId": "P03B6_W3DecimalArithmeticAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}
