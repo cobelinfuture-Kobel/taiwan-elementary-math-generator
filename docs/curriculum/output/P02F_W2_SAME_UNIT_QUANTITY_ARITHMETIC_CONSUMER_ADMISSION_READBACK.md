@@ -41,28 +41,28 @@ remaining shadow foundations  = 0
 The Global KP name alone was not used to decide numeric semantics. The W02 canonical operation model is authoritative:
 
 ```text
-operationFamilyId   = fraction_times_integer
-amountPerGroup      = 每份分數或帶分數量
-groupCount          = 份數
-answerType          = fraction_measure
-equivalent forms    = repeated addition, fraction multiplication
+operationFamilyId    = fraction_times_integer
+amountPerGroup       = 每份分數或帶分數量
+groupCount           = 份數
+answerType           = fraction_measure
+equivalent forms     = repeated addition, fraction multiplication
 validation invariant = measurement unit is preserved
 ```
 
-A temporary integer-coefficient-only interpretation was rejected because it prohibited the fraction or mixed-number operand explicitly required by this model. A permanent regression test now locks these authority fields.
+An integer-coefficient-only interpretation was rejected because it prohibited the fraction or mixed-number operand explicitly required by this model. Permanent regressions now lock both the operation authority and its promotion metadata.
 
 ## Exact KnowledgePoints
 
 ### `kp_fraction_times_integer_quantity`
 
 ```text
-name                    = 分數或帶分數乘整數量
-sources                 = g4a_u06_4a06, g4b_u03_4b03
-numeric domain          = NON_NEGATIVE_RATIONAL
-dimension               = SOURCE_DECLARED_QUANTITY
-unit family             = SOURCE_DECLARED_UNIT_FAMILY
-semantic relation       = FRACTIONAL_QUANTITY_SCALING
-source-declared unit    = required
+name                 = 分數或帶分數乘整數量
+sources              = g4a_u06_4a06, g4b_u03_4b03
+numeric domain       = NON_NEGATIVE_RATIONAL
+dimension            = SOURCE_DECLARED_QUANTITY
+unit family          = SOURCE_DECLARED_UNIT_FAMILY
+semantic relation    = FRACTIONAL_QUANTITY_SCALING
+source-declared unit = required
 ```
 
 The P02C `source_declared_unit` value remains an authority placeholder. Runtime requests must provide an actual source-declared unit and matching source node. Integer, fraction and proper mixed-number values are multiplied exactly and reduced without floating-point approximation.
@@ -96,14 +96,14 @@ W02 canonical operation authority
 ## Arithmetic behavior
 
 ```text
-integer mass input       = nonnegative safe integer
-fraction quantity input  = safe integer, rational or proper mixed number
-integer multiplier       = nonnegative safe integer
-fraction result          = reduced exact rational
-zero multiplier          = allowed
-floating approximation   = forbidden
+integer mass input        = nonnegative safe integer
+fraction quantity input   = safe integer, rational or proper mixed number
+integer multiplier        = nonnegative safe integer
+fraction result           = reduced exact rational
+zero multiplier           = allowed
+floating approximation    = forbidden
 unit conversion           = false
-mixed-unit normalization = false
+mixed-unit normalization  = false
 cross-dimension arithmetic = false
 story / question generation = false
 ```
@@ -120,17 +120,17 @@ The result unit is identical to the input unit.
 ## Fail-closed behavior
 
 ```text
-missing / unknown / non-cohort KP         = blocked
-source / KP mismatch                      = blocked
-invalid fixed-family unit                 = blocked
-missing source-declared source            = blocked
-missing source-declared unit              = blocked
-source_declared_unit used as actual unit  = blocked
-source-declared unit mismatch             = blocked
-negative or fractional multiplier         = blocked
-invalid rational or mixed number          = blocked
-changed result unit                       = blocked
-unsafe integer or rational result         = blocked
+missing / unknown / non-cohort KP        = blocked
+source / KP mismatch                     = blocked
+invalid fixed-family unit                = blocked
+missing source-declared source           = blocked
+missing source-declared unit             = blocked
+source_declared_unit used as actual unit = blocked
+source-declared unit mismatch            = blocked
+negative or fractional multiplier        = blocked
+invalid rational or mixed number         = blocked
+changed result unit                      = blocked
+unsafe integer or rational result        = blocked
 ```
 
 ## Promotion boundary
@@ -154,8 +154,9 @@ NONE
 ## Acceptance
 
 ```text
-full Node regression                    = 2373 / 2373 PASS
+full Node regression                    = 2374 / 2374 PASS
 canonical operation authority           = PASS
+promotion authority consistency         = PASS
 KnowledgePoint identities               = 2 / 2 PASS
 operation descriptors                   = 2 / 2 PASS
 source nodes                            = 3 / 3 PASS
