@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B2_W3DecimalNumberSystemConsumerAdmission
-STATUS     = IMPLEMENTED_PENDING_EXACT_HEAD_CI
+STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
 EVIDENCE   = E5_PRODUCTION_ADMITTED
 ```
 
@@ -24,11 +24,11 @@ P03B2 extends P03B1's validated successor authority. R04 remains unchanged.
 ```text
 effective dependent KnowledgePoints = 51
 direct W3 KnowledgePoints            = 45
+direct capability requirement rows   = 46
 protected existing D0 rows           = 3
 new-product dependent rows           = 48
-direct capability requirement rows   = PENDING_EXACT_HEAD_CI
-dependent source nodes               = PENDING_EXACT_HEAD_CI
-source / KP bindings                 = PENDING_EXACT_HEAD_CI
+dependent source nodes               = 12
+source / KP bindings                 = 51
 descriptor errors                    = 0
 ```
 
@@ -85,28 +85,33 @@ remaining W3 contract-only     = 5
 ## Exact-head acceptance
 
 ```text
-full Node regression                     = PENDING_EXACT_HEAD_CI
-milestone claim integrity                = PENDING_EXACT_HEAD_CI
-hardening queue entry                    = PENDING_EXACT_HEAD_CI
-P03B1 predecessor promotion              = PENDING_EXACT_HEAD_CI
-decimal cohort                           = PENDING_EXACT_HEAD_CI
-source / KP binding sweep                = PENDING_EXACT_HEAD_CI
-safe integer normalization               = PENDING_EXACT_HEAD_CI
-decimal string normalization             = PENDING_EXACT_HEAD_CI
-scaled integer normalization             = PENDING_EXACT_HEAD_CI
-decimal parts normalization              = PENDING_EXACT_HEAD_CI
-trailing-zero canonicalization           = PENDING_EXACT_HEAD_CI
-zero canonicalization                    = PENDING_EXACT_HEAD_CI
-exact equivalence                        = PENDING_EXACT_HEAD_CI
-exact ordering                           = PENDING_EXACT_HEAD_CI
-equivalent scale expansion               = PENDING_EXACT_HEAD_CI
-invalid input fail close                 = PENDING_EXACT_HEAD_CI
-arithmetic scope fail close              = PENDING_EXACT_HEAD_CI
-promotion status                         = PENDING_EXACT_HEAD_CI
-historical R04 preservation              = PENDING_EXACT_HEAD_CI
-scope boundary                           = PENDING_EXACT_HEAD_CI
+full Node regression                     = 2405 / 2405 PASS
+milestone claim integrity                = PASS
+hardening queue entry                    = PASS
+P03B1 predecessor promotion              = PASS
+decimal cohort                           = 51 / 51 PASS
+direct W3 cohort                         = 45 / 45 PASS
+direct requirement rows                  = 46 / 46 PASS
+dependent source nodes                   = 12 / 12 PASS
+source / KP binding sweep                = 51 / 51 PASS
+safe integer normalization               = PASS
+decimal string normalization             = PASS
+scaled integer normalization             = PASS
+decimal parts normalization              = PASS
+trailing-zero canonicalization           = PASS
+zero canonicalization                    = PASS
+exact equivalence                        = PASS
+exact ordering                           = PASS
+equivalent scale expansion               = PASS
+invalid input fail close                 = PASS
+arithmetic scope fail close              = PASS
+promotion status                         = PASS
+historical R04 preservation              = PASS
+scope boundary                           = PASS
 Chromium required                        = false
 ```
+
+Node Test run `30208323860` completed successfully on PR #381 head `7ebe9763ca6ffa75da456e56c6fc1c6e941cffef`. The exact metrics above are now frozen into the manifest; the final head must re-run CI before merge.
 
 ## Distance
 
