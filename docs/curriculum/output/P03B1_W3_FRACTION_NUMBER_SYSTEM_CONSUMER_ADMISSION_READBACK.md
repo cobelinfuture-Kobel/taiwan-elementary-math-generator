@@ -3,8 +3,17 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B1_W3FractionNumberSystemConsumerAdmission
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E5_PRODUCTION_ADMITTED
+```
+
+## GitHub closeout
+
+```text
+IMPLEMENTATION_PR = #379
+IMPLEMENTATION_HEAD_SHA = 99d49b0b11362fdddb4f4ff3d3464c642bfa6084
+IMPLEMENTATION_MERGE_SHA = 2abb96d80c53ef7ea5646c7c090f90af5d75771e
+IMPLEMENTATION_PR_STATE = MERGED
 ```
 
 ## Capability transition
@@ -99,13 +108,17 @@ non-positive expansion factor                 = blocked
 unsafe canonical or expanded result           = blocked
 ```
 
-## Promotion boundary
+## Promotion and product boundary
 
 ```text
 newly production admitted = cap_fraction_number_system
 inherited W2 promotions   = 5
 effective promotions      = 6
 remaining W3 contract-only capabilities = 6
+
+protected existing D0 admission change = false
+new product admission                   = false
+public UI or visible output change      = false
 ```
 
 Still contract-only:
@@ -119,17 +132,9 @@ cap_decimal_arithmetic
 cap_mixed_number_domain_normalization
 ```
 
-## Product boundary
-
 The one protected D0 row retains its existing product admission. The other 72 rows remain product-blocked; only their shared fraction representation dependency is admitted.
 
-```text
-protected existing D0 admission change = false
-new product admission                   = false
-public UI or visible output change      = false
-```
-
-## Exact-head acceptance
+## Acceptance
 
 ```text
 full Node regression                    = 2398 / 2398 PASS
