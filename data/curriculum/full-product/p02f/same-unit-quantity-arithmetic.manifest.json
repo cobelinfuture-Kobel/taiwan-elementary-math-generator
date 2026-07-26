@@ -7,10 +7,52 @@
   "expectedCounts": {
     "effectiveDependentKnowledgePointCount": 2,
     "operationDescriptorCount": 2,
+    "dependentSourceNodeCount": 3,
+    "sourceKnowledgePointBindingCount": 3,
+    "fixedCanonicalUnitBindingCount": 4,
+    "sourceDeclaredUnitDescriptorCount": 1,
+    "exactRationalDescriptorCount": 1,
+    "semanticRoleBindingCount": 2,
     "descriptorErrorCount": 0,
     "promotedCapabilityCount": 5,
     "newPromotionCount": 1,
-    "remainingShadowFoundationCount": 0
+    "remainingShadowFoundationCount": 0,
+    "knowledgePointIds": [
+      "kp_fraction_times_integer_quantity",
+      "kp_mass_times_integer"
+    ],
+    "numericDomainCounts": {
+      "NON_NEGATIVE_RATIONAL": 1,
+      "NON_NEGATIVE_SAFE_INTEGER": 1
+    },
+    "dimensionCounts": {
+      "MASS": 1,
+      "SOURCE_DECLARED_QUANTITY": 1
+    },
+    "unitFamilyCounts": {
+      "METRIC_MASS": 1,
+      "SOURCE_DECLARED_UNIT_FAMILY": 1
+    }
+  },
+  "exactAcceptance": {
+    "nodeTestsPassed": 2372,
+    "nodeTestsFailed": 0,
+    "exactKnowledgePointIdentityPassed": true,
+    "sourceKnowledgePointBindingSweepPassed": true,
+    "allFixedCanonicalMassUnitsPassed": true,
+    "exactRationalMixedNumberExecutionPassed": true,
+    "rationalReductionPassed": true,
+    "sourceDeclaredUnitRequiresSourcePassed": true,
+    "sourceDeclaredUnitPlaceholderBlocked": true,
+    "sourceDeclaredUnitMismatchBlocked": true,
+    "unitPreservationPassed": true,
+    "negativeAndFractionalMultiplierBlocked": true,
+    "invalidRationalBlocked": true,
+    "unsafeResultOverflowBlocked": true,
+    "predecessorPromotionsPreserved": true,
+    "allFiveW2FoundationsProductionAdmitted": true,
+    "r04HistoricalBaselinePreserved": true,
+    "chromiumRequired": false
   },
   "policyPath": "data/curriculum/full-product/p02f/same-unit-quantity-arithmetic-policy.json",
   "promotionRegistryPath": "data/curriculum/full-product/p02f/w2-capability-promotion-registry.json",
@@ -20,7 +62,7 @@
     "p02InventoryReused": true,
     "p02bGlobalAuthorityReused": true,
     "p02cQuantityIdentityReused": true,
-    "p02eSemanticRoleAuthorityReusedWhenPresent": true,
+    "p02eSemanticRoleAuthorityReused": true,
     "parallelQuantityAuthorityCreated": false,
     "r04HistoricalBaselineMutated": false,
     "effectiveCapabilityPromotionChanged": true,
