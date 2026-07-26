@@ -3,8 +3,8 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix
-STATUS     = IMPLEMENTED_PENDING_EXACT_HEAD_CI
-EVIDENCE   = E4_RUNTIME_VERIFIED
+STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
 ```
 
 ## Foundation closeout
@@ -21,13 +21,15 @@ remaining shadow foundations    = 0
 E5 foundation claims            = 5 / 5
 ```
 
+Authority lookup and prerequisite readiness remain closed systemic foundations even though P02 contains zero direct KnowledgePoint mappings for them.
+
 ## Historical and successor states
 
 P02 is preserved as the historical pre-admission inventory:
 
 ```text
-direct W2 KnowledgePoints = 0
-dependent KnowledgePoints = 51
+direct W2 KnowledgePoints  = 0
+dependent KnowledgePoints  = 51
 historical capability state = blocked pending W2 foundation admission
 ```
 
@@ -36,9 +38,10 @@ P02G is the current successor matrix:
 ```text
 capability-unblocked rows = 51
 capability-blocked rows   = 0
+missing W2 capability IDs = 0
 ```
 
-P02G does not modify or erase the historical P02 blocked evidence.
+The historical blocked evidence remains unchanged. P02G records the later successor state rather than rewriting history.
 
 ## Downstream product matrix
 
@@ -49,21 +52,80 @@ public product vertical slice required      = 48
 direct product admissions                   = 0
 ```
 
-The three existing public-pattern rows have crossed the shared-capability gate but still require source/KP/pattern identity, generator/validator and public worksheet/HTML/PDF/print acceptance.
+The three existing public-pattern rows are:
 
-The other forty-eight rows remain owned by their real delivery-wave product programs. P02G does not start those vertical slices.
+```text
+kp_g3b_u01_wp_remainder_interpretation
+  source       = g3b_u01_3b01
+  wave         = R05-W0
+  PatternSpecs = ps_g3b_u01_wp_remainder_ceil_min_containers
+                 ps_g3b_u01_wp_remainder_floor_max_groups
 
-## Distribution
+kp_g3b_u08_reverse_base_from_multiple
+  source       = g3b_u08_3b08
+  wave         = R05-W0
+  PatternSpecs = ps_g3b_u08_reverse_base_capacity_multiple
+                 ps_g3b_u08_reverse_base_length_multiple
+                 ps_g3b_u08_reverse_base_price_multiple
+                 ps_g3b_u08_reverse_base_quantity_multiple
+
+kp_g3b_u08_same_price_value_comparison
+  source       = g3b_u08_3b08
+  wave         = R05-W0
+  PatternSpecs = ps_g3b_u08_same_price_compare_capacity
+                 ps_g3b_u08_same_price_compare_item_count
+                 ps_g3b_u08_same_price_compare_total_length
+                 ps_g3b_u08_same_price_compare_weight
+```
+
+These three rows have crossed the shared-capability gate but still require source/KP/pattern identity, shared generator/validator binding and public worksheet/HTML/PDF/print acceptance. P02G does not declare them product-admitted.
+
+The other forty-eight rows remain owned by their actual delivery-wave product programs.
+
+## Wave matrix
+
+```text
+R05-W0
+  dependent KPs             = 3
+  dependent sources         = 2
+  capability-unblocked      = 3
+  acceptance pending        = 3
+  vertical slices required  = 0
+
+R05-W4
+  dependent KPs             = 41
+  dependent sources         = 15
+  capability-unblocked      = 41
+  acceptance pending        = 0
+  vertical slices required  = 41
+
+R05-W5
+  dependent KPs             = 1
+  dependent sources         = 1
+  capability-unblocked      = 1
+  acceptance pending        = 0
+  vertical slices required  = 1
+
+R05-W7
+  dependent KPs             = 5
+  dependent sources         = 3
+  capability-unblocked      = 5
+  acceptance pending        = 0
+  vertical slices required  = 5
+
+R05-W8
+  dependent KPs             = 1
+  dependent sources         = 2
+  capability-unblocked      = 1
+  acceptance pending        = 0
+  vertical slices required  = 1
+```
+
+Global totals:
 
 ```text
 dependent source nodes = 20
 dependent waves        = 5
-
-R05-W0 = 3
-R05-W4 = 41
-R05-W5 = 1
-R05-W7 = 5
-R05-W8 = 1
 ```
 
 ## Runtime lineage
@@ -78,33 +140,39 @@ P02 immutable historical dependency matrix
 → downstream product state retained separately
 ```
 
-## Acceptance pending exact-head CI
+## Exact-head acceptance
 
-- all five required capability IDs exactly match the final promotion registry;
-- all five P02B-P02F claims are E5, runtime integrated and production admitted;
-- authority lookup and prerequisite readiness remain closed systemic foundations despite zero direct rows;
-- all fifty-one historical dependents become capability-unblocked;
-- no historical P02 row is rewritten;
-- all twenty source summaries and five wave summaries reconcile;
-- three rows map to product acceptance pending;
-- zero rows require only a partial Pattern binding;
-- forty-eight rows remain vertical-slice work;
-- zero rows are falsely product admitted;
-- no stale capability-hardening action remains in successor next actions;
-- full Node regression passes;
-- Chromium correctly skips.
+```text
+full Node regression                         = 2379 / 2379 PASS
+milestone claim integrity                    = PASS
+required foundation identity                 = 5 / 5 PASS
+E5 foundation claim sweep                    = 5 / 5 PASS
+remaining shadow foundations                 = 0
+historical P02 immutability                   = PASS
+dependent row capability-unblock sweep       = 51 / 51 PASS
+capability-blocked rows                       = 0
+source summaries                             = 20 / 20 PASS
+wave summaries                               = 5 / 5 PASS
+existing public Pattern acceptance pending   = 3 / 3 PASS
+partial Pattern binding required             = 0
+public product vertical slices required      = 48 / 48 PASS
+direct product admissions                    = 0
+stale capability-hardening actions removed   = PASS
+product admission fail closed                = PASS
+Chromium required                            = false
+```
 
 ## Product boundary
 
 ```text
-new foundation promotion     = false
-FormalMapping / PatternSpec  = false
-generator implementation     = false
-source adapter / public UI   = false
-worksheet / answer key       = false
-HTML / PDF / print output    = false
-existing 19-source product   = preserved
-P03-P08                      = not started
+new foundation promotion      = false
+FormalMapping / PatternSpec   = false
+generator implementation      = false
+source adapter / public UI    = false
+worksheet / answer key        = false
+HTML / PDF / print output     = false
+existing 19-source product    = preserved
+P03-P08                       = not started
 ```
 
 ## Distance
