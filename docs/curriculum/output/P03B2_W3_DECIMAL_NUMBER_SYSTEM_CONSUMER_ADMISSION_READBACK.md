@@ -3,8 +3,31 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B2_W3DecimalNumberSystemConsumerAdmission
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E5_PRODUCTION_ADMITTED
+```
+
+## GitHub result
+
+### Implementation
+
+```text
+PR        = #381
+HEAD_SHA  = 321f774e54af7e13cd08396b9c6c70760c0079c4
+MERGE_SHA = 2afa6b7327c77a974f9d9d0860f4276f84e63fca
+CI_RUN    = 30208473433
+CI_STATUS = SUCCESS
+```
+
+### Closeout reconciliation
+
+```text
+PR        = #383
+STALE_PR  = #382 CLOSED_ZERO_DIFF_AFTER_MAIN_REALIGNMENT
+SCOPE     = readback metadata only
+RUNTIME   = unchanged
+TESTS     = unchanged
+CONTRACT  = unchanged
 ```
 
 ## Capability admission
@@ -111,7 +134,45 @@ scope boundary                           = PASS
 Chromium required                        = false
 ```
 
-Node Test run `30208323860` completed successfully on PR #381 head `7ebe9763ca6ffa75da456e56c6fc1c6e941cffef`. The exact metrics above are now frozen into the manifest; the final head must re-run CI before merge.
+## Task closeout
+
+### Distance shortened
+
+```text
+cap_decimal_number_system
+contract_only
+→ production_admitted
+```
+
+### System node advanced
+
+```text
+P03A Hardening Queue
+→ Decimal Number Domain Contract
+→ Exact Base-10 Consumer
+→ Deterministic Validation
+→ Successor Promotion Authority
+```
+
+### Blockers removed
+
+```text
+51 dependent KnowledgePoints lacked one exact decimal representation consumer
+base-10 trailing-zero equivalence lacked one deterministic canonical contract
+decimal comparison lacked exact scale-alignment semantics
+```
+
+### New blockers
+
+```text
+NONE
+```
+
+### Next shortest step
+
+```text
+P03B3_W3FractionDomainValidatorAdmission
+```
 
 ## Distance
 
@@ -124,6 +185,9 @@ NEXT_SHORTEST_STEP   = P03B3_W3FractionDomainValidatorAdmission
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+STOP_REASON = NEXT_IMPLEMENTATION_REQUIRES_SEPARATE_APPROVAL
+BLOCKER_TYPE = IMPLEMENTATION_BOUNDARY
+LAST_COMPLETED_STATUS = PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve P03B3_W3FractionDomainValidatorAdmission
+NEXT_RESUME_TASK = P03B3_W3FractionDomainValidatorAdmission
 ```
