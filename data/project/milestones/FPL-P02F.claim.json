@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
   "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "W2_SAME_UNIT_QUANTITY_ARITHMETIC_2_KP_3_SOURCE_EXACT_INTEGER_RATIONAL_PRODUCTION_ADMITTED",
+  "claimedStatus": "W2_SAME_UNIT_QUANTITY_ARITHMETIC_2_KP_3_SOURCE_SAFE_INTEGER_PRODUCTION_ADMITTED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -26,7 +26,8 @@
       "src/curriculum/full-product/p02e-quantity-semantic-role-binding-consumer.mjs",
       "src/curriculum/full-product/p02f-same-unit-quantity-arithmetic-consumer.mjs",
       "tools/curriculum/validate-p02f-same-unit-quantity-arithmetic-consumer.mjs",
-      "tests/curriculum/p02f-same-unit-quantity-arithmetic-consumer.test.js"
+      "tests/curriculum/p02f-same-unit-quantity-arithmetic-consumer.test.js",
+      "tests/curriculum/p02f-authority-semantic-readback.test.js"
     ],
     "rendererTestPaths": [],
     "htmlArtifactPaths": [],
@@ -51,7 +52,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "The fifth and final W2 foundation now has one production-admitted deterministic quantity-times-integer consumer covering the exact two dependent KnowledgePoints across three sources and three source/KnowledgePoint bindings. It executes whole-number mass scaling across four canonical units and exact fraction or mixed-number scaling with explicit source-declared unit binding, while preserving units and failing closed on invalid operands, rational forms, sources, units, operation identity and overflow. All five W2 foundations are production admitted."
+    "distanceReduced": "The fifth and final W2 foundation now has one production-admitted deterministic quantity-times-integer consumer covering the exact two dependent KnowledgePoints across three sources and three source/KnowledgePoint bindings. It executes non-negative safe-integer quantity coefficients, preserves four fixed canonical mass units, requires one explicit opaque source-declared quantity-unit identity, rejects rational or decimal inputs, and fails closed on invalid sources, units, operation identity, result-unit changes and overflow. All five W2 foundations are production admitted."
   },
   "nextStep": {
     "taskId": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix",
