@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03_W3ProductAdmissionInventoryAndGapMatrix",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W3_7_CAPABILITIES_82_DIRECT_119_DEPENDENTS_INVENTORIED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+      "src/curriculum/full-product/p02g-w2-foundation-closeout-unblock.mjs",
+      "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+      "tools/curriculum/validate-p03-w3-product-admission-inventory.mjs",
+      "tests/curriculum/p03-w3-product-admission-inventory.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P02G.claim.json",
+      "data/curriculum/global/delivery/r05/delivery-wave-policy.json",
+      "data/curriculum/full-product/p03/w3-product-admission-inventory-policy.json",
+      "data/curriculum/full-product/p03/w3-product-admission-inventory.manifest.json",
+      "docs/curriculum/contracts/W3_PRODUCT_ADMISSION_INVENTORY_AND_GAP_MATRIX_CONTRACT_V1.md",
+      "docs/curriculum/output/P03_W3_PRODUCT_ADMISSION_INVENTORY_AND_GAP_MATRIX_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The R05-W3 decimal and fraction domain is now an executable inventory: seven contract-only capabilities all have dependents; eighty-two KnowledgePoints form the direct W3 cohort; one hundred nineteen rows depend on W3 across twenty-eight sources and six final waves; four protected existing D0 rows retain admission pending compatibility revalidation; and one hundred fifteen new-product rows remain fail closed without falsely implementing or promoting W3 capabilities."
+  },
+  "nextStep": {
+    "taskId": "P03A_W3ContractCapabilityHardeningOrderAndEvidenceReconciliation",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}
