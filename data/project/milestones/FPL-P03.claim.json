@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W3_DECIMAL_FRACTION_PRODUCT_ADMISSION_INVENTORY_READY",
+  "claimedStatus": "W3_7_CAPABILITIES_82_DIRECT_119_DEPENDENTS_INVENTORIED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -48,7 +48,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "R05-W3 decimal and fraction number-domain membership, seven contract-only capabilities, direct product cohort, cross-wave dependents, inherited W2 successor state and downstream product gaps are materialized as one fail-closed inventory without falsely implementing or admitting W3 capabilities."
+    "distanceReduced": "The R05-W3 decimal and fraction domain is now an executable inventory: seven contract-only capabilities all have dependents; eighty-two KnowledgePoints form the direct W3 cohort; one hundred nineteen rows depend on W3 across twenty-eight sources and six final waves; four protected existing D0 rows retain admission pending compatibility revalidation; and one hundred fifteen new-product rows remain fail closed without falsely implementing or promoting W3 capabilities."
   },
   "nextStep": {
     "taskId": "P03A_W3ContractCapabilityHardeningOrderAndEvidenceReconciliation",
