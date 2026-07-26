@@ -12,6 +12,8 @@ const ROOT = path.resolve(MODULE_DIR, "../../..");
 const P02F_DIR = path.join(ROOT, "data/curriculum/full-product/p02f");
 const TARGET_CAPABILITY_ID = "cap_same_unit_quantity_arithmetic";
 const OPERATION_FAMILY_ID = "QUANTITY_TIMES_INTEGER";
+const SOURCE_DECLARED_UNIT_PLACEHOLDER = "source_declared_unit";
+const MAX_SAFE_BIGINT = BigInt(Number.MAX_SAFE_INTEGER);
 
 export const P02F_SAME_UNIT_QUANTITY_ARITHMETIC_CONSUMER_VERSION = "p02f-same-unit-quantity-arithmetic-v1";
 
@@ -35,6 +37,112 @@ function freezeArray(values) {
   return Object.freeze([...values]);
 }
 
+function isNonNegativeSafeInteger(value) {
+  return Number.isSafeInteger(value) && value >= 0;
+}
+
+function gcdBigInt(a, b) {
+  let left = a < 0n ? -a : a;
+  let right = b < 0n ? -b : b;
+  while (right !== 0n) {
+    const remainder = left % right;
+    left = right;
+    right = remainder;
+  }
+  return left === 0n ? 1n : left;
+}
+
+function normalizeRationalInput(value) {
+  if (isNonNegativeSafeInteger(value)) {
+    return { ok: true, numerator: BigInt(value), denominator: 1n, inputForm: "SAFE_INTEGER" };
+  }
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return { ok: false, error: `P02F_RATIONAL_VALUE_INVALID:${JSON.stringify(value)}` };
+  }
+
+  const hasWholeNumber = Object.hasOwn(value, "wholeNumber");
+  const numerator = value.numerator;
+  const denominator = value.denominator;
+  if (!isNonNegativeSafeInteger(numerator)
+    || !Number.isSafeInteger(denominator)
+    || denominator <= 0) {
+    return { ok: false, error: `P02F_RATIONAL_VALUE_INVALID:${JSON.stringify(value)}` };
+  }
+
+  let improperNumerator;
+  let inputForm;
+  if (hasWholeNumber) {
+    if (!isNonNegativeSafeInteger(value.wholeNumber) || numerator >= denominator) {
+      return { ok: false, error: `P02F_RATIONAL_VALUE_INVALID:${JSON.stringify(value)}` };
+    }
+    improperNumerator = BigInt(value.wholeNumber) * BigInt(denominator) + BigInt(numerator);
+    inputForm = "MIXED_NUMBER";
+  } else {
+    improperNumerator = BigInt(numerator);
+    inputForm = "RATIONAL";
+  }
+  const denominatorBigInt = BigInt(denominator);
+  const divisor = gcdBigInt(improperNumerator, denominatorBigInt);
+  return {
+    ok: true,
+    numerator: improperNumerator / divisor,
+    denominator: denominatorBigInt / divisor,
+    inputForm,
+  };
+}
+
+function multiplyQuantityValue(descriptor, value, integerMultiplier) {
+  if (!isNonNegativeSafeInteger(integerMultiplier)) {
+    return {
+      ok: false,
+      error: `P02F_INTEGER_MULTIPLIER_INVALID:${String(integerMultiplier)}`,
+    };
+  }
+
+  if (descriptor.numericDomainId === "NON_NEGATIVE_SAFE_INTEGER") {
+    if (!isNonNegativeSafeInteger(value)) {
+      return { ok: false, error: `P02F_QUANTITY_VALUE_INVALID:${JSON.stringify(value)}` };
+    }
+    const result = BigInt(value) * BigInt(integerMultiplier);
+    if (result > MAX_SAFE_BIGINT) {
+      return { ok: false, error: `P02F_RESULT_OVERFLOW:${descriptor.knowledgePointId}:${value}:${integerMultiplier}` };
+    }
+    return {
+      ok: true,
+      inputValueModel: "SAFE_INTEGER",
+      resultValueModel: "SAFE_INTEGER",
+      value: Number(result),
+    };
+  }
+
+  const normalized = normalizeRationalInput(value);
+  if (!normalized.ok) return normalized;
+  let resultNumerator = normalized.numerator * BigInt(integerMultiplier);
+  let resultDenominator = normalized.denominator;
+  const divisor = gcdBigInt(resultNumerator, resultDenominator);
+  resultNumerator /= divisor;
+  resultDenominator /= divisor;
+  if (resultNumerator > MAX_SAFE_BIGINT || resultDenominator > MAX_SAFE_BIGINT) {
+    return {
+      ok: false,
+      error: `P02F_RESULT_OVERFLOW:${descriptor.knowledgePointId}:${JSON.stringify(value)}:${integerMultiplier}`,
+    };
+  }
+  const wholeNumber = resultNumerator / resultDenominator;
+  const remainderNumerator = resultNumerator % resultDenominator;
+  return {
+    ok: true,
+    inputValueModel: normalized.inputForm,
+    resultValueModel: "REDUCED_RATIONAL",
+    value: Object.freeze({
+      numerator: Number(resultNumerator),
+      denominator: Number(resultDenominator),
+      wholeNumber: Number(wholeNumber),
+      remainderNumerator: Number(remainderNumerator),
+    }),
+  };
+}
+
 function blockedResult(request, errors) {
   return Object.freeze({
     ok: false,
@@ -49,7 +157,7 @@ function blockedResult(request, errors) {
   });
 }
 
-function successResult(request, descriptor, quantityIdentity, semanticRoleBinding, resultValue) {
+function successResult(request, descriptor, quantityIdentity, semanticRoleBinding, arithmetic) {
   return Object.freeze({
     ok: true,
     blocked: false,
@@ -62,12 +170,21 @@ function successResult(request, descriptor, quantityIdentity, semanticRoleBindin
     quantityIdentity: Object.freeze(clone(quantityIdentity)),
     semanticRoleBinding: semanticRoleBinding ? Object.freeze(clone(semanticRoleBinding)) : null,
     resultQuantity: Object.freeze({
-      value: resultValue,
+      valueModel: arithmetic.resultValueModel,
+      value: arithmetic.value,
       unitId: request.unitId,
       dimensionId: quantityIdentity.dimensionId,
       unitFamilyId: quantityIdentity.unitFamilyId,
     }),
   });
+}
+
+function numericDomainFor(row, semanticRoleBinding) {
+  if (row.knowledgePointId.includes("fraction")
+    || semanticRoleBinding?.relationFamilyId === "FRACTIONAL_QUANTITY_SCALING") {
+    return "NON_NEGATIVE_RATIONAL";
+  }
+  return "NON_NEGATIVE_SAFE_INTEGER";
 }
 
 function buildDescriptor(row, authority, quantityIdentity, semanticRoleBinding, policy) {
@@ -85,6 +202,8 @@ function buildDescriptor(row, authority, quantityIdentity, semanticRoleBinding, 
   }
   if (errors.length > 0) return { descriptor: null, errors };
 
+  const sourceDeclaredUnitRequired = quantityIdentity.unitIdentityMode === "SOURCE_DECLARED_ONLY";
+  const numericDomainId = numericDomainFor(row, semanticRoleBinding);
   return {
     errors: [],
     descriptor: Object.freeze({
@@ -93,15 +212,24 @@ function buildDescriptor(row, authority, quantityIdentity, semanticRoleBinding, 
       canonicalNameZh: authority?.canonicalNameZh ?? row.canonicalNameZh,
       primaryRuntimeProfileId: row.primaryRuntimeProfileId,
       operationFamilyId: OPERATION_FAMILY_ID,
+      numericDomainId,
+      acceptedValueForms: freezeArray(policy.numericDomains[numericDomainId].inputForms),
+      resultValueForm: policy.numericDomains[numericDomainId].resultForm,
       inputRoles: Object.freeze(["BASE_QUANTITY", "INTEGER_MULTIPLIER"]),
       resultRoleId: "PRODUCT_QUANTITY",
-      arithmeticExpression: "resultValue = quantityValue * integerMultiplier",
+      arithmeticExpression: "resultQuantity = baseQuantity × integerMultiplier",
       quantityIdentityId: quantityIdentity.identityId,
       dimensionId: quantityIdentity.dimensionId,
       unitFamilyId: quantityIdentity.unitFamilyId,
       canonicalUnitIds: freezeArray(quantityIdentity.canonicalUnitIds),
+      executableCanonicalUnitIds: freezeArray(
+        sourceDeclaredUnitRequired ? [] : quantityIdentity.canonicalUnitIds,
+      ),
       unitIdentityMode: quantityIdentity.unitIdentityMode,
-      inputUnitRule: "P02C_CANONICAL_UNIT_REQUIRED",
+      sourceDeclaredUnitRequired,
+      inputUnitRule: sourceDeclaredUnitRequired
+        ? "EXPLICIT_SOURCE_DECLARED_UNIT_REQUIRED"
+        : "P02C_CANONICAL_UNIT_REQUIRED",
       resultUnitRule: "PRESERVE_INPUT_UNIT_ID_EXACTLY",
       semanticRoleBindingId: semanticRoleBinding?.bindingId ?? null,
       semanticRelationFamilyId: semanticRoleBinding?.relationFamilyId ?? null,
@@ -110,7 +238,7 @@ function buildDescriptor(row, authority, quantityIdentity, semanticRoleBinding, 
       authorityMode: "GLOBAL_PRIMARY",
       consumerMode: "PRODUCTION_DETERMINISTIC_SAME_UNIT_QUANTITY_ARITHMETIC",
       productionAdmissionState: "PRODUCTION_ADMITTED",
-      nonNegativeSafeIntegerOnly: true,
+      exactRationalArithmetic: numericDomainId === "NON_NEGATIVE_RATIONAL",
       unitConversionAllowed: false,
       mixedUnitNormalizationAllowed: false,
       crossDimensionArithmeticAllowed: false,
@@ -164,6 +292,10 @@ export function materializeP02FSameUnitQuantityArithmeticConsumer() {
     unitFamilyId,
     descriptors.filter((row) => row.unitFamilyId === unitFamilyId).length,
   ]));
+  const numericDomainCounts = Object.fromEntries(unique(descriptors.map((row) => row.numericDomainId)).sort().map((numericDomainId) => [
+    numericDomainId,
+    descriptors.filter((row) => row.numericDomainId === numericDomainId).length,
+  ]));
   const inheritedPromotionIds = predecessorPromotionRegistry.effectivePromotionCapabilityIds
     ?? predecessorPromotionRegistry.promotions.map((row) => row.capabilityId);
   const effectivePromotionCapabilityIds = unique([
@@ -176,15 +308,19 @@ export function materializeP02FSameUnitQuantityArithmeticConsumer() {
     sourceNodeId = null,
     quantity = null,
     integerMultiplier = null,
+    sourceDeclaredUnitId = null,
     assertedOperationFamilyId = null,
     assertedResultUnitId = null,
   } = {}) {
     const request = {
       knowledgePointId: typeof knowledgePointId === "string" && knowledgePointId.length > 0 ? knowledgePointId : null,
       sourceNodeId: typeof sourceNodeId === "string" && sourceNodeId.length > 0 ? sourceNodeId : null,
-      quantityValue: quantity && Object.hasOwn(quantity, "value") ? quantity.value : null,
+      quantityValue: quantity && Object.hasOwn(quantity, "value") ? clone(quantity.value) : null,
       unitId: quantity && typeof quantity.unitId === "string" && quantity.unitId.length > 0 ? quantity.unitId : null,
       integerMultiplier,
+      sourceDeclaredUnitId: typeof sourceDeclaredUnitId === "string" && sourceDeclaredUnitId.length > 0
+        ? sourceDeclaredUnitId
+        : null,
       assertedOperationFamilyId: typeof assertedOperationFamilyId === "string" && assertedOperationFamilyId.length > 0
         ? assertedOperationFamilyId
         : null,
@@ -213,23 +349,41 @@ export function materializeP02FSameUnitQuantityArithmeticConsumer() {
     if (!request.unitId) {
       return blockedResult(request, ["P02F_UNIT_ID_REQUIRED"]);
     }
-    if (!Number.isSafeInteger(request.quantityValue) || request.quantityValue < 0) {
-      return blockedResult(request, [`P02F_QUANTITY_VALUE_INVALID:${String(request.quantityValue)}`]);
-    }
-    if (!Number.isSafeInteger(request.integerMultiplier) || request.integerMultiplier < 0) {
-      return blockedResult(request, [`P02F_INTEGER_MULTIPLIER_INVALID:${String(request.integerMultiplier)}`]);
-    }
     if (request.assertedOperationFamilyId && request.assertedOperationFamilyId !== descriptor.operationFamilyId) {
       return blockedResult(request, [
         `P02F_OPERATION_FAMILY_MISMATCH:${request.knowledgePointId}:${request.assertedOperationFamilyId}:${descriptor.operationFamilyId}`,
       ]);
     }
 
-    const quantityResolution = p02c.resolve({
-      knowledgePointId: request.knowledgePointId,
-      sourceNodeId: request.sourceNodeId,
-      assertedUnitId: request.unitId,
-    });
+    let quantityResolution;
+    if (descriptor.sourceDeclaredUnitRequired) {
+      if (!request.sourceNodeId) {
+        return blockedResult(request, [`P02F_SOURCE_DECLARED_UNIT_SOURCE_REQUIRED:${request.knowledgePointId}`]);
+      }
+      if (!request.sourceDeclaredUnitId) {
+        return blockedResult(request, [`P02F_SOURCE_DECLARED_UNIT_REQUIRED:${request.knowledgePointId}`]);
+      }
+      if (request.unitId === SOURCE_DECLARED_UNIT_PLACEHOLDER
+        || request.sourceDeclaredUnitId === SOURCE_DECLARED_UNIT_PLACEHOLDER) {
+        return blockedResult(request, [`P02F_SOURCE_DECLARED_UNIT_PLACEHOLDER_FORBIDDEN:${request.knowledgePointId}`]);
+      }
+      if (request.sourceDeclaredUnitId !== request.unitId) {
+        return blockedResult(request, [
+          `P02F_SOURCE_DECLARED_UNIT_MISMATCH:${request.knowledgePointId}:${request.sourceDeclaredUnitId}:${request.unitId}`,
+        ]);
+      }
+      quantityResolution = p02c.resolve({
+        knowledgePointId: request.knowledgePointId,
+        sourceNodeId: request.sourceNodeId,
+      });
+    } else {
+      quantityResolution = p02c.resolve({
+        knowledgePointId: request.knowledgePointId,
+        sourceNodeId: request.sourceNodeId,
+        assertedUnitId: request.unitId,
+      });
+    }
+
     if (!quantityResolution.ok) {
       if (quantityResolution.errors.some((code) => code.startsWith("P02C_SOURCE_KP_MISMATCH"))) {
         return blockedResult(request, [`P02F_SOURCE_KP_MISMATCH:${request.sourceNodeId}:${request.knowledgePointId}`]);
@@ -245,18 +399,14 @@ export function materializeP02FSameUnitQuantityArithmeticConsumer() {
       ]);
     }
 
-    const resultValue = request.quantityValue * request.integerMultiplier;
-    if (!Number.isSafeInteger(resultValue) || resultValue < 0) {
-      return blockedResult(request, [
-        `P02F_RESULT_OVERFLOW:${request.knowledgePointId}:${request.quantityValue}:${request.integerMultiplier}`,
-      ]);
-    }
+    const arithmetic = multiplyQuantityValue(descriptor, request.quantityValue, request.integerMultiplier);
+    if (!arithmetic.ok) return blockedResult(request, [arithmetic.error]);
     return successResult(
       request,
       descriptor,
       quantityResolution.identity,
       p02e.getBinding(request.knowledgePointId),
-      resultValue,
+      arithmetic,
     );
   }
 
@@ -285,9 +435,12 @@ export function materializeP02FSameUnitQuantityArithmeticConsumer() {
       dependentSourceNodeCount: sourceNodeIds.length,
       sourceKnowledgePointBindingCount: descriptors.reduce((sum, row) => sum + row.sourceNodeIds.length, 0),
       semanticRoleBindingCount: descriptors.filter((row) => row.semanticRoleBindingId).length,
-      canonicalUnitBindingCount: descriptors.reduce((sum, row) => sum + row.canonicalUnitIds.length, 0),
+      fixedCanonicalUnitBindingCount: descriptors.reduce((sum, row) => sum + row.executableCanonicalUnitIds.length, 0),
+      sourceDeclaredUnitDescriptorCount: descriptors.filter((row) => row.sourceDeclaredUnitRequired).length,
+      exactRationalDescriptorCount: descriptors.filter((row) => row.exactRationalArithmetic).length,
       dimensionCounts: Object.freeze(dimensionCounts),
       unitFamilyCounts: Object.freeze(unitFamilyCounts),
+      numericDomainCounts: Object.freeze(numericDomainCounts),
       inheritedPromotionCount: inheritedPromotionIds.length,
       newPromotionCount: promotionRegistry.promotions.length,
       effectivePromotionCount: effectivePromotionCapabilityIds.length,
