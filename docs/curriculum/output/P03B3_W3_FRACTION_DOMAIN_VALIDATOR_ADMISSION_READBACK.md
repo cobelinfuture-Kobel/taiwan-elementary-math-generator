@@ -3,8 +3,32 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B3_W3FractionDomainValidatorAdmission
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E5_PRODUCTION_ADMITTED
+```
+
+## GitHub result
+
+### Implementation
+
+```text
+PR        = #384
+HEAD_SHA  = 3850dfe19f21f5cb4d6774bd6921e81a07bb09ce
+MERGE_SHA = 4c0e510698bc1faf42221fbeba743ee4020ff698
+CI_RUN    = 30209737413
+CI_STATUS = SUCCESS
+```
+
+### Closeout reconciliation
+
+```text
+PR        = #386
+STALE_PR  = #385 CLOSED_ZERO_DIFF_AFTER_MAIN_REALIGNMENT
+SCOPE     = readback metadata only
+RUNTIME   = unchanged
+TESTS     = unchanged
+MANIFEST  = unchanged
+CONTRACT  = unchanged
 ```
 
 ## Capability admission
@@ -103,7 +127,45 @@ scope boundary                             = PASS
 Chromium required                          = false
 ```
 
-Node Test run `30209614538` completed successfully on PR #384 head `3decff17740f04aee2504c5e2d4d20bce4bdfa06`. The exact metrics above are frozen into the manifest; the final head must re-run CI before merge.
+## Task closeout
+
+### Distance shortened
+
+```text
+cap_fraction_domain_validator
+contract_only
+→ production_admitted
+```
+
+### System node advanced
+
+```text
+P03A Hardening Queue
+→ P03B1 Exact Fraction Number System
+→ Fraction Domain Constraint Contract
+→ Deterministic Domain Validator
+→ Successor Promotion Authority
+```
+
+### Blockers removed
+
+```text
+52 dependent KnowledgePoints lacked one shared fraction-domain validator
+fraction magnitude, zero, canonical limits and exact range constraints lacked one authority
+pair relations and equivalent-value set uniqueness lacked deterministic fail-closed validation
+```
+
+### New blockers
+
+```text
+NONE
+```
+
+### Next shortest step
+
+```text
+P03B4_W3DecimalDomainValidatorAdmission
+```
 
 ## Distance
 
@@ -116,6 +178,9 @@ NEXT_SHORTEST_STEP   = P03B4_W3DecimalDomainValidatorAdmission
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+STOP_REASON = NEXT_IMPLEMENTATION_REQUIRES_SEPARATE_APPROVAL
+BLOCKER_TYPE = IMPLEMENTATION_BOUNDARY
+LAST_COMPLETED_STATUS = PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve P03B4_W3DecimalDomainValidatorAdmission
+NEXT_RESUME_TASK = P03B4_W3DecimalDomainValidatorAdmission
 ```
