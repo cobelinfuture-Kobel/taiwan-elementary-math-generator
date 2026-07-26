@@ -45,7 +45,7 @@ test("P02G recomputes all 51 historical dependent rows as capability-unblocked w
     assert.deepEqual(row.missingW2CapabilityIds, [], row.knowledgePointId);
     assert.equal(row.capabilityGateState, "W2_FOUNDATION_DEPENDENCY_UNBLOCKED", row.knowledgePointId);
     assert.equal(row.productProductionAdmitted, false, row.knowledgePointId);
-    assert.equal(getP02GW2DownstreamUnblockRow(row.knowledgePointId), row);
+    assert.deepEqual(getP02GW2DownstreamUnblockRow(row.knowledgePointId), row);
   }
 });
 
