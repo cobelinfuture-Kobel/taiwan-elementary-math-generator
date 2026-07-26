@@ -1,0 +1,32 @@
+{
+  "schemaName": "P03W3ProductAdmissionInventoryManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03_W3ProductAdmissionInventoryAndGapMatrix",
+  "status": "W3_PRODUCT_ADMISSION_INVENTORY_IMPLEMENTED_PENDING_EXACT_HEAD_CI",
+  "sourceAuthorities": {
+    "deliveryWaveId": "R05-W3",
+    "waveName": "DECIMAL_FRACTION_NUMBER_DOMAIN",
+    "contractCapabilityCount": 7,
+    "w2SuccessorAuthority": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix"
+  },
+  "policyPath": "data/curriculum/full-product/p03/w3-product-admission-inventory-policy.json",
+  "runtimePath": "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+  "validatorPath": "tools/curriculum/validate-p03-w3-product-admission-inventory.mjs",
+  "mainlineBoundary": {
+    "inventoryOnly": true,
+    "w2SuccessorAuthorityReused": true,
+    "w3CapabilityImplementationStarted": false,
+    "capabilityPromotionChanged": false,
+    "productionAdmissionChanged": false,
+    "formalMappingImplementationStarted": false,
+    "patternSpecImplementationStarted": false,
+    "generatorImplementationStarted": false,
+    "publicUiChanged": false,
+    "worksheetRendererChanged": false,
+    "existing19SourceProductPreserved": true,
+    "p04ToP08WorkStarted": false,
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P03A_W3ContractCapabilityHardeningOrderAndEvidenceReconciliation"
+  }
+}
