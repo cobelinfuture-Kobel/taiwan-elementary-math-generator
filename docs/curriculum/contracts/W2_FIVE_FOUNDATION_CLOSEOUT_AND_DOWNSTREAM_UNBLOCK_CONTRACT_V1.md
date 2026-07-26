@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix
-EVIDENCE   = E4_RUNTIME_VERIFIED
+EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
 ```
 
 ## 1. Purpose
@@ -110,14 +110,14 @@ R05-W8 = 1
 ## 8. Explicit exclusions
 
 ```text
-P02 historical mutation        = excluded
-new capability promotion       = excluded
-PatternSpec implementation     = excluded
-generator implementation       = excluded
-public source adapter          = excluded
-public UI implementation       = excluded
-worksheet / renderer change    = excluded
-P03-P08 implementation         = excluded
+P02 historical mutation         = excluded
+new capability promotion        = excluded
+PatternSpec implementation      = excluded
+generator implementation        = excluded
+public source adapter           = excluded
+public UI implementation        = excluded
+worksheet / renderer change     = excluded
+P03-P08 implementation          = excluded
 existing 19-source modification = excluded
 ```
 
