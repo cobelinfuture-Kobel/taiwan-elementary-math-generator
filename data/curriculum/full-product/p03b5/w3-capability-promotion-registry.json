@@ -1,0 +1,64 @@
+{
+  "schemaName": "P03B5W3CapabilityPromotionRegistryV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03B5_W3FractionArithmeticAdmission",
+  "status": "W3_FRACTION_ARITHMETIC_PRODUCTION_ADMITTED",
+  "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+  "predecessorPromotionRegistryPath": "data/curriculum/full-product/p03b4/w3-capability-promotion-registry.json",
+  "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
+  "inheritedPromotionCapabilityIds": [
+    "cap_decimal_domain_validator",
+    "cap_decimal_number_system",
+    "cap_fraction_domain_validator",
+    "cap_fraction_number_system",
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity",
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ],
+  "promotions": [
+    {
+      "capabilityId": "cap_fraction_arithmetic",
+      "previousDeliveryStatus": "contract_only",
+      "effectiveDeliveryStatus": "production_admitted",
+      "admissionTaskId": "P03B5_W3FractionArithmeticAdmission",
+      "consumerPath": "src/curriculum/full-product/p03b5-fraction-arithmetic-consumer.mjs",
+      "validatorPath": "tools/curriculum/validate-p03b5-fraction-arithmetic-consumer.mjs",
+      "scope": {
+        "numericDomainId": "NON_NEGATIVE_RATIONAL",
+        "allowedActions": ["ADD", "SUBTRACT", "MULTIPLY", "DIVIDE"]
+      },
+      "fractionNumberSystemDependencySatisfied": true,
+      "fractionDomainValidatorDependencySatisfied": true,
+      "exactBigIntIntermediateArithmetic": true,
+      "canonicalReducedResult": true,
+      "negativeResultFailClosed": true,
+      "divisionByZeroFailClosed": true,
+      "resultPolicyValidation": true,
+      "decimalArithmeticAllowed": false,
+      "fractionDecimalConversionAllowed": false,
+      "crossDomainNormalizationAllowed": false,
+      "storyTemplateGenerationAllowed": false,
+      "publicUiRequired": false,
+      "promotionEvidenceState": "COMPLETE"
+    }
+  ],
+  "effectivePromotionCapabilityIds": [
+    "cap_decimal_domain_validator",
+    "cap_decimal_number_system",
+    "cap_fraction_arithmetic",
+    "cap_fraction_domain_validator",
+    "cap_fraction_number_system",
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity",
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ],
+  "remainingW3ContractCapabilityIds": [
+    "cap_decimal_arithmetic",
+    "cap_mixed_number_domain_normalization"
+  ]
+}
