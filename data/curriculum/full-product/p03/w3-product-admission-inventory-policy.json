@@ -1,0 +1,58 @@
+{
+  "schemaName": "P03W3ProductAdmissionInventoryPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03_W3ProductAdmissionInventoryAndGapMatrix",
+  "status": "W3_PRODUCT_ADMISSION_INVENTORY_POLICY_READY",
+  "sourceAuthorities": {
+    "deliveryWaveTask": "R05_DeliveryWaveRebase",
+    "deliveryWaveId": "R05-W3",
+    "waveName": "DECIMAL_FRACTION_NUMBER_DOMAIN",
+    "runtimeCapabilityTask": "R04_SharedRuntimeCapabilityMatrix",
+    "prerequisiteTask": "R03_GlobalPrerequisiteGraph",
+    "w2SuccessorCloseoutTask": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix",
+    "publicProductBaselineTask": "P01E_W1PublicUIHTMLPDFPrintCloseout"
+  },
+  "w3ContractCapabilityIds": [
+    "cap_decimal_number_system",
+    "cap_decimal_arithmetic",
+    "cap_fraction_number_system",
+    "cap_fraction_arithmetic",
+    "cap_mixed_number_domain_normalization",
+    "cap_decimal_domain_validator",
+    "cap_fraction_domain_validator"
+  ],
+  "membershipRules": {
+    "directW3Cohort": "R05_FINAL_DELIVERY_WAVE_EQUALS_R05_W3",
+    "w3CapabilityDependentCohort": "EFFECTIVE_REQUIRED_CAPABILITY_INTERSECTS_W3_CONTRACT_CAPABILITIES",
+    "baseW3Cohort": "R05_BASE_DELIVERY_WAVE_EQUALS_R05_W3",
+    "prerequisiteEscalatedIntoW3": "FINAL_WAVE_EQUALS_W3_AND_BASE_WAVE_PRECEDES_W3",
+    "laterWaveDependent": "W3_CAPABILITY_DEPENDENT_AND_FINAL_WAVE_AFTER_W3"
+  },
+  "productGapStates": [
+    "EXISTING_PUBLIC_PATTERN_AFTER_W3_CAPABILITY",
+    "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED_AFTER_W3_CAPABILITY",
+    "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED_AFTER_W3_CAPABILITY"
+  ],
+  "rules": {
+    "inventoryOnly": true,
+    "contractCapabilityImplementationAllowed": false,
+    "capabilityPromotionAllowed": false,
+    "directProductAdmissionAllowed": false,
+    "formalMappingImplementationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "publicSourceAdapterImplementationAllowed": false,
+    "publicUiChangeAllowed": false,
+    "worksheetRendererChangeAllowed": false,
+    "existing19SourceProductModificationAllowed": false,
+    "p04ToP08ImplementationAllowed": false,
+    "legacyBatchMayDetermineMembership": false,
+    "sourceEvidenceMustRemainTraceable": true,
+    "everyDirectW3RowMustBeInDependentCohort": true,
+    "everyDependentRowRequiresExplicitW3CapabilityIntersection": true,
+    "inheritedW2DependenciesMustUseP02GSuccessorState": true,
+    "capabilityUnblockMustNotImplyProductAdmission": true
+  },
+  "nextTask": "P03A_W3ContractCapabilityHardeningOrderAndEvidenceReconciliation"
+}
