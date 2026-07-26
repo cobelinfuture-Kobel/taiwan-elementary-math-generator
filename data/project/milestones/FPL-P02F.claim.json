@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
   "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "W2_SAME_UNIT_QUANTITY_ARITHMETIC_2_KP_PRODUCTION_ADMITTED",
+  "claimedStatus": "W2_SAME_UNIT_QUANTITY_ARITHMETIC_2_KP_3_SOURCE_EXACT_INTEGER_RATIONAL_PRODUCTION_ADMITTED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -20,13 +20,15 @@
   },
   "evidence": {
     "runtimeTestPaths": [
+      "data/curriculum/application/operations/w02/g4a_u06_4a06.canonical-operation.json",
       "src/curriculum/full-product/p02-w2-product-admission-inventory.mjs",
       "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
       "src/curriculum/full-product/p02c-quantity-dimension-unit-identity-consumer.mjs",
       "src/curriculum/full-product/p02e-quantity-semantic-role-binding-consumer.mjs",
       "src/curriculum/full-product/p02f-same-unit-quantity-arithmetic-consumer.mjs",
       "tools/curriculum/validate-p02f-same-unit-quantity-arithmetic-consumer.mjs",
-      "tests/curriculum/p02f-same-unit-quantity-arithmetic-consumer.test.js"
+      "tests/curriculum/p02f-same-unit-quantity-arithmetic-consumer.test.js",
+      "tests/curriculum/p02f-canonical-operation-authority.test.js"
     ],
     "rendererTestPaths": [],
     "htmlArtifactPaths": [],
@@ -51,7 +53,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "The fifth and final W2 foundation now has one production-admitted deterministic same-unit quantity-times-integer consumer covering the exact two dependent KnowledgePoints, with P02C unit identity, exact unit preservation and fail-closed operand, source, unit, operation and overflow validation."
+    "distanceReduced": "The fifth and final W2 foundation now has one production-admitted deterministic quantity-times-integer consumer covering the exact two dependent KnowledgePoints across three sources and three source/KnowledgePoint bindings. The W02 canonical operation authority is locked by regression: fraction or mixed-number amount-per-group values use exact rational arithmetic with explicit source-declared unit binding, while whole-number mass values execute across four canonical units. Units remain unchanged and invalid operands, rational forms, sources, units, operation identity and overflow fail closed. All five W2 foundations are production admitted."
   },
   "nextStep": {
     "taskId": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix",
