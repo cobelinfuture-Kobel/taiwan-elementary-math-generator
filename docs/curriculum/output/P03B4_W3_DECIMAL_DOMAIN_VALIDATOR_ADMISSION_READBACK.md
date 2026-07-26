@@ -3,8 +3,32 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B4_W3DecimalDomainValidatorAdmission
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E5_PRODUCTION_ADMITTED
+```
+
+## GitHub result
+
+### Implementation
+
+```text
+PR        = #387
+HEAD_SHA  = f90b5667c23cfbfbee40823a9dcd9b9c4b663920
+MERGE_SHA = d5acccdb47687662a7221b508ac5ec0c38854357
+CI_RUN    = 30224112364
+CI_STATUS = SUCCESS
+```
+
+### Closeout reconciliation
+
+```text
+PR        = #389
+STALE_PR  = #388 CLOSED_ZERO_DIFF_AFTER_MAIN_REALIGNMENT
+SCOPE     = readback metadata only
+RUNTIME   = unchanged
+TESTS     = unchanged
+MANIFEST  = unchanged
+CONTRACT  = unchanged
 ```
 
 ## Capability admission
@@ -106,19 +130,60 @@ scope boundary                             = PASS
 Chromium required                          = false
 ```
 
-Node Test run `30223974861` completed successfully on PR #387 head `fdf10eb32895fb5ae06f197899a4bb42a3d1051e`. Exact metrics are frozen into the manifest; the final head must re-run CI before merge.
+## Task closeout
+
+### Distance shortened
+
+```text
+cap_decimal_domain_validator
+contract_only
+→ production_admitted
+```
+
+### System node advanced
+
+```text
+P03A Hardening Queue
+→ P03B2 Exact Decimal Number System
+→ Decimal Domain Constraint Contract
+→ Deterministic Domain Validator
+→ Successor Promotion Authority
+```
+
+### Blockers removed
+
+```text
+51 dependent KnowledgePoints lacked one shared decimal-domain validator
+base-10 magnitude, zero, coefficient-digit, scale and exact-range constraints lacked one authority
+pair relations and equivalent-decimal set uniqueness lacked deterministic fail-closed validation
+```
+
+### New blockers
+
+```text
+NONE
+```
+
+### Next shortest step
+
+```text
+P03B5_W3FractionArithmeticAdmission
+```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_FRACTION_DOMAIN_VALIDATOR_PRODUCTION_ADMITTED
 GOAL_DISTANCE_AFTER  = D1_W3_TWO_DOMAIN_VALIDATORS_PRODUCTION_ADMITTED
-DISTANCE_REDUCED     = The decimal-domain validator now provides exact base-10 magnitude, coefficient-digit, scale, range, pair-relation and canonical-set validation for its 51-KP cohort through the admitted decimal number-system consumer.
+DISTANCE_REDUCED     = The second W3 domain-validator capability now validates exact base-10 magnitude, coefficient-digit, scale, range, pair-relation and canonical-set constraints for its 51-KP cohort through the admitted decimal number-system consumer.
 REMAINING_BLOCKERS   = [three W3 capabilities remain contract-only; 48 decimal-validator-dependent new-product rows remain product-blocked; three protected D0 rows require post-admission compatibility revalidation]
 NEXT_SHORTEST_STEP   = P03B5_W3FractionArithmeticAdmission
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+STOP_REASON = NEXT_IMPLEMENTATION_REQUIRES_SEPARATE_APPROVAL
+BLOCKER_TYPE = IMPLEMENTATION_BOUNDARY
+LAST_COMPLETED_STATUS = PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve P03B5_W3FractionArithmeticAdmission
+NEXT_RESUME_TASK = P03B5_W3FractionArithmeticAdmission
 ```
