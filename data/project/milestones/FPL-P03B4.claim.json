@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03B4_W3DecimalDomainValidatorAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_DECIMAL_DOMAIN_VALIDATOR_EXACT_CONSTRAINT_VALIDATION_PRODUCTION_ADMITTED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03b4-decimal-domain-validator.mjs",
+      "tools/curriculum/validate-p03b4-decimal-domain-validator.mjs",
+      "tests/curriculum/p03b4-decimal-domain-validator.test.js",
+      "tests/curriculum/p03b4-decimal-domain-validator-integration.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03B3.claim.json",
+      "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "data/curriculum/full-product/p03b2/decimal-number-system-policy.json",
+      "data/curriculum/full-product/p03b4/decimal-domain-validator-policy.json",
+      "data/curriculum/full-product/p03b4/w3-capability-promotion-registry.json",
+      "data/curriculum/full-product/p03b4/decimal-domain-validator.manifest.json",
+      "docs/curriculum/contracts/W3_DECIMAL_DOMAIN_VALIDATOR_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P03B4_W3_DECIMAL_DOMAIN_VALIDATOR_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The second W3 domain-validator capability is production admitted. Decimal-dependent KnowledgePoints can now apply exact base-10 magnitude, scale, coefficient-digit, range, pair-relation and canonical-set constraints through the admitted decimal number-system consumer without introducing decimal arithmetic."
+  },
+  "nextStep": {
+    "taskId": "P03B5_W3FractionArithmeticAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}
