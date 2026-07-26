@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03_W3ProductAdmissionInventoryAndGapMatrix",
-  "status": "W3_EXACT_PRODUCT_ADMISSION_MATRIX_RECONCILED_PENDING_CI",
+  "status": "W3_EXACT_PRODUCT_ADMISSION_INVENTORY_CLOSED",
   "sourceAuthorities": {
     "deliveryWaveId": "R05-W3",
     "waveName": "DECIMAL_FRACTION_NUMBER_DOMAIN",
@@ -61,6 +61,21 @@
     "kp_g4a_u01_missing_digit_comparison_extreme_digit",
     "kp_g4b_u01_trailing_zero_division_remainder_restore"
   ],
+  "exactAcceptance": {
+    "nodeTestsPassed": 2385,
+    "nodeTestsFailed": 0,
+    "milestoneClaimIntegrityPassed": true,
+    "w3CapabilityIdentityPassed": true,
+    "directCohortSweepPassed": true,
+    "baseWaveAndEscalationSweepPassed": true,
+    "protectedExistingD0PreservationPassed": true,
+    "newProductFailClosedPassed": true,
+    "p02gInheritedW2UnblockSweepPassed": true,
+    "sourceSummarySweepPassed": true,
+    "waveSummarySweepPassed": true,
+    "productGapPartitionPassed": true,
+    "chromiumRequired": false
+  },
   "policyPath": "data/curriculum/full-product/p03/w3-product-admission-inventory-policy.json",
   "runtimePath": "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
   "validatorPath": "tools/curriculum/validate-p03-w3-product-admission-inventory.mjs",
