@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03B3_W3FractionDomainValidatorAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_FRACTION_DOMAIN_VALIDATOR_52_KP_EXACT_CONSTRAINT_VALIDATION_PRODUCTION_ADMITTED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03b3-fraction-domain-validator.mjs",
+      "tools/curriculum/validate-p03b3-fraction-domain-validator.mjs",
+      "tests/curriculum/p03b3-fraction-domain-validator.test.js",
+      "tests/curriculum/p03b3-fraction-domain-validator-integration.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03B2.claim.json",
+      "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "data/curriculum/full-product/p03b1/fraction-number-system-policy.json",
+      "data/curriculum/full-product/p03b3/fraction-domain-validator-policy.json",
+      "data/curriculum/full-product/p03b3/w3-capability-promotion-registry.json",
+      "data/curriculum/full-product/p03b3/fraction-domain-validator.manifest.json",
+      "docs/curriculum/contracts/W3_FRACTION_DOMAIN_VALIDATOR_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P03B3_W3_FRACTION_DOMAIN_VALIDATOR_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The first W3 domain-validator capability is production admitted. Fifty-two dependent KnowledgePoints can now apply exact fraction-domain constraints, range checks, pair relations and canonical-set validation through the admitted fraction number-system consumer without introducing fraction arithmetic."
+  },
+  "nextStep": {
+    "taskId": "P03B4_W3DecimalDomainValidatorAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}

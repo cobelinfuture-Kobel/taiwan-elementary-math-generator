@@ -1,0 +1,82 @@
+{
+  "schemaName": "P03B3W3FractionDomainValidatorPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03B3_W3FractionDomainValidatorAdmission",
+  "status": "W3_FRACTION_DOMAIN_VALIDATOR_POLICY_READY",
+  "authorities": {
+    "hardeningQueue": "src/curriculum/full-product/p03a-w3-capability-hardening-order-evidence.mjs",
+    "productInventory": "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+    "historicalCapabilityMatrix": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "fractionNumberSystemConsumer": "src/curriculum/full-product/p03b1-fraction-number-system-consumer.mjs",
+    "predecessorPromotionRegistry": "data/curriculum/full-product/p03b2/w3-capability-promotion-registry.json",
+    "operatorApproval": "P03B3_APPROVED_2026-07-26"
+  },
+  "scope": {
+    "capabilityId": "cap_fraction_domain_validator",
+    "queueOrder": 3,
+    "hardeningStageId": "W3-H1-DOMAIN-VALIDATOR",
+    "hardeningGateCapabilityIds": ["cap_fraction_number_system"],
+    "effectiveDependentKnowledgePointCount": 52,
+    "directW3KnowledgePointCount": 40,
+    "protectedExistingD0KnowledgePointCount": 1,
+    "numericDomainId": "NON_NEGATIVE_RATIONAL",
+    "validatorMode": "PRODUCTION_DETERMINISTIC_FRACTION_DOMAIN_VALIDATOR"
+  },
+  "allowedActions": ["VALIDATE_VALUE", "VALIDATE_PAIR", "VALIDATE_SET"],
+  "allowedMagnitudeClasses": ["ZERO", "WHOLE_NUMBER", "PROPER_FRACTION", "IMPROPER_FRACTION"],
+  "allowedRelations": ["EQUAL", "NOT_EQUAL", "LESS_THAN", "LESS_THAN_OR_EQUAL", "GREATER_THAN", "GREATER_THAN_OR_EQUAL"],
+  "valuePolicyKeys": [
+    "allowedMagnitudeClasses",
+    "allowZero",
+    "minimumValue",
+    "maximumValue",
+    "maxCanonicalNumerator",
+    "maxCanonicalDenominator"
+  ],
+  "setPolicyKeys": ["minCount", "maxCount", "uniqueCanonicalValues"],
+  "limits": {
+    "maximumSetSize": 32,
+    "maximumCanonicalNumerator": 9007199254740991,
+    "maximumCanonicalDenominator": 9007199254740991
+  },
+  "blockingCodes": [
+    "P03B3_KP_ID_REQUIRED",
+    "P03B3_UNKNOWN_KNOWLEDGE_POINT",
+    "P03B3_KP_NOT_FRACTION_DOMAIN_VALIDATOR_DEPENDENT",
+    "P03B3_SOURCE_KP_MISMATCH",
+    "P03B3_CAPABILITY_ASSERTION_MISMATCH",
+    "P03B3_ACTION_INVALID",
+    "P03B3_VALUE_REQUIRED",
+    "P03B3_OTHER_VALUE_REQUIRED",
+    "P03B3_VALUES_REQUIRED",
+    "P03B3_NUMBER_SYSTEM_REJECTED",
+    "P03B3_VALUE_POLICY_INVALID",
+    "P03B3_MAGNITUDE_CLASS_NOT_ALLOWED",
+    "P03B3_ZERO_FORBIDDEN",
+    "P03B3_NUMERATOR_LIMIT_EXCEEDED",
+    "P03B3_DENOMINATOR_LIMIT_EXCEEDED",
+    "P03B3_MINIMUM_VALUE_VIOLATION",
+    "P03B3_MAXIMUM_VALUE_VIOLATION",
+    "P03B3_RELATION_INVALID",
+    "P03B3_RELATION_MISMATCH",
+    "P03B3_SET_POLICY_INVALID",
+    "P03B3_SET_SIZE_INVALID",
+    "P03B3_DUPLICATE_CANONICAL_VALUE"
+  ],
+  "mainlineBoundary": {
+    "fractionNumberSystemReused": true,
+    "fractionArithmeticImplemented": false,
+    "decimalDomainValidatorImplemented": false,
+    "decimalConversionImplemented": false,
+    "crossDomainNormalizationImplemented": false,
+    "patternSpecImplementationStarted": false,
+    "questionGeneratorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "publicUiChanged": false,
+    "protectedExistingD0ProductAdmissionChanged": false,
+    "newProductAdmissionChanged": false,
+    "p04ToP08WorkStarted": false
+  },
+  "nextTask": "P03B4_W3DecimalDomainValidatorAdmission"
+}
