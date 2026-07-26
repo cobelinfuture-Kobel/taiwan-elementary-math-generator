@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03_W3ProductAdmissionInventoryAndGapMatrix
-STATUS     = EXACT_MATRIX_RECONCILED_PENDING_FINAL_CI
+STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
 EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
 ```
 
@@ -101,7 +101,7 @@ They remain product-admitted. P03 only records:
 PROTECTED_EXISTING_D0_W3_COMPATIBILITY_REVALIDATION_REQUIRED
 ```
 
-They are not counted among the 115 new product blockers and are not newly admitted by P03.
+They are not counted among the 115 new-product blockers and are not newly admitted by P03.
 
 ## W2 successor inheritance
 
@@ -135,14 +135,29 @@ newly admitted by P03                    = 0
 
 The twelve base-W3 escalations are eleven W4 rows and one W6 row. W7 and W8 dependencies have later base capability gaps rather than being direct W3 product rows.
 
-## First-pass acceptance
+## Exact-head acceptance
 
 ```text
-full Node regression = 2385 / 2385 PASS
-Chromium required    = false
+full Node regression                     = 2385 / 2385 PASS
+milestone claim integrity                = PASS
+W3 capability identity                   = 7 / 7 PASS
+capabilities with dependent rows         = 7 / 7 PASS
+direct W3 cohort                         = 82 / 82 PASS
+direct W3 source nodes                   = 17 / 17 PASS
+base-W3 cohort                           = 94 / 94 PASS
+base-W3 escalation sweep                 = 12 / 12 PASS
+all W3 capability dependents             = 119 / 119 PASS
+protected existing D0 preservation       = 4 / 4 PASS
+new-product fail-closed sweep            = 115 / 115 PASS
+later-wave dependent classification      = 33 / 33 PASS
+inherited P02G W2 unblock sweep          = 5 / 5 PASS
+dependent source summaries               = 28 / 28 PASS
+dependent wave summaries                 = 6 / 6 PASS
+new product admissions                   = 0
+Chromium required                        = false
 ```
 
-The first pass exposed and corrected the protected-D0 distinction and the difference between non-direct dependents and true later-wave dependents. Final exact-head CI remains required after this semantic reconciliation.
+The first pass exposed the protected-D0 distinction and the difference between non-direct dependents and true later-wave dependents. The corrected semantic matrix passed exact-head CI; final metadata is included in the clean-head candidate.
 
 ## Product boundary
 
@@ -164,7 +179,7 @@ P04-P08                       = not started
 GOAL_DISTANCE_BEFORE = D1_W2_CAPABILITY_PROGRAM_CLOSED_51_DEPENDENTS_UNBLOCKED
 GOAL_DISTANCE_AFTER  = D2_W3_EXACT_PRODUCT_COHORT_AND_CAPABILITY_GAPS_INVENTORIED
 DISTANCE_REDUCED     = Seven W3 contract capabilities, 82 direct W3 rows, 119 total dependents, four protected D0 compatibility rows and 115 new-product blockers are now explicit and machine-validated.
-REMAINING_BLOCKERS   = [seven W3 contract capabilities remain unimplemented; 115 new-product rows remain blocked]
+REMAINING_BLOCKERS   = [seven W3 contract capabilities remain unimplemented; 115 new-product rows remain blocked; four protected D0 rows require post-admission compatibility revalidation]
 NEXT_SHORTEST_STEP   = P03A_W3ContractCapabilityHardeningOrderAndEvidenceReconciliation
 ```
 
