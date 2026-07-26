@@ -1,0 +1,46 @@
+{
+  "schemaName": "P02GW2FoundationCloseoutUnblockManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix",
+  "status": "W2_FIVE_FOUNDATIONS_CLOSED_DOWNSTREAM_MATRIX_IMPLEMENTED_PENDING_EXACT_HEAD_CI",
+  "expectedCounts": {
+    "foundationCapabilityCount": 5,
+    "productionAdmittedFoundationCount": 5,
+    "remainingShadowFoundationCount": 0,
+    "foundationE5ClaimCount": 5,
+    "dependentKnowledgePointCount": 51,
+    "capabilityUnblockedKnowledgePointCount": 51,
+    "capabilityBlockedKnowledgePointCount": 0,
+    "dependentSourceNodeCount": 20,
+    "dependentWaveCount": 5,
+    "existingPublicPatternAcceptancePendingCount": 3,
+    "patternBindingRequiredCount": 0,
+    "publicProductVerticalSliceRequiredCount": 48,
+    "directProductAdmissionCount": 0
+  },
+  "expectedWaveCounts": {
+    "R05-W0": 3,
+    "R05-W4": 41,
+    "R05-W5": 1,
+    "R05-W7": 5,
+    "R05-W8": 1
+  },
+  "policyPath": "data/curriculum/full-product/p02g/w2-foundation-closeout-unblock-policy.json",
+  "runtimePath": "src/curriculum/full-product/p02g-w2-foundation-closeout-unblock.mjs",
+  "validatorPath": "tools/curriculum/validate-p02g-w2-foundation-closeout-unblock.mjs",
+  "mainlineBoundary": {
+    "historicalP02InventoryMutated": false,
+    "foundationPromotionChanged": false,
+    "downstreamCapabilityStateRecomputed": true,
+    "productAdmissionChanged": false,
+    "patternSpecImplementationStarted": false,
+    "generatorImplementationStarted": false,
+    "publicUiChanged": false,
+    "worksheetRendererChanged": false,
+    "existing19SourceProductPreserved": true,
+    "p03ToP08WorkStarted": false,
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P03_W3ProductAdmissionInventoryAndGapMatrix"
+  }
+}
