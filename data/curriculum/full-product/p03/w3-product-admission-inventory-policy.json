@@ -26,10 +26,12 @@
     "directW3Cohort": "R05_FINAL_DELIVERY_WAVE_EQUALS_R05_W3",
     "w3CapabilityDependentCohort": "EFFECTIVE_REQUIRED_CAPABILITY_INTERSECTS_W3_CONTRACT_CAPABILITIES",
     "baseW3Cohort": "R05_BASE_DELIVERY_WAVE_EQUALS_R05_W3",
-    "prerequisiteEscalatedIntoW3": "FINAL_WAVE_EQUALS_W3_AND_BASE_WAVE_PRECEDES_W3",
-    "laterWaveDependent": "W3_CAPABILITY_DEPENDENT_AND_FINAL_WAVE_AFTER_W3"
+    "baseW3EscalatedBeyondW3": "BASE_WAVE_EQUALS_W3_AND_FINAL_WAVE_AFTER_W3",
+    "laterWaveDependent": "W3_CAPABILITY_DEPENDENT_AND_FINAL_WAVE_AFTER_W3",
+    "protectedEarlierWaveDependent": "R05_PROTECTED_EXISTING_D0_AND_FINAL_WAVE_BEFORE_W3"
   },
   "productGapStates": [
+    "PROTECTED_EXISTING_D0_COMPATIBILITY_REVALIDATION_REQUIRED",
     "EXISTING_PUBLIC_PATTERN_AFTER_W3_CAPABILITY",
     "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED_AFTER_W3_CAPABILITY",
     "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED_AFTER_W3_CAPABILITY"
@@ -39,6 +41,8 @@
     "contractCapabilityImplementationAllowed": false,
     "capabilityPromotionAllowed": false,
     "directProductAdmissionAllowed": false,
+    "protectedExistingD0MustRemainAdmitted": true,
+    "protectedExistingD0RebuildAllowed": false,
     "formalMappingImplementationAllowed": false,
     "patternSpecImplementationAllowed": false,
     "generatorImplementationAllowed": false,
@@ -52,7 +56,7 @@
     "everyDirectW3RowMustBeInDependentCohort": true,
     "everyDependentRowRequiresExplicitW3CapabilityIntersection": true,
     "inheritedW2DependenciesMustUseP02GSuccessorState": true,
-    "capabilityUnblockMustNotImplyProductAdmission": true
+    "capabilityUnblockMustNotImplyNewProductAdmission": true
   },
   "nextTask": "P03A_W3ContractCapabilityHardeningOrderAndEvidenceReconciliation"
 }
