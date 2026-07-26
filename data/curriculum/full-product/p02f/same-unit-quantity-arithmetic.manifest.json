@@ -35,9 +35,10 @@
     }
   },
   "exactAcceptance": {
-    "nodeTestsPassed": 2373,
+    "nodeTestsPassed": 2374,
     "nodeTestsFailed": 0,
     "canonicalOperationAuthorityPassed": true,
+    "promotionAuthorityConsistencyPassed": true,
     "exactKnowledgePointIdentityPassed": true,
     "sourceKnowledgePointBindingSweepPassed": true,
     "allFixedCanonicalMassUnitsPassed": true,
