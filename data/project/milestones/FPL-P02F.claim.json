@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
   "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "W2_SAME_UNIT_QUANTITY_ARITHMETIC_2_KP_PRODUCTION_ADMITTED",
+  "claimedStatus": "W2_SAME_UNIT_QUANTITY_ARITHMETIC_2_KP_3_SOURCE_EXACT_INTEGER_RATIONAL_PRODUCTION_ADMITTED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -51,7 +51,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "The fifth and final W2 foundation now has one production-admitted deterministic same-unit quantity-times-integer consumer covering the exact two dependent KnowledgePoints, with P02C unit identity, exact unit preservation and fail-closed operand, source, unit, operation and overflow validation."
+    "distanceReduced": "The fifth and final W2 foundation now has one production-admitted deterministic quantity-times-integer consumer covering the exact two dependent KnowledgePoints across three sources and three source/KnowledgePoint bindings. It executes whole-number mass scaling across four canonical units and exact fraction or mixed-number scaling with explicit source-declared unit binding, while preserving units and failing closed on invalid operands, rational forms, sources, units, operation identity and overflow. All five W2 foundations are production admitted."
   },
   "nextStep": {
     "taskId": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix",
