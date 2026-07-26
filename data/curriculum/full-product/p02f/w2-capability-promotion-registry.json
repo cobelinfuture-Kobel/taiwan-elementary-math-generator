@@ -30,18 +30,19 @@
           "kp_fraction_times_integer_quantity",
           "kp_mass_times_integer"
         ],
-        "coefficientDomainId": "NON_NEGATIVE_SAFE_INTEGER",
-        "safeIntegerDescriptorCount": 2,
+        "numericDomainIds": [
+          "NON_NEGATIVE_RATIONAL",
+          "NON_NEGATIVE_SAFE_INTEGER"
+        ],
         "fixedCanonicalUnitBindingCount": 4,
-        "sourceDeclaredUnitDescriptorCount": 1
+        "sourceDeclaredUnitDescriptorCount": 1,
+        "exactRationalDescriptorCount": 1
       },
       "canonicalOperationAuthorityRequired": true,
       "deterministicArithmetic": true,
-      "safeIntegerCoefficientOnly": true,
-      "exactRationalArithmetic": false,
-      "fractionMagnitudeParsingAllowed": false,
+      "exactRationalArithmetic": true,
+      "floatingPointApproximationAllowed": false,
       "sameUnitRequired": true,
-      "sourceDeclaredUnitIsOpaqueIdentity": true,
       "sourceDeclaredUnitRequiresExplicitBinding": true,
       "unitConversionAllowed": false,
       "mixedUnitNormalizationAllowed": false,
