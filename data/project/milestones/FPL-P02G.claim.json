@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "taskId": "P02G_W2FiveFoundationProductionAdmissionCloseoutAndDownstreamUnblockMatrix",
   "taskClass": "runtime",
-  "targetEvidenceLevel": "E4_RUNTIME_VERIFIED",
-  "actualEvidenceLevel": "E4_RUNTIME_VERIFIED",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "claimedStatus": "W2_FIVE_FOUNDATIONS_CLOSED_51_DEPENDENTS_CAPABILITY_UNBLOCKED",
   "claims": {
     "dataStructureReady": true,
@@ -55,6 +55,6 @@
   },
   "nextStep": {
     "taskId": "P03_W3ProductAdmissionInventoryAndGapMatrix",
-    "requiredEvidenceLevelBeforeStart": "E4_RUNTIME_VERIFIED"
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
