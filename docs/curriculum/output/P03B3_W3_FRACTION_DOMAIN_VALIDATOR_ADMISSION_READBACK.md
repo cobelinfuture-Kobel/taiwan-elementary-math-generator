@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B3_W3FractionDomainValidatorAdmission
-STATUS     = IMPLEMENTED_PENDING_EXACT_HEAD_CI
+STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
 EVIDENCE   = E5_PRODUCTION_ADMITTED
 ```
 
@@ -24,11 +24,11 @@ P03B3 consumes P03B1 and extends P03B2's latest validated successor promotion au
 ```text
 effective dependent KnowledgePoints = 52
 direct W3 KnowledgePoints            = 40
+direct capability requirement rows   = 52
 protected existing D0 rows           = 1
 new-product dependent rows           = 51
-direct capability requirement rows   = PENDING_EXACT_HEAD_CI
-dependent source nodes               = PENDING_EXACT_HEAD_CI
-source / KP bindings                 = PENDING_EXACT_HEAD_CI
+dependent source nodes               = 12
+source / KP bindings                 = 57
 P03B1 descriptor coverage            = 52 / 52
 descriptor errors                    = 0
 ```
@@ -76,29 +76,34 @@ remaining W3 contract-only     = 4
 ## Exact-head acceptance
 
 ```text
-full Node regression                       = PENDING_EXACT_HEAD_CI
-milestone claim integrity                  = PENDING_EXACT_HEAD_CI
-hardening queue entry                      = PENDING_EXACT_HEAD_CI
-fraction-number-system gate                = PENDING_EXACT_HEAD_CI
-P03B2 predecessor promotion                = PENDING_EXACT_HEAD_CI
-fraction-validator cohort                  = PENDING_EXACT_HEAD_CI
-source / KP binding sweep                  = PENDING_EXACT_HEAD_CI
-P03B1 descriptor coverage                  = PENDING_EXACT_HEAD_CI
-value validation                           = PENDING_EXACT_HEAD_CI
-magnitude constraint                       = PENDING_EXACT_HEAD_CI
-zero constraint                            = PENDING_EXACT_HEAD_CI
-canonical numerator / denominator limits   = PENDING_EXACT_HEAD_CI
-exact range constraint                     = PENDING_EXACT_HEAD_CI
-pair relation validation                   = PENDING_EXACT_HEAD_CI
-set validation                             = PENDING_EXACT_HEAD_CI
-canonical duplicate fail close             = PENDING_EXACT_HEAD_CI
-invalid input fail close                   = PENDING_EXACT_HEAD_CI
-arithmetic scope fail close                = PENDING_EXACT_HEAD_CI
-promotion status                           = PENDING_EXACT_HEAD_CI
-historical R04 preservation                = PENDING_EXACT_HEAD_CI
-scope boundary                             = PENDING_EXACT_HEAD_CI
+full Node regression                       = 2413 / 2413 PASS
+milestone claim integrity                  = PASS
+hardening queue entry                      = PASS
+fraction-number-system gate                = PASS
+P03B2 predecessor promotion                = PASS
+fraction-validator cohort                  = 52 / 52 PASS
+direct W3 cohort                           = 40 / 40 PASS
+direct requirement rows                    = 52 / 52 PASS
+dependent source nodes                     = 12 / 12 PASS
+source / KP binding sweep                  = 57 / 57 PASS
+P03B1 descriptor coverage                  = 52 / 52 PASS
+value validation                           = PASS
+magnitude constraint                       = PASS
+zero constraint                            = PASS
+canonical numerator / denominator limits   = PASS
+exact range constraint                     = PASS
+pair relation validation                   = PASS
+set validation                             = PASS
+canonical duplicate fail close             = PASS
+invalid input fail close                   = PASS
+arithmetic scope fail close                = PASS
+promotion status                           = PASS
+historical R04 preservation                = PASS
+scope boundary                             = PASS
 Chromium required                          = false
 ```
+
+Node Test run `30209614538` completed successfully on PR #384 head `3decff17740f04aee2504c5e2d4d20bce4bdfa06`. The exact metrics above are frozen into the manifest; the final head must re-run CI before merge.
 
 ## Distance
 
