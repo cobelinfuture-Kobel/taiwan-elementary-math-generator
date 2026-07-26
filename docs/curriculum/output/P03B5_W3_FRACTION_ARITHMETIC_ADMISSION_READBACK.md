@@ -4,8 +4,33 @@
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B5_W3FractionArithmeticAdmission
 QUEUE_ID   = P03B5_W3FractionArithmeticConsumerAdmission
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E5_PRODUCTION_ADMITTED
+```
+
+## GitHub result
+
+### Implementation
+
+```text
+PR        = #390
+HEAD_SHA  = 46ec9efe0f29d096a0c51a88db34d471482ec2c9
+MERGE_SHA = 50b59d8615ad9a766868278b64f6929c8ea6275f
+CI_RUN    = 30225226904
+CI_STATUS = SUCCESS
+```
+
+### Closeout reconciliation
+
+```text
+PR        = PENDING
+STALE_PR  = #391 CLOSED_ZERO_DIFF_AFTER_MAIN_REALIGNMENT
+SCOPE     = readback metadata only
+RUNTIME   = unchanged
+TESTS     = unchanged
+MANIFEST  = unchanged
+POLICY    = unchanged
+CONTRACT  = unchanged
 ```
 
 ## Capability admission
@@ -111,7 +136,47 @@ scope boundary                             = PASS
 Chromium required                          = false
 ```
 
-Node Test run `30225103741` completed successfully on PR #390 head `7967b94425e4c922bbead564bc44b271a3543dde`. Exact metrics are frozen into the manifest; the final head must re-run CI before merge.
+## Task closeout
+
+### Distance shortened
+
+```text
+cap_fraction_arithmetic
+contract_only
+→ production_admitted
+```
+
+### System node advanced
+
+```text
+P03A Hardening Queue
+→ P03B1 Exact Fraction Number System
+→ P03B3 Fraction Domain Validator
+→ Exact Fraction Arithmetic Consumer
+→ Successor Promotion Authority
+```
+
+### Blockers removed
+
+```text
+28 dependent KnowledgePoints lacked one shared exact fraction-arithmetic runtime
+addition and subtraction lacked one canonical least-common-denominator authority
+multiplication and division lacked one exact BigInt authority
+negative-result, zero-divisor and final-result overflow lacked unified fail-closed handling
+arithmetic result constraints were not connected to P03B3
+```
+
+### New blockers
+
+```text
+NONE
+```
+
+### Next shortest step
+
+```text
+P03B6_W3DecimalArithmeticAdmission
+```
 
 ## Distance
 
@@ -124,6 +189,9 @@ NEXT_SHORTEST_STEP   = P03B6_W3DecimalArithmeticAdmission
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+STOP_REASON = NEXT_IMPLEMENTATION_REQUIRES_SEPARATE_APPROVAL
+BLOCKER_TYPE = IMPLEMENTATION_BOUNDARY
+LAST_COMPLETED_STATUS = PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve P03B6_W3DecimalArithmeticAdmission
+NEXT_RESUME_TASK = P03B6_W3DecimalArithmeticAdmission
 ```
