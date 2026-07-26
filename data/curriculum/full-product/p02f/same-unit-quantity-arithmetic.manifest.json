@@ -7,13 +7,13 @@
   "expectedCounts": {
     "effectiveDependentKnowledgePointCount": 2,
     "operationDescriptorCount": 2,
+    "descriptorErrorCount": 0,
     "dependentSourceNodeCount": 3,
     "sourceKnowledgePointBindingCount": 3,
+    "semanticRoleBindingCount": 2,
     "fixedCanonicalUnitBindingCount": 4,
     "sourceDeclaredUnitDescriptorCount": 1,
-    "exactRationalDescriptorCount": 1,
-    "semanticRoleBindingCount": 2,
-    "descriptorErrorCount": 0,
+    "safeIntegerDescriptorCount": 2,
     "promotedCapabilityCount": 5,
     "newPromotionCount": 1,
     "remainingShadowFoundationCount": 0,
@@ -21,9 +21,8 @@
       "kp_fraction_times_integer_quantity",
       "kp_mass_times_integer"
     ],
-    "numericDomainCounts": {
-      "NON_NEGATIVE_RATIONAL": 1,
-      "NON_NEGATIVE_SAFE_INTEGER": 1
+    "coefficientDomainCounts": {
+      "NON_NEGATIVE_SAFE_INTEGER": 2
     },
     "dimensionCounts": {
       "MASS": 1,
@@ -35,20 +34,21 @@
     }
   },
   "exactAcceptance": {
-    "nodeTestsPassed": 2373,
+    "nodeTestsPassed": 2375,
     "nodeTestsFailed": 0,
     "canonicalOperationAuthorityPassed": true,
+    "globalAuthoritySemanticReadbackPassed": true,
     "exactKnowledgePointIdentityPassed": true,
     "sourceKnowledgePointBindingSweepPassed": true,
     "allFixedCanonicalMassUnitsPassed": true,
-    "exactRationalMixedNumberExecutionPassed": true,
-    "rationalReductionPassed": true,
     "sourceDeclaredUnitRequiresSourcePassed": true,
     "sourceDeclaredUnitPlaceholderBlocked": true,
     "sourceDeclaredUnitMismatchBlocked": true,
+    "sourceDeclaredUnitTreatedAsOpaqueIdentity": true,
+    "fractionMagnitudeParsingDisabled": true,
+    "rationalAndDecimalCoefficientBlocked": true,
     "unitPreservationPassed": true,
     "negativeAndFractionalMultiplierBlocked": true,
-    "invalidRationalBlocked": true,
     "unsafeResultOverflowBlocked": true,
     "predecessorPromotionsPreserved": true,
     "allFiveW2FoundationsProductionAdmitted": true,
@@ -71,6 +71,7 @@
     "productionDeterministicArithmeticConsumerAdded": true,
     "productionAdmissionChanged": true,
     "allFiveW2FoundationsProductionAdmitted": true,
+    "fractionArithmeticImplemented": false,
     "unitConversionImplemented": false,
     "mixedUnitNormalizationImplemented": false,
     "storyTemplateImplemented": false,
