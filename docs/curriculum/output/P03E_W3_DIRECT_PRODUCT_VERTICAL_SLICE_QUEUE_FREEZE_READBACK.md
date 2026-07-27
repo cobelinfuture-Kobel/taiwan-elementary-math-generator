@@ -25,7 +25,7 @@ CHROMIUM_REQUIRED     = false
 ### Closeout reconciliation
 
 ```text
-PR        = PENDING_REPLACEMENT_CLOSEOUT_PR_NUMBER
+PR        = #407
 STALE_PR  = #406 CLOSED_AFTER_MAIN_ADVANCED
 STALE_CI  = 30237057626 SUCCESS
 SCOPE     = readback metadata only
