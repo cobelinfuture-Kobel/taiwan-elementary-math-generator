@@ -1,0 +1,90 @@
+{
+  "schemaName": "P03B7W3MixedNumberDomainNormalizationPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03B7_W3MixedNumberDomainNormalizationAdmission",
+  "status": "W3_MIXED_NUMBER_DOMAIN_NORMALIZATION_POLICY_READY",
+  "authorities": {
+    "hardeningQueue": "src/curriculum/full-product/p03a-w3-capability-hardening-order-evidence.mjs",
+    "productInventory": "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+    "historicalCapabilityMatrix": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "fractionNumberSystem": "src/curriculum/full-product/p03b1-fraction-number-system-consumer.mjs",
+    "decimalNumberSystem": "src/curriculum/full-product/p03b2-decimal-number-system-consumer.mjs",
+    "fractionDomainValidator": "src/curriculum/full-product/p03b3-fraction-domain-validator.mjs",
+    "decimalDomainValidator": "src/curriculum/full-product/p03b4-decimal-domain-validator.mjs",
+    "fractionArithmetic": "src/curriculum/full-product/p03b5-fraction-arithmetic-consumer.mjs",
+    "decimalArithmetic": "src/curriculum/full-product/p03b6-decimal-arithmetic-consumer.mjs",
+    "predecessorPromotionRegistry": "data/curriculum/full-product/p03b6/w3-capability-promotion-registry.json",
+    "operatorApproval": "P03B7_APPROVED_2026-07-27"
+  },
+  "scope": {
+    "capabilityId": "cap_mixed_number_domain_normalization",
+    "queueOrder": 7,
+    "hardeningStageId": "W3-H3-CROSS-DOMAIN-NORMALIZATION",
+    "hardeningGateCapabilityIds": [
+      "cap_fraction_number_system",
+      "cap_decimal_number_system",
+      "cap_fraction_domain_validator",
+      "cap_decimal_domain_validator",
+      "cap_fraction_arithmetic",
+      "cap_decimal_arithmetic"
+    ],
+    "sourceDomains": ["FRACTION", "DECIMAL"],
+    "numericDomains": ["NON_NEGATIVE_RATIONAL", "NON_NEGATIVE_DECIMAL"],
+    "consumerMode": "PRODUCTION_DETERMINISTIC_MIXED_NUMBER_DOMAIN_NORMALIZATION"
+  },
+  "allowedActions": ["TO_FRACTION", "TO_DECIMAL", "EQUIVALENCE", "COMPARE"],
+  "allowedRelations": ["LESS_THAN", "EQUAL", "GREATER_THAN"],
+  "conversionRules": {
+    "decimalToFraction": "EXACT_REDUCED_RATIONAL",
+    "fractionToDecimal": "EXACT_TERMINATING_BASE10_ONLY",
+    "recurringDecimalApproximationAllowed": false,
+    "floatingPointApproximationAllowed": false,
+    "mixedNumberInputAllowed": true,
+    "negativeValuesAllowed": false
+  },
+  "limits": {
+    "maximumSafeInteger": 9007199254740991,
+    "maximumDecimalDigits": 64,
+    "maximumDecimalScale": 32,
+    "exactBigIntIntermediate": true
+  },
+  "blockingCodes": [
+    "P03B7_KP_ID_REQUIRED",
+    "P03B7_UNKNOWN_KNOWLEDGE_POINT",
+    "P03B7_KP_NOT_MIXED_DOMAIN_DEPENDENT",
+    "P03B7_SOURCE_KP_MISMATCH",
+    "P03B7_CAPABILITY_ASSERTION_MISMATCH",
+    "P03B7_ACTION_INVALID",
+    "P03B7_SOURCE_DOMAIN_INVALID",
+    "P03B7_CROSS_DOMAIN_REQUIRED",
+    "P03B7_VALUE_REQUIRED",
+    "P03B7_LEFT_VALUE_REQUIRED",
+    "P03B7_RIGHT_VALUE_REQUIRED",
+    "P03B7_FRACTION_VALIDATOR_REJECTED",
+    "P03B7_DECIMAL_VALIDATOR_REJECTED",
+    "P03B7_NON_TERMINATING_DECIMAL",
+    "P03B7_RESULT_OVERFLOW",
+    "P03B7_TARGET_VALIDATOR_REJECTED"
+  ],
+  "mainlineBoundary": {
+    "fractionNumberSystemReused": true,
+    "decimalNumberSystemReused": true,
+    "fractionDomainValidatorReused": true,
+    "decimalDomainValidatorReused": true,
+    "fractionArithmeticGateRequired": true,
+    "decimalArithmeticGateRequired": true,
+    "crossDomainNormalizationImplemented": true,
+    "ratioPercentReasoningImplemented": false,
+    "unitConversionImplemented": false,
+    "formalMappingImplementationStarted": false,
+    "patternSpecImplementationStarted": false,
+    "questionGeneratorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "publicUiChanged": false,
+    "protectedExistingD0ProductAdmissionChanged": false,
+    "newProductAdmissionChanged": false,
+    "p04ToP08WorkStarted": false
+  },
+  "nextTask": "P03C_W3CapabilityCloseoutAndProductUnblockReconciliation"
+}
