@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { materializeP03EW3DirectProductVerticalSliceQueue } from "./p03e-w3-direct-product-vertical-slice-queue.mjs";
 import { materializeP03B1FractionNumberSystemConsumer } from "./p03b1-fraction-number-system-consumer.mjs";
 import { materializeP03B3FractionDomainValidator } from "./p03b3-fraction-domain-validator.mjs";
+import { materializeP03B5FractionArithmeticConsumer } from "./p03b5-fraction-arithmetic-consumer.mjs";
 import { buildWorksheetDocumentFromPlan } from "../../../site/assets/browser/pipeline/build-worksheet-document.js";
 import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
 import {
@@ -88,11 +89,30 @@ function artifactIntegrity(manifest) {
     && report.questionCount === 8 && report.answerKeyItemCount === 8;
   return Object.freeze({ ok: pathsExist && hashesMatch && reportAccepted, pathsExist, hashesMatch, reportAccepted, report: Object.freeze(report), actual: Object.freeze(actual) });
 }
-function capabilityWitness(question, numberSystem, domainValidator) {
+function capabilityWitness(question, numberSystem, domainValidator, fractionArithmetic) {
   const value = { numerator: question.dividend, denominator: question.divisor };
+  const valuePolicy = { allowedMagnitudeClasses: ["PROPER_FRACTION", "IMPROPER_FRACTION", "WHOLE_NUMBER"], allowZero: false, maxCanonicalDenominator: 12 };
   const numberResult = numberSystem.execute({ action: "NORMALIZE", knowledgePointId: G3B_U07_QUOTIENT_FRACTION_KP_ID, sourceNodeId: G3B_U07_SOURCE_ID, value, assertedCapabilityId: "cap_fraction_number_system" });
-  const domainResult = domainValidator.execute({ action: "VALIDATE_VALUE", knowledgePointId: G3B_U07_QUOTIENT_FRACTION_KP_ID, sourceNodeId: G3B_U07_SOURCE_ID, value, valuePolicy: { allowedMagnitudeClasses: ["PROPER_FRACTION", "IMPROPER_FRACTION", "WHOLE_NUMBER"], allowZero: false, maxCanonicalDenominator: 12 }, assertedCapabilityId: "cap_fraction_domain_validator" });
-  return Object.freeze({ questionId: question.id, value: Object.freeze(value), numberSystemOk: numberResult.ok, canonicalValue: numberResult.result?.canonicalValue ?? null, domainValidatorOk: domainResult.ok, domainCanonicalIdentity: domainResult.result?.canonicalIdentity ?? null });
+  const domainResult = domainValidator.execute({ action: "VALIDATE_VALUE", knowledgePointId: G3B_U07_QUOTIENT_FRACTION_KP_ID, sourceNodeId: G3B_U07_SOURCE_ID, value, valuePolicy, assertedCapabilityId: "cap_fraction_domain_validator" });
+  const arithmeticResult = fractionArithmetic.execute({
+    action: "DIVIDE",
+    knowledgePointId: G3B_U07_QUOTIENT_FRACTION_KP_ID,
+    sourceNodeId: G3B_U07_SOURCE_ID,
+    leftValue: { numerator: question.dividend, denominator: 1 },
+    rightValue: { numerator: question.divisor, denominator: 1 },
+    resultPolicy: valuePolicy,
+    assertedCapabilityId: "cap_fraction_arithmetic",
+  });
+  return Object.freeze({
+    questionId: question.id,
+    value: Object.freeze(value),
+    numberSystemOk: numberResult.ok,
+    canonicalValue: numberResult.result?.canonicalValue ?? null,
+    domainValidatorOk: domainResult.ok,
+    domainCanonicalIdentity: domainResult.result?.canonicalIdentity ?? null,
+    fractionArithmeticOk: arithmeticResult.ok,
+    arithmeticCanonicalValue: arithmeticResult.result?.canonicalValue ?? null,
+  });
 }
 
 export function materializeP03FSlice003ProductAdmission() {
@@ -104,6 +124,7 @@ export function materializeP03FSlice003ProductAdmission() {
   const predecessorPassed = predecessorText.includes("STATUS     = PASS_CI_SYNCED_AND_MERGED") && predecessorText.includes("EVIDENCE   = E6_D0_COMPLETE");
   const numberSystem = materializeP03B1FractionNumberSystemConsumer();
   const domainValidator = materializeP03B3FractionDomainValidator();
+  const fractionArithmetic = materializeP03B5FractionArithmeticConsumer();
   const selectorProjectionAudit = auditG3BU07QuotientFractionSelectorProjection();
   const selectorCompositionAudit = auditP03F3PublicSelectorComposition();
   const patternAudit = validateP03F3PatternDefinition();
@@ -113,7 +134,7 @@ export function materializeP03FSlice003ProductAdmission() {
   const planValidation = validateBatchABrowserPlan(browserPlan);
   const generation = generateBatchABrowserQuestions(requestedPlan);
   const questionValidation = validateBatchABrowserQuestions(generation.questions ?? []);
-  const capabilityWitnesses = (generation.questions ?? []).map((question) => capabilityWitness(question, numberSystem, domainValidator));
+  const capabilityWitnesses = (generation.questions ?? []).map((question) => capabilityWitness(question, numberSystem, domainValidator, fractionArithmetic));
   const worksheet = buildWorksheetDocumentFromPlan(requestedPlan);
   const document = worksheet.worksheetDocument ?? null;
   const html = renderProductionHtml(document);
@@ -154,7 +175,7 @@ export function materializeP03FSlice003ProductAdmission() {
   return Object.freeze({
     schemaName: manifest.schemaName, schemaVersion: manifest.schemaVersion, programId: manifest.programId, taskId: manifest.taskId,
     status: manifest.status, version: P03F_SLICE003_PRODUCT_ADMISSION_VERSION, authority: Object.freeze(authority), manifest: Object.freeze(manifest),
-    queueAuthority: queue, slice, predecessorPassed, numberSystem, domainValidator, selectorProjectionAudit, selectorCompositionAudit, patternAudit, controlAudit,
+    queueAuthority: queue, slice, predecessorPassed, numberSystem, domainValidator, fractionArithmetic, selectorProjectionAudit, selectorCompositionAudit, patternAudit, controlAudit,
     requestedPlan, browserPlan, planValidation, generation, questionValidation, capabilityWitnesses: freezeArray(capabilityWitnesses), worksheet,
     document, html, publicSource, selectorRow: selectorRow ? Object.freeze(selectorRow) : null, visibleGroups: freezeArray(visibleGroups),
     availability: availability ? Object.freeze(availability) : null, controlProfile: controlProfile ? Object.freeze(controlProfile) : null,
