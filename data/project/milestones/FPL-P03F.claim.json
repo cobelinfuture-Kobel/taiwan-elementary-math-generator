@@ -4,7 +4,7 @@
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
   "actualEvidenceLevel": "E6_D0_COMPLETE",
-  "claimedStatus": "W3_SLICE001_D0_COMPLETE",
+  "claimedStatus": "PASS_CI_SYNCED_AND_MERGED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
