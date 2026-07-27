@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
-  "status": "SLICE001_IMPLEMENTED_PENDING_EXACT_HEAD_CI",
+  "status": "SLICE001_PRODUCTION_EQUIVALENT_PENDING_CHROMIUM_ACCEPTANCE",
   "expectedCounts": {
     "queuePosition": 1,
     "sourceNodeCount": 1,
@@ -19,11 +19,11 @@
     "questionWitnessCount": 8,
     "answerKeyWitnessCount": 8,
     "htmlWitnessCount": 1,
-    "chromiumPdfWitnessCount": 1,
+    "chromiumPdfWitnessCount": 0,
     "overflowFindingCount": 0,
-    "newProductAdmissionCount": 1,
-    "remainingDirectSliceCount": 52,
-    "remainingDirectKnowledgePointCount": 81,
+    "newProductAdmissionCount": 0,
+    "remainingDirectSliceCount": 53,
+    "remainingDirectKnowledgePointCount": 82,
     "laterWaveDependentCount": 33
   },
   "exactAcceptance": {
@@ -55,13 +55,13 @@
   "validatorPath": "tools/curriculum/validate-p03f-slice001-product-admission.mjs",
   "chromiumAcceptancePath": "tools/curriculum/render-p03f-slice001-product-acceptance.mjs",
   "mainlineBoundary": {
-    "queuePositionConsumed": 1,
+    "queuePositionConsumed": 0,
     "nextQueuePositionStarted": false,
     "otherG3AU08KnowledgePointsAdmitted": false,
     "applicationStoryGenerationAdded": false,
     "parallelRuntimePipelineAdded": false,
     "sharedWorksheetRendererBehaviorChanged": false,
-    "visibleOutputChanged": true,
+    "visibleOutputChanged": false,
     "nextTaskRequiresSeparateApproval": true,
     "nextTask": "P03F_W3DirectProductVerticalSlice002Implementation"
   }
