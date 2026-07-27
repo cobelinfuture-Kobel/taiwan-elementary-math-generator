@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_SLICE001_PRODUCT_ADMITTED_PENDING_CHROMIUM_D0_CLOSEOUT",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3a-u08-part-whole-fraction-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f-extension.js",
+      "site/modules/curriculum/batch-a/part-whole-fraction-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f.js",
+      "src/curriculum/full-product/p03f-slice001-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice001-product-admission.mjs",
+      "tests/curriculum/p03f-slice001-part-whole-fraction.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice001-product-acceptance.mjs",
+      ".github/workflows/node-test.yml"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03E.claim.json",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice001-part-whole-fraction-authority.json",
+      "data/curriculum/full-product/p03f/slice001-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE001_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE001_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The first frozen W3 product slice now has one public source and KnowledgePoint identity, tag binding, FormalMapping, canonical PatternSpec successor, shared generator and deterministic validator bindings, public selector, worksheet, answer key and production HTML path; Chromium PDF and final D0 closeout remain pending."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice001ChromiumD0Closeout",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}
