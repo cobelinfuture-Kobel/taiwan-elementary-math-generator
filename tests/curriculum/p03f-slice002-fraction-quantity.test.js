@@ -60,6 +60,7 @@ test("P03F2 deterministically generates three numeric and three application Patt
     assert.equal(first.questions.length, 6);
     assert.equal(first.allocation.length, 3);
     assert.equal(new Set(first.questions.map((row) => row.patternSpecId)).size, 3);
+    assert.equal(new Set(first.questions.map((row) => row.blankedDisplayText)).size, 6);
     for (const question of first.questions) {
       assert.equal(question.questionMode, mode);
       assert.equal(validateG3AU08Slice002Question(question).ok, true);
@@ -116,17 +117,20 @@ test("P03F2 shared worksheet and answer key render both modes", () => {
   }
 });
 
-test("P03F2 aggregate admission is E4 fail-closed before Chromium, and slice001 remains D0", () => {
+test("P03F2 aggregate admission closes at E6 D0 and preserves slice001 D0", () => {
   const predecessor = validateP03FSlice001ProductAdmission();
   assert.equal(predecessor.ok, true, JSON.stringify(predecessor.errors));
   const result = validateP03FSlice002ProductAdmission();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.productAdmissionState, "PRODUCT_ACCEPTANCE_PENDING");
-  assert.equal(result.d0Complete, false);
+  assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0");
+  assert.equal(result.d0Complete, true);
+  assert.equal(result.artifactIntegrity.ok, true, JSON.stringify(result.artifactIntegrity));
   assert.equal(result.metrics.questionWitnessCount, 12);
   assert.equal(result.metrics.answerKeyWitnessCount, 12);
   assert.equal(result.metrics.globalContextBindingCount, 3);
-  assert.equal(result.metrics.newProductAdmissionCount, 0);
-  assert.equal(result.metrics.remainingDirectSliceCount, 52);
-  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 81);
+  assert.equal(result.metrics.chromiumPdfWitnessCount, 2);
+  assert.equal(result.metrics.newProductAdmissionCount, 2);
+  assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 3);
+  assert.equal(result.metrics.remainingDirectSliceCount, 51);
+  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 79);
 });
