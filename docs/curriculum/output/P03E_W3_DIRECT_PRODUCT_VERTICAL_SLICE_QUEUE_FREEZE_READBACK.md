@@ -3,8 +3,39 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03E_W3DirectProductVerticalSliceQueueFreeze
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
+```
+
+## GitHub result
+
+### Implementation
+
+```text
+PR                    = #405
+HEAD_SHA              = 9efe3aa00325d685d3668aa0c0f3a5c448d5421f
+MERGE_SHA             = f4e16b35dad3e7572fa80c0ad04294f994f38122
+FINAL_NODE_CI_RUN     = 30236844306
+DERIVATION_CI_RUN     = 30236219130
+REGISTRY_CI_RUN       = 30236654946
+CI_STATUS             = SUCCESS
+CHROMIUM_REQUIRED     = false
+```
+
+### Closeout reconciliation
+
+```text
+PR        = PENDING_CLOSEOUT_PR_NUMBER
+SCOPE     = readback metadata only
+RUNTIME   = unchanged
+REGISTRY  = unchanged
+DIGEST    = unchanged
+VALIDATOR = unchanged
+TESTS     = unchanged
+POLICY    = unchanged
+MANIFEST  = unchanged
+CLAIM     = unchanged
+CONTRACT  = unchanged
 ```
 
 ## Scope
@@ -17,7 +48,7 @@ all new-product rows still unadmitted     = 115
 new product admissions by P03E            = 0
 ```
 
-P03E freezes implementation order only. It does not implement FormalMapping, PatternSpec, generator, validator, public adapter, UI, worksheet, renderer or product admission.
+P03E freezes implementation order only. It did not implement FormalMapping, PatternSpec, generator, validator, public adapter, UI, worksheet, renderer or product admission.
 
 ## Frozen queue
 
@@ -33,7 +64,7 @@ target per slice          = E6_D0_COMPLETE
 queue digest              = 06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7
 ```
 
-The registry freezes all 53 ordered slice IDs, all 53 implementation task IDs, all 82 ordered KnowledgePoint IDs and the complete derived-queue digest. Runtime remains the single authority that materializes full slice records.
+The frozen registry records all 53 ordered slice IDs, all 53 implementation task IDs, all 82 ordered KnowledgePoint IDs and the complete derived-queue digest. The runtime materializer remains the single authority for complete slice records.
 
 ## Distribution
 
@@ -91,13 +122,11 @@ required capabilities = [cap_fraction_domain_validator, cap_fraction_number_syst
 previous slice        = NONE
 ```
 
-No second slice may start until this slice reaches its complete E6 D0 closeout.
+No second slice may start until slice 001 reaches its complete E6 D0 closeout.
 
-## Exact-head acceptance
+## Acceptance
 
 ```text
-queue derivation Node run              = 30236219130 SUCCESS
-clean-head Node run                    = 30236654946 SUCCESS
 full Node regression                   = 2471 / 2471 PASS
 milestone claim integrity              = PASS
 P03C predecessor                       = PASS
@@ -116,6 +145,15 @@ scope boundary                         = PASS
 Chromium required                      = false
 ```
 
+## Task closeout
+
+```text
+DISTANCE_SHORTENED = 82 direct W3 new-product rows moved from an unordered product backlog to one deterministic 53-slice serial execution authority.
+SYSTEM_NODE_ADVANCED = P03C Capability-Unblocked Matrix + P03D Protected D0 Revalidation → P03E Direct Product Vertical-Slice Queue.
+BLOCKERS_REMOVED = [direct W3 products lacked an authoritative bounded order, source/rank/profile atomicity, serial predecessor gates and one exact first executable slice]
+NEW_BLOCKERS = []
+```
+
 ## Distance
 
 ```text
@@ -127,6 +165,9 @@ NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice001Implementation
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+STOP_REASON = NEXT_IMPLEMENTATION_REQUIRES_SEPARATE_APPROVAL
+BLOCKER_TYPE = IMPLEMENTATION_BOUNDARY
+LAST_COMPLETED_STATUS = PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve P03F_W3DirectProductVerticalSlice001Implementation
+NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice001Implementation
 ```
