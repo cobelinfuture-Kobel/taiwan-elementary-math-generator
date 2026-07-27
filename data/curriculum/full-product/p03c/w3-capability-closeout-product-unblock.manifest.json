@@ -26,7 +26,7 @@
     "newProductAdmissionCount": 0
   },
   "exactAcceptance": {
-    "nodeTestsPassed": 0,
+    "nodeTestsPassed": 2454,
     "nodeTestsFailed": 0,
     "milestoneClaimIntegrityPassed": true,
     "historicalInventoryPreserved": true,
