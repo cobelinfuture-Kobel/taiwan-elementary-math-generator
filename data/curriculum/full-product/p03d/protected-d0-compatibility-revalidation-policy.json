@@ -1,0 +1,70 @@
+{
+  "schemaName": "P03DProtectedD0CompatibilityRevalidationPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03D_W3ProtectedD0CompatibilityRevalidation",
+  "status": "PROTECTED_D0_COMPATIBILITY_REVALIDATION_POLICY_READY",
+  "authorities": {
+    "predecessorReconciliation": "src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-extension.js",
+    "publicWorksheetConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "productionHtmlRenderer": "site/modules/renderer/html-renderer-s73-extension.js",
+    "globalAuthorityCutover": "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+    "protectedFifteenUnitAudit": "tools/curriculum/audit-15-unit-public-worksheet-closeout-v2.mjs"
+  },
+  "protectedKnowledgePointIds": [
+    "kp_g3a_u01_digit_arrangement_max_min",
+    "kp_g4a_u01_boundary_number_difference",
+    "kp_g4a_u01_missing_digit_comparison_extreme_digit",
+    "kp_g4b_u01_trailing_zero_division_remainder_restore"
+  ],
+  "requiredProductChecks": [
+    "PUBLIC_SOURCE_SELECTABLE",
+    "PUBLIC_KNOWLEDGE_POINT_VISIBLE",
+    "PUBLIC_PATTERN_GROUPS_PRESENT",
+    "PUBLIC_PATTERN_SPECS_PRESENT",
+    "R07_GLOBAL_PRIMARY_CUTOVER_APPLIED",
+    "REQUESTED_KP_AND_PATTERN_IDENTITY_PRESERVED",
+    "SHARED_GENERATOR_COMPLETES",
+    "SHARED_VALIDATOR_PASSES",
+    "ANSWER_KEY_PRESENT",
+    "HTML_RENDER_COMPLETES",
+    "PRINT_LAYOUT_DATA_PRESENT",
+    "CHROMIUM_PDF_VALID",
+    "CHROMIUM_PAGE_OVERFLOW_ZERO"
+  ],
+  "revalidationRules": {
+    "everyProtectedRowMustRemainHistoricallyProductionAdmitted": true,
+    "everyProtectedRowMustBeCapabilityUnblockedByP03C": true,
+    "everyVisiblePatternGroupMustProduceACompatibilityWitness": true,
+    "everyCompatibilityWitnessMustUseGlobalPrimaryAuthority": true,
+    "everyCompatibilityWitnessMustPreserveRequestedKnowledgePointIdentity": true,
+    "everyCompatibilityWitnessMustPreserveRequestedPatternGroupIdentity": true,
+    "everyCompatibilityWitnessMustGenerateQuestionsAndAnswerKey": true,
+    "everyCompatibilityWitnessMustRenderProductionHtml": true,
+    "everyCompatibilityWitnessMustExposePrintLayoutData": true,
+    "chromiumPdfAndOverflowAcceptanceRequired": true,
+    "protectedAdmissionMayBePreservedButNotRecreated": true,
+    "newProductAdmissionAllowed": false,
+    "historicalP03AndP03CStateMutationAllowed": false
+  },
+  "scopeBoundary": {
+    "protectedKnowledgePointCount": 4,
+    "protectedSourceCount": 3,
+    "newProductRowsInScope": 0,
+    "newProductVerticalSliceImplementationAllowed": false,
+    "formalMappingImplementationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "publicUiFeatureImplementationAllowed": false,
+    "worksheetRendererBehaviorChangeAllowed": false,
+    "existingProductContentChangeAllowed": false,
+    "visibleOutputChangeExpected": false
+  },
+  "fullProductBoundary": {
+    "fullProductLineClosed": false,
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P03E_W3DirectProductVerticalSliceQueueFreeze"
+  }
+}
