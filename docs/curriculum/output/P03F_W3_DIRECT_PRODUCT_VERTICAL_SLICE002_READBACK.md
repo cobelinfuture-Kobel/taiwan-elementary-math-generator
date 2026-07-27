@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice002Implementation
-STATUS     = D0_IMPLEMENTED_PENDING_CLEAN_HEAD_CI
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E6_D0_COMPLETE
 ```
 
@@ -73,24 +73,26 @@ numeric PDF SHA256      = 361a5f1abc3fe80ce1dc31871a4beb40ecaa238abaa591ba62cf6f
 application PDF SHA256  = 73caeadd2d4c36fb92bdf4ba2c3cdea52bc50b40c1d2a46f2557128f18b0545d
 ```
 
-## Verified acceptance before final E6 head
+## Final exact-head acceptance and merge
 
 ```text
-full Node regression            = 2485 / 2485 PASS
-Node / Chromium run             = 30249876370 SUCCESS
-Chromium artifact               = 8646585482
-artifact digest                 = sha256:a18c3dafe6a9f0a94addae9361c44b892617ed405798779c4a5eba0025aa4ccc
-queue and predecessor           = PASS
+implementation PR               = #410
+implementation head             = ba6bbf947881b15427892c8b5797aa668c1697af
+implementation merge SHA        = f3c0b5fb8941b78466cbbdead932b7465b3f763b
+implementation merged at        = 2026-07-27T09:27:06Z
+final Node / Chromium run        = 30251213816 SUCCESS
+final Chromium artifact          = 8647091451
+full Node regression             = 2486 / 2486 PASS
+queue and predecessor            = PASS
 2-KP / 4-group / 6-spec surface = PASS
-Global Context records          = 3 / 3 PASS
-numeric questions               = 6 / 6 PASS
-application questions           = 6 / 6 PASS
-answer-key items                = 12 / 12 PASS
-physical page parity            = PASS
-visual semantic review          = PASS
+Global Context records           = 3 / 3 PASS
+numeric questions                = 6 / 6 PASS
+application questions            = 6 / 6 PASS
+answer-key items                 = 12 / 12 PASS
+physical page parity             = PASS
+visual semantic review           = PASS
+all governance workflows         = PASS
 ```
-
-The exact final E6 head must repeat full Node, governance, current Pixel and Chromium gates before merge.
 
 ## Admission effect
 
@@ -110,10 +112,20 @@ parallel product pipelines   = 0
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_DIRECT_PRODUCT_SLICE001_D0_MERGED
-GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE002_D0_COMPLETE
-DISTANCE_REDUCED     = Frozen queue position 2 now admits two fraction quantity KnowledgePoints through numeric and Global Context application routes, shared generator and validator, current Classic and Pixel selection, answer keys and committed A4 PDF products.
+GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE002_D0_MERGED
+DISTANCE_REDUCED     = Frozen queue position 2 now has two merged D0 fraction quantity KnowledgePoints through numeric and Global Context application routes, shared generator and validator, current Classic and Pixel selection, answer keys and committed A4 PDF products.
 REMAINING_BLOCKERS   = [51 direct-product slices have not yet reached D0, 33 later-wave dependent rows remain owned by later waves]
 NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice003Implementation
+```
+
+## Task closeout
+
+```text
+1. Distance segment shortened = W3 direct-product queue position 2 moved from frozen-only to merged E6 D0.
+2. System nodes advanced       = KnowledgePoint, Tag Registry, FormalMapping, PatternSpec, Generator, Validator, Global Context, Classic/Pixel selector, Worksheet, HTML/PDF renderer.
+3. Blocker removed             = queue position 2 product admission and merge blocker.
+4. New blocker added           = none.
+5. Next shortest valid step    = P03F_W3DirectProductVerticalSlice003Implementation.
 ```
 
 ```text
