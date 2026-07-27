@@ -26,6 +26,12 @@ import {
   listPixelKnowledgePointsForSource,
 } from "../../site/pixel/pixel-registry-bridge.js";
 
+const EXPECTED_W3_CAPABILITY_IDS = [
+  "cap_fraction_arithmetic",
+  "cap_fraction_domain_validator",
+  "cap_fraction_number_system",
+];
+
 const plan = (overrides = {}) => ({
   sourceId: G3B_U07_SOURCE_ID,
   selectionMode: "singleKnowledgePoint",
@@ -46,6 +52,8 @@ test("P03F3 consumes exact queue position 3 after slice002 D0", () => {
   assert.equal(evidence.slice.sliceId, "p03e_q003_r5_g3b_u07_3b07_profile_fraction_c1");
   assert.equal(evidence.slice.previousSliceId, "p03e_q002_r5_g3a_u08_3a08_profile_fraction_c1");
   assert.deepEqual(evidence.slice.knowledgePointIds, [G3B_U07_QUOTIENT_FRACTION_KP_ID]);
+  assert.deepEqual(evidence.slice.requiredW3CapabilityIds, EXPECTED_W3_CAPABILITY_IDS);
+  assert.deepEqual(evidence.authority.knowledgePoint.requiredCapabilityIds, EXPECTED_W3_CAPABILITY_IDS);
   assert.equal(evidence.predecessorPassed, true);
 });
 
@@ -74,6 +82,18 @@ test("P03F3 validator rejects ordered-role and answer tampering", () => {
   assert.equal(validateG3BU07QuotientFractionQuestion({ ...original, finalAnswer: { ...original.finalAnswer, numerator: original.divisor } }).ok, false);
   assert.equal(validateG3BU07QuotientFractionQuestion({ ...original, divisor: 0 }).ok, false);
   assert.equal(validateG3BU07QuotientFractionQuestion({ ...original, questionMode: "application" }).ok, false);
+});
+
+test("P03F3 binds number-system, domain-validator and arithmetic witnesses", () => {
+  const evidence = materializeP03FSlice003ProductAdmission();
+  assert.equal(evidence.fractionArithmetic.capabilityId, "cap_fraction_arithmetic");
+  assert.equal(evidence.capabilityWitnesses.length, 8);
+  for (const witness of evidence.capabilityWitnesses) {
+    assert.equal(witness.numberSystemOk, true);
+    assert.equal(witness.domainValidatorOk, true);
+    assert.equal(witness.fractionArithmeticOk, true);
+    assert.deepEqual(witness.arithmeticCanonicalValue, witness.canonicalValue);
+  }
 });
 
 test("P03F3 selector exposes only one G3B-U07 KP", () => {
@@ -116,6 +136,7 @@ test("P03F3 aggregate admission is E4 fail-closed and preserves slice002 D0", ()
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.productAdmissionState, "PRODUCT_ACCEPTANCE_PENDING");
   assert.equal(result.d0Complete, false);
+  assert.equal(result.metrics.requiredCapabilityCount, 3);
   assert.equal(result.metrics.questionWitnessCount, 8);
   assert.equal(result.metrics.answerKeyWitnessCount, 8);
   assert.equal(result.metrics.newProductAdmissionCount, 0);
