@@ -25,7 +25,7 @@ CHROMIUM_DIGEST       = sha256:41948dda538328eca1fa8069459e16bf86a99d273099f3e73
 ### Closeout reconciliation
 
 ```text
-PR        = PENDING_CLOSEOUT_PR_NUMBER
+PR        = #403
 SCOPE     = readback metadata only
 RUNTIME   = unchanged
 VALIDATOR = unchanged
