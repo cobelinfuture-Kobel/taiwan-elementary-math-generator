@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03E_W3DirectProductVerticalSliceQueueFreeze",
-  "status": "QUEUE_FROZEN_PENDING_CLEAN_HEAD_CI",
+  "status": "PASS_EXACT_HEAD_CI_READY_TO_MERGE",
   "expectedCounts": {
     "directW3KnowledgePointCount": 82,
     "directW3SourceNodeCount": 16,
@@ -22,6 +22,7 @@
     "nodeTestsPassed": 2471,
     "nodeTestsFailed": 0,
     "queueDerivationWorkflowRunId": 30236219130,
+    "cleanHeadWorkflowRunId": 30236654946,
     "milestoneClaimIntegrityPassed": true,
     "predecessorP03CPassed": true,
     "predecessorP03DPassed": true,
