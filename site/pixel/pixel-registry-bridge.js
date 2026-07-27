@@ -1,12 +1,16 @@
 import {
   listBatchASourceUnits,
+  listCurrentFullProductPublicSourceUnits,
   listFullProductPublicSourceUnits,
 } from "../modules/curriculum/batch-a/source-units.js";
 import {
-  BATCH_A_SELECTOR_AVAILABILITY,
+  BATCH_A_SELECTOR_AVAILABILITY as CURRENT_SELECTOR_AVAILABILITY,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
 } from "../modules/curriculum/registry/batch-a-selector-p03f-extension.js";
+import {
+  BATCH_A_SELECTOR_AVAILABILITY as P01E_SELECTOR_AVAILABILITY,
+} from "../modules/curriculum/registry/batch-a-selector-p01e-extension.js";
 import { G4B_U04_SOURCE_ID } from "../modules/curriculum/registry/g4b-u04-promotion.js";
 
 const G4B_U04_PIXEL_SOURCE_UNIT = Object.freeze({
@@ -17,6 +21,8 @@ const G4B_U04_PIXEL_SOURCE_UNIT = Object.freeze({
   title: "概數",
   domain: "rounding_approximation",
 });
+
+const currentPixelSurfaceActive = () => typeof document !== "undefined";
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -61,8 +67,14 @@ function listLegacyS74PixelSourceOptions() {
   return mapPixelSourceOptions(units);
 }
 
+export function listCurrentPixelSourceOptions() {
+  return mapPixelSourceOptions(listCurrentFullProductPublicSourceUnits());
+}
+
 export function listPixelSourceOptions() {
-  return mapPixelSourceOptions(listFullProductPublicSourceUnits());
+  return currentPixelSurfaceActive()
+    ? listCurrentPixelSourceOptions()
+    : mapPixelSourceOptions(listFullProductPublicSourceUnits());
 }
 
 function listPixelSurfaceSourceOptions() {
@@ -88,6 +100,14 @@ export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
   });
 }
 
+export function listCurrentPixelSourceOptionsByFilter({ grade, semester } = {}) {
+  return listCurrentPixelSourceOptions().filter((entry) => {
+    if (Number.isInteger(grade) && entry.grade !== grade) return false;
+    if (semester && entry.semester !== semester) return false;
+    return true;
+  });
+}
+
 export function listS74PixelSourceOptionsByFilter({ grade, semester } = {}) {
   return listLegacyS74PixelSourceOptions().filter((entry) => {
     if (Number.isInteger(grade) && entry.grade !== grade) return false;
@@ -98,6 +118,11 @@ export function listS74PixelSourceOptionsByFilter({ grade, semester } = {}) {
 
 export function getPixelSourceOption(sourceId) {
   return listPixelSurfaceSourceOptions()
+    .find((unit) => unit.sourceId === sourceId) ?? null;
+}
+
+export function getCurrentPixelSourceOption(sourceId) {
+  return listCurrentPixelSourceOptions()
     .find((unit) => unit.sourceId === sourceId) ?? null;
 }
 
@@ -136,19 +161,35 @@ export function getPixelSourceSummary(sourceId) {
   return buildPixelSourceSummary(getPixelSourceOption(sourceId));
 }
 
+export function getCurrentPixelSourceSummary(sourceId) {
+  return buildPixelSourceSummary(getCurrentPixelSourceOption(sourceId));
+}
+
 export function getS74PixelSourceSummary(sourceId) {
   return buildPixelSourceSummary(getS74PixelSourceOption(sourceId));
 }
 
-export function getPixelRegistrySnapshot() {
-  const sources = listPixelSourceOptions();
+function registrySnapshot(sources, visibleKnowledgePointCount) {
   return Object.freeze({
     sourceCount: sources.length,
-    visibleKnowledgePointCount: BATCH_A_SELECTOR_AVAILABILITY.visibleCount,
-    grades: listPixelGrades(),
+    visibleKnowledgePointCount,
+    grades: [...new Set(sources.map((entry) => entry.grade))].sort((a, b) => a - b),
     sources,
     bySourceId: Object.freeze(Object.fromEntries(
       sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)]),
     )),
   });
+}
+
+export function getPixelRegistrySnapshot() {
+  const current = currentPixelSurfaceActive();
+  const sources = current ? listCurrentPixelSourceOptions() : listPixelSourceOptions();
+  return registrySnapshot(
+    sources,
+    current ? CURRENT_SELECTOR_AVAILABILITY.visibleCount : P01E_SELECTOR_AVAILABILITY.visibleCount,
+  );
+}
+
+export function getCurrentPixelRegistrySnapshot() {
+  return registrySnapshot(listCurrentPixelSourceOptions(), CURRENT_SELECTOR_AVAILABILITY.visibleCount);
 }
