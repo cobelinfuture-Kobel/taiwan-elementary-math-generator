@@ -1,0 +1,99 @@
+{
+  "schemaName": "P03CW3CapabilityCloseoutProductUnblockPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03C_W3CapabilityCloseoutAndProductUnblockReconciliation",
+  "status": "W3_CAPABILITY_CLOSEOUT_PRODUCT_UNBLOCK_POLICY_READY",
+  "authorities": {
+    "historicalDependencyInventory": "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+    "hardeningQueue": "src/curriculum/full-product/p03a-w3-capability-hardening-order-evidence.mjs",
+    "finalPromotionRegistry": "data/curriculum/full-product/p03b7/w3-capability-promotion-registry.json",
+    "capabilityClaims": [
+      "data/project/milestones/FPL-P03B1.claim.json",
+      "data/project/milestones/FPL-P03B2.claim.json",
+      "data/project/milestones/FPL-P03B3.claim.json",
+      "data/project/milestones/FPL-P03B4.claim.json",
+      "data/project/milestones/FPL-P03B5.claim.json",
+      "data/project/milestones/FPL-P03B6.claim.json",
+      "data/project/milestones/FPL-P03B7.claim.json"
+    ],
+    "operatorApproval": "P03C_APPROVED_2026-07-27"
+  },
+  "requiredW3CapabilityIds": [
+    "cap_fraction_number_system",
+    "cap_decimal_number_system",
+    "cap_fraction_domain_validator",
+    "cap_decimal_domain_validator",
+    "cap_fraction_arithmetic",
+    "cap_decimal_arithmetic",
+    "cap_mixed_number_domain_normalization"
+  ],
+  "expectedHistoricalShape": {
+    "directW3KnowledgePointCount": 82,
+    "dependentKnowledgePointCount": 119,
+    "dependentSourceNodeCount": 28,
+    "dependentWaveCount": 6,
+    "protectedExistingD0KnowledgePointCount": 4,
+    "newProductDependentKnowledgePointCount": 115,
+    "protectedD0CompatibilityRevalidationCount": 4,
+    "existingPublicPatternAfterCapabilityCount": 0,
+    "patternBindingRequiredAfterCapabilityCount": 0,
+    "publicProductVerticalSliceRequiredAfterCapabilityCount": 115
+  },
+  "unblockRules": {
+    "historicalP03InventoryImmutable": true,
+    "allSevenW3ClaimsMustBeE5ProductionAdmitted": true,
+    "allRequiredW3CapabilityIdsMustBePromoted": true,
+    "rowCapabilityUnblockedWhenEveryRequiredW3CapabilityIdIsPromoted": true,
+    "capabilityUnblockDoesNotImplyNewProductAdmission": true,
+    "protectedExistingD0AdmissionMustBePreserved": true,
+    "protectedExistingD0RowsRequireCompatibilityRevalidation": true,
+    "newProductRowsRemainOwnedByProductVerticalSliceTasks": true,
+    "directNewProductAdmissionAllowed": false,
+    "formalMappingImplementationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "publicSourceAdapterImplementationAllowed": false,
+    "publicUiImplementationAllowed": false,
+    "worksheetRendererImplementationAllowed": false,
+    "p04ToP08ImplementationAllowed": false
+  },
+  "downstreamStateMapping": {
+    "PROTECTED_EXISTING_D0_COMPATIBILITY_REVALIDATION_REQUIRED": "CAPABILITY_UNBLOCKED_PROTECTED_D0_COMPATIBILITY_REVALIDATION_PENDING",
+    "EXISTING_PUBLIC_PATTERN_AFTER_W3_CAPABILITY": "CAPABILITY_UNBLOCKED_EXISTING_PUBLIC_PATTERN_ACCEPTANCE_PENDING",
+    "PATTERN_GROUP_OR_SPEC_BINDING_REQUIRED_AFTER_W3_CAPABILITY": "CAPABILITY_UNBLOCKED_PATTERN_BINDING_REQUIRED",
+    "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED_AFTER_W3_CAPABILITY": "CAPABILITY_UNBLOCKED_PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED"
+  },
+  "nextActionMapping": {
+    "CAPABILITY_UNBLOCKED_PROTECTED_D0_COMPATIBILITY_REVALIDATION_PENDING": [
+      "PRESERVE_EXISTING_D0_PRODUCT_ADMISSION",
+      "VERIFY_PROTECTED_D0_GLOBAL_MODEL_COMPATIBILITY_AFTER_W3_CAPABILITY_ADMISSION",
+      "RUN_NON_REGRESSION_WORKSHEET_HTML_PDF_PRINT_ACCEPTANCE"
+    ],
+    "CAPABILITY_UNBLOCKED_EXISTING_PUBLIC_PATTERN_ACCEPTANCE_PENDING": [
+      "VERIFY_SOURCE_KP_AND_PATTERN_IDENTITY_AFTER_W3_CAPABILITY_ADMISSION",
+      "VERIFY_SHARED_GENERATOR_VALIDATOR_BINDING",
+      "RUN_PUBLIC_UI_WORKSHEET_HTML_PDF_PRINT_ACCEPTANCE"
+    ],
+    "CAPABILITY_UNBLOCKED_PATTERN_BINDING_REQUIRED": [
+      "RECONCILE_FORMAL_MAPPING_TO_PUBLIC_PATTERN_GROUP",
+      "MATERIALIZE_OR_BIND_PATTERN_SPEC",
+      "BIND_W3_NUMBER_DOMAIN_GENERATOR_VALIDATOR",
+      "ADD_PUBLIC_SOURCE_ADAPTER_AND_UI_SELECTION",
+      "RUN_WORKSHEET_HTML_PDF_PRINT_ACCEPTANCE"
+    ],
+    "CAPABILITY_UNBLOCKED_PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED": [
+      "MATERIALIZE_FORMAL_MAPPING_AND_PATTERN_SPEC_FROM_SOURCE_EVIDENCE",
+      "BIND_W3_NUMBER_DOMAIN_GENERATOR_VALIDATOR",
+      "ADD_PUBLIC_SOURCE_ADAPTER",
+      "ADD_PUBLIC_UI_SELECTION",
+      "RUN_WORKSHEET_ANSWER_KEY_HTML_PDF_PRINT_ACCEPTANCE"
+    ]
+  },
+  "fullProductBoundary": {
+    "fullProductLineClosed": false,
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P03D_W3ProtectedD0CompatibilityRevalidation"
+  }
+}
