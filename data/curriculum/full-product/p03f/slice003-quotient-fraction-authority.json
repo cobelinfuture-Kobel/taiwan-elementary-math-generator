@@ -29,7 +29,7 @@
     "scope": "把整數除法的商表示為分數。",
     "applicationClassification": "APPLICATION_NOT_APPLICABLE",
     "reasoningInvariant": "被除數保持為分子、除數保持為分母，分數值必須與原除法結果完全相等。",
-    "requiredCapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"],
+    "requiredCapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
     "tagIds": ["grade_3", "domain_fraction", "concept_quotient_as_fraction", "operation_quotient_fraction", "representation_division_to_fraction", "answer_fraction", "application_not_applicable", "ordered_operand_roles"]
   },
   "formalMapping": {
