@@ -67,7 +67,7 @@ test("P03F deterministic validator fails closed on numerator, denominator and an
   assert.equal(validateG3AU08PartWholeFractionQuestion(badAnswer).ok, false);
 });
 
-test("P03F public Classic and Pixel selectors expose only the admitted KP", () => {
+test("P03F public Classic and Pixel candidate selectors expose only the slice001 KP", () => {
   const pixelSource = listPixelSourceOptions().find((row) => row.sourceId === SOURCE_ID);
   assert.ok(pixelSource);
   assert.equal(pixelSource.visibleKnowledgePointCount, 1);
@@ -91,12 +91,14 @@ test("P03F shared worksheet, answer key and production HTML complete", () => {
   assert.match(html, /等分|平均分成/);
 });
 
-test("P03F aggregate product admission validator passes all non-Chromium gates", () => {
+test("P03F aggregate validator passes all pre-Chromium gates and keeps admission closed", () => {
   const result = validateP03FSlice001ProductAdmission();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0");
-  assert.equal(result.d0Complete, true);
+  assert.equal(result.productAdmissionState, "PRODUCT_ACCEPTANCE_PENDING");
+  assert.equal(result.d0Complete, false);
   assert.equal(result.metrics.questionWitnessCount, 8);
   assert.equal(result.metrics.answerKeyWitnessCount, 8);
   assert.equal(result.metrics.publicSourceCountAfterAdmission, 20);
+  assert.equal(result.metrics.newProductAdmissionCount, 0);
+  assert.equal(result.metrics.remainingDirectSliceCount, 53);
 });
