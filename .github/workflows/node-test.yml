@@ -33,7 +33,7 @@ jobs:
           set -o pipefail
           npm test 2>&1 | tee tmp/npm-test.log
       - name: Install Chromium for product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout' || github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1')
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout' || github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1')
         run: |
           npm install --no-save --package-lock=false playwright@1.51.1
           npx playwright install --with-deps chromium
@@ -58,6 +58,9 @@ jobs:
       - name: Run P03F slice001 Chromium product acceptance
         if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1'
         run: node tools/curriculum/render-p03f-slice001-product-acceptance.mjs
+      - name: Run P03F slice002 Chromium product acceptance
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1'
+        run: node tools/curriculum/render-p03f-slice002-product-acceptance.mjs
       - name: Upload full regression diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -128,6 +131,14 @@ jobs:
         with:
           name: p03f-slice001-product-acceptance
           path: tmp/p03f-slice001-product-acceptance
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Upload P03F slice002 product artifacts
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice002-product-acceptance
+          path: tmp/p03f-slice002-product-acceptance
           if-no-files-found: warn
           retention-days: 30
       - name: Block after full regression failure

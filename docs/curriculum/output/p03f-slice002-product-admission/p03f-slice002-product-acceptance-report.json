@@ -1,0 +1,140 @@
+{
+  "schemaName": "P03FSlice002ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice002Implementation",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "sourceId": "g3a_u08_3a08",
+  "knowledgePointIds": [
+    "kp_g3a_u08_discrete_set_fraction",
+    "kp_g3a_u08_unit_fraction_accumulation"
+  ],
+  "numericQuestionCount": 6,
+  "applicationQuestionCount": 6,
+  "answerKeyItemCount": 12,
+  "numericQuestionPageCount": 1,
+  "numericAnswerKeyPageCount": 1,
+  "applicationQuestionPageCount": 2,
+  "applicationAnswerKeyPageCount": 2,
+  "numericPhysicalPdfPageCount": 2,
+  "applicationPhysicalPdfPageCount": 4,
+  "patternSpecIds": [
+    "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+    "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
+    "ps_g3a_u08_discrete_set_fraction_item_count_application",
+    "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+    "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+    "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric"
+  ],
+  "contextMacroIds": [
+    "gctx_macro_culture_history",
+    "gctx_macro_health_sports",
+    "gctx_macro_household_family"
+  ],
+  "globalContextBindingCount": 3,
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "semanticScopeFindingCount": 0,
+  "browserFindings": {
+    "numeric": {
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ],
+      "physicalPdfPageCount": 2,
+      "consoleErrors": [],
+      "pageErrors": []
+    },
+    "application": {
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 2,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        },
+        {
+          "index": 3,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ],
+      "physicalPdfPageCount": 4,
+      "consoleErrors": [],
+      "pageErrors": []
+    }
+  },
+  "visualReview": {
+    "status": "PASS_PRODUCTION_EQUIVALENT",
+    "renderTool": "/home/oai/skills/pdfs/scripts/render_pdf.py",
+    "renderDpi": 200,
+    "numericQuestionPageReviewed": true,
+    "numericAnswerKeyPageReviewed": true,
+    "applicationQuestionPageReviewed": true,
+    "applicationAnswerKeyPageReviewed": true,
+    "physicalPageParityReviewed": true,
+    "duplicatePromptFindingCount": 0,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0,
+    "committedHtmlGeneratedFromReviewedDeterministicRuntime": true,
+    "committedPdfGeneratedFromSameHtmlAndRenderer": true,
+    "finalCleanHeadVisualReadbackPending": true
+  },
+  "reviewedWorkflowRunId": 30249876370,
+  "reviewedWorkflowHeadSha": "e907c6e4f0a4c115f559cabe7d3ca842dc36c3e2",
+  "reviewedWorkflowArtifactId": 8646585482,
+  "reviewedWorkflowArtifactDigest": "sha256:a18c3dafe6a9f0a94addae9361c44b892617ed405798779c4a5eba0025aa4ccc",
+  "numericHtmlSha256": "e01c2b614b2b6c9c60e4f9e22768afb4a487649a8fd6b7d0c601abeea8e3dbef",
+  "applicationHtmlSha256": "cd2ba7a544870e58cca6b4729d701c138c731100c87d8ba35327e17601749816",
+  "numericPdfSha256": "361a5f1abc3fe80ce1dc31871a4beb40ecaa238abaa591ba62cf6f0839eb808e",
+  "applicationPdfSha256": "73caeadd2d4c36fb92bdf4ba2c3cdea52bc50b40c1d2a46f2557128f18b0545d"
+}

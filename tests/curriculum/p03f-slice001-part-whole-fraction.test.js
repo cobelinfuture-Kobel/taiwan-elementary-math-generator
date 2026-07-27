@@ -6,7 +6,10 @@ import { validateP03FSlice001ProductAdmission } from "../../tools/curriculum/val
 import { generateG3AU08PartWholeFractionQuestions, validateG3AU08PartWholeFractionQuestion } from "../../site/modules/curriculum/batch-a/part-whole-fraction-runtime.js";
 import { buildWorksheetDocumentFromPlan } from "../../site/assets/browser/pipeline/build-worksheet-document.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
-import { listCurrentPixelSourceOptions, listPixelKnowledgePointsForSource } from "../../site/pixel/pixel-registry-bridge.js";
+import {
+  listVisibleBatchAKnowledgePoints as listP03F1VisibleKnowledgePoints,
+  listBatchAKnowledgePointAvailabilityBySource as getP03F1Availability,
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f-extension.js";
 
 const SOURCE_ID = "g3a_u08_3a08";
 const KP_ID = "kp_g3a_u08_part_whole_fraction";
@@ -78,15 +81,13 @@ test("P03F deterministic validator fails closed on numerator, denominator, whole
   assert.equal(validateG3AU08PartWholeFractionQuestion(badAnswer).ok, false);
 });
 
-test("P03F current Classic and Pixel selectors expose only the slice001 KP", () => {
-  const currentPixelSources = listCurrentPixelSourceOptions();
-  assert.equal(currentPixelSources.length, 20);
-  const pixelSource = currentPixelSources.find((row) => row.sourceId === SOURCE_ID);
-  assert.ok(pixelSource);
-  assert.equal(pixelSource.visibleKnowledgePointCount, 1);
-  const rows = listPixelKnowledgePointsForSource(SOURCE_ID);
+test("P03F explicit slice001 selector authority remains one-KP reproducible", () => {
+  const rows = listP03F1VisibleKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
   assert.equal(rows.length, 1);
   assert.equal(rows[0].knowledgePointId, KP_ID);
+  const availability = getP03F1Availability(SOURCE_ID);
+  assert.equal(availability.visibleCount, 1);
+  assert.equal(availability.hiddenPendingCount, 6);
 });
 
 test("P03F shared worksheet, answer key and production HTML complete", () => {
