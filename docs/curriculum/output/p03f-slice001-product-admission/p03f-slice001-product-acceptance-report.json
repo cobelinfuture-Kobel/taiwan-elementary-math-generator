@@ -1,7 +1,7 @@
 {
   "schemaName": "P03FSlice001ChromiumProductAcceptanceReportV1",
   "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
-  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "status": "PASS_FINAL_CLEAN_HEAD_VISUAL_AND_SEMANTIC_REVIEWED",
   "sourceId": "g3a_u08_3a08",
   "knowledgePointId": "kp_g3a_u08_part_whole_fraction",
   "questionCount": 8,
@@ -49,6 +49,10 @@
   "reviewedWorkflowHeadSha": "ccd2c1ea0a5f6de53380ea83b5253bb5aa58597a",
   "reviewedWorkflowArtifactId": 8643701825,
   "reviewedWorkflowArtifactDigest": "sha256:b24656a6bab280542064a714cad6e50786158b389b50a1f7b8a0c7fe58a8d429",
+  "finalCleanHeadWorkflowRunId": 30243880548,
+  "finalCleanHeadWorkflowHeadSha": "e52dad9e374054c76a2689783b46ddb44af9715e",
+  "finalCleanHeadArtifactId": 8644279722,
+  "finalCleanHeadArtifactDigest": "sha256:aa4e1e496e11a652713246bcd275ead8d064327e5711201b10da351ca3169e8f",
   "committedHtmlPath": "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.html",
   "committedPdfPath": "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.pdf",
   "htmlSha256": "9ff68a4f47f171227f521e9b0a4a099a8bdf0c5ac76c90a91a6fe8a8f2c6902e",
@@ -67,7 +71,7 @@
   "properFractionInvariantPassed": true,
   "wholeAsFractionFindingCount": 0,
   "visualReview": {
-    "status": "PASS_PRODUCTION_EQUIVALENT",
+    "status": "PASS_FINAL_CLEAN_HEAD_PRODUCTION_EQUIVALENT",
     "renderTool": "/home/oai/skills/pdfs/scripts/render_pdf.py",
     "renderDpi": 180,
     "questionPageReviewed": true,
@@ -79,6 +83,7 @@
     "semanticScopeFindingCount": 0,
     "committedHtmlShaMatchesReviewedArtifact": true,
     "committedPdfGeneratedFromSameHtmlAndRenderer": true,
-    "finalCleanHeadVisualReadbackPending": true
+    "finalCleanHeadVisualReadbackPending": false,
+    "finalCleanHeadVisualReadbackPassed": true
   }
 }
