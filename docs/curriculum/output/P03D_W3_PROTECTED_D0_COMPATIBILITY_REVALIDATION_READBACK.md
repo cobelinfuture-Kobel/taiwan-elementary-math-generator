@@ -3,8 +3,39 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03D_W3ProtectedD0CompatibilityRevalidation
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED
+```
+
+## GitHub result
+
+### Implementation
+
+```text
+PR                    = #402
+HEAD_SHA              = 5ac9511ae11cee30d9152582c2fe8ea8e39599ff
+MERGE_SHA             = 1e7d4a004014b60e0d70bf858c0e106b85182d55
+NODE_CI_RUN           = 30234106005
+POSTG_CI_RUN          = 30234105999
+CI_STATUS             = SUCCESS
+CHROMIUM_ARTIFACT_ID  = 8641075130
+CHROMIUM_DIGEST       = sha256:41948dda538328eca1fa8069459e16bf86a99d273099f3e73f05f509b3d1fdca
+```
+
+### Closeout reconciliation
+
+```text
+PR        = PENDING_CLOSEOUT_PR_NUMBER
+SCOPE     = readback metadata only
+RUNTIME   = unchanged
+VALIDATOR = unchanged
+TESTS     = unchanged
+CHROMIUM  = unchanged
+WORKFLOW  = unchanged
+POLICY    = unchanged
+MANIFEST  = unchanged
+CLAIM     = unchanged
+CONTRACT  = unchanged
 ```
 
 ## Protected cohort
@@ -36,7 +67,7 @@ print-layout witnesses      = 4 / 4 PASS
 Global Primary witnesses    = 4 / 4 PASS
 ```
 
-Every visible PatternGroup attached to the four protected KnowledgePoints is exercised independently through the exact public selector, R07 Global Primary authority, shared generator and validator, answer-key and production HTML renderer.
+Every visible PatternGroup attached to the four protected KnowledgePoints was exercised independently through the exact public selector, R07 Global Primary authority, shared generator and validator, answer-key and production HTML renderer.
 
 ## Exact protected witnesses
 
@@ -58,14 +89,7 @@ public source options observed   = 19
 Chromium acceptance              = PASS
 ```
 
-```text
-workflow run = 30233811679
-artifact id  = 8640968320
-artifact     = p03d-protected-d0-compatibility
-artifact digest = sha256:58015147732b1ed93f05d433e60dd8ad01efc86e7a39265c73b28ab83a9a6a7a
-```
-
-The artifact contains four HTML files, four A4 PDF files and one machine-readable acceptance report. Generated artifacts remain CI evidence and are not committed as product content.
+The clean-head artifact contains four HTML files, four A4 PDF files and one machine-readable acceptance report. Generated artifacts remain CI evidence and are not committed as product content.
 
 ## Admission boundary
 
@@ -76,7 +100,7 @@ unaffected new-product rows                = 115
 visible output changed                     = false
 ```
 
-P03D does not recreate product admission. It changes only the successor compatibility state:
+P03D did not recreate product admission. It changed only the successor compatibility state:
 
 ```text
 PROTECTED_D0_COMPATIBILITY_REVALIDATION_PENDING
@@ -109,8 +133,6 @@ protected admission preservation         = 4 / 4 PASS
 new-product fail close                   = 115 / 115 PASS
 scope boundary                           = PASS
 ```
-
-First exact-head Node Test run `30233811679` and POSTG Application PR Gate run `30233811685` completed successfully on PR #402 head `12c0613f553d9378fbae20f2b4333c08a12ac5e4`. Exact metrics are frozen into the manifest; the final implementation head must re-run both CI gates and Chromium acceptance before merge.
 
 ## Task closeout
 
@@ -147,6 +169,12 @@ post-W3 HTML, PDF, print and live UI compatibility was not proven
 NONE
 ```
 
+### Next shortest step
+
+```text
+P03E_W3DirectProductVerticalSliceQueueFreeze
+```
+
 ## Distance
 
 ```text
@@ -158,6 +186,9 @@ NEXT_SHORTEST_STEP   = P03E_W3DirectProductVerticalSliceQueueFreeze
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+STOP_REASON = NEXT_IMPLEMENTATION_REQUIRES_SEPARATE_APPROVAL
+BLOCKER_TYPE = IMPLEMENTATION_BOUNDARY
+LAST_COMPLETED_STATUS = PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve P03E_W3DirectProductVerticalSliceQueueFreeze
+NEXT_RESUME_TASK = P03E_W3DirectProductVerticalSliceQueueFreeze
 ```
