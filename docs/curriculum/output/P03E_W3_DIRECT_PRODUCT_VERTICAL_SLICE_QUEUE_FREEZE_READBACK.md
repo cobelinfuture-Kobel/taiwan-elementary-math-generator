@@ -25,7 +25,7 @@ CHROMIUM_REQUIRED     = false
 ### Closeout reconciliation
 
 ```text
-PR        = PENDING_CLOSEOUT_PR_NUMBER
+PR        = #406
 SCOPE     = readback metadata only
 RUNTIME   = unchanged
 REGISTRY  = unchanged
