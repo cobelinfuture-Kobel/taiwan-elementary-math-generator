@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice003Implementation",
-  "status": "SLICE003_D0_COMPLETE_PENDING_FINAL_CI_AND_MERGE",
+  "status": "SLICE003_D0_COMPLETE_IMPLEMENTATION_MERGED",
   "expectedCounts": {
     "queuePosition": 3,
     "sourceNodeCount": 1,
@@ -67,7 +67,14 @@
     "preD0NodeWorkflowHeadSha": "998af007b7aaa82c0f42484659e8d5756fd8d9ef",
     "preD0ChromiumArtifactId": 8658504673,
     "preD0ChromiumArtifactDigest": "sha256:e52aaccdeef5835755713d2f6496dfc605a66f31e3b0652d63d3cb38c6e5e35e",
-    "artifactMaterializationCommitSha": "ccefbad6fd8f8d3aef2b85f81c79faa18780f36e"
+    "artifactMaterializationCommitSha": "ccefbad6fd8f8d3aef2b85f81c79faa18780f36e",
+    "finalNodeWorkflowRunId": 30282236969,
+    "finalNodeWorkflowHeadSha": "38e8169e966ce1c300e7b705202c006026a2b61b",
+    "finalChromiumArtifactId": 8659382841,
+    "implementationPrNumber": 412,
+    "implementationHeadSha": "38e8169e966ce1c300e7b705202c006026a2b61b",
+    "implementationMergeSha": "766b6ba33cfd9c5759dec55c6bd91eb7e2002c0e",
+    "implementationMergedAt": "2026-07-27T16:00:08Z"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice003-quotient-fraction-authority.json",
   "runtimePath": "src/curriculum/full-product/p03f-slice003-product-admission.mjs",
