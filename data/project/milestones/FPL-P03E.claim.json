@@ -4,7 +4,7 @@
   "taskClass": "runtime",
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_RUNTIME_MATERIALIZED",
+  "claimedStatus": "W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FROZEN",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": false,
@@ -34,6 +34,7 @@
       "data/curriculum/full-product/p03d/protected-d0-compatibility-revalidation.manifest.json",
       "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue-policy.json",
       "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.manifest.json",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
       "docs/curriculum/contracts/P03E_W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FREEZE_CONTRACT.md",
       "docs/curriculum/output/P03E_W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FREEZE_READBACK.md"
     ],
