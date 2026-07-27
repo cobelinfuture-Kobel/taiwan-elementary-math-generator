@@ -129,18 +129,18 @@ test("P03F3 shared worksheet and answer key render eight items", () => {
   assert.match(html, /worksheet-page--answer-key/);
 });
 
-test("P03F3 aggregate admission is E4 fail-closed and preserves slice002 D0", () => {
+test("P03F3 aggregate admission is D0 and preserves slice002 D0", () => {
   const predecessor = validateP03FSlice002ProductAdmission();
   assert.equal(predecessor.ok, true, JSON.stringify(predecessor.errors));
   const result = validateP03FSlice003ProductAdmission();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.productAdmissionState, "PRODUCT_ACCEPTANCE_PENDING");
-  assert.equal(result.d0Complete, false);
+  assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0");
+  assert.equal(result.d0Complete, true);
   assert.equal(result.metrics.requiredCapabilityCount, 3);
   assert.equal(result.metrics.questionWitnessCount, 8);
   assert.equal(result.metrics.answerKeyWitnessCount, 8);
-  assert.equal(result.metrics.newProductAdmissionCount, 0);
-  assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 3);
-  assert.equal(result.metrics.remainingDirectSliceCount, 51);
-  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 79);
+  assert.equal(result.metrics.newProductAdmissionCount, 1);
+  assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 4);
+  assert.equal(result.metrics.remainingDirectSliceCount, 50);
+  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 78);
 });
