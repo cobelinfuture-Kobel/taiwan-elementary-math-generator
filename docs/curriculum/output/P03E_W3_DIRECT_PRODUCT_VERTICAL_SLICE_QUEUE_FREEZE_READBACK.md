@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03E_W3DirectProductVerticalSliceQueueFreeze
-STATUS     = QUEUE_FROZEN_PENDING_CLEAN_HEAD_CI
+STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
 EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
 ```
 
@@ -93,10 +93,11 @@ previous slice        = NONE
 
 No second slice may start until this slice reaches its complete E6 D0 closeout.
 
-## Derivation acceptance
+## Exact-head acceptance
 
 ```text
 queue derivation Node run              = 30236219130 SUCCESS
+clean-head Node run                    = 30236654946 SUCCESS
 full Node regression                   = 2471 / 2471 PASS
 milestone claim integrity              = PASS
 P03C predecessor                       = PASS
@@ -106,14 +107,14 @@ complete allocation                    = 82 / 82 PASS
 source/rank/profile atomicity          = 53 / 53 PASS
 slice-size bound                       = PASS
 strict serial predecessor chain        = 53 / 53 PASS
+frozen registry parity                 = PASS
+queue digest parity                    = PASS
 protected exclusion                    = 4 / 4 PASS
 later-wave exclusion                   = 33 / 33 PASS
 new-product fail close                 = 115 / 115 PASS
 scope boundary                         = PASS
 Chromium required                      = false
 ```
-
-Frozen-registry parity and the full regression must pass again on the exact final head before merge.
 
 ## Distance
 
