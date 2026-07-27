@@ -2,8 +2,6 @@ import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
 import { getBatchABrowserPatternDefinition } from "./source-pattern-full-product-p03f2-extension.js";
 import { G3A_U08_SOURCE_ID } from "../registry/g3a-u08-part-whole-fraction-selector-projection.js";
 import {
-  G3A_U08_UNIT_FRACTION_KP_ID,
-  G3A_U08_DISCRETE_FRACTION_KP_ID,
   G3A_U08_UNIT_FRACTION_NUMERIC_SPEC_ID,
   G3A_U08_UNIT_FRACTION_APPLICATION_SPEC_ID,
   G3A_U08_DISCRETE_ITEM_COUNT_NUMERIC_SPEC_ID,
@@ -62,37 +60,29 @@ export const P03F2_APPLICATION_AUTHORITIES = Object.freeze({
 
 function metadata(definition, authority = null) {
   return Object.freeze({
-    patternId: definition.patternSpecId,
-    sourceId: G3A_U08_SOURCE_ID,
+    patternId: definition.patternSpecId, sourceId: G3A_U08_SOURCE_ID,
     patternTags: Object.freeze(["full_product_w3_slice002", definition.patternSpecId]),
-    skillTags: definition.skillTags,
-    difficultyTags: definition.difficultyTags,
-    curriculumNodeIds: Object.freeze([G3A_U08_SOURCE_ID]),
-    canonicalSkillIds: definition.canonicalSkillIds,
-    knowledgePointId: definition.knowledgePointId,
-    patternGroupId: definition.patternGroupId,
-    operationFamilyId: definition.operationFamilyId,
-    requestedUnknownRole: definition.requestedUnknownRole,
-    requiredCapabilityIds: definition.requiredCapabilityIds,
-    applicationClassification: definition.applicationClassification,
+    skillTags: definition.skillTags, difficultyTags: definition.difficultyTags,
+    curriculumNodeIds: Object.freeze([G3A_U08_SOURCE_ID]), canonicalSkillIds: definition.canonicalSkillIds,
+    knowledgePointId: definition.knowledgePointId, patternGroupId: definition.patternGroupId,
+    operationFamilyId: definition.operationFamilyId, requestedUnknownRole: definition.requestedUnknownRole,
+    requiredCapabilityIds: definition.requiredCapabilityIds, applicationClassification: definition.applicationClassification,
     productAdmissionTask: "P03F_W3DirectProductVerticalSlice002Implementation",
-    generatorAdapterId: "SHARED_OPERATION_FAMILY_GENERATOR_V1",
-    validatorAdapterId: "SHARED_OPERATION_FAMILY_VALIDATOR_V1",
+    generatorAdapterId: "SHARED_OPERATION_FAMILY_GENERATOR_V1", validatorAdapterId: "SHARED_OPERATION_FAMILY_VALIDATOR_V1",
     globalContextAuthorityPath: authority ? "data/curriculum/context/registry/global-context-authority-index.json" : null,
     applicationQuestionRecordId: authority?.applicationQuestionRecordId ?? null,
-    bindingCandidateId: authority?.bindingCandidateId ?? null,
-    proofCandidateId: authority?.proofCandidateId ?? null,
-    contextLineage: authority?.contextLineage ?? null,
-    fixtureId: authority?.fixtureId ?? null,
+    bindingCandidateId: authority?.bindingCandidateId ?? null, proofCandidateId: authority?.proofCandidateId ?? null,
+    contextLineage: authority?.contextLineage ?? null, fixtureId: authority?.fixtureId ?? null,
   });
 }
 function mixedText(wholeUnits, numerator, denominator) { return wholeUnits > 0 ? `${wholeUnits}又${numerator}/${denominator}` : `${numerator}/${denominator}`; }
-function buildQuestion(patternSpecId, ordinal, seed) {
+function buildQuestion(patternSpecId, ordinal, seed, variantOffset = 0) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
-  const denominator = DENOMINATORS[state(seed, ordinal, `${patternSpecId}:denominator`) % DENOMINATORS.length];
-  const numerator = 1 + state(seed, ordinal, `${patternSpecId}:numerator`) % (denominator - 1);
+  const sampleIndex = ordinal + variantOffset * 97;
+  const denominator = DENOMINATORS[state(seed, sampleIndex, `${patternSpecId}:denominator`) % DENOMINATORS.length];
+  const numerator = 1 + state(seed, sampleIndex, `${patternSpecId}:numerator`) % (denominator - 1);
   const unitFractionCount = numerator;
-  const wholeUnits = state(seed, ordinal, `${patternSpecId}:whole`) % 2;
+  const wholeUnits = state(seed, sampleIndex, `${patternSpecId}:whole`) % 2;
   const partialItemCount = numerator * ITEMS_PER_WHOLE / denominator;
   const itemCount = wholeUnits * ITEMS_PER_WHOLE + partialItemCount;
   const fractionalUnits = fraction(itemCount, ITEMS_PER_WHOLE);
@@ -118,21 +108,12 @@ function buildQuestion(patternSpecId, ordinal, seed) {
     finalAnswer = fractionalUnits; answerText = fractionText(fractionalUnits);
   }
   return Object.freeze({
-    id: `${patternSpecId}-${ordinal}`,
-    sourceId: G3A_U08_SOURCE_ID,
-    patternSpecId,
-    kind: definition.kind,
-    operation: definition.operation,
-    operationFamilyId: definition.operationFamilyId,
-    questionMode: definition.questionMode,
-    mode: definition.mode,
-    promptText,
-    questionText: promptText,
-    blankedDisplayText: promptText,
-    displayText: `${promptText} ${answerText}`,
-    answerText,
-    finalAnswer,
-    numerator, denominator, unitFractionCount, wholeUnits, itemsPerWhole: ITEMS_PER_WHOLE, itemCount, fractionalUnits,
+    id: `${patternSpecId}-${ordinal}`, sourceId: G3A_U08_SOURCE_ID, patternSpecId,
+    kind: definition.kind, operation: definition.operation, operationFamilyId: definition.operationFamilyId,
+    questionMode: definition.questionMode, mode: definition.mode,
+    promptText, questionText: promptText, blankedDisplayText: promptText, displayText: `${promptText} ${answerText}`,
+    answerText, finalAnswer, numerator, denominator, unitFractionCount, wholeUnits,
+    itemsPerWhole: ITEMS_PER_WHOLE, itemCount, fractionalUnits,
     metadata: metadata(definition, authority),
     globalContextProduction: authority ? Object.freeze({ status: "GLOBAL_CONTEXT_BOUND", ...authority }) : null,
   });
@@ -182,9 +163,27 @@ export function generateG3AU08Slice002QuestionsFromPlan(plan = {}) {
   if (!canGenerateG3AU08Slice002Questions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f2_plan_not_supported", severity: "error", path: "plan", message: "Slice002 requires only its six admitted PatternSpecs." }], warnings: [] };
   const allocation = allocate(plan.patternSpecIds, plan.questionCount);
   const questions = [];
+  const promptSet = new Set();
+  const errors = [];
   let ordinal = 1;
-  for (const row of allocation) for (let index = 0; index < row.questionCount; index += 1) questions.push(buildQuestion(row.patternSpecId, ordinal++, plan.generationSeed));
-  const errors = questions.flatMap((question) => validateG3AU08Slice002Question(question).errors);
+  for (const row of allocation) {
+    for (let index = 0; index < row.questionCount; index += 1) {
+      let accepted = null;
+      for (let attempt = 0; attempt < 32; attempt += 1) {
+        const candidate = buildQuestion(row.patternSpecId, ordinal, plan.generationSeed, attempt);
+        if (!promptSet.has(candidate.blankedDisplayText)) { accepted = candidate; break; }
+      }
+      if (!accepted) {
+        errors.push({ code: "p03f2_unique_prompt_sampling_exhausted", severity: "error", path: `questions[${ordinal - 1}]`, message: "Could not produce a unique prompt within the bounded deterministic retry budget." });
+      } else {
+        questions.push(accepted);
+        promptSet.add(accepted.blankedDisplayText);
+      }
+      ordinal += 1;
+    }
+  }
+  if (promptSet.size !== questions.length) errors.push({ code: "p03f2_duplicate_prompt_detected", severity: "error", path: "questions", message: "The worksheet contains duplicate prompts." });
+  errors.push(...questions.flatMap((question) => validateG3AU08Slice002Question(question).errors));
   return { ok: errors.length === 0 && questions.length === plan.questionCount, plan, questions, allocation, errors, warnings: [] };
 }
 export function generateG3AU08Slice002Questions(options = {}) { return generateG3AU08Slice002QuestionsFromPlan(buildBatchABrowserPlan(options)); }
