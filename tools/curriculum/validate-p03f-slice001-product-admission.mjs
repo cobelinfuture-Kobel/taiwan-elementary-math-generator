@@ -6,38 +6,9 @@ export function validateP03FSlice001ProductAdmission() {
   const expected = evidence.manifest.expectedCounts;
   const metrics = evidence.metrics;
   const first = evidence.firstSlice;
-
-  if (first?.queuePosition !== 1
-    || first?.sliceId !== "p03e_q001_r4_g3a_u08_3a08_profile_fraction_c1"
-    || first?.implementationTaskId !== "P03F_W3DirectProductVerticalSlice001Implementation") {
-    errors.push("P03F_QUEUE_IDENTITY_INVALID");
-  }
-  if (first?.knowledgePointIds?.length !== 1
-    || first.knowledgePointIds[0] !== "kp_g3a_u08_part_whole_fraction") {
-    errors.push("P03F_QUEUE_KP_INVALID");
-  }
-  for (const key of [
-    "queuePosition",
-    "sourceNodeCount",
-    "knowledgePointCount",
-    "tagBindingCount",
-    "formalMappingCount",
-    "patternGroupCount",
-    "patternSpecCount",
-    "representationModeCount",
-    "requiredCapabilityCount",
-    "publicSourceCountAfterAdmission",
-    "publicVisibleKnowledgePointCountForSource",
-    "questionWitnessCount",
-    "answerKeyWitnessCount",
-    "htmlWitnessCount",
-    "chromiumPdfWitnessCount",
-    "overflowFindingCount",
-    "newProductAdmissionCount",
-    "remainingDirectSliceCount",
-    "remainingDirectKnowledgePointCount",
-    "laterWaveDependentCount"
-  ]) {
+  if (first?.queuePosition !== 1 || first?.sliceId !== "p03e_q001_r4_g3a_u08_3a08_profile_fraction_c1" || first?.implementationTaskId !== "P03F_W3DirectProductVerticalSlice001Implementation") errors.push("P03F_QUEUE_IDENTITY_INVALID");
+  if (first?.knowledgePointIds?.length !== 1 || first.knowledgePointIds[0] !== "kp_g3a_u08_part_whole_fraction") errors.push("P03F_QUEUE_KP_INVALID");
+  for (const key of ["queuePosition","sourceNodeCount","knowledgePointCount","tagBindingCount","formalMappingCount","patternGroupCount","patternSpecCount","representationModeCount","requiredCapabilityCount","publicSourceCountAfterAdmission","publicVisibleKnowledgePointCountForSource","questionWitnessCount","answerKeyWitnessCount","htmlWitnessCount","chromiumPdfWitnessCount","overflowFindingCount","newProductAdmissionCount","remainingDirectSliceCount","remainingDirectKnowledgePointCount","laterWaveDependentCount"]) {
     if (metrics[key] !== expected[key]) errors.push(`P03F_METRIC_INVALID:${key}:${metrics[key]}:${expected[key]}`);
   }
   if (!evidence.selectorProjectionAudit.ok) errors.push(...evidence.selectorProjectionAudit.errors.map((code) => `P03F_SELECTOR_PROJECTION:${code}`));
@@ -47,14 +18,12 @@ export function validateP03FSlice001ProductAdmission() {
   if (!evidence.publicSource || evidence.publicSource.lifecycle !== "public_full_product_w3_slice001_release") errors.push("P03F_PUBLIC_SOURCE_ADAPTER_INVALID");
   if (!evidence.selectorRow || evidence.selectorRow.applicationClassification !== "APPLICATION_NOT_APPLICABLE") errors.push("P03F_PUBLIC_KP_INVALID");
   if (evidence.visibleGroups.length !== 1 || evidence.visibleGroups[0].publicQuestionMode !== "numeric") errors.push("P03F_PUBLIC_GROUP_INVALID");
-  if (evidence.controlProfile?.questionTypeControl?.options?.length !== 1
-    || evidence.controlProfile.questionTypeControl.options[0].value !== "numeric") errors.push("P03F_NUMERIC_ONLY_CONTROL_INVALID");
+  // Current controls may expand in successor slices. Slice001 remains numeric-only by its explicit KP/group/authority contract above.
+  if (!evidence.controlProfile?.questionTypeControl?.options?.some((row) => row.value === "numeric")) errors.push("P03F_NUMERIC_CONTROL_MISSING");
   if (!evidence.planValidation.ok) errors.push(...evidence.planValidation.errors.map((error) => `P03F_PLAN:${error.code}`));
   if (!evidence.generation.ok || evidence.generation.questions.length !== expected.questionWitnessCount) errors.push("P03F_GENERATION_INVALID");
   if (!evidence.questionValidation.ok) errors.push(...evidence.questionValidation.errors.map((error) => `P03F_BROWSER_VALIDATOR:${error.code}`));
-  if (evidence.generation.questions.some((row) => row.selectedParts <= 0 || row.selectedParts >= row.equalParts || row.metadata?.magnitudeClass !== "PROPER_FRACTION")) {
-    errors.push("P03F_PROPER_FRACTION_SCOPE_INVALID");
-  }
+  if (evidence.generation.questions.some((row) => row.selectedParts <= 0 || row.selectedParts >= row.equalParts || row.metadata?.magnitudeClass !== "PROPER_FRACTION")) errors.push("P03F_PROPER_FRACTION_SCOPE_INVALID");
   if (evidence.representationModes.join(",") !== "CONTINUOUS_EQUAL_PARTITION,DISCRETE_SET_PARTITION") errors.push(`P03F_REPRESENTATION_COVERAGE_INVALID:${evidence.representationModes.join(",")}`);
   if (evidence.capabilityWitnesses.some((row) => !row.numberSystemOk || !row.domainValidatorOk)) errors.push("P03F_W3_CAPABILITY_BINDING_INVALID");
   if (!evidence.worksheet.ok || !evidence.worksheet.worksheetDocument) errors.push("P03F_WORKSHEET_INVALID");
@@ -65,32 +34,11 @@ export function validateP03FSlice001ProductAdmission() {
   if (evidence.generation.questions.some((row) => row.questionMode !== "numeric" || row.metadata?.applicationClassification !== "APPLICATION_NOT_APPLICABLE")) errors.push("P03F_APPLICATION_SCOPE_VIOLATION");
   if (evidence.authority.patternSpec.successorOfHiddenAuthorityPath !== "data/curriculum/application/pattern-specs/w02/g3a_u08_3a08.hidden-pattern-spec.json") errors.push("P03F_HIDDEN_SUCCESSOR_AUTHORITY_INVALID");
   if (evidence.authority.productBoundary.wholeAsFractionKnowledgePointExcluded !== true) errors.push("P03F_WHOLE_AS_FRACTION_BOUNDARY_INVALID");
-  if (!evidence.artifactIntegrity.ok
-    || !evidence.artifactIntegrity.pathsExist
-    || !evidence.artifactIntegrity.hashesMatch
-    || !evidence.artifactIntegrity.reportAccepted) {
-    errors.push("P03F_COMMITTED_ARTIFACT_INTEGRITY_INVALID");
-  }
+  if (!evidence.artifactIntegrity.ok || !evidence.artifactIntegrity.pathsExist || !evidence.artifactIntegrity.hashesMatch || !evidence.artifactIntegrity.reportAccepted) errors.push("P03F_COMMITTED_ARTIFACT_INTEGRITY_INVALID");
   if (evidence.productAdmissionState !== "PRODUCTION_ADMITTED_D0" || evidence.d0Complete !== true) errors.push("P03F_D0_STATE_INVALID");
-  if (evidence.manifest.mainlineBoundary.queuePositionConsumed !== 1
-    || evidence.manifest.mainlineBoundary.nextQueuePositionStarted
-    || evidence.manifest.mainlineBoundary.otherG3AU08KnowledgePointsAdmitted
-    || evidence.manifest.mainlineBoundary.applicationStoryGenerationAdded
-    || evidence.manifest.mainlineBoundary.parallelRuntimePipelineAdded) errors.push("P03F_SCOPE_BOUNDARY_INVALID");
-
-  return Object.freeze({
-    ok: errors.length === 0,
-    errors: Object.freeze(errors),
-    status: evidence.status,
-    productAdmissionState: evidence.productAdmissionState,
-    d0Complete: evidence.d0Complete,
-    artifactIntegrity: evidence.artifactIntegrity,
-    metrics,
-    firstSlice: first,
-    representationModes: evidence.representationModes,
-  });
+  if (evidence.manifest.mainlineBoundary.queuePositionConsumed !== 1 || evidence.manifest.mainlineBoundary.nextQueuePositionStarted || evidence.manifest.mainlineBoundary.otherG3AU08KnowledgePointsAdmitted || evidence.manifest.mainlineBoundary.applicationStoryGenerationAdded || evidence.manifest.mainlineBoundary.parallelRuntimePipelineAdded) errors.push("P03F_SCOPE_BOUNDARY_INVALID");
+  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), status: evidence.status, productAdmissionState: evidence.productAdmissionState, d0Complete: evidence.d0Complete, artifactIntegrity: evidence.artifactIntegrity, metrics, firstSlice: first, representationModes: evidence.representationModes });
 }
-
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
   const result = validateP03FSlice001ProductAdmission();
   console.log(`P03F_SLICE001_READBACK=${JSON.stringify(result)}`);
