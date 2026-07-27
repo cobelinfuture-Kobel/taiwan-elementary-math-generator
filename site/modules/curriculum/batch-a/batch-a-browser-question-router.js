@@ -14,9 +14,14 @@ import {
   canGenerateG5AU03FactorMultipleQuestions,
   generateG5AU03FactorMultipleQuestions,
 } from "./factor-multiple-runtime.js";
+import {
+  canGenerateG3AU08PartWholeFractionQuestions,
+  generateG3AU08PartWholeFractionQuestions,
+} from "./part-whole-fraction-runtime.js";
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateG3AU08PartWholeFractionQuestions(plan)) return generateG3AU08PartWholeFractionQuestions(options);
   if (canGenerateG5AU03FactorMultipleQuestions(plan)) return generateG5AU03FactorMultipleQuestions(options);
   if (canGenerateG6AU01NumberTheoryQuestions(plan)) return generateG6AU01NumberTheoryQuestions(options);
   if (canGenerateG5BU05LargeNumberQuestions(plan)) return generateG5BU05LargeNumberQuestions(options);
