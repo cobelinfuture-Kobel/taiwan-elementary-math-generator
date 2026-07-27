@@ -10,6 +10,9 @@ import {
 
 test("P03E isolates the exact direct W3 new-product cohort", () => {
   const evidence = materializeP03EW3DirectProductVerticalSliceQueue();
+  console.log(`P03E_METRICS=${JSON.stringify(evidence.metrics)}`);
+  console.log(`P03E_NEXT_SLICE=${JSON.stringify(evidence.nextExecutableSlice)}`);
+  console.log(`P03E_QUEUE_SNAPSHOT=${JSON.stringify(evidence.derivedRegistrySnapshot)}`);
   assert.equal(evidence.metrics.directW3KnowledgePointCount, 82);
   assert.equal(evidence.metrics.protectedD0ExcludedCount, 4);
   assert.equal(evidence.metrics.laterWaveDependentExcludedCount, 33);
