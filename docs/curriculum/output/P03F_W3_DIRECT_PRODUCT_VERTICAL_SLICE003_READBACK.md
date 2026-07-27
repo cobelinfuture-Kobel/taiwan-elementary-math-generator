@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice003Implementation
-STATUS     = E6_D0_COMPLETE_PENDING_FINAL_CI_AND_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E6_D0_COMPLETE
 ```
 
@@ -58,7 +58,7 @@ broken glyph findings     = 0
 semantic findings         = 0
 ```
 
-The arithmetic witness independently executes `(dividend / 1) ÷ (divisor / 1)` and must produce the same reduced canonical value as the fraction number-system consumer. The public answer preserves the original ordered dividend/divisor representation required by the source-backed KnowledgePoint.
+The arithmetic witness independently executes `(dividend / 1) ÷ (divisor / 1)` and produces the same reduced canonical value as the fraction number-system consumer. The public answer preserves the original ordered dividend/divisor representation required by the source-backed KnowledgePoint.
 
 ## Committed output evidence
 
@@ -71,24 +71,28 @@ HTML SHA256 = 0dde8acb0f928d3c6be4094a65ce7addd3d2f5cecd3280e96cfe792a21387617
 PDF SHA256  = f644641568018f9b82fe9554a916d1a305fa445af4d0240c11638cfdf90ba38d
 ```
 
-## Pre-D0 and artifact-materialization acceptance
+## Final exact-head acceptance and merge
 
 ```text
 implementation PR               = #412
+implementation head             = 38e8169e966ce1c300e7b705202c006026a2b61b
+implementation merge SHA        = 766b6ba33cfd9c5759dec55c6bd91eb7e2002c0e
+implementation merged at        = 2026-07-27T16:00:08Z
 pre-D0 accepted head             = 998af007b7aaa82c0f42484659e8d5756fd8d9ef
 pre-D0 Node / Chromium run       = 30280070827 SUCCESS
 pre-D0 Chromium artifact         = 8658504673
-pre-D0 artifact digest           = sha256:e52aaccdeef5835755713d2f6496dfc605a66f31e3b0652d63d3cb38c6e5e35e
 artifact materialization commit  = ccefbad6fd8f8d3aef2b85f81c79faa18780f36e
 materialization workflow run     = 30281576982 SUCCESS
 materialization artifact         = 8659116713
+final Node / Chromium run        = 30282236969 SUCCESS
+final Chromium artifact          = 8659382841
 full Node regression             = 2494 / 2494 PASS
 questions                        = 8 / 8 PASS
 answer-key items                 = 8 / 8 PASS
 physical page parity             = PASS
 visual semantic review           = PASS
 artifact / committed hash parity = PASS
-all completed governance         = PASS
+all governance workflows         = PASS
 ```
 
 ## Admission effect
@@ -109,18 +113,23 @@ parallel product pipelines   = 0
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_DIRECT_PRODUCT_SLICE002_D0_MERGED
-GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE003_D0_PENDING_FINAL_CI_AND_MERGE
-DISTANCE_REDUCED     = Frozen queue position 3 now has one D0 quotient-as-fraction KnowledgePoint through three W3 fraction capabilities, the shared product path, current Classic/Pixel selection, answer key and committed A4 HTML/PDF output.
-REMAINING_BLOCKERS   = [final artifact-materialized clean-head CI and PR merge; 50 later direct-product slices; 33 later-wave dependent rows]
-NEXT_SHORTEST_STEP   = Complete final clean-head CI and merge PR #412 within this milestone
+GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE003_D0_MERGED
+DISTANCE_REDUCED     = Frozen queue position 3 moved from an unimplemented queue row to a merged D0 quotient-as-fraction product through source evidence, three W3 fraction capabilities, shared runtime, current Classic/Pixel selection, answer key and committed A4 HTML/PDF output.
+REMAINING_BLOCKERS   = [50 direct-product slices have not yet reached D0, 33 later-wave dependent rows remain owned by later waves]
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice004Implementation
 ```
 
-## Task closeout state
+## Task closeout
 
 ```text
-1. Distance segment shortened = queue position 3 moved from frozen-only to artifact-materialized E6 D0.
+1. Distance segment shortened = W3 direct-product queue position 3 moved from frozen-only to merged E6 D0.
 2. System nodes advanced       = KnowledgePoint, Tag Registry, FormalMapping, PatternSpec, Generator, Validator, three W3 capabilities, Classic/Pixel selector, Worksheet, HTML/PDF renderer.
-3. Blocker removed             = quotient-as-fraction runtime, artifact and visual acceptance blockers.
-4. New blocker added           = none; final CI/merge is ordinary milestone completion work.
-5. Next shortest valid step    = final clean-head CI and merge PR #412.
+3. Blocker removed             = queue position 3 product admission, artifact, exact-head CI and merge blockers.
+4. New blocker added           = none.
+5. Next shortest valid step    = P03F_W3DirectProductVerticalSlice004Implementation.
+```
+
+```text
+IMPLEMENTATION_BOUNDARY = true
+SEPARATE_APPROVAL_REQUIRED = true
 ```
