@@ -71,20 +71,24 @@ HTML SHA256 = 0dde8acb0f928d3c6be4094a65ce7addd3d2f5cecd3280e96cfe792a21387617
 PDF SHA256  = f644641568018f9b82fe9554a916d1a305fa445af4d0240c11638cfdf90ba38d
 ```
 
-## Pre-D0 exact-head acceptance
+## Pre-D0 and artifact-materialization acceptance
 
 ```text
-implementation PR          = #412
-accepted head              = 998af007b7aaa82c0f42484659e8d5756fd8d9ef
-Node / Chromium run        = 30280070827 SUCCESS
-Chromium artifact          = 8658504673
-artifact digest            = sha256:e52aaccdeef5835755713d2f6496dfc605a66f31e3b0652d63d3cb38c6e5e35e
-full Node regression       = 2494 / 2494 PASS
-questions                  = 8 / 8 PASS
-answer-key items           = 8 / 8 PASS
-physical page parity       = PASS
-visual semantic review     = PASS
-all completed governance   = PASS
+implementation PR               = #412
+pre-D0 accepted head             = 998af007b7aaa82c0f42484659e8d5756fd8d9ef
+pre-D0 Node / Chromium run       = 30280070827 SUCCESS
+pre-D0 Chromium artifact         = 8658504673
+pre-D0 artifact digest           = sha256:e52aaccdeef5835755713d2f6496dfc605a66f31e3b0652d63d3cb38c6e5e35e
+artifact materialization commit  = ccefbad6fd8f8d3aef2b85f81c79faa18780f36e
+materialization workflow run     = 30281576982 SUCCESS
+materialization artifact         = 8659116713
+full Node regression             = 2494 / 2494 PASS
+questions                        = 8 / 8 PASS
+answer-key items                 = 8 / 8 PASS
+physical page parity             = PASS
+visual semantic review           = PASS
+artifact / committed hash parity = PASS
+all completed governance         = PASS
 ```
 
 ## Admission effect
