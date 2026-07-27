@@ -7,7 +7,7 @@ import {
   BATCH_A_SELECTOR_AVAILABILITY as CURRENT_SELECTOR_AVAILABILITY,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
-} from "../modules/curriculum/registry/batch-a-selector-p03f2-extension.js";
+} from "../modules/curriculum/registry/batch-a-selector-p03f3-extension.js";
 import {
   BATCH_A_SELECTOR_AVAILABILITY as P01E_SELECTOR_AVAILABILITY,
 } from "../modules/curriculum/registry/batch-a-selector-p01e-extension.js";
@@ -24,10 +24,7 @@ const G4B_U04_PIXEL_SOURCE_UNIT = Object.freeze({
 
 const currentPixelSurfaceActive = () => typeof document !== "undefined";
 
-function clone(value) {
-  return JSON.parse(JSON.stringify(value));
-}
-
+function clone(value) { return JSON.parse(JSON.stringify(value)); }
 function visibleKnowledgePointsBySource() {
   const grouped = new Map();
   for (const knowledgePoint of listVisibleBatchAKnowledgePoints()) {
@@ -37,7 +34,6 @@ function visibleKnowledgePointsBySource() {
   }
   return grouped;
 }
-
 function mapPixelSourceOptions(units) {
   const grouped = visibleKnowledgePointsBySource();
   return units.map((unit) => {
@@ -58,138 +54,28 @@ function mapPixelSourceOptions(units) {
     });
   });
 }
-
 function listLegacyS74PixelSourceOptions() {
   const units = listBatchASourceUnits({ includePublicCandidates: false });
-  if (!units.some((unit) => unit.sourceId === G4B_U04_SOURCE_ID)) {
-    units.splice(12, 0, { ...G4B_U04_PIXEL_SOURCE_UNIT });
-  }
+  if (!units.some((unit) => unit.sourceId === G4B_U04_SOURCE_ID)) units.splice(12, 0, { ...G4B_U04_PIXEL_SOURCE_UNIT });
   return mapPixelSourceOptions(units);
 }
-
-export function listCurrentPixelSourceOptions() {
-  return mapPixelSourceOptions(listCurrentFullProductPublicSourceUnits());
-}
-
+export function listCurrentPixelSourceOptions() { return mapPixelSourceOptions(listCurrentFullProductPublicSourceUnits()); }
 export function listPixelSourceOptions() {
   return currentPixelSurfaceActive()
     ? listCurrentPixelSourceOptions()
     : mapPixelSourceOptions(listFullProductPublicSourceUnits());
 }
-
-function listPixelSurfaceSourceOptions() {
-  return listPixelSourceOptions();
-}
-
-export function listPixelGrades() {
-  return [...new Set(listPixelSourceOptions().map((entry) => entry.grade))]
-    .sort((a, b) => a - b);
-}
-
-export function listPixelSemestersForGrade(grade) {
-  return [...new Set(listPixelSourceOptions()
-    .filter((entry) => entry.grade === grade)
-    .map((entry) => entry.semester))];
-}
-
-export function listPixelSourceOptionsByFilter({ grade, semester } = {}) {
-  return listPixelSurfaceSourceOptions().filter((entry) => {
-    if (Number.isInteger(grade) && entry.grade !== grade) return false;
-    if (semester && entry.semester !== semester) return false;
-    return true;
-  });
-}
-
-export function listCurrentPixelSourceOptionsByFilter({ grade, semester } = {}) {
-  return listCurrentPixelSourceOptions().filter((entry) => {
-    if (Number.isInteger(grade) && entry.grade !== grade) return false;
-    if (semester && entry.semester !== semester) return false;
-    return true;
-  });
-}
-
-export function listS74PixelSourceOptionsByFilter({ grade, semester } = {}) {
-  return listLegacyS74PixelSourceOptions().filter((entry) => {
-    if (Number.isInteger(grade) && entry.grade !== grade) return false;
-    if (semester && entry.semester !== semester) return false;
-    return true;
-  });
-}
-
-export function getPixelSourceOption(sourceId) {
-  return listPixelSurfaceSourceOptions()
-    .find((unit) => unit.sourceId === sourceId) ?? null;
-}
-
-export function getCurrentPixelSourceOption(sourceId) {
-  return listCurrentPixelSourceOptions()
-    .find((unit) => unit.sourceId === sourceId) ?? null;
-}
-
-export function getS74PixelSourceOption(sourceId) {
-  return listLegacyS74PixelSourceOptions()
-    .find((unit) => unit.sourceId === sourceId) ?? null;
-}
-
-export function listPixelKnowledgePointsForSource(sourceId) {
-  return listVisibleBatchAKnowledgePoints()
-    .filter((entry) => entry.sourceId === sourceId)
-    .map((entry) => Object.freeze({
-      knowledgePointId: entry.knowledgePointId,
-      sourceId: entry.sourceId,
-      unitCode: entry.unitCode,
-      displayName: entry.displayName,
-      supportClass: entry.supportClass,
-      qaStatusLabel: entry.qaStatusLabel,
-      patternGroupIds: [...(entry.patternGroupIds ?? [])],
-      patternSpecIds: [...(entry.patternSpecIds ?? [])],
-    }));
-}
-
-function buildPixelSourceSummary(sourceOption) {
-  if (!sourceOption) return null;
-  const knowledgePoints = listPixelKnowledgePointsForSource(sourceOption.sourceId);
-  return Object.freeze({
-    ...clone(sourceOption),
-    visibleKnowledgePoints: knowledgePoints,
-    summaryText: `${sourceOption.unitCode}｜${sourceOption.title}｜${sourceOption.grade} 年級${sourceOption.semesterLabel}`,
-    previewText: `目前選擇 ${sourceOption.unitCode}，可選知識點 ${knowledgePoints.length} 個。`,
-  });
-}
-
-export function getPixelSourceSummary(sourceId) {
-  return buildPixelSourceSummary(getPixelSourceOption(sourceId));
-}
-
-export function getCurrentPixelSourceSummary(sourceId) {
-  return buildPixelSourceSummary(getCurrentPixelSourceOption(sourceId));
-}
-
-export function getS74PixelSourceSummary(sourceId) {
-  return buildPixelSourceSummary(getS74PixelSourceOption(sourceId));
-}
-
-function registrySnapshot(sources, visibleKnowledgePointCount) {
-  return Object.freeze({
-    sourceCount: sources.length,
-    visibleKnowledgePointCount,
-    grades: [...new Set(sources.map((entry) => entry.grade))].sort((a, b) => a - b),
-    sources,
-    bySourceId: Object.freeze(Object.fromEntries(
-      sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)]),
-    )),
-  });
-}
-
+function listPixelSurfaceSourceOptions() { return currentPixelSurfaceActive() ? listCurrentPixelSourceOptions() : listLegacyS74PixelSourceOptions(); }
+export function listPixelGradeOptions() { return [...new Set(listPixelSurfaceSourceOptions().map((unit) => unit.grade))].sort((a, b) => a - b); }
+export function listPixelSemesterOptions(grade) { return [...new Set(listPixelSurfaceSourceOptions().filter((unit) => unit.grade === grade).map((unit) => unit.semester))]; }
+export function listPixelUnitsForGradeSemester(grade, semester) { return listPixelSurfaceSourceOptions().filter((unit) => unit.grade === grade && unit.semester === semester); }
+export function listPixelKnowledgePointsForSource(sourceId) { return listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === sourceId).map(clone); }
 export function getPixelRegistrySnapshot() {
-  const current = currentPixelSurfaceActive();
-  const sources = current ? listCurrentPixelSourceOptions() : listPixelSourceOptions();
-  return registrySnapshot(
-    sources,
-    current ? CURRENT_SELECTOR_AVAILABILITY.visibleCount : P01E_SELECTOR_AVAILABILITY.visibleCount,
-  );
+  const sourceUnits = listPixelSurfaceSourceOptions();
+  return clone({ sourceCount: sourceUnits.length, sourceUnits, selectorAvailability: currentPixelSurfaceActive() ? CURRENT_SELECTOR_AVAILABILITY : P01E_SELECTOR_AVAILABILITY });
 }
-
 export function getCurrentPixelRegistrySnapshot() {
-  return registrySnapshot(listCurrentPixelSourceOptions(), CURRENT_SELECTOR_AVAILABILITY.visibleCount);
+  const sourceUnits = listCurrentPixelSourceOptions();
+  const bySourceId = Object.fromEntries(sourceUnits.map((unit) => [unit.sourceId, { source: unit, visibleKnowledgePoints: listPixelKnowledgePointsForSource(unit.sourceId) }]));
+  return clone({ sourceCount: sourceUnits.length, visibleKnowledgePointCount: listVisibleBatchAKnowledgePoints().length, sourceUnits, bySourceId, selectorAvailability: CURRENT_SELECTOR_AVAILABILITY });
 }
