@@ -84,11 +84,11 @@ function fullProductPlan(plan, options, sourceUnit, patternSpecIds, taskId) {
 
 function p03fPlan(plan, options) {
   const sourceUnit = getBatchASourceUnit(G3A_U08_SOURCE_ID);
-  const sourceUnitMode = (options.selectionMode ?? "sourceUnit") === "sourceUnit";
   return {
     ...plan,
     sourceUnit: { ...sourceUnit },
-    ...(sourceUnitMode ? { patternSpecIds: [G3A_U08_PART_WHOLE_PATTERN_SPEC_ID], allocation: null } : {}),
+    patternSpecIds: [G3A_U08_PART_WHOLE_PATTERN_SPEC_ID],
+    allocation: null,
     questionMode: "numeric",
     requestedKnowledgePointIds: Array.isArray(options.selectedKnowledgePointIds) ? [...options.selectedKnowledgePointIds] : [],
     requestedPatternGroupIds: Array.isArray(options.selectedPatternGroupIds) ? [...options.selectedPatternGroupIds] : [],
