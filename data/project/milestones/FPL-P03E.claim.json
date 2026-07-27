@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03E_W3DirectProductVerticalSliceQueueFreeze",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FREEZE_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs",
+      "tools/curriculum/validate-p03e-w3-direct-product-vertical-slice-queue.mjs",
+      "tests/curriculum/p03e-w3-direct-product-vertical-slice-queue.test.js",
+      "tests/curriculum/p03e-w3-direct-product-vertical-slice-queue-integration.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03D.claim.json",
+      "src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs",
+      "data/curriculum/full-product/p03d/protected-d0-compatibility-revalidation.manifest.json",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue-policy.json",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.manifest.json",
+      "docs/curriculum/contracts/P03E_W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FREEZE_CONTRACT.md",
+      "docs/curriculum/output/P03E_W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FREEZE_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The 82 direct W3 new-product KnowledgePoints receive one deterministic, source/rank/profile-atomic, bounded and strictly serial vertical-slice execution queue without starting product implementation or admission."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}
