@@ -65,13 +65,15 @@ function metadata(definition, representationMode) {
     representationMode,
     requiredCapabilityIds: ["cap_fraction_domain_validator", "cap_fraction_number_system"],
     applicationClassification: "APPLICATION_NOT_APPLICABLE",
+    magnitudeClass: "PROPER_FRACTION",
+    excludedKnowledgePointIds: ["kp_g3a_u08_whole_as_fraction"],
     productAdmissionTask: "P03F_W3DirectProductVerticalSlice001Implementation",
   };
 }
 function generateQuestion(index, seed) {
   const definition = getBatchABrowserPatternDefinition(G3A_U08_PART_WHOLE_PATTERN_SPEC_ID);
   const equalParts = DENOMINATORS[state(seed, index, "denominator") % DENOMINATORS.length];
-  const selectedParts = 1 + (state(seed, index, "selected") % equalParts);
+  const selectedParts = 1 + (state(seed, index, "selected") % (equalParts - 1));
   const representationMode = definition.representationModes[(index - 1) % definition.representationModes.length];
   const prompt = buildPrompt(representationMode, selectedParts, equalParts);
   const answerText = fractionText(selectedParts, equalParts);
@@ -115,10 +117,11 @@ export function validateG3AU08PartWholeFractionQuestion(question = {}) {
   if (question.patternSpecId !== G3A_U08_PART_WHOLE_PATTERN_SPEC_ID || question.metadata?.patternId !== G3A_U08_PART_WHOLE_PATTERN_SPEC_ID) add("p03f_pattern_mismatch", "patternSpecId");
   if (question.metadata?.knowledgePointId !== G3A_U08_PART_WHOLE_KP_ID) add("p03f_kp_mismatch", "metadata.knowledgePointId");
   if (question.metadata?.patternGroupId !== G3A_U08_PART_WHOLE_PATTERN_GROUP_ID) add("p03f_group_mismatch", "metadata.patternGroupId");
-  if (!Number.isSafeInteger(question.equalParts) || question.equalParts <= 0) add("p03f_denominator_invalid", "equalParts");
-  if (!Number.isSafeInteger(question.selectedParts) || question.selectedParts < 0 || question.selectedParts > question.equalParts) add("p03f_numerator_invalid", "selectedParts");
+  if (!Number.isSafeInteger(question.equalParts) || question.equalParts < 2) add("p03f_denominator_invalid", "equalParts");
+  if (!Number.isSafeInteger(question.selectedParts) || question.selectedParts <= 0 || question.selectedParts >= question.equalParts) add("p03f_numerator_invalid", "selectedParts");
   if (question.answerText !== fractionText(question.selectedParts, question.equalParts)) add("p03f_answer_invalid", "answerText");
   if (question.finalAnswer?.numerator !== question.selectedParts || question.finalAnswer?.denominator !== question.equalParts) add("p03f_final_answer_invalid", "finalAnswer");
+  if (question.metadata?.magnitudeClass !== "PROPER_FRACTION") add("p03f_magnitude_class_invalid", "metadata.magnitudeClass");
   if (!G3A_U08_PART_WHOLE_PATTERN_DEFINITION.representationModes.includes(question.representationMode)) add("p03f_representation_invalid", "representationMode");
   if (String(question.blankedDisplayText ?? "").match(/(?:算式|_{2,}|答\s*[:：])/)) add("p03f_forbidden_label_present", "blankedDisplayText");
   if (String(question.blankedDisplayText ?? "").includes("{")) add("p03f_prompt_slot_unresolved", "blankedDisplayText");
