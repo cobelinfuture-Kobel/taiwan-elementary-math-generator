@@ -25,7 +25,9 @@ export function validateP03FSlice002ProductAdmission() {
     if (!evidence.generations[mode].ok || evidence.generations[mode].questions.length !== 6) errors.push(`P03F2_${mode.toUpperCase()}_GENERATION_INVALID`);
     if (!evidence.questionValidations[mode].ok) errors.push(...evidence.questionValidations[mode].errors.map((row) => `P03F2_${mode.toUpperCase()}_VALIDATOR:${row.code}`));
     if (!evidence.worksheets[mode].ok || !evidence.documents[mode]) errors.push(`P03F2_${mode.toUpperCase()}_WORKSHEET_INVALID`);
-    if (!evidence.html[mode].includes("<!doctype html>") || !evidence.html[mode].includes("worksheet-page--questions") || !evidence.html[mode].includes("worksheet-page--answer-key")) errors.push(`P03F2_${mode.toUpperCase()}_HTML_INVALID`);
+    if (!evidence.html[mode].includes("<!doctype html>") || !evidence.html[mode].includes("worksheet-page--questions") || !evidence.html[mode].includes("worksheet-page--answer-key") || !evidence.html[mode].includes("break-after: page")) errors.push(`P03F2_${mode.toUpperCase()}_HTML_INVALID`);
+    const prompts = evidence.generations[mode].questions.map((row) => row.blankedDisplayText);
+    if (new Set(prompts).size !== prompts.length) errors.push(`P03F2_${mode.toUpperCase()}_DUPLICATE_PROMPT`);
   }
   const applicationIds = new Set(evidence.applicationRecords.map((row) => row.patternSpecId));
   if (applicationIds.size !== 3 || evidence.applicationRecords.some((row) => !row.contextLineage?.macroContextId || !row.bindingCandidateId || row.productionSelectable !== false)) errors.push("P03F2_GLOBAL_CONTEXT_AUTHORITY_INVALID");
