@@ -66,7 +66,8 @@
     "preD0NodeWorkflowRunId": 30280070827,
     "preD0NodeWorkflowHeadSha": "998af007b7aaa82c0f42484659e8d5756fd8d9ef",
     "preD0ChromiumArtifactId": 8658504673,
-    "preD0ChromiumArtifactDigest": "sha256:e52aaccdeef5835755713d2f6496dfc605a66f31e3b0652d63d3cb38c6e5e35e"
+    "preD0ChromiumArtifactDigest": "sha256:e52aaccdeef5835755713d2f6496dfc605a66f31e3b0652d63d3cb38c6e5e35e",
+    "artifactMaterializationCommitSha": "ccefbad6fd8f8d3aef2b85f81c79faa18780f36e"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice003-quotient-fraction-authority.json",
   "runtimePath": "src/curriculum/full-product/p03f-slice003-product-admission.mjs",
