@@ -13,7 +13,7 @@
     "productionRendererUsed": true,
     "htmlOutputVerified": true,
     "pdfOutputVerified": false,
-    "visibleOutputChanged": true,
+    "visibleOutputChanged": false,
     "humanReviewReady": false,
     "productionAdmitted": false,
     "d0Complete": false
