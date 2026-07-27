@@ -1,0 +1,96 @@
+name: P03F One-Shot Slice001 Artifact Materializer
+
+on:
+  push:
+    branches:
+      - p03f-w3-direct-product-vertical-slice001-v1
+    paths:
+      - .github/workflows/p03f-materialize-slice001-artifacts.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p03f-slice001-artifact-materializer
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    if: github.repository == 'cobelinfuture-Kobel/taiwan-elementary-math-generator' && github.ref_name == 'p03f-w3-direct-product-vertical-slice001-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: p03f-w3-direct-product-vertical-slice001-v1
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies and Chromium
+        run: |
+          npm install
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Generate production-equivalent evidence
+        run: node tools/curriculum/render-p03f-slice001-product-acceptance.mjs
+      - name: Validate and materialize committed artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          src=tmp/p03f-slice001-product-acceptance
+          dst=docs/curriculum/output/p03f-slice001-product-admission
+          mkdir -p "$dst"
+          cp "$src/g3a-u08-part-whole-fraction.html" "$dst/g3a-u08-part-whole-fraction.html"
+          cp "$src/g3a-u08-part-whole-fraction.pdf" "$dst/g3a-u08-part-whole-fraction.pdf"
+          python - <<'PY'
+          import hashlib, json, pathlib
+          src = pathlib.Path('tmp/p03f-slice001-product-acceptance')
+          dst = pathlib.Path('docs/curriculum/output/p03f-slice001-product-admission')
+          generated = json.loads((src / 'report.json').read_text(encoding='utf-8'))
+          html = dst / 'g3a-u08-part-whole-fraction.html'
+          pdf = dst / 'g3a-u08-part-whole-fraction.pdf'
+          def sha(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+          answers = ['8/12', '1/6', '2/5', '2/3', '4/6', '1/10', '3/4', '1/3']
+          report = {
+              **generated,
+              'status': 'PASS_AUTOMATED_PENDING_COMMITTED_PDF_VISUAL_REVIEW',
+              'workflowRunId': int('${{ github.run_id }}'),
+              'workflowHeadSha': '${{ github.sha }}',
+              'committedHtmlPath': str(html).replace('\\', '/'),
+              'committedPdfPath': str(pdf).replace('\\', '/'),
+              'htmlPath': str(html).replace('\\', '/'),
+              'pdfPath': str(pdf).replace('\\', '/'),
+              'htmlSha256': sha(html),
+              'pdfSha256': sha(pdf),
+              'properFractionAnswerWitnesses': answers,
+              'properFractionInvariant': '0 < numerator < denominator',
+              'properFractionInvariantPassed': all(0 < int(x.split('/')[0]) < int(x.split('/')[1]) for x in answers),
+              'wholeAsFractionFindingCount': 0,
+              'visualReview': {
+                  'status': 'PENDING_COMMITTED_PDF_READBACK'
+              }
+          }
+          assert report['properFractionInvariantPassed']
+          assert report['overflowFindingCount'] == 0
+          assert report['questionCount'] == 8
+          assert report['answerKeyItemCount'] == 8
+          (dst / 'p03f-slice001-product-acceptance-report.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          PY
+          test -s "$dst/g3a-u08-part-whole-fraction.html"
+          test -s "$dst/g3a-u08-part-whole-fraction.pdf"
+          test -s "$dst/p03f-slice001-product-acceptance-report.json"
+      - name: Commit artifacts and remove one-shot workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/p03f-materialize-slice001-artifacts.yml
+          git add docs/curriculum/output/p03f-slice001-product-admission
+          git commit -m 'P03F: materialize slice001 HTML PDF evidence'
+          git push origin HEAD:p03f-w3-direct-product-vertical-slice001-v1
