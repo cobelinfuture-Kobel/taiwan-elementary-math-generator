@@ -49,6 +49,9 @@ export function validateP03FSlice001ProductAdmission() {
   if (!evidence.planValidation.ok) errors.push(...evidence.planValidation.errors.map((error) => `P03F_PLAN:${error.code}`));
   if (!evidence.generation.ok || evidence.generation.questions.length !== expected.questionWitnessCount) errors.push("P03F_GENERATION_INVALID");
   if (!evidence.questionValidation.ok) errors.push(...evidence.questionValidation.errors.map((error) => `P03F_BROWSER_VALIDATOR:${error.code}`));
+  if (evidence.generation.questions.some((row) => row.selectedParts <= 0 || row.selectedParts >= row.equalParts || row.metadata?.magnitudeClass !== "PROPER_FRACTION")) {
+    errors.push("P03F_PROPER_FRACTION_SCOPE_INVALID");
+  }
   if (evidence.representationModes.join(",") !== "CONTINUOUS_EQUAL_PARTITION,DISCRETE_SET_PARTITION") errors.push(`P03F_REPRESENTATION_COVERAGE_INVALID:${evidence.representationModes.join(",")}`);
   if (evidence.capabilityWitnesses.some((row) => !row.numberSystemOk || !row.domainValidatorOk)) errors.push("P03F_W3_CAPABILITY_BINDING_INVALID");
   if (!evidence.worksheet.ok || !evidence.worksheet.worksheetDocument) errors.push("P03F_WORKSHEET_INVALID");
@@ -58,6 +61,7 @@ export function validateP03FSlice001ProductAdmission() {
   if (/(?:算式|_{2,}|答\s*[:：])/.test(evidence.generation.questions.map((row) => row.blankedDisplayText).join("\n"))) errors.push("P03F_FORBIDDEN_LABEL_PRESENT");
   if (evidence.generation.questions.some((row) => row.questionMode !== "numeric" || row.metadata?.applicationClassification !== "APPLICATION_NOT_APPLICABLE")) errors.push("P03F_APPLICATION_SCOPE_VIOLATION");
   if (evidence.authority.patternSpec.successorOfHiddenAuthorityPath !== "data/curriculum/application/pattern-specs/w02/g3a_u08_3a08.hidden-pattern-spec.json") errors.push("P03F_HIDDEN_SUCCESSOR_AUTHORITY_INVALID");
+  if (evidence.authority.productBoundary.wholeAsFractionKnowledgePointExcluded !== true) errors.push("P03F_WHOLE_AS_FRACTION_BOUNDARY_INVALID");
   if (evidence.productAdmissionState !== "PRODUCT_ACCEPTANCE_PENDING" || evidence.d0Complete !== false) errors.push("P03F_PRE_CHROMIUM_STATE_INVALID");
   if (evidence.manifest.mainlineBoundary.nextQueuePositionStarted
     || evidence.manifest.mainlineBoundary.otherG3AU08KnowledgePointsAdmitted
