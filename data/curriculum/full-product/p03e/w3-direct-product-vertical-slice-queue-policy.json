@@ -1,0 +1,90 @@
+{
+  "schemaName": "P03EW3DirectProductVerticalSliceQueuePolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03E_W3DirectProductVerticalSliceQueueFreeze",
+  "status": "W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_POLICY_READY",
+  "authorities": {
+    "capabilityAndProductUnblockMatrix": "src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs",
+    "protectedD0CompatibilityManifest": "data/curriculum/full-product/p03d/protected-d0-compatibility-revalidation.manifest.json",
+    "historicalProductInventory": "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+    "operatorApproval": "P03E_APPROVED_2026-07-27"
+  },
+  "cohortRules": {
+    "assignedDeliveryWaveId": "R05-W3",
+    "directW3CohortMemberRequired": true,
+    "capabilityUnblockedRequired": true,
+    "protectedExistingD0Excluded": true,
+    "productProductionAdmittedExcluded": true,
+    "requiredProductAdmissionState": "PUBLIC_PRODUCT_VERTICAL_SLICE_REQUIRED",
+    "laterWaveDependentsExcluded": true,
+    "expectedDirectKnowledgePointCount": 82,
+    "expectedProtectedExcludedCount": 4,
+    "expectedLaterWaveDependentExcludedCount": 33,
+    "expectedAllNewProductRowsStillNotAdmitted": 115
+  },
+  "sliceRules": {
+    "primarySourceNodeSelection": "LEXICOGRAPHIC_FIRST_CANONICAL_SOURCE_NODE_ID",
+    "doNotMixPrimarySourceNodes": true,
+    "doNotMixIntraWavePrerequisiteRanks": true,
+    "doNotMixPrimaryRuntimeProfiles": true,
+    "maxKnowledgePointsPerSlice": 8,
+    "knowledgePointOrder": [
+      "intraWavePrerequisiteRank_ASC",
+      "primarySourceNodeId_ASC",
+      "primaryRuntimeProfileId_ASC",
+      "knowledgePointId_ASC"
+    ],
+    "sliceOrder": [
+      "intraWavePrerequisiteRank_ASC",
+      "primarySourceNodeId_ASC",
+      "primaryRuntimeProfileId_ASC",
+      "chunkIndex_ASC"
+    ],
+    "executionMode": "STRICT_SINGLE_SLICE_SERIAL",
+    "oneImplementationMilestoneMayConsumeAtMostOneSlice": true,
+    "previousSliceMustBeD0BeforeNextSliceStarts": true,
+    "silentReorderAllowed": false,
+    "queueChangeRequiresExplicitReconciliationTask": true
+  },
+  "verticalSliceD0Gate": {
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ],
+    "admissionFailClosedUntilEveryRequiredNodePasses": true,
+    "partialSliceAdmissionAllowed": false,
+    "visibleOutputHumanReviewRequiredOnlyWhenOutputChanges": true
+  },
+  "scopeBoundary": {
+    "queueFreezeOnly": true,
+    "productImplementationAllowed": false,
+    "formalMappingImplementationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "validatorImplementationAllowed": false,
+    "publicAdapterImplementationAllowed": false,
+    "publicUiImplementationAllowed": false,
+    "worksheetRendererImplementationAllowed": false,
+    "newProductAdmissionAllowed": false,
+    "visibleOutputChangeExpected": false
+  },
+  "fullProductBoundary": {
+    "fullProductLineClosed": false,
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "nextTaskRequiresSeparateApproval": true,
+    "nextTask": "P03F_W3DirectProductVerticalSlice01Implementation"
+  }
+}
