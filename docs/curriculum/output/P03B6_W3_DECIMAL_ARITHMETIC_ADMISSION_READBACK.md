@@ -23,7 +23,7 @@ CI_STATUS = SUCCESS
 ### Closeout reconciliation
 
 ```text
-PR        = PENDING_REPLACEMENT_CLOSEOUT_PR
+PR        = #395
 STALE_PR  = #394 CLOSED_AFTER_MAIN_ADVANCED
 SCOPE     = readback metadata only
 RUNTIME   = unchanged
