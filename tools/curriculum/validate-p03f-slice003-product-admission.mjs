@@ -1,5 +1,11 @@
 import { materializeP03FSlice003ProductAdmission } from "../../src/curriculum/full-product/p03f-slice003-product-admission.mjs";
 
+const EXPECTED_W3_CAPABILITY_IDS = Object.freeze([
+  "cap_fraction_arithmetic",
+  "cap_fraction_domain_validator",
+  "cap_fraction_number_system",
+]);
+
 export function validateP03FSlice003ProductAdmission() {
   const evidence = materializeP03FSlice003ProductAdmission();
   const errors = [];
@@ -8,6 +14,8 @@ export function validateP03FSlice003ProductAdmission() {
   const slice = evidence.slice;
   if (slice?.queuePosition !== 3 || slice?.sliceId !== "p03e_q003_r5_g3b_u07_3b07_profile_fraction_c1" || slice?.implementationTaskId !== "P03F_W3DirectProductVerticalSlice003Implementation") errors.push("P03F3_QUEUE_IDENTITY_INVALID");
   if (JSON.stringify(slice?.knowledgePointIds) !== JSON.stringify(["kp_g3b_u07_quotient_as_fraction"])) errors.push("P03F3_QUEUE_KP_SET_INVALID");
+  if (JSON.stringify(slice?.requiredW3CapabilityIds) !== JSON.stringify(EXPECTED_W3_CAPABILITY_IDS)) errors.push("P03F3_QUEUE_CAPABILITY_SET_INVALID");
+  if (JSON.stringify(evidence.authority.knowledgePoint.requiredCapabilityIds) !== JSON.stringify(EXPECTED_W3_CAPABILITY_IDS)) errors.push("P03F3_AUTHORITY_CAPABILITY_SET_INVALID");
   if (!evidence.predecessorPassed) errors.push("P03F3_PREDECESSOR_SLICE002_NOT_D0");
   for (const key of ["queuePosition","sourceNodeCount","knowledgePointCount","tagBindingCount","formalMappingCount","patternGroupCount","patternSpecCount","numericPatternSpecCount","applicationPatternSpecCount","globalContextBindingCount","requiredCapabilityCount","publicSourceCountAfterAdmission","publicVisibleKnowledgePointCountForSource","questionWitnessCount","answerKeyWitnessCount","htmlWitnessCount","chromiumPdfWitnessCount","overflowFindingCount","duplicatePromptFindingCount","newProductAdmissionCount","cumulativeW3ProductAdmissionCount","remainingDirectSliceCount","remainingDirectKnowledgePointCount","laterWaveDependentCount"]) {
     if (metrics[key] !== expected[key]) errors.push(`P03F3_METRIC_INVALID:${key}:${metrics[key]}:${expected[key]}`);
@@ -28,7 +36,13 @@ export function validateP03FSlice003ProductAdmission() {
   if (evidence.generation.questions.some((row) => row.questionMode !== "numeric" || row.metadata?.applicationClassification !== "APPLICATION_NOT_APPLICABLE")) errors.push("P03F3_APPLICATION_SCOPE_VIOLATION");
   if (evidence.generation.questions.some((row) => row.answerText !== `${row.dividend}/${row.divisor}` || row.finalAnswer?.numerator !== row.dividend || row.finalAnswer?.denominator !== row.divisor)) errors.push("P03F3_ORDERED_QUOTIENT_IDENTITY_INVALID");
   if (evidence.generation.questions.some((row) => /(?:算式|_{2,}|答\s*[:：]|\{\{)/.test(row.blankedDisplayText ?? ""))) errors.push("P03F3_FORBIDDEN_SURFACE_PRESENT");
-  if (evidence.capabilityWitnesses.some((row) => !row.numberSystemOk || !row.domainValidatorOk)) errors.push("P03F3_W3_CAPABILITY_BINDING_INVALID");
+  if (evidence.fractionArithmetic?.capabilityId !== "cap_fraction_arithmetic") errors.push("P03F3_FRACTION_ARITHMETIC_CONSUMER_INVALID");
+  if (evidence.capabilityWitnesses.some((row) => (
+    !row.numberSystemOk
+    || !row.domainValidatorOk
+    || !row.fractionArithmeticOk
+    || JSON.stringify(row.canonicalValue) !== JSON.stringify(row.arithmeticCanonicalValue)
+  ))) errors.push("P03F3_W3_CAPABILITY_BINDING_INVALID");
   if (!evidence.worksheet.ok || !evidence.document || evidence.document.generatedQuestions?.length !== 8 || evidence.document.answerKeyItems?.length !== 8) errors.push("P03F3_WORKSHEET_ANSWER_KEY_INVALID");
   if (!evidence.html.includes("<!doctype html>") || !evidence.html.includes("worksheet-page--questions") || !evidence.html.includes("worksheet-page--answer-key") || !evidence.html.includes("break-after: page")) errors.push("P03F3_HTML_INVALID");
   if (evidence.authority.productBoundary.applicationModeAllowed || !evidence.authority.productBoundary.globalContextBindingNotApplicable || evidence.authority.productBoundary.parallelPipelineAllowed) errors.push("P03F3_AUTHORITY_BOUNDARY_INVALID");
