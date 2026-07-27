@@ -4,7 +4,7 @@
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
   "actualEvidenceLevel": "E6_D0_COMPLETE",
-  "claimedStatus": "W3_SLICE002_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE002_D0_COMPLETE_CI_SYNCED_AND_MERGED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -19,7 +19,16 @@
     "d0Complete": true
   },
   "d0Closeout": {
-    "mode": "full_pipeline"
+    "mode": "full_pipeline",
+    "implementationPrNumber": 410,
+    "implementationHeadSha": "ba6bbf947881b15427892c8b5797aa668c1697af",
+    "implementationMergeSha": "f3c0b5fb8941b78466cbbdead932b7465b3f763b",
+    "implementationMergedAt": "2026-07-27T09:27:06Z",
+    "finalNodeWorkflowRunId": 30251213816,
+    "finalChromiumArtifactId": 8647091451,
+    "nodeTestsPassed": 2486,
+    "nodeTestsFailed": 0,
+    "finalExactHeadAccepted": true
   },
   "evidence": {
     "runtimeTestPaths": [
@@ -53,6 +62,7 @@
       "data/curriculum/full-product/p03f/slice002-product-admission.manifest.json",
       "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_CONTRACT.md",
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_READBACK.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_FINAL_CLOSEOUT_PASS.marker",
       "docs/curriculum/output/p03f-slice002-product-admission/p03f-slice002-product-acceptance-report.json"
     ],
     "reviewArtifactPaths": [
@@ -85,7 +95,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Frozen queue position 2 is fully D0: two source-backed fraction quantity KnowledgePoints are production admitted through Global Context bindings, shared generator and validator, current Classic and Pixel selection, worksheet, answer key, two committed HTML outputs, two Chromium PDFs, committed hashes and visual semantic review."
+    "distanceReduced": "Frozen queue position 2 is fully D0 and merged: two source-backed fraction quantity KnowledgePoints are production admitted through Global Context bindings, shared generator and validator, current Classic and Pixel selection, worksheet, answer key, two committed HTML outputs, two Chromium PDFs, committed hashes, visual semantic review and exact-head CI."
   },
   "nextStep": {
     "taskId": "P03F_W3DirectProductVerticalSlice003Implementation",
