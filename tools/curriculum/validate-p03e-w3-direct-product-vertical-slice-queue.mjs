@@ -2,29 +2,38 @@ import {
   materializeP03EW3DirectProductVerticalSliceQueue,
 } from "../../src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs";
 
-function unique(values) {
-  return [...new Set(values)];
-}
+const unique = (values) => [...new Set(values)];
 
 export function validateP03EW3DirectProductVerticalSliceQueue() {
   const evidence = materializeP03EW3DirectProductVerticalSliceQueue();
   const errors = [];
   const { policy, manifest, metrics, queueEntries, directRows } = evidence;
-  const expected = policy.cohortRules;
+  const cohort = policy.cohortRules;
+  const exact = manifest.expectedCounts;
 
-  if (metrics.directW3KnowledgePointCount !== expected.expectedDirectKnowledgePointCount) {
-    errors.push(`P03E_DIRECT_W3_COUNT_INVALID:${metrics.directW3KnowledgePointCount}`);
+  const exactChecks = [
+    ["directW3KnowledgePointCount", metrics.directW3KnowledgePointCount],
+    ["directW3SourceNodeCount", metrics.directW3SourceNodeCount],
+    ["directW3RuntimeProfileCount", metrics.directW3RuntimeProfileCount],
+    ["directW3PrerequisiteRankCount", metrics.directW3PrerequisiteRankCount],
+    ["queueSliceCount", metrics.queueSliceCount],
+    ["protectedD0ExcludedCount", metrics.protectedD0ExcludedCount],
+    ["laterWaveDependentExcludedCount", metrics.laterWaveDependentExcludedCount],
+    ["unaffectedNewProductRowCount", metrics.unaffectedNewProductRowCount],
+    ["newProductAdmissionCount", metrics.newProductAdmissionCount],
+  ];
+  for (const [key, actual] of exactChecks) {
+    if (actual !== exact[key]) errors.push(`P03E_EXACT_COUNT_INVALID:${key}:${actual}:${exact[key]}`);
   }
-  if (metrics.protectedD0ExcludedCount !== expected.expectedProtectedExcludedCount) {
-    errors.push(`P03E_PROTECTED_EXCLUSION_COUNT_INVALID:${metrics.protectedD0ExcludedCount}`);
+  if (metrics.maximumSliceKnowledgePointCount !== exact.maximumActualKnowledgePointsPerSlice) {
+    errors.push(`P03E_MAX_ACTUAL_SLICE_COUNT_INVALID:${metrics.maximumSliceKnowledgePointCount}`);
   }
-  if (metrics.laterWaveDependentExcludedCount !== expected.expectedLaterWaveDependentExcludedCount) {
-    errors.push(`P03E_LATER_WAVE_EXCLUSION_COUNT_INVALID:${metrics.laterWaveDependentExcludedCount}`);
+  if (metrics.directW3KnowledgePointCount !== cohort.expectedDirectKnowledgePointCount
+    || metrics.protectedD0ExcludedCount !== cohort.expectedProtectedExcludedCount
+    || metrics.laterWaveDependentExcludedCount !== cohort.expectedLaterWaveDependentExcludedCount
+    || metrics.unaffectedNewProductRowCount !== cohort.expectedAllNewProductRowsStillNotAdmitted) {
+    errors.push("P03E_POLICY_COHORT_COUNT_INVALID");
   }
-  if (metrics.unaffectedNewProductRowCount !== expected.expectedAllNewProductRowsStillNotAdmitted) {
-    errors.push(`P03E_NEW_PRODUCT_ROW_COUNT_INVALID:${metrics.unaffectedNewProductRowCount}`);
-  }
-  if (metrics.newProductAdmissionCount !== 0) errors.push("P03E_NEW_PRODUCT_ADMISSION_CHANGED");
 
   if (evidence.predecessorP03C.metrics.productionAdmittedW3CapabilityCount !== 7
     || evidence.predecessorP03C.metrics.remainingW3ContractCapabilityCount !== 0) {
@@ -36,7 +45,7 @@ export function validateP03EW3DirectProductVerticalSliceQueue() {
   }
 
   for (const row of directRows) {
-    if (row.assignedDeliveryWaveId !== expected.assignedDeliveryWaveId) {
+    if (row.assignedDeliveryWaveId !== cohort.assignedDeliveryWaveId) {
       errors.push(`P03E_DIRECT_ROW_WAVE_INVALID:${row.knowledgePointId}:${row.assignedDeliveryWaveId}`);
     }
     if (!row.directW3CohortMember || row.laterWaveDependent || row.protectedExistingD0) {
@@ -45,7 +54,7 @@ export function validateP03EW3DirectProductVerticalSliceQueue() {
     if (!row.capabilityUnblocked || row.missingW3CapabilityIds.length !== 0) {
       errors.push(`P03E_DIRECT_ROW_CAPABILITY_BLOCKED:${row.knowledgePointId}`);
     }
-    if (row.productAdmissionState !== expected.requiredProductAdmissionState) {
+    if (row.productAdmissionState !== cohort.requiredProductAdmissionState) {
       errors.push(`P03E_DIRECT_ROW_PRODUCT_STATE_INVALID:${row.knowledgePointId}:${row.productAdmissionState}`);
     }
     if (row.productProductionAdmitted || row.newlyProductAdmittedByP03C) {
@@ -64,8 +73,7 @@ export function validateP03EW3DirectProductVerticalSliceQueue() {
   }
 
   for (const [index, entry] of queueEntries.entries()) {
-    const expectedPosition = index + 1;
-    if (entry.queuePosition !== expectedPosition) errors.push(`P03E_QUEUE_POSITION_INVALID:${entry.sliceId}`);
+    if (entry.queuePosition !== index + 1) errors.push(`P03E_QUEUE_POSITION_INVALID:${entry.sliceId}`);
     if (entry.knowledgePointCount < 1 || entry.knowledgePointCount > policy.sliceRules.maxKnowledgePointsPerSlice) {
       errors.push(`P03E_SLICE_SIZE_INVALID:${entry.sliceId}:${entry.knowledgePointCount}`);
     }
@@ -92,11 +100,10 @@ export function validateP03EW3DirectProductVerticalSliceQueue() {
     }
   }
 
-  if (metrics.maximumSliceKnowledgePointCount > policy.sliceRules.maxKnowledgePointsPerSlice) {
-    errors.push(`P03E_MAX_SLICE_SIZE_INVALID:${metrics.maximumSliceKnowledgePointCount}`);
-  }
-  if (evidence.queueRegistryPresent && !evidence.queueRegistryParity) {
-    errors.push("P03E_QUEUE_REGISTRY_PARITY_INVALID");
+  if (!evidence.queueRegistryPresent) errors.push("P03E_QUEUE_REGISTRY_MISSING");
+  if (!evidence.queueRegistryParity) errors.push("P03E_QUEUE_REGISTRY_PARITY_INVALID");
+  if (evidence.derivedRegistrySnapshot.queueDigest !== manifest.queueDigest) {
+    errors.push(`P03E_QUEUE_DIGEST_INVALID:${evidence.derivedRegistrySnapshot.queueDigest}`);
   }
   if (manifest.mainlineBoundary.newProductAdmissionChanged
     || manifest.mainlineBoundary.productImplementationStarted
