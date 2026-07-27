@@ -3,22 +3,25 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03E_W3DirectProductVerticalSliceQueueFreeze",
-  "status": "IMPLEMENTED_PENDING_EXACT_QUEUE_FREEZE_CI",
+  "status": "QUEUE_FROZEN_PENDING_CLEAN_HEAD_CI",
   "expectedCounts": {
     "directW3KnowledgePointCount": 82,
-    "directW3SourceNodeCount": 0,
-    "directW3RuntimeProfileCount": 0,
-    "directW3PrerequisiteRankCount": 0,
-    "queueSliceCount": 0,
+    "directW3SourceNodeCount": 16,
+    "directW3RuntimeProfileCount": 3,
+    "directW3PrerequisiteRankCount": 10,
+    "queueSliceCount": 53,
     "maxKnowledgePointsPerSlice": 8,
+    "maximumActualKnowledgePointsPerSlice": 4,
     "protectedD0ExcludedCount": 4,
     "laterWaveDependentExcludedCount": 33,
     "unaffectedNewProductRowCount": 115,
     "newProductAdmissionCount": 0
   },
+  "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7",
   "exactAcceptance": {
-    "nodeTestsPassed": 0,
+    "nodeTestsPassed": 2471,
     "nodeTestsFailed": 0,
+    "queueDerivationWorkflowRunId": 30236219130,
     "milestoneClaimIntegrityPassed": true,
     "predecessorP03CPassed": true,
     "predecessorP03DPassed": true,
@@ -30,6 +33,7 @@
     "sliceSizeSweepPassed": true,
     "serialPredecessorSweepPassed": true,
     "completeAllocationSweepPassed": true,
+    "queueRegistryParityPassed": true,
     "protectedAndLaterWaveExclusionSweepPassed": true,
     "newProductFailClosePassed": true,
     "scopeBoundaryPassed": true,
@@ -54,6 +58,6 @@
     "newProductAdmissionChanged": false,
     "visibleOutputChanged": false,
     "nextTaskRequiresSeparateApproval": true,
-    "nextTask": "P03F_W3DirectProductVerticalSlice01Implementation"
+    "nextTask": "P03F_W3DirectProductVerticalSlice001Implementation"
   }
 }
