@@ -29,7 +29,7 @@ import { validateP03F2PatternDefinitions } from "../../../site/modules/curriculu
 import { buildBatchABrowserPlan } from "../../../site/modules/curriculum/batch-a/batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import { validateBatchABrowserPlan, validateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator-p03f2.js";
-import { listCurrentFullProductPublicSourceUnits } from "../../../site/modules/curriculum/batch-a/source-units.js";
+import { listP03F2FullProductPublicSourceUnits } from "../../../site/modules/curriculum/batch-a/source-units.js";
 import { auditFullProductPublicControlProfiles, getFullProductPublicControlProfile } from "../../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
 import { P03F2_APPLICATION_AUTHORITIES } from "../../../site/modules/curriculum/batch-a/slice002-fraction-runtime.js";
 
@@ -141,7 +141,7 @@ export function materializeP03FSlice002ProductAdmission() {
   const worksheets = Object.freeze({ numeric: buildWorksheetDocumentFromPlan(requestedPlans.numeric), application: buildWorksheetDocumentFromPlan(requestedPlans.application) });
   const documents = Object.freeze({ numeric: worksheets.numeric.worksheetDocument ?? null, application: worksheets.application.worksheetDocument ?? null });
   const html = Object.freeze({ numeric: renderProductionHtml(documents.numeric, "numeric"), application: renderProductionHtml(documents.application, "application") });
-  const currentSources = listCurrentFullProductPublicSourceUnits();
+  const currentSources = listP03F2FullProductPublicSourceUnits();
   const publicSource = currentSources.find((row) => row.sourceId === G3A_U08_SOURCE_ID) ?? null;
   const selectorRows = [G3A_U08_DISCRETE_FRACTION_KP_ID, G3A_U08_UNIT_FRACTION_KP_ID].map((id) => getVisibleBatchAKnowledgePoint(id));
   const visibleGroups = selectorRows.flatMap((row) => getVisiblePatternGroupsForKnowledgePoint(row?.knowledgePointId));

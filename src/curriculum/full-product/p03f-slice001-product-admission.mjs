@@ -27,7 +27,7 @@ import {
   validateBatchABrowserPlan,
   validateBatchABrowserQuestions,
 } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator-p03f.js";
-import { listCurrentFullProductPublicSourceUnits } from "../../../site/modules/curriculum/batch-a/source-units.js";
+import { listP03F2FullProductPublicSourceUnits } from "../../../site/modules/curriculum/batch-a/source-units.js";
 import {
   auditFullProductPublicControlProfiles,
   getFullProductPublicControlProfile,
@@ -154,7 +154,7 @@ export function materializeP03FSlice001ProductAdmission() {
   const worksheet = buildWorksheetDocumentFromPlan(requestedPlan);
   const document = worksheet.worksheetDocument ?? null;
   const html = document ? renderWorksheetDocumentToHtml(document, { stylesheetHref: "" }) : "";
-  const currentSources = listCurrentFullProductPublicSourceUnits();
+  const currentSources = listP03F2FullProductPublicSourceUnits();
   const publicSource = currentSources.find((row) => row.sourceId === G3A_U08_SOURCE_ID) ?? null;
   const selectorRow = getVisibleBatchAKnowledgePoint(G3A_U08_PART_WHOLE_KP_ID);
   const visibleGroups = getVisiblePatternGroupsForKnowledgePoint(G3A_U08_PART_WHOLE_KP_ID);
