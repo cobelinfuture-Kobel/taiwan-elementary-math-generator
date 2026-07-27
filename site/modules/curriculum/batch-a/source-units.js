@@ -51,8 +51,15 @@ export function listBatchASourceUnits(options = {}) {
   const includePublicCandidates = options.includePublicCandidates ?? browserDefault;
   const includeFullProductPublic = options.includeFullProductPublic
     ?? (browserDefault && options.includePublicCandidates === undefined);
+  const includeCurrentFullProductPublic = options.includeCurrentFullProductPublic
+    ?? options.includeW3Slice001
+    ?? (browserDefault
+      && options.includeFullProductPublic === undefined
+      && options.includePublicCandidates === undefined);
   const units = includeFullProductPublic
-    ? CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS
+    ? (includeCurrentFullProductPublic
+      ? CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS
+      : P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS)
     : includePublicCandidates
       ? PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS
       : BATCH_A_SOURCE_UNITS;
