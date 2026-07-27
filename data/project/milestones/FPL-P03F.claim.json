@@ -3,8 +3,8 @@
   "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "W3_SLICE001_PRODUCT_ADMITTED_PENDING_CHROMIUM_D0_CLOSEOUT",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "W3_SLICE001_PRODUCTION_EQUIVALENT_PENDING_CHROMIUM_ACCEPTANCE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -13,9 +13,9 @@
     "productionRendererUsed": true,
     "htmlOutputVerified": true,
     "pdfOutputVerified": false,
-    "visibleOutputChanged": true,
+    "visibleOutputChanged": false,
     "humanReviewReady": false,
-    "productionAdmitted": true,
+    "productionAdmitted": false,
     "d0Complete": false
   },
   "evidence": {
@@ -55,10 +55,10 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "The first frozen W3 product slice now has one public source and KnowledgePoint identity, tag binding, FormalMapping, canonical PatternSpec successor, shared generator and deterministic validator bindings, public selector, worksheet, answer key and production HTML path; Chromium PDF and final D0 closeout remain pending."
+    "distanceReduced": "The first frozen W3 product slice has a production-equivalent public runtime through shared HTML while product admission remains fail closed until Chromium PDF, print and artifact-hash evidence are committed."
   },
   "nextStep": {
     "taskId": "P03F_W3DirectProductVerticalSlice001ChromiumD0Closeout",
-    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
   }
 }
