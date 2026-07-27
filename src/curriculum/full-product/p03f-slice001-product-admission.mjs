@@ -10,7 +10,6 @@ import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/ht
 import {
   G3A_U08_PART_WHOLE_KP_ID,
   G3A_U08_PART_WHOLE_PATTERN_GROUP_ID,
-  G3A_U08_PART_WHOLE_PATTERN_SPEC_ID,
   G3A_U08_SOURCE_ID,
   auditG3AU08PartWholeSelectorProjection,
 } from "../../../site/modules/curriculum/registry/g3a-u08-part-whole-fraction-selector-projection.js";
@@ -20,7 +19,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
 } from "../../../site/modules/curriculum/registry/batch-a-selector-p03f-extension.js";
-import { auditP03FPatternDefinition } from "../../../site/modules/curriculum/batch-a/source-pattern-full-product-p03f-extension.js";
+import { validateP03FPatternDefinition } from "../../../site/modules/curriculum/batch-a/source-pattern-full-product-p03f-extension.js";
 import { buildBatchABrowserPlan } from "../../../site/modules/curriculum/batch-a/batch-a-browser-generator.js";
 import { generateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import {
@@ -76,7 +75,7 @@ export function materializeP03FSlice001ProductAdmission() {
   const fractionDomainValidator = materializeP03B3FractionDomainValidator();
   const selectorProjectionAudit = auditG3AU08PartWholeSelectorProjection();
   const selectorCompositionAudit = auditP03FPublicSelectorComposition();
-  const patternAudit = auditP03FPatternDefinition();
+  const patternAudit = validateP03FPatternDefinition();
   const controlAudit = auditFullProductPublicControlProfiles();
   const requestedPlan = buildPlan();
   const browserPlan = buildBatchABrowserPlan(requestedPlan);
@@ -137,9 +136,9 @@ export function materializeP03FSlice001ProductAdmission() {
     questionWitnessCount: generation.questions?.length ?? 0,
     answerKeyWitnessCount: document?.answerKeyItems?.length ?? 0,
     htmlWitnessCount: html ? 1 : 0,
-    newProductAdmissionCount: 1,
-    remainingDirectSliceCount: queue.metrics.queueSliceCount - 1,
-    remainingDirectKnowledgePointCount: queue.metrics.directW3KnowledgePointCount - 1,
+    newProductAdmissionCount: 0,
+    remainingDirectSliceCount: queue.metrics.queueSliceCount,
+    remainingDirectKnowledgePointCount: queue.metrics.directW3KnowledgePointCount,
     laterWaveDependentCount: queue.metrics.laterWaveDependentExcludedCount,
   });
 
@@ -175,7 +174,7 @@ export function materializeP03FSlice001ProductAdmission() {
     html,
     representationModes: freezeArray(representationModes),
     metrics,
-    productAdmissionState: "PRODUCTION_ADMITTED_D0",
-    d0Complete: true,
+    productAdmissionState: "PRODUCT_ACCEPTANCE_PENDING",
+    d0Complete: false,
   });
 }
