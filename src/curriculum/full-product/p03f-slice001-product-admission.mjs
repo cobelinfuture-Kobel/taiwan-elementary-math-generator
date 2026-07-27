@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -41,6 +42,12 @@ export const P03F_SLICE001_PRODUCT_ADMISSION_VERSION = "p03f-slice001-product-ad
 function readJson(fileName) {
   return JSON.parse(fs.readFileSync(path.join(P03F_DIR, fileName), "utf8"));
 }
+function readRepoJson(repoPath) {
+  return JSON.parse(fs.readFileSync(path.join(ROOT, repoPath), "utf8"));
+}
+function sha256File(repoPath) {
+  return crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, repoPath))).digest("hex");
+}
 function freezeArray(values) {
   return Object.freeze([...(values ?? [])]);
 }
@@ -63,6 +70,38 @@ function buildPlan() {
       showQuestionNumbers: true,
       showAnswerKeyPage: true,
     }),
+  });
+}
+function materializeArtifactIntegrity(manifest) {
+  const reportPath = manifest.acceptanceReportPath;
+  const htmlPath = manifest.htmlArtifactPath;
+  const pdfPath = manifest.pdfArtifactPath;
+  const pathsExist = [reportPath, htmlPath, pdfPath].every((repoPath) => fs.existsSync(path.join(ROOT, repoPath)));
+  if (!pathsExist) {
+    return Object.freeze({ ok: false, pathsExist: false, report: null, htmlSha256: null, pdfSha256: null });
+  }
+  const report = readRepoJson(reportPath);
+  const htmlSha256 = sha256File(htmlPath);
+  const pdfSha256 = sha256File(pdfPath);
+  const hashesMatch = htmlSha256 === manifest.exactAcceptance.committedHtmlSha256
+    && pdfSha256 === manifest.exactAcceptance.committedPdfSha256
+    && report.htmlSha256 === htmlSha256
+    && report.pdfSha256 === pdfSha256;
+  const reportAccepted = report.status === "PASS_VISUAL_AND_SEMANTIC_REVIEWED"
+    && String(report.visualReview?.status ?? "").startsWith("PASS")
+    && report.properFractionInvariantPassed === true
+    && report.wholeAsFractionFindingCount === 0
+    && report.overflowFindingCount === 0
+    && report.questionCount === 8
+    && report.answerKeyItemCount === 8;
+  return Object.freeze({
+    ok: pathsExist && hashesMatch && reportAccepted,
+    pathsExist,
+    hashesMatch,
+    reportAccepted,
+    report: Object.freeze(report),
+    htmlSha256,
+    pdfSha256,
   });
 }
 
@@ -97,7 +136,7 @@ export function materializeP03FSlice001ProductAdmission() {
       sourceNodeId: G3A_U08_SOURCE_ID,
       value,
       valuePolicy: {
-        allowedMagnitudeClasses: ["PROPER_FRACTION", "WHOLE_NUMBER"],
+        allowedMagnitudeClasses: ["PROPER_FRACTION"],
         allowZero: false,
         maxCanonicalDenominator: 12,
       },
@@ -122,6 +161,8 @@ export function materializeP03FSlice001ProductAdmission() {
   const availability = listBatchAKnowledgePointAvailabilityBySource(G3A_U08_SOURCE_ID);
   const controlProfile = getFullProductPublicControlProfile(G3A_U08_SOURCE_ID);
   const representationModes = [...new Set((generation.questions ?? []).map((question) => question.representationMode))].sort();
+  const artifactIntegrity = materializeArtifactIntegrity(manifest);
+  const d0Complete = artifactIntegrity.ok;
   const metrics = Object.freeze({
     queuePosition: firstSlice?.queuePosition ?? null,
     sourceNodeCount: 1,
@@ -137,9 +178,11 @@ export function materializeP03FSlice001ProductAdmission() {
     questionWitnessCount: generation.questions?.length ?? 0,
     answerKeyWitnessCount: document?.answerKeyItems?.length ?? 0,
     htmlWitnessCount: html ? 1 : 0,
-    newProductAdmissionCount: 0,
-    remainingDirectSliceCount: queue.metrics.queueSliceCount,
-    remainingDirectKnowledgePointCount: queue.metrics.directW3KnowledgePointCount,
+    chromiumPdfWitnessCount: artifactIntegrity.ok ? 1 : 0,
+    overflowFindingCount: artifactIntegrity.report?.overflowFindingCount ?? null,
+    newProductAdmissionCount: d0Complete ? 1 : 0,
+    remainingDirectSliceCount: queue.metrics.queueSliceCount - (d0Complete ? 1 : 0),
+    remainingDirectKnowledgePointCount: queue.metrics.directW3KnowledgePointCount - (d0Complete ? 1 : 0),
     laterWaveDependentCount: queue.metrics.laterWaveDependentExcludedCount,
   });
 
@@ -174,8 +217,9 @@ export function materializeP03FSlice001ProductAdmission() {
     worksheet: Object.freeze(worksheet),
     html,
     representationModes: freezeArray(representationModes),
+    artifactIntegrity,
     metrics,
-    productAdmissionState: "PRODUCT_ACCEPTANCE_PENDING",
-    d0Complete: false,
+    productAdmissionState: d0Complete ? "PRODUCTION_ADMITTED_D0" : "PRODUCT_ACCEPTANCE_PENDING",
+    d0Complete,
   });
 }

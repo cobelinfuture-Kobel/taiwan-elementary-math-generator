@@ -49,25 +49,36 @@ test("P03F reuses one hidden PatternSpec identity and covers two structural repr
   ]);
   for (const question of first.questions) {
     assert.equal(question.answerText, `${question.selectedParts}/${question.equalParts}`);
+    assert.ok(question.selectedParts > 0);
+    assert.ok(question.selectedParts < question.equalParts);
+    assert.equal(question.metadata.magnitudeClass, "PROPER_FRACTION");
     assert.equal(validateG3AU08PartWholeFractionQuestion(question).ok, true);
     assert.doesNotMatch(question.blankedDisplayText, /(?:算式|_{2,}|答\s*[:：])/);
     assert.equal(question.metadata.applicationClassification, "APPLICATION_NOT_APPLICABLE");
   }
 });
 
-test("P03F deterministic validator fails closed on numerator, denominator and answer tampering", () => {
+test("P03F deterministic validator fails closed on numerator, denominator, whole-fraction and answer tampering", () => {
   const generated = generateG3AU08PartWholeFractionQuestions(plan({ questionCount: 2 }));
   assert.equal(generated.ok, true);
   const original = generated.questions[0];
   const badNumerator = { ...original, selectedParts: original.equalParts + 1 };
   const badDenominator = { ...original, equalParts: 0 };
+  const wholeFraction = {
+    ...original,
+    selectedParts: original.equalParts,
+    numerator: original.equalParts,
+    answerText: `${original.equalParts}/${original.equalParts}`,
+    finalAnswer: { numerator: original.equalParts, denominator: original.equalParts },
+  };
   const badAnswer = { ...original, answerText: "999/1" };
   assert.equal(validateG3AU08PartWholeFractionQuestion(badNumerator).ok, false);
   assert.equal(validateG3AU08PartWholeFractionQuestion(badDenominator).ok, false);
+  assert.equal(validateG3AU08PartWholeFractionQuestion(wholeFraction).ok, false);
   assert.equal(validateG3AU08PartWholeFractionQuestion(badAnswer).ok, false);
 });
 
-test("P03F current Classic and Pixel candidate selectors expose only the slice001 KP", () => {
+test("P03F current Classic and Pixel selectors expose only the slice001 KP", () => {
   const currentPixelSources = listCurrentPixelSourceOptions();
   assert.equal(currentPixelSources.length, 20);
   const pixelSource = currentPixelSources.find((row) => row.sourceId === SOURCE_ID);
@@ -93,14 +104,27 @@ test("P03F shared worksheet, answer key and production HTML complete", () => {
   assert.match(html, /等分|平均分成/);
 });
 
-test("P03F aggregate validator passes all pre-Chromium gates and keeps admission closed", () => {
+test("P03F committed HTML PDF and visual report hashes pass runtime integrity", () => {
+  const evidence = materializeP03FSlice001ProductAdmission();
+  assert.equal(evidence.artifactIntegrity.ok, true, JSON.stringify(evidence.artifactIntegrity));
+  assert.equal(evidence.artifactIntegrity.pathsExist, true);
+  assert.equal(evidence.artifactIntegrity.hashesMatch, true);
+  assert.equal(evidence.artifactIntegrity.reportAccepted, true);
+  assert.equal(evidence.artifactIntegrity.report.wholeAsFractionFindingCount, 0);
+  assert.equal(evidence.artifactIntegrity.report.properFractionInvariantPassed, true);
+});
+
+test("P03F aggregate product admission validator closes slice001 at E6 D0", () => {
   const result = validateP03FSlice001ProductAdmission();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.productAdmissionState, "PRODUCT_ACCEPTANCE_PENDING");
-  assert.equal(result.d0Complete, false);
+  assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0");
+  assert.equal(result.d0Complete, true);
   assert.equal(result.metrics.questionWitnessCount, 8);
   assert.equal(result.metrics.answerKeyWitnessCount, 8);
   assert.equal(result.metrics.publicSourceCountAfterAdmission, 20);
-  assert.equal(result.metrics.newProductAdmissionCount, 0);
-  assert.equal(result.metrics.remainingDirectSliceCount, 53);
+  assert.equal(result.metrics.chromiumPdfWitnessCount, 1);
+  assert.equal(result.metrics.overflowFindingCount, 0);
+  assert.equal(result.metrics.newProductAdmissionCount, 1);
+  assert.equal(result.metrics.remainingDirectSliceCount, 52);
+  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 81);
 });

@@ -17,6 +17,7 @@ export function validateP03FSlice001ProductAdmission() {
     errors.push("P03F_QUEUE_KP_INVALID");
   }
   for (const key of [
+    "queuePosition",
     "sourceNodeCount",
     "knowledgePointCount",
     "tagBindingCount",
@@ -30,6 +31,8 @@ export function validateP03FSlice001ProductAdmission() {
     "questionWitnessCount",
     "answerKeyWitnessCount",
     "htmlWitnessCount",
+    "chromiumPdfWitnessCount",
+    "overflowFindingCount",
     "newProductAdmissionCount",
     "remainingDirectSliceCount",
     "remainingDirectKnowledgePointCount",
@@ -62,8 +65,15 @@ export function validateP03FSlice001ProductAdmission() {
   if (evidence.generation.questions.some((row) => row.questionMode !== "numeric" || row.metadata?.applicationClassification !== "APPLICATION_NOT_APPLICABLE")) errors.push("P03F_APPLICATION_SCOPE_VIOLATION");
   if (evidence.authority.patternSpec.successorOfHiddenAuthorityPath !== "data/curriculum/application/pattern-specs/w02/g3a_u08_3a08.hidden-pattern-spec.json") errors.push("P03F_HIDDEN_SUCCESSOR_AUTHORITY_INVALID");
   if (evidence.authority.productBoundary.wholeAsFractionKnowledgePointExcluded !== true) errors.push("P03F_WHOLE_AS_FRACTION_BOUNDARY_INVALID");
-  if (evidence.productAdmissionState !== "PRODUCT_ACCEPTANCE_PENDING" || evidence.d0Complete !== false) errors.push("P03F_PRE_CHROMIUM_STATE_INVALID");
-  if (evidence.manifest.mainlineBoundary.nextQueuePositionStarted
+  if (!evidence.artifactIntegrity.ok
+    || !evidence.artifactIntegrity.pathsExist
+    || !evidence.artifactIntegrity.hashesMatch
+    || !evidence.artifactIntegrity.reportAccepted) {
+    errors.push("P03F_COMMITTED_ARTIFACT_INTEGRITY_INVALID");
+  }
+  if (evidence.productAdmissionState !== "PRODUCTION_ADMITTED_D0" || evidence.d0Complete !== true) errors.push("P03F_D0_STATE_INVALID");
+  if (evidence.manifest.mainlineBoundary.queuePositionConsumed !== 1
+    || evidence.manifest.mainlineBoundary.nextQueuePositionStarted
     || evidence.manifest.mainlineBoundary.otherG3AU08KnowledgePointsAdmitted
     || evidence.manifest.mainlineBoundary.applicationStoryGenerationAdded
     || evidence.manifest.mainlineBoundary.parallelRuntimePipelineAdded) errors.push("P03F_SCOPE_BOUNDARY_INVALID");
@@ -74,6 +84,7 @@ export function validateP03FSlice001ProductAdmission() {
     status: evidence.status,
     productAdmissionState: evidence.productAdmissionState,
     d0Complete: evidence.d0Complete,
+    artifactIntegrity: evidence.artifactIntegrity,
     metrics,
     firstSlice: first,
     representationModes: evidence.representationModes,
