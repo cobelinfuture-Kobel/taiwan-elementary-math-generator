@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "taskId": "P03E_W3DirectProductVerticalSliceQueueFreeze",
-  "taskClass": "contract",
-  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
-  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
-  "claimedStatus": "W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FREEZE_READY",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_RUNTIME_MATERIALIZED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": false,
-    "runtimeIntegrated": false,
+    "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": false,
     "productionRendererUsed": false,
     "htmlOutputVerified": false,
@@ -52,6 +52,6 @@
   },
   "nextStep": {
     "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
-    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   }
 }
