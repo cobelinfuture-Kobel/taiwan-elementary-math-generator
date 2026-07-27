@@ -1,11 +1,11 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { materializeP03CW3CapabilityCloseoutProductUnblockReconciliation } from "./p03c-w3-capability-closeout-product-unblock.mjs";
 
-const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(MODULE_DIR, "../../..");
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const P03E_DIR = path.join(ROOT, "data/curriculum/full-product/p03e");
 const P03D_MANIFEST_PATH = path.join(ROOT, "data/curriculum/full-product/p03d/protected-d0-compatibility-revalidation.manifest.json");
 const QUEUE_REGISTRY_PATH = path.join(P03E_DIR, "w3-direct-product-vertical-slice-queue.json");
@@ -13,36 +13,16 @@ const QUEUE_REGISTRY_PATH = path.join(P03E_DIR, "w3-direct-product-vertical-slic
 export const P03E_W3_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_VERSION =
   "p03e-w3-direct-product-vertical-slice-queue-v1";
 
-function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, "utf8"));
-}
-
-function readP03EJson(fileName) {
-  return readJson(path.join(P03E_DIR, fileName));
-}
-
-function readOptionalJson(filePath) {
-  return fs.existsSync(filePath) ? readJson(filePath) : null;
-}
-
-function freezeArray(values) {
-  return Object.freeze([...(values ?? [])]);
-}
-
-function unique(values) {
-  return [...new Set((values ?? []).filter(Boolean))];
-}
-
-function stableToken(value) {
-  return String(value ?? "none")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "_")
-    .replace(/^_+|_+$/g, "") || "none";
-}
-
-function pad(value, width = 3) {
-  return String(value).padStart(width, "0");
-}
+const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, "utf8"));
+const readP03EJson = (fileName) => readJson(path.join(P03E_DIR, fileName));
+const freezeArray = (values) => Object.freeze([...(values ?? [])]);
+const unique = (values) => [...new Set((values ?? []).filter(Boolean))];
+const pad = (value, width = 3) => String(value).padStart(width, "0");
+const stableToken = (value) => String(value ?? "none")
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, "_")
+  .replace(/^_+|_+$/g, "") || "none";
+const sha256Json = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 
 function countBy(rows, selector) {
   const counts = new Map();
@@ -55,7 +35,7 @@ function countBy(rows, selector) {
   ));
 }
 
-function queueComparable(queueEntries) {
+function comparableQueue(queueEntries) {
   return queueEntries.map((entry) => ({
     queuePosition: entry.queuePosition,
     sliceId: entry.sliceId,
@@ -71,7 +51,8 @@ function queueComparable(queueEntries) {
   }));
 }
 
-function buildQueueRegistrySnapshot({ programId, taskId, policy, queueEntries, metrics }) {
+function buildRegistrySnapshot({ programId, taskId, policy, queueEntries, metrics }) {
+  const comparable = comparableQueue(queueEntries);
   return {
     schemaName: "P03EW3DirectProductVerticalSliceQueueRegistryV1",
     schemaVersion: 1,
@@ -87,7 +68,12 @@ function buildQueueRegistrySnapshot({ programId, taskId, policy, queueEntries, m
     directW3RuntimeProfileCount: metrics.directW3RuntimeProfileCount,
     directW3PrerequisiteRankCount: metrics.directW3PrerequisiteRankCount,
     queueSliceCount: metrics.queueSliceCount,
-    queueEntries: queueComparable(queueEntries),
+    queueDigest: sha256Json(comparable),
+    orderedSliceIds: comparable.map((entry) => entry.sliceId),
+    orderedImplementationTaskIds: comparable.map((entry) => entry.implementationTaskId),
+    orderedKnowledgePointIds: comparable.flatMap((entry) => entry.knowledgePointIds),
+    firstExecutableSlice: comparable[0] ?? null,
+    lastSliceId: comparable.at(-1)?.sliceId ?? null,
   };
 }
 
@@ -96,22 +82,21 @@ export function materializeP03EW3DirectProductVerticalSliceQueue() {
   const manifest = readP03EJson("w3-direct-product-vertical-slice-queue.manifest.json");
   const p03dManifest = readJson(P03D_MANIFEST_PATH);
   const p03c = materializeP03CW3CapabilityCloseoutProductUnblockReconciliation();
-  const historicalRows = p03c.historicalInventory.dependentKnowledgePointRows;
-  const historicalById = new Map(historicalRows.map((row) => [row.knowledgePointId, row]));
+  const historicalById = new Map(
+    p03c.historicalInventory.dependentKnowledgePointRows.map((row) => [row.knowledgePointId, row]),
+  );
 
   const directRows = p03c.downstreamUnblockRows
-    .filter((row) => row.directW3CohortMember)
-    .filter((row) => !row.protectedExistingD0)
-    .filter((row) => !row.productProductionAdmitted)
+    .filter((row) => row.directW3CohortMember && !row.protectedExistingD0 && !row.productProductionAdmitted)
     .map((row) => {
       const historical = historicalById.get(row.knowledgePointId);
       if (!historical) throw new Error(`P03E_HISTORICAL_ROW_MISSING:${row.knowledgePointId}`);
-      const sortedSourceNodeIds = [...row.sourceNodeIds].sort();
-      if (sortedSourceNodeIds.length === 0) throw new Error(`P03E_SOURCE_NODE_MISSING:${row.knowledgePointId}`);
+      const supportingSourceNodeIds = [...row.sourceNodeIds].sort();
+      if (supportingSourceNodeIds.length === 0) throw new Error(`P03E_SOURCE_NODE_MISSING:${row.knowledgePointId}`);
       return Object.freeze({
         ...row,
-        primarySourceNodeId: sortedSourceNodeIds[0],
-        supportingSourceNodeIds: freezeArray(sortedSourceNodeIds),
+        primarySourceNodeId: supportingSourceNodeIds[0],
+        supportingSourceNodeIds: freezeArray(supportingSourceNodeIds),
         intraWavePrerequisiteRank: historical.intraWavePrerequisiteRank,
         primaryRuntimeProfileId: historical.primaryRuntimeProfileId,
       });
@@ -123,71 +108,50 @@ export function materializeP03EW3DirectProductVerticalSliceQueue() {
       || a.knowledgePointId.localeCompare(b.knowledgePointId)
     ));
 
-  const groupMap = new Map();
+  const grouped = new Map();
   for (const row of directRows) {
-    const key = [
-      row.intraWavePrerequisiteRank,
-      row.primarySourceNodeId,
-      row.primaryRuntimeProfileId,
-    ].join("|");
-    if (!groupMap.has(key)) {
-      groupMap.set(key, {
+    const key = `${row.intraWavePrerequisiteRank}|${row.primarySourceNodeId}|${row.primaryRuntimeProfileId}`;
+    if (!grouped.has(key)) {
+      grouped.set(key, {
         intraWavePrerequisiteRank: row.intraWavePrerequisiteRank,
         primarySourceNodeId: row.primarySourceNodeId,
         primaryRuntimeProfileId: row.primaryRuntimeProfileId,
         rows: [],
       });
     }
-    groupMap.get(key).rows.push(row);
+    grouped.get(key).rows.push(row);
   }
 
-  const maxPerSlice = policy.sliceRules.maxKnowledgePointsPerSlice;
-  const provisionalSlices = [];
-  const orderedGroups = [...groupMap.values()].sort((a, b) => (
+  const orderedGroups = [...grouped.values()].sort((a, b) => (
     a.intraWavePrerequisiteRank - b.intraWavePrerequisiteRank
     || a.primarySourceNodeId.localeCompare(b.primarySourceNodeId)
     || a.primaryRuntimeProfileId.localeCompare(b.primaryRuntimeProfileId)
   ));
-
+  const provisionalSlices = [];
+  const maxPerSlice = policy.sliceRules.maxKnowledgePointsPerSlice;
   for (const group of orderedGroups) {
-    const sortedRows = [...group.rows].sort((a, b) => a.knowledgePointId.localeCompare(b.knowledgePointId));
-    for (let offset = 0, chunkIndex = 1; offset < sortedRows.length; offset += maxPerSlice, chunkIndex += 1) {
-      const rows = sortedRows.slice(offset, offset + maxPerSlice);
-      provisionalSlices.push({
-        intraWavePrerequisiteRank: group.intraWavePrerequisiteRank,
-        primarySourceNodeId: group.primarySourceNodeId,
-        primaryRuntimeProfileId: group.primaryRuntimeProfileId,
-        chunkIndex,
-        rows,
-      });
+    const rows = [...group.rows].sort((a, b) => a.knowledgePointId.localeCompare(b.knowledgePointId));
+    for (let offset = 0, chunkIndex = 1; offset < rows.length; offset += maxPerSlice, chunkIndex += 1) {
+      provisionalSlices.push({ ...group, rows: rows.slice(offset, offset + maxPerSlice), chunkIndex });
     }
   }
 
+  const sliceIdFor = (slice, queuePosition) => [
+    "p03e",
+    `q${pad(queuePosition)}`,
+    `r${slice.intraWavePrerequisiteRank}`,
+    stableToken(slice.primarySourceNodeId),
+    stableToken(slice.primaryRuntimeProfileId),
+    `c${slice.chunkIndex}`,
+  ].join("_");
+
   const queueEntries = provisionalSlices.map((slice, index) => {
     const queuePosition = index + 1;
-    const previous = queuePosition > 1 ? provisionalSlices[index - 1] : null;
-    const sliceId = [
-      "p03e",
-      `q${pad(queuePosition)}`,
-      `r${slice.intraWavePrerequisiteRank}`,
-      stableToken(slice.primarySourceNodeId),
-      stableToken(slice.primaryRuntimeProfileId),
-      `c${slice.chunkIndex}`,
-    ].join("_");
-    const previousSliceId = previous
-      ? [
-          "p03e",
-          `q${pad(queuePosition - 1)}`,
-          `r${previous.intraWavePrerequisiteRank}`,
-          stableToken(previous.primarySourceNodeId),
-          stableToken(previous.primaryRuntimeProfileId),
-          `c${previous.chunkIndex}`,
-        ].join("_")
-      : null;
+    const previousSliceId = index === 0 ? null : sliceIdFor(provisionalSlices[index - 1], index);
     const knowledgePointIds = slice.rows.map((row) => row.knowledgePointId);
     return Object.freeze({
       queuePosition,
-      sliceId,
+      sliceId: sliceIdFor(slice, queuePosition),
       implementationTaskId: `P03F_W3DirectProductVerticalSlice${pad(queuePosition)}Implementation`,
       previousSliceId,
       previousSliceMustBeD0Complete: previousSliceId !== null,
@@ -212,7 +176,6 @@ export function materializeP03EW3DirectProductVerticalSliceQueue() {
   const laterWaveRows = p03c.downstreamUnblockRows.filter((row) => row.laterWaveDependent && !row.protectedExistingD0);
   const newProductRows = p03c.downstreamUnblockRows.filter((row) => !row.protectedExistingD0);
   const allocatedKnowledgePointIds = queueEntries.flatMap((entry) => entry.knowledgePointIds);
-
   const metrics = Object.freeze({
     directW3KnowledgePointCount: directRows.length,
     directW3SourceNodeCount: new Set(directRows.map((row) => row.primarySourceNodeId)).size,
@@ -233,14 +196,14 @@ export function materializeP03EW3DirectProductVerticalSliceQueue() {
     directKnowledgePointsByPrimarySource: countBy(directRows, (row) => row.primarySourceNodeId),
   });
 
-  const derivedRegistrySnapshot = buildQueueRegistrySnapshot({
+  const derivedRegistrySnapshot = buildRegistrySnapshot({
     programId: manifest.programId,
     taskId: manifest.taskId,
     policy,
     queueEntries,
     metrics,
   });
-  const queueRegistry = readOptionalJson(QUEUE_REGISTRY_PATH);
+  const queueRegistry = fs.existsSync(QUEUE_REGISTRY_PATH) ? readJson(QUEUE_REGISTRY_PATH) : null;
   const queueRegistryPresent = Boolean(queueRegistry);
   const queueRegistryParity = queueRegistryPresent
     ? JSON.stringify(queueRegistry) === JSON.stringify(derivedRegistrySnapshot)
