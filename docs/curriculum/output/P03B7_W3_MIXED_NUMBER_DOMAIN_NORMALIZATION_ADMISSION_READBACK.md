@@ -3,8 +3,33 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B7_W3MixedNumberDomainNormalizationAdmission
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E5_PRODUCTION_ADMITTED
+```
+
+## GitHub result
+
+### Implementation
+
+```text
+PR        = #396
+HEAD_SHA  = e6248f4911fcbbfbd931da0b912f8a639f6cab51
+MERGE_SHA = 84e400a33fc59f5aa30f58d8257df351b620f160
+CI_RUN    = 30228452749
+CI_STATUS = SUCCESS
+```
+
+### Closeout reconciliation
+
+```text
+PR        = PENDING_CLOSEOUT_PR_NUMBER
+SCOPE     = readback metadata only
+RUNTIME   = unchanged
+TESTS     = unchanged
+MANIFEST  = unchanged
+POLICY    = unchanged
+REGISTRY  = unchanged
+CONTRACT  = unchanged
 ```
 
 ## Capability admission
@@ -110,7 +135,49 @@ scope boundary                             = PASS
 Chromium required                          = false
 ```
 
-Node Test run `30228277451` completed successfully on PR #396 head `a48f46f67e2a3fbed80c822f6edc2d715a84c38d`. Exact metrics are frozen into the manifest; the final head must re-run CI before merge.
+## Task closeout
+
+### Distance shortened
+
+```text
+cap_mixed_number_domain_normalization
+contract_only
+→ production_admitted
+```
+
+### System node advanced
+
+```text
+P03A Hardening Queue
+→ P03B1 / P03B2 Number Systems
+→ P03B3 / P03B4 Domain Validators
+→ P03B5 / P03B6 Arithmetic Gates
+→ Exact Cross-Domain Normalization Consumer
+→ Complete W3 Successor Promotion Authority
+```
+
+### Blockers removed
+
+```text
+5 dependent KnowledgePoints lacked one exact fraction/decimal normalization runtime
+decimal-to-fraction conversion lacked one reduced-rational authority
+terminating fraction-to-decimal conversion lacked one exact base-10 authority
+cross-domain equivalence and comparison lacked one deterministic authority
+recurring-decimal truncation lacked unified fail-closed handling
+the W3 successor registry still contained one contract-only capability
+```
+
+### New blockers
+
+```text
+NONE
+```
+
+### Next shortest step
+
+```text
+P03C_W3CapabilityCloseoutAndProductUnblockReconciliation
+```
 
 ## Distance
 
@@ -118,11 +185,14 @@ Node Test run `30228277451` completed successfully on PR #396 head `a48f46f67e2a
 GOAL_DISTANCE_BEFORE = D1_W3_TWO_ARITHMETIC_CAPABILITIES_PRODUCTION_ADMITTED
 GOAL_DISTANCE_AFTER  = D1_W3_ALL_CONTRACT_CAPABILITIES_PRODUCTION_ADMITTED
 DISTANCE_REDUCED     = The final W3 contract capability now provides one exact authority for fraction/decimal conversion, equivalence and comparison for its 5-KP cohort without recurring-decimal approximation.
-REMAINING_BLOCKERS   = [five mixed-domain-dependent new-product rows remain product-blocked; the complete W3 successor capability set still requires closeout and product-unblock reconciliation]
+REMAINING_BLOCKERS   = [five mixed-domain-dependent new-product rows remain product-blocked; the complete W3 successor capability set requires closeout and product-unblock reconciliation]
 NEXT_SHORTEST_STEP   = P03C_W3CapabilityCloseoutAndProductUnblockReconciliation
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+STOP_REASON = NEXT_IMPLEMENTATION_REQUIRES_SEPARATE_APPROVAL
+BLOCKER_TYPE = IMPLEMENTATION_BOUNDARY
+LAST_COMPLETED_STATUS = PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve P03C_W3CapabilityCloseoutAndProductUnblockReconciliation
+NEXT_RESUME_TASK = P03C_W3CapabilityCloseoutAndProductUnblockReconciliation
 ```
