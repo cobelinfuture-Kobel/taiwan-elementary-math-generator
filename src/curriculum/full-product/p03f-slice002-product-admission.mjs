@@ -17,7 +17,6 @@ import {
   G3A_U08_UNIT_FRACTION_APPLICATION_GROUP_ID,
   G3A_U08_DISCRETE_NUMERIC_GROUP_ID,
   G3A_U08_DISCRETE_APPLICATION_GROUP_ID,
-  G3A_U08_SLICE002_PATTERN_SPEC_IDS,
   auditG3AU08Slice002SelectorProjection,
 } from "../../../site/modules/curriculum/registry/g3a-u08-slice002-selector-projection.js";
 import {
@@ -63,6 +62,26 @@ function plan(mode) {
     printLayout: Object.freeze({ paperSize: "A4", columns: application ? 1 : 2, rowsPerPage: 3, showQuestionNumbers: true, showAnswerKeyPage: true }),
   });
 }
+function renderProductionHtml(document, mode) {
+  if (!document) return "";
+  const cellMinHeight = mode === "application" ? "68mm" : "70mm";
+  const raw = renderWorksheetDocumentToHtml(document, { stylesheetHref: "" });
+  const css = `<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: Arial, "Noto Sans TC", sans-serif; color: #111; background: #fff; }
+.worksheet-section__header, .worksheet-page__meta { display: none; }
+.worksheet-page { width: 210mm; height: 297mm; padding: 12mm; overflow: hidden; break-after: page; page-break-after: always; }
+.worksheet-page:last-child { break-after: auto; page-break-after: auto; }
+.worksheet-page__grid { display: grid; grid-template-columns: repeat(var(--worksheet-columns), minmax(0, 1fr)); gap: 6mm; align-content: start; }
+.worksheet-cell { border: 1px solid #777; border-radius: 3mm; padding: 4mm; min-height: ${cellMinHeight}; break-inside: avoid; page-break-inside: avoid; }
+.worksheet-cell__number { font-weight: 700; margin-bottom: 2mm; }
+.worksheet-cell__prompt { font-size: 14.5pt; line-height: 1.55; letter-spacing: .01em; overflow-wrap: anywhere; }
+.worksheet-cell__answer { margin-top: 3mm; font-size: 13.5pt; line-height: 1.45; font-weight: 700; color: #7a0019; overflow-wrap: anywhere; }
+</style>`;
+  return raw.replace("</head>", `${css}</head>`);
+}
 function artifactIntegrity(manifest) {
   const paths = [manifest.acceptanceReportPath, manifest.numericHtmlArtifactPath, manifest.applicationHtmlArtifactPath, manifest.numericPdfArtifactPath, manifest.applicationPdfArtifactPath];
   const pathsExist = paths.every((repoPath) => fs.existsSync(path.join(ROOT, repoPath)));
@@ -82,6 +101,8 @@ function artifactIntegrity(manifest) {
   const reportAccepted = report.status === "PASS_VISUAL_AND_SEMANTIC_REVIEWED"
     && String(report.visualReview?.status ?? "").startsWith("PASS")
     && report.overflowFindingCount === 0 && report.semanticScopeFindingCount === 0
+    && report.duplicatePromptFindingCount === 0
+    && report.numericPhysicalPdfPageCount === 2 && report.applicationPhysicalPdfPageCount === 4
     && report.numericQuestionCount === 6 && report.applicationQuestionCount === 6 && report.answerKeyItemCount === 12;
   return Object.freeze({ ok: pathsExist && hashesMatch && reportAccepted, pathsExist, hashesMatch, reportAccepted, report: Object.freeze(report), actual: Object.freeze(actual) });
 }
@@ -119,7 +140,7 @@ export function materializeP03FSlice002ProductAdmission() {
   const capabilityWitnesses = questions.map((question) => capabilityWitness(question, numberSystem, domainValidator));
   const worksheets = Object.freeze({ numeric: buildWorksheetDocumentFromPlan(requestedPlans.numeric), application: buildWorksheetDocumentFromPlan(requestedPlans.application) });
   const documents = Object.freeze({ numeric: worksheets.numeric.worksheetDocument ?? null, application: worksheets.application.worksheetDocument ?? null });
-  const html = Object.freeze({ numeric: documents.numeric ? renderWorksheetDocumentToHtml(documents.numeric, { stylesheetHref: "" }) : "", application: documents.application ? renderWorksheetDocumentToHtml(documents.application, { stylesheetHref: "" }) : "" });
+  const html = Object.freeze({ numeric: renderProductionHtml(documents.numeric, "numeric"), application: renderProductionHtml(documents.application, "application") });
   const currentSources = listCurrentFullProductPublicSourceUnits();
   const publicSource = currentSources.find((row) => row.sourceId === G3A_U08_SOURCE_ID) ?? null;
   const selectorRows = [G3A_U08_DISCRETE_FRACTION_KP_ID, G3A_U08_UNIT_FRACTION_KP_ID].map((id) => getVisibleBatchAKnowledgePoint(id));
