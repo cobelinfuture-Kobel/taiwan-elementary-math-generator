@@ -71,7 +71,7 @@ export function validateP03FSlice001ProductAdmission() {
     productAdmissionState: evidence.productAdmissionState,
     d0Complete: evidence.d0Complete,
     metrics,
-    firstSlice,
+    firstSlice: first,
     representationModes: evidence.representationModes,
   });
 }
