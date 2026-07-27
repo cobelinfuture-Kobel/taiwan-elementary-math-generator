@@ -5,6 +5,7 @@ PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice003Implementation
 STATUS     = E4_IMPLEMENTED_PENDING_CLEAN_HEAD_CI
 EVIDENCE   = E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED
+AUTHORITY_RECONCILIATION = HISTORICAL_SNAPSHOTS_SEPARATED_PENDING_CI
 ```
 
 ## Frozen slice
@@ -19,6 +20,8 @@ PatternSpecs   = 1
 ```
 
 The implementation converts integer division to fraction notation through the shared product planner, generator, deterministic validator, WorksheetDocument, answer key and production HTML renderer. Application generation and the other seven G3B-U07 KnowledgePoints remain excluded.
+
+P03F1 and P03F2 now consume explicit historical 20-source snapshots while the P03F3 current Classic and Pixel surface consumes the 21-source successor. No previous milestone is redefined by the new public source.
 
 ```text
 product admission        = PRODUCT_ACCEPTANCE_PENDING
