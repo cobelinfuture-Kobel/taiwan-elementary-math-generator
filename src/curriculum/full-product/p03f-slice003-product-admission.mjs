@@ -147,8 +147,8 @@ export function materializeP03FSlice003ProductAdmission() {
     duplicatePromptFindingCount: artifacts.report?.duplicatePromptFindingCount ?? 0,
     newProductAdmissionCount: d0Complete ? 1 : 0,
     cumulativeW3ProductAdmissionCount: 3 + (d0Complete ? 1 : 0),
-    remainingDirectSliceCount: 50,
-    remainingDirectKnowledgePointCount: 78,
+    remainingDirectSliceCount: 51 - (d0Complete ? 1 : 0),
+    remainingDirectKnowledgePointCount: 79 - (d0Complete ? 1 : 0),
     laterWaveDependentCount: queue.metrics.laterWaveDependentExcludedCount,
   });
   return Object.freeze({
