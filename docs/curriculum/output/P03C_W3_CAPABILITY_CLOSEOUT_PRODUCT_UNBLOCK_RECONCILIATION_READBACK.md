@@ -3,8 +3,34 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03C_W3CapabilityCloseoutAndProductUnblockReconciliation
-STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
+```
+
+## GitHub result
+
+### Implementation
+
+```text
+PR        = #399
+HEAD_SHA  = 07ead9e0692fc0336cd607fa0f8f6880a0df9668
+MERGE_SHA = d0702300d637fd9e7b05b6e94260993d52b940ce
+CI_RUN    = 30232448143
+CI_STATUS = SUCCESS
+```
+
+### Closeout reconciliation
+
+```text
+PR        = PENDING_CLOSEOUT_PR_NUMBER
+SCOPE     = readback metadata only
+RUNTIME   = unchanged
+VALIDATOR = unchanged
+TESTS     = unchanged
+POLICY    = unchanged
+MANIFEST  = unchanged
+CLAIM     = unchanged
+CONTRACT  = unchanged
 ```
 
 ## Capability closeout
@@ -89,8 +115,6 @@ scope boundary                     = PASS
 Chromium required                  = false
 ```
 
-Node Test run `30232271752` completed successfully on PR #399 head `4b99fb16016c43d69ddc4e45dacae358e6a70a72`. Exact metrics are frozen into the manifest; the final head must re-run CI before merge.
-
 ## Task closeout
 
 ### Distance shortened
@@ -127,6 +151,12 @@ four protected D0 rows lacked a canonical post-W3 compatibility-revalidation sta
 NONE
 ```
 
+### Next shortest step
+
+```text
+P03D_W3ProtectedD0CompatibilityRevalidation
+```
+
 ## Distance
 
 ```text
@@ -138,6 +168,9 @@ NEXT_SHORTEST_STEP   = P03D_W3ProtectedD0CompatibilityRevalidation
 ```
 
 ```text
-IMPLEMENTATION_BOUNDARY = true
-SEPARATE_APPROVAL_REQUIRED = true
+STOP_REASON = NEXT_IMPLEMENTATION_REQUIRES_SEPARATE_APPROVAL
+BLOCKER_TYPE = IMPLEMENTATION_BOUNDARY
+LAST_COMPLETED_STATUS = PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve P03D_W3ProtectedD0CompatibilityRevalidation
+NEXT_RESUME_TASK = P03D_W3ProtectedD0CompatibilityRevalidation
 ```
