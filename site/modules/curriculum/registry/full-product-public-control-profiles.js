@@ -11,11 +11,15 @@ export const W1_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([
   "g5a_u03_5a03a1",
 ]);
 export const W3_SLICE001_PUBLIC_SOURCE_IDS = Object.freeze(["g3a_u08_3a08"]);
-export const FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([
+export const P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([
   ...FIFTEEN_UNIT_PUBLIC_SOURCE_IDS,
   ...W1_FULL_PRODUCT_PUBLIC_SOURCE_IDS,
+]);
+export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([
+  ...P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS,
   ...W3_SLICE001_PUBLIC_SOURCE_IDS,
 ]);
+export const FULL_PRODUCT_PUBLIC_SOURCE_IDS = P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS;
 export const FULL_PRODUCT_PBL_SOURCE_IDS = FIFTEEN_UNIT_PBL_SOURCE_IDS;
 
 const option = (value, label) => Object.freeze({ value, label });
@@ -56,9 +60,13 @@ export function normalizeFullProductPublicControlValue(profile, controlName, val
   return definition.options.some((row) => row.value === value) ? value : definition.defaultValue;
 }
 
-export function auditFullProductPublicControlProfiles() {
+export function auditFullProductPublicControlProfiles(options = {}) {
+  const includeW3Slice001 = options.includeW3Slice001 === true;
+  const sourceIds = includeW3Slice001
+    ? CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS
+    : P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS;
   const errors = [];
-  for (const sourceId of FULL_PRODUCT_PUBLIC_SOURCE_IDS) {
+  for (const sourceId of sourceIds) {
     const profile = getFullProductPublicControlProfile(sourceId);
     const values = profile?.questionTypeControl?.options?.map((row) => row.value) ?? [];
     if (!values.includes("numeric")) errors.push(`NUMERIC_OPTION_MISSING:${sourceId}`);
@@ -69,9 +77,9 @@ export function auditFullProductPublicControlProfiles() {
   return Object.freeze({
     ok: errors.length === 0,
     errors: Object.freeze(errors),
-    profileCount: FULL_PRODUCT_PUBLIC_SOURCE_IDS.length,
+    profileCount: sourceIds.length,
     w1ProfileCount: W1_FULL_PRODUCT_PUBLIC_SOURCE_IDS.length,
-    w3Slice001ProfileCount: W3_SLICE001_PUBLIC_SOURCE_IDS.length,
+    w3Slice001ProfileCount: includeW3Slice001 ? W3_SLICE001_PUBLIC_SOURCE_IDS.length : 0,
     pblProfileCount: [...FULL_PRODUCT_PBL_SOURCE_IDS].length,
   });
 }
