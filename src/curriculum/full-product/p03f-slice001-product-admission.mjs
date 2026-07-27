@@ -26,7 +26,7 @@ import {
   validateBatchABrowserPlan,
   validateBatchABrowserQuestions,
 } from "../../../site/modules/curriculum/batch-a/batch-a-browser-validator-p03f.js";
-import { listFullProductPublicSourceUnits } from "../../../site/modules/curriculum/batch-a/source-units.js";
+import { listCurrentFullProductPublicSourceUnits } from "../../../site/modules/curriculum/batch-a/source-units.js";
 import {
   auditFullProductPublicControlProfiles,
   getFullProductPublicControlProfile,
@@ -76,7 +76,7 @@ export function materializeP03FSlice001ProductAdmission() {
   const selectorProjectionAudit = auditG3AU08PartWholeSelectorProjection();
   const selectorCompositionAudit = auditP03FPublicSelectorComposition();
   const patternAudit = validateP03FPatternDefinition();
-  const controlAudit = auditFullProductPublicControlProfiles();
+  const controlAudit = auditFullProductPublicControlProfiles({ includeW3Slice001: true });
   const requestedPlan = buildPlan();
   const browserPlan = buildBatchABrowserPlan(requestedPlan);
   const planValidation = validateBatchABrowserPlan(browserPlan);
@@ -115,7 +115,8 @@ export function materializeP03FSlice001ProductAdmission() {
   const worksheet = buildWorksheetDocumentFromPlan(requestedPlan);
   const document = worksheet.worksheetDocument ?? null;
   const html = document ? renderWorksheetDocumentToHtml(document, { stylesheetHref: "" }) : "";
-  const publicSource = listFullProductPublicSourceUnits().find((row) => row.sourceId === G3A_U08_SOURCE_ID) ?? null;
+  const currentSources = listCurrentFullProductPublicSourceUnits();
+  const publicSource = currentSources.find((row) => row.sourceId === G3A_U08_SOURCE_ID) ?? null;
   const selectorRow = getVisibleBatchAKnowledgePoint(G3A_U08_PART_WHOLE_KP_ID);
   const visibleGroups = getVisiblePatternGroupsForKnowledgePoint(G3A_U08_PART_WHOLE_KP_ID);
   const availability = listBatchAKnowledgePointAvailabilityBySource(G3A_U08_SOURCE_ID);
@@ -131,7 +132,7 @@ export function materializeP03FSlice001ProductAdmission() {
     patternSpecCount: visibleGroups.flatMap((group) => group.patternSpecIds ?? []).length,
     representationModeCount: representationModes.length,
     requiredCapabilityCount: authority.knowledgePoint.requiredCapabilityIds.length,
-    publicSourceCountAfterAdmission: listFullProductPublicSourceUnits().length,
+    publicSourceCountAfterAdmission: currentSources.length,
     publicVisibleKnowledgePointCountForSource: availability?.visibleCount ?? 0,
     questionWitnessCount: generation.questions?.length ?? 0,
     answerKeyWitnessCount: document?.answerKeyItems?.length ?? 0,
