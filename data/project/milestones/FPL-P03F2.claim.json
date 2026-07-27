@@ -3,8 +3,8 @@
   "taskId": "P03F_W3DirectProductVerticalSlice002Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
-  "claimedStatus": "W3_SLICE002_PRODUCTION_EQUIVALENT_PENDING_CHROMIUM_ACCEPTANCE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE002_D0_COMPLETE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -12,11 +12,14 @@
     "productionEquivalentGeneratorUsed": true,
     "productionRendererUsed": true,
     "htmlOutputVerified": true,
-    "pdfOutputVerified": false,
-    "visibleOutputChanged": false,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
     "humanReviewReady": false,
-    "productionAdmitted": false,
-    "d0Complete": false
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline"
   },
   "evidence": {
     "runtimeTestPaths": [
@@ -27,25 +30,52 @@
       "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f2.js",
       "src/curriculum/full-product/p03f-slice002-product-admission.mjs",
       "tools/curriculum/validate-p03f-slice002-product-admission.mjs",
-      "tests/curriculum/p03f-slice002-fraction-quantity.test.js"
+      "tests/curriculum/p03f-slice002-fraction-quantity.test.js",
+      "tests/curriculum/p03f-slice002-pixel-current.test.js"
     ],
     "rendererTestPaths": [
       "site/modules/renderer/html-renderer.js",
       "tools/curriculum/render-p03f-slice002-product-acceptance.mjs",
       ".github/workflows/node-test.yml"
     ],
-    "htmlArtifactPaths": [],
-    "pdfArtifactPaths": [],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice002-product-admission/g3a-u08-fraction-quantity-numeric.html",
+      "docs/curriculum/output/p03f-slice002-product-admission/g3a-u08-fraction-quantity-application.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice002-product-admission/g3a-u08-fraction-quantity-numeric.pdf",
+      "docs/curriculum/output/p03f-slice002-product-admission/g3a-u08-fraction-quantity-application.pdf"
+    ],
     "beforeAfterEvidencePaths": [
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE001_READBACK.md",
       "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
       "data/curriculum/full-product/p03f/slice002-fraction-quantity-authority.json",
       "data/curriculum/full-product/p03f/slice002-product-admission.manifest.json",
       "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_CONTRACT.md",
-      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_READBACK.md"
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_READBACK.md",
+      "docs/curriculum/output/p03f-slice002-product-admission/p03f-slice002-product-acceptance-report.json"
     ],
-    "reviewArtifactPaths": [],
-    "artifactHashes": []
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice002-product-admission/p03f-slice002-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice002-product-admission/g3a-u08-fraction-quantity-numeric.html",
+        "sha256": "e01c2b614b2b6c9c60e4f9e22768afb4a487649a8fd6b7d0c601abeea8e3dbef"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice002-product-admission/g3a-u08-fraction-quantity-application.html",
+        "sha256": "cd2ba7a544870e58cca6b4729d701c138c731100c87d8ba35327e17601749816"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice002-product-admission/g3a-u08-fraction-quantity-numeric.pdf",
+        "sha256": "361a5f1abc3fe80ce1dc31871a4beb40ecaa238abaa591ba62cf6f0839eb808e"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice002-product-admission/g3a-u08-fraction-quantity-application.pdf",
+        "sha256": "73caeadd2d4c36fb92bdf4ba2c3cdea52bc50b40c1d2a46f2557128f18b0545d"
+      }
+    ]
   },
   "humanReview": {
     "type": "none",
@@ -55,10 +85,10 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Frozen queue position 2 has production-equivalent numeric and Global Context application runtime for two fraction quantity KnowledgePoints; product admission remains fail closed until Chromium PDF, committed hashes and visual review pass."
+    "distanceReduced": "Frozen queue position 2 is fully D0: two source-backed fraction quantity KnowledgePoints are production admitted through Global Context bindings, shared generator and validator, current Classic and Pixel selection, worksheet, answer key, two committed HTML outputs, two Chromium PDFs, committed hashes and visual semantic review."
   },
   "nextStep": {
-    "taskId": "P03F_W3DirectProductVerticalSlice002ChromiumD0Closeout",
-    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+    "taskId": "P03F_W3DirectProductVerticalSlice003Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
   }
 }
