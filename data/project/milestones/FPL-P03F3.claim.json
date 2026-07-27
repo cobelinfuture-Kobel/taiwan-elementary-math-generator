@@ -4,7 +4,7 @@
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
   "actualEvidenceLevel": "E6_D0_COMPLETE",
-  "claimedStatus": "W3_SLICE003_D0_COMPLETE_PENDING_FINAL_CI_AND_MERGE",
+  "claimedStatus": "W3_SLICE003_D0_COMPLETE_CI_SYNCED_AND_MERGED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -46,7 +46,8 @@
       "data/curriculum/full-product/p03f/slice003-quotient-fraction-authority.json",
       "data/curriculum/full-product/p03f/slice003-product-admission.manifest.json",
       "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_CONTRACT.md",
-      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_READBACK.md"
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_READBACK.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_FINAL_CLOSEOUT_PASS.marker"
     ],
     "reviewArtifactPaths": [
       "docs/curriculum/output/p03f-slice003-product-admission/p03f-slice003-product-acceptance-report.json"
@@ -70,7 +71,7 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Frozen queue position 3 now has a source-backed quotient-as-fraction D0 product through three W3 fraction capabilities, shared generator and validator, current Classic and Pixel selection, answer key, committed HTML/PDF, hashes and visual semantic review; final clean-head CI and merge remain."
+    "distanceReduced": "Frozen queue position 3 is fully D0 and merged: one source-backed quotient-as-fraction KnowledgePoint is production admitted through three W3 fraction capabilities, the shared generator and validator, current Classic and Pixel selection, worksheet, answer key, committed HTML/PDF, committed hashes, visual semantic review and exact-head CI."
   },
   "nextStep": {
     "taskId": "P03F_W3DirectProductVerticalSlice004Implementation",
@@ -79,15 +80,21 @@
   "d0Closeout": {
     "mode": "full_pipeline",
     "implementationPrNumber": 412,
+    "implementationHeadSha": "38e8169e966ce1c300e7b705202c006026a2b61b",
+    "implementationMergeSha": "766b6ba33cfd9c5759dec55c6bd91eb7e2002c0e",
+    "implementationMergedAt": "2026-07-27T16:00:08Z",
     "preD0HeadSha": "998af007b7aaa82c0f42484659e8d5756fd8d9ef",
     "preD0NodeWorkflowRunId": 30280070827,
     "preD0ChromiumArtifactId": 8658504673,
     "artifactMaterializationCommitSha": "ccefbad6fd8f8d3aef2b85f81c79faa18780f36e",
     "artifactMaterializationWorkflowRunId": 30281576982,
     "artifactMaterializationArtifactId": 8659116713,
+    "finalNodeWorkflowRunId": 30282236969,
+    "finalNodeWorkflowHeadSha": "38e8169e966ce1c300e7b705202c006026a2b61b",
+    "finalChromiumArtifactId": 8659382841,
     "nodeTestsPassed": 2494,
     "nodeTestsFailed": 0,
     "visualReviewPassed": true,
-    "finalExactHeadAccepted": false
+    "finalExactHeadAccepted": true
   }
 }
