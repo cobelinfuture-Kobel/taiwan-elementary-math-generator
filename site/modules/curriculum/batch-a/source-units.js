@@ -27,7 +27,7 @@ export const W1_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
 ]);
 
 export const W3_SLICE001_PUBLIC_SOURCE_UNITS = Object.freeze([
-  Object.freeze({ sourceId: "g3a_u08_3a08", grade: 3, semester: "upper", unitCode: "3A-U08", title: "分數", domain: "fraction_representation_and_part_whole", lifecycle: "public_full_product_w3_slice002_release" })
+  Object.freeze({ sourceId: "g3a_u08_3a08", grade: 3, semester: "upper", unitCode: "3A-U08", title: "分數", domain: "fraction_representation_and_part_whole", lifecycle: "public_full_product_w3_slice001_release" })
 ]);
 export const W3_SLICE003_PUBLIC_SOURCE_UNITS = Object.freeze([
   Object.freeze({ sourceId: "g3b_u07_3b07", grade: 3, semester: "lower", unitCode: "3B-U07", title: "分數的加減", domain: "fraction_addition_subtraction", lifecycle: "public_full_product_w3_slice003_release" })
@@ -42,9 +42,12 @@ export const P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
   ...PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS,
   ...W1_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
 ]);
-export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
+export const P03F2_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
   ...P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
   ...W3_SLICE001_PUBLIC_SOURCE_UNITS,
+]);
+export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
+  ...P03F2_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
   ...W3_SLICE003_PUBLIC_SOURCE_UNITS,
 ]);
 
@@ -72,6 +75,7 @@ export function listBatchASourceUnits(options = {}) {
 
 export function listProtectedFifteenPublicSourceUnits() { return PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listFullProductPublicSourceUnits() { return P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
+export function listP03F2FullProductPublicSourceUnits() { return P03F2_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listCurrentFullProductPublicSourceUnits() { return CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function getBatchASourceUnit(sourceId) { const unit = SOURCE_UNIT_BY_ID.get(sourceId) ?? null; return unit ? { ...unit } : null; }
 export function isBatchASourceId(sourceId) { return SOURCE_UNIT_BY_ID.has(sourceId); }
