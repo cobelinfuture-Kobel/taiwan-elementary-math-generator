@@ -23,7 +23,7 @@ CI_STATUS = SUCCESS
 ### Closeout reconciliation
 
 ```text
-PR        = PENDING_CLOSEOUT_PR_NUMBER
+PR        = #394
 SCOPE     = readback metadata only
 RUNTIME   = unchanged
 TESTS     = unchanged
