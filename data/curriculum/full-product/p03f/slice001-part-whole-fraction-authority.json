@@ -24,8 +24,8 @@
   "knowledgePoint": {
     "knowledgePointId": "kp_g3a_u08_part_whole_fraction",
     "canonicalNameZh": "等分整體與分數意義",
-    "scope": "由連續量或離散集合的等分圖辨識分母、分子與所取部分。",
-    "reasoningInvariant": "分母等於整體的等分數，分子等於所取的等份數；每一份必須等大。",
+    "scope": "由連續量或離散集合的等分圖辨識分母、分子與所取部分；本 slice 只處理真分數，整體等於 1 由獨立 whole-as-fraction KnowledgePoint 管理。",
+    "reasoningInvariant": "分母等於整體的等分數，分子等於所取的等份數；每一份必須等大，且本 slice 的所取份數嚴格小於整體等分數。",
     "applicationClassification": "APPLICATION_NOT_APPLICABLE",
     "applicationRationale": "核心是分數表徵與角色辨識，不加入生活故事。",
     "requiredCapabilityIds": [
@@ -57,13 +57,14 @@
       "fraction": "部分占整體的分數"
     },
     "numberConstraints": [
-      "0 <= selectedParts <= equalParts",
-      "equalParts > 0"
+      "0 < selectedParts < equalParts",
+      "equalParts >= 2"
     ],
     "validationInvariants": [
       "denominator equals the number of equal parts",
       "numerator equals the selected equal parts",
-      "all parts are equal-sized"
+      "all parts are equal-sized",
+      "whole-as-fraction cases are excluded from this slice"
     ],
     "sourceAuthorityPath": "data/curriculum/application/operations/w02/g3a_u08_3a08.canonical-operation.json"
   },
@@ -110,6 +111,7 @@
     "applicationStoryGenerationAllowed": false,
     "parallelPipelineAllowed": false,
     "otherKnowledgePointsInSourceAdmitted": false,
+    "wholeAsFractionKnowledgePointExcluded": true,
     "nextSliceMayStartBeforeD0Closeout": false
   }
 }
