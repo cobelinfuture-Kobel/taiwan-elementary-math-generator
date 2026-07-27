@@ -6,7 +6,7 @@ import { validateP03FSlice001ProductAdmission } from "../../tools/curriculum/val
 import { generateG3AU08PartWholeFractionQuestions, validateG3AU08PartWholeFractionQuestion } from "../../site/modules/curriculum/batch-a/part-whole-fraction-runtime.js";
 import { buildWorksheetDocumentFromPlan } from "../../site/assets/browser/pipeline/build-worksheet-document.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
-import { listPixelSourceOptions, listPixelKnowledgePointsForSource } from "../../site/pixel/pixel-registry-bridge.js";
+import { listCurrentPixelSourceOptions, listPixelKnowledgePointsForSource } from "../../site/pixel/pixel-registry-bridge.js";
 
 const SOURCE_ID = "g3a_u08_3a08";
 const KP_ID = "kp_g3a_u08_part_whole_fraction";
@@ -67,8 +67,10 @@ test("P03F deterministic validator fails closed on numerator, denominator and an
   assert.equal(validateG3AU08PartWholeFractionQuestion(badAnswer).ok, false);
 });
 
-test("P03F public Classic and Pixel candidate selectors expose only the slice001 KP", () => {
-  const pixelSource = listPixelSourceOptions().find((row) => row.sourceId === SOURCE_ID);
+test("P03F current Classic and Pixel candidate selectors expose only the slice001 KP", () => {
+  const currentPixelSources = listCurrentPixelSourceOptions();
+  assert.equal(currentPixelSources.length, 20);
+  const pixelSource = currentPixelSources.find((row) => row.sourceId === SOURCE_ID);
   assert.ok(pixelSource);
   assert.equal(pixelSource.visibleKnowledgePointCount, 1);
   const rows = listPixelKnowledgePointsForSource(SOURCE_ID);
