@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice002Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "W3_SLICE002_PRODUCTION_EQUIVALENT_PENDING_CHROMIUM_ACCEPTANCE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3a-u08-slice002-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f2-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f2-extension.js",
+      "site/modules/curriculum/batch-a/slice002-fraction-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f2.js",
+      "src/curriculum/full-product/p03f-slice002-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice002-product-admission.mjs",
+      "tests/curriculum/p03f-slice002-fraction-quantity.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice002-product-acceptance.mjs",
+      ".github/workflows/node-test.yml"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE001_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice002-fraction-quantity-authority.json",
+      "data/curriculum/full-product/p03f/slice002-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Frozen queue position 2 has production-equivalent numeric and Global Context application runtime for two fraction quantity KnowledgePoints; product admission remains fail closed until Chromium PDF, committed hashes and visual review pass."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice002ChromiumD0Closeout",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+  }
+}
