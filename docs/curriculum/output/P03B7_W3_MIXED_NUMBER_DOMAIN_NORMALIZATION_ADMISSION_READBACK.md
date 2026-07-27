@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03B7_W3MixedNumberDomainNormalizationAdmission
-STATUS     = IMPLEMENTED_PENDING_EXACT_HEAD_CI
+STATUS     = PASS_EXACT_HEAD_CI_READY_TO_MERGE
 EVIDENCE   = E5_PRODUCTION_ADMITTED
 ```
 
@@ -24,18 +24,18 @@ P03B7 extends P03B6's latest validated successor promotion authority. R04 remain
 ## Exact cohort
 
 ```text
-effective dependent KnowledgePoints = PENDING_EXACT_HEAD_CI
-direct W3 KnowledgePoints            = PENDING_EXACT_HEAD_CI
-direct capability requirement rows   = PENDING_EXACT_HEAD_CI
-protected existing D0 rows           = PENDING_EXACT_HEAD_CI
-new-product dependent rows           = PENDING_EXACT_HEAD_CI
-dependent source nodes               = PENDING_EXACT_HEAD_CI
-source / KP bindings                 = PENDING_EXACT_HEAD_CI
-P03B1 descriptor coverage            = PENDING_EXACT_HEAD_CI
-P03B2 descriptor coverage            = PENDING_EXACT_HEAD_CI
-P03B3 descriptor coverage            = PENDING_EXACT_HEAD_CI
-P03B4 descriptor coverage            = PENDING_EXACT_HEAD_CI
-descriptor errors                    = PENDING_EXACT_HEAD_CI
+effective dependent KnowledgePoints = 5
+direct W3 KnowledgePoints            = 3
+direct capability requirement rows   = 5
+protected existing D0 rows           = 0
+new-product dependent rows           = 5
+dependent source nodes               = 1
+source / KP bindings                 = 5
+P03B1 descriptor coverage            = 5 / 5
+P03B2 descriptor coverage            = 5 / 5
+P03B3 descriptor coverage            = 5 / 5
+P03B4 descriptor coverage            = 5 / 5
+descriptor errors                    = 0
 ```
 
 ## Normalization surface
@@ -63,8 +63,8 @@ no floating-point approximation or truncation
 ## Product boundary
 
 ```text
-protected D0 rows              = PENDING_EXACT_HEAD_CI
-new-product rows               = PENDING_EXACT_HEAD_CI
+0 protected D0 rows  → no existing D0 compatibility row in this cohort
+5 new-product rows   → remain product-blocked
 new products admitted by P03B7 = 0
 visible output changed          = false
 ```
@@ -81,39 +81,44 @@ remaining W3 contract-only     = 0
 ## Exact-head acceptance
 
 ```text
-full Node regression                       = PENDING_EXACT_HEAD_CI
-milestone claim integrity                  = PENDING_EXACT_HEAD_CI
-hardening queue entry                      = PENDING_EXACT_HEAD_CI
-six-capability hardening gate              = PENDING_EXACT_HEAD_CI
-P03B6 predecessor promotion                = PENDING_EXACT_HEAD_CI
-mixed-domain cohort                        = PENDING_EXACT_HEAD_CI
-source / KP binding sweep                  = PENDING_EXACT_HEAD_CI
-P03B1 descriptor coverage                  = PENDING_EXACT_HEAD_CI
-P03B2 descriptor coverage                  = PENDING_EXACT_HEAD_CI
-P03B3 descriptor coverage                  = PENDING_EXACT_HEAD_CI
-P03B4 descriptor coverage                  = PENDING_EXACT_HEAD_CI
-decimal-to-fraction normalization           = PENDING_EXACT_HEAD_CI
-terminating fraction-to-decimal             = PENDING_EXACT_HEAD_CI
-mixed-number input                         = PENDING_EXACT_HEAD_CI
-cross-domain equivalence                   = PENDING_EXACT_HEAD_CI
-cross-domain comparison                    = PENDING_EXACT_HEAD_CI
-non-terminating decimal fail close         = PENDING_EXACT_HEAD_CI
-same-domain fail close                     = PENDING_EXACT_HEAD_CI
-overflow fail close                        = PENDING_EXACT_HEAD_CI
-invalid input fail close                   = PENDING_EXACT_HEAD_CI
-promotion status                           = PENDING_EXACT_HEAD_CI
-historical R04 preservation                = PENDING_EXACT_HEAD_CI
-scope boundary                             = PENDING_EXACT_HEAD_CI
+full Node regression                       = 2449 / 2449 PASS
+milestone claim integrity                  = PASS
+hardening queue entry                      = PASS
+six-capability hardening gate              = PASS
+P03B6 predecessor promotion                = PASS
+mixed-domain cohort                        = 5 / 5 PASS
+direct W3 cohort                           = 3 / 3 PASS
+direct requirement rows                    = 5 / 5 PASS
+dependent source nodes                     = 1 / 1 PASS
+source / KP binding sweep                  = 5 / 5 PASS
+P03B1 descriptor coverage                  = 5 / 5 PASS
+P03B2 descriptor coverage                  = 5 / 5 PASS
+P03B3 descriptor coverage                  = 5 / 5 PASS
+P03B4 descriptor coverage                  = 5 / 5 PASS
+decimal-to-fraction normalization          = PASS
+terminating fraction-to-decimal            = PASS
+mixed-number input                         = PASS
+cross-domain equivalence                   = PASS
+cross-domain comparison                    = PASS
+non-terminating decimal fail close         = PASS
+same-domain fail close                     = PASS
+overflow fail close                        = PASS
+invalid input fail close                   = PASS
+promotion status                           = PASS
+historical R04 preservation                = PASS
+scope boundary                             = PASS
 Chromium required                          = false
 ```
+
+Node Test run `30228277451` completed successfully on PR #396 head `a48f46f67e2a3fbed80c822f6edc2d715a84c38d`. Exact metrics are frozen into the manifest; the final head must re-run CI before merge.
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_TWO_ARITHMETIC_CAPABILITIES_PRODUCTION_ADMITTED
 GOAL_DISTANCE_AFTER  = D1_W3_ALL_CONTRACT_CAPABILITIES_PRODUCTION_ADMITTED
-DISTANCE_REDUCED     = The final W3 contract capability now provides one exact authority for fraction/decimal conversion, equivalence and comparison without recurring-decimal approximation.
-REMAINING_BLOCKERS   = [W3-dependent product rows remain product-blocked until capability closeout and product-unblock reconciliation]
+DISTANCE_REDUCED     = The final W3 contract capability now provides one exact authority for fraction/decimal conversion, equivalence and comparison for its 5-KP cohort without recurring-decimal approximation.
+REMAINING_BLOCKERS   = [five mixed-domain-dependent new-product rows remain product-blocked; the complete W3 successor capability set still requires closeout and product-unblock reconciliation]
 NEXT_SHORTEST_STEP   = P03C_W3CapabilityCloseoutAndProductUnblockReconciliation
 ```
 
