@@ -6,7 +6,7 @@ import {
   BATCH_A_SELECTOR_AVAILABILITY,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
-} from "../modules/curriculum/registry/batch-a-selector-extension.js";
+} from "../modules/curriculum/registry/batch-a-selector-p03f-extension.js";
 import { G4B_U04_SOURCE_ID } from "../modules/curriculum/registry/g4b-u04-promotion.js";
 
 const G4B_U04_PIXEL_SOURCE_UNIT = Object.freeze({
