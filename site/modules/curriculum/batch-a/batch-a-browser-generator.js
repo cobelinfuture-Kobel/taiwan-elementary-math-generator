@@ -26,12 +26,17 @@ import {
   G5A_U03_SOURCE_ID,
   G5A_U03A1_SOURCE_ID,
 } from "../registry/g5a-u03-factor-multiple-selector-projection.js";
+import {
+  G3A_U08_PART_WHOLE_PATTERN_SPEC_ID,
+  G3A_U08_SOURCE_ID,
+} from "../registry/g3a-u08-part-whole-fraction-selector-projection.js";
 import { G5B_U05_FULL_PRODUCT_SOURCE_UNIT } from "./full-product-source-units-p01d1.js";
 import { G6A_U01_FULL_PRODUCT_SOURCE_UNIT } from "./full-product-source-units-p01d2.js";
 import {
   G5A_U03_FULL_PRODUCT_SOURCE_UNIT,
   G5A_U03A1_FULL_PRODUCT_SOURCE_UNIT,
 } from "./full-product-source-units-p01d3.js";
+import { getBatchASourceUnit } from "./source-units.js";
 
 function normalize(value, allowed, fallback) {
   return allowed.includes(value) ? value : fallback;
@@ -77,6 +82,28 @@ function fullProductPlan(plan, options, sourceUnit, patternSpecIds, taskId) {
   };
 }
 
+function p03fPlan(plan, options) {
+  const sourceUnit = getBatchASourceUnit(G3A_U08_SOURCE_ID);
+  return {
+    ...plan,
+    sourceUnit: { ...sourceUnit },
+    patternSpecIds: [G3A_U08_PART_WHOLE_PATTERN_SPEC_ID],
+    allocation: null,
+    questionMode: "numeric",
+    requestedKnowledgePointIds: Array.isArray(options.selectedKnowledgePointIds) ? [...options.selectedKnowledgePointIds] : [],
+    requestedPatternGroupIds: Array.isArray(options.selectedPatternGroupIds) ? [...options.selectedPatternGroupIds] : [],
+    publicControls: {
+      sourceId: G3A_U08_SOURCE_ID,
+      questionMode: "numeric",
+      productWave: "R05-W3",
+      productAdmissionTask: "P03F_W3DirectProductVerticalSlice001Implementation",
+      publicDropdownCutoverTask: "P03F_W3DirectProductVerticalSlice001Implementation",
+    },
+    publicPatternSpecInjectionUsed: false,
+    genericFallbackAllowed: false,
+  };
+}
+
 function p01d3PatternSpecIds(sourceId) {
   return G5A_U03_PATTERN_GROUPS
     .filter((group) => group.sourceId === sourceId)
@@ -85,6 +112,7 @@ function p01d3PatternSpecIds(sourceId) {
 
 export function buildBatchABrowserPlan(options = {}) {
   const plan = core.buildBatchABrowserPlan(options);
+  if (options.sourceId === G3A_U08_SOURCE_ID) return p03fPlan(plan, options);
   if (options.sourceId === G5A_U03_SOURCE_ID) {
     return fullProductPlan(plan, options, G5A_U03_FULL_PRODUCT_SOURCE_UNIT, p01d3PatternSpecIds(G5A_U03_SOURCE_ID), "P01D3_G5AU03FactorMultipleVerticalSlice");
   }

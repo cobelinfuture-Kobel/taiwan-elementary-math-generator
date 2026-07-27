@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE001_D0_COMPLETE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline"
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3a-u08-part-whole-fraction-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f-extension.js",
+      "site/modules/curriculum/batch-a/part-whole-fraction-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f.js",
+      "src/curriculum/full-product/p03f-slice001-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice001-product-admission.mjs",
+      "tests/curriculum/p03f-slice001-part-whole-fraction.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice001-product-acceptance.mjs",
+      ".github/workflows/node-test.yml"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03E.claim.json",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice001-part-whole-fraction-authority.json",
+      "data/curriculum/full-product/p03f/slice001-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE001_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE001_READBACK.md",
+      "docs/curriculum/output/p03f-slice001-product-admission/p03f-slice001-product-acceptance-report.json"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice001-product-admission/p03f-slice001-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.html",
+        "sha256": "9ff68a4f47f171227f521e9b0a4a099a8bdf0c5ac76c90a91a6fe8a8f2c6902e"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.pdf",
+        "sha256": "4b0a02a89eec3148906db6629f63d0d2691ad121783160788742de4fc50e4362"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The first frozen W3 direct-product slice is fully D0: one source-backed KnowledgePoint is production admitted through tags, FormalMapping, the canonical PatternSpec successor, shared generator and validator, public Classic and Pixel selection, worksheet, answer key, production HTML, Chromium PDF, committed hashes and visual semantic review."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice002Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
+  }
+}

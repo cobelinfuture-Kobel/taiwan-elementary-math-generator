@@ -14,38 +14,52 @@ export const BATCH_A_SOURCE_UNITS = Object.freeze([
   { sourceId: "g5a_u08_5a08", grade: 5, semester: "upper", unitCode: "5A-U08", title: "整數四則", domain: "integer_mixed_operations" }
 ]);
 
-// Historical public-candidate authority used by the protected 15-unit GLM,
-// Golden and POSTG programs. P01E must not redefine this two-source set.
 export const PUBLIC_CANDIDATE_SOURCE_UNITS = Object.freeze([
   Object.freeze({ sourceId: "g4b_u04_4b04", grade: 4, semester: "lower", unitCode: "4B-U04", title: "概數", domain: "number_sense", lifecycle: "public_canonical_specialized_release" }),
   Object.freeze({ sourceId: "g5a_u02_5a02", grade: 5, semester: "upper", unitCode: "5A-U02", title: "因數與公因數", domain: "factors_common_factors", lifecycle: "public_canonical_static_release" })
 ]);
 
-export const FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
+export const W1_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
   Object.freeze({ sourceId: "g5b_u05_5b05a", grade: 5, semester: "lower", unitCode: "5B-U05", title: "億以上的數", domain: "large_number_place_value", lifecycle: "public_full_product_w1_release" }),
   Object.freeze({ sourceId: "g5a_u03_5a03a", grade: 5, semester: "upper", unitCode: "5A-U03A", title: "倍數", domain: "factor_multiple", lifecycle: "public_full_product_w1_release" }),
   Object.freeze({ sourceId: "g5a_u03_5a03a1", grade: 5, semester: "upper", unitCode: "5A-U03A1", title: "公倍數", domain: "factor_multiple", lifecycle: "public_full_product_w1_release" }),
   Object.freeze({ sourceId: "g6a_u01_6a01", grade: 6, semester: "upper", unitCode: "6A-U01", title: "最大公因數與最小公倍數", domain: "number_theory", lifecycle: "public_full_product_w1_release" })
 ]);
 
+export const W3_SLICE001_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g3a_u08_3a08", grade: 3, semester: "upper", unitCode: "3A-U08", title: "分數", domain: "fraction_representation_and_part_whole", lifecycle: "public_full_product_w3_slice001_release" })
+]);
+
+export const FULL_PRODUCT_PUBLIC_SOURCE_UNITS = W1_FULL_PRODUCT_PUBLIC_SOURCE_UNITS;
 export const PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS = Object.freeze([
   ...BATCH_A_SOURCE_UNITS,
   ...PUBLIC_CANDIDATE_SOURCE_UNITS,
 ]);
-
-const ALL_PUBLIC_SOURCE_UNITS = Object.freeze([
+export const P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
   ...PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS,
-  ...FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
+  ...W1_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
 ]);
-const SOURCE_UNIT_BY_ID = new Map(ALL_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
+export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
+  ...P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
+  ...W3_SLICE001_PUBLIC_SOURCE_UNITS,
+]);
+
+const SOURCE_UNIT_BY_ID = new Map(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
 
 export function listBatchASourceUnits(options = {}) {
   const browserDefault = typeof document !== "undefined";
   const includePublicCandidates = options.includePublicCandidates ?? browserDefault;
   const includeFullProductPublic = options.includeFullProductPublic
     ?? (browserDefault && options.includePublicCandidates === undefined);
+  const includeCurrentFullProductPublic = options.includeCurrentFullProductPublic
+    ?? options.includeW3Slice001
+    ?? (browserDefault
+      && options.includeFullProductPublic === undefined
+      && options.includePublicCandidates === undefined);
   const units = includeFullProductPublic
-    ? ALL_PUBLIC_SOURCE_UNITS
+    ? (includeCurrentFullProductPublic
+      ? CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS
+      : P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS)
     : includePublicCandidates
       ? PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS
       : BATCH_A_SOURCE_UNITS;
@@ -57,7 +71,11 @@ export function listProtectedFifteenPublicSourceUnits() {
 }
 
 export function listFullProductPublicSourceUnits() {
-  return ALL_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit }));
+  return P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit }));
+}
+
+export function listCurrentFullProductPublicSourceUnits() {
+  return CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit }));
 }
 
 export function getBatchASourceUnit(sourceId) {
