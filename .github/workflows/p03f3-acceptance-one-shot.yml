@@ -1,0 +1,38 @@
+name: P03F3 Branch-Locked Product Acceptance
+
+on:
+  push:
+    branches:
+      - p03f-w3-direct-product-vertical-slice003-v1
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f3-product-acceptance
+  cancel-in-progress: true
+
+jobs:
+  accept:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Run full Node regression
+        run: npm test
+      - name: Install Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Run P03F3 Chromium acceptance
+        run: node tools/curriculum/render-p03f-slice003-product-acceptance.mjs
+      - name: Upload P03F3 product artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice003-product-acceptance
+          path: tmp/p03f-slice003-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
