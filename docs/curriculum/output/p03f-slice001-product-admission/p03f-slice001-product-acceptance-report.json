@@ -1,0 +1,68 @@
+{
+  "schemaName": "P03FSlice001ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
+  "status": "PASS_AUTOMATED_PENDING_COMMITTED_PDF_VISUAL_REVIEW",
+  "sourceId": "g3a_u08_3a08",
+  "knowledgePointId": "kp_g3a_u08_part_whole_fraction",
+  "questionCount": 8,
+  "answerKeyItemCount": 8,
+  "questionPageCount": 1,
+  "answerKeyPageCount": 1,
+  "renderedPageCount": 2,
+  "representationModes": [
+    "CONTINUOUS_EQUAL_PARTITION",
+    "DISCRETE_SET_PARTITION"
+  ],
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "htmlPath": "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.html",
+  "pdfPath": "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.pdf",
+  "htmlSizeBytes": 10554,
+  "pdfSizeBytes": 31872,
+  "patternSpecIds": [
+    "ps_g3a_u08_part_whole_fraction_fraction_numeric"
+  ],
+  "pageMetrics": [
+    {
+      "index": 0,
+      "clientHeight": 1062,
+      "scrollHeight": 1062,
+      "clientWidth": 733,
+      "scrollWidth": 733,
+      "overflowY": false,
+      "overflowX": false
+    },
+    {
+      "index": 1,
+      "clientHeight": 1062,
+      "scrollHeight": 1062,
+      "clientWidth": 733,
+      "scrollWidth": 733,
+      "overflowY": false,
+      "overflowX": false
+    }
+  ],
+  "workflowRunId": 30243053389,
+  "workflowHeadSha": "cca65f626ebf5e2e3554025d5ec6be9e76fb783a",
+  "committedHtmlPath": "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.html",
+  "committedPdfPath": "docs/curriculum/output/p03f-slice001-product-admission/g3a-u08-part-whole-fraction.pdf",
+  "htmlSha256": "9ff68a4f47f171227f521e9b0a4a099a8bdf0c5ac76c90a91a6fe8a8f2c6902e",
+  "pdfSha256": "4b0a02a89eec3148906db6629f63d0d2691ad121783160788742de4fc50e4362",
+  "properFractionAnswerWitnesses": [
+    "8/12",
+    "1/6",
+    "2/5",
+    "2/3",
+    "4/6",
+    "1/10",
+    "3/4",
+    "1/3"
+  ],
+  "properFractionInvariant": "0 < numerator < denominator",
+  "properFractionInvariantPassed": true,
+  "wholeAsFractionFindingCount": 0,
+  "visualReview": {
+    "status": "PENDING_COMMITTED_PDF_READBACK"
+  }
+}
