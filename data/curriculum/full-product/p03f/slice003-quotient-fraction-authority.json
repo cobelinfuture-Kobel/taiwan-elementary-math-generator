@@ -1,0 +1,64 @@
+{
+  "schemaName": "P03FSlice003QuotientFractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice003Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 3,
+    "sliceId": "p03e_q003_r5_g3b_u07_3b07_profile_fraction_c1",
+    "previousSliceId": "p03e_q002_r5_g3a_u08_3a08_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g3b_u07_3b07",
+    "sourceCode": "3b07",
+    "sourceTitle": "分數的加減",
+    "grade": 3,
+    "semester": "lower",
+    "unitCode": "3B-U07",
+    "evidencePages": [1],
+    "canonicalOperationAuthorityPath": "data/curriculum/application/operations/w02/g3b_u07_3b07.canonical-operation.json",
+    "hiddenPatternSpecAuthorityPath": "data/curriculum/application/pattern-specs/w02/g3b_u07_3b07.hidden-pattern-spec.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g3b_u07_quotient_as_fraction",
+    "canonicalNameZh": "除法結果的分數表示",
+    "scope": "把整數除法的商表示為分數。",
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+    "reasoningInvariant": "被除數保持為分子、除數保持為分母，分數值必須與原除法結果完全相等。",
+    "requiredCapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+    "tagIds": ["grade_3", "domain_fraction", "concept_quotient_as_fraction", "operation_quotient_fraction", "representation_division_to_fraction", "answer_fraction", "application_not_applicable", "ordered_operand_roles"]
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g3b_u07_quotient_as_fraction",
+    "operationModelId": "op_g3b_u07_quotient_as_fraction",
+    "operationFamilyId": "quotient_fraction",
+    "canonicalExpressions": ["quotient = dividend / divisor"],
+    "operandRoles": {"dividend": "被除數或總量", "divisor": "除數或份數", "quotient": "以分數表示的商"},
+    "numberConstraints": ["dividend > 0", "divisor > 0"],
+    "validationInvariants": ["fraction value equals the division result", "dividend and divisor roles are not interchangeable"]
+  },
+  "patternSurface": {
+    "patternGroupId": "pg_g3b_u07_quotient_as_fraction_numeric",
+    "patternSpecId": "ps_g3b_u07_quotient_as_fraction_quotient_numeric",
+    "mode": "NUMERIC",
+    "requestedUnknownRole": "quotient",
+    "givenRoles": ["dividend", "divisor"],
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "applicationModeAllowed": false,
+    "globalContextBindingNotApplicable": true,
+    "parallelPipelineAllowed": false,
+    "otherG3BU07KnowledgePointsExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

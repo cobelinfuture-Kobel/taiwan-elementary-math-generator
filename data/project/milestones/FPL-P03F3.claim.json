@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice003Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE003_D0_COMPLETE_PENDING_FINAL_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3b-u07-quotient-fraction-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f3-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f3-extension.js",
+      "site/modules/curriculum/batch-a/quotient-fraction-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f3.js",
+      "src/curriculum/full-product/p03f-slice003-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice003-product-admission.mjs",
+      "tests/curriculum/p03f-slice003-quotient-fraction.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice003-product-acceptance.mjs",
+      ".github/workflows/node-test.yml"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice003-product-admission/g3b-u07-quotient-as-fraction.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice003-product-admission/g3b-u07-quotient-as-fraction.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE002_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice003-quotient-fraction-authority.json",
+      "data/curriculum/full-product/p03f/slice003-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_READBACK.md"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice003-product-admission/p03f-slice003-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice003-product-admission/g3b-u07-quotient-as-fraction.html",
+        "sha256": "0dde8acb0f928d3c6be4094a65ce7addd3d2f5cecd3280e96cfe792a21387617"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice003-product-admission/g3b-u07-quotient-as-fraction.pdf",
+        "sha256": "f644641568018f9b82fe9554a916d1a305fa445af4d0240c11638cfdf90ba38d"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Frozen queue position 3 now has a source-backed quotient-as-fraction D0 product through three W3 fraction capabilities, shared generator and validator, current Classic and Pixel selection, answer key, committed HTML/PDF, hashes and visual semantic review; final clean-head CI and merge remain."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice004Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 412,
+    "preD0HeadSha": "998af007b7aaa82c0f42484659e8d5756fd8d9ef",
+    "preD0NodeWorkflowRunId": 30280070827,
+    "preD0ChromiumArtifactId": 8658504673,
+    "artifactMaterializationCommitSha": "ccefbad6fd8f8d3aef2b85f81c79faa18780f36e",
+    "artifactMaterializationWorkflowRunId": 30281576982,
+    "artifactMaterializationArtifactId": 8659116713,
+    "nodeTestsPassed": 2494,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": false
+  }
+}

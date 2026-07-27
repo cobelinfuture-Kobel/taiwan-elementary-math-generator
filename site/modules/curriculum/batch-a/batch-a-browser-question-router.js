@@ -7,9 +7,11 @@ import { canGenerateG6AU01NumberTheoryQuestions, generateG6AU01NumberTheoryQuest
 import { canGenerateG5AU03FactorMultipleQuestions, generateG5AU03FactorMultipleQuestions } from "./factor-multiple-runtime.js";
 import { canGenerateG3AU08PartWholeFractionQuestions, generateG3AU08PartWholeFractionQuestions } from "./part-whole-fraction-runtime.js";
 import { canGenerateG3AU08Slice002Questions, generateG3AU08Slice002Questions } from "./slice002-fraction-runtime.js";
+import { canGenerateG3BU07QuotientFractionQuestions, generateG3BU07QuotientFractionQuestions } from "./quotient-fraction-runtime.js";
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateG3BU07QuotientFractionQuestions(plan)) return generateG3BU07QuotientFractionQuestions(options);
   if (canGenerateG3AU08Slice002Questions(plan)) return generateG3AU08Slice002Questions(options);
   if (canGenerateG3AU08PartWholeFractionQuestions(plan)) return generateG3AU08PartWholeFractionQuestions(options);
   if (canGenerateG5AU03FactorMultipleQuestions(plan)) return generateG5AU03FactorMultipleQuestions(options);
