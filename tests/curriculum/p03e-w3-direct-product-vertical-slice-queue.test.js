@@ -14,6 +14,11 @@ test("P03E isolates the exact direct W3 new-product cohort", () => {
   console.log(`P03E_NEXT_SLICE=${JSON.stringify(evidence.nextExecutableSlice)}`);
   console.log(`P03E_QUEUE_SNAPSHOT=${JSON.stringify(evidence.derivedRegistrySnapshot)}`);
   assert.equal(evidence.metrics.directW3KnowledgePointCount, 82);
+  assert.equal(evidence.metrics.directW3SourceNodeCount, 16);
+  assert.equal(evidence.metrics.directW3RuntimeProfileCount, 3);
+  assert.equal(evidence.metrics.directW3PrerequisiteRankCount, 10);
+  assert.equal(evidence.metrics.queueSliceCount, 53);
+  assert.equal(evidence.metrics.maximumSliceKnowledgePointCount, 4);
   assert.equal(evidence.metrics.protectedD0ExcludedCount, 4);
   assert.equal(evidence.metrics.laterWaveDependentExcludedCount, 33);
   assert.equal(evidence.metrics.unaffectedNewProductRowCount, 115);
@@ -59,13 +64,12 @@ test("P03E queue is strictly serial", () => {
   }
 });
 
-test("P03E validator passes derived queue before or after snapshot freeze", () => {
+test("P03E frozen registry exactly matches the derived queue", () => {
   const result = validateP03EW3DirectProductVerticalSliceQueue();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.ok(result.metrics.queueSliceCount > 0);
-  assert.ok(result.nextExecutableSlice);
-  if (result.queueRegistryPresent) {
-    assert.equal(result.queueRegistryParity, true);
-    assert.equal(result.queueFrozen, true);
-  }
+  assert.equal(result.queueRegistryPresent, true);
+  assert.equal(result.queueRegistryParity, true);
+  assert.equal(result.queueFrozen, true);
+  assert.equal(result.derivedRegistrySnapshot.queueDigest, "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7");
+  assert.equal(result.nextExecutableSlice.sliceId, "p03e_q001_r4_g3a_u08_3a08_profile_fraction_c1");
 });
