@@ -5,6 +5,7 @@ const queue = materializeP03EW3DirectProductVerticalSliceQueue();
 const slice = queue.queueEntries[1];
 if (!slice || slice.queuePosition !== 2) throw new Error("P03F2_QUEUE_POSITION_2_MISSING");
 const targetPatternSpecIds = new Set([
+  "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
   "ps_g3a_u08_discrete_set_fraction_item_count_application",
   "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
 ]);
@@ -29,4 +30,5 @@ console.log(JSON.stringify({
   queueDigest: queue.queueRegistry?.queueDigest,
   applicationRecords,
 }, null, 2));
-if (applicationRecords.length !== 2) throw new Error(`P03F2_APPLICATION_RECORD_COUNT_INVALID:${applicationRecords.length}`);
+if (slice.knowledgePointIds.length !== 2) throw new Error(`P03F2_KP_COUNT_INVALID:${slice.knowledgePointIds.length}`);
+if (applicationRecords.length !== 3) throw new Error(`P03F2_APPLICATION_RECORD_COUNT_INVALID:${applicationRecords.length}`);
