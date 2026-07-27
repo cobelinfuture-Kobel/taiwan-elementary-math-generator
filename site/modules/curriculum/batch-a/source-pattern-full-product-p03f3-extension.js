@@ -25,7 +25,7 @@ export const G3B_U07_QUOTIENT_FRACTION_PATTERN_DEFINITION = Object.freeze({
   canonicalSkillIds: Object.freeze([G3B_U07_QUOTIENT_FRACTION_KP_ID]),
   skillTags: Object.freeze(["fraction", "division", "quotient_fraction", G3B_U07_SOURCE_ID]),
   difficultyTags: Object.freeze(["full_product_w3_slice003", "grade_3_quotient_fraction", "application_not_applicable"]),
-  requiredCapabilityIds: Object.freeze(["cap_fraction_domain_validator", "cap_fraction_number_system"]),
+  requiredCapabilityIds: Object.freeze(["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]),
   applicationClassification: "APPLICATION_NOT_APPLICABLE",
   numericDomain: Object.freeze({ dividendMinimum: 1, dividendMaximum: 12, divisorMinimum: 2, divisorMaximum: 12, exactOrderedFractionIdentityRequired: true }),
   globalContextRequired: false,
@@ -50,6 +50,6 @@ export function validateP03F3PatternDefinition() {
   if (definition.knowledgePointId !== G3B_U07_QUOTIENT_FRACTION_KP_ID) errors.push("P03F3_KP_BINDING_INVALID");
   if (definition.patternGroupId !== G3B_U07_QUOTIENT_FRACTION_PATTERN_GROUP_ID) errors.push("P03F3_GROUP_BINDING_INVALID");
   if (definition.questionMode !== "numeric" || definition.applicationClassification !== "APPLICATION_NOT_APPLICABLE") errors.push("P03F3_MODE_INVALID");
-  if (definition.requiredCapabilityIds.length !== 2 || definition.sharedGeneratorAdapterId !== "SHARED_OPERATION_FAMILY_GENERATOR_V1" || definition.sharedValidatorAdapterId !== "SHARED_OPERATION_FAMILY_VALIDATOR_V1") errors.push("P03F3_SHARED_ADAPTER_OR_CAPABILITY_INVALID");
+  if (definition.requiredCapabilityIds.length !== 3 || !definition.requiredCapabilityIds.includes("cap_fraction_arithmetic") || definition.sharedGeneratorAdapterId !== "SHARED_OPERATION_FAMILY_GENERATOR_V1" || definition.sharedValidatorAdapterId !== "SHARED_OPERATION_FAMILY_VALIDATOR_V1") errors.push("P03F3_SHARED_ADAPTER_OR_CAPABILITY_INVALID");
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), patternSpecCount: 1 });
 }
