@@ -58,7 +58,7 @@ export function validateP03FSlice001ProductAdmission() {
   if (/(?:算式|_{2,}|答\s*[:：])/.test(evidence.generation.questions.map((row) => row.blankedDisplayText).join("\n"))) errors.push("P03F_FORBIDDEN_LABEL_PRESENT");
   if (evidence.generation.questions.some((row) => row.questionMode !== "numeric" || row.metadata?.applicationClassification !== "APPLICATION_NOT_APPLICABLE")) errors.push("P03F_APPLICATION_SCOPE_VIOLATION");
   if (evidence.authority.patternSpec.successorOfHiddenAuthorityPath !== "data/curriculum/application/pattern-specs/w02/g3a_u08_3a08.hidden-pattern-spec.json") errors.push("P03F_HIDDEN_SUCCESSOR_AUTHORITY_INVALID");
-  if (evidence.productAdmissionState !== "PRODUCTION_ADMITTED_D0" || evidence.d0Complete !== true) errors.push("P03F_D0_STATE_INVALID");
+  if (evidence.productAdmissionState !== "PRODUCT_ACCEPTANCE_PENDING" || evidence.d0Complete !== false) errors.push("P03F_PRE_CHROMIUM_STATE_INVALID");
   if (evidence.manifest.mainlineBoundary.nextQueuePositionStarted
     || evidence.manifest.mainlineBoundary.otherG3AU08KnowledgePointsAdmitted
     || evidence.manifest.mainlineBoundary.applicationStoryGenerationAdded
