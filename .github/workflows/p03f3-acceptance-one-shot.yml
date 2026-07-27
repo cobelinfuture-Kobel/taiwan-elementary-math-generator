@@ -50,6 +50,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add \
+            data/curriculum/full-product/p03f/slice003-product-admission.manifest.json \
+            data/project/milestones/FPL-P03F3.claim.json \
+            docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_READBACK.md \
+            docs/curriculum/output/p03f-slice003-product-admission/g3b-u07-quotient-as-fraction.html \
+            docs/curriculum/output/p03f-slice003-product-admission/g3b-u07-quotient-as-fraction.pdf \
+            docs/curriculum/output/p03f-slice003-product-admission/p03f-slice003-product-acceptance-report.json \
+            tests/curriculum/p03f-slice003-quotient-fraction.test.js
+          git rm .github/workflows/p03f3-acceptance-one-shot.yml tools/curriculum/materialize-p03f3-d0-closeout.mjs
+          unexpected=$(git diff --cached --name-only | grep -Ev '^(.github/workflows/p03f3-acceptance-one-shot.yml|tools/curriculum/materialize-p03f3-d0-closeout.mjs|data/curriculum/full-product/p03f/slice003-product-admission.manifest.json|data/project/milestones/FPL-P03F3.claim.json|docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_READBACK.md|docs/curriculum/output/p03f-slice003-product-admission/g3b-u07-quotient-as-fraction.html|docs/curriculum/output/p03f-slice003-product-admission/g3b-u07-quotient-as-fraction.pdf|docs/curriculum/output/p03f-slice003-product-admission/p03f-slice003-product-acceptance-report.json|tests/curriculum/p03f-slice003-quotient-fraction.test.js)$' || true)
+          test -z "$unexpected"
           git commit -m "P03F3: materialize accepted D0 artifacts"
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
