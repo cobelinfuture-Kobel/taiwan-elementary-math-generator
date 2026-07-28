@@ -1,0 +1,22 @@
+name: P03F9 Slice009 Authority Discovery
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  discovery:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice009-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Materialize exact queue and source authority
+        run: node tools/curriculum/diagnose-p03f-slice009-authority.mjs
