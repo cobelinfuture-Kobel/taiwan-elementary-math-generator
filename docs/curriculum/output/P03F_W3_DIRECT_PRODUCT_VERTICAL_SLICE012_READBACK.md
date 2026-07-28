@@ -39,6 +39,7 @@ Source-unit Slice005 default = preserved
 Numeric worksheet = connected
 Answer key = connected
 HTML renderer input = connected
+Chromium acceptance workflow = ready
 Global Context expansion = false
 Parallel pipeline = false
 ```
