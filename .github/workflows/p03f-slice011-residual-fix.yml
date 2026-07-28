@@ -64,15 +64,7 @@ jobs:
               raise SystemExit(f'expected exactly one stale Slice011 state test, got {text.count(old)}')
           p.write_text(text.replace(old, new), encoding='utf-8')
 
-          p = Path('.github/workflows/p03f-slice011-product-acceptance.yml')
-          text = p.read_text(encoding='utf-8')
-          old = '        run: |\n          mkdir -p tmp/p03f-slice011-product-acceptance\n          node tools/curriculum/validate-p03f-slice011-product-admission.mjs 2>&1 | tee tmp/p03f-slice011-product-acceptance/validator.log'
-          new = '        run: |\n          set -o pipefail\n          mkdir -p tmp/p03f-slice011-product-acceptance\n          node tools/curriculum/validate-p03f-slice011-product-admission.mjs 2>&1 | tee tmp/p03f-slice011-product-acceptance/validator.log'
-          if text.count(old) != 1:
-              raise SystemExit(f'expected exactly one non-pipefail validator step, got {text.count(old)}')
-          p.write_text(text.replace(old, new), encoding='utf-8')
-
-          print({'sourceCountAssertionsFixed': count, 'magnitudeClassesFixed': 2, 'slice011StateTestFixed': 1, 'workflowPipefailFixed': 1})
+          print({'sourceCountAssertionsFixed': count, 'magnitudeClassesFixed': 2, 'slice011StateTestFixed': 1})
           PY
       - name: Run focused regressions
         run: |
@@ -90,7 +82,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
-            .github/workflows/p03f-slice011-product-acceptance.yml \
             src/curriculum/full-product/p03f-slice011-product-admission.mjs \
             tests/curriculum/p03f-slice003-quotient-fraction.test.js \
             tests/curriculum/p03f-slice004-tenth-decimal.test.js \
@@ -98,5 +89,5 @@ jobs:
             tests/curriculum/p03f-slice010-hundredth-decimal.test.js \
             tests/curriculum/p03f-slice011-decimal-multiplication.test.js
           git diff --cached --check
-          git commit -m "P03F11: fix exact-head regression and fail-closed acceptance"
+          git commit -m "P03F11: fix exact-head regression"
           git push origin HEAD:"${{ github.event.pull_request.head.ref }}"
