@@ -1,38 +1,41 @@
-name: P03F7 Slice007 E5 Finalizer
+name: P03F7 Slice007 Product Acceptance
 
 on:
   pull_request:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: p03f7-slice007-e5-finalizer-${{ github.event.pull_request.number || github.ref }}
+  group: p03f7-slice007-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  finalize:
+  chromium:
     if: github.head_ref == 'p03f-w3-direct-product-vertical-slice007-v1'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout slice007 head branch
+      - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 1
-      - name: Run committed-byte E5 finalizer
-        run: python tools/curriculum/finalize-p03f-slice007-e5.py
-      - name: Commit E5 admission evidence
+          node-version: 22
+      - name: Install dependencies and Chromium
         run: |
-          set -euo pipefail
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -A tools/curriculum/finalize-p03f-slice007-e5.py \
-            data/curriculum/full-product/p03f/slice007-product-admission.manifest.json \
-            data/project/milestones/FPL-P03F7.claim.json \
-            docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_READBACK.md \
-            docs/curriculum/output/p03f-slice007-product-admission/p03f-slice007-product-acceptance-report.json \
-            tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js
-          git commit -m 'P03F7: finalize committed hashes and E5 product admission'
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          npm install
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Validate slice007 product admission
+        run: node tools/curriculum/validate-p03f-slice007-product-admission.mjs
+      - name: Render slice007 Chromium acceptance
+        run: node tools/curriculum/render-p03f-slice007-product-acceptance.mjs
+      - name: Upload slice007 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice007-product-acceptance
+          path: tmp/p03f-slice007-product-acceptance
+          if-no-files-found: warn
+          retention-days: 30
