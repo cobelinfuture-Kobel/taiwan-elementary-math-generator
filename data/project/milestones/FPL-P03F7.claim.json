@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice007Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE007_D0_COMPLETE_CI_ACCEPTED_PENDING_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3b-u07-fraction-unit-conversion-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f7-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f7-extension.js",
+      "site/modules/curriculum/batch-a/discrete-fraction-conversion-runtime.js",
+      "src/curriculum/full-product/p03f-slice007-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice007-product-admission.mjs",
+      "tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice007-product-acceptance.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice007-product-admission/g3b-u07-fraction-unit-conversion-numeric.html",
+      "docs/curriculum/output/p03f-slice007-product-admission/g3b-u07-fraction-unit-conversion-application.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice007-product-admission/g3b-u07-fraction-unit-conversion-numeric.pdf",
+      "docs/curriculum/output/p03f-slice007-product-admission/g3b-u07-fraction-unit-conversion-application.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice007-fraction-unit-conversion-authority.json",
+      "data/curriculum/full-product/p03f/slice007-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_READBACK.md"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice007-product-admission/p03f-slice007-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice007-product-admission/g3b-u07-fraction-unit-conversion-numeric.html",
+        "sha256": "d7e0ed76daf9aece34062d15e8e524f7e36cce822584a7ef14def88bff6718fe"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice007-product-admission/g3b-u07-fraction-unit-conversion-numeric.pdf",
+        "sha256": "a1d0b3ab8af0ec205d3a08ea6c74d5c6ed5f02c93f8e81619801652b8cdc188a"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice007-product-admission/g3b-u07-fraction-unit-conversion-application.html",
+        "sha256": "f02c448453b0ffb87b0b8f3101303bc034a3fa878e1ac4af994219ef3f487c1a"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice007-product-admission/g3b-u07-fraction-unit-conversion-application.pdf",
+        "sha256": "8722c06103bb7547033201a26ae9049a64395eb3a6d78686fdd355c0eaff1e12"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Frozen queue position 7 is fully D0 pending merge: one source-backed fraction-unit conversion KnowledgePoint is production admitted through two numeric and two role-preserving application PatternSpecs, exact fraction capabilities, shared product runtime, committed reviewed HTML/PDF and exact-head CI."
+  },
+  "nextStep": {
+    "taskId": "P03F7_MergeAndPostMergeAuthoritySync",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 421,
+    "implementationHeadSha": "c8e93a0cfdde4115900d5bb0d81abe29d74539de",
+    "implementationMergeSha": null,
+    "implementationMergedAt": null,
+    "preD0HeadSha": "06faaf2f1d162e7a04dc3cfabf9fe2f99f46d13f",
+    "preD0NodeWorkflowRunId": 30334086938,
+    "preD0ChromiumWorkflowRunId": 30334086957,
+    "preD0ChromiumArtifactId": 8678472303,
+    "artifactMaterializationCommitSha": "784afb5650f4984f151394cd31e77860f446cbfb",
+    "artifactMaterializationWorkflowRunId": 30334446312,
+    "finalNodeWorkflowRunId": 30336004018,
+    "finalNodeWorkflowHeadSha": "c8e93a0cfdde4115900d5bb0d81abe29d74539de",
+    "finalChromiumWorkflowRunId": 30336004034,
+    "finalChromiumArtifactId": 8679148712,
+    "nodeTestsPassed": 2526,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": true
+  }
+}

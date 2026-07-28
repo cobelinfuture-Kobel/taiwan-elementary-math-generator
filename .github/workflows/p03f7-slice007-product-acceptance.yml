@@ -1,0 +1,40 @@
+name: P03F7 Slice007 Product Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f7-slice007-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromium:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice007-v1'
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.1-noble
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install project dependencies
+        run: |
+          npm install
+          npm install --no-save --package-lock=false playwright@1.51.1
+      - name: Validate slice007 product admission
+        run: node tools/curriculum/validate-p03f-slice007-product-admission.mjs
+      - name: Render slice007 Chromium acceptance
+        run: node tools/curriculum/render-p03f-slice007-product-acceptance.mjs
+      - name: Upload slice007 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice007-product-acceptance
+          path: tmp/p03f-slice007-product-acceptance
+          if-no-files-found: warn
+          retention-days: 30
