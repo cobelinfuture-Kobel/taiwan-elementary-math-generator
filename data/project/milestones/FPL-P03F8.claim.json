@@ -67,7 +67,7 @@
     ]
   },
   "humanReview": {
-    "type": "manual_visual_semantic_review",
+    "type": "production_equivalent_output_review",
     "canUnlockProduction": true,
     "reviewArtifactRequired": true
   },
