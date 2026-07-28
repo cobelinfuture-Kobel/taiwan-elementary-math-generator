@@ -1,6 +1,6 @@
 export * from "./batch-a-browser-question-router-pre-p01d1.js";
 
-import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f12.js";
+import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f13.js";
 import { generateBatchABrowserQuestions as generatePreP01D1Questions } from "./batch-a-browser-question-router-pre-p01d1.js";
 import { canGenerateG5BU05LargeNumberQuestions, generateG5BU05LargeNumberQuestions } from "./large-number-place-value-runtime.js";
 import { canGenerateG6AU01NumberTheoryQuestions, generateG6AU01NumberTheoryQuestions } from "./number-theory-runtime.js";
@@ -11,6 +11,7 @@ import { canGenerateG3BU07QuotientFractionQuestions, generateG3BU07QuotientFract
 import { canGenerateG3BU09TenthDecimalQuestions, generateG3BU09TenthDecimalQuestions } from "./tenth-decimal-runtime.js";
 import { canGenerateG4BU08EquivalentFractionQuestions, generateG4BU08EquivalentFractionQuestions } from "./equivalent-fraction-runtime.js";
 import { canGenerateG4BU08EquivalenceCrossProductQuestions, generateG4BU08EquivalenceCrossProductQuestions } from "./equivalence-cross-product-runtime.js";
+import { canGenerateG5AU04SimplestFractionQuestions, generateG5AU04SimplestFractionQuestions } from "./simplest-fraction-runtime.js";
 import { canGenerateG3AU08SameDenominatorCompareQuestions, generateG3AU08SameDenominatorCompareQuestions } from "./same-denominator-fraction-compare-runtime.js";
 import { canGenerateG3BU07FractionUnitConversionQuestions, generateG3BU07FractionUnitConversionQuestions } from "./discrete-fraction-conversion-runtime.js";
 import { canGenerateP03F8DecimalSliceQuestions, generateP03F8DecimalSliceQuestions } from "./decimal-slice008-runtime.js";
@@ -20,6 +21,7 @@ import { canGenerateG4BU06DecimalMultiplicationQuestions, generateG4BU06DecimalM
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateG5AU04SimplestFractionQuestions(plan)) return generateG5AU04SimplestFractionQuestions(options);
   if (canGenerateG4BU08EquivalenceCrossProductQuestions(plan)) return generateG4BU08EquivalenceCrossProductQuestions(options);
   if (canGenerateG4BU06DecimalMultiplicationQuestions(plan)) return generateG4BU06DecimalMultiplicationQuestions(options);
   if (canGenerateG4AU09HundredthDecimalQuestions(plan)) return generateG4AU09HundredthDecimalQuestions(options);
