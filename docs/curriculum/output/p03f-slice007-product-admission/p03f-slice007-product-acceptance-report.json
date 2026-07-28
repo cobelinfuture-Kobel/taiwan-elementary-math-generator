@@ -115,5 +115,11 @@
     "reviewBasis": "Four rendered A4 pages reviewed: numeric/application question and answer-key pages.",
     "reviewedHeadSha": "80f5a5aaed03feffa5a7d151de37e7b2adc0ff80",
     "materializationWorkflowRunId": 30334446312
+  },
+  "artifactHashes": {
+    "numericHtml": "d7e0ed76daf9aece34062d15e8e524f7e36cce822584a7ef14def88bff6718fe",
+    "numericPdf": "a1d0b3ab8af0ec205d3a08ea6c74d5c6ed5f02c93f8e81619801652b8cdc188a",
+    "applicationHtml": "f02c448453b0ffb87b0b8f3101303bc034a3fa878e1ac4af994219ef3f487c1a",
+    "applicationPdf": "8722c06103bb7547033201a26ae9049a64395eb3a6d78686fdd355c0eaff1e12"
   }
 }
