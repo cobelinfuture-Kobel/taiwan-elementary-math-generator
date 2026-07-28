@@ -5,7 +5,8 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  actions: read
+  contents: write
 
 concurrency:
   group: p03f8-slice008-${{ github.event.pull_request.number || github.ref }}
@@ -20,19 +21,63 @@ jobs:
     env:
       PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
     steps:
-      - name: Checkout repository
+      - name: Checkout pull request head branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
       - name: Install project dependencies
         run: |
           npm install
           npm install --no-save --package-lock=false playwright@1.51.1
+      - name: Detect reviewed artifact materialization state
+        id: state
+        shell: bash
+        run: |
+          if test -f docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.pdf \
+            && grep -q 'PASS_VISUAL_AND_SEMANTIC_REVIEWED' docs/curriculum/output/p03f-slice008-product-admission/p03f-slice008-product-acceptance-report.json; then
+            echo "required=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "required=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Validate slice008 product admission
         shell: bash
         run: |
           set -o pipefail
           mkdir -p tmp/p03f-slice008-product-acceptance
           node tools/curriculum/validate-p03f-slice008-product-admission.mjs 2>&1 | tee tmp/p03f-slice008-product-acceptance/validator.log
-      - name: Render slice008 Chromium acceptance
+      - name: Download exact reviewed Chromium artifact
+        if: steps.state.outputs.required == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: 30342108267
+          name: p03f-slice008-product-acceptance
+          path: tmp/p03f-slice008-reviewed-artifact
+      - name: Materialize reviewed HTML PDF report and E5 authority
+        if: steps.state.outputs.required == 'true'
+        env:
+          P03F8_REVIEWED_ARTIFACT_DIR: tmp/p03f-slice008-reviewed-artifact
+        run: node tools/curriculum/materialize-p03f-slice008-reviewed-artifacts.mjs
+      - name: Commit exact reviewed artifacts to pull request branch
+        if: steps.state.outputs.required == 'true'
+        shell: bash
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/curriculum/output/p03f-slice008-product-admission \
+            docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE008_READBACK.md \
+            data/curriculum/full-product/p03f/slice008-product-admission.manifest.json \
+            data/project/milestones/FPL-P03F8.claim.json
+          if ! git diff --cached --quiet; then
+            git commit -m "P03F8: materialize reviewed HTML PDF artifacts"
+            git push origin "HEAD:${GITHUB_HEAD_REF}"
+          fi
+      - name: Render exact-head Chromium acceptance
+        if: steps.state.outputs.required != 'true'
         run: node tools/curriculum/render-p03f-slice008-product-acceptance.mjs
       - name: Upload slice008 product artifacts
         if: always()
