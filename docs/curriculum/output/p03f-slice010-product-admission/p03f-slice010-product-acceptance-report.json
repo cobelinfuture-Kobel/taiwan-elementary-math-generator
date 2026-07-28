@@ -1,0 +1,89 @@
+{
+  "schemaName": "P03FSlice010ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice010Implementation",
+  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  "sourceId": "g4a_u09_4a09",
+  "knowledgePointIds": [
+    "kp_g4a_u09_hundredth_representation"
+  ],
+  "questionCount": 8,
+  "answerKeyItemCount": 8,
+  "questionPageCount": 1,
+  "answerKeyPageCount": 1,
+  "physicalPdfPageCount": 2,
+  "patternSpecIds": [
+    "ps_g4a_u09_hundredth_representation_decimal_numeric"
+  ],
+  "patternAllocation": [
+    {
+      "patternSpecId": "ps_g4a_u09_hundredth_representation_decimal_numeric",
+      "questionCount": 8
+    }
+  ],
+  "decimalValues": [
+    "0.01"
+  ],
+  "decimalScales": [
+    2
+  ],
+  "canonicalDecimalIdentities": [
+    "1e-2",
+    "1e-2",
+    "1e-2",
+    "1e-2",
+    "1e-2",
+    "1e-2",
+    "1e-2",
+    "1e-2"
+  ],
+  "htmlSha256": "d44ec5f1e1906497fc9e812afdc71ae99a9f0f9cbb0517c3e851e287f8b4d2c9",
+  "pdfSha256": "e59d0ce61ecf75b30cb0ab80f71541461509402f37caa236b021076fcd3d8ef4",
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "semanticScopeFindingCount": 0,
+  "browserFinding": {
+    "pageMetrics": [
+      {
+        "index": 0,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--questions print-page"
+      },
+      {
+        "index": 1,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--answer-key print-page"
+      }
+    ],
+    "physicalPdfPageCount": 2,
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "visualReview": {
+    "status": "PENDING",
+    "questionPageReviewed": false,
+    "answerKeyPageReviewed": false,
+    "physicalPageParityReviewed": false,
+    "clippedTextFindingCount": null,
+    "overlapFindingCount": null,
+    "brokenGlyphFindingCount": null,
+    "semanticScopeFindingCount": null
+  },
+  "materialization": {
+    "mode": "GITHUB_ACTIONS_RUNNER_BINARY_COMMIT",
+    "workflowRunId": 30368417014,
+    "sourceHeadSha": "732850d70163057818b1c5f2773f8242d53a6159",
+    "visualReviewAuthority": "PENDING_OPERATOR_REVIEW"
+  }
+}
