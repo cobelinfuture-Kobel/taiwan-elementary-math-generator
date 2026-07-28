@@ -119,13 +119,24 @@ test("P03F10 shared worksheet and answer key render eight items", () => {
   assert.match(html, /worksheet-page--answer-key/);
 });
 
-test("P03F10 remains fail closed before Chromium and visual acceptance", () => {
+test("P03F10 fail-closes before review and admits exactly one KP after reviewed hashes", () => {
   const result = validateP03FSlice010ProductAdmission();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.productAdmissionState, "RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE");
-  assert.equal(result.d0Complete, false);
-  assert.equal(result.metrics.newProductAdmissionCount, 0);
-  assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 11);
-  assert.equal(result.metrics.remainingDirectSliceCount, 44);
-  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 71);
+  const preReviewPending = result.status.includes("PENDING_CHROMIUM_ACCEPTANCE") || result.status.includes("PENDING_VISUAL_REVIEW");
+  if (preReviewPending) {
+    assert.equal(result.productAdmissionState, "RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE");
+    assert.equal(result.d0Complete, false);
+    assert.equal(result.metrics.newProductAdmissionCount, 0);
+    assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 11);
+    assert.equal(result.metrics.remainingDirectSliceCount, 44);
+    assert.equal(result.metrics.remainingDirectKnowledgePointCount, 71);
+  } else {
+    assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0");
+    assert.equal(result.d0Complete, true);
+    assert.equal(result.artifactIntegrity.ok, true);
+    assert.equal(result.metrics.newProductAdmissionCount, 1);
+    assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 12);
+    assert.equal(result.metrics.remainingDirectSliceCount, 43);
+    assert.equal(result.metrics.remainingDirectKnowledgePointCount, 70);
+  }
 });
