@@ -3,8 +3,8 @@
   "taskId": "P03F_W3DirectProductVerticalSlice006Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "W3_SLICE006_ARTIFACT_MATERIALIZED_VISUAL_REVIEWED_PENDING_EXACT_HEAD_CI",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE006_D0_COMPLETE_CI_ACCEPTED_PENDING_MERGE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -16,7 +16,7 @@
     "visibleOutputChanged": true,
     "humanReviewReady": false,
     "productionAdmitted": true,
-    "d0Complete": false
+    "d0Complete": true
   },
   "evidence": {
     "runtimeTestPaths": [
@@ -46,7 +46,8 @@
       "data/curriculum/full-product/p03f/slice006-same-denominator-compare-authority.json",
       "data/curriculum/full-product/p03f/slice006-product-admission.manifest.json",
       "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_CONTRACT.md",
-      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_READBACK.md"
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_READBACK.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_FINAL_CLOSEOUT_PASS.marker"
     ],
     "reviewArtifactPaths": [
       "docs/curriculum/output/p03f-slice006-product-admission/p03f-slice006-product-acceptance-report.json"
@@ -78,30 +79,31 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Queue position 6 is production admitted through separate numeric and W02-bound application paths, the exact fraction number-system and domain-validator capabilities, current Classic/Pixel selection, committed four-page HTML/PDF evidence, committed hashes and visual semantic review; exact-head CI and merge remain."
+    "distanceReduced": "Frozen queue position 6 is D0-complete pending merge: one source-backed same-denominator comparison KnowledgePoint is production admitted through separate numeric and W02-bound application paths, exact fraction W3 capabilities, shared product runtime, committed reviewed HTML/PDF and exact-head CI."
   },
   "nextStep": {
-    "taskId": "P03F6_ExactHeadCIAndD0Closeout",
-    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+    "taskId": "P03F6_PRMergeAndMergedStateReconciliation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
     "implementationPrNumber": 419,
-    "implementationHeadSha": "398f3d64ecdec34f2d0fb65ae4ee1b337cd3720d",
+    "implementationHeadSha": "f7ee7a021dcdd372077efa985067fa14f166ef48",
     "implementationMergeSha": null,
     "implementationMergedAt": null,
-    "finalNodeWorkflowRunId": null,
-    "finalNodeWorkflowHeadSha": null,
-    "finalChromiumArtifactId": null,
-    "nodeTestsPassed": 2518,
-    "nodeTestsFailed": 0,
-    "visualReviewPassed": true,
-    "finalExactHeadAccepted": false,
     "preD0HeadSha": "398f3d64ecdec34f2d0fb65ae4ee1b337cd3720d",
     "preD0NodeWorkflowRunId": 30327597454,
     "preD0ChromiumWorkflowRunId": 30327597433,
     "preD0ChromiumArtifactId": 8676235936,
     "artifactMaterializationCommitSha": "d64a89061b7698c5bc52a5747aab5bd186d8e588",
-    "artifactMaterializationWorkflowRunId": 30327855147
+    "artifactMaterializationWorkflowRunId": 30327855147,
+    "finalNodeWorkflowRunId": 30328154797,
+    "finalNodeWorkflowHeadSha": "f7ee7a021dcdd372077efa985067fa14f166ef48",
+    "finalChromiumWorkflowRunId": 30328154808,
+    "finalChromiumArtifactId": 8676423889,
+    "nodeTestsPassed": 2518,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": true
   }
 }
