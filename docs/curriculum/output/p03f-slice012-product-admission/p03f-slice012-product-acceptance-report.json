@@ -1,0 +1,67 @@
+{
+  "schemaName": "P03FSlice012ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice012Implementation",
+  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  "sourceId": "g4b_u08_4b08",
+  "knowledgePointIds": [
+    "kp_g4b_u08_equivalence_cross_product"
+  ],
+  "questionCount": 8,
+  "answerKeyItemCount": 8,
+  "questionPageCount": 1,
+  "answerKeyPageCount": 1,
+  "physicalPdfPageCount": 2,
+  "patternSpecIds": [
+    "ps_g4b_u08_equivalence_cross_product_equivalent_numeric"
+  ],
+  "htmlSha256": "dbb9b11fc20c63baf35d7df4ba53e50b6ade56f74c72c53f720ab088ce4bde89",
+  "pdfSha256": "452b35bd4e6b132b618525f290dea86213cc383fea94e856dca16f30d23ac7cc",
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "semanticScopeFindingCount": 0,
+  "browserFinding": {
+    "pageMetrics": [
+      {
+        "index": 0,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--questions print-page"
+      },
+      {
+        "index": 1,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--answer-key print-page"
+      }
+    ],
+    "physicalPdfPageCount": 2,
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "visualReview": {
+    "status": "PENDING",
+    "questionPageReviewed": false,
+    "answerKeyPageReviewed": false,
+    "physicalPageParityReviewed": false,
+    "clippedTextFindingCount": null,
+    "overlapFindingCount": null,
+    "brokenGlyphFindingCount": null,
+    "semanticScopeFindingCount": null
+  },
+  "materialization": {
+    "mode": "GITHUB_ACTIONS_RUNNER_BINARY_COMMIT",
+    "workflowRunId": 30383199421,
+    "sourceHeadSha": "721af836aa9aa8f7559fe8957e8b23368107365e",
+    "visualReviewAuthority": "PENDING_OPERATOR_REVIEW"
+  }
+}
