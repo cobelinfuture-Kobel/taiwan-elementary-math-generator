@@ -1,0 +1,115 @@
+{
+  "schemaName": "P03FSlice009TenthsFractionDecimalAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice009Implementation",
+  "status": "SOURCE_KP_MAPPING_PATTERN_AUTHORITY_LOCKED",
+  "queueIdentity": {
+    "queuePosition": 9,
+    "sliceId": "p03e_q009_r6_g3b_u09_3b09_profile_fraction_c1",
+    "previousSliceId": "p03e_q008_r6_g3b_u09_3b09_profile_decimal_c1",
+    "sourceNodeId": "g3b_u09_3b09",
+    "profileId": "profile_fraction"
+  },
+  "sourceEvidence": {
+    "authorityPath": "data/curriculum/knowledge/units/g3b_u09_3b09.knowledge-operation.json",
+    "sha256": "44b7d99d3b116bd60ec4c0097c0140bd05339bb3c000231405c56d7cb55cca7f",
+    "page": 2,
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "evidenceRole": "PRIMARY_EVIDENCE"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3b_u09_tenths_fraction_decimal",
+      "canonicalNameZh": "十分之幾與一位小數互換",
+      "capabilityStatement": "學生能在分母為 10 的分數與一位小數間互換。",
+      "reasoningInvariant": "分母為 10 的分數與一位小數必須表示同一數量；互換時分母固定為 10，小數位數固定為 1。",
+      "validatorCapabilityId": "valcap_g3b_u09_tenths_fraction_decimal",
+      "tagIds": [
+        "tag_domain_fraction",
+        "tag_domain_decimal",
+        "tag_denominator_10",
+        "tag_decimal_scale_1",
+        "tag_bidirectional_conversion",
+        "tag_representation_transfer",
+        "tag_exact_equivalence",
+        "tag_application_not_applicable"
+      ],
+      "requiredW3CapabilityIds": [
+        "cap_fraction_domain_validator",
+        "cap_fraction_number_system"
+      ],
+      "immediatePrerequisiteKnowledgePointIds": [
+        "kp_g3b_u09_tenth_representation"
+      ],
+      "downstreamKnowledgePointIds": [
+        "kp_g4b_u08_fraction_decimal_conversion"
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE"
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g3b_u09_tenths_fraction_decimal",
+      "knowledgePointId": "kp_g3b_u09_tenths_fraction_decimal",
+      "operationModelId": "op_g3b_u09_tenths_fraction_decimal",
+      "canonicalRelation": "numerator / 10 = decimalTenths",
+      "givenRoles": [
+        "sourceRepresentation",
+        "numerator",
+        "denominator",
+        "decimalScale"
+      ],
+      "requestedUnknownRole": "equivalentRepresentation",
+      "domainConstraints": {
+        "numeratorMin": 1,
+        "numeratorMax": 9,
+        "denominator": 10,
+        "decimalScale": 1,
+        "exactOnly": true
+      }
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g3b_u09_tenths_fraction_decimal_conversion_numeric",
+      "patternGroupId": "pg_g3b_u09_tenths_fraction_decimal_numeric",
+      "knowledgePointId": "kp_g3b_u09_tenths_fraction_decimal",
+      "mode": "NUMERIC",
+      "operationFamilyId": "fraction_decimal_conversion",
+      "directions": [
+        "fraction_to_decimal",
+        "decimal_to_fraction"
+      ],
+      "allocationPolicy": "balanced_bidirectional_4_plus_4",
+      "questionCount": 8,
+      "answerModel": "fraction_or_decimal_exact_representation",
+      "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+      "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1",
+      "globalContextRequired": false
+    }
+  ],
+  "acceptancePolicy": {
+    "questionCount": 8,
+    "directionCounts": {
+      "fraction_to_decimal": 4,
+      "decimal_to_fraction": 4
+    },
+    "denominatorMustRemainTen": true,
+    "decimalScaleMustRemainOne": true,
+    "duplicatePromptCount": 0,
+    "physicalPdfPageCount": 2,
+    "applicationRouteAllowed": false,
+    "parallelPipelineAllowed": false
+  },
+  "mainlineBoundary": {
+    "queuePositionConsumedBeforeAdmission": 8,
+    "nextQueuePositionStarted": false,
+    "otherG3BU09KnowledgePointsAdmitted": false,
+    "decimalArithmeticAdded": false,
+    "applicationStoryGenerationAdded": false,
+    "parallelRuntimePipelineAdded": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice010Implementation",
+    "nextTaskRequiresSeparateApproval": true
+  }
+}
