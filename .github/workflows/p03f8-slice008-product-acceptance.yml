@@ -27,7 +27,11 @@ jobs:
           npm install
           npm install --no-save --package-lock=false playwright@1.51.1
       - name: Validate slice008 product admission
-        run: node tools/curriculum/validate-p03f-slice008-product-admission.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p tmp/p03f-slice008-product-acceptance
+          node tools/curriculum/validate-p03f-slice008-product-admission.mjs 2>&1 | tee tmp/p03f-slice008-product-acceptance/validator.log
       - name: Render slice008 Chromium acceptance
         run: node tools/curriculum/render-p03f-slice008-product-acceptance.mjs
       - name: Upload slice008 product artifacts
