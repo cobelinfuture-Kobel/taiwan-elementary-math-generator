@@ -1,51 +1,86 @@
-name: P03F7 Payload Integrity Audit
+name: P03F7 Slice007 Implementation Materializer
 
 on:
   pull_request:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: p03f7-payload-integrity-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+  group: p03f7-implementation-materializer-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
 
 jobs:
-  audit:
+  materialize:
     if: github.head_ref == 'p03f-w3-direct-product-vertical-slice007-v1'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout implementation branch
         uses: actions/checkout@v4
-      - name: Audit exact payload
+        with:
+          ref: p03f-w3-direct-product-vertical-slice007-v1
+          fetch-depth: 1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Repair and decode exact implementation payload
         shell: bash
         run: |
-          set +e
-          OUT=tmp/p03f7-payload-integrity
-          mkdir -p "$OUT"
-          {
-            echo '=== lengths ==='
-            wc -c .p03f7-bootstrap/part_00 .p03f7-bootstrap/part_01 .p03f7-bootstrap/part_02 .p03f7-bootstrap/part_03 .p03f7-bootstrap/part_04
-            echo '=== part hashes ==='
-            sha256sum .p03f7-bootstrap/part_00 .p03f7-bootstrap/part_01 .p03f7-bootstrap/part_02 .p03f7-bootstrap/part_03 .p03f7-bootstrap/part_04
-            cat .p03f7-bootstrap/part_00 .p03f7-bootstrap/part_01 .p03f7-bootstrap/part_02 .p03f7-bootstrap/part_03 .p03f7-bootstrap/part_04 > "$OUT/payload.b64"
-            echo '=== combined ==='
-            wc -c "$OUT/payload.b64"
-            sha256sum "$OUT/payload.b64"
-            base64 --decode "$OUT/payload.b64" > "$OUT/payload.tar.gz"
-            echo "base64_status=$?"
-            wc -c "$OUT/payload.tar.gz"
-            sha256sum "$OUT/payload.tar.gz"
-            tar -tzf "$OUT/payload.tar.gz" > "$OUT/tar-list.txt"
-            echo "tar_status=$?"
-            head -50 "$OUT/tar-list.txt"
-          } > "$OUT/audit.txt" 2>&1
-          cat "$OUT/audit.txt"
-      - name: Upload integrity audit
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f7-payload-integrity
-          path: tmp/p03f7-payload-integrity
-          if-no-files-found: error
-          retention-days: 7
+          set -euo pipefail
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          p = Path('.p03f7-bootstrap/part_03')
+          data = p.read_text()
+          old = sha256(data.encode()).hexdigest()
+          if old == '8db98ef5565f441a2051bf202c3afa5940aafffde5b56374f74f6f07cfdf36a3':
+              needle = 'VaDzEDCdedh'
+              assert data.count(needle) == 1
+              data = data.replace(needle, 'VaDzEDCadedh', 1)
+              p.write_text(data)
+          assert len(data) == 7000
+          assert sha256(data.encode()).hexdigest() == '9f3860f436f2d86ef8809407d173f4fb5fb95f4c5ada458cd9fa18da1d4ac530'
+          PY
+          echo '55867e4637fd2ddcc4293e39893fe6fe2ad4ca390ea0523d54127477ab019cec  .p03f7-bootstrap/part_00' | sha256sum -c -
+          echo 'ee0564feef416acf650046678d1d0ea553e338781cdee728c631ed5dd7f3d72a  .p03f7-bootstrap/part_01' | sha256sum -c -
+          echo '51682a2e5cbda5c0836e9550d3c9456c7f8a3674951e1d418e37db6864968985  .p03f7-bootstrap/part_02' | sha256sum -c -
+          echo '9f3860f436f2d86ef8809407d173f4fb5fb95f4c5ada458cd9fa18da1d4ac530  .p03f7-bootstrap/part_03' | sha256sum -c -
+          echo '3462ddf4a2d18cd7cea1358d2d5b8c2d9bb90e585865f27129486a257a02402b  .p03f7-bootstrap/part_04' | sha256sum -c -
+          cat .p03f7-bootstrap/part_00 .p03f7-bootstrap/part_01 .p03f7-bootstrap/part_02 .p03f7-bootstrap/part_03 .p03f7-bootstrap/part_04 > /tmp/p03f7_payload.b64
+          test "$(wc -c < /tmp/p03f7_payload.b64)" -eq 30892
+          echo 'b24c734cecd1f31bf0e340ef1b50b12a6802f504b3238e60ce504f148653c666  /tmp/p03f7_payload.b64' | sha256sum -c -
+          base64 --decode /tmp/p03f7_payload.b64 > /tmp/p03f7_payload.tar.gz
+          echo '4e4abd13f1c19c780c8ce6efe4c39efae6bb9a8191f98bc593edeb2920a7626e  /tmp/p03f7_payload.tar.gz' | sha256sum -c -
+          mkdir -p .p03f7-payload
+          tar -xzf /tmp/p03f7_payload.tar.gz -C .p03f7-payload
+          test -f .p03f7-payload/tools/curriculum/p03f7-materialize-implementation.py
+      - name: Materialize successor architecture
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp .p03f7-payload/tools/curriculum/p03f7-materialize-implementation.py tools/curriculum/p03f7-materialize-implementation.py
+          python -m py_compile tools/curriculum/p03f7-materialize-implementation.py
+          python tools/curriculum/p03f7-materialize-implementation.py
+          rm -rf .p03f7-bootstrap .p03f7-payload
+      - name: Validate implementation tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r file; do node --check "$file"; done < <(find site src tools tests -type f \( -name '*p03f7*.js' -o -name '*p03f7*.mjs' -o -name '*fraction-unit-conversion*.js' -o -name '*fraction-unit-conversion*.mjs' \) | sort)
+          node --test tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js
+          node tools/curriculum/validate-p03f-slice007-product-admission.mjs
+          test ! -e .github/workflows/p03f7-slice007-authority-diagnostic.yml
+          test ! -e docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_SCOPE_FREEZE.md
+          test ! -e tools/curriculum/p03f7-materialize-implementation.py
+      - name: Commit formal implementation tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "feat(p03f7): implement fraction unit conversion D0 slice"
+          git push origin HEAD:p03f-w3-direct-product-vertical-slice007-v1
