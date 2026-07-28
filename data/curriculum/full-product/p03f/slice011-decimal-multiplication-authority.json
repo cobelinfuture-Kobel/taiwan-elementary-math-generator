@@ -1,0 +1,79 @@
+{
+  "schemaName": "P03FSlice011DecimalMultiplicationAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice011Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 11,
+    "sliceId": "p03e_q011_r6_g4b_u06_4b06_profile_decimal_c1",
+    "previousSliceId": "p03e_q010_r6_g4a_u09_4a09_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g4b_u06_4b06",
+    "sourceCode": "4b06",
+    "sourceTitle": "小數乘法",
+    "grade": 4,
+    "semester": "lower",
+    "unitCode": "4B-U06",
+    "evidencePages": [1],
+    "canonicalOperationAuthorityPath": "data/curriculum/application/operations/w02/g4b_u06_4b06.canonical-operation.json",
+    "hiddenPatternSpecAuthorityPath": "data/curriculum/application/pattern-specs/w02/g4b_u06_4b06.hidden-pattern-spec.json",
+    "atomicContextCandidateAuthority": "w02_bind_ps_g4b_u06_one_decimal_times_integer_product_application",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_AND_W02_APPLICATION_AUTHORITY_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4b_u06_one_decimal_times_integer",
+    "canonicalNameZh": "一位小數乘整數",
+    "scope": "一位小數乘整數的直接建模與精確計算。",
+    "applicationClassification": "APPLICATION_COMPATIBLE",
+    "reasoningInvariant": "小數因數的十分位係數乘整數後，以十為縮放因子重建精確乘積。",
+    "requiredCapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+    "tagIds": ["grade_4", "domain_decimal", "concept_decimal_multiplication", "operation_decimal_multiplication", "representation_numeric_expression", "representation_application_context", "answer_decimal", "exact_decimal_scale_1"]
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g4b_u06_one_decimal_times_integer",
+    "operationModelId": "op_g4b_u06_one_decimal_times_integer",
+    "operationFamilyId": "decimal_multiplication",
+    "canonicalExpressions": ["product = decimalFactor * integerFactor"],
+    "operandRoles": {"decimalFactor": "一位小數因數", "integerFactor": "整數因數", "product": "精確小數乘積"},
+    "numberConstraints": ["decimalFactor has exact scale 1", "integerFactor is a positive integer", "result is exact and nonnegative"],
+    "validationInvariants": ["scaled-integer multiplication reconstructs the exact decimal product", "application quantity units follow per-package × package-count = total quantity"]
+  },
+  "patternSurface": {
+    "numericPatternGroupId": "pg_g4b_u06_one_decimal_times_integer_numeric",
+    "numericPatternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+    "applicationPatternGroupId": "pg_g4b_u06_one_decimal_times_integer_application",
+    "applicationPatternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+    "requestedUnknownRole": "product",
+    "givenRoles": ["decimalFactor", "integerFactor"],
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "applicationContext": {
+    "bindingCandidateId": "w02_bind_ps_g4b_u06_one_decimal_times_integer_product_application",
+    "itemCandidateId": "w02_item_ps_g4b_u06_one_decimal_times_integer_product_application",
+    "macroContextId": "gctx_macro_charity_cooperation",
+    "mesoSituationId": "gctx_meso_charity_donation",
+    "microScenarioId": "gctx_micro_donation_package_allocation",
+    "atomicEpisodeId": "gctx_episode_donation_package_allocation_direct_quantity",
+    "surfaceTemplateId": "tpl_fusion_charity_donation_direct_01",
+    "roleBinding": {"decimalFactor": "每包標準物資份數", "integerFactor": "物資包數", "product": "總標準物資份數"},
+    "unitFlow": {"decimalFactor": "份／包", "integerFactor": "包", "product": "份"},
+    "semanticClosure": "公益捐贈物資包分配；每包份數 × 包數 = 總份數。"
+  },
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "numericModeAllowed": true,
+    "applicationModeAllowed": true,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "otherG4BU06KnowledgePointsExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}
