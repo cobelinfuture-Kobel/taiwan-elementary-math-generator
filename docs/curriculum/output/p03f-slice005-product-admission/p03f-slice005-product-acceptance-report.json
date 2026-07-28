@@ -1,7 +1,7 @@
 {
   "schemaName": "P03FSlice005ChromiumProductAcceptanceReportV1",
   "taskId": "P03F_W3DirectProductVerticalSlice005Implementation",
-  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
   "sourceId": "g4b_u08_4b08",
   "knowledgePointIds": [
     "kp_g4b_u08_generate_equivalent_fraction"
@@ -57,13 +57,15 @@
     "pageErrors": []
   },
   "visualReview": {
-    "status": "PENDING",
-    "questionPageReviewed": false,
-    "answerKeyPageReviewed": false,
-    "physicalPageParityReviewed": false,
-    "clippedTextFindingCount": null,
-    "overlapFindingCount": null,
-    "brokenGlyphFindingCount": null,
-    "semanticScopeFindingCount": null
-  }
+    "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+    "questionPageReviewed": true,
+    "answerKeyPageReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0
+  },
+  "htmlSha256": "ac6625c714f9b699e47d28c245996b369cd5a2f973b58637b25dc2e77d877040",
+  "pdfSha256": "70d6aba617130273368a0170e4357af81ae73fb8a52d0e7a7b5259f709c7a466"
 }

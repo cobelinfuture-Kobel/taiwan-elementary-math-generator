@@ -3,8 +3,8 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice005Implementation
-STATUS     = ARTIFACT_COMMITTED_E5_FINALIZER_PENDING
-EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
+STATUS     = PASS_ARTIFACT_MATERIALIZED_AND_VISUAL_REVIEWED_PENDING_EXACT_HEAD_CI
+EVIDENCE   = E5_PRODUCTION_ADMITTED
 ```
 
 ## Frozen slice
@@ -19,36 +19,46 @@ PatternSpecs   = 3
 application    = APPLICATION_NOT_APPLICABLE
 ```
 
-## Connected product nodes
+## Product acceptance
 
 ```text
-source evidence                 = BOUND
 Tag Registry bindings           = 9
 FormalMappings                  = 1
 numeric PatternSpecs            = 3
-shared generator                = CONNECTED
-shared deterministic validator  = CONNECTED
-fraction number system          = CONNECTED
-fraction domain validator       = CONNECTED
-fraction arithmetic             = CONNECTED
-current Classic selection       = CONNECTED
-current Pixel selection         = CONNECTED
+required W3 capabilities        = 3 / 3 PASS
+shared generator / validator    = CONNECTED / CONNECTED
+current Classic / Pixel         = CONNECTED / CONNECTED
 WorksheetDocument / answer key  = 9 / 9 PASS
-production HTML                 = COMMITTED
-Chromium PDF / print            = COMMITTED
-product admission               = E5_FINALIZER_PENDING
+production HTML / PDF           = 1 / 1 COMMITTED
+physical PDF pages              = 2
+full Node regression            = 2510 / 2510 PASS
+visual semantic review          = PASS
+duplicate / overflow findings   = 0 / 0
+clipping / overlap / glyph      = 0 / 0 / 0
+product admission               = E5_PRODUCTION_ADMITTED
 ```
 
-All witnesses preserve a common positive factor and exact rational identity. The other six G4B-U08 KnowledgePoints remain hidden. No application story, global-context binding or parallel product pipeline is added.
+## Committed evidence
+
+```text
+HTML SHA256 = ac6625c714f9b699e47d28c245996b369cd5a2f973b58637b25dc2e77d877040
+PDF SHA256  = 70d6aba617130273368a0170e4357af81ae73fb8a52d0e7a7b5259f709c7a466
+pre-D0 Node run        = 30324058767
+pre-D0 Chromium run    = 30324058740
+pre-D0 artifact        = 8675008374
+materialization commit = c0afea586477c8d9165b8e336bc5771dcac49e1e
+```
+
+All nine witnesses preserve exact rational identity by applying the same positive integer factor to numerator and denominator. Factor, equivalent-numerator and equivalent-denominator unknown roles are covered. The other six G4B-U08 KnowledgePoints remain hidden.
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_DIRECT_PRODUCT_SLICE004_D0_MERGED
-GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE005_ARTIFACT_COMMITTED_PENDING_E5_FINALIZER
-DISTANCE_REDUCED     = Queue position 5 has committed Chromium HTML/PDF and awaits committed-byte hash and visual-review claim materialization.
-REMAINING_BLOCKERS   = [E5 finalizer, exact-head full regression, PR merge]
-NEXT_SHORTEST_STEP   = P03F5_E5ArtifactFinalizer
+GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE005_PRODUCTION_ADMITTED_PENDING_EXACT_HEAD_CI
+DISTANCE_REDUCED     = Queue position 5 moved from a frozen row to a committed and visually reviewed equivalent-fraction product through three W3 fraction capabilities, shared runtime, selectors, worksheet, answer key and two-page HTML/PDF.
+REMAINING_BLOCKERS   = [exact-head full regression, PR merge]
+NEXT_SHORTEST_STEP   = P03F5_ExactHeadCIAndD0Closeout
 ```
 
 ```text
