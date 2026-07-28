@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Materialize frozen queue and runtime authority
+      - name: Materialize frozen authority and application binding
         shell: bash
         run: |
           mkdir -p tmp/p03f6-authority
@@ -27,6 +27,7 @@ jobs:
           import { listP03EW3DirectProductVerticalSlices } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
           import { getP03CW3DownstreamUnblockRow } from './src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs';
           import { materializeR05DeliveryWaveRebase } from './src/curriculum/global/r05-delivery-wave-rebase.mjs';
+          import { materializeW02AtomicContextSingleApplicationCandidatePack } from './src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs';
           const slice = listP03EW3DirectProductVerticalSlices().find((row) => row.queuePosition === 6);
           if (!slice) throw new Error('P03F6_QUEUE_ENTRY_MISSING');
           const kpId = slice.knowledgePointIds[0];
@@ -36,7 +37,10 @@ jobs:
           const knowledgePoint = r05.runtimeCapabilityMatrix.knowledgePoints.find((row) => row.knowledgePointId === kpId) ?? null;
           const mapping = r05.runtimeCapabilityMatrix.knowledgePointMappings.find((row) => row.knowledgePointId === kpId) ?? null;
           const sourceNodes = (r05.runtimeCapabilityMatrix.sourceNodes ?? []).filter((row) => slice.supportingSourceNodeIds.includes(row.sourceNodeId));
-          fs.writeFileSync('tmp/p03f6-authority/p03f6-authority.json', JSON.stringify({ slice, unblock, assignment, knowledgePoint, mapping, sourceNodes }, null, 2) + '\n');
+          const pack = materializeW02AtomicContextSingleApplicationCandidatePack();
+          const applicationCandidate = pack.candidates.find((row) => row.patternSpecId === 'ps_g3a_u08_same_denominator_compare_comparison_application') ?? null;
+          if (!applicationCandidate) throw new Error('P03F6_APPLICATION_CANDIDATE_MISSING');
+          fs.writeFileSync('tmp/p03f6-authority/p03f6-authority.json', JSON.stringify({ slice, unblock, assignment, knowledgePoint, mapping, sourceNodes, applicationCandidate }, null, 2) + '\n');
           NODE
       - name: Upload authority diagnostic
         uses: actions/upload-artifact@v4
