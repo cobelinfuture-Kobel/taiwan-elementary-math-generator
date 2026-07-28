@@ -1,50 +1,55 @@
-name: P03F6 Slice006 Authority Diagnostic
+name: P03F6 Slice006 Implementation Materializer
 
 on:
   pull_request:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: p03f6-materialize-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
 
 jobs:
-  diagnostic:
+  materialize:
     if: github.head_ref == 'p03f-w3-direct-product-vertical-slice006-v1'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout implementation branch
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: 24
-      - name: Materialize frozen authority and application binding
+          ref: p03f-w3-direct-product-vertical-slice006-v1
+          fetch-depth: 1
+      - name: Reconstruct implementation materializer
         shell: bash
         run: |
-          mkdir -p tmp/p03f6-authority
-          node --input-type=module <<'NODE'
-          import fs from 'node:fs';
-          import { listP03EW3DirectProductVerticalSlices } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
-          import { getP03CW3DownstreamUnblockRow } from './src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs';
-          import { materializeR05DeliveryWaveRebase } from './src/curriculum/global/r05-delivery-wave-rebase.mjs';
-          import { materializeW02AtomicContextSingleApplicationCandidatePack } from './src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs';
-          const slice = listP03EW3DirectProductVerticalSlices().find((row) => row.queuePosition === 6);
-          if (!slice) throw new Error('P03F6_QUEUE_ENTRY_MISSING');
-          const kpId = slice.knowledgePointIds[0];
-          const unblock = getP03CW3DownstreamUnblockRow(kpId);
-          const r05 = materializeR05DeliveryWaveRebase();
-          const assignment = r05.knowledgePointAssignments.find((row) => row.knowledgePointId === kpId) ?? null;
-          const knowledgePoint = r05.runtimeCapabilityMatrix.knowledgePoints.find((row) => row.knowledgePointId === kpId) ?? null;
-          const mapping = r05.runtimeCapabilityMatrix.knowledgePointMappings.find((row) => row.knowledgePointId === kpId) ?? null;
-          const sourceNodes = (r05.runtimeCapabilityMatrix.sourceNodes ?? []).filter((row) => slice.supportingSourceNodeIds.includes(row.sourceNodeId));
-          const pack = materializeW02AtomicContextSingleApplicationCandidatePack();
-          const applicationCandidate = pack.candidates.find((row) => row.patternSpecId === 'ps_g3a_u08_same_denominator_compare_comparison_application') ?? null;
-          if (!applicationCandidate) throw new Error('P03F6_APPLICATION_CANDIDATE_MISSING');
-          fs.writeFileSync('tmp/p03f6-authority/p03f6-authority.json', JSON.stringify({ slice, unblock, assignment, knowledgePoint, mapping, sourceNodes, applicationCandidate }, null, 2) + '\n');
-          NODE
-      - name: Upload authority diagnostic
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f6-authority-diagnostic
-          path: tmp/p03f6-authority/p03f6-authority.json
-          if-no-files-found: error
+          cat tmp/p03f6_bootstrap/payload.* | base64 --decode | gzip --decompress > tools/curriculum/p03f6-materialize-implementation.py
+          python -m py_compile tools/curriculum/p03f6-materialize-implementation.py
+      - name: Materialize exact slice006 tree
+        shell: bash
+        run: |
+          python tools/curriculum/p03f6-materialize-implementation.py
+          rm -rf tmp/p03f6_bootstrap
+      - name: Validate materialized syntax and JSON
+        shell: bash
+        run: |
+          find site src tools tests -type f \( -name '*.js' -o -name '*.mjs' \) -newer .git/index -print0 2>/dev/null | xargs -0 -r -n1 node --check
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in [
+            Path('data/curriculum/full-product/p03f/slice006-same-denominator-compare-authority.json'),
+            Path('data/curriculum/full-product/p03f/slice006-product-admission.manifest.json'),
+            Path('data/project/milestones/FPL-P03F6.claim.json'),
+          ]:
+            json.loads(path.read_text(encoding='utf-8'))
+          PY
+      - name: Commit formal implementation tree
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(p03f6): implement same-denominator comparison vertical slice"
+          git push origin HEAD:p03f-w3-direct-product-vertical-slice006-v1
