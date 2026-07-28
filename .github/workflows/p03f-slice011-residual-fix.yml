@@ -1,0 +1,105 @@
+name: P03F11 One-Shot Residual Fix
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p03f11-residual-fix-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  fix:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice011-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pull request head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm install
+      - name: Apply exact residual fixes
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          count = 0
+          for path in [
+              'tests/curriculum/p03f-slice003-quotient-fraction.test.js',
+              'tests/curriculum/p03f-slice004-tenth-decimal.test.js',
+              'tests/curriculum/p03f-slice005-equivalent-fraction.test.js',
+              'tests/curriculum/p03f-slice010-hundredth-decimal.test.js',
+          ]:
+              p = Path(path)
+              text = p.read_text(encoding='utf-8')
+              old = 'assert.equal(sources.length, 24);'
+              if text.count(old) != 1:
+                  raise SystemExit(f'{path}: expected exactly one stale source-count assertion, got {text.count(old)}')
+              p.write_text(text.replace(old, 'assert.equal(sources.length, 25);'), encoding='utf-8')
+              count += 1
+
+          p = Path('src/curriculum/full-product/p03f-slice011-product-admission.mjs')
+          text = p.read_text(encoding='utf-8')
+          old = '"NON_NEGATIVE_INTEGER"'
+          if text.count(old) != 2:
+              raise SystemExit(f'expected exactly two invalid magnitude-class tokens, got {text.count(old)}')
+          p.write_text(text.replace(old, '"WHOLE_NUMBER"'), encoding='utf-8')
+
+          p = Path('tests/curriculum/p03f-slice011-decimal-multiplication.test.js')
+          text = p.read_text(encoding='utf-8')
+          old = 'test("P03F11 remains fail closed before Chromium acceptance", () => { const result = validateP03FSlice011ProductAdmission(); assert.equal(result.ok, true, JSON.stringify(result.errors)); assert.equal(result.productAdmissionState, "RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE"); assert.equal(result.d0Complete, false); assert.equal(result.metrics.newProductAdmissionCount, 0); assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 12); assert.equal(result.metrics.remainingDirectSliceCount, 43); assert.equal(result.metrics.remainingDirectKnowledgePointCount, 70); });'
+          new = 'test("P03F11 admits exactly one KP after reviewed artifact hashes", () => { const result = validateP03FSlice011ProductAdmission(); assert.equal(result.ok, true, JSON.stringify(result.errors)); assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0"); assert.equal(result.d0Complete, true); assert.equal(result.artifactIntegrity.ok, true); assert.equal(result.metrics.newProductAdmissionCount, 1); assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 13); assert.equal(result.metrics.remainingDirectSliceCount, 42); assert.equal(result.metrics.remainingDirectKnowledgePointCount, 69); });'
+          if text.count(old) != 1:
+              raise SystemExit(f'expected exactly one stale Slice011 state test, got {text.count(old)}')
+          p.write_text(text.replace(old, new), encoding='utf-8')
+
+          p = Path('.github/workflows/p03f-slice011-product-acceptance.yml')
+          text = p.read_text(encoding='utf-8')
+          old = '        run: |\n          mkdir -p tmp/p03f-slice011-product-acceptance\n          node tools/curriculum/validate-p03f-slice011-product-admission.mjs 2>&1 | tee tmp/p03f-slice011-product-acceptance/validator.log'
+          new = '        run: |\n          set -o pipefail\n          mkdir -p tmp/p03f-slice011-product-acceptance\n          node tools/curriculum/validate-p03f-slice011-product-admission.mjs 2>&1 | tee tmp/p03f-slice011-product-acceptance/validator.log'
+          if text.count(old) != 1:
+              raise SystemExit(f'expected exactly one non-pipefail validator step, got {text.count(old)}')
+          p.write_text(text.replace(old, new), encoding='utf-8')
+
+          print({'sourceCountAssertionsFixed': count, 'magnitudeClassesFixed': 2, 'slice011StateTestFixed': 1, 'workflowPipefailFixed': 1})
+          PY
+      - name: Run focused regressions
+        run: |
+          node --test \
+            tests/curriculum/p03f-slice003-quotient-fraction.test.js \
+            tests/curriculum/p03f-slice004-tenth-decimal.test.js \
+            tests/curriculum/p03f-slice005-equivalent-fraction.test.js \
+            tests/curriculum/p03f-slice010-hundredth-decimal.test.js \
+            tests/curriculum/p03f-slice011-decimal-multiplication.test.js
+          node tools/curriculum/validate-p03f-slice011-product-admission.mjs
+      - name: Commit fixes and remove one-shot workflow
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/p03f-slice011-residual-fix.yml
+          git add \
+            .github/workflows/p03f-slice011-product-acceptance.yml \
+            src/curriculum/full-product/p03f-slice011-product-admission.mjs \
+            tests/curriculum/p03f-slice003-quotient-fraction.test.js \
+            tests/curriculum/p03f-slice004-tenth-decimal.test.js \
+            tests/curriculum/p03f-slice005-equivalent-fraction.test.js \
+            tests/curriculum/p03f-slice010-hundredth-decimal.test.js \
+            tests/curriculum/p03f-slice011-decimal-multiplication.test.js
+          git diff --cached --check
+          git commit -m "P03F11: fix exact-head regression and fail-closed acceptance"
+          git fetch origin "${{ github.event.pull_request.head.ref }}"
+          git rebase "origin/${{ github.event.pull_request.head.ref }}"
+          git push --force-with-lease origin HEAD:"${{ github.event.pull_request.head.ref }}"
