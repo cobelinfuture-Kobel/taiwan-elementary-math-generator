@@ -103,7 +103,7 @@ test("P03F12 validator rejects cross-product, answer and scope tampering", () =>
   assert.equal(validateG4BU08EquivalenceCrossProductQuestion({ ...question, questionMode: "application" }).ok, false);
 });
 
-test("P03F12 selector and current Pixel expose two G4B-U08 KPs without adding a source", () => {
+test("P03F12 selector remains two G4B-U08 KPs while current Pixel adds later sources monotonically", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.equal(rows.length, 2);
   assert.deepEqual(rows.map((row) => row.knowledgePointId), [
@@ -113,9 +113,9 @@ test("P03F12 selector and current Pixel expose two G4B-U08 KPs without adding a 
   const availability = listBatchAKnowledgePointAvailabilityBySource(G4B_U08_SOURCE_ID);
   assert.equal(availability.visibleCount, 2);
   assert.equal(availability.hiddenPendingCount, 5);
-  assert.equal(listCurrentPixelSourceOptions().length, 25);
+  assert.equal(listCurrentPixelSourceOptions().length, 26);
   assert.equal(listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID).length, 2);
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 25);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 26);
 });
 
 test("P03F12 shared worksheet and answer key render bounded pages", () => {
