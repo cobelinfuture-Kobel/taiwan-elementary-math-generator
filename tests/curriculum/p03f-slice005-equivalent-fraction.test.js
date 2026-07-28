@@ -137,19 +137,19 @@ test("P03F5 shared worksheet and answer key render nine items on bounded pages",
   assert.match(html, /worksheet-page--answer-key/);
 });
 
-test("P03F5 initial aggregate fail-closes pending artifact while preserving slice004 D0", () => {
+test("P03F5 committed aggregate is production admitted while preserving slice004 D0", () => {
   const predecessor = validateP03FSlice004ProductAdmission();
   assert.equal(predecessor.ok, true, JSON.stringify(predecessor.errors));
   assert.equal(predecessor.d0Complete, true);
   const result = validateP03FSlice005ProductAdmission();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.productAdmissionState, "PRODUCT_ACCEPTANCE_PENDING");
-  assert.equal(result.d0Complete, false);
+  assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0");
+  assert.equal(result.d0Complete, true);
   assert.equal(result.metrics.requiredCapabilityCount, 3);
   assert.equal(result.metrics.questionWitnessCount, 9);
   assert.equal(result.metrics.answerKeyWitnessCount, 9);
-  assert.equal(result.metrics.newProductAdmissionCount, 0);
-  assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 5);
-  assert.equal(result.metrics.remainingDirectSliceCount, 49);
-  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 77);
+  assert.equal(result.metrics.newProductAdmissionCount, 1);
+  assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 6);
+  assert.equal(result.metrics.remainingDirectSliceCount, 48);
+  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 76);
 });
