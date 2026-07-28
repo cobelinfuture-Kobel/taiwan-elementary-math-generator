@@ -10,6 +10,7 @@ import {
   G3B_U07_QUOTIENT_FRACTION_PATTERN_GROUP_ID,
   G3B_U07_QUOTIENT_FRACTION_PATTERN_SPEC_ID,
 } from "../../site/modules/curriculum/registry/g3b-u07-quotient-fraction-selector-projection.js";
+import { G3B_U07_FRACTION_UNIT_CONVERSION_KP_ID } from "../../site/modules/curriculum/registry/g3b-u07-fraction-unit-conversion-selector-projection.js";
 import {
   generateG3BU07QuotientFractionQuestions,
   validateG3BU07QuotientFractionQuestion,
@@ -105,17 +106,20 @@ test("P03F3 selector exposes only one G3B-U07 KP", () => {
   assert.equal(availability.hiddenPendingCount, 7);
 });
 
-test("P03F3 current Pixel keeps one G3B-U07 KP after slice005 source expansion", () => {
+test("P03F3 current Pixel preserves quotient fraction after slice007 adds the second G3B-U07 KP", () => {
   const sources = listCurrentPixelSourceOptions();
   assert.equal(sources.length, 23);
   const source = sources.find((row) => row.sourceId === G3B_U07_SOURCE_ID);
   assert.ok(source);
-  assert.equal(source.visibleKnowledgePointCount, 1);
-  assert.equal(source.hiddenPendingCount, 7);
-  assert.deepEqual(listPixelKnowledgePointsForSource(G3B_U07_SOURCE_ID).map((row) => row.knowledgePointId), [G3B_U07_QUOTIENT_FRACTION_KP_ID]);
+  assert.equal(source.visibleKnowledgePointCount, 2);
+  assert.equal(source.hiddenPendingCount, 6);
+  assert.deepEqual(
+    listPixelKnowledgePointsForSource(G3B_U07_SOURCE_ID).map((row) => row.knowledgePointId),
+    [G3B_U07_QUOTIENT_FRACTION_KP_ID, G3B_U07_FRACTION_UNIT_CONVERSION_KP_ID],
+  );
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 23);
-  assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 1);
+  assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 2);
 });
 
 test("P03F3 shared worksheet and answer key render eight items", () => {
