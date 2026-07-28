@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice005Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE005_D0_COMPLETE_PENDING_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g4b-u08-equivalent-fraction-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f5-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f5-extension.js",
+      "site/modules/curriculum/batch-a/equivalent-fraction-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f5.js",
+      "src/curriculum/full-product/p03f-slice005-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice005-product-admission.mjs",
+      "tests/curriculum/p03f-slice005-equivalent-fraction.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice005-product-acceptance.mjs",
+      ".github/workflows/node-test.yml"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice005-product-admission/g4b-u08-equivalent-fraction.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice005-product-admission/g4b-u08-equivalent-fraction.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice005-equivalent-fraction-authority.json",
+      "data/curriculum/full-product/p03f/slice005-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE005_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE005_READBACK.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE005_FINAL_CLOSEOUT_PASS.marker"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice005-product-admission/p03f-slice005-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice005-product-admission/g4b-u08-equivalent-fraction.html",
+        "sha256": "ac6625c714f9b699e47d28c245996b369cd5a2f973b58637b25dc2e77d877040"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice005-product-admission/g4b-u08-equivalent-fraction.pdf",
+        "sha256": "70d6aba617130273368a0170e4357af81ae73fb8a52d0e7a7b5259f709c7a466"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Frozen queue position 5 is fully D0: one source-backed equivalent-fraction KnowledgePoint is production admitted through the exact fraction capability trio, shared generator and validator, current Classic/Pixel selection, worksheet, answer key, committed HTML/PDF, committed hashes, visual semantic review and exact-head CI."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice006Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 417,
+    "implementationHeadSha": "8c36dfcda1ca7b77f57461b7d550e7681a88ab57",
+    "implementationMergeSha": null,
+    "implementationMergedAt": null,
+    "preD0HeadSha": "7ef0aab0489c9a451de462bbe3f4dc1b3f6a950f",
+    "preD0NodeWorkflowRunId": 30324058767,
+    "preD0ChromiumArtifactId": 8675008374,
+    "artifactMaterializationCommitSha": "c0afea586477c8d9165b8e336bc5771dcac49e1e",
+    "artifactMaterializationWorkflowRunId": 30324408512,
+    "artifactMaterializationArtifactId": null,
+    "finalNodeWorkflowRunId": 30325111749,
+    "finalNodeWorkflowHeadSha": "8c36dfcda1ca7b77f57461b7d550e7681a88ab57",
+    "finalChromiumArtifactId": 8675367284,
+    "nodeTestsPassed": 2510,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": true
+  }
+}

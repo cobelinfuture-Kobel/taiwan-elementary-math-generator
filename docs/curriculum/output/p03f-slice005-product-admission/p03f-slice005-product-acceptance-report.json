@@ -1,0 +1,71 @@
+{
+  "schemaName": "P03FSlice005ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice005Implementation",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "sourceId": "g4b_u08_4b08",
+  "knowledgePointIds": [
+    "kp_g4b_u08_generate_equivalent_fraction"
+  ],
+  "questionCount": 9,
+  "answerKeyItemCount": 9,
+  "questionPageCount": 1,
+  "answerKeyPageCount": 1,
+  "physicalPdfPageCount": 2,
+  "patternSpecIds": [
+    "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
+    "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
+    "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric"
+  ],
+  "canonicalFractionIdentities": [
+    "2/5",
+    "3/5",
+    "3/8",
+    "1/2",
+    "2/3",
+    "4/7"
+  ],
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "semanticScopeFindingCount": 0,
+  "browserFinding": {
+    "pageMetrics": [
+      {
+        "index": 0,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--questions print-page"
+      },
+      {
+        "index": 1,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--answer-key print-page"
+      }
+    ],
+    "physicalPdfPageCount": 2,
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "visualReview": {
+    "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+    "questionPageReviewed": true,
+    "answerKeyPageReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0
+  },
+  "htmlSha256": "ac6625c714f9b699e47d28c245996b369cd5a2f973b58637b25dc2e77d877040",
+  "pdfSha256": "70d6aba617130273368a0170e4357af81ae73fb8a52d0e7a7b5259f709c7a466"
+}
