@@ -109,10 +109,12 @@ test("P03F8 aggregate fail-closes before artifacts and admits both KPs only afte
   assert.equal(result.metrics.patternSpecCount, 2);
   if (result.status.includes("PENDING_CHROMIUM_ACCEPTANCE")) {
     assert.equal(result.d0Complete, false);
+    assert.equal(result.metrics.newProductAdmissionCount, 0);
     assert.equal(result.metrics.remainingDirectKnowledgePointCount, 74);
   } else {
     assert.equal(result.d0Complete, true);
-    assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 9);
+    assert.equal(result.metrics.newProductAdmissionCount, 2);
+    assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 10);
     assert.equal(result.metrics.remainingDirectSliceCount, 45);
     assert.equal(result.metrics.remainingDirectKnowledgePointCount, 72);
   }
