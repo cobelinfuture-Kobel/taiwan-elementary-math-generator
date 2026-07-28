@@ -3,19 +3,19 @@
   "taskId": "P03F_W3DirectProductVerticalSlice008Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W3_SLICE008_TWO_KP_RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_SLICE008_PRODUCTION_ADMITTED_PENDING_EXACT_HEAD_CI_AND_MERGE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": true,
-    "productionRendererUsed": false,
-    "htmlOutputVerified": false,
-    "pdfOutputVerified": false,
-    "visibleOutputChanged": false,
-    "humanReviewReady": false,
-    "productionAdmitted": false,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": true,
     "d0Complete": false
   },
   "evidence": {
@@ -38,8 +38,12 @@
       "site/modules/renderer/html-renderer.js",
       "tools/curriculum/render-p03f-slice008-product-acceptance.mjs"
     ],
-    "htmlArtifactPaths": [],
-    "pdfArtifactPaths": [],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.pdf"
+    ],
     "beforeAfterEvidencePaths": [
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_READBACK.md",
       "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
@@ -48,22 +52,33 @@
       "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE008_CONTRACT.md",
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE008_READBACK.md"
     ],
-    "reviewArtifactPaths": [],
-    "artifactHashes": []
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice008-product-admission/p03f-slice008-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.html",
+        "sha256": "c138b45d8d0fa9ab44ba9f8a5967af9fd6afbed8ba315e7d3b59620c1e0afbee"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.pdf",
+        "sha256": "b8d2091bf52fad35bebfa09d843166d73ded4ce9b79dbc9f3be1750d881c3a2e"
+      }
+    ]
   },
   "humanReview": {
-    "type": "none",
-    "canUnlockProduction": false,
-    "reviewArtifactRequired": false
+    "type": "manual_visual_semantic_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
   },
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Queue position 8 now has two source-backed KnowledgePoints, two FormalMappings, two PatternSpecs, current Classic/Pixel selector projection, deterministic shared runtime, blocking validation and shared worksheet assembly; Chromium HTML/PDF evidence and production admission remain."
+    "distanceReduced": "Queue position 8 has two production-admitted KnowledgePoints with reviewed HTML/PDF and exact hashes; exact-head CI and merge remain."
   },
   "nextStep": {
-    "taskId": "P03F8_ChromiumArtifactMaterializationAndReview",
-    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+    "taskId": "P03F8_ExactHeadCIAndMerge",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
@@ -71,19 +86,19 @@
     "implementationHeadSha": null,
     "implementationMergeSha": null,
     "implementationMergedAt": null,
-    "preD0HeadSha": null,
+    "preD0HeadSha": "6d6462757e03107c957343764e66212a1d3d8d0f",
     "preD0NodeWorkflowRunId": null,
-    "preD0ChromiumWorkflowRunId": null,
-    "preD0ChromiumArtifactId": null,
+    "preD0ChromiumWorkflowRunId": 30342108267,
+    "preD0ChromiumArtifactId": 8681439918,
     "artifactMaterializationCommitSha": null,
-    "artifactMaterializationWorkflowRunId": null,
+    "artifactMaterializationWorkflowRunId": 30346166856,
     "finalNodeWorkflowRunId": null,
     "finalNodeWorkflowHeadSha": null,
     "finalChromiumWorkflowRunId": null,
     "finalChromiumArtifactId": null,
     "nodeTestsPassed": null,
     "nodeTestsFailed": null,
-    "visualReviewPassed": false,
+    "visualReviewPassed": true,
     "finalExactHeadAccepted": false
   }
 }
