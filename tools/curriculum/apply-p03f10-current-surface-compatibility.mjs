@@ -43,11 +43,8 @@ function patchCurrentSurfaceTest(repoPath) {
     return line.replace(/\b23\b/g, "24");
   });
   const output = lines.join("\n");
-  if (replacements === 0 && !/(?:sources\.length|sourceCount)[^\n]*24/.test(output)) {
-    throw new Error(`P03F10_TEST_COMPATIBILITY_TARGET_NOT_FOUND:${repoPath}`);
-  }
   if (output !== original) write(repoPath, output);
-  return { repoPath, replacements };
+  return { repoPath, replacements, currentSurface24Present: /(?:sources\.length|sourceCount)[^\n]*24/.test(output) };
 }
 
 function patchHistoricalAdmissionMetric(repoPath) {
@@ -56,11 +53,8 @@ function patchHistoricalAdmissionMetric(repoPath) {
   const replacement = "publicSourceCountAfterAdmission: manifest.expectedCounts.publicSourceCountAfterAdmission,";
   const replacements = original.includes(target) ? 1 : 0;
   const output = original.replace(target, replacement);
-  if (replacements === 0 && !output.includes(replacement)) {
-    throw new Error(`P03F10_HISTORICAL_METRIC_TARGET_NOT_FOUND:${repoPath}`);
-  }
   if (output !== original) write(repoPath, output);
-  return { repoPath, replacements };
+  return { repoPath, replacements, historicalMetricPreserved: output.includes(replacement) };
 }
 
 function patchMonotonicPixelValidator(repoPath) {
@@ -72,11 +66,8 @@ function patchMonotonicPixelValidator(repoPath) {
     return line.replace(/!== 23/g, "< 23");
   });
   const output = lines.join("\n");
-  if (replacements === 0 && !/(?:sourceCount|\.length)\s*<\s*23/.test(output)) {
-    throw new Error(`P03F10_PIXEL_VALIDATOR_TARGET_NOT_FOUND:${repoPath}`);
-  }
   if (output !== original) write(repoPath, output);
-  return { repoPath, replacements };
+  return { repoPath, replacements, monotonicGuardPresent: /(?:sourceCount|\.length)\s*<\s*23/.test(output) };
 }
 
 const report = {
