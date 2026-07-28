@@ -1,0 +1,107 @@
+{
+  "schemaName": "P03FSlice011ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice011Implementation",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "sourceId": "g4b_u06_4b06",
+  "knowledgePointIds": [
+    "kp_g4b_u06_one_decimal_times_integer"
+  ],
+  "numericQuestionCount": 8,
+  "applicationQuestionCount": 8,
+  "answerKeyItemCount": 16,
+  "numericQuestionPageCount": 1,
+  "numericAnswerKeyPageCount": 1,
+  "applicationQuestionPageCount": 1,
+  "applicationAnswerKeyPageCount": 1,
+  "physicalPdfPageCount": 4,
+  "patternSpecIds": [
+    "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+    "ps_g4b_u06_one_decimal_times_integer_product_application"
+  ],
+  "numericHtmlSha256": "785ae6e13b92d5c76fe66ea069f156279306a23b10ea25991389cbcb82d77012",
+  "numericPdfSha256": "c7a0ebf7923e7da57c7072e34d4257dfff8e319e6ea2b3c362517b65eea0d2d0",
+  "applicationHtmlSha256": "bd26c21e5c1f352ba9382b8ab622e4c399a0101042c58097da2d249650ed6e45",
+  "applicationPdfSha256": "30e01ccef8f967786c4f506e792e59406d6c62712e86ff769b635d8a1c8f2728",
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "semanticScopeFindingCount": 0,
+  "browserFinding": {
+    "numeric": {
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ],
+      "physicalPdfPageCount": 2,
+      "consoleErrors": [],
+      "pageErrors": []
+    },
+    "application": {
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ],
+      "physicalPdfPageCount": 2,
+      "consoleErrors": [],
+      "pageErrors": []
+    }
+  },
+  "visualReview": {
+    "status": "PASS_OPERATOR_REVIEWED",
+    "numericQuestionPageReviewed": true,
+    "numericAnswerKeyPageReviewed": true,
+    "applicationQuestionPageReviewed": true,
+    "applicationAnswerKeyPageReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0
+  },
+  "materialization": {
+    "mode": "GITHUB_ACTIONS_RUNNER_BINARY_COMMIT",
+    "workflowRunId": 30373495728,
+    "sourceHeadSha": "0ed9ce40af09cd5cccb3c0310fdf59739c3e8b00",
+    "artifactMaterializationCommitSha": "999d42a99626f74c9337be029719bc4cd742b940",
+    "reviewedArtifactId": 8693944951,
+    "reviewedArtifactDigest": "sha256:e79f8c827b45dda186a6394bcca6052231f294800ae44e84c262a37abde9e7ae",
+    "visualReviewAuthority": "PASS_OPERATOR_REVIEWED_FROM_RENDERED_PDF_AND_PNG"
+  }
+}

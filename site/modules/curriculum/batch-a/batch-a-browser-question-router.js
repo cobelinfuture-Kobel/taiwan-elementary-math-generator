@@ -1,6 +1,6 @@
 export * from "./batch-a-browser-question-router-pre-p01d1.js";
 
-import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f10.js";
+import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f11.js";
 import { generateBatchABrowserQuestions as generatePreP01D1Questions } from "./batch-a-browser-question-router-pre-p01d1.js";
 import { canGenerateG5BU05LargeNumberQuestions, generateG5BU05LargeNumberQuestions } from "./large-number-place-value-runtime.js";
 import { canGenerateG6AU01NumberTheoryQuestions, generateG6AU01NumberTheoryQuestions } from "./number-theory-runtime.js";
@@ -15,9 +15,11 @@ import { canGenerateG3BU07FractionUnitConversionQuestions, generateG3BU07Fractio
 import { canGenerateP03F8DecimalSliceQuestions, generateP03F8DecimalSliceQuestions } from "./decimal-slice008-runtime.js";
 import { canGenerateG3BU09TenthsFractionDecimalQuestions, generateG3BU09TenthsFractionDecimalQuestions } from "./tenths-fraction-decimal-runtime.js";
 import { canGenerateG4AU09HundredthDecimalQuestions, generateG4AU09HundredthDecimalQuestions } from "./hundredth-decimal-runtime.js";
+import { canGenerateG4BU06DecimalMultiplicationQuestions, generateG4BU06DecimalMultiplicationQuestions } from "./one-decimal-times-integer-runtime.js";
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateG4BU06DecimalMultiplicationQuestions(plan)) return generateG4BU06DecimalMultiplicationQuestions(options);
   if (canGenerateG4AU09HundredthDecimalQuestions(plan)) return generateG4AU09HundredthDecimalQuestions(options);
   if (canGenerateG3BU09TenthsFractionDecimalQuestions(plan)) return generateG3BU09TenthsFractionDecimalQuestions(options);
   if (canGenerateP03F8DecimalSliceQuestions(plan)) return generateP03F8DecimalSliceQuestions(options);
