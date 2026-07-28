@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice005Implementation
-STATUS     = PASS_D0_COMPLETE_PENDING_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E6_D0_COMPLETE
 ```
 
@@ -29,8 +29,8 @@ numeric PatternSpecs            = 3
 shared generator                = CONNECTED
 shared deterministic validator  = CONNECTED
 fraction number system          = CONNECTED
-fraction domain validator        = CONNECTED
-fraction arithmetic              = CONNECTED
+fraction domain validator       = CONNECTED
+fraction arithmetic             = CONNECTED
 current Classic selection       = CONNECTED
 current Pixel selection         = CONNECTED
 WorksheetDocument / answer key  = 9 / 9 PASS
@@ -70,24 +70,29 @@ HTML SHA256 = ac6625c714f9b699e47d28c245996b369cd5a2f973b58637b25dc2e77d877040
 PDF SHA256  = 70d6aba617130273368a0170e4357af81ae73fb8a52d0e7a7b5259f709c7a466
 ```
 
-## Exact-head D0 acceptance
+## Final exact-head acceptance and merge
 
 ```text
+implementation PR               = #417
+implementation head             = 7f5c46f7e0ec93187c4b0579af1e5214d3f00bc2
+implementation merge SHA        = 103c05acc178355305a7b615321c314cb8264b1f
+implementation merged at        = 2026-07-28T03:18:51Z
 pre-D0 accepted head             = 7ef0aab0489c9a451de462bbe3f4dc1b3f6a950f
 pre-D0 Node run                  = 30324058767 SUCCESS
 pre-D0 Chromium run              = 30324058740 SUCCESS
 pre-D0 Chromium artifact         = 8675008374
 artifact materialization commit  = c0afea586477c8d9165b8e336bc5771dcac49e1e
-final accepted runtime head      = 8c36dfcda1ca7b77f57461b7d550e7681a88ab57
-final Node run                   = 30325111749 SUCCESS
-final Chromium run               = 30325111792 SUCCESS
-final Chromium artifact          = 8675367284
+final exact head                 = 7f5c46f7e0ec93187c4b0579af1e5214d3f00bc2
+final Node run                   = 30325413042 SUCCESS
+final Chromium run               = 30325413018 SUCCESS
+final Chromium artifact          = 8675477417
 full Node regression             = 2510 / 2510 PASS
 questions                        = 9 / 9 PASS
 answer-key items                 = 9 / 9 PASS
 physical page parity             = PASS
 visual semantic review           = PASS
 artifact / committed hash parity = PASS
+all governance workflows         = PASS
 ```
 
 ## Admission effect
@@ -108,18 +113,18 @@ parallel product pipelines   = 0
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_DIRECT_PRODUCT_SLICE004_D0_MERGED
-GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE005_D0_COMPLETE_PENDING_MERGE
-DISTANCE_REDUCED     = Frozen queue position 5 moved from an unimplemented queue row to a D0 equivalent-fraction product through source evidence, three W3 fraction capabilities, shared runtime, current Classic/Pixel selection, answer key and committed reviewed A4 HTML/PDF.
-REMAINING_BLOCKERS   = [PR merge]
+GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE005_D0_MERGED
+DISTANCE_REDUCED     = Frozen queue position 5 moved from an unimplemented queue row to a merged D0 equivalent-fraction product through source evidence, three W3 fraction capabilities, shared runtime, current Classic/Pixel selection, answer key and committed reviewed A4 HTML/PDF.
+REMAINING_BLOCKERS   = [48 direct-product slices have not yet reached D0, 33 later-wave dependent rows remain owned by later waves]
 NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice006Implementation
 ```
 
 ## Task closeout
 
 ```text
-1. Distance segment shortened = W3 direct-product queue position 5 moved from frozen-only to E6 D0.
+1. Distance segment shortened = W3 direct-product queue position 5 moved from frozen-only to merged E6 D0.
 2. System nodes advanced       = KnowledgePoint, Tag Registry, FormalMapping, three PatternSpecs, Generator, Validator, fraction W3 capabilities, Classic/Pixel selector, Worksheet, HTML/PDF renderer.
-3. Blocker removed             = queue position 5 runtime, artifact, visual, hash and exact-head CI blockers.
+3. Blocker removed             = queue position 5 runtime, artifact, visual, hash, exact-head CI and merge blockers.
 4. New blocker added           = none.
 5. Next shortest valid step    = P03F_W3DirectProductVerticalSlice006Implementation.
 ```
