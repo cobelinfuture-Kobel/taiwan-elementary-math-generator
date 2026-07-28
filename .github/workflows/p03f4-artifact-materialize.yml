@@ -1,0 +1,65 @@
+name: P03F4 Artifact Materialize
+
+on:
+  push:
+    branches:
+      - p03f-w3-direct-product-vertical-slice004-v1
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p03f4-artifact-materialize
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: p03f-w3-direct-product-vertical-slice004-v1
+          fetch-depth: 0
+
+      - name: Check committed artifact
+        id: artifact
+        shell: bash
+        run: |
+          if [[ -f docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.pdf ]]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node.js
+        if: steps.artifact.outputs.exists == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies and Chromium
+        if: steps.artifact.outputs.exists == 'false'
+        run: |
+          npm install
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+
+      - name: Render exact slice004 artifacts
+        if: steps.artifact.outputs.exists == 'false'
+        run: node tools/curriculum/render-p03f-slice004-product-acceptance.mjs
+
+      - name: Commit materialized artifacts
+        if: steps.artifact.outputs.exists == 'false'
+        shell: bash
+        run: |
+          destination="docs/curriculum/output/p03f-slice004-product-admission"
+          mkdir -p "$destination"
+          cp tmp/p03f-slice004-product-acceptance/g3b-u09-tenth-decimal.html "$destination/"
+          cp tmp/p03f-slice004-product-acceptance/g3b-u09-tenth-decimal.pdf "$destination/"
+          cp tmp/p03f-slice004-product-acceptance/p03f-slice004-product-acceptance-report.json "$destination/"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          git commit -m "chore(p03f4): materialize Chromium acceptance artifacts"
+          git push origin HEAD:p03f-w3-direct-product-vertical-slice004-v1
