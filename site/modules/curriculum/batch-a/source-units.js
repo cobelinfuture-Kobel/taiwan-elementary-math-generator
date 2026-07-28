@@ -38,6 +38,9 @@ export const W3_SLICE004_PUBLIC_SOURCE_UNITS = Object.freeze([
 export const W3_SLICE005_PUBLIC_SOURCE_UNITS = Object.freeze([
   Object.freeze({ sourceId: "g4b_u08_4b08", grade: 4, semester: "lower", unitCode: "4B-U08", title: "等值分數", domain: "equivalent_fraction_structure", lifecycle: "public_full_product_w3_slice005_release" })
 ]);
+export const W3_SLICE010_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g4a_u09_4a09", grade: 4, semester: "upper", unitCode: "4A-U09", title: "2位小數", domain: "decimal_representation", lifecycle: "public_full_product_w3_slice010_candidate" })
+]);
 
 export const FULL_PRODUCT_PUBLIC_SOURCE_UNITS = W1_FULL_PRODUCT_PUBLIC_SOURCE_UNITS;
 export const PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS = Object.freeze([
@@ -60,9 +63,13 @@ export const P03F4_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
   ...P03F3_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
   ...W3_SLICE004_PUBLIC_SOURCE_UNITS,
 ]);
-export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
+export const P03F9_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
   ...P03F4_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
   ...W3_SLICE005_PUBLIC_SOURCE_UNITS,
+]);
+export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([
+  ...P03F9_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
+  ...W3_SLICE010_PUBLIC_SOURCE_UNITS,
 ]);
 
 const SOURCE_UNIT_BY_ID = new Map(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
@@ -91,6 +98,7 @@ export function listFullProductPublicSourceUnits() { return P01E_FULL_PRODUCT_PU
 export function listP03F2FullProductPublicSourceUnits() { return P03F2_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listP03F3FullProductPublicSourceUnits() { return P03F3_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listP03F4FullProductPublicSourceUnits() { return P03F4_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
+export function listP03F9FullProductPublicSourceUnits() { return P03F9_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listCurrentFullProductPublicSourceUnits() { return CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function getBatchASourceUnit(sourceId) { const unit = SOURCE_UNIT_BY_ID.get(sourceId) ?? null; return unit ? { ...unit } : null; }
 export function isBatchASourceId(sourceId) { return SOURCE_UNIT_BY_ID.has(sourceId); }
