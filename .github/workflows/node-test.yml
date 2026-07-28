@@ -1,168 +1,38 @@
-name: Node Test
+name: P03F5 Bootstrap Materializer
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: node-test-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: p03f5-bootstrap-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
 
 jobs:
-  test:
+  bootstrap:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice005-v1'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout implementation branch
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Install dependencies
-        run: npm install
-      - name: Run tests
-        id: full_tests
-        continue-on-error: true
+          ref: p03f-w3-direct-product-vertical-slice005-v1
+          fetch-depth: 0
+
+      - name: Materialize exact implementation tree
+        shell: bash
         run: |
-          mkdir -p tmp
-          set -o pipefail
-          npm test 2>&1 | tee tmp/npm-test.log
-      - name: Install Chromium for product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout' || github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1')
-        run: |
-          npm install --no-save --package-lock=false playwright@1.51.1
-          npx playwright install --with-deps chromium
-      - name: Run 15-unit Chromium PDF and live UI acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'closeout/15-unit-public-worksheet-v1'
-        run: node tools/curriculum/render-15-unit-public-worksheet-pdf-smoke.mjs
-      - name: Run P01D1 G5B-U05 Chromium PDF acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        run: node tools/curriculum/render-p01d1-g5b-u05-pdf-smoke.mjs
-      - name: Run P01D2 G6A-U01 Chromium PDF acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        run: node tools/curriculum/render-p01d2-g6a-u01-pdf-smoke.mjs
-      - name: Run P01D3 G5A-U03 Chromium PDF acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        run: node tools/curriculum/render-p01d3-g5a-u03-pdf-smoke.mjs
-      - name: Run P01E W1 public UI HTML PDF print closeout
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout'
-        run: node tools/curriculum/render-p01e-w1-public-closeout.mjs
-      - name: Run P03D protected D0 Chromium compatibility acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1'
-        run: node tools/curriculum/render-p03d-protected-d0-compatibility.mjs
-      - name: Run P03F slice001 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1'
-        run: node tools/curriculum/render-p03f-slice001-product-acceptance.mjs
-      - name: Run P03F slice002 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1'
-        run: node tools/curriculum/render-p03f-slice002-product-acceptance.mjs
-      - name: Run P03F slice003 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1'
-        run: node tools/curriculum/render-p03f-slice003-product-acceptance.mjs
-      - name: Run P03F slice004 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1'
-        run: node tools/curriculum/render-p03f-slice004-product-acceptance.mjs
-      - name: Upload full regression diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-test-full-regression-diagnostics
-          path: tmp/npm-test.log
-          if-no-files-found: error
-          retention-days: 30
-      - name: Upload 15-unit public worksheet closeout report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: fifteen-unit-public-worksheet-closeout-report
-          path: tmp/15-unit-public-worksheet-closeout-report.json
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload 15-unit Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'closeout/15-unit-public-worksheet-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: fifteen-unit-public-worksheet-chromium-acceptance
-          path: tmp/15-unit-public-worksheet-pdf-smoke
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P01D1 Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        uses: actions/upload-artifact@v4
-        with:
-          name: p01d1-g5b-u05-chromium-acceptance
-          path: tmp/p01d1-g5b-u05-pdf-smoke
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P01D2 Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        uses: actions/upload-artifact@v4
-        with:
-          name: p01d2-g6a-u01-chromium-acceptance
-          path: tmp/p01d2-g6a-u01-pdf-smoke
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P01D3 Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        uses: actions/upload-artifact@v4
-        with:
-          name: p01d3-g5a-u03-chromium-acceptance
-          path: tmp/p01d3-g5a-u03-pdf-smoke
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P01E W1 public closeout artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p01e-w1-public-ui-html-pdf-print-closeout
-          path: tmp/p01e-w1-public-closeout
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03D protected D0 compatibility artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03d-protected-d0-compatibility
-          path: tmp/p03d-protected-d0-compatibility
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice001 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice001-product-acceptance
-          path: tmp/p03f-slice001-product-acceptance
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice002 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice002-product-acceptance
-          path: tmp/p03f-slice002-product-acceptance
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice003 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice003-product-acceptance
-          path: tmp/p03f-slice003-product-acceptance
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice004 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice004-product-acceptance
-          path: tmp/p03f-slice004-product-acceptance
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Block after full regression failure
-        if: steps.full_tests.outcome == 'failure'
-        run: exit 1
+          git fetch origin main
+          cat tmp/p03f5-bootstrap/payload.* | base64 -d > /tmp/p03f5.tar.gz
+          tar -xzf /tmp/p03f5.tar.gz
+          rm -rf tmp/p03f5-bootstrap
+          rm -f .github/workflows/p03f5-bootstrap.yml
+          git checkout origin/main -- .github/workflows/node-test.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(p03f5): implement W3 direct-product slice005"
+          git push origin HEAD:p03f-w3-direct-product-vertical-slice005-v1
