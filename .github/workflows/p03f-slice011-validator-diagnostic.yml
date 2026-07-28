@@ -1,0 +1,38 @@
+name: P03F11 Validator Diagnostic
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostic:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice011-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install
+      - name: Capture exact validator diagnostic
+        shell: bash
+        run: |
+          set +e
+          mkdir -p tmp/p03f11-validator-diagnostic
+          node tools/curriculum/apply-p03f11-current-surface-compatibility.mjs > tmp/p03f11-validator-diagnostic/compatibility.log 2>&1
+          node tools/curriculum/validate-p03f-slice011-product-admission.mjs > tmp/p03f11-validator-diagnostic/validator.log 2>&1
+          echo $? > tmp/p03f11-validator-diagnostic/validator-exit-code.txt
+          git diff -- . ':!package-lock.json' > tmp/p03f11-validator-diagnostic/working-tree.patch
+          git status --short > tmp/p03f11-validator-diagnostic/git-status.txt
+          set -e
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice011-validator-diagnostic
+          path: tmp/p03f11-validator-diagnostic
+          if-no-files-found: error
+          retention-days: 7
