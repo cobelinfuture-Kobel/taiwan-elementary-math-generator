@@ -1,74 +1,41 @@
-name: P03F5 Historical Contract Reconciliation
+name: P03F5 Slice005 Product Acceptance
 
 on:
   pull_request:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: p03f5-contract-reconcile-${{ github.event.pull_request.number }}
-  cancel-in-progress: false
+  group: p03f5-slice005-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  reconcile:
+  chromium:
     if: github.head_ref == 'p03f-w3-direct-product-vertical-slice005-v1'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout implementation branch
+      - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          ref: p03f-w3-direct-product-vertical-slice005-v1
-          fetch-depth: 1
-
-      - name: Separate historical admission counts from current live counts
-        shell: bash
+          node-version: 22
+      - name: Install dependencies and Chromium
         run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          replacements = {
-              Path('src/curriculum/full-product/p03f-slice004-product-admission.mjs'): [
-                  (
-                      '    publicSourceCountAfterAdmission: currentSources.length,',
-                      '    publicSourceCountAfterAdmission: manifest.expectedCounts.publicSourceCountAfterAdmission,\n    currentPublicSourceCount: currentSources.length,'
-                  ),
-              ],
-              Path('tests/curriculum/p03f-slice003-quotient-fraction.test.js'): [
-                  (
-                      'P03F3 current Pixel keeps one G3B-U07 KP after slice004 source expansion',
-                      'P03F3 current Pixel keeps one G3B-U07 KP after slice005 source expansion'
-                  ),
-                  ('assert.equal(sources.length, 22);', 'assert.equal(sources.length, 23);'),
-                  ('assert.equal(snapshot.sourceCount, 22);', 'assert.equal(snapshot.sourceCount, 23);'),
-              ],
-              Path('tests/curriculum/p03f-slice004-tenth-decimal.test.js'): [
-                  (
-                      'P03F4 current Pixel exposes 22 sources and one G3B-U09 KP',
-                      'P03F4 current Pixel exposes 23 sources and one G3B-U09 KP after slice005 admission'
-                  ),
-                  ('assert.equal(sources.length, 22);', 'assert.equal(sources.length, 23);'),
-                  ('assert.equal(snapshot.sourceCount, 22);', 'assert.equal(snapshot.sourceCount, 23);'),
-              ],
-          }
-
-          for path, pairs in replacements.items():
-              text = path.read_text(encoding='utf-8')
-              for old, new in pairs:
-                  if text.count(old) != 1:
-                      raise SystemExit(f'Expected exactly one match in {path}: {old!r}; got {text.count(old)}')
-                  text = text.replace(old, new)
-              path.write_text(text, encoding='utf-8')
-          PY
-
-      - name: Commit reconciliation
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/curriculum/full-product/p03f-slice004-product-admission.mjs \
-            tests/curriculum/p03f-slice003-quotient-fraction.test.js \
-            tests/curriculum/p03f-slice004-tenth-decimal.test.js
-          git commit -m "fix(p03f5): separate historical and current source counts"
-          git push origin HEAD:p03f-w3-direct-product-vertical-slice005-v1
+          npm install
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Validate slice005 product admission
+        run: node tools/curriculum/validate-p03f-slice005-product-admission.mjs
+      - name: Render slice005 Chromium acceptance
+        run: node tools/curriculum/render-p03f-slice005-product-acceptance.mjs
+      - name: Upload slice005 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice005-product-acceptance
+          path: tmp/p03f-slice005-product-acceptance
+          if-no-files-found: warn
+          retention-days: 30
