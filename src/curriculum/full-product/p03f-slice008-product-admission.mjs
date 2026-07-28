@@ -95,7 +95,7 @@ function artifactIntegrity(manifest) {
 }
 function capabilityWitness(question, numberSystem, domainValidator) {
   const value = question.decimalValue;
-  const valuePolicy = { allowedMagnitudeClasses: ["DECIMAL_FRACTION", "MIXED_DECIMAL"], allowZero: false, maxCanonicalScale: 1, allowedCanonicalScales: [1] };
+  const valuePolicy = { allowedMagnitudeClasses: ["DECIMAL_FRACTION"], allowZero: false, maxCanonicalScale: 1, allowedCanonicalScales: [1] };
   const numberResult = numberSystem.execute({
     action: "NORMALIZE",
     knowledgePointId: G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID,
