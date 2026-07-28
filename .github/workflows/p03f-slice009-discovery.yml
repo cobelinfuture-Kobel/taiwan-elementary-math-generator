@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: p03f9-slice009-${{ github.event.pull_request.number || github.ref }}
@@ -20,70 +20,19 @@ jobs:
     env:
       PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
     steps:
-      - name: Checkout pull request head branch
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
       - name: Install project dependencies
         run: |
           npm install
           npm install --no-save --package-lock=false playwright@1.51.1
-      - name: Detect reviewed artifact materialization state
-        id: materialization
-        shell: bash
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from 'node:fs';
-          const manifest = JSON.parse(fs.readFileSync('data/curriculum/full-product/p03f/slice009-product-admission.manifest.json', 'utf8'));
-          const pending = String(manifest.status).includes('PENDING_CHROMIUM_ACCEPTANCE');
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `needs_materialization=${pending}\n`);
-          NODE
       - name: Validate slice009 product admission
         shell: bash
         run: |
           set -o pipefail
           mkdir -p tmp/p03f-slice009-product-acceptance
           node tools/curriculum/validate-p03f-slice009-product-admission.mjs 2>&1 | tee tmp/p03f-slice009-product-acceptance/validator.log
-      - name: Download exact reviewed Chromium artifact
-        if: steps.materialization.outputs.needs_materialization == 'true'
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          rm -rf /tmp/p03f9-reviewed /tmp/p03f9-reviewed.zip
-          mkdir -p /tmp/p03f9-reviewed
-          curl --fail --location \
-            --header "Authorization: Bearer ${GH_TOKEN}" \
-            --header "Accept: application/vnd.github+json" \
-            --header "X-GitHub-Api-Version: 2022-11-28" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/8685872102/zip" \
-            --output /tmp/p03f9-reviewed.zip
-          unzip -q /tmp/p03f9-reviewed.zip -d /tmp/p03f9-reviewed
-          test -f /tmp/p03f9-reviewed/g3b-u09-tenths-fraction-decimal.html
-          test -f /tmp/p03f9-reviewed/g3b-u09-tenths-fraction-decimal.pdf
-          test -f /tmp/p03f9-reviewed/p03f-slice009-product-acceptance-report.json
-      - name: Materialize reviewed HTML PDF report and E5 authority
-        if: steps.materialization.outputs.needs_materialization == 'true'
-        env:
-          P03F9_REVIEWED_DIR: /tmp/p03f9-reviewed
-        run: node tools/curriculum/materialize-p03f-slice009-reviewed-artifact.mjs
-      - name: Commit exact reviewed artifacts to pull request branch
-        if: steps.materialization.outputs.needs_materialization == 'true'
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            docs/curriculum/output/p03f-slice009-product-admission \
-            docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE009_READBACK.md \
-            data/curriculum/full-product/p03f/slice009-product-admission.manifest.json \
-            data/project/milestones/FPL-P03F9.claim.json
-          git diff --cached --quiet && exit 0
-          git commit -m "P03F9: materialize reviewed HTML PDF artifacts"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
-      - name: Render exact-head Chromium acceptance
-        if: steps.materialization.outputs.needs_materialization != 'true'
+      - name: Render slice009 Chromium acceptance
         run: node tools/curriculum/render-p03f-slice009-product-acceptance.mjs
       - name: Upload slice009 product artifacts
         if: always()
