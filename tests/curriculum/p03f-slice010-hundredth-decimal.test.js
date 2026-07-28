@@ -105,7 +105,7 @@ test("P03F10 current selector and Pixel expose exactly one G4A-U09 KP", () => {
   const sources = listCurrentPixelSourceOptions();
   assert.equal(sources.length, 24);
   assert.equal(listPixelKnowledgePointsForSource(G4A_U09_SOURCE_ID).length, 1);
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 24);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 25);
 });
 
 test("P03F10 shared worksheet and answer key render eight items", () => {

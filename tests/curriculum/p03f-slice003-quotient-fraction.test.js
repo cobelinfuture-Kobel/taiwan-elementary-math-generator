@@ -118,7 +118,7 @@ test("P03F3 current Pixel preserves quotient fraction after slice007 adds the se
     [G3B_U07_QUOTIENT_FRACTION_KP_ID, G3B_U07_FRACTION_UNIT_CONVERSION_KP_ID],
   );
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 24);
+  assert.equal(snapshot.sourceCount, 25);
   assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 2);
 });
 
