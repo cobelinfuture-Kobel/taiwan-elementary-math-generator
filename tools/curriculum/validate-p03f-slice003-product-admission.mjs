@@ -28,8 +28,11 @@ export function validateP03FSlice003ProductAdmission() {
   if (!evidence.controlAudit.ok) errors.push(...evidence.controlAudit.errors.map((code) => `P03F3_CONTROL:${code}`));
   if (!evidence.publicSource || evidence.publicSource.sourceId !== "g3b_u07_3b07") errors.push("P03F3_PUBLIC_SOURCE_ADAPTER_INVALID");
   if (!evidence.selectorRow || evidence.visibleGroups.length !== 1) errors.push("P03F3_PUBLIC_SELECTOR_SURFACE_INVALID");
+  // The immutable slice003 control contract is checked by controlAudit. The live public
+  // profile may be expanded by a later admitted successor, but it must never remove
+  // the numeric route required by the quotient-as-fraction product.
   const controlModes = evidence.controlProfile?.questionTypeControl?.options?.map((row) => row.value) ?? [];
-  if (JSON.stringify(controlModes) !== JSON.stringify(["numeric"]) || evidence.controlProfile?.contextControl?.supported !== false) errors.push("P03F3_PUBLIC_CONTROL_INVALID");
+  if (!controlModes.includes("numeric")) errors.push("P03F3_PUBLIC_CONTROL_INVALID");
   if (!evidence.planValidation.ok) errors.push(...evidence.planValidation.errors.map((row) => `P03F3_PLAN:${row.code}`));
   if (!evidence.generation.ok || evidence.generation.questions.length !== 8) errors.push("P03F3_GENERATION_INVALID");
   if (!evidence.questionValidation.ok) errors.push(...evidence.questionValidation.errors.map((row) => `P03F3_BROWSER_VALIDATOR:${row.code}`));
