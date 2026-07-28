@@ -3,17 +3,17 @@
   "taskId": "P03F_W3DirectProductVerticalSlice004Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E5_RUNTIME_AND_RENDERER_CONNECTED_PENDING_COMMITTED_PDF",
-  "claimedStatus": "W3_SLICE004_IMPLEMENTED_PENDING_CHROMIUM_ACCEPTANCE",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W3_SLICE004_RUNTIME_CONNECTED_PENDING_PRODUCTION_OUTPUT_VERIFICATION",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": true,
-    "productionRendererUsed": true,
-    "htmlOutputVerified": true,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
     "pdfOutputVerified": false,
-    "visibleOutputChanged": true,
+    "visibleOutputChanged": false,
     "humanReviewReady": false,
     "productionAdmitted": false,
     "d0Complete": false
@@ -55,15 +55,15 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Queue position 4 is source-backed and connected through the exact decimal number-system/domain-validator pair, shared runtime, current Classic/Pixel selection, worksheet and HTML; committed Chromium PDF, visual review, exact-head CI and merge remain."
+    "distanceReduced": "Queue position 4 has source-backed decimal runtime integration through the exact number-system and domain-validator pair; production-equivalent HTML/PDF verification and D0 admission remain unclaimed."
   },
   "nextStep": {
     "taskId": "P03F4_ChromiumArtifactMaterializationVisualReviewAndD0Closeout",
-    "requiredEvidenceLevelBeforeStart": "E5_RUNTIME_AND_RENDERER_CONNECTED_PENDING_COMMITTED_PDF"
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
-    "implementationPrNumber": null,
+    "implementationPrNumber": 415,
     "implementationHeadSha": null,
     "implementationMergeSha": null,
     "implementationMergedAt": null,

@@ -17,9 +17,11 @@ export function validateP03FSlice003ProductAdmission() {
   if (JSON.stringify(slice?.requiredW3CapabilityIds) !== JSON.stringify(EXPECTED_W3_CAPABILITY_IDS)) errors.push("P03F3_QUEUE_CAPABILITY_SET_INVALID");
   if (JSON.stringify(evidence.authority.knowledgePoint.requiredCapabilityIds) !== JSON.stringify(EXPECTED_W3_CAPABILITY_IDS)) errors.push("P03F3_AUTHORITY_CAPABILITY_SET_INVALID");
   if (!evidence.predecessorPassed) errors.push("P03F3_PREDECESSOR_SLICE002_NOT_D0");
-  for (const key of ["queuePosition","sourceNodeCount","knowledgePointCount","tagBindingCount","formalMappingCount","patternGroupCount","patternSpecCount","numericPatternSpecCount","applicationPatternSpecCount","globalContextBindingCount","requiredCapabilityCount","publicSourceCountAfterAdmission","publicVisibleKnowledgePointCountForSource","questionWitnessCount","answerKeyWitnessCount","htmlWitnessCount","chromiumPdfWitnessCount","overflowFindingCount","duplicatePromptFindingCount","newProductAdmissionCount","cumulativeW3ProductAdmissionCount","remainingDirectSliceCount","remainingDirectKnowledgePointCount","laterWaveDependentCount"]) {
+  const immutableMetricKeys = ["queuePosition","sourceNodeCount","knowledgePointCount","tagBindingCount","formalMappingCount","patternGroupCount","patternSpecCount","numericPatternSpecCount","applicationPatternSpecCount","globalContextBindingCount","requiredCapabilityCount","publicVisibleKnowledgePointCountForSource","questionWitnessCount","answerKeyWitnessCount","htmlWitnessCount","chromiumPdfWitnessCount","overflowFindingCount","duplicatePromptFindingCount","newProductAdmissionCount","cumulativeW3ProductAdmissionCount","remainingDirectSliceCount","remainingDirectKnowledgePointCount","laterWaveDependentCount"];
+  for (const key of immutableMetricKeys) {
     if (metrics[key] !== expected[key]) errors.push(`P03F3_METRIC_INVALID:${key}:${metrics[key]}:${expected[key]}`);
   }
+  if (metrics.publicSourceCountAfterAdmission < expected.publicSourceCountAfterAdmission) errors.push(`P03F3_PUBLIC_SOURCE_COUNT_REGRESSED:${metrics.publicSourceCountAfterAdmission}:${expected.publicSourceCountAfterAdmission}`);
   if (!evidence.selectorProjectionAudit.ok) errors.push(...evidence.selectorProjectionAudit.errors.map((code) => `P03F3_SELECTOR_PROJECTION:${code}`));
   if (!evidence.selectorCompositionAudit.ok) errors.push(...evidence.selectorCompositionAudit.errors.map((code) => `P03F3_SELECTOR_COMPOSITION:${code}`));
   if (!evidence.patternAudit.ok) errors.push(...evidence.patternAudit.errors.map((code) => `P03F3_PATTERN:${code}`));
