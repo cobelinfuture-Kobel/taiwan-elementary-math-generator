@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice007Implementation",
-  "status": "SLICE007_IMPLEMENTED_PENDING_CHROMIUM_ACCEPTANCE",
+  "status": "SLICE007_ARTIFACT_MATERIALIZATION_TRIGGERED",
   "expectedCounts": {
     "queuePosition": 7,
     "sourceNodeCount": 1,
