@@ -83,13 +83,12 @@ jobs:
             tests/curriculum/p03f-slice010-hundredth-decimal.test.js \
             tests/curriculum/p03f-slice011-decimal-multiplication.test.js
           node tools/curriculum/validate-p03f-slice011-product-admission.mjs
-      - name: Commit fixes and remove one-shot workflow
+      - name: Commit exact residual fixes
         shell: bash
         run: |
           set -euxo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm .github/workflows/p03f-slice011-residual-fix.yml
           git add \
             .github/workflows/p03f-slice011-product-acceptance.yml \
             src/curriculum/full-product/p03f-slice011-product-admission.mjs \
@@ -100,6 +99,4 @@ jobs:
             tests/curriculum/p03f-slice011-decimal-multiplication.test.js
           git diff --cached --check
           git commit -m "P03F11: fix exact-head regression and fail-closed acceptance"
-          git fetch origin "${{ github.event.pull_request.head.ref }}"
-          git rebase "origin/${{ github.event.pull_request.head.ref }}"
-          git push --force-with-lease origin HEAD:"${{ github.event.pull_request.head.ref }}"
+          git push origin HEAD:"${{ github.event.pull_request.head.ref }}"
