@@ -1,4 +1,3 @@
-
 # P03F W3 Direct Product Vertical Slice 006 Contract
 
 ```text
@@ -6,6 +5,7 @@ PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice006Implementation
 QUEUE      = 6
 SLICE      = p03e_q006_r6_g3a_u08_3a08_profile_fraction_c1
+IMPLEMENTATION_TREE = MATERIALIZED_PENDING_CI
 ```
 
 ## Frozen scope
