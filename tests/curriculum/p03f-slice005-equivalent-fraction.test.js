@@ -10,6 +10,7 @@ import {
   G4B_U08_EQUIVALENT_FRACTION_PATTERN_GROUP_ID,
   G4B_U08_EQUIVALENT_FRACTION_PATTERN_SPEC_IDS,
 } from "../../site/modules/curriculum/registry/g4b-u08-equivalent-fraction-selector-projection.js";
+import { G4B_U08_EQUIVALENCE_CROSS_PRODUCT_KP_ID } from "../../site/modules/curriculum/registry/g4b-u08-equivalence-cross-product-selector-projection.js";
 import {
   generateG4BU08EquivalentFractionQuestions,
   validateG4BU08EquivalentFractionQuestion,
@@ -101,7 +102,7 @@ test("P03F5 binds all three fraction W3 capabilities", () => {
   }
 });
 
-test("P03F5 selector exposes only one G4B-U08 KP and three specs", () => {
+test("P03F5 selector exposes only one historical G4B-U08 KP and three specs", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.equal(rows.length, 1);
   assert.equal(rows[0].knowledgePointId, G4B_U08_EQUIVALENT_FRACTION_KP_ID);
@@ -111,17 +112,20 @@ test("P03F5 selector exposes only one G4B-U08 KP and three specs", () => {
   assert.equal(availability.hiddenPendingCount, 6);
 });
 
-test("P03F5 current Pixel exposes 25 sources and one G4B-U08 KP", () => {
+test("P03F5 historical authority stays one KP while current Pixel expands monotonically to two", () => {
   const sources = listCurrentPixelSourceOptions();
   assert.equal(sources.length, 25);
   const source = sources.find((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.ok(source);
-  assert.equal(source.visibleKnowledgePointCount, 1);
-  assert.equal(source.hiddenPendingCount, 6);
-  assert.deepEqual(listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID).map((row) => row.knowledgePointId), [G4B_U08_EQUIVALENT_FRACTION_KP_ID]);
+  assert.equal(source.visibleKnowledgePointCount, 2);
+  assert.equal(source.hiddenPendingCount, 5);
+  assert.deepEqual(listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID).map((row) => row.knowledgePointId), [
+    G4B_U08_EQUIVALENT_FRACTION_KP_ID,
+    G4B_U08_EQUIVALENCE_CROSS_PRODUCT_KP_ID,
+  ]);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 25);
-  assert.equal(snapshot.bySourceId[G4B_U08_SOURCE_ID].visibleKnowledgePoints.length, 1);
+  assert.equal(snapshot.bySourceId[G4B_U08_SOURCE_ID].visibleKnowledgePoints.length, 2);
 });
 
 test("P03F5 shared worksheet and answer key render nine items on bounded pages", () => {
