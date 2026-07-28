@@ -2,7 +2,7 @@
   "schemaVersion": "g4b-u04-r4-deployed-pages-smoke-v1",
   "task": "G4B_U04_R4_SourceSwitchAndFlexibleCustomLayoutRepair",
   "status": "FAIL",
-  "deploymentSha": "5ebf9a2f451bfdb4b377f1e82ccc7b06907735ca",
+  "deploymentSha": "fa87dddcd2b6f5115e31a85b30cbe76035ebbdc7",
   "message": "G4B_U04_R4_DEPLOYED_LAYOUT_CONTRACT_FAILED",
   "details": {
     "scenario": {
@@ -39,12 +39,12 @@
   "workflow": "G4B-U04 R4 Deployed Pages Smoke",
   "eventName": "workflow_run",
   "run": {
-    "id": "30361435410",
-    "number": "204",
+    "id": "30362395385",
+    "number": "205",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30361435410"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30362395385"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-28T13:00:38.806Z"
+  "verifiedAt": "2026-07-28T13:13:09.712Z"
 }
