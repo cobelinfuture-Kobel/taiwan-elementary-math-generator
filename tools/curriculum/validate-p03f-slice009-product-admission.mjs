@@ -36,9 +36,9 @@ export function validateP03FSlice009ProductAdmission() {
   if (!evidence.worksheet.ok || !evidence.document || evidence.document.generatedQuestions?.length !== 8 || evidence.document.answerKeyItems?.length !== 8 || evidence.document.questionPages?.length !== 1 || evidence.document.answerKeyPages?.length !== 1) errors.push("P03F9_WORKSHEET_ANSWER_KEY_INVALID");
   if (!evidence.html.includes("<!doctype html>") || !evidence.html.includes("worksheet-page--questions") || !evidence.html.includes("worksheet-page--answer-key") || !evidence.html.includes("break-after: page")) errors.push("P03F9_HTML_INVALID");
   if (evidence.authority.acceptancePolicy.applicationRouteAllowed || evidence.authority.acceptancePolicy.parallelPipelineAllowed || evidence.authority.mainlineBoundary.decimalArithmeticAdded) errors.push("P03F9_AUTHORITY_BOUNDARY_INVALID");
-  const pendingExpected = evidence.manifest.status.includes("PENDING_CHROMIUM_ACCEPTANCE");
+  const pendingExpected = String(evidence.manifest.status).includes("PENDING_");
   if (pendingExpected) {
-    if (evidence.artifactIntegrity.ok || evidence.productAdmissionState !== "PRODUCT_ACCEPTANCE_PENDING" || evidence.d0Complete) errors.push("P03F9_PRE_CHROMIUM_FAIL_CLOSE_INVALID");
+    if (evidence.artifactIntegrity.ok || evidence.productAdmissionState !== "PRODUCT_ACCEPTANCE_PENDING" || evidence.d0Complete) errors.push("P03F9_PRE_D0_FAIL_CLOSE_INVALID");
   } else if (!evidence.artifactIntegrity.ok || evidence.productAdmissionState !== "PRODUCTION_ADMITTED_D0" || !evidence.d0Complete) errors.push("P03F9_D0_ARTIFACT_STATE_INVALID");
   const boundary = evidence.manifest.mainlineBoundary;
   if (boundary.queuePositionConsumed !== (evidence.d0Complete ? 9 : 8) || boundary.nextQueuePositionStarted || boundary.otherG3BU09KnowledgePointsAdmitted || boundary.decimalArithmeticAdded || boundary.applicationStoryGenerationAdded || boundary.parallelRuntimePipelineAdded || boundary.sharedWorksheetRendererBehaviorChanged || boundary.slice009KnowledgePointAdmitted !== evidence.d0Complete) errors.push("P03F9_SCOPE_BOUNDARY_INVALID");
