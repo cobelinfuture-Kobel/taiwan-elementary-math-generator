@@ -3,8 +3,8 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice010Implementation
-STATUS     = PASS_RUNTIME_CONNECTED_PENDING_CHROMIUM_VISUAL_CI
-EVIDENCE   = E4_RUNTIME_CONNECTED
+STATUS     = PASS_D0_ARTIFACTS_REVIEWED_PENDING_FINAL_CI_MERGE
+EVIDENCE   = E6_D0_COMPLETE_PENDING_FINAL_CI_MERGE
 ```
 
 ## Queue identity
@@ -19,7 +19,7 @@ PROFILE = profile_decimal
 RANK = 6
 ```
 
-## Runtime materialization
+## Product materialization
 
 ```text
 Authority = complete
@@ -29,11 +29,21 @@ PatternSpec = 1
 Shared generator = connected
 Shared decimal number-system = connected
 Shared decimal domain validator = connected
-Public selector = candidate visible
-Pixel current surface = candidate visible
+Public selector = visible
+Pixel current surface = visible
 Worksheet = connected
 Answer key = connected
-HTML renderer input = connected
+HTML = generated and hash-locked
+Chromium PDF = generated and hash-locked
+Question page = 1
+Answer-key page = 1
+Physical PDF pages = 2
+Question witnesses = 8 / 8 validated
+Answer-key witnesses = 8 / 8 validated
+Duplicate prompts = 0
+Overflow findings = 0
+Semantic-scope findings = 0
+Visual review = PASS_OPERATOR_REVIEWED
 Application route = not applicable
 Global Context = not applicable
 Parallel pipeline = false
@@ -49,29 +59,39 @@ canonicalExpression = decimal = whole + fractionalUnits * placeUnit
 
 The bounded canonical witness is `1 × 0.01 = 0.01`, represented by exact canonical identity `1e-2`.
 
-## Fail-close state
+## Artifact evidence
 
 ```text
-Chromium PDF = pending
-Visual review = pending
-Artifact hashes = pending
-Full Node regression = pending
-Required CI = pending
+HTML_SHA256 = d44ec5f1e1906497fc9e812afdc71ae99a9f0f9cbb0517c3e851e287f8b4d2c9
+PDF_SHA256  = e59d0ce61ecf75b30cb0ab80f71541461509402f37caa236b021076fcd3d8ef4
+MATERIALIZATION_WORKFLOW = 30368417014
+PRE_D0_ARTIFACT = 8691811071
+REVIEWED_WORKFLOW = 30369122359
+REVIEWED_ARTIFACT = 8692094393
+REVIEWED_ARTIFACT_DIGEST = sha256:1234b99ab23fa8c48451b94df5e3c7f62a9fe3d27fbe056d20164331698d9d88
+```
+
+## Current closeout state
+
+```text
+Production admission = true
+queuePositionConsumed = 10
+cumulativeW3Admissions = 12
+remainingW3Slices = 43
+remainingDirectW3KPs = 70
+Full Node regression = pending exact head
+Required CI = pending exact head
 PR merge = pending
-Production admission = false
-queuePositionConsumed = 9
-cumulativeW3Admissions = 11
-remainingW3Slices = 44
-remainingDirectW3KPs = 71
+Post-merge closeout = pending
 ```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE009_E6_D0_COMPLETE
-GOAL_DISTANCE_AFTER  = D1_SLICE010_E4_RUNTIME_CONNECTED
-DISTANCE_REDUCED     = Slice010 now has exact source authority, PatternSpec parity and the shared public product path through HTML input.
-REMAINING_BLOCKERS   = [CHROMIUM_PDF, VISUAL_REVIEW, ARTIFACT_HASHES, FULL_REGRESSION, REQUIRED_CI, PR_MERGE, POST_MERGE_E6_CLOSEOUT]
-NEXT_SHORTEST_STEP   = P03F10_ChromiumArtifactVisualReviewExactHeadCIAndD0Closeout
+GOAL_DISTANCE_AFTER  = D1_SLICE010_E6_D0_PENDING_FINAL_CI_MERGE
+DISTANCE_REDUCED     = Slice010 hundredth representation is now formally selectable, generatable, validated, printable and visually reviewed through the shared product pipeline.
+REMAINING_BLOCKERS   = [FINAL_EXACT_HEAD_NODE_CI, FINAL_EXACT_HEAD_CHROMIUM_CI, PR_MERGE, POST_MERGE_E6_CLOSEOUT]
+NEXT_SHORTEST_STEP   = P03F10_FinalExactHeadCIAndMerge
 STOP_REASON          = NONE
 ```
