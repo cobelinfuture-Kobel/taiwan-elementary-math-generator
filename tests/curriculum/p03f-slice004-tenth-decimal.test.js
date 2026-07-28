@@ -109,19 +109,19 @@ test("P03F4 historical selector snapshot exposes only one G3B-U09 KP", () => {
   assert.equal(availability.hiddenPendingCount, 6);
 });
 
-test("P03F4 current Pixel retains 23 sources and includes both later slice008 G3B-U09 KPs", () => {
+test("P03F4 current Pixel retains 23 sources and includes later slice009 G3B-U09 KP", () => {
   const sources = listCurrentPixelSourceOptions();
   assert.equal(sources.length, 23);
   const source = sources.find((row) => row.sourceId === G3B_U09_SOURCE_ID);
   assert.ok(source);
-  assert.equal(source.visibleKnowledgePointCount, 3);
-  assert.equal(source.hiddenPendingCount, 4);
+  assert.equal(source.visibleKnowledgePointCount, 4);
+  assert.equal(source.hiddenPendingCount, 3);
   const currentIds = listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).map((row) => row.knowledgePointId);
   assert.equal(currentIds.includes(G3B_U09_TENTH_DECIMAL_KP_ID), true);
-  assert.equal(currentIds.length, 3);
+  assert.equal(currentIds.length, 4);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 23);
-  assert.equal(snapshot.bySourceId[G3B_U09_SOURCE_ID].visibleKnowledgePoints.length, 3);
+  assert.equal(snapshot.bySourceId[G3B_U09_SOURCE_ID].visibleKnowledgePoints.length, 4);
 });
 
 test("P03F4 shared worksheet and answer key render eight items", () => {
