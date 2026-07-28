@@ -1,0 +1,86 @@
+{
+  "schemaName": "P03FSlice008ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice008Implementation",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "sourceId": "g3b_u09_3b09",
+  "knowledgePointIds": [
+    "kp_g3b_u09_decimal_compose_decompose",
+    "kp_g3b_u09_decimal_read_write"
+  ],
+  "questionCount": 8,
+  "answerKeyItemCount": 8,
+  "questionPageCount": 1,
+  "answerKeyPageCount": 1,
+  "physicalPdfPageCount": 2,
+  "patternSpecIds": [
+    "ps_g3b_u09_decimal_compose_decompose_decimal_numeric",
+    "ps_g3b_u09_decimal_read_write_decimal_text_numeric"
+  ],
+  "patternAllocation": [
+    {
+      "patternSpecId": "ps_g3b_u09_decimal_read_write_decimal_text_numeric",
+      "questionCount": 4
+    },
+    {
+      "patternSpecId": "ps_g3b_u09_decimal_compose_decompose_decimal_numeric",
+      "questionCount": 4
+    }
+  ],
+  "canonicalDecimalIdentities": [
+    "16e-1",
+    "18e-1",
+    "23e-1",
+    "27e-1",
+    "34e-1",
+    "53e-1",
+    "72e-1",
+    "81e-1"
+  ],
+  "htmlSha256": "c138b45d8d0fa9ab44ba9f8a5967af9fd6afbed8ba315e7d3b59620c1e0afbee",
+  "pdfSha256": "b8d2091bf52fad35bebfa09d843166d73ded4ce9b79dbc9f3be1750d881c3a2e",
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "semanticScopeFindingCount": 0,
+  "browserFinding": {
+    "pageMetrics": [
+      {
+        "index": 0,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--questions print-page"
+      },
+      {
+        "index": 1,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--answer-key print-page"
+      }
+    ],
+    "physicalPdfPageCount": 2,
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "visualReview": {
+    "status": "PASS_MANUAL_VISUAL_AND_SEMANTIC_REVIEW",
+    "questionPageReviewed": true,
+    "answerKeyPageReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0,
+    "reviewedArtifactWorkflowRunId": 30342108267,
+    "reviewedArtifactId": 8681439918,
+    "reviewedArtifactHeadSha": "6d6462757e03107c957343764e66212a1d3d8d0f"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice008Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_SLICE008_PRODUCTION_ADMITTED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3b-u09-decimal-read-write-selector-projection.js",
+      "site/modules/curriculum/registry/g3b-u09-decimal-compose-decompose-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f8-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f8-extension.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f8.js",
+      "site/modules/curriculum/batch-a/decimal-read-write-runtime.js",
+      "site/modules/curriculum/batch-a/decimal-compose-decompose-runtime.js",
+      "site/modules/curriculum/batch-a/decimal-slice008-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f8.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f8-extension.js",
+      "src/curriculum/full-product/p03f-slice008-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice008-product-admission.mjs",
+      "tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice008-product-acceptance.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice008-decimal-compose-decompose-authority.json",
+      "data/curriculum/full-product/p03f/slice008-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE008_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE008_READBACK.md"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice008-product-admission/p03f-slice008-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.html",
+        "sha256": "c138b45d8d0fa9ab44ba9f8a5967af9fd6afbed8ba315e7d3b59620c1e0afbee"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice008-product-admission/g3b-u09-decimal-read-write-compose.pdf",
+        "sha256": "b8d2091bf52fad35bebfa09d843166d73ded4ce9b79dbc9f3be1750d881c3a2e"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Queue position 8 has two production-admitted KnowledgePoints with reviewed HTML/PDF and exact hashes; exact-head CI and merge remain."
+  },
+  "nextStep": {
+    "taskId": "P03F8_ExactHeadCIAndMerge",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 422,
+    "implementationHeadSha": null,
+    "implementationMergeSha": null,
+    "implementationMergedAt": null,
+    "preD0HeadSha": "6d6462757e03107c957343764e66212a1d3d8d0f",
+    "preD0NodeWorkflowRunId": null,
+    "preD0ChromiumWorkflowRunId": 30342108267,
+    "preD0ChromiumArtifactId": 8681439918,
+    "artifactMaterializationCommitSha": "e58400c264e7ef65bc644aae1f2a8d8f5d8bf0aa",
+    "artifactMaterializationWorkflowRunId": 30346166856,
+    "finalNodeWorkflowRunId": null,
+    "finalNodeWorkflowHeadSha": null,
+    "finalChromiumWorkflowRunId": null,
+    "finalChromiumArtifactId": null,
+    "nodeTestsPassed": null,
+    "nodeTestsFailed": null,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": false
+  }
+}

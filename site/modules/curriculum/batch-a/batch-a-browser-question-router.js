@@ -1,6 +1,6 @@
 export * from "./batch-a-browser-question-router-pre-p01d1.js";
 
-import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f7.js";
+import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f8.js";
 import { generateBatchABrowserQuestions as generatePreP01D1Questions } from "./batch-a-browser-question-router-pre-p01d1.js";
 import { canGenerateG5BU05LargeNumberQuestions, generateG5BU05LargeNumberQuestions } from "./large-number-place-value-runtime.js";
 import { canGenerateG6AU01NumberTheoryQuestions, generateG6AU01NumberTheoryQuestions } from "./number-theory-runtime.js";
@@ -12,9 +12,11 @@ import { canGenerateG3BU09TenthDecimalQuestions, generateG3BU09TenthDecimalQuest
 import { canGenerateG4BU08EquivalentFractionQuestions, generateG4BU08EquivalentFractionQuestions } from "./equivalent-fraction-runtime.js";
 import { canGenerateG3AU08SameDenominatorCompareQuestions, generateG3AU08SameDenominatorCompareQuestions } from "./same-denominator-fraction-compare-runtime.js";
 import { canGenerateG3BU07FractionUnitConversionQuestions, generateG3BU07FractionUnitConversionQuestions } from "./discrete-fraction-conversion-runtime.js";
+import { canGenerateP03F8DecimalSliceQuestions, generateP03F8DecimalSliceQuestions } from "./decimal-slice008-runtime.js";
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateP03F8DecimalSliceQuestions(plan)) return generateP03F8DecimalSliceQuestions(options);
   if (canGenerateG3BU07FractionUnitConversionQuestions(plan)) return generateG3BU07FractionUnitConversionQuestions(options);
   if (canGenerateG3AU08SameDenominatorCompareQuestions(plan)) return generateG3AU08SameDenominatorCompareQuestions(options);
   if (canGenerateG4BU08EquivalentFractionQuestions(plan)) return generateG4BU08EquivalentFractionQuestions(options);

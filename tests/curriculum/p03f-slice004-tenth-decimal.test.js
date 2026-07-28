@@ -100,7 +100,7 @@ test("P03F4 binds decimal number-system and domain-validator witnesses", () => {
   }
 });
 
-test("P03F4 selector exposes only one G3B-U09 KP", () => {
+test("P03F4 historical selector snapshot exposes only one G3B-U09 KP", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G3B_U09_SOURCE_ID);
   assert.equal(rows.length, 1);
   assert.equal(rows[0].knowledgePointId, G3B_U09_TENTH_DECIMAL_KP_ID);
@@ -109,17 +109,19 @@ test("P03F4 selector exposes only one G3B-U09 KP", () => {
   assert.equal(availability.hiddenPendingCount, 6);
 });
 
-test("P03F4 current Pixel exposes 23 sources and one G3B-U09 KP after slice005 admission", () => {
+test("P03F4 current Pixel retains 23 sources and includes both later slice008 G3B-U09 KPs", () => {
   const sources = listCurrentPixelSourceOptions();
   assert.equal(sources.length, 23);
   const source = sources.find((row) => row.sourceId === G3B_U09_SOURCE_ID);
   assert.ok(source);
-  assert.equal(source.visibleKnowledgePointCount, 1);
-  assert.equal(source.hiddenPendingCount, 6);
-  assert.deepEqual(listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).map((row) => row.knowledgePointId), [G3B_U09_TENTH_DECIMAL_KP_ID]);
+  assert.equal(source.visibleKnowledgePointCount, 3);
+  assert.equal(source.hiddenPendingCount, 4);
+  const currentIds = listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).map((row) => row.knowledgePointId);
+  assert.equal(currentIds.includes(G3B_U09_TENTH_DECIMAL_KP_ID), true);
+  assert.equal(currentIds.length, 3);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 23);
-  assert.equal(snapshot.bySourceId[G3B_U09_SOURCE_ID].visibleKnowledgePoints.length, 1);
+  assert.equal(snapshot.bySourceId[G3B_U09_SOURCE_ID].visibleKnowledgePoints.length, 3);
 });
 
 test("P03F4 shared worksheet and answer key render eight items", () => {
