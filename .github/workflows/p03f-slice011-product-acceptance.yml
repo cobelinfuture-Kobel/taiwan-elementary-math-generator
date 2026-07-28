@@ -42,6 +42,7 @@ jobs:
           NODE
       - name: Validate slice011 fail-closed or admitted state
         run: |
+          set -o pipefail
           mkdir -p tmp/p03f-slice011-product-acceptance
           node tools/curriculum/validate-p03f-slice011-product-admission.mjs 2>&1 | tee tmp/p03f-slice011-product-acceptance/validator.log
       - name: Render Chromium acceptance
