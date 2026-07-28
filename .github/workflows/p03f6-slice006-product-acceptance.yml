@@ -1,33 +1,41 @@
-name: P03F6 E5 Artifact Finalizer
+name: P03F6 Slice006 Product Acceptance
 
 on:
   pull_request:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: p03f6-e5-finalize-${{ github.event.pull_request.number }}
-  cancel-in-progress: false
+  group: p03f6-slice006-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  finalize:
+  chromium:
     if: github.head_ref == 'p03f-w3-direct-product-vertical-slice006-v1'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout implementation branch
+      - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          ref: p03f-w3-direct-product-vertical-slice006-v1
-          fetch-depth: 1
-      - name: Finalize committed hashes, review and E5 claim
-        run: python tools/curriculum/p03f6-finalize-e5.py
-      - name: Commit E5 evidence and stage-aware test
-        shell: bash
+          node-version: 22
+      - name: Install dependencies and Chromium
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "chore(p03f6): admit reviewed artifacts at E5"
-          git push origin HEAD:p03f-w3-direct-product-vertical-slice006-v1
+          npm install
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Validate slice006 product admission
+        run: node tools/curriculum/validate-p03f-slice006-product-admission.mjs
+      - name: Render slice006 Chromium acceptance
+        run: node tools/curriculum/render-p03f-slice006-product-acceptance.mjs
+      - name: Upload slice006 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice006-product-acceptance
+          path: tmp/p03f-slice006-product-acceptance
+          if-no-files-found: warn
+          retention-days: 30
