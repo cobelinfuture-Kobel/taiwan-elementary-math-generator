@@ -9,11 +9,13 @@ export const W3_SLICE001_PUBLIC_SOURCE_IDS = Object.freeze(["g3a_u08_3a08"]);
 export const W3_SLICE003_PUBLIC_SOURCE_IDS = Object.freeze(["g3b_u07_3b07"]);
 export const W3_SLICE004_PUBLIC_SOURCE_IDS = Object.freeze(["g3b_u09_3b09"]);
 export const W3_SLICE005_PUBLIC_SOURCE_IDS = Object.freeze(["g4b_u08_4b08"]);
+export const W3_SLICE010_PUBLIC_SOURCE_IDS = Object.freeze(["g4a_u09_4a09"]);
 export const P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([...FIFTEEN_UNIT_PUBLIC_SOURCE_IDS, ...W1_FULL_PRODUCT_PUBLIC_SOURCE_IDS]);
 export const P03F2_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([...P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS, ...W3_SLICE001_PUBLIC_SOURCE_IDS]);
 export const P03F3_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([...P03F2_FULL_PRODUCT_PUBLIC_SOURCE_IDS, ...W3_SLICE003_PUBLIC_SOURCE_IDS]);
 export const P03F4_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([...P03F3_FULL_PRODUCT_PUBLIC_SOURCE_IDS, ...W3_SLICE004_PUBLIC_SOURCE_IDS]);
-export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([...P03F4_FULL_PRODUCT_PUBLIC_SOURCE_IDS, ...W3_SLICE005_PUBLIC_SOURCE_IDS]);
+export const P03F9_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([...P03F4_FULL_PRODUCT_PUBLIC_SOURCE_IDS, ...W3_SLICE005_PUBLIC_SOURCE_IDS]);
+export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS = Object.freeze([...P03F9_FULL_PRODUCT_PUBLIC_SOURCE_IDS, ...W3_SLICE010_PUBLIC_SOURCE_IDS]);
 export const FULL_PRODUCT_PUBLIC_SOURCE_IDS = P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS;
 export const FULL_PRODUCT_PBL_SOURCE_IDS = FIFTEEN_UNIT_PBL_SOURCE_IDS;
 
@@ -63,6 +65,12 @@ const currentG4BU08Profile = Object.freeze({
   reasoningDepthControl: unsupported, contextControl: unsupported,
   compatibilityPolicy: "w3_slice005_equivalent_fraction_numeric_only", sdgSupported: false, genericFallback: false, freeFormAI: false,
 });
+const currentG4AU09Profile = Object.freeze({
+  sourceId: "g4a_u09_4a09", task: "P03F_W3DirectProductVerticalSlice010Implementation",
+  questionTypeControl: Object.freeze({ supported: true, partial: false, defaultValue: "numeric", options: Object.freeze([option("numeric", "數字題")]) }),
+  reasoningDepthControl: unsupported, contextControl: unsupported,
+  compatibilityPolicy: "w3_slice010_hundredth_decimal_representation_numeric_only", sdgSupported: false, genericFallback: false, freeFormAI: false,
+});
 
 export function getP03F1HistoricalFullProductPublicControlProfile(sourceId) {
   return sourceId === "g3a_u08_3a08" ? historicalW3Profile : getFifteenUnitPublicControlProfile(sourceId) ?? w1ProfileBySource.get(sourceId) ?? null;
@@ -73,7 +81,8 @@ export function getFullProductPublicControlProfile(sourceId) {
     ?? (sourceId === "g3a_u08_3a08" ? currentG3AU08Profile : null)
     ?? (sourceId === "g3b_u07_3b07" ? currentG3BU07Profile : null)
     ?? (sourceId === "g3b_u09_3b09" ? currentG3BU09Profile : null)
-    ?? (sourceId === "g4b_u08_4b08" ? currentG4BU08Profile : null);
+    ?? (sourceId === "g4b_u08_4b08" ? currentG4BU08Profile : null)
+    ?? (sourceId === "g4a_u09_4a09" ? currentG4AU09Profile : null);
 }
 export function normalizeFullProductPublicControlValue(profile, controlName, value) {
   const definition = profile?.[controlName];
@@ -85,8 +94,10 @@ export function auditFullProductPublicControlProfiles(options = {}) {
     && options.includeW3Slice002 !== true && options.includeW3Slice003 !== true
     && options.includeW3Slice004 !== true && options.includeW3Slice005 !== true
     && options.includeW3Slice006 !== true && options.includeW3Slice007 !== true
-    && options.includeW3Slice008 !== true && options.includeW3Slice009 !== true;
-  const includeSlice9 = options.includeW3Slice009 === true;
+    && options.includeW3Slice008 !== true && options.includeW3Slice009 !== true
+    && options.includeW3Slice010 !== true;
+  const includeSlice10 = options.includeW3Slice010 === true;
+  const includeSlice9 = options.includeW3Slice009 === true || includeSlice10;
   const includeSlice8 = options.includeW3Slice008 === true || includeSlice9;
   const includeSlice7 = options.includeW3Slice007 === true || includeSlice8;
   const includeSlice6 = options.includeW3Slice006 === true || includeSlice7;
@@ -96,15 +107,17 @@ export function auditFullProductPublicControlProfiles(options = {}) {
   const includeSlice2 = options.includeW3Slice002 === true || includeSlice3;
   const sourceIds = historicalW3
     ? [...P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS, ...W3_SLICE001_PUBLIC_SOURCE_IDS]
-    : includeSlice5
+    : includeSlice10
       ? CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS
-      : includeSlice4
-        ? P03F4_FULL_PRODUCT_PUBLIC_SOURCE_IDS
-        : includeSlice3
-          ? P03F3_FULL_PRODUCT_PUBLIC_SOURCE_IDS
-          : includeSlice2
-            ? P03F2_FULL_PRODUCT_PUBLIC_SOURCE_IDS
-            : P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS;
+      : includeSlice5
+        ? P03F9_FULL_PRODUCT_PUBLIC_SOURCE_IDS
+        : includeSlice4
+          ? P03F4_FULL_PRODUCT_PUBLIC_SOURCE_IDS
+          : includeSlice3
+            ? P03F3_FULL_PRODUCT_PUBLIC_SOURCE_IDS
+            : includeSlice2
+              ? P03F2_FULL_PRODUCT_PUBLIC_SOURCE_IDS
+              : P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS;
   const errors = [];
   for (const sourceId of sourceIds) {
     const profile = historicalW3 && sourceId === "g3a_u08_3a08"
@@ -112,7 +125,7 @@ export function auditFullProductPublicControlProfiles(options = {}) {
       : (!includeSlice7 && sourceId === "g3b_u07_3b07" ? historicalG3BU07Profile : getFullProductPublicControlProfile(sourceId));
     const values = profile?.questionTypeControl?.options?.map((row) => row.value) ?? [];
     if (!values.includes("numeric")) errors.push(`NUMERIC_OPTION_MISSING:${sourceId}`);
-    const numericOnly = ["g3b_u09_3b09", "g4b_u08_4b08"].includes(sourceId) || (sourceId === "g3b_u07_3b07" && !includeSlice7);
+    const numericOnly = ["g3b_u09_3b09", "g4b_u08_4b08", "g4a_u09_4a09"].includes(sourceId) || (sourceId === "g3b_u07_3b07" && !includeSlice7);
     const applicationExpected = numericOnly ? false : sourceId === "g3a_u08_3a08" ? !historicalW3 : true;
     if (values.includes("application") !== applicationExpected) errors.push(`APPLICATION_ELIGIBILITY_MISMATCH:${sourceId}`);
     if (values.includes("pbl") !== FULL_PRODUCT_PBL_SOURCE_IDS.has(sourceId)) errors.push(`PBL_ELIGIBILITY_MISMATCH:${sourceId}`);
@@ -129,6 +142,7 @@ export function auditFullProductPublicControlProfiles(options = {}) {
     w3Slice007ProfileCount: includeSlice7 ? 1 : 0,
     w3Slice008ProfileCount: includeSlice8 ? 1 : 0,
     w3Slice009ProfileCount: includeSlice9 ? 1 : 0,
+    w3Slice010ProfileCount: includeSlice10 ? 1 : 0,
     pblProfileCount: [...FULL_PRODUCT_PBL_SOURCE_IDS].length,
   });
 }
