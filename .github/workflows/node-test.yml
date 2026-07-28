@@ -20,19 +20,27 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: p03f-w3-direct-product-vertical-slice005-v1
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Materialize exact implementation tree
         shell: bash
         run: |
-          git fetch origin main
-          cat tmp/p03f5-bootstrap/payload.* | base64 -d > /tmp/p03f5.tar.gz
+          set -euxo pipefail
+          git fetch origin main --depth=1
+          wc -c tmp/p03f5-bootstrap/payload.*
+          cat tmp/p03f5-bootstrap/payload.* > /tmp/p03f5.b64
+          wc -c /tmp/p03f5.b64
+          base64 -d /tmp/p03f5.b64 > /tmp/p03f5.tar.gz
+          gzip -t /tmp/p03f5.tar.gz
+          tar -tzf /tmp/p03f5.tar.gz | wc -l
           tar -xzf /tmp/p03f5.tar.gz
+          test -f src/curriculum/full-product/p03f-slice005-product-admission.mjs
           rm -rf tmp/p03f5-bootstrap
           rm -f .github/workflows/p03f5-bootstrap.yml
           git checkout origin/main -- .github/workflows/node-test.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
+          git status --short
           git commit -m "feat(p03f5): implement W3 direct-product slice005"
           git push origin HEAD:p03f-w3-direct-product-vertical-slice005-v1
