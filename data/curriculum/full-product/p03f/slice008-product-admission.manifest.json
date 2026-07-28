@@ -58,7 +58,7 @@
     "preD0NodeWorkflowHeadSha": null,
     "preD0ChromiumWorkflowRunId": 30342108267,
     "preD0ChromiumArtifactId": 8681439918,
-    "artifactMaterializationCommitSha": null,
+    "artifactMaterializationCommitSha": "e58400c264e7ef65bc644aae1f2a8d8f5d8bf0aa",
     "artifactMaterializationWorkflowRunId": 30346166856,
     "finalNodeWorkflowRunId": null,
     "finalNodeWorkflowHeadSha": null,
