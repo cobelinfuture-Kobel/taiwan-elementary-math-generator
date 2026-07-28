@@ -1,7 +1,7 @@
 {
   "schemaName": "P03FSlice006ChromiumProductAcceptanceReportV1",
   "taskId": "P03F_W3DirectProductVerticalSlice006Implementation",
-  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
   "sourceId": "g3a_u08_3a08",
   "knowledgePointIds": [
     "kp_g3a_u08_same_denominator_compare"
@@ -111,13 +111,20 @@
   "overflowFindingCount": 0,
   "semanticScopeFindingCount": 0,
   "visualReview": {
-    "status": "PENDING",
-    "numericReviewed": false,
-    "applicationReviewed": false,
-    "answerKeysReviewed": false,
-    "clippedTextFindingCount": null,
-    "overlapFindingCount": null,
-    "brokenGlyphFindingCount": null,
-    "semanticScopeFindingCount": null
+    "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+    "numericReviewed": true,
+    "applicationReviewed": true,
+    "answerKeysReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0
+  },
+  "artifactHashes": {
+    "numericHtml": "9d0e907b4fd084166d05f1f55030352fa6ea81b038d77370eece13d90af11019",
+    "numericPdf": "cdb46fc31721d2c6cda13ab0d78180fe584f53dccbce1f409c8dee49e23d0bd4",
+    "applicationHtml": "5a483a720baa6d1091b2d971ddc2d8b8e37eab00a00dcd065808bce8808271e9",
+    "applicationPdf": "33a2e8638fe22b11c8d16ba3211da7517d716dc2a1fbb7260c69c67318cd9c8f"
   }
 }
