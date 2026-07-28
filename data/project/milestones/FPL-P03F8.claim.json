@@ -3,8 +3,8 @@
   "taskId": "P03F_W3DirectProductVerticalSlice008Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "W3_SLICE008_PRODUCTION_ADMITTED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE008_D0_COMPLETE_CI_SYNCED_AND_MERGED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -14,9 +14,9 @@
     "htmlOutputVerified": true,
     "pdfOutputVerified": true,
     "visibleOutputChanged": true,
-    "humanReviewReady": true,
+    "humanReviewReady": false,
     "productionAdmitted": true,
-    "d0Complete": false
+    "d0Complete": true
   },
   "evidence": {
     "runtimeTestPaths": [
@@ -67,38 +67,38 @@
     ]
   },
   "humanReview": {
-    "type": "production_equivalent_output_review",
-    "canUnlockProduction": true,
-    "reviewArtifactRequired": true
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
   },
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Queue position 8 has two production-admitted KnowledgePoints with reviewed HTML/PDF and exact hashes; exact-head CI and merge remain."
+    "distanceReduced": "Frozen queue position 8 is fully D0 and merged: two source-backed decimal KnowledgePoints are production admitted through two numeric PatternSpecs, exact decimal capabilities, shared product runtime, committed reviewed HTML/PDF and exact-head CI."
   },
   "nextStep": {
-    "taskId": "P03F8_ExactHeadCIAndMerge",
-    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+    "taskId": "P03F_W3DirectProductVerticalSlice009Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
     "implementationPrNumber": 422,
-    "implementationHeadSha": null,
-    "implementationMergeSha": null,
-    "implementationMergedAt": null,
-    "preD0HeadSha": "6d6462757e03107c957343764e66212a1d3d8d0f",
-    "preD0NodeWorkflowRunId": null,
-    "preD0ChromiumWorkflowRunId": 30342108267,
-    "preD0ChromiumArtifactId": 8681439918,
+    "implementationHeadSha": "6ffb1cb08f7d8c41043a6c379b1cb9f1efa7e982",
+    "implementationMergeSha": "2ceaeb25c742e5d13c1f3a1d0759d276b3e2ce36",
+    "implementationMergedAt": "2026-07-28T09:41:20Z",
+    "preD0HeadSha": "6ffb1cb08f7d8c41043a6c379b1cb9f1efa7e982",
+    "preD0NodeWorkflowRunId": 30346970226,
+    "preD0ChromiumWorkflowRunId": 30346970242,
+    "preD0ChromiumArtifactId": 8683306994,
     "artifactMaterializationCommitSha": "e58400c264e7ef65bc644aae1f2a8d8f5d8bf0aa",
     "artifactMaterializationWorkflowRunId": 30346166856,
-    "finalNodeWorkflowRunId": null,
-    "finalNodeWorkflowHeadSha": null,
-    "finalChromiumWorkflowRunId": null,
-    "finalChromiumArtifactId": null,
-    "nodeTestsPassed": null,
-    "nodeTestsFailed": null,
+    "finalNodeWorkflowRunId": 30346970226,
+    "finalNodeWorkflowHeadSha": "6ffb1cb08f7d8c41043a6c379b1cb9f1efa7e982",
+    "finalChromiumWorkflowRunId": 30346970242,
+    "finalChromiumArtifactId": 8683306994,
+    "nodeTestsPassed": 2535,
+    "nodeTestsFailed": 0,
     "visualReviewPassed": true,
-    "finalExactHeadAccepted": false
+    "finalExactHeadAccepted": true
   }
 }
