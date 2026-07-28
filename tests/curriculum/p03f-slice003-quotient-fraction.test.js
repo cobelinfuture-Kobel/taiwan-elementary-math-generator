@@ -108,7 +108,7 @@ test("P03F3 selector exposes only one G3B-U07 KP", () => {
 
 test("P03F3 current Pixel preserves quotient fraction after slice007 adds the second G3B-U07 KP", () => {
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 23);
+  assert.equal(sources.length, 24);
   const source = sources.find((row) => row.sourceId === G3B_U07_SOURCE_ID);
   assert.ok(source);
   assert.equal(source.visibleKnowledgePointCount, 2);
