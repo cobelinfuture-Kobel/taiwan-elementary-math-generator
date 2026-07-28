@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice005Implementation
-STATUS     = IMPLEMENTED_PENDING_CHROMIUM_ACCEPTANCE
+STATUS     = ARTIFACT_COMMITTED_E5_FINALIZER_PENDING
 EVIDENCE   = E3_SHADOW_RUNTIME_INTEGRATED
 ```
 
@@ -33,10 +33,10 @@ fraction domain validator       = CONNECTED
 fraction arithmetic             = CONNECTED
 current Classic selection       = CONNECTED
 current Pixel selection         = CONNECTED
-WorksheetDocument / answer key  = 9 / 9 TARGET
-production HTML                 = IN_MEMORY_CONNECTED
-Chromium PDF / print            = PENDING_CI_ARTIFACT
-product admission               = PRODUCT_ACCEPTANCE_PENDING
+WorksheetDocument / answer key  = 9 / 9 PASS
+production HTML                 = COMMITTED
+Chromium PDF / print            = COMMITTED
+product admission               = E5_FINALIZER_PENDING
 ```
 
 All witnesses preserve a common positive factor and exact rational identity. The other six G4B-U08 KnowledgePoints remain hidden. No application story, global-context binding or parallel product pipeline is added.
@@ -45,10 +45,10 @@ All witnesses preserve a common positive factor and exact rational identity. The
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_DIRECT_PRODUCT_SLICE004_D0_MERGED
-GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE005_RUNTIME_CONNECTED_PENDING_D0
-DISTANCE_REDUCED     = Queue position 5 now has a source-backed bounded equivalent-fraction product path through shared planning, generation, validation, current selectors, worksheet, answer key and HTML.
-REMAINING_BLOCKERS   = [Chromium artifact, visual review, committed hashes, exact-head full regression, PR merge]
-NEXT_SHORTEST_STEP   = P03F5_ChromiumArtifactMaterializationVisualReviewAndD0Closeout
+GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE005_ARTIFACT_COMMITTED_PENDING_E5_FINALIZER
+DISTANCE_REDUCED     = Queue position 5 has committed Chromium HTML/PDF and awaits committed-byte hash and visual-review claim materialization.
+REMAINING_BLOCKERS   = [E5 finalizer, exact-head full regression, PR merge]
+NEXT_SHORTEST_STEP   = P03F5_E5ArtifactFinalizer
 ```
 
 ```text
