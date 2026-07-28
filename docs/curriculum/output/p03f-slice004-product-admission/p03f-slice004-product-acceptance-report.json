@@ -1,0 +1,62 @@
+{
+  "schemaName": "P03FSlice004ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice004Implementation",
+  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  "sourceId": "g3b_u09_3b09",
+  "knowledgePointIds": [
+    "kp_g3b_u09_tenth_representation"
+  ],
+  "questionCount": 8,
+  "answerKeyItemCount": 8,
+  "questionPageCount": 1,
+  "answerKeyPageCount": 1,
+  "physicalPdfPageCount": 2,
+  "patternSpecIds": [
+    "ps_g3b_u09_tenth_representation_decimal_numeric"
+  ],
+  "canonicalDecimalIdentities": [
+    "1e-1"
+  ],
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "semanticScopeFindingCount": 0,
+  "browserFinding": {
+    "pageMetrics": [
+      {
+        "index": 0,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--questions print-page"
+      },
+      {
+        "index": 1,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--answer-key print-page"
+      }
+    ],
+    "physicalPdfPageCount": 2,
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "visualReview": {
+    "status": "PENDING",
+    "questionPageReviewed": false,
+    "answerKeyPageReviewed": false,
+    "physicalPageParityReviewed": false,
+    "clippedTextFindingCount": null,
+    "overlapFindingCount": null,
+    "brokenGlyphFindingCount": null,
+    "semanticScopeFindingCount": null
+  }
+}
