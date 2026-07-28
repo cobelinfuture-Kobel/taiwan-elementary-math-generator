@@ -30,6 +30,8 @@ jobs:
         run: |
           npm install
           npm install --no-save --package-lock=false playwright@1.51.1
+      - name: Apply monotonic current-surface compatibility
+        run: node tools/curriculum/apply-p03f10-current-surface-compatibility.mjs
       - name: Detect binary materialization state
         id: materialization
         shell: bash
@@ -51,8 +53,7 @@ jobs:
       - name: Materialize runner binary artifacts
         if: steps.materialization.outputs.needed == 'true'
         run: node tools/curriculum/materialize-p03f-slice010-runner-artifacts.mjs
-      - name: Commit exact runner binary artifacts
-        if: steps.materialization.outputs.needed == 'true'
+      - name: Commit compatibility and exact runner artifacts
         shell: bash
         run: |
           set -euxo pipefail
@@ -60,16 +61,37 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
-            data/curriculum/full-product/p03f/slice010-product-admission.manifest.json \
-            docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.html \
-            docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.pdf \
-            docs/curriculum/output/p03f-slice010-product-admission/p03f-slice010-product-acceptance-report.json
+            tests/curriculum/p03f-slice003-quotient-fraction.test.js \
+            tests/curriculum/p03f-slice004-tenth-decimal.test.js \
+            tests/curriculum/p03f-slice005-equivalent-fraction.test.js \
+            tests/curriculum/p03f-slice006-same-denominator-compare.test.js \
+            tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js \
+            tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js \
+            tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js \
+            src/curriculum/full-product/p03f-slice005-product-admission.mjs \
+            src/curriculum/full-product/p03f-slice006-product-admission.mjs \
+            src/curriculum/full-product/p03f-slice007-product-admission.mjs \
+            src/curriculum/full-product/p03f-slice008-product-admission.mjs \
+            src/curriculum/full-product/p03f-slice009-product-admission.mjs \
+            tools/curriculum/validate-p03f-slice005-product-admission.mjs \
+            tools/curriculum/validate-p03f-slice006-product-admission.mjs \
+            tools/curriculum/validate-p03f-slice007-product-admission.mjs \
+            tools/curriculum/validate-p03f-slice008-product-admission.mjs \
+            tools/curriculum/validate-p03f-slice009-product-admission.mjs
+          if [[ "${{ steps.materialization.outputs.needed }}" == "true" ]]; then
+            git add \
+              data/curriculum/full-product/p03f/slice010-product-admission.manifest.json \
+              docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.html \
+              docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.pdf \
+              docs/curriculum/output/p03f-slice010-product-admission/p03f-slice010-product-acceptance-report.json
+          fi
           git diff --cached --stat
-          test -n "$(git diff --cached --name-only)"
-          git commit -m "P03F10: materialize exact Chromium artifacts"
-          git fetch origin "${{ github.event.pull_request.head.ref }}"
-          git rebase "origin/${{ github.event.pull_request.head.ref }}"
-          git push --force-with-lease origin HEAD:${{ github.event.pull_request.head.ref }}
+          if test -n "$(git diff --cached --name-only)"; then
+            git commit -m "P03F10: materialize compatibility and Chromium artifacts"
+            git fetch origin "${{ github.event.pull_request.head.ref }}"
+            git rebase "origin/${{ github.event.pull_request.head.ref }}"
+            git push --force-with-lease origin HEAD:${{ github.event.pull_request.head.ref }}
+          fi
       - name: Export exact runner files as immutable Git blobs
         if: steps.materialization.outputs.needed == 'true'
         env:
