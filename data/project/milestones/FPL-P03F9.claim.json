@@ -3,13 +3,13 @@
   "taskId": "P03F_W3DirectProductVerticalSlice009Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E0_PLANNING_ONLY",
-  "claimedStatus": "W3_SLICE009_DISCOVERY_LOCK_PENDING",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W3_SLICE009_RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE",
   "claims": {
-    "dataStructureReady": false,
-    "contentAuthored": false,
-    "runtimeIntegrated": false,
-    "productionEquivalentGeneratorUsed": false,
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
     "productionRendererUsed": false,
     "htmlOutputVerified": false,
     "pdfOutputVerified": false,
@@ -19,13 +19,31 @@
     "d0Complete": false
   },
   "evidence": {
-    "runtimeTestPaths": [],
-    "rendererTestPaths": [],
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3b-u09-tenths-fraction-decimal-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f9-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f9-extension.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f9.js",
+      "site/modules/curriculum/batch-a/tenths-fraction-decimal-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f9.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f9-extension.js",
+      "src/curriculum/full-product/p03f-slice009-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice009-product-admission.mjs",
+      "tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice009-product-acceptance.mjs"
+    ],
     "htmlArtifactPaths": [],
     "pdfArtifactPaths": [],
     "beforeAfterEvidencePaths": [
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE008_READBACK.md",
-      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json"
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice009-tenths-fraction-decimal-authority.json",
+      "data/curriculum/full-product/p03f/slice009-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE009_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE009_READBACK.md"
     ],
     "reviewArtifactPaths": [],
     "artifactHashes": []
@@ -38,15 +56,15 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Queue position 9 scope discovery is locked to the frozen queue; no product capability is claimed yet."
+    "distanceReduced": "Queue position 9 now has one source-backed KnowledgePoint, FormalMapping, PatternSpec, current Classic/Pixel selector projection, deterministic shared runtime, fraction capability witnesses and shared worksheet assembly; Chromium HTML/PDF evidence and production admission remain."
   },
   "nextStep": {
-    "taskId": "P03F9_SourceCapabilityAndPatternAuthorityLock",
-    "requiredEvidenceLevelBeforeStart": "E0_PLANNING_ONLY"
+    "taskId": "P03F9_ChromiumArtifactMaterializationAndReview",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
-    "implementationPrNumber": null,
+    "implementationPrNumber": 424,
     "implementationHeadSha": null,
     "implementationMergeSha": null,
     "implementationMergedAt": null,
