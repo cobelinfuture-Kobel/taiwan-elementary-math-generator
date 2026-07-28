@@ -4,7 +4,7 @@
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
   "actualEvidenceLevel": "E6_D0_COMPLETE",
-  "claimedStatus": "W3_SLICE007_D0_COMPLETE_CI_ACCEPTED_PENDING_MERGE",
+  "claimedStatus": "W3_SLICE007_D0_COMPLETE_CI_SYNCED_AND_MERGED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -78,28 +78,28 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Frozen queue position 7 is fully D0 pending merge: one source-backed fraction-unit conversion KnowledgePoint is production admitted through two numeric and two role-preserving application PatternSpecs, exact fraction capabilities, shared product runtime, committed reviewed HTML/PDF and exact-head CI."
+    "distanceReduced": "Frozen queue position 7 is fully D0 and merged: one source-backed fraction-unit conversion KnowledgePoint is production admitted through two numeric and two role-preserving application PatternSpecs, exact fraction capabilities, shared product runtime, committed reviewed HTML/PDF and exact-head CI."
   },
   "nextStep": {
-    "taskId": "P03F7_MergeAndPostMergeAuthoritySync",
+    "taskId": "P03F_W3DirectProductVerticalSlice008Implementation",
     "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
     "implementationPrNumber": 421,
-    "implementationHeadSha": "c8e93a0cfdde4115900d5bb0d81abe29d74539de",
-    "implementationMergeSha": null,
-    "implementationMergedAt": null,
+    "implementationHeadSha": "9b25ce4aaf160cea5b9bccde36b12b5dc592b9c4",
+    "implementationMergeSha": "6868a53a23ce79aef26f141d9a115b9db4f19303",
+    "implementationMergedAt": "2026-07-28T07:04:22Z",
     "preD0HeadSha": "06faaf2f1d162e7a04dc3cfabf9fe2f99f46d13f",
     "preD0NodeWorkflowRunId": 30334086938,
     "preD0ChromiumWorkflowRunId": 30334086957,
     "preD0ChromiumArtifactId": 8678472303,
     "artifactMaterializationCommitSha": "784afb5650f4984f151394cd31e77860f446cbfb",
     "artifactMaterializationWorkflowRunId": 30334446312,
-    "finalNodeWorkflowRunId": 30336004018,
-    "finalNodeWorkflowHeadSha": "c8e93a0cfdde4115900d5bb0d81abe29d74539de",
-    "finalChromiumWorkflowRunId": 30336004034,
-    "finalChromiumArtifactId": 8679148712,
+    "finalNodeWorkflowRunId": 30336698801,
+    "finalNodeWorkflowHeadSha": "9b25ce4aaf160cea5b9bccde36b12b5dc592b9c4",
+    "finalChromiumWorkflowRunId": 30336698786,
+    "finalChromiumArtifactId": 8679426290,
     "nodeTestsPassed": 2526,
     "nodeTestsFailed": 0,
     "visualReviewPassed": true,
