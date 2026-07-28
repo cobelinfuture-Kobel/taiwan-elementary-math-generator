@@ -3,19 +3,19 @@
   "taskId": "P03F_W3DirectProductVerticalSlice009Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W3_SLICE009_RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_SLICE009_PRODUCTION_ADMITTED_PENDING_EXACT_HEAD_CI_AND_MERGE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": true,
-    "productionRendererUsed": false,
-    "htmlOutputVerified": false,
-    "pdfOutputVerified": false,
-    "visibleOutputChanged": false,
-    "humanReviewReady": false,
-    "productionAdmitted": false,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": true,
     "d0Complete": false
   },
   "evidence": {
@@ -35,8 +35,12 @@
       "site/modules/renderer/html-renderer.js",
       "tools/curriculum/render-p03f-slice009-product-acceptance.mjs"
     ],
-    "htmlArtifactPaths": [],
-    "pdfArtifactPaths": [],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice009-product-admission/g3b-u09-tenths-fraction-decimal.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice009-product-admission/g3b-u09-tenths-fraction-decimal.pdf"
+    ],
     "beforeAfterEvidencePaths": [
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE008_READBACK.md",
       "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
@@ -45,22 +49,33 @@
       "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE009_CONTRACT.md",
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE009_READBACK.md"
     ],
-    "reviewArtifactPaths": [],
-    "artifactHashes": []
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice009-product-admission/p03f-slice009-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice009-product-admission/g3b-u09-tenths-fraction-decimal.html",
+        "sha256": "2237a184c307d14d1b94639dd69610a727f09595bc12ff41b3d27e75812fa87f"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice009-product-admission/g3b-u09-tenths-fraction-decimal.pdf",
+        "sha256": "da22ec6d2f29a1be09eac5fc0d18bd60fe0745ad10012042b9f475fefca67504"
+      }
+    ]
   },
   "humanReview": {
-    "type": "none",
-    "canUnlockProduction": false,
-    "reviewArtifactRequired": false
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
   },
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Queue position 9 now has one source-backed KnowledgePoint, FormalMapping, PatternSpec, current Classic/Pixel selector projection, deterministic shared runtime, fraction capability witnesses and shared worksheet assembly; Chromium HTML/PDF evidence and production admission remain."
+    "distanceReduced": "Queue position 9 has one production-admitted KnowledgePoint with reviewed HTML/PDF and exact hashes; exact-head CI and merge remain."
   },
   "nextStep": {
-    "taskId": "P03F9_ChromiumArtifactMaterializationAndReview",
-    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+    "taskId": "P03F9_ExactHeadCIAndMerge",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
@@ -68,19 +83,19 @@
     "implementationHeadSha": null,
     "implementationMergeSha": null,
     "implementationMergedAt": null,
-    "preD0HeadSha": null,
-    "preD0NodeWorkflowRunId": null,
-    "preD0ChromiumWorkflowRunId": null,
-    "preD0ChromiumArtifactId": null,
+    "preD0HeadSha": "e7ba2bf744737d40f9293f1a0977cb308c44726d",
+    "preD0NodeWorkflowRunId": 30353566569,
+    "preD0ChromiumWorkflowRunId": 30353566616,
+    "preD0ChromiumArtifactId": 8685872102,
     "artifactMaterializationCommitSha": null,
     "artifactMaterializationWorkflowRunId": null,
     "finalNodeWorkflowRunId": null,
     "finalNodeWorkflowHeadSha": null,
     "finalChromiumWorkflowRunId": null,
     "finalChromiumArtifactId": null,
-    "nodeTestsPassed": null,
-    "nodeTestsFailed": null,
-    "visualReviewPassed": false,
+    "nodeTestsPassed": 2543,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
     "finalExactHeadAccepted": false
   }
 }
