@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice004Implementation",
-  "status": "SLICE004_D0_COMPLETE_PENDING_MERGE",
+  "status": "SLICE004_D0_COMPLETE_CI_SYNCED_AND_MERGED",
   "expectedCounts": {
     "queuePosition": 4,
     "sourceNodeCount": 1,
@@ -67,13 +67,13 @@
     "preD0ChromiumArtifactId": 8672900996,
     "preD0ChromiumArtifactDigest": "sha256:7f5286e696cf6bdd131897c4eb846e92fc81e30d384a90831ae0a70f73d558a8",
     "artifactMaterializationCommitSha": "9e89851a5308479040b1489e1a0299ff314cc219",
-    "finalNodeWorkflowRunId": 30318969688,
-    "finalNodeWorkflowHeadSha": "8b455bdc870b9c61ed2e159df22100a4c6a0ffb2",
-    "finalChromiumArtifactId": 8673289502,
+    "finalNodeWorkflowRunId": 30319254046,
+    "finalNodeWorkflowHeadSha": "174e34100dd617c65c0ea3a226fb6365157b04e1",
+    "finalChromiumArtifactId": 8673394379,
     "implementationPrNumber": 415,
-    "implementationHeadSha": "8b455bdc870b9c61ed2e159df22100a4c6a0ffb2",
-    "implementationMergeSha": null,
-    "implementationMergedAt": null
+    "implementationHeadSha": "174e34100dd617c65c0ea3a226fb6365157b04e1",
+    "implementationMergeSha": "a356f1ba9fe0d29428d761bf62ab48082bc66b89",
+    "implementationMergedAt": "2026-07-28T01:11:42Z"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice004-tenth-decimal-authority.json",
   "runtimePath": "src/curriculum/full-product/p03f-slice004-product-admission.mjs",

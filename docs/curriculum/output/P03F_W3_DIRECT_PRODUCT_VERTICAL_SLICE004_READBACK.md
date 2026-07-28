@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice004Implementation
-STATUS     = PASS_D0_COMPLETE_PENDING_MERGE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
 EVIDENCE   = E6_D0_COMPLETE
 ```
 
@@ -70,22 +70,26 @@ HTML SHA256 = 0ea885875c833326a28437e7e2629360b630d1833b2edcf546335b2e9e6b2b92
 PDF SHA256  = 26d2d409169f8d5a9ff27290afe8f703405ae58a0395034b8735dcf4503dce01
 ```
 
-## Exact-head D0 acceptance
+## Final exact-head acceptance and merge
 
 ```text
+implementation PR               = #415
+implementation head             = 174e34100dd617c65c0ea3a226fb6365157b04e1
+implementation merge SHA        = a356f1ba9fe0d29428d761bf62ab48082bc66b89
+implementation merged at        = 2026-07-28T01:11:42Z
 pre-D0 accepted head             = 05fdcc8bd3bbbd99c31d24de0bedeb835380176c
 pre-D0 Node / Chromium run       = 30317926276 SUCCESS
 pre-D0 Chromium artifact         = 8672900996
 artifact materialization commit  = 9e89851a5308479040b1489e1a0299ff314cc219
-final accepted runtime head      = 8b455bdc870b9c61ed2e159df22100a4c6a0ffb2
-final Node / Chromium run        = 30318969688 SUCCESS
-final Chromium artifact          = 8673289502
+final Node / Chromium run        = 30319254046 SUCCESS
+final Chromium artifact          = 8673394379
 full Node regression             = 2502 / 2502 PASS
 questions                        = 8 / 8 PASS
 answer-key items                 = 8 / 8 PASS
 physical page parity             = PASS
 visual semantic review           = PASS
 artifact / committed hash parity = PASS
+all governance workflows         = PASS
 ```
 
 ## Admission effect
@@ -106,18 +110,18 @@ parallel product pipelines   = 0
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_DIRECT_PRODUCT_SLICE003_D0_MERGED
-GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE004_D0_COMPLETE_PENDING_MERGE
-DISTANCE_REDUCED     = Frozen queue position 4 moved from an unimplemented queue row to a D0 decimal product through source evidence, two W3 decimal capabilities, shared runtime, current Classic/Pixel selection, answer key and committed reviewed A4 HTML/PDF.
-REMAINING_BLOCKERS   = [PR merge]
+GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE004_D0_MERGED
+DISTANCE_REDUCED     = Frozen queue position 4 moved from an unimplemented queue row to a merged D0 decimal product through source evidence, two W3 decimal capabilities, shared runtime, current Classic/Pixel selection, answer key and committed reviewed A4 HTML/PDF.
+REMAINING_BLOCKERS   = [49 direct-product slices have not yet reached D0, 33 later-wave dependent rows remain owned by later waves]
 NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice005Implementation
 ```
 
 ## Task closeout
 
 ```text
-1. Distance segment shortened = W3 direct-product queue position 4 moved from frozen-only to E6 D0.
+1. Distance segment shortened = W3 direct-product queue position 4 moved from frozen-only to merged E6 D0.
 2. System nodes advanced       = KnowledgePoint, Tag Registry, FormalMapping, PatternSpec, Generator, Validator, decimal W3 capabilities, Classic/Pixel selector, Worksheet, HTML/PDF renderer.
-3. Blocker removed             = queue position 4 runtime, artifact, visual, hash and exact-head CI blockers.
+3. Blocker removed             = queue position 4 runtime, artifact, visual, hash, exact-head CI and merge blockers.
 4. New blocker added           = none.
 5. Next shortest valid step    = P03F_W3DirectProductVerticalSlice005Implementation.
 ```
