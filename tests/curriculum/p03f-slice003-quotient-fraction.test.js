@@ -105,16 +105,16 @@ test("P03F3 selector exposes only one G3B-U07 KP", () => {
   assert.equal(availability.hiddenPendingCount, 7);
 });
 
-test("P03F3 current Pixel exposes 21 sources and one G3B-U07 KP", () => {
+test("P03F3 current Pixel keeps one G3B-U07 KP after slice004 source expansion", () => {
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 21);
+  assert.equal(sources.length, 22);
   const source = sources.find((row) => row.sourceId === G3B_U07_SOURCE_ID);
   assert.ok(source);
   assert.equal(source.visibleKnowledgePointCount, 1);
   assert.equal(source.hiddenPendingCount, 7);
   assert.deepEqual(listPixelKnowledgePointsForSource(G3B_U07_SOURCE_ID).map((row) => row.knowledgePointId), [G3B_U07_QUOTIENT_FRACTION_KP_ID]);
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 21);
+  assert.equal(snapshot.sourceCount, 22);
   assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 1);
 });
 
