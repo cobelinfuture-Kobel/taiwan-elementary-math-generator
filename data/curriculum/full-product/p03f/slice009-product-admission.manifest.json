@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice009Implementation",
-  "status": "SLICE009_PRODUCTION_ARTIFACT_REVIEWED_PENDING_EXACT_HEAD_CI",
+  "status": "SLICE009_PRODUCTION_ADMITTED_D0_CI_SYNCED_AND_MERGED",
   "expectedCounts": {
     "queuePosition": 9,
     "sourceNodeCount": 1,
@@ -33,7 +33,7 @@
     "laterWaveDependentCount": 33
   },
   "exactAcceptance": {
-    "nodeTestsPassed": 2543,
+    "nodeTestsPassed": 2542,
     "nodeTestsFailed": 0,
     "predecessorSlice008D0Passed": true,
     "queueIdentityPassed": true,
@@ -64,16 +64,16 @@
     "artifactMaterializationWorkflowRunId": 30358679360,
     "reviewedArtifactId": 8687908951,
     "reviewedArtifactDigest": "sha256:917b24af72805fc5bb719f021f10fa7db0aedf27a31e2db1c0a5ac8336939319",
-    "finalNodeWorkflowRunId": null,
-    "finalNodeWorkflowHeadSha": null,
-    "finalChromiumWorkflowRunId": null,
-    "finalChromiumArtifactId": null,
-    "finalChromiumArtifactDigest": null,
-    "finalExactHeadAccepted": false,
+    "finalNodeWorkflowRunId": 30360835962,
+    "finalNodeWorkflowHeadSha": "82ba1270cff7b1940f4dbe2d241d67e5364573c5",
+    "finalChromiumWorkflowRunId": 30360836160,
+    "finalChromiumArtifactId": 8688769099,
+    "finalChromiumArtifactDigest": "sha256:7ae0badadae769ff799936433820211f406a64f576e05810b36b95759539a7ba",
+    "finalExactHeadAccepted": true,
     "implementationPrNumber": 424,
-    "implementationHeadSha": null,
-    "implementationMergeSha": null,
-    "implementationMergedAt": null
+    "implementationHeadSha": "82ba1270cff7b1940f4dbe2d241d67e5364573c5",
+    "implementationMergeSha": "5ebf9a2f451bfdb4b377f1e82ccc7b06907735ca",
+    "implementationMergedAt": "2026-07-28T12:56:31Z"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice009-tenths-fraction-decimal-authority.json",
   "runtimePath": "src/curriculum/full-product/p03f-slice009-product-admission.mjs",
