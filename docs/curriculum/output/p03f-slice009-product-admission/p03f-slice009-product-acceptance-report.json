@@ -1,7 +1,7 @@
 {
   "schemaName": "P03FSlice009ChromiumProductAcceptanceReportV1",
   "taskId": "P03F_W3DirectProductVerticalSlice009Implementation",
-  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
   "sourceId": "g3b_u09_3b09",
   "knowledgePointIds": [
     "kp_g3b_u09_tenths_fraction_decimal"
@@ -145,7 +145,7 @@
     }
   ],
   "htmlSha256": "2237a184c307d14d1b94639dd69610a727f09595bc12ff41b3d27e75812fa87f",
-  "pdfSha256": "da22ec6d2f29a1be09eac5fc0d18bd60fe0745ad10012042b9f475fefca67504",
+  "pdfSha256": "f2e0c0b2a7d63e4d36a60632f765930da7c6ff41bc9e0f2495011120d319ea97",
   "duplicatePromptFindingCount": 0,
   "overflowFindingCount": 0,
   "consoleErrorCount": 0,
@@ -161,7 +161,7 @@
         "scrollWidth": 794,
         "overflowY": false,
         "overflowX": false,
-        "className": "worksheet-page worksheet-page--questions"
+        "className": "worksheet-page worksheet-page--questions print-page"
       },
       {
         "index": 1,
@@ -171,7 +171,7 @@
         "scrollWidth": 794,
         "overflowY": false,
         "overflowX": false,
-        "className": "worksheet-page worksheet-page--answer-key"
+        "className": "worksheet-page worksheet-page--answer-key print-page"
       }
     ],
     "physicalPdfPageCount": 2,
@@ -179,13 +179,19 @@
     "pageErrors": []
   },
   "visualReview": {
-    "status": "PASS_MANUAL_VISUAL_SEMANTIC_REVIEW",
-    "questionPageReviewed": true,
-    "answerKeyPageReviewed": true,
-    "physicalPageParityReviewed": true,
-    "clippedTextFindingCount": 0,
-    "overlapFindingCount": 0,
-    "brokenGlyphFindingCount": 0,
-    "semanticScopeFindingCount": 0
+    "status": "PENDING",
+    "questionPageReviewed": false,
+    "answerKeyPageReviewed": false,
+    "physicalPageParityReviewed": false,
+    "clippedTextFindingCount": null,
+    "overlapFindingCount": null,
+    "brokenGlyphFindingCount": null,
+    "semanticScopeFindingCount": null
+  },
+  "materialization": {
+    "mode": "GITHUB_ACTIONS_RUNNER_BINARY_COMMIT",
+    "workflowRunId": 30358679360,
+    "sourceHeadSha": "c7d86d69d9fcf4c5fae0a0b0e551a9dca1ff25e2",
+    "visualReviewAuthority": "PENDING_OPERATOR_REVIEW"
   }
 }
