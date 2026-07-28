@@ -3,19 +3,19 @@
   "taskId": "P03F_W3DirectProductVerticalSlice004Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W3_SLICE004_RUNTIME_CONNECTED_PENDING_PRODUCTION_OUTPUT_VERIFICATION",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_SLICE004_ARTIFACT_MATERIALIZED_VISUAL_REVIEWED_PENDING_EXACT_HEAD_CI",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
     "runtimeIntegrated": true,
     "productionEquivalentGeneratorUsed": true,
-    "productionRendererUsed": false,
-    "htmlOutputVerified": false,
-    "pdfOutputVerified": false,
-    "visibleOutputChanged": false,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
     "humanReviewReady": false,
-    "productionAdmitted": false,
+    "productionAdmitted": true,
     "d0Complete": false
   },
   "evidence": {
@@ -34,8 +34,12 @@
       "tools/curriculum/render-p03f-slice004-product-acceptance.mjs",
       ".github/workflows/node-test.yml"
     ],
-    "htmlArtifactPaths": [],
-    "pdfArtifactPaths": [],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.pdf"
+    ],
     "beforeAfterEvidencePaths": [
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_READBACK.md",
       "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
@@ -44,8 +48,19 @@
       "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_CONTRACT.md",
       "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_READBACK.md"
     ],
-    "reviewArtifactPaths": [],
-    "artifactHashes": []
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice004-product-admission/p03f-slice004-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.html",
+        "sha256": "0ea885875c833326a28437e7e2629360b630d1833b2edcf546335b2e9e6b2b92"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.pdf",
+        "sha256": "26d2d409169f8d5a9ff27290afe8f703405ae58a0395034b8735dcf4503dce01"
+      }
+    ]
   },
   "humanReview": {
     "type": "none",
@@ -55,11 +70,11 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Queue position 4 has source-backed decimal runtime integration through the exact number-system and domain-validator pair; production-equivalent HTML/PDF verification and D0 admission remain unclaimed."
+    "distanceReduced": "Queue position 4 is production admitted through the exact decimal capability pair, shared runtime, current selectors, worksheet, answer key, committed two-page HTML/PDF and visual/hash acceptance; exact-head CI and merge remain before E6 D0 closeout."
   },
   "nextStep": {
-    "taskId": "P03F4_ChromiumArtifactMaterializationVisualReviewAndD0Closeout",
-    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+    "taskId": "P03F4_ExactHeadCIAndD0Closeout",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
@@ -67,18 +82,18 @@
     "implementationHeadSha": null,
     "implementationMergeSha": null,
     "implementationMergedAt": null,
-    "preD0HeadSha": null,
-    "preD0NodeWorkflowRunId": null,
-    "preD0ChromiumArtifactId": null,
-    "artifactMaterializationCommitSha": null,
+    "preD0HeadSha": "05fdcc8bd3bbbd99c31d24de0bedeb835380176c",
+    "preD0NodeWorkflowRunId": 30317926276,
+    "preD0ChromiumArtifactId": 8672900996,
+    "artifactMaterializationCommitSha": "9e89851a5308479040b1489e1a0299ff314cc219",
     "artifactMaterializationWorkflowRunId": null,
     "artifactMaterializationArtifactId": null,
     "finalNodeWorkflowRunId": null,
     "finalNodeWorkflowHeadSha": null,
     "finalChromiumArtifactId": null,
-    "nodeTestsPassed": null,
-    "nodeTestsFailed": null,
-    "visualReviewPassed": false,
+    "nodeTestsPassed": 2502,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
     "finalExactHeadAccepted": false
   }
 }

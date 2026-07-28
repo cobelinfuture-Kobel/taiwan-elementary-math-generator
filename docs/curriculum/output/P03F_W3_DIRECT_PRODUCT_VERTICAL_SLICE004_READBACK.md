@@ -3,8 +3,8 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice004Implementation
-STATUS     = IMPLEMENTED_PENDING_CHROMIUM_ACCEPTANCE
-EVIDENCE   = E5_RUNTIME_AND_RENDERER_CONNECTED_PENDING_COMMITTED_PDF
+STATUS     = PASS_ARTIFACT_MATERIALIZED_AND_VISUAL_REVIEWED_PENDING_EXACT_HEAD_CI
+EVIDENCE   = E5_PRODUCTION_ADMITTED
 ```
 
 ## Frozen slice
@@ -19,7 +19,7 @@ PatternSpecs   = 1
 application    = APPLICATION_NOT_APPLICABLE
 ```
 
-## Connected product nodes
+## Product nodes
 
 ```text
 source evidence                 = BOUND
@@ -32,27 +32,82 @@ decimal number system           = CONNECTED
 decimal domain validator        = CONNECTED
 current Classic selection       = CONNECTED
 current Pixel selection         = CONNECTED
-WorksheetDocument / answer key  = 8 / 8 TARGET
-production HTML                 = IN_MEMORY_CONNECTED
-Chromium PDF / print            = PENDING_CI_ARTIFACT
-product admission               = PRODUCT_ACCEPTANCE_PENDING
+WorksheetDocument / answer key  = 8 / 8 PASS
+production HTML                 = 1 COMMITTED
+Chromium PDF / print            = 1 COMMITTED
+physical PDF pages              = 2
+artifact SHA256 gate            = CONNECTED
+visual semantic review          = PASS
+product admission               = PRODUCTION_ADMITTED_PENDING_EXACT_HEAD_CI
 ```
 
-## Semantic boundary
+## Capability and semantic acceptance
 
-All eight witnesses preserve `1/10 = 0.1`, canonical decimal identity `1e-1`, and numeric-only scope. The other six G3B-U09 KnowledgePoints remain hidden. No decimal arithmetic, application story, global context binding, or parallel product pipeline is added.
+```text
+required W3 capabilities = 2 / 2 PASS
+canonical invariant      = 1 / 10 = 0.1
+canonical identity       = 1e-1
+question witnesses       = 8
+answer-key witnesses     = 8
+duplicate prompts        = 0
+overflow findings        = 0
+clipping findings        = 0
+overlap findings         = 0
+broken glyph findings    = 0
+semantic findings        = 0
+```
+
+The decimal number-system consumer and decimal domain validator independently normalize every witness to coefficient `1`, scale `1`, canonical text `0.1`. Decimal arithmetic is not required or connected for this KnowledgePoint.
+
+## Committed output evidence
+
+```text
+HTML   = docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.html
+PDF    = docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.pdf
+REPORT = docs/curriculum/output/p03f-slice004-product-admission/p03f-slice004-product-acceptance-report.json
+
+HTML SHA256 = 0ea885875c833326a28437e7e2629360b630d1833b2edcf546335b2e9e6b2b92
+PDF SHA256  = 26d2d409169f8d5a9ff27290afe8f703405ae58a0395034b8735dcf4503dce01
+```
+
+## Pre-D0 acceptance
+
+```text
+pre-D0 accepted head       = 05fdcc8bd3bbbd99c31d24de0bedeb835380176c
+pre-D0 Node / Chromium run = 30317926276 SUCCESS
+pre-D0 Chromium artifact   = 8672900996
+full Node regression       = 2502 / 2502 PASS
+artifact materialization   = 9e89851a5308479040b1489e1a0299ff314cc219
+physical page parity       = PASS
+visual semantic review     = PASS
+artifact hash parity       = PASS
+```
+
+## Admission effect
+
+```text
+new product admissions       = 1
+cumulative W3 admissions     = 5
+remaining direct slices      = 49
+remaining direct W3 KPs      = 77
+later-wave dependent rows    = 33 unchanged
+slice005 started             = false
+other G3B-U09 KPs admitted   = 0
+application stories added    = 0
+parallel product pipelines   = 0
+```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_W3_DIRECT_PRODUCT_SLICE003_D0_MERGED
-GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE004_RUNTIME_CONNECTED_PENDING_D0
-DISTANCE_REDUCED     = Queue position 4 now has a source-backed bounded decimal product path through shared planning, generation, validation, current selectors, worksheet, answer key and HTML.
-REMAINING_BLOCKERS   = [Chromium artifact, visual review, committed hashes, exact-head full regression, PR merge]
-NEXT_SHORTEST_STEP   = P03F4_ChromiumArtifactMaterializationVisualReviewAndD0Closeout
+GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE004_PRODUCTION_ADMITTED_PENDING_EXACT_HEAD_CI
+DISTANCE_REDUCED     = Queue position 4 moved from an unimplemented queue row to a source-backed decimal product with two W3 capabilities, shared runtime, current selectors, answer key and committed reviewed A4 HTML/PDF.
+REMAINING_BLOCKERS   = [exact-head full regression, PR merge]
+NEXT_SHORTEST_STEP   = P03F4_ExactHeadCIAndD0Closeout
 ```
 
 ```text
-slice005 started = false
+IMPLEMENTATION_BOUNDARY = true
 SEPARATE_APPROVAL_REQUIRED = true
 ```
