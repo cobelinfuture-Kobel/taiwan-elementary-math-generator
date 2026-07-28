@@ -22,12 +22,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Collect exact slice007 authority
+      - name: Collect exact slice007 authority and successor architecture
         shell: bash
         run: |
           set -euo pipefail
           OUT=tmp/p03f7-slice007-authority-diagnostic
-          mkdir -p "$OUT/matched"
+          mkdir -p "$OUT/matched" "$OUT/architecture"
           node --input-type=module <<'NODE' > "$OUT/queue-position-007.json"
           import { materializeP03EW3DirectProductVerticalSliceQueue } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
           const q = materializeP03EW3DirectProductVerticalSliceQueue();
@@ -42,9 +42,44 @@ jobs:
           done < "$OUT/matched-files.txt"
           grep -RInE 'kp_g3b_u07_fraction_unit_conversion|g3b_u07_3b07|fraction_unit_conversion' data docs site src tools tests 2>/dev/null > "$OUT/matched-lines.txt" || true
           find data docs site src tools tests -type f | grep -Ei 'g3b[-_]?u07|3b07|fraction.*unit|unit.*fraction' | sort > "$OUT/name-candidates.txt" || true
-          cp docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_READBACK.md "$OUT/" 
-          cp data/project/milestones/FPL-P03F6.claim.json "$OUT/"
-          printf 'matched_file_count=%s\n' "$(wc -l < "$OUT/matched-files.txt")" > "$OUT/summary.txt"
+          FILES=(
+            data/curriculum/full-product/p03f/slice003-quotient-fraction-authority.json
+            data/curriculum/full-product/p03f/slice006-same-denominator-compare-authority.json
+            data/curriculum/full-product/p03f/slice006-product-admission.manifest.json
+            data/project/milestones/FPL-P03F6.claim.json
+            docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_CONTRACT.md
+            docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_CONTRACT.md
+            docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_READBACK.md
+            docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_READBACK.md
+            site/modules/curriculum/registry/g3b-u07-quotient-fraction-selector-projection.js
+            site/modules/curriculum/registry/g3a-u08-same-denominator-compare-selector-projection.js
+            site/modules/curriculum/registry/batch-a-selector-p03f6-extension.js
+            site/modules/curriculum/registry/full-product-public-control-profiles.js
+            site/modules/curriculum/batch-a/source-pattern-full-product-p03f3-extension.js
+            site/modules/curriculum/batch-a/source-pattern-full-product-p03f6-extension.js
+            site/modules/curriculum/batch-a/batch-a-browser-generator-p03f6.js
+            site/modules/curriculum/batch-a/batch-a-browser-question-router.js
+            site/modules/curriculum/batch-a/batch-a-browser-validator-p03f6.js
+            site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f6-extension.js
+            site/modules/curriculum/batch-a/same-denominator-fraction-compare-runtime.js
+            site/modules/curriculum/batch-a/source-units.js
+            site/pixel/pixel-registry-bridge.js
+            src/curriculum/full-product/p03f-slice003-product-admission.mjs
+            src/curriculum/full-product/p03f-slice006-product-admission.mjs
+            tools/curriculum/validate-p03f-slice003-product-admission.mjs
+            tools/curriculum/validate-p03f-slice006-product-admission.mjs
+            tools/curriculum/render-p03f-slice003-product-acceptance.mjs
+            tools/curriculum/render-p03f-slice006-product-acceptance.mjs
+            tests/curriculum/p03f-slice003-quotient-fraction.test.js
+            tests/curriculum/p03f-slice006-same-denominator-compare.test.js
+            .github/workflows/p03f6-slice006-product-acceptance.yml
+          )
+          for f in "${FILES[@]}"; do
+            test -f "$f"
+            mkdir -p "$OUT/architecture/$(dirname "$f")"
+            cp "$f" "$OUT/architecture/$f"
+          done
+          printf 'matched_file_count=%s\narchitecture_file_count=%s\n' "$(wc -l < "$OUT/matched-files.txt")" "${#FILES[@]}" > "$OUT/summary.txt"
           cat "$OUT/queue-position-007.json" >> "$OUT/summary.txt"
       - name: Upload authority diagnostic
         uses: actions/upload-artifact@v4
