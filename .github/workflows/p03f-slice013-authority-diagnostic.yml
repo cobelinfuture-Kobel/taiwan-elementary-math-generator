@@ -15,20 +15,44 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-      - name: Locate exact W02 authority
+      - name: Extract exact W02 authority objects
         shell: bash
         run: |
           set -euxo pipefail
           mkdir -p tmp/p03f-slice013-authority-diagnostic
-          grep -R -n -C 12 --exclude-dir=.git \
-            -e 'kp_g5a_u04_quotient_as_fraction_context' \
-            -e 'ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application' \
-            -e 'w02_bind_ps_g5a_u04_quotient_as_fraction_context' \
-            data src site docs tools tests \
-            > tmp/p03f-slice013-authority-diagnostic/matches.txt || true
-          find data/curriculum/application -type f -print \
-            > tmp/p03f-slice013-authority-diagnostic/application-files.txt
-          test -s tmp/p03f-slice013-authority-diagnostic/matches.txt
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const target = 'ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application';
+          const files = [
+            'docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_PACKAGE.json',
+            'docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json',
+            'data/curriculum/application/assessment/w02-atomic-context-single-application-candidate-pack-index.json',
+          ];
+          const results = [];
+          function walk(value, location, sourceFile) {
+            if (!value || typeof value !== 'object') return;
+            if (value.patternSpecId === target
+              || value.applicationPatternSpecId === target
+              || value.generatedItemId === `shared_generated_${target}`
+              || String(value.bindingCandidateId ?? '').includes('g5a_u04_quotient_as_fraction_context')) {
+              results.push({ sourceFile, location, value });
+            }
+            if (Array.isArray(value)) {
+              value.forEach((child, index) => walk(child, `${location}[${index}]`, sourceFile));
+            } else {
+              for (const [key, child] of Object.entries(value)) walk(child, `${location}.${key}`, sourceFile);
+            }
+          }
+          for (const sourceFile of files) {
+            const value = JSON.parse(fs.readFileSync(sourceFile, 'utf8'));
+            walk(value, '$', sourceFile);
+          }
+          fs.writeFileSync(
+            'tmp/p03f-slice013-authority-diagnostic/extracted.json',
+            `${JSON.stringify({ target, count: results.length, results }, null, 2)}\n`,
+          );
+          if (results.length === 0) process.exitCode = 1;
+          NODE
       - uses: actions/upload-artifact@v4
         with:
           name: p03f-slice013-authority-diagnostic
