@@ -111,7 +111,7 @@ test("P03F4 historical selector snapshot exposes only one G3B-U09 KP", () => {
 
 test("P03F4 current Pixel retains 24 sources and includes later slice009 G3B-U09 KP", () => {
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 23);
+  assert.equal(sources.length, 24);
   const source = sources.find((row) => row.sourceId === G3B_U09_SOURCE_ID);
   assert.ok(source);
   assert.equal(source.visibleKnowledgePointCount, 4);
