@@ -1,0 +1,123 @@
+{
+  "schemaName": "P03FSlice006ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice006Implementation",
+  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  "sourceId": "g3a_u08_3a08",
+  "knowledgePointIds": [
+    "kp_g3a_u08_same_denominator_compare"
+  ],
+  "modes": {
+    "numeric": {
+      "htmlPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-numeric.html",
+      "pdfPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-numeric.pdf",
+      "questionCount": 6,
+      "answerKeyItemCount": 6,
+      "questionPageCount": 1,
+      "answerKeyPageCount": 1,
+      "physicalPdfPageCount": 2,
+      "patternSpecIds": [
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric"
+      ],
+      "relationCoverage": [
+        "<",
+        "=",
+        ">"
+      ],
+      "comparisonTargetCoverage": [
+        "one",
+        "pair"
+      ],
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "semanticScopeFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ]
+    },
+    "application": {
+      "htmlPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-application.html",
+      "pdfPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-application.pdf",
+      "questionCount": 6,
+      "answerKeyItemCount": 6,
+      "questionPageCount": 1,
+      "answerKeyPageCount": 1,
+      "physicalPdfPageCount": 2,
+      "patternSpecIds": [
+        "ps_g3a_u08_same_denominator_compare_comparison_application"
+      ],
+      "relationCoverage": [
+        "<",
+        "=",
+        ">"
+      ],
+      "comparisonTargetCoverage": [
+        "one",
+        "pair"
+      ],
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "semanticScopeFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ]
+    }
+  },
+  "totalQuestionCount": 12,
+  "totalAnswerKeyItemCount": 12,
+  "totalPhysicalPdfPageCount": 4,
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "semanticScopeFindingCount": 0,
+  "visualReview": {
+    "status": "PENDING",
+    "numericReviewed": false,
+    "applicationReviewed": false,
+    "answerKeysReviewed": false,
+    "clippedTextFindingCount": null,
+    "overlapFindingCount": null,
+    "brokenGlyphFindingCount": null,
+    "semanticScopeFindingCount": null
+  }
+}
