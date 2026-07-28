@@ -1,26 +1,23 @@
-name: P03F6 Slice006 Artifact Materializer
+name: P03F6 Slice006 Product Acceptance
 
 on:
   pull_request:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: p03f6-artifact-materialize-${{ github.event.pull_request.number }}
-  cancel-in-progress: false
+  group: p03f6-slice006-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  materialize:
+  chromium:
     if: github.head_ref == 'p03f-w3-direct-product-vertical-slice006-v1'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout implementation branch
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: p03f-w3-direct-product-vertical-slice006-v1
-          fetch-depth: 1
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -30,21 +27,15 @@ jobs:
           npm install
           npm install --no-save --package-lock=false playwright@1.51.1
           npx playwright install --with-deps chromium
-      - name: Render exact slice006 artifacts
-        run: |
-          node tools/curriculum/validate-p03f-slice006-product-admission.mjs
-          node tools/curriculum/render-p03f-slice006-product-acceptance.mjs
-          mkdir -p docs/curriculum/output/p03f-slice006-product-admission
-          cp tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-numeric.html docs/curriculum/output/p03f-slice006-product-admission/
-          cp tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-numeric.pdf docs/curriculum/output/p03f-slice006-product-admission/
-          cp tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-application.html docs/curriculum/output/p03f-slice006-product-admission/
-          cp tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-application.pdf docs/curriculum/output/p03f-slice006-product-admission/
-          cp tmp/p03f-slice006-product-acceptance/p03f-slice006-product-acceptance-report.json docs/curriculum/output/p03f-slice006-product-admission/
-      - name: Commit materialized artifacts only
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/curriculum/output/p03f-slice006-product-admission
-          git commit -m "chore(p03f6): materialize reviewed HTML PDF artifacts"
-          git push origin HEAD:p03f-w3-direct-product-vertical-slice006-v1
+      - name: Validate slice006 product admission
+        run: node tools/curriculum/validate-p03f-slice006-product-admission.mjs
+      - name: Render slice006 Chromium acceptance
+        run: node tools/curriculum/render-p03f-slice006-product-acceptance.mjs
+      - name: Upload slice006 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice006-product-acceptance
+          path: tmp/p03f-slice006-product-acceptance
+          if-no-files-found: warn
+          retention-days: 30
