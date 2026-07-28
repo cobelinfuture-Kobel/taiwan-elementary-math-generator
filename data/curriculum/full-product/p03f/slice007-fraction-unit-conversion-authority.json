@@ -1,0 +1,93 @@
+{
+  "schemaName": "P03FSlice007FractionUnitConversionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice007Implementation",
+  "status": "SLICE007_AUTHORITY_BOUND",
+  "queue": {
+    "queuePosition": 7,
+    "sliceId": "p03e_q007_r6_g3b_u07_3b07_profile_fraction_c1",
+    "predecessorSliceId": "p03e_q006_r6_g3a_u08_3a08_profile_fraction_c1",
+    "sourceNodeId": "g3b_u07_3b07",
+    "knowledgePointId": "kp_g3b_u07_fraction_unit_conversion",
+    "runtimeProfileId": "profile_fraction",
+    "requiredW3CapabilityIds": [
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "sourceEvidence": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g3b_u07_3b07.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g3b_u07_3b07.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g3b_u07_3b07.hidden-pattern-spec.json",
+    "evidencePages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g3b_u07_fraction_unit_conversion",
+    "name": "單位分數與離散單位換算",
+    "scope": "依每大單位含有的個數，在分數單位與個數間換算。",
+    "applicationClassification": "APPLICATION_REQUIRED",
+    "tagIds": [
+      "fraction",
+      "unit_fraction",
+      "discrete_quantity",
+      "unit_conversion",
+      "items_per_whole",
+      "role_preserving",
+      "bidirectional_conversion",
+      "g3b_u07_3b07"
+    ]
+  },
+  "formalMapping": {
+    "operationModelId": "op_g3b_u07_fraction_unit_conversion",
+    "operationFamilyId": "discrete_fraction_conversion",
+    "canonicalExpressions": [
+      "itemCount = wholeUnits * itemsPerWhole + numerator * itemsPerWhole / denominator",
+      "fractionalUnits = itemCount / itemsPerWhole"
+    ],
+    "unknownRoles": [
+      "itemCount",
+      "fractionalUnits"
+    ],
+    "validationInvariants": [
+      "both directions preserve total quantity",
+      "unit roles are not interchangeable"
+    ]
+  },
+  "patternContract": {
+    "patternGroupIds": [
+      "pg_g3b_u07_fraction_unit_conversion_numeric",
+      "pg_g3b_u07_fraction_unit_conversion_application"
+    ],
+    "numericPatternSpecIds": [
+      "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+      "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric"
+    ],
+    "applicationPatternSpecIds": [
+      "ps_g3b_u07_fraction_unit_conversion_item_count_application",
+      "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
+    ],
+    "numericApplicationSeparated": true
+  },
+  "applicationAuthority": {
+    "bindingCount": 2,
+    "contextLineage": {
+      "macroContextId": "gctx_macro_school_learning",
+      "mesoSituationId": "gctx_meso_classroom_activity",
+      "microScenarioId": "gctx_micro_classroom_shared_resources",
+      "atomicEpisodeId": "gctx_episode_classroom_shared_resources_direct_quantity",
+      "surfaceTemplateId": "tpl_fusion_classroom_activity_direct_01"
+    },
+    "rolePolicy": "盒裝／每盒個數／分數盒數角色必須保留"
+  },
+  "boundary": {
+    "newSourceAdmission": false,
+    "otherKnowledgePointsAdmitted": false,
+    "parallelPipelineAllowed": false,
+    "slice008Started": false
+  }
+}

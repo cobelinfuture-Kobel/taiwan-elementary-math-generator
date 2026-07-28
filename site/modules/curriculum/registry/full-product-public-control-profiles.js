@@ -38,11 +38,18 @@ const currentG3AU08Profile = Object.freeze({
   contextControl: Object.freeze({ supported: true, partial: false, defaultValue: "global_primary", options: Object.freeze([option("global_primary", "全域情境")]) }),
   compatibilityPolicy: "w3_slice006_four_kp_numeric_application_global_context", sdgSupported: false, genericFallback: false, freeFormAI: false,
 });
-const currentG3BU07Profile = Object.freeze({
+const historicalG3BU07Profile = Object.freeze({
   sourceId: "g3b_u07_3b07", task: "P03F_W3DirectProductVerticalSlice003Implementation",
   questionTypeControl: Object.freeze({ supported: true, partial: false, defaultValue: "numeric", options: Object.freeze([option("numeric", "數字題")]) }),
   reasoningDepthControl: unsupported, contextControl: unsupported,
   compatibilityPolicy: "w3_slice003_quotient_fraction_numeric_only", sdgSupported: false, genericFallback: false, freeFormAI: false,
+});
+const currentG3BU07Profile = Object.freeze({
+  sourceId: "g3b_u07_3b07", task: "P03F_W3DirectProductVerticalSlice007Implementation",
+  questionTypeControl: Object.freeze({ supported: true, partial: false, defaultValue: "numeric", options: Object.freeze([option("numeric", "數字題"), option("application", "應用題")]) }),
+  reasoningDepthControl: unsupported,
+  contextControl: Object.freeze({ supported: true, partial: false, defaultValue: "global_primary", options: Object.freeze([option("global_primary", "全域情境")]) }),
+  compatibilityPolicy: "w3_slice007_two_kp_numeric_application_role_preserving_context", sdgSupported: false, genericFallback: false, freeFormAI: false,
 });
 const currentG3BU09Profile = Object.freeze({
   sourceId: "g3b_u09_3b09", task: "P03F_W3DirectProductVerticalSlice004Implementation",
@@ -76,8 +83,9 @@ export function normalizeFullProductPublicControlValue(profile, controlName, val
 export function auditFullProductPublicControlProfiles(options = {}) {
   const historicalW3 = options.includeW3Slice001 === true
     && options.includeW3Slice002 !== true && options.includeW3Slice003 !== true
-    && options.includeW3Slice004 !== true && options.includeW3Slice005 !== true && options.includeW3Slice006 !== true;
-  const includeSlice6 = options.includeW3Slice006 === true;
+    && options.includeW3Slice004 !== true && options.includeW3Slice005 !== true && options.includeW3Slice006 !== true && options.includeW3Slice007 !== true;
+  const includeSlice7 = options.includeW3Slice007 === true;
+  const includeSlice6 = options.includeW3Slice006 === true || includeSlice7;
   const includeSlice5 = options.includeW3Slice005 === true || includeSlice6;
   const includeSlice4 = options.includeW3Slice004 === true || includeSlice5;
   const includeSlice3 = options.includeW3Slice003 === true || includeSlice4;
@@ -97,10 +105,10 @@ export function auditFullProductPublicControlProfiles(options = {}) {
   for (const sourceId of sourceIds) {
     const profile = historicalW3 && sourceId === "g3a_u08_3a08"
       ? getP03F1HistoricalFullProductPublicControlProfile(sourceId)
-      : getFullProductPublicControlProfile(sourceId);
+      : (!includeSlice7 && sourceId === "g3b_u07_3b07" ? historicalG3BU07Profile : getFullProductPublicControlProfile(sourceId));
     const values = profile?.questionTypeControl?.options?.map((row) => row.value) ?? [];
     if (!values.includes("numeric")) errors.push(`NUMERIC_OPTION_MISSING:${sourceId}`);
-    const numericOnly = ["g3b_u07_3b07", "g3b_u09_3b09", "g4b_u08_4b08"].includes(sourceId);
+    const numericOnly = ["g3b_u09_3b09", "g4b_u08_4b08"].includes(sourceId) || (sourceId === "g3b_u07_3b07" && !includeSlice7);
     const applicationExpected = numericOnly ? false : sourceId === "g3a_u08_3a08" ? !historicalW3 : true;
     if (values.includes("application") !== applicationExpected) errors.push(`APPLICATION_ELIGIBILITY_MISMATCH:${sourceId}`);
     if (values.includes("pbl") !== FULL_PRODUCT_PBL_SOURCE_IDS.has(sourceId)) errors.push(`PBL_ELIGIBILITY_MISMATCH:${sourceId}`);
@@ -114,6 +122,7 @@ export function auditFullProductPublicControlProfiles(options = {}) {
     w3Slice004ProfileCount: includeSlice4 ? 1 : 0,
     w3Slice005ProfileCount: includeSlice5 ? 1 : 0,
     w3Slice006ProfileCount: includeSlice6 ? 1 : 0,
+    w3Slice007ProfileCount: includeSlice7 ? 1 : 0,
     pblProfileCount: [...FULL_PRODUCT_PBL_SOURCE_IDS].length,
   });
 }
