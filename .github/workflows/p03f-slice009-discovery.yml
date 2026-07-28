@@ -1,4 +1,4 @@
-name: P03F9 Slice009 Authority Discovery
+name: P03F9 Slice009 Product Acceptance
 
 on:
   pull_request:
@@ -7,40 +7,38 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: p03f9-slice009-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  discovery:
+  chromium:
     if: github.head_ref == 'p03f-w3-direct-product-vertical-slice009-v1'
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.1-noble
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-      - name: Materialize exact queue and source authority
+      - name: Install project dependencies
         run: |
-          mkdir -p tmp/p03f-slice009-discovery
-          node tools/curriculum/diagnose-p03f-slice009-authority.mjs | tee tmp/p03f-slice009-discovery/authority.log
-      - name: Trace current P03F8 consumer imports
+          npm install
+          npm install --no-save --package-lock=false playwright@1.51.1
+      - name: Validate slice009 product admission
         shell: bash
         run: |
-          {
-            echo '=== p03f8 worksheet extension references ==='
-            grep -R -n --exclude-dir=.git 'batch-a-browser-worksheet-p03f8-extension' . || true
-            echo '=== requestsP03F8DecimalSlice references ==='
-            grep -R -n --exclude-dir=.git 'requestsP03F8DecimalSlice' . || true
-            echo '=== p03f8 generator references ==='
-            grep -R -n --exclude-dir=.git 'batch-a-browser-generator-p03f8' . || true
-            echo '=== p03f8 validator references ==='
-            grep -R -n --exclude-dir=.git 'batch-a-browser-validator-p03f8' . || true
-            echo '=== p03f8 selector references ==='
-            grep -R -n --exclude-dir=.git 'batch-a-selector-p03f8-extension' . || true
-          } | tee tmp/p03f-slice009-discovery/consumer-trace.log
-      - name: Upload bounded discovery evidence
+          set -o pipefail
+          mkdir -p tmp/p03f-slice009-product-acceptance
+          node tools/curriculum/validate-p03f-slice009-product-admission.mjs 2>&1 | tee tmp/p03f-slice009-product-acceptance/validator.log
+      - name: Render slice009 Chromium acceptance
+        run: node tools/curriculum/render-p03f-slice009-product-acceptance.mjs
+      - name: Upload slice009 product artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: p03f-slice009-authority-discovery
-          path: tmp/p03f-slice009-discovery
-          if-no-files-found: error
+          name: p03f-slice009-product-acceptance
+          path: tmp/p03f-slice009-product-acceptance
+          if-no-files-found: warn
           retention-days: 30
