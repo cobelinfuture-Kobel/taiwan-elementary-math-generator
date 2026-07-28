@@ -1,6 +1,6 @@
 export * from "./batch-a-browser-question-router-pre-p01d1.js";
 
-import { buildBatchABrowserPlan } from "./batch-a-browser-generator.js";
+import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f5.js";
 import { generateBatchABrowserQuestions as generatePreP01D1Questions } from "./batch-a-browser-question-router-pre-p01d1.js";
 import { canGenerateG5BU05LargeNumberQuestions, generateG5BU05LargeNumberQuestions } from "./large-number-place-value-runtime.js";
 import { canGenerateG6AU01NumberTheoryQuestions, generateG6AU01NumberTheoryQuestions } from "./number-theory-runtime.js";
@@ -9,9 +9,11 @@ import { canGenerateG3AU08PartWholeFractionQuestions, generateG3AU08PartWholeFra
 import { canGenerateG3AU08Slice002Questions, generateG3AU08Slice002Questions } from "./slice002-fraction-runtime.js";
 import { canGenerateG3BU07QuotientFractionQuestions, generateG3BU07QuotientFractionQuestions } from "./quotient-fraction-runtime.js";
 import { canGenerateG3BU09TenthDecimalQuestions, generateG3BU09TenthDecimalQuestions } from "./tenth-decimal-runtime.js";
+import { canGenerateG4BU08EquivalentFractionQuestions, generateG4BU08EquivalentFractionQuestions } from "./equivalent-fraction-runtime.js";
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateG4BU08EquivalentFractionQuestions(plan)) return generateG4BU08EquivalentFractionQuestions(options);
   if (canGenerateG3BU09TenthDecimalQuestions(plan)) return generateG3BU09TenthDecimalQuestions(options);
   if (canGenerateG3BU07QuotientFractionQuestions(plan)) return generateG3BU07QuotientFractionQuestions(options);
   if (canGenerateG3AU08Slice002Questions(plan)) return generateG3AU08Slice002Questions(options);

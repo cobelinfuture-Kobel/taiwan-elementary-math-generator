@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice005Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W3_SLICE005_RUNTIME_CONNECTED_PENDING_PRODUCTION_OUTPUT_VERIFICATION",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g4b-u08-equivalent-fraction-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f5-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f5-extension.js",
+      "site/modules/curriculum/batch-a/equivalent-fraction-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f5.js",
+      "src/curriculum/full-product/p03f-slice005-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice005-product-admission.mjs",
+      "tests/curriculum/p03f-slice005-equivalent-fraction.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice005-product-acceptance.mjs",
+      ".github/workflows/node-test.yml"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice005-equivalent-fraction-authority.json",
+      "data/curriculum/full-product/p03f/slice005-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE005_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE005_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Queue position 5 now has source-backed equivalent-fraction runtime integration through the exact fraction number-system, domain-validator and arithmetic capability set; production-equivalent HTML/PDF verification and D0 admission remain unclaimed."
+  },
+  "nextStep": {
+    "taskId": "P03F5_ChromiumArtifactMaterializationVisualReviewAndD0Closeout",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": null,
+    "implementationHeadSha": null,
+    "implementationMergeSha": null,
+    "implementationMergedAt": null,
+    "preD0HeadSha": null,
+    "preD0NodeWorkflowRunId": null,
+    "preD0ChromiumArtifactId": null,
+    "artifactMaterializationCommitSha": null,
+    "artifactMaterializationWorkflowRunId": null,
+    "artifactMaterializationArtifactId": null,
+    "finalNodeWorkflowRunId": null,
+    "finalNodeWorkflowHeadSha": null,
+    "finalChromiumArtifactId": null,
+    "nodeTestsPassed": null,
+    "nodeTestsFailed": null,
+    "visualReviewPassed": false,
+    "finalExactHeadAccepted": false
+  }
+}
