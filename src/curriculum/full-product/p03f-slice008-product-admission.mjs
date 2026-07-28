@@ -8,19 +8,9 @@ import { materializeP03B2DecimalNumberSystemConsumer } from "./p03b2-decimal-num
 import { materializeP03B4DecimalDomainValidator } from "./p03b4-decimal-domain-validator.mjs";
 import { buildWorksheetDocumentFromPlan } from "../../../site/assets/browser/pipeline/build-worksheet-document.js";
 import { renderWorksheetDocumentToHtml } from "../../../site/modules/renderer/html-renderer.js";
-import {
-  G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID,
-  G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_PATTERN_GROUP_ID,
-  G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_PATTERN_SPEC_ID,
-  G3B_U09_SOURCE_ID,
-  auditG3BU09DecimalComposeDecomposeSelectorProjection,
-} from "../../../site/modules/curriculum/registry/g3b-u09-decimal-compose-decompose-selector-projection.js";
-import {
-  auditP03F8PublicSelectorComposition,
-  getVisibleBatchAKnowledgePoint,
-  getVisiblePatternGroupsForKnowledgePoint,
-  listBatchAKnowledgePointAvailabilityBySource,
-} from "../../../site/modules/curriculum/registry/batch-a-selector-p03f8-extension.js";
+import { G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID, G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_PATTERN_GROUP_ID, G3B_U09_SOURCE_ID, auditG3BU09DecimalComposeDecomposeSelectorProjection } from "../../../site/modules/curriculum/registry/g3b-u09-decimal-compose-decompose-selector-projection.js";
+import { G3B_U09_DECIMAL_READ_WRITE_KP_ID, G3B_U09_DECIMAL_READ_WRITE_PATTERN_GROUP_ID, auditG3BU09DecimalReadWriteSelectorProjection } from "../../../site/modules/curriculum/registry/g3b-u09-decimal-read-write-selector-projection.js";
+import { auditP03F8PublicSelectorComposition, getVisibleBatchAKnowledgePoint, getVisiblePatternGroupsForKnowledgePoint, listBatchAKnowledgePointAvailabilityBySource } from "../../../site/modules/curriculum/registry/batch-a-selector-p03f8-extension.js";
 import { validateP03F8PatternDefinition } from "../../../site/modules/curriculum/batch-a/source-pattern-full-product-p03f8-extension.js";
 import { buildBatchABrowserPlan } from "../../../site/modules/curriculum/batch-a/batch-a-browser-generator-p03f8.js";
 import { generateBatchABrowserQuestions } from "../../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
@@ -33,26 +23,13 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../.
 const DATA_DIR = path.join(ROOT, "data/curriculum/full-product/p03f");
 const PREDECESSOR_READBACK = "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_READBACK.md";
 export const P03F_SLICE008_PRODUCT_ADMISSION_VERSION = "p03f-slice008-product-admission-v1";
-
 const readJson = (fileName) => JSON.parse(fs.readFileSync(path.join(DATA_DIR, fileName), "utf8"));
 const readRepoJson = (repoPath) => JSON.parse(fs.readFileSync(path.join(ROOT, repoPath), "utf8"));
 const sha256File = (repoPath) => crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, repoPath))).digest("hex");
 const freezeArray = (values) => Object.freeze([...(values ?? [])]);
 
 function requestedPlan() {
-  return Object.freeze({
-    sourceId: G3B_U09_SOURCE_ID,
-    selectionMode: "singleKnowledgePoint",
-    selectedKnowledgePointIds: Object.freeze([G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID]),
-    selectedPatternGroupIds: Object.freeze([G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_PATTERN_GROUP_ID]),
-    questionMode: "numeric",
-    questionCount: 8,
-    ordering: "groupedByPattern",
-    includeAnswerKey: true,
-    generationSeed: "p03f-slice008-decimal-compose-decompose-d0",
-    title: "三年級｜個位與十分位組成分解",
-    printLayout: Object.freeze({ paperSize: "A4", columns: 2, rowsPerPage: 4, showQuestionNumbers: true, showAnswerKeyPage: true }),
-  });
+  return Object.freeze({ sourceId: G3B_U09_SOURCE_ID, selectionMode: "mixedKnowledgePoints", selectedKnowledgePointIds: Object.freeze([G3B_U09_DECIMAL_READ_WRITE_KP_ID, G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID]), selectedPatternGroupIds: Object.freeze([G3B_U09_DECIMAL_READ_WRITE_PATTERN_GROUP_ID, G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_PATTERN_GROUP_ID]), questionMode: "numeric", questionCount: 8, ordering: "groupedByPattern", includeAnswerKey: true, generationSeed: "p03f-slice008-decimal-read-write-compose-d0", title: "三年級｜一位小數讀寫與組成分解", printLayout: Object.freeze({ paperSize: "A4", columns: 2, rowsPerPage: 4, showQuestionNumbers: true, showAnswerKeyPage: true }) });
 }
 function renderProductionHtml(document) {
   if (!document) return "";
@@ -79,49 +56,17 @@ function artifactIntegrity(manifest) {
   if (!pathsExist) return Object.freeze({ ok: false, pathsExist: false, hashesMatch: false, reportAccepted: false, report: null });
   const report = readRepoJson(manifest.acceptanceReportPath);
   const actual = { html: sha256File(manifest.htmlArtifactPath), pdf: sha256File(manifest.pdfArtifactPath) };
-  const hashesMatch = actual.html === manifest.exactAcceptance.committedHtmlSha256
-    && actual.pdf === manifest.exactAcceptance.committedPdfSha256
-    && report.htmlSha256 === actual.html
-    && report.pdfSha256 === actual.pdf;
-  const reportAccepted = report.status === "PASS_VISUAL_AND_SEMANTIC_REVIEWED"
-    && String(report.visualReview?.status ?? "").startsWith("PASS")
-    && report.overflowFindingCount === 0
-    && report.duplicatePromptFindingCount === 0
-    && report.semanticScopeFindingCount === 0
-    && report.physicalPdfPageCount === 2
-    && report.questionCount === 8
-    && report.answerKeyItemCount === 8;
+  const hashesMatch = actual.html === manifest.exactAcceptance.committedHtmlSha256 && actual.pdf === manifest.exactAcceptance.committedPdfSha256 && report.htmlSha256 === actual.html && report.pdfSha256 === actual.pdf;
+  const reportAccepted = report.status === "PASS_VISUAL_AND_SEMANTIC_REVIEWED" && String(report.visualReview?.status ?? "").startsWith("PASS") && report.overflowFindingCount === 0 && report.duplicatePromptFindingCount === 0 && report.semanticScopeFindingCount === 0 && report.physicalPdfPageCount === 2 && report.questionCount === 8 && report.answerKeyItemCount === 8;
   return Object.freeze({ ok: pathsExist && hashesMatch && reportAccepted, pathsExist, hashesMatch, reportAccepted, report: Object.freeze(report), actual: Object.freeze(actual) });
 }
 function capabilityWitness(question, numberSystem, domainValidator) {
   const value = question.decimalValue;
+  const kpId = question.metadata.knowledgePointId;
   const valuePolicy = { allowedMagnitudeClasses: ["DECIMAL_FRACTION"], allowZero: false, maxCanonicalScale: 1, allowedCanonicalScales: [1] };
-  const numberResult = numberSystem.execute({
-    action: "NORMALIZE",
-    knowledgePointId: G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID,
-    sourceNodeId: G3B_U09_SOURCE_ID,
-    value,
-    assertedCapabilityId: "cap_decimal_number_system",
-  });
-  const domainResult = domainValidator.execute({
-    action: "VALIDATE_VALUE",
-    knowledgePointId: G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID,
-    sourceNodeId: G3B_U09_SOURCE_ID,
-    value,
-    valuePolicy,
-    assertedCapabilityId: "cap_decimal_domain_validator",
-  });
-  return Object.freeze({
-    questionId: question.id,
-    value,
-    expectedCoefficient: question.finalAnswer?.coefficient ?? null,
-    expectedScale: question.finalAnswer?.scale ?? null,
-    numberSystemOk: numberResult.ok,
-    canonicalValue: numberResult.result?.canonicalValue ?? null,
-    domainValidatorOk: domainResult.ok,
-    domainCanonicalValue: domainResult.result?.canonicalValue ?? null,
-    domainCanonicalIdentity: domainResult.result?.canonicalIdentity ?? null,
-  });
+  const numberResult = numberSystem.execute({ action: "NORMALIZE", knowledgePointId: kpId, sourceNodeId: G3B_U09_SOURCE_ID, value, assertedCapabilityId: "cap_decimal_number_system" });
+  const domainResult = domainValidator.execute({ action: "VALIDATE_VALUE", knowledgePointId: kpId, sourceNodeId: G3B_U09_SOURCE_ID, value, valuePolicy, assertedCapabilityId: "cap_decimal_domain_validator" });
+  return Object.freeze({ questionId: question.id, knowledgePointId: kpId, patternSpecId: question.patternSpecId, value, expectedCoefficient: question.finalAnswer?.coefficient ?? null, expectedScale: question.finalAnswer?.scale ?? null, numberSystemOk: numberResult.ok, canonicalValue: numberResult.result?.canonicalValue ?? null, domainValidatorOk: domainResult.ok, domainCanonicalValue: domainResult.result?.canonicalValue ?? null, domainCanonicalIdentity: domainResult.result?.canonicalIdentity ?? null });
 }
 
 export function materializeP03FSlice008ProductAdmission() {
@@ -130,11 +75,10 @@ export function materializeP03FSlice008ProductAdmission() {
   const queue = materializeP03EW3DirectProductVerticalSliceQueue();
   const slice = queue.queueEntries[7];
   const predecessorText = fs.readFileSync(path.join(ROOT, PREDECESSOR_READBACK), "utf8");
-  const predecessorPassed = predecessorText.includes("STATUS     = PASS_CI_SYNCED_AND_MERGED")
-    && predecessorText.includes("EVIDENCE   = E6_D0_COMPLETE");
+  const predecessorPassed = predecessorText.includes("STATUS     = PASS_CI_SYNCED_AND_MERGED") && predecessorText.includes("EVIDENCE   = E6_D0_COMPLETE");
   const numberSystem = materializeP03B2DecimalNumberSystemConsumer();
   const domainValidator = materializeP03B4DecimalDomainValidator();
-  const selectorProjectionAudit = auditG3BU09DecimalComposeDecomposeSelectorProjection();
+  const selectorProjectionAudits = Object.freeze([auditG3BU09DecimalReadWriteSelectorProjection(), auditG3BU09DecimalComposeDecomposeSelectorProjection()]);
   const selectorCompositionAudit = auditP03F8PublicSelectorComposition();
   const patternAudit = validateP03F8PatternDefinition();
   const controlAudit = auditFullProductPublicControlProfiles({ includeW3Slice008: true });
@@ -149,78 +93,14 @@ export function materializeP03FSlice008ProductAdmission() {
   const html = renderProductionHtml(document);
   const currentSources = listCurrentFullProductPublicSourceUnits();
   const publicSource = currentSources.find((row) => row.sourceId === G3B_U09_SOURCE_ID) ?? null;
-  const selectorRow = getVisibleBatchAKnowledgePoint(G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID);
-  const visibleGroups = getVisiblePatternGroupsForKnowledgePoint(G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID);
+  const selectorRows = [G3B_U09_DECIMAL_READ_WRITE_KP_ID, G3B_U09_DECIMAL_COMPOSE_DECOMPOSE_KP_ID].map((id) => getVisibleBatchAKnowledgePoint(id)).filter(Boolean);
+  const visibleGroups = selectorRows.flatMap((row) => getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId));
   const availability = listBatchAKnowledgePointAvailabilityBySource(G3B_U09_SOURCE_ID);
   const controlProfile = getFullProductPublicControlProfile(G3B_U09_SOURCE_ID);
   const pixelSnapshot = getCurrentPixelRegistrySnapshot();
   const pixelRows = listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID);
   const artifacts = artifactIntegrity(manifest);
   const d0Complete = artifacts.ok;
-  const metrics = Object.freeze({
-    queuePosition: slice?.queuePosition ?? null,
-    sourceNodeCount: 1,
-    knowledgePointCount: selectorRow ? 1 : 0,
-    tagBindingCount: authority.knowledgePoint.tagIds.length,
-    formalMappingCount: authority.formalMapping ? 1 : 0,
-    patternGroupCount: visibleGroups.length,
-    patternSpecCount: new Set(visibleGroups.flatMap((row) => row.patternSpecIds ?? [])).size,
-    numericPatternSpecCount: generation.allocation?.length ?? 0,
-    applicationPatternSpecCount: 0,
-    globalContextBindingCount: 0,
-    requiredCapabilityCount: slice?.requiredW3CapabilityIds?.length ?? 0,
-    publicSourceCountAfterAdmission: manifest.expectedCounts.publicSourceCountAfterAdmission,
-    currentPublicSourceCount: currentSources.length,
-    publicVisibleKnowledgePointCountForSource: availability?.visibleCount ?? 0,
-    questionWitnessCount: generation.questions?.length ?? 0,
-    answerKeyWitnessCount: document?.answerKeyItems?.length ?? 0,
-    htmlWitnessCount: Number(Boolean(html)),
-    chromiumPdfWitnessCount: d0Complete ? 1 : 0,
-    overflowFindingCount: artifacts.report?.overflowFindingCount ?? 0,
-    duplicatePromptFindingCount: artifacts.report?.duplicatePromptFindingCount ?? 0,
-    newProductAdmissionCount: d0Complete ? 1 : 0,
-    cumulativeW3ProductAdmissionCount: 8 + (d0Complete ? 1 : 0),
-    remainingDirectSliceCount: 46 - (d0Complete ? 1 : 0),
-    remainingDirectKnowledgePointCount: 74 - (d0Complete ? 1 : 0),
-    laterWaveDependentCount: queue.metrics.laterWaveDependentExcludedCount,
-  });
-  return Object.freeze({
-    schemaName: manifest.schemaName,
-    schemaVersion: manifest.schemaVersion,
-    programId: manifest.programId,
-    taskId: manifest.taskId,
-    status: manifest.status,
-    version: P03F_SLICE008_PRODUCT_ADMISSION_VERSION,
-    authority: Object.freeze(authority),
-    manifest: Object.freeze(manifest),
-    queueAuthority: queue,
-    slice,
-    predecessorPassed,
-    numberSystem,
-    domainValidator,
-    selectorProjectionAudit,
-    selectorCompositionAudit,
-    patternAudit,
-    controlAudit,
-    requestedPlan: plan,
-    browserPlan,
-    planValidation,
-    generation,
-    questionValidation,
-    capabilityWitnesses: freezeArray(capabilityWitnesses),
-    worksheet,
-    document,
-    html,
-    publicSource,
-    selectorRow: selectorRow ? Object.freeze(selectorRow) : null,
-    visibleGroups: freezeArray(visibleGroups),
-    availability: availability ? Object.freeze(availability) : null,
-    controlProfile: controlProfile ? Object.freeze(controlProfile) : null,
-    pixelSnapshot,
-    pixelRows: freezeArray(pixelRows),
-    artifactIntegrity: artifacts,
-    metrics,
-    productAdmissionState: d0Complete ? "PRODUCTION_ADMITTED_D0" : "PRODUCT_ACCEPTANCE_PENDING",
-    d0Complete,
-  });
+  const metrics = Object.freeze({ queuePosition: slice?.queuePosition ?? null, sourceNodeCount: 1, knowledgePointCount: selectorRows.length, tagBindingCount: authority.knowledgePoints.reduce((sum, row) => sum + row.tagIds.length, 0), formalMappingCount: authority.formalMappings.length, patternGroupCount: visibleGroups.length, patternSpecCount: new Set(visibleGroups.flatMap((row) => row.patternSpecIds ?? [])).size, numericPatternSpecCount: generation.allocation?.length ?? 0, applicationPatternSpecCount: 0, globalContextBindingCount: 0, requiredCapabilityCount: slice?.requiredW3CapabilityIds?.length ?? 0, publicSourceCountAfterAdmission: manifest.expectedCounts.publicSourceCountAfterAdmission, currentPublicSourceCount: currentSources.length, publicVisibleKnowledgePointCountForSource: availability?.visibleCount ?? 0, questionWitnessCount: generation.questions?.length ?? 0, answerKeyWitnessCount: document?.answerKeyItems?.length ?? 0, htmlWitnessCount: Number(Boolean(html)), chromiumPdfWitnessCount: d0Complete ? 1 : 0, overflowFindingCount: artifacts.report?.overflowFindingCount ?? 0, duplicatePromptFindingCount: artifacts.report?.duplicatePromptFindingCount ?? 0, newProductAdmissionCount: d0Complete ? 1 : 0, cumulativeW3ProductAdmissionCount: 8 + (d0Complete ? 1 : 0), remainingDirectSliceCount: 46 - (d0Complete ? 1 : 0), remainingDirectKnowledgePointCount: 74 - (d0Complete ? 2 : 0), laterWaveDependentCount: queue.metrics.laterWaveDependentExcludedCount });
+  return Object.freeze({ schemaName: manifest.schemaName, schemaVersion: manifest.schemaVersion, programId: manifest.programId, taskId: manifest.taskId, status: manifest.status, version: P03F_SLICE008_PRODUCT_ADMISSION_VERSION, authority: Object.freeze(authority), manifest: Object.freeze(manifest), queueAuthority: queue, slice, predecessorPassed, numberSystem, domainValidator, selectorProjectionAudits, selectorCompositionAudit, patternAudit, controlAudit, requestedPlan: plan, browserPlan, planValidation, generation, questionValidation, capabilityWitnesses: freezeArray(capabilityWitnesses), worksheet, document, html, publicSource, selectorRows: freezeArray(selectorRows), visibleGroups: freezeArray(visibleGroups), availability: availability ? Object.freeze(availability) : null, controlProfile: controlProfile ? Object.freeze(controlProfile) : null, pixelSnapshot, pixelRows: freezeArray(pixelRows), artifactIntegrity: artifacts, metrics, productAdmissionState: d0Complete ? "PRODUCTION_ADMITTED_D0" : "PRODUCT_ACCEPTANCE_PENDING", d0Complete });
 }
