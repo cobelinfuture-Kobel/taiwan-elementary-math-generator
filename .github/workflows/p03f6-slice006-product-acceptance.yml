@@ -24,7 +24,7 @@ jobs:
           node --input-type=module <<'NODE'
           import { listP03EW3DirectProductVerticalSlices } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
           import { getP03CW3DownstreamUnblockRow } from './src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs';
-          import { materializeR05DeliveryWaveRebase } from './src/curriculum/full-product/global/r05-delivery-wave-rebase.mjs';
+          import { materializeR05DeliveryWaveRebase } from './src/curriculum/global/r05-delivery-wave-rebase.mjs';
           const slice = listP03EW3DirectProductVerticalSlices().find((row) => row.queuePosition === 6);
           if (!slice) throw new Error('P03F6_QUEUE_ENTRY_MISSING');
           const kpId = slice.knowledgePointIds[0];
