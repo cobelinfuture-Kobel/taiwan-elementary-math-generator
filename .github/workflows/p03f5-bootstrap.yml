@@ -1,0 +1,36 @@
+name: P03F5 Bootstrap
+
+on:
+  push:
+    branches:
+      - p03f-w3-direct-product-vertical-slice005-v1
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p03f5-bootstrap
+  cancel-in-progress: false
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout implementation branch
+        uses: actions/checkout@v4
+        with:
+          ref: p03f-w3-direct-product-vertical-slice005-v1
+          fetch-depth: 0
+
+      - name: Materialize exact implementation tree
+        shell: bash
+        run: |
+          cat tmp/p03f5-bootstrap/payload.* | base64 -d > /tmp/p03f5.tar.gz
+          tar -xzf /tmp/p03f5.tar.gz
+          rm -rf tmp/p03f5-bootstrap
+          rm -f .github/workflows/p03f5-bootstrap.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(p03f5): implement W3 direct-product slice005"
+          git push origin HEAD:p03f-w3-direct-product-vertical-slice005-v1
