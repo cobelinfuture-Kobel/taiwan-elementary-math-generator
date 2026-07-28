@@ -41,6 +41,7 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `needed=${manifest.status === 'SLICE011_RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE'}\n`);
           NODE
       - name: Validate slice011 fail-closed or admitted state
+        shell: bash
         run: |
           set -o pipefail
           mkdir -p tmp/p03f-slice011-product-acceptance
