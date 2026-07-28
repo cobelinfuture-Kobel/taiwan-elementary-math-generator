@@ -70,7 +70,7 @@
     "finalChromiumArtifactId": null,
     "finalChromiumArtifactDigest": null,
     "finalExactHeadAccepted": false,
-    "implementationPrNumber": null,
+    "implementationPrNumber": 432,
     "implementationHeadSha": null,
     "implementationMergeSha": null,
     "implementationMergedAt": null
