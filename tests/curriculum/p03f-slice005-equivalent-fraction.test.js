@@ -111,16 +111,16 @@ test("P03F5 selector exposes only one G4B-U08 KP and three specs", () => {
   assert.equal(availability.hiddenPendingCount, 6);
 });
 
-test("P03F5 current Pixel exposes 23 sources and one G4B-U08 KP", () => {
+test("P03F5 current Pixel exposes 24 sources and one G4B-U08 KP", () => {
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 23);
+  assert.equal(sources.length, 24);
   const source = sources.find((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.ok(source);
   assert.equal(source.visibleKnowledgePointCount, 1);
   assert.equal(source.hiddenPendingCount, 6);
   assert.deepEqual(listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID).map((row) => row.knowledgePointId), [G4B_U08_EQUIVALENT_FRACTION_KP_ID]);
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 23);
+  assert.equal(snapshot.sourceCount, 24);
   assert.equal(snapshot.bySourceId[G4B_U08_SOURCE_ID].visibleKnowledgePoints.length, 1);
 });
 

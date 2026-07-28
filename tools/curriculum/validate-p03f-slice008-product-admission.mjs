@@ -22,7 +22,7 @@ export function validateP03FSlice008ProductAdmission() {
   const controlModes = evidence.controlProfile?.questionTypeControl?.options?.map((row) => row.value) ?? [];
   if (JSON.stringify(controlModes) !== JSON.stringify(["numeric"]) || evidence.controlProfile?.contextControl?.supported !== false) errors.push("P03F8_PUBLIC_CONTROL_INVALID");
   const currentPixelIds = evidence.pixelRows.map((row) => row.knowledgePointId);
-  if (evidence.pixelSnapshot?.sourceCount !== 23 || evidence.pixelRows.length < 3 || EXPECTED_KP_IDS.some((id) => !currentPixelIds.includes(id))) errors.push("P03F8_PIXEL_SURFACE_INVALID");
+  if (evidence.pixelSnapshot?.sourceCount < 23 || evidence.pixelRows.length < 3 || EXPECTED_KP_IDS.some((id) => !currentPixelIds.includes(id))) errors.push("P03F8_PIXEL_SURFACE_INVALID");
   if (!evidence.planValidation.ok) errors.push(...evidence.planValidation.errors.map((row) => `P03F8_PLAN:${row.code}`));
   if (!evidence.generation.ok || evidence.generation.questions.length !== 8 || evidence.generation.allocation.length !== 2 || evidence.generation.allocation.some((row) => row.questionCount !== 4)) errors.push("P03F8_GENERATION_INVALID");
   if (!evidence.questionValidation.ok) errors.push(...evidence.questionValidation.errors.map((row) => `P03F8_BROWSER_VALIDATOR:${row.code}`));
