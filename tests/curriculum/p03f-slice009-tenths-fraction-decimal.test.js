@@ -111,7 +111,8 @@ test("P03F9 aggregate fail-closes before review and admits exactly one KP after 
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.metrics.knowledgePointCount, 1);
   assert.equal(result.metrics.patternSpecCount, 1);
-  if (result.status.includes("PENDING_")) {
+  const preReviewPending = result.status.includes("PENDING_CHROMIUM_ACCEPTANCE") || result.status.includes("PENDING_VISUAL_REVIEW");
+  if (preReviewPending) {
     assert.equal(result.d0Complete, false);
     assert.equal(result.metrics.newProductAdmissionCount, 0);
     assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 10);
