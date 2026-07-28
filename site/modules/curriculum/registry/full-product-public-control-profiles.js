@@ -32,11 +32,11 @@ const historicalW3Profile = Object.freeze({
   compatibilityPolicy: "w3_slice001_numeric_only_application_not_applicable", sdgSupported: false, genericFallback: false, freeFormAI: false,
 });
 const currentG3AU08Profile = Object.freeze({
-  sourceId: "g3a_u08_3a08", task: "P03F_W3DirectProductVerticalSlice002Implementation",
+  sourceId: "g3a_u08_3a08", task: "P03F_W3DirectProductVerticalSlice006Implementation",
   questionTypeControl: Object.freeze({ supported: true, partial: false, defaultValue: "numeric", options: Object.freeze([option("numeric", "數字題"), option("application", "應用題")]) }),
   reasoningDepthControl: unsupported,
   contextControl: Object.freeze({ supported: true, partial: false, defaultValue: "global_primary", options: Object.freeze([option("global_primary", "全域情境")]) }),
-  compatibilityPolicy: "w3_slice002_numeric_application_global_context", sdgSupported: false, genericFallback: false, freeFormAI: false,
+  compatibilityPolicy: "w3_slice006_four_kp_numeric_application_global_context", sdgSupported: false, genericFallback: false, freeFormAI: false,
 });
 const currentG3BU07Profile = Object.freeze({
   sourceId: "g3b_u07_3b07", task: "P03F_W3DirectProductVerticalSlice003Implementation",
@@ -76,8 +76,9 @@ export function normalizeFullProductPublicControlValue(profile, controlName, val
 export function auditFullProductPublicControlProfiles(options = {}) {
   const historicalW3 = options.includeW3Slice001 === true
     && options.includeW3Slice002 !== true && options.includeW3Slice003 !== true
-    && options.includeW3Slice004 !== true && options.includeW3Slice005 !== true;
-  const includeSlice5 = options.includeW3Slice005 === true;
+    && options.includeW3Slice004 !== true && options.includeW3Slice005 !== true && options.includeW3Slice006 !== true;
+  const includeSlice6 = options.includeW3Slice006 === true;
+  const includeSlice5 = options.includeW3Slice005 === true || includeSlice6;
   const includeSlice4 = options.includeW3Slice004 === true || includeSlice5;
   const includeSlice3 = options.includeW3Slice003 === true || includeSlice4;
   const includeSlice2 = options.includeW3Slice002 === true || includeSlice3;
@@ -112,6 +113,7 @@ export function auditFullProductPublicControlProfiles(options = {}) {
     w3Slice003ProfileCount: includeSlice3 ? 1 : 0,
     w3Slice004ProfileCount: includeSlice4 ? 1 : 0,
     w3Slice005ProfileCount: includeSlice5 ? 1 : 0,
+    w3Slice006ProfileCount: includeSlice6 ? 1 : 0,
     pblProfileCount: [...FULL_PRODUCT_PBL_SOURCE_IDS].length,
   });
 }

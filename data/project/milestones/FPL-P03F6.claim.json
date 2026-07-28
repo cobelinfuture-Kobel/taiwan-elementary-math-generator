@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice006Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W3_SLICE006_RUNTIME_CONNECTED_PENDING_PRODUCTION_OUTPUT_VERIFICATION",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3a-u08-same-denominator-compare-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f6-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f6-extension.js",
+      "site/modules/curriculum/batch-a/same-denominator-fraction-compare-runtime.js",
+      "src/curriculum/full-product/p03f-slice006-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice006-product-admission.mjs",
+      "tests/curriculum/p03f-slice006-same-denominator-compare.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice006-product-acceptance.mjs"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE005_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice006-same-denominator-compare-authority.json",
+      "data/curriculum/full-product/p03f/slice006-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Queue position 6 now has source-backed same-denominator comparison runtime integration for separate numeric and W02-bound application paths; committed Chromium outputs and D0 admission remain pending."
+  },
+  "nextStep": {
+    "taskId": "P03F6_ChromiumArtifactMaterializationVisualReviewAndD0Closeout",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 419,
+    "implementationHeadSha": null,
+    "implementationMergeSha": null,
+    "implementationMergedAt": null,
+    "finalNodeWorkflowRunId": null,
+    "finalNodeWorkflowHeadSha": null,
+    "finalChromiumArtifactId": null,
+    "nodeTestsPassed": null,
+    "nodeTestsFailed": null,
+    "visualReviewPassed": false,
+    "finalExactHeadAccepted": false
+  }
+}

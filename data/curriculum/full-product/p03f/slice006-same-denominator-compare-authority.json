@@ -1,0 +1,95 @@
+{
+  "schemaName": "P03FSlice006SameDenominatorCompareAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice006Implementation",
+  "queueIdentity": {
+    "queuePosition": 6,
+    "sliceId": "p03e_q006_r6_g3a_u08_3a08_profile_fraction_c1",
+    "previousSliceId": "p03e_q005_r5_g4b_u08_4b08_profile_fraction_c1",
+    "sourceNodeId": "g3a_u08_3a08",
+    "knowledgePointIds": [
+      "kp_g3a_u08_same_denominator_compare"
+    ],
+    "requiredW3CapabilityIds": [
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "sourceEvidence": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g3a_u08_3a08.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g3a_u08_3a08.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g3a_u08_3a08.hidden-pattern-spec.json",
+    "contentIdentityGroup": "pdf_bd3671135092",
+    "page": 2,
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g3a_u08_same_denominator_compare",
+    "canonicalNameZh": "同分母分數比較",
+    "capabilityStatement": "學生能比較同分母分數及其與 1 的大小。",
+    "applicationClassification": "APPLICATION_COMPATIBLE",
+    "tagIds": [
+      "tag_fraction",
+      "tag_same_denominator",
+      "tag_fraction_compare",
+      "tag_compare_with_one",
+      "tag_relation_symbol",
+      "tag_numeric",
+      "tag_application",
+      "tag_global_context_w02"
+    ]
+  },
+  "formalMapping": {
+    "mappingId": "r04map_g3a_u08_same_denominator_compare",
+    "operationModelId": "op_g3a_u08_same_denominator_compare",
+    "operationFamilyId": "fraction_compare",
+    "canonicalExpression": "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)",
+    "requestedUnknownRole": "comparison",
+    "answerType": "comparison_symbol_or_order",
+    "samePositiveDenominatorRequired": true,
+    "compareWithOneRequired": true
+  },
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_numeric",
+      "patternGroupId": "pg_g3a_u08_same_denominator_compare_numeric",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "comparison"
+    },
+    {
+      "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
+      "patternGroupId": "pg_g3a_u08_same_denominator_compare_application",
+      "mode": "APPLICATION",
+      "requestedUnknownRole": "comparison"
+    }
+  ],
+  "applicationAuthority": {
+    "bindingCandidateId": "w02_bind_ps_g3a_u08_same_denominator_compare_comparison_application",
+    "itemCandidateId": "w02_item_ps_g3a_u08_same_denominator_compare_comparison_application",
+    "contextSelection": {
+      "macroContextId": "gctx_macro_school_learning",
+      "mesoSituationId": "gctx_meso_classroom_activity",
+      "microScenarioId": "gctx_micro_classroom_shared_resources",
+      "atomicEpisodeId": "gctx_episode_classroom_shared_resources_direct_quantity",
+      "surfaceTemplateId": "tpl_fusion_classroom_activity_direct_01"
+    },
+    "lineageAuthority": "src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs"
+  },
+  "scopeBoundary": {
+    "sameDenominatorOnly": true,
+    "comparisonSymbols": [
+      "<",
+      "=",
+      ">"
+    ],
+    "numericAndApplicationSeparated": true,
+    "otherHiddenKnowledgePointIds": [
+      "kp_g3a_u08_measurement_fraction",
+      "kp_g3a_u08_whole_as_fraction",
+      "kp_g3a_u08_unlike_denominator_comparison_limit"
+    ],
+    "slice007Started": false,
+    "parallelPipelineAdded": false
+  }
+}
