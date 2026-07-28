@@ -3,8 +3,8 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice011Implementation
-STATUS     = PASS_VISUAL_REVIEWED_D0_CANDIDATE_PENDING_EXACT_HEAD_CI
-EVIDENCE   = E5_D0_CANDIDATE
+STATUS     = PASS_CI_SYNCED_AND_MERGED
+EVIDENCE   = E6_D0_COMPLETE
 ```
 
 ## Queue identity
@@ -43,6 +43,25 @@ Global Context expansion = false
 Parallel pipeline = false
 ```
 
+## Exact evidence
+
+```text
+IMPLEMENTATION_PR = 428
+IMPLEMENTATION_HEAD_SHA = 17ca8a86b0a31b690ee0c3f6024bdad1987585c6
+IMPLEMENTATION_MERGE_SHA = 0c09defee80ecc52894f5eff4663524d012641be
+IMPLEMENTATION_MERGED_AT = 2026-07-28T16:46:15Z
+
+FULL_NODE_WORKFLOW_RUN_ID = 30379513551
+FULL_NODE_TESTS = 2558
+FULL_NODE_PASS = 2558
+FULL_NODE_FAIL = 0
+
+FINAL_CHROMIUM_WORKFLOW_RUN_ID = 30379513845
+FINAL_CHROMIUM_ARTIFACT_ID = 8696401165
+FINAL_CHROMIUM_ARTIFACT_DIGEST = sha256:a300cde0206008785f8d5a4ff39503b6411da43e039dafb2a4625d327dfaefe3
+FINAL_EXACT_HEAD_ACCEPTED = true
+```
+
 ## Reviewed artifacts
 
 ```text
@@ -74,16 +93,14 @@ Overflow findings = 0
 Duplicate prompt findings = 0
 ```
 
-## Fail-close state
+## Final closeout
 
 ```text
-Full Node regression = pending exact-head run
-Slice011 Chromium acceptance = pending exact-head run
-Required CI = pending
-PR merge = pending
-Post-merge E6 closeout = pending
-Production admission candidate = true
-Final exact-head accepted = false
+Production admission = true
+D0 complete = true
+Required CI = PASS
+Implementation PR merged = true
+Post-merge E6 closeout = complete
 queuePositionConsumed = 11
 cumulativeW3Admissions = 13
 remainingW3Slices = 42
@@ -93,10 +110,17 @@ remainingDirectW3KPs = 69
 ## Distance
 
 ```text
+COMPLETED_SLICE = P03F_W3DirectProductVerticalSlice011Implementation
+COMPLETED_QUEUE_POSITION = 11
+KNOWLEDGE_POINTS_ADMITTED = [kp_g4b_u06_one_decimal_times_integer]
+CUMULATIVE_W3_ADMISSIONS = 13
+REMAINING_W3_SLICES = 42
+REMAINING_DIRECT_W3_KPS = 69
+
 GOAL_DISTANCE_BEFORE = D1_SLICE010_E6_D0_COMPLETE
-GOAL_DISTANCE_AFTER  = D1_SLICE011_REVIEWED_D0_CANDIDATE
-DISTANCE_REDUCED     = Slice011 now has reviewed numeric/application HTML and Chromium PDF artifacts, exact hashes, four-page parity, three decimal capability witnesses and formal public product admission candidate state.
-REMAINING_BLOCKERS   = [EXACT_HEAD_FULL_REGRESSION, EXACT_HEAD_CHROMIUM_ACCEPTANCE, REQUIRED_CI, PR_MERGE, POST_MERGE_E6_CLOSEOUT]
-NEXT_SHORTEST_STEP   = P03F11_ExactHeadCIAndMerge
+GOAL_DISTANCE_AFTER  = D1_SLICE011_E6_D0_COMPLETE
+DISTANCE_REDUCED     = 一位小數乘整數已成為正式可選、可生成、可驗證、可輸出數字題與應用題、可列印HTML／Chromium PDF的W3產品能力。
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice012Implementation
 STOP_REASON          = NONE
 ```
