@@ -1,0 +1,38 @@
+name: P03F6 Slice006 Authority Diagnostic
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostic:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice006-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Read frozen queue and runtime authority
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { listP03EW3DirectProductVerticalSlices } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
+          import { getP03CW3DownstreamUnblockRow } from './src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs';
+          import { materializeR05DeliveryWaveRebase } from './src/curriculum/full-product/global/r05-delivery-wave-rebase.mjs';
+          const slice = listP03EW3DirectProductVerticalSlices().find((row) => row.queuePosition === 6);
+          if (!slice) throw new Error('P03F6_QUEUE_ENTRY_MISSING');
+          const kpId = slice.knowledgePointIds[0];
+          const unblock = getP03CW3DownstreamUnblockRow(kpId);
+          const r05 = materializeR05DeliveryWaveRebase();
+          const assignment = r05.knowledgePointAssignments.find((row) => row.knowledgePointId === kpId) ?? null;
+          const knowledgePoint = r05.runtimeCapabilityMatrix.knowledgePoints.find((row) => row.knowledgePointId === kpId) ?? null;
+          const mapping = r05.runtimeCapabilityMatrix.knowledgePointMappings.find((row) => row.knowledgePointId === kpId) ?? null;
+          const sourceNodes = (r05.runtimeCapabilityMatrix.sourceNodes ?? []).filter((row) => slice.supportingSourceNodeIds.includes(row.sourceNodeId));
+          console.log('P03F6_AUTHORITY=' + JSON.stringify({ slice, unblock, assignment, knowledgePoint, mapping, sourceNodes }, null, 2));
+          NODE
