@@ -17,14 +17,23 @@ jobs:
           node-version: 24
       - name: Read frozen queue and W02 application authority
         run: |
+          mkdir -p tmp/p03f-slice011-authority-readback
           node --input-type=module <<'NODE'
+          import fs from 'node:fs';
           import { materializeP03EW3DirectProductVerticalSliceQueue } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
           import { materializeW02AtomicContextSingleApplicationCandidatePack } from './src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs';
           const queue = materializeP03EW3DirectProductVerticalSliceQueue();
           const slice = queue.queueEntries[10];
           const pack = materializeW02AtomicContextSingleApplicationCandidatePack({ root: process.cwd() });
           const candidate = pack.candidates.find((row) => row.patternSpecId === 'ps_g4b_u06_one_decimal_times_integer_product_application');
-          console.log(`P03F11_QUEUE=${JSON.stringify(slice)}`);
-          console.log(`P03F11_APPLICATION_CANDIDATE=${JSON.stringify(candidate)}`);
+          const output = { schemaName: 'P03F11AuthorityReadbackV1', slice, candidate };
+          fs.writeFileSync('tmp/p03f-slice011-authority-readback/readback.json', `${JSON.stringify(output, null, 2)}\n`);
           if (!candidate) process.exitCode = 1;
           NODE
+      - name: Upload structured authority readback
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice011-authority-readback
+          path: tmp/p03f-slice011-authority-readback/readback.json
+          if-no-files-found: error
+          retention-days: 7
