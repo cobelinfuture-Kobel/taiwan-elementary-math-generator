@@ -1,0 +1,119 @@
+{
+  "schemaName": "P03FSlice007ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice007Implementation",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "sourceId": "g3b_u07_3b07",
+  "knowledgePointIds": [
+    "kp_g3b_u07_fraction_unit_conversion"
+  ],
+  "modes": {
+    "numeric": {
+      "htmlPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice007-product-acceptance/g3b-u07-fraction-unit-conversion-numeric.html",
+      "pdfPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice007-product-acceptance/g3b-u07-fraction-unit-conversion-numeric.pdf",
+      "questionCount": 6,
+      "answerKeyItemCount": 6,
+      "questionPageCount": 1,
+      "answerKeyPageCount": 1,
+      "physicalPdfPageCount": 2,
+      "patternSpecIds": [
+        "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric"
+      ],
+      "unknownRoleCoverage": [
+        "fractionalUnits",
+        "itemCount"
+      ],
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "semanticScopeFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ]
+    },
+    "application": {
+      "htmlPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice007-product-acceptance/g3b-u07-fraction-unit-conversion-application.html",
+      "pdfPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice007-product-acceptance/g3b-u07-fraction-unit-conversion-application.pdf",
+      "questionCount": 6,
+      "answerKeyItemCount": 6,
+      "questionPageCount": 1,
+      "answerKeyPageCount": 1,
+      "physicalPdfPageCount": 2,
+      "patternSpecIds": [
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
+        "ps_g3b_u07_fraction_unit_conversion_item_count_application"
+      ],
+      "unknownRoleCoverage": [
+        "fractionalUnits",
+        "itemCount"
+      ],
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "semanticScopeFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ]
+    }
+  },
+  "totalQuestionCount": 12,
+  "totalAnswerKeyItemCount": 12,
+  "totalPhysicalPdfPageCount": 4,
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "semanticScopeFindingCount": 0,
+  "visualReview": {
+    "status": "PASS_MANUAL_RENDER_REVIEW",
+    "numericReviewed": true,
+    "applicationReviewed": true,
+    "answerKeysReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0,
+    "reviewBasis": "Four rendered A4 pages reviewed: numeric/application question and answer-key pages.",
+    "reviewedHeadSha": "0ada50a91df2b8eabf83e2026be263f5f0fe5d69",
+    "materializationWorkflowRunId": 30334405791
+  }
+}
