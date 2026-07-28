@@ -81,7 +81,7 @@ test("P03F8 binds both KPs to exact decimal capabilities", () => {
   }
 });
 
-test("P03F8 current Classic and Pixel expose three G3B-U09 KPs and leave four hidden", () => {
+test("P03F8 historical selector remains three KPs while current Pixel includes slice009", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((r) => r.sourceId === G3B_U09_SOURCE_ID);
   assert.equal(rows.length, 3);
   assert.ok(rows.some((r) => r.knowledgePointId === G3B_U09_DECIMAL_READ_WRITE_KP_ID));
@@ -89,7 +89,7 @@ test("P03F8 current Classic and Pixel expose three G3B-U09 KPs and leave four hi
   const availability = listBatchAKnowledgePointAvailabilityBySource(G3B_U09_SOURCE_ID);
   assert.equal(availability.visibleCount, 3);
   assert.equal(availability.hiddenPendingCount, 4);
-  assert.equal(listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).length, 3);
+  assert.equal(listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).length, 4);
   assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 23);
 });
 
@@ -102,20 +102,14 @@ test("P03F8 shared worksheet renders eight questions and answer keys on two page
   assert.equal(result.worksheetDocument.answerKeyPages.length, 1);
 });
 
-test("P03F8 aggregate fail-closes before artifacts and admits both KPs only after reviewed hashes", () => {
+test("P03F8 aggregate remains D0 after later current-surface expansion", () => {
   const result = validateP03FSlice008ProductAdmission();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.metrics.knowledgePointCount, 2);
   assert.equal(result.metrics.patternSpecCount, 2);
-  if (result.status.includes("PENDING_CHROMIUM_ACCEPTANCE")) {
-    assert.equal(result.d0Complete, false);
-    assert.equal(result.metrics.newProductAdmissionCount, 0);
-    assert.equal(result.metrics.remainingDirectKnowledgePointCount, 74);
-  } else {
-    assert.equal(result.d0Complete, true);
-    assert.equal(result.metrics.newProductAdmissionCount, 2);
-    assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 10);
-    assert.equal(result.metrics.remainingDirectSliceCount, 45);
-    assert.equal(result.metrics.remainingDirectKnowledgePointCount, 72);
-  }
+  assert.equal(result.d0Complete, true);
+  assert.equal(result.metrics.newProductAdmissionCount, 2);
+  assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 10);
+  assert.equal(result.metrics.remainingDirectSliceCount, 45);
+  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 72);
 });

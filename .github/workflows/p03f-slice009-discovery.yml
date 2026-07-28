@@ -1,0 +1,106 @@
+name: P03F9 Slice009 Product Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p03f9-slice009-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chromium:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice009-v1'
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.1-noble
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+      P03F9_SOURCE_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Checkout pull request head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - name: Install project dependencies
+        run: |
+          npm install
+          npm install --no-save --package-lock=false playwright@1.51.1
+      - name: Detect binary materialization state
+        id: materialization
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const manifest = JSON.parse(fs.readFileSync('data/curriculum/full-product/p03f/slice009-product-admission.manifest.json', 'utf8'));
+          const needsMaterialization = manifest.status === 'SLICE009_RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE';
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `needed=${needsMaterialization}\n`);
+          NODE
+      - name: Validate slice009 fail-closed or admitted state
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p tmp/p03f-slice009-product-acceptance
+          node tools/curriculum/validate-p03f-slice009-product-admission.mjs 2>&1 | tee tmp/p03f-slice009-product-acceptance/validator.log
+      - name: Render Chromium acceptance
+        run: node tools/curriculum/render-p03f-slice009-product-acceptance.mjs
+      - name: Materialize runner binary artifacts
+        if: steps.materialization.outputs.needed == 'true'
+        run: node tools/curriculum/materialize-p03f-slice009-runner-artifacts.mjs
+      - name: Export exact runner files as immutable Git blobs
+        if: steps.materialization.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+
+          const repo = process.env.GITHUB_REPOSITORY;
+          const files = [
+            'data/curriculum/full-product/p03f/slice009-product-admission.manifest.json',
+            'docs/curriculum/output/p03f-slice009-product-admission/g3b-u09-tenths-fraction-decimal.html',
+            'docs/curriculum/output/p03f-slice009-product-admission/g3b-u09-tenths-fraction-decimal.pdf',
+            'docs/curriculum/output/p03f-slice009-product-admission/p03f-slice009-product-acceptance-report.json',
+          ];
+          const blobs = {};
+          for (const repoPath of files) {
+            const content = fs.readFileSync(repoPath).toString('base64');
+            const response = await fetch(`https://api.github.com/repos/${repo}/git/blobs`, {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${process.env.GH_TOKEN}`,
+                Accept: 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ content, encoding: 'base64' }),
+            });
+            const payload = await response.json();
+            if (!response.ok || !payload.sha) {
+              throw new Error(`P03F9_GIT_BLOB_UPLOAD_FAILED:${repoPath}:${response.status}:${JSON.stringify(payload)}`);
+            }
+            blobs[repoPath] = payload.sha;
+          }
+          const output = {
+            schemaName: 'P03FSlice009RunnerGitBlobExportV1',
+            sourceHeadSha: process.env.P03F9_SOURCE_HEAD_SHA,
+            workflowRunId: Number(process.env.GITHUB_RUN_ID),
+            blobs,
+          };
+          const outputPath = path.join('tmp/p03f-slice009-product-acceptance', 'git-blob-shas.json');
+          fs.writeFileSync(outputPath, `${JSON.stringify(output, null, 2)}\n`);
+          console.log(`P03F9_RUNNER_GIT_BLOBS=${JSON.stringify(output)}`);
+          NODE
+      - name: Upload slice009 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice009-product-acceptance
+          path: tmp/p03f-slice009-product-acceptance
+          if-no-files-found: warn
+          retention-days: 30
