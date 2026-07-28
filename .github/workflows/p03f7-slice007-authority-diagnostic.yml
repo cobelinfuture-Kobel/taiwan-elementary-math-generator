@@ -29,9 +29,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          wc -c .p03f7-bootstrap/part_00 .p03f7-bootstrap/part_01 .p03f7-bootstrap/part_02 .p03f7-bootstrap/part_03 .p03f7-bootstrap/part_04
+          sha256sum .p03f7-bootstrap/part_00 .p03f7-bootstrap/part_01 .p03f7-bootstrap/part_02 .p03f7-bootstrap/part_03 .p03f7-bootstrap/part_04
+          echo '55867e4637fd2ddcc4293e39893fe6fe2ad4ca390ea0523d54127477ab019cec  .p03f7-bootstrap/part_00' | sha256sum -c -
+          echo 'ee0564feef416acf650046678d1d0ea553e338781cdee728c631ed5dd7f3d72a  .p03f7-bootstrap/part_01' | sha256sum -c -
+          echo '51682a2e5cbda5c0836e9550d3c9456c7f8a3674951e1d418e37db6864968985  .p03f7-bootstrap/part_02' | sha256sum -c -
+          echo '9f3860f436f2d86ef8809407d173f4fb5fb95f4c5ada458cd9fa18da1d4ac530  .p03f7-bootstrap/part_03' | sha256sum -c -
+          echo '3462ddf4a2d18cd7cea1358d2d5b8c2d9bb90e585865f27129486a257a02402b  .p03f7-bootstrap/part_04' | sha256sum -c -
           cat .p03f7-bootstrap/part_00 .p03f7-bootstrap/part_01 .p03f7-bootstrap/part_02 .p03f7-bootstrap/part_03 .p03f7-bootstrap/part_04 > /tmp/p03f7_payload.b64
           test "$(wc -c < /tmp/p03f7_payload.b64)" -eq 30892
+          echo 'b24c734cecd1f31bf0e340ef1b50b12a6802f504b3238e60ce504f148653c666  /tmp/p03f7_payload.b64' | sha256sum -c -
           base64 --decode /tmp/p03f7_payload.b64 > /tmp/p03f7_payload.tar.gz
+          echo '4e4abd13f1c19c780c8ce6efe4c39efae6bb9a8191f98bc593edeb2920a7626e  /tmp/p03f7_payload.tar.gz' | sha256sum -c -
           mkdir -p .p03f7-payload
           tar -xzf /tmp/p03f7_payload.tar.gz -C .p03f7-payload
           test -f .p03f7-payload/tools/curriculum/p03f7-materialize-implementation.py
