@@ -113,7 +113,7 @@
     "brokenGlyphFindingCount": 0,
     "semanticScopeFindingCount": 0,
     "reviewBasis": "Four rendered A4 pages reviewed: numeric/application question and answer-key pages.",
-    "reviewedHeadSha": "0ada50a91df2b8eabf83e2026be263f5f0fe5d69",
-    "materializationWorkflowRunId": 30334405791
+    "reviewedHeadSha": "80f5a5aaed03feffa5a7d151de37e7b2adc0ff80",
+    "materializationWorkflowRunId": 30334446312
   }
 }
