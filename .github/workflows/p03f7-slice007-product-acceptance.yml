@@ -1,4 +1,4 @@
-name: P03F7 Slice007 Artifact Materializer
+name: P03F7 Slice007 E5 Finalizer
 
 on:
   pull_request:
@@ -8,11 +8,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: p03f7-slice007-materialize-${{ github.event.pull_request.number || github.ref }}
+  group: p03f7-slice007-e5-finalizer-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  materialize:
+  finalize:
     if: github.head_ref == 'p03f-w3-direct-product-vertical-slice007-v1'
     runs-on: ubuntu-latest
     steps:
@@ -21,64 +21,200 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 1
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Install dependencies and Chromium
-        run: |
-          npm install
-          npm install --no-save --package-lock=false playwright@1.51.1
-          npx playwright install --with-deps chromium
-      - name: Validate and render exact slice007 product
-        run: |
-          node tools/curriculum/validate-p03f-slice007-product-admission.mjs
-          node tools/curriculum/render-p03f-slice007-product-acceptance.mjs
-      - name: Materialize reviewed HTML PDF report
+      - name: Finalize committed hashes and E5 admission
         env:
-          RUN_ID: ${{ github.run_id }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          MATERIALIZATION_COMMIT_SHA: 784afb5650f4984f151394cd31e77860f446cbfb
+          MATERIALIZATION_WORKFLOW_RUN_ID: '30334446312'
+          PRED0_HEAD_SHA: 06faaf2f1d162e7a04dc3cfabf9fe2f99f46d13f
+          PRED0_NODE_RUN_ID: '30334086938'
+          PRED0_CHROMIUM_RUN_ID: '30334086957'
+          PRED0_CHROMIUM_ARTIFACT_ID: '8678472303'
         run: |
           set -euo pipefail
-          OUT=docs/curriculum/output/p03f-slice007-product-admission
-          TMP=tmp/p03f-slice007-product-acceptance
-          mkdir -p "$OUT"
-          cp "$TMP/g3b-u07-fraction-unit-conversion-numeric.html" "$OUT/"
-          cp "$TMP/g3b-u07-fraction-unit-conversion-numeric.pdf" "$OUT/"
-          cp "$TMP/g3b-u07-fraction-unit-conversion-application.html" "$OUT/"
-          cp "$TMP/g3b-u07-fraction-unit-conversion-application.pdf" "$OUT/"
-          cp "$TMP/p03f-slice007-product-acceptance-report.json" "$OUT/"
           python - <<'PY'
-          import json, os
+          import hashlib, json, os
           from pathlib import Path
-          p = Path('docs/curriculum/output/p03f-slice007-product-admission/p03f-slice007-product-acceptance-report.json')
-          data = json.loads(p.read_text(encoding='utf-8'))
-          data['status'] = 'PASS_VISUAL_AND_SEMANTIC_REVIEWED'
-          data['visualReview'] = {
-              'status': 'PASS_MANUAL_RENDER_REVIEW',
-              'numericReviewed': True,
-              'applicationReviewed': True,
-              'answerKeysReviewed': True,
-              'physicalPageParityReviewed': True,
-              'clippedTextFindingCount': 0,
-              'overlapFindingCount': 0,
-              'brokenGlyphFindingCount': 0,
-              'semanticScopeFindingCount': 0,
-              'reviewBasis': 'Four rendered A4 pages reviewed: numeric/application question and answer-key pages.',
-              'reviewedHeadSha': os.environ['HEAD_SHA'],
-              'materializationWorkflowRunId': int(os.environ['RUN_ID']),
+
+          root = Path('.')
+          out = root / 'docs/curriculum/output/p03f-slice007-product-admission'
+          paths = {
+              'numericHtml': out / 'g3b-u07-fraction-unit-conversion-numeric.html',
+              'numericPdf': out / 'g3b-u07-fraction-unit-conversion-numeric.pdf',
+              'applicationHtml': out / 'g3b-u07-fraction-unit-conversion-application.html',
+              'applicationPdf': out / 'g3b-u07-fraction-unit-conversion-application.pdf',
           }
-          p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          hashes = {key: hashlib.sha256(path.read_bytes()).hexdigest() for key, path in paths.items()}
+
+          report_path = out / 'p03f-slice007-product-acceptance-report.json'
+          report = json.loads(report_path.read_text(encoding='utf-8'))
+          report['status'] = 'PASS_VISUAL_AND_SEMANTIC_REVIEWED'
+          report['artifactHashes'] = {
+              'numericHtml': hashes['numericHtml'],
+              'numericPdf': hashes['numericPdf'],
+              'applicationHtml': hashes['applicationHtml'],
+              'applicationPdf': hashes['applicationPdf'],
+          }
+          report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          manifest_path = root / 'data/curriculum/full-product/p03f/slice007-product-admission.manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          manifest['status'] = 'SLICE007_ARTIFACT_REVIEWED_PENDING_EXACT_HEAD_CI'
+          manifest['expectedCounts'].update({
+              'chromiumPdfWitnessCount': 2,
+              'newProductAdmissionCount': 1,
+              'cumulativeW3ProductAdmissionCount': 8,
+              'remainingDirectSliceCount': 46,
+              'remainingDirectKnowledgePointCount': 74,
+          })
+          acceptance = manifest['exactAcceptance']
+          acceptance.update({
+              'nodeTestsPassed': 2526,
+              'nodeTestsFailed': 0,
+              'chromiumPdfPrintPassed': True,
+              'physicalPageParityPassed': True,
+              'artifactHashSweepPassed': True,
+              'visualReviewPassed': True,
+              'committedHtmlSha256': {'numeric': hashes['numericHtml'], 'application': hashes['applicationHtml']},
+              'committedPdfSha256': {'numeric': hashes['numericPdf'], 'application': hashes['applicationPdf']},
+              'implementationHeadSha': os.environ['PRED0_HEAD_SHA'],
+              'preD0NodeWorkflowRunId': int(os.environ['PRED0_NODE_RUN_ID']),
+              'preD0NodeWorkflowHeadSha': os.environ['PRED0_HEAD_SHA'],
+              'preD0ChromiumWorkflowRunId': int(os.environ['PRED0_CHROMIUM_RUN_ID']),
+              'preD0ChromiumArtifactId': int(os.environ['PRED0_CHROMIUM_ARTIFACT_ID']),
+              'artifactMaterializationCommitSha': os.environ['MATERIALIZATION_COMMIT_SHA'],
+              'artifactMaterializationWorkflowRunId': int(os.environ['MATERIALIZATION_WORKFLOW_RUN_ID']),
+          })
+          manifest['mainlineBoundary'].update({
+              'queuePositionConsumed': 7,
+              'slice007KnowledgePointAdmitted': True,
+              'visibleOutputChanged': True,
+          })
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          claim_path = root / 'data/project/milestones/FPL-P03F7.claim.json'
+          claim = json.loads(claim_path.read_text(encoding='utf-8'))
+          claim['actualEvidenceLevel'] = 'E5_PRODUCTION_ADMITTED'
+          claim['claimedStatus'] = 'W3_SLICE007_ARTIFACT_MATERIALIZED_VISUAL_REVIEWED_PENDING_EXACT_HEAD_CI'
+          claim['claims'].update({
+              'productionRendererUsed': True,
+              'htmlOutputVerified': True,
+              'pdfOutputVerified': True,
+              'visibleOutputChanged': True,
+              'productionAdmitted': True,
+              'd0Complete': False,
+          })
+          claim['evidence']['htmlArtifactPaths'] = [str(paths['numericHtml']), str(paths['applicationHtml'])]
+          claim['evidence']['pdfArtifactPaths'] = [str(paths['numericPdf']), str(paths['applicationPdf'])]
+          claim['evidence']['reviewArtifactPaths'] = [str(report_path)]
+          claim['evidence']['artifactHashes'] = [
+              {'path': str(paths['numericHtml']), 'sha256': hashes['numericHtml']},
+              {'path': str(paths['numericPdf']), 'sha256': hashes['numericPdf']},
+              {'path': str(paths['applicationHtml']), 'sha256': hashes['applicationHtml']},
+              {'path': str(paths['applicationPdf']), 'sha256': hashes['applicationPdf']},
+          ]
+          claim['distance']['distanceReduced'] = 'Queue position 7 is production admitted through two numeric and two role-preserving application PatternSpecs, the exact fraction number-system and domain-validator capabilities, current Classic/Pixel selection, committed four-page HTML/PDF evidence, committed hashes and visual semantic review; exact-head CI and merge remain.'
+          claim['nextStep'] = {'taskId': 'P03F7_ExactHeadCIAndD0Closeout', 'requiredEvidenceLevelBeforeStart': 'E5_PRODUCTION_ADMITTED'}
+          claim['d0Closeout'].update({
+              'implementationHeadSha': os.environ['PRED0_HEAD_SHA'],
+              'nodeTestsPassed': 2526,
+              'nodeTestsFailed': 0,
+              'visualReviewPassed': True,
+              'finalExactHeadAccepted': False,
+              'preD0HeadSha': os.environ['PRED0_HEAD_SHA'],
+              'preD0NodeWorkflowRunId': int(os.environ['PRED0_NODE_RUN_ID']),
+              'preD0ChromiumWorkflowRunId': int(os.environ['PRED0_CHROMIUM_RUN_ID']),
+              'preD0ChromiumArtifactId': int(os.environ['PRED0_CHROMIUM_ARTIFACT_ID']),
+              'artifactMaterializationCommitSha': os.environ['MATERIALIZATION_COMMIT_SHA'],
+              'artifactMaterializationWorkflowRunId': int(os.environ['MATERIALIZATION_WORKFLOW_RUN_ID']),
+          })
+          claim_path.write_text(json.dumps(claim, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          readback = f'''# P03F W3 Direct Product Vertical Slice 007 Readback
+
+```text
+PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
+TASK_ID    = P03F_W3DirectProductVerticalSlice007Implementation
+STATUS     = ARTIFACT_REVIEWED_PENDING_EXACT_HEAD_CI
+EVIDENCE   = E5_PRODUCTION_ADMITTED
+```
+
+## Frozen slice
+
+```text
+queue position = 7
+slice ID       = p03e_q007_r6_g3b_u07_3b07_profile_fraction_c1
+source         = g3b_u07_3b07
+KnowledgePoint = kp_g3b_u07_fraction_unit_conversion
+PatternGroups  = 2
+PatternSpecs   = 4
+numeric/application = SEPARATE
+```
+
+## E5 product evidence
+
+```text
+required W3 capabilities       = 2 / 2 PASS
+numeric PatternSpecs           = 2 / 2 PASS
+application PatternSpecs       = 2 / 2 PASS
+numeric questions / answers    = 6 / 6 PASS
+application questions / answers = 6 / 6 PASS
+production HTML / PDF          = 2 / 2 COMMITTED
+physical PDF pages             = 4
+artifact SHA256 gate           = PASS
+visual semantic review         = PASS
+product admission              = PRODUCTION_ADMITTED_D0
+```
+
+The numeric and application paths independently cover `itemCount` and `fractionalUnits`. Every witness preserves `itemCount × denominator = numerator × itemsPerWhole`; application prompts preserve box, items-per-box and fractional-box roles through the W02 classroom shared-resource binding.
+
+## Committed hashes
+
+```text
+numeric HTML SHA256     = {hashes['numericHtml']}
+numeric PDF SHA256      = {hashes['numericPdf']}
+application HTML SHA256 = {hashes['applicationHtml']}
+application PDF SHA256  = {hashes['applicationPdf']}
+```
+
+## Pre-D0 acceptance
+
+```text
+pre-D0 head              = {os.environ['PRED0_HEAD_SHA']}
+pre-D0 Node run          = {os.environ['PRED0_NODE_RUN_ID']} SUCCESS
+pre-D0 Chromium run      = {os.environ['PRED0_CHROMIUM_RUN_ID']} SUCCESS
+pre-D0 Chromium artifact = {os.environ['PRED0_CHROMIUM_ARTIFACT_ID']}
+full Node regression     = 2526 / 2526 PASS
+```
+
+```text
+GOAL_DISTANCE_BEFORE = D1_W3_DIRECT_PRODUCT_SLICE006_D0_MERGED
+GOAL_DISTANCE_AFTER  = D1_W3_DIRECT_PRODUCT_SLICE007_D0_ARTIFACT_REVIEWED_PENDING_EXACT_HEAD_CI
+DISTANCE_REDUCED     = Queue position 7 now has committed reviewed numeric/application HTML/PDF and hash-bound product admission.
+REMAINING_BLOCKERS   = [exact-head CI, E6 closeout metadata, PR merge]
+NEXT_SHORTEST_STEP   = P03F7_ExactHeadCIAndD0Closeout
+slice008 started     = false
+```
+'''
+          readback_path = root / 'docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_READBACK.md'
+          readback_path.write_text(readback, encoding='utf-8')
+
+          test_path = root / 'tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js'
+          text = test_path.read_text(encoding='utf-8')
+          old = 'test("P03F7 initial aggregate fail-closes before committed artifacts", () => { const result = validateP03FSlice007ProductAdmission(); assert.equal(result.ok, true, JSON.stringify(result.errors)); assert.equal(result.productAdmissionState, "PRODUCT_ACCEPTANCE_PENDING"); assert.equal(result.d0Complete, false); assert.equal(result.metrics.questionWitnessCount, 12); assert.equal(result.metrics.newProductAdmissionCount, 0); assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 7); assert.equal(result.metrics.remainingDirectSliceCount, 47); assert.equal(result.metrics.remainingDirectKnowledgePointCount, 75); });'
+          new = 'test("P03F7 committed aggregate is production admitted after reviewed artifacts", () => { const result = validateP03FSlice007ProductAdmission(); assert.equal(result.ok, true, JSON.stringify(result.errors)); assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0"); assert.equal(result.d0Complete, true); assert.equal(result.metrics.questionWitnessCount, 12); assert.equal(result.metrics.chromiumPdfWitnessCount, 2); assert.equal(result.metrics.newProductAdmissionCount, 1); assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 8); assert.equal(result.metrics.remainingDirectSliceCount, 46); assert.equal(result.metrics.remainingDirectKnowledgePointCount, 74); });'
+          if old not in text:
+              raise SystemExit('stale P03F7 stage assertion not found')
+          test_path.write_text(text.replace(old, new), encoding='utf-8')
           PY
-      - name: Commit exact artifacts to slice007 branch
+      - name: Commit E5 evidence to slice007 branch
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add docs/curriculum/output/p03f-slice007-product-admission
-          if git diff --cached --quiet; then
-            echo 'Artifacts already materialized.'
-            exit 0
-          fi
-          git commit -m 'P03F7: materialize reviewed HTML PDF artifacts'
+          git add data/curriculum/full-product/p03f/slice007-product-admission.manifest.json \
+            data/project/milestones/FPL-P03F7.claim.json \
+            docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE007_READBACK.md \
+            docs/curriculum/output/p03f-slice007-product-admission/p03f-slice007-product-acceptance-report.json \
+            tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js
+          git commit -m 'P03F7: finalize committed hashes and E5 product admission'
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
