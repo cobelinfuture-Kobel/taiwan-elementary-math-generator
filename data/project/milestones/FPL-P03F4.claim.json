@@ -3,8 +3,8 @@
   "taskId": "P03F_W3DirectProductVerticalSlice004Implementation",
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
-  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
-  "claimedStatus": "W3_SLICE004_ARTIFACT_MATERIALIZED_VISUAL_REVIEWED_PENDING_EXACT_HEAD_CI",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE004_D0_COMPLETE_PENDING_MERGE",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
@@ -16,7 +16,7 @@
     "visibleOutputChanged": true,
     "humanReviewReady": false,
     "productionAdmitted": true,
-    "d0Complete": false
+    "d0Complete": true
   },
   "evidence": {
     "runtimeTestPaths": [
@@ -46,7 +46,8 @@
       "data/curriculum/full-product/p03f/slice004-tenth-decimal-authority.json",
       "data/curriculum/full-product/p03f/slice004-product-admission.manifest.json",
       "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_CONTRACT.md",
-      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_READBACK.md"
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_READBACK.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_FINAL_CLOSEOUT_PASS.marker"
     ],
     "reviewArtifactPaths": [
       "docs/curriculum/output/p03f-slice004-product-admission/p03f-slice004-product-acceptance-report.json"
@@ -70,16 +71,16 @@
   "distance": {
     "before": "D1",
     "after": "D1",
-    "distanceReduced": "Queue position 4 is production admitted through the exact decimal capability pair, shared runtime, current selectors, worksheet, answer key, committed two-page HTML/PDF and visual/hash acceptance; exact-head CI and merge remain before E6 D0 closeout."
+    "distanceReduced": "Frozen queue position 4 is fully D0: one source-backed tenth-representation KnowledgePoint is production admitted through the exact decimal capability pair, shared generator and validator, current Classic/Pixel selection, worksheet, answer key, committed HTML/PDF, committed hashes, visual semantic review and exact-head CI."
   },
   "nextStep": {
-    "taskId": "P03F4_ExactHeadCIAndD0Closeout",
-    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+    "taskId": "P03F_W3DirectProductVerticalSlice005Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
   },
   "d0Closeout": {
     "mode": "full_pipeline",
     "implementationPrNumber": 415,
-    "implementationHeadSha": null,
+    "implementationHeadSha": "8b455bdc870b9c61ed2e159df22100a4c6a0ffb2",
     "implementationMergeSha": null,
     "implementationMergedAt": null,
     "preD0HeadSha": "05fdcc8bd3bbbd99c31d24de0bedeb835380176c",
@@ -88,12 +89,12 @@
     "artifactMaterializationCommitSha": "9e89851a5308479040b1489e1a0299ff314cc219",
     "artifactMaterializationWorkflowRunId": null,
     "artifactMaterializationArtifactId": null,
-    "finalNodeWorkflowRunId": null,
-    "finalNodeWorkflowHeadSha": null,
-    "finalChromiumArtifactId": null,
+    "finalNodeWorkflowRunId": 30318969688,
+    "finalNodeWorkflowHeadSha": "8b455bdc870b9c61ed2e159df22100a4c6a0ffb2",
+    "finalChromiumArtifactId": 8673289502,
     "nodeTestsPassed": 2502,
     "nodeTestsFailed": 0,
     "visualReviewPassed": true,
-    "finalExactHeadAccepted": false
+    "finalExactHeadAccepted": true
   }
 }
