@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice009Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E0_PLANNING_ONLY",
+  "claimedStatus": "W3_SLICE009_DISCOVERY_LOCK_PENDING",
+  "claims": {
+    "dataStructureReady": false,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE008_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Queue position 9 scope discovery is locked to the frozen queue; no product capability is claimed yet."
+  },
+  "nextStep": {
+    "taskId": "P03F9_SourceCapabilityAndPatternAuthorityLock",
+    "requiredEvidenceLevelBeforeStart": "E0_PLANNING_ONLY"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": null,
+    "implementationHeadSha": null,
+    "implementationMergeSha": null,
+    "implementationMergedAt": null,
+    "preD0HeadSha": null,
+    "preD0NodeWorkflowRunId": null,
+    "preD0ChromiumWorkflowRunId": null,
+    "preD0ChromiumArtifactId": null,
+    "artifactMaterializationCommitSha": null,
+    "artifactMaterializationWorkflowRunId": null,
+    "finalNodeWorkflowRunId": null,
+    "finalNodeWorkflowHeadSha": null,
+    "finalChromiumWorkflowRunId": null,
+    "finalChromiumArtifactId": null,
+    "nodeTestsPassed": null,
+    "nodeTestsFailed": null,
+    "visualReviewPassed": false,
+    "finalExactHeadAccepted": false
+  }
+}
