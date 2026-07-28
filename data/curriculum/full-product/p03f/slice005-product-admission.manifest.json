@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice005Implementation",
-  "status": "SLICE005_D0_COMPLETE_PENDING_MERGE",
+  "status": "SLICE005_D0_COMPLETE_CI_SYNCED_AND_MERGED",
   "expectedCounts": {
     "queuePosition": 5,
     "sourceNodeCount": 1,
@@ -68,13 +68,13 @@
     "preD0ChromiumArtifactId": 8675008374,
     "preD0ChromiumArtifactDigest": "sha256:53194330bd969b7aa624bbb6d51560d0a116d0d8dc5e57bd6fd36c2c6bb90264",
     "artifactMaterializationCommitSha": "c0afea586477c8d9165b8e336bc5771dcac49e1e",
-    "finalNodeWorkflowRunId": 30325111749,
-    "finalNodeWorkflowHeadSha": "8c36dfcda1ca7b77f57461b7d550e7681a88ab57",
-    "finalChromiumArtifactId": 8675367284,
+    "finalNodeWorkflowRunId": 30325413042,
+    "finalNodeWorkflowHeadSha": "7f5c46f7e0ec93187c4b0579af1e5214d3f00bc2",
+    "finalChromiumArtifactId": 8675477417,
     "implementationPrNumber": 417,
-    "implementationHeadSha": "8c36dfcda1ca7b77f57461b7d550e7681a88ab57",
-    "implementationMergeSha": null,
-    "implementationMergedAt": null
+    "implementationHeadSha": "7f5c46f7e0ec93187c4b0579af1e5214d3f00bc2",
+    "implementationMergeSha": "103c05acc178355305a7b615321c314cb8264b1f",
+    "implementationMergedAt": "2026-07-28T03:18:51Z"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice005-equivalent-fraction-authority.json",
   "runtimePath": "src/curriculum/full-product/p03f-slice005-product-admission.mjs",
