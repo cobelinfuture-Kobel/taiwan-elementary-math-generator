@@ -113,7 +113,7 @@ test("P03F5 selector exposes only one G4B-U08 KP and three specs", () => {
 
 test("P03F5 current Pixel exposes 24 sources and one G4B-U08 KP", () => {
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 23);
+  assert.equal(sources.length, 24);
   const source = sources.find((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.ok(source);
   assert.equal(source.visibleKnowledgePointCount, 1);
