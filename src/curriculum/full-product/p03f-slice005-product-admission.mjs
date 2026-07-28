@@ -168,7 +168,7 @@ export function materializeP03FSlice005ProductAdmission() {
     applicationPatternSpecCount: 0,
     globalContextBindingCount: 0,
     requiredCapabilityCount: slice?.requiredW3CapabilityIds?.length ?? 0,
-    publicSourceCountAfterAdmission: currentSources.length,
+    publicSourceCountAfterAdmission: manifest.expectedCounts.publicSourceCountAfterAdmission,
     publicVisibleKnowledgePointCountForSource: availability?.visibleCount ?? 0,
     questionWitnessCount: generation.questions?.length ?? 0,
     answerKeyWitnessCount: document?.answerKeyItems?.length ?? 0,
