@@ -1,0 +1,30 @@
+name: P03F11 Slice011 Authority Readback
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  readback:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice011-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Read frozen queue and W02 application authority
+        run: |
+          node --input-type=module <<'NODE'
+          import { materializeP03EW3DirectProductVerticalSliceQueue } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
+          import { materializeW02AtomicContextSingleApplicationCandidatePack } from './src/curriculum/application/w02-atomic-context-single-application-candidate-pack.mjs';
+          const queue = materializeP03EW3DirectProductVerticalSliceQueue();
+          const slice = queue.queueEntries[10];
+          const pack = materializeW02AtomicContextSingleApplicationCandidatePack({ root: process.cwd() });
+          const candidate = pack.candidates.find((row) => row.patternSpecId === 'ps_g4b_u06_one_decimal_times_integer_product_application');
+          console.log(`P03F11_QUEUE=${JSON.stringify(slice)}`);
+          console.log(`P03F11_APPLICATION_CANDIDATE=${JSON.stringify(candidate)}`);
+          if (!candidate) process.exitCode = 1;
+          NODE
