@@ -3,8 +3,8 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice012Implementation
-STATUS     = PASS_RUNTIME_CONNECTED_PENDING_CHROMIUM_VISUAL_CI
-EVIDENCE   = E4_RUNTIME_CONNECTED
+STATUS     = PASS_VISUAL_REVIEWED_D0_CANDIDATE_PENDING_EXACT_HEAD_CI
+EVIDENCE   = E5_D0_CANDIDATE
 ```
 
 ## Queue identity
@@ -19,7 +19,7 @@ PROFILE = profile_fraction
 RANK = 6
 ```
 
-## Runtime materialization
+## Runtime and product materialization
 
 ```text
 Authority = complete
@@ -33,40 +33,66 @@ Fraction domain validator = connected
 Fraction arithmetic = connected
 Application classification = NOT_APPLICABLE
 Global Context binding = NOT_APPLICABLE
-Public selector = candidate visible
-Pixel current surface = candidate visible
+Public selector = visible
+Pixel current surface = visible
 Source-unit Slice005 default = preserved
-Numeric worksheet = connected
-Answer key = connected
-HTML renderer input = connected
-Chromium acceptance workflow = ready
+Numeric worksheet = 8 questions + 8 answer keys
+HTML artifacts = 1
+Chromium PDF artifacts = 1
+Physical PDF pages = 2
 Global Context expansion = false
 Parallel pipeline = false
+```
+
+## Reviewed artifacts
+
+```text
+MATERIALIZATION_WORKFLOW_RUN_ID = 30383199421
+REVIEWED_ARTIFACT_ID = 8697876413
+REVIEWED_ARTIFACT_DIGEST = sha256:1d1dea9b324464d69adbe604e9bd4cb8fdfef13a31b8397ce417c43f684581de
+ARTIFACT_MATERIALIZATION_COMMIT = e0e3c0058f930a7eb29975d43ab8b27b8a73ce1a
+HTML_SHA256 = dbb9b11fc20c63baf35d7df4ba53e50b6ade56f74c72c53f720ab088ce4bde89
+PDF_SHA256 = 452b35bd4e6b132b618525f290dea86213cc383fea94e856dca16f30d23ac7cc
+```
+
+## Visual review
+
+```text
+STATUS = PASS_OPERATOR_REVIEWED
+Question page = PASS
+Answer-key page = PASS
+Physical page parity = PASS
+Clipped text findings = 0
+Overlap findings = 0
+Broken glyph findings = 0
+Semantic scope findings = 0
+Overflow findings = 0
+Duplicate prompt findings = 0
 ```
 
 ## Fail-close state
 
 ```text
-Chromium PDF = pending
-Visual review = pending
-Artifact hashes = pending
-Full Node regression = pending
+Full Node regression = pending exact-head run
+Slice012 Chromium acceptance = pending exact-head run
 Required CI = pending
 PR merge = pending
-Production admission = false
-queuePositionConsumed = 11
-cumulativeW3Admissions = 13
-remainingW3Slices = 42
-remainingDirectW3KPs = 69
+Post-merge E6 closeout = pending
+Production admission candidate = true
+Final exact-head accepted = false
+queuePositionConsumed = 12
+cumulativeW3Admissions = 14
+remainingW3Slices = 41
+remainingDirectW3KPs = 68
 ```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE011_E6_D0_COMPLETE
-GOAL_DISTANCE_AFTER  = D1_SLICE012_E4_RUNTIME_CONNECTED
-DISTANCE_REDUCED     = Slice012 now has exact queue/source/PatternSpec authority, three fraction capabilities, explicit same-source public selection and a bounded numeric worksheet path without application or Global Context expansion.
-REMAINING_BLOCKERS   = [FULL_REGRESSION, CHROMIUM_PDF, VISUAL_REVIEW, ARTIFACT_HASHES, REQUIRED_CI, PR_MERGE, POST_MERGE_E6_CLOSEOUT]
-NEXT_SHORTEST_STEP   = P03F12_RegressionChromiumArtifactVisualReviewAndD0Closeout
+GOAL_DISTANCE_AFTER  = D1_SLICE012_REVIEWED_D0_CANDIDATE
+DISTANCE_REDUCED     = 交叉乘積判定等值已具備正式可選、可生成、可驗證、可輸出HTML／Chromium PDF的reviewed產品候選，且不改變Slice005 source-unit預設行為。
+REMAINING_BLOCKERS   = [EXACT_HEAD_FULL_REGRESSION, EXACT_HEAD_CHROMIUM_ACCEPTANCE, REQUIRED_CI, PR_MERGE, POST_MERGE_E6_CLOSEOUT]
+NEXT_SHORTEST_STEP   = P03F12_ExactHeadCIAndMerge
 STOP_REASON          = NONE
 ```
