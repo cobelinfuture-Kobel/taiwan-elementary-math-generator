@@ -1,0 +1,69 @@
+# P03F W3 Direct Product Vertical Slice011 Readback
+
+```text
+PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
+TASK_ID    = P03F_W3DirectProductVerticalSlice011Implementation
+STATUS     = PASS_RUNTIME_CONNECTED_PENDING_CHROMIUM_VISUAL_CI
+EVIDENCE   = E4_RUNTIME_CONNECTED
+```
+
+## Queue identity
+
+```text
+QUEUE_POSITION = 11
+SLICE_ID = p03e_q011_r6_g4b_u06_4b06_profile_decimal_c1
+PREDECESSOR = p03e_q010_r6_g4a_u09_4a09_profile_decimal_c1
+SOURCE = g4b_u06_4b06
+KNOWLEDGE_POINT = kp_g4b_u06_one_decimal_times_integer
+PROFILE = profile_decimal
+RANK = 6
+```
+
+## Runtime materialization
+
+```text
+Authority = complete
+FormalMapping = complete
+PatternGroups = 2
+PatternSpecs = 2
+Shared generator = connected
+Decimal number system = connected
+Decimal domain validator = connected
+Decimal arithmetic = connected
+W02 application context lineage = connected
+Public selector = candidate visible
+Pixel current surface = candidate visible
+Numeric worksheet = connected
+Application worksheet = connected
+Answer keys = connected
+HTML renderer inputs = connected
+Global Context expansion = false
+Parallel pipeline = false
+```
+
+## Fail-close state
+
+```text
+Chromium PDFs = pending
+Visual review = pending
+Artifact hashes = pending
+Full Node regression = pending
+Required CI = pending
+PR merge = pending
+Production admission = false
+queuePositionConsumed = 10
+cumulativeW3Admissions = 12
+remainingW3Slices = 43
+remainingDirectW3KPs = 70
+```
+
+## Distance
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE010_E6_D0_COMPLETE
+GOAL_DISTANCE_AFTER  = D1_SLICE011_E4_RUNTIME_CONNECTED
+DISTANCE_REDUCED     = Slice011 now has exact source/PatternSpec authority, three decimal capabilities, W02 application lineage, public selector and dual worksheet paths.
+REMAINING_BLOCKERS   = [FULL_REGRESSION, CHROMIUM_PDF, VISUAL_REVIEW, ARTIFACT_HASHES, REQUIRED_CI, PR_MERGE, POST_MERGE_E6_CLOSEOUT]
+NEXT_SHORTEST_STEP   = P03F11_RegressionChromiumArtifactVisualReviewAndD0Closeout
+STOP_REASON          = NONE
+```
