@@ -18,10 +18,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Read frozen queue and runtime authority
+      - name: Materialize frozen queue and runtime authority
         shell: bash
         run: |
+          mkdir -p tmp/p03f6-authority
           node --input-type=module <<'NODE'
+          import fs from 'node:fs';
           import { listP03EW3DirectProductVerticalSlices } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
           import { getP03CW3DownstreamUnblockRow } from './src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs';
           import { materializeR05DeliveryWaveRebase } from './src/curriculum/global/r05-delivery-wave-rebase.mjs';
@@ -34,5 +36,11 @@ jobs:
           const knowledgePoint = r05.runtimeCapabilityMatrix.knowledgePoints.find((row) => row.knowledgePointId === kpId) ?? null;
           const mapping = r05.runtimeCapabilityMatrix.knowledgePointMappings.find((row) => row.knowledgePointId === kpId) ?? null;
           const sourceNodes = (r05.runtimeCapabilityMatrix.sourceNodes ?? []).filter((row) => slice.supportingSourceNodeIds.includes(row.sourceNodeId));
-          console.log('P03F6_AUTHORITY=' + JSON.stringify({ slice, unblock, assignment, knowledgePoint, mapping, sourceNodes }, null, 2));
+          fs.writeFileSync('tmp/p03f6-authority/p03f6-authority.json', JSON.stringify({ slice, unblock, assignment, knowledgePoint, mapping, sourceNodes }, null, 2) + '\n');
           NODE
+      - name: Upload authority diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f6-authority-diagnostic
+          path: tmp/p03f6-authority/p03f6-authority.json
+          if-no-files-found: error
