@@ -4,7 +4,7 @@
   "taskClass": "release",
   "targetEvidenceLevel": "E6_D0_COMPLETE",
   "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "claimedStatus": "W3_SLICE007_RUNTIME_CONNECTED_PENDING_PRODUCTION_OUTPUT_VERIFICATION",
+  "claimedStatus": "W3_SLICE007_E5_FINALIZER_TRIGGERED",
   "claims": {
     "dataStructureReady": true,
     "contentAuthored": true,
