@@ -27,16 +27,16 @@ export const G4A_U09_HUNDREDTH_DECIMAL_PATTERN_DEFINITION = Object.freeze({
   mode: "NUMERIC",
   questionMode: "numeric",
   requestedUnknownRole: "decimal",
-  givenRoles: Object.freeze(["whole", "tenths", "hundredths", "placeUnit"]),
+  givenRoles: Object.freeze(["whole", "fractionalUnits", "placeUnit"]),
   answerType: "decimal",
-  canonicalExpressions: Object.freeze(["decimal = whole + tenths * 0.1 + hundredths * 0.01"]),
+  canonicalExpressions: Object.freeze(["decimal = whole + fractionalUnits * placeUnit"]),
   canonicalSkillIds: Object.freeze([G4A_U09_HUNDREDTH_DECIMAL_KP_ID]),
   skillTags: Object.freeze(["decimal", "hundredths", "place_value", "decimal_representation", G4A_U09_SOURCE_ID]),
   difficultyTags: Object.freeze(["one_hundredth_identity", "exact_two_decimal_places", "full_product_w3_slice010"]),
   requiredCapabilityIds: P03F10_REQUIRED_CAPABILITY_IDS,
   applicationClassification: "APPLICATION_NOT_APPLICABLE",
   globalContextRequired: false,
-  numericDomain: Object.freeze({ whole: 0, tenths: 0, hundredths: 1, placeUnit: "0.01", canonicalDecimal: "0.01", exactScale: 2 }),
+  numericDomain: Object.freeze({ whole: 0, fractionalUnits: 1, placeUnit: "0.01", canonicalDecimal: "0.01", exactScale: 2 }),
   sharedGeneratorAdapterId: "SHARED_OPERATION_FAMILY_GENERATOR_V1",
   sharedValidatorAdapterId: "SHARED_OPERATION_FAMILY_VALIDATOR_V1",
 });
@@ -57,8 +57,9 @@ export function validateP03F10PatternDefinition() {
   if (definition.knowledgePointId !== G4A_U09_HUNDREDTH_DECIMAL_KP_ID) errors.push("P03F10_KP_BINDING_INVALID");
   if (definition.patternGroupId !== G4A_U09_HUNDREDTH_DECIMAL_PATTERN_GROUP_ID) errors.push("P03F10_GROUP_BINDING_INVALID");
   if (definition.requestedUnknownRole !== "decimal") errors.push("P03F10_UNKNOWN_ROLE_INVALID");
+  if (JSON.stringify(definition.givenRoles) !== JSON.stringify(["whole", "fractionalUnits", "placeUnit"])) errors.push("P03F10_GIVEN_ROLE_PARITY_INVALID");
   if (JSON.stringify(definition.requiredCapabilityIds) !== JSON.stringify(P03F10_REQUIRED_CAPABILITY_IDS)) errors.push("P03F10_CAPABILITY_SET_INVALID");
   if (definition.questionMode !== "numeric" || definition.applicationClassification !== "APPLICATION_NOT_APPLICABLE" || definition.globalContextRequired !== false) errors.push("P03F10_APPLICATION_SCOPE_VIOLATION");
-  if (definition.numericDomain.hundredths !== 1 || definition.numericDomain.canonicalDecimal !== "0.01" || definition.numericDomain.exactScale !== 2) errors.push("P03F10_NUMERIC_DOMAIN_INVALID");
+  if (definition.numericDomain.fractionalUnits !== 1 || definition.numericDomain.placeUnit !== "0.01" || definition.numericDomain.canonicalDecimal !== "0.01" || definition.numericDomain.exactScale !== 2) errors.push("P03F10_NUMERIC_DOMAIN_INVALID");
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), patternSpecCount: 1, definition });
 }
