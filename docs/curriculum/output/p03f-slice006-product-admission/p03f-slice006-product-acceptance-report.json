@@ -1,0 +1,130 @@
+{
+  "schemaName": "P03FSlice006ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice006Implementation",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "sourceId": "g3a_u08_3a08",
+  "knowledgePointIds": [
+    "kp_g3a_u08_same_denominator_compare"
+  ],
+  "modes": {
+    "numeric": {
+      "htmlPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-numeric.html",
+      "pdfPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-numeric.pdf",
+      "questionCount": 6,
+      "answerKeyItemCount": 6,
+      "questionPageCount": 1,
+      "answerKeyPageCount": 1,
+      "physicalPdfPageCount": 2,
+      "patternSpecIds": [
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric"
+      ],
+      "relationCoverage": [
+        "<",
+        "=",
+        ">"
+      ],
+      "comparisonTargetCoverage": [
+        "one",
+        "pair"
+      ],
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "semanticScopeFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ]
+    },
+    "application": {
+      "htmlPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-application.html",
+      "pdfPath": "/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tmp/p03f-slice006-product-acceptance/g3a-u08-same-denominator-compare-application.pdf",
+      "questionCount": 6,
+      "answerKeyItemCount": 6,
+      "questionPageCount": 1,
+      "answerKeyPageCount": 1,
+      "physicalPdfPageCount": 2,
+      "patternSpecIds": [
+        "ps_g3a_u08_same_denominator_compare_comparison_application"
+      ],
+      "relationCoverage": [
+        "<",
+        "=",
+        ">"
+      ],
+      "comparisonTargetCoverage": [
+        "one",
+        "pair"
+      ],
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "semanticScopeFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "pageMetrics": [
+        {
+          "index": 0,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--questions print-page"
+        },
+        {
+          "index": 1,
+          "clientHeight": 1123,
+          "scrollHeight": 1123,
+          "clientWidth": 794,
+          "scrollWidth": 794,
+          "overflowY": false,
+          "overflowX": false,
+          "className": "worksheet-page worksheet-page--answer-key print-page"
+        }
+      ]
+    }
+  },
+  "totalQuestionCount": 12,
+  "totalAnswerKeyItemCount": 12,
+  "totalPhysicalPdfPageCount": 4,
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "semanticScopeFindingCount": 0,
+  "visualReview": {
+    "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+    "numericReviewed": true,
+    "applicationReviewed": true,
+    "answerKeysReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0
+  },
+  "artifactHashes": {
+    "numericHtml": "9d0e907b4fd084166d05f1f55030352fa6ea81b038d77370eece13d90af11019",
+    "numericPdf": "cdb46fc31721d2c6cda13ab0d78180fe584f53dccbce1f409c8dee49e23d0bd4",
+    "applicationHtml": "5a483a720baa6d1091b2d971ddc2d8b8e37eab00a00dcd065808bce8808271e9",
+    "applicationPdf": "33a2e8638fe22b11c8d16ba3211da7517d716dc2a1fbb7260c69c67318cd9c8f"
+  }
+}

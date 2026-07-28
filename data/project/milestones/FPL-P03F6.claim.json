@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice006Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE006_D0_COMPLETE_CI_ACCEPTED_PENDING_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3a-u08-same-denominator-compare-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f6-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f6-extension.js",
+      "site/modules/curriculum/batch-a/same-denominator-fraction-compare-runtime.js",
+      "src/curriculum/full-product/p03f-slice006-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice006-product-admission.mjs",
+      "tests/curriculum/p03f-slice006-same-denominator-compare.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice006-product-acceptance.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice006-product-admission/g3a-u08-same-denominator-compare-numeric.html",
+      "docs/curriculum/output/p03f-slice006-product-admission/g3a-u08-same-denominator-compare-application.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice006-product-admission/g3a-u08-same-denominator-compare-numeric.pdf",
+      "docs/curriculum/output/p03f-slice006-product-admission/g3a-u08-same-denominator-compare-application.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE005_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice006-same-denominator-compare-authority.json",
+      "data/curriculum/full-product/p03f/slice006-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_READBACK.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_FINAL_CLOSEOUT_PASS.marker"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice006-product-admission/p03f-slice006-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice006-product-admission/g3a-u08-same-denominator-compare-numeric.html",
+        "sha256": "9d0e907b4fd084166d05f1f55030352fa6ea81b038d77370eece13d90af11019"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice006-product-admission/g3a-u08-same-denominator-compare-numeric.pdf",
+        "sha256": "cdb46fc31721d2c6cda13ab0d78180fe584f53dccbce1f409c8dee49e23d0bd4"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice006-product-admission/g3a-u08-same-denominator-compare-application.html",
+        "sha256": "5a483a720baa6d1091b2d971ddc2d8b8e37eab00a00dcd065808bce8808271e9"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice006-product-admission/g3a-u08-same-denominator-compare-application.pdf",
+        "sha256": "33a2e8638fe22b11c8d16ba3211da7517d716dc2a1fbb7260c69c67318cd9c8f"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Frozen queue position 6 is D0-complete pending merge: one source-backed same-denominator comparison KnowledgePoint is production admitted through separate numeric and W02-bound application paths, exact fraction W3 capabilities, shared product runtime, committed reviewed HTML/PDF and exact-head CI."
+  },
+  "nextStep": {
+    "taskId": "P03F6_PRMergeAndMergedStateReconciliation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 419,
+    "implementationHeadSha": "f7ee7a021dcdd372077efa985067fa14f166ef48",
+    "implementationMergeSha": null,
+    "implementationMergedAt": null,
+    "preD0HeadSha": "398f3d64ecdec34f2d0fb65ae4ee1b337cd3720d",
+    "preD0NodeWorkflowRunId": 30327597454,
+    "preD0ChromiumWorkflowRunId": 30327597433,
+    "preD0ChromiumArtifactId": 8676235936,
+    "artifactMaterializationCommitSha": "d64a89061b7698c5bc52a5747aab5bd186d8e588",
+    "artifactMaterializationWorkflowRunId": 30327855147,
+    "finalNodeWorkflowRunId": 30328154797,
+    "finalNodeWorkflowHeadSha": "f7ee7a021dcdd372077efa985067fa14f166ef48",
+    "finalChromiumWorkflowRunId": 30328154808,
+    "finalChromiumArtifactId": 8676423889,
+    "nodeTestsPassed": 2518,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": true
+  }
+}
