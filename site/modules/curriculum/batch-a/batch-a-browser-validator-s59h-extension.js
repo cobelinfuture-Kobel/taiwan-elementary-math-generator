@@ -17,6 +17,14 @@ import {
 import {
   G4B_U01_PRODUCTION_PROMOTION_OVERLAY_ID,
 } from "../registry/g4b-u01-horizontal-production-promotion.js";
+import {
+  G3B_U09_SOURCE_ID,
+  G3B_U09_TENTH_DECIMAL_PATTERN_SPEC_ID,
+} from "../registry/g3b-u09-tenth-decimal-selector-projection.js";
+import {
+  validateBatchABrowserPlan as validateP03F4Plan,
+  validateBatchABrowserQuestion as validateP03F4Question,
+} from "./batch-a-browser-validator-p03f4.js";
 
 export const G4B_U01_CANONICAL_VALIDATOR_INTEGRATION = Object.freeze({
   task: "S59H_G4B_U01_WorksheetAnswerKeyAndHorizontalRendererIntegration",
@@ -44,6 +52,10 @@ function issue(code, path, message) {
 function isG4BU01HorizontalQuestion(question = {}) {
   return question?.sourceId === "g4b_u01_4b01"
     && question?.kind === "g4bU01HorizontalCalculation";
+}
+
+function isP03F4Question(question = {}) {
+  return (question?.patternSpecId ?? question?.metadata?.patternId) === G3B_U09_TENTH_DECIMAL_PATTERN_SPEC_ID;
 }
 
 function runtimeValidationClone(question = {}) {
@@ -105,11 +117,13 @@ function validateProductionLifecycle(question = {}) {
 }
 
 export function validateBatchABrowserPlan(plan = {}) {
+  if (plan.sourceId === G3B_U09_SOURCE_ID) return validateP03F4Plan(plan);
   if (isG4BU01ProductionWorksheetPlan(plan)) return validateG4BU01ProductionWorksheetEligibility(plan);
   return base.validateBatchABrowserPlan(plan);
 }
 
 export function validateBatchABrowserQuestion(question = {}, options = {}) {
+  if (isP03F4Question(question)) return validateP03F4Question(question);
   if (!isG4BU01HorizontalQuestion(question) || question.phase !== "S59H") {
     return base.validateBatchABrowserQuestion(question, options);
   }
@@ -150,6 +164,7 @@ export function validateBatchABrowserQuestions(questions = [], options = {}) {
     stages.push({ questionIndex: index, stages: result.stages ?? [] });
   }
   const isG4BU01Batch = questions.length > 0 && questions.every(isG4BU01HorizontalQuestion);
+  const isP03F4Batch = questions.length > 0 && questions.every(isP03F4Question);
   return {
     ok: errors.length === 0,
     errors,
@@ -158,7 +173,9 @@ export function validateBatchABrowserQuestions(questions = [], options = {}) {
     stages,
     validatorVersion: isG4BU01Batch
       ? G4B_U01_CANONICAL_VALIDATOR_INTEGRATION.validatorVersion
-      : base.validateBatchABrowserQuestions([], options).validatorVersion,
+      : isP03F4Batch
+        ? "p03f4-g3b-u09-tenth-decimal-v1"
+        : base.validateBatchABrowserQuestions([], options).validatorVersion,
     eligibilityVersion: isG4BU01Batch
       ? G4B_U01_PRODUCTION_WORKSHEET_ELIGIBILITY.status
       : null,

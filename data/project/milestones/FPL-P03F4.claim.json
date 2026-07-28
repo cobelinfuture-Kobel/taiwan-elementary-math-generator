@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice004Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "W3_SLICE004_D0_COMPLETE_PENDING_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g3b-u09-tenth-decimal-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f4-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f4-extension.js",
+      "site/modules/curriculum/batch-a/tenth-decimal-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f4.js",
+      "src/curriculum/full-product/p03f-slice004-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice004-product-admission.mjs",
+      "tests/curriculum/p03f-slice004-tenth-decimal.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice004-product-acceptance.mjs",
+      ".github/workflows/node-test.yml"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE003_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice004-tenth-decimal-authority.json",
+      "data/curriculum/full-product/p03f/slice004-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_READBACK.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE004_FINAL_CLOSEOUT_PASS.marker"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice004-product-admission/p03f-slice004-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.html",
+        "sha256": "0ea885875c833326a28437e7e2629360b630d1833b2edcf546335b2e9e6b2b92"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice004-product-admission/g3b-u09-tenth-decimal.pdf",
+        "sha256": "26d2d409169f8d5a9ff27290afe8f703405ae58a0395034b8735dcf4503dce01"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Frozen queue position 4 is fully D0: one source-backed tenth-representation KnowledgePoint is production admitted through the exact decimal capability pair, shared generator and validator, current Classic/Pixel selection, worksheet, answer key, committed HTML/PDF, committed hashes, visual semantic review and exact-head CI."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice005Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE"
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 415,
+    "implementationHeadSha": "8b455bdc870b9c61ed2e159df22100a4c6a0ffb2",
+    "implementationMergeSha": null,
+    "implementationMergedAt": null,
+    "preD0HeadSha": "05fdcc8bd3bbbd99c31d24de0bedeb835380176c",
+    "preD0NodeWorkflowRunId": 30317926276,
+    "preD0ChromiumArtifactId": 8672900996,
+    "artifactMaterializationCommitSha": "9e89851a5308479040b1489e1a0299ff314cc219",
+    "artifactMaterializationWorkflowRunId": null,
+    "artifactMaterializationArtifactId": null,
+    "finalNodeWorkflowRunId": 30318969688,
+    "finalNodeWorkflowHeadSha": "8b455bdc870b9c61ed2e159df22100a4c6a0ffb2",
+    "finalChromiumArtifactId": 8673289502,
+    "nodeTestsPassed": 2502,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": true
+  }
+}

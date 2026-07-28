@@ -8,9 +8,11 @@ import { canGenerateG5AU03FactorMultipleQuestions, generateG5AU03FactorMultipleQ
 import { canGenerateG3AU08PartWholeFractionQuestions, generateG3AU08PartWholeFractionQuestions } from "./part-whole-fraction-runtime.js";
 import { canGenerateG3AU08Slice002Questions, generateG3AU08Slice002Questions } from "./slice002-fraction-runtime.js";
 import { canGenerateG3BU07QuotientFractionQuestions, generateG3BU07QuotientFractionQuestions } from "./quotient-fraction-runtime.js";
+import { canGenerateG3BU09TenthDecimalQuestions, generateG3BU09TenthDecimalQuestions } from "./tenth-decimal-runtime.js";
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateG3BU09TenthDecimalQuestions(plan)) return generateG3BU09TenthDecimalQuestions(options);
   if (canGenerateG3BU07QuotientFractionQuestions(plan)) return generateG3BU07QuotientFractionQuestions(options);
   if (canGenerateG3AU08Slice002Questions(plan)) return generateG3AU08Slice002Questions(options);
   if (canGenerateG3AU08PartWholeFractionQuestions(plan)) return generateG3AU08PartWholeFractionQuestions(options);
