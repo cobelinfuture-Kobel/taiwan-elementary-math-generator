@@ -1,7 +1,7 @@
 {
   "schemaName": "P03FSlice012ChromiumProductAcceptanceReportV1",
   "taskId": "P03F_W3DirectProductVerticalSlice012Implementation",
-  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
   "sourceId": "g4b_u08_4b08",
   "knowledgePointIds": [
     "kp_g4b_u08_equivalence_cross_product"
@@ -49,19 +49,22 @@
     "pageErrors": []
   },
   "visualReview": {
-    "status": "PENDING",
-    "questionPageReviewed": false,
-    "answerKeyPageReviewed": false,
-    "physicalPageParityReviewed": false,
-    "clippedTextFindingCount": null,
-    "overlapFindingCount": null,
-    "brokenGlyphFindingCount": null,
-    "semanticScopeFindingCount": null
+    "status": "PASS_OPERATOR_REVIEWED",
+    "questionPageReviewed": true,
+    "answerKeyPageReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0
   },
   "materialization": {
     "mode": "GITHUB_ACTIONS_RUNNER_BINARY_COMMIT",
     "workflowRunId": 30383199421,
     "sourceHeadSha": "721af836aa9aa8f7559fe8957e8b23368107365e",
-    "visualReviewAuthority": "PENDING_OPERATOR_REVIEW"
+    "artifactMaterializationCommitSha": "e0e3c0058f930a7eb29975d43ab8b27b8a73ce1a",
+    "reviewedArtifactId": 8697876413,
+    "reviewedArtifactDigest": "sha256:1d1dea9b324464d69adbe604e9bd4cb8fdfef13a31b8397ce417c43f684581de",
+    "visualReviewAuthority": "PASS_OPERATOR_REVIEWED_FROM_RENDERED_PDF_AND_PNG"
   }
 }
