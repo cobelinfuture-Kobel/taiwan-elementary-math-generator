@@ -51,6 +51,19 @@ jobs:
       - name: Materialize runner binary artifacts
         if: steps.materialization.outputs.needed == 'true'
         run: node tools/curriculum/materialize-p03f-slice010-runner-artifacts.mjs
+      - name: Commit exact runner binary artifacts
+        if: steps.materialization.outputs.needed == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/full-product/p03f/slice010-product-admission.manifest.json \
+            docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.html \
+            docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.pdf \
+            docs/curriculum/output/p03f-slice010-product-admission/p03f-slice010-product-acceptance-report.json
+          git commit -m "P03F10: materialize exact Chromium artifacts"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
       - name: Export exact runner files as immutable Git blobs
         if: steps.materialization.outputs.needed == 'true'
         env:
