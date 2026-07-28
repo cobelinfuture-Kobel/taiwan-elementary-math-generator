@@ -21,13 +21,13 @@
     "questionWitnessCount": 8,
     "answerKeyWitnessCount": 8,
     "htmlWitnessCount": 1,
-    "chromiumPdfWitnessCount": 1,
+    "chromiumPdfWitnessCount": 0,
     "overflowFindingCount": 0,
     "duplicatePromptFindingCount": 0,
-    "newProductAdmissionCount": 1,
-    "cumulativeW3ProductAdmissionCount": 12,
-    "remainingDirectSliceCount": 43,
-    "remainingDirectKnowledgePointCount": 70,
+    "newProductAdmissionCount": 0,
+    "cumulativeW3ProductAdmissionCount": 11,
+    "remainingDirectSliceCount": 44,
+    "remainingDirectKnowledgePointCount": 71,
     "laterWaveDependentCount": 33
   },
   "exactAcceptance": {
@@ -81,7 +81,7 @@
   "htmlArtifactPath": "docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.html",
   "pdfArtifactPath": "docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.pdf",
   "mainlineBoundary": {
-    "queuePositionConsumed": 10,
+    "queuePositionConsumed": 9,
     "nextQueuePositionStarted": false,
     "slice010KnowledgePointAdmitted": false,
     "otherG4AU09KnowledgePointsAdmitted": false,
