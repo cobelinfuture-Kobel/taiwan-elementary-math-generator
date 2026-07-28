@@ -1,0 +1,55 @@
+name: P03F7 Slice007 Authority Diagnostic
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f7-authority-diagnostic-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  diagnostic:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice007-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect exact slice007 authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=tmp/p03f7-slice007-authority-diagnostic
+          mkdir -p "$OUT/matched"
+          node --input-type=module <<'NODE' > "$OUT/queue-position-007.json"
+          import { materializeP03EW3DirectProductVerticalSliceQueue } from './src/curriculum/full-product/p03e-w3-direct-product-vertical-slice-queue.mjs';
+          const q = materializeP03EW3DirectProductVerticalSliceQueue();
+          console.log(JSON.stringify({slice:q.queueEntries[6],metrics:q.metrics,queueVersion:q.queueVersion}, null, 2));
+          NODE
+          find data docs site src tools tests -type f | sort > "$OUT/all-files.txt"
+          grep -RIlE 'kp_g3b_u07_fraction_unit_conversion|g3b_u07_3b07|fraction_unit_conversion' data docs site src tools tests 2>/dev/null | sort > "$OUT/matched-files.txt" || true
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            mkdir -p "$OUT/matched/$(dirname "$f")"
+            cp "$f" "$OUT/matched/$f"
+          done < "$OUT/matched-files.txt"
+          grep -RInE 'kp_g3b_u07_fraction_unit_conversion|g3b_u07_3b07|fraction_unit_conversion' data docs site src tools tests 2>/dev/null > "$OUT/matched-lines.txt" || true
+          find data docs site src tools tests -type f | grep -Ei 'g3b[-_]?u07|3b07|fraction.*unit|unit.*fraction' | sort > "$OUT/name-candidates.txt" || true
+          cp docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE006_READBACK.md "$OUT/" 
+          cp data/project/milestones/FPL-P03F6.claim.json "$OUT/"
+          printf 'matched_file_count=%s\n' "$(wc -l < "$OUT/matched-files.txt")" > "$OUT/summary.txt"
+          cat "$OUT/queue-position-007.json" >> "$OUT/summary.txt"
+      - name: Upload authority diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f7-slice007-authority-diagnostic
+          path: tmp/p03f7-slice007-authority-diagnostic
+          if-no-files-found: error
+          retention-days: 7
