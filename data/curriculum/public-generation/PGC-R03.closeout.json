@@ -1,0 +1,65 @@
+{
+  "schemaName": "PublicGeneratorCapacityReconciliationCloseoutV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R03_CapacityAwareLegalRouteAndPerCapabilityUiLimitReconciliation",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "implementation": {
+    "pullRequestNumber": 441,
+    "headSha": "5c5ae2fb00365a36ba70e4896659ba913e4574e8",
+    "mergeSha": "416a7176ce2822da0a182868a735038278a3b9d5",
+    "focusedWorkflowRunId": 30427655076,
+    "focusedWorkflowConclusion": "success",
+    "r02ChromiumWorkflowRunId": 30427655357,
+    "r02ChromiumWorkflowConclusion": "success",
+    "scopeFreezeWorkflowRunId": 30427654559,
+    "scopeFreezeWorkflowConclusion": "success",
+    "nodeWorkflowRunId": 30427655065,
+    "nodeWorkflowConclusion": "success"
+  },
+  "acceptedCounts": {
+    "historicalR02BindingCount": 1152,
+    "currentLegalBindingCount": 1089,
+    "routeCount": 1155,
+    "legalRouteCount": 793,
+    "illegalRouteCount": 362,
+    "verified20RouteCount": 519,
+    "verifiedLimitedRouteCount": 270,
+    "zeroCapacityRouteCount": 4,
+    "diversityGapRouteCount": 91,
+    "currentUnverifiedCapacityExposureCount": 0,
+    "hardBlockerCount": 0
+  },
+  "downstreamGaps": {
+    "capacityBelow20RouteCount": 270,
+    "crossSeedItemDiversityDeficientRouteCount": 91,
+    "zeroSafeCapacityRouteCount": 4,
+    "owners": [
+      "PGC-R04_NumericGenerationFullFix",
+      "PGC-R05_ApplicationGenerationFullFix"
+    ]
+  },
+  "acceptedBoundary": {
+    "illegalControlIntersectionsRemovedFromUi": true,
+    "zeroCapacityRoutesHidden": true,
+    "perCapabilityVerifiedQuestionCountApplied": true,
+    "classic404PixelSharedResolver": true,
+    "secondGeneratorAdded": false,
+    "secondValidatorAdded": false,
+    "secondRendererAdded": false,
+    "secondWorksheetPipelineAdded": false,
+    "slice014Started": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_GENERATOR_CAPACITY_FAIL_CLOSED",
+    "goalDistanceAfter": "D1_CAPACITY_AWARE_PUBLIC_ROUTES_CONFORMANT",
+    "distanceReduced": "Illegal route combinations are removed and every exposed public route is clamped to its deterministic verified safe question count.",
+    "remainingBlockers": [
+      "PGC-R04_NUMERIC_QUALITY",
+      "PGC-R05_APPLICATION_QUALITY",
+      "PGC-R06_TO_R08_PRODUCT_ACCEPTANCE"
+    ],
+    "nextShortestStep": "PGC-R04_NumericGenerationFullFix"
+  },
+  "stopReason": "NONE"
+}
