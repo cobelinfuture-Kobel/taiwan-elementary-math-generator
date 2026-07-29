@@ -7,6 +7,7 @@ on:
       - "tools/curriculum/materialize-pgc-r05-reconciled-capacity-consumers.mjs"
       - "tools/curriculum/apply-pgc-r05-d0-*.mjs"
       - "tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs"
+      - "tools/curriculum/apply-pgc-r05-idempotent-history-patch.mjs"
       - "tools/curriculum/apply-pgc-r05-retained-quality-*.mjs"
       - "tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs"
       - "tests/curriculum/pgc-r03-generator-capacity-contract.test.js"
@@ -76,6 +77,7 @@ jobs:
           node --check tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
           node --check tools/curriculum/apply-pgc-r05-d0-readback-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs
+          node --check tools/curriculum/apply-pgc-r05-idempotent-history-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-retained-quality-diagnostics-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-retained-quality-closeout-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-d0-test-status-patch.mjs
@@ -89,6 +91,7 @@ jobs:
           node tools/curriculum/apply-pgc-r05-retained-quality-diagnostics-patch.mjs
           node tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs
           node tools/curriculum/apply-pgc-r05-retained-quality-closeout-patch.mjs
+          node tools/curriculum/apply-pgc-r05-idempotent-history-patch.mjs
           node tools/curriculum/apply-pgc-r05-d0-test-status-patch.mjs
           node --check tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
           node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
