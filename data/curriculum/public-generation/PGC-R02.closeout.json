@@ -1,0 +1,71 @@
+{
+  "schemaName": "PublicKnowledgePointUiCapabilityBindingCloseoutV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "bindingContract": "data/curriculum/public-generation/ui_capability_binding_contract.json",
+  "filterMatrix": "data/curriculum/public-generation/ui_option_filter_matrix.csv",
+  "readback": "docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md",
+  "implementation": {
+    "pullRequestNumber": 438,
+    "headSha": "2cf9af2585fef55f92b460fefeb6c14333c37bf8",
+    "mergeSha": "5cc6aa8bf38813c31f2918406a605b38f96da960",
+    "focusedAndChromiumWorkflowRunId": 30423098148,
+    "focusedAndChromiumWorkflowConclusion": "success",
+    "nodeWorkflowRunId": 30423098093,
+    "nodeWorkflowConclusion": "success",
+    "scopeFreezeWorkflowRunId": 30423098155,
+    "scopeFreezeWorkflowConclusion": "success"
+  },
+  "acceptedCounts": {
+    "publicSourceCount": 26,
+    "visibleKnowledgePointCount": 193,
+    "publicSurfaceCount": 3,
+    "baseUiCaseCount": 243,
+    "surfaceUiCaseCount": 729,
+    "questionTypeBindingRowCount": 1152,
+    "surfaceParityCaseCount": 243,
+    "blockedBindingCount": 0,
+    "unverifiedCapacityExposureCount": 0,
+    "gapCount": 0,
+    "safeQuestionCountMin": 1,
+    "safeQuestionCountDefault": 20,
+    "safeQuestionCountMax": 20
+  },
+  "acceptedRuntime": {
+    "classicUsesSharedResolver": true,
+    "fallback404UsesSharedResolver": true,
+    "pixelUsesThinSharedResolverAdapter": true,
+    "knowledgePointDeterminesQuestionTypes": true,
+    "questionTypeDeterminesCompatibleForms": true,
+    "depthAndContextCompatibilityFiltered": true,
+    "pblRestrictedToSourceUnitMode": true,
+    "crossUnitMixedKnowledgePointModeEnabled": false,
+    "capacityFailClosedPendingR03": true,
+    "threeSurfaceChromiumAcceptancePassed": true,
+    "browserSelectorFormAuthorityMatchesResolver": true
+  },
+  "acceptedBoundary": {
+    "slice014Started": false,
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false,
+    "worksheetPipelineDuplicated": false,
+    "knowledgePointAdded": false,
+    "patternGroupAdded": false,
+    "patternSpecAdded": false,
+    "parallelUiAuthorityAdded": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_PUBLIC_CAPABILITY_MATRIX_MATERIALIZED",
+    "goalDistanceAfter": "D1_KP_DRIVEN_UI_BINDING_CONFORMANT",
+    "distanceReduced": "All three public surfaces now derive question type, compatible form, depth, context and fail-closed question-count controls from the selected public KnowledgePoint capabilities through one shared resolver.",
+    "remainingBlockers": [
+      "PGC-R03_VERIFIED_CAPACITY",
+      "PGC-R04_TO_R08_PRODUCT_ACCEPTANCE"
+    ],
+    "nextShortestStep": "PGC-R03_PublicGeneratorCapacityContract"
+  },
+  "stopReason": "NONE"
+}
