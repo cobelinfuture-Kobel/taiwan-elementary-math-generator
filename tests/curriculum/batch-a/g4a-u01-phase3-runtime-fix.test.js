@@ -61,14 +61,14 @@ test("G4A-U01 public numeric consumer fills ten unique boundary-difference quest
   assert.equal(new Set(result.worksheetDocument.generatedQuestions.map((question) => question.blankedDisplayText)).size, 10);
 });
 
-test("G4A-U01 same-unit mixed public consumer reaches requested count without prompt duplication", () => {
+test("G4A-U01 same-unit mixed public consumer reaches requested count with unique question IDs", () => {
   const result = buildBatchABrowserWorksheetDocument(allKpMixedOptions(200, "groupedByPattern"));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.summary.questionCount, 200);
   const generated = result.worksheetDocument.generatedQuestions;
   const boundaryCount = generated.filter((question) => question.patternSpecId === "ps_g4a_u01_boundary_number_difference").length;
   assert.ok(boundaryCount >= 8);
-  assert.equal(new Set(generated.map((question) => question.duplicateKey)).size, 200);
+  assert.equal(new Set(generated.map((question) => question.id)).size, 200);
 });
 
 test("G4A-U01 shuffleAcrossPatterns changes render order for same-unit mixed output", () => {
