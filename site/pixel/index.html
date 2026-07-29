@@ -137,7 +137,7 @@
         <div class="pixel-setting-grid">
           <label class="pixel-field">
             <span>題數</span>
-            <input id="pixel-question-count" type="number" min="1" max="200" value="20">
+            <input id="pixel-question-count" type="number" min="1" max="20" value="20" data-capacity-status="fail-closed-pending-pgc-r03">
           </label>
           <label class="pixel-field">
             <span>排序</span>
@@ -229,6 +229,7 @@
   </main>
 
   <script type="module" src="./pixel-ui.js"></script>
+  <script type="module" src="./pixel-public-capability-ui.js"></script>
   <script type="module" src="./pixel-live-preview.js"></script>
   <script type="module" src="./pixel-print-surface.js"></script>
 </body>
