@@ -19127,6 +19127,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -19428,7 +19435,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 165,
+      "implementationReferenceCount": 166,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -19505,6 +19512,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -20452,6 +20460,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -20753,7 +20768,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 165,
+      "implementationReferenceCount": 166,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -20830,6 +20845,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -21802,6 +21818,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -22104,7 +22127,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -22181,6 +22204,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -23155,6 +23179,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -23457,7 +23488,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -23534,6 +23565,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -24508,6 +24540,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -24817,7 +24856,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 168,
+      "implementationReferenceCount": 169,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -24894,6 +24933,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -25877,6 +25917,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -26179,7 +26226,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 168,
+      "implementationReferenceCount": 169,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -26256,6 +26303,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -27231,6 +27279,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -27533,7 +27588,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -27610,6 +27665,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -28584,6 +28640,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -28886,7 +28949,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -28963,6 +29026,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -29944,6 +30008,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -30246,7 +30317,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 168,
+      "implementationReferenceCount": 169,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -30323,6 +30394,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -31350,6 +31422,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -31655,7 +31734,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 168,
+      "implementationReferenceCount": 169,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -31732,6 +31811,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
@@ -32773,6 +32853,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -33086,7 +33173,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 170,
+      "implementationReferenceCount": 171,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -33163,6 +33250,7 @@
         "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
         "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
         "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-g5a-u02-seed-space-probe.test.js",
         "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
         "tests/curriculum/postg-app-m00-master-controller.test.js",
         "tests/curriculum/postg-app-w01-a00-assessment.test.js",
