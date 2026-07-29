@@ -4,7 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const relativePath = "site/assets/browser/pipeline/build-worksheet-document.js";
-const marker = "PGC-R05 source-unit application alias projection FullFix V1";
+const marker = "PGC-R05 source-unit application alias projection FullFix V2";
+const W01_APPLICATION_ADMISSION = "POSTG-APP-W01-A06E";
 
 function replaceRequired(source, before, after, label) {
   if (source.includes(after)) return source;
@@ -20,8 +21,8 @@ export function applyPgcR05SourceUnitApplicationAliasPatch() {
       status: "PASS_PGC_R05_SOURCE_UNIT_APPLICATION_ALIAS_ALREADY_APPLIED",
       changedFiles: Object.freeze([]),
       verifiedFiles: Object.freeze([relativePath]),
-      applicationAliasIdentityPreserved: true,
-      basePatternGroupDowngradeRemoved: true,
+      w01ApplicationAliasIdentityPreserved: true,
+      nonW01BasePatternCompatibilityPreserved: true,
       r07AuthorityRegistryModified: false,
       unitGeneratorsModified: false,
       secondPipelineAdded: false,
@@ -35,7 +36,8 @@ export function applyPgcR05SourceUnitApplicationAliasPatch() {
     source,
     "function generationPatternGroupId(group) { return group?.basePatternGroupId ?? group?.patternGroupId; }",
     `function applicationPatternGroupId(group) {
-  return group?.patternGroupId;
+  if (group?.globalContextAdmission === "${W01_APPLICATION_ADMISSION}") return group?.patternGroupId;
+  return group?.basePatternGroupId ?? group?.patternGroupId;
 }`,
     "application-group-id-helper",
   );
@@ -52,8 +54,8 @@ export function applyPgcR05SourceUnitApplicationAliasPatch() {
     status: "PASS_PGC_R05_SOURCE_UNIT_APPLICATION_ALIAS_PATCH_APPLIED",
     changedFiles: Object.freeze([relativePath]),
     verifiedFiles: Object.freeze([relativePath]),
-    applicationAliasIdentityPreserved: true,
-    basePatternGroupDowngradeRemoved: true,
+    w01ApplicationAliasIdentityPreserved: true,
+    nonW01BasePatternCompatibilityPreserved: true,
     r07AuthorityRegistryModified: false,
     unitGeneratorsModified: false,
     numericRoutesModified: false,
