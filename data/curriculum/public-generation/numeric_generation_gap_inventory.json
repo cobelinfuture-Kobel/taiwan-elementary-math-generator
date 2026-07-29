@@ -5474,9 +5474,17 @@
           "matchedTokens": [
             "g3a_u06_3a06"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g3a_u06_division_with_remainder",
+            "g3a_u06_3a06"
+          ]
         }
       ],
-      "implementationReferenceCount": 56,
+      "implementationReferenceCount": 57,
       "runtimeReferencePaths": [
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
         "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
@@ -5495,7 +5503,9 @@
         "site/modules/curriculum/registry/w01-public-application-groups.js",
         "src/curriculum/validator/batch-a-validator.js"
       ],
-      "toolReferencePaths": [],
+      "toolReferencePaths": [
+        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
+      ],
       "testReferencePaths": [
         "tests/curriculum/g3a-u06-division-kp-generator.test.js",
         "tests/curriculum/g3a-u06-mixed-ordering.test.js",
@@ -5962,9 +5972,17 @@
           "matchedTokens": [
             "g3a_u06_3a06"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g3a_u06_quotative_division_packaging",
+            "g3a_u06_3a06"
+          ]
         }
       ],
-      "implementationReferenceCount": 56,
+      "implementationReferenceCount": 57,
       "runtimeReferencePaths": [
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
         "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
@@ -5983,7 +6001,9 @@
         "site/modules/curriculum/registry/w01-public-application-groups.js",
         "src/curriculum/validator/batch-a-validator.js"
       ],
-      "toolReferencePaths": [],
+      "toolReferencePaths": [
+        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
+      ],
       "testReferencePaths": [
         "tests/curriculum/g3a-u06-division-kp-generator.test.js",
         "tests/curriculum/g3a-u06-mixed-ordering.test.js",
@@ -6450,9 +6470,17 @@
           "matchedTokens": [
             "g3a_u06_3a06"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g3a_u06_partitive_division_equal_sharing",
+            "g3a_u06_3a06"
+          ]
         }
       ],
-      "implementationReferenceCount": 56,
+      "implementationReferenceCount": 57,
       "runtimeReferencePaths": [
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
         "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
@@ -6471,7 +6499,9 @@
         "site/modules/curriculum/registry/w01-public-application-groups.js",
         "src/curriculum/validator/batch-a-validator.js"
       ],
-      "toolReferencePaths": [],
+      "toolReferencePaths": [
+        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
+      ],
       "testReferencePaths": [
         "tests/curriculum/g3a-u06-division-kp-generator.test.js",
         "tests/curriculum/g3a-u06-mixed-ordering.test.js",
@@ -6939,9 +6969,17 @@
           "matchedTokens": [
             "g3a_u06_3a06"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g3a_u06_parity_range_missing_digit",
+            "g3a_u06_3a06"
+          ]
         }
       ],
-      "implementationReferenceCount": 56,
+      "implementationReferenceCount": 57,
       "runtimeReferencePaths": [
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
         "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
@@ -6960,7 +6998,9 @@
         "site/modules/curriculum/registry/w01-public-application-groups.js",
         "src/curriculum/validator/batch-a-validator.js"
       ],
-      "toolReferencePaths": [],
+      "toolReferencePaths": [
+        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
+      ],
       "testReferencePaths": [
         "tests/curriculum/g3a-u06-division-kp-generator.test.js",
         "tests/curriculum/g3a-u06-mixed-ordering.test.js",
