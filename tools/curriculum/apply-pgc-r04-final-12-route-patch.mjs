@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const primes = "[13, 17, 19, 23, 29, 31, 37, 41, 43, 47]";
+const GENERATED_BUNDLE_BANNER = "/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */";
 
 function patchFile(relativePath, transform) {
   const filePath = path.join(repoRoot, relativePath);
@@ -96,31 +97,9 @@ function patchClassC(source) {
   return source;
 }
 
-function patchBrowserBundle(source) {
-  const inlinePrimes = "[13,17,19,23,29,31,37,41,43,47]";
-  source = source.replace(
-    /([A-Za-z_$][A-Za-z0-9_$]*)\.int\(2,12\)\*\1\.int\(2,12\)/g,
-    (_, rng) => `${rng}.int(2,12)*${rng}.pick(${inlinePrimes})`,
-  );
-  source = source.replace(
-    /total:([A-Za-z_$][A-Za-z0-9_$]*)\.int\(4,12\)\*\1\.int\(2,8\),groupSize:\1\.int\(2,12\),a:\1\.int\(2,10\)\*\1\.int\(2,7\),b:\1\.int\(2,10\)\*\1\.int\(2,7\)/g,
-    (_, rng) => `total:${rng}.int(4,20)*${rng}.pick(${inlinePrimes}),groupSize:${rng}.int(2,99),a:${rng}.int(2,12)*${rng}.pick(${inlinePrimes}),b:${rng}.int(2,12)*${rng}.pick(${inlinePrimes})`,
-  );
-  source = replaceRequired(
-    source,
-    "i=(r-1)%900,o=2+i%9,a=11+i,s=a+1",
-    "i=(r-1)%90,o=2+i%9,a=101+2*i,s=a+1",
-    "browser-common-factor-injective-projection-v2",
-  );
-  source = source.replaceAll(
-    'generationProjectionStatus:"pgc_r04_common_factor_seed_projection"',
-    'generationProjectionStatus:"pgc_r04_common_factor_seed_projection_v2"',
-  );
-  if (!source.includes(`pick(${inlinePrimes})`)) {
-    throw new Error("PGC_R04_FINAL12_BROWSER_BUNDLE_TARGET_SPACE_MISSING");
-  }
-  if (!source.includes("i=(r-1)%90,o=2+i%9,a=101+2*i,s=a+1")) {
-    throw new Error("PGC_R04_FINAL12_BROWSER_COMMON_FACTOR_PROJECTION_V2_MISSING");
+function preserveGeneratedBrowserBundle(source) {
+  if (!source.startsWith(GENERATED_BUNDLE_BANNER)) {
+    throw new Error("PGC_R04_FINAL12_GENERATED_BUNDLE_BANNER_MISSING");
   }
   return source;
 }
@@ -139,7 +118,7 @@ export function applyPgcR04Final12RoutePatch() {
     patchFile("src/curriculum/g5a-u02/s100-method-runtime.js", patchS100),
     patchFile("src/curriculum/g5a-u02/s106-factor-structure-runtime.js", patchS106),
     patchFile("src/curriculum/g5a-u02/class-c-generator-validator.js", patchClassC),
-    patchFile("site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js", patchBrowserBundle),
+    patchFile("site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js", preserveGeneratedBrowserBundle),
     patchFile("site/modules/curriculum/batch-b/g4b-u04-prompt-deduplication.js", patchG4BU04Capacity),
   ];
   const result = Object.freeze({
@@ -156,6 +135,7 @@ export function applyPgcR04Final12RoutePatch() {
       acceptsDeterministicProblemTypeSeedProjection: true,
       acceptsInjectiveCommonFactorSeedProjectionV2: true,
       acceptsReconciledS106TargetPool: true,
+      generatedBundleEditedDirectly: false,
     }),
   });
   console.log(`PGC_R04_FINAL12_PATCH=${JSON.stringify(result)}`);
