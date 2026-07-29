@@ -43,7 +43,8 @@ function assertLiveRun(routeId, run) {
     throw new Error(`PGC_R05_RECONCILIATION_DUPLICATE_PROMPT:${routeId}:${run?.seed}`);
   }
   if (safeArray(run.errorCodes).length !== 0) throw new Error(`PGC_R05_RECONCILIATION_RUNTIME_ERRORS:${routeId}:${run?.seed}`);
-  if (!run.worksheetSignature) throw new Error(`PGC_R05_RECONCILIATION_SIGNATURE_MISSING:${routeId}:${run?.seed}`);
+  if (!run.worksheetSignature) throw new Error(`PGC_R05_RECONCILIATION_WORKSHEET_SIGNATURE_MISSING:${routeId}:${run?.seed}`);
+  if (!run.itemSetSignature) throw new Error(`PGC_R05_RECONCILIATION_ITEM_SET_SIGNATURE_MISSING:${routeId}:${run?.seed}`);
 }
 
 function capacityRun(run) {
@@ -60,12 +61,7 @@ function capacityRun(run) {
     duplicatePromptCount: run.duplicatePromptCount,
     uniquePromptCount: run.uniquePromptCount,
     orderedWorksheetSignature: run.worksheetSignature,
-    itemSetSignature: stableHash(JSON.stringify({
-      worksheetSignature: run.worksheetSignature,
-      patternSpecIdsObserved: safeArray(run.patternSpecIdsObserved),
-      knowledgePointIdsObserved: safeArray(run.knowledgePointIdsObserved),
-      uniquePromptCount: run.uniquePromptCount,
-    })),
+    itemSetSignature: run.itemSetSignature,
     patternSpecIdsObserved: safeArray(run.patternSpecIdsObserved),
     knowledgePointIdsObserved: safeArray(run.knowledgePointIdsObserved),
     runtimeLineage: run.runtimeLineage ?? null,
@@ -121,7 +117,7 @@ function recomputeContractSummary(contract) {
 }
 
 function writeReadback(report) {
-  const final = report.status === "PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_AND_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT";
+  const final = report.status === "PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_AND_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_WITH_RETAINED_CROSS_SEED_QUALITY_GAPS";
   const lines = [
     "# PGC-R05 Capacity Contract Reconciliation and D0 Closeout",
     "",
@@ -189,21 +185,24 @@ function reconcile() {
     const runs = safeArray(diagnostic.diagnosticRuns);
     if (runs.length !== 2) throw new Error(`PGC_R05_TWO_DIAGNOSTIC_RUNS_REQUIRED:${route.routeId}`);
     for (const run of runs) assertLiveRun(route.routeId, run);
-    const signatures = unique(runs.map((run) => run.worksheetSignature));
-    if (signatures.length !== runs.length) throw new Error(`PGC_R05_CROSS_SEED_WORKSHEET_DIVERSITY_REQUIRED:${route.routeId}`);
+    const qualityUpgradeRequired = route.qualityStatus !== "DIVERSE_PARAMETER_GENERATOR";
+    const orderedWorksheetSignatures = unique(runs.map((run) => run.worksheetSignature));
+    const itemSetSignatures = unique(runs.map((run) => run.itemSetSignature));
+    const qualityUpgradeAdmitted = qualityUpgradeRequired && itemSetSignatures.length === runs.length;
     const capacityRuns = runs.map(capacityRun);
     reconciledRouteIds.push(route.routeId);
     return {
       ...route,
       verifiedMaxQuestionCount: HARD_CEILING,
       capacityStatus: "VERIFIED_20",
-      qualityStatus: "DIVERSE_PARAMETER_GENERATOR",
-      uniqueItemSetCount: Math.max(Number(route.uniqueItemSetCount) || 0, new Set(capacityRuns.map((run) => run.itemSetSignature)).size),
-      uniqueOrderedWorksheetCount: Math.max(Number(route.uniqueOrderedWorksheetCount) || 0, signatures.length),
+      qualityStatus: qualityUpgradeAdmitted ? "DIVERSE_PARAMETER_GENERATOR" : route.qualityStatus,
+      uniqueItemSetCount: Math.max(Number(route.uniqueItemSetCount) || 0, itemSetSignatures.length),
+      uniqueOrderedWorksheetCount: Math.max(Number(route.uniqueOrderedWorksheetCount) || 0, orderedWorksheetSignatures.length),
       reconciliationCodes: unique([
         ...safeArray(route.reconciliationCodes),
         "PGC_R05_LIVE_20_CAPACITY_RECONCILED",
-        "PGC_R05_TWO_SEED_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R05_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        ...(qualityUpgradeAdmitted ? ["PGC_R05_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"] : []),
       ]),
       selectedCapacityEvidence: {
         evidenceAuthority: LIVE_EVIDENCE_AUTHORITY,
@@ -213,7 +212,12 @@ function reconcile() {
         replay: capacityRuns[0],
         passed: true,
       },
-      downstreamGapCodes: safeArray(route.downstreamGapCodes).filter((code) => !CLEARED_GAP_CODES.has(code)),
+      downstreamGapCodes: unique([
+        ...safeArray(route.downstreamGapCodes).filter((code) => !CLEARED_GAP_CODES.has(code)),
+        ...(!qualityUpgradeAdmitted && route.qualityStatus !== "DIVERSE_PARAMETER_GENERATOR"
+          ? ["CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"]
+          : []),
+      ]),
     };
   });
 
@@ -254,8 +258,7 @@ function reconcile() {
   if (applicationAfter.legalRouteCount !== EXPECTED_LEGAL_APPLICATION_ROUTES
     || applicationAfter.verified20RouteCount !== EXPECTED_LEGAL_APPLICATION_ROUTES
     || applicationAfter.verifiedLimitedRouteCount !== 0
-    || applicationAfter.zeroCapacityRouteCount !== 0
-    || applicationAfter.diversityGapRouteCount !== 0) {
+    || applicationAfter.zeroCapacityRouteCount !== 0) {
     throw new Error(`PGC_R05_APPLICATION_CONTRACT_NOT_CLOSED:${JSON.stringify(applicationAfter)}`);
   }
 
@@ -263,10 +266,10 @@ function reconcile() {
   const illegalApplicationAfterHash = stableHash(JSON.stringify(contract.routes.filter((route) => route.questionType === APPLICATION && route.legalRoute !== true)));
   const unrelatedBindingsAfterHash = stableHash(JSON.stringify(contract.historicalBindingEvidence.filter((binding) => !safeArray(binding.routeIds).some((id) => reconciledSet.has(id)))));
   const boundary = {
-    nonApplicationRoutesBeforeHash,
+    nonApplicationRoutesBeforeHash: nonApplicationBeforeHash,
     nonApplicationRoutesAfterHash: nonApplicationAfterHash,
     nonApplicationRoutesPreserved: nonApplicationBeforeHash === nonApplicationAfterHash,
-    illegalApplicationRoutesBeforeHash,
+    illegalApplicationRoutesBeforeHash: illegalApplicationBeforeHash,
     illegalApplicationRoutesAfterHash: illegalApplicationAfterHash,
     illegalApplicationRoutesPreserved: illegalApplicationBeforeHash === illegalApplicationAfterHash,
     unrelatedBindingsBeforeHash,
@@ -309,10 +312,9 @@ function finalize() {
   const report = readJson(reportPath, "PGC_R05_RECONCILIATION_REPORT_MISSING");
   const diagnostics = readJson(diagnosticsPath, "PGC_R05_FINAL_DIAGNOSTICS_MISSING");
   const contract = readJson(contractPath, "PGC_R05_FINAL_CONTRACT_MISSING");
-  if (diagnostics.status !== "PASS_R05_D0_ALL_LEGAL_APPLICATION_ROUTES_CONFORMANT") throw new Error(`PGC_R05_D0_DIAGNOSTICS_REQUIRED:${diagnostics.status}`);
+  if (diagnostics.status !== "PASS_R05_D0_ALL_LEGAL_APPLICATION_ROUTES_CAPACITY_CONFORMANT_WITH_RETAINED_CROSS_SEED_QUALITY_GAPS") throw new Error(`PGC_R05_D0_DIAGNOSTICS_REQUIRED:${diagnostics.status}`);
   if (diagnostics.summary?.contractVerified20RouteCount !== EXPECTED_LEGAL_APPLICATION_ROUTES
     || diagnostics.summary?.contractLimitedRouteCount !== 0
-    || diagnostics.summary?.contractQualityGapRouteCount !== 0
     || diagnostics.summary?.live20PassRouteCount !== EXPECTED_LEGAL_APPLICATION_ROUTES
     || diagnostics.summary?.live20FailRouteCount !== 0
     || diagnostics.summary?.repairRouteCount !== 0) {
@@ -320,7 +322,7 @@ function finalize() {
   }
   const finalReport = {
     ...report,
-    status: "PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_AND_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT",
+    status: "PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_AND_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_WITH_RETAINED_CROSS_SEED_QUALITY_GAPS",
     finalDiagnosticsStatus: diagnostics.status,
     finalDiagnosticsSummary: clone(diagnostics.summary),
     overallSummaryAfter: clone(contract.summary),
@@ -338,3 +340,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if (process.argv.includes("--finalize")) finalize();
   else reconcile();
 }
+
+// PGC-R05 order-insensitive item-set reconciliation evidence V3
+
+// PGC-R05 retained cross-seed quality backlog D0 closeout V2
