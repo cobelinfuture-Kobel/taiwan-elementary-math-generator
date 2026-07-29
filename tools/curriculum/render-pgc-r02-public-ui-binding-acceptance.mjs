@@ -191,11 +191,11 @@ async function inspectPixel() {
   let finding = { surfaceId: "PIXEL", route: "/pixel/", runtimeError: null };
   try {
     await page.goto(`${baseUrl}/pixel/`, { waitUntil: "networkidle" });
-    await page.waitForSelector(`#pixel-grade-select option[value="${witness.source.grade}"]`);
+    await page.waitForFunction((grade) => [...document.querySelectorAll("#pixel-grade-select option")].some((option) => option.value === String(grade)), witness.source.grade);
     await page.selectOption("#pixel-grade-select", String(witness.source.grade));
-    await page.waitForSelector(`#pixel-semester-select option[value="${witness.source.semester}"]`);
+    await page.waitForFunction((semester) => [...document.querySelectorAll("#pixel-semester-select option")].some((option) => option.value === semester), witness.source.semester);
     await page.selectOption("#pixel-semester-select", witness.source.semester);
-    await page.waitForSelector(`#pixel-source-select option[value="${APPLICATION_SOURCE_ID}"]`);
+    await page.waitForFunction((sourceId) => [...document.querySelectorAll("#pixel-source-select option")].some((option) => option.value === sourceId), APPLICATION_SOURCE_ID);
     await page.selectOption("#pixel-source-select", APPLICATION_SOURCE_ID);
     await page.selectOption("#pixel-selection-mode-select", "singleKnowledgePoint");
     await page.waitForSelector(`[data-knowledge-point-id="${APPLICATION_KP_ID}"]`);
