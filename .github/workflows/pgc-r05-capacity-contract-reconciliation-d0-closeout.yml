@@ -6,6 +6,7 @@ on:
       - "tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs"
       - "tools/curriculum/apply-pgc-r05-d0-*.mjs"
       - "tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs"
+      - "tools/curriculum/apply-pgc-r05-retained-quality-*.mjs"
       - "tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs"
       - "tests/curriculum/pgc-r05-*.test.js"
       - "data/curriculum/public-generation/generator_capacity_contract.json"
@@ -45,13 +46,17 @@ jobs:
           node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
           node --check tools/curriculum/apply-pgc-r05-d0-readback-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs
+          node --check tools/curriculum/apply-pgc-r05-retained-quality-diagnostics-patch.mjs
+          node --check tools/curriculum/apply-pgc-r05-retained-quality-closeout-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-d0-test-status-patch.mjs
           node --check tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js
 
-      - name: Apply D0 diagnostics and item-set evidence patches
+      - name: Apply D0 capacity and retained-quality patches
         run: |
           node tools/curriculum/apply-pgc-r05-d0-readback-patch.mjs
+          node tools/curriculum/apply-pgc-r05-retained-quality-diagnostics-patch.mjs
           node tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs
+          node tools/curriculum/apply-pgc-r05-retained-quality-closeout-patch.mjs
           node tools/curriculum/apply-pgc-r05-d0-test-status-patch.mjs
           node --check tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
           node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
@@ -114,7 +119,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "R05 D0 authorities already synchronized."
           else
-            git commit -m "close(pgc-r05): reconcile application capacity contract at D0 [skip ci]"
+            git commit -m "close(pgc-r05): reconcile application capacity at D0 with retained quality backlog [skip ci]"
             git fetch origin "${{ github.head_ref || github.ref_name }}"
             git rebase "origin/${{ github.head_ref || github.ref_name }}"
             git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
