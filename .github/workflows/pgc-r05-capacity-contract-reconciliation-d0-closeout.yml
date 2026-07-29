@@ -49,6 +49,26 @@ jobs:
         with:
           node-version: 24
 
+      - name: Detect committed R05 D0 terminal authority
+        id: r05-d0-mode
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const contractPath = "data/curriculum/public-generation/generator_capacity_contract.json";
+          const reportPath = "data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json";
+          let terminal = false;
+          if (fs.existsSync(contractPath) && fs.existsSync(reportPath)) {
+            const contract = JSON.parse(fs.readFileSync(contractPath, "utf8"));
+            const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+            terminal = contract.lastReconciliation?.taskId === "PGC-R05_CapacityContractReconciliationAndD0Closeout"
+              && String(report.status ?? "").startsWith("PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_")
+              && Array.isArray(report.reconciledRouteIds)
+              && report.reconciledRouteIds.length === 211;
+          }
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `terminal=${terminal}\n`);
+          console.log(`PGC_R05_D0_WORKFLOW_MODE=${terminal ? "D0_READ_ONLY" : "RECONCILE_AND_MATERIALIZE"}`);
+          NODE
+
       - name: Syntax-check closeout authorities
         run: |
           node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
@@ -63,6 +83,7 @@ jobs:
           node --check tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js
 
       - name: Apply D0 capacity and retained-quality patches
+        if: steps.r05-d0-mode.outputs.terminal != 'true'
         run: |
           node tools/curriculum/apply-pgc-r05-d0-readback-patch.mjs
           node tools/curriculum/apply-pgc-r05-retained-quality-diagnostics-patch.mjs
@@ -73,9 +94,11 @@ jobs:
           node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
 
       - name: Materialize pre-reconciliation 211-route live evidence
+        if: steps.r05-d0-mode.outputs.terminal != 'true'
         run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
 
       - name: Require 211 of 211 live application routes before contract mutation
+        if: steps.r05-d0-mode.outputs.terminal != 'true'
         run: |
           node --input-type=module <<'NODE'
           import fs from "node:fs";
@@ -90,18 +113,40 @@ jobs:
           NODE
 
       - name: Reconcile application capacity contract and public-surface limits
+        if: steps.r05-d0-mode.outputs.terminal != 'true'
         run: node tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
 
       - name: Materialize reconciled capacity consumers
+        if: steps.r05-d0-mode.outputs.terminal != 'true'
         run: |
           node tools/curriculum/materialize-pgc-r05-reconciled-capacity-consumers.mjs
           node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
 
       - name: Rematerialize final D0 application diagnostics
+        if: steps.r05-d0-mode.outputs.terminal != 'true'
         run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
 
       - name: Finalize R05 D0 closeout authority
+        if: steps.r05-d0-mode.outputs.terminal != 'true'
         run: node tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs --finalize
+
+      - name: Validate committed R05 D0 lineage
+        if: steps.r05-d0-mode.outputs.terminal == 'true'
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const report = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json", "utf8"));
+          if (report.changedBindingIds?.length !== 135
+            || report.applicationBefore?.verified20RouteCount !== 128
+            || report.applicationAfter?.verified20RouteCount !== 211) {
+            throw new Error(`PGC_R05_D0_LINEAGE_INVALID:${JSON.stringify({
+              changedBindingCount: report.changedBindingIds?.length,
+              applicationBefore: report.applicationBefore,
+              applicationAfter: report.applicationAfter,
+            })}`);
+          }
+          console.log("PGC_R05_D0_LINEAGE=PASS");
+          NODE
 
       - name: Focused R05 D0 acceptance
         run: |
@@ -121,6 +166,7 @@ jobs:
         run: npm test
 
       - name: Commit deterministic R05 D0 authorities
+        if: steps.r05-d0-mode.outputs.terminal != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
