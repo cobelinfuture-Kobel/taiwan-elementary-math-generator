@@ -133,11 +133,30 @@ function allocateCounts(patternSpecIds, questionCount) {
   }).filter((entry) => entry.questionCount > 0);
 }
 
-function pairFor(specId, sequenceNumber) {
-  if (specId === "ps_g3a_u03_2digit_by_1digit_carry") return [10 + ((sequenceNumber * 17) % 90), 2 + ((sequenceNumber * 5) % 8)];
-  if (specId === "ps_g3a_u03_10_multiple_by_1digit") return [10 * (1 + ((sequenceNumber - 1) % 9)), 2 + ((sequenceNumber * 3) % 8)];
-  if (specId === "ps_g3a_u03_3digit_by_1digit") return [100 + ((sequenceNumber * 137) % 900), 2 + ((sequenceNumber * 5) % 8)];
-  if (specId === zeroMiddleSpecId) return [100 * (1 + (sequenceNumber % 8)) + (1 + ((sequenceNumber * 7) % 9)), 2 + ((sequenceNumber * 5) % 8)];
+// PGC_R04_G3A_U03_SEEDED_VARIATION_V1: every numeric pool consumes generationSeed through a full-cycle permutation.
+const pairPoolLengths = Object.freeze({
+  "ps_g3a_u03_2digit_by_1digit_carry": 360,
+  "ps_g3a_u03_10_multiple_by_1digit": 72,
+  "ps_g3a_u03_3digit_by_1digit": 1800,
+  [zeroMiddleSpecId]: 72
+});
+
+function seededPoolIndex(specId, sequenceNumber, seed, length) {
+  const seedValue = hashSeed(`${sourceId}:${specId}:${seed ?? "default"}`);
+  const offset = seedValue % length;
+  const step = permutationStep(seedValue, length);
+  return (offset + ((sequenceNumber - 1) * step)) % length;
+}
+
+function pairFor(specId, sequenceNumber, seed) {
+  const poolLength = pairPoolLengths[specId];
+  const seededSequenceNumber = poolLength
+    ? seededPoolIndex(specId, sequenceNumber, seed, poolLength) + 1
+    : sequenceNumber;
+  if (specId === "ps_g3a_u03_2digit_by_1digit_carry") return [10 + ((seededSequenceNumber * 17) % 90), 2 + ((seededSequenceNumber * 5) % 8)];
+  if (specId === "ps_g3a_u03_10_multiple_by_1digit") return [10 * (1 + ((seededSequenceNumber - 1) % 9)), 2 + ((seededSequenceNumber * 3) % 8)];
+  if (specId === "ps_g3a_u03_3digit_by_1digit") return [100 + ((seededSequenceNumber * 137) % 900), 2 + ((seededSequenceNumber * 5) % 8)];
+  if (specId === zeroMiddleSpecId) return [100 * (1 + (seededSequenceNumber % 8)) + (1 + ((seededSequenceNumber * 7) % 9)), 2 + ((seededSequenceNumber * 5) % 8)];
   return null;
 }
 
@@ -220,8 +239,8 @@ function blankFor(target, value, placeValue) {
   return { target, index, placeValue, digit: Number(String(value)[index]) };
 }
 
-function makeMissingQuestion(sequenceNumber) {
-  const row = missingRows[(sequenceNumber - 1) % missingRows.length];
+function makeMissingQuestion(sequenceNumber, seed) {
+  const row = missingRows[seededPoolIndex(missingInferenceSpecId, sequenceNumber, seed, missingRows.length)];
   const result = row.left * row.right;
   const blanks = row.blanks.map((blank) => blankFor(blank.target, blank.target === "left" ? row.left : blank.target === "right" ? row.right : result, blank.placeValue));
   const leftText = mask(row.left, blanks.filter((blank) => blank.target === "left"));
@@ -252,10 +271,13 @@ function makeMissingQuestion(sequenceNumber) {
 }
 
 function generateU03Question(specId, sequenceNumber, seed) {
-  if (specId === twoStepSpecId) return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
+  if (specId === twoStepSpecId) {
+    const row = twoStepRows[seededPoolIndex(twoStepSpecId, sequenceNumber, seed, twoStepRows.length)];
+    return makeQuestion(specId, row, sequenceNumber);
+  }
   if (specId === twoStepWordProblemSpecId) return makeWordProblemQuestion(sequenceNumber, seed);
-  if (specId === missingInferenceSpecId) return makeMissingQuestion(sequenceNumber);
-  return makeQuestion(specId, pairFor(specId, sequenceNumber), sequenceNumber);
+  if (specId === missingInferenceSpecId) return makeMissingQuestion(sequenceNumber, seed);
+  return makeQuestion(specId, pairFor(specId, sequenceNumber, seed), sequenceNumber);
 }
 
 function questionKey(question) {
