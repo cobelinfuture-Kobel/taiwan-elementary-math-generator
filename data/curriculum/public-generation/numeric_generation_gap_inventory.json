@@ -19302,6 +19302,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -19421,7 +19428,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 164,
+      "implementationReferenceCount": 165,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -19451,6 +19458,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -20619,6 +20627,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -20738,7 +20753,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 164,
+      "implementationReferenceCount": 165,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -20768,6 +20783,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -21961,6 +21977,14 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_factor_relation_equivalence",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -22080,7 +22104,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 166,
+      "implementationReferenceCount": 167,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -22110,6 +22134,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -23305,6 +23330,14 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_factor_enumeration_division",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -23424,7 +23457,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 166,
+      "implementationReferenceCount": 167,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -23454,6 +23487,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -24656,6 +24690,14 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_factor_enumeration_pairs",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -24775,7 +24817,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -24805,6 +24847,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -26009,6 +26052,14 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_factor_membership_judgement",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -26128,7 +26179,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -26158,6 +26209,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -27354,6 +27406,14 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_problem_type_discrimination",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -27473,7 +27533,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 166,
+      "implementationReferenceCount": 167,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -27503,6 +27563,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -28698,6 +28759,14 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_common_factor_enumeration",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -28817,7 +28886,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 166,
+      "implementationReferenceCount": 167,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -28847,6 +28916,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -30049,6 +30119,14 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_greatest_common_factor",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -30168,7 +30246,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -30198,6 +30276,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -31446,6 +31525,17 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_factor_relation_equivalence",
+            "pg_g5a_u02_factor_membership_judgement",
+            "pg_g5a_u02_problem_type_discrimination",
+            "pg_g5a_u02_common_factor_concept",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -31565,7 +31655,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -31595,6 +31685,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
@@ -32864,6 +32955,18 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "pg_g5a_u02_factor_enumeration_division",
+            "pg_g5a_u02_factor_enumeration_pairs",
+            "pg_g5a_u02_factor_order_symmetry",
+            "pg_g5a_u02_common_factor_enumeration",
+            "pg_g5a_u02_greatest_common_factor",
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -32983,7 +33086,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 169,
+      "implementationReferenceCount": 170,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -33013,6 +33116,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-g5a-u02-seed-space-probe.mjs",
         "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
