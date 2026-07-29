@@ -39,3 +39,4 @@ DISTANCE_REDUCED     = illegal routes are removed and every exposed route is cla
 REMAINING_BLOCKERS   = [PGC-R04_NUMERIC_QUALITY, PGC-R05_APPLICATION_QUALITY, PGC-R06_TO_R08_PRODUCT_ACCEPTANCE]
 NEXT_SHORTEST_STEP   = PGC-R04_NumericGenerationFullFix
 ```
+
