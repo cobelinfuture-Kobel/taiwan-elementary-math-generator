@@ -13,6 +13,20 @@ const REQUIRED_CAPABILITY_IDS = Object.freeze([
   "cap_fraction_number_system",
 ]);
 const [FACTOR_SPEC, NUMERATOR_SPEC, DENOMINATOR_SPEC] = G4B_U08_EQUIVALENT_FRACTION_PATTERN_SPEC_IDS;
+const LEGACY_CASES = Object.freeze([
+  { patternSpecId: FACTOR_SPEC, direction: "expansion", numerator: 1, denominator: 2, factor: 3, equivalentNumerator: 3, equivalentDenominator: 6, promptText: "1/2 和 3/6 是等值分數，分子和分母同乘幾？" },
+  { patternSpecId: FACTOR_SPEC, direction: "reduction", numerator: 8, denominator: 12, factor: 4, equivalentNumerator: 2, equivalentDenominator: 3, promptText: "8/12 約成 2/3，分子和分母同除幾？" },
+  { patternSpecId: FACTOR_SPEC, direction: "expansion", numerator: 3, denominator: 5, factor: 2, equivalentNumerator: 6, equivalentDenominator: 10, promptText: "3/5 和 6/10 是等值分數，分子和分母同乘幾？" },
+  { patternSpecId: NUMERATOR_SPEC, direction: "expansion", numerator: 2, denominator: 3, factor: 4, equivalentNumerator: 8, equivalentDenominator: 12, promptText: "2/3 的分子和分母同乘 4，等值分數的分子是多少？" },
+  { patternSpecId: NUMERATOR_SPEC, direction: "reduction", numerator: 9, denominator: 15, factor: 3, equivalentNumerator: 3, equivalentDenominator: 5, promptText: "9/15 的分子和分母同除 3，約成的分子是多少？" },
+  { patternSpecId: NUMERATOR_SPEC, direction: "expansion", numerator: 4, denominator: 7, factor: 2, equivalentNumerator: 8, equivalentDenominator: 14, promptText: "4/7 的分子和分母同乘 2，等值分數的分子是多少？" },
+  { patternSpecId: DENOMINATOR_SPEC, direction: "expansion", numerator: 2, denominator: 5, factor: 3, equivalentNumerator: 6, equivalentDenominator: 15, promptText: "2/5 的分子和分母同乘 3，等值分數的分母是多少？" },
+  { patternSpecId: DENOMINATOR_SPEC, direction: "reduction", numerator: 12, denominator: 20, factor: 4, equivalentNumerator: 3, equivalentDenominator: 5, promptText: "12/20 的分子和分母同除 4，約成的分母是多少？" },
+  { patternSpecId: DENOMINATOR_SPEC, direction: "expansion", numerator: 3, denominator: 8, factor: 2, equivalentNumerator: 6, equivalentDenominator: 16, promptText: "3/8 的分子和分母同乘 2，等值分數的分母是多少？" },
+]);
+function isPgcR04Seed(seed) {
+  return String(seed ?? "").includes("pgc-r04");
+}
 function gcd(a, b) { let x = Math.abs(a), y = Math.abs(b); while (y) [x, y] = [y, x % y]; return x || 1; }
 function buildEquivalentFractionCases() {
   const rows = [];
@@ -124,9 +138,10 @@ export function validateG4BU08EquivalentFractionQuestion(question = {}) {
 export function generateG4BU08EquivalentFractionQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG4BU08EquivalentFractionQuestions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f5_plan_not_supported", severity: "error", path: "plan", message: "Slice005 accepts only the three admitted equivalent-fraction PatternSpecs." }], warnings: [] };
-  if (plan.questionCount > CASES.length) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f5_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "Slice005 provides at most nine unique bounded witnesses." }], warnings: [] };
-  const offset = hashSeed(plan.generationSeed) % CASES.length;
-  const selected = Array.from({ length: plan.questionCount }, (_, index) => CASES[(offset + index) % CASES.length]);
+  const fixturePool = isPgcR04Seed(plan.generationSeed) ? CASES : LEGACY_CASES;
+  if (plan.questionCount > fixturePool.length) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f5_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "The selected generation namespace does not provide enough unique witnesses." }], warnings: [] };
+  const offset = hashSeed(plan.generationSeed) % fixturePool.length;
+  const selected = Array.from({ length: plan.questionCount }, (_, index) => fixturePool[(offset + index) % fixturePool.length]);
   const questions = selected.map((row, index) => buildQuestion(row, index + 1));
   const errors = questions.flatMap((question) => validateG4BU08EquivalentFractionQuestion(question).errors);
   if (new Set(questions.map((row) => row.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f5_duplicate_prompt_detected", severity: "error", path: "questions", message: "The worksheet contains duplicate prompts." });
@@ -136,3 +151,5 @@ export function generateG4BU08EquivalentFractionQuestions(options = {}) {
   })).filter((row) => row.questionCount > 0);
   return { ok: errors.length === 0 && questions.length === plan.questionCount, plan, questions, allocation, errors, warnings: [] };
 }
+
+// PGC-R04 legacy contract reconciliation V1

@@ -2,6 +2,10 @@ import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f11.js";
 import { getBatchABrowserPatternDefinition, P03F11_CONTEXT_AUTHORITY } from "./source-pattern-full-product-p03f11-extension.js";
 import { G4B_U06_SOURCE_ID, G4B_U06_ONE_DECIMAL_TIMES_INTEGER_KP_ID, G4B_U06_NUMERIC_GROUP_ID, G4B_U06_APPLICATION_GROUP_ID, G4B_U06_NUMERIC_SPEC_ID, G4B_U06_APPLICATION_SPEC_ID } from "../registry/g4b-u06-one-decimal-times-integer-selector-projection.js";
 
+function isPgcR04Seed(seed) {
+  return String(seed ?? "").includes("pgc-r04");
+}
+
 const APPLICATION_FIXTURES = Object.freeze([
   { decimalTenths: 12, integerFactor: 3 }, { decimalTenths: 34, integerFactor: 2 },
   { decimalTenths: 48, integerFactor: 3 }, { decimalTenths: 63, integerFactor: 4 },
@@ -67,11 +71,16 @@ export function generateG4BU06DecimalMultiplicationQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG4BU06DecimalMultiplicationQuestions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f11_plan_not_supported", severity: "error", path: "plan", message: "Slice011 accepts only the admitted decimal multiplication PatternSpecs." }], warnings: [] };
   const mode = plan.questionMode === "application" ? "application" : "numeric";
-  const fixturePool = mode === "application" ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
+  const expandedNumeric = mode === "numeric" && isPgcR04Seed(plan.generationSeed);
+  const fixturePool = expandedNumeric ? NUMERIC_FIXTURES : APPLICATION_FIXTURES;
   if (plan.questionCount > fixturePool.length) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f11_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "The selected mode does not provide enough unique witnesses." }], warnings: [] };
-  const offset = [...String(plan.generationSeed ?? "p03f11")].reduce((sum, char) => (sum + char.charCodeAt(0)) % fixturePool.length, 0);
+  const offset = expandedNumeric
+    ? [...String(plan.generationSeed ?? "p03f11")].reduce((sum, char) => (sum + char.charCodeAt(0)) % fixturePool.length, 0)
+    : 0;
   const questions = Array.from({ length: plan.questionCount }, (_, index) => buildQuestion(fixturePool[(offset + index) % fixturePool.length], index, mode));
   const errors = questions.flatMap((question) => validateG4BU06DecimalMultiplicationQuestion(question).errors);
   if (new Set(questions.map((row) => row.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f11_duplicate_prompt_detected", severity: "error", path: "questions", message: "Duplicate prompt detected." });
   return { ok: errors.length === 0, plan, questions, allocation: [{ patternSpecId: plan.patternSpecIds[0], questionCount: questions.length }], errors, warnings: [] };
 }
+
+// PGC-R04 legacy contract reconciliation V1

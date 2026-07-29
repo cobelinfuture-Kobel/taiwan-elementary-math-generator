@@ -16,6 +16,7 @@ import {
 } from "../../site/modules/curriculum/batch-b/g4b-u04-inverse-unique-case-pool.js";
 import {
   G4B_U04_PROMPT_DEDUPLICATION_VERSION,
+  G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC,
   allocateG4BU04UniquePromptCapacity,
   normalizeG4BU04PromptSignature,
 } from "../../site/modules/curriculum/batch-b/g4b-u04-prompt-deduplication.js";
@@ -87,13 +88,13 @@ test("R2B1 capacity-aware allocation caps finite pools and redistributes excess"
   const result = allocateG4BU04UniquePromptCapacity(40, ids);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(Object.values(result.patternAllocation).reduce((sum, value) => sum + value, 0), 40);
-  assert.equal(result.patternAllocation.ps_g4b_u04_approx_symbol_reading, 1);
-  assert.equal(result.patternAllocation.ps_g4b_u04_inverse_digit_set, 12);
-  assert.equal(result.patternAllocation.ps_g4b_u04_inverse_original_values, 12);
-  assert.equal(result.patternAllocation.ps_g4b_u04_round_half_up, 15);
+  assert.equal(result.patternAllocation.ps_g4b_u04_approx_symbol_reading, 10);
+  assert.equal(result.patternAllocation.ps_g4b_u04_inverse_digit_set, 10);
+  assert.equal(result.patternAllocation.ps_g4b_u04_inverse_original_values, 10);
+  assert.equal(result.patternAllocation.ps_g4b_u04_round_half_up, 10);
 });
 
-test("R2B blocks a single fixed prompt PatternSpec when requested count exceeds unique capacity", () => {
+test("R2B admits multiple approximation-symbol prompts within the expanded capacity", () => {
   const plan = {
     sourceId: "g4b_u04_4b04",
     worksheetMode: "batchAKnowledgePoint",
@@ -107,14 +108,18 @@ test("R2B blocks a single fixed prompt PatternSpec when requested count exceeds 
     includeAnswerKey: true,
   };
   const checked = validateG4BU04CanonicalPlan(plan);
-  assert.equal(checked.ok, false);
-  assert.equal(errorCodes(checked).has("G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"), true);
+  assert.equal(checked.ok, true, JSON.stringify(checked.errors));
+  const generated = generateG4BU04CanonicalQuestions(plan);
+  assert.equal(generated.ok, true, JSON.stringify(generated.errors));
+  assert.equal(generated.questions.length, 2);
+  assert.equal(new Set(promptSignatures(generated.questions)).size, 2);
 });
 
 test("R2B mixed 40-question canonical output contains no duplicate normalized prompts", () => {
   const normalized = normalizeG4BU04ResolverPlan(mixedPlan());
   assert.equal(normalized.resolverResult.ok, true, JSON.stringify(normalized.resolverResult.errors));
-  assert.equal(normalized.patternAllocation.ps_g4b_u04_approx_symbol_reading, 1);
+  assert.ok(normalized.patternAllocation.ps_g4b_u04_approx_symbol_reading > 0);
+  assert.ok(normalized.patternAllocation.ps_g4b_u04_approx_symbol_reading <= G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_approx_symbol_reading);
   assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_digit_set > 0);
   assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_digit_set <= 12);
   assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_original_values > 0);
@@ -151,7 +156,9 @@ test("R2B 1000-question mixed generation remains deterministic and duplicate-fre
   const signatures = promptSignatures(first.questions);
   assert.equal(signatures.length, 1000);
   assert.equal(new Set(signatures).size, 1000);
-  assert.equal(first.plan.patternAllocation.ps_g4b_u04_approx_symbol_reading, 1);
+  assert.equal(first.plan.patternAllocation.ps_g4b_u04_approx_symbol_reading, G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_approx_symbol_reading);
   assert.equal(first.plan.patternAllocation.ps_g4b_u04_inverse_digit_set, 12);
   assert.equal(first.plan.patternAllocation.ps_g4b_u04_inverse_original_values, 12);
 });
+
+// PGC-R04 legacy contract reconciliation V1

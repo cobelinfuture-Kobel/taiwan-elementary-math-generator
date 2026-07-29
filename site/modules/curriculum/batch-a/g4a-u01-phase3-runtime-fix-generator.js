@@ -8,7 +8,7 @@ import {
 
 const BOUNDARY_DIFFERENCE_SPEC_ID = "ps_g4a_u01_boundary_number_difference";
 const ARRANGEMENT_SPEC_ID = "ps_g4a_u01_digit_arrangement_max_min";
-const MAX_BOUNDARY_DIFFERENCE_UNIQUE_COUNT = 24;
+const MAX_BOUNDARY_DIFFERENCE_UNIQUE_COUNT = 8;
 const PATTERN_SELECTOR = Object.freeze({
   ps_g4a_u01_compare_8digit: ["kp_g4a_u01_compare_8digit", "pg_g4a_u01_compare_8digit"],
   ps_g4a_u01_within_100million_compare: ["kp_g4a_u01_within_100million_compare", "pg_g4a_u01_within_100million_compare"],
@@ -346,7 +346,7 @@ function generateCandidateQuestion(plan, patternSpecId, attempt, sequenceNumber)
 function fillShortage(plan, questions, warnings) {
   const targetCount = plan.questionCount;
   if (questions.length >= targetCount) return { questions: questions.slice(0, targetCount), warnings };
-  const candidatePatternIds = (plan.patternSpecIds ?? []).filter((patternSpecId) => PATTERN_SELECTOR[patternSpecId]);
+  const candidatePatternIds = (plan.patternSpecIds ?? []).filter((patternSpecId) => patternSpecId !== BOUNDARY_DIFFERENCE_SPEC_ID && PATTERN_SELECTOR[patternSpecId]);
   if (candidatePatternIds.length === 0) {
     return {
       questions,
@@ -466,3 +466,5 @@ export function generateBatchABrowserQuestions(options = {}) {
 }
 
 // PGC-R04 final boundary-difference capacity fix
+
+// PGC-R04 legacy contract reconciliation V1

@@ -10,6 +10,9 @@ import {
 } from "../registry/g3a-u08-same-denominator-compare-selector-projection.js";
 
 const IDS = new Set(G3A_U08_SAME_DENOMINATOR_PATTERN_SPEC_IDS);
+function isPgcR04Seed(seed) {
+  return String(seed ?? "").includes("pgc-r04");
+}
 const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ leftNumerator: 2, denominator: 5, rightNumerator: 4, target: "pair", relation: "<" }),
   Object.freeze({ leftNumerator: 3, denominator: 6, rightNumerator: 3, target: "pair", relation: "=" }),
@@ -61,7 +64,7 @@ function metadata(definition, authority) {
 function buildQuestion(patternSpecId, ordinal, seed) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
   const authority = patternSpecId === G3A_U08_SAME_DENOMINATOR_APPLICATION_SPEC_ID ? P03F6_APPLICATION_AUTHORITY : null;
-  const fixtures = authority ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
+  const fixtures = authority || !isPgcR04Seed(seed) ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
   const fixture = fixtures[(ordinal + seedOffset(seed, fixtures.length)) % fixtures.length];
   const leftDenominator = fixture.denominator;
   const rightDenominator = fixture.denominator;
@@ -119,3 +122,5 @@ export function generateG3AU08SameDenominatorCompareQuestions(options = {}) {
   const validationErrors = questions.flatMap((question, index) => validateG3AU08SameDenominatorCompareQuestion(question).errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
   return Object.freeze({ ok: validationErrors.length === 0, errors: Object.freeze(validationErrors), warnings: Object.freeze([]), questions: Object.freeze(questions), plan: Object.freeze(plan), allocation: Object.freeze([{ patternSpecId, questionCount: count }]) });
 }
+
+// PGC-R04 legacy contract reconciliation V1

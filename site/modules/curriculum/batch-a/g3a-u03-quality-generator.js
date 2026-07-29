@@ -30,9 +30,9 @@ const wordProblemContexts = Object.freeze([
 function buildTwoStepRows() {
   const rows = [];
   const seen = new Set();
-  for (let left = 2; left <= 9; left += 1) {
-    for (let middle = left; middle <= 9; middle += 1) {
-      for (let third = middle; third <= 9; third += 1) {
+  for (const third of thirdFactors) {
+    for (let left = 2; left <= 9; left += 1) {
+      for (let middle = 2; middle <= 9; middle += 1) {
         const product = left * middle * third;
         const key = [left, middle, third].join("x");
         if (product <= 729 && !seen.has(key)) {
@@ -359,3 +359,5 @@ export function generateBatchABrowserQuestions(options = {}) {
 }
 
 // PGC-R04 final G3A-U03 parameter pool fix
+
+// PGC-R04 legacy contract reconciliation V1

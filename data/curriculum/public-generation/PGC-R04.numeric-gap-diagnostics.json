@@ -295,10 +295,10 @@
               ]
             },
             {
-              "prompt": "(2 × 2) × 4 = ___",
-              "answer": "16",
-              "promptHash": "b1ce724bc15bc243a197",
-              "itemSignature": "746646cfa35567a18b67",
+              "prompt": "(3 × 9) × 17 = ___",
+              "answer": "459",
+              "promptHash": "df1e2d00786f5bd0428b",
+              "itemSignature": "74a2f4abffeee8a23572",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -579,10 +579,10 @@
               ]
             },
             {
-              "prompt": "(2 × 2) × 5 = ___",
-              "answer": "20",
-              "promptHash": "686b456e99d8f8faccef",
-              "itemSignature": "6da697e3632fdfe26af6",
+              "prompt": "(6 × 2) × 17 = ___",
+              "answer": "204",
+              "promptHash": "1af387af845a7c99c7e4",
+              "itemSignature": "b3fae2420a16110cbe9b",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2579,10 +2579,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "(6 × 8) × 8 = ___",
-              "answer": "384",
-              "promptHash": "8b572d631fdba527c511",
-              "itemSignature": "0001ce65cf7dffd2b8d1",
+              "prompt": "(3 × 9) × 10 = ___",
+              "answer": "270",
+              "promptHash": "1c2b29d1a115337f1b53",
+              "itemSignature": "c6039901e50639f8d985",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2612,10 +2612,10 @@
               ]
             },
             {
-              "prompt": "(4 × 6) × 7 = ___",
-              "answer": "168",
-              "promptHash": "772ac1a0edac7c806b10",
-              "itemSignature": "c287cabc60ee2407e452",
+              "prompt": "(7 × 3) × 20 = ___",
+              "answer": "420",
+              "promptHash": "7ae6c18735d1a821f4e3",
+              "itemSignature": "c26c6457ea47fc6a4fdf",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2645,10 +2645,10 @@
               ]
             },
             {
-              "prompt": "(3 × 4) × 6 = ___",
-              "answer": "72",
-              "promptHash": "708c85e10abf1155a9b6",
-              "itemSignature": "2a11e9e55d2dd6171f6b",
+              "prompt": "(8 × 8) × 10 = ___",
+              "answer": "640",
+              "promptHash": "fea2ba353df7dd8636d3",
+              "itemSignature": "b72b465a4e3d9ba0e448",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2678,10 +2678,10 @@
               ]
             },
             {
-              "prompt": "(2 × 3) × 9 = ___",
-              "answer": "54",
-              "promptHash": "9f59daed417245e24e9b",
-              "itemSignature": "107dbffa6a54036dc9aa",
+              "prompt": "(5 × 8) × 3 = ___",
+              "answer": "120",
+              "promptHash": "6454b46ffa6145aea5c1",
+              "itemSignature": "30558d35e0be436365d3",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2711,10 +2711,10 @@
               ]
             },
             {
-              "prompt": "(6 × 6) × 9 = ___",
-              "answer": "324",
-              "promptHash": "5cf802d326637dd9be46",
-              "itemSignature": "50f308218eec5ebd03c6",
+              "prompt": "(5 × 8) × 13 = ___",
+              "answer": "520",
+              "promptHash": "d78d39b69200cdbc92d4",
+              "itemSignature": "a35ea336618ef7e44232",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2860,10 +2860,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "(6 × 8) × 9 = ___",
-              "answer": "432",
-              "promptHash": "1d5b2cb4327f7d7051ba",
-              "itemSignature": "cebba1e72b0d41abd45a",
+              "prompt": "(4 × 2) × 10 = ___",
+              "answer": "80",
+              "promptHash": "c06d88e4c08512b18cbb",
+              "itemSignature": "c973771899df73d8b740",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2893,10 +2893,10 @@
               ]
             },
             {
-              "prompt": "(4 × 6) × 8 = ___",
-              "answer": "192",
-              "promptHash": "6e459379a218be842b4f",
-              "itemSignature": "94b492786eb7d7f7004f",
+              "prompt": "(7 × 5) × 20 = ___",
+              "answer": "700",
+              "promptHash": "df730ec8a69d36305e7e",
+              "itemSignature": "cdbda96161088a092a32",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2926,10 +2926,10 @@
               ]
             },
             {
-              "prompt": "(3 × 4) × 7 = ___",
-              "answer": "84",
-              "promptHash": "d87ad356d8430972a8f4",
-              "itemSignature": "6799789efed8ed7fcba4",
+              "prompt": "(9 × 3) × 10 = ___",
+              "answer": "270",
+              "promptHash": "3c946d6b4d24cf3b5bdc",
+              "itemSignature": "4aab60b76c5b9e97eab7",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2959,10 +2959,10 @@
               ]
             },
             {
-              "prompt": "(2 × 4) × 4 = ___",
-              "answer": "32",
-              "promptHash": "10a6e2ce392e9328d9fa",
-              "itemSignature": "a6686e78c6948a253558",
+              "prompt": "(6 × 4) × 3 = ___",
+              "answer": "72",
+              "promptHash": "f5bb522886d91a67f2a2",
+              "itemSignature": "1bcdbabfd11cf5e8446b",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -2992,10 +2992,10 @@
               ]
             },
             {
-              "prompt": "(6 × 7) × 7 = ___",
-              "answer": "294",
-              "promptHash": "693e913c73d0ef1fd099",
-              "itemSignature": "048e6fed45186c18c255",
+              "prompt": "(6 × 5) × 13 = ___",
+              "answer": "390",
+              "promptHash": "0f1d049f437d020ead8d",
+              "itemSignature": "af5ea183aaf4dd1a418f",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -4479,10 +4479,10 @@
               ]
             },
             {
-              "prompt": "(2 × 2) × 8 = ___",
-              "answer": "32",
-              "promptHash": "cf204410b86745c64c02",
-              "itemSignature": "21e8c89f27b96d369334",
+              "prompt": "(9 × 4) × 10 = ___",
+              "answer": "360",
+              "promptHash": "7e7512e8dac5991cc90f",
+              "itemSignature": "7c50c57f2fb269131e35",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,
@@ -4765,10 +4765,10 @@
               ]
             },
             {
-              "prompt": "(2 × 2) × 9 = ___",
-              "answer": "36",
-              "promptHash": "a4784df31beebbd647d7",
-              "itemSignature": "c9c62db9b9f48ee7667c",
+              "prompt": "(2 × 9) × 13 = ___",
+              "answer": "234",
+              "promptHash": "55a23b84be6c05f4f75f",
+              "itemSignature": "b663764e3607666c467e",
               "patternSpecId": "ps_g3a_u03_consecutive_multiplication_two_step",
               "knowledgePointIds": [],
               "rawKind": null,

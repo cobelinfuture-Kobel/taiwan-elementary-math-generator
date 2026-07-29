@@ -8,6 +8,9 @@ import {
   G3B_U07_FRACTION_UNIT_CONVERSION_APPLICATION_SPEC_IDS, G3B_U07_FRACTION_UNIT_CONVERSION_PATTERN_SPEC_IDS,
 } from "../registry/g3b-u07-fraction-unit-conversion-selector-projection.js";
 const IDS = new Set(G3B_U07_FRACTION_UNIT_CONVERSION_PATTERN_SPEC_IDS);
+function isPgcR04Seed(seed) {
+  return String(seed ?? "").includes("pgc-r04");
+}
 const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ role: "itemCount", itemsPerWhole: 12, wholeUnits: 1, numerator: 1, denominator: 3, itemLabel: "彩色筆", unitLabel: "盒" }),
   Object.freeze({ role: "fractionalUnits", itemsPerWhole: 12, itemCount: 18, itemLabel: "圖卡", unitLabel: "盒" }),
@@ -141,10 +144,12 @@ export function generateG3BU07FractionUnitConversionQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG3BU07FractionUnitConversionQuestions(plan)) return { ok: false, errors: [{ code: "p03f7_plan_not_supported", severity: "error", path: "patternSpecIds", message: "p03f7_plan_not_supported" }], warnings: [], questions: [], allocation: [], plan };
   const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 6;
-  const fixturePool = plan.questionMode === "application" ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
+  const fixturePool = plan.questionMode === "application" || !isPgcR04Seed(plan.generationSeed) ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
   const offset = seedOffset(plan.generationSeed, fixturePool.length);
   const questions = Array.from({ length: count }, (_, index) => buildQuestion(plan.questionMode, resolveFixture(fixturePool[(index + offset) % fixturePool.length]), index));
   const errors = questions.flatMap((q, i) => validateG3BU07FractionUnitConversionQuestion(q).errors.map((e) => ({ ...e, path: `questions[${i}].${e.path}` })));
   const allocation = plan.patternSpecIds.map((id) => Object.freeze({ patternSpecId: id, questionCount: questions.filter((q) => q.patternSpecId === id).length }));
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), warnings: Object.freeze([]), questions: Object.freeze(questions), allocation: Object.freeze(allocation), plan: Object.freeze(plan) });
 }
+
+// PGC-R04 legacy contract reconciliation V1

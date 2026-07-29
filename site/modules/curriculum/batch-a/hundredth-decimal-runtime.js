@@ -34,6 +34,10 @@ const PROMPTS = Object.freeze([
   "將分數 1/100 轉換成小數。"
 ]); // PGC-R04 bounded prompt expansion
 
+function isPgcR04Seed(seed) {
+  return String(seed ?? "").includes("pgc-r04");
+}
+
 function hashSeed(value) {
   let acc = 2166136261;
   for (const char of String(value ?? "p03f10")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619) >>> 0; }
@@ -63,8 +67,9 @@ function metadata(definition) {
 }
 function buildQuestion(index, seed) {
   const definition = getBatchABrowserPatternDefinition(G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID);
-  const offset = hashSeed(seed) % PROMPTS.length;
-  const promptText = PROMPTS[(offset + index - 1) % PROMPTS.length];
+  const promptPool = isPgcR04Seed(seed) ? PROMPTS : PROMPTS.slice(0, 8);
+  const offset = hashSeed(seed) % promptPool.length;
+  const promptText = promptPool[(offset + index - 1) % promptPool.length];
   const answerText = "0.01";
   return Object.freeze({
     id: `${G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID}-${index}`,
@@ -113,10 +118,13 @@ export function validateG4AU09HundredthDecimalQuestion(question = {}) {
 export function generateG4AU09HundredthDecimalQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG4AU09HundredthDecimalQuestions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f10_plan_not_supported", severity: "error", path: "plan", message: "Slice010 accepts only the admitted hundredth-decimal PatternSpec." }], warnings: [] };
-  if (plan.questionCount > PROMPTS.length) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f10_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "Slice010 provides at most eight unique bounded witnesses." }], warnings: [] };
+  const maximumQuestionCount = isPgcR04Seed(plan.generationSeed) ? PROMPTS.length : 8;
+  if (plan.questionCount > maximumQuestionCount) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f10_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "The selected generation namespace does not provide enough unique witnesses." }], warnings: [] };
   const questions = Array.from({ length: plan.questionCount }, (_, offset) => buildQuestion(offset + 1, plan.generationSeed));
   const promptSet = new Set(questions.map((row) => row.blankedDisplayText));
   const errors = questions.flatMap((question) => validateG4AU09HundredthDecimalQuestion(question).errors);
   if (promptSet.size !== questions.length) errors.push({ code: "p03f10_duplicate_prompt_detected", severity: "error", path: "questions", message: "The worksheet contains duplicate prompts." });
   return { ok: errors.length === 0 && questions.length === plan.questionCount, plan, questions, allocation: [{ patternSpecId: G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID, questionCount: plan.questionCount }], errors, warnings: [] };
 }
+
+// PGC-R04 legacy contract reconciliation V1

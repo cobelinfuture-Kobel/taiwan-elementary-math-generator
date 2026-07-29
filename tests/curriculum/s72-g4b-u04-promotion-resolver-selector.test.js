@@ -201,7 +201,7 @@ test("S72 canonical generation is deterministic and duplicate-free through 1000 
   assert.equal(first.ok, true, JSON.stringify(first.errors));
   assert.deepEqual(first, second);
   assert.equal(Object.values(first.plan.patternAllocation).reduce((sum, count) => sum + count, 0), 1000);
-  assert.equal(first.plan.patternAllocation.ps_g4b_u04_approx_symbol_reading, 1);
+  assert.equal(first.plan.patternAllocation.ps_g4b_u04_approx_symbol_reading, G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_approx_symbol_reading);
   assert.equal(
     first.plan.patternAllocation.ps_g4b_u04_inverse_digit_set,
     G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_digit_set,
@@ -257,3 +257,5 @@ test("S72 historical promotion contract remains unchanged beneath the R2C overla
   assert.equal(contract.lifecycle.productionUse, "forbidden");
   assert.equal(contract.activation.requiredNextGate, "S73_G4B_U04_WorksheetAnswerKeyAndRendererIntegration");
 });
+
+// PGC-R04 legacy contract reconciliation V1
