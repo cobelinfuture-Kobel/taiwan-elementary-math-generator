@@ -977,9 +977,16 @@
           "matchedTokens": [
             "g3a_u03_3a03"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
         }
       ],
-      "implementationReferenceCount": 65,
+      "implementationReferenceCount": 66,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -997,7 +1004,8 @@
       ],
       "toolReferencePaths": [
         "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs",
-        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
+        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/batch-a-generator.test.js",
@@ -1542,9 +1550,16 @@
           "matchedTokens": [
             "g3a_u03_3a03"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
         }
       ],
-      "implementationReferenceCount": 65,
+      "implementationReferenceCount": 66,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -1562,7 +1577,8 @@
       ],
       "toolReferencePaths": [
         "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs",
-        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
+        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/batch-a-generator.test.js",
@@ -2106,9 +2122,16 @@
           "matchedTokens": [
             "g3a_u03_3a03"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
         }
       ],
-      "implementationReferenceCount": 65,
+      "implementationReferenceCount": 66,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -2126,7 +2149,8 @@
       ],
       "toolReferencePaths": [
         "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs",
-        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
+        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/batch-a-generator.test.js",
@@ -2670,9 +2694,16 @@
           "matchedTokens": [
             "g3a_u03_3a03"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
         }
       ],
-      "implementationReferenceCount": 65,
+      "implementationReferenceCount": 66,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -2690,7 +2721,8 @@
       ],
       "toolReferencePaths": [
         "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs",
-        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
+        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/batch-a-generator.test.js",
@@ -3237,9 +3269,16 @@
           "matchedTokens": [
             "g3a_u03_3a03"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
         }
       ],
-      "implementationReferenceCount": 65,
+      "implementationReferenceCount": 66,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -3257,7 +3296,8 @@
       ],
       "toolReferencePaths": [
         "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs",
-        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
+        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/batch-a-generator.test.js",
@@ -3799,9 +3839,16 @@
           "matchedTokens": [
             "g3a_u03_3a03"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
         }
       ],
-      "implementationReferenceCount": 65,
+      "implementationReferenceCount": 66,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -3819,7 +3866,8 @@
       ],
       "toolReferencePaths": [
         "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs",
-        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
+        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/batch-a-generator.test.js",
@@ -4361,9 +4409,16 @@
           "matchedTokens": [
             "g3a_u03_3a03"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
         }
       ],
-      "implementationReferenceCount": 65,
+      "implementationReferenceCount": 66,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -4381,7 +4436,8 @@
       ],
       "toolReferencePaths": [
         "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs",
-        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
+        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/batch-a-generator.test.js",
@@ -4976,9 +5032,16 @@
           "matchedTokens": [
             "g3a_u03_3a03"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
         }
       ],
-      "implementationReferenceCount": 65,
+      "implementationReferenceCount": 66,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -4996,7 +5059,8 @@
       ],
       "toolReferencePaths": [
         "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs",
-        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
+        "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/batch-a-generator.test.js",
@@ -5482,9 +5546,16 @@
             "pg_g3a_u06_division_with_remainder",
             "g3a_u06_3a06"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u06_3a06"
+          ]
         }
       ],
-      "implementationReferenceCount": 57,
+      "implementationReferenceCount": 58,
       "runtimeReferencePaths": [
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
         "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
@@ -5504,7 +5575,8 @@
         "src/curriculum/validator/batch-a-validator.js"
       ],
       "toolReferencePaths": [
-        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
+        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/g3a-u06-division-kp-generator.test.js",
@@ -5980,9 +6052,16 @@
             "pg_g3a_u06_quotative_division_packaging",
             "g3a_u06_3a06"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u06_3a06"
+          ]
         }
       ],
-      "implementationReferenceCount": 57,
+      "implementationReferenceCount": 58,
       "runtimeReferencePaths": [
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
         "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
@@ -6002,7 +6081,8 @@
         "src/curriculum/validator/batch-a-validator.js"
       ],
       "toolReferencePaths": [
-        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
+        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/g3a-u06-division-kp-generator.test.js",
@@ -6478,9 +6558,16 @@
             "pg_g3a_u06_partitive_division_equal_sharing",
             "g3a_u06_3a06"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u06_3a06"
+          ]
         }
       ],
-      "implementationReferenceCount": 57,
+      "implementationReferenceCount": 58,
       "runtimeReferencePaths": [
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
         "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
@@ -6500,7 +6587,8 @@
         "src/curriculum/validator/batch-a-validator.js"
       ],
       "toolReferencePaths": [
-        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
+        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/g3a-u06-division-kp-generator.test.js",
@@ -6977,9 +7065,16 @@
             "pg_g3a_u06_parity_range_missing_digit",
             "g3a_u06_3a06"
           ]
+        },
+        {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g3a_u06_3a06"
+          ]
         }
       ],
-      "implementationReferenceCount": 57,
+      "implementationReferenceCount": 58,
       "runtimeReferencePaths": [
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
         "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
@@ -6999,7 +7094,8 @@
         "src/curriculum/validator/batch-a-validator.js"
       ],
       "toolReferencePaths": [
-        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
+        "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs"
       ],
       "testReferencePaths": [
         "tests/curriculum/g3a-u06-division-kp-generator.test.js",
@@ -19103,6 +19199,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -19215,7 +19318,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 162,
+      "implementationReferenceCount": 163,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -19245,6 +19348,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -20404,6 +20508,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -20516,7 +20627,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 162,
+      "implementationReferenceCount": 163,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -20546,6 +20657,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -21730,6 +21842,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -21842,7 +21961,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 164,
+      "implementationReferenceCount": 165,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -21872,6 +21991,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -23058,6 +23178,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -23170,7 +23297,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 164,
+      "implementationReferenceCount": 165,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -23200,6 +23327,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -24393,6 +24521,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -24505,7 +24640,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 165,
+      "implementationReferenceCount": 166,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -24535,6 +24670,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -25730,6 +25866,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -25842,7 +25985,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 165,
+      "implementationReferenceCount": 166,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -25872,6 +26015,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -27059,6 +27203,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -27171,7 +27322,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 164,
+      "implementationReferenceCount": 165,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -27201,6 +27352,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -28387,6 +28539,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -28499,7 +28658,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 164,
+      "implementationReferenceCount": 165,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -28529,6 +28688,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -29722,6 +29882,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -29834,7 +30001,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 165,
+      "implementationReferenceCount": 166,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -29864,6 +30031,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -31103,6 +31271,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -31215,7 +31390,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 165,
+      "implementationReferenceCount": 166,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -31245,6 +31420,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
@@ -32505,6 +32681,13 @@
           ]
         },
         {
+          "path": "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+          "kind": "tool",
+          "matchedTokens": [
+            "g5a_u02_5a02"
+          ]
+        },
+        {
           "path": "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
           "kind": "tool",
           "matchedTokens": [
@@ -32617,7 +32800,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 167,
+      "implementationReferenceCount": 168,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
@@ -32647,6 +32830,7 @@
         "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
         "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
         "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
         "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
         "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
