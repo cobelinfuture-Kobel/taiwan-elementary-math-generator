@@ -13,6 +13,16 @@ import {
 
 const Q2_IDS = new Set(G3A_U08_SLICE002_PATTERN_SPEC_IDS);
 const DENOMINATORS = Object.freeze([2, 3, 4, 6]);
+const UNIT_FRACTION_APPLICATION_SURFACES = Object.freeze([
+  "運動會補給站把一份水果平均分成 {{denominator}} 小份。小安取得 {{count}} 小份，共是一份水果的幾分之幾？",
+  "校園健康活動把一份點心平均分成 {{denominator}} 小份。參與者拿到 {{count}} 小份，占整份的幾分之幾？",
+  "社區運動日將一份補給平均分成 {{denominator}} 份，其中 {{count}} 份合起來是整份的幾分之幾？",
+  "體育課把一組運動貼紙平均分成 {{denominator}} 份。小安得到 {{count}} 份，得到全組的幾分之幾？",
+  "健康闖關活動將一份水果盤平均分成 {{denominator}} 份，取出 {{count}} 份後，取出的部分占幾分之幾？",
+  "運動社團把一份能量補給平均分成 {{denominator}} 小包。使用 {{count}} 小包，占原來一份的幾分之幾？",
+  "校慶接力活動把一份飲水補給平均分成 {{denominator}} 份。分出 {{count}} 份，占全部的幾分之幾？",
+  "戶外活動把一份補給品平均切成 {{denominator}} 份。隊員拿走 {{count}} 份，拿走全份的幾分之幾？",
+]);
 const ITEMS_PER_WHOLE = 12;
 const gcd = (a, b) => { let x = Math.abs(a); let y = Math.abs(b); while (y) [x, y] = [y, x % y]; return x || 1; };
 const fraction = (n, d) => { const g = gcd(n, d); return Object.freeze({ numerator: n / g, denominator: d / g }); };
@@ -101,7 +111,12 @@ function buildQuestion(patternSpecId, ordinal, seed, variantOffset = 0) {
           : "用乘法表示 " + unitFractionCount + " × 1/" + denominator + "，乘積是多少？";
     finalAnswer = fraction(unitFractionCount, denominator); answerText = fractionText(finalAnswer);
   } else if (patternSpecId === G3A_U08_UNIT_FRACTION_APPLICATION_SPEC_ID) {
-    promptText = `運動會補給站把一份水果平均分成 ${denominator} 小份。小安取得 ${unitFractionCount} 小份，共是一份水果的幾分之幾？`;
+    const surface = UNIT_FRACTION_APPLICATION_SURFACES[
+      state(seed, sampleIndex, patternSpecId + ":application-surface") % UNIT_FRACTION_APPLICATION_SURFACES.length
+    ];
+    promptText = surface
+      .replace("{{denominator}}", String(denominator))
+      .replace("{{count}}", String(unitFractionCount));
     finalAnswer = fraction(unitFractionCount, denominator); answerText = fractionText(finalAnswer);
   } else if ([G3A_U08_DISCRETE_ITEM_COUNT_NUMERIC_SPEC_ID, G3A_U08_DISCRETE_ITEM_COUNT_APPLICATION_SPEC_ID].includes(patternSpecId)) {
     promptText = patternSpecId === G3A_U08_DISCRETE_ITEM_COUNT_APPLICATION_SPEC_ID
@@ -196,3 +211,5 @@ export function generateG3AU08Slice002QuestionsFromPlan(plan = {}) {
 export function generateG3AU08Slice002Questions(options = {}) { return generateG3AU08Slice002QuestionsFromPlan(buildBatchABrowserPlan(options)); }
 
 // PGC-R04 final unit-fraction accumulation surface expansion
+
+// PGC-R05 bounded application capacity FullFix V1

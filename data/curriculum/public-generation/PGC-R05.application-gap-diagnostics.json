@@ -17,8 +17,8 @@
     "contractVerified20RouteCount": 128,
     "contractLimitedRouteCount": 83,
     "contractQualityGapRouteCount": 21,
-    "live20PassRouteCount": 166,
-    "live20FailRouteCount": 45,
+    "live20PassRouteCount": 172,
+    "live20FailRouteCount": 39,
     "repairRouteCount": 85,
     "zeroSafeCapacityRouteCount": 4,
     "repairRouteCountBySource": {
@@ -39805,33 +39805,32 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "BUILD_NOT_OK",
-        "QUESTION_COUNT_MISMATCH",
-        "ANSWER_COUNT_MISMATCH",
-        "RUNTIME_ERRORS_PRESENT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
           "seed": "pgc-r05-diagnostic-01",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f2_unique_prompt_sampling_exhausted"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g3a_u08_unit_fraction_accumulation_fraction_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g3a_u08_unit_fraction_accumulation"
+          ],
+          "worksheetSignature": "fae35ae41939ca523924",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -39839,35 +39838,68 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "健康闖關活動將一份水果盤平均分成 4 份，取出 2 份後，取出的部分占幾分之幾？",
+              "answer": "1/2",
+              "promptHash": "777a8828338b53ba946d",
+              "itemSignature": "8b1a209651771056881f",
+              "patternSpecId": "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+              "knowledgePointIds": [
+                "kp_g3a_u08_unit_fraction_accumulation"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "運動會補給站把一份水果平均分成 3 小份。小安取得 2 小份，共是一份水果的幾分之幾？",
+              "answer": "2/3",
+              "promptHash": "9ebb8f8edf5f40ca0bb4",
+              "itemSignature": "53fb5e14c315f974ea7b",
+              "patternSpecId": "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+              "knowledgePointIds": [
+                "kp_g3a_u08_unit_fraction_accumulation"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "戶外活動把一份補給品平均切成 3 份。隊員拿走 1 份，拿走全份的幾分之幾？",
+              "answer": "1/3",
+              "promptHash": "a7953153d22c29601780",
+              "itemSignature": "3a4fc86398dfb2c8c043",
+              "patternSpecId": "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+              "knowledgePointIds": [
+                "kp_g3a_u08_unit_fraction_accumulation"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f2_unique_prompt_sampling_exhausted"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g3a_u08_unit_fraction_accumulation_fraction_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g3a_u08_unit_fraction_accumulation"
+          ],
+          "worksheetSignature": "4a7f922be3930c86b164",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -39875,16 +39907,45 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "健康闖關活動將一份水果盤平均分成 3 份，取出 2 份後，取出的部分占幾分之幾？",
+              "answer": "2/3",
+              "promptHash": "85f6dbb23d0e19615b6b",
+              "itemSignature": "92f35793ee18d015ce86",
+              "patternSpecId": "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+              "knowledgePointIds": [
+                "kp_g3a_u08_unit_fraction_accumulation"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "健康闖關活動將一份水果盤平均分成 2 份，取出 1 份後，取出的部分占幾分之幾？",
+              "answer": "1/2",
+              "promptHash": "0477802cceca2043fe3b",
+              "itemSignature": "a5a121079b18cdca73d5",
+              "patternSpecId": "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+              "knowledgePointIds": [
+                "kp_g3a_u08_unit_fraction_accumulation"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "健康闖關活動將一份水果盤平均分成 4 份，取出 2 份後，取出的部分占幾分之幾？",
+              "answer": "1/2",
+              "promptHash": "777a8828338b53ba946d",
+              "itemSignature": "8b1a209651771056881f",
+              "patternSpecId": "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+              "knowledgePointIds": [
+                "kp_g3a_u08_unit_fraction_accumulation"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         }
       ]
     },
@@ -41017,33 +41078,32 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "BUILD_NOT_OK",
-        "QUESTION_COUNT_MISMATCH",
-        "ANSWER_COUNT_MISMATCH",
-        "RUNTIME_ERRORS_PRESENT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
           "seed": "pgc-r05-diagnostic-01",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f11_question_count_exceeds_unique_witnesses"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u06_one_decimal_times_integer_product_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u06_one_decimal_times_integer"
+          ],
+          "worksheetSignature": "695cb8608f71d54dcf58",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41051,35 +41111,68 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "在社區物資中心，志工把捐贈物資整理成物資包。每包含有1.2份標準物資，3包共有多少份標準物資？",
+              "answer": "3.6 份",
+              "promptHash": "2424151acdd217c9eb89",
+              "itemSignature": "f8b70f28082bc786821d",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "志工團隊準備公益物資包，每包裝入3.4份標準物資。完成2包時，物資總量是多少份？",
+              "answer": "6.8 份",
+              "promptHash": "9d222913e6b2e3616c52",
+              "itemSignature": "305937b2d8b77c9a37b8",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了依需求配送捐贈資源，社區中心規定每個物資包有4.8份標準物資。3個物資包合計多少份？",
+              "answer": "14.4 份",
+              "promptHash": "d6cdb30601ba738026c0",
+              "itemSignature": "7e031049e0cdc8f323fb",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f11_question_count_exceeds_unique_witnesses"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u06_one_decimal_times_integer_product_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u06_one_decimal_times_integer"
+          ],
+          "worksheetSignature": "695cb8608f71d54dcf58",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41087,16 +41180,45 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "在社區物資中心，志工把捐贈物資整理成物資包。每包含有1.2份標準物資，3包共有多少份標準物資？",
+              "answer": "3.6 份",
+              "promptHash": "2424151acdd217c9eb89",
+              "itemSignature": "f8b70f28082bc786821d",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "志工團隊準備公益物資包，每包裝入3.4份標準物資。完成2包時，物資總量是多少份？",
+              "answer": "6.8 份",
+              "promptHash": "9d222913e6b2e3616c52",
+              "itemSignature": "305937b2d8b77c9a37b8",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了依需求配送捐贈資源，社區中心規定每個物資包有4.8份標準物資。3個物資包合計多少份？",
+              "answer": "14.4 份",
+              "promptHash": "d6cdb30601ba738026c0",
+              "itemSignature": "7e031049e0cdc8f323fb",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         }
       ]
     },
@@ -41133,33 +41255,32 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "BUILD_NOT_OK",
-        "QUESTION_COUNT_MISMATCH",
-        "ANSWER_COUNT_MISMATCH",
-        "RUNTIME_ERRORS_PRESENT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
           "seed": "pgc-r05-diagnostic-01",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f11_question_count_exceeds_unique_witnesses"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u06_one_decimal_times_integer_product_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u06_one_decimal_times_integer"
+          ],
+          "worksheetSignature": "695cb8608f71d54dcf58",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41167,35 +41288,68 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "在社區物資中心，志工把捐贈物資整理成物資包。每包含有1.2份標準物資，3包共有多少份標準物資？",
+              "answer": "3.6 份",
+              "promptHash": "2424151acdd217c9eb89",
+              "itemSignature": "f8b70f28082bc786821d",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "志工團隊準備公益物資包，每包裝入3.4份標準物資。完成2包時，物資總量是多少份？",
+              "answer": "6.8 份",
+              "promptHash": "9d222913e6b2e3616c52",
+              "itemSignature": "305937b2d8b77c9a37b8",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了依需求配送捐贈資源，社區中心規定每個物資包有4.8份標準物資。3個物資包合計多少份？",
+              "answer": "14.4 份",
+              "promptHash": "d6cdb30601ba738026c0",
+              "itemSignature": "7e031049e0cdc8f323fb",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f11_question_count_exceeds_unique_witnesses"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u06_one_decimal_times_integer_product_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u06_one_decimal_times_integer"
+          ],
+          "worksheetSignature": "695cb8608f71d54dcf58",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41203,16 +41357,45 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "在社區物資中心，志工把捐贈物資整理成物資包。每包含有1.2份標準物資，3包共有多少份標準物資？",
+              "answer": "3.6 份",
+              "promptHash": "2424151acdd217c9eb89",
+              "itemSignature": "f8b70f28082bc786821d",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "志工團隊準備公益物資包，每包裝入3.4份標準物資。完成2包時，物資總量是多少份？",
+              "answer": "6.8 份",
+              "promptHash": "9d222913e6b2e3616c52",
+              "itemSignature": "305937b2d8b77c9a37b8",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了依需求配送捐贈資源，社區中心規定每個物資包有4.8份標準物資。3個物資包合計多少份？",
+              "answer": "14.4 份",
+              "promptHash": "d6cdb30601ba738026c0",
+              "itemSignature": "7e031049e0cdc8f323fb",
+              "patternSpecId": "ps_g4b_u06_one_decimal_times_integer_product_application",
+              "knowledgePointIds": [
+                "kp_g4b_u06_one_decimal_times_integer"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         }
       ]
     },
@@ -41242,33 +41425,32 @@
         "BOUNDED_DIVERSITY",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "BUILD_NOT_OK",
-        "QUESTION_COUNT_MISMATCH",
-        "ANSWER_COUNT_MISMATCH",
-        "RUNTIME_ERRORS_PRESENT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
           "seed": "pgc-r05-diagnostic-01",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f13_quotient_question_count_invalid"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u04_quotient_as_fraction_context"
+          ],
+          "worksheetSignature": "a9c57af780acfba23614",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41276,35 +41458,68 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "農園將 26 份同量的育苗資源平均分配給 9 個栽培區，每個栽培區分得多少份資源？",
+              "answer": "26/9 份",
+              "promptHash": "620b6e2c4f723fce3853",
+              "itemSignature": "cd89b774832711f2fcc9",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "農業生產小組把 27 份批次資源平均安排到 8 個種植區，每區可分得多少份？",
+              "answer": "27/8 份",
+              "promptHash": "a586ce62ab2cb80a8d6f",
+              "itemSignature": "bf538e3285559c18974b",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了完成可追溯的生產批次，農園把 6 份相同資源平均配置給 4 組，每組分得多少份？",
+              "answer": "3/2 份",
+              "promptHash": "a6f2cf4caa3735d7ae0b",
+              "itemSignature": "4cb342f35d4baf79c867",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f13_quotient_question_count_invalid"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u04_quotient_as_fraction_context"
+          ],
+          "worksheetSignature": "b9f413cf316080836788",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41312,16 +41527,45 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "農園將 27 份同量的育苗資源平均分配給 8 個栽培區，每個栽培區分得多少份資源？",
+              "answer": "27/8 份",
+              "promptHash": "0cd0800d9b5b905d704f",
+              "itemSignature": "addcbf6e9df66bc3a52c",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "農業生產小組把 6 份批次資源平均安排到 4 個種植區，每區可分得多少份？",
+              "answer": "3/2 份",
+              "promptHash": "adcf00b3191bc3e7ad96",
+              "itemSignature": "c9882af01a2639202dd6",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了完成可追溯的生產批次，農園把 5 份相同資源平均配置給 2 組，每組分得多少份？",
+              "answer": "5/2 份",
+              "promptHash": "33ed1f8b693c9adf42b0",
+              "itemSignature": "881fb58587541ff1e51f",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         }
       ]
     },
@@ -41357,33 +41601,32 @@
         "BOUNDED_DIVERSITY",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "BUILD_NOT_OK",
-        "QUESTION_COUNT_MISMATCH",
-        "ANSWER_COUNT_MISMATCH",
-        "RUNTIME_ERRORS_PRESENT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
           "seed": "pgc-r05-diagnostic-01",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f13_quotient_question_count_invalid"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u04_quotient_as_fraction_context"
+          ],
+          "worksheetSignature": "a9c57af780acfba23614",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41391,35 +41634,68 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "農園將 26 份同量的育苗資源平均分配給 9 個栽培區，每個栽培區分得多少份資源？",
+              "answer": "26/9 份",
+              "promptHash": "620b6e2c4f723fce3853",
+              "itemSignature": "cd89b774832711f2fcc9",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "農業生產小組把 27 份批次資源平均安排到 8 個種植區，每區可分得多少份？",
+              "answer": "27/8 份",
+              "promptHash": "a586ce62ab2cb80a8d6f",
+              "itemSignature": "bf538e3285559c18974b",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了完成可追溯的生產批次，農園把 6 份相同資源平均配置給 4 組，每組分得多少份？",
+              "answer": "3/2 份",
+              "promptHash": "a6f2cf4caa3735d7ae0b",
+              "itemSignature": "4cb342f35d4baf79c867",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f13_quotient_question_count_invalid"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u04_quotient_as_fraction_context"
+          ],
+          "worksheetSignature": "b9f413cf316080836788",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41427,16 +41703,45 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "農園將 27 份同量的育苗資源平均分配給 8 個栽培區，每個栽培區分得多少份資源？",
+              "answer": "27/8 份",
+              "promptHash": "0cd0800d9b5b905d704f",
+              "itemSignature": "addcbf6e9df66bc3a52c",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "農業生產小組把 6 份批次資源平均安排到 4 個種植區，每區可分得多少份？",
+              "answer": "3/2 份",
+              "promptHash": "adcf00b3191bc3e7ad96",
+              "itemSignature": "c9882af01a2639202dd6",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了完成可追溯的生產批次，農園把 5 份相同資源平均配置給 2 組，每組分得多少份？",
+              "answer": "5/2 份",
+              "promptHash": "33ed1f8b693c9adf42b0",
+              "itemSignature": "881fb58587541ff1e51f",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         }
       ]
     },
@@ -41473,33 +41778,32 @@
         "BOUNDED_DIVERSITY",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "BUILD_NOT_OK",
-        "QUESTION_COUNT_MISMATCH",
-        "ANSWER_COUNT_MISMATCH",
-        "RUNTIME_ERRORS_PRESENT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
           "seed": "pgc-r05-diagnostic-01",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f13_quotient_question_count_invalid"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u04_quotient_as_fraction_context"
+          ],
+          "worksheetSignature": "a9c57af780acfba23614",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41507,35 +41811,68 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "農園將 26 份同量的育苗資源平均分配給 9 個栽培區，每個栽培區分得多少份資源？",
+              "answer": "26/9 份",
+              "promptHash": "620b6e2c4f723fce3853",
+              "itemSignature": "cd89b774832711f2fcc9",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "農業生產小組把 27 份批次資源平均安排到 8 個種植區，每區可分得多少份？",
+              "answer": "27/8 份",
+              "promptHash": "a586ce62ab2cb80a8d6f",
+              "itemSignature": "bf538e3285559c18974b",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了完成可追溯的生產批次，農園把 6 份相同資源平均配置給 4 組，每組分得多少份？",
+              "answer": "3/2 份",
+              "promptHash": "a6f2cf4caa3735d7ae0b",
+              "itemSignature": "4cb342f35d4baf79c867",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "p03f13_quotient_question_count_invalid"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
-          "worksheetSignature": "4f53cda18c2baa0c0354",
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u04_quotient_as_fraction_context"
+          ],
+          "worksheetSignature": "b9f413cf316080836788",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -41543,16 +41880,45 @@
             "sourceUnitAdapterId": null,
             "authoritativeCutoverApplied": false,
             "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": null,
+            "documentQuestionMode": "application",
             "documentAuthorityMode": null
           },
-          "itemSamples": [],
-          "acceptanceFailures": [
-            "BUILD_NOT_OK",
-            "QUESTION_COUNT_MISMATCH",
-            "ANSWER_COUNT_MISMATCH",
-            "RUNTIME_ERRORS_PRESENT"
-          ]
+          "itemSamples": [
+            {
+              "prompt": "農園將 27 份同量的育苗資源平均分配給 8 個栽培區，每個栽培區分得多少份資源？",
+              "answer": "27/8 份",
+              "promptHash": "0cd0800d9b5b905d704f",
+              "itemSignature": "addcbf6e9df66bc3a52c",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "農業生產小組把 6 份批次資源平均安排到 4 個種植區，每區可分得多少份？",
+              "answer": "3/2 份",
+              "promptHash": "adcf00b3191bc3e7ad96",
+              "itemSignature": "c9882af01a2639202dd6",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "為了完成可追溯的生產批次，農園把 5 份相同資源平均配置給 2 組，每組分得多少份？",
+              "answer": "5/2 份",
+              "promptHash": "33ed1f8b693c9adf42b0",
+              "itemSignature": "881fb58587541ff1e51f",
+              "patternSpecId": "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+              "knowledgePointIds": [
+                "kp_g5a_u04_quotient_as_fraction_context"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
         }
       ]
     }
