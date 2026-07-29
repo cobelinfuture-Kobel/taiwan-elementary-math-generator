@@ -13,6 +13,8 @@ on:
       - "site/modules/curriculum/batch-a/slice002-fraction-runtime.js"
       - "site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js"
       - "site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js"
+      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      - "src/curriculum/g5a-u02/**"
       - ".github/workflows/pgc-r05-application-generation-full-fix.yml"
   workflow_dispatch:
 
@@ -44,15 +46,42 @@ jobs:
           node --check tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
           node --check tools/curriculum/apply-pgc-r05-bounded-application-capacity-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-source-unit-application-alias-patch.mjs
+          node --check tools/curriculum/apply-pgc-r05-g5a-u02-application-diversity-patch.mjs
           node --check tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
           node --check tests/curriculum/pgc-r05-bounded-application-capacity.test.js
           node --check tests/curriculum/pgc-r05-source-unit-application-alias.test.js
+          node --check tests/curriculum/pgc-r05-g5a-u02-application-diversity.test.js
 
       - name: Apply bounded application capacity FullFix
         run: node tools/curriculum/apply-pgc-r05-bounded-application-capacity-patch.mjs
 
       - name: Apply source-unit application alias FullFix
         run: node tools/curriculum/apply-pgc-r05-source-unit-application-alias-patch.mjs
+
+      - name: Apply G5A-U02 application diversity FullFix
+        run: node tools/curriculum/apply-pgc-r05-g5a-u02-application-diversity-patch.mjs
+
+      - name: Rebuild canonical G5A-U02 browser bundle
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=/tmp/g5a-u02-browser-dynamic-runtime.bundle.js
+          cmp site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js /tmp/g5a-u02-browser-dynamic-runtime.bundle.js
 
       - name: Materialize legal application-route runtime baseline
         run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
@@ -62,6 +91,7 @@ jobs:
           node --test tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
           node --test tests/curriculum/pgc-r05-bounded-application-capacity.test.js
           node --test tests/curriculum/pgc-r05-source-unit-application-alias.test.js
+          node --test tests/curriculum/pgc-r05-g5a-u02-application-diversity.test.js
 
       - name: Full repository regression
         run: npm test
@@ -75,13 +105,18 @@ jobs:
             site/modules/curriculum/batch-a/slice002-fraction-runtime.js \
             site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js \
             site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js \
+            site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            src/curriculum/g5a-u02/hidden-worksheet-answer-key.js \
+            src/curriculum/g5a-u02/class-d-semantic-generator-validator.js \
+            src/curriculum/g5a-u02/s101-representation-runtime.js \
             data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json \
             data/curriculum/public-generation/application_generation_gap_inventory.csv \
             docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md
           if git diff --cached --quiet; then
             echo "R05 runtime and diagnostic artifacts already synchronized."
           else
-            git commit -m "fix(pgc-r05): sync source-unit application aliases [skip ci]"
+            git commit -m "fix(pgc-r05): sync G5A-U02 application diversity [skip ci]"
             git fetch origin "${{ github.head_ref || github.ref_name }}"
             git rebase "origin/${{ github.head_ref || github.ref_name }}"
             git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
