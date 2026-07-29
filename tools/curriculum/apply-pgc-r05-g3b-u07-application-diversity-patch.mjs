@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const targetRelativePath = "site/modules/curriculum/batch-a/discrete-fraction-conversion-runtime.js";
-const marker = "PGC-R05 G3B-U07 fraction-unit application diversity FullFix V1";
+const marker = "PGC-R05 G3B-U07 fraction-unit application diversity FullFix V2";
 
 function replaceRequired(source, before, after, label) {
   if (source.includes(after)) return source;
@@ -79,11 +79,14 @@ function buildPgcR05ApplicationFixtures() {
       fractionalUnitRows.push(Object.freeze({ role: "fractionalUnits", itemsPerWhole, itemCount, ...label }));
     }
   }
+  if (itemCountRows.length === 0 || fractionalUnitRows.length === 0) {
+    throw new Error("PGC_R05_G3B_U07_ROLE_POOL_EMPTY");
+  }
   const rows = [];
-  const length = Math.max(itemCountRows.length, fractionalUnitRows.length);
-  for (let index = 0; index < length; index += 1) {
-    if (itemCountRows[index]) rows.push(itemCountRows[index]);
-    if (fractionalUnitRows[index]) rows.push(fractionalUnitRows[index]);
+  const cycleLength = Math.max(itemCountRows.length, fractionalUnitRows.length);
+  for (let index = 0; index < cycleLength; index += 1) {
+    rows.push(itemCountRows[index % itemCountRows.length]);
+    rows.push(fractionalUnitRows[index % fractionalUnitRows.length]);
   }
   return rows;
 }
@@ -122,7 +125,7 @@ export function applyPgcR05G3BU07ApplicationDiversityPatch() {
       "ps_g3b_u07_fraction_unit_conversion_item_count_application",
       "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
     ]),
-    roleInterleavingPreserved: true,
+    roleInterleavingPreservedAtEveryOffset: true,
     reviewedFixturePrefixPreserved: true,
     ordinaryProductSeedBehaviorPreserved: true,
     validatorRelaxed: false,
