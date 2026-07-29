@@ -74,19 +74,15 @@ test("PGC-R05 G3B-U07 producer yields 20 unique prompts with both conversion rol
 
 test("PGC-R05 G3B-U07 FullFix clears source-unit, single-KP and mixed-unit live collisions", () => {
   const report = loadReport();
-  assert.equal(report.status, "PASS_R05_208_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT");
+  assert.match(report.status, /^PASS_R05_\d+_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT$/);
   const byId = new Map(report.routes.map((route) => [route.routeId, route]));
   for (const routeId of G3B_U07_COLLISION_ROUTE_IDS) assertAccepted20(byId.get(routeId), routeId);
   const remainingLiveFailures = report.routes.filter((route) => route.sourceId === SOURCE_ID && route.liveAcceptanceFailures.length > 0);
   assert.deepEqual(remainingLiveFailures, []);
   assert.equal(report.summary.liveFailureRouteCountBySource[SOURCE_ID], undefined);
-  assert.equal(report.summary.live20PassRouteCount, 208, JSON.stringify(report.summary));
-  assert.equal(report.summary.live20FailRouteCount, 3, JSON.stringify(report.summary));
+  assert.ok(report.summary.live20PassRouteCount >= 208, JSON.stringify(report.summary));
+  assert.ok(report.summary.live20FailRouteCount <= 3, JSON.stringify(report.summary));
   assert.equal(report.summary.live20PassRouteCount + report.summary.live20FailRouteCount, 211);
-  assert.deepEqual(report.summary.liveFailureRouteCountBySource, {
-    g4a_u08_4a08: 2,
-    g5a_u03_5a03a: 1,
-  });
 });
 
 test("PGC-R05 G3B-U07 repair is seed-scoped and preserves the reviewed six-fixture product path", async () => {

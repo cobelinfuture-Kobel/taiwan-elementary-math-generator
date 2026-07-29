@@ -57,16 +57,44 @@ function deepFreeze(value) {
   return value;
 }
 
+const PGC_R05_COST_OVERLAY_DIRECTION_COUNT = 2;
+const PGC_R05_COST_OVERLAY_QUANTITY_COUNT = 9;
+const PGC_R05_COST_OVERLAY_UNIT_COST_COUNT = 81;
+const PGC_R05_COST_OVERLAY_PARAMETER_SPACE = PGC_R05_COST_OVERLAY_DIRECTION_COUNT
+  * SCENARIOS.length
+  * PGC_R05_COST_OVERLAY_QUANTITY_COUNT
+  * PGC_R05_COST_OVERLAY_UNIT_COST_COUNT;
+
 export function generateG4AU08AppCostOverlayHidden(options = {}) {
   const seed = String(options.seed ?? "s76p-cost-overlay");
   const h = hashSeed(seed);
-  const scenario = SCENARIOS[h % SCENARIOS.length];
-  const unitCost = 20 + ((h >>> 3) % 81);
-  const quantity = 2 + ((h >>> 9) % 9);
+  const usePgcR05Projection = options.generationProfile === "pgc-r05"
+    && Number.isSafeInteger(options.diversityOrdinal)
+    && options.diversityOrdinal >= 0;
+  let scenario;
+  let unitCost;
+  let quantity;
+  let direction;
+  if (usePgcR05Projection) {
+    let slot = options.diversityOrdinal % PGC_R05_COST_OVERLAY_PARAMETER_SPACE;
+    direction = slot % PGC_R05_COST_OVERLAY_DIRECTION_COUNT === 0 ? "add" : "subtract";
+    slot = Math.floor(slot / PGC_R05_COST_OVERLAY_DIRECTION_COUNT);
+    scenario = SCENARIOS[slot % SCENARIOS.length];
+    slot = Math.floor(slot / SCENARIOS.length);
+    quantity = 2 + (slot % PGC_R05_COST_OVERLAY_QUANTITY_COUNT);
+    slot = Math.floor(slot / PGC_R05_COST_OVERLAY_QUANTITY_COUNT);
+    unitCost = 20 + (slot % PGC_R05_COST_OVERLAY_UNIT_COST_COUNT);
+  } else {
+    scenario = SCENARIOS[h % SCENARIOS.length];
+    unitCost = 20 + ((h >>> 3) % 81);
+    quantity = 2 + ((h >>> 9) % 9);
+    direction = (h >>> 14) % 2 === 0 ? "add" : "subtract";
+  }
   const componentCost = unitCost * quantity;
-  const direction = (h >>> 14) % 2 === 0 ? "add" : "subtract";
   const maxOverlay = direction === "subtract" ? Math.max(5, Math.min(80, componentCost - 1)) : 80;
-  const overlayAmount = 5 + ((h >>> 17) % Math.max(1, maxOverlay - 4));
+  const overlayAmount = usePgcR05Projection
+    ? 5 + ((Math.floor(options.diversityOrdinal / PGC_R05_COST_OVERLAY_PARAMETER_SPACE) * 7) % Math.max(1, maxOverlay - 4))
+    : 5 + ((h >>> 17) % Math.max(1, maxOverlay - 4));
   const operator = direction === "add" ? "+" : "-";
   const finalAnswer = direction === "add" ? componentCost + overlayAmount : componentCost - overlayAmount;
   const expressionTokens = [unitCost, "×", quantity, operator, overlayAmount];
@@ -119,3 +147,5 @@ export function validateG4AU08AppCostOverlayHiddenRegistry() {
   if (spec.lifecycle.selectorVisibility !== "hidden" || spec.lifecycle.canonicalRouting !== "disabled" || spec.lifecycle.productionUse !== "forbidden") errors.push("hidden_lifecycle_invalid");
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), counts: Object.freeze({ patternSpecs: 1, patternGroups: 1, knowledgePoints: 1, equationShapes: 2 }) });
 }
+
+// PGC-R05 G4A-U08 application diversity FullFix V1

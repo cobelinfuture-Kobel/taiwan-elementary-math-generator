@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics",
-  "status": "PASS_R05_208_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
+  "status": "PASS_R05_210_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
   "sourceContract": "data/curriculum/public-generation/generator_capacity_contract.json",
   "applicationQuestionType": "application",
   "diagnosticSeeds": [
@@ -17,8 +17,8 @@
     "contractVerified20RouteCount": 128,
     "contractLimitedRouteCount": 83,
     "contractQualityGapRouteCount": 21,
-    "live20PassRouteCount": 208,
-    "live20FailRouteCount": 3,
+    "live20PassRouteCount": 210,
+    "live20FailRouteCount": 1,
     "repairRouteCount": 84,
     "zeroSafeCapacityRouteCount": 4,
     "repairRouteCountBySource": {
@@ -40,7 +40,6 @@
       "g6a_u01_6a01": 4
     },
     "liveFailureRouteCountBySource": {
-      "g4a_u08_4a08": 2,
       "g5a_u03_5a03a": 1
     }
   },
@@ -9478,7 +9477,7 @@
             "ps_g4a_u08_app_divide_by_group_product"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "866f4d520ecdf677871f",
+          "worksheetSignature": "574774253a5151e92112",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -9572,7 +9571,7 @@
             "ps_g4a_u08_ext_two_cost_component_payment"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "c10f0090f6df31793fb5",
+          "worksheetSignature": "557ddb447c2eb82dceb3",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -11731,10 +11730,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -11756,7 +11753,7 @@
             "ps_g4a_u08_ext_equal_value_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "f9cae183ffc884a3fc94",
+          "worksheetSignature": "1ad7ae259680aebae370",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -11786,28 +11783,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "每盒彩筆100元，買4盒的總價，和買5本筆記本的總價相同。每本筆記本多少元？",
-              "answer": "80元",
-              "promptHash": "d7c6314d26e3f1b506c4",
-              "itemSignature": "2e23ae1f5b8e67d3a0af",
+              "prompt": "每盒彩筆12元，買3盒的總價，和買2本筆記本的總價相同。每本筆記本多少元？",
+              "answer": "18元",
+              "promptHash": "3d0e728b42f559900800",
+              "itemSignature": "44de2a8faf4ec2e1f96d",
               "patternSpecId": "ps_g4a_u08_ext_equal_value_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "每盒彩筆28元，買3盒的總價，和買2本筆記本的總價相同。每本筆記本多少元？",
-              "answer": "42元",
-              "promptHash": "ff4dc14ab81c29a38003",
-              "itemSignature": "6c3651b02180326095e0",
+              "prompt": "每盒彩筆24元，買3盒的總價，和買4本筆記本的總價相同。每本筆記本多少元？",
+              "answer": "18元",
+              "promptHash": "072fabedb05d6409544b",
+              "itemSignature": "8395d2b1ccecc856b4df",
               "patternSpecId": "ps_g4a_u08_ext_equal_value_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "每盒彩筆55元，買8盒的總價，和買5本筆記本的總價相同。每本筆記本多少元？",
-              "answer": "88元",
-              "promptHash": "d73dd933dd447b21d4d7",
-              "itemSignature": "9ca68e0402f69cae998f",
+              "prompt": "每盒彩筆6元，買4盒的總價，和買2本筆記本的總價相同。每本筆記本多少元？",
+              "answer": "12元",
+              "promptHash": "fc2c8de2634a3c470877",
+              "itemSignature": "416d61c299ee8848d8d6",
               "patternSpecId": "ps_g4a_u08_ext_equal_value_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -11828,13 +11825,13 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g4a_u08_ext_equal_value_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "f54f2c5237026227552f",
+          "worksheetSignature": "1ad7ae259680aebae370",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -11864,36 +11861,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "每盒彩筆30元，買4盒的總價，和買5本筆記本的總價相同。每本筆記本多少元？",
-              "answer": "24元",
-              "promptHash": "aa0db35cfeca5745adef",
-              "itemSignature": "80d90923840c842ae925",
+              "prompt": "每盒彩筆12元，買3盒的總價，和買2本筆記本的總價相同。每本筆記本多少元？",
+              "answer": "18元",
+              "promptHash": "3d0e728b42f559900800",
+              "itemSignature": "44de2a8faf4ec2e1f96d",
               "patternSpecId": "ps_g4a_u08_ext_equal_value_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "每盒彩筆55元，買8盒的總價，和買5本筆記本的總價相同。每本筆記本多少元？",
-              "answer": "88元",
-              "promptHash": "d73dd933dd447b21d4d7",
-              "itemSignature": "9ca68e0402f69cae998f",
+              "prompt": "每盒彩筆24元，買3盒的總價，和買4本筆記本的總價相同。每本筆記本多少元？",
+              "answer": "18元",
+              "promptHash": "072fabedb05d6409544b",
+              "itemSignature": "8395d2b1ccecc856b4df",
               "patternSpecId": "ps_g4a_u08_ext_equal_value_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "每盒彩筆70元，買8盒的總價，和買10本筆記本的總價相同。每本筆記本多少元？",
-              "answer": "56元",
-              "promptHash": "e68a8234096e539b79f6",
-              "itemSignature": "2e8a1c4b6e893233ff15",
+              "prompt": "每盒彩筆6元，買4盒的總價，和買2本筆記本的總價相同。每本筆記本多少元？",
+              "answer": "12元",
+              "promptHash": "fc2c8de2634a3c470877",
+              "itemSignature": "416d61c299ee8848d8d6",
               "patternSpecId": "ps_g4a_u08_ext_equal_value_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -12491,10 +12486,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -12510,13 +12503,13 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 5,
-          "uniquePromptCount": 15,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g4a_u08_app_cost_overlay"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "6715715b9161b6656b84",
+          "worksheetSignature": "96240263544ede86c255",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -12546,36 +12539,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "美術用品店每支畫筆76元，買了2支，另加包裝費13元，共要付多少元？",
-              "answer": "165元",
-              "promptHash": "27296e8f8e9fb16a5beb",
-              "itemSignature": "c171fcca5600e5e8d3aa",
+              "prompt": "美術用品店每支畫筆20元，買了2支，另加包裝費5元，共要付多少元？",
+              "answer": "45元",
+              "promptHash": "43eccc159f7dec1baa47",
+              "itemSignature": "29a46c8987ac06bc92d0",
               "patternSpecId": "ps_g4a_u08_app_cost_overlay",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "美術用品店每支畫筆75元，買了2支，另加包裝費13元，共要付多少元？",
-              "answer": "163元",
-              "promptHash": "20d34544ff0e92857615",
-              "itemSignature": "8e739830c5e608a2768c",
+              "prompt": "園遊會每張餐券20元，買了2張，另加包裝費5元，共要付多少元？",
+              "answer": "45元",
+              "promptHash": "186dbe8fec9c98cb0a0d",
+              "itemSignature": "062aa5cac306ceebd8bd",
               "patternSpecId": "ps_g4a_u08_app_cost_overlay",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "書店每本練習簿76元，買了2本，另加包裝費13元，共要付多少元？",
-              "answer": "165元",
-              "promptHash": "1d9b6df571faee4e35b9",
-              "itemSignature": "8caf45bebe039db21ae5",
+              "prompt": "書店每本練習簿20元，買了2本，使用折價券折抵5元，共要付多少元？",
+              "answer": "35元",
+              "promptHash": "f71e5bf91310d0338f36",
+              "itemSignature": "b9a531e8b492b95f72ca",
               "patternSpecId": "ps_g4a_u08_app_cost_overlay",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -12590,13 +12581,13 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 7,
-          "uniquePromptCount": 13,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g4a_u08_app_cost_overlay"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "91fc519f0dfe1507c74a",
+          "worksheetSignature": "339d1886fc53989bf1e0",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -12626,36 +12617,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "文具店每本筆記本70元，買了6本，使用折價券折抵29元，共要付多少元？",
-              "answer": "391元",
-              "promptHash": "8e652f43ba6a745aab3c",
-              "itemSignature": "6c868204e57ed4f8456a",
+              "prompt": "園遊會每張餐券20元，買了2張，另加包裝費5元，共要付多少元？",
+              "answer": "45元",
+              "promptHash": "186dbe8fec9c98cb0a0d",
+              "itemSignature": "062aa5cac306ceebd8bd",
               "patternSpecId": "ps_g4a_u08_app_cost_overlay",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "書店每本練習簿93元，買了10本，使用折價券折抵56元，共要付多少元？",
-              "answer": "874元",
-              "promptHash": "85505405d457b0c18a0b",
-              "itemSignature": "2085e31855cfbc720996",
+              "prompt": "美術用品店每支畫筆20元，買了3支，使用折價券折抵5元，共要付多少元？",
+              "answer": "55元",
+              "promptHash": "ab86c6b7730c7e4832df",
+              "itemSignature": "c50d4f632d3906537cd7",
               "patternSpecId": "ps_g4a_u08_app_cost_overlay",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "美術用品店每支畫筆93元，買了10支，使用折價券折抵56元，共要付多少元？",
-              "answer": "874元",
-              "promptHash": "2d0d1220d8af8789a465",
-              "itemSignature": "8dae241fc1b2301bf258",
+              "prompt": "書店每本練習簿20元，買了3本，另加包裝費5元，共要付多少元？",
+              "answer": "65元",
+              "promptHash": "d69f7d9110585b3761bb",
+              "itemSignature": "12f48e735b8939f1da31",
               "patternSpecId": "ps_g4a_u08_app_cost_overlay",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -12974,7 +12963,7 @@
             "ps_g4a_u08_app_divide_by_group_product"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "866f4d520ecdf677871f",
+          "worksheetSignature": "574774253a5151e92112",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -13068,7 +13057,7 @@
             "ps_g4a_u08_ext_two_cost_component_payment"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "c10f0090f6df31793fb5",
+          "worksheetSignature": "557ddb447c2eb82dceb3",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,

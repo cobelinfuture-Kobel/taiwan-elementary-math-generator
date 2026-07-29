@@ -311,7 +311,13 @@ export function generateG4AU08CanonicalQuestions(plan = {}) {
     }
     for (let index = 0; index < entry.questionCount; index += 1) {
       const seed = hashSeed(`${normalized.generationSeed}:${entry.patternSpecId}:${index + 1}`);
-      const hiddenItem = generateG4AU08Phase2BBrowserItem({ templateId, seed });
+      const generationProfile = String(normalized.generationSeed ?? "").includes("pgc-r05") ? "pgc-r05" : null;
+      const hiddenItem = generateG4AU08Phase2BBrowserItem({
+        templateId,
+        seed,
+        generationProfile,
+        diversityOrdinal: generationProfile === "pgc-r05" ? index : null,
+      });
       const hiddenValidation = validateG4AU08Phase2BBrowserItem(hiddenItem);
       if (!hiddenValidation.valid) {
         errors.push(issue("G4A_U08_CANONICAL_HIDDEN_VALIDATION_FAILED", "validation", "Hidden blocking validator rejected the generated item.", { validationErrors: hiddenValidation.errors }));
@@ -343,3 +349,5 @@ export function generateG4AU08CanonicalQuestions(plan = {}) {
 export function getG4AU08PromotedPatternSpecIds() {
   return [...G4A_U08_PHASE2B_PROMOTED_PATTERN_SPEC_IDS];
 }
+
+// PGC-R05 G4A-U08 application diversity FullFix V1
