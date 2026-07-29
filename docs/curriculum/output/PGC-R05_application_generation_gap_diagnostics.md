@@ -2,64 +2,59 @@
 
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
-TASK_ID    = PGC-R05_ApplicationProducerAndContextAllocatorFullFix
-MILESTONE  = G5A_U02_APPLICATION_DIVERSITY
-STATUS     = PASS_G5A_U02_16_ROUTE_RUNTIME_AND_BUNDLE_SYNCED_PENDING_EXACT_HEAD_PRODUCT_GATES
+TASK_ID    = PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics
+STATUS     = PASS_R05_APPLICATION_GAP_BASELINE_MATERIALIZED
 ```
 
-## Current application baseline
+## Baseline
 
 ```text
 APPLICATION_ROUTES             = 301
 LEGAL_APPLICATION_ROUTES       = 211
 ILLEGAL_APPLICATION_ROUTES     = 90
+CONTRACT_VERIFIED_20_ROUTES    = 128
+CONTRACT_LIMITED_ROUTES        = 83
+CONTRACT_QUALITY_GAP_ROUTES    = 21
 LIVE_20_PASS_ROUTES            = 192
 LIVE_20_FAIL_ROUTES            = 19
-G5A_U02_LIVE_FAILURES          = 0
-```
-
-## G5A-U02 repair
-
-The 16 G5A-U02 live failures were prompt collisions across five existing Class D producer families. R05 now carries an explicit `pgc-r05-application-diversity-v1` profile through browser entry, hidden worksheet generation, canonical Class D generation, semantic regeneration, and the generated browser bundle.
-
-```text
-EQUAL_PARTITION_ALL_SEGMENT_COUNTS        = PASS_20X2
-EQUAL_PARTITION_CONSTRAINED_RECIPIENTS    = PASS_20X2
-MAXIMUM_EQUAL_GROUPING                    = PASS_20X2
-POSSIBLE_EQUAL_PACKAGING_COUNTS           = PASS_20X2
-RECTANGLE_AND_SQUARE_TILE_DIMENSIONS      = PASS_20X2
-LEGACY_PRODUCT_SEED_BEHAVIOR_PRESERVED    = true
-NEW_PATTERN_SPECS                         = 0
-SECOND_GENERATOR                          = false
-```
-
-## CI evidence
-
-```text
-PGC_R05_RUN                 = 30455429207
-PGC_R05_JOB                 = 90587668277
-CANONICAL_SOURCE_PATCH      = PASS
-CANONICAL_BUNDLE_REBUILD    = PASS
-DETERMINISTIC_BUNDLE_CMP    = PASS
-211_ROUTE_MATERIALIZATION   = PASS
-FOCUSED_G5A_U02_ROUTES      = 16 / 16 PASS
-FULL_REPOSITORY_TESTS       = 2619 / 2619 PASS
-CANONICAL_SYNC_COMMIT       = 66c8f929
+REPAIR_ROUTES                  = 85
 ```
 
 ## Scope boundary
 
 - R05 owns legal public `application` routes only.
-- R04 numeric routes remain read-only protected baseline.
+- R04 numeric routes are read-only protected baseline.
 - Reasoning, mixed, and PBL remain owned by R06 or later.
-- No KnowledgePoint, PatternGroup, PatternSpec, validator, renderer, or worksheet pipeline was added.
+- Existing Global Primary / canonical application authorities and the shared worksheet pipeline remain the only admitted producer-consumer lineage.
+
+## Repair routes by source
+
+| Source | Repair routes |
+|---|---:|
+| `g5a_u02_5a02` | 30 |
+| `g5a_u08_5a08` | 16 |
+| `g3b_u04_3b04` | 7 |
+| `g3a_u08_3a08` | 4 |
+| `g5a_u03_5a03a1` | 4 |
+| `g6a_u01_6a01` | 4 |
+| `g3b_u07_3b07` | 3 |
+| `g3b_u08_3b08` | 3 |
+| `g5a_u04_5a04` | 3 |
+| `g3a_u03_3a03` | 2 |
+| `g3b_u01_3b01` | 2 |
+| `g4a_u08_4a08` | 2 |
+| `g4b_u06_4b06` | 2 |
+| `g3a_u02_3a02` | 1 |
+| `g3a_u06_3a06` | 1 |
+| `g5a_u03_5a03a` | 1 |
 
 ## Distance
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_R05_35_LIVE_APPLICATION_FAILURES
-GOAL_DISTANCE_AFTER  = D1_R05_19_LIVE_APPLICATION_FAILURES_PENDING_EXACT_HEAD_PRODUCT_GATES
-DISTANCE_REDUCED     = all 16 G5A-U02 prompt-collision routes now generate two complete unique 20-question worksheets through canonical source and bundle lineage
-REMAINING_BLOCKERS   = [19_LIVE_PROMPT_COLLISION_ROUTES, EXACT_HEAD_G5A_U02_PRODUCT_GATES]
-NEXT_SHORTEST_STEP   = PGC-R05_G5AU02ExactHeadProductGateAndMerge
+GOAL_DISTANCE_BEFORE = D1_R04_PUBLIC_NUMERIC_GENERATION_CONFORMANT_APPLICATION_UNVERIFIED
+GOAL_DISTANCE_AFTER  = D1_R05_APPLICATION_RUNTIME_GAPS_SOURCE_LOCATED
+DISTANCE_REDUCED     = every legal application route now has reproducible 20-question runtime, prompt-diversity, answer-key and authority-lineage evidence
+REMAINING_BLOCKERS   = [APPLICATION_REPAIR_ROUTES_FROM_DIAGNOSTIC]
+NEXT_SHORTEST_STEP   = PGC-R05_ApplicationProducerAndContextAllocatorFullFix
 ```
+
