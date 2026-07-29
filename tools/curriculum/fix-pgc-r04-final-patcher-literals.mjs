@@ -17,13 +17,17 @@ const embeddedRuntimeIdentifiers = [
 ];
 const before = source;
 for (const identifier of embeddedRuntimeIdentifiers) {
-  source = source.replaceAll("${" + identifier + "}", "\\${" + identifier + "}");
+  const pattern = new RegExp("\\\\*\\$\\{" + identifier + "\\}", "g");
+  const normalized = "\\${" + identifier + "}";
+  source = source.replace(pattern, () => normalized);
 }
 
 if (source !== before) fs.writeFileSync(patcherPath, source);
 for (const identifier of embeddedRuntimeIdentifiers) {
-  if (!source.includes("\\${" + identifier + "}")) {
+  const normalized = "\\${" + identifier + "}";
+  const overEscaped = "\\\\${" + identifier + "}";
+  if (!source.includes(normalized) || source.includes(overEscaped)) {
     throw new Error("PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE_FAILED:" + identifier);
   }
 }
-console.log(source === before ? "PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE=ALREADY_FIXED" : "PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE=PATCHED");
+console.log(source === before ? "PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE=ALREADY_FIXED" : "PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE=NORMALIZED");
