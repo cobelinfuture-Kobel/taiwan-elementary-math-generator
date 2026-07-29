@@ -55,7 +55,8 @@ function assertAccepted20(route, routeId) {
     assert.equal(run.uniquePromptCount, 20, `${routeId}:${run.seed}`);
     assert.deepEqual(run.errorCodes, [], `${routeId}:${run.seed}`);
     assert.equal(run.runtimeLineage.documentQuestionMode, "application", `${routeId}:${run.seed}`);
-    assert.equal(run.runtimeLineage.documentAuthorityMode, "GLOBAL_PRIMARY", `${routeId}:${run.seed}`);
+    assert.deepEqual(run.patternSpecIdsObserved, [TARGET_SPEC], `${routeId}:${run.seed}`);
+    assert.deepEqual(run.knowledgePointIdsObserved, [KP_ID], `${routeId}:${run.seed}`);
   }
 }
 
@@ -69,6 +70,8 @@ test("PGC-R05 G3A-U08 expanded application fixture pool produces deterministic 2
     assert.equal(first.questions.length, 20);
     assert.equal(new Set(first.questions.map((question) => question.promptText)).size, 20);
     assert.equal(first.questions.every((question) => module.validateG3AU08SameDenominatorCompareQuestion(question).ok), true);
+    assert.equal(first.questions.every((question) => question.metadata.bindingCandidateId === module.P03F6_APPLICATION_AUTHORITY.bindingCandidateId), true);
+    assert.equal(first.questions.every((question) => question.globalContextProduction?.status === "GLOBAL_CONTEXT_BOUND"), true);
   }
 });
 
