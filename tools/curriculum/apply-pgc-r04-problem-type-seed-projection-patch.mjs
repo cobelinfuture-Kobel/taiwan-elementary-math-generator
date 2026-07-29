@@ -8,7 +8,7 @@ const s100Path = path.join(sourceRoot, "s100-method-runtime.js");
 const bundlePath = path.join(repoRoot, "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js");
 
 const SOURCE_MARKER = "PGC_R04_PROBLEM_TYPE_SEED_PROJECTION";
-const BUNDLE_MARKER = "pgc_r04_problem_type_seed_projection";
+const GENERATED_BUNDLE_BANNER = "/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */";
 
 function writeIfChanged(filePath, before, after) {
   if (after === before) return false;
@@ -73,34 +73,18 @@ function patchCanonicalCallers() {
   return changed;
 }
 
-function patchBrowserBundle() {
-  const before = fs.readFileSync(bundlePath, "utf8");
-  let source = before;
-
-  source = source.replace("function xt(e,t){", "function xt(e,t,n=1){");
-  source = source.replace("xt(e,Pe(n))", "xt(e,Pe(n),n)");
-
-  if (!source.includes(BUNDLE_MARKER)) {
-    const pattern = /case"ps_g5a_u02_problem_type_classification":\{let n=t\.pick\(oi\),r=Oe\[n\],i=\{[\s\S]*?answer:\{label:r\.expectedLabel\}\}\}/;
-    if (!pattern.test(source)) throw new Error("PGC_R04_PROBLEM_TYPE_BUNDLE_CASE_ANCHOR_MISSING");
-    source = source.replace(pattern, `case"ps_g5a_u02_problem_type_classification":{let r=Math.max(1,Number.isInteger(n)?n:1),i=(r-1)%oi.length,o=Math.floor((r-1)/oi.length)%90,a=oi[i],s=Oe[a],_={total:120+o,groupSize:2+o,a:24+2*o,b:36+2*o},c=s.build(_);return{data:{contextKind:s.expectedLabel,scenarioFamilyId:a,scenarioText:c.scenarioText,quantityRoles:c.quantityRoles,expectedLabel:s.expectedLabel,generationProjectionStatus:"${BUNDLE_MARKER}"},prompt:\`${'${c.scenarioText}'}\n請判斷這是因數、倍數、公因數或公倍數問題。\`,answer:{label:s.expectedLabel}}}`);
+function verifyGeneratedBrowserBundle() {
+  const source = fs.readFileSync(bundlePath, "utf8");
+  if (!source.startsWith(GENERATED_BUNDLE_BANNER)) {
+    throw new Error("PGC_R04_PROBLEM_TYPE_GENERATED_BUNDLE_BANNER_MISSING");
   }
-
-  const checks = [
-    "function xt(e,t,n=1){",
-    "xt(e,Pe(n),n)",
-    BUNDLE_MARKER,
-  ];
-  for (const check of checks) {
-    if (!source.includes(check)) throw new Error(`PGC_R04_PROBLEM_TYPE_BUNDLE_PATCH_INCOMPLETE:${check}`);
-  }
-  return writeIfChanged(bundlePath, before, source);
+  return false;
 }
 
 export function applyPgcR04ProblemTypeSeedProjectionPatch() {
   const sourceChanged = patchCanonicalS100();
   const callerFilesChanged = patchCanonicalCallers();
-  const bundleChanged = patchBrowserBundle();
+  const bundleChanged = verifyGeneratedBrowserBundle();
   const result = Object.freeze({
     status: "PASS_PGC_R04_PROBLEM_TYPE_SEED_PROJECTION_PATCHED",
     sourceChanged,
@@ -112,6 +96,7 @@ export function applyPgcR04ProblemTypeSeedProjectionPatch() {
       slotCycle: 90,
       validatorContractChanged: false,
       secondGeneratorAdded: false,
+      generatedBundleEditedDirectly: false,
     }),
   });
   console.log(`PGC_R04_PROBLEM_TYPE_SEED_PATCH=${JSON.stringify(result)}`);
