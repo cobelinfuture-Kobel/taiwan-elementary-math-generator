@@ -8,6 +8,13 @@ on:
       - "tools/curriculum/materialize-pgc-r01-public-capability-matrix.mjs"
       - "tests/curriculum/pgc-r01-public-capability-matrix.test.js"
       - ".github/workflows/pgc-r01-capability-matrix-materialization.yml"
+  pull_request:
+    paths:
+      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix.mjs"
+      - "tests/curriculum/pgc-r01-public-capability-matrix.test.js"
+      - ".github/workflows/pgc-r01-capability-matrix-materialization.yml"
+      - "data/curriculum/public-generation/public_generation_capability_matrix.*"
+      - "docs/curriculum/output/PGC-R01_capability_gap_report.md"
   workflow_dispatch:
 
 permissions:
