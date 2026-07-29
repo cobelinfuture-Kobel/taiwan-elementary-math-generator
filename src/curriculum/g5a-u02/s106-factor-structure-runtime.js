@@ -10,7 +10,7 @@ const PGC_R04_FACTOR_TARGET_POOL = Object.freeze([...new Set([
   ...PGC_R04_FACTOR_TARGET_PRIMES.flatMap((prime) => Array.from({ length: 11 }, (_, index) => (index + 2) * prime)),
 ])]);
 const PGC_R04_FACTOR_PAIR_LAYOUT_SAFE_TARGET_POOL = Object.freeze(
-  PGC_R04_FACTOR_TARGET_POOL.filter((target) => Math.floor(Math.sqrt(target)) <= 18),
+  PGC_R04_FACTOR_TARGET_POOL.filter((target) => Math.floor(Math.sqrt(target)) <= 16),
 );
 
 function clone(value) {
