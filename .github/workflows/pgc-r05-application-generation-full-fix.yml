@@ -49,6 +49,7 @@ jobs:
           node --check tools/curriculum/apply-pgc-r05-source-unit-application-alias-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-g5a-u02-application-diversity-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-g3b-u04-application-diversity-patch.mjs
+          node --check tools/curriculum/apply-pgc-r05-progress-readback-controller-patch.mjs
           node --check tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
           node --check tests/curriculum/pgc-r05-bounded-application-capacity.test.js
           node --check tests/curriculum/pgc-r05-source-unit-application-alias.test.js
@@ -66,6 +67,9 @@ jobs:
 
       - name: Apply G3B-U04 application diversity FullFix
         run: node tools/curriculum/apply-pgc-r05-g3b-u04-application-diversity-patch.mjs
+
+      - name: Apply live progress readback controller
+        run: node tools/curriculum/apply-pgc-r05-progress-readback-controller-patch.mjs
 
       - name: Rebuild canonical G5A-U02 browser bundle
         run: |
@@ -108,6 +112,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs \
             site/assets/browser/pipeline/build-worksheet-document.js \
             site/modules/curriculum/batch-a/g3b-u04-canonical-semantic-router.js \
             site/modules/curriculum/batch-a/slice002-fraction-runtime.js \
@@ -124,7 +129,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "R05 runtime and diagnostic artifacts already synchronized."
           else
-            git commit -m "fix(pgc-r05): sync G3B-U04 application diversity [skip ci]"
+            git commit -m "fix(pgc-r05): sync G3B-U04 diversity and live progress [skip ci]"
             git fetch origin "${{ github.head_ref || github.ref_name }}"
             git rebase "origin/${{ github.head_ref || github.ref_name }}"
             git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
