@@ -28,7 +28,7 @@ export function validateBatchABrowserPlan(plan = {}) {
   const simplest = ids.length === 3 && G5A_U04_EXPAND_REDUCE_SIMPLEST_PATTERN_SPEC_IDS.every((id) => ids.includes(id));
   const quotient = ids.length === 1 && G5A_U04_QUOTIENT_CONTEXT_PATTERN_SPEC_IDS.includes(ids[0]);
   if (!simplest && !quotient) return validateBasePlan(plan);
-  const maxCount = simplest ? 9 : 6;
+  const maxCount = 20;
   if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > maxCount) errors.push(issue("p03f13_question_count_invalid", "questionCount"));
   if (simplest && plan.questionMode !== "numeric") errors.push(issue("p03f13_simplest_question_mode_mismatch", "questionMode"));
   if (quotient) {

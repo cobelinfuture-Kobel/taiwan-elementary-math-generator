@@ -13,7 +13,7 @@ export function validateBatchABrowserPlan(plan = {}) {
   const ids = Array.isArray(plan.patternSpecIds) ? plan.patternSpecIds : [];
   if (plan.sourceId !== G3A_U08_SOURCE_ID || ids.length !== 1 || !ids.every((id) => IDS.has(id))) return validateBasePlan(plan);
   const errors = [];
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 6) errors.push(issue("p03f6_question_count_invalid", "questionCount"));
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 20) errors.push(issue("p03f6_question_count_invalid", "questionCount"));
   const expected = plan.questionMode === "application" ? G3A_U08_SAME_DENOMINATOR_APPLICATION_SPEC_ID : G3A_U08_SAME_DENOMINATOR_NUMERIC_SPEC_ID;
   if (ids[0] !== expected) errors.push(issue("p03f6_mode_pattern_mismatch", "patternSpecIds"));
   if (plan.genericFallbackAllowed !== false) errors.push(issue("p03f6_generic_fallback_must_be_disabled", "genericFallbackAllowed"));

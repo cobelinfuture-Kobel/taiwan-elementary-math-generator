@@ -20,7 +20,7 @@ export function validateBatchABrowserPlan(plan = {}) {
   if (plan.sourceId !== G4B_U08_SOURCE_ID) return validateBasePlan(plan);
   const ids = Array.isArray(plan.patternSpecIds) ? plan.patternSpecIds : [];
   const errors = [];
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 9) errors.push(issue("p03f5_question_count_invalid", "questionCount"));
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 20) errors.push(issue("p03f5_question_count_invalid", "questionCount"));
   if (ids.length !== 3 || !G4B_U08_EQUIVALENT_FRACTION_PATTERN_SPEC_IDS.every((id) => ids.includes(id))) errors.push(issue("p03f5_plan_pattern_not_admitted", "patternSpecIds"));
   if (plan.questionMode !== "numeric") errors.push(issue("p03f5_application_mode_forbidden", "questionMode"));
   if (plan.genericFallbackAllowed !== false) errors.push(issue("p03f5_generic_fallback_must_be_disabled", "genericFallbackAllowed"));
