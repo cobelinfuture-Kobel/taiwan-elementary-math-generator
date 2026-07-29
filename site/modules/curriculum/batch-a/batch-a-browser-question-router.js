@@ -19,8 +19,9 @@ import { canGenerateP03F8DecimalSliceQuestions, generateP03F8DecimalSliceQuestio
 import { canGenerateG3BU09TenthsFractionDecimalQuestions, generateG3BU09TenthsFractionDecimalQuestions } from "./tenths-fraction-decimal-runtime.js";
 import { canGenerateG4AU09HundredthDecimalQuestions, generateG4AU09HundredthDecimalQuestions } from "./hundredth-decimal-runtime.js";
 import { canGenerateG4BU06DecimalMultiplicationQuestions, generateG4BU06DecimalMultiplicationQuestions } from "./one-decimal-times-integer-runtime.js";
+import { applyPgcR04NumericUniqueAllocation } from "./numeric-unique-allocation-fullfix.js";
 
-export function generateBatchABrowserQuestions(options = {}) {
+function generateOnce(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (canGenerateG5AU04QuotientFractionQuestions(plan)) return generateG5AU04QuotientFractionQuestions(options);
   if (canGenerateG5AU04SimplestFractionQuestions(plan)) return generateG5AU04SimplestFractionQuestions(options);
@@ -40,4 +41,8 @@ export function generateBatchABrowserQuestions(options = {}) {
   if (canGenerateG6AU01NumberTheoryQuestions(plan)) return generateG6AU01NumberTheoryQuestions(options);
   if (canGenerateG5BU05LargeNumberQuestions(plan)) return generateG5BU05LargeNumberQuestions(options);
   return generatePreP01D1Questions(options);
+}
+
+export function generateBatchABrowserQuestions(options = {}) {
+  return applyPgcR04NumericUniqueAllocation(generateOnce, options);
 }
