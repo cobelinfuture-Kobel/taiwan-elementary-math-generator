@@ -20,7 +20,7 @@ test("PGC-R05 baseline consumes the accepted R03 application-route authority", (
   assert.equal(report.schemaVersion, 1);
   assert.equal(report.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(report.taskId, "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics");
-  assert.equal(report.status, "PASS_R05_APPLICATION_GAP_BASELINE_MATERIALIZED");
+  assert.match(report.status, /^PASS_R05_(?:\d+_OF_\d+_LIVE_APPLICATION_ROUTES_CONFORMANT|ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION)$/);
   assert.equal(report.applicationQuestionType, "application");
   assert.deepEqual(report.diagnosticSeeds, ["pgc-r05-diagnostic-01", "pgc-r05-diagnostic-02"]);
   assert.ok(report.summary.applicationRouteCount > 0);
@@ -29,6 +29,10 @@ test("PGC-R05 baseline consumes the accepted R03 application-route authority", (
   assert.equal(
     report.summary.live20PassRouteCount + report.summary.live20FailRouteCount,
     report.summary.legalApplicationRouteCount,
+  );
+  assert.equal(
+    Object.values(report.summary.liveFailureRouteCountBySource).reduce((sum, count) => sum + count, 0),
+    report.summary.live20FailRouteCount,
   );
 });
 
@@ -89,13 +93,15 @@ test("PGC-R05 baseline preserves the frozen producer-consumer boundary", () => {
   });
 });
 
-test("PGC-R05 committed baseline artifacts remain row-aligned and resume the application mainline", () => {
+test("PGC-R05 committed baseline artifacts remain row-aligned and resume the shortest live mainline step", () => {
   const report = loadReport();
   assert.equal(fs.existsSync(csvPath), true);
   assert.equal(fs.existsSync(readbackPath), true);
   assert.equal(fs.readFileSync(csvPath, "utf8").trim().split(/\r?\n/).length, report.routes.length + 1);
   const readback = fs.readFileSync(readbackPath, "utf8");
+  assert.match(readback, /## Live failures by source/);
   assert.match(readback, /NEXT_SHORTEST_STEP\s+= PGC-R05_[A-Za-z0-9_]+/);
   assert.doesNotMatch(readback, /NEXT_SHORTEST_STEP\s+= PGC-R0[46]_/);
+  assert.doesNotMatch(readback, /NEXT_SHORTEST_STEP\s+= PGC-R05_ApplicationProducerAndContextAllocatorFullFix/);
   assert.match(readback, /LEGAL_APPLICATION_ROUTES|REPAIR_ROUTES/);
 });

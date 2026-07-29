@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics",
-  "status": "PASS_R05_APPLICATION_GAP_BASELINE_MATERIALIZED",
+  "status": "PASS_R05_198_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
   "sourceContract": "data/curriculum/public-generation/generator_capacity_contract.json",
   "applicationQuestionType": "application",
   "diagnosticSeeds": [
@@ -17,9 +17,9 @@
     "contractVerified20RouteCount": 128,
     "contractLimitedRouteCount": 83,
     "contractQualityGapRouteCount": 21,
-    "live20PassRouteCount": 192,
-    "live20FailRouteCount": 19,
-    "repairRouteCount": 85,
+    "live20PassRouteCount": 198,
+    "live20FailRouteCount": 13,
+    "repairRouteCount": 84,
     "zeroSafeCapacityRouteCount": 4,
     "repairRouteCountBySource": {
       "g3a_u02_3a02": 1,
@@ -27,7 +27,7 @@
       "g3a_u06_3a06": 1,
       "g3a_u08_3a08": 4,
       "g3b_u01_3b01": 2,
-      "g3b_u04_3b04": 7,
+      "g3b_u04_3b04": 6,
       "g3b_u07_3b07": 3,
       "g3b_u08_3b08": 3,
       "g4a_u08_4a08": 2,
@@ -38,6 +38,13 @@
       "g5a_u04_5a04": 3,
       "g5a_u08_5a08": 16,
       "g6a_u01_6a01": 4
+    },
+    "liveFailureRouteCountBySource": {
+      "g3a_u08_3a08": 3,
+      "g3b_u07_3b07": 3,
+      "g4a_u08_4a08": 2,
+      "g5a_u03_5a03a": 1,
+      "g5a_u08_5a08": 4
     }
   },
   "routes": [
@@ -4373,10 +4380,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -4395,8 +4400,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u04_add_divide_combined_inventory_equal_distribution",
             "ps_g3b_u04_add_divide_promotion_total_equal_share",
@@ -4405,7 +4410,7 @@
             "ps_g3b_u04_add_divide_combined_liquid_equal_portions"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "f89cb19bb10072e55a96",
+          "worksheetSignature": "c5035da9367884c4535a",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -4462,9 +4467,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -4585,10 +4588,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -4700,15 +4701,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u04_mul_div_buy_get_free_average_price",
             "ps_g3b_u04_mul_div_bulk_repack_average_cost",
             "ps_g3b_u04_mul_div_bonus_units_average_cost"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "abec1f16ff7c1b56d34b",
+          "worksheetSignature": "6824e86a5d8a094f669d",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -4765,9 +4766,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -4800,11 +4799,9 @@
       "currentUniqueItemSetCount": 10,
       "currentDownstreamGapCodes": [],
       "contractGapCodes": [],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
-      "requiresRepair": true,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
+      "requiresRepair": false,
       "diagnosticRuns": [
         {
           "seed": "pgc-r05-diagnostic-01",
@@ -4826,8 +4823,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u04_sub_div_reserved_amount_then_distribute",
             "ps_g3b_u04_sub_div_absent_participants_then_group",
@@ -4835,7 +4832,7 @@
             "ps_g3b_u04_sub_div_used_amount_then_share"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "c95fe2ab6b6f441ac5b3",
+          "worksheetSignature": "409e53a3c666b6005448",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -4892,9 +4889,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -5238,10 +5233,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -5274,15 +5267,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u04_total_minus_share_personal_budget_minus_group_fee",
             "ps_g3b_u04_total_minus_share_reward_points_minus_shared_redemption",
             "ps_g3b_u04_total_minus_share_wallet_minus_shared_purchase"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "10a54814dce8c984932b",
+          "worksheetSignature": "0137932c8826101974a6",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -5339,9 +5332,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -5373,15 +5364,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u04_total_minus_share_wallet_minus_shared_purchase",
             "ps_g3b_u04_total_minus_share_reward_points_minus_shared_redemption",
             "ps_g3b_u04_total_minus_share_personal_budget_minus_group_fee"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "34efa236613fdda88b2a",
+          "worksheetSignature": "b31437f142caad93710c",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -5438,9 +5429,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -5899,10 +5888,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -5928,15 +5915,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u04_ratio_capacity_ratio_composition",
             "ps_g3b_u04_ratio_weight_ratio_composition",
             "ps_g3b_u04_ratio_length_ratio_composition"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "e8739cb8f57841db16e4",
+          "worksheetSignature": "5e051f11690163cca862",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -5993,9 +5980,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -6122,10 +6107,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -6236,8 +6219,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 2,
-          "uniquePromptCount": 18,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u04_quantity_chain_personal_quantity_ratio_chain",
             "ps_g3b_u04_quantity_chain_age_ratio_chain",
@@ -6245,7 +6228,7 @@
             "ps_g3b_u04_quantity_chain_production_capacity_chain"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "294c8a0e3c27b2323ba2",
+          "worksheetSignature": "3f77c95c5e1d2d90c6b1",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -6302,9 +6285,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
