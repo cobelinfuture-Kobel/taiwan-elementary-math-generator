@@ -2,7 +2,7 @@
   "schemaVersion": "g5a-u08-r1-deployed-pages-smoke-v1",
   "task": "G5A_U08_R1_DeployedControlsAndPrintRecloseout",
   "status": "FAIL",
-  "deploymentSha": "c8d69f5bb73306b5c3c7ab9a72ec8fbd95753289",
+  "deploymentSha": "b4f2507b6ba6aba00f90e9e4a1452ba409468702",
   "message": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#g5a-u08-question-mode')\n    - locator resolved to <select name=\"g5aU08QuestionMode\" id=\"g5a-u08-question-mode\">…</select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n",
   "details": null,
   "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g5a_u08_5a08&questionCount=6&ordering=groupedByPattern&answerKey=1&generationSeed=g5a-u08-r1-mixed-N_PLUS_1-sdg&columns=3&rowsPerPage=5&questionMode=mixed&depthMode=N_PLUS_1&contextMode=sdg&selectionMode=mixedKnowledgePointsSameUnit&kp=kp_g5a_u08_mixed_operation_order&kp=kp_g5a_u08_add_sub_equivalent_regroup&kp=kp_g5a_u08_mul_div_equivalent_regroup&kp=kp_g5a_u08_distributive_expand&kp=kp_g5a_u08_common_factor_extract&kp=kp_g5a_u08_near_round_add_compensation&kp=kp_g5a_u08_near_round_sub_compensation&kp=kp_g5a_u08_near_round_multiply_compensation&kp=kp_g5a_u08_missing_operator_inference&kp=kp_g5a_u08_equivalence_error_judgement&kp=kp_g5a_u08_average_inverse_update&pg=pg_g5a_u08_mixed_operation_order_numeric&pg=pg_g5a_u08_mixed_operation_order_application&pg=pg_g5a_u08_add_sub_regroup_numeric&pg=pg_g5a_u08_mul_div_regroup_numeric&pg=pg_g5a_u08_mul_div_regroup_application&pg=pg_g5a_u08_distributive_expand_numeric&pg=pg_g5a_u08_distributive_expand_application&pg=pg_g5a_u08_common_factor_numeric&pg=pg_g5a_u08_common_factor_application&pg=pg_g5a_u08_near_round_add_numeric&pg=pg_g5a_u08_near_round_sub_numeric&pg=pg_g5a_u08_near_round_multiply_numeric&pg=pg_g5a_u08_near_round_multiply_application&pg=pg_g5a_u08_missing_operator_reasoning&pg=pg_g5a_u08_equivalence_reasoning&pg=pg_g5a_u08_average_application&pg=pg_g5a_u08_average_reasoning",
@@ -10,12 +10,12 @@
   "pageErrors": [],
   "workflow": "G5A-U08-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "30450051463",
-    "number": "246",
+    "id": "30452077746",
+    "number": "247",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30450051463"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30452077746"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-29T12:05:34.429Z"
+  "verifiedAt": "2026-07-29T12:34:44.611Z"
 }
