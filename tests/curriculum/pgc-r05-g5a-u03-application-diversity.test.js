@@ -84,6 +84,7 @@ test("PGC-R05 G5A-U03 FullFix closes all 211 legal live application routes", () 
   assert.equal(report.summary.live20PassRouteCount, 211, JSON.stringify(report.summary));
   assert.equal(report.summary.live20FailRouteCount, 0, JSON.stringify(report.summary));
   assert.equal(report.summary.live20PassRouteCount + report.summary.live20FailRouteCount, 211);
+  assert.equal(report.routes.filter((route) => route.accepted20AcrossSeeds).length, 211);
   assert.deepEqual(report.summary.liveFailureRouteCountBySource, {});
 });
 
