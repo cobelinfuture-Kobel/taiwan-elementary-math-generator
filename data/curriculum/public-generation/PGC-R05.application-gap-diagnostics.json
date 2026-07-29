@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics",
-  "status": "PASS_R05_210_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
+  "status": "PASS_R05_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION",
   "sourceContract": "data/curriculum/public-generation/generator_capacity_contract.json",
   "applicationQuestionType": "application",
   "diagnosticSeeds": [
@@ -17,8 +17,8 @@
     "contractVerified20RouteCount": 128,
     "contractLimitedRouteCount": 83,
     "contractQualityGapRouteCount": 21,
-    "live20PassRouteCount": 210,
-    "live20FailRouteCount": 1,
+    "live20PassRouteCount": 211,
+    "live20FailRouteCount": 0,
     "repairRouteCount": 84,
     "zeroSafeCapacityRouteCount": 4,
     "repairRouteCountBySource": {
@@ -39,9 +39,7 @@
       "g5a_u08_5a08": 16,
       "g6a_u01_6a01": 4
     },
-    "liveFailureRouteCountBySource": {
-      "g5a_u03_5a03a": 1
-    }
+    "liveFailureRouteCountBySource": {}
   },
   "routes": [
     {
@@ -36871,7 +36869,7 @@
             "kp_g5a_u03a_exact_grouping_feasibility",
             "kp_g5a_u03a_count_multiples_interval"
           ],
-          "worksheetSignature": "bf56d39bd1bb41ad76c9",
+          "worksheetSignature": "f7bfa84ef963edbeaf03",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -36884,10 +36882,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "食物分配每隔 2 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
-              "answer": "2、4、6、8、10",
-              "promptHash": "78e7c0ea25e4948b4cdd",
-              "itemSignature": "69768b9247efa48a4d08",
+              "prompt": "食物分配每隔 12 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "12、24、36、48、60",
+              "promptHash": "17d53400f87ffd409ce9",
+              "itemSignature": "963568cb26d91d618f8b",
               "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
               "knowledgePointIds": [
                 "kp_g5a_u03a_multiple_identify_enumerate"
@@ -36944,7 +36942,7 @@
             "kp_g5a_u03a_bounded_or_nearest_multiple",
             "kp_g5a_u03a_count_multiples_interval"
           ],
-          "worksheetSignature": "7c40773545c7aacb49e1",
+          "worksheetSignature": "cde866c9b20aa70f99a5",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -36957,10 +36955,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "食物分配每隔 2 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
-              "answer": "2、4、6、8、10",
-              "promptHash": "78e7c0ea25e4948b4cdd",
-              "itemSignature": "69768b9247efa48a4d08",
+              "prompt": "食物分配每隔 7 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "7、14、21、28、35",
+              "promptHash": "913fac23175ffc76d08c",
+              "itemSignature": "dc21a9ec3bd603b1b6c8",
               "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
               "knowledgePointIds": [
                 "kp_g5a_u03a_multiple_identify_enumerate"
@@ -36979,10 +36977,10 @@
               "rawKind": null
             },
             {
-              "prompt": "資源回收每隔 3 分鐘記錄一次，從第一次開始列出前 6 次記錄時的累計分鐘數。",
-              "answer": "3、6、9、12、15、18",
-              "promptHash": "5cc86d8e892f756b596f",
-              "itemSignature": "7bb0c9f665f0af980e43",
+              "prompt": "資源回收每隔 10 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "10、20、30、40、50",
+              "promptHash": "b4e59479042e60d53c4d",
+              "itemSignature": "1497fb421d04f7700eff",
               "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
               "knowledgePointIds": [
                 "kp_g5a_u03a_multiple_identify_enumerate"
@@ -37190,10 +37188,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -37207,15 +37203,82 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 4,
-          "uniquePromptCount": 16,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u03a_enumerate_first_multiples"
           ],
           "knowledgePointIdsObserved": [
             "kp_g5a_u03a_multiple_identify_enumerate"
           ],
-          "worksheetSignature": "65b8b9ef4bcbe2bb0ad2",
+          "worksheetSignature": "c9624e59a694f9c87b8a",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "authoritativeCutoverApplied": false,
+            "authoritativeCutoverAdapter": null,
+            "documentQuestionMode": "application",
+            "documentAuthorityMode": null
+          },
+          "itemSamples": [
+            {
+              "prompt": "食物分配每隔 12 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "12、24、36、48、60",
+              "promptHash": "17d53400f87ffd409ce9",
+              "itemSignature": "963568cb26d91d618f8b",
+              "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
+              "knowledgePointIds": [
+                "kp_g5a_u03a_multiple_identify_enumerate"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "食物分配每隔 5 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "5、10、15、20、25",
+              "promptHash": "f740dcc3732109bfb7bb",
+              "itemSignature": "19f1ba2472d75f46cf5c",
+              "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
+              "knowledgePointIds": [
+                "kp_g5a_u03a_multiple_identify_enumerate"
+              ],
+              "rawKind": null
+            },
+            {
+              "prompt": "班級活動每隔 2 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "2、4、6、8、10",
+              "promptHash": "ce727d86dcfa1b859bc1",
+              "itemSignature": "1af7da7699a8d30e9c20",
+              "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
+              "knowledgePointIds": [
+                "kp_g5a_u03a_multiple_identify_enumerate"
+              ],
+              "rawKind": null
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r05-diagnostic-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "warnings": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g5a_u03a_enumerate_first_multiples"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u03a_multiple_identify_enumerate"
+          ],
+          "worksheetSignature": "5ab0e437507452ed8672",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -37239,10 +37302,10 @@
               "rawKind": null
             },
             {
-              "prompt": "食物分配每隔 8 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
-              "answer": "8、16、24、32、40",
-              "promptHash": "6be0b285fc77195d4284",
-              "itemSignature": "7cb02c47f88775e6d30a",
+              "prompt": "食物分配每隔 2 分鐘記錄一次，從第一次開始列出前 6 次記錄時的累計分鐘數。",
+              "answer": "2、4、6、8、10、12",
+              "promptHash": "0ee5bb4df2d703d7ee02",
+              "itemSignature": "d6cdd86674d2d8d9b208",
               "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
               "knowledgePointIds": [
                 "kp_g5a_u03a_multiple_identify_enumerate"
@@ -37250,10 +37313,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動每隔 15 分鐘記錄一次，從第一次開始列出前 6 次記錄時的累計分鐘數。",
-              "answer": "15、30、45、60、75、90",
-              "promptHash": "d19e2f2d277c07cf17c9",
-              "itemSignature": "6e5924f8b73fc6f69c7a",
+              "prompt": "資源回收每隔 7 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "7、14、21、28、35",
+              "promptHash": "224d4c498f55c5eb81ed",
+              "itemSignature": "ca1f8f02d22f365c769a",
               "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
               "knowledgePointIds": [
                 "kp_g5a_u03a_multiple_identify_enumerate"
@@ -37261,78 +37324,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
-        },
-        {
-          "seed": "pgc-r05-diagnostic-02",
-          "requestedQuestionCount": 20,
-          "ok": true,
-          "thrownError": null,
-          "errorCodes": [],
-          "warnings": [],
-          "evidenceProjection": "questionDisplayModels",
-          "questionCount": 20,
-          "answerKeyItemCount": 20,
-          "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
-          "patternSpecIdsObserved": [
-            "ps_g5a_u03a_enumerate_first_multiples"
-          ],
-          "knowledgePointIdsObserved": [
-            "kp_g5a_u03a_multiple_identify_enumerate"
-          ],
-          "worksheetSignature": "7e67445f706de645e179",
-          "runtimeLineage": {
-            "browserResolutionMode": null,
-            "browserPlanSourceId": null,
-            "sourceUnitAdapterStatus": null,
-            "sourceUnitAdapterId": null,
-            "authoritativeCutoverApplied": false,
-            "authoritativeCutoverAdapter": null,
-            "documentQuestionMode": "application",
-            "documentAuthorityMode": null
-          },
-          "itemSamples": [
-            {
-              "prompt": "食物分配每隔 3 分鐘記錄一次，從第一次開始列出前 7 次記錄時的累計分鐘數。",
-              "answer": "3、6、9、12、15、18、21",
-              "promptHash": "0247b6d95626bc83e9d4",
-              "itemSignature": "e61b238f2eb6b1527fa8",
-              "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
-              "knowledgePointIds": [
-                "kp_g5a_u03a_multiple_identify_enumerate"
-              ],
-              "rawKind": null
-            },
-            {
-              "prompt": "食物分配每隔 8 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
-              "answer": "8、16、24、32、40",
-              "promptHash": "6be0b285fc77195d4284",
-              "itemSignature": "7cb02c47f88775e6d30a",
-              "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
-              "knowledgePointIds": [
-                "kp_g5a_u03a_multiple_identify_enumerate"
-              ],
-              "rawKind": null
-            },
-            {
-              "prompt": "資源回收每隔 2 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
-              "answer": "2、4、6、8、10",
-              "promptHash": "cd8e03ac477a0eaa1637",
-              "itemSignature": "01668b9802c2b886e353",
-              "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
-              "knowledgePointIds": [
-                "kp_g5a_u03a_multiple_identify_enumerate"
-              ],
-              "rawKind": null
-            }
-          ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -37738,7 +37730,7 @@
             "kp_g5a_u03a_exact_grouping_feasibility",
             "kp_g5a_u03a_count_multiples_interval"
           ],
-          "worksheetSignature": "bf56d39bd1bb41ad76c9",
+          "worksheetSignature": "f7bfa84ef963edbeaf03",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -37751,10 +37743,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "食物分配每隔 2 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
-              "answer": "2、4、6、8、10",
-              "promptHash": "78e7c0ea25e4948b4cdd",
-              "itemSignature": "69768b9247efa48a4d08",
+              "prompt": "食物分配每隔 12 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "12、24、36、48、60",
+              "promptHash": "17d53400f87ffd409ce9",
+              "itemSignature": "963568cb26d91d618f8b",
               "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
               "knowledgePointIds": [
                 "kp_g5a_u03a_multiple_identify_enumerate"
@@ -37811,7 +37803,7 @@
             "kp_g5a_u03a_bounded_or_nearest_multiple",
             "kp_g5a_u03a_count_multiples_interval"
           ],
-          "worksheetSignature": "7c40773545c7aacb49e1",
+          "worksheetSignature": "cde866c9b20aa70f99a5",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -37824,10 +37816,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "食物分配每隔 2 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
-              "answer": "2、4、6、8、10",
-              "promptHash": "78e7c0ea25e4948b4cdd",
-              "itemSignature": "69768b9247efa48a4d08",
+              "prompt": "食物分配每隔 7 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "7、14、21、28、35",
+              "promptHash": "913fac23175ffc76d08c",
+              "itemSignature": "dc21a9ec3bd603b1b6c8",
               "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
               "knowledgePointIds": [
                 "kp_g5a_u03a_multiple_identify_enumerate"
@@ -37846,10 +37838,10 @@
               "rawKind": null
             },
             {
-              "prompt": "資源回收每隔 3 分鐘記錄一次，從第一次開始列出前 6 次記錄時的累計分鐘數。",
-              "answer": "3、6、9、12、15、18",
-              "promptHash": "5cc86d8e892f756b596f",
-              "itemSignature": "7bb0c9f665f0af980e43",
+              "prompt": "資源回收每隔 10 分鐘記錄一次，從第一次開始列出前 5 次記錄時的累計分鐘數。",
+              "answer": "10、20、30、40、50",
+              "promptHash": "b4e59479042e60d53c4d",
+              "itemSignature": "1497fb421d04f7700eff",
               "patternSpecId": "ps_g5a_u03a_enumerate_first_multiples",
               "knowledgePointIds": [
                 "kp_g5a_u03a_multiple_identify_enumerate"

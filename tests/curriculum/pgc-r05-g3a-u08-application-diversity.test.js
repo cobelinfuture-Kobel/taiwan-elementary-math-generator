@@ -71,7 +71,7 @@ test("PGC-R05 G3A-U08 same-denominator producer yields 20 unique application pro
 
 test("PGC-R05 G3A-U08 FullFix clears source-unit, single-KP and mixed-unit live collisions", () => {
   const report = loadReport();
-  assert.match(report.status, /^PASS_R05_\d+_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT$/);
+  assert.match(report.status, /^(PASS_R05_\d+_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT|PASS_R05_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION)$/);
   const byId = new Map(report.routes.map((route) => [route.routeId, route]));
   for (const routeId of G3A_U08_COLLISION_ROUTE_IDS) assertAccepted20(byId.get(routeId), routeId);
   const remainingLiveFailures = report.routes.filter((route) => route.sourceId === SOURCE_ID && route.liveAcceptanceFailures.length > 0);

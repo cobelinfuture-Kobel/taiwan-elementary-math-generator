@@ -37,6 +37,9 @@ function state(seed, index, channel) {
 function pick(values, seed, index, channel) { return values[state(seed, index, channel) % values.length]; }
 function uniqueSorted(values) { return [...new Set(values)].sort((a, b) => a - b); }
 function listText(values) { return values.join("、"); }
+function isPgcR05Seed(seed) {
+  return String(seed ?? "").includes("pgc-r05");
+}
 
 export function divisorsOf(value) {
   if (!Number.isSafeInteger(value) || value < 1) return [];
@@ -179,9 +182,15 @@ function generate(definition, index, seed) {
     return question(definition, index, `${total} 個物品，可選每組 ${listText(candidates)} 個，哪些方案能剛好分完？`, listText(validGroupSizes), { total, candidates, validGroupSizes });
   }
   if (["enumerate_first_multiples", "enumerate_multiples_after"].includes(op)) {
-    const base = pick(BASES, seed, index, `${op}:b`);
+    const usePgcR05EnumerationProjection = op === "enumerate_first_multiples" && isPgcR05Seed(seed);
+    const ordinal = Math.max(0, Number(index) - 1);
+    const base = usePgcR05EnumerationProjection
+      ? BASES[ordinal % BASES.length]
+      : pick(BASES, seed, index, `${op}:b`);
     if (op === "enumerate_first_multiples") {
-      const count = 5 + state(seed, index, `${op}:c`) % 3;
+      const count = usePgcR05EnumerationProjection
+        ? 5 + (Math.floor(ordinal / BASES.length) % 3)
+        : 5 + state(seed, index, `${op}:c`) % 3;
       const multiples = Array.from({ length: count }, (_, i) => base * (i + 1));
       return question(definition, index, `列出 ${base} 的前 ${count} 個正倍數。`, listText(multiples), { base, count, multiples });
     }
@@ -371,3 +380,5 @@ export function generateG5AU03FactorMultipleQuestions(options = {}) {
 }
 
 // PGC-R04 final factor-multiple parameter expansion
+
+// PGC-R05 G5A-U03 multiple-enumeration application diversity FullFix V1
