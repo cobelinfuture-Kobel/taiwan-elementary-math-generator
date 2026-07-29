@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID    = PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics
-STATUS     = PASS_R05_APPLICATION_GAP_BASELINE_MATERIALIZED
+STATUS     = PASS_R05_198_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT
 ```
 
 ## Baseline
@@ -19,6 +19,16 @@ LIVE_20_PASS_ROUTES            = 198
 LIVE_20_FAIL_ROUTES            = 13
 REPAIR_ROUTES                  = 84
 ```
+
+## Live failures by source
+
+| Source | Live failing routes |
+|---|---:|
+| `g5a_u08_5a08` | 4 |
+| `g3a_u08_3a08` | 3 |
+| `g3b_u07_3b07` | 3 |
+| `g4a_u08_4a08` | 2 |
+| `g5a_u03_5a03a` | 1 |
 
 ## Scope boundary
 
@@ -51,10 +61,10 @@ REPAIR_ROUTES                  = 84
 ## Distance
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_R04_PUBLIC_NUMERIC_GENERATION_CONFORMANT_APPLICATION_UNVERIFIED
-GOAL_DISTANCE_AFTER  = D1_R05_APPLICATION_RUNTIME_GAPS_SOURCE_LOCATED
-DISTANCE_REDUCED     = every legal application route now has reproducible 20-question runtime, prompt-diversity, answer-key and authority-lineage evidence
-REMAINING_BLOCKERS   = [APPLICATION_REPAIR_ROUTES_FROM_DIAGNOSTIC]
-NEXT_SHORTEST_STEP   = PGC-R05_ApplicationProducerAndContextAllocatorFullFix
+GOAL_DISTANCE_BEFORE = D1_R05_APPLICATION_LIVE_GENERATION_PARTIALLY_CONFORMANT
+GOAL_DISTANCE_AFTER  = D1_R05_198_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT
+DISTANCE_REDUCED     = 198/211 legal application routes now pass two deterministic 20-question worksheets with complete prompts, answer keys and authority lineage; 13 live failures remain
+REMAINING_BLOCKERS   = [g5a_u08_5a08:4, g3a_u08_3a08:3, g3b_u07_3b07:3, g4a_u08_4a08:2, g5a_u03_5a03a:1]
+NEXT_SHORTEST_STEP   = PGC-R05_G5A_U08_ApplicationDiversityFullFix
 ```
 

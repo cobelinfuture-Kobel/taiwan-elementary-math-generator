@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics",
-  "status": "PASS_R05_APPLICATION_GAP_BASELINE_MATERIALIZED",
+  "status": "PASS_R05_198_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
   "sourceContract": "data/curriculum/public-generation/generator_capacity_contract.json",
   "applicationQuestionType": "application",
   "diagnosticSeeds": [
@@ -38,6 +38,13 @@
       "g5a_u04_5a04": 3,
       "g5a_u08_5a08": 16,
       "g6a_u01_6a01": 4
+    },
+    "liveFailureRouteCountBySource": {
+      "g3a_u08_3a08": 3,
+      "g3b_u07_3b07": 3,
+      "g4a_u08_4a08": 2,
+      "g5a_u03_5a03a": 1,
+      "g5a_u08_5a08": 4
     }
   },
   "routes": [
