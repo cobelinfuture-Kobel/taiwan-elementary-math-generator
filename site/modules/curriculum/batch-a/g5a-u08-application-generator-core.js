@@ -123,6 +123,21 @@ function deterministicShuffle(values, seed) {
   return output;
 }
 
+const PGC_R05_NEAR_ROUND_BASES = Object.freeze([100, 500, 1000, 2000]);
+const PGC_R05_NEAR_ROUND_OFFSET_COUNT = 9;
+const PGC_R05_NEAR_ROUND_DIRECTION_COUNT = 2;
+const PGC_R05_NEAR_ROUND_QUANTITY_COUNT = 22;
+const PGC_R05_NEAR_ROUND_PARAMETER_SPACE = PGC_R05_NEAR_ROUND_BASES.length
+  * PGC_R05_NEAR_ROUND_OFFSET_COUNT
+  * PGC_R05_NEAR_ROUND_DIRECTION_COUNT
+  * PGC_R05_NEAR_ROUND_QUANTITY_COUNT;
+
+function normalizedPgcR05NearRoundOrdinal(seedLabel, diversityOrdinal) {
+  if (!String(seedLabel ?? "").includes("pgc-r05")) return null;
+  if (!Number.isSafeInteger(diversityOrdinal) || diversityOrdinal < 0) return null;
+  return diversityOrdinal % PGC_R05_NEAR_ROUND_PARAMETER_SPACE;
+}
+
 function contextMeta(patternSpecId, contextType, seed) {
   const metadata = {
     ps_g5a_u08_app_two_same_rate_groups_sum: {
@@ -296,12 +311,27 @@ function sampleGroupSelect(seed, context) {
   };
 }
 
-function sampleNearRoundPrice(seed, context, depth) {
-  const roundBase = randomChoice(seed, 1, [100, 500, 1000, 2000]);
-  const offset = randomInt(seed, 2, 1, 9);
-  const direction = randomInt(seed, 3, 0, 1) === 0 ? "below" : "above";
+function sampleNearRoundPrice(seed, context, depth, pgcR05DiversityOrdinal = null) {
+  let roundBase;
+  let offset;
+  let direction;
+  let quantity;
+  if (Number.isSafeInteger(pgcR05DiversityOrdinal)) {
+    let slot = pgcR05DiversityOrdinal;
+    roundBase = PGC_R05_NEAR_ROUND_BASES[slot % PGC_R05_NEAR_ROUND_BASES.length];
+    slot = Math.floor(slot / PGC_R05_NEAR_ROUND_BASES.length);
+    offset = 1 + (slot % PGC_R05_NEAR_ROUND_OFFSET_COUNT);
+    slot = Math.floor(slot / PGC_R05_NEAR_ROUND_OFFSET_COUNT);
+    direction = slot % PGC_R05_NEAR_ROUND_DIRECTION_COUNT === 0 ? "below" : "above";
+    slot = Math.floor(slot / PGC_R05_NEAR_ROUND_DIRECTION_COUNT);
+    quantity = 3 + (slot % PGC_R05_NEAR_ROUND_QUANTITY_COUNT);
+  } else {
+    roundBase = randomChoice(seed, 1, PGC_R05_NEAR_ROUND_BASES);
+    offset = randomInt(seed, 2, 1, 9);
+    direction = randomInt(seed, 3, 0, 1) === 0 ? "below" : "above";
+    quantity = randomInt(seed, 4, 3, 24);
+  }
   const nearRoundUnitPrice = direction === "below" ? roundBase - offset : roundBase + offset;
-  const quantity = randomInt(seed, 4, 3, 24);
   const totalCost = nearRoundUnitPrice * quantity;
   const promptText = context.contextType === "sdg"
     ? `植樹材料包每套${nearRoundUnitPrice}元，社區購買${quantity}套，共需多少元？`
@@ -455,14 +485,14 @@ function sampleAverageUpdate(seed, context) {
   };
 }
 
-function sampleForPatternSpec(patternSpecId, seed, context, depth) {
+function sampleForPatternSpec(patternSpecId, seed, context, depth, pgcR05DiversityOrdinal = null) {
   switch (patternSpecId) {
     case "ps_g5a_u08_app_two_same_rate_groups_sum": return sampleSameRate(seed, context, depth);
     case "ps_g5a_u08_app_two_product_groups_difference": return sampleProductDifference(seed, context);
     case "ps_g5a_u08_app_discount_change": return sampleDiscount(seed, context);
     case "ps_g5a_u08_app_adjust_unit_remaining": return sampleAdjustUnit(seed, context);
     case "ps_g5a_u08_app_group_select": return sampleGroupSelect(seed, context);
-    case "ps_g5a_u08_app_near_round_unit_price": return sampleNearRoundPrice(seed, context, depth);
+    case "ps_g5a_u08_app_near_round_unit_price": return sampleNearRoundPrice(seed, context, depth, pgcR05DiversityOrdinal);
     case "ps_g5a_u08_app_nested_grouping": return sampleNestedGrouping(seed, context);
     case "ps_g5a_u08_app_direct_average": return sampleDirectAverage(seed, context);
     case "ps_g5a_u08_app_average_share_transfer": return sampleAverageShare(seed, context);
@@ -489,7 +519,7 @@ function validateGenerationRequest(patternSpecId, depth, contextType) {
 
 export function generateG5AU08ApplicationQuestion(
   patternSpecId,
-  { seed = "s60h", depth = null, contextType = null } = {},
+  { seed = "s60h", depth = null, contextType = null, diversityOrdinal = null } = {},
 ) {
   const policy = SPEC_POLICY[patternSpecId];
   if (!policy) throw new Error(`G5A_U08_APP_PATTERN_SPEC_UNSUPPORTED:${patternSpecId}`);
@@ -498,7 +528,10 @@ export function generateG5AU08ApplicationQuestion(
   const selectedContext = contextType ?? policy.contexts[randomInt(normalizedSeed, 2, 0, policy.contexts.length - 1)];
   const { spec } = validateGenerationRequest(patternSpecId, selectedDepth, selectedContext);
   const context = contextMeta(patternSpecId, selectedContext, normalizedSeed);
-  const sample = sampleForPatternSpec(patternSpecId, normalizedSeed, context, selectedDepth);
+  const pgcR05DiversityOrdinal = patternSpecId === "ps_g5a_u08_app_near_round_unit_price"
+    ? normalizedPgcR05NearRoundOrdinal(seed, diversityOrdinal)
+    : null;
+  const sample = sampleForPatternSpec(patternSpecId, normalizedSeed, context, selectedDepth, pgcR05DiversityOrdinal);
   return Object.freeze({
     sourceId: "g5a_u08_5a08",
     unitCode: "5A-U08",
@@ -635,3 +668,5 @@ export function generateG5AU08ApplicationBatch({
 }
 
 export { ALLOWED_SDG_IDS, SPEC_POLICY };
+
+// PGC-R05 G5A-U08 near-round application diversity FullFix V2

@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics",
-  "status": "PASS_R05_198_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
+  "status": "PASS_R05_202_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
   "sourceContract": "data/curriculum/public-generation/generator_capacity_contract.json",
   "applicationQuestionType": "application",
   "diagnosticSeeds": [
@@ -17,8 +17,8 @@
     "contractVerified20RouteCount": 128,
     "contractLimitedRouteCount": 83,
     "contractQualityGapRouteCount": 21,
-    "live20PassRouteCount": 198,
-    "live20FailRouteCount": 13,
+    "live20PassRouteCount": 202,
+    "live20FailRouteCount": 9,
     "repairRouteCount": 84,
     "zeroSafeCapacityRouteCount": 4,
     "repairRouteCountBySource": {
@@ -43,8 +43,7 @@
       "g3a_u08_3a08": 3,
       "g3b_u07_3b07": 3,
       "g4a_u08_4a08": 2,
-      "g5a_u03_5a03a": 1,
-      "g5a_u08_5a08": 4
+      "g5a_u03_5a03a": 1
     }
   },
   "routes": [
@@ -13763,7 +13762,7 @@
             "ps_g5a_u08_app_nested_grouping"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "2978bde92c216cdc1488",
+          "worksheetSignature": "183d310643e3214c5568",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -13849,7 +13848,7 @@
             "ps_g5a_u08_app_direct_average"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "0765ba3c6fb472857df3",
+          "worksheetSignature": "b738ea5ba881d0ef3124",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -13973,7 +13972,7 @@
             "ps_g5a_u08_app_group_select"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "38ff4bb295b80ad7bde2",
+          "worksheetSignature": "e22697e7bdaa8d5d6ce1",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14059,7 +14058,7 @@
             "ps_g5a_u08_app_direct_average"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "ae6faf03f3e761c26573",
+          "worksheetSignature": "d68a5742ab4d8869ecca",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14179,7 +14178,7 @@
             "ps_g5a_u08_app_group_select"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "87d925148bd7de508c2f",
+          "worksheetSignature": "c680f3d548246f8d209c",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14265,7 +14264,7 @@
             "ps_g5a_u08_app_direct_average"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "53173344e804bf2883cf",
+          "worksheetSignature": "2e7d727a2b888ff1b489",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14379,7 +14378,7 @@
             "ps_g5a_u08_app_two_same_rate_groups_sum"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "2f381c3be83eded8e091",
+          "worksheetSignature": "b4d32aa710641641a53f",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14459,7 +14458,7 @@
             "ps_g5a_u08_app_direct_average"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "acfd09eee2c4618a9015",
+          "worksheetSignature": "81acae46acf65df403a8",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14498,10 +14497,10 @@
               "rawKind": null
             },
             {
-              "prompt": "活動票每張106元，買17張，共需多少元？",
-              "answer": "106×17＝1802元",
-              "promptHash": "c21b253e8b20ff86a134",
-              "itemSignature": "6616ea51ca52d04ca2f1",
+              "prompt": "活動票每張999元，買3張，共需多少元？",
+              "answer": "999×3＝2997元",
+              "promptHash": "d6988dfbcd081f6a68fc",
+              "itemSignature": "d8b424f53abbe417e297",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -14573,7 +14572,7 @@
             "ps_g5a_u08_app_two_same_rate_groups_sum"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "806bd392093a31558e04",
+          "worksheetSignature": "593f115d87ffa25ebcc4",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14653,7 +14652,7 @@
             "ps_g5a_u08_app_direct_average"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "5fbeb64cbec3ca73d466",
+          "worksheetSignature": "8a520fa1f96d8a56af9a",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14692,10 +14691,10 @@
               "rawKind": null
             },
             {
-              "prompt": "活動票每張2004元，買13張，共需多少元？",
-              "answer": "2004×13＝26052元",
-              "promptHash": "d399082c0530aff13d5e",
-              "itemSignature": "d165cceae6d8a0c258b5",
+              "prompt": "活動票每張499元，買3張，共需多少元？",
+              "answer": "499×3＝1497元",
+              "promptHash": "a91746ebf3a88c5cd893",
+              "itemSignature": "631af702b0345c52a1eb",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -14767,7 +14766,7 @@
             "ps_g5a_u08_app_two_same_rate_groups_sum"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "ff81239743b192cffe99",
+          "worksheetSignature": "26640928a85d1bff9ded",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14847,7 +14846,7 @@
             "ps_g5a_u08_app_direct_average"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "b14e2b37e56badad4925",
+          "worksheetSignature": "c08430aa001030496c1c",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -14886,10 +14885,10 @@
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套2004元，社區購買13套，共需多少元？",
-              "answer": "2004×13＝26052元",
-              "promptHash": "0758ac98223167819740",
-              "itemSignature": "7e6cf2bf1ca9ce3c6156",
+              "prompt": "植樹材料包每套499元，社區購買3套，共需多少元？",
+              "answer": "499×3＝1497元",
+              "promptHash": "5bd849d3798bf0d73401",
+              "itemSignature": "f5c4b206751feff9afd8",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -14966,7 +14965,7 @@
             "ps_g5a_u08_app_nested_grouping"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "70901643f9467348ef28",
+          "worksheetSignature": "6688415950cc7e93eec2",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -15051,7 +15050,7 @@
             "ps_g5a_u08_app_average_share_transfer"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "c145a6147471fd09acba",
+          "worksheetSignature": "39aabf5b0396cd051309",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -15174,7 +15173,7 @@
             "ps_g5a_u08_app_group_select"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "c1bd94407e8846f48199",
+          "worksheetSignature": "8d0e3bdc540a05216aad",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -15259,7 +15258,7 @@
             "ps_g5a_u08_app_average_share_transfer"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "f229d9124ecc7a2f6e19",
+          "worksheetSignature": "7f2165caa751976747b6",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -15378,7 +15377,7 @@
             "ps_g5a_u08_app_group_select"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "a7d8b86ab625ebe5b293",
+          "worksheetSignature": "031434cf8f5eb11842b9",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -15463,7 +15462,7 @@
             "ps_g5a_u08_app_average_share_transfer"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "875bb3a729b258419bc3",
+          "worksheetSignature": "94afad99787e043cd189",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -20712,7 +20711,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "83e325666969df76c86a",
+          "worksheetSignature": "b4b04c62d6adc36d76b5",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -20742,28 +20741,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張93元，買13張，共需多少元？",
-              "answer": "93×13＝1209元",
-              "promptHash": "4899211dc9a832288c12",
-              "itemSignature": "ba86a140a49e7c4eb1dd",
+              "prompt": "活動票每張499元，買3張，共需多少元？",
+              "answer": "499×3＝1497元",
+              "promptHash": "a91746ebf3a88c5cd893",
+              "itemSignature": "631af702b0345c52a1eb",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張996元，買9張，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "996×9＝8964元",
-              "promptHash": "978011b934ba207e2900",
-              "itemSignature": "fecc18f2b57c6efccbc5",
+              "prompt": "活動票每張998元，買3張，共需多少元？（可利用接近1000元的關係思考。）",
+              "answer": "998×3＝2994元",
+              "promptHash": "cc1456ac6da394323e49",
+              "itemSignature": "832d60cdd7659681e6f3",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套504元，社區購買13套，共需多少元？",
-              "answer": "504×13＝6552元",
-              "promptHash": "7cd38779601a1e6dd3b2",
-              "itemSignature": "798eb780146d2ed058cf",
+              "prompt": "植樹材料包每套98元，社區購買3套，共需多少元？",
+              "answer": "98×3＝294元",
+              "promptHash": "9f21e9a1c62456dc7605",
+              "itemSignature": "2b3f81f48756a2b2707c",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -20790,7 +20789,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "dd0682bde21765051b35",
+          "worksheetSignature": "6dbb7b042209f8ed23bd",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -20820,28 +20819,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張501元，買13張，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "501×13＝6513元",
-              "promptHash": "ab6874b32f942f16b6b0",
-              "itemSignature": "d5fdbaf2fee75cf9b7e0",
+              "prompt": "活動票每張96元，買3張，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "96×3＝288元",
+              "promptHash": "193ab9f4d3065eea7891",
+              "itemSignature": "e0cc398045af60ca3817",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套999元，社區購買21套，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "999×21＝20979元",
-              "promptHash": "4e4f5e328f5afb624880",
-              "itemSignature": "e7fd586607a2ece655ac",
+              "prompt": "植樹材料包每套1996元，社區購買3套，共需多少元？（可利用接近2000元的關係思考。）",
+              "answer": "1996×3＝5988元",
+              "promptHash": "bc84ffb3a2e382dea633",
+              "itemSignature": "5f42e3a835b3502d8527",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套1992元，社區購買8套，共需多少元？",
-              "answer": "1992×8＝15936元",
-              "promptHash": "d159d26a10b03c0a5fbc",
-              "itemSignature": "a21abd040a6ab5f5589c",
+              "prompt": "植樹材料包每套98元，社區購買3套，共需多少元？",
+              "answer": "98×3＝294元",
+              "promptHash": "9f21e9a1c62456dc7605",
+              "itemSignature": "2b3f81f48756a2b2707c",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -20904,7 +20903,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "5b29f9b41a833644c990",
+          "worksheetSignature": "2ea5964fba18c18bd6f5",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -20934,28 +20933,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張93元，買13張，共需多少元？",
-              "answer": "93×13＝1209元",
-              "promptHash": "4899211dc9a832288c12",
-              "itemSignature": "ba86a140a49e7c4eb1dd",
+              "prompt": "活動票每張499元，買3張，共需多少元？",
+              "answer": "499×3＝1497元",
+              "promptHash": "a91746ebf3a88c5cd893",
+              "itemSignature": "631af702b0345c52a1eb",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張96元，買16張，共需多少元？（可利用接近100元的關係思考。）",
-              "answer": "96×16＝1536元",
-              "promptHash": "9836de1ee14e6d949c97",
-              "itemSignature": "2c47e46cbe40b76e5b4e",
+              "prompt": "活動票每張99元，買3張，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "99×3＝297元",
+              "promptHash": "56ed5f643f45d7642eb2",
+              "itemSignature": "26e2e98bb4b97a3d7217",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張101元，買8張，共需多少元？",
-              "answer": "101×8＝808元",
-              "promptHash": "0aaf7219a20ff6e019bb",
-              "itemSignature": "ea9671e61b50e5ec4d80",
+              "prompt": "活動票每張498元，買3張，共需多少元？",
+              "answer": "498×3＝1494元",
+              "promptHash": "75a1e02ee288c6752a3d",
+              "itemSignature": "0c8b493b40e4ffbf1341",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -20982,7 +20981,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "92e4ef0950c41a64098e",
+          "worksheetSignature": "1b4f515f9b8c84b14343",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21012,28 +21011,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張501元，買13張，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "501×13＝6513元",
-              "promptHash": "ab6874b32f942f16b6b0",
-              "itemSignature": "d5fdbaf2fee75cf9b7e0",
+              "prompt": "活動票每張96元，買3張，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "96×3＝288元",
+              "promptHash": "193ab9f4d3065eea7891",
+              "itemSignature": "e0cc398045af60ca3817",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張999元，買21張，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "999×21＝20979元",
-              "promptHash": "df648be5116816d4a8fe",
-              "itemSignature": "0766f8c49c3f7eebcb64",
+              "prompt": "活動票每張1996元，買3張，共需多少元？（可利用接近2000元的關係思考。）",
+              "answer": "1996×3＝5988元",
+              "promptHash": "d31304d00970374908e0",
+              "itemSignature": "e7c22a637933c9fac814",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張2004元，買16張，共需多少元？",
-              "answer": "2004×16＝32064元",
-              "promptHash": "631d86592f571a78a5fe",
-              "itemSignature": "f2eeaf85de54462b16ee",
+              "prompt": "活動票每張498元，買3張，共需多少元？",
+              "answer": "498×3＝1494元",
+              "promptHash": "75a1e02ee288c6752a3d",
+              "itemSignature": "0c8b493b40e4ffbf1341",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -21096,7 +21095,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "fe685d8233663adb4289",
+          "worksheetSignature": "d33c3b4590a0824e52e5",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21126,28 +21125,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "植樹材料包每套503元，社區購買13套，共需多少元？",
-              "answer": "503×13＝6539元",
-              "promptHash": "2aaa5361c358651a6eee",
-              "itemSignature": "13213c51ba63c5f43613",
+              "prompt": "植樹材料包每套99元，社區購買3套，共需多少元？",
+              "answer": "99×3＝297元",
+              "promptHash": "193569ab633f9ca2249f",
+              "itemSignature": "8e65511736048de1c4c9",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套996元，社區購買9套，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "996×9＝8964元",
-              "promptHash": "a05b4107f53a9820b152",
-              "itemSignature": "c588241d344ce4bdb057",
+              "prompt": "植樹材料包每套998元，社區購買3套，共需多少元？（可利用接近1000元的關係思考。）",
+              "answer": "998×3＝2994元",
+              "promptHash": "76b6d39f9899e4e17aca",
+              "itemSignature": "bc861730b8d972561e16",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套504元，社區購買13套，共需多少元？",
-              "answer": "504×13＝6552元",
-              "promptHash": "7cd38779601a1e6dd3b2",
-              "itemSignature": "798eb780146d2ed058cf",
+              "prompt": "植樹材料包每套98元，社區購買3套，共需多少元？",
+              "answer": "98×3＝294元",
+              "promptHash": "9f21e9a1c62456dc7605",
+              "itemSignature": "2b3f81f48756a2b2707c",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -21174,7 +21173,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "0fcdf4f7e34e1a9ebfa1",
+          "worksheetSignature": "6950bc7f58ab48386acd",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21204,28 +21203,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "植樹材料包每套501元，社區購買13套，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "501×13＝6513元",
-              "promptHash": "a1f8897c20798c8e4ea4",
-              "itemSignature": "e116e410484813d4c0c8",
+              "prompt": "植樹材料包每套96元，社區購買3套，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "96×3＝288元",
+              "promptHash": "23f7534c1983d9bf1590",
+              "itemSignature": "318574348c0208d4c823",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套999元，社區購買21套，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "999×21＝20979元",
-              "promptHash": "4e4f5e328f5afb624880",
-              "itemSignature": "e7fd586607a2ece655ac",
+              "prompt": "植樹材料包每套1996元，社區購買3套，共需多少元？（可利用接近2000元的關係思考。）",
+              "answer": "1996×3＝5988元",
+              "promptHash": "bc84ffb3a2e382dea633",
+              "itemSignature": "5f42e3a835b3502d8527",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套1992元，社區購買8套，共需多少元？",
-              "answer": "1992×8＝15936元",
-              "promptHash": "d159d26a10b03c0a5fbc",
-              "itemSignature": "a21abd040a6ab5f5589c",
+              "prompt": "植樹材料包每套98元，社區購買3套，共需多少元？",
+              "answer": "98×3＝294元",
+              "promptHash": "9f21e9a1c62456dc7605",
+              "itemSignature": "2b3f81f48756a2b2707c",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -21288,7 +21287,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "9f25f74f546cffe34300",
+          "worksheetSignature": "36814dc19272d4bd25e8",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21318,28 +21317,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張93元，買13張，共需多少元？",
-              "answer": "93×13＝1209元",
-              "promptHash": "4899211dc9a832288c12",
-              "itemSignature": "ba86a140a49e7c4eb1dd",
+              "prompt": "活動票每張499元，買3張，共需多少元？",
+              "answer": "499×3＝1497元",
+              "promptHash": "a91746ebf3a88c5cd893",
+              "itemSignature": "631af702b0345c52a1eb",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張97元，買14張，共需多少元？",
-              "answer": "97×14＝1358元",
-              "promptHash": "175ac17eb10d34ad2fd5",
-              "itemSignature": "e0bb2438d234bdebed54",
+              "prompt": "活動票每張1998元，買3張，共需多少元？",
+              "answer": "1998×3＝5994元",
+              "promptHash": "accadf9c50f7a8697ac8",
+              "itemSignature": "4e88e041f84a56b27c0c",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張101元，買8張，共需多少元？",
-              "answer": "101×8＝808元",
-              "promptHash": "0aaf7219a20ff6e019bb",
-              "itemSignature": "ea9671e61b50e5ec4d80",
+              "prompt": "活動票每張498元，買3張，共需多少元？",
+              "answer": "498×3＝1494元",
+              "promptHash": "75a1e02ee288c6752a3d",
+              "itemSignature": "0c8b493b40e4ffbf1341",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -21366,7 +21365,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "184528186c0826363ba5",
+          "worksheetSignature": "6c1da827b095c7fb0778",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21396,28 +21395,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "植樹材料包每套501元，社區購買13套，共需多少元？",
-              "answer": "501×13＝6513元",
-              "promptHash": "3070942140dade2a96b4",
-              "itemSignature": "5f99259b5039c30f09af",
+              "prompt": "植樹材料包每套96元，社區購買3套，共需多少元？",
+              "answer": "96×3＝288元",
+              "promptHash": "f7f4e0b04f226ef7ce52",
+              "itemSignature": "dbcc541c1b94cf0f0a60",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套999元，社區購買21套，共需多少元？",
-              "answer": "999×21＝20979元",
-              "promptHash": "c99b6e72513b1e80b3b8",
-              "itemSignature": "b5ceb74efd1d51adc91a",
+              "prompt": "植樹材料包每套1996元，社區購買3套，共需多少元？",
+              "answer": "1996×3＝5988元",
+              "promptHash": "ad51830663ee017c8566",
+              "itemSignature": "97008ae977b65d14ee7a",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張2004元，買16張，共需多少元？",
-              "answer": "2004×16＝32064元",
-              "promptHash": "631d86592f571a78a5fe",
-              "itemSignature": "f2eeaf85de54462b16ee",
+              "prompt": "活動票每張498元，買3張，共需多少元？",
+              "answer": "498×3＝1494元",
+              "promptHash": "75a1e02ee288c6752a3d",
+              "itemSignature": "0c8b493b40e4ffbf1341",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -21457,10 +21456,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -21482,7 +21479,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "65b982affb3cc5136de9",
+          "worksheetSignature": "2e1050e1ae66bfeb6ae6",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21512,28 +21509,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張96元，買16張，共需多少元？",
-              "answer": "96×16＝1536元",
-              "promptHash": "e166e631241d5e02efb6",
-              "itemSignature": "2e2bfd984b622e8f149c",
+              "prompt": "活動票每張99元，買3張，共需多少元？",
+              "answer": "99×3＝297元",
+              "promptHash": "da55061e6263ca1b7d0e",
+              "itemSignature": "18b70f3654a91a3fe6fd",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張996元，買9張，共需多少元？",
-              "answer": "996×9＝8964元",
-              "promptHash": "d4e17ca3d466e7681e37",
-              "itemSignature": "d0ddc314de6c3133e676",
+              "prompt": "活動票每張998元，買3張，共需多少元？",
+              "answer": "998×3＝2994元",
+              "promptHash": "ffd4fae69b484dd07fbb",
+              "itemSignature": "bad8975acbd8ab9b1f8e",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張504元，買13張，共需多少元？",
-              "answer": "504×13＝6552元",
-              "promptHash": "ec9a262d12aad129c62f",
-              "itemSignature": "0230dfbb489fdaf5ef1c",
+              "prompt": "活動票每張98元，買3張，共需多少元？",
+              "answer": "98×3＝294元",
+              "promptHash": "7264d518851599a39475",
+              "itemSignature": "65da5cd97244ec920d67",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -21548,20 +21545,19 @@
           "thrownError": null,
           "errorCodes": [],
           "warnings": [
-            "G5A_U08_DUPLICATE_SURFACE_CONTEXT",
             "global_public_layout_legacy_migrated"
           ],
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "59893ff9b2f98bcce5e4",
+          "worksheetSignature": "4b4f7d5d4b200a7d718e",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21591,36 +21587,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張501元，買13張，共需多少元？",
-              "answer": "501×13＝6513元",
-              "promptHash": "900d57febaed50279a47",
-              "itemSignature": "9131948d8bbbf824b5a2",
+              "prompt": "活動票每張96元，買3張，共需多少元？",
+              "answer": "96×3＝288元",
+              "promptHash": "4894d23500614feeb752",
+              "itemSignature": "dcb51a342b7ed6776d01",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張999元，買21張，共需多少元？",
-              "answer": "999×21＝20979元",
-              "promptHash": "4e70953f9286ebfe86e9",
-              "itemSignature": "e2eb585ec421c7c1d01e",
+              "prompt": "活動票每張1996元，買3張，共需多少元？",
+              "answer": "1996×3＝5988元",
+              "promptHash": "aef917e45f09c8e43fd1",
+              "itemSignature": "f34da303ea1e10a3b4d0",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張1992元，買8張，共需多少元？",
-              "answer": "1992×8＝15936元",
-              "promptHash": "3ebdd41c3e209ce5dbb3",
-              "itemSignature": "d877dec42733131838b1",
+              "prompt": "活動票每張98元，買3張，共需多少元？",
+              "answer": "98×3＝294元",
+              "promptHash": "7264d518851599a39475",
+              "itemSignature": "65da5cd97244ec920d67",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -21654,10 +21648,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -21679,7 +21671,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "d51f441727c45ffa4734",
+          "worksheetSignature": "409ac30bb537de80ff2e",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21709,28 +21701,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "植樹材料包每套503元，社區購買13套，共需多少元？",
-              "answer": "503×13＝6539元",
-              "promptHash": "2aaa5361c358651a6eee",
-              "itemSignature": "13213c51ba63c5f43613",
+              "prompt": "植樹材料包每套99元，社區購買3套，共需多少元？",
+              "answer": "99×3＝297元",
+              "promptHash": "193569ab633f9ca2249f",
+              "itemSignature": "8e65511736048de1c4c9",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套996元，社區購買9套，共需多少元？",
-              "answer": "996×9＝8964元",
-              "promptHash": "e55177a143c8f3537342",
-              "itemSignature": "c35b9c806281b0c4462b",
+              "prompt": "植樹材料包每套998元，社區購買3套，共需多少元？",
+              "answer": "998×3＝2994元",
+              "promptHash": "b1f5bc16a82498bb581d",
+              "itemSignature": "331b96492277798e3c25",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套504元，社區購買13套，共需多少元？",
-              "answer": "504×13＝6552元",
-              "promptHash": "7cd38779601a1e6dd3b2",
-              "itemSignature": "798eb780146d2ed058cf",
+              "prompt": "植樹材料包每套98元，社區購買3套，共需多少元？",
+              "answer": "98×3＝294元",
+              "promptHash": "9f21e9a1c62456dc7605",
+              "itemSignature": "2b3f81f48756a2b2707c",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -21745,20 +21737,19 @@
           "thrownError": null,
           "errorCodes": [],
           "warnings": [
-            "G5A_U08_DUPLICATE_SURFACE_CONTEXT",
             "global_public_layout_legacy_migrated"
           ],
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "8a6fbcb1a9995cc90d56",
+          "worksheetSignature": "8756b080e66cf8662cab",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21788,36 +21779,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "植樹材料包每套501元，社區購買13套，共需多少元？",
-              "answer": "501×13＝6513元",
-              "promptHash": "3070942140dade2a96b4",
-              "itemSignature": "5f99259b5039c30f09af",
+              "prompt": "植樹材料包每套96元，社區購買3套，共需多少元？",
+              "answer": "96×3＝288元",
+              "promptHash": "f7f4e0b04f226ef7ce52",
+              "itemSignature": "dbcc541c1b94cf0f0a60",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套999元，社區購買21套，共需多少元？",
-              "answer": "999×21＝20979元",
-              "promptHash": "c99b6e72513b1e80b3b8",
-              "itemSignature": "b5ceb74efd1d51adc91a",
+              "prompt": "植樹材料包每套1996元，社區購買3套，共需多少元？",
+              "answer": "1996×3＝5988元",
+              "promptHash": "ad51830663ee017c8566",
+              "itemSignature": "97008ae977b65d14ee7a",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套1992元，社區購買8套，共需多少元？",
-              "answer": "1992×8＝15936元",
-              "promptHash": "d159d26a10b03c0a5fbc",
-              "itemSignature": "a21abd040a6ab5f5589c",
+              "prompt": "植樹材料包每套98元，社區購買3套，共需多少元？",
+              "answer": "98×3＝294元",
+              "promptHash": "9f21e9a1c62456dc7605",
+              "itemSignature": "2b3f81f48756a2b2707c",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -21874,7 +21863,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "5171e6cd3bc2a67f1b2c",
+          "worksheetSignature": "e38bd5dc7a133c01135a",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21904,28 +21893,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張93元，買13張，共需多少元？（可利用接近100元的關係思考。）",
-              "answer": "93×13＝1209元",
-              "promptHash": "9fb44a883624d44b1a9d",
-              "itemSignature": "deef181ae4d8408228be",
+              "prompt": "活動票每張499元，買3張，共需多少元？（可利用接近500元的關係思考。）",
+              "answer": "499×3＝1497元",
+              "promptHash": "2fc081b0f7a8b1ccd43c",
+              "itemSignature": "851cf90d0b10148010c9",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張97元，買14張，共需多少元？（可利用接近100元的關係思考。）",
-              "answer": "97×14＝1358元",
-              "promptHash": "34896340ea2bef31657d",
-              "itemSignature": "c972c4af8bb5018ece60",
+              "prompt": "活動票每張1998元，買3張，共需多少元？（可利用接近2000元的關係思考。）",
+              "answer": "1998×3＝5994元",
+              "promptHash": "0f29a88c0ceb064412b2",
+              "itemSignature": "bbce90194c23ec77c0f3",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張101元，買8張，共需多少元？（可利用接近100元的關係思考。）",
-              "answer": "101×8＝808元",
-              "promptHash": "a2cac45f92ac006328ae",
-              "itemSignature": "bf15886994ac61d0408a",
+              "prompt": "活動票每張498元，買3張，共需多少元？（可利用接近500元的關係思考。）",
+              "answer": "498×3＝1494元",
+              "promptHash": "d75ce552b00282475435",
+              "itemSignature": "e33bd1ee44f04f9d0ff7",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -21952,7 +21941,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "f8b6b074d37c72690338",
+          "worksheetSignature": "94c662ebc44e7060ee45",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -21982,28 +21971,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "植樹材料包每套501元，社區購買13套，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "501×13＝6513元",
-              "promptHash": "a1f8897c20798c8e4ea4",
-              "itemSignature": "e116e410484813d4c0c8",
+              "prompt": "植樹材料包每套96元，社區購買3套，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "96×3＝288元",
+              "promptHash": "23f7534c1983d9bf1590",
+              "itemSignature": "318574348c0208d4c823",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套999元，社區購買21套，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "999×21＝20979元",
-              "promptHash": "4e4f5e328f5afb624880",
-              "itemSignature": "e7fd586607a2ece655ac",
+              "prompt": "植樹材料包每套1996元，社區購買3套，共需多少元？（可利用接近2000元的關係思考。）",
+              "answer": "1996×3＝5988元",
+              "promptHash": "bc84ffb3a2e382dea633",
+              "itemSignature": "5f42e3a835b3502d8527",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張2004元，買16張，共需多少元？（可利用接近2000元的關係思考。）",
-              "answer": "2004×16＝32064元",
-              "promptHash": "afae8bae55b82b1fa480",
-              "itemSignature": "86fd86a7baa8c63446e9",
+              "prompt": "活動票每張498元，買3張，共需多少元？（可利用接近500元的關係思考。）",
+              "answer": "498×3＝1494元",
+              "promptHash": "d75ce552b00282475435",
+              "itemSignature": "e33bd1ee44f04f9d0ff7",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -22043,10 +22032,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -22068,7 +22055,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "435c26941cb488bad205",
+          "worksheetSignature": "97ab844380a2956a0a94",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -22098,28 +22085,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張96元，買16張，共需多少元？（可利用接近100元的關係思考。）",
-              "answer": "96×16＝1536元",
-              "promptHash": "9836de1ee14e6d949c97",
-              "itemSignature": "2c47e46cbe40b76e5b4e",
+              "prompt": "活動票每張99元，買3張，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "99×3＝297元",
+              "promptHash": "56ed5f643f45d7642eb2",
+              "itemSignature": "26e2e98bb4b97a3d7217",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張996元，買9張，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "996×9＝8964元",
-              "promptHash": "978011b934ba207e2900",
-              "itemSignature": "fecc18f2b57c6efccbc5",
+              "prompt": "活動票每張998元，買3張，共需多少元？（可利用接近1000元的關係思考。）",
+              "answer": "998×3＝2994元",
+              "promptHash": "cc1456ac6da394323e49",
+              "itemSignature": "832d60cdd7659681e6f3",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張504元，買13張，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "504×13＝6552元",
-              "promptHash": "62c5ff1c73a4a6e26d8a",
-              "itemSignature": "3d07410357a877e90d3c",
+              "prompt": "活動票每張98元，買3張，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "98×3＝294元",
+              "promptHash": "7d38a019bbc2a3eaf21d",
+              "itemSignature": "20f06163be5a7a4d98de",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -22134,20 +22121,19 @@
           "thrownError": null,
           "errorCodes": [],
           "warnings": [
-            "G5A_U08_DUPLICATE_SURFACE_CONTEXT",
             "global_public_layout_legacy_migrated"
           ],
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "a9bb45de0cb4b16549e5",
+          "worksheetSignature": "2cefcc4d831245cafe15",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -22177,36 +22163,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "活動票每張501元，買13張，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "501×13＝6513元",
-              "promptHash": "ab6874b32f942f16b6b0",
-              "itemSignature": "d5fdbaf2fee75cf9b7e0",
+              "prompt": "活動票每張96元，買3張，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "96×3＝288元",
+              "promptHash": "193ab9f4d3065eea7891",
+              "itemSignature": "e0cc398045af60ca3817",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張999元，買21張，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "999×21＝20979元",
-              "promptHash": "df648be5116816d4a8fe",
-              "itemSignature": "0766f8c49c3f7eebcb64",
+              "prompt": "活動票每張1996元，買3張，共需多少元？（可利用接近2000元的關係思考。）",
+              "answer": "1996×3＝5988元",
+              "promptHash": "d31304d00970374908e0",
+              "itemSignature": "e7c22a637933c9fac814",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "活動票每張1992元，買8張，共需多少元？（可利用接近2000元的關係思考。）",
-              "answer": "1992×8＝15936元",
-              "promptHash": "a130a1ec32502c91b845",
-              "itemSignature": "7eaf3718275486fdf135",
+              "prompt": "活動票每張98元，買3張，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "98×3＝294元",
+              "promptHash": "7d38a019bbc2a3eaf21d",
+              "itemSignature": "20f06163be5a7a4d98de",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -22240,10 +22224,8 @@
       "contractGapCodes": [
         "CAPACITY_BELOW_20"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -22265,7 +22247,7 @@
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "3ab8fa1ca4bdb4006b0f",
+          "worksheetSignature": "020805206025824d62f8",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -22295,28 +22277,28 @@
           },
           "itemSamples": [
             {
-              "prompt": "植樹材料包每套503元，社區購買13套，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "503×13＝6539元",
-              "promptHash": "a18c3e1c0f1d1d011897",
-              "itemSignature": "f0cea99ecee979fc6bd7",
+              "prompt": "植樹材料包每套99元，社區購買3套，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "99×3＝297元",
+              "promptHash": "abdfd9da9c02785d25bb",
+              "itemSignature": "e5e3110633cd90cb0dfe",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套996元，社區購買9套，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "996×9＝8964元",
-              "promptHash": "a05b4107f53a9820b152",
-              "itemSignature": "c588241d344ce4bdb057",
+              "prompt": "植樹材料包每套998元，社區購買3套，共需多少元？（可利用接近1000元的關係思考。）",
+              "answer": "998×3＝2994元",
+              "promptHash": "76b6d39f9899e4e17aca",
+              "itemSignature": "bc861730b8d972561e16",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套504元，社區購買13套，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "504×13＝6552元",
-              "promptHash": "42d86d2573e14d5c6ab1",
-              "itemSignature": "4633ff7735515d67d6e5",
+              "prompt": "植樹材料包每套98元，社區購買3套，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "98×3＝294元",
+              "promptHash": "2ef4669bbdbd9686c8de",
+              "itemSignature": "8e6665308d29a7da9830",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
@@ -22331,20 +22313,19 @@
           "thrownError": null,
           "errorCodes": [],
           "warnings": [
-            "G5A_U08_DUPLICATE_SURFACE_CONTEXT",
             "global_public_layout_legacy_migrated"
           ],
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u08_app_near_round_unit_price"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "fe39128a69b202c5d62a",
+          "worksheetSignature": "4c143b67a98818b8bcf6",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -22374,36 +22355,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "植樹材料包每套501元，社區購買13套，共需多少元？（可利用接近500元的關係思考。）",
-              "answer": "501×13＝6513元",
-              "promptHash": "a1f8897c20798c8e4ea4",
-              "itemSignature": "e116e410484813d4c0c8",
+              "prompt": "植樹材料包每套96元，社區購買3套，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "96×3＝288元",
+              "promptHash": "23f7534c1983d9bf1590",
+              "itemSignature": "318574348c0208d4c823",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套999元，社區購買21套，共需多少元？（可利用接近1000元的關係思考。）",
-              "answer": "999×21＝20979元",
-              "promptHash": "4e4f5e328f5afb624880",
-              "itemSignature": "e7fd586607a2ece655ac",
+              "prompt": "植樹材料包每套1996元，社區購買3套，共需多少元？（可利用接近2000元的關係思考。）",
+              "answer": "1996×3＝5988元",
+              "promptHash": "bc84ffb3a2e382dea633",
+              "itemSignature": "5f42e3a835b3502d8527",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "植樹材料包每套1992元，社區購買8套，共需多少元？（可利用接近2000元的關係思考。）",
-              "answer": "1992×8＝15936元",
-              "promptHash": "5a42f37dbe3bd7f321db",
-              "itemSignature": "d1df02926bbe583ff577",
+              "prompt": "植樹材料包每套98元，社區購買3套，共需多少元？（可利用接近100元的關係思考。）",
+              "answer": "98×3＝294元",
+              "promptHash": "2ef4669bbdbd9686c8de",
+              "itemSignature": "8e6665308d29a7da9830",
               "patternSpecId": "ps_g5a_u08_app_near_round_unit_price",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
