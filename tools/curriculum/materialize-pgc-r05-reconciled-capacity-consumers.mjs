@@ -9,7 +9,7 @@ const diversityCsvPath = path.join(repoRoot, "data/curriculum/public-generation/
 const registryPath = path.join(repoRoot, "site/modules/curriculum/public/public-generator-capacity-registry.js");
 
 const safeArray = (value) => Array.isArray(value) ? value : [];
-const pipe = (values) => safeArray(values).join("|");
+const sortedPipe = (values) => [...new Set(safeArray(values).map(String).filter(Boolean))].sort().join("|");
 
 function csv(value) {
   const text = String(value ?? "");
@@ -27,11 +27,11 @@ function routeMatrixRow(route) {
     route.caseId,
     route.sourceId,
     route.selectionMode,
-    pipe(route.selectedKnowledgePointIds),
+    sortedPipe(route.selectedKnowledgePointIds),
     route.questionType,
     route.setKind,
-    pipe(route.publicPatternGroupIds),
-    pipe(route.generationPatternGroupIds),
+    sortedPipe(route.publicPatternGroupIds),
+    sortedPipe(route.generationPatternGroupIds),
     route.depthMode ?? "",
     route.contextMode ?? "",
     route.legalRouteStatus,
@@ -40,8 +40,8 @@ function routeMatrixRow(route) {
     route.qualityStatus,
     route.uniqueItemSetCount,
     route.uniqueOrderedWorksheetCount,
-    pipe(route.reconciliationCodes),
-    pipe(route.downstreamGapCodes),
+    sortedPipe(route.reconciliationCodes),
+    sortedPipe(route.downstreamGapCodes),
   ];
 }
 
@@ -64,13 +64,13 @@ function registryRow(route) {
   return [
     route.sourceId,
     route.selectionMode,
-    pipe(route.selectedKnowledgePointIds),
+    route.selectionMode === "sourceUnit" ? "" : sortedPipe(route.selectedKnowledgePointIds),
     route.questionType,
-    pipe(route.generationPatternGroupIds),
+    sortedPipe(route.publicPatternGroupIds),
     route.depthMode ?? "",
     route.contextMode ?? "",
     route.verifiedMaxQuestionCount,
-    route.legalRouteStatus,
+    route.legalRouteStatus === "ILLEGAL" ? "ILLEGAL" : "LEGAL",
     route.qualityStatus,
     route.routeId,
   ];
@@ -113,6 +113,7 @@ export function materializePgcR05ReconciledCapacityConsumers() {
     routeMatrixRowCount: routes.length,
     diversityRowCount: exposedRoutes.length,
     runtimeRegistryRowCount: registryRows.length,
+    publicPatternGroupProjection: true,
     routeMatrixPath: path.relative(repoRoot, routeCsvPath).replaceAll(path.sep, "/"),
     diversityPath: path.relative(repoRoot, diversityCsvPath).replaceAll(path.sep, "/"),
     registryPath: path.relative(repoRoot, registryPath).replaceAll(path.sep, "/"),
