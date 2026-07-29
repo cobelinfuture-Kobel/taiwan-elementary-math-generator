@@ -200,13 +200,14 @@ function selectOptionForGoal(goalId, selectedSet, remaining) {
     SPEC_POLICY[patternSpecId].contexts.includes("sdg"));
 }
 
-function generateQuestionForCell(patternSpecId, depth, contextType, seed, desiredSdgGoalId = null) {
+function generateQuestionForCell(patternSpecId, depth, contextType, seed, desiredSdgGoalId = null, diversityOrdinal = null) {
   const maxAttempts = desiredSdgGoalId == null ? 1 : 96;
   for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
     const question = generateG5AU08ApplicationQuestion(patternSpecId, {
       seed: `${seed}:${attempt}`,
       depth,
       contextType,
+      diversityOrdinal,
     });
     if (desiredSdgGoalId == null || question.context.sdgGoalId === desiredSdgGoalId) return question;
   }
@@ -254,6 +255,7 @@ export function generateG5AU08ApplicationBatch({
       contextType,
       `${seed}:${reason}:${patternSpecId}:${sequence}`,
       desiredSdgGoalId,
+      sequence,
     );
     sequence += 1;
     rows.push(question);
@@ -348,3 +350,5 @@ export function generateG5AU08ApplicationBatch({
 }
 
 export { resolveJointPlan };
+
+// PGC-R05 G5A-U08 near-round application diversity FullFix V2
