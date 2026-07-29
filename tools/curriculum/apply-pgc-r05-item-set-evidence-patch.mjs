@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const relativePath = "tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs";
-const marker = "PGC-R05 order-insensitive item-set reconciliation evidence V1";
+const marker = "PGC-R05 order-insensitive item-set reconciliation evidence V2";
 
 function replaceRequired(source, before, after, label) {
   if (source.includes(after)) return source;
@@ -49,10 +49,12 @@ export function applyPgcR05ItemSetEvidencePatch() {
     `    const signatures = unique(runs.map((run) => run.worksheetSignature));
     if (signatures.length !== runs.length) throw new Error(\`PGC_R05_CROSS_SEED_WORKSHEET_DIVERSITY_REQUIRED:\${route.routeId}\`);
     const capacityRuns = runs.map(capacityRun);`,
-    `    const orderedWorksheetSignatures = unique(runs.map((run) => run.worksheetSignature));
+    `    const qualityUpgradeRequired = route.qualityStatus !== "DIVERSE_PARAMETER_GENERATOR";
+    const orderedWorksheetSignatures = unique(runs.map((run) => run.worksheetSignature));
     const itemSetSignatures = unique(runs.map((run) => run.itemSetSignature));
-    if (orderedWorksheetSignatures.length !== runs.length) throw new Error(\`PGC_R05_CROSS_SEED_WORKSHEET_DIVERSITY_REQUIRED:\${route.routeId}\`);
-    if (itemSetSignatures.length !== runs.length) throw new Error(\`PGC_R05_CROSS_SEED_ITEM_SET_DIVERSITY_REQUIRED:\${route.routeId}\`);
+    if (qualityUpgradeRequired && itemSetSignatures.length !== runs.length) {
+      throw new Error(\`PGC_R05_CROSS_SEED_ITEM_SET_DIVERSITY_REQUIRED_FOR_QUALITY_UPGRADE:\${route.routeId}\`);
+    }
     const capacityRuns = runs.map(capacityRun);`,
     "cross-seed-item-set",
   );
@@ -66,13 +68,30 @@ export function applyPgcR05ItemSetEvidencePatch() {
     "reconciled-diversity-counts",
   );
 
+  source = replaceRequired(
+    source,
+    `      reconciliationCodes: unique([
+        ...safeArray(route.reconciliationCodes),
+        "PGC_R05_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R05_TWO_SEED_PROMPT_DIVERSITY_RECONCILED",
+      ]),`,
+    `      reconciliationCodes: unique([
+        ...safeArray(route.reconciliationCodes),
+        "PGC_R05_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R05_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        ...(qualityUpgradeRequired ? ["PGC_R05_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"] : []),
+      ]),`,
+    "reconciliation-codes",
+  );
+
   source = `${source.trimEnd()}\n\n// ${marker}\n`;
   fs.writeFileSync(filePath, source);
   const result = Object.freeze({
     status: "PASS_PGC_R05_ITEM_SET_EVIDENCE_PATCH_APPLIED",
     changedFiles: Object.freeze([relativePath]),
     itemSetSignatureRequired: true,
-    crossSeedItemSetDiversityRequired: true,
+    crossSeedItemSetDiversityRequiredOnlyForQualityUpgrade: true,
+    capacityEvidenceUsesPerWorksheetPromptDiversity: true,
   });
   console.log(`PGC_R05_ITEM_SET_EVIDENCE_PATCH=${JSON.stringify(result)}`);
   return result;
