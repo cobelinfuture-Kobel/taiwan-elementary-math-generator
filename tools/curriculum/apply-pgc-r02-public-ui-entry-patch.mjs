@@ -47,5 +47,47 @@ changes.push(replaceExact(
   '<script type="module" src="./pixel-ui.js"></script>\n  <script type="module" src="./pixel-live-preview.js"></script>',
   '<script type="module" src="./pixel-ui.js"></script>\n  <script type="module" src="./pixel-public-capability-ui.js"></script>\n  <script type="module" src="./pixel-live-preview.js"></script>',
 ));
+changes.push(replaceExact(
+  "site/assets/browser/public-capability-ui.js",
+  `for (const panel of [knowledgePointPanel, patternGroupPanel, sourceSelect, section]) {
+  if (!panel) continue;
+  new MutationObserver(scheduleSync).observe(panel, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-selected", "data-visible", "data-source-id", "disabled"],
+  });
+}`,
+  `for (const panel of [knowledgePointPanel, patternGroupPanel, sourceSelect]) {
+  if (!panel) continue;
+  new MutationObserver(scheduleSync).observe(panel, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-selected", "data-source-id"],
+  });
+}`,
+));
+changes.push(replaceExact(
+  "site/pixel/pixel-public-capability-ui.js",
+  `for (const panel of [knowledgePointPanel, patternGroupPanel, questionField, depthField, contextField]) {
+  if (!panel) continue;
+  new MutationObserver(scheduleSync).observe(panel, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-selected", "data-visible", "disabled"],
+  });
+}`,
+  `for (const panel of [knowledgePointPanel, patternGroupPanel]) {
+  if (!panel) continue;
+  new MutationObserver(scheduleSync).observe(panel, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-selected"],
+  });
+}`,
+));
 
 console.log(`PGC_R02_ENTRY_PATCH_CHANGED=${changes.filter(Boolean).length}`);
