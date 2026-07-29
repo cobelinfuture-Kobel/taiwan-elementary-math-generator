@@ -909,6 +909,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -972,7 +979,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 64,
+      "implementationReferenceCount": 65,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -1006,6 +1013,7 @@
         "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
         "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
         "tests/curriculum/global-knowledge-point-decomposition-contract.test.js",
+        "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
         "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
         "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js",
         "tests/site/batch-a-13-source-browser-smoke.test.js",
@@ -1465,6 +1473,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -1529,7 +1544,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 64,
+      "implementationReferenceCount": 65,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -1563,6 +1578,7 @@
         "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
         "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
         "tests/curriculum/global-knowledge-point-decomposition-contract.test.js",
+        "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
         "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
         "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js",
         "tests/site/batch-a-13-source-browser-smoke.test.js",
@@ -2021,6 +2037,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -2085,7 +2108,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 64,
+      "implementationReferenceCount": 65,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -2119,6 +2142,7 @@
         "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
         "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
         "tests/curriculum/global-knowledge-point-decomposition-contract.test.js",
+        "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
         "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
         "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js",
         "tests/site/batch-a-13-source-browser-smoke.test.js",
@@ -2577,6 +2601,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -2641,7 +2672,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 64,
+      "implementationReferenceCount": 65,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -2675,6 +2706,7 @@
         "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
         "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
         "tests/curriculum/global-knowledge-point-decomposition-contract.test.js",
+        "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
         "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
         "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js",
         "tests/site/batch-a-13-source-browser-smoke.test.js",
@@ -3136,6 +3168,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -3200,7 +3239,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 64,
+      "implementationReferenceCount": 65,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -3234,6 +3273,7 @@
         "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
         "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
         "tests/curriculum/global-knowledge-point-decomposition-contract.test.js",
+        "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
         "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
         "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js",
         "tests/site/batch-a-13-source-browser-smoke.test.js",
@@ -3690,6 +3730,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -3754,7 +3801,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 64,
+      "implementationReferenceCount": 65,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -3788,6 +3835,7 @@
         "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
         "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
         "tests/curriculum/global-knowledge-point-decomposition-contract.test.js",
+        "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
         "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
         "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js",
         "tests/site/batch-a-13-source-browser-smoke.test.js",
@@ -4244,6 +4292,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -4308,7 +4363,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 64,
+      "implementationReferenceCount": 65,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -4342,6 +4397,7 @@
         "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
         "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
         "tests/curriculum/global-knowledge-point-decomposition-contract.test.js",
+        "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
         "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
         "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js",
         "tests/site/batch-a-13-source-browser-smoke.test.js",
@@ -4846,6 +4902,13 @@
           ]
         },
         {
+          "path": "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
+          "kind": "test",
+          "matchedTokens": [
+            "g3a_u03_3a03"
+          ]
+        },
+        {
           "path": "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
           "kind": "test",
           "matchedTokens": [
@@ -4915,7 +4978,7 @@
           ]
         }
       ],
-      "implementationReferenceCount": 64,
+      "implementationReferenceCount": 65,
       "runtimeReferencePaths": [
         "site/assets/browser/state/query-state.js",
         "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
@@ -4949,6 +5012,7 @@
         "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
         "tests/curriculum/g3b-u08-canonical-worksheet-renderer.test.js",
         "tests/curriculum/global-knowledge-point-decomposition-contract.test.js",
+        "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js",
         "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js",
         "tests/curriculum/postg-mig-a03-g3a-u03-conformance.test.js",
         "tests/site/batch-a-13-source-browser-smoke.test.js",
