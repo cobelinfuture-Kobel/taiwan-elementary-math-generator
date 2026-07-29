@@ -1,0 +1,1596 @@
+{
+  "schemaName": "PgcR04NumericQueueReprioritizationV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R04-A03_NumericCapacityAndDiversityQueueReprioritization",
+  "status": "PASS",
+  "resolvedSources": [
+    "g3a_u03_3a03",
+    "g3a_u06_3a06"
+  ],
+  "frozenExpectedCounts": {
+    "cumulativeResolvedGapRouteCount": 12,
+    "remainingGapRouteCount": 69,
+    "remainingCapacityGapRouteCount": 69,
+    "remainingDiversityGapRouteCount": 24,
+    "remainingCapacityAndDiversityOverlapCount": 24,
+    "remainingAffectedSourceCount": 17
+  },
+  "summary": {
+    "cumulativeResolvedGapRouteCount": 12,
+    "remainingGapRouteCount": 69,
+    "remainingCapacityGapRouteCount": 69,
+    "remainingDiversityGapRouteCount": 24,
+    "remainingCapacityAndDiversityOverlapCount": 24,
+    "remainingAffectedSourceCount": 17,
+    "blockingGapCount": 0
+  },
+  "blockingGaps": [],
+  "nextRepairCandidate": {
+    "sourceId": "g5a_u02_5a02",
+    "defectClass": "CAPACITY_ONLY",
+    "routeCount": 11,
+    "minimumVerifiedQuestionCount": 8,
+    "maximumVerifiedQuestionCount": 16,
+    "runtimeReferencePaths": [
+      "site/assets/browser/state/query-state.js",
+      "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
+      "site/modules/curriculum/batch-a/source-units.js",
+      "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js",
+      "site/modules/curriculum/batch-b/g5a-u02-browser-resolver.js",
+      "site/modules/curriculum/batch-b/g5a-u02-context-taxonomy.js",
+      "site/modules/curriculum/batch-b/g5a-u02-public-knowledge-points.js",
+      "site/modules/curriculum/batch-b/g5a-u02-public-question-type-contract.js",
+      "site/modules/curriculum/batch-b/g5a-u02-reasoning-depth-contract.js",
+      "site/modules/curriculum/batch-b/source-pattern-g5a-u02-extension.js",
+      "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+      "site/modules/curriculum/golden/post-golden-migration-controller.js",
+      "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+      "site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js",
+      "site/modules/curriculum/registry/batch-a-selector-g5a-u02-extension.js",
+      "site/modules/curriculum/registry/fifteen-unit-public-control-profiles.js",
+      "site/modules/curriculum/registry/g5a-u02-selector-projection.js",
+      "site/modules/curriculum/registry/public-control-profiles.js",
+      "src/curriculum/application/postg-app-master-controller.mjs",
+      "src/curriculum/g5a-u02/browser-dynamic-entry.js",
+      "src/curriculum/g5a-u02/hidden-renderer.js",
+      "src/curriculum/g5a-u02/s103-digit-code-runtime.js",
+      "src/curriculum/g5a-u02/source-metadata.js"
+    ],
+    "toolReferencePaths": [
+      "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
+      "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
+      "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+      "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+      "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
+      "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
+      "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
+      "tools/curriculum/run-g5a-u02-s103-bundle-audit.mjs",
+      "tools/curriculum/run-g5a-u02-s104-html-pdf-acceptance.mjs",
+      "tools/curriculum/run-g5a-u02-s106-bundle-audit.mjs",
+      "tools/curriculum/run-g5a-u02-s107-bundle-audit.mjs",
+      "tools/curriculum/run-g5a-u02-s108-bundle-audit.mjs",
+      "tools/curriculum/run-g5a-u02-s110-all22-html-pdf-acceptance.mjs",
+      "tools/curriculum/run-g5a-u02-s97-bundle-audit.mjs",
+      "tools/curriculum/run-glm-s02-unit-renderer-worst-case-audit.mjs",
+      "tools/curriculum/run-glm-s03-html-pdf-shard.mjs",
+      "tools/curriculum/run-s96i-g5a-u02-live-browser-e2e.mjs",
+      "tools/curriculum/run-s96q-g5a-u02-browser-dom-e2e.mjs",
+      "tools/curriculum/run-s96r-g5a-u02-control-matrix-html-pdf-stress.mjs",
+      "tools/curriculum/run-s96s-g5a-u02-deployed-pages-smoke.mjs"
+    ],
+    "testReferencePaths": [
+      "tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js",
+      "tests/curriculum/g5a-u02-hidden-renderer.test.js",
+      "tests/curriculum/g5a-u02-pre-s104-public-semantic-regeneration.test.js",
+      "tests/curriculum/g5a-u02-pre-s104-worked-solution-leakage.test.js",
+      "tests/curriculum/g5a-u02-s100-method-witness-language-reasoning.test.js",
+      "tests/curriculum/g5a-u02-s101-partition-geometry-representation.test.js",
+      "tests/curriculum/g5a-u02-s102-nontrivial-common-factor-witness.test.js",
+      "tests/curriculum/g5a-u02-s103-digit-code-profile-separation.test.js",
+      "tests/curriculum/g5a-u02-s104-p0-integrated-semantic-renderer-html-pdf.test.js",
+      "tests/curriculum/g5a-u02-s106-factor-pair-symmetry-masked-table.test.js",
+      "tests/curriculum/g5a-u02-s107-selection-symbolic-common-marking.test.js",
+      "tests/curriculum/g5a-u02-s108-remainder-transfer-controlled-context.test.js",
+      "tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock.test.js",
+      "tests/curriculum/g5a-u02-s110-all22-integrated-d0-acceptance.test.js",
+      "tests/curriculum/g5a-u02-s97-legacy-unknown-key-normalization.test.js",
+      "tests/curriculum/g5a-u02-s97-source-parity-prompt-completeness.test.js",
+      "tests/curriculum/g5a-u02-s98-source-method-representation-parity-audit.test.js",
+      "tests/curriculum/g5a-u02-source-metadata-correction.test.js",
+      "tests/curriculum/gctx-p07-existing-patternspec-semantic-eligibility-audit.test.js",
+      "tests/curriculum/gctx-p08-binding-admission-normalization.test.js",
+      "tests/curriculum/gctx-s01-existing-context-authority-inventory.test.js",
+      "tests/curriculum/glm-s02-unit-renderer-worst-case-audit.test.js",
+      "tests/curriculum/glm-s04-global-layout-architecture.test.js",
+      "tests/curriculum/glm-s05-global-18-layout-fullfix.test.js",
+      "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
+      "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
+      "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+      "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
+      "tests/curriculum/postg-app-m00-master-controller.test.js",
+      "tests/curriculum/postg-app-w01-a00-assessment.test.js",
+      "tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js",
+      "tests/curriculum/r06-legacy-compatibility-migration.test.js",
+      "tests/curriculum/r07-authoritative-consumer-cutover.test.js",
+      "tests/curriculum/s76-batch-b-next-source-priority-lock.test.js",
+      "tests/curriculum/s78-g5a-u02-dual-pdf-knowledge-point-extraction.test.js",
+      "tests/curriculum/s79-g5a-u02-dual-pdf-boundary-source-identity-qa.test.js",
+      "tests/curriculum/s80-g5a-u02-formal-mapping-candidate-design.test.js",
+      "tests/curriculum/s81-g5a-u02-formal-mapping-candidate-qa.test.js",
+      "tests/curriculum/s84-g5a-u02-formal-mapping-hidden-pattern-materialization.test.js",
+      "tests/site/g5a-u02-browser-arbitrary-regeneration.test.js",
+      "tests/site/g5a-u02-dynamic-stress-contract.test.js",
+      "tests/site/g5a-u02-knowledge-point-selector.test.js",
+      "tests/site/g5a-u02-public-knowledge-points.test.js",
+      "tests/site/g5a-u02-public-text-seed-click-path.test.js",
+      "tests/site/g5a-u02-query-state-allocation.test.js",
+      "tests/site/s96o-g5a-u02-public-controls-integration.test.js",
+      "tests/site/s96p-g5a-u02-preview-print-integration.test.js",
+      "tests/site/s96s-r1-public-generated-count.test.js",
+      "tests/site/s96s-r2-public-preview-title.test.js",
+      "tests/ui/pixel-registry-bridge.test.js"
+    ],
+    "routeIds": [
+      "pgc_r03_g5a_u02_5a02_concept_0475992c729f",
+      "pgc_r03_g5a_u02_5a02_concept_127020b0d7ef",
+      "pgc_r03_g5a_u02_5a02_concept_1b098eadc352",
+      "pgc_r03_g5a_u02_5a02_concept_4d0ca55850d4",
+      "pgc_r03_g5a_u02_5a02_concept_ae6f61e2ee34",
+      "pgc_r03_g5a_u02_5a02_numeric_0992f22fd619",
+      "pgc_r03_g5a_u02_5a02_numeric_39e160e247a8",
+      "pgc_r03_g5a_u02_5a02_numeric_5fd4e7e68270",
+      "pgc_r03_g5a_u02_5a02_numeric_8a2de9f2039f",
+      "pgc_r03_g5a_u02_5a02_numeric_ba9975639686",
+      "pgc_r03_g5a_u02_5a02_numeric_f80d48c9d6f1"
+    ],
+    "rationale": "Largest remaining capacity-only source cluster. Repairing one shared G5A-U02 generation authority can raise 11 routes without mixing in unresolved cross-seed diversity work.",
+    "nextTaskId": "PGC-R04-A04_G5A_U02_NumericCapacityExpansionFullFix"
+  },
+  "sourceSummaries": [
+    {
+      "sourceId": "g5a_u02_5a02",
+      "routeCount": 11,
+      "capacityGapRouteCount": 11,
+      "diversityGapRouteCount": 0,
+      "overlapRouteCount": 0,
+      "minimumVerifiedQuestionCount": 8,
+      "maximumVerifiedQuestionCount": 16,
+      "runtimeReferencePaths": [
+        "site/assets/browser/state/query-state.js",
+        "site/modules/curriculum/batch-a/g5a-u02-public-candidate.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js",
+        "site/modules/curriculum/batch-b/g5a-u02-browser-resolver.js",
+        "site/modules/curriculum/batch-b/g5a-u02-context-taxonomy.js",
+        "site/modules/curriculum/batch-b/g5a-u02-public-knowledge-points.js",
+        "site/modules/curriculum/batch-b/g5a-u02-public-question-type-contract.js",
+        "site/modules/curriculum/batch-b/g5a-u02-reasoning-depth-contract.js",
+        "site/modules/curriculum/batch-b/source-pattern-g5a-u02-extension.js",
+        "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+        "site/modules/curriculum/golden/post-golden-migration-controller.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js",
+        "site/modules/curriculum/registry/batch-a-selector-g5a-u02-extension.js",
+        "site/modules/curriculum/registry/fifteen-unit-public-control-profiles.js",
+        "site/modules/curriculum/registry/g5a-u02-selector-projection.js",
+        "site/modules/curriculum/registry/public-control-profiles.js",
+        "src/curriculum/application/postg-app-master-controller.mjs",
+        "src/curriculum/g5a-u02/browser-dynamic-entry.js",
+        "src/curriculum/g5a-u02/hidden-renderer.js",
+        "src/curriculum/g5a-u02/s103-digit-code-runtime.js",
+        "src/curriculum/g5a-u02/source-metadata.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/enrich-glm-s02-g5a-u02-static-html.mjs",
+        "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs",
+        "tools/curriculum/generate-s96g-g5a-u02-dynamic-stress.mjs",
+        "tools/curriculum/materialize-pgc-r04-numeric-queue-reprioritization.mjs",
+        "tools/curriculum/run-g5a-u02-s100-bundle-audit.mjs",
+        "tools/curriculum/run-g5a-u02-s101-bundle-audit.mjs",
+        "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs",
+        "tools/curriculum/run-g5a-u02-s103-bundle-audit.mjs",
+        "tools/curriculum/run-g5a-u02-s104-html-pdf-acceptance.mjs",
+        "tools/curriculum/run-g5a-u02-s106-bundle-audit.mjs",
+        "tools/curriculum/run-g5a-u02-s107-bundle-audit.mjs",
+        "tools/curriculum/run-g5a-u02-s108-bundle-audit.mjs",
+        "tools/curriculum/run-g5a-u02-s110-all22-html-pdf-acceptance.mjs",
+        "tools/curriculum/run-g5a-u02-s97-bundle-audit.mjs",
+        "tools/curriculum/run-glm-s02-unit-renderer-worst-case-audit.mjs",
+        "tools/curriculum/run-glm-s03-html-pdf-shard.mjs",
+        "tools/curriculum/run-s96i-g5a-u02-live-browser-e2e.mjs",
+        "tools/curriculum/run-s96q-g5a-u02-browser-dom-e2e.mjs",
+        "tools/curriculum/run-s96r-g5a-u02-control-matrix-html-pdf-stress.mjs",
+        "tools/curriculum/run-s96s-g5a-u02-deployed-pages-smoke.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js",
+        "tests/curriculum/g5a-u02-hidden-renderer.test.js",
+        "tests/curriculum/g5a-u02-pre-s104-public-semantic-regeneration.test.js",
+        "tests/curriculum/g5a-u02-pre-s104-worked-solution-leakage.test.js",
+        "tests/curriculum/g5a-u02-s100-method-witness-language-reasoning.test.js",
+        "tests/curriculum/g5a-u02-s101-partition-geometry-representation.test.js",
+        "tests/curriculum/g5a-u02-s102-nontrivial-common-factor-witness.test.js",
+        "tests/curriculum/g5a-u02-s103-digit-code-profile-separation.test.js",
+        "tests/curriculum/g5a-u02-s104-p0-integrated-semantic-renderer-html-pdf.test.js",
+        "tests/curriculum/g5a-u02-s106-factor-pair-symmetry-masked-table.test.js",
+        "tests/curriculum/g5a-u02-s107-selection-symbolic-common-marking.test.js",
+        "tests/curriculum/g5a-u02-s108-remainder-transfer-controlled-context.test.js",
+        "tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock.test.js",
+        "tests/curriculum/g5a-u02-s110-all22-integrated-d0-acceptance.test.js",
+        "tests/curriculum/g5a-u02-s97-legacy-unknown-key-normalization.test.js",
+        "tests/curriculum/g5a-u02-s97-source-parity-prompt-completeness.test.js",
+        "tests/curriculum/g5a-u02-s98-source-method-representation-parity-audit.test.js",
+        "tests/curriculum/g5a-u02-source-metadata-correction.test.js",
+        "tests/curriculum/gctx-p07-existing-patternspec-semantic-eligibility-audit.test.js",
+        "tests/curriculum/gctx-p08-binding-admission-normalization.test.js",
+        "tests/curriculum/gctx-s01-existing-context-authority-inventory.test.js",
+        "tests/curriculum/glm-s02-unit-renderer-worst-case-audit.test.js",
+        "tests/curriculum/glm-s04-global-layout-architecture.test.js",
+        "tests/curriculum/glm-s05-global-18-layout-fullfix.test.js",
+        "tests/curriculum/glm-s06-270-postfix-html-pdf-acceptance-contract.test.js",
+        "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
+        "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r04-numeric-queue-reprioritization.test.js",
+        "tests/curriculum/postg-app-m00-master-controller.test.js",
+        "tests/curriculum/postg-app-w01-a00-assessment.test.js",
+        "tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js",
+        "tests/curriculum/r06-legacy-compatibility-migration.test.js",
+        "tests/curriculum/r07-authoritative-consumer-cutover.test.js",
+        "tests/curriculum/s76-batch-b-next-source-priority-lock.test.js",
+        "tests/curriculum/s78-g5a-u02-dual-pdf-knowledge-point-extraction.test.js",
+        "tests/curriculum/s79-g5a-u02-dual-pdf-boundary-source-identity-qa.test.js",
+        "tests/curriculum/s80-g5a-u02-formal-mapping-candidate-design.test.js",
+        "tests/curriculum/s81-g5a-u02-formal-mapping-candidate-qa.test.js",
+        "tests/curriculum/s84-g5a-u02-formal-mapping-hidden-pattern-materialization.test.js",
+        "tests/site/g5a-u02-browser-arbitrary-regeneration.test.js",
+        "tests/site/g5a-u02-dynamic-stress-contract.test.js",
+        "tests/site/g5a-u02-knowledge-point-selector.test.js",
+        "tests/site/g5a-u02-public-knowledge-points.test.js",
+        "tests/site/g5a-u02-public-text-seed-click-path.test.js",
+        "tests/site/g5a-u02-query-state-allocation.test.js",
+        "tests/site/s96o-g5a-u02-public-controls-integration.test.js",
+        "tests/site/s96p-g5a-u02-preview-print-integration.test.js",
+        "tests/site/s96s-r1-public-generated-count.test.js",
+        "tests/site/s96s-r2-public-preview-title.test.js",
+        "tests/ui/pixel-registry-bridge.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g5a_u02_5a02_concept_0475992c729f",
+        "pgc_r03_g5a_u02_5a02_concept_127020b0d7ef",
+        "pgc_r03_g5a_u02_5a02_concept_1b098eadc352",
+        "pgc_r03_g5a_u02_5a02_concept_4d0ca55850d4",
+        "pgc_r03_g5a_u02_5a02_concept_ae6f61e2ee34",
+        "pgc_r03_g5a_u02_5a02_numeric_0992f22fd619",
+        "pgc_r03_g5a_u02_5a02_numeric_39e160e247a8",
+        "pgc_r03_g5a_u02_5a02_numeric_5fd4e7e68270",
+        "pgc_r03_g5a_u02_5a02_numeric_8a2de9f2039f",
+        "pgc_r03_g5a_u02_5a02_numeric_ba9975639686",
+        "pgc_r03_g5a_u02_5a02_numeric_f80d48c9d6f1"
+      ],
+      "defectClass": "CAPACITY_ONLY"
+    },
+    {
+      "sourceId": "g3b_u09_3b09",
+      "routeCount": 6,
+      "capacityGapRouteCount": 6,
+      "diversityGapRouteCount": 4,
+      "overlapRouteCount": 4,
+      "minimumVerifiedQuestionCount": 8,
+      "maximumVerifiedQuestionCount": 8,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g3b-u09-decimal-compose-decompose-selector-projection.js",
+        "site/modules/curriculum/registry/g3b-u09-decimal-read-write-selector-projection.js",
+        "site/modules/curriculum/registry/g3b-u09-tenth-decimal-selector-projection.js",
+        "site/modules/curriculum/registry/g3b-u09-tenths-fraction-decimal-selector-projection.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/materialize-p03f-slice008-reviewed-artifacts.mjs",
+        "tools/curriculum/render-p03f-slice004-product-acceptance.mjs",
+        "tools/curriculum/render-p03f-slice008-product-acceptance.mjs",
+        "tools/curriculum/render-p03f-slice009-product-acceptance.mjs",
+        "tools/curriculum/validate-p03f-slice004-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice008-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice009-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice010-product-admission.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p03f-slice004-tenth-decimal.test.js",
+        "tests/curriculum/p03f-slice005-equivalent-fraction.test.js",
+        "tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js",
+        "tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js",
+        "tests/curriculum/p03f-slice010-hundredth-decimal.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g3b_u09_3b09_numeric_04bd6bfd759b",
+        "pgc_r03_g3b_u09_3b09_numeric_0e6d785763a5",
+        "pgc_r03_g3b_u09_3b09_numeric_347c3ab9e890",
+        "pgc_r03_g3b_u09_3b09_numeric_611db864f74a",
+        "pgc_r03_g3b_u09_3b09_numeric_9d24ef0becbd",
+        "pgc_r03_g3b_u09_3b09_numeric_eb4a933a8a8d"
+      ],
+      "defectClass": "MIXED_CAPACITY_QUALITY"
+    },
+    {
+      "sourceId": "g5a_u03_5a03a",
+      "routeCount": 6,
+      "capacityGapRouteCount": 6,
+      "diversityGapRouteCount": 0,
+      "overlapRouteCount": 0,
+      "minimumVerifiedQuestionCount": 1,
+      "maximumVerifiedQuestionCount": 14,
+      "runtimeReferencePaths": [
+        "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
+        "site/modules/curriculum/batch-a/full-product-source-units-p01d3.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/registry/batch-a-selector-p01e-extension.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g5a-u03-factor-multiple-selector-projection.js",
+        "site/modules/curriculum/registry/w1-full-product-public-application-groups.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p01e-w1-public-closeout.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p01a-w1-product-admission-inventory.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js",
+        "tests/ui/pixel-registry-bridge.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g5a_u03_5a03a_numeric_0701fe5ec85a",
+        "pgc_r03_g5a_u03_5a03a_numeric_378c1087489c",
+        "pgc_r03_g5a_u03_5a03a_numeric_59522918b6b0",
+        "pgc_r03_g5a_u03_5a03a_numeric_884f2b2aa17b",
+        "pgc_r03_g5a_u03_5a03a_numeric_9b7cb4729cf3",
+        "pgc_r03_g5a_u03_5a03a_numeric_b14e6d7a88de"
+      ],
+      "defectClass": "CAPACITY_ONLY"
+    },
+    {
+      "sourceId": "g5a_u03_5a03a1",
+      "routeCount": 6,
+      "capacityGapRouteCount": 6,
+      "diversityGapRouteCount": 0,
+      "overlapRouteCount": 0,
+      "minimumVerifiedQuestionCount": 1,
+      "maximumVerifiedQuestionCount": 10,
+      "runtimeReferencePaths": [
+        "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
+        "site/modules/curriculum/batch-a/full-product-source-units-p01d3.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/registry/batch-a-selector-p01e-extension.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g5a-u03-factor-multiple-selector-projection.js",
+        "site/modules/curriculum/registry/w1-full-product-public-application-groups.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p01e-w1-public-closeout.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p01a-w1-product-admission-inventory.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js",
+        "tests/ui/pixel-registry-bridge.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g5a_u03_5a03a1_numeric_4d5644856dd4",
+        "pgc_r03_g5a_u03_5a03a1_numeric_54b655195245",
+        "pgc_r03_g5a_u03_5a03a1_numeric_7229982fb828",
+        "pgc_r03_g5a_u03_5a03a1_numeric_e71fcbd2d5c7",
+        "pgc_r03_g5a_u03_5a03a1_numeric_e8d7e0f90ee4",
+        "pgc_r03_g5a_u03_5a03a1_numeric_ed15f0522549"
+      ],
+      "defectClass": "CAPACITY_ONLY"
+    },
+    {
+      "sourceId": "g6a_u01_6a01",
+      "routeCount": 6,
+      "capacityGapRouteCount": 6,
+      "diversityGapRouteCount": 0,
+      "overlapRouteCount": 0,
+      "minimumVerifiedQuestionCount": 1,
+      "maximumVerifiedQuestionCount": 9,
+      "runtimeReferencePaths": [
+        "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
+        "site/modules/curriculum/batch-a/full-product-source-units-p01d2.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/registry/batch-a-selector-p01e-extension.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g6a-u01-selector-projection.js",
+        "site/modules/curriculum/registry/w1-full-product-public-application-groups.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p01e-w1-public-closeout.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p01a-w1-product-admission-inventory.test.js",
+        "tests/ui/pixel-registry-bridge.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g6a_u01_6a01_numeric_0fbd0df575e9",
+        "pgc_r03_g6a_u01_6a01_numeric_483650ad5611",
+        "pgc_r03_g6a_u01_6a01_numeric_61c91fca4382",
+        "pgc_r03_g6a_u01_6a01_numeric_7dfce6921c92",
+        "pgc_r03_g6a_u01_6a01_numeric_b88083effaa9",
+        "pgc_r03_g6a_u01_6a01_numeric_bf6a96b9f4f9"
+      ],
+      "defectClass": "CAPACITY_ONLY"
+    },
+    {
+      "sourceId": "g3a_u08_3a08",
+      "routeCount": 5,
+      "capacityGapRouteCount": 5,
+      "diversityGapRouteCount": 2,
+      "overlapRouteCount": 2,
+      "minimumVerifiedQuestionCount": 2,
+      "maximumVerifiedQuestionCount": 10,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g3a-u08-part-whole-fraction-selector-projection.js",
+        "site/modules/curriculum/registry/g3a-u08-same-denominator-compare-selector-projection.js",
+        "site/modules/curriculum/registry/g3a-u08-slice002-selector-projection.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p03f-slice002-product-acceptance.mjs",
+        "tools/curriculum/render-p03f-slice006-product-acceptance.mjs",
+        "tools/curriculum/validate-p03f-slice001-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice002-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice006-product-admission.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/batch-a-validator.test.js",
+        "tests/curriculum/p03e-w3-direct-product-vertical-slice-queue.test.js",
+        "tests/curriculum/p03f-slice001-part-whole-fraction.test.js",
+        "tests/curriculum/p03f-slice002-fraction-quantity.test.js",
+        "tests/curriculum/p03f-slice002-pixel-current.test.js",
+        "tests/curriculum/p03f-slice003-quotient-fraction.test.js",
+        "tests/curriculum/p03f-slice006-same-denominator-compare.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g3a_u08_3a08_numeric_32207c12fa17",
+        "pgc_r03_g3a_u08_3a08_numeric_6a58dba0769d",
+        "pgc_r03_g3a_u08_3a08_numeric_6ec70c8709ce",
+        "pgc_r03_g3a_u08_3a08_numeric_998ffbc8889c",
+        "pgc_r03_g3a_u08_3a08_numeric_a1440e23c451"
+      ],
+      "defectClass": "MIXED_CAPACITY_QUALITY"
+    },
+    {
+      "sourceId": "g4a_u08_4a08",
+      "routeCount": 5,
+      "capacityGapRouteCount": 5,
+      "diversityGapRouteCount": 0,
+      "overlapRouteCount": 0,
+      "minimumVerifiedQuestionCount": 5,
+      "maximumVerifiedQuestionCount": 17,
+      "runtimeReferencePaths": [
+        "site/assets/browser/state/query-state.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-validator-pre-p01d1.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s76q-extension.js",
+        "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
+        "site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js",
+        "site/modules/curriculum/batch-a/g4a-u08-app-cost-overlay-hidden.js",
+        "site/modules/curriculum/batch-a/g4a-u08-generator-validator-domain-fullfix.js",
+        "site/modules/curriculum/batch-a/g4a-u08-numeric-canonical-browser-validator.js",
+        "site/modules/curriculum/batch-a/g4a-u08-numeric-canonical-hidden.js",
+        "site/modules/curriculum/batch-a/g4a-u08-worksheet-eligibility.js",
+        "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+        "site/modules/curriculum/batch-a/source-pattern-g4a-u08-extension.js",
+        "site/modules/curriculum/batch-a/source-pattern-index.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/batch-a/visible-pattern-group-resolver-core.js",
+        "site/modules/curriculum/batch-a/visible-pattern-group-resolver.js",
+        "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js",
+        "site/modules/curriculum/registry/batch-a-selector-composer.js",
+        "site/modules/curriculum/registry/batch-a-selector-g4a-extension.js",
+        "site/modules/curriculum/registry/batch-a-selector-g4a-u08-all-canonical.js",
+        "site/modules/curriculum/registry/batch-a-selector-g4a-u08-phase2a-extension.js",
+        "site/modules/curriculum/registry/batch-a-selector-g4a-u08-s76q-compatible.js",
+        "site/modules/curriculum/registry/fifteen-unit-public-control-profiles.js",
+        "site/modules/curriculum/registry/g4a-u08-full-source-production-promotion.js",
+        "site/modules/curriculum/registry/g4a-u08-phase2b-promotion.js",
+        "src/curriculum/g4a-u08/canonical-generated-item-adapter.js",
+        "src/curriculum/g4a-u08/canonical-validator-contract.js",
+        "src/curriculum/g4a-u08/numeric-canonical-adapter-validator.js",
+        "src/curriculum/validator/batch-a-validator.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/generate-s76k-g4a-u08-public-smoke.mjs",
+        "tools/curriculum/generate-s76r-g4a-u08-full-source-smoke.mjs",
+        "tools/curriculum/run-postg-unit-production-evidence.mjs",
+        "tools/curriculum/run-s76r-g4a-u08-public-ui-e2e.mjs",
+        "tools/curriculum/run-s76r2-g4a-u08-deployed-pages-smoke.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/batch-a-s39c-expression-coverage.test.js",
+        "tests/curriculum/batch-a/g4a-u08-hybrid-mixed.test.js",
+        "tests/curriculum/batch-a/g4a-u08-order-of-operations.test.js",
+        "tests/curriculum/batch-a/g4a-u08-phase2a-application.test.js",
+        "tests/curriculum/batch-a/g4a-u08-phase2a-semantic-tightening.test.js",
+        "tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js",
+        "tests/curriculum/g4a-u08-glm-s07-generator-validator-domain-fullfix.test.js",
+        "tests/curriculum/g4a-u08-s76d-kp-pattern-group-registry.test.js",
+        "tests/curriculum/g4a-u08-s76f-canonical-generated-item-adapter.test.js",
+        "tests/curriculum/g4a-u08-s76j-resolver-selector-worksheet.test.js",
+        "tests/curriculum/g4a-u08-s76k-full-source-stress-semantic-qa.test.js",
+        "tests/curriculum/g4a-u08-s76m-numeric-canonical-gap-closure-design-scan.test.js",
+        "tests/curriculum/g4a-u08-s76n-numeric-canonical-patternspec-sampler.test.js",
+        "tests/curriculum/g4a-u08-s76o-numeric-adapter-validator-mutation.test.js",
+        "tests/curriculum/g4a-u08-s76p-app-cost-overlay-closure.test.js",
+        "tests/curriculum/g4a-u08-s76q-all-canonical-public-routing.test.js",
+        "tests/curriculum/g4a-u08-s76r-full-source-stress.test.js",
+        "tests/curriculum/gctx-p08-binding-admission-normalization.test.js",
+        "tests/curriculum/glm-s05-global-18-layout-fullfix.test.js",
+        "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js",
+        "tests/curriculum/postg-mig-a00-program-foundation.test.js",
+        "tests/curriculum/postg-mig-a09-g4a-u04-conformance.test.js",
+        "tests/curriculum/postg-mig-a10-g4a-u08-conformance.test.js",
+        "tests/curriculum/r07-authoritative-consumer-cutover.test.js",
+        "tests/site/batch-a-13-source-browser-smoke.test.js",
+        "tests/site/batch-a-iframe-preview-runtime.test.js",
+        "tests/site/g5a-u02-selector-isolation.test.js",
+        "tests/site/selector-state.test.js",
+        "tests/site/site-config-editor.test.js",
+        "tests/site/site-scaffold.test.js",
+        "tests/ui/pixel-functional-qa.test.js",
+        "tests/ui/pixel-generation-bridge.test.js",
+        "tests/ui/pixel-registry-bridge.test.js",
+        "tests/ui/pixel-selector-state.test.js",
+        "tests/ui/pixel-worksheet-state.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g4a_u08_4a08_numeric_14362959bfec",
+        "pgc_r03_g4a_u08_4a08_numeric_32862e578f8a",
+        "pgc_r03_g4a_u08_4a08_numeric_4007258fe55a",
+        "pgc_r03_g4a_u08_4a08_numeric_6942af98a8b5",
+        "pgc_r03_g4a_u08_4a08_numeric_8f973314eb38"
+      ],
+      "defectClass": "CAPACITY_ONLY"
+    },
+    {
+      "sourceId": "g3b_u07_3b07",
+      "routeCount": 4,
+      "capacityGapRouteCount": 4,
+      "diversityGapRouteCount": 4,
+      "overlapRouteCount": 4,
+      "minimumVerifiedQuestionCount": 6,
+      "maximumVerifiedQuestionCount": 12,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g3b-u07-fraction-unit-conversion-selector-projection.js",
+        "site/modules/curriculum/registry/g3b-u07-quotient-fraction-selector-projection.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p03f-slice003-product-acceptance.mjs",
+        "tools/curriculum/render-p03f-slice007-product-acceptance.mjs",
+        "tools/curriculum/validate-p03f-slice003-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice007-product-admission.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p03f-slice003-quotient-fraction.test.js",
+        "tests/curriculum/p03f-slice004-tenth-decimal.test.js",
+        "tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g3b_u07_3b07_numeric_4f615b76b29f",
+        "pgc_r03_g3b_u07_3b07_numeric_9891d69ea218",
+        "pgc_r03_g3b_u07_3b07_numeric_aa87e2c60d1d",
+        "pgc_r03_g3b_u07_3b07_numeric_dacd2cf49319"
+      ],
+      "defectClass": "CAPACITY_AND_DIVERSITY"
+    },
+    {
+      "sourceId": "g4b_u08_4b08",
+      "routeCount": 4,
+      "capacityGapRouteCount": 4,
+      "diversityGapRouteCount": 4,
+      "overlapRouteCount": 4,
+      "minimumVerifiedQuestionCount": 8,
+      "maximumVerifiedQuestionCount": 9,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g4b-u08-equivalence-cross-product-selector-projection.js",
+        "site/modules/curriculum/registry/g4b-u08-equivalent-fraction-selector-projection.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p03f-slice005-product-acceptance.mjs",
+        "tools/curriculum/render-p03f-slice012-product-acceptance.mjs",
+        "tools/curriculum/validate-p03f-slice005-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice012-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice013-product-admission.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p03f-slice005-equivalent-fraction.test.js",
+        "tests/curriculum/p03f-slice012-equivalence-cross-product.test.js",
+        "tests/curriculum/p03f-slice013-simplest-fraction.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g4b_u08_4b08_numeric_2f594c75ad07",
+        "pgc_r03_g4b_u08_4b08_numeric_9cbcbbe53418",
+        "pgc_r03_g4b_u08_4b08_numeric_e21804772679",
+        "pgc_r03_g4b_u08_4b08_numeric_e63dcc56e182"
+      ],
+      "defectClass": "CAPACITY_AND_DIVERSITY"
+    },
+    {
+      "sourceId": "g5a_u04_5a04",
+      "routeCount": 4,
+      "capacityGapRouteCount": 4,
+      "diversityGapRouteCount": 4,
+      "overlapRouteCount": 4,
+      "minimumVerifiedQuestionCount": 6,
+      "maximumVerifiedQuestionCount": 9,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g5a-u04-expand-reduce-simplest-selector-projection.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p03f-slice013-product-acceptance.mjs",
+        "tools/curriculum/validate-p03f-slice013-product-admission.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p03f-slice013-simplest-fraction.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g5a_u04_5a04_numeric_00f6e4a5c762",
+        "pgc_r03_g5a_u04_5a04_numeric_0904972d5d27",
+        "pgc_r03_g5a_u04_5a04_numeric_cc6261f81797",
+        "pgc_r03_g5a_u04_5a04_numeric_eb066dd13b85"
+      ],
+      "defectClass": "CAPACITY_AND_DIVERSITY"
+    },
+    {
+      "sourceId": "g3b_u01_3b01",
+      "routeCount": 2,
+      "capacityGapRouteCount": 2,
+      "diversityGapRouteCount": 0,
+      "overlapRouteCount": 0,
+      "minimumVerifiedQuestionCount": 9,
+      "maximumVerifiedQuestionCount": 9,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
+        "site/modules/curriculum/batch-a/g3a-u06-division-generator.js",
+        "site/modules/curriculum/batch-a/g3a-u06-division-ordering-generator.js",
+        "site/modules/curriculum/batch-a/g3b-u01-division-generator-lite.js",
+        "site/modules/curriculum/batch-a/g3b-u01-word-problem-template-contract.js",
+        "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+        "site/modules/curriculum/batch-a/source-pattern-index.js",
+        "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/registry/batch-a-selector-equation-extension.js",
+        "site/modules/curriculum/registry/fifteen-unit-public-control-profiles.js",
+        "site/modules/curriculum/registry/w01-public-application-groups.js",
+        "src/curriculum/validator/batch-a-validator.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/validate-application-sop-pilot.mjs",
+        "tools/curriculum/validate-postg-app-w01-a00-assessment.mjs",
+        "tools/curriculum/validate-postg-app-w01-a01-candidate-pack.mjs",
+        "tools/curriculum/validate-postg-app-w01-a02-candidate-pack.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/application-problem-sop-a00.test.js",
+        "tests/curriculum/application-problem-sop-a01.test.js",
+        "tests/curriculum/application-problem-sop-a02.test.js",
+        "tests/curriculum/application-problem-sop-a03.test.js",
+        "tests/curriculum/application-problem-sop-a04.test.js",
+        "tests/curriculum/application-problem-sop-a05.test.js",
+        "tests/curriculum/batch-a/g3b-u01-calculation-word-problem-mixed.test.js",
+        "tests/curriculum/batch-a/g3b-u01-kp-expansion.test.js",
+        "tests/curriculum/batch-a/g3b-u01-unique-pool.test.js",
+        "tests/curriculum/batch-a/g3b-u01-word-problem-browser-pdf-smoke.test.js",
+        "tests/curriculum/batch-a/g3b-u01-word-problem-mixed-worksheet.test.js",
+        "tests/curriculum/batch-a/g3b-u01-word-problem-ui-selector.test.js",
+        "tests/curriculum/postg-app-w01-a00-assessment.test.js",
+        "tests/curriculum/postg-app-w01-a01-candidate-pack.test.js",
+        "tests/curriculum/postg-app-w01-a02-candidate-pack.test.js",
+        "tests/curriculum/postg-mig-a05-g3b-u01-conformance.test.js",
+        "tests/site/batch-a-13-source-browser-smoke.test.js",
+        "tests/site/selector-state.test.js",
+        "tests/site/site-scaffold.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g3b_u01_3b01_numeric_5637742f4d5c",
+        "pgc_r03_g3b_u01_3b01_numeric_a681cd1f2492"
+      ],
+      "defectClass": "CAPACITY_ONLY"
+    },
+    {
+      "sourceId": "g3b_u04_3b04",
+      "routeCount": 2,
+      "capacityGapRouteCount": 2,
+      "diversityGapRouteCount": 0,
+      "overlapRouteCount": 0,
+      "minimumVerifiedQuestionCount": 3,
+      "maximumVerifiedQuestionCount": 3,
+      "runtimeReferencePaths": [
+        "site/assets/browser/state/query-state.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-validator-g3b-u04-extension.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-validator-s57f5-extension.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-worksheet-g3b-u04-extension.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s57f5-extension.js",
+        "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
+        "site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js",
+        "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js",
+        "site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js",
+        "site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js",
+        "site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-fullfix.js",
+        "site/modules/curriculum/batch-a/g3b-u04-human-semantic-readback-quality-v2.js",
+        "site/modules/curriculum/batch-a/g3b-u04-semantic-scenarios.js",
+        "site/modules/curriculum/batch-a/source-pattern-g3b-u04-semantic-extension.js",
+        "site/modules/curriculum/batch-a/source-pattern-index.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/batch-a/visible-pattern-group-resolver-core.js",
+        "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+        "site/modules/curriculum/golden/post-golden-migration-controller.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js",
+        "site/modules/curriculum/registry/batch-a-selector-g3b-u04-semantic-extension.js",
+        "site/modules/curriculum/registry/fifteen-unit-public-control-profiles.js",
+        "site/modules/curriculum/registry/g3b-u04-semantic-promotion.js",
+        "site/modules/renderer/html-renderer-s57f5-extension.js",
+        "src/curriculum/validator/batch-a-validator.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/build-gctx-p11-g3b-u04-reference-admission-review-gate.mjs",
+        "tools/curriculum/generate-gctx-p13-g3b-u04-public-production-artifacts.mjs",
+        "tools/curriculum/generate-s57e8-g3b-u04-hidden-smoke.mjs",
+        "tools/curriculum/generate-s57f7-g3b-u04-public-smoke.mjs",
+        "tools/curriculum/generate-s57f7r1-g3b-u04-human-semantic-audit.mjs",
+        "tools/curriculum/generate-s57f7r1-g3b-u04-public-smoke.mjs",
+        "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v2.mjs",
+        "tools/curriculum/materialize-s57e1-g3b-u04.mjs",
+        "tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs",
+        "tools/governance/promote-gctx-p14-e6-d0-claim.mjs",
+        "tools/governance/validate-gctx-p14-e6-live-evidence.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/batch-a/g3b-u04-distributed-resources-unit-flow-fullfix.test.js",
+        "tests/curriculum/batch-a/g3b-u04-family-negative-stress-qa.test.js",
+        "tests/curriculum/batch-a/g3b-u04-hidden-html-pdf-smoke.test.js",
+        "tests/curriculum/batch-a/g3b-u04-hidden-semantic-integration.test.js",
+        "tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js",
+        "tests/curriculum/g3b-u04-canonical-router-hybrid.test.js",
+        "tests/curriculum/g3b-u04-canonical-worksheet-renderer.test.js",
+        "tests/curriculum/g3b-u04-human-semantic-quality-v2.test.js",
+        "tests/curriculum/g3b-u04-human-semantic-readback-fullfix.test.js",
+        "tests/curriculum/g3b-u04-production-regression-stress-html-pdf-closeout.test.js",
+        "tests/curriculum/g3b-u04-resolver-browser-state.test.js",
+        "tests/curriculum/g3b-u04-semantic-pattern-specs.test.js",
+        "tests/curriculum/g3b-u04-semantic-promotion.test.js",
+        "tests/curriculum/g3b-u04-semantic-scenarios.test.js",
+        "tests/curriculum/g3b-u04-visible-selector-projection.test.js",
+        "tests/curriculum/g3b-u08-resolver-browser-canonical-router.test.js",
+        "tests/curriculum/gctx-p08-binding-admission-normalization.test.js",
+        "tests/curriculum/gctx-p09-g3b-u04-exact-binding-pilot.test.js",
+        "tests/curriculum/gctx-p10-g3b-u04-remaining-exact-bindings.test.js",
+        "tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js",
+        "tests/curriculum/gctx-p13-global-context-production-admission.test.js",
+        "tests/curriculum/gctx-s01-existing-context-authority-inventory.test.js",
+        "tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js",
+        "tests/curriculum/pgc-r01-public-capability-matrix.test.js",
+        "tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js",
+        "tests/site/batch-a-13-source-browser-smoke.test.js",
+        "tests/site/g3b-u04-public-selector-print-controls.test.js",
+        "tests/site/selector-state.test.js",
+        "tests/site/site-scaffold.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g3b_u04_3b04_numeric_aaa25276d55e",
+        "pgc_r03_g3b_u04_3b04_numeric_da4bc99acb92"
+      ],
+      "defectClass": "CAPACITY_ONLY"
+    },
+    {
+      "sourceId": "g4a_u01_4a01",
+      "routeCount": 2,
+      "capacityGapRouteCount": 2,
+      "diversityGapRouteCount": 1,
+      "overlapRouteCount": 1,
+      "minimumVerifiedQuestionCount": 8,
+      "maximumVerifiedQuestionCount": 16,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-worksheet.js",
+        "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
+        "site/modules/curriculum/batch-a/g4a-u01-phase1-generator.js",
+        "site/modules/curriculum/batch-a/g4a-u01-phase3-runtime-fix-generator.js",
+        "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+        "site/modules/curriculum/batch-a/source-pattern-index.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/registry/batch-a-selector-g4a-extension.js",
+        "site/modules/curriculum/registry/fifteen-unit-public-control-profiles.js",
+        "src/curriculum/validator/batch-a-validator.js",
+        "src/curriculum/worksheet/batch-a-s39e-numbersense-coverage.js"
+      ],
+      "toolReferencePaths": [],
+      "testReferencePaths": [
+        "tests/curriculum/batch-a-s39e-numbersense-coverage.test.js",
+        "tests/curriculum/batch-a/g4a-u01-kp-selector-projection.test.js",
+        "tests/curriculum/batch-a/g4a-u01-phase1.test.js",
+        "tests/curriculum/batch-a/g4a-u01-phase3-runtime-fix.test.js",
+        "tests/curriculum/g4a-u01-digit-arrangement-validator.test.js",
+        "tests/curriculum/glm-s02-unit-renderer-worst-case-audit.test.js",
+        "tests/curriculum/p03d-w3-protected-d0-compatibility-integration.test.js",
+        "tests/curriculum/postg-mig-a07-g4a-u01-conformance.test.js",
+        "tests/site/batch-a-13-source-browser-smoke.test.js",
+        "tests/site/selector-state.test.js",
+        "tests/site/site-operator-controls.test.js",
+        "tests/site/site-scaffold.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g4a_u01_4a01_numeric_69c208757b03",
+        "pgc_r03_g4a_u01_4a01_numeric_dae61ad53455"
+      ],
+      "defectClass": "MIXED_CAPACITY_QUALITY"
+    },
+    {
+      "sourceId": "g4a_u09_4a09",
+      "routeCount": 2,
+      "capacityGapRouteCount": 2,
+      "diversityGapRouteCount": 2,
+      "overlapRouteCount": 2,
+      "minimumVerifiedQuestionCount": 8,
+      "maximumVerifiedQuestionCount": 8,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g4a-u09-hundredth-decimal-selector-projection.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p03f-slice010-product-acceptance.mjs",
+        "tools/curriculum/validate-p03f-slice010-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice011-product-admission.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p03f-slice010-hundredth-decimal.test.js",
+        "tests/curriculum/p03f-slice011-decimal-multiplication.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g4a_u09_4a09_numeric_9f2e445cb0a5",
+        "pgc_r03_g4a_u09_4a09_numeric_bee1ae206b8b"
+      ],
+      "defectClass": "CAPACITY_AND_DIVERSITY"
+    },
+    {
+      "sourceId": "g4b_u06_4b06",
+      "routeCount": 2,
+      "capacityGapRouteCount": 2,
+      "diversityGapRouteCount": 2,
+      "overlapRouteCount": 2,
+      "minimumVerifiedQuestionCount": 8,
+      "maximumVerifiedQuestionCount": 8,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+        "site/modules/curriculum/registry/g4b-u06-one-decimal-times-integer-selector-projection.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/render-p03f-slice011-product-acceptance.mjs",
+        "tools/curriculum/validate-p03f-slice011-product-admission.mjs",
+        "tools/curriculum/validate-p03f-slice012-product-admission.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/p03f-slice011-decimal-multiplication.test.js",
+        "tests/curriculum/p03f-slice012-equivalence-cross-product.test.js",
+        "tests/curriculum/postg-app-w02-a00-assessment.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g4b_u06_4b06_numeric_13afea5d4fd1",
+        "pgc_r03_g4b_u06_4b06_numeric_8060b6cce6ed"
+      ],
+      "defectClass": "CAPACITY_AND_DIVERSITY"
+    },
+    {
+      "sourceId": "g4b_u01_4b01",
+      "routeCount": 1,
+      "capacityGapRouteCount": 1,
+      "diversityGapRouteCount": 0,
+      "overlapRouteCount": 0,
+      "minimumVerifiedQuestionCount": 12,
+      "maximumVerifiedQuestionCount": 12,
+      "runtimeReferencePaths": [
+        "site/assets/browser/state/query-state.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-validator-s59h-extension.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js",
+        "site/modules/curriculum/batch-a/batch-a-production-closeout.js",
+        "site/modules/curriculum/batch-a/g4b-u01-canonical-horizontal-router.js",
+        "site/modules/curriculum/batch-a/g4b-u01-horizontal-validator.js",
+        "site/modules/curriculum/batch-a/g4b-u01-production-eligibility.js",
+        "site/modules/curriculum/batch-a/g4b-u01-public-selector-print-qa.js",
+        "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+        "site/modules/curriculum/batch-a/source-pattern-g4b-u01-horizontal-extension.js",
+        "site/modules/curriculum/batch-a/source-pattern-index.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/registry/batch-a-selector-g4b-u01-horizontal-extension.js",
+        "site/modules/curriculum/registry/fifteen-unit-public-application-groups.js",
+        "site/modules/curriculum/registry/fifteen-unit-public-control-profiles.js",
+        "site/modules/curriculum/registry/g4b-u01-horizontal-production-promotion.js",
+        "site/modules/curriculum/registry/g4b-u01-horizontal-promotion.js",
+        "site/modules/renderer/html-renderer-s59h-extension.js",
+        "src/curriculum/validator/batch-a-validator.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/generate-s59j-g4b-u01-public-smoke.mjs",
+        "tools/curriculum/generate-s59j-r1-g4b-u01-layout-regression.mjs",
+        "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v2.mjs",
+        "tools/curriculum/run-postg-g4b-u01-production-evidence.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/batch-a-s39c-expression-coverage.test.js",
+        "tests/curriculum/g4b-u01-production-regression-stress-closeout.test.js",
+        "tests/curriculum/p03d-w3-protected-d0-compatibility-integration.test.js",
+        "tests/curriculum/pgc-r01-public-capability-matrix.test.js",
+        "tests/curriculum/postg-mig-a11-g4b-u01-conformance.test.js",
+        "tests/curriculum/s59a-g4b-u01-horizontal-source-kp-contract.test.js",
+        "tests/curriculum/s59c-g4b-u01-hidden-patternspec-materialization.test.js",
+        "tests/curriculum/s59d-g4b-u01-hidden-deterministic-generator.test.js",
+        "tests/curriculum/s59f-g4b-u01-promotion-visible-selector.test.js",
+        "tests/curriculum/s59g-g4b-u01-resolver-browser-canonical-router.test.js",
+        "tests/curriculum/s59h-g4b-u01-canonical-worksheet-renderer.test.js",
+        "tests/curriculum/s60g-g5a-u08-numeric-generator-validator.test.js",
+        "tests/site/batch-a-13-source-browser-smoke.test.js",
+        "tests/site/g4b-u01-public-selector-print-controls.test.js",
+        "tests/site/g4b-u01-public-warning-print-layout-fullfix.test.js",
+        "tests/site/g4b-u04-public-source-surface.test.js",
+        "tests/site/site-scaffold.test.js",
+        "tests/ui/pixel-registry-bridge.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g4b_u01_4b01_numeric_f708edddf5d7"
+      ],
+      "defectClass": "CAPACITY_ONLY"
+    },
+    {
+      "sourceId": "g4b_u04_4b04",
+      "routeCount": 1,
+      "capacityGapRouteCount": 1,
+      "diversityGapRouteCount": 1,
+      "overlapRouteCount": 1,
+      "minimumVerifiedQuestionCount": 1,
+      "maximumVerifiedQuestionCount": 1,
+      "runtimeReferencePaths": [
+        "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js",
+        "site/modules/curriculum/batch-a/source-units.js",
+        "site/modules/curriculum/batch-b/g4b-u04-canonical-router-r2e.js",
+        "site/modules/curriculum/batch-b/g4b-u04-class-c-validator.js",
+        "site/modules/curriculum/batch-b/g4b-u04-class-d-semantic-validator.js",
+        "site/modules/curriculum/batch-b/g4b-u04-layout-resolution.js",
+        "site/modules/curriculum/batch-b/g4b-u04-worksheet-eligibility.js",
+        "site/modules/curriculum/batch-b/source-pattern-g4b-u04-extension.js",
+        "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+        "site/modules/curriculum/public/fifteen-unit-global-context-registry.js",
+        "site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js",
+        "site/modules/curriculum/registry/batch-a-selector-g4b-u04-extension.js",
+        "site/modules/curriculum/registry/g4b-u04-production-promotion.js",
+        "site/modules/curriculum/registry/g4b-u04-promotion.js",
+        "site/modules/curriculum/registry/g4b-u04-worksheet-promotion.js"
+      ],
+      "toolReferencePaths": [
+        "tools/curriculum/generate-g4b-u04-r2d-layout-smoke.mjs",
+        "tools/curriculum/generate-g4b-u04-r2f-production-matrix.mjs",
+        "tools/curriculum/generate-g4b-u04-r3c-approved-layouts.mjs",
+        "tools/curriculum/generate-g4b-u04-r4-flexible-layouts.mjs",
+        "tools/curriculum/generate-s75-g4b-u04-public-smoke.mjs",
+        "tools/curriculum/run-g4b-u04-r3d-deployed-approved-layouts.mjs",
+        "tools/curriculum/run-g4b-u04-r4-deployed-pages-smoke.mjs",
+        "tools/curriculum/run-g4b-u04-r4-public-ui-regression.mjs",
+        "tools/curriculum/run-postg-g4b-u04-production-evidence.mjs"
+      ],
+      "testReferencePaths": [
+        "tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js",
+        "tests/curriculum/g4b-u04-r2b-prompt-deduplication.test.js",
+        "tests/curriculum/g4b-u04-r2c-discount-round-down.test.js",
+        "tests/curriculum/g4b-u04-r2d-layout-readback.test.js",
+        "tests/curriculum/g4b-u04-r2e-controlled-context.test.js",
+        "tests/curriculum/g4b-u04-r2f-production-stress-recloseout.test.js",
+        "tests/curriculum/g4b-u04-r3c-question-only-approved-layouts.test.js",
+        "tests/curriculum/gctx-p07-existing-patternspec-semantic-eligibility-audit.test.js",
+        "tests/curriculum/gctx-p08-binding-admission-normalization.test.js",
+        "tests/curriculum/gctx-s01-existing-context-authority-inventory.test.js",
+        "tests/curriculum/glm-s02-unit-renderer-worst-case-audit.test.js",
+        "tests/curriculum/glm-s04-global-layout-architecture.test.js",
+        "tests/curriculum/glm-s05-global-18-layout-fullfix.test.js",
+        "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js",
+        "tests/curriculum/postg-mig-a12-g4b-u04-conformance.test.js",
+        "tests/curriculum/s62-g4b-u04-knowledge-point-extraction.test.js",
+        "tests/curriculum/s63-g4b-u04-knowledge-point-candidate-qa.test.js",
+        "tests/curriculum/s64-g4b-u04-formal-mapping-candidate-design.test.js",
+        "tests/curriculum/s65-g4b-u04-formal-mapping-candidate-qa.test.js",
+        "tests/curriculum/s66-g4b-u04-pattern-spec-contract-design.test.js",
+        "tests/curriculum/s67-g4b-u04-pattern-spec-contract-qa.test.js",
+        "tests/curriculum/s72-g4b-u04-promotion-resolver-selector.test.js",
+        "tests/curriculum/s73-g4b-u04-worksheet-answer-renderer.test.js",
+        "tests/curriculum/s75-g4b-u04-production-html-pdf-smoke.test.js",
+        "tests/curriculum/s75-g4b-u04-production-stress-closeout.test.js",
+        "tests/curriculum/s76-batch-b-next-source-priority-lock.test.js",
+        "tests/site/g4b-u04-public-source-surface.test.js",
+        "tests/site/g4b-u04-public-ui-print-query-state.test.js",
+        "tests/site/g4b-u04-query-source-dom-replay.test.js",
+        "tests/site/g4b-u04-r2e-context-query-ui.test.js",
+        "tests/site/g4b-u04-r2f4-classic-layout-query-hydration.test.js",
+        "tests/ui/pixel-registry-bridge.test.js"
+      ],
+      "routeIds": [
+        "pgc_r03_g4b_u04_4b04_concept_56468f5e76d3"
+      ],
+      "defectClass": "CAPACITY_AND_DIVERSITY"
+    }
+  ],
+  "remainingRoutes": [
+    {
+      "routeId": "pgc_r03_g3b_u01_3b01_numeric_a681cd1f2492",
+      "sourceId": "g3b_u01_3b01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u01_3b01_numeric_5637742f4d5c",
+      "sourceId": "g3b_u01_3b01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u04_3b04_numeric_da4bc99acb92",
+      "sourceId": "g3b_u04_3b04",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 3,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u04_3b04_numeric_aaa25276d55e",
+      "sourceId": "g3b_u04_3b04",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 3,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u01_4a01_numeric_dae61ad53455",
+      "sourceId": "g4a_u01_4a01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u01_4a01_numeric_69c208757b03",
+      "sourceId": "g4a_u01_4a01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 16,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u08_4a08_numeric_14362959bfec",
+      "sourceId": "g4a_u08_4a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 17,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u08_4a08_numeric_4007258fe55a",
+      "sourceId": "g4a_u08_4a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 11,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u08_4a08_numeric_6942af98a8b5",
+      "sourceId": "g4a_u08_4a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 7,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u08_4a08_numeric_32862e578f8a",
+      "sourceId": "g4a_u08_4a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 5,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u08_4a08_numeric_8f973314eb38",
+      "sourceId": "g4a_u08_4a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 10,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g4b_u01_4b01_numeric_f708edddf5d7",
+      "sourceId": "g4b_u01_4b01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 12,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_concept_56468f5e76d3",
+      "sourceId": "g4b_u04_4b04",
+      "questionType": "concept",
+      "verifiedMaxQuestionCount": 1,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_concept_0475992c729f",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "concept",
+      "verifiedMaxQuestionCount": 16,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_numeric_5fd4e7e68270",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 12,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_concept_1b098eadc352",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "concept",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_numeric_0992f22fd619",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_numeric_ba9975639686",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_concept_ae6f61e2ee34",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "concept",
+      "verifiedMaxQuestionCount": 16,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_concept_127020b0d7ef",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "concept",
+      "verifiedMaxQuestionCount": 15,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_numeric_39e160e247a8",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_numeric_8a2de9f2039f",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_concept_4d0ca55850d4",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "concept",
+      "verifiedMaxQuestionCount": 16,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_numeric_f80d48c9d6f1",
+      "sourceId": "g5a_u02_5a02",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 12,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a_numeric_0701fe5ec85a",
+      "sourceId": "g5a_u03_5a03a",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 14,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a_numeric_884f2b2aa17b",
+      "sourceId": "g5a_u03_5a03a",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 1,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a_numeric_9b7cb4729cf3",
+      "sourceId": "g5a_u03_5a03a",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 14,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a_numeric_378c1087489c",
+      "sourceId": "g5a_u03_5a03a",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 2,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a_numeric_59522918b6b0",
+      "sourceId": "g5a_u03_5a03a",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 5,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a_numeric_b14e6d7a88de",
+      "sourceId": "g5a_u03_5a03a",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 7,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a1_numeric_54b655195245",
+      "sourceId": "g5a_u03_5a03a1",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 10,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a1_numeric_ed15f0522549",
+      "sourceId": "g5a_u03_5a03a1",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 1,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a1_numeric_e8d7e0f90ee4",
+      "sourceId": "g5a_u03_5a03a1",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 3,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a1_numeric_e71fcbd2d5c7",
+      "sourceId": "g5a_u03_5a03a1",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 2,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a1_numeric_7229982fb828",
+      "sourceId": "g5a_u03_5a03a1",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 1,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u03_5a03a1_numeric_4d5644856dd4",
+      "sourceId": "g5a_u03_5a03a1",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 5,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g6a_u01_6a01_numeric_0fbd0df575e9",
+      "sourceId": "g6a_u01_6a01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 3,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g6a_u01_6a01_numeric_483650ad5611",
+      "sourceId": "g6a_u01_6a01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 1,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g6a_u01_6a01_numeric_b88083effaa9",
+      "sourceId": "g6a_u01_6a01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 6,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g6a_u01_6a01_numeric_bf6a96b9f4f9",
+      "sourceId": "g6a_u01_6a01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g6a_u01_6a01_numeric_61c91fca4382",
+      "sourceId": "g6a_u01_6a01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 1,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g6a_u01_6a01_numeric_7dfce6921c92",
+      "sourceId": "g6a_u01_6a01",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 6,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3a_u08_3a08_numeric_6a58dba0769d",
+      "sourceId": "g3a_u08_3a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 2,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g3a_u08_3a08_numeric_a1440e23c451",
+      "sourceId": "g3a_u08_3a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 2,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P1_CRITICAL_CAPACITY_1_TO_3"
+    },
+    {
+      "routeId": "pgc_r03_g3a_u08_3a08_numeric_998ffbc8889c",
+      "sourceId": "g3a_u08_3a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 10,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g3a_u08_3a08_numeric_32207c12fa17",
+      "sourceId": "g3a_u08_3a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 6,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3a_u08_3a08_numeric_6ec70c8709ce",
+      "sourceId": "g3a_u08_3a08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 6,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u07_3b07_numeric_4f615b76b29f",
+      "sourceId": "g3b_u07_3b07",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 12,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u07_3b07_numeric_dacd2cf49319",
+      "sourceId": "g3b_u07_3b07",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 12,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P3_LIMITED_CAPACITY_10_TO_19"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u07_3b07_numeric_aa87e2c60d1d",
+      "sourceId": "g3b_u07_3b07",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 6,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u07_3b07_numeric_9891d69ea218",
+      "sourceId": "g3b_u07_3b07",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 6,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u09_3b09_numeric_9d24ef0becbd",
+      "sourceId": "g3b_u09_3b09",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u09_3b09_numeric_0e6d785763a5",
+      "sourceId": "g3b_u09_3b09",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u09_3b09_numeric_eb4a933a8a8d",
+      "sourceId": "g3b_u09_3b09",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u09_3b09_numeric_04bd6bfd759b",
+      "sourceId": "g3b_u09_3b09",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u09_3b09_numeric_611db864f74a",
+      "sourceId": "g3b_u09_3b09",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g3b_u09_3b09_numeric_347c3ab9e890",
+      "sourceId": "g3b_u09_3b09",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_BELOW_20",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4b_u08_4b08_numeric_e63dcc56e182",
+      "sourceId": "g4b_u08_4b08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4b_u08_4b08_numeric_2f594c75ad07",
+      "sourceId": "g4b_u08_4b08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4b_u08_4b08_numeric_9cbcbbe53418",
+      "sourceId": "g4b_u08_4b08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4b_u08_4b08_numeric_e21804772679",
+      "sourceId": "g4b_u08_4b08",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u09_4a09_numeric_bee1ae206b8b",
+      "sourceId": "g4a_u09_4a09",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4a_u09_4a09_numeric_9f2e445cb0a5",
+      "sourceId": "g4a_u09_4a09",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4b_u06_4b06_numeric_8060b6cce6ed",
+      "sourceId": "g4b_u06_4b06",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g4b_u06_4b06_numeric_13afea5d4fd1",
+      "sourceId": "g4b_u06_4b06",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 8,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u04_5a04_numeric_cc6261f81797",
+      "sourceId": "g5a_u04_5a04",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u04_5a04_numeric_0904972d5d27",
+      "sourceId": "g5a_u04_5a04",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 9,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u04_5a04_numeric_eb066dd13b85",
+      "sourceId": "g5a_u04_5a04",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 6,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    },
+    {
+      "routeId": "pgc_r03_g5a_u04_5a04_numeric_00f6e4a5c762",
+      "sourceId": "g5a_u04_5a04",
+      "questionType": "numeric",
+      "verifiedMaxQuestionCount": 6,
+      "gapFamily": "CAPACITY_AND_DIVERSITY",
+      "repairPriority": "P2_LOW_CAPACITY_4_TO_9"
+    }
+  ]
+}
