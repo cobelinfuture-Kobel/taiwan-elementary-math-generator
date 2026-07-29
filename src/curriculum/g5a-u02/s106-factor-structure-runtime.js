@@ -9,6 +9,9 @@ const PGC_R04_FACTOR_TARGET_POOL = Object.freeze([...new Set([
   ...Array.from({ length: 11 }, (_, index) => (index + 2) ** 2),
   ...PGC_R04_FACTOR_TARGET_PRIMES.flatMap((prime) => Array.from({ length: 11 }, (_, index) => (index + 2) * prime)),
 ])]);
+const PGC_R04_FACTOR_PAIR_LAYOUT_SAFE_TARGET_POOL = Object.freeze(
+  PGC_R04_FACTOR_TARGET_POOL.filter((target) => Math.floor(Math.sqrt(target)) <= 18),
+);
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -38,6 +41,10 @@ function factorPairsOf(target) {
 
 function targetFrom(rng) {
   return rng.pick(PGC_R04_FACTOR_TARGET_POOL);
+}
+
+function factorPairLayoutSafeTargetFrom(rng) {
+  return rng.pick(PGC_R04_FACTOR_PAIR_LAYOUT_SAFE_TARGET_POOL);
 }
 
 function searchStructure(target) {
@@ -121,7 +128,9 @@ export function getG5AU02S106PatternIds() {
 
 export function generateG5AU02S106Pattern(patternSpecId, rng) {
   if (!S106_PATTERN_SET.has(patternSpecId)) return null;
-  const target = targetFrom(rng);
+  const target = patternSpecId === "ps_g5a_u02_factor_pair_enumeration"
+    ? factorPairLayoutSafeTargetFrom(rng)
+    : targetFrom(rng);
 
   if (patternSpecId === "ps_g5a_u02_factor_pair_enumeration") {
     const structure = searchStructure(target);
