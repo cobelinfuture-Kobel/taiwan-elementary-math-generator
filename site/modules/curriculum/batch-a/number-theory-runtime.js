@@ -11,7 +11,10 @@ const COMPOSITE_POOL = Object.freeze([4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21
 const FACTOR_NUMBER_POOL = Object.freeze([12, 18, 20, 24, 27, 28, 30, 36, 40, 42, 45, 48, 50, 54, 56, 60, 63, 72, 75, 80, 84, 90, 96, 100, 108, 120, 126, 140, 144, 150, 168, 180, 200, 210, 216, 225, 240, 252, 270, 288, 300, 315, 320, 336, 360, 375, 400, 420, 450, 480]);
 const COMMON_PRODUCTS = Object.freeze([2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24]);
 const COPRIME_TAIL_PAIRS = Object.freeze([[2, 3], [3, 4], [4, 5], [5, 6], [5, 7], [7, 8], [7, 9], [8, 9], [9, 10], [11, 12], [11, 13]]);
-const LCM_PAIRS = Object.freeze([[4, 6], [6, 8], [8, 12], [9, 12], [10, 15], [12, 18], [14, 21], [15, 20], [16, 24], [18, 24], [20, 30], [24, 36], [25, 40], [28, 42], [30, 45], [32, 48], [36, 54], [40, 60]]);
+const LCM_PAIRS = Object.freeze(Array.from({ length: 35 }, (_, index) => index + 2)
+  .flatMap((left) => Array.from({ length: 35 }, (_, index) => index + 2)
+    .filter((right) => right > left && leastCommonMultiple(left, right) <= 900)
+    .map((right) => Object.freeze([left, right]))));
 
 const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
 
@@ -328,3 +331,5 @@ export function generateG6AU01NumberTheoryQuestions(options = {}) {
     warnings: [],
   };
 }
+
+// PGC-R04 final number-theory LCM parameter expansion

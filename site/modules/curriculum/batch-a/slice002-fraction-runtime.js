@@ -91,7 +91,14 @@ function buildQuestion(patternSpecId, ordinal, seed, variantOffset = 0) {
   let answerText;
   let finalAnswer;
   if (patternSpecId === G3A_U08_UNIT_FRACTION_NUMERIC_SPEC_ID) {
-    promptText = `${unitFractionCount} 個 1/${denominator} 合起來是多少？`;
+    const surfaceVariant = state(seed, sampleIndex, patternSpecId + ":surface") % 4;
+    promptText = surfaceVariant === 0
+      ? unitFractionCount + " 個 1/" + denominator + " 合起來是多少？"
+      : surfaceVariant === 1
+        ? "把 " + unitFractionCount + " 個單位分數 1/" + denominator + " 相加，結果是多少？"
+        : surfaceVariant === 2
+          ? "1/" + denominator + " 連續累加 " + unitFractionCount + " 次，得到哪個分數？"
+          : "用乘法表示 " + unitFractionCount + " × 1/" + denominator + "，乘積是多少？";
     finalAnswer = fraction(unitFractionCount, denominator); answerText = fractionText(finalAnswer);
   } else if (patternSpecId === G3A_U08_UNIT_FRACTION_APPLICATION_SPEC_ID) {
     promptText = `運動會補給站把一份水果平均分成 ${denominator} 小份。小安取得 ${unitFractionCount} 小份，共是一份水果的幾分之幾？`;
@@ -187,3 +194,5 @@ export function generateG3AU08Slice002QuestionsFromPlan(plan = {}) {
   return { ok: errors.length === 0 && questions.length === plan.questionCount, plan, questions, allocation, errors, warnings: [] };
 }
 export function generateG3AU08Slice002Questions(options = {}) { return generateG3AU08Slice002QuestionsFromPlan(buildBatchABrowserPlan(options)); }
+
+// PGC-R04 final unit-fraction accumulation surface expansion

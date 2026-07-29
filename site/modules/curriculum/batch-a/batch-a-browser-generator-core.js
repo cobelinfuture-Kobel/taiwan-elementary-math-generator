@@ -434,7 +434,38 @@ function attachBatchAMetadata(question, definition) {
   return question;
 }
 
+function generatePreservedConsecutiveMultiplicationQuestion(definition, options = {}) {
+  const randomFn = createSeededRandom(String(options.seed ?? "g3b-u04") + ":consecutive");
+  const left = randomIntBetween(randomFn, 2, 9);
+  const middle = randomIntBetween(randomFn, 2, 9);
+  const right = randomIntBetween(randomFn, 2, 9);
+  const firstProduct = left * middle;
+  const answer = firstProduct * right;
+  const expression = createBinaryNode(
+    OPERATORS.MULTIPLY,
+    createBinaryNode(OPERATORS.MULTIPLY, createValueNode(createIntegerValue(left), 1), createValueNode(createIntegerValue(middle), 2), { groupingHint: "leftAssociative" }),
+    createValueNode(createIntegerValue(right), 3),
+    { groupingHint: "leftAssociative" },
+  );
+  const answerValue = createIntegerValue(answer);
+  const question = createGeneratedQuestionSkeleton({
+    id: options.id ?? definition.patternSpecId + "-" + (options.sequenceNumber ?? 1),
+    expression,
+    operandCount: 3,
+    operatorsUsed: [OPERATORS.MULTIPLY, OPERATORS.MULTIPLY],
+    finalAnswer: answerValue,
+    intermediateResults: [createIntegerValue(firstProduct), answerValue],
+    blankTarget: { type: "finalAnswer" },
+    duplicateKey: buildDuplicateKey(expression),
+    metadata: expressionMetadata(definition),
+  });
+  return attachBatchAMetadata(question, definition);
+}
+
 function generateExpressionQuestion(definition, options = {}) {
+  if (definition.patternSpecId === "ps_g3b_u04_consecutive_multiplication") {
+    return { ok: true, question: generatePreservedConsecutiveMultiplicationQuestion(definition, options), warnings: [] };
+  }
   const directOperands = buildDirectCarryOperands(definition, options);
   if (directOperands) {
     const question = createDirectExpressionQuestion(definition, directOperands, options);
@@ -647,3 +678,5 @@ export function generateBatchABrowserQuestions(options = {}) {
     warnings
   };
 }
+
+// PGC-R04 final G3B-U04 consecutive multiplication producer fix

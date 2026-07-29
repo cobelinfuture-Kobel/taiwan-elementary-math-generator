@@ -167,13 +167,13 @@ function generateExpressionQuestion(definition, options = {}) {
 `,
       ],
       [
-`    promptText: \`最大的${largerDigitCount}位數和最小的${smallerDigitCount}位數相差多少？\`,
+`    promptText: \`最大的\${largerDigitCount}位數和最小的\${smallerDigitCount}位數相差多少？\`,
 `,
 `    promptText,
 `,
       ],
       [
-`    blankedDisplayText: \`最大的${largerDigitCount}位數和最小的${smallerDigitCount}位數相差 ________\`,
+`    blankedDisplayText: \`最大的\${largerDigitCount}位數和最小的\${smallerDigitCount}位數相差 ________\`,
 `,
 `    blankedDisplayText: promptText + " ________",
 `,
@@ -240,7 +240,7 @@ const LCM_PAIRS = Object.freeze(Array.from({ length: 29 }, (_, index) => index +
       ],
       [
 `    const answer = relationText(left, right, product);
-    return question(definition, index, \`根據 ${left} × ${right} = ${product}，寫出因數與倍數關係。\`, answer, { left, right, product });`,
+    return question(definition, index, \`根據 \${left} × \${right} = \${product}，寫出因數與倍數關係。\`, answer, { left, right, product });`,
 `    const answer = relationText(left, right, product);
     const prompt = op === "relation_from_product"
       ? "由 " + left + " × " + right + " = " + product + "，說明三個數的因數與倍數關係。"
@@ -293,7 +293,7 @@ const LCM_PAIRS = Object.freeze(Array.from({ length: 29 }, (_, index) => index +
     [
       [
 `  if (patternSpecId === G3A_U08_UNIT_FRACTION_NUMERIC_SPEC_ID) {
-    promptText = \`${unitFractionCount} 個 1/${denominator} 合起來是多少？\`;`,
+    promptText = \`\${unitFractionCount} 個 1/\${denominator} 合起來是多少？\`;`,
 `  if (patternSpecId === G3A_U08_UNIT_FRACTION_NUMERIC_SPEC_ID) {
     const surfaceVariant = state(seed, sampleIndex, patternSpecId + ":surface") % 4;
     promptText = surfaceVariant === 0

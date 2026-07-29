@@ -148,9 +148,19 @@ function sampleLanguageClassification(seed) {
   };
 }
 
-function sampleSymbolReading() {
+function sampleSymbolReading(seed) {
+  const prompts = [
+    "符號「≈」讀作什麼？", "數學符號 ≈ 的中文讀法是什麼？", "看到 ≈ 時，應讀成哪三個字？",
+    "請寫出符號 ≈ 的名稱。", "在概數中，≈ 表示什麼關係？", "「約等於」通常使用哪個符號？本題請寫出該符號的讀法。",
+    "算式中的 ≈ 應怎麼讀？", "符號 ≈ 的標準讀法為何？", "請把 ≈ 用中文念出來。", "在 498 ≈ 500 中，≈ 讀作什麼？",
+    "在近似關係式裡，≈ 的讀法是什麼？", "數學課本中的 ≈ 代表『約等於』，請寫出讀法。", "請回答：≈ 怎麼讀？",
+    "符號 ≈ 不是等號，它的讀法是什麼？", "在概數單元裡，符號 ≈ 應讀作什麼？", "請辨認符號：≈ 的中文名稱。",
+    "兩個數近似相等時使用 ≈，這個符號讀作什麼？", "498 和 500 可寫成 498 ≈ 500，其中 ≈ 怎麼讀？",
+    "請寫出近似等號 ≈ 的讀法。", "≈ 用來表示近似關係，它的中文讀法是什麼？", "數值取概數後常用 ≈，請寫出符號讀法。",
+    "讀出下列符號：≈。", "在『大約相等』的算式中，≈ 的正式讀法是什麼？", "請將符號 ≈ 轉成中文詞語。",
+  ];
   return {
-    promptText: "符號「≈」讀作什麼？",
+    promptText: prompts[seed % prompts.length],
     answerText: "約等於",
     finalAnswer: "約等於",
     structuredAnswer: {
@@ -253,7 +263,7 @@ function sampleInverseOriginalValues(seed) {
 function sampleForPattern(patternSpecId, seed) {
   switch (patternSpecId) {
     case "ps_g4b_u04_approx_language_classify": return sampleLanguageClassification(seed);
-    case "ps_g4b_u04_approx_symbol_reading": return sampleSymbolReading();
+    case "ps_g4b_u04_approx_symbol_reading": return sampleSymbolReading(seed);
     case "ps_g4b_u04_method_compare_outputs": return sampleMethodComparison(seed);
     case "ps_g4b_u04_method_identify_from_result": return sampleMethodChoice(seed);
     case "ps_g4b_u04_unconditional_round_down": return sampleDirectRounding(seed, "down");
@@ -353,3 +363,5 @@ export function generateG4BU04ClassCBatch({
     },
   });
 }
+
+// PGC-R04 final approximation-symbol surface parameterization
