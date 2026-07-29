@@ -37,10 +37,12 @@ function patchS100(source) {
     "rng.int(2, 12) * rng.int(2, 12)",
     "rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES)",
   );
-  source = replaceRequired(source, "total: rng.int(4, 12) * rng.int(2, 8),", "total: rng.int(4, 20) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),", "s100-total");
-  source = replaceRequired(source, "groupSize: rng.int(2, 12),", "groupSize: rng.int(2, 99),", "s100-group-size");
-  source = replaceRequired(source, "a: rng.int(2, 10) * rng.int(2, 7),", "a: rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),", "s100-a");
-  source = replaceRequired(source, "b: rng.int(2, 10) * rng.int(2, 7),", "b: rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),", "s100-b");
+  if (!source.includes("PGC_R04_PROBLEM_TYPE_SEED_PROJECTION")) {
+    source = replaceRequired(source, "total: rng.int(4, 12) * rng.int(2, 8),", "total: rng.int(4, 20) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),", "s100-total");
+    source = replaceRequired(source, "groupSize: rng.int(2, 12),", "groupSize: rng.int(2, 99),", "s100-group-size");
+    source = replaceRequired(source, "a: rng.int(2, 10) * rng.int(2, 7),", "a: rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),", "s100-a");
+    source = replaceRequired(source, "b: rng.int(2, 10) * rng.int(2, 7),", "b: rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),", "s100-b");
+  }
   return source;
 }
 
@@ -116,6 +118,9 @@ export function applyPgcR04Final12RoutePatch() {
       "G5A_U02_FACTOR_TARGET_UNIQUENESS",
       "G5A_U02_PROBLEM_CLASSIFICATION_PARAMETER_DIVERSITY",
     ]),
+    idempotency: Object.freeze({
+      acceptsDeterministicProblemTypeSeedProjection: true,
+    }),
   });
   console.log(`PGC_R04_FINAL12_PATCH=${JSON.stringify(result)}`);
   return result;
