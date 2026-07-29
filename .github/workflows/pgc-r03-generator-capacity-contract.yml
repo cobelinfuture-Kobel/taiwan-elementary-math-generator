@@ -1,4 +1,4 @@
-# PGC-R03 final-head validation trigger after deterministic artifact synchronization.
+# PGC-R03 deterministic final-head validation after report normalization.
 name: PGC-R03 Public Generator Capacity Contract
 
 on:
