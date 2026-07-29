@@ -3,6 +3,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint
 } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w01-public-application-groups.js";
+import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/fifteen-unit-public-application-groups.js";
 import { listW1FullProductPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w1-full-product-public-application-groups.js";
 
 const SOURCE_UNIT_MODE = "sourceUnit";
@@ -22,6 +23,7 @@ function groupsForKnowledgePoint(knowledgePointId) {
   return [
     ...getVisiblePatternGroupsForKnowledgePoint(knowledgePointId),
     ...listW01PublicApplicationGroupsForKnowledgePoint(knowledgePointId),
+    ...listFifteenUnitPublicApplicationGroupsForKnowledgePoint(knowledgePointId),
     ...listW1FullProductPublicApplicationGroupsForKnowledgePoint(knowledgePointId),
   ].filter((group) => group?.visibilityStatus === "visible" || group?.visibilityStatus === undefined)
     .filter((group, index, rows) => rows.findIndex((candidate) => candidate.patternGroupId === group.patternGroupId) === index);
