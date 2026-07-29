@@ -1,0 +1,60 @@
+{
+  "schemaName": "PublicGenerationCapabilityMatrixCloseoutV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R01_PublicKnowledgePointCapabilityMatrix",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "matrixJson": "data/curriculum/public-generation/public_generation_capability_matrix.json",
+  "matrixCsv": "data/curriculum/public-generation/public_generation_capability_matrix.csv",
+  "gapReport": "docs/curriculum/output/PGC-R01_capability_gap_report.md",
+  "implementation": {
+    "pullRequestNumber": 436,
+    "headSha": "31116bb97f55f860deeb15e91678331546175f36",
+    "mergeSha": "15bb60004294fa9465eb7f735ee888c0f4c0a79c",
+    "focusedWorkflowRunId": 30420563615,
+    "focusedWorkflowConclusion": "success",
+    "nodeWorkflowRunId": 30420563621,
+    "nodeWorkflowConclusion": "success",
+    "scopeFreezeWorkflowRunId": 30420563663,
+    "scopeFreezeWorkflowConclusion": "success"
+  },
+  "acceptedCounts": {
+    "publicSourceCount": 26,
+    "visibleKnowledgePointCount": 193,
+    "publicSurfaceCount": 3,
+    "visibleKnowledgePointSurfaceExpectedPairCount": 579,
+    "visibleKnowledgePointSurfaceAccountedPairCount": 579,
+    "visibleKnowledgePointSurfaceCapabilityPairCount": 545,
+    "visibleKnowledgePointSurfaceExplicitGapPairCount": 34,
+    "capabilityRowCount": 1222,
+    "uniquePatternGroupCount": 246,
+    "uniquePatternSpecCount": 350,
+    "uiOptionCoverageCount": 156,
+    "accountedUiOptionCount": 156,
+    "blockingR01GapCount": 0,
+    "r02UiBindingGapCount": 56,
+    "r03CapacityUnverifiedCapabilityCount": 1222
+  },
+  "acceptedBoundary": {
+    "hiddenKnowledgePointsExcluded": true,
+    "slice014Started": false,
+    "fabricatedFallback404Capability": false,
+    "fallback404AbsenceExplicit": true,
+    "generatorModified": false,
+    "validatorModified": false,
+    "uiModified": false,
+    "parallelPipelineAdded": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_PUBLIC_SCOPE_FROZEN",
+    "goalDistanceAfter": "D1_PUBLIC_CAPABILITY_MATRIX_MATERIALIZED",
+    "distanceReduced": "Every public source, visible KnowledgePoint, exposed UI question type, PatternGroup, PatternSpec, control dimension and surface is represented by a real capability or explicit fail-closed absence.",
+    "remainingBlockers": [
+      "PGC-R02_DYNAMIC_UI_BINDING",
+      "PGC-R03_VERIFIED_CAPACITY",
+      "PGC-R04_TO_R08_PRODUCT_ACCEPTANCE"
+    ],
+    "nextShortestStep": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
+  },
+  "stopReason": "NONE"
+}
