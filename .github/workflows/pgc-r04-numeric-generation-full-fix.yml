@@ -16,11 +16,13 @@ on:
       - "tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs"
       - "tools/curriculum/apply-pgc-r04-s102-common-factor-seed-projection-patch.mjs"
       - "tools/curriculum/apply-pgc-r04-legacy-contract-reconciliation.mjs"
+      - "tools/curriculum/apply-pgc-r04-final-regression-reconciliation.mjs"
       - "tools/curriculum/locate-pgc-r04-remaining-producers.mjs"
       - "tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs"
       - "tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js"
       - "tests/curriculum/pgc-r04-numeric-unique-allocation.test.js"
       - "tests/curriculum/pgc-r04-numeric-20x10-live-acceptance.test.js"
+      - "tests/curriculum/batch-a/g4a-u01-phase3-runtime-fix.test.js"
       - "tests/curriculum/g4b-u04-r2b-prompt-deduplication.test.js"
       - "tests/curriculum/s72-g4b-u04-promotion-resolver-selector.test.js"
       - "data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json"
@@ -74,6 +76,7 @@ jobs:
           node --check tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs
           node --check tools/curriculum/apply-pgc-r04-s102-common-factor-seed-projection-patch.mjs
           node --check tools/curriculum/apply-pgc-r04-legacy-contract-reconciliation.mjs
+          node --check tools/curriculum/apply-pgc-r04-final-regression-reconciliation.mjs
           node --check tools/curriculum/locate-pgc-r04-remaining-producers.mjs
           node --check tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
           node --check tests/curriculum/pgc-r04-numeric-20x10-live-acceptance.test.js
@@ -110,6 +113,9 @@ jobs:
       - name: Reconcile protected legacy product contracts
         run: node tools/curriculum/apply-pgc-r04-legacy-contract-reconciliation.mjs
 
+      - name: Reconcile final full-regression contracts
+        run: node tools/curriculum/apply-pgc-r04-final-regression-reconciliation.mjs
+
       - name: Locate remaining legacy numeric producers
         run: node tools/curriculum/locate-pgc-r04-remaining-producers.mjs
 
@@ -126,6 +132,8 @@ jobs:
             tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs \
             tools/curriculum/apply-pgc-r04-s102-common-factor-seed-projection-patch.mjs \
             tools/curriculum/apply-pgc-r04-legacy-contract-reconciliation.mjs \
+            tools/curriculum/apply-pgc-r04-final-regression-reconciliation.mjs \
+            tests/curriculum/batch-a/g4a-u01-phase3-runtime-fix.test.js \
             tests/curriculum/g4b-u04-r2b-prompt-deduplication.test.js \
             tests/curriculum/s72-g4b-u04-promotion-resolver-selector.test.js \
             site/modules/curriculum/batch-a/batch-a-browser-validator-p03f*.js \
@@ -165,7 +173,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "R04 runtime and diagnostic artifacts already synchronized."
           else
-            git commit -m "fix(pgc-r04): reconcile protected product contracts [skip ci]"
+            git commit -m "fix(pgc-r04): close final full-regression gaps [skip ci]"
             git fetch origin pgc-r04-numeric-generation-full-fix
             git rebase origin/pgc-r04-numeric-generation-full-fix
             git push origin HEAD:pgc-r04-numeric-generation-full-fix
