@@ -22,8 +22,29 @@ function promptText(question) {
   ).replace(/\s+/g, " ").trim();
 }
 
+function expressionKey(node) {
+  if (!node || typeof node !== "object") return "";
+  if (node.type === "value") {
+    const raw = node.value?.value ?? node.value?.integer ?? node.value;
+    return `v:${String(raw)}`;
+  }
+  if (node.type === "binary") {
+    return `b:${String(node.operator)}(${expressionKey(node.left)},${expressionKey(node.right)})`;
+  }
+  return JSON.stringify(node);
+}
+
 function questionKey(question) {
-  return promptText(question);
+  const visiblePrompt = promptText(question);
+  if (visiblePrompt) return `prompt:${visiblePrompt}`;
+  if (question?.duplicateKey != null && String(question.duplicateKey).length > 0) {
+    return `duplicate:${String(question.duplicateKey)}`;
+  }
+  const expression = expressionKey(question?.expression);
+  if (expression) return `expression:${expression}`;
+  const patternSpecId = question?.patternSpecId ?? question?.metadata?.patternId ?? "unknown";
+  const id = question?.id ?? question?.questionId ?? "";
+  return id ? `identity:${patternSpecId}:${id}` : "";
 }
 
 function uniqueQuestions(questions = []) {
