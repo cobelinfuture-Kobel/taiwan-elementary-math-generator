@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { applyPgcR04NumericUniqueAllocation } from "../../site/modules/curriculum/batch-a/numeric-unique-allocation-fullfix.js";
+import { generateG5AU02ClassC } from "../../src/curriculum/g5a-u02/class-c-generator-validator.js";
 
 function mockGenerator(options = {}) {
   const max = 4;
@@ -36,6 +37,13 @@ function mockGenerator(options = {}) {
     errors: [],
     warnings: [],
   };
+}
+
+function gcd(left, right) {
+  let a = left;
+  let b = right;
+  while (b !== 0) [a, b] = [b, a % b];
+  return a;
 }
 
 test("PGC-R04 allocator fills a 20-question request from existing bounded generator windows", () => {
@@ -103,4 +111,24 @@ test("PGC-R04 allocator fails closed when existing generators cannot provide eno
   assert.equal(result.questions.length, 0);
   assert.ok(result.errors.some((error) => error.code === "PGC_R04_NUMERIC_UNIQUE_CAPACITY_EXHAUSTED"));
   assert.equal(result.pgcR04NumericFullFix.status, "FAIL_CLOSED_UNIQUE_CAPACITY_EXHAUSTED");
+});
+
+test("PGC-R04 G5A-U02 common-factor producers project 90 injective valid prompt pairs", () => {
+  for (const patternSpecId of [
+    "ps_g5a_u02_common_factor_enumeration",
+    "ps_g5a_u02_greatest_common_factor",
+  ]) {
+    const visiblePairs = [];
+    for (let seed = 1; seed <= 90; seed += 1) {
+      const item = generateG5AU02ClassC(patternSpecId, { seed });
+      const { a, b, common, generationProjectionStatus } = item.data;
+      assert.equal(generationProjectionStatus, "PGC_R04_COMMON_FACTOR_SEED_PROJECTION_V2");
+      assert.equal(gcd(a, b), common);
+      assert.ok(a >= 1 && a <= 9999);
+      assert.ok(b >= 1 && b <= 9999);
+      assert.notEqual(a, b);
+      visiblePairs.push(`${a}|${b}`);
+    }
+    assert.equal(new Set(visiblePairs).size, 90);
+  }
 });
