@@ -9,12 +9,12 @@ STATUS     = PASS_DIAGNOSTIC_EVIDENCE_MATERIALIZED
 ## Baseline
 
 ```text
-NUMERIC_LIKE_ROUTES       = 195
-LEGAL_NUMERIC_LIKE_ROUTES = 193
-VERIFIED_20_ROUTES        = 124
-LIMITED_ROUTES            = 69
-QUALITY_GAP_ROUTES        = 40
-DIAGNOSED_GAP_ROUTES      = 81
+NUMERIC_LIKE_ROUTES        = 195
+LEGAL_NUMERIC_LIKE_ROUTES  = 193
+VERIFIED_20_ROUTES         = 124
+LIMITED_ROUTES             = 69
+QUALITY_GAP_ROUTES         = 40
+DIAGNOSED_GAP_ROUTES       = 81
 ```
 
 ## Gap ownership
@@ -48,13 +48,27 @@ DIAGNOSED_GAP_ROUTES      = 81
 | `g4b_u01_4b01` | 1 |
 | `g4b_u04_4b04` | 1 |
 
+## Final acceptance checkpoint
+
+```text
+TWO_SEED_DIAGNOSTIC_ROUTES_PASS = 81 / 81
+LIVE_20X10_ROUTES_PASS           = 79 / 81
+REMAINING_LIVE_ROUTES            = 2
+REMAINING_PATTERN_SPECS          = [
+  ps_g5a_u02_common_factor_enumeration,
+  ps_g5a_u02_greatest_common_factor
+]
+S102_SEED_PROJECTION_PATCH       = READY_PENDING_CI
+```
+
+The remaining two routes share the existing G5A-U02 S102 common-factor runtime. The approved repair preserves its PatternSpecs, answer models, factor-set witnesses and validators while replacing collision-prone RNG pair selection with a deterministic 900-slot seed projection. Any twenty consecutive item seeds map to twenty different operand pairs; the two multipliers are consecutive, so the greatest common factor is exactly the selected common base and both operands remain below 9999.
+
 ## Next step
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_CAPACITY_AWARE_PUBLIC_ROUTES_CONFORMANT
-GOAL_DISTANCE_AFTER  = D1_NUMERIC_RUNTIME_GAPS_SOURCE_LOCATED
-DISTANCE_REDUCED     = every limited or low-diversity numeric-like route now has reproducible runtime item, error, projection and lineage evidence
-REMAINING_BLOCKERS   = [NUMERIC_CAPACITY_BELOW_20, NUMERIC_FIXTURE_SELECTOR, NUMERIC_BOUNDED_DIVERSITY]
-NEXT_SHORTEST_STEP   = PGC-R04_SharedNumericGeneratorAndAllocatorFullFix
+GOAL_DISTANCE_BEFORE = D1_NUMERIC_20X10_TWO_ROUTES_REMAINING
+GOAL_DISTANCE_AFTER  = D1_S102_DETERMINISTIC_SEED_PROJECTION_PENDING_CI
+DISTANCE_REDUCED     = all numeric gaps except two S102 routes pass the live 20-question x 10-seed contract; the final shared producer repair is implemented
+REMAINING_BLOCKERS   = [S102_PATCH_EXECUTION_AND_LIVE_20X10_CI, FULL_NODE_REGRESSION, R00_SCOPE_FREEZE]
+NEXT_SHORTEST_STEP   = PGC-R04_S102Live20x10AndFullRegressionAcceptance
 ```
-
