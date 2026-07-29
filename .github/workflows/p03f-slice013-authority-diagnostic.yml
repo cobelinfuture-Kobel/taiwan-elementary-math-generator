@@ -38,21 +38,20 @@ jobs:
               || String(value.bindingCandidateId ?? '').includes('g5a_u04_quotient_as_fraction_context')) {
               results.push({ sourceFile, location, value });
             }
-            if (Array.isArray(value)) {
-              value.forEach((child, index) => walk(child, `${location}[${index}]`, sourceFile));
-            } else {
-              for (const [key, child] of Object.entries(value)) walk(child, `${location}.${key}`, sourceFile);
-            }
+            if (Array.isArray(value)) value.forEach((child, index) => walk(child, `${location}[${index}]`, sourceFile));
+            else for (const [key, child] of Object.entries(value)) walk(child, `${location}.${key}`, sourceFile);
           }
-          for (const sourceFile of files) {
-            const value = JSON.parse(fs.readFileSync(sourceFile, 'utf8'));
-            walk(value, '$', sourceFile);
-          }
+          for (const sourceFile of files) walk(JSON.parse(fs.readFileSync(sourceFile, 'utf8')), '$', sourceFile);
           const admission = materializeP03FSlice013ProductAdmission();
-          fs.writeFileSync(
-            'tmp/p03f-slice013-authority-diagnostic/extracted.json',
-            `${JSON.stringify({ target, count: results.length, results, capabilityWitnesses: admission.capabilityWitnesses }, null, 2)}\n`,
-          );
+          const q = admission.generation.questions[0];
+          const directArithmetic = admission.fractionArithmetic.execute({
+            action: 'MULTIPLY', knowledgePointId: q.metadata.knowledgePointId, sourceNodeId: q.sourceId,
+            leftValue: { numerator: q.simplestNumerator, denominator: q.simplestDenominator },
+            rightValue: { numerator: q.commonFactor, denominator: q.commonFactor },
+            resultPolicy: { allowedMagnitudeClasses: ['PROPER_FRACTION','IMPROPER_FRACTION','WHOLE_NUMBER'], allowZero: false, maxCanonicalDenominator: 60 },
+            assertedCapabilityId: 'cap_fraction_arithmetic',
+          });
+          fs.writeFileSync('tmp/p03f-slice013-authority-diagnostic/extracted.json', `${JSON.stringify({ target, count: results.length, results, capabilityWitnesses: admission.capabilityWitnesses, directArithmetic, arithmeticDescriptor: admission.fractionArithmetic.getDescriptor(q.metadata.knowledgePointId) }, null, 2)}\n`);
           if (results.length === 0 || admission.capabilityWitnesses.length === 0) process.exitCode = 1;
           NODE
       - uses: actions/upload-artifact@v4
