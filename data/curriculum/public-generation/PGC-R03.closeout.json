@@ -1,0 +1,80 @@
+{
+  "schemaName": "PublicGeneratorCapacityContractCloseoutV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R03_PublicGeneratorCapacityContract",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "capacityContract": "data/curriculum/public-generation/generator_capacity_contract.json",
+  "routeCapacityMatrix": "data/curriculum/public-generation/route_capacity_matrix.csv",
+  "crossSeedDiversityReport": "data/curriculum/public-generation/cross_seed_diversity_report.csv",
+  "runtimeCapacityRegistry": "site/modules/curriculum/public/public-generator-capacity-registry.js",
+  "readback": "docs/curriculum/output/PGC-R03_capacity_mismatch_report.md",
+  "implementation": {
+    "pullRequestNumber": 441,
+    "headSha": "5c5ae2fb00365a36ba70e4896659ba913e4574e8",
+    "mergeSha": "416a7176ce2822da0a182868a735038278a3b9d5",
+    "capacityWorkflowRunId": 30427655076,
+    "capacityWorkflowConclusion": "success",
+    "uiCapabilityWorkflowRunId": 30427655357,
+    "uiCapabilityWorkflowConclusion": "success",
+    "nodeWorkflowRunId": 30427655065,
+    "nodeWorkflowConclusion": "success",
+    "scopeFreezeWorkflowRunId": 30427654559,
+    "scopeFreezeWorkflowConclusion": "success"
+  },
+  "acceptedCounts": {
+    "publicSourceCount": 26,
+    "visibleKnowledgePointCount": 193,
+    "publicSurfaceCount": 3,
+    "historicalBindingCount": 1152,
+    "historicalBindingAccountedCount": 1152,
+    "currentLegalBindingCount": 1089,
+    "currentVerified20BindingCount": 702,
+    "currentLimitedBindingCount": 387,
+    "currentUnverifiedCapacityExposureCount": 0,
+    "routeCount": 1155,
+    "legalRouteCount": 793,
+    "illegalRouteCount": 362,
+    "verified20RouteCount": 519,
+    "verifiedLimitedRouteCount": 270,
+    "zeroCapacityRouteCount": 4,
+    "diversityGapRouteCount": 91,
+    "hardBlockerCount": 0
+  },
+  "acceptedRuntime": {
+    "illegalDepthContextIntersectionsRemovedFromUi": true,
+    "invalidCanonicalScopeCombinationsRemovedFromUi": true,
+    "perCapabilityQuestionCountApplied": true,
+    "questionCountNeverExceedsVerifiedCapacity": true,
+    "zeroCapacityQuestionTypesHidden": true,
+    "classicFallbackAndPixelUseSameCapacityAuthority": true,
+    "sameSeedReplayVerified": true,
+    "historicalR02BindingLineagePreserved": true,
+    "limitedCapacityRemainsFailClosedAtVerifiedMaximum": true,
+    "diversityAndFixtureQualityGapsDeferredToR04R05": true
+  },
+  "acceptedBoundary": {
+    "slice014Started": false,
+    "secondGeneratorAdded": false,
+    "secondValidatorAdded": false,
+    "secondRendererAdded": false,
+    "worksheetPipelineDuplicated": false,
+    "knowledgePointAdded": false,
+    "patternGroupAdded": false,
+    "patternSpecAdded": false,
+    "capacityEvidenceFabricated": false,
+    "unverifiedTwentyQuestionExposureAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_GENERATOR_CAPACITY_FAIL_CLOSED",
+    "goalDistanceAfter": "D1_CAPACITY_AWARE_PUBLIC_GENERATION_CONFORMANT",
+    "distanceReduced": "Every public generation control path is now reconciled against measured route legality and deterministic generator capacity; illegal combinations are removed and each legal capability is capped at its verified safe question count across Classic, 404 fallback and Pixel.",
+    "remainingBlockers": [
+      "PGC-R04_NUMERIC_FIXTURE_AND_DIVERSITY_FULLFIX",
+      "PGC-R05_APPLICATION_GLOBAL_CONTEXT_FULLFIX",
+      "PGC-R06_TO_R08_PRODUCT_ACCEPTANCE"
+    ],
+    "nextShortestStep": "PGC-R04_NumericGenerationFullFix"
+  },
+  "stopReason": "NONE"
+}
