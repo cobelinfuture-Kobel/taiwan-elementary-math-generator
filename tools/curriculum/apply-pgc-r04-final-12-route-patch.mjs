@@ -53,6 +53,7 @@ function patchS106(source) {
     `const PGC_R04_FACTOR_TARGET_PRIMES = Object.freeze(${primes});`,
     "PGC_R04_FACTOR_TARGET_PRIMES",
   );
+  if (source.includes("return rng.pick(PGC_R04_FACTOR_TARGET_POOL);")) return source;
   return replaceRequired(
     source,
     "return rng.int(2, 12) * rng.int(2, 12);",
@@ -154,6 +155,7 @@ export function applyPgcR04Final12RoutePatch() {
     idempotency: Object.freeze({
       acceptsDeterministicProblemTypeSeedProjection: true,
       acceptsInjectiveCommonFactorSeedProjectionV2: true,
+      acceptsReconciledS106TargetPool: true,
     }),
   });
   console.log(`PGC_R04_FINAL12_PATCH=${JSON.stringify(result)}`);
