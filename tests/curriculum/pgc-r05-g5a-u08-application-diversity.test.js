@@ -1,0 +1,93 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import test from "node:test";
+import { fileURLToPath } from "node:url";
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const reportPath = path.join(repoRoot, "data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json");
+const corePath = path.join(repoRoot, "site/modules/curriculum/batch-a/g5a-u08-application-generator-core.js");
+const plannerPath = path.join(repoRoot, "site/modules/curriculum/batch-a/g5a-u08-application-batch-planner.js");
+
+const G5A_U08_COLLISION_ROUTE_IDS = Object.freeze([
+  "pgc_r03_g5a_u08_5a08_application_8c256beb697c",
+  "pgc_r03_g5a_u08_5a08_application_914ffeeae0aa",
+  "pgc_r03_g5a_u08_5a08_application_c47cb28f3b46",
+  "pgc_r03_g5a_u08_5a08_application_0bfd88403063",
+]);
+
+function loadReport() {
+  assert.equal(fs.existsSync(reportPath), true, "R05 diagnostics must be rematerialized after G5A-U08 diversity repair");
+  return JSON.parse(fs.readFileSync(reportPath, "utf8"));
+}
+
+function assertAccepted20(route, routeId) {
+  assert.ok(route, routeId);
+  assert.equal(route.sourceId, "g5a_u08_5a08", routeId);
+  assert.equal(route.questionType, "application", routeId);
+  assert.deepEqual(route.compatiblePatternSpecIds, ["ps_g5a_u08_app_near_round_unit_price"], routeId);
+  assert.equal(route.accepted20AcrossSeeds, true, routeId);
+  assert.deepEqual(route.liveAcceptanceFailures, [], routeId);
+  assert.equal(route.diagnosticRuns.length, 2, routeId);
+  for (const run of route.diagnosticRuns) {
+    assert.equal(run.ok, true, `${routeId}:${run.seed}`);
+    assert.equal(run.questionCount, 20, `${routeId}:${run.seed}`);
+    assert.equal(run.answerKeyItemCount, 20, `${routeId}:${run.seed}`);
+    assert.equal(run.emptyPromptCount, 0, `${routeId}:${run.seed}`);
+    assert.equal(run.duplicatePromptCount, 0, `${routeId}:${run.seed}`);
+    assert.equal(run.uniquePromptCount, 20, `${routeId}:${run.seed}`);
+    assert.deepEqual(run.errorCodes, [], `${routeId}:${run.seed}`);
+    assert.equal(run.runtimeLineage.documentQuestionMode, "application", `${routeId}:${run.seed}`);
+    assert.equal(run.runtimeLineage.documentAuthorityMode, "GLOBAL_PRIMARY", `${routeId}:${run.seed}`);
+  }
+}
+
+test("PGC-R05 G5A-U08 explicit ordinal projection eliminates all four near-round prompt collisions", () => {
+  const report = loadReport();
+  const byId = new Map(report.routes.map((route) => [route.routeId, route]));
+  for (const routeId of G5A_U08_COLLISION_ROUTE_IDS) assertAccepted20(byId.get(routeId), routeId);
+  const remainingLiveFailures = report.routes.filter((route) => route.sourceId === "g5a_u08_5a08" && route.liveAcceptanceFailures.length > 0);
+  assert.deepEqual(remainingLiveFailures, []);
+  assert.ok(report.summary.live20PassRouteCount >= 202, JSON.stringify(report.summary));
+  assert.ok(report.summary.live20FailRouteCount <= 9, JSON.stringify(report.summary));
+});
+
+test("PGC-R05 G5A-U08 planner passes its authoritative sequence as diversityOrdinal", () => {
+  assert.equal(fs.existsSync(corePath), true);
+  assert.equal(fs.existsSync(plannerPath), true);
+  const core = fs.readFileSync(corePath, "utf8");
+  const planner = fs.readFileSync(plannerPath, "utf8");
+  assert.match(planner, /function generateQuestionForCell\(patternSpecId, depth, contextType, seed, desiredSdgGoalId = null, diversityOrdinal = null\)/);
+  assert.match(planner, /contextType,\s+diversityOrdinal,\s+\}\);/s);
+  assert.match(planner, /desiredSdgGoalId,\s+sequence,\s+\);\s+sequence \+= 1;/s);
+  assert.match(core, /\{ seed = "s60h", depth = null, contextType = null, diversityOrdinal = null \} = \{\}/);
+  assert.match(core, /normalizedPgcR05NearRoundOrdinal\(seed, diversityOrdinal\)/);
+  assert.doesNotMatch(core, /match\(\/.*\\d.*\$\//);
+});
+
+test("PGC-R05 G5A-U08 injective projection preserves approved parameter bounds and legacy sampling", () => {
+  const core = fs.readFileSync(corePath, "utf8");
+  assert.match(core, /PGC_R05_NEAR_ROUND_BASES = Object\.freeze\(\[100, 500, 1000, 2000\]\)/);
+  assert.match(core, /PGC_R05_NEAR_ROUND_OFFSET_COUNT = 9/);
+  assert.match(core, /PGC_R05_NEAR_ROUND_DIRECTION_COUNT = 2/);
+  assert.match(core, /PGC_R05_NEAR_ROUND_QUANTITY_COUNT = 22/);
+  assert.match(core, /if \(!String\(seedLabel \?\? ""\)\.includes\("pgc-r05"\)\) return null/);
+  assert.match(core, /if \(Number\.isSafeInteger\(pgcR05DiversityOrdinal\)\)/);
+  assert.match(core, /else \{\s+roundBase = randomChoice\(seed, 1, PGC_R05_NEAR_ROUND_BASES\)/s);
+});
+
+test("PGC-R05 G5A-U08 repair preserves the frozen application authority boundary", () => {
+  const report = loadReport();
+  assert.deepEqual(report.boundary, {
+    numericRoutesModified: false,
+    reasoningMixedOrPblRoutesModified: false,
+    globalApplicationAuthorityReplaced: false,
+    secondGeneratorAdded: false,
+    secondValidatorAdded: false,
+    secondWorksheetPipelineAdded: false,
+    slice014Started: false,
+  });
+  const targetRoutes = report.routes.filter((route) => G5A_U08_COLLISION_ROUTE_IDS.includes(route.routeId));
+  assert.equal(targetRoutes.length, G5A_U08_COLLISION_ROUTE_IDS.length);
+  assert.equal(targetRoutes.every((route) => route.selectedKnowledgePointIds.includes("kp_g5a_u08_near_round_multiply_compensation")), true);
+});
