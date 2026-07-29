@@ -1,12 +1,9 @@
 {
   "schemaName": "P03FSlice013ChromiumProductAcceptanceReportV2",
   "taskId": "P03F_W3DirectProductVerticalSlice013Implementation",
-  "status": "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
   "sourceId": "g5a_u04_5a04",
-  "knowledgePointIds": [
-    "kp_g5a_u04_expand_reduce_simplest",
-    "kp_g5a_u04_quotient_as_fraction_context"
-  ],
+  "knowledgePointIds": ["kp_g5a_u04_expand_reduce_simplest", "kp_g5a_u04_quotient_as_fraction_context"],
   "questionCount": 9,
   "answerKeyItemCount": 9,
   "questionPageCount": 1,
@@ -28,45 +25,28 @@
   "semanticScopeFindingCount": 0,
   "browserFinding": {
     "pageMetrics": [
-      {
-        "index": 0,
-        "clientHeight": 1123,
-        "scrollHeight": 1123,
-        "clientWidth": 794,
-        "scrollWidth": 794,
-        "overflowY": false,
-        "overflowX": false,
-        "className": "worksheet-page worksheet-page--questions print-page"
-      },
-      {
-        "index": 1,
-        "clientHeight": 1123,
-        "scrollHeight": 1123,
-        "clientWidth": 794,
-        "scrollWidth": 794,
-        "overflowY": false,
-        "overflowX": false,
-        "className": "worksheet-page worksheet-page--answer-key print-page"
-      }
+      {"index": 0, "clientHeight": 1123, "scrollHeight": 1123, "clientWidth": 794, "scrollWidth": 794, "overflowY": false, "overflowX": false, "className": "worksheet-page worksheet-page--questions print-page"},
+      {"index": 1, "clientHeight": 1123, "scrollHeight": 1123, "clientWidth": 794, "scrollWidth": 794, "overflowY": false, "overflowX": false, "className": "worksheet-page worksheet-page--answer-key print-page"}
     ],
     "physicalPdfPageCount": 2,
     "consoleErrors": [],
     "pageErrors": []
   },
   "visualReview": {
-    "status": "PENDING",
-    "questionPageReviewed": false,
-    "answerKeyPageReviewed": false,
-    "physicalPageParityReviewed": false,
-    "clippedTextFindingCount": null,
-    "overlapFindingCount": null,
-    "brokenGlyphFindingCount": null,
-    "semanticScopeFindingCount": null
+    "status": "PASS_OPERATOR_VISUAL_AND_SEMANTIC_REVIEW",
+    "questionPageReviewed": true,
+    "answerKeyPageReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0,
+    "reviewNotes": "Nine bounded witnesses visibly cover three simplest-fraction roles, numeric quotient-as-fraction, and W02-bound agriculture equal-sharing applications. Answers, units, card boundaries, and two-page parity are correct."
   },
   "materialization": {
     "mode": "GITHUB_ACTIONS_RUNNER_BINARY_COMMIT",
     "workflowRunId": 30411324805,
     "sourceHeadSha": "8592953cfac066813f9ce862968dbd98429f5656",
-    "visualReviewAuthority": "PENDING_OPERATOR_REVIEW"
+    "visualReviewAuthority": "OPERATOR_REVIEWED"
   }
 }
