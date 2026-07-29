@@ -17,6 +17,9 @@ import {
   listVisibleBatchAKnowledgePoints,
 } from "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
 import {
+  listPublicPatternGroupChoices,
+} from "../../site/assets/browser/state/public-pattern-group-selection.js";
+import {
   buildPgcR02UiCapabilityBindingContract,
 } from "../../tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs";
 
@@ -37,6 +40,10 @@ function visibleBySource() {
 
 function optionValues(binding) {
   return binding.availableQuestionTypeOptions.map((option) => option.value);
+}
+
+function uniqueSorted(values) {
+  return [...new Set(values)].sort();
 }
 
 test("PGC-R02 closes all public UI binding cases", () => {
@@ -76,6 +83,31 @@ test("PGC-R02 keeps Classic, 404 fallback and Pixel option parity", () => {
       }
     }
   }
+});
+
+test("PGC-R02 browser selector form registry contains every resolver-exposed form", () => {
+  let applicationWitnessCount = 0;
+  for (const kp of listVisibleBatchAKnowledgePoints()) {
+    const base = resolvePublicUiCapabilityBinding({
+      sourceId: kp.sourceId,
+      selectionMode: "singleKnowledgePoint",
+      selectedKnowledgePointIds: [kp.knowledgePointId],
+    });
+    const expectedGroupIds = uniqueSorted(base.availableQuestionTypeOptions
+      .filter((option) => option.value !== "pbl")
+      .flatMap((option) => resolvePublicUiCapabilityBinding({
+        sourceId: kp.sourceId,
+        selectionMode: "singleKnowledgePoint",
+        selectedKnowledgePointIds: [kp.knowledgePointId],
+        requestedQuestionType: option.value,
+      }).compatiblePatternGroupIds));
+    const selectorGroupIds = new Set(listPublicPatternGroupChoices([kp.knowledgePointId]).map((choice) => choice.patternGroupId));
+    for (const patternGroupId of expectedGroupIds) {
+      assert.equal(selectorGroupIds.has(patternGroupId), true, `${kp.knowledgePointId}:${patternGroupId}`);
+    }
+    if (base.availableQuestionTypeOptions.some((option) => option.value === "application")) applicationWitnessCount += 1;
+  }
+  assert.ok(applicationWitnessCount > 0, "expected at least one application-capable public KP");
 });
 
 test("PGC-R02 derives types from KP capability before filtering forms", () => {
