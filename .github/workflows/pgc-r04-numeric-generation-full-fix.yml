@@ -1,0 +1,74 @@
+name: PGC-R04 Numeric Generation FullFix
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs"
+      - "tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js"
+      - "data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json"
+      - "data/curriculum/public-generation/numeric_generation_gap_inventory.csv"
+      - "docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md"
+      - "site/modules/curriculum/**"
+      - "site/assets/browser/pipeline/**"
+      - ".github/workflows/pgc-r04-numeric-generation-full-fix.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r04-numeric-generation-full-fix
+  cancel-in-progress: true
+
+jobs:
+  numeric-fullfix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout R04 branch
+        uses: actions/checkout@v4
+        with:
+          ref: pgc-r04-numeric-generation-full-fix
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Syntax-check R04 diagnostic authority
+        run: node --check tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
+
+      - name: Materialize numeric runtime gap diagnostics
+        run: node tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
+
+      - name: Commit deterministic diagnostic artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json \
+            data/curriculum/public-generation/numeric_generation_gap_inventory.csv \
+            docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md
+          if git diff --cached --quiet; then
+            echo "R04 diagnostic artifacts already synchronized."
+          else
+            git commit -m "data(pgc-r04): materialize numeric runtime gap evidence [skip ci]"
+            git fetch origin pgc-r04-numeric-generation-full-fix
+            git rebase origin/pgc-r04-numeric-generation-full-fix
+            git push origin HEAD:pgc-r04-numeric-generation-full-fix
+          fi
+
+      - name: Focused R04 diagnostic acceptance
+        run: node --test tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js
+
+      - name: Upload R04 numeric diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r04-numeric-gap-diagnostics
+          path: |
+            data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json
+            data/curriculum/public-generation/numeric_generation_gap_inventory.csv
+            docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md
+          if-no-files-found: warn
