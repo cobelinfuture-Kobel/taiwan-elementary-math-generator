@@ -3,7 +3,7 @@
   "schemaVersion": 3,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R03_CapacityAwareLegalRouteAndPerCapabilityUiLimitReconciliation",
-  "status": "FAIL_CLOSED",
+  "status": "PASS_WITH_DOWNSTREAM_GAPS",
   "hardCeiling": 20,
   "seedCount": 10,
   "legalRoutePolicy": {
@@ -23,9 +23,9 @@
     "publicSurfaceCount": 3,
     "historicalBindingCount": 1152,
     "historicalBindingAccountedCount": 1152,
-    "currentLegalBindingCount": 918,
-    "currentVerified20BindingCount": 585,
-    "currentLimitedBindingCount": 333,
+    "currentLegalBindingCount": 1089,
+    "currentVerified20BindingCount": 702,
+    "currentLimitedBindingCount": 387,
     "currentUnverifiedCapacityExposureCount": 0,
     "routeCount": 1155,
     "legalRouteCount": 793,
@@ -34,11 +34,9 @@
     "verifiedLimitedRouteCount": 270,
     "zeroCapacityRouteCount": 4,
     "diversityGapRouteCount": 91,
-    "hardBlockerCount": 1
+    "hardBlockerCount": 0
   },
-  "hardBlockers": [
-    "CURRENT_R02_CAPACITY_AWARE_BINDING_FAILED"
-  ],
+  "hardBlockers": [],
   "downstreamGaps": [
     {
       "code": "CAPACITY_BELOW_20",
@@ -238239,21 +238237,21 @@
   ],
   "currentUiBindingContract": {
     "schemaName": "PublicUiCapabilityBindingContractV2",
-    "status": "FAIL_CLOSED",
+    "status": "PASS",
     "summary": {
       "publicSourceCount": 26,
       "visibleKnowledgePointCount": 193,
       "publicSurfaceCount": 3,
       "baseCaseCount": 243,
       "surfaceCaseCount": 729,
-      "questionTypeBindingRowCount": 918,
+      "questionTypeBindingRowCount": 1089,
       "parityCaseCount": 243,
       "auditCaseCount": 729,
       "blockedBindingCount": 0,
       "unverifiedCapacityExposureCount": 0,
-      "gapCount": 156,
-      "verified20BindingCount": 585,
-      "limitedCapacityBindingCount": 333,
+      "gapCount": 0,
+      "verified20BindingCount": 702,
+      "limitedCapacityBindingCount": 387,
       "minimumVerifiedQuestionCount": 1,
       "maximumVerifiedQuestionCount": 20
     }
@@ -238262,5 +238260,6 @@
     "path": "site/modules/curriculum/public/public-generator-capacity-registry.js",
     "status": "MATERIALIZED_PGC_R03_V3",
     "rowCount": 1155
-  }
+  },
+  "finalizedAtRuntimeStage": "PGC_R03_CAPACITY_AWARE_BINDING_FINALIZED"
 }
