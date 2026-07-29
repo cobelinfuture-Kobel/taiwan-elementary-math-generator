@@ -614,6 +614,12 @@ function makeBoundaryDifferenceQuestion(sequenceNumber, seed) {
   const largerValue = (10 ** largerDigitCount) - 1;
   const smallerValue = 10 ** (smallerDigitCount - 1);
   const difference = largerValue - smallerValue;
+  const surfaceVariant = sequenceSeed(seed, patternSpecId + ":surface", sequenceNumber) % 3;
+  const promptText = surfaceVariant === 0
+    ? "最大的" + largerDigitCount + "位數和最小的" + smallerDigitCount + "位數相差多少？"
+    : surfaceVariant === 1
+      ? "從最大的" + largerDigitCount + "位數減去最小的" + smallerDigitCount + "位數，差是多少？"
+      : "最大的" + largerDigitCount + "位數比最小的" + smallerDigitCount + "位數多多少？";
   return {
     id: `${patternSpecId}-${sequenceNumber}`,
     patternSpecId,
@@ -623,9 +629,9 @@ function makeBoundaryDifferenceQuestion(sequenceNumber, seed) {
     smallerDigitCount,
     largerValue,
     smallerValue,
-    promptText: `最大的${largerDigitCount}位數和最小的${smallerDigitCount}位數相差多少？`,
+    promptText,
     displayText: `最大的${largerDigitCount}位數 ${largerValue} 和最小的${smallerDigitCount}位數 ${smallerValue} 相差 ${difference}`,
-    blankedDisplayText: `最大的${largerDigitCount}位數和最小的${smallerDigitCount}位數相差 ________`,
+    blankedDisplayText: promptText + " ________",
     answerText: String(difference),
     finalAnswer: difference,
     metadata: metadata(patternSpecId, "large_number_comparison", ["digit_count_boundary", "difference"])
@@ -766,3 +772,5 @@ export function generateBatchABrowserQuestions(options = {}) {
 
   return { ok: errors.length === 0, plan, questions, allocation, errors, warnings };
 }
+
+// PGC-R04 final boundary-difference surface parameterization

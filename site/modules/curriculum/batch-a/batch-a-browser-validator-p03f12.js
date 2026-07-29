@@ -21,7 +21,7 @@ export function validateBatchABrowserPlan(plan = {}) {
     return validateBasePlan(plan);
   }
   const errors = [];
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 8) {
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 20) {
     errors.push(issue("p03f12_question_count_invalid", "questionCount"));
   }
   if (plan.questionMode !== "numeric") errors.push(issue("p03f12_question_mode_mismatch", "questionMode"));

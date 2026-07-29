@@ -29,11 +29,16 @@ const wordProblemContexts = Object.freeze([
 
 function buildTwoStepRows() {
   const rows = [];
+  const seen = new Set();
   for (const third of thirdFactors) {
     for (let left = 2; left <= 9; left += 1) {
       for (let middle = 2; middle <= 9; middle += 1) {
         const product = left * middle * third;
-        if (product <= 729) rows.push([left, middle, third]);
+        const key = [left, middle, third].join("x");
+        if (product <= 729 && !seen.has(key)) {
+          seen.add(key);
+          rows.push([left, middle, third]);
+        }
       }
     }
   }
@@ -64,9 +69,9 @@ function permutationStep(seedValue, length) {
   return 1;
 }
 
-function wordProblemRowFor(sequenceNumber, seed) {
+function wordProblemRowFor(sequenceNumber, seed, channel = twoStepWordProblemSpecId) {
   const length = twoStepRows.length;
-  const seedValue = hashSeed(`${sourceId}:${twoStepWordProblemSpecId}:${seed ?? "default"}`);
+  const seedValue = hashSeed(sourceId + ":" + channel + ":" + String(seed ?? "default"));
   const offset = seedValue % length;
   const step = permutationStep(seedValue, length);
   const index = (offset + ((sequenceNumber - 1) * step)) % length;
@@ -133,12 +138,35 @@ function allocateCounts(patternSpecIds, questionCount) {
   }).filter((entry) => entry.questionCount > 0);
 }
 
-function pairFor(specId, sequenceNumber) {
-  if (specId === "ps_g3a_u03_2digit_by_1digit_carry") return [10 + ((sequenceNumber * 17) % 90), 2 + ((sequenceNumber * 5) % 8)];
-  if (specId === "ps_g3a_u03_10_multiple_by_1digit") return [10 * (1 + ((sequenceNumber - 1) % 9)), 2 + ((sequenceNumber * 3) % 8)];
-  if (specId === "ps_g3a_u03_3digit_by_1digit") return [100 + ((sequenceNumber * 137) % 900), 2 + ((sequenceNumber * 5) % 8)];
-  if (specId === zeroMiddleSpecId) return [100 * (1 + (sequenceNumber % 8)) + (1 + ((sequenceNumber * 7) % 9)), 2 + ((sequenceNumber * 5) % 8)];
-  return null;
+function buildPairPools() {
+  const pools = {
+    "ps_g3a_u03_2digit_by_1digit_carry": [],
+    "ps_g3a_u03_10_multiple_by_1digit": [],
+    "ps_g3a_u03_3digit_by_1digit": [],
+    [zeroMiddleSpecId]: [],
+  };
+  for (let left = 10; left <= 99; left += 1) {
+    for (let right = 2; right <= 9; right += 1) {
+      if ((left % 10) * right >= 10) pools["ps_g3a_u03_2digit_by_1digit_carry"].push([left, right]);
+    }
+  }
+  for (let left = 10; left <= 90; left += 10) for (let right = 2; right <= 9; right += 1) pools["ps_g3a_u03_10_multiple_by_1digit"].push([left, right]);
+  for (let left = 100; left <= 999; left += 1) for (let right = 2; right <= 9; right += 1) pools["ps_g3a_u03_3digit_by_1digit"].push([left, right]);
+  for (let hundreds = 1; hundreds <= 9; hundreds += 1) {
+    for (let ones = 1; ones <= 9; ones += 1) {
+      for (let right = 2; right <= 9; right += 1) pools[zeroMiddleSpecId].push([hundreds * 100 + ones, right]);
+    }
+  }
+  return Object.freeze(Object.fromEntries(Object.entries(pools).map(([key, value]) => [key, Object.freeze(value)])));
+}
+const PAIR_POOLS = buildPairPools();
+function pairFor(specId, sequenceNumber, seed) {
+  const pool = PAIR_POOLS[specId];
+  if (!pool || pool.length === 0) return null;
+  const seedValue = hashSeed(String(seed ?? "default") + ":" + specId + ":pool");
+  const offset = seedValue % pool.length;
+  const step = permutationStep(seedValue, pool.length);
+  return pool[(offset + (Math.max(1, sequenceNumber) - 1) * step) % pool.length];
 }
 
 function metadata(specId) {
@@ -220,8 +248,9 @@ function blankFor(target, value, placeValue) {
   return { target, index, placeValue, digit: Number(String(value)[index]) };
 }
 
-function makeMissingQuestion(sequenceNumber) {
-  const row = missingRows[(sequenceNumber - 1) % missingRows.length];
+function makeMissingQuestion(sequenceNumber, seed) {
+  const offset = hashSeed(String(seed ?? "default") + ":" + missingInferenceSpecId + ":missing") % missingRows.length;
+  const row = missingRows[(offset + sequenceNumber - 1) % missingRows.length];
   const result = row.left * row.right;
   const blanks = row.blanks.map((blank) => blankFor(blank.target, blank.target === "left" ? row.left : blank.target === "right" ? row.right : result, blank.placeValue));
   const leftText = mask(row.left, blanks.filter((blank) => blank.target === "left"));
@@ -252,10 +281,10 @@ function makeMissingQuestion(sequenceNumber) {
 }
 
 function generateU03Question(specId, sequenceNumber, seed) {
-  if (specId === twoStepSpecId) return makeQuestion(specId, twoStepRows[(sequenceNumber - 1) % twoStepRows.length], sequenceNumber);
+  if (specId === twoStepSpecId) return makeQuestion(specId, wordProblemRowFor(sequenceNumber, seed, twoStepSpecId), sequenceNumber);
   if (specId === twoStepWordProblemSpecId) return makeWordProblemQuestion(sequenceNumber, seed);
-  if (specId === missingInferenceSpecId) return makeMissingQuestion(sequenceNumber);
-  return makeQuestion(specId, pairFor(specId, sequenceNumber), sequenceNumber);
+  if (specId === missingInferenceSpecId) return makeMissingQuestion(sequenceNumber, seed);
+  return makeQuestion(specId, pairFor(specId, sequenceNumber, seed), sequenceNumber);
 }
 
 function questionKey(question) {
@@ -328,3 +357,7 @@ export function generateBatchABrowserQuestions(options = {}) {
 
   return { ok: true, plan, questions: orderQuestions(questions, plan, allocation), allocation, errors: [], warnings: [] };
 }
+
+// PGC-R04 final G3A-U03 parameter pool fix
+
+// PGC-R04 legacy contract reconciliation V1

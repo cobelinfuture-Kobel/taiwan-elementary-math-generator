@@ -12,17 +12,23 @@ const REQUIRED_CAPABILITY_IDS = Object.freeze([
   "cap_fraction_number_system",
 ]);
 const [COMMON_FACTOR_SPEC, SIMPLEST_NUMERATOR_SPEC, SIMPLEST_DENOMINATOR_SPEC] = G5A_U04_EXPAND_REDUCE_SIMPLEST_PATTERN_SPEC_IDS;
-const CASES = Object.freeze([
-  { patternSpecId: COMMON_FACTOR_SPEC, numerator: 18, denominator: 24, commonFactor: 6, simplestNumerator: 3, simplestDenominator: 4, promptText: "18/24 約成最簡分數時，分子和分母同除的最大公因數是多少？" },
-  { patternSpecId: COMMON_FACTOR_SPEC, numerator: 14, denominator: 21, commonFactor: 7, simplestNumerator: 2, simplestDenominator: 3, promptText: "14/21 約成最簡分數時，分子和分母同除的最大公因數是多少？" },
-  { patternSpecId: COMMON_FACTOR_SPEC, numerator: 16, denominator: 40, commonFactor: 8, simplestNumerator: 2, simplestDenominator: 5, promptText: "16/40 約成最簡分數時，分子和分母同除的最大公因數是多少？" },
-  { patternSpecId: SIMPLEST_NUMERATOR_SPEC, numerator: 27, denominator: 36, commonFactor: 9, simplestNumerator: 3, simplestDenominator: 4, promptText: "27/36 約成最簡分數後，分子是多少？" },
-  { patternSpecId: SIMPLEST_NUMERATOR_SPEC, numerator: 35, denominator: 49, commonFactor: 7, simplestNumerator: 5, simplestDenominator: 7, promptText: "35/49 約成最簡分數後，分子是多少？" },
-  { patternSpecId: SIMPLEST_NUMERATOR_SPEC, numerator: 42, denominator: 54, commonFactor: 6, simplestNumerator: 7, simplestDenominator: 9, promptText: "42/54 約成最簡分數後，分子是多少？" },
-  { patternSpecId: SIMPLEST_DENOMINATOR_SPEC, numerator: 24, denominator: 32, commonFactor: 8, simplestNumerator: 3, simplestDenominator: 4, promptText: "24/32 約成最簡分數後，分母是多少？" },
-  { patternSpecId: SIMPLEST_DENOMINATOR_SPEC, numerator: 20, denominator: 30, commonFactor: 10, simplestNumerator: 2, simplestDenominator: 3, promptText: "20/30 約成最簡分數後，分母是多少？" },
-  { patternSpecId: SIMPLEST_DENOMINATOR_SPEC, numerator: 36, denominator: 48, commonFactor: 12, simplestNumerator: 3, simplestDenominator: 4, promptText: "36/48 約成最簡分數後，分母是多少？" },
-]);
+function buildCases() {
+  const rows = [];
+  for (let simplestDenominator = 2; simplestDenominator <= 12; simplestDenominator += 1) {
+    for (let simplestNumerator = 1; simplestNumerator < simplestDenominator; simplestNumerator += 1) {
+      if (gcd(simplestNumerator, simplestDenominator) !== 1) continue;
+      for (let commonFactor = 2; commonFactor <= 12; commonFactor += 1) {
+        const numerator = simplestNumerator * commonFactor;
+        const denominator = simplestDenominator * commonFactor;
+        rows.push({ patternSpecId: COMMON_FACTOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: numerator + "/" + denominator + " 約成最簡分數時，分子和分母同除的最大公因數是多少？" });
+        rows.push({ patternSpecId: SIMPLEST_NUMERATOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: numerator + "/" + denominator + " 約成最簡分數後，分子是多少？" });
+        rows.push({ patternSpecId: SIMPLEST_DENOMINATOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: numerator + "/" + denominator + " 約成最簡分數後，分母是多少？" });
+      }
+    }
+  }
+  return rows;
+}
+const CASES = Object.freeze(buildCases());
 function gcd(a, b) { let x = Math.abs(a); let y = Math.abs(b); while (y !== 0) [x, y] = [y, x % y]; return x; }
 function hashSeed(value) { let acc = 2166136261; for (const char of String(value ?? "p03f13")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619) >>> 0; } return acc || 1; }
 function buildQuestion(row, index) {

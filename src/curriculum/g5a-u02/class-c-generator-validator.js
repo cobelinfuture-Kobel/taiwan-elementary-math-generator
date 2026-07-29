@@ -16,6 +16,7 @@ const CLASS_C_PATTERN_IDS = Object.freeze([
 ]);
 
 const CLASS_C_SET = new Set(CLASS_C_PATTERN_IDS);
+const PGC_R04_FACTOR_TARGET_PRIMES = Object.freeze([13, 17, 19, 23, 29, 31, 37, 41, 43, 47]);
 const LIFECYCLE = Object.freeze({
   unitId: "g5a_u02",
   generatorStatus: "class_c_implemented_hidden",
@@ -100,7 +101,23 @@ function makeBase(patternSpecId, seed, data, prompt, answer) {
 }
 
 function compositeTarget(rng) {
-  return rng.int(2, 12) * rng.int(2, 12);
+  return rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
+}
+
+function projectCommonFactorPair(seed) {
+  const normalizedSeed = Number.isInteger(seed) && seed >= 1 ? seed : 1;
+  const slot = (normalizedSeed - 1) % 90;
+  const common = 2 + (slot % 9);
+  const leftMultiplier = 101 + (2 * slot);
+  const rightMultiplier = leftMultiplier + 1;
+  return Object.freeze({
+    common,
+    leftMultiplier,
+    rightMultiplier,
+    a: common * leftMultiplier,
+    b: common * rightMultiplier,
+    generationProjectionStatus: "PGC_R04_COMMON_FACTOR_SEED_PROJECTION_V2",
+  });
 }
 
 function generateByPattern(patternSpecId, rng, seed) {
@@ -182,16 +199,14 @@ function generateByPattern(patternSpecId, rng, seed) {
       return makeBase(patternSpecId, seed, { a, b, candidates }, `選出 ${a} 和 ${b} 的公因數。`, { selectedValues: candidates.filter((value) => a % value === 0 && b % value === 0) });
     }
     case "ps_g5a_u02_common_factor_enumeration": {
-      const common = rng.int(2, 10);
-      const a = common * rng.int(2, 10);
-      const b = common * rng.int(2, 10);
-      return makeBase(patternSpecId, seed, { a, b }, `列出 ${a} 和 ${b} 的所有公因數。`, { values: commonFactorsOf(a, b) });
+      const projected = projectCommonFactorPair(seed);
+      const { a, b } = projected;
+      return makeBase(patternSpecId, seed, { ...projected }, `列出 ${a} 和 ${b} 的所有公因數。`, { values: commonFactorsOf(a, b) });
     }
     case "ps_g5a_u02_greatest_common_factor": {
-      const common = rng.int(2, 10);
-      const a = common * rng.int(2, 10);
-      const b = common * rng.int(2, 10);
-      return makeBase(patternSpecId, seed, { a, b }, `求 ${a} 和 ${b} 的最大公因數。`, { value: gcd(a, b) });
+      const projected = projectCommonFactorPair(seed);
+      const { a, b } = projected;
+      return makeBase(patternSpecId, seed, { ...projected }, `求 ${a} 和 ${b} 的最大公因數。`, { value: gcd(a, b) });
     }
     default:
       throw new Error(`G5AU02_GENERIC_FALLBACK_FORBIDDEN:${patternSpecId}`);

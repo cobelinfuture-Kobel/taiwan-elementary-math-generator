@@ -10,7 +10,7 @@ export function validateBatchABrowserPlan(plan = {}) {
   const ids = Array.isArray(plan.patternSpecIds) ? plan.patternSpecIds : [];
   if (plan.sourceId !== G3B_U07_SOURCE_ID || ids.length !== 2 || !ids.every((id) => IDS.has(id))) return validateBasePlan(plan);
   const errors = [];
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 6) errors.push(issue("p03f7_question_count_invalid", "questionCount"));
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 20) errors.push(issue("p03f7_question_count_invalid", "questionCount"));
   const expected = plan.questionMode === "application" ? G3B_U07_FRACTION_UNIT_CONVERSION_APPLICATION_SPEC_IDS : G3B_U07_FRACTION_UNIT_CONVERSION_NUMERIC_SPEC_IDS;
   if (expected.some((id) => !ids.includes(id)) || ids.some((id) => !expected.includes(id))) errors.push(issue("p03f7_mode_pattern_mismatch", "patternSpecIds"));
   if (plan.genericFallbackAllowed !== false) errors.push(issue("p03f7_generic_fallback_must_be_disabled", "genericFallbackAllowed"));

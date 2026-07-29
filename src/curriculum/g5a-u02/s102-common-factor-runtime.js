@@ -84,6 +84,29 @@ function sampleNondegeneratePair(rng) {
   });
 }
 
+function projectNondegeneratePairFromSeed(seed) {
+  const normalizedSeed = Number.isInteger(seed) && seed >= 1 ? seed : 1;
+  const slot = (normalizedSeed - 1) % 90;
+  const commonBase = 2 + (slot % 9);
+  const leftMultiplier = 101 + (2 * slot);
+  const rightMultiplier = leftMultiplier + 1;
+  const a = commonBase * leftMultiplier;
+  const b = commonBase * rightMultiplier;
+  const factorSetA = factorsOf(a);
+  const factorSetB = factorsOf(b);
+  const commonFactors = intersection(factorSetA, factorSetB);
+  return deepFreeze({
+    a,
+    b,
+    factorSetA,
+    factorSetB,
+    commonFactors,
+    greatestCommonFactor: commonFactors.at(-1),
+    samplingProfileId: "nontrivial_common_factor_pair_v1",
+    generationProjectionStatus: "PGC_R04_COMMON_FACTOR_SEED_PROJECTION_V2",
+  });
+}
+
 function operandsAreNondegenerate(data) {
   if (!Number.isInteger(data?.a) || !Number.isInteger(data?.b) || data.a < 1 || data.b < 1) return false;
   if (data.a === data.b) return false;
@@ -112,9 +135,9 @@ export function getG5AU02S102PatternIds() {
   return [...S102_PATTERN_IDS];
 }
 
-export function generateG5AU02S102Pattern(patternSpecId, rng) {
+export function generateG5AU02S102Pattern(patternSpecId, rng, itemSeed = 1) {
   if (!isG5AU02S102Pattern(patternSpecId)) return null;
-  const sampled = sampleNondegeneratePair(rng);
+  const sampled = projectNondegeneratePairFromSeed(itemSeed);
   const baseData = {
     a: sampled.a,
     b: sampled.b,
@@ -123,6 +146,7 @@ export function generateG5AU02S102Pattern(patternSpecId, rng) {
     commonFactors: clone(sampled.commonFactors),
     greatestCommonFactor: sampled.greatestCommonFactor,
     samplingProfileId: sampled.samplingProfileId,
+    generationProjectionStatus: sampled.generationProjectionStatus,
   };
 
   if (patternSpecId === "ps_g5a_u02_common_factor_enumeration") {

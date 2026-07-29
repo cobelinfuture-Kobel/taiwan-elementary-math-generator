@@ -10,7 +10,7 @@ export const G4B_U04_PROMPT_DEDUPLICATION_MAX_RETRIES = 128;
 const UNBOUNDED = Number.POSITIVE_INFINITY;
 
 export const G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC = Object.freeze({
-  ps_g4b_u04_approx_symbol_reading: 1,
+  ps_g4b_u04_approx_symbol_reading: 24,
   ps_g4b_u04_inverse_digit_set: G4B_U04_INVERSE_DIGIT_SET_CASES.length,
   ps_g4b_u04_inverse_original_values: G4B_U04_INVERSE_ORIGINAL_VALUE_CASES.length,
 });

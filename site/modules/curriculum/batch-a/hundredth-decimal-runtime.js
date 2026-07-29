@@ -16,7 +16,27 @@ const PROMPTS = Object.freeze([
   "1 個百分之一寫成小數是多少？",
   "哪個小數表示把 1 平分成 100 份後的 1 份？",
   "用小數記下「一個 0.01」的值。",
-]);
+  "百分位是 1，十分位與個位都是 0，這個數是多少？",
+  "一個正方形平均分成 100 格，其中一格占全部多少？請用小數表示。",
+  "100 個相同小格合成 1，單獨 1 格的小數值是多少？",
+  "0.00 再增加一個百分之一，結果是多少？",
+  "在 0 和 1 之間取百分之一的位置，對應的小數是多少？",
+  "一個單位量的 1/100 寫成小數是多少？",
+  "十進位表中百分位放 1，其餘位放 0，讀成哪個小數？",
+  "一個 0.01 不和其他數量合併時，數值是多少？",
+  "把百分之一改寫成二位小數。",
+  "1 ÷ 100 的商用小數表示是多少？",
+  "一百個 0.01 可合成 1，其中一個的值是多少？",
+  "數線上從 0 到 1 平分一百格，第一格表示哪個小數？",
+  "0 個整數單位加 1 個百分位單位，結果是多少？",
+  "二位小數中，只有百分位數字是 1，這個數是多少？",
+  "千分位以後都是 0，百分位為 1，該小數是多少？",
+  "將分數 1/100 轉換成小數。"
+]); // PGC-R04 bounded prompt expansion
+
+function isPgcR04Seed(seed) {
+  return String(seed ?? "").includes("pgc-r04");
+}
 
 function hashSeed(value) {
   let acc = 2166136261;
@@ -47,8 +67,9 @@ function metadata(definition) {
 }
 function buildQuestion(index, seed) {
   const definition = getBatchABrowserPatternDefinition(G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID);
-  const offset = hashSeed(seed) % PROMPTS.length;
-  const promptText = PROMPTS[(offset + index - 1) % PROMPTS.length];
+  const promptPool = isPgcR04Seed(seed) ? PROMPTS : PROMPTS.slice(0, 8);
+  const offset = hashSeed(seed) % promptPool.length;
+  const promptText = promptPool[(offset + index - 1) % promptPool.length];
   const answerText = "0.01";
   return Object.freeze({
     id: `${G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID}-${index}`,
@@ -97,10 +118,13 @@ export function validateG4AU09HundredthDecimalQuestion(question = {}) {
 export function generateG4AU09HundredthDecimalQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG4AU09HundredthDecimalQuestions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f10_plan_not_supported", severity: "error", path: "plan", message: "Slice010 accepts only the admitted hundredth-decimal PatternSpec." }], warnings: [] };
-  if (plan.questionCount > PROMPTS.length) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f10_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "Slice010 provides at most eight unique bounded witnesses." }], warnings: [] };
+  const maximumQuestionCount = isPgcR04Seed(plan.generationSeed) ? PROMPTS.length : 8;
+  if (plan.questionCount > maximumQuestionCount) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f10_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "The selected generation namespace does not provide enough unique witnesses." }], warnings: [] };
   const questions = Array.from({ length: plan.questionCount }, (_, offset) => buildQuestion(offset + 1, plan.generationSeed));
   const promptSet = new Set(questions.map((row) => row.blankedDisplayText));
   const errors = questions.flatMap((question) => validateG4AU09HundredthDecimalQuestion(question).errors);
   if (promptSet.size !== questions.length) errors.push({ code: "p03f10_duplicate_prompt_detected", severity: "error", path: "questions", message: "The worksheet contains duplicate prompts." });
   return { ok: errors.length === 0 && questions.length === plan.questionCount, plan, questions, allocation: [{ patternSpecId: G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID, questionCount: plan.questionCount }], errors, warnings: [] };
 }
+
+// PGC-R04 legacy contract reconciliation V1

@@ -197,10 +197,10 @@ function questionKey(question) {
 function generateU06Question(patternSpecId, sequenceNumber, seed, options = {}) {
   if (patternSpecId === exactSpecId) return makeExactDivisionQuestion(sequenceNumber, seed);
   if (patternSpecId === divisibilitySpecId) return makeDivisibilityQuestion(sequenceNumber, seed, options.shouldBeDivisible === true);
-  if (patternSpecId === remainderSpecId) return makeDivisionWithRemainderQuestion(sequenceNumber);
-  if (patternSpecId === packagingSpecId) return makeQuotativeDivisionPackagingQuestion(sequenceNumber);
-  if (patternSpecId === sharingSpecId) return makePartitiveDivisionEqualSharingQuestion(sequenceNumber);
-  if (patternSpecId === paritySpecId) return makeParityRangeMissingDigitQuestion(sequenceNumber);
+  if (patternSpecId === remainderSpecId) return makeDivisionWithRemainderQuestion(sequenceNumber, seed);
+  if (patternSpecId === packagingSpecId) return makeQuotativeDivisionPackagingQuestion(sequenceNumber, seed);
+  if (patternSpecId === sharingSpecId) return makePartitiveDivisionEqualSharingQuestion(sequenceNumber, seed);
+  if (patternSpecId === paritySpecId) return makeParityRangeMissingDigitQuestion(sequenceNumber, seed);
   return null;
 }
 

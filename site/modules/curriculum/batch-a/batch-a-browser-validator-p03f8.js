@@ -14,7 +14,7 @@ export function validateBatchABrowserPlan(plan = {}) {
   const ids = Array.isArray(plan.patternSpecIds) ? plan.patternSpecIds : [];
   if (plan.sourceId !== G3B_U09_SOURCE_ID || ids.length < 1 || ids.length > 2 || !ids.every((id) => IDS.has(id))) return validateBasePlan(plan);
   const errors = [];
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 8) errors.push(issue("p03f8_question_count_invalid", "questionCount"));
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 20) errors.push(issue("p03f8_question_count_invalid", "questionCount"));
   if (plan.questionMode !== "numeric") errors.push(issue("p03f8_application_scope_violation", "questionMode"));
   if (plan.genericFallbackAllowed !== false) errors.push(issue("p03f8_generic_fallback_must_be_disabled", "genericFallbackAllowed"));
   for (const id of ids) {

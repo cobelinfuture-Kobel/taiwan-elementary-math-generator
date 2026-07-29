@@ -18,13 +18,15 @@ function buildTwoDigitRemainderModels() {
   return models.sort((left, right) => left.dividend - right.dividend || left.divisor - right.divisor || left.remainder - right.remainder);
 }
 
-function modelFor(sequenceNumber) {
+function hashSeed(value) { let acc = 2166136261; for (const char of String(value ?? "default")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619) >>> 0; } return acc || 1; }
+function modelFor(sequenceNumber, seed) {
   const index = Math.max(1, Number.isInteger(sequenceNumber) ? sequenceNumber : 1) - 1;
-  return TWO_DIGIT_REMAINDER_MODELS[index % TWO_DIGIT_REMAINDER_MODELS.length];
+  const offset = hashSeed(String(seed ?? "default") + ":" + G3A_U06_REMAINDER_SPEC_ID) % TWO_DIGIT_REMAINDER_MODELS.length;
+  return TWO_DIGIT_REMAINDER_MODELS[(offset + index) % TWO_DIGIT_REMAINDER_MODELS.length];
 }
 
-export function makeDivisionWithRemainderQuestion(sequenceNumber = 1) {
-  const model = modelFor(sequenceNumber);
+export function makeDivisionWithRemainderQuestion(sequenceNumber = 1, seed = "default") {
+  const model = modelFor(sequenceNumber, seed);
   const answerText = `${model.quotient} 餘 ${model.remainder}`;
   return {
     id: `${G3A_U06_REMAINDER_SPEC_ID}-${sequenceNumber}`,
@@ -54,6 +56,6 @@ export function makeDivisionWithRemainderQuestion(sequenceNumber = 1) {
 
 export function generateG3AU06DivisionWithRemainderQuestions(options = {}) {
   const questionCount = Number.isInteger(options.questionCount) ? options.questionCount : 20;
-  const questions = Array.from({ length: questionCount }, (_, index) => makeDivisionWithRemainderQuestion(index + 1));
+  const questions = Array.from({ length: questionCount }, (_, index) => makeDivisionWithRemainderQuestion(index + 1, options.generationSeed));
   return { ok: true, plan: { sourceId: G3A_U06_REMAINDER_SOURCE_ID, patternSpecIds: [G3A_U06_REMAINDER_SPEC_ID], questionCount }, questions, allocation: [{ patternSpecId: G3A_U06_REMAINDER_SPEC_ID, questionCount }], errors: [], warnings: [] };
 }

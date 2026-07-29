@@ -7,6 +7,7 @@ const S100_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_complete_factor_list_statement_evaluation",
 ]);
 const S100_PATTERN_SET = new Set(S100_PATTERN_IDS);
+const PGC_R04_FACTOR_TARGET_PRIMES = Object.freeze([13, 17, 19, 23, 29, 31, 37, 41, 43, 47]);
 
 const DIVISIBILITY_FAMILIES = Object.freeze([
   "candidate_is_factor_of_target",
@@ -71,6 +72,23 @@ const PROBLEM_SCENARIOS = Object.freeze({
   }),
 });
 const PROBLEM_SCENARIO_IDS = Object.freeze(Object.keys(PROBLEM_SCENARIOS));
+
+function projectProblemTypeScenario(seed) {
+  const normalizedSeed = Number.isInteger(seed) && seed >= 1 ? seed : 1;
+  const familyIndex = (normalizedSeed - 1) % PROBLEM_SCENARIO_IDS.length;
+  const cycle = Math.floor((normalizedSeed - 1) / PROBLEM_SCENARIO_IDS.length);
+  const slot = cycle % 90;
+  return Object.freeze({
+    scenarioFamilyId: PROBLEM_SCENARIO_IDS[familyIndex],
+    values: Object.freeze({
+      total: 120 + slot,
+      groupSize: 2 + slot,
+      a: 24 + (2 * slot),
+      b: 36 + (2 * slot),
+    }),
+    projectionStatus: "PGC_R04_PROBLEM_TYPE_SEED_PROJECTION",
+  });
+}
 
 function factorsOf(target) {
   const low = [];
@@ -198,12 +216,12 @@ export function getG5AU02S100PatternIds() {
   return [...S100_PATTERN_IDS];
 }
 
-export function generateG5AU02S100Pattern(patternSpecId, rng) {
+export function generateG5AU02S100Pattern(patternSpecId, rng, itemSeed = 1) {
   if (!S100_PATTERN_SET.has(patternSpecId)) return null;
 
   switch (patternSpecId) {
     case "ps_g5a_u02_factor_relation_equivalence": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const isFactor = rng.int(0, 1) === 1;
       const candidateDivisor = isFactor
         ? rng.pick(factorsOf(target))
@@ -233,7 +251,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_factor_enumeration_trial_division": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const { rows, searchEnd, factorValues } = buildTrialDivision(target);
       return {
         data: { target, trialDivisionRows: rows, searchEnd, factorValues },
@@ -243,7 +261,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_factor_list_from_pairs": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const factorPairs = factorPairsOf(target);
       const orderedFactorList = factorsOf(target);
       return {
@@ -259,7 +277,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_factor_statement_judgement": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const truthWanted = rng.int(0, 1) === 1;
       const candidateDivisor = truthWanted
         ? rng.pick(factorsOf(target))
@@ -290,22 +308,17 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_problem_type_classification": {
-      const scenarioFamilyId = rng.pick(PROBLEM_SCENARIO_IDS);
-      const scenario = PROBLEM_SCENARIOS[scenarioFamilyId];
-      const values = {
-        total: rng.int(4, 12) * rng.int(2, 8),
-        groupSize: rng.int(2, 12),
-        a: rng.int(2, 10) * rng.int(2, 7),
-        b: rng.int(2, 10) * rng.int(2, 7),
-      };
-      const built = scenario.build(values);
+      const projected = projectProblemTypeScenario(itemSeed);
+      const scenario = PROBLEM_SCENARIOS[projected.scenarioFamilyId];
+      const built = scenario.build(projected.values);
       return {
         data: {
           contextKind: scenario.expectedLabel,
-          scenarioFamilyId,
+          scenarioFamilyId: projected.scenarioFamilyId,
           scenarioText: built.scenarioText,
           quantityRoles: built.quantityRoles,
           expectedLabel: scenario.expectedLabel,
+          generationProjectionStatus: projected.projectionStatus,
         },
         prompt: `${built.scenarioText}\n請判斷這是因數、倍數、公因數或公倍數問題。`,
         answer: { label: scenario.expectedLabel },
@@ -313,7 +326,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_complete_factor_list_statement_evaluation": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const factorList = factorsOf(target);
       const statements = buildReasoningStatements(target, rng);
       return {

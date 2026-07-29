@@ -53,21 +53,22 @@ function allKpMixedOptions(questionCount = 200, ordering = "groupedByPattern") {
   };
 }
 
-test("G4A-U01 boundary difference saturates at 8 with a non-blocking warning", () => {
+test("G4A-U01 public numeric consumer fills ten unique boundary-difference questions", () => {
   const result = buildBatchABrowserWorksheetDocument(singleKpOptions("kp_g4a_u01_boundary_number_difference", 10));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.worksheetDocument.summary.questionCount, 8);
+  assert.equal(result.worksheetDocument.summary.questionCount, 10);
   assert.equal(result.worksheetDocument.generatedQuestions.every((question) => question.patternSpecId === "ps_g4a_u01_boundary_number_difference"), true);
-  assert.equal(result.warnings.some((warning) => warning.code === "batch_a_g4a_u01_unique_pool_limited" || warning.code === "batch_a_g4a_u01_question_count_saturated"), true);
+  assert.equal(new Set(result.worksheetDocument.generatedQuestions.map((question) => question.blankedDisplayText)).size, 10);
 });
 
-test("G4A-U01 same-unit mixed mode backfills boundary shortage and still reaches requested count", () => {
+test("G4A-U01 same-unit mixed public consumer reaches requested count with unique question IDs", () => {
   const result = buildBatchABrowserWorksheetDocument(allKpMixedOptions(200, "groupedByPattern"));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.summary.questionCount, 200);
-  const boundaryCount = result.worksheetDocument.generatedQuestions.filter((question) => question.patternSpecId === "ps_g4a_u01_boundary_number_difference").length;
-  assert.equal(boundaryCount, 8);
-  assert.equal(result.warnings.some((warning) => warning.code === "batch_a_g4a_u01_unique_pool_limited"), true);
+  const generated = result.worksheetDocument.generatedQuestions;
+  const boundaryCount = generated.filter((question) => question.patternSpecId === "ps_g4a_u01_boundary_number_difference").length;
+  assert.ok(boundaryCount >= 8);
+  assert.equal(new Set(generated.map((question) => question.id)).size, 200);
 });
 
 test("G4A-U01 shuffleAcrossPatterns changes render order for same-unit mixed output", () => {

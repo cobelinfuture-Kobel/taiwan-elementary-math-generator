@@ -14,14 +14,19 @@ const REQUIRED_CAPABILITY_IDS = Object.freeze([
   "cap_fraction_domain_validator",
   "cap_fraction_number_system",
 ]);
-const FIXTURES = Object.freeze([
-  Object.freeze({ totalQuantity: 6, recipientCount: 4 }),
-  Object.freeze({ totalQuantity: 5, recipientCount: 2 }),
-  Object.freeze({ totalQuantity: 7, recipientCount: 3 }),
-  Object.freeze({ totalQuantity: 8, recipientCount: 6 }),
-  Object.freeze({ totalQuantity: 9, recipientCount: 4 }),
-  Object.freeze({ totalQuantity: 10, recipientCount: 6 }),
+const APPLICATION_FIXTURES = Object.freeze([
+  Object.freeze({ totalQuantity: 6, recipientCount: 4 }), Object.freeze({ totalQuantity: 5, recipientCount: 2 }),
+  Object.freeze({ totalQuantity: 7, recipientCount: 3 }), Object.freeze({ totalQuantity: 8, recipientCount: 6 }),
+  Object.freeze({ totalQuantity: 9, recipientCount: 4 }), Object.freeze({ totalQuantity: 10, recipientCount: 6 }),
 ]);
+function buildNumericFixtures() {
+  const rows = [];
+  for (let totalQuantity = 1; totalQuantity <= 30; totalQuantity += 1) {
+    for (let recipientCount = 2; recipientCount <= 15; recipientCount += 1) rows.push(Object.freeze({ totalQuantity, recipientCount }));
+  }
+  return rows;
+}
+const NUMERIC_FIXTURES = Object.freeze(buildNumericFixtures()); // PGC-R04 quotient numeric parameter space
 const APPLICATION_SURFACES = Object.freeze([
   "農園將 {{total}} 份同量的育苗資源平均分配給 {{count}} 個栽培區，每個栽培區分得多少份資源？",
   "農業生產小組把 {{total}} 份批次資源平均安排到 {{count}} 個種植區，每區可分得多少份？",
@@ -57,8 +62,8 @@ function reduced(totalQuantity, recipientCount) {
   return Object.freeze({ numerator: totalQuantity / divisor, denominator: recipientCount / divisor });
 }
 function fractionText(value) { return value.denominator === 1 ? String(value.numerator) : `${value.numerator}/${value.denominator}`; }
-function seedOffset(seed) {
-  return [...String(seed ?? "p03f13-quotient")].reduce((sum, char) => (sum + char.charCodeAt(0)) % FIXTURES.length, 0);
+function seedOffset(seed, size) {
+  return [...String(seed ?? "p03f13-quotient")].reduce((sum, char) => (sum + char.charCodeAt(0)) % size, 0);
 }
 function metadata(definition, authority) {
   return Object.freeze({
@@ -165,13 +170,14 @@ export function generateG5AU04QuotientFractionQuestions(options = {}) {
     return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f13_quotient_plan_not_supported", severity: "error", path: "plan", message: "Slice013 quotient runtime accepts one admitted numeric or application PatternSpec." }], warnings: [] };
   }
   const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 6;
-  if (count <= 0 || count > FIXTURES.length) {
-    return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f13_quotient_question_count_invalid", severity: "error", path: "questionCount", message: "Slice013 quotient runtime provides at most six unique witnesses per mode." }], warnings: [] };
-  }
   const patternSpecId = plan.patternSpecIds[0];
   const mode = patternSpecId === G5A_U04_QUOTIENT_CONTEXT_APPLICATION_SPEC_ID ? "application" : "numeric";
-  const offset = seedOffset(plan.generationSeed);
-  const selected = Array.from({ length: count }, (_, index) => FIXTURES[(offset + index) % FIXTURES.length]);
+  const fixturePool = mode === "application" ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
+  if (count <= 0 || count > fixturePool.length) {
+    return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f13_quotient_question_count_invalid", severity: "error", path: "questionCount", message: "The selected quotient mode does not provide enough unique witnesses." }], warnings: [] };
+  }
+  const offset = seedOffset(plan.generationSeed, fixturePool.length);
+  const selected = Array.from({ length: count }, (_, index) => fixturePool[(offset + index) % fixturePool.length]);
   const questions = selected.map((fixture, index) => buildQuestion(patternSpecId, fixture, index, mode));
   const errors = questions.flatMap((question, index) => validateG5AU04QuotientFractionQuestion(question).errors.map((entry) => ({ ...entry, path: `questions[${index}].${entry.path}` })));
   if (new Set(questions.map((row) => row.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f13_quotient_duplicate_prompt", severity: "error", path: "questions", message: "Duplicate prompt detected." });

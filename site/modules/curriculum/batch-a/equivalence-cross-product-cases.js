@@ -1,10 +1,13 @@
-export const G4B_U08_EQUIVALENCE_CROSS_PRODUCT_CASES = Object.freeze([
-  Object.freeze({ leftNumerator: 1, leftDenominator: 2, rightNumerator: 2, rightDenominator: 4 }),
-  Object.freeze({ leftNumerator: 2, leftDenominator: 3, rightNumerator: 4, rightDenominator: 6 }),
-  Object.freeze({ leftNumerator: 3, leftDenominator: 5, rightNumerator: 9, rightDenominator: 15 }),
-  Object.freeze({ leftNumerator: 4, leftDenominator: 7, rightNumerator: 8, rightDenominator: 14 }),
-  Object.freeze({ leftNumerator: 1, leftDenominator: 3, rightNumerator: 2, rightDenominator: 5 }),
-  Object.freeze({ leftNumerator: 3, leftDenominator: 4, rightNumerator: 6, rightDenominator: 10 }),
-  Object.freeze({ leftNumerator: 5, leftDenominator: 8, rightNumerator: 10, rightDenominator: 16 }),
-  Object.freeze({ leftNumerator: 2, leftDenominator: 7, rightNumerator: 6, rightDenominator: 20 }),
-]);
+function buildCrossProductCases() {
+  const rows = [];
+  for (let leftDenominator = 2; leftDenominator <= 15; leftDenominator += 1) {
+    for (let leftNumerator = 1; leftNumerator < leftDenominator; leftNumerator += 1) {
+      for (let factor = 2; factor <= 6; factor += 1) {
+        rows.push(Object.freeze({ leftNumerator, leftDenominator, rightNumerator: leftNumerator * factor, rightDenominator: leftDenominator * factor }));
+        rows.push(Object.freeze({ leftNumerator, leftDenominator, rightNumerator: leftNumerator * factor + 1, rightDenominator: leftDenominator * factor }));
+      }
+    }
+  }
+  return rows;
+}
+export const G4B_U08_EQUIVALENCE_CROSS_PRODUCT_CASES = Object.freeze(buildCrossProductCases()); // PGC-R04 cross product parameter space

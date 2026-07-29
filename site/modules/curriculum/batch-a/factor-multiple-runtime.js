@@ -9,8 +9,14 @@ import { leastCommonMultiple } from "./number-theory-runtime.js";
 
 const SPEC_SET = new Set(G5A_U03_PATTERN_SPEC_IDS);
 const BASES = Object.freeze([2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15]);
-const PRODUCT_PAIRS = Object.freeze([[2,6],[3,8],[4,9],[5,7],[6,8],[7,9],[8,12],[9,11],[10,12],[12,15]]);
-const LCM_PAIRS = Object.freeze([[2,3],[3,4],[4,6],[5,6],[6,8],[8,12],[9,12],[10,15],[12,18],[14,21],[15,20]]);
+const PRODUCT_PAIRS = Object.freeze(Array.from({ length: 29 }, (_, index) => index + 2)
+  .flatMap((left) => Array.from({ length: 29 - left + 2 }, (_, offset) => left + offset)
+    .filter((right) => right <= 30)
+    .map((right) => Object.freeze([left, right]))));
+const LCM_PAIRS = Object.freeze(Array.from({ length: 29 }, (_, index) => index + 2)
+  .flatMap((left) => Array.from({ length: 29 }, (_, index) => index + 2)
+    .filter((right) => right > left && leastCommonMultiple(left, right) <= 600)
+    .map((right) => Object.freeze([left, right]))));
 const DIVISORS = Object.freeze([2, 3, 5, 10]);
 const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
 
@@ -142,7 +148,10 @@ function generate(definition, index, seed) {
     const [left, right] = pick(PRODUCT_PAIRS, seed, index, op);
     const product = left * right;
     const answer = relationText(left, right, product);
-    return question(definition, index, `根據 ${left} × ${right} = ${product}，寫出因數與倍數關係。`, answer, { left, right, product });
+    const prompt = op === "relation_from_product"
+      ? "由 " + left + " × " + right + " = " + product + "，說明三個數的因數與倍數關係。"
+      : "完成敘述：" + left + " 和 " + right + " 是 " + product + " 的＿＿；" + product + " 是 " + left + " 和 " + right + " 的＿＿。";
+    return question(definition, index, prompt, answer, { left, right, product });
   }
   if (op === "divisibility_classification_23510") {
     const value = (20 + state(seed, index, op) % 480) * pick([2,3,5,6,10,15], seed, index, `${op}:m`);
@@ -256,14 +265,17 @@ function generate(definition, index, seed) {
     return question(definition, index, `不超過 ${max} 個時，哪些總量能同時以每 ${data.left} 個或每 ${data.right} 個剛好分組？`, listText(totals), { ...data, max, totals });
   }
   if (op === "construct_number_divisibility") {
-    const cases = [
-      { digits:[1,2,3], divisor:2 }, { digits:[1,2,3], divisor:3 },
-      { digits:[2,4,5], divisor:2 }, { digits:[2,4,5], divisor:5 },
-      { digits:[0,3,6], divisor:3 }, { digits:[0,3,6], divisor:10 },
-      { digits:[1,5,8], divisor:2 }, { digits:[1,5,8], divisor:5 },
-      { digits:[2,5,9], divisor:2 }, { digits:[2,5,9], divisor:5 },
-      { digits:[0,4,8], divisor:3 }, { digits:[0,4,8], divisor:10 },
-    ];
+    const cases = [];
+    for (let first = 0; first <= 7; first += 1) {
+      for (let second = first + 1; second <= 8; second += 1) {
+        for (let third = second + 1; third <= 9; third += 1) {
+          for (const divisor of DIVISORS) {
+            const digits = [first, second, third];
+            if (constructNumbers(digits, divisor).length > 0) cases.push({ digits, divisor });
+          }
+        }
+      }
+    }
     const selected = pick(cases, seed, index, `${op}:case`);
     const digits = [...selected.digits];
     const divisor = selected.divisor;
@@ -357,3 +369,5 @@ export function generateG5AU03FactorMultipleQuestions(options = {}) {
     : questions;
   return { ok: errors.length === 0 && ordered.length === plan.questionCount, plan, questions: ordered, allocation, errors, warnings: [] };
 }
+
+// PGC-R04 final factor-multiple parameter expansion

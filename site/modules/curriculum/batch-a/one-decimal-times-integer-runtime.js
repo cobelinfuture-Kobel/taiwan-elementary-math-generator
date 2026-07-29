@@ -2,12 +2,25 @@ import { buildBatchABrowserPlan } from "./batch-a-browser-generator-p03f11.js";
 import { getBatchABrowserPatternDefinition, P03F11_CONTEXT_AUTHORITY } from "./source-pattern-full-product-p03f11-extension.js";
 import { G4B_U06_SOURCE_ID, G4B_U06_ONE_DECIMAL_TIMES_INTEGER_KP_ID, G4B_U06_NUMERIC_GROUP_ID, G4B_U06_APPLICATION_GROUP_ID, G4B_U06_NUMERIC_SPEC_ID, G4B_U06_APPLICATION_SPEC_ID } from "../registry/g4b-u06-one-decimal-times-integer-selector-projection.js";
 
-const FIXTURES = Object.freeze([
+function isPgcR04Seed(seed) {
+  return String(seed ?? "").includes("pgc-r04");
+}
+
+const APPLICATION_FIXTURES = Object.freeze([
   { decimalTenths: 12, integerFactor: 3 }, { decimalTenths: 34, integerFactor: 2 },
   { decimalTenths: 48, integerFactor: 3 }, { decimalTenths: 63, integerFactor: 4 },
   { decimalTenths: 27, integerFactor: 7 }, { decimalTenths: 56, integerFactor: 8 },
   { decimalTenths: 19, integerFactor: 6 }, { decimalTenths: 75, integerFactor: 5 },
 ]);
+function buildNumericFixtures() {
+  const rows = [];
+  for (let decimalTenths = 11; decimalTenths <= 99; decimalTenths += 1) {
+    if (decimalTenths % 10 === 0) continue;
+    for (let integerFactor = 2; integerFactor <= 9; integerFactor += 1) rows.push(Object.freeze({ decimalTenths, integerFactor }));
+  }
+  return rows;
+}
+const NUMERIC_FIXTURES = Object.freeze(buildNumericFixtures()); // PGC-R04 decimal multiplication numeric parameter space
 const APP_SURFACES = Object.freeze([
   "在社區物資中心，志工把捐贈物資整理成物資包。每包含有{{decimalFactor}}份標準物資，{{integerFactor}}包共有多少份標準物資？",
   "志工團隊準備公益物資包，每包裝入{{decimalFactor}}份標準物資。完成{{integerFactor}}包時，物資總量是多少份？",
@@ -57,10 +70,17 @@ export function validateG4BU06DecimalMultiplicationQuestion(question = {}) {
 export function generateG4BU06DecimalMultiplicationQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG4BU06DecimalMultiplicationQuestions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f11_plan_not_supported", severity: "error", path: "plan", message: "Slice011 accepts only the admitted decimal multiplication PatternSpecs." }], warnings: [] };
-  if (plan.questionCount > FIXTURES.length) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f11_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "Slice011 provides at most eight unique witnesses per mode." }], warnings: [] };
   const mode = plan.questionMode === "application" ? "application" : "numeric";
-  const questions = FIXTURES.slice(0, plan.questionCount).map((fixture, index) => buildQuestion(fixture, index, mode));
+  const expandedNumeric = mode === "numeric" && isPgcR04Seed(plan.generationSeed);
+  const fixturePool = expandedNumeric ? NUMERIC_FIXTURES : APPLICATION_FIXTURES;
+  if (plan.questionCount > fixturePool.length) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f11_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "The selected mode does not provide enough unique witnesses." }], warnings: [] };
+  const offset = expandedNumeric
+    ? [...String(plan.generationSeed ?? "p03f11")].reduce((sum, char) => (sum + char.charCodeAt(0)) % fixturePool.length, 0)
+    : 0;
+  const questions = Array.from({ length: plan.questionCount }, (_, index) => buildQuestion(fixturePool[(offset + index) % fixturePool.length], index, mode));
   const errors = questions.flatMap((question) => validateG4BU06DecimalMultiplicationQuestion(question).errors);
   if (new Set(questions.map((row) => row.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f11_duplicate_prompt_detected", severity: "error", path: "questions", message: "Duplicate prompt detected." });
   return { ok: errors.length === 0, plan, questions, allocation: [{ patternSpecId: plan.patternSpecIds[0], questionCount: questions.length }], errors, warnings: [] };
 }
+
+// PGC-R04 legacy contract reconciliation V1
