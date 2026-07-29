@@ -6,13 +6,24 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../
 const patcherPath = path.join(repoRoot, "tools/curriculum/apply-pgc-r04-final-legacy-producer-patch.mjs");
 let source = fs.readFileSync(patcherPath, "utf8");
 
+const embeddedRuntimeIdentifiers = [
+  "largerDigitCount",
+  "smallerDigitCount",
+  "left",
+  "right",
+  "product",
+  "unitFractionCount",
+  "denominator",
+];
 const before = source;
-source = source
-  .replaceAll("${largerDigitCount}", "\\${largerDigitCount}")
-  .replaceAll("${smallerDigitCount}", "\\${smallerDigitCount}");
+for (const identifier of embeddedRuntimeIdentifiers) {
+  source = source.replaceAll("${" + identifier + "}", "\\${" + identifier + "}");
+}
 
 if (source !== before) fs.writeFileSync(patcherPath, source);
-if (!source.includes("\\${largerDigitCount}") || !source.includes("\\${smallerDigitCount}")) {
-  throw new Error("PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE_FAILED");
+for (const identifier of embeddedRuntimeIdentifiers) {
+  if (!source.includes("\\${" + identifier + "}")) {
+    throw new Error("PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE_FAILED:" + identifier);
+  }
 }
 console.log(source === before ? "PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE=ALREADY_FIXED" : "PGC_R04_FINAL_PATCHER_TEMPLATE_ESCAPE=PATCHED");
