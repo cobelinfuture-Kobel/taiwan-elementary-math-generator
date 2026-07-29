@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "tools/curriculum/materialize-pgc-r03-generator-capacity-contract.mjs"
+      - "tools/curriculum/materialize-pgc-r03-generator-capacity-contract-v2.mjs"
       - "tests/curriculum/pgc-r03-generator-capacity-contract.test.js"
       - "data/curriculum/public-generation/generator_capacity_contract.json"
       - "data/curriculum/public-generation/route_capacity_matrix.csv"
@@ -35,9 +36,9 @@ jobs:
         with:
           node-version: 24
 
-      - name: Materialize full capacity evidence fail-closed
+      - name: Materialize authoritative display-model capacity evidence fail-closed
         continue-on-error: true
-        run: node tools/curriculum/materialize-pgc-r03-generator-capacity-contract.mjs
+        run: node tools/curriculum/materialize-pgc-r03-generator-capacity-contract-v2.mjs
 
       - name: Commit deterministic capacity artifacts before acceptance
         run: |
