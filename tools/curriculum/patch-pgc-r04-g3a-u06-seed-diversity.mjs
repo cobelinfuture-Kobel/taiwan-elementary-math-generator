@@ -35,7 +35,7 @@ function greatestCommonDivisor(left, right) {
 function seededSequenceNumber(patternSpecId, sequenceNumber, seed) {
   const length = specializedPoolLengths[patternSpecId];
   if (!length) return sequenceNumber;
-  const seedValue = hashSeed(\`${sourceId}:\${patternSpecId}:\${seed ?? "default"}\`);
+  const seedValue = hashSeed(sourceId + ":" + patternSpecId + ":" + (seed ?? "default"));
   const offset = seedValue % length;
   let step = 1;
   for (let candidate = 2 + (seedValue % (length - 1)); candidate < length * 2; candidate += 1) {
