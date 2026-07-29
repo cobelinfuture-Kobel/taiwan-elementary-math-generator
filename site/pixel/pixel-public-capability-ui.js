@@ -173,13 +173,13 @@ new MutationObserver(scheduleSync).observe(document.body, {
     "data-pixel-selected-pattern-group-ids",
   ],
 });
-for (const panel of [knowledgePointPanel, patternGroupPanel, questionField, depthField, contextField]) {
+for (const panel of [knowledgePointPanel, patternGroupPanel]) {
   if (!panel) continue;
   new MutationObserver(scheduleSync).observe(panel, {
     childList: true,
     subtree: true,
     attributes: true,
-    attributeFilter: ["data-selected", "data-visible", "disabled"],
+    attributeFilter: ["data-selected"],
   });
 }
 

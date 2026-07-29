@@ -193,13 +193,13 @@ for (const element of [sourceSelect, selectionModeSelect, questionSelect, depthS
 }
 questionCountInput?.addEventListener("input", clampQuestionCount);
 
-for (const panel of [knowledgePointPanel, patternGroupPanel, sourceSelect, section]) {
+for (const panel of [knowledgePointPanel, patternGroupPanel, sourceSelect]) {
   if (!panel) continue;
   new MutationObserver(scheduleSync).observe(panel, {
     childList: true,
     subtree: true,
     attributes: true,
-    attributeFilter: ["data-selected", "data-visible", "data-source-id", "disabled"],
+    attributeFilter: ["data-selected", "data-source-id"],
   });
 }
 
