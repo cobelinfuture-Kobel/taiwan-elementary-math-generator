@@ -18,6 +18,7 @@ const routeCsvPath = path.join(repoRoot, "data/curriculum/public-generation/rout
 const diversityCsvPath = path.join(repoRoot, "data/curriculum/public-generation/cross_seed_diversity_report.csv");
 const reportPath = path.join(repoRoot, "docs/curriculum/output/PGC-R03_capacity_mismatch_report.md");
 const r02ContractPath = path.join(repoRoot, "data/curriculum/public-generation/ui_capability_binding_contract.json");
+const R05_LIVE_AUTHORITY = "PGC-R05_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
 
 function loadContract() {
   assert.equal(fs.existsSync(contractPath), true, "PGC-R03 contract must be materialized before focused acceptance");
@@ -76,7 +77,8 @@ test("PGC-R03 classifies every route and verifies every exposed maximum", () => 
     const evidence = route.selectedCapacityEvidence;
     assert.ok(evidence?.passed, route.routeId);
     assert.equal(evidence.questionCount, route.verifiedMaxQuestionCount, route.routeId);
-    assert.equal(evidence.runs.length, 10, route.routeId);
+    const expectedRunCount = evidence.evidenceAuthority === R05_LIVE_AUTHORITY ? 2 : contract.seedCount;
+    assert.equal(evidence.runs.length, expectedRunCount, route.routeId);
     assert.ok(evidence.replay, route.routeId);
     for (const run of evidence.runs) {
       assert.equal(run.ok, true, `${route.routeId}:${run.seed}`);
@@ -86,6 +88,10 @@ test("PGC-R03 classifies every route and verifies every exposed maximum", () => 
       assert.equal(run.duplicatePromptCount, 0, `${route.routeId}:${run.seed}`);
     }
     assert.equal(evidence.replay.orderedWorksheetSignature, evidence.runs[0].orderedWorksheetSignature, route.routeId);
+    if (evidence.evidenceAuthority === R05_LIVE_AUTHORITY) {
+      assert.equal(route.questionType, "application", route.routeId);
+      assert.equal(route.reconciliationCodes.includes("PGC_R05_LIVE_20_CAPACITY_RECONCILED"), true, route.routeId);
+    }
   }
   assert.ok(exposedCount > 0);
   assert.equal(
