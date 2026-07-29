@@ -5,6 +5,7 @@ on:
     paths:
       - "tools/curriculum/apply-pgc-r04-public-count-contract-patch.mjs"
       - "tools/curriculum/apply-pgc-r04-seed-parameterization-patch.mjs"
+      - "tools/curriculum/run-pgc-r04-seed-parameterization-idempotent.mjs"
       - "tools/curriculum/apply-pgc-r04-bounded-runtime-expansion-patch.mjs"
       - "tools/curriculum/run-pgc-r04-bounded-runtime-expansion-idempotent.mjs"
       - "tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs"
@@ -54,6 +55,7 @@ jobs:
         run: |
           node --check tools/curriculum/apply-pgc-r04-public-count-contract-patch.mjs
           node --check tools/curriculum/apply-pgc-r04-seed-parameterization-patch.mjs
+          node --check tools/curriculum/run-pgc-r04-seed-parameterization-idempotent.mjs
           node --check tools/curriculum/apply-pgc-r04-bounded-runtime-expansion-patch.mjs
           node --check tools/curriculum/run-pgc-r04-bounded-runtime-expansion-idempotent.mjs
           node --check tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs
@@ -69,7 +71,7 @@ jobs:
         run: node tools/curriculum/apply-pgc-r04-public-count-contract-patch.mjs
 
       - name: Apply seed-aware parameterization to existing numeric runtimes
-        run: node tools/curriculum/apply-pgc-r04-seed-parameterization-patch.mjs
+        run: node tools/curriculum/run-pgc-r04-seed-parameterization-idempotent.mjs
 
       - name: Expand bounded numeric runtime parameter spaces
         run: node tools/curriculum/run-pgc-r04-bounded-runtime-expansion-idempotent.mjs
