@@ -79,6 +79,11 @@ test("PGC-R05 G3A-U08 FullFix clears source-unit, single-KP and mixed-unit live 
   assert.equal(report.summary.liveFailureRouteCountBySource[SOURCE_ID], undefined);
   assert.equal(report.summary.live20PassRouteCount, 205, JSON.stringify(report.summary));
   assert.equal(report.summary.live20FailRouteCount, 6, JSON.stringify(report.summary));
+  assert.deepEqual(report.summary.liveFailureRouteCountBySource, {
+    g3b_u07_3b07: 3,
+    g4a_u08_4a08: 2,
+    g5a_u03_5a03a: 1,
+  });
 });
 
 test("PGC-R05 G3A-U08 repair is seed-scoped and preserves the reviewed six-fixture product path", async () => {
