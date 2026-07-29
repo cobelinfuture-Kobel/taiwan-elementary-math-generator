@@ -14,6 +14,7 @@ on:
       - "site/modules/curriculum/batch-a/g5a-u08-application-generator-core.js"
       - "site/modules/curriculum/batch-a/g5a-u08-application-batch-planner.js"
       - "site/modules/curriculum/batch-a/same-denominator-fraction-compare-runtime.js"
+      - "site/modules/curriculum/batch-a/discrete-fraction-conversion-runtime.js"
       - "site/modules/curriculum/batch-a/slice002-fraction-runtime.js"
       - "site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js"
       - "site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js"
@@ -54,6 +55,7 @@ jobs:
           node --check tools/curriculum/apply-pgc-r05-g3b-u04-application-diversity-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-g5a-u08-application-diversity-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-g3a-u08-application-diversity-patch.mjs
+          node --check tools/curriculum/apply-pgc-r05-g3b-u07-application-diversity-patch.mjs
           node --check tools/curriculum/apply-pgc-r05-progress-readback-controller-patch.mjs
           node --check tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
           node --check tests/curriculum/pgc-r05-bounded-application-capacity.test.js
@@ -62,6 +64,7 @@ jobs:
           node --check tests/curriculum/pgc-r05-g3b-u04-application-diversity.test.js
           node --check tests/curriculum/pgc-r05-g5a-u08-application-diversity.test.js
           node --check tests/curriculum/pgc-r05-g3a-u08-application-diversity.test.js
+          node --check tests/curriculum/pgc-r05-g3b-u07-application-diversity.test.js
 
       - name: Apply bounded application capacity FullFix
         run: node tools/curriculum/apply-pgc-r05-bounded-application-capacity-patch.mjs
@@ -80,6 +83,9 @@ jobs:
 
       - name: Apply G3A-U08 application diversity FullFix
         run: node tools/curriculum/apply-pgc-r05-g3a-u08-application-diversity-patch.mjs
+
+      - name: Apply G3B-U07 application diversity FullFix
+        run: node tools/curriculum/apply-pgc-r05-g3b-u07-application-diversity-patch.mjs
 
       - name: Apply live progress readback controller
         run: node tools/curriculum/apply-pgc-r05-progress-readback-controller-patch.mjs
@@ -118,6 +124,7 @@ jobs:
           node --test tests/curriculum/pgc-r05-g3b-u04-application-diversity.test.js
           node --test tests/curriculum/pgc-r05-g5a-u08-application-diversity.test.js
           node --test tests/curriculum/pgc-r05-g3a-u08-application-diversity.test.js
+          node --test tests/curriculum/pgc-r05-g3b-u07-application-diversity.test.js
 
       - name: Full repository regression
         run: npm test
@@ -133,6 +140,7 @@ jobs:
             site/modules/curriculum/batch-a/g5a-u08-application-generator-core.js \
             site/modules/curriculum/batch-a/g5a-u08-application-batch-planner.js \
             site/modules/curriculum/batch-a/same-denominator-fraction-compare-runtime.js \
+            site/modules/curriculum/batch-a/discrete-fraction-conversion-runtime.js \
             site/modules/curriculum/batch-a/slice002-fraction-runtime.js \
             site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js \
             site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js \
@@ -147,7 +155,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "R05 runtime and diagnostic artifacts already synchronized."
           else
-            git commit -m "fix(pgc-r05): sync G3A-U08 diversity and live progress [skip ci]"
+            git commit -m "fix(pgc-r05): sync G3B-U07 diversity and live progress [skip ci]"
             git fetch origin "${{ github.head_ref || github.ref_name }}"
             git rebase "origin/${{ github.head_ref || github.ref_name }}"
             git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
