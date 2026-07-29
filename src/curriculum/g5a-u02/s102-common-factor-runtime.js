@@ -86,9 +86,9 @@ function sampleNondegeneratePair(rng) {
 
 function projectNondegeneratePairFromSeed(seed) {
   const normalizedSeed = Number.isInteger(seed) && seed >= 1 ? seed : 1;
-  const slot = (normalizedSeed - 1) % 900;
+  const slot = (normalizedSeed - 1) % 90;
   const commonBase = 2 + (slot % 9);
-  const leftMultiplier = 11 + slot;
+  const leftMultiplier = 101 + (2 * slot);
   const rightMultiplier = leftMultiplier + 1;
   const a = commonBase * leftMultiplier;
   const b = commonBase * rightMultiplier;
@@ -103,7 +103,7 @@ function projectNondegeneratePairFromSeed(seed) {
     commonFactors,
     greatestCommonFactor: commonFactors.at(-1),
     samplingProfileId: "nontrivial_common_factor_pair_v1",
-    generationProjectionStatus: "PGC_R04_COMMON_FACTOR_SEED_PROJECTION",
+    generationProjectionStatus: "PGC_R04_COMMON_FACTOR_SEED_PROJECTION_V2",
   });
 }
 
