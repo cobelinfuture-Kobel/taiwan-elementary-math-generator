@@ -3,8 +3,10 @@ name: PGC-R04 Numeric Generation FullFix
 on:
   pull_request:
     paths:
+      - "tools/curriculum/apply-pgc-r04-public-count-contract-patch.mjs"
       - "tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs"
       - "tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js"
+      - "tests/curriculum/pgc-r04-numeric-unique-allocation.test.js"
       - "data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json"
       - "data/curriculum/public-generation/numeric_generation_gap_inventory.csv"
       - "docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md"
@@ -36,28 +38,39 @@ jobs:
         with:
           node-version: 24
 
-      - name: Syntax-check R04 diagnostic authority
-        run: node --check tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
+      - name: Syntax-check R04 authorities
+        run: |
+          node --check tools/curriculum/apply-pgc-r04-public-count-contract-patch.mjs
+          node --check tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
+          node --check site/modules/curriculum/batch-a/numeric-unique-allocation-fullfix.js
+          node --check site/modules/curriculum/batch-a/batch-a-browser-question-router.js
+
+      - name: Apply public 20-question validator contract
+        run: node tools/curriculum/apply-pgc-r04-public-count-contract-patch.mjs
 
       - name: Materialize numeric runtime gap diagnostics
         run: node tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
 
-      - name: Commit deterministic diagnostic artifacts
+      - name: Commit deterministic runtime and diagnostic artifacts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            site/modules/curriculum/batch-a/batch-a-browser-validator-p03f*.js \
             data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json \
             data/curriculum/public-generation/numeric_generation_gap_inventory.csv \
             docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md
           if git diff --cached --quiet; then
-            echo "R04 diagnostic artifacts already synchronized."
+            echo "R04 runtime and diagnostic artifacts already synchronized."
           else
-            git commit -m "data(pgc-r04): materialize numeric runtime gap evidence [skip ci]"
+            git commit -m "fix(pgc-r04): synchronize public count contract and runtime evidence [skip ci]"
             git fetch origin pgc-r04-numeric-generation-full-fix
             git rebase origin/pgc-r04-numeric-generation-full-fix
             git push origin HEAD:pgc-r04-numeric-generation-full-fix
           fi
+
+      - name: Focused R04 allocator acceptance
+        run: node --test tests/curriculum/pgc-r04-numeric-unique-allocation.test.js
 
       - name: Focused R04 diagnostic acceptance
         run: node --test tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js
