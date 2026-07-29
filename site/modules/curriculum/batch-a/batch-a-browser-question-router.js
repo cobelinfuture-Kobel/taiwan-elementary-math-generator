@@ -12,6 +12,7 @@ import { canGenerateG3BU09TenthDecimalQuestions, generateG3BU09TenthDecimalQuest
 import { canGenerateG4BU08EquivalentFractionQuestions, generateG4BU08EquivalentFractionQuestions } from "./equivalent-fraction-runtime.js";
 import { canGenerateG4BU08EquivalenceCrossProductQuestions, generateG4BU08EquivalenceCrossProductQuestions } from "./equivalence-cross-product-runtime.js";
 import { canGenerateG5AU04SimplestFractionQuestions, generateG5AU04SimplestFractionQuestions } from "./simplest-fraction-runtime.js";
+import { canGenerateG5AU04QuotientFractionQuestions, generateG5AU04QuotientFractionQuestions } from "./quotient-as-fraction-context-runtime.js";
 import { canGenerateG3AU08SameDenominatorCompareQuestions, generateG3AU08SameDenominatorCompareQuestions } from "./same-denominator-fraction-compare-runtime.js";
 import { canGenerateG3BU07FractionUnitConversionQuestions, generateG3BU07FractionUnitConversionQuestions } from "./discrete-fraction-conversion-runtime.js";
 import { canGenerateP03F8DecimalSliceQuestions, generateP03F8DecimalSliceQuestions } from "./decimal-slice008-runtime.js";
@@ -21,6 +22,7 @@ import { canGenerateG4BU06DecimalMultiplicationQuestions, generateG4BU06DecimalM
 
 export function generateBatchABrowserQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
+  if (canGenerateG5AU04QuotientFractionQuestions(plan)) return generateG5AU04QuotientFractionQuestions(options);
   if (canGenerateG5AU04SimplestFractionQuestions(plan)) return generateG5AU04SimplestFractionQuestions(options);
   if (canGenerateG4BU08EquivalenceCrossProductQuestions(plan)) return generateG4BU08EquivalenceCrossProductQuestions(options);
   if (canGenerateG4BU06DecimalMultiplicationQuestions(plan)) return generateG4BU06DecimalMultiplicationQuestions(options);
