@@ -128,15 +128,13 @@ export function resolvePublicUiCapabilityBinding({
       ...group,
       knowledgePointId: knowledgePoint.knowledgePointId,
       knowledgePointDisplayName: knowledgePoint.displayName,
+      selected: requestedGroupIds.size === 0 || requestedGroupIds.has(group.patternGroupId),
     })),
   );
-  const selectedGroups = requestedGroupIds.size > 0
-    ? allGroups.filter((group) => requestedGroupIds.has(group.patternGroupId))
-    : allGroups;
 
   const profileQuestionOptions = profileOptions(profile?.questionTypeControl);
   const profileQuestionValues = new Set(profileQuestionOptions.map((option) => option.value));
-  const annotatedGroups = selectedGroups.map((group) => ({
+  const annotatedGroups = allGroups.map((group) => ({
     ...group,
     effectiveQuestionType: groupMode(group),
     uiQuestionType: uiTypeForGroup(group, profileQuestionValues),
@@ -159,6 +157,9 @@ export function resolvePublicUiCapabilityBinding({
     ? []
     : annotatedGroups.filter((group) => questionType === "mixed" ? group.uiQuestionType !== null : group.uiQuestionType === questionType);
   const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
+  const selectedCompatiblePatternGroupIds = uniqueStrings(
+    compatiblePatternGroups.filter((group) => group.selected).map((group) => group.patternGroupId),
+  );
 
   const depthOptions = depthBearing(questionType) ? profileOptions(profile?.reasoningDepthControl) : [];
   const contextOptions = contextBearing(questionType) ? profileOptions(profile?.contextControl) : [];
@@ -185,8 +186,10 @@ export function resolvePublicUiCapabilityBinding({
       effectiveQuestionType: group.effectiveQuestionType,
       uiQuestionType: group.uiQuestionType,
       displayLabel: group.displayLabel,
+      selected: group.selected,
     }))),
     compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(selectedCompatiblePatternGroupIds),
     depthOptions: Object.freeze(depthOptions.map(Object.freeze)),
     contextOptions: Object.freeze(contextOptions.map(Object.freeze)),
     questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
