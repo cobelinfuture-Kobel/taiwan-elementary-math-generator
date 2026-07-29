@@ -13,17 +13,25 @@ const REQUIRED_CAPABILITY_IDS = Object.freeze([
   "cap_fraction_number_system",
 ]);
 const [FACTOR_SPEC, NUMERATOR_SPEC, DENOMINATOR_SPEC] = G4B_U08_EQUIVALENT_FRACTION_PATTERN_SPEC_IDS;
-const CASES = Object.freeze([
-  { patternSpecId: FACTOR_SPEC, direction: "expansion", numerator: 1, denominator: 2, factor: 3, equivalentNumerator: 3, equivalentDenominator: 6, promptText: "1/2 和 3/6 是等值分數，分子和分母同乘幾？" },
-  { patternSpecId: FACTOR_SPEC, direction: "reduction", numerator: 8, denominator: 12, factor: 4, equivalentNumerator: 2, equivalentDenominator: 3, promptText: "8/12 約成 2/3，分子和分母同除幾？" },
-  { patternSpecId: FACTOR_SPEC, direction: "expansion", numerator: 3, denominator: 5, factor: 2, equivalentNumerator: 6, equivalentDenominator: 10, promptText: "3/5 和 6/10 是等值分數，分子和分母同乘幾？" },
-  { patternSpecId: NUMERATOR_SPEC, direction: "expansion", numerator: 2, denominator: 3, factor: 4, equivalentNumerator: 8, equivalentDenominator: 12, promptText: "2/3 的分子和分母同乘 4，等值分數的分子是多少？" },
-  { patternSpecId: NUMERATOR_SPEC, direction: "reduction", numerator: 9, denominator: 15, factor: 3, equivalentNumerator: 3, equivalentDenominator: 5, promptText: "9/15 的分子和分母同除 3，約成的分子是多少？" },
-  { patternSpecId: NUMERATOR_SPEC, direction: "expansion", numerator: 4, denominator: 7, factor: 2, equivalentNumerator: 8, equivalentDenominator: 14, promptText: "4/7 的分子和分母同乘 2，等值分數的分子是多少？" },
-  { patternSpecId: DENOMINATOR_SPEC, direction: "expansion", numerator: 2, denominator: 5, factor: 3, equivalentNumerator: 6, equivalentDenominator: 15, promptText: "2/5 的分子和分母同乘 3，等值分數的分母是多少？" },
-  { patternSpecId: DENOMINATOR_SPEC, direction: "reduction", numerator: 12, denominator: 20, factor: 4, equivalentNumerator: 3, equivalentDenominator: 5, promptText: "12/20 的分子和分母同除 4，約成的分母是多少？" },
-  { patternSpecId: DENOMINATOR_SPEC, direction: "expansion", numerator: 3, denominator: 8, factor: 2, equivalentNumerator: 6, equivalentDenominator: 16, promptText: "3/8 的分子和分母同乘 2，等值分數的分母是多少？" },
-]);
+function gcd(a, b) { let x = Math.abs(a), y = Math.abs(b); while (y) [x, y] = [y, x % y]; return x || 1; }
+function buildEquivalentFractionCases() {
+  const rows = [];
+  for (let denominator = 2; denominator <= 12; denominator += 1) {
+    for (let numerator = 1; numerator < denominator; numerator += 1) {
+      if (gcd(numerator, denominator) !== 1) continue;
+      for (let factor = 2; factor <= 9; factor += 1) {
+        const equivalentNumerator = numerator * factor;
+        const equivalentDenominator = denominator * factor;
+        rows.push({ patternSpecId: FACTOR_SPEC, direction: "expansion", numerator, denominator, factor, equivalentNumerator, equivalentDenominator, promptText: numerator + "/" + denominator + " 和 " + equivalentNumerator + "/" + equivalentDenominator + " 是等值分數，分子和分母同乘幾？" });
+        rows.push({ patternSpecId: FACTOR_SPEC, direction: "reduction", numerator: equivalentNumerator, denominator: equivalentDenominator, factor, equivalentNumerator: numerator, equivalentDenominator: denominator, promptText: equivalentNumerator + "/" + equivalentDenominator + " 約成 " + numerator + "/" + denominator + "，分子和分母同除幾？" });
+        rows.push({ patternSpecId: NUMERATOR_SPEC, direction: "expansion", numerator, denominator, factor, equivalentNumerator, equivalentDenominator, promptText: numerator + "/" + denominator + " 的分子和分母同乘 " + factor + "，等值分數的分子是多少？" });
+        rows.push({ patternSpecId: DENOMINATOR_SPEC, direction: "expansion", numerator, denominator, factor, equivalentNumerator, equivalentDenominator, promptText: numerator + "/" + denominator + " 的分子和分母同乘 " + factor + "，等值分數的分母是多少？" });
+      }
+    }
+  }
+  return rows;
+}
+const CASES = Object.freeze(buildEquivalentFractionCases()); // PGC-R04 equivalent fraction parameter space
 
 function hashSeed(value) {
   let acc = 2166136261;

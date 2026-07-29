@@ -8,7 +8,7 @@ import {
   G3B_U07_FRACTION_UNIT_CONVERSION_APPLICATION_SPEC_IDS, G3B_U07_FRACTION_UNIT_CONVERSION_PATTERN_SPEC_IDS,
 } from "../registry/g3b-u07-fraction-unit-conversion-selector-projection.js";
 const IDS = new Set(G3B_U07_FRACTION_UNIT_CONVERSION_PATTERN_SPEC_IDS);
-const FIXTURES = Object.freeze([
+const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ role: "itemCount", itemsPerWhole: 12, wholeUnits: 1, numerator: 1, denominator: 3, itemLabel: "彩色筆", unitLabel: "盒" }),
   Object.freeze({ role: "fractionalUnits", itemsPerWhole: 12, itemCount: 18, itemLabel: "圖卡", unitLabel: "盒" }),
   Object.freeze({ role: "itemCount", itemsPerWhole: 8, wholeUnits: 2, numerator: 1, denominator: 2, itemLabel: "積木", unitLabel: "盒" }),
@@ -16,11 +16,25 @@ const FIXTURES = Object.freeze([
   Object.freeze({ role: "itemCount", itemsPerWhole: 10, wholeUnits: 0, numerator: 3, denominator: 5, itemLabel: "色紙", unitLabel: "包" }),
   Object.freeze({ role: "fractionalUnits", itemsPerWhole: 8, itemCount: 6, itemLabel: "獎勵卡", unitLabel: "盒" }),
 ]);
+function buildNumericFixtures() {
+  const rows = [];
+  for (let itemsPerWhole = 4; itemsPerWhole <= 24; itemsPerWhole += 1) {
+    for (let denominator = 2; denominator <= Math.min(12, itemsPerWhole); denominator += 1) {
+      if (itemsPerWhole % denominator !== 0) continue;
+      for (let numerator = 1; numerator < denominator; numerator += 1) {
+        for (let wholeUnits = 0; wholeUnits <= 3; wholeUnits += 1) rows.push(Object.freeze({ role: "itemCount", itemsPerWhole, wholeUnits, numerator, denominator, itemLabel: "個", unitLabel: "大單位" }));
+      }
+    }
+    for (let itemCount = 1; itemCount <= itemsPerWhole * 3; itemCount += 1) rows.push(Object.freeze({ role: "fractionalUnits", itemsPerWhole, itemCount, itemLabel: "個", unitLabel: "大單位" }));
+  }
+  return rows;
+}
+const NUMERIC_FIXTURES = Object.freeze(buildNumericFixtures()); // PGC-R04 discrete conversion numeric parameter space
 const gcd = (a, b) => { let x = Math.abs(a), y = Math.abs(b); while (y) [x, y] = [y, x % y]; return x || 1; };
 const fraction = (n, d) => { const g = gcd(n, d); return Object.freeze({ numerator: n / g, denominator: d / g }); };
 const fractionText = (v) => v.denominator === 1 ? String(v.numerator) : `${v.numerator}/${v.denominator}`;
 const mixedText = (whole, numerator, denominator) => whole > 0 && numerator > 0 ? `${whole} 又 ${numerator}/${denominator}` : whole > 0 ? String(whole) : `${numerator}/${denominator}`;
-const seedOffset = (seed) => [...String(seed ?? "p03f7")].reduce((sum, c) => (sum + c.charCodeAt(0)) % FIXTURES.length, 0);
+const seedOffset = (seed, size) => [...String(seed ?? "p03f7")].reduce((sum, c) => (sum + c.charCodeAt(0)) % size, 0);
 export const P03F7_APPLICATION_AUTHORITIES = Object.freeze({
   itemCount: Object.freeze({
     applicationQuestionRecordId: "app_qr_w02_ps_g3b_u07_fraction_unit_conversion_item_count_application",
@@ -126,8 +140,10 @@ export function validateG3BU07FractionUnitConversionQuestion(question = {}) {
 export function generateG3BU07FractionUnitConversionQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG3BU07FractionUnitConversionQuestions(plan)) return { ok: false, errors: [{ code: "p03f7_plan_not_supported", severity: "error", path: "patternSpecIds", message: "p03f7_plan_not_supported" }], warnings: [], questions: [], allocation: [], plan };
-  const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 6; const offset = seedOffset(plan.generationSeed);
-  const questions = Array.from({ length: count }, (_, index) => buildQuestion(plan.questionMode, resolveFixture(FIXTURES[(index + offset) % FIXTURES.length]), index));
+  const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 6;
+  const fixturePool = plan.questionMode === "application" ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
+  const offset = seedOffset(plan.generationSeed, fixturePool.length);
+  const questions = Array.from({ length: count }, (_, index) => buildQuestion(plan.questionMode, resolveFixture(fixturePool[(index + offset) % fixturePool.length]), index));
   const errors = questions.flatMap((q, i) => validateG3BU07FractionUnitConversionQuestion(q).errors.map((e) => ({ ...e, path: `questions[${i}].${e.path}` })));
   const allocation = plan.patternSpecIds.map((id) => Object.freeze({ patternSpecId: id, questionCount: questions.filter((q) => q.patternSpecId === id).length }));
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), warnings: Object.freeze([]), questions: Object.freeze(questions), allocation: Object.freeze(allocation), plan: Object.freeze(plan) });

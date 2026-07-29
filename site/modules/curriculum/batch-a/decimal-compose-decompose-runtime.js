@@ -7,16 +7,21 @@ import {
   G3B_U09_SOURCE_ID,
 } from "../registry/g3b-u09-decimal-compose-decompose-selector-projection.js";
 
-const WITNESSES = Object.freeze([
-  Object.freeze({ whole: 2, fractionalUnits: 3, prompt: "2 個一和 3 個 0.1 合起來是多少？" }),
-  Object.freeze({ whole: 4, fractionalUnits: 7, prompt: "4 個一和 7 個十分之一組成哪一個小數？" }),
-  Object.freeze({ whole: 0, fractionalUnits: 6, prompt: "0 個一和 6 個 0.1 合起來是多少？" }),
-  Object.freeze({ whole: 8, fractionalUnits: 1, prompt: "個位有 8，十分位有 1，這個小數是多少？" }),
-  Object.freeze({ whole: 5, fractionalUnits: 9, prompt: "把 5 個一和 9 個十分之一寫成小數。" }),
-  Object.freeze({ whole: 3, fractionalUnits: 4, prompt: "3 + 4 × 0.1 所組成的小數是多少？" }),
-  Object.freeze({ whole: 7, fractionalUnits: 2, prompt: "一個小數由 7 個一和 2 個 0.1 組成，它是多少？" }),
-  Object.freeze({ whole: 1, fractionalUnits: 8, prompt: "1 個一加上 8 個十分之一，用小數表示是多少？" }),
-]);
+function buildComposeWitnesses() {
+  const rows = [];
+  const templates = [
+    (whole, fraction) => whole + " 個一和 " + fraction + " 個 0.1 合起來是多少？",
+    (whole, fraction) => "個位有 " + whole + "，十分位有 " + fraction + "，這個小數是多少？",
+    (whole, fraction) => whole + " + " + fraction + " × 0.1 所組成的小數是多少？",
+  ];
+  for (let whole = 0; whole <= 9; whole += 1) {
+    for (let fractionalUnits = 1; fractionalUnits <= 9; fractionalUnits += 1) {
+      for (const template of templates) rows.push(Object.freeze({ whole, fractionalUnits, prompt: template(whole, fractionalUnits) }));
+    }
+  }
+  return rows;
+}
+const WITNESSES = Object.freeze(buildComposeWitnesses()); // PGC-R04 decimal compose parameter space
 
 function hashSeed(value) {
   let acc = 2166136261;

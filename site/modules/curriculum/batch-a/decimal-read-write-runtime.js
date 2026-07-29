@@ -7,16 +7,17 @@ import {
 } from "../registry/g3b-u09-decimal-read-write-selector-projection.js";
 
 const DIGIT_ZH = Object.freeze(["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"]);
-const WITNESSES = Object.freeze([
-  Object.freeze({ whole: 0, tenths: 4, direction: "notation_to_reading" }),
-  Object.freeze({ whole: 2, tenths: 7, direction: "reading_to_notation" }),
-  Object.freeze({ whole: 5, tenths: 3, direction: "notation_to_reading" }),
-  Object.freeze({ whole: 8, tenths: 1, direction: "reading_to_notation" }),
-  Object.freeze({ whole: 1, tenths: 6, direction: "notation_to_reading" }),
-  Object.freeze({ whole: 3, tenths: 9, direction: "reading_to_notation" }),
-  Object.freeze({ whole: 6, tenths: 2, direction: "notation_to_reading" }),
-  Object.freeze({ whole: 9, tenths: 5, direction: "reading_to_notation" }),
-]);
+function buildReadWriteWitnesses() {
+  const rows = [];
+  for (let whole = 0; whole <= 9; whole += 1) {
+    for (let tenths = 1; tenths <= 9; tenths += 1) {
+      rows.push(Object.freeze({ whole, tenths, direction: "notation_to_reading" }));
+      rows.push(Object.freeze({ whole, tenths, direction: "reading_to_notation" }));
+    }
+  }
+  return rows;
+}
+const WITNESSES = Object.freeze(buildReadWriteWitnesses()); // PGC-R04 decimal read-write parameter space
 
 function hashSeed(value) {
   let acc = 2166136261;

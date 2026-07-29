@@ -8,6 +8,7 @@ import {
 } from "../registry/g3b-u09-tenths-fraction-decimal-selector-projection.js";
 
 const NUMERATORS = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+const SURFACE_VARIANTS = Object.freeze(["direct", "equivalence", "place_value"]); // PGC-R04 tenths conversion surface parameter space
 const REQUIRED_CAPABILITY_IDS = Object.freeze(["cap_fraction_domain_validator", "cap_fraction_number_system"]);
 function hashSeed(value) {
   let acc = 2166136261;
@@ -40,14 +41,16 @@ function metadata(definition, direction, numerator) {
 }
 function buildQuestion(index, seed) {
   const definition = getBatchABrowserPatternDefinition(G3B_U09_TENTHS_FRACTION_DECIMAL_PATTERN_SPEC_ID);
-  const offset = hashSeed(seed) % NUMERATORS.length;
-  const numerator = NUMERATORS[(offset + index - 1) % NUMERATORS.length];
-  const direction = index % 2 === 1 ? "fraction_to_decimal" : "decimal_to_fraction";
-  const fractionText = `${numerator}/10`;
-  const decimalText = `0.${numerator}`;
+  const offset = hashSeed(seed) % (NUMERATORS.length * SURFACE_VARIANTS.length * 2);
+  const variantIndex = (offset + index - 1) % (NUMERATORS.length * SURFACE_VARIANTS.length * 2);
+  const numerator = NUMERATORS[variantIndex % NUMERATORS.length];
+  const direction = Math.floor(variantIndex / NUMERATORS.length) % 2 === 0 ? "fraction_to_decimal" : "decimal_to_fraction";
+  const surfaceVariant = SURFACE_VARIANTS[Math.floor(variantIndex / (NUMERATORS.length * 2)) % SURFACE_VARIANTS.length];
+  const fractionText = numerator + "/10";
+  const decimalText = "0." + numerator;
   const promptText = direction === "fraction_to_decimal"
-    ? `把 ${fractionText} 寫成一位小數。`
-    : `${decimalText} 是十分之幾？請用分母 10 的分數表示。`;
+    ? surfaceVariant === "direct" ? "把 " + fractionText + " 寫成一位小數。" : surfaceVariant === "equivalence" ? fractionText + " 和哪個一位小數表示相同的值？" : "十分位有 " + numerator + " 個 0.1，對應的小數是多少？"
+    : surfaceVariant === "direct" ? decimalText + " 是十分之幾？請用分母 10 的分數表示。" : surfaceVariant === "equivalence" ? "哪個分母為 10 的分數和 " + decimalText + " 相等？" : decimalText + " 含有幾個十分之一？請寫成分數。";
   const answerText = direction === "fraction_to_decimal" ? decimalText : fractionText;
   return Object.freeze({
     id: `${G3B_U09_TENTHS_FRACTION_DECIMAL_PATTERN_SPEC_ID}-${index}`,
@@ -109,7 +112,7 @@ export function validateG3BU09TenthsFractionDecimalQuestion(question = {}) {
 export function generateG3BU09TenthsFractionDecimalQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG3BU09TenthsFractionDecimalQuestions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f9_plan_not_supported", severity: "error", path: "plan", message: "Slice009 accepts only the admitted tenths fraction-decimal PatternSpec." }], warnings: [] };
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount < 1 || plan.questionCount > 8) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f9_question_count_invalid", severity: "error", path: "questionCount", message: "Slice009 supports one to eight bounded witnesses." }], warnings: [] };
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount < 1 || plan.questionCount > NUMERATORS.length * SURFACE_VARIANTS.length * 2) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f9_question_count_invalid", severity: "error", path: "questionCount", message: "Slice009 supports one to eight bounded witnesses." }], warnings: [] };
   const questions = Array.from({ length: plan.questionCount }, (_, offset) => buildQuestion(offset + 1, plan.generationSeed));
   const errors = questions.flatMap((question) => validateG3BU09TenthsFractionDecimalQuestion(question).errors);
   if (new Set(questions.map((row) => row.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f9_duplicate_prompt_detected", severity: "error", path: "questions", message: "The worksheet contains duplicate prompts." });

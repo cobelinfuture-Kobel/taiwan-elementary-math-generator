@@ -10,7 +10,7 @@ import {
 } from "../registry/g3a-u08-same-denominator-compare-selector-projection.js";
 
 const IDS = new Set(G3A_U08_SAME_DENOMINATOR_PATTERN_SPEC_IDS);
-const FIXTURES = Object.freeze([
+const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ leftNumerator: 2, denominator: 5, rightNumerator: 4, target: "pair", relation: "<" }),
   Object.freeze({ leftNumerator: 3, denominator: 6, rightNumerator: 3, target: "pair", relation: "=" }),
   Object.freeze({ leftNumerator: 5, denominator: 8, rightNumerator: 2, target: "pair", relation: ">" }),
@@ -18,6 +18,20 @@ const FIXTURES = Object.freeze([
   Object.freeze({ leftNumerator: 5, denominator: 5, rightNumerator: 5, target: "one", relation: "=" }),
   Object.freeze({ leftNumerator: 8, denominator: 6, rightNumerator: 6, target: "one", relation: ">" }),
 ]);
+function buildNumericFixtures() {
+  const rows = [];
+  for (let denominator = 2; denominator <= 20; denominator += 1) {
+    for (let leftNumerator = 1; leftNumerator <= denominator + 4; leftNumerator += 1) {
+      for (let rightNumerator = 1; rightNumerator <= denominator + 4; rightNumerator += 1) {
+        if (leftNumerator === rightNumerator && leftNumerator % 2 === 0) continue;
+        rows.push(Object.freeze({ leftNumerator, denominator, rightNumerator, target: "pair", relation: leftNumerator < rightNumerator ? "<" : leftNumerator > rightNumerator ? ">" : "=" }));
+      }
+      rows.push(Object.freeze({ leftNumerator, denominator, rightNumerator: denominator, target: "one", relation: leftNumerator < denominator ? "<" : leftNumerator > denominator ? ">" : "=" }));
+    }
+  }
+  return rows;
+}
+const NUMERIC_FIXTURES = Object.freeze(buildNumericFixtures()); // PGC-R04 same denominator numeric parameter space
 export const P03F6_APPLICATION_AUTHORITY = Object.freeze({
   applicationQuestionRecordId: "app_qr_w02_ps_g3a_u08_same_denominator_compare_comparison_application",
   bindingCandidateId: "w02_bind_ps_g3a_u08_same_denominator_compare_comparison_application",
@@ -28,7 +42,7 @@ export const P03F6_APPLICATION_AUTHORITY = Object.freeze({
   capabilityType: "APPLICATION_COMPATIBLE", operationFamilyId: "fraction_compare",
 });
 const compare = (leftN, leftD, rightN, rightD) => leftN * rightD < rightN * leftD ? "<" : leftN * rightD > rightN * leftD ? ">" : "=";
-const seedOffset = (seed) => [...String(seed ?? "p03f6")].reduce((sum, char) => (sum + char.charCodeAt(0)) % FIXTURES.length, 0);
+const seedOffset = (seed, size) => [...String(seed ?? "p03f6")].reduce((sum, char) => (sum + char.charCodeAt(0)) % size, 0);
 function metadata(definition, authority) {
   return Object.freeze({
     patternId: definition.patternSpecId, sourceId: G3A_U08_SOURCE_ID,
@@ -46,11 +60,13 @@ function metadata(definition, authority) {
 }
 function buildQuestion(patternSpecId, ordinal, seed) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
-  const fixture = FIXTURES[(ordinal + seedOffset(seed)) % FIXTURES.length];
+  const authority = patternSpecId === G3A_U08_SAME_DENOMINATOR_APPLICATION_SPEC_ID ? P03F6_APPLICATION_AUTHORITY : null;
+  const fixtures = authority ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
+  const fixture = fixtures[(ordinal + seedOffset(seed, fixtures.length)) % fixtures.length];
   const leftDenominator = fixture.denominator;
   const rightDenominator = fixture.denominator;
   const comparison = compare(fixture.leftNumerator, leftDenominator, fixture.rightNumerator, rightDenominator);
-  const authority = patternSpecId === G3A_U08_SAME_DENOMINATOR_APPLICATION_SPEC_ID ? P03F6_APPLICATION_AUTHORITY : null;
+  // PGC-R04 duplicate authority declaration removed
   const leftText = `${fixture.leftNumerator}/${leftDenominator}`;
   const rightText = fixture.target === "one" ? "1" : `${fixture.rightNumerator}/${rightDenominator}`;
   const promptText = authority
