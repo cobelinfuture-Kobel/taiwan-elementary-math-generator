@@ -4,6 +4,54 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const contractPath = path.join(repoRoot, "data/curriculum/public-generation/generator_capacity_contract.json");
+const reportPath = path.join(repoRoot, "docs/curriculum/output/PGC-R03_capacity_mismatch_report.md");
+
+function writeFinalReport(contract) {
+  const summary = contract.summary;
+  const lines = [
+    "# PGC-R03 Capacity-aware Legal Route Reconciliation",
+    "",
+    "```text",
+    "PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+    "TASK_ID    = PGC-R03_CapacityAwareLegalRouteAndPerCapabilityUiLimitReconciliation",
+    `STATUS     = ${contract.status}`,
+    "```",
+    "",
+    "## Reconciled capacity",
+    "",
+    "```text",
+    `HISTORICAL_R02_BINDINGS        = ${summary.historicalBindingCount}`,
+    `CURRENT_LEGAL_BINDINGS         = ${summary.currentLegalBindingCount}`,
+    `ROUTES                         = ${summary.routeCount}`,
+    `LEGAL_ROUTES                   = ${summary.legalRouteCount}`,
+    `ILLEGAL_ROUTES_REMOVED         = ${summary.illegalRouteCount}`,
+    `VERIFIED_20_ROUTES             = ${summary.verified20RouteCount}`,
+    `VERIFIED_LIMITED_ROUTES        = ${summary.verifiedLimitedRouteCount}`,
+    `ZERO_CAPACITY_ROUTES_HIDDEN    = ${summary.zeroCapacityRouteCount}`,
+    `DIVERSITY_GAP_ROUTES           = ${summary.diversityGapRouteCount}`,
+    `CURRENT_UNVERIFIED_EXPOSURES   = ${summary.currentUnverifiedCapacityExposureCount}`,
+    `HARD_BLOCKERS                  = ${summary.hardBlockerCount}`,
+    "```",
+    "",
+    "Illegal control intersections are not treated as weak generators. They are removed from the public route set. Legal routes retain their measured maximum; fixed fixture routes may remain usable while their diversity debt is transferred to PGC-R04 or PGC-R05.",
+    "",
+    "## Downstream gaps",
+    "",
+    ...(contract.downstreamGaps ?? []).map((gap) => `- \`${gap.code}\`: ${gap.count}`),
+    "",
+    "## Distance update",
+    "",
+    "```text",
+    "GOAL_DISTANCE_BEFORE = D1_GENERATOR_CAPACITY_FAIL_CLOSED",
+    `GOAL_DISTANCE_AFTER  = ${summary.hardBlockerCount === 0 ? "D1_CAPACITY_AWARE_PUBLIC_ROUTES_CONFORMANT" : "D1_CAPACITY_RECONCILIATION_BLOCKED"}`,
+    "DISTANCE_REDUCED     = illegal routes are removed and every exposed route is clamped to its verified safe question count",
+    "REMAINING_BLOCKERS   = [PGC-R04_NUMERIC_QUALITY, PGC-R05_APPLICATION_QUALITY, PGC-R06_TO_R08_PRODUCT_ACCEPTANCE]",
+    "NEXT_SHORTEST_STEP   = PGC-R04_NumericGenerationFullFix",
+    "```",
+    "",
+  ];
+  fs.writeFileSync(reportPath, `${lines.join("\n")}\n`);
+}
 
 export async function finalizePgcR03CapacityAwareBinding() {
   if (!fs.existsSync(contractPath)) throw new Error("PGC_R03_CONTRACT_MISSING");
@@ -43,6 +91,7 @@ export async function finalizePgcR03CapacityAwareBinding() {
     finalizedAtRuntimeStage: "PGC_R03_CAPACITY_AWARE_BINDING_FINALIZED",
   };
   fs.writeFileSync(contractPath, `${JSON.stringify(finalized, null, 2)}\n`);
+  writeFinalReport(finalized);
   console.log(`PGC_R03_FINALIZE_SUMMARY=${JSON.stringify(summary)}`);
   if (finalized.status === "FAIL_CLOSED") process.exitCode = 2;
   return finalized;
