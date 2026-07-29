@@ -2,28 +2,23 @@
   "schemaVersion": "g4b-u04-r4-deployed-pages-smoke-v1",
   "task": "G4B_U04_R4_SourceSwitchAndFlexibleCustomLayoutRepair",
   "status": "FAIL",
-  "deploymentSha": "ba3167ff65fb78a418971d25c3a55acc93ba8ff2",
-  "message": "G4B_U04_R4_DEPLOYED_GENERATION_FAILED",
-  "details": {
-    "label": "source-switch-precondition",
-    "tone": "success",
-    "status": "已產生 1 題，可預覽與列印。",
-    "validation": "驗證通過，沒有發現出題錯誤。",
-    "previewMeta": "Batch B 4B-U04 概數｜1 題｜不含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
-    "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&questionCount=1&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-source-switch&columns=3&rowsPerPage=5&questionMode=mixed&layoutMode=auto_safe&selectionMode=mixedKnowledgePointsSameUnit&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values"
-  },
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&questionCount=1&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-source-switch&columns=3&rowsPerPage=5&questionMode=mixed&layoutMode=auto_safe&selectionMode=mixedKnowledgePointsSameUnit&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values",
-  "consoleErrors": [],
+  "deploymentSha": "37db3cbb1f1351f63498e0c5e2a05450204dc429",
+  "message": "page.waitForFunction: Timeout 120000ms exceeded.",
+  "details": null,
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=12&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r4-deployed-source-switch&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R4=37db3cbb1f1351f63498e0c5e2a05450204dc429-source-switch-1785366563815",
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 503 ()"
+  ],
   "pageErrors": [],
   "workflow": "G4B-U04 R4 Deployed Pages Smoke",
   "eventName": "workflow_run",
   "run": {
-    "id": "30472702635",
-    "number": "233",
+    "id": "30498570620",
+    "number": "234",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30472702635"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30498570620"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-07-29T16:52:46.396Z"
+  "verifiedAt": "2026-07-29T23:11:25.370Z"
 }
