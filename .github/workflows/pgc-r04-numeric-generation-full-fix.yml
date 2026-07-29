@@ -9,6 +9,7 @@ on:
       - "tools/curriculum/run-pgc-r04-bounded-runtime-expansion-idempotent.mjs"
       - "tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs"
       - "tools/curriculum/fix-pgc-r04-final-patcher-literals.mjs"
+      - "tools/curriculum/apply-pgc-r04-number-theory-prepatch.mjs"
       - "tools/curriculum/apply-pgc-r04-final-legacy-producer-patch.mjs"
       - "tools/curriculum/locate-pgc-r04-remaining-producers.mjs"
       - "tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs"
@@ -57,6 +58,7 @@ jobs:
           node --check tools/curriculum/run-pgc-r04-bounded-runtime-expansion-idempotent.mjs
           node --check tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs
           node --check tools/curriculum/fix-pgc-r04-final-patcher-literals.mjs
+          node --check tools/curriculum/apply-pgc-r04-number-theory-prepatch.mjs
           node --check tools/curriculum/apply-pgc-r04-final-legacy-producer-patch.mjs
           node --check tools/curriculum/locate-pgc-r04-remaining-producers.mjs
           node --check tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
@@ -74,6 +76,9 @@ jobs:
 
       - name: Normalize expanded runtime declarations
         run: node tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs
+
+      - name: Prepatch one-line number-theory LCM authority
+        run: node tools/curriculum/apply-pgc-r04-number-theory-prepatch.mjs
 
       - name: Apply final legacy numeric producer FullFixes
         run: node tools/curriculum/apply-pgc-r04-final-legacy-producer-patch.mjs
