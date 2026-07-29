@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const relativePath = "tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs";
-const marker = "PGC-R05 retained cross-seed quality backlog D0 closeout V1";
+const marker = "PGC-R05 retained cross-seed quality backlog D0 closeout V2";
 const DIAGNOSTICS_STATUS = "PASS_R05_D0_ALL_LEGAL_APPLICATION_ROUTES_CAPACITY_CONFORMANT_WITH_RETAINED_CROSS_SEED_QUALITY_GAPS";
 const CLOSEOUT_STATUS = "PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_AND_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_WITH_RETAINED_CROSS_SEED_QUALITY_GAPS";
 
@@ -24,6 +24,18 @@ export function applyPgcR05RetainedQualityCloseoutPatch() {
   }
 
   let source = before;
+  source = replaceRequired(
+    source,
+    `    nonApplicationRoutesBeforeHash,`,
+    `    nonApplicationRoutesBeforeHash: nonApplicationBeforeHash,`,
+    "non-application-before-hash",
+  );
+  source = replaceRequired(
+    source,
+    `    illegalApplicationRoutesBeforeHash,`,
+    `    illegalApplicationRoutesBeforeHash: illegalApplicationBeforeHash,`,
+    "illegal-application-before-hash",
+  );
   source = replaceRequired(
     source,
     `  const final = report.status === "PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_AND_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT";`,
@@ -60,6 +72,7 @@ export function applyPgcR05RetainedQualityCloseoutPatch() {
     diagnosticsStatus: DIAGNOSTICS_STATUS,
     closeoutStatus: CLOSEOUT_STATUS,
     retainedQualityGapIsBlocking: false,
+    boundaryHashFieldMappingCorrected: true,
   });
   console.log(`PGC_R05_RETAINED_QUALITY_CLOSEOUT_PATCH=${JSON.stringify(result)}`);
   return result;
