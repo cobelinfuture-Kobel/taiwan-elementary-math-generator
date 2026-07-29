@@ -18,6 +18,15 @@ const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ totalQuantity: 6, recipientCount: 4 }), Object.freeze({ totalQuantity: 5, recipientCount: 2 }),
   Object.freeze({ totalQuantity: 7, recipientCount: 3 }), Object.freeze({ totalQuantity: 8, recipientCount: 6 }),
   Object.freeze({ totalQuantity: 9, recipientCount: 4 }), Object.freeze({ totalQuantity: 10, recipientCount: 6 }),
+  Object.freeze({ totalQuantity: 11, recipientCount: 2 }), Object.freeze({ totalQuantity: 11, recipientCount: 3 }),
+  Object.freeze({ totalQuantity: 12, recipientCount: 5 }), Object.freeze({ totalQuantity: 13, recipientCount: 4 }),
+  Object.freeze({ totalQuantity: 14, recipientCount: 3 }), Object.freeze({ totalQuantity: 15, recipientCount: 4 }),
+  Object.freeze({ totalQuantity: 16, recipientCount: 3 }), Object.freeze({ totalQuantity: 17, recipientCount: 5 }),
+  Object.freeze({ totalQuantity: 18, recipientCount: 7 }), Object.freeze({ totalQuantity: 19, recipientCount: 6 }),
+  Object.freeze({ totalQuantity: 20, recipientCount: 3 }), Object.freeze({ totalQuantity: 21, recipientCount: 8 }),
+  Object.freeze({ totalQuantity: 22, recipientCount: 7 }), Object.freeze({ totalQuantity: 23, recipientCount: 4 }),
+  Object.freeze({ totalQuantity: 24, recipientCount: 5 }), Object.freeze({ totalQuantity: 25, recipientCount: 6 }),
+  Object.freeze({ totalQuantity: 26, recipientCount: 9 }), Object.freeze({ totalQuantity: 27, recipientCount: 8 }),
 ]);
 function buildNumericFixtures() {
   const rows = [];
@@ -183,3 +192,5 @@ export function generateG5AU04QuotientFractionQuestions(options = {}) {
   if (new Set(questions.map((row) => row.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f13_quotient_duplicate_prompt", severity: "error", path: "questions", message: "Duplicate prompt detected." });
   return Object.freeze({ ok: errors.length === 0, plan: Object.freeze(plan), questions: Object.freeze(questions), allocation: Object.freeze([{ patternSpecId, questionCount: questions.length }]), errors: Object.freeze(errors), warnings: Object.freeze([]) });
 }
+
+// PGC-R05 bounded application capacity FullFix V1

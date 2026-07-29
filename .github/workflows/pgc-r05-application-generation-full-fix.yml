@@ -4,10 +4,14 @@ on:
   pull_request:
     paths:
       - "tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs"
-      - "tests/curriculum/pgc-r05-application-gap-diagnostics.test.js"
+      - "tools/curriculum/apply-pgc-r05-*.mjs"
+      - "tests/curriculum/pgc-r05-*.test.js"
       - "data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json"
       - "data/curriculum/public-generation/application_generation_gap_inventory.csv"
       - "docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md"
+      - "site/modules/curriculum/batch-a/slice002-fraction-runtime.js"
+      - "site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js"
+      - "site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js"
       - ".github/workflows/pgc-r05-application-generation-full-fix.yml"
   workflow_dispatch:
 
@@ -19,14 +23,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  application-baseline:
+  application-fullfix:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
       - name: Checkout R05 branch
         uses: actions/checkout@v4
         with:
-          ref: pgc-r05-application-generation-full-fix
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Setup Node
@@ -37,39 +41,49 @@ jobs:
       - name: Syntax-check R05 authorities
         run: |
           node --check tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
+          node --check tools/curriculum/apply-pgc-r05-bounded-application-capacity-patch.mjs
           node --check tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
+          node --check tests/curriculum/pgc-r05-bounded-application-capacity.test.js
+
+      - name: Apply bounded application capacity FullFix
+        run: node tools/curriculum/apply-pgc-r05-bounded-application-capacity-patch.mjs
 
       - name: Materialize legal application-route runtime baseline
         run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
 
-      - name: Focused R05 baseline acceptance
-        run: node --test tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
+      - name: Focused R05 acceptance
+        run: |
+          node --test tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
+          node --test tests/curriculum/pgc-r05-bounded-application-capacity.test.js
 
       - name: Full repository regression
         run: npm test
 
-      - name: Commit deterministic R05 baseline artifacts
+      - name: Commit deterministic R05 runtime and diagnostic artifacts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            site/modules/curriculum/batch-a/slice002-fraction-runtime.js \
+            site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js \
+            site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js \
             data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json \
             data/curriculum/public-generation/application_generation_gap_inventory.csv \
             docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md
           if git diff --cached --quiet; then
-            echo "R05 baseline artifacts already synchronized."
+            echo "R05 runtime and diagnostic artifacts already synchronized."
           else
-            git commit -m "docs(pgc-r05): materialize application gap baseline [skip ci]"
-            git fetch origin pgc-r05-application-generation-full-fix
-            git rebase origin/pgc-r05-application-generation-full-fix
-            git push origin HEAD:pgc-r05-application-generation-full-fix
+            git commit -m "fix(pgc-r05): sync bounded application capacity [skip ci]"
+            git fetch origin "${{ github.head_ref || github.ref_name }}"
+            git rebase "origin/${{ github.head_ref || github.ref_name }}"
+            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
           fi
 
-      - name: Upload R05 application baseline
+      - name: Upload R05 application diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pgc-r05-application-gap-baseline
+          name: pgc-r05-application-gap-diagnostics
           path: |
             data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json
             data/curriculum/public-generation/application_generation_gap_inventory.csv

@@ -11,6 +11,14 @@ const APPLICATION_FIXTURES = Object.freeze([
   { decimalTenths: 48, integerFactor: 3 }, { decimalTenths: 63, integerFactor: 4 },
   { decimalTenths: 27, integerFactor: 7 }, { decimalTenths: 56, integerFactor: 8 },
   { decimalTenths: 19, integerFactor: 6 }, { decimalTenths: 75, integerFactor: 5 },
+  { decimalTenths: 13, integerFactor: 4 }, { decimalTenths: 16, integerFactor: 5 },
+  { decimalTenths: 22, integerFactor: 6 }, { decimalTenths: 24, integerFactor: 7 },
+  { decimalTenths: 31, integerFactor: 8 }, { decimalTenths: 36, integerFactor: 9 },
+  { decimalTenths: 42, integerFactor: 5 }, { decimalTenths: 47, integerFactor: 6 },
+  { decimalTenths: 52, integerFactor: 7 }, { decimalTenths: 58, integerFactor: 4 },
+  { decimalTenths: 61, integerFactor: 3 }, { decimalTenths: 68, integerFactor: 8 },
+  { decimalTenths: 73, integerFactor: 9 }, { decimalTenths: 81, integerFactor: 4 },
+  { decimalTenths: 86, integerFactor: 5 }, { decimalTenths: 94, integerFactor: 7 },
 ]);
 function buildNumericFixtures() {
   const rows = [];
@@ -84,3 +92,5 @@ export function generateG4BU06DecimalMultiplicationQuestions(options = {}) {
 }
 
 // PGC-R04 legacy contract reconciliation V1
+
+// PGC-R05 bounded application capacity FullFix V1
