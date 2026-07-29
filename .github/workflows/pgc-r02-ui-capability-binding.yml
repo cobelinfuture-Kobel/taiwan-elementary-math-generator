@@ -74,7 +74,7 @@ jobs:
 
       - name: Install browser dependencies
         run: |
-          npm install
+          npm install --no-save playwright
           npx playwright install --with-deps chromium
 
       - name: Three-surface Chromium UI acceptance
