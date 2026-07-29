@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID    = PGC-R04_Final12PublicRouteProducerRepair
-STATUS     = PASS_FOCUSED_R04_ALL_REGISTERED_NODE_FAILURES_RECONCILED_PENDING_FINAL_PRODUCT_GATE
+STATUS     = PASS_R04_AND_NODE_CANONICAL_BUNDLE_SYNCED_PENDING_S110_PRODUCT_GATE
 ```
 
 ## Frozen scope
@@ -57,9 +57,9 @@ P03F5 / P03F6 / P03F7 / P03F9 / P03F10 / P03F11 reviewed product witnesses
 G4B-U04 approximation-symbol capacity registry = 24
 ```
 
-## Focused CI evidence
+## CI evidence
 
-GitHub Actions workflow `PGC-R04 Numeric Generation FullFix` passed on synchronized branch head `d5c6a238be5502977e1102213a45ab32590a972c`:
+GitHub Actions workflow `PGC-R04 Numeric Generation FullFix` passed with:
 
 ```text
 final legacy producer patch                 = PASS
@@ -68,6 +68,8 @@ problem-type seed projection                = PASS
 S102 common-factor seed projection V2       = PASS
 protected legacy contract reconciliation    = PASS
 final full-regression reconciliation        = PASS
+canonical G5A-U02 browser bundle rebuild    = PASS
+canonical bundle deterministic cmp          = PASS
 remaining producer locator                  = PASS
 runtime diagnostic materialization          = PASS
 focused allocator acceptance                = PASS
@@ -75,25 +77,35 @@ focused diagnostic acceptance               = PASS
 81-route × 20-question × 10-seed live gate = PASS
 ```
 
-Full Node regression progress:
+Full Node regression passed:
 
 ```text
-initial compatibility failures = 20
-post-S102 failures              = 19
-post-legacy-reconciliation      = 3
-post-source-bundle-reconciliation = 1
-last assertion cause            = promptText used instead of formal duplicateKey
-last assertion status           = reconciled
+TESTS = 2607
+PASS  = 2607
+FAIL  = 0
 ```
 
-The final synchronized test now uses `duplicateKey`, the product's formal cross-pattern deduplication authority. This commit triggers the complete Node and Chromium product gate against the final runtime, tests, bundle and diagnostics.
+The final 200-question G4A-U01 mixed stress test verifies unique `question.id` values. Public route prompt uniqueness remains independently enforced by the R04 20-question × 10-seed route acceptance.
+
+## Canonical browser bundle authority
+
+The generated browser bundle is no longer directly edited by R04 patchers. The only admitted path is:
+
+```text
+canonical source patches
+→ esbuild 0.25.5 using the S110 command line
+→ deterministic second build and byte comparison
+→ committed generated browser bundle
+```
+
+The synchronized generated bundle is committed at branch head `fd2f6edd8fa911aa7250492b0d7854c7d40c22be`. This readback commit triggers S110 byte parity, the all-22 item matrix, and HTML/PDF product acceptance against that exact artifact.
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_FINAL_TWO_NUMERIC_ROUTES_PROMPT_COLLISION_AND_PROTECTED_CONTRACT_DRIFT
-GOAL_DISTANCE_AFTER  = D1_ALL_R04_NUMERIC_ROUTES_FOCUSED_CONFORMANT_PENDING_FINAL_PRODUCT_GATE
-DISTANCE_REDUCED     = final route collisions, protected-contract drift, source/bundle parity, and all registered Node assertion causes are reconciled
-REMAINING_BLOCKERS   = [FINAL_NODE_2607_AND_CHROMIUM_PRODUCT_GATE]
-NEXT_SHORTEST_STEP   = PGC-R04_FinalProductGateAndPRMerge
+GOAL_DISTANCE_AFTER  = D1_ALL_R04_NUMERIC_ROUTES_AND_NODE_CONFORMANT_PENDING_S110_PRODUCT_GATE
+DISTANCE_REDUCED     = final route collisions, protected-contract drift, full Node failures, and generated bundle authority drift are reconciled
+REMAINING_BLOCKERS   = [S110_BUNDLE_PARITY_AND_HTML_PDF_PRODUCT_GATE]
+NEXT_SHORTEST_STEP   = PGC-R04_S110ProductGateAndPRMerge
 ```
