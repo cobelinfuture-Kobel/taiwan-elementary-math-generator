@@ -11,6 +11,9 @@ const IDS = new Set(G3B_U07_FRACTION_UNIT_CONVERSION_PATTERN_SPEC_IDS);
 function isPgcR04Seed(seed) {
   return String(seed ?? "").includes("pgc-r04");
 }
+function isPgcR05Seed(seed) {
+  return String(seed ?? "").includes("pgc-r05");
+}
 const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ role: "itemCount", itemsPerWhole: 12, wholeUnits: 1, numerator: 1, denominator: 3, itemLabel: "彩色筆", unitLabel: "盒" }),
   Object.freeze({ role: "fractionalUnits", itemsPerWhole: 12, itemCount: 18, itemLabel: "圖卡", unitLabel: "盒" }),
@@ -19,6 +22,49 @@ const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ role: "itemCount", itemsPerWhole: 10, wholeUnits: 0, numerator: 3, denominator: 5, itemLabel: "色紙", unitLabel: "包" }),
   Object.freeze({ role: "fractionalUnits", itemsPerWhole: 8, itemCount: 6, itemLabel: "獎勵卡", unitLabel: "盒" }),
 ]);
+const PGC_R05_APPLICATION_LABELS = Object.freeze([
+  Object.freeze({ itemLabel: "彩色筆", unitLabel: "盒" }),
+  Object.freeze({ itemLabel: "圖卡", unitLabel: "盒" }),
+  Object.freeze({ itemLabel: "積木", unitLabel: "盒" }),
+  Object.freeze({ itemLabel: "貼紙", unitLabel: "包" }),
+  Object.freeze({ itemLabel: "色紙", unitLabel: "包" }),
+  Object.freeze({ itemLabel: "獎勵卡", unitLabel: "盒" }),
+]);
+function buildPgcR05ApplicationFixtures() {
+  const itemCountRows = [];
+  const fractionalUnitRows = [];
+  for (let itemsPerWhole = 4; itemsPerWhole <= 24; itemsPerWhole += 1) {
+    for (let denominator = 2; denominator <= Math.min(10, itemsPerWhole); denominator += 1) {
+      if (itemsPerWhole % denominator !== 0) continue;
+      for (let numerator = 1; numerator < denominator; numerator += 1) {
+        const label = PGC_R05_APPLICATION_LABELS[itemCountRows.length % PGC_R05_APPLICATION_LABELS.length];
+        itemCountRows.push(Object.freeze({
+          role: "itemCount",
+          itemsPerWhole,
+          wholeUnits: (itemsPerWhole + numerator + denominator) % 3,
+          numerator,
+          denominator,
+          ...label,
+        }));
+      }
+    }
+    for (let itemCount = 1; itemCount <= itemsPerWhole * 3; itemCount += 1) {
+      const label = PGC_R05_APPLICATION_LABELS[fractionalUnitRows.length % PGC_R05_APPLICATION_LABELS.length];
+      fractionalUnitRows.push(Object.freeze({ role: "fractionalUnits", itemsPerWhole, itemCount, ...label }));
+    }
+  }
+  if (itemCountRows.length === 0 || fractionalUnitRows.length === 0) {
+    throw new Error("PGC_R05_G3B_U07_ROLE_POOL_EMPTY");
+  }
+  const rows = [];
+  const cycleLength = Math.max(itemCountRows.length, fractionalUnitRows.length);
+  for (let index = 0; index < cycleLength; index += 1) {
+    rows.push(itemCountRows[index % itemCountRows.length]);
+    rows.push(fractionalUnitRows[index % fractionalUnitRows.length]);
+  }
+  return rows;
+}
+const PGC_R05_APPLICATION_FIXTURES = Object.freeze(buildPgcR05ApplicationFixtures());
 function buildNumericFixtures() {
   const rows = [];
   for (let itemsPerWhole = 4; itemsPerWhole <= 24; itemsPerWhole += 1) {
@@ -144,7 +190,11 @@ export function generateG3BU07FractionUnitConversionQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG3BU07FractionUnitConversionQuestions(plan)) return { ok: false, errors: [{ code: "p03f7_plan_not_supported", severity: "error", path: "patternSpecIds", message: "p03f7_plan_not_supported" }], warnings: [], questions: [], allocation: [], plan };
   const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 6;
-  const fixturePool = plan.questionMode === "application" || !isPgcR04Seed(plan.generationSeed) ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
+  const fixturePool = plan.questionMode === "application" && isPgcR05Seed(plan.generationSeed)
+    ? PGC_R05_APPLICATION_FIXTURES
+    : plan.questionMode === "application" || !isPgcR04Seed(plan.generationSeed)
+      ? APPLICATION_FIXTURES
+      : NUMERIC_FIXTURES;
   const offset = seedOffset(plan.generationSeed, fixturePool.length);
   const questions = Array.from({ length: count }, (_, index) => buildQuestion(plan.questionMode, resolveFixture(fixturePool[(index + offset) % fixturePool.length]), index));
   const errors = questions.flatMap((q, i) => validateG3BU07FractionUnitConversionQuestion(q).errors.map((e) => ({ ...e, path: `questions[${i}].${e.path}` })));
@@ -153,3 +203,5 @@ export function generateG3BU07FractionUnitConversionQuestions(options = {}) {
 }
 
 // PGC-R04 legacy contract reconciliation V1
+
+// PGC-R05 G3B-U07 fraction-unit application diversity FullFix V2

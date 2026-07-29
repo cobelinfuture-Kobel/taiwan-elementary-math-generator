@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics",
-  "status": "PASS_R05_205_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
+  "status": "PASS_R05_208_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
   "sourceContract": "data/curriculum/public-generation/generator_capacity_contract.json",
   "applicationQuestionType": "application",
   "diagnosticSeeds": [
@@ -17,8 +17,8 @@
     "contractVerified20RouteCount": 128,
     "contractLimitedRouteCount": 83,
     "contractQualityGapRouteCount": 21,
-    "live20PassRouteCount": 205,
-    "live20FailRouteCount": 6,
+    "live20PassRouteCount": 208,
+    "live20FailRouteCount": 3,
     "repairRouteCount": 84,
     "zeroSafeCapacityRouteCount": 4,
     "repairRouteCountBySource": {
@@ -40,7 +40,6 @@
       "g6a_u01_6a01": 4
     },
     "liveFailureRouteCountBySource": {
-      "g3b_u07_3b07": 3,
       "g4a_u08_4a08": 2,
       "g5a_u03_5a03a": 1
     }
@@ -40347,10 +40346,8 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -40366,8 +40363,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u07_fraction_unit_conversion_item_count_application",
             "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
@@ -40375,7 +40372,7 @@
           "knowledgePointIdsObserved": [
             "kp_g3b_u07_fraction_unit_conversion"
           ],
-          "worksheetSignature": "99678934578b39be2da6",
+          "worksheetSignature": "51015e8e029372bdbb63",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40388,10 +40385,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每包有 10 個色紙。老師準備了 3/5 包，共有多少個色紙？",
-              "answer": "6",
-              "promptHash": "dc28444dc660f4e7c02e",
-              "itemSignature": "bcd4ce1c919aed0452e2",
+              "prompt": "每盒有 8 個獎勵卡。老師準備了 2 又 4/8 盒，共有多少個獎勵卡？",
+              "answer": "20",
+              "promptHash": "7de47f070f07e95bb991",
+              "itemSignature": "831a72a2896d50ab1957",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40399,10 +40396,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 8 個獎勵卡。共有 6 個獎勵卡，相當於多少盒？",
-              "answer": "3/4",
-              "promptHash": "80c8a6177eec49517591",
-              "itemSignature": "3c3ef5040de6d169b336",
+              "prompt": "每盒有 6 個獎勵卡。共有 3 個獎勵卡，相當於多少盒？",
+              "answer": "1/2",
+              "promptHash": "1f9bc00c00fe220a3d8f",
+              "itemSignature": "aa85714c53fbbae4eed3",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40410,10 +40407,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個彩色筆。老師準備了 1 又 1/3 盒，共有多少個彩色筆？",
-              "answer": "16",
-              "promptHash": "8c3d96fa342cdac2d930",
-              "itemSignature": "f0436102c79ff2bbb19a",
+              "prompt": "每盒有 8 個彩色筆。老師準備了 5/8 盒，共有多少個彩色筆？",
+              "answer": "5",
+              "promptHash": "f728e8832efebd1c5864",
+              "itemSignature": "68beab0f134b1548744b",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40421,9 +40418,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -40438,8 +40433,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
             "ps_g3b_u07_fraction_unit_conversion_item_count_application"
@@ -40447,7 +40442,7 @@
           "knowledgePointIdsObserved": [
             "kp_g3b_u07_fraction_unit_conversion"
           ],
-          "worksheetSignature": "9cf2504b95bf5ee8849c",
+          "worksheetSignature": "450a3a41902bf165828a",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40460,10 +40455,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每盒有 8 個獎勵卡。共有 6 個獎勵卡，相當於多少盒？",
-              "answer": "3/4",
-              "promptHash": "80c8a6177eec49517591",
-              "itemSignature": "3c3ef5040de6d169b336",
+              "prompt": "每盒有 6 個獎勵卡。共有 3 個獎勵卡，相當於多少盒？",
+              "answer": "1/2",
+              "promptHash": "1f9bc00c00fe220a3d8f",
+              "itemSignature": "aa85714c53fbbae4eed3",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40471,10 +40466,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個彩色筆。老師準備了 1 又 1/3 盒，共有多少個彩色筆？",
-              "answer": "16",
-              "promptHash": "8c3d96fa342cdac2d930",
-              "itemSignature": "f0436102c79ff2bbb19a",
+              "prompt": "每盒有 8 個彩色筆。老師準備了 5/8 盒，共有多少個彩色筆？",
+              "answer": "5",
+              "promptHash": "f728e8832efebd1c5864",
+              "itemSignature": "68beab0f134b1548744b",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40482,10 +40477,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個圖卡。共有 18 個圖卡，相當於多少盒？",
-              "answer": "3/2",
-              "promptHash": "a77f11a7b49e8cbf3e84",
-              "itemSignature": "ecbe88b1e2720e131b9d",
+              "prompt": "每盒有 6 個彩色筆。共有 4 個彩色筆，相當於多少盒？",
+              "answer": "2/3",
+              "promptHash": "be5d0d130c3b1e297f24",
+              "itemSignature": "e110ff7172527ec261ef",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40493,9 +40488,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -40533,10 +40526,8 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -40552,8 +40543,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u07_fraction_unit_conversion_item_count_application",
             "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
@@ -40561,7 +40552,7 @@
           "knowledgePointIdsObserved": [
             "kp_g3b_u07_fraction_unit_conversion"
           ],
-          "worksheetSignature": "99678934578b39be2da6",
+          "worksheetSignature": "51015e8e029372bdbb63",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40574,10 +40565,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每包有 10 個色紙。老師準備了 3/5 包，共有多少個色紙？",
-              "answer": "6",
-              "promptHash": "dc28444dc660f4e7c02e",
-              "itemSignature": "bcd4ce1c919aed0452e2",
+              "prompt": "每盒有 8 個獎勵卡。老師準備了 2 又 4/8 盒，共有多少個獎勵卡？",
+              "answer": "20",
+              "promptHash": "7de47f070f07e95bb991",
+              "itemSignature": "831a72a2896d50ab1957",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40585,10 +40576,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 8 個獎勵卡。共有 6 個獎勵卡，相當於多少盒？",
-              "answer": "3/4",
-              "promptHash": "80c8a6177eec49517591",
-              "itemSignature": "3c3ef5040de6d169b336",
+              "prompt": "每盒有 6 個獎勵卡。共有 3 個獎勵卡，相當於多少盒？",
+              "answer": "1/2",
+              "promptHash": "1f9bc00c00fe220a3d8f",
+              "itemSignature": "aa85714c53fbbae4eed3",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40596,10 +40587,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個彩色筆。老師準備了 1 又 1/3 盒，共有多少個彩色筆？",
-              "answer": "16",
-              "promptHash": "8c3d96fa342cdac2d930",
-              "itemSignature": "f0436102c79ff2bbb19a",
+              "prompt": "每盒有 8 個彩色筆。老師準備了 5/8 盒，共有多少個彩色筆？",
+              "answer": "5",
+              "promptHash": "f728e8832efebd1c5864",
+              "itemSignature": "68beab0f134b1548744b",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40607,9 +40598,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -40624,8 +40613,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
             "ps_g3b_u07_fraction_unit_conversion_item_count_application"
@@ -40633,7 +40622,7 @@
           "knowledgePointIdsObserved": [
             "kp_g3b_u07_fraction_unit_conversion"
           ],
-          "worksheetSignature": "9cf2504b95bf5ee8849c",
+          "worksheetSignature": "450a3a41902bf165828a",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40646,10 +40635,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每盒有 8 個獎勵卡。共有 6 個獎勵卡，相當於多少盒？",
-              "answer": "3/4",
-              "promptHash": "80c8a6177eec49517591",
-              "itemSignature": "3c3ef5040de6d169b336",
+              "prompt": "每盒有 6 個獎勵卡。共有 3 個獎勵卡，相當於多少盒？",
+              "answer": "1/2",
+              "promptHash": "1f9bc00c00fe220a3d8f",
+              "itemSignature": "aa85714c53fbbae4eed3",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40657,10 +40646,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個彩色筆。老師準備了 1 又 1/3 盒，共有多少個彩色筆？",
-              "answer": "16",
-              "promptHash": "8c3d96fa342cdac2d930",
-              "itemSignature": "f0436102c79ff2bbb19a",
+              "prompt": "每盒有 8 個彩色筆。老師準備了 5/8 盒，共有多少個彩色筆？",
+              "answer": "5",
+              "promptHash": "f728e8832efebd1c5864",
+              "itemSignature": "68beab0f134b1548744b",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40668,10 +40657,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個圖卡。共有 18 個圖卡，相當於多少盒？",
-              "answer": "3/2",
-              "promptHash": "a77f11a7b49e8cbf3e84",
-              "itemSignature": "ecbe88b1e2720e131b9d",
+              "prompt": "每盒有 6 個彩色筆。共有 4 個彩色筆，相當於多少盒？",
+              "answer": "2/3",
+              "promptHash": "be5d0d130c3b1e297f24",
+              "itemSignature": "e110ff7172527ec261ef",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40679,9 +40668,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -40720,10 +40707,8 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -40739,8 +40724,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u07_fraction_unit_conversion_item_count_application",
             "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
@@ -40748,7 +40733,7 @@
           "knowledgePointIdsObserved": [
             "kp_g3b_u07_fraction_unit_conversion"
           ],
-          "worksheetSignature": "99678934578b39be2da6",
+          "worksheetSignature": "51015e8e029372bdbb63",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40761,10 +40746,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每包有 10 個色紙。老師準備了 3/5 包，共有多少個色紙？",
-              "answer": "6",
-              "promptHash": "dc28444dc660f4e7c02e",
-              "itemSignature": "bcd4ce1c919aed0452e2",
+              "prompt": "每盒有 8 個獎勵卡。老師準備了 2 又 4/8 盒，共有多少個獎勵卡？",
+              "answer": "20",
+              "promptHash": "7de47f070f07e95bb991",
+              "itemSignature": "831a72a2896d50ab1957",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40772,10 +40757,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 8 個獎勵卡。共有 6 個獎勵卡，相當於多少盒？",
-              "answer": "3/4",
-              "promptHash": "80c8a6177eec49517591",
-              "itemSignature": "3c3ef5040de6d169b336",
+              "prompt": "每盒有 6 個獎勵卡。共有 3 個獎勵卡，相當於多少盒？",
+              "answer": "1/2",
+              "promptHash": "1f9bc00c00fe220a3d8f",
+              "itemSignature": "aa85714c53fbbae4eed3",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40783,10 +40768,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個彩色筆。老師準備了 1 又 1/3 盒，共有多少個彩色筆？",
-              "answer": "16",
-              "promptHash": "8c3d96fa342cdac2d930",
-              "itemSignature": "f0436102c79ff2bbb19a",
+              "prompt": "每盒有 8 個彩色筆。老師準備了 5/8 盒，共有多少個彩色筆？",
+              "answer": "5",
+              "promptHash": "f728e8832efebd1c5864",
+              "itemSignature": "68beab0f134b1548744b",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40794,9 +40779,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -40811,8 +40794,8 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
             "ps_g3b_u07_fraction_unit_conversion_item_count_application"
@@ -40820,7 +40803,7 @@
           "knowledgePointIdsObserved": [
             "kp_g3b_u07_fraction_unit_conversion"
           ],
-          "worksheetSignature": "9cf2504b95bf5ee8849c",
+          "worksheetSignature": "450a3a41902bf165828a",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40833,10 +40816,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每盒有 8 個獎勵卡。共有 6 個獎勵卡，相當於多少盒？",
-              "answer": "3/4",
-              "promptHash": "80c8a6177eec49517591",
-              "itemSignature": "3c3ef5040de6d169b336",
+              "prompt": "每盒有 6 個獎勵卡。共有 3 個獎勵卡，相當於多少盒？",
+              "answer": "1/2",
+              "promptHash": "1f9bc00c00fe220a3d8f",
+              "itemSignature": "aa85714c53fbbae4eed3",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40844,10 +40827,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個彩色筆。老師準備了 1 又 1/3 盒，共有多少個彩色筆？",
-              "answer": "16",
-              "promptHash": "8c3d96fa342cdac2d930",
-              "itemSignature": "f0436102c79ff2bbb19a",
+              "prompt": "每盒有 8 個彩色筆。老師準備了 5/8 盒，共有多少個彩色筆？",
+              "answer": "5",
+              "promptHash": "f728e8832efebd1c5864",
+              "itemSignature": "68beab0f134b1548744b",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_item_count_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40855,10 +40838,10 @@
               "rawKind": null
             },
             {
-              "prompt": "每盒有 12 個圖卡。共有 18 個圖卡，相當於多少盒？",
-              "answer": "3/2",
-              "promptHash": "a77f11a7b49e8cbf3e84",
-              "itemSignature": "ecbe88b1e2720e131b9d",
+              "prompt": "每盒有 6 個彩色筆。共有 4 個彩色筆，相當於多少盒？",
+              "answer": "2/3",
+              "promptHash": "be5d0d130c3b1e297f24",
+              "itemSignature": "e110ff7172527ec261ef",
               "patternSpecId": "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
               "knowledgePointIds": [
                 "kp_g3b_u07_fraction_unit_conversion"
@@ -40866,9 +40849,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
