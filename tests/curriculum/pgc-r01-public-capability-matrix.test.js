@@ -5,8 +5,8 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
-  buildPublicGenerationCapabilityMatrixV3,
-} from "../../tools/curriculum/materialize-pgc-r01-public-capability-matrix-v3.mjs";
+  buildPublicGenerationCapabilityMatrixV4,
+} from "../../tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs";
 import {
   CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
 } from "../../site/modules/curriculum/batch-a/source-units.js";
@@ -30,12 +30,13 @@ test("PGC-R01 materializes the deterministic current public capability authority
   assert.equal(fs.existsSync(gapPath), true);
 
   const committed = readMatrix();
-  const rebuilt = buildPublicGenerationCapabilityMatrixV3();
+  const rebuilt = buildPublicGenerationCapabilityMatrixV4();
   assert.equal(committed.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(committed.taskId, "PGC-R01_PublicKnowledgePointCapabilityMatrix");
   assert.deepEqual(committed.summary, rebuilt.summary);
   assert.deepEqual(committed.normalizationPatch, rebuilt.normalizationPatch);
   assert.deepEqual(committed.coverageNormalizationPatch, rebuilt.coverageNormalizationPatch);
+  assert.deepEqual(committed.surfaceGapPolicy, rebuilt.surfaceGapPolicy);
   assert.deepEqual(
     committed.capabilities.map((row) => row.capabilityId),
     rebuilt.capabilities.map((row) => row.capabilityId),
@@ -54,27 +55,38 @@ test("PGC-R01 accounts for all 26 public sources and all visible KnowledgePoints
     assert.equal(matrixSources.has(source.sourceId), true, `missing capability source ${source.sourceId}`);
   }
 
-  const matrixKps = new Set(matrix.capabilities.map((row) => row.knowledgePointId));
+  const accountedKps = new Set([
+    ...matrix.capabilities.map((row) => row.knowledgePointId),
+    ...matrix.gaps.filter((gap) => gap.capabilityStatus === "ABSENT_EXPLICIT").map((gap) => gap.knowledgePointId),
+  ]);
   for (const kp of visibleKnowledgePoints) {
-    assert.equal(matrixKps.has(kp.knowledgePointId), true, `missing capability KP ${kp.knowledgePointId}`);
+    assert.equal(accountedKps.has(kp.knowledgePointId), true, `unaccounted public KP ${kp.knowledgePointId}`);
   }
 });
 
-test("PGC-R01 closes all 193 KnowledgePoint by three-surface pairs", () => {
+test("PGC-R01 accounts all 193 KnowledgePoint by three-surface pairs", () => {
   const matrix = readMatrix();
   const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
   const expectedPairCount = visibleKnowledgePoints.length * SURFACE_IDS.length;
-  const pairs = new Set(matrix.capabilities.map((row) => `${row.knowledgePointId}|${row.surfaceId}`));
+  const capabilityPairs = new Set(matrix.capabilities.map((row) => `${row.knowledgePointId}|${row.surfaceId}`));
+  const explicitGapPairs = new Set(
+    matrix.gaps
+      .filter((gap) => gap.code === "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY")
+      .map((gap) => `${gap.knowledgePointId}|${gap.surfaceId}`),
+  );
 
   assert.equal(expectedPairCount, 579);
-  assert.equal(matrix.summary.expectedKpSurfacePairCount, expectedPairCount);
-  assert.equal(matrix.summary.kpSurfacePairCount, expectedPairCount);
-  assert.equal(pairs.size, expectedPairCount);
-  assert.equal(matrix.coverageNormalizationPatch.remainingMissingPairCount, 0);
+  assert.equal(matrix.summary.visibleKpSurfaceExpectedPairCount, expectedPairCount);
+  assert.equal(matrix.summary.visibleKpSurfaceAccountedPairCount, expectedPairCount);
+  assert.equal(matrix.summary.visibleKpSurfaceUnaccountedPairCount, 0);
+  assert.equal(matrix.surfaceGapPolicy.unaccountedPairCount, 0);
+  assert.equal(matrix.summary.visibleKpSurfaceExplicitGapPairCount, explicitGapPairs.size);
+  assert.ok(explicitGapPairs.size > 0);
 
   for (const kp of visibleKnowledgePoints) {
     for (const surfaceId of SURFACE_IDS) {
-      assert.equal(pairs.has(`${kp.knowledgePointId}|${surfaceId}`), true, `missing ${kp.knowledgePointId} on ${surfaceId}`);
+      const pair = `${kp.knowledgePointId}|${surfaceId}`;
+      assert.equal(capabilityPairs.has(pair) || explicitGapPairs.has(pair), true, `unaccounted ${pair}`);
     }
   }
 });
@@ -118,13 +130,20 @@ test("PGC-R01 accounts every public UI question-type option", () => {
   assert.ok(matrix.coverageNormalizationPatch.addedCapabilityRowCount > 0);
 });
 
-test("PGC-R01 preserves downstream R02 and R03 blockers without misclaiming capacity", () => {
+test("PGC-R01 preserves downstream R02 and R03 blockers without fabricating capability", () => {
   const matrix = readMatrix();
   assert.ok(matrix.summary.r02UiBindingGapCount > 0);
   assert.equal(matrix.summary.capacityUnverifiedCapabilityCount, matrix.summary.capabilityRowCount);
   assert.equal(matrix.gaps.some((gap) => gap.code === "FALLBACK_404_PUBLIC_CONTROL_PARITY_GAP"), true);
+  assert.equal(matrix.gaps.some((gap) => gap.code === "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY"), true);
   assert.equal(matrix.gaps.some((gap) => gap.code === "PUBLIC_UI_OPTION_WITHOUT_CAPABILITY"), false);
-  assert.equal(matrix.gaps.some((gap) => gap.code === "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY"), false);
+  assert.equal(matrix.gaps.some((gap) => gap.code === "PUBLIC_KP_SURFACE_UNACCOUNTED"), false);
+  assert.equal(
+    matrix.gaps
+      .filter((gap) => gap.code === "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY")
+      .every((gap) => gap.capabilityStatus === "ABSENT_EXPLICIT" && gap.severity === "r02_ui_binding"),
+    true,
+  );
 });
 
 test("PGC-R01 CSV and gap report remain synchronized", () => {
@@ -133,7 +152,7 @@ test("PGC-R01 CSV and gap report remain synchronized", () => {
   assert.equal(csvRows.length, matrix.capabilities.length + 1);
   const report = fs.readFileSync(gapPath, "utf8");
   assert.match(report, new RegExp(`PUBLIC_SOURCES\\s+= ${matrix.summary.publicSourceCount}`));
-  assert.match(report, new RegExp(`KP_SURFACE_PAIRS\\s+= ${matrix.summary.kpSurfacePairCount} / ${matrix.summary.expectedKpSurfacePairCount}`));
+  assert.match(report, new RegExp(`VISIBLE_KP_SURFACE_ACCOUNTED\\s+= ${matrix.summary.visibleKpSurfaceAccountedPairCount} / ${matrix.summary.visibleKpSurfaceExpectedPairCount}`));
   assert.match(report, new RegExp(`CAPABILITY_ROWS\\s+= ${matrix.summary.capabilityRowCount}`));
   assert.match(report, /BLOCKING_R01_GAPS\s+= 0/);
   assert.match(report, /NEXT_SHORTEST_STEP\s+= PGC-R02_KnowledgePointDrivenUICapabilityBinding/);
