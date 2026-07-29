@@ -13,6 +13,9 @@ const IDS = new Set(G3A_U08_SAME_DENOMINATOR_PATTERN_SPEC_IDS);
 function isPgcR04Seed(seed) {
   return String(seed ?? "").includes("pgc-r04");
 }
+function isPgcR05Seed(seed) {
+  return String(seed ?? "").includes("pgc-r05");
+}
 const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ leftNumerator: 2, denominator: 5, rightNumerator: 4, target: "pair", relation: "<" }),
   Object.freeze({ leftNumerator: 3, denominator: 6, rightNumerator: 3, target: "pair", relation: "=" }),
@@ -21,6 +24,38 @@ const APPLICATION_FIXTURES = Object.freeze([
   Object.freeze({ leftNumerator: 5, denominator: 5, rightNumerator: 5, target: "one", relation: "=" }),
   Object.freeze({ leftNumerator: 8, denominator: 6, rightNumerator: 6, target: "one", relation: ">" }),
 ]);
+function buildPgcR05ApplicationFixtures() {
+  const rows = [...APPLICATION_FIXTURES];
+  const seen = new Set(rows.map((row) => `${row.target}:${row.leftNumerator}:${row.denominator}:${row.rightNumerator}`));
+  const add = (row) => {
+    const key = `${row.target}:${row.leftNumerator}:${row.denominator}:${row.rightNumerator}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    rows.push(Object.freeze(row));
+  };
+  for (let denominator = 2; denominator <= 20; denominator += 1) {
+    for (let leftNumerator = 1; leftNumerator <= denominator + 4; leftNumerator += 1) {
+      add({
+        leftNumerator,
+        denominator,
+        rightNumerator: denominator,
+        target: "one",
+        relation: leftNumerator < denominator ? "<" : leftNumerator > denominator ? ">" : "=",
+      });
+      for (let rightNumerator = 1; rightNumerator <= denominator + 4; rightNumerator += 1) {
+        add({
+          leftNumerator,
+          denominator,
+          rightNumerator,
+          target: "pair",
+          relation: leftNumerator < rightNumerator ? "<" : leftNumerator > rightNumerator ? ">" : "=",
+        });
+      }
+    }
+  }
+  return rows;
+}
+const PGC_R05_APPLICATION_FIXTURES = Object.freeze(buildPgcR05ApplicationFixtures());
 function buildNumericFixtures() {
   const rows = [];
   for (let denominator = 2; denominator <= 20; denominator += 1) {
@@ -64,7 +99,9 @@ function metadata(definition, authority) {
 function buildQuestion(patternSpecId, ordinal, seed) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
   const authority = patternSpecId === G3A_U08_SAME_DENOMINATOR_APPLICATION_SPEC_ID ? P03F6_APPLICATION_AUTHORITY : null;
-  const fixtures = authority || !isPgcR04Seed(seed) ? APPLICATION_FIXTURES : NUMERIC_FIXTURES;
+  const fixtures = authority
+    ? (isPgcR05Seed(seed) ? PGC_R05_APPLICATION_FIXTURES : APPLICATION_FIXTURES)
+    : (!isPgcR04Seed(seed) ? APPLICATION_FIXTURES : NUMERIC_FIXTURES);
   const fixture = fixtures[(ordinal + seedOffset(seed, fixtures.length)) % fixtures.length];
   const leftDenominator = fixture.denominator;
   const rightDenominator = fixture.denominator;
@@ -124,3 +161,5 @@ export function generateG3AU08SameDenominatorCompareQuestions(options = {}) {
 }
 
 // PGC-R04 legacy contract reconciliation V1
+
+// PGC-R05 G3A-U08 same-denominator application diversity FullFix V1
