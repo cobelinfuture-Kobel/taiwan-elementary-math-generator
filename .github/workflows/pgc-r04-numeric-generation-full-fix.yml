@@ -13,6 +13,7 @@ on:
       - "tools/curriculum/apply-pgc-r04-number-theory-prepatch.mjs"
       - "tools/curriculum/apply-pgc-r04-final-legacy-producer-patch.mjs"
       - "tools/curriculum/apply-pgc-r04-final-12-route-patch.mjs"
+      - "tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs"
       - "tools/curriculum/locate-pgc-r04-remaining-producers.mjs"
       - "tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs"
       - "tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js"
@@ -65,6 +66,7 @@ jobs:
           node --check tools/curriculum/apply-pgc-r04-number-theory-prepatch.mjs
           node --check tools/curriculum/apply-pgc-r04-final-legacy-producer-patch.mjs
           node --check tools/curriculum/apply-pgc-r04-final-12-route-patch.mjs
+          node --check tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs
           node --check tools/curriculum/locate-pgc-r04-remaining-producers.mjs
           node --check tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
           node --check site/modules/curriculum/batch-a/numeric-unique-allocation-fullfix.js
@@ -91,6 +93,9 @@ jobs:
       - name: Apply final twelve-route capacity and diversity FullFixes
         run: node tools/curriculum/apply-pgc-r04-final-12-route-patch.mjs
 
+      - name: Apply deterministic G5A-U02 problem-type seed projection
+        run: node tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs
+
       - name: Locate remaining legacy numeric producers
         run: node tools/curriculum/locate-pgc-r04-remaining-producers.mjs
 
@@ -104,6 +109,7 @@ jobs:
           git add \
             tools/curriculum/apply-pgc-r04-final-legacy-producer-patch.mjs \
             tools/curriculum/apply-pgc-r04-final-12-route-patch.mjs \
+            tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs \
             site/modules/curriculum/batch-a/batch-a-browser-validator-p03f*.js \
             site/modules/curriculum/batch-a/batch-a-browser-generator-core.js \
             site/modules/curriculum/batch-a/numeric-unique-allocation-fullfix.js \
@@ -120,9 +126,7 @@ jobs:
             site/modules/curriculum/batch-b/g4b-u04-class-c-generator.js \
             site/modules/curriculum/batch-b/g4b-u04-prompt-deduplication.js \
             site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js \
-            src/curriculum/g5a-u02/s100-method-runtime.js \
-            src/curriculum/g5a-u02/s106-factor-structure-runtime.js \
-            src/curriculum/g5a-u02/class-c-generator-validator.js \
+            src/curriculum/g5a-u02 \
             site/modules/curriculum/batch-a/quotient-fraction-runtime.js \
             site/modules/curriculum/batch-a/simplest-fraction-runtime.js \
             site/modules/curriculum/batch-a/tenth-decimal-runtime.js \
@@ -143,7 +147,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "R04 runtime and diagnostic artifacts already synchronized."
           else
-            git commit -m "fix(pgc-r04): close final numeric capacity and diversity gaps [skip ci]"
+            git commit -m "fix(pgc-r04): close deterministic problem-type prompt gap [skip ci]"
             git fetch origin pgc-r04-numeric-generation-full-fix
             git rebase origin/pgc-r04-numeric-generation-full-fix
             git push origin HEAD:pgc-r04-numeric-generation-full-fix
