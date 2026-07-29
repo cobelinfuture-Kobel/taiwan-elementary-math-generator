@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const relativePath = "tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs";
-const marker = "PGC-R05 D0 capacity-contract-aware readback V1";
+const marker = "PGC-R05 D0 capacity-contract-aware readback V2";
 
 function replaceRequired(source, before, after, label) {
   if (source.includes(after)) return source;
@@ -26,6 +26,16 @@ export function applyPgcR05D0ReadbackPatch() {
   }
 
   let source = before;
+  source = replaceRequired(
+    source,
+    `    worksheetSignature: stableHash(JSON.stringify(summarizedItems.map((item) => item.itemSignature))),
+    runtimeLineage: runtimeLineage(result),`,
+    `    worksheetSignature: stableHash(JSON.stringify(summarizedItems.map((item) => item.itemSignature))),
+    itemSetSignature: stableHash(JSON.stringify([...summarizedItems.map((item) => item.itemSignature)].sort())),
+    runtimeLineage: runtimeLineage(result),`,
+    "item-set-signature",
+  );
+
   source = replaceRequired(
     source,
     `function reportStatus(summary) {
@@ -104,6 +114,7 @@ function nextShortestStep(summary) {
     status: "PASS_PGC_R05_D0_READBACK_PATCH_APPLIED",
     changedFiles: Object.freeze([relativePath]),
     verifiedFiles: Object.freeze([relativePath]),
+    itemSetEvidenceAdded: true,
     finalStatus: "PASS_R05_D0_ALL_LEGAL_APPLICATION_ROUTES_CONFORMANT",
     nextShortestStep: "PGC-R06_ReasoningMixedPBLGenerationConformance",
   });
