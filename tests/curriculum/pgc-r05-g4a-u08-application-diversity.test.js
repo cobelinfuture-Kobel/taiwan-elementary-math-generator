@@ -86,6 +86,7 @@ test("PGC-R05 G4A-U08 FullFix clears both remaining unit routes", () => {
   assert.equal(report.summary.liveFailureRouteCountBySource[SOURCE_ID], undefined);
   assert.equal(report.summary.live20PassRouteCount, 210, JSON.stringify(report.summary));
   assert.equal(report.summary.live20FailRouteCount, 1, JSON.stringify(report.summary));
+  assert.equal(report.summary.live20PassRouteCount + report.summary.live20FailRouteCount, 211);
   assert.deepEqual(report.summary.liveFailureRouteCountBySource, { g5a_u03_5a03a: 1 });
 });
 
