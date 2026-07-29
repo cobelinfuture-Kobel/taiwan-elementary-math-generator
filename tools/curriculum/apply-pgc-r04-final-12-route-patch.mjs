@@ -68,12 +68,31 @@ function patchClassC(source) {
     `const PGC_R04_FACTOR_TARGET_PRIMES = Object.freeze(${primes});`,
     "PGC_R04_FACTOR_TARGET_PRIMES",
   );
-  return replaceRequired(
+  source = replaceRequired(
     source,
     "return rng.int(2, 12) * rng.int(2, 12);",
     "return rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);",
     "class-c-target",
   );
+  source = insertAfterOnce(
+    source,
+    `function compositeTarget(rng) {\n  return rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);\n}`,
+    `\nfunction projectCommonFactorPair(seed) {\n  const normalizedSeed = Number.isInteger(seed) && seed >= 1 ? seed : 1;\n  const slot = (normalizedSeed - 1) % 90;\n  const common = 2 + (slot % 9);\n  const leftMultiplier = 101 + (2 * slot);\n  const rightMultiplier = leftMultiplier + 1;\n  return Object.freeze({\n    common,\n    leftMultiplier,\n    rightMultiplier,\n    a: common * leftMultiplier,\n    b: common * rightMultiplier,\n    generationProjectionStatus: "PGC_R04_COMMON_FACTOR_SEED_PROJECTION_V2",\n  });\n}`,
+    "PGC_R04_COMMON_FACTOR_SEED_PROJECTION_V2",
+  );
+  source = replaceRequired(
+    source,
+    `    case "ps_g5a_u02_common_factor_enumeration": {\n      const common = rng.int(2, 10);\n      const a = common * rng.int(2, 10);\n      const b = common * rng.int(2, 10);\n      return makeBase(patternSpecId, seed, { a, b }, \`列出 \${a} 和 \${b} 的所有公因數。\`, { values: commonFactorsOf(a, b) });\n    }`,
+    `    case "ps_g5a_u02_common_factor_enumeration": {\n      const projected = projectCommonFactorPair(seed);\n      const { a, b } = projected;\n      return makeBase(patternSpecId, seed, { ...projected }, \`列出 \${a} 和 \${b} 的所有公因數。\`, { values: commonFactorsOf(a, b) });\n    }`,
+    "class-c-common-factor-enumeration-projection-v2",
+  );
+  source = replaceRequired(
+    source,
+    `    case "ps_g5a_u02_greatest_common_factor": {\n      const common = rng.int(2, 10);\n      const a = common * rng.int(2, 10);\n      const b = common * rng.int(2, 10);\n      return makeBase(patternSpecId, seed, { a, b }, \`求 \${a} 和 \${b} 的最大公因數。\`, { value: gcd(a, b) });\n    }`,
+    `    case "ps_g5a_u02_greatest_common_factor": {\n      const projected = projectCommonFactorPair(seed);\n      const { a, b } = projected;\n      return makeBase(patternSpecId, seed, { ...projected }, \`求 \${a} 和 \${b} 的最大公因數。\`, { value: gcd(a, b) });\n    }`,
+    "class-c-gcf-projection-v2",
+  );
+  return source;
 }
 
 function patchBrowserBundle(source) {
@@ -86,8 +105,21 @@ function patchBrowserBundle(source) {
     /total:([A-Za-z_$][A-Za-z0-9_$]*)\.int\(4,12\)\*\1\.int\(2,8\),groupSize:\1\.int\(2,12\),a:\1\.int\(2,10\)\*\1\.int\(2,7\),b:\1\.int\(2,10\)\*\1\.int\(2,7\)/g,
     (_, rng) => `total:${rng}.int(4,20)*${rng}.pick(${inlinePrimes}),groupSize:${rng}.int(2,99),a:${rng}.int(2,12)*${rng}.pick(${inlinePrimes}),b:${rng}.int(2,12)*${rng}.pick(${inlinePrimes})`,
   );
+  source = replaceRequired(
+    source,
+    "i=(r-1)%900,o=2+i%9,a=11+i,s=a+1",
+    "i=(r-1)%90,o=2+i%9,a=101+2*i,s=a+1",
+    "browser-common-factor-injective-projection-v2",
+  );
+  source = source.replaceAll(
+    'generationProjectionStatus:"pgc_r04_common_factor_seed_projection"',
+    'generationProjectionStatus:"pgc_r04_common_factor_seed_projection_v2"',
+  );
   if (!source.includes(`pick(${inlinePrimes})`)) {
     throw new Error("PGC_R04_FINAL12_BROWSER_BUNDLE_TARGET_SPACE_MISSING");
+  }
+  if (!source.includes("i=(r-1)%90,o=2+i%9,a=101+2*i,s=a+1")) {
+    throw new Error("PGC_R04_FINAL12_BROWSER_COMMON_FACTOR_PROJECTION_V2_MISSING");
   }
   return source;
 }
@@ -117,9 +149,11 @@ export function applyPgcR04Final12RoutePatch() {
       "G4B_U04_APPROX_SYMBOL_CAPACITY",
       "G5A_U02_FACTOR_TARGET_UNIQUENESS",
       "G5A_U02_PROBLEM_CLASSIFICATION_PARAMETER_DIVERSITY",
+      "G5A_U02_COMMON_FACTOR_GCF_INJECTIVE_PROMPT_PROJECTION",
     ]),
     idempotency: Object.freeze({
       acceptsDeterministicProblemTypeSeedProjection: true,
+      acceptsInjectiveCommonFactorSeedProjectionV2: true,
     }),
   });
   console.log(`PGC_R04_FINAL12_PATCH=${JSON.stringify(result)}`);
