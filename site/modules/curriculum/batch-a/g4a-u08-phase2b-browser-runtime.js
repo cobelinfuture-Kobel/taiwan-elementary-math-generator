@@ -112,11 +112,27 @@ function comparisonChain(rng, seed) {
   };
 }
 
-function equalValueUnitPrice(rng, seed) {
-  const [knownQuantity, targetQuantity] = choose(rng, [
-    [3, 2], [3, 4], [4, 2], [4, 5], [5, 2], [5, 4], [6, 4], [8, 5], [8, 10],
-  ]);
-  const commonFactor = integer(rng, 6, 20);
+const EQUAL_VALUE_QUANTITY_PAIRS = Object.freeze([
+  Object.freeze([3, 2]), Object.freeze([3, 4]), Object.freeze([4, 2]),
+  Object.freeze([4, 5]), Object.freeze([5, 2]), Object.freeze([5, 4]),
+  Object.freeze([6, 4]), Object.freeze([8, 5]), Object.freeze([8, 10]),
+]);
+const PGC_R05_EQUAL_VALUE_FACTOR_COUNT = 15;
+const PGC_R05_EQUAL_VALUE_PARAMETER_SPACE = EQUAL_VALUE_QUANTITY_PAIRS.length * PGC_R05_EQUAL_VALUE_FACTOR_COUNT;
+
+function equalValueUnitPrice(rng, seed, generationProfile = null, diversityOrdinal = null) {
+  let knownQuantity;
+  let targetQuantity;
+  let commonFactor;
+  if (generationProfile === "pgc-r05" && Number.isSafeInteger(diversityOrdinal) && diversityOrdinal >= 0) {
+    let slot = diversityOrdinal % PGC_R05_EQUAL_VALUE_PARAMETER_SPACE;
+    [knownQuantity, targetQuantity] = EQUAL_VALUE_QUANTITY_PAIRS[slot % EQUAL_VALUE_QUANTITY_PAIRS.length];
+    slot = Math.floor(slot / EQUAL_VALUE_QUANTITY_PAIRS.length);
+    commonFactor = 6 + (slot % PGC_R05_EQUAL_VALUE_FACTOR_COUNT);
+  } else {
+    [knownQuantity, targetQuantity] = choose(rng, EQUAL_VALUE_QUANTITY_PAIRS);
+    commonFactor = integer(rng, 6, 20);
+  }
   const total = lcm(knownQuantity, targetQuantity) * commonFactor;
   const knownUnitPrice = total / knownQuantity;
   const targetUnitPrice = total / targetQuantity;
@@ -254,9 +270,9 @@ export function validateG4AU08Phase2BBrowserItem(item) {
   return Object.freeze({ valid: errors.length === 0, errors: Object.freeze(errors) });
 }
 
-export function generateG4AU08Phase2BBrowserItem({ templateId, seed = 1 } = {}) {
+export function generateG4AU08Phase2BBrowserItem({ templateId, seed = 1, generationProfile = null, diversityOrdinal = null } = {}) {
   if (!TEMPLATE_IDS.includes(templateId)) throw new Error(`G4AU08_BROWSER_TEMPLATE_UNMAPPED:${templateId}`);
-  const item = adapt(GENERATORS[templateId](makeRng(seed), seed));
+  const item = adapt(GENERATORS[templateId](makeRng(seed), seed, generationProfile, diversityOrdinal));
   const validation = validateG4AU08Phase2BBrowserItem(item);
   if (!validation.valid) throw new Error(`G4AU08_BROWSER_VALIDATION_FAILED:${validation.errors.join(",")}`);
   return item;
@@ -265,3 +281,5 @@ export function generateG4AU08Phase2BBrowserItem({ templateId, seed = 1 } = {}) 
 export function resolveG4AU08Phase2BTemplateId(patternSpecId) {
   return G4A_U08_PHASE2B_TEMPLATE_BY_PATTERN_SPEC_ID[patternSpecId] ?? null;
 }
+
+// PGC-R05 G4A-U08 application diversity FullFix V1

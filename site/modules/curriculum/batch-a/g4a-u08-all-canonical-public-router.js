@@ -219,7 +219,12 @@ export function generateG4AU08AllCanonicalPublicQuestions(plan = {}) {
       }
     } else if (entry.runtimeKind === "app_cost_overlay") {
       for (let index = 0; index < entry.questionCount; index += 1) {
-        const item = generateG4AU08AppCostOverlayHidden({ seed: `${normalized.generationSeed}:${entry.patternGroupId}:${index}` });
+        const generationProfile = String(normalized.generationSeed ?? "").includes("pgc-r05") ? "pgc-r05" : null;
+        const item = generateG4AU08AppCostOverlayHidden({
+          seed: `${normalized.generationSeed}:${entry.patternGroupId}:${index}`,
+          generationProfile,
+          diversityOrdinal: generationProfile === "pgc-r05" ? index : null,
+        });
         const validation = validateG4AU08AppCostOverlayBrowserItem(item);
         if (!validation.valid) { errors.push(issue("G4A_U08_S76Q_COST_OVERLAY_VALIDATION_FAILED", "validation", "Cost-overlay validator rejected item.", { validationErrors: validation.errors })); continue; }
         sequenceNumber += 1;
@@ -250,3 +255,5 @@ export function validateG4AU08AllCanonicalPublicQuestion(question) {
   if (!s76qLifecycle && !preservedS76JLifecycle) errors.push(issue("G4A_U08_S76Q_QUESTION_LIFECYCLE_INVALID", "lifecycle", "S76Q 或 preserved S76J lifecycle 不一致。"));
   return { ok: errors.length === 0, errors, warnings: [] };
 }
+
+// PGC-R05 G4A-U08 application diversity FullFix V1
