@@ -1,0 +1,60 @@
+name: PGC-R01 Capability Matrix Materialization
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix.mjs"
+      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v2.mjs"
+      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v3.mjs"
+      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs"
+      - "tests/curriculum/pgc-r01-public-capability-matrix.test.js"
+      - ".github/workflows/pgc-r01-capability-matrix-materialization.yml"
+      - "data/curriculum/public-generation/public_generation_capability_matrix.*"
+      - "docs/curriculum/output/PGC-R01_capability_gap_report.md"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r01-capability-pg436
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: pgc-r01-public-capability-matrix
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Materialize final R01 capability authority
+        run: node tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs
+
+      - name: Focused R01 acceptance
+        run: node --test tests/curriculum/pgc-r01-public-capability-matrix.test.js
+
+      - name: Commit deterministic artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/public_generation_capability_matrix.json \
+            data/curriculum/public-generation/public_generation_capability_matrix.csv \
+            docs/curriculum/output/PGC-R01_capability_gap_report.md
+          if git diff --cached --quiet; then
+            echo "Capability artifacts already synchronized."
+          else
+            git commit -m "data(pgc-r01): materialize final public capability matrix [skip ci]"
+            git fetch origin pgc-r01-public-capability-matrix
+            git rebase origin/pgc-r01-public-capability-matrix
+            git push origin HEAD:pgc-r01-public-capability-matrix
+          fi
