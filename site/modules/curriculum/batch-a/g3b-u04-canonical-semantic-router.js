@@ -217,6 +217,17 @@ function generateForPattern(patternSpecId, options) {
   };
 }
 
+const PGC_R05_PROMPT_DIVERSITY_RETRY_LIMIT = 32;
+
+function isPgcR05ApplicationDiversityPlan(plan = {}) {
+  return String(plan.generationSeed ?? "").includes("pgc-r05");
+}
+
+function generationSeedForVariant(plan, allocationEntry, familyIndex, variantAttempt) {
+  const base = `${plan.generationSeed}:canonical:${allocationEntry.patternSpecId}:${familyIndex + 1}`;
+  return variantAttempt === 0 ? base : `${base}:pgc-r05-diversity:${variantAttempt}`;
+}
+
 function contextDomainForFamily(patternSpecId, familyIndex) {
   const domains = getG3BU04SemanticPatternDefinition(patternSpecId)?.contextDomains ?? [];
   return domains.length > 0 ? domains[familyIndex % domains.length] : undefined;
@@ -289,41 +300,74 @@ export function generateG3BU04CanonicalSemanticQuestions(plan = {}, options = {}
   const recentPrompts = [];
   let sequenceNumber = 0;
 
+  const diversityRetryEnabled = isPgcR05ApplicationDiversityPlan(plan);
+  const variantLimit = diversityRetryEnabled ? PGC_R05_PROMPT_DIVERSITY_RETRY_LIMIT : 1;
+
   for (const allocationEntry of plan.allocation) {
     for (let familyIndex = 0; familyIndex < allocationEntry.questionCount; familyIndex += 1) {
       const questionIndex = sequenceNumber;
       sequenceNumber += 1;
-      const generated = generateForPattern(allocationEntry.patternSpecId, {
-        seed: `${plan.generationSeed}:canonical:${allocationEntry.patternSpecId}:${familyIndex + 1}`,
-        sequenceNumber: sequenceNumber,
-        contextDomain: contextDomainForFamily(allocationEntry.patternSpecId, familyIndex)
-      });
-      warnings.push(...pathIssues(generated.warnings, questionIndex));
-      if (!generated.ok || !generated.question) {
-        errors.push(...pathIssues(generated.errors?.length ? generated.errors : [
-          issue("G3B_U04_CANONICAL_GENERATION_FAILED", "generation", "Canonical semantic generation failed.")
-        ], questionIndex));
+      let acceptedQuestion = null;
+      let acceptedChecked = null;
+      let acceptedReadback = null;
+      let acceptedGenerationWarnings = [];
+      let terminalErrors = [];
+      let terminalWarnings = [];
+
+      for (let variantAttempt = 0; variantAttempt < variantLimit; variantAttempt += 1) {
+        const generated = generateForPattern(allocationEntry.patternSpecId, {
+          seed: generationSeedForVariant(plan, allocationEntry, familyIndex, variantAttempt),
+          sequenceNumber,
+          contextDomain: contextDomainForFamily(allocationEntry.patternSpecId, familyIndex)
+        });
+        acceptedGenerationWarnings = generated.warnings ?? [];
+        if (!generated.ok || !generated.question) {
+          terminalErrors = generated.errors?.length ? generated.errors : [
+            issue("G3B_U04_CANONICAL_GENERATION_FAILED", "generation", "Canonical semantic generation failed.")
+          ];
+          if (variantAttempt + 1 < variantLimit) continue;
+          break;
+        }
+
+        const promotedQuestion = applyG3BU04HumanSemanticQualityV2(
+          promoteQuestionForCanonicalRoute(generated.question, plan, allocationEntry)
+        );
+        if (diversityRetryEnabled && recentPrompts.includes(promotedQuestion.promptText)) {
+          terminalErrors = [issue(
+            "G3B_U04_CANONICAL_PROMPT_DIVERSITY_EXHAUSTED",
+            "promptText",
+            "Unable to produce a unique learner-visible prompt within the deterministic R05 retry budget."
+          )];
+          if (variantAttempt + 1 < variantLimit) continue;
+          break;
+        }
+
+        const checked = validator(promotedQuestion, { recentPrompts });
+        const readback = validateG3BU04HumanSemanticQualityV2(promotedQuestion);
+        terminalErrors = [...(checked.errors ?? []), ...(readback.errors ?? [])];
+        terminalWarnings = [...(checked.warnings ?? []), ...(readback.warnings ?? [])];
+        if (!checked.ok || !readback.ok) break;
+
+        acceptedQuestion = promotedQuestion;
+        acceptedChecked = checked;
+        acceptedReadback = readback;
+        break;
+      }
+
+      warnings.push(...pathIssues(acceptedGenerationWarnings, questionIndex));
+      warnings.push(...pathIssues(terminalWarnings, questionIndex));
+      if (!acceptedQuestion || !acceptedChecked || !acceptedReadback) {
+        errors.push(...pathIssues(terminalErrors, questionIndex));
         continue;
       }
 
-      const promotedQuestion = applyG3BU04HumanSemanticQualityV2(
-        promoteQuestionForCanonicalRoute(generated.question, plan, allocationEntry)
-      );
-      const checked = validator(promotedQuestion, { recentPrompts });
-      const readback = validateG3BU04HumanSemanticQualityV2(promotedQuestion);
-      errors.push(...pathIssues(checked.errors, questionIndex));
-      errors.push(...pathIssues(readback.errors, questionIndex));
-      warnings.push(...pathIssues(checked.warnings, questionIndex));
-      warnings.push(...pathIssues(readback.warnings, questionIndex));
-      if (!checked.ok || !readback.ok) continue;
-
-      promotedQuestion.id = `${allocationEntry.patternSpecId}-${sequenceNumber}`;
-      promotedQuestion.semanticSnapshot.validationCodes = unique([
-        ...(checked.warnings ?? []).map((warning) => warning.code),
-        ...(readback.warnings ?? []).map((warning) => warning.code)
+      acceptedQuestion.id = `${allocationEntry.patternSpecId}-${sequenceNumber}`;
+      acceptedQuestion.semanticSnapshot.validationCodes = unique([
+        ...(acceptedChecked.warnings ?? []).map((warning) => warning.code),
+        ...(acceptedReadback.warnings ?? []).map((warning) => warning.code)
       ]);
-      generatedQuestions.push(promotedQuestion);
-      recentPrompts.push(promotedQuestion.promptText);
+      generatedQuestions.push(acceptedQuestion);
+      recentPrompts.push(acceptedQuestion.promptText);
     }
   }
 
@@ -349,3 +393,5 @@ export function generateG3BU04CanonicalSemanticQuestions(plan = {}, options = {}
     warnings
   };
 }
+
+// PGC-R05 G3B-U04 canonical prompt diversity FullFix V1
