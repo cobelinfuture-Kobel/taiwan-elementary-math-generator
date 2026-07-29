@@ -38,6 +38,34 @@ function hashSeed(value) {
   return acc || 1;
 }
 
+// PGC_R04_G3A_U06_SEEDED_VARIATION_V1
+const specializedPoolLengths = Object.freeze({
+  [remainderSpecId]: 556,
+  [packagingSpecId]: 72,
+  [sharingSpecId]: 72,
+  [paritySpecId]: 360
+});
+
+function greatestCommonDivisor(left, right) {
+  let a = Math.abs(left);
+  let b = Math.abs(right);
+  while (b !== 0) [a, b] = [b, a % b];
+  return a;
+}
+
+function seededSequenceNumber(patternSpecId, sequenceNumber, seed) {
+  const length = specializedPoolLengths[patternSpecId];
+  if (!length) return sequenceNumber;
+  const seedValue = hashSeed(sourceId + ":" + patternSpecId + ":" + (seed ?? "default"));
+  const offset = seedValue % length;
+  let step = 1;
+  for (let candidate = 2 + (seedValue % (length - 1)); candidate < length * 2; candidate += 1) {
+    const proposed = 1 + (candidate % (length - 1));
+    if (greatestCommonDivisor(proposed, length) === 1) { step = proposed; break; }
+  }
+  return ((offset + ((sequenceNumber - 1) * step)) % length) + 1;
+}
+
 function allocateCounts(patternSpecIds, questionCount) {
   const base = Math.floor(questionCount / patternSpecIds.length);
   let remainder = questionCount % patternSpecIds.length;
@@ -197,10 +225,11 @@ function questionKey(question) {
 function generateU06Question(patternSpecId, sequenceNumber, seed, options = {}) {
   if (patternSpecId === exactSpecId) return makeExactDivisionQuestion(sequenceNumber, seed);
   if (patternSpecId === divisibilitySpecId) return makeDivisibilityQuestion(sequenceNumber, seed, options.shouldBeDivisible === true);
-  if (patternSpecId === remainderSpecId) return makeDivisionWithRemainderQuestion(sequenceNumber);
-  if (patternSpecId === packagingSpecId) return makeQuotativeDivisionPackagingQuestion(sequenceNumber);
-  if (patternSpecId === sharingSpecId) return makePartitiveDivisionEqualSharingQuestion(sequenceNumber);
-  if (patternSpecId === paritySpecId) return makeParityRangeMissingDigitQuestion(sequenceNumber);
+  const seededNumber = seededSequenceNumber(patternSpecId, sequenceNumber, seed);
+  if (patternSpecId === remainderSpecId) return makeDivisionWithRemainderQuestion(seededNumber);
+  if (patternSpecId === packagingSpecId) return makeQuotativeDivisionPackagingQuestion(seededNumber);
+  if (patternSpecId === sharingSpecId) return makePartitiveDivisionEqualSharingQuestion(seededNumber);
+  if (patternSpecId === paritySpecId) return makeParityRangeMissingDigitQuestion(seededNumber);
   return null;
 }
 
