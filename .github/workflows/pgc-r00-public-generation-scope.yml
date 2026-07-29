@@ -24,10 +24,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-
-      - name: Install
-        run: npm ci
 
       - name: Focused PGC-R00 contract
         run: node --test tests/curriculum/pgc-r00-public-generation-scope.test.js
