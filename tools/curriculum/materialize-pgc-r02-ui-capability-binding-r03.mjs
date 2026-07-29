@@ -1,0 +1,127 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+import {
+  buildPgcR02UiCapabilityBindingContract as buildLegacyContract,
+} from "./materialize-pgc-r02-ui-capability-binding.mjs";
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const outputDir = path.join(repoRoot, "data/curriculum/public-generation");
+const docsDir = path.join(repoRoot, "docs/curriculum/output");
+const contractPath = path.join(outputDir, "ui_capability_binding_contract.json");
+const csvPath = path.join(outputDir, "ui_option_filter_matrix.csv");
+const readbackPath = path.join(docsDir, "PGC-R02_ui_capability_binding_readback.md");
+
+const VERIFIED_CAPACITY_STATUSES = new Set(["VERIFIED_20", "VERIFIED_LIMITED"]);
+const csvEscape = (value) => {
+  const text = value == null ? "" : Array.isArray(value) ? value.join("|") : typeof value === "object" ? JSON.stringify(value) : String(value);
+  return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+};
+
+export function buildPgcR02UiCapabilityBindingContract() {
+  const legacy = buildLegacyContract();
+  const byBindingId = new Map(legacy.bindings.map((row) => [row.bindingId, row]));
+  const gaps = legacy.gaps.filter((gap) => {
+    if (gap.code !== "PUBLIC_UI_UNVERIFIED_CAPACITY_EXPOSED") return true;
+    const row = byBindingId.get(gap.bindingId);
+    return !row || !VERIFIED_CAPACITY_STATUSES.has(row.capacityStatus);
+  });
+  const bindings = legacy.bindings.map((row) => ({
+    ...row,
+    capacityRouteIds: [...(row.capacityRouteIds ?? [])],
+    capacityQualityStatuses: [...(row.capacityQualityStatuses ?? [])],
+  }));
+  const summary = {
+    ...legacy.summary,
+    questionTypeBindingRowCount: bindings.length,
+    verified20BindingCount: bindings.filter((row) => row.capacityStatus === "VERIFIED_20").length,
+    limitedCapacityBindingCount: bindings.filter((row) => row.capacityStatus === "VERIFIED_LIMITED").length,
+    unverifiedCapacityExposureCount: bindings.filter((row) => !VERIFIED_CAPACITY_STATUSES.has(row.capacityStatus)).length,
+    minimumVerifiedQuestionCount: bindings.length > 0 ? Math.min(...bindings.map((row) => row.questionCountMax)) : 0,
+    maximumVerifiedQuestionCount: bindings.length > 0 ? Math.max(...bindings.map((row) => row.questionCountMax)) : 0,
+    gapCount: gaps.length,
+  };
+  return {
+    ...legacy,
+    schemaName: "PublicUiCapabilityBindingContractV2",
+    schemaVersion: 2,
+    status: gaps.length === 0 ? "PASS" : "FAIL_CLOSED",
+    capacityAuthority: "site/modules/curriculum/public/public-generator-capacity-registry.js",
+    summary,
+    gaps,
+    bindings,
+  };
+}
+
+function writeCsv(contract) {
+  const columns = [
+    "bindingId", "caseId", "sourceId", "surfaceId", "selectionMode",
+    "selectedKnowledgePointIds", "selectedKnowledgePointCount", "questionType", "questionTypeLabel",
+    "compatiblePatternGroupIds", "compatiblePatternSpecIds", "questionFormLabels",
+    "depthModes", "contextModes", "questionCountMin", "questionCountDefault", "questionCountMax",
+    "capacityStatus", "capacityRouteIds", "capacityQualityStatuses", "blocked", "blockedReasons",
+  ];
+  const lines = [columns.join(",")];
+  for (const row of contract.bindings) lines.push(columns.map((column) => csvEscape(row[column])).join(","));
+  fs.writeFileSync(csvPath, `${lines.join("\n")}\n`);
+}
+
+function writeReadback(contract) {
+  const summary = contract.summary;
+  const lines = [
+    "# PGC-R02 KnowledgePoint-driven UI Capability Binding Readback",
+    "",
+    "```text",
+    "PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+    "TASK_ID    = PGC-R02_KnowledgePointDrivenUICapabilityBinding",
+    `STATUS     = ${contract.status}`,
+    "```",
+    "",
+    "## Capacity-aware accepted matrix",
+    "",
+    "```text",
+    `PUBLIC_SOURCES                  = ${summary.publicSourceCount}`,
+    `VISIBLE_KNOWLEDGE_POINTS        = ${summary.visibleKnowledgePointCount}`,
+    `PUBLIC_SURFACES                 = ${summary.publicSurfaceCount}`,
+    `QUESTION_TYPE_BINDING_ROWS      = ${summary.questionTypeBindingRowCount}`,
+    `VERIFIED_20_BINDINGS            = ${summary.verified20BindingCount}`,
+    `VERIFIED_LIMITED_BINDINGS       = ${summary.limitedCapacityBindingCount}`,
+    `MINIMUM_VERIFIED_QUESTION_COUNT = ${summary.minimumVerifiedQuestionCount}`,
+    `MAXIMUM_VERIFIED_QUESTION_COUNT = ${summary.maximumVerifiedQuestionCount}`,
+    `UNVERIFIED_CAPACITY_EXPOSURES   = ${summary.unverifiedCapacityExposureCount}`,
+    `GAPS                            = ${summary.gapCount}`,
+    "```",
+    "",
+    "PGC-R03 removes illegal depth/context/scope intersections and applies the verified per-capability question-count ceiling. A ceiling below 20 is a truthful supported limit, not an unverified exposure.",
+    "",
+    "```text",
+    "GOAL_DISTANCE_BEFORE = D1_KP_DRIVEN_UI_BINDING_CONFORMANT",
+    `GOAL_DISTANCE_AFTER  = ${contract.status === "PASS" ? "D1_CAPACITY_AWARE_UI_BINDING_CONFORMANT" : "D1_CAPACITY_AWARE_UI_BINDING_FAIL_CLOSED"}`,
+    "DISTANCE_REDUCED     = public controls now expose only legal routes and clamp question count to the verified route capacity",
+    "REMAINING_BLOCKERS   = [PGC-R04_NUMERIC_QUALITY, PGC-R05_APPLICATION_QUALITY, PGC-R06_TO_R08_PRODUCT_ACCEPTANCE]",
+    "NEXT_SHORTEST_STEP   = PGC-R04_NumericGenerationFullFix",
+    "```",
+    "",
+  ];
+  if (contract.gaps.length > 0) {
+    lines.push("## Blocking gaps", "", ...contract.gaps.map((gap) => `- \`${gap.code}\`: \`${JSON.stringify(gap)}\``), "");
+  }
+  fs.writeFileSync(readbackPath, `${lines.join("\n")}\n`);
+}
+
+export function materializePgcR02UiCapabilityBinding() {
+  const contract = buildPgcR02UiCapabilityBindingContract();
+  fs.mkdirSync(outputDir, { recursive: true });
+  fs.mkdirSync(docsDir, { recursive: true });
+  fs.writeFileSync(contractPath, `${JSON.stringify(contract, null, 2)}\n`);
+  writeCsv(contract);
+  writeReadback(contract);
+  return contract;
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const contract = materializePgcR02UiCapabilityBinding();
+  console.log(`PGC_R02_R03_RECONCILED_SUMMARY=${JSON.stringify(contract.summary)}`);
+  if (contract.status !== "PASS") process.exitCode = 2;
+}
