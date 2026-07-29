@@ -17,7 +17,9 @@ function loadContract() {
 
 test("PGC-R03 contract accounts every R02 public binding", () => {
   const contract = loadContract();
-  assert.equal(contract.schemaName, "PublicGeneratorCapacityContractV1");
+  assert.equal(contract.schemaName, "PublicGeneratorCapacityContractV2");
+  assert.equal(contract.schemaVersion, 2);
+  assert.deepEqual(contract.evidenceProjectionPolicy, ["questionDisplayModels", "generatedQuestions", "questions", "answerKeyItems"]);
   assert.equal(contract.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(contract.taskId, "PGC-R03_PublicGeneratorCapacityContract");
   assert.equal(contract.defaultQuestionCount, 20);
@@ -43,6 +45,7 @@ test("PGC-R03 verifies 20 questions across ten seeds for every legal route", () 
   assert.equal(contract.summary.sameSeedReproFailureCount, 0);
   assert.equal(contract.summary.crossSeedDiversityFailureCount, 0);
   assert.equal(contract.summary.duplicatePromptRouteCount, 0);
+  assert.equal(contract.summary.missingPromptRouteCount, 0);
   assert.equal(contract.summary.tenSeedFailureRouteCount, 0);
   assert.equal(contract.summary.verified20RouteCount, contract.summary.routeCount);
   for (const route of contract.routes) {
@@ -52,6 +55,7 @@ test("PGC-R03 verifies 20 questions across ten seeds for every legal route", () 
     assert.equal(route.failedSeedCount, 0, route.routeId);
     assert.equal(route.sameSeedReplayPassed, true, route.routeId);
     assert.ok(route.uniqueItemSetCount >= 2, route.routeId);
+    assert.equal(route.maxMissingPromptCount, 0, route.routeId);
     assert.equal(route.maxDuplicatePromptCount, 0, route.routeId);
     assert.deepEqual(route.failureCodes, [], route.routeId);
     assert.equal(route.seedRuns.length, 10, route.routeId);
@@ -59,7 +63,9 @@ test("PGC-R03 verifies 20 questions across ten seeds for every legal route", () 
       assert.equal(run.ok, true, `${route.routeId}:${run.seed}`);
       assert.equal(run.questionCount, 20, `${route.routeId}:${run.seed}`);
       assert.equal(run.answerKeyItemCount, 20, `${route.routeId}:${run.seed}`);
+      assert.equal(run.missingPromptCount, 0, `${route.routeId}:${run.seed}`);
       assert.equal(run.duplicatePromptCount, 0, `${route.routeId}:${run.seed}`);
+      assert.notEqual(run.evidenceProjection, "none", `${route.routeId}:${run.seed}`);
     }
   }
 });
@@ -73,5 +79,5 @@ test("PGC-R03 committed reports are complete and row-aligned", () => {
   assert.equal(fs.readFileSync(diversityCsvPath, "utf8").trim().split(/\r?\n/).length, contract.routes.length + 1);
   const report = fs.readFileSync(mismatchPath, "utf8");
   assert.match(report, /NEXT_SHORTEST_STEP\s+= PGC-R04_NumericGenerationFullFix/);
-  assert.match(report, /DEFAULT_QUESTION_COUNT|VERIFIED_20_ROUTES/);
+  assert.match(report, /VERIFIED_20_ROUTES/);
 });
