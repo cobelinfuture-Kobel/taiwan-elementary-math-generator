@@ -49,7 +49,8 @@ test("PGC-R05 G3B-U04 shared canonical retry eliminates all six prompt-collision
   for (const routeId of G3B_U04_COLLISION_ROUTE_IDS) assertAccepted20(byId.get(routeId), routeId);
   const remainingLiveFailures = report.routes.filter((route) => route.sourceId === "g3b_u04_3b04" && route.liveAcceptanceFailures.length > 0);
   assert.deepEqual(remainingLiveFailures, []);
-  assert.ok(report.summary.live20FailRouteCount <= 13, JSON.stringify(report.summary));
+  assert.equal(report.summary.live20PassRouteCount, 198, JSON.stringify(report.summary));
+  assert.equal(report.summary.live20FailRouteCount, 13, JSON.stringify(report.summary));
 });
 
 test("PGC-R05 G3B-U04 diversity retry is seed-scoped and does not relax validation", () => {
