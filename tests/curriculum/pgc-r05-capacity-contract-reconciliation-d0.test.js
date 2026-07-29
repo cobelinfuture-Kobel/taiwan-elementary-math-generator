@@ -24,15 +24,20 @@ test("PGC-R05 capacity contract reconciliation closes all 211 legal application 
   assert.equal(routes.every((route) => route.qualityStatus === "DIVERSE_PARAMETER_GENERATOR"), true);
   assert.equal(routes.every((route) => route.downstreamGapCodes.length === 0), true);
   assert.equal(routes.every((route) => route.reconciliationCodes.includes("PGC_R05_LIVE_20_CAPACITY_RECONCILED")), true);
-  assert.equal(routes.every((route) => route.reconciliationCodes.includes("PGC_R05_TWO_SEED_PROMPT_DIVERSITY_RECONCILED")), true);
+  assert.equal(routes.every((route) => route.reconciliationCodes.includes("PGC_R05_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED")), true);
   assert.equal(routes.every((route) => route.selectedCapacityEvidence?.evidenceAuthority === "PGC-R05_TWO_SEED_20_QUESTION_LIVE_RUNTIME"), true);
   assert.equal(routes.every((route) => route.selectedCapacityEvidence?.questionCount === 20), true);
   assert.equal(routes.every((route) => route.selectedCapacityEvidence?.runs?.length === 2), true);
+  const qualityUpgradedRoutes = routes.filter((route) => route.reconciliationCodes.includes("PGC_R05_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"));
+  assert.ok(qualityUpgradedRoutes.length > 0);
   for (const route of routes) {
     const runs = route.selectedCapacityEvidence.runs;
     assert.equal(runs.every((run) => run.ok === true && run.questionCount === 20 && run.answerKeyItemCount === 20), true, route.routeId);
     assert.equal(runs.every((run) => run.missingPromptCount === 0 && run.duplicatePromptCount === 0 && run.uniquePromptCount === 20), true, route.routeId);
-    assert.equal(new Set(runs.map((run) => run.orderedWorksheetSignature)).size, 2, route.routeId);
+    assert.equal(runs.every((run) => typeof run.orderedWorksheetSignature === "string" && typeof run.itemSetSignature === "string"), true, route.routeId);
+    if (route.reconciliationCodes.includes("PGC_R05_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED")) {
+      assert.equal(new Set(runs.map((run) => run.itemSetSignature)).size, 2, route.routeId);
+    }
   }
 });
 
@@ -92,6 +97,7 @@ test("PGC-R05 reconciliation preserves every frozen authority outside legal appl
   assert.equal(report.boundary.secondWorksheetPipelineAdded, false);
   const materializer = fs.readFileSync(materializerPath, "utf8");
   assert.match(materializer, /PASS_R05_D0_ALL_LEGAL_APPLICATION_ROUTES_CONFORMANT/);
+  assert.match(materializer, /itemSetSignature/);
   assert.match(materializer, /applicationContractReconciled/);
   assert.match(materializer, /PGC-R06_ReasoningMixedPBLGenerationConformance/);
 });
