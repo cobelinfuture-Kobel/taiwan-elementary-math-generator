@@ -9,6 +9,10 @@ test("P03F13 remains fail closed before reviewed Chromium artifacts", () => {
   assert.equal(result.productAdmissionState, "RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE");
   assert.equal(result.d0Complete, false);
   assert.equal(result.metrics.queuePosition, 13);
+  assert.equal(result.metrics.knowledgePointCount, 2);
+  assert.equal(result.metrics.patternSpecCount, 5);
+  assert.equal(result.metrics.applicationPatternSpecCount, 1);
+  assert.equal(result.metrics.globalContextBindingCount, 1);
   assert.equal(result.metrics.requiredCapabilityCount, 3);
   assert.equal(result.metrics.questionWitnessCount, 9);
   assert.equal(result.metrics.answerKeyWitnessCount, 9);
