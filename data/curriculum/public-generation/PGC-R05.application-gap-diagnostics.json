@@ -17,8 +17,8 @@
     "contractVerified20RouteCount": 128,
     "contractLimitedRouteCount": 83,
     "contractQualityGapRouteCount": 21,
-    "live20PassRouteCount": 172,
-    "live20FailRouteCount": 39,
+    "live20PassRouteCount": 176,
+    "live20FailRouteCount": 35,
     "repairRouteCount": 85,
     "zeroSafeCapacityRouteCount": 4,
     "repairRouteCountBySource": {
@@ -82,13 +82,11 @@
           "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
-            "ps_g3a_u01_4digit_price_range_reasoning",
             "ps_g3a_u01_4digit_range_compare_reasoning",
-            "ps_g3a_u01_4digit_serial_number_range",
             "ps_g3a_u01_4digit_compare"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "7e37777809055093049e",
+          "worksheetSignature": "e5cf82642deaab953397",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -106,8 +104,8 @@
               "canonicalPatternSpecCount": 20,
               "selectedKnowledgePointCount": 2,
               "selectedPatternGroupCount": 2,
-              "selectedPatternSpecCount": 4,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 20,
+              "extensionPatternGroupCount": 2,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -118,29 +116,29 @@
           },
           "itemSamples": [
             {
-              "prompt": "某商品價格大於 6106 元且小於 6993 元，下列哪個可能？A 6063元 B 6590元",
-              "answer": "B",
-              "promptHash": "65f96472a6760166616f",
-              "itemSignature": "4abe0a60318fde1edd6d",
-              "patternSpecId": "ps_g3a_u01_4digit_price_range_reasoning",
-              "knowledgePointIds": [],
-              "rawKind": null
-            },
-            {
-              "prompt": "哪一個數大於 5829 且小於 6139？A 6017 B 5651",
+              "prompt": "倉庫規定每批貨物必須超過1097箱，而且少於1675箱。A批有1159箱，B批有1000箱。哪一批符合規定？",
               "answer": "A",
-              "promptHash": "4a57584882d3b72b0373",
-              "itemSignature": "e534285b47a6493424a6",
+              "promptHash": "cd5d4f61405f2a4f253b",
+              "itemSignature": "ab3a4c6dda22a17c7c44",
               "patternSpecId": "ps_g3a_u01_4digit_range_compare_reasoning",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "編號從 2661 到 3126，共有幾個編號？",
-              "answer": "466",
-              "promptHash": "54bbb072dcdc40de22f7",
-              "itemSignature": "6f74bf81c5f47a56c5d6",
-              "patternSpecId": "ps_g3a_u01_4digit_serial_number_range",
+              "prompt": "甲隊有3287張運動會集點卡，乙隊有6256張運動會集點卡。比較兩組的數量，應填入哪一個符號：>、< 或 =？",
+              "answer": "<",
+              "promptHash": "0ff43a9a4eed0250025b",
+              "itemSignature": "80f7ecef3c50476a7dbb",
+              "patternSpecId": "ps_g3a_u01_4digit_compare",
+              "knowledgePointIds": [],
+              "rawKind": null
+            },
+            {
+              "prompt": "倉庫規定每批貨物必須超過2738箱，而且少於3157箱。A批有2603箱，B批有2888箱。哪一批符合規定？",
+              "answer": "B",
+              "promptHash": "ea2364b6eca31783351a",
+              "itemSignature": "5c66a4346812d6f3c03e",
+              "patternSpecId": "ps_g3a_u01_4digit_range_compare_reasoning",
               "knowledgePointIds": [],
               "rawKind": null
             }
@@ -164,12 +162,10 @@
           "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u01_4digit_range_compare_reasoning",
-            "ps_g3a_u01_4digit_serial_number_range",
-            "ps_g3a_u01_4digit_price_range_reasoning",
             "ps_g3a_u01_4digit_compare"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "37300f5dc23944132d2a",
+          "worksheetSignature": "fef5dc6684b5699e648c",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -187,8 +183,8 @@
               "canonicalPatternSpecCount": 20,
               "selectedKnowledgePointCount": 2,
               "selectedPatternGroupCount": 2,
-              "selectedPatternSpecCount": 4,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 20,
+              "extensionPatternGroupCount": 2,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -199,29 +195,29 @@
           },
           "itemSamples": [
             {
-              "prompt": "哪一個數大於 4334 且小於 4949？A 4243 B 4368",
+              "prompt": "倉庫規定每批貨物必須超過4140箱，而且少於4861箱。A批有3999箱，B批有4650箱。哪一批符合規定？",
               "answer": "B",
-              "promptHash": "ca1a34ef0e58f96bb1aa",
-              "itemSignature": "8de50486f43af7593379",
+              "promptHash": "a87f1afd51861f033c62",
+              "itemSignature": "65cc19e066c9f0f4281e",
               "patternSpecId": "ps_g3a_u01_4digit_range_compare_reasoning",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "編號從 5916 到 6404，共有幾個編號？",
-              "answer": "489",
-              "promptHash": "a7d2f1a1f7d0197f7a4a",
-              "itemSignature": "953d19524bf7060a46bf",
-              "patternSpecId": "ps_g3a_u01_4digit_serial_number_range",
+              "prompt": "甲隊有6531張運動會集點卡，乙隊有8216張運動會集點卡。比較兩組的數量，應填入哪一個符號：>、< 或 =？",
+              "answer": "<",
+              "promptHash": "5d29f3a378326ac2dd39",
+              "itemSignature": "2368ba90c4327bd1c01e",
+              "patternSpecId": "ps_g3a_u01_4digit_compare",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "某商品價格大於 2721 元且小於 3223 元，下列哪個可能？A 2960元 B 2623元",
+              "prompt": "倉庫規定每批貨物必須超過5781箱，而且少於6343箱。A批有5808箱，B批有5647箱。哪一批符合規定？",
               "answer": "A",
-              "promptHash": "9945cfee4f1a631eab4e",
-              "itemSignature": "541dba63ba331113774b",
-              "patternSpecId": "ps_g3a_u01_4digit_price_range_reasoning",
+              "promptHash": "6d33515ee1c9f7da240e",
+              "itemSignature": "a8dcb4830ca8ef320e3d",
+              "patternSpecId": "ps_g3a_u01_4digit_range_compare_reasoning",
               "knowledgePointIds": [],
               "rawKind": null
             }
@@ -834,11 +830,8 @@
         "ZERO_SAFE_CAPACITY",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "EMPTY_PROMPT",
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -853,16 +846,16 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "emptyPromptCount": 14,
-          "duplicatePromptCount": 13,
-          "uniquePromptCount": 7,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u02_4digit_sub_multi_borrow",
             "ps_g3a_u02_4digit_add_multi_carry",
             "ps_g3a_u02_word_problem_estimation_add_sub"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "3ed29ca67f3ed8886e21",
+          "worksheetSignature": "bbc22b28032f41b19f6e",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -880,8 +873,8 @@
               "canonicalPatternSpecCount": 10,
               "selectedKnowledgePointCount": 3,
               "selectedPatternGroupCount": 3,
-              "selectedPatternSpecCount": 3,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 10,
+              "extensionPatternGroupCount": 2,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -892,19 +885,19 @@
           },
           "itemSamples": [
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "ff59ee3125c5abd5d293",
+              "prompt": "校園設計小組原有8323張節能貼紙，布置活動時用了46張節能貼紙。還剩多少張節能貼紙？",
+              "answer": "8277張",
+              "promptHash": "e0e7c84d92f7a5dfd324",
+              "itemSignature": "7486406d60c8ce28dfc1",
               "patternSpecId": "ps_g3a_u02_4digit_sub_multi_borrow",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "8a815777b0dd65bca46b",
+              "prompt": "清理小組已記錄4493個寶特瓶，最後巡查時又發現7個寶特瓶。這次一共記錄多少個寶特瓶？",
+              "answer": "4500個",
+              "promptHash": "75ecff0d38630543c221",
+              "itemSignature": "adf277db55685e8e573d",
               "patternSpecId": "ps_g3a_u02_4digit_add_multi_carry",
               "knowledgePointIds": [],
               "rawKind": null
@@ -919,10 +912,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "EMPTY_PROMPT",
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -936,16 +926,16 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "emptyPromptCount": 14,
-          "duplicatePromptCount": 13,
-          "uniquePromptCount": 7,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u02_word_problem_estimation_add_sub",
             "ps_g3a_u02_4digit_add_multi_carry",
             "ps_g3a_u02_4digit_sub_multi_borrow"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "53bef1757163a3f49769",
+          "worksheetSignature": "a5b7c36a6992fd2dd26a",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -963,8 +953,8 @@
               "canonicalPatternSpecCount": 10,
               "selectedKnowledgePointCount": 3,
               "selectedPatternGroupCount": 3,
-              "selectedPatternSpecCount": 3,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 10,
+              "extensionPatternGroupCount": 2,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -993,19 +983,16 @@
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "8a815777b0dd65bca46b",
+              "prompt": "清理小組已記錄7895個寶特瓶，最後巡查時又發現235個寶特瓶。這次一共記錄多少個寶特瓶？",
+              "answer": "8130個",
+              "promptHash": "dba4eb06a76d5f57e240",
+              "itemSignature": "2d0cd7f977178ea5a923",
               "patternSpecId": "ps_g3a_u02_4digit_add_multi_carry",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "EMPTY_PROMPT",
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -1807,11 +1794,8 @@
         "ZERO_SAFE_CAPACITY",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "EMPTY_PROMPT",
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -1826,15 +1810,15 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "emptyPromptCount": 10,
-          "duplicatePromptCount": 9,
-          "uniquePromptCount": 11,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u03_consecutive_multiplication_two_step_word_problem",
             "ps_g3a_u03_2digit_by_1digit_carry"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "1ebaddaf45f4de0bf275",
+          "worksheetSignature": "770ce43f2045da392a94",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -1852,8 +1836,8 @@
               "canonicalPatternSpecCount": 7,
               "selectedKnowledgePointCount": 2,
               "selectedPatternGroupCount": 2,
-              "selectedPatternSpecCount": 2,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 7,
+              "extensionPatternGroupCount": 1,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -1891,10 +1875,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "EMPTY_PROMPT",
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -1908,15 +1889,15 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "emptyPromptCount": 10,
-          "duplicatePromptCount": 9,
-          "uniquePromptCount": 11,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u03_2digit_by_1digit_carry",
             "ps_g3a_u03_consecutive_multiplication_two_step_word_problem"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "563af33c12ad6a468a74",
+          "worksheetSignature": "8e4c7d37b952302f3f04",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -1934,8 +1915,8 @@
               "canonicalPatternSpecCount": 7,
               "selectedKnowledgePointCount": 2,
               "selectedPatternGroupCount": 2,
-              "selectedPatternSpecCount": 2,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 7,
+              "extensionPatternGroupCount": 1,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -1946,37 +1927,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "d75c03199a455cf17c8a",
+              "prompt": "每盤有78株幼苗，共有3盤。一共有多少株幼苗？",
+              "answer": "234株",
+              "promptHash": "85bcdffc3d2fc5eec3f8",
+              "itemSignature": "1c4589aef9c138ed397a",
               "patternSpecId": "ps_g3a_u03_2digit_by_1digit_carry",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "d75c03199a455cf17c8a",
+              "prompt": "每盤有65株幼苗，共有6盤。一共有多少株幼苗？",
+              "answer": "390株",
+              "promptHash": "6be6e406970e839786ba",
+              "itemSignature": "1a63a38752f5bc6b4066",
               "patternSpecId": "ps_g3a_u03_2digit_by_1digit_carry",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "d75c03199a455cf17c8a",
+              "prompt": "每盤有52株幼苗，共有6盤。一共有多少株幼苗？",
+              "answer": "312株",
+              "promptHash": "6065c98f6e6fa35774f9",
+              "itemSignature": "962e7fb5ac38c632b1b6",
               "patternSpecId": "ps_g3a_u03_2digit_by_1digit_carry",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "EMPTY_PROMPT",
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -2586,11 +2564,8 @@
         "ZERO_SAFE_CAPACITY",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "EMPTY_PROMPT",
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -2605,14 +2580,14 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "emptyPromptCount": 20,
-          "duplicatePromptCount": 19,
-          "uniquePromptCount": 1,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u06_exact_division_check"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "c803dbeec229499e466a",
+          "worksheetSignature": "33968a06d053422e21c6",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -2630,8 +2605,8 @@
               "canonicalPatternSpecCount": 6,
               "selectedKnowledgePointCount": 1,
               "selectedPatternGroupCount": 1,
-              "selectedPatternSpecCount": 1,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 6,
+              "extensionPatternGroupCount": 1,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -2642,37 +2617,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "f010e87efb102bdb000a",
+              "prompt": "共有52公升飲用水，平均分給4個水桶。每個水桶分到多少公升飲用水？",
+              "answer": "13公升",
+              "promptHash": "12892c4f202dd73e546b",
+              "itemSignature": "076a5e19b46d158ca1d6",
               "patternSpecId": "ps_g3a_u06_exact_division_check",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "f010e87efb102bdb000a",
+              "prompt": "共有55公升飲用水，平均分給5個水桶。每個水桶分到多少公升飲用水？",
+              "answer": "11公升",
+              "promptHash": "90075851ef72ae84a0e8",
+              "itemSignature": "e1fa16112f8680fd4015",
               "patternSpecId": "ps_g3a_u06_exact_division_check",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "f010e87efb102bdb000a",
+              "prompt": "共有30公升飲用水，平均分給6個水桶。每個水桶分到多少公升飲用水？",
+              "answer": "5公升",
+              "promptHash": "ac79212be85511d2a126",
+              "itemSignature": "43691fca9b56822ded2e",
               "patternSpecId": "ps_g3a_u06_exact_division_check",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "EMPTY_PROMPT",
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -2686,14 +2658,14 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "emptyPromptCount": 20,
-          "duplicatePromptCount": 19,
-          "uniquePromptCount": 1,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u06_exact_division_check"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "c803dbeec229499e466a",
+          "worksheetSignature": "4160c64d16cde75b2ae1",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -2711,8 +2683,8 @@
               "canonicalPatternSpecCount": 6,
               "selectedKnowledgePointCount": 1,
               "selectedPatternGroupCount": 1,
-              "selectedPatternSpecCount": 1,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 6,
+              "extensionPatternGroupCount": 1,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -2723,37 +2695,34 @@
           },
           "itemSamples": [
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "f010e87efb102bdb000a",
+              "prompt": "共有65公升飲用水，平均分給5個水桶。每個水桶分到多少公升飲用水？",
+              "answer": "13公升",
+              "promptHash": "48b7e278516ef693a975",
+              "itemSignature": "88dc35f7d688505c153e",
               "patternSpecId": "ps_g3a_u06_exact_division_check",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "f010e87efb102bdb000a",
+              "prompt": "共有60公升飲用水，平均分給6個水桶。每個水桶分到多少公升飲用水？",
+              "answer": "10公升",
+              "promptHash": "b01bedc717be738c83ea",
+              "itemSignature": "2c636ffdf32a663de4d4",
               "patternSpecId": "ps_g3a_u06_exact_division_check",
               "knowledgePointIds": [],
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "f010e87efb102bdb000a",
+              "prompt": "共有49公升飲用水，平均分給7個水桶。每個水桶分到多少公升飲用水？",
+              "answer": "7公升",
+              "promptHash": "bc246321d26b4112f7ad",
+              "itemSignature": "f2f517365e2a3a592e9f",
               "patternSpecId": "ps_g3a_u06_exact_division_check",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "EMPTY_PROMPT",
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -3170,11 +3139,8 @@
         "ZERO_SAFE_CAPACITY",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "EMPTY_PROMPT",
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -3189,18 +3155,16 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "emptyPromptCount": 7,
-          "duplicatePromptCount": 6,
-          "uniquePromptCount": 14,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
-            "ps_g3b_u01_2digit_leading_digit_insufficient",
-            "ps_g3b_u01_2digit_leading_digit_exact",
             "ps_g3b_u01_wp_two_step_divide_then_add",
             "ps_g3b_u01_2digit_by_1digit_regroup_tens",
             "ps_g3b_u01_wp_remainder_packaging_leftover"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "6d70a8ce0ccf061c87fe",
+          "worksheetSignature": "6173ac79014d8f73d5b5",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -3218,8 +3182,8 @@
               "canonicalPatternSpecCount": 23,
               "selectedKnowledgePointCount": 3,
               "selectedPatternGroupCount": 3,
-              "selectedPatternSpecCount": 9,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 23,
+              "extensionPatternGroupCount": 1,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -3230,24 +3194,6 @@
           },
           "itemSamples": [
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "e714405150a475d6002e",
-              "patternSpecId": "ps_g3b_u01_2digit_leading_digit_insufficient",
-              "knowledgePointIds": [],
-              "rawKind": null
-            },
-            {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "07524a260c43beb1cadb",
-              "patternSpecId": "ps_g3b_u01_2digit_leading_digit_exact",
-              "knowledgePointIds": [],
-              "rawKind": null
-            },
-            {
               "prompt": "已經做了 44 個蝴蝶結，又用 175 公分緞帶，每 5 公分做 1 個，總共可以做幾個蝴蝶結？",
               "answer": "79個",
               "promptHash": "a401504f759be3e1ca77",
@@ -3255,12 +3201,27 @@
               "patternSpecId": "ps_g3b_u01_wp_two_step_divide_then_add",
               "knowledgePointIds": [],
               "rawKind": null
+            },
+            {
+              "prompt": "共有24顆水餃，平均分給4人。每人分到多少顆水餃？",
+              "answer": "6顆",
+              "promptHash": "8f855d86e9357d0c7141",
+              "itemSignature": "b417e3d0bd0443377686",
+              "patternSpecId": "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+              "knowledgePointIds": [],
+              "rawKind": null
+            },
+            {
+              "prompt": "有 63 顆糖果，每 4 顆裝 1 袋，可以裝成幾袋？還剩幾顆？",
+              "answer": "15袋又3顆",
+              "promptHash": "a078dce808691bd0a477",
+              "itemSignature": "afa7f8a1bf55342e3ddb",
+              "patternSpecId": "ps_g3b_u01_wp_remainder_packaging_leftover",
+              "knowledgePointIds": [],
+              "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "EMPTY_PROMPT",
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -3274,18 +3235,16 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "emptyPromptCount": 7,
-          "duplicatePromptCount": 6,
-          "uniquePromptCount": 14,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
-            "ps_g3b_u01_2digit_leading_digit_insufficient",
             "ps_g3b_u01_wp_two_step_divide_then_add",
             "ps_g3b_u01_2digit_by_1digit_regroup_tens",
-            "ps_g3b_u01_wp_remainder_packaging_leftover",
-            "ps_g3b_u01_2digit_leading_digit_exact"
+            "ps_g3b_u01_wp_remainder_packaging_leftover"
           ],
           "knowledgePointIdsObserved": [],
-          "worksheetSignature": "5bc398fbd2c8267a3ba9",
+          "worksheetSignature": "a8669661d91c910abc61",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -3303,8 +3262,8 @@
               "canonicalPatternSpecCount": 23,
               "selectedKnowledgePointCount": 3,
               "selectedPatternGroupCount": 3,
-              "selectedPatternSpecCount": 9,
-              "extensionPatternGroupCount": 0,
+              "selectedPatternSpecCount": 23,
+              "extensionPatternGroupCount": 1,
               "compatibilityAliasKnowledgePointCount": 0,
               "sourceUnitPlanPreserved": false,
               "applied": true,
@@ -3315,15 +3274,6 @@
           },
           "itemSamples": [
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "e714405150a475d6002e",
-              "patternSpecId": "ps_g3b_u01_2digit_leading_digit_insufficient",
-              "knowledgePointIds": [],
-              "rawKind": null
-            },
-            {
               "prompt": "已經做了 46 個蝴蝶結，又用 186 公分緞帶，每 6 公分做 1 個，總共可以做幾個蝴蝶結？",
               "answer": "77個",
               "promptHash": "1ce43a0fe2f43465a97b",
@@ -3333,19 +3283,25 @@
               "rawKind": null
             },
             {
-              "prompt": "",
-              "answer": "",
-              "promptHash": "e3b0c44298fc1c149afb",
-              "itemSignature": "a8b1929aeebfb17ae961",
+              "prompt": "共有42顆水餃，平均分給7人。每人分到多少顆水餃？",
+              "answer": "6顆",
+              "promptHash": "2cbdb87e60dfa94a5ee9",
+              "itemSignature": "b16b092cfa97f858e442",
               "patternSpecId": "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+              "knowledgePointIds": [],
+              "rawKind": null
+            },
+            {
+              "prompt": "有 49 顆糖果，每 2 顆裝 1 袋，可以裝成幾袋？還剩幾顆？",
+              "answer": "24袋又1顆",
+              "promptHash": "fc2c06192368a7371282",
+              "itemSignature": "c0c528a412c453f916e4",
+              "patternSpecId": "ps_g3b_u01_wp_remainder_packaging_leftover",
               "knowledgePointIds": [],
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "EMPTY_PROMPT",
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },

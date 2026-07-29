@@ -20,7 +20,10 @@ function groupLooksApplication(group) {
   const corpus = JSON.stringify({ mode: group?.mode, publicQuestionMode: group?.publicQuestionMode, representationTag: group?.representationTag, representationTags: group?.representationTags, displayName: group?.displayName }).toLowerCase();
   return corpus.includes("application") || corpus.includes("word_problem") || corpus.includes("應用題");
 }
-function generationPatternGroupId(group) { return group?.basePatternGroupId ?? group?.patternGroupId; }
+function applicationPatternGroupId(group) {
+  if (group?.globalContextAdmission === "POSTG-APP-W01-A06E") return group?.patternGroupId;
+  return group?.basePatternGroupId ?? group?.patternGroupId;
+}
 
 function resolveCloseoutApplicationPlan(publicPlan = {}) {
   if (publicPlan.questionMode !== "application") return publicPlan;
@@ -39,7 +42,7 @@ function resolveCloseoutApplicationPlan(publicPlan = {}) {
     ...publicPlan,
     selectionMode: selectedKnowledgePointIds.length > 1 ? "mixedKnowledgePointsSameUnit" : "singleKnowledgePoint",
     selectedKnowledgePointIds,
-    selectedPatternGroupIds: [...new Set(uniqueGroups.map(generationPatternGroupId).filter(Boolean))],
+    selectedPatternGroupIds: [...new Set(uniqueGroups.map(applicationPatternGroupId).filter(Boolean))],
   };
 }
 
@@ -75,3 +78,5 @@ export function buildWorksheetDocumentFromState(state) {
 }
 
 export { buildWorksheetDocumentFromGeneratedItems };
+
+// PGC-R05 source-unit application alias projection FullFix V2
