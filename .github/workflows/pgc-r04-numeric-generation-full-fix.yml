@@ -7,10 +7,12 @@ on:
       - "tools/curriculum/apply-pgc-r04-seed-parameterization-patch.mjs"
       - "tools/curriculum/apply-pgc-r04-bounded-runtime-expansion-patch.mjs"
       - "tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs"
+      - "tools/curriculum/locate-pgc-r04-remaining-producers.mjs"
       - "tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs"
       - "tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js"
       - "tests/curriculum/pgc-r04-numeric-unique-allocation.test.js"
       - "data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json"
+      - "data/curriculum/public-generation/PGC-R04.remaining-producer-locator.json"
       - "data/curriculum/public-generation/numeric_generation_gap_inventory.csv"
       - "docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md"
       - "site/modules/curriculum/**"
@@ -47,6 +49,7 @@ jobs:
           node --check tools/curriculum/apply-pgc-r04-seed-parameterization-patch.mjs
           node --check tools/curriculum/apply-pgc-r04-bounded-runtime-expansion-patch.mjs
           node --check tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs
+          node --check tools/curriculum/locate-pgc-r04-remaining-producers.mjs
           node --check tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
           node --check site/modules/curriculum/batch-a/numeric-unique-allocation-fullfix.js
           node --check site/modules/curriculum/batch-a/batch-a-browser-question-router.js
@@ -62,6 +65,9 @@ jobs:
 
       - name: Normalize expanded runtime declarations
         run: node tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs
+
+      - name: Locate remaining legacy numeric producers
+        run: node tools/curriculum/locate-pgc-r04-remaining-producers.mjs
 
       - name: Materialize numeric runtime gap diagnostics
         run: node tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
@@ -91,12 +97,13 @@ jobs:
             site/modules/curriculum/batch-a/equivalence-cross-product-cases.js \
             site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js \
             data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json \
+            data/curriculum/public-generation/PGC-R04.remaining-producer-locator.json \
             data/curriculum/public-generation/numeric_generation_gap_inventory.csv \
             docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md
           if git diff --cached --quiet; then
             echo "R04 runtime and diagnostic artifacts already synchronized."
           else
-            git commit -m "fix(pgc-r04): expand bounded numeric runtimes and synchronize evidence [skip ci]"
+            git commit -m "fix(pgc-r04): locate remaining producers and synchronize numeric evidence [skip ci]"
             git fetch origin pgc-r04-numeric-generation-full-fix
             git rebase origin/pgc-r04-numeric-generation-full-fix
             git push origin HEAD:pgc-r04-numeric-generation-full-fix
@@ -115,6 +122,7 @@ jobs:
           name: pgc-r04-numeric-gap-diagnostics
           path: |
             data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json
+            data/curriculum/public-generation/PGC-R04.remaining-producer-locator.json
             data/curriculum/public-generation/numeric_generation_gap_inventory.csv
             docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md
           if-no-files-found: warn
