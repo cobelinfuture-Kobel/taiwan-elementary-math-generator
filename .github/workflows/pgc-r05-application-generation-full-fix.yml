@@ -51,6 +51,24 @@ jobs:
         with:
           node-version: 24
 
+      - name: Detect committed R05 D0 terminal authority
+        id: r05-mode
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const contractPath = "data/curriculum/public-generation/generator_capacity_contract.json";
+          const reportPath = "data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json";
+          let terminal = false;
+          if (fs.existsSync(contractPath) && fs.existsSync(reportPath)) {
+            const contract = JSON.parse(fs.readFileSync(contractPath, "utf8"));
+            const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+            terminal = contract.lastReconciliation?.taskId === "PGC-R05_CapacityContractReconciliationAndD0Closeout"
+              && String(report.status ?? "").startsWith("PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_");
+          }
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `terminal=${terminal}\n`);
+          console.log(`PGC_R05_APPLICATION_WORKFLOW_MODE=${terminal ? "D0_READ_ONLY" : "FULLFIX_MUTATION"}`);
+          NODE
+
       - name: Syntax-check R05 authorities
         run: |
           node --check tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
@@ -76,36 +94,47 @@ jobs:
           node --check tests/curriculum/pgc-r05-g5a-u03-application-diversity.test.js
 
       - name: Apply bounded application capacity FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-bounded-application-capacity-patch.mjs
 
       - name: Apply source-unit application alias FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-source-unit-application-alias-patch.mjs
 
       - name: Apply G5A-U02 application diversity FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-g5a-u02-application-diversity-patch.mjs
 
       - name: Apply G3B-U04 application diversity FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-g3b-u04-application-diversity-patch.mjs
 
       - name: Apply G5A-U08 application diversity FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-g5a-u08-application-diversity-patch.mjs
 
       - name: Apply G3A-U08 application diversity FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-g3a-u08-application-diversity-patch.mjs
 
       - name: Apply G3B-U07 application diversity FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-g3b-u07-application-diversity-patch.mjs
 
       - name: Apply G4A-U08 application diversity FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-g4a-u08-application-diversity-patch.mjs
 
       - name: Apply G5A-U03 application diversity FullFix
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-g5a-u03-application-diversity-patch.mjs
 
       - name: Apply live progress readback controller
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/apply-pgc-r05-progress-readback-controller-patch.mjs
 
       - name: Rebuild canonical G5A-U02 browser bundle
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: |
           npx --yes esbuild@0.25.5 \
             src/curriculum/g5a-u02/browser-dynamic-entry.js \
@@ -128,7 +157,12 @@ jobs:
           cmp site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js /tmp/g5a-u02-browser-dynamic-runtime.bundle.js
 
       - name: Materialize legal application-route runtime baseline
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
+
+      - name: Validate committed R05 D0 terminal authority
+        if: steps.r05-mode.outputs.terminal == 'true'
+        run: node --test tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js
 
       - name: Focused R05 acceptance
         run: |
@@ -147,6 +181,7 @@ jobs:
         run: npm test
 
       - name: Commit deterministic R05 runtime and diagnostic artifacts
+        if: steps.r05-mode.outputs.terminal != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
