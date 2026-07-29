@@ -16,6 +16,7 @@ const CLASS_C_PATTERN_IDS = Object.freeze([
 ]);
 
 const CLASS_C_SET = new Set(CLASS_C_PATTERN_IDS);
+const PGC_R04_FACTOR_TARGET_PRIMES = Object.freeze([13, 17, 19, 23, 29, 31, 37, 41, 43, 47]);
 const LIFECYCLE = Object.freeze({
   unitId: "g5a_u02",
   generatorStatus: "class_c_implemented_hidden",
@@ -100,7 +101,7 @@ function makeBase(patternSpecId, seed, data, prompt, answer) {
 }
 
 function compositeTarget(rng) {
-  return rng.int(2, 12) * rng.int(2, 12);
+  return rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
 }
 
 function generateByPattern(patternSpecId, rng, seed) {

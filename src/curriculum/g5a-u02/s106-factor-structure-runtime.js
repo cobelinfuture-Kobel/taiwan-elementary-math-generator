@@ -4,6 +4,7 @@ const S106_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_missing_factor_reconstruction",
 ]);
 const S106_PATTERN_SET = new Set(S106_PATTERN_IDS);
+const PGC_R04_FACTOR_TARGET_PRIMES = Object.freeze([13, 17, 19, 23, 29, 31, 37, 41, 43, 47]);
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -32,7 +33,7 @@ function factorPairsOf(target) {
 }
 
 function targetFrom(rng) {
-  return rng.int(2, 12) * rng.int(2, 12);
+  return rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
 }
 
 function searchStructure(target) {

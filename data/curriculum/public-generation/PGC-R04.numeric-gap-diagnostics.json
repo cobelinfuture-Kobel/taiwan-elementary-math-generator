@@ -21055,30 +21055,77 @@
         {
           "seed": "pgc-r04-diagnostic-01",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
           "runtimeLineage": {
             "resultKeys": [
               "authoritativeConsumerCutover",
+              "contextAllocation",
+              "eligibility",
               "errors",
+              "generation",
+              "globalLayoutResolution",
               "ok",
-              "plan",
               "validation",
               "warnings",
               "worksheetDocument"
             ],
-            "worksheetKeys": [],
+            "worksheetKeys": [
+              "allocationResult",
+              "answerKeyItems",
+              "answerKeyPages",
+              "appliedLayoutText",
+              "basePromotionRegistryId",
+              "batchA",
+              "configSnapshot",
+              "contextAllocation",
+              "curriculumInfo",
+              "g4bU04Summary",
+              "generatedAt",
+              "generatedQuestions",
+              "generationContext",
+              "generationReport",
+              "layoutNoticeText",
+              "layoutResolution",
+              "locale",
+              "metadata",
+              "orderedQuestionIds",
+              "printOptions",
+              "productionEligibility",
+              "productionUse",
+              "promotionRegistryId",
+              "provenance",
+              "publicControls",
+              "questionDisplayModels",
+              "questionPages",
+              "rendererProfile",
+              "schemaVersion",
+              "sections",
+              "studentFields",
+              "subtitle",
+              "summary",
+              "title",
+              "validationSummary",
+              "version",
+              "visibilityStatus",
+              "worksheetId",
+              "worksheetKind"
+            ],
             "browserResolutionMode": null,
             "browserResolutionErrors": [],
             "browserPlanSourceId": null,
@@ -21103,40 +21150,356 @@
               "applied": true,
               "blocked": false
             },
-            "documentQuestionMode": null,
-            "documentAuthorityMode": null,
-            "documentMetadataKeys": [],
-            "configSnapshotKeys": []
+            "documentQuestionMode": "concept",
+            "documentAuthorityMode": "GLOBAL_PRIMARY",
+            "documentMetadataKeys": [
+              "appliedLayoutText",
+              "contextAllocation",
+              "contextContractVersion",
+              "contextMode",
+              "globalLayoutContractVersion",
+              "layoutNoticeText",
+              "layoutResolution",
+              "publicControls",
+              "r07AuthoritativeConsumerCutover"
+            ],
+            "configSnapshotKeys": [
+              "answerKeyPrintLayout",
+              "contextMode",
+              "generationSeed",
+              "globalAuthorityCutover",
+              "globalLayoutContractVersion",
+              "includeAnswerKey",
+              "layoutCapped",
+              "layoutExact",
+              "layoutMode",
+              "legacyMigrationApplied",
+              "ordering",
+              "printLayout",
+              "questionCount",
+              "questionMode",
+              "rendererProfileId",
+              "requestedPrintLayout",
+              "schemaVersion",
+              "selectedKnowledgePointIds",
+              "selectedPatternGroupIds",
+              "selectionMode",
+              "sourceId",
+              "sourceUnitAdapterApplied"
+            ]
           },
-          "itemSamples": []
+          "itemSamples": [
+            {
+              "prompt": "在概數單元裡，符號 ≈ 應讀作什麼？",
+              "answer": "",
+              "promptHash": "b8d99066cbf459af5ced",
+              "itemSignature": "4d69319fdc8dfdd83612",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            },
+            {
+              "prompt": "符號 ≈ 不是等號，它的讀法是什麼？",
+              "answer": "",
+              "promptHash": "9613bf12b8a6913b4821",
+              "itemSignature": "8a44983669fed9ff15b8",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            },
+            {
+              "prompt": "數值取概數後常用 ≈，請寫出符號讀法。",
+              "answer": "",
+              "promptHash": "5d02d0783e896732370e",
+              "itemSignature": "55c758e8871c13464183",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            },
+            {
+              "prompt": "在近似關係式裡，≈ 的讀法是什麼？",
+              "answer": "",
+              "promptHash": "9c6771ee77a1e9f2bdaa",
+              "itemSignature": "a25f868ef99c1b021ddb",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            },
+            {
+              "prompt": "讀出下列符號：≈。",
+              "answer": "",
+              "promptHash": "5119c69caaa8b6cc9074",
+              "itemSignature": "2a39e67e931200756af1",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            }
+          ]
         },
         {
           "seed": "pgc-r04-diagnostic-02",
           "requestedQuestionCount": 20,
-          "ok": false,
+          "ok": true,
           "thrownError": null,
-          "errorCodes": [
-            "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+          "errorCodes": [],
+          "warnings": [
+            "global_public_layout_legacy_migrated"
           ],
-          "warnings": [],
-          "evidenceProjection": "none",
-          "questionCount": 0,
-          "answerKeyItemCount": 0,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "duplicatePromptCount": 0,
-          "uniquePromptCount": 0,
-          "patternSpecIdsObserved": [],
-          "knowledgePointIdsObserved": [],
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
           "runtimeLineage": {
             "resultKeys": [
               "authoritativeConsumerCutover",
+              "contextAllocation",
+              "eligibility",
               "errors",
+              "generation",
+              "globalLayoutResolution",
               "ok",
-              "plan",
               "validation",
               "warnings",
               "worksheetDocument"
             ],
-            "worksheetKeys": [],
+            "worksheetKeys": [
+              "allocationResult",
+              "answerKeyItems",
+              "answerKeyPages",
+              "appliedLayoutText",
+              "basePromotionRegistryId",
+              "batchA",
+              "configSnapshot",
+              "contextAllocation",
+              "curriculumInfo",
+              "g4bU04Summary",
+              "generatedAt",
+              "generatedQuestions",
+              "generationContext",
+              "generationReport",
+              "layoutNoticeText",
+              "layoutResolution",
+              "locale",
+              "metadata",
+              "orderedQuestionIds",
+              "printOptions",
+              "productionEligibility",
+              "productionUse",
+              "promotionRegistryId",
+              "provenance",
+              "publicControls",
+              "questionDisplayModels",
+              "questionPages",
+              "rendererProfile",
+              "schemaVersion",
+              "sections",
+              "studentFields",
+              "subtitle",
+              "summary",
+              "title",
+              "validationSummary",
+              "version",
+              "visibilityStatus",
+              "worksheetId",
+              "worksheetKind"
+            ],
             "browserResolutionMode": null,
             "browserResolutionErrors": [],
             "browserPlanSourceId": null,
@@ -21161,12 +21524,281 @@
               "applied": true,
               "blocked": false
             },
-            "documentQuestionMode": null,
-            "documentAuthorityMode": null,
-            "documentMetadataKeys": [],
-            "configSnapshotKeys": []
+            "documentQuestionMode": "concept",
+            "documentAuthorityMode": "GLOBAL_PRIMARY",
+            "documentMetadataKeys": [
+              "appliedLayoutText",
+              "contextAllocation",
+              "contextContractVersion",
+              "contextMode",
+              "globalLayoutContractVersion",
+              "layoutNoticeText",
+              "layoutResolution",
+              "publicControls",
+              "r07AuthoritativeConsumerCutover"
+            ],
+            "configSnapshotKeys": [
+              "answerKeyPrintLayout",
+              "contextMode",
+              "generationSeed",
+              "globalAuthorityCutover",
+              "globalLayoutContractVersion",
+              "includeAnswerKey",
+              "layoutCapped",
+              "layoutExact",
+              "layoutMode",
+              "legacyMigrationApplied",
+              "ordering",
+              "printLayout",
+              "questionCount",
+              "questionMode",
+              "rendererProfileId",
+              "requestedPrintLayout",
+              "schemaVersion",
+              "selectedKnowledgePointIds",
+              "selectedPatternGroupIds",
+              "selectionMode",
+              "sourceId",
+              "sourceUnitAdapterApplied"
+            ]
           },
-          "itemSamples": []
+          "itemSamples": [
+            {
+              "prompt": "請回答：≈ 怎麼讀？",
+              "answer": "",
+              "promptHash": "75c8da5221592047cfe7",
+              "itemSignature": "c97b64fb3caac88bbd0d",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            },
+            {
+              "prompt": "在『大約相等』的算式中，≈ 的正式讀法是什麼？",
+              "answer": "",
+              "promptHash": "5cdd88385ca131a7b491",
+              "itemSignature": "d4e7a5ca3127181361c3",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            },
+            {
+              "prompt": "≈ 用來表示近似關係，它的中文讀法是什麼？",
+              "answer": "",
+              "promptHash": "3f2c5b4c9779a095e26d",
+              "itemSignature": "e62bdb49e3527e947d49",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            },
+            {
+              "prompt": "在 498 ≈ 500 中，≈ 讀作什麼？",
+              "answer": "",
+              "promptHash": "5c34d72dd04171bbeac4",
+              "itemSignature": "d1944c638b95f4d544f8",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            },
+            {
+              "prompt": "兩個數近似相等時使用 ≈，這個符號讀作什麼？",
+              "answer": "",
+              "promptHash": "c996f45566e90c07f02b",
+              "itemSignature": "1c16b5f549fb7769deb8",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ],
+              "rawKind": null,
+              "itemKeys": [
+                "answerModelShape",
+                "applicationText",
+                "blankedDisplayText",
+                "displayText",
+                "implementationClass",
+                "knowledgePointId",
+                "layoutHints",
+                "metadataSnapshot",
+                "mode",
+                "patternGroupId",
+                "patternId",
+                "promptText",
+                "questionId",
+                "questionNumber",
+                "questionNumberText",
+                "renderKind",
+                "responsePrompt"
+              ],
+              "dataKeys": [],
+              "metadataKeys": [
+                "basePromotionRegistryId",
+                "contextApplicability",
+                "contextContractVersion",
+                "contextModeApplied",
+                "contextModeRequested",
+                "contextVariantId",
+                "fictionalExerciseData",
+                "promotionRegistryId",
+                "promptSignature",
+                "promptSignatureVersion",
+                "publicControls",
+                "resolvedPatternGroupId",
+                "sdgGoal",
+                "worksheetPromotionOverlayId"
+              ]
+            }
+          ]
         },
         {
           "seed": "pgc-r04-diagnostic-01",
@@ -21696,10 +22328,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 4 是否為 99 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 3 是否為 517 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "32a7bfb8eb182d540228",
-              "itemSignature": "55716f5d709d54a7ec1c",
+              "promptHash": "f6e9d2db5967ea1a9d85",
+              "itemSignature": "6aaae29b98691f6cf241",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -21737,10 +22369,10 @@
               ]
             },
             {
-              "prompt": "把 30 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 8 格：______ × ______ = 30 第 2 格 ↔ 第 7 格：______ × ______ = 30 第 3 格 ↔ 第 6 格：______ × ______ = 30 第 4 格 ↔ 第 5 格：______ × ______ = 30",
+              "prompt": "把 145 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 4 格：______ × ______ = 145 第 2 格 ↔ 第 3 格：______ × ______ = 145",
               "answer": "",
-              "promptHash": "d06d2e55549545d3910e",
-              "itemSignature": "e165bbbda6a903f1bf19",
+              "promptHash": "a41f691065a8530e800b",
+              "itemSignature": "9cb2289aec4927f31e39",
               "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_pair_order_and_symmetry"
@@ -21778,10 +22410,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：7 是 30 的因數。",
+              "prompt": "判斷並用整除關係說明：6 是 470 的因數。",
               "answer": "",
-              "promptHash": "f5222ea2e97ceb925287",
-              "itemSignature": "1dbb6f85164e3bbc699a",
+              "promptHash": "e77c4b4ff82ebc8e3530",
+              "itemSignature": "c5330a3ca94ab8ac3295",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -21819,10 +22451,10 @@
               ]
             },
             {
-              "prompt": "每組 9 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "67d7f56d64971685aee3",
-              "itemSignature": "568c8163287e43dd5e9b",
+              "promptHash": "4590ae02b3e42259c081",
+              "itemSignature": "90f88d409d77b96f51c7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -22027,10 +22659,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 8 是否為 40 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 19 是否為 190 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "a83a1e32941220730066",
-              "itemSignature": "6e91ea11295ea85795d5",
+              "promptHash": "56165bc1eaf04cea66b5",
+              "itemSignature": "767079e8a75cf86542a3",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -22068,10 +22700,10 @@
               ]
             },
             {
-              "prompt": "把 48 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 10 格：______ × ______ = 48 第 2 格 ↔ 第 9 格：______ × ______ = 48 第 3 格 ↔ 第 8 格：______ × ______ = 48 第 4 格 ↔ 第 7 格：______ × ______ = 48 第 5 格 ↔ 第 6 格：______ × ______ = 48",
+              "prompt": "把 164 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 6 格：______ × ______ = 164 第 2 格 ↔ 第 5 格：______ × ______ = 164 第 3 格 ↔ 第 4 格：______ × ______ = 164",
               "answer": "",
-              "promptHash": "004c0f1bf8e1445e3028",
-              "itemSignature": "d1ead4794fe4af97a0c0",
+              "promptHash": "9cbae3ce9662cf370894",
+              "itemSignature": "a78b703b23627fa78662",
               "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_pair_order_and_symmetry"
@@ -22109,10 +22741,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：81 是 3 的倍數。",
+              "prompt": "判斷並用整除關係說明：171 是 9 的倍數。",
               "answer": "",
-              "promptHash": "e4b240f6306d3d8da251",
-              "itemSignature": "a707819cf6de9d45aa71",
+              "promptHash": "d10849e3f9e27cc03e4c",
+              "itemSignature": "c5337b341afb1b8af488",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -22150,10 +22782,10 @@
               ]
             },
             {
-              "prompt": "15 件與 14 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "e349ae4217d3578181aa",
-              "itemSignature": "4bdb4a57468c433b8051",
+              "promptHash": "0b4cf6dc252d07ae6744",
+              "itemSignature": "20d81b3e2b9860615314",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -22358,10 +22990,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 4 是否為 99 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 3 是否為 517 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "32a7bfb8eb182d540228",
-              "itemSignature": "55716f5d709d54a7ec1c",
+              "promptHash": "f6e9d2db5967ea1a9d85",
+              "itemSignature": "6aaae29b98691f6cf241",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -22399,10 +23031,10 @@
               ]
             },
             {
-              "prompt": "把 30 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 8 格：______ × ______ = 30 第 2 格 ↔ 第 7 格：______ × ______ = 30 第 3 格 ↔ 第 6 格：______ × ______ = 30 第 4 格 ↔ 第 5 格：______ × ______ = 30",
+              "prompt": "把 145 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 4 格：______ × ______ = 145 第 2 格 ↔ 第 3 格：______ × ______ = 145",
               "answer": "",
-              "promptHash": "d06d2e55549545d3910e",
-              "itemSignature": "e165bbbda6a903f1bf19",
+              "promptHash": "a41f691065a8530e800b",
+              "itemSignature": "9cb2289aec4927f31e39",
               "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_pair_order_and_symmetry"
@@ -22440,10 +23072,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：7 是 30 的因數。",
+              "prompt": "判斷並用整除關係說明：6 是 470 的因數。",
               "answer": "",
-              "promptHash": "f5222ea2e97ceb925287",
-              "itemSignature": "1dbb6f85164e3bbc699a",
+              "promptHash": "e77c4b4ff82ebc8e3530",
+              "itemSignature": "c5330a3ca94ab8ac3295",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -22481,10 +23113,10 @@
               ]
             },
             {
-              "prompt": "每組 9 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "67d7f56d64971685aee3",
-              "itemSignature": "568c8163287e43dd5e9b",
+              "promptHash": "4590ae02b3e42259c081",
+              "itemSignature": "90f88d409d77b96f51c7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -22689,10 +23321,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 8 是否為 40 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 19 是否為 190 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "a83a1e32941220730066",
-              "itemSignature": "6e91ea11295ea85795d5",
+              "promptHash": "56165bc1eaf04cea66b5",
+              "itemSignature": "767079e8a75cf86542a3",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -22730,10 +23362,10 @@
               ]
             },
             {
-              "prompt": "把 48 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 10 格：______ × ______ = 48 第 2 格 ↔ 第 9 格：______ × ______ = 48 第 3 格 ↔ 第 8 格：______ × ______ = 48 第 4 格 ↔ 第 7 格：______ × ______ = 48 第 5 格 ↔ 第 6 格：______ × ______ = 48",
+              "prompt": "把 164 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 6 格：______ × ______ = 164 第 2 格 ↔ 第 5 格：______ × ______ = 164 第 3 格 ↔ 第 4 格：______ × ______ = 164",
               "answer": "",
-              "promptHash": "004c0f1bf8e1445e3028",
-              "itemSignature": "d1ead4794fe4af97a0c0",
+              "promptHash": "9cbae3ce9662cf370894",
+              "itemSignature": "a78b703b23627fa78662",
               "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_pair_order_and_symmetry"
@@ -22771,10 +23403,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：81 是 3 的倍數。",
+              "prompt": "判斷並用整除關係說明：171 是 9 的倍數。",
               "answer": "",
-              "promptHash": "e4b240f6306d3d8da251",
-              "itemSignature": "a707819cf6de9d45aa71",
+              "promptHash": "d10849e3f9e27cc03e4c",
+              "itemSignature": "c5337b341afb1b8af488",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -22812,10 +23444,10 @@
               ]
             },
             {
-              "prompt": "15 件與 14 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "e349ae4217d3578181aa",
-              "itemSignature": "4bdb4a57468c433b8051",
+              "promptHash": "0b4cf6dc252d07ae6744",
+              "itemSignature": "20d81b3e2b9860615314",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -23053,10 +23685,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 99 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 517 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 除數 21：商 ______，餘數 ______，是否整除 ______ 除數 22：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "247e933f290d688e885d",
-              "itemSignature": "06b023b8ae80f6ac25d2",
+              "promptHash": "ba7dc4c05daf39a3f8b0",
+              "itemSignature": "d14c1943d34b192bb4bb",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -23094,10 +23726,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 5，找出乘積為 30 的所有因數配對。 1 × ______ = 30 2 × ______ = 30 3 × ______ = 30 4 × ______ = 30 5 × ______ = 30 停止界線：較小因數檢查到 5；下一個候選 6 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 145 的所有因數配對。 1 × ______ = 145 2 × ______ = 145 3 × ______ = 145 4 × ______ = 145 5 × ______ = 145 6 × ______ = 145 7 × ______ = 145 8 × ______ = 145 9 × ______ = 145 10 × ______ = 145 11 × ______ = 145 12 × ______ = 145 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "bc3970a61aaeca5ba0d0",
-              "itemSignature": "f1f7ca2ba3fb7a951103",
+              "promptHash": "d07343018b3e7b9d1d4b",
+              "itemSignature": "7e9f6c49302bf1c6c188",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -23135,10 +23767,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×30、2×15、3×10、5×6 整理 30 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×470、2×235、5×94、10×47 整理 470 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "9dc6ff37e587f8959e43",
-              "itemSignature": "4a64f064c3c1e5e23dbd",
+              "promptHash": "91ae0fc7121b3e877e3a",
+              "itemSignature": "4c44cdbc7391ed687845",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -23385,10 +24017,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 40 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 190 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "32261b6184496e4a327c",
-              "itemSignature": "5727b542b407ad3b4bbb",
+              "promptHash": "6c116f6dfc332627c10a",
+              "itemSignature": "b119ed0a54ece156991d",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -23426,10 +24058,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 6，找出乘積為 48 的所有因數配對。 1 × ______ = 48 2 × ______ = 48 3 × ______ = 48 4 × ______ = 48 5 × ______ = 48 6 × ______ = 48 停止界線：較小因數檢查到 6；下一個候選 7 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 164 的所有因數配對。 1 × ______ = 164 2 × ______ = 164 3 × ______ = 164 4 × ______ = 164 5 × ______ = 164 6 × ______ = 164 7 × ______ = 164 8 × ______ = 164 9 × ______ = 164 10 × ______ = 164 11 × ______ = 164 12 × ______ = 164 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "8fb00202c45aa37785ff",
-              "itemSignature": "1da40a1a80b8a9b8eaf3",
+              "promptHash": "99adefe8f4b81f892940",
+              "itemSignature": "dbfac405cb5912a9148c",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -23467,10 +24099,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×81、3×27、9×9 整理 81 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×171、3×57、9×19 整理 171 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "07185354c966977d079c",
-              "itemSignature": "6f49eb706652eff7a8ae",
+              "promptHash": "a0fa74bb4dac9ebd75a7",
+              "itemSignature": "871fb25b6ecf6319d6b9",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -23717,10 +24349,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 99 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 517 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 除數 21：商 ______，餘數 ______，是否整除 ______ 除數 22：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "247e933f290d688e885d",
-              "itemSignature": "06b023b8ae80f6ac25d2",
+              "promptHash": "ba7dc4c05daf39a3f8b0",
+              "itemSignature": "d14c1943d34b192bb4bb",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -23758,10 +24390,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 5，找出乘積為 30 的所有因數配對。 1 × ______ = 30 2 × ______ = 30 3 × ______ = 30 4 × ______ = 30 5 × ______ = 30 停止界線：較小因數檢查到 5；下一個候選 6 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 145 的所有因數配對。 1 × ______ = 145 2 × ______ = 145 3 × ______ = 145 4 × ______ = 145 5 × ______ = 145 6 × ______ = 145 7 × ______ = 145 8 × ______ = 145 9 × ______ = 145 10 × ______ = 145 11 × ______ = 145 12 × ______ = 145 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "bc3970a61aaeca5ba0d0",
-              "itemSignature": "f1f7ca2ba3fb7a951103",
+              "promptHash": "d07343018b3e7b9d1d4b",
+              "itemSignature": "7e9f6c49302bf1c6c188",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -23799,10 +24431,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×30、2×15、3×10、5×6 整理 30 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×470、2×235、5×94、10×47 整理 470 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "9dc6ff37e587f8959e43",
-              "itemSignature": "4a64f064c3c1e5e23dbd",
+              "promptHash": "91ae0fc7121b3e877e3a",
+              "itemSignature": "4c44cdbc7391ed687845",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -24049,10 +24681,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 40 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 190 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "32261b6184496e4a327c",
-              "itemSignature": "5727b542b407ad3b4bbb",
+              "promptHash": "6c116f6dfc332627c10a",
+              "itemSignature": "b119ed0a54ece156991d",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -24090,10 +24722,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 6，找出乘積為 48 的所有因數配對。 1 × ______ = 48 2 × ______ = 48 3 × ______ = 48 4 × ______ = 48 5 × ______ = 48 6 × ______ = 48 停止界線：較小因數檢查到 6；下一個候選 7 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 164 的所有因數配對。 1 × ______ = 164 2 × ______ = 164 3 × ______ = 164 4 × ______ = 164 5 × ______ = 164 6 × ______ = 164 7 × ______ = 164 8 × ______ = 164 9 × ______ = 164 10 × ______ = 164 11 × ______ = 164 12 × ______ = 164 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "8fb00202c45aa37785ff",
-              "itemSignature": "1da40a1a80b8a9b8eaf3",
+              "promptHash": "99adefe8f4b81f892940",
+              "itemSignature": "dbfac405cb5912a9148c",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -24131,10 +24763,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×81、3×27、9×9 整理 81 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×171、3×57、9×19 整理 171 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "07185354c966977d079c",
-              "itemSignature": "6f49eb706652eff7a8ae",
+              "promptHash": "a0fa74bb4dac9ebd75a7",
+              "itemSignature": "871fb25b6ecf6319d6b9",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -24405,10 +25037,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 4 是否為 99 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 3 是否為 517 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "32a7bfb8eb182d540228",
-              "itemSignature": "55716f5d709d54a7ec1c",
+              "promptHash": "f6e9d2db5967ea1a9d85",
+              "itemSignature": "6aaae29b98691f6cf241",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24446,10 +25078,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 1 是否為 30 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 1 是否為 145 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "3707c218cef2ee94ac65",
-              "itemSignature": "53aa924badd2014408fb",
+              "promptHash": "e3aed69638eb5e4c483b",
+              "itemSignature": "1dadace27c98a082aadb",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24487,10 +25119,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 7 是否為 30 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 6 是否為 470 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "ecd1408dfb374fb19625",
-              "itemSignature": "a34083a58028feef1ce5",
+              "promptHash": "daab4ee4f2a8150b6e84",
+              "itemSignature": "1d3791742d7b7d543fdb",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24528,10 +25160,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 1 是否為 44 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 1 是否為 116 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "305e0ea7c7ed05151305",
-              "itemSignature": "a667ec75cab8629ed7c0",
+              "promptHash": "4871ec69cf10460ff601",
+              "itemSignature": "5e467d96aac96dea63e0",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24569,10 +25201,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 5 是否為 72 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 2 是否為 423 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "731e43138f1905672833",
-              "itemSignature": "16302bcfe2bc63c6bcfa",
+              "promptHash": "28e238c483670b7b74ca",
+              "itemSignature": "ffd7c9c4cd1f7ae59503",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24728,10 +25360,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 8 是否為 40 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 19 是否為 190 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "a83a1e32941220730066",
-              "itemSignature": "6e91ea11295ea85795d5",
+              "promptHash": "56165bc1eaf04cea66b5",
+              "itemSignature": "767079e8a75cf86542a3",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24769,10 +25401,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 5 是否為 48 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 3 是否為 164 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "d1b6369b55cc0624175a",
-              "itemSignature": "78f3f903da4158872781",
+              "promptHash": "60899592e87ab22a71d4",
+              "itemSignature": "221eb5e896146f78e97b",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24810,10 +25442,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 3 是否為 81 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 9 是否為 171 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "69cbecd5e636eab24acc",
-              "itemSignature": "eaf3973f478927e43a8c",
+              "promptHash": "e8c48826e4bc0b5cd6fb",
+              "itemSignature": "62e97a76781978b28708",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24851,10 +25483,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 4 是否為 18 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 4 是否為 123 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "fd7bf74d0614be1ecb2f",
-              "itemSignature": "89c1651d7b9d4741b2f0",
+              "promptHash": "b1cae5a489872adb8dfd",
+              "itemSignature": "be576736d84e6e945e84",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -24892,10 +25524,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 1 是否為 24 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 1 是否為 152 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "c168f74081d1b085c748",
-              "itemSignature": "1c32f3c334e608e2ee13",
+              "promptHash": "3dc7be160fcd44180dfc",
+              "itemSignature": "6f55517a0292b62e78fb",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25051,10 +25683,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 4 是否為 99 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 3 是否為 517 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "32a7bfb8eb182d540228",
-              "itemSignature": "55716f5d709d54a7ec1c",
+              "promptHash": "f6e9d2db5967ea1a9d85",
+              "itemSignature": "6aaae29b98691f6cf241",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25092,10 +25724,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 1 是否為 30 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 1 是否為 145 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "3707c218cef2ee94ac65",
-              "itemSignature": "53aa924badd2014408fb",
+              "promptHash": "e3aed69638eb5e4c483b",
+              "itemSignature": "1dadace27c98a082aadb",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25133,10 +25765,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 7 是否為 30 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 6 是否為 470 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "ecd1408dfb374fb19625",
-              "itemSignature": "a34083a58028feef1ce5",
+              "promptHash": "daab4ee4f2a8150b6e84",
+              "itemSignature": "1d3791742d7b7d543fdb",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25174,10 +25806,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 1 是否為 44 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 1 是否為 116 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "305e0ea7c7ed05151305",
-              "itemSignature": "a667ec75cab8629ed7c0",
+              "promptHash": "4871ec69cf10460ff601",
+              "itemSignature": "5e467d96aac96dea63e0",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25215,10 +25847,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 5 是否為 72 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 2 是否為 423 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "731e43138f1905672833",
-              "itemSignature": "16302bcfe2bc63c6bcfa",
+              "promptHash": "28e238c483670b7b74ca",
+              "itemSignature": "ffd7c9c4cd1f7ae59503",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25374,10 +26006,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 8 是否為 40 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 19 是否為 190 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "a83a1e32941220730066",
-              "itemSignature": "6e91ea11295ea85795d5",
+              "promptHash": "56165bc1eaf04cea66b5",
+              "itemSignature": "767079e8a75cf86542a3",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25415,10 +26047,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 5 是否為 48 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 3 是否為 164 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "d1b6369b55cc0624175a",
-              "itemSignature": "78f3f903da4158872781",
+              "promptHash": "60899592e87ab22a71d4",
+              "itemSignature": "221eb5e896146f78e97b",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25456,10 +26088,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 3 是否為 81 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 9 是否為 171 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "69cbecd5e636eab24acc",
-              "itemSignature": "eaf3973f478927e43a8c",
+              "promptHash": "e8c48826e4bc0b5cd6fb",
+              "itemSignature": "62e97a76781978b28708",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25497,10 +26129,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 4 是否為 18 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 4 是否為 123 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "fd7bf74d0614be1ecb2f",
-              "itemSignature": "89c1651d7b9d4741b2f0",
+              "promptHash": "b1cae5a489872adb8dfd",
+              "itemSignature": "be576736d84e6e945e84",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25538,10 +26170,10 @@
               ]
             },
             {
-              "prompt": "用乘法和除法判斷 1 是否為 24 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 1 是否為 152 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "c168f74081d1b085c748",
-              "itemSignature": "1c32f3c334e608e2ee13",
+              "promptHash": "3dc7be160fcd44180dfc",
+              "itemSignature": "6f55517a0292b62e78fb",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -25625,8 +26257,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "duplicatePromptCount": 3,
-          "uniquePromptCount": 17,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_factor_enumeration_trial_division"
           ],
@@ -25730,10 +26362,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 99 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 517 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 除數 21：商 ______，餘數 ______，是否整除 ______ 除數 22：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "247e933f290d688e885d",
-              "itemSignature": "06b023b8ae80f6ac25d2",
+              "promptHash": "ba7dc4c05daf39a3f8b0",
+              "itemSignature": "d14c1943d34b192bb4bb",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -25771,10 +26403,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 30 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 145 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "d50e20093a670d7274aa",
-              "itemSignature": "54ed8567e88cfbe4c3c4",
+              "promptHash": "4f27bbe5d272415faf1b",
+              "itemSignature": "7bf2bacd57830d3ef5e7",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -25812,10 +26444,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 30 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 470 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 除數 21：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "d50e20093a670d7274aa",
-              "itemSignature": "54ed8567e88cfbe4c3c4",
+              "promptHash": "dea610bfa4f376aaffc3",
+              "itemSignature": "5df7ed6bf4eca2717e81",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -25853,10 +26485,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 44 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 116 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "24cf050147e09f0112af",
-              "itemSignature": "58f13c13a75bf5190d8e",
+              "promptHash": "d9b8a6d35beef3cbc7a3",
+              "itemSignature": "7701d70f98bc91b35c08",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -25894,10 +26526,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 72 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 423 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "725da3ab98e3fb9b5e5b",
-              "itemSignature": "2ae6f48b479728e49242",
+              "promptHash": "5b58354f219ceba36678",
+              "itemSignature": "8e85e94eb632323d53c6",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -25948,8 +26580,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_factor_enumeration_trial_division"
           ],
@@ -26053,10 +26685,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 40 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 190 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "32261b6184496e4a327c",
-              "itemSignature": "5727b542b407ad3b4bbb",
+              "promptHash": "6c116f6dfc332627c10a",
+              "itemSignature": "b119ed0a54ece156991d",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26094,10 +26726,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 48 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 164 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "50f58d47d9be13c64636",
-              "itemSignature": "aecc5effb5ba93ecfb9e",
+              "promptHash": "4cd43a03726223d501c7",
+              "itemSignature": "7aa8dff6f32acc44ebbc",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26135,10 +26767,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 81 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 171 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "17a79743f0d23ca2a9fd",
-              "itemSignature": "2a79f089eec7f5b4d5c0",
+              "promptHash": "54230102a5b2fcd6e0dc",
+              "itemSignature": "ca97b53634bd7d7d27f1",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26176,10 +26808,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 18 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 123 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "29016a33e325adb5299a",
-              "itemSignature": "6b7482292b4fa1ef6f3a",
+              "promptHash": "d1647e8909d53ef940d0",
+              "itemSignature": "9cd36d0064f5eefa5271",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26217,10 +26849,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 24 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 152 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "b3a39f2dc456d13e384d",
-              "itemSignature": "d071435a66c274d89c45",
+              "promptHash": "f20e6bbedf336e84ab2b",
+              "itemSignature": "ef63bbfd6c9afb1f71bd",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26271,8 +26903,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 8,
           "answerKeyItemCount": 8,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 7,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 8,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_factor_enumeration_trial_division"
           ],
@@ -26376,10 +27008,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 99 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 517 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 除數 21：商 ______，餘數 ______，是否整除 ______ 除數 22：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "247e933f290d688e885d",
-              "itemSignature": "06b023b8ae80f6ac25d2",
+              "promptHash": "ba7dc4c05daf39a3f8b0",
+              "itemSignature": "d14c1943d34b192bb4bb",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26417,10 +27049,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 30 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 145 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "d50e20093a670d7274aa",
-              "itemSignature": "54ed8567e88cfbe4c3c4",
+              "promptHash": "4f27bbe5d272415faf1b",
+              "itemSignature": "7bf2bacd57830d3ef5e7",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26458,10 +27090,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 30 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 470 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 除數 21：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "d50e20093a670d7274aa",
-              "itemSignature": "54ed8567e88cfbe4c3c4",
+              "promptHash": "dea610bfa4f376aaffc3",
+              "itemSignature": "5df7ed6bf4eca2717e81",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26499,10 +27131,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 44 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 116 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "24cf050147e09f0112af",
-              "itemSignature": "58f13c13a75bf5190d8e",
+              "promptHash": "d9b8a6d35beef3cbc7a3",
+              "itemSignature": "7701d70f98bc91b35c08",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26540,10 +27172,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 72 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 423 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "725da3ab98e3fb9b5e5b",
-              "itemSignature": "2ae6f48b479728e49242",
+              "promptHash": "5b58354f219ceba36678",
+              "itemSignature": "8e85e94eb632323d53c6",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26699,10 +27331,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 40 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 190 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "32261b6184496e4a327c",
-              "itemSignature": "5727b542b407ad3b4bbb",
+              "promptHash": "6c116f6dfc332627c10a",
+              "itemSignature": "b119ed0a54ece156991d",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26740,10 +27372,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 48 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 164 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "50f58d47d9be13c64636",
-              "itemSignature": "aecc5effb5ba93ecfb9e",
+              "promptHash": "4cd43a03726223d501c7",
+              "itemSignature": "7aa8dff6f32acc44ebbc",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26781,10 +27413,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 81 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 171 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "17a79743f0d23ca2a9fd",
-              "itemSignature": "2a79f089eec7f5b4d5c0",
+              "promptHash": "54230102a5b2fcd6e0dc",
+              "itemSignature": "ca97b53634bd7d7d27f1",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26822,10 +27454,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 18 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 123 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "29016a33e325adb5299a",
-              "itemSignature": "6b7482292b4fa1ef6f3a",
+              "promptHash": "d1647e8909d53ef940d0",
+              "itemSignature": "9cd36d0064f5eefa5271",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -26863,10 +27495,10 @@
               ]
             },
             {
-              "prompt": "用試除法找出 24 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 152 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "b3a39f2dc456d13e384d",
-              "itemSignature": "d071435a66c274d89c45",
+              "promptHash": "f20e6bbedf336e84ab2b",
+              "itemSignature": "ef63bbfd6c9afb1f71bd",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -27057,10 +27689,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法逐一檢查 1 到 9，找出乘積為 99 的所有因數配對。 1 × ______ = 99 2 × ______ = 99 3 × ______ = 99 4 × ______ = 99 5 × ______ = 99 6 × ______ = 99 7 × ______ = 99 8 × ______ = 99 9 × ______ = 99 停止界線：較小因數檢查到 9；下一個候選 10 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 22，找出乘積為 517 的所有因數配對。 1 × ______ = 517 2 × ______ = 517 3 × ______ = 517 4 × ______ = 517 5 × ______ = 517 6 × ______ = 517 7 × ______ = 517 8 × ______ = 517 9 × ______ = 517 10 × ______ = 517 11 × ______ = 517 12 × ______ = 517 13 × ______ = 517 14 × ______ = 517 15 × ______ = 517 16 × ______ = 517 17 × ______ = 517 18 × ______ = 517 19 × ______ = 517 20 × ______ = 517 21 × ______ = 517 22 × ______ = 517 停止界線：較小因數檢查到 22；下一個候選 23 已越過界線。",
               "answer": "",
-              "promptHash": "a554d3e1d493e8090cab",
-              "itemSignature": "9d9cf2bc0d486192e0a2",
+              "promptHash": "ea4aebe6000a14822237",
+              "itemSignature": "f0dd3fa1e7276df91150",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27098,10 +27730,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×30、2×15、3×10、5×6 整理 30 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×145、5×29 整理 145 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "9dc6ff37e587f8959e43",
-              "itemSignature": "4a64f064c3c1e5e23dbd",
+              "promptHash": "82c968c438e99e5a29de",
+              "itemSignature": "8cc2b41d5360baa9d134",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27139,10 +27771,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 5，找出乘積為 30 的所有因數配對。 1 × ______ = 30 2 × ______ = 30 3 × ______ = 30 4 × ______ = 30 5 × ______ = 30 停止界線：較小因數檢查到 5；下一個候選 6 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 21，找出乘積為 470 的所有因數配對。 1 × ______ = 470 2 × ______ = 470 3 × ______ = 470 4 × ______ = 470 5 × ______ = 470 6 × ______ = 470 7 × ______ = 470 8 × ______ = 470 9 × ______ = 470 10 × ______ = 470 11 × ______ = 470 12 × ______ = 470 13 × ______ = 470 14 × ______ = 470 15 × ______ = 470 16 × ______ = 470 17 × ______ = 470 18 × ______ = 470 19 × ______ = 470 20 × ______ = 470 21 × ______ = 470 停止界線：較小因數檢查到 21；下一個候選 22 已越過界線。",
               "answer": "",
-              "promptHash": "bc3970a61aaeca5ba0d0",
-              "itemSignature": "f1f7ca2ba3fb7a951103",
+              "promptHash": "4a4b08111e7270677a62",
+              "itemSignature": "17ee668d9cda5a14f4a2",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27180,10 +27812,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×44、2×22、4×11 整理 44 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×116、2×58、4×29 整理 116 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "1e02ab61c269db5fa2c8",
-              "itemSignature": "aa3b6ea299ae631a7aa0",
+              "promptHash": "b1206b88422af5fa3339",
+              "itemSignature": "fb47af0118dc4640c65f",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27221,10 +27853,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 8，找出乘積為 72 的所有因數配對。 1 × ______ = 72 2 × ______ = 72 3 × ______ = 72 4 × ______ = 72 5 × ______ = 72 6 × ______ = 72 7 × ______ = 72 8 × ______ = 72 停止界線：較小因數檢查到 8；下一個候選 9 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 20，找出乘積為 423 的所有因數配對。 1 × ______ = 423 2 × ______ = 423 3 × ______ = 423 4 × ______ = 423 5 × ______ = 423 6 × ______ = 423 7 × ______ = 423 8 × ______ = 423 9 × ______ = 423 10 × ______ = 423 11 × ______ = 423 12 × ______ = 423 13 × ______ = 423 14 × ______ = 423 15 × ______ = 423 16 × ______ = 423 17 × ______ = 423 18 × ______ = 423 19 × ______ = 423 20 × ______ = 423 停止界線：較小因數檢查到 20；下一個候選 21 已越過界線。",
               "answer": "",
-              "promptHash": "13e432eaca2f1cf4a2d8",
-              "itemSignature": "ec81f209ede852700d99",
+              "promptHash": "301e57b3302669760b33",
+              "itemSignature": "b011387e65063280d7da",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27275,8 +27907,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_factor_pair_enumeration",
             "ps_g5a_u02_factor_list_from_pairs"
@@ -27381,10 +28013,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法逐一檢查 1 到 6，找出乘積為 40 的所有因數配對。 1 × ______ = 40 2 × ______ = 40 3 × ______ = 40 4 × ______ = 40 5 × ______ = 40 6 × ______ = 40 停止界線：較小因數檢查到 6；下一個候選 7 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 13，找出乘積為 190 的所有因數配對。 1 × ______ = 190 2 × ______ = 190 3 × ______ = 190 4 × ______ = 190 5 × ______ = 190 6 × ______ = 190 7 × ______ = 190 8 × ______ = 190 9 × ______ = 190 10 × ______ = 190 11 × ______ = 190 12 × ______ = 190 13 × ______ = 190 停止界線：較小因數檢查到 13；下一個候選 14 已越過界線。",
               "answer": "",
-              "promptHash": "bdecf19f6d052d762f86",
-              "itemSignature": "046f99a46891fe525834",
+              "promptHash": "f4e0611ef0f2b264d479",
+              "itemSignature": "5e7cbcff78e2e8d1e432",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27422,10 +28054,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×48、2×24、3×16、4×12、6×8 整理 48 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×164、2×82、4×41 整理 164 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "5cd6b3f7c8224eb0be3a",
-              "itemSignature": "8a26d01bd807a7b5a460",
+              "promptHash": "451af9faa799ca7cd8cc",
+              "itemSignature": "19d151c365facf5e0d57",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27463,10 +28095,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 9，找出乘積為 81 的所有因數配對。 1 × ______ = 81 2 × ______ = 81 3 × ______ = 81 4 × ______ = 81 5 × ______ = 81 6 × ______ = 81 7 × ______ = 81 8 × ______ = 81 9 × ______ = 81 停止界線：較小因數檢查到 9；下一個候選 10 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 13，找出乘積為 171 的所有因數配對。 1 × ______ = 171 2 × ______ = 171 3 × ______ = 171 4 × ______ = 171 5 × ______ = 171 6 × ______ = 171 7 × ______ = 171 8 × ______ = 171 9 × ______ = 171 10 × ______ = 171 11 × ______ = 171 12 × ______ = 171 13 × ______ = 171 停止界線：較小因數檢查到 13；下一個候選 14 已越過界線。",
               "answer": "",
-              "promptHash": "a26962b32b64c711b791",
-              "itemSignature": "074219948295a168c668",
+              "promptHash": "a9def17b8c9932743ae4",
+              "itemSignature": "ac872da18a097cc724f5",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27504,10 +28136,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×18、2×9、3×6 整理 18 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×123、3×41 整理 123 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "58f4ae1040f9579f7de8",
-              "itemSignature": "b4bc66c49710d2de20f9",
+              "promptHash": "67d63a02c816873d25a8",
+              "itemSignature": "7d7020284d69379ce81f",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27545,10 +28177,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 4，找出乘積為 24 的所有因數配對。 1 × ______ = 24 2 × ______ = 24 3 × ______ = 24 4 × ______ = 24 停止界線：較小因數檢查到 4；下一個候選 5 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 152 的所有因數配對。 1 × ______ = 152 2 × ______ = 152 3 × ______ = 152 4 × ______ = 152 5 × ______ = 152 6 × ______ = 152 7 × ______ = 152 8 × ______ = 152 9 × ______ = 152 10 × ______ = 152 11 × ______ = 152 12 × ______ = 152 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "0e732adadea41c81ae82",
-              "itemSignature": "a31fc185449d847a4c7b",
+              "promptHash": "b3c4bed54d8cc17317de",
+              "itemSignature": "4272595ae074aafe2d7e",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27705,10 +28337,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法逐一檢查 1 到 9，找出乘積為 99 的所有因數配對。 1 × ______ = 99 2 × ______ = 99 3 × ______ = 99 4 × ______ = 99 5 × ______ = 99 6 × ______ = 99 7 × ______ = 99 8 × ______ = 99 9 × ______ = 99 停止界線：較小因數檢查到 9；下一個候選 10 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 22，找出乘積為 517 的所有因數配對。 1 × ______ = 517 2 × ______ = 517 3 × ______ = 517 4 × ______ = 517 5 × ______ = 517 6 × ______ = 517 7 × ______ = 517 8 × ______ = 517 9 × ______ = 517 10 × ______ = 517 11 × ______ = 517 12 × ______ = 517 13 × ______ = 517 14 × ______ = 517 15 × ______ = 517 16 × ______ = 517 17 × ______ = 517 18 × ______ = 517 19 × ______ = 517 20 × ______ = 517 21 × ______ = 517 22 × ______ = 517 停止界線：較小因數檢查到 22；下一個候選 23 已越過界線。",
               "answer": "",
-              "promptHash": "a554d3e1d493e8090cab",
-              "itemSignature": "9d9cf2bc0d486192e0a2",
+              "promptHash": "ea4aebe6000a14822237",
+              "itemSignature": "f0dd3fa1e7276df91150",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27746,10 +28378,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×30、2×15、3×10、5×6 整理 30 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×145、5×29 整理 145 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "9dc6ff37e587f8959e43",
-              "itemSignature": "4a64f064c3c1e5e23dbd",
+              "promptHash": "82c968c438e99e5a29de",
+              "itemSignature": "8cc2b41d5360baa9d134",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27787,10 +28419,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 5，找出乘積為 30 的所有因數配對。 1 × ______ = 30 2 × ______ = 30 3 × ______ = 30 4 × ______ = 30 5 × ______ = 30 停止界線：較小因數檢查到 5；下一個候選 6 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 21，找出乘積為 470 的所有因數配對。 1 × ______ = 470 2 × ______ = 470 3 × ______ = 470 4 × ______ = 470 5 × ______ = 470 6 × ______ = 470 7 × ______ = 470 8 × ______ = 470 9 × ______ = 470 10 × ______ = 470 11 × ______ = 470 12 × ______ = 470 13 × ______ = 470 14 × ______ = 470 15 × ______ = 470 16 × ______ = 470 17 × ______ = 470 18 × ______ = 470 19 × ______ = 470 20 × ______ = 470 21 × ______ = 470 停止界線：較小因數檢查到 21；下一個候選 22 已越過界線。",
               "answer": "",
-              "promptHash": "bc3970a61aaeca5ba0d0",
-              "itemSignature": "f1f7ca2ba3fb7a951103",
+              "promptHash": "4a4b08111e7270677a62",
+              "itemSignature": "17ee668d9cda5a14f4a2",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27828,10 +28460,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×44、2×22、4×11 整理 44 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×116、2×58、4×29 整理 116 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "1e02ab61c269db5fa2c8",
-              "itemSignature": "aa3b6ea299ae631a7aa0",
+              "promptHash": "b1206b88422af5fa3339",
+              "itemSignature": "fb47af0118dc4640c65f",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -27869,10 +28501,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 8，找出乘積為 72 的所有因數配對。 1 × ______ = 72 2 × ______ = 72 3 × ______ = 72 4 × ______ = 72 5 × ______ = 72 6 × ______ = 72 7 × ______ = 72 8 × ______ = 72 停止界線：較小因數檢查到 8；下一個候選 9 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 20，找出乘積為 423 的所有因數配對。 1 × ______ = 423 2 × ______ = 423 3 × ______ = 423 4 × ______ = 423 5 × ______ = 423 6 × ______ = 423 7 × ______ = 423 8 × ______ = 423 9 × ______ = 423 10 × ______ = 423 11 × ______ = 423 12 × ______ = 423 13 × ______ = 423 14 × ______ = 423 15 × ______ = 423 16 × ______ = 423 17 × ______ = 423 18 × ______ = 423 19 × ______ = 423 20 × ______ = 423 停止界線：較小因數檢查到 20；下一個候選 21 已越過界線。",
               "answer": "",
-              "promptHash": "13e432eaca2f1cf4a2d8",
-              "itemSignature": "ec81f209ede852700d99",
+              "promptHash": "301e57b3302669760b33",
+              "itemSignature": "b011387e65063280d7da",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -28029,10 +28661,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法逐一檢查 1 到 6，找出乘積為 40 的所有因數配對。 1 × ______ = 40 2 × ______ = 40 3 × ______ = 40 4 × ______ = 40 5 × ______ = 40 6 × ______ = 40 停止界線：較小因數檢查到 6；下一個候選 7 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 13，找出乘積為 190 的所有因數配對。 1 × ______ = 190 2 × ______ = 190 3 × ______ = 190 4 × ______ = 190 5 × ______ = 190 6 × ______ = 190 7 × ______ = 190 8 × ______ = 190 9 × ______ = 190 10 × ______ = 190 11 × ______ = 190 12 × ______ = 190 13 × ______ = 190 停止界線：較小因數檢查到 13；下一個候選 14 已越過界線。",
               "answer": "",
-              "promptHash": "bdecf19f6d052d762f86",
-              "itemSignature": "046f99a46891fe525834",
+              "promptHash": "f4e0611ef0f2b264d479",
+              "itemSignature": "5e7cbcff78e2e8d1e432",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -28070,10 +28702,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×48、2×24、3×16、4×12、6×8 整理 48 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×164、2×82、4×41 整理 164 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "5cd6b3f7c8224eb0be3a",
-              "itemSignature": "8a26d01bd807a7b5a460",
+              "promptHash": "451af9faa799ca7cd8cc",
+              "itemSignature": "19d151c365facf5e0d57",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -28111,10 +28743,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 9，找出乘積為 81 的所有因數配對。 1 × ______ = 81 2 × ______ = 81 3 × ______ = 81 4 × ______ = 81 5 × ______ = 81 6 × ______ = 81 7 × ______ = 81 8 × ______ = 81 9 × ______ = 81 停止界線：較小因數檢查到 9；下一個候選 10 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 13，找出乘積為 171 的所有因數配對。 1 × ______ = 171 2 × ______ = 171 3 × ______ = 171 4 × ______ = 171 5 × ______ = 171 6 × ______ = 171 7 × ______ = 171 8 × ______ = 171 9 × ______ = 171 10 × ______ = 171 11 × ______ = 171 12 × ______ = 171 13 × ______ = 171 停止界線：較小因數檢查到 13；下一個候選 14 已越過界線。",
               "answer": "",
-              "promptHash": "a26962b32b64c711b791",
-              "itemSignature": "074219948295a168c668",
+              "promptHash": "a9def17b8c9932743ae4",
+              "itemSignature": "ac872da18a097cc724f5",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -28152,10 +28784,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×18、2×9、3×6 整理 18 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×123、3×41 整理 123 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "58f4ae1040f9579f7de8",
-              "itemSignature": "b4bc66c49710d2de20f9",
+              "promptHash": "67d63a02c816873d25a8",
+              "itemSignature": "7d7020284d69379ce81f",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -28193,10 +28825,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 4，找出乘積為 24 的所有因數配對。 1 × ______ = 24 2 × ______ = 24 3 × ______ = 24 4 × ______ = 24 停止界線：較小因數檢查到 4；下一個候選 5 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 152 的所有因數配對。 1 × ______ = 152 2 × ______ = 152 3 × ______ = 152 4 × ______ = 152 5 × ______ = 152 6 × ______ = 152 7 × ______ = 152 8 × ______ = 152 9 × ______ = 152 10 × ______ = 152 11 × ______ = 152 12 × ______ = 152 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "0e732adadea41c81ae82",
-              "itemSignature": "a31fc185449d847a4c7b",
+              "promptHash": "b3c4bed54d8cc17317de",
+              "itemSignature": "4272595ae074aafe2d7e",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -28386,10 +29018,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "判斷並用整除關係說明：99 可以被 4 整除。",
+              "prompt": "判斷並用整除關係說明：517 可以被 3 整除。",
               "answer": "",
-              "promptHash": "96bbf387c99104559a81",
-              "itemSignature": "47c293e7697b3ea00340",
+              "promptHash": "a6079a0ea5f0ce1338e2",
+              "itemSignature": "20950745a5e84125df8a",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28427,10 +29059,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：1 可以整除 30。",
+              "prompt": "判斷並用整除關係說明：1 可以整除 145。",
               "answer": "",
-              "promptHash": "2392e3b0285f59d45475",
-              "itemSignature": "6b2b128aa784915c0138",
+              "promptHash": "2679b30175764b5d79bc",
+              "itemSignature": "aa05d053283d56926249",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28468,10 +29100,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：7 是 30 的因數。",
+              "prompt": "判斷並用整除關係說明：6 是 470 的因數。",
               "answer": "",
-              "promptHash": "f5222ea2e97ceb925287",
-              "itemSignature": "1dbb6f85164e3bbc699a",
+              "promptHash": "e77c4b4ff82ebc8e3530",
+              "itemSignature": "c5330a3ca94ab8ac3295",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28509,10 +29141,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：44 是 1 的倍數。",
+              "prompt": "判斷並用整除關係說明：116 是 1 的倍數。",
               "answer": "",
-              "promptHash": "7451cac357481ed04937",
-              "itemSignature": "d9efc93668ae54cc0f06",
+              "promptHash": "f56600522e94bbb93a2e",
+              "itemSignature": "54e6b7da53b1d970471f",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28550,10 +29182,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：72 可以被 5 整除。",
+              "prompt": "判斷並用整除關係說明：423 可以被 2 整除。",
               "answer": "",
-              "promptHash": "cd9257ecc89d5ee022bf",
-              "itemSignature": "5613c1aa09ddcbf6b2ca",
+              "promptHash": "25862e94d5923cbc3377",
+              "itemSignature": "a2edf65716367b548e6f",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28709,10 +29341,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "判斷並用整除關係說明：8 可以整除 40。",
+              "prompt": "判斷並用整除關係說明：19 可以整除 190。",
               "answer": "",
-              "promptHash": "a50af350047cc81e3d4e",
-              "itemSignature": "f88d435bac5687aaf45f",
+              "promptHash": "85c261ea75309e69e72a",
+              "itemSignature": "f9797a9c76a802a5d88f",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28750,10 +29382,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：5 是 48 的因數。",
+              "prompt": "判斷並用整除關係說明：3 是 164 的因數。",
               "answer": "",
-              "promptHash": "44b06da074b6d13972b2",
-              "itemSignature": "9f426c3bed15de11f75b",
+              "promptHash": "42e8ce023f51b6ab83f9",
+              "itemSignature": "93fc3185091abd9e0903",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28791,10 +29423,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：81 是 3 的倍數。",
+              "prompt": "判斷並用整除關係說明：171 是 9 的倍數。",
               "answer": "",
-              "promptHash": "e4b240f6306d3d8da251",
-              "itemSignature": "a707819cf6de9d45aa71",
+              "promptHash": "d10849e3f9e27cc03e4c",
+              "itemSignature": "c5337b341afb1b8af488",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28832,10 +29464,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：18 可以被 4 整除。",
+              "prompt": "判斷並用整除關係說明：123 可以被 4 整除。",
               "answer": "",
-              "promptHash": "a656e9eff7261cffebbd",
-              "itemSignature": "127520150c9a2d53e46b",
+              "promptHash": "5a3dd9796d88dd56de3f",
+              "itemSignature": "c9a78dd2a3b21bc15c4d",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -28873,10 +29505,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：1 可以整除 24。",
+              "prompt": "判斷並用整除關係說明：1 可以整除 152。",
               "answer": "",
-              "promptHash": "b251bbf1de6a05bf67f2",
-              "itemSignature": "172bfa40dd05d587e2ac",
+              "promptHash": "f09e7ffce81062fa15c8",
+              "itemSignature": "4ead3e06691a6565a13b",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29032,10 +29664,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "判斷並用整除關係說明：99 可以被 4 整除。",
+              "prompt": "判斷並用整除關係說明：517 可以被 3 整除。",
               "answer": "",
-              "promptHash": "96bbf387c99104559a81",
-              "itemSignature": "47c293e7697b3ea00340",
+              "promptHash": "a6079a0ea5f0ce1338e2",
+              "itemSignature": "20950745a5e84125df8a",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29073,10 +29705,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：1 可以整除 30。",
+              "prompt": "判斷並用整除關係說明：1 可以整除 145。",
               "answer": "",
-              "promptHash": "2392e3b0285f59d45475",
-              "itemSignature": "6b2b128aa784915c0138",
+              "promptHash": "2679b30175764b5d79bc",
+              "itemSignature": "aa05d053283d56926249",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29114,10 +29746,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：7 是 30 的因數。",
+              "prompt": "判斷並用整除關係說明：6 是 470 的因數。",
               "answer": "",
-              "promptHash": "f5222ea2e97ceb925287",
-              "itemSignature": "1dbb6f85164e3bbc699a",
+              "promptHash": "e77c4b4ff82ebc8e3530",
+              "itemSignature": "c5330a3ca94ab8ac3295",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29155,10 +29787,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：44 是 1 的倍數。",
+              "prompt": "判斷並用整除關係說明：116 是 1 的倍數。",
               "answer": "",
-              "promptHash": "7451cac357481ed04937",
-              "itemSignature": "d9efc93668ae54cc0f06",
+              "promptHash": "f56600522e94bbb93a2e",
+              "itemSignature": "54e6b7da53b1d970471f",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29196,10 +29828,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：72 可以被 5 整除。",
+              "prompt": "判斷並用整除關係說明：423 可以被 2 整除。",
               "answer": "",
-              "promptHash": "cd9257ecc89d5ee022bf",
-              "itemSignature": "5613c1aa09ddcbf6b2ca",
+              "promptHash": "25862e94d5923cbc3377",
+              "itemSignature": "a2edf65716367b548e6f",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29355,10 +29987,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "判斷並用整除關係說明：8 可以整除 40。",
+              "prompt": "判斷並用整除關係說明：19 可以整除 190。",
               "answer": "",
-              "promptHash": "a50af350047cc81e3d4e",
-              "itemSignature": "f88d435bac5687aaf45f",
+              "promptHash": "85c261ea75309e69e72a",
+              "itemSignature": "f9797a9c76a802a5d88f",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29396,10 +30028,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：5 是 48 的因數。",
+              "prompt": "判斷並用整除關係說明：3 是 164 的因數。",
               "answer": "",
-              "promptHash": "44b06da074b6d13972b2",
-              "itemSignature": "9f426c3bed15de11f75b",
+              "promptHash": "42e8ce023f51b6ab83f9",
+              "itemSignature": "93fc3185091abd9e0903",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29437,10 +30069,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：81 是 3 的倍數。",
+              "prompt": "判斷並用整除關係說明：171 是 9 的倍數。",
               "answer": "",
-              "promptHash": "e4b240f6306d3d8da251",
-              "itemSignature": "a707819cf6de9d45aa71",
+              "promptHash": "d10849e3f9e27cc03e4c",
+              "itemSignature": "c5337b341afb1b8af488",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29478,10 +30110,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：18 可以被 4 整除。",
+              "prompt": "判斷並用整除關係說明：123 可以被 4 整除。",
               "answer": "",
-              "promptHash": "a656e9eff7261cffebbd",
-              "itemSignature": "127520150c9a2d53e46b",
+              "promptHash": "5a3dd9796d88dd56de3f",
+              "itemSignature": "c9a78dd2a3b21bc15c4d",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29519,10 +30151,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：1 可以整除 24。",
+              "prompt": "判斷並用整除關係說明：1 可以整除 152。",
               "answer": "",
-              "promptHash": "b251bbf1de6a05bf67f2",
-              "itemSignature": "172bfa40dd05d587e2ac",
+              "promptHash": "f09e7ffce81062fa15c8",
+              "itemSignature": "4ead3e06691a6565a13b",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -29606,8 +30238,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "duplicatePromptCount": 0,
-          "uniquePromptCount": 20,
+          "duplicatePromptCount": 2,
+          "uniquePromptCount": 18,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_problem_type_classification"
           ],
@@ -29711,10 +30343,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "30 件與 27 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "423 件與 82 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "269b17e0838c97176c79",
-              "itemSignature": "0900a7be5ee178f62197",
+              "promptHash": "6daad8e53b634e3c46d6",
+              "itemSignature": "34ed7ec1f2d670eabeb7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -29752,10 +30384,10 @@
               ]
             },
             {
-              "prompt": "每 16 秒與每 40 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 156 秒與每 26 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "293d15a034d4b5b515fc",
-              "itemSignature": "b48115c66979bd7104ee",
+              "promptHash": "da8b10ae0aac077cd1ce",
+              "itemSignature": "eece0c6c3243cf8c2410",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -29793,10 +30425,10 @@
               ]
             },
             {
-              "prompt": "共 32 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "共 592 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "2323e7322936ca8ef97a",
-              "itemSignature": "bfedcd7cb4709dc1bd47",
+              "promptHash": "aaa5c86458cc5bae2f5a",
+              "itemSignature": "86ecd5d2d5bd6fbc5014",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -29834,10 +30466,10 @@
               ]
             },
             {
-              "prompt": "每組 9 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "67d7f56d64971685aee3",
-              "itemSignature": "568c8163287e43dd5e9b",
+              "promptHash": "4590ae02b3e42259c081",
+              "itemSignature": "90f88d409d77b96f51c7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -29875,10 +30507,10 @@
               ]
             },
             {
-              "prompt": "15 件與 63 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "62 件與 423 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "6b003f0f3ceb92b85dc5",
-              "itemSignature": "25fcf57bfb655d4dba80",
+              "promptHash": "3be2b65c59dcd0a78eeb",
+              "itemSignature": "b1e499b8846e55f59948",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -29929,8 +30561,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 19,
+          "duplicatePromptCount": 2,
+          "uniquePromptCount": 18,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_problem_type_classification"
           ],
@@ -30034,10 +30666,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每 16 秒與每 28 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 145 秒與每 370 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "b16fe3fc9d0cf4df47b6",
-              "itemSignature": "e32edbd1ca5f5d760a09",
+              "promptHash": "6602ae67d25d401b81d0",
+              "itemSignature": "2a3e2c33feedcb2d424c",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30075,10 +30707,10 @@
               ]
             },
             {
-              "prompt": "共 48 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "共 740 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "c328f88c04f632925bfd",
-              "itemSignature": "947b5d74dbdb14c12b64",
+              "promptHash": "cc84cd683d8de6fef0f9",
+              "itemSignature": "484142f14c1aac516f76",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30116,10 +30748,10 @@
               ]
             },
             {
-              "prompt": "每組 6 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 52 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "2bbd06dadcb60aea8a5a",
-              "itemSignature": "bb088d932ee32e6981a6",
+              "promptHash": "e83c0ffcdb31a224ee16",
+              "itemSignature": "4872a9f5c32b54164615",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30157,10 +30789,10 @@
               ]
             },
             {
-              "prompt": "15 件與 14 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "e349ae4217d3578181aa",
-              "itemSignature": "4bdb4a57468c433b8051",
+              "promptHash": "0b4cf6dc252d07ae6744",
+              "itemSignature": "20d81b3e2b9860615314",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30198,10 +30830,10 @@
               ]
             },
             {
-              "prompt": "每 24 秒與每 18 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 65 秒與每 58 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "9299c9b4c58337b23357",
-              "itemSignature": "c42bdb9b8b10ac47f675",
+              "promptHash": "d35b33e1c888bb23a9c4",
+              "itemSignature": "eff3a4d84ad23b670b68",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30252,8 +30884,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 15,
           "answerKeyItemCount": 15,
-          "duplicatePromptCount": 0,
-          "uniquePromptCount": 15,
+          "duplicatePromptCount": 2,
+          "uniquePromptCount": 13,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_problem_type_classification"
           ],
@@ -30357,10 +30989,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "30 件與 27 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "423 件與 82 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "269b17e0838c97176c79",
-              "itemSignature": "0900a7be5ee178f62197",
+              "promptHash": "6daad8e53b634e3c46d6",
+              "itemSignature": "34ed7ec1f2d670eabeb7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30398,10 +31030,10 @@
               ]
             },
             {
-              "prompt": "每 16 秒與每 40 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 156 秒與每 26 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "293d15a034d4b5b515fc",
-              "itemSignature": "b48115c66979bd7104ee",
+              "promptHash": "da8b10ae0aac077cd1ce",
+              "itemSignature": "eece0c6c3243cf8c2410",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30439,10 +31071,10 @@
               ]
             },
             {
-              "prompt": "共 32 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "共 592 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "2323e7322936ca8ef97a",
-              "itemSignature": "bfedcd7cb4709dc1bd47",
+              "promptHash": "aaa5c86458cc5bae2f5a",
+              "itemSignature": "86ecd5d2d5bd6fbc5014",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30480,10 +31112,10 @@
               ]
             },
             {
-              "prompt": "每組 9 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "67d7f56d64971685aee3",
-              "itemSignature": "568c8163287e43dd5e9b",
+              "promptHash": "4590ae02b3e42259c081",
+              "itemSignature": "90f88d409d77b96f51c7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30521,10 +31153,10 @@
               ]
             },
             {
-              "prompt": "15 件與 63 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "62 件與 423 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "6b003f0f3ceb92b85dc5",
-              "itemSignature": "25fcf57bfb655d4dba80",
+              "promptHash": "3be2b65c59dcd0a78eeb",
+              "itemSignature": "b1e499b8846e55f59948",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30575,8 +31207,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 15,
           "answerKeyItemCount": 15,
-          "duplicatePromptCount": 0,
-          "uniquePromptCount": 15,
+          "duplicatePromptCount": 1,
+          "uniquePromptCount": 14,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_problem_type_classification"
           ],
@@ -30680,10 +31312,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每 16 秒與每 28 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 145 秒與每 370 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "b16fe3fc9d0cf4df47b6",
-              "itemSignature": "e32edbd1ca5f5d760a09",
+              "promptHash": "6602ae67d25d401b81d0",
+              "itemSignature": "2a3e2c33feedcb2d424c",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30721,10 +31353,10 @@
               ]
             },
             {
-              "prompt": "共 48 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "共 740 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "c328f88c04f632925bfd",
-              "itemSignature": "947b5d74dbdb14c12b64",
+              "promptHash": "cc84cd683d8de6fef0f9",
+              "itemSignature": "484142f14c1aac516f76",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30762,10 +31394,10 @@
               ]
             },
             {
-              "prompt": "每組 6 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 52 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "2bbd06dadcb60aea8a5a",
-              "itemSignature": "bb088d932ee32e6981a6",
+              "promptHash": "e83c0ffcdb31a224ee16",
+              "itemSignature": "4872a9f5c32b54164615",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30803,10 +31435,10 @@
               ]
             },
             {
-              "prompt": "15 件與 14 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "e349ae4217d3578181aa",
-              "itemSignature": "4bdb4a57468c433b8051",
+              "promptHash": "0b4cf6dc252d07ae6744",
+              "itemSignature": "20d81b3e2b9860615314",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30844,10 +31476,10 @@
               ]
             },
             {
-              "prompt": "每 24 秒與每 18 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 65 秒與每 58 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "9299c9b4c58337b23357",
-              "itemSignature": "c42bdb9b8b10ac47f675",
+              "promptHash": "d35b33e1c888bb23a9c4",
+              "itemSignature": "eff3a4d84ad23b670b68",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -33721,10 +34353,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 4 是否為 99 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 3 是否為 517 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "32a7bfb8eb182d540228",
-              "itemSignature": "55716f5d709d54a7ec1c",
+              "promptHash": "f6e9d2db5967ea1a9d85",
+              "itemSignature": "6aaae29b98691f6cf241",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -33762,10 +34394,10 @@
               ]
             },
             {
-              "prompt": "把 30 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 8 格：______ × ______ = 30 第 2 格 ↔ 第 7 格：______ × ______ = 30 第 3 格 ↔ 第 6 格：______ × ______ = 30 第 4 格 ↔ 第 5 格：______ × ______ = 30",
+              "prompt": "把 145 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 4 格：______ × ______ = 145 第 2 格 ↔ 第 3 格：______ × ______ = 145",
               "answer": "",
-              "promptHash": "d06d2e55549545d3910e",
-              "itemSignature": "e165bbbda6a903f1bf19",
+              "promptHash": "a41f691065a8530e800b",
+              "itemSignature": "9cb2289aec4927f31e39",
               "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_pair_order_and_symmetry"
@@ -33803,10 +34435,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：7 是 30 的因數。",
+              "prompt": "判斷並用整除關係說明：6 是 470 的因數。",
               "answer": "",
-              "promptHash": "f5222ea2e97ceb925287",
-              "itemSignature": "1dbb6f85164e3bbc699a",
+              "promptHash": "e77c4b4ff82ebc8e3530",
+              "itemSignature": "c5330a3ca94ab8ac3295",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -33844,10 +34476,10 @@
               ]
             },
             {
-              "prompt": "每組 9 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "67d7f56d64971685aee3",
-              "itemSignature": "568c8163287e43dd5e9b",
+              "promptHash": "4590ae02b3e42259c081",
+              "itemSignature": "90f88d409d77b96f51c7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -34052,10 +34684,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 8 是否為 40 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 19 是否為 190 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "a83a1e32941220730066",
-              "itemSignature": "6e91ea11295ea85795d5",
+              "promptHash": "56165bc1eaf04cea66b5",
+              "itemSignature": "767079e8a75cf86542a3",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -34093,10 +34725,10 @@
               ]
             },
             {
-              "prompt": "把 48 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 10 格：______ × ______ = 48 第 2 格 ↔ 第 9 格：______ × ______ = 48 第 3 格 ↔ 第 8 格：______ × ______ = 48 第 4 格 ↔ 第 7 格：______ × ______ = 48 第 5 格 ↔ 第 6 格：______ × ______ = 48",
+              "prompt": "把 164 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 6 格：______ × ______ = 164 第 2 格 ↔ 第 5 格：______ × ______ = 164 第 3 格 ↔ 第 4 格：______ × ______ = 164",
               "answer": "",
-              "promptHash": "004c0f1bf8e1445e3028",
-              "itemSignature": "d1ead4794fe4af97a0c0",
+              "promptHash": "9cbae3ce9662cf370894",
+              "itemSignature": "a78b703b23627fa78662",
               "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_pair_order_and_symmetry"
@@ -34134,10 +34766,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：81 是 3 的倍數。",
+              "prompt": "判斷並用整除關係說明：171 是 9 的倍數。",
               "answer": "",
-              "promptHash": "e4b240f6306d3d8da251",
-              "itemSignature": "a707819cf6de9d45aa71",
+              "promptHash": "d10849e3f9e27cc03e4c",
+              "itemSignature": "c5337b341afb1b8af488",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -34175,10 +34807,10 @@
               ]
             },
             {
-              "prompt": "15 件與 14 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "e349ae4217d3578181aa",
-              "itemSignature": "4bdb4a57468c433b8051",
+              "promptHash": "0b4cf6dc252d07ae6744",
+              "itemSignature": "20d81b3e2b9860615314",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -34383,10 +35015,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 4 是否為 99 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 3 是否為 517 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "32a7bfb8eb182d540228",
-              "itemSignature": "55716f5d709d54a7ec1c",
+              "promptHash": "f6e9d2db5967ea1a9d85",
+              "itemSignature": "6aaae29b98691f6cf241",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -34424,10 +35056,10 @@
               ]
             },
             {
-              "prompt": "把 30 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 8 格：______ × ______ = 30 第 2 格 ↔ 第 7 格：______ × ______ = 30 第 3 格 ↔ 第 6 格：______ × ______ = 30 第 4 格 ↔ 第 5 格：______ × ______ = 30",
+              "prompt": "把 145 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 4 格：______ × ______ = 145 第 2 格 ↔ 第 3 格：______ × ______ = 145",
               "answer": "",
-              "promptHash": "d06d2e55549545d3910e",
-              "itemSignature": "e165bbbda6a903f1bf19",
+              "promptHash": "a41f691065a8530e800b",
+              "itemSignature": "9cb2289aec4927f31e39",
               "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_pair_order_and_symmetry"
@@ -34465,10 +35097,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：7 是 30 的因數。",
+              "prompt": "判斷並用整除關係說明：6 是 470 的因數。",
               "answer": "",
-              "promptHash": "f5222ea2e97ceb925287",
-              "itemSignature": "1dbb6f85164e3bbc699a",
+              "promptHash": "e77c4b4ff82ebc8e3530",
+              "itemSignature": "c5330a3ca94ab8ac3295",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -34506,10 +35138,10 @@
               ]
             },
             {
-              "prompt": "每組 9 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "67d7f56d64971685aee3",
-              "itemSignature": "568c8163287e43dd5e9b",
+              "promptHash": "4590ae02b3e42259c081",
+              "itemSignature": "90f88d409d77b96f51c7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -34714,10 +35346,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用乘法和除法判斷 8 是否為 40 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
+              "prompt": "用乘法和除法判斷 19 是否為 190 的因數，並寫出理由。 乘法：________________________________ 除法：________________________________ 判斷：________________________________",
               "answer": "",
-              "promptHash": "a83a1e32941220730066",
-              "itemSignature": "6e91ea11295ea85795d5",
+              "promptHash": "56165bc1eaf04cea66b5",
+              "itemSignature": "767079e8a75cf86542a3",
               "patternSpecId": "ps_g5a_u02_factor_relation_equivalence",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_criterion_multiplication_division_equivalence"
@@ -34755,10 +35387,10 @@
               ]
             },
             {
-              "prompt": "把 48 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 10 格：______ × ______ = 48 第 2 格 ↔ 第 9 格：______ × ______ = 48 第 3 格 ↔ 第 8 格：______ × ______ = 48 第 4 格 ↔ 第 7 格：______ × ______ = 48 第 5 格 ↔ 第 6 格：______ × ______ = 48",
+              "prompt": "把 164 的因數由小到大填入 U 型對稱記錄，從最外側依序連到內側。 第 1 格 ↔ 第 6 格：______ × ______ = 164 第 2 格 ↔ 第 5 格：______ × ______ = 164 第 3 格 ↔ 第 4 格：______ × ______ = 164",
               "answer": "",
-              "promptHash": "004c0f1bf8e1445e3028",
-              "itemSignature": "d1ead4794fe4af97a0c0",
+              "promptHash": "9cbae3ce9662cf370894",
+              "itemSignature": "a78b703b23627fa78662",
               "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_pair_order_and_symmetry"
@@ -34796,10 +35428,10 @@
               ]
             },
             {
-              "prompt": "判斷並用整除關係說明：81 是 3 的倍數。",
+              "prompt": "判斷並用整除關係說明：171 是 9 的倍數。",
               "answer": "",
-              "promptHash": "e4b240f6306d3d8da251",
-              "itemSignature": "a707819cf6de9d45aa71",
+              "promptHash": "d10849e3f9e27cc03e4c",
+              "itemSignature": "c5337b341afb1b8af488",
               "patternSpecId": "ps_g5a_u02_factor_statement_judgement",
               "knowledgePointIds": [
                 "kp_g5a_u02_divisibility_factor_membership_judgement"
@@ -34837,10 +35469,10 @@
               ]
             },
             {
-              "prompt": "15 件與 14 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "e349ae4217d3578181aa",
-              "itemSignature": "4bdb4a57468c433b8051",
+              "promptHash": "0b4cf6dc252d07ae6744",
+              "itemSignature": "20d81b3e2b9860615314",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -35109,10 +35741,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 99 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 517 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 除數 21：商 ______，餘數 ______，是否整除 ______ 除數 22：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "247e933f290d688e885d",
-              "itemSignature": "06b023b8ae80f6ac25d2",
+              "promptHash": "ba7dc4c05daf39a3f8b0",
+              "itemSignature": "d14c1943d34b192bb4bb",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -35150,10 +35782,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 5，找出乘積為 30 的所有因數配對。 1 × ______ = 30 2 × ______ = 30 3 × ______ = 30 4 × ______ = 30 5 × ______ = 30 停止界線：較小因數檢查到 5；下一個候選 6 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 145 的所有因數配對。 1 × ______ = 145 2 × ______ = 145 3 × ______ = 145 4 × ______ = 145 5 × ______ = 145 6 × ______ = 145 7 × ______ = 145 8 × ______ = 145 9 × ______ = 145 10 × ______ = 145 11 × ______ = 145 12 × ______ = 145 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "bc3970a61aaeca5ba0d0",
-              "itemSignature": "f1f7ca2ba3fb7a951103",
+              "promptHash": "d07343018b3e7b9d1d4b",
+              "itemSignature": "7e9f6c49302bf1c6c188",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -35191,10 +35823,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×30、2×15、3×10、5×6 整理 30 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×470、2×235、5×94、10×47 整理 470 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "9dc6ff37e587f8959e43",
-              "itemSignature": "4a64f064c3c1e5e23dbd",
+              "promptHash": "91ae0fc7121b3e877e3a",
+              "itemSignature": "4c44cdbc7391ed687845",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -35441,10 +36073,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 40 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 190 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "32261b6184496e4a327c",
-              "itemSignature": "5727b542b407ad3b4bbb",
+              "promptHash": "6c116f6dfc332627c10a",
+              "itemSignature": "b119ed0a54ece156991d",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -35482,10 +36114,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 6，找出乘積為 48 的所有因數配對。 1 × ______ = 48 2 × ______ = 48 3 × ______ = 48 4 × ______ = 48 5 × ______ = 48 6 × ______ = 48 停止界線：較小因數檢查到 6；下一個候選 7 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 164 的所有因數配對。 1 × ______ = 164 2 × ______ = 164 3 × ______ = 164 4 × ______ = 164 5 × ______ = 164 6 × ______ = 164 7 × ______ = 164 8 × ______ = 164 9 × ______ = 164 10 × ______ = 164 11 × ______ = 164 12 × ______ = 164 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "8fb00202c45aa37785ff",
-              "itemSignature": "1da40a1a80b8a9b8eaf3",
+              "promptHash": "99adefe8f4b81f892940",
+              "itemSignature": "dbfac405cb5912a9148c",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -35523,10 +36155,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×81、3×27、9×9 整理 81 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×171、3×57、9×19 整理 171 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "07185354c966977d079c",
-              "itemSignature": "6f49eb706652eff7a8ae",
+              "promptHash": "a0fa74bb4dac9ebd75a7",
+              "itemSignature": "871fb25b6ecf6319d6b9",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -35773,10 +36405,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 99 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 517 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 除數 14：商 ______，餘數 ______，是否整除 ______ 除數 15：商 ______，餘數 ______，是否整除 ______ 除數 16：商 ______，餘數 ______，是否整除 ______ 除數 17：商 ______，餘數 ______，是否整除 ______ 除數 18：商 ______，餘數 ______，是否整除 ______ 除數 19：商 ______，餘數 ______，是否整除 ______ 除數 20：商 ______，餘數 ______，是否整除 ______ 除數 21：商 ______，餘數 ______，是否整除 ______ 除數 22：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "247e933f290d688e885d",
-              "itemSignature": "06b023b8ae80f6ac25d2",
+              "promptHash": "ba7dc4c05daf39a3f8b0",
+              "itemSignature": "d14c1943d34b192bb4bb",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -35814,10 +36446,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 5，找出乘積為 30 的所有因數配對。 1 × ______ = 30 2 × ______ = 30 3 × ______ = 30 4 × ______ = 30 5 × ______ = 30 停止界線：較小因數檢查到 5；下一個候選 6 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 145 的所有因數配對。 1 × ______ = 145 2 × ______ = 145 3 × ______ = 145 4 × ______ = 145 5 × ______ = 145 6 × ______ = 145 7 × ______ = 145 8 × ______ = 145 9 × ______ = 145 10 × ______ = 145 11 × ______ = 145 12 × ______ = 145 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "bc3970a61aaeca5ba0d0",
-              "itemSignature": "f1f7ca2ba3fb7a951103",
+              "promptHash": "d07343018b3e7b9d1d4b",
+              "itemSignature": "7e9f6c49302bf1c6c188",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -35855,10 +36487,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×30、2×15、3×10、5×6 整理 30 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×470、2×235、5×94、10×47 整理 470 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "9dc6ff37e587f8959e43",
-              "itemSignature": "4a64f064c3c1e5e23dbd",
+              "promptHash": "91ae0fc7121b3e877e3a",
+              "itemSignature": "4c44cdbc7391ed687845",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -36105,10 +36737,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "用試除法找出 40 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
+              "prompt": "用試除法找出 190 的所有因數。完成下列記錄，再整理所有因數。 除數 1：商 ______，餘數 ______，是否整除 ______ 除數 2：商 ______，餘數 ______，是否整除 ______ 除數 3：商 ______，餘數 ______，是否整除 ______ 除數 4：商 ______，餘數 ______，是否整除 ______ 除數 5：商 ______，餘數 ______，是否整除 ______ 除數 6：商 ______，餘數 ______，是否整除 ______ 除數 7：商 ______，餘數 ______，是否整除 ______ 除數 8：商 ______，餘數 ______，是否整除 ______ 除數 9：商 ______，餘數 ______，是否整除 ______ 除數 10：商 ______，餘數 ______，是否整除 ______ 除數 11：商 ______，餘數 ______，是否整除 ______ 除數 12：商 ______，餘數 ______，是否整除 ______ 除數 13：商 ______，餘數 ______，是否整除 ______ 因數：________________________________",
               "answer": "",
-              "promptHash": "32261b6184496e4a327c",
-              "itemSignature": "5727b542b407ad3b4bbb",
+              "promptHash": "6c116f6dfc332627c10a",
+              "itemSignature": "b119ed0a54ece156991d",
               "patternSpecId": "ps_g5a_u02_factor_enumeration_trial_division",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_division"
@@ -36146,10 +36778,10 @@
               ]
             },
             {
-              "prompt": "用乘法逐一檢查 1 到 6，找出乘積為 48 的所有因數配對。 1 × ______ = 48 2 × ______ = 48 3 × ______ = 48 4 × ______ = 48 5 × ______ = 48 6 × ______ = 48 停止界線：較小因數檢查到 6；下一個候選 7 已越過界線。",
+              "prompt": "用乘法逐一檢查 1 到 12，找出乘積為 164 的所有因數配對。 1 × ______ = 164 2 × ______ = 164 3 × ______ = 164 4 × ______ = 164 5 × ______ = 164 6 × ______ = 164 7 × ______ = 164 8 × ______ = 164 9 × ______ = 164 10 × ______ = 164 11 × ______ = 164 12 × ______ = 164 停止界線：較小因數檢查到 12；下一個候選 13 已越過界線。",
               "answer": "",
-              "promptHash": "8fb00202c45aa37785ff",
-              "itemSignature": "1da40a1a80b8a9b8eaf3",
+              "promptHash": "99adefe8f4b81f892940",
+              "itemSignature": "dbfac405cb5912a9148c",
               "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"
@@ -36187,10 +36819,10 @@
               ]
             },
             {
-              "prompt": "由配對 1×81、3×27、9×9 整理 81 的完整因數（展開、去重、升冪）：________。",
+              "prompt": "由配對 1×171、3×57、9×19 整理 171 的完整因數（展開、去重、升冪）：________。",
               "answer": "",
-              "promptHash": "07185354c966977d079c",
-              "itemSignature": "6f49eb706652eff7a8ae",
+              "promptHash": "a0fa74bb4dac9ebd75a7",
+              "itemSignature": "871fb25b6ecf6319d6b9",
               "patternSpecId": "ps_g5a_u02_factor_list_from_pairs",
               "knowledgePointIds": [
                 "kp_g5a_u02_factor_enumeration_by_multiplication_pairs"

@@ -7,6 +7,7 @@ const S100_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_complete_factor_list_statement_evaluation",
 ]);
 const S100_PATTERN_SET = new Set(S100_PATTERN_IDS);
+const PGC_R04_FACTOR_TARGET_PRIMES = Object.freeze([13, 17, 19, 23, 29, 31, 37, 41, 43, 47]);
 
 const DIVISIBILITY_FAMILIES = Object.freeze([
   "candidate_is_factor_of_target",
@@ -203,7 +204,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
 
   switch (patternSpecId) {
     case "ps_g5a_u02_factor_relation_equivalence": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const isFactor = rng.int(0, 1) === 1;
       const candidateDivisor = isFactor
         ? rng.pick(factorsOf(target))
@@ -233,7 +234,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_factor_enumeration_trial_division": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const { rows, searchEnd, factorValues } = buildTrialDivision(target);
       return {
         data: { target, trialDivisionRows: rows, searchEnd, factorValues },
@@ -243,7 +244,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_factor_list_from_pairs": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const factorPairs = factorPairsOf(target);
       const orderedFactorList = factorsOf(target);
       return {
@@ -259,7 +260,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_factor_statement_judgement": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const truthWanted = rng.int(0, 1) === 1;
       const candidateDivisor = truthWanted
         ? rng.pick(factorsOf(target))
@@ -293,10 +294,10 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
       const scenarioFamilyId = rng.pick(PROBLEM_SCENARIO_IDS);
       const scenario = PROBLEM_SCENARIOS[scenarioFamilyId];
       const values = {
-        total: rng.int(4, 12) * rng.int(2, 8),
-        groupSize: rng.int(2, 12),
-        a: rng.int(2, 10) * rng.int(2, 7),
-        b: rng.int(2, 10) * rng.int(2, 7),
+        total: rng.int(4, 20) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),
+        groupSize: rng.int(2, 99),
+        a: rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),
+        b: rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),
       };
       const built = scenario.build(values);
       return {
@@ -313,7 +314,7 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_complete_factor_list_statement_evaluation": {
-      const target = rng.int(2, 12) * rng.int(2, 12);
+      const target = rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
       const factorList = factorsOf(target);
       const statements = buildReasoningStatements(target, rng);
       return {
