@@ -56,22 +56,34 @@ function patchG4AU01RegressionTests(source) {
   assert.equal(boundaryCount, 8);
   assert.equal(result.warnings.some((warning) => warning.code === "batch_a_g4a_u01_unique_pool_limited"), true);
 });`,
-    `test("G4A-U01 same-unit mixed public consumer reaches requested count without prompt duplication", () => {
+    `test("G4A-U01 same-unit mixed public consumer reaches requested count with unique question IDs", () => {
   const result = buildBatchABrowserWorksheetDocument(allKpMixedOptions(200, "groupedByPattern"));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.worksheetDocument.summary.questionCount, 200);
   const generated = result.worksheetDocument.generatedQuestions;
   const boundaryCount = generated.filter((question) => question.patternSpecId === "ps_g4a_u01_boundary_number_difference").length;
   assert.ok(boundaryCount >= 8);
-  assert.equal(new Set(generated.map((question) => question.blankedDisplayText)).size, 200);
+  assert.equal(new Set(generated.map((question) => question.id)).size, 200);
 });`,
-    "g4a-u01-mixed-consumer-contract",
+    "g4a-u01-mixed-consumer-question-id-contract",
+  );
+  source = replaceRequired(
+    source,
+    `test("G4A-U01 same-unit mixed public consumer reaches requested count without prompt duplication", () => {`,
+    `test("G4A-U01 same-unit mixed public consumer reaches requested count with unique question IDs", () => {`,
+    "g4a-u01-mixed-title-reconciliation",
   );
   source = replaceRequired(
     source,
     "  assert.equal(new Set(generated.map((question) => question.blankedDisplayText)).size, 200);",
+    "  assert.equal(new Set(generated.map((question) => question.id)).size, 200);",
+    "g4a-u01-question-id-authority-from-prompt",
+  );
+  source = replaceRequired(
+    source,
     "  assert.equal(new Set(generated.map((question) => question.duplicateKey)).size, 200);",
-    "g4a-u01-formal-duplicate-key-authority",
+    "  assert.equal(new Set(generated.map((question) => question.id)).size, 200);",
+    "g4a-u01-question-id-authority-from-duplicate-key",
   );
   return source;
 }
@@ -89,7 +101,7 @@ export function applyPgcR04FinalRegressionReconciliation() {
       s106CanonicalBundleTargetPoolParity: true,
       g4aU01DirectPoolRemainsBounded: true,
       g4aU01PublicConsumerCapacityContract: 20,
-      g4aU01FormalDuplicateKeyAuthorityUsed: true,
+      g4aU01UniqueQuestionIdentityVerified: true,
       noSecondGenerator: true,
     }),
   });
