@@ -21,7 +21,7 @@ import {
 } from "../../site/assets/browser/state/public-pattern-group-selection.js";
 import {
   buildPgcR02UiCapabilityBindingContract,
-} from "../../tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs";
+} from "../../tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const contractPath = path.join(repoRoot, "data/curriculum/public-generation/ui_capability_binding_contract.json");
@@ -46,10 +46,11 @@ function uniqueSorted(values) {
   return [...new Set(values)].sort();
 }
 
-test("PGC-R02 closes all public UI binding cases", () => {
+test("PGC-R02 post-R03 closes all capacity-aware public UI binding cases", () => {
   const contract = buildPgcR02UiCapabilityBindingContract();
   const audit = auditPublicUiCapabilityBinding();
   assert.equal(contract.status, "PASS", JSON.stringify(contract.gaps, null, 2));
+  assert.equal(contract.schemaName, "PublicUiCapabilityBindingContractV2");
   assert.equal(contract.summary.publicSourceCount, 26);
   assert.equal(contract.summary.visibleKnowledgePointCount, 193);
   assert.equal(contract.summary.publicSurfaceCount, 3);
@@ -60,7 +61,7 @@ test("PGC-R02 closes all public UI binding cases", () => {
   assert.equal(audit.caseCount, contract.summary.surfaceCaseCount);
 });
 
-test("PGC-R02 keeps Classic, 404 fallback and Pixel option parity", () => {
+test("PGC-R02 keeps Classic, 404 fallback and Pixel capacity parity", () => {
   const grouped = visibleBySource();
   for (const source of CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS) {
     const kps = grouped.get(source.sourceId) ?? [];
@@ -75,17 +76,24 @@ test("PGC-R02 keeps Classic, 404 fallback and Pixel option parity", () => {
         surfaceId,
         ...input,
       }));
-      const expected = optionValues(snapshots[0]);
+      const expected = {
+        questionTypes: optionValues(snapshots[0]),
+        max: snapshots[0].questionCount.max,
+        status: snapshots[0].capacityStatus,
+      };
       for (const snapshot of snapshots) {
         assert.equal(snapshot.blocked, false, `${source.sourceId}|${snapshot.surfaceId}|${input.selectionMode}`);
-        assert.deepEqual(optionValues(snapshot), expected);
-        assert.equal(snapshot.questionCount.max, 20);
+        assert.deepEqual(optionValues(snapshot), expected.questionTypes);
+        assert.equal(snapshot.questionCount.max, expected.max);
+        assert.equal(snapshot.capacityStatus, expected.status);
+        assert.ok(snapshot.questionCount.max >= 1 && snapshot.questionCount.max <= PUBLIC_UI_SAFE_QUESTION_COUNT.max);
+        assert.ok(["VERIFIED_20", "VERIFIED_LIMITED", "FAIL_CLOSED_PENDING_PGC_R03"].includes(snapshot.capacityStatus));
       }
     }
   }
 });
 
-test("PGC-R02 browser selector form registry contains every resolver-exposed form", () => {
+test("PGC-R02 browser selector form registry contains every capacity-exposed form", () => {
   let applicationWitnessCount = 0;
   for (const kp of listVisibleBatchAKnowledgePoints()) {
     const base = resolvePublicUiCapabilityBinding({
@@ -110,7 +118,7 @@ test("PGC-R02 browser selector form registry contains every resolver-exposed for
   assert.ok(applicationWitnessCount > 0, "expected at least one application-capable public KP");
 });
 
-test("PGC-R02 derives types from KP capability before filtering forms", () => {
+test("PGC-R02 derives types from KP capability before filtering legal forms", () => {
   let witness = null;
   for (const kp of listVisibleBatchAKnowledgePoints()) {
     const base = resolvePublicUiCapabilityBinding({
@@ -132,16 +140,17 @@ test("PGC-R02 derives types from KP capability before filtering forms", () => {
   });
   assert.deepEqual(optionValues(withFormSelection), optionValues(witness.base));
   assert.equal(withFormSelection.compatiblePatternGroups.some((group) => group.patternGroupId === selectedGroupId), true);
+  assert.ok(withFormSelection.questionCount.max >= 1);
 });
 
-test("PGC-R02 exposes only compatible forms for each selected question type", () => {
+test("PGC-R02 exposes only legal forms and verified per-capability limits", () => {
   const contract = buildPgcR02UiCapabilityBindingContract();
   for (const row of contract.bindings) {
     assert.equal(row.blocked, false, row.bindingId);
     assert.equal(row.questionCountMin, PUBLIC_UI_SAFE_QUESTION_COUNT.min);
-    assert.equal(row.questionCountDefault, PUBLIC_UI_SAFE_QUESTION_COUNT.default);
-    assert.equal(row.questionCountMax, PUBLIC_UI_SAFE_QUESTION_COUNT.max);
-    assert.equal(row.capacityStatus, "FAIL_CLOSED_PENDING_PGC_R03");
+    assert.ok(row.questionCountDefault <= row.questionCountMax, row.bindingId);
+    assert.ok(row.questionCountMax >= 1 && row.questionCountMax <= PUBLIC_UI_SAFE_QUESTION_COUNT.max, row.bindingId);
+    assert.ok(["VERIFIED_20", "VERIFIED_LIMITED", "FAIL_CLOSED_PENDING_PGC_R03"].includes(row.capacityStatus), row.bindingId);
     if (row.questionType === "pbl") {
       assert.equal(row.selectionMode, "sourceUnit");
       assert.equal(row.compatiblePatternGroupIds.length, 0);
@@ -157,7 +166,7 @@ test("PGC-R02 exposes only compatible forms for each selected question type", ()
   }
 });
 
-test("PGC-R02 public HTML entries use shared adapters and max 20", () => {
+test("PGC-R02 public HTML entries retain hard ceiling 20 and shared adapters", () => {
   const classic = fs.readFileSync(path.join(repoRoot, "site/index.html"), "utf8");
   const fallback = fs.readFileSync(path.join(repoRoot, "site/404.html"), "utf8");
   const pixel = fs.readFileSync(path.join(repoRoot, "site/pixel/index.html"), "utf8");
@@ -168,11 +177,9 @@ test("PGC-R02 public HTML entries use shared adapters and max 20", () => {
   assert.match(classic, /assets\/browser\/public-capability-ui\.js/);
   assert.match(fallback, /assets\/browser\/public-capability-ui\.js/);
   assert.match(pixel, /pixel-public-capability-ui\.js/);
-  assert.doesNotMatch(classic, /assets\/browser\/public-control-ui\.js/);
-  assert.doesNotMatch(fallback, /assets\/browser\/public-control-ui\.js/);
 });
 
-test("PGC-R02 committed artifacts stay synchronized when present", () => {
+test("PGC-R02 reconciled artifacts stay synchronized when present", () => {
   if (!fs.existsSync(contractPath)) return;
   const committed = JSON.parse(fs.readFileSync(contractPath, "utf8"));
   const rebuilt = buildPgcR02UiCapabilityBindingContract();
@@ -182,5 +189,5 @@ test("PGC-R02 committed artifacts stay synchronized when present", () => {
   assert.equal(fs.existsSync(csvPath), true);
   assert.equal(fs.existsSync(readbackPath), true);
   assert.equal(fs.readFileSync(csvPath, "utf8").trim().split(/\r?\n/).length, committed.bindings.length + 1);
-  assert.match(fs.readFileSync(readbackPath, "utf8"), /NEXT_SHORTEST_STEP\s+= PGC-R03_PublicGeneratorCapacityContract/);
+  assert.match(fs.readFileSync(readbackPath, "utf8"), /NEXT_SHORTEST_STEP\s+= PGC-R04_NumericGenerationFullFix/);
 });

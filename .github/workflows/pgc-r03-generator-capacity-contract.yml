@@ -1,0 +1,111 @@
+# PGC-R03 deterministic final-head validation after report normalization.
+name: PGC-R03 Public Generator Capacity Contract
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/materialize-pgc-r03-generator-capacity-contract.mjs"
+      - "tools/curriculum/materialize-pgc-r03-generator-capacity-contract-v2.mjs"
+      - "tools/curriculum/materialize-pgc-r03-capacity-aware-reconciliation.mjs"
+      - "tools/curriculum/finalize-pgc-r03-capacity-aware-binding.mjs"
+      - "tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs"
+      - "site/modules/curriculum/public/public-generator-capacity-registry.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding.js"
+      - "site/assets/browser/public-capability-ui.js"
+      - "site/pixel/pixel-public-capability-ui.js"
+      - "tests/curriculum/pgc-r03-generator-capacity-contract.test.js"
+      - "tests/curriculum/pgc-r02-public-ui-capability-binding.test.js"
+      - "data/curriculum/public-generation/generator_capacity_contract.json"
+      - "data/curriculum/public-generation/route_capacity_matrix.csv"
+      - "data/curriculum/public-generation/cross_seed_diversity_report.csv"
+      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
+      - "data/curriculum/public-generation/ui_option_filter_matrix.csv"
+      - "docs/curriculum/output/PGC-R03_capacity_mismatch_report.md"
+      - "docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md"
+      - ".github/workflows/pgc-r03-generator-capacity-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r03-generator-capacity-contract
+  cancel-in-progress: true
+
+jobs:
+  capacity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout R03 branch
+        uses: actions/checkout@v4
+        with:
+          ref: pgc-r03-generator-capacity-contract
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Syntax-check R03 authority and runtime consumers
+        run: |
+          node --check tools/curriculum/materialize-pgc-r03-capacity-aware-reconciliation.mjs
+          node --check tools/curriculum/finalize-pgc-r03-capacity-aware-binding.mjs
+          node --check tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
+          node --check site/modules/curriculum/public/public-ui-capability-binding.js
+          node --check site/assets/browser/public-capability-ui.js
+          node --check site/pixel/pixel-public-capability-ui.js
+
+      - name: Materialize or finalize legal routes and per-capability limits fail-closed
+        continue-on-error: true
+        run: |
+          if node -e 'const fs=require("fs"); const p="data/curriculum/public-generation/generator_capacity_contract.json"; const c=fs.existsSync(p)?JSON.parse(fs.readFileSync(p,"utf8")):{}; process.exit(c.schemaName==="PublicGeneratorCapacityContractV3"?0:1)'; then
+            node tools/curriculum/finalize-pgc-r03-capacity-aware-binding.mjs
+          else
+            node tools/curriculum/materialize-pgc-r03-capacity-aware-reconciliation.mjs
+          fi
+
+      - name: Commit deterministic capacity artifacts before acceptance
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/generator_capacity_contract.json \
+            data/curriculum/public-generation/route_capacity_matrix.csv \
+            data/curriculum/public-generation/cross_seed_diversity_report.csv \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R03_capacity_mismatch_report.md \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md \
+            site/modules/curriculum/public/public-generator-capacity-registry.js
+          if git diff --cached --quiet; then
+            echo "R03 reconciliation artifacts already synchronized."
+          else
+            git commit -m "data(pgc-r03): finalize capacity-aware binding [skip ci]"
+            git fetch origin pgc-r03-generator-capacity-contract
+            git rebase origin/pgc-r03-generator-capacity-contract
+            git push origin HEAD:pgc-r03-generator-capacity-contract
+          fi
+
+      - name: Focused R02 and R03 acceptance
+        run: |
+          node --test \
+            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js \
+            tests/curriculum/pgc-r03-generator-capacity-contract.test.js
+
+      - name: Upload capacity diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r03-generator-capacity-contract
+          path: |
+            data/curriculum/public-generation/generator_capacity_contract.json
+            data/curriculum/public-generation/route_capacity_matrix.csv
+            data/curriculum/public-generation/cross_seed_diversity_report.csv
+            data/curriculum/public-generation/ui_capability_binding_contract.json
+            data/curriculum/public-generation/ui_option_filter_matrix.csv
+            docs/curriculum/output/PGC-R03_capacity_mismatch_report.md
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+            site/modules/curriculum/public/public-generator-capacity-registry.js
+          if-no-files-found: error

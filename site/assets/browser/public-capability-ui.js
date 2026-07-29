@@ -26,6 +26,7 @@ const surfaceId = document.body?.dataset.routeKind === "404"
 let applying = false;
 let scheduled = false;
 let lastBindingSignature = "";
+let currentBinding = null;
 
 function selectedDataIds(panel, attribute) {
   if (!panel) return [];
@@ -65,20 +66,20 @@ function unitLabel() {
   return sourceSelect?.selectedOptions?.[0]?.textContent?.trim() ?? "目前單元";
 }
 
-function clampQuestionCount() {
+function clampQuestionCount(binding = currentBinding) {
   if (!questionCountInput) return;
-  questionCountInput.min = String(PUBLIC_UI_SAFE_QUESTION_COUNT.min);
-  questionCountInput.max = String(PUBLIC_UI_SAFE_QUESTION_COUNT.max);
+  const contract = binding?.questionCount ?? PUBLIC_UI_SAFE_QUESTION_COUNT;
+  const min = Math.max(1, Number(contract.min ?? 1));
+  const max = Math.max(min, Number(contract.max ?? PUBLIC_UI_SAFE_QUESTION_COUNT.max));
+  const fallback = Math.min(max, Math.max(min, Number(contract.default ?? max)));
+  questionCountInput.min = String(min);
+  questionCountInput.max = String(max);
   const current = Number(questionCountInput.value);
-  if (!Number.isFinite(current)) {
-    questionCountInput.value = String(PUBLIC_UI_SAFE_QUESTION_COUNT.default);
-  } else {
-    questionCountInput.value = String(Math.min(
-      PUBLIC_UI_SAFE_QUESTION_COUNT.max,
-      Math.max(PUBLIC_UI_SAFE_QUESTION_COUNT.min, Math.trunc(current)),
-    ));
-  }
-  questionCountInput.dataset.capacityStatus = "fail-closed-pending-pgc-r03";
+  questionCountInput.value = String(Number.isFinite(current)
+    ? Math.min(max, Math.max(min, Math.trunc(current)))
+    : fallback);
+  questionCountInput.dataset.capacityStatus = String(binding?.capacityStatus ?? "FAIL_CLOSED_PENDING_PGC_R03").toLowerCase();
+  questionCountInput.dataset.capacityRouteIds = (binding?.capacityRouteIds ?? []).join(",");
 }
 
 function applyPatternGroupCompatibility(binding) {
@@ -90,6 +91,7 @@ function applyPatternGroupCompatibility(binding) {
     button.disabled = !isCompatible;
     button.dataset.compatible = isCompatible ? "true" : "false";
     button.setAttribute("aria-hidden", isCompatible ? "false" : "true");
+    if (!isCompatible && button.dataset.selected === "true") button.dataset.selected = "false";
   }
   patternGroupPanel.dataset.compatiblePatternGroupCount = String(compatible.size);
 }
@@ -102,6 +104,8 @@ function bindingInput() {
     selectedKnowledgePointIds: selectedDataIds(knowledgePointPanel, "knowledge-point-id"),
     selectedPatternGroupIds: selectedDataIds(patternGroupPanel, "pattern-group-id"),
     requestedQuestionType: questionSelect?.value ?? null,
+    requestedDepthMode: depthSelect?.value ?? null,
+    requestedContextMode: contextSelect?.value ?? null,
   };
 }
 
@@ -116,6 +120,10 @@ function bindingSignature(binding) {
     patternGroupIds: binding.compatiblePatternGroupIds,
     depth: binding.depthOptions.map((row) => row.value),
     context: binding.contextOptions.map((row) => row.value),
+    depthMode: binding.depthMode,
+    contextMode: binding.contextMode,
+    max: binding.questionCount.max,
+    capacityStatus: binding.capacityStatus,
     blocked: binding.blockedReasons,
   });
 }
@@ -124,16 +132,25 @@ export function syncPublicCapabilityUi() {
   if (applying) return null;
   applying = true;
   try {
-    clampQuestionCount();
     const initial = resolvePublicUiCapabilityBinding(bindingInput());
     const selectedQuestionType = populate(
       questionSelect,
       initial.availableQuestionTypeOptions,
       initial.questionType,
     );
-    const binding = selectedQuestionType === initial.questionType
+    const typed = selectedQuestionType === initial.questionType
       ? initial
       : resolvePublicUiCapabilityBinding({ ...bindingInput(), requestedQuestionType: selectedQuestionType });
+    const selectedDepth = populate(depthSelect, typed.depthOptions, typed.depthMode);
+    const selectedContext = populate(contextSelect, typed.contextOptions, typed.contextMode);
+    const binding = resolvePublicUiCapabilityBinding({
+      ...bindingInput(),
+      requestedQuestionType: selectedQuestionType,
+      requestedDepthMode: selectedDepth,
+      requestedContextMode: selectedContext,
+    });
+    currentBinding = binding;
+    clampQuestionCount(binding);
 
     const visible = !binding.blocked && binding.availableQuestionTypeOptions.length > 0;
     if (section) {
@@ -142,13 +159,12 @@ export function syncPublicCapabilityUi() {
       section.dataset.surfaceId = binding.surfaceId;
       section.dataset.questionType = binding.questionType ?? "";
       section.dataset.blocked = binding.blocked ? "true" : "false";
-      section.dataset.capacityMax = String(PUBLIC_UI_SAFE_QUESTION_COUNT.max);
+      section.dataset.capacityMax = String(binding.questionCount.max);
+      section.dataset.capacityStatus = binding.capacityStatus;
       section.setAttribute("aria-label", `${unitLabel()}題目能力設定`);
     }
 
     setFieldVisibility(questionField, binding.availableQuestionTypeOptions.length > 0);
-    populate(depthSelect, binding.depthOptions, binding.depthOptions[0]?.value ?? null);
-    populate(contextSelect, binding.contextOptions, binding.contextOptions[0]?.value ?? null);
     setFieldVisibility(depthField, binding.depthOptions.length > 0);
     setFieldVisibility(contextField, binding.contextOptions.length > 0);
     applyPatternGroupCompatibility(binding);
@@ -157,7 +173,7 @@ export function syncPublicCapabilityUi() {
     if (help) {
       help.textContent = binding.blocked
         ? `目前組合不可產生：${binding.blockedReasons.join("、")}`
-        : `已依 ${binding.selectedKnowledgePointCount} 個知識點過濾題目類型與形式；題數在 PGC-R03 容量驗證前上限為 ${PUBLIC_UI_SAFE_QUESTION_COUNT.max} 題。`;
+        : `已依知識點、題型、形式與控制交集套用 PGC-R03 容量證據；目前上限 ${binding.questionCount.max} 題。`;
     }
 
     const signature = bindingSignature(binding);
@@ -191,7 +207,7 @@ function scheduleSync() {
 for (const element of [sourceSelect, selectionModeSelect, questionSelect, depthSelect, contextSelect, questionCountInput]) {
   element?.addEventListener("change", scheduleSync);
 }
-questionCountInput?.addEventListener("input", clampQuestionCount);
+questionCountInput?.addEventListener("input", () => clampQuestionCount(currentBinding));
 
 for (const panel of [knowledgePointPanel, patternGroupPanel, sourceSelect]) {
   if (!panel) continue;

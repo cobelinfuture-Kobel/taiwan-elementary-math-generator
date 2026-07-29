@@ -20,6 +20,7 @@ const knowledgePointPanel = document.getElementById("pixel-kp-panel");
 let applying = false;
 let scheduled = false;
 let lastSignature = "";
+let currentBinding = null;
 
 function commaList(value) {
   return String(value ?? "").split(",").map((entry) => entry.trim()).filter(Boolean);
@@ -51,15 +52,20 @@ function setVisible(element, visible) {
   element.hidden = !visible;
 }
 
-function clampQuestionCount() {
+function clampQuestionCount(binding = currentBinding) {
   if (!questionCountInput) return;
-  questionCountInput.min = String(PUBLIC_UI_SAFE_QUESTION_COUNT.min);
-  questionCountInput.max = String(PUBLIC_UI_SAFE_QUESTION_COUNT.max);
+  const contract = binding?.questionCount ?? PUBLIC_UI_SAFE_QUESTION_COUNT;
+  const min = Math.max(1, Number(contract.min ?? 1));
+  const max = Math.max(min, Number(contract.max ?? PUBLIC_UI_SAFE_QUESTION_COUNT.max));
+  const fallback = Math.min(max, Math.max(min, Number(contract.default ?? max)));
+  questionCountInput.min = String(min);
+  questionCountInput.max = String(max);
   const current = Number(questionCountInput.value);
   questionCountInput.value = String(Number.isFinite(current)
-    ? Math.min(PUBLIC_UI_SAFE_QUESTION_COUNT.max, Math.max(PUBLIC_UI_SAFE_QUESTION_COUNT.min, Math.trunc(current)))
-    : PUBLIC_UI_SAFE_QUESTION_COUNT.default);
-  questionCountInput.dataset.capacityStatus = "fail-closed-pending-pgc-r03";
+    ? Math.min(max, Math.max(min, Math.trunc(current)))
+    : fallback);
+  questionCountInput.dataset.capacityStatus = String(binding?.capacityStatus ?? "FAIL_CLOSED_PENDING_PGC_R03").toLowerCase();
+  questionCountInput.dataset.capacityRouteIds = (binding?.capacityRouteIds ?? []).join(",");
 }
 
 function selectedPatternGroupIds() {
@@ -78,6 +84,8 @@ function bindingInput() {
     selectedKnowledgePointIds: commaList(document.body.dataset.pixelSelectedKnowledgePointIds),
     selectedPatternGroupIds: selectedPatternGroupIds(),
     requestedQuestionType: questionSelect?.value ?? null,
+    requestedDepthMode: depthSelect?.value ?? null,
+    requestedContextMode: contextSelect?.value ?? null,
   };
 }
 
@@ -90,6 +98,7 @@ function applyPatternGroupCompatibility(binding) {
     button.disabled = !enabled;
     button.dataset.compatible = enabled ? "true" : "false";
     button.setAttribute("aria-hidden", enabled ? "false" : "true");
+    if (!enabled && button.dataset.selected === "true") button.dataset.selected = "false";
   }
   patternGroupPanel.dataset.compatiblePatternGroupCount = String(compatible.size);
 }
@@ -104,6 +113,10 @@ function signature(binding) {
     groups: binding.compatiblePatternGroupIds,
     depth: binding.depthOptions.map((row) => row.value),
     context: binding.contextOptions.map((row) => row.value),
+    depthMode: binding.depthMode,
+    contextMode: binding.contextMode,
+    max: binding.questionCount.max,
+    capacityStatus: binding.capacityStatus,
     blocked: binding.blockedReasons,
   });
 }
@@ -112,14 +125,21 @@ export function syncPixelPublicCapabilityUi() {
   if (applying) return null;
   applying = true;
   try {
-    clampQuestionCount();
     const initial = resolvePublicUiCapabilityBinding(bindingInput());
     const questionResult = populate(questionSelect, initial.availableQuestionTypeOptions, initial.questionType);
-    const binding = questionResult.value === initial.questionType
+    const typed = questionResult.value === initial.questionType
       ? initial
       : resolvePublicUiCapabilityBinding({ ...bindingInput(), requestedQuestionType: questionResult.value });
-    const depthResult = populate(depthSelect, binding.depthOptions, binding.depthOptions[0]?.value ?? null);
-    const contextResult = populate(contextSelect, binding.contextOptions, binding.contextOptions[0]?.value ?? null);
+    const depthResult = populate(depthSelect, typed.depthOptions, typed.depthMode);
+    const contextResult = populate(contextSelect, typed.contextOptions, typed.contextMode);
+    const binding = resolvePublicUiCapabilityBinding({
+      ...bindingInput(),
+      requestedQuestionType: questionResult.value,
+      requestedDepthMode: depthResult.value,
+      requestedContextMode: contextResult.value,
+    });
+    currentBinding = binding;
+    clampQuestionCount(binding);
 
     setVisible(questionField, !binding.blocked && binding.availableQuestionTypeOptions.length > 0);
     setVisible(depthField, binding.depthOptions.length > 0);
@@ -130,11 +150,12 @@ export function syncPixelPublicCapabilityUi() {
     if (help) {
       help.textContent = binding.blocked
         ? `目前組合不可產生：${binding.blockedReasons.join("、")}`
-        : `題目類型與形式已依 ${binding.selectedKnowledgePointCount} 個知識點過濾；PGC-R03 完成前最多 ${PUBLIC_UI_SAFE_QUESTION_COUNT.max} 題。`;
+        : `已套用 PGC-R03 合法 route 與容量證據；目前上限 ${binding.questionCount.max} 題。`;
     }
     document.body.dataset.pixelCapabilityBindingStatus = binding.blocked ? "blocked" : "ready";
     document.body.dataset.pixelCapabilityQuestionType = binding.questionType ?? "";
-    document.body.dataset.pixelCapabilityMaxQuestionCount = String(PUBLIC_UI_SAFE_QUESTION_COUNT.max);
+    document.body.dataset.pixelCapabilityMaxQuestionCount = String(binding.questionCount.max);
+    document.body.dataset.pixelCapabilityCapacityStatus = binding.capacityStatus;
 
     const nextSignature = signature(binding);
     if (nextSignature !== lastSignature) {
@@ -162,7 +183,7 @@ function scheduleSync() {
 for (const element of [sourceSelect, selectionModeSelect, questionSelect, depthSelect, contextSelect, questionCountInput]) {
   element?.addEventListener("change", scheduleSync);
 }
-questionCountInput?.addEventListener("input", clampQuestionCount);
+questionCountInput?.addEventListener("input", () => clampQuestionCount(currentBinding));
 
 new MutationObserver(scheduleSync).observe(document.body, {
   attributes: true,
