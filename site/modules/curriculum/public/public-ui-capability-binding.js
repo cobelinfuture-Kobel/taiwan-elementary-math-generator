@@ -320,13 +320,17 @@ export function resolvePublicUiCapabilityBinding({
     profile,
   });
 
-  const legalPublicGroupIds = CAPACITY_REGISTRY_READY
-    ? new Set(capacityRowsForCase({
+  const legalCapacityRows = CAPACITY_REGISTRY_READY
+    ? capacityRowsForCase({
       sourceId,
       selectionMode,
       selectedKnowledgePointIds: normalizedKnowledgePointIds,
       questionType,
-    }).flatMap((row) => uniqueStrings(row.publicPatternGroupKey.split("|"))))
+    })
+    : [];
+  const wholeCaseCapacity = legalCapacityRows.some((row) => !row.publicPatternGroupKey);
+  const legalPublicGroupIds = CAPACITY_REGISTRY_READY && !wholeCaseCapacity
+    ? new Set(legalCapacityRows.flatMap((row) => uniqueStrings(row.publicPatternGroupKey.split("|"))))
     : null;
 
   const compatiblePatternGroups = questionType === "pbl"
