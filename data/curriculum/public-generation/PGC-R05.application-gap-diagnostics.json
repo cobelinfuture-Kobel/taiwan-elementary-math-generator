@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics",
-  "status": "PASS_R05_202_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
+  "status": "PASS_R05_205_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT",
   "sourceContract": "data/curriculum/public-generation/generator_capacity_contract.json",
   "applicationQuestionType": "application",
   "diagnosticSeeds": [
@@ -17,8 +17,8 @@
     "contractVerified20RouteCount": 128,
     "contractLimitedRouteCount": 83,
     "contractQualityGapRouteCount": 21,
-    "live20PassRouteCount": 202,
-    "live20FailRouteCount": 9,
+    "live20PassRouteCount": 205,
+    "live20FailRouteCount": 6,
     "repairRouteCount": 84,
     "zeroSafeCapacityRouteCount": 4,
     "repairRouteCountBySource": {
@@ -40,7 +40,6 @@
       "g6a_u01_6a01": 4
     },
     "liveFailureRouteCountBySource": {
-      "g3a_u08_3a08": 3,
       "g3b_u07_3b07": 3,
       "g4a_u08_4a08": 2,
       "g5a_u03_5a03a": 1
@@ -39462,10 +39461,8 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -39481,15 +39478,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u08_same_denominator_compare_comparison_application"
           ],
           "knowledgePointIdsObserved": [
             "kp_g3a_u08_same_denominator_compare"
           ],
-          "worksheetSignature": "9fd6b88f48899eee4ee4",
+          "worksheetSignature": "53b578d4f30b276fdca7",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -39502,10 +39499,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 5/5 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 8/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": "=",
-              "promptHash": "b0d11446a127576c7370",
-              "itemSignature": "79b16e699f591cf84c57",
+              "promptHash": "752debb26ae6507c91c8",
+              "itemSignature": "8fe3bbcc55692b1deeb6",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -39513,10 +39510,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 8/6 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 9/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": ">",
-              "promptHash": "ff6b83c4ec0036935f2c",
-              "itemSignature": "563195ded5f8b542d75c",
+              "promptHash": "fd36205ab3c6c467835c",
+              "itemSignature": "9f6443f6e330094f2b36",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -39524,10 +39521,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 2/5 盒，乙組使用 4/5 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 9/9 盒，請填入 <、= 或 >。",
               "answer": "<",
-              "promptHash": "3c8eccaf9528d42659d8",
-              "itemSignature": "dfb549f948cc1f6e05b8",
+              "promptHash": "296c6878e0eac6f2cf10",
+              "itemSignature": "7d8e4776174d463277b1",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -39535,9 +39532,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -39552,15 +39547,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u08_same_denominator_compare_comparison_application"
           ],
           "knowledgePointIdsObserved": [
             "kp_g3a_u08_same_denominator_compare"
           ],
-          "worksheetSignature": "52825d4496a930d344c6",
+          "worksheetSignature": "ff8cb3f6109044a18a7b",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -39573,10 +39568,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 8/6 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 9/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": ">",
-              "promptHash": "ff6b83c4ec0036935f2c",
-              "itemSignature": "563195ded5f8b542d75c",
+              "promptHash": "fd36205ab3c6c467835c",
+              "itemSignature": "9f6443f6e330094f2b36",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -39584,10 +39579,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 2/5 盒，乙組使用 4/5 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 9/9 盒，請填入 <、= 或 >。",
               "answer": "<",
-              "promptHash": "3c8eccaf9528d42659d8",
-              "itemSignature": "dfb549f948cc1f6e05b8",
+              "promptHash": "296c6878e0eac6f2cf10",
+              "itemSignature": "7d8e4776174d463277b1",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -39595,10 +39590,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 3/6 盒，乙組使用 3/6 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 8/9 盒，請填入 <、= 或 >。",
               "answer": "=",
-              "promptHash": "0bc6b808512352eb3957",
-              "itemSignature": "f094835139bc8c2a9361",
+              "promptHash": "10015cd3df05e8a0b334",
+              "itemSignature": "b1348e2c6f0ac5543e71",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -39606,9 +39601,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -39995,10 +39988,8 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -40014,15 +40005,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u08_same_denominator_compare_comparison_application"
           ],
           "knowledgePointIdsObserved": [
             "kp_g3a_u08_same_denominator_compare"
           ],
-          "worksheetSignature": "9fd6b88f48899eee4ee4",
+          "worksheetSignature": "53b578d4f30b276fdca7",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40035,10 +40026,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 5/5 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 8/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": "=",
-              "promptHash": "b0d11446a127576c7370",
-              "itemSignature": "79b16e699f591cf84c57",
+              "promptHash": "752debb26ae6507c91c8",
+              "itemSignature": "8fe3bbcc55692b1deeb6",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40046,10 +40037,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 8/6 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 9/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": ">",
-              "promptHash": "ff6b83c4ec0036935f2c",
-              "itemSignature": "563195ded5f8b542d75c",
+              "promptHash": "fd36205ab3c6c467835c",
+              "itemSignature": "9f6443f6e330094f2b36",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40057,10 +40048,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 2/5 盒，乙組使用 4/5 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 9/9 盒，請填入 <、= 或 >。",
               "answer": "<",
-              "promptHash": "3c8eccaf9528d42659d8",
-              "itemSignature": "dfb549f948cc1f6e05b8",
+              "promptHash": "296c6878e0eac6f2cf10",
+              "itemSignature": "7d8e4776174d463277b1",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40068,9 +40059,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -40085,15 +40074,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u08_same_denominator_compare_comparison_application"
           ],
           "knowledgePointIdsObserved": [
             "kp_g3a_u08_same_denominator_compare"
           ],
-          "worksheetSignature": "52825d4496a930d344c6",
+          "worksheetSignature": "ff8cb3f6109044a18a7b",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40106,10 +40095,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 8/6 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 9/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": ">",
-              "promptHash": "ff6b83c4ec0036935f2c",
-              "itemSignature": "563195ded5f8b542d75c",
+              "promptHash": "fd36205ab3c6c467835c",
+              "itemSignature": "9f6443f6e330094f2b36",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40117,10 +40106,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 2/5 盒，乙組使用 4/5 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 9/9 盒，請填入 <、= 或 >。",
               "answer": "<",
-              "promptHash": "3c8eccaf9528d42659d8",
-              "itemSignature": "dfb549f948cc1f6e05b8",
+              "promptHash": "296c6878e0eac6f2cf10",
+              "itemSignature": "7d8e4776174d463277b1",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40128,10 +40117,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 3/6 盒，乙組使用 3/6 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 8/9 盒，請填入 <、= 或 >。",
               "answer": "=",
-              "promptHash": "0bc6b808512352eb3957",
-              "itemSignature": "f094835139bc8c2a9361",
+              "promptHash": "10015cd3df05e8a0b334",
+              "itemSignature": "b1348e2c6f0ac5543e71",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40139,9 +40128,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
@@ -40188,10 +40175,8 @@
         "FIXTURE_SELECTOR",
         "NON_DIVERSE_QUALITY_STATUS"
       ],
-      "liveAcceptanceFailures": [
-        "DUPLICATE_PROMPT"
-      ],
-      "accepted20AcrossSeeds": false,
+      "liveAcceptanceFailures": [],
+      "accepted20AcrossSeeds": true,
       "requiresRepair": true,
       "diagnosticRuns": [
         {
@@ -40207,15 +40192,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u08_same_denominator_compare_comparison_application"
           ],
           "knowledgePointIdsObserved": [
             "kp_g3a_u08_same_denominator_compare"
           ],
-          "worksheetSignature": "9fd6b88f48899eee4ee4",
+          "worksheetSignature": "53b578d4f30b276fdca7",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40228,10 +40213,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 5/5 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 8/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": "=",
-              "promptHash": "b0d11446a127576c7370",
-              "itemSignature": "79b16e699f591cf84c57",
+              "promptHash": "752debb26ae6507c91c8",
+              "itemSignature": "8fe3bbcc55692b1deeb6",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40239,10 +40224,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 8/6 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 9/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": ">",
-              "promptHash": "ff6b83c4ec0036935f2c",
-              "itemSignature": "563195ded5f8b542d75c",
+              "promptHash": "fd36205ab3c6c467835c",
+              "itemSignature": "9f6443f6e330094f2b36",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40250,10 +40235,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 2/5 盒，乙組使用 4/5 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 9/9 盒，請填入 <、= 或 >。",
               "answer": "<",
-              "promptHash": "3c8eccaf9528d42659d8",
-              "itemSignature": "dfb549f948cc1f6e05b8",
+              "promptHash": "296c6878e0eac6f2cf10",
+              "itemSignature": "7d8e4776174d463277b1",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40261,9 +40246,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         },
         {
           "seed": "pgc-r05-diagnostic-02",
@@ -40278,15 +40261,15 @@
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "emptyPromptCount": 0,
-          "duplicatePromptCount": 14,
-          "uniquePromptCount": 6,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g3a_u08_same_denominator_compare_comparison_application"
           ],
           "knowledgePointIdsObserved": [
             "kp_g3a_u08_same_denominator_compare"
           ],
-          "worksheetSignature": "52825d4496a930d344c6",
+          "worksheetSignature": "ff8cb3f6109044a18a7b",
           "runtimeLineage": {
             "browserResolutionMode": null,
             "browserPlanSourceId": null,
@@ -40299,10 +40282,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 8/6 盒，與完整 1 盒相比，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 8 份。甲組使用 9/8 盒，與完整 1 盒相比，請填入 <、= 或 >。",
               "answer": ">",
-              "promptHash": "ff6b83c4ec0036935f2c",
-              "itemSignature": "563195ded5f8b542d75c",
+              "promptHash": "fd36205ab3c6c467835c",
+              "itemSignature": "9f6443f6e330094f2b36",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40310,10 +40293,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 5 份。甲組使用 2/5 盒，乙組使用 4/5 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 9/9 盒，請填入 <、= 或 >。",
               "answer": "<",
-              "promptHash": "3c8eccaf9528d42659d8",
-              "itemSignature": "dfb549f948cc1f6e05b8",
+              "promptHash": "296c6878e0eac6f2cf10",
+              "itemSignature": "7d8e4776174d463277b1",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40321,10 +40304,10 @@
               "rawKind": null
             },
             {
-              "prompt": "班級活動把每盒材料平均分成 6 份。甲組使用 3/6 盒，乙組使用 3/6 盒，請填入 <、= 或 >。",
+              "prompt": "班級活動把每盒材料平均分成 9 份。甲組使用 8/9 盒，乙組使用 8/9 盒，請填入 <、= 或 >。",
               "answer": "=",
-              "promptHash": "0bc6b808512352eb3957",
-              "itemSignature": "f094835139bc8c2a9361",
+              "promptHash": "10015cd3df05e8a0b334",
+              "itemSignature": "b1348e2c6f0ac5543e71",
               "patternSpecId": "ps_g3a_u08_same_denominator_compare_comparison_application",
               "knowledgePointIds": [
                 "kp_g3a_u08_same_denominator_compare"
@@ -40332,9 +40315,7 @@
               "rawKind": null
             }
           ],
-          "acceptanceFailures": [
-            "DUPLICATE_PROMPT"
-          ]
+          "acceptanceFailures": []
         }
       ]
     },
