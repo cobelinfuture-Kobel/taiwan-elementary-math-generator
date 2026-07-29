@@ -73,6 +73,23 @@ const PROBLEM_SCENARIOS = Object.freeze({
 });
 const PROBLEM_SCENARIO_IDS = Object.freeze(Object.keys(PROBLEM_SCENARIOS));
 
+function projectProblemTypeScenario(seed) {
+  const normalizedSeed = Number.isInteger(seed) && seed >= 1 ? seed : 1;
+  const familyIndex = (normalizedSeed - 1) % PROBLEM_SCENARIO_IDS.length;
+  const cycle = Math.floor((normalizedSeed - 1) / PROBLEM_SCENARIO_IDS.length);
+  const slot = cycle % 90;
+  return Object.freeze({
+    scenarioFamilyId: PROBLEM_SCENARIO_IDS[familyIndex],
+    values: Object.freeze({
+      total: 120 + slot,
+      groupSize: 2 + slot,
+      a: 24 + (2 * slot),
+      b: 36 + (2 * slot),
+    }),
+    projectionStatus: "PGC_R04_PROBLEM_TYPE_SEED_PROJECTION",
+  });
+}
+
 function factorsOf(target) {
   const low = [];
   const high = [];
@@ -199,7 +216,7 @@ export function getG5AU02S100PatternIds() {
   return [...S100_PATTERN_IDS];
 }
 
-export function generateG5AU02S100Pattern(patternSpecId, rng) {
+export function generateG5AU02S100Pattern(patternSpecId, rng, itemSeed = 1) {
   if (!S100_PATTERN_SET.has(patternSpecId)) return null;
 
   switch (patternSpecId) {
@@ -291,22 +308,17 @@ export function generateG5AU02S100Pattern(patternSpecId, rng) {
     }
 
     case "ps_g5a_u02_problem_type_classification": {
-      const scenarioFamilyId = rng.pick(PROBLEM_SCENARIO_IDS);
-      const scenario = PROBLEM_SCENARIOS[scenarioFamilyId];
-      const values = {
-        total: rng.int(4, 20) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),
-        groupSize: rng.int(2, 99),
-        a: rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),
-        b: rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES),
-      };
-      const built = scenario.build(values);
+      const projected = projectProblemTypeScenario(itemSeed);
+      const scenario = PROBLEM_SCENARIOS[projected.scenarioFamilyId];
+      const built = scenario.build(projected.values);
       return {
         data: {
           contextKind: scenario.expectedLabel,
-          scenarioFamilyId,
+          scenarioFamilyId: projected.scenarioFamilyId,
           scenarioText: built.scenarioText,
           quantityRoles: built.quantityRoles,
           expectedLabel: scenario.expectedLabel,
+          generationProjectionStatus: projected.projectionStatus,
         },
         prompt: `${built.scenarioText}\n請判斷這是因數、倍數、公因數或公倍數問題。`,
         answer: { label: scenario.expectedLabel },

@@ -22451,10 +22451,10 @@
               ]
             },
             {
-              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 47 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "4590ae02b3e42259c081",
-              "itemSignature": "90f88d409d77b96f51c7",
+              "promptHash": "caa1248c59f9e590f867",
+              "itemSignature": "3dddd5b7275fd804d937",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -22782,10 +22782,10 @@
               ]
             },
             {
-              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "24 件與 36 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "0b4cf6dc252d07ae6744",
-              "itemSignature": "20d81b3e2b9860615314",
+              "promptHash": "27bacd7e049d445a4c4e",
+              "itemSignature": "ba8d9c1e36a0d6b2f9de",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -23113,10 +23113,10 @@
               ]
             },
             {
-              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 47 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "4590ae02b3e42259c081",
-              "itemSignature": "90f88d409d77b96f51c7",
+              "promptHash": "caa1248c59f9e590f867",
+              "itemSignature": "3dddd5b7275fd804d937",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -23444,10 +23444,10 @@
               ]
             },
             {
-              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "24 件與 36 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "0b4cf6dc252d07ae6744",
-              "itemSignature": "20d81b3e2b9860615314",
+              "promptHash": "27bacd7e049d445a4c4e",
+              "itemSignature": "ba8d9c1e36a0d6b2f9de",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30238,8 +30238,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "duplicatePromptCount": 2,
-          "uniquePromptCount": 18,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_problem_type_classification"
           ],
@@ -30343,10 +30343,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "423 件與 82 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "112 件與 124 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "6daad8e53b634e3c46d6",
-              "itemSignature": "34ed7ec1f2d670eabeb7",
+              "promptHash": "50904e193b0dbfaf03ff",
+              "itemSignature": "2cae70216f78b62c4dbb",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30384,10 +30384,10 @@
               ]
             },
             {
-              "prompt": "每 156 秒與每 26 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 112 秒與每 124 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "da8b10ae0aac077cd1ce",
-              "itemSignature": "eece0c6c3243cf8c2410",
+              "promptHash": "9df55790307cbcf139d3",
+              "itemSignature": "818e7d79d4624491b0a9",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30425,10 +30425,10 @@
               ]
             },
             {
-              "prompt": "共 592 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "共 165 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "aaa5c86458cc5bae2f5a",
-              "itemSignature": "86ecd5d2d5bd6fbc5014",
+              "promptHash": "729a7b7bee7fd5d16ca0",
+              "itemSignature": "57e003027524918274a1",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30466,10 +30466,10 @@
               ]
             },
             {
-              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 47 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "4590ae02b3e42259c081",
-              "itemSignature": "90f88d409d77b96f51c7",
+              "promptHash": "caa1248c59f9e590f867",
+              "itemSignature": "3dddd5b7275fd804d937",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30507,10 +30507,10 @@
               ]
             },
             {
-              "prompt": "62 件與 423 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "114 件與 126 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "3be2b65c59dcd0a78eeb",
-              "itemSignature": "b1e499b8846e55f59948",
+              "promptHash": "d9f2866fc2baf2e85027",
+              "itemSignature": "4c6221778f0ec3608387",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30561,8 +30561,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "duplicatePromptCount": 2,
-          "uniquePromptCount": 18,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_problem_type_classification"
           ],
@@ -30666,10 +30666,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每 145 秒與每 370 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 202 秒與每 214 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "6602ae67d25d401b81d0",
-              "itemSignature": "2a3e2c33feedcb2d424c",
+              "promptHash": "d3f05cb0c27eb13c3b5e",
+              "itemSignature": "5b99f1d8ae99fec6f0b7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30707,10 +30707,10 @@
               ]
             },
             {
-              "prompt": "共 740 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "共 120 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "cc84cd683d8de6fef0f9",
-              "itemSignature": "484142f14c1aac516f76",
+              "promptHash": "b826c6c89ec6aeb23ac7",
+              "itemSignature": "f3322cfcf22fdfbb78da",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30748,10 +30748,10 @@
               ]
             },
             {
-              "prompt": "每組 52 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 2 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "e83c0ffcdb31a224ee16",
-              "itemSignature": "4872a9f5c32b54164615",
+              "promptHash": "40d97e76acd4cc221e16",
+              "itemSignature": "da99074c383ac311dcfd",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30789,10 +30789,10 @@
               ]
             },
             {
-              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "24 件與 36 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "0b4cf6dc252d07ae6744",
-              "itemSignature": "20d81b3e2b9860615314",
+              "promptHash": "27bacd7e049d445a4c4e",
+              "itemSignature": "ba8d9c1e36a0d6b2f9de",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30830,10 +30830,10 @@
               ]
             },
             {
-              "prompt": "每 65 秒與每 58 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 24 秒與每 36 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "d35b33e1c888bb23a9c4",
-              "itemSignature": "eff3a4d84ad23b670b68",
+              "promptHash": "6a753edea774da2292a5",
+              "itemSignature": "2a5f437aaf9bb0868e4b",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -30884,8 +30884,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 15,
           "answerKeyItemCount": 15,
-          "duplicatePromptCount": 2,
-          "uniquePromptCount": 13,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 15,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_problem_type_classification"
           ],
@@ -30989,10 +30989,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "423 件與 82 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "112 件與 124 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "6daad8e53b634e3c46d6",
-              "itemSignature": "34ed7ec1f2d670eabeb7",
+              "promptHash": "50904e193b0dbfaf03ff",
+              "itemSignature": "2cae70216f78b62c4dbb",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31030,10 +31030,10 @@
               ]
             },
             {
-              "prompt": "每 156 秒與每 26 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 112 秒與每 124 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "da8b10ae0aac077cd1ce",
-              "itemSignature": "eece0c6c3243cf8c2410",
+              "promptHash": "9df55790307cbcf139d3",
+              "itemSignature": "818e7d79d4624491b0a9",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31071,10 +31071,10 @@
               ]
             },
             {
-              "prompt": "共 592 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "共 165 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "aaa5c86458cc5bae2f5a",
-              "itemSignature": "86ecd5d2d5bd6fbc5014",
+              "promptHash": "729a7b7bee7fd5d16ca0",
+              "itemSignature": "57e003027524918274a1",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31112,10 +31112,10 @@
               ]
             },
             {
-              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 47 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "4590ae02b3e42259c081",
-              "itemSignature": "90f88d409d77b96f51c7",
+              "promptHash": "caa1248c59f9e590f867",
+              "itemSignature": "3dddd5b7275fd804d937",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31153,10 +31153,10 @@
               ]
             },
             {
-              "prompt": "62 件與 423 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "114 件與 126 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "3be2b65c59dcd0a78eeb",
-              "itemSignature": "b1e499b8846e55f59948",
+              "promptHash": "d9f2866fc2baf2e85027",
+              "itemSignature": "4c6221778f0ec3608387",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31207,8 +31207,8 @@
           "evidenceProjection": "questionDisplayModels",
           "questionCount": 15,
           "answerKeyItemCount": 15,
-          "duplicatePromptCount": 1,
-          "uniquePromptCount": 14,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 15,
           "patternSpecIdsObserved": [
             "ps_g5a_u02_problem_type_classification"
           ],
@@ -31312,10 +31312,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "每 145 秒與每 370 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 202 秒與每 214 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "6602ae67d25d401b81d0",
-              "itemSignature": "2a3e2c33feedcb2d424c",
+              "promptHash": "d3f05cb0c27eb13c3b5e",
+              "itemSignature": "5b99f1d8ae99fec6f0b7",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31353,10 +31353,10 @@
               ]
             },
             {
-              "prompt": "共 740 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "共 120 件，平均分組且無剩；可能組數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "cc84cd683d8de6fef0f9",
-              "itemSignature": "484142f14c1aac516f76",
+              "promptHash": "b826c6c89ec6aeb23ac7",
+              "itemSignature": "f3322cfcf22fdfbb78da",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31394,10 +31394,10 @@
               ]
             },
             {
-              "prompt": "每組 52 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 2 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "e83c0ffcdb31a224ee16",
-              "itemSignature": "4872a9f5c32b54164615",
+              "promptHash": "40d97e76acd4cc221e16",
+              "itemSignature": "da99074c383ac311dcfd",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31435,10 +31435,10 @@
               ]
             },
             {
-              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "24 件與 36 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "0b4cf6dc252d07ae6744",
-              "itemSignature": "20d81b3e2b9860615314",
+              "promptHash": "27bacd7e049d445a4c4e",
+              "itemSignature": "ba8d9c1e36a0d6b2f9de",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -31476,10 +31476,10 @@
               ]
             },
             {
-              "prompt": "每 65 秒與每 58 秒一次；同時發生的時間屬哪類？",
+              "prompt": "每 24 秒與每 36 秒一次；同時發生的時間屬哪類？",
               "answer": "",
-              "promptHash": "d35b33e1c888bb23a9c4",
-              "itemSignature": "eff3a4d84ad23b670b68",
+              "promptHash": "6a753edea774da2292a5",
+              "itemSignature": "2a5f437aaf9bb0868e4b",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -34476,10 +34476,10 @@
               ]
             },
             {
-              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 47 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "4590ae02b3e42259c081",
-              "itemSignature": "90f88d409d77b96f51c7",
+              "promptHash": "caa1248c59f9e590f867",
+              "itemSignature": "3dddd5b7275fd804d937",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -34807,10 +34807,10 @@
               ]
             },
             {
-              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "24 件與 36 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "0b4cf6dc252d07ae6744",
-              "itemSignature": "20d81b3e2b9860615314",
+              "promptHash": "27bacd7e049d445a4c4e",
+              "itemSignature": "ba8d9c1e36a0d6b2f9de",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -35138,10 +35138,10 @@
               ]
             },
             {
-              "prompt": "每組 48 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
+              "prompt": "每組 47 件；1、2、3……組的總數屬因數、倍數、公因數或公倍數哪類？",
               "answer": "",
-              "promptHash": "4590ae02b3e42259c081",
-              "itemSignature": "90f88d409d77b96f51c7",
+              "promptHash": "caa1248c59f9e590f867",
+              "itemSignature": "3dddd5b7275fd804d937",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"
@@ -35469,10 +35469,10 @@
               ]
             },
             {
-              "prompt": "282 件與 62 件各自平均分成相同組數且無剩；組數屬哪類？",
+              "prompt": "24 件與 36 件各自平均分成相同組數且無剩；組數屬哪類？",
               "answer": "",
-              "promptHash": "0b4cf6dc252d07ae6744",
-              "itemSignature": "20d81b3e2b9860615314",
+              "promptHash": "27bacd7e049d445a4c4e",
+              "itemSignature": "ba8d9c1e36a0d6b2f9de",
               "patternSpecId": "ps_g5a_u02_problem_type_classification",
               "knowledgePointIds": [
                 "kp_g5a_u02_number_theory_problem_type_discrimination"

@@ -145,7 +145,7 @@ function generateS100ClassC(patternSpecId, options = {}) {
   return makeSpecialClassCItem(
     patternSpecId,
     options,
-    generateG5AU02S100Pattern(patternSpecId, createRng(seed)),
+    generateG5AU02S100Pattern(patternSpecId, createRng(seed), seed),
     "methodParity",
     "G5AU02-S100_P0MethodWitnessLanguageAndReasoningFullFix",
     "source_method_structured_runtime",
