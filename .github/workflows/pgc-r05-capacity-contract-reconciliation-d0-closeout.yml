@@ -1,0 +1,135 @@
+name: PGC-R05 Capacity Contract Reconciliation D0 Closeout
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs"
+      - "tools/curriculum/apply-pgc-r05-d0-*.mjs"
+      - "tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs"
+      - "tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs"
+      - "tests/curriculum/pgc-r05-*.test.js"
+      - "data/curriculum/public-generation/generator_capacity_contract.json"
+      - "data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json"
+      - "data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json"
+      - "data/curriculum/public-generation/application_generation_gap_inventory.csv"
+      - "docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md"
+      - "docs/curriculum/output/PGC-R05_CAPACITY_CONTRACT_RECONCILIATION_D0_CLOSEOUT.md"
+      - ".github/workflows/pgc-r05-capacity-contract-reconciliation-d0-closeout.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r05-capacity-contract-reconciliation-d0-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  reconcile-and-close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout R05 closeout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Syntax-check closeout authorities
+        run: |
+          node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
+          node --check tools/curriculum/apply-pgc-r05-d0-readback-patch.mjs
+          node --check tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs
+          node --check tools/curriculum/apply-pgc-r05-d0-test-status-patch.mjs
+          node --check tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js
+
+      - name: Apply D0 diagnostics and item-set evidence patches
+        run: |
+          node tools/curriculum/apply-pgc-r05-d0-readback-patch.mjs
+          node tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs
+          node tools/curriculum/apply-pgc-r05-d0-test-status-patch.mjs
+          node --check tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
+          node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
+
+      - name: Materialize pre-reconciliation 211-route live evidence
+        run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
+
+      - name: Require 211 of 211 live application routes before contract mutation
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const report = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json", "utf8"));
+          if (report.summary.legalApplicationRouteCount !== 211
+            || report.summary.live20PassRouteCount !== 211
+            || report.summary.live20FailRouteCount !== 0
+            || report.routes.filter((route) => route.accepted20AcrossSeeds).length !== 211) {
+            throw new Error(`PGC_R05_PRE_RECONCILIATION_LIVE_GATE_FAILED:${JSON.stringify(report.summary)}`);
+          }
+          console.log(`PGC_R05_PRE_RECONCILIATION_LIVE_GATE=${JSON.stringify(report.summary)}`);
+          NODE
+
+      - name: Reconcile application capacity contract and public-surface limits
+        run: node tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
+
+      - name: Rematerialize final D0 application diagnostics
+        run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
+
+      - name: Finalize R05 D0 closeout authority
+        run: node tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs --finalize
+
+      - name: Focused R05 D0 acceptance
+        run: |
+          node --test tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
+          node --test tests/curriculum/pgc-r05-g5a-u02-application-diversity.test.js
+          node --test tests/curriculum/pgc-r05-g3b-u04-application-diversity.test.js
+          node --test tests/curriculum/pgc-r05-g5a-u08-application-diversity.test.js
+          node --test tests/curriculum/pgc-r05-g3a-u08-application-diversity.test.js
+          node --test tests/curriculum/pgc-r05-g3b-u07-application-diversity.test.js
+          node --test tests/curriculum/pgc-r05-g4a-u08-application-diversity.test.js
+          node --test tests/curriculum/pgc-r05-g5a-u03-application-diversity.test.js
+          node --test tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js
+
+      - name: Full repository regression
+        run: npm test
+
+      - name: Commit deterministic R05 D0 authorities
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs \
+            tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs \
+            tests/curriculum/pgc-r05-*.test.js \
+            data/curriculum/public-generation/generator_capacity_contract.json \
+            data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json \
+            data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json \
+            data/curriculum/public-generation/application_generation_gap_inventory.csv \
+            docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md \
+            docs/curriculum/output/PGC-R05_CAPACITY_CONTRACT_RECONCILIATION_D0_CLOSEOUT.md
+          if git diff --cached --quiet; then
+            echo "R05 D0 authorities already synchronized."
+          else
+            git commit -m "close(pgc-r05): reconcile application capacity contract at D0 [skip ci]"
+            git fetch origin "${{ github.head_ref || github.ref_name }}"
+            git rebase "origin/${{ github.head_ref || github.ref_name }}"
+            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
+          fi
+
+      - name: Upload R05 D0 authorities
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r05-capacity-contract-reconciliation-d0
+          path: |
+            data/curriculum/public-generation/generator_capacity_contract.json
+            data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json
+            data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json
+            data/curriculum/public-generation/application_generation_gap_inventory.csv
+            docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md
+            docs/curriculum/output/PGC-R05_CAPACITY_CONTRACT_RECONCILIATION_D0_CLOSEOUT.md
+          if-no-files-found: error
