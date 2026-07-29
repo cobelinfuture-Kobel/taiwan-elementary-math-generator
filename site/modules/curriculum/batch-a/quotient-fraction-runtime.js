@@ -7,11 +7,9 @@ import {
   G3B_U07_QUOTIENT_FRACTION_PATTERN_SPEC_ID,
 } from "../registry/g3b-u07-quotient-fraction-selector-projection.js";
 
-const PAIRS = Object.freeze([
-  Object.freeze([1, 2]), Object.freeze([2, 3]), Object.freeze([3, 4]), Object.freeze([4, 5]),
-  Object.freeze([5, 6]), Object.freeze([7, 8]), Object.freeze([8, 3]), Object.freeze([9, 4]),
-  Object.freeze([10, 3]), Object.freeze([11, 5]), Object.freeze([12, 5]), Object.freeze([12, 7]),
-]);
+const PAIRS = Object.freeze(Array.from({ length: 12 }, (_, dividendIndex) => dividendIndex + 1)
+  .flatMap((dividend) => Array.from({ length: 11 }, (_, divisorIndex) => divisorIndex + 2)
+    .map((divisor) => Object.freeze([dividend, divisor]))));
 const gcd = (a, b) => { let x = Math.abs(a); let y = Math.abs(b); while (y) [x, y] = [y, x % y]; return x || 1; };
 function hashSeed(value) {
   let acc = 2166136261;

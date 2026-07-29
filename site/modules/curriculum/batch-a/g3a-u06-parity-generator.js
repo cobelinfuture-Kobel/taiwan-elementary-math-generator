@@ -38,8 +38,10 @@ function selectInterval(intervalCandidates, index) {
   return multiAnswer[bucketIndex % multiAnswer.length] ?? intervalCandidates[bucketIndex % intervalCandidates.length];
 }
 
-function buildParityModel(sequenceNumber) {
-  const index = Math.max(1, Number.isInteger(sequenceNumber) ? sequenceNumber : 1) - 1;
+function hashSeed(value) { let acc = 2166136261; for (const char of String(value ?? "default")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619) >>> 0; } return acc || 1; }
+function buildParityModel(sequenceNumber, seed) {
+  const baseIndex = Math.max(1, Number.isInteger(sequenceNumber) ? sequenceNumber : 1) - 1;
+  const index = baseIndex + (hashSeed(String(seed ?? "default") + ":" + G3A_U06_PARITY_SPEC_ID) % 162);
   const tensDigit = 1 + (index % 9);
   const target = Math.floor(index / 9) % 2 === 0 ? "even" : "odd";
   const intervalCandidates = buildIntervalCandidates(tensDigit, target);
@@ -47,8 +49,8 @@ function buildParityModel(sequenceNumber) {
   return { tensDigit, target, lowerBound: interval.lowerBound, upperBound: interval.upperBound, answers: interval.answers };
 }
 
-export function makeParityRangeMissingDigitQuestion(sequenceNumber = 1) {
-  const model = buildParityModel(sequenceNumber);
+export function makeParityRangeMissingDigitQuestion(sequenceNumber = 1, seed = "default") {
+  const model = buildParityModel(sequenceNumber, seed);
   const answerText = model.answers.join("、");
   const promptText = "有 1 個" + parityName(model.target) + "：" + model.tensDigit + "□，只知道 " + model.tensDigit + "□ < " + model.upperBound + "，而且 " + model.tensDigit + "□ > " + model.lowerBound + "，這個" + parityName(model.target) + "可能是多少？";
   return {
@@ -72,6 +74,6 @@ export function makeParityRangeMissingDigitQuestion(sequenceNumber = 1) {
 
 export function generateG3AU06ParityRangeMissingDigitQuestions(options = {}) {
   const questionCount = Number.isInteger(options.questionCount) ? options.questionCount : 20;
-  const questions = Array.from({ length: questionCount }, (_, index) => makeParityRangeMissingDigitQuestion(index + 1));
+  const questions = Array.from({ length: questionCount }, (_, index) => makeParityRangeMissingDigitQuestion(index + 1, options.generationSeed));
   return { ok: true, questions, allocation: [{ patternSpecId: G3A_U06_PARITY_SPEC_ID, questionCount }], errors: [], warnings: [] };
 }
