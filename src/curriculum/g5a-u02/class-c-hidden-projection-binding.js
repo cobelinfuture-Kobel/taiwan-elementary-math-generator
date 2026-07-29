@@ -157,7 +157,7 @@ function generateS102ClassC(patternSpecId, options = {}) {
   return makeSpecialClassCItem(
     patternSpecId,
     options,
-    generateG5AU02S102Pattern(patternSpecId, createRng(seed)),
+    generateG5AU02S102Pattern(patternSpecId, createRng(seed), seed),
     "commonFactorParity",
     "G5AU02-S102_P0NontrivialCommonFactorSamplingAndWitnessFullFix",
     "nondegenerate_factor_set_witness_runtime",

@@ -23849,10 +23849,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 64 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 64 的因數：1、2、4、8、16、32、64 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 2932 和 2936 的完整因數集合。 甲數 2932 的因數：1、2、4、733、1466、2932 乙數 2936 的因數：1、2、4、8、367、734、1468、2936 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "fa38f6315bc8d00382c4",
-              "itemSignature": "2e529da2c88e145d01f4",
+              "promptHash": "a26d294817897ec5d43a",
+              "itemSignature": "97fd4fa1fad72628cf73",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -24181,10 +24181,10 @@
               ]
             },
             {
-              "prompt": "先比較 80 和 72 的完整因數集合。 甲數 80 的因數：1、2、4、5、8、10、16、20、40、80 乙數 72 的因數：1、2、3、4、6、8、9、12、18、24、36、72 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 70 和 75 的完整因數集合。 甲數 70 的因數：1、2、5、7、10、14、35、70 乙數 75 的因數：1、3、5、15、25、75 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "117b071c6992ecf69552",
-              "itemSignature": "ec0f055375b952cce667",
+              "promptHash": "05ef78441e64cdd564e3",
+              "itemSignature": "17f0a0a310be67fd84aa",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -24513,10 +24513,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 64 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 64 的因數：1、2、4、8、16、32、64 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 2932 和 2936 的完整因數集合。 甲數 2932 的因數：1、2、4、733、1466、2932 乙數 2936 的因數：1、2、4、8、367、734、1468、2936 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "fa38f6315bc8d00382c4",
-              "itemSignature": "2e529da2c88e145d01f4",
+              "promptHash": "a26d294817897ec5d43a",
+              "itemSignature": "97fd4fa1fad72628cf73",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -24845,10 +24845,10 @@
               ]
             },
             {
-              "prompt": "先比較 80 和 72 的完整因數集合。 甲數 80 的因數：1、2、4、5、8、10、16、20、40、80 乙數 72 的因數：1、2、3、4、6、8、9、12、18、24、36、72 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 70 和 75 的完整因數集合。 甲數 70 的因數：1、2、5、7、10、14、35、70 乙數 75 的因數：1、3、5、15、25、75 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "117b071c6992ecf69552",
-              "itemSignature": "ec0f055375b952cce667",
+              "promptHash": "05ef78441e64cdd564e3",
+              "itemSignature": "17f0a0a310be67fd84aa",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -31668,10 +31668,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "先比較 27 和 36 的完整因數集合。 甲數 27 的因數：1、3、9、27 乙數 36 的因數：1、2、3、4、6、9、12、18、36 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 6561 和 6570 的完整因數集合。 甲數 6561 的因數：1、3、9、27、81、243、729、2187、6561 乙數 6570 的因數：1、2、3、5、6、9、10、15、18、30、45、73、90、146、219、365、438、657、730、1095、1314、2190、3285、6570 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "fc4b63cd91217422c978",
-              "itemSignature": "28e70cd53d8227913091",
+              "promptHash": "e671e9119cdb1212c8cd",
+              "itemSignature": "85bd81bf7384c012ed15",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -31709,10 +31709,10 @@
               ]
             },
             {
-              "prompt": "先比較 10 和 8 的完整因數集合。 甲數 10 的因數：1、2、5、10 乙數 8 的因數：1、2、4、8 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 7300 和 7310 的完整因數集合。 甲數 7300 的因數：1、2、4、5、10、20、25、50、73、100、146、292、365、730、1460、1825、3650、7300 乙數 7310 的因數：1、2、5、10、17、34、43、85、86、170、215、430、731、1462、3655、7310 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "937f86d251e827d2e27e",
-              "itemSignature": "ab242dee4dbb3cb511c7",
+              "promptHash": "5a618cb3b5114c19bd24",
+              "itemSignature": "c310cbed24352da1b856",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -31750,10 +31750,10 @@
               ]
             },
             {
-              "prompt": "先比較 16 和 24 的完整因數集合。 甲數 16 的因數：1、2、4、8、16 乙數 24 的因數：1、2、3、4、6、8、12、24 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 1462 和 1464 的完整因數集合。 甲數 1462 的因數：1、2、17、34、43、86、731、1462 乙數 1464 的因數：1、2、3、4、6、8、12、24、61、122、183、244、366、488、732、1464 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "8080a4505a49dcf2a839",
-              "itemSignature": "2a7ddd534deb58e18f31",
+              "promptHash": "5fbf6e3d0e1c6d82bdd6",
+              "itemSignature": "72e6726a9f705a9b0279",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -31791,10 +31791,10 @@
               ]
             },
             {
-              "prompt": "先比較 36 和 30 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 30 的因數：1、2、3、5、6、10、15、30 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 2196 和 2199 的完整因數集合。 甲數 2196 的因數：1、2、3、4、6、9、12、18、36、61、122、183、244、366、549、732、1098、2196 乙數 2199 的因數：1、3、733、2199 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "5fd7ad8ea7e1b055ba16",
-              "itemSignature": "5a1c71356ff08d76eee8",
+              "promptHash": "8d41affbaf95b5e645ba",
+              "itemSignature": "69a546b89554eed2370f",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -31832,10 +31832,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 64 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 64 的因數：1、2、4、8、16、32、64 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 2932 和 2936 的完整因數集合。 甲數 2932 的因數：1、2、4、733、1466、2932 乙數 2936 的因數：1、2、4、8、367、734、1468、2936 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "fa38f6315bc8d00382c4",
-              "itemSignature": "2e529da2c88e145d01f4",
+              "promptHash": "a26d294817897ec5d43a",
+              "itemSignature": "97fd4fa1fad72628cf73",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -31991,10 +31991,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "先比較 81 和 54 的完整因數集合。 甲數 81 的因數：1、3、9、27、81 乙數 54 的因數：1、2、3、6、9、18、27、54 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 9100 和 9110 的完整因數集合。 甲數 9100 的因數：1、2、4、5、7、10、13、14、20、25、26、28、35、50、52、65、70、91、100、130、140、175、182、260、325、350、364、455、650、700、910、1300、1820、2275、4550、9100 乙數 9110 的因數：1、2、5、10、911、1822、4555、9110 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "7d58a32b69c6827eda49",
-              "itemSignature": "fef03b9041a2d601b25c",
+              "promptHash": "65ee790e4f48088770a4",
+              "itemSignature": "c22a2d3ce1516d95c78f",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32032,10 +32032,10 @@
               ]
             },
             {
-              "prompt": "先比較 14 和 16 的完整因數集合。 甲數 14 的因數：1、2、7、14 乙數 16 的因數：1、2、4、8、16 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 22 和 24 的完整因數集合。 甲數 22 的因數：1、2、11、22 乙數 24 的因數：1、2、3、4、6、8、12、24 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "2cf28b2e6724baf369ee",
-              "itemSignature": "80c95713835e6184ce67",
+              "promptHash": "f98d8236768d377af3ac",
+              "itemSignature": "0dd66f9b8166bf8b3b09",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32073,10 +32073,10 @@
               ]
             },
             {
-              "prompt": "先比較 36 和 32 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 32 的因數：1、2、4、8、16、32 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 36 和 39 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 39 的因數：1、3、13、39 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "439bd2bf05bbdf8f38e6",
-              "itemSignature": "834351814e72b319b6b8",
+              "promptHash": "e1cf29bb29ca103d3ae1",
+              "itemSignature": "aff9eb539dfcc6fa950f",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32114,10 +32114,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 60 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 60 的因數：1、2、3、4、5、6、10、12、15、20、30、60 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 52 和 56 的完整因數集合。 甲數 52 的因數：1、2、4、13、26、52 乙數 56 的因數：1、2、4、7、8、14、28、56 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "497382496157c68c65b3",
-              "itemSignature": "357faddfe947a52b04d0",
+              "promptHash": "53f93b9b49c852dbe018",
+              "itemSignature": "7b44d3cf24aded49f0fd",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32155,10 +32155,10 @@
               ]
             },
             {
-              "prompt": "先比較 80 和 72 的完整因數集合。 甲數 80 的因數：1、2、4、5、8、10、16、20、40、80 乙數 72 的因數：1、2、3、4、6、8、9、12、18、24、36、72 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 70 和 75 的完整因數集合。 甲數 70 的因數：1、2、5、7、10、14、35、70 乙數 75 的因數：1、3、5、15、25、75 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "117b071c6992ecf69552",
-              "itemSignature": "ec0f055375b952cce667",
+              "promptHash": "05ef78441e64cdd564e3",
+              "itemSignature": "17f0a0a310be67fd84aa",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32314,10 +32314,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "先比較 27 和 36 的完整因數集合。 甲數 27 的因數：1、3、9、27 乙數 36 的因數：1、2、3、4、6、9、12、18、36 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 6561 和 6570 的完整因數集合。 甲數 6561 的因數：1、3、9、27、81、243、729、2187、6561 乙數 6570 的因數：1、2、3、5、6、9、10、15、18、30、45、73、90、146、219、365、438、657、730、1095、1314、2190、3285、6570 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "fc4b63cd91217422c978",
-              "itemSignature": "28e70cd53d8227913091",
+              "promptHash": "e671e9119cdb1212c8cd",
+              "itemSignature": "85bd81bf7384c012ed15",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32355,10 +32355,10 @@
               ]
             },
             {
-              "prompt": "先比較 10 和 8 的完整因數集合。 甲數 10 的因數：1、2、5、10 乙數 8 的因數：1、2、4、8 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 7300 和 7310 的完整因數集合。 甲數 7300 的因數：1、2、4、5、10、20、25、50、73、100、146、292、365、730、1460、1825、3650、7300 乙數 7310 的因數：1、2、5、10、17、34、43、85、86、170、215、430、731、1462、3655、7310 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "937f86d251e827d2e27e",
-              "itemSignature": "ab242dee4dbb3cb511c7",
+              "promptHash": "5a618cb3b5114c19bd24",
+              "itemSignature": "c310cbed24352da1b856",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32396,10 +32396,10 @@
               ]
             },
             {
-              "prompt": "先比較 16 和 24 的完整因數集合。 甲數 16 的因數：1、2、4、8、16 乙數 24 的因數：1、2、3、4、6、8、12、24 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 1462 和 1464 的完整因數集合。 甲數 1462 的因數：1、2、17、34、43、86、731、1462 乙數 1464 的因數：1、2、3、4、6、8、12、24、61、122、183、244、366、488、732、1464 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "8080a4505a49dcf2a839",
-              "itemSignature": "2a7ddd534deb58e18f31",
+              "promptHash": "5fbf6e3d0e1c6d82bdd6",
+              "itemSignature": "72e6726a9f705a9b0279",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32437,10 +32437,10 @@
               ]
             },
             {
-              "prompt": "先比較 36 和 30 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 30 的因數：1、2、3、5、6、10、15、30 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 2196 和 2199 的完整因數集合。 甲數 2196 的因數：1、2、3、4、6、9、12、18、36、61、122、183、244、366、549、732、1098、2196 乙數 2199 的因數：1、3、733、2199 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "5fd7ad8ea7e1b055ba16",
-              "itemSignature": "5a1c71356ff08d76eee8",
+              "promptHash": "8d41affbaf95b5e645ba",
+              "itemSignature": "69a546b89554eed2370f",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32478,10 +32478,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 64 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 64 的因數：1、2、4、8、16、32、64 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 2932 和 2936 的完整因數集合。 甲數 2932 的因數：1、2、4、733、1466、2932 乙數 2936 的因數：1、2、4、8、367、734、1468、2936 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "fa38f6315bc8d00382c4",
-              "itemSignature": "2e529da2c88e145d01f4",
+              "promptHash": "a26d294817897ec5d43a",
+              "itemSignature": "97fd4fa1fad72628cf73",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32637,10 +32637,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "先比較 81 和 54 的完整因數集合。 甲數 81 的因數：1、3、9、27、81 乙數 54 的因數：1、2、3、6、9、18、27、54 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 9100 和 9110 的完整因數集合。 甲數 9100 的因數：1、2、4、5、7、10、13、14、20、25、26、28、35、50、52、65、70、91、100、130、140、175、182、260、325、350、364、455、650、700、910、1300、1820、2275、4550、9100 乙數 9110 的因數：1、2、5、10、911、1822、4555、9110 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "7d58a32b69c6827eda49",
-              "itemSignature": "fef03b9041a2d601b25c",
+              "promptHash": "65ee790e4f48088770a4",
+              "itemSignature": "c22a2d3ce1516d95c78f",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32678,10 +32678,10 @@
               ]
             },
             {
-              "prompt": "先比較 14 和 16 的完整因數集合。 甲數 14 的因數：1、2、7、14 乙數 16 的因數：1、2、4、8、16 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 22 和 24 的完整因數集合。 甲數 22 的因數：1、2、11、22 乙數 24 的因數：1、2、3、4、6、8、12、24 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "2cf28b2e6724baf369ee",
-              "itemSignature": "80c95713835e6184ce67",
+              "promptHash": "f98d8236768d377af3ac",
+              "itemSignature": "0dd66f9b8166bf8b3b09",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32719,10 +32719,10 @@
               ]
             },
             {
-              "prompt": "先比較 36 和 32 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 32 的因數：1、2、4、8、16、32 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 36 和 39 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 39 的因數：1、3、13、39 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "439bd2bf05bbdf8f38e6",
-              "itemSignature": "834351814e72b319b6b8",
+              "promptHash": "e1cf29bb29ca103d3ae1",
+              "itemSignature": "aff9eb539dfcc6fa950f",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32760,10 +32760,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 60 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 60 的因數：1、2、3、4、5、6、10、12、15、20、30、60 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 52 和 56 的完整因數集合。 甲數 52 的因數：1、2、4、13、26、52 乙數 56 的因數：1、2、4、7、8、14、28、56 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "497382496157c68c65b3",
-              "itemSignature": "357faddfe947a52b04d0",
+              "promptHash": "53f93b9b49c852dbe018",
+              "itemSignature": "7b44d3cf24aded49f0fd",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32801,10 +32801,10 @@
               ]
             },
             {
-              "prompt": "先比較 80 和 72 的完整因數集合。 甲數 80 的因數：1、2、4、5、8、10、16、20、40、80 乙數 72 的因數：1、2、3、4、6、8、9、12、18、24、36、72 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 70 和 75 的完整因數集合。 甲數 70 的因數：1、2、5、7、10、14、35、70 乙數 75 的因數：1、3、5、15、25、75 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "117b071c6992ecf69552",
-              "itemSignature": "ec0f055375b952cce667",
+              "promptHash": "05ef78441e64cdd564e3",
+              "itemSignature": "17f0a0a310be67fd84aa",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -32993,10 +32993,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "先比較 27 和 36 的完整因數集合。 甲數 27 的因數：1、3、9、27 乙數 36 的因數：1、2、3、4、6、9、12、18、36 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 6561 和 6570 的完整因數集合。 甲數 6561 的因數：1、3、9、27、81、243、729、2187、6561 乙數 6570 的因數：1、2、3、5、6、9、10、15、18、30、45、73、90、146、219、365、438、657、730、1095、1314、2190、3285、6570 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "e15be60d2959d4440747",
-              "itemSignature": "abfda352fbda4feddc73",
+              "promptHash": "93cd9c5e51dcd5e822c2",
+              "itemSignature": "276843281ee91dcfe3c8",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33034,10 +33034,10 @@
               ]
             },
             {
-              "prompt": "先比較 10 和 8 的完整因數集合。 甲數 10 的因數：1、2、5、10 乙數 8 的因數：1、2、4、8 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 7300 和 7310 的完整因數集合。 甲數 7300 的因數：1、2、4、5、10、20、25、50、73、100、146、292、365、730、1460、1825、3650、7300 乙數 7310 的因數：1、2、5、10、17、34、43、85、86、170、215、430、731、1462、3655、7310 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "50b26bb7197f460640d0",
-              "itemSignature": "9c7919396315c6ebe360",
+              "promptHash": "0763fbbc4f9cec84a9cc",
+              "itemSignature": "e03e929069013ba8511a",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33075,10 +33075,10 @@
               ]
             },
             {
-              "prompt": "先比較 16 和 24 的完整因數集合。 甲數 16 的因數：1、2、4、8、16 乙數 24 的因數：1、2、3、4、6、8、12、24 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 1462 和 1464 的完整因數集合。 甲數 1462 的因數：1、2、17、34、43、86、731、1462 乙數 1464 的因數：1、2、3、4、6、8、12、24、61、122、183、244、366、488、732、1464 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "6105e9956984609280d9",
-              "itemSignature": "49333a4cbe0543636257",
+              "promptHash": "de1d82717c4d7af95de3",
+              "itemSignature": "0e5219a193639e94a93a",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33116,10 +33116,10 @@
               ]
             },
             {
-              "prompt": "先比較 36 和 30 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 30 的因數：1、2、3、5、6、10、15、30 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 2196 和 2199 的完整因數集合。 甲數 2196 的因數：1、2、3、4、6、9、12、18、36、61、122、183、244、366、549、732、1098、2196 乙數 2199 的因數：1、3、733、2199 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "c8411805bf7b4d5031c8",
-              "itemSignature": "57356475aadc97b57098",
+              "promptHash": "a4b0ecf522b2f6809f97",
+              "itemSignature": "f061111de4f8da51ce83",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33157,10 +33157,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 64 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 64 的因數：1、2、4、8、16、32、64 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 2932 和 2936 的完整因數集合。 甲數 2932 的因數：1、2、4、733、1466、2932 乙數 2936 的因數：1、2、4、8、367、734、1468、2936 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "f2e698c1010e7e9207be",
-              "itemSignature": "2460247ce945bfe4a5ad",
+              "promptHash": "c487cccf9da2ac7ae3ae",
+              "itemSignature": "034d7848ebf4b8a1c195",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33316,10 +33316,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "先比較 81 和 54 的完整因數集合。 甲數 81 的因數：1、3、9、27、81 乙數 54 的因數：1、2、3、6、9、18、27、54 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 9100 和 9110 的完整因數集合。 甲數 9100 的因數：1、2、4、5、7、10、13、14、20、25、26、28、35、50、52、65、70、91、100、130、140、175、182、260、325、350、364、455、650、700、910、1300、1820、2275、4550、9100 乙數 9110 的因數：1、2、5、10、911、1822、4555、9110 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "01277495296265dd456f",
-              "itemSignature": "ad070f0d2a440bd6e57f",
+              "promptHash": "74e9755d2204ecdcc03c",
+              "itemSignature": "cee7b6067d0293d9622e",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33357,10 +33357,10 @@
               ]
             },
             {
-              "prompt": "先比較 14 和 16 的完整因數集合。 甲數 14 的因數：1、2、7、14 乙數 16 的因數：1、2、4、8、16 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 22 和 24 的完整因數集合。 甲數 22 的因數：1、2、11、22 乙數 24 的因數：1、2、3、4、6、8、12、24 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "cc35a7fb3df69dfd2b1b",
-              "itemSignature": "f87e38ceb47542a1ac8d",
+              "promptHash": "80418253328bb8ab48c7",
+              "itemSignature": "da38b2496781ec28f4bd",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33398,10 +33398,10 @@
               ]
             },
             {
-              "prompt": "先比較 36 和 32 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 32 的因數：1、2、4、8、16、32 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 36 和 39 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 39 的因數：1、3、13、39 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "b7559f69c8462c1fc858",
-              "itemSignature": "0e23327a261a32b7fd59",
+              "promptHash": "aeca941b486de72b512e",
+              "itemSignature": "e6f6fb2fa5c242c1b5e8",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33439,10 +33439,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 60 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 60 的因數：1、2、3、4、5、6、10、12、15、20、30、60 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 52 和 56 的完整因數集合。 甲數 52 的因數：1、2、4、13、26、52 乙數 56 的因數：1、2、4、7、8、14、28、56 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "240c5d7e2a251090187d",
-              "itemSignature": "6cc4c280401d0a37e2b5",
+              "promptHash": "cc8cde434de2849f5238",
+              "itemSignature": "5281e66c9b8a5a15a21e",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33480,10 +33480,10 @@
               ]
             },
             {
-              "prompt": "先比較 80 和 72 的完整因數集合。 甲數 80 的因數：1、2、4、5、8、10、16、20、40、80 乙數 72 的因數：1、2、3、4、6、8、9、12、18、24、36、72 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 70 和 75 的完整因數集合。 甲數 70 的因數：1、2、5、7、10、14、35、70 乙數 75 的因數：1、3、5、15、25、75 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "f75ad89807cf682a5bf3",
-              "itemSignature": "8593774de430ed01bd50",
+              "promptHash": "85fc6cdc61ae8aa131f8",
+              "itemSignature": "e8f4b990860a0b97efec",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33639,10 +33639,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "先比較 27 和 36 的完整因數集合。 甲數 27 的因數：1、3、9、27 乙數 36 的因數：1、2、3、4、6、9、12、18、36 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 6561 和 6570 的完整因數集合。 甲數 6561 的因數：1、3、9、27、81、243、729、2187、6561 乙數 6570 的因數：1、2、3、5、6、9、10、15、18、30、45、73、90、146、219、365、438、657、730、1095、1314、2190、3285、6570 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "e15be60d2959d4440747",
-              "itemSignature": "abfda352fbda4feddc73",
+              "promptHash": "93cd9c5e51dcd5e822c2",
+              "itemSignature": "276843281ee91dcfe3c8",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33680,10 +33680,10 @@
               ]
             },
             {
-              "prompt": "先比較 10 和 8 的完整因數集合。 甲數 10 的因數：1、2、5、10 乙數 8 的因數：1、2、4、8 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 7300 和 7310 的完整因數集合。 甲數 7300 的因數：1、2、4、5、10、20、25、50、73、100、146、292、365、730、1460、1825、3650、7300 乙數 7310 的因數：1、2、5、10、17、34、43、85、86、170、215、430、731、1462、3655、7310 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "50b26bb7197f460640d0",
-              "itemSignature": "9c7919396315c6ebe360",
+              "promptHash": "0763fbbc4f9cec84a9cc",
+              "itemSignature": "e03e929069013ba8511a",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33721,10 +33721,10 @@
               ]
             },
             {
-              "prompt": "先比較 16 和 24 的完整因數集合。 甲數 16 的因數：1、2、4、8、16 乙數 24 的因數：1、2、3、4、6、8、12、24 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 1462 和 1464 的完整因數集合。 甲數 1462 的因數：1、2、17、34、43、86、731、1462 乙數 1464 的因數：1、2、3、4、6、8、12、24、61、122、183、244、366、488、732、1464 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "6105e9956984609280d9",
-              "itemSignature": "49333a4cbe0543636257",
+              "promptHash": "de1d82717c4d7af95de3",
+              "itemSignature": "0e5219a193639e94a93a",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33762,10 +33762,10 @@
               ]
             },
             {
-              "prompt": "先比較 36 和 30 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 30 的因數：1、2、3、5、6、10、15、30 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 2196 和 2199 的完整因數集合。 甲數 2196 的因數：1、2、3、4、6、9、12、18、36、61、122、183、244、366、549、732、1098、2196 乙數 2199 的因數：1、3、733、2199 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "c8411805bf7b4d5031c8",
-              "itemSignature": "57356475aadc97b57098",
+              "promptHash": "a4b0ecf522b2f6809f97",
+              "itemSignature": "f061111de4f8da51ce83",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33803,10 +33803,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 64 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 64 的因數：1、2、4、8、16、32、64 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 2932 和 2936 的完整因數集合。 甲數 2932 的因數：1、2、4、733、1466、2932 乙數 2936 的因數：1、2、4、8、367、734、1468、2936 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "f2e698c1010e7e9207be",
-              "itemSignature": "2460247ce945bfe4a5ad",
+              "promptHash": "c487cccf9da2ac7ae3ae",
+              "itemSignature": "034d7848ebf4b8a1c195",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -33962,10 +33962,10 @@
           },
           "itemSamples": [
             {
-              "prompt": "先比較 81 和 54 的完整因數集合。 甲數 81 的因數：1、3、9、27、81 乙數 54 的因數：1、2、3、6、9、18、27、54 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 9100 和 9110 的完整因數集合。 甲數 9100 的因數：1、2、4、5、7、10、13、14、20、25、26、28、35、50、52、65、70、91、100、130、140、175、182、260、325、350、364、455、650、700、910、1300、1820、2275、4550、9100 乙數 9110 的因數：1、2、5、10、911、1822、4555、9110 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "01277495296265dd456f",
-              "itemSignature": "ad070f0d2a440bd6e57f",
+              "promptHash": "74e9755d2204ecdcc03c",
+              "itemSignature": "cee7b6067d0293d9622e",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -34003,10 +34003,10 @@
               ]
             },
             {
-              "prompt": "先比較 14 和 16 的完整因數集合。 甲數 14 的因數：1、2、7、14 乙數 16 的因數：1、2、4、8、16 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 22 和 24 的完整因數集合。 甲數 22 的因數：1、2、11、22 乙數 24 的因數：1、2、3、4、6、8、12、24 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "cc35a7fb3df69dfd2b1b",
-              "itemSignature": "f87e38ceb47542a1ac8d",
+              "promptHash": "80418253328bb8ab48c7",
+              "itemSignature": "da38b2496781ec28f4bd",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -34044,10 +34044,10 @@
               ]
             },
             {
-              "prompt": "先比較 36 和 32 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 32 的因數：1、2、4、8、16、32 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 36 和 39 的完整因數集合。 甲數 36 的因數：1、2、3、4、6、9、12、18、36 乙數 39 的因數：1、3、13、39 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "b7559f69c8462c1fc858",
-              "itemSignature": "0e23327a261a32b7fd59",
+              "promptHash": "aeca941b486de72b512e",
+              "itemSignature": "e6f6fb2fa5c242c1b5e8",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -34085,10 +34085,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 60 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 60 的因數：1、2、3、4、5、6、10、12、15、20、30、60 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 52 和 56 的完整因數集合。 甲數 52 的因數：1、2、4、13、26、52 乙數 56 的因數：1、2、4、7、8、14、28、56 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "240c5d7e2a251090187d",
-              "itemSignature": "6cc4c280401d0a37e2b5",
+              "promptHash": "cc8cde434de2849f5238",
+              "itemSignature": "5281e66c9b8a5a15a21e",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -34126,10 +34126,10 @@
               ]
             },
             {
-              "prompt": "先比較 80 和 72 的完整因數集合。 甲數 80 的因數：1、2、4、5、8、10、16、20、40、80 乙數 72 的因數：1、2、3、4、6、8、9、12、18、24、36、72 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
+              "prompt": "先比較 70 和 75 的完整因數集合。 甲數 70 的因數：1、2、5、7、10、14、35、70 乙數 75 的因數：1、3、5、15、25、75 公因數（兩個因數集合的交集）：________________ 最大公因數（公因數中的最大值）：________________",
               "answer": "",
-              "promptHash": "f75ad89807cf682a5bf3",
-              "itemSignature": "8593774de430ed01bd50",
+              "promptHash": "85fc6cdc61ae8aa131f8",
+              "itemSignature": "e8f4b990860a0b97efec",
               "patternSpecId": "ps_g5a_u02_greatest_common_factor",
               "knowledgePointIds": [
                 "kp_g5a_u02_greatest_common_factor"
@@ -35905,10 +35905,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 64 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 64 的因數：1、2、4、8、16、32、64 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 2932 和 2936 的完整因數集合。 甲數 2932 的因數：1、2、4、733、1466、2932 乙數 2936 的因數：1、2、4、8、367、734、1468、2936 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "fa38f6315bc8d00382c4",
-              "itemSignature": "2e529da2c88e145d01f4",
+              "promptHash": "a26d294817897ec5d43a",
+              "itemSignature": "97fd4fa1fad72628cf73",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -36237,10 +36237,10 @@
               ]
             },
             {
-              "prompt": "先比較 80 和 72 的完整因數集合。 甲數 80 的因數：1、2、4、5、8、10、16、20、40、80 乙數 72 的因數：1、2、3、4、6、8、9、12、18、24、36、72 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 70 和 75 的完整因數集合。 甲數 70 的因數：1、2、5、7、10、14、35、70 乙數 75 的因數：1、3、5、15、25、75 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "117b071c6992ecf69552",
-              "itemSignature": "ec0f055375b952cce667",
+              "promptHash": "05ef78441e64cdd564e3",
+              "itemSignature": "17f0a0a310be67fd84aa",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -36569,10 +36569,10 @@
               ]
             },
             {
-              "prompt": "先比較 48 和 64 的完整因數集合。 甲數 48 的因數：1、2、3、4、6、8、12、16、24、48 乙數 64 的因數：1、2、4、8、16、32、64 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 2932 和 2936 的完整因數集合。 甲數 2932 的因數：1、2、4、733、1466、2932 乙數 2936 的因數：1、2、4、8、367、734、1468、2936 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "fa38f6315bc8d00382c4",
-              "itemSignature": "2e529da2c88e145d01f4",
+              "promptHash": "a26d294817897ec5d43a",
+              "itemSignature": "97fd4fa1fad72628cf73",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
@@ -36901,10 +36901,10 @@
               ]
             },
             {
-              "prompt": "先比較 80 和 72 的完整因數集合。 甲數 80 的因數：1、2、4、5、8、10、16、20、40、80 乙數 72 的因數：1、2、3、4、6、8、9、12、18、24、36、72 公因數（兩個因數集合的交集）：________________",
+              "prompt": "先比較 70 和 75 的完整因數集合。 甲數 70 的因數：1、2、5、7、10、14、35、70 乙數 75 的因數：1、3、5、15、25、75 公因數（兩個因數集合的交集）：________________",
               "answer": "",
-              "promptHash": "117b071c6992ecf69552",
-              "itemSignature": "ec0f055375b952cce667",
+              "promptHash": "05ef78441e64cdd564e3",
+              "itemSignature": "17f0a0a310be67fd84aa",
               "patternSpecId": "ps_g5a_u02_common_factor_enumeration",
               "knowledgePointIds": [
                 "kp_g5a_u02_common_factor_enumeration"
