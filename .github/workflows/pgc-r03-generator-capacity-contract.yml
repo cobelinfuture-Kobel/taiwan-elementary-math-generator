@@ -1,0 +1,73 @@
+name: PGC-R03 Public Generator Capacity Contract
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/materialize-pgc-r03-generator-capacity-contract.mjs"
+      - "tests/curriculum/pgc-r03-generator-capacity-contract.test.js"
+      - "data/curriculum/public-generation/generator_capacity_contract.json"
+      - "data/curriculum/public-generation/route_capacity_matrix.csv"
+      - "data/curriculum/public-generation/cross_seed_diversity_report.csv"
+      - "docs/curriculum/output/PGC-R03_capacity_mismatch_report.md"
+      - ".github/workflows/pgc-r03-generator-capacity-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r03-generator-capacity-contract
+  cancel-in-progress: true
+
+jobs:
+  capacity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout R03 branch
+        uses: actions/checkout@v4
+        with:
+          ref: pgc-r03-generator-capacity-contract
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Materialize full capacity evidence fail-closed
+        continue-on-error: true
+        run: node tools/curriculum/materialize-pgc-r03-generator-capacity-contract.mjs
+
+      - name: Commit deterministic capacity artifacts before acceptance
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/generator_capacity_contract.json \
+            data/curriculum/public-generation/route_capacity_matrix.csv \
+            data/curriculum/public-generation/cross_seed_diversity_report.csv \
+            docs/curriculum/output/PGC-R03_capacity_mismatch_report.md
+          if git diff --cached --quiet; then
+            echo "R03 capacity artifacts already synchronized."
+          else
+            git commit -m "data(pgc-r03): materialize generator capacity evidence [skip ci]"
+            git fetch origin pgc-r03-generator-capacity-contract
+            git rebase origin/pgc-r03-generator-capacity-contract
+            git push origin HEAD:pgc-r03-generator-capacity-contract
+          fi
+
+      - name: Focused R03 acceptance
+        run: node --test tests/curriculum/pgc-r03-generator-capacity-contract.test.js
+
+      - name: Upload capacity diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r03-generator-capacity-contract
+          path: |
+            data/curriculum/public-generation/generator_capacity_contract.json
+            data/curriculum/public-generation/route_capacity_matrix.csv
+            data/curriculum/public-generation/cross_seed_diversity_report.csv
+            docs/curriculum/output/PGC-R03_capacity_mismatch_report.md
+          if-no-files-found: warn
