@@ -32,7 +32,7 @@ export function applyPgcR04SeedParameterizationPatch() {
   return null;
 }`,
 `function pairFor(specId, sequenceNumber, seed) {
-  const shifted = sequenceNumber + (hashSeed(`${seed ?? "default"}:${specId}:pair`) % 10000);
+  const shifted = sequenceNumber + (hashSeed(String(seed ?? "default") + ":" + specId + ":pair") % 10000);
   if (specId === "ps_g3a_u03_2digit_by_1digit_carry") return [10 + ((shifted * 17) % 90), 2 + ((shifted * 5) % 8)];
   if (specId === "ps_g3a_u03_10_multiple_by_1digit") return [10 * (1 + ((shifted - 1) % 9)), 2 + ((shifted * 3) % 8)];
   if (specId === "ps_g3a_u03_3digit_by_1digit") return [100 + ((shifted * 137) % 900), 2 + ((shifted * 5) % 8)];
@@ -44,7 +44,7 @@ export function applyPgcR04SeedParameterizationPatch() {
 `function makeMissingQuestion(sequenceNumber) {
   const row = missingRows[(sequenceNumber - 1) % missingRows.length];`,
 `function makeMissingQuestion(sequenceNumber, seed) {
-  const offset = hashSeed(`${seed ?? "default"}:${missingInferenceSpecId}:missing`) % missingRows.length;
+  const offset = hashSeed(String(seed ?? "default") + ":" + missingInferenceSpecId + ":missing") % missingRows.length;
   const row = missingRows[(offset + sequenceNumber - 1) % missingRows.length];`
     ],
     [
@@ -72,7 +72,7 @@ export function applyPgcR04SeedParameterizationPatch() {
 `function hashSeed(value) { let acc = 2166136261; for (const char of String(value ?? "default")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619) >>> 0; } return acc || 1; }
 function modelFor(sequenceNumber, seed) {
   const index = Math.max(1, Number.isInteger(sequenceNumber) ? sequenceNumber : 1) - 1;
-  const offset = hashSeed(`${seed ?? "default"}:${G3A_U06_REMAINDER_SPEC_ID}`) % TWO_DIGIT_REMAINDER_MODELS.length;
+  const offset = hashSeed(String(seed ?? "default") + ":" + G3A_U06_REMAINDER_SPEC_ID) % TWO_DIGIT_REMAINDER_MODELS.length;
   return TWO_DIGIT_REMAINDER_MODELS[(offset + index) % TWO_DIGIT_REMAINDER_MODELS.length];
 }`
     ],
@@ -90,7 +90,7 @@ export function makeQuotativeDivisionPackagingQuestion(sequenceNumber = 1) {
 `export const G3A_U06_EQUAL_SHARING_SPEC_ID = "ps_g3a_u06_partitive_division_equal_sharing";
 
 function hashSeed(value) { let acc = 2166136261; for (const char of String(value ?? "default")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619) >>> 0; } return acc || 1; }
-function shiftedSequence(sequenceNumber, seed, channel) { return sequenceNumber + (hashSeed(`${seed ?? "default"}:${channel}`) % 10000); }
+function shiftedSequence(sequenceNumber, seed, channel) { return sequenceNumber + (hashSeed(String(seed ?? "default") + ":" + channel) % 10000); }
 
 export function makeQuotativeDivisionPackagingQuestion(sequenceNumber = 1, seed = "default") {
   const shifted = shiftedSequence(sequenceNumber, seed, G3A_U06_PACKAGING_SPEC_ID);
@@ -117,7 +117,7 @@ export function makeQuotativeDivisionPackagingQuestion(sequenceNumber = 1, seed 
 `function hashSeed(value) { let acc = 2166136261; for (const char of String(value ?? "default")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619) >>> 0; } return acc || 1; }
 function buildParityModel(sequenceNumber, seed) {
   const baseIndex = Math.max(1, Number.isInteger(sequenceNumber) ? sequenceNumber : 1) - 1;
-  const index = baseIndex + (hashSeed(`${seed ?? "default"}:${G3A_U06_PARITY_SPEC_ID}`) % 162);`
+  const index = baseIndex + (hashSeed(String(seed ?? "default") + ":" + G3A_U06_PARITY_SPEC_ID) % 162);`
     ],
     ["export function makeParityRangeMissingDigitQuestion(sequenceNumber = 1) {\n  const model = buildParityModel(sequenceNumber);", "export function makeParityRangeMissingDigitQuestion(sequenceNumber = 1, seed = \"default\") {\n  const model = buildParityModel(sequenceNumber, seed);"],
     ["makeParityRangeMissingDigitQuestion(index + 1)", "makeParityRangeMissingDigitQuestion(index + 1, options.generationSeed)"],
@@ -164,9 +164,9 @@ function buildParityModel(sequenceNumber, seed) {
       for (let commonFactor = 2; commonFactor <= 12; commonFactor += 1) {
         const numerator = simplestNumerator * commonFactor;
         const denominator = simplestDenominator * commonFactor;
-        rows.push({ patternSpecId: COMMON_FACTOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: `${numerator}/${denominator} 約成最簡分數時，分子和分母同除的最大公因數是多少？` });
-        rows.push({ patternSpecId: SIMPLEST_NUMERATOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: `${numerator}/${denominator} 約成最簡分數後，分子是多少？` });
-        rows.push({ patternSpecId: SIMPLEST_DENOMINATOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: `${numerator}/${denominator} 約成最簡分數後，分母是多少？` });
+        rows.push({ patternSpecId: COMMON_FACTOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: numerator + "/" + denominator + " 約成最簡分數時，分子和分母同除的最大公因數是多少？" });
+        rows.push({ patternSpecId: SIMPLEST_NUMERATOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: numerator + "/" + denominator + " 約成最簡分數後，分子是多少？" });
+        rows.push({ patternSpecId: SIMPLEST_DENOMINATOR_SPEC, numerator, denominator, commonFactor, simplestNumerator, simplestDenominator, promptText: numerator + "/" + denominator + " 約成最簡分數後，分母是多少？" });
       }
     }
   }
