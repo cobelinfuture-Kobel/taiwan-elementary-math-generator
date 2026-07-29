@@ -3,8 +3,8 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice013Implementation
-STATUS     = PASS_RUNTIME_CONNECTED_PENDING_CHROMIUM_VISUAL_CI
-EVIDENCE   = E4_RUNTIME_CONNECTED
+STATUS     = PASS_D0_REVIEWED_PENDING_FINAL_EXACT_HEAD_CI
+EVIDENCE   = E5_REVIEWED_PRODUCT_ARTIFACTS
 ```
 
 ## Queue identity
@@ -14,7 +14,9 @@ QUEUE_POSITION = 13
 SLICE_ID = p03e_q013_r6_g5a_u04_5a04_profile_fraction_c1
 PREDECESSOR = p03e_q012_r6_g4b_u08_4b08_profile_fraction_c1
 SOURCE = g5a_u04_5a04
-KNOWLEDGE_POINT = kp_g5a_u04_expand_reduce_simplest
+KNOWLEDGE_POINTS =
+- kp_g5a_u04_expand_reduce_simplest
+- kp_g5a_u04_quotient_as_fraction_context
 PROFILE = profile_fraction
 RANK = 6
 ```
@@ -23,50 +25,78 @@ RANK = 6
 
 ```text
 Authority = complete
-FormalMapping = complete
-PatternGroups = 1
-PatternSpecs = 3
+FormalMappings = 2
+PatternGroups = 3
+PatternSpecs = 5
+Numeric PatternSpecs = 4
+Application PatternSpecs = 1
 Shared generator = connected
 Shared validator = connected
 Fraction number system = connected
 Fraction domain validator = connected
-Fraction arithmetic = connected
-Application classification = NOT_APPLICABLE
-Global Context binding = NOT_APPLICABLE
-Public source = candidate visible
-Public selector = candidate visible
-Pixel current surface = candidate visible
-Numeric worksheet = connected
-Answer key = connected
-HTML renderer input = connected
-Chromium acceptance workflow = ready
+Fraction arithmetic = connected through quotient DIVIDE witness
+Application classification = mixed NOT_APPLICABLE + REQUIRED
+Existing W02 Global Context binding = consumed
 Global Context expansion = false
+Public source count = 26
+Public G5A-U04 visible KP count = 2
+Classic selector = visible
+Pixel current surface = visible
+Numeric worksheet paths = 2
+Application worksheet path = 1
+Answer key = connected
+HTML renderer = connected
 Parallel pipeline = false
 ```
 
-## Fail-close state
+## Product acceptance
 
 ```text
-Chromium PDF = pending
-Visual review = pending
-Artifact hashes = pending
-Full Node regression = pending
-Required CI = pending
+Question witnesses = 9
+Answer key witnesses = 9
+PatternSpec coverage = 5 / 5
+KnowledgePoint coverage = 2 / 2
+Question pages = 1
+Answer key pages = 1
+Physical PDF pages = 2
+Overflow findings = 0
+Duplicate prompt findings = 0
+Semantic scope findings = 0
+Console errors = 0
+Page errors = 0
+Visual clipping findings = 0
+Visual overlap findings = 0
+Broken glyph findings = 0
+HTML SHA256 = d1613cda70b636c59295410c1bc1fb4eb2bc5d2f7528cfd34551b83f71206a91
+Committed PDF SHA256 = a7f06d3ab30263b25d2603110e7fc9fe5b38720f87fce1c9e7bab0b4fdf6c969
+Visual review = PASS_OPERATOR_VISUAL_AND_SEMANTIC_REVIEW
+```
+
+## Current gate
+
+```text
+Chromium PDF = PASS
+Visual review = PASS
+Artifact hashes = PASS
+Current-surface reconciliation = PASS
+Final exact-head Node = pending
+Final exact-head Slice013 Chromium = pending
 PR merge = pending
-Production admission = false
-queuePositionConsumed = 12
-cumulativeW3Admissions = 14
-remainingW3Slices = 41
-remainingDirectW3KPs = 68
+Post-merge E6 closeout = pending
+Production admission evidence = present, pending exact-head CI and merge
+queuePositionConsumed = 13
+cumulativeW3Admissions = 16
+remainingW3Slices = 40
+remainingDirectW3KPs = 66
 ```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE012_E6_D0_COMPLETE
-GOAL_DISTANCE_AFTER  = D1_SLICE013_E4_RUNTIME_CONNECTED
-DISTANCE_REDUCED     = Slice013 now has exact queue/source/PatternSpec authority, three fraction capabilities, a public G5A-U04 source candidate and a bounded numeric worksheet path without application or Global Context expansion.
-REMAINING_BLOCKERS   = [FULL_REGRESSION, CHROMIUM_PDF, VISUAL_REVIEW, ARTIFACT_HASHES, REQUIRED_CI, PR_MERGE, POST_MERGE_E6_CLOSEOUT]
-NEXT_SHORTEST_STEP   = P03F13_RegressionChromiumArtifactVisualReviewAndD0Closeout
+GOAL_DISTANCE_AFTER  = D1_SLICE013_D0_REVIEWED_PENDING_EXACT_HEAD_CI
+DISTANCE_REDUCED     = Frozen queue position 13 now materializes both G5A-U04 KnowledgePoints, five PatternSpecs, true fraction DIVIDE evidence, existing W02 application-context lineage, and reviewed two-page worksheet artifacts through the shared product pipeline.
+REMAINING_BLOCKERS   = [FINAL_EXACT_HEAD_NODE, FINAL_EXACT_HEAD_SLICE013_CHROMIUM, PR_MERGE, POST_MERGE_E6_CLOSEOUT]
+NEXT_SHORTEST_STEP   = P03F13_FinalExactHeadCI_PRMergeAndE6Closeout
 STOP_REASON          = NONE
 ```
