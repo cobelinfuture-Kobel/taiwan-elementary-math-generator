@@ -33,7 +33,7 @@ test("PGC-R05 capacity reconciliation closes all 211 legal application routes wi
 
   const retainedQualityRoutes = routes.filter((route) => route.qualityStatus !== "DIVERSE_PARAMETER_GENERATOR");
   const qualityUpgradedRoutes = routes.filter((route) => route.reconciliationCodes.includes("PGC_R05_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"));
-  assert.ok(retainedQualityRoutes.length > 0);
+  assert.equal(retainedQualityRoutes.length, 2);
   assert.ok(qualityUpgradedRoutes.length > 0);
   assert.equal(retainedQualityRoutes.every((route) => route.downstreamGapCodes.includes("CROSS_SEED_ITEM_DIVERSITY_DEFICIENT")), true);
 
@@ -51,12 +51,14 @@ test("PGC-R05 capacity reconciliation closes all 211 legal application routes wi
 
 test("PGC-R05 reconciliation synchronizes all public-surface application binding limits", () => {
   const contract = readJson(contractPath);
+  const report = readJson(reportPath);
   const appRouteIds = new Set(legalApplicationRoutes(contract).map((route) => route.routeId));
   const bindings = contract.historicalBindingEvidence.filter((binding) => binding.routeIds.some((routeId) => appRouteIds.has(routeId)));
   assert.ok(bindings.length > 0);
   assert.equal(bindings.every((binding) => binding.availableRouteCount > 0), true);
   assert.equal(bindings.every((binding) => binding.minimumVerifiedQuestionCount === 20), true);
   assert.equal(bindings.every((binding) => binding.maximumVerifiedQuestionCount === 20), true);
+  assert.equal(report.changedBindingIds.length, 135);
   assert.equal(contract.summary.currentVerified20BindingCount + contract.summary.currentLimitedBindingCount, contract.summary.currentLegalBindingCount);
   assert.equal(contract.summary.currentUnverifiedCapacityExposureCount, 0);
 });
@@ -70,7 +72,7 @@ test("PGC-R05 final diagnostics and closeout readback are capacity D0 with expli
   assert.equal(diagnostics.summary.illegalApplicationRouteCount, 90);
   assert.equal(diagnostics.summary.contractVerified20RouteCount, 211);
   assert.equal(diagnostics.summary.contractLimitedRouteCount, 0);
-  assert.ok(diagnostics.summary.contractQualityGapRouteCount > 0);
+  assert.equal(diagnostics.summary.contractQualityGapRouteCount, 2);
   assert.equal(diagnostics.summary.live20PassRouteCount, 211);
   assert.equal(diagnostics.summary.live20FailRouteCount, 0);
   assert.equal(diagnostics.summary.repairRouteCount, 0);
@@ -79,14 +81,28 @@ test("PGC-R05 final diagnostics and closeout readback are capacity D0 with expli
   assert.deepEqual(diagnostics.summary.liveFailureRouteCountBySource, {});
   assert.equal(diagnostics.routes.filter((route) => route.accepted20AcrossSeeds).length, 211);
   assert.equal(diagnostics.routes.filter((route) => route.requiresRepair).length, 0);
-  assert.equal(diagnostics.routes.filter((route) => route.retainedQualityGapCodes.length > 0).length, diagnostics.summary.contractQualityGapRouteCount);
+  assert.equal(diagnostics.routes.filter((route) => route.retainedQualityGapCodes.length > 0).length, 2);
 
   assert.equal(report.status, CLOSEOUT_STATUS);
+  assert.deepEqual(report.applicationBefore, {
+    routeCount: 301,
+    legalRouteCount: 211,
+    illegalRouteCount: 90,
+    verified20RouteCount: 128,
+    verifiedLimitedRouteCount: 79,
+    zeroCapacityRouteCount: 4,
+    diversityGapRouteCount: 21,
+  });
+  assert.deepEqual(report.applicationAfter, {
+    routeCount: 301,
+    legalRouteCount: 211,
+    illegalRouteCount: 90,
+    verified20RouteCount: 211,
+    verifiedLimitedRouteCount: 0,
+    zeroCapacityRouteCount: 0,
+    diversityGapRouteCount: 2,
+  });
   assert.equal(report.reconciledRouteIds.length, 211);
-  assert.equal(report.applicationAfter.verified20RouteCount, 211);
-  assert.equal(report.applicationAfter.verifiedLimitedRouteCount, 0);
-  assert.equal(report.applicationAfter.zeroCapacityRouteCount, 0);
-  assert.equal(report.applicationAfter.diversityGapRouteCount, diagnostics.summary.contractQualityGapRouteCount);
   assert.equal(report.nextShortestStep, "PGC-R06_ReasoningMixedPBLGenerationConformance");
   const readback = fs.readFileSync(readbackPath, "utf8");
   assert.match(readback, new RegExp(`STATUS\\s+= ${CLOSEOUT_STATUS}`));
