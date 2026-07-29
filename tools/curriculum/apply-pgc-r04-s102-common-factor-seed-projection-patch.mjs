@@ -9,8 +9,7 @@ const bundlePath = path.join(repoRoot, "site/modules/curriculum/batch-b/g5a-u02-
 
 const SOURCE_MARKER_V1 = "PGC_R04_COMMON_FACTOR_SEED_PROJECTION";
 const SOURCE_MARKER_V2 = "PGC_R04_COMMON_FACTOR_SEED_PROJECTION_V2";
-const BUNDLE_MARKER_V1 = "pgc_r04_common_factor_seed_projection";
-const BUNDLE_MARKER_V2 = "pgc_r04_common_factor_seed_projection_v2";
+const GENERATED_BUNDLE_BANNER = "/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */";
 
 function writeIfChanged(filePath, before, after) {
   if (after === before) return false;
@@ -126,43 +125,12 @@ function patchCanonicalCaller() {
   return writeIfChanged(callerPath, before, source);
 }
 
-function patchBrowserBundle() {
-  const before = fs.readFileSync(bundlePath, "utf8");
-  let source = before;
-
-  if (!source.includes(`generationProjectionStatus:"${BUNDLE_MARKER_V1}`)) {
-    const functionPattern = /function Vt\(e,t\)\{if\(!E\(e\)\)return null;let n=li\(t\),r=\{a:n\.a,b:n\.b,factorSetA:ae\(n\.factorSetA\),factorSetB:ae\(n\.factorSetB\),commonFactors:ae\(n\.commonFactors\),greatestCommonFactor:n\.greatestCommonFactor,samplingProfileId:n\.samplingProfileId\};return y\(e==="ps_g5a_u02_common_factor_enumeration"\?\{prompt:`[^`]*`,data:\{\.\.\.r,semanticRole:"parallel_factor_sets_with_intersection"\},answer:\{values:ae\(n\.commonFactors\)\}\}:\{prompt:`[^`]*`,data:\{\.\.\.r,semanticRole:"common_factor_set_with_gcf"\},answer:\{commonFactors:ae\(n\.commonFactors\),greatestCommonFactor:n\.greatestCommonFactor\}\}\)\}/;
-    const matched = source.match(functionPattern);
-    if (!matched) throw new Error("PGC_R04_S102_BUNDLE_GENERATOR_ANCHOR_MISSING");
-    const replacement = `function Vt(e,t,n=1){if(!E(e))return null;let r=Math.max(1,Number.isInteger(n)?n:1),i=(r-1)%90,o=2+i%9,a=101+2*i,s=a+1,_=o*a,c=o*s,u=Y(_),p=Y(c),g=qt(u,p),m={a:_,b:c,factorSetA:ae(u),factorSetB:ae(p),commonFactors:ae(g),greatestCommonFactor:g.at(-1),samplingProfileId:"nontrivial_common_factor_pair_v1",generationProjectionStatus:"${BUNDLE_MARKER_V2}"};return y(e==="ps_g5a_u02_common_factor_enumeration"?{prompt:\`先列出 \${_} 和 \${c} 的完整因數集合，再利用交集找出所有公因數。\`,data:{...m,semanticRole:"parallel_factor_sets_with_intersection"},answer:{values:ae(g)}}:{prompt:\`先列出 \${_} 和 \${c} 的完整因數集合與所有公因數，再由公因數集合找出最大公因數。\`,data:{...m,semanticRole:"common_factor_set_with_gcf"},answer:{commonFactors:ae(g),greatestCommonFactor:g.at(-1)}})}`;
-    source = source.replace(functionPattern, replacement);
-  } else {
-    source = source.replace(
-      "i=(r-1)%900,o=2+i%9,a=11+i,s=a+1",
-      "i=(r-1)%90,o=2+i%9,a=101+2*i,s=a+1",
-    );
-    source = source.replaceAll(
-      `generationProjectionStatus:"${BUNDLE_MARKER_V1}"`,
-      `generationProjectionStatus:"${BUNDLE_MARKER_V2}"`,
-    );
+function verifyGeneratedBrowserBundle() {
+  const source = fs.readFileSync(bundlePath, "utf8");
+  if (!source.startsWith(GENERATED_BUNDLE_BANNER)) {
+    throw new Error("PGC_R04_S102_GENERATED_BUNDLE_BANNER_MISSING");
   }
-
-  source = source.replace(
-    "function Di(e,t={}){let n=t.seed??1;return Ge(e,t,Vt(e,Pe(n)),",
-    "function Di(e,t={}){let n=t.seed??1;return Ge(e,t,Vt(e,Pe(n),n),",
-  );
-
-  const required = [
-    "function Vt(e,t,n=1){",
-    BUNDLE_MARKER_V2,
-    "Vt(e,Pe(n),n)",
-    "i=(r-1)%90",
-    "a=101+2*i",
-  ];
-  for (const marker of required) {
-    if (!source.includes(marker)) throw new Error(`PGC_R04_S102_BUNDLE_PATCH_INCOMPLETE:${marker}`);
-  }
-  return writeIfChanged(bundlePath, before, source);
+  return false;
 }
 
 export function applyPgcR04S102CommonFactorSeedProjectionPatch() {
@@ -170,7 +138,7 @@ export function applyPgcR04S102CommonFactorSeedProjectionPatch() {
     status: "PASS_PGC_R04_S102_COMMON_FACTOR_SEED_PROJECTION_V2_PATCHED",
     sourceChanged: patchCanonicalSource(),
     callerChanged: patchCanonicalCaller(),
-    bundleChanged: patchBrowserBundle(),
+    bundleChanged: verifyGeneratedBrowserBundle(),
     invariant: Object.freeze({
       slotCapacity: 90,
       allSlotsInjective: true,
@@ -179,6 +147,7 @@ export function applyPgcR04S102CommonFactorSeedProjectionPatch() {
       maximumOperand: 2800,
       validatorContractChanged: false,
       secondGeneratorAdded: false,
+      generatedBundleEditedDirectly: false,
     }),
   });
   console.log(`PGC_R04_S102_SEED_PATCH=${JSON.stringify(result)}`);
