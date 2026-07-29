@@ -9,12 +9,12 @@ STATUS     = PASS_DIAGNOSTIC_EVIDENCE_MATERIALIZED
 ## Baseline
 
 ```text
-NUMERIC_LIKE_ROUTES       = 195
-LEGAL_NUMERIC_LIKE_ROUTES = 193
-VERIFIED_20_ROUTES        = 124
-LIMITED_ROUTES            = 69
-QUALITY_GAP_ROUTES        = 40
-DIAGNOSED_GAP_ROUTES      = 81
+NUMERIC_LIKE_ROUTES        = 195
+LEGAL_NUMERIC_LIKE_ROUTES  = 193
+VERIFIED_20_ROUTES         = 124
+LIMITED_ROUTES             = 69
+QUALITY_GAP_ROUTES         = 40
+DIAGNOSED_GAP_ROUTES       = 81
 ```
 
 ## Gap ownership
@@ -48,13 +48,24 @@ DIAGNOSED_GAP_ROUTES      = 81
 | `g4b_u01_4b01` | 1 |
 | `g4b_u04_4b04` | 1 |
 
+## Final validation checkpoint
+
+```text
+ROUND_3_DIAGNOSTIC_ROUTES = 81
+ROUND_3_PASS_20_ROUTES     = 65
+ROUND_3_REMAINING_ROUTES   = 16
+FINAL_PRODUCER_FIX_HEAD    = 14ed2f3b23b0a92cfb76b950c063c24a26f54066
+FINAL_VALIDATION_STATUS    = PENDING_CI
+```
+
+The final producer patch covers the remaining G3A-U03 multiplication pools, G3B-U04 consecutive multiplication, G4A-U01 boundary-difference surfaces, G4B-U04 approximation-symbol capacity, G5A-U03 factor/multiple and common-multiple parameter spaces, G6A-U01 LCM parameterization, and G3A-U08 unit-fraction accumulation. The R04 workflow must re-materialize all 81 original diagnostic routes and fail closed unless every legal numeric-like route can generate twenty validated, prompt-unique questions for the required seeds.
+
 ## Next step
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_CAPACITY_AWARE_PUBLIC_ROUTES_CONFORMANT
-GOAL_DISTANCE_AFTER  = D1_NUMERIC_RUNTIME_GAPS_SOURCE_LOCATED
-DISTANCE_REDUCED     = every limited or low-diversity numeric-like route now has reproducible runtime item, error, projection and lineage evidence
-REMAINING_BLOCKERS   = [NUMERIC_CAPACITY_BELOW_20, NUMERIC_FIXTURE_SELECTOR, NUMERIC_BOUNDED_DIVERSITY]
-NEXT_SHORTEST_STEP   = PGC-R04_SharedNumericGeneratorAndAllocatorFullFix
+GOAL_DISTANCE_BEFORE = D1_NUMERIC_RUNTIME_GAPS_SOURCE_LOCATED
+GOAL_DISTANCE_AFTER  = D1_FINAL_NUMERIC_PRODUCER_FIX_PENDING_CI
+DISTANCE_REDUCED     = 65 of 81 diagnosed numeric gaps are already verified at twenty questions; the final sixteen producer routes now have targeted FullFixes
+REMAINING_BLOCKERS   = [FINAL_R04_CI_AND_FULL_REGRESSION]
+NEXT_SHORTEST_STEP   = PGC-R04_FinalFocusedAndFullRegressionAcceptance
 ```
-
