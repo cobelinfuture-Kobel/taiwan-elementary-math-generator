@@ -6,17 +6,27 @@ on:
       - "tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs"
       - "tools/curriculum/patch-pgc-r04-g3a-u03-seed-diversity.mjs"
       - "tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs"
+      - "tools/curriculum/patch-pgc-r04-g3a-u06-seed-diversity.mjs"
+      - "tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs"
       - "site/modules/curriculum/batch-a/g3a-u03-quality-generator.js"
+      - "site/modules/curriculum/batch-a/g3a-u06-division-generator.js"
       - "tests/curriculum/pgc-r04-numeric-gap-inventory.test.js"
       - "tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js"
+      - "tests/curriculum/pgc-r04-g3a-u06-diversity-fullfix.test.js"
       - "tests/curriculum/batch-a/g3a-u03-quality-fix.test.js"
       - "tests/curriculum/batch-a/g3a-u03-shuffle-dedup.test.js"
       - "tests/curriculum/batch-a/g3a-u03-supplementary-kp.test.js"
+      - "tests/curriculum/g3a-u06-division-kp-generator.test.js"
+      - "tests/curriculum/g3a-u06-mixed-ordering.test.js"
+      - "tests/curriculum/g3a-u06-new-kp-selector-registry.test.js"
+      - "tests/curriculum/g3a-u06-six-kp-worksheet.test.js"
       - "data/curriculum/public-generation/numeric_generation_gap_inventory.json"
       - "data/curriculum/public-generation/numeric_generation_gap_inventory.csv"
       - "data/curriculum/public-generation/r04_g3a_u03_diversity_acceptance.json"
+      - "data/curriculum/public-generation/r04_g3a_u06_diversity_acceptance.json"
       - "docs/curriculum/output/PGC-R04_numeric_generation_gap_inventory.md"
       - "docs/curriculum/output/PGC-R04-A01_G3A_U03_diversity_acceptance.md"
+      - "docs/curriculum/output/PGC-R04-A02_G3A_U06_diversity_acceptance.md"
       - ".github/workflows/pgc-r04-numeric-gap-inventory.yml"
   workflow_dispatch:
 
@@ -48,17 +58,23 @@ jobs:
           node --check tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs
           node --check tools/curriculum/patch-pgc-r04-g3a-u03-seed-diversity.mjs
           node --check tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs
+          node --check tools/curriculum/patch-pgc-r04-g3a-u06-seed-diversity.mjs
+          node --check tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs
 
-      - name: Apply G3A-U03 deterministic seed-diversity FullFix
-        run: node tools/curriculum/patch-pgc-r04-g3a-u03-seed-diversity.mjs
+      - name: Apply deterministic seed-diversity FullFixes
+        run: |
+          node tools/curriculum/patch-pgc-r04-g3a-u03-seed-diversity.mjs
+          node tools/curriculum/patch-pgc-r04-g3a-u06-seed-diversity.mjs
 
       - name: Materialize frozen numeric gap inventory fail-closed
         continue-on-error: true
         run: node tools/curriculum/materialize-pgc-r04-numeric-gap-inventory.mjs
 
-      - name: Materialize G3A-U03 ten-seed diversity acceptance fail-closed
+      - name: Materialize G3A-U03 and G3A-U06 diversity acceptance fail-closed
         continue-on-error: true
-        run: node tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs
+        run: |
+          node tools/curriculum/materialize-pgc-r04-g3a-u03-diversity-acceptance.mjs
+          node tools/curriculum/materialize-pgc-r04-g3a-u06-diversity-acceptance.mjs
 
       - name: Commit deterministic R04 code and artifacts before acceptance
         run: |
@@ -66,28 +82,36 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             site/modules/curriculum/batch-a/g3a-u03-quality-generator.js \
+            site/modules/curriculum/batch-a/g3a-u06-division-generator.js \
             data/curriculum/public-generation/numeric_generation_gap_inventory.json \
             data/curriculum/public-generation/numeric_generation_gap_inventory.csv \
             data/curriculum/public-generation/r04_g3a_u03_diversity_acceptance.json \
+            data/curriculum/public-generation/r04_g3a_u06_diversity_acceptance.json \
             docs/curriculum/output/PGC-R04_numeric_generation_gap_inventory.md \
-            docs/curriculum/output/PGC-R04-A01_G3A_U03_diversity_acceptance.md
+            docs/curriculum/output/PGC-R04-A01_G3A_U03_diversity_acceptance.md \
+            docs/curriculum/output/PGC-R04-A02_G3A_U06_diversity_acceptance.md
           if git diff --cached --quiet; then
             echo "R04 code and artifacts already synchronized."
           else
-            git commit -m "fix(pgc-r04): diversify G3A-U03 numeric generation [skip ci]"
+            git commit -m "fix(pgc-r04): diversify G3A-U03 and G3A-U06 numeric generation [skip ci]"
             git fetch origin pgc-r04-numeric-generation-fullfix
             git rebase origin/pgc-r04-numeric-generation-fullfix
             git push origin HEAD:pgc-r04-numeric-generation-fullfix
           fi
 
-      - name: Focused R04 A00 and A01 acceptance
+      - name: Focused R04 A00 through A02 acceptance
         run: |
           node --test \
             tests/curriculum/pgc-r04-numeric-gap-inventory.test.js \
             tests/curriculum/pgc-r04-g3a-u03-diversity-fullfix.test.js \
+            tests/curriculum/pgc-r04-g3a-u06-diversity-fullfix.test.js \
             tests/curriculum/batch-a/g3a-u03-quality-fix.test.js \
             tests/curriculum/batch-a/g3a-u03-shuffle-dedup.test.js \
-            tests/curriculum/batch-a/g3a-u03-supplementary-kp.test.js
+            tests/curriculum/batch-a/g3a-u03-supplementary-kp.test.js \
+            tests/curriculum/g3a-u06-division-kp-generator.test.js \
+            tests/curriculum/g3a-u06-mixed-ordering.test.js \
+            tests/curriculum/g3a-u06-new-kp-selector-registry.test.js \
+            tests/curriculum/g3a-u06-six-kp-worksheet.test.js
 
       - name: Upload R04 diagnostics
         if: always()
@@ -98,6 +122,8 @@ jobs:
             data/curriculum/public-generation/numeric_generation_gap_inventory.json
             data/curriculum/public-generation/numeric_generation_gap_inventory.csv
             data/curriculum/public-generation/r04_g3a_u03_diversity_acceptance.json
+            data/curriculum/public-generation/r04_g3a_u06_diversity_acceptance.json
             docs/curriculum/output/PGC-R04_numeric_generation_gap_inventory.md
             docs/curriculum/output/PGC-R04-A01_G3A_U03_diversity_acceptance.md
+            docs/curriculum/output/PGC-R04-A02_G3A_U06_diversity_acceptance.md
           if-no-files-found: error
