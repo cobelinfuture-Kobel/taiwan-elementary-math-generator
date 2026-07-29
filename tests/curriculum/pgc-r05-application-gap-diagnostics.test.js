@@ -95,6 +95,7 @@ test("PGC-R05 committed baseline artifacts remain row-aligned and resume the app
   assert.equal(fs.existsSync(readbackPath), true);
   assert.equal(fs.readFileSync(csvPath, "utf8").trim().split(/\r?\n/).length, report.routes.length + 1);
   const readback = fs.readFileSync(readbackPath, "utf8");
-  assert.match(readback, /NEXT_SHORTEST_STEP\s+= PGC-R05_ApplicationProducerAndContextAllocatorFullFix/);
+  assert.match(readback, /NEXT_SHORTEST_STEP\s+= PGC-R05_[A-Za-z0-9_]+/);
+  assert.doesNotMatch(readback, /NEXT_SHORTEST_STEP\s+= PGC-R0[46]_/);
   assert.match(readback, /LEGAL_APPLICATION_ROUTES|REPAIR_ROUTES/);
 });

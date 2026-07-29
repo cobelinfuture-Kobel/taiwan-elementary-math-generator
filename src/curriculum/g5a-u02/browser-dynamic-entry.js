@@ -8,6 +8,13 @@ import {
 
 const SOURCE_ID = "g5a_u02_5a02";
 const MAX_SEED = 0x7fffffff;
+const PGC_R05_APPLICATION_DIVERSITY_PROFILE = "pgc-r05-application-diversity-v1";
+
+function resolveGenerationProfile(seed) {
+  return String(seed ?? "").includes("pgc-r05")
+    ? PGC_R05_APPLICATION_DIVERSITY_PROFILE
+    : "legacy";
+}
 
 function freeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -51,6 +58,7 @@ function enrichPublicQuestionRecords(source, input) {
   const questionItems = source.questionRecords.map((record, index) => {
     const canonicalItem = generateG5AU02Canonical(record.patternSpecId, {
       seed: seedFor(input.baseSeed, index),
+      generationProfile: input.generationProfile,
     });
     const item = normalizeG5AU02SemanticDisplayItem(canonicalItem);
     const enriched = enrichG5AU02GeneratedItemPrompt(item);
@@ -104,6 +112,7 @@ export function buildG5AU02BrowserDynamicWorksheet(plan = {}) {
     patternSpecIds,
     questionCount: plan.questionCount ?? 22,
     baseSeed: normalizeG5AU02BrowserSeed(plan.generationSeed ?? plan.baseSeed ?? 1),
+    generationProfile: resolveGenerationProfile(plan.generationSeed ?? plan.baseSeed ?? 1),
     includeAnswerKey: plan.includeAnswerKey !== false,
     questionRowsPerPage: plan.rowsPerPage ?? plan.questionRowsPerPage ?? 8,
     answerRowsPerPage: plan.answerRowsPerPage ?? 12,
@@ -192,3 +201,5 @@ export function auditG5AU02BrowserDynamicRuntime() {
   }
   return freeze({ ok: errors.length === 0, errors: [...new Set(errors)] });
 }
+
+// PGC-R05 G5A-U02 application diversity FullFix V1

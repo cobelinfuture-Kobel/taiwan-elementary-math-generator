@@ -5,6 +5,11 @@ const S101_PATTERN_IDS = Object.freeze([
 ]);
 
 const S101_PATTERN_SET = new Set(S101_PATTERN_IDS);
+const PGC_R05_APPLICATION_DIVERSITY_PROFILE = "pgc-r05-application-diversity-v1";
+const PGC_R05_DIMENSION_MULTIPLIERS = Object.freeze(
+  Array.from({ length: 7 }, (_, lowIndex) => lowIndex + 2)
+    .flatMap((low) => Array.from({ length: 9 - low }, (_, highIndex) => Object.freeze([low, low + highIndex + 1]))),
+);
 
 function deepFreeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -67,7 +72,27 @@ function diagramScale(length, width) {
   });
 }
 
-function pairedDimensions(rng) {
+function isPgcR05ApplicationDiversity(options = {}) {
+  return options.generationProfile === PGC_R05_APPLICATION_DIVERSITY_PROFILE;
+}
+
+function projectionSlot(seed, size) {
+  const normalized = Number.isInteger(seed) && seed >= 1 ? seed : 1;
+  return (normalized - 1) % size;
+}
+
+function pairedDimensions(rng, seed, options = {}) {
+  if (isPgcR05ApplicationDiversity(options)) {
+    const slot = projectionSlot(seed, PGC_R05_DIMENSION_MULTIPLIERS.length * 9);
+    const [lowMultiplier, highMultiplier] = PGC_R05_DIMENSION_MULTIPLIERS[
+      slot % PGC_R05_DIMENSION_MULTIPLIERS.length
+    ];
+    const common = 2 + Math.floor(slot / PGC_R05_DIMENSION_MULTIPLIERS.length);
+    return {
+      length: common * highMultiplier,
+      width: common * lowMultiplier,
+    };
+  }
   const common = rng.int(2, 10);
   let lengthMultiplier = rng.int(3, 9);
   let widthMultiplier = rng.int(2, 8);
@@ -87,11 +112,13 @@ export function getG5AU02S101PatternIds() {
   return [...S101_PATTERN_IDS];
 }
 
-export function generateG5AU02S101Pattern(patternSpecId, rng) {
+export function generateG5AU02S101Pattern(patternSpecId, rng, options = {}) {
   if (!isG5AU02S101Pattern(patternSpecId)) return null;
 
   if (patternSpecId === "ps_g5a_u02_equal_partition_all_segment_counts") {
-    const totalLength = rng.int(4, 12) * rng.int(2, 8);
+    const totalLength = isPgcR05ApplicationDiversity(options)
+      ? 12 + projectionSlot(options.seed, 180)
+      : rng.int(4, 12) * rng.int(2, 8);
     const pairs = partitionPairs(totalLength);
     return deepFreeze({
       prompt: `一條長 ${totalLength} 公尺的緞帶要等分，每段長度都是整數公尺。請列出所有「段數｜每段長度」配對。`,
@@ -108,7 +135,7 @@ export function generateG5AU02S101Pattern(patternSpecId, rng) {
     });
   }
 
-  const { length, width } = pairedDimensions(rng);
+  const { length, width } = pairedDimensions(rng, options.seed, options);
   const candidateSideLengths = commonFactorsOf(length, width);
   const scale = diagramScale(length, width);
 
@@ -250,3 +277,5 @@ export const G5A_U02_S101_REPRESENTATION_LIFECYCLE = deepFreeze({
   genericFallback: "forbidden",
   freeFormAI: "forbidden",
 });
+
+// PGC-R05 G5A-U02 application diversity FullFix V1

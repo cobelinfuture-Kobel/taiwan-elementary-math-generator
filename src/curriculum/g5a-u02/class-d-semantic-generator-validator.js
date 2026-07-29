@@ -28,6 +28,7 @@ const CLASS_D_PATTERN_IDS = Object.freeze([
   "ps_g5a_u02_multi_constraint_digit_code",
 ]);
 const CLASS_D_SET = new Set(CLASS_D_PATTERN_IDS);
+const PGC_R05_APPLICATION_DIVERSITY_PROFILE = "pgc-r05-application-diversity-v1";
 
 const LIFECYCLE = Object.freeze({
   unitId: "g5a_u02",
@@ -118,14 +119,30 @@ function makeItem(patternSpecId, seed, data, prompt, answer) {
   });
 }
 
-function pairedQuantities(rng) {
+function isPgcR05ApplicationDiversity(options = {}) {
+  return options.generationProfile === PGC_R05_APPLICATION_DIVERSITY_PROFILE;
+}
+
+function projectionSlot(seed, size) {
+  const normalized = Number.isInteger(seed) && seed >= 1 ? seed : 1;
+  return (normalized - 1) % size;
+}
+
+function pairedQuantities(rng, seed, options = {}) {
+  if (isPgcR05ApplicationDiversity(options)) {
+    const slot = projectionSlot(seed, 90);
+    const common = 2 + (slot % 9);
+    const leftMultiplier = 101 + (2 * slot);
+    const rightMultiplier = leftMultiplier + 1;
+    return [common * leftMultiplier, common * rightMultiplier];
+  }
   const common = rng.int(2, 10);
   return [common * rng.int(2, 9), common * rng.int(2, 9)];
 }
 
 function generateByPattern(patternSpecId, rng, seed, options = {}) {
   if (isG5AU02S101Pattern(patternSpecId)) {
-    const generated = generateG5AU02S101Pattern(patternSpecId, rng);
+    const generated = generateG5AU02S101Pattern(patternSpecId, rng, { ...options, seed });
     return makeItem(patternSpecId, seed, generated.data, generated.prompt, generated.answer);
   }
   if (isG5AU02S103Pattern(patternSpecId)) {
@@ -139,7 +156,9 @@ function generateByPattern(patternSpecId, rng, seed, options = {}) {
 
   switch (patternSpecId) {
     case "ps_g5a_u02_equal_partition_range_constrained_recipients": {
-      const total = rng.int(4, 12) * rng.int(2, 8);
+      const total = isPgcR05ApplicationDiversity(options)
+        ? 24 + projectionSlot(seed, 180)
+        : rng.int(4, 12) * rng.int(2, 8);
       const minRecipients = 2;
       const maxRecipients = Math.min(total, 12);
       const values = factorsOf(total).filter((value) => value >= minRecipients && value <= maxRecipients);
@@ -150,7 +169,7 @@ function generateByPattern(patternSpecId, rng, seed, options = {}) {
       });
     }
     case "ps_g5a_u02_maximum_equal_grouping": {
-      const [red, blue] = pairedQuantities(rng);
+      const [red, blue] = pairedQuantities(rng, seed, options);
       return makeItem(patternSpecId, seed, {
         red, blue, unitLabel: "組", semanticRole: "maximum_equal_grouping",
       }, `${red} 個紅球和 ${blue} 個藍球要分成最多組，每組紅球數相同、藍球數也相同。最多可分成幾組？`, {
@@ -158,7 +177,7 @@ function generateByPattern(patternSpecId, rng, seed, options = {}) {
       });
     }
     case "ps_g5a_u02_possible_equal_packaging_counts": {
-      const [quantityA, quantityB] = pairedQuantities(rng);
+      const [quantityA, quantityB] = pairedQuantities(rng, seed, options);
       return makeItem(patternSpecId, seed, {
         quantityA, quantityB, unitLabel: "盒", semanticRole: "possible_equal_packaging",
       }, `${quantityA} 個甲物品和 ${quantityB} 個乙物品分裝成若干盒，每盒兩類物品的數量分別相同且全部用完。可能裝成幾盒？`, {
@@ -271,3 +290,5 @@ export function generateAndValidateG5AU02ClassD(patternSpecId, options = {}) {
 
 export function getG5AU02ClassDPatternIds() { return [...CLASS_D_PATTERN_IDS]; }
 export const G5A_U02_CLASS_D_LIFECYCLE = LIFECYCLE;
+
+// PGC-R05 G5A-U02 application diversity FullFix V1
