@@ -1,0 +1,23 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+
+import { validateP03FSlice013ProductAdmission } from "../../tools/curriculum/validate-p03f-slice013-product-admission.mjs";
+
+test("P03F13 is D0 after reviewed Chromium artifacts", () => {
+  const result = validateP03FSlice013ProductAdmission();
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0");
+  assert.equal(result.d0Complete, true);
+  assert.equal(result.metrics.queuePosition, 13);
+  assert.equal(result.metrics.knowledgePointCount, 2);
+  assert.equal(result.metrics.patternSpecCount, 5);
+  assert.equal(result.metrics.applicationPatternSpecCount, 1);
+  assert.equal(result.metrics.globalContextBindingCount, 1);
+  assert.equal(result.metrics.requiredCapabilityCount, 3);
+  assert.equal(result.metrics.questionWitnessCount, 9);
+  assert.equal(result.metrics.answerKeyWitnessCount, 9);
+  assert.equal(result.metrics.newProductAdmissionCount, 2);
+  assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 16);
+  assert.equal(result.metrics.remainingDirectSliceCount, 40);
+  assert.equal(result.metrics.remainingDirectKnowledgePointCount, 66);
+});

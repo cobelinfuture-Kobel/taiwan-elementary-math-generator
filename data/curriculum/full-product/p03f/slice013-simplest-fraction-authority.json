@@ -1,0 +1,106 @@
+{
+  "schemaName": "P03FSlice013TwoKnowledgePointAuthorityV2",
+  "schemaVersion": 2,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice013Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 13,
+    "sliceId": "p03e_q013_r6_g5a_u04_5a04_profile_fraction_c1",
+    "previousSliceId": "p03e_q012_r6_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g5a_u04_5a04",
+    "sourceCode": "5a04",
+    "sourceTitle": "擴分約分通分",
+    "grade": 5,
+    "semester": "upper",
+    "unitCode": "5A-U04",
+    "evidencePages": [1],
+    "canonicalOperationAuthorityPath": "data/curriculum/application/operations/w02/g5a_u04_5a04.canonical-operation.json",
+    "hiddenPatternSpecAuthorityPath": "data/curriculum/application/pattern-specs/w02/g5a_u04_5a04.hidden-pattern-spec.json",
+    "atomicContextCandidateAuthority": "data/curriculum/application/assessment/w02-atomic-context-single-application-candidate-pack-index.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_HIDDEN_PATTERNSPEC_AND_W02_CONTEXT_AUTHORITY_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u04_expand_reduce_simplest",
+      "canonicalNameZh": "擴分、約分與最簡分數",
+      "scope": "以最大公因數同除分子與分母，保持分數值不變並得到互質的最簡分數。",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "reasoningInvariant": "分子與分母同除其最大公因數，分數值不變，所得分子與分母互質。",
+      "requiredCapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"],
+      "tagIds": ["grade_5", "domain_fraction", "concept_fraction_equivalence", "operation_fraction_reduction", "relation_greatest_common_factor", "representation_fraction", "answer_missing_integer", "exact_rational_identity"]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u04_quotient_as_fraction_context",
+      "canonicalNameZh": "整數相除與平均分配的分數商",
+      "scope": "將正整數相除或平均分配結果，以最簡分數精確表示每份量。",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "reasoningInvariant": "每份量等於總量除以接受者數，整數除法的精確商以最簡分數表示。",
+      "requiredCapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+      "tagIds": ["grade_5", "domain_fraction", "concept_quotient_as_fraction", "operation_fraction_division", "relation_equal_sharing", "representation_fraction", "answer_reduced_fraction", "exact_rational_identity"]
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g5a_u04_expand_reduce_simplest",
+      "knowledgePointId": "kp_g5a_u04_expand_reduce_simplest",
+      "operationModelId": "op_g5a_u04_expand_reduce_simplest",
+      "operationFamilyId": "simplify_fraction",
+      "canonicalExpressions": ["commonFactor = gcd(numerator, denominator)", "simplestNumerator = numerator / commonFactor", "simplestDenominator = denominator / commonFactor"],
+      "operandRoles": {"numerator": "原分數分子", "denominator": "原分數分母", "commonFactor": "最大公因數", "simplestNumerator": "最簡分子", "simplestDenominator": "最簡分母"},
+      "numberConstraints": ["numerator and denominator are positive integers", "denominator is greater than one", "commonFactor is the greatest common divisor", "simplest numerator and denominator are coprime"],
+      "validationInvariants": ["numerator * simplestDenominator equals simplestNumerator * denominator", "gcd(simplestNumerator, simplestDenominator) equals one", "requested answer equals the requested canonical role"]
+    },
+    {
+      "formalMappingId": "fm_g5a_u04_quotient_as_fraction_context",
+      "knowledgePointId": "kp_g5a_u04_quotient_as_fraction_context",
+      "operationModelId": "op_g5a_u04_quotient_as_fraction_context",
+      "operationFamilyId": "quotient_fraction_context",
+      "canonicalExpressions": ["sharePerRecipient = totalQuantity / recipientCount"],
+      "operandRoles": {"totalQuantity": "待平均分配的總量", "recipientCount": "接受者或分組數", "sharePerRecipient": "每份分數量"},
+      "numberConstraints": ["totalQuantity is a positive integer", "recipientCount is an integer greater than one", "sharePerRecipient is reduced exactly"],
+      "validationInvariants": ["sharePerRecipient * recipientCount equals totalQuantity", "fraction answer is reduced", "application context preserves equal-sharing semantics"]
+    }
+  ],
+  "patternSurface": {
+    "patternGroupIds": ["pg_g5a_u04_expand_reduce_simplest_numeric", "pg_g5a_u04_quotient_as_fraction_context_numeric", "pg_g5a_u04_quotient_as_fraction_context_application"],
+    "patternSpecIds": [
+      "ps_g5a_u04_expand_reduce_simplest_common_factor_numeric",
+      "ps_g5a_u04_expand_reduce_simplest_simplest_numerator_numeric",
+      "ps_g5a_u04_expand_reduce_simplest_simplest_denominator_numeric",
+      "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
+      "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
+    ],
+    "numericPatternSpecCount": 4,
+    "applicationPatternSpecCount": 1,
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "applicationContext": {
+    "bindingCandidateId": "w02_bind_ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+    "itemCandidateId": "w02_item_ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application",
+    "macroContextId": "gctx_macro_food_agriculture",
+    "mesoSituationId": "gctx_meso_agriculture_production",
+    "microScenarioId": "gctx_micro_crop_batch_plan",
+    "atomicEpisodeId": "gctx_episode_crop_batch_plan_direct_quantity",
+    "surfaceTemplateId": "tpl_fusion_agriculture_production_direct_01",
+    "semanticClosure": "農業生產批次中的平均資源配置；總量 ÷ 分組數 = 每份分數量。"
+  },
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "numericModeAllowed": true,
+    "applicationModeAllowed": true,
+    "existingW02GlobalContextBindingRequired": true,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "otherG5AU04KnowledgePointsExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}
