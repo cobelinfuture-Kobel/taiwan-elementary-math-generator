@@ -61,8 +61,8 @@ test("PGC-R04 allocator is deterministic for the same seed and differs across se
   const different = applyPgcR04NumericUniqueAllocation(mockGenerator, { ...input, generationSeed: "seed-b" });
   assert.deepEqual(first.questions, replay.questions);
   assert.notDeepEqual(
-    first.questions.map((question) => question.id),
-    different.questions.map((question) => question.id),
+    first.questions.map((question) => question.blankedDisplayText),
+    different.questions.map((question) => question.blankedDisplayText),
   );
 });
 
