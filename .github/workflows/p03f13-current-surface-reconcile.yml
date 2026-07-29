@@ -1,0 +1,103 @@
+name: P03F13 Current Surface Reconcile
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.head_ref == 'p03f-w3-direct-product-vertical-slice013-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - name: Reconcile monotonic current surface and Slice013 D0 assertions
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          test_files = [
+              Path('tests/curriculum/p03f-slice003-quotient-fraction.test.js'),
+              Path('tests/curriculum/p03f-slice004-tenth-decimal.test.js'),
+              Path('tests/curriculum/p03f-slice005-equivalent-fraction.test.js'),
+              Path('tests/curriculum/p03f-slice006-same-denominator-compare.test.js'),
+              Path('tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js'),
+              Path('tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js'),
+              Path('tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js'),
+              Path('tests/curriculum/p03f-slice010-hundredth-decimal.test.js'),
+              Path('tests/curriculum/p03f-slice011-decimal-multiplication.test.js'),
+          ]
+          total_assertions = 0
+          for path in test_files:
+              text = path.read_text(encoding='utf-8')
+              original = text
+              replacements = {
+                  '25 sources': '26 sources',
+                  'retains 25 sources': 'retains 26 sources',
+                  'expose 25 sources': 'expose 26 sources',
+                  'exposes 25 sources': 'exposes 26 sources',
+                  'assert.equal(sources.length, 25);': 'assert.equal(sources.length, 26);',
+                  'assert.equal(snapshot.sourceCount, 25);': 'assert.equal(snapshot.sourceCount, 26);',
+                  'assert.equal(listCurrentPixelSourceOptions().length, 25);': 'assert.equal(listCurrentPixelSourceOptions().length, 26);',
+                  'assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 25);': 'assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 26);',
+              }
+              for old, new in replacements.items():
+                  count = text.count(old)
+                  if 'assert.equal' in old:
+                      total_assertions += count
+                  text = text.replace(old, new)
+              if text == original:
+                  raise SystemExit(f'NO_CURRENT_SURFACE_CHANGE:{path}')
+              path.write_text(text, encoding='utf-8')
+
+          if total_assertions < 11:
+              raise SystemExit(f'CURRENT_SURFACE_ASSERTION_COUNT_TOO_LOW:{total_assertions}')
+
+          for path in [
+              Path('tools/curriculum/validate-p03f-slice011-product-admission.mjs'),
+              Path('tools/curriculum/validate-p03f-slice012-product-admission.mjs'),
+          ]:
+              text = path.read_text(encoding='utf-8')
+              original = text
+              text = text.replace('pixelSources.length !== 25', 'pixelSources.length !== 26')
+              text = text.replace('pixelSnapshot.sourceCount !== 25', 'pixelSnapshot.sourceCount !== 26')
+              if text == original:
+                  raise SystemExit(f'NO_PRODUCT_VALIDATOR_CHANGE:{path}')
+              path.write_text(text, encoding='utf-8')
+
+          path = Path('tests/curriculum/p03f-slice013-product-admission.test.js')
+          text = path.read_text(encoding='utf-8')
+          replacements = {
+              'test("P03F13 remains fail closed before reviewed Chromium artifacts"': 'test("P03F13 is D0 after reviewed Chromium artifacts"',
+              '"RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE"': '"PRODUCTION_ADMITTED_D0"',
+              'assert.equal(result.d0Complete, false);': 'assert.equal(result.d0Complete, true);',
+              'assert.equal(result.metrics.newProductAdmissionCount, 0);': 'assert.equal(result.metrics.newProductAdmissionCount, 2);',
+              'assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 14);': 'assert.equal(result.metrics.cumulativeW3ProductAdmissionCount, 16);',
+              'assert.equal(result.metrics.remainingDirectSliceCount, 41);': 'assert.equal(result.metrics.remainingDirectSliceCount, 40);',
+              'assert.equal(result.metrics.remainingDirectKnowledgePointCount, 68);': 'assert.equal(result.metrics.remainingDirectKnowledgePointCount, 66);',
+          }
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'MISSING_SLICE013_D0_ASSERTION:{old}')
+              text = text.replace(old, new)
+          path.write_text(text, encoding='utf-8')
+
+          Path('.github/workflows/p03f13-current-surface-reconcile.yml').unlink()
+          PY
+      - name: Commit reconciliation
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add tests/curriculum tools/curriculum .github/workflows/p03f13-current-surface-reconcile.yml
+          git diff --cached --check
+          git commit -m "P03F13 reconcile monotonic current surface"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
