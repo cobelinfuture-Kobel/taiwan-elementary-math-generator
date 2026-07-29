@@ -68,9 +68,9 @@ function patchCanonicalRouter(before) {
   let source = before;
   source = replaceRequired(
     source,
-    `      const seed = hashSeed(\`${normalized.generationSeed}:\${entry.patternSpecId}:\${index + 1}\`);
+    `      const seed = hashSeed(\`\${normalized.generationSeed}:\${entry.patternSpecId}:\${index + 1}\`);
       const hiddenItem = generateG4AU08Phase2BBrowserItem({ templateId, seed });`,
-    `      const seed = hashSeed(\`${normalized.generationSeed}:\${entry.patternSpecId}:\${index + 1}\`);
+    `      const seed = hashSeed(\`\${normalized.generationSeed}:\${entry.patternSpecId}:\${index + 1}\`);
       const generationProfile = String(normalized.generationSeed ?? "").includes("pgc-r05") ? "pgc-r05" : null;
       const hiddenItem = generateG4AU08Phase2BBrowserItem({
         templateId,
@@ -146,10 +146,10 @@ function patchPublicRouter(before) {
   let source = before;
   source = replaceRequired(
     source,
-    `        const item = generateG4AU08AppCostOverlayHidden({ seed: \`${normalized.generationSeed}:\${entry.patternGroupId}:\${index}\` });`,
+    `        const item = generateG4AU08AppCostOverlayHidden({ seed: \`\${normalized.generationSeed}:\${entry.patternGroupId}:\${index}\` });`,
     `        const generationProfile = String(normalized.generationSeed ?? "").includes("pgc-r05") ? "pgc-r05" : null;
         const item = generateG4AU08AppCostOverlayHidden({
-          seed: \`${normalized.generationSeed}:\${entry.patternGroupId}:\${index}\`,
+          seed: \`\${normalized.generationSeed}:\${entry.patternGroupId}:\${index}\`,
           generationProfile,
           diversityOrdinal: generationProfile === "pgc-r05" ? index : null,
         });`,
