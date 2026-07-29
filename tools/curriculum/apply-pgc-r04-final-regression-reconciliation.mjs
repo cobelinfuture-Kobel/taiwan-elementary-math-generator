@@ -67,6 +67,12 @@ function patchG4AU01RegressionTests(source) {
 });`,
     "g4a-u01-mixed-consumer-contract",
   );
+  source = replaceRequired(
+    source,
+    "  assert.equal(new Set(generated.map((question) => question.blankedDisplayText)).size, 200);",
+    "  assert.equal(new Set(generated.map((question) => question.duplicateKey)).size, 200);",
+    "g4a-u01-formal-duplicate-key-authority",
+  );
   return source;
 }
 
@@ -83,6 +89,7 @@ export function applyPgcR04FinalRegressionReconciliation() {
       s106CanonicalBundleTargetPoolParity: true,
       g4aU01DirectPoolRemainsBounded: true,
       g4aU01PublicConsumerCapacityContract: 20,
+      g4aU01FormalDuplicateKeyAuthorityUsed: true,
       noSecondGenerator: true,
     }),
   });
