@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID    = PGC-R04_Final12PublicRouteProducerRepair
-STATUS     = PASS_R04_FOCUSED_AND_EXACT_LAYOUT_BOUND_SYNCED_PENDING_FINAL_S110_PRODUCT_GATE
+STATUS     = PASS_R04_S110_PRODUCT_GATE_CLOSED_READY_TO_MERGE
 ```
 
 ## Frozen scope
@@ -70,35 +70,37 @@ P03F5 / P03F6 / P03F7 / P03F9 / P03F10 / P03F11 reviewed product witnesses
 G4B-U04 approximation-symbol capacity registry = 24
 ```
 
-## CI evidence
+## Final CI evidence
 
-GitHub Actions workflow `PGC-R04 Numeric Generation FullFix` run `30449044100`, job `90566397339`, passed with:
+GitHub Actions workflow `PGC-R04 Numeric Generation FullFix` run `30449044100`, job `90566397339`, passed:
 
 ```text
-final legacy producer patch                 = PASS
-final twelve-route patch                    = PASS
-problem-type seed projection                = PASS
-S102 common-factor seed projection V2       = PASS
-protected legacy contract reconciliation    = PASS
-final full-regression reconciliation        = PASS
+canonical source patchers                    = PASS
 canonical G5A-U02 browser bundle rebuild    = PASS
 canonical bundle deterministic cmp          = PASS
-remaining producer locator                  = PASS
-runtime diagnostic materialization          = PASS
 focused allocator acceptance                = PASS
 focused diagnostic acceptance               = PASS
 81-route × 20-question × 10-seed live gate = PASS
 ```
 
-Full Node regression passed:
+GitHub Actions workflow `G5A-U02 S110 All22 Integrated D0 Acceptance` run `30449184468` passed all load-bearing jobs:
 
 ```text
-TESTS = 2607
-PASS  = 2607
-FAIL  = 0
-```
+JOB 90566892816 all22-item-bundle-predecessor-gates             = PASS
+- committed browser bundle byte parity                          = PASS
+- 1408-item all-22 integrated matrix                            = PASS
+- accepted predecessor focused gates                            = PASS
 
-The final 200-question G4A-U01 mixed stress test verifies unique `question.id` values. Public route prompt uniqueness remains independently enforced by the R04 20-question × 10-seed route acceptance.
+JOB 90566892741 all22-actual-layout-answer-boundary-html-pdf     = PASS
+- 396-layout HTML/PDF acceptance                                = PASS
+- 132-answer-boundary acceptance                                = PASS
+- exact matrix totals                                           = PASS
+
+JOB 90566892772 full-repository-regression                       = PASS
+- tests                                                         = 2607
+- pass                                                          = 2607
+- fail                                                          = 0
+```
 
 ## Canonical browser bundle authority
 
@@ -111,14 +113,14 @@ canonical source patches
 → committed generated browser bundle
 ```
 
-The synchronized generated bundle and exact S106 layout-safe producer are committed at branch head `ec1dc416e047f077db40dbafd1c4b917256dec00`. This readback commit triggers the final S110 byte parity, all-22 item matrix, and HTML/PDF product acceptance against that exact canonical artifact lineage.
+The synchronized generated bundle and exact S106 layout-safe producer are committed in the PR lineage rooted at `ec1dc416e047f077db40dbafd1c4b917256dec00`; the final S110 run validated the subsequent readback-only head without runtime changes.
 
 ## Distance
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_FINAL_TWO_NUMERIC_ROUTES_PROMPT_COLLISION_AND_PROTECTED_CONTRACT_DRIFT
-GOAL_DISTANCE_AFTER  = D1_ALL_R04_NUMERIC_ROUTES_NODE_AND_EXACT_LAYOUT_BOUND_CONFORMANT_PENDING_FINAL_S110_PRODUCT_GATE
-DISTANCE_REDUCED     = final route collisions, protected-contract drift, full Node failures, generated bundle authority drift, and the exact S110 factor-pair 1x7 overflow boundary are reconciled
-REMAINING_BLOCKERS   = [FINAL_S110_BUNDLE_MATRIX_HTML_PDF_PRODUCT_GATE]
-NEXT_SHORTEST_STEP   = PGC-R04_FinalS110ReadbackAndPRMerge
+GOAL_DISTANCE_BEFORE = D1_ALL_R04_NUMERIC_ROUTES_NODE_AND_EXACT_LAYOUT_BOUND_CONFORMANT_PENDING_FINAL_S110_PRODUCT_GATE
+GOAL_DISTANCE_AFTER  = D0_R04_PUBLIC_NUMERIC_GENERATION_CONFORMANT
+DISTANCE_REDUCED     = S110 bundle parity, 1408-item matrix, 396 layouts, 132 answer boundaries, HTML/PDF, predecessor gates, and 2607-test full regression all passed
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = PGC-R04_PR446_SquashMergeAndMainReadback
 ```
