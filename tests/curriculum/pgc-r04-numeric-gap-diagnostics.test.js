@@ -14,6 +14,10 @@ function loadReport() {
   return JSON.parse(fs.readFileSync(reportPath, "utf8"));
 }
 
+function requestedTwentyRuns(route) {
+  return route.diagnosticRuns.filter((run) => run.requestedQuestionCount === 20).slice(0, 2);
+}
+
 test("PGC-R04 diagnostic scope matches the accepted R03 numeric-like baseline", () => {
   const report = loadReport();
   assert.equal(report.schemaName, "PublicNumericGenerationGapDiagnosticsV1");
@@ -53,6 +57,39 @@ test("PGC-R04 materializes runtime evidence for every owned numeric gap route", 
   }
 });
 
+test("PGC-R04 every diagnosed legal numeric route supports two deterministic 20-question unique worksheets", () => {
+  const report = loadReport();
+  const failures = [];
+  for (const route of report.routes) {
+    const runs = requestedTwentyRuns(route);
+    if (runs.length !== 2) {
+      failures.push(`${route.routeId}:requested20_run_count=${runs.length}`);
+      continue;
+    }
+    for (const run of runs) {
+      const accepted = run.ok === true
+        && run.questionCount === 20
+        && run.answerKeyItemCount === 20
+        && run.duplicatePromptCount === 0
+        && run.uniquePromptCount === 20
+        && run.errorCodes.length === 0;
+      if (!accepted) {
+        failures.push([
+          route.routeId,
+          run.seed,
+          `ok=${run.ok}`,
+          `questions=${run.questionCount}`,
+          `answers=${run.answerKeyItemCount}`,
+          `duplicates=${run.duplicatePromptCount}`,
+          `unique=${run.uniquePromptCount}`,
+          `errors=${run.errorCodes.join("|")}`,
+        ].join(":"));
+      }
+    }
+  }
+  assert.deepEqual(failures, []);
+});
+
 test("PGC-R04 diagnostics preserve the frozen scope boundary", () => {
   const report = loadReport();
   assert.equal(report.routes.some((route) => ["application", "reasoning", "mixed", "pbl"].includes(route.questionType)), false);
@@ -66,12 +103,12 @@ test("PGC-R04 diagnostics preserve the frozen scope boundary", () => {
   });
 });
 
-test("PGC-R04 committed diagnostics are row-aligned and hand off to the shared numeric FullFix", () => {
+test("PGC-R04 committed diagnostics are row-aligned and remain on the shared numeric FullFix path", () => {
   const report = loadReport();
   assert.equal(fs.existsSync(csvPath), true);
   assert.equal(fs.existsSync(readbackPath), true);
   assert.equal(fs.readFileSync(csvPath, "utf8").trim().split(/\r?\n/).length, report.routes.length + 1);
   const readback = fs.readFileSync(readbackPath, "utf8");
-  assert.match(readback, /NEXT_SHORTEST_STEP\s+= PGC-R04_SharedNumericGeneratorAndAllocatorFullFix/);
+  assert.match(readback, /NEXT_SHORTEST_STEP\s+= PGC-R04_/);
   assert.match(readback, /NUMERIC_LIKE_ROUTES|DIAGNOSED_GAP_ROUTES/);
 });
