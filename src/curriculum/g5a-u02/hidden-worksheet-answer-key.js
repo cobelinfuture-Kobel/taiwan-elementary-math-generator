@@ -48,12 +48,14 @@ export function normalizeG5AU02HiddenWorksheetPlan(input = {}) {
   const errors = [];
   const questionCount = input.questionCount ?? 22;
   const baseSeed = input.baseSeed ?? 1;
+  const generationProfile = input.generationProfile ?? "legacy";
   const includeAnswerKey = input.includeAnswerKey ?? true;
   const questionRowsPerPage = input.questionRowsPerPage ?? 8;
   const answerRowsPerPage = input.answerRowsPerPage ?? 12;
   const requestedIds = input.patternSpecIds ?? CANONICAL_IDS;
   if (!integerInRange(questionCount, 1, 1000)) errors.push("G5AU02_WORKSHEET_QUESTION_COUNT_INVALID");
   if (!integerInRange(baseSeed, 1, 0x7fffffff)) errors.push("G5AU02_WORKSHEET_BASE_SEED_INVALID");
+  if (typeof generationProfile !== "string" || generationProfile.length === 0) errors.push("G5AU02_WORKSHEET_GENERATION_PROFILE_INVALID");
   if (typeof includeAnswerKey !== "boolean") errors.push("G5AU02_WORKSHEET_ANSWER_KEY_FLAG_INVALID");
   if (!integerInRange(questionRowsPerPage, 1, 100)) errors.push("G5AU02_WORKSHEET_QUESTION_PAGE_SIZE_INVALID");
   if (!integerInRange(answerRowsPerPage, 1, 100)) errors.push("G5AU02_WORKSHEET_ANSWER_PAGE_SIZE_INVALID");
@@ -63,7 +65,7 @@ export function normalizeG5AU02HiddenWorksheetPlan(input = {}) {
   for (const id of patternSpecIds) if (!CANONICAL_ID_SET.has(id)) errors.push(`G5AU02_WORKSHEET_UNKNOWN_PATTERN:${id}`);
   const plan = deepFreeze({
     schemaName: "G5AU02HiddenWorksheetPlan", schemaVersion: 1, unitId: "g5a_u02",
-    questionCount, baseSeed, includeAnswerKey, questionRowsPerPage, answerRowsPerPage,
+    questionCount, baseSeed, generationProfile, includeAnswerKey, questionRowsPerPage, answerRowsPerPage,
     allocationMode: "canonical_round_robin", patternSpecIds, lifecycle: WORKSHEET_LIFECYCLE,
   });
   return deepFreeze({ ok: errors.length === 0, errors: [...new Set(errors)], plan });
@@ -191,7 +193,10 @@ export function buildG5AU02HiddenWorksheetDocument(input = {}) {
   for (let index = 0; index < allocated.allocation.patternSequence.length; index += 1) {
     const patternSpecId = allocated.allocation.patternSequence[index];
     try {
-      const item = generateG5AU02Canonical(patternSpecId, { seed: seedFor(allocated.plan.baseSeed, index) });
+      const item = generateG5AU02Canonical(patternSpecId, {
+        seed: seedFor(allocated.plan.baseSeed, index),
+        generationProfile: allocated.plan.generationProfile,
+      });
       const validation = validateG5AU02Canonical(item);
       if (!validation.ok) {
         errors.push(...validation.errors.map((code) => `${code}:${patternSpecId}`));
@@ -315,3 +320,5 @@ export function auditG5AU02HiddenWorksheetIntegration() {
 export function getG5AU02HiddenWorksheetPatternIds() { return [...CANONICAL_IDS]; }
 export function getG5AU02HiddenWorksheetAnswerModelIds() { return [...SUPPORTED_ANSWER_MODEL_IDS]; }
 export const G5A_U02_HIDDEN_WORKSHEET_LIFECYCLE = WORKSHEET_LIFECYCLE;
+
+// PGC-R05 G5A-U02 application diversity FullFix V1
