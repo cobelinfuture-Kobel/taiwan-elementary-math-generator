@@ -18,6 +18,7 @@ on:
       - "tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs"
       - "tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js"
       - "tests/curriculum/pgc-r04-numeric-unique-allocation.test.js"
+      - "tests/curriculum/pgc-r04-numeric-20x10-live-acceptance.test.js"
       - "data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json"
       - "data/curriculum/public-generation/PGC-R04.remaining-producer-locator.json"
       - "data/curriculum/public-generation/numeric_generation_gap_inventory.csv"
@@ -69,6 +70,7 @@ jobs:
           node --check tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs
           node --check tools/curriculum/locate-pgc-r04-remaining-producers.mjs
           node --check tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs
+          node --check tests/curriculum/pgc-r04-numeric-20x10-live-acceptance.test.js
           node --check site/modules/curriculum/batch-a/numeric-unique-allocation-fullfix.js
           node --check site/modules/curriculum/batch-a/batch-a-browser-question-router.js
 
@@ -158,6 +160,9 @@ jobs:
 
       - name: Focused R04 diagnostic acceptance
         run: node --test tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js
+
+      - name: Live R04 numeric 20x10 seed acceptance
+        run: node --test tests/curriculum/pgc-r04-numeric-20x10-live-acceptance.test.js
 
       - name: Upload R04 numeric diagnostics
         if: always()
