@@ -108,7 +108,7 @@ test("P03F3 selector exposes only one G3B-U07 KP", () => {
 
 test("P03F3 current Pixel preserves quotient fraction after slice007 adds the second G3B-U07 KP", () => {
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 25);
+  assert.equal(sources.length, 26);
   const source = sources.find((row) => row.sourceId === G3B_U07_SOURCE_ID);
   assert.ok(source);
   assert.equal(source.visibleKnowledgePointCount, 2);
@@ -118,7 +118,7 @@ test("P03F3 current Pixel preserves quotient fraction after slice007 adds the se
     [G3B_U07_QUOTIENT_FRACTION_KP_ID, G3B_U07_FRACTION_UNIT_CONVERSION_KP_ID],
   );
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 25);
+  assert.equal(snapshot.sourceCount, 26);
   assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 2);
 });
 
