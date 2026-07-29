@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const GENERATED_BUNDLE_BANNER = "/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */";
 
 function patchFile(relativePath, transform) {
   const filePath = path.join(repoRoot, relativePath);
@@ -19,11 +20,10 @@ function replaceRequired(source, before, after, label) {
   return source.replace(before, after);
 }
 
-function patchS106BrowserBundle(source) {
-  const legacy = "function fi(e){return e.int(2,12)*e.pick([13,17,19,23,29,31,37,41,43,47])}";
-  const reconciled = "function fi(e){return e.pick([4,9,16,25,36,49,64,81,100,121,144,26,39,52,65,78,91,104,117,130,143,156,34,51,68,85,102,119,136,153,170,187,204,38,57,76,95,114,133,152,171,190,209,228,46,69,92,115,138,161,184,207,230,253,276,58,87,116,145,174,203,232,261,290,319,348,62,93,124,155,186,217,248,279,310,341,372,74,111,148,185,222,259,296,333,370,407,444,82,123,164,205,246,287,328,369,410,451,492,86,129,172,215,258,301,344,387,430,473,516,94,141,188,235,282,329,376,423,470,517,564])}";
-  source = replaceRequired(source, legacy, reconciled, "s106-browser-target-pool");
-  if (!source.includes(reconciled)) throw new Error("PGC_R04_FINAL_REGRESSION_S106_BUNDLE_POOL_MISSING");
+function preserveGeneratedBrowserBundle(source) {
+  if (!source.startsWith(GENERATED_BUNDLE_BANNER)) {
+    throw new Error("PGC_R04_FINAL_REGRESSION_GENERATED_BUNDLE_BANNER_MISSING");
+  }
   return source;
 }
 
@@ -90,7 +90,7 @@ function patchG4AU01RegressionTests(source) {
 
 export function applyPgcR04FinalRegressionReconciliation() {
   const results = [
-    patchFile("site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js", patchS106BrowserBundle),
+    patchFile("site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js", preserveGeneratedBrowserBundle),
     patchFile("tests/curriculum/batch-a/g4a-u01-phase3-runtime-fix.test.js", patchG4AU01RegressionTests),
   ];
   const result = Object.freeze({
@@ -102,6 +102,7 @@ export function applyPgcR04FinalRegressionReconciliation() {
       g4aU01DirectPoolRemainsBounded: true,
       g4aU01PublicConsumerCapacityContract: 20,
       g4aU01UniqueQuestionIdentityVerified: true,
+      generatedBundleEditedDirectly: false,
       noSecondGenerator: true,
     }),
   });
