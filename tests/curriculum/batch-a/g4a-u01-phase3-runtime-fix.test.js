@@ -68,7 +68,7 @@ test("G4A-U01 same-unit mixed public consumer reaches requested count without pr
   const generated = result.worksheetDocument.generatedQuestions;
   const boundaryCount = generated.filter((question) => question.patternSpecId === "ps_g4a_u01_boundary_number_difference").length;
   assert.ok(boundaryCount >= 8);
-  assert.equal(new Set(generated.map((question) => question.blankedDisplayText)).size, 200);
+  assert.equal(new Set(generated.map((question) => question.duplicateKey)).size, 200);
 });
 
 test("G4A-U01 shuffleAcrossPatterns changes render order for same-unit mixed output", () => {
