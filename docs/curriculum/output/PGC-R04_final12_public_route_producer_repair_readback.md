@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID    = PGC-R04_Final12PublicRouteProducerRepair
-STATUS     = PASS_R04_AND_NODE_CANONICAL_BUNDLE_SYNCED_PENDING_S110_PRODUCT_GATE
+STATUS     = PASS_R04_FOCUSED_AND_LAYOUT_FIX_SYNCED_PENDING_FINAL_S110_PRODUCT_GATE
 ```
 
 ## Frozen scope
@@ -38,6 +38,18 @@ SAME_SEED_REPLAY     = deterministic
 SECOND_GENERATOR     = false
 ```
 
+## S110 layout-bound producer reconciliation
+
+S110 run `30443620512` proved that bundle byte parity, the 1408-item all-22 matrix, and full repository regression passed. Its only remaining product failure was one real 1x7 question-card overflow in `ps_g5a_u02_factor_pair_enumeration`; the raw partial-answer-page differences were already normalized and were not the blocker.
+
+R04 now keeps the complete S106 target pool for factor-order/symmetry and missing-factor reconstruction, while the factor-pair enumeration producer selects the existing-pool subset whose trial-division search boundary satisfies:
+
+```text
+floor(sqrt(target)) <= 18
+```
+
+This preserves more than 20 unique targets, deterministic replay, S106 validator semantics, the shared producer, and the canonical bundle build path while preventing the 19-row search table from overflowing the approved 1x7 card.
+
 ## Protected contract reconciliation
 
 R04 uses a dual seed contract instead of globally replacing protected product behavior:
@@ -59,7 +71,7 @@ G4B-U04 approximation-symbol capacity registry = 24
 
 ## CI evidence
 
-GitHub Actions workflow `PGC-R04 Numeric Generation FullFix` passed with:
+GitHub Actions workflow `PGC-R04 Numeric Generation FullFix` run `30448230804`, job `90563745025`, passed with:
 
 ```text
 final legacy producer patch                 = PASS
@@ -98,14 +110,14 @@ canonical source patches
 → committed generated browser bundle
 ```
 
-The synchronized generated bundle is committed at branch head `fd2f6edd8fa911aa7250492b0d7854c7d40c22be`. This readback commit triggers S110 byte parity, the all-22 item matrix, and HTML/PDF product acceptance against that exact artifact.
+The synchronized generated bundle and S106 layout-safe producer are committed at branch head `3f050aff2b806d899744c05ce62f29b88b0bd586`. This readback commit triggers the final S110 byte parity, all-22 item matrix, and HTML/PDF product acceptance against that exact canonical artifact lineage.
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_FINAL_TWO_NUMERIC_ROUTES_PROMPT_COLLISION_AND_PROTECTED_CONTRACT_DRIFT
-GOAL_DISTANCE_AFTER  = D1_ALL_R04_NUMERIC_ROUTES_AND_NODE_CONFORMANT_PENDING_S110_PRODUCT_GATE
-DISTANCE_REDUCED     = final route collisions, protected-contract drift, full Node failures, and generated bundle authority drift are reconciled
-REMAINING_BLOCKERS   = [S110_BUNDLE_PARITY_AND_HTML_PDF_PRODUCT_GATE]
-NEXT_SHORTEST_STEP   = PGC-R04_S110ProductGateAndPRMerge
+GOAL_DISTANCE_AFTER  = D1_ALL_R04_NUMERIC_ROUTES_NODE_AND_LAYOUT_FIX_CONFORMANT_PENDING_FINAL_S110_PRODUCT_GATE
+DISTANCE_REDUCED     = final route collisions, protected-contract drift, full Node failures, generated bundle authority drift, and the S110 factor-pair 1x7 overflow are reconciled
+REMAINING_BLOCKERS   = [FINAL_S110_BUNDLE_MATRIX_HTML_PDF_PRODUCT_GATE]
+NEXT_SHORTEST_STEP   = PGC-R04_FinalS110ReadbackAndPRMerge
 ```
