@@ -43,9 +43,10 @@ test("config state sends numeric, application and approved PBL modes into the pu
   }
 });
 
-test("classic public HTML loads the shared question-mode control panel", () => {
+test("classic public HTML loads the shared KnowledgePoint-driven question-mode control panel", () => {
   const html = fs.readFileSync(new URL("../../site/index.html", import.meta.url), "utf8");
   assert.match(html, /id="g5a-u08-public-controls"/);
   assert.match(html, /id="g5a-u08-question-mode"/);
-  assert.match(html, /public-control-ui\.js/);
+  assert.match(html, /public-capability-ui\.js/);
+  assert.doesNotMatch(html, /public-control-ui\.js/);
 });
