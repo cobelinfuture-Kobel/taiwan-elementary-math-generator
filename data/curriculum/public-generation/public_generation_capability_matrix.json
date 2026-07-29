@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R01_PublicKnowledgePointCapabilityMatrix",
-  "status": "FAIL_CLOSED_BLOCKING_GAPS",
+  "status": "PASS_WITH_DOWNSTREAM_GAPS",
   "generatedAt": "DETERMINISTIC",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
   "selectorAuthority": "batch-a-selector-p03f13-extension.js",
@@ -41,11 +41,16 @@
     "uiOptionCoverageCount": 156,
     "accountedUiOptionCount": 156,
     "gapCount": 56,
-    "blockingGapCount": 34,
-    "r02UiBindingGapCount": 22,
+    "blockingGapCount": 0,
+    "r02UiBindingGapCount": 56,
     "capacityUnverifiedCapabilityCount": 1222,
     "kpSurfacePairCount": 547,
-    "expectedKpSurfacePairCount": 579
+    "expectedKpSurfacePairCount": 579,
+    "visibleKpSurfaceExpectedPairCount": 579,
+    "visibleKpSurfaceCapabilityPairCount": 545,
+    "visibleKpSurfaceExplicitGapPairCount": 34,
+    "visibleKpSurfaceAccountedPairCount": 579,
+    "visibleKpSurfaceUnaccountedPairCount": 0
   },
   "uiOptionCoverage": [
     {
@@ -1361,242 +1366,344 @@
       ]
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3a_u02_3a02",
       "knowledgePointId": "kp_g3a_u02_word_problem_estimation_add_sub",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3a_u03_3a03",
       "knowledgePointId": "kp_g3a_u03_consecutive_multiplication_two_step_word_problem",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u01_3b01",
       "knowledgePointId": "kp_g3b_u01_wp_division_with_remainder",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u01_3b01",
       "knowledgePointId": "kp_g3b_u01_wp_two_step_division",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4a_u01_4a01",
       "knowledgePointId": "kp_g4a_u01_comparison_word_problem_total",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4a_u01_4a01",
       "knowledgePointId": "kp_g4a_u01_large_number_unit_word_problem_add_subtract",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u04_3b04",
       "knowledgePointId": "kp_g3b_u04_add_then_divide",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u04_3b04",
       "knowledgePointId": "kp_g3b_u04_multiply_then_divide_average_unit_price",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u04_3b04",
       "knowledgePointId": "kp_g3b_u04_subtract_then_divide",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u04_3b04",
       "knowledgePointId": "kp_g3b_u04_divide_then_add",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u04_3b04",
       "knowledgePointId": "kp_g3b_u04_total_minus_shared_amount",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u04_3b04",
       "knowledgePointId": "kp_g3b_u04_group_total_minus_remaining",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u04_3b04",
       "knowledgePointId": "kp_g3b_u04_composite_multiplicative_ratio",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u04_3b04",
       "knowledgePointId": "kp_g3b_u04_multiplicative_quantity_chain",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u08_3b08",
       "knowledgePointId": "kp_g3b_u08_total_from_groups",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u08_3b08",
       "knowledgePointId": "kp_g3b_u08_group_count_from_total",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u08_3b08",
       "knowledgePointId": "kp_g3b_u08_per_group_from_total",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u08_3b08",
       "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u08_3b08",
       "knowledgePointId": "kp_g3b_u08_shopping_estimation",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g3b_u08_3b08",
       "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4b_u04_4b04",
       "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4b_u04_4b04",
       "knowledgePointId": "kp_g4b_u04_payment_denomination_ceiling",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4b_u04_4b04",
       "knowledgePointId": "kp_g4b_u04_discount_denomination_round_down",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4a_u08_4a08",
       "knowledgePointId": "kp_g4a_u08_app_add_sub_sequence",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4a_u08_4a08",
       "knowledgePointId": "kp_g4a_u08_app_parentheses_grouping",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4a_u08_4a08",
       "knowledgePointId": "kp_g4a_u08_app_mul_div_sequence",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g4a_u08_4a08",
       "knowledgePointId": "kp_g4a_u08_app_mul_div_before_add_sub",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g5a_u02_5a02",
       "knowledgePointId": "kp_g5a_u02_equal_partition_factor_application",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g5a_u02_5a02",
       "knowledgePointId": "kp_g5a_u02_remainder_transfer_under_divisor_relation",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g5a_u02_5a02",
       "knowledgePointId": "kp_g5a_u02_maximum_equal_grouping_gcf_application",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g5a_u02_5a02",
       "knowledgePointId": "kp_g5a_u02_possible_equal_packaging_common_factor_application",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g5a_u02_5a02",
       "knowledgePointId": "kp_g5a_u02_rectangle_equal_square_side_lengths",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g5a_u02_5a02",
       "knowledgePointId": "kp_g5a_u02_square_tile_area_possibilities",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     },
     {
-      "code": "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY",
-      "severity": "blocking_r01",
+      "code": "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+      "severity": "r02_ui_binding",
       "sourceId": "g5a_u02_5a02",
       "knowledgePointId": "kp_g5a_u02_multi_constraint_digit_code_number_theory",
-      "surfaceId": "FALLBACK_404"
+      "surfaceId": "FALLBACK_404",
+      "capabilityStatus": "ABSENT_EXPLICIT",
+      "rationale": "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+      "ownerMilestone": "PGC-R02_KnowledgePointDrivenUICapabilityBinding"
     }
   ],
   "capabilities": [
@@ -63153,5 +63260,12 @@
     "addedCapabilityRowCount": 61,
     "remainingMissingPairCount": 34,
     "subtypePolicy": "map concept representation estimation and reasoning subtypes to an actually exposed parent UI type when no dedicated public option exists"
+  },
+  "surfaceGapPolicy": {
+    "task": "PGC-R01_PUBLIC_SURFACE_ABSENCE_ACCOUNTING",
+    "rule": "A visible KnowledgePoint and public surface pair must have either at least one capability row or one explicit fail-closed downstream UI-binding gap.",
+    "deprecated404AbsenceIsNotCapability": true,
+    "explicitAbsenceOwner": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
+    "unaccountedPairCount": 0
   }
 }
