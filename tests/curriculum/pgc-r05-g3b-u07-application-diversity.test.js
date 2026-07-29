@@ -82,6 +82,7 @@ test("PGC-R05 G3B-U07 FullFix clears source-unit, single-KP and mixed-unit live 
   assert.equal(report.summary.liveFailureRouteCountBySource[SOURCE_ID], undefined);
   assert.equal(report.summary.live20PassRouteCount, 208, JSON.stringify(report.summary));
   assert.equal(report.summary.live20FailRouteCount, 3, JSON.stringify(report.summary));
+  assert.equal(report.summary.live20PassRouteCount + report.summary.live20FailRouteCount, 211);
   assert.deepEqual(report.summary.liveFailureRouteCountBySource, {
     g4a_u08_4a08: 2,
     g5a_u03_5a03a: 1,
