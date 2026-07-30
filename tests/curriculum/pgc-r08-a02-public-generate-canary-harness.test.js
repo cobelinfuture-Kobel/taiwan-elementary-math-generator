@@ -121,12 +121,12 @@ test("PGC-R08 A02 runner exercises the real public browser journey and convergen
   assert.match(runner, /#g5a-u08-context-mode/);
   assert.match(runner, /data-capacity-route-ids/);
   assert.match(runner, /deselectIncompatiblePatternGroups/);
-  assert.match(runner, /await setKnowledgePoints\(page, route\);[\s\S]*await selectAvailableOption\(page, SELECTORS\.questionType/);
+  assert.match(runner, /await setKps\(p,r\);[\s\S]*await pick\(p,S\.type/);
   assert.match(runner, /#batch-a-question-count-input/);
   assert.match(runner, /#regenerate-button/);
   assert.match(runner, /#preview-frame/);
   assert.match(runner, /#print-button/);
-  assert.match(runner, /await printPage\.pdf\(/);
+  assert.match(runner, /await p\.pdf\(/);
   assert.match(runner, /REGENERATE_IDENTITY_UNCHANGED/);
   assert.match(runner, /ANSWER_BIJECTION_FAILED/);
 });
