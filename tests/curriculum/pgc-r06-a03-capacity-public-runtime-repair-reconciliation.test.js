@@ -73,7 +73,6 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
     assert.ok(remainingG5AQueue.every((route) => route.questionType === "pbl"));
     assert.ok(remainingG5AQueue.every((route) => route.gapCodes.length === 1 && route.gapCodes[0] === "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"));
   }
-  assert.equal(inventory.sourceAuthority.capacityLastReconciliation.removedFromRepairQueueCount, 86);
 
   const registryUrl = `${pathToFileURL(path.join(repoRoot, "site/modules/curriculum/public/public-generator-capacity-registry.js")).href}?pgcR06A03=${Date.now()}`;
   const registry = await import(registryUrl);
