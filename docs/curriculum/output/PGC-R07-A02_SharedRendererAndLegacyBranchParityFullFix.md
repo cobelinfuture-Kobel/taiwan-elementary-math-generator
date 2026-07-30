@@ -14,19 +14,20 @@ The first A01 gap was initially recorded as:
 PUBLIC_QUESTION_MODE_OPTION_MISSING
 ```
 
-The deployed smoke sequence showed that the missing option was requested while the page was in:
+The deployed smoke performed these actions consecutively:
 
 ```text
-selectionMode = singleKnowledgePoint
-questionType  = mixed
+select source G5A-U08
+→ select singleKnowledgePoint
+→ immediately request mixed/mixed/mixed
 ```
 
-The current public capacity authority does not admit this intersection. `mixed` is admitted for G5A-U08 whole-unit and same-unit mixed-KP routes, not for a single-KP route. The shared UI binding correctly removed the illegal option.
+The shared capability UI schedules its option projection through a microtask. Static resolver evidence confirms that the browser-default G5A-U08 KP, whole-unit route and same-unit mixed-KP route all admit `mixed`. Therefore the missing DOM option was not a capacity gap and not an illegal route.
 
-Therefore the corrected classification is:
+The corrected classification is:
 
 ```text
-ACCEPTANCE_HARNESS_SELECTION_MODE_CONTROL_MISMATCH
+ACCEPTANCE_HARNESS_PRE_BINDING_SYNCHRONIZATION_RACE
 ```
 
 ## FullFix
@@ -34,9 +35,9 @@ ACCEPTANCE_HARNESS_SELECTION_MODE_CONTROL_MISMATCH
 The existing GS01 compatibility runner now patches two obsolete assumptions in the legacy deployed harness:
 
 1. preview metadata must contain required semantic segments but may contain later layout metadata;
-2. the harness must not preselect `mixed/mixed/mixed` while `singleKnowledgePoint` is active.
+2. the harness must not request `mixed/mixed/mixed` before the selected source, selection mode and KP surface have converged.
 
-The 36-row G5A-U08 control matrix remains unchanged and is still exercised after the browser switches to:
+Single-KP generation now uses the controls projected by the shared capacity binding. The 36-row G5A-U08 control matrix remains unchanged and is still exercised after the browser switches to:
 
 ```text
 mixedKnowledgePointsSameUnit
@@ -45,26 +46,27 @@ mixedKnowledgePointsSameUnit
 ## Authority protection
 
 ```text
-Product UI modified      = false
+Product UI modified       = false
 Capacity registry changed = false
-Generator modified       = false
-Validator modified       = false
-Renderer modified        = false
-Workflow added           = false
+Generator modified        = false
+Validator modified        = false
+Renderer modified         = false
+Workflow added            = false
 ```
 
-The repair does not re-expose an illegal route merely to satisfy a stale smoke test.
+The repair corrects the acceptance lifecycle and does not change product capacity merely to satisfy a timing-sensitive smoke step.
 
 ## Acceptance
 
 Focused tests prove:
 
 ```text
-singleKnowledgePoint + mixed            = hidden
-sourceUnit + mixed                      = admitted
-mixedKnowledgePointsSameUnit + mixed    = admitted
-single-KP generation runs before mixed matrix selection
-full mixed control matrix remains present
+browser-default single KP resolver + mixed = admitted
+sourceUnit + mixed                          = admitted
+mixedKnowledgePointsSameUnit + mixed        = admitted
+pre-convergence mixed selection             = removed
+single-KP generation precedes mixed matrix selection
+full 36-row mixed control matrix             = preserved
 ```
 
 A02 cannot close on PR CI alone. After merge, the deployed GitHub Pages workflow must replay the corrected harness against `main`.
@@ -74,7 +76,7 @@ A02 cannot close on PR CI alone. After merge, the deployed GitHub Pages workflow
 ```text
 GOAL_DISTANCE_BEFORE = D1_R07_THREE_SURFACE_BASELINE_AND_REPAIR_QUEUE_MATERIALIZED
 GOAL_DISTANCE_AFTER  = D1_R07_FIRST_GAP_IMPLEMENTATION_READY_FOR_DEPLOYED_REPLAY
-DISTANCE_REDUCED     = first apparent UI gap reclassified and corrected at the acceptance-harness boundary without widening public route exposure
+DISTANCE_REDUCED     = first apparent UI gap reclassified as a pre-binding synchronization race and corrected without changing public route capacity
 REMAINING_BLOCKERS   = [EXACT_HEAD_CI_PENDING, DEPLOYED_MAIN_REPLAY_PENDING, FALLBACK_404_BROWSER_BASELINE_MISSING, PIXEL_BROWSER_BASELINE_MISSING, RENDERER_BRANCH_PARITY_UNPROVEN, REAL_PRINT_AND_ANSWER_KEY_MATRIX_MISSING]
 NEXT_SHORTEST_STEP   = PGC-R07-A02_MergeThenDeployedReplayAndParityReconciliation
 ```
