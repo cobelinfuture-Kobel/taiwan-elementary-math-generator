@@ -1,0 +1,48 @@
+name: Apply Public Question Limit 240
+
+on:
+  push:
+    branches:
+      - pgc-public-question-limit-240
+
+permissions:
+  contents: write
+
+jobs:
+  materialize-and-verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: pgc-public-question-limit-240
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Apply approved upper-limit patch
+        run: node tools/temporary/apply-public-question-limit-240.mjs
+
+      - name: Materialize capacity authority
+        run: node tools/curriculum/materialize-pgc-r03-capacity-aware-reconciliation.mjs
+
+      - name: Focused acceptance
+        run: node --test tests/curriculum/pgc-r03-generator-capacity-contract.test.js
+
+      - name: Full regression
+        run: npm test
+
+      - name: Commit materialized result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site data docs tools tests
+          if git diff --cached --quiet; then
+            echo "No materialized changes to commit."
+            exit 0
+          fi
+          git commit -m "feat: raise public question limit to 240"
+          git push origin HEAD:pgc-public-question-limit-240
