@@ -68,10 +68,8 @@ jobs:
       - name: Focused four-node acceptance
         run: node --test tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js
 
-      - name: Existing capacity and public binding acceptance
-        run: |
-          node --test tests/curriculum/pgc-r03-generator-capacity-contract.test.js
-          node --test tests/curriculum/pgc-r02-ui-capability-binding.test.js
+      - name: Existing capacity contract acceptance
+        run: node --test tests/curriculum/pgc-r03-generator-capacity-contract.test.js
 
       - name: Full repository regression
         run: npm test
