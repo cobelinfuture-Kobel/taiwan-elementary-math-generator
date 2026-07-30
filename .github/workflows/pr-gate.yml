@@ -1,0 +1,134 @@
+name: PR Gate Pilot
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/pr-gate.yml"
+      - ".github/ci/**"
+      - "docs/governance/**"
+      - "tests/governance/**"
+      - "tools/governance/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect_changes:
+    name: Detect GitHub Actions changes
+    runs-on: ubuntu-latest
+    outputs:
+      changed_files_json: ${{ steps.detect.outputs.changed_files_json }}
+      governance_changed: ${{ steps.detect.outputs.governance_changed }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Detect affected governance scope
+        id: detect
+        shell: bash
+        run: |
+          mkdir -p tmp/pr-gate
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            base_sha="${{ github.event.pull_request.base.sha }}"
+          else
+            base_sha="$(git rev-parse HEAD^)"
+          fi
+          git diff --name-only "$base_sha" "${{ github.sha }}" | sort > tmp/pr-gate/changed-files.txt
+          node <<'NODE'
+          const fs = require("node:fs");
+          const files = fs.readFileSync("tmp/pr-gate/changed-files.txt", "utf8")
+            .split(/\r?\n/)
+            .filter(Boolean);
+          const governanceChanged = files.some((file) =>
+            file.startsWith(".github/")
+            || file.startsWith("docs/governance/")
+            || file.startsWith("tests/governance/")
+            || file.startsWith("tools/governance/")
+          );
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed_files_json=${JSON.stringify(files)}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `governance_changed=${governanceChanged}\n`);
+          NODE
+      - name: Upload change inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-gate-change-inventory
+          path: tmp/pr-gate/changed-files.txt
+          if-no-files-found: error
+          retention-days: 30
+
+  focused_governance:
+    name: Focused GitHub Actions governance QA
+    needs: detect_changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run GCI governance tests
+        shell: bash
+        run: |
+          set -o pipefail
+          find tests/governance -maxdepth 1 -type f -name 'gci-*.test.js' -print0 \
+            | sort -z \
+            | xargs -0 node --test
+
+  full_regression:
+    name: Full repository regression
+    needs: detect_changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run full repository regression
+        shell: bash
+        run: |
+          mkdir -p tmp/pr-gate
+          set -o pipefail
+          npm test 2>&1 | tee tmp/pr-gate/npm-test.log
+      - name: Upload full regression diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-gate-full-regression-diagnostics
+          path: tmp/pr-gate/npm-test.log
+          if-no-files-found: error
+          retention-days: 30
+
+  aggregate:
+    name: PR Gate / aggregate
+    if: always()
+    needs:
+      - detect_changes
+      - focused_governance
+      - full_regression
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce aggregate result
+        env:
+          DETECT_RESULT: ${{ needs.detect_changes.result }}
+          FOCUSED_RESULT: ${{ needs.focused_governance.result }}
+          FULL_RESULT: ${{ needs.full_regression.result }}
+        shell: bash
+        run: |
+          printf 'detect_changes=%s\n' "$DETECT_RESULT"
+          printf 'focused_governance=%s\n' "$FOCUSED_RESULT"
+          printf 'full_regression=%s\n' "$FULL_RESULT"
+          [[ "$DETECT_RESULT" == "success" ]]
+          [[ "$FOCUSED_RESULT" == "success" ]]
+          [[ "$FULL_RESULT" == "success" ]]

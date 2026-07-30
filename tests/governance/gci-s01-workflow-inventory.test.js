@@ -33,7 +33,9 @@ function canonicalizeReport(report) {
 }
 
 test("GCI-S01 committed evidence is exhaustive and deterministic", () => {
-  const report = materializeGciS01WorkflowInventory();
+  const report = materializeGciS01WorkflowInventory({
+    excludeFiles: [".github/workflows/pr-gate.yml"]
+  });
 
   assert.equal(report.inventoryCompleteness, "COMPLETE_FROM_CHECKED_OUT_MAIN_TREE");
   assert.equal(report.summary.workflowFileCount, 110);
@@ -47,6 +49,7 @@ test("GCI-S01 committed evidence is exhaustive and deterministic", () => {
   assert.equal(new Set(files).size, files.length, "workflow file paths must be unique");
   assert.ok(report.workflows.some((row) => row.file === ".github/workflows/node-test.yml"));
   assert.ok(report.workflows.some((row) => row.file === ".github/workflows/pgc-r06-a01-g4b-u04-bounded-capacity-full-fix.yml"));
+  assert.ok(!report.workflows.some((row) => row.file === ".github/workflows/pr-gate.yml"));
 
   const committedInventory = readBrotliJson(".github/ci/gci-s01/workflow-inventory.json.br");
   const { inventoryAsOfCommit, ...committedScannerOutput } = committedInventory;
