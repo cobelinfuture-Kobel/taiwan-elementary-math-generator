@@ -275,10 +275,17 @@ function reconcileInventory(inventory, diagnosticsByRoute, capacityBaseline) {
     throw new Error(`PGC_R06_A04_A03_RECONCILIATION_METADATA_MISSING:${a03Reconciliation?.taskId ?? "missing"}`);
   }
   inventory.lastR06A03Reconciliation = structuredClone(a03Reconciliation);
+
+  const targetRouteIds = new Set(diagnosticsByRoute.keys());
   const baselineRoutesById = new Map(capacityBaseline.routes
-    .filter((route) => route.lastReconciliation?.taskId === "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation")
+    .filter((route) => route.sourceId === SOURCE_ID
+      && route.legalRoute === true
+      && ["PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation", "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix"].includes(route.lastReconciliation?.taskId))
     .map((route) => [route.routeId, route]));
-  if (baselineRoutesById.size !== 98) throw new Error(`PGC_R06_A04_A03_CAPACITY_BASELINE_ROUTE_COUNT_MISMATCH:${baselineRoutesById.size}`);
+  if (baselineRoutesById.size !== 98) {
+    throw new Error(`PGC_R06_A04_REPLAY_LINEAGE_ROUTE_COUNT_MISMATCH:${baselineRoutesById.size}`);
+  }
+
   let baselineSyncedRouteCount = 0;
   for (const route of inventory.routes) {
     const baseline = baselineRoutesById.get(route.routeId);
@@ -286,17 +293,34 @@ function reconcileInventory(inventory, diagnosticsByRoute, capacityBaseline) {
     baselineSyncedRouteCount += 1;
     route.verifiedMaxQuestionCount = baseline.verifiedMaxQuestionCount;
     route.capacityStatus = baseline.capacityStatus;
-    route.qualityStatus = baseline.qualityStatus;
-    route.uniqueItemSetCount = baseline.uniqueItemSetCount;
-    route.uniqueOrderedWorksheetCount = baseline.uniqueOrderedWorksheetCount;
-    route.gapCodes = [...(baseline.gapCodes ?? [])];
-    route.reconciliationStatus = route.gapCodes.length === 0
-      ? "A03_CAPACITY_AUTHORITY_RECONCILED_AND_REMOVED_FROM_QUEUE"
-      : "A03_CAPACITY_AUTHORITY_RECONCILED_GAP_REMAINS";
+
+    if (targetRouteIds.has(route.routeId)) {
+      route.qualityStatus = "FIXTURE_SELECTOR";
+      route.uniqueItemSetCount = 1;
+      route.uniqueOrderedWorksheetCount = 1;
+      route.gapCodes = unique([...(baseline.gapCodes ?? []), DIVERSITY_GAP]);
+      route.reconciliationStatus = "A03_CAPACITY_AUTHORITY_RECONCILED_GAP_REMAINS";
+    } else {
+      route.qualityStatus = baseline.qualityStatus;
+      route.uniqueItemSetCount = baseline.uniqueItemSetCount;
+      route.uniqueOrderedWorksheetCount = baseline.uniqueOrderedWorksheetCount;
+      route.gapCodes = [...(baseline.gapCodes ?? [])];
+      route.reconciliationStatus = route.gapCodes.length === 0
+        ? "A03_CAPACITY_AUTHORITY_RECONCILED_AND_REMOVED_FROM_QUEUE"
+        : "A03_CAPACITY_AUTHORITY_RECONCILED_GAP_REMAINS";
+    }
   }
-  if (baselineSyncedRouteCount !== 98) throw new Error(`PGC_R06_A04_A03_INVENTORY_BASELINE_SYNC_MISMATCH:${baselineSyncedRouteCount}`);
-  const before = inventory.routes.filter((route) => route.legalRoute === true && route.publiclyExposed === true && routeGapCodes(route).length > 0).length;
-  if (before !== 47) throw new Error(`PGC_R06_A04_DERIVED_REPAIR_QUEUE_BASELINE_MISMATCH:${before}`);
+  if (baselineSyncedRouteCount !== 98) {
+    throw new Error(`PGC_R06_A04_REPLAY_INVENTORY_BASELINE_SYNC_MISMATCH:${baselineSyncedRouteCount}`);
+  }
+
+  const before = inventory.routes.filter((route) => route.legalRoute === true
+    && route.publiclyExposed === true
+    && routeGapCodes(route).length > 0).length;
+  if (before !== 47) {
+    throw new Error(`PGC_R06_A04_REPLAY_DERIVED_QUEUE_BASELINE_MISMATCH:${before}`);
+  }
+
   let matched = 0;
   for (const route of inventory.routes) {
     if (!diagnosticsByRoute.has(route.routeId)) continue;
@@ -310,8 +334,14 @@ function reconcileInventory(inventory, diagnosticsByRoute, capacityBaseline) {
     route.reconciliationStatus = "RECONCILED_AND_REMOVED_FROM_QUEUE";
   }
   if (matched !== ROUTE_COUNT) throw new Error(`PGC_R06_A04_INVENTORY_ROUTE_MATCH_MISMATCH:${matched}`);
-  inventory.repairQueue = inventory.routes.filter((route) => route.legalRoute === true && route.publiclyExposed === true && routeGapCodes(route).length > 0);
-  if (inventory.repairQueue.length !== 35) throw new Error(`PGC_R06_A04_REPAIR_QUEUE_AFTER_MISMATCH:${inventory.repairQueue.length}`);
+
+  inventory.repairQueue = inventory.routes.filter((route) => route.legalRoute === true
+    && route.publiclyExposed === true
+    && routeGapCodes(route).length > 0);
+  if (inventory.repairQueue.length !== 35) {
+    throw new Error(`PGC_R06_A04_REPAIR_QUEUE_AFTER_MISMATCH:${inventory.repairQueue.length}`);
+  }
+
   const legal = inventory.routes.filter((route) => route.legalRoute === true);
   inventory.summary = {
     ...inventory.summary,
@@ -329,6 +359,7 @@ function reconcileInventory(inventory, diagnosticsByRoute, capacityBaseline) {
     repairQueueBefore: before,
     storedQueueBefore,
     baselineSyncedRouteCount,
+    replayedFromCurrentCapacityLineage: true,
     staleQueueMaterializationRepaired: storedQueueBefore !== before,
     removedFromRepairQueueCount: ROUTE_COUNT,
     repairQueueAfter: inventory.repairQueue.length,
@@ -349,8 +380,7 @@ const capacityBaseline = readJson(paths.capacity);
 const capacity = structuredClone(capacityBaseline);
 const targetRoutes = capacity.routes.filter((route) => route.sourceId === SOURCE_ID
   && route.questionType === "pbl"
-  && route.legalRoute === true
-  && routeGapCodes(route).includes(DIVERSITY_GAP));
+  && route.legalRoute === true);
 if (targetRoutes.length !== ROUTE_COUNT) throw new Error(`PGC_R06_A04_TARGET_ROUTE_COUNT_MISMATCH:${targetRoutes.length}`);
 
 const diagnostics = {
@@ -415,3 +445,5 @@ console.log(`PGC_R06_A04_RECONCILIATION=${JSON.stringify({
 })}`);
 
 // PGC-R06 A04 derive current queue from A03 capacity lineage
+
+// PGC-R06 A04 idempotent post-regression replay
