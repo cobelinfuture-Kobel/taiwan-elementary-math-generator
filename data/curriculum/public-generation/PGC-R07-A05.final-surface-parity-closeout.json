@@ -1,0 +1,216 @@
+{
+  "schemaName": "PGCR07A05FinalSurfaceParityCloseoutV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R07-A05_FinalSurfaceParityReconciliationAndCloseout",
+  "previousTaskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix",
+  "status": "PENDING_EXACT_HEAD_CI_AND_D0_MARKER",
+  "lineage": [
+    {
+      "taskId": "PGC-R07-A00_SurfaceRendererPrintAuthorityAndParityMatrixFreeze",
+      "authorityPath": "data/curriculum/public-generation/PGC-R07-A00.surface-renderer-print-scope.json",
+      "pr": 477,
+      "mergeSha": "692686fed94bf7112fbcb223058e9084712a4756"
+    },
+    {
+      "taskId": "PGC-R07-A01_ThreeSurfaceParityBaselineMaterialization",
+      "authorityPath": "data/curriculum/public-generation/PGC-R07-A01.three-surface-parity-baseline.json",
+      "pr": 478,
+      "mergeSha": "86993ad40648456f1cbb728ebd0ead0acfbe8242"
+    },
+    {
+      "taskId": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix",
+      "authorityPath": "data/curriculum/public-generation/PGC-R07-A02.selection-mode-capacity-alignment.json",
+      "pr": 479,
+      "mergeSha": "d0970ef62c9ddb2b6f35a6faf7c9e3820f22f336"
+    },
+    {
+      "taskId": "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix",
+      "authorityPath": "data/curriculum/public-generation/PGC-R07-A03.chromium-print-answer-key-matrix.json",
+      "pr": 480,
+      "mergeSha": "012a5c5d941658980730e649fd919cd2f8b9dd4d"
+    },
+    {
+      "taskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix",
+      "authorityPath": "data/curriculum/public-generation/PGC-R07-A04.overflow-clipping-font-pagination-matrix.json",
+      "pr": 481,
+      "mergeSha": "3ee1c37ee3d1e1166cf8566d15d5e50e8e431eb0"
+    }
+  ],
+  "surfaceProjectionRows": [
+    {
+      "rowId": "CLASSIC_PREVIEW_HTML",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "PREVIEW_HTML",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix", "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "CLASSIC_PRINT_HTML",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "PRINT_HTML",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix", "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "CLASSIC_CHROMIUM_PDF",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "CHROMIUM_PDF",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "CLASSIC_ANSWER_KEY",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "ANSWER_KEY",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix", "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "FALLBACK_404_PREVIEW_HTML",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "PREVIEW_HTML",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "FALLBACK_404_PRINT_HTML",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "PRINT_HTML",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "FALLBACK_404_CHROMIUM_PDF",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "CHROMIUM_PDF",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "FALLBACK_404_ANSWER_KEY",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "ANSWER_KEY",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "PIXEL_PREVIEW_HTML",
+      "surfaceId": "PIXEL",
+      "outputProjection": "PREVIEW_HTML",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "PIXEL_PRINT_HTML",
+      "surfaceId": "PIXEL",
+      "outputProjection": "PRINT_HTML",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "PIXEL_CHROMIUM_PDF",
+      "surfaceId": "PIXEL",
+      "outputProjection": "CHROMIUM_PDF",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    },
+    {
+      "rowId": "PIXEL_ANSWER_KEY",
+      "surfaceId": "PIXEL",
+      "outputProjection": "ANSWER_KEY",
+      "status": "PASS",
+      "evidenceTaskIds": ["PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"]
+    }
+  ],
+  "rendererBranchRows": [
+    {
+      "branchId": "SHARED_EXACT_LAYOUT",
+      "status": "PASS",
+      "evidenceTaskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix"
+    },
+    {
+      "branchId": "DYNAMIC_HTML",
+      "status": "PASS",
+      "evidenceTaskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix"
+    },
+    {
+      "branchId": "STATIC_HTML_URL",
+      "status": "PASS",
+      "evidenceTaskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix"
+    },
+    {
+      "branchId": "SHARED_FALLBACK",
+      "status": "PASS",
+      "evidenceTaskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix"
+    }
+  ],
+  "acceptanceDimensions": [
+    {"dimension": "NO_OVERFLOW", "status": "PASS"},
+    {"dimension": "NO_CLIPPING", "status": "PASS"},
+    {"dimension": "NO_QUESTION_OVERLAP", "status": "PASS"},
+    {"dimension": "NO_MISSING_ANSWERS", "status": "PASS"},
+    {"dimension": "NO_ABNORMAL_BLANK_PAGES", "status": "PASS"},
+    {"dimension": "TRADITIONAL_CHINESE_FONT_OK", "status": "PASS"},
+    {"dimension": "QUESTION_ANSWER_PAGE_BIJECTION", "status": "PASS"}
+  ],
+  "summary": {
+    "surfaceCount": 3,
+    "outputProjectionCount": 4,
+    "surfaceProjectionRowCount": 12,
+    "surfaceProjectionPassCount": 12,
+    "surfaceProjectionFailCount": 0,
+    "rendererBranchCount": 4,
+    "rendererBranchPassCount": 4,
+    "initialRepairQueueCount": 5,
+    "repairQueueCount": 0,
+    "legacyCapacityAuditRowCount": 36,
+    "a03RealChromiumPdfCount": 6,
+    "a04RealChromiumPdfCount": 8,
+    "totalRealChromiumPdfCount": 14,
+    "a04StressMatrixRowCount": 8,
+    "pageOverflowFindingCount": 0,
+    "clippingFindingCount": 0,
+    "overlapFindingCount": 0,
+    "blankPageFindingCount": 0,
+    "missingAnswerCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "questionIdentityDriftCount": 0,
+    "answerIdentityDriftCount": 0
+  },
+  "repairQueue": [],
+  "closeoutGates": {
+    "scopeFrozen": true,
+    "threeSurfaceBaselineMaterialized": true,
+    "capacityAwareLiveBrowserParityPass": true,
+    "threeSurfacePreviewPrintAnswerParityPass": true,
+    "realChromiumPdfMatrixPass": true,
+    "fourRendererBranchStressMatrixPass": true,
+    "allAcceptanceDimensionsPass": true,
+    "repairQueueZero": true,
+    "fullRegression": "PENDING_EXACT_HEAD_CI",
+    "pgcR00Gate": "PENDING_EXACT_HEAD_CI",
+    "postgApplicationGate": "PENDING_EXACT_HEAD_CI",
+    "terminalMarkerWritten": false
+  },
+  "exactHeadEvidence": null,
+  "frozenBoundary": {
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false,
+    "productUiModified": false,
+    "knowledgePointModified": false,
+    "patternGroupModified": false,
+    "patternSpecModified": false,
+    "newWorkflowAdded": false,
+    "slice014Started": false
+  },
+  "goalDistance": {
+    "before": "D1_R07_OVERFLOW_FONT_PAGINATION_MATRIX_PASS",
+    "after": "D1_R07_FINAL_RECONCILIATION_PENDING_EXACT_HEAD_CI",
+    "distanceReduced": "reconciled all surface projections, renderer branches and layout acceptance dimensions into one zero-repair terminal authority",
+    "remainingBlockers": ["EXACT_HEAD_CI_PENDING", "D0_MARKER_PENDING"],
+    "nextShortestStep": "PGC-R07-A05_ExactHeadCIAndD0Readback"
+  }
+}
