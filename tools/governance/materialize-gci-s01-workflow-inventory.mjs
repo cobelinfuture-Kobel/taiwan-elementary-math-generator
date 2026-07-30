@@ -80,6 +80,7 @@ function classifyWorkflow(row) {
   }
   if (row.writesPullRequestBranch) return "WORKFLOW_DISPATCH_ONLY_OR_RETIRE";
   if (row.file === ".github/workflows/node-test.yml") return "KEEP_REQUIRED_UNTIL_ORCHESTRATOR_REPLACES";
+  if (row.file === ".github/workflows/pr-gate.yml") return "PILOT_ORCHESTRATOR";
   if (row.hasHeadRefJobGate || /P03F\d+ Slice\d+ Product Acceptance/i.test(row.displayName)) {
     return "MERGE_INTO_AFFECTED_SCOPE_MATRIX";
   }
@@ -87,10 +88,12 @@ function classifyWorkflow(row) {
   return "KEEP_OPTIONAL_OR_REUSABLE";
 }
 
-export function materializeGciS01WorkflowInventory({ rootDir = "." } = {}) {
+export function materializeGciS01WorkflowInventory({ rootDir = ".", excludeFiles = [] } = {}) {
   const workflowDir = path.join(rootDir, WORKFLOW_DIR);
+  const excluded = new Set(excludeFiles.map((file) => file.replaceAll("\\", "/")));
   const files = fs.readdirSync(workflowDir)
     .filter((name) => /\.ya?ml$/i.test(name))
+    .filter((name) => !excluded.has(name) && !excluded.has(`${WORKFLOW_DIR}/${name}`))
     .sort(compareCodePoint);
 
   const workflows = files.map((name) => {
