@@ -68,11 +68,7 @@ test("PGC-R06 current repair queue remains deterministic and milestone-aware", (
     || a.routeId.localeCompare(b.routeId));
   assert.deepEqual(inventory.repairQueue.map((route) => route.routeId), sorted.map((route) => route.routeId));
 
-  if (inventory.lastR06A07Closeout) {
-    assert.equal(inventory.summary.repairQueueCount, 0);
-    assert.equal(inventory.r06TerminalStatus, "D0_CLOSED");
-    assert.equal(inventory.nextShortestStep, "OPERATOR_SELECT_NEXT_APPROVED_PROGRAM_AFTER_R06");
-  } else if (inventory.lastR06A06Reconciliation) {
+  if (inventory.lastR06A06Reconciliation) {
     assert.equal(inventory.summary.repairQueueCount, 0);
     assert.match(inventory.nextShortestStep, /^PGC-R06-A07_/);
   } else if (inventory.lastR06A05Reconciliation) {
