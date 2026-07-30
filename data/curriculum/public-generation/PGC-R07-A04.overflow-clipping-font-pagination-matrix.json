@@ -4,7 +4,7 @@
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix",
   "previousTaskId": "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix",
-  "status": "PENDING_EXACT_HEAD_CI",
+  "status": "PASS_EXACT_HEAD_CI_OVERFLOW_FONT_PAGINATION_MATRIX",
   "scope": {
     "rendererBranchCount": 4,
     "stressProfileCount": 2,
@@ -82,21 +82,36 @@
   },
   "acceptance": {
     "expectedRowCount": 8,
-    "actualRowCount": null,
-    "pdfPassCount": null,
-    "pageOverflowFindingCount": null,
-    "clippingFindingCount": null,
-    "overlapFindingCount": null,
-    "blankPageFindingCount": null,
-    "missingAnswerCount": null,
-    "traditionalChineseFontPassCount": null,
-    "questionAnswerBijectionPassCount": null,
-    "consoleErrorCount": null,
-    "pageErrorCount": null,
-    "crossBranchQuestionIdentity": "PENDING",
-    "crossBranchAnswerIdentity": "PENDING"
+    "actualRowCount": 8,
+    "pdfPassCount": 8,
+    "pageOverflowFindingCount": 0,
+    "clippingFindingCount": 0,
+    "overlapFindingCount": 0,
+    "blankPageFindingCount": 0,
+    "missingAnswerCount": 0,
+    "traditionalChineseFontPassCount": 8,
+    "questionAnswerBijectionPassCount": 8,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "crossBranchQuestionIdentity": "EXACT_MATCH_PER_PROFILE",
+    "crossBranchAnswerIdentity": "EXACT_MATCH_PER_PROFILE"
   },
-  "exactHeadEvidence": null,
+  "exactHeadEvidence": {
+    "acceptedHeadSha": "0008ccfff167da986de0a432efe352e1bd6c6d86",
+    "workflowRunId": 30560688293,
+    "workflowRunNumber": 4400,
+    "artifactId": 8766828997,
+    "artifactDigest": "sha256:3a726622d8cad1718d02e2077f08c7b8d1b7fa3d9803c009eb8d6b7cbc610baf",
+    "artifactSizeBytes": 337989,
+    "reportStatus": "PASS",
+    "longTextQuestionIdentitySha256": "9b0355405acccde17cc4f91f83b272e68615253c78195b8532358ce3e57d0f3c",
+    "denseNumericQuestionIdentitySha256": "1f227e62ce97592028e5c8a0d60d1990306ed97e615faddfc00f72bfe750c67a",
+    "minimumPdfBytes": 21844,
+    "maximumPdfBytes": 79837,
+    "fullRegression": "PASS",
+    "pgcR00Gate": "PASS",
+    "postgApplicationGate": "PASS"
+  },
   "frozenBoundary": {
     "generatorModified": false,
     "validatorModified": false,
@@ -110,12 +125,11 @@
   },
   "goalDistance": {
     "before": "D1_R07_REAL_CHROMIUM_PRINT_ANSWER_MATRIX_PASS",
-    "after": "D1_R07_OVERFLOW_FONT_PAGINATION_MATRIX_PENDING_CI",
-    "distanceReduced": "materialized a four-renderer-branch by two-stress-profile real Chromium acceptance contract without modifying product authorities",
+    "after": "D1_R07_OVERFLOW_FONT_PAGINATION_MATRIX_PASS",
+    "distanceReduced": "proved all four renderer branches under long-text and dense multi-page stress with eight real Chromium A4 PDFs, zero overflow, clipping, overlap, blank pages, missing answers or browser errors",
     "remainingBlockers": [
-      "EXACT_HEAD_CHROMIUM_MATRIX_PENDING",
       "FINAL_SURFACE_PARITY_RECONCILIATION_PENDING"
     ],
-    "nextShortestStep": "PGC-R07-A04_ExactHeadCIAndMatrixReadback"
+    "nextShortestStep": "PGC-R07-A05_FinalSurfaceParityReconciliationAndCloseout"
   }
 }
