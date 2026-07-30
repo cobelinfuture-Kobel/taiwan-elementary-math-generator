@@ -4,7 +4,10 @@ on:
   pull_request:
     paths:
       - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs"
+      - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs"
       - "tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs"
+      - "src/curriculum/g5a-u02/**"
+      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
       - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
       - "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
       - "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.csv"
@@ -38,41 +41,92 @@ jobs:
       - name: Apply all-queued-gap diagnostic scope
         run: node tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs
 
-      - name: Syntax-check A02 diagnostics
+      - name: Apply G5A-U02 reasoning mixed diversity FullFix
+        run: node tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs
+
+      - name: Syntax-check A02 authorities
         run: |
           node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs
+          node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs
           node --check tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
+          node --check src/curriculum/g5a-u02/browser-dynamic-entry.js
+          node --check src/curriculum/g5a-u02/class-c-generator-validator.js
+          node --check src/curriculum/g5a-u02/class-d-semantic-generator-validator.js
+          node --check src/curriculum/g5a-u02/s101-representation-runtime.js
+          node --check src/curriculum/g5a-u02/s103-digit-code-runtime.js
+          node --check src/curriculum/g5a-u02/s108-remainder-transfer-runtime.js
+
+      - name: Rebuild canonical G5A-U02 browser bundle
+        run: |
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
+          npx --yes esbuild@0.25.5 \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            --bundle \
+            --format=esm \
+            --platform=browser \
+            --target=es2022 \
+            --minify \
+            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
+            --outfile=/tmp/g5a-u02-browser-dynamic-runtime.bundle.js
+          cmp site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js /tmp/g5a-u02-browser-dynamic-runtime.bundle.js
 
       - name: Materialize 98-route public-pipeline diagnostics
         run: node tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
 
-      - name: Require exact queue classification
+      - name: Require all 98 routes live at 20 questions
         run: |
           node --input-type=module <<'NODE'
           import fs from "node:fs";
           const report = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json", "utf8"));
           if (report.summary.targetRouteCount !== 98
-            || report.summary.live20PassRouteCount + report.summary.live20FailRouteCount !== 98
+            || report.summary.live20PassRouteCount !== 98
+            || report.summary.live20FailRouteCount !== 0
             || report.routes.length !== 98
-            || report.routes.some((route) => route.sourceId !== "g5a_u02_5a02")) {
-            throw new Error(`PGC_R06_A02_DIAGNOSTIC_GATE_FAILED:${JSON.stringify(report.summary)}`);
+            || report.routes.some((route) => route.sourceId !== "g5a_u02_5a02")
+            || report.routes.some((route) => route.diagnosticRuns.some((run) => run.uniquePromptCount !== 20 || run.answerKeyItemCount !== 20))) {
+            throw new Error(`PGC_R06_A02_LIVE_GATE_FAILED:${JSON.stringify(report.summary)}`);
           }
-          console.log(`PGC_R06_A02_DIAGNOSTIC_GATE=PASS:${JSON.stringify(report.summary)}`);
+          console.log(`PGC_R06_A02_LIVE_GATE=PASS:${JSON.stringify(report.summary)}`);
           NODE
 
-      - name: Commit deterministic diagnostics
+      - name: Focused G5A-U02 generator validator acceptance
+        run: |
+          node --test tests/curriculum/g5a-u02-class-c-generator-validator.test.js
+          node --test tests/curriculum/g5a-u02-class-d-semantic-generator-validator.test.js
+          node --test tests/curriculum/g5a-u02-canonical-resolver.test.js
+          node --test tests/curriculum/g5a-u02-browser-dynamic-runtime.test.js
+
+      - name: Full repository regression
+        run: npm test
+
+      - name: Commit deterministic runtime and diagnostics
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs \
+            src/curriculum/g5a-u02/browser-dynamic-entry.js \
+            src/curriculum/g5a-u02/class-c-generator-validator.js \
+            src/curriculum/g5a-u02/class-d-semantic-generator-validator.js \
+            src/curriculum/g5a-u02/s101-representation-runtime.js \
+            src/curriculum/g5a-u02/s103-digit-code-runtime.js \
+            src/curriculum/g5a-u02/s108-remainder-transfer-runtime.js \
+            site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js \
             data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json \
             data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.csv \
             docs/curriculum/output/PGC-R06-A02_G5A_U02_live_diagnostics.md
           if git diff --cached --quiet; then
-            echo "A02 diagnostics already synchronized."
+            echo "A02 runtime and diagnostics already synchronized."
           else
-            git commit -m "docs(pgc-r06): classify G5A-U02 queued route failures [skip ci]"
+            git commit -m "fix(pgc-r06): close G5A-U02 reasoning mixed prompt diversity [skip ci]"
             git fetch origin "${{ github.head_ref || github.ref_name }}"
             git rebase "origin/${{ github.head_ref || github.ref_name }}"
             git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
