@@ -4,19 +4,21 @@
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix",
   "previousTaskId": "PGC-R07-A01_ThreeSurfaceParityBaselineMaterialization",
-  "status": "READY_FOR_DEPLOYED_REPLAY",
+  "status": "PASS_CAPACITY_AWARE_DEPLOYED_BROWSER_PARITY",
   "diagnosis": {
     "baselineGapId": "R07-GAP-001",
     "originalGapCode": "PUBLIC_QUESTION_MODE_OPTION_MISSING",
-    "correctedFailureClass": "ACCEPTANCE_HARNESS_PRE_BINDING_SYNCHRONIZATION_RACE",
+    "correctedFailureClasses": [
+      "LEGACY_ROUTER_MATRIX_PUBLIC_CAPACITY_AUTHORITY_DRIFT",
+      "ACCEPTANCE_CONTROL_TRANSITION_RACE"
+    ],
     "sourceId": "g5a_u08_5a08",
-    "selector": "#g5a-u08-question-mode",
-    "requestedQuestionType": "mixed",
-    "selectionModeAtFailure": "singleKnowledgePoint",
-    "staticResolverMixedCapacityConfirmed": true,
-    "wholeUnitMixedCapacityConfirmed": true,
-    "sameUnitMixedCapacityConfirmed": true,
-    "failureBoundary": "browser harness requested the option immediately after source and selection-mode changes, before the scheduled public capability UI microtask converged",
+    "selectionMode": "mixedKnowledgePointsSameUnit",
+    "legacyMatrixRowCount": 36,
+    "legacyMatrixAuthority": "normalizeG5AU08ResolverPlan",
+    "currentPublicAuthority": "resolvePublicUiCapabilityBinding plus PUBLIC_GENERATOR_CAPACITY_ROWS",
+    "sameUnitMixedAdmitted": true,
+    "sameUnitNumericAdmitted": false,
     "capacityAuthorityPreserved": true,
     "uiBindingAuthorityPreserved": true
   },
@@ -24,7 +26,9 @@
     "compatibilityRunner": "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs",
     "legacyHarness": "tools/curriculum/run-g5a-u08-r1-deployed-pages-smoke.mjs",
     "workflow": ".github/workflows/g5a-u08-r1-deployed-pages-smoke.yml",
-    "behavior": "remove only the obsolete initial mixed control preselection before the knowledge-point surface has converged; preserve per-KP capacity-derived controls and the full control matrix after mixedKnowledgePointsSameUnit is selected",
+    "behavior": "classify all 36 rows through shared public binding, generate admitted rows with convergence-safe transitions, assert non-admitted exact intersections are not exposed, and derive replay controls from an admitted row",
+    "coverageRowCountPreserved": 36,
+    "blockedRowsExpectedAs": "not_exposed",
     "workflowAdded": false,
     "productUiModified": false,
     "capacityRegistryModified": false,
@@ -33,26 +37,27 @@
     "rendererModified": false
   },
   "acceptance": {
-    "focusedContractTest": "tests/site/g5a-u08-r1-deployed-gate-contract.test.js",
-    "browserDefaultResolverMixedAdmitted": true,
-    "sourceUnitMixedAdmitted": true,
-    "sameUnitMixedAdmitted": true,
-    "preConvergenceMixedSelectionRemoved": true,
-    "deployedMainReplayRequiredAfterMerge": true,
-    "a02CloseoutAllowedBeforeDeployedReplayPass": false
+    "focusedContractTest": "PASS",
+    "liveDeployedWorkflowRunId": "30553672858",
+    "liveDeployedBrowser": "PASS",
+    "capacityAwareMatrix": "PASS",
+    "queryReplay": "PASS",
+    "answerKeyOnOff": "PASS",
+    "previewPrintInvocation": "PASS",
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "a02CloseoutAllowed": true
   },
   "goalDistance": {
     "before": "D1_R07_THREE_SURFACE_BASELINE_AND_REPAIR_QUEUE_MATERIALIZED",
-    "after": "D1_R07_FIRST_GAP_IMPLEMENTATION_READY_FOR_DEPLOYED_REPLAY",
-    "distanceReduced": "reclassified the first apparent UI gap as a pre-binding synchronization race and aligned the existing deployed smoke with the shared capability UI lifecycle without changing public capacity",
+    "after": "D1_R07_CLASSIC_CAPACITY_AWARE_PREVIEW_PRINT_PARITY_PASS",
+    "distanceReduced": "Classic G5A-U08 deployed acceptance now follows shared public capacity authority and completes browser preview, answer-key and print-path verification",
     "remainingBlockers": [
-      "EXACT_HEAD_CI_PENDING",
-      "DEPLOYED_MAIN_REPLAY_PENDING",
       "FALLBACK_404_BROWSER_BASELINE_MISSING",
       "PIXEL_BROWSER_BASELINE_MISSING",
       "RENDERER_BRANCH_PARITY_UNPROVEN",
-      "REAL_PRINT_AND_ANSWER_KEY_MATRIX_MISSING"
+      "REAL_CHROMIUM_PDF_MATRIX_MISSING"
     ],
-    "nextShortestStep": "PGC-R07-A02_MergeThenDeployedReplayAndParityReconciliation"
+    "nextShortestStep": "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"
   }
 }
