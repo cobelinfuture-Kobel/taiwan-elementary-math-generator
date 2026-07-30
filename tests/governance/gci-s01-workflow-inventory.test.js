@@ -18,6 +18,7 @@ function compareCodePoint(left, right) {
 const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/pgc-r06-a02-g5a-u02-live-diagnostics.yml",
   ".github/workflows/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.yml",
+  ".github/workflows/pgc-r06-a07-final-global-live-d0-closeout.yml",
 ];
 
 function canonicalizeReport(report) {
