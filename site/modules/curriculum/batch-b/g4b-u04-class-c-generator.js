@@ -21,18 +21,32 @@ export const G4B_U04_S69_CLASS_C_PATTERN_SPEC_IDS = Object.freeze([
 ]);
 
 const DIGIT_SET_CASES = Object.freeze([
-  Object.freeze({ mask: "2□318", targetUnit: 10000, roundedValue: 30000 }),
-  Object.freeze({ mask: "47□61", targetUnit: 1000, roundedValue: 47000 }),
-  Object.freeze({ mask: "6□42", targetUnit: 1000, roundedValue: 6000 }),
-  Object.freeze({ mask: "8□76", targetUnit: 1000, roundedValue: 9000 }),
+  ...Array.from({ length: 8 }, (_, index) => Object.freeze({
+    mask: `${index + 1}□318`,
+    targetUnit: 10000,
+    roundedValue: (index + 2) * 10000,
+  })),
+  ...Array.from({ length: 8 }, (_, index) => Object.freeze({
+    mask: `${index + 1}7□61`,
+    targetUnit: 1000,
+    roundedValue: (index + 1) * 10000 + 8000,
+  })),
+  ...Array.from({ length: 8 }, (_, index) => Object.freeze({
+    mask: `${index + 1}□42`,
+    targetUnit: 1000,
+    roundedValue: (index + 2) * 1000,
+  })),
 ]);
 
-const ORIGINAL_VALUE_CASES = Object.freeze([
-  Object.freeze({ mask: "4□□99", targetUnit: 1000, roundedValue: 45000 }),
-  Object.freeze({ mask: "3□□49", targetUnit: 1000, roundedValue: 35000 }),
-  Object.freeze({ mask: "7□□25", targetUnit: 1000, roundedValue: 72000 }),
-  Object.freeze({ mask: "6□□75", targetUnit: 1000, roundedValue: 65000 }),
-]);
+const ORIGINAL_VALUE_CASES = Object.freeze(
+  [2, 3, 4, 5, 6, 7, 8].flatMap((leadingDigit) =>
+    [25, 49, 75, 99].map((suffix) => Object.freeze({
+      mask: `${leadingDigit}□□${suffix}`,
+      targetUnit: 1000,
+      roundedValue: leadingDigit * 10000 + 5000,
+    })),
+  ),
+);
 
 function deepFreeze(value) {
   if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
@@ -148,7 +162,7 @@ function sampleLanguageClassification(seed) {
   };
 }
 
-function sampleSymbolReading(seed) {
+function sampleSymbolReading(seed, sequence = 0) {
   const prompts = [
     "符號「≈」讀作什麼？", "數學符號 ≈ 的中文讀法是什麼？", "看到 ≈ 時，應讀成哪三個字？",
     "請寫出符號 ≈ 的名稱。", "在概數中，≈ 表示什麼關係？", "「約等於」通常使用哪個符號？本題請寫出該符號的讀法。",
@@ -160,7 +174,7 @@ function sampleSymbolReading(seed) {
     "讀出下列符號：≈。", "在『大約相等』的算式中，≈ 的正式讀法是什麼？", "請將符號 ≈ 轉成中文詞語。",
   ];
   return {
-    promptText: prompts[seed % prompts.length],
+    promptText: prompts[((seed % prompts.length) + sequence) % prompts.length],
     answerText: "約等於",
     finalAnswer: "約等於",
     structuredAnswer: {
@@ -226,8 +240,8 @@ function sampleDirectRounding(seed, method) {
   };
 }
 
-function sampleInverseDigitSet(seed) {
-  const selected = randomChoice(seed, 1, DIGIT_SET_CASES);
+function sampleInverseDigitSet(seed, sequence = 0) {
+  const selected = DIGIT_SET_CASES[((seed % DIGIT_SET_CASES.length) + sequence) % DIGIT_SET_CASES.length];
   const digits = [];
   for (let digit = 0; digit <= 9; digit += 1) {
     const completed = replaceMask(selected.mask, String(digit));
@@ -243,8 +257,8 @@ function sampleInverseDigitSet(seed) {
   };
 }
 
-function sampleInverseOriginalValues(seed) {
-  const selected = randomChoice(seed, 1, ORIGINAL_VALUE_CASES);
+function sampleInverseOriginalValues(seed, sequence = 0) {
+  const selected = ORIGINAL_VALUE_CASES[((seed % ORIGINAL_VALUE_CASES.length) + sequence) % ORIGINAL_VALUE_CASES.length];
   const values = enumerateG4BU04DigitMaskValues(selected.mask)
     .filter((value) => g4bU04RoundHalfUp(value, selected.targetUnit) === selected.roundedValue);
   return {
@@ -260,17 +274,17 @@ function sampleInverseOriginalValues(seed) {
   };
 }
 
-function sampleForPattern(patternSpecId, seed) {
+function sampleForPattern(patternSpecId, seed, sequence = 0) {
   switch (patternSpecId) {
     case "ps_g4b_u04_approx_language_classify": return sampleLanguageClassification(seed);
-    case "ps_g4b_u04_approx_symbol_reading": return sampleSymbolReading(seed);
+    case "ps_g4b_u04_approx_symbol_reading": return sampleSymbolReading(seed, sequence);
     case "ps_g4b_u04_method_compare_outputs": return sampleMethodComparison(seed);
     case "ps_g4b_u04_method_identify_from_result": return sampleMethodChoice(seed);
     case "ps_g4b_u04_unconditional_round_down": return sampleDirectRounding(seed, "down");
     case "ps_g4b_u04_unconditional_round_up": return sampleDirectRounding(seed, "up");
     case "ps_g4b_u04_round_half_up": return sampleDirectRounding(seed, "half_up");
-    case "ps_g4b_u04_inverse_digit_set": return sampleInverseDigitSet(seed);
-    case "ps_g4b_u04_inverse_original_values": return sampleInverseOriginalValues(seed);
+    case "ps_g4b_u04_inverse_digit_set": return sampleInverseDigitSet(seed, sequence);
+    case "ps_g4b_u04_inverse_original_values": return sampleInverseOriginalValues(seed, sequence);
     default: throw new Error(`G4BU04_GEN_PATTERN_SPEC_UNSUPPORTED:${patternSpecId}`);
   }
 }
@@ -281,7 +295,7 @@ export function generateG4BU04ClassCQuestion({ patternSpecId, seed = "s69", sequ
     throw new Error(`G4BU04_GEN_PATTERN_SPEC_UNSUPPORTED:${patternSpecId}`);
   }
   const seedLabel = `${seed}:${patternSpecId}:${sequence}`;
-  const sample = sampleForPattern(patternSpecId, hashSeed(seedLabel));
+  const sample = sampleForPattern(patternSpecId, hashSeed(seedLabel), sequence);
   return deepFreeze({
     questionId: `g4b-u04-s69-${hashSeed(seedLabel).toString(16)}-${sequence}`,
     sourceId: G4B_U04_SOURCE_ID,
@@ -365,3 +379,5 @@ export function generateG4BU04ClassCBatch({
 }
 
 // PGC-R04 final approximation-symbol surface parameterization
+
+// PGC-R06 G4B-U04 bounded reasoning capacity FullFix V1
