@@ -4,8 +4,17 @@ import {
   auditPublicUiCapabilityBinding as auditBasePublicUiCapabilityBinding,
   resolvePublicUiCapabilityBinding as resolveBasePublicUiCapabilityBinding,
 } from "./public-ui-capability-binding-base.js";
+import {
+  PUBLIC_GENERATOR_CAPACITY_RECONCILIATION,
+  PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
+} from "./public-generator-capacity-registry.js";
 
 export { PUBLIC_UI_SAFE_QUESTION_COUNT, PUBLIC_UI_SURFACES };
+
+export const PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION = Object.freeze({
+  ...PUBLIC_GENERATOR_CAPACITY_RECONCILIATION,
+  registryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
+});
 
 const SOURCE_UNIT_MODE = "sourceUnit";
 const MIXED_MODE = "mixed";
@@ -27,6 +36,7 @@ function withGlobalQuestionCount(binding) {
   return Object.freeze({
     ...binding,
     questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
     capacityStatus: binding?.questionCount?.max > 0
       ? binding.capacityStatus
       : "STRUCTURAL_FALLBACK_AVAILABLE",
@@ -88,6 +98,7 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
     compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
     selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
     questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
     capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
     blocked: false,
     blockedReasons: Object.freeze([]),
@@ -97,3 +108,5 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
 export function auditPublicUiCapabilityBinding() {
   return auditBasePublicUiCapabilityBinding();
 }
+
+// PGC-R06 A03 runtime capacity consumer reconciliation

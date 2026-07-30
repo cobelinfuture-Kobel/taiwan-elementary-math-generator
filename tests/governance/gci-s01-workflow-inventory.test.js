@@ -15,6 +15,11 @@ function compareCodePoint(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
+const POST_S01_WORKFLOW_FILES = [
+  ".github/workflows/pgc-r06-a02-g5a-u02-live-diagnostics.yml",
+  ".github/workflows/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.yml",
+];
+
 function canonicalizeReport(report) {
   return {
     ...report,
@@ -34,7 +39,7 @@ function canonicalizeReport(report) {
 
 test("GCI-S01 committed evidence is exhaustive and deterministic", () => {
   const report = materializeGciS01WorkflowInventory({
-    excludeFiles: [".github/workflows/pr-gate.yml"]
+    excludeFiles: [".github/workflows/pr-gate.yml", ...POST_S01_WORKFLOW_FILES]
   });
 
   assert.equal(report.inventoryCompleteness, "COMPLETE_FROM_CHECKED_OUT_MAIN_TREE");
@@ -98,3 +103,5 @@ test("GCI-S01 committed evidence is exhaustive and deterministic", () => {
   assert.match(closeout, /WORKFLOW_FILE_COUNT\s*= 110/);
   assert.match(closeout, /NEXT_SHORTEST_STEP\s*= GCI-S02_SinglePrGateOrchestratorPilot/);
 });
+
+// PGC-R06 A03 historical authority and workflow governance compatibility

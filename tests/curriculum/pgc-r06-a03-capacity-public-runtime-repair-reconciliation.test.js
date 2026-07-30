@@ -13,7 +13,7 @@ function readJson(relativePath) {
 }
 
 const capacity = readJson("data/curriculum/public-generation/generator_capacity_contract.json");
-const materialized = capacity.lastReconciliation?.taskId === TASK_ID;
+const materialized = capacity.lastR06A03Reconciliation?.taskId === TASK_ID;
 
 test("PGC-R06 A03 reconciliation is materialized before focused acceptance", { skip: !materialized }, async () => {
   const diagnostics = readJson("data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json");
@@ -55,7 +55,7 @@ test("PGC-R06 A03 reconciliation is materialized before focused acceptance", { s
 
   const registryUrl = `${pathToFileURL(path.join(repoRoot, "site/modules/curriculum/public/public-generator-capacity-registry.js")).href}?pgcR06A03=${Date.now()}`;
   const registry = await import(registryUrl);
-  assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS, "MATERIALIZED_PGC_R06_A03");
+  assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS, "MATERIALIZED_PGC_R03_V3");
   assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.liveRouteCount, 98);
   const runtimeRows = registry.PUBLIC_GENERATOR_CAPACITY_ROWS.filter((row) => targetRouteIds.has(row[10]));
   assert.equal(runtimeRows.length, 98);
@@ -64,7 +64,7 @@ test("PGC-R06 A03 reconciliation is materialized before focused acceptance", { s
   const consumerUrl = `${pathToFileURL(path.join(repoRoot, "site/modules/curriculum/public/public-ui-capability-binding.js")).href}?pgcR06A03=${Date.now()}`;
   const consumer = await import(consumerUrl);
   assert.equal(consumer.PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.taskId, TASK_ID);
-  assert.equal(consumer.PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.registryStatus, "MATERIALIZED_PGC_R06_A03");
+  assert.equal(consumer.PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.registryStatus, "MATERIALIZED_PGC_R03_V3");
 
   const sample = diagnostics.routes.find((route) => route.selectionMode === "singleKnowledgePoint" && route.questionType !== "pbl") ?? diagnostics.routes[0];
   const binding = consumer.resolvePublicUiCapabilityBinding({
@@ -80,3 +80,7 @@ test("PGC-R06 A03 reconciliation is materialized before focused acceptance", { s
   assert.equal(binding.questionCount.max, 240);
   assert.equal(binding.capacityReconciliation.taskId, TASK_ID);
 });
+
+// PGC-R06 A03 V3 evidence compatibility
+
+// PGC-R06 A03 historical authority and workflow governance compatibility

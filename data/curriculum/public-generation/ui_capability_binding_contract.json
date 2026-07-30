@@ -16,8 +16,8 @@
   "safeQuestionCount": {
     "min": 1,
     "default": 20,
-    "max": 20,
-    "evidence": "PGC_R03_GLOBAL_PUBLIC_HARD_CEILING"
+    "max": 240,
+    "evidence": "PUBLIC_GLOBAL_QUESTION_COUNT_MAX_240"
   },
   "surfaces": [
     "CLASSIC",
@@ -36,10 +36,12 @@
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
-    "verified20BindingCount": 840,
-    "limitedCapacityBindingCount": 261,
+    "verified20BindingCount": 891,
+    "limitedCapacityBindingCount": 210,
     "minimumVerifiedQuestionCount": 1,
-    "maximumVerifiedQuestionCount": 20
+    "maximumVerifiedQuestionCount": 20,
+    "maximumPublicInputQuestionCount": 240,
+    "reconciledG5AU02BindingCount": 60
   },
   "gaps": [],
   "bindings": [
@@ -29153,12 +29155,30 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_0414b52fd538",
+        "pgc_r03_g5a_u02_5a02_mixed_6f6b686bb61d",
+        "pgc_r03_g5a_u02_5a02_mixed_026e20925977",
+        "pgc_r03_g5a_u02_5a02_mixed_155b7a11a4d1",
+        "pgc_r03_g5a_u02_5a02_mixed_3c54147b154d",
+        "pgc_r03_g5a_u02_5a02_mixed_4da24bd603ce",
+        "pgc_r03_g5a_u02_5a02_mixed_cfc84e72edd3",
+        "pgc_r03_g5a_u02_5a02_mixed_7d59509c8110"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::CLASSIC::concept",
@@ -29461,12 +29481,34 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_pbl_03409cbc10b4",
+        "pgc_r03_g5a_u02_5a02_pbl_9abf58c6b925",
+        "pgc_r03_g5a_u02_5a02_pbl_e2414cd5792f",
+        "pgc_r03_g5a_u02_5a02_pbl_e6a9224f4a9b",
+        "pgc_r03_g5a_u02_5a02_pbl_eb45b235d995",
+        "pgc_r03_g5a_u02_5a02_pbl_d77a5d08d769",
+        "pgc_r03_g5a_u02_5a02_pbl_dbe7d293006e",
+        "pgc_r03_g5a_u02_5a02_pbl_cb87dbe9053a",
+        "pgc_r03_g5a_u02_5a02_pbl_b3971844f8e5",
+        "pgc_r03_g5a_u02_5a02_pbl_e6872a54e149",
+        "pgc_r03_g5a_u02_5a02_pbl_bdaba83351f3",
+        "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce"
+      ],
+      "capacityQualityStatuses": [
+        "FIXTURE_SELECTOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::FALLBACK_404::mixed",
@@ -29574,12 +29616,30 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_0414b52fd538",
+        "pgc_r03_g5a_u02_5a02_mixed_6f6b686bb61d",
+        "pgc_r03_g5a_u02_5a02_mixed_026e20925977",
+        "pgc_r03_g5a_u02_5a02_mixed_155b7a11a4d1",
+        "pgc_r03_g5a_u02_5a02_mixed_3c54147b154d",
+        "pgc_r03_g5a_u02_5a02_mixed_4da24bd603ce",
+        "pgc_r03_g5a_u02_5a02_mixed_cfc84e72edd3",
+        "pgc_r03_g5a_u02_5a02_mixed_7d59509c8110"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::FALLBACK_404::concept",
@@ -29882,12 +29942,34 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_pbl_03409cbc10b4",
+        "pgc_r03_g5a_u02_5a02_pbl_9abf58c6b925",
+        "pgc_r03_g5a_u02_5a02_pbl_e2414cd5792f",
+        "pgc_r03_g5a_u02_5a02_pbl_e6a9224f4a9b",
+        "pgc_r03_g5a_u02_5a02_pbl_eb45b235d995",
+        "pgc_r03_g5a_u02_5a02_pbl_d77a5d08d769",
+        "pgc_r03_g5a_u02_5a02_pbl_dbe7d293006e",
+        "pgc_r03_g5a_u02_5a02_pbl_cb87dbe9053a",
+        "pgc_r03_g5a_u02_5a02_pbl_b3971844f8e5",
+        "pgc_r03_g5a_u02_5a02_pbl_e6872a54e149",
+        "pgc_r03_g5a_u02_5a02_pbl_bdaba83351f3",
+        "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce"
+      ],
+      "capacityQualityStatuses": [
+        "FIXTURE_SELECTOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::PIXEL::mixed",
@@ -29995,12 +30077,30 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_0414b52fd538",
+        "pgc_r03_g5a_u02_5a02_mixed_6f6b686bb61d",
+        "pgc_r03_g5a_u02_5a02_mixed_026e20925977",
+        "pgc_r03_g5a_u02_5a02_mixed_155b7a11a4d1",
+        "pgc_r03_g5a_u02_5a02_mixed_3c54147b154d",
+        "pgc_r03_g5a_u02_5a02_mixed_4da24bd603ce",
+        "pgc_r03_g5a_u02_5a02_mixed_cfc84e72edd3",
+        "pgc_r03_g5a_u02_5a02_mixed_7d59509c8110"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::PIXEL::concept",
@@ -30303,12 +30403,34 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_pbl_03409cbc10b4",
+        "pgc_r03_g5a_u02_5a02_pbl_9abf58c6b925",
+        "pgc_r03_g5a_u02_5a02_pbl_e2414cd5792f",
+        "pgc_r03_g5a_u02_5a02_pbl_e6a9224f4a9b",
+        "pgc_r03_g5a_u02_5a02_pbl_eb45b235d995",
+        "pgc_r03_g5a_u02_5a02_pbl_d77a5d08d769",
+        "pgc_r03_g5a_u02_5a02_pbl_dbe7d293006e",
+        "pgc_r03_g5a_u02_5a02_pbl_cb87dbe9053a",
+        "pgc_r03_g5a_u02_5a02_pbl_b3971844f8e5",
+        "pgc_r03_g5a_u02_5a02_pbl_e6872a54e149",
+        "pgc_r03_g5a_u02_5a02_pbl_bdaba83351f3",
+        "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce"
+      ],
+      "capacityQualityStatuses": [
+        "FIXTURE_SELECTOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::CLASSIC::mixed",
@@ -30340,13 +30462,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_c1e9faeaa57f",
+        "pgc_r03_g5a_u02_5a02_mixed_91df3cd4c346",
+        "pgc_r03_g5a_u02_5a02_mixed_a43383ed94db",
+        "pgc_r03_g5a_u02_5a02_mixed_4295ef463e5e"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::CLASSIC::concept",
@@ -30410,13 +30546,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_c1e9faeaa57f",
+        "pgc_r03_g5a_u02_5a02_mixed_91df3cd4c346",
+        "pgc_r03_g5a_u02_5a02_mixed_a43383ed94db",
+        "pgc_r03_g5a_u02_5a02_mixed_4295ef463e5e"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::FALLBACK_404::concept",
@@ -30480,13 +30630,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_c1e9faeaa57f",
+        "pgc_r03_g5a_u02_5a02_mixed_91df3cd4c346",
+        "pgc_r03_g5a_u02_5a02_mixed_a43383ed94db",
+        "pgc_r03_g5a_u02_5a02_mixed_4295ef463e5e"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::PIXEL::concept",
@@ -30550,13 +30714,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_29f71ea95f6c",
+        "pgc_r03_g5a_u02_5a02_mixed_7f35706aa394",
+        "pgc_r03_g5a_u02_5a02_mixed_b0b12702bfac",
+        "pgc_r03_g5a_u02_5a02_mixed_40ab80775d6e"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::CLASSIC::numeric",
@@ -30620,13 +30798,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_29f71ea95f6c",
+        "pgc_r03_g5a_u02_5a02_mixed_7f35706aa394",
+        "pgc_r03_g5a_u02_5a02_mixed_b0b12702bfac",
+        "pgc_r03_g5a_u02_5a02_mixed_40ab80775d6e"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::FALLBACK_404::numeric",
@@ -30690,13 +30882,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_29f71ea95f6c",
+        "pgc_r03_g5a_u02_5a02_mixed_7f35706aa394",
+        "pgc_r03_g5a_u02_5a02_mixed_b0b12702bfac",
+        "pgc_r03_g5a_u02_5a02_mixed_40ab80775d6e"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::PIXEL::numeric",
@@ -30761,13 +30967,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_8f8b163cf5d0",
+        "pgc_r03_g5a_u02_5a02_mixed_3682c45e7772",
+        "pgc_r03_g5a_u02_5a02_mixed_9aa11fabacdb",
+        "pgc_r03_g5a_u02_5a02_mixed_dddcf38cc371"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::CLASSIC::numeric",
@@ -30833,13 +31053,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_8f8b163cf5d0",
+        "pgc_r03_g5a_u02_5a02_mixed_3682c45e7772",
+        "pgc_r03_g5a_u02_5a02_mixed_9aa11fabacdb",
+        "pgc_r03_g5a_u02_5a02_mixed_dddcf38cc371"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::FALLBACK_404::numeric",
@@ -30905,13 +31139,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_8f8b163cf5d0",
+        "pgc_r03_g5a_u02_5a02_mixed_3682c45e7772",
+        "pgc_r03_g5a_u02_5a02_mixed_9aa11fabacdb",
+        "pgc_r03_g5a_u02_5a02_mixed_dddcf38cc371"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::PIXEL::numeric",
@@ -30976,13 +31224,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_994af9bc0416",
+        "pgc_r03_g5a_u02_5a02_mixed_c5cd7525db98",
+        "pgc_r03_g5a_u02_5a02_mixed_44c78b232992",
+        "pgc_r03_g5a_u02_5a02_mixed_1a0befab7c87"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_pair_order_and_symmetry::FALLBACK_404::mixed",
@@ -31014,13 +31276,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_994af9bc0416",
+        "pgc_r03_g5a_u02_5a02_mixed_c5cd7525db98",
+        "pgc_r03_g5a_u02_5a02_mixed_44c78b232992",
+        "pgc_r03_g5a_u02_5a02_mixed_1a0befab7c87"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_pair_order_and_symmetry::PIXEL::mixed",
@@ -31052,13 +31328,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_994af9bc0416",
+        "pgc_r03_g5a_u02_5a02_mixed_c5cd7525db98",
+        "pgc_r03_g5a_u02_5a02_mixed_44c78b232992",
+        "pgc_r03_g5a_u02_5a02_mixed_1a0befab7c87"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::CLASSIC::mixed",
@@ -31090,13 +31380,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 16,
-      "questionCountMax": 16,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_ff85ac7cff13",
+        "pgc_r03_g5a_u02_5a02_mixed_11dc78975064",
+        "pgc_r03_g5a_u02_5a02_mixed_87d966f3060d",
+        "pgc_r03_g5a_u02_5a02_mixed_031eefeb7711"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::CLASSIC::reasoning",
@@ -31128,13 +31432,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 16,
-      "questionCountMax": 16,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_reasoning_44174643933d",
+        "pgc_r03_g5a_u02_5a02_reasoning_8a6b7a6076c8",
+        "pgc_r03_g5a_u02_5a02_reasoning_04b5d453dba1",
+        "pgc_r03_g5a_u02_5a02_reasoning_146eeb7c4418"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::FALLBACK_404::mixed",
@@ -31166,13 +31484,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 16,
-      "questionCountMax": 16,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_ff85ac7cff13",
+        "pgc_r03_g5a_u02_5a02_mixed_11dc78975064",
+        "pgc_r03_g5a_u02_5a02_mixed_87d966f3060d",
+        "pgc_r03_g5a_u02_5a02_mixed_031eefeb7711"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::FALLBACK_404::reasoning",
@@ -31204,13 +31536,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 16,
-      "questionCountMax": 16,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_reasoning_44174643933d",
+        "pgc_r03_g5a_u02_5a02_reasoning_8a6b7a6076c8",
+        "pgc_r03_g5a_u02_5a02_reasoning_04b5d453dba1",
+        "pgc_r03_g5a_u02_5a02_reasoning_146eeb7c4418"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::PIXEL::mixed",
@@ -31242,13 +31588,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 16,
-      "questionCountMax": 16,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_ff85ac7cff13",
+        "pgc_r03_g5a_u02_5a02_mixed_11dc78975064",
+        "pgc_r03_g5a_u02_5a02_mixed_87d966f3060d",
+        "pgc_r03_g5a_u02_5a02_mixed_031eefeb7711"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::PIXEL::reasoning",
@@ -31280,13 +31640,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 16,
-      "questionCountMax": 16,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_reasoning_44174643933d",
+        "pgc_r03_g5a_u02_5a02_reasoning_8a6b7a6076c8",
+        "pgc_r03_g5a_u02_5a02_reasoning_04b5d453dba1",
+        "pgc_r03_g5a_u02_5a02_reasoning_146eeb7c4418"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::CLASSIC::mixed",
@@ -31319,13 +31693,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_fec85f2c7873",
+        "pgc_r03_g5a_u02_5a02_mixed_336c253725d2",
+        "pgc_r03_g5a_u02_5a02_mixed_1e3c38a51eb2",
+        "pgc_r03_g5a_u02_5a02_mixed_b2ef31937ed9"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::CLASSIC::concept",
@@ -31391,13 +31779,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_fec85f2c7873",
+        "pgc_r03_g5a_u02_5a02_mixed_336c253725d2",
+        "pgc_r03_g5a_u02_5a02_mixed_1e3c38a51eb2",
+        "pgc_r03_g5a_u02_5a02_mixed_b2ef31937ed9"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::FALLBACK_404::concept",
@@ -31463,13 +31865,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_fec85f2c7873",
+        "pgc_r03_g5a_u02_5a02_mixed_336c253725d2",
+        "pgc_r03_g5a_u02_5a02_mixed_1e3c38a51eb2",
+        "pgc_r03_g5a_u02_5a02_mixed_b2ef31937ed9"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::PIXEL::concept",
@@ -31536,13 +31952,29 @@
         "daily_life"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_866d481e5723",
+        "pgc_r03_g5a_u02_5a02_mixed_e967d8b1180b",
+        "pgc_r03_g5a_u02_5a02_mixed_b1cff96674de",
+        "pgc_r03_g5a_u02_5a02_mixed_72b3c79eb4a1",
+        "pgc_r03_g5a_u02_5a02_mixed_319cdba8c6af",
+        "pgc_r03_g5a_u02_5a02_mixed_8f70482689c0"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::CLASSIC::application",
@@ -31616,13 +32048,29 @@
         "daily_life"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_866d481e5723",
+        "pgc_r03_g5a_u02_5a02_mixed_e967d8b1180b",
+        "pgc_r03_g5a_u02_5a02_mixed_b1cff96674de",
+        "pgc_r03_g5a_u02_5a02_mixed_72b3c79eb4a1",
+        "pgc_r03_g5a_u02_5a02_mixed_319cdba8c6af",
+        "pgc_r03_g5a_u02_5a02_mixed_8f70482689c0"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::FALLBACK_404::application",
@@ -31696,13 +32144,29 @@
         "daily_life"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_866d481e5723",
+        "pgc_r03_g5a_u02_5a02_mixed_e967d8b1180b",
+        "pgc_r03_g5a_u02_5a02_mixed_b1cff96674de",
+        "pgc_r03_g5a_u02_5a02_mixed_72b3c79eb4a1",
+        "pgc_r03_g5a_u02_5a02_mixed_319cdba8c6af",
+        "pgc_r03_g5a_u02_5a02_mixed_8f70482689c0"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::PIXEL::application",
@@ -31774,13 +32238,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_7f4419bb331b",
+        "pgc_r03_g5a_u02_5a02_mixed_14b4855a8de3",
+        "pgc_r03_g5a_u02_5a02_mixed_f656b24b4148",
+        "pgc_r03_g5a_u02_5a02_mixed_82829fad625b"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::CLASSIC::concept",
@@ -31844,13 +32322,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_7f4419bb331b",
+        "pgc_r03_g5a_u02_5a02_mixed_14b4855a8de3",
+        "pgc_r03_g5a_u02_5a02_mixed_f656b24b4148",
+        "pgc_r03_g5a_u02_5a02_mixed_82829fad625b"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::FALLBACK_404::concept",
@@ -31914,13 +32406,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_7f4419bb331b",
+        "pgc_r03_g5a_u02_5a02_mixed_14b4855a8de3",
+        "pgc_r03_g5a_u02_5a02_mixed_f656b24b4148",
+        "pgc_r03_g5a_u02_5a02_mixed_82829fad625b"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::PIXEL::concept",
@@ -31985,13 +32491,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_f1cd86b50796",
+        "pgc_r03_g5a_u02_5a02_mixed_3a795d0898ab",
+        "pgc_r03_g5a_u02_5a02_mixed_08db83f2b8b4",
+        "pgc_r03_g5a_u02_5a02_mixed_420c0a74a1ac"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::CLASSIC::reasoning",
@@ -32024,13 +32544,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_reasoning_09734a647364",
+        "pgc_r03_g5a_u02_5a02_reasoning_348aec123b14",
+        "pgc_r03_g5a_u02_5a02_reasoning_e62a4eeeabc5",
+        "pgc_r03_g5a_u02_5a02_reasoning_c865b6de3e28"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::FALLBACK_404::mixed",
@@ -32063,13 +32597,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_f1cd86b50796",
+        "pgc_r03_g5a_u02_5a02_mixed_3a795d0898ab",
+        "pgc_r03_g5a_u02_5a02_mixed_08db83f2b8b4",
+        "pgc_r03_g5a_u02_5a02_mixed_420c0a74a1ac"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::FALLBACK_404::reasoning",
@@ -32102,13 +32650,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_reasoning_09734a647364",
+        "pgc_r03_g5a_u02_5a02_reasoning_348aec123b14",
+        "pgc_r03_g5a_u02_5a02_reasoning_e62a4eeeabc5",
+        "pgc_r03_g5a_u02_5a02_reasoning_c865b6de3e28"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::PIXEL::mixed",
@@ -32141,13 +32703,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_f1cd86b50796",
+        "pgc_r03_g5a_u02_5a02_mixed_3a795d0898ab",
+        "pgc_r03_g5a_u02_5a02_mixed_08db83f2b8b4",
+        "pgc_r03_g5a_u02_5a02_mixed_420c0a74a1ac"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::PIXEL::reasoning",
@@ -32180,13 +32756,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 15,
-      "questionCountMax": 15,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_reasoning_09734a647364",
+        "pgc_r03_g5a_u02_5a02_reasoning_348aec123b14",
+        "pgc_r03_g5a_u02_5a02_reasoning_e62a4eeeabc5",
+        "pgc_r03_g5a_u02_5a02_reasoning_c865b6de3e28"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::CLASSIC::mixed",
@@ -32218,13 +32808,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 4,
-      "questionCountMax": 4,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_0af558cd57e7",
+        "pgc_r03_g5a_u02_5a02_mixed_713966a43bbd",
+        "pgc_r03_g5a_u02_5a02_mixed_7717949b5db2",
+        "pgc_r03_g5a_u02_5a02_mixed_d2a2d46e08f3"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::FALLBACK_404::mixed",
@@ -32256,13 +32860,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 4,
-      "questionCountMax": 4,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_0af558cd57e7",
+        "pgc_r03_g5a_u02_5a02_mixed_713966a43bbd",
+        "pgc_r03_g5a_u02_5a02_mixed_7717949b5db2",
+        "pgc_r03_g5a_u02_5a02_mixed_d2a2d46e08f3"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::PIXEL::mixed",
@@ -32294,13 +32912,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 4,
-      "questionCountMax": 4,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_0af558cd57e7",
+        "pgc_r03_g5a_u02_5a02_mixed_713966a43bbd",
+        "pgc_r03_g5a_u02_5a02_mixed_7717949b5db2",
+        "pgc_r03_g5a_u02_5a02_mixed_d2a2d46e08f3"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_concept::CLASSIC::mixed",
@@ -32542,13 +33174,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_b644a491c7c9",
+        "pgc_r03_g5a_u02_5a02_mixed_4ebebca1b6c8",
+        "pgc_r03_g5a_u02_5a02_mixed_2b5fbc4d23b5",
+        "pgc_r03_g5a_u02_5a02_mixed_6e2d05b085b1"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::CLASSIC::numeric",
@@ -32612,13 +33258,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_b644a491c7c9",
+        "pgc_r03_g5a_u02_5a02_mixed_4ebebca1b6c8",
+        "pgc_r03_g5a_u02_5a02_mixed_2b5fbc4d23b5",
+        "pgc_r03_g5a_u02_5a02_mixed_6e2d05b085b1"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::FALLBACK_404::numeric",
@@ -32682,13 +33342,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_b644a491c7c9",
+        "pgc_r03_g5a_u02_5a02_mixed_4ebebca1b6c8",
+        "pgc_r03_g5a_u02_5a02_mixed_2b5fbc4d23b5",
+        "pgc_r03_g5a_u02_5a02_mixed_6e2d05b085b1"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::PIXEL::numeric",
@@ -32752,13 +33426,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_36dda82cdca7",
+        "pgc_r03_g5a_u02_5a02_mixed_e5f1485fc011",
+        "pgc_r03_g5a_u02_5a02_mixed_b1af1ebdd0ac",
+        "pgc_r03_g5a_u02_5a02_mixed_5857e8e469fd"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::CLASSIC::numeric",
@@ -32822,13 +33510,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_36dda82cdca7",
+        "pgc_r03_g5a_u02_5a02_mixed_e5f1485fc011",
+        "pgc_r03_g5a_u02_5a02_mixed_b1af1ebdd0ac",
+        "pgc_r03_g5a_u02_5a02_mixed_5857e8e469fd"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::FALLBACK_404::numeric",
@@ -32892,13 +33594,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 9,
-      "questionCountMax": 9,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_36dda82cdca7",
+        "pgc_r03_g5a_u02_5a02_mixed_e5f1485fc011",
+        "pgc_r03_g5a_u02_5a02_mixed_b1af1ebdd0ac",
+        "pgc_r03_g5a_u02_5a02_mixed_5857e8e469fd"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::PIXEL::numeric",
@@ -33418,13 +34134,27 @@
         "geometry_context"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_a985b70bf98d",
+        "pgc_r03_g5a_u02_5a02_mixed_108a1e1e1feb",
+        "pgc_r03_g5a_u02_5a02_mixed_1a05bd4b0d85",
+        "pgc_r03_g5a_u02_5a02_mixed_edb6025b441a"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::CLASSIC::application",
@@ -33494,13 +34224,27 @@
         "geometry_context"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_a985b70bf98d",
+        "pgc_r03_g5a_u02_5a02_mixed_108a1e1e1feb",
+        "pgc_r03_g5a_u02_5a02_mixed_1a05bd4b0d85",
+        "pgc_r03_g5a_u02_5a02_mixed_edb6025b441a"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::FALLBACK_404::application",
@@ -33570,13 +34314,27 @@
         "geometry_context"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_a985b70bf98d",
+        "pgc_r03_g5a_u02_5a02_mixed_108a1e1e1feb",
+        "pgc_r03_g5a_u02_5a02_mixed_1a05bd4b0d85",
+        "pgc_r03_g5a_u02_5a02_mixed_edb6025b441a"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::PIXEL::application",
@@ -33646,13 +34404,27 @@
         "geometry_context"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_e020abc62820",
+        "pgc_r03_g5a_u02_5a02_mixed_72d77c683f8e",
+        "pgc_r03_g5a_u02_5a02_mixed_7d6d0bfb0951",
+        "pgc_r03_g5a_u02_5a02_mixed_3f727a5fd5a1"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::CLASSIC::application",
@@ -33722,13 +34494,27 @@
         "geometry_context"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_e020abc62820",
+        "pgc_r03_g5a_u02_5a02_mixed_72d77c683f8e",
+        "pgc_r03_g5a_u02_5a02_mixed_7d6d0bfb0951",
+        "pgc_r03_g5a_u02_5a02_mixed_3f727a5fd5a1"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::FALLBACK_404::application",
@@ -33798,13 +34584,27 @@
         "geometry_context"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 14,
-      "questionCountMax": 14,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_e020abc62820",
+        "pgc_r03_g5a_u02_5a02_mixed_72d77c683f8e",
+        "pgc_r03_g5a_u02_5a02_mixed_7d6d0bfb0951",
+        "pgc_r03_g5a_u02_5a02_mixed_3f727a5fd5a1"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::PIXEL::application",
@@ -33874,13 +34674,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_05ee727bddbc",
+        "pgc_r03_g5a_u02_5a02_mixed_feb86f56ccb4",
+        "pgc_r03_g5a_u02_5a02_mixed_06a21fe6f5ab",
+        "pgc_r03_g5a_u02_5a02_mixed_cbb8d509c527"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_multi_constraint_digit_code_number_theory::FALLBACK_404::mixed",
@@ -33912,13 +34726,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_05ee727bddbc",
+        "pgc_r03_g5a_u02_5a02_mixed_feb86f56ccb4",
+        "pgc_r03_g5a_u02_5a02_mixed_06a21fe6f5ab",
+        "pgc_r03_g5a_u02_5a02_mixed_cbb8d509c527"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_multi_constraint_digit_code_number_theory::PIXEL::mixed",
@@ -33950,13 +34778,27 @@
         "abstract_math"
       ],
       "questionCountMin": 1,
-      "questionCountDefault": 8,
-      "questionCountMax": 8,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_05ee727bddbc",
+        "pgc_r03_g5a_u02_5a02_mixed_feb86f56ccb4",
+        "pgc_r03_g5a_u02_5a02_mixed_06a21fe6f5ab",
+        "pgc_r03_g5a_u02_5a02_mixed_cbb8d509c527"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::CLASSIC::mixed",
@@ -34064,12 +34906,30 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_eab67e38d2f3",
+        "pgc_r03_g5a_u02_5a02_mixed_375cad5f2591",
+        "pgc_r03_g5a_u02_5a02_mixed_bfc3a2755e07",
+        "pgc_r03_g5a_u02_5a02_mixed_7283aeb2bf61",
+        "pgc_r03_g5a_u02_5a02_mixed_e8825b5159e7",
+        "pgc_r03_g5a_u02_5a02_mixed_c98608c7a48d",
+        "pgc_r03_g5a_u02_5a02_mixed_2f3620879b26",
+        "pgc_r03_g5a_u02_5a02_mixed_f13e036a5785"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::CLASSIC::concept",
@@ -34433,12 +35293,30 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_eab67e38d2f3",
+        "pgc_r03_g5a_u02_5a02_mixed_375cad5f2591",
+        "pgc_r03_g5a_u02_5a02_mixed_bfc3a2755e07",
+        "pgc_r03_g5a_u02_5a02_mixed_7283aeb2bf61",
+        "pgc_r03_g5a_u02_5a02_mixed_e8825b5159e7",
+        "pgc_r03_g5a_u02_5a02_mixed_c98608c7a48d",
+        "pgc_r03_g5a_u02_5a02_mixed_2f3620879b26",
+        "pgc_r03_g5a_u02_5a02_mixed_f13e036a5785"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::FALLBACK_404::concept",
@@ -34802,12 +35680,30 @@
       ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
-      "questionCountMax": 20,
+      "questionCountMax": 240,
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u02_5a02_mixed_eab67e38d2f3",
+        "pgc_r03_g5a_u02_5a02_mixed_375cad5f2591",
+        "pgc_r03_g5a_u02_5a02_mixed_bfc3a2755e07",
+        "pgc_r03_g5a_u02_5a02_mixed_7283aeb2bf61",
+        "pgc_r03_g5a_u02_5a02_mixed_e8825b5159e7",
+        "pgc_r03_g5a_u02_5a02_mixed_c98608c7a48d",
+        "pgc_r03_g5a_u02_5a02_mixed_2f3620879b26",
+        "pgc_r03_g5a_u02_5a02_mixed_f13e036a5785"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      }
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::PIXEL::concept",
@@ -45095,5 +45991,13 @@
       "capacityQualityStatuses": []
     }
   ],
-  "capacityAuthority": "site/modules/curriculum/public/public-generator-capacity-registry.js"
+  "capacityAuthority": "site/modules/curriculum/public/public-generator-capacity-registry.js",
+  "lastReconciliation": {
+    "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+    "sourceId": "g5a_u02_5a02",
+    "liveRouteCount": 98,
+    "matchedBindingCount": 60,
+    "capacityAuthority": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "status": "PASS_R06_A03_PUBLIC_BINDING_RECONCILED"
+  }
 }
