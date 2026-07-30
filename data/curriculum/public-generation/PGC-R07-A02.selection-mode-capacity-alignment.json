@@ -1,0 +1,60 @@
+{
+  "schemaName": "PGCR07A02SelectionModeCapacityAlignmentV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix",
+  "previousTaskId": "PGC-R07-A01_ThreeSurfaceParityBaselineMaterialization",
+  "status": "READY_FOR_DEPLOYED_REPLAY",
+  "diagnosis": {
+    "baselineGapId": "R07-GAP-001",
+    "originalGapCode": "PUBLIC_QUESTION_MODE_OPTION_MISSING",
+    "correctedFailureClass": "ACCEPTANCE_HARNESS_SELECTION_MODE_CONTROL_MISMATCH",
+    "sourceId": "g5a_u08_5a08",
+    "selector": "#g5a-u08-question-mode",
+    "requestedQuestionType": "mixed",
+    "selectionModeAtFailure": "singleKnowledgePoint",
+    "legalMixedSelectionModes": [
+      "sourceUnit",
+      "mixedKnowledgePointsSameUnit"
+    ],
+    "illegalMixedSelectionModes": [
+      "singleKnowledgePoint"
+    ],
+    "capacityAuthorityPreserved": true,
+    "uiBindingAuthorityPreserved": true
+  },
+  "implementation": {
+    "compatibilityRunner": "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs",
+    "legacyHarness": "tools/curriculum/run-g5a-u08-r1-deployed-pages-smoke.mjs",
+    "workflow": ".github/workflows/g5a-u08-r1-deployed-pages-smoke.yml",
+    "behavior": "remove only the obsolete initial mixed control preselection while singleKnowledgePoint is active; preserve the full control matrix after mixedKnowledgePointsSameUnit is selected",
+    "workflowAdded": false,
+    "productUiModified": false,
+    "capacityRegistryModified": false,
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false
+  },
+  "acceptance": {
+    "focusedContractTest": "tests/site/g5a-u08-r1-deployed-gate-contract.test.js",
+    "singleKnowledgePointMixedHidden": true,
+    "sourceUnitMixedAdmitted": true,
+    "sameUnitMixedAdmitted": true,
+    "deployedMainReplayRequiredAfterMerge": true,
+    "a02CloseoutAllowedBeforeDeployedReplayPass": false
+  },
+  "goalDistance": {
+    "before": "D1_R07_THREE_SURFACE_BASELINE_AND_REPAIR_QUEUE_MATERIALIZED",
+    "after": "D1_R07_FIRST_GAP_IMPLEMENTATION_READY_FOR_DEPLOYED_REPLAY",
+    "distanceReduced": "reclassified the first apparent UI gap as a stale acceptance sequence and aligned the existing deployed smoke with legal selection-mode capacity without widening public exposure",
+    "remainingBlockers": [
+      "EXACT_HEAD_CI_PENDING",
+      "DEPLOYED_MAIN_REPLAY_PENDING",
+      "FALLBACK_404_BROWSER_BASELINE_MISSING",
+      "PIXEL_BROWSER_BASELINE_MISSING",
+      "RENDERER_BRANCH_PARITY_UNPROVEN",
+      "REAL_PRINT_AND_ANSWER_KEY_MATRIX_MISSING"
+    ],
+    "nextShortestStep": "PGC-R07-A02_MergeThenDeployedReplayAndParityReconciliation"
+  }
+}
