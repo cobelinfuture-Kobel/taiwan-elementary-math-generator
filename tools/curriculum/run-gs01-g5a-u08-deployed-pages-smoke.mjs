@@ -33,14 +33,45 @@ const GS01_ASSERTION = `  const requiredSegments = [
     });
   }`;
 
-export function patchG5AU08DeployedSmokeHarness(source) {
-  const occurrenceCount = source.split(LEGACY_ASSERTION).length - 1;
+const LEGACY_SINGLE_KP_MIXED_CONTROL = `  await setControls(page, { questionMode: "mixed", depthMode: "mixed", contextMode: "mixed" });
+
+  const kpButtons`;
+
+const CAPACITY_ALIGNED_SINGLE_KP_CONTROL = `  // PGC-R07 A02: single-KP controls remain capacity-derived. The mixed control
+  // matrix is exercised only after switching to mixedKnowledgePointsSameUnit.
+
+  const kpButtons`;
+
+function replaceExactlyOnce(source, target, replacement, errorPrefix) {
+  const occurrenceCount = source.split(target).length - 1;
   if (occurrenceCount !== 1) {
-    throw new Error(`GS01_PREVIEW_META_ASSERTION_TARGET_COUNT_INVALID:${occurrenceCount}`);
+    throw new Error(`${errorPrefix}_TARGET_COUNT_INVALID:${occurrenceCount}`);
   }
-  const patched = source.replace(LEGACY_ASSERTION, GS01_ASSERTION);
-  if (patched === source || !patched.includes("requiredSegments") || patched.includes("endsWith(expectedSuffix)")) {
-    throw new Error("GS01_PREVIEW_META_ASSERTION_PATCH_FAILED");
+  const patched = source.replace(target, replacement);
+  if (patched === source) throw new Error(`${errorPrefix}_PATCH_FAILED`);
+  return patched;
+}
+
+export function patchG5AU08DeployedSmokeHarness(source) {
+  const previewPatched = replaceExactlyOnce(
+    source,
+    LEGACY_ASSERTION,
+    GS01_ASSERTION,
+    "GS01_PREVIEW_META_ASSERTION",
+  );
+  const patched = replaceExactlyOnce(
+    previewPatched,
+    LEGACY_SINGLE_KP_MIXED_CONTROL,
+    CAPACITY_ALIGNED_SINGLE_KP_CONTROL,
+    "PGC_R07_A02_SINGLE_KP_CONTROL",
+  );
+  if (
+    !patched.includes("requiredSegments")
+    || patched.includes("endsWith(expectedSuffix)")
+    || patched.includes(LEGACY_SINGLE_KP_MIXED_CONTROL)
+    || !patched.includes("mixedKnowledgePointsSameUnit")
+  ) {
+    throw new Error("PGC_R07_A02_DEPLOYED_SMOKE_PATCH_FAILED");
   }
   return patched;
 }
