@@ -16,8 +16,9 @@ function absolute(relativePath) {
 function replaceFunction(source, signature, replacement) {
   const start = source.indexOf(signature);
   if (start < 0) throw new Error(`PGC_R06_A05_FUNCTION_ANCHOR_MISSING:${signature}`);
-  const braceStart = source.indexOf("{", start);
-  if (braceStart < 0) throw new Error(`PGC_R06_A05_FUNCTION_BRACE_MISSING:${signature}`);
+  const bodyMarker = source.indexOf(") {", start + signature.length);
+  if (bodyMarker < 0) throw new Error(`PGC_R06_A05_FUNCTION_BODY_MISSING:${signature}`);
+  const braceStart = bodyMarker + 2;
   let depth = 0;
   let end = -1;
   for (let index = braceStart; index < source.length; index += 1) {
