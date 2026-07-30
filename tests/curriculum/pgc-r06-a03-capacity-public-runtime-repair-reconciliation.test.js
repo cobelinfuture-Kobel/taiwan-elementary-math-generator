@@ -171,3 +171,5 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
 // PGC-R06 A06 zero-queue advancement with A03 historical authority preserved
 
 // PGC-R06 A07 terminal D0 advancement with A03 historical authority preserved
+
+// PGC-R06 A03 V3 evidence compatibility
