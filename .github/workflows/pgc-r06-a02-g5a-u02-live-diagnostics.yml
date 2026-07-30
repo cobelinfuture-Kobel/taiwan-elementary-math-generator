@@ -5,6 +5,7 @@ on:
     paths:
       - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs"
       - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs"
+      - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-class-c-seed-collision-fix.mjs"
       - "tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs"
       - "src/curriculum/g5a-u02/**"
       - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
@@ -44,10 +45,14 @@ jobs:
       - name: Apply G5A-U02 reasoning mixed diversity FullFix
         run: node tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs
 
+      - name: Apply Class C seed collision FullFix
+        run: node tools/curriculum/apply-pgc-r06-a02-g5a-u02-class-c-seed-collision-fix.mjs
+
       - name: Syntax-check A02 authorities
         run: |
           node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs
           node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs
+          node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-class-c-seed-collision-fix.mjs
           node --check tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
           node --check src/curriculum/g5a-u02/browser-dynamic-entry.js
           node --check src/curriculum/g5a-u02/class-c-generator-validator.js
