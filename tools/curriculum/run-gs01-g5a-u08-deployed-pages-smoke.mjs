@@ -5,6 +5,90 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SOURCE_PATH = resolve(HERE, "run-g5a-u08-r1-deployed-pages-smoke.mjs");
 
+const LEGACY_ROUTER_IMPORT = `import {
+  normalizeG5AU08ResolverPlan,
+} from "../../site/modules/curriculum/batch-a/g5a-u08-canonical-router.js";`;
+const CAPACITY_AUTHORITY_IMPORT = `${LEGACY_ROUTER_IMPORT}
+import {
+  resolvePublicUiCapabilityBinding,
+} from "../../site/modules/curriculum/public/public-ui-capability-binding.js";`;
+
+const LEGACY_MATRIX_CLASSIFICATION = `        const normalized = normalizeG5AU08ResolverPlan(baseResolverPlan(controls));
+        const allocated = (normalized.allocation ?? []).reduce(
+          (total, entry) => total + (entry.questionCount ?? 0),
+          0,
+        );
+        rows.push(Object.freeze({
+          ...controls,
+          expected: normalized.allocation?.length > 0 && allocated === PER_COMBINATION_QUESTION_COUNT
+            ? "generate"
+            : "block",
+          patternGroupCount: normalized.selectedPatternGroupIds?.length ?? 0,
+          patternSpecCount: normalized.patternSpecIds?.length ?? 0,
+        }));`;
+const CAPACITY_MATRIX_CLASSIFICATION = `        const normalized = normalizeG5AU08ResolverPlan(baseResolverPlan(controls));
+        const allocated = (normalized.allocation ?? []).reduce(
+          (total, entry) => total + (entry.questionCount ?? 0),
+          0,
+        );
+        const publicBinding = resolvePublicUiCapabilityBinding({
+          sourceId: SOURCE_ID,
+          selectionMode: "mixedKnowledgePointsSameUnit",
+          selectedKnowledgePointIds: [...G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS],
+          selectedPatternGroupIds: [...G5A_U08_PROMOTED_PATTERN_GROUP_IDS],
+          requestedQuestionType: questionMode,
+          requestedDepthMode: depthMode,
+          requestedContextMode: contextMode,
+        });
+        const questionAvailable = publicBinding.availableQuestionTypeOptions
+          .some((option) => option.value === questionMode);
+        const depthApplicable = publicBinding.depthOptions.length > 0;
+        const contextApplicable = publicBinding.contextOptions.length > 0;
+        const depthMatches = depthApplicable ? publicBinding.depthMode === depthMode : depthMode === "mixed";
+        const contextMatches = contextApplicable ? publicBinding.contextMode === contextMode : contextMode === "mixed";
+        const publicAdmitted = !publicBinding.blocked
+          && questionAvailable
+          && depthMatches
+          && contextMatches
+          && publicBinding.questionCount.max > 0;
+        const canonicalAllocated = normalized.allocation?.length > 0
+          && allocated === PER_COMBINATION_QUESTION_COUNT;
+        rows.push(Object.freeze({
+          ...controls,
+          expected: publicAdmitted && canonicalAllocated ? "generate" : "block",
+          publicAdmitted,
+          canonicalAllocated,
+          depthApplicable,
+          contextApplicable,
+          capacityRouteIds: [...publicBinding.capacityRouteIds],
+          patternGroupCount: normalized.selectedPatternGroupIds?.length ?? 0,
+          patternSpecCount: normalized.patternSpecIds?.length ?? 0,
+        }));`;
+
+const LEGACY_REPLAY_SELECTION = `  const replayControls = { questionMode: "application", depthMode: "N_PLUS_1", contextMode: "sdg" };
+  const replayRow = controlMatrix.find((row) =>
+    row.questionMode === replayControls.questionMode
+    && row.depthMode === replayControls.depthMode
+    && row.contextMode === replayControls.contextMode);
+  if (replayRow?.expected !== "generate") {
+    fail("G5A_U08_R1_REPLAY_COMBINATION_NOT_GENERATABLE", { replayRow });
+  }`;
+const CAPACITY_REPLAY_SELECTION = `  const preferredReplayControls = { questionMode: "mixed", depthMode: "N_PLUS_1", contextMode: "sdg" };
+  const replayRow = controlMatrix.find((row) =>
+    row.expected === "generate"
+    && row.questionMode === preferredReplayControls.questionMode
+    && row.depthMode === preferredReplayControls.depthMode
+    && row.contextMode === preferredReplayControls.contextMode)
+    ?? controlMatrix.find((row) => row.expected === "generate");
+  if (!replayRow) {
+    fail("G5A_U08_R1_REPLAY_COMBINATION_NOT_GENERATABLE", { controlMatrix });
+  }
+  const replayControls = {
+    questionMode: replayRow.questionMode,
+    depthMode: replayRow.depthMode,
+    contextMode: replayRow.contextMode,
+  };`;
+
 const LEGACY_ASSERTION = `  const expectedSuffix = \`｜\${questionCount} 題｜\${includeAnswerKey ? "含答案頁" : "不含答案頁"}\`;
   if (!previewMeta.endsWith(expectedSuffix) || /undefined|null/i.test(previewMeta)) {
     fail("G5A_U08_R1_DEPLOYED_PREVIEW_META_INVALID", {
@@ -13,15 +97,11 @@ const LEGACY_ASSERTION = `  const expectedSuffix = \`｜\${questionCount} 題｜
       expectedSuffix,
     });
   }`;
-
 const GS01_ASSERTION = `  const requiredSegments = [
     \`\${questionCount} 題\`,
     includeAnswerKey ? "含答案頁" : "不含答案頁",
   ];
-  const previewSegments = previewMeta
-    .split("｜")
-    .map((segment) => segment.trim())
-    .filter(Boolean);
+  const previewSegments = previewMeta.split("｜").map((segment) => segment.trim()).filter(Boolean);
   const missingSegments = requiredSegments.filter((segment) => !previewSegments.includes(segment));
   if (missingSegments.length > 0 || /undefined|null/i.test(previewMeta)) {
     fail("G5A_U08_R1_DEPLOYED_PREVIEW_META_INVALID", {
@@ -33,30 +113,142 @@ const GS01_ASSERTION = `  const requiredSegments = [
     });
   }`;
 
+const LEGACY_SINGLE_KP_MIXED_CONTROL = `  await setControls(page, { questionMode: "mixed", depthMode: "mixed", contextMode: "mixed" });
+
+  const kpButtons`;
+const CAPACITY_ALIGNED_SINGLE_KP_CONTROL = `  // PGC-R07 A02: single-KP controls remain capacity-derived. The public
+  // matrix is exercised only after switching to mixedKnowledgePointsSameUnit.
+
+  const kpButtons`;
+
+const LEGACY_SET_CONTROLS = `async function setControls(page, controls) {
+  await page.selectOption(CONTROL_IDS.questionMode, controls.questionMode);
+  await page.selectOption(CONTROL_IDS.depthMode, controls.depthMode);
+  await page.selectOption(CONTROL_IDS.contextMode, controls.contextMode);
+  const url = new URL(page.url());
+  for (const [key, value] of Object.entries(controls)) {
+    if (url.searchParams.get(key) !== value) {
+      fail("G5A_U08_R1_CONTROL_QUERY_MISMATCH", {
+        controls,
+        key,
+        actual: url.searchParams.get(key),
+      });
+    }
+  }
+}`;
+const CAPACITY_AWARE_SET_CONTROLS = `async function optionValues(page, selector) {
+  return page.locator(selector).evaluate((select) => [...select.options].map((option) => option.value));
+}
+
+async function selectAvailableOption(page, selector, value) {
+  await page.waitForFunction(
+    ({ selector, value }) => [...(document.querySelector(selector)?.options ?? [])].some((option) => option.value === value),
+    { selector, value },
+    { timeout: 120000 },
+  );
+  await page.selectOption(selector, value);
+  await page.waitForFunction(
+    ({ selector, value }) => document.querySelector(selector)?.value === value,
+    { selector, value },
+    { timeout: 120000 },
+  );
+}
+
+async function setControls(page, controls, row = {}) {
+  await selectAvailableOption(page, CONTROL_IDS.questionMode, controls.questionMode);
+  if (row.contextApplicable) {
+    const contexts = await optionValues(page, CONTROL_IDS.contextMode);
+    if (contexts.includes("mixed")) await selectAvailableOption(page, CONTROL_IDS.contextMode, "mixed");
+  }
+  if (row.depthApplicable) {
+    const depths = await optionValues(page, CONTROL_IDS.depthMode);
+    if (depths.includes("mixed")) await selectAvailableOption(page, CONTROL_IDS.depthMode, "mixed");
+    await selectAvailableOption(page, CONTROL_IDS.depthMode, controls.depthMode);
+  }
+  if (row.contextApplicable) await selectAvailableOption(page, CONTROL_IDS.contextMode, controls.contextMode);
+  const url = new URL(page.url());
+  if (url.searchParams.get("questionMode") !== controls.questionMode) {
+    fail("G5A_U08_R1_CONTROL_QUERY_MISMATCH", { controls, key: "questionMode", actual: url.searchParams.get("questionMode") });
+  }
+  if (row.depthApplicable && url.searchParams.get("depthMode") !== controls.depthMode) {
+    fail("G5A_U08_R1_CONTROL_QUERY_MISMATCH", { controls, key: "depthMode", actual: url.searchParams.get("depthMode") });
+  }
+  if (row.contextApplicable && url.searchParams.get("contextMode") !== controls.contextMode) {
+    fail("G5A_U08_R1_CONTROL_QUERY_MISMATCH", { controls, key: "contextMode", actual: url.searchParams.get("contextMode") });
+  }
+}
+
+async function assertNotExposed(page, row, label) {
+  const questions = await optionValues(page, CONTROL_IDS.questionMode);
+  const depths = await optionValues(page, CONTROL_IDS.depthMode);
+  const contexts = await optionValues(page, CONTROL_IDS.contextMode);
+  const exactExposed = questions.includes(row.questionMode)
+    && (row.depthApplicable ? depths.includes(row.depthMode) : row.depthMode === "mixed")
+    && (row.contextApplicable ? contexts.includes(row.contextMode) : row.contextMode === "mixed");
+  if (exactExposed) {
+    fail("G5A_U08_R1_UNADMITTED_CONTROL_INTERSECTION_EXPOSED", { label, row, questions, depths, contexts });
+  }
+  return { questions, depths, contexts };
+}`;
+
+const LEGACY_MATRIX_LOOP = `    await setControls(page, controls);
+    await page.fill(
+      "#generation-seed-input",
+      \`g5a-u08-r1-\${row.questionMode}-\${row.depthMode}-\${row.contextMode}\`,
+    );
+    const label = \`\${row.questionMode}/\${row.depthMode}/\${row.contextMode}\`;
+    if (row.expected === "generate") {
+      const output = await assertGenerated(page, PER_COMBINATION_QUESTION_COUNT, true, label);
+      controlMatrixResults.push({ ...row, actual: "generated", previewMeta: output.previewMeta });
+    } else {
+      const output = await assertBlocked(page, label);
+      controlMatrixResults.push({ ...row, actual: "blocked", status: output.status });
+    }`;
+const CAPACITY_MATRIX_LOOP = `    const label = \`\${row.questionMode}/\${row.depthMode}/\${row.contextMode}\`;
+    if (row.expected === "generate") {
+      await setControls(page, controls, row);
+      await page.fill("#generation-seed-input", \`g5a-u08-r1-\${row.questionMode}-\${row.depthMode}-\${row.contextMode}\`);
+      const output = await assertGenerated(page, PER_COMBINATION_QUESTION_COUNT, true, label);
+      controlMatrixResults.push({ ...row, actual: "generated", previewMeta: output.previewMeta });
+    } else {
+      const exposure = await assertNotExposed(page, row, label);
+      controlMatrixResults.push({ ...row, actual: "not_exposed", exposure });
+    }`;
+
+function replaceExactlyOnce(source, target, replacement, errorPrefix) {
+  const occurrenceCount = source.split(target).length - 1;
+  if (occurrenceCount !== 1) throw new Error(`${errorPrefix}_TARGET_COUNT_INVALID:${occurrenceCount}`);
+  const patched = source.replace(target, replacement);
+  if (patched === source) throw new Error(`${errorPrefix}_PATCH_FAILED`);
+  return patched;
+}
+
 export function patchG5AU08DeployedSmokeHarness(source) {
-  const occurrenceCount = source.split(LEGACY_ASSERTION).length - 1;
-  if (occurrenceCount !== 1) {
-    throw new Error(`GS01_PREVIEW_META_ASSERTION_TARGET_COUNT_INVALID:${occurrenceCount}`);
-  }
-  const patched = source.replace(LEGACY_ASSERTION, GS01_ASSERTION);
-  if (patched === source || !patched.includes("requiredSegments") || patched.includes("endsWith(expectedSuffix)")) {
-    throw new Error("GS01_PREVIEW_META_ASSERTION_PATCH_FAILED");
-  }
+  let patched = replaceExactlyOnce(source, LEGACY_ROUTER_IMPORT, CAPACITY_AUTHORITY_IMPORT, "PGC_R07_A02_CAPACITY_IMPORT");
+  patched = replaceExactlyOnce(patched, LEGACY_MATRIX_CLASSIFICATION, CAPACITY_MATRIX_CLASSIFICATION, "PGC_R07_A02_MATRIX_CLASSIFICATION");
+  patched = replaceExactlyOnce(patched, LEGACY_REPLAY_SELECTION, CAPACITY_REPLAY_SELECTION, "PGC_R07_A02_REPLAY_SELECTION");
+  patched = replaceExactlyOnce(patched, LEGACY_ASSERTION, GS01_ASSERTION, "GS01_PREVIEW_META_ASSERTION");
+  patched = replaceExactlyOnce(patched, LEGACY_SINGLE_KP_MIXED_CONTROL, CAPACITY_ALIGNED_SINGLE_KP_CONTROL, "PGC_R07_A02_SINGLE_KP_CONTROL");
+  patched = replaceExactlyOnce(patched, LEGACY_SET_CONTROLS, CAPACITY_AWARE_SET_CONTROLS, "PGC_R07_A02_CAPACITY_AWARE_CONTROLS");
+  patched = replaceExactlyOnce(patched, LEGACY_MATRIX_LOOP, CAPACITY_MATRIX_LOOP, "PGC_R07_A02_CAPACITY_MATRIX_LOOP");
+  if (
+    !patched.includes("resolvePublicUiCapabilityBinding")
+    || !patched.includes("publicAdmitted")
+    || !patched.includes("preferredReplayControls")
+    || !patched.includes("assertNotExposed")
+    || !patched.includes('actual: "not_exposed"')
+    || !patched.includes("requiredSegments")
+    || patched.includes("endsWith(expectedSuffix)")
+    || patched.includes(LEGACY_SINGLE_KP_MIXED_CONTROL)
+  ) throw new Error("PGC_R07_A02_DEPLOYED_SMOKE_PATCH_FAILED");
   return patched;
 }
 
 export function previewMetaSatisfiesGS01Contract(previewMeta, questionCount, includeAnswerKey) {
-  const requiredSegments = [
-    `${questionCount} 題`,
-    includeAnswerKey ? "含答案頁" : "不含答案頁",
-  ];
-  const previewSegments = String(previewMeta ?? "")
-    .split("｜")
-    .map((segment) => segment.trim())
-    .filter(Boolean);
+  const requiredSegments = [`${questionCount} 題`, includeAnswerKey ? "含答案頁" : "不含答案頁"];
+  const previewSegments = String(previewMeta ?? "").split("｜").map((segment) => segment.trim()).filter(Boolean);
   return {
-    ok: requiredSegments.every((segment) => previewSegments.includes(segment))
-      && !/undefined|null/i.test(String(previewMeta ?? "")),
+    ok: requiredSegments.every((segment) => previewSegments.includes(segment)) && !/undefined|null/i.test(String(previewMeta ?? "")),
     requiredSegments,
     previewSegments,
     missingSegments: requiredSegments.filter((segment) => !previewSegments.includes(segment)),
@@ -76,6 +268,4 @@ export async function runGS01DeployedSmoke() {
 }
 
 const invokedPath = process.argv[1] ? pathToFileURL(resolve(process.argv[1])).href : null;
-if (invokedPath === import.meta.url) {
-  await runGS01DeployedSmoke();
-}
+if (invokedPath === import.meta.url) await runGS01DeployedSmoke();
