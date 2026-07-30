@@ -1,34 +1,32 @@
 const MAX_INPUT = 99_999_999;
 
 export const G4B_U04_INVERSE_DIGIT_SET_CASES = Object.freeze([
-  Object.freeze({ mask: "1□3", targetUnit: 100, roundedValue: 100 }),
-  Object.freeze({ mask: "1□3", targetUnit: 100, roundedValue: 200 }),
-  Object.freeze({ mask: "2□4", targetUnit: 100, roundedValue: 200 }),
-  Object.freeze({ mask: "2□4", targetUnit: 100, roundedValue: 300 }),
-  Object.freeze({ mask: "3□5", targetUnit: 100, roundedValue: 300 }),
-  Object.freeze({ mask: "3□5", targetUnit: 100, roundedValue: 400 }),
-  Object.freeze({ mask: "4□6", targetUnit: 100, roundedValue: 400 }),
-  Object.freeze({ mask: "4□6", targetUnit: 100, roundedValue: 500 }),
-  Object.freeze({ mask: "5□7", targetUnit: 100, roundedValue: 500 }),
-  Object.freeze({ mask: "5□7", targetUnit: 100, roundedValue: 600 }),
-  Object.freeze({ mask: "6□8", targetUnit: 100, roundedValue: 600 }),
-  Object.freeze({ mask: "6□8", targetUnit: 100, roundedValue: 700 }),
+  ...Array.from({ length: 8 }, (_, index) => Object.freeze({
+    mask: `${index + 1}□318`,
+    targetUnit: 10000,
+    roundedValue: (index + 2) * 10000,
+  })),
+  ...Array.from({ length: 8 }, (_, index) => Object.freeze({
+    mask: `${index + 1}7□61`,
+    targetUnit: 1000,
+    roundedValue: (index + 1) * 10000 + 8000,
+  })),
+  ...Array.from({ length: 8 }, (_, index) => Object.freeze({
+    mask: `${index + 1}□42`,
+    targetUnit: 1000,
+    roundedValue: (index + 2) * 1000,
+  })),
 ]);
 
-export const G4B_U04_INVERSE_ORIGINAL_VALUE_CASES = Object.freeze([
-  Object.freeze({ mask: "1□□5", targetUnit: 1000, roundedValue: 1000 }),
-  Object.freeze({ mask: "1□□5", targetUnit: 1000, roundedValue: 2000 }),
-  Object.freeze({ mask: "2□□5", targetUnit: 1000, roundedValue: 2000 }),
-  Object.freeze({ mask: "2□□5", targetUnit: 1000, roundedValue: 3000 }),
-  Object.freeze({ mask: "3□□5", targetUnit: 1000, roundedValue: 3000 }),
-  Object.freeze({ mask: "3□□5", targetUnit: 1000, roundedValue: 4000 }),
-  Object.freeze({ mask: "4□□5", targetUnit: 1000, roundedValue: 4000 }),
-  Object.freeze({ mask: "4□□5", targetUnit: 1000, roundedValue: 5000 }),
-  Object.freeze({ mask: "5□□5", targetUnit: 1000, roundedValue: 5000 }),
-  Object.freeze({ mask: "5□□5", targetUnit: 1000, roundedValue: 6000 }),
-  Object.freeze({ mask: "6□□5", targetUnit: 1000, roundedValue: 6000 }),
-  Object.freeze({ mask: "6□□5", targetUnit: 1000, roundedValue: 7000 }),
-]);
+export const G4B_U04_INVERSE_ORIGINAL_VALUE_CASES = Object.freeze(
+  [2, 3, 4, 5, 6, 7, 8].flatMap((leadingDigit) =>
+    [25, 49, 75, 99].map((suffix) => Object.freeze({
+      mask: `${leadingDigit}□□${suffix}`,
+      targetUnit: 1000,
+      roundedValue: leadingDigit * 10000 + 5000,
+    })),
+  ),
+);
 
 function hashSeed(value) {
   let acc = 2166136261;
@@ -143,3 +141,5 @@ export function validateG4BU04InverseUniqueCasePools() {
   }
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) });
 }
+
+// PGC-R06 G4B-U04 canonical inverse unique pools capacity FullFix V1

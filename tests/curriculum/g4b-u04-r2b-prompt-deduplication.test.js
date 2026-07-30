@@ -71,11 +71,13 @@ test("R2B1 prompt signature normalizes Unicode and ASCII punctuation spacing", (
   assert.equal(normalizeG4BU04PromptSignature("注意 !"), "注意！");
 });
 
-test("R2B1 inverse case pools expose 12 plus 12 unique validator-ready cases", () => {
+test("R2B1 inverse case pools expose expanded validator-ready capacities", () => {
   const audit = validateG4BU04InverseUniqueCasePools();
   assert.equal(audit.ok, true, audit.errors.join(","));
-  assert.equal(G4B_U04_INVERSE_DIGIT_SET_CASES.length, 12);
-  assert.equal(G4B_U04_INVERSE_ORIGINAL_VALUE_CASES.length, 12);
+  assert.equal(G4B_U04_INVERSE_DIGIT_SET_CASES.length, 24);
+  assert.equal(G4B_U04_INVERSE_ORIGINAL_VALUE_CASES.length, 28);
+  assert.equal(G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_digit_set, 24);
+  assert.equal(G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_original_values, 28);
 });
 
 test("R2B1 capacity-aware allocation caps finite pools and redistributes excess", () => {
@@ -121,9 +123,9 @@ test("R2B mixed 40-question canonical output contains no duplicate normalized pr
   assert.ok(normalized.patternAllocation.ps_g4b_u04_approx_symbol_reading > 0);
   assert.ok(normalized.patternAllocation.ps_g4b_u04_approx_symbol_reading <= G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_approx_symbol_reading);
   assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_digit_set > 0);
-  assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_digit_set <= 12);
+  assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_digit_set <= G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_digit_set);
   assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_original_values > 0);
-  assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_original_values <= 12);
+  assert.ok(normalized.patternAllocation.ps_g4b_u04_inverse_original_values <= G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_original_values);
 
   const result = generateG4BU04CanonicalQuestions(normalized);
   assert.equal(result.ok, true, JSON.stringify(result.errors));
@@ -157,8 +159,9 @@ test("R2B 1000-question mixed generation remains deterministic and duplicate-fre
   assert.equal(signatures.length, 1000);
   assert.equal(new Set(signatures).size, 1000);
   assert.equal(first.plan.patternAllocation.ps_g4b_u04_approx_symbol_reading, G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_approx_symbol_reading);
-  assert.equal(first.plan.patternAllocation.ps_g4b_u04_inverse_digit_set, 12);
-  assert.equal(first.plan.patternAllocation.ps_g4b_u04_inverse_original_values, 12);
+  assert.equal(first.plan.patternAllocation.ps_g4b_u04_inverse_digit_set, G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_digit_set);
+  assert.equal(first.plan.patternAllocation.ps_g4b_u04_inverse_original_values, G4B_U04_UNIQUE_PROMPT_CAPACITY_BY_PATTERN_SPEC.ps_g4b_u04_inverse_original_values);
 });
 
 // PGC-R04 legacy contract reconciliation V1
+// PGC-R06 G4B-U04 bounded reasoning capacity regression reconciliation V1

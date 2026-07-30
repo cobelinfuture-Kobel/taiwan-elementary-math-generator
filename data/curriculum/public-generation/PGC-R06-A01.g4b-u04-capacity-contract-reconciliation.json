@@ -1,0 +1,142 @@
+{
+  "schemaName": "PgcR06A01G4BU04CapacityContractReconciliationV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R06-A01_BoundedCapacityReasoningMixedPBLRouteFullFix",
+  "status": "PASS_R06_A01_G4BU04_15_BOUNDED_ROUTES_CONTRACT_RECONCILED_AND_CLOSED",
+  "sourceContract": "data/curriculum/public-generation/generator_capacity_contract.json",
+  "sourceDiagnostics": "data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.json",
+  "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+  "targetBefore": {
+    "routeCount": 15,
+    "legalRouteCount": 15,
+    "illegalRouteCount": 0,
+    "verified20RouteCount": 0,
+    "verifiedLimitedRouteCount": 15,
+    "zeroCapacityRouteCount": 0,
+    "diversityGapRouteCount": 15
+  },
+  "targetAfter": {
+    "routeCount": 15,
+    "legalRouteCount": 15,
+    "illegalRouteCount": 0,
+    "verified20RouteCount": 15,
+    "verifiedLimitedRouteCount": 0,
+    "zeroCapacityRouteCount": 0,
+    "diversityGapRouteCount": 0
+  },
+  "overallSummaryAfter": {
+    "publicSourceCount": 26,
+    "visibleKnowledgePointCount": 193,
+    "publicSurfaceCount": 3,
+    "historicalBindingCount": 1152,
+    "historicalBindingAccountedCount": 1152,
+    "currentLegalBindingCount": 1101,
+    "currentVerified20BindingCount": 828,
+    "currentLimitedBindingCount": 273,
+    "currentUnverifiedCapacityExposureCount": 0,
+    "routeCount": 1155,
+    "legalRouteCount": 793,
+    "illegalRouteCount": 362,
+    "verified20RouteCount": 617,
+    "verifiedLimitedRouteCount": 176,
+    "zeroCapacityRouteCount": 0,
+    "diversityGapRouteCount": 76,
+    "hardBlockerCount": 0
+  },
+  "reconciledRouteIds": [
+    "pgc_r03_g4b_u04_4b04_mixed_a56e4df5f965",
+    "pgc_r03_g4b_u04_4b04_mixed_a45f804b3a31",
+    "pgc_r03_g4b_u04_4b04_mixed_473626f19ede",
+    "pgc_r03_g4b_u04_4b04_mixed_d81c71e11157",
+    "pgc_r03_g4b_u04_4b04_mixed_a623c0374400",
+    "pgc_r03_g4b_u04_4b04_mixed_9b10d25462b6",
+    "pgc_r03_g4b_u04_4b04_reasoning_a61c663f2ea9",
+    "pgc_r03_g4b_u04_4b04_reasoning_fbdaee663f87",
+    "pgc_r03_g4b_u04_4b04_reasoning_4ab8363fe09f",
+    "pgc_r03_g4b_u04_4b04_mixed_7852d15a264d",
+    "pgc_r03_g4b_u04_4b04_mixed_9793ac06b033",
+    "pgc_r03_g4b_u04_4b04_mixed_8ba934385ecd",
+    "pgc_r03_g4b_u04_4b04_reasoning_e0adbd44db8b",
+    "pgc_r03_g4b_u04_4b04_reasoning_bf41bdbb6ea8",
+    "pgc_r03_g4b_u04_4b04_reasoning_fed3e04e2432"
+  ],
+  "changedBindingIds": [
+    "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::PIXEL::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::reasoning",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::reasoning",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::reasoning",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::mixed",
+    "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::reasoning"
+  ],
+  "boundary": {
+    "nonTargetRoutesBeforeHash": "43a5bc717b1767eb0c9f0db815467bdb566d909467124e8df0f6ea49a9208957",
+    "nonTargetRoutesAfterHash": "43a5bc717b1767eb0c9f0db815467bdb566d909467124e8df0f6ea49a9208957",
+    "nonTargetRoutesPreserved": true,
+    "g4bU04PblRoutesBeforeHash": "f3c5327ab82acdb7e8b3e8cff8413e4a79d36b8b9d091b6b9e3b7339ccef8fe9",
+    "g4bU04PblRoutesAfterHash": "f3c5327ab82acdb7e8b3e8cff8413e4a79d36b8b9d091b6b9e3b7339ccef8fe9",
+    "g4bU04PblRoutesPreserved": true,
+    "unrelatedBindingsBeforeHash": "385388549ac141ab2be73af2044cbbe9ecbcc21e575bb51b59d1a3b5da3e5d33",
+    "unrelatedBindingsAfterHash": "385388549ac141ab2be73af2044cbbe9ecbcc21e575bb51b59d1a3b5da3e5d33",
+    "unrelatedBindingsPreserved": true,
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false,
+    "secondWorksheetPipelineAdded": false
+  },
+  "remainingRepairQueueCount": 133,
+  "nextRepairRoute": {
+    "routeId": "pgc_r03_g5a_u02_5a02_mixed_026e20925977",
+    "sourceId": "g5a_u02_5a02",
+    "questionType": "mixed",
+    "gapCodes": [
+      "CAPACITY_BELOW_20"
+    ]
+  },
+  "nextShortestStep": "PGC-R06-A02_BoundedCapacityReasoningMixedPBLRouteFullFix",
+  "refreshedInventoryStatus": "PASS_R06_A00_SCOPE_AND_REPAIR_QUEUE_FROZEN",
+  "refreshedInventorySummary": {
+    "capacityContractRouteCount": 1155,
+    "r06RouteCount": 659,
+    "legalR06RouteCount": 389,
+    "illegalR06RouteCount": 270,
+    "publiclyExposedR06RouteCount": 659,
+    "conformantRouteCount": 256,
+    "repairQueueCount": 133,
+    "zeroCapacityRouteCount": 0,
+    "limitedCapacityRouteCount": 107,
+    "diversityGapRouteCount": 30,
+    "closedNumericApplicationMixedSelectionOverlapCount": 65,
+    "routeCountByQuestionType": {
+      "mixed": 456,
+      "pbl": 26,
+      "reasoning": 177
+    },
+    "routeCountBySelectionMode": {
+      "mixedKnowledgePointsSameUnit": 48,
+      "singleKnowledgePoint": 537,
+      "sourceUnit": 74
+    },
+    "repairQueueCountBySource": {
+      "g3b_u04_3b04": 1,
+      "g4a_u08_4a08": 1,
+      "g4b_u04_4b04": 3,
+      "g5a_u02_5a02": 98,
+      "g5a_u08_5a08": 30
+    },
+    "repairQueueCountByGapCode": {
+      "CAPACITY_BELOW_20": 107,
+      "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT": 30
+    }
+  },
+  "remainingG4BU04RepairRouteCount": 3
+}

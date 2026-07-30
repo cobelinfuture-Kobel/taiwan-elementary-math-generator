@@ -19,6 +19,8 @@ const diversityCsvPath = path.join(repoRoot, "data/curriculum/public-generation/
 const reportPath = path.join(repoRoot, "docs/curriculum/output/PGC-R03_capacity_mismatch_report.md");
 const r02ContractPath = path.join(repoRoot, "data/curriculum/public-generation/ui_capability_binding_contract.json");
 const R05_LIVE_AUTHORITY = "PGC-R05_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
+const R06_A01_LIVE_AUTHORITY = "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
+const TWO_SEED_AUTHORITIES = new Set([R05_LIVE_AUTHORITY, R06_A01_LIVE_AUTHORITY]);
 
 function loadContract() {
   assert.equal(fs.existsSync(contractPath), true, "PGC-R03 contract must be materialized before focused acceptance");
@@ -77,7 +79,7 @@ test("PGC-R03 classifies every route and verifies every exposed maximum", () => 
     const evidence = route.selectedCapacityEvidence;
     assert.ok(evidence?.passed, route.routeId);
     assert.equal(evidence.questionCount, route.verifiedMaxQuestionCount, route.routeId);
-    const expectedRunCount = evidence.evidenceAuthority === R05_LIVE_AUTHORITY ? 2 : contract.seedCount;
+    const expectedRunCount = TWO_SEED_AUTHORITIES.has(evidence.evidenceAuthority) ? 2 : contract.seedCount;
     assert.equal(evidence.runs.length, expectedRunCount, route.routeId);
     assert.ok(evidence.replay, route.routeId);
     for (const run of evidence.runs) {
@@ -91,6 +93,12 @@ test("PGC-R03 classifies every route and verifies every exposed maximum", () => 
     if (evidence.evidenceAuthority === R05_LIVE_AUTHORITY) {
       assert.equal(route.questionType, "application", route.routeId);
       assert.equal(route.reconciliationCodes.includes("PGC_R05_LIVE_20_CAPACITY_RECONCILED"), true, route.routeId);
+    }
+    if (evidence.evidenceAuthority === R06_A01_LIVE_AUTHORITY) {
+      assert.equal(route.sourceId, "g4b_u04_4b04", route.routeId);
+      assert.equal(["mixed", "reasoning"].includes(route.questionType), true, route.routeId);
+      assert.equal(route.reconciliationCodes.includes("PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED"), true, route.routeId);
+      assert.equal(route.reconciliationCodes.includes("PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"), true, route.routeId);
     }
   }
   assert.ok(exposedCount > 0);
@@ -154,3 +162,5 @@ test("PGC-R03 reconciled reports and R02 materialization stay aligned", () => {
   assert.match(report, /ILLEGAL_ROUTES_REMOVED/);
   assert.match(report, /VERIFIED_LIMITED_ROUTES/);
 });
+
+// PGC-R05 and R06 live authority compatibility V2

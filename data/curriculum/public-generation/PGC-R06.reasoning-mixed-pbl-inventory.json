@@ -46,11 +46,11 @@
     "legalR06RouteCount": 389,
     "illegalR06RouteCount": 270,
     "publiclyExposedR06RouteCount": 659,
-    "conformantRouteCount": 241,
-    "repairQueueCount": 148,
+    "conformantRouteCount": 256,
+    "repairQueueCount": 133,
     "zeroCapacityRouteCount": 0,
-    "limitedCapacityRouteCount": 122,
-    "diversityGapRouteCount": 45,
+    "limitedCapacityRouteCount": 107,
+    "diversityGapRouteCount": 30,
     "closedNumericApplicationMixedSelectionOverlapCount": 65,
     "routeCountByQuestionType": {
       "mixed": 456,
@@ -65,13 +65,13 @@
     "repairQueueCountBySource": {
       "g3b_u04_3b04": 1,
       "g4a_u08_4a08": 1,
-      "g4b_u04_4b04": 18,
+      "g4b_u04_4b04": 3,
       "g5a_u02_5a02": 98,
       "g5a_u08_5a08": 30
     },
     "repairQueueCountByGapCode": {
-      "CAPACITY_BELOW_20": 122,
-      "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT": 45
+      "CAPACITY_BELOW_20": 107,
+      "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT": 30
     }
   },
   "routes": [
@@ -12590,15 +12590,12 @@
       "contextMode": "mixed",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::mixed",
@@ -12628,15 +12625,12 @@
       "contextMode": "daily_life",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::mixed",
@@ -12666,15 +12660,12 @@
       "contextMode": "sdg",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::mixed",
@@ -13559,15 +13550,12 @@
       "contextMode": "mixed",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
@@ -13597,15 +13585,12 @@
       "contextMode": "daily_life",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
@@ -13635,15 +13620,12 @@
       "contextMode": "sdg",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
@@ -13673,15 +13655,12 @@
       "contextMode": "mixed",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::reasoning",
@@ -13711,15 +13690,12 @@
       "contextMode": "daily_life",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::reasoning",
@@ -13749,15 +13725,12 @@
       "contextMode": "sdg",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::reasoning",
@@ -13787,15 +13760,12 @@
       "contextMode": "mixed",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
@@ -13825,15 +13795,12 @@
       "contextMode": "daily_life",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
@@ -13863,15 +13830,12 @@
       "contextMode": "sdg",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
@@ -13901,15 +13865,12 @@
       "contextMode": "mixed",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::reasoning",
@@ -13939,15 +13900,12 @@
       "contextMode": "daily_life",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::reasoning",
@@ -13977,15 +13935,12 @@
       "contextMode": "sdg",
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "bindingIds": [
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
         "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::reasoning",
@@ -26433,576 +26388,6 @@
   ],
   "repairQueue": [
     {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_473626f19ede",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_approximation_symbol_reading"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_approximation_symbol"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_approximation_symbol"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_approx_symbol_reading"
-      ],
-      "depthMode": null,
-      "contextMode": "sdg",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_7852d15a264d",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_possible_original"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_original_values"
-      ],
-      "depthMode": null,
-      "contextMode": "mixed",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_8ba934385ecd",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_possible_original"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_original_values"
-      ],
-      "depthMode": null,
-      "contextMode": "sdg",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_9793ac06b033",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_possible_original"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_original_values"
-      ],
-      "depthMode": null,
-      "contextMode": "daily_life",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_9b10d25462b6",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_unknown_digit"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_digit_set"
-      ],
-      "depthMode": null,
-      "contextMode": "sdg",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_a45f804b3a31",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_approximation_symbol_reading"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_approximation_symbol"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_approximation_symbol"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_approx_symbol_reading"
-      ],
-      "depthMode": null,
-      "contextMode": "daily_life",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_a56e4df5f965",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_approximation_symbol_reading"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_approximation_symbol"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_approximation_symbol"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_approx_symbol_reading"
-      ],
-      "depthMode": null,
-      "contextMode": "mixed",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_a623c0374400",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_unknown_digit"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_digit_set"
-      ],
-      "depthMode": null,
-      "contextMode": "daily_life",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_mixed_d81c71e11157",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_unknown_digit"
-      ],
-      "questionType": "mixed",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_digit_set"
-      ],
-      "depthMode": null,
-      "contextMode": "mixed",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::mixed"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_4ab8363fe09f",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_unknown_digit"
-      ],
-      "questionType": "reasoning",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_digit_set"
-      ],
-      "depthMode": null,
-      "contextMode": "sdg",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::reasoning"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_a61c663f2ea9",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_unknown_digit"
-      ],
-      "questionType": "reasoning",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_digit_set"
-      ],
-      "depthMode": null,
-      "contextMode": "mixed",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::reasoning"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_bf41bdbb6ea8",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_possible_original"
-      ],
-      "questionType": "reasoning",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_original_values"
-      ],
-      "depthMode": null,
-      "contextMode": "daily_life",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::reasoning"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_e0adbd44db8b",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_possible_original"
-      ],
-      "questionType": "reasoning",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_original_values"
-      ],
-      "depthMode": null,
-      "contextMode": "mixed",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::reasoning"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_fbdaee663f87",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_unknown_digit"
-      ],
-      "questionType": "reasoning",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_digit_set"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_digit_set"
-      ],
-      "depthMode": null,
-      "contextMode": "daily_life",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::reasoning"
-      ],
-      "publiclyExposed": true
-    },
-    {
-      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_fed3e04e2432",
-      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
-      "sourceId": "g4b_u04_4b04",
-      "selectionMode": "singleKnowledgePoint",
-      "selectedKnowledgePointIds": [
-        "kp_g4b_u04_inverse_rounding_possible_original"
-      ],
-      "questionType": "reasoning",
-      "publicPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "generationPatternGroupIds": [
-        "pg_g4b_u04_inverse_original_values"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g4b_u04_inverse_original_values"
-      ],
-      "depthMode": null,
-      "contextMode": "sdg",
-      "legalRoute": true,
-      "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 10,
-      "gapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "bindingIds": [
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::reasoning",
-        "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::reasoning"
-      ],
-      "publiclyExposed": true
-    },
-    {
       "routeId": "pgc_r03_g5a_u02_5a02_mixed_026e20925977",
       "caseId": "g5a_u02_5a02::sourceUnit",
       "sourceId": "g5a_u02_5a02",
@@ -32535,6 +31920,7 @@
     "pgc_r03_g4b_u04_4b04_mixed_321529be8b1f",
     "pgc_r03_g4b_u04_4b04_mixed_328599fcfb5a",
     "pgc_r03_g4b_u04_4b04_mixed_40e7ca1864e4",
+    "pgc_r03_g4b_u04_4b04_mixed_473626f19ede",
     "pgc_r03_g4b_u04_4b04_mixed_4b1489d835af",
     "pgc_r03_g4b_u04_4b04_mixed_4ca2a25335c6",
     "pgc_r03_g4b_u04_4b04_mixed_4dfc489a2819",
@@ -32542,8 +31928,15 @@
     "pgc_r03_g4b_u04_4b04_mixed_5d1dafa79a5f",
     "pgc_r03_g4b_u04_4b04_mixed_60e4a418a82d",
     "pgc_r03_g4b_u04_4b04_mixed_716e51d54b6e",
+    "pgc_r03_g4b_u04_4b04_mixed_7852d15a264d",
+    "pgc_r03_g4b_u04_4b04_mixed_8ba934385ecd",
     "pgc_r03_g4b_u04_4b04_mixed_8beaaac6ca4d",
+    "pgc_r03_g4b_u04_4b04_mixed_9793ac06b033",
+    "pgc_r03_g4b_u04_4b04_mixed_9b10d25462b6",
     "pgc_r03_g4b_u04_4b04_mixed_9dcc6db5dad9",
+    "pgc_r03_g4b_u04_4b04_mixed_a45f804b3a31",
+    "pgc_r03_g4b_u04_4b04_mixed_a56e4df5f965",
+    "pgc_r03_g4b_u04_4b04_mixed_a623c0374400",
     "pgc_r03_g4b_u04_4b04_mixed_a694c8448dc5",
     "pgc_r03_g4b_u04_4b04_mixed_b41626bafe6d",
     "pgc_r03_g4b_u04_4b04_mixed_ba837f11aa3c",
@@ -32553,17 +31946,24 @@
     "pgc_r03_g4b_u04_4b04_mixed_cb39df806a6c",
     "pgc_r03_g4b_u04_4b04_mixed_cb66f7abd25c",
     "pgc_r03_g4b_u04_4b04_mixed_cc0cbde29559",
+    "pgc_r03_g4b_u04_4b04_mixed_d81c71e11157",
     "pgc_r03_g4b_u04_4b04_mixed_ddd7565fc44f",
     "pgc_r03_g4b_u04_4b04_mixed_e309873ec048",
     "pgc_r03_g4b_u04_4b04_mixed_e6efaf5213a6",
     "pgc_r03_g4b_u04_4b04_mixed_f4a0e47fa01e",
     "pgc_r03_g4b_u04_4b04_mixed_f6e2a0410c10",
     "pgc_r03_g4b_u04_4b04_reasoning_0255372b076d",
+    "pgc_r03_g4b_u04_4b04_reasoning_4ab8363fe09f",
     "pgc_r03_g4b_u04_4b04_reasoning_4b0249467bc5",
     "pgc_r03_g4b_u04_4b04_reasoning_81fc3da03c0f",
     "pgc_r03_g4b_u04_4b04_reasoning_94445c2a4c53",
+    "pgc_r03_g4b_u04_4b04_reasoning_a61c663f2ea9",
     "pgc_r03_g4b_u04_4b04_reasoning_b84039ea5e6c",
+    "pgc_r03_g4b_u04_4b04_reasoning_bf41bdbb6ea8",
     "pgc_r03_g4b_u04_4b04_reasoning_d2fb73b68352",
+    "pgc_r03_g4b_u04_4b04_reasoning_e0adbd44db8b",
+    "pgc_r03_g4b_u04_4b04_reasoning_fbdaee663f87",
+    "pgc_r03_g4b_u04_4b04_reasoning_fed3e04e2432",
     "pgc_r03_g5a_u02_5a02_mixed_1dcc3875c712",
     "pgc_r03_g5a_u02_5a02_mixed_23882c6dbcb6",
     "pgc_r03_g5a_u02_5a02_mixed_2a1156f29970",
