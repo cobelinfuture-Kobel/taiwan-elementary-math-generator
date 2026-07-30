@@ -144,5 +144,6 @@ test("PGC-R08 A02 remains inside the canary-only frozen boundary", () => {
   });
   assert.equal(contract.harnessQualificationGate.realChromiumPdfRequiredForAllCanaries, true);
   assert.equal(contract.harnessQualificationGate.regenerateIdentityChangeRequiredForAllCanaries, true);
-  assert.equal(contract.goalDistance.nextShortestStep, "PGC-R08-A02_ConsolidatedCanaryRemediationExactHeadCI");
+  assert.equal(contract.harnessQualificationGate.temporaryWorkflowWiringRemoved, true);
+  assert.equal(contract.goalDistance.nextShortestStep, "PGC-R08-A03_AllLegalRoutesBrowserAcceptanceExecution");
 });
