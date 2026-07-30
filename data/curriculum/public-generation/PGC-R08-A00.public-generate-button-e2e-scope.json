@@ -5,7 +5,7 @@
   "selectionTaskId": "PGC-R07-A05_D0Closed_SelectNextApprovedProgram",
   "taskId": "PGC-R08-A00_PublicGenerateButtonEndToEndAuthorityAndMatrixFreeze",
   "selectedNextProgramId": "PGC-R08_PublicGenerateButtonEndToEndAcceptance",
-  "status": "FROZEN_PENDING_CI_AND_MERGE",
+  "status": "PASS_R08_A00_PUBLIC_GENERATE_BUTTON_E2E_SCOPE_FROZEN",
   "programGoal": "直接驗證使用者實際操作公開 UI，而不是只呼叫底層 Generator。",
   "preconditions": {
     "r07TaskId": "PGC-R07-A05_FinalSurfaceParityReconciliationAndCloseout",
@@ -127,6 +127,20 @@
     "forbiddenSubstitutesFrozen": true,
     "requiredOutputsFrozen": true,
     "orderedMilestonesFrozen": true
+  },
+  "exactHeadEvidence": {
+    "pullRequest": 483,
+    "acceptedHeadSha": "4ca1c2de53f8571c21238e24cc23640a7c9cb67f",
+    "nodeWorkflowRunId": 30563639136,
+    "nodeWorkflowRunNumber": 4409,
+    "pgcR00WorkflowRunId": 30563638497,
+    "pgcR00WorkflowRunNumber": 189,
+    "testCount": 2717,
+    "passCount": 2717,
+    "failCount": 0,
+    "nodeTest": "PASS",
+    "pgcR00Gate": "PASS",
+    "browserExecution": "NOT_APPLICABLE_A00_SCOPE_FREEZE"
   },
   "frozenBoundary": {
     "newKnowledgePointAllowed": false,
