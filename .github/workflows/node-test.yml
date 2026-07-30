@@ -32,6 +32,9 @@ jobs:
           mkdir -p tmp
           set -o pipefail
           npm test 2>&1 | tee tmp/npm-test.log
+      - name: Materialize PGC-R08 A01 legal-route browser matrix
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'pgc-r08-a01-legal-route-browser-matrix'
+        run: node tools/curriculum/build-pgc-r08-a01-legal-route-browser-matrix.mjs
       - name: Install Chromium for product acceptance
         if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout' || github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1' || github.head_ref == 'pgc-r07-a03-chromium-print-answer-matrix' || github.head_ref == 'pgc-r07-a04-overflow-clipping-font-pagination-fullfix')
         run: |
@@ -184,6 +187,14 @@ jobs:
           name: pgc-r07-a04-overflow-font-pagination-matrix
           path: tmp/pgc-r07-a04-overflow-font-pagination-matrix
           if-no-files-found: warn
+          retention-days: 30
+      - name: Upload PGC-R08 A01 legal-route browser matrix artifacts
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'pgc-r08-a01-legal-route-browser-matrix'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r08-a01-legal-route-browser-matrix
+          path: tmp/pgc-r08-a01-legal-route-browser-matrix
+          if-no-files-found: error
           retention-days: 30
       - name: Block after full regression failure
         if: steps.full_tests.outcome == 'failure'
