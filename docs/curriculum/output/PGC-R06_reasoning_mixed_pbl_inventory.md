@@ -13,8 +13,8 @@ REPAIR_QUESTION_TYPES       = reasoning, mixed, pbl
 R06_ROUTE_COUNT             = 659
 LEGAL_R06_ROUTE_COUNT       = 389
 PUBLICLY_EXPOSED_R06_ROUTES = 659
-REPAIR_QUEUE_COUNT          = 148
-CONFORMANT_ROUTE_COUNT      = 241
+REPAIR_QUEUE_COUNT          = 133
+CONFORMANT_ROUTE_COUNT      = 256
 R04_R05_MIXED_OVERLAP       = 65
 SLICE014_STARTED            = false
 ```
@@ -31,32 +31,32 @@ Numeric/application routes using same-unit mixed-KP selection are read-only over
 
 - `g3b_u04_3b04`: 1
 - `g4a_u08_4a08`: 1
-- `g4b_u04_4b04`: 18
+- `g4b_u04_4b04`: 3
 - `g5a_u02_5a02`: 98
 - `g5a_u08_5a08`: 30
 
 ## First queue entries
 
-1. `pgc_r03_g4b_u04_4b04_mixed_473626f19ede` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-2. `pgc_r03_g4b_u04_4b04_mixed_7852d15a264d` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-3. `pgc_r03_g4b_u04_4b04_mixed_8ba934385ecd` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-4. `pgc_r03_g4b_u04_4b04_mixed_9793ac06b033` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-5. `pgc_r03_g4b_u04_4b04_mixed_9b10d25462b6` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-6. `pgc_r03_g4b_u04_4b04_mixed_a45f804b3a31` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-7. `pgc_r03_g4b_u04_4b04_mixed_a56e4df5f965` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-8. `pgc_r03_g4b_u04_4b04_mixed_a623c0374400` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-9. `pgc_r03_g4b_u04_4b04_mixed_d81c71e11157` — g4b_u04_4b04 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-10. `pgc_r03_g4b_u04_4b04_reasoning_4ab8363fe09f` — g4b_u04_4b04 / reasoning / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-11. `pgc_r03_g4b_u04_4b04_reasoning_a61c663f2ea9` — g4b_u04_4b04 / reasoning / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-12. `pgc_r03_g4b_u04_4b04_reasoning_bf41bdbb6ea8` — g4b_u04_4b04 / reasoning / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-13. `pgc_r03_g4b_u04_4b04_reasoning_e0adbd44db8b` — g4b_u04_4b04 / reasoning / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-14. `pgc_r03_g4b_u04_4b04_reasoning_fbdaee663f87` — g4b_u04_4b04 / reasoning / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-15. `pgc_r03_g4b_u04_4b04_reasoning_fed3e04e2432` — g4b_u04_4b04 / reasoning / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-16. `pgc_r03_g5a_u02_5a02_mixed_026e20925977` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
-17. `pgc_r03_g5a_u02_5a02_mixed_031eefeb7711` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
-18. `pgc_r03_g5a_u02_5a02_mixed_0414b52fd538` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
-19. `pgc_r03_g5a_u02_5a02_mixed_05ee727bddbc` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
-20. `pgc_r03_g5a_u02_5a02_mixed_06a21fe6f5ab` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
+1. `pgc_r03_g5a_u02_5a02_mixed_026e20925977` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+2. `pgc_r03_g5a_u02_5a02_mixed_031eefeb7711` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+3. `pgc_r03_g5a_u02_5a02_mixed_0414b52fd538` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+4. `pgc_r03_g5a_u02_5a02_mixed_05ee727bddbc` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
+5. `pgc_r03_g5a_u02_5a02_mixed_06a21fe6f5ab` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20, CROSS_SEED_ITEM_DIVERSITY_DEFICIENT
+6. `pgc_r03_g5a_u02_5a02_mixed_08db83f2b8b4` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+7. `pgc_r03_g5a_u02_5a02_mixed_0af558cd57e7` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+8. `pgc_r03_g5a_u02_5a02_mixed_108a1e1e1feb` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+9. `pgc_r03_g5a_u02_5a02_mixed_11dc78975064` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+10. `pgc_r03_g5a_u02_5a02_mixed_14b4855a8de3` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+11. `pgc_r03_g5a_u02_5a02_mixed_155b7a11a4d1` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+12. `pgc_r03_g5a_u02_5a02_mixed_1a05bd4b0d85` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+13. `pgc_r03_g5a_u02_5a02_mixed_1a0befab7c87` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+14. `pgc_r03_g5a_u02_5a02_mixed_1e3c38a51eb2` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+15. `pgc_r03_g5a_u02_5a02_mixed_29f71ea95f6c` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+16. `pgc_r03_g5a_u02_5a02_mixed_2b5fbc4d23b5` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+17. `pgc_r03_g5a_u02_5a02_mixed_2f3620879b26` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+18. `pgc_r03_g5a_u02_5a02_mixed_319cdba8c6af` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+19. `pgc_r03_g5a_u02_5a02_mixed_336c253725d2` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
+20. `pgc_r03_g5a_u02_5a02_mixed_3682c45e7772` — g5a_u02_5a02 / mixed / CAPACITY_BELOW_20
 
 ## Distance update
 

@@ -24,27 +24,27 @@
     "historicalBindingCount": 1152,
     "historicalBindingAccountedCount": 1152,
     "currentLegalBindingCount": 1101,
-    "currentVerified20BindingCount": 813,
-    "currentLimitedBindingCount": 288,
+    "currentVerified20BindingCount": 828,
+    "currentLimitedBindingCount": 273,
     "currentUnverifiedCapacityExposureCount": 0,
     "routeCount": 1155,
     "legalRouteCount": 793,
     "illegalRouteCount": 362,
-    "verified20RouteCount": 602,
-    "verifiedLimitedRouteCount": 191,
+    "verified20RouteCount": 617,
+    "verifiedLimitedRouteCount": 176,
     "zeroCapacityRouteCount": 0,
-    "diversityGapRouteCount": 91,
+    "diversityGapRouteCount": 76,
     "hardBlockerCount": 0
   },
   "hardBlockers": [],
   "downstreamGaps": [
     {
       "code": "CAPACITY_BELOW_20",
-      "count": 191
+      "count": 176
     },
     {
       "code": "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT",
-      "count": 91
+      "count": 76
     }
   ],
   "routes": [
@@ -124366,11 +124366,11 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
         "QUESTION_COUNT_MISMATCH",
@@ -124378,161 +124378,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 1,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 1,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "cc0c86d51ff036567a1e",
+            "itemSetSignature": "41363474934fe5ef5fe8",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_approx_symbol_reading"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_approximation_symbol_reading"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 1,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "a5688bd8765ad2b5b582",
+            "itemSetSignature": "9f89184efc53faf5215c",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_approx_symbol_reading"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_approximation_symbol_reading"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 1,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 1,
-          "answerKeyItemCount": 1,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-          "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "cc0c86d51ff036567a1e",
+          "itemSetSignature": "41363474934fe5ef5fe8",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_a45f804b3a31",
@@ -124559,11 +124505,11 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
         "QUESTION_COUNT_MISMATCH",
@@ -124571,161 +124517,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 1,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 1,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "cc0c86d51ff036567a1e",
+            "itemSetSignature": "41363474934fe5ef5fe8",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_approx_symbol_reading"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_approximation_symbol_reading"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 1,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "a5688bd8765ad2b5b582",
+            "itemSetSignature": "9f89184efc53faf5215c",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_approx_symbol_reading"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_approximation_symbol_reading"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 1,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 1,
-          "answerKeyItemCount": 1,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-          "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "cc0c86d51ff036567a1e",
+          "itemSetSignature": "41363474934fe5ef5fe8",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_473626f19ede",
@@ -124752,11 +124644,11 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 1,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
         "QUESTION_COUNT_MISMATCH",
@@ -124764,161 +124656,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 1,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 1,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "cc0c86d51ff036567a1e",
+            "itemSetSignature": "41363474934fe5ef5fe8",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_approx_symbol_reading"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_approximation_symbol_reading"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 1,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 1,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 1,
-            "answerKeyItemCount": 1,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-            "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "a5688bd8765ad2b5b582",
+            "itemSetSignature": "9f89184efc53faf5215c",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_approx_symbol_reading"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_approximation_symbol_reading"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 1,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 1,
-          "answerKeyItemCount": 1,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c",
-          "itemSetSignature": "e01a358023c1b8ec5d8bbdfa941cf62c"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "cc0c86d51ff036567a1e",
+          "itemSetSignature": "41363474934fe5ef5fe8",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_concept_56468f5e76d3",
@@ -134606,10 +134444,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -134618,161 +134456,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "37630127294bbef4de72",
+            "itemSetSignature": "996ffd26e9879dbd3791",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "222c00366db006539fcefd020467c074",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "36fba860b72ca153a7e71af0be85fadb",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b0f4c91d782dc3a45bb7100d111578e5",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb978fa5462484be484857e3b9a9b910",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb5a87ed766dfdf72d984cace848e4f3",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b08ed76608bbcc6fd55fea403ad64945",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "5cf14cc2f48a9512d10490b9da7f9165",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "01a18a24eafdefeda85e9d9152b3559e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "94017bd80a64e30b39e5e7f1893c4412",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "63ffac4a04b55d56874d",
+            "itemSetSignature": "486a1a4a68e852f45c96",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-          "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_a623c0374400",
@@ -134799,10 +134583,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -134811,161 +134595,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "37630127294bbef4de72",
+            "itemSetSignature": "996ffd26e9879dbd3791",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "222c00366db006539fcefd020467c074",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "36fba860b72ca153a7e71af0be85fadb",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b0f4c91d782dc3a45bb7100d111578e5",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb978fa5462484be484857e3b9a9b910",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb5a87ed766dfdf72d984cace848e4f3",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b08ed76608bbcc6fd55fea403ad64945",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "5cf14cc2f48a9512d10490b9da7f9165",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "01a18a24eafdefeda85e9d9152b3559e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "94017bd80a64e30b39e5e7f1893c4412",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "63ffac4a04b55d56874d",
+            "itemSetSignature": "486a1a4a68e852f45c96",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-          "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_9b10d25462b6",
@@ -134992,10 +134722,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -135004,161 +134734,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "37630127294bbef4de72",
+            "itemSetSignature": "996ffd26e9879dbd3791",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "222c00366db006539fcefd020467c074",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "36fba860b72ca153a7e71af0be85fadb",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b0f4c91d782dc3a45bb7100d111578e5",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb978fa5462484be484857e3b9a9b910",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb5a87ed766dfdf72d984cace848e4f3",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b08ed76608bbcc6fd55fea403ad64945",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "5cf14cc2f48a9512d10490b9da7f9165",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "01a18a24eafdefeda85e9d9152b3559e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "94017bd80a64e30b39e5e7f1893c4412",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "63ffac4a04b55d56874d",
+            "itemSetSignature": "486a1a4a68e852f45c96",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-          "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_reasoning_a61c663f2ea9",
@@ -135185,10 +134861,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -135197,161 +134873,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "37630127294bbef4de72",
+            "itemSetSignature": "996ffd26e9879dbd3791",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "222c00366db006539fcefd020467c074",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "36fba860b72ca153a7e71af0be85fadb",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b0f4c91d782dc3a45bb7100d111578e5",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb978fa5462484be484857e3b9a9b910",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb5a87ed766dfdf72d984cace848e4f3",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b08ed76608bbcc6fd55fea403ad64945",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "5cf14cc2f48a9512d10490b9da7f9165",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "01a18a24eafdefeda85e9d9152b3559e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "94017bd80a64e30b39e5e7f1893c4412",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "63ffac4a04b55d56874d",
+            "itemSetSignature": "486a1a4a68e852f45c96",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-          "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_reasoning_fbdaee663f87",
@@ -135378,10 +135000,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -135390,161 +135012,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "37630127294bbef4de72",
+            "itemSetSignature": "996ffd26e9879dbd3791",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "222c00366db006539fcefd020467c074",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "36fba860b72ca153a7e71af0be85fadb",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b0f4c91d782dc3a45bb7100d111578e5",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb978fa5462484be484857e3b9a9b910",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb5a87ed766dfdf72d984cace848e4f3",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b08ed76608bbcc6fd55fea403ad64945",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "5cf14cc2f48a9512d10490b9da7f9165",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "01a18a24eafdefeda85e9d9152b3559e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "94017bd80a64e30b39e5e7f1893c4412",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "63ffac4a04b55d56874d",
+            "itemSetSignature": "486a1a4a68e852f45c96",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-          "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_reasoning_4ab8363fe09f",
@@ -135571,10 +135139,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -135583,161 +135151,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "37630127294bbef4de72",
+            "itemSetSignature": "996ffd26e9879dbd3791",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "222c00366db006539fcefd020467c074",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "36fba860b72ca153a7e71af0be85fadb",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b0f4c91d782dc3a45bb7100d111578e5",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb978fa5462484be484857e3b9a9b910",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "eb5a87ed766dfdf72d984cace848e4f3",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b08ed76608bbcc6fd55fea403ad64945",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "5cf14cc2f48a9512d10490b9da7f9165",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "01a18a24eafdefeda85e9d9152b3559e",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "94017bd80a64e30b39e5e7f1893c4412",
-            "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "63ffac4a04b55d56874d",
+            "itemSetSignature": "486a1a4a68e852f45c96",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_digit_set"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_unknown_digit"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "f7050b372b73ad32f8fab0724598073e",
-          "itemSetSignature": "8444a7252407579b9c2223bb26c5fd31"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_7852d15a264d",
@@ -135764,10 +135278,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -135776,161 +135290,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "76c539124a2c58962fb4",
+            "itemSetSignature": "717fbf993ff802e03417",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "da2da4fe7f5df80154c054bd2db0b484",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "1579c900c9b8966ca2221427500c0d20",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "c9f26c66eaa1ae0410722615b1d5f2f0",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "4641c24ffbcd2d5e2052d10b72d9bc8f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "8ef7f7f4ae40468cea85a2c540fb36f2",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "3448970c102e02063184006848cd7e13",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f04368be92a80ab256976449c153ac1a",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "912f61a44cf9c66832ea2add9b6f671f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "6956349cff7b3867de060b926a01b842",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "1faa81a2d51d8d0edb41",
+            "itemSetSignature": "6e68acdaf243c342a4b3",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-          "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_9793ac06b033",
@@ -135957,10 +135417,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -135969,161 +135429,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "76c539124a2c58962fb4",
+            "itemSetSignature": "717fbf993ff802e03417",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "da2da4fe7f5df80154c054bd2db0b484",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "1579c900c9b8966ca2221427500c0d20",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "c9f26c66eaa1ae0410722615b1d5f2f0",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "4641c24ffbcd2d5e2052d10b72d9bc8f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "8ef7f7f4ae40468cea85a2c540fb36f2",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "3448970c102e02063184006848cd7e13",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f04368be92a80ab256976449c153ac1a",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "912f61a44cf9c66832ea2add9b6f671f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "6956349cff7b3867de060b926a01b842",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "1faa81a2d51d8d0edb41",
+            "itemSetSignature": "6e68acdaf243c342a4b3",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-          "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_8ba934385ecd",
@@ -136150,10 +135556,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -136162,161 +135568,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "76c539124a2c58962fb4",
+            "itemSetSignature": "717fbf993ff802e03417",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "da2da4fe7f5df80154c054bd2db0b484",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "1579c900c9b8966ca2221427500c0d20",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "c9f26c66eaa1ae0410722615b1d5f2f0",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "4641c24ffbcd2d5e2052d10b72d9bc8f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "8ef7f7f4ae40468cea85a2c540fb36f2",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "3448970c102e02063184006848cd7e13",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f04368be92a80ab256976449c153ac1a",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "912f61a44cf9c66832ea2add9b6f671f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "6956349cff7b3867de060b926a01b842",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "1faa81a2d51d8d0edb41",
+            "itemSetSignature": "6e68acdaf243c342a4b3",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "mixed",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-          "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_reasoning_e0adbd44db8b",
@@ -136343,10 +135695,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -136355,161 +135707,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "76c539124a2c58962fb4",
+            "itemSetSignature": "717fbf993ff802e03417",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "da2da4fe7f5df80154c054bd2db0b484",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "1579c900c9b8966ca2221427500c0d20",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "c9f26c66eaa1ae0410722615b1d5f2f0",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "4641c24ffbcd2d5e2052d10b72d9bc8f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "8ef7f7f4ae40468cea85a2c540fb36f2",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "3448970c102e02063184006848cd7e13",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f04368be92a80ab256976449c153ac1a",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "912f61a44cf9c66832ea2add9b6f671f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "6956349cff7b3867de060b926a01b842",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "1faa81a2d51d8d0edb41",
+            "itemSetSignature": "6e68acdaf243c342a4b3",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-          "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_reasoning_bf41bdbb6ea8",
@@ -136536,10 +135834,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -136548,161 +135846,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "76c539124a2c58962fb4",
+            "itemSetSignature": "717fbf993ff802e03417",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "da2da4fe7f5df80154c054bd2db0b484",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "1579c900c9b8966ca2221427500c0d20",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "c9f26c66eaa1ae0410722615b1d5f2f0",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "4641c24ffbcd2d5e2052d10b72d9bc8f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "8ef7f7f4ae40468cea85a2c540fb36f2",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "3448970c102e02063184006848cd7e13",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f04368be92a80ab256976449c153ac1a",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "912f61a44cf9c66832ea2add9b6f671f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "6956349cff7b3867de060b926a01b842",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "1faa81a2d51d8d0edb41",
+            "itemSetSignature": "6e68acdaf243c342a4b3",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-          "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_reasoning_fed3e04e2432",
@@ -136729,10 +135973,10 @@
       "declaredUiMaxQuestionCount": 20,
       "legalRoute": true,
       "legalRouteStatus": "LEGAL",
-      "verifiedMaxQuestionCount": 12,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
+      "verifiedMaxQuestionCount": 20,
+      "capacityStatus": "VERIFIED_20",
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
       "uniqueOrderedWorksheetCount": 10,
       "priorFailureCodes": [
         "TEN_SEED_GENERATION_FAILURE",
@@ -136741,161 +135985,107 @@
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED"
+        "G4B_U04_CANONICAL_UNIQUE_CAPACITY_EXCEEDED",
+        "PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED",
+        "PGC_R06_A01_PER_WORKSHEET_PROMPT_DIVERSITY_RECONCILED",
+        "PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
-        "questionCount": 12,
+        "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+        "questionCount": 20,
+        "diagnosticSeedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-01",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "76c539124a2c58962fb4",
+            "itemSetSignature": "717fbf993ff802e03417",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           },
           {
-            "seed": "pgc-r03-seed-02",
-            "requestedQuestionCount": 12,
+            "seed": "pgc-r06-a01-g4b-u04-02",
+            "requestedQuestionCount": 20,
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
+            "evidenceProjection": "questionDisplayModels",
+            "questionCount": 20,
+            "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "da2da4fe7f5df80154c054bd2db0b484",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "1579c900c9b8966ca2221427500c0d20",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "c9f26c66eaa1ae0410722615b1d5f2f0",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "4641c24ffbcd2d5e2052d10b72d9bc8f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "8ef7f7f4ae40468cea85a2c540fb36f2",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "3448970c102e02063184006848cd7e13",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "f04368be92a80ab256976449c153ac1a",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "912f61a44cf9c66832ea2add9b6f671f",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "requestedQuestionCount": 12,
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "questionCount": 12,
-            "answerKeyItemCount": 12,
-            "missingPromptCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "6956349cff7b3867de060b926a01b842",
-            "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "1faa81a2d51d8d0edb41",
+            "itemSetSignature": "6e68acdaf243c342a4b3",
+            "patternSpecIdsObserved": [
+              "ps_g4b_u04_inverse_original_values"
+            ],
+            "knowledgePointIdsObserved": [
+              "kp_g4b_u04_inverse_rounding_possible_original"
+            ],
+            "runtimeLineage": {
+              "browserResolutionMode": null,
+              "browserPlanSourceId": null,
+              "sourceUnitAdapterStatus": null,
+              "sourceUnitAdapterId": null,
+              "documentQuestionMode": "reasoning",
+              "documentAuthorityMode": "GLOBAL_PRIMARY"
+            }
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
-          "requestedQuestionCount": 12,
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "questionCount": 12,
-          "answerKeyItemCount": 12,
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "e734e9c1d87170d25d0754d8ddd56c09",
-          "itemSetSignature": "4d3d388b2b93e812a4e75680fcb7b423"
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          }
         },
         "passed": true
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": []
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_4dfc489a2819",
@@ -219841,8 +219031,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 1,
-      "maximumVerifiedQuestionCount": 1
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::concept",
@@ -219865,8 +219055,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 1,
-      "maximumVerifiedQuestionCount": 1
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::concept",
@@ -219889,8 +219079,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 1,
-      "maximumVerifiedQuestionCount": 1
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::PIXEL::concept",
@@ -220501,8 +219691,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
@@ -220514,8 +219704,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
@@ -220527,8 +219717,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::reasoning",
@@ -220540,8 +219730,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::mixed",
@@ -220553,8 +219743,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::reasoning",
@@ -220566,8 +219756,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
@@ -220579,8 +219769,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
@@ -220592,8 +219782,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
@@ -220605,8 +219795,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::reasoning",
@@ -220618,8 +219808,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::mixed",
@@ -220631,8 +219821,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::reasoning",
@@ -220644,8 +219834,8 @@
       "accountedRouteCount": 3,
       "availableRouteCount": 3,
       "status": "RECONCILED_TO_CAPACITY_AWARE_UI",
-      "minimumVerifiedQuestionCount": 12,
-      "maximumVerifiedQuestionCount": 12
+      "minimumVerifiedQuestionCount": 20,
+      "maximumVerifiedQuestionCount": 20
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down::CLASSIC::mixed",
@@ -226656,5 +225846,18 @@
       "pgc-r05-diagnostic-02"
     ],
     "status": "PASS_R05_APPLICATION_CAPACITY_CONTRACT_RECONCILED"
+  },
+  "lastR06Reconciliation": {
+    "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+    "taskId": "PGC-R06-A01_BoundedCapacityReasoningMixedPBLRouteFullFix",
+    "evidenceAuthority": "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
+    "sourceId": "g4b_u04_4b04",
+    "reconciledRouteCount": 15,
+    "hardCeiling": 20,
+    "diagnosticSeeds": [
+      "pgc-r06-a01-g4b-u04-01",
+      "pgc-r06-a01-g4b-u04-02"
+    ],
+    "status": "PASS_R06_A01_G4BU04_CAPACITY_CONTRACT_RECONCILED"
   }
 }
