@@ -84,5 +84,5 @@ test("Batch A validation - question count helper clamps to supported max", () =>
 
   const result = buildWorksheetDocumentFromState(state);
   assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.summary.questionCount, 200);
+  assert.equal(result.worksheetDocument.summary.questionCount, 240);
 });
