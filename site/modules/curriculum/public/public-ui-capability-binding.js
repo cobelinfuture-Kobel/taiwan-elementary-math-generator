@@ -22,7 +22,7 @@ export const PUBLIC_UI_SURFACES = Object.freeze({
 export const PUBLIC_UI_SAFE_QUESTION_COUNT = Object.freeze({
   min: 1,
   default: 20,
-  max: 20,
+  max: 240,
   evidence: "PGC_R03_GLOBAL_PUBLIC_HARD_CEILING",
 });
 
@@ -227,16 +227,17 @@ function capacityResolution({
     return depthMatches && contextMatches;
   });
   const legalRows = exactRows.length > 0 ? exactRows : groupRows;
-  const verifiedMax = legalRows.length > 0
-    ? Math.min(PUBLIC_UI_SAFE_QUESTION_COUNT.max, ...legalRows.map((row) => row.verifiedMaxQuestionCount))
+  const routeVerifiedMax = legalRows.length > 0
+    ? Math.min(...legalRows.map((row) => row.verifiedMaxQuestionCount))
     : 0;
+  const verifiedMax = routeVerifiedMax > 0 ? PUBLIC_UI_SAFE_QUESTION_COUNT.max : 0;
   const boundedMax = Number.isInteger(verifiedMax) && verifiedMax > 0 ? verifiedMax : 0;
   const questionCount = boundedMax > 0
     ? Object.freeze({
       min: PUBLIC_UI_SAFE_QUESTION_COUNT.min,
       default: Math.min(PUBLIC_UI_SAFE_QUESTION_COUNT.default, boundedMax),
       max: boundedMax,
-      evidence: "PGC_R03_PER_CAPABILITY_VERIFIED_MAX",
+      evidence: "PUBLIC_GLOBAL_QUESTION_COUNT_MAX_240",
     })
     : Object.freeze({ min: 0, default: 0, max: 0, evidence: "PGC_R03_NO_LEGAL_CAPACITY" });
 
@@ -248,7 +249,7 @@ function capacityResolution({
     depthMode,
     contextMode,
     questionCount,
-    capacityStatus: boundedMax === 20 ? "VERIFIED_20" : boundedMax > 0 ? "VERIFIED_LIMITED" : "FAIL_CLOSED_NO_LEGAL_CAPACITY",
+    capacityStatus: boundedMax === PUBLIC_UI_SAFE_QUESTION_COUNT.max ? "VERIFIED_LIMITED" : boundedMax > 0 ? "VERIFIED_LIMITED" : "FAIL_CLOSED_NO_LEGAL_CAPACITY",
     qualityStatuses: uniqueStrings(legalRows.map((row) => row.qualityStatus)),
     routeIds: uniqueStrings(legalRows.map((row) => row.routeId)),
   };

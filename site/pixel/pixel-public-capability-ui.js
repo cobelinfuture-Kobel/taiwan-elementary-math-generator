@@ -150,7 +150,7 @@ export function syncPixelPublicCapabilityUi() {
     if (help) {
       help.textContent = binding.blocked
         ? `目前組合不可產生：${binding.blockedReasons.join("、")}`
-        : `已套用 PGC-R03 合法 route 與容量證據；目前上限 ${binding.questionCount.max} 題。`;
+        : `已套用公開題數上限；目前上限 ${binding.questionCount.max} 題。`;
     }
     document.body.dataset.pixelCapabilityBindingStatus = binding.blocked ? "blocked" : "ready";
     document.body.dataset.pixelCapabilityQuestionType = binding.questionType ?? "";

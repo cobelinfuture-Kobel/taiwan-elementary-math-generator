@@ -173,7 +173,7 @@ export function syncPublicCapabilityUi() {
     if (help) {
       help.textContent = binding.blocked
         ? `目前組合不可產生：${binding.blockedReasons.join("、")}`
-        : `已依知識點、題型、形式與控制交集套用 PGC-R03 容量證據；目前上限 ${binding.questionCount.max} 題。`;
+        : `已套用公開題數上限；目前上限 ${binding.questionCount.max} 題。`;
     }
 
     const signature = bindingSignature(binding);

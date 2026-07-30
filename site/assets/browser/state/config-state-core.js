@@ -183,7 +183,7 @@ function createBaseDerivedState() {
 function createBatchAStateFromConfig(config, options = {}) {
   const baseState = {
     sourceId: options.sourceId ?? "g3a_u02_3a02",
-    questionCount: positiveInteger(options.questionCount ?? config?.generation?.questionCount, 20),
+    questionCount: positiveInteger(options.questionCount ?? config?.generation?.questionCount, 20, 1, 240),
     ordering: normalizeOrderingMode(options.ordering ?? config?.patternPlan?.worksheetOrdering?.mode),
     includeAnswerKey: options.includeAnswerKey ?? config?.printLayout?.showAnswerKeyPage ?? true,
     generationSeed: String(options.generationSeed ?? "batch-a-browser"),
@@ -324,7 +324,7 @@ export function setQuestionCount(state, count) {
 
   const normalizedValue = Math.floor(value);
   state.draftConfig.generation.questionCount = normalizedValue;
-  state.batchA.questionCount = positiveInteger(normalizedValue, state.batchA.questionCount);
+  state.batchA.questionCount = positiveInteger(normalizedValue, state.batchA.questionCount, 1, 240);
 
   const allocation = state.draftConfig?.patternPlan?.allocation;
   if (allocation) {
