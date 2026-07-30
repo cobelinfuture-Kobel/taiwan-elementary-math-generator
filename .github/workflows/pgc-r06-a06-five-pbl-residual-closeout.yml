@@ -6,6 +6,7 @@ on:
       - "site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js"
       - "tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js"
       - "tests/curriculum/pgc-r06-a06-five-pbl-residual-closeout.test.js"
+      - "tools/curriculum/apply-pgc-r06-a06-canonical-gap-field-repair.mjs"
       - "tools/curriculum/materialize-pgc-r06-a06-five-pbl-residual-closeout.mjs"
       - "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json"
       - "data/curriculum/public-generation/generator_capacity_contract.json"
@@ -45,10 +46,14 @@ jobs:
           node --check site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js
           node --check tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js
           node --check tests/curriculum/pgc-r06-a06-five-pbl-residual-closeout.test.js
+          node --check tools/curriculum/apply-pgc-r06-a06-canonical-gap-field-repair.mjs
           node --check tools/curriculum/materialize-pgc-r06-a06-five-pbl-residual-closeout.mjs
 
       - name: Focused live runtime acceptance
         run: node --test tests/curriculum/pgc-r06-a06-five-pbl-residual-closeout.test.js
+
+      - name: Repair prior reconciled canonical gap fields
+        run: node tools/curriculum/apply-pgc-r06-a06-canonical-gap-field-repair.mjs
 
       - name: Materialize canonical A05 repair and A06 authorities
         run: node tools/curriculum/materialize-pgc-r06-a06-five-pbl-residual-closeout.mjs
@@ -112,6 +117,7 @@ jobs:
             site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js \
             tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js \
             tests/curriculum/pgc-r06-a06-five-pbl-residual-closeout.test.js \
+            tools/curriculum/apply-pgc-r06-a06-canonical-gap-field-repair.mjs \
             tools/curriculum/materialize-pgc-r06-a06-five-pbl-residual-closeout.mjs \
             data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json \
             data/curriculum/public-generation/generator_capacity_contract.json \
