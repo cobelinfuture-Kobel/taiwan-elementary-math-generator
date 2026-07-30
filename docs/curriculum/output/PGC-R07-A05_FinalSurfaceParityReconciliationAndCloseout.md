@@ -3,6 +3,7 @@
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID    = PGC-R07-A05_FinalSurfaceParityReconciliationAndCloseout
+PR         = 482
 STATUS     = PENDING_EXACT_HEAD_CI_AND_D0_MARKER
 ```
 
