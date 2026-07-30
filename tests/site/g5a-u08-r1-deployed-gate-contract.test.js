@@ -10,6 +10,9 @@ import {
   resolvePublicUiCapabilityBinding,
 } from "../../site/modules/curriculum/public/public-ui-capability-binding.js";
 import {
+  listVisibleBatchAKnowledgePoints,
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
+import {
   G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS,
   G5A_U08_SOURCE_ID,
 } from "../../site/modules/curriculum/registry/g5a-u08-promotion.js";
@@ -81,17 +84,20 @@ test("GS01 patches exactly the obsolete metadata assertion and illegal single-KP
   assert.match(patched.slice(mixedModeIndex), /await setControls\(page, controls\)/);
 });
 
-test("G5A-U08 UI binding keeps mixed hidden for single KP but admitted for whole-unit and same-unit mixed routes", () => {
-  const firstKnowledgePointId = G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS[0];
-  const single = resolvePublicUiCapabilityBinding({
+test("G5A-U08 binding preserves per-KP capacity heterogeneity and admits mixed aggregate routes", () => {
+  const visibleG5AU08 = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G5A_U08_SOURCE_ID);
+  assert.equal(visibleG5AU08.length, G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS.length);
+
+  const singleBindings = visibleG5AU08.map((row) => resolvePublicUiCapabilityBinding({
     sourceId: G5A_U08_SOURCE_ID,
     selectionMode: "singleKnowledgePoint",
-    selectedKnowledgePointIds: [firstKnowledgePointId],
+    selectedKnowledgePointIds: [row.knowledgePointId],
     requestedQuestionType: "mixed",
-  });
-  assert.equal(optionValues(single).includes("mixed"), false);
-  assert.notEqual(single.questionType, "mixed");
-  assert.equal(single.blocked, false, single.blockedReasons.join("|"));
+  }));
+  assert.equal(optionValues(singleBindings[0]).includes("mixed"), false, "browser-default visible KP must not be forced into mixed");
+  assert.ok(singleBindings.some((binding) => optionValues(binding).includes("mixed")), "expected at least one mixed-capable single KP");
+  assert.ok(singleBindings.some((binding) => !optionValues(binding).includes("mixed")), "expected at least one single KP without mixed capacity");
+  assert.ok(singleBindings.every((binding) => binding.blocked === false), singleBindings.flatMap((binding) => binding.blockedReasons).join("|"));
 
   const wholeUnit = resolvePublicUiCapabilityBinding({
     sourceId: G5A_U08_SOURCE_ID,
@@ -105,7 +111,7 @@ test("G5A-U08 UI binding keeps mixed hidden for single KP but admitted for whole
   const sameUnitMixed = resolvePublicUiCapabilityBinding({
     sourceId: G5A_U08_SOURCE_ID,
     selectionMode: "mixedKnowledgePointsSameUnit",
-    selectedKnowledgePointIds: [...G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS],
+    selectedKnowledgePointIds: visibleG5AU08.map((row) => row.knowledgePointId),
     requestedQuestionType: "mixed",
   });
   assert.equal(optionValues(sameUnitMixed).includes("mixed"), true);
