@@ -1,0 +1,139 @@
+{
+  "schemaName": "PGCR07A03ChromiumPrintAnswerKeyMatrixContractV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix",
+  "previousTaskId": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix",
+  "status": "IMPLEMENTATION_READY_PENDING_CI",
+  "scope": {
+    "surfaceCount": 3,
+    "answerKeyModeCount": 2,
+    "expectedMatrixRowCount": 6,
+    "sourceId": "g5a_u08_5a08",
+    "selectionMode": "sourceUnit",
+    "questionMode": "mixed",
+    "depthMode": "mixed",
+    "contextMode": "mixed",
+    "questionCount": 6,
+    "ordering": "groupedByPattern",
+    "generationSeed": "pgc-r07-a03-g5a-u08-shared-seed",
+    "columns": 3,
+    "rowsPerPage": 5
+  },
+  "surfaces": [
+    {
+      "surfaceId": "CLASSIC",
+      "entryPath": "site/index.html",
+      "adapter": "classic"
+    },
+    {
+      "surfaceId": "FALLBACK_404",
+      "entryPath": "site/404.html",
+      "adapter": "classic"
+    },
+    {
+      "surfaceId": "PIXEL",
+      "entryPath": "site/pixel/index.html",
+      "adapter": "pixel"
+    }
+  ],
+  "matrixRows": [
+    {
+      "rowId": "CLASSIC_CHROMIUM_PDF_ANSWER_ON",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": true,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "CLASSIC_CHROMIUM_PDF_ANSWER_OFF",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": false,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "FALLBACK_404_CHROMIUM_PDF_ANSWER_ON",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": true,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "FALLBACK_404_CHROMIUM_PDF_ANSWER_OFF",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": false,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "PIXEL_CHROMIUM_PDF_ANSWER_ON",
+      "surfaceId": "PIXEL",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": true,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "PIXEL_CHROMIUM_PDF_ANSWER_OFF",
+      "surfaceId": "PIXEL",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": false,
+      "expectedStatus": "PASS"
+    }
+  ],
+  "parityContract": {
+    "sameConfigAndSeedRequired": true,
+    "sameQuestionIdentityAcrossAllRows": true,
+    "sameAnswerIdentityAcrossAnswerKeyRows": true,
+    "answerToggleMustPreserveQuestionIdentity": true,
+    "questionAnswerNumberBijectionRequired": true,
+    "actualSurfacePrintTargetMustBeInvoked": true,
+    "chromiumA4PdfRequired": true,
+    "pdfHeaderRequired": "%PDF-",
+    "browserConsoleErrorsAllowed": 0,
+    "browserPageErrorsAllowed": 0,
+    "overflowFindingsAllowed": 0
+  },
+  "evidenceContract": {
+    "runner": "tools/curriculum/run-pgc-r07-a03-chromium-print-answer-matrix.mjs",
+    "reportPath": "tmp/pgc-r07-a03-chromium-print-answer-matrix/report.json",
+    "artifactDirectory": "tmp/pgc-r07-a03-chromium-print-answer-matrix",
+    "browser": "Playwright Chromium",
+    "pdfEngine": "Chromium page.pdf",
+    "workflow": ".github/workflows/node-test.yml",
+    "workflowPolicy": "EXISTING_WORKFLOW_BRANCH_SPECIFIC_STEP_NO_NEW_WORKFLOW"
+  },
+  "acceptance": {
+    "expectedRowCount": 6,
+    "pdfPassCount": 6,
+    "printInvocationPassCount": 6,
+    "answerKeyBijectionPassCount": 3,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "overflowFindingCount": 0,
+    "crossSurfaceQuestionIdentity": "EXACT_MATCH",
+    "crossSurfaceAnswerIdentity": "EXACT_MATCH_FOR_ANSWER_ON_ROWS"
+  },
+  "frozenBoundary": {
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false,
+    "productUiModified": false,
+    "knowledgePointModified": false,
+    "patternGroupModified": false,
+    "patternSpecModified": false,
+    "newWorkflowAdded": false,
+    "slice014Started": false
+  },
+  "goalDistance": {
+    "before": "D1_R07_CLASSIC_CAPACITY_AWARE_PREVIEW_PRINT_PARITY_PASS",
+    "after": "D1_R07_REAL_CHROMIUM_PRINT_ANSWER_MATRIX_IMPLEMENTATION_READY_PENDING_CI",
+    "distanceReduced": "materialized one real-browser six-row surface by answer-key Chromium PDF parity contract and executable acceptance runner",
+    "remainingBlockers": [
+      "A03_EXACT_HEAD_CI_PENDING",
+      "RENDERER_BRANCH_PARITY_UNPROVEN",
+      "OVERFLOW_CLIPPING_FONT_PAGINATION_FULLFIX_PENDING"
+    ],
+    "nextShortestStep": "PGC-R07-A03_ExactHeadCIAndMatrixReadback"
+  }
+}
