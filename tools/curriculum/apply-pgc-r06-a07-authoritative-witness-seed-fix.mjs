@@ -53,22 +53,35 @@ const materializerAnchor = `function diagnoseRoute(route) {
   };
 }`;
 
-const materializerReplacement = `function authoritativeWitnessSeeds(route) {
+const materializerReplacement = `function acceptedWitnessRuns(route) {
   const evidence = route.selectedCapacityEvidence;
-  const seeds = unique((evidence?.runs ?? []).map((run) => run?.seed));
-  if (evidence?.passed !== true || evidence?.questionCount !== QUESTION_COUNT || seeds.length !== 2) {
-    throw new Error(\`PGC_R06_A07_AUTHORITY_WITNESS_MISSING:\${route.routeId}:\${JSON.stringify({
-      evidenceAuthority: evidence?.evidenceAuthority ?? null,
-      evidenceTaskId: evidence?.taskId ?? null,
-      questionCount: evidence?.questionCount ?? null,
-      seedCount: seeds.length,
-    })}\`);
+  const runs = (evidence?.runs ?? []).filter((run) => run?.seed
+    && run?.ok === true
+    && run?.questionCount === QUESTION_COUNT
+    && run?.answerKeyItemCount === QUESTION_COUNT
+    && Number(run?.missingPromptCount ?? run?.emptyPromptCount ?? 0) === 0
+    && Number(run?.duplicatePromptCount ?? 0) === 0
+    && run?.itemSetSignature);
+  for (let left = 0; left < runs.length; left += 1) {
+    for (let right = left + 1; right < runs.length; right += 1) {
+      if (runs[left].seed !== runs[right].seed && runs[left].itemSetSignature !== runs[right].itemSetSignature) {
+        return [runs[left], runs[right]];
+      }
+    }
   }
-  return seeds;
+  throw new Error(\`PGC_R06_A07_AUTHORITY_WITNESS_PAIR_MISSING:\${route.routeId}:\${JSON.stringify({
+    evidenceAuthority: evidence?.evidenceAuthority ?? null,
+    evidenceTaskId: evidence?.taskId ?? null,
+    questionCount: evidence?.questionCount ?? null,
+    candidateRunCount: runs.length,
+    distinctItemSetCount: new Set(runs.map((run) => run.itemSetSignature)).size,
+  })}\`);
 }
 
 function diagnoseRoute(route) {
-  const [seedA, seedB] = authoritativeWitnessSeeds(route);
+  const [witnessA, witnessB] = acceptedWitnessRuns(route);
+  const seedA = witnessA.seed;
+  const seedB = witnessB.seed;
   const first = runRoute(route, seedA);
   const replay = runRoute(route, seedA);
   const second = runRoute(route, seedB);
@@ -80,6 +93,8 @@ function diagnoseRoute(route) {
       && run.duplicatePromptCount === 0
       && run.uniquePromptCount === QUESTION_COUNT)
     && replay.orderedWorksheetSignature === first.orderedWorksheetSignature
+    && first.itemSetSignature === witnessA.itemSetSignature
+    && second.itemSetSignature === witnessB.itemSetSignature
     && second.itemSetSignature !== first.itemSetSignature
     && binding.blocked === false
     && binding.questionCountMax === 240
@@ -110,12 +125,27 @@ const testSeedAnchor = `    const seedA = \`pgc-r06-a07:\${route.routeId}:A\`;
     const replay = runRoute(route, seedA);
     const second = runRoute(route, seedB);`;
 
-const testSeedReplacement = `    const evidence = route.selectedCapacityEvidence;
-    const witnessSeeds = [...new Set((evidence?.runs ?? []).map((run) => run?.seed).filter(Boolean))];
-    assert.equal(evidence?.passed, true, \`\${route.routeId}:capacity evidence not passed\`);
-    assert.equal(evidence?.questionCount, QUESTION_COUNT, \`\${route.routeId}:capacity evidence count\`);
-    assert.equal(witnessSeeds.length, 2, \`\${route.routeId}:capacity witness seeds\`);
-    const [seedA, seedB] = witnessSeeds;
+const testSeedReplacement = `    const evidenceRuns = (route.selectedCapacityEvidence?.runs ?? []).filter((run) => run?.seed
+      && run?.ok === true
+      && run?.questionCount === QUESTION_COUNT
+      && run?.answerKeyItemCount === QUESTION_COUNT
+      && Number(run?.missingPromptCount ?? run?.emptyPromptCount ?? 0) === 0
+      && Number(run?.duplicatePromptCount ?? 0) === 0
+      && run?.itemSetSignature);
+    let witnessPair = null;
+    for (let left = 0; left < evidenceRuns.length && !witnessPair; left += 1) {
+      for (let right = left + 1; right < evidenceRuns.length; right += 1) {
+        if (evidenceRuns[left].seed !== evidenceRuns[right].seed
+          && evidenceRuns[left].itemSetSignature !== evidenceRuns[right].itemSetSignature) {
+          witnessPair = [evidenceRuns[left], evidenceRuns[right]];
+          break;
+        }
+      }
+    }
+    assert.ok(witnessPair, \`\${route.routeId}:distinct accepted capacity witness pair\`);
+    const [witnessA, witnessB] = witnessPair;
+    const seedA = witnessA.seed;
+    const seedB = witnessB.seed;
     const first = runRoute(route, seedA);
     const replay = runRoute(route, seedA);
     const second = runRoute(route, seedB);`;
