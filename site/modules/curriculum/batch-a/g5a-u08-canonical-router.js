@@ -332,6 +332,77 @@ export function validateG5AU08CanonicalQuestion(question = {}) {
   return { ok: errors.length === 0, errors, warnings: [] };
 }
 
+const PGC_R06_A05_MAX_UNIQUE_ATTEMPTS = 64;
+
+function pgcR06A05PromptKey(question = {}) {
+  return String(question.promptText ?? question.prompt ?? question.blankedDisplayText ?? "").trim();
+}
+
+function pgcR06A05GenerateValidatedBatch(normalized, entry, questionCount, seed, numericValidator, applicationValidator) {
+  let batch;
+  let validation;
+  if (entry.runtimeKind === "numeric_or_noncontext_reasoning") {
+    batch = generateG5AU08HiddenBatch({
+      questionCount,
+      seed,
+      selectedPatternSpecIds: entry.selectedPatternSpecIds,
+      ordering: "grouped",
+    });
+    validation = numericValidator(batch);
+  } else {
+    batch = generateG5AU08ApplicationBatch({
+      questionCount,
+      seed,
+      selectedPatternSpecIds: entry.selectedPatternSpecIds,
+      depthMode: normalized.depthMode,
+      contextMode: normalized.contextMode,
+      ordering: "grouped",
+    });
+    validation = applicationValidator(batch);
+  }
+  return { batch, validation };
+}
+
+function pgcR06A05CollectUniqueQuestions(normalized, entry, seenPromptKeys, numericValidator, applicationValidator) {
+  const accepted = [];
+  const warnings = [];
+  const errors = [];
+  for (let attempt = 0; accepted.length < entry.questionCount && attempt < PGC_R06_A05_MAX_UNIQUE_ATTEMPTS; attempt += 1) {
+    const remaining = entry.questionCount - accepted.length;
+    const seed = `${normalized.generationSeed}:${entry.patternGroupId}:${entry.questionCount}:pgc-r06-a05:${attempt}`;
+    const { validation } = pgcR06A05GenerateValidatedBatch(
+      normalized,
+      entry,
+      remaining,
+      seed,
+      numericValidator,
+      applicationValidator,
+    );
+    warnings.push(...(validation?.warnings ?? []));
+    if (validation?.valid !== true) {
+      errors.push(...(validation?.errors ?? [issue("G5A_U08_CANONICAL_VALIDATION_FAILED", "validation", "Blocking validator rejected the generated batch.")]));
+      break;
+    }
+    for (const question of validation.acceptedQuestions ?? []) {
+      const key = pgcR06A05PromptKey(question);
+      if (!key || seenPromptKeys.has(key)) continue;
+      seenPromptKeys.add(key);
+      accepted.push(question);
+      if (accepted.length === entry.questionCount) break;
+    }
+  }
+  if (accepted.length !== entry.questionCount && errors.length === 0) {
+    errors.push(issue("G5A_U08_CANONICAL_UNIQUE_CAPACITY_EXHAUSTED", "questions", "Canonical runtime 無法在限制內產生足量的不重複題目。", {
+      patternGroupId: entry.patternGroupId,
+      expected: entry.questionCount,
+      actual: accepted.length,
+    }));
+  }
+  return { accepted, warnings, errors };
+}
+
+// PGC-R06 A05 G5A-U08 deterministic unique rejection sampling
+
 export function generateG5AU08CanonicalQuestions(plan = {}, options = {}) {
   const checked = validateG5AU08CanonicalPlan(plan);
   const normalized = checked.plan;
@@ -340,39 +411,22 @@ export function generateG5AU08CanonicalQuestions(plan = {}, options = {}) {
   const numericValidator = options.numericValidator ?? validateG5AU08HiddenBatch;
   const applicationValidator = options.applicationValidator ?? validateG5AU08ApplicationBatch;
   const generatedRows = [];
+  const seenPromptKeys = new Set();
   const errors = [];
   const warnings = [];
   let sequenceNumber = 0;
 
   for (const entry of normalized.allocation) {
-    const seed = `${normalized.generationSeed}:${entry.patternGroupId}:${entry.questionCount}`;
-    let batch;
-    let validation;
-    if (entry.runtimeKind === "numeric_or_noncontext_reasoning") {
-      batch = generateG5AU08HiddenBatch({
-        questionCount: entry.questionCount,
-        seed,
-        selectedPatternSpecIds: entry.selectedPatternSpecIds,
-        ordering: "grouped",
-      });
-      validation = numericValidator(batch);
-    } else {
-      batch = generateG5AU08ApplicationBatch({
-        questionCount: entry.questionCount,
-        seed,
-        selectedPatternSpecIds: entry.selectedPatternSpecIds,
-        depthMode: normalized.depthMode,
-        contextMode: normalized.contextMode,
-        ordering: "grouped",
-      });
-      validation = applicationValidator(batch);
-    }
-    warnings.push(...(validation?.warnings ?? []));
-    if (validation?.valid !== true) {
-      errors.push(...(validation?.errors ?? [issue("G5A_U08_CANONICAL_VALIDATION_FAILED", "validation", "Blocking validator rejected the generated batch.")]));
-      continue;
-    }
-    for (const question of validation.acceptedQuestions ?? []) {
+    const collected = pgcR06A05CollectUniqueQuestions(
+      normalized,
+      entry,
+      seenPromptKeys,
+      numericValidator,
+      applicationValidator,
+    );
+    warnings.push(...collected.warnings);
+    errors.push(...collected.errors);
+    for (const question of collected.accepted) {
       sequenceNumber += 1;
       const promoted = promoteQuestion(question, normalized, entry, sequenceNumber);
       const lifecycle = validateG5AU08CanonicalQuestion(promoted);

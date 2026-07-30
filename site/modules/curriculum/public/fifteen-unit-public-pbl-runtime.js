@@ -110,11 +110,15 @@ function buildG4AU08(plan, index) {
 }
 
 function buildG5AU08(plan, index) {
-  const days = 5 + (index % 3);
-  const daily = 120 + index * 15;
-  const bonus = 300 + index * 20;
-  const redeemed = 180 + index * 10;
+  const seedText = String(plan.generationSeed ?? "").trim();
+  const controlText = `${plan.depthMode ?? "mixed"}:${plan.contextMode ?? "mixed"}`;
+  const seedBase = seedText ? stableSeedHash(`${seedText}:${controlText}`) % 997 : 0;
+  const days = 5 + ((seedBase + index) % 3);
+  const daily = 120 + ((seedBase * 13 + index * 37) % 700);
+  const bonus = 300 + ((seedBase * 19 + index * 53) % 800);
   const earned = days * daily + bonus;
+  const redeemableRange = Math.max(1, Math.min(900, earned - days - 100));
+  const redeemed = 100 + ((seedBase * 7 + index * 29) % redeemableRange);
   const remaining = earned - redeemed;
   const average = Math.floor(remaining / days);
   return makeItem(plan, index, {
@@ -130,6 +134,8 @@ function buildG5AU08(plan, index) {
     answerText: `①${days * daily}點；②${earned}點；③${remaining}點；④每天最多${average}點；⑤依此上限使用不超支。`,
   });
 }
+
+// PGC-R06 A05 G5A-U08 seed-aware PBL producer
 
 function buildG4BU04(plan, index) {
   const people = 238 + index * 17;
