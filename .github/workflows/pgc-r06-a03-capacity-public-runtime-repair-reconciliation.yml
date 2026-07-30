@@ -110,7 +110,5 @@ jobs:
             echo "PGC-R06 A03 authorities already synchronized."
           else
             git commit -m "feat(pgc-r06): reconcile capacity public runtime and repair queue [skip ci]"
-            git fetch origin "${{ github.head_ref || github.ref_name }}"
-            git rebase "origin/${{ github.head_ref || github.ref_name }}"
             git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
           fi
