@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
-import zlib from "node:zlib";
 
 import {
   materializeGciS01WorkflowInventory
@@ -19,12 +18,15 @@ const EXPECTED_SUMMARY = {
   sharedExactPathPatternCount: 73
 };
 
-test("GCI-S01 exhaustively inventories workflows and keeps committed evidence deterministic", () => {
+test("GCI-S01 exhaustively inventories workflows and locks deterministic fan-out evidence", () => {
   const report = materializeGciS01WorkflowInventory();
   assert.equal(report.inventoryCompleteness, "COMPLETE_FROM_CHECKED_OUT_MAIN_TREE");
   assert.deepEqual(report.summary, EXPECTED_SUMMARY);
 
   const evidence = buildGciS01Evidence(report);
+  assert.equal(evidence.manifest.authority.mode, "DETERMINISTIC_ON_DEMAND");
+  assert.match(evidence.manifest.authority.sha256, /^[0-9a-f]{64}$/);
+  assert.ok(evidence.manifest.authority.bytes > 200000);
   assert.equal(evidence.manifest.matrixRowCounts.workflows, 109);
   assert.equal(evidence.manifest.matrixRowCounts.triggerMatrix, 109);
   assert.equal(evidence.manifest.matrixRowCounts.ownershipMatrix, 109);
@@ -33,20 +35,6 @@ test("GCI-S01 exhaustively inventories workflows and keeps committed evidence de
   assert.equal(evidence.manifest.nextTaskId, "GCI-S02_SinglePrGateOrchestratorPilot");
 
   for (const [relativePath, expected] of Object.entries(evidence.outputs)) {
-    const actual = fs.readFileSync(relativePath);
-    if (Buffer.isBuffer(expected)) {
-      assert.equal(actual.equals(expected), true, `stale binary GCI-S01 evidence: ${relativePath}`);
-    } else {
-      assert.equal(actual.toString("utf8"), expected, `stale text GCI-S01 evidence: ${relativePath}`);
-    }
+    assert.equal(fs.readFileSync(relativePath, "utf8"), expected, `stale GCI-S01 evidence: ${relativePath}`);
   }
-
-  const decoded = JSON.parse(zlib.gunzipSync(
-    fs.readFileSync(".github/ci/workflow-inventory.s01.complete.json.gz")
-  ).toString("utf8"));
-  assert.deepEqual(decoded.summary, EXPECTED_SUMMARY);
-  assert.equal(decoded.workflows.length, 109);
-  assert.equal(decoded.triggerMatrix.length, 109);
-  assert.equal(decoded.ownershipMatrix.length, 109);
-  assert.equal(decoded.sharedPathOverlapMatrix.length, 73);
 });
