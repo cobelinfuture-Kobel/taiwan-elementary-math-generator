@@ -1,10 +1,10 @@
 {
-  "schemaName": "PGCR08A02PublicGenerateCanaryHarnessV1",
-  "schemaVersion": 1,
+  "schemaName": "PGCR08A02PublicGenerateCanaryHarnessV2",
+  "schemaVersion": 2,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A02_PublicGenerateButtonCanaryAndHarnessQualification",
   "previousTaskId": "PGC-R08-A01_LegalRouteBrowserAcceptanceMatrixMaterialization",
-  "status": "PENDING_REAL_BROWSER_CANARY",
+  "status": "PENDING_CONSOLIDATED_CANARY_REMEDIATION_CI",
   "harnessGoal": "Qualify one reusable browser harness against real public UI controls, generation, regeneration, preview, print PDF and answer-key paths before the 793-route execution.",
   "sourceAuthorities": {
     "a00": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
@@ -12,11 +12,37 @@
     "capacity": "data/curriculum/public-generation/generator_capacity_contract.json",
     "publicUiEntry": "site/index.html"
   },
+  "firstWaveEvidence": {
+    "headSha": "225ed9ecdabcf16213a8ce6ba52c637d824b1c52",
+    "nodeWorkflowRunId": 30566725234,
+    "artifactId": 8769214934,
+    "artifactDigest": "sha256:417386f1ea7450ebfdf906b4cd06150ac13bd2fbb8ad0e3427011a377927e51a",
+    "passCount": 5,
+    "failureCount": 2,
+    "findings": [
+      {
+        "routeId": "pgc_r03_g3a_u01_3a01_application_078745248eea",
+        "findingCode": "MIXED_KP_APPLICATION_ROUTE_BINDING_NOT_QUALIFIED",
+        "classification": "A03_EARLY_SENTINEL",
+        "disposition": "retain_in_793_route_matrix_and_execute_in_first_A03_shard",
+        "reason": "The UI retained numeric PatternGroup state while the visible question type was application. This route is not silently removed and is not used as the sole application harness-qualification witness."
+      },
+      {
+        "routeId": "pgc_r03_g3a_u08_3a08_numeric_32207c12fa17",
+        "findingCode": "VERIFIED_LIMITED_IS_EVIDENCE_FLOOR_NOT_UI_HARD_CAP",
+        "classification": "LIVE_20_REQUALIFICATION_REQUIRED",
+        "disposition": "require_all_nine_gates_at_20_questions_and_queue_capacity_evidence_reconciliation",
+        "reason": "The public UI retained the exact route binding and generated 20 questions; verifiedMaxQuestionCount=6 records the prior exact evidence floor rather than a required public input clamp."
+      }
+    ]
+  },
   "canaryPolicy": {
     "executionSurface": "CLASSIC",
     "freshBrowserPagePerRoute": true,
-    "positiveRouteCount": 6,
-    "diagnosticRouteCount": 1,
+    "baselinePositiveRouteCount": 6,
+    "live20RequalificationRouteCount": 1,
+    "positiveRouteCount": 7,
+    "diagnosticRouteCount": 0,
     "totalCanaryRouteCount": 7,
     "questionTypeCoverage": [
       "application",
@@ -36,27 +62,20 @@
       "VERIFIED_20",
       "VERIFIED_LIMITED"
     ],
-    "positiveDisposition": "PASS_ALL_NINE_GATES",
-    "diagnosticDisposition": "CAPTURE_EXPECTED_20_QUESTION_CAPACITY_GAP",
-    "diagnosticGapDoesNotCountAsHarnessFailure": true,
-    "diagnosticGapMustEnterProductRepairQueue": true
+    "baselinePositiveDisposition": "PASS_ALL_NINE_GATES",
+    "live20RequalificationDisposition": "PASS_ALL_NINE_GATES_WITH_LIVE_20_REQUALIFICATION",
+    "limitedCapacitySemantics": "historical_verified_evidence_floor_not_public_ui_hard_limit",
+    "requalificationDoesNotMutateCapacityAuthority": true,
+    "requalificationMustEnterCapacityEvidenceQueue": true,
+    "productRepairQueueExpected": false
   },
   "canaryRoutes": [
     {
-      "canaryId": "CANARY_APPLICATION_MIXED_KP",
-      "routeId": "pgc_r03_g3a_u01_3a01_application_078745248eea",
+      "canaryId": "CANARY_APPLICATION_SOURCE_UNIT",
+      "routeId": "pgc_r03_g3a_u01_3a01_application_235abe098270",
       "sourceId": "g3a_u01_3a01",
-      "selectionMode": "mixedKnowledgePointsSameUnit",
-      "selectedKnowledgePointIds": [
-        "kp_g3a_u01_4digit_compare",
-        "kp_g3a_u01_number_to_chinese",
-        "kp_g3a_u01_chinese_to_number",
-        "kp_g3a_u01_digit_place_value_decomposition",
-        "kp_g3a_u01_place_value_composition",
-        "kp_g3a_u01_place_value_unit_conversion",
-        "kp_g3a_u01_digit_arrangement_max_min",
-        "kp_g3a_u01_range_reasoning"
-      ],
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [],
       "questionType": "application",
       "depthMode": null,
       "contextMode": null,
@@ -80,7 +99,7 @@
       "expectedDisposition": "PASS_ALL_NINE_GATES"
     },
     {
-      "canaryId": "CANARY_NUMERIC_LIMITED_DIAGNOSTIC",
+      "canaryId": "CANARY_NUMERIC_LIMITED_LIVE20_REQUALIFICATION",
       "routeId": "pgc_r03_g3a_u08_3a08_numeric_32207c12fa17",
       "sourceId": "g3a_u08_3a08",
       "selectionMode": "singleKnowledgePoint",
@@ -93,7 +112,7 @@
       "capacityStatus": "VERIFIED_LIMITED",
       "verifiedMaxQuestionCount": 6,
       "requestedQuestionCount": 20,
-      "expectedDisposition": "CAPTURE_EXPECTED_20_QUESTION_CAPACITY_GAP"
+      "expectedDisposition": "PASS_ALL_NINE_GATES_WITH_LIVE_20_REQUALIFICATION"
     },
     {
       "canaryId": "CANARY_PBL_SOURCE_UNIT",
@@ -195,13 +214,13 @@
   ],
   "harnessQualificationGate": {
     "allCanaryRouteIdentitiesMustExist": true,
-    "allPositiveCanariesMustPassNineGates": true,
-    "limitedCanaryMustProduceExpectedCapacityDiagnostic": true,
-    "limitedCanaryMustNotBeSilentlyDropped": true,
+    "allSevenCanariesMustPassNineGatesAtTwentyQuestions": true,
+    "limitedRouteMustBeRecordedAsLive20Requalification": true,
+    "mixedApplicationFirstWaveRouteMustRemainInA03Matrix": true,
     "browserConsoleErrorsAllowed": 0,
     "browserPageErrorsAllowed": 0,
-    "realChromiumPdfRequiredForPositiveCanaries": true,
-    "regenerateIdentityChangeRequiredForPositiveCanaries": true,
+    "realChromiumPdfRequiredForAllCanaries": true,
+    "regenerateIdentityChangeRequiredForAllCanaries": true,
     "reusableHarnessOutputRequired": true
   },
   "requiredArtifacts": {
@@ -222,14 +241,14 @@
     "slice014Allowed": false
   },
   "goalDistance": {
-    "before": "D1_R08_LEGAL_ROUTE_BROWSER_ACCEPTANCE_MATRIX_MATERIALIZED",
-    "after": "D1_R08_PUBLIC_GENERATE_BUTTON_CANARY_PENDING_BROWSER_QUALIFICATION",
-    "distanceReduced": "selected a seven-route set-cover canary spanning every question type, all selection modes and both capacity statuses",
+    "before": "D1_R08_CANARY_BROWSER_EVIDENCE_PARTIALLY_PROVEN_REMEDIATION_REQUIRED",
+    "after": "D1_R08_PUBLIC_GENERATE_BUTTON_CANARY_PENDING_REQUALIFICATION_CI",
+    "distanceReduced": "reclassified the first-wave findings without mutating product authority, retained the mixed-application route for A03 and converted the limited-capacity witness into a live-20 requalification gate",
     "remainingBlockers": [
-      "CANARY_BROWSER_HARNESS_NOT_EXECUTED",
+      "CONSOLIDATED_CANARY_REMEDIATION_CI_NOT_RUN",
       "ALL_793_LEGAL_ROUTES_NOT_EXECUTED",
       "FAILED_COMBINATION_QUEUE_NOT_RECONCILED"
     ],
-    "nextShortestStep": "PGC-R08-A02_ExactHeadCanaryBrowserExecution"
+    "nextShortestStep": "PGC-R08-A02_ConsolidatedCanaryRemediationExactHeadCI"
   }
 }
