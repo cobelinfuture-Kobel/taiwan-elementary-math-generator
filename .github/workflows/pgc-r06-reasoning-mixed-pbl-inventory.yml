@@ -1,0 +1,80 @@
+name: PGC-R06 Reasoning Mixed PBL Inventory
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs"
+      - "tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js"
+      - "data/curriculum/public-generation/generator_capacity_contract.json"
+      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
+      - "data/curriculum/public-generation/public_generation_scope.json"
+      - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
+      - "data/curriculum/public-generation/reasoning_mixed_pbl_route_inventory.csv"
+      - "docs/curriculum/output/PGC-R06_reasoning_mixed_pbl_inventory.md"
+      - ".github/workflows/pgc-r06-reasoning-mixed-pbl-inventory.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r06-reasoning-mixed-pbl-inventory-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout R06 A00 branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Syntax-check R06 A00 authority
+        run: |
+          node --check tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs
+          node --check tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js
+
+      - name: Materialize R06 reasoning mixed PBL inventory
+        run: node tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs
+
+      - name: Focused R06 A00 acceptance
+        run: node --test tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js
+
+      - name: Full repository regression
+        run: npm test
+
+      - name: Commit deterministic R06 A00 artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json \
+            data/curriculum/public-generation/reasoning_mixed_pbl_route_inventory.csv \
+            docs/curriculum/output/PGC-R06_reasoning_mixed_pbl_inventory.md
+          if git diff --cached --quiet; then
+            echo "R06 A00 inventory artifacts already synchronized."
+          else
+            git commit -m "docs(pgc-r06): freeze reasoning mixed PBL repair queue [skip ci]"
+            git fetch origin "${{ github.head_ref || github.ref_name }}"
+            git rebase "origin/${{ github.head_ref || github.ref_name }}"
+            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
+          fi
+
+      - name: Upload R06 A00 inventory
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r06-reasoning-mixed-pbl-inventory
+          path: |
+            data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json
+            data/curriculum/public-generation/reasoning_mixed_pbl_route_inventory.csv
+            docs/curriculum/output/PGC-R06_reasoning_mixed_pbl_inventory.md
+          if-no-files-found: error
