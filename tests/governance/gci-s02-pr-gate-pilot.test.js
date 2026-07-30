@@ -8,9 +8,13 @@ import {
 
 const WORKFLOW_FILE = ".github/workflows/pr-gate.yml";
 const CONTRACT_FILE = ".github/ci/gci-s02/pr-gate-pilot-contract.json";
+const TEMPORARY_WORKFLOW_FILES = [
+  ".github/workflows/pgc-r06-a07-final-global-live-d0-closeout.yml",
+];
 const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/pgc-r06-a02-g5a-u02-live-diagnostics.yml",
   ".github/workflows/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.yml",
+  ...TEMPORARY_WORKFLOW_FILES,
 ];
 
 test("GCI-S02 PR gate pilot is read-only and structurally complete", () => {
@@ -44,7 +48,9 @@ test("GCI-S02 PR gate pilot is read-only and structurally complete", () => {
 });
 
 test("GCI-S02 PR gate is visible in the live workflow inventory without mutating S01 history", () => {
-  const current = materializeGciS01WorkflowInventory();
+  const current = materializeGciS01WorkflowInventory({
+    excludeFiles: TEMPORARY_WORKFLOW_FILES
+  });
   const historical = materializeGciS01WorkflowInventory({
     excludeFiles: [WORKFLOW_FILE, ...POST_S01_WORKFLOW_FILES]
   });
