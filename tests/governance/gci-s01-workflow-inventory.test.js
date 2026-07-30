@@ -1,26 +1,43 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import test from "node:test";
 
 import {
   materializeGciS01WorkflowInventory
 } from "../../tools/governance/materialize-gci-s01-workflow-inventory.mjs";
+import {
+  buildGciS01Evidence
+} from "../../tools/governance/materialize-gci-s01-workflow-evidence.mjs";
 
-test("GCI-S01 exhaustively inventories checked-out workflow files and exposes fan-out evidence", () => {
+const EXPECTED_SUMMARY = {
+  workflowFileCount: 109,
+  pullRequestWorkflowCount: 65,
+  prBranchWriterCount: 19,
+  prFullRegressionWorkflowCount: 23,
+  lateSkipCandidateCount: 26,
+  sharedExactPathPatternCount: 73
+};
+
+test("GCI-S01 exhaustively inventories workflows and keeps committed fan-out evidence deterministic", () => {
   const report = materializeGciS01WorkflowInventory();
-
   assert.equal(report.inventoryCompleteness, "COMPLETE_FROM_CHECKED_OUT_MAIN_TREE");
-  assert.ok(report.summary.workflowFileCount >= 10, report.summary);
-  assert.ok(report.summary.pullRequestWorkflowCount >= 10, report.summary);
-  assert.ok(report.summary.prBranchWriterCount >= 2, report.workflowIds);
-  assert.ok(report.summary.prFullRegressionWorkflowCount >= 3, report.workflowIds);
-  assert.ok(report.summary.lateSkipCandidateCount >= 9, report.workflowIds);
+  assert.deepEqual(report.summary, EXPECTED_SUMMARY);
 
-  const files = report.workflows.map((row) => row.file);
-  assert.equal(new Set(files).size, files.length, "workflow file paths must be unique");
-  assert.ok(report.workflows.some((row) => row.file === ".github/workflows/node-test.yml"));
-  assert.ok(report.workflows.some((row) => row.file === ".github/workflows/pgc-r05-application-generation-full-fix.yml"));
-  assert.ok(report.workflows.some((row) => row.file === ".github/workflows/pgc-r05-capacity-contract-reconciliation-d0-closeout.yml"));
+  const evidence = buildGciS01Evidence(report);
+  assert.equal(evidence.manifest.shards.filter((row) => row.kind === "FANOUT").length, 4);
+  assert.equal(evidence.manifest.shards.filter((row) => row.kind === "SHARED_PATH_OVERLAP").length, 2);
+  assert.equal(
+    evidence.manifest.shards.filter((row) => row.kind === "FANOUT").reduce((sum, row) => sum + row.rowCount, 0),
+    109
+  );
+  assert.equal(
+    evidence.manifest.shards.filter((row) => row.kind === "SHARED_PATH_OVERLAP").reduce((sum, row) => sum + row.rowCount, 0),
+    73
+  );
+  assert.equal(evidence.manifest.bootstrapRegistry.preserved, true);
+  assert.equal(evidence.manifest.nextTaskId, "GCI-S02_SinglePrGateOrchestratorPilot");
 
-  const serialized = JSON.stringify(report);
-  console.log(`GCI_S01_WORKFLOW_INVENTORY_BASE64=${Buffer.from(serialized, "utf8").toString("base64")}`);
+  for (const [relativePath, expected] of Object.entries(evidence.outputs)) {
+    assert.equal(fs.readFileSync(relativePath, "utf8"), expected, `stale GCI-S01 evidence: ${relativePath}`);
+  }
 });
