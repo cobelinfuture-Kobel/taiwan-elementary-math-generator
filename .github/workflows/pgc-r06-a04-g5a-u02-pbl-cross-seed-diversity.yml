@@ -7,6 +7,7 @@ on:
       - "tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js"
       - "tools/curriculum/materialize-pgc-r06-a04-g5a-u02-pbl-cross-seed-diversity.mjs"
       - "tools/curriculum/apply-pgc-r06-a04-stale-repair-queue-baseline-fix.mjs"
+      - "tools/curriculum/apply-pgc-r06-a04-historical-governance-compatibility-fix.mjs"
       - "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       - "data/curriculum/public-generation/generator_capacity_contract.json"
       - "data/curriculum/public-generation/ui_capability_binding_contract.json"
@@ -45,6 +46,7 @@ jobs:
           node --check tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js
           node --check tools/curriculum/materialize-pgc-r06-a04-g5a-u02-pbl-cross-seed-diversity.mjs
           node --check tools/curriculum/apply-pgc-r06-a04-stale-repair-queue-baseline-fix.mjs
+          node --check tools/curriculum/apply-pgc-r06-a04-historical-governance-compatibility-fix.mjs
 
       - name: Reconcile stale A03 queue materialization baseline
         run: node tools/curriculum/apply-pgc-r06-a04-stale-repair-queue-baseline-fix.mjs
@@ -79,6 +81,17 @@ jobs:
           console.log(`PGC_R06_A04_GATE=PASS:${JSON.stringify({ routeCount: target.length, repairQueueAfter: inventory.repairQueue.length })}`);
           NODE
 
+      - name: Apply historical and governance compatibility
+        run: node tools/curriculum/apply-pgc-r06-a04-historical-governance-compatibility-fix.mjs
+
+      - name: Focused compatibility acceptance
+        run: |
+          node --test tests/curriculum/pgc-r03-generator-capacity-contract.test.js
+          node --test tests/curriculum/pgc-r06-a01-g4b-u04-capacity-contract-closeout.test.js
+          node --test tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js
+          node --test tests/governance/gci-s01-workflow-inventory.test.js
+          node --test tests/governance/gci-s02-pr-gate-pilot.test.js
+
       - name: Full repository regression
         run: npm test
 
@@ -88,6 +101,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             tools/curriculum/materialize-pgc-r06-a04-g5a-u02-pbl-cross-seed-diversity.mjs \
+            tests/curriculum/pgc-r03-generator-capacity-contract.test.js \
+            tests/curriculum/pgc-r06-a01-g4b-u04-capacity-contract-closeout.test.js \
+            tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js \
+            tests/governance/gci-s01-workflow-inventory.test.js \
+            tests/governance/gci-s02-pr-gate-pilot.test.js \
             data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json \
             data/curriculum/public-generation/generator_capacity_contract.json \
             data/curriculum/public-generation/ui_capability_binding_contract.json \
