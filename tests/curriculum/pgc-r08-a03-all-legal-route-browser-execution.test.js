@@ -7,6 +7,7 @@ const a01=readJson("../../data/curriculum/public-generation/public_generate_butt
 const a02=readJson("../../data/curriculum/public-generation/PGC-R08-A02.public-generate-canary-harness.json");
 const plan=readJson("../../data/curriculum/public-generation/PGC-R08-A03.all-legal-route-browser-execution-plan.json");
 const runner=readFileSync(new URL("../../tools/curriculum/run-pgc-r08-a03-all-legal-routes.mjs",import.meta.url),"utf8");
+const core=readFileSync(new URL("../../tools/curriculum/pgc-r08-a03-browser-harness-core.mjs",import.meta.url),"utf8");
 
 test("PGC-R08 A03 starts from closed A02 and the 793-row A01 authority",()=>{
   assert.equal(a01.status,"PASS_MATRIX_MATERIALIZED_PENDING_BROWSER_EXECUTION");
@@ -48,13 +49,13 @@ test("PGC-R08 A03 executes every legal route and collects route failures instead
 
 test("PGC-R08 A03 uses the accepted nine-gate real-browser journey",()=>{
   for(const gate of a01.executionContract.gateCodes)assert.ok(plan.gateCodes.includes(gate));
-  assert.match(runner,/#batch-a-source-select/);
-  assert.match(runner,/data-capacity-route-ids/);
-  assert.match(runner,/#regenerate-button/);
-  assert.match(runner,/page\.pdf\(/);
-  assert.match(runner,/PRINT_TARGET_NOT_INVOKED/);
-  assert.match(runner,/ANSWER_BIJECTION_FAILED/);
-  assert.match(runner,/REGENERATE_IDENTITY_UNCHANGED/);
+  assert.match(core,/#batch-a-source-select/);
+  assert.match(core,/data-capacity-route-ids/);
+  assert.match(core,/#regenerate-button/);
+  assert.match(core,/page\.pdf\(/);
+  assert.match(core,/PRINT_TARGET_NOT_INVOKED/);
+  assert.match(core,/ANSWER_BIJECTION_FAILED/);
+  assert.match(core,/REGENERATE_IDENTITY_UNCHANGED/);
 });
 
 test("PGC-R08 A03 remains inside the frozen product boundary",()=>{
