@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "programId": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
+  "taskId": "GCI-S02_SinglePrGateOrchestratorPilot",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "workflowId": "pr-gate",
+  "workflowFile": ".github/workflows/pr-gate.yml",
+  "mode": "PILOT_GOVERNANCE_PATHS_ONLY",
+  "triggerScope": {
+    "pullRequestBase": "main",
+    "paths": [
+      ".github/workflows/pr-gate.yml",
+      ".github/ci/**",
+      "docs/governance/**",
+      "tests/governance/**",
+      "tools/governance/**"
+    ],
+    "workflowDispatch": true
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "pr-gate-${{ github.event.pull_request.number || github.ref }}",
+    "cancelInProgress": true
+  },
+  "jobs": [
+    "detect_changes",
+    "focused_governance",
+    "full_regression",
+    "aggregate"
+  ],
+  "aggregateCheckName": "PR Gate / aggregate",
+  "fullRegressionOccurrenceCount": 1,
+  "writesPullRequestBranch": false,
+  "legacyPullRequestWorkflowsModified": false,
+  "branchProtectionModified": false,
+  "requiredCheckMigrationStatus": "DEFERRED_TO_GCI_S04",
+  "legacyWorkflowRetirementStatus": "DEFERRED_TO_GCI_S03",
+  "promotionCondition": "PILOT_CI_TERMINAL_BARRIER_PASS",
+  "nextTaskId": "GCI-S03_LegacyWorkflowRetirement"
+}
