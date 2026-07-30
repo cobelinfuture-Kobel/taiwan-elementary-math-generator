@@ -3,9 +3,12 @@ name: PGC-R06 A07 Final Global Live D0 Closeout
 on:
   pull_request:
     paths:
+      - "tools/curriculum/apply-pgc-r06-a07-evidence-projection-fix.mjs"
       - "tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs"
       - "tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js"
       - "tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js"
+      - "tests/governance/gci-s01-workflow-inventory.test.js"
+      - "tests/governance/gci-s02-pr-gate-pilot.test.js"
       - "data/curriculum/public-generation/generator_capacity_contract.json"
       - "data/curriculum/public-generation/ui_capability_binding_contract.json"
       - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
@@ -39,11 +42,17 @@ jobs:
         with:
           node-version: 24
 
+      - name: Apply canonical evidence projection remediation
+        run: node tools/curriculum/apply-pgc-r06-a07-evidence-projection-fix.mjs
+
       - name: Syntax-check A07 authorities
         run: |
+          node --check tools/curriculum/apply-pgc-r06-a07-evidence-projection-fix.mjs
           node --check tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs
           node --check tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js
           node --check tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js
+          node --check tests/governance/gci-s01-workflow-inventory.test.js
+          node --check tests/governance/gci-s02-pr-gate-pilot.test.js
 
       - name: Materialize 389-route final global live closeout
         run: node tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs
@@ -80,6 +89,8 @@ jobs:
         run: |
           node --test tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js
           node --test tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js
+          node --test tests/governance/gci-s01-workflow-inventory.test.js
+          node --test tests/governance/gci-s02-pr-gate-pilot.test.js
 
       - name: Capture A07 authority hashes before full regression
         run: |
@@ -115,6 +126,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs \
+            tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js \
             data/curriculum/public-generation/generator_capacity_contract.json \
             data/curriculum/public-generation/ui_capability_binding_contract.json \
             data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json \
