@@ -3,6 +3,7 @@ name: PGC-R06 A02 G5A-U02 Live Diagnostics
 on:
   pull_request:
     paths:
+      - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs"
       - "tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs"
       - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
       - "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
@@ -34,8 +35,13 @@ jobs:
         with:
           node-version: 24
 
+      - name: Apply all-queued-gap diagnostic scope
+        run: node tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs
+
       - name: Syntax-check A02 diagnostics
-        run: node --check tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
+        run: |
+          node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs
+          node --check tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
 
       - name: Materialize 98-route public-pipeline diagnostics
         run: node tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
@@ -59,13 +65,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs \
             data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json \
             data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.csv \
             docs/curriculum/output/PGC-R06-A02_G5A_U02_live_diagnostics.md
           if git diff --cached --quiet; then
             echo "A02 diagnostics already synchronized."
           else
-            git commit -m "docs(pgc-r06): classify G5A-U02 bounded route failures [skip ci]"
+            git commit -m "docs(pgc-r06): classify G5A-U02 queued route failures [skip ci]"
             git fetch origin "${{ github.head_ref || github.ref_name }}"
             git rebase "origin/${{ github.head_ref || github.ref_name }}"
             git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
