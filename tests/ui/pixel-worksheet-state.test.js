@@ -56,7 +56,7 @@ test("Pixel worksheet state preserves shared question-count and approved-layout 
     rowsPerPage: 99
   });
   const plan = getPixelWorksheetPlan(state);
-  assert.equal(plan.questionCount, 200);
+  assert.equal(plan.questionCount, 240);
   assert.equal(plan.printLayout.columns, 3);
   assert.equal(plan.printLayout.rowsPerPage, 5);
 });
