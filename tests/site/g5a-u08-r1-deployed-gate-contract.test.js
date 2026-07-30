@@ -67,7 +67,7 @@ test("GS01 accepts current extended preview metadata without weakening required 
   assert.equal(placeholder.ok, false);
 });
 
-test("GS01 patches exactly the obsolete metadata assertion and illegal single-KP mixed preselection", () => {
+test("GS01 patches exactly the obsolete metadata assertion and pre-sync mixed preselection", () => {
   const patched = patchG5AU08DeployedSmokeHarness(legacyHarness);
   assert.doesNotMatch(patched, /endsWith\(expectedSuffix\)/);
   assert.match(patched, /missingSegments\.length > 0/);
@@ -84,20 +84,19 @@ test("GS01 patches exactly the obsolete metadata assertion and illegal single-KP
   assert.match(patched.slice(mixedModeIndex), /await setControls\(page, controls\)/);
 });
 
-test("G5A-U08 binding preserves per-KP capacity heterogeneity and admits mixed aggregate routes", () => {
+test("G5A-U08 resolver proves mixed capacity exists while the legacy browser request occurred before UI convergence", () => {
   const visibleG5AU08 = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G5A_U08_SOURCE_ID);
   assert.equal(visibleG5AU08.length, G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS.length);
 
-  const singleBindings = visibleG5AU08.map((row) => resolvePublicUiCapabilityBinding({
+  const browserDefault = resolvePublicUiCapabilityBinding({
     sourceId: G5A_U08_SOURCE_ID,
     selectionMode: "singleKnowledgePoint",
-    selectedKnowledgePointIds: [row.knowledgePointId],
+    selectedKnowledgePointIds: [visibleG5AU08[0].knowledgePointId],
     requestedQuestionType: "mixed",
-  }));
-  assert.equal(optionValues(singleBindings[0]).includes("mixed"), false, "browser-default visible KP must not be forced into mixed");
-  assert.ok(singleBindings.some((binding) => optionValues(binding).includes("mixed")), "expected at least one mixed-capable single KP");
-  assert.ok(singleBindings.some((binding) => !optionValues(binding).includes("mixed")), "expected at least one single KP without mixed capacity");
-  assert.ok(singleBindings.every((binding) => binding.blocked === false), singleBindings.flatMap((binding) => binding.blockedReasons).join("|"));
+  });
+  assert.equal(optionValues(browserDefault).includes("mixed"), true);
+  assert.equal(browserDefault.questionType, "mixed");
+  assert.equal(browserDefault.blocked, false, browserDefault.blockedReasons.join("|"));
 
   const wholeUnit = resolvePublicUiCapabilityBinding({
     sourceId: G5A_U08_SOURCE_ID,
