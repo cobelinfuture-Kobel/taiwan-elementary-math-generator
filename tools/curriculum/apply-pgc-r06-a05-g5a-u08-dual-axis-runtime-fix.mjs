@@ -209,7 +209,9 @@ function pgcR06A05CollectUniqueQuestions(normalized, entry, seenPromptKeys, nume
     "export function generateG5AU08CanonicalQuestions(plan = {}, options = {})",
     `${helperBlock}export function generateG5AU08CanonicalQuestions(plan = {}, options = {})`,
   );
-  return replaceFunction(withHelpers, "export function generateG5AU08CanonicalQuestions(plan = {}, options = {})", replacement);
+  const functionStart = withHelpers.indexOf("export function generateG5AU08CanonicalQuestions(plan = {}, options = {})");
+  if (functionStart < 0) throw new Error("PGC_R06_A05_ROUTER_EXPORT_MISSING");
+  return withHelpers.slice(0, functionStart) + replacement + "\n";
 });
 
 console.log(`PGC_R06_A05_RUNTIME_PATCH=${JSON.stringify({
