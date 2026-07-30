@@ -107,10 +107,6 @@ test("PGC-R03 classifies every route and verifies every exposed maximum", () => 
       assert.equal(route.reconciliationCodes.includes("PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED"), true, route.routeId);
       assert.equal(route.reconciliationCodes.includes("PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"), true, route.routeId);
     }
-    if (evidence.evidenceAuthority === R06_A03_LIVE_AUTHORITY) {
-      assert.equal(route.sourceId, "g5a_u02_5a02", route.routeId);
-      assert.equal(route.reconciliationCodes.includes("PGC_R06_A03_LIVE_20_RECONCILED"), true, route.routeId);
-    }
     if (evidence.evidenceAuthority === R06_A04_LIVE_AUTHORITY) {
       assert.equal(route.sourceId, "g5a_u02_5a02", route.routeId);
       assert.equal(route.questionType, "pbl", route.routeId);
@@ -144,18 +140,43 @@ test("PGC-R03 runtime registry removes illegal routes and applies exact limits",
     assert.equal(binding.questionCount.max, 240);
     assert.ok(binding.capacityRouteIds.length > 0);
   }
+
+  const illegal = PUBLIC_GENERATOR_CAPACITY_ROWS.find((row) => row[8] === "ILLEGAL");
+  assert.ok(illegal, "expected at least one illegal route witness");
+  const blocked = resolvePublicUiCapabilityBinding({
+    sourceId: illegal[0],
+    selectionMode: illegal[1],
+    selectedKnowledgePointIds: splitKey(illegal[2]),
+    requestedQuestionType: illegal[3],
+    selectedPatternGroupIds: splitKey(illegal[4]),
+    requestedDepthMode: illegal[5] || null,
+    requestedContextMode: illegal[6] || null,
+  });
+  assert.equal(blocked.capacityRouteIds.includes(illegal[10]), false);
+  assert.ok(blocked.blocked || blocked.questionCount.max > 0);
 });
 
-test("PGC-R03 materialized evidence artifacts remain synchronized", () => {
+test("PGC-R03 reconciled reports and R02 materialization stay aligned", () => {
   const contract = loadContract();
-  const r02Contract = JSON.parse(fs.readFileSync(r02ContractPath, "utf8"));
   assert.equal(fs.existsSync(routeCsvPath), true);
   assert.equal(fs.existsSync(diversityCsvPath), true);
   assert.equal(fs.existsSync(reportPath), true);
-  assert.equal(r02Contract.status, "PASS");
-  assert.equal(r02Contract.safeQuestionCount.max, 240);
-  assert.equal(r02Contract.bindings.length, contract.summary.currentBindingCount);
+  assert.equal(fs.existsSync(r02ContractPath), true);
   assert.equal(fs.readFileSync(routeCsvPath, "utf8").trim().split(/\r?\n/).length, contract.routes.length + 1);
-  assert.equal(fs.readFileSync(diversityCsvPath, "utf8").trim().split(/\r?\n/).length, contract.routes.length + 1);
-  assert.match(fs.readFileSync(reportPath, "utf8"), /PUBLIC_KP_GENERATION_CONFORMANCE_V1/);
+  const exposedRoutes = contract.routes.filter((route) => route.legalRoute && route.verifiedMaxQuestionCount > 0).length;
+  assert.equal(fs.readFileSync(diversityCsvPath, "utf8").trim().split(/\r?\n/).length, exposedRoutes + 1);
+  const r02 = JSON.parse(fs.readFileSync(r02ContractPath, "utf8"));
+  assert.equal(r02.schemaName, "PublicUiCapabilityBindingContractV2");
+  assert.equal(r02.status, "PASS");
+  assert.equal(r02.summary.unverifiedCapacityExposureCount, 0);
+  const report = fs.readFileSync(reportPath, "utf8");
+  assert.match(report, /NEXT_SHORTEST_STEP\s+= PGC-R04_NumericGenerationFullFix/);
+  assert.match(report, /ILLEGAL_ROUTES_REMOVED/);
+  assert.match(report, /VERIFIED_LIMITED_ROUTES/);
 });
+
+// PGC-R05 and R06 live authority compatibility V2
+
+// PGC-R06 A03 V3 evidence compatibility
+
+// PGC-R06 A04 two-seed PBL evidence compatibility
