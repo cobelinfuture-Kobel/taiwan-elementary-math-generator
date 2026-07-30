@@ -21,7 +21,13 @@ const r02ContractPath = path.join(repoRoot, "data/curriculum/public-generation/u
 const R05_LIVE_AUTHORITY = "PGC-R05_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
 const R06_A01_LIVE_AUTHORITY = "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
 const R06_A03_LIVE_AUTHORITY = "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
-const TWO_SEED_AUTHORITIES = new Set([R05_LIVE_AUTHORITY, R06_A01_LIVE_AUTHORITY, R06_A03_LIVE_AUTHORITY]);
+const R06_A04_LIVE_AUTHORITY = "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME";
+const TWO_SEED_AUTHORITIES = new Set([
+  R05_LIVE_AUTHORITY,
+  R06_A01_LIVE_AUTHORITY,
+  R06_A03_LIVE_AUTHORITY,
+  R06_A04_LIVE_AUTHORITY,
+]);
 
 function loadContract() {
   assert.equal(fs.existsSync(contractPath), true, "PGC-R03 contract must be materialized before focused acceptance");
@@ -101,6 +107,11 @@ test("PGC-R03 classifies every route and verifies every exposed maximum", () => 
       assert.equal(route.reconciliationCodes.includes("PGC_R06_A01_LIVE_20_CAPACITY_RECONCILED"), true, route.routeId);
       assert.equal(route.reconciliationCodes.includes("PGC_R06_A01_CROSS_SEED_ITEM_SET_DIVERSITY_RECONCILED"), true, route.routeId);
     }
+    if (evidence.evidenceAuthority === R06_A04_LIVE_AUTHORITY) {
+      assert.equal(route.sourceId, "g5a_u02_5a02", route.routeId);
+      assert.equal(route.questionType, "pbl", route.routeId);
+      assert.equal(route.reconciliationCodes.includes("PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"), true, route.routeId);
+    }
   }
   assert.ok(exposedCount > 0);
   assert.equal(
@@ -167,3 +178,5 @@ test("PGC-R03 reconciled reports and R02 materialization stay aligned", () => {
 // PGC-R05 and R06 live authority compatibility V2
 
 // PGC-R06 A03 V3 evidence compatibility
+
+// PGC-R06 A04 two-seed PBL evidence compatibility

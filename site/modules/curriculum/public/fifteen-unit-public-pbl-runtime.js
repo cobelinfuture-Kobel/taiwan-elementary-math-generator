@@ -15,6 +15,16 @@ function gcd(a, b) {
   return left;
 }
 
+function stableSeedHash(value) {
+  const text = String(value ?? "");
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return hash >>> 0;
+}
+
 function makeItem(plan, index, payload) {
   const lineage = buildFifteenUnitGlobalContextLineage({
     sourceId: plan.sourceId,
@@ -142,8 +152,19 @@ function buildG4BU04(plan, index) {
 }
 
 function buildG5AU02(plan, index) {
-  const red = 24 + index * 6;
-  const blue = 36 + index * 6;
+  const seedText = String(plan.generationSeed ?? "").trim();
+  let red;
+  let blue;
+  if (seedText) {
+    const seedBase = stableSeedHash(seedText) % 300;
+    const common = 2 + ((seedBase + (index * 7)) % 17);
+    const leftMultiplier = 20 + ((seedBase + (index * 17)) % 360);
+    red = common * leftMultiplier;
+    blue = common * (leftMultiplier + 1);
+  } else {
+    red = 24 + index * 6;
+    blue = 36 + index * 6;
+  }
   const groupSize = gcd(red, blue);
   const groups = (red / groupSize) + (blue / groupSize);
   return makeItem(plan, index, {

@@ -29500,14 +29500,14 @@
         "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce"
       ],
       "capacityQualityStatuses": [
-        "FIXTURE_SELECTOR"
+        "DIVERSE_PARAMETER_GENERATOR"
       ],
       "verifiedCapacityQuestionCountMax": 20,
       "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
       }
     },
     {
@@ -29961,14 +29961,14 @@
         "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce"
       ],
       "capacityQualityStatuses": [
-        "FIXTURE_SELECTOR"
+        "DIVERSE_PARAMETER_GENERATOR"
       ],
       "verifiedCapacityQuestionCountMax": 20,
       "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
       }
     },
     {
@@ -30422,14 +30422,14 @@
         "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce"
       ],
       "capacityQualityStatuses": [
-        "FIXTURE_SELECTOR"
+        "DIVERSE_PARAMETER_GENERATOR"
       ],
       "verifiedCapacityQuestionCountMax": 20,
       "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
       }
     },
     {
@@ -45999,5 +45999,12 @@
     "matchedBindingCount": 60,
     "capacityAuthority": "data/curriculum/public-generation/generator_capacity_contract.json",
     "status": "PASS_R06_A03_PUBLIC_BINDING_RECONCILED"
+  },
+  "lastR06A04Reconciliation": {
+    "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
+    "sourceId": "g5a_u02_5a02",
+    "routeCount": 12,
+    "matchedBindingCount": 3,
+    "status": "PASS_R06_A04_PUBLIC_BINDING_RECONCILED"
   }
 }

@@ -13,6 +13,7 @@ const reportPath = path.join(publicDir, "PGC-R06-A01.g4b-u04-capacity-contract-r
 const routeCsvPath = path.join(publicDir, "route_capacity_matrix.csv");
 const registryPath = path.join(repoRoot, "site/modules/curriculum/public/public-generator-capacity-registry.js");
 const readbackPath = path.join(repoRoot, "docs/curriculum/output/PGC-R06-A01_G4B_U04_CAPACITY_CONTRACT_CLOSEOUT.md");
+const A04_TASK_ID = "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix";
 
 const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, "utf8"));
 
@@ -66,15 +67,26 @@ test("PGC-R06 A01 frozen boundaries and public consumers remain aligned", () => 
   for (const routeId of targetIds) assert.equal(registry.includes(routeId), true, routeId);
 });
 
-test("PGC-R06 A01 refreshes the repair queue and advances to one A02 step", () => {
-  assert.equal(inventory.summary.repairQueueCount, 47);
-  assert.equal(inventory.lastR06A03Reconciliation?.taskId, "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation");
-  assert.equal(inventory.repairQueue.filter((route) => route.sourceId === "g5a_u02_5a02").length, 12);
+test("PGC-R06 A01 historical queue delta remains immutable while current R06 queue may advance", () => {
+  assert.equal(contract.lastR06A03Reconciliation?.taskId, "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation");
   assert.equal(inventory.repairQueue.some((route) => targetIds.has(route.routeId)), false);
   const remainingG4BU04 = inventory.repairQueue.filter((route) => route.sourceId === "g4b_u04_4b04");
   assert.equal(remainingG4BU04.length, 3);
   assert.equal(remainingG4BU04.every((route) => route.questionType === "pbl"), true);
   assert.equal(remainingG4BU04.every((route) => !route.gapCodes.includes("CAPACITY_BELOW_20")), true);
+
+  const a04Materialized = inventory.lastR06A04Reconciliation?.taskId === A04_TASK_ID;
+  if (a04Materialized) {
+    assert.equal(inventory.summary.repairQueueCount, 35);
+    assert.equal(inventory.repairQueue.filter((route) => route.sourceId === "g5a_u02_5a02").length, 0);
+    assert.equal(inventory.lastR06A04Reconciliation.repairQueueBefore, 47);
+    assert.equal(inventory.lastR06A04Reconciliation.removedFromRepairQueueCount, 12);
+    assert.equal(inventory.lastR06A04Reconciliation.repairQueueAfter, 35);
+  } else {
+    assert.equal(inventory.summary.repairQueueCount, 47);
+    assert.equal(inventory.repairQueue.filter((route) => route.sourceId === "g5a_u02_5a02").length, 12);
+  }
+
   assert.equal(report.remainingRepairQueueCount, 133);
   assert.match(report.nextShortestStep, /^PGC-R06-A02_/);
 });
@@ -92,4 +104,4 @@ test("PGC-R06 A01 closeout readback records distance reduction and no scope expa
   assert.equal(report.boundary.secondWorksheetPipelineAdded, false);
 });
 
-// PGC-R06 A03 historical authority and workflow governance compatibility
+// PGC-R06 A04 historical authority and workflow governance compatibility

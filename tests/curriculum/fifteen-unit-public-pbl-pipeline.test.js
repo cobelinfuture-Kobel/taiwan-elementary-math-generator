@@ -11,7 +11,7 @@ const PBL_SOURCE_IDS = Object.freeze([
   "g5a_u02_5a02",
 ]);
 
-function pblPlan(sourceId) {
+function pblPlan(sourceId, overrides = {}) {
   return {
     sourceId,
     questionCount: 2,
@@ -31,7 +31,19 @@ function pblPlan(sourceId) {
       showAnswerKeyPage: true,
       showQuestionNumbers: true,
     },
+    ...overrides,
   };
+}
+
+function gcd(a, b) {
+  let left = Math.abs(a);
+  let right = Math.abs(b);
+  while (right !== 0) [left, right] = [right, left % right];
+  return left;
+}
+
+function promptSet(document) {
+  return [...document.questions.map((row) => row.prompt)].sort();
 }
 
 test("five approved units materialize complete PBL worksheets through the public pipeline", () => {
@@ -55,5 +67,51 @@ test("five approved units materialize complete PBL worksheets through the public
     assert.ok(document.questions.every((row) => row.globalContextProduction?.runtimeResolvable === true));
     assert.ok(document.questions.every((row) => row.prompt.includes("PBL任務")));
     assert.equal(document.validationSummary.pblCompleteProjectionValidated, true);
+  }
+});
+
+test("PGC-R06 A04 gives all 12 G5A-U02 PBL routes deterministic cross-seed diversity at 20 questions", () => {
+  const depths = ["basic", "extended", "mixed"];
+  const contexts = ["abstract_math", "daily_life", "sdg", "mixed"];
+  for (const depthMode of depths) {
+    for (const contextMode of contexts) {
+      const base = {
+        questionCount: 20,
+        depthMode,
+        contextMode,
+        printLayout: {
+          paperSize: "A4",
+          columns: 1,
+          rowsPerPage: 20,
+          showAnswerKeyPage: true,
+          showQuestionNumbers: true,
+        },
+      };
+      const firstPlan = pblPlan("g5a_u02_5a02", { ...base, generationSeed: "pgc-r06-a04-g5a-u02-01" });
+      const secondPlan = pblPlan("g5a_u02_5a02", { ...base, generationSeed: "pgc-r06-a04-g5a-u02-02" });
+      const first = buildWorksheetDocumentFromPlan(firstPlan);
+      const firstReplay = buildWorksheetDocumentFromPlan(firstPlan);
+      const second = buildWorksheetDocumentFromPlan(secondPlan);
+
+      assert.equal(first.ok, true, `${depthMode}/${contextMode} first seed must pass`);
+      assert.equal(firstReplay.ok, true, `${depthMode}/${contextMode} replay must pass`);
+      assert.equal(second.ok, true, `${depthMode}/${contextMode} second seed must pass`);
+      assert.deepEqual(promptSet(first.worksheetDocument), promptSet(firstReplay.worksheetDocument));
+      assert.notDeepEqual(promptSet(first.worksheetDocument), promptSet(second.worksheetDocument));
+      assert.equal(new Set(promptSet(first.worksheetDocument)).size, 20);
+      assert.equal(new Set(promptSet(second.worksheetDocument)).size, 20);
+
+      for (const document of [first.worksheetDocument, second.worksheetDocument]) {
+        assert.equal(document.answerKeyItems.length, 20);
+        assert.ok(document.questions.every((row) => row.patternSpecId === "pbl_g5a_u02_equal_group_design"));
+        assert.ok(document.questions.every((row) => row.knowledgePointId === "kp_g5a_u02_common_factor"));
+        for (const row of document.questions) {
+          const { red, blue } = row.givenRoleValues;
+          const greatestCommonFactor = gcd(red, blue);
+          assert.ok(greatestCommonFactor >= 2);
+          assert.ok(row.answerText.includes(`每包最多${greatestCommonFactor}張`));
+        }
+      }
+    }
   }
 });
