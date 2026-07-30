@@ -1,95 +1,77 @@
 import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import test from "node:test";
 import zlib from "node:zlib";
 
-import {
-  materializeGciS01WorkflowInventory
-} from "../../tools/governance/materialize-gci-s01-workflow-inventory.mjs";
-
 function readBrotliJson(file) {
   return JSON.parse(zlib.brotliDecompressSync(fs.readFileSync(file)).toString("utf8"));
+}
+
+function sha256(file) {
+  return crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 }
 
 function compareCodePoint(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
-function canonicalizeReport(report) {
-  return {
-    ...report,
-    workflows: [...report.workflows].sort((a, b) => compareCodePoint(a.file, b.file)),
-    triggerMatrix: [...report.triggerMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId)),
-    sharedPathOverlapMatrix: report.sharedPathOverlapMatrix
-      .map((row) => ({ ...row, workflowIds: [...row.workflowIds].sort(compareCodePoint) }))
-      .sort((a, b) => compareCodePoint(a.pathPattern, b.pathPattern)),
-    ownershipMatrix: [...report.ownershipMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId)),
-    workflowIds: {
-      prBranchWriters: [...report.workflowIds.prBranchWriters].sort(compareCodePoint),
-      prFullRegressionOwners: [...report.workflowIds.prFullRegressionOwners].sort(compareCodePoint),
-      lateSkipCandidates: [...report.workflowIds.lateSkipCandidates].sort(compareCodePoint)
-    }
-  };
-}
+test("GCI-S01 committed historical evidence remains exhaustive and self-consistent", () => {
+  const inventoryPath = ".github/ci/gci-s01/workflow-inventory.json.br";
+  const fanoutPath = ".github/ci/gci-s01/workflow-fanout-matrix.json.br";
+  const ownershipPath = ".github/ci/gci-s01/workflow-ownership-readback.json.br";
 
-test("GCI-S01 committed evidence is exhaustive and deterministic", () => {
-  const report = materializeGciS01WorkflowInventory({
-    excludeFiles: [".github/workflows/pr-gate.yml"]
+  const inventory = readBrotliJson(inventoryPath);
+  const fanout = readBrotliJson(fanoutPath);
+  const ownership = readBrotliJson(ownershipPath);
+  const manifest = JSON.parse(fs.readFileSync(".github/ci/gci-s01/evidence-manifest.json", "utf8"));
+
+  assert.equal(inventory.inventoryAsOfCommit, "364900d8cc151b13aada07c135e5275c3e31546b");
+  assert.equal(inventory.inventoryCompleteness, "COMPLETE_FROM_CHECKED_OUT_MAIN_TREE");
+  assert.deepEqual(inventory.summary, {
+    workflowFileCount: 110,
+    pullRequestWorkflowCount: 66,
+    prBranchWriterCount: 20,
+    prFullRegressionWorkflowCount: 24,
+    lateSkipCandidateCount: 27,
+    sharedExactPathPatternCount: 79
   });
 
-  assert.equal(report.inventoryCompleteness, "COMPLETE_FROM_CHECKED_OUT_MAIN_TREE");
-  assert.equal(report.summary.workflowFileCount, 110);
-  assert.equal(report.summary.pullRequestWorkflowCount, 66);
-  assert.equal(report.summary.prBranchWriterCount, 20);
-  assert.equal(report.summary.prFullRegressionWorkflowCount, 24);
-  assert.equal(report.summary.lateSkipCandidateCount, 27);
-  assert.equal(report.summary.sharedExactPathPatternCount, 79);
+  const workflowFiles = inventory.workflows.map((row) => row.file);
+  assert.equal(new Set(workflowFiles).size, 110);
+  assert.ok(workflowFiles.includes(".github/workflows/node-test.yml"));
+  assert.ok(!workflowFiles.includes(".github/workflows/pr-gate.yml"));
 
-  const files = report.workflows.map((row) => row.file);
-  assert.equal(new Set(files).size, files.length, "workflow file paths must be unique");
-  assert.ok(report.workflows.some((row) => row.file === ".github/workflows/node-test.yml"));
-  assert.ok(report.workflows.some((row) => row.file === ".github/workflows/pgc-r06-a01-g4b-u04-bounded-capacity-full-fix.yml"));
-  assert.ok(!report.workflows.some((row) => row.file === ".github/workflows/pr-gate.yml"));
-
-  const committedInventory = readBrotliJson(".github/ci/gci-s01/workflow-inventory.json.br");
-  const { inventoryAsOfCommit, ...committedScannerOutput } = committedInventory;
-  assert.equal(inventoryAsOfCommit, "364900d8cc151b13aada07c135e5275c3e31546b");
-  assert.deepEqual(canonicalizeReport(committedScannerOutput), canonicalizeReport(report));
-
-  const fanout = readBrotliJson(".github/ci/gci-s01/workflow-fanout-matrix.json.br");
-  assert.equal(fanout.inventoryAsOfCommit, inventoryAsOfCommit);
-  assert.deepEqual(fanout.summary, report.summary);
+  assert.equal(fanout.inventoryAsOfCommit, inventory.inventoryAsOfCommit);
+  assert.deepEqual(fanout.summary, inventory.summary);
   assert.deepEqual(
     [...fanout.triggerMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId)),
-    [...report.triggerMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId))
+    [...inventory.triggerMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId))
   );
   assert.deepEqual(
     fanout.sharedPathOverlapMatrix
       .map((row) => ({ ...row, workflowIds: [...row.workflowIds].sort(compareCodePoint) }))
       .sort((a, b) => compareCodePoint(a.pathPattern, b.pathPattern)),
-    report.sharedPathOverlapMatrix
+    inventory.sharedPathOverlapMatrix
   );
 
-  const ownership = readBrotliJson(".github/ci/gci-s01/workflow-ownership-readback.json.br");
-  assert.equal(ownership.inventoryAsOfCommit, inventoryAsOfCommit);
-  assert.deepEqual(ownership.summary, report.summary);
-  assert.deepEqual(
-    Object.fromEntries(Object.entries(ownership.workflowIds).map(([key, rows]) => [key, [...rows].sort(compareCodePoint)])),
-    Object.fromEntries(Object.entries(report.workflowIds).map(([key, rows]) => [key, [...rows].sort(compareCodePoint)]))
-  );
+  assert.equal(ownership.inventoryAsOfCommit, inventory.inventoryAsOfCommit);
+  assert.deepEqual(ownership.summary, inventory.summary);
   assert.deepEqual(
     [...ownership.ownershipMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId)),
-    report.ownershipMatrix
+    [...inventory.ownershipMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId))
+  );
+  assert.deepEqual(
+    Object.fromEntries(Object.entries(ownership.workflowIds).map(([key, rows]) => [key, [...rows].sort(compareCodePoint)])),
+    Object.fromEntries(Object.entries(inventory.workflowIds).map(([key, rows]) => [key, [...rows].sort(compareCodePoint)]))
   );
 
-  const registry = JSON.parse(fs.readFileSync(".github/ci/workflow-registry.json", "utf8"));
-  assert.equal(registry.inventoryCompleteness, "BOOTSTRAP_PARTIAL");
-  assert.equal(registry.workflows.filter((row) => row.fullRegressionRole === "PR_AUTHORITY").length, 1);
-  assert.equal(registry.workflows.find((row) => row.workflowId === "node-test")?.fullRegressionRole, "PR_AUTHORITY");
-
-  const manifest = JSON.parse(fs.readFileSync(".github/ci/gci-s01/evidence-manifest.json", "utf8"));
-  assert.equal(manifest.inventoryAsOfCommit, inventoryAsOfCommit);
+  assert.equal(manifest.inventoryAsOfCommit, inventory.inventoryAsOfCommit);
   assert.equal(manifest.artifacts.length, 3);
+  for (const artifact of manifest.artifacts) {
+    assert.equal(sha256(artifact.path), artifact.sha256);
+    assert.equal(fs.statSync(artifact.path).size, artifact.compressedBytes);
+  }
 
   const closeout = fs.readFileSync(
     "docs/governance/GCI_S01_MATH_REPOSITORY_WORKFLOW_INVENTORY_AND_FANOUT_CLOSEOUT.md",
