@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
+import zlib from "node:zlib";
 
 import {
   materializeGciS01WorkflowInventory
@@ -18,26 +19,34 @@ const EXPECTED_SUMMARY = {
   sharedExactPathPatternCount: 73
 };
 
-test("GCI-S01 exhaustively inventories workflows and keeps committed fan-out evidence deterministic", () => {
+test("GCI-S01 exhaustively inventories workflows and keeps committed evidence deterministic", () => {
   const report = materializeGciS01WorkflowInventory();
   assert.equal(report.inventoryCompleteness, "COMPLETE_FROM_CHECKED_OUT_MAIN_TREE");
   assert.deepEqual(report.summary, EXPECTED_SUMMARY);
 
   const evidence = buildGciS01Evidence(report);
-  assert.equal(evidence.manifest.shards.filter((row) => row.kind === "FANOUT").length, 4);
-  assert.equal(evidence.manifest.shards.filter((row) => row.kind === "SHARED_PATH_OVERLAP").length, 2);
-  assert.equal(
-    evidence.manifest.shards.filter((row) => row.kind === "FANOUT").reduce((sum, row) => sum + row.rowCount, 0),
-    109
-  );
-  assert.equal(
-    evidence.manifest.shards.filter((row) => row.kind === "SHARED_PATH_OVERLAP").reduce((sum, row) => sum + row.rowCount, 0),
-    73
-  );
+  assert.equal(evidence.manifest.matrixRowCounts.workflows, 109);
+  assert.equal(evidence.manifest.matrixRowCounts.triggerMatrix, 109);
+  assert.equal(evidence.manifest.matrixRowCounts.ownershipMatrix, 109);
+  assert.equal(evidence.manifest.matrixRowCounts.sharedPathOverlapMatrix, 73);
   assert.equal(evidence.manifest.bootstrapRegistry.preserved, true);
   assert.equal(evidence.manifest.nextTaskId, "GCI-S02_SinglePrGateOrchestratorPilot");
 
   for (const [relativePath, expected] of Object.entries(evidence.outputs)) {
-    assert.equal(fs.readFileSync(relativePath, "utf8"), expected, `stale GCI-S01 evidence: ${relativePath}`);
+    const actual = fs.readFileSync(relativePath);
+    if (Buffer.isBuffer(expected)) {
+      assert.equal(actual.equals(expected), true, `stale binary GCI-S01 evidence: ${relativePath}`);
+    } else {
+      assert.equal(actual.toString("utf8"), expected, `stale text GCI-S01 evidence: ${relativePath}`);
+    }
   }
+
+  const decoded = JSON.parse(zlib.gunzipSync(
+    fs.readFileSync(".github/ci/workflow-inventory.s01.complete.json.gz")
+  ).toString("utf8"));
+  assert.deepEqual(decoded.summary, EXPECTED_SUMMARY);
+  assert.equal(decoded.workflows.length, 109);
+  assert.equal(decoded.triggerMatrix.length, 109);
+  assert.equal(decoded.ownershipMatrix.length, 109);
+  assert.equal(decoded.sharedPathOverlapMatrix.length, 73);
 });
