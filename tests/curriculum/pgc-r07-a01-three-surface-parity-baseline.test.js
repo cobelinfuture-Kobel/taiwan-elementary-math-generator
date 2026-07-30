@@ -1,0 +1,89 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+
+const root = process.cwd();
+const readJson = (relativePath) => JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
+
+const a00 = readJson("data/curriculum/public-generation/PGC-R07-A00.surface-renderer-print-scope.json");
+const a01 = readJson("data/curriculum/public-generation/PGC-R07-A01.three-surface-parity-baseline.json");
+const deployed = readJson("docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json");
+
+const expectedSurfaces = ["CLASSIC", "FALLBACK_404", "PIXEL"];
+const expectedOutputs = ["PREVIEW_HTML", "PRINT_HTML", "CHROMIUM_PDF", "ANSWER_KEY"];
+
+test("PGC-R07 A01 consumes the merged A00 scope and preserves all counts", () => {
+  assert.equal(a01.previousTaskId, a00.taskId);
+  assert.equal(a01.scope.surfaceCount, a00.summary.surfaceCount);
+  assert.equal(a01.scope.outputProjectionCount, a00.summary.outputProjectionCount);
+  assert.equal(a01.scope.rendererBranchCount, a00.rendererBranchesToAudit.length);
+  assert.equal(a01.scope.identityFieldCount, a00.summary.identityFieldCount);
+  assert.equal(a01.scope.currentPublicSourceCount, a00.summary.publicSourceCount);
+  assert.equal(a01.scope.currentVisibleKnowledgePointCount, a00.summary.publicVisibleKnowledgePointCount);
+  assert.equal(a01.scope.capabilitySurfaceRowCount, a00.summary.capabilitySurfaceRowCount);
+  assert.equal(a01.scope.capacityRouteCount, a00.summary.capacityRouteCount);
+});
+
+test("PGC-R07 A01 materializes exactly three surfaces by four output projections", () => {
+  assert.equal(a01.baselineRows.length, expectedSurfaces.length * expectedOutputs.length);
+  assert.equal(new Set(a01.baselineRows.map((row) => row.rowId)).size, a01.baselineRows.length);
+  for (const surfaceId of expectedSurfaces) {
+    assert.deepEqual(
+      a01.baselineRows.filter((row) => row.surfaceId === surfaceId).map((row) => row.outputProjection),
+      expectedOutputs,
+    );
+  }
+});
+
+test("PGC-R07 A01 preserves its historical Classic failure while later deployed smokes may advance", () => {
+  assert.equal(deployed.status, "FAIL");
+  assert.ok(Number(deployed.run.attempt) >= 1);
+  assert.equal(deployed.consoleErrors.length, 0);
+  assert.equal(deployed.pageErrors.length, 0);
+  assert.match(deployed.message, /#g5a-u08-question-mode/);
+  assert.match(deployed.message, /did not find some options/);
+
+  const evidence = a01.evidence.classicDeployedSmoke;
+  assert.match(evidence.runId, /^\d+$/);
+  assert.ok(evidence.attempt >= 1);
+  assert.match(evidence.deploymentSha, /^[0-9a-f]{40}$/);
+  assert.equal(evidence.status, "FAIL");
+  assert.equal(evidence.failureClass, "SURFACE_CONTROL_OPTION_MISMATCH");
+  assert.equal(evidence.failedSelector, "#g5a-u08-question-mode");
+  assert.equal(evidence.consoleErrorCount, 0);
+  assert.equal(evidence.pageErrorCount, 0);
+  assert.equal(evidence.transient503ExcludedByReplay, true);
+});
+
+test("PGC-R07 A01 does not promote unreached or metadata-only paths to PASS", () => {
+  assert.equal(a01.summary.passRowCount, 0);
+  assert.equal(a01.summary.failRowCount, 1);
+  assert.equal(a01.summary.blockedUpstreamRowCount, 2);
+  assert.equal(a01.summary.unprovenRowCount, 9);
+  assert.equal(a01.baselineRows.filter((row) => row.status === "PASS").length, 0);
+  assert.ok(a01.baselineRows.filter((row) => row.status === "UNPROVEN").every((row) => row.browserEvidence === "NONE_CURRENT_CONFIG_SEED_PARITY"));
+});
+
+test("PGC-R07 A01 covers all existing renderer branches and selects one ordered repair path", () => {
+  assert.deepEqual(
+    a01.rendererBranchBaseline.map((row) => row.branchId),
+    a00.rendererBranchesToAudit.map((row) => row.branchId),
+  );
+  assert.equal(a01.repairQueue.length, a01.summary.repairQueueCount);
+  assert.deepEqual(a01.repairQueue.map((row) => row.priority), [1, 2, 3, 4, 5]);
+  assert.equal(a01.goalDistance.nextShortestStep, "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix");
+});
+
+test("PGC-R07 A01 is baseline-only and leaves product authorities unchanged", () => {
+  assert.deepEqual(a01.frozenBoundary, {
+    generatorModified: false,
+    validatorModified: false,
+    rendererModified: false,
+    uiModified: false,
+    knowledgePointModified: false,
+    patternGroupModified: false,
+    patternSpecModified: false,
+    slice014Started: false,
+  });
+});
