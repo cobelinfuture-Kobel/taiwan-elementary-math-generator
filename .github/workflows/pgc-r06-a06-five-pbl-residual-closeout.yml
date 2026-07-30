@@ -7,6 +7,7 @@ on:
       - "tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js"
       - "tests/curriculum/pgc-r06-a06-five-pbl-residual-closeout.test.js"
       - "tools/curriculum/apply-pgc-r06-a06-canonical-gap-field-repair.mjs"
+      - "tools/curriculum/apply-pgc-r06-a06-r06-scope-summary-fix.mjs"
       - "tools/curriculum/materialize-pgc-r06-a06-five-pbl-residual-closeout.mjs"
       - "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json"
       - "data/curriculum/public-generation/generator_capacity_contract.json"
@@ -47,10 +48,14 @@ jobs:
           node --check tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js
           node --check tests/curriculum/pgc-r06-a06-five-pbl-residual-closeout.test.js
           node --check tools/curriculum/apply-pgc-r06-a06-canonical-gap-field-repair.mjs
+          node --check tools/curriculum/apply-pgc-r06-a06-r06-scope-summary-fix.mjs
           node --check tools/curriculum/materialize-pgc-r06-a06-five-pbl-residual-closeout.mjs
 
       - name: Focused live runtime acceptance
         run: node --test tests/curriculum/pgc-r06-a06-five-pbl-residual-closeout.test.js
+
+      - name: Apply R06-scoped summary fix
+        run: node tools/curriculum/apply-pgc-r06-a06-r06-scope-summary-fix.mjs
 
       - name: Repair prior reconciled canonical gap fields
         run: node tools/curriculum/apply-pgc-r06-a06-canonical-gap-field-repair.mjs
@@ -99,8 +104,10 @@ jobs:
             site/modules/curriculum/public/public-generator-capacity-registry.js \
             > /tmp/a06-authority.sha256
 
-      - name: Retire temporary A06 writer before full regression
-        run: rm .github/workflows/pgc-r06-a06-five-pbl-residual-closeout.yml
+      - name: Retire temporary A06 writer and patch helper before full regression
+        run: |
+          rm .github/workflows/pgc-r06-a06-five-pbl-residual-closeout.yml
+          rm tools/curriculum/apply-pgc-r06-a06-r06-scope-summary-fix.mjs
 
       - name: Full repository regression
         run: npm test
@@ -108,11 +115,13 @@ jobs:
       - name: Prove full regression is authority read-only
         run: sha256sum -c /tmp/a06-authority.sha256
 
-      - name: Commit A06 authorities and retire writer
+      - name: Commit A06 authorities and retire temporary files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- .github/workflows/pgc-r06-a06-five-pbl-residual-closeout.yml
+          git add -A -- \
+            .github/workflows/pgc-r06-a06-five-pbl-residual-closeout.yml \
+            tools/curriculum/apply-pgc-r06-a06-r06-scope-summary-fix.mjs
           git add \
             site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js \
             tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js \
