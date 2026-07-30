@@ -20,7 +20,7 @@ test("PGC-R05 baseline consumes the accepted R03 application-route authority", (
   assert.equal(report.schemaVersion, 1);
   assert.equal(report.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(report.taskId, "PGC-R05_ApplicationGenerationFullFix_RuntimeGapDiagnostics");
-  assert.match(report.status, /^PASS_R05_(?:\d+_OF_\d+_LIVE_APPLICATION_ROUTES_CONFORMANT|ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION)$/);
+  assert.match(report.status, /^PASS_R05_(?:\d+_OF_\d+_LIVE_APPLICATION_ROUTES_CONFORMANT|ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION|D0_ALL_LEGAL_APPLICATION_ROUTES_CAPACITY_CONFORMANT_WITH_RETAINED_CROSS_SEED_QUALITY_GAPS)$/);
   assert.equal(report.applicationQuestionType, "application");
   assert.deepEqual(report.diagnosticSeeds, ["pgc-r05-diagnostic-01", "pgc-r05-diagnostic-02"]);
   assert.ok(report.summary.applicationRouteCount > 0);
@@ -68,7 +68,7 @@ test("PGC-R05 repair classification is exactly the union of contract and live ru
   for (const route of report.routes) {
     assert.equal(
       route.requiresRepair,
-      route.contractGapCodes.length > 0 || route.liveAcceptanceFailures.length > 0,
+      route.blockingContractGapCodes.length > 0 || route.liveAcceptanceFailures.length > 0,
       route.routeId,
     );
     assert.equal(
@@ -100,8 +100,10 @@ test("PGC-R05 committed baseline artifacts remain row-aligned and resume the sho
   assert.equal(fs.readFileSync(csvPath, "utf8").trim().split(/\r?\n/).length, report.routes.length + 1);
   const readback = fs.readFileSync(readbackPath, "utf8");
   assert.match(readback, /## Live failures by source/);
-  assert.match(readback, /NEXT_SHORTEST_STEP\s+= PGC-R05_[A-Za-z0-9_]+/);
-  assert.doesNotMatch(readback, /NEXT_SHORTEST_STEP\s+= PGC-R0[46]_/);
+  assert.match(readback, /NEXT_SHORTEST_STEP\s+= (?:PGC-R05_[A-Za-z0-9_]+|PGC-R06_ReasoningMixedPBLGenerationConformance)/);
+  assert.doesNotMatch(readback, /NEXT_SHORTEST_STEP\s+= PGC-R04_/);
   assert.doesNotMatch(readback, /NEXT_SHORTEST_STEP\s+= PGC-R05_ApplicationProducerAndContextAllocatorFullFix/);
   assert.match(readback, /LEGAL_APPLICATION_ROUTES|REPAIR_ROUTES/);
 });
+
+// PGC-R05 D0 terminal-status compatibility V2

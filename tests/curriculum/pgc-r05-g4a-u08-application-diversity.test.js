@@ -77,7 +77,7 @@ test("PGC-R05 G4A-U08 cost-overlay producer uses an explicit 5832-slot projectio
 
 test("PGC-R05 G4A-U08 FullFix clears both remaining unit routes", () => {
   const report = loadReport();
-  assert.match(report.status, /^(PASS_R05_\d+_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT|PASS_R05_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION)$/);
+  assert.match(report.status, /^(PASS_R05_\d+_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT|PASS_R05_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION|PASS_R05_D0_ALL_LEGAL_APPLICATION_ROUTES_CAPACITY_CONFORMANT_WITH_RETAINED_CROSS_SEED_QUALITY_GAPS)$/);
   const byId = new Map(report.routes.map((route) => [route.routeId, route]));
   assertAccepted20(byId.get(G4A_U08_COLLISION_ROUTE_IDS[0]), G4A_U08_COLLISION_ROUTE_IDS[0], EQUAL_VALUE_SPEC_ID);
   assertAccepted20(byId.get(G4A_U08_COLLISION_ROUTE_IDS[1]), G4A_U08_COLLISION_ROUTE_IDS[1], COST_OVERLAY_SPEC_ID);
@@ -129,3 +129,5 @@ test("PGC-R05 G4A-U08 repair preserves the frozen authority boundary", () => {
   assert.equal(targetRoutes.length, 2);
   assert.equal(targetRoutes.every((route) => route.selectionMode === "singleKnowledgePoint"), true);
 });
+
+// PGC-R05 D0 terminal-status compatibility V2

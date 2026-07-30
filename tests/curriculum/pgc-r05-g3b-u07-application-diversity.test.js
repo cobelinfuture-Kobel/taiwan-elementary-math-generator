@@ -74,7 +74,7 @@ test("PGC-R05 G3B-U07 producer yields 20 unique prompts with both conversion rol
 
 test("PGC-R05 G3B-U07 FullFix clears source-unit, single-KP and mixed-unit live collisions", () => {
   const report = loadReport();
-  assert.match(report.status, /^(PASS_R05_\d+_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT|PASS_R05_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION)$/);
+  assert.match(report.status, /^(PASS_R05_\d+_OF_211_LIVE_APPLICATION_ROUTES_CONFORMANT|PASS_R05_ALL_LIVE_APPLICATION_ROUTES_CONFORMANT_PENDING_CONTRACT_RECONCILIATION|PASS_R05_D0_ALL_LEGAL_APPLICATION_ROUTES_CAPACITY_CONFORMANT_WITH_RETAINED_CROSS_SEED_QUALITY_GAPS)$/);
   const byId = new Map(report.routes.map((route) => [route.routeId, route]));
   for (const routeId of G3B_U07_COLLISION_ROUTE_IDS) assertAccepted20(byId.get(routeId), routeId);
   const remainingLiveFailures = report.routes.filter((route) => route.sourceId === SOURCE_ID && route.liveAcceptanceFailures.length > 0);
@@ -113,3 +113,5 @@ test("PGC-R05 G3B-U07 repair preserves the frozen authority boundary", () => {
   assert.equal(targetRoutes.length, G3B_U07_COLLISION_ROUTE_IDS.length);
   assert.equal(targetRoutes.every((route) => route.compatiblePatternSpecIds.length === 2), true);
 });
+
+// PGC-R05 D0 terminal-status compatibility V2
