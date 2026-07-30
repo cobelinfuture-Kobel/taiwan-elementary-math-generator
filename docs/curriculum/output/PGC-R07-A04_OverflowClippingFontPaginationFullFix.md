@@ -3,12 +3,12 @@
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID    = PGC-R07-A04_OverflowClippingFontPaginationFullFix
-STATUS     = PENDING_EXACT_HEAD_CI
+STATUS     = PASS_EXACT_HEAD_CI_OVERFLOW_FONT_PAGINATION_MATRIX
 ```
 
 ## Precondition
 
-A03 has already proved the same G5A-U08 question and answer identity across Classic, fallback 404 and Pixel with six real Chromium A4 PDFs. A04 does not repeat that surface matrix. It closes the remaining renderer-branch and long-content layout gap.
+A03 proved the same G5A-U08 question and answer identity across Classic, fallback 404 and Pixel with six real Chromium A4 PDFs. A04 does not repeat that surface matrix. It closes the remaining renderer-branch and long-content layout gap.
 
 ## Frozen scope
 
@@ -39,27 +39,48 @@ DENSE_NUMERIC
 - 2 question pages + 2 answer pages
 ```
 
-## Actual routing requirement
+## Actual routing evidence
 
-Each witness must pass through the production `renderPreviewFrame` route. The test cannot call a renderer helper directly and claim branch coverage.
+Each witness passed through the production `renderPreviewFrame` route.
 
 ```text
 SHARED_EXACT_LAYOUT
-→ shouldUseSharedExactLayoutRenderer = true
+→ exactEligible=true
+→ sharedExactLayout=true
 
 DYNAMIC_HTML
-→ worksheetDocument.dynamicHtml
+→ exactEligible=false
+→ dynamic=true
 
 STATIC_HTML_URL
-→ worksheetDocument.staticHtmlUrl
+→ exactEligible=false
+→ staticHtmlUrl=true
 
 SHARED_FALLBACK
-→ default shared renderer branch
+→ exactEligible=false
+→ sharedExactLayout=true
 ```
 
-## Acceptance contract
+## Acceptance result
 
-Every row requires:
+```text
+EXPECTED_ROWS                         = 8
+ACTUAL_ROWS                           = 8
+REAL_CHROMIUM_A4_PDF_PASS             = 8 / 8
+PAGE_OVERFLOW_FINDINGS                = 0
+CLIPPING_FINDINGS                     = 0
+QUESTION_OVERLAP_FINDINGS             = 0
+MISSING_ANSWERS                       = 0
+ABNORMAL_BLANK_PAGES                  = 0
+TRADITIONAL_CHINESE_FONT_PASS          = 8 / 8
+QUESTION_ANSWER_PAGE_BIJECTION_PASS    = 8 / 8
+CONSOLE_ERRORS                        = 0
+PAGE_ERRORS                           = 0
+CROSS_BRANCH_QUESTION_IDENTITY        = EXACT_MATCH_PER_PROFILE
+CROSS_BRANCH_ANSWER_IDENTITY          = EXACT_MATCH_PER_PROFILE
+```
+
+Every row passed the seven frozen A00 dimensions:
 
 ```text
 NO_OVERFLOW
@@ -71,19 +92,20 @@ TRADITIONAL_CHINESE_FONT_OK
 QUESTION_ANSWER_PAGE_BIJECTION
 ```
 
-The browser runner additionally requires:
+## Exact-head evidence
 
 ```text
-real Chromium A4 PDF
-valid %PDF- header
-exact expected question and answer page counts
-font face load status = loaded
-Traditional Chinese glyph measurement > 0
-no replacement glyph
-0 console errors
-0 page errors
-cross-branch question identity exact per profile
-cross-branch answer identity exact per profile
+ACCEPTED_HEAD_SHA = 0008ccfff167da986de0a432efe352e1bd6c6d86
+WORKFLOW_RUN_ID   = 30560688293
+WORKFLOW_RUN_NO   = 4400
+ARTIFACT_ID       = 8766828997
+ARTIFACT_DIGEST   = sha256:3a726622d8cad1718d02e2077f08c7b8d1b7fa3d9803c009eb8d6b7cbc610baf
+ARTIFACT_BYTES    = 337989
+MIN_PDF_BYTES     = 21844
+MAX_PDF_BYTES     = 79837
+FULL_REGRESSION   = PASS
+PGC_R00_GATE      = PASS
+POSTG_GATE        = PASS
 ```
 
 ## Artifacts
@@ -99,7 +121,7 @@ tmp/pgc-r07-a04-overflow-font-pagination-matrix/*.pdf
 
 ## CI policy
 
-No new workflow is added. The existing `Node Test` workflow receives one branch-specific Chromium step and one artifact upload.
+No new workflow was added. The existing `Node Test` workflow contains one branch-specific Chromium step and one artifact upload.
 
 ## Frozen boundary
 
@@ -115,21 +137,21 @@ New workflow added       = false
 Slice014 started         = false
 ```
 
-## Current gate
+## Gate
 
 ```text
-FOCUSED_CONTRACT = PENDING_CI
-FULL_REGRESSION  = PENDING_CI
-CHROMIUM_MATRIX  = PENDING_CI
-EXACT_HEAD       = PENDING_CI
+FOCUSED_CONTRACT = PASS
+FULL_REGRESSION  = PASS
+CHROMIUM_MATRIX  = PASS
+EXACT_HEAD       = PASS
 ```
 
 ## Goal distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_R07_REAL_CHROMIUM_PRINT_ANSWER_MATRIX_PASS
-GOAL_DISTANCE_AFTER  = D1_R07_OVERFLOW_FONT_PAGINATION_MATRIX_PENDING_CI
-DISTANCE_REDUCED     = four-branch stress matrix materialized
-REMAINING_BLOCKERS   = [EXACT_HEAD_CHROMIUM_MATRIX_PENDING, FINAL_SURFACE_PARITY_RECONCILIATION_PENDING]
-NEXT_SHORTEST_STEP   = PGC-R07-A04_ExactHeadCIAndMatrixReadback
+GOAL_DISTANCE_AFTER  = D1_R07_OVERFLOW_FONT_PAGINATION_MATRIX_PASS
+DISTANCE_REDUCED     = all four renderer branches passed long-text and dense multi-page stress in eight real Chromium A4 PDFs
+REMAINING_BLOCKERS   = [FINAL_SURFACE_PARITY_RECONCILIATION_PENDING]
+NEXT_SHORTEST_STEP   = PGC-R07-A05_FinalSurfaceParityReconciliationAndCloseout
 ```
