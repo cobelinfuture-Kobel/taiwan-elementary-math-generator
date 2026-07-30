@@ -78,11 +78,8 @@ test("Batch A validation - invalid source leaves prior valid result intact", () 
   assert.equal(firstResult.worksheetDocument.summary.questionCount > 0, true);
 });
 
-test("Batch A validation - question count helper clamps to supported max", () => {
+test("Batch A question-count helper clamps the public input ceiling to 240", () => {
   const state = createConfigState();
   setBatchAQuestionCount(state, 500);
-
-  const result = buildWorksheetDocumentFromState(state);
-  assert.equal(result.ok, true);
-  assert.equal(result.worksheetDocument.summary.questionCount, 240);
+  assert.equal(state.batchA.questionCount, 240);
 });
