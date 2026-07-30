@@ -6,6 +6,7 @@ on:
       - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs"
       - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs"
       - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-class-c-seed-collision-fix.mjs"
+      - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-s107-diversity-fix.mjs"
       - "tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs"
       - "src/curriculum/g5a-u02/**"
       - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
@@ -48,17 +49,23 @@ jobs:
       - name: Apply Class C seed collision FullFix
         run: node tools/curriculum/apply-pgc-r06-a02-g5a-u02-class-c-seed-collision-fix.mjs
 
+      - name: Apply S107 deterministic diversity FullFix
+        run: node tools/curriculum/apply-pgc-r06-a02-g5a-u02-s107-diversity-fix.mjs
+
       - name: Syntax-check A02 authorities
         run: |
           node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs
           node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs
           node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-class-c-seed-collision-fix.mjs
+          node --check tools/curriculum/apply-pgc-r06-a02-g5a-u02-s107-diversity-fix.mjs
           node --check tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
           node --check src/curriculum/g5a-u02/browser-dynamic-entry.js
           node --check src/curriculum/g5a-u02/class-c-generator-validator.js
+          node --check src/curriculum/g5a-u02/class-c-hidden-projection-binding.js
           node --check src/curriculum/g5a-u02/class-d-semantic-generator-validator.js
           node --check src/curriculum/g5a-u02/s101-representation-runtime.js
           node --check src/curriculum/g5a-u02/s103-digit-code-runtime.js
+          node --check src/curriculum/g5a-u02/s107-selection-symbolic-common-runtime.js
           node --check src/curriculum/g5a-u02/s108-remainder-transfer-runtime.js
 
       - name: Rebuild canonical G5A-U02 browser bundle
@@ -120,9 +127,11 @@ jobs:
             tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs \
             src/curriculum/g5a-u02/browser-dynamic-entry.js \
             src/curriculum/g5a-u02/class-c-generator-validator.js \
+            src/curriculum/g5a-u02/class-c-hidden-projection-binding.js \
             src/curriculum/g5a-u02/class-d-semantic-generator-validator.js \
             src/curriculum/g5a-u02/s101-representation-runtime.js \
             src/curriculum/g5a-u02/s103-digit-code-runtime.js \
+            src/curriculum/g5a-u02/s107-selection-symbolic-common-runtime.js \
             src/curriculum/g5a-u02/s108-remainder-transfer-runtime.js \
             site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js \
             data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json \
