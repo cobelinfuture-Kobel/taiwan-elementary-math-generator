@@ -1,0 +1,235 @@
+{
+  "schemaName": "PGCR08A02PublicGenerateCanaryHarnessV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A02_PublicGenerateButtonCanaryAndHarnessQualification",
+  "previousTaskId": "PGC-R08-A01_LegalRouteBrowserAcceptanceMatrixMaterialization",
+  "status": "PENDING_REAL_BROWSER_CANARY",
+  "harnessGoal": "Qualify one reusable browser harness against real public UI controls, generation, regeneration, preview, print PDF and answer-key paths before the 793-route execution.",
+  "sourceAuthorities": {
+    "a00": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+    "a01": "data/curriculum/public-generation/public_generate_button_acceptance.json",
+    "capacity": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "publicUiEntry": "site/index.html"
+  },
+  "canaryPolicy": {
+    "executionSurface": "CLASSIC",
+    "freshBrowserPagePerRoute": true,
+    "positiveRouteCount": 6,
+    "diagnosticRouteCount": 1,
+    "totalCanaryRouteCount": 7,
+    "questionTypeCoverage": [
+      "application",
+      "mixed",
+      "numeric",
+      "pbl",
+      "concept",
+      "operation_estimation",
+      "reasoning"
+    ],
+    "selectionModeCoverage": [
+      "sourceUnit",
+      "singleKnowledgePoint",
+      "mixedKnowledgePointsSameUnit"
+    ],
+    "capacityStatusCoverage": [
+      "VERIFIED_20",
+      "VERIFIED_LIMITED"
+    ],
+    "positiveDisposition": "PASS_ALL_NINE_GATES",
+    "diagnosticDisposition": "CAPTURE_EXPECTED_20_QUESTION_CAPACITY_GAP",
+    "diagnosticGapDoesNotCountAsHarnessFailure": true,
+    "diagnosticGapMustEnterProductRepairQueue": true
+  },
+  "canaryRoutes": [
+    {
+      "canaryId": "CANARY_APPLICATION_MIXED_KP",
+      "routeId": "pgc_r03_g3a_u01_3a01_application_078745248eea",
+      "sourceId": "g3a_u01_3a01",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g3a_u01_4digit_compare",
+        "kp_g3a_u01_number_to_chinese",
+        "kp_g3a_u01_chinese_to_number",
+        "kp_g3a_u01_digit_place_value_decomposition",
+        "kp_g3a_u01_place_value_composition",
+        "kp_g3a_u01_place_value_unit_conversion",
+        "kp_g3a_u01_digit_arrangement_max_min",
+        "kp_g3a_u01_range_reasoning"
+      ],
+      "questionType": "application",
+      "depthMode": null,
+      "contextMode": null,
+      "capacityStatus": "VERIFIED_20",
+      "verifiedMaxQuestionCount": 20,
+      "requestedQuestionCount": 20,
+      "expectedDisposition": "PASS_ALL_NINE_GATES"
+    },
+    {
+      "canaryId": "CANARY_MIXED_SOURCE_UNIT_DEPTH_CONTEXT",
+      "routeId": "pgc_r03_g5a_u02_5a02_mixed_026e20925977",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [],
+      "questionType": "mixed",
+      "depthMode": "basic",
+      "contextMode": "mixed",
+      "capacityStatus": "VERIFIED_20",
+      "verifiedMaxQuestionCount": 20,
+      "requestedQuestionCount": 20,
+      "expectedDisposition": "PASS_ALL_NINE_GATES"
+    },
+    {
+      "canaryId": "CANARY_NUMERIC_LIMITED_DIAGNOSTIC",
+      "routeId": "pgc_r03_g3a_u08_3a08_numeric_32207c12fa17",
+      "sourceId": "g3a_u08_3a08",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3a_u08_same_denominator_compare"
+      ],
+      "questionType": "numeric",
+      "depthMode": null,
+      "contextMode": null,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "verifiedMaxQuestionCount": 6,
+      "requestedQuestionCount": 20,
+      "expectedDisposition": "CAPTURE_EXPECTED_20_QUESTION_CAPACITY_GAP"
+    },
+    {
+      "canaryId": "CANARY_PBL_SOURCE_UNIT",
+      "routeId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec",
+      "sourceId": "g3b_u04_3b04",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [],
+      "questionType": "pbl",
+      "depthMode": null,
+      "contextMode": null,
+      "capacityStatus": "VERIFIED_20",
+      "verifiedMaxQuestionCount": 20,
+      "requestedQuestionCount": 20,
+      "expectedDisposition": "PASS_ALL_NINE_GATES"
+    },
+    {
+      "canaryId": "CANARY_CONCEPT_MIXED_KP",
+      "routeId": "pgc_r03_g4b_u04_4b04_concept_060501c73634",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_language_cues",
+        "kp_g4b_u04_approximation_symbol_reading",
+        "kp_g4b_u04_three_approximation_methods_compare",
+        "kp_g4b_u04_unconditional_round_down",
+        "kp_g4b_u04_unconditional_round_up",
+        "kp_g4b_u04_round_half_up_place_value",
+        "kp_g4b_u04_context_floor_ceiling_selection",
+        "kp_g4b_u04_payment_denomination_ceiling",
+        "kp_g4b_u04_round_then_add_subtract",
+        "kp_g4b_u04_round_then_multiply_divide",
+        "kp_g4b_u04_inverse_rounding_unknown_digit",
+        "kp_g4b_u04_inverse_rounding_possible_original",
+        "kp_g4b_u04_discount_denomination_round_down"
+      ],
+      "questionType": "concept",
+      "depthMode": null,
+      "contextMode": null,
+      "capacityStatus": "VERIFIED_20",
+      "verifiedMaxQuestionCount": 20,
+      "requestedQuestionCount": 20,
+      "expectedDisposition": "PASS_ALL_NINE_GATES"
+    },
+    {
+      "canaryId": "CANARY_OPERATION_ESTIMATION_SINGLE_KP",
+      "routeId": "pgc_r03_g4b_u04_4b04_operation_estimation_50dce0988f89",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_then_add_subtract"
+      ],
+      "questionType": "operation_estimation",
+      "depthMode": null,
+      "contextMode": null,
+      "capacityStatus": "VERIFIED_20",
+      "verifiedMaxQuestionCount": 20,
+      "requestedQuestionCount": 20,
+      "expectedDisposition": "PASS_ALL_NINE_GATES"
+    },
+    {
+      "canaryId": "CANARY_REASONING_MIXED_KP_CONTEXT",
+      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_0255372b076d",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_language_cues",
+        "kp_g4b_u04_approximation_symbol_reading",
+        "kp_g4b_u04_three_approximation_methods_compare",
+        "kp_g4b_u04_unconditional_round_down",
+        "kp_g4b_u04_unconditional_round_up",
+        "kp_g4b_u04_round_half_up_place_value",
+        "kp_g4b_u04_context_floor_ceiling_selection",
+        "kp_g4b_u04_payment_denomination_ceiling",
+        "kp_g4b_u04_round_then_add_subtract",
+        "kp_g4b_u04_round_then_multiply_divide",
+        "kp_g4b_u04_inverse_rounding_unknown_digit",
+        "kp_g4b_u04_inverse_rounding_possible_original",
+        "kp_g4b_u04_discount_denomination_round_down"
+      ],
+      "questionType": "reasoning",
+      "depthMode": null,
+      "contextMode": "mixed",
+      "capacityStatus": "VERIFIED_20",
+      "verifiedMaxQuestionCount": 20,
+      "requestedQuestionCount": 20,
+      "expectedDisposition": "PASS_ALL_NINE_GATES"
+    }
+  ],
+  "nineGateCodes": [
+    "UI_OPTIONS_PASS",
+    "GENERATE_BUTTON_PASS",
+    "QUESTION_COUNT_PASS",
+    "QUESTION_IDENTITY_PASS",
+    "ANSWER_VALIDATION_PASS",
+    "REGENERATE_PASS",
+    "HTML_PASS",
+    "PDF_PASS",
+    "ANSWER_KEY_PASS"
+  ],
+  "harnessQualificationGate": {
+    "allCanaryRouteIdentitiesMustExist": true,
+    "allPositiveCanariesMustPassNineGates": true,
+    "limitedCanaryMustProduceExpectedCapacityDiagnostic": true,
+    "limitedCanaryMustNotBeSilentlyDropped": true,
+    "browserConsoleErrorsAllowed": 0,
+    "browserPageErrorsAllowed": 0,
+    "realChromiumPdfRequiredForPositiveCanaries": true,
+    "regenerateIdentityChangeRequiredForPositiveCanaries": true,
+    "reusableHarnessOutputRequired": true
+  },
+  "requiredArtifacts": {
+    "runner": "tools/curriculum/run-pgc-r08-a02-public-generate-canary.mjs",
+    "report": "tmp/pgc-r08-a02-public-generate-canary/report.json",
+    "pdfDirectory": "tmp/pgc-r08-a02-public-generate-canary/pdfs",
+    "htmlDirectory": "tmp/pgc-r08-a02-public-generate-canary/html",
+    "failureScreenshotDirectory": "tmp/pgc-r08-a02-public-generate-canary/failures"
+  },
+  "frozenBoundary": {
+    "capacityRouteMutationAllowed": false,
+    "productUiModificationAllowed": false,
+    "generatorModificationAllowed": false,
+    "validatorModificationAllowed": false,
+    "rendererModificationAllowed": false,
+    "all793RouteExecutionAllowed": false,
+    "newWorkflowAllowed": false,
+    "slice014Allowed": false
+  },
+  "goalDistance": {
+    "before": "D1_R08_LEGAL_ROUTE_BROWSER_ACCEPTANCE_MATRIX_MATERIALIZED",
+    "after": "D1_R08_PUBLIC_GENERATE_BUTTON_CANARY_PENDING_BROWSER_QUALIFICATION",
+    "distanceReduced": "selected a seven-route set-cover canary spanning every question type, all selection modes and both capacity statuses",
+    "remainingBlockers": [
+      "CANARY_BROWSER_HARNESS_NOT_EXECUTED",
+      "ALL_793_LEGAL_ROUTES_NOT_EXECUTED",
+      "FAILED_COMBINATION_QUEUE_NOT_RECONCILED"
+    ],
+    "nextShortestStep": "PGC-R08-A02_ExactHeadCanaryBrowserExecution"
+  }
+}
