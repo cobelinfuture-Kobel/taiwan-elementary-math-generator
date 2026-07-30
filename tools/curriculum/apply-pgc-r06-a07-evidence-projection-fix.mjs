@@ -178,6 +178,8 @@ const materializerChanged = patch(
   "tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs",
   [
     [helperAnchor, helperBlock, "materializer-evidence-helpers"],
+    [`    ordering: "groupedByPattern",`, `    ordering: "shuffleAcrossPatterns",`, "materializer-ordering"],
+    [`    selectedPatternGroupIds: [...(route.publicPatternGroupIds ?? [])],`, `    selectedPatternGroupIds: [...(route.generationPatternGroupIds ?? [])],`, "materializer-generation-groups"],
     [oldMaterializerRun, newMaterializerRun, "materializer-run-route"],
   ],
 );
@@ -186,6 +188,8 @@ const testChanged = patch(
   "tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js",
   [
     [testHelperAnchor, testHelperBlock, "test-evidence-helpers"],
+    [`    ordering: "groupedByPattern",`, `    ordering: "shuffleAcrossPatterns",`, "test-ordering"],
+    [`    selectedPatternGroupIds: [...(route.publicPatternGroupIds ?? [])],`, `    selectedPatternGroupIds: [...(route.generationPatternGroupIds ?? [])],`, "test-generation-groups"],
     [oldTestRun, newTestRun, "test-run-route"],
   ],
 );
