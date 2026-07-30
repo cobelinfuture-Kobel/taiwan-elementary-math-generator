@@ -6,6 +6,7 @@ on:
       - "site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js"
       - "tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js"
       - "tools/curriculum/materialize-pgc-r06-a04-g5a-u02-pbl-cross-seed-diversity.mjs"
+      - "tools/curriculum/apply-pgc-r06-a04-stale-repair-queue-baseline-fix.mjs"
       - "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       - "data/curriculum/public-generation/generator_capacity_contract.json"
       - "data/curriculum/public-generation/ui_capability_binding_contract.json"
@@ -43,6 +44,10 @@ jobs:
           node --check site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js
           node --check tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js
           node --check tools/curriculum/materialize-pgc-r06-a04-g5a-u02-pbl-cross-seed-diversity.mjs
+          node --check tools/curriculum/apply-pgc-r06-a04-stale-repair-queue-baseline-fix.mjs
+
+      - name: Reconcile stale A03 queue materialization baseline
+        run: node tools/curriculum/apply-pgc-r06-a04-stale-repair-queue-baseline-fix.mjs
 
       - name: Focused producer acceptance
         run: node --test tests/curriculum/fifteen-unit-public-pbl-pipeline.test.js
@@ -67,6 +72,7 @@ jobs:
             || target.some((route) => route.qualityStatus !== "DIVERSE_PARAMETER_GENERATOR")
             || inventory.repairQueue.length !== 35
             || inventory.repairQueue.some((route) => route.sourceId === "g5a_u02_5a02")
+            || inventory.lastR06A04Reconciliation?.staleQueueMaterializationRepaired !== true
             || ui.lastR06A04Reconciliation?.status !== "PASS_R06_A04_PUBLIC_BINDING_RECONCILED") {
             throw new Error(`PGC_R06_A04_RECONCILIATION_GATE_FAILED:${JSON.stringify({ diagnostics: diagnostics.summary, queue: inventory.repairQueue.length })}`);
           }
@@ -81,6 +87,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            tools/curriculum/materialize-pgc-r06-a04-g5a-u02-pbl-cross-seed-diversity.mjs \
             data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json \
             data/curriculum/public-generation/generator_capacity_contract.json \
             data/curriculum/public-generation/ui_capability_binding_contract.json \
