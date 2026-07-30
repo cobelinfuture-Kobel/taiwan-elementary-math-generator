@@ -1,0 +1,25 @@
+# PGC-R06 A06 Final Five PBL Residual Closeout
+
+```text
+TASK_ID = PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix
+A05_CANONICAL_GAP_FIELD_REPAIR = PASS
+A00_TEST_SIDE_EFFECT_REMOVED = PASS
+LIVE_GATE = 5/5
+QUESTION_COUNT_PER_ROUTE = 20
+REPAIR_QUEUE_BEFORE = 5
+REPAIR_QUEUE_AFTER = 0
+REMOVED_FROM_QUEUE = 5
+PUBLIC_BINDING_COUNT = 9
+RUNTIME_REGISTRY_ROW_COUNT = 1155
+STATUS = PASS_R06_A06_FINAL_FIVE_PBL_RECONCILED
+```
+
+No new KnowledgePoint, PatternGroup, PatternSpec, context family, generator, validator, renderer, or UI control was added.
+
+```text
+GOAL_DISTANCE_BEFORE = D1_R06_5_ROUTE_FINAL_RESIDUAL
+GOAL_DISTANCE_AFTER  = D1_R06_ZERO_ROUTE_QUEUE_FINAL_CLOSEOUT_PENDING
+DISTANCE_REDUCED     = final five PBL routes now have deterministic unique 20-item two-seed live evidence
+REMAINING_BLOCKERS   = [R06_FINAL_RECONCILIATION_AND_D0_CLOSEOUT]
+NEXT_SHORTEST_STEP   = PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout
+```

@@ -8072,8 +8072,18 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g3b_u04_3b04::sourceUnit::FALLBACK_404::numeric",
@@ -8233,8 +8243,18 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g3b_u04_3b04::sourceUnit::PIXEL::numeric",
@@ -8394,8 +8414,18 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g3b_u04_3b04::single::kp_g3b_u04_add_then_divide::CLASSIC::application",
@@ -16043,8 +16073,18 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g4a_u08_4a08::sourceUnit::FALLBACK_404::numeric",
@@ -16258,8 +16298,18 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g4a_u08_4a08::sourceUnit::PIXEL::numeric",
@@ -16473,8 +16523,18 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g4a_u08_4a08::single::kp_g4a_u08_num_add_group_round::CLASSIC::numeric",
@@ -24684,8 +24744,20 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b",
+        "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e",
+        "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g4b_u04_4b04::sourceUnit::FALLBACK_404::mixed",
@@ -25074,8 +25146,20 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b",
+        "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e",
+        "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g4b_u04_4b04::sourceUnit::PIXEL::mixed",
@@ -25464,8 +25548,20 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b",
+        "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e",
+        "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues::CLASSIC::mixed",
@@ -46223,5 +46319,11 @@
     "routeCount": 30,
     "matchedBindingCount": 12,
     "status": "PASS_R06_A05_PUBLIC_BINDING_RECONCILED"
+  },
+  "lastR06A06Reconciliation": {
+    "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+    "routeCount": 5,
+    "matchedBindingCount": 9,
+    "status": "PASS_R06_A06_PUBLIC_BINDING_RECONCILED"
   }
 }

@@ -25,6 +25,13 @@ function stableSeedHash(value) {
   return hash >>> 0;
 }
 
+function pblSeedBase(plan, namespace) {
+  const seedText = String(plan.generationSeed ?? "").trim();
+  if (!seedText) return null;
+  const controls = `${plan.depthMode ?? "mixed"}:${plan.contextMode ?? "mixed"}`;
+  return stableSeedHash(`${namespace}:${seedText}:${controls}`) % 1000003;
+}
+
 function makeItem(plan, index, payload) {
   const lineage = buildFifteenUnitGlobalContextLineage({
     sourceId: plan.sourceId,
@@ -65,9 +72,10 @@ function makeItem(plan, index, payload) {
 }
 
 function buildG3BU04(plan, index) {
-  const groups = 4 + (index % 3);
-  const first = 120 + (index * 20);
-  const second = 80 + (index * 10);
+  const seedBase = pblSeedBase(plan, "g3b-u04");
+  const groups = seedBase === null ? 4 + (index % 3) : 4 + ((seedBase + index) % 3);
+  const first = seedBase === null ? 120 + (index * 20) : 120 + ((seedBase * 7 + index * 20) % 1200);
+  const second = seedBase === null ? 80 + (index * 10) : 80 + ((seedBase * 11 + index * 10) % 800);
   const total = first + second;
   const perGroup = total / groups;
   const adjustedSecond = Number.isInteger(perGroup) ? second : second + (groups - (total % groups));
@@ -88,10 +96,11 @@ function buildG3BU04(plan, index) {
 }
 
 function buildG4AU08(plan, index) {
-  const participants = 24 + (index * 4);
-  const ticket = 35 + (index % 3) * 5;
-  const fixed = 600 + index * 50;
-  const support = 200 + index * 20;
+  const seedBase = pblSeedBase(plan, "g4a-u08");
+  const participants = seedBase === null ? 24 + (index * 4) : 24 + 4 * ((seedBase + index) % 80);
+  const ticket = seedBase === null ? 35 + (index % 3) * 5 : 35 + 5 * ((seedBase * 3 + index) % 14);
+  const fixed = seedBase === null ? 600 + index * 50 : 600 + 50 * ((seedBase * 5 + index) % 40);
+  const support = seedBase === null ? 200 + index * 20 : 200 + 20 * ((seedBase * 7 + index) % 25);
   const variable = participants * ticket;
   const total = fixed + variable - support;
   const perPerson = Math.ceil(total / participants);
@@ -138,8 +147,9 @@ function buildG5AU08(plan, index) {
 // PGC-R06 A05 G5A-U08 seed-aware PBL producer
 
 function buildG4BU04(plan, index) {
-  const people = 238 + index * 17;
-  const busCapacity = 40;
+  const seedBase = pblSeedBase(plan, "g4b-u04");
+  const people = seedBase === null ? 238 + index * 17 : 238 + ((seedBase * 17 + index * 31) % 2000);
+  const busCapacity = seedBase === null ? 40 : 40 + 5 * ((seedBase + index) % 3);
   const roundedPeople = Math.round(people / 10) * 10;
   const estimatedBuses = Math.ceil(roundedPeople / busCapacity);
   const exactBuses = Math.ceil(people / busCapacity);

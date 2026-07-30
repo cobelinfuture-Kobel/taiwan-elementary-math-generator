@@ -8,17 +8,29 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../
 const TASK_ID = "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation";
 const A04_TASK_ID = "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix";
 const A05_TASK_ID = "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix";
+const A06_TASK_ID = "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix";
 const SOURCE_ID = "g5a_u02_5a02";
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(repoRoot, relativePath), "utf8"));
 }
 
+function canonicalGaps(route = {}) {
+  return Array.isArray(route.downstreamGapCodes) ? route.downstreamGapCodes : [];
+}
+
 const capacity = readJson("data/curriculum/public-generation/generator_capacity_contract.json");
 const materialized = capacity.lastR06A03Reconciliation?.taskId === TASK_ID;
 const a04Materialized = capacity.lastR06A04Reconciliation?.taskId === A04_TASK_ID;
 const a05Materialized = capacity.lastR06A05Reconciliation?.taskId === A05_TASK_ID;
-const currentTaskId = a05Materialized ? A05_TASK_ID : a04Materialized ? A04_TASK_ID : TASK_ID;
+const a06Materialized = capacity.lastR06A06Reconciliation?.taskId === A06_TASK_ID;
+const currentTaskId = a06Materialized
+  ? A06_TASK_ID
+  : a05Materialized
+    ? A05_TASK_ID
+    : a04Materialized
+      ? A04_TASK_ID
+      : TASK_ID;
 
 test("PGC-R06 A03 historical reconciliation remains materialized while later R06 work may advance current state", { skip: !materialized }, async () => {
   const diagnostics = readJson("data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json");
@@ -38,22 +50,22 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
   assert.ok(capacityRoutes.every((route) => route.sourceId === SOURCE_ID));
   assert.ok(capacityRoutes.every((route) => route.verifiedMaxQuestionCount === 20));
   assert.ok(capacityRoutes.every((route) => route.capacityStatus === "VERIFIED_20"));
-  assert.ok(capacityRoutes.every((route) => !route.gapCodes.includes("CAPACITY_BELOW_20")));
+  assert.ok(capacityRoutes.every((route) => !canonicalGaps(route).includes("CAPACITY_BELOW_20")));
 
   const diverseRoutes = capacityRoutes.filter((route) => route.uniqueItemSetCount >= 2);
   const fixedPblRoutes = capacityRoutes.filter((route) => route.uniqueItemSetCount === 1);
-  if (a04Materialized || a05Materialized) {
+  if (a04Materialized || a05Materialized || a06Materialized) {
     assert.equal(diverseRoutes.length, 98);
     assert.equal(fixedPblRoutes.length, 0);
     const pblRoutes = capacityRoutes.filter((route) => route.questionType === "pbl");
     assert.equal(pblRoutes.length, 12);
-    assert.ok(pblRoutes.every((route) => !route.gapCodes.includes("CROSS_SEED_ITEM_DIVERSITY_DEFICIENT")));
+    assert.ok(pblRoutes.every((route) => !canonicalGaps(route).includes("CROSS_SEED_ITEM_DIVERSITY_DEFICIENT")));
     assert.ok(pblRoutes.every((route) => route.lastReconciliation?.taskId === A04_TASK_ID));
   } else {
     assert.equal(diverseRoutes.length, 86);
     assert.equal(fixedPblRoutes.length, 12);
     assert.ok(fixedPblRoutes.every((route) => route.questionType === "pbl"));
-    assert.ok(fixedPblRoutes.every((route) => route.gapCodes.includes("CROSS_SEED_ITEM_DIVERSITY_DEFICIENT")));
+    assert.ok(fixedPblRoutes.every((route) => canonicalGaps(route).includes("CROSS_SEED_ITEM_DIVERSITY_DEFICIENT")));
   }
 
   assert.equal(uiBinding.safeQuestionCount.max, 240);
@@ -65,7 +77,20 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
   assert.ok(reconciledBindings.every((binding) => binding.blocked === false));
 
   const remainingG5AQueue = inventory.repairQueue.filter((route) => route.sourceId === SOURCE_ID);
-  if (a05Materialized) {
+  if (a06Materialized) {
+    assert.equal(remainingG5AQueue.length, 0);
+    assert.equal(inventory.summary.repairQueueCount, 0);
+    assert.equal(inventory.repairQueue.length, 0);
+    assert.equal(inventory.lastR06A04Reconciliation?.repairQueueBefore, 47);
+    assert.equal(inventory.lastR06A04Reconciliation?.removedFromRepairQueueCount, 12);
+    assert.equal(inventory.lastR06A04Reconciliation?.repairQueueAfter, 35);
+    assert.equal(inventory.lastR06A05Reconciliation?.repairQueueBefore, 35);
+    assert.equal(inventory.lastR06A05Reconciliation?.removedFromRepairQueueCount, 30);
+    assert.equal(inventory.lastR06A05Reconciliation?.repairQueueAfter, 5);
+    assert.equal(inventory.lastR06A06Reconciliation?.repairQueueBefore, 5);
+    assert.equal(inventory.lastR06A06Reconciliation?.removedFromRepairQueueCount, 5);
+    assert.equal(inventory.lastR06A06Reconciliation?.repairQueueAfter, 0);
+  } else if (a05Materialized) {
     assert.equal(remainingG5AQueue.length, 0);
     assert.equal(inventory.summary.repairQueueCount, 5);
     assert.equal(inventory.lastR06A04Reconciliation?.repairQueueBefore, 47);
@@ -89,7 +114,10 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
   const registryUrl = `${pathToFileURL(path.join(repoRoot, "site/modules/curriculum/public/public-generator-capacity-registry.js")).href}?pgcR06A03=${Date.now()}`;
   const registry = await import(registryUrl);
   assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS, "MATERIALIZED_PGC_R03_V3");
-  if (a05Materialized) {
+  if (a06Materialized) {
+    assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.taskId, A06_TASK_ID);
+    assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.routeCount, 5);
+  } else if (a05Materialized) {
     assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.taskId, A05_TASK_ID);
     assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.routeCount, 30);
   } else if (a04Materialized) {
@@ -126,3 +154,5 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
 // PGC-R06 A04 current-state advancement with A03 historical authority preserved
 
 // PGC-R06 A05 current-state advancement with A03 historical authority preserved
+
+// PGC-R06 A06 zero-queue advancement with A03 historical authority preserved
