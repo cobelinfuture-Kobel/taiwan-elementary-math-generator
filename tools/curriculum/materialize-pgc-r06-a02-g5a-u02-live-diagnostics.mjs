@@ -292,7 +292,7 @@ export async function materializePgcR06A02G5AU02LiveDiagnostics() {
   const inventory = readJson(inventoryPath, "PGC_R06_A02_INVENTORY_MISSING");
   const targets = safeArray(inventory.repairQueue).filter((route) => route.sourceId === SOURCE_ID);
   if (targets.length !== EXPECTED_QUEUE_ROUTE_COUNT) throw new Error(`PGC_R06_A02_TARGET_ROUTE_COUNT_MISMATCH:${targets.length}`);
-  if (targets.some((route) => route.legalRoute !== true || !safeArray(route.gapCodes).includes("CAPACITY_BELOW_20"))) {
+  if (targets.some((route) => route.legalRoute !== true || safeArray(route.gapCodes).length === 0)) {
     throw new Error("PGC_R06_A02_TARGET_SCOPE_INVALID");
   }
 
@@ -379,3 +379,5 @@ export async function materializePgcR06A02G5AU02LiveDiagnostics() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) await materializePgcR06A02G5AU02LiveDiagnostics();
+
+// PGC-R06 A02 classify all legal G5A-U02 queue gaps V1
