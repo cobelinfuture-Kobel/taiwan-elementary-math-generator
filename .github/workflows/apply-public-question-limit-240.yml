@@ -4,13 +4,16 @@ on:
   push:
     branches:
       - pgc-public-question-limit-240
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   materialize-and-verify:
-    if: github.actor != 'github-actions[bot]'
+    if: github.actor != 'github-actions[bot]' && (github.event_name != 'pull_request' || github.head_ref == 'pgc-public-question-limit-240')
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
