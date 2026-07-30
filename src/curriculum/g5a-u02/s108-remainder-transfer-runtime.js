@@ -1,4 +1,5 @@
 const PATTERN_ID = "ps_g5a_u02_remainder_transfer";
+const PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE = "pgc-r06-reasoning-mixed-diversity-v1";
 
 const SCENARIO_FAMILIES = Object.freeze([
   Object.freeze({
@@ -114,14 +115,17 @@ export function isG5AU02S108Pattern(patternSpecId) { return patternSpecId === PA
 export function getG5AU02S108PatternIds() { return [PATTERN_ID]; }
 export function getG5AU02S108ScenarioFamilyIds() { return SCENARIO_FAMILIES.map((family) => family.scenarioFamilyId); }
 
-export function generateG5AU02S108Pattern(patternSpecId, rng) {
+export function generateG5AU02S108Pattern(patternSpecId, rng, options = {}) {
   if (!isG5AU02S108Pattern(patternSpecId)) return null;
-  const family = rng.pick(SCENARIO_FAMILIES);
-  const smallerDivisor = rng.int(2, 8);
-  const multiplier = rng.int(2, 5);
+  const r06 = options.generationProfile === PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE;
+  const normalizedSeed = Number.isInteger(options.seed) && options.seed >= 1 ? options.seed : 1;
+  const slot = (normalizedSeed - 1) % 784;
+  const family = r06 ? SCENARIO_FAMILIES[slot % SCENARIO_FAMILIES.length] : rng.pick(SCENARIO_FAMILIES);
+  const smallerDivisor = r06 ? 2 + (Math.floor(slot / 4) % 7) : rng.int(2, 8);
+  const multiplier = r06 ? 2 + (Math.floor(slot / 28) % 4) : rng.int(2, 5);
   const largerDivisor = smallerDivisor * multiplier;
-  const remainder = rng.int(1, smallerDivisor - 1);
-  const largerGroupCount = rng.int(2, 12);
+  const remainder = r06 ? 1 + (Math.floor(slot / 112) % (smallerDivisor - 1)) : rng.int(1, smallerDivisor - 1);
+  const largerGroupCount = r06 ? 2 + (Math.floor(slot / 224) % 11) : rng.int(2, 12);
   const smallerGroupCount = largerGroupCount * multiplier;
   const total = largerDivisor * largerGroupCount + remainder;
   const values = { total, smallerDivisor, largerDivisor, multiplier, remainder, largerGroupCount, smallerGroupCount };
@@ -217,3 +221,5 @@ export function validateG5AU02S108Pattern(item) {
 }
 
 export const G5A_U02_S108_SCENARIO_FAMILIES = freeze(clone(SCENARIO_FAMILIES));
+
+// PGC-R06 A02 G5A-U02 reasoning mixed diversity FullFix V1

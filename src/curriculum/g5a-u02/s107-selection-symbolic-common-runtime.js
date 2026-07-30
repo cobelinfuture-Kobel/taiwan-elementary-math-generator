@@ -6,6 +6,15 @@ const PATTERN_IDS = Object.freeze([
 const PATTERN_SET = new Set(PATTERN_IDS);
 const SYMBOLS = Object.freeze(["甲", "乙", "丙", "丁"]);
 const SYMBOLIC_TARGETS = Object.freeze([12, 18, 20, 24, 28, 30, 36, 40, 42, 48, 54, 60, 72, 84, 90, 96]);
+const PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE = "pgc-r06-reasoning-mixed-diversity-v1";
+
+function isR06Diversity(options = {}) {
+  return options.generationProfile === PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE;
+}
+
+function normalizedSeed(options = {}) {
+  return Number.isInteger(options.seed) && options.seed >= 1 ? options.seed : 1;
+}
 
 function factorsOf(target) {
   const low = [];
@@ -43,8 +52,11 @@ function candidateRows(candidates) {
   }));
 }
 
-function factorCandidateItem(rng) {
-  const target = rng.int(3, 12) * rng.int(2, 10);
+function factorCandidateItem(rng, options = {}) {
+  const seed = normalizedSeed(options);
+  const target = isR06Diversity(options)
+    ? 2 * (100 + ((seed - 1) % 4000))
+    : rng.int(3, 12) * rng.int(2, 10);
   const factors = factorsOf(target);
   const nonFactors = [];
   for (let value = 2; value <= Math.min(target + 4, 40) && nonFactors.length < 4; value += 1) {
@@ -68,8 +80,11 @@ function factorCandidateItem(rng) {
   };
 }
 
-function symbolicFactorItem(rng) {
-  const target = rng.pick(SYMBOLIC_TARGETS);
+function symbolicFactorItem(rng, options = {}) {
+  const seed = normalizedSeed(options);
+  const target = isR06Diversity(options)
+    ? 12 * (20 + ((seed - 1) % 800))
+    : rng.pick(SYMBOLIC_TARGETS);
   const complete = factorsOf(target);
   const hiddenPositions = [1, complete.length - 3];
   const unknownKeys = hiddenPositions.map((position) => `p${position}`);
@@ -106,10 +121,12 @@ function symbolicFactorItem(rng) {
   };
 }
 
-function commonFactorMarkingItem(rng) {
-  const commonBase = rng.int(2, 8);
-  const multiplierA = rng.int(2, 9);
-  let multiplierB = rng.int(2, 9);
+function commonFactorMarkingItem(rng, options = {}) {
+  const seed = normalizedSeed(options);
+  const slot = (seed - 1) % 400;
+  const commonBase = isR06Diversity(options) ? 2 + (slot % 7) : rng.int(2, 8);
+  const multiplierA = isR06Diversity(options) ? 101 + (2 * slot) : rng.int(2, 9);
+  let multiplierB = isR06Diversity(options) ? multiplierA + 1 : rng.int(2, 9);
   if (multiplierB === multiplierA) multiplierB = multiplierB === 9 ? 8 : multiplierB + 1;
   const a = commonBase * multiplierA;
   const b = commonBase * multiplierB;
@@ -147,10 +164,10 @@ export function getG5AU02S107PatternIds() {
   return [...PATTERN_IDS];
 }
 
-export function generateG5AU02S107Pattern(patternSpecId, rng) {
-  if (patternSpecId === "ps_g5a_u02_divisor_candidate_selection") return factorCandidateItem(rng);
-  if (patternSpecId === "ps_g5a_u02_complete_factor_list_unknown_values") return symbolicFactorItem(rng);
-  if (patternSpecId === "ps_g5a_u02_common_factor_concept_identification") return commonFactorMarkingItem(rng);
+export function generateG5AU02S107Pattern(patternSpecId, rng, options = {}) {
+  if (patternSpecId === "ps_g5a_u02_divisor_candidate_selection") return factorCandidateItem(rng, options);
+  if (patternSpecId === "ps_g5a_u02_complete_factor_list_unknown_values") return symbolicFactorItem(rng, options);
+  if (patternSpecId === "ps_g5a_u02_common_factor_concept_identification") return commonFactorMarkingItem(rng, options);
   return null;
 }
 
@@ -250,3 +267,5 @@ export function validateG5AU02S107Pattern(item) {
   }
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze([...new Set(errors)]) });
 }
+
+// PGC-R06 A02 G5A-U02 S107 deterministic diversity FullFix V3

@@ -9,11 +9,13 @@ import {
 const SOURCE_ID = "g5a_u02_5a02";
 const MAX_SEED = 0x7fffffff;
 const PGC_R05_APPLICATION_DIVERSITY_PROFILE = "pgc-r05-application-diversity-v1";
+const PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE = "pgc-r06-reasoning-mixed-diversity-v1";
 
 function resolveGenerationProfile(seed) {
-  return String(seed ?? "").includes("pgc-r05")
-    ? PGC_R05_APPLICATION_DIVERSITY_PROFILE
-    : "legacy";
+  const text = String(seed ?? "");
+  if (text.includes("pgc-r05")) return PGC_R05_APPLICATION_DIVERSITY_PROFILE;
+  if (text.includes("pgc-r06-a02")) return PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE;
+  return "legacy";
 }
 
 function freeze(value) {
@@ -203,3 +205,5 @@ export function auditG5AU02BrowserDynamicRuntime() {
 }
 
 // PGC-R05 G5A-U02 application diversity FullFix V1
+
+// PGC-R06 A02 G5A-U02 reasoning mixed diversity FullFix V1

@@ -6,6 +6,7 @@ const S101_PATTERN_IDS = Object.freeze([
 
 const S101_PATTERN_SET = new Set(S101_PATTERN_IDS);
 const PGC_R05_APPLICATION_DIVERSITY_PROFILE = "pgc-r05-application-diversity-v1";
+const PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE = "pgc-r06-reasoning-mixed-diversity-v1";
 const PGC_R05_DIMENSION_MULTIPLIERS = Object.freeze(
   Array.from({ length: 7 }, (_, lowIndex) => lowIndex + 2)
     .flatMap((low) => Array.from({ length: 9 - low }, (_, highIndex) => Object.freeze([low, low + highIndex + 1]))),
@@ -72,8 +73,9 @@ function diagramScale(length, width) {
   });
 }
 
-function isPgcR05ApplicationDiversity(options = {}) {
-  return options.generationProfile === PGC_R05_APPLICATION_DIVERSITY_PROFILE;
+function isDeterministicDiversityProfile(options = {}) {
+  return [PGC_R05_APPLICATION_DIVERSITY_PROFILE, PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE]
+    .includes(options.generationProfile);
 }
 
 function projectionSlot(seed, size) {
@@ -82,7 +84,7 @@ function projectionSlot(seed, size) {
 }
 
 function pairedDimensions(rng, seed, options = {}) {
-  if (isPgcR05ApplicationDiversity(options)) {
+  if (isDeterministicDiversityProfile(options)) {
     const slot = projectionSlot(seed, PGC_R05_DIMENSION_MULTIPLIERS.length * 9);
     const [lowMultiplier, highMultiplier] = PGC_R05_DIMENSION_MULTIPLIERS[
       slot % PGC_R05_DIMENSION_MULTIPLIERS.length
@@ -116,7 +118,7 @@ export function generateG5AU02S101Pattern(patternSpecId, rng, options = {}) {
   if (!isG5AU02S101Pattern(patternSpecId)) return null;
 
   if (patternSpecId === "ps_g5a_u02_equal_partition_all_segment_counts") {
-    const totalLength = isPgcR05ApplicationDiversity(options)
+    const totalLength = isDeterministicDiversityProfile(options)
       ? 12 + projectionSlot(options.seed, 180)
       : rng.int(4, 12) * rng.int(2, 8);
     const pairs = partitionPairs(totalLength);
@@ -279,3 +281,5 @@ export const G5A_U02_S101_REPRESENTATION_LIFECYCLE = deepFreeze({
 });
 
 // PGC-R05 G5A-U02 application diversity FullFix V1
+
+// PGC-R06 A02 G5A-U02 reasoning mixed diversity FullFix V1
