@@ -3,7 +3,8 @@
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID    = PGC-R08-A00_PublicGenerateButtonEndToEndAuthorityAndMatrixFreeze
-STATUS     = FROZEN_PENDING_CI_AND_MERGE
+PR         = 483
+STATUS     = PASS_R08_A00_PUBLIC_GENERATE_BUTTON_E2E_SCOPE_FROZEN
 ```
 
 ## Selected program
@@ -98,6 +99,19 @@ A02  public Generate-button canary and harness qualification
 A03  all 793 legal routes browser execution
 A04  failed-combination FullFix and replay
 A05  final reconciliation and closeout
+```
+
+## Exact-head evidence
+
+```text
+ACCEPTED_HEAD_SHA        = 4ca1c2de53f8571c21238e24cc23640a7c9cb67f
+NODE_WORKFLOW_RUN_ID     = 30563639136
+NODE_WORKFLOW_RUN_NUMBER = 4409
+PGC_R00_RUN_ID           = 30563638497
+PGC_R00_RUN_NUMBER       = 189
+FULL_REGRESSION          = 2717 / 2717 PASS
+PGC_R00_GATE             = PASS
+BROWSER_EXECUTION        = NOT_APPLICABLE_A00_SCOPE_FREEZE
 ```
 
 ## A00 non-actions
