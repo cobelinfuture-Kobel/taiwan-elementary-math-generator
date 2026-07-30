@@ -268,9 +268,35 @@ function materializeRegistry(capacity) {
   return rows.length;
 }
 
-function reconcileInventory(inventory, diagnosticsByRoute) {
-  const before = inventory.repairQueue?.length ?? inventory.routes.filter((route) => route.legalRoute === true && route.publiclyExposed === true && routeGapCodes(route).length > 0).length;
-  if (before !== 47) throw new Error(`PGC_R06_A04_REPAIR_QUEUE_BASELINE_MISMATCH:${before}`);
+function reconcileInventory(inventory, diagnosticsByRoute, capacityBaseline) {
+  const storedQueueBefore = inventory.repairQueue?.length ?? 0;
+  const a03Reconciliation = capacityBaseline.lastR06A03Reconciliation;
+  if (a03Reconciliation?.taskId !== "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation") {
+    throw new Error(`PGC_R06_A04_A03_RECONCILIATION_METADATA_MISSING:${a03Reconciliation?.taskId ?? "missing"}`);
+  }
+  inventory.lastR06A03Reconciliation = structuredClone(a03Reconciliation);
+  const baselineRoutesById = new Map(capacityBaseline.routes
+    .filter((route) => route.lastReconciliation?.taskId === "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation")
+    .map((route) => [route.routeId, route]));
+  if (baselineRoutesById.size !== 98) throw new Error(`PGC_R06_A04_A03_CAPACITY_BASELINE_ROUTE_COUNT_MISMATCH:${baselineRoutesById.size}`);
+  let baselineSyncedRouteCount = 0;
+  for (const route of inventory.routes) {
+    const baseline = baselineRoutesById.get(route.routeId);
+    if (!baseline) continue;
+    baselineSyncedRouteCount += 1;
+    route.verifiedMaxQuestionCount = baseline.verifiedMaxQuestionCount;
+    route.capacityStatus = baseline.capacityStatus;
+    route.qualityStatus = baseline.qualityStatus;
+    route.uniqueItemSetCount = baseline.uniqueItemSetCount;
+    route.uniqueOrderedWorksheetCount = baseline.uniqueOrderedWorksheetCount;
+    route.gapCodes = [...(baseline.gapCodes ?? [])];
+    route.reconciliationStatus = route.gapCodes.length === 0
+      ? "A03_CAPACITY_AUTHORITY_RECONCILED_AND_REMOVED_FROM_QUEUE"
+      : "A03_CAPACITY_AUTHORITY_RECONCILED_GAP_REMAINS";
+  }
+  if (baselineSyncedRouteCount !== 98) throw new Error(`PGC_R06_A04_A03_INVENTORY_BASELINE_SYNC_MISMATCH:${baselineSyncedRouteCount}`);
+  const before = inventory.routes.filter((route) => route.legalRoute === true && route.publiclyExposed === true && routeGapCodes(route).length > 0).length;
+  if (before !== 47) throw new Error(`PGC_R06_A04_DERIVED_REPAIR_QUEUE_BASELINE_MISMATCH:${before}`);
   let matched = 0;
   for (const route of inventory.routes) {
     if (!diagnosticsByRoute.has(route.routeId)) continue;
@@ -301,6 +327,9 @@ function reconcileInventory(inventory, diagnosticsByRoute) {
     taskId: TASK_ID,
     sourceId: SOURCE_ID,
     repairQueueBefore: before,
+    storedQueueBefore,
+    baselineSyncedRouteCount,
+    staleQueueMaterializationRepaired: storedQueueBefore !== before,
     removedFromRepairQueueCount: ROUTE_COUNT,
     repairQueueAfter: inventory.repairQueue.length,
     status: "PASS_R06_A04_G5A_U02_PBL_DIVERSITY_RECONCILED",
@@ -316,7 +345,8 @@ function reconcileInventory(inventory, diagnosticsByRoute) {
   return inventory;
 }
 
-const capacity = readJson(paths.capacity);
+const capacityBaseline = readJson(paths.capacity);
+const capacity = structuredClone(capacityBaseline);
 const targetRoutes = capacity.routes.filter((route) => route.sourceId === SOURCE_ID
   && route.questionType === "pbl"
   && route.legalRoute === true
@@ -347,7 +377,7 @@ const routeIds = new Set(diagnosticsByRoute.keys());
 const reconciledCapacity = reconcileCapacity(capacity, diagnosticsByRoute);
 const { uiBinding, matchedBindingCount } = reconcileUiBinding(readJson(paths.uiBinding), reconciledCapacity, routeIds);
 const registryRowCount = materializeRegistry(reconciledCapacity);
-const inventory = reconcileInventory(readJson(paths.repairInventory), diagnosticsByRoute);
+const inventory = reconcileInventory(readJson(paths.repairInventory), diagnosticsByRoute, capacityBaseline);
 
 writeJson(paths.capacity, reconciledCapacity);
 writeJson(paths.uiBinding, uiBinding);
@@ -383,3 +413,5 @@ console.log(`PGC_R06_A04_RECONCILIATION=${JSON.stringify({
   secondGeneratorAdded: false,
   secondValidatorAdded: false,
 })}`);
+
+// PGC-R06 A04 derive current queue from A03 capacity lineage

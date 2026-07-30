@@ -3,7 +3,7 @@
   "schemaVersion": 3,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R03_CapacityAwareLegalRouteAndPerCapabilityUiLimitReconciliation",
-  "status": "PASS_WITH_DOWNSTREAM_GAPS",
+  "status": "PASS",
   "hardCeiling": 20,
   "seedCount": 10,
   "legalRoutePolicy": {
@@ -33,16 +33,11 @@
     "verified20RouteCount": 703,
     "verifiedLimitedRouteCount": 90,
     "zeroCapacityRouteCount": 0,
-    "diversityGapRouteCount": 12,
+    "diversityGapRouteCount": 0,
     "hardBlockerCount": 0
   },
   "hardBlockers": [],
-  "downstreamGaps": [
-    {
-      "code": "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT",
-      "count": 12
-    }
-  ],
+  "downstreamGaps": [],
   "routes": [
     {
       "routeId": "pgc_r03_g3a_u01_3a01_numeric_4315f57977d2",
@@ -149396,25 +149391,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149425,8 +149421,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149436,7 +149432,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_03409cbc10b4"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149447,8 +149443,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149459,19 +149455,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -149484,14 +149476,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -149513,25 +149503,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149542,8 +149533,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149553,7 +149544,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_9abf58c6b925"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149564,8 +149555,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149576,19 +149567,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -149601,14 +149588,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -149630,25 +149615,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149659,8 +149645,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149670,7 +149656,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_e2414cd5792f"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149681,8 +149667,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149693,19 +149679,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -149718,14 +149700,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -149747,25 +149727,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149776,8 +149757,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149787,7 +149768,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_e6a9224f4a9b"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149798,8 +149779,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149810,19 +149791,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -149835,14 +149812,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -149864,25 +149839,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149893,8 +149869,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149904,7 +149880,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_eb45b235d995"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -149915,8 +149891,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -149927,19 +149903,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -149952,14 +149924,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -149981,25 +149951,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150010,8 +149981,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150021,7 +149992,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_d77a5d08d769"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150032,8 +150003,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150044,19 +150015,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -150069,14 +150036,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -150098,25 +150063,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150127,8 +150093,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150138,7 +150104,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_dbe7d293006e"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150149,8 +150115,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150161,19 +150127,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -150186,14 +150148,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -150215,25 +150175,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150244,8 +150205,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150255,7 +150216,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_cb87dbe9053a"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150266,8 +150227,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150278,19 +150239,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -150303,14 +150260,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -150332,25 +150287,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150361,8 +150317,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150372,7 +150328,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_b3971844f8e5"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150383,8 +150339,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150395,19 +150351,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -150420,14 +150372,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -150449,25 +150399,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150478,8 +150429,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150489,7 +150440,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_e6872a54e149"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150500,8 +150451,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150512,19 +150463,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -150537,14 +150484,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -150566,25 +150511,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150595,8 +150541,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150606,7 +150552,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_bdaba83351f3"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150617,8 +150563,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150629,19 +150575,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -150654,14 +150596,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -150683,25 +150623,26 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
       "reconciliationCodes": [
-        "PGC_R06_A03_LIVE_20_RECONCILED"
+        "PGC_R06_A03_LIVE_20_RECONCILED",
+        "PGC_R06_A04_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
       ],
       "selectedCapacityEvidence": {
         "passed": true,
         "questionCount": 20,
-        "evidenceAuthority": "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME",
-        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json",
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "evidenceAuthority": "PGC-R06-A04_G5A-U02_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r06-a02-g5a-u02-01",
+            "seed": "pgc-r06-a04-g5a-u02-01",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150712,8 +150653,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+            "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150723,7 +150664,7 @@
             "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce"
           },
           {
-            "seed": "pgc-r06-a02-g5a-u02-02",
+            "seed": "pgc-r06-a04-g5a-u02-02",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
@@ -150734,8 +150675,8 @@
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
             "uniquePromptCount": 20,
-            "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-            "itemSetSignature": "b2f1cab629466edd08d4",
+            "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+            "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
             "patternSpecIdsObserved": [
               "pbl_g5a_u02_equal_group_design"
             ],
@@ -150746,19 +150687,15 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r06-a02-g5a-u02-01",
+          "seed": "pgc-r06-a04-g5a-u02-01",
           "ok": true,
-          "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
           "questionCount": 20,
           "answerKeyItemCount": 20,
-          "missingPromptCount": 0,
-          "duplicateItemCount": 0,
-          "duplicatePromptCount": 0,
           "uniquePromptCount": 20,
-          "orderedWorksheetSignature": "85798852ba14bc6e0b43",
-          "itemSetSignature": "b2f1cab629466edd08d4",
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
           "patternSpecIdsObserved": [
             "pbl_g5a_u02_equal_group_design"
           ],
@@ -150771,14 +150708,12 @@
       "downstreamGapCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "gapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
+      "gapCodes": [],
       "lastReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
-        "crossSeedDistinct": false,
-        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A04.g5a-u02-pbl-cross-seed-diagnostics.json"
       }
     },
     {
@@ -218903,5 +218838,13 @@
     "crossSeedDiverseRouteCount": 86,
     "remainingCrossSeedFixtureRouteCount": 12,
     "status": "PASS_R06_A03_CAPACITY_RECONCILED"
+  },
+  "lastR06A04Reconciliation": {
+    "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+    "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
+    "sourceId": "g5a_u02_5a02",
+    "routeCount": 12,
+    "removedDiversityGapCount": 12,
+    "status": "PASS_R06_A04_CAPACITY_RECONCILED"
   }
 }
