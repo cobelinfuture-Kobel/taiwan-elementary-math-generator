@@ -20,7 +20,8 @@ const reportPath = path.join(repoRoot, "docs/curriculum/output/PGC-R03_capacity_
 const r02ContractPath = path.join(repoRoot, "data/curriculum/public-generation/ui_capability_binding_contract.json");
 const R05_LIVE_AUTHORITY = "PGC-R05_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
 const R06_A01_LIVE_AUTHORITY = "PGC-R06-A01_G4B-U04_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
-const TWO_SEED_AUTHORITIES = new Set([R05_LIVE_AUTHORITY, R06_A01_LIVE_AUTHORITY]);
+const R06_A03_LIVE_AUTHORITY = "PGC-R06-A03_G5A-U02_TWO_SEED_20_QUESTION_LIVE_RUNTIME";
+const TWO_SEED_AUTHORITIES = new Set([R05_LIVE_AUTHORITY, R06_A01_LIVE_AUTHORITY, R06_A03_LIVE_AUTHORITY]);
 
 function loadContract() {
   assert.equal(fs.existsSync(contractPath), true, "PGC-R03 contract must be materialized before focused acceptance");
@@ -164,3 +165,5 @@ test("PGC-R03 reconciled reports and R02 materialization stay aligned", () => {
 });
 
 // PGC-R05 and R06 live authority compatibility V2
+
+// PGC-R06 A03 V3 evidence compatibility

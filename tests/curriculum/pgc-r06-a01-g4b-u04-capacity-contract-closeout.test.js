@@ -67,7 +67,9 @@ test("PGC-R06 A01 frozen boundaries and public consumers remain aligned", () => 
 });
 
 test("PGC-R06 A01 refreshes the repair queue and advances to one A02 step", () => {
-  assert.equal(inventory.summary.repairQueueCount, 133);
+  assert.equal(inventory.summary.repairQueueCount, 47);
+  assert.equal(inventory.lastR06A03Reconciliation?.taskId, "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation");
+  assert.equal(inventory.repairQueue.filter((route) => route.sourceId === "g5a_u02_5a02").length, 12);
   assert.equal(inventory.repairQueue.some((route) => targetIds.has(route.routeId)), false);
   const remainingG4BU04 = inventory.repairQueue.filter((route) => route.sourceId === "g4b_u04_4b04");
   assert.equal(remainingG4BU04.length, 3);
@@ -89,3 +91,5 @@ test("PGC-R06 A01 closeout readback records distance reduction and no scope expa
   assert.equal(report.boundary.rendererModified, false);
   assert.equal(report.boundary.secondWorksheetPipelineAdded, false);
 });
+
+// PGC-R06 A03 historical authority and workflow governance compatibility

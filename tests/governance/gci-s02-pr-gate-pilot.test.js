@@ -8,6 +8,10 @@ import {
 
 const WORKFLOW_FILE = ".github/workflows/pr-gate.yml";
 const CONTRACT_FILE = ".github/ci/gci-s02/pr-gate-pilot-contract.json";
+const POST_S01_WORKFLOW_FILES = [
+  ".github/workflows/pgc-r06-a02-g5a-u02-live-diagnostics.yml",
+  ".github/workflows/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.yml",
+];
 
 test("GCI-S02 PR gate pilot is read-only and structurally complete", () => {
   const workflow = fs.readFileSync(WORKFLOW_FILE, "utf8");
@@ -42,14 +46,14 @@ test("GCI-S02 PR gate pilot is read-only and structurally complete", () => {
 test("GCI-S02 PR gate is visible in the live workflow inventory without mutating S01 history", () => {
   const current = materializeGciS01WorkflowInventory();
   const historical = materializeGciS01WorkflowInventory({
-    excludeFiles: [WORKFLOW_FILE]
+    excludeFiles: [WORKFLOW_FILE, ...POST_S01_WORKFLOW_FILES]
   });
 
-  assert.equal(current.summary.workflowFileCount, 111);
-  assert.equal(current.summary.pullRequestWorkflowCount, 67);
-  assert.equal(current.summary.prBranchWriterCount, 20);
-  assert.equal(current.summary.prFullRegressionWorkflowCount, 25);
-  assert.equal(current.summary.lateSkipCandidateCount, 27);
+  assert.equal(current.summary.workflowFileCount, 113);
+  assert.equal(current.summary.pullRequestWorkflowCount, 69);
+  assert.equal(current.summary.prBranchWriterCount, 22);
+  assert.equal(current.summary.prFullRegressionWorkflowCount, 27);
+  assert.equal(current.summary.lateSkipCandidateCount, 29);
   assert.ok(current.summary.sharedExactPathPatternCount >= 79);
 
   const prGate = current.workflows.find((row) => row.file === WORKFLOW_FILE);
@@ -66,3 +70,5 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
   assert.equal(historical.summary.prFullRegressionWorkflowCount, 24);
   assert.ok(!historical.workflows.some((row) => row.file === WORKFLOW_FILE));
 });
+
+// PGC-R06 A03 historical authority and workflow governance compatibility
