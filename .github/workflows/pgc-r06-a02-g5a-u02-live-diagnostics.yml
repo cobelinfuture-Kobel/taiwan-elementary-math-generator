@@ -1,0 +1,83 @@
+name: PGC-R06 A02 G5A-U02 Live Diagnostics
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs"
+      - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
+      - "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
+      - "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.csv"
+      - "docs/curriculum/output/PGC-R06-A02_G5A_U02_live_diagnostics.md"
+      - ".github/workflows/pgc-r06-a02-g5a-u02-live-diagnostics.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r06-a02-g5a-u02-live-diagnostics-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  diagnostics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout A02 branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Syntax-check A02 diagnostics
+        run: node --check tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
+
+      - name: Materialize 98-route public-pipeline diagnostics
+        run: node tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs
+
+      - name: Require exact queue classification
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const report = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json", "utf8"));
+          if (report.summary.targetRouteCount !== 98
+            || report.summary.live20PassRouteCount + report.summary.live20FailRouteCount !== 98
+            || report.routes.length !== 98
+            || report.routes.some((route) => route.sourceId !== "g5a_u02_5a02")) {
+            throw new Error(`PGC_R06_A02_DIAGNOSTIC_GATE_FAILED:${JSON.stringify(report.summary)}`);
+          }
+          console.log(`PGC_R06_A02_DIAGNOSTIC_GATE=PASS:${JSON.stringify(report.summary)}`);
+          NODE
+
+      - name: Commit deterministic diagnostics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json \
+            data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.csv \
+            docs/curriculum/output/PGC-R06-A02_G5A_U02_live_diagnostics.md
+          if git diff --cached --quiet; then
+            echo "A02 diagnostics already synchronized."
+          else
+            git commit -m "docs(pgc-r06): classify G5A-U02 bounded route failures [skip ci]"
+            git fetch origin "${{ github.head_ref || github.ref_name }}"
+            git rebase "origin/${{ github.head_ref || github.ref_name }}"
+            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
+          fi
+
+      - name: Upload A02 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r06-a02-g5a-u02-live-diagnostics
+          path: |
+            data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json
+            data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.csv
+            docs/curriculum/output/PGC-R06-A02_G5A_U02_live_diagnostics.md
+          if-no-files-found: error
