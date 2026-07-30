@@ -46,20 +46,45 @@ jobs:
         with:
           node-version: 24
 
+      - name: Detect later R06 authority
+        id: authority
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const capacity = JSON.parse(fs.readFileSync("data/curriculum/public-generation/generator_capacity_contract.json", "utf8"));
+          const laterTaskId = capacity.lastR06A07Closeout?.taskId
+            ?? capacity.lastR06A06Reconciliation?.taskId
+            ?? capacity.lastR06A05Reconciliation?.taskId
+            ?? capacity.lastR06A04Reconciliation?.taskId
+            ?? null;
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `historical_mode=${laterTaskId ? "true" : "false"}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `later_task_id=${laterTaskId ?? "NONE"}\n`);
+          console.log(`PGC_R06_A03_HISTORICAL_MODE=${Boolean(laterTaskId)}:${laterTaskId ?? "NONE"}`);
+          NODE
+
       - name: Apply canonical public-binding identity join
+        if: steps.authority.outputs.historical_mode != 'true'
         run: node tools/curriculum/apply-pgc-r06-a03-binding-identity-join-fix.mjs
 
       - name: Apply live-evidence diversity-gap derivation
+        if: steps.authority.outputs.historical_mode != 'true'
         run: node tools/curriculum/apply-pgc-r06-a03-diversity-gap-derivation-fix.mjs
 
       - name: Apply V3 evidence and registry compatibility
+        if: steps.authority.outputs.historical_mode != 'true'
         run: node tools/curriculum/apply-pgc-r06-a03-v3-evidence-compatibility-fix.mjs
 
       - name: Apply historical authority and workflow governance compatibility
+        if: steps.authority.outputs.historical_mode != 'true'
         run: node tools/curriculum/apply-pgc-r06-a03-historical-authority-governance-compatibility-fix.mjs
 
       - name: Materialize four-node reconciliation
+        if: steps.authority.outputs.historical_mode != 'true'
         run: node tools/curriculum/materialize-pgc-r06-a03-capacity-public-runtime-repair-reconciliation.mjs
+
+      - name: Confirm historical compatibility mode
+        if: steps.authority.outputs.historical_mode == 'true'
+        run: echo "A03 is read-only because later R06 authority is active at ${{ steps.authority.outputs.later_task_id }}."
 
       - name: Syntax-check reconciliation authorities
         run: |
@@ -90,6 +115,7 @@ jobs:
         run: npm test
 
       - name: Commit reconciled authorities
+        if: steps.authority.outputs.historical_mode != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

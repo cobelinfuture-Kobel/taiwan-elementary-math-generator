@@ -46325,5 +46325,12 @@
     "routeCount": 5,
     "matchedBindingCount": 9,
     "status": "PASS_R06_A06_PUBLIC_BINDING_RECONCILED"
-  }
+  },
+  "lastR06A07Closeout": {
+    "taskId": "PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout",
+    "globalLivePassRouteCount": 389,
+    "repairQueueCount": 0,
+    "status": "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED"
+  },
+  "r06TerminalStatus": "D0_CLOSED"
 }

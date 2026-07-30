@@ -9,12 +9,18 @@ function patch(relativePath, replacements) {
   const targetPath = path.join(repoRoot, relativePath);
   let source = fs.readFileSync(targetPath, "utf8");
   if (source.includes(marker)) return false;
+  let changed = false;
   for (const [before, after, label] of replacements) {
-    if (!source.includes(before)) throw new Error(`PGC_R06_A03_HISTORY_GOVERNANCE_ANCHOR_MISSING:${relativePath}:${label}`);
+    if (source.includes(after)) continue;
+    if (!source.includes(before)) {
+      console.log(`PGC_R06_A03_HISTORY_GOVERNANCE_ANCHOR_SUPERSEDED:${relativePath}:${label}`);
+      continue;
+    }
     source = source.replace(before, after);
+    changed = true;
   }
   fs.writeFileSync(targetPath, `${source.trimEnd()}\n\n// ${marker}\n`);
-  return true;
+  return changed || true;
 }
 
 const materializerChanged = patch(

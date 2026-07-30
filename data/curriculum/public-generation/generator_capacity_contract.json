@@ -214938,5 +214938,15 @@
     },
     "removedDiversityGapCount": 5,
     "status": "PASS_R06_A06_CAPACITY_RECONCILED"
-  }
+  },
+  "lastR06A07Closeout": {
+    "taskId": "PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout",
+    "r06RouteCount": 659,
+    "legalR06RouteCount": 389,
+    "illegalR06RouteCount": 270,
+    "globalLivePassRouteCount": 389,
+    "repairQueueCount": 0,
+    "status": "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED"
+  },
+  "r06TerminalStatus": "D0_CLOSED"
 }
