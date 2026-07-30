@@ -1,0 +1,249 @@
+{
+  "schemaName": "PGCR07A01ThreeSurfaceParityBaselineV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R07-A01_ThreeSurfaceParityBaselineMaterialization",
+  "previousTaskId": "PGC-R07-A00_SurfaceRendererPrintAuthorityAndParityMatrixFreeze",
+  "status": "PASS_BASELINE_MATERIALIZED_WITH_BLOCKING_GAPS",
+  "baselinePolicy": {
+    "browserEvidenceRequiredForPass": true,
+    "staticMetadataCannotSubstituteBrowserEvidence": true,
+    "unreachedOutputIsNotPass": true,
+    "transientNetworkFailureMustBeReplayed": true,
+    "sameConfigAndSeedRequiredForParity": true
+  },
+  "scope": {
+    "surfaceCount": 3,
+    "outputProjectionCount": 4,
+    "baselineRowCount": 12,
+    "rendererBranchCount": 4,
+    "identityFieldCount": 7,
+    "currentPublicSourceCount": 26,
+    "currentVisibleKnowledgePointCount": 193,
+    "capabilitySurfaceRowCount": 1222,
+    "capacityRouteCount": 1155
+  },
+  "evidence": {
+    "classicDeployedSmoke": {
+      "authorityPath": "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "workflow": "G5A-U08-R1 Deployed GitHub Pages Smoke",
+      "runId": "30534871170",
+      "attempt": 2,
+      "deploymentSha": "18891d5c5c4092d044b932b3ba6b7292330b0b1e",
+      "status": "FAIL",
+      "failureClass": "SURFACE_CONTROL_OPTION_MISMATCH",
+      "failedSelector": "#g5a-u08-question-mode",
+      "failedRequestedValue": "mixed",
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "transient503ExcludedByReplay": true
+    }
+  },
+  "baselineRows": [
+    {
+      "rowId": "CLASSIC_PREVIEW_HTML",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "PREVIEW_HTML",
+      "browserEvidence": "DEPLOYED_MAIN",
+      "status": "FAIL",
+      "gapCodes": ["PUBLIC_QUESTION_MODE_OPTION_MISSING"],
+      "firstBlockedSelector": "#g5a-u08-question-mode",
+      "rendererReached": false
+    },
+    {
+      "rowId": "CLASSIC_PRINT_HTML",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "PRINT_HTML",
+      "browserEvidence": "DEPLOYED_MAIN",
+      "status": "BLOCKED_UPSTREAM",
+      "gapCodes": ["PUBLIC_QUESTION_MODE_OPTION_MISSING", "PRINT_NOT_REACHED"],
+      "rendererReached": false
+    },
+    {
+      "rowId": "CLASSIC_CHROMIUM_PDF",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "CHROMIUM_PDF",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["CURRENT_CHROMIUM_PDF_PARITY_EVIDENCE_MISSING"],
+      "rendererReached": false
+    },
+    {
+      "rowId": "CLASSIC_ANSWER_KEY",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "ANSWER_KEY",
+      "browserEvidence": "DEPLOYED_MAIN",
+      "status": "BLOCKED_UPSTREAM",
+      "gapCodes": ["PUBLIC_QUESTION_MODE_OPTION_MISSING", "ANSWER_KEY_NOT_REACHED"],
+      "rendererReached": false
+    },
+    {
+      "rowId": "FALLBACK_404_PREVIEW_HTML",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "PREVIEW_HTML",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["FALLBACK_404_BROWSER_BASELINE_MISSING"],
+      "rendererReached": null
+    },
+    {
+      "rowId": "FALLBACK_404_PRINT_HTML",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "PRINT_HTML",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["FALLBACK_404_BROWSER_BASELINE_MISSING"],
+      "rendererReached": null
+    },
+    {
+      "rowId": "FALLBACK_404_CHROMIUM_PDF",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "CHROMIUM_PDF",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["FALLBACK_404_BROWSER_BASELINE_MISSING", "CURRENT_CHROMIUM_PDF_PARITY_EVIDENCE_MISSING"],
+      "rendererReached": null
+    },
+    {
+      "rowId": "FALLBACK_404_ANSWER_KEY",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "ANSWER_KEY",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["FALLBACK_404_BROWSER_BASELINE_MISSING", "ANSWER_KEY_IDENTITY_EVIDENCE_MISSING"],
+      "rendererReached": null
+    },
+    {
+      "rowId": "PIXEL_PREVIEW_HTML",
+      "surfaceId": "PIXEL",
+      "outputProjection": "PREVIEW_HTML",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["PIXEL_BROWSER_BASELINE_MISSING"],
+      "rendererReached": null
+    },
+    {
+      "rowId": "PIXEL_PRINT_HTML",
+      "surfaceId": "PIXEL",
+      "outputProjection": "PRINT_HTML",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["PIXEL_BROWSER_BASELINE_MISSING"],
+      "rendererReached": null
+    },
+    {
+      "rowId": "PIXEL_CHROMIUM_PDF",
+      "surfaceId": "PIXEL",
+      "outputProjection": "CHROMIUM_PDF",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["PIXEL_BROWSER_BASELINE_MISSING", "CURRENT_CHROMIUM_PDF_PARITY_EVIDENCE_MISSING"],
+      "rendererReached": null
+    },
+    {
+      "rowId": "PIXEL_ANSWER_KEY",
+      "surfaceId": "PIXEL",
+      "outputProjection": "ANSWER_KEY",
+      "browserEvidence": "NONE_CURRENT_CONFIG_SEED_PARITY",
+      "status": "UNPROVEN",
+      "gapCodes": ["PIXEL_BROWSER_BASELINE_MISSING", "ANSWER_KEY_IDENTITY_EVIDENCE_MISSING"],
+      "rendererReached": null
+    }
+  ],
+  "rendererBranchBaseline": [
+    {
+      "branchId": "SHARED_EXACT_LAYOUT",
+      "status": "UNPROVEN_CROSS_SURFACE_PARITY",
+      "gapCode": "SHARED_EXACT_LAYOUT_PARITY_UNPROVEN"
+    },
+    {
+      "branchId": "DYNAMIC_HTML",
+      "status": "UNPROVEN_CROSS_SURFACE_PARITY",
+      "gapCode": "DYNAMIC_HTML_PARITY_UNPROVEN"
+    },
+    {
+      "branchId": "STATIC_HTML_URL",
+      "status": "UNPROVEN_CROSS_SURFACE_PARITY",
+      "gapCode": "STATIC_HTML_URL_PARITY_UNPROVEN"
+    },
+    {
+      "branchId": "SHARED_FALLBACK",
+      "status": "UNPROVEN_CROSS_SURFACE_PARITY",
+      "gapCode": "SHARED_FALLBACK_PARITY_UNPROVEN"
+    }
+  ],
+  "repairQueue": [
+    {
+      "priority": 1,
+      "gapId": "R07-GAP-001",
+      "scope": "CLASSIC:G5A-U08:QUESTION_MODE",
+      "gapCode": "PUBLIC_QUESTION_MODE_OPTION_MISSING",
+      "evidence": "deployed smoke attempt 2 fails selecting mixed with no console/page errors",
+      "nextMilestone": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix"
+    },
+    {
+      "priority": 2,
+      "gapId": "R07-GAP-002",
+      "scope": "FALLBACK_404:ALL_OUTPUTS",
+      "gapCode": "FALLBACK_404_BROWSER_BASELINE_MISSING",
+      "evidence": "no current same-config/seed browser evidence",
+      "nextMilestone": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix"
+    },
+    {
+      "priority": 3,
+      "gapId": "R07-GAP-003",
+      "scope": "PIXEL:ALL_OUTPUTS",
+      "gapCode": "PIXEL_BROWSER_BASELINE_MISSING",
+      "evidence": "no current same-config/seed browser evidence",
+      "nextMilestone": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix"
+    },
+    {
+      "priority": 4,
+      "gapId": "R07-GAP-004",
+      "scope": "ALL_SURFACES:RENDERER_BRANCHES",
+      "gapCode": "RENDERER_BRANCH_PARITY_UNPROVEN",
+      "evidence": "four existing branches have no unified identity parity witness",
+      "nextMilestone": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix"
+    },
+    {
+      "priority": 5,
+      "gapId": "R07-GAP-005",
+      "scope": "ALL_SURFACES:CHROMIUM_PDF:ANSWER_KEY",
+      "gapCode": "REAL_PRINT_AND_ANSWER_KEY_MATRIX_MISSING",
+      "evidence": "current same-config/seed PDF and answer-key identity matrix absent",
+      "nextMilestone": "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix"
+    }
+  ],
+  "summary": {
+    "passRowCount": 0,
+    "failRowCount": 1,
+    "blockedUpstreamRowCount": 2,
+    "unprovenRowCount": 9,
+    "repairQueueCount": 5,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0
+  },
+  "frozenBoundary": {
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false,
+    "uiModified": false,
+    "knowledgePointModified": false,
+    "patternGroupModified": false,
+    "patternSpecModified": false,
+    "slice014Started": false
+  },
+  "goalDistance": {
+    "before": "D1_R07_SURFACE_RENDERER_PRINT_SCOPE_AND_PARITY_CONTRACT_FROZEN",
+    "after": "D1_R07_THREE_SURFACE_BASELINE_AND_REPAIR_QUEUE_MATERIALIZED",
+    "distanceReduced": "converted unknown surface/print parity into a twelve-row baseline and five-item evidence-backed repair queue without claiming unexecuted browser paths pass",
+    "remainingBlockers": [
+      "PUBLIC_QUESTION_MODE_OPTION_MISSING",
+      "FALLBACK_404_BROWSER_BASELINE_MISSING",
+      "PIXEL_BROWSER_BASELINE_MISSING",
+      "RENDERER_BRANCH_PARITY_UNPROVEN",
+      "REAL_PRINT_AND_ANSWER_KEY_MATRIX_MISSING"
+    ],
+    "nextShortestStep": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix"
+  }
+}
