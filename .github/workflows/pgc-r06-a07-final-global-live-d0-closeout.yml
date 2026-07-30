@@ -5,6 +5,7 @@ on:
     paths:
       - "tools/curriculum/apply-pgc-r06-a07-evidence-projection-fix.mjs"
       - "tools/curriculum/apply-pgc-r06-a07-authoritative-witness-seed-fix.mjs"
+      - "tools/curriculum/apply-pgc-r06-a07-terminal-handoff-fix.mjs"
       - "tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs"
       - "tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js"
       - "tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js"
@@ -49,10 +50,14 @@ jobs:
       - name: Apply authoritative capacity witness replay
         run: node tools/curriculum/apply-pgc-r06-a07-authoritative-witness-seed-fix.mjs
 
+      - name: Apply terminal A07 handoff identity
+        run: node tools/curriculum/apply-pgc-r06-a07-terminal-handoff-fix.mjs
+
       - name: Syntax-check A07 authorities
         run: |
           node --check tools/curriculum/apply-pgc-r06-a07-evidence-projection-fix.mjs
           node --check tools/curriculum/apply-pgc-r06-a07-authoritative-witness-seed-fix.mjs
+          node --check tools/curriculum/apply-pgc-r06-a07-terminal-handoff-fix.mjs
           node --check tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs
           node --check tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js
           node --check tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js
@@ -68,7 +73,9 @@ jobs:
           import fs from "node:fs";
           const report = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R06-A07.final-global-live-closeout.json", "utf8"));
           const expectedStatus = "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED";
+          const expectedNext = "PGC-R06-A07_D0Closed_SelectNextApprovedProgram";
           if (report.status !== expectedStatus
+            || report.nextShortestStep !== expectedNext
             || report.summary.capacityRouteCount !== 1155
             || report.summary.runtimeRegistryRowCount !== 1155
             || report.summary.r06RouteCount !== 659
