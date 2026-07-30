@@ -114,7 +114,6 @@ jobs:
           node --test tests/curriculum/g5a-u02-class-c-generator-validator.test.js
           node --test tests/curriculum/g5a-u02-class-d-semantic-generator-validator.test.js
           node --test tests/curriculum/g5a-u02-canonical-resolver.test.js
-          node --test tests/curriculum/g5a-u02-browser-dynamic-runtime.test.js
 
       - name: Full repository regression
         run: npm test
