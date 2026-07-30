@@ -5,10 +5,6 @@ import { pathToFileURL } from "node:url";
 
 const WORKFLOW_DIR = ".github/workflows";
 
-function compareCodePoint(left, right) {
-  return left < right ? -1 : left > right ? 1 : 0;
-}
-
 function gitBlobSha(content) {
   const bytes = Buffer.from(content, "utf8");
   return crypto.createHash("sha1")
@@ -91,7 +87,7 @@ export function materializeGciS01WorkflowInventory({ rootDir = "." } = {}) {
   const workflowDir = path.join(rootDir, WORKFLOW_DIR);
   const files = fs.readdirSync(workflowDir)
     .filter((name) => /\.ya?ml$/i.test(name))
-    .sort(compareCodePoint);
+    .sort((left, right) => left.localeCompare(right));
 
   const workflows = files.map((name) => {
     const file = `${WORKFLOW_DIR}/${name}`;
@@ -155,8 +151,8 @@ export function materializeGciS01WorkflowInventory({ rootDir = "." } = {}) {
   }
   const sharedPathOverlapMatrix = [...pathOwners.entries()]
     .filter(([, owners]) => owners.length > 1)
-    .map(([pathPattern, owners]) => ({ pathPattern, workflowIds: owners.sort(compareCodePoint) }))
-    .sort((a, b) => compareCodePoint(a.pathPattern, b.pathPattern));
+    .map(([pathPattern, owners]) => ({ pathPattern, workflowIds: owners.sort() }))
+    .sort((a, b) => a.pathPattern.localeCompare(b.pathPattern));
 
   return {
     schemaVersion: "1.0.0",
