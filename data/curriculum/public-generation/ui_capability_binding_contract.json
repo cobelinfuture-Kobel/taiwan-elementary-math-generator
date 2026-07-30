@@ -20380,8 +20380,27 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_pbl_24fbddf9988e",
+        "pgc_r03_g5a_u08_5a08_pbl_d273c0cebde5",
+        "pgc_r03_g5a_u08_5a08_pbl_1f95f7aef8de",
+        "pgc_r03_g5a_u08_5a08_pbl_cd62dd4526e7",
+        "pgc_r03_g5a_u08_5a08_pbl_1f52a5f057d2",
+        "pgc_r03_g5a_u08_5a08_pbl_e2f36fc39905",
+        "pgc_r03_g5a_u08_5a08_pbl_f7dfd39952c2",
+        "pgc_r03_g5a_u08_5a08_pbl_de316241da32",
+        "pgc_r03_g5a_u08_5a08_pbl_8d7b934c3f7a"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::sourceUnit::FALLBACK_404::mixed",
@@ -20693,8 +20712,27 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_pbl_24fbddf9988e",
+        "pgc_r03_g5a_u08_5a08_pbl_d273c0cebde5",
+        "pgc_r03_g5a_u08_5a08_pbl_1f95f7aef8de",
+        "pgc_r03_g5a_u08_5a08_pbl_cd62dd4526e7",
+        "pgc_r03_g5a_u08_5a08_pbl_1f52a5f057d2",
+        "pgc_r03_g5a_u08_5a08_pbl_e2f36fc39905",
+        "pgc_r03_g5a_u08_5a08_pbl_f7dfd39952c2",
+        "pgc_r03_g5a_u08_5a08_pbl_de316241da32",
+        "pgc_r03_g5a_u08_5a08_pbl_8d7b934c3f7a"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::sourceUnit::PIXEL::mixed",
@@ -21006,8 +21044,27 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_pbl_24fbddf9988e",
+        "pgc_r03_g5a_u08_5a08_pbl_d273c0cebde5",
+        "pgc_r03_g5a_u08_5a08_pbl_1f95f7aef8de",
+        "pgc_r03_g5a_u08_5a08_pbl_cd62dd4526e7",
+        "pgc_r03_g5a_u08_5a08_pbl_1f52a5f057d2",
+        "pgc_r03_g5a_u08_5a08_pbl_e2f36fc39905",
+        "pgc_r03_g5a_u08_5a08_pbl_f7dfd39952c2",
+        "pgc_r03_g5a_u08_5a08_pbl_de316241da32",
+        "pgc_r03_g5a_u08_5a08_pbl_8d7b934c3f7a"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_mixed_operation_order::CLASSIC::mixed",
@@ -21420,8 +21477,27 @@
       "capacityStatus": "VERIFIED_LIMITED",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_d9653bc3fb24",
+        "pgc_r03_g5a_u08_5a08_mixed_7810bec0a674",
+        "pgc_r03_g5a_u08_5a08_mixed_c5da82bf34ca",
+        "pgc_r03_g5a_u08_5a08_mixed_e350442b28e4",
+        "pgc_r03_g5a_u08_5a08_mixed_8d1fd6afdc00",
+        "pgc_r03_g5a_u08_5a08_mixed_04956bf22a5e",
+        "pgc_r03_g5a_u08_5a08_mixed_80ec4c4f2d53",
+        "pgc_r03_g5a_u08_5a08_mixed_726e2154ae4a",
+        "pgc_r03_g5a_u08_5a08_mixed_733014e7cc55"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_mul_div_equivalent_regroup::CLASSIC::application",
@@ -21505,8 +21581,27 @@
       "capacityStatus": "VERIFIED_LIMITED",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_d9653bc3fb24",
+        "pgc_r03_g5a_u08_5a08_mixed_7810bec0a674",
+        "pgc_r03_g5a_u08_5a08_mixed_c5da82bf34ca",
+        "pgc_r03_g5a_u08_5a08_mixed_e350442b28e4",
+        "pgc_r03_g5a_u08_5a08_mixed_8d1fd6afdc00",
+        "pgc_r03_g5a_u08_5a08_mixed_04956bf22a5e",
+        "pgc_r03_g5a_u08_5a08_mixed_80ec4c4f2d53",
+        "pgc_r03_g5a_u08_5a08_mixed_726e2154ae4a",
+        "pgc_r03_g5a_u08_5a08_mixed_733014e7cc55"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_mul_div_equivalent_regroup::FALLBACK_404::application",
@@ -21590,8 +21685,27 @@
       "capacityStatus": "VERIFIED_LIMITED",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_d9653bc3fb24",
+        "pgc_r03_g5a_u08_5a08_mixed_7810bec0a674",
+        "pgc_r03_g5a_u08_5a08_mixed_c5da82bf34ca",
+        "pgc_r03_g5a_u08_5a08_mixed_e350442b28e4",
+        "pgc_r03_g5a_u08_5a08_mixed_8d1fd6afdc00",
+        "pgc_r03_g5a_u08_5a08_mixed_04956bf22a5e",
+        "pgc_r03_g5a_u08_5a08_mixed_80ec4c4f2d53",
+        "pgc_r03_g5a_u08_5a08_mixed_726e2154ae4a",
+        "pgc_r03_g5a_u08_5a08_mixed_733014e7cc55"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_mul_div_equivalent_regroup::PIXEL::application",
@@ -22421,8 +22535,29 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_e740169dad50",
+        "pgc_r03_g5a_u08_5a08_mixed_86a174b47b9f",
+        "pgc_r03_g5a_u08_5a08_mixed_b6ab4af0b904",
+        "pgc_r03_g5a_u08_5a08_mixed_1fb7a8c1971e",
+        "pgc_r03_g5a_u08_5a08_mixed_f448c76adcde",
+        "pgc_r03_g5a_u08_5a08_mixed_6d97ce61d6e5",
+        "pgc_r03_g5a_u08_5a08_mixed_92a99fb298de",
+        "pgc_r03_g5a_u08_5a08_mixed_2339c4d79e58",
+        "pgc_r03_g5a_u08_5a08_mixed_b7a4aac306f0",
+        "pgc_r03_g5a_u08_5a08_mixed_a88fa1b0f7ba",
+        "pgc_r03_g5a_u08_5a08_mixed_e2e5ef77d0c5"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_near_round_multiply_compensation::CLASSIC::application",
@@ -22505,8 +22640,29 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_e740169dad50",
+        "pgc_r03_g5a_u08_5a08_mixed_86a174b47b9f",
+        "pgc_r03_g5a_u08_5a08_mixed_b6ab4af0b904",
+        "pgc_r03_g5a_u08_5a08_mixed_1fb7a8c1971e",
+        "pgc_r03_g5a_u08_5a08_mixed_f448c76adcde",
+        "pgc_r03_g5a_u08_5a08_mixed_6d97ce61d6e5",
+        "pgc_r03_g5a_u08_5a08_mixed_92a99fb298de",
+        "pgc_r03_g5a_u08_5a08_mixed_2339c4d79e58",
+        "pgc_r03_g5a_u08_5a08_mixed_b7a4aac306f0",
+        "pgc_r03_g5a_u08_5a08_mixed_a88fa1b0f7ba",
+        "pgc_r03_g5a_u08_5a08_mixed_e2e5ef77d0c5"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_near_round_multiply_compensation::FALLBACK_404::application",
@@ -22589,8 +22745,29 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_e740169dad50",
+        "pgc_r03_g5a_u08_5a08_mixed_86a174b47b9f",
+        "pgc_r03_g5a_u08_5a08_mixed_b6ab4af0b904",
+        "pgc_r03_g5a_u08_5a08_mixed_1fb7a8c1971e",
+        "pgc_r03_g5a_u08_5a08_mixed_f448c76adcde",
+        "pgc_r03_g5a_u08_5a08_mixed_6d97ce61d6e5",
+        "pgc_r03_g5a_u08_5a08_mixed_92a99fb298de",
+        "pgc_r03_g5a_u08_5a08_mixed_2339c4d79e58",
+        "pgc_r03_g5a_u08_5a08_mixed_b7a4aac306f0",
+        "pgc_r03_g5a_u08_5a08_mixed_a88fa1b0f7ba",
+        "pgc_r03_g5a_u08_5a08_mixed_e2e5ef77d0c5"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_near_round_multiply_compensation::PIXEL::application",
@@ -23592,8 +23769,19 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_c153f5f9855b"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::mixedSameUnit::CLASSIC::reasoning",
@@ -23793,8 +23981,19 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_c153f5f9855b"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::mixedSameUnit::FALLBACK_404::reasoning",
@@ -23994,8 +24193,19 @@
       "capacityStatus": "VERIFIED_20",
       "blocked": false,
       "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityRouteIds": [
+        "pgc_r03_g5a_u08_5a08_mixed_c153f5f9855b"
+      ],
+      "capacityQualityStatuses": [
+        "DIVERSE_PARAMETER_GENERATOR"
+      ],
+      "verifiedCapacityQuestionCountMax": 20,
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+        "sourceId": "g5a_u08_5a08",
+        "verifiedRouteMax": 20,
+        "crossSeedDiverse": true
+      }
     },
     {
       "bindingId": "g5a_u08_5a08::mixedSameUnit::PIXEL::reasoning",
@@ -46006,5 +46216,12 @@
     "routeCount": 12,
     "matchedBindingCount": 3,
     "status": "PASS_R06_A04_PUBLIC_BINDING_RECONCILED"
+  },
+  "lastR06A05Reconciliation": {
+    "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
+    "sourceId": "g5a_u08_5a08",
+    "routeCount": 30,
+    "matchedBindingCount": 12,
+    "status": "PASS_R06_A05_PUBLIC_BINDING_RECONCILED"
   }
 }

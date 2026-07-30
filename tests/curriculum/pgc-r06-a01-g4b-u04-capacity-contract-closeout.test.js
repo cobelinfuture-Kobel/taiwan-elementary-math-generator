@@ -14,6 +14,7 @@ const routeCsvPath = path.join(publicDir, "route_capacity_matrix.csv");
 const registryPath = path.join(repoRoot, "site/modules/curriculum/public/public-generator-capacity-registry.js");
 const readbackPath = path.join(repoRoot, "docs/curriculum/output/PGC-R06-A01_G4B_U04_CAPACITY_CONTRACT_CLOSEOUT.md");
 const A04_TASK_ID = "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix";
+const A05_TASK_ID = "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix";
 
 const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, "utf8"));
 
@@ -75,8 +76,19 @@ test("PGC-R06 A01 historical queue delta remains immutable while current R06 que
   assert.equal(remainingG4BU04.every((route) => route.questionType === "pbl"), true);
   assert.equal(remainingG4BU04.every((route) => !route.gapCodes.includes("CAPACITY_BELOW_20")), true);
 
+  const a05Materialized = inventory.lastR06A05Reconciliation?.taskId === A05_TASK_ID;
   const a04Materialized = inventory.lastR06A04Reconciliation?.taskId === A04_TASK_ID;
-  if (a04Materialized) {
+  if (a05Materialized) {
+    assert.equal(inventory.summary.repairQueueCount, 5);
+    assert.equal(inventory.repairQueue.filter((route) => route.sourceId === "g5a_u02_5a02").length, 0);
+    assert.equal(inventory.repairQueue.filter((route) => route.sourceId === "g5a_u08_5a08").length, 0);
+    assert.equal(inventory.lastR06A04Reconciliation?.repairQueueBefore, 47);
+    assert.equal(inventory.lastR06A04Reconciliation?.removedFromRepairQueueCount, 12);
+    assert.equal(inventory.lastR06A04Reconciliation?.repairQueueAfter, 35);
+    assert.equal(inventory.lastR06A05Reconciliation.repairQueueBefore, 35);
+    assert.equal(inventory.lastR06A05Reconciliation.removedFromRepairQueueCount, 30);
+    assert.equal(inventory.lastR06A05Reconciliation.repairQueueAfter, 5);
+  } else if (a04Materialized) {
     assert.equal(inventory.summary.repairQueueCount, 35);
     assert.equal(inventory.repairQueue.filter((route) => route.sourceId === "g5a_u02_5a02").length, 0);
     assert.equal(inventory.lastR06A04Reconciliation.repairQueueBefore, 47);
@@ -105,3 +117,5 @@ test("PGC-R06 A01 closeout readback records distance reduction and no scope expa
 });
 
 // PGC-R06 A04 historical authority and workflow governance compatibility
+
+// PGC-R06 A05 current-state advancement with A01 history preserved
