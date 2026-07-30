@@ -1,0 +1,109 @@
+name: PGC-R06 A01 G4B-U04 Bounded Capacity FullFix
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/apply-pgc-r06-g4b-u04-inverse-capacity-patch.mjs"
+      - "tools/curriculum/materialize-pgc-r06-a01-g4b-u04-bounded-capacity-diagnostics.mjs"
+      - "tests/curriculum/pgc-r06-a01-*.test.js"
+      - "site/modules/curriculum/batch-b/g4b-u04-class-c-generator.js"
+      - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
+      - "data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.json"
+      - "data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.csv"
+      - "docs/curriculum/output/PGC-R06-A01_G4B_U04_bounded_capacity_diagnostics.md"
+      - ".github/workflows/pgc-r06-a01-g4b-u04-bounded-capacity-full-fix.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r06-a01-g4b-u04-bounded-capacity-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  fullfix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout R06 A01 branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Syntax-check A01 authorities
+        run: |
+          node --check tools/curriculum/apply-pgc-r06-g4b-u04-inverse-capacity-patch.mjs
+          node --check tools/curriculum/materialize-pgc-r06-a01-g4b-u04-bounded-capacity-diagnostics.mjs
+
+      - name: Apply G4B-U04 bounded reasoning capacity FullFix
+        run: node tools/curriculum/apply-pgc-r06-g4b-u04-inverse-capacity-patch.mjs
+
+      - name: Materialize 15-route live diagnostics
+        run: node tools/curriculum/materialize-pgc-r06-a01-g4b-u04-bounded-capacity-diagnostics.mjs
+
+      - name: Require all 15 bounded routes live at 20 questions
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const report = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.json", "utf8"));
+          if (report.summary.targetRouteCount !== 15
+            || report.summary.live20PassRouteCount !== 15
+            || report.summary.live20FailRouteCount !== 0
+            || report.routes.some((route) => route.questionType === "pbl")
+            || report.routes.some((route) => route.diagnosticRuns.some((run) => run.uniquePromptCount !== 20 || run.answerKeyItemCount !== 20))) {
+            throw new Error(`PGC_R06_A01_LIVE_GATE_FAILED:${JSON.stringify(report.summary)}`);
+          }
+          const kps = new Set(report.routes.flatMap((route) => route.selectedKnowledgePointIds));
+          for (const required of [
+            "kp_g4b_u04_approximation_symbol_reading",
+            "kp_g4b_u04_inverse_rounding_unknown_digit",
+            "kp_g4b_u04_inverse_rounding_possible_original",
+          ]) {
+            if (!kps.has(required)) throw new Error(`PGC_R06_A01_REQUIRED_KP_MISSING:${required}`);
+          }
+          console.log(`PGC_R06_A01_LIVE_GATE=PASS:${JSON.stringify(report.summary)}`);
+          NODE
+
+      - name: Focused G4B-U04 generator validator acceptance
+        run: |
+          node --test tests/curriculum/s69-g4b-u04-class-c-generator-validator.test.js
+          node --test tests/curriculum/s72-g4b-u04-promotion-resolver-selector.test.js
+
+      - name: Full repository regression
+        run: npm test
+
+      - name: Commit deterministic A01 runtime and diagnostics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            site/modules/curriculum/batch-b/g4b-u04-class-c-generator.js \
+            data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.json \
+            data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.csv \
+            docs/curriculum/output/PGC-R06-A01_G4B_U04_bounded_capacity_diagnostics.md
+          if git diff --cached --quiet; then
+            echo "R06 A01 runtime and diagnostics already synchronized."
+          else
+            git commit -m "fix(pgc-r06): expand G4B-U04 bounded reasoning capacity [skip ci]"
+            git fetch origin "${{ github.head_ref || github.ref_name }}"
+            git rebase "origin/${{ github.head_ref || github.ref_name }}"
+            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
+          fi
+
+      - name: Upload A01 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r06-a01-g4b-u04-bounded-capacity
+          path: |
+            data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.json
+            data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.csv
+            docs/curriculum/output/PGC-R06-A01_G4B_U04_bounded_capacity_diagnostics.md
+          if-no-files-found: error
