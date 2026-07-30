@@ -1,0 +1,106 @@
+{
+  "schemaName": "PGCR08A03AllLegalRouteBrowserExecutionPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A03_AllLegalRoutesBrowserAcceptanceExecution",
+  "previousTaskId": "PGC-R08-A02_PublicGenerateButtonCanaryAndHarnessQualification",
+  "status": "PENDING_ALL_16_SHARDS_BROWSER_EXECUTION",
+  "sourceAuthorities": {
+    "a01Path": "data/curriculum/public-generation/public_generate_button_acceptance.json",
+    "a01ArtifactId": 8768421486,
+    "a01FullJsonSha256": "b1b123970dd30c43b1fe8e63e02e38fd943598821db38a90874bce6d21d7d5a1",
+    "a02Path": "data/curriculum/public-generation/PGC-R08-A02.public-generate-canary-harness.json",
+    "a02Status": "PASS_R08_A02_PUBLIC_GENERATE_BUTTON_CANARY_HARNESS_QUALIFIED",
+    "capacityPath": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "matrixBuilderPath": "tools/curriculum/build-pgc-r08-a01-legal-route-browser-matrix.mjs"
+  },
+  "executionPolicy": {
+    "surface": "CLASSIC",
+    "entryPath": "site/index.html",
+    "routeCount": 793,
+    "shardCount": 16,
+    "questionCountPerRoute": 20,
+    "answerKeyCountPerRoute": 20,
+    "workerConcurrency": 4,
+    "freshBrowserPagePerRoute": true,
+    "sameRouteFailureDoesNotAbortMatrix": true,
+    "routeFailureDisposition": "COLLECT_IN_REPAIR_QUEUE",
+    "systemFailureDisposition": "FAIL_CI",
+    "allRoutesMustReachTerminalClassification": true,
+    "routeExecutionOrder": "routeIndex ascending with bounded worker pool",
+    "verifiedLimitedSemantics": "historical evidence floor; execute at 20 and reconcile live evidence",
+    "binaryRetention": "retain one HTML/PDF sample per shard plus all failure screenshots; record hashes for every generated PDF"
+  },
+  "gateCodes": [
+    "UI_OPTIONS_PASS",
+    "GENERATE_BUTTON_PASS",
+    "QUESTION_COUNT_PASS",
+    "QUESTION_IDENTITY_PASS",
+    "ANSWER_VALIDATION_PASS",
+    "REGENERATE_PASS",
+    "HTML_PASS",
+    "PDF_PASS",
+    "ANSWER_KEY_PASS"
+  ],
+  "shards": [
+    {"shardId":"PGC_R08_SHARD_01","firstRouteIndex":1,"lastRouteIndex":50,"routeCount":50,"routeIdsSha256":"2aaecb8ba7824d13dd7f41c4c79a075751fbeae12e47e8aef48dbd2bda2a2bb7","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_02","firstRouteIndex":51,"lastRouteIndex":100,"routeCount":50,"routeIdsSha256":"c3debe41d69b6309d0fe2cc8a445fe3259b747d80a0e8a918e6695138a727b46","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_03","firstRouteIndex":101,"lastRouteIndex":150,"routeCount":50,"routeIdsSha256":"b4bbefccd7bedd6c4e2b5763b6c9a7aa0949d3de99a673b064e3c39eeebf43aa","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_04","firstRouteIndex":151,"lastRouteIndex":200,"routeCount":50,"routeIdsSha256":"58895605b1f51549d3a30733dbe27413ba28c0302e43d396a8232c62a1a53ed9","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_05","firstRouteIndex":201,"lastRouteIndex":250,"routeCount":50,"routeIdsSha256":"2b664464c1e77e401b7705ce1e831b417c06bcbdaab95816ba853f04cb1c2869","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_06","firstRouteIndex":251,"lastRouteIndex":300,"routeCount":50,"routeIdsSha256":"f212560851f8b4f1887ec6bd267f7fbd9ca97e09e1b86c272ed70f4cef6a51b9","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_07","firstRouteIndex":301,"lastRouteIndex":350,"routeCount":50,"routeIdsSha256":"19289c2f02efc54fae99ed962a787805c05a304e98799c4fb7a077007eef2c35","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_08","firstRouteIndex":351,"lastRouteIndex":400,"routeCount":50,"routeIdsSha256":"7c4d6715f7a32d4c5f33ad2a9bfb9bf705146e9736acadc3ee1393724aba9292","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_09","firstRouteIndex":401,"lastRouteIndex":450,"routeCount":50,"routeIdsSha256":"de41665de7a8bd84d46d1de8acea3e5abdf9c8058b2922e155ea898148406f81","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_10","firstRouteIndex":451,"lastRouteIndex":500,"routeCount":50,"routeIdsSha256":"613fcafa10e7b258028f8fde2f376fb7481cc2a625e22a941dd3726d2dde7dfc","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_11","firstRouteIndex":501,"lastRouteIndex":550,"routeCount":50,"routeIdsSha256":"b96121272d2c94a62ee8a133bd07a7b0623d482f76b34c32abbd849f7e38ec17","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_12","firstRouteIndex":551,"lastRouteIndex":600,"routeCount":50,"routeIdsSha256":"4ee475d93fb1c8fa9982e714d1f472ff062ac59b0b9b6fc6bfd0ea464401c284","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_13","firstRouteIndex":601,"lastRouteIndex":650,"routeCount":50,"routeIdsSha256":"2f3f40d979adb07b9481fd7e92f8726d3b5437924a2e03239adef4aa7e4dc44f","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_14","firstRouteIndex":651,"lastRouteIndex":700,"routeCount":50,"routeIdsSha256":"46f0cc393264891ec7174eee9176d430fe007d6f5a083e686a41e644600e3d6e","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_15","firstRouteIndex":701,"lastRouteIndex":750,"routeCount":50,"routeIdsSha256":"a880cd4a1cd2cf9f66fb3de27fb3673ec7e86e8cbc3dcc2be512e9835c0377db","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_16","firstRouteIndex":751,"lastRouteIndex":793,"routeCount":43,"routeIdsSha256":"85f3e29ec72109c8ce7b5eaabbe8987fedd1c7f664af910045f6f9f42ccfe541","status":"PENDING_BROWSER_EXECUTION"}
+  ],
+  "mandatoryHandoffs": [
+    {"routeId":"pgc_r03_g3a_u01_3a01_application_078745248eea","routeIndex":1,"shardId":"PGC_R08_SHARD_01","classification":"A02_EARLY_SENTINEL","requiredDisposition":"EXECUTE_AND_CLASSIFY"},
+    {"routeId":"pgc_r03_g3a_u08_3a08_numeric_32207c12fa17","routeIndex":59,"shardId":"PGC_R08_SHARD_02","classification":"A02_LIVE_20_REQUALIFICATION","requiredDisposition":"EXECUTE_AT_20_AND_RECONCILE_EVIDENCE"}
+  ],
+  "expectedSummary": {
+    "legalRouteCount": 793,
+    "verified20RouteCount": 724,
+    "verifiedLimitedRouteCount": 69,
+    "pendingRouteCountBefore": 793,
+    "executedRouteCountTarget": 793,
+    "terminalRouteCountTarget": 793,
+    "samplePdfTarget": 16,
+    "sampleHtmlTarget": 16
+  },
+  "artifactContract": {
+    "outputDirectory": "tmp/pgc-r08-a03-all-legal-routes",
+    "report": "report.json",
+    "csv": "route_results.csv",
+    "failureReport": "failed_combination_report.md",
+    "sampleDirectory": "samples",
+    "failureDirectory": "failures",
+    "checkpoint": "checkpoint.json"
+  },
+  "frozenBoundary": {
+    "productUiModificationAllowed": false,
+    "generatorModificationAllowed": false,
+    "validatorModificationAllowed": false,
+    "rendererModificationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "newWorkflowAllowed": false,
+    "slice014Allowed": false
+  },
+  "goalDistance": {
+    "before": "D1_R08_PUBLIC_GENERATE_BUTTON_HARNESS_QUALIFIED",
+    "after": "D1_R08_ALL_LEGAL_ROUTE_BROWSER_EXECUTION_PENDING",
+    "distanceReduced": "froze one complete terminal execution policy for all 793 legal routes and all 16 deterministic shards",
+    "remainingBlockers": [
+      "ALL_793_LEGAL_ROUTES_NOT_EXECUTED",
+      "FAILED_COMBINATION_QUEUE_NOT_MATERIALIZED",
+      "CAPACITY_EVIDENCE_NOT_RECONCILED"
+    ],
+    "nextShortestStep": "PGC-R08-A03_ExactHeadAllShardBrowserExecution"
+  }
+}
