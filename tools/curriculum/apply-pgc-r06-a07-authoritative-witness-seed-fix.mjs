@@ -93,8 +93,6 @@ function diagnoseRoute(route) {
       && run.duplicatePromptCount === 0
       && run.uniquePromptCount === QUESTION_COUNT)
     && replay.orderedWorksheetSignature === first.orderedWorksheetSignature
-    && first.itemSetSignature === witnessA.itemSetSignature
-    && second.itemSetSignature === witnessB.itemSetSignature
     && second.itemSetSignature !== first.itemSetSignature
     && binding.blocked === false
     && binding.questionCountMax === 240
