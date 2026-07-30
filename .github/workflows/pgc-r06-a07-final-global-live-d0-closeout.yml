@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "tools/curriculum/apply-pgc-r06-a07-evidence-projection-fix.mjs"
+      - "tools/curriculum/apply-pgc-r06-a07-authoritative-witness-seed-fix.mjs"
       - "tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs"
       - "tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js"
       - "tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js"
@@ -45,9 +46,13 @@ jobs:
       - name: Apply canonical evidence projection remediation
         run: node tools/curriculum/apply-pgc-r06-a07-evidence-projection-fix.mjs
 
+      - name: Apply authoritative capacity witness replay
+        run: node tools/curriculum/apply-pgc-r06-a07-authoritative-witness-seed-fix.mjs
+
       - name: Syntax-check A07 authorities
         run: |
           node --check tools/curriculum/apply-pgc-r06-a07-evidence-projection-fix.mjs
+          node --check tools/curriculum/apply-pgc-r06-a07-authoritative-witness-seed-fix.mjs
           node --check tools/curriculum/materialize-pgc-r06-a07-final-global-live-d0-closeout.mjs
           node --check tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js
           node --check tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js
@@ -79,7 +84,7 @@ jobs:
             || report.summary.parallelGapFieldCount !== 0
             || report.summary.uiUnverifiedCapacityExposureCount !== 0
             || report.routes.length !== 389
-            || report.routes.some((route) => route.accepted !== true)) {
+            || report.routes.some((route) => route.accepted !== true || route.witnessSeeds?.length !== 2)) {
             throw new Error(`PGC_R06_A07_D0_GATE_FAILED:${JSON.stringify(report.summary)}`);
           }
           console.log(`PGC_R06_A07_D0_GATE=PASS:${JSON.stringify(report.summary)}`);
