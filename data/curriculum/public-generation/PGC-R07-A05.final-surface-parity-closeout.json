@@ -4,7 +4,7 @@
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R07-A05_FinalSurfaceParityReconciliationAndCloseout",
   "previousTaskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix",
-  "status": "PENDING_EXACT_HEAD_CI_AND_D0_MARKER",
+  "status": "PASS_R07_A05_SURFACE_RENDERER_PRINT_PARITY_RECONCILED_AND_D0_CLOSED",
   "lineage": [
     {
       "taskId": "PGC-R07-A00_SurfaceRendererPrintAuthorityAndParityMatrixFreeze",
@@ -189,12 +189,24 @@
     "fourRendererBranchStressMatrixPass": true,
     "allAcceptanceDimensionsPass": true,
     "repairQueueZero": true,
-    "fullRegression": "PENDING_EXACT_HEAD_CI",
-    "pgcR00Gate": "PENDING_EXACT_HEAD_CI",
-    "postgApplicationGate": "PENDING_EXACT_HEAD_CI",
-    "terminalMarkerWritten": false
+    "fullRegression": "PASS_2711_OF_2711",
+    "pgcR00Gate": "PASS",
+    "postgApplicationGate": "NOT_APPLICABLE_NO_APPLICATION_RUNTIME_CHANGE",
+    "terminalMarkerWritten": true
   },
-  "exactHeadEvidence": null,
+  "exactHeadEvidence": {
+    "acceptedHeadSha": "4c7f32dff6dbfa2c43c8127c193b8793a48866df",
+    "nodeWorkflowRunId": 30562016890,
+    "nodeWorkflowRunNumber": 4404,
+    "pgcR00WorkflowRunId": 30562016908,
+    "pgcR00WorkflowRunNumber": 185,
+    "testCount": 2711,
+    "passCount": 2711,
+    "failCount": 0,
+    "nodeTest": "PASS",
+    "pgcR00Gate": "PASS",
+    "postgApplicationGate": "NOT_APPLICABLE_NO_APPLICATION_RUNTIME_CHANGE"
+  },
   "frozenBoundary": {
     "generatorModified": false,
     "validatorModified": false,
@@ -208,9 +220,9 @@
   },
   "goalDistance": {
     "before": "D1_R07_OVERFLOW_FONT_PAGINATION_MATRIX_PASS",
-    "after": "D1_R07_FINAL_RECONCILIATION_PENDING_EXACT_HEAD_CI",
-    "distanceReduced": "reconciled all surface projections, renderer branches and layout acceptance dimensions into one zero-repair terminal authority",
-    "remainingBlockers": ["EXACT_HEAD_CI_PENDING", "D0_MARKER_PENDING"],
-    "nextShortestStep": "PGC-R07-A05_ExactHeadCIAndD0Readback"
+    "after": "D0_R07_REAL_PRINT_AND_SURFACE_PARITY_CLOSED",
+    "distanceReduced": "closed all twelve public surface-output projections, all four renderer branches and all seven layout acceptance dimensions with fourteen real Chromium PDFs and a zero repair queue",
+    "remainingBlockers": [],
+    "nextShortestStep": "PGC-R07-A05_D0Closed_SelectNextApprovedProgram"
   }
 }
