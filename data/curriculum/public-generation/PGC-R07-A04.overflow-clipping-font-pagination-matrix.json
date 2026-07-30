@@ -1,0 +1,121 @@
+{
+  "schemaName": "PGCR07A04OverflowClippingFontPaginationMatrixContractV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix",
+  "previousTaskId": "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix",
+  "status": "PENDING_EXACT_HEAD_CI",
+  "scope": {
+    "rendererBranchCount": 4,
+    "stressProfileCount": 2,
+    "expectedMatrixRowCount": 8,
+    "pdfPerRow": 1,
+    "browser": "Playwright Chromium",
+    "paperSize": "A4"
+  },
+  "rendererBranches": [
+    {
+      "branchId": "SHARED_EXACT_LAYOUT",
+      "routeAuthority": "shouldUseSharedExactLayoutRenderer",
+      "expectedRoute": "sharedExactLayout"
+    },
+    {
+      "branchId": "DYNAMIC_HTML",
+      "routeAuthority": "worksheetDocument.dynamicHtml",
+      "expectedRoute": "dynamic"
+    },
+    {
+      "branchId": "STATIC_HTML_URL",
+      "routeAuthority": "worksheetDocument.staticHtmlUrl",
+      "expectedRoute": "staticHtmlUrl"
+    },
+    {
+      "branchId": "SHARED_FALLBACK",
+      "routeAuthority": "renderPreviewFrame default branch",
+      "expectedRoute": "sharedExactLayout"
+    }
+  ],
+  "stressProfiles": [
+    {
+      "profileId": "LONG_TEXT",
+      "questionCount": 8,
+      "columns": 2,
+      "rowsPerPage": 2,
+      "expectedQuestionPageCount": 2,
+      "expectedAnswerPageCount": 2,
+      "purpose": "Traditional Chinese long-text wrapping, clipping and pagination stress"
+    },
+    {
+      "profileId": "DENSE_NUMERIC",
+      "questionCount": 24,
+      "columns": 3,
+      "rowsPerPage": 4,
+      "expectedQuestionPageCount": 2,
+      "expectedAnswerPageCount": 2,
+      "purpose": "dense numeric grid, answer-key density and multi-page stress"
+    }
+  ],
+  "acceptanceContract": {
+    "actualRendererRouteRequired": true,
+    "realChromiumPdfRequired": true,
+    "pageOverflowFindingsAllowed": 0,
+    "clippingFindingsAllowed": 0,
+    "cellOverlapFindingsAllowed": 0,
+    "blankPageFindingsAllowed": 0,
+    "missingAnswerCountAllowed": 0,
+    "questionAnswerBijectionRequired": true,
+    "traditionalChineseFontRequired": true,
+    "fontFaceLoadRequired": true,
+    "replacementGlyphAllowed": false,
+    "crossBranchQuestionIdentityRequiredPerProfile": true,
+    "crossBranchAnswerIdentityRequiredPerProfile": true,
+    "browserConsoleErrorsAllowed": 0,
+    "browserPageErrorsAllowed": 0,
+    "pdfHeaderRequired": "%PDF-"
+  },
+  "evidenceContract": {
+    "runner": "tools/curriculum/run-pgc-r07-a04-overflow-font-pagination-matrix.mjs",
+    "reportPath": "tmp/pgc-r07-a04-overflow-font-pagination-matrix/report.json",
+    "artifactDirectory": "tmp/pgc-r07-a04-overflow-font-pagination-matrix",
+    "workflow": ".github/workflows/node-test.yml",
+    "workflowPolicy": "EXISTING_WORKFLOW_BRANCH_SPECIFIC_STEP_NO_NEW_WORKFLOW"
+  },
+  "acceptance": {
+    "expectedRowCount": 8,
+    "actualRowCount": null,
+    "pdfPassCount": null,
+    "pageOverflowFindingCount": null,
+    "clippingFindingCount": null,
+    "overlapFindingCount": null,
+    "blankPageFindingCount": null,
+    "missingAnswerCount": null,
+    "traditionalChineseFontPassCount": null,
+    "questionAnswerBijectionPassCount": null,
+    "consoleErrorCount": null,
+    "pageErrorCount": null,
+    "crossBranchQuestionIdentity": "PENDING",
+    "crossBranchAnswerIdentity": "PENDING"
+  },
+  "exactHeadEvidence": null,
+  "frozenBoundary": {
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false,
+    "productUiModified": false,
+    "knowledgePointModified": false,
+    "patternGroupModified": false,
+    "patternSpecModified": false,
+    "newWorkflowAdded": false,
+    "slice014Started": false
+  },
+  "goalDistance": {
+    "before": "D1_R07_REAL_CHROMIUM_PRINT_ANSWER_MATRIX_PASS",
+    "after": "D1_R07_OVERFLOW_FONT_PAGINATION_MATRIX_PENDING_CI",
+    "distanceReduced": "materialized a four-renderer-branch by two-stress-profile real Chromium acceptance contract without modifying product authorities",
+    "remainingBlockers": [
+      "EXACT_HEAD_CHROMIUM_MATRIX_PENDING",
+      "FINAL_SURFACE_PARITY_RECONCILIATION_PENDING"
+    ],
+    "nextShortestStep": "PGC-R07-A04_ExactHeadCIAndMatrixReadback"
+  }
+}
