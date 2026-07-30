@@ -27,7 +27,9 @@ jobs:
           node-version: 24
 
       - name: Apply approved upper-limit patch
-        run: node tools/temporary/apply-public-question-limit-240.mjs
+        run: |
+          node tools/temporary/apply-public-question-limit-240.mjs
+          node tools/temporary/apply-public-question-limit-240-v3-replay-fix.mjs
 
       - name: Materialize capacity authority
         run: node tools/curriculum/materialize-pgc-r03-capacity-aware-reconciliation.mjs
