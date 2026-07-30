@@ -29,6 +29,7 @@ const CLASS_D_PATTERN_IDS = Object.freeze([
 ]);
 const CLASS_D_SET = new Set(CLASS_D_PATTERN_IDS);
 const PGC_R05_APPLICATION_DIVERSITY_PROFILE = "pgc-r05-application-diversity-v1";
+const PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE = "pgc-r06-reasoning-mixed-diversity-v1";
 
 const LIFECYCLE = Object.freeze({
   unitId: "g5a_u02",
@@ -119,8 +120,9 @@ function makeItem(patternSpecId, seed, data, prompt, answer) {
   });
 }
 
-function isPgcR05ApplicationDiversity(options = {}) {
-  return options.generationProfile === PGC_R05_APPLICATION_DIVERSITY_PROFILE;
+function isDeterministicDiversityProfile(options = {}) {
+  return [PGC_R05_APPLICATION_DIVERSITY_PROFILE, PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE]
+    .includes(options.generationProfile);
 }
 
 function projectionSlot(seed, size) {
@@ -129,7 +131,7 @@ function projectionSlot(seed, size) {
 }
 
 function pairedQuantities(rng, seed, options = {}) {
-  if (isPgcR05ApplicationDiversity(options)) {
+  if (isDeterministicDiversityProfile(options)) {
     const slot = projectionSlot(seed, 90);
     const common = 2 + (slot % 9);
     const leftMultiplier = 101 + (2 * slot);
@@ -150,13 +152,13 @@ function generateByPattern(patternSpecId, rng, seed, options = {}) {
     return makeItem(patternSpecId, seed, generated.data, generated.prompt, generated.answer);
   }
   if (isG5AU02S108Pattern(patternSpecId)) {
-    const generated = generateG5AU02S108Pattern(patternSpecId, rng);
+    const generated = generateG5AU02S108Pattern(patternSpecId, rng, { ...options, seed });
     return makeItem(patternSpecId, seed, generated.data, generated.prompt, generated.answer);
   }
 
   switch (patternSpecId) {
     case "ps_g5a_u02_equal_partition_range_constrained_recipients": {
-      const total = isPgcR05ApplicationDiversity(options)
+      const total = isDeterministicDiversityProfile(options)
         ? 24 + projectionSlot(seed, 180)
         : rng.int(4, 12) * rng.int(2, 8);
       const minRecipients = 2;
@@ -292,3 +294,5 @@ export function getG5AU02ClassDPatternIds() { return [...CLASS_D_PATTERN_IDS]; }
 export const G5A_U02_CLASS_D_LIFECYCLE = LIFECYCLE;
 
 // PGC-R05 G5A-U02 application diversity FullFix V1
+
+// PGC-R06 A02 G5A-U02 reasoning mixed diversity FullFix V1

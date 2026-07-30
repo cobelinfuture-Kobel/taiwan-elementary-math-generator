@@ -17,6 +17,7 @@ const CLASS_C_PATTERN_IDS = Object.freeze([
 
 const CLASS_C_SET = new Set(CLASS_C_PATTERN_IDS);
 const PGC_R04_FACTOR_TARGET_PRIMES = Object.freeze([13, 17, 19, 23, 29, 31, 37, 41, 43, 47]);
+const PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE = "pgc-r06-reasoning-mixed-diversity-v1";
 const LIFECYCLE = Object.freeze({
   unitId: "g5a_u02",
   generatorStatus: "class_c_implemented_hidden",
@@ -100,7 +101,12 @@ function makeBase(patternSpecId, seed, data, prompt, answer) {
   });
 }
 
-function compositeTarget(rng) {
+function compositeTarget(rng, seed, options = {}) {
+  if (options.generationProfile === PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE) {
+    const normalizedSeed = Number.isInteger(seed) && seed >= 1 ? seed : 1;
+    const slot = (normalizedSeed - 1) % 4000;
+    return 2 * (100 + slot);
+  }
   return rng.int(2, 12) * rng.pick(PGC_R04_FACTOR_TARGET_PRIMES);
 }
 
@@ -120,10 +126,10 @@ function projectCommonFactorPair(seed) {
   });
 }
 
-function generateByPattern(patternSpecId, rng, seed) {
+function generateByPattern(patternSpecId, rng, seed, options = {}) {
   switch (patternSpecId) {
     case "ps_g5a_u02_factor_relation_equivalence": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       const isFactor = rng.int(0, 1) === 1;
       const candidateDivisor = isFactor
         ? rng.pick(factorsOf(target))
@@ -133,32 +139,32 @@ function generateByPattern(patternSpecId, rng, seed) {
     }
     case "ps_g5a_u02_factor_enumeration_trial_division":
     case "ps_g5a_u02_factor_list_from_pairs": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       return makeBase(patternSpecId, seed, { target }, `列出 ${target} 的所有因數。`, { values: factorsOf(target) });
     }
     case "ps_g5a_u02_factor_pair_enumeration": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       return makeBase(patternSpecId, seed, { target }, `列出乘積為 ${target} 的所有因數配對。`, { pairs: factorPairsOf(target) });
     }
     case "ps_g5a_u02_factor_order_and_symmetry": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       return makeBase(patternSpecId, seed, { target }, `依序列出 ${target} 的因數及對稱配對。`, { factorList: factorsOf(target), symmetricPairs: factorPairsOf(target) });
     }
     case "ps_g5a_u02_missing_factor_reconstruction": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       const complete = factorsOf(target);
       const hiddenPosition = rng.int(0, complete.length - 1);
       const visibleValues = complete.map((value, index) => index === hiddenPosition ? null : value);
       return makeBase(patternSpecId, seed, { target, visibleValues, hiddenPositions: [hiddenPosition] }, `補回 ${target} 因數表中的缺漏值。`, { valuesByPosition: { [hiddenPosition]: complete[hiddenPosition] } });
     }
     case "ps_g5a_u02_divisor_candidate_selection": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       const allFactors = factorsOf(target);
       const candidates = [...new Set([1, ...allFactors.slice(1, 4), target, target + 1, Math.max(2, target - 1)])].sort((a, b) => a - b);
       return makeBase(patternSpecId, seed, { target, candidates }, `從候選數中選出 ${target} 的因數。`, { selectedValues: candidates.filter((value) => target % value === 0) });
     }
     case "ps_g5a_u02_factor_statement_judgement": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       const candidateDivisor = rng.int(2, 12);
       return makeBase(patternSpecId, seed, { target, candidateDivisor, statementKind: "candidate_is_factor_of_target" }, `判斷：${candidateDivisor} 是 ${target} 的因數。`, { value: target % candidateDivisor === 0 });
     }
@@ -174,7 +180,7 @@ function generateByPattern(patternSpecId, rng, seed) {
       return makeBase(patternSpecId, seed, { contextKind: label }, `這是哪一類問題：${contexts[label]}？`, { label });
     }
     case "ps_g5a_u02_complete_factor_list_unknown_values": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       const list = factorsOf(target);
       const positions = list.length > 2 ? [1, list.length - 2] : [0];
       const shown = list.map((value, index) => positions.includes(index) ? null : value);
@@ -182,7 +188,7 @@ function generateByPattern(patternSpecId, rng, seed) {
       return makeBase(patternSpecId, seed, { shownFactorList: shown, unknownKeys: positions.map((position) => `p${position}`) }, "根據完整因數表，求目標數與缺漏值。", { targetNumber: target, inferredValues });
     }
     case "ps_g5a_u02_complete_factor_list_statement_evaluation": {
-      const target = compositeTarget(rng);
+      const target = compositeTarget(rng, seed, options);
       const list = factorsOf(target);
       const statements = [
         { kind: "contains_one", value: 1 },
@@ -193,8 +199,8 @@ function generateByPattern(patternSpecId, rng, seed) {
       return makeBase(patternSpecId, seed, { target, factorList: list, statements }, "判斷關於完整因數表的敘述。", { values: [true, true, !square] });
     }
     case "ps_g5a_u02_common_factor_concept_identification": {
-      const a = compositeTarget(rng);
-      const b = compositeTarget(rng);
+      const a = compositeTarget(rng, seed, options);
+      const b = compositeTarget(rng, seed, options);
       const candidates = [...new Set([1, ...factorsOf(a).slice(1, 3), ...factorsOf(b).slice(1, 3), gcd(a, b)])].sort((x, y) => x - y);
       return makeBase(patternSpecId, seed, { a, b, candidates }, `選出 ${a} 和 ${b} 的公因數。`, { selectedValues: candidates.filter((value) => a % value === 0 && b % value === 0) });
     }
@@ -216,7 +222,7 @@ function generateByPattern(patternSpecId, rng, seed) {
 export function generateG5AU02ClassC(patternSpecId, options = {}) {
   if (!CLASS_C_SET.has(patternSpecId)) throw new Error(`G5AU02_PATTERN_SPEC_ID_INVALID:${patternSpecId}`);
   const seed = options.seed ?? 1;
-  return generateByPattern(patternSpecId, createRng(seed), seed);
+  return generateByPattern(patternSpecId, createRng(seed), seed, options);
 }
 
 function expectedAnswer(item) {
@@ -311,3 +317,7 @@ export function getG5AU02ClassCPatternIds() {
 }
 
 export const G5A_U02_CLASS_C_LIFECYCLE = LIFECYCLE;
+
+// PGC-R06 A02 G5A-U02 reasoning mixed diversity FullFix V1
+
+// PGC-R06 A02 G5A-U02 Class C seed collision FullFix V2

@@ -181,7 +181,7 @@ function generateS107ClassC(patternSpecId, options = {}) {
   return makeSpecialClassCItem(
     patternSpecId,
     options,
-    generateG5AU02S107Pattern(patternSpecId, createRng(seed)),
+    generateG5AU02S107Pattern(patternSpecId, createRng(seed), { ...options, seed }),
     "p1SelectionSymbolicCommonParity",
     "G5AU02-S107_P1CandidateSymbolicRelationAndCommonFactorMarkingFullFix",
     "candidate_symbolic_common_marking_runtime",
@@ -353,3 +353,5 @@ export function validateG5AU02ClassCFromHiddenProjection(item) {
 }
 
 export const G5A_U02_CLASS_C_HIDDEN_BINDING_LIFECYCLE = BINDING_LIFECYCLE;
+
+// PGC-R06 A02 G5A-U02 S107 deterministic diversity FullFix V3

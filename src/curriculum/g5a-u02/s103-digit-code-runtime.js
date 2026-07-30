@@ -1,6 +1,7 @@
 const PATTERN_ID = "ps_g5a_u02_multi_constraint_digit_code";
 const SOURCE_PROFILE_ID = "source_1725_reference";
 const GENERATED_PROFILE_ID = "generated_unique_code_v1";
+const PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE = "pgc-r06-reasoning-mixed-diversity-v1";
 
 const SOURCE_EVIDENCE = "g5a_u02_5a02a1:p2:right-top";
 
@@ -36,6 +37,8 @@ function conditionText(kind, params) {
   switch (kind) {
     case "all_digits_distinct":
       return "四個數字互不重複。";
+    case "position_digit_equals":
+      return POSITION_NAMES[params.position] + "數字是 " + params.value + "。";
     case "position_common_factor_and_not_equal":
       return `${POSITION_NAMES[params.position]}數字和${POSITION_NAMES[params.differentFromPosition]}數字不同，且${POSITION_NAMES[params.position]}數字是 ${params.values.join(" 和 ")} 的公因數。`;
     case "position_common_factor_of_values":
@@ -177,6 +180,7 @@ function conditionMatches(value, digits, condition) {
   const params = condition.params ?? {};
   switch (condition.kind) {
     case "all_digits_distinct": return new Set(digits).size === digits.length;
+    case "position_digit_equals": return digits[params.position] === params.value;
     case "position_common_factor_and_not_equal":
       return dividesAll(digits[params.position], params.values)
         && digits[params.position] !== digits[params.differentFromPosition];
@@ -207,6 +211,42 @@ export function solveG5AU02DigitCode(candidateDomain, conditions) {
   return deepFreeze(solutions);
 }
 
+let r06BlueprintCache = null;
+
+function r06ConditionsForValue(value) {
+  const digits = digitsOf(value);
+  return [
+    makeCondition("r06_" + value + "_c1", "position_digit_equals", { position: 0, value: digits[0] }),
+    makeCondition("r06_" + value + "_c2", "digit_offset_relation", { leftPosition: 0, rightPosition: 1, offset: digits[0] - digits[1] }),
+    makeCondition("r06_" + value + "_c3", "digit_offset_relation", { leftPosition: 1, rightPosition: 2, offset: digits[1] - digits[2] }),
+    makeCondition("r06_" + value + "_c4", "digit_offset_relation", { leftPosition: 2, rightPosition: 3, offset: digits[2] - digits[3] }),
+  ];
+}
+
+function getR06GeneratedBlueprints() {
+  if (r06BlueprintCache) return r06BlueprintCache;
+  const rows = [];
+  for (let value = GENERATED_DOMAIN.min; value <= GENERATED_DOMAIN.max && rows.length < 180; value += 1) {
+    if (!domainAllows(value, GENERATED_DOMAIN)) continue;
+    const conditions = r06ConditionsForValue(value);
+    const solutions = solveG5AU02DigitCode(GENERATED_DOMAIN, conditions);
+    if (solutions.length !== 1 || solutions[0].value !== value) continue;
+    const minimal = conditions.every((_, index) => {
+      const reduced = solveG5AU02DigitCode(GENERATED_DOMAIN, conditions.filter((__, conditionIndex) => conditionIndex !== index));
+      return reduced.length !== 1 || reduced[0].value !== value;
+    });
+    if (!minimal) continue;
+    rows.push(deepFreeze({ blueprintId: "generated_r06_" + value, expectedValue: value, conditions }));
+  }
+  if (rows.length < 20) throw new Error("G5AU02_PGC_R06_DIGIT_CODE_BLUEPRINT_CAPACITY:" + rows.length);
+  r06BlueprintCache = deepFreeze(rows);
+  return r06BlueprintCache;
+}
+
+function isR06Diversity(options = {}) {
+  return options.generationProfile === PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE;
+}
+
 function buildSourceProfile() {
   const solutions = solveG5AU02DigitCode(SOURCE_DOMAIN, SOURCE_CONDITIONS);
   return {
@@ -231,8 +271,10 @@ function buildSourceProfile() {
   };
 }
 
-function buildGeneratedProfile(rng) {
-  const blueprint = rng.pick(GENERATED_BLUEPRINTS);
+function buildGeneratedProfile(rng, options = {}) {
+  const blueprint = isR06Diversity(options)
+    ? getR06GeneratedBlueprints()[(Math.max(1, Number(options.seed) || 1) - 1) % getR06GeneratedBlueprints().length]
+    : rng.pick(GENERATED_BLUEPRINTS);
   const solutions = solveG5AU02DigitCode(GENERATED_DOMAIN, blueprint.conditions);
   const removalAudits = blueprint.conditions.map((_, index) => {
     const reducedSolutions = solveG5AU02DigitCode(
@@ -273,7 +315,7 @@ export function generateG5AU02S103Pattern(patternSpecId, rng, options = {}) {
   const profileId = options.digitCodeProfileId ?? options.profileId ?? GENERATED_PROFILE_ID;
   let profile;
   if (profileId === SOURCE_PROFILE_ID) profile = buildSourceProfile();
-  else if (profileId === GENERATED_PROFILE_ID) profile = buildGeneratedProfile(rng);
+  else if (profileId === GENERATED_PROFILE_ID) profile = buildGeneratedProfile(rng, options);
   else throw new Error(`G5AU02_P0_DIGIT_CODE_PROFILE_INVALID:${profileId}`);
 
   const solution = profile.solution;
@@ -329,7 +371,8 @@ export function validateG5AU02S103Pattern(item) {
       errors.push("G5AU02_P0_SOURCE_REFERENCE_REPEATED_AS_DEFAULT");
     }
   } else {
-    const blueprint = BLUEPRINT_BY_ID.get(data.blueprintId);
+    const blueprint = BLUEPRINT_BY_ID.get(data.blueprintId)
+      ?? getR06GeneratedBlueprints().find((row) => row.blueprintId === data.blueprintId);
     if (data.productionAllocation !== "default_regeneration"
       || !blueprint
       || !same(data.conditions, blueprint?.conditions)
@@ -388,3 +431,5 @@ export function getG5AU02S103GeneratedBlueprints() { return GENERATED_BLUEPRINTS
 export const G5A_U02_S103_SOURCE_PROFILE_ID = SOURCE_PROFILE_ID;
 export const G5A_U02_S103_GENERATED_PROFILE_ID = GENERATED_PROFILE_ID;
 export const G5A_U02_S103_SOURCE_CONDITIONS = SOURCE_CONDITIONS;
+
+// PGC-R06 A02 G5A-U02 reasoning mixed diversity FullFix V1
