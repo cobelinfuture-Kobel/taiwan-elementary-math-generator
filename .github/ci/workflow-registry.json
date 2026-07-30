@@ -84,7 +84,7 @@
       "retirementTaskId": null,
       "policyDisposition": "CONFORMANT",
       "evidence": {
-        "blobSha": "PENDING_GITHUB_BLOB_SHA_REPLACED_BY_CONTENT_TEST",
+        "blobSha": "cf9c2a32976d97bada4c56654b1e1bc9353b755f",
         "observations": [
           "The workflow executes npm test only after a main push or manual dispatch.",
           "It has contents: read and uploads diagnostics without writing repository state."
@@ -98,9 +98,7 @@
       "displayName": "PGC-R05 Application Generation FullFix",
       "lifecycle": "ACTIVE_OPTIONAL",
       "triggerClasses": ["PULL_REQUEST", "WORKFLOW_DISPATCH"],
-      "pathScope": [
-        "R05 application tools, tests, authorities and shared runtime paths"
-      ],
+      "pathScope": ["R05 application tools, tests, authorities and shared runtime paths"],
       "requiredCheckStatus": "UNVERIFIED",
       "branchProtectionEvidenceStatus": "NOT_INSPECTED_S00",
       "writesPullRequestBranch": true,
@@ -123,9 +121,7 @@
       "displayName": "PGC-R05 Capacity Contract Reconciliation D0 Closeout",
       "lifecycle": "ACTIVE_OPTIONAL",
       "triggerClasses": ["PULL_REQUEST", "WORKFLOW_DISPATCH"],
-      "pathScope": [
-        "R05 capacity, UI binding, diagnostics, tests and closeout authorities"
-      ],
+      "pathScope": ["R05 capacity, UI binding, diagnostics, tests and closeout authorities"],
       "requiredCheckStatus": "UNVERIFIED",
       "branchProtectionEvidenceStatus": "NOT_INSPECTED_S00",
       "writesPullRequestBranch": true,
@@ -170,31 +166,21 @@
   "observedNonconformities": [
     {
       "nonconformityId": "GCI-NC-001",
-      "workflowIds": [
-        "pgc-r05-application-generation-full-fix",
-        "pgc-r05-capacity-contract-reconciliation-d0-closeout"
-      ],
+      "workflowIds": ["pgc-r05-application-generation-full-fix", "pgc-r05-capacity-contract-reconciliation-d0-closeout"],
       "rule": "PR_BRANCH_WRITER_COUNT must be 0; pull-request CI must not commit, rebase, or push to the PR branch.",
       "status": "OPEN",
       "resolutionTaskId": "GCI-S03C_R05SelfMutatingWorkflowRetirement"
     },
     {
       "nonconformityId": "GCI-NC-002",
-      "workflowIds": [
-        "pgc-r05-application-generation-full-fix",
-        "pgc-r05-capacity-contract-reconciliation-d0-closeout"
-      ],
+      "workflowIds": ["pgc-r05-application-generation-full-fix", "pgc-r05-capacity-contract-reconciliation-d0-closeout"],
       "rule": "FULL_REGRESSION_AUTHORITY_COUNT must be 1; focused milestone workflows must not duplicate npm test.",
       "status": "OPEN",
       "resolutionTaskId": "GCI-S03C_R05SelfMutatingWorkflowRetirement"
     },
     {
       "nonconformityId": "GCI-NC-003",
-      "workflowIds": [
-        "node-test",
-        "pgc-r05-application-generation-full-fix",
-        "pgc-r05-capacity-contract-reconciliation-d0-closeout"
-      ],
+      "workflowIds": ["node-test", "pgc-r05-application-generation-full-fix", "pgc-r05-capacity-contract-reconciliation-d0-closeout"],
       "rule": "Top-level pull-request workflow fan-out must converge to one orchestrator.",
       "status": "OPEN",
       "resolutionTaskId": "GCI-S03_LegacyWorkflowRetirement"
