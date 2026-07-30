@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "programId": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
+  "taskId": "GCI-S03A_PrimaryRegressionAuthorityTransfer",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "authorityBefore": {
+    "pullRequestFullRegressionWorkflows": [
+      "node-test",
+      "pr-gate"
+    ],
+    "authoritativeWorkflow": "node-test"
+  },
+  "authorityAfter": {
+    "pullRequestFullRegressionWorkflows": [
+      "pr-gate"
+    ],
+    "authoritativeWorkflow": "pr-gate",
+    "aggregateCheck": "PR Gate / aggregate"
+  },
+  "compatibilityBridge": {
+    "workflowId": "node-test",
+    "pullRequestTriggered": true,
+    "runsFullRegression": false,
+    "reason": "Preserve an unverified legacy required-check context until GCI-S04."
+  },
+  "postMergeGuard": {
+    "workflowId": "node-test-post-merge",
+    "triggerClasses": [
+      "PUSH_MAIN",
+      "WORKFLOW_DISPATCH"
+    ],
+    "runsFullRegression": true,
+    "writesRepository": false
+  },
+  "permissions": {
+    "prGateContents": "read",
+    "nodeCompatibilityContents": "read",
+    "postMergeContents": "read"
+  },
+  "productFilesModified": false,
+  "branchProtectionModified": false,
+  "r05SelfMutatingWorkflowsModified": false,
+  "p03fSliceWorkflowsModified": false,
+  "nextTaskId": "GCI-S03B_P03FSlice005To013AffectedScopeConsolidation"
+}

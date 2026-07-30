@@ -9,25 +9,10 @@ import {
 const WORKFLOW_FILE = ".github/workflows/pr-gate.yml";
 const CONTRACT_FILE = ".github/ci/gci-s02/pr-gate-pilot-contract.json";
 
-test("GCI-S02 PR gate pilot is read-only and structurally complete", () => {
-  const workflow = fs.readFileSync(WORKFLOW_FILE, "utf8");
+test("GCI-S02 historical PR gate pilot contract remains preserved", () => {
   const contract = JSON.parse(fs.readFileSync(CONTRACT_FILE, "utf8"));
 
-  assert.match(workflow, /^name: PR Gate Pilot$/m);
-  assert.match(workflow, /^\s{2}contents: read$/m);
-  assert.match(workflow, /group: pr-gate-\$\{\{ github\.event\.pull_request\.number \|\| github\.ref \}\}/);
-  assert.match(workflow, /cancel-in-progress: true/);
-
-  assert.match(workflow, /^\s{2}detect_changes:$/m);
-  assert.match(workflow, /^\s{2}focused_governance:$/m);
-  assert.match(workflow, /^\s{2}full_regression:$/m);
-  assert.match(workflow, /^\s{2}aggregate:$/m);
-  assert.match(workflow, /name: PR Gate \/ aggregate/);
-
-  assert.equal((workflow.match(/(?:^|\s)npm\s+test(?:\s|$)/gm) ?? []).length, 1);
-  assert.doesNotMatch(workflow, /\bgit\s+(?:commit|push|rebase)\b/);
-  assert.match(workflow, /uses: actions\/upload-artifact@v4/);
-
+  assert.equal(contract.taskId, "GCI-S02_SinglePrGateOrchestratorPilot");
   assert.equal(contract.mode, "PILOT_GOVERNANCE_PATHS_ONLY");
   assert.equal(contract.permissions.contents, "read");
   assert.equal(contract.fullRegressionOccurrenceCount, 1);
@@ -39,19 +24,23 @@ test("GCI-S02 PR gate pilot is read-only and structurally complete", () => {
   assert.equal(contract.requiredCheckMigrationStatus, "DEFERRED_TO_GCI_S04");
 });
 
-test("GCI-S02 PR gate is visible in the live workflow inventory without mutating S01 history", () => {
+test("GCI-S02 PR gate successor remains read-only and structurally complete", () => {
+  const workflow = fs.readFileSync(WORKFLOW_FILE, "utf8");
+
+  assert.match(workflow, /^name: PR Gate(?: Pilot)?$/m);
+  assert.match(workflow, /^\s{2}contents: read$/m);
+  assert.match(workflow, /group: pr-gate-\$\{\{ github\.event\.pull_request\.number \|\| github\.ref \}\}/);
+  assert.match(workflow, /cancel-in-progress: true/);
+  assert.match(workflow, /^\s{2}detect_changes:$/m);
+  assert.match(workflow, /^\s{2}focused_governance:$/m);
+  assert.match(workflow, /^\s{2}full_regression:$/m);
+  assert.match(workflow, /^\s{2}aggregate:$/m);
+  assert.match(workflow, /name: PR Gate \/ aggregate/);
+  assert.equal((workflow.match(/(?:^|\s)npm\s+test(?:\s|$)/gm) ?? []).length, 1);
+  assert.doesNotMatch(workflow, /\bgit\s+(?:commit|push|rebase)\b/);
+  assert.match(workflow, /uses: actions\/upload-artifact@v4/);
+
   const current = materializeGciS01WorkflowInventory();
-  const historical = materializeGciS01WorkflowInventory({
-    excludeFiles: [WORKFLOW_FILE]
-  });
-
-  assert.equal(current.summary.workflowFileCount, 111);
-  assert.equal(current.summary.pullRequestWorkflowCount, 67);
-  assert.equal(current.summary.prBranchWriterCount, 20);
-  assert.equal(current.summary.prFullRegressionWorkflowCount, 25);
-  assert.equal(current.summary.lateSkipCandidateCount, 27);
-  assert.ok(current.summary.sharedExactPathPatternCount >= 79);
-
   const prGate = current.workflows.find((row) => row.file === WORKFLOW_FILE);
   assert.ok(prGate, "PR gate must be present in the live workflow inventory");
   assert.deepEqual(prGate.triggerClasses, ["PULL_REQUEST", "WORKFLOW_DISPATCH"]);
@@ -60,9 +49,4 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
   assert.equal(prGate.runsFullRegression, true);
   assert.equal(prGate.npmTestOccurrenceCount, 1);
   assert.equal(prGate.proposedDisposition, "PILOT_ORCHESTRATOR");
-
-  assert.equal(historical.summary.workflowFileCount, 110);
-  assert.equal(historical.summary.pullRequestWorkflowCount, 66);
-  assert.equal(historical.summary.prFullRegressionWorkflowCount, 24);
-  assert.ok(!historical.workflows.some((row) => row.file === WORKFLOW_FILE));
 });

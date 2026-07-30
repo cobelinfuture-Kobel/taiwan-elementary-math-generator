@@ -1,14 +1,8 @@
-name: PR Gate Pilot
+name: PR Gate
 
 on:
   pull_request:
     branches: [main]
-    paths:
-      - ".github/workflows/pr-gate.yml"
-      - ".github/ci/**"
-      - "docs/governance/**"
-      - "tests/governance/**"
-      - "tools/governance/**"
   workflow_dispatch:
 
 permissions:
@@ -20,7 +14,7 @@ concurrency:
 
 jobs:
   detect_changes:
-    name: Detect GitHub Actions changes
+    name: Detect changed files
     runs-on: ubuntu-latest
     outputs:
       changed_files_json: ${{ steps.detect.outputs.changed_files_json }}
@@ -30,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Detect affected governance scope
+      - name: Detect affected scope
         id: detect
         shell: bash
         run: |
