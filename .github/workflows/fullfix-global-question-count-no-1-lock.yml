@@ -1,0 +1,228 @@
+name: FullFix Global Question Count No 1 Lock
+
+on:
+  push:
+    branches:
+      - fullfix-global-question-count-no-1-lock
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fullfix-global-question-count-no-1-lock
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Apply scoped FullFix
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new):
+              p = Path(path)
+              text = p.read_text(encoding="utf-8")
+              if text.count(old) != 1:
+                  raise SystemExit(f"expected exactly one match in {path}, found {text.count(old)}")
+              p.write_text(text.replace(old, new), encoding="utf-8")
+
+          binding = "site/modules/curriculum/public/public-ui-capability-binding.js"
+          replace_once(binding, '''function capacityRowsForCase({ sourceId, selectionMode, selectedKnowledgePointIds, questionType }) {
+            if (!CAPACITY_REGISTRY_READY) return [];
+            const kpKey = selectionMode === SOURCE_UNIT_MODE ? "" : sortedKey(selectedKnowledgePointIds);
+            return CAPACITY_ROWS.filter((row) => row.sourceId === sourceId
+              && row.selectionMode === selectionMode
+              && row.selectedKnowledgePointKey === kpKey
+              && row.questionType === questionType
+              && row.legalRoute
+              && row.verifiedMaxQuestionCount > 0);
+          }''', '''function capacityRowsForCase({ sourceId, selectionMode, selectedKnowledgePointIds, questionType }) {
+            if (!CAPACITY_REGISTRY_READY) return [];
+            const sourceRows = CAPACITY_ROWS.filter((row) => row.sourceId === sourceId
+              && row.questionType === questionType
+              && row.legalRoute
+              && row.verifiedMaxQuestionCount > 0);
+            const kpKey = selectionMode === SOURCE_UNIT_MODE ? "" : sortedKey(selectedKnowledgePointIds);
+            const exact = sourceRows.filter((row) => row.selectionMode === selectionMode
+              && row.selectedKnowledgePointKey === kpKey);
+            if (exact.length > 0) return exact;
+
+            const selectedIds = uniqueStrings(selectedKnowledgePointIds);
+            if (selectionMode !== SOURCE_UNIT_MODE && selectedIds.length > 0) {
+              const selectedSet = new Set(selectedIds);
+              const supersets = sourceRows.filter((row) => {
+                if (row.selectionMode !== selectionMode || !row.selectedKnowledgePointKey) return false;
+                const rowSet = new Set(uniqueStrings(row.selectedKnowledgePointKey.split("|")));
+                return [...selectedSet].every((knowledgePointId) => rowSet.has(knowledgePointId));
+              });
+              if (supersets.length > 0) {
+                const smallestSize = Math.min(...supersets.map((row) => uniqueStrings(row.selectedKnowledgePointKey.split("|")).length));
+                return supersets.filter((row) => uniqueStrings(row.selectedKnowledgePointKey.split("|")).length === smallestSize);
+              }
+            }
+
+            const sourceUnitRows = sourceRows.filter((row) => row.selectionMode === SOURCE_UNIT_MODE);
+            return sourceUnitRows.length > 0 ? sourceUnitRows : sourceRows;
+          }''')
+
+          replace_once(binding, '''  const depthValues = uniqueStrings(depthCandidateRows.map((row) => row.depthMode));
+            const depthOptions = profileDepth.length > 0 ? optionSubset(profileDepth, depthValues) : [];
+            const depthMode = chooseValue(requestedDepthMode, depthOptions);
+
+            const contextCandidateRows = depthMode
+              ? groupRows.filter((row) => row.depthMode === depthMode)
+              : groupRows;
+            const contextValues = uniqueStrings(contextCandidateRows.map((row) => row.contextMode));
+            const contextOptions = profileContext.length > 0 ? optionSubset(profileContext, contextValues) : [];
+            const contextMode = chooseValue(requestedContextMode, contextOptions);''', '''  const depthValues = uniqueStrings(depthCandidateRows.map((row) => row.depthMode));
+            const depthOptions = profileDepth.length > 0
+              ? (depthValues.length > 0 ? optionSubset(profileDepth, depthValues) : profileDepth)
+              : [];
+            const depthMode = chooseValue(requestedDepthMode, depthOptions);
+
+            const contextCandidateRows = depthMode
+              ? groupRows.filter((row) => row.depthMode === depthMode)
+              : groupRows;
+            const contextValues = uniqueStrings(contextCandidateRows.map((row) => row.contextMode));
+            const contextOptions = profileContext.length > 0
+              ? (contextValues.length > 0 ? optionSubset(profileContext, contextValues) : profileContext)
+              : [];
+            const contextMode = chooseValue(requestedContextMode, contextOptions);''')
+
+          replace_once(binding, '''  const routeVerifiedMax = legalRows.length > 0
+              ? Math.min(...legalRows.map((row) => row.verifiedMaxQuestionCount))
+              : 0;
+            const verifiedMax = routeVerifiedMax > 0 ? PUBLIC_UI_SAFE_QUESTION_COUNT.max : 0;
+            const boundedMax = Number.isInteger(verifiedMax) && verifiedMax > 0 ? verifiedMax : 0;
+            const questionCount = boundedMax > 0
+              ? Object.freeze({
+                min: PUBLIC_UI_SAFE_QUESTION_COUNT.min,
+                default: Math.min(PUBLIC_UI_SAFE_QUESTION_COUNT.default, boundedMax),
+                max: boundedMax,
+                evidence: "PUBLIC_GLOBAL_QUESTION_COUNT_MAX_240",
+              })
+              : Object.freeze({ min: 0, default: 0, max: 0, evidence: "PGC_R03_NO_LEGAL_CAPACITY" });
+
+            return {
+              registryReady: true,
+              legalRows,
+              depthOptions,
+              contextOptions,
+              depthMode,
+              contextMode,
+              questionCount,
+              capacityStatus: boundedMax === PUBLIC_UI_SAFE_QUESTION_COUNT.max ? "VERIFIED_LIMITED" : boundedMax > 0 ? "VERIFIED_LIMITED" : "FAIL_CLOSED_NO_LEGAL_CAPACITY",
+              qualityStatuses: uniqueStrings(legalRows.map((row) => row.qualityStatus)),
+              routeIds: uniqueStrings(legalRows.map((row) => row.routeId)),
+            };''', '''  const routeVerifiedMax = legalRows.length > 0
+              ? Math.min(...legalRows.map((row) => row.verifiedMaxQuestionCount))
+              : 0;
+            const hasVerifiedRoute = Number.isInteger(routeVerifiedMax) && routeVerifiedMax > 0;
+
+            return {
+              registryReady: true,
+              legalRows,
+              depthOptions,
+              contextOptions,
+              depthMode,
+              contextMode,
+              questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+              capacityStatus: hasVerifiedRoute ? "VERIFIED_LIMITED" : "STRUCTURAL_FALLBACK_AVAILABLE",
+              qualityStatuses: uniqueStrings(legalRows.map((row) => row.qualityStatus)),
+              routeIds: uniqueStrings(legalRows.map((row) => row.routeId)),
+            };''')
+
+          replace_once(binding, '''  const availableQuestionTypeOptions = profileQuestionOptions.filter((option) => {
+              const structurallyAvailable = option.value === "pbl"
+                ? selectionMode === SOURCE_UNIT_MODE && isFifteenUnitPublicPblSource(sourceId)
+                : option.value === "mixed"
+                  ? annotatedGroups.some((group) => group.uiQuestionType !== null && group.effectiveQuestionType !== "pbl")
+                  : annotatedGroups.some((group) => group.uiQuestionType === option.value);
+              return structurallyAvailable && hasLegalCapacityForType(capacityCaseInput, option.value);
+            });''', '''  const structurallyAvailableQuestionTypeOptions = profileQuestionOptions.filter((option) => (
+              option.value === "pbl"
+                ? selectionMode === SOURCE_UNIT_MODE && isFifteenUnitPublicPblSource(sourceId)
+                : option.value === "mixed"
+                  ? annotatedGroups.some((group) => group.uiQuestionType !== null && group.effectiveQuestionType !== "pbl")
+                  : annotatedGroups.some((group) => group.uiQuestionType === option.value)
+            ));
+            const capacityAvailableQuestionTypeOptions = structurallyAvailableQuestionTypeOptions
+              .filter((option) => hasLegalCapacityForType(capacityCaseInput, option.value));
+            const availableQuestionTypeOptions = capacityAvailableQuestionTypeOptions.length > 0
+              ? capacityAvailableQuestionTypeOptions
+              : structurallyAvailableQuestionTypeOptions;''')
+
+          replace_once(binding, '''  const legalPublicGroupIds = CAPACITY_REGISTRY_READY && !wholeCaseCapacity
+              ? new Set(legalCapacityRows.flatMap((row) => uniqueStrings(row.publicPatternGroupKey.split("|"))))
+              : null;''', '''  const legalPublicGroupIds = CAPACITY_REGISTRY_READY && legalCapacityRows.length > 0 && !wholeCaseCapacity
+              ? new Set(legalCapacityRows.flatMap((row) => uniqueStrings(row.publicPatternGroupKey.split("|"))))
+              : null;''')
+
+          replace_once(binding, '''  if (capacity.registryReady && capacity.questionCount.max <= 0) blockedReasons.push("PUBLIC_CAPACITY_ROUTE_UNAVAILABLE");
+''', '''''')
+
+          for ui_path in [
+              "site/assets/browser/public-capability-ui.js",
+              "site/pixel/pixel-public-capability-ui.js",
+          ]:
+              replace_once(ui_path,
+                  '  const contract = binding?.questionCount ?? PUBLIC_UI_SAFE_QUESTION_COUNT;',
+                  '  const contract = PUBLIC_UI_SAFE_QUESTION_COUNT;')
+
+          test_path = Path("tests/curriculum/pgc-r02-public-ui-capability-binding.test.js")
+          test_text = test_path.read_text(encoding="utf-8")
+          marker = 'test("PGC-R02 public HTML entries expose ceiling 240 and shared adapters", () => {'
+          if marker not in test_text:
+              raise SystemExit("test insertion marker missing")
+          new_test = '''test("PGC-R02 never folds same-unit subset selection into a one-question lock", () => {
+            const grouped = visibleBySource();
+            let checked = 0;
+            for (const source of CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS) {
+              const kps = grouped.get(source.sourceId) ?? [];
+              if (kps.length < 3) continue;
+              const selectedKnowledgePointIds = kps.slice(0, -1).map((kp) => kp.knowledgePointId);
+              for (const surfaceId of Object.values(PUBLIC_UI_SURFACES)) {
+                const binding = resolvePublicUiCapabilityBinding({
+                  sourceId: source.sourceId,
+                  surfaceId,
+                  selectionMode: "mixedKnowledgePointsSameUnit",
+                  selectedKnowledgePointIds,
+                });
+                assert.equal(binding.blocked, false, `${source.sourceId}|${surfaceId}`);
+                assert.equal(binding.questionCount.min, 1, `${source.sourceId}|${surfaceId}`);
+                assert.equal(binding.questionCount.max, 240, `${source.sourceId}|${surfaceId}`);
+                assert.notEqual(binding.questionCount.max, 1, `${source.sourceId}|${surfaceId}`);
+                assert.ok(binding.availableQuestionTypeOptions.length > 0, `${source.sourceId}|${surfaceId}`);
+                checked += 1;
+              }
+            }
+            assert.ok(checked > 0, "expected same-unit subset witnesses");
+          });
+
+          '''
+          test_path.write_text(test_text.replace(marker, new_test + marker, 1), encoding="utf-8")
+          PY
+
+      - name: Focused acceptance
+        run: node --test tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+
+      - name: Commit scoped FullFix
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/fullfix-global-question-count-no-1-lock.yml
+          git add \
+            site/modules/curriculum/public/public-ui-capability-binding.js \
+            site/assets/browser/public-capability-ui.js \
+            site/pixel/pixel-public-capability-ui.js \
+            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+          git commit -m "fix(public-ui): remove global one-question capacity lock"
+          git push origin HEAD:fullfix-global-question-count-no-1-lock
