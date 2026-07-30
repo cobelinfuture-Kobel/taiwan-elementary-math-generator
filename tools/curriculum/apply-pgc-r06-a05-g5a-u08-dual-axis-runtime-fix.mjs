@@ -13,27 +13,12 @@ function absolute(relativePath) {
   return path.join(repoRoot, relativePath);
 }
 
-function replaceFunction(source, signature, replacement) {
-  const start = source.indexOf(signature);
-  if (start < 0) throw new Error(`PGC_R06_A05_FUNCTION_ANCHOR_MISSING:${signature}`);
-  const bodyMarker = source.indexOf(") {", start + signature.length);
-  if (bodyMarker < 0) throw new Error(`PGC_R06_A05_FUNCTION_BODY_MISSING:${signature}`);
-  const braceStart = bodyMarker + 2;
-  let depth = 0;
-  let end = -1;
-  for (let index = braceStart; index < source.length; index += 1) {
-    const char = source[index];
-    if (char === "{") depth += 1;
-    if (char === "}") {
-      depth -= 1;
-      if (depth === 0) {
-        end = index + 1;
-        break;
-      }
-    }
-  }
-  if (end < 0) throw new Error(`PGC_R06_A05_FUNCTION_END_MISSING:${signature}`);
-  return `${source.slice(0, start)}${replacement}${source.slice(end)}`;
+function replaceSection(source, startSignature, endSignature, replacement) {
+  const start = source.indexOf(startSignature);
+  if (start < 0) throw new Error(`PGC_R06_A05_SECTION_START_MISSING:${startSignature}`);
+  const end = source.indexOf(endSignature, start + startSignature.length);
+  if (end < 0) throw new Error(`PGC_R06_A05_SECTION_END_MISSING:${endSignature}`);
+  return `${source.slice(0, start)}${replacement}\n\n${source.slice(end)}`;
 }
 
 function patchFile(relativePath, marker, mutate) {
@@ -48,9 +33,10 @@ function patchFile(relativePath, marker, mutate) {
   return true;
 }
 
-const pblChanged = patchFile(PBL_FILE, PBL_MARKER, (source) => replaceFunction(
+const pblChanged = patchFile(PBL_FILE, PBL_MARKER, (source) => replaceSection(
   source,
   "function buildG5AU08(plan, index)",
+  "function buildG4BU04(plan, index)",
   `function buildG5AU08(plan, index) {
   const seedText = String(plan.generationSeed ?? "").trim();
   const controlText = \`${"${plan.depthMode ?? \"mixed\"}:${plan.contextMode ?? \"mixed\"}"}\`;
@@ -205,13 +191,10 @@ function pgcR06A05CollectUniqueQuestions(normalized, entry, seenPromptKeys, nume
   };
 }`;
 
-  const withHelpers = source.replace(
-    "export function generateG5AU08CanonicalQuestions(plan = {}, options = {})",
-    `${helperBlock}export function generateG5AU08CanonicalQuestions(plan = {}, options = {})`,
-  );
-  const functionStart = withHelpers.indexOf("export function generateG5AU08CanonicalQuestions(plan = {}, options = {})");
+  const exportSignature = "export function generateG5AU08CanonicalQuestions(plan = {}, options = {})";
+  const functionStart = source.indexOf(exportSignature);
   if (functionStart < 0) throw new Error("PGC_R06_A05_ROUTER_EXPORT_MISSING");
-  return withHelpers.slice(0, functionStart) + replacement + "\n";
+  return source.slice(0, functionStart) + helperBlock + replacement + "\n";
 });
 
 console.log(`PGC_R06_A05_RUNTIME_PATCH=${JSON.stringify({
