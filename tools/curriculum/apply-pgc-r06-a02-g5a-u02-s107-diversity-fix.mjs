@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const marker = "PGC-R06 A02 G5A-U02 S107 deterministic diversity FullFix V3";
+const generationProfile = "pgc-r06-reasoning-mixed-diversity-v1";
 
 function replaceRequired(source, before, after, label) {
   if (source.includes(after)) return source;
@@ -70,7 +71,7 @@ const changedFiles = [
 console.log(`PGC_R06_A02_S107_DIVERSITY_FIX=${JSON.stringify({
   status: changedFiles.length ? "APPLIED" : "ALREADY_APPLIED",
   changedFiles,
-  generationProfile: PGC_R06_REASONING_MIXED_DIVERSITY_PROFILE,
+  generationProfile,
   secondGeneratorAdded: false,
   secondValidatorAdded: false,
 })}`);
