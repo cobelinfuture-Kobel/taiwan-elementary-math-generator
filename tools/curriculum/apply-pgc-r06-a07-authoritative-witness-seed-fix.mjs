@@ -163,3 +163,5 @@ console.log(`PGC_R06_A07_AUTHORITATIVE_WITNESS_FIX=${JSON.stringify({
   materializerChanged,
   testChanged,
 })}`);
+
+// Terminal inventory compatibility rerun.
