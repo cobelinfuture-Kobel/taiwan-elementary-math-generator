@@ -1,0 +1,118 @@
+{
+  "schemaName": "PGCR07A04OverflowClippingFontPaginationFullFixV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix",
+  "previousTaskId": "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix",
+  "status": "IMPLEMENTATION_READY_PENDING_EXACT_HEAD_CI",
+  "scope": {
+    "rendererBranchCount": 4,
+    "answerKeyModeCount": 2,
+    "expectedMatrixRowCount": 8,
+    "surfaceId": "CLASSIC_RENDER_PREVIEW_FRAME",
+    "browser": "Playwright Chromium",
+    "pdfEngine": "Chromium page.pdf",
+    "paperSize": "A4"
+  },
+  "rendererBranches": [
+    {
+      "branchId": "SHARED_EXACT_LAYOUT",
+      "trigger": "layoutMode=exact_approved_matrix and layoutExact=true",
+      "witnessSourceId": "g5a_u08_5a08",
+      "witnessPolicy": "UNMODIFIED_PUBLIC_WORKSHEET_DOCUMENT",
+      "stressLayout": "3x5"
+    },
+    {
+      "branchId": "DYNAMIC_HTML",
+      "trigger": "worksheetDocument.dynamicHtml after exact-layout authority is removed",
+      "witnessSourceId": "g5a_u02_5a02",
+      "witnessPolicy": "REAL_DYNAMIC_DOCUMENT_COMPATIBILITY_PROJECTION",
+      "stressLayout": "1x5"
+    },
+    {
+      "branchId": "STATIC_HTML_URL",
+      "trigger": "worksheetDocument.staticHtmlUrl after exact and dynamic authority are removed",
+      "witnessSourceId": "g5a_u02_5a02",
+      "witnessPolicy": "REAL_STATIC_DOCUMENT_COMPATIBILITY_PROJECTION",
+      "stressLayout": "1x5"
+    },
+    {
+      "branchId": "SHARED_FALLBACK",
+      "trigger": "default renderWorksheetDocumentToHtml when no exact/dynamic/static authority applies",
+      "witnessSourceId": "g3a_u02_3a02",
+      "witnessPolicy": "REAL_SHARED_DOCUMENT_COMPATIBILITY_PROJECTION",
+      "stressLayout": "1x7"
+    }
+  ],
+  "acceptanceDimensions": [
+    "NO_OVERFLOW",
+    "NO_CLIPPING",
+    "NO_QUESTION_OVERLAP",
+    "NO_MISSING_ANSWERS",
+    "NO_ABNORMAL_BLANK_PAGES",
+    "TRADITIONAL_CHINESE_FONT_OK",
+    "QUESTION_ANSWER_PAGE_BIJECTION"
+  ],
+  "acceptanceContract": {
+    "matrixRows": 8,
+    "pdfPassCount": 8,
+    "printInvocationPassCount": 8,
+    "cardOverflowCount": 0,
+    "textOverflowCount": 0,
+    "pageOverflowCount": 0,
+    "clippingFindingCount": 0,
+    "interCardOverlapCount": 0,
+    "missingPromptCount": 0,
+    "missingAnswerCount": 0,
+    "blankPageCount": 0,
+    "fontFailureCount": 0,
+    "questionAnswerBijectionFailureCount": 0,
+    "pdfPageCountMismatchCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0
+  },
+  "branchWitnessRules": {
+    "actualProductDocumentRequired": true,
+    "compatibilityProjectionMayOnlyRemoveHigherPriorityRendererAuthority": true,
+    "questionContentMutationAllowed": false,
+    "answerContentMutationAllowed": false,
+    "paginationContentMutationAllowed": false,
+    "rendererImplementationMutationAllowed": false,
+    "branchIdentityMustBeObservedInPreviewFrame": true
+  },
+  "evidenceContract": {
+    "runner": "tools/curriculum/run-pgc-r07-a04-overflow-clipping-font-pagination.mjs",
+    "focusedTest": "tests/curriculum/pgc-r07-a04-overflow-clipping-font-pagination.test.js",
+    "reportPath": "tmp/pgc-r07-a04-overflow-clipping-font-pagination/report.json",
+    "artifactDirectory": "tmp/pgc-r07-a04-overflow-clipping-font-pagination",
+    "workflow": ".github/workflows/node-test.yml",
+    "workflowPolicy": "EXISTING_WORKFLOW_BRANCH_SPECIFIC_STEP_NO_NEW_WORKFLOW"
+  },
+  "authorityReconciliation": {
+    "frozenController": "data/curriculum/public-generation/PGC-R07-A00.surface-renderer-print-scope.json",
+    "canonicalTaskId": "PGC-R07-A04_OverflowClippingFontPaginationFullFix",
+    "a03NonCanonicalAlias": "PGC-R07-A04_OverflowClippingFontAndPaginationFullFix",
+    "aliasMustBeRemoved": true
+  },
+  "frozenBoundary": {
+    "generatorModified": false,
+    "validatorModified": false,
+    "productUiModified": false,
+    "knowledgePointModified": false,
+    "patternGroupModified": false,
+    "patternSpecModified": false,
+    "newWorkflowAdded": false,
+    "slice014Started": false,
+    "batchExpansionStarted": false
+  },
+  "goalDistance": {
+    "before": "D1_R07_REAL_CHROMIUM_PRINT_ANSWER_MATRIX_PASS",
+    "after": "D1_R07_RENDERER_QUALITY_MATRIX_IMPLEMENTATION_READY_PENDING_CI",
+    "distanceReduced": "froze one executable eight-row renderer-branch quality matrix covering overflow, clipping, overlap, answers, blank pages, Traditional Chinese fonts and pagination bijection",
+    "remainingBlockers": [
+      "A04_EXACT_HEAD_CHROMIUM_MATRIX_PENDING",
+      "RENDERER_BRANCH_PARITY_UNPROVEN"
+    ],
+    "nextShortestStep": "PGC-R07-A04_ExactHeadCIAndFullFixReadback"
+  }
+}
