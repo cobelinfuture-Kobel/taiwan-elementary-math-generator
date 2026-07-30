@@ -1,0 +1,159 @@
+{
+  "schemaName": "PGCR07A03ChromiumPrintAnswerKeyMatrixContractV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R07-A03_RealChromiumPrintAndAnswerKeyMatrix",
+  "previousTaskId": "PGC-R07-A02_SharedRendererAndLegacyBranchParityFullFix",
+  "status": "PASS_EXACT_HEAD_CI_REAL_CHROMIUM_MATRIX",
+  "scope": {
+    "surfaceCount": 3,
+    "answerKeyModeCount": 2,
+    "expectedMatrixRowCount": 6,
+    "sourceId": "g5a_u08_5a08",
+    "selectionMode": "sourceUnit",
+    "questionMode": "mixed",
+    "depthMode": "mixed",
+    "contextMode": "mixed",
+    "questionCount": 6,
+    "ordering": "groupedByPattern",
+    "generationSeed": "pgc-r07-a03-g5a-u08-shared-seed",
+    "columns": 3,
+    "rowsPerPage": 5
+  },
+  "surfaces": [
+    {
+      "surfaceId": "CLASSIC",
+      "entryPath": "site/index.html",
+      "adapter": "classic"
+    },
+    {
+      "surfaceId": "FALLBACK_404",
+      "entryPath": "site/404.html",
+      "adapter": "classic"
+    },
+    {
+      "surfaceId": "PIXEL",
+      "entryPath": "site/pixel/index.html",
+      "adapter": "pixel"
+    }
+  ],
+  "matrixRows": [
+    {
+      "rowId": "CLASSIC_CHROMIUM_PDF_ANSWER_ON",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": true,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "CLASSIC_CHROMIUM_PDF_ANSWER_OFF",
+      "surfaceId": "CLASSIC",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": false,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "FALLBACK_404_CHROMIUM_PDF_ANSWER_ON",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": true,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "FALLBACK_404_CHROMIUM_PDF_ANSWER_OFF",
+      "surfaceId": "FALLBACK_404",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": false,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "PIXEL_CHROMIUM_PDF_ANSWER_ON",
+      "surfaceId": "PIXEL",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": true,
+      "expectedStatus": "PASS"
+    },
+    {
+      "rowId": "PIXEL_CHROMIUM_PDF_ANSWER_OFF",
+      "surfaceId": "PIXEL",
+      "outputProjection": "CHROMIUM_PDF",
+      "includeAnswerKey": false,
+      "expectedStatus": "PASS"
+    }
+  ],
+  "parityContract": {
+    "sameConfigAndSeedRequired": true,
+    "sameQuestionIdentityAcrossAllRows": true,
+    "sameAnswerIdentityAcrossAnswerKeyRows": true,
+    "answerToggleMustPreserveQuestionIdentity": true,
+    "questionAnswerNumberBijectionRequired": true,
+    "actualSurfacePrintTargetMustBeInvoked": true,
+    "chromiumA4PdfRequired": true,
+    "pdfHeaderRequired": "%PDF-",
+    "browserConsoleErrorsAllowed": 0,
+    "browserPageErrorsAllowed": 0,
+    "overflowFindingsAllowed": 0
+  },
+  "evidenceContract": {
+    "runner": "tools/curriculum/run-pgc-r07-a03-chromium-print-answer-matrix-r1.mjs",
+    "baseRunner": "tools/curriculum/run-pgc-r07-a03-chromium-print-answer-matrix.mjs",
+    "reportPath": "tmp/pgc-r07-a03-chromium-print-answer-matrix/report.json",
+    "artifactDirectory": "tmp/pgc-r07-a03-chromium-print-answer-matrix",
+    "browser": "Playwright Chromium",
+    "pdfEngine": "Chromium page.pdf",
+    "workflow": ".github/workflows/node-test.yml",
+    "workflowPolicy": "EXISTING_WORKFLOW_BRANCH_SPECIFIC_STEP_NO_NEW_WORKFLOW"
+  },
+  "acceptance": {
+    "expectedRowCount": 6,
+    "actualRowCount": 6,
+    "pdfPassCount": 6,
+    "printInvocationPassCount": 6,
+    "answerKeyBijectionPassCount": 3,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "overflowFindingCount": 0,
+    "crossSurfaceQuestionIdentity": "EXACT_MATCH",
+    "crossSurfaceAnswerIdentity": "EXACT_MATCH_FOR_ANSWER_ON_ROWS",
+    "answerTogglePreservesQuestionIdentity": true
+  },
+  "exactHeadEvidence": {
+    "headSha": "bb4b2841ecaee5407be68b7fdf9926929a968592",
+    "workflowRunId": 30557975047,
+    "workflowRunNumber": 4396,
+    "artifactId": 8765728589,
+    "artifactDigest": "sha256:1b0021b607611169f9efb6c6f4eb2f8404e9002a605993c8f8610f9afb03ffef",
+    "artifactSizeBytes": 75871,
+    "reportStatus": "PASS",
+    "questionIdentitySha256": "2f4a34f2cad1ccbf1c66ad609a6465439a479544a6bbd8048baf8e699f596210",
+    "answerIdentitySha256": "d8f09760eaf848d9e35c7f9b62dbcc9f426d34954509113990229dea71cefc2c",
+    "answerOnPdfBytes": 12992,
+    "answerOffPdfBytes": 11954,
+    "fullRegression": "PASS",
+    "pgcR00Gate": "PASS",
+    "prGatePilot": "PASS",
+    "postgApplicationGate": "PASS",
+    "capacityRuntimeReconciliation": "PASS"
+  },
+  "frozenBoundary": {
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false,
+    "productUiModified": false,
+    "knowledgePointModified": false,
+    "patternGroupModified": false,
+    "patternSpecModified": false,
+    "newWorkflowAdded": false,
+    "slice014Started": false
+  },
+  "goalDistance": {
+    "before": "D1_R07_CLASSIC_CAPACITY_AWARE_PREVIEW_PRINT_PARITY_PASS",
+    "after": "D1_R07_REAL_CHROMIUM_PRINT_ANSWER_MATRIX_PASS",
+    "distanceReduced": "proved exact question and answer identity across Classic, fallback 404 and Pixel with six real Chromium A4 PDFs and actual print-target invocation",
+    "remainingBlockers": [
+      "RENDERER_BRANCH_PARITY_UNPROVEN",
+      "OVERFLOW_CLIPPING_FONT_PAGINATION_FULLFIX_PENDING"
+    ],
+    "nextShortestStep": "PGC-R07-A04_OverflowClippingFontAndPaginationFullFix"
+  }
+}

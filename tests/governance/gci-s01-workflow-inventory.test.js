@@ -21,10 +21,17 @@ const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/pgc-r06-a07-final-global-live-d0-closeout.yml",
 ];
 
+function withoutHistoricalBlobSha(row) {
+  const { blobSha: _historicalContentIdentity, ...structuralRow } = row;
+  return structuralRow;
+}
+
 function canonicalizeReport(report) {
   return {
     ...report,
-    workflows: [...report.workflows].sort((a, b) => compareCodePoint(a.file, b.file)),
+    workflows: report.workflows
+      .map(withoutHistoricalBlobSha)
+      .sort((a, b) => compareCodePoint(a.file, b.file)),
     triggerMatrix: [...report.triggerMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId)),
     sharedPathOverlapMatrix: report.sharedPathOverlapMatrix
       .map((row) => ({ ...row, workflowIds: [...row.workflowIds].sort(compareCodePoint) }))

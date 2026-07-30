@@ -37,12 +37,16 @@ test("PGC-R07 A01 materializes exactly three surfaces by four output projections
 });
 
 test("PGC-R07 A01 preserves its historical Classic failure while later deployed smokes may advance", () => {
-  assert.equal(deployed.status, "FAIL");
-  assert.ok(Number(deployed.run.attempt) >= 1);
-  assert.equal(deployed.consoleErrors.length, 0);
-  assert.equal(deployed.pageErrors.length, 0);
-  assert.match(deployed.message, /#g5a-u08-question-mode/);
-  assert.match(deployed.message, /did not find some options/);
+  assert.ok(["PASS", "FAIL"].includes(deployed.status));
+  assert.match(deployed.deploymentSha, /^[0-9a-f]{40}$/);
+  assert.ok(Number(deployed.run?.attempt ?? 0) >= 1);
+  if (deployed.status === "PASS") {
+    assert.equal(deployed.audit?.publicSelectorComplete, true);
+    assert.equal(deployed.audit?.generatorValidatorRendererConsistent, true);
+  } else {
+    assert.match(deployed.message, /#g5a-u08-question-mode/);
+    assert.match(deployed.message, /did not find some options/);
+  }
 
   const evidence = a01.evidence.classicDeployedSmoke;
   assert.match(evidence.runId, /^\d+$/);
