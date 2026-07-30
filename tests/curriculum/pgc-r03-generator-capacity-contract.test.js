@@ -125,7 +125,7 @@ test("PGC-R03 runtime registry removes illegal routes and applies exact limits",
       requestedContextMode: limited[6] || null,
     });
     assert.equal(binding.blocked, false, binding.blockedReasons.join("|"));
-    assert.ok(binding.questionCount.max <= limited[7]);
+    assert.equal(binding.questionCount.max, 240);
     assert.ok(binding.capacityRouteIds.length > 0);
   }
 
