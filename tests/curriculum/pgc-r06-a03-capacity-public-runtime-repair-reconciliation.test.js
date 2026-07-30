@@ -7,6 +7,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const TASK_ID = "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation";
 const A04_TASK_ID = "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix";
+const A05_TASK_ID = "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix";
 const SOURCE_ID = "g5a_u02_5a02";
 
 function readJson(relativePath) {
@@ -16,6 +17,8 @@ function readJson(relativePath) {
 const capacity = readJson("data/curriculum/public-generation/generator_capacity_contract.json");
 const materialized = capacity.lastR06A03Reconciliation?.taskId === TASK_ID;
 const a04Materialized = capacity.lastR06A04Reconciliation?.taskId === A04_TASK_ID;
+const a05Materialized = capacity.lastR06A05Reconciliation?.taskId === A05_TASK_ID;
+const currentTaskId = a05Materialized ? A05_TASK_ID : a04Materialized ? A04_TASK_ID : TASK_ID;
 
 test("PGC-R06 A03 historical reconciliation remains materialized while later R06 work may advance current state", { skip: !materialized }, async () => {
   const diagnostics = readJson("data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json");
@@ -39,7 +42,7 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
 
   const diverseRoutes = capacityRoutes.filter((route) => route.uniqueItemSetCount >= 2);
   const fixedPblRoutes = capacityRoutes.filter((route) => route.uniqueItemSetCount === 1);
-  if (a04Materialized) {
+  if (a04Materialized || a05Materialized) {
     assert.equal(diverseRoutes.length, 98);
     assert.equal(fixedPblRoutes.length, 0);
     const pblRoutes = capacityRoutes.filter((route) => route.questionType === "pbl");
@@ -62,7 +65,16 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
   assert.ok(reconciledBindings.every((binding) => binding.blocked === false));
 
   const remainingG5AQueue = inventory.repairQueue.filter((route) => route.sourceId === SOURCE_ID);
-  if (a04Materialized) {
+  if (a05Materialized) {
+    assert.equal(remainingG5AQueue.length, 0);
+    assert.equal(inventory.summary.repairQueueCount, 5);
+    assert.equal(inventory.lastR06A04Reconciliation?.repairQueueBefore, 47);
+    assert.equal(inventory.lastR06A04Reconciliation?.removedFromRepairQueueCount, 12);
+    assert.equal(inventory.lastR06A04Reconciliation?.repairQueueAfter, 35);
+    assert.equal(inventory.lastR06A05Reconciliation?.repairQueueBefore, 35);
+    assert.equal(inventory.lastR06A05Reconciliation?.removedFromRepairQueueCount, 30);
+    assert.equal(inventory.lastR06A05Reconciliation?.repairQueueAfter, 5);
+  } else if (a04Materialized) {
     assert.equal(remainingG5AQueue.length, 0);
     assert.equal(inventory.summary.repairQueueCount, 35);
     assert.equal(inventory.lastR06A04Reconciliation?.repairQueueBefore, 47);
@@ -77,7 +89,10 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
   const registryUrl = `${pathToFileURL(path.join(repoRoot, "site/modules/curriculum/public/public-generator-capacity-registry.js")).href}?pgcR06A03=${Date.now()}`;
   const registry = await import(registryUrl);
   assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS, "MATERIALIZED_PGC_R03_V3");
-  if (a04Materialized) {
+  if (a05Materialized) {
+    assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.taskId, A05_TASK_ID);
+    assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.routeCount, 30);
+  } else if (a04Materialized) {
     assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.taskId, A04_TASK_ID);
     assert.equal(registry.PUBLIC_GENERATOR_CAPACITY_RECONCILIATION.routeCount, 12);
   } else {
@@ -90,7 +105,7 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
 
   const consumerUrl = `${pathToFileURL(path.join(repoRoot, "site/modules/curriculum/public/public-ui-capability-binding.js")).href}?pgcR06A03=${Date.now()}`;
   const consumer = await import(consumerUrl);
-  assert.equal(consumer.PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.taskId, a04Materialized ? A04_TASK_ID : TASK_ID);
+  assert.equal(consumer.PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.taskId, currentTaskId);
   assert.equal(consumer.PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.registryStatus, "MATERIALIZED_PGC_R03_V3");
 
   const sample = diagnostics.routes.find((route) => route.selectionMode === "singleKnowledgePoint" && route.questionType !== "pbl") ?? diagnostics.routes[0];
@@ -105,7 +120,9 @@ test("PGC-R06 A03 historical reconciliation remains materialized while later R06
   });
   assert.equal(binding.blocked, false);
   assert.equal(binding.questionCount.max, 240);
-  assert.equal(binding.capacityReconciliation.taskId, a04Materialized ? A04_TASK_ID : TASK_ID);
+  assert.equal(binding.capacityReconciliation.taskId, currentTaskId);
 });
 
 // PGC-R06 A04 current-state advancement with A03 historical authority preserved
+
+// PGC-R06 A05 current-state advancement with A03 historical authority preserved
