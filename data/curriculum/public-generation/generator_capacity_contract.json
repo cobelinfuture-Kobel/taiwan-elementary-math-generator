@@ -17437,29 +17437,37 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "reconciliationCodes": [],
+      "reconciliationCodes": [
+        "PGC_R06_A06_FINAL_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
+      ],
       "selectedCapacityEvidence": {
+        "passed": true,
         "questionCount": 20,
+        "evidenceAuthority": "PGC-R06-A06_FINAL_FIVE_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json",
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
+            "seed": "pgc-r06-a06:pgc_r03_g3b_u04_3b04_pbl_e1916a90faec:A",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "d0544d249e60e47f1581833e4859ea7a31202bab6fb878ac499093abb82fc305",
+            "itemSetSignature": "22ef5267fa5686dc55eadbbf8d52003e946fffc07d2f860090080c27015580c8",
             "patternSpecIdsObserved": [
               "pbl_g3b_u04_shared_activity_budget"
             ],
@@ -17469,186 +17477,19 @@
             "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
           },
           {
-            "seed": "pgc-r03-seed-02",
+            "seed": "pgc-r06-a06:pgc_r03_g3b_u04_3b04_pbl_e1916a90faec:B",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
-            "patternSpecIdsObserved": [
-              "pbl_g3b_u04_shared_activity_budget"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g3b_u04_add_then_divide"
-            ],
-            "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
-            "patternSpecIdsObserved": [
-              "pbl_g3b_u04_shared_activity_budget"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g3b_u04_add_then_divide"
-            ],
-            "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
-            "patternSpecIdsObserved": [
-              "pbl_g3b_u04_shared_activity_budget"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g3b_u04_add_then_divide"
-            ],
-            "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
-            "patternSpecIdsObserved": [
-              "pbl_g3b_u04_shared_activity_budget"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g3b_u04_add_then_divide"
-            ],
-            "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
-            "patternSpecIdsObserved": [
-              "pbl_g3b_u04_shared_activity_budget"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g3b_u04_add_then_divide"
-            ],
-            "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
-            "patternSpecIdsObserved": [
-              "pbl_g3b_u04_shared_activity_budget"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g3b_u04_add_then_divide"
-            ],
-            "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
-            "patternSpecIdsObserved": [
-              "pbl_g3b_u04_shared_activity_budget"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g3b_u04_add_then_divide"
-            ],
-            "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
-            "patternSpecIdsObserved": [
-              "pbl_g3b_u04_shared_activity_budget"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g3b_u04_add_then_divide"
-            ],
-            "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-            "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "c55a7f117e90524457568351fc395727dadd5ac6084ee889b2d723b2dfaea07e",
+            "itemSetSignature": "7307e524f9b823ed8451b259e7845ef12d3596814a8236916e102ff9e5fed864",
             "patternSpecIdsObserved": [
               "pbl_g3b_u04_shared_activity_budget"
             ],
@@ -17659,18 +17500,19 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
+          "seed": "pgc-r06-a06:pgc_r03_g3b_u04_3b04_pbl_e1916a90faec:A",
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
+          "evidenceProjection": "worksheetDocument.questions",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicateItemCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "23176957ab75ab8caa0886f54dfb180c",
-          "itemSetSignature": "01bab76af85c88136a1e91c91a315f76",
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "d0544d249e60e47f1581833e4859ea7a31202bab6fb878ac499093abb82fc305",
+          "itemSetSignature": "22ef5267fa5686dc55eadbbf8d52003e946fffc07d2f860090080c27015580c8",
           "patternSpecIdsObserved": [
             "pbl_g3b_u04_shared_activity_budget"
           ],
@@ -17678,12 +17520,15 @@
             "kp_g3b_u04_add_then_divide"
           ],
           "requestedRouteId": "pgc_r03_g3b_u04_3b04_pbl_e1916a90faec"
-        },
-        "passed": true
+        }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": [],
+      "lastReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "live20Pass": true,
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json"
+      }
     },
     {
       "routeId": "pgc_r03_g3b_u04_3b04_application_11bba8b043a5",
@@ -33716,29 +33561,37 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "reconciliationCodes": [],
+      "reconciliationCodes": [
+        "PGC_R06_A06_FINAL_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
+      ],
       "selectedCapacityEvidence": {
+        "passed": true,
         "questionCount": 20,
+        "evidenceAuthority": "PGC-R06-A06_FINAL_FIVE_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json",
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
+            "seed": "pgc-r06-a06:pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4:A",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "17d29c3394b9afa2ea4c3e0df05f1a9ebe8e0f810b9c58689779abbd1638d416",
+            "itemSetSignature": "25ded8dcf97ec69198fc12ccc3ea54752e711e67672f832edb7ccf3c6070c719",
             "patternSpecIdsObserved": [
               "pbl_g4a_u08_event_budget_decision"
             ],
@@ -33748,186 +33601,19 @@
             "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
           },
           {
-            "seed": "pgc-r03-seed-02",
+            "seed": "pgc-r06-a06:pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4:B",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
-            "patternSpecIdsObserved": [
-              "pbl_g4a_u08_event_budget_decision"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4a_u08_app_mul_div_before_add_sub"
-            ],
-            "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
-            "patternSpecIdsObserved": [
-              "pbl_g4a_u08_event_budget_decision"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4a_u08_app_mul_div_before_add_sub"
-            ],
-            "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
-            "patternSpecIdsObserved": [
-              "pbl_g4a_u08_event_budget_decision"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4a_u08_app_mul_div_before_add_sub"
-            ],
-            "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
-            "patternSpecIdsObserved": [
-              "pbl_g4a_u08_event_budget_decision"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4a_u08_app_mul_div_before_add_sub"
-            ],
-            "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
-            "patternSpecIdsObserved": [
-              "pbl_g4a_u08_event_budget_decision"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4a_u08_app_mul_div_before_add_sub"
-            ],
-            "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
-            "patternSpecIdsObserved": [
-              "pbl_g4a_u08_event_budget_decision"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4a_u08_app_mul_div_before_add_sub"
-            ],
-            "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
-            "patternSpecIdsObserved": [
-              "pbl_g4a_u08_event_budget_decision"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4a_u08_app_mul_div_before_add_sub"
-            ],
-            "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
-            "patternSpecIdsObserved": [
-              "pbl_g4a_u08_event_budget_decision"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4a_u08_app_mul_div_before_add_sub"
-            ],
-            "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-            "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "2ad60f1db69306e4114d789b64ca725a0022c379831b3d115cc44c36cd867c53",
+            "itemSetSignature": "7aab8e7d4ada65ff3fc87845232662bfe56d87850173fc8f7076044c2afb3e14",
             "patternSpecIdsObserved": [
               "pbl_g4a_u08_event_budget_decision"
             ],
@@ -33938,18 +33624,19 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
+          "seed": "pgc-r06-a06:pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4:A",
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
+          "evidenceProjection": "worksheetDocument.questions",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicateItemCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "b94fac9d733626eb79144b7ceab4d7ae",
-          "itemSetSignature": "5864d5f08cb2e5b5ea156209801be64f",
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "17d29c3394b9afa2ea4c3e0df05f1a9ebe8e0f810b9c58689779abbd1638d416",
+          "itemSetSignature": "25ded8dcf97ec69198fc12ccc3ea54752e711e67672f832edb7ccf3c6070c719",
           "patternSpecIdsObserved": [
             "pbl_g4a_u08_event_budget_decision"
           ],
@@ -33957,12 +33644,15 @@
             "kp_g4a_u08_app_mul_div_before_add_sub"
           ],
           "requestedRouteId": "pgc_r03_g4a_u08_4a08_pbl_cf1460671cf4"
-        },
-        "passed": true
+        }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": [],
+      "lastReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "live20Pass": true,
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json"
+      }
     },
     {
       "routeId": "pgc_r03_g4a_u08_4a08_numeric_8b7dd5e9823c",
@@ -50673,10 +50363,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_24fbddf9988e"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -50784,10 +50471,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_d273c0cebde5"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -50895,10 +50579,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_1f95f7aef8de"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -51006,10 +50687,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_cd62dd4526e7"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -51117,10 +50795,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_1f52a5f057d2"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -51228,10 +50903,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_e2f36fc39905"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -51339,10 +51011,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_f7dfd39952c2"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -51450,10 +51119,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_de316241da32"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -51561,10 +51227,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_pbl_8d7b934c3f7a"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -62193,10 +61856,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_d9653bc3fb24"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -62316,10 +61976,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_7810bec0a674"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -62439,10 +62096,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_c5da82bf34ca"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -62562,10 +62216,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_e350442b28e4"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -62685,10 +62336,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_8d1fd6afdc00"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -62808,10 +62456,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_04956bf22a5e"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -63780,10 +63425,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_80ec4c4f2d53"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -63903,10 +63545,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_726e2154ae4a"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -64026,10 +63665,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_733014e7cc55"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -85641,10 +85277,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_e740169dad50"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -85761,10 +85394,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_86a174b47b9f"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -85881,10 +85511,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_b6ab4af0b904"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -86271,10 +85898,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_1fb7a8c1971e"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -86390,10 +86014,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_f448c76adcde"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -86509,10 +86130,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_6d97ce61d6e5"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -86628,10 +86246,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_92a99fb298de"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -86747,10 +86362,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_2339c4d79e58"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -86866,10 +86478,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_b7a4aac306f0"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -86985,10 +86594,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_a88fa1b0f7ba"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -87104,10 +86710,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_e2e5ef77d0c5"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -109336,10 +108939,7 @@
           "requestedRouteId": "pgc_r03_g5a_u08_5a08_mixed_c153f5f9855b"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
         "live20Pass": true,
@@ -119700,29 +119300,37 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "reconciliationCodes": [],
+      "reconciliationCodes": [
+        "PGC_R06_A06_FINAL_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
+      ],
       "selectedCapacityEvidence": {
+        "passed": true,
         "questionCount": 20,
+        "evidenceAuthority": "PGC-R06-A06_FINAL_FIVE_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json",
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
+            "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b:A",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "71970ff1d338b7edefa4134cd29cc4d8fbe1e335e18257270e0a4644dbb7bdff",
+            "itemSetSignature": "71970ff1d338b7edefa4134cd29cc4d8fbe1e335e18257270e0a4644dbb7bdff",
             "patternSpecIdsObserved": [
               "pbl_g4b_u04_transport_estimation"
             ],
@@ -119732,186 +119340,19 @@
             "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
           },
           {
-            "seed": "pgc-r03-seed-02",
+            "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b:B",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "5096d4340698bbeb1b9f5bc3d69eec6e1b1d78015b1eb488972ea01229c0246d",
+            "itemSetSignature": "5096d4340698bbeb1b9f5bc3d69eec6e1b1d78015b1eb488972ea01229c0246d",
             "patternSpecIdsObserved": [
               "pbl_g4b_u04_transport_estimation"
             ],
@@ -119922,18 +119363,19 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
+          "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b:A",
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
+          "evidenceProjection": "worksheetDocument.questions",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicateItemCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-          "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "71970ff1d338b7edefa4134cd29cc4d8fbe1e335e18257270e0a4644dbb7bdff",
+          "itemSetSignature": "71970ff1d338b7edefa4134cd29cc4d8fbe1e335e18257270e0a4644dbb7bdff",
           "patternSpecIdsObserved": [
             "pbl_g4b_u04_transport_estimation"
           ],
@@ -119941,12 +119383,15 @@
             "kp_g4b_u04_context_floor_ceiling_selection"
           ],
           "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_1b228f57b05b"
-        },
-        "passed": true
+        }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": [],
+      "lastReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "live20Pass": true,
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json"
+      }
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e",
@@ -119967,29 +119412,37 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "reconciliationCodes": [],
+      "reconciliationCodes": [
+        "PGC_R06_A06_FINAL_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
+      ],
       "selectedCapacityEvidence": {
+        "passed": true,
         "questionCount": 20,
+        "evidenceAuthority": "PGC-R06-A06_FINAL_FIVE_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json",
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
+            "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e:A",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "a3c1636b724c72c878182c1676c0976546ad98ac661bc6293fef5518a12a1476",
+            "itemSetSignature": "58cf4828fdeee6859396789434eee89e85a12b8289611d582c20ceb304b17d90",
             "patternSpecIdsObserved": [
               "pbl_g4b_u04_transport_estimation"
             ],
@@ -119999,186 +119452,19 @@
             "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
           },
           {
-            "seed": "pgc-r03-seed-02",
+            "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e:B",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "173b04ee951c5130fca2868ee6aa1ff8219d02a353b497cb4cc2e9470a785d91",
+            "itemSetSignature": "d0a759627282257fc303485a1dc00656aa8f541253c38a2e860af4cce7c85f7c",
             "patternSpecIdsObserved": [
               "pbl_g4b_u04_transport_estimation"
             ],
@@ -120189,18 +119475,19 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
+          "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e:A",
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
+          "evidenceProjection": "worksheetDocument.questions",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicateItemCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-          "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "a3c1636b724c72c878182c1676c0976546ad98ac661bc6293fef5518a12a1476",
+          "itemSetSignature": "58cf4828fdeee6859396789434eee89e85a12b8289611d582c20ceb304b17d90",
           "patternSpecIdsObserved": [
             "pbl_g4b_u04_transport_estimation"
           ],
@@ -120208,12 +119495,15 @@
             "kp_g4b_u04_context_floor_ceiling_selection"
           ],
           "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_4e99e7e8fb6e"
-        },
-        "passed": true
+        }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": [],
+      "lastReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "live20Pass": true,
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json"
+      }
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141",
@@ -120234,29 +119524,37 @@
       "legalRouteStatus": "LEGAL",
       "verifiedMaxQuestionCount": 20,
       "capacityStatus": "VERIFIED_20",
-      "qualityStatus": "FIXTURE_SELECTOR",
-      "uniqueItemSetCount": 1,
-      "uniqueOrderedWorksheetCount": 1,
+      "qualityStatus": "DIVERSE_PARAMETER_GENERATOR",
+      "uniqueItemSetCount": 2,
+      "uniqueOrderedWorksheetCount": 2,
       "priorFailureCodes": [
         "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
       ],
-      "reconciliationCodes": [],
+      "reconciliationCodes": [
+        "PGC_R06_A06_FINAL_PBL_CROSS_SEED_DIVERSITY_RECONCILED"
+      ],
       "selectedCapacityEvidence": {
+        "passed": true,
         "questionCount": 20,
+        "evidenceAuthority": "PGC-R06-A06_FINAL_FIVE_PBL_TWO_SEED_LIVE_RUNTIME",
+        "evidenceSource": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json",
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "seedCount": 2,
         "runs": [
           {
-            "seed": "pgc-r03-seed-01",
+            "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141:A",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "603097c853170f0b607ef33d722b747fc794ec420f3309945e1cb28f32a3ae26",
+            "itemSetSignature": "603097c853170f0b607ef33d722b747fc794ec420f3309945e1cb28f32a3ae26",
             "patternSpecIdsObserved": [
               "pbl_g4b_u04_transport_estimation"
             ],
@@ -120266,186 +119564,19 @@
             "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
           },
           {
-            "seed": "pgc-r03-seed-02",
+            "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141:B",
             "ok": true,
             "thrownError": null,
             "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
+            "evidenceProjection": "worksheetDocument.questions",
             "questionCount": 20,
             "answerKeyItemCount": 20,
             "missingPromptCount": 0,
             "duplicateItemCount": 0,
             "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-          },
-          {
-            "seed": "pgc-r03-seed-03",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-          },
-          {
-            "seed": "pgc-r03-seed-04",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-          },
-          {
-            "seed": "pgc-r03-seed-05",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-          },
-          {
-            "seed": "pgc-r03-seed-06",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-          },
-          {
-            "seed": "pgc-r03-seed-07",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-          },
-          {
-            "seed": "pgc-r03-seed-08",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-          },
-          {
-            "seed": "pgc-r03-seed-09",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
-            "patternSpecIdsObserved": [
-              "pbl_g4b_u04_transport_estimation"
-            ],
-            "knowledgePointIdsObserved": [
-              "kp_g4b_u04_context_floor_ceiling_selection"
-            ],
-            "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-          },
-          {
-            "seed": "pgc-r03-seed-10",
-            "ok": true,
-            "thrownError": null,
-            "errorCodes": [],
-            "evidenceProjection": "questionDisplayModels",
-            "questionCount": 20,
-            "answerKeyItemCount": 20,
-            "missingPromptCount": 0,
-            "duplicateItemCount": 0,
-            "duplicatePromptCount": 0,
-            "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-            "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+            "uniquePromptCount": 20,
+            "orderedWorksheetSignature": "35cb9e51f93dc0d7318eb551fbcfb37d50b7467862d2fd3f4c060975130b37f7",
+            "itemSetSignature": "35cb9e51f93dc0d7318eb551fbcfb37d50b7467862d2fd3f4c060975130b37f7",
             "patternSpecIdsObserved": [
               "pbl_g4b_u04_transport_estimation"
             ],
@@ -120456,18 +119587,19 @@
           }
         ],
         "replay": {
-          "seed": "pgc-r03-seed-01",
+          "seed": "pgc-r06-a06:pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141:A",
           "ok": true,
           "thrownError": null,
           "errorCodes": [],
-          "evidenceProjection": "questionDisplayModels",
+          "evidenceProjection": "worksheetDocument.questions",
           "questionCount": 20,
           "answerKeyItemCount": 20,
           "missingPromptCount": 0,
           "duplicateItemCount": 0,
           "duplicatePromptCount": 0,
-          "orderedWorksheetSignature": "a8a1ffe559ab31a1c2793a78008b80ef",
-          "itemSetSignature": "19b06be9ca7d0e030370f481b7616465",
+          "uniquePromptCount": 20,
+          "orderedWorksheetSignature": "603097c853170f0b607ef33d722b747fc794ec420f3309945e1cb28f32a3ae26",
+          "itemSetSignature": "603097c853170f0b607ef33d722b747fc794ec420f3309945e1cb28f32a3ae26",
           "patternSpecIdsObserved": [
             "pbl_g4b_u04_transport_estimation"
           ],
@@ -120475,12 +119607,15 @@
             "kp_g4b_u04_context_floor_ceiling_selection"
           ],
           "requestedRouteId": "pgc_r03_g4b_u04_4b04_pbl_9e62e1aef141"
-        },
-        "passed": true
+        }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ]
+      "downstreamGapCodes": [],
+      "lastReconciliation": {
+        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+        "live20Pass": true,
+        "crossSeedDistinct": true,
+        "evidenceAuthority": "data/curriculum/public-generation/PGC-R06-A06.five-pbl-residual-diagnostics.json"
+      }
     },
     {
       "routeId": "pgc_r03_g4b_u04_4b04_mixed_f6e2a0410c10",
@@ -140663,10 +139798,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_0414b52fd538"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -140807,10 +139939,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_6f6b686bb61d"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -141017,10 +140146,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_026e20925977"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -141645,10 +140771,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_155b7a11a4d1"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -141783,10 +140906,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_3c54147b154d"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -141960,10 +141080,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_4da24bd603ce"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -142467,10 +141584,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_cfc84e72edd3"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -142605,10 +141719,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_7d59509c8110"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -146707,10 +145818,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_03409cbc10b4"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -146819,10 +145927,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_9abf58c6b925"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -146931,10 +146036,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_e2414cd5792f"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147043,10 +146145,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_e6a9224f4a9b"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147155,10 +146254,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_eb45b235d995"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147267,10 +146363,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_d77a5d08d769"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147379,10 +146472,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_dbe7d293006e"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147491,10 +146581,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_cb87dbe9053a"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147603,10 +146690,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_b3971844f8e5"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147715,10 +146799,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_e6872a54e149"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147827,10 +146908,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_bdaba83351f3"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -147939,10 +147017,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce"
         }
       },
-      "downstreamGapCodes": [
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
         "live20Pass": true,
@@ -148062,10 +147137,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_c1e9faeaa57f"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -148185,10 +147257,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_91df3cd4c346"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -148392,10 +147461,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_a43383ed94db"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -148515,10 +147581,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_4295ef463e5e"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -149077,10 +148140,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_29f71ea95f6c"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -149200,10 +148260,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_7f35706aa394"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -149407,10 +148464,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_b0b12702bfac"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -149530,10 +148584,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_40ab80775d6e"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -150096,10 +149147,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_8f8b163cf5d0"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -150223,10 +149271,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_3682c45e7772"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -150436,10 +149481,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_9aa11fabacdb"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -150563,10 +149605,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_dddcf38cc371"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -151132,10 +150171,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_994af9bc0416"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -151255,10 +150291,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_c5cd7525db98"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -151462,10 +150495,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_44c78b232992"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -151585,10 +150615,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_1a0befab7c87"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -152002,10 +151029,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_ff85ac7cff13"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -152125,10 +151149,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_11dc78975064"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -152500,10 +151521,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_87d966f3060d"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -152623,10 +151641,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_031eefeb7711"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -152830,10 +151845,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_reasoning_44174643933d"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -152953,10 +151965,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_reasoning_8a6b7a6076c8"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -153328,10 +152337,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_reasoning_04b5d453dba1"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -153451,10 +152457,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_reasoning_146eeb7c4418"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -153662,10 +152665,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_fec85f2c7873"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -153789,10 +152789,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_336c253725d2"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -154002,10 +152999,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_1e3c38a51eb2"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -154129,10 +153123,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_b2ef31937ed9"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -154702,10 +153693,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_866d481e5723"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -154872,10 +153860,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_e967d8b1180b"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -155039,10 +154024,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_b1cff96674de"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -155206,10 +154188,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_72b3c79eb4a1"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -155373,10 +154352,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_319cdba8c6af"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -155540,10 +154516,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_8f70482689c0"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -157126,10 +156099,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_7f4419bb331b"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -157249,10 +156219,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_14b4855a8de3"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -157456,10 +156423,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_f656b24b4148"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -157579,10 +156543,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_82829fad625b"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -158145,10 +157106,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_f1cd86b50796"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -158272,10 +157230,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_3a795d0898ab"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -158657,10 +157612,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_08db83f2b8b4"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -158784,10 +157736,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_420c0a74a1ac"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -158997,10 +157946,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_reasoning_09734a647364"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -159124,10 +158070,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_reasoning_348aec123b14"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -159509,10 +158452,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_reasoning_e62a4eeeabc5"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -159636,10 +158576,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_reasoning_c865b6de3e28"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -159845,10 +158782,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_0af558cd57e7"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -159968,10 +158902,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_713966a43bbd"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -160343,10 +159274,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_7717949b5db2"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -160466,10 +159394,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_d2a2d46e08f3"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -162868,10 +161793,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_b644a491c7c9"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -162991,10 +161913,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_4ebebca1b6c8"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -163198,10 +162117,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_2b5fbc4d23b5"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -163321,10 +162237,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_6e2d05b085b1"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -163883,10 +162796,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_36dda82cdca7"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -164006,10 +162916,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_e5f1485fc011"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -164213,10 +163120,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_b1af1ebdd0ac"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -164336,10 +163240,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_5857e8e469fd"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -169922,10 +168823,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_a985b70bf98d"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -170129,10 +169027,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_108a1e1e1feb"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -170252,10 +169147,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_1a05bd4b0d85"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -170459,10 +169351,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_edb6025b441a"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -171850,10 +170739,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_e020abc62820"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -172057,10 +170943,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_72d77c683f8e"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -172348,10 +171231,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_7d6d0bfb0951"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -172555,10 +171435,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_3f727a5fd5a1"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -173778,11 +172655,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_05ee727bddbc"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -173902,11 +172775,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_feb86f56ccb4"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -174278,11 +173147,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_06a21fe6f5ab"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -174402,11 +173267,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_cbb8d509c527"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20",
-        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -176558,10 +175419,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_eab67e38d2f3"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -176759,10 +175617,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_375cad5f2591"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -177026,10 +175881,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_bfc3a2755e07"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -177768,10 +176620,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_7283aeb2bf61"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -177963,10 +176812,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_e8825b5159e7"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -178197,10 +177043,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_c98608c7a48d"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -178818,10 +177661,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_2f3620879b26"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -179013,10 +177853,7 @@
           "requestedRouteId": "pgc_r03_g5a_u02_5a02_mixed_f13e036a5785"
         }
       },
-      "downstreamGapCodes": [
-        "CAPACITY_BELOW_20"
-      ],
-      "gapCodes": [],
+      "downstreamGapCodes": [],
       "lastReconciliation": {
         "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
         "live20Pass": true,
@@ -216089,5 +214926,17 @@
     "pblDiversityRouteCount": 9,
     "mixedCapacityRouteCount": 21,
     "status": "PASS_R06_A05_CAPACITY_RECONCILED"
+  },
+  "lastR06A06Reconciliation": {
+    "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+    "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
+    "routeCount": 5,
+    "sourceRouteCount": {
+      "g3b_u04_3b04": 1,
+      "g4a_u08_4a08": 1,
+      "g4b_u04_4b04": 3
+    },
+    "removedDiversityGapCount": 5,
+    "status": "PASS_R06_A06_CAPACITY_RECONCILED"
   }
 }

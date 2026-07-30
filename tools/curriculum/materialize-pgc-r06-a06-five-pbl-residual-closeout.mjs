@@ -189,7 +189,7 @@ function deriveRepairQueue(rows) {
 
 function refreshCapacitySummary(capacity) {
   const legal = capacity.routes.filter((route) => route.legalRoute === true);
-  const diversityGapRouteCount = legal.filter((route) => canonicalGaps(route).includes(DIVERSITY_GAP)).length;
+  const diversityGapRouteCount = legal.filter((route) => REPAIR_TYPES.has(route.questionType) && canonicalGaps(route).includes(DIVERSITY_GAP)).length;
   capacity.summary = {
     ...capacity.summary,
     routeCount: capacity.routes.length,
