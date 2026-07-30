@@ -1,0 +1,96 @@
+{
+  "schemaName": "PublicGenerateButtonAcceptanceManifestV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A01_LegalRouteBrowserAcceptanceMatrixMaterialization",
+  "status": "PASS_MATRIX_MATERIALIZED_PENDING_BROWSER_EXECUTION",
+  "sourceAuthority": {
+    "capacityPath": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "capacityBlobSha": "8c394534bfc8457fb4b9f7774ff40da10007f9e3",
+    "capacitySha256": "44009fa826a3362aae84ffac4f68c7b20c729a8f1459ad2bf953b4fe2f6b20c9",
+    "a00Path": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+    "builderPath": "tools/curriculum/build-pgc-r08-a01-legal-route-browser-matrix.mjs",
+    "legalRouteSelector": "routes.filter(route => route.legalRoute === true).sort(routeId)",
+    "rowAuthorityType": "DETERMINISTIC_CAPACITY_VIEW",
+    "rowsInline": false,
+    "fullRowMatrixLocation": "CI_ARTIFACT"
+  },
+  "executionContract": {
+    "surface": "CLASSIC",
+    "entryPath": "site/index.html",
+    "requestedQuestionCountPerRoute": 20,
+    "expectedAnswerKeyItemCountPerRoute": 20,
+    "gateCodes": [
+      "UI_OPTIONS_PASS",
+      "GENERATE_BUTTON_PASS",
+      "QUESTION_COUNT_PASS",
+      "QUESTION_IDENTITY_PASS",
+      "ANSWER_VALIDATION_PASS",
+      "REGENERATE_PASS",
+      "HTML_PASS",
+      "PDF_PASS",
+      "ANSWER_KEY_PASS"
+    ],
+    "browserExecutionStarted": false
+  },
+  "summary": {
+    "routeCount": 1155,
+    "legalRouteCount": 793,
+    "illegalRouteCount": 362,
+    "verified20RouteCount": 724,
+    "verifiedLimitedRouteCount": 69,
+    "preknownLimitedCapacityRiskCount": 69,
+    "matrixRowCount": 793,
+    "shardSize": 50,
+    "shardCount": 16,
+    "pendingRouteCount": 793,
+    "executedRouteCount": 0,
+    "passRouteCount": 0,
+    "failRouteCount": 0
+  },
+  "shards": [
+    {"shardId":"PGC_R08_SHARD_01","firstRouteIndex":1,"lastRouteIndex":50,"routeCount":50,"routeIdsSha256":"2aaecb8ba7824d13dd7f41c4c79a075751fbeae12e47e8aef48dbd2bda2a2bb7","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_02","firstRouteIndex":51,"lastRouteIndex":100,"routeCount":50,"routeIdsSha256":"c3debe41d69b6309d0fe2cc8a445fe3259b747d80a0e8a918e6695138a727b46","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_03","firstRouteIndex":101,"lastRouteIndex":150,"routeCount":50,"routeIdsSha256":"b4bbefccd7bedd6c4e2b5763b6c9a7aa0949d3de99a673b064e3c39eeebf43aa","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_04","firstRouteIndex":151,"lastRouteIndex":200,"routeCount":50,"routeIdsSha256":"58895605b1f51549d3a30733dbe27413ba28c0302e43d396a8232c62a1a53ed9","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_05","firstRouteIndex":201,"lastRouteIndex":250,"routeCount":50,"routeIdsSha256":"2b664464c1e77e401b7705ce1e831b417c06bcbdaab95816ba853f04cb1c2869","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_06","firstRouteIndex":251,"lastRouteIndex":300,"routeCount":50,"routeIdsSha256":"f212560851f8b4f1887ec6bd267f7fbd9ca97e09e1b86c272ed70f4cef6a51b9","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_07","firstRouteIndex":301,"lastRouteIndex":350,"routeCount":50,"routeIdsSha256":"19289c2f02efc54fae99ed962a787805c05a304e98799c4fb7a077007eef2c35","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_08","firstRouteIndex":351,"lastRouteIndex":400,"routeCount":50,"routeIdsSha256":"7c4d6715f7a32d4c5f33ad2a9bfb9bf705146e9736acadc3ee1393724aba9292","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_09","firstRouteIndex":401,"lastRouteIndex":450,"routeCount":50,"routeIdsSha256":"de41665de7a8bd84d46d1de8acea3e5abdf9c8058b2922e155ea898148406f81","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_10","firstRouteIndex":451,"lastRouteIndex":500,"routeCount":50,"routeIdsSha256":"613fcafa10e7b258028f8fde2f376fb7481cc2a625e22a941dd3726d2dde7dfc","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_11","firstRouteIndex":501,"lastRouteIndex":550,"routeCount":50,"routeIdsSha256":"b96121272d2c94a62ee8a133bd07a7b0623d482f76b34c32abbd849f7e38ec17","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_12","firstRouteIndex":551,"lastRouteIndex":600,"routeCount":50,"routeIdsSha256":"4ee475d93fb1c8fa9982e714d1f472ff062ac59b0b9b6fc6bfd0ea464401c284","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_13","firstRouteIndex":601,"lastRouteIndex":650,"routeCount":50,"routeIdsSha256":"2f3f40d979adb07b9481fd7e92f8726d3b5437924a2e03239adef4aa7e4dc44f","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_14","firstRouteIndex":651,"lastRouteIndex":700,"routeCount":50,"routeIdsSha256":"46f0cc393264891ec7174eee9176d430fe007d6f5a083e686a41e644600e3d6e","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_15","firstRouteIndex":701,"lastRouteIndex":750,"routeCount":50,"routeIdsSha256":"a880cd4a1cd2cf9f66fb3de27fb3673ec7e86e8cbc3dcc2be512e9835c0377db","status":"PENDING_BROWSER_EXECUTION"},
+    {"shardId":"PGC_R08_SHARD_16","firstRouteIndex":751,"lastRouteIndex":793,"routeCount":43,"routeIdsSha256":"85f3e29ec72109c8ce7b5eaabbe8987fedd1c7f664af910045f6f9f42ccfe541","status":"PENDING_BROWSER_EXECUTION"}
+  ],
+  "artifactEvidence": {
+    "workflowRunId": 30564781169,
+    "workflowRunNumber": 4413,
+    "acceptedHeadSha": "2876add31259e3c33169e6651707bca9be6580a4",
+    "artifactId": 8768421486,
+    "artifactDigest": "sha256:05de91f1a9a61f172d65113d08b0826414ef0ecc1eda2818757f652b69fa6c75",
+    "artifactSizeBytes": 52063,
+    "fullJsonSha256": "b1b123970dd30c43b1fe8e63e02e38fd943598821db38a90874bce6d21d7d5a1",
+    "fullCsvSha256": "608fd5e3a245ec9b0e00454b4945980352fd63ae1da169f322d7a163106ea2b4",
+    "failedReportSha256": "668d50feb0fcd0ee39c85c9d5554dd7a2bf26d106c8c62e500421d3a351080c8",
+    "fullJsonBytes": 1043643,
+    "fullCsvBytes": 267978,
+    "failedReportBytes": 366,
+    "nodeTest": "PASS",
+    "postgApplicationGate": "PASS"
+  },
+  "goalDistance": {
+    "before": "D1_R08_PUBLIC_GENERATE_BUTTON_E2E_SCOPE_AND_MATRIX_CONTRACT_FROZEN",
+    "after": "D1_R08_LEGAL_ROUTE_BROWSER_ACCEPTANCE_MATRIX_MATERIALIZED",
+    "distanceReduced": "materialized all 793 legal public capacity routes into a deterministic 16-shard browser acceptance authority without duplicating capacity rows in the repository",
+    "remainingBlockers": [
+      "PUBLIC_GENERATE_BUTTON_CANARY_NOT_QUALIFIED",
+      "ALL_793_LEGAL_ROUTES_NOT_EXECUTED",
+      "FAILED_COMBINATION_QUEUE_NOT_RECONCILED"
+    ],
+    "nextShortestStep": "PGC-R08-A02_PublicGenerateButtonCanaryAndHarnessQualification"
+  }
+}
