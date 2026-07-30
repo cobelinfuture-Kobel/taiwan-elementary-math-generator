@@ -17,7 +17,7 @@ test("PGC-R07 A01 consumes the merged A00 scope and preserves all counts", () =>
   assert.equal(a01.previousTaskId, a00.taskId);
   assert.equal(a01.scope.surfaceCount, a00.summary.surfaceCount);
   assert.equal(a01.scope.outputProjectionCount, a00.summary.outputProjectionCount);
-  assert.equal(a01.scope.rendererBranchCount, a00.summary.rendererBranchCount);
+  assert.equal(a01.scope.rendererBranchCount, a00.rendererBranchesToAudit.length);
   assert.equal(a01.scope.identityFieldCount, a00.summary.identityFieldCount);
   assert.equal(a01.scope.currentPublicSourceCount, a00.summary.publicSourceCount);
   assert.equal(a01.scope.currentVisibleKnowledgePointCount, a00.summary.publicVisibleKnowledgePointCount);
