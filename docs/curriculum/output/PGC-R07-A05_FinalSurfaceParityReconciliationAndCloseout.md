@@ -4,7 +4,7 @@
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID    = PGC-R07-A05_FinalSurfaceParityReconciliationAndCloseout
 PR         = 482
-STATUS     = PENDING_EXACT_HEAD_CI_AND_D0_MARKER
+STATUS     = PASS_R07_A05_SURFACE_RENDERER_PRINT_PARITY_RECONCILED_AND_D0_CLOSED
 ```
 
 ## Reconciled lineage
@@ -15,7 +15,7 @@ A01  3 surfaces × 4 output projections baseline and five-item repair queue
 A02  capacity-aware deployed browser parity and 36-row compatibility audit
 A03  3 surfaces × answer-key on/off = 6 real Chromium A4 PDFs
 A04  4 renderer branches × 2 stress profiles = 8 real Chromium A4 PDFs
-A05  terminal reconciliation
+A05  terminal reconciliation and D0 marker
 ```
 
 ## Surface projection gate
@@ -88,21 +88,18 @@ QUESTION_IDENTITY_DRIFT           = 0
 ANSWER_IDENTITY_DRIFT             = 0
 ```
 
-## Current closeout gate
+## Exact-head evidence
 
 ```text
-SCOPE_FROZEN                            = PASS
-THREE_SURFACE_BASELINE                  = PASS
-CAPACITY_AWARE_LIVE_BROWSER_PARITY      = PASS
-THREE_SURFACE_PREVIEW_PRINT_ANSWER      = PASS
-REAL_CHROMIUM_PDF_MATRIX                = PASS
-FOUR_RENDERER_BRANCH_STRESS_MATRIX      = PASS
-ALL_ACCEPTANCE_DIMENSIONS               = PASS
-REPAIR_QUEUE_ZERO                       = PASS
-FULL_REGRESSION                         = PENDING_EXACT_HEAD_CI
-PGC_R00_GATE                            = PENDING_EXACT_HEAD_CI
-POSTG_APPLICATION_GATE                  = PENDING_EXACT_HEAD_CI
-TERMINAL_MARKER                         = PENDING
+ACCEPTED_HEAD_SHA                 = 4c7f32dff6dbfa2c43c8127c193b8793a48866df
+NODE_WORKFLOW_RUN_ID              = 30562016890
+NODE_WORKFLOW_RUN_NUMBER          = 4404
+PGC_R00_WORKFLOW_RUN_ID           = 30562016908
+PGC_R00_WORKFLOW_RUN_NUMBER       = 185
+FULL_REGRESSION                   = 2711 / 2711 PASS
+PGC_R00_GATE                      = PASS
+POSTG_APPLICATION_GATE            = NOT_APPLICABLE_NO_APPLICATION_RUNTIME_CHANGE
+TERMINAL_MARKER                   = WRITTEN
 ```
 
 ## Frozen boundary
@@ -123,8 +120,8 @@ Slice014 started         = false
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_R07_OVERFLOW_FONT_PAGINATION_MATRIX_PASS
-GOAL_DISTANCE_AFTER  = D1_R07_FINAL_RECONCILIATION_PENDING_EXACT_HEAD_CI
-DISTANCE_REDUCED     = all surface, output, renderer and layout evidence reconciled into one zero-repair authority
-REMAINING_BLOCKERS   = [EXACT_HEAD_CI_PENDING, D0_MARKER_PENDING]
-NEXT_SHORTEST_STEP   = PGC-R07-A05_ExactHeadCIAndD0Readback
+GOAL_DISTANCE_AFTER  = D0_R07_REAL_PRINT_AND_SURFACE_PARITY_CLOSED
+DISTANCE_REDUCED     = all twelve surface projections, four renderer branches and seven layout acceptance dimensions closed with fourteen real Chromium PDFs and zero repair queue
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = PGC-R07-A05_D0Closed_SelectNextApprovedProgram
 ```
