@@ -37,35 +37,13 @@ jobs:
         with:
           node-version: 24
 
-      - name: Detect later R06 authority
-        id: authority
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from "node:fs";
-          const inventory = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json", "utf8"));
-          const laterTaskId = inventory.lastR06A07Closeout?.taskId
-            ?? inventory.lastR06A06Reconciliation?.taskId
-            ?? inventory.lastR06A05Reconciliation?.taskId
-            ?? inventory.lastR06A04Reconciliation?.taskId
-            ?? inventory.lastR06A03Reconciliation?.taskId
-            ?? null;
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `historical_mode=${laterTaskId ? "true" : "false"}\n`);
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `later_task_id=${laterTaskId ?? "NONE"}\n`);
-          console.log(`PGC_R06_A00_HISTORICAL_MODE=${Boolean(laterTaskId)}:${laterTaskId ?? "NONE"}`);
-          NODE
-
       - name: Syntax-check R06 A00 authority
         run: |
           node --check tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs
           node --check tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js
 
       - name: Materialize R06 reasoning mixed PBL inventory
-        if: steps.authority.outputs.historical_mode != 'true'
         run: node tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs
-
-      - name: Confirm historical compatibility mode
-        if: steps.authority.outputs.historical_mode == 'true'
-        run: echo "A00 is read-only because later R06 authority is active at ${{ steps.authority.outputs.later_task_id }}."
 
       - name: Focused R06 A00 acceptance
         run: node --test tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js
@@ -74,7 +52,6 @@ jobs:
         run: npm test
 
       - name: Commit deterministic R06 A00 artifacts
-        if: steps.authority.outputs.historical_mode != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
