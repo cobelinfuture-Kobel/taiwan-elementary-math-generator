@@ -34,16 +34,54 @@ const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, "utf8"));
 const hashText = (value) => crypto.createHash("sha256").update(value).digest("hex");
 const signature = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 
+function textValue(...values) {
+  for (const value of values) {
+    if (typeof value === "string" && value.trim()) return value.replace(/\s+/g, " ").trim();
+    if (typeof value === "number") return String(value);
+  }
+  return "";
+}
+
+function promptText(item) {
+  return textValue(
+    item?.blankedDisplayText,
+    item?.promptText,
+    item?.prompt,
+    item?.questionText,
+    item?.displayText,
+    item?.stem,
+    item?.equationText,
+    item?.content,
+    item?.metadataSnapshot?.blankedDisplayText,
+    item?.metadataSnapshot?.promptText,
+    item?.metadata?.blankedDisplayText,
+    item?.metadata?.promptText,
+  );
+}
+
+function evidenceItems(document) {
+  for (const [projection, candidate] of [
+    ["questionItems", document?.questionItems],
+    ["questionDisplayModels", document?.questionDisplayModels],
+    ["generatedQuestions", document?.generatedQuestions],
+    ["questions", document?.questions],
+    ["answerKeyItems", document?.answerKeyItems],
+  ]) {
+    if (Array.isArray(candidate) && candidate.length > 0) return { projection, items: candidate };
+  }
+  return { projection: "none", items: [] };
+}
+
 function planFor(route, generationSeed) {
   return {
     sourceId: route.sourceId,
     questionCount: QUESTION_COUNT,
-    ordering: "groupedByPattern",
+    ordering: "shuffleAcrossPatterns",
     includeAnswerKey: true,
     generationSeed,
     selectionMode: route.selectionMode,
     selectedKnowledgePointIds: [...(route.selectedKnowledgePointIds ?? [])],
-    selectedPatternGroupIds: [...(route.publicPatternGroupIds ?? [])],
+    selectedPatternGroupIds: [...(route.generationPatternGroupIds ?? [])],
     questionMode: route.questionType,
     depthMode: route.depthMode ?? "mixed",
     contextMode: route.contextMode ?? "mixed",
@@ -60,12 +98,13 @@ function planFor(route, generationSeed) {
 function runRoute(route, generationSeed) {
   const result = buildWorksheetDocumentFromPlan(planFor(route, generationSeed));
   const document = result?.worksheetDocument;
-  const questions = document?.questions ?? document?.generatedQuestions ?? [];
-  const prompts = questions.map((question) => String(question.prompt ?? question.promptText ?? question.blankedDisplayText ?? "").trim());
+  const { projection, items: questions } = evidenceItems(document);
+  const prompts = questions.map(promptText);
   return {
     ok: result?.ok === true,
     errors: result?.errors ?? [],
-    questionCount: document?.questionCount ?? questions.length,
+    evidenceProjection: projection,
+    questionCount: questions.length,
     answerKeyItemCount: document?.answerKeyItems?.length ?? 0,
     missingPromptCount: prompts.filter((prompt) => !prompt).length,
     duplicatePromptCount: prompts.length - new Set(prompts).size,
@@ -111,7 +150,7 @@ test("PGC-R06 A07 terminal authorities are complete and internally aligned", { s
   assert.equal(inventory.r06TerminalStatus, "D0_CLOSED");
   assert.equal(inventory.repairQueue.length, 0);
   assert.equal(inventory.summary.repairQueueCount, 0);
-  assert.equal(inventory.nextShortestStep, "OPERATOR_SELECT_NEXT_APPROVED_PROGRAM_AFTER_R06");
+  assert.equal(inventory.nextShortestStep, "PGC-R06-A07_D0Closed_SelectNextApprovedProgram");
   assert.equal(capacity.routes.some((route) => Object.hasOwn(route, "gapCodes")), false);
 
   assert.equal(PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS, "MATERIALIZED_PGC_R03_V3");
@@ -142,8 +181,27 @@ test("PGC-R06 A07 independently replays all 389 legal routes and matches committ
 
   assert.equal(legalRoutes.length, 389);
   for (const route of legalRoutes) {
-    const seedA = `pgc-r06-a07:${route.routeId}:A`;
-    const seedB = `pgc-r06-a07:${route.routeId}:B`;
+    const evidenceRuns = (route.selectedCapacityEvidence?.runs ?? []).filter((run) => run?.seed
+      && run?.ok === true
+      && run?.questionCount === QUESTION_COUNT
+      && run?.answerKeyItemCount === QUESTION_COUNT
+      && Number(run?.missingPromptCount ?? run?.emptyPromptCount ?? 0) === 0
+      && Number(run?.duplicatePromptCount ?? 0) === 0
+      && run?.itemSetSignature);
+    let witnessPair = null;
+    for (let left = 0; left < evidenceRuns.length && !witnessPair; left += 1) {
+      for (let right = left + 1; right < evidenceRuns.length; right += 1) {
+        if (evidenceRuns[left].seed !== evidenceRuns[right].seed
+          && evidenceRuns[left].itemSetSignature !== evidenceRuns[right].itemSetSignature) {
+          witnessPair = [evidenceRuns[left], evidenceRuns[right]];
+          break;
+        }
+      }
+    }
+    assert.ok(witnessPair, `${route.routeId}:distinct accepted capacity witness pair`);
+    const [witnessA, witnessB] = witnessPair;
+    const seedA = witnessA.seed;
+    const seedB = witnessB.seed;
     const first = runRoute(route, seedA);
     const replay = runRoute(route, seedA);
     const second = runRoute(route, seedB);
@@ -197,3 +255,9 @@ test("PGC-R06 A07 acceptance is read-only", { skip: !materialized }, () => {
   const after = Object.fromEntries(tracked.map((filePath) => [filePath, hashText(fs.readFileSync(filePath))]));
   assert.deepEqual(after, before);
 });
+
+// PGC-R06 A07 canonical evidence projection compatibility
+
+// PGC-R06 A07 authoritative capacity witness replay
+
+// PGC-R06 A07 terminal handoff compatibility

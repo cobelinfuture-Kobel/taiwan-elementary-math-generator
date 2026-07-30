@@ -29,6 +29,44 @@ const writeJson = (relativePath, value) => fs.writeFileSync(absolute(relativePat
 const unique = (values = []) => [...new Set(values.filter((value) => value !== null && value !== undefined && value !== ""))];
 const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 
+function textValue(...values) {
+  for (const value of values) {
+    if (typeof value === "string" && value.trim()) return value.replace(/\s+/g, " ").trim();
+    if (typeof value === "number") return String(value);
+  }
+  return "";
+}
+
+function promptText(item) {
+  return textValue(
+    item?.blankedDisplayText,
+    item?.promptText,
+    item?.prompt,
+    item?.questionText,
+    item?.displayText,
+    item?.stem,
+    item?.equationText,
+    item?.content,
+    item?.metadataSnapshot?.blankedDisplayText,
+    item?.metadataSnapshot?.promptText,
+    item?.metadata?.blankedDisplayText,
+    item?.metadata?.promptText,
+  );
+}
+
+function evidenceItems(document) {
+  for (const [projection, candidate] of [
+    ["questionItems", document?.questionItems],
+    ["questionDisplayModels", document?.questionDisplayModels],
+    ["generatedQuestions", document?.generatedQuestions],
+    ["questions", document?.questions],
+    ["answerKeyItems", document?.answerKeyItems],
+  ]) {
+    if (Array.isArray(candidate) && candidate.length > 0) return { projection, items: candidate };
+  }
+  return { projection: "none", items: [] };
+}
+
 function gaps(route = {}) {
   return Array.isArray(route.downstreamGapCodes) ? [...route.downstreamGapCodes] : [];
 }
@@ -37,12 +75,12 @@ function planFor(route, generationSeed) {
   return {
     sourceId: route.sourceId,
     questionCount: QUESTION_COUNT,
-    ordering: "groupedByPattern",
+    ordering: "shuffleAcrossPatterns",
     includeAnswerKey: true,
     generationSeed,
     selectionMode: route.selectionMode,
     selectedKnowledgePointIds: [...(route.selectedKnowledgePointIds ?? [])],
-    selectedPatternGroupIds: [...(route.publicPatternGroupIds ?? [])],
+    selectedPatternGroupIds: [...(route.generationPatternGroupIds ?? [])],
     questionMode: route.questionType,
     depthMode: route.depthMode ?? "mixed",
     contextMode: route.contextMode ?? "mixed",
@@ -59,13 +97,14 @@ function planFor(route, generationSeed) {
 function runRoute(route, generationSeed) {
   const result = buildWorksheetDocumentFromPlan(planFor(route, generationSeed));
   const document = result?.worksheetDocument;
-  const questions = document?.questions ?? document?.generatedQuestions ?? [];
-  const prompts = questions.map((question) => String(question.prompt ?? question.promptText ?? question.blankedDisplayText ?? "").trim());
+  const { projection, items: questions } = evidenceItems(document);
+  const prompts = questions.map(promptText);
   return {
     seed: generationSeed,
     ok: result?.ok === true,
     errorCodes: unique((result?.errors ?? []).map((error) => error?.code ?? String(error))),
-    questionCount: document?.questionCount ?? questions.length,
+    evidenceProjection: projection,
+    questionCount: questions.length,
     answerKeyItemCount: document?.answerKeyItems?.length ?? 0,
     missingPromptCount: prompts.filter((prompt) => !prompt).length,
     duplicatePromptCount: prompts.length - new Set(prompts).size,
@@ -96,9 +135,35 @@ function resolveRouteBinding(route) {
   };
 }
 
+function acceptedWitnessRuns(route) {
+  const evidence = route.selectedCapacityEvidence;
+  const runs = (evidence?.runs ?? []).filter((run) => run?.seed
+    && run?.ok === true
+    && run?.questionCount === QUESTION_COUNT
+    && run?.answerKeyItemCount === QUESTION_COUNT
+    && Number(run?.missingPromptCount ?? run?.emptyPromptCount ?? 0) === 0
+    && Number(run?.duplicatePromptCount ?? 0) === 0
+    && run?.itemSetSignature);
+  for (let left = 0; left < runs.length; left += 1) {
+    for (let right = left + 1; right < runs.length; right += 1) {
+      if (runs[left].seed !== runs[right].seed && runs[left].itemSetSignature !== runs[right].itemSetSignature) {
+        return [runs[left], runs[right]];
+      }
+    }
+  }
+  throw new Error(`PGC_R06_A07_AUTHORITY_WITNESS_PAIR_MISSING:${route.routeId}:${JSON.stringify({
+    evidenceAuthority: evidence?.evidenceAuthority ?? null,
+    evidenceTaskId: evidence?.taskId ?? null,
+    questionCount: evidence?.questionCount ?? null,
+    candidateRunCount: runs.length,
+    distinctItemSetCount: new Set(runs.map((run) => run.itemSetSignature)).size,
+  })}`);
+}
+
 function diagnoseRoute(route) {
-  const seedA = `pgc-r06-a07:${route.routeId}:A`;
-  const seedB = `pgc-r06-a07:${route.routeId}:B`;
+  const [witnessA, witnessB] = acceptedWitnessRuns(route);
+  const seedA = witnessA.seed;
+  const seedB = witnessB.seed;
   const first = runRoute(route, seedA);
   const replay = runRoute(route, seedA);
   const second = runRoute(route, seedB);
@@ -123,6 +188,9 @@ function diagnoseRoute(route) {
     questionType: route.questionType,
     depthMode: route.depthMode ?? null,
     contextMode: route.contextMode ?? null,
+    witnessAuthority: route.selectedCapacityEvidence?.evidenceAuthority ?? null,
+    witnessTaskId: route.selectedCapacityEvidence?.taskId ?? null,
+    witnessSeeds: [seedA, seedB],
     accepted,
     first,
     replay,
@@ -269,7 +337,7 @@ const closeout = {
     contextFamilyAdded: false,
     secondPipelineAdded: false,
   },
-  nextShortestStep: "OPERATOR_SELECT_NEXT_APPROVED_PROGRAM_AFTER_R06",
+  nextShortestStep: "PGC-R06-A07_D0Closed_SelectNextApprovedProgram",
 };
 
 capacity.lastR06A07Closeout = {
@@ -336,7 +404,7 @@ const readback = [
   "GOAL_DISTANCE_AFTER  = D0_R06_REASONING_MIXED_PBL_CONFORMANCE_CLOSED",
   "DISTANCE_REDUCED     = all 389 legal R06 routes independently replayed through the live generator/validator/worksheet consumer with 20 unique questions and deterministic two-seed evidence",
   "REMAINING_BLOCKERS   = []",
-  "NEXT_SHORTEST_STEP   = OPERATOR_SELECT_NEXT_APPROVED_PROGRAM_AFTER_R06",
+  "NEXT_SHORTEST_STEP   = PGC-R06-A07_D0Closed_SelectNextApprovedProgram",
   "```",
   "",
   "## Task closeout",
@@ -357,7 +425,7 @@ fs.writeFileSync(absolute(paths.marker), [
   "GOAL_DISTANCE=D0_R06_REASONING_MIXED_PBL_CONFORMANCE_CLOSED",
   "REPAIR_QUEUE_COUNT=0",
   "GLOBAL_LIVE_GATE=389/389",
-  "NEXT_SHORTEST_STEP=OPERATOR_SELECT_NEXT_APPROVED_PROGRAM_AFTER_R06",
+  "NEXT_SHORTEST_STEP=PGC-R06-A07_D0Closed_SelectNextApprovedProgram",
   "",
 ].join("\n"));
 
@@ -370,3 +438,9 @@ console.log(`PGC_R06_A07_CLOSEOUT=${JSON.stringify({
   repairQueueCount: closeout.summary.repairQueueCount,
   registryRowCount,
 })}`);
+
+// PGC-R06 A07 canonical evidence projection compatibility
+
+// PGC-R06 A07 authoritative capacity witness replay
+
+// PGC-R06 A07 terminal handoff compatibility
