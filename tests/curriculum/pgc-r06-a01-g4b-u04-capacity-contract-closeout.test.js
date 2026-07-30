@@ -68,7 +68,7 @@ test("PGC-R06 A01 frozen boundaries and public consumers remain aligned", () => 
 });
 
 test("PGC-R06 A01 historical queue delta remains immutable while current R06 queue may advance", () => {
-  assert.equal(inventory.lastR06A03Reconciliation?.taskId, "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation");
+  assert.equal(contract.lastR06A03Reconciliation?.taskId, "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation");
   assert.equal(inventory.repairQueue.some((route) => targetIds.has(route.routeId)), false);
   const remainingG4BU04 = inventory.repairQueue.filter((route) => route.sourceId === "g4b_u04_4b04");
   assert.equal(remainingG4BU04.length, 3);
