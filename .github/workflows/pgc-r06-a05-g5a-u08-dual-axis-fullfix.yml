@@ -1,0 +1,119 @@
+name: PGC-R06 A05 G5A-U08 Dual-Axis FullFix
+
+on:
+  pull_request:
+    paths:
+      - "site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js"
+      - "site/modules/curriculum/batch-a/g5a-u08-canonical-router.js"
+      - "tests/curriculum/pgc-r06-a05-g5a-u08-dual-axis-fullfix.test.js"
+      - "tools/curriculum/apply-pgc-r06-a05-g5a-u08-dual-axis-runtime-fix.mjs"
+      - "tools/curriculum/materialize-pgc-r06-a05-g5a-u08-30-residual-dual-axis.mjs"
+      - "data/curriculum/public-generation/PGC-R06-A05.g5a-u08-dual-axis-diagnostics.json"
+      - "data/curriculum/public-generation/generator_capacity_contract.json"
+      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
+      - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
+      - "site/modules/curriculum/public/public-generator-capacity-registry.js"
+      - "docs/curriculum/output/PGC-R06-A05_G5A_U08_30ResidualDualAxisFullFix.md"
+      - ".github/workflows/pgc-r06-a05-g5a-u08-dual-axis-fullfix.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pgc-r06-a05-g5a-u08-dual-axis-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout A05 branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Syntax-check A05 sources
+        run: |
+          node --check tools/curriculum/apply-pgc-r06-a05-g5a-u08-dual-axis-runtime-fix.mjs
+          node --check tools/curriculum/materialize-pgc-r06-a05-g5a-u08-30-residual-dual-axis.mjs
+          node --check tests/curriculum/pgc-r06-a05-g5a-u08-dual-axis-fullfix.test.js
+
+      - name: Apply dual-axis runtime fix
+        run: node tools/curriculum/apply-pgc-r06-a05-g5a-u08-dual-axis-runtime-fix.mjs
+
+      - name: Syntax-check patched runtime
+        run: |
+          node --check site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js
+          node --check site/modules/curriculum/batch-a/g5a-u08-canonical-router.js
+
+      - name: Focused live runtime acceptance before materialization
+        run: node --test tests/curriculum/pgc-r06-a05-g5a-u08-dual-axis-fullfix.test.js
+
+      - name: Materialize capacity public runtime and repair reconciliation
+        run: node tools/curriculum/materialize-pgc-r06-a05-g5a-u08-30-residual-dual-axis.mjs
+
+      - name: Focused authority acceptance after materialization
+        run: node --test tests/curriculum/pgc-r06-a05-g5a-u08-dual-axis-fullfix.test.js
+
+      - name: Require all 30 routes reconciled
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const diagnostics = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R06-A05.g5a-u08-dual-axis-diagnostics.json", "utf8"));
+          const capacity = JSON.parse(fs.readFileSync("data/curriculum/public-generation/generator_capacity_contract.json", "utf8"));
+          const ui = JSON.parse(fs.readFileSync("data/curriculum/public-generation/ui_capability_binding_contract.json", "utf8"));
+          const inventory = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json", "utf8"));
+          const target = capacity.routes.filter((route) => route.lastReconciliation?.taskId === "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix");
+          if (diagnostics.summary.targetRouteCount !== 30
+            || diagnostics.summary.pblRouteCount !== 9
+            || diagnostics.summary.mixedRouteCount !== 21
+            || diagnostics.summary.acceptedRouteCount !== 30
+            || diagnostics.summary.failedRouteCount !== 0
+            || target.length !== 30
+            || target.some((route) => route.verifiedMaxQuestionCount !== 20 || route.gapCodes.length !== 0)
+            || inventory.repairQueue.length !== 5
+            || inventory.repairQueue.some((route) => route.sourceId === "g5a_u08_5a08")
+            || inventory.lastR06A05Reconciliation?.status !== "PASS_R06_A05_G5A_U08_DUAL_AXIS_RECONCILED"
+            || ui.lastR06A05Reconciliation?.status !== "PASS_R06_A05_PUBLIC_BINDING_RECONCILED") {
+            throw new Error(`PGC_R06_A05_RECONCILIATION_GATE_FAILED:${JSON.stringify({ diagnostics: diagnostics.summary, target: target.length, queue: inventory.repairQueue.length })}`);
+          }
+          console.log(`PGC_R06_A05_GATE=PASS:${JSON.stringify({ routeCount: target.length, repairQueueAfter: inventory.repairQueue.length })}`);
+          NODE
+
+      - name: Retire temporary A05 writer before full regression
+        run: rm .github/workflows/pgc-r06-a05-g5a-u08-dual-axis-fullfix.yml
+
+      - name: Full repository regression
+        run: npm test
+
+      - name: Commit A05 runtime authorities and retire writer
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "4189826+github-actions[bot]@users.noreply.github.com"
+          git add -A -- .github/workflows/pgc-r06-a05-g5a-u08-dual-axis-fullfix.yml
+          git add \
+            site/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js \
+            site/modules/curriculum/batch-a/g5a-u08-canonical-router.js \
+            tests/curriculum/pgc-r06-a05-g5a-u08-dual-axis-fullfix.test.js \
+            tools/curriculum/apply-pgc-r06-a05-g5a-u08-dual-axis-runtime-fix.mjs \
+            tools/curriculum/materialize-pgc-r06-a05-g5a-u08-30-residual-dual-axis.mjs \
+            data/curriculum/public-generation/PGC-R06-A05.g5a-u08-dual-axis-diagnostics.json \
+            data/curriculum/public-generation/generator_capacity_contract.json \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json \
+            site/modules/curriculum/public/public-generator-capacity-registry.js \
+            docs/curriculum/output/PGC-R06-A05_G5A_U08_30ResidualDualAxisFullFix.md
+          if git diff --cached --quiet; then
+            echo "A05 authorities already synchronized."
+          else
+            git commit -m "chore(pgc-r06): materialize A05 authorities and retire writer [skip ci]"
+            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
+          fi
