@@ -8,18 +8,15 @@
   "diagnosis": {
     "baselineGapId": "R07-GAP-001",
     "originalGapCode": "PUBLIC_QUESTION_MODE_OPTION_MISSING",
-    "correctedFailureClass": "ACCEPTANCE_HARNESS_SELECTION_MODE_CONTROL_MISMATCH",
+    "correctedFailureClass": "ACCEPTANCE_HARNESS_PRE_BINDING_SYNCHRONIZATION_RACE",
     "sourceId": "g5a_u08_5a08",
     "selector": "#g5a-u08-question-mode",
     "requestedQuestionType": "mixed",
     "selectionModeAtFailure": "singleKnowledgePoint",
-    "legalMixedSelectionModes": [
-      "sourceUnit",
-      "mixedKnowledgePointsSameUnit"
-    ],
-    "illegalMixedSelectionModes": [
-      "singleKnowledgePoint"
-    ],
+    "staticResolverMixedCapacityConfirmed": true,
+    "wholeUnitMixedCapacityConfirmed": true,
+    "sameUnitMixedCapacityConfirmed": true,
+    "failureBoundary": "browser harness requested the option immediately after source and selection-mode changes, before the scheduled public capability UI microtask converged",
     "capacityAuthorityPreserved": true,
     "uiBindingAuthorityPreserved": true
   },
@@ -27,7 +24,7 @@
     "compatibilityRunner": "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs",
     "legacyHarness": "tools/curriculum/run-g5a-u08-r1-deployed-pages-smoke.mjs",
     "workflow": ".github/workflows/g5a-u08-r1-deployed-pages-smoke.yml",
-    "behavior": "remove only the obsolete initial mixed control preselection while singleKnowledgePoint is active; preserve the full control matrix after mixedKnowledgePointsSameUnit is selected",
+    "behavior": "remove only the obsolete initial mixed control preselection before the knowledge-point surface has converged; preserve per-KP capacity-derived controls and the full control matrix after mixedKnowledgePointsSameUnit is selected",
     "workflowAdded": false,
     "productUiModified": false,
     "capacityRegistryModified": false,
@@ -37,16 +34,17 @@
   },
   "acceptance": {
     "focusedContractTest": "tests/site/g5a-u08-r1-deployed-gate-contract.test.js",
-    "singleKnowledgePointMixedHidden": true,
+    "browserDefaultResolverMixedAdmitted": true,
     "sourceUnitMixedAdmitted": true,
     "sameUnitMixedAdmitted": true,
+    "preConvergenceMixedSelectionRemoved": true,
     "deployedMainReplayRequiredAfterMerge": true,
     "a02CloseoutAllowedBeforeDeployedReplayPass": false
   },
   "goalDistance": {
     "before": "D1_R07_THREE_SURFACE_BASELINE_AND_REPAIR_QUEUE_MATERIALIZED",
     "after": "D1_R07_FIRST_GAP_IMPLEMENTATION_READY_FOR_DEPLOYED_REPLAY",
-    "distanceReduced": "reclassified the first apparent UI gap as a stale acceptance sequence and aligned the existing deployed smoke with legal selection-mode capacity without widening public exposure",
+    "distanceReduced": "reclassified the first apparent UI gap as a pre-binding synchronization race and aligned the existing deployed smoke with the shared capability UI lifecycle without changing public capacity",
     "remainingBlockers": [
       "EXACT_HEAD_CI_PENDING",
       "DEPLOYED_MAIN_REPLAY_PENDING",
