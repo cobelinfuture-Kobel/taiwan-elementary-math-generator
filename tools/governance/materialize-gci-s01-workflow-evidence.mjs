@@ -1,68 +1,19 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import crypto from "node:crypto";
+import zlib from "node:zlib";
 import { pathToFileURL } from "node:url";
 
 export const GCI_S01_INVENTORY_AS_OF_COMMIT = "a9e20ca65fc80f955175162cfe096249ac36c7a4";
-export const GCI_S01_FANOUT_SHARD_SIZE = 28;
-export const GCI_S01_OVERLAP_SHARD_SIZE = 40;
 
 export const GCI_S01_OUTPUT_PATHS = Object.freeze({
+  inventoryGzip: ".github/ci/workflow-inventory.s01.complete.json.gz",
   manifest: ".github/ci/workflow-inventory.s01.manifest.json",
-  fanoutPrefix: ".github/ci/workflow-fanout-matrix.s01",
-  overlapPrefix: ".github/ci/workflow-shared-path-overlap.s01",
   closeout: "docs/governance/GCI_S01_MATH_REPOSITORY_WORKFLOW_INVENTORY_AND_FANOUT_MATRIX_CLOSEOUT.md"
 });
 
-function csvCell(value) {
-  const text = Array.isArray(value) ? value.join("|") : String(value ?? "");
-  return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
-}
-
-function csv(rows, columns) {
-  return [
-    columns.join(","),
-    ...rows.map((row) => columns.map((column) => csvCell(row[column])).join(","))
-  ].join("\n") + "\n";
-}
-
-function chunk(rows, size) {
-  const out = [];
-  for (let index = 0; index < rows.length; index += size) out.push(rows.slice(index, index + size));
-  return out;
-}
-
-function numberedPath(prefix, index) {
-  return `${prefix}.${String(index + 1).padStart(2, "0")}.csv`;
-}
-
 function sha256(content) {
   return crypto.createHash("sha256").update(content).digest("hex");
-}
-
-export function buildGciS01FanoutRows(report) {
-  return report.workflows.map((row) => ({
-    workflowId: row.workflowId,
-    file: row.file,
-    displayName: row.displayName,
-    triggerClasses: row.triggerClasses,
-    pullRequestPathCount: row.pullRequestPaths.length,
-    contentsPermission: row.contentsPermission,
-    writesPullRequestBranch: row.writesPullRequestBranch,
-    runsFullRegression: row.runsFullRegression,
-    npmTestOccurrenceCount: row.npmTestOccurrenceCount,
-    hasHeadRefJobGate: row.hasHeadRefJobGate,
-    usesWorkflowCall: row.usesWorkflowCall,
-    proposedDisposition: row.proposedDisposition
-  }));
-}
-
-export function buildGciS01OverlapRows(report) {
-  return report.sharedPathOverlapMatrix.map((row) => ({
-    pathPattern: row.pathPattern,
-    ownerCount: row.workflowIds.length,
-    workflowIds: row.workflowIds
-  }));
 }
 
 export function buildGciS01CloseoutMarkdown(report, {
@@ -71,9 +22,9 @@ export function buildGciS01CloseoutMarkdown(report, {
   const s = report.summary;
   return `# GCI-S01 Math Repository Workflow Inventory and Fan-out Matrix Closeout\n\n` +
 `\`\`\`text\nPROGRAM_ID = GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1\nTASK_ID    = GCI-S01_MathRepositoryWorkflowInventoryAndFanoutMatrix\nSTATUS     = READY_FOR_FINAL_CI_AND_MERGE\nFINAL_STATUS_AUTHORITY = PR #464 terminal checks and merge result\n\`\`\`\n\n` +
-`## Scope\n\nThis milestone exhaustively inventories the checked-out math repository workflow tree and materializes sharded workflow ownership and fan-out evidence. It does not modify workflow behavior, branch protection, required checks, workflow lifecycle, PGC production implementation, or another repository.\n\n` +
+`## Scope\n\nThis milestone exhaustively inventories the checked-out math repository workflow tree and materializes workflow ownership and fan-out evidence. It does not modify workflow behavior, branch protection, required checks, workflow lifecycle, PGC production implementation, or another repository.\n\n` +
 `## Inventory authority\n\n\`\`\`text\nINVENTORY_AS_OF_COMMIT                = ${inventoryAsOfCommit}\nWORKFLOW_FILES                         = ${s.workflowFileCount}\nTOP_LEVEL_PULL_REQUEST_WORKFLOWS       = ${s.pullRequestWorkflowCount}\nPULL_REQUEST_BRANCH_WRITERS            = ${s.prBranchWriterCount}\nPULL_REQUEST_FULL_REGRESSION_WORKFLOWS = ${s.prFullRegressionWorkflowCount}\nLATE_JOB_LEVEL_SKIP_CANDIDATES         = ${s.lateSkipCandidateCount}\nSHARED_EXACT_PATH_PATTERNS             = ${s.sharedExactPathPatternCount}\n\`\`\`\n\n` +
-`The committed authority is \`.github/ci/workflow-inventory.s01.manifest.json\` plus its fan-out and exact-path-overlap CSV shards. The deterministic scanner reproduces the raw inventory from the checked-out workflow tree. The S00 schema and bootstrap registry remain unchanged; S02 consumes this exhaustive sidecar authority when piloting the single PR gate.\n\n` +
+`The committed authority is \`.github/ci/workflow-inventory.s01.complete.json.gz\`. After deterministic decompression it contains every workflow row, trigger matrix, full-regression and branch-writer ownership matrix, late job-level skip candidates, proposed lifecycle disposition, and the exact shared-path overlap matrix. Its digest and byte counts are locked by \`.github/ci/workflow-inventory.s01.manifest.json\`. The S00 schema and bootstrap registry remain unchanged; S02 consumes this exhaustive sidecar authority when piloting the single PR gate.\n\n` +
 `## Findings\n\n` +
 `1. ${s.pullRequestWorkflowCount} top-level pull-request workflows exist against a target maximum of 1.\n` +
 `2. ${s.prBranchWriterCount} pull-request workflows contain branch-write behavior against a target of 0.\n` +
@@ -88,30 +39,11 @@ export function buildGciS01CloseoutMarkdown(report, {
 export function buildGciS01Evidence(report, {
   inventoryAsOfCommit = GCI_S01_INVENTORY_AS_OF_COMMIT
 } = {}) {
-  const fanoutRows = buildGciS01FanoutRows(report);
-  const overlapRows = buildGciS01OverlapRows(report);
-  const fanoutColumns = [
-    "workflowId", "file", "displayName", "triggerClasses", "pullRequestPathCount",
-    "contentsPermission", "writesPullRequestBranch", "runsFullRegression",
-    "npmTestOccurrenceCount", "hasHeadRefJobGate", "usesWorkflowCall", "proposedDisposition"
-  ];
-  const overlapColumns = ["pathPattern", "ownerCount", "workflowIds"];
-
-  const outputs = {};
-  const shards = [];
-  for (const [index, rows] of chunk(fanoutRows, GCI_S01_FANOUT_SHARD_SIZE).entries()) {
-    const shardPath = numberedPath(GCI_S01_OUTPUT_PATHS.fanoutPrefix, index);
-    const content = csv(rows, fanoutColumns);
-    outputs[shardPath] = content;
-    shards.push({ kind: "FANOUT", path: shardPath, rowCount: rows.length, sha256: sha256(content) });
-  }
-  for (const [index, rows] of chunk(overlapRows, GCI_S01_OVERLAP_SHARD_SIZE).entries()) {
-    const shardPath = numberedPath(GCI_S01_OUTPUT_PATHS.overlapPrefix, index);
-    const content = csv(rows, overlapColumns);
-    outputs[shardPath] = content;
-    shards.push({ kind: "SHARED_PATH_OVERLAP", path: shardPath, rowCount: rows.length, sha256: sha256(content) });
-  }
-
+  const serialized = `${JSON.stringify(report, null, 2)}\n`;
+  const inventoryGzip = zlib.gzipSync(Buffer.from(serialized, "utf8"), {
+    level: zlib.constants.Z_BEST_COMPRESSION,
+    mtime: 0
+  });
   const manifest = {
     schemaVersion: "1.0.0",
     programId: "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
@@ -120,9 +52,23 @@ export function buildGciS01Evidence(report, {
     inventoryCompleteness: report.inventoryCompleteness,
     inventoryAsOfCommit,
     summary: report.summary,
-    provisionalAuthorities: { pullRequestFullRegression: "node-test" },
+    authority: {
+      path: GCI_S01_OUTPUT_PATHS.inventoryGzip,
+      encoding: "gzip-json-utf8",
+      sha256: sha256(inventoryGzip),
+      compressedBytes: inventoryGzip.length,
+      uncompressedBytes: Buffer.byteLength(serialized, "utf8")
+    },
+    matrixRowCounts: {
+      workflows: report.workflows.length,
+      triggerMatrix: report.triggerMatrix.length,
+      ownershipMatrix: report.ownershipMatrix.length,
+      sharedPathOverlapMatrix: report.sharedPathOverlapMatrix.length
+    },
+    provisionalAuthorities: {
+      pullRequestFullRegression: "node-test"
+    },
     ownership: report.workflowIds,
-    shards,
     bootstrapRegistry: {
       path: ".github/ci/workflow-registry.json",
       preserved: true,
@@ -130,9 +76,16 @@ export function buildGciS01Evidence(report, {
     },
     nextTaskId: "GCI-S02_SinglePrGateOrchestratorPilot"
   };
-  outputs[GCI_S01_OUTPUT_PATHS.manifest] = `${JSON.stringify(manifest, null, 2)}\n`;
-  outputs[GCI_S01_OUTPUT_PATHS.closeout] = buildGciS01CloseoutMarkdown(report, { inventoryAsOfCommit });
-  return { outputs, manifest };
+
+  return {
+    outputs: {
+      [GCI_S01_OUTPUT_PATHS.inventoryGzip]: inventoryGzip,
+      [GCI_S01_OUTPUT_PATHS.manifest]: `${JSON.stringify(manifest, null, 2)}\n`,
+      [GCI_S01_OUTPUT_PATHS.closeout]: buildGciS01CloseoutMarkdown(report, { inventoryAsOfCommit })
+    },
+    manifest,
+    serialized
+  };
 }
 
 export function writeGciS01Evidence({
