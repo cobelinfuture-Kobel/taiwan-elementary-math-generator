@@ -1,0 +1,69 @@
+{
+  "schemaName": "PGCR08A04A01DisabledControlFocusedReproductionReadbackV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A01_DisabledControlSemanticsFocusedReproduction",
+  "status": "PASS_FOCUSED_REPRODUCTION_CLASSIFIED_HARNESS_POLICY_REPAIR_AUTHORIZED",
+  "sourceEvidence": {
+    "headSha": "37a45718f7fbaee6f61c95edb867a39b1ab87df4",
+    "workflowRunId": 30599279607,
+    "workflowJobId": 91058282865,
+    "workflowConclusion": "success",
+    "artifactId": 8781288076,
+    "artifactDigest": "sha256:99b6a55f6284ce4254386e55f3d27725137f94612b26a5ba76ce47766fcc9de1",
+    "reportSha256": "ccb92bd5b72fb53a525b2d9422e259c3d0c1e23015a3758b97b1912c274abc0c",
+    "screenshotCount": 8
+  },
+  "scope": {
+    "targetFamilyRouteCount": 180,
+    "canaryCount": 8,
+    "questionTypeControlCanaryCount": 4,
+    "contextModeControlCanaryCount": 4,
+    "publicUiSurface": "CLASSIC",
+    "stoppedBeforeRouteBinding": true,
+    "stoppedBeforeGeneration": true
+  },
+  "classificationCounts": {
+    "DISABLED_CURRENT_VALUE_MATCH": 8,
+    "ENABLED_SELECTION_PASS": 0,
+    "DISABLED_VALUE_MISMATCH": 0,
+    "SYSTEM_FAILURE": 0
+  },
+  "familyResults": [
+    {
+      "failureFamily": "QUESTION_TYPE_CONTROL_DISABLED",
+      "canaryCount": 4,
+      "disabledCurrentValueMatchCount": 4,
+      "verdict": "HARNESS_POLICY_DEFECT"
+    },
+    {
+      "failureFamily": "CONTEXT_MODE_CONTROL_DISABLED",
+      "canaryCount": 4,
+      "disabledCurrentValueMatchCount": 4,
+      "verdict": "HARNESS_POLICY_DEFECT"
+    }
+  ],
+  "canaries": [
+    {"routeIndex":5,"routeId":"pgc_r03_g3a_u01_3a01_numeric_0bebc1379737","failureFamily":"QUESTION_TYPE_CONTROL_DISABLED","control":"questionType","requestedValue":"numeric","actualValue":"numeric","disabled":true,"classification":"DISABLED_CURRENT_VALUE_MATCH"},
+    {"routeIndex":105,"routeId":"pgc_r03_g3b_u08_3b08_application_973842923812","failureFamily":"QUESTION_TYPE_CONTROL_DISABLED","control":"questionType","requestedValue":"application","actualValue":"application","disabled":true,"classification":"DISABLED_CURRENT_VALUE_MATCH"},
+    {"routeIndex":303,"routeId":"pgc_r03_g4b_u08_4b08_numeric_e63dcc56e182","failureFamily":"QUESTION_TYPE_CONTROL_DISABLED","control":"questionType","requestedValue":"numeric","actualValue":"numeric","disabled":true,"classification":"DISABLED_CURRENT_VALUE_MATCH"},
+    {"routeIndex":353,"routeId":"pgc_r03_g5a_u02_5a02_mixed_05ee727bddbc","failureFamily":"QUESTION_TYPE_CONTROL_DISABLED","control":"questionType","requestedValue":"mixed","actualValue":"mixed","disabled":true,"classification":"DISABLED_CURRENT_VALUE_MATCH"},
+    {"routeIndex":55,"routeId":"pgc_r03_g3a_u08_3a08_application_585b4e8fdd0c","failureFamily":"CONTEXT_MODE_CONTROL_DISABLED","control":"contextMode","requestedValue":"global_primary","actualValue":"global_primary","disabled":true,"classification":"DISABLED_CURRENT_VALUE_MATCH"},
+    {"routeIndex":94,"routeId":"pgc_r03_g3b_u07_3b07_application_b8e39c886c50","failureFamily":"CONTEXT_MODE_CONTROL_DISABLED","control":"contextMode","requestedValue":"global_primary","actualValue":"global_primary","disabled":true,"classification":"DISABLED_CURRENT_VALUE_MATCH"},
+    {"routeIndex":297,"routeId":"pgc_r03_g4b_u06_4b06_application_243390fad850","failureFamily":"CONTEXT_MODE_CONTROL_DISABLED","control":"contextMode","requestedValue":"global_primary","actualValue":"global_primary","disabled":true,"classification":"DISABLED_CURRENT_VALUE_MATCH"},
+    {"routeIndex":511,"routeId":"pgc_r03_g5a_u04_5a04_application_65896cc9040b","failureFamily":"CONTEXT_MODE_CONTROL_DISABLED","control":"contextMode","requestedValue":"global_primary","actualValue":"global_primary","disabled":true,"classification":"DISABLED_CURRENT_VALUE_MATCH"}
+  ],
+  "repairDecision": {
+    "classification": "HARNESS_DISABLED_CURRENT_VALUE_POLICY_CONFIRMED",
+    "productMutationAuthorized": false,
+    "harnessMutationAuthorized": true,
+    "requiredBehavior": {
+      "enabledControl": "select requested value and verify settlement",
+      "disabledCurrentValueMatch": "accept without mutation and record the control as authority-conformant",
+      "disabledValueMismatch": "fail closed with explicit mismatch evidence"
+    },
+    "affectedFamilyReplayRouteCount": 180
+  },
+  "temporaryWorkflowRemovedBeforeMerge": true,
+  "nextTask": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay"
+}
