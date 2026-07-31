@@ -1,0 +1,46 @@
+{
+  "schemaName": "PGCR08A04A03RouteBindingExactAuthorityProbePlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair",
+  "phaseId": "EXACT_AUTHORITY_CONTROL_PROBE",
+  "status": "PENDING_EXACT_AUTHORITY_BROWSER_PROBE",
+  "sourceFocusedPlanPath": "data/curriculum/public-generation/PGC-R08-A04-A03.route-binding-focused-reproduction-plan.json",
+  "capacityPath": "data/curriculum/public-generation/generator_capacity_contract.json",
+  "scopePath": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+  "probeReason": "the first exact-head artifact classified all four canaries as TARGET_ROUTE_NOT_PROJECTED_BY_PUBLIC_BINDING; an exact capacity-authority PatternGroup control is required before authorizing a product or harness repair",
+  "targetPatternGroupAuthority": [
+    "route.publicPatternGroupIds",
+    "route.publicPatternGroupKey",
+    "route.patternGroupKey"
+  ],
+  "interactionPolicy": {
+    "configureTheFrozenRouteCase": true,
+    "inspectEveryAuthorityPatternGroupInTheDOM": true,
+    "deselectSelectedGroupsOutsideAuthority": true,
+    "selectOnlyVisibleEnabledAuthorityGroups": true,
+    "reapplyQuestionTypeDepthAndContext": true,
+    "stopBeforeGeneration": true
+  },
+  "classificationCodes": [
+    "EXACT_AUTHORITY_SET_BINDS_TARGET",
+    "EXACT_AUTHORITY_GROUP_NOT_SELECTABLE",
+    "EXACT_AUTHORITY_SET_NOT_PROJECTED",
+    "CAPACITY_ROUTE_PATTERN_GROUP_AUTHORITY_MISSING",
+    "SYSTEM_FAILURE"
+  ],
+  "mutationBoundary": {
+    "publicUiMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "harnessRepairAllowed": false,
+    "perRoutePatchAllowed": false,
+    "browserClickProbeOnly": true
+  },
+  "acceptance": {
+    "canaryCount": 4,
+    "terminalCanaryCount": 4,
+    "systemFailureCount": 0,
+    "generationInvoked": false,
+    "productMutationCount": 0
+  }
+}
