@@ -15,7 +15,7 @@ jobs:
   reproduce:
     if: github.head_ref == 'pgc-r08-a04-a03-route-binding-focused-reproduction'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,15 +29,21 @@ jobs:
         run: |
           npm install --no-save --package-lock=false playwright@1.51.1
           npx playwright install --with-deps chromium
-      - name: Run A03 focused contract
-        run: node --test tests/curriculum/pgc-r08-a04-a03-route-binding-focused-reproduction.test.js
+      - name: Run A03 focused contracts
+        run: |
+          node --test tests/curriculum/pgc-r08-a04-a03-route-binding-focused-reproduction.test.js
+          node --test tests/curriculum/pgc-r08-a04-a03-route-binding-exact-authority-probe.test.js
       - name: Reproduce four route-binding canaries
         run: node tools/curriculum/run-pgc-r08-a04-a03-route-binding-focused-reproduction.mjs
+      - name: Probe exact capacity-authority PatternGroup sets
+        run: node tools/curriculum/run-pgc-r08-a04-a03-route-binding-exact-authority-probe.mjs
       - name: Upload route-binding focused evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pgc-r08-a04-a03-route-binding-focused-reproduction
-          path: tmp/pgc-r08-a04-a03-route-binding-focused-reproduction
+          path: |
+            tmp/pgc-r08-a04-a03-route-binding-focused-reproduction
+            tmp/pgc-r08-a04-a03-route-binding-exact-authority-probe
           if-no-files-found: error
           retention-days: 30
