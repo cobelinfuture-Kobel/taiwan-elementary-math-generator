@@ -1,0 +1,87 @@
+{
+  "schemaName": "PGCR08A04A04QuestionTypeStateSettlementPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
+  "status": "PASS_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSED",
+  "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-state-settlement-timeout.json",
+  "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A04.question-type-state-settlement-readback.json",
+  "downstreamOverlayPath": "data/curriculum/public-generation/PGC-R08-A04-A04.downstream-reclassification-overlay.json",
+  "targetRouteCount": 9,
+  "workerConcurrency": 6,
+  "rootCause": {
+    "classification": "FULL_PRODUCT_QUERY_STATE_CONSUMER_STALE",
+    "evidence": [
+      "config-state consumes current full-product public control profiles",
+      "public capability binding consumes current p03f13 selector and capacity authority",
+      "query-state previously consumed fifteen-unit controls and pre-W3 selector rows",
+      "application query parameters were therefore normalized away before browser configure"
+    ],
+    "affectedSources": [
+      "g3a_u08_3a08",
+      "g3b_u07_3b07",
+      "g4b_u06_4b06",
+      "g5a_u04_5a04"
+    ]
+  },
+  "repairContract": {
+    "canonicalQueryStateBootstrapBeforeFirstNavigation": true,
+    "sourceSelectionModeKnowledgePointsPatternGroupsQuestionModeIncluded": true,
+    "subsequentConfigureMustBeIdempotent": true,
+    "exactPatternGroupBinderRetained": true,
+    "disabledCurrentValuePolicyRetained": true,
+    "currentFullProductControlProfilesRequired": true,
+    "currentP03F13SelectorRegistryRequired": true,
+    "explicitApplicationPatternGroupIdentityPreserved": true,
+    "timeoutExtensionForbidden": true,
+    "queryStateConsumerMutationAllowed": true,
+    "productMutationScope": [
+      "site/assets/browser/state/query-state.js"
+    ],
+    "resolverMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "historicalQueueMutationAllowed": false,
+    "perRoutePatchAllowed": false
+  },
+  "acceptance": {
+    "terminalRouteCount": 9,
+    "uiOptionsPassCount": 9,
+    "questionTypeStateSettlementResidualCount": 0,
+    "disabledValueMismatchCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "diagnosticEvidence": {
+    "initialWorkflowRunId": 30619879421,
+    "initialArtifactId": 8789013988,
+    "initialArtifactDigest": "sha256:e55650ed726f0389cdf14f9e06b393b7fb30d2211ef8308da834b15ae8067c1b",
+    "explicitGroupWorkflowRunId": 30625883803,
+    "explicitGroupArtifactId": 8791424512,
+    "explicitGroupArtifactDigest": "sha256:1a7b62b806e1f53aa7fe8a065208bfdd510b22874d7cac74557ae2490f4636b5"
+  },
+  "result": {
+    "terminalRouteCount": 9,
+    "uiOptionsPassCount": 9,
+    "questionTypeStateSettlementResidualCount": 0,
+    "fullNineGatePassCount": 8,
+    "downstreamFailCount": 1,
+    "regenerateIdentityTimeoutTransferCount": 1,
+    "workflowRunId": 30626667157,
+    "artifactId": 8791684671,
+    "artifactDigest": "sha256:125d5f9e1b3981d0ddff0dda45750804ba5925dc74df18aa8bbf247166a5a5bb"
+  },
+  "goalDistance": {
+    "before": "D1_R08_QUESTION_TYPE_STATE_SETTLEMENT_OPEN_9",
+    "after": "D1_R08_QUESTION_TYPE_STATE_SETTLEMENT_CLOSED_REGENERATE_NEXT",
+    "distanceReduced": "closed all nine question-type state-settlement routes through one shared full-product query-state consumer reconciliation; eight routes pass all nine gates and one orthogonal regenerate failure is transferred",
+    "remainingBlockers": [
+      "REGENERATE_IDENTITY_TIMEOUT_10",
+      "CAPACITY_EVIDENCE_RECONCILIATION_38_WITH_3_ACTIVE_SHORTFALLS"
+    ],
+    "nextShortestStep": "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair"
+  }
+}

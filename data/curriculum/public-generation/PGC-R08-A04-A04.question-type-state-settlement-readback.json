@@ -1,0 +1,78 @@
+{
+  "schemaName": "PGCR08A04A04QuestionTypeStateSettlementReadbackV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
+  "status": "PASS_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSED_WITH_1_REGENERATE_TRANSFER",
+  "sourceEvidence": {
+    "headSha": "c84804bce18f9ce2008f913496d619b819d1b09d",
+    "workflowRunId": 30626667157,
+    "workflowJobId": 91143415705,
+    "workflowConclusion": "success",
+    "artifactId": 8791684671,
+    "artifactDigest": "sha256:125d5f9e1b3981d0ddff0dda45750804ba5925dc74df18aa8bbf247166a5a5bb",
+    "reportSha256": "4fe19fb5b520354cf05f750b11d67bf7b6bfc9c89e9fbee213beac88c4366fbd",
+    "bootstrapEventsSha256": "c2f5ee989722ab7439082539ab111f6f5764924f1869fefa5d76e7d5f17a961d",
+    "binderEventsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "controlEventsSha256": "0a94dcdfe424d914916358d4f672368dbee1bd53d9b354f508499883183de98c"
+  },
+  "replaySummary": {
+    "targetRouteCount": 9,
+    "terminalRouteCount": 9,
+    "uiOptionsPassCount": 9,
+    "questionTypeStateSettlementResidualCount": 0,
+    "fullNineGatePassCount": 8,
+    "downstreamFailCount": 1,
+    "bootstrapEventCount": 9,
+    "binderEventCount": 0,
+    "enabledSelectionDispositionCount": 27,
+    "disabledCurrentValueMatchDispositionCount": 9,
+    "disabledValueMismatchDispositionCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "familyCloseout": {
+    "failureFamily": "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
+    "originalRouteCount": 9,
+    "questionTypeStateSettlementResolvedCount": 9,
+    "endToEndPassCount": 8,
+    "transferredRouteCount": 1,
+    "status": "CLOSED_STATE_SETTLEMENT_BLOCKER_REMOVED"
+  },
+  "transferredRouteOverlayPath": "data/curriculum/public-generation/PGC-R08-A04-A04.downstream-reclassification-overlay.json",
+  "transferredRouteSummary": {
+    "toRegenerateIdentityTimeoutCount": 1,
+    "routeIndices": [296]
+  },
+  "rootCause": {
+    "classification": "FULL_PRODUCT_QUERY_STATE_CONSUMER_STALE",
+    "repair": "query-state now consumes current p03f13 selector rows and current full-product public control profiles",
+    "explicitApplicationPatternGroupIdentityPreserved": true
+  },
+  "decisions": {
+    "queryStateConsumerReconciliationAdmitted": true,
+    "productMutationScope": [
+      "site/assets/browser/state/query-state.js"
+    ],
+    "resolverMutationPerformed": false,
+    "capacityAuthorityMutationPerformed": false,
+    "generatorMutationPerformed": false,
+    "validatorMutationPerformed": false,
+    "rendererMutationPerformed": false,
+    "historicalA03QueueMutationPerformed": false,
+    "timeoutExtensionPerformed": false,
+    "perRoutePatchPerformed": false,
+    "temporaryWorkflowRemovedBeforeMerge": true
+  },
+  "goalDistance": {
+    "before": "D1_R08_QUESTION_TYPE_STATE_SETTLEMENT_OPEN_9",
+    "after": "D1_R08_QUESTION_TYPE_STATE_SETTLEMENT_CLOSED_REGENERATE_NEXT",
+    "distanceReduced": "closed all nine question-type state-settlement routes through one shared query-state consumer reconciliation; eight routes pass all nine gates and one orthogonal regenerate failure is transferred",
+    "remainingBlockers": [
+      "REGENERATE_IDENTITY_TIMEOUT_10",
+      "CAPACITY_EVIDENCE_RECONCILIATION_38_WITH_3_ACTIVE_SHORTFALLS"
+    ],
+    "nextShortestStep": "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair"
+  },
+  "nextTask": "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair"
+}

@@ -1,6 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { PUBLIC_GENERATOR_CAPACITY_ROWS } from "../../site/modules/curriculum/public/public-generator-capacity-registry.js";
 import { listPublicPatternGroupChoices } from "../../site/assets/browser/state/public-pattern-group-selection.js";
+import {
+  CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS,
+  P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS,
+} from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
 
 const ROUTE_ID_COLUMN = 10;
 const PUBLIC_PATTERN_GROUP_COLUMN = 4;
@@ -10,6 +14,10 @@ const CAPACITY_CONTRACT = JSON.parse(
     new URL("../../data/curriculum/public-generation/generator_capacity_contract.json", import.meta.url),
     "utf8",
   ),
+);
+const P01E_SOURCE_IDS = new Set(P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS);
+const CURRENT_W3_SOURCE_IDS = new Set(
+  CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS.filter((sourceId) => !P01E_SOURCE_IDS.has(sourceId)),
 );
 
 function uniqueSorted(values = []) {
@@ -108,22 +116,20 @@ function routeMetadata(routeId) {
   return route;
 }
 
-function renderedBasePatternGroupId(runtimeChoice, choices) {
-  if (!runtimeChoice) return null;
-  if (runtimeChoice.basePatternGroupId) return runtimeChoice.basePatternGroupId;
-  if (!isApplicationChoice(runtimeChoice)) return runtimeChoice.patternGroupId;
-
-  const numericCandidates = choices.filter(
+function legacyRenderedBasePatternGroupId(runtimeChoice, choices) {
+  if (!runtimeChoice || CURRENT_W3_SOURCE_IDS.has(runtimeChoice.sourceId)) return null;
+  if (!isApplicationChoice(runtimeChoice)) return null;
+  const legacyNumericCandidates = choices.filter(
     (choice) =>
       choice.knowledgePointId === runtimeChoice.knowledgePointId
       && choice.patternGroupId !== runtimeChoice.patternGroupId
       && isNumericChoice(choice),
   );
-  if (numericCandidates.length === 1) return numericCandidates[0].patternGroupId;
-  if (numericCandidates.length > 1) {
-    throw new Error(`PGC_R08_APPLICATION_RENDERED_BASE_AMBIGUOUS:${runtimeChoice.patternGroupId}`);
+  if (legacyNumericCandidates.length === 1) return legacyNumericCandidates[0].patternGroupId;
+  if (legacyNumericCandidates.length > 1) {
+    throw new Error(`PGC_R08_LEGACY_APPLICATION_RENDERED_BASE_AMBIGUOUS:${runtimeChoice.patternGroupId}`);
   }
-  return runtimeChoice.patternGroupId;
+  return null;
 }
 
 function uiProjectionForRoute(routeId) {
@@ -137,8 +143,10 @@ function uiProjectionForRoute(routeId) {
 
   for (const runtimeId of runtimeIds) {
     const runtimeChoice = choiceById.get(runtimeId) ?? null;
-    const fallbackBaseId = UI_GROUP_BY_APPLICATION_ALIAS.get(runtimeId) ?? runtimeId;
-    const projectedId = renderedBasePatternGroupId(runtimeChoice, choices) ?? fallbackBaseId;
+    const projectedId = runtimeChoice?.basePatternGroupId
+      ?? UI_GROUP_BY_APPLICATION_ALIAS.get(runtimeId)
+      ?? legacyRenderedBasePatternGroupId(runtimeChoice, choices)
+      ?? runtimeId;
     const projectedChoice = choiceById.get(projectedId) ?? null;
     const hasRenderedChoice = Boolean(
       runtimeChoice?.hasRepresentationChoice ?? projectedChoice?.hasRepresentationChoice,
