@@ -1,0 +1,36 @@
+name: PGC-R08 A06 Capacity Shortfall Diagnostic
+
+on:
+  pull_request:
+    paths:
+      - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs"
+      - ".github/workflows/pgc-r08-a04-a06-capacity-shortfall-diagnostic.yml"
+      - "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Materialize exact three-route diagnostic
+        run: node tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs
+
+      - name: Upload diagnostic evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r08-a04-a06-capacity-shortfall-${{ github.run_id }}
+          path: tmp/pgc-r08-a04-a06-capacity-shortfall
+          if-no-files-found: error
+          retention-days: 7
