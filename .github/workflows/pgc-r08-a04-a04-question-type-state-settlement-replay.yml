@@ -1,0 +1,43 @@
+name: PGC-R08 A04 A04 Question Type State Settlement Replay
+
+on:
+  pull_request:
+    paths:
+      - "data/curriculum/public-generation/PGC-R08-A04-A04.question-type-state-settlement-plan.json"
+      - "tools/curriculum/pgc-r08-question-type-state-bootstrap.mjs"
+      - "tools/curriculum/run-pgc-r08-a04-a04-question-type-state-settlement-replay.mjs"
+      - "tests/curriculum/pgc-r08-a04-a04-question-type-state-settlement.test.js"
+      - ".github/workflows/pgc-r08-a04-a04-question-type-state-settlement-replay.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install repository dependencies
+        run: npm install
+      - name: Install Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Run focused contracts
+        run: node --test tests/curriculum/pgc-r08-a04-a04-question-type-state-settlement.test.js
+      - name: Replay nine settlement routes
+        run: node tools/curriculum/run-pgc-r08-a04-a04-question-type-state-settlement-replay.mjs
+      - name: Upload settlement evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r08-a04-a04-question-type-state-settlement
+          path: |
+            tmp/pgc-r08-a04-a04-question-type-state-settlement
+            tmp/pgc-r08-a03-all-legal-routes
+          if-no-files-found: warn
+          retention-days: 30
