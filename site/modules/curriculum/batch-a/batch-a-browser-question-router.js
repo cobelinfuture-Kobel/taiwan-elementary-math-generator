@@ -20,6 +20,7 @@ import { canGenerateG3BU09TenthsFractionDecimalQuestions, generateG3BU09TenthsFr
 import { canGenerateG4AU09HundredthDecimalQuestions, generateG4AU09HundredthDecimalQuestions } from "./hundredth-decimal-runtime.js";
 import { canGenerateG4BU06DecimalMultiplicationQuestions, generateG4BU06DecimalMultiplicationQuestions } from "./one-decimal-times-integer-runtime.js";
 import { applyPgcR04NumericUniqueAllocation } from "./numeric-unique-allocation-fullfix.js";
+import { applyRegenerateIdentitySeedOrder } from "./regenerate-identity-seed-order.js";
 
 function generateOnce(options = {}) {
   const plan = buildBatchABrowserPlan(options);
@@ -44,5 +45,6 @@ function generateOnce(options = {}) {
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
-  return applyPgcR04NumericUniqueAllocation(generateOnce, options);
+  const result = applyPgcR04NumericUniqueAllocation(generateOnce, options);
+  return applyRegenerateIdentitySeedOrder(result, options);
 }

@@ -1,0 +1,48 @@
+{
+  "schemaName": "PGCR08A04A05RegenerateIdentityPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair",
+  "status": "IMPLEMENTATION_AND_EXACT_REPLAY_PENDING",
+  "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "historicalQueuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/regenerate-identity-timeout.json",
+  "targetRouteCount": 10,
+  "workerConcurrency": 5,
+  "rootCause": {
+    "classification": "FINITE_POOL_SEED_INSENSITIVE_ORDER_PROJECTION",
+    "evidence": [
+      "all ten routes already pass UI, generate, count, identity, answer, HTML, PDF, and answer-key gates",
+      "generationSeed is read by the public UI and propagated through config-state into the browser generator",
+      "finite fixture pools and selected application runtimes retain a stable ordered worksheet for ordinary PGC-R08 seeds",
+      "G4B-U06 runtime only applied seed offsets for the historical pgc-r04 prefix"
+    ]
+  },
+  "repairContract": {
+    "sharedBrowserGeneratorProjectionRequired": true,
+    "sameSeedDeterministic": true,
+    "differentSeedOrderedWorksheetIdentityRequired": true,
+    "questionMembershipMutationAllowed": false,
+    "questionObjectMutationAllowed": false,
+    "answerMutationAllowed": false,
+    "questionIdMutationAllowed": false,
+    "allocationMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "patternSpecSlotMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "historicalQueueMutationAllowed": false,
+    "timeoutExtensionAllowed": false,
+    "perRoutePatchAllowed": false,
+    "productMutationScope": [
+      "site/modules/curriculum/batch-a/regenerate-identity-seed-order.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
+    ]
+  },
+  "acceptance": {
+    "terminalRouteCount": 10,
+    "fullNineGatePassCount": 10,
+    "regenerateIdentityResidualCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  }
+}
