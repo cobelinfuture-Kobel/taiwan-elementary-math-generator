@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import { buildQuestionTypeStateBootstrapUrl } from "../../tools/curriculum/pgc-r08-question-type-state-bootstrap.mjs";
 import {
   exactPublicPatternGroupIdsForRoute,
@@ -14,6 +14,8 @@ const plan = JSON.parse(await readFile(
 ));
 const activeState = JSON.parse(await readFile(plan.activeStatePath, "utf8"));
 const queue = JSON.parse(await readFile(plan.queuePath, "utf8"));
+const readback = JSON.parse(await readFile(plan.readbackPath, "utf8"));
+const overlay = JSON.parse(await readFile(plan.downstreamOverlayPath, "utf8"));
 const bootstrapSource = await readFile(
   "tools/curriculum/pgc-r08-question-type-state-bootstrap.mjs",
   "utf8",
@@ -30,13 +32,9 @@ const queryStateSource = await readFile(
   "site/assets/browser/state/query-state.js",
   "utf8",
 );
+const temporaryWorkflowPath = ".github/workflows/pgc-r08-a04-a04-question-type-state-settlement-replay.yml";
 
-test("A04 consumes position 3 and the immutable nine-route settlement queue", () => {
-  assert.equal(activeState.reconciliation.nextRepairPosition, 3);
-  assert.equal(
-    activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
-  );
+test("A04 closes the immutable nine-route settlement queue and advances to position 4", () => {
   assert.equal(queue.failureFamily, "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT");
   assert.equal(queue.rows.length, 9);
   assert.equal(plan.targetRouteCount, 9);
@@ -44,6 +42,18 @@ test("A04 consumes position 3 and the immutable nine-route settlement queue", ()
   assert.deepEqual(
     [...new Set(queue.rows.map((row) => row[1].split("_").slice(2, 5).join("_")))].sort(),
     ["g3a_u08_3a08", "g3b_u07_3b07", "g4b_u06_4b06", "g5a_u04_5a04"],
+  );
+  const family = activeState.closedFamilies.find(
+    (entry) => entry.failureFamily === "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
+  );
+  assert.ok(family);
+  assert.equal(family.originalRouteCount, 9);
+  assert.equal(family.endToEndPassCount, 8);
+  assert.equal(family.transferredRouteCount, 1);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 4);
+  assert.equal(
+    activeState.reconciliation.nextTask,
+    "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair",
   );
 });
 
@@ -153,4 +163,59 @@ test("repair is one shared query-state reconciliation and does not extend timeou
   assert.equal(plan.repairContract.capacityAuthorityMutationAllowed, false);
   assert.equal(plan.repairContract.historicalQueueMutationAllowed, false);
   assert.equal(plan.repairContract.perRoutePatchAllowed, false);
+});
+
+test("terminal readback closes state settlement and transfers one orthogonal regenerate failure", () => {
+  assert.equal(plan.status, "PASS_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSED");
+  assert.equal(
+    readback.status,
+    "PASS_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSED_WITH_1_REGENERATE_TRANSFER",
+  );
+  assert.equal(readback.sourceEvidence.workflowRunId, 30626667157);
+  assert.equal(readback.sourceEvidence.artifactId, 8791684671);
+  assert.equal(readback.replaySummary.targetRouteCount, 9);
+  assert.equal(readback.replaySummary.terminalRouteCount, 9);
+  assert.equal(readback.replaySummary.uiOptionsPassCount, 9);
+  assert.equal(readback.replaySummary.questionTypeStateSettlementResidualCount, 0);
+  assert.equal(readback.replaySummary.fullNineGatePassCount, 8);
+  assert.equal(readback.replaySummary.downstreamFailCount, 1);
+  assert.equal(readback.replaySummary.disabledValueMismatchDispositionCount, 0);
+  assert.equal(readback.replaySummary.browserConsoleErrorCount, 0);
+  assert.equal(readback.replaySummary.browserPageErrorCount, 0);
+
+  assert.equal(overlay.rows.length, 1);
+  const transferred = overlay.rows[0];
+  assert.equal(transferred.routeIndex, 296);
+  assert.equal(transferred.toFailureFamily, "REGENERATE_IDENTITY_TIMEOUT");
+  assert.equal(transferred.remainingGateCode, "REGENERATE_PASS");
+  assert.equal(transferred.passedGateCodes.length, 8);
+  assert.equal(transferred.perRoutePatchAuthorized, false);
+});
+
+test("active state reconciles eight passes and one regenerate transfer without capacity double-counting", () => {
+  assert.equal(activeState.status, "ACTIVE_AFTER_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSEOUT");
+  assert.equal(activeState.current.cumulativePassRouteCount, 780);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 13);
+  assert.equal(activeState.current.closedOriginalFailureRouteCount, 324);
+  assert.equal(activeState.current.reclassifiedUnresolvedRouteCount, 11);
+  assert.equal(activeState.reconciliation.pendingFailureFamiliesExcludingCapacityReconciliation, 10);
+  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 3);
+  assert.equal(activeState.reconciliation.capacityReconciliationRouteCount, 38);
+  assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 3);
+  const regenerate = activeState.pendingFamilies.find(
+    (family) => family.failureFamily === "REGENERATE_IDENTITY_TIMEOUT",
+  );
+  assert.equal(regenerate.routeCount, 10);
+  assert.ok(regenerate.overlayRows.some((row) => row.routeIndex === 296));
+  assert.equal(
+    activeState.pendingFamilies.some(
+      (family) => family.failureFamily === "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
+    ),
+    false,
+  );
+});
+
+test("temporary settlement replay workflow is removed before merge", async () => {
+  await assert.rejects(access(temporaryWorkflowPath), (error) => error?.code === "ENOENT");
+  assert.equal(readback.decisions.temporaryWorkflowRemovedBeforeMerge, true);
 });
