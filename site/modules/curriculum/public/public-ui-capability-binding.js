@@ -1,8 +1,8 @@
 import {
   PUBLIC_UI_SAFE_QUESTION_COUNT,
   PUBLIC_UI_SURFACES,
-  auditPublicUiCapabilityBinding as auditBasePublicUiCapabilityBinding,
-  resolvePublicUiCapabilityBinding as resolveBasePublicUiCapabilityBinding,
+  auditPublicUiCapabilityBinding as auditBase,
+  resolvePublicUiCapabilityBinding as resolveBase,
 } from "./public-ui-capability-binding-base.js";
 import { getFullProductPublicControlProfile } from "../registry/full-product-public-control-profiles.js";
 import {
@@ -12,7 +12,6 @@ import {
 } from "./public-generator-capacity-registry.js";
 
 export { PUBLIC_UI_SAFE_QUESTION_COUNT, PUBLIC_UI_SURFACES };
-
 export const PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION = Object.freeze({
   ...PUBLIC_GENERATOR_CAPACITY_RECONCILIATION,
   registryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
@@ -26,230 +25,165 @@ const CAPACITY_BLOCK_REASONS = new Set([
   "COMPATIBLE_PATTERN_GROUP_MISSING",
 ]);
 
-function uniqueStrings(values = []) {
-  return [...new Set((Array.isArray(values) ? values : [])
-    .map((value) => String(value ?? "").trim())
-    .filter(Boolean))];
-}
+const unique = (values = []) => [...new Set((Array.isArray(values) ? values : [])
+  .map((value) => String(value ?? "").trim()).filter(Boolean))];
+const key = (values = []) => unique(values).sort().join("|");
+const profileOptions = (definition) => definition?.supported === true
+  ? (definition.options ?? []).map((option) => ({ ...option }))
+  : [];
+const choose = (requested, options) => options.some((option) => option.value === requested)
+  ? requested
+  : options[0]?.value ?? null;
 
-function sortedKey(values = []) {
-  return uniqueStrings(values).sort().join("|");
-}
-
-function decodeCapacityRow(row) {
+function decode(row) {
   return {
-    sourceId: row[0],
-    selectionMode: row[1],
-    selectedKnowledgePointKey: row[2],
-    questionType: row[3],
-    publicPatternGroupKey: row[4],
-    depthMode: row[5] || null,
-    contextMode: row[6] || null,
-    verifiedMaxQuestionCount: Number(row[7] ?? 0),
-    legalRoute: row[8] === "LEGAL",
-    qualityStatus: row[9] ?? "UNKNOWN",
-    routeId: row[10] ?? null,
+    sourceId: row[0], selectionMode: row[1], selectedKnowledgePointKey: row[2],
+    questionType: row[3], publicPatternGroupKey: row[4], depthMode: row[5] || null,
+    contextMode: row[6] || null, verifiedMaxQuestionCount: Number(row[7] ?? 0),
+    legalRoute: row[8] === "LEGAL", qualityStatus: row[9] ?? "UNKNOWN", routeId: row[10] ?? null,
   };
 }
-
 const CAPACITY_ROWS = PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS === "PENDING_PGC_R03"
-  ? []
-  : PUBLIC_GENERATOR_CAPACITY_ROWS.map(decodeCapacityRow);
+  ? [] : PUBLIC_GENERATOR_CAPACITY_ROWS.map(decode);
 
-function profileOptions(definition) {
-  return definition?.supported === true
-    ? (definition.options ?? []).map((option) => ({ ...option }))
-    : [];
-}
-
-function chooseValue(requested, options) {
-  const values = new Set(options.map((option) => option.value));
-  if (values.has(requested)) return requested;
-  return options[0]?.value ?? null;
-}
-
-function rowsForSelectedGroups(rows, selectedPatternGroupIds) {
-  const requested = uniqueStrings(selectedPatternGroupIds);
+function rowsForGroups(rows, selectedPatternGroupIds) {
+  const requested = unique(selectedPatternGroupIds);
   if (requested.length === 0) return rows;
-  const exactKey = sortedKey(requested);
-  const exact = rows.filter((row) => row.publicPatternGroupKey === exactKey);
+  const exact = rows.filter((row) => row.publicPatternGroupKey === key(requested));
   if (exact.length > 0) return exact;
   const requestedSet = new Set(requested);
   return rows.filter((row) => {
-    const rowGroups = new Set(uniqueStrings(row.publicPatternGroupKey.split("|")));
-    return [...requestedSet].every((patternGroupId) => rowGroups.has(patternGroupId));
+    const groups = new Set(unique(row.publicPatternGroupKey.split("|")));
+    return [...requestedSet].every((groupId) => groups.has(groupId));
   });
 }
 
-function exactCapacityBinding(input) {
-  const requestedQuestionType = String(input.requestedQuestionType ?? "").trim();
-  if (!requestedQuestionType || CAPACITY_ROWS.length === 0) return null;
+function exactCapacity(input) {
+  const questionType = String(input.requestedQuestionType ?? "").trim();
+  if (!questionType || CAPACITY_ROWS.length === 0) return null;
   const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
-  const selectedKnowledgePointKey = selectionMode === SOURCE_UNIT_MODE
-    ? ""
-    : sortedKey(input.selectedKnowledgePointIds);
+  const selectedKnowledgePointKey = selectionMode === SOURCE_UNIT_MODE ? "" : key(input.selectedKnowledgePointIds);
   const caseRows = CAPACITY_ROWS.filter((row) => row.sourceId === input.sourceId
     && row.selectionMode === selectionMode
     && row.selectedKnowledgePointKey === selectedKnowledgePointKey
-    && row.questionType === requestedQuestionType
-    && row.legalRoute
-    && row.verifiedMaxQuestionCount > 0);
-  if (caseRows.length === 0) return null;
-
-  const groupRows = rowsForSelectedGroups(caseRows, input.selectedPatternGroupIds);
+    && row.questionType === questionType
+    && row.legalRoute && row.verifiedMaxQuestionCount > 0);
+  const groupRows = rowsForGroups(caseRows, input.selectedPatternGroupIds);
   if (groupRows.length === 0) return null;
+
   const profile = getFullProductPublicControlProfile(input.sourceId);
-  const depthValues = new Set(uniqueStrings(groupRows.map((row) => row.depthMode)));
-  const depthOptions = profileOptions(profile?.reasoningDepthControl)
-    .filter((option) => depthValues.has(option.value));
-  const depthMode = chooseValue(input.requestedDepthMode, depthOptions);
+  const depthValues = new Set(unique(groupRows.map((row) => row.depthMode)));
+  const depthOptions = profileOptions(profile?.reasoningDepthControl).filter((option) => depthValues.has(option.value));
+  const depthMode = choose(input.requestedDepthMode, depthOptions);
   const depthRows = depthOptions.length === 0
     ? groupRows.filter((row) => row.depthMode == null)
     : groupRows.filter((row) => row.depthMode === depthMode);
-  const contextSourceRows = depthRows.length > 0 ? depthRows : groupRows;
-  const contextValues = new Set(uniqueStrings(contextSourceRows.map((row) => row.contextMode)));
-  const contextOptions = profileOptions(profile?.contextControl)
-    .filter((option) => contextValues.has(option.value));
-  const contextMode = chooseValue(input.requestedContextMode, contextOptions);
-  const exactRows = contextSourceRows.filter((row) => {
-    const depthMatches = depthOptions.length === 0 ? row.depthMode == null : row.depthMode === depthMode;
-    const contextMatches = contextOptions.length === 0 ? row.contextMode == null : row.contextMode === contextMode;
-    return depthMatches && contextMatches;
-  });
-  const legalRows = exactRows.length > 0 ? exactRows : contextSourceRows;
+  const contextSource = depthRows.length > 0 ? depthRows : groupRows;
+  const contextValues = new Set(unique(contextSource.map((row) => row.contextMode)));
+  const contextOptions = profileOptions(profile?.contextControl).filter((option) => contextValues.has(option.value));
+  const contextMode = choose(input.requestedContextMode, contextOptions);
+  const exactRows = contextSource.filter((row) =>
+    (depthOptions.length === 0 ? row.depthMode == null : row.depthMode === depthMode)
+    && (contextOptions.length === 0 ? row.contextMode == null : row.contextMode === contextMode));
+  const legalRows = exactRows.length > 0 ? exactRows : contextSource;
   if (legalRows.length === 0) return null;
 
-  const profileQuestionOption = profileOptions(profile?.questionTypeControl)
-    .find((option) => option.value === requestedQuestionType) ?? null;
-  const publicPatternGroupIds = uniqueStrings(
-    legalRows.flatMap((row) => row.publicPatternGroupKey.split("|")),
-  );
   return Object.freeze({
-    questionType: requestedQuestionType,
-    questionTypeOption: profileQuestionOption,
+    questionType,
+    questionTypeOption: profileOptions(profile?.questionTypeControl).find((option) => option.value === questionType) ?? null,
     depthOptions: Object.freeze(depthOptions.map(Object.freeze)),
     contextOptions: Object.freeze(contextOptions.map(Object.freeze)),
     depthMode,
     contextMode,
-    routeIds: Object.freeze(uniqueStrings(legalRows.map((row) => row.routeId))),
-    qualityStatuses: Object.freeze(uniqueStrings(legalRows.map((row) => row.qualityStatus))),
-    publicPatternGroupIds: Object.freeze(publicPatternGroupIds),
+    routeIds: Object.freeze(unique(legalRows.map((row) => row.routeId))),
+    qualityStatuses: Object.freeze(unique(legalRows.map((row) => row.qualityStatus))),
+    patternGroupIds: Object.freeze(unique(legalRows.flatMap((row) => row.publicPatternGroupKey.split("|")))),
   });
 }
 
-function withGlobalQuestionCount(binding) {
-  const blockedReasons = (binding?.blockedReasons ?? [])
-    .filter((reason) => reason !== "PUBLIC_CAPACITY_ROUTE_UNAVAILABLE");
+function withGlobalCount(binding) {
+  const blockedReasons = (binding?.blockedReasons ?? []).filter((reason) => reason !== "PUBLIC_CAPACITY_ROUTE_UNAVAILABLE");
   return Object.freeze({
     ...binding,
     questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
     capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
-    capacityStatus: binding?.questionCount?.max > 0
-      ? binding.capacityStatus
-      : "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityStatus: binding?.questionCount?.max > 0 ? binding.capacityStatus : "STRUCTURAL_FALLBACK_AVAILABLE",
     blocked: blockedReasons.length > 0,
     blockedReasons: Object.freeze(blockedReasons),
   });
 }
-
-function needsStructuralFallback(binding) {
-  return binding?.blocked === true
-    && (binding.blockedReasons ?? []).some((reason) => CAPACITY_BLOCK_REASONS.has(reason));
+const needsFallback = (binding) => binding?.blocked === true
+  && (binding.blockedReasons ?? []).some((reason) => CAPACITY_BLOCK_REASONS.has(reason));
+const fallbackInput = (input) => ({
+  ...input, selectionMode: SOURCE_UNIT_MODE, selectedKnowledgePointIds: [],
+  selectedPatternGroupIds: [], requestedQuestionType: MIXED_MODE,
+});
+function fallbackGroups(sourceBinding, requestedKnowledgePointIds) {
+  const requested = new Set(unique(requestedKnowledgePointIds));
+  const groups = [...(sourceBinding?.compatiblePatternGroups ?? [])];
+  if (requested.size === 0) return groups;
+  const selected = groups.filter((group) => requested.has(group.knowledgePointId));
+  return selected.length > 0 ? selected : groups;
 }
-
-function sourceUnitFallbackInput(input) {
-  return {
-    ...input,
-    selectionMode: SOURCE_UNIT_MODE,
-    selectedKnowledgePointIds: [],
-    selectedPatternGroupIds: [],
-    requestedQuestionType: MIXED_MODE,
-  };
-}
-
-function selectedFallbackGroups(sourceBinding, requestedKnowledgePointIds) {
-  const requested = new Set(uniqueStrings(requestedKnowledgePointIds));
-  const sourceGroups = [...(sourceBinding?.compatiblePatternGroups ?? [])];
-  if (requested.size === 0) return sourceGroups;
-  const selected = sourceGroups.filter((group) => requested.has(group.knowledgePointId));
-  return selected.length > 0 ? selected : sourceGroups;
-}
-
-function mergeQuestionTypeOptions(sourceOptions, exactCapacity) {
-  const rows = [...(sourceOptions ?? [])].map((option) => ({ ...option }));
-  if (exactCapacity?.questionTypeOption
-      && !rows.some((option) => option.value === exactCapacity.questionTypeOption.value)) {
-    rows.push({ ...exactCapacity.questionTypeOption });
+function questionOptions(sourceOptions, capacity) {
+  const options = [...(sourceOptions ?? [])].map((option) => ({ ...option }));
+  if (capacity?.questionTypeOption && !options.some((option) => option.value === capacity.questionTypeOption.value)) {
+    options.push({ ...capacity.questionTypeOption });
   }
-  return Object.freeze(rows.map(Object.freeze));
+  return Object.freeze(options.map(Object.freeze));
 }
 
 export function resolvePublicUiCapabilityBinding(input = {}) {
-  const primary = resolveBasePublicUiCapabilityBinding(input);
-  if (!needsStructuralFallback(primary)) return withGlobalQuestionCount(primary);
+  const primary = resolveBase(input);
+  const capacity = exactCapacity(input);
+  const exactIdentityMismatch = capacity && primary.questionType !== capacity.questionType;
+  if (!needsFallback(primary) && !exactIdentityMismatch) return withGlobalCount(primary);
 
-  const sourceBinding = resolveBasePublicUiCapabilityBinding(sourceUnitFallbackInput(input));
-  const fallbackGroups = selectedFallbackGroups(sourceBinding, input.selectedKnowledgePointIds);
-  if (sourceBinding.blocked || fallbackGroups.length === 0) return withGlobalQuestionCount(primary);
+  const sourceBinding = resolveBase(fallbackInput(input));
+  const sourceGroups = fallbackGroups(sourceBinding, input.selectedKnowledgePointIds);
+  if (sourceBinding.blocked || sourceGroups.length === 0) return withGlobalCount(primary);
 
-  const requestedKnowledgePointIds = uniqueStrings(input.selectedKnowledgePointIds);
-  const exactCapacity = exactCapacityBinding(input);
-  const exactGroupIds = new Set(exactCapacity?.publicPatternGroupIds ?? []);
-  const exactFallbackGroups = exactGroupIds.size > 0
-    ? fallbackGroups.filter((group) => exactGroupIds.has(group.patternGroupId))
-    : [];
-  const compatiblePatternGroups = exactFallbackGroups.length > 0
-    ? exactFallbackGroups.map((group) => ({ ...group, uiQuestionType: exactCapacity.questionType }))
-    : fallbackGroups;
-  const compatiblePatternGroupIds = uniqueStrings(
-    compatiblePatternGroups.map((group) => group.patternGroupId),
-  );
-  const requestedPatternGroups = new Set(uniqueStrings(input.selectedPatternGroupIds));
-  const selectedCompatiblePatternGroupIds = requestedPatternGroups.size === 0
-    ? compatiblePatternGroupIds
-    : compatiblePatternGroupIds.filter((patternGroupId) => requestedPatternGroups.has(patternGroupId));
-  const mixedAvailable = sourceBinding.availableQuestionTypeOptions
-    .some((option) => option.value === MIXED_MODE);
+  const exactIds = new Set(capacity?.patternGroupIds ?? []);
+  const exactGroups = exactIds.size > 0 ? sourceGroups.filter((group) => exactIds.has(group.patternGroupId)) : [];
+  const groups = exactGroups.length > 0
+    ? exactGroups.map((group) => ({ ...group, uiQuestionType: capacity.questionType }))
+    : sourceGroups;
+  const groupIds = unique(groups.map((group) => group.patternGroupId));
+  const requestedGroupIds = new Set(unique(input.selectedPatternGroupIds));
+  const selectedGroupIds = requestedGroupIds.size === 0
+    ? groupIds : groupIds.filter((groupId) => requestedGroupIds.has(groupId));
+  const requestedKnowledgePointIds = unique(input.selectedKnowledgePointIds);
+  const mixedAvailable = sourceBinding.availableQuestionTypeOptions.some((option) => option.value === MIXED_MODE);
 
   return Object.freeze({
     ...sourceBinding,
     surfaceId: input.surfaceId ?? sourceBinding.surfaceId,
     selectionMode: input.selectionMode ?? sourceBinding.selectionMode,
-    selectedKnowledgePointIds: Object.freeze(
-      requestedKnowledgePointIds.length > 0
-        ? requestedKnowledgePointIds
-        : [...sourceBinding.selectedKnowledgePointIds],
-    ),
+    selectedKnowledgePointIds: Object.freeze(requestedKnowledgePointIds.length > 0
+      ? requestedKnowledgePointIds : [...sourceBinding.selectedKnowledgePointIds]),
     selectedKnowledgePointCount: requestedKnowledgePointIds.length > 0
-      ? requestedKnowledgePointIds.length
-      : sourceBinding.selectedKnowledgePointCount,
-    availableQuestionTypeOptions: exactCapacity
-      ? mergeQuestionTypeOptions(sourceBinding.availableQuestionTypeOptions, exactCapacity)
+      ? requestedKnowledgePointIds.length : sourceBinding.selectedKnowledgePointCount,
+    availableQuestionTypeOptions: capacity ? questionOptions(sourceBinding.availableQuestionTypeOptions, capacity)
       : sourceBinding.availableQuestionTypeOptions,
-    questionType: exactCapacity?.questionType
-      ?? (mixedAvailable ? MIXED_MODE : sourceBinding.questionType),
-    compatiblePatternGroups: Object.freeze(compatiblePatternGroups.map(Object.freeze)),
-    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
-    selectedCompatiblePatternGroupIds: Object.freeze(selectedCompatiblePatternGroupIds),
-    depthOptions: exactCapacity?.depthOptions ?? sourceBinding.depthOptions,
-    contextOptions: exactCapacity?.contextOptions ?? sourceBinding.contextOptions,
-    depthMode: exactCapacity?.depthMode ?? sourceBinding.depthMode,
-    contextMode: exactCapacity?.contextMode ?? sourceBinding.contextMode,
+    questionType: capacity?.questionType ?? (mixedAvailable ? MIXED_MODE : sourceBinding.questionType),
+    compatiblePatternGroups: Object.freeze(groups.map(Object.freeze)),
+    compatiblePatternGroupIds: Object.freeze(groupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(selectedGroupIds),
+    depthOptions: capacity?.depthOptions ?? sourceBinding.depthOptions,
+    contextOptions: capacity?.contextOptions ?? sourceBinding.contextOptions,
+    depthMode: capacity?.depthMode ?? sourceBinding.depthMode,
+    contextMode: capacity?.contextMode ?? sourceBinding.contextMode,
     questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
     capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
-    capacityStatus: exactCapacity
-      ? "STRUCTURAL_FALLBACK_EXACT_ROUTE_AVAILABLE"
-      : "STRUCTURAL_FALLBACK_AVAILABLE",
-    capacityRouteIds: exactCapacity?.routeIds ?? sourceBinding.capacityRouteIds,
-    capacityQualityStatuses: exactCapacity?.qualityStatuses ?? sourceBinding.capacityQualityStatuses,
+    capacityStatus: capacity ? "STRUCTURAL_FALLBACK_EXACT_ROUTE_AVAILABLE" : "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRouteIds: capacity?.routeIds ?? sourceBinding.capacityRouteIds,
+    capacityQualityStatuses: capacity?.qualityStatuses ?? sourceBinding.capacityQualityStatuses,
     blocked: false,
     blockedReasons: Object.freeze([]),
   });
 }
 
-export function auditPublicUiCapabilityBinding() {
-  return auditBasePublicUiCapabilityBinding();
-}
+export function auditPublicUiCapabilityBinding() { return auditBase(); }
 
 // PGC-R06 A03 runtime capacity consumer reconciliation
 // PGC-R08 A04 A03 exact-route identity preservation through structural fallback
