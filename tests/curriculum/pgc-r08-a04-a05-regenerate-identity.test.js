@@ -81,6 +81,26 @@ test("all ten exact harness seed pairs produce distinct ordered identities", () 
   }
 });
 
+test("paired exact seeds diverge for every finite slot size from two through twenty", () => {
+  for (const routeId of targetRouteIds()) {
+    const seedA = `pgc-r08-a03-${routeId}-seed-a`;
+    const seedB = `pgc-r08-a03-${routeId}-seed-b`;
+    for (let count = 2; count <= 20; count += 1) {
+      const source = questions(count);
+      const base = { ok: true, questions: source, allocation: [] };
+      const first = applyRegenerateIdentitySeedOrder(base, { generationSeed: seedA });
+      const second = applyRegenerateIdentitySeedOrder(base, { generationSeed: seedB });
+      assert.notDeepEqual(
+        ids(first),
+        ids(second),
+        `${routeId}: seed pair collided at finite slot size ${count}`,
+      );
+      assert.deepEqual(new Set(first.questions), new Set(source));
+      assert.deepEqual(new Set(second.questions), new Set(source));
+    }
+  }
+});
+
 test("projection preserves PatternSpec slot positions while reordering within each slot", () => {
   const source = Array.from({ length: 12 }, (_, index) => ({
     id: `mixed-${index + 1}`,
@@ -88,16 +108,21 @@ test("projection preserves PatternSpec slot positions while reordering within ea
     promptText: `混合題 ${index + 1}`,
   }));
   const base = { ok: true, questions: source, allocation: [] };
-  const projected = applyRegenerateIdentitySeedOrder(base, {
-    generationSeed: "pgc-r08-slot-preservation-seed",
+  const first = applyRegenerateIdentitySeedOrder(base, {
+    generationSeed: "pgc-r08-slot-preservation-seed-a",
+  });
+  const second = applyRegenerateIdentitySeedOrder(base, {
+    generationSeed: "pgc-r08-slot-preservation-seed-b",
   });
 
-  assert.deepEqual(
-    projected.questions.map((question) => question.patternSpecId),
-    source.map((question) => question.patternSpecId),
-  );
-  assert.deepEqual(new Set(projected.questions), new Set(source));
-  assert.notDeepEqual(ids(projected), ids(base));
+  for (const projected of [first, second]) {
+    assert.deepEqual(
+      projected.questions.map((question) => question.patternSpecId),
+      source.map((question) => question.patternSpecId),
+    );
+    assert.deepEqual(new Set(projected.questions), new Set(source));
+  }
+  assert.notDeepEqual(ids(first), ids(second));
 });
 
 test("projection is a no-op outside the PGC-R08 activation boundary", () => {
@@ -125,6 +150,7 @@ test("repair is shared, post-generation, timeout-free, and route-agnostic", () =
   assert.match(routerSource, /applyPgcR04NumericUniqueAllocation/);
   assert.match(routerSource, /applyRegenerateIdentitySeedOrder\(result, options\)/);
   assert.match(projectionSource, /questionMembership/);
+  assert.match(projectionSource, /seedRotationOffset/);
   assert.match(projectionSource, /seed\.startsWith\("pgc-r08-"\)/);
   assert.doesNotMatch(projectionSource, /pgc_r03_/);
   assert.doesNotMatch(projectionSource, /waitForTimeout|120000/);
@@ -147,8 +173,10 @@ test("exact replay is consolidated into the single PGC-R00 scope-freeze job", ()
 
   assert.deepEqual(jobHeaders, ["scope-freeze"]);
   assert.match(pgcR00WorkflowSource, /- name: Exact ten-route browser replay/);
-  assert.match(pgcR00WorkflowSource, /npm install --no-audit --no-fund/);
+  assert.match(pgcR00WorkflowSource, /--no-save --package-lock=false playwright/);
   assert.match(pgcR00WorkflowSource, /run-pgc-r08-a04-a05-regenerate-identity-replay\.mjs/);
+  assert.match(pgcR00WorkflowSource, /- name: Verify exact ten-route browser replay/);
   assert.doesNotMatch(pgcR00WorkflowSource, /^\s{2}exact-regenerate-identity-replay:/m);
+  assert.doesNotMatch(pgcR00WorkflowSource, /^\s{4,}if:\s*/m);
   assert.doesNotMatch(pgcR00WorkflowSource, /cache:\s*npm|npm ci/);
 });
