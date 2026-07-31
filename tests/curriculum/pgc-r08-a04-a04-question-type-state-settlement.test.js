@@ -6,6 +6,7 @@ import {
   exactPublicPatternGroupIdsForRoute,
   uiSelectablePatternGroupIdsForRoute,
 } from "../../tools/curriculum/pgc-r08-exact-pattern-group-authority.mjs";
+import { parseQueryState } from "../../site/assets/browser/state/query-state.js";
 
 const plan = JSON.parse(await readFile(
   "data/curriculum/public-generation/PGC-R08-A04-A04.question-type-state-settlement-plan.json",
@@ -23,6 +24,10 @@ const runnerSource = await readFile(
 );
 const authoritySource = await readFile(
   "tools/curriculum/pgc-r08-exact-pattern-group-authority.mjs",
+  "utf8",
+);
+const queryStateSource = await readFile(
+  "site/assets/browser/state/query-state.js",
   "utf8",
 );
 
@@ -54,6 +59,49 @@ test("nine explicit W3 application routes retain their runtime PatternGroup IDs 
   }
 });
 
+test("current W3 query-state parser preserves application controls and application PatternGroups", () => {
+  const fixtures = [
+    {
+      sourceId: "g3a_u08_3a08",
+      knowledgePointId: "kp_g3a_u08_same_denominator_compare",
+      patternGroupId: "pg_g3a_u08_same_denominator_compare_application",
+    },
+    {
+      sourceId: "g3b_u07_3b07",
+      knowledgePointId: "kp_g3b_u07_fraction_unit_conversion",
+      patternGroupId: "pg_g3b_u07_fraction_unit_conversion_application",
+    },
+    {
+      sourceId: "g4b_u06_4b06",
+      knowledgePointId: "kp_g4b_u06_one_decimal_times_integer",
+      patternGroupId: "pg_g4b_u06_one_decimal_times_integer_application",
+    },
+    {
+      sourceId: "g5a_u04_5a04",
+      knowledgePointId: "kp_g5a_u04_quotient_as_fraction_context",
+      patternGroupId: "pg_g5a_u04_quotient_as_fraction_context_application",
+    },
+  ];
+
+  for (const fixture of fixtures) {
+    const params = new URLSearchParams({
+      sourceId: fixture.sourceId,
+      selectionMode: "singleKnowledgePoint",
+      questionMode: "application",
+      contextMode: "global_primary",
+    });
+    params.append("kp", fixture.knowledgePointId);
+    params.append("pg", fixture.patternGroupId);
+    const parsed = parseQueryState(`?${params}`);
+    assert.equal(parsed.sourceId, fixture.sourceId);
+    assert.equal(parsed.selectionMode, "singleKnowledgePoint");
+    assert.deepEqual(parsed.selectedKnowledgePointIds, [fixture.knowledgePointId]);
+    assert.deepEqual(parsed.selectedPatternGroupIds, [fixture.patternGroupId]);
+    assert.equal(parsed.questionMode, "application");
+    assert.equal(parsed.contextMode, "global_primary");
+  }
+});
+
 test("canonical bootstrap materializes the complete initial public state before navigation", () => {
   const url = buildQuestionTypeStateBootstrapUrl("http://127.0.0.1:4196/index.html?existing=1", {
     routeIndex: 54,
@@ -79,7 +127,7 @@ test("canonical bootstrap materializes the complete initial public state before 
   assert.equal(parsed.searchParams.get("questionCount"), "20");
 });
 
-test("repair is shared, query-state based, and does not extend timeouts or patch routes", () => {
+test("repair is one shared query-state reconciliation and does not extend timeouts or patch routes", () => {
   assert.match(bootstrapSource, /CANONICAL_QUERY_STATE_BOOTSTRAPPED/);
   assert.match(bootstrapSource, /questionMode/);
   assert.match(bootstrapSource, /uiSelectablePatternGroupIds/);
@@ -88,11 +136,20 @@ test("repair is shared, query-state based, and does not extend timeouts or patch
   assert.match(authoritySource, /basePatternGroupId/);
   assert.match(authoritySource, /UI_GROUP_BY_APPLICATION_ALIAS/);
   assert.doesNotMatch(authoritySource, /numericCandidates/);
+  assert.match(queryStateSource, /batch-a-selector-p03f13-extension/);
+  assert.match(queryStateSource, /getFullProductPublicControlProfile/);
+  assert.match(queryStateSource, /normalizeFullProductPublicControlValue/);
+  assert.doesNotMatch(queryStateSource, /getFifteenUnitPublicControlProfile/);
   assert.match(runnerSource, /wrapBrowserWithExactPatternGroupBinder/);
   assert.match(runnerSource, /wrapBrowserWithDisabledCurrentValueSelectionPolicy/);
   assert.match(runnerSource, /wrapBrowserWithQuestionTypeStateBootstrap/);
   assert.equal(plan.repairContract.timeoutExtensionForbidden, true);
-  assert.equal(plan.repairContract.productMutationAllowed, false);
+  assert.equal(plan.repairContract.queryStateConsumerMutationAllowed, true);
+  assert.deepEqual(
+    plan.repairContract.productMutationScope,
+    ["site/assets/browser/state/query-state.js"],
+  );
+  assert.equal(plan.repairContract.resolverMutationAllowed, false);
   assert.equal(plan.repairContract.capacityAuthorityMutationAllowed, false);
   assert.equal(plan.repairContract.historicalQueueMutationAllowed, false);
   assert.equal(plan.repairContract.perRoutePatchAllowed, false);
