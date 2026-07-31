@@ -1,0 +1,14 @@
+{
+  "schemaName":"PGCR08A04A03A01ExactPatternGroupBindingPlanV1",
+  "schemaVersion":1,
+  "programId":"PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId":"PGC-R08-A04-A03-A01_ExactPatternGroupBindingHarnessRepairAnd136RouteReplay",
+  "status":"PENDING_136_ROUTE_BROWSER_REPLAY",
+  "authorityPath":"data/curriculum/public-generation/PGC-R08-A04-A03-A00.route-identity-expressibility-authority.json",
+  "queuePath":"data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json",
+  "targetRouteCount":136,
+  "workerConcurrency":6,
+  "repairContract":{"browserRowsEnrichedWithPublicPatternGroupIds":true,"exactPublicPatternGroupSetSelected":true,"allNonTargetPatternGroupsDeselected":true,"greedySelectionForbidden":true,"targetRouteIdMustBind":true,"disabledControlPolicyRetained":true,"productMutationAllowed":false,"capacityAuthorityMutationAllowed":false,"perRoutePatchAllowed":false},
+  "acceptance":{"terminalRouteCount":136,"routeBindingResolvedCount":136,"disabledValueMismatchCount":0,"browserConsoleErrorCount":0,"browserPageErrorCount":0},
+  "goalDistance":{"before":"D1_R08_ROUTE_IDENTITY_EXPRESSIBILITY_FROZEN_EXACT_BINDING_REPAIR_PENDING","after":"D1_R08_EXACT_PATTERN_GROUP_BINDER_IMPLEMENTED_REPLAY_PENDING","distanceReduced":"implemented one shared exact PatternGroup authority adapter and binder without product mutation","remainingBlockers":["EXACT_PATTERN_GROUP_BINDER_136_ROUTE_REPLAY_PENDING","QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT_9","REGENERATE_IDENTITY_TIMEOUT_3","CAPACITY_EVIDENCE_RECONCILIATION_35"],"nextShortestStep":"READ_A03_A01_136_ROUTE_BROWSER_ARTIFACT"}
+}
