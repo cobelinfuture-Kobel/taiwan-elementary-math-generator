@@ -68,7 +68,8 @@ function exactCapacity(input) {
     && row.selectedKnowledgePointKey === selectedKnowledgePointKey
     && row.questionType === questionType
     && row.legalRoute && row.verifiedMaxQuestionCount > 0);
-  const groupRows = rowsForGroups(caseRows, input.selectedPatternGroupIds);
+  const selectedGroupRows = rowsForGroups(caseRows, input.selectedPatternGroupIds);
+  const groupRows = selectedGroupRows.length > 0 ? selectedGroupRows : caseRows;
   if (groupRows.length === 0) return null;
 
   const profile = getFullProductPublicControlProfile(input.sourceId);
