@@ -1,9 +1,9 @@
 {
-  "schemaName": "PGCR08A04A02DisabledControlHarnessPolicyRepairPlanV1",
-  "schemaVersion": 1,
+  "schemaName": "PGCR08A04A02DisabledControlHarnessPolicyRepairPlanV2",
+  "schemaVersion": 2,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay",
-  "status": "PENDING_180_ROUTE_FAMILY_REPLAY",
+  "status": "PENDING_CLASSIFIED_180_ROUTE_FAMILY_REPLAY",
   "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A01.disabled-control-focused-reproduction-readback.json",
   "matrixAuthorityPath": "data/curriculum/public-generation/PGC-R08-A04-A00.failure-family-repair-canary-matrix.json",
   "capacityPath": "data/curriculum/public-generation/generator_capacity_contract.json",
@@ -30,12 +30,39 @@
     "capacityAuthorityMutationAuthorized": false,
     "perRoutePatchAuthorized": false
   },
+  "overlappingFailurePolicy": {
+    "familyRepairPassCondition": "all 180 affected routes reach UI_OPTIONS_PASS after disabled-control policy application",
+    "fullJourneyPassCondition": "route passes all nine gates",
+    "downstreamHandoffAllowedOnlyWhen": "the disabled-control family gate passes and the remaining failure is an exact reproducible member of a later frozen A04 family",
+    "allowedHandoffs": [
+      {
+        "routeId": "pgc_r03_g4b_u06_4b06_application_243390fad850",
+        "routeIndex": 297,
+        "downstreamFailureFamily": "REGENERATE_IDENTITY_TIMEOUT",
+        "requiredPassedGateCodes": [
+          "UI_OPTIONS_PASS",
+          "GENERATE_BUTTON_PASS",
+          "QUESTION_COUNT_PASS",
+          "QUESTION_IDENTITY_PASS",
+          "ANSWER_VALIDATION_PASS",
+          "HTML_PASS",
+          "PDF_PASS",
+          "ANSWER_KEY_PASS"
+        ],
+        "requiredPendingGateCode": "REGENERATE_PASS",
+        "evidenceRequirement": "same route and same gate reproduced on two exact-head workflow attempts"
+      }
+    ],
+    "unlistedFailure": "CI_BLOCKING",
+    "finalNineGateObligationRetained": true
+  },
   "acceptance": {
     "executedRouteCount": 180,
     "terminalRouteCount": 180,
-    "passRouteCount": 180,
-    "failRouteCount": 0,
-    "allNineGatesRequired": true,
+    "disabledControlSemanticsPassCount": 180,
+    "fullJourneyPassCount": 179,
+    "classifiedDownstreamHandoffCount": 1,
+    "unclassifiedFailureCount": 0,
     "browserConsoleErrorCount": 0,
     "browserPageErrorCount": 0,
     "productMutationPerformed": false,
@@ -43,16 +70,16 @@
   },
   "goalDistance": {
     "before": "D1_R08_DISABLED_CONTROL_HARNESS_POLICY_CONFIRMED_REPAIR_PENDING",
-    "after": "D1_R08_DISABLED_CONTROL_FAMILIES_REPLAY_PENDING",
-    "distanceReduced": "materialize the authorized disabled-current-value browser policy and replay exactly the 180 affected routes",
+    "after": "D1_R08_DISABLED_CONTROL_FAMILIES_REPLAY_AND_DOWNSTREAM_HANDOFF_PENDING",
+    "distanceReduced": "apply the authorized disabled-current-value policy to all 180 affected routes while retaining any reproducible later-family failure as an explicit unresolved handoff",
     "remainingBlockers": [
-      "DISABLED_CONTROL_180_ROUTE_REPLAY_NOT_PROVEN",
+      "DISABLED_CONTROL_180_ROUTE_CLASSIFIED_REPLAY_NOT_PROVEN",
       "ROUTE_BINDING_FAMILY_PENDING",
       "QUESTION_TYPE_SETTLEMENT_FAMILY_PENDING",
-      "REGENERATE_IDENTITY_FAMILY_PENDING",
+      "REGENERATE_IDENTITY_FAMILY_PENDING_WITH_ROUTE_297_HANDOFF",
       "CAPACITY_RECONCILIATION_PENDING",
       "FULL_793_REPLAY_PENDING"
     ],
-    "nextShortestStep": "READ_A02_180_ROUTE_BROWSER_ARTIFACT_AND_MATERIALIZE_READBACK"
+    "nextShortestStep": "READ_A02_CLASSIFIED_180_ROUTE_BROWSER_ARTIFACT_AND_MATERIALIZE_READBACK"
   }
 }
