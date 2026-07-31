@@ -3,20 +3,45 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
-  "status": "PENDING_9_ROUTE_BROWSER_REPLAY",
+  "status": "QUERY_STATE_CONSUMER_RECONCILED_9_ROUTE_REPLAY_PENDING",
   "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
   "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-state-settlement-timeout.json",
   "targetRouteCount": 9,
   "workerConcurrency": 6,
+  "rootCause": {
+    "classification": "FULL_PRODUCT_QUERY_STATE_CONSUMER_STALE",
+    "evidence": [
+      "config-state consumes current full-product public control profiles",
+      "public capability binding consumes current p03f13 selector and capacity authority",
+      "query-state previously consumed fifteen-unit controls and pre-W3 selector rows",
+      "application query parameters were therefore normalized away before browser configure"
+    ],
+    "affectedSources": [
+      "g3a_u08_3a08",
+      "g3b_u07_3b07",
+      "g4b_u06_4b06",
+      "g5a_u04_5a04"
+    ]
+  },
   "repairContract": {
     "canonicalQueryStateBootstrapBeforeFirstNavigation": true,
     "sourceSelectionModeKnowledgePointsPatternGroupsQuestionModeIncluded": true,
     "subsequentConfigureMustBeIdempotent": true,
     "exactPatternGroupBinderRetained": true,
     "disabledCurrentValuePolicyRetained": true,
+    "currentFullProductControlProfilesRequired": true,
+    "currentP03F13SelectorRegistryRequired": true,
+    "explicitApplicationPatternGroupIdentityPreserved": true,
     "timeoutExtensionForbidden": true,
-    "productMutationAllowed": false,
+    "queryStateConsumerMutationAllowed": true,
+    "productMutationScope": [
+      "site/assets/browser/state/query-state.js"
+    ],
+    "resolverMutationAllowed": false,
     "capacityAuthorityMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "rendererMutationAllowed": false,
     "historicalQueueMutationAllowed": false,
     "perRoutePatchAllowed": false
   },
@@ -28,15 +53,23 @@
     "browserConsoleErrorCount": 0,
     "browserPageErrorCount": 0
   },
+  "diagnosticEvidence": {
+    "initialWorkflowRunId": 30619879421,
+    "initialArtifactId": 8789013988,
+    "initialArtifactDigest": "sha256:e55650ed726f0389cdf14f9e06b393b7fb30d2211ef8308da834b15ae8067c1b",
+    "explicitGroupWorkflowRunId": 30625883803,
+    "explicitGroupArtifactId": 8791424512,
+    "explicitGroupArtifactDigest": "sha256:1a7b62b806e1f53aa7fe8a065208bfdd510b22874d7cac74557ae2490f4636b5"
+  },
   "goalDistance": {
     "before": "D1_R08_ROUTE_BINDING_CLOSED_QUESTION_STATE_SETTLEMENT_NEXT",
-    "after": "D1_R08_QUESTION_STATE_BOOTSTRAP_IMPLEMENTED_9_ROUTE_REPLAY_PENDING",
-    "distanceReduced": "defined one shared canonical query-state bootstrap that removes question-mode initialization races without product mutation",
+    "after": "D1_R08_QUERY_STATE_CONSUMER_RECONCILED_9_ROUTE_REPLAY_PENDING",
+    "distanceReduced": "identified and repaired one shared stale query-state consumer that dropped current W3 application controls and PatternGroups; no per-route or capacity mutation introduced",
     "remainingBlockers": [
       "QUESTION_TYPE_STATE_SETTLEMENT_9_ROUTE_REPLAY_PENDING",
       "REGENERATE_IDENTITY_TIMEOUT_9",
       "CAPACITY_EVIDENCE_RECONCILIATION_38_WITH_3_ACTIVE_SHORTFALLS"
     ],
-    "nextShortestStep": "READ_A04_9_ROUTE_BROWSER_ARTIFACT"
+    "nextShortestStep": "REPLAY_A04_9_ROUTES_ON_RECONCILED_QUERY_STATE"
   }
 }
