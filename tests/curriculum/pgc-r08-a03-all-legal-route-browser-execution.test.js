@@ -40,11 +40,34 @@ test("PGC-R08 A03 executes every legal route and collects route failures instead
   assert.equal(plan.executionPolicy.routeFailureDisposition,"COLLECT_IN_REPAIR_QUEUE");
   assert.equal(plan.executionPolicy.systemFailureDisposition,"FAIL_CI");
   assert.match(runner,/materializeMatrix/);
-  assert.match(runner,/Promise\.all\(Array\.from\(\{length:plan\.executionPolicy\.workerConcurrency\}/);
+  assert.match(runner,/Promise\.all\(/);
+  assert.match(runner,/plan\.executionPolicy\.workerConcurrency/);
   assert.match(runner,/PASS_EXECUTION_COMPLETE_WITH_REPAIR_QUEUE/);
   assert.match(runner,/repairQueue/);
   assert.match(runner,/capacityEvidenceReconciliationQueue/);
-  assert.match(runner,/executedRouteCount!==793/);
+  assert.match(runner,/executedRouteCount !== 793/);
+});
+
+test("PGC-R08 A03 serializes checkpoints and writes a final authoritative 793-route checkpoint",()=>{
+  assert.match(runner,/let checkpointChain = Promise\.resolve\(\)/);
+  assert.match(runner,/checkpointChain = checkpointChain\.then\(\(\) => writeCheckpoint\(results\)\)/);
+  assert.match(runner,/await checkpointChain/);
+  assert.match(runner,/authoritativeFinal: true/);
+  assert.match(runner,/PGC_R08_A03_FINAL_CHECKPOINT_INCOMPLETE/);
+  assert.match(runner,/finalCheckpointExecutedRouteCount/);
+  assert.match(runner,/finalCheckpointAuthoritative/);
+});
+
+test("PGC-R08 A03 captures exactly one deterministic PASS sample per shard after classification",()=>{
+  assert.match(runner,/selectShardSampleRepresentatives/);
+  assert.match(runner,/captureShardSamples/);
+  assert.match(runner,/PGC_R08_A03_SHARD_SAMPLE_REPRESENTATIVE_MISSING/);
+  assert.match(runner,/PGC_R08_A03_SHARD_SAMPLE_REPLAY_FAILED/);
+  assert.match(runner,/PGC_R08_A03_SHARD_SAMPLE_BINARY_MISSING/);
+  assert.match(runner,/sampleEvidence\.length !== matrix\.shards\.length/);
+  assert.match(runner,/sampleHtmlCount !== 16/);
+  assert.match(runner,/samplePdfCount !== 16/);
+  assert.match(runner,/authoritativeRouteClassificationMutated: false/);
 });
 
 test("PGC-R08 A03 uses the accepted nine-gate real-browser journey",()=>{
