@@ -75,7 +75,7 @@ test("all 136 failed rows retain runtime identity and derive the actual rendered
   assert.ok(summary.singletonRuntimeGroupOmittedRouteCount > 0);
 });
 
-test("application registries project runtime groups to rendered base buttons without relaxing route identity", () => {
+test("application registries project runtime aliases while current W3 groups retain explicit identity", () => {
   const rows = queueObjects();
   const w01Rows = rows.filter((row) =>
     row.publicPatternGroupIds.some((id) => id.startsWith("w01_app_")),
@@ -83,13 +83,13 @@ test("application registries project runtime groups to rendered base buttons wit
   const w1Rows = rows.filter((row) =>
     row.publicPatternGroupIds.some((id) => id.startsWith("p01e_app_")),
   );
-  const applicationVariantRows = rows.filter((row) =>
+  const legacyApplicationVariantRows = rows.filter((row) =>
     row.publicPatternGroupIds.includes("pg_g3b_u04_consecutive_multiplication_application"),
   );
 
   assert.equal(w01Rows.length, 12);
   assert.ok(w1Rows.length > 0);
-  assert.ok(applicationVariantRows.length > 0);
+  assert.ok(legacyApplicationVariantRows.length > 0);
   for (const row of [...w01Rows, ...w1Rows]) {
     assert.ok(
       row.uiSelectablePatternGroupIds.every(
@@ -98,7 +98,7 @@ test("application registries project runtime groups to rendered base buttons wit
       row.routeId,
     );
   }
-  for (const row of applicationVariantRows) {
+  for (const row of legacyApplicationVariantRows) {
     assert.ok(
       row.uiSelectablePatternGroupIds.includes(
         "pg_g3b_u04_consecutive_multiplication_numeric",
@@ -169,23 +169,29 @@ test("A03 A01 terminal readback closes route binding and transfers only orthogon
   );
 });
 
-test("active repair state advances to position 3 without double-counting capacity overlap", () => {
-  assert.equal(activeState.status, "ACTIVE_AFTER_ROUTE_BINDING_FAMILY_CLOSEOUT");
-  assert.equal(activeState.current.cumulativePassRouteCount, 772);
-  assert.equal(activeState.current.unresolvedFailedRouteCount, 21);
-  assert.equal(activeState.current.closedOriginalFailureRouteCount, 315);
-  assert.equal(activeState.reconciliation.pendingFailureFamiliesExcludingCapacityReconciliation, 18);
+test("active repair state advances to position 4 without double-counting capacity overlap", () => {
+  assert.equal(activeState.status, "ACTIVE_AFTER_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSEOUT");
+  assert.equal(activeState.current.cumulativePassRouteCount, 780);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 13);
+  assert.equal(activeState.current.closedOriginalFailureRouteCount, 324);
+  assert.equal(activeState.reconciliation.pendingFailureFamiliesExcludingCapacityReconciliation, 10);
   assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 3);
   assert.equal(activeState.reconciliation.capacityReconciliationRouteCount, 38);
   assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 3);
-  assert.equal(activeState.reconciliation.nextRepairPosition, 3);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 4);
   assert.equal(
     activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
+    "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair",
   );
   assert.equal(
     activeState.pendingFamilies.some(
       (family) => family.failureFamily === "ROUTE_BINDING_NOT_CONVERGED",
+    ),
+    false,
+  );
+  assert.equal(
+    activeState.pendingFamilies.some(
+      (family) => family.failureFamily === "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
     ),
     false,
   );
