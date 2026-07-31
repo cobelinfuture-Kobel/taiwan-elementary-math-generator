@@ -15,7 +15,7 @@ permissions:
 jobs:
   scope-freeze:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,3 +30,43 @@ jobs:
 
       - name: Full regression
         run: npm test
+
+      - name: Install exact-replay dependencies
+        run: npm install --no-audit --no-fund --no-save --package-lock=false playwright
+
+      - name: Focused regenerate-identity contract
+        run: >-
+          node --test
+          tests/curriculum/pgc-r08-a04-a05-regenerate-identity.test.js
+          tests/curriculum/pgc-r08-a04-a05-application-alias.test.js
+          tests/curriculum/pgc-r08-a04-a05-browser-selector-route.test.js
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Exact ten-route browser replay
+        shell: bash
+        run: |
+          set -o pipefail
+          set +e
+          mkdir -p tmp/pgc-r08-a04-a05-regenerate-identity
+          node tools/curriculum/run-pgc-r08-a04-a05-regenerate-identity-replay.mjs \
+            2>&1 | tee tmp/pgc-r08-a04-a05-regenerate-identity/exact-replay.log
+          replay_status=${PIPESTATUS[0]}
+          printf '%s\n' "${replay_status}" \
+            > tmp/pgc-r08-a04-a05-regenerate-identity/exit-code.txt
+          exit 0
+
+      - name: Upload replay evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r08-a04-a05-regenerate-identity-${{ github.run_id }}
+          path: |
+            tmp/pgc-r08-a04-a05-regenerate-identity
+            tmp/pgc-r08-a03-all-legal-routes/failures
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Verify exact ten-route browser replay
+        shell: bash
+        run: test "$(cat tmp/pgc-r08-a04-a05-regenerate-identity/exit-code.txt)" = "0"

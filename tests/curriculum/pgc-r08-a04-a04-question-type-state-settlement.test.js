@@ -34,7 +34,7 @@ const queryStateSource = await readFile(
 );
 const temporaryWorkflowPath = ".github/workflows/pgc-r08-a04-a04-question-type-state-settlement-replay.yml";
 
-test("A04 closes the immutable nine-route settlement queue and advances to position 4", () => {
+test("A04 closes the immutable nine-route settlement queue and later active state advances to position 5", () => {
   assert.equal(queue.failureFamily, "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT");
   assert.equal(queue.rows.length, 9);
   assert.equal(plan.targetRouteCount, 9);
@@ -50,10 +50,10 @@ test("A04 closes the immutable nine-route settlement queue and advances to posit
   assert.equal(family.originalRouteCount, 9);
   assert.equal(family.endToEndPassCount, 8);
   assert.equal(family.transferredRouteCount, 1);
-  assert.equal(activeState.reconciliation.nextRepairPosition, 4);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 5);
   assert.equal(
     activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair",
+    "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
   );
 });
 
@@ -193,21 +193,31 @@ test("terminal readback closes state settlement and transfers one orthogonal reg
   assert.equal(transferred.perRoutePatchAuthorized, false);
 });
 
-test("active state reconciles eight passes and one regenerate transfer without capacity double-counting", () => {
-  assert.equal(activeState.status, "ACTIVE_AFTER_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSEOUT");
-  assert.equal(activeState.current.cumulativePassRouteCount, 780);
-  assert.equal(activeState.current.unresolvedFailedRouteCount, 13);
-  assert.equal(activeState.current.closedOriginalFailureRouteCount, 324);
-  assert.equal(activeState.current.reclassifiedUnresolvedRouteCount, 11);
-  assert.equal(activeState.reconciliation.pendingFailureFamiliesExcludingCapacityReconciliation, 10);
+test("active state preserves A04 reconciliation while A05 closes the transferred regenerate family", () => {
+  assert.equal(activeState.status, "ACTIVE_AFTER_REGENERATE_IDENTITY_FAMILY_CLOSEOUT");
+  assert.equal(activeState.current.cumulativePassRouteCount, 790);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 3);
+  assert.equal(activeState.current.closedOriginalFailureRouteCount, 326);
+  assert.equal(activeState.current.reclassifiedUnresolvedRouteCount, 3);
+  assert.equal(activeState.reconciliation.pendingFailureFamiliesExcludingCapacityReconciliation, 0);
   assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 3);
   assert.equal(activeState.reconciliation.capacityReconciliationRouteCount, 38);
   assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 3);
-  const regenerate = activeState.pendingFamilies.find(
+  const closedRegenerate = activeState.closedFamilies.find(
     (family) => family.failureFamily === "REGENERATE_IDENTITY_TIMEOUT",
   );
-  assert.equal(regenerate.routeCount, 10);
-  assert.ok(regenerate.overlayRows.some((row) => row.routeIndex === 296));
+  assert.ok(closedRegenerate);
+  assert.equal(closedRegenerate.endToEndPassCount, 10);
+  assert.equal(
+    closedRegenerate.status,
+    "CLOSED_REGENERATE_IDENTITY_BLOCKER_REMOVED",
+  );
+  assert.equal(
+    activeState.pendingFamilies.some(
+      (family) => family.failureFamily === "REGENERATE_IDENTITY_TIMEOUT",
+    ),
+    false,
+  );
   assert.equal(
     activeState.pendingFamilies.some(
       (family) => family.failureFamily === "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
