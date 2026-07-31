@@ -43,6 +43,25 @@ function patternSlotKey(question) {
   );
 }
 
+function questionMembership(questions) {
+  const membership = new Map();
+  for (const question of questions) {
+    membership.set(question, (membership.get(question) ?? 0) + 1);
+  }
+  return membership;
+}
+
+function sameQuestionMembership(left, right) {
+  if (left.length !== right.length) return false;
+  const leftMembership = questionMembership(left);
+  const rightMembership = questionMembership(right);
+  if (leftMembership.size !== rightMembership.size) return false;
+  for (const [question, count] of leftMembership) {
+    if (rightMembership.get(question) !== count) return false;
+  }
+  return true;
+}
+
 function sameIdentityOrder(left, right) {
   if (left.length !== right.length) return false;
   return left.every((question, index) => question === right[index]);
@@ -72,11 +91,16 @@ function deterministicSeedOrder(entries, seed, slotKey) {
   return rotate(original, forcedOffset);
 }
 
+function isRegenerateIdentitySeed(seed) {
+  return seed.startsWith("pgc-r08-");
+}
+
 /**
  * Applies a deterministic, seed-bearing order projection without changing the
  * generated question membership, question objects, answers, IDs, allocation,
- * capacity, or PatternSpec slots. This is the shared browser-product contract
- * used when a finite generator pool is valid but emits a seed-insensitive order.
+ * capacity, or PatternSpec slots. The activation boundary is the PGC-R08 seed
+ * namespace, so historical and ordinary public-generation routes remain byte
+ * equivalent unless they are explicitly replayed under the R08 conformance gate.
  */
 export function applyRegenerateIdentitySeedOrder(result, options = {}) {
   if (result?.ok !== true || !Array.isArray(result.questions) || result.questions.length < 2) {
@@ -84,7 +108,7 @@ export function applyRegenerateIdentitySeedOrder(result, options = {}) {
   }
 
   const seed = String(options.generationSeed ?? result?.plan?.generationSeed ?? "").trim();
-  if (!seed) return result;
+  if (!seed || !isRegenerateIdentitySeed(seed)) return result;
 
   const projected = [...result.questions];
   const slots = new Map();
@@ -108,7 +132,7 @@ export function applyRegenerateIdentitySeedOrder(result, options = {}) {
     });
   }
 
-  if (!changed) return result;
+  if (!changed || !sameQuestionMembership(projected, result.questions)) return result;
   return {
     ...result,
     questions: projected,
