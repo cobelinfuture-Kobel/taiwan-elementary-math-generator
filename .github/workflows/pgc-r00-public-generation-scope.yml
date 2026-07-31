@@ -32,7 +32,7 @@ jobs:
         run: npm test
 
       - name: Install exact-replay dependencies
-        run: npm install --no-audit --no-fund
+        run: npm install --no-audit --no-fund --no-save --package-lock=false playwright
 
       - name: Focused regenerate-identity contract
         run: node --test tests/curriculum/pgc-r08-a04-a05-regenerate-identity.test.js
