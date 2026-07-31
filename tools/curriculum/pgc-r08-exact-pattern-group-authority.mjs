@@ -19,10 +19,9 @@ function splitKey(value) {
   return uniqueSorted(String(value ?? "").split("|"));
 }
 
-function sameValues(left = [], right = []) {
-  const a = uniqueSorted(left);
-  const b = uniqueSorted(right);
-  return a.length === b.length && a.every((value, index) => value === b[index]);
+function isSubset(subset = [], superset = []) {
+  const allowed = new Set(uniqueSorted(superset));
+  return uniqueSorted(subset).every((value) => allowed.has(value));
 }
 
 const EXACT_GROUPS_BY_ROUTE_ID = new Map();
@@ -57,14 +56,22 @@ for (const aliasRow of singleFormRows.filter(
       route.sourceId === aliasRow.sourceId &&
       route.questionType === "numeric" &&
       !route.patternGroupIds[0].startsWith(APPLICATION_ALIAS_PREFIX) &&
-      sameValues(route.patternSpecIds, aliasRow.patternSpecIds),
+      isSubset(aliasRow.patternSpecIds, route.patternSpecIds),
   );
-  if (candidates.length !== 1) {
-    throw new Error(
-      `PGC_R08_APPLICATION_ALIAS_UI_GROUP_${candidates.length === 0 ? "MISSING" : "AMBIGUOUS"}:${aliasId}`,
-    );
+  if (candidates.length === 0) {
+    throw new Error(`PGC_R08_APPLICATION_ALIAS_UI_GROUP_MISSING:${aliasId}`);
   }
-  const uiPatternGroupId = candidates[0].patternGroupIds[0];
+  const minimumExtraPatternSpecs = Math.min(
+    ...candidates.map((route) => route.patternSpecIds.length - aliasRow.patternSpecIds.length),
+  );
+  const nearestCandidates = candidates.filter(
+    (route) =>
+      route.patternSpecIds.length - aliasRow.patternSpecIds.length === minimumExtraPatternSpecs,
+  );
+  if (nearestCandidates.length !== 1) {
+    throw new Error(`PGC_R08_APPLICATION_ALIAS_UI_GROUP_AMBIGUOUS:${aliasId}`);
+  }
+  const uiPatternGroupId = nearestCandidates[0].patternGroupIds[0];
   const prior = UI_GROUP_BY_APPLICATION_ALIAS.get(aliasId);
   if (prior && prior !== uiPatternGroupId) {
     throw new Error(`PGC_R08_APPLICATION_ALIAS_UI_GROUP_DRIFT:${aliasId}`);
