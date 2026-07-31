@@ -1,0 +1,41 @@
+{
+  "schemaName": "PGCR08A04A03A00RouteIdentityExpressibilityPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A03-A00_RouteIdentityExpressibilityAuthorityFreeze",
+  "status": "PENDING_DETERMINISTIC_CI_READBACK",
+  "sourceAuthorities": [
+    "data/curriculum/public-generation/generator_capacity_contract.json",
+    "site/modules/curriculum/public/public-generator-capacity-registry.js",
+    "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+    "data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json"
+  ],
+  "frozenCounts": {
+    "legalRouteCount": 793,
+    "routeBindingFailureCount": 136
+  },
+  "questions": [
+    "Can every legal routeId join one-to-one to the runtime registry row that retains public PatternGroup identity?",
+    "How many route-binding failures become uniquely selectable when public PatternGroup IDs are restored?",
+    "How many failures remain public equivalence classes even after PatternGroup identity is restored?"
+  ],
+  "classificationValues": [
+    "EXACT_PUBLIC_PATTERN_GROUP_SELECTION_REQUIRED",
+    "PUBLIC_EQUIVALENCE_CLASS_REQUIRED"
+  ],
+  "boundaries": {
+    "publicUiMutationAllowed": false,
+    "browserHarnessMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "perRoutePatchAllowed": false
+  },
+  "acceptance": {
+    "runtimeRegistryRouteMatchCount": 793,
+    "runtimeMetadataMismatchCount": 0,
+    "failedRouteClassifiedCount": 136,
+    "classificationTotalMustEqualFailedRouteCount": true
+  },
+  "nextTask": "PGC-R08-A04-A03-A01_ExactPatternGroupBindingAndPublicEquivalenceHarnessRepair"
+}
