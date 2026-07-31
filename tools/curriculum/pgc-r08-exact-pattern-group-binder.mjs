@@ -16,48 +16,51 @@ export function installExactPatternGroupBinder(page, row, { onDisposition = () =
     return originalLocator(ALL_SELECTOR).evaluateAll((nodes) => nodes.map((node) => ({
       id: node.dataset.patternGroupId ?? "",
       selected: node.dataset.selected === "true",
-      compatible: node.dataset.compatible === "true",
       hidden: Boolean(node.hidden) || getComputedStyle(node).display === "none",
       disabled: Boolean(node.disabled) || node.getAttribute("aria-disabled") === "true",
     })));
   }
 
-  function exactCandidateLocator(kind) {
-    const candidateId = async () => {
-      const rows = await snapshot();
-      if (kind === "drain") {
-        return rows.find((item) => item.selected && !targetIds.has(item.id) && !item.hidden)?.id ?? null;
-      }
-      return [...targetIds]
-        .map((id) => rows.find((item) => item.id === id))
-        .find((item) => item && !item.selected && !item.hidden && !item.disabled)?.id ?? null;
-    };
+  async function nextOperation() {
+    const rows = await snapshot();
+    const target = [...targetIds]
+      .map((id) => rows.find((item) => item.id === id))
+      .find((item) => item && !item.selected && !item.hidden && !item.disabled);
+    if (target) return { id: target.id, action: "SELECT_EXACT_TARGET" };
+    const nonTarget = rows.find((item) => item.selected && !targetIds.has(item.id) && !item.hidden && !item.disabled);
+    if (nonTarget) return { id: nonTarget.id, action: "DESELECT_NON_TARGET" };
+    return null;
+  }
+
+  function exactOperationLocator() {
     const api = {
       first: () => api,
-      count: async () => (await candidateId()) ? 1 : 0,
+      count: async () => (await nextOperation()) ? 1 : 0,
       isDisabled: async () => {
-        const id = await candidateId();
-        return id ? originalLocator(`${PANEL} [data-pattern-group-id="${cssEscape(id)}"]`).isDisabled() : false;
+        const operation = await nextOperation();
+        return operation ? originalLocator(`${PANEL} [data-pattern-group-id="${cssEscape(operation.id)}"]`).isDisabled() : false;
       },
       getAttribute: async (name) => {
-        const id = await candidateId();
-        if (!id) return null;
-        if (name === "data-pattern-group-id") return id;
-        return originalLocator(`${PANEL} [data-pattern-group-id="${cssEscape(id)}"]`).getAttribute(name);
+        const operation = await nextOperation();
+        if (!operation) return null;
+        if (name === "data-pattern-group-id") return operation.id;
+        return originalLocator(`${PANEL} [data-pattern-group-id="${cssEscape(operation.id)}"]`).getAttribute(name);
       },
       click: async (...args) => {
-        const id = await candidateId();
-        if (!id) throw new Error(`PGC_R08_EXACT_PATTERN_GROUP_${kind.toUpperCase()}_CANDIDATE_MISSING`);
-        await originalLocator(`${PANEL} [data-pattern-group-id="${cssEscape(id)}"]`).click(...args);
-        onDisposition({ routeId: row.routeId, patternGroupId: id, action: kind === "drain" ? "DESELECT_NON_TARGET" : "SELECT_EXACT_TARGET" });
+        const operation = await nextOperation();
+        if (!operation) throw new Error("PGC_R08_EXACT_PATTERN_GROUP_OPERATION_MISSING");
+        await originalLocator(`${PANEL} [data-pattern-group-id="${cssEscape(operation.id)}"]`).click(...args);
+        onDisposition({ routeId: row.routeId, patternGroupId: operation.id, action: operation.action });
       },
     };
     return api;
   }
 
   page.locator = (selector, ...args) => {
-    if (selector === DRAIN_SELECTOR) return exactCandidateLocator("drain");
-    if (selector === SELECT_SELECTOR) return exactCandidateLocator("select");
+    if (selector === DRAIN_SELECTOR) {
+      return { first() { return this; }, async count() { return 0; } };
+    }
+    if (selector === SELECT_SELECTOR) return exactOperationLocator();
     return originalLocator(selector, ...args);
   };
 
