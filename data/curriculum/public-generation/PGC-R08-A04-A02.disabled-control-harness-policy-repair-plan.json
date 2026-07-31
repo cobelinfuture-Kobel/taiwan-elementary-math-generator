@@ -1,0 +1,58 @@
+{
+  "schemaName": "PGCR08A04A02DisabledControlHarnessPolicyRepairPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay",
+  "status": "PENDING_180_ROUTE_FAMILY_REPLAY",
+  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A01.disabled-control-focused-reproduction-readback.json",
+  "matrixAuthorityPath": "data/curriculum/public-generation/PGC-R08-A04-A00.failure-family-repair-canary-matrix.json",
+  "capacityPath": "data/curriculum/public-generation/generator_capacity_contract.json",
+  "scopePath": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+  "targetFamilies": [
+    {
+      "failureFamily": "QUESTION_TYPE_CONTROL_DISABLED",
+      "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-control-disabled.json",
+      "routeCount": 176
+    },
+    {
+      "failureFamily": "CONTEXT_MODE_CONTROL_DISABLED",
+      "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/context-mode-control-disabled.json",
+      "routeCount": 4
+    }
+  ],
+  "targetRouteCount": 180,
+  "workerConcurrency": 6,
+  "repairPolicy": {
+    "enabledControl": "select requested value and verify settlement",
+    "disabledCurrentValueMatch": "accept without mutation and return the current selected value",
+    "disabledValueMismatch": "fail closed with PGC_R08_DISABLED_CONTROL_VALUE_MISMATCH",
+    "productMutationAuthorized": false,
+    "capacityAuthorityMutationAuthorized": false,
+    "perRoutePatchAuthorized": false
+  },
+  "acceptance": {
+    "executedRouteCount": 180,
+    "terminalRouteCount": 180,
+    "passRouteCount": 180,
+    "failRouteCount": 0,
+    "allNineGatesRequired": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "productMutationPerformed": false,
+    "capacityAuthorityMutationPerformed": false
+  },
+  "goalDistance": {
+    "before": "D1_R08_DISABLED_CONTROL_HARNESS_POLICY_CONFIRMED_REPAIR_PENDING",
+    "after": "D1_R08_DISABLED_CONTROL_FAMILIES_REPLAY_PENDING",
+    "distanceReduced": "materialize the authorized disabled-current-value browser policy and replay exactly the 180 affected routes",
+    "remainingBlockers": [
+      "DISABLED_CONTROL_180_ROUTE_REPLAY_NOT_PROVEN",
+      "ROUTE_BINDING_FAMILY_PENDING",
+      "QUESTION_TYPE_SETTLEMENT_FAMILY_PENDING",
+      "REGENERATE_IDENTITY_FAMILY_PENDING",
+      "CAPACITY_RECONCILIATION_PENDING",
+      "FULL_793_REPLAY_PENDING"
+    ],
+    "nextShortestStep": "READ_A02_180_ROUTE_BROWSER_ARTIFACT_AND_MATERIALIZE_READBACK"
+  }
+}
