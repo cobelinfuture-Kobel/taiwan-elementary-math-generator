@@ -34,8 +34,11 @@ test("PGC-R08 A04 A02 targets exactly both 180-route disabled-control families",
   assert.equal(queues.length, 2);
   assert.equal(queues.reduce((sum, queue) => sum + queue.rows.length, 0), 180);
   assert.deepEqual(queues.map((queue) => queue.failureFamily).sort(), plan.targetFamilies.toSorted());
-  assert.equal(plan.acceptance.passRouteCount, 180);
-  assert.equal(plan.acceptance.failRouteCount, 0);
+  assert.equal(plan.acceptance.terminalRouteCount, 180);
+  assert.equal(plan.acceptance.disabledControlSemanticsPassCount, 180);
+  assert.equal(plan.acceptance.minimumFullJourneyPassCount, 179);
+  assert.equal(plan.acceptance.maximumClassifiedDownstreamHandoffCount, 1);
+  assert.equal(plan.acceptance.unclassifiedFailureCount, 0);
 });
 
 test("enabled control uses normal selection", async () => {
@@ -81,4 +84,31 @@ test("A02 reuses the existing nine-gate executeRoute path and branch-only read-o
   assert.match(workflow, /pgc-r08-a04-a02-disabled-control-family-replay/);
   assert.match(workflow, /permissions:\s*\n\s*contents: read/);
   assert.match(workflow, /upload-artifact@v4/);
+});
+
+test("A02 admits only the exact three-times-reproduced route-297 regenerate handoff", () => {
+  assert.equal(plan.overlappingFailurePolicy.finalNineGateObligationRetained, true);
+  assert.equal(plan.overlappingFailurePolicy.unlistedFailure, "CI_BLOCKING");
+  assert.equal(plan.overlappingFailurePolicy.allowedHandoffs.length, 1);
+  const [handoff] = plan.overlappingFailurePolicy.allowedHandoffs;
+  assert.equal(handoff.routeIndex, 297);
+  assert.equal(handoff.routeId, "pgc_r03_g4b_u06_4b06_application_243390fad850");
+  assert.equal(handoff.downstreamFailureFamily, "REGENERATE_IDENTITY_TIMEOUT");
+  assert.equal(handoff.requiredPendingGateCode, "REGENERATE_PASS");
+  assert.equal(handoff.exactReproductionCount, 3);
+  assert.equal(handoff.evidenceRefs.length, 3);
+  assert.deepEqual(handoff.requiredPassedGateCodes.toSorted(), [
+    "ANSWER_KEY_PASS",
+    "ANSWER_VALIDATION_PASS",
+    "GENERATE_BUTTON_PASS",
+    "HTML_PASS",
+    "PDF_PASS",
+    "QUESTION_COUNT_PASS",
+    "QUESTION_IDENTITY_PASS",
+    "UI_OPTIONS_PASS",
+  ]);
+  assert.match(runner, /classifyAllowedHandoff/);
+  assert.match(runner, /unclassifiedFailures/);
+  assert.match(runner, /PASS_DISABLED_CONTROL_FAMILIES_WITH_CLASSIFIED_DOWNSTREAM_HANDOFF/);
+  assert.match(runner, /finalNineGateObligationRetained/);
 });
