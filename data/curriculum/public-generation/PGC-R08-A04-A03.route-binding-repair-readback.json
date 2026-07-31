@@ -1,0 +1,72 @@
+{
+  "schemaName": "PGCR08A04A03RouteBindingRepairReadbackV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair",
+  "status": "PASS_ROUTE_BINDING_FAMILY_CLOSED_WITH_NINE_DOWNSTREAM_RECLASSIFICATIONS",
+  "sourceHeadSha": "f74a54e3f4d3d043fa67fcbe62fa14b5b741aec7",
+  "sourceWorkflowRunId": 30605927008,
+  "sourceWorkflowJobId": 91078012304,
+  "sourceArtifact": {
+    "artifactId": 8783645601,
+    "artifactName": "pgc-r08-a04-a03-route-binding-repair-replay",
+    "artifactDigest": "sha256:cc7bdf4f65aed48e07265b86fd1ed774153cdee5893949322b22705a1d32f63e",
+    "reportSha256": "7c221889e6b15a56a02ff2871f5e435464993724750a7bf287b165fa632f1d1a",
+    "policyDispositionsSha256": "881ba9a9283b7277749d483d9f935ff5a0235b6ceaf0eca90a0694751f33da2a"
+  },
+  "diagnosticEvidence": {
+    "focusedWorkflowRunId": 30604494607,
+    "focusedArtifactId": 8783108102,
+    "exactAuthorityWorkflowRunId": 30604889654,
+    "exactAuthorityArtifactId": 8783240381,
+    "rootCause": "STRUCTURAL_FALLBACK_OVERWROTE_EXACT_CAPACITY_ROUTE_IDENTITY"
+  },
+  "repair": {
+    "exactCapacityRowIsRouteIdentityAuthority": true,
+    "structuralFallbackPatternGroupVisibilityOnly": true,
+    "questionTypeOverwriteForbidden": true,
+    "depthContextOverwriteForbidden": true,
+    "capacityRouteIdOverwriteForbidden": true,
+    "capacityAuthorityMutationPerformed": false,
+    "perRoutePatchPerformed": false
+  },
+  "replay": {
+    "targetRouteCount": 136,
+    "terminalRouteCount": 136,
+    "routeBindingResolvedCount": 136,
+    "routeBindingStillFailedCount": 0,
+    "fullNineGatePassCount": 127,
+    "downstreamFailCount": 9,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "disabledValueMismatchCount": 0
+  },
+  "downstreamClassification": {
+    "regenerateIdentityTimeoutCount": 6,
+    "capacityProjectionShortfallCount": 3,
+    "questionTypeSettlementCount": 0,
+    "overlayPath": "data/curriculum/public-generation/PGC-R08-A04-A03.downstream-reclassification-overlay.json"
+  },
+  "reconciliation": {
+    "legalRouteCount": 793,
+    "cumulativePassRouteCount": 772,
+    "unresolvedFailedRouteCount": 21,
+    "closedOriginalFailureRouteCount": 315,
+    "reclassifiedUnresolvedRouteCount": 10,
+    "capacityEvidenceReconciliationRouteCount": 38,
+    "capacityEvidenceOverlapWithUnresolvedFailureCount": 3
+  },
+  "goalDistance": {
+    "before": "D1_R08_ROUTE_BINDING_ROOT_CAUSE_PROVEN",
+    "after": "D1_R08_ROUTE_BINDING_CLOSED_21_FAILURES_REMAIN",
+    "distanceReduced": "closed all 136 historical route-binding failures with one shared resolver repair; 127 routes now pass all nine gates and nine were transferred to existing downstream repair phases",
+    "remainingBlockers": [
+      "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT_9",
+      "REGENERATE_IDENTITY_TIMEOUT_9",
+      "CAPACITY_PROJECTION_SHORTFALL_3",
+      "CAPACITY_EVIDENCE_RECONCILIATION_38",
+      "FULL_793_ROUTE_REPLAY_PENDING"
+    ],
+    "nextShortestStep": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAndRepair"
+  }
+}
