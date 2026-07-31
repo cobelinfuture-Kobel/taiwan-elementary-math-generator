@@ -62,11 +62,16 @@ export function normalizePublicApplicationPatternGroupAliases(options = {}) {
   const candidates = requestedKnowledgePointIds.flatMap(applicationGroupsForKnowledgePoint);
   if (candidates.length === 0) return options;
 
+  const singleCandidateFallback = requestedKnowledgePointIds.length === 1
+    && requestedPatternGroupIds.length === 1
+    && candidates.length === 1
+      ? candidates[0]
+      : null;
   const normalizedPatternGroupIds = requestedPatternGroupIds.map((patternGroupId) => {
     const exact = candidates.find((group) => group.patternGroupId === patternGroupId);
     if (exact) return exact.patternGroupId;
     const alias = candidates.find((group) => group.basePatternGroupId === patternGroupId);
-    return alias?.patternGroupId ?? patternGroupId;
+    return alias?.patternGroupId ?? singleCandidateFallback?.patternGroupId ?? patternGroupId;
   });
   if (normalizedPatternGroupIds.every((id, index) => id === requestedPatternGroupIds[index])) {
     return options;
