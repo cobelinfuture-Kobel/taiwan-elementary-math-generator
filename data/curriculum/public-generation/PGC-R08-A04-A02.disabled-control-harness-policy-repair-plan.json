@@ -60,13 +60,17 @@
     "executedRouteCount": 180,
     "terminalRouteCount": 180,
     "disabledControlSemanticsPassCount": 180,
-    "fullJourneyPassCount": 179,
-    "classifiedDownstreamHandoffCount": 1,
+    "minimumFullJourneyPassCount": 179,
+    "maximumClassifiedDownstreamHandoffCount": 1,
     "unclassifiedFailureCount": 0,
     "browserConsoleErrorCount": 0,
     "browserPageErrorCount": 0,
     "productMutationPerformed": false,
-    "capacityAuthorityMutationPerformed": false
+    "capacityAuthorityMutationPerformed": false,
+    "acceptedTerminalAlternatives": [
+      "180 full-journey PASS and zero downstream handoff",
+      "179 full-journey PASS plus the exact route-297 regenerate handoff"
+    ]
   },
   "goalDistance": {
     "before": "D1_R08_DISABLED_CONTROL_HARNESS_POLICY_CONFIRMED_REPAIR_PENDING",
