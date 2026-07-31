@@ -21,6 +21,10 @@ const runnerSource = await readFile(
   "tools/curriculum/run-pgc-r08-a04-a05-regenerate-identity-replay.mjs",
   "utf8",
 );
+const pgcR00WorkflowSource = await readFile(
+  ".github/workflows/pgc-r00-public-generation-scope.yml",
+  "utf8",
+);
 
 function targetRouteIds() {
   const columns = Object.fromEntries(
@@ -84,7 +88,9 @@ test("projection preserves PatternSpec slot positions while reordering within ea
     promptText: `混合題 ${index + 1}`,
   }));
   const base = { ok: true, questions: source, allocation: [] };
-  const projected = applyRegenerateIdentitySeedOrder(base, { generationSeed: "slot-preservation-seed" });
+  const projected = applyRegenerateIdentitySeedOrder(base, {
+    generationSeed: "pgc-r08-slot-preservation-seed",
+  });
 
   assert.deepEqual(
     projected.questions.map((question) => question.patternSpecId),
@@ -94,19 +100,32 @@ test("projection preserves PatternSpec slot positions while reordering within ea
   assert.notDeepEqual(ids(projected), ids(base));
 });
 
-test("projection is a no-op for failures, empty seeds, and single-question results", () => {
+test("projection is a no-op outside the PGC-R08 activation boundary", () => {
   const failed = { ok: false, questions: questions(2), errors: [{ code: "FAIL" }] };
   const noSeed = { ok: true, questions: questions(2), allocation: [] };
   const singleton = { ok: true, questions: questions(1), allocation: [] };
-  assert.equal(applyRegenerateIdentitySeedOrder(failed, { generationSeed: "seed" }), failed);
+  const ordinaryRoute = { ok: true, questions: questions(4), allocation: [] };
+
+  assert.equal(
+    applyRegenerateIdentitySeedOrder(failed, { generationSeed: "pgc-r08-failure-seed" }),
+    failed,
+  );
   assert.equal(applyRegenerateIdentitySeedOrder(noSeed, {}), noSeed);
-  assert.equal(applyRegenerateIdentitySeedOrder(singleton, { generationSeed: "seed" }), singleton);
+  assert.equal(
+    applyRegenerateIdentitySeedOrder(singleton, { generationSeed: "pgc-r08-singleton-seed" }),
+    singleton,
+  );
+  assert.equal(
+    applyRegenerateIdentitySeedOrder(ordinaryRoute, { generationSeed: "ordinary-public-seed" }),
+    ordinaryRoute,
+  );
 });
 
 test("repair is shared, post-generation, timeout-free, and route-agnostic", () => {
   assert.match(routerSource, /applyPgcR04NumericUniqueAllocation/);
   assert.match(routerSource, /applyRegenerateIdentitySeedOrder\(result, options\)/);
   assert.match(projectionSource, /questionMembership/);
+  assert.match(projectionSource, /seed\.startsWith\("pgc-r08-"\)/);
   assert.doesNotMatch(projectionSource, /pgc_r03_/);
   assert.doesNotMatch(projectionSource, /waitForTimeout|120000/);
   assert.match(runnerSource, /executeRoute/);
@@ -120,4 +139,11 @@ test("repair is shared, post-generation, timeout-free, and route-agnostic", () =
     "site/modules/curriculum/batch-a/regenerate-identity-seed-order.js",
     "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
   ]);
+});
+
+test("exact replay is consolidated into PGC-R00 without lockfile-only installation", () => {
+  assert.match(pgcR00WorkflowSource, /exact-regenerate-identity-replay:/);
+  assert.match(pgcR00WorkflowSource, /npm install --no-audit --no-fund/);
+  assert.match(pgcR00WorkflowSource, /run-pgc-r08-a04-a05-regenerate-identity-replay\.mjs/);
+  assert.doesNotMatch(pgcR00WorkflowSource, /cache:\s*npm|npm ci/);
 });
