@@ -3,9 +3,11 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
-  "status": "QUERY_STATE_CONSUMER_RECONCILED_9_ROUTE_REPLAY_PENDING",
+  "status": "PASS_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSED",
   "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
   "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-state-settlement-timeout.json",
+  "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A04.question-type-state-settlement-readback.json",
+  "downstreamOverlayPath": "data/curriculum/public-generation/PGC-R08-A04-A04.downstream-reclassification-overlay.json",
   "targetRouteCount": 9,
   "workerConcurrency": 6,
   "rootCause": {
@@ -61,15 +63,25 @@
     "explicitGroupArtifactId": 8791424512,
     "explicitGroupArtifactDigest": "sha256:1a7b62b806e1f53aa7fe8a065208bfdd510b22874d7cac74557ae2490f4636b5"
   },
+  "result": {
+    "terminalRouteCount": 9,
+    "uiOptionsPassCount": 9,
+    "questionTypeStateSettlementResidualCount": 0,
+    "fullNineGatePassCount": 8,
+    "downstreamFailCount": 1,
+    "regenerateIdentityTimeoutTransferCount": 1,
+    "workflowRunId": 30626667157,
+    "artifactId": 8791684671,
+    "artifactDigest": "sha256:125d5f9e1b3981d0ddff0dda45750804ba5925dc74df18aa8bbf247166a5a5bb"
+  },
   "goalDistance": {
-    "before": "D1_R08_ROUTE_BINDING_CLOSED_QUESTION_STATE_SETTLEMENT_NEXT",
-    "after": "D1_R08_QUERY_STATE_CONSUMER_RECONCILED_9_ROUTE_REPLAY_PENDING",
-    "distanceReduced": "identified and repaired one shared stale query-state consumer that dropped current W3 application controls and PatternGroups; no per-route or capacity mutation introduced",
+    "before": "D1_R08_QUESTION_TYPE_STATE_SETTLEMENT_OPEN_9",
+    "after": "D1_R08_QUESTION_TYPE_STATE_SETTLEMENT_CLOSED_REGENERATE_NEXT",
+    "distanceReduced": "closed all nine question-type state-settlement routes through one shared full-product query-state consumer reconciliation; eight routes pass all nine gates and one orthogonal regenerate failure is transferred",
     "remainingBlockers": [
-      "QUESTION_TYPE_STATE_SETTLEMENT_9_ROUTE_REPLAY_PENDING",
-      "REGENERATE_IDENTITY_TIMEOUT_9",
+      "REGENERATE_IDENTITY_TIMEOUT_10",
       "CAPACITY_EVIDENCE_RECONCILIATION_38_WITH_3_ACTIVE_SHORTFALLS"
     ],
-    "nextShortestStep": "REPLAY_A04_9_ROUTES_ON_RECONCILED_QUERY_STATE"
+    "nextShortestStep": "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair"
   }
 }
