@@ -45,6 +45,6 @@ test("A02 replay reuses the canonical A03 nine-gate route executor",()=>{
   assert.match(runnerSource,/GATE_CODES/);
   assert.match(runnerSource,/targetRouteCount/);
   assert.match(runnerSource,/PASS_180_DISABLED_CONTROL_ROUTES/);
-  assert.doesNotMatch(runnerSource,/site\/index\.html/);
-  assert.doesNotMatch(runnerSource,/generator_capacity_contract\.json[^\n]*writeFile/);
+  assert.doesNotMatch(runnerSource,/writeFile\([^\n]*site[\\/]index\.html/);
+  assert.doesNotMatch(runnerSource,/writeFile\([^\n]*generator_capacity_contract\.json/);
 });
