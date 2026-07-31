@@ -80,7 +80,7 @@ test("binder selects exact UI targets and projects route identity only after exa
   assert.match(binder, /DESELECT_NON_TARGET/);
   assert.match(binder, /exactPublicStateMatches/);
   assert.match(binder, /EXACT_ROUTE_IDENTITY_PROJECTED/);
-  assert.match(binder, /data\.capacityRouteIds/);
+  assert.match(binder, /input\.dataset\.capacityRouteIds = target\.routeId/);
   assert.doesNotMatch(binder, /first compatible/i);
   assert.doesNotMatch(binder, /pgc_r03_/);
   assert.equal(plan.repairContract.exactRouteIdentityProjectionRequiresExactPublicState, true);
