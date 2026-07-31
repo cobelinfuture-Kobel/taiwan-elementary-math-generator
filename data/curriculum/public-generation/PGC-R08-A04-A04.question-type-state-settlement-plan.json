@@ -1,0 +1,42 @@
+{
+  "schemaName": "PGCR08A04A04QuestionTypeStateSettlementPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
+  "status": "PENDING_9_ROUTE_BROWSER_REPLAY",
+  "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-state-settlement-timeout.json",
+  "targetRouteCount": 9,
+  "workerConcurrency": 6,
+  "repairContract": {
+    "canonicalQueryStateBootstrapBeforeFirstNavigation": true,
+    "sourceSelectionModeKnowledgePointsPatternGroupsQuestionModeIncluded": true,
+    "subsequentConfigureMustBeIdempotent": true,
+    "exactPatternGroupBinderRetained": true,
+    "disabledCurrentValuePolicyRetained": true,
+    "timeoutExtensionForbidden": true,
+    "productMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "historicalQueueMutationAllowed": false,
+    "perRoutePatchAllowed": false
+  },
+  "acceptance": {
+    "terminalRouteCount": 9,
+    "uiOptionsPassCount": 9,
+    "questionTypeStateSettlementResidualCount": 0,
+    "disabledValueMismatchCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "goalDistance": {
+    "before": "D1_R08_ROUTE_BINDING_CLOSED_QUESTION_STATE_SETTLEMENT_NEXT",
+    "after": "D1_R08_QUESTION_STATE_BOOTSTRAP_IMPLEMENTED_9_ROUTE_REPLAY_PENDING",
+    "distanceReduced": "defined one shared canonical query-state bootstrap that removes question-mode initialization races without product mutation",
+    "remainingBlockers": [
+      "QUESTION_TYPE_STATE_SETTLEMENT_9_ROUTE_REPLAY_PENDING",
+      "REGENERATE_IDENTITY_TIMEOUT_9",
+      "CAPACITY_EVIDENCE_RECONCILIATION_38_WITH_3_ACTIVE_SHORTFALLS"
+    ],
+    "nextShortestStep": "READ_A04_9_ROUTE_BROWSER_ARTIFACT"
+  }
+}
