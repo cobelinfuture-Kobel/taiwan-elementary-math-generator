@@ -1,0 +1,123 @@
+{
+  "schemaName": "PGCR08A03TerminalArtifactReadbackV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A03_ReadTerminalAllRouteArtifactAndMaterializeRepairQueue",
+  "sourceExecutionTaskId": "PGC-R08-A03_AllLegalRoutesBrowserAcceptanceExecution",
+  "status": "PASS_TERMINAL_ARTIFACT_READ_AND_QUEUES_MATERIALIZED",
+  "sourceArtifact": {
+    "workflowRunId": 30594944965,
+    "workflowRunNumber": 4427,
+    "jobId": 91045182569,
+    "headSha": "3e4e843163fdc67d777657fdc329e35c9a9bbc23",
+    "artifactId": 8780383150,
+    "artifactName": "pgc-r08-a03-all-legal-route-browser-execution",
+    "artifactSizeBytes": 140069860,
+    "artifactDigest": "sha256:19c65c4afb5e1e1e0de9a97ead36c7d5dd845713d0d2ad34c53f080e348a659e",
+    "reportSha256": "6054c5d2b6e8c96c81ab12972e3ce0a16ae4432e4be1bae55941405a6169e58b",
+    "checkpointSha256": "3330bde69950e15a9aa7f503a6eac8a50a7e23b8f83db7ffff46a658fb69821e",
+    "routeResultsCsvSha256": "ee0ff15119496563d1e7d3a39f79ae8d2ebf4d79ac6d265a2e518f0f95116d78",
+    "failedCombinationReportSha256": "835e9dd5bc6725ac949bb9fda93c9272b9b484e5b59ad4eb133b3ed9aad5b36f"
+  },
+  "integrity": {
+    "workflowConclusion": "success",
+    "authoritativeFinalCheckpoint": true,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointTerminalRouteCount": 793,
+    "all16ShardSamplesPresent": true,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "authoritativeRouteClassificationMutatedBySampleReplay": false
+  },
+  "executionSummary": {
+    "legalRouteCount": 793,
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 466,
+    "failRouteCount": 327,
+    "verified20PassCount": 431,
+    "verifiedLimitedPassCount": 35,
+    "capacityEvidenceReconciliationQueueCount": 35,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "mandatoryHandoffs": [
+    {
+      "routeId": "pgc_r03_g3a_u01_3a01_application_078745248eea",
+      "routeIndex": 1,
+      "shardId": "PGC_R08_SHARD_01",
+      "classification": "A02_EARLY_SENTINEL",
+      "requiredDisposition": "EXECUTE_AND_CLASSIFY",
+      "actualStatus": "FAIL",
+      "errorCode": "PGC_R08_A03_TARGET_CAPACITY_ROUTE_NOT_BOUND"
+    },
+    {
+      "routeId": "pgc_r03_g3a_u08_3a08_numeric_32207c12fa17",
+      "routeIndex": 59,
+      "shardId": "PGC_R08_SHARD_02",
+      "classification": "A02_LIVE_20_REQUALIFICATION",
+      "requiredDisposition": "EXECUTE_AT_20_AND_RECONCILE_EVIDENCE",
+      "actualStatus": "PASS",
+      "errorCode": null
+    }
+  ],
+  "repairQueueAuthority": {
+    "path": "data/curriculum/public-generation/PGC-R08-A03.repair-queue.json",
+    "queueCount": 327,
+    "familyCount": 5,
+    "families": [
+      {"failureFamilyCode":"ROUTE_BINDING_NOT_CONVERGED","routeCount":136,"firstAffectedGate":"UI_OPTIONS_PASS","diagnosticLayerCandidate":"HARNESS_OR_PUBLIC_BINDING_SEQUENCE","repairDisposition":"A04_FOCUSED_REPRODUCE_BEFORE_PRODUCT_CHANGE"},
+      {"failureFamilyCode":"QUESTION_TYPE_CONTROL_DISABLED","routeCount":176,"firstAffectedGate":"UI_OPTIONS_PASS","diagnosticLayerCandidate":"PUBLIC_CONTROL_ENABLEMENT_OR_HARNESS_SEQUENCE","repairDisposition":"A04_FOCUSED_REPRODUCE_BEFORE_PRODUCT_CHANGE"},
+      {"failureFamilyCode":"QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT","routeCount":9,"firstAffectedGate":"UI_OPTIONS_PASS","diagnosticLayerCandidate":"PUBLIC_STATE_SETTLEMENT_OR_HARNESS_WAIT","repairDisposition":"A04_FOCUSED_REPRODUCE_BEFORE_PRODUCT_CHANGE"},
+      {"failureFamilyCode":"CONTEXT_MODE_CONTROL_DISABLED","routeCount":4,"firstAffectedGate":"UI_OPTIONS_PASS","diagnosticLayerCandidate":"PUBLIC_CONTROL_ENABLEMENT_OR_HARNESS_SEQUENCE","repairDisposition":"A04_FOCUSED_REPRODUCE_BEFORE_PRODUCT_CHANGE"},
+      {"failureFamilyCode":"REGENERATE_IDENTITY_TIMEOUT","routeCount":2,"firstAffectedGate":"REGENERATE_PASS","diagnosticLayerCandidate":"REGENERATE_OR_HARNESS_WAIT","repairDisposition":"A04_FOCUSED_REPRODUCE_REGENERATE"}
+    ]
+  },
+  "capacityEvidenceReconciliationAuthority": {
+    "path": "data/curriculum/public-generation/PGC-R08-A03.capacity-evidence-reconciliation-queue.json",
+    "queueCount": 35,
+    "authorityMutationPerformedByA03": false
+  },
+  "authorityBoundary": {
+    "productUiModified": false,
+    "generatorModified": false,
+    "validatorModified": false,
+    "rendererModified": false,
+    "capacityAuthorityModified": false,
+    "workflowWiringMustBeRemovedBeforeMerge": true,
+    "slice014Modified": false
+  },
+  "goalDistance": {
+    "before": "D1_R08_ALL_LEGAL_ROUTES_EXECUTED_TERMINAL_ARTIFACT_AVAILABLE",
+    "after": "D1_R08_TERMINAL_RESULTS_READ_REPAIR_AND_RECONCILIATION_QUEUES_MATERIALIZED",
+    "distanceReduced": "converted the exact-head 793-route browser artifact into deterministic repair and capacity-reconciliation authorities",
+    "remainingBlockers": ["A03_REPAIR_QUEUE_327","CAPACITY_EVIDENCE_RECONCILIATION_QUEUE_35"],
+    "nextShortestStep": "PGC-R08-A04_FailedCombinationRepairAndReconciliation"
+  },
+  "shardResults": [
+    {"shardId":"PGC_R08_SHARD_01","executedRouteCount":50,"passRouteCount":17,"failRouteCount":33},
+    {"shardId":"PGC_R08_SHARD_02","executedRouteCount":50,"passRouteCount":17,"failRouteCount":33},
+    {"shardId":"PGC_R08_SHARD_03","executedRouteCount":50,"passRouteCount":7,"failRouteCount":43},
+    {"shardId":"PGC_R08_SHARD_04","executedRouteCount":50,"passRouteCount":8,"failRouteCount":42},
+    {"shardId":"PGC_R08_SHARD_05","executedRouteCount":50,"passRouteCount":46,"failRouteCount":4},
+    {"shardId":"PGC_R08_SHARD_06","executedRouteCount":50,"passRouteCount":45,"failRouteCount":5},
+    {"shardId":"PGC_R08_SHARD_07","executedRouteCount":50,"passRouteCount":47,"failRouteCount":3},
+    {"shardId":"PGC_R08_SHARD_08","executedRouteCount":50,"passRouteCount":43,"failRouteCount":7},
+    {"shardId":"PGC_R08_SHARD_09","executedRouteCount":50,"passRouteCount":45,"failRouteCount":5},
+    {"shardId":"PGC_R08_SHARD_10","executedRouteCount":50,"passRouteCount":39,"failRouteCount":11},
+    {"shardId":"PGC_R08_SHARD_11","executedRouteCount":50,"passRouteCount":18,"failRouteCount":32},
+    {"shardId":"PGC_R08_SHARD_12","executedRouteCount":50,"passRouteCount":21,"failRouteCount":29},
+    {"shardId":"PGC_R08_SHARD_13","executedRouteCount":50,"passRouteCount":27,"failRouteCount":23},
+    {"shardId":"PGC_R08_SHARD_14","executedRouteCount":50,"passRouteCount":30,"failRouteCount":20},
+    {"shardId":"PGC_R08_SHARD_15","executedRouteCount":50,"passRouteCount":33,"failRouteCount":17},
+    {"shardId":"PGC_R08_SHARD_16","executedRouteCount":43,"passRouteCount":23,"failRouteCount":20}
+  ],
+  "sampleEvidenceSetSha256": "97ca305b0b9094050d726bd1ee92401419379d4176222c740e6337afbf973bcf"
+}
