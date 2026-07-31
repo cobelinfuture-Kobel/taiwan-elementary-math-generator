@@ -25,6 +25,18 @@ function isSubset(subset = [], superset = []) {
   return uniqueSorted(subset).every((value) => allowed.has(value));
 }
 
+function isApplicationChoice(choice = {}) {
+  return choice.publicQuestionMode === "application"
+    || choice.mode === "application"
+    || ["application_word_problem", "controlled_semantic_application"].includes(choice.representationTag);
+}
+
+function isNumericChoice(choice = {}) {
+  return choice.publicQuestionMode === "numeric"
+    || choice.mode === "numeric"
+    || choice.representationTag === "numeric";
+}
+
 const EXACT_GROUPS_BY_ROUTE_ID = new Map();
 for (const row of PUBLIC_GENERATOR_CAPACITY_ROWS) {
   const routeId = row[ROUTE_ID_COLUMN];
@@ -96,6 +108,24 @@ function routeMetadata(routeId) {
   return route;
 }
 
+function renderedBasePatternGroupId(runtimeChoice, choices) {
+  if (!runtimeChoice) return null;
+  if (runtimeChoice.basePatternGroupId) return runtimeChoice.basePatternGroupId;
+  if (!isApplicationChoice(runtimeChoice)) return runtimeChoice.patternGroupId;
+
+  const numericCandidates = choices.filter(
+    (choice) =>
+      choice.knowledgePointId === runtimeChoice.knowledgePointId
+      && choice.patternGroupId !== runtimeChoice.patternGroupId
+      && isNumericChoice(choice),
+  );
+  if (numericCandidates.length === 1) return numericCandidates[0].patternGroupId;
+  if (numericCandidates.length > 1) {
+    throw new Error(`PGC_R08_APPLICATION_RENDERED_BASE_AMBIGUOUS:${runtimeChoice.patternGroupId}`);
+  }
+  return runtimeChoice.patternGroupId;
+}
+
 function uiProjectionForRoute(routeId) {
   const route = routeMetadata(routeId);
   const runtimeIds = exactPublicPatternGroupIdsForRoute(routeId);
@@ -108,7 +138,7 @@ function uiProjectionForRoute(routeId) {
   for (const runtimeId of runtimeIds) {
     const runtimeChoice = choiceById.get(runtimeId) ?? null;
     const fallbackBaseId = UI_GROUP_BY_APPLICATION_ALIAS.get(runtimeId) ?? runtimeId;
-    const projectedId = runtimeChoice?.basePatternGroupId ?? fallbackBaseId;
+    const projectedId = renderedBasePatternGroupId(runtimeChoice, choices) ?? fallbackBaseId;
     const projectedChoice = choiceById.get(projectedId) ?? null;
     const hasRenderedChoice = Boolean(
       runtimeChoice?.hasRepresentationChoice ?? projectedChoice?.hasRepresentationChoice,
