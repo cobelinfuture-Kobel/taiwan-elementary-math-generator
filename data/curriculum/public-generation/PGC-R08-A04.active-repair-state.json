@@ -2,83 +2,39 @@
   "schemaName": "PGCR08A04ActiveRepairStateV1",
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
-  "taskId": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay",
-  "status": "ACTIVE_AFTER_DISABLED_CONTROL_FAMILY_CLOSEOUT",
+  "taskId": "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair",
+  "status": "ACTIVE_AFTER_ROUTE_BINDING_FAMILY_CLOSEOUT",
   "historicalAuthority": {
     "repairQueueIndex": "data/curriculum/public-generation/PGC-R08-A03.repair-queue.json",
     "immutable": true
   },
-  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A02.disabled-control-harness-family-replay-readback.json",
+  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A03.route-binding-repair-readback.json",
   "baseline": {
     "legalRouteCount": 793,
     "initialPassRouteCount": 466,
     "initialFailedRouteCount": 327
   },
   "current": {
-    "cumulativePassRouteCount": 645,
-    "unresolvedFailedRouteCount": 148,
-    "closedOriginalFailureRouteCount": 179,
-    "reclassifiedUnresolvedRouteCount": 1
+    "cumulativePassRouteCount": 772,
+    "unresolvedFailedRouteCount": 21,
+    "closedOriginalFailureRouteCount": 315,
+    "reclassifiedUnresolvedRouteCount": 10
   },
   "closedFamilies": [
-    {
-      "failureFamily": "QUESTION_TYPE_CONTROL_DISABLED",
-      "originalRouteCount": 176,
-      "status": "CLOSED"
-    },
-    {
-      "failureFamily": "CONTEXT_MODE_CONTROL_DISABLED",
-      "originalRouteCount": 4,
-      "status": "CLOSED_CONTROL_BLOCKER_REMOVED"
-    }
+    {"failureFamily":"QUESTION_TYPE_CONTROL_DISABLED","originalRouteCount":176,"status":"CLOSED"},
+    {"failureFamily":"CONTEXT_MODE_CONTROL_DISABLED","originalRouteCount":4,"status":"CLOSED_CONTROL_BLOCKER_REMOVED"},
+    {"failureFamily":"ROUTE_BINDING_NOT_CONVERGED","originalRouteCount":136,"status":"CLOSED_136_OF_136_BINDING_RESOLVED","fullNineGatePassCount":127,"downstreamReclassificationCount":9}
   ],
   "pendingFamilies": [
-    {
-      "position": 2,
-      "failureFamily": "ROUTE_BINDING_NOT_CONVERGED",
-      "routeCount": 136,
-      "sourceQueuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json"
-    },
-    {
-      "position": 3,
-      "failureFamily": "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
-      "routeCount": 9,
-      "sourceQueuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-state-settlement-timeout.json"
-    },
-    {
-      "position": 4,
-      "failureFamily": "REGENERATE_IDENTITY_TIMEOUT",
-      "routeCount": 3,
-      "sourceQueuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/regenerate-identity-timeout.json",
-      "overlayRows": [
-        {
-          "routeIndex": 297,
-          "routeId": "pgc_r03_g4b_u06_4b06_application_243390fad850",
-          "passedGateCodes": [
-            "UI_OPTIONS_PASS",
-            "GENERATE_BUTTON_PASS",
-            "QUESTION_COUNT_PASS",
-            "QUESTION_IDENTITY_PASS",
-            "ANSWER_VALIDATION_PASS",
-            "HTML_PASS",
-            "PDF_PASS",
-            "ANSWER_KEY_PASS"
-          ],
-          "introducedByTask": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay"
-        }
-      ]
-    },
-    {
-      "position": 5,
-      "failureFamily": "CAPACITY_EVIDENCE_RECONCILIATION",
-      "routeCount": 35,
-      "sourceQueuePath": "data/curriculum/public-generation/PGC-R08-A03.capacity-evidence-reconciliation-queue.json"
-    }
+    {"position":3,"failureFamily":"QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT","routeCount":9,"sourceQueuePath":"data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-state-settlement-timeout.json"},
+    {"position":4,"failureFamily":"REGENERATE_IDENTITY_TIMEOUT","routeCount":9,"sourceQueuePath":"data/curriculum/public-generation/pgc-r08-a03-repair-queue/regenerate-identity-timeout.json","overlaySourcePaths":["data/curriculum/public-generation/PGC-R08-A04-A02.disabled-control-harness-family-replay-readback.json","data/curriculum/public-generation/PGC-R08-A04-A03.downstream-reclassification-overlay.json"]},
+    {"position":5,"failureFamily":"CAPACITY_EVIDENCE_RECONCILIATION","routeCount":38,"unresolvedFailureOverlapCount":3,"sourceQueuePath":"data/curriculum/public-generation/PGC-R08-A03.capacity-evidence-reconciliation-queue.json","overlaySourcePath":"data/curriculum/public-generation/PGC-R08-A04-A03.downstream-reclassification-overlay.json"}
   ],
   "reconciliation": {
-    "pendingFailureFamilyRouteTotal": 148,
-    "capacityReconciliationRouteCount": 35,
-    "nextRepairPosition": 2,
-    "nextTask": "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair"
+    "pendingFailureFamilyRouteTotal": 21,
+    "capacityReconciliationRouteCount": 38,
+    "capacityReconciliationOverlapWithFailureCount": 3,
+    "nextRepairPosition": 3,
+    "nextTask": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAndRepair"
   }
 }
