@@ -1,0 +1,40 @@
+name: PGC-R08 A04 A01 Disabled Control Focused Reproduction
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pgc-r08-a04-a01-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  reproduce:
+    if: github.head_ref == 'pgc-r08-a04-a01-disabled-control-reproduction'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Install Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Run focused disabled-control reproduction
+        run: node tools/curriculum/run-pgc-r08-a04-a01-disabled-control-reproduction.mjs
+      - name: Upload focused reproduction artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r08-a04-a01-disabled-control-reproduction-artifact
+          path: tmp/pgc-r08-a04-a01-disabled-control-reproduction
+          if-no-files-found: error
+          retention-days: 30

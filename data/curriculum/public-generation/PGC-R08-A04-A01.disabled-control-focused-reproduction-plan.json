@@ -1,0 +1,46 @@
+{
+  "schemaName": "PGCR08A04A01DisabledControlFocusedReproductionPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A01_DisabledControlSemanticsFocusedReproduction",
+  "status": "PENDING_FOCUSED_BROWSER_REPRODUCTION",
+  "authorityPath": "data/curriculum/public-generation/PGC-R08-A04-A00.failure-family-repair-canary-matrix.json",
+  "targetFamilies": [
+    "QUESTION_TYPE_CONTROL_DISABLED",
+    "CONTEXT_MODE_CONTROL_DISABLED"
+  ],
+  "targetFamilyRouteCount": 180,
+  "canaryCount": 8,
+  "workerConcurrency": 4,
+  "publicUiSurface": "CLASSIC",
+  "probeBoundary": "public controls only; stop before capacity route binding and generation",
+  "terminalClassifications": [
+    "DISABLED_CURRENT_VALUE_MATCH",
+    "ENABLED_SELECTION_PASS",
+    "DISABLED_VALUE_MISMATCH",
+    "SYSTEM_FAILURE"
+  ],
+  "classificationPolicy": {
+    "DISABLED_CURRENT_VALUE_MATCH": "harness selectOption policy candidate; requested authority is already represented by the real disabled public control",
+    "ENABLED_SELECTION_PASS": "temporal or sequence variance; control is reachable in focused reproduction",
+    "DISABLED_VALUE_MISMATCH": "product or authority mismatch; requested legal route is not represented by the disabled control",
+    "SYSTEM_FAILURE": "browser, server, option, or selector failure; CI blocking"
+  },
+  "acceptance": {
+    "terminalCanaryCount": 8,
+    "systemFailureCount": 0,
+    "routeMutationPerformed": false,
+    "productMutationPerformed": false,
+    "capacityAuthorityMutationPerformed": false
+  },
+  "goalDistance": {
+    "before": "D1_R08_REPAIR_AUTHORITY_ORDER_AND_CANARY_MATRIX_FROZEN",
+    "after": "D1_R08_DISABLED_CONTROL_SEMANTICS_FOCUSED_EVIDENCE_PENDING",
+    "distanceReduced": "prepared real-browser classification of the 180-route disabled-control cluster without changing product behavior",
+    "remainingBlockers": [
+      "DISABLED_CONTROL_SEMANTICS_NOT_CLASSIFIED",
+      "FOUR_OTHER_REPAIR_PHASES_PENDING"
+    ],
+    "nextShortestStep": "READ_A01_FOCUSED_BROWSER_ARTIFACT_AND_CLASSIFY_REPAIR"
+  }
+}
