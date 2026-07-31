@@ -21,6 +21,66 @@ import { canGenerateG4AU09HundredthDecimalQuestions, generateG4AU09HundredthDeci
 import { canGenerateG4BU06DecimalMultiplicationQuestions, generateG4BU06DecimalMultiplicationQuestions } from "./one-decimal-times-integer-runtime.js";
 import { applyPgcR04NumericUniqueAllocation } from "./numeric-unique-allocation-fullfix.js";
 import { applyRegenerateIdentitySeedOrder } from "./regenerate-identity-seed-order.js";
+import { getVisiblePatternGroupsForKnowledgePoint } from "../registry/batch-a-selector-extension.js";
+import { listW01PublicApplicationGroupsForKnowledgePoint } from "../registry/w01-public-application-groups.js";
+
+function unique(values = []) {
+  return [...new Set(values.map((value) => String(value ?? "").trim()).filter(Boolean))];
+}
+
+function groupLooksApplication(group = {}) {
+  const corpus = JSON.stringify({
+    mode: group.mode,
+    publicQuestionMode: group.publicQuestionMode,
+    representationTag: group.representationTag,
+    representationTags: group.representationTags,
+    displayName: group.displayName,
+    globalContextAdmission: group.globalContextAdmission,
+  }).toLowerCase();
+  return corpus.includes("application")
+    || corpus.includes("word_problem")
+    || corpus.includes("controlled_semantic")
+    || corpus.includes("應用題");
+}
+
+function applicationGroupsForKnowledgePoint(knowledgePointId) {
+  const groups = [
+    ...getVisiblePatternGroupsForKnowledgePoint(knowledgePointId),
+    ...listW01PublicApplicationGroupsForKnowledgePoint(knowledgePointId),
+  ].filter(groupLooksApplication);
+  return [...new Map(groups.map((group) => [group.patternGroupId, group])).values()];
+}
+
+export function normalizePublicApplicationPatternGroupAliases(options = {}) {
+  if (options.questionMode !== "application") return options;
+  const requestedKnowledgePointIds = unique(
+    options.selectedKnowledgePointIds ?? options.knowledgePointIds ?? [],
+  );
+  const requestedPatternGroupIds = unique(options.selectedPatternGroupIds ?? []);
+  if (requestedKnowledgePointIds.length === 0 || requestedPatternGroupIds.length === 0) return options;
+
+  const candidates = requestedKnowledgePointIds.flatMap(applicationGroupsForKnowledgePoint);
+  if (candidates.length === 0) return options;
+
+  const normalizedPatternGroupIds = requestedPatternGroupIds.map((patternGroupId) => {
+    const exact = candidates.find((group) => group.patternGroupId === patternGroupId);
+    if (exact) return exact.patternGroupId;
+    const alias = candidates.find((group) => group.basePatternGroupId === patternGroupId);
+    return alias?.patternGroupId ?? patternGroupId;
+  });
+  if (normalizedPatternGroupIds.every((id, index) => id === requestedPatternGroupIds[index])) {
+    return options;
+  }
+  return {
+    ...options,
+    selectedPatternGroupIds: normalizedPatternGroupIds,
+    publicApplicationAliasProjection: Object.freeze({
+      mode: "PRODUCTION_APPLICATION_GROUP_PRIMARY",
+      requestedPatternGroupIds: Object.freeze(requestedPatternGroupIds),
+      normalizedPatternGroupIds: Object.freeze(normalizedPatternGroupIds),
+    }),
+  };
+}
 
 function generateOnce(options = {}) {
   const plan = buildBatchABrowserPlan(options);
@@ -45,6 +105,7 @@ function generateOnce(options = {}) {
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
-  const result = applyPgcR04NumericUniqueAllocation(generateOnce, options);
-  return applyRegenerateIdentitySeedOrder(result, options);
+  const normalizedOptions = normalizePublicApplicationPatternGroupAliases(options);
+  const result = applyPgcR04NumericUniqueAllocation(generateOnce, normalizedOptions);
+  return applyRegenerateIdentitySeedOrder(result, normalizedOptions);
 }
