@@ -16,7 +16,7 @@ const CAPACITY_PATH = path.join(ROOT, "data/curriculum/public-generation/generat
 const A00_PATH = path.join(ROOT, "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json");
 const OUT = path.join(ROOT, "tmp/pgc-r08-a04-a03-route-binding-family-replay");
 const CORE_OUT = path.join(ROOT, "tmp/pgc-r08-a03-all-legal-routes");
-const ORIGIN = "http://127.0.0.1:4199";
+const ORIGIN = "http://127.0.0.1:4196";
 
 function fail(code, details = {}) {
   const error = new Error(code);
@@ -78,7 +78,7 @@ await Promise.all([
 ]);
 const server = spawn(process.execPath, [path.join(ROOT, "tools/site/serve-site.js")], {
   cwd: ROOT,
-  env: { ...process.env, SITE_PORT: "4199", SITE_HOST: "127.0.0.1" },
+  env: { ...process.env, SITE_PORT: "4196", SITE_HOST: "127.0.0.1" },
   stdio: ["ignore", "pipe", "pipe"],
 });
 
@@ -111,8 +111,11 @@ try {
       policyDispositions.filter((event) => event.disposition === code).length,
     ]),
   );
-  const routeBindingStillFailed = failed.filter((row) =>
-    String(row.browserEvidence?.errorCode ?? "").includes("ROUTE_BINDING_NOT_CONVERGED"));
+  const routeBindingStillFailed = failed.filter((row) => {
+    const errorCode = String(row.browserEvidence?.errorCode ?? "");
+    return errorCode.includes("ROUTE_BINDING_NOT_CONVERGED")
+      || errorCode.includes("TARGET_CAPACITY_ROUTE_NOT_BOUND");
+  });
   const report = {
     schemaName: "PGCR08A04A03RouteBindingFamilyReplayReportV1",
     schemaVersion: 1,
