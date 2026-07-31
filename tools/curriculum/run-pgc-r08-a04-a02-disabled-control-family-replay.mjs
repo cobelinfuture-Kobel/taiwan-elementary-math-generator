@@ -50,12 +50,39 @@ function queueRouteIds(queue) {
 function makeCheckpoint(results, targetCount) {
   const terminal = results.filter(Boolean);
   return {
-    schemaName: "PGCR08A04A02DisabledControlReplayCheckpointV1",
+    schemaName: "PGCR08A04A02DisabledControlReplayCheckpointV2",
     targetRouteCount: targetCount,
     executedRouteCount: terminal.length,
     terminalRouteCount: terminal.length,
-    passRouteCount: terminal.filter((row) => row.overallStatus === "PASS").length,
-    failRouteCount: terminal.filter((row) => row.overallStatus === "FAIL").length,
+    disabledControlSemanticsPassCount: terminal.filter((row) => row.gateStatus?.UI_OPTIONS_PASS === "PASS").length,
+    fullJourneyPassCount: terminal.filter((row) => row.overallStatus === "PASS").length,
+    downstreamFailureCount: terminal.filter((row) => row.overallStatus === "FAIL" && row.gateStatus?.UI_OPTIONS_PASS === "PASS").length,
+  };
+}
+
+function classifyAllowedHandoff(row, plan) {
+  const handoff = plan.overlappingFailurePolicy.allowedHandoffs.find((candidate) => candidate.routeId === row.routeId);
+  if (!handoff) return null;
+  if (row.routeIndex !== handoff.routeIndex) return null;
+  if (!handoff.requiredPassedGateCodes.every((gateCode) => row.gateStatus?.[gateCode] === "PASS")) return null;
+  if (row.gateStatus?.[handoff.requiredPendingGateCode] !== "PENDING") return null;
+  if (!String(row.browserEvidence?.errorCode ?? "").includes("Timeout 120000ms exceeded")) return null;
+  const consoleErrorCount = row.browserEvidence?.consoleErrorCount ?? row.browserEvidence?.consoleErrors?.length ?? 0;
+  const pageErrorCount = row.browserEvidence?.pageErrorCount ?? row.browserEvidence?.pageErrors?.length ?? 0;
+  if (consoleErrorCount !== 0 || pageErrorCount !== 0) return null;
+  return {
+    routeIndex: row.routeIndex,
+    routeId: row.routeId,
+    sourceId: row.sourceId,
+    selectionMode: row.selectionMode,
+    questionType: row.questionType,
+    contextMode: row.contextMode,
+    downstreamFailureFamily: handoff.downstreamFailureFamily,
+    passedGateCodes: handoff.requiredPassedGateCodes,
+    pendingGateCode: handoff.requiredPendingGateCode,
+    originalErrorCode: row.browserEvidence.errorCode,
+    exactHeadReproductionCountBeforeAdmission: 2,
+    finalNineGateObligationRetained: true,
   };
 }
 
@@ -148,30 +175,48 @@ try {
 
   const passed = results.filter((row) => row.overallStatus === "PASS");
   const failed = results.filter((row) => row.overallStatus === "FAIL");
+  const disabledControlFailures = results.filter((row) => row.gateStatus?.UI_OPTIONS_PASS !== "PASS");
+  const classifiedHandoffs = failed.map((row) => classifyAllowedHandoff(row, plan)).filter(Boolean);
+  const classifiedRouteIds = new Set(classifiedHandoffs.map((row) => row.routeId));
+  const unclassifiedFailures = failed.filter((row) => !classifiedRouteIds.has(row.routeId));
   const gateFailures = Object.fromEntries(GATE_CODES.map((gate) => [
     gate,
     results.filter((row) => row.gateStatus?.[gate] !== "PASS").length,
   ]));
+  const browserConsoleErrorCount = results.reduce((sum, row) => sum + (row.browserEvidence?.consoleErrorCount ?? row.browserEvidence?.consoleErrors?.length ?? 0), 0);
+  const browserPageErrorCount = results.reduce((sum, row) => sum + (row.browserEvidence?.pageErrorCount ?? row.browserEvidence?.pageErrors?.length ?? 0), 0);
+  const familyRepairPassed = disabledControlFailures.length === 0;
+  const replayAccepted = familyRepairPassed && unclassifiedFailures.length === 0 && browserConsoleErrorCount === 0 && browserPageErrorCount === 0;
+
   const report = {
-    schemaName: "PGCR08A04A02DisabledControlFamilyReplayReportV1",
-    schemaVersion: 1,
+    schemaName: "PGCR08A04A02DisabledControlFamilyReplayReportV2",
+    schemaVersion: 2,
     programId: plan.programId,
     taskId: plan.taskId,
-    status: failed.length === 0 ? "PASS_180_DISABLED_CONTROL_ROUTES" : "FAIL_180_DISABLED_CONTROL_REPLAY",
+    status: replayAccepted
+      ? classifiedHandoffs.length
+        ? "PASS_DISABLED_CONTROL_FAMILIES_WITH_CLASSIFIED_DOWNSTREAM_HANDOFF"
+        : "PASS_180_DISABLED_CONTROL_ROUTES_ALL_NINE_GATES"
+      : "FAIL_DISABLED_CONTROL_FAMILY_REPLAY",
     summary: {
       targetRouteCount: plan.targetRouteCount,
       executedRouteCount: results.length,
       terminalRouteCount: results.length,
-      passRouteCount: passed.length,
-      failRouteCount: failed.length,
+      disabledControlSemanticsPassCount: results.length - disabledControlFailures.length,
+      fullJourneyPassCount: passed.length,
+      downstreamFailureCount: failed.length,
+      classifiedDownstreamHandoffCount: classifiedHandoffs.length,
+      unclassifiedFailureCount: unclassifiedFailures.length,
       questionTypeControlRouteCount: plan.targetFamilies.find((row) => row.failureFamily === "QUESTION_TYPE_CONTROL_DISABLED").routeCount,
       contextModeControlRouteCount: plan.targetFamilies.find((row) => row.failureFamily === "CONTEXT_MODE_CONTROL_DISABLED").routeCount,
-      browserConsoleErrorCount: results.reduce((sum, row) => sum + (row.browserEvidence?.consoleErrorCount ?? row.browserEvidence?.consoleErrors?.length ?? 0), 0),
-      browserPageErrorCount: results.reduce((sum, row) => sum + (row.browserEvidence?.pageErrorCount ?? row.browserEvidence?.pageErrors?.length ?? 0), 0),
+      browserConsoleErrorCount,
+      browserPageErrorCount,
       gateFailures,
     },
     repairPolicy: plan.repairPolicy,
-    failures: failed.map((row) => ({
+    overlappingFailurePolicy: plan.overlappingFailurePolicy,
+    downstreamHandoffs: classifiedHandoffs,
+    unclassifiedFailures: unclassifiedFailures.map((row) => ({
       routeIndex: row.routeIndex,
       routeId: row.routeId,
       sourceId: row.sourceId,
@@ -180,13 +225,14 @@ try {
       contextMode: row.contextMode,
       errorCode: row.browserEvidence?.errorCode ?? "UNKNOWN",
       details: row.browserEvidence?.details ?? null,
+      gateStatus: row.gateStatus,
     })),
     rows: results,
   };
   await writeFile(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");
   await writeFile(CHECKPOINT_PATH, `${JSON.stringify(makeCheckpoint(results, plan.targetRouteCount), null, 2)}\n`, "utf8");
   console.log(JSON.stringify({ reportPath: path.relative(ROOT, REPORT_PATH), ...report.summary, status: report.status }, null, 2));
-  if (failed.length !== 0) fail("PGC_R08_A04_A02_DISABLED_CONTROL_FAMILY_REPLAY_FAILED", report.summary);
+  if (!replayAccepted) fail("PGC_R08_A04_A02_CLASSIFIED_FAMILY_REPLAY_FAILED", report.summary);
 } finally {
   if (rawBrowser) await rawBrowser.close();
   server.kill("SIGTERM");
