@@ -9,7 +9,7 @@ function cssEscape(value) {
 
 export function installExactPatternGroupBinder(page, row, { onDisposition = () => {} } = {}) {
   if (page.__pgcR08ExactPatternGroupBinderInstalled) return page;
-  const targetIds = new Set(row.publicPatternGroupIds ?? []);
+  const targetIds = new Set(row.uiSelectablePatternGroupIds ?? row.publicPatternGroupIds ?? []);
   const originalLocator = page.locator.bind(page);
 
   async function snapshot() {
