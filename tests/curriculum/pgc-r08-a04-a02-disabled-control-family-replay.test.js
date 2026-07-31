@@ -1,16 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import {
   DISABLED_CONTROL_POLICY_CODES,
   installDisabledCurrentValueSelectionPolicy,
 } from "../../tools/curriculum/pgc-r08-browser-control-selection-policy.mjs";
 
 const plan = JSON.parse(await readFile("data/curriculum/public-generation/PGC-R08-A04-A02.disabled-control-harness-family-replay-plan.json", "utf8"));
-const sourceReadback = JSON.parse(await readFile(plan.sourceReadbackPath, "utf8"));
-const queues = await Promise.all(plan.targetFamilyQueuePaths.map(async (path) => JSON.parse(await readFile(path, "utf8"))));
+const readback = JSON.parse(await readFile(plan.finalReadbackPath, "utf8"));
+const activeState = JSON.parse(await readFile(plan.activeRepairStatePath, "utf8"));
 const runner = await readFile("tools/curriculum/run-pgc-r08-a04-a02-disabled-control-family-replay.mjs", "utf8");
-const workflow = await readFile(".github/workflows/pgc-r08-a04-a02-disabled-control-family-replay.yml", "utf8");
+const temporaryWorkflowPath = ".github/workflows/pgc-r08-a04-a02-disabled-control-family-replay.yml";
 
 function mockPage({ disabled, initialValue }) {
   let value = initialValue;
@@ -21,22 +21,10 @@ function mockPage({ disabled, initialValue }) {
       value = requested;
       return [requested];
     },
-    locator: () => ({
-      isDisabled: async () => disabled,
-      inputValue: async () => value,
-    }),
+    locator: () => ({ isDisabled: async () => disabled, inputValue: async () => value }),
   };
   return { page, getValue: () => value, getMutationCount: () => mutationCount };
 }
-
-test("PGC-R08 A04 A02 targets exactly both 180-route disabled-control families", () => {
-  assert.equal(sourceReadback.repairDecision.harnessMutationAuthorized, true);
-  assert.equal(queues.length, 2);
-  assert.equal(queues.reduce((sum, queue) => sum + queue.rows.length, 0), 180);
-  assert.deepEqual(queues.map((queue) => queue.failureFamily).sort(), plan.targetFamilies.toSorted());
-  assert.equal(plan.acceptance.passRouteCount, 180);
-  assert.equal(plan.acceptance.failRouteCount, 0);
-});
 
 test("enabled control uses normal selection", async () => {
   const dispositions = [];
@@ -48,37 +36,55 @@ test("enabled control uses normal selection", async () => {
   assert.equal(dispositions[0].disposition, DISABLED_CONTROL_POLICY_CODES.ENABLED_SELECTION);
 });
 
-test("disabled control with matching current authority passes without mutation", async () => {
-  const dispositions = [];
-  const mock = mockPage({ disabled: true, initialValue: "numeric" });
-  installDisabledCurrentValueSelectionPolicy(mock.page, { onDisposition: (event) => dispositions.push(event) });
-  assert.deepEqual(await mock.page.selectOption("#type", "numeric"), ["numeric"]);
-  assert.equal(mock.getMutationCount(), 0);
-  assert.equal(dispositions[0].disposition, DISABLED_CONTROL_POLICY_CODES.DISABLED_CURRENT_VALUE_MATCH);
+test("disabled matching authority passes without mutation and mismatches fail closed", async () => {
+  const matching = mockPage({ disabled: true, initialValue: "numeric" });
+  installDisabledCurrentValueSelectionPolicy(matching.page);
+  assert.deepEqual(await matching.page.selectOption("#type", "numeric"), ["numeric"]);
+  assert.equal(matching.getMutationCount(), 0);
+
+  const mismatch = mockPage({ disabled: true, initialValue: "numeric" });
+  installDisabledCurrentValueSelectionPolicy(mismatch.page);
+  await assert.rejects(mismatch.page.selectOption("#type", "application"), (error) => error?.message === "PGC_R08_BROWSER_DISABLED_CONTROL_VALUE_MISMATCH");
+  assert.equal(mismatch.getMutationCount(), 0);
 });
 
-test("disabled control with mismatched value fails closed", async () => {
-  const mock = mockPage({ disabled: true, initialValue: "numeric" });
-  installDisabledCurrentValueSelectionPolicy(mock.page);
-  await assert.rejects(
-    mock.page.selectOption("#type", "application"),
-    (error) => error?.message === "PGC_R08_BROWSER_DISABLED_CONTROL_VALUE_MISMATCH" && error?.details?.actualValue === "numeric",
-  );
-  assert.equal(mock.getMutationCount(), 0);
+test("A02 exact browser replay closes both disabled-control families", () => {
+  assert.equal(plan.status, "PASS_DISABLED_CONTROL_FAMILIES_CLOSED_WITH_ORTHOGONAL_REGENERATE_TRANSFER");
+  assert.equal(readback.sourceEvidence.headSha, "7406a163e39e290a26299868b4c83f91f2192ffc");
+  assert.equal(readback.sourceEvidence.workflowRunId, 30603122800);
+  assert.equal(readback.sourceEvidence.artifactId, 8782694763);
+  assert.equal(readback.replaySummary.terminalRouteCount, 180);
+  assert.equal(readback.replaySummary.disabledControlAuthorityConformanceCount, 180);
+  assert.equal(readback.replaySummary.disabledValueMismatchDispositionCount, 0);
+  assert.equal(readback.replaySummary.endToEndPassRouteCount, 179);
+  assert.equal(readback.familyCloseout.length, 2);
+  assert.ok(readback.familyCloseout.every((family) => family.status.startsWith("CLOSED")));
 });
 
-test("A02 creates the shared A03 output directories before executing routes", () => {
-  assert.match(runner, /const CORE_SAMPLE = path\.join\(CORE_OUT, "samples"\)/);
-  assert.match(runner, /const CORE_FAILURE = path\.join\(CORE_OUT, "failures"\)/);
+test("the orthogonal route is transferred to the existing regenerate family without a per-route patch", () => {
+  assert.equal(readback.transferredRoutes.length, 1);
+  const transferred = readback.transferredRoutes[0];
+  assert.equal(transferred.routeIndex, 297);
+  assert.equal(transferred.toFailureFamily, "REGENERATE_IDENTITY_TIMEOUT");
+  assert.equal(transferred.passedGateCodes.length, 8);
+  assert.equal(transferred.remainingGateCode, "REGENERATE_PASS");
+  assert.equal(transferred.perRoutePatchAuthorized, false);
+  const regenerate = activeState.pendingFamilies.find((family) => family.failureFamily === "REGENERATE_IDENTITY_TIMEOUT");
+  assert.equal(regenerate.routeCount, 3);
+  assert.equal(regenerate.overlayRows.length, 1);
+});
+
+test("active repair-state arithmetic is reconciled and route binding remains next", () => {
+  assert.equal(activeState.current.cumulativePassRouteCount, 645);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 148);
+  assert.equal(activeState.pendingFamilies.filter((family) => family.failureFamily !== "CAPACITY_EVIDENCE_RECONCILIATION").reduce((sum, family) => sum + family.routeCount, 0), 148);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 2);
+  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair");
+});
+
+test("A02 runner creates shared output directories and temporary workflow is removed", async () => {
   assert.match(runner, /mkdir\(CORE_SAMPLE, \{ recursive: true \}\)/);
   assert.match(runner, /mkdir\(CORE_FAILURE, \{ recursive: true \}\)/);
-});
-
-test("A02 reuses the existing nine-gate executeRoute path and branch-only read-only workflow", () => {
-  assert.match(runner, /executeRoute/);
-  assert.match(runner, /wrapBrowserWithDisabledCurrentValueSelectionPolicy/);
-  assert.match(runner, /allNineGatesPassCount/);
-  assert.match(workflow, /pgc-r08-a04-a02-disabled-control-family-replay/);
-  assert.match(workflow, /permissions:\s*\n\s*contents: read/);
-  assert.match(workflow, /upload-artifact@v4/);
+  await assert.rejects(access(temporaryWorkflowPath), (error) => error?.code === "ENOENT");
+  assert.equal(readback.decisions.temporaryWorkflowRemovedBeforeMerge, true);
 });

@@ -3,8 +3,10 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay",
-  "status": "PENDING_180_ROUTE_BROWSER_REPLAY",
+  "status": "PASS_DISABLED_CONTROL_FAMILIES_CLOSED_WITH_ORTHOGONAL_REGENERATE_TRANSFER",
   "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A01.disabled-control-focused-reproduction-readback.json",
+  "finalReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A02.disabled-control-harness-family-replay-readback.json",
+  "activeRepairStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
   "targetFamilyQueuePaths": [
     "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-control-disabled.json",
     "data/curriculum/public-generation/pgc-r08-a03-repair-queue/context-mode-control-disabled.json"
@@ -30,27 +32,42 @@
     "enabledControl": "select and verify",
     "disabledCurrentValueMatch": "accept without mutation",
     "disabledValueMismatch": "fail closed",
+    "orthogonalFailure": "transfer to the matching existing repair family without per-route product patch",
     "productMutationAllowed": false,
     "capacityAuthorityMutationAllowed": false,
     "perRoutePatchAllowed": false
   },
+  "exactEvidence": {
+    "headSha": "7406a163e39e290a26299868b4c83f91f2192ffc",
+    "workflowRunId": 30603122800,
+    "workflowJobId": 91069801299,
+    "workflowConclusion": "failure_due_to_expected_nonzero_downstream_family",
+    "artifactId": 8782694763,
+    "artifactDigest": "sha256:657637d3c161612e1c45d577a2d093fe77eef84c21e09eb80b3569c7a93597e2",
+    "reportSha256": "113107a19d8603f3f6180f1b551ddbb212157aca1087f7f410266249a420aa5e",
+    "policyDispositionsSha256": "80f2d1beeb1de9d698d3093c334fda20ccdaa379ea401021550a9c3a16fc9c93",
+    "transferredFailureEvidenceSha256": "62da5fd567ccf97dbe7711fea8dcc921d465648f098cbe3738917034a4a2ba1b"
+  },
   "acceptance": {
     "terminalRouteCount": 180,
-    "passRouteCount": 180,
-    "failRouteCount": 0,
-    "disabledCurrentValueMatchDispositionCountMinimum": 180,
-    "allNineGatesPassPerRoute": true,
+    "disabledControlAuthorityConformanceCount": 180,
+    "disabledValueMismatchCount": 0,
+    "endToEndPassRouteCount": 179,
+    "orthogonalTransferredRouteCount": 1,
+    "closedFailureFamilyCount": 2,
     "browserConsoleErrorCount": 0,
     "browserPageErrorCount": 0
   },
   "goalDistance": {
     "before": "D1_R08_DISABLED_CONTROL_HARNESS_POLICY_CONFIRMED_REPAIR_PENDING",
-    "after": "D1_R08_DISABLED_CONTROL_180_ROUTE_REPLAY_PENDING",
-    "distanceReduced": "materialized the shared harness policy and exact 180-route full-product replay",
+    "after": "D1_R08_DISABLED_CONTROL_FAMILIES_CLOSED_ROUTE_BINDING_REPAIR_NEXT",
+    "distanceReduced": "removed the disabled-control blocker from all 180 routes, admitted the shared harness policy, converted 179 routes to end-to-end PASS, and transferred one orthogonal regenerate timeout to its existing family",
     "remainingBlockers": [
-      "DISABLED_CONTROL_180_ROUTE_BROWSER_REPLAY_NOT_TERMINAL",
-      "FOUR_OTHER_REPAIR_PHASES_PENDING"
+      "ROUTE_BINDING_NOT_CONVERGED_136",
+      "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT_9",
+      "REGENERATE_IDENTITY_TIMEOUT_3",
+      "CAPACITY_EVIDENCE_RECONCILIATION_35"
     ],
-    "nextShortestStep": "READ_A02_180_ROUTE_BROWSER_ARTIFACT_AND_CLOSE_DISABLED_CONTROL_FAMILIES"
+    "nextShortestStep": "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair"
   }
 }

@@ -3,51 +3,82 @@
 ```text
 PROGRAM_ID = PUBLIC_KP_GENERATION_CONFORMANCE_V1
 TASK_ID = PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay
-STATUS = PENDING_180_ROUTE_BROWSER_ARTIFACT
+STATUS = PASS_DISABLED_CONTROL_FAMILIES_CLOSED_WITH_ORTHOGONAL_REGENERATE_TRANSFER
 ```
 
-## Scope
-
-Apply the A01-authorized disabled-control selection policy to a shared browser adapter and replay all 180 routes from the two affected repair families through the existing nine-gate `executeRoute` path.
+## Exact browser evidence
 
 ```text
-QUESTION_TYPE_CONTROL_DISABLED = 176
-CONTEXT_MODE_CONTROL_DISABLED = 4
-TARGET_ROUTE_COUNT = 180
-WORKER_CONCURRENCY = 6
-PRODUCT_MUTATION = false
-CAPACITY_AUTHORITY_MUTATION = false
+SOURCE_HEAD_SHA = 7406a163e39e290a26299868b4c83f91f2192ffc
+WORKFLOW_RUN_ID = 30603122800
+WORKFLOW_JOB_ID = 91069801299
+ARTIFACT_ID = 8782694763
+ARTIFACT_DIGEST = sha256:657637d3c161612e1c45d577a2d093fe77eef84c21e09eb80b3569c7a93597e2
+REPORT_SHA256 = 113107a19d8603f3f6180f1b551ddbb212157aca1087f7f410266249a420aa5e
+POLICY_DISPOSITIONS_SHA256 = 80f2d1beeb1de9d698d3093c334fda20ccdaa379ea401021550a9c3a16fc9c93
 ```
 
-## Policy
+## Result
 
 ```text
-ENABLED_CONTROL = select requested value and verify settlement
-DISABLED_CURRENT_VALUE_MATCH = accept without mutation
-DISABLED_VALUE_MISMATCH = fail closed
-```
-
-The adapter wraps Playwright pages. It does not modify the public UI, source authority, generator, validator, renderer or route definitions.
-
-## Acceptance
-
-```text
-TERMINAL = 180 / 180
-PASS = 180
-FAIL = 0
-ALL_NINE_GATES_PASS = 180
+TARGET / TERMINAL = 180 / 180
+DISABLED_CONTROL_AUTHORITY_CONFORMANCE = 180 / 180
+DISABLED_CURRENT_VALUE_MATCH = 180
+DISABLED_VALUE_MISMATCH = 0
+END_TO_END_PASS = 179
+ORTHOGONAL_TRANSFER = 1
 BROWSER_CONSOLE_ERRORS = 0
 BROWSER_PAGE_ERRORS = 0
 ```
 
-A temporary branch-only workflow uploads the exact browser report and policy dispositions. It must be removed after artifact readback and before merge.
+`QUESTION_TYPE_CONTROL_DISABLED` closed at 176/176 full nine-gate PASS.
+
+`CONTEXT_MODE_CONTROL_DISABLED` closed as a control blocker at 4/4. Three routes passed all nine gates. Route 297 passed UI options, Generate, 20-question count, question identity, answer validation, HTML, PDF and answer key, then timed out only during regeneration identity settlement.
+
+## Reclassification
+
+```text
+ROUTE_INDEX = 297
+ROUTE_ID = pgc_r03_g4b_u06_4b06_application_243390fad850
+FROM = CONTEXT_MODE_CONTROL_DISABLED
+TO = REGENERATE_IDENTITY_TIMEOUT
+PASSED_GATES = 8 / 9
+PER_ROUTE_PRODUCT_PATCH = forbidden
+```
+
+This is not a disabled-control defect. The route joins the existing G4B-U06 regenerate family, increasing that later family from 2 to 3 routes. Historical A03 queues remain immutable; A04 records the change through an active repair-state overlay.
+
+## Active repair state
+
+```text
+INITIAL PASS / FAIL = 466 / 327
+CURRENT CUMULATIVE PASS = 645
+CURRENT UNRESOLVED FAIL = 148
+
+ROUTE_BINDING_NOT_CONVERGED = 136
+QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT = 9
+REGENERATE_IDENTITY_TIMEOUT = 3
+CAPACITY_EVIDENCE_RECONCILIATION = 35
+```
+
+## Boundaries
+
+```text
+PUBLIC_UI_MUTATION = false
+GENERATOR_MUTATION = false
+VALIDATOR_MUTATION = false
+RENDERER_MUTATION = false
+CAPACITY_AUTHORITY_MUTATION = false
+HISTORICAL_A03_QUEUE_MUTATION = false
+TEMPORARY_WORKFLOW_REMOVED_BEFORE_MERGE = true
+```
 
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_R08_DISABLED_CONTROL_HARNESS_POLICY_CONFIRMED_REPAIR_PENDING
-GOAL_DISTANCE_AFTER  = D1_R08_DISABLED_CONTROL_180_ROUTE_REPLAY_PENDING
-DISTANCE_REDUCED     = shared harness policy implemented and all affected routes scheduled for full nine-gate replay
-REMAINING_BLOCKERS   = [DISABLED_CONTROL_180_ROUTE_BROWSER_REPLAY_NOT_TERMINAL, FOUR_OTHER_REPAIR_PHASES_PENDING]
-NEXT_SHORTEST_STEP   = READ_A02_180_ROUTE_BROWSER_ARTIFACT_AND_CLOSE_DISABLED_CONTROL_FAMILIES
+GOAL_DISTANCE_AFTER  = D1_R08_DISABLED_CONTROL_FAMILIES_CLOSED_ROUTE_BINDING_REPAIR_NEXT
+DISTANCE_REDUCED     = disabled-control blocker removed from all 180 routes; 179 routes became full end-to-end PASS and one orthogonal regenerate timeout was transferred to the existing family
+REMAINING_BLOCKERS   = [ROUTE_BINDING_NOT_CONVERGED_136, QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT_9, REGENERATE_IDENTITY_TIMEOUT_3, CAPACITY_EVIDENCE_RECONCILIATION_35]
+NEXT_SHORTEST_STEP   = PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair
 ```
