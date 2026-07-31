@@ -3,22 +3,45 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair",
-  "status": "IMPLEMENTATION_AND_EXACT_REPLAY_PENDING",
+  "status": "PASS_EXACT_10_ROUTE_REPLAY",
   "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A05.regenerate-identity-readback.json",
   "historicalQueuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/regenerate-identity-timeout.json",
   "targetRouteCount": 10,
+  "targetRouteIds": [
+    "pgc_r03_g4b_u06_4b06_numeric_13afea5d4fd1",
+    "pgc_r03_g4b_u06_4b06_numeric_8060b6cce6ed",
+    "pgc_r03_g4b_u06_4b06_application_243390fad850",
+    "pgc_r03_g3a_u02_3a02_application_34d1425812ae",
+    "pgc_r03_g3a_u02_3a02_application_42650479995e",
+    "pgc_r03_g3a_u03_3a03_application_0dcb3707159d",
+    "pgc_r03_g3a_u06_3a06_application_aec8a16babd8",
+    "pgc_r03_g3b_u01_3b01_application_0bd5235fd4ec",
+    "pgc_r03_g3b_u04_3b04_application_3602182d8a79",
+    "pgc_r03_g4b_u06_4b06_application_19f9fc46c516"
+  ],
   "workerConcurrency": 5,
   "rootCause": {
-    "classification": "FINITE_POOL_SEED_INSENSITIVE_ORDER_PROJECTION",
-    "evidence": [
-      "all ten routes already pass UI, generate, count, identity, answer, HTML, PDF, and answer-key gates",
-      "generationSeed is read by the public UI and propagated through config-state into the browser generator",
-      "finite fixture pools and selected application runtimes retain a stable ordered worksheet for ordinary PGC-R08 seeds",
-      "G4B-U06 runtime only applied seed offsets for the historical pgc-r04 prefix"
+    "classification": "FINITE_POOL_ORDER_AND_CLASSIC_CONSUMER_ROUTING_GAP",
+    "components": [
+      {
+        "code": "FINITE_POOL_SEED_INSENSITIVE_ORDER_PROJECTION",
+        "evidence": "Valid finite pools retained the same learner-visible order for paired PGC-R08 seeds."
+      },
+      {
+        "code": "PUBLIC_APPLICATION_GROUP_ALIAS_NOT_NORMALIZED",
+        "evidence": "Classic UI base PatternGroups required projection to their production-admitted application groups."
+      },
+      {
+        "code": "G3B_U04_SEMANTIC_VALIDATOR_CONSUMER_NOT_ROUTED",
+        "evidence": "The Classic worksheet bridge revalidated canonical G3B-U04 semantic questions through the legacy generic PatternSpec registry instead of the existing blocking semantic validators."
+      }
     ]
   },
   "repairContract": {
     "sharedBrowserGeneratorProjectionRequired": true,
+    "classicApplicationAliasNormalizationRequired": true,
+    "classicSemanticValidatorConsumerRoutingRequired": true,
     "sameSeedDeterministic": true,
     "differentSeedOrderedWorksheetIdentityRequired": true,
     "questionMembershipMutationAllowed": false,
@@ -29,13 +52,16 @@
     "capacityAuthorityMutationAllowed": false,
     "patternSpecSlotMutationAllowed": false,
     "validatorMutationAllowed": false,
+    "validatorRuleMutationAllowed": false,
+    "validatorConsumerRoutingRepairAllowed": true,
     "rendererMutationAllowed": false,
     "historicalQueueMutationAllowed": false,
     "timeoutExtensionAllowed": false,
     "perRoutePatchAllowed": false,
     "productMutationScope": [
       "site/modules/curriculum/batch-a/regenerate-identity-seed-order.js",
-      "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
+      "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-u08-extension.js"
     ]
   },
   "acceptance": {
@@ -43,6 +69,16 @@
     "fullNineGatePassCount": 10,
     "regenerateIdentityResidualCount": 0,
     "browserConsoleErrorCount": 0,
-    "browserPageErrorCount": 0
+    "browserPageErrorCount": 0,
+    "fullRegression": {
+      "tests": 2789,
+      "pass": 2789,
+      "fail": 0
+    },
+    "workflowRunId": 30671019163,
+    "workflowJobId": 91288569602,
+    "headSha": "360503d142ff525847d0e0849ae8b7298fde0a21",
+    "artifactId": 8808826959,
+    "artifactDigest": "sha256:9d9cb98866d031ce1a6548fdedd38968f67b57e0efcaea9f1f543925f689f57e"
   }
 }
