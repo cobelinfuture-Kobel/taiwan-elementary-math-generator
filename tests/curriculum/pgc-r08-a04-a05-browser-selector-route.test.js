@@ -9,6 +9,9 @@ const {
   generateBatchABrowserQuestions,
 } = await import("../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js");
 const {
+  validateBatchABrowserQuestions,
+} = await import("../../site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-u08-extension.js");
+const {
   createConfigState,
   getBatchAWorksheetPlan,
 } = await import("../../site/assets/browser/state/config-state.js");
@@ -84,5 +87,35 @@ test("A05 Classic query state preserves application mode through the worksheet p
   assert.deepEqual(plan.selectedPatternGroupIds, queryState.selectedPatternGroupIds);
 
   const result = buildWorksheetDocumentFromPlan(plan);
-  assertTwentyApplicationQuestions(result);
+  const questions = assertTwentyApplicationQuestions(result);
+  assert.equal(
+    result.validation?.validatorVersion,
+    "pgc-r08-a05-g3b-u04-semantic-consumer-v1",
+  );
+  assert.equal(result.worksheetDocument?.questionDisplayModels?.length, 20);
+  assert.equal(result.worksheetDocument?.answerKeyItems?.length, 20);
+  assert.ok((result.worksheetDocument?.questionPages?.length ?? 0) > 0);
+  assert.ok((result.worksheetDocument?.answerKeyPages?.length ?? 0) > 0);
+  assert.deepEqual(
+    result.worksheetDocument.generatedQuestions.map((question) => question.id),
+    questions.map((question) => question.id),
+  );
+});
+
+test("A05 Classic semantic consumer remains blocking and rejects a corrupted answer", () => {
+  const generated = generateBatchABrowserQuestions({
+    ...BASE_OPTIONS,
+    generationSeed: "pgc-r08-browser-selector-g3b-u04-validator-negative",
+  });
+  const questions = assertTwentyApplicationQuestions(generated);
+  const corrupted = questions.map((question, index) => index === 0
+    ? { ...question, finalAnswer: Number(question.finalAnswer) + 1 }
+    : question);
+  const validation = validateBatchABrowserQuestions(corrupted);
+
+  assert.equal(validation.ok, false);
+  assert.equal(
+    validation.errors.some((error) => String(error.code).startsWith("G3B_U04_")),
+    true,
+  );
 });
