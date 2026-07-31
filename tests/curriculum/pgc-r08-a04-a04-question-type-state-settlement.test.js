@@ -2,6 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { buildQuestionTypeStateBootstrapUrl } from "../../tools/curriculum/pgc-r08-question-type-state-bootstrap.mjs";
+import {
+  exactPublicPatternGroupIdsForRoute,
+  uiSelectablePatternGroupIdsForRoute,
+} from "../../tools/curriculum/pgc-r08-exact-pattern-group-authority.mjs";
 
 const plan = JSON.parse(await readFile(
   "data/curriculum/public-generation/PGC-R08-A04-A04.question-type-state-settlement-plan.json",
@@ -15,6 +19,10 @@ const bootstrapSource = await readFile(
 );
 const runnerSource = await readFile(
   "tools/curriculum/run-pgc-r08-a04-a04-question-type-state-settlement-replay.mjs",
+  "utf8",
+);
+const authoritySource = await readFile(
+  "tools/curriculum/pgc-r08-exact-pattern-group-authority.mjs",
   "utf8",
 );
 
@@ -34,6 +42,18 @@ test("A04 consumes position 3 and the immutable nine-route settlement queue", ()
   );
 });
 
+test("nine explicit W3 application routes retain their runtime PatternGroup IDs in the UI projection", () => {
+  for (const row of queue.rows) {
+    const routeId = row[1];
+    const runtimeIds = exactPublicPatternGroupIdsForRoute(routeId);
+    const uiIds = uiSelectablePatternGroupIdsForRoute(routeId);
+    assert.deepEqual(uiIds, runtimeIds, routeId);
+    assert.ok(runtimeIds.length >= 1, routeId);
+    assert.ok(runtimeIds.every((id) => id.endsWith("_application")), routeId);
+    assert.ok(uiIds.every((id) => !id.endsWith("_numeric")), routeId);
+  }
+});
+
 test("canonical bootstrap materializes the complete initial public state before navigation", () => {
   const url = buildQuestionTypeStateBootstrapUrl("http://127.0.0.1:4196/index.html?existing=1", {
     routeIndex: 54,
@@ -41,7 +61,7 @@ test("canonical bootstrap materializes the complete initial public state before 
     sourceId: "g3a_u08_3a08",
     selectionMode: "mixedKnowledgePointsSameUnit",
     selectedKnowledgePointIds: ["kp_b", "kp_a", "kp_a"],
-    uiSelectablePatternGroupIds: ["pg_b", "pg_a", "pg_a"],
+    uiSelectablePatternGroupIds: ["pg_b_application", "pg_a_application", "pg_a_application"],
     questionType: "application",
     depthMode: "N",
     contextMode: "daily_life",
@@ -55,7 +75,7 @@ test("canonical bootstrap materializes the complete initial public state before 
   assert.equal(parsed.searchParams.get("depthMode"), "N");
   assert.equal(parsed.searchParams.get("contextMode"), "daily_life");
   assert.deepEqual(parsed.searchParams.getAll("kp"), ["kp_a", "kp_b"]);
-  assert.deepEqual(parsed.searchParams.getAll("pg"), ["pg_a", "pg_b"]);
+  assert.deepEqual(parsed.searchParams.getAll("pg"), ["pg_a_application", "pg_b_application"]);
   assert.equal(parsed.searchParams.get("questionCount"), "20");
 });
 
@@ -65,6 +85,9 @@ test("repair is shared, query-state based, and does not extend timeouts or patch
   assert.match(bootstrapSource, /uiSelectablePatternGroupIds/);
   assert.doesNotMatch(bootstrapSource, /waitForTimeout/);
   assert.doesNotMatch(bootstrapSource, /pgc_r03_/);
+  assert.match(authoritySource, /basePatternGroupId/);
+  assert.match(authoritySource, /UI_GROUP_BY_APPLICATION_ALIAS/);
+  assert.doesNotMatch(authoritySource, /numericCandidates/);
   assert.match(runnerSource, /wrapBrowserWithExactPatternGroupBinder/);
   assert.match(runnerSource, /wrapBrowserWithDisabledCurrentValueSelectionPolicy/);
   assert.match(runnerSource, /wrapBrowserWithQuestionTypeStateBootstrap/);
