@@ -19,7 +19,7 @@ const CAPACITY_PATH = path.join(ROOT, "data/curriculum/public-generation/generat
 const A00_PATH = path.join(ROOT, "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json");
 const OUT = path.join(ROOT, "tmp/pgc-r08-a04-a06-capacity-shortfall");
 const CORE_OUT = path.join(ROOT, "tmp/pgc-r08-a03-all-legal-routes");
-const ORIGIN = "http://127.0.0.1:4197";
+const ORIGIN = "http://127.0.0.1:4196";
 const fail = (code, details = {}) => { const error = new Error(code); error.details = details; throw error; };
 
 const family = ACTIVE.pendingFamilies.find(
@@ -67,7 +67,7 @@ await Promise.all([
 
 const server = spawn(process.execPath, [path.join(ROOT, "tools/site/serve-site.js")], {
   cwd: ROOT,
-  env: { ...process.env, SITE_PORT: "4197", SITE_HOST: "127.0.0.1" },
+  env: { ...process.env, SITE_PORT: "4196", SITE_HOST: "127.0.0.1" },
   stdio: ["ignore", "pipe", "pipe"],
 });
 let browser;
