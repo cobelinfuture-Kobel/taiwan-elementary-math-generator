@@ -50,9 +50,10 @@ test("all 136 failed browser rows enrich to exact runtime and UI-selectable Patt
   const summary = exactPatternGroupAuthoritySummary();
   assert.equal(summary.routeCount, 1155);
   assert.equal(summary.applicationAliasGroupCount, 7);
+  assert.equal(summary.applicationAliasRouteCount, 12);
   assert.equal(
     rows.filter((row) => row.publicPatternGroupIds.some((id) => id.startsWith("w01_app_"))).length,
-    31,
+    12,
   );
   assert.equal(
     rows.filter((row) => row.uiSelectablePatternGroupIds.some((id) => id.startsWith("w01_app_"))).length,
@@ -65,7 +66,7 @@ test("application aliases project through compatible PatternSpec identity withou
   const aliasRows = rows.filter((row) =>
     row.publicPatternGroupIds.some((id) => id.startsWith("w01_app_")),
   );
-  assert.equal(aliasRows.length, 31);
+  assert.equal(aliasRows.length, 12);
   for (const row of aliasRows) {
     assert.notDeepEqual(row.publicPatternGroupIds, row.uiSelectablePatternGroupIds, row.routeId);
     assert.ok(row.publicPatternGroupIds.every((id) => id.startsWith("w01_app_") || id.startsWith("pg_")));
