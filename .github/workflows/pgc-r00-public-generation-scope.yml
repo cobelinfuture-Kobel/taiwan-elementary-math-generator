@@ -19,7 +19,7 @@ permissions:
 jobs:
   scope-freeze:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,20 +35,7 @@ jobs:
       - name: Full regression
         run: npm test
 
-  exact-regenerate-identity-replay:
-    needs: scope-freeze
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - name: Install dependencies
+      - name: Install exact-replay dependencies
         run: npm install --no-audit --no-fund
 
       - name: Install Chromium
