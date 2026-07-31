@@ -16,6 +16,8 @@ const CAPACITY_PATH = path.join(ROOT, "data/curriculum/public-generation/generat
 const A00_PATH = path.join(ROOT, "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json");
 const OUT = path.join(ROOT, "tmp/pgc-r08-a04-a02-disabled-control-family-replay");
 const CORE_OUT = path.join(ROOT, "tmp/pgc-r08-a03-all-legal-routes");
+const CORE_SAMPLE = path.join(CORE_OUT, "samples");
+const CORE_FAILURE = path.join(CORE_OUT, "failures");
 const ORIGIN = "http://127.0.0.1:4196";
 
 function fail(code, details = {}) {
@@ -78,7 +80,11 @@ await Promise.all([
   rm(OUT, { recursive: true, force: true }),
   rm(CORE_OUT, { recursive: true, force: true }),
 ]);
-await mkdir(OUT, { recursive: true });
+await Promise.all([
+  mkdir(OUT, { recursive: true }),
+  mkdir(CORE_SAMPLE, { recursive: true }),
+  mkdir(CORE_FAILURE, { recursive: true }),
+]);
 const server = spawn(process.execPath, [path.join(ROOT, "tools/site/serve-site.js")], {
   cwd: ROOT,
   env: { ...process.env, SITE_PORT: "4196", SITE_HOST: "127.0.0.1" },

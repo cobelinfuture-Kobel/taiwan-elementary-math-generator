@@ -67,6 +67,13 @@ test("disabled control with mismatched value fails closed", async () => {
   assert.equal(mock.getMutationCount(), 0);
 });
 
+test("A02 creates the shared A03 output directories before executing routes", () => {
+  assert.match(runner, /const CORE_SAMPLE = path\.join\(CORE_OUT, "samples"\)/);
+  assert.match(runner, /const CORE_FAILURE = path\.join\(CORE_OUT, "failures"\)/);
+  assert.match(runner, /mkdir\(CORE_SAMPLE, \{ recursive: true \}\)/);
+  assert.match(runner, /mkdir\(CORE_FAILURE, \{ recursive: true \}\)/);
+});
+
 test("A02 reuses the existing nine-gate executeRoute path and branch-only read-only workflow", () => {
   assert.match(runner, /executeRoute/);
   assert.match(runner, /wrapBrowserWithDisabledCurrentValueSelectionPolicy/);
