@@ -41,7 +41,17 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Exact ten-route browser replay
-        run: node tools/curriculum/run-pgc-r08-a04-a05-regenerate-identity-replay.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          set +e
+          mkdir -p tmp/pgc-r08-a04-a05-regenerate-identity
+          node tools/curriculum/run-pgc-r08-a04-a05-regenerate-identity-replay.mjs \
+            2>&1 | tee tmp/pgc-r08-a04-a05-regenerate-identity/exact-replay.log
+          replay_status=${PIPESTATUS[0]}
+          printf '%s\n' "${replay_status}" \
+            > tmp/pgc-r08-a04-a05-regenerate-identity/exit-code.txt
+          exit 0
 
       - name: Upload replay evidence
         uses: actions/upload-artifact@v4
@@ -52,3 +62,7 @@ jobs:
             tmp/pgc-r08-a03-all-legal-routes/failures
           if-no-files-found: error
           retention-days: 14
+
+      - name: Verify exact ten-route browser replay
+        shell: bash
+        run: test "$(cat tmp/pgc-r08-a04-a05-regenerate-identity/exit-code.txt)" = "0"
