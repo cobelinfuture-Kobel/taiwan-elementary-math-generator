@@ -74,12 +74,16 @@ test("application aliases project through compatible PatternSpec identity withou
   }
 });
 
-test("binder selects projected UI targets and drains every non-target without greedy fallback", () => {
+test("binder selects exact UI targets and projects route identity only after exact public state", () => {
   assert.match(binder, /uiSelectablePatternGroupIds/);
   assert.match(binder, /SELECT_EXACT_TARGET/);
   assert.match(binder, /DESELECT_NON_TARGET/);
+  assert.match(binder, /exactPublicStateMatches/);
+  assert.match(binder, /EXACT_ROUTE_IDENTITY_PROJECTED/);
+  assert.match(binder, /data\.capacityRouteIds/);
   assert.doesNotMatch(binder, /first compatible/i);
   assert.doesNotMatch(binder, /pgc_r03_/);
+  assert.equal(plan.repairContract.exactRouteIdentityProjectionRequiresExactPublicState, true);
   assert.equal(plan.repairContract.productMutationAllowed, false);
   assert.equal(plan.repairContract.perRoutePatchAllowed, false);
 });
