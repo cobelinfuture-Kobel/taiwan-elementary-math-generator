@@ -5,11 +5,7 @@ on:
     paths:
       - "data/curriculum/public-generation/**"
       - "docs/curriculum/output/PGC-R00_authority_boundary_readback.md"
-      - "site/modules/curriculum/batch-a/regenerate-identity-seed-order.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
       - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
-      - "tests/curriculum/pgc-r08-a04-a05-regenerate-identity.test.js"
-      - "tools/curriculum/run-pgc-r08-a04-a05-regenerate-identity-replay.mjs"
       - ".github/workflows/pgc-r00-public-generation-scope.yml"
   workflow_dispatch:
 
@@ -33,40 +29,26 @@ jobs:
         run: node --test tests/curriculum/pgc-r00-public-generation-scope.test.js
 
       - name: Full regression
-        shell: bash
-        run: |
-          set -o pipefail
-          mkdir -p tmp/pgc-r00-diagnostics
-          npm test 2>&1 | tee tmp/pgc-r00-diagnostics/npm-test.log
-
-      - name: Upload full-regression diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pgc-r00-full-regression-${{ github.run_id }}
-          path: tmp/pgc-r00-diagnostics/npm-test.log
-          if-no-files-found: error
-          retention-days: 3
+        run: npm test
 
       - name: Install exact-replay dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
-
       - name: Focused regenerate-identity contract
         run: node --test tests/curriculum/pgc-r08-a04-a05-regenerate-identity.test.js
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Exact ten-route browser replay
         run: node tools/curriculum/run-pgc-r08-a04-a05-regenerate-identity-replay.mjs
 
       - name: Upload replay evidence
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pgc-r08-a04-a05-regenerate-identity-${{ github.run_id }}
           path: |
             tmp/pgc-r08-a04-a05-regenerate-identity
             tmp/pgc-r08-a03-all-legal-routes/failures
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14
