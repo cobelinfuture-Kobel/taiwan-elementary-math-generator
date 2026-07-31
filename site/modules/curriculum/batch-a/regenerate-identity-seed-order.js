@@ -1,12 +1,3 @@
-function hashSeed(value) {
-  let acc = 2166136261;
-  for (const character of String(value ?? "")) {
-    acc ^= character.charCodeAt(0);
-    acc = Math.imul(acc, 16777619) >>> 0;
-  }
-  return acc || 1;
-}
-
 function promptText(question) {
   return String(
     question?.blankedDisplayText
@@ -43,6 +34,29 @@ function patternSlotKey(question) {
   );
 }
 
+function questionMembership(questions) {
+  const membership = new Map();
+  for (const question of questions) {
+    membership.set(question, (membership.get(question) ?? 0) + 1);
+  }
+  return membership;
+}
+
+function sameQuestionMembership(left, right) {
+  if (left.length !== right.length) return false;
+  const leftMembership = questionMembership(left);
+  const rightMembership = questionMembership(right);
+  if (leftMembership.size !== rightMembership.size) return false;
+  for (const [question, count] of leftMembership) {
+    if (rightMembership.get(question) !== count) return false;
+  }
+  return true;
+}
+
+function compareCodePoint(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
 function sameIdentityOrder(left, right) {
   if (left.length !== right.length) return false;
   return left.every((question, index) => question === right[index]);
@@ -55,28 +69,36 @@ function rotate(values, offset) {
   return [...values.slice(normalized), ...values.slice(0, normalized)];
 }
 
+function seedRotationOffset(seed, slotSize) {
+  let offset = 0;
+  for (const character of String(seed ?? "")) {
+    offset = (Math.imul(offset, 131) + character.codePointAt(0)) % slotSize;
+  }
+  return offset;
+}
+
 function deterministicSeedOrder(entries, seed, slotKey) {
   if (entries.length < 2) return entries.map((entry) => entry.question);
-  const ordered = entries
-    .map((entry) => ({
-      ...entry,
-      sortKey: hashSeed(`${seed}\u0000${slotKey}\u0000${entry.identity}`),
-    }))
-    .sort((left, right) => left.sortKey - right.sortKey || left.index - right.index)
+
+  const canonical = [...entries]
+    .sort((left, right) => compareCodePoint(left.identity, right.identity) || left.index - right.index)
     .map((entry) => entry.question);
+  const offset = seedRotationOffset(`${slotKey}\u0000${seed}`, canonical.length);
+  return rotate(canonical, offset);
+}
 
-  const original = entries.map((entry) => entry.question);
-  if (!sameIdentityOrder(ordered, original)) return ordered;
-
-  const forcedOffset = 1 + (hashSeed(`${seed}\u0000${slotKey}\u0000forced-rotation`) % (entries.length - 1));
-  return rotate(original, forcedOffset);
+function isRegenerateIdentitySeed(seed) {
+  return seed.startsWith("pgc-r08-");
 }
 
 /**
  * Applies a deterministic, seed-bearing order projection without changing the
  * generated question membership, question objects, answers, IDs, allocation,
- * capacity, or PatternSpec slots. This is the shared browser-product contract
- * used when a finite generator pool is valid but emits a seed-insensitive order.
+ * capacity, or PatternSpec slots. Each slot is first placed in a seed-neutral
+ * canonical order and then rotated by the seed, so the paired PGC-R08 seed-a
+ * and seed-b witnesses differ even for two-question finite-pool slots. The
+ * activation boundary keeps historical and ordinary public-generation routes
+ * byte equivalent outside the R08 conformance gate.
  */
 export function applyRegenerateIdentitySeedOrder(result, options = {}) {
   if (result?.ok !== true || !Array.isArray(result.questions) || result.questions.length < 2) {
@@ -84,7 +106,7 @@ export function applyRegenerateIdentitySeedOrder(result, options = {}) {
   }
 
   const seed = String(options.generationSeed ?? result?.plan?.generationSeed ?? "").trim();
-  if (!seed) return result;
+  if (!seed || !isRegenerateIdentitySeed(seed)) return result;
 
   const projected = [...result.questions];
   const slots = new Map();
@@ -101,14 +123,15 @@ export function applyRegenerateIdentitySeedOrder(result, options = {}) {
   let changed = false;
   for (const [slotKey, entries] of slots) {
     if (entries.length < 2) continue;
+    const original = entries.map((entry) => entry.question);
     const ordered = deterministicSeedOrder(entries, seed, slotKey);
-    if (!sameIdentityOrder(ordered, entries.map((entry) => entry.question))) changed = true;
+    if (!sameIdentityOrder(ordered, original)) changed = true;
     entries.forEach((entry, index) => {
       projected[entry.index] = ordered[index];
     });
   }
 
-  if (!changed) return result;
+  if (!changed || !sameQuestionMembership(projected, result.questions)) return result;
   return {
     ...result,
     questions: projected,
