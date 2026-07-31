@@ -31,6 +31,7 @@ jobs:
       - name: Full regression
         shell: bash
         run: |
+          # A05 staging: capture the full Classic state-to-worksheet assertion.
           set -o pipefail
           set +e
           mkdir -p tmp/pgc-r00-diagnostics
