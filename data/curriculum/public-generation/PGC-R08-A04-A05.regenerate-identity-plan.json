@@ -71,14 +71,14 @@
     "browserConsoleErrorCount": 0,
     "browserPageErrorCount": 0,
     "fullRegression": {
-      "tests": 2789,
-      "pass": 2789,
+      "tests": 2790,
+      "pass": 2790,
       "fail": 0
     },
-    "workflowRunId": 30671019163,
-    "workflowJobId": 91288569602,
-    "headSha": "360503d142ff525847d0e0849ae8b7298fde0a21",
-    "artifactId": 8808826959,
-    "artifactDigest": "sha256:9d9cb98866d031ce1a6548fdedd38968f67b57e0efcaea9f1f543925f689f57e"
+    "workflowRunId": 30672677105,
+    "workflowJobId": 91293507295,
+    "validatedContentHeadSha": "eff046de396d721891c93e2fe2a8fb18432ecaf4",
+    "artifactId": 8809385834,
+    "artifactDigest": "sha256:527344f32b540c4c4608cace46420bda0a83942b246823699ec4be282dc9f641"
   }
 }
