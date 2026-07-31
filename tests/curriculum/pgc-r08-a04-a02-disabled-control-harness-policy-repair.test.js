@@ -44,7 +44,32 @@ test("A02 replay reuses the canonical A03 nine-gate route executor",()=>{
   assert.match(runnerSource,/wrapBrowserWithDisabledControlSelectionPolicy/);
   assert.match(runnerSource,/GATE_CODES/);
   assert.match(runnerSource,/targetRouteCount/);
-  assert.match(runnerSource,/PASS_180_DISABLED_CONTROL_ROUTES/);
+  assert.match(runnerSource,/PASS_180_DISABLED_CONTROL_ROUTES_ALL_NINE_GATES/);
   assert.doesNotMatch(runnerSource,/writeFile\([^\n]*site[\\/]index\.html/);
   assert.doesNotMatch(runnerSource,/writeFile\([^\n]*generator_capacity_contract\.json/);
+});
+
+test("A02 admits only the exact reproducible route-297 regenerate handoff",()=>{
+  assert.equal(plan.overlappingFailurePolicy.finalNineGateObligationRetained,true);
+  assert.equal(plan.overlappingFailurePolicy.unlistedFailure,"CI_BLOCKING");
+  assert.equal(plan.overlappingFailurePolicy.allowedHandoffs.length,1);
+  const [handoff]=plan.overlappingFailurePolicy.allowedHandoffs;
+  assert.equal(handoff.routeIndex,297);
+  assert.equal(handoff.routeId,"pgc_r03_g4b_u06_4b06_application_243390fad850");
+  assert.equal(handoff.downstreamFailureFamily,"REGENERATE_IDENTITY_TIMEOUT");
+  assert.equal(handoff.requiredPendingGateCode,"REGENERATE_PASS");
+  assert.deepEqual(handoff.requiredPassedGateCodes.sort(),[
+    "ANSWER_KEY_PASS",
+    "ANSWER_VALIDATION_PASS",
+    "GENERATE_BUTTON_PASS",
+    "HTML_PASS",
+    "PDF_PASS",
+    "QUESTION_COUNT_PASS",
+    "QUESTION_IDENTITY_PASS",
+    "UI_OPTIONS_PASS",
+  ]);
+  assert.match(runnerSource,/classifyAllowedHandoff/);
+  assert.match(runnerSource,/unclassifiedFailures/);
+  assert.match(runnerSource,/PASS_DISABLED_CONTROL_FAMILIES_WITH_CLASSIFIED_DOWNSTREAM_HANDOFF/);
+  assert.match(runnerSource,/finalNineGateObligationRetained/);
 });
