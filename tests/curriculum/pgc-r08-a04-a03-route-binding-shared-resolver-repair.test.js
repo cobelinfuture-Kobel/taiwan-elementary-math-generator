@@ -120,7 +120,7 @@ test("A03 repair is shared, capacity-authority preserving and contains no route-
   assert.equal(plan.repairContract.exactCapacityRowIsRouteIdentityAuthority, true);
   assert.equal(plan.repairContract.capacityAuthorityMutationAllowed, false);
   assert.equal(plan.repairContract.perRoutePatchAllowed, false);
-  assert.match(wrapper, /exactCapacityBinding/);
+  assert.match(wrapper, /exactCapacity/);
   assert.match(wrapper, /STRUCTURAL_FALLBACK_EXACT_ROUTE_AVAILABLE/);
   for (const witness of cases) assert.doesNotMatch(wrapper, new RegExp(witness.routeId));
 });
