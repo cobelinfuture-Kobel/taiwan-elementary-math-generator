@@ -3,8 +3,9 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A04-A01_DisabledControlSemanticsFocusedReproduction",
-  "status": "PENDING_FOCUSED_BROWSER_REPRODUCTION",
+  "status": "PASS_FOCUSED_REPRODUCTION_CLASSIFIED",
   "authorityPath": "data/curriculum/public-generation/PGC-R08-A04-A00.failure-family-repair-canary-matrix.json",
+  "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A01.disabled-control-focused-reproduction-readback.json",
   "targetFamilies": [
     "QUESTION_TYPE_CONTROL_DISABLED",
     "CONTEXT_MODE_CONTROL_DISABLED"
@@ -21,26 +22,38 @@
     "SYSTEM_FAILURE"
   ],
   "classificationPolicy": {
-    "DISABLED_CURRENT_VALUE_MATCH": "harness selectOption policy candidate; requested authority is already represented by the real disabled public control",
-    "ENABLED_SELECTION_PASS": "temporal or sequence variance; control is reachable in focused reproduction",
-    "DISABLED_VALUE_MISMATCH": "product or authority mismatch; requested legal route is not represented by the disabled control",
+    "DISABLED_CURRENT_VALUE_MATCH": "harness policy repair authorized; a disabled control is acceptable only when its current value already equals the requested authority value",
+    "ENABLED_SELECTION_PASS": "normal enabled selection remains valid",
+    "DISABLED_VALUE_MISMATCH": "fail closed as product or authority mismatch",
     "SYSTEM_FAILURE": "browser, server, option, or selector failure; CI blocking"
+  },
+  "focusedEvidence": {
+    "headSha": "37a45718f7fbaee6f61c95edb867a39b1ab87df4",
+    "workflowRunId": 30599279607,
+    "workflowJobId": 91058282865,
+    "artifactId": 8781288076,
+    "artifactDigest": "sha256:99b6a55f6284ce4254386e55f3d27725137f94612b26a5ba76ce47766fcc9de1",
+    "reportSha256": "ccb92bd5b72fb53a525b2d9422e259c3d0c1e23015a3758b97b1912c274abc0c"
   },
   "acceptance": {
     "terminalCanaryCount": 8,
+    "disabledCurrentValueMatchCount": 8,
+    "enabledSelectionPassCount": 0,
+    "disabledValueMismatchCount": 0,
     "systemFailureCount": 0,
     "routeMutationPerformed": false,
     "productMutationPerformed": false,
-    "capacityAuthorityMutationPerformed": false
+    "capacityAuthorityMutationPerformed": false,
+    "repairDecision": "HARNESS_DISABLED_CURRENT_VALUE_POLICY_CONFIRMED"
   },
   "goalDistance": {
     "before": "D1_R08_REPAIR_AUTHORITY_ORDER_AND_CANARY_MATRIX_FROZEN",
-    "after": "D1_R08_DISABLED_CONTROL_SEMANTICS_FOCUSED_EVIDENCE_PENDING",
-    "distanceReduced": "prepared real-browser classification of the 180-route disabled-control cluster without changing product behavior",
+    "after": "D1_R08_DISABLED_CONTROL_HARNESS_POLICY_CONFIRMED_REPAIR_PENDING",
+    "distanceReduced": "classified both disabled-control families as a harness selection-policy defect with 8 of 8 real-browser canaries and no product mismatch",
     "remainingBlockers": [
-      "DISABLED_CONTROL_SEMANTICS_NOT_CLASSIFIED",
+      "DISABLED_CONTROL_HARNESS_POLICY_NOT_APPLIED_TO_180_ROUTES",
       "FOUR_OTHER_REPAIR_PHASES_PENDING"
     ],
-    "nextShortestStep": "READ_A01_FOCUSED_BROWSER_ARTIFACT_AND_CLASSIFY_REPAIR"
+    "nextShortestStep": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay"
   }
 }
