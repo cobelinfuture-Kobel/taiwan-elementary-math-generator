@@ -1,0 +1,70 @@
+{
+  "schemaName": "PGCR08A04A03RouteBindingSharedResolverRepairPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair",
+  "phaseId": "SHARED_RESOLVER_REPAIR_AND_136_ROUTE_REPLAY",
+  "status": "PENDING_136_ROUTE_BROWSER_REPLAY",
+  "sourceFocusedWorkflowRunId": 30604494607,
+  "sourceFocusedArtifactId": 8783108102,
+  "sourceFocusedArtifactDigest": "sha256:5e331f39df78331912e20f06fc496cd42108b7137a14f025f763bc1d9bc09e8f",
+  "sourceExactAuthorityWorkflowRunId": 30604889654,
+  "sourceExactAuthorityArtifactId": 8783240381,
+  "sourceExactAuthorityArtifactDigest": "sha256:4c13be8a9c3c8d4ac1a9c3f201e14995025df6ab64e0790e5fa859f31014c621",
+  "rootCause": {
+    "code": "STRUCTURAL_FALLBACK_OVERWROTE_EXACT_CAPACITY_ROUTE_IDENTITY",
+    "focusedCanaryCount": 4,
+    "targetRouteNotProjectedCount": 4,
+    "exactAuthoritySetBindsTargetCount": 0,
+    "exactAuthorityGroupNotSelectableCount": 3,
+    "exactAuthoritySetNotProjectedCount": 1,
+    "systemFailureCount": 0,
+    "introducedByPolicy": "PR_471_GLOBAL_QUESTION_COUNT_NO_ONE_LOCK_STRUCTURAL_FALLBACK"
+  },
+  "repairContract": {
+    "exactCapacityRowIsRouteIdentityAuthority": true,
+    "structuralFallbackMaySupplyPatternGroupVisibility": true,
+    "structuralFallbackMayOverwriteQuestionType": false,
+    "structuralFallbackMayOverwriteDepthOrContext": false,
+    "structuralFallbackMayOverwriteCapacityRouteIds": false,
+    "globalQuestionCountMin": 1,
+    "globalQuestionCountDefault": 20,
+    "globalQuestionCountMax": 240,
+    "capacityAuthorityMutationAllowed": false,
+    "perRoutePatchAllowed": false
+  },
+  "targetQueuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json",
+  "targetRouteCount": 136,
+  "workerConcurrency": 6,
+  "requiredGateCodes": [
+    "UI_OPTIONS_PASS",
+    "GENERATE_BUTTON_PASS",
+    "QUESTION_COUNT_PASS",
+    "QUESTION_IDENTITY_PASS",
+    "ANSWER_VALIDATION_PASS",
+    "REGENERATE_PASS",
+    "HTML_PASS",
+    "PDF_PASS",
+    "ANSWER_KEY_PASS"
+  ],
+  "acceptance": {
+    "terminalRouteCount": 136,
+    "routeBindingResolvedCount": 136,
+    "fullNineGatePassTarget": 136,
+    "disabledValueMismatchCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "goalDistance": {
+    "before": "D1_R08_ROUTE_BINDING_ROOT_CAUSE_PROVEN",
+    "after": "D1_R08_ROUTE_BINDING_SHARED_RESOLVER_REPAIR_PENDING_136_ROUTE_REPLAY",
+    "distanceReduced": "authorized one shared resolver repair from two independent exact-head browser probes",
+    "remainingBlockers": [
+      "ROUTE_BINDING_NOT_CONVERGED_136_REPLAY_PENDING",
+      "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT_9",
+      "REGENERATE_IDENTITY_TIMEOUT_3",
+      "CAPACITY_EVIDENCE_RECONCILIATION_35"
+    ],
+    "nextShortestStep": "READ_A03_136_ROUTE_BROWSER_REPLAY_AND_MATERIALIZE_ACTIVE_REPAIR_STATE"
+  }
+}
