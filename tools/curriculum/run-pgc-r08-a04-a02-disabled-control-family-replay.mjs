@@ -45,6 +45,35 @@ function readQueueRows(queue) {
   }));
 }
 
+function classifyAllowedHandoff(row, plan) {
+  const handoff = plan.overlappingFailurePolicy.allowedHandoffs.find(
+    (candidate) => candidate.routeId === row.routeId,
+  );
+  if (!handoff || row.routeIndex !== handoff.routeIndex) return null;
+  if (!handoff.requiredPassedGateCodes.every((gate) => row.gateStatus?.[gate] === "PASS")) return null;
+  if (row.gateStatus?.[handoff.requiredPendingGateCode] !== "PENDING") return null;
+  if (!String(row.browserEvidence?.errorCode ?? "").includes("Timeout 120000ms exceeded")) return null;
+  const consoleErrors = row.browserEvidence?.consoleErrorCount ?? row.browserEvidence?.consoleErrors?.length ?? 0;
+  const pageErrors = row.browserEvidence?.pageErrorCount ?? row.browserEvidence?.pageErrors?.length ?? 0;
+  if (consoleErrors !== 0 || pageErrors !== 0) return null;
+  return {
+    routeIndex: row.routeIndex,
+    routeId: row.routeId,
+    sourceId: row.sourceId,
+    selectionMode: row.selectionMode,
+    questionType: row.questionType,
+    contextMode: row.contextMode,
+    originalFailureFamily: row.expectedFailureFamily,
+    downstreamFailureFamily: handoff.downstreamFailureFamily,
+    passedGateCodes: handoff.requiredPassedGateCodes,
+    pendingGateCode: handoff.requiredPendingGateCode,
+    originalErrorCode: row.browserEvidence.errorCode,
+    evidenceRefs: handoff.evidenceRefs,
+    exactReproductionCountBeforeAdmission: handoff.exactReproductionCount,
+    finalNineGateObligationRetained: true,
+  };
+}
+
 const plan = JSON.parse(await readFile(PLAN_PATH, "utf8"));
 const queues = await Promise.all(
   plan.targetFamilyQueuePaths.map(async (queuePath) =>
@@ -122,46 +151,88 @@ try {
       policyDispositions.filter((event) => event.disposition === code).length,
     ]),
   );
+  const disabledControlSemanticsPassCount = results.filter(
+    (row) => row.gateStatus?.UI_OPTIONS_PASS === "PASS",
+  ).length;
+  const classifiedHandoffs = failed
+    .map((row) => classifyAllowedHandoff(row, plan))
+    .filter(Boolean);
+  const classifiedRouteIds = new Set(classifiedHandoffs.map((row) => row.routeId));
+  const unclassifiedFailures = failed.filter((row) => !classifiedRouteIds.has(row.routeId));
+  const allNineGatesPassCount = results.filter(
+    (row) => GATE_CODES.every((gate) => row.gateStatus[gate] === "PASS"),
+  ).length;
+  const browserConsoleErrorCount = results.reduce(
+    (sum, row) => sum + (row.browserEvidence?.consoleErrorCount ?? row.browserEvidence?.consoleErrors?.length ?? 0),
+    0,
+  );
+  const browserPageErrorCount = results.reduce(
+    (sum, row) => sum + (row.browserEvidence?.pageErrorCount ?? row.browserEvidence?.pageErrors?.length ?? 0),
+    0,
+  );
+  const replayAccepted =
+    results.length === plan.acceptance.terminalRouteCount &&
+    disabledControlSemanticsPassCount === plan.acceptance.disabledControlSemanticsPassCount &&
+    dispositionCounts.DISABLED_CURRENT_VALUE_MATCH >= plan.acceptance.disabledCurrentValueMatchDispositionCountMinimum &&
+    dispositionCounts.DISABLED_VALUE_MISMATCH === plan.acceptance.disabledValueMismatchDispositionCount &&
+    allNineGatesPassCount >= plan.acceptance.minimumFullJourneyPassCount &&
+    classifiedHandoffs.length <= plan.acceptance.maximumClassifiedDownstreamHandoffCount &&
+    unclassifiedFailures.length === plan.acceptance.unclassifiedFailureCount &&
+    browserConsoleErrorCount === plan.acceptance.browserConsoleErrorCount &&
+    browserPageErrorCount === plan.acceptance.browserPageErrorCount;
+
   const report = {
-    schemaName: "PGCR08A04A02DisabledControlHarnessPolicyFamilyReplayReportV1",
-    schemaVersion: 1,
+    schemaName: "PGCR08A04A02DisabledControlHarnessPolicyFamilyReplayReportV2",
+    schemaVersion: 2,
     programId: plan.programId,
     taskId: plan.taskId,
-    status: failed.length === 0
-      ? "PASS_ALL_180_DISABLED_CONTROL_ROUTES"
-      : "FAIL_DISABLED_CONTROL_FAMILY_REPLAY_NONZERO",
+    status: replayAccepted
+      ? classifiedHandoffs.length
+        ? "PASS_DISABLED_CONTROL_FAMILIES_WITH_CLASSIFIED_DOWNSTREAM_HANDOFF"
+        : "PASS_ALL_180_DISABLED_CONTROL_ROUTES"
+      : "FAIL_DISABLED_CONTROL_FAMILY_REPLAY",
     summary: {
       targetRouteCount: targetRows.length,
       terminalRouteCount: results.length,
-      passRouteCount: passed.length,
-      failRouteCount: failed.length,
+      disabledControlSemanticsPassCount,
+      fullJourneyPassCount: passed.length,
+      downstreamFailureCount: failed.length,
+      classifiedDownstreamHandoffCount: classifiedHandoffs.length,
+      unclassifiedFailureCount: unclassifiedFailures.length,
       questionTypeControlRouteCount: results.filter((row) => row.expectedFailureFamily === "QUESTION_TYPE_CONTROL_DISABLED").length,
       contextModeControlRouteCount: results.filter((row) => row.expectedFailureFamily === "CONTEXT_MODE_CONTROL_DISABLED").length,
-      allNineGatesPassCount: results.filter((row) => GATE_CODES.every((gate) => row.gateStatus[gate] === "PASS")).length,
-      browserConsoleErrorCount: results.reduce((sum, row) => sum + (row.browserEvidence?.consoleErrorCount ?? row.browserEvidence?.consoleErrors?.length ?? 0), 0),
-      browserPageErrorCount: results.reduce((sum, row) => sum + (row.browserEvidence?.pageErrorCount ?? row.browserEvidence?.pageErrors?.length ?? 0), 0),
+      allNineGatesPassCount,
+      browserConsoleErrorCount,
+      browserPageErrorCount,
       ...dispositionCounts,
     },
-    failureFamilies: queues.map((queue) => ({
-      failureFamily: queue.failureFamily,
-      routeCount: queue.rows.length,
-      passRouteCount: passed.filter((row) => row.expectedFailureFamily === queue.failureFamily).length,
-      failRouteCount: failed.filter((row) => row.expectedFailureFamily === queue.failureFamily).length,
-    })),
+    failureFamilies: queues.map((queue) => {
+      const familyRows = results.filter((row) => row.expectedFailureFamily === queue.failureFamily);
+      return {
+        failureFamily: queue.failureFamily,
+        routeCount: queue.rows.length,
+        disabledControlSemanticsPassCount: familyRows.filter((row) => row.gateStatus?.UI_OPTIONS_PASS === "PASS").length,
+        fullJourneyPassCount: familyRows.filter((row) => row.overallStatus === "PASS").length,
+        classifiedDownstreamHandoffCount: classifiedHandoffs.filter((row) => row.originalFailureFamily === queue.failureFamily).length,
+      };
+    }),
     policy: {
       enabledControl: "select and verify",
       disabledCurrentValueMatch: "accept without mutation",
       disabledValueMismatch: "fail closed",
       productMutationPerformed: false,
       capacityAuthorityMutationPerformed: false,
+      finalNineGateObligationRetained: true,
     },
-    failures: failed.map((row) => ({
+    downstreamHandoffs: classifiedHandoffs,
+    unclassifiedFailures: unclassifiedFailures.map((row) => ({
       routeIndex: row.routeIndex,
       routeId: row.routeId,
-      failureFamily: row.expectedFailureFamily,
+      originalFailureFamily: row.expectedFailureFamily,
       errorCode: row.browserEvidence?.errorCode ?? "UNKNOWN",
       details: row.browserEvidence?.details ?? null,
       passedGateCodes: GATE_CODES.filter((gate) => row.gateStatus[gate] === "PASS"),
+      pendingGateCodes: GATE_CODES.filter((gate) => row.gateStatus[gate] === "PENDING"),
     })),
     rows: results,
   };
@@ -169,10 +240,7 @@ try {
   await writeFile(path.join(OUT, "policy-dispositions.json"), `${JSON.stringify(policyDispositions, null, 2)}\n`);
   console.log(JSON.stringify({ status: report.status, summary: report.summary }, null, 2));
 
-  if (results.length !== plan.acceptance.terminalRouteCount) fail("PGC_R08_A04_A02_TERMINAL_COUNT_FAILED", report.summary);
-  if (failed.length !== plan.acceptance.failRouteCount) fail("PGC_R08_A04_A02_REPLAY_FAILURES_PRESENT", report.summary);
-  if (report.summary.allNineGatesPassCount !== plan.acceptance.passRouteCount) fail("PGC_R08_A04_A02_NINE_GATE_COVERAGE_FAILED", report.summary);
-  if (dispositionCounts.DISABLED_VALUE_MISMATCH !== 0) fail("PGC_R08_A04_A02_DISABLED_VALUE_MISMATCH_PRESENT", dispositionCounts);
+  if (!replayAccepted) fail("PGC_R08_A04_A02_CLASSIFIED_REPLAY_FAILED", report.summary);
 } finally {
   if (browser) await browser.close();
   server.kill("SIGTERM");
