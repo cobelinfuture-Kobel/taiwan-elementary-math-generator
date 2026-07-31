@@ -141,9 +141,14 @@ test("repair is shared, post-generation, timeout-free, and route-agnostic", () =
   ]);
 });
 
-test("exact replay is consolidated into PGC-R00 without lockfile-only installation", () => {
-  assert.match(pgcR00WorkflowSource, /exact-regenerate-identity-replay:/);
+test("exact replay is consolidated into the single PGC-R00 scope-freeze job", () => {
+  const jobHeaders = [...pgcR00WorkflowSource.matchAll(/^  ([a-z0-9-]+):\s*$/gm)]
+    .map((match) => match[1]);
+
+  assert.deepEqual(jobHeaders, ["scope-freeze"]);
+  assert.match(pgcR00WorkflowSource, /- name: Exact ten-route browser replay/);
   assert.match(pgcR00WorkflowSource, /npm install --no-audit --no-fund/);
   assert.match(pgcR00WorkflowSource, /run-pgc-r08-a04-a05-regenerate-identity-replay\.mjs/);
+  assert.doesNotMatch(pgcR00WorkflowSource, /^\s{2}exact-regenerate-identity-replay:/m);
   assert.doesNotMatch(pgcR00WorkflowSource, /cache:\s*npm|npm ci/);
 });
