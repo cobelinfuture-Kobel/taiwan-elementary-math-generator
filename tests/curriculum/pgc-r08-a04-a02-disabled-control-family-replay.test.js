@@ -61,7 +61,7 @@ test("A02 exact browser replay closes both disabled-control families", () => {
   assert.ok(readback.familyCloseout.every((family) => family.status.startsWith("CLOSED")));
 });
 
-test("the orthogonal route is transferred to the existing regenerate family without a per-route patch", () => {
+test("the A02 orthogonal route remains transferred without a per-route patch after later milestones", () => {
   assert.equal(readback.transferredRoutes.length, 1);
   const transferred = readback.transferredRoutes[0];
   assert.equal(transferred.routeIndex, 297);
@@ -69,17 +69,43 @@ test("the orthogonal route is transferred to the existing regenerate family with
   assert.equal(transferred.passedGateCodes.length, 8);
   assert.equal(transferred.remainingGateCode, "REGENERATE_PASS");
   assert.equal(transferred.perRoutePatchAuthorized, false);
-  const regenerate = activeState.pendingFamilies.find((family) => family.failureFamily === "REGENERATE_IDENTITY_TIMEOUT");
-  assert.equal(regenerate.routeCount, 3);
-  assert.equal(regenerate.overlayRows.length, 1);
+
+  const regenerate = activeState.pendingFamilies.find(
+    (family) => family.failureFamily === "REGENERATE_IDENTITY_TIMEOUT",
+  );
+  assert.equal(regenerate.routeCount, 9);
+  const preservedA02Transfer = regenerate.overlayRows.find(
+    (row) => row.routeIndex === 297 && row.routeId === transferred.routeId,
+  );
+  assert.ok(preservedA02Transfer);
+  assert.equal(
+    preservedA02Transfer.introducedByTask,
+    "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay",
+  );
+  assert.equal(preservedA02Transfer.passedGateCodes.length, 8);
 });
 
-test("active repair-state arithmetic is reconciled and route binding remains next", () => {
-  assert.equal(activeState.current.cumulativePassRouteCount, 645);
-  assert.equal(activeState.current.unresolvedFailedRouteCount, 148);
-  assert.equal(activeState.pendingFamilies.filter((family) => family.failureFamily !== "CAPACITY_EVIDENCE_RECONCILIATION").reduce((sum, family) => sum + family.routeCount, 0), 148);
-  assert.equal(activeState.reconciliation.nextRepairPosition, 2);
-  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair");
+test("A02 historical readback remains immutable while active state advances after A03 A01", () => {
+  assert.equal(readback.replaySummary.endToEndPassRouteCount, 179);
+  assert.equal(readback.transferredRoutes.length, 1);
+
+  assert.equal(activeState.status, "ACTIVE_AFTER_ROUTE_BINDING_FAMILY_CLOSEOUT");
+  assert.equal(activeState.current.cumulativePassRouteCount, 772);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 21);
+  assert.equal(activeState.current.closedOriginalFailureRouteCount, 315);
+  assert.equal(
+    activeState.pendingFamilies
+      .filter((family) => family.failureFamily !== "CAPACITY_EVIDENCE_RECONCILIATION")
+      .reduce((sum, family) => sum + family.routeCount, 0),
+    18,
+  );
+  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 3);
+  assert.equal(activeState.reconciliation.pendingFailedRouteCount, 21);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 3);
+  assert.equal(
+    activeState.reconciliation.nextTask,
+    "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
+  );
 });
 
 test("A02 runner creates shared output directories and temporary workflow is removed", async () => {
