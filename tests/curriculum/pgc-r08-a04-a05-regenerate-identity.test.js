@@ -175,6 +175,8 @@ test("repair is shared, timeout-free, route-agnostic, and preserves validator ru
   assert.match(validatorConsumerSource, /validateG3BU04SemanticQuestion/);
   assert.match(validatorConsumerSource, /validateG3BU04HumanSemanticQualityV2/);
   assert.match(validatorConsumerSource, /validateBaseQuestion/);
+  assert.match(runnerSource, /materializedPlanTargets/);
+  assert.match(runnerSource, /a05_materialized_closeout_authority/);
   assert.match(runnerSource, /executeRoute/);
   assert.match(runnerSource, /fullNineGatePassCount/);
   assert.equal(plan.repairContract.timeoutExtensionAllowed, false);
@@ -210,13 +212,14 @@ test("exact replay is consolidated into the single PGC-R00 scope-freeze job", ()
 test("A05 committed readback records 10 of 10 nine-gate PASS and the next active family", () => {
   assert.equal(readback.status, "PASS_CODE_FULL_REGRESSION_AND_EXACT_10_ROUTE_REPLAY");
   assert.deepEqual(readback.fullRegression, {
-    tests: 2789,
-    pass: 2789,
+    tests: 2790,
+    pass: 2790,
     fail: 0,
     cancelled: 0,
     skipped: 0,
   });
   assert.deepEqual(readback.exactReplay, {
+    targetRouteCount: 10,
     terminalRouteCount: 10,
     fullNineGatePassCount: 10,
     regenerateIdentityResidualCount: 0,
