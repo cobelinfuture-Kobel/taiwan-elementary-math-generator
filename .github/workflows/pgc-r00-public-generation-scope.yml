@@ -5,7 +5,11 @@ on:
     paths:
       - "data/curriculum/public-generation/**"
       - "docs/curriculum/output/PGC-R00_authority_boundary_readback.md"
+      - "site/modules/curriculum/batch-a/regenerate-identity-seed-order.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
       - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
+      - "tests/curriculum/pgc-r08-a04-a05-regenerate-identity.test.js"
+      - "tools/curriculum/run-pgc-r08-a04-a05-regenerate-identity-replay.mjs"
       - ".github/workflows/pgc-r00-public-generation-scope.yml"
   workflow_dispatch:
 
@@ -30,3 +34,39 @@ jobs:
 
       - name: Full regression
         run: npm test
+
+  exact-regenerate-identity-replay:
+    needs: scope-freeze
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Focused regenerate-identity contract
+        run: node --test tests/curriculum/pgc-r08-a04-a05-regenerate-identity.test.js
+
+      - name: Exact ten-route browser replay
+        run: node tools/curriculum/run-pgc-r08-a04-a05-regenerate-identity-replay.mjs
+
+      - name: Upload replay evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r08-a04-a05-regenerate-identity-${{ github.run_id }}
+          path: |
+            tmp/pgc-r08-a04-a05-regenerate-identity
+            tmp/pgc-r08-a03-all-legal-routes/failures
+          if-no-files-found: warn
+          retention-days: 14
