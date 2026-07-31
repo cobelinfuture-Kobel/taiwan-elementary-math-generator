@@ -1,0 +1,56 @@
+{
+  "schemaName": "PGCR08A04A02DisabledControlHarnessPolicyFamilyReplayPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay",
+  "status": "PENDING_180_ROUTE_BROWSER_REPLAY",
+  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A01.disabled-control-focused-reproduction-readback.json",
+  "targetFamilyQueuePaths": [
+    "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-control-disabled.json",
+    "data/curriculum/public-generation/pgc-r08-a03-repair-queue/context-mode-control-disabled.json"
+  ],
+  "targetFamilies": [
+    "QUESTION_TYPE_CONTROL_DISABLED",
+    "CONTEXT_MODE_CONTROL_DISABLED"
+  ],
+  "targetRouteCount": 180,
+  "workerConcurrency": 6,
+  "requiredGateCodes": [
+    "UI_OPTIONS_PASS",
+    "GENERATE_BUTTON_PASS",
+    "QUESTION_COUNT_PASS",
+    "QUESTION_IDENTITY_PASS",
+    "ANSWER_VALIDATION_PASS",
+    "REGENERATE_PASS",
+    "HTML_PASS",
+    "PDF_PASS",
+    "ANSWER_KEY_PASS"
+  ],
+  "repairPolicy": {
+    "enabledControl": "select and verify",
+    "disabledCurrentValueMatch": "accept without mutation",
+    "disabledValueMismatch": "fail closed",
+    "productMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "perRoutePatchAllowed": false
+  },
+  "acceptance": {
+    "terminalRouteCount": 180,
+    "passRouteCount": 180,
+    "failRouteCount": 0,
+    "disabledCurrentValueMatchDispositionCountMinimum": 180,
+    "allNineGatesPassPerRoute": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "goalDistance": {
+    "before": "D1_R08_DISABLED_CONTROL_HARNESS_POLICY_CONFIRMED_REPAIR_PENDING",
+    "after": "D1_R08_DISABLED_CONTROL_180_ROUTE_REPLAY_PENDING",
+    "distanceReduced": "materialized the shared harness policy and exact 180-route full-product replay",
+    "remainingBlockers": [
+      "DISABLED_CONTROL_180_ROUTE_BROWSER_REPLAY_NOT_TERMINAL",
+      "FOUR_OTHER_REPAIR_PHASES_PENDING"
+    ],
+    "nextShortestStep": "READ_A02_180_ROUTE_BROWSER_ARTIFACT_AND_CLOSE_DISABLED_CONTROL_FAMILIES"
+  }
+}
