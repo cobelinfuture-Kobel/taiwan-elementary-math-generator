@@ -33,6 +33,9 @@ jobs:
         run: |
           node --test tests/curriculum/pgc-r08-a04-a03-route-binding-focused-reproduction.test.js
           node --test tests/curriculum/pgc-r08-a04-a03-route-binding-exact-authority-probe.test.js
+          node --test tests/curriculum/pgc-r08-a04-a03-route-binding-pure-resolver-probe.test.js
+      - name: Probe pure public capability resolver
+        run: node tools/curriculum/run-pgc-r08-a04-a03-route-binding-pure-resolver-probe.mjs
       - name: Reproduce four route-binding canaries
         run: node tools/curriculum/run-pgc-r08-a04-a03-route-binding-focused-reproduction.mjs
       - name: Probe exact capacity-authority PatternGroup sets
@@ -43,6 +46,7 @@ jobs:
         with:
           name: pgc-r08-a04-a03-route-binding-focused-reproduction
           path: |
+            tmp/pgc-r08-a04-a03-route-binding-pure-resolver-probe
             tmp/pgc-r08-a04-a03-route-binding-focused-reproduction
             tmp/pgc-r08-a04-a03-route-binding-exact-authority-probe
           if-no-files-found: error
