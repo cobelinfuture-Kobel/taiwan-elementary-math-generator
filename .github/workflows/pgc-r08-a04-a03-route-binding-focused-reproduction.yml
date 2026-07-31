@@ -1,4 +1,4 @@
-name: PGC-R08 A04 A03 Route Binding Focused Reproduction
+name: PGC-R08 A04 A03 Route Binding Repair Replay
 
 on:
   pull_request:
@@ -12,10 +12,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  reproduce:
+  replay:
     if: github.head_ref == 'pgc-r08-a04-a03-route-binding-focused-reproduction'
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 180
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,21 +29,27 @@ jobs:
         run: |
           npm install --no-save --package-lock=false playwright@1.51.1
           npx playwright install --with-deps chromium
-      - name: Run A03 focused contracts
+      - name: Run A03 contracts
         run: |
           node --test tests/curriculum/pgc-r08-a04-a03-route-binding-focused-reproduction.test.js
           node --test tests/curriculum/pgc-r08-a04-a03-route-binding-exact-authority-probe.test.js
-      - name: Reproduce four route-binding canaries
+          node --test tests/curriculum/pgc-r08-a04-a03-route-binding-shared-resolver-repair.test.js
+          node --test tests/curriculum/public-question-count-no-one-lock.test.js
+      - name: Recheck four route-binding canaries
         run: node tools/curriculum/run-pgc-r08-a04-a03-route-binding-focused-reproduction.mjs
-      - name: Probe exact capacity-authority PatternGroup sets
+      - name: Recheck exact capacity-authority PatternGroup sets
         run: node tools/curriculum/run-pgc-r08-a04-a03-route-binding-exact-authority-probe.mjs
-      - name: Upload route-binding focused evidence
+      - name: Replay all 136 route-binding family routes
+        run: node tools/curriculum/run-pgc-r08-a04-a03-route-binding-family-replay.mjs
+      - name: Upload A03 repair evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pgc-r08-a04-a03-route-binding-focused-reproduction
+          name: pgc-r08-a04-a03-route-binding-repair-replay
           path: |
             tmp/pgc-r08-a04-a03-route-binding-focused-reproduction
             tmp/pgc-r08-a04-a03-route-binding-exact-authority-probe
-          if-no-files-found: error
+            tmp/pgc-r08-a04-a03-route-binding-family-replay
+            tmp/pgc-r08-a03-all-legal-routes
+          if-no-files-found: warn
           retention-days: 30
