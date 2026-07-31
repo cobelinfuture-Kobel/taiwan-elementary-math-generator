@@ -18,6 +18,24 @@ const plan = JSON.parse(
     "utf8",
   ),
 );
+const readback = JSON.parse(
+  await readFile(
+    "data/curriculum/public-generation/PGC-R08-A04-A03-A01.exact-pattern-group-binding-readback.json",
+    "utf8",
+  ),
+);
+const overlay = JSON.parse(
+  await readFile(
+    "data/curriculum/public-generation/PGC-R08-A04-A03-A01.downstream-reclassification-overlay.json",
+    "utf8",
+  ),
+);
+const activeState = JSON.parse(
+  await readFile(
+    "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+    "utf8",
+  ),
+);
 const queue = JSON.parse(await readFile(plan.queuePath, "utf8"));
 const binder = await readFile(
   "tools/curriculum/pgc-r08-exact-pattern-group-binder.mjs",
@@ -73,11 +91,26 @@ test("application registries project runtime groups to rendered base buttons wit
   assert.ok(w1Rows.length > 0);
   assert.ok(applicationVariantRows.length > 0);
   for (const row of [...w01Rows, ...w1Rows]) {
-    assert.ok(row.uiSelectablePatternGroupIds.every((id) => !id.startsWith("w01_app_") && !id.startsWith("p01e_app_")), row.routeId);
+    assert.ok(
+      row.uiSelectablePatternGroupIds.every(
+        (id) => !id.startsWith("w01_app_") && !id.startsWith("p01e_app_"),
+      ),
+      row.routeId,
+    );
   }
   for (const row of applicationVariantRows) {
-    assert.ok(row.uiSelectablePatternGroupIds.includes("pg_g3b_u04_consecutive_multiplication_numeric"), row.routeId);
-    assert.ok(!row.uiSelectablePatternGroupIds.includes("pg_g3b_u04_consecutive_multiplication_application"), row.routeId);
+    assert.ok(
+      row.uiSelectablePatternGroupIds.includes(
+        "pg_g3b_u04_consecutive_multiplication_numeric",
+      ),
+      row.routeId,
+    );
+    assert.ok(
+      !row.uiSelectablePatternGroupIds.includes(
+        "pg_g3b_u04_consecutive_multiplication_application",
+      ),
+      row.routeId,
+    );
   }
   assert.ok(rows.some((row) => row.omittedRuntimePatternGroupIds.length > 0));
 });
@@ -94,4 +127,76 @@ test("binder selects exact rendered targets and projects route identity only aft
   assert.equal(plan.repairContract.exactRouteIdentityProjectionRequiresExactPublicState, true);
   assert.equal(plan.repairContract.productMutationAllowed, false);
   assert.equal(plan.repairContract.perRoutePatchAllowed, false);
+});
+
+test("A03 A01 terminal readback closes route binding and transfers only orthogonal failures", () => {
+  assert.equal(plan.status, "PASS_136_ROUTE_BINDING_REPLAY_CLOSED");
+  assert.equal(
+    readback.status,
+    "PASS_ROUTE_BINDING_FAMILY_CLOSED_WITH_9_ORTHOGONAL_TRANSFERS",
+  );
+  assert.equal(readback.replaySummary.targetRouteCount, 136);
+  assert.equal(readback.replaySummary.terminalRouteCount, 136);
+  assert.equal(readback.replaySummary.routeBindingResolvedCount, 136);
+  assert.equal(readback.replaySummary.routeBindingStillFailedCount, 0);
+  assert.equal(readback.replaySummary.fullNineGatePassCount, 127);
+  assert.equal(readback.replaySummary.downstreamFailCount, 9);
+  assert.equal(readback.replaySummary.browserConsoleErrorCount, 0);
+  assert.equal(readback.replaySummary.browserPageErrorCount, 0);
+
+  assert.equal(overlay.rows.length, 9);
+  assert.equal(
+    overlay.rows.filter((row) => row.toFailureFamily === "REGENERATE_IDENTITY_TIMEOUT").length,
+    6,
+  );
+  assert.equal(
+    overlay.rows.filter((row) => row.toFailureFamily === "CAPACITY_PROJECTION_SHORTFALL").length,
+    3,
+  );
+  assert.ok(
+    overlay.rows
+      .filter((row) => row.toFailureFamily === "REGENERATE_IDENTITY_TIMEOUT")
+      .every(
+        (row) => row.remainingGateCode === "REGENERATE_PASS" && row.passedGateCodes.length === 8,
+      ),
+  );
+  assert.deepEqual(
+    overlay.rows
+      .filter((row) => row.toFailureFamily === "CAPACITY_PROJECTION_SHORTFALL")
+      .map((row) => row.projectedQuestionCount)
+      .sort((left, right) => left - right),
+    [8, 12, 12],
+  );
+});
+
+test("active repair state advances to position 3 without double-counting capacity overlap", () => {
+  assert.equal(activeState.status, "ACTIVE_AFTER_ROUTE_BINDING_FAMILY_CLOSEOUT");
+  assert.equal(activeState.current.cumulativePassRouteCount, 772);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 21);
+  assert.equal(activeState.current.closedOriginalFailureRouteCount, 315);
+  assert.equal(activeState.reconciliation.pendingFailureFamiliesExcludingCapacityReconciliation, 18);
+  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 3);
+  assert.equal(activeState.reconciliation.capacityReconciliationRouteCount, 38);
+  assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 3);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 3);
+  assert.equal(
+    activeState.reconciliation.nextTask,
+    "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
+  );
+  assert.equal(
+    activeState.pendingFamilies.some(
+      (family) => family.failureFamily === "ROUTE_BINDING_NOT_CONVERGED",
+    ),
+    false,
+  );
+});
+
+test("temporary exact replay workflow is removed before merge", async () => {
+  await assert.rejects(
+    readFile(
+      ".github/workflows/pgc-r08-a04-a03-a01-exact-pattern-group-replay.yml",
+      "utf8",
+    ),
+    (error) => error?.code === "ENOENT",
+  );
 });
