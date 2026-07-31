@@ -45,7 +45,7 @@ function overlayTargets() {
   const family = ACTIVE.pendingFamilies.find(
     (entry) => entry.failureFamily === "REGENERATE_IDENTITY_TIMEOUT",
   );
-  if (!family) fail("PGC_R08_A04_A05_ACTIVE_FAMILY_MISSING");
+  if (!family) return [];
   return (family.overlayRows ?? []).map((row) => ({
     routeIndex: row.routeIndex,
     routeId: row.routeId,
@@ -53,7 +53,19 @@ function overlayTargets() {
   }));
 }
 
-const requestedTargets = [...historicalTargets(), ...overlayTargets()];
+function materializedPlanTargets() {
+  if (!Array.isArray(PLAN.targetRouteIds) || PLAN.targetRouteIds.length === 0) return [];
+  return PLAN.targetRouteIds.map((routeId) => ({
+    routeIndex: null,
+    routeId,
+    origin: "a05_materialized_closeout_authority",
+  }));
+}
+
+const planTargets = materializedPlanTargets();
+const requestedTargets = planTargets.length > 0
+  ? planTargets
+  : [...historicalTargets(), ...overlayTargets()];
 const uniqueRouteIds = new Set(requestedTargets.map((row) => row.routeId));
 if (requestedTargets.length !== PLAN.targetRouteCount || uniqueRouteIds.size !== PLAN.targetRouteCount) {
   fail("PGC_R08_A04_A05_TARGET_COUNT_DRIFT", {
@@ -70,11 +82,17 @@ const matrix = materializeMatrix(
   capacityRaw,
 );
 const targets = requestedTargets.map((target) => {
-  const row = matrix.rows.find(
-    (candidate) => candidate.routeIndex === target.routeIndex && candidate.routeId === target.routeId,
+  const matches = matrix.rows.filter((candidate) =>
+    candidate.routeId === target.routeId
+    && (target.routeIndex === null || candidate.routeIndex === target.routeIndex),
   );
-  if (!row) fail("PGC_R08_A04_A05_ROUTE_MISSING", target);
-  return enrichBrowserRowWithExactPatternGroups(row);
+  if (matches.length !== 1) {
+    fail("PGC_R08_A04_A05_ROUTE_IDENTITY_DRIFT", {
+      ...target,
+      matchCount: matches.length,
+    });
+  }
+  return enrichBrowserRowWithExactPatternGroups(matches[0]);
 });
 
 await Promise.all([
