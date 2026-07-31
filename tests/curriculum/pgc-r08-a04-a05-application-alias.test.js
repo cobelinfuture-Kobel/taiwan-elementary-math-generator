@@ -1,6 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  generateBatchABrowserQuestions,
+  normalizePublicApplicationDiversitySeed,
   normalizePublicApplicationPatternGroupAliases,
 } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 
@@ -34,6 +36,14 @@ test("A05 normalizes each residual UI base group to its admitted application gro
       requestedPatternGroupIds: [basePatternGroupId],
       normalizedPatternGroupIds: [applicationPatternGroupId],
     });
+
+    const diversitySeeded = normalizePublicApplicationDiversitySeed(normalized);
+    assert.equal(diversitySeeded.generationSeed, "pgc-r08-alias-contract-seed:pgc-r05-application-diversity");
+    assert.deepEqual(diversitySeeded.publicApplicationDiversitySeedProjection, {
+      mode: "REUSE_PGC_R05_DETERMINISTIC_RETRY",
+      originalGenerationSeed: "pgc-r08-alias-contract-seed",
+      effectiveGenerationSeed: "pgc-r08-alias-contract-seed:pgc-r05-application-diversity",
+    });
   }
 });
 
@@ -57,4 +67,43 @@ test("A05 application alias normalization is route-agnostic and fail-closed", ()
   assert.equal(normalizePublicApplicationPatternGroupAliases(numeric), numeric);
   assert.equal(normalizePublicApplicationPatternGroupAliases(missingKnowledgePoint), missingKnowledgePoint);
   assert.equal(normalizePublicApplicationPatternGroupAliases(unknown), unknown);
+  assert.equal(normalizePublicApplicationDiversitySeed(numeric), numeric);
+  assert.equal(normalizePublicApplicationDiversitySeed(unknown), unknown);
+});
+
+test("A05 G3B-U04 exact application route produces twenty validated diverse prompts", () => {
+  const baseOptions = {
+    sourceId: "g3b_u04_3b04",
+    questionMode: "application",
+    selectionMode: "singleKnowledgePoint",
+    selectedKnowledgePointIds: ["kp_g3b_u04_consecutive_multiplication"],
+    selectedPatternGroupIds: ["pg_g3b_u04_consecutive_multiplication_numeric"],
+    questionCount: 20,
+    ordering: "groupedByPattern",
+    includeAnswerKey: true,
+  };
+  const first = generateBatchABrowserQuestions({
+    ...baseOptions,
+    generationSeed: "pgc-r08-g3b-u04-focused-seed-a",
+  });
+  const second = generateBatchABrowserQuestions({
+    ...baseOptions,
+    generationSeed: "pgc-r08-g3b-u04-focused-seed-b",
+  });
+
+  for (const result of [first, second]) {
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(result.questions.length, 20);
+    assert.equal(new Set(result.questions.map((question) => question.promptText)).size, 20);
+    assert.equal(
+      result.questions.every((question) => (
+        question.resolvedPatternGroupId === "pg_g3b_u04_consecutive_multiplication_application"
+      )),
+      true,
+    );
+  }
+  assert.notDeepEqual(
+    first.questions.map((question) => question.promptText),
+    second.questions.map((question) => question.promptText),
+  );
 });
