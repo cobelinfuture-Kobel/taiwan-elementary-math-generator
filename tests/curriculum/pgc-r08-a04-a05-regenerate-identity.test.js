@@ -148,7 +148,7 @@ test("projection is a no-op outside the PGC-R08 activation boundary", () => {
 
 test("repair is shared, post-generation, timeout-free, and route-agnostic", () => {
   assert.match(routerSource, /applyPgcR04NumericUniqueAllocation/);
-  assert.match(routerSource, /applyRegenerateIdentitySeedOrder\(result, options\)/);
+  assert.match(routerSource, /applyRegenerateIdentitySeedOrder\(result, normalizedOptions\)/);
   assert.match(projectionSource, /questionMembership/);
   assert.match(projectionSource, /seedRotationOffset/);
   assert.match(projectionSource, /seed\.startsWith\("pgc-r08-"\)/);
