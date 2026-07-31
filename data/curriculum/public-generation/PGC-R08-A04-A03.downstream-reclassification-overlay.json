@@ -1,0 +1,20 @@
+{
+  "schemaName": "PGCR08A04A03DownstreamReclassificationOverlayV1",
+  "schemaVersion": 1,
+  "status": "ACTIVE_AFTER_ROUTE_BINDING_CLOSEOUT",
+  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A03.route-binding-repair-readback.json",
+  "regenerateIdentityTimeoutRows": [
+    [15,"pgc_r03_g3a_u02_3a02_application_34d1425812ae"],
+    [16,"pgc_r03_g3a_u02_3a02_application_42650479995e"],
+    [31,"pgc_r03_g3a_u03_3a03_application_0dcb3707159d"],
+    [45,"pgc_r03_g3a_u06_3a06_application_aec8a16babd8"],
+    [65,"pgc_r03_g3b_u01_3b01_application_0bd5235fd4ec"],
+    [83,"pgc_r03_g3b_u04_3b04_application_3602182d8a79"]
+  ],
+  "capacityProjectionShortfallRows": [
+    [482,"pgc_r03_g5a_u03_5a03a_application_3da6082c4117",12,20],
+    [497,"pgc_r03_g5a_u03_5a03a1_application_1676399731c4",12,20],
+    [783,"pgc_r03_g6a_u01_6a01_application_3319cf21ddf0",8,20]
+  ],
+  "historicalQueuesImmutable": true
+}
