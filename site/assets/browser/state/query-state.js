@@ -6,29 +6,37 @@ import {
 import {
   getVisibleBatchAKnowledgePoint as getLatestVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint as getLatestVisiblePatternGroupsForKnowledgePoint
-} from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
+} from "../../../modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
 import {
   G4B_U04_PUBLIC_CONTROLS,
   G4B_U04_SOURCE_ID,
 } from "../../../modules/curriculum/registry/g4b-u04-promotion.js";
 import { G5A_U08_SOURCE_ID } from "../../../modules/curriculum/registry/g5a-u08-promotion.js";
 import {
-  getFifteenUnitPublicControlProfile,
-  normalizeFifteenUnitPublicControlValue,
-} from "../../../modules/curriculum/registry/fifteen-unit-public-control-profiles.js";
+  CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS,
+  P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS,
+  getFullProductPublicControlProfile,
+  normalizeFullProductPublicControlValue,
+} from "../../../modules/curriculum/registry/full-product-public-control-profiles.js";
 import {
   listW01PublicApplicationGroupsForKnowledgePoint,
 } from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 
 const SOURCE_UNIT_SELECTION_MODE = "sourceUnit";
 const G4A_U08_SOURCE_ID = "g4a_u08_4a08";
-const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
-  "g3b_u04_3b04", "g3b_u08_3b08", "g4b_u01_4b01", "g5a_u02_5a02",
-  G4A_U08_SOURCE_ID, G4B_U04_SOURCE_ID, G5A_U08_SOURCE_ID,
-]));
+const P01E_QUERY_SELECTOR_SOURCE_IDS = new Set(P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS);
+const CURRENT_W3_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(
+  CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS.filter(
+    (sourceId) => !P01E_QUERY_SELECTOR_SOURCE_IDS.has(sourceId),
+  ),
+);
+const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(
+  new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS),
+);
 const LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
   G4A_U08_SOURCE_ID,
   "g5a_u02_5a02",
+  ...CURRENT_W3_QUERY_SELECTOR_SOURCE_IDS,
 ]));
 const KP_SELECTION_MODES = Object.freeze([
   "singleKnowledgePoint", "mixedKnowledgePointsSameUnit", "mixedKnowledgePointsCrossUnit"
@@ -155,18 +163,18 @@ function normalizeSelectorQueryState(params, sourceId, selectorAccess) {
 }
 
 function normalizeUnitPublicControls(params, sourceId) {
-  const profile = getFifteenUnitPublicControlProfile(sourceId);
+  const profile = getFullProductPublicControlProfile(sourceId);
   if (!profile) return {};
   const output = {};
   if (profile.questionTypeControl.supported) {
-    output.questionMode = normalizeFifteenUnitPublicControlValue(profile, "questionTypeControl", params.get("questionMode"));
+    output.questionMode = normalizeFullProductPublicControlValue(profile, "questionTypeControl", params.get("questionMode"));
   }
   if (profile.reasoningDepthControl.supported) {
-    output.depthMode = normalizeFifteenUnitPublicControlValue(profile, "reasoningDepthControl", params.get("depthMode"));
+    output.depthMode = normalizeFullProductPublicControlValue(profile, "reasoningDepthControl", params.get("depthMode"));
   }
   const requestedContextMode = params.get("contextMode");
   if (profile.contextControl.supported && requestedContextMode !== null) {
-    output.contextMode = normalizeFifteenUnitPublicControlValue(profile, "contextControl", requestedContextMode);
+    output.contextMode = normalizeFullProductPublicControlValue(profile, "contextControl", requestedContextMode);
   }
   if (sourceId === G4B_U04_SOURCE_ID) {
     const requestedLayoutMode = params.get("layoutMode");
@@ -203,7 +211,7 @@ export function writeQueryStateFromState(state) {
   nextUrl.searchParams.set("generationSeed", state.batchA.generationSeed);
   nextUrl.searchParams.set("columns", String(state.batchA.columns));
   nextUrl.searchParams.set("rowsPerPage", String(state.batchA.rowsPerPage));
-  const profile = getFifteenUnitPublicControlProfile(state.batchA.sourceId);
+  const profile = getFullProductPublicControlProfile(state.batchA.sourceId);
   if (profile?.questionTypeControl.supported) {
     nextUrl.searchParams.set("questionMode", state.batchA.questionMode ?? profile.questionTypeControl.defaultValue);
   }
