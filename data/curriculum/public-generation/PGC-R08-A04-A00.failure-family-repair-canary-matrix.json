@@ -1,0 +1,157 @@
+{
+  "schemaName": "PGCR08A04A00FailureFamilyRepairAuthorityAndCanaryMatrixV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A00_FailureFamilyRepairAuthorityAndCanaryMatrixFreeze",
+  "status": "FROZEN_PENDING_FOCUSED_REPRODUCTION",
+  "baseMergeSha": "b08bb13df355158b1d634970a0d6857359007610",
+  "authorities": {
+    "repairQueueIndex": "data/curriculum/public-generation/PGC-R08-A03.repair-queue.json",
+    "repairFamilyDirectory": "data/curriculum/public-generation/pgc-r08-a03-repair-queue",
+    "capacityReconciliationQueue": "data/curriculum/public-generation/PGC-R08-A03.capacity-evidence-reconciliation-queue.json",
+    "terminalReadback": "data/curriculum/public-generation/PGC-R08-A03.terminal-browser-execution-readback.json"
+  },
+  "frozenCounts": {
+    "legalRoutes": 793,
+    "passRoutes": 466,
+    "failedRoutes": 327,
+    "failureFamilies": 5,
+    "capacityReconciliationRoutes": 35,
+    "failureCanaries": 17,
+    "capacityCanaries": 5
+  },
+  "diagnosticPolicy": {
+    "mode": "DIAGNOSTIC_FIRST",
+    "productMutationBeforeFamilyClassification": "FORBIDDEN",
+    "perRoutePatch": "FORBIDDEN",
+    "familyRepairRequired": true,
+    "affectedFamilyReplayRequired": true,
+    "full793ReplayAfterAllRepairs": true,
+    "harnessFixMayBeAdmittedOnlyIf": "real public control state already represents requested authority and no product capability is bypassed",
+    "productFixMayBeAdmittedOnlyIf": "focused canary proves requested legal route cannot be reached through supported public controls"
+  },
+  "repairOrder": [
+    {
+      "position": 1,
+      "familyGroup": ["QUESTION_TYPE_CONTROL_DISABLED", "CONTEXT_MODE_CONTROL_DISABLED"],
+      "routeCount": 180,
+      "reason": "largest cluster and provisional harness-control policy; resolve disabled-current-value semantics before downstream binding diagnosis"
+    },
+    {
+      "position": 2,
+      "familyGroup": ["ROUTE_BINDING_NOT_CONVERGED"],
+      "routeCount": 136,
+      "reason": "replay after control semantics are corrected; then classify remaining binding gaps as harness, authority, or product"
+    },
+    {
+      "position": 3,
+      "familyGroup": ["QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT"],
+      "routeCount": 9,
+      "reason": "small application-only cluster requiring eligibility/state convergence evidence"
+    },
+    {
+      "position": 4,
+      "familyGroup": ["REGENERATE_IDENTITY_TIMEOUT"],
+      "routeCount": 2,
+      "reason": "post-generation cluster isolated from UI option selection"
+    },
+    {
+      "position": 5,
+      "familyGroup": ["CAPACITY_EVIDENCE_RECONCILIATION"],
+      "routeCount": 35,
+      "reason": "authority-only reconciliation after browser repair semantics are stable"
+    },
+    {
+      "position": 6,
+      "familyGroup": ["FULL_REPLAY"],
+      "routeCount": 793,
+      "reason": "all repaired routes and unaffected baseline must pass terminal reconciliation"
+    }
+  ],
+  "failureFamilies": [
+    {
+      "failureFamily": "QUESTION_TYPE_CONTROL_DISABLED",
+      "queueCount": 176,
+      "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-control-disabled.json",
+      "queueSha256": "25c1aae9b1b5ede97682a4f39da1926af24d9a7d5d6b6fccc63f808a82c2c210",
+      "provisionalDiagnosticClass": "HARNESS_CONTROL_POLICY",
+      "canaries": [
+        {"routeIndex":5,"routeId":"pgc_r03_g3a_u01_3a01_numeric_0bebc1379737","sourceId":"g3a_u01_3a01","selectionMode":"singleKnowledgePoint","questionType":"numeric","contextMode":null,"capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"early numeric single-KP control-disabled route"},
+        {"routeIndex":105,"routeId":"pgc_r03_g3b_u08_3b08_application_973842923812","sourceId":"g3b_u08_3b08","selectionMode":"sourceUnit","questionType":"application","contextMode":null,"capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"source-unit application route; disabled question-type control"},
+        {"routeIndex":353,"routeId":"pgc_r03_g5a_u02_5a02_mixed_05ee727bddbc","sourceId":"g5a_u02_5a02","selectionMode":"singleKnowledgePoint","questionType":"mixed","contextMode":"mixed","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"mixed question type with explicit mixed context"},
+        {"routeIndex":303,"routeId":"pgc_r03_g4b_u08_4b08_numeric_e63dcc56e182","sourceId":"g4b_u08_4b08","selectionMode":"sourceUnit","questionType":"numeric","contextMode":null,"capacityStatus":"VERIFIED_LIMITED","verifiedMaxQuestionCount":9,"selectionReason":"source-unit numeric VERIFIED_LIMITED route"}
+      ]
+    },
+    {
+      "failureFamily": "CONTEXT_MODE_CONTROL_DISABLED",
+      "queueCount": 4,
+      "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/context-mode-control-disabled.json",
+      "queueSha256": "b2ab24d2c6c49f628cb1abd982c68ce2033084a1db25ba67b3f16c75404c7ec0",
+      "provisionalDiagnosticClass": "HARNESS_CONTROL_POLICY",
+      "canaries": [
+        {"routeIndex":55,"routeId":"pgc_r03_g3a_u08_3a08_application_585b4e8fdd0c","sourceId":"g3a_u08_3a08","selectionMode":"sourceUnit","questionType":"application","contextMode":"global_primary","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"all four source-unit context-control failures are retained"},
+        {"routeIndex":94,"routeId":"pgc_r03_g3b_u07_3b07_application_b8e39c886c50","sourceId":"g3b_u07_3b07","selectionMode":"sourceUnit","questionType":"application","contextMode":"global_primary","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"all four source-unit context-control failures are retained"},
+        {"routeIndex":297,"routeId":"pgc_r03_g4b_u06_4b06_application_243390fad850","sourceId":"g4b_u06_4b06","selectionMode":"sourceUnit","questionType":"application","contextMode":"global_primary","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"all four source-unit context-control failures are retained"},
+        {"routeIndex":511,"routeId":"pgc_r03_g5a_u04_5a04_application_65896cc9040b","sourceId":"g5a_u04_5a04","selectionMode":"sourceUnit","questionType":"application","contextMode":"global_primary","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"all four source-unit context-control failures are retained"}
+      ]
+    },
+    {
+      "failureFamily": "ROUTE_BINDING_NOT_CONVERGED",
+      "queueCount": 136,
+      "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json",
+      "queueSha256": "750cbc072700e42873bd92d03bd7aec3b93c3bc8e4e387b16f17fe34b9887541",
+      "provisionalDiagnosticClass": "AUTHORITY_OR_PUBLIC_UI_BINDING",
+      "canaries": [
+        {"routeIndex":1,"routeId":"pgc_r03_g3a_u01_3a01_application_078745248eea","sourceId":"g3a_u01_3a01","selectionMode":"mixedKnowledgePointsSameUnit","questionType":"application","contextMode":null,"capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"A02 mixed-application sentinel; mixed-KP early binding failure"},
+        {"routeIndex":570,"routeId":"pgc_r03_g5a_u08_5a08_mixed_03df3be246bd","sourceId":"g5a_u08_5a08","selectionMode":"singleKnowledgePoint","questionType":"mixed","contextMode":"daily_life","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"G5A-U08 single-KP mixed route with daily-life context"},
+        {"routeIndex":735,"routeId":"pgc_r03_g5a_u08_5a08_reasoning_0efbf0e4b052","sourceId":"g5a_u08_5a08","selectionMode":"mixedKnowledgePointsSameUnit","questionType":"reasoning","contextMode":"mixed","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"G5A-U08 mixed-KP reasoning route with mixed context"},
+        {"routeIndex":784,"routeId":"pgc_r03_g6a_u01_6a01_application_4a04b80c1628","sourceId":"g6a_u01_6a01","selectionMode":"singleKnowledgePoint","questionType":"application","contextMode":null,"capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"late-matrix G6A-U01 single-KP application route"}
+      ]
+    },
+    {
+      "failureFamily": "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
+      "queueCount": 9,
+      "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-state-settlement-timeout.json",
+      "queueSha256": "fea41ccbe5cbb6b52b2c1c126cb77e3333f21b9b2cc70d7b6091eacf7d0911b0",
+      "provisionalDiagnosticClass": "AUTHORITY_OR_PUBLIC_UI_BINDING",
+      "canaries": [
+        {"routeIndex":54,"routeId":"pgc_r03_g3a_u08_3a08_application_30b2104b3163","sourceId":"g3a_u08_3a08","selectionMode":"singleKnowledgePoint","questionType":"application","contextMode":"global_primary","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"single-KP application settlement timeout at G3A-U08"},
+        {"routeIndex":96,"routeId":"pgc_r03_g3b_u07_3b07_application_cc1c7d44244c","sourceId":"g3b_u07_3b07","selectionMode":"mixedKnowledgePointsSameUnit","questionType":"application","contextMode":"global_primary","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"mixed-KP application settlement timeout at G3B-U07"},
+        {"routeIndex":510,"routeId":"pgc_r03_g5a_u04_5a04_application_4bb5fbe70448","sourceId":"g5a_u04_5a04","selectionMode":"mixedKnowledgePointsSameUnit","questionType":"application","contextMode":"global_primary","capacityStatus":"VERIFIED_20","verifiedMaxQuestionCount":20,"selectionReason":"mixed-KP application settlement timeout at G5A-U04"}
+      ]
+    },
+    {
+      "failureFamily": "REGENERATE_IDENTITY_TIMEOUT",
+      "queueCount": 2,
+      "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/regenerate-identity-timeout.json",
+      "queueSha256": "5b42224e0b0322e10925443c590644afea13c1cb2c33af1e1b676a87d13d1e32",
+      "provisionalDiagnosticClass": "GENERATOR_OR_HARNESS_REGEN",
+      "canaries": [
+        {"routeIndex":298,"routeId":"pgc_r03_g4b_u06_4b06_numeric_13afea5d4fd1","sourceId":"g4b_u06_4b06","selectionMode":"singleKnowledgePoint","questionType":"numeric","contextMode":null,"capacityStatus":"VERIFIED_LIMITED","verifiedMaxQuestionCount":8,"selectionReason":"single-KP numeric route passed all gates except regeneration identity"},
+        {"routeIndex":299,"routeId":"pgc_r03_g4b_u06_4b06_numeric_8060b6cce6ed","sourceId":"g4b_u06_4b06","selectionMode":"sourceUnit","questionType":"numeric","contextMode":null,"capacityStatus":"VERIFIED_LIMITED","verifiedMaxQuestionCount":8,"selectionReason":"source-unit numeric route passed all gates except regeneration identity"}
+      ]
+    }
+  ],
+  "capacityEvidenceCanaries": [
+    {"routeIndex":59,"routeId":"pgc_r03_g3a_u08_3a08_numeric_32207c12fa17","sourceId":"g3a_u08_3a08","selectionMode":"singleKnowledgePoint","questionType":"numeric","priorCapacityStatus":"VERIFIED_LIMITED","priorVerifiedMaxQuestionCount":6,"observedQuestionCount":20,"selectionReason":"A02 live-20 sentinel and prior max 6"},
+    {"routeIndex":225,"routeId":"pgc_r03_g4b_u04_4b04_concept_56468f5e76d3","sourceId":"g4b_u04_4b04","selectionMode":"singleKnowledgePoint","questionType":"concept","priorCapacityStatus":"VERIFIED_LIMITED","priorVerifiedMaxQuestionCount":1,"observedQuestionCount":20,"selectionReason":"minimum prior max 1 and concept question type"},
+    {"routeIndex":345,"routeId":"pgc_r03_g5a_u02_5a02_concept_127020b0d7ef","sourceId":"g5a_u02_5a02","selectionMode":"singleKnowledgePoint","questionType":"concept","priorCapacityStatus":"VERIFIED_LIMITED","priorVerifiedMaxQuestionCount":15,"observedQuestionCount":20,"selectionReason":"high prior max 15 and concept question type"},
+    {"routeIndex":448,"routeId":"pgc_r03_g5a_u02_5a02_numeric_0992f22fd619","sourceId":"g5a_u02_5a02","selectionMode":"singleKnowledgePoint","questionType":"numeric","priorCapacityStatus":"VERIFIED_LIMITED","priorVerifiedMaxQuestionCount":8,"observedQuestionCount":20,"selectionReason":"numeric route with prior max 8"},
+    {"routeIndex":793,"routeId":"pgc_r03_g6a_u01_6a01_numeric_bf6a96b9f4f9","sourceId":"g6a_u01_6a01","selectionMode":"singleKnowledgePoint","questionType":"numeric","priorCapacityStatus":"VERIFIED_LIMITED","priorVerifiedMaxQuestionCount":9,"observedQuestionCount":20,"selectionReason":"last matrix route; G6A-U01 prior max 9"}
+  ],
+  "acceptanceGates": [
+    "all five family queues resolve against frozen A03 authority",
+    "17 failure canaries cover every failure family and all four context-control routes plus both regenerate routes",
+    "5 capacity canaries cover prior max 1, 6, 8, 9 and 15 across concept and numeric routes",
+    "no product file is modified by A00",
+    "no capacity authority is mutated by A00",
+    "next task is focused reproduction of disabled-control semantics"
+  ],
+  "goalDistance": {
+    "before": "D1_R08_REPAIR_AND_RECONCILIATION_QUEUES_MATERIALIZED",
+    "after": "D1_R08_REPAIR_AUTHORITY_ORDER_AND_CANARY_MATRIX_FROZEN",
+    "distanceReduced": "converted 327 queued failures into five bounded diagnostic families with representative canaries and a single repair order",
+    "remainingBlockers": ["FIVE_FAILURE_FAMILIES_NOT_REPRODUCED", "THIRTY_FIVE_CAPACITY_ROUTES_NOT_RECONCILED"],
+    "nextShortestStep": "PGC-R08-A04-A01_DisabledControlSemanticsFocusedReproduction"
+  }
+}
