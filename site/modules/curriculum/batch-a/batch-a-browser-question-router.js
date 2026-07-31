@@ -87,6 +87,25 @@ export function normalizePublicApplicationPatternGroupAliases(options = {}) {
   };
 }
 
+export function normalizePublicApplicationDiversitySeed(options = {}) {
+  const seed = String(options.generationSeed ?? "").trim();
+  if (!options.publicApplicationAliasProjection
+    || !seed.startsWith("pgc-r08-")
+    || seed.includes(":pgc-r05-application-diversity")) {
+    return options;
+  }
+  const effectiveGenerationSeed = `${seed}:pgc-r05-application-diversity`;
+  return {
+    ...options,
+    generationSeed: effectiveGenerationSeed,
+    publicApplicationDiversitySeedProjection: Object.freeze({
+      mode: "REUSE_PGC_R05_DETERMINISTIC_RETRY",
+      originalGenerationSeed: seed,
+      effectiveGenerationSeed,
+    }),
+  };
+}
+
 function generateOnce(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (canGenerateG5AU04QuotientFractionQuestions(plan)) return generateG5AU04QuotientFractionQuestions(options);
@@ -110,7 +129,8 @@ function generateOnce(options = {}) {
 }
 
 export function generateBatchABrowserQuestions(options = {}) {
-  const normalizedOptions = normalizePublicApplicationPatternGroupAliases(options);
+  const aliasedOptions = normalizePublicApplicationPatternGroupAliases(options);
+  const normalizedOptions = normalizePublicApplicationDiversitySeed(aliasedOptions);
   const result = applyPgcR04NumericUniqueAllocation(generateOnce, normalizedOptions);
   return applyRegenerateIdentitySeedOrder(result, normalizedOptions);
 }
