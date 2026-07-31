@@ -1,0 +1,72 @@
+{
+  "schemaName": "PGCR08A03RepairQueueIndexV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A03_ReadTerminalAllRouteArtifactAndMaterializeRepairQueue",
+  "status": "PASS_REPAIR_QUEUE_MATERIALIZED_PENDING_A04",
+  "sourceArtifact": {
+    "workflowRunId": 30594944965,
+    "workflowJobId": 91045182569,
+    "headSha": "3e4e843163fdc67d777657fdc329e35c9a9bbc23",
+    "artifactId": 8780383150,
+    "artifactDigest": "sha256:19c65c4afb5e1e1e0de9a97ead36c7d5dd845713d0d2ad34c53f080e348a659e",
+    "reportSha256": "6054c5d2b6e8c96c81ab12972e3ce0a16ae4432e4be1bae55941405a6169e58b",
+    "checkpointSha256": "3330bde69950e15a9aa7f503a6eac8a50a7e23b8f83db7ffff46a658fb69821e"
+  },
+  "summary": {
+    "queueCount": 327,
+    "failureFamilyCount": 5,
+    "failedBeforeFirstGateCount": 325,
+    "postGenerateFailureCount": 2
+  },
+  "repairPolicy": {
+    "singleRouteFailureDoesNotAuthorizePerRoutePatch": true,
+    "repairByFailureFamily": true,
+    "replayAllAffectedRoutesAfterFamilyRepair": true,
+    "capacityAuthorityMutationAllowedInA03": false,
+    "productMutationAllowedInThisMaterializationTask": false,
+    "nextTask": "PGC-R08-A04_FailedCombinationRepairAndReconciliation"
+  },
+  "familyQueues": [
+    {
+      "failureFamily": "QUESTION_TYPE_CONTROL_DISABLED",
+      "count": 176,
+      "path": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-control-disabled.json",
+      "sha256": "25c1aae9b1b5ede97682a4f39da1926af24d9a7d5d6b6fccc63f808a82c2c210",
+      "diagnosticClass": "HARNESS_CONTROL_POLICY",
+      "provisionalNextAction": "ACCEPT_DISABLED_IF_CURRENT_VALUE_MATCHES_THEN_REPLAY"
+    },
+    {
+      "failureFamily": "ROUTE_BINDING_NOT_CONVERGED",
+      "count": 136,
+      "path": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json",
+      "sha256": "750cbc072700e42873bd92d03bd7aec3b93c3bc8e4e387b16f17fe34b9887541",
+      "diagnosticClass": "AUTHORITY_OR_PUBLIC_UI_BINDING",
+      "provisionalNextAction": "REPAIR_BINDING_OR_RECLASSIFY_ROUTE_THEN_REPLAY"
+    },
+    {
+      "failureFamily": "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
+      "count": 9,
+      "path": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/question-type-state-settlement-timeout.json",
+      "sha256": "fea41ccbe5cbb6b52b2c1c126cb77e3333f21b9b2cc70d7b6091eacf7d0911b0",
+      "diagnosticClass": "AUTHORITY_OR_PUBLIC_UI_BINDING",
+      "provisionalNextAction": "RECONCILE_OPTION_ELIGIBILITY_THEN_REPLAY"
+    },
+    {
+      "failureFamily": "CONTEXT_MODE_CONTROL_DISABLED",
+      "count": 4,
+      "path": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/context-mode-control-disabled.json",
+      "sha256": "b2ab24d2c6c49f628cb1abd982c68ce2033084a1db25ba67b3f16c75404c7ec0",
+      "diagnosticClass": "HARNESS_CONTROL_POLICY",
+      "provisionalNextAction": "ACCEPT_DISABLED_IF_CURRENT_VALUE_MATCHES_THEN_REPLAY"
+    },
+    {
+      "failureFamily": "REGENERATE_IDENTITY_TIMEOUT",
+      "count": 2,
+      "path": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/regenerate-identity-timeout.json",
+      "sha256": "5b42224e0b0322e10925443c590644afea13c1cb2c33af1e1b676a87d13d1e32",
+      "diagnosticClass": "GENERATOR_OR_HARNESS_REGEN",
+      "provisionalNextAction": "REPAIR_SEED_VARIATION_OR_WAIT_CONTRACT_THEN_REPLAY"
+    }
+  ]
+}
