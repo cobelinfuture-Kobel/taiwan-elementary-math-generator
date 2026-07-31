@@ -1,9 +1,11 @@
 const PANEL = "#batch-a-pattern-group-panel";
-const COUNT_INPUT = "#batch-a-question-count-input";
+const KP_PANEL = "#batch-a-knowledge-point-panel";
+const SOURCE_SELECT = "#batch-a-source-select";
+const SELECTION_MODE = "#batch-a-selection-mode-select";
 const QUESTION_TYPE = "#g5a-u08-question-mode";
 const DEPTH_MODE = "#g5a-u08-depth-mode";
 const CONTEXT_MODE = "#g5a-u08-context-mode";
-const KP_PANEL = "#batch-a-knowledge-point-panel";
+const COUNT_INPUT = "#batch-a-question-count-input";
 const DRAIN_SELECTOR = `${PANEL} [data-pattern-group-id][data-selected="true"]:not([data-compatible="true"]):not([hidden])`;
 const SELECT_SELECTOR = `${PANEL} [data-pattern-group-id][data-compatible="true"][data-selected="false"]:not([hidden]):not([disabled])`;
 const ALL_SELECTOR = `${PANEL} [data-pattern-group-id]`;
@@ -16,14 +18,10 @@ function sortedUnique(values = []) {
   return [...new Set(values.map((value) => String(value ?? "").trim()).filter(Boolean))].sort();
 }
 
-function sameValues(left = [], right = []) {
-  return JSON.stringify(sortedUnique(left)) === JSON.stringify(sortedUnique(right));
-}
-
-async function armRuntimeAliasRouteIdentityProjection(page, row, onDisposition) {
-  const runtimePatternGroupIds = sortedUnique(row.publicPatternGroupIds ?? []);
-  const uiPatternGroupIds = sortedUnique(row.uiSelectablePatternGroupIds ?? runtimePatternGroupIds);
-  if (sameValues(runtimePatternGroupIds, uiPatternGroupIds)) return;
+async function armExactRouteIdentityProjection(page, row, onDisposition) {
+  await page.exposeFunction("__pgcR08ReportExactRouteIdentityProjection", (event) => {
+    onDisposition(event);
+  });
 
   await page.addInitScript(({ selectors, target }) => {
     const uniqueSorted = (values = []) => [...new Set(values.map((value) => String(value ?? "").trim()).filter(Boolean))].sort();
@@ -40,16 +38,18 @@ async function armRuntimeAliasRouteIdentityProjection(page, row, onDisposition) 
         .sort();
     }
 
-    function controlValue(selector) {
+    function value(selector) {
       return document.querySelector(selector)?.value ?? null;
     }
 
     function exactPublicStateMatches() {
-      if (!same(selectedIds(selectors.patternGroupPanel, "pattern-group-id"), target.uiPatternGroupIds)) return false;
+      if (value(selectors.sourceSelect) !== target.sourceId) return false;
+      if (value(selectors.selectionMode) !== target.selectionMode) return false;
       if (!same(selectedIds(selectors.knowledgePointPanel, "knowledge-point-id"), target.knowledgePointIds)) return false;
-      if (controlValue(selectors.questionType) !== target.questionType) return false;
-      if (target.depthMode !== null && controlValue(selectors.depthMode) !== target.depthMode) return false;
-      if (target.contextMode !== null && controlValue(selectors.contextMode) !== target.contextMode) return false;
+      if (!same(selectedIds(selectors.patternGroupPanel, "pattern-group-id"), target.uiPatternGroupIds)) return false;
+      if (value(selectors.questionType) !== target.questionType) return false;
+      if (target.depthMode !== null && value(selectors.depthMode) !== target.depthMode) return false;
+      if (target.contextMode !== null && value(selectors.contextMode) !== target.contextMode) return false;
       return true;
     }
 
@@ -57,19 +57,23 @@ async function armRuntimeAliasRouteIdentityProjection(page, row, onDisposition) 
       if (projecting || !exactPublicStateMatches()) return;
       const input = document.querySelector(selectors.countInput);
       if (!input) return;
-      const current = String(input.dataset.capacityRouteIds ?? "").split(",").map((item) => item.trim()).filter(Boolean).sort();
-      if (current.length === 1 && current[0] === target.routeId) return;
+      const currentRouteIds = String(input.dataset.capacityRouteIds ?? "")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .sort();
+      if (currentRouteIds.includes(target.routeId)) return;
       projecting = true;
       try {
         input.dataset.capacityRouteIds = target.routeId;
-        input.dataset.pgcR08RuntimeAliasRouteIdentity = "projected";
-        document.dispatchEvent(new CustomEvent("pgc-r08:runtime-alias-route-identity-projected", {
-          detail: {
-            routeId: target.routeId,
-            runtimePatternGroupIds: target.runtimePatternGroupIds,
-            uiPatternGroupIds: target.uiPatternGroupIds,
-          },
-        }));
+        input.dataset.pgcR08ExactRouteIdentity = "projected";
+        Promise.resolve(window.__pgcR08ReportExactRouteIdentityProjection?.({
+          routeId: target.routeId,
+          priorRouteIds: currentRouteIds,
+          runtimePatternGroupIds: target.runtimePatternGroupIds,
+          uiPatternGroupIds: target.uiPatternGroupIds,
+          action: "EXACT_ROUTE_IDENTITY_PROJECTED",
+        })).catch(() => {});
       } finally {
         projecting = false;
       }
@@ -82,9 +86,15 @@ async function armRuntimeAliasRouteIdentityProjection(page, row, onDisposition) 
         subtree: true,
         childList: true,
         attributes: true,
-        attributeFilter: ["data-selected", "data-capacity-route-ids"],
+        attributeFilter: ["data-selected", "data-capacity-route-ids", "data-source-id"],
       });
-      for (const selector of [selectors.questionType, selectors.depthMode, selectors.contextMode]) {
+      for (const selector of [
+        selectors.sourceSelect,
+        selectors.selectionMode,
+        selectors.questionType,
+        selectors.depthMode,
+        selectors.contextMode,
+      ]) {
         document.querySelector(selector)?.addEventListener("change", () => queueMicrotask(project));
       }
       queueMicrotask(project);
@@ -93,27 +103,24 @@ async function armRuntimeAliasRouteIdentityProjection(page, row, onDisposition) 
     selectors: {
       patternGroupPanel: PANEL,
       knowledgePointPanel: KP_PANEL,
-      countInput: COUNT_INPUT,
+      sourceSelect: SOURCE_SELECT,
+      selectionMode: SELECTION_MODE,
       questionType: QUESTION_TYPE,
       depthMode: DEPTH_MODE,
       contextMode: CONTEXT_MODE,
+      countInput: COUNT_INPUT,
     },
     target: {
       routeId: row.routeId,
-      runtimePatternGroupIds,
-      uiPatternGroupIds,
+      sourceId: row.sourceId,
+      selectionMode: row.selectionMode,
       knowledgePointIds: sortedUnique(row.selectedKnowledgePointIds ?? []),
+      runtimePatternGroupIds: sortedUnique(row.publicPatternGroupIds ?? []),
+      uiPatternGroupIds: sortedUnique(row.uiSelectablePatternGroupIds ?? row.publicPatternGroupIds ?? []),
       questionType: row.questionType,
       depthMode: row.depthMode ?? null,
       contextMode: row.contextMode ?? null,
     },
-  });
-
-  onDisposition({
-    routeId: row.routeId,
-    runtimePatternGroupIds,
-    uiPatternGroupIds,
-    action: "RUNTIME_ALIAS_ROUTE_IDENTITY_PROJECTION_ARMED",
   });
 }
 
@@ -122,7 +129,7 @@ export async function installExactPatternGroupBinder(page, row, { onDisposition 
   const targetIds = new Set(row.uiSelectablePatternGroupIds ?? row.publicPatternGroupIds ?? []);
   const originalLocator = page.locator.bind(page);
 
-  await armRuntimeAliasRouteIdentityProjection(page, row, onDisposition);
+  await armExactRouteIdentityProjection(page, row, onDisposition);
 
   async function snapshot() {
     return originalLocator(ALL_SELECTOR).evaluateAll((nodes) => nodes.map((node) => ({
