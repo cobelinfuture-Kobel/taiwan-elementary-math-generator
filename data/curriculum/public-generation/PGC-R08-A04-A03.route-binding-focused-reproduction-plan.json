@@ -1,0 +1,48 @@
+{
+  "schemaName": "PGCR08A04A03RouteBindingFocusedReproductionPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair",
+  "status": "PENDING_FOCUSED_BROWSER_REPRODUCTION",
+  "baseMergeSha": "334c08241eecd28b312ddb0693788820d2bddb0e",
+  "activeRepairStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "queuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json",
+  "canaries": [
+    {"routeIndex":1,"routeId":"pgc_r03_g3a_u01_3a01_application_078745248eea","selectionReason":"early mixed-KP application sentinel"},
+    {"routeIndex":570,"routeId":"pgc_r03_g5a_u08_5a08_mixed_03df3be246bd","selectionReason":"G5A-U08 single-KP mixed daily-life sentinel"},
+    {"routeIndex":735,"routeId":"pgc_r03_g5a_u08_5a08_reasoning_0efbf0e4b052","selectionReason":"G5A-U08 mixed-KP reasoning mixed-context sentinel"},
+    {"routeIndex":784,"routeId":"pgc_r03_g6a_u01_6a01_application_4a04b80c1628","selectionReason":"late-matrix G6A-U01 single-KP application sentinel"}
+  ],
+  "diagnosticPolicy": {
+    "mode": "REPRODUCTION_ONLY",
+    "reuseDisabledControlPolicy": true,
+    "reuseExistingProductSurface": true,
+    "publicUiMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "perRoutePatchAllowed": false,
+    "patternGroupProbeMutation": "public click interactions only",
+    "captureAllPatternGroupDatasets": true
+  },
+  "classificationCodes": [
+    "TARGET_ROUTE_ALREADY_BOUND",
+    "GREEDY_PATTERN_GROUP_OVERSHOOT",
+    "TARGET_ROUTE_NOT_PROJECTED_BY_PUBLIC_BINDING",
+    "PUBLIC_CAPACITY_BINDING_EMPTY",
+    "PUBLIC_UI_STATE_NOT_SETTLED",
+    "SYSTEM_FAILURE"
+  ],
+  "acceptance": {
+    "canaryCount": 4,
+    "terminalCanaryCount": 4,
+    "systemFailureCount": 0,
+    "exactSnapshotPerInteraction": true,
+    "productMutationCount": 0
+  },
+  "goalDistance": {
+    "before": "D1_R08_DISABLED_CONTROL_FAMILIES_CLOSED_ROUTE_BINDING_REPAIR_NEXT",
+    "after": "D1_R08_ROUTE_BINDING_FAILURE_CLASSIFICATION_PENDING_BROWSER_EVIDENCE",
+    "distanceReduced": "materialized exact route-binding diagnostic canaries and a public-state trace contract",
+    "remainingBlockers": ["ROUTE_BINDING_NOT_CONVERGED_136_NOT_CLASSIFIED","QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT_9","REGENERATE_IDENTITY_TIMEOUT_3","CAPACITY_EVIDENCE_RECONCILIATION_35"],
+    "nextShortestStep": "READ_A03_ROUTE_BINDING_FOCUSED_BROWSER_ARTIFACT_AND_SELECT_FAMILY_REPAIR"
+  }
+}
