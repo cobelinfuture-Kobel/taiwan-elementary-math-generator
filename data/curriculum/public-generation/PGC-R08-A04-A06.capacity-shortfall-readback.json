@@ -1,0 +1,80 @@
+{
+  "schemaName": "PGCR08A04A06CapacityShortfallReadbackV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
+  "status": "PASS_CODE_FULL_REGRESSION_AND_EXACT_3_ROUTE_REPLAY",
+  "planPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-plan.json",
+  "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "targetRouteCount": 3,
+  "targetRouteIds": [
+    "pgc_r03_g5a_u03_5a03a_application_3da6082c4117",
+    "pgc_r03_g5a_u03_5a03a1_application_1676399731c4",
+    "pgc_r03_g6a_u01_6a01_application_3319cf21ddf0"
+  ],
+  "workflowEvidence": {
+    "workflowName": "PGC-R00 Public Generation Scope Freeze",
+    "singleJobName": "scope-freeze",
+    "workflowRunId": 30678331686,
+    "workflowJobId": 91310045631,
+    "headSha": "5291b4b76afac35fb5d11f93d335b829acd6edf3",
+    "artifactId": 8811336066,
+    "artifactDigest": "sha256:80344fb38e2539bf7e1c99ceaf364b2e87bc8a76dfd3f730f445ed1299c490be"
+  },
+  "fullRegression": {
+    "tests": 2796,
+    "pass": 2796,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "exactReplay": {
+    "targetRouteCount": 3,
+    "terminalRouteCount": 3,
+    "fullNineGatePassCount": 3,
+    "failedRouteCount": 0,
+    "questionCountPassCount": 3,
+    "generateButtonPassCount": 3,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "bootstrapEventCount": 3,
+    "binderEventCount": 21,
+    "controlEventCount": 9
+  },
+  "repairSummary": {
+    "questionAuthority": "Classic W1 application worksheet generation consumes the current Batch A browser router before application admission",
+    "applicationSelectionProjection": "Classic default-expanded groups normalize to production-admitted W1 application base groups",
+    "worksheetAssembly": "Existing core generated-items renderer and pagination remain authoritative",
+    "workflowTopology": "A06 exact replay executes inside the existing PGC-R00 scope-freeze job"
+  },
+  "invariants": {
+    "capacityAuthorityUnchanged": true,
+    "generatorRuntimeUnchanged": true,
+    "validatorUnchanged": true,
+    "rendererRulesUnchanged": true,
+    "historicalReconciliationQueueUnchanged": true,
+    "questionCountExpected": 20,
+    "perRoutePatchUsed": false,
+    "newWorkflowAdded": false
+  },
+  "routeStateDelta": {
+    "cumulativePassRouteCountBefore": 790,
+    "cumulativePassRouteCountAfter": 793,
+    "unresolvedFailedRouteCountBefore": 3,
+    "unresolvedFailedRouteCountAfter": 0,
+    "closedOriginalFailureRouteCountBefore": 326,
+    "closedOriginalFailureRouteCountAfter": 326,
+    "reclassifiedUnresolvedRouteCountBefore": 3,
+    "reclassifiedUnresolvedRouteCountAfter": 0
+  },
+  "goalDistance": {
+    "before": "D1_R08_THREE_CAPACITY_SHORTFALL_ROUTES_REMAIN",
+    "after": "D1_R08_ALL_793_LEGAL_ROUTES_REPAIRED_PENDING_FINAL_RECONCILIATION",
+    "distanceReduced": "closed the final three Classic capacity-shortfall routes with exact nine-gate browser evidence",
+    "remainingBlockers": [
+      "R08_FINAL_END_TO_END_RECONCILIATION_NOT_MATERIALIZED"
+    ],
+    "nextShortestStep": "PGC-R08-A05_FinalEndToEndReconciliationAndCloseout"
+  },
+  "nextTask": "PGC-R08-A05_FinalEndToEndReconciliationAndCloseout"
+}
