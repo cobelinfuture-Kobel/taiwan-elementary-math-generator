@@ -2,6 +2,7 @@ export { buildWorksheetDocumentFromGeneratedItems } from "./build-worksheet-docu
 
 import { buildWorksheetDocumentFromPlan as buildBase } from "./build-worksheet-document-core-closeout.js";
 import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import { generateBatchABrowserQuestions } from "../../../modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import { applyW1FullProductPublicApplicationAdmission } from "../../../modules/curriculum/batch-a/w1-full-product-public-application-admission.js";
 import { paginateAnswerKeyItems, paginateQuestionDisplayModels } from "../../../modules/core/worksheet-pagination.js";
 
@@ -49,13 +50,14 @@ function answerItems(questions, models) {
   }));
 }
 
-function projectResult(result, projected, plan) {
+function projectResult(result, projected, plan, currentRouterGeneration = null) {
   if (!projected?.ok) {
     return {
       ...result,
       ok: false,
       errors: [...(result?.errors ?? []), ...(projected?.errors ?? [])],
       worksheetDocument: null,
+      currentRouterGeneration,
     };
   }
   const document = result?.worksheetDocument;
@@ -101,6 +103,13 @@ function projectResult(result, projected, plan) {
       questionMode: "application",
       globalContextRegistryId: "GCTX_15_UNIT_PUBLIC_WORKSHEET_V1",
       p01eApplicationAdmission: projected.p01eApplicationAdmission,
+      currentRouterQuestionAuthority: currentRouterGeneration
+        ? {
+          sourceId: plan.sourceId,
+          questionCount: currentRouterGeneration.questions.length,
+          allocation: currentRouterGeneration.allocation ?? currentRouterGeneration.plan?.allocation ?? [],
+        }
+        : null,
     },
     configSnapshot: {
       ...(document.configSnapshot ?? {}),
@@ -127,6 +136,18 @@ function projectResult(result, projected, plan) {
     errors: [],
     worksheetDocument,
     p01eApplicationAdmission: projected.p01eApplicationAdmission,
+    currentRouterGeneration,
+  };
+}
+
+function failedCurrentRouterGeneration(result, generation) {
+  return {
+    ...result,
+    ok: false,
+    errors: [...(result?.errors ?? []), ...(generation?.errors ?? [])],
+    warnings: [...(result?.warnings ?? []), ...(generation?.warnings ?? [])],
+    worksheetDocument: null,
+    currentRouterGeneration: generation,
   };
 }
 
@@ -136,12 +157,25 @@ export function buildWorksheetDocumentFromPlan(plan = {}) {
     ? buildBatchABrowserWorksheetDocument(plan)
     : buildBase(plan);
   if (plan.questionMode !== "application" || !result?.ok || !result?.worksheetDocument) return result;
-  const questions = result.worksheetDocument.generatedQuestions ?? result.worksheetDocument.questions ?? [];
+
+  const currentRouterGeneration = useW1SharedBuilder
+    ? generateBatchABrowserQuestions(plan)
+    : null;
+  if (currentRouterGeneration && !currentRouterGeneration.ok) {
+    return failedCurrentRouterGeneration(result, currentRouterGeneration);
+  }
+  const questions = currentRouterGeneration?.questions
+    ?? result.worksheetDocument.generatedQuestions
+    ?? result.worksheetDocument.questions
+    ?? [];
   const projected = applyW1FullProductPublicApplicationAdmission({
     ok: true,
     questions,
     errors: [],
-    warnings: result.warnings ?? [],
+    warnings: [
+      ...(result.warnings ?? []),
+      ...(currentRouterGeneration?.warnings ?? []),
+    ],
   }, plan);
-  return projectResult(result, projected, plan);
+  return projectResult(result, projected, plan, currentRouterGeneration);
 }
