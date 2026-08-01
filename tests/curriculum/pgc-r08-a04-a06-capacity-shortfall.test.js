@@ -205,7 +205,9 @@ test("A06 closeout records 3 of 3 nine-gate PASS and advances to final reconcili
   assert.equal(activeState.pendingFamilies.length, 0);
   assert.equal(activeState.reconciliation.allLegalRoutesConformant, true);
   assert.equal(activeState.reconciliation.nextRepairPosition, 6);
-  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout");
+  assert.equal(activeState.reconciliation.nextTask, null);
+  assert.equal(activeState.reconciliation.terminal, true);
+  assert.equal(activeState.reconciliation.d0Status, "PASS_R08_D0");
 });
 
 test("A06 repair is shared and does not mutate capacity, generator runtimes, validators, or renderer", () => {
