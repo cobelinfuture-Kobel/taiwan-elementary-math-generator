@@ -8,6 +8,8 @@ on:
       - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
       - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
       - "tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js"
+      - "tests/curriculum/pgc-r09-a01-exact-head-execution.test.js"
+      - "tools/curriculum/run-pgc-r08-a03-all-legal-routes.mjs"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs"
       - ".github/workflows/pgc-r00-public-generation-scope.yml"
@@ -19,7 +21,7 @@ permissions:
 jobs:
   scope-freeze:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,6 +33,9 @@ jobs:
 
       - name: Focused PGC-R00 contract
         run: node --test tests/curriculum/pgc-r00-public-generation-scope.test.js
+
+      - name: Focused R09 A01 contract
+        run: node --test tests/curriculum/pgc-r09-a01-exact-head-execution.test.js
 
       - name: Full regression
         run: npm test
@@ -104,3 +109,41 @@ jobs:
       - name: Verify exact three-route capacity replay
         shell: bash
         run: test "$(cat tmp/pgc-r08-a04-a06-capacity-shortfall/exit-code.txt)" = "0"
+
+      - name: R09 A01 exact 793-route browser replay
+        shell: bash
+        run: |
+          set -o pipefail
+          set +e
+          node tools/curriculum/run-pgc-r08-a03-all-legal-routes.mjs \
+            2>&1 | tee tmp/pgc-r09-a01-exact-793-route-replay.log
+          replay_status=${PIPESTATUS[0]}
+          printf '%s\n' "${replay_status}" > tmp/pgc-r09-a01-exact-793-route-replay.exit-code.txt
+          exit 0
+
+      - name: Upload R09 A01 exact-head evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r09-a01-exact-head-execution-${{ github.run_id }}
+          path: |
+            tmp/pgc-r08-a03-all-legal-routes
+            tmp/pgc-r09-a01-exact-793-route-replay.log
+            tmp/pgc-r09-a01-exact-793-route-replay.exit-code.txt
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Verify R09 A01 exact 793-route browser replay
+        shell: bash
+        run: |
+          test "$(cat tmp/pgc-r09-a01-exact-793-route-replay.exit-code.txt)" = "0"
+          node -e '
+            const fs = require("node:fs");
+            const report = JSON.parse(fs.readFileSync("tmp/pgc-r08-a03-all-legal-routes/report.json", "utf8"));
+            if (report.status !== "PASS_ALL_793_LEGAL_ROUTES") throw new Error(report.status);
+            if (report.summary.executedRouteCount !== 793) throw new Error("executedRouteCount");
+            if (report.summary.terminalRouteCount !== 793) throw new Error("terminalRouteCount");
+            if (report.summary.passRouteCount !== 793) throw new Error("passRouteCount");
+            if (report.summary.failRouteCount !== 0) throw new Error("failRouteCount");
+            if (report.summary.browserConsoleErrorCount !== 0) throw new Error("browserConsoleErrorCount");
+            if (report.summary.browserPageErrorCount !== 0) throw new Error("browserPageErrorCount");
+          '
