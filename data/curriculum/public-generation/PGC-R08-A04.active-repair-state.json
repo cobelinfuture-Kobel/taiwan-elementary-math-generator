@@ -2,13 +2,13 @@
   "schemaName": "PGCR08A04ActiveRepairStateV1",
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
-  "taskId": "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
-  "status": "PASS_ALL_793_LEGAL_ROUTES_CLOSED",
+  "taskId": "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout",
+  "status": "PASS_R08_D0_ALL_793_LEGAL_ROUTES_CLOSED",
   "historicalAuthority": {
     "repairQueueIndex": "data/curriculum/public-generation/PGC-R08-A03.repair-queue.json",
     "immutable": true
   },
-  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-readback.json",
+  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A07.final-global-reconciliation.json",
   "baseline": {
     "legalRouteCount": 793,
     "initialPassRouteCount": 466,
@@ -70,7 +70,9 @@
     "capacityReconciliationRouteCount": 38,
     "capacityReconciliationOverlapWithPendingFailureCount": 0,
     "allLegalRoutesConformant": true,
-    "nextRepairPosition": 6,
-    "nextTask": "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout"
+    "nextRepairPosition": null,
+    "nextTask": null,
+    "terminal": true,
+    "d0Status": "PASS_R08_D0"
   }
 }
