@@ -8,8 +8,6 @@ on:
       - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
       - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
       - "tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js"
-      - "tests/curriculum/pgc-r09-a01-exact-head-execution.test.js"
-      - "tools/curriculum/run-pgc-r08-a03-all-legal-routes.mjs"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs"
       - ".github/workflows/pgc-r00-public-generation-scope.yml"
