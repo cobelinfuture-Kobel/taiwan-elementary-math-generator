@@ -1,0 +1,46 @@
+{
+  "schemaName": "PGCR08A04A07FinalGlobalD0CloseoutPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout",
+  "status": "PENDING_EXACT_793_ROUTE_REPLAY",
+  "preconditionStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "routeMatrixPath": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+  "browserExecutionPlanPath": "data/curriculum/public-generation/PGC-R08-A03.all-legal-route-browser-execution-plan.json",
+  "routeCount": 793,
+  "questionCountPerRoute": 20,
+  "requiredGates": [
+    "UI_OPTIONS_PASS",
+    "GENERATE_BUTTON_PASS",
+    "QUESTION_COUNT_PASS",
+    "QUESTION_IDENTITY_PASS",
+    "ANSWER_VALIDATION_PASS",
+    "REGENERATE_PASS",
+    "HTML_PASS",
+    "PDF_PASS",
+    "ANSWER_KEY_PASS"
+  ],
+  "acceptance": {
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "repairQueueCount": 0
+  },
+  "boundary": {
+    "knowledgePointMutation": false,
+    "patternGroupMutation": false,
+    "patternSpecMutation": false,
+    "capacityAuthorityMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false,
+    "uiControlMutation": false,
+    "secondPipeline": false
+  },
+  "nextTaskOnPass": "PGC-R08_D0Closed_SelectNextApprovedProgram"
+}
