@@ -67,15 +67,22 @@ test("PGC-R09 A00 preserves the frozen public authority and capacity boundary", 
   assert.equal(r09.preflightSnapshot.illegalRouteCount, capacity.summary.illegalRouteCount);
 });
 
-test("PGC-R09 A00 keeps the R08 end-to-end acceptance semantics intact", () => {
-  assert.equal(r08Scope.productLineScope.publicGenerateButton, true);
-  assert.equal(r08Scope.productLineScope.questionCountInputMax, 20);
-  assert.equal(r08Scope.acceptanceContract.requestedQuestionQuantityMustBeRespected, true);
-  assert.equal(r08Scope.acceptanceContract.capacityUnderfillOrDowngradeAllowed, false);
-  assert.equal(r08Scope.acceptanceContract.answerKeyCoverageRequired, "100_PERCENT");
-  assert.equal(r08Scope.acceptanceContract.fullRepositoryRegressionRequired, true);
-  assert.equal(r08Scope.acceptanceContract.preExistingErrorExemptionAllowed, false);
-  assert.equal(r08Scope.hold.resumeCondition, "PGC-R09_PublicGenerationD0Closeout");
+test("PGC-R09 A00 keeps the canonical R08 browser acceptance semantics intact", () => {
+  assert.equal(r08Scope.matrixAuthority.questionCountPerRoute, 20);
+  assert.equal(r08Scope.matrixAuthority.executionSurface, "CLASSIC");
+  assert.equal(r08Scope.perRouteAcceptance.uiOptionsRequired, true);
+  assert.equal(r08Scope.perRouteAcceptance.generateButtonRequired, true);
+  assert.equal(r08Scope.perRouteAcceptance.questionCountExpected, 20);
+  assert.equal(r08Scope.perRouteAcceptance.answerValidationRequired, true);
+  assert.equal(r08Scope.perRouteAcceptance.regenerateRequired, true);
+  assert.equal(r08Scope.perRouteAcceptance.htmlRequired, true);
+  assert.equal(r08Scope.perRouteAcceptance.realChromiumPdfRequired, true);
+  assert.equal(r08Scope.perRouteAcceptance.answerKeyRequired, true);
+  assert.equal(r08Scope.perRouteAcceptance.answerKeyItemCountExpected, 20);
+  assert.equal(r08Scope.perRouteAcceptance.browserConsoleErrorsAllowed, 0);
+  assert.equal(r08Scope.perRouteAcceptance.browserPageErrorsAllowed, 0);
+  assert.equal(r08Scope.frozenBoundary.slice014Allowed, false);
+  assert.equal(r08Scope.preconditions.slice014FreezeRequiredThrough, "PGC-R09_PublicGenerationD0Closeout");
 });
 
 test("PGC-R09 A00 materializes one bounded canonical terminal acceptance matrix", () => {
