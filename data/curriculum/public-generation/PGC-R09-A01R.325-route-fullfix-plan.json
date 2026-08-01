@@ -1,0 +1,75 @@
+{
+  "schemaName": "PGCR09A01R325RouteFullFixPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R09-A01R_325RouteFailureClassificationAndFullFix",
+  "status": "IMPLEMENTED_CI_PENDING",
+  "failedExactHeadRunId": 30699025818,
+  "failedExactHeadHeadSha": "4cd39645150f564c0b5edb94937d1c5d389b2138",
+  "baseline": {
+    "legalRouteCount": 793,
+    "passRouteCount": 468,
+    "failRouteCount": 325,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "failureFamilies": [
+    {
+      "code": "QUESTION_TYPE_CONTROL_DISABLED_STALE_CANONICAL_HARNESS",
+      "routeCount": 176,
+      "r08ClosedBy": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay"
+    },
+    {
+      "code": "CONTEXT_MODE_CONTROL_DISABLED_STALE_CANONICAL_HARNESS",
+      "routeCount": 4,
+      "r08ClosedBy": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay"
+    },
+    {
+      "code": "TARGET_CAPACITY_ROUTE_NOT_BOUND_STALE_CANONICAL_HARNESS",
+      "routeCount": 136,
+      "r08ClosedBy": "PGC-R08-A04-A03-A01_ExactPatternGroupBindingHarnessRepairAnd136RouteReplay"
+    },
+    {
+      "code": "STATE_SETTLEMENT_OR_REGENERATE_TIMEOUT_STALE_CANONICAL_HARNESS",
+      "routeCount": 9,
+      "r08ClosedBy": "PGC-R08-A04-A04/A05 shared settlement and regenerate repairs"
+    }
+  ],
+  "classificationNote": "Family counts overlap at route level; the terminal failed-route union is exactly 325. The regression reproduces pre-repair harness behavior, not a new product-capability loss.",
+  "rootCause": {
+    "classification": "CANONICAL_793_RUNNER_NOT_CONVERGED_ONTO_R08_A04_REPAIR_ADAPTERS",
+    "evidence": [
+      "R08 A04 A02 already closed all 180 disabled-control routes with disabled-current-value semantics and no product mutation.",
+      "R08 A04 A03 A01 already resolved all 136 exact route-binding routes using canonical routeId to public PatternGroup authority and exact selector binding.",
+      "R09 A01 invoked the historical A03 all-route runner, which still executed the pre-A04 harness without those shared adapters."
+    ]
+  },
+  "repairContract": {
+    "canonicalEntryPoint": "tools/curriculum/run-pgc-r08-a03-all-legal-routes.mjs",
+    "convergedOrchestrator": "tools/curriculum/run-pgc-r09-a01r-converged-all-legal-routes.mjs",
+    "disabledControlPolicy": "tools/curriculum/pgc-r08-browser-control-selection-policy.mjs",
+    "exactPatternGroupAuthority": "tools/curriculum/pgc-r08-exact-pattern-group-authority.mjs",
+    "exactPatternGroupBinder": "tools/curriculum/pgc-r08-exact-pattern-group-binder.mjs",
+    "publicUiMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "perRoutePatchAllowed": false,
+    "newCapabilityAllowed": false,
+    "timeoutExtensionAllowed": false
+  },
+  "acceptance": {
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "fullRegressionRequired": true,
+    "r08TenRouteReplayRequired": true,
+    "r08ThreeRouteReplayRequired": true
+  },
+  "nextTaskOnPass": "PGC-R09-A02_RealArtifactArchiveAndHashManifest"
+}
