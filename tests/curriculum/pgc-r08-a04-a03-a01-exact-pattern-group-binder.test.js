@@ -169,30 +169,33 @@ test("A03 A01 terminal readback closes route binding and transfers only orthogon
   );
 });
 
-test("active repair state advances through A05 without double-counting capacity overlap", () => {
-  assert.equal(activeState.status, "ACTIVE_AFTER_REGENERATE_IDENTITY_FAMILY_CLOSEOUT");
-  assert.equal(activeState.current.cumulativePassRouteCount, 790);
-  assert.equal(activeState.current.unresolvedFailedRouteCount, 3);
+test("active repair state closes all A03 downstream transfers after A06", () => {
+  assert.equal(activeState.status, "PASS_A04_FAILED_COMBINATION_REPAIR_QUEUE_CLOSED");
+  assert.equal(activeState.current.cumulativePassRouteCount, 793);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 0);
   assert.equal(activeState.current.closedOriginalFailureRouteCount, 326);
+  assert.equal(activeState.current.reclassifiedUnresolvedRouteCount, 0);
   assert.equal(activeState.reconciliation.pendingFailureFamiliesExcludingCapacityReconciliation, 0);
-  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 3);
+  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 0);
   assert.equal(activeState.reconciliation.capacityReconciliationRouteCount, 38);
-  assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 3);
-  assert.equal(activeState.reconciliation.nextRepairPosition, 5);
+  assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 0);
+  assert.equal(activeState.reconciliation.nextRepairPosition, null);
   assert.equal(
     activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
+    "PGC-R08-A05_FinalEndToEndReconciliationAndCloseout",
   );
+  assert.deepEqual(activeState.pendingFamilies, []);
   for (const failureFamily of [
     "ROUTE_BINDING_NOT_CONVERGED",
     "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
     "REGENERATE_IDENTITY_TIMEOUT",
+    "CAPACITY_EVIDENCE_RECONCILIATION",
   ]) {
     assert.equal(
-      activeState.pendingFamilies.some(
+      activeState.closedFamilies.some(
         (family) => family.failureFamily === failureFamily,
       ),
-      false,
+      true,
     );
   }
 });
