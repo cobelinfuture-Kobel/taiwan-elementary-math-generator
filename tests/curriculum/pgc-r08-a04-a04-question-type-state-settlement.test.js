@@ -34,7 +34,7 @@ const queryStateSource = await readFile(
 );
 const temporaryWorkflowPath = ".github/workflows/pgc-r08-a04-a04-question-type-state-settlement-replay.yml";
 
-test("A04 closes the immutable nine-route settlement queue and later active state advances to position 5", () => {
+test("A04 closes the immutable nine-route settlement queue and later active state advances to terminal reconciliation", () => {
   assert.equal(queue.failureFamily, "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT");
   assert.equal(queue.rows.length, 9);
   assert.equal(plan.targetRouteCount, 9);
@@ -50,10 +50,10 @@ test("A04 closes the immutable nine-route settlement queue and later active stat
   assert.equal(family.originalRouteCount, 9);
   assert.equal(family.endToEndPassCount, 8);
   assert.equal(family.transferredRouteCount, 1);
-  assert.equal(activeState.reconciliation.nextRepairPosition, 5);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 6);
   assert.equal(
     activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
+    "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout",
   );
 });
 
