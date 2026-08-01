@@ -27,6 +27,8 @@ const plan = JSON.parse(await readFile(
   "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-plan.json",
   "utf8",
 ));
+const readback = JSON.parse(await readFile(plan.readbackPath, "utf8"));
+const activeState = JSON.parse(await readFile(plan.activeStatePath, "utf8"));
 const capacityPath = plan.capacityAuthorityPath;
 const capacityRaw = await readFile(capacityPath, "utf8");
 const capacity = JSON.parse(capacityRaw);
@@ -109,11 +111,12 @@ function assertTwentyProjectedQuestions(routeId, options, direct, worksheet) {
   assert.equal(options.questionCount, worksheet.worksheetDocument.summary.questionCount);
 }
 
-test("A06 authority contains exactly three active verified-20 application routes", () => {
-  assert.equal(plan.status, "IMPLEMENTATION_PENDING_EXACT_REPLAY");
+test("A06 authority closes exactly three active verified-20 application routes", () => {
+  assert.equal(plan.status, "PASS_EXACT_3_ROUTE_REPLAY");
   assert.equal(plan.targetRouteCount, 3);
   assert.equal(plan.targetRouteIds.length, 3);
   assert.equal(new Set(plan.targetRouteIds).size, 3);
+  assert.deepEqual(readback.targetRouteIds, plan.targetRouteIds);
   for (const routeId of plan.targetRouteIds) {
     const row = capacity.routes.find((entry) => entry.routeId === routeId);
     assert.ok(row, routeId);
@@ -194,4 +197,48 @@ test("A06 repair is shared and does not mutate capacity, generator runtimes, val
   assert.deepEqual(plan.repairContract.productMutationScope, [
     "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
   ]);
+});
+
+test("A06 committed evidence records 3 of 3 nine-gate PASS and closes the active queue", () => {
+  assert.equal(readback.status, "PASS_CODE_FULL_REGRESSION_AND_EXACT_3_ROUTE_REPLAY");
+  assert.deepEqual(readback.fullRegression, {
+    tests: 2796,
+    pass: 2796,
+    fail: 0,
+    cancelled: 0,
+    skipped: 0,
+  });
+  assert.deepEqual(readback.exactReplay, {
+    targetRouteCount: 3,
+    terminalRouteCount: 3,
+    fullNineGatePassCount: 3,
+    failedRouteCount: 0,
+    questionCountPassCount: 3,
+    generateButtonPassCount: 3,
+    browserConsoleErrorCount: 0,
+    browserPageErrorCount: 0,
+    bootstrapEventCount: 3,
+    binderEventCount: 21,
+    controlEventCount: 9,
+  });
+  assert.equal(readback.workflowEvidence.workflowRunId, 30678331686);
+  assert.equal(readback.workflowEvidence.workflowJobId, 91310045631);
+  assert.equal(readback.workflowEvidence.artifactId, 8811336066);
+  assert.equal(readback.invariants.capacityAuthorityUnchanged, true);
+  assert.equal(readback.invariants.newWorkflowAdded, false);
+  assert.equal(activeState.status, "PASS_A04_FAILED_COMBINATION_REPAIR_QUEUE_CLOSED");
+  assert.deepEqual(activeState.current, {
+    cumulativePassRouteCount: 793,
+    unresolvedFailedRouteCount: 0,
+    closedOriginalFailureRouteCount: 326,
+    reclassifiedUnresolvedRouteCount: 0,
+  });
+  assert.deepEqual(activeState.pendingFamilies, []);
+  assert.equal(activeState.reconciliation.pendingFailedRouteCount, 0);
+  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 0);
+  assert.equal(activeState.reconciliation.nextRepairPosition, null);
+  assert.equal(
+    activeState.reconciliation.nextTask,
+    "PGC-R08-A05_FinalEndToEndReconciliationAndCloseout",
+  );
 });
