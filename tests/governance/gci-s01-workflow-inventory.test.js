@@ -31,6 +31,14 @@ function withoutHistoricalBlobSha(row) {
   return structuralRow;
 }
 
+function hasApprovedPostS01PgcR00Evolution(report) {
+  const row = report.workflows.find(
+    (entry) => entry.workflowId === "pgc-r00-public-generation-scope",
+  );
+  return Boolean(row && [...POST_S01_PGC_R00_PATHS]
+    .every((path) => row.pullRequestPaths.includes(path)));
+}
+
 function normalizeApprovedPostS01WorkflowEvolution(row) {
   const structuralRow = withoutHistoricalBlobSha(row);
   if (structuralRow.workflowId !== "pgc-r00-public-generation-scope") return structuralRow;
@@ -50,22 +58,23 @@ function normalizeApprovedPostS01WorkflowEvolution(row) {
   };
 }
 
-function canonicalizeTriggerMatrix(rows) {
+function canonicalizeTriggerMatrix(rows, stripApprovedA03Paths = false) {
   return rows
-    .map((row) => row.workflowId === "pgc-r00-public-generation-scope"
-      && row.pullRequestPathCount >= POST_S01_PGC_R00_PATHS.size
+    .map((row) => stripApprovedA03Paths
+      && row.workflowId === "pgc-r00-public-generation-scope"
       ? { ...row, pullRequestPathCount: row.pullRequestPathCount - POST_S01_PGC_R00_PATHS.size }
       : row)
     .sort((a, b) => compareCodePoint(a.workflowId, b.workflowId));
 }
 
 function canonicalizeReport(report) {
+  const stripApprovedA03Paths = hasApprovedPostS01PgcR00Evolution(report);
   return {
     ...report,
     workflows: report.workflows
       .map(normalizeApprovedPostS01WorkflowEvolution)
       .sort((a, b) => compareCodePoint(a.file, b.file)),
-    triggerMatrix: canonicalizeTriggerMatrix(report.triggerMatrix),
+    triggerMatrix: canonicalizeTriggerMatrix(report.triggerMatrix, stripApprovedA03Paths),
     sharedPathOverlapMatrix: report.sharedPathOverlapMatrix
       .map((row) => ({ ...row, workflowIds: [...row.workflowIds].sort(compareCodePoint) }))
       .sort((a, b) => compareCodePoint(a.pathPattern, b.pathPattern)),
@@ -107,7 +116,7 @@ test("GCI-S01 committed evidence is exhaustive and deterministic", () => {
   assert.deepEqual(fanout.summary, report.summary);
   assert.deepEqual(
     canonicalizeTriggerMatrix(fanout.triggerMatrix),
-    canonicalizeTriggerMatrix(report.triggerMatrix)
+    canonicalizeTriggerMatrix(report.triggerMatrix, hasApprovedPostS01PgcR00Evolution(report))
   );
   assert.deepEqual(
     fanout.sharedPathOverlapMatrix
