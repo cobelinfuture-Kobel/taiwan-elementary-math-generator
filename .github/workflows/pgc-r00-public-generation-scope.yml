@@ -5,11 +5,9 @@ on:
     paths:
       - "data/curriculum/public-generation/**"
       - "docs/curriculum/output/PGC-R00_authority_boundary_readback.md"
-      - "docs/curriculum/output/PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout.md"
       - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
       - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
       - "tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js"
-      - "tests/curriculum/pgc-r08-a04-a07-final-global-reconciliation.test.js"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs"
       - ".github/workflows/pgc-r00-public-generation-scope.yml"
@@ -35,40 +33,18 @@ jobs:
         run: node --test tests/curriculum/pgc-r00-public-generation-scope.test.js
 
       - name: Full regression
-        shell: bash
-        run: |
-          set -o pipefail
-          set +e
-          mkdir -p tmp/pgc-r08-a04-a07-full-regression
-          npm test 2>&1 | tee tmp/pgc-r08-a04-a07-full-regression/npm-test.log
-          regression_status=${PIPESTATUS[0]}
-          printf '%s\n' "${regression_status}" \
-            > tmp/pgc-r08-a04-a07-full-regression/exit-code.txt
-          exit 0
-
-      - name: Upload full regression evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: pgc-r08-a04-a07-full-regression-${{ github.run_id }}
-          path: tmp/pgc-r08-a04-a07-full-regression
-          if-no-files-found: error
-          retention-days: 14
-
-      - name: Verify full regression
-        shell: bash
-        run: test "$(cat tmp/pgc-r08-a04-a07-full-regression/exit-code.txt)" = "0"
+        run: npm test
 
       - name: Install exact-replay dependencies
         run: npm install --no-audit --no-fund --no-save --package-lock=false playwright
 
-      - name: Focused R08 A05-A07 contracts
+      - name: Focused R08 A05-A06 contracts
         run: >-
           node --test
           tests/curriculum/pgc-r08-a04-a05-regenerate-identity.test.js
           tests/curriculum/pgc-r08-a04-a05-application-alias.test.js
           tests/curriculum/pgc-r08-a04-a05-browser-selector-route.test.js
           tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js
-          tests/curriculum/pgc-r08-a04-a07-final-global-reconciliation.test.js
 
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
