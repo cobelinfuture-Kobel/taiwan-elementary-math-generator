@@ -89,7 +89,7 @@ test("the A02 orthogonal route remains historically transferred and is closed by
   );
 });
 
-test("A02 historical readback remains immutable while active state advances through A06", () => {
+test("A02 historical readback remains immutable while active state advances through A07 D0", () => {
   assert.equal(readback.replaySummary.endToEndPassRouteCount, 179);
   assert.equal(readback.transferredRoutes.length, 1);
   assert.equal(activeState.status, "PASS_ALL_793_LEGAL_ROUTES_CLOSED");
@@ -100,7 +100,8 @@ test("A02 historical readback remains immutable while active state advances thro
   assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 0);
   assert.equal(activeState.reconciliation.pendingFailedRouteCount, 0);
   assert.equal(activeState.reconciliation.nextRepairPosition, 6);
-  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout");
+  assert.equal(activeState.reconciliation.terminal, true);
+  assert.equal(activeState.reconciliation.nextTask, null);
 });
 
 test("A02 runner creates shared output directories and temporary workflow is removed", async () => {
