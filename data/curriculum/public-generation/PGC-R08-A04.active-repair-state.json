@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout",
-  "status": "PASS_R08_D0_ALL_793_LEGAL_ROUTES_CLOSED",
+  "status": "PASS_ALL_793_LEGAL_ROUTES_CLOSED",
   "historicalAuthority": {
     "repairQueueIndex": "data/curriculum/public-generation/PGC-R08-A03.repair-queue.json",
     "immutable": true
@@ -70,9 +70,10 @@
     "capacityReconciliationRouteCount": 38,
     "capacityReconciliationOverlapWithPendingFailureCount": 0,
     "allLegalRoutesConformant": true,
-    "nextRepairPosition": null,
+    "nextRepairPosition": 6,
     "nextTask": null,
     "terminal": true,
+    "terminalStatus": "PASS_R08_D0_ALL_793_LEGAL_ROUTES_CLOSED",
     "d0Status": "PASS_R08_D0"
   }
 }
