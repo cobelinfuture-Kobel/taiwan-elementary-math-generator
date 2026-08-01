@@ -17,6 +17,10 @@ const { createConfigState, getBatchAWorksheetPlan } = await import(
   "../../site/assets/browser/state/config-state.js"
 );
 
+const PLAN_PATH = path.join(
+  ROOT,
+  "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-plan.json",
+);
 const ACTIVE_PATH = path.join(
   ROOT,
   "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
@@ -32,14 +36,43 @@ const A00_PATH = path.join(
 const OUTPUT_DIR = path.join(ROOT, "tmp/pgc-r08-a04-a06-capacity-shortfall");
 const OUTPUT_PATH = path.join(OUTPUT_DIR, "diagnostic.json");
 
+const plan = JSON.parse(await readFile(PLAN_PATH, "utf8"));
 const active = JSON.parse(await readFile(ACTIVE_PATH, "utf8"));
-const family = active.pendingFamilies.find(
-  (entry) => entry.failureFamily === "CAPACITY_EVIDENCE_RECONCILIATION",
-);
-if (!family || family.activeShortfallOverlayCount !== 3) {
-  throw new Error("PGC_R08_A06_ACTIVE_SHORTFALL_AUTHORITY_INVALID");
+
+function materializedPlanTargets() {
+  const routeIds = Array.isArray(plan.targetRouteIds) ? plan.targetRouteIds.filter(Boolean) : [];
+  if (
+    Number.isInteger(plan.targetRouteCount)
+    && routeIds.length === plan.targetRouteCount
+    && new Set(routeIds).size === plan.targetRouteCount
+  ) {
+    return {
+      routeIds,
+      origin: "a06_materialized_closeout_authority",
+    };
+  }
+  return null;
 }
-const targetRouteIds = family.overlayRows.map((row) => row.routeId);
+
+function activeFamilyTargets() {
+  const family = active.pendingFamilies.find(
+    (entry) => entry.failureFamily === "CAPACITY_EVIDENCE_RECONCILIATION",
+  );
+  if (!family || family.activeShortfallOverlayCount !== 3 || family.overlayRows?.length !== 3) {
+    throw new Error("PGC_R08_A06_ACTIVE_SHORTFALL_AUTHORITY_INVALID");
+  }
+  const routeIds = family.overlayRows.map((row) => row.routeId).filter(Boolean);
+  if (routeIds.length !== 3 || new Set(routeIds).size !== 3) {
+    throw new Error("PGC_R08_A06_ACTIVE_SHORTFALL_ROUTE_IDENTITY_INVALID");
+  }
+  return {
+    routeIds,
+    origin: "a06_active_pending_family_authority",
+  };
+}
+
+const targetAuthority = materializedPlanTargets() ?? activeFamilyTargets();
+const targetRouteIds = targetAuthority.routeIds;
 const capacityRaw = await readFile(CAPACITY_PATH, "utf8");
 const capacity = JSON.parse(capacityRaw);
 const a00 = JSON.parse(await readFile(A00_PATH, "utf8"));
@@ -126,11 +159,13 @@ function summarizeQueryStatePipeline(options) {
 
 const rows = [];
 for (const routeId of targetRouteIds) {
-  const matrixRow = matrix.rows.find((row) => row.routeId === routeId);
-  const capacityRoute = capacity.routes.find((row) => row.routeId === routeId);
-  if (!matrixRow || !capacityRoute) {
-    throw new Error(`PGC_R08_A06_ROUTE_NOT_FOUND:${routeId}`);
+  const matrixMatches = matrix.rows.filter((row) => row.routeId === routeId);
+  const capacityMatches = capacity.routes.filter((row) => row.routeId === routeId);
+  if (matrixMatches.length !== 1 || capacityMatches.length !== 1) {
+    throw new Error(`PGC_R08_A06_ROUTE_IDENTITY_DRIFT:${routeId}`);
   }
+  const matrixRow = matrixMatches[0];
+  const capacityRoute = capacityMatches[0];
   const exact = enrichBrowserRowWithExactPatternGroups(matrixRow);
   const baseOptions = {
     sourceId: exact.sourceId,
@@ -147,25 +182,13 @@ for (const routeId of targetRouteIds) {
     rowsPerPage: 5,
   };
   const seedCases = [
-    {
-      label: "a06_a",
-      generationSeed: `pgc-r08-a06-${routeId}-seed-a`,
-    },
-    {
-      label: "a06_b",
-      generationSeed: `pgc-r08-a06-${routeId}-seed-b`,
-    },
-    {
-      label: "exact_browser",
-      generationSeed: `pgc-r08-a04-a04-${matrixRow.routeIndex}`,
-    },
+    { label: "a06_a", generationSeed: `pgc-r08-a06-${routeId}-seed-a` },
+    { label: "a06_b", generationSeed: `pgc-r08-a06-${routeId}-seed-b` },
+    { label: "exact_browser", generationSeed: `pgc-r08-a04-a04-${matrixRow.routeIndex}` },
   ];
   const generations = [];
   for (const seedCase of seedCases) {
-    const options = {
-      ...baseOptions,
-      generationSeed: seedCase.generationSeed,
-    };
+    const options = { ...baseOptions, generationSeed: seedCase.generationSeed };
     const result = generateBatchABrowserQuestions(options);
     const pipeline = buildWorksheetDocumentFromPlan(options);
     generations.push({
@@ -198,13 +221,14 @@ for (const routeId of targetRouteIds) {
 const report = {
   schemaName: "PGCR08A04A06CapacityShortfallDiagnosticV1",
   schemaVersion: 1,
-  programId: active.programId,
-  taskId: "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
+  programId: plan.programId ?? active.programId,
+  taskId: plan.taskId ?? "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
   status: "PASS_DIAGNOSTIC_MATERIALIZED",
+  targetAuthorityOrigin: targetAuthority.origin,
   targetRouteCount: rows.length,
   targetRouteIds,
-  historicalReconciliationRouteCount: family.historicalReconciliationRouteCount,
-  activeShortfallOverlayCount: family.activeShortfallOverlayCount,
+  historicalReconciliationRouteCount: active.reconciliation?.capacityReconciliationRouteCount ?? null,
+  activeShortfallOverlayCount: plan.targetRouteCount,
   rows,
 };
 
@@ -212,6 +236,7 @@ await mkdir(OUTPUT_DIR, { recursive: true });
 await writeFile(OUTPUT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 console.log(JSON.stringify({
   status: report.status,
+  targetAuthorityOrigin: report.targetAuthorityOrigin,
   targetRouteCount: report.targetRouteCount,
   routes: rows.map((row) => ({
     routeId: row.routeId,

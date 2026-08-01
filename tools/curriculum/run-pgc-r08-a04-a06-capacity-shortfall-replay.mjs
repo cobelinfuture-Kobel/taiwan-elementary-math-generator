@@ -11,6 +11,10 @@ import { wrapBrowserWithDisabledCurrentValueSelectionPolicy } from "./pgc-r08-br
 import { wrapBrowserWithQuestionTypeStateBootstrap } from "./pgc-r08-question-type-state-bootstrap.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const PLAN = JSON.parse(await readFile(path.join(
+  ROOT,
+  "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-plan.json",
+), "utf8"));
 const ACTIVE = JSON.parse(await readFile(path.join(
   ROOT,
   "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
@@ -22,11 +26,51 @@ const CORE_OUT = path.join(ROOT, "tmp/pgc-r08-a03-all-legal-routes");
 const ORIGIN = "http://127.0.0.1:4196";
 const fail = (code, details = {}) => { const error = new Error(code); error.details = details; throw error; };
 
-const family = ACTIVE.pendingFamilies.find(
-  (entry) => entry.failureFamily === "CAPACITY_EVIDENCE_RECONCILIATION",
-);
-if (!family || family.activeShortfallOverlayCount !== 3 || family.overlayRows?.length !== 3) {
-  fail("PGC_R08_A06_ACTIVE_SHORTFALL_AUTHORITY_INVALID");
+function materializedPlanTargets() {
+  const routeIds = Array.isArray(PLAN.targetRouteIds) ? PLAN.targetRouteIds.filter(Boolean) : [];
+  if (
+    Number.isInteger(PLAN.targetRouteCount)
+    && routeIds.length === PLAN.targetRouteCount
+    && new Set(routeIds).size === PLAN.targetRouteCount
+  ) {
+    return {
+      rows: routeIds.map((routeId) => ({
+        routeId,
+        routeIndex: null,
+        origin: "a06_materialized_closeot_authority",
+      })),
+      origin: "a06_materialized_closeot_authority",
+    };
+  }
+  return null;
+}
+
+function activeFamilyTargets() {
+  const family = ACTIVE.pendingFamilies.find(
+    (entry) => entry.failureFamily === "CAPACITY_EVIDENCE_RECONCILIATION",
+  );
+  if (!family || family.activeShortfallOverlayCount !== 3 || family.overlayRows?.length !== 3) {
+    fail("PGC_R08_A06_ACTIVE_SHORTFALL_AUTHORITY_INVALID");
+  }
+  return {
+    rows: family.overlayRows.map((overlay) => ({
+      routeId: overlay.routeId,
+      routeIndex: overlay.routeIndex,
+      origin: "a06_active_pending_family_authority",
+    })),
+    origin: "a06_active_pending_family_authority",
+  };
+}
+
+const targetAuthority = materializedPlanTargets() ?? activeFamilyTargets();
+if (
+  targetAuthority.rows.length !== PLAN.targetRouteCount
+  || new Set(targetAuthority.rows.map((row) => row.routeId)).size !== PLAN.targetRouteCount
+) {
+  fail("PGC_R08_A06_TARGET_COUNT_DRIFT", {
+    expected: PLAN.targetRouteCount,
+    actual: targetAuthority.rows.length,
+  });
 }
 
 async function waitForServer() {
@@ -41,14 +85,15 @@ const capacityRaw = await readFile(CAPACITY_PATH, "utf8");
 const capacity = JSON.parse(capacityRaw);
 const a00 = JSON.parse(await readFile(A00_PATH, "utf8"));
 const matrix = materializeMatrix(capacity, a00, capacityRaw);
-const targets = family.overlayRows.map((overlay) => {
+const targets = targetAuthority.rows.map((target) => {
   const matches = matrix.rows.filter((row) => (
-    row.routeId === overlay.routeId && row.routeIndex === overlay.routeIndex
+    row.routeId === target.routeId
+    && (target.routeIndex === null || row.routeIndex === target.routeIndex)
   ));
   if (matches.length !== 1) {
     fail("PGC_R08_A06_ROUTE_IDENTITY_DRIFT", {
-      routeId: overlay.routeId,
-      routeIndex: overlay.routeIndex,
+      routeId: target.routeId,
+      routeIndex: target.routeIndex,
       matchCount: matches.length,
     });
   }
@@ -93,11 +138,12 @@ try {
   const report = {
     schemaName: "PGCR08A04A06CapacityShortfallReplayReportV1",
     schemaVersion: 1,
-    programId: ACTIVE.programId,
-    taskId: "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
+    programId: PLAN.programId ?? ACTIVE.programId,
+    taskId: PLAN.taskId ?? "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
     status: failed.length === 0
       ? "PASS_CAPACITY_SHORTFALL_3_OF_3"
       : "FAIL_CAPACITY_SHORTFALL_RESIDUAL_NONZERO",
+    targetAuthorityOrigin: targetAuthority.origin,
     summary: {
       targetRouteCount: targets.length,
       terminalRouteCount: results.length,
@@ -133,11 +179,17 @@ try {
   await writeFile(path.join(OUT, "bootstrap-events.json"), `${JSON.stringify(bootstrapEvents, null, 2)}\n`);
   await writeFile(path.join(OUT, "binder-events.json"), `${JSON.stringify(binderEvents, null, 2)}\n`);
   await writeFile(path.join(OUT, "control-events.json"), `${JSON.stringify(controlEvents, null, 2)}\n`);
-  console.log(JSON.stringify({ status: report.status, summary: report.summary }, null, 2));
+  console.log(JSON.stringify({
+    status: report.status,
+    targetAuthorityOrigin: report.targetAuthorityOrigin,
+    summary: report.summary,
+  }, null, 2));
 
   if (
-    report.summary.terminalRouteCount !== 3
-    || report.summary.fullNineGatePassCount !== 3
+    report.summary.terminalRouteCount !== PLAN.acceptance.terminalRouteCount
+    || report.summary.fullNineGatePassCount !== PLAN.acceptance.fullNineGatePassCount
+    || report.summary.questionCountPassCount !== PLAN.acceptance.questionCountPassCount
+    || report.summary.generateButtonPassCount !== PLAN.acceptance.generateButtonPassCount
     || report.summary.failedRouteCount !== 0
     || report.summary.browserConsoleErrorCount !== 0
     || report.summary.browserPageErrorCount !== 0
