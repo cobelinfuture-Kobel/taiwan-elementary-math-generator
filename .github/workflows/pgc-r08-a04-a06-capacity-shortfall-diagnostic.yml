@@ -5,6 +5,8 @@ on:
     paths:
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs"
+      - "tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js"
+      - "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-plan.json"
       - ".github/workflows/pgc-r08-a04-a06-capacity-shortfall-diagnostic.yml"
       - "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json"
   workflow_dispatch:
@@ -25,6 +27,9 @@ jobs:
         with:
           node-version: 24
 
+      - name: Focused A06 shared consumer contract
+        run: node --test tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js
+
       - name: Materialize exact three-route diagnostic
         run: node tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs
 
@@ -35,7 +40,16 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Replay exact three capacity-shortfall routes
-        run: node tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          set +e
+          node tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs \
+            2>&1 | tee tmp/pgc-r08-a04-a06-capacity-shortfall/exact-replay.log
+          replay_status=${PIPESTATUS[0]}
+          printf '%s\n' "${replay_status}" \
+            > tmp/pgc-r08-a04-a06-capacity-shortfall/exit-code.txt
+          exit 0
 
       - name: Upload diagnostic evidence
         uses: actions/upload-artifact@v4
@@ -46,3 +60,7 @@ jobs:
             tmp/pgc-r08-a03-all-legal-routes/failures
           if-no-files-found: error
           retention-days: 7
+
+      - name: Verify exact three-route replay
+        shell: bash
+        run: test "$(cat tmp/pgc-r08-a04-a06-capacity-shortfall/exit-code.txt)" = "0"
