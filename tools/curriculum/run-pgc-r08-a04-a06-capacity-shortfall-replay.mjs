@@ -55,10 +55,7 @@ const targets = family.overlayRows.map((overlay) => {
   return enrichBrowserRowWithExactPatternGroups(matches[0]);
 });
 
-await Promise.all([
-  rm(OUT, { recursive: true, force: true }),
-  rm(CORE_OUT, { recursive: true, force: true }),
-]);
+await rm(CORE_OUT, { recursive: true, force: true });
 await Promise.all([
   mkdir(OUT, { recursive: true }),
   mkdir(path.join(CORE_OUT, "samples"), { recursive: true }),
