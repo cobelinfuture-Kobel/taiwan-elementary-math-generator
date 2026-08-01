@@ -1,0 +1,77 @@
+{
+  "schemaName": "PGCR08A04A06CapacityShortfallReadbackV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
+  "status": "PASS_CODE_FULL_REGRESSION_AND_EXACT_3_ROUTE_REPLAY",
+  "planPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-plan.json",
+  "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "targetRouteCount": 3,
+  "targetRouteIds": [
+    "pgc_r03_g5a_u03_5a03a_application_3da6082c4117",
+    "pgc_r03_g5a_u03_5a03a1_application_1676399731c4",
+    "pgc_r03_g6a_u01_6a01_application_3319cf21ddf0"
+  ],
+  "workflowEvidence": {
+    "workflowName": "PGC-R00 Public Generation Scope Freeze",
+    "singleJobName": "scope-freeze",
+    "workflowRunId": 30678331686,
+    "workflowJobId": 91310045631,
+    "validatedContentHeadSha": "5291b4b76afac35fb5d11f93d335b829acd6edf3",
+    "artifactId": 8811336066,
+    "artifactDigest": "sha256:80344fb38e2539bf7e1c99ceaf364b2e87bc8a76dfd3f730f445ed1299c490be"
+  },
+  "nodeEvidence": {
+    "workflowRunId": 30678331706,
+    "workflowJobId": 91310082587,
+    "diagnosticArtifactId": 8811336465,
+    "diagnosticArtifactDigest": "sha256:431d25b4dc2584dc5ffa12db074f9f3e16f1bcc4ad48be26078b0fec4cf2ced7"
+  },
+  "fullRegression": {
+    "tests": 2796,
+    "pass": 2796,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "exactReplay": {
+    "targetRouteCount": 3,
+    "terminalRouteCount": 3,
+    "fullNineGatePassCount": 3,
+    "failedRouteCount": 0,
+    "questionCountPassCount": 3,
+    "generateButtonPassCount": 3,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "bootstrapEventCount": 3,
+    "binderEventCount": 21,
+    "controlEventCount": 9
+  },
+  "repairSummary": {
+    "classicSelectionProjection": "Classic default-expanded base PatternGroups project to production-admitted W1 application groups before current-router generation",
+    "currentRouterQuestionAuthority": "All three routes consume the current Batch A browser router at twenty questions",
+    "applicationAdmission": "Every generated question passes existing W1 global-context application admission",
+    "capacityAuthority": "Unchanged"
+  },
+  "invariants": {
+    "selectedKnowledgePointsPreserved": true,
+    "requestedQuestionCountPreserved": true,
+    "answersPreserved": true,
+    "capacityAuthorityMutated": false,
+    "generatorRuntimeMutated": false,
+    "validatorMutated": false,
+    "rendererMutated": false,
+    "perRoutePatchUsed": false
+  },
+  "routeStateDelta": {
+    "cumulativePassRouteCountBefore": 790,
+    "cumulativePassRouteCountAfter": 793,
+    "unresolvedFailedRouteCountBefore": 3,
+    "unresolvedFailedRouteCountAfter": 0,
+    "closedOriginalFailureRouteCountBefore": 326,
+    "closedOriginalFailureRouteCountAfter": 327,
+    "reclassifiedUnresolvedRouteCountBefore": 3,
+    "reclassifiedUnresolvedRouteCountAfter": 0
+  },
+  "nextTask": "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout"
+}

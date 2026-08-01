@@ -1,0 +1,81 @@
+{
+  "schemaName": "PGCR08A04A06CapacityShortfallPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
+  "status": "PASS_CAPACITY_SHORTFALL_3_OF_3",
+  "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "capacityAuthorityPath": "data/curriculum/public-generation/generator_capacity_contract.json",
+  "routeMatrixAuthorityPath": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+  "targetRouteCount": 3,
+  "targetRouteIds": [
+    "pgc_r03_g5a_u03_5a03a_application_3da6082c4117",
+    "pgc_r03_g5a_u03_5a03a1_application_1676399731c4",
+    "pgc_r03_g6a_u01_6a01_application_3319cf21ddf0"
+  ],
+  "rootCause": {
+    "classification": "CLASSIC_DEFAULT_PATTERN_GROUP_EXPANSION_BEFORE_W1_APPLICATION_ADMISSION",
+    "evidence": {
+      "directRouterQuestionCount": 20,
+      "queryStatePipelineQuestionCount": 20,
+      "classicExpandedPatternGroupCounts": [
+        7,
+        5,
+        5
+      ],
+      "productionAdmittedPatternGroupCounts": [
+        4,
+        3,
+        2
+      ],
+      "preRepairProjectedQuestionCounts": [
+        11,
+        12,
+        8
+      ],
+      "preRepairFailureCode": "P01E_APPLICATION_COVERAGE_INCOMPLETE"
+    }
+  },
+  "repairContract": {
+    "sharedW1ApplicationConsumerRepairRequired": true,
+    "currentRouterQuestionAuthorityRequired": true,
+    "legacyWorksheetLayoutAuthorityPreserved": true,
+    "applicationAdmissionRequiredForEveryQuestion": true,
+    "capacityAuthorityMutationAllowed": false,
+    "generatorRuntimeMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "perRoutePatchAllowed": false,
+    "productMutationScope": [
+      "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
+    ],
+    "classicDefaultPatternGroupProjectionRequired": true,
+    "productionAdmittedApplicationGroupsOnly": true,
+    "knowledgePointSelectionPreserved": true,
+    "questionCountPreserved": true
+  },
+  "acceptance": {
+    "terminalRouteCount": 3,
+    "fullNineGatePassCount": 3,
+    "questionCountPassCount": 3,
+    "generateButtonPassCount": 3,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "fullRegression": {
+      "tests": 2796,
+      "pass": 2796,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "workflowRunId": 30678331686,
+    "workflowJobId": 91310045631,
+    "nodeWorkflowRunId": 30678331706,
+    "nodeWorkflowJobId": 91310082587,
+    "validatedContentHeadSha": "5291b4b76afac35fb5d11f93d335b829acd6edf3",
+    "artifactId": 8811336066,
+    "artifactDigest": "sha256:80344fb38e2539bf7e1c99ceaf364b2e87bc8a76dfd3f730f445ed1299c490be",
+    "evidenceFinalized": true
+  },
+  "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-readback.json"
+}
