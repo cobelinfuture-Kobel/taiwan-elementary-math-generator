@@ -130,16 +130,30 @@ for (const routeId of targetRouteIds) {
     depthMode: exact.depthMode,
     contextMode: exact.contextMode,
   };
+  const seedCases = [
+    {
+      label: "a06_a",
+      generationSeed: `pgc-r08-a06-${routeId}-seed-a`,
+    },
+    {
+      label: "a06_b",
+      generationSeed: `pgc-r08-a06-${routeId}-seed-b`,
+    },
+    {
+      label: "exact_browser",
+      generationSeed: `pgc-r08-a04-a04-${matrixRow.routeIndex}`,
+    },
+  ];
   const generations = [];
-  for (const suffix of ["a", "b"]) {
+  for (const seedCase of seedCases) {
     const options = {
       ...baseOptions,
-      generationSeed: `pgc-r08-a06-${routeId}-seed-${suffix}`,
+      generationSeed: seedCase.generationSeed,
     };
     const result = generateBatchABrowserQuestions(options);
     const pipeline = buildWorksheetDocumentFromPlan(options);
     generations.push({
-      suffix,
+      label: seedCase.label,
       options,
       ok: result.ok,
       errors: result.errors ?? [],
@@ -187,6 +201,7 @@ console.log(JSON.stringify({
     verifiedMaxQuestionCount: row.capacityRoute.verifiedMaxQuestionCount,
     capacityStatus: row.capacityRoute.capacityStatus,
     uiSelectablePatternGroupIds: row.exactPatternGroups.uiSelectablePatternGroupIds,
+    generationLabels: row.generations.map((entry) => entry.label),
     generatedCounts: row.generations.map((entry) => entry.questions.count),
     directOk: row.generations.map((entry) => entry.ok),
     pipelineOk: row.generations.map((entry) => entry.finalPipeline.ok),
