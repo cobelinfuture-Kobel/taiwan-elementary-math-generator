@@ -1,0 +1,199 @@
+{
+  "schemaName": "PGCR09A00D0CloseoutPreflightAndCanonicalAcceptanceMatrixV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "epicId": "PGC-R09_PublicGenerationD0Closeout",
+  "taskId": "PGC-R09-A00_D0CloseoutPreflightAndCanonicalAcceptanceMatrix",
+  "status": "PASS_R09_A00_CANONICAL_D0_ACCEPTANCE_MATRIX_FROZEN",
+  "purpose": "Freeze one canonical R09 D0 acceptance matrix from the already-merged R00-R08 authorities before any new terminal artifact execution.",
+  "authority": {
+    "publicScopePath": "data/curriculum/public-generation/public_generation_scope.json",
+    "publicScopeSha": "ead7a25619911cdf312bf854b033f0f2e8841759",
+    "capabilityMatrixPath": "data/curriculum/public-generation/public_generation_capability_matrix.json",
+    "capabilityMatrixSha": "7d63367509c71a42049736cd045155970364aa69",
+    "capacityContractPath": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "capacityContractSha": "8c394534bfc8457fb4b9f7774ff40da10007f9e3",
+    "r07CloseoutPath": "data/curriculum/public-generation/PGC-R07-A05.final-surface-parity-closeout.json",
+    "r07CloseoutSha": "dd2bdea12afb70e2567c3c9b2796476c51c89a17",
+    "r08ScopePath": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+    "r08FinalReconciliationPath": "data/curriculum/public-generation/PGC-R08-A04-A07.final-global-reconciliation.json"
+  },
+  "preflightSnapshot": {
+    "publicSourceRegistryCount": 26,
+    "canonicalCapabilitySourceCount": 20,
+    "canonicalKnowledgePointCount": 165,
+    "canonicalPatternGroupCount": 236,
+    "canonicalPatternSpecCount": 245,
+    "capacityRouteCount": 1155,
+    "legalRouteCount": 793,
+    "illegalRouteCount": 362,
+    "r08FinalConformantLegalRouteCount": 793,
+    "r08FinalFailedLegalRouteCount": 0,
+    "r08ClosedOriginalFailureRouteCount": 327,
+    "r08PendingFailureFamilyCount": 0,
+    "r07SurfaceProjectionPassCount": 12,
+    "r07RendererBranchPassCount": 4,
+    "r07RealChromiumPdfCount": 14,
+    "r07RepairQueueCount": 0,
+    "slice014Started": false,
+    "slice014FreezeRequiredThrough": "PGC-R09_PublicGenerationD0Closeout"
+  },
+  "canonicalAcceptanceMatrix": [
+    {
+      "gateId": "AUTHORITY_IDENTITY",
+      "category": "AUTHORITY",
+      "requirement": "R09 consumes the frozen public scope, capability matrix and capacity contract without replacing or broadening them.",
+      "evidenceSource": "R00/R08 authority paths and blob identities",
+      "executionOwner": "R09_A00_AND_FINAL_RECONCILIATION",
+      "statusAtA00": "FROZEN"
+    },
+    {
+      "gateId": "R08_ROUTE_CONFORMANCE",
+      "category": "ROUTE_CONFORMANCE",
+      "requirement": "All 793 legal routes remain conformant with zero pending route and zero pending failure family.",
+      "evidenceSource": "PGC-R08-A04-A07.final-global-reconciliation.json",
+      "executionOwner": "R09_FINAL_RECONCILIATION",
+      "statusAtA00": "PRECONDITION_PASS"
+    },
+    {
+      "gateId": "PUBLIC_UI_CAPABILITY_PARITY",
+      "category": "UI_RUNTIME_PARITY",
+      "requirement": "Every publicly offered legal capability remains executable and unsupported combinations remain unavailable to the public UI.",
+      "evidenceSource": "R08 legal-route browser conformance plus current public control authority",
+      "executionOwner": "R09_PRODUCT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_TERMINAL_REPLAY"
+    },
+    {
+      "gateId": "SINGLE_GENERATION_PATH",
+      "category": "PIPELINE_AUTHORITY",
+      "requirement": "Public generation continues through one canonical worksheet pipeline, shared generator route and shared validator route; no second business path is admitted.",
+      "evidenceSource": "public_generation_scope.json",
+      "executionOwner": "R09_PRODUCT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_READBACK"
+    },
+    {
+      "gateId": "QUESTION_COUNT_CAPACITY",
+      "category": "CAPACITY",
+      "requirement": "Question-count controls remain valid through the hard ceiling of 20 and generation may not silently underfill or downgrade an admitted route.",
+      "evidenceSource": "generator_capacity_contract.json and R08 A00 acceptance contract",
+      "executionOwner": "R09_PRODUCT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_TERMINAL_REPLAY"
+    },
+    {
+      "gateId": "SEMANTIC_VALIDATION",
+      "category": "VALIDATION",
+      "requirement": "Generated questions pass the admitted semantic and answer validators for their selected capability.",
+      "evidenceSource": "R08 nine-gate route acceptance contract",
+      "executionOwner": "R09_PRODUCT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_TERMINAL_REPLAY"
+    },
+    {
+      "gateId": "ANSWER_KEY_COVERAGE",
+      "category": "ANSWER_KEY",
+      "requirement": "Every generated question has a corresponding answer-key item with preserved question-answer identity.",
+      "evidenceSource": "R07 surface closeout and R08 answer-key gate",
+      "executionOwner": "R09_ARTIFACT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_REAL_ARTIFACT"
+    },
+    {
+      "gateId": "HTML_DOCUMENT_FIDELITY",
+      "category": "HTML",
+      "requirement": "Real public HTML preserves title, metadata, question content and worksheet structure from the canonical WorksheetDocument.",
+      "evidenceSource": "R07 surface parity and R08 HTML gate",
+      "executionOwner": "R09_ARTIFACT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_REAL_ARTIFACT"
+    },
+    {
+      "gateId": "PDF_PRINT_FIDELITY",
+      "category": "PDF_PRINT",
+      "requirement": "Real browser PDF/print output preserves worksheet structure without overflow, clipping, question overlap, missing answers or abnormal blank pages.",
+      "evidenceSource": "PGC-R07-A05.final-surface-parity-closeout.json",
+      "executionOwner": "R09_ARTIFACT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_REAL_ARTIFACT"
+    },
+    {
+      "gateId": "LINEAGE_PERSISTENCE",
+      "category": "LINEAGE",
+      "requirement": "Terminal artifacts retain persistent lineage back to selected public capability state and generated worksheet identity.",
+      "evidenceSource": "R08 A00 acceptance contract",
+      "executionOwner": "R09_ARTIFACT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_REAL_ARTIFACT"
+    },
+    {
+      "gateId": "DETERMINISM_AND_REGENERATE",
+      "category": "IDENTITY",
+      "requirement": "Same-seed generation remains deterministic while regenerate semantics remain valid for the selected mode.",
+      "evidenceSource": "R08 A05 exact replay and R08 A00 acceptance contract",
+      "executionOwner": "R09_PRODUCT_ACCEPTANCE",
+      "statusAtA00": "REQUIRES_TERMINAL_REPLAY"
+    },
+    {
+      "gateId": "FULL_REPOSITORY_REGRESSION",
+      "category": "REGRESSION",
+      "requirement": "The exact R09 candidate head passes the full repository regression with no pre-existing-error exemption.",
+      "evidenceSource": "R08 A00 acceptance contract",
+      "executionOwner": "R09_FINAL_RECONCILIATION",
+      "statusAtA00": "NOT_YET_EXECUTED"
+    },
+    {
+      "gateId": "REAL_ARTIFACT_ARCHIVE",
+      "category": "ARCHIVE",
+      "requirement": "R09 terminal acceptance preserves real HTML/PDF/browser evidence as immutable CI artifacts or committed readback references.",
+      "evidenceSource": "R07/R08 evidence pattern and R09 D0 objective",
+      "executionOwner": "R09_ARTIFACT_ACCEPTANCE",
+      "statusAtA00": "NOT_YET_EXECUTED"
+    },
+    {
+      "gateId": "PRODUCT_STATUS_REDETERMINATION",
+      "category": "PRODUCT_STATUS",
+      "requirement": "R09 re-determines the Public Generation product state from terminal evidence rather than inheriting an R08 label.",
+      "evidenceSource": "PGC-R09 program objective",
+      "executionOwner": "R09_FINAL_RECONCILIATION",
+      "statusAtA00": "NOT_YET_EXECUTED"
+    },
+    {
+      "gateId": "SLICE014_RELEASE",
+      "category": "QUEUE_RELEASE",
+      "requirement": "Slice014 remains frozen until every R09 D0 gate is terminal PASS and the R09 closeout is merged to main.",
+      "evidenceSource": "public_generation_scope.json and R08 A00 scope freeze",
+      "executionOwner": "R09_FINAL_RECONCILIATION",
+      "statusAtA00": "FROZEN"
+    }
+  ],
+  "a00Boundary": {
+    "browserMatrixExecutionAllowed": false,
+    "newRealArtifactGenerationAllowed": false,
+    "productRuntimeMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "knowledgePointMutationAllowed": false,
+    "patternGroupMutationAllowed": false,
+    "patternSpecMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "slice014Allowed": false,
+    "batchExpansionAllowed": false
+  },
+  "a00Gate": {
+    "r07D0PrerequisitePresent": true,
+    "r08D0PrerequisitePresent": true,
+    "canonicalAuthoritySetFrozen": true,
+    "routeClosurePreconditionPass": true,
+    "acceptanceMatrixMaterialized": true,
+    "terminalEvidenceNotFabricated": true,
+    "slice014StillFrozen": true
+  },
+  "goalDistance": {
+    "before": "D1_R08_ROUTE_CONFORMANCE_D0_CLOSED_R09_PRODUCT_D0_UNPROVEN",
+    "after": "D1_R09_CANONICAL_D0_ACCEPTANCE_MATRIX_FROZEN",
+    "distanceReduced": "Converted the merged R00-R08 authority chain into one bounded R09 terminal acceptance contract without rerunning or weakening prior evidence.",
+    "remainingBlockers": [
+      "R09_TERMINAL_PRODUCT_ACCEPTANCE_NOT_EXECUTED",
+      "R09_REAL_ARTIFACT_ARCHIVE_NOT_MATERIALIZED",
+      "R09_EXACT_HEAD_FULL_REGRESSION_NOT_RECORDED",
+      "R09_PRODUCT_STATUS_NOT_REDETERMINED"
+    ],
+    "nextShortestStep": "PGC-R09-A01_CanonicalPublicProductAndArtifactAcceptanceExecution"
+  },
+  "nextTask": "PGC-R09-A01_CanonicalPublicProductAndArtifactAcceptanceExecution"
+}
