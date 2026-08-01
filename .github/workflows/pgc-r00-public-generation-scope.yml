@@ -5,7 +5,11 @@ on:
     paths:
       - "data/curriculum/public-generation/**"
       - "docs/curriculum/output/PGC-R00_authority_boundary_readback.md"
+      - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
       - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
+      - "tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js"
+      - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs"
+      - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs"
       - ".github/workflows/pgc-r00-public-generation-scope.yml"
   workflow_dispatch:
 
@@ -34,12 +38,13 @@ jobs:
       - name: Install exact-replay dependencies
         run: npm install --no-audit --no-fund --no-save --package-lock=false playwright
 
-      - name: Focused regenerate-identity contract
+      - name: Focused R08 A05-A06 contracts
         run: >-
           node --test
           tests/curriculum/pgc-r08-a04-a05-regenerate-identity.test.js
           tests/curriculum/pgc-r08-a04-a05-application-alias.test.js
           tests/curriculum/pgc-r08-a04-a05-browser-selector-route.test.js
+          tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js
 
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
@@ -57,7 +62,7 @@ jobs:
             > tmp/pgc-r08-a04-a05-regenerate-identity/exit-code.txt
           exit 0
 
-      - name: Upload replay evidence
+      - name: Upload A05 replay evidence
         uses: actions/upload-artifact@v4
         with:
           name: pgc-r08-a04-a05-regenerate-identity-${{ github.run_id }}
@@ -70,3 +75,32 @@ jobs:
       - name: Verify exact ten-route browser replay
         shell: bash
         run: test "$(cat tmp/pgc-r08-a04-a05-regenerate-identity/exit-code.txt)" = "0"
+
+      - name: Materialize A06 exact three-route diagnostic
+        run: node tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs
+
+      - name: Exact three-route capacity replay
+        shell: bash
+        run: |
+          set -o pipefail
+          set +e
+          node tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs \
+            2>&1 | tee tmp/pgc-r08-a04-a06-capacity-shortfall/exact-replay.log
+          replay_status=${PIPESTATUS[0]}
+          printf '%s\n' "${replay_status}" \
+            > tmp/pgc-r08-a04-a06-capacity-shortfall/exit-code.txt
+          exit 0
+
+      - name: Upload A06 replay evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r08-a04-a06-capacity-shortfall-${{ github.run_id }}
+          path: |
+            tmp/pgc-r08-a04-a06-capacity-shortfall
+            tmp/pgc-r08-a03-all-legal-routes/failures
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Verify exact three-route capacity replay
+        shell: bash
+        run: test "$(cat tmp/pgc-r08-a04-a06-capacity-shortfall/exit-code.txt)" = "0"
