@@ -75,7 +75,7 @@
     "validatedContentHeadSha": "5291b4b76afac35fb5d11f93d335b829acd6edf3",
     "artifactId": 8811336066,
     "artifactDigest": "sha256:80344fb38e2539bf7e1c99ceaf364b2e87bc8a76dfd3f730f445ed1299c490be",
-    "evidenceFinalized": false
+    "evidenceFinalized": true
   },
   "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-readback.json"
 }
