@@ -8,6 +8,7 @@ import { executeRoute, GATE_CODES } from "./pgc-r08-a03-browser-harness-core.mjs
 import { enrichBrowserRowWithExactPatternGroups } from "./pgc-r08-exact-pattern-group-authority.mjs";
 import { wrapBrowserWithExactPatternGroupBinder } from "./pgc-r08-exact-pattern-group-binder.mjs";
 import { wrapBrowserWithDisabledCurrentValueSelectionPolicy } from "./pgc-r08-browser-control-selection-policy.mjs";
+import { wrapBrowserWithQuestionTypeStateBootstrap } from "./pgc-r08-question-type-state-bootstrap.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PLAN_PATH = path.join(ROOT, "data/curriculum/public-generation/PGC-R08-A03.all-legal-route-browser-execution-plan.json");
@@ -91,27 +92,47 @@ function selectShardSampleRepresentatives(shards, passedRows) {
   });
 }
 
-function convergedBrowser(browser, row, binderEvents, controlEvents) {
+function convergedBrowser(browser, row, binderEvents, controlEvents, bootstrapEvents) {
   const exactBrowser = wrapBrowserWithExactPatternGroupBinder(browser, row, {
     onDisposition: (event) => binderEvents.push(event),
   });
-  return wrapBrowserWithDisabledCurrentValueSelectionPolicy(exactBrowser, {
+  const controlBrowser = wrapBrowserWithDisabledCurrentValueSelectionPolicy(exactBrowser, {
     onDisposition: (event) => controlEvents.push(event),
+  });
+  return wrapBrowserWithQuestionTypeStateBootstrap(controlBrowser, row, {
+    onDisposition: (event) => bootstrapEvents.push(event),
   });
 }
 
-async function executeConvergedRoute(browser, row, binderEvents, controlEvents) {
-  return executeRoute(convergedBrowser(browser, row, binderEvents, controlEvents), row);
+async function executeConvergedRoute(browser, row, binderEvents, controlEvents, bootstrapEvents) {
+  return executeRoute(
+    convergedBrowser(browser, row, binderEvents, controlEvents, bootstrapEvents),
+    row,
+  );
 }
 
-async function captureShardSamples(browser, authorityRows, shards, passedRows, binderEvents, controlEvents) {
+async function captureShardSamples(
+  browser,
+  authorityRows,
+  shards,
+  passedRows,
+  binderEvents,
+  controlEvents,
+  bootstrapEvents,
+) {
   const representatives = selectShardSampleRepresentatives(shards, passedRows);
   const sampleEvidence = [];
   for (const representative of representatives) {
     const authorityRow = authorityRows.find((row) => row.routeId === representative.routeId);
     if (!authorityRow) fail("PGC_R08_A03_SHARD_SAMPLE_AUTHORITY_ROW_MISSING", representative);
     const replayRow = { ...authorityRow, routeIndex: representative.firstRouteIndex };
-    const replayResult = await executeConvergedRoute(browser, replayRow, binderEvents, controlEvents);
+    const replayResult = await executeConvergedRoute(
+      browser,
+      replayRow,
+      binderEvents,
+      controlEvents,
+      bootstrapEvents,
+    );
     if (replayResult.overallStatus !== "PASS") {
       fail("PGC_R08_A03_SHARD_SAMPLE_REPLAY_FAILED", {
         shardId: representative.shardId,
@@ -178,6 +199,7 @@ try {
   const results = Array(rows.length);
   const binderEvents = [];
   const controlEvents = [];
+  const bootstrapEvents = [];
   let cursor = 0;
   let completedCount = 0;
   let checkpointChain = Promise.resolve();
@@ -192,7 +214,13 @@ try {
       const index = cursor;
       cursor += 1;
       if (index >= rows.length) return;
-      results[index] = await executeConvergedRoute(browser, rows[index], binderEvents, controlEvents);
+      results[index] = await executeConvergedRoute(
+        browser,
+        rows[index],
+        binderEvents,
+        controlEvents,
+        bootstrapEvents,
+      );
       completedCount += 1;
       if (completedCount % 10 === 0 || completedCount === rows.length) await enqueueCheckpoint();
     }
@@ -213,7 +241,13 @@ try {
     (row) => row.capacityStatus === "VERIFIED_LIMITED" && row.verifiedMaxQuestionCount < 20,
   );
   const sampleEvidence = await captureShardSamples(
-    browser, rows, matrix.shards, passed, binderEvents, controlEvents,
+    browser,
+    rows,
+    matrix.shards,
+    passed,
+    binderEvents,
+    controlEvents,
+    bootstrapEvents,
   );
   if (sampleEvidence.length !== matrix.shards.length) {
     fail("PGC_R08_A03_SHARD_SAMPLE_COVERAGE_INCOMPLETE", {
@@ -243,6 +277,7 @@ try {
       capacityEvidenceReconciliationQueueCount: requalified.length,
       binderEventCount: binderEvents.length,
       controlEventCount: controlEvents.length,
+      bootstrapEventCount: bootstrapEvents.length,
       browserConsoleErrorCount: browserErrorCount(results, "consoleErrorCount", "consoleErrors"),
       browserPageErrorCount: browserErrorCount(results, "pageErrorCount", "pageErrors"),
     },
@@ -250,6 +285,7 @@ try {
       disabledControlPolicy: "tools/curriculum/pgc-r08-browser-control-selection-policy.mjs",
       exactPatternGroupAuthority: "tools/curriculum/pgc-r08-exact-pattern-group-authority.mjs",
       exactPatternGroupBinder: "tools/curriculum/pgc-r08-exact-pattern-group-binder.mjs",
+      questionTypeStateBootstrap: "tools/curriculum/pgc-r08-question-type-state-bootstrap.mjs",
       productMutationUsed: false,
       capacityAuthorityMutationUsed: false,
       perRoutePatchUsed: false,
@@ -283,6 +319,7 @@ try {
     writeFile(path.join(OUT, "route_results.csv"), buildCsv(results)),
     writeFile(path.join(OUT, "binder-events.json"), `${JSON.stringify(binderEvents, null, 2)}\n`),
     writeFile(path.join(OUT, "control-events.json"), `${JSON.stringify(controlEvents, null, 2)}\n`),
+    writeFile(path.join(OUT, "bootstrap-events.json"), `${JSON.stringify(bootstrapEvents, null, 2)}\n`),
   ]);
   console.log(JSON.stringify({ status: report.status, summary: report.summary }, null, 2));
 
