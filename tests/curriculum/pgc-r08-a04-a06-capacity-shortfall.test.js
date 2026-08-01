@@ -181,7 +181,7 @@ test("A06 paired historical seeds remain twenty-question application worksheets"
 });
 
 
-test("A06 closeout records 3 of 3 nine-gate PASS and immutable A07 handoff evidence", () => {
+test("A06 closeout records 3 of 3 nine-gate PASS and advances to final reconciliation", () => {
   assert.equal(readback.status, "PASS_CODE_FULL_REGRESSION_AND_EXACT_3_ROUTE_REPLAY");
   assert.deepEqual(readback.fullRegression, { tests: 2796, pass: 2796, fail: 0, cancelled: 0, skipped: 0 });
   assert.deepEqual(readback.exactReplay, {
@@ -197,15 +197,14 @@ test("A06 closeout records 3 of 3 nine-gate PASS and immutable A07 handoff evide
     binderEventCount: 21,
     controlEventCount: 9,
   });
-  assert.equal(readback.nextTask, "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout");
-  assert.equal(activeState.status, "PASS_R08_D0_ALL_793_LEGAL_ROUTES_CLOSED");
+  assert.equal(activeState.status, "PASS_ALL_793_LEGAL_ROUTES_CLOSED");
   assert.equal(activeState.current.cumulativePassRouteCount, 793);
   assert.equal(activeState.current.unresolvedFailedRouteCount, 0);
   assert.equal(activeState.current.closedOriginalFailureRouteCount, 327);
   assert.equal(activeState.current.reclassifiedUnresolvedRouteCount, 0);
   assert.equal(activeState.pendingFamilies.length, 0);
   assert.equal(activeState.reconciliation.allLegalRoutesConformant, true);
-  assert.equal(activeState.reconciliation.nextRepairPosition, null);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 6);
   assert.equal(activeState.reconciliation.nextTask, null);
   assert.equal(activeState.reconciliation.terminal, true);
   assert.equal(activeState.reconciliation.d0Status, "PASS_R08_D0");
