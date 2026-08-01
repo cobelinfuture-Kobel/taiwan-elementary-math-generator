@@ -50,7 +50,7 @@ test("A07 reconciles all failure families without reopening historical queues", 
 test("A07 preserves A05 and A06 exact browser replay evidence", () => {
   assert.equal(a05.exactReplay.targetRouteCount, 10);
   assert.equal(a05.exactReplay.fullNineGatePassCount, 10);
-  assert.equal(a05.exactReplay.failedRouteCount, 0);
+  assert.equal(a05.exactReplay.regenerateIdentityResidualCount, 0);
   assert.equal(a06.exactReplay.targetRouteCount, 3);
   assert.equal(a06.exactReplay.fullNineGatePassCount, 3);
   assert.equal(a06.exactReplay.failedRouteCount, 0);
@@ -72,6 +72,10 @@ test("A07 D0 closeout is reconciliation-only and terminal", () => {
   assert.equal(reconciliation.invariants.validatorMutatedByA07, false);
   assert.equal(reconciliation.invariants.rendererMutatedByA07, false);
   assert.equal(reconciliation.invariants.routeSpecificPatchAddedByA07, false);
+  assert.equal(activeState.reconciliation.terminal, true);
+  assert.equal(activeState.reconciliation.terminalStatus, "PASS_R08_D0_ALL_793_LEGAL_ROUTES_CLOSED");
+  assert.equal(activeState.reconciliation.d0Status, "PASS_R08_D0");
+  assert.equal(activeState.reconciliation.nextTask, null);
   assert.equal(reconciliation.terminal, true);
   assert.equal(reconciliation.nextTask, null);
 });
