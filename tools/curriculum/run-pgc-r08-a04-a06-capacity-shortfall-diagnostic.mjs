@@ -10,6 +10,9 @@ const { enrichBrowserRowWithExactPatternGroups } = await import("./pgc-r08-exact
 const { generateBatchABrowserQuestions } = await import(
   "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
 );
+const { buildWorksheetDocumentFromPlan } = await import(
+  "../../site/assets/browser/pipeline/build-worksheet-document.js"
+);
 
 const ACTIVE_PATH = path.join(
   ROOT,
@@ -74,6 +77,39 @@ function summarizeQuestions(questions = []) {
   };
 }
 
+function summarizePipeline(result = {}) {
+  const document = result.worksheetDocument ?? null;
+  const currentGeneration = result.currentRouterGeneration ?? null;
+  return {
+    ok: result.ok,
+    errors: result.errors ?? result.validation?.errors ?? [],
+    warnings: result.warnings ?? result.validation?.warnings ?? [],
+    requestedPlan: result.requestedPlan ?? null,
+    authoritativeConsumerCutover: result.authoritativeConsumerCutover ?? null,
+    currentRouterGeneration: currentGeneration
+      ? {
+        ok: currentGeneration.ok,
+        errors: currentGeneration.errors ?? [],
+        warnings: currentGeneration.warnings ?? [],
+        plan: currentGeneration.plan ?? null,
+        allocation: currentGeneration.allocation ?? currentGeneration.plan?.allocation ?? [],
+        questions: summarizeQuestions(currentGeneration.questions ?? []),
+      }
+      : null,
+    admission: result.p01eApplicationAdmission ?? null,
+    worksheet: document
+      ? {
+        questionCount: document.generatedQuestions?.length ?? document.questions?.length ?? 0,
+        questions: summarizeQuestions(document.generatedQuestions ?? document.questions ?? []),
+        questionDisplayModelCount: document.questionDisplayModels?.length ?? 0,
+        answerKeyItemCount: document.answerKeyItems?.length ?? 0,
+        metadata: document.metadata ?? null,
+        configSnapshot: document.configSnapshot ?? null,
+      }
+      : null,
+  };
+}
+
 const rows = [];
 for (const routeId of targetRouteIds) {
   const matrixRow = matrix.rows.find((row) => row.routeId === routeId);
@@ -101,6 +137,7 @@ for (const routeId of targetRouteIds) {
       generationSeed: `pgc-r08-a06-${routeId}-seed-${suffix}`,
     };
     const result = generateBatchABrowserQuestions(options);
+    const pipeline = buildWorksheetDocumentFromPlan(options);
     generations.push({
       suffix,
       options,
@@ -110,6 +147,7 @@ for (const routeId of targetRouteIds) {
       allocation: result.allocation ?? result.plan?.allocation ?? [],
       plan: result.plan ?? null,
       questions: summarizeQuestions(result.questions ?? []),
+      finalPipeline: summarizePipeline(pipeline),
     });
   }
   rows.push({
@@ -150,7 +188,9 @@ console.log(JSON.stringify({
     capacityStatus: row.capacityRoute.capacityStatus,
     uiSelectablePatternGroupIds: row.exactPatternGroups.uiSelectablePatternGroupIds,
     generatedCounts: row.generations.map((entry) => entry.questions.count),
-    ok: row.generations.map((entry) => entry.ok),
+    directOk: row.generations.map((entry) => entry.ok),
+    pipelineOk: row.generations.map((entry) => entry.finalPipeline.ok),
+    pipelineCounts: row.generations.map((entry) => entry.finalPipeline.worksheet?.questionCount ?? 0),
   })),
   output: path.relative(ROOT, OUTPUT_PATH),
 }, null, 2));
