@@ -13,6 +13,9 @@ const { enrichBrowserRowWithExactPatternGroups } = await import(
 const { generateBatchABrowserQuestions } = await import(
   "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
 );
+const { getVisiblePatternGroupsForKnowledgePoint } = await import(
+  "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js"
+);
 const { buildWorksheetDocumentFromPlan: buildCloseoutWorksheetDocumentFromPlan } = await import(
   "../../site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
 );
@@ -34,6 +37,10 @@ const pipelineSource = await readFile(
   "utf8",
 );
 
+function unique(values = []) {
+  return [...new Set(values.filter(Boolean))];
+}
+
 function targetOptions(routeId, suffix = "a") {
   const matches = matrix.rows.filter((row) => row.routeId === routeId);
   assert.equal(matches.length, 1, routeId);
@@ -52,6 +59,16 @@ function targetOptions(routeId, suffix = "a") {
     contextMode: row.contextMode,
     printLayout: { columns: 3, rowsPerPage: 5, showAnswerKeyPage: true },
   };
+}
+
+function classicExpandedOptions(routeId, suffix = "a") {
+  const exact = targetOptions(routeId, suffix);
+  const selectedPatternGroupIds = unique(exact.selectedKnowledgePointIds.flatMap(
+    (knowledgePointId) => getVisiblePatternGroupsForKnowledgePoint(knowledgePointId)
+      .map((group) => group.patternGroupId),
+  ));
+  assert.ok(selectedPatternGroupIds.length > exact.selectedPatternGroupIds.length, routeId);
+  return { ...exact, selectedPatternGroupIds };
 }
 
 function assertTwentyProjectedQuestions(routeId, options, direct, worksheet) {
@@ -123,10 +140,33 @@ test("A06 public Classic wrapper consumes the same current-router authority", ()
   }
 });
 
+test("A06 Classic default-expanded groups project to production-admitted W1 application groups", () => {
+  for (const routeId of plan.targetRouteIds) {
+    const exactOptions = targetOptions(routeId, "a");
+    const expandedOptions = classicExpandedOptions(routeId, "a");
+    const direct = generateBatchABrowserQuestions(exactOptions);
+    const worksheet = buildPublicWorksheetDocumentFromPlan(expandedOptions);
+    assertTwentyProjectedQuestions(routeId, expandedOptions, direct, worksheet);
+    const projection = worksheet.w1ApplicationSelectionProjection;
+    assert.ok(projection, routeId);
+    assert.equal(projection.requestedPatternGroupCount, expandedOptions.selectedPatternGroupIds.length, routeId);
+    assert.equal(projection.admittedPatternGroupCount, exactOptions.selectedPatternGroupIds.length, routeId);
+    assert.ok(projection.droppedPatternGroupCount > 0, routeId);
+    assert.deepEqual(
+      [...projection.admittedBasePatternGroupIds].sort(),
+      [...exactOptions.selectedPatternGroupIds].sort(),
+      routeId,
+    );
+    assert.equal(projection.knowledgePointIdsPreserved, true, routeId);
+    assert.equal(projection.questionCountPreserved, true, routeId);
+    assert.equal(projection.capacityAuthorityMutated, false, routeId);
+  }
+});
+
 test("A06 paired historical seeds remain twenty-question application worksheets", () => {
   for (const routeId of plan.targetRouteIds) {
-    const firstOptions = targetOptions(routeId, "a");
-    const secondOptions = targetOptions(routeId, "b");
+    const firstOptions = classicExpandedOptions(routeId, "a");
+    const secondOptions = classicExpandedOptions(routeId, "b");
     const first = buildPublicWorksheetDocumentFromPlan(firstOptions);
     const second = buildPublicWorksheetDocumentFromPlan(secondOptions);
     assert.equal(first.ok, true, routeId);
@@ -140,6 +180,8 @@ test("A06 paired historical seeds remain twenty-question application worksheets"
 
 test("A06 repair is shared and does not mutate capacity, generator runtimes, validators, or renderer", () => {
   assert.match(pipelineSource, /generateBatchABrowserQuestions/);
+  assert.match(pipelineSource, /normalizeW1ApplicationPlan/);
+  assert.match(pipelineSource, /listSelectedW1FullProductPublicApplicationGroups/);
   assert.match(pipelineSource, /buildCurrentRouterBaseResult/);
   assert.match(pipelineSource, /CURRENT_BATCH_A_BROWSER_ROUTER/);
   assert.match(pipelineSource, /applyW1FullProductPublicApplicationAdmission/);
