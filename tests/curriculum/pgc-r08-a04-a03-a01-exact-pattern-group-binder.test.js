@@ -180,7 +180,8 @@ test("active repair state closes all A06 capacity residuals without double-count
   assert.equal(activeState.reconciliation.capacityReconciliationRouteCount, 38);
   assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 0);
   assert.equal(activeState.reconciliation.nextRepairPosition, 6);
-  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout");
+  assert.equal(activeState.reconciliation.terminal, true);
+  assert.equal(activeState.reconciliation.nextTask, null);
   assert.equal(activeState.pendingFamilies.length, 0);
 });
 
