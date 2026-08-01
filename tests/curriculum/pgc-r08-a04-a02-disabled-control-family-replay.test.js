@@ -89,27 +89,18 @@ test("the A02 orthogonal route remains historically transferred and is closed by
   );
 });
 
-test("A02 historical readback remains immutable while active state advances after A05", () => {
+test("A02 historical readback remains immutable while active state advances through A06", () => {
   assert.equal(readback.replaySummary.endToEndPassRouteCount, 179);
   assert.equal(readback.transferredRoutes.length, 1);
-
-  assert.equal(activeState.status, "ACTIVE_AFTER_REGENERATE_IDENTITY_FAMILY_CLOSEOUT");
-  assert.equal(activeState.current.cumulativePassRouteCount, 790);
-  assert.equal(activeState.current.unresolvedFailedRouteCount, 3);
-  assert.equal(activeState.current.closedOriginalFailureRouteCount, 326);
-  assert.equal(
-    activeState.pendingFamilies
-      .filter((family) => family.failureFamily !== "CAPACITY_EVIDENCE_RECONCILIATION")
-      .reduce((sum, family) => sum + family.routeCount, 0),
-    0,
-  );
-  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 3);
-  assert.equal(activeState.reconciliation.pendingFailedRouteCount, 3);
-  assert.equal(activeState.reconciliation.nextRepairPosition, 5);
-  assert.equal(
-    activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
-  );
+  assert.equal(activeState.status, "PASS_ALL_793_LEGAL_ROUTES_CLOSED");
+  assert.equal(activeState.current.cumulativePassRouteCount, 793);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 0);
+  assert.equal(activeState.current.closedOriginalFailureRouteCount, 327);
+  assert.equal(activeState.pendingFamilies.length, 0);
+  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 0);
+  assert.equal(activeState.reconciliation.pendingFailedRouteCount, 0);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 6);
+  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout");
 });
 
 test("A02 runner creates shared output directories and temporary workflow is removed", async () => {

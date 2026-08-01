@@ -27,6 +27,8 @@ const plan = JSON.parse(await readFile(
   "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-plan.json",
   "utf8",
 ));
+const readback = JSON.parse(await readFile(plan.readbackPath, "utf8"));
+const activeState = JSON.parse(await readFile(plan.activeStatePath, "utf8"));
 const capacityPath = plan.capacityAuthorityPath;
 const capacityRaw = await readFile(capacityPath, "utf8");
 const capacity = JSON.parse(capacityRaw);
@@ -110,7 +112,7 @@ function assertTwentyProjectedQuestions(routeId, options, direct, worksheet) {
 }
 
 test("A06 authority contains exactly three active verified-20 application routes", () => {
-  assert.equal(plan.status, "IMPLEMENTATION_PENDING_EXACT_REPLAY");
+  assert.equal(plan.status, "PASS_CAPACITY_SHORTFALL_3_OF_3");
   assert.equal(plan.targetRouteCount, 3);
   assert.equal(plan.targetRouteIds.length, 3);
   assert.equal(new Set(plan.targetRouteIds).size, 3);
@@ -176,6 +178,34 @@ test("A06 paired historical seeds remain twenty-question application worksheets"
     assert.equal(first.p01eApplicationAdmission.projectedQuestionCount, 20, routeId);
     assert.equal(second.p01eApplicationAdmission.projectedQuestionCount, 20, routeId);
   }
+});
+
+
+test("A06 closeout records 3 of 3 nine-gate PASS and advances to final reconciliation", () => {
+  assert.equal(readback.status, "PASS_CODE_FULL_REGRESSION_AND_EXACT_3_ROUTE_REPLAY");
+  assert.deepEqual(readback.fullRegression, { tests: 2796, pass: 2796, fail: 0, cancelled: 0, skipped: 0 });
+  assert.deepEqual(readback.exactReplay, {
+    targetRouteCount: 3,
+    terminalRouteCount: 3,
+    fullNineGatePassCount: 3,
+    failedRouteCount: 0,
+    questionCountPassCount: 3,
+    generateButtonPassCount: 3,
+    browserConsoleErrorCount: 0,
+    browserPageErrorCount: 0,
+    bootstrapEventCount: 3,
+    binderEventCount: 21,
+    controlEventCount: 9,
+  });
+  assert.equal(activeState.status, "PASS_ALL_793_LEGAL_ROUTES_CLOSED");
+  assert.equal(activeState.current.cumulativePassRouteCount, 793);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 0);
+  assert.equal(activeState.current.closedOriginalFailureRouteCount, 327);
+  assert.equal(activeState.current.reclassifiedUnresolvedRouteCount, 0);
+  assert.equal(activeState.pendingFamilies.length, 0);
+  assert.equal(activeState.reconciliation.allLegalRoutesConformant, true);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 6);
+  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout");
 });
 
 test("A06 repair is shared and does not mutate capacity, generator runtimes, validators, or renderer", () => {

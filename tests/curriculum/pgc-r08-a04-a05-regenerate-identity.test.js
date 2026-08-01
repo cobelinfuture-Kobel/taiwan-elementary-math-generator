@@ -209,15 +209,9 @@ test("exact replay is consolidated into the single PGC-R00 scope-freeze job", ()
   assert.doesNotMatch(pgcR00WorkflowSource, /pgc-r00-diagnostics|Upload full-regression diagnostics/);
 });
 
-test("A05 committed readback records 10 of 10 nine-gate PASS and the next active family", () => {
+test("A05 committed readback remains immutable while active state advances through A06", () => {
   assert.equal(readback.status, "PASS_CODE_FULL_REGRESSION_AND_EXACT_10_ROUTE_REPLAY");
-  assert.deepEqual(readback.fullRegression, {
-    tests: 2790,
-    pass: 2790,
-    fail: 0,
-    cancelled: 0,
-    skipped: 0,
-  });
+  assert.deepEqual(readback.fullRegression, { tests: 2790, pass: 2790, fail: 0, cancelled: 0, skipped: 0 });
   assert.deepEqual(readback.exactReplay, {
     targetRouteCount: 10,
     terminalRouteCount: 10,
@@ -231,11 +225,8 @@ test("A05 committed readback records 10 of 10 nine-gate PASS and the next active
   });
   assert.equal(readback.invariants.validatorRulesUnchanged, true);
   assert.equal(readback.invariants.historicalQueueUnchanged, true);
-  assert.equal(activeState.current.cumulativePassRouteCount, 790);
-  assert.equal(activeState.current.unresolvedFailedRouteCount, 3);
-  assert.equal(activeState.reconciliation.nextRepairPosition, 5);
-  assert.equal(
-    activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
-  );
+  assert.equal(activeState.current.cumulativePassRouteCount, 793);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 0);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 6);
+  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout");
 });

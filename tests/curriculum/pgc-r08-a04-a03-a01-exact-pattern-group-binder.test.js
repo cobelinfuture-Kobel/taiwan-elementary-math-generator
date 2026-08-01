@@ -169,32 +169,19 @@ test("A03 A01 terminal readback closes route binding and transfers only orthogon
   );
 });
 
-test("active repair state advances through A05 without double-counting capacity overlap", () => {
-  assert.equal(activeState.status, "ACTIVE_AFTER_REGENERATE_IDENTITY_FAMILY_CLOSEOUT");
-  assert.equal(activeState.current.cumulativePassRouteCount, 790);
-  assert.equal(activeState.current.unresolvedFailedRouteCount, 3);
-  assert.equal(activeState.current.closedOriginalFailureRouteCount, 326);
+test("active repair state closes all A06 capacity residuals without double-counting overlap", () => {
+  assert.equal(activeState.status, "PASS_ALL_793_LEGAL_ROUTES_CLOSED");
+  assert.equal(activeState.current.cumulativePassRouteCount, 793);
+  assert.equal(activeState.current.unresolvedFailedRouteCount, 0);
+  assert.equal(activeState.current.closedOriginalFailureRouteCount, 327);
+  assert.equal(activeState.current.reclassifiedUnresolvedRouteCount, 0);
   assert.equal(activeState.reconciliation.pendingFailureFamiliesExcludingCapacityReconciliation, 0);
-  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 3);
+  assert.equal(activeState.reconciliation.activeCapacityShortfallRouteCount, 0);
   assert.equal(activeState.reconciliation.capacityReconciliationRouteCount, 38);
-  assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 3);
-  assert.equal(activeState.reconciliation.nextRepairPosition, 5);
-  assert.equal(
-    activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
-  );
-  for (const failureFamily of [
-    "ROUTE_BINDING_NOT_CONVERGED",
-    "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
-    "REGENERATE_IDENTITY_TIMEOUT",
-  ]) {
-    assert.equal(
-      activeState.pendingFamilies.some(
-        (family) => family.failureFamily === failureFamily,
-      ),
-      false,
-    );
-  }
+  assert.equal(activeState.reconciliation.capacityReconciliationOverlapWithPendingFailureCount, 0);
+  assert.equal(activeState.reconciliation.nextRepairPosition, 6);
+  assert.equal(activeState.reconciliation.nextTask, "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout");
+  assert.equal(activeState.pendingFamilies.length, 0);
 });
 
 test("temporary exact replay workflow is removed before merge", async () => {
