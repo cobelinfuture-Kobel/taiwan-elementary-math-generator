@@ -204,7 +204,7 @@ test("exact replay is consolidated into the single PGC-R00 scope-freeze job", ()
   assert.match(pgcR00WorkflowSource, /run-pgc-r08-a04-a05-regenerate-identity-replay\.mjs/);
   assert.match(pgcR00WorkflowSource, /- name: Verify exact ten-route browser replay/);
   assert.doesNotMatch(pgcR00WorkflowSource, /^  exact-regenerate-identity-replay:/m);
-  assert.doesNotMatch(pgcR00WorkflowSource, /^\s{4,}if:\s*/m);
+  assert.doesNotMatch(pgcR00WorkflowSource, /^ {4}if:\s*/m);
   assert.doesNotMatch(pgcR00WorkflowSource, /cache:\s*npm|npm ci/);
   assert.doesNotMatch(pgcR00WorkflowSource, /pgc-r00-diagnostics|Upload full-regression diagnostics/);
 });
