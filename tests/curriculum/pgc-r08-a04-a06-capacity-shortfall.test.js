@@ -13,8 +13,11 @@ const { enrichBrowserRowWithExactPatternGroups } = await import(
 const { generateBatchABrowserQuestions } = await import(
   "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
 );
-const { buildWorksheetDocumentFromPlan } = await import(
+const { buildWorksheetDocumentFromPlan: buildCloseoutWorksheetDocumentFromPlan } = await import(
   "../../site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
+);
+const { buildWorksheetDocumentFromPlan: buildPublicWorksheetDocumentFromPlan } = await import(
+  "../../site/assets/browser/pipeline/build-worksheet-document.js"
 );
 
 const plan = JSON.parse(await readFile(
@@ -44,7 +47,7 @@ function targetOptions(routeId, suffix = "a") {
     questionCount: 20,
     ordering: "groupedByPattern",
     includeAnswerKey: true,
-    generationSeed: `pgc-r08-a06-${routeId}-seed-${suffix}`,
+    generationSeed: `pgc-r08-a03-${routeId}-seed-${suffix}`,
     depthMode: row.depthMode,
     contextMode: row.contextMode,
     printLayout: { columns: 3, rowsPerPage: 5, showAnswerKeyPage: true },
@@ -102,21 +105,30 @@ test("A06 authority contains exactly three active verified-20 application routes
   }
 });
 
-test("A06 W1 application consumer uses current-router twenty-question authority", () => {
+test("A06 closeout consumer uses current-router twenty-question authority for exact historical seeds", () => {
   for (const routeId of plan.targetRouteIds) {
     const options = targetOptions(routeId, "a");
     const direct = generateBatchABrowserQuestions(options);
-    const worksheet = buildWorksheetDocumentFromPlan(options);
+    const worksheet = buildCloseoutWorksheetDocumentFromPlan(options);
     assertTwentyProjectedQuestions(routeId, options, direct, worksheet);
   }
 });
 
-test("A06 paired seeds remain twenty-question application worksheets", () => {
+test("A06 public Classic wrapper consumes the same current-router authority", () => {
+  for (const routeId of plan.targetRouteIds) {
+    const options = targetOptions(routeId, "a");
+    const direct = generateBatchABrowserQuestions(options);
+    const worksheet = buildPublicWorksheetDocumentFromPlan(options);
+    assertTwentyProjectedQuestions(routeId, options, direct, worksheet);
+  }
+});
+
+test("A06 paired historical seeds remain twenty-question application worksheets", () => {
   for (const routeId of plan.targetRouteIds) {
     const firstOptions = targetOptions(routeId, "a");
     const secondOptions = targetOptions(routeId, "b");
-    const first = buildWorksheetDocumentFromPlan(firstOptions);
-    const second = buildWorksheetDocumentFromPlan(secondOptions);
+    const first = buildPublicWorksheetDocumentFromPlan(firstOptions);
+    const second = buildPublicWorksheetDocumentFromPlan(secondOptions);
     assert.equal(first.ok, true, routeId);
     assert.equal(second.ok, true, routeId);
     assert.equal(first.worksheetDocument.generatedQuestions.length, 20, routeId);
@@ -128,7 +140,8 @@ test("A06 paired seeds remain twenty-question application worksheets", () => {
 
 test("A06 repair is shared and does not mutate capacity, generator runtimes, validators, or renderer", () => {
   assert.match(pipelineSource, /generateBatchABrowserQuestions/);
-  assert.match(pipelineSource, /currentRouterGeneration/);
+  assert.match(pipelineSource, /buildCurrentRouterBaseResult/);
+  assert.match(pipelineSource, /CURRENT_BATCH_A_BROWSER_ROUTER/);
   assert.match(pipelineSource, /applyW1FullProductPublicApplicationAdmission/);
   assert.doesNotMatch(pipelineSource, /pgc_r03_/);
   assert.equal(plan.repairContract.capacityAuthorityMutationAllowed, false);
