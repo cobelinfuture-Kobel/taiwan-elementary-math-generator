@@ -3,8 +3,9 @@
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
   "taskId": "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
-  "status": "IMPLEMENTATION_PENDING_EXACT_REPLAY",
+  "status": "PASS_EXACT_3_ROUTE_REPLAY",
   "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+  "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-readback.json",
   "capacityAuthorityPath": "data/curriculum/public-generation/generator_capacity_contract.json",
   "routeMatrixAuthorityPath": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
   "targetRouteCount": 3,
@@ -48,6 +49,16 @@
     "questionCountPassCount": 3,
     "generateButtonPassCount": 3,
     "browserConsoleErrorCount": 0,
-    "browserPageErrorCount": 0
+    "browserPageErrorCount": 0,
+    "fullRegression": {
+      "tests": 2796,
+      "pass": 2796,
+      "fail": 0
+    },
+    "workflowRunId": 30678331686,
+    "workflowJobId": 91310045631,
+    "headSha": "5291b4b76afac35fb5d11f93d335b829acd6edf3",
+    "artifactId": 8811336066,
+    "artifactDigest": "sha256:80344fb38e2539bf7e1c99ceaf364b2e87bc8a76dfd3f730f445ed1299c490be"
   }
 }
