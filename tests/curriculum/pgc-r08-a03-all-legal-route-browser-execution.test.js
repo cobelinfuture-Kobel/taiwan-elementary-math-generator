@@ -6,7 +6,9 @@ const readJson=(relativePath)=>JSON.parse(readFileSync(new URL(relativePath,impo
 const a01=readJson("../../data/curriculum/public-generation/public_generate_button_acceptance.json");
 const a02=readJson("../../data/curriculum/public-generation/PGC-R08-A02.public-generate-canary-harness.json");
 const plan=readJson("../../data/curriculum/public-generation/PGC-R08-A03.all-legal-route-browser-execution-plan.json");
-const runner=readFileSync(new URL("../../tools/curriculum/run-pgc-r08-a03-all-legal-routes.mjs",import.meta.url),"utf8");
+const canonicalEntry=readFileSync(new URL("../../tools/curriculum/run-pgc-r08-a03-all-legal-routes.mjs",import.meta.url),"utf8");
+const convergedImplementation=readFileSync(new URL("../../tools/curriculum/run-pgc-r09-a01r-converged-all-legal-routes.mjs",import.meta.url),"utf8");
+const runner=`${canonicalEntry}\n${convergedImplementation}`;
 const core=readFileSync(new URL("../../tools/curriculum/pgc-r08-a03-browser-harness-core.mjs",import.meta.url),"utf8");
 
 test("PGC-R08 A03 starts from closed A02 and the 793-row A01 authority",()=>{
@@ -39,6 +41,7 @@ test("PGC-R08 A03 executes every legal route and collects route failures instead
   assert.equal(plan.executionPolicy.sameRouteFailureDoesNotAbortMatrix,true);
   assert.equal(plan.executionPolicy.routeFailureDisposition,"COLLECT_IN_REPAIR_QUEUE");
   assert.equal(plan.executionPolicy.systemFailureDisposition,"FAIL_CI");
+  assert.match(canonicalEntry,/run-pgc-r09-a01r-converged-all-legal-routes\.mjs/);
   assert.match(runner,/materializeMatrix/);
   assert.match(runner,/Promise\.all\(/);
   assert.match(runner,/plan\.executionPolicy\.workerConcurrency/);
