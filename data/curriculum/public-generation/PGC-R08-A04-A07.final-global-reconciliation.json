@@ -1,0 +1,77 @@
+{
+  "schemaName": "PGCR08A04A07FinalGlobalReconciliationV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout",
+  "status": "PASS_ALL_793_LEGAL_ROUTES_RECONCILED",
+  "authority": {
+    "routeMatrixPath": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+    "repairQueuePath": "data/curriculum/public-generation/PGC-R08-A03.repair-queue.json",
+    "activeStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+    "a05ReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A05.regenerate-identity-readback.json",
+    "a06ReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-readback.json"
+  },
+  "routeReconciliation": {
+    "legalRouteCount": 793,
+    "initialPassRouteCount": 466,
+    "initialFailedRouteCount": 327,
+    "finalPassRouteCount": 793,
+    "finalFailedRouteCount": 0,
+    "closedOriginalFailureRouteCount": 327,
+    "reclassifiedUnresolvedRouteCount": 0,
+    "allLegalRoutesConformant": true
+  },
+  "failureFamilyReconciliation": {
+    "closedFamilyCount": 6,
+    "pendingFamilyCount": 0,
+    "families": [
+      "QUESTION_TYPE_CONTROL_DISABLED",
+      "CONTEXT_MODE_CONTROL_DISABLED",
+      "ROUTE_BINDING_NOT_CONVERGED",
+      "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
+      "REGENERATE_IDENTITY_TIMEOUT",
+      "CAPACITY_EVIDENCE_RECONCILIATION"
+    ]
+  },
+  "terminalEvidence": {
+    "a05ExactRouteReplay": {
+      "routeCount": 10,
+      "passCount": 10,
+      "failedCount": 0
+    },
+    "a06ExactRouteReplay": {
+      "routeCount": 3,
+      "passCount": 3,
+      "failedCount": 0,
+      "questionCountPassCount": 3,
+      "generateButtonPassCount": 3,
+      "browserConsoleErrorCount": 0,
+      "browserPageErrorCount": 0
+    },
+    "fullRegression": {
+      "tests": 2796,
+      "pass": 2796,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "a06MergeSha": "811075451e6d2008092c6a2708ff7b0f53a05549"
+  },
+  "invariants": {
+    "capacityAuthorityMutatedByA07": false,
+    "generatorRuntimeMutatedByA07": false,
+    "validatorMutatedByA07": false,
+    "rendererMutatedByA07": false,
+    "routeSpecificPatchAddedByA07": false,
+    "historicalRepairQueuePreserved": true
+  },
+  "d0Gate": {
+    "allLegalRoutesClosed": true,
+    "allFailureFamiliesClosed": true,
+    "pendingRepairCount": 0,
+    "productionRouteAuthorityConsistent": true,
+    "status": "PASS_R08_D0"
+  },
+  "terminal": true,
+  "nextTask": null
+}
