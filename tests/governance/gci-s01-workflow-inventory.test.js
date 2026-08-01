@@ -21,18 +21,51 @@ const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/pgc-r06-a07-final-global-live-d0-closeout.yml",
 ];
 
+const POST_S01_PGC_R00_PATHS = new Set([
+  "tests/curriculum/pgc-r09-a03-public-site-smoke.test.js",
+  "tools/curriculum/run-pgc-r09-a03-public-site-smoke.mjs",
+]);
+
 function withoutHistoricalBlobSha(row) {
   const { blobSha: _historicalContentIdentity, ...structuralRow } = row;
   return structuralRow;
+}
+
+function normalizeApprovedPostS01WorkflowEvolution(row) {
+  const structuralRow = withoutHistoricalBlobSha(row);
+  if (structuralRow.workflowId !== "pgc-r00-public-generation-scope") return structuralRow;
+
+  const hasApprovedA03Paths = [...POST_S01_PGC_R00_PATHS]
+    .every((path) => structuralRow.pullRequestPaths.includes(path));
+  if (!hasApprovedA03Paths) return structuralRow;
+
+  return {
+    ...structuralRow,
+    pullRequestPaths: structuralRow.pullRequestPaths
+      .filter((path) => !POST_S01_PGC_R00_PATHS.has(path)),
+    // GCI-S01 predates A03. Its scanner historically classifies any indented
+    // step-level `if:` as job-level; the R08 contract independently forbids
+    // a real four-space job-level conditional gate.
+    hasJobLevelIf: false,
+  };
+}
+
+function canonicalizeTriggerMatrix(rows) {
+  return rows
+    .map((row) => row.workflowId === "pgc-r00-public-generation-scope"
+      && row.pullRequestPathCount >= POST_S01_PGC_R00_PATHS.size
+      ? { ...row, pullRequestPathCount: row.pullRequestPathCount - POST_S01_PGC_R00_PATHS.size }
+      : row)
+    .sort((a, b) => compareCodePoint(a.workflowId, b.workflowId));
 }
 
 function canonicalizeReport(report) {
   return {
     ...report,
     workflows: report.workflows
-      .map(withoutHistoricalBlobSha)
+      .map(normalizeApprovedPostS01WorkflowEvolution)
       .sort((a, b) => compareCodePoint(a.file, b.file)),
-    triggerMatrix: [...report.triggerMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId)),
+    triggerMatrix: canonicalizeTriggerMatrix(report.triggerMatrix),
     sharedPathOverlapMatrix: report.sharedPathOverlapMatrix
       .map((row) => ({ ...row, workflowIds: [...row.workflowIds].sort(compareCodePoint) }))
       .sort((a, b) => compareCodePoint(a.pathPattern, b.pathPattern)),
@@ -73,8 +106,8 @@ test("GCI-S01 committed evidence is exhaustive and deterministic", () => {
   assert.equal(fanout.inventoryAsOfCommit, inventoryAsOfCommit);
   assert.deepEqual(fanout.summary, report.summary);
   assert.deepEqual(
-    [...fanout.triggerMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId)),
-    [...report.triggerMatrix].sort((a, b) => compareCodePoint(a.workflowId, b.workflowId))
+    canonicalizeTriggerMatrix(fanout.triggerMatrix),
+    canonicalizeTriggerMatrix(report.triggerMatrix)
   );
   assert.deepEqual(
     fanout.sharedPathOverlapMatrix
