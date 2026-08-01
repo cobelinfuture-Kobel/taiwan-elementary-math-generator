@@ -37,7 +37,8 @@ test("canonical 793-route entrypoint delegates to the converged repaired harness
   assert.match(convergedRunner, /enrichBrowserRowWithExactPatternGroups/);
   assert.match(convergedRunner, /wrapBrowserWithExactPatternGroupBinder/);
   assert.match(convergedRunner, /wrapBrowserWithDisabledCurrentValueSelectionPolicy/);
-  assert.match(convergedRunner, /executeRoute\(policyBrowser, row\)/);
+  assert.match(convergedRunner, /executeConvergedRoute/);
+  assert.match(convergedRunner, /return executeRoute\(convergedBrowser\(/);
 });
 
 test("A01R acceptance remains the full 793-route nine-gate contract", () => {
