@@ -13,6 +13,9 @@ const { generateBatchABrowserQuestions } = await import(
 const { buildWorksheetDocumentFromPlan } = await import(
   "../../site/assets/browser/pipeline/build-worksheet-document.js"
 );
+const { createConfigState, getBatchAWorksheetPlan } = await import(
+  "../../site/assets/browser/state/config-state.js"
+);
 
 const ACTIVE_PATH = path.join(
   ROOT,
@@ -110,6 +113,17 @@ function summarizePipeline(result = {}) {
   };
 }
 
+function summarizeQueryStatePipeline(options) {
+  const state = createConfigState({ queryState: options });
+  const worksheetPlan = getBatchAWorksheetPlan(state);
+  const result = buildWorksheetDocumentFromPlan(worksheetPlan);
+  return {
+    normalizedBatchAState: state.batchA,
+    worksheetPlan,
+    finalPipeline: summarizePipeline(result),
+  };
+}
+
 const rows = [];
 for (const routeId of targetRouteIds) {
   const matrixRow = matrix.rows.find((row) => row.routeId === routeId);
@@ -129,6 +143,8 @@ for (const routeId of targetRouteIds) {
     includeAnswerKey: true,
     depthMode: exact.depthMode,
     contextMode: exact.contextMode,
+    columns: 3,
+    rowsPerPage: 5,
   };
   const seedCases = [
     {
@@ -162,6 +178,7 @@ for (const routeId of targetRouteIds) {
       plan: result.plan ?? null,
       questions: summarizeQuestions(result.questions ?? []),
       finalPipeline: summarizePipeline(pipeline),
+      queryStatePipeline: summarizeQueryStatePipeline(options),
     });
   }
   rows.push({
@@ -206,6 +223,10 @@ console.log(JSON.stringify({
     directOk: row.generations.map((entry) => entry.ok),
     pipelineOk: row.generations.map((entry) => entry.finalPipeline.ok),
     pipelineCounts: row.generations.map((entry) => entry.finalPipeline.worksheet?.questionCount ?? 0),
+    queryStateSelectionModes: row.generations.map((entry) => entry.queryStatePipeline.worksheetPlan.selectionMode),
+    queryStateKnowledgePointCounts: row.generations.map((entry) => entry.queryStatePipeline.worksheetPlan.selectedKnowledgePointIds?.length ?? 0),
+    queryStatePatternGroupCounts: row.generations.map((entry) => entry.queryStatePipeline.worksheetPlan.selectedPatternGroupIds?.length ?? 0),
+    queryStatePipelineCounts: row.generations.map((entry) => entry.queryStatePipeline.finalPipeline.worksheet?.questionCount ?? 0),
   })),
   output: path.relative(ROOT, OUTPUT_PATH),
 }, null, 2));
