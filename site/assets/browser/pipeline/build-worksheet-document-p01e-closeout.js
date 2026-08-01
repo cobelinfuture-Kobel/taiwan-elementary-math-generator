@@ -1,10 +1,12 @@
-export { buildWorksheetDocumentFromGeneratedItems } from "./build-worksheet-document-core-closeout.js";
-
-import { buildWorksheetDocumentFromPlan as buildBase } from "./build-worksheet-document-core-closeout.js";
-import { buildBatchABrowserWorksheetDocument } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import {
+  buildWorksheetDocumentFromGeneratedItems,
+  buildWorksheetDocumentFromPlan as buildBase,
+} from "./build-worksheet-document-core-closeout.js";
 import { generateBatchABrowserQuestions } from "../../../modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import { applyW1FullProductPublicApplicationAdmission } from "../../../modules/curriculum/batch-a/w1-full-product-public-application-admission.js";
 import { paginateAnswerKeyItems, paginateQuestionDisplayModels } from "../../../modules/core/worksheet-pagination.js";
+
+export { buildWorksheetDocumentFromGeneratedItems };
 
 const W1_PUBLIC_SOURCE_IDS = new Set([
   "g5b_u05_5b05a",
@@ -140,42 +142,89 @@ function projectResult(result, projected, plan, currentRouterGeneration = null) 
   };
 }
 
-function failedCurrentRouterGeneration(result, generation) {
+function failedCurrentRouterGeneration(generation) {
   return {
-    ...result,
     ok: false,
-    errors: [...(result?.errors ?? []), ...(generation?.errors ?? [])],
-    warnings: [...(result?.warnings ?? []), ...(generation?.warnings ?? [])],
+    errors: [...(generation?.errors ?? [])],
+    warnings: [...(generation?.warnings ?? [])],
     worksheetDocument: null,
     currentRouterGeneration: generation,
   };
 }
 
+function normalizedCurrentRouterItems(questions = []) {
+  return questions.map((question, index) => ({
+    ...question,
+    generatedItemId: question.generatedItemId ?? question.id ?? `p01e-current-${index + 1}`,
+    prompt: String(
+      question.prompt
+        ?? question.promptText
+        ?? question.blankedDisplayText
+        ?? question.displayText
+        ?? "",
+    ),
+    answerText: String(question.answerText ?? question.answer ?? ""),
+    mode: question.mode ?? question.questionMode ?? "application",
+  }));
+}
+
+function buildCurrentRouterBaseResult(plan, generation) {
+  const generatedItems = normalizedCurrentRouterItems(generation.questions);
+  const result = buildWorksheetDocumentFromGeneratedItems({
+    worksheetId: `p01e-${plan.sourceId}-${plan.generationSeed ?? "public"}`,
+    generatedItems,
+    title: plan.worksheetTitle ?? "數學練習卷",
+    subtitle: plan.worksheetSubtitle ?? "",
+    orderingMode: plan.ordering ?? "groupedByPattern",
+    printLayout: {
+      ...(plan.printLayout ?? {}),
+      showAnswerKeyPage: plan.includeAnswerKey !== false,
+    },
+    report: {
+      summary: {
+        questionCount: generatedItems.length,
+        allocation: generation.allocation ?? generation.plan?.allocation ?? [],
+      },
+      warnings: generation.warnings ?? [],
+      errors: [],
+    },
+    metadata: {
+      sourceId: plan.sourceId,
+      questionMode: "application",
+      questionAuthority: "CURRENT_BATCH_A_BROWSER_ROUTER",
+    },
+  });
+  return {
+    ...result,
+    generation,
+  };
+}
+
 export function buildWorksheetDocumentFromPlan(plan = {}) {
   const useW1SharedBuilder = plan.questionMode === "application" && W1_PUBLIC_SOURCE_IDS.has(plan.sourceId);
-  const result = useW1SharedBuilder
-    ? buildBatchABrowserWorksheetDocument(plan)
-    : buildBase(plan);
-  if (plan.questionMode !== "application" || !result?.ok || !result?.worksheetDocument) return result;
-
-  const currentRouterGeneration = useW1SharedBuilder
-    ? generateBatchABrowserQuestions(plan)
-    : null;
-  if (currentRouterGeneration && !currentRouterGeneration.ok) {
-    return failedCurrentRouterGeneration(result, currentRouterGeneration);
+  if (useW1SharedBuilder) {
+    const currentRouterGeneration = generateBatchABrowserQuestions(plan);
+    if (!currentRouterGeneration?.ok) {
+      return failedCurrentRouterGeneration(currentRouterGeneration);
+    }
+    const result = buildCurrentRouterBaseResult(plan, currentRouterGeneration);
+    const projected = applyW1FullProductPublicApplicationAdmission({
+      ok: true,
+      questions: currentRouterGeneration.questions,
+      errors: [],
+      warnings: currentRouterGeneration.warnings ?? [],
+    }, plan);
+    return projectResult(result, projected, plan, currentRouterGeneration);
   }
-  const questions = currentRouterGeneration?.questions
-    ?? result.worksheetDocument.generatedQuestions
-    ?? result.worksheetDocument.questions
-    ?? [];
+
+  const result = buildBase(plan);
+  if (plan.questionMode !== "application" || !result?.ok || !result?.worksheetDocument) return result;
+  const questions = result.worksheetDocument.generatedQuestions ?? result.worksheetDocument.questions ?? [];
   const projected = applyW1FullProductPublicApplicationAdmission({
     ok: true,
     questions,
     errors: [],
-    warnings: [
-      ...(result.warnings ?? []),
-      ...(currentRouterGeneration?.warnings ?? []),
-    ],
+    warnings: result.warnings ?? [],
   }, plan);
-  return projectResult(result, projected, plan, currentRouterGeneration);
+  return projectResult(result, projected, plan, null);
 }
