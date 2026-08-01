@@ -32,13 +32,15 @@ test("R09 A01R classifies the exact-head regression as stale canonical harness c
   assert.equal(plan.repairContract.timeoutExtensionAllowed, false);
 });
 
-test("canonical 793-route entrypoint delegates to the converged repaired harness", () => {
+test("canonical 793-route entrypoint delegates to the fully converged repaired harness", () => {
   assert.match(canonicalRunner, /run-pgc-r09-a01r-converged-all-legal-routes\.mjs/);
   assert.match(convergedRunner, /enrichBrowserRowWithExactPatternGroups/);
   assert.match(convergedRunner, /wrapBrowserWithExactPatternGroupBinder/);
   assert.match(convergedRunner, /wrapBrowserWithDisabledCurrentValueSelectionPolicy/);
+  assert.match(convergedRunner, /wrapBrowserWithQuestionTypeStateBootstrap/);
   assert.match(convergedRunner, /executeConvergedRoute/);
-  assert.match(convergedRunner, /return executeRoute\(convergedBrowser\(/);
+  assert.match(convergedRunner, /executeRoute\([\s\S]*convergedBrowser\(/);
+  assert.match(convergedRunner, /bootstrapEventCount/);
 });
 
 test("A01R acceptance remains the full 793-route nine-gate contract", () => {
