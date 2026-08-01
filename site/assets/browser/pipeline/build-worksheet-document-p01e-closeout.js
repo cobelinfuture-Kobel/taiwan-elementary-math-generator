@@ -4,6 +4,7 @@ import {
 } from "./build-worksheet-document-core-closeout.js";
 import { generateBatchABrowserQuestions } from "../../../modules/curriculum/batch-a/batch-a-browser-question-router.js";
 import { applyW1FullProductPublicApplicationAdmission } from "../../../modules/curriculum/batch-a/w1-full-product-public-application-admission.js";
+import { listSelectedW1FullProductPublicApplicationGroups } from "../../../modules/curriculum/registry/w1-full-product-public-application-groups.js";
 import { paginateAnswerKeyItems, paginateQuestionDisplayModels } from "../../../modules/core/worksheet-pagination.js";
 
 export { buildWorksheetDocumentFromGeneratedItems };
@@ -14,6 +15,50 @@ const W1_PUBLIC_SOURCE_IDS = new Set([
   "g5a_u03_5a03a",
   "g5a_u03_5a03a1",
 ]);
+
+function unique(values = []) {
+  return [...new Set(values.filter(Boolean))];
+}
+
+function sameIds(left = [], right = []) {
+  return JSON.stringify([...left].sort()) === JSON.stringify([...right].sort());
+}
+
+function normalizeW1ApplicationPlan(plan = {}) {
+  const requestedPatternGroupIds = unique(plan.selectedPatternGroupIds ?? []);
+  const admittedGroups = listSelectedW1FullProductPublicApplicationGroups(requestedPatternGroupIds)
+    .filter((group) => group.sourceId === plan.sourceId && group.productionAdmitted === true);
+  if (requestedPatternGroupIds.length === 0 || admittedGroups.length === 0) {
+    return { plan, projection: null };
+  }
+
+  const admittedBasePatternGroupIds = unique(admittedGroups.map((group) => group.basePatternGroupId));
+  const admittedApplicationPatternGroupIds = unique(admittedGroups.map((group) => group.patternGroupId));
+  const droppedPatternGroupIds = requestedPatternGroupIds.filter((id) => (
+    !admittedBasePatternGroupIds.includes(id)
+    && !admittedApplicationPatternGroupIds.includes(id)
+  ));
+  const normalizedPlan = sameIds(requestedPatternGroupIds, admittedBasePatternGroupIds)
+    ? plan
+    : { ...plan, selectedPatternGroupIds: admittedBasePatternGroupIds };
+
+  return {
+    plan: normalizedPlan,
+    projection: Object.freeze({
+      sourceId: plan.sourceId,
+      requestedPatternGroupIds: Object.freeze(requestedPatternGroupIds),
+      admittedBasePatternGroupIds: Object.freeze(admittedBasePatternGroupIds),
+      admittedApplicationPatternGroupIds: Object.freeze(admittedApplicationPatternGroupIds),
+      droppedPatternGroupIds: Object.freeze(droppedPatternGroupIds),
+      requestedPatternGroupCount: requestedPatternGroupIds.length,
+      admittedPatternGroupCount: admittedBasePatternGroupIds.length,
+      droppedPatternGroupCount: droppedPatternGroupIds.length,
+      knowledgePointIdsPreserved: true,
+      questionCountPreserved: true,
+      capacityAuthorityMutated: false,
+    }),
+  };
+}
 
 function displayModels(questions, showQuestionNumbers) {
   return questions.map((question, index) => {
@@ -52,7 +97,13 @@ function answerItems(questions, models) {
   }));
 }
 
-function projectResult(result, projected, plan, currentRouterGeneration = null) {
+function projectResult(
+  result,
+  projected,
+  plan,
+  currentRouterGeneration = null,
+  applicationSelectionProjection = null,
+) {
   if (!projected?.ok) {
     return {
       ...result,
@@ -60,6 +111,7 @@ function projectResult(result, projected, plan, currentRouterGeneration = null) 
       errors: [...(result?.errors ?? []), ...(projected?.errors ?? [])],
       worksheetDocument: null,
       currentRouterGeneration,
+      w1ApplicationSelectionProjection: applicationSelectionProjection,
     };
   }
   const document = result?.worksheetDocument;
@@ -105,11 +157,13 @@ function projectResult(result, projected, plan, currentRouterGeneration = null) 
       questionMode: "application",
       globalContextRegistryId: "GCTX_15_UNIT_PUBLIC_WORKSHEET_V1",
       p01eApplicationAdmission: projected.p01eApplicationAdmission,
+      w1ApplicationSelectionProjection: applicationSelectionProjection,
       currentRouterQuestionAuthority: currentRouterGeneration
         ? {
           sourceId: plan.sourceId,
           questionCount: currentRouterGeneration.questions.length,
           allocation: currentRouterGeneration.allocation ?? currentRouterGeneration.plan?.allocation ?? [],
+          selectedPatternGroupIds: plan.selectedPatternGroupIds ?? [],
         }
         : null,
     },
@@ -139,16 +193,18 @@ function projectResult(result, projected, plan, currentRouterGeneration = null) 
     worksheetDocument,
     p01eApplicationAdmission: projected.p01eApplicationAdmission,
     currentRouterGeneration,
+    w1ApplicationSelectionProjection: applicationSelectionProjection,
   };
 }
 
-function failedCurrentRouterGeneration(generation) {
+function failedCurrentRouterGeneration(generation, applicationSelectionProjection = null) {
   return {
     ok: false,
     errors: [...(generation?.errors ?? [])],
     warnings: [...(generation?.warnings ?? [])],
     worksheetDocument: null,
     currentRouterGeneration: generation,
+    w1ApplicationSelectionProjection: applicationSelectionProjection,
   };
 }
 
@@ -203,18 +259,26 @@ function buildCurrentRouterBaseResult(plan, generation) {
 export function buildWorksheetDocumentFromPlan(plan = {}) {
   const useW1SharedBuilder = plan.questionMode === "application" && W1_PUBLIC_SOURCE_IDS.has(plan.sourceId);
   if (useW1SharedBuilder) {
-    const currentRouterGeneration = generateBatchABrowserQuestions(plan);
+    const normalized = normalizeW1ApplicationPlan(plan);
+    const effectivePlan = normalized.plan;
+    const currentRouterGeneration = generateBatchABrowserQuestions(effectivePlan);
     if (!currentRouterGeneration?.ok) {
-      return failedCurrentRouterGeneration(currentRouterGeneration);
+      return failedCurrentRouterGeneration(currentRouterGeneration, normalized.projection);
     }
-    const result = buildCurrentRouterBaseResult(plan, currentRouterGeneration);
+    const result = buildCurrentRouterBaseResult(effectivePlan, currentRouterGeneration);
     const projected = applyW1FullProductPublicApplicationAdmission({
       ok: true,
       questions: currentRouterGeneration.questions,
       errors: [],
       warnings: currentRouterGeneration.warnings ?? [],
-    }, plan);
-    return projectResult(result, projected, plan, currentRouterGeneration);
+    }, effectivePlan);
+    return projectResult(
+      result,
+      projected,
+      effectivePlan,
+      currentRouterGeneration,
+      normalized.projection,
+    );
   }
 
   const result = buildBase(plan);
@@ -226,5 +290,5 @@ export function buildWorksheetDocumentFromPlan(plan = {}) {
     errors: [],
     warnings: result.warnings ?? [],
   }, plan);
-  return projectResult(result, projected, plan, null);
+  return projectResult(result, projected, plan, null, null);
 }
