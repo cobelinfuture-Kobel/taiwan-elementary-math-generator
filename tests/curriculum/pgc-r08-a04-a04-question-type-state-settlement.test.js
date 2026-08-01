@@ -51,10 +51,8 @@ test("A04 closes the immutable nine-route settlement queue and later active stat
   assert.equal(family.endToEndPassCount, 8);
   assert.equal(family.transferredRouteCount, 1);
   assert.equal(activeState.reconciliation.nextRepairPosition, 6);
-  assert.equal(
-    activeState.reconciliation.nextTask,
-    "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout",
-  );
+  assert.equal(activeState.reconciliation.terminal, true);
+  assert.equal(activeState.reconciliation.nextTask, null);
 });
 
 test("nine explicit W3 application routes retain their runtime PatternGroup IDs in the UI projection", () => {
@@ -71,35 +69,14 @@ test("nine explicit W3 application routes retain their runtime PatternGroup IDs 
 
 test("current W3 query-state parser preserves application controls and application PatternGroups", () => {
   const fixtures = [
-    {
-      sourceId: "g3a_u08_3a08",
-      knowledgePointId: "kp_g3a_u08_same_denominator_compare",
-      patternGroupId: "pg_g3a_u08_same_denominator_compare_application",
-    },
-    {
-      sourceId: "g3b_u07_3b07",
-      knowledgePointId: "kp_g3b_u07_fraction_unit_conversion",
-      patternGroupId: "pg_g3b_u07_fraction_unit_conversion_application",
-    },
-    {
-      sourceId: "g4b_u06_4b06",
-      knowledgePointId: "kp_g4b_u06_one_decimal_times_integer",
-      patternGroupId: "pg_g4b_u06_one_decimal_times_integer_application",
-    },
-    {
-      sourceId: "g5a_u04_5a04",
-      knowledgePointId: "kp_g5a_u04_quotient_as_fraction_context",
-      patternGroupId: "pg_g5a_u04_quotient_as_fraction_context_application",
-    },
+    { sourceId: "g3a_u08_3a08", knowledgePointId: "kp_g3a_u08_same_denominator_compare", patternGroupId: "pg_g3a_u08_same_denominator_compare_application" },
+    { sourceId: "g3b_u07_3b07", knowledgePointId: "kp_g3b_u07_fraction_unit_conversion", patternGroupId: "pg_g3b_u07_fraction_unit_conversion_application" },
+    { sourceId: "g4b_u06_4b06", knowledgePointId: "kp_g4b_u06_one_decimal_times_integer", patternGroupId: "pg_g4b_u06_one_decimal_times_integer_application" },
+    { sourceId: "g5a_u04_5a04", knowledgePointId: "kp_g5a_u04_quotient_as_fraction_context", patternGroupId: "pg_g5a_u04_quotient_as_fraction_context_application" },
   ];
 
   for (const fixture of fixtures) {
-    const params = new URLSearchParams({
-      sourceId: fixture.sourceId,
-      selectionMode: "singleKnowledgePoint",
-      questionMode: "application",
-      contextMode: "global_primary",
-    });
+    const params = new URLSearchParams({ sourceId: fixture.sourceId, selectionMode: "singleKnowledgePoint", questionMode: "application", contextMode: "global_primary" });
     params.append("kp", fixture.knowledgePointId);
     params.append("pg", fixture.patternGroupId);
     const parsed = parseQueryState(`?${params}`);
@@ -156,10 +133,7 @@ test("repair is one shared query-state reconciliation and does not extend timeou
   assert.match(runnerSource, /wrapBrowserWithQuestionTypeStateBootstrap/);
   assert.equal(plan.repairContract.timeoutExtensionForbidden, true);
   assert.equal(plan.repairContract.queryStateConsumerMutationAllowed, true);
-  assert.deepEqual(
-    plan.repairContract.productMutationScope,
-    ["site/assets/browser/state/query-state.js"],
-  );
+  assert.deepEqual(plan.repairContract.productMutationScope, ["site/assets/browser/state/query-state.js"]);
   assert.equal(plan.repairContract.resolverMutationAllowed, false);
   assert.equal(plan.repairContract.capacityAuthorityMutationAllowed, false);
   assert.equal(plan.repairContract.historicalQueueMutationAllowed, false);
@@ -168,10 +142,7 @@ test("repair is one shared query-state reconciliation and does not extend timeou
 
 test("terminal readback closes state settlement and transfers one orthogonal regenerate failure", () => {
   assert.equal(plan.status, "PASS_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSED");
-  assert.equal(
-    readback.status,
-    "PASS_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSED_WITH_1_REGENERATE_TRANSFER",
-  );
+  assert.equal(readback.status, "PASS_QUESTION_TYPE_STATE_SETTLEMENT_FAMILY_CLOSED_WITH_1_REGENERATE_TRANSFER");
   assert.equal(readback.sourceEvidence.workflowRunId, 30626667157);
   assert.equal(readback.sourceEvidence.artifactId, 8791684671);
   assert.equal(readback.replaySummary.targetRouteCount, 9);
