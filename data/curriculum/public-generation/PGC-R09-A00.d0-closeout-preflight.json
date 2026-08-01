@@ -1,0 +1,94 @@
+{
+  "schemaName": "PGCR09A00D0CloseoutPreflightV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R09-A00_D0CloseoutPreflightAndCanonicalAcceptanceMatrix",
+  "status": "PASS_R09_A00_D0_CLOSEOUT_PREFLIGHT_FROZEN",
+  "programGoal": "完成全庫回歸、真實 artifact 封存與產品狀態重判定，只有全部 canonical D0 gates 通過後才解除 Slice014 freeze。",
+  "preconditions": {
+    "r08TaskId": "PGC-R08-A04-A07_FinalGlobalReconciliationAndD0Closeout",
+    "r08Status": "PASS_ALL_793_LEGAL_ROUTES_RECONCILED",
+    "r08D0Status": "PASS_R08_D0",
+    "legalRouteCount": 793,
+    "finalPassRouteCount": 793,
+    "finalFailedRouteCount": 0,
+    "pendingRepairCount": 0,
+    "fullRegression": "2796/2796 PASS",
+    "slice014Started": false,
+    "slice014FreezeRequiredThrough": "PGC-R09_PublicGenerationD0Closeout"
+  },
+  "canonicalAuthorities": {
+    "publicScope": "data/curriculum/public-generation/public_generation_scope.json",
+    "capabilityMatrix": "data/curriculum/public-generation/public_generation_capability_matrix.json",
+    "capacityContract": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "uiBindingContract": "data/curriculum/public-generation/ui_capability_binding_contract.json",
+    "r07SurfaceParity": "data/curriculum/public-generation/PGC-R07-A05.final-surface-parity-closeout.json",
+    "r08RouteMatrix": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+    "r08FinalReconciliation": "data/curriculum/public-generation/PGC-R08-A04-A07.final-global-reconciliation.json",
+    "r08ActiveState": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json"
+  },
+  "canonicalAcceptanceMatrix": [
+    {"gateId":"PUBLIC_UI_CAPABILITY_BINDING","requirement":"所有公開 UI 選項都有正式 capability，且不支援組合不出現在 UI","evidenceAuthority":"uiBindingContract","blocking":true},
+    {"gateId":"GENERATOR_CONFORMANCE","requirement":"所有公開 capability 均有 canonical Generator consumer","evidenceAuthority":"capabilityMatrix+capacityContract","blocking":true},
+    {"gateId":"VALIDATOR_CONFORMANCE","requirement":"所有公開 capability 均有 canonical Validator consumer 並通過答案驗證","evidenceAuthority":"capabilityMatrix+r08FinalReconciliation","blocking":true},
+    {"gateId":"QUESTION_CAPACITY","requirement":"所有合法 capability route 均通過其指定題量；R08 canonical legal routes 793/793 conformant","evidenceAuthority":"capacityContract+r08FinalReconciliation","blocking":true},
+    {"gateId":"PUBLIC_GENERATE_BUTTON_E2E","requirement":"所有 793 個公開合法組合經真實 UI 按下產生均成功","evidenceAuthority":"r08RouteMatrix+r08FinalReconciliation","blocking":true},
+    {"gateId":"HTML_PDF_PRINT_PARITY","requirement":"公開 capability 均通過真實 HTML/PDF/Print，surface renderer parity 維持 D0","evidenceAuthority":"r07SurfaceParity+r08FinalReconciliation","blocking":true},
+    {"gateId":"ANSWER_KEY_PARITY","requirement":"題目與答案頁 bijection、數量與 identity 均一致","evidenceAuthority":"r07SurfaceParity+r08FinalReconciliation","blocking":true},
+    {"gateId":"FULL_NODE_REGRESSION","requirement":"完整 Node regression 在 R09 exact head 為 0 fail","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"CAPABILITY_MATRIX_VALIDATOR","requirement":"Capability matrix validator 在 R09 exact head PASS","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"GENERATOR_CAPACITY_TESTS","requirement":"Generator capacity tests 在 R09 exact head PASS","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"SEMANTIC_APPLICATION_TESTS","requirement":"Semantic application tests 在 R09 exact head PASS","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"REASONING_TESTS","requirement":"Reasoning tests 在 R09 exact head PASS","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"MIXED_ALLOCATION_TESTS","requirement":"Mixed allocation tests 在 R09 exact head PASS","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"BROWSER_UI_TESTS","requirement":"Browser UI tests 在 R09 exact head PASS，console/page errors=0","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"CHROMIUM_HTML_PDF_TESTS","requirement":"Chromium HTML/PDF tests 在 R09 exact head PASS","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"VISUAL_GEOMETRY_TESTS","requirement":"Visual geometry/overflow/clipping/pagination gates 在 R09 exact head PASS","evidenceAuthority":"R09 execution evidence","blocking":true},
+    {"gateId":"PUBLIC_SITE_SMOKE","requirement":"deployed public site smoke 在 R09 release candidate PASS","evidenceAuthority":"R09 deployed evidence","blocking":true},
+    {"gateId":"CI_ALL_GREEN","requirement":"R09 PR required CI 全綠","evidenceAuthority":"GitHub Actions","blocking":true},
+    {"gateId":"PR_MERGED","requirement":"R09 PR merged to main","evidenceAuthority":"GitHub PR","blocking":true},
+    {"gateId":"MAIN_READBACK_UPDATED","requirement":"main 上 D0 readback 與 artifact manifest 已更新","evidenceAuthority":"R09 closeout readback","blocking":true}
+  ],
+  "requiredArchiveFields": [
+    "pullRequest","commitSha","mergeSha","workflowRunIds","artifactIds","htmlSha256","pdfSha256","questionCount","answerCount","uniqueQuestionCount","seedCount","pageCount","overflowMetrics","semanticReviewResult"
+  ],
+  "requiredExecutionSuites": [
+    "FULL_NODE_REGRESSION","CAPABILITY_MATRIX_VALIDATOR","GENERATOR_CAPACITY_TESTS","SEMANTIC_APPLICATION_TESTS","REASONING_TESTS","MIXED_ALLOCATION_TESTS","BROWSER_UI_TESTS","CHROMIUM_HTML_PDF_TESTS","VISUAL_GEOMETRY_TESTS","PUBLIC_SITE_SMOKE"
+  ],
+  "orderedMilestones": [
+    "PGC-R09-A00_D0CloseoutPreflightAndCanonicalAcceptanceMatrix",
+    "PGC-R09-A01_ExactHeadRegressionAndCapabilityGateExecution",
+    "PGC-R09-A02_RealArtifactArchiveAndHashManifest",
+    "PGC-R09-A03_PublicSiteSmokeAndReleaseCandidateReadback",
+    "PGC-R09-A04_FinalD0ReconciliationMergeAndSlice014Unfreeze"
+  ],
+  "frozenBoundary": {
+    "newKnowledgePointAllowed": false,
+    "newPatternGroupAllowed": false,
+    "newPatternSpecAllowed": false,
+    "newGeneratorAllowed": false,
+    "secondValidatorAllowed": false,
+    "secondRendererAllowed": false,
+    "uiVisualRedesignAllowed": false,
+    "batchExpansionAllowed": false,
+    "slice014AllowedBeforeR09D0": false,
+    "acceptanceGateRelaxationAllowed": false
+  },
+  "a00Gate": {
+    "r08D0PreconditionVerified": true,
+    "canonicalAuthoritiesFrozen": true,
+    "canonicalAcceptanceMatrixFrozen": true,
+    "requiredExecutionSuitesFrozen": true,
+    "requiredArchiveFieldsFrozen": true,
+    "orderedMilestonesFrozen": true,
+    "slice014StillFrozen": true,
+    "implementationExecutionInA00": false
+  },
+  "goalDistance": {
+    "before": "D1_R08_ALL_793_LEGAL_ROUTES_CONFORMANT_R09_PRODUCT_D0_NOT_RECONCILED",
+    "after": "D1_R09_D0_ACCEPTANCE_MATRIX_AND_CLOSEOUT_EVIDENCE_CONTRACT_FROZEN",
+    "distanceReduced": "R08 route-level D0 is promoted into one canonical product-level D0 acceptance matrix with exact regression, artifact, CI, merge and main-readback requirements.",
+    "remainingBlockers": ["R09_EXACT_HEAD_REGRESSION_NOT_EXECUTED","R09_ARTIFACT_MANIFEST_NOT_MATERIALIZED","R09_DEPLOYED_PUBLIC_SITE_SMOKE_NOT_RECONCILED","R09_FINAL_D0_NOT_MERGED"],
+    "nextShortestStep": "PGC-R09-A01_ExactHeadRegressionAndCapabilityGateExecution"
+  }
+}
