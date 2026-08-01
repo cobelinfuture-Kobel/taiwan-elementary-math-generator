@@ -35,7 +35,28 @@ jobs:
         run: node --test tests/curriculum/pgc-r00-public-generation-scope.test.js
 
       - name: Full regression
-        run: npm test
+        shell: bash
+        run: |
+          set -o pipefail
+          set +e
+          mkdir -p tmp/pgc-r08-a04-a07-full-regression
+          npm test 2>&1 | tee tmp/pgc-r08-a04-a07-full-regression/npm-test.log
+          regression_status=${PIPESTATUS[0]}
+          printf '%s\n' "${regression_status}" \
+            > tmp/pgc-r08-a04-a07-full-regression/exit-code.txt
+          exit 0
+
+      - name: Upload full regression evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r08-a04-a07-full-regression-${{ github.run_id }}
+          path: tmp/pgc-r08-a04-a07-full-regression
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Verify full regression
+        shell: bash
+        run: test "$(cat tmp/pgc-r08-a04-a07-full-regression/exit-code.txt)" = "0"
 
       - name: Install exact-replay dependencies
         run: npm install --no-audit --no-fund --no-save --package-lock=false playwright
