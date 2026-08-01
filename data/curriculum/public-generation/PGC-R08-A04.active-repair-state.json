@@ -2,23 +2,23 @@
   "schemaName": "PGCR08A04ActiveRepairStateV1",
   "schemaVersion": 1,
   "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
-  "taskId": "PGC-R08-A04-A05_RegenerateIdentityTimeoutFocusedReproductionAnd10RouteRepair",
-  "status": "ACTIVE_AFTER_REGENERATE_IDENTITY_FAMILY_CLOSEOUT",
+  "taskId": "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair",
+  "status": "PASS_A04_FAILED_COMBINATION_REPAIR_QUEUE_CLOSED",
   "historicalAuthority": {
     "repairQueueIndex": "data/curriculum/public-generation/PGC-R08-A03.repair-queue.json",
     "immutable": true
   },
-  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A05.regenerate-identity-readback.json",
+  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-readback.json",
   "baseline": {
     "legalRouteCount": 793,
     "initialPassRouteCount": 466,
     "initialFailedRouteCount": 327
   },
   "current": {
-    "cumulativePassRouteCount": 790,
-    "unresolvedFailedRouteCount": 3,
+    "cumulativePassRouteCount": 793,
+    "unresolvedFailedRouteCount": 0,
     "closedOriginalFailureRouteCount": 326,
-    "reclassifiedUnresolvedRouteCount": 3
+    "reclassifiedUnresolvedRouteCount": 0
   },
   "closedFamilies": [
     {
@@ -52,48 +52,24 @@
       "endToEndPassCount": 10,
       "status": "CLOSED_REGENERATE_IDENTITY_BLOCKER_REMOVED",
       "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A05.regenerate-identity-readback.json"
-    }
-  ],
-  "pendingFamilies": [
+    },
     {
-      "position": 5,
       "failureFamily": "CAPACITY_EVIDENCE_RECONCILIATION",
-      "routeCount": 38,
-      "sourceQueuePath": "data/curriculum/public-generation/PGC-R08-A03.capacity-evidence-reconciliation-queue.json",
       "historicalReconciliationRouteCount": 35,
       "activeShortfallOverlayCount": 3,
-      "overlayRows": [
-        {
-          "routeIndex": 482,
-          "routeId": "pgc_r03_g5a_u03_5a03a_application_3da6082c4117",
-          "projectedQuestionCount": 12,
-          "requestedQuestionCount": 20,
-          "introducedByTask": "PGC-R08-A04-A03-A01_ExactPatternGroupBindingHarnessRepairAnd136RouteReplay"
-        },
-        {
-          "routeIndex": 497,
-          "routeId": "pgc_r03_g5a_u03_5a03a1_application_1676399731c4",
-          "projectedQuestionCount": 12,
-          "requestedQuestionCount": 20,
-          "introducedByTask": "PGC-R08-A04-A03-A01_ExactPatternGroupBindingHarnessRepairAnd136RouteReplay"
-        },
-        {
-          "routeIndex": 783,
-          "routeId": "pgc_r03_g6a_u01_6a01_application_3319cf21ddf0",
-          "projectedQuestionCount": 8,
-          "requestedQuestionCount": 20,
-          "introducedByTask": "PGC-R08-A04-A03-A01_ExactPatternGroupBindingHarnessRepairAnd136RouteReplay"
-        }
-      ]
+      "endToEndPassCount": 3,
+      "status": "CLOSED_ACTIVE_CAPACITY_SHORTFALLS_REMOVED",
+      "readbackPath": "data/curriculum/public-generation/PGC-R08-A04-A06.capacity-shortfall-readback.json"
     }
   ],
+  "pendingFamilies": [],
   "reconciliation": {
-    "pendingFailedRouteCount": 3,
+    "pendingFailedRouteCount": 0,
     "pendingFailureFamiliesExcludingCapacityReconciliation": 0,
-    "activeCapacityShortfallRouteCount": 3,
+    "activeCapacityShortfallRouteCount": 0,
     "capacityReconciliationRouteCount": 38,
-    "capacityReconciliationOverlapWithPendingFailureCount": 3,
-    "nextRepairPosition": 5,
-    "nextTask": "PGC-R08-A04-A06_CapacityShortfallFocusedReproductionAnd3RouteRepair"
+    "capacityReconciliationOverlapWithPendingFailureCount": 0,
+    "nextRepairPosition": null,
+    "nextTask": "PGC-R08-A05_FinalEndToEndReconciliationAndCloseout"
   }
 }
