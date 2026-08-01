@@ -8,8 +8,10 @@ on:
       - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
       - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
       - "tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js"
+      - "tests/curriculum/pgc-r09-a03-public-site-smoke.test.js"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs"
       - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs"
+      - "tools/curriculum/run-pgc-r09-a03-public-site-smoke.mjs"
       - ".github/workflows/pgc-r00-public-generation-scope.yml"
   workflow_dispatch:
 
@@ -35,6 +37,9 @@ jobs:
       - name: Focused R09 A01 contract
         run: node --test tests/curriculum/pgc-r09-a01-exact-head-execution.test.js
 
+      - name: Focused R09 A03 public-site smoke contract
+        run: node --test tests/curriculum/pgc-r09-a03-public-site-smoke.test.js
+
       - name: Full regression
         run: npm test
 
@@ -51,6 +56,18 @@ jobs:
 
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
+
+      - name: R09 A03 deployed public-site smoke
+        run: node tools/curriculum/run-pgc-r09-a03-public-site-smoke.mjs
+
+      - name: Upload R09 A03 deployed public-site smoke evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgc-r09-a03-public-site-smoke-${{ github.run_id }}
+          path: tmp/pgc-r09-a03-public-site-smoke
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Exact ten-route browser replay
         shell: bash
