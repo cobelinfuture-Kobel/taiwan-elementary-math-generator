@@ -2,7 +2,7 @@
   "claimId": "P03F-W3-SLICE016-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice016Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_D0_CLOSED",
   "goalDistance": "D0",
   "scope": "Slice016 only: g3b_u09_3b09 one-decimal add/sub and compare.",
   "authority": {
@@ -60,6 +60,15 @@
     "nodeWorkflowJobId": 91522844580,
     "nodeConclusion": "success",
     "temporaryAcceptanceWorkflowRetired": true
+  },
+  "closeoutEvidence": {
+    "prNumber": 516,
+    "headSha": "e6da85e24090e71801756ed2baccfa88e0473b74",
+    "nodeWorkflowRunId": 30758139745,
+    "nodeWorkflowJobId": 91523803815,
+    "nodeConclusion": "success",
+    "mergeSha": "51c8cbf7f86ed07383e062e6dfade636f31d5b48",
+    "mainReadback": "PASS"
   },
   "productResult": {
     "knowledgePointCount": 2,

@@ -5,7 +5,7 @@ PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice016Implementation
 SLICE      = 016
 SOURCE_REF = g3b_u09_3b09
-STATUS     = PASS_D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Authority and product scope
@@ -23,7 +23,7 @@ FINAL_NODE_JOB             = 91522844580
 FINAL_NODE_CONCLUSION      = success
 ```
 
-The exact final implementation head passed Node Test after the temporary E6 workflow was retired. GLM-S01, S02, S03, S05, S06, S07 and PGC-R04 were also terminal success; historical earlier-slice acceptance workflows were skipped by path gating.
+The exact final implementation head passed Node Test after the temporary E6 workflow was retired. GLM-S01, S02, S03, S05, S06, S07 and PGC-R04 were terminal success; historical earlier-slice acceptance workflows were skipped by path gating.
 
 ## Chromium E6 acceptance evidence
 
@@ -45,9 +45,23 @@ SEMANTIC_REVIEW            = PASS
 ANSWER_KEY_REVIEW          = PASS
 ```
 
-The artifact contains two worksheet pages and two answer-key pages. All three PatternSpecs are represented by six witnesses each. Automated browser findings are zero for overflow, duplicate prompts, console errors and page errors; the physical PDF page count exactly matches worksheet plus answer-key pages. Manual review of all four screenshots found no clipping, overlap or broken glyphs, and all 18 answers were checked against the worksheet prompts.
+The artifact contains two worksheet pages and two answer-key pages. All three PatternSpecs are represented by six witnesses each. Automated browser findings are zero for overflow, duplicate prompts, console errors and page errors; the physical PDF page count exactly matches worksheet plus answer-key pages. Manual review found no clipping, overlap or broken glyphs, and all 18 answers were checked against the worksheet prompts.
 
-## D0 admission contract
+## Formal D0 closeout evidence
+
+```text
+CLOSEOUT_PR                = #516
+CLOSEOUT_FINAL_HEAD        = e6da85e24090e71801756ed2baccfa88e0473b74
+CLOSEOUT_NODE_RUN          = 30758139745
+CLOSEOUT_NODE_JOB          = 91523803815
+CLOSEOUT_NODE_CONCLUSION   = success
+CLOSEOUT_MERGE_SHA         = 51c8cbf7f86ed07383e062e6dfade636f31d5b48
+MAIN_READBACK              = PASS
+```
+
+PR #516 materialized the accepted E6 evidence into the canonical manifest/claim/readback chain. The exact closeout head passed Node Test; no production runtime behavior changed. The canonical manifest reports `PASS_CI_SYNCED_AND_MERGED`, `E6_ARTIFACT_ACCEPTED_D0`, and `ADMITTED_D0`; the claim reports `PRODUCTION_ADMITTED_D0` with `d0Complete = true`.
+
+## Product result
 
 ```text
 KNOWLEDGE_POINT_COUNT            = 2
@@ -58,18 +72,18 @@ APPLICATION_PATTERN_SPEC_COUNT   = 0
 QUESTION_WITNESS_COUNT           = 18
 ANSWER_KEY_WITNESS_COUNT         = 18
 NEW_PRODUCT_ADMISSION            = 1
+PRODUCT_ADMISSION_STATE          = PRODUCTION_ADMITTED_D0
+D0_COMPLETE                      = true
 ```
-
-The canonical candidate D0 state is `E6_ARTIFACT_ACCEPTED_D0` / `ADMITTED_D0`. The temporary Slice016 E6 workflow was removed before the final exact-head CI, preserving read-only CI governance.
 
 ## Distance closeout
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE016_IMPLEMENTATION_MERGED_E6_ACCEPTED_D0_NOT_MATERIALIZED
-GOAL_DISTANCE_AFTER  = D0_SLICE016_PRODUCT_CLOSED_PENDING_CLOSEOUT_PR_CI_MERGE
-DISTANCE_REDUCED     = Slice016 E6 artifact, final exact-head CI and product-admission evidence are bound into the canonical manifest/claim/readback chain.
-REMAINING_BLOCKERS   = [CLOSEOUT_PR_CI_AND_MERGE]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice016Closeout_PR_CI_Merge_MainReadback
+GOAL_DISTANCE_AFTER  = D0_SLICE016_CLOSED
+DISTANCE_REDUCED     = Slice016 E6 acceptance evidence is bound into the canonical manifest/claim/readback chain and verified by the final closeout CI plus main readback.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice017Implementation
 ```
 
-Final D0 is authoritative only after this closeout branch passes CI, merges to `main`, and the claim/manifest/readback are read back from `main`.
+Slice016 is formally closed at D0. Slice017 is a separate next-slice task and is not started by this closeout.
