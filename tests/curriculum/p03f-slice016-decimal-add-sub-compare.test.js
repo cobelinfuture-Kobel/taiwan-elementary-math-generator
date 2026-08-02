@@ -32,6 +32,8 @@ const OPTIONS = Object.freeze({
   includeAnswerKey: true,
 });
 const authority = JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p03f/slice016-decimal-add-sub-compare-authority.json", import.meta.url), "utf8"));
+const admissionManifest = JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p03f/slice016-product-admission.manifest.json", import.meta.url), "utf8"));
+const d0Claim = JSON.parse(readFileSync(new URL("../../data/curriculum/final-milestone-claims/p03f-w3-slice016-e6-d0-v1.json", import.meta.url), "utf8"));
 
 test("P03F16 frozen queue and predecessor are exact", () => {
   assert.equal(authority.queueAuthority.queuePosition, 16);
@@ -114,4 +116,29 @@ test("P03F16 shared worksheet produces questions and answer key without applicat
 test("P03F16 current Pixel snapshot exposes six G3B-U09 KPs", () => {
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 6);
+});
+
+test("P03F16 D0 closeout binds exact E6 and final CI evidence without starting Slice017", () => {
+  assert.equal(admissionManifest.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.equal(admissionManifest.admissionState, "E6_ARTIFACT_ACCEPTED_D0");
+  assert.equal(admissionManifest.admissionDecision.status, "ADMITTED_D0");
+  assert.equal(admissionManifest.expectedCounts.knowledgePointCount, 2);
+  assert.equal(admissionManifest.expectedCounts.patternSpecCount, 3);
+  assert.equal(admissionManifest.expectedCounts.questionWitnessCount, 18);
+  assert.equal(admissionManifest.expectedCounts.answerKeyWitnessCount, 18);
+  assert.equal(admissionManifest.exactAcceptance.implementationPrNumber, 515);
+  assert.equal(admissionManifest.exactAcceptance.implementationMergeSha, "8309237a9819a9fe102b5cef90aed443bff37808");
+  assert.equal(admissionManifest.exactAcceptance.acceptanceWorkflowRunId, 30757687493);
+  assert.equal(admissionManifest.exactAcceptance.acceptanceArtifactId, 8836453290);
+  assert.equal(admissionManifest.exactAcceptance.acceptanceVisualReview, "PASS");
+  assert.equal(admissionManifest.exactAcceptance.acceptanceSemanticReview, "PASS");
+  assert.equal(admissionManifest.exactAcceptance.acceptanceAnswerKeyReview, "PASS");
+  assert.equal(admissionManifest.exactAcceptance.temporaryAcceptanceWorkflowRetired, true);
+  assert.equal(admissionManifest.exactAcceptance.finalNodeWorkflowConclusion, "success");
+  assert.equal(admissionManifest.mainlineBoundary.nextQueuePositionStarted, false);
+  assert.equal(admissionManifest.mainlineBoundary.nextTask, "P03F_W3DirectProductVerticalSlice017Implementation");
+  assert.equal(d0Claim.status, "PASS_D0_CLOSEOUT_CANDIDATE");
+  assert.equal(d0Claim.goalDistance, "D0");
+  assert.equal(d0Claim.productResult.d0Complete, true);
+  assert.equal(d0Claim.boundaries.slice017Started, false);
 });
