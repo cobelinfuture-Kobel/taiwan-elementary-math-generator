@@ -3,13 +3,24 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice015Implementation",
-  "status": "AUTHORITY_FROZEN_IMPLEMENTATION_PENDING",
+  "status": "IMPLEMENTATION_COMPLETE_PREDECESSOR_D0_RECONCILED_ACCEPTANCE_PENDING",
   "queueAuthority": {
     "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
     "queuePosition": 15,
     "sliceId": "p03e_q015_r7_g3b_u07_3b07_profile_fraction_c1",
     "previousSliceId": "p03e_q014_r6_g5b_u05_5b05a_profile_decimal_c1",
     "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 508,
+      "acceptancePr": 509,
+      "closeoutPr": 511,
+      "closeoutMergeSha": "7d8021c78e0a2f6464edb709e6c6dd82de14ff5a",
+      "closeoutManifestPath": "data/curriculum/full-product/p03f/slice014-product-admission.manifest.json",
+      "closeoutClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice014-e6-d0-v1.json",
+      "closeoutReadbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE014_READBACK.md",
+      "acceptedState": "ADMITTED_D0"
+    },
     "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
   },
   "sourceAuthority": {
