@@ -16,7 +16,7 @@ import {
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
 import {
   listVisibleBatchAKnowledgePoints
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f14-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f15-extension.js";
 
 test("Pixel registry bridge exposes the nineteen-source public registry without duplicating data", () => {
   const sourceUnits = listFullProductPublicSourceUnits();
