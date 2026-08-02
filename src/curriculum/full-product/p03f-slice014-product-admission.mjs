@@ -29,7 +29,7 @@ import { listCurrentFullProductPublicSourceUnits } from "../../../site/modules/c
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const DATA_DIR = path.join(ROOT, "data/curriculum/full-product/p03f");
-export const P03F_SLICE014_PRODUCT_ADMISSION_VERSION = "p03f-slice014-product-admission-v1";
+export const P03F_SLICE014_PRODUCT_ADMISSION_VERSION = "p03f-slice014-product-admission-v2";
 const readJson = (fileName) => JSON.parse(fs.readFileSync(path.join(DATA_DIR, fileName), "utf8"));
 
 function requestedPlan() {
@@ -46,6 +46,31 @@ function requestedPlan() {
     title: "五年級｜整數與小數的十進位結構",
     printLayout: Object.freeze({ paperSize: "A4", columns: 2, rowsPerPage: 5, showQuestionNumbers: true, showAnswerKeyPage: true }),
   });
+}
+
+function hasAcceptedD0Evidence(manifest) {
+  const exact = manifest.exactAcceptance ?? {};
+  const decision = manifest.admissionDecision ?? {};
+  return manifest.status === "PASS_CI_SYNCED_AND_MERGED"
+    && manifest.admissionState === "E6_ARTIFACT_ACCEPTED_D0"
+    && decision.status === "ADMITTED_D0"
+    && decision.runtimeContractStatus === "PASS"
+    && decision.chromiumProductArtifactStatus === "PASS"
+    && decision.classicSelectorPublicStatus === "PASS"
+    && decision.pixelSelectorPublicStatus === "PASS"
+    && decision.worksheetPrintableStatus === "PASS"
+    && decision.answerKeyStatus === "PASS"
+    && decision.finalLiveCohortStatus === "PASS"
+    && decision.validatorStatus === "PASS"
+    && exact.finalExactHeadAccepted === true
+    && exact.implementationNodeConclusion === "success"
+    && exact.finalNodeWorkflowConclusion === "success"
+    && exact.acceptanceVisualReview === "PASS"
+    && exact.acceptanceSemanticReview === "PASS"
+    && exact.acceptanceAnswerKeyReview === "PASS"
+    && Number(exact.acceptancePdfPageCount) === 4
+    && Number(exact.acceptanceScreenshotCount) === 4
+    && Number(exact.acceptancePdfByteLength) >= 10000;
 }
 
 export function materializeP03FSlice014ProductAdmission() {
@@ -73,6 +98,7 @@ export function materializeP03FSlice014ProductAdmission() {
   const availability = listBatchAKnowledgePointAvailabilityBySource(G5B_U05_DECIMAL_BASE10_SOURCE_ID);
   const currentSources = listCurrentFullProductPublicSourceUnits();
   const publicSource = currentSources.find((row) => row.sourceId === G5B_U05_DECIMAL_BASE10_SOURCE_ID) ?? null;
+  const d0Complete = hasAcceptedD0Evidence(manifest);
   const metrics = Object.freeze({
     queuePosition: slice?.queuePosition ?? null,
     sourceNodeCount: 1,
@@ -87,7 +113,7 @@ export function materializeP03FSlice014ProductAdmission() {
     publicVisibleKnowledgePointCountForSource: availability?.visibleCount ?? 0,
     questionWitnessCount: generation.questions?.length ?? 0,
     answerKeyWitnessCount: document?.answerKeyItems?.length ?? 0,
-    newProductAdmissionCount: 0,
+    newProductAdmissionCount: d0Complete ? 1 : 0,
   });
   return Object.freeze({
     schemaName: manifest.schemaName,
@@ -122,7 +148,7 @@ export function materializeP03FSlice014ProductAdmission() {
     currentSources: Object.freeze(currentSources),
     publicSource: publicSource ? Object.freeze(publicSource) : null,
     metrics,
-    productAdmissionState: "RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE",
-    d0Complete: false,
+    productAdmissionState: d0Complete ? "PRODUCTION_ADMITTED_D0" : "RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE",
+    d0Complete,
   });
 }
