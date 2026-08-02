@@ -21,9 +21,13 @@ if (!evidence.planValidation?.ok || !evidence.questionValidation?.ok) throw new 
 
 const htmlPath = path.join(OUTPUT, "g5b-u05-decimal-base10.html");
 const pdfPath = path.join(OUTPUT, "g5b-u05-decimal-base10.pdf");
-fs.writeFileSync(htmlPath, evidence.html);
+const printStylesPath = path.join(ROOT, "src/renderer/print-styles.css");
+const printStyles = fs.readFileSync(printStylesPath, "utf8");
+const acceptanceHtml = evidence.html.replace("</head>", `<style data-p03f14-canonical-print-styles>${printStyles}</style></head>`);
+fs.writeFileSync(htmlPath, acceptanceHtml);
 
 const sha256 = (filePath) => crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
+const sha256Text = (value) => crypto.createHash("sha256").update(value).digest("hex");
 const physicalPages = (filePath) => (fs.readFileSync(filePath).toString("latin1").match(/\/Type\s*\/Page(?!s)\b/g) ?? []).length;
 const expectedCaps = ["cap_decimal_domain_validator", "cap_decimal_number_system"];
 
@@ -35,7 +39,7 @@ try {
   const pageErrors = [];
   page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
   page.on("pageerror", (error) => pageErrors.push(String(error)));
-  await page.setContent(evidence.html, { waitUntil: "networkidle" });
+  await page.setContent(acceptanceHtml, { waitUntil: "networkidle" });
   await page.emulateMedia({ media: "print" });
   const pageMetrics = await page.$$eval(".worksheet-page", (nodes) => nodes.map((node, index) => ({
     index,
@@ -92,7 +96,7 @@ const report = {
   schemaName: "P03FSlice014ChromiumProductAcceptanceReportV1",
   taskId: "P03F_W3DirectProductVerticalSlice014ChromiumAcceptance",
   status: "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
-  sourceId: evidence.slice.sourceNodeId,
+  sourceId: evidence.slice.primarySourceNodeId,
   knowledgePointIds: evidence.slice.knowledgePointIds,
   questionCount: questions.length,
   answerKeyItemCount: evidence.metrics.answerKeyWitnessCount,
@@ -102,6 +106,7 @@ const report = {
   patternSpecIds: [...new Set(questions.map((row) => row.patternSpecId))].sort(),
   htmlSha256: sha256(htmlPath),
   pdfSha256: sha256(pdfPath),
+  canonicalPrintStylesSha256: sha256Text(printStyles),
   duplicatePromptFindingCount,
   overflowFindingCount,
   consoleErrorCount: browserFinding.consoleErrors.length,
