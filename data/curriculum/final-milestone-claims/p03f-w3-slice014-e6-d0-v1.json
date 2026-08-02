@@ -1,0 +1,77 @@
+{
+  "claimId": "P03F-W3-SLICE014-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice014Implementation",
+  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D0",
+  "scope": "Slice014 only: g5b_u05_5b05a and kp_g5b_u05a_decimal_base10_structure.",
+  "authority": {
+    "queuePosition": 14,
+    "queueEntryId": "p03e_q014_r6_g5b_u05_5b05a_profile_decimal_c1",
+    "sourceRef": "g5b_u05_5b05a",
+    "knowledgePointIds": [
+      "kp_g5b_u05a_decimal_base10_structure"
+    ],
+    "patternGroupIds": [
+      "pg_g5b_u05a_decimal_base10_structure_core"
+    ],
+    "patternSpecIds": [
+      "ps_g5b_u05a_decimal_base10_adjacent_place_relation",
+      "ps_g5b_u05a_decimal_base10_cross_decimal_point_relation"
+    ],
+    "requiredCapabilityIds": [
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system"
+    ]
+  },
+  "implementationEvidence": {
+    "prNumber": 508,
+    "finalHeadSha": "d87f3a6ef15ab380cc6eabe6208319037c3b118a",
+    "mergeSha": "dfe6100c8ec286f1c372378f1d4f6c6788e5eafb",
+    "nodeWorkflowRunId": 30740613509,
+    "nodeWorkflowJobId": 91477272527,
+    "nodeConclusion": "success"
+  },
+  "artifactEvidence": {
+    "acceptancePrNumber": 509,
+    "acceptanceEvidenceHeadSha": "014312b1f14481e212537cd87f42a47803771019",
+    "chromiumWorkflowRunId": 30740990021,
+    "artifactId": 8831277911,
+    "pdfPageCount": 4,
+    "pdfByteLength": 136458,
+    "screenshotCount": 4,
+    "classicQuestionCount": 2,
+    "visualReview": "PASS",
+    "semanticReview": "PASS",
+    "answerKeyReview": "PASS",
+    "acceptanceMergeSha": "af1d0bf262acee9e5534db3d5a9c3630fc1bb374"
+  },
+  "finalExactHeadEvidence": {
+    "headSha": "c2ce91cb571f5c48cef5a2b2ad65df8f7f57c4ab",
+    "nodeWorkflowRunId": 30742469024,
+    "nodeWorkflowJobId": 91482207171,
+    "nodeConclusion": "success"
+  },
+  "productResult": {
+    "knowledgePointCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "questionWitnessCount": 16,
+    "answerKeyWitnessCount": 16,
+    "newProductAdmissionCount": 1,
+    "classicPublicSurface": "PASS",
+    "pixelPublicSurface": "PASS",
+    "worksheetPrintable": "PASS",
+    "answerKey": "PASS",
+    "chromiumPdf": "PASS"
+  },
+  "boundaries": {
+    "slice015Started": false,
+    "newPublicSourceAdded": false,
+    "decimalArithmeticAdded": false,
+    "applicationStoryGenerationAdded": false,
+    "parallelRuntimePipelineAdded": false,
+    "sharedWorksheetRendererBehaviorChanged": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice015Implementation"
+}
