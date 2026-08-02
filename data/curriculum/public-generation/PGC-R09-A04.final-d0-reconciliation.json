@@ -1,0 +1,134 @@
+{
+  "schemaName": "PGCR09A04FinalD0ReconciliationV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R09-A04_FinalD0ReconciliationMergeAndSlice014Unfreeze",
+  "statusInPullRequest": "READY_FOR_FINAL_CI_AND_MERGE",
+  "effectiveStatusWhenOnMain": "PASS_R09_PRODUCT_D0_CLOSED",
+  "activationRule": "This authority becomes the terminal R09 D0 readback only when this exact A04 commit is present on main after all required pull-request CI is green.",
+  "lineage": {
+    "a00Authority": "data/curriculum/public-generation/PGC-R09-A00.d0-closeout-preflight.json",
+    "a01ExecutionAuthority": "data/curriculum/public-generation/PGC-R09-A01.exact-head-execution.json",
+    "a01rFullFixAuthority": "data/curriculum/public-generation/PGC-R09-A01R.325-route-fullfix-plan.json",
+    "a02ArtifactManifest": "data/curriculum/public-generation/PGC-R09-A02.real-artifact-hash-manifest.json",
+    "a03PullRequest": 506,
+    "a03AcceptedHeadSha": "397b66cf110cd5f783aecaa173ab5d6844e9c14b",
+    "a03MergeSha": "477eca2c61875390ffd4749f5c467792805956bc"
+  },
+  "a01rTerminalExecution": {
+    "legalRouteCount": 793,
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "repairQueueCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "acceptedPullRequest": 504,
+    "acceptedHeadSha": "e3d52833780bd99c882ee882cef04d8359580470",
+    "acceptedMergeSha": "94f3661052cdcfc1760f1a2fffcde29160535e93"
+  },
+  "a02ArtifactArchive": {
+    "status": "PASS_ARTIFACT_MANIFEST_MATERIALIZED",
+    "pullRequest": 505,
+    "mergeSha": "6ade4ad2bcbee06a01c550a559859f12e39ff9e2",
+    "primaryArtifactId": 8819673561,
+    "primaryArtifactDigest": "sha256:7aa034318d0acc6951b9159dddbe73dcc01284246281556c5befe9a0cdf4c775",
+    "htmlHashSampleCount": 16,
+    "pdfHashSampleCount": 16,
+    "firstGenerationQuestionCount": 15860,
+    "firstGenerationAnswerCount": 15860,
+    "totalPageCount": 4910,
+    "overflowFindingCount": 0,
+    "clippingFindingCount": 0,
+    "overlapFindingCount": 0,
+    "missingAnswerCount": 0
+  },
+  "a03ReleaseCandidateAcceptance": {
+    "status": "PASS_DEPLOYED_PUBLIC_SITE_SMOKE",
+    "pullRequest": 506,
+    "acceptedHeadSha": "397b66cf110cd5f783aecaa173ab5d6844e9c14b",
+    "mergeSha": "477eca2c61875390ffd4749f5c467792805956bc",
+    "relevantWorkflowRuns": [
+      {"name": "PGC-R00 Public Generation Scope Freeze", "runId": 30708711784, "conclusion": "success"},
+      {"name": "Node Test", "runId": 30708711749, "conclusion": "success"},
+      {"name": "PR Gate Pilot", "runId": 30708711734, "conclusion": "success"},
+      {"name": "PGC-R06 A03 Capacity Public Runtime Repair Reconciliation", "runId": 30708711737, "conclusion": "success"}
+    ],
+    "unrelatedHistoricalSliceWorkflowsMayBeSkipped": true,
+    "deployedSmoke": {
+      "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator",
+      "publicRoutesChecked": 2,
+      "reachableUnsafeContextCount": 0,
+      "redirectErrorCount": 0,
+      "routeMismatchCount": 0,
+      "browserConsoleErrorCount": 0,
+      "browserPageErrorCount": 0,
+      "printLayoutContractErrorCount": 0,
+      "artifactId": 8821188559,
+      "artifactName": "pgc-r09-a03-public-site-smoke-30708711784",
+      "artifactDigest": "sha256:9e463af75a9b1ba1f41626bb5e935a0609b348b00403aa2770dbec75a708e0fe"
+    }
+  },
+  "canonicalGateReconciliation": [
+    {"gateId":"PUBLIC_UI_CAPABILITY_BINDING","status":"PASS","evidence":"A00 canonical authorities + R08 final reconciliation"},
+    {"gateId":"GENERATOR_CONFORMANCE","status":"PASS","evidence":"A00 canonical authorities + A01R terminal 793-route execution"},
+    {"gateId":"VALIDATOR_CONFORMANCE","status":"PASS","evidence":"A01R answer-validation nine-gate execution + A02 semantic provenance"},
+    {"gateId":"QUESTION_CAPACITY","status":"PASS","evidence":"793/793 legal routes conformant"},
+    {"gateId":"PUBLIC_GENERATE_BUTTON_E2E","status":"PASS","evidence":"793/793 real-browser routes pass all nine gates"},
+    {"gateId":"HTML_PDF_PRINT_PARITY","status":"PASS","evidence":"A02 archived 16 HTML + 16 PDF hashes and R07 parity authority"},
+    {"gateId":"ANSWER_KEY_PARITY","status":"PASS","evidence":"15860 questions / 15860 answers and R07 answer-key parity authority"},
+    {"gateId":"FULL_NODE_REGRESSION","status":"PASS","evidence":"A03 exact-head PGC-R00 and Node Test success"},
+    {"gateId":"CAPABILITY_MATRIX_VALIDATOR","status":"PASS","evidence":"A03 exact-head full repository regression"},
+    {"gateId":"GENERATOR_CAPACITY_TESTS","status":"PASS","evidence":"A03 exact-head full repository regression + 793-route execution authority"},
+    {"gateId":"SEMANTIC_APPLICATION_TESTS","status":"PASS","evidence":"A03 exact-head full repository regression + A02 semantic provenance"},
+    {"gateId":"REASONING_TESTS","status":"PASS","evidence":"A03 exact-head full repository regression"},
+    {"gateId":"MIXED_ALLOCATION_TESTS","status":"PASS","evidence":"A03 exact-head full repository regression"},
+    {"gateId":"BROWSER_UI_TESTS","status":"PASS","evidence":"A01R 793/793 nine-gate pass; console/page errors 0/0"},
+    {"gateId":"CHROMIUM_HTML_PDF_TESTS","status":"PASS","evidence":"A01R/A02 real Chromium HTML/PDF archive"},
+    {"gateId":"VISUAL_GEOMETRY_TESTS","status":"PASS","evidence":"R07 parity authority referenced by A02; overflow/clipping/overlap findings 0"},
+    {"gateId":"PUBLIC_SITE_SMOKE","status":"PASS","evidence":"A03 run 30708711784 deployed Pages smoke"},
+    {"gateId":"CI_ALL_GREEN","status":"PASS_FOR_A03_RELEASE_CANDIDATE__A04_SELF_GATE_REQUIRED","evidence":"A03 relevant exact-head workflows all success; A04 must also pass required CI before merge"},
+    {"gateId":"PR_MERGED","status":"SELF_CLOSING_ON_A04_MERGE","evidence":"A04 may be merged only after required CI is green"},
+    {"gateId":"MAIN_READBACK_UPDATED","status":"SELF_CLOSING_ON_A04_MERGE","evidence":"this file and the A04 closeout readback become the main authority when the A04 commit is merged"}
+  ],
+  "selfClosingA04Gate": {
+    "requiredCiMustBeGreen": true,
+    "mergeToMainRequired": true,
+    "mainReadbackFilesRequired": [
+      "data/curriculum/public-generation/PGC-R09-A04.final-d0-reconciliation.json",
+      "docs/curriculum/output/PGC-R09-A04_FinalD0ReconciliationMergeAndSlice014Unfreeze.md"
+    ],
+    "d0EffectiveOnlyAfterAllConditions": true
+  },
+  "slice014": {
+    "stateBeforeA04": "FROZEN_THROUGH_R09",
+    "unfreezeDecision": "AUTHORIZED",
+    "effectiveCondition": "A04 authority is present on main after required A04 CI passes",
+    "stateAfterEffectiveA04": "UNFROZEN",
+    "implementationPerformedByA04": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice014Implementation"
+  },
+  "frozenBoundaryCompliance": {
+    "productRuntimeMutation": false,
+    "capacityAuthorityMutation": false,
+    "knowledgePointMutation": false,
+    "patternGroupMutation": false,
+    "patternSpecMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false,
+    "uiVisualRedesign": false,
+    "batchExpansion": false,
+    "slice014Implementation": false,
+    "acceptanceGateRelaxation": false
+  },
+  "goalDistance": {
+    "before": "D1_R09_A03_DEPLOYED_PUBLIC_SITE_SMOKE_ACCEPTED_A04_PENDING",
+    "afterWhenEffectiveOnMain": "D0_PUBLIC_KP_GENERATION_CONFORMANCE_V1_R09_CLOSED",
+    "distanceReduced": "reconciles A00-A03 into the terminal product-level D0 authority, closes the remaining self-gated CI/merge/main-readback requirements, and releases the Slice014 freeze without implementing Slice014",
+    "remainingBlockersWhenEffectiveOnMain": [],
+    "nextShortestStepWhenEffectiveOnMain": "P03F_W3DirectProductVerticalSlice014Implementation"
+  }
+}
