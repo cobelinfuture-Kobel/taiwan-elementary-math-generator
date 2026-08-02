@@ -12,9 +12,11 @@ import {
 } from "../../site/pixel/pixel-registry-bridge.js";
 import { listFullProductPublicSourceUnits } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
-  BATCH_A_SELECTOR_AVAILABILITY,
-  listVisibleBatchAKnowledgePoints
+  BATCH_A_SELECTOR_AVAILABILITY
 } from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+import {
+  listVisibleBatchAKnowledgePoints
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f14-extension.js";
 
 test("Pixel registry bridge exposes the nineteen-source public registry without duplicating data", () => {
   const sourceUnits = listFullProductPublicSourceUnits();
