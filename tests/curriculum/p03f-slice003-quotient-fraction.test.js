@@ -106,20 +106,20 @@ test("P03F3 selector exposes only one G3B-U07 KP", () => {
   assert.equal(availability.hiddenPendingCount, 7);
 });
 
-test("P03F3 current Pixel preserves quotient fraction after slice007 adds the second G3B-U07 KP", () => {
+test("P03F3 current Pixel preserves early G3B-U07 KPs while Slice015 advances the current surface to four", () => {
   const sources = listCurrentPixelSourceOptions();
   assert.equal(sources.length, 26);
   const source = sources.find((row) => row.sourceId === G3B_U07_SOURCE_ID);
   assert.ok(source);
-  assert.equal(source.visibleKnowledgePointCount, 2);
-  assert.equal(source.hiddenPendingCount, 6);
-  assert.deepEqual(
-    listPixelKnowledgePointsForSource(G3B_U07_SOURCE_ID).map((row) => row.knowledgePointId),
-    [G3B_U07_QUOTIENT_FRACTION_KP_ID, G3B_U07_FRACTION_UNIT_CONVERSION_KP_ID],
-  );
+  assert.equal(source.visibleKnowledgePointCount, 4);
+  assert.equal(source.hiddenPendingCount, 4);
+  const currentIds = listPixelKnowledgePointsForSource(G3B_U07_SOURCE_ID).map((row) => row.knowledgePointId);
+  assert.equal(currentIds.length, 4);
+  assert.equal(currentIds.includes(G3B_U07_QUOTIENT_FRACTION_KP_ID), true);
+  assert.equal(currentIds.includes(G3B_U07_FRACTION_UNIT_CONVERSION_KP_ID), true);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 26);
-  assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 2);
+  assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 4);
 });
 
 test("P03F3 shared worksheet and answer key render eight items", () => {
