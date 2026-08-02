@@ -122,7 +122,7 @@ test("P03F15 current Pixel snapshot exposes four G3B-U07 KPs", () => {
   assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 4);
 });
 
-test("P03F15 D0 closeout binds exact E6 and final CI evidence without starting Slice016", () => {
+test("P03F15 D0 closeout binds exact E6, closeout CI and main readback without starting Slice016", () => {
   assert.equal(admissionManifest.status, "PASS_CI_SYNCED_AND_MERGED");
   assert.equal(admissionManifest.admissionState, "E6_ARTIFACT_ACCEPTED_D0");
   assert.equal(admissionManifest.admissionDecision.status, "ADMITTED_D0");
@@ -139,10 +139,19 @@ test("P03F15 D0 closeout binds exact E6 and final CI evidence without starting S
   assert.equal(admissionManifest.exactAcceptance.acceptanceAnswerKeyReview, "PASS");
   assert.equal(admissionManifest.exactAcceptance.temporaryAcceptanceWorkflowRetired, true);
   assert.equal(admissionManifest.exactAcceptance.finalNodeWorkflowConclusion, "success");
+  assert.equal(admissionManifest.exactAcceptance.closeoutPrNumber, 513);
+  assert.equal(admissionManifest.exactAcceptance.closeoutNodeWorkflowRunId, 30755351795);
+  assert.equal(admissionManifest.exactAcceptance.closeoutNodeWorkflowJobId, 91516451417);
+  assert.equal(admissionManifest.exactAcceptance.closeoutNodeConclusion, "success");
+  assert.equal(admissionManifest.exactAcceptance.closeoutMergeSha, "abad6089e08d016dc62fe12f64f0f60bd334af59");
   assert.equal(admissionManifest.mainlineBoundary.nextQueuePositionStarted, false);
   assert.equal(admissionManifest.mainlineBoundary.nextTask, "P03F_W3DirectProductVerticalSlice016Implementation");
-  assert.equal(d0Claim.status, "PASS_D0_CLOSEOUT_CANDIDATE");
+  assert.equal(d0Claim.status, "PASS_D0_CLOSED");
   assert.equal(d0Claim.goalDistance, "D0");
+  assert.equal(d0Claim.closeoutEvidence.prNumber, 513);
+  assert.equal(d0Claim.closeoutEvidence.nodeWorkflowRunId, 30755351795);
+  assert.equal(d0Claim.closeoutEvidence.nodeConclusion, "success");
+  assert.equal(d0Claim.closeoutEvidence.mainReadback, "PASS");
   assert.equal(d0Claim.productResult.d0Complete, true);
   assert.equal(d0Claim.boundaries.slice016Started, false);
 });

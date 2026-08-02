@@ -59,7 +59,13 @@
     "finalNodeWorkflowHeadSha": "c2655affea1343b66b759586befc719c97cda1bd",
     "finalNodeWorkflowRunId": 30751173305,
     "finalNodeWorkflowJobId": 91505390620,
-    "finalNodeWorkflowConclusion": "success"
+    "finalNodeWorkflowConclusion": "success",
+    "closeoutPrNumber": 513,
+    "closeoutHeadSha": "75c4fe4ff973ff7cc107cfd25096c7ce6f35188f",
+    "closeoutNodeWorkflowRunId": 30755351795,
+    "closeoutNodeWorkflowJobId": 91516451417,
+    "closeoutNodeConclusion": "success",
+    "closeoutMergeSha": "abad6089e08d016dc62fe12f64f0f60bd334af59"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice015-same-denominator-fraction-authority.json",
   "chromiumAcceptancePath": "tools/curriculum/render-p03f-slice015-product-acceptance.mjs",

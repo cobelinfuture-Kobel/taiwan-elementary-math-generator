@@ -2,7 +2,7 @@
   "claimId": "P03F-W3-SLICE015-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice015Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_D0_CLOSED",
   "goalDistance": "D0",
   "scope": "Slice015 only: g3b_u07_3b07 same-denominator fraction add/sub and compare.",
   "authority": {
@@ -55,6 +55,15 @@
     "nodeWorkflowJobId": 91505390620,
     "nodeConclusion": "success",
     "temporaryAcceptanceWorkflowRetired": true
+  },
+  "closeoutEvidence": {
+    "prNumber": 513,
+    "headSha": "75c4fe4ff973ff7cc107cfd25096c7ce6f35188f",
+    "nodeWorkflowRunId": 30755351795,
+    "nodeWorkflowJobId": 91516451417,
+    "nodeConclusion": "success",
+    "mergeSha": "abad6089e08d016dc62fe12f64f0f60bd334af59",
+    "mainReadback": "PASS"
   },
   "productResult": {
     "knowledgePointCount": 2,
