@@ -100,12 +100,12 @@ test("P03F14 shared worksheet and answer key render all sixteen items", () => {
   assert.match(html, /worksheet-page--answer-key/);
 });
 
-test("P03F14 pre-D0 validator passes implementation while remaining fail-closed on production admission", () => {
+test("P03F14 D0 validator admits production only after exact E6 acceptance evidence", () => {
   const result = validateP03FSlice014ProductAdmission();
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.productAdmissionState, "RUNTIME_CONNECTED_PENDING_CHROMIUM_ACCEPTANCE");
-  assert.equal(result.d0Complete, false);
-  assert.equal(result.metrics.newProductAdmissionCount, 0);
+  assert.equal(result.productAdmissionState, "PRODUCTION_ADMITTED_D0");
+  assert.equal(result.d0Complete, true);
+  assert.equal(result.metrics.newProductAdmissionCount, 1);
   assert.equal(result.metrics.questionWitnessCount, 16);
   assert.equal(result.metrics.answerKeyWitnessCount, 16);
 });
