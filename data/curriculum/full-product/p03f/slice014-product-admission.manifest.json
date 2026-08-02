@@ -57,7 +57,13 @@
     "finalNodeWorkflowHeadSha": "c2ce91cb571f5c48cef5a2b2ad65df8f7f57c4ab",
     "finalNodeWorkflowRunId": 30742469024,
     "finalNodeWorkflowJobId": 91482207171,
-    "finalNodeWorkflowConclusion": "success"
+    "finalNodeWorkflowConclusion": "success",
+    "closeoutPrNumber": 511,
+    "closeoutHeadSha": "e6d405bc5ebf2b1f4e9843e5f1df4d6afb5ff414",
+    "closeoutNodeWorkflowRunId": 30743670092,
+    "closeoutNodeWorkflowJobId": 91485434473,
+    "closeoutNodeConclusion": "success",
+    "closeoutMergeSha": "7d8021c78e0a2f6464edb709e6c6dd82de14ff5a"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice014-decimal-base10-authority.json",
   "runtimePath": "src/curriculum/full-product/p03f-slice014-product-admission.mjs",
