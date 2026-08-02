@@ -2,27 +2,20 @@
   "claimId": "P03F-W3-SLICE014-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice014Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_D0_CLOSED",
   "goalDistance": "D0",
   "scope": "Slice014 only: g5b_u05_5b05a and kp_g5b_u05a_decimal_base10_structure.",
   "authority": {
     "queuePosition": 14,
     "queueEntryId": "p03e_q014_r6_g5b_u05_5b05a_profile_decimal_c1",
     "sourceRef": "g5b_u05_5b05a",
-    "knowledgePointIds": [
-      "kp_g5b_u05a_decimal_base10_structure"
-    ],
-    "patternGroupIds": [
-      "pg_g5b_u05a_decimal_base10_structure_core"
-    ],
+    "knowledgePointIds": ["kp_g5b_u05a_decimal_base10_structure"],
+    "patternGroupIds": ["pg_g5b_u05a_decimal_base10_structure_core"],
     "patternSpecIds": [
       "ps_g5b_u05a_decimal_base10_adjacent_place_relation",
       "ps_g5b_u05a_decimal_base10_cross_decimal_point_relation"
     ],
-    "requiredCapabilityIds": [
-      "cap_decimal_domain_validator",
-      "cap_decimal_number_system"
-    ]
+    "requiredCapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
   },
   "implementationEvidence": {
     "prNumber": 508,
@@ -52,6 +45,15 @@
     "nodeWorkflowJobId": 91482207171,
     "nodeConclusion": "success"
   },
+  "closeoutEvidence": {
+    "prNumber": 511,
+    "headSha": "e6d405bc5ebf2b1f4e9843e5f1df4d6afb5ff414",
+    "nodeWorkflowRunId": 30743670092,
+    "nodeWorkflowJobId": 91485434473,
+    "nodeConclusion": "success",
+    "mergeSha": "7d8021c78e0a2f6464edb709e6c6dd82de14ff5a",
+    "mainReadback": "PASS"
+  },
   "productResult": {
     "knowledgePointCount": 1,
     "patternGroupCount": 1,
@@ -63,7 +65,9 @@
     "pixelPublicSurface": "PASS",
     "worksheetPrintable": "PASS",
     "answerKey": "PASS",
-    "chromiumPdf": "PASS"
+    "chromiumPdf": "PASS",
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice015Started": false,
