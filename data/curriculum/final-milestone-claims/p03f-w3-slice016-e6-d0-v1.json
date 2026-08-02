@@ -1,0 +1,91 @@
+{
+  "claimId": "P03F-W3-SLICE016-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice016Implementation",
+  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D0",
+  "scope": "Slice016 only: g3b_u09_3b09 one-decimal add/sub and compare.",
+  "authority": {
+    "queuePosition": 16,
+    "queueEntryId": "p03e_q016_r7_g3b_u09_3b09_profile_decimal_c1",
+    "sourceRef": "g3b_u09_3b09",
+    "knowledgePointIds": [
+      "kp_g3b_u09_decimal_add_sub",
+      "kp_g3b_u09_decimal_compare"
+    ],
+    "patternSpecIds": [
+      "ps_g3b_u09_compare_one_decimal_pair",
+      "ps_g3b_u09_add_one_decimal_place",
+      "ps_g3b_u09_subtract_one_decimal_place"
+    ],
+    "requiredCapabilityIds": [
+      "cap_decimal_arithmetic",
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system"
+    ]
+  },
+  "implementationEvidence": {
+    "prNumber": 515,
+    "finalHeadSha": "e3b699ff55c96f8628a0566cbc3fcff3304ca7b7",
+    "mergeSha": "8309237a9819a9fe102b5cef90aed443bff37808",
+    "nodeWorkflowRunId": 30757767053,
+    "nodeWorkflowJobId": 91522844580,
+    "nodeConclusion": "success"
+  },
+  "artifactEvidence": {
+    "acceptancePrNumber": 515,
+    "acceptanceEvidenceHeadSha": "e621a7a5ee06e455ec72d69dbb290c1405aefac9",
+    "chromiumWorkflowRunId": 30757687493,
+    "chromiumWorkflowJobId": 91522507283,
+    "artifactId": 8836453290,
+    "artifactDigest": "sha256:412adeb96eddb0de2da8ab8f4a697177907662b324a9d39b6c094065130a5908",
+    "pdfPageCount": 4,
+    "pdfByteLength": 20955,
+    "screenshotCount": 4,
+    "questionCount": 18,
+    "answerKeyCount": 18,
+    "patternSpecWitnessCounts": {
+      "ps_g3b_u09_compare_one_decimal_pair": 6,
+      "ps_g3b_u09_add_one_decimal_place": 6,
+      "ps_g3b_u09_subtract_one_decimal_place": 6
+    },
+    "visualReview": "PASS",
+    "semanticReview": "PASS",
+    "answerKeyReview": "PASS",
+    "acceptanceMergeSha": "8309237a9819a9fe102b5cef90aed443bff37808"
+  },
+  "finalExactHeadEvidence": {
+    "headSha": "e3b699ff55c96f8628a0566cbc3fcff3304ca7b7",
+    "nodeWorkflowRunId": 30757767053,
+    "nodeWorkflowJobId": 91522844580,
+    "nodeConclusion": "success",
+    "temporaryAcceptanceWorkflowRetired": true
+  },
+  "productResult": {
+    "knowledgePointCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 3,
+    "questionWitnessCount": 18,
+    "answerKeyWitnessCount": 18,
+    "newProductAdmissionCount": 1,
+    "classicPublicSurface": "PASS",
+    "pixelPublicSurface": "PASS",
+    "worksheetPrintable": "PASS",
+    "answerKey": "PASS",
+    "chromiumPdf": "PASS",
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
+  },
+  "boundaries": {
+    "slice017Started": false,
+    "newPublicSourceAdded": false,
+    "lengthUnitConversionAdded": false,
+    "hundredthsAdded": false,
+    "negativeResultsAdded": false,
+    "applicationExpansionAdded": false,
+    "globalContextExpanded": false,
+    "parallelRuntimePipelineAdded": false,
+    "sharedWorksheetRendererBehaviorChanged": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice017Implementation"
+}
