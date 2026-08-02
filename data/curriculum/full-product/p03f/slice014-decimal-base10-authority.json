@@ -1,0 +1,69 @@
+{
+  "schemaName": "P03FSlice014DecimalBase10AuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice014Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 14,
+    "sliceId": "p03e_q014_r6_g5b_u05_5b05a_profile_decimal_c1",
+    "previousSliceId": "p03e_q013_r6_g5a_u04_5a04_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g5b_u05_5b05a",
+    "sourceCode": "5b05a",
+    "sourceTitle": "數的十進位結構與億以上的數",
+    "grade": 5,
+    "semester": "lower",
+    "unitCode": "5B-U05",
+    "evidencePages": [1],
+    "reviewMethod": "R02_REVIEWED_SOURCE_AUTHORITY"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g5b_u05a_decimal_base10_structure",
+    "canonicalNameZh": "整數小數十進位結構",
+    "capabilityStatement": "學生能連結整數位與小數位的10倍、十分之一關係。",
+    "reasoningInvariant": "小數點兩側相鄰位值均維持10倍關係。",
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE_FOR_SLICE014",
+    "requiredCapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g5b_u05a_decimal_base10_structure",
+    "operationModelId": "op_g5b_u05a_decimal_base10_structure",
+    "operationFamilyId": "decimal_place_relation",
+    "canonicalExpressions": [
+      "leftPlaceValue = rightPlaceValue * 10",
+      "rightPlaceValue = leftPlaceValue / 10"
+    ],
+    "validationInvariants": [
+      "adjacent place values differ by exactly factor 10",
+      "the same factor-10 relation holds across the ones-to-tenths decimal-point boundary"
+    ]
+  },
+  "patternSurface": {
+    "patternGroupId": "pg_g5b_u05a_decimal_base10_structure_numeric",
+    "patternSpecIds": [
+      "ps_g5b_u05a_decimal_base10_adjacent_place_relation",
+      "ps_g5b_u05a_decimal_base10_cross_decimal_point_relation"
+    ],
+    "mode": "NUMERIC",
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "productBoundary": {
+    "existingW1G5BU05KnowledgePointsMustRemain": 4,
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "decimalArithmeticAdded": false,
+    "applicationModeAllowed": false,
+    "globalContextBindingNotApplicable": true,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}
