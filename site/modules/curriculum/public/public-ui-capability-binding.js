@@ -8,6 +8,11 @@ import {
   PUBLIC_GENERATOR_CAPACITY_RECONCILIATION,
   PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
 } from "./public-generator-capacity-registry.js";
+import {
+  G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
+  G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
+  G4A_U06_FRACTION_CLASSIFICATION_PATTERN_GROUPS,
+} from "../registry/g4a-u06-fraction-type-classification-selector-projection.js";
 
 export { PUBLIC_UI_SAFE_QUESTION_COUNT, PUBLIC_UI_SURFACES };
 
@@ -17,6 +22,7 @@ export const PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION = Object.freeze({
 });
 
 const SOURCE_UNIT_MODE = "sourceUnit";
+const SINGLE_KP_MODE = "singleKnowledgePoint";
 const MIXED_MODE = "mixed";
 const CAPACITY_BLOCK_REASONS = new Set([
   "PUBLIC_CAPACITY_ROUTE_UNAVAILABLE",
@@ -45,6 +51,56 @@ function withGlobalQuestionCount(binding) {
   });
 }
 
+function p03f17Binding(input = {}) {
+  if (input.sourceId !== G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID) return null;
+  const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
+  const requested = uniqueStrings(input.selectedKnowledgePointIds);
+  const selectedKnowledgePointIds = requested.includes(G4A_U06_FRACTION_CLASSIFICATION_KP_ID)
+    ? [G4A_U06_FRACTION_CLASSIFICATION_KP_ID]
+    : [G4A_U06_FRACTION_CLASSIFICATION_KP_ID];
+  const group = G4A_U06_FRACTION_CLASSIFICATION_PATTERN_GROUPS[0];
+  const compatiblePatternGroup = Object.freeze({
+    knowledgePointId: G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
+    knowledgePointDisplayName: "真分數、假分數與帶分數分類",
+    patternGroupId: group.patternGroupId,
+    patternSpecIds: Object.freeze([...(group.patternSpecIds ?? [])]),
+    effectiveQuestionType: "numeric",
+    uiQuestionType: "numeric",
+    displayLabel: "真分數、假分數與帶分數分類",
+    selected: true,
+  });
+  return Object.freeze({
+    sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
+    surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    selectionMode,
+    availableSelectionModes: Object.freeze([
+      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
+      Object.freeze({ value: SINGLE_KP_MODE, enabled: true }),
+      Object.freeze({ value: "mixedKnowledgePointsSameUnit", enabled: false }),
+      Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
+    ]),
+    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+    selectedKnowledgePointCount: 1,
+    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
+    questionType: "numeric",
+    compatiblePatternGroups: Object.freeze([compatiblePatternGroup]),
+    compatiblePatternGroupIds: Object.freeze([group.patternGroupId]),
+    selectedCompatiblePatternGroupIds: Object.freeze([group.patternGroupId]),
+    depthOptions: Object.freeze([]),
+    contextOptions: Object.freeze([]),
+    depthMode: null,
+    contextMode: null,
+    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze(["P03F17_FOCUSED_RUNTIME_VALIDATED"]),
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    blocked: false,
+    blockedReasons: Object.freeze([]),
+  });
+}
+
 function needsStructuralFallback(binding) {
   return binding?.blocked === true
     && (binding.blockedReasons ?? []).some((reason) => CAPACITY_BLOCK_REASONS.has(reason));
@@ -69,6 +125,8 @@ function selectedFallbackGroups(sourceBinding, requestedKnowledgePointIds) {
 }
 
 export function resolvePublicUiCapabilityBinding(input = {}) {
+  const slice017 = p03f17Binding(input);
+  if (slice017) return slice017;
   const primary = resolveBasePublicUiCapabilityBinding(input);
   if (!needsStructuralFallback(primary)) return withGlobalQuestionCount(primary);
 
@@ -106,7 +164,15 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
 }
 
 export function auditPublicUiCapabilityBinding() {
-  return auditBasePublicUiCapabilityBinding();
+  const base = auditBasePublicUiCapabilityBinding();
+  const errors = [...base.errors];
+  let caseCount = base.caseCount;
+  for (const surfaceId of Object.values(PUBLIC_UI_SURFACES)) {
+    const binding = p03f17Binding({ sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID, surfaceId });
+    caseCount += 1;
+    if (!binding || binding.blocked || binding.compatiblePatternGroupIds.length !== 1) errors.push(`${G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID}|${surfaceId}|sourceUnit:P03F17_BINDING_INVALID`);
+  }
+  return Object.freeze({ ok: errors.length === 0, caseCount, errors: Object.freeze(errors) });
 }
 
 // PGC-R06 A03 runtime capacity consumer reconciliation
