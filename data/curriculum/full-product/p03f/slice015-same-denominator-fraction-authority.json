@@ -1,0 +1,79 @@
+{
+  "schemaName": "P03FSlice015SameDenominatorFractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice015Implementation",
+  "status": "AUTHORITY_FROZEN_IMPLEMENTATION_PENDING",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 15,
+    "sliceId": "p03e_q015_r7_g3b_u07_3b07_profile_fraction_c1",
+    "previousSliceId": "p03e_q014_r6_g5b_u05_5b05a_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/knowledge/units/g3b_u07_3b07.knowledge-operation.json",
+    "sourceNodeId": "g3b_u07_3b07",
+    "sourceCode": "3b07",
+    "sourceTitle": "分數的加減",
+    "grade": 3,
+    "semester": "lower",
+    "unitCode": "3B-U07",
+    "reviewMethod": "PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION",
+    "reviewedPages": [1, 2, 3]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3b_u07_same_denominator_add_sub",
+      "canonicalNameZh": "同分母分數加減",
+      "capabilityStatement": "學生能分母不變，對分子進行加減。",
+      "reasoningInvariant": "分母不變，對分子進行加減；改變數值或題面時必須保留相同核心判定或運算關係。",
+      "evidencePages": [2, 3],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "requiredW3CapabilityIds": [
+        "cap_fraction_arithmetic",
+        "cap_fraction_domain_validator",
+        "cap_fraction_number_system"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_same_denominator_compare",
+      "canonicalNameZh": "同分母分數比較與整數改寫",
+      "capabilityStatement": "學生能比較同分母分數，必要時將 1 改寫為 d/d。",
+      "reasoningInvariant": "比較同分母分數，必要時將 1 改寫為 d/d；改變數值或題面時必須保留相同核心判定或運算關係。",
+      "evidencePages": [1, 3],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "requiredW3CapabilityIds": [
+        "cap_fraction_domain_validator",
+        "cap_fraction_number_system"
+      ]
+    }
+  ],
+  "sliceCapabilityUnion": [
+    "cap_fraction_arithmetic",
+    "cap_fraction_domain_validator",
+    "cap_fraction_number_system"
+  ],
+  "formalMappingBoundary": {
+    "sameDenominatorInvariant": "denominator is preserved while numerator is added, subtracted, or compared",
+    "wholeRewriteInvariant": "when whole 1 participates in same-denominator comparison it may be represented as d/d",
+    "crossMultiplicationRequired": false,
+    "unlikeDenominatorConversionAllowed": false,
+    "mixedNumberNormalizationAllowed": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "sharedFractionNumberSystemRequired": true,
+    "sharedFractionDomainValidatorRequired": true,
+    "sharedFractionArithmeticRequiredForAddSub": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}
