@@ -65,7 +65,13 @@
     "finalNodeWorkflowHeadSha": "e3b699ff55c96f8628a0566cbc3fcff3304ca7b7",
     "finalNodeWorkflowRunId": 30757767053,
     "finalNodeWorkflowJobId": 91522844580,
-    "finalNodeWorkflowConclusion": "success"
+    "finalNodeWorkflowConclusion": "success",
+    "closeoutPrNumber": 516,
+    "closeoutHeadSha": "e6da85e24090e71801756ed2baccfa88e0473b74",
+    "closeoutNodeWorkflowRunId": 30758139745,
+    "closeoutNodeWorkflowJobId": 91523803815,
+    "closeoutNodeConclusion": "success",
+    "closeoutMergeSha": "51c8cbf7f86ed07383e062e6dfade636f31d5b48"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice016-decimal-add-sub-compare-authority.json",
   "chromiumAcceptancePath": "tools/curriculum/render-p03f-slice016-product-acceptance.mjs",
