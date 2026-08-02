@@ -22,7 +22,7 @@ export function validateP03FSlice009ProductAdmission() {
   if (evidence.availability?.visibleCount !== 4 || evidence.availability?.hiddenPendingCount !== 3) errors.push("P03F9_PUBLIC_AVAILABILITY_INVALID");
   const controlModes = evidence.controlProfile?.questionTypeControl?.options?.map((row) => row.value) ?? [];
   if (JSON.stringify(controlModes) !== JSON.stringify(["numeric"]) || evidence.controlProfile?.contextControl?.supported !== false) errors.push("P03F9_PUBLIC_CONTROL_INVALID");
-  if (evidence.pixelSnapshot?.sourceCount < 23 || evidence.pixelRows.length !== 4) errors.push("P03F9_PIXEL_SURFACE_INVALID");
+  if (evidence.pixelSnapshot?.sourceCount < 23 || evidence.pixelRows.length < 4 || !evidence.pixelRows.some((row) => row.knowledgePointId === EXPECTED_KP_ID)) errors.push("P03F9_PIXEL_SURFACE_INVALID");
   if (!evidence.planValidation.ok) errors.push(...evidence.planValidation.errors.map((row) => `P03F9_PLAN:${row.code}`));
   if (!evidence.generation.ok || evidence.generation.questions.length !== 8 || evidence.generation.allocation.length !== 1 || evidence.generation.allocation[0].questionCount !== 8) errors.push("P03F9_GENERATION_INVALID");
   if (evidence.generation.directionCounts?.fraction_to_decimal !== 4 || evidence.generation.directionCounts?.decimal_to_fraction !== 4) errors.push("P03F9_DIRECTION_ALLOCATION_INVALID");

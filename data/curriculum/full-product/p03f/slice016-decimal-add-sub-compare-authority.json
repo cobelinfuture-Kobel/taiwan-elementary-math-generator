@@ -1,0 +1,80 @@
+{
+  "schemaName": "P03FSlice016DecimalAddSubCompareAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice016Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 16,
+    "sliceId": "p03e_q016_r7_g3b_u09_3b09_profile_decimal_c1",
+    "previousSliceId": "p03e_q015_r7_g3b_u07_3b07_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 510,
+      "closeoutPr": 513,
+      "postMergeReconciliationPr": 514,
+      "closeoutMergeSha": "abad6089e08d016dc62fe12f64f0f60bd334af59",
+      "finalMainReconciliationMergeSha": "1102d534f2b7a5b2bd5c77e61755c7aaf4dc809d",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice015-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/knowledge/units/g3b_u09_3b09.knowledge-operation.json",
+    "sourceNodeId": "g3b_u09_3b09",
+    "sourceCode": "3b09",
+    "sourceTitle": "小數",
+    "grade": 3,
+    "semester": "lower",
+    "reviewMethod": "PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION",
+    "reviewedPages": [1, 2]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3b_u09_decimal_add_sub",
+      "canonicalNameZh": "一位小數加減",
+      "capabilityStatement": "學生能進行一位小數的直式加法與減法。",
+      "reasoningInvariant": "以十分位為最小位值，對齊小數點後進行加減，結果維持十進位位值一致性。",
+      "evidencePages": [1, 2],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u09_decimal_compare",
+      "canonicalNameZh": "一位小數比較",
+      "capabilityStatement": "學生能依個位與十分位比較兩個一位小數。",
+      "reasoningInvariant": "先比較個位，再比較十分位；數值比較必須與十進位位值順序一致。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    }
+  ],
+  "sliceCapabilityUnion": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+  "formalMappingBoundary": {
+    "decimalPlaces": 1,
+    "additionAllowed": true,
+    "subtractionAllowed": true,
+    "comparisonAllowed": true,
+    "negativeResultsAllowed": false,
+    "applicationExpansionAllowed": false,
+    "lengthUnitConversionAllowed": false,
+    "hundredthsAllowed": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "sharedDecimalNumberSystemRequired": true,
+    "sharedDecimalDomainValidatorRequired": true,
+    "sharedDecimalArithmeticRequiredForAddSub": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

@@ -85,14 +85,14 @@ test("P03F9 binds each witness to exact fraction capabilities", () => {
   }
 });
 
-test("P03F9 current Classic and Pixel expose four G3B-U09 KPs and leave three hidden", () => {
+test("P03F9 historical Classic stays at four KPs while current Pixel includes Slice016", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G3B_U09_SOURCE_ID);
   assert.equal(rows.length, 4);
   assert.equal(rows.some((row) => row.knowledgePointId === G3B_U09_TENTHS_FRACTION_DECIMAL_KP_ID), true);
   const availability = listBatchAKnowledgePointAvailabilityBySource(G3B_U09_SOURCE_ID);
   assert.equal(availability.visibleCount, 4);
   assert.equal(availability.hiddenPendingCount, 3);
-  assert.equal(listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).length, 4);
+  assert.equal(listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).length, 6);
   assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 26);
 });
 
