@@ -63,7 +63,7 @@ try {
   const consoleErrors = [];
   const pageErrors = [];
   page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
-  page.on("pageerror", (error) => pageErrors.push(String(error));
+  page.on("pageerror", (error) => pageErrors.push(String(error)));
   await page.setContent(acceptanceHtml, { waitUntil: "networkidle" });
   await page.emulateMedia({ media: "print" });
   const pageMetrics = await page.$$eval(".worksheet-page", (nodes) => nodes.map((node, index) => ({
