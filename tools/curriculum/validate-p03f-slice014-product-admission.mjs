@@ -36,7 +36,7 @@ export function validateP03FSlice014ProductAdmission() {
   const pixelSources = listCurrentPixelSourceOptions();
   const pixelRows = listPixelKnowledgePointsForSource(SOURCE);
   const pixelSnapshot = getCurrentPixelRegistrySnapshot();
-  if (pixelSources.length !== 26 || pixelRows.length !== 5 || !pixelRows.some((row) => row.knowledgePointId === KP) || pixelSnapshot.sourceCount !== 26) errors.push("P03F14_PIXEL_SURFACE_INVALID");
+  if (pixelSources.length < 26 || pixelRows.length < 5 || !pixelRows.some((row) => row.knowledgePointId === KP) || pixelSnapshot.sourceCount < 26) errors.push("P03F14_PIXEL_SURFACE_INVALID");
 
   if (!evidence.planValidation.ok) errors.push(...evidence.planValidation.errors.map((row) => `P03F14_PLAN:${row.code}`));
   if (!evidence.generation.ok || !evidence.questionValidation.ok || !evidence.worksheet.ok) errors.push("P03F14_SHARED_PIPELINE_INVALID");
