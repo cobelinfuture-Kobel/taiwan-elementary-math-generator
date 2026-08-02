@@ -33,6 +33,8 @@ const OPTIONS = Object.freeze({
 });
 
 const authority = JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p03f/slice015-same-denominator-fraction-authority.json", import.meta.url), "utf8"));
+const admissionManifest = JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p03f/slice015-product-admission.manifest.json", import.meta.url), "utf8"));
+const d0Claim = JSON.parse(readFileSync(new URL("../../data/curriculum/final-milestone-claims/p03f-w3-slice015-e6-d0-v1.json", import.meta.url), "utf8"));
 
 test("P03F15 predecessor authority is reconciled to Slice014 formal D0 closeout", () => {
   assert.equal(authority.status, "IMPLEMENTATION_COMPLETE_PREDECESSOR_D0_RECONCILED_ACCEPTANCE_PENDING");
@@ -118,4 +120,29 @@ test("P03F15 shared worksheet produces questions and answer key without applicat
 test("P03F15 current Pixel snapshot exposes four G3B-U07 KPs", () => {
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 4);
+});
+
+test("P03F15 D0 closeout binds exact E6 and final CI evidence without starting Slice016", () => {
+  assert.equal(admissionManifest.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.equal(admissionManifest.admissionState, "E6_ARTIFACT_ACCEPTED_D0");
+  assert.equal(admissionManifest.admissionDecision.status, "ADMITTED_D0");
+  assert.equal(admissionManifest.expectedCounts.knowledgePointCount, 2);
+  assert.equal(admissionManifest.expectedCounts.patternSpecCount, 4);
+  assert.equal(admissionManifest.expectedCounts.questionWitnessCount, 16);
+  assert.equal(admissionManifest.expectedCounts.answerKeyWitnessCount, 16);
+  assert.equal(admissionManifest.exactAcceptance.implementationPrNumber, 510);
+  assert.equal(admissionManifest.exactAcceptance.implementationMergeSha, "eeee493823ddc8012e6e515b9fe2dd15b6baa1a8");
+  assert.equal(admissionManifest.exactAcceptance.acceptanceWorkflowRunId, 30751107013);
+  assert.equal(admissionManifest.exactAcceptance.acceptanceArtifactId, 8834471973);
+  assert.equal(admissionManifest.exactAcceptance.acceptanceVisualReview, "PASS");
+  assert.equal(admissionManifest.exactAcceptance.acceptanceSemanticReview, "PASS");
+  assert.equal(admissionManifest.exactAcceptance.acceptanceAnswerKeyReview, "PASS");
+  assert.equal(admissionManifest.exactAcceptance.temporaryAcceptanceWorkflowRetired, true);
+  assert.equal(admissionManifest.exactAcceptance.finalNodeWorkflowConclusion, "success");
+  assert.equal(admissionManifest.mainlineBoundary.nextQueuePositionStarted, false);
+  assert.equal(admissionManifest.mainlineBoundary.nextTask, "P03F_W3DirectProductVerticalSlice016Implementation");
+  assert.equal(d0Claim.status, "PASS_D0_CLOSEOUT_CANDIDATE");
+  assert.equal(d0Claim.goalDistance, "D0");
+  assert.equal(d0Claim.productResult.d0Complete, true);
+  assert.equal(d0Claim.boundaries.slice016Started, false);
 });
