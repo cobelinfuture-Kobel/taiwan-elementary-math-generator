@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import {
   auditG3BU07SameDenominatorSelectorProjection,
@@ -29,6 +30,17 @@ const OPTIONS = Object.freeze({
   questionCount: 16,
   generationSeed: "p03f15-focused",
   includeAnswerKey: true,
+});
+
+const authority = JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p03f/slice015-same-denominator-fraction-authority.json", import.meta.url), "utf8"));
+
+test("P03F15 predecessor authority is reconciled to Slice014 formal D0 closeout", () => {
+  assert.equal(authority.status, "IMPLEMENTATION_COMPLETE_PREDECESSOR_D0_RECONCILED_ACCEPTANCE_PENDING");
+  assert.equal(authority.queueAuthority.previousSliceMustBeD0Complete, true);
+  assert.equal(authority.queueAuthority.previousSliceD0Complete, true);
+  assert.equal(authority.queueAuthority.previousSliceCloseoutEvidence.closeoutPr, 511);
+  assert.equal(authority.queueAuthority.previousSliceCloseoutEvidence.closeoutMergeSha, "7d8021c78e0a2f6464edb709e6c6dd82de14ff5a");
+  assert.equal(authority.queueAuthority.previousSliceCloseoutEvidence.acceptedState, "ADMITTED_D0");
 });
 
 test("P03F15 frozen selector adds exactly two G3B-U07 KPs and four specs", () => {
