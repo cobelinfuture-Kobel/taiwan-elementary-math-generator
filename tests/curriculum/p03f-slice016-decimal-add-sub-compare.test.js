@@ -118,7 +118,7 @@ test("P03F16 current Pixel snapshot exposes six G3B-U09 KPs", () => {
   assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 6);
 });
 
-test("P03F16 D0 closeout binds exact E6 and final CI evidence without starting Slice017", () => {
+test("P03F16 D0 closeout binds exact E6, final CI and merged closeout evidence without starting Slice017", () => {
   assert.equal(admissionManifest.status, "PASS_CI_SYNCED_AND_MERGED");
   assert.equal(admissionManifest.admissionState, "E6_ARTIFACT_ACCEPTED_D0");
   assert.equal(admissionManifest.admissionDecision.status, "ADMITTED_D0");
@@ -135,10 +135,14 @@ test("P03F16 D0 closeout binds exact E6 and final CI evidence without starting S
   assert.equal(admissionManifest.exactAcceptance.acceptanceAnswerKeyReview, "PASS");
   assert.equal(admissionManifest.exactAcceptance.temporaryAcceptanceWorkflowRetired, true);
   assert.equal(admissionManifest.exactAcceptance.finalNodeWorkflowConclusion, "success");
+  assert.equal(admissionManifest.exactAcceptance.closeoutPrNumber, 516);
+  assert.equal(admissionManifest.exactAcceptance.closeoutNodeConclusion, "success");
+  assert.equal(admissionManifest.exactAcceptance.closeoutMergeSha, "51c8cbf7f86ed07383e062e6dfade636f31d5b48");
   assert.equal(admissionManifest.mainlineBoundary.nextQueuePositionStarted, false);
   assert.equal(admissionManifest.mainlineBoundary.nextTask, "P03F_W3DirectProductVerticalSlice017Implementation");
-  assert.equal(d0Claim.status, "PASS_D0_CLOSEOUT_CANDIDATE");
+  assert.equal(d0Claim.status, "PASS_D0_CLOSED");
   assert.equal(d0Claim.goalDistance, "D0");
+  assert.equal(d0Claim.closeoutEvidence.mainReadback, "PASS");
   assert.equal(d0Claim.productResult.d0Complete, true);
   assert.equal(d0Claim.boundaries.slice017Started, false);
 });
