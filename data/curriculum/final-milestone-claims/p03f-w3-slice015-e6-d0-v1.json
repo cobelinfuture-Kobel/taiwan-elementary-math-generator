@@ -1,0 +1,85 @@
+{
+  "claimId": "P03F-W3-SLICE015-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice015Implementation",
+  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D0",
+  "scope": "Slice015 only: g3b_u07_3b07 same-denominator fraction add/sub and compare.",
+  "authority": {
+    "queuePosition": 15,
+    "queueEntryId": "p03e_q015_r7_g3b_u07_3b07_profile_fraction_c1",
+    "sourceRef": "g3b_u07_3b07",
+    "knowledgePointIds": [
+      "kp_g3b_u07_same_denominator_add_sub",
+      "kp_g3b_u07_same_denominator_compare"
+    ],
+    "patternSpecIds": [
+      "ps_g3b_u07_same_denominator_add",
+      "ps_g3b_u07_same_denominator_sub",
+      "ps_g3b_u07_same_denominator_compare_fraction",
+      "ps_g3b_u07_same_denominator_compare_whole_one"
+    ],
+    "requiredCapabilityIds": [
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "implementationEvidence": {
+    "prNumber": 510,
+    "finalHeadSha": "c2655affea1343b66b759586befc719c97cda1bd",
+    "mergeSha": "eeee493823ddc8012e6e515b9fe2dd15b6baa1a8",
+    "nodeWorkflowRunId": 30751173305,
+    "nodeWorkflowJobId": 91505390620,
+    "nodeConclusion": "success"
+  },
+  "artifactEvidence": {
+    "acceptancePrNumber": 510,
+    "acceptanceEvidenceHeadSha": "92701b096d2e347d9d899d0993a31f58b4c35444",
+    "chromiumWorkflowRunId": 30751107013,
+    "artifactId": 8834471973,
+    "pdfPageCount": 4,
+    "pdfByteLength": 20829,
+    "screenshotCount": 4,
+    "questionCount": 16,
+    "answerKeyCount": 16,
+    "wholeOneRewriteWitnessCount": 4,
+    "visualReview": "PASS",
+    "semanticReview": "PASS",
+    "answerKeyReview": "PASS",
+    "acceptanceMergeSha": "eeee493823ddc8012e6e515b9fe2dd15b6baa1a8"
+  },
+  "finalExactHeadEvidence": {
+    "headSha": "c2655affea1343b66b759586befc719c97cda1bd",
+    "nodeWorkflowRunId": 30751173305,
+    "nodeWorkflowJobId": 91505390620,
+    "nodeConclusion": "success",
+    "temporaryAcceptanceWorkflowRetired": true
+  },
+  "productResult": {
+    "knowledgePointCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 4,
+    "questionWitnessCount": 16,
+    "answerKeyWitnessCount": 16,
+    "newProductAdmissionCount": 1,
+    "classicPublicSurface": "PASS",
+    "pixelPublicSurface": "PASS",
+    "worksheetPrintable": "PASS",
+    "answerKey": "PASS",
+    "chromiumPdf": "PASS",
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
+  },
+  "boundaries": {
+    "slice016Started": false,
+    "newPublicSourceAdded": false,
+    "unlikeDenominatorConversionAdded": false,
+    "mixedNumberNormalizationAdded": false,
+    "applicationStoryGenerationAdded": false,
+    "globalContextExpanded": false,
+    "parallelRuntimePipelineAdded": false,
+    "sharedWorksheetRendererBehaviorChanged": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice016Implementation"
+}
