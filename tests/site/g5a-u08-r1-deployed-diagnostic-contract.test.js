@@ -15,3 +15,12 @@ test("G5A-U08 deployed matrix reports structured capability and control timeout 
   assert.match(runner, /timeout: 15000/);
   assert.match(runner, /timeout: 30000/);
 });
+
+test("G5A-U08 deployed query replay is isolated from the final matrix row", () => {
+  assert.match(runner, /G5A_U08_R1_REPLAY_PRELOAD_STATE_NOT_ISOLATED/);
+  assert.match(runner, /G5A_U08_R1_REPLAY_CAPABILITY_SYNC_TIMEOUT/);
+  assert.match(runner, /query-replay-preload/);
+  assert.match(runner, /replayUrl\.searchParams\.delete\("kp"\)/);
+  assert.match(runner, /replayUrl\.searchParams\.delete\("pg"\)/);
+  assert.match(runner, /replayMatrixRow/);
+});
