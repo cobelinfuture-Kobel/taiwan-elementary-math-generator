@@ -1,0 +1,43 @@
+name: P03F19 Slice019 Product Acceptance
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - ".github/workflows/p03f19-slice019-product-acceptance.yml"
+      - "data/curriculum/full-product/p03f/slice019-*.json"
+      - "site/modules/curriculum/batch-a/*p03f19*.js"
+      - "site/modules/curriculum/batch-a/g4b-u06-*-p03f19.js"
+      - "site/modules/curriculum/registry/*p03f19*.js"
+      - "site/modules/curriculum/registry/g4b-u06-*-p03f19.js"
+      - "src/curriculum/full-product/p03f-slice019-*.mjs"
+      - "tools/curriculum/*p03f-slice019*.mjs"
+      - "tests/curriculum/p03f-slice019-*.test.js"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f19-slice019-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  slice019:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Frozen queue and W02 context authority preflight
+        run: node --test tests/curriculum/p03f-slice019-authority-preflight.test.js
+      - name: Slice019 focused core acceptance
+        run: |
+          if [ -f tests/curriculum/p03f-slice019-core.test.js ]; then
+            node --test tests/curriculum/p03f-slice019-core.test.js
+          fi
+      - name: Full repository regression
+        run: npm test
