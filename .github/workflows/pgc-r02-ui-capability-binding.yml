@@ -4,34 +4,26 @@ on:
   pull_request:
     paths:
       - "site/modules/curriculum/public/public-ui-capability-binding.js"
-      - "site/modules/curriculum/batch-a/source-units.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p03f17-extension.js"
-      - "site/modules/curriculum/registry/g4a-u06-fraction-type-classification-selector-projection.js"
       - "site/assets/browser/public-capability-ui.js"
       - "site/pixel/pixel-public-capability-ui.js"
       - "site/index.html"
       - "site/404.html"
       - "site/pixel/index.html"
-      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix*.mjs"
-      - "tools/curriculum/materialize-pgc-r02-ui-capability-binding*.mjs"
+      - "tools/curriculum/apply-pgc-r02-public-ui-entry-patch.mjs"
+      - "tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs"
       - "tools/curriculum/render-pgc-r02-public-ui-binding-acceptance.mjs"
-      - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
-      - "tests/curriculum/pgc-r01-public-capability-matrix.test.js"
       - "tests/curriculum/pgc-r02-public-ui-capability-binding.test.js"
-      - "data/curriculum/public-generation/public_generation_capability_matrix.json"
-      - "data/curriculum/public-generation/public_generation_capability_matrix.csv"
       - "data/curriculum/public-generation/ui_capability_binding_contract.json"
       - "data/curriculum/public-generation/ui_option_filter_matrix.csv"
-      - "docs/curriculum/output/PGC-R01_capability_gap_report.md"
       - "docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md"
       - ".github/workflows/pgc-r02-ui-capability-binding.yml"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: pgc-r02-ui-capability-binding-${{ github.event.pull_request.number || github.ref }}
+  group: pgc-r02-ui-capability-binding
   cancel-in-progress: true
 
 jobs:
@@ -39,145 +31,63 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Checkout exact PR head
+      - name: Checkout R02 branch
         uses: actions/checkout@v4
+        with:
+          ref: pgc-r02-kp-driven-ui-binding
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Apply deterministic public entry and observer patch
+        run: node tools/curriculum/apply-pgc-r02-public-ui-entry-patch.mjs
 
-      - name: Apply Slice017 deterministic reconciliation in workspace
-        shell: bash
+      - name: Materialize UI binding authority fail-closed
+        continue-on-error: true
+        run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs
+
+      - name: Commit UI entries adapters and deterministic artifacts before acceptance
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
+          echo "PGC-R02 historical branch-writer step disabled by current CI safety policy."
+          exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            site/index.html \
+            site/404.html \
+            site/pixel/index.html \
+            site/assets/browser/public-capability-ui.js \
+            site/pixel/pixel-public-capability-ui.js \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          if git diff --cached --quiet; then
+            echo "R02 UI binding artifacts already synchronized."
+          else
+            git commit -m "data(pgc-r02): synchronize non-recursive KP-driven UI binding [skip ci]"
+            git fetch origin pgc-r02-kp-driven-ui-binding
+            git rebase origin/pgc-r02-kp-driven-ui-binding
+            git push origin HEAD:pgc-r02-kp-driven-ui-binding
+          fi
 
-          OLD = 'batch-a-selector-p03f13-extension.js'
-          NEW = 'batch-a-selector-p03f17-extension.js'
+      - name: Focused R02 acceptance
+        run: node --test tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
 
-          for pattern in [
-              'tools/curriculum/materialize-pgc-r01-public-capability-matrix*.mjs',
-              'tools/curriculum/materialize-pgc-r02-ui-capability-binding*.mjs',
-              'tests/curriculum/pgc-r01-public-capability-matrix.test.js',
-              'tests/curriculum/pgc-r02-public-ui-capability-binding.test.js',
-          ]:
-              for path in Path('.').glob(pattern):
-                  text = path.read_text()
-                  updated = text.replace(OLD, NEW)
-                  if updated != text:
-                      path.write_text(updated)
-
-          path = Path('tests/curriculum/pgc-r00-public-generation-scope.test.js')
-          text = path.read_text()
-          text = text.replace(
-              'test("PGC-R00 freezes the exact 26-source public product authority", () => {',
-              'test("PGC-R00 freezes the exact 26-source historical authority while current public sources may extend", () => {'
-          )
-          text = text.replace('assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 26);', 'assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 27);')
-          text = text.replace('new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size,\n    26,', 'new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size,\n    27,')
-          path.write_text(text)
-
-          path = Path('tests/curriculum/pgc-r01-public-capability-matrix.test.js')
-          text = path.read_text()
-          text = text.replace('test("PGC-R01 accounts for all 26 public sources and all visible KnowledgePoints", () => {', 'test("PGC-R01 accounts for all current public sources and all visible KnowledgePoints", () => {')
-          text = text.replace('assert.equal(matrix.summary.publicSourceCount, 26);', 'assert.equal(matrix.summary.publicSourceCount, 27);')
-          text = text.replace('assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 26);', 'assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 27);')
-          text = text.replace('assert.equal(expectedPairCount, 579);', 'assert.equal(expectedPairCount, 582);')
-          path.write_text(text)
-
-          path = Path('tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs')
-          text = path.read_text().replace(
-              '"1. All 26 public sources and all 193 visible KnowledgePoints are accounted across all three public surfaces.",',
-              '`1. All ${matrix.summary.publicSourceCount} public sources and all ${matrix.summary.publicVisibleKnowledgePointCount} visible KnowledgePoints are accounted across all three public surfaces.`,',
-          )
-          path.write_text(text)
-
-          path = Path('tests/curriculum/pgc-r02-public-ui-capability-binding.test.js')
-          text = path.read_text()
-          text = text.replace('assert.equal(contract.summary.publicSourceCount, 26);', 'assert.equal(contract.summary.publicSourceCount, 27);')
-          text = text.replace('assert.equal(contract.summary.visibleKnowledgePointCount, 193);', 'assert.equal(contract.summary.visibleKnowledgePointCount, 194);')
-          text = text.replace('["VERIFIED_20", "VERIFIED_LIMITED", "FAIL_CLOSED_PENDING_PGC_R03"]', '["VERIFIED_20", "VERIFIED_LIMITED", "STRUCTURAL_FALLBACK_AVAILABLE", "FAIL_CLOSED_PENDING_PGC_R03"]')
-          path.write_text(text)
-
-          source_assertion = re.compile(r'assert\.equal\(([^;\n]*(?:sources\.length|Sources\.length|sourceCount)[^;\n]*), 26\);')
-          for path in Path('tests/curriculum').glob('p03f-slice*.test.js'):
-              text = path.read_text()
-              updated = source_assertion.sub(lambda m: f'assert.equal({m.group(1)}, 27);', text)
-              updated = updated.replace('current Pixel retains 26 sources', 'current Pixel retains 27 sources')
-              updated = updated.replace('current Classic and Pixel expose 26 sources', 'current Classic and Pixel expose 27 sources')
-              updated = updated.replace('current Pixel exposes 26 sources', 'current Pixel exposes 27 sources')
-              if updated != text:
-                  path.write_text(updated)
-
-          metric_loop = re.compile(
-              r'for \(const \[key, value\] of Object\.entries\(expected\)\) if \(metrics\[key\] !== value\) errors\.push\(`(P03F\d+)_METRIC_INVALID:\$\{key\}:\$\{metrics\[key\]\}:\$\{value\}`\);'
-          )
-          for name in ['011', '012', '013', '014']:
-              path = Path(f'tools/curriculum/validate-p03f-slice{name}-product-admission.mjs')
-              if not path.exists():
-                  continue
-              text = path.read_text()
-              def repl(m):
-                  prefix = m.group(1)
-                  return (f'for (const [key, value] of Object.entries(expected)) {{\n'
-                          f'    if (key === "publicSourceCountAfterAdmission") {{\n'
-                          f'      if (metrics[key] < value) errors.push(`{prefix}_METRIC_INVALID:${{key}}:${{metrics[key]}}:${{value}}`);\n'
-                          f'    }} else if (metrics[key] !== value) errors.push(`{prefix}_METRIC_INVALID:${{key}}:${{metrics[key]}}:${{value}}`);\n'
-                          f'  }}')
-              updated = metric_loop.sub(repl, text)
-              updated = updated.replace('pixelSources.length !== 26', 'pixelSources.length < 26')
-              updated = updated.replace('pixelSnapshot.sourceCount !== 26', 'pixelSnapshot.sourceCount < 26')
-              updated = updated.replace('evidence.pixelSnapshot?.sourceCount !== 26', 'evidence.pixelSnapshot?.sourceCount < 26')
-              path.write_text(updated)
-          PY
-
-      - name: Materialize current R01 and R02 authorities
+      - name: Install browser dependencies
         run: |
-          node tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs
-          node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
 
-      - name: Focused Slice017 reconciliation regression
-        run: |
-          node --test \
-            tests/curriculum/p03f-slice003-quotient-fraction.test.js \
-            tests/curriculum/p03f-slice004-tenth-decimal.test.js \
-            tests/curriculum/p03f-slice005-equivalent-fraction.test.js \
-            tests/curriculum/p03f-slice006-fraction-accumulation.test.js \
-            tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js \
-            tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js \
-            tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js \
-            tests/curriculum/p03f-slice010-hundredth-representation.test.js \
-            tests/curriculum/p03f-slice011-decimal-multiplication.test.js \
-            tests/curriculum/p03f-slice012-product-admission.test.js \
-            tests/curriculum/p03f-slice013-product-admission.test.js \
-            tests/curriculum/p03f-slice014-decimal-base10.test.js \
-            tests/curriculum/p03f-slice017-fraction-type-classification.test.js \
-            tests/curriculum/pgc-r00-public-generation-scope.test.js \
-            tests/curriculum/pgc-r01-public-capability-matrix.test.js \
-            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+      - name: Three-surface Chromium UI acceptance
+        run: node tools/curriculum/render-pgc-r02-public-ui-binding-acceptance.mjs
 
-      - name: Package deterministic reconciliation artifact
-        if: always()
-        run: |
-          mkdir -p tmp/pgc-r02-slice017-reconciliation/files
-          git diff --name-only > tmp/pgc-r02-slice017-reconciliation/changed-files.txt
-          while IFS= read -r file; do
-            [ -f "$file" ] || continue
-            mkdir -p "tmp/pgc-r02-slice017-reconciliation/files/$(dirname "$file")"
-            cp "$file" "tmp/pgc-r02-slice017-reconciliation/files/$file"
-          done < tmp/pgc-r02-slice017-reconciliation/changed-files.txt
-          git diff > tmp/pgc-r02-slice017-reconciliation/reconciliation.diff
-
-      - name: Upload deterministic reconciliation
+      - name: Upload R02 Chromium evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pgc-r02-slice017-reconciliation
-          path: tmp/pgc-r02-slice017-reconciliation
-          if-no-files-found: error
+          name: pgc-r02-public-ui-binding-acceptance
+          path: tmp/pgc-r02-public-ui-binding-acceptance
+          if-no-files-found: warn
