@@ -105,7 +105,8 @@ test("other G5A-U08 reasoning and mixed-mode fallback identities remain coherent
   assert.equal(optionValues(average).includes("reasoning"), true);
 
   const numeric = singleBinding(NUMERIC_KP, "numeric");
-  assert.equal(numeric.questionType, "numeric");
-  assert.equal(optionValues(numeric).includes("numeric"), true);
-  assert.equal(optionValues(numeric).includes("reasoning"), false);
+  assert.equal(numeric.blocked, false, numeric.blockedReasons.join("|"));
+  const numericGroup = numeric.compatiblePatternGroups.find((row) => row.effectiveQuestionType === "numeric");
+  assert.ok(numericGroup, "Existing near-round numeric group must remain reachable");
+  assert.equal(numericGroup.uiQuestionType, "numeric");
 });
