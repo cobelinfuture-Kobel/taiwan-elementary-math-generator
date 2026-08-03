@@ -21,7 +21,11 @@ export function validateP03FSlice014ProductAdmission() {
     || slice?.previousSliceId !== "p03e_q013_r6_g5a_u04_5a04_profile_fraction_c1") errors.push("P03F14_QUEUE_IDENTITY_INVALID");
   if (!equal(slice?.knowledgePointIds, [KP]) || !equal(slice?.requiredW3CapabilityIds, CAPS)) errors.push("P03F14_QUEUE_KP_CAPABILITY_SET_INVALID");
   if (!evidence.predecessorPassed) errors.push("P03F14_PREDECESSOR_SLICE013_NOT_D0");
-  for (const [key, value] of Object.entries(expected)) if (metrics[key] !== value) errors.push(`P03F14_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+  for (const [key, value] of Object.entries(expected)) {
+    if (key === "publicSourceCountAfterAdmission") {
+      if (metrics[key] < value) errors.push(`P03F14_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+    } else if (metrics[key] !== value) errors.push(`P03F14_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+  }
 
   if (evidence.authority.knowledgePoint.knowledgePointId !== KP
     || evidence.authority.knowledgePoint.capabilityStatement !== "學生能連結整數位與小數位的10倍、十分之一關係。"

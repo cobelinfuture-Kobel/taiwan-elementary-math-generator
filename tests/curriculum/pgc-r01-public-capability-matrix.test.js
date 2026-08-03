@@ -12,7 +12,7 @@ import {
 } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f17-extension.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const jsonPath = path.join(repoRoot, "data/curriculum/public-generation/public_generation_capability_matrix.json");
@@ -43,11 +43,11 @@ test("PGC-R01 materializes the deterministic current public capability authority
   );
 });
 
-test("PGC-R01 accounts for all 26 public sources and all visible KnowledgePoints", () => {
+test("PGC-R01 accounts for all current public sources and all visible KnowledgePoints", () => {
   const matrix = readMatrix();
   const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
-  assert.equal(matrix.summary.publicSourceCount, 26);
-  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 26);
+  assert.equal(matrix.summary.publicSourceCount, 27);
+  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 27);
   assert.equal(matrix.summary.publicVisibleKnowledgePointCount, visibleKnowledgePoints.length);
 
   const matrixSources = new Set(matrix.capabilities.map((row) => row.sourceId));
@@ -75,7 +75,7 @@ test("PGC-R01 accounts all 193 KnowledgePoint by three-surface pairs", () => {
       .map((gap) => `${gap.knowledgePointId}|${gap.surfaceId}`),
   );
 
-  assert.equal(expectedPairCount, 579);
+  assert.equal(expectedPairCount, 597);
   assert.equal(matrix.summary.visibleKpSurfaceExpectedPairCount, expectedPairCount);
   assert.equal(matrix.summary.visibleKpSurfaceAccountedPairCount, expectedPairCount);
   assert.equal(matrix.summary.visibleKpSurfaceUnaccountedPairCount, 0);
