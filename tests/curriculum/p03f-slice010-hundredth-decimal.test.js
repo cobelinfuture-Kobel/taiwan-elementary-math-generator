@@ -95,7 +95,7 @@ test("P03F10 binds decimal number-system and domain-validator witnesses", () => 
   }
 });
 
-test("P03F10 current selector and Pixel expose exactly one G4A-U09 KP", () => {
+test("P03F10 historical selector stays at one G4A-U09 KP while current Pixel preserves it after successors", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4A_U09_SOURCE_ID);
   assert.equal(rows.length, 1);
   assert.equal(rows[0].knowledgePointId, G4A_U09_HUNDREDTH_DECIMAL_KP_ID);
@@ -104,7 +104,8 @@ test("P03F10 current selector and Pixel expose exactly one G4A-U09 KP", () => {
   assert.equal(availability.hiddenPendingCount, 6);
   const sources = listCurrentPixelSourceOptions();
   assert.equal(sources.length, 27);
-  assert.equal(listPixelKnowledgePointsForSource(G4A_U09_SOURCE_ID).length, 1);
+  const pixelRows = listPixelKnowledgePointsForSource(G4A_U09_SOURCE_ID);
+  assert.equal(pixelRows.some((row) => row.knowledgePointId === G4A_U09_HUNDREDTH_DECIMAL_KP_ID), true);
   assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 27);
 });
 
