@@ -126,12 +126,16 @@ test("other G5A-U08 single-KP reasoning and mixed identities remain coherent", (
   assert.equal(optionValues(average).includes("reasoning"), true);
 });
 
-test("same-unit and source-unit fallback do not expose unadmitted reasoning controls", () => {
+test("same-unit all-group fallback does not expose the unadmitted reasoning intersection", () => {
   const sameUnit = sameUnitBinding("reasoning");
   assert.equal(optionValues(sameUnit).includes("reasoning"), false);
   assert.notEqual(sameUnit.questionType, "reasoning");
+});
 
+test("source-unit reasoning capacity remains admitted", () => {
   const sourceUnit = sourceUnitBinding("reasoning");
-  assert.equal(optionValues(sourceUnit).includes("reasoning"), false);
-  assert.notEqual(sourceUnit.questionType, "reasoning");
+  assert.equal(sourceUnit.blocked, false, sourceUnit.blockedReasons.join("|"));
+  assert.equal(optionValues(sourceUnit).includes("reasoning"), true);
+  assert.equal(sourceUnit.questionType, "reasoning");
+  assert.ok(sourceUnit.capacityRouteIds.length > 0);
 });
