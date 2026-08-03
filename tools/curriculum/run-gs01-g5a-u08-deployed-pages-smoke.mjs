@@ -190,25 +190,27 @@ async function selectAvailableOption(page, selector, value, diagnostic = {}) {
 
 async function setControls(page, controls, row = {}, label = "unlabeled") {
   const diagnostic = { label, row, controls };
+  const depthApplicable = row.depthApplicable ?? (await optionValues(page, CONTROL_IDS.depthMode)).length > 0;
+  const contextApplicable = row.contextApplicable ?? (await optionValues(page, CONTROL_IDS.contextMode)).length > 0;
   await selectAvailableOption(page, CONTROL_IDS.questionMode, controls.questionMode, diagnostic);
-  if (row.contextApplicable) {
+  if (contextApplicable) {
     const contexts = await optionValues(page, CONTROL_IDS.contextMode);
     if (contexts.includes("mixed")) await selectAvailableOption(page, CONTROL_IDS.contextMode, "mixed", diagnostic);
   }
-  if (row.depthApplicable) {
+  if (depthApplicable) {
     const depths = await optionValues(page, CONTROL_IDS.depthMode);
     if (depths.includes("mixed")) await selectAvailableOption(page, CONTROL_IDS.depthMode, "mixed", diagnostic);
     await selectAvailableOption(page, CONTROL_IDS.depthMode, controls.depthMode, diagnostic);
   }
-  if (row.contextApplicable) await selectAvailableOption(page, CONTROL_IDS.contextMode, controls.contextMode, diagnostic);
+  if (contextApplicable) await selectAvailableOption(page, CONTROL_IDS.contextMode, controls.contextMode, diagnostic);
   const url = new URL(page.url());
   if (url.searchParams.get("questionMode") !== controls.questionMode) {
     fail("G5A_U08_R1_CONTROL_QUERY_MISMATCH", { controls, key: "questionMode", actual: url.searchParams.get("questionMode") });
   }
-  if (row.depthApplicable && url.searchParams.get("depthMode") !== controls.depthMode) {
+  if (depthApplicable && url.searchParams.get("depthMode") !== controls.depthMode) {
     fail("G5A_U08_R1_CONTROL_QUERY_MISMATCH", { controls, key: "depthMode", actual: url.searchParams.get("depthMode") });
   }
-  if (row.contextApplicable && url.searchParams.get("contextMode") !== controls.contextMode) {
+  if (contextApplicable && url.searchParams.get("contextMode") !== controls.contextMode) {
     fail("G5A_U08_R1_CONTROL_QUERY_MISMATCH", { controls, key: "contextMode", actual: url.searchParams.get("contextMode") });
   }
 }
@@ -225,6 +227,57 @@ async function assertNotExposed(page, row, label) {
   }
   return { questions, depths, contexts };
 }`;
+
+const LEGACY_REPLAY_EXECUTION = `  await setControls(page, localAuthority.replayControls);
+  await page.reload({ waitUntil: "networkidle", timeout: 120000 });`;
+const ISOLATED_REPLAY_EXECUTION = `  const replayMatrixRow = localAuthority.controlMatrix.find((row) =>
+    row.questionMode === localAuthority.replayControls.questionMode
+    && row.depthMode === localAuthority.replayControls.depthMode
+    && row.contextMode === localAuthority.replayControls.contextMode);
+  if (replayMatrixRow?.expected !== "generate") {
+    fail("G5A_U08_R1_REPLAY_ROW_NOT_GENERATABLE", { replayMatrixRow, replayControls: localAuthority.replayControls });
+  }
+  const replayUrl = new URL(page.url());
+  replayUrl.searchParams.set("sourceId", SOURCE_ID);
+  replayUrl.searchParams.set("selectionMode", "mixedKnowledgePointsSameUnit");
+  replayUrl.searchParams.delete("kp");
+  for (const knowledgePointId of G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS) replayUrl.searchParams.append("kp", knowledgePointId);
+  replayUrl.searchParams.delete("pg");
+  for (const patternGroupId of G5A_U08_PROMOTED_PATTERN_GROUP_IDS) replayUrl.searchParams.append("pg", patternGroupId);
+  replayUrl.searchParams.set("questionCount", String(PER_COMBINATION_QUESTION_COUNT));
+  replayUrl.searchParams.set("generationSeed", "g5a-u08-r1-query-replay");
+  for (const [key, value] of Object.entries(localAuthority.replayControls)) replayUrl.searchParams.set(key, value);
+  await page.goto(replayUrl.href, { waitUntil: "networkidle", timeout: 120000 });
+  try {
+    await page.waitForFunction(
+      (sourceId) => document.querySelector("#g5a-u08-public-controls")?.dataset.sourceId === sourceId,
+      SOURCE_ID,
+      { timeout: 30000 },
+    );
+  } catch (error) {
+    fail("G5A_U08_R1_REPLAY_CAPABILITY_SYNC_TIMEOUT", {
+      replayMatrixRow,
+      replayControls: localAuthority.replayControls,
+      snapshot: await controlSnapshot(page),
+      error: String(error?.message ?? error),
+    });
+  }
+  const replayLoadedUrl = new URL(page.url());
+  if (
+    replayLoadedUrl.searchParams.get("selectionMode") !== "mixedKnowledgePointsSameUnit"
+    || new Set(replayLoadedUrl.searchParams.getAll("kp")).size !== EXPECTED_KP_COUNT
+    || new Set(replayLoadedUrl.searchParams.getAll("pg")).size !== EXPECTED_PATTERN_GROUP_COUNT
+  ) {
+    fail("G5A_U08_R1_REPLAY_PRELOAD_STATE_NOT_ISOLATED", {
+      replayMatrixRow,
+      replayControls: localAuthority.replayControls,
+      url: replayLoadedUrl.href,
+      knowledgePointCount: new Set(replayLoadedUrl.searchParams.getAll("kp")).size,
+      patternGroupCount: new Set(replayLoadedUrl.searchParams.getAll("pg")).size,
+    });
+  }
+  await setControls(page, localAuthority.replayControls, replayMatrixRow, "query-replay-preload");
+  await page.reload({ waitUntil: "networkidle", timeout: 120000 });`;
 
 const LEGACY_MATRIX_LOOP = `    await setControls(page, controls);
     await page.fill(
@@ -308,6 +361,7 @@ export function patchG5AU08DeployedSmokeHarness(source) {
   patched = replaceExactlyOnce(patched, LEGACY_SINGLE_KP_MIXED_CONTROL, CAPACITY_ALIGNED_SINGLE_KP_CONTROL, "PGC_R07_A02_SINGLE_KP_CONTROL");
   patched = replaceExactlyOnce(patched, LEGACY_SET_CONTROLS, CAPACITY_AWARE_SET_CONTROLS, "PGC_R07_A02_CAPACITY_AWARE_CONTROLS");
   patched = replaceExactlyOnce(patched, LEGACY_MATRIX_LOOP, CAPACITY_MATRIX_LOOP, "PGC_R07_A02_CAPACITY_MATRIX_LOOP");
+  patched = replaceExactlyOnce(patched, LEGACY_REPLAY_EXECUTION, ISOLATED_REPLAY_EXECUTION, "PGC_R07_A02_REPLAY_EXECUTION");
   if (
     !patched.includes("resolvePublicUiCapabilityBinding")
     || !patched.includes("publicAdmitted")
@@ -318,6 +372,8 @@ export function patchG5AU08DeployedSmokeHarness(source) {
     || !patched.includes("G5A_U08_R1_MATRIX_CAPABILITY_SYNC_TIMEOUT")
     || !patched.includes("G5A_U08_R1_EXPECTED_GENERATE_CONTROL_NOT_EXPOSED")
     || !patched.includes("G5A_U08_R1_CONTROL_SELECTION_DID_NOT_SETTLE")
+    || !patched.includes("G5A_U08_R1_REPLAY_PRELOAD_STATE_NOT_ISOLATED")
+    || !patched.includes("query-replay-preload")
     || !patched.includes('rowUrl.searchParams.delete("kp")')
     || !patched.includes('rowUrl.searchParams.delete("pg")')
     || !patched.includes("requiredSegments")
