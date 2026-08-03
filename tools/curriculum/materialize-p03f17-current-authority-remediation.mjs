@@ -13,6 +13,8 @@ const replaceFile = (file, fn) => {
 
 const OLD_SELECTOR = "batch-a-selector-p03f13-extension.js";
 const NEW_SELECTOR = "batch-a-selector-p03f17-extension.js";
+const uiBindingPath = "data/curriculum/public-generation/ui_capability_binding_contract.json";
+const previousUiBinding = fs.existsSync(uiBindingPath) ? JSON.parse(read(uiBindingPath)) : null;
 
 for (const file of [
   "tools/curriculum/materialize-pgc-r01-public-capability-matrix.mjs",
@@ -22,9 +24,32 @@ for (const file of [
   "tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs",
   "tests/curriculum/pgc-r01-public-capability-matrix.test.js",
   "tests/curriculum/pgc-r02-public-ui-capability-binding.test.js",
+  "site/modules/curriculum/public/public-ui-capability-binding-base.js",
 ]) {
   replaceFile(file, (text) => text.replaceAll(OLD_SELECTOR, NEW_SELECTOR));
 }
+
+replaceFile("site/modules/curriculum/public/public-ui-capability-binding.js", (text) => text
+  .replace(
+    "  return selected.length > 0 ? selected : sourceGroups;",
+    "  return selected;",
+  )
+  .replace(
+`export function auditPublicUiCapabilityBinding() {
+  const base = auditBasePublicUiCapabilityBinding();
+  const errors = [...base.errors];
+  let caseCount = base.caseCount;
+  for (const surfaceId of Object.values(PUBLIC_UI_SURFACES)) {
+    const binding = p03f17Binding({ sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID, surfaceId });
+    caseCount += 1;
+    if (!binding || binding.blocked || binding.compatiblePatternGroupIds.length !== 1) errors.push(\`${G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID}|\${surfaceId}|sourceUnit:P03F17_BINDING_INVALID\`);
+  }
+  return Object.freeze({ ok: errors.length === 0, caseCount, errors: Object.freeze(errors) });
+}`,
+`export function auditPublicUiCapabilityBinding() {
+  return auditBasePublicUiCapabilityBinding();
+}`,
+  ));
 
 replaceFile("tests/curriculum/pgc-r00-public-generation-scope.test.js", (text) => text
   .replace(
@@ -56,6 +81,9 @@ for (const file of fs.readdirSync("tests/curriculum")
   .map((name) => path.join("tests/curriculum", name))) {
   replaceFile(file, (text) => text
     .replace(sourceCountAssertion, (_, expr) => `assert.equal(${expr}, 27);`)
+    .replaceAll("assert.equal(pixelSources.length, 26);", "assert.equal(pixelSources.length, 27);")
+    .replaceAll("assert.equal(pixelSnapshot.sourceCount, 26);", "assert.equal(pixelSnapshot.sourceCount, 27);")
+    .replaceAll("assert.equal(snapshot.sourceCount, 26);", "assert.equal(snapshot.sourceCount, 27);")
     .replaceAll("current Pixel retains 26 sources", "current Pixel retains 27 sources")
     .replaceAll("current Classic and Pixel expose 26 sources", "current Classic and Pixel expose 27 sources")
     .replaceAll("current Pixel exposes 26 sources", "current Pixel exposes 27 sources"));
@@ -72,6 +100,20 @@ for (const n of ["011", "012", "013", "014"]) {
     .replaceAll("evidence.pixelSnapshot?.sourceCount !== 26", "evidence.pixelSnapshot?.sourceCount < 26"));
 }
 
+replaceFile("tests/curriculum/pgc-r07-a00-surface-parity-scope.test.js", (text) => text.replace(
+`test("PGC-R07 A00 freezes the exact current public surfaces and capability counts", () => {
+  assert.equal(r07.summary.publicSourceCount, capabilityMatrix.summary.publicSourceCount);
+  assert.equal(r07.summary.publicVisibleKnowledgePointCount, capabilityMatrix.summary.publicVisibleKnowledgePointCount);
+  assert.equal(r07.summary.capabilitySurfaceRowCount, capabilityMatrix.summary.capabilityRowCount);
+  assert.equal(r07.summary.surfaceCount, capabilityMatrix.summary.surfaceCount);`,
+`test("PGC-R07 A00 preserves its historical freeze while current public authority advances monotonically", () => {
+  assert.equal(r07.summary.publicSourceCount, 26);
+  assert.ok(capabilityMatrix.summary.publicSourceCount >= r07.summary.publicSourceCount);
+  assert.ok(capabilityMatrix.summary.publicVisibleKnowledgePointCount >= r07.summary.publicVisibleKnowledgePointCount);
+  assert.ok(capabilityMatrix.summary.capabilityRowCount >= r07.summary.capabilitySurfaceRowCount);
+  assert.equal(r07.summary.surfaceCount, capabilityMatrix.summary.surfaceCount);`,
+));
+
 for (const command of [
   ["tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs"],
   ["tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs"],
@@ -81,6 +123,14 @@ for (const command of [
   } catch (error) {
     console.error(`P03F17_MATERIALIZER_FAIL_CLOSED:${command[0]}:${error.status ?? "unknown"}`);
   }
+}
+
+if (previousUiBinding && fs.existsSync(uiBindingPath)) {
+  const rebuiltUiBinding = JSON.parse(read(uiBindingPath));
+  const oldBindings = new Map((previousUiBinding.bindings ?? []).map((row) => [row.bindingId, row]));
+  rebuiltUiBinding.bindings = (rebuiltUiBinding.bindings ?? []).map((row) => ({ ...(oldBindings.get(row.bindingId) ?? {}), ...row }));
+  const preserved = { ...previousUiBinding, ...rebuiltUiBinding, bindings: rebuiltUiBinding.bindings };
+  write(uiBindingPath, `${JSON.stringify(preserved, null, 2)}\n`);
 }
 
 const changed = execSync("git diff --name-only", { encoding: "utf8" }).trim().split(/\r?\n/).filter(Boolean);
