@@ -36,6 +36,28 @@ function singleBinding(knowledgePointId, requestedQuestionType = "mixed") {
   });
 }
 
+function sameUnitBinding(requestedQuestionType = "reasoning") {
+  return resolvePublicUiCapabilityBinding({
+    sourceId: G5A_U08_SOURCE_ID,
+    selectionMode: "mixedKnowledgePointsSameUnit",
+    selectedKnowledgePointIds: [...G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS],
+    selectedPatternGroupIds: [...G5A_U08_PROMOTED_PATTERN_GROUP_IDS],
+    requestedQuestionType,
+    requestedDepthMode: "mixed",
+    requestedContextMode: "mixed",
+  });
+}
+
+function sourceUnitBinding(requestedQuestionType = "reasoning") {
+  return resolvePublicUiCapabilityBinding({
+    sourceId: G5A_U08_SOURCE_ID,
+    selectionMode: "sourceUnit",
+    requestedQuestionType,
+    requestedDepthMode: "mixed",
+    requestedContextMode: "mixed",
+  });
+}
+
 test("G5A-U08 authority counts stay frozen during deployed zero-capacity repair", () => {
   assert.equal(G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS.length, 11);
   assert.equal(G5A_U08_PROMOTED_PATTERN_GROUP_IDS.length, 17);
@@ -89,7 +111,7 @@ test("missing-operator deployed seed produces six unique canonical reasoning que
   assert.equal(new Set(prompts).size, 6);
 });
 
-test("other G5A-U08 reasoning and mixed-mode fallback identities remain coherent", () => {
+test("other G5A-U08 single-KP reasoning and mixed identities remain coherent", () => {
   const equivalence = singleBinding(EQUIVALENCE_KP, "numeric");
   assert.notEqual(equivalence.questionType, "numeric");
   assert.equal(optionValues(equivalence).includes("reasoning"), true);
@@ -102,4 +124,14 @@ test("other G5A-U08 reasoning and mixed-mode fallback identities remain coherent
   assert.equal(optionValues(average).includes("mixed"), true);
   assert.equal(optionValues(average).includes("application"), true);
   assert.equal(optionValues(average).includes("reasoning"), true);
+});
+
+test("same-unit and source-unit fallback do not expose unadmitted reasoning controls", () => {
+  const sameUnit = sameUnitBinding("reasoning");
+  assert.equal(optionValues(sameUnit).includes("reasoning"), false);
+  assert.notEqual(sameUnit.questionType, "reasoning");
+
+  const sourceUnit = sourceUnitBinding("reasoning");
+  assert.equal(optionValues(sourceUnit).includes("reasoning"), false);
+  assert.notEqual(sourceUnit.questionType, "reasoning");
 });
