@@ -140,32 +140,67 @@ const CAPACITY_AWARE_SET_CONTROLS = `async function optionValues(page, selector)
   return page.locator(selector).evaluate((select) => [...select.options].map((option) => option.value));
 }
 
-async function selectAvailableOption(page, selector, value) {
-  await page.waitForFunction(
-    ({ selector, value }) => [...(document.querySelector(selector)?.options ?? [])].some((option) => option.value === value),
-    { selector, value },
-    { timeout: 120000 },
-  );
-  await page.selectOption(selector, value);
-  await page.waitForFunction(
-    ({ selector, value }) => document.querySelector(selector)?.value === value,
-    { selector, value },
-    { timeout: 120000 },
-  );
+async function controlSnapshot(page) {
+  return {
+    sourceId: await page.locator("#g5a-u08-public-controls").getAttribute("data-source-id"),
+    questions: await optionValues(page, CONTROL_IDS.questionMode),
+    depths: await optionValues(page, CONTROL_IDS.depthMode),
+    contexts: await optionValues(page, CONTROL_IDS.contextMode),
+    url: page.url(),
+  };
 }
 
-async function setControls(page, controls, row = {}) {
-  await selectAvailableOption(page, CONTROL_IDS.questionMode, controls.questionMode);
+async function selectAvailableOption(page, selector, value, diagnostic = {}) {
+  try {
+    await page.waitForFunction(
+      ({ selector, value }) => [...(document.querySelector(selector)?.options ?? [])].some((option) => option.value === value),
+      { selector, value },
+      { timeout: 15000 },
+    );
+  } catch (error) {
+    fail("G5A_U08_R1_EXPECTED_GENERATE_CONTROL_NOT_EXPOSED", {
+      ...diagnostic,
+      selector,
+      value,
+      options: await optionValues(page, selector),
+      snapshot: await controlSnapshot(page),
+      error: String(error?.message ?? error),
+    });
+  }
+
+  await page.selectOption(selector, value);
+  try {
+    await page.waitForFunction(
+      ({ selector, value }) => document.querySelector(selector)?.value === value,
+      { selector, value },
+      { timeout: 15000 },
+    );
+  } catch (error) {
+    fail("G5A_U08_R1_CONTROL_SELECTION_DID_NOT_SETTLE", {
+      ...diagnostic,
+      selector,
+      value,
+      actual: await page.locator(selector).inputValue(),
+      options: await optionValues(page, selector),
+      snapshot: await controlSnapshot(page),
+      error: String(error?.message ?? error),
+    });
+  }
+}
+
+async function setControls(page, controls, row = {}, label = "unlabeled") {
+  const diagnostic = { label, row, controls };
+  await selectAvailableOption(page, CONTROL_IDS.questionMode, controls.questionMode, diagnostic);
   if (row.contextApplicable) {
     const contexts = await optionValues(page, CONTROL_IDS.contextMode);
-    if (contexts.includes("mixed")) await selectAvailableOption(page, CONTROL_IDS.contextMode, "mixed");
+    if (contexts.includes("mixed")) await selectAvailableOption(page, CONTROL_IDS.contextMode, "mixed", diagnostic);
   }
   if (row.depthApplicable) {
     const depths = await optionValues(page, CONTROL_IDS.depthMode);
-    if (depths.includes("mixed")) await selectAvailableOption(page, CONTROL_IDS.depthMode, "mixed");
-    await selectAvailableOption(page, CONTROL_IDS.depthMode, controls.depthMode);
+    if (depths.includes("mixed")) await selectAvailableOption(page, CONTROL_IDS.depthMode, "mixed", diagnostic);
+    await selectAvailableOption(page, CONTROL_IDS.depthMode, controls.depthMode, diagnostic);
   }
-  if (row.contextApplicable) await selectAvailableOption(page, CONTROL_IDS.contextMode, controls.contextMode);
+  if (row.contextApplicable) await selectAvailableOption(page, CONTROL_IDS.contextMode, controls.contextMode, diagnostic);
   const url = new URL(page.url());
   if (url.searchParams.get("questionMode") !== controls.questionMode) {
     fail("G5A_U08_R1_CONTROL_QUERY_MISMATCH", { controls, key: "questionMode", actual: url.searchParams.get("questionMode") });
@@ -221,11 +256,20 @@ const CAPACITY_MATRIX_LOOP = `    const label = \`\${row.questionMode}/\${row.de
     rowUrl.searchParams.set("depthMode", row.depthMode);
     rowUrl.searchParams.set("contextMode", row.contextMode);
     await page.goto(rowUrl.href, { waitUntil: "networkidle", timeout: 120000 });
-    await page.waitForFunction(
-      (sourceId) => document.querySelector("#g5a-u08-public-controls")?.dataset.sourceId === sourceId,
-      SOURCE_ID,
-      { timeout: 120000 },
-    );
+    try {
+      await page.waitForFunction(
+        (sourceId) => document.querySelector("#g5a-u08-public-controls")?.dataset.sourceId === sourceId,
+        SOURCE_ID,
+        { timeout: 30000 },
+      );
+    } catch (error) {
+      fail("G5A_U08_R1_MATRIX_CAPABILITY_SYNC_TIMEOUT", {
+        label,
+        row,
+        snapshot: await controlSnapshot(page),
+        error: String(error?.message ?? error),
+      });
+    }
     const isolatedUrl = new URL(page.url());
     if (
       isolatedUrl.searchParams.get("selectionMode") !== "mixedKnowledgePointsSameUnit"
@@ -240,7 +284,7 @@ const CAPACITY_MATRIX_LOOP = `    const label = \`\${row.questionMode}/\${row.de
       });
     }
     if (row.expected === "generate") {
-      await setControls(page, controls, row);
+      await setControls(page, controls, row, label);
       const output = await assertGenerated(page, PER_COMBINATION_QUESTION_COUNT, true, label);
       controlMatrixResults.push({ ...row, actual: "generated", previewMeta: output.previewMeta });
     } else {
@@ -271,6 +315,9 @@ export function patchG5AU08DeployedSmokeHarness(source) {
     || !patched.includes("assertNotExposed")
     || !patched.includes('actual: "not_exposed"')
     || !patched.includes("G5A_U08_R1_MATRIX_ROW_STATE_NOT_ISOLATED")
+    || !patched.includes("G5A_U08_R1_MATRIX_CAPABILITY_SYNC_TIMEOUT")
+    || !patched.includes("G5A_U08_R1_EXPECTED_GENERATE_CONTROL_NOT_EXPOSED")
+    || !patched.includes("G5A_U08_R1_CONTROL_SELECTION_DID_NOT_SETTLE")
     || !patched.includes('rowUrl.searchParams.delete("kp")')
     || !patched.includes('rowUrl.searchParams.delete("pg")')
     || !patched.includes("requiredSegments")
