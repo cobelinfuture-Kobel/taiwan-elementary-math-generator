@@ -10,10 +10,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: p03f17-one-shot-authority-materializer
+  cancel-in-progress: true
+
 jobs:
   materialize:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout exact branch head
         uses: actions/checkout@v4
@@ -66,24 +70,20 @@ jobs:
           sort -o /tmp/p03f17-expected.txt /tmp/p03f17-expected.txt
           diff -u /tmp/p03f17-expected.txt /tmp/p03f17-actual.txt
 
-      - name: Remove temporary bootstrap from production branch state
+      - name: Remove all temporary bootstrap state
         shell: bash
         run: |
           set -euo pipefail
-          node <<'NODE'
-          const fs = require('node:fs');
-          const file = 'package.json';
-          const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
-          const prefix = 'node tools/curriculum/materialize-p03f17-current-authority-remediation.mjs && ';
-          if (!pkg.scripts?.pretest?.startsWith(prefix)) {
-            throw new Error(`Unexpected pretest: ${pkg.scripts?.pretest}`);
-          }
-          pkg.scripts.pretest = pkg.scripts.pretest.slice(prefix.length);
-          fs.writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
-          NODE
-          rm tools/curriculum/materialize-p03f17-current-authority-remediation.mjs
+          git fetch origin main
+          git show origin/main:package.json > package.json
+          git rm -f tools/curriculum/materialize-p03f17-current-authority-remediation.mjs
+          git rm -f .github/workflows/p03f17-one-shot-authority-materialization.yml || true
+          git rm -f .github/workflows/p03f17-one-shot-authority-materializer.yml
 
-      - name: Commit one consolidated materialization
+      - name: Prove exact workspace without bootstrap
+        run: npm test
+
+      - name: Commit one consolidated clean authority head
         shell: bash
         run: |
           set -euo pipefail
@@ -91,5 +91,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git diff --cached --check
-          git commit -m "chore(p03f17): materialize validated current authority"
+          git status --short
+          git commit -m "chore(p03f17): materialize validated authority and remove bootstrap"
           git push origin HEAD:p03f-w3-slice017
