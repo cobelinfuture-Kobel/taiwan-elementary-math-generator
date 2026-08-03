@@ -92,7 +92,7 @@ function registrySnapshot(sources, visibleKnowledgePointCount) {
     sourceCount: sources.length, visibleKnowledgePointCount,
     grades: [...new Set(sources.map((entry) => entry.grade))].sort((a, b) => a - b),
     sources,
-    bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)])),
+    bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)]))),
   });
 }
 export function getPixelRegistrySnapshot() {
