@@ -7,7 +7,7 @@ import {
   BATCH_A_SELECTOR_AVAILABILITY as CURRENT_SELECTOR_AVAILABILITY,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
-} from "../modules/curriculum/registry/batch-a-selector-p03f17-extension.js";
+} from "../modules/curriculum/registry/batch-a-selector-p03f18-extension.js";
 import {
   BATCH_A_SELECTOR_AVAILABILITY as P01E_SELECTOR_AVAILABILITY,
 } from "../modules/curriculum/registry/batch-a-selector-p01e-extension.js";
@@ -90,9 +90,9 @@ export function getS74PixelSourceSummary(sourceId) { return buildPixelSourceSumm
 function registrySnapshot(sources, visibleKnowledgePointCount) {
   return Object.freeze({
     sourceCount: sources.length, visibleKnowledgePointCount,
-    grades: [...new Set(sources.map((entry) => entry.grade))].sort((a, b) => a - b),
+    grades: [...new Set(sources.map((entry) => entry.grade)).sort((a, b) => a - b),
     sources,
-    bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)]))),
+    bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)])),
   });
 }
 export function getPixelRegistrySnapshot() {
