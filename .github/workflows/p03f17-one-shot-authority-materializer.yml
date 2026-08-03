@@ -1,0 +1,95 @@
+name: P03F17 One-Shot Authority Materializer
+
+on:
+  push:
+    branches:
+      - p03f-w3-slice017
+    paths:
+      - ".github/workflows/p03f17-one-shot-authority-materializer.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: p03f-w3-slice017
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Materialize previously validated deterministic authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tools/curriculum/materialize-p03f17-current-authority-remediation.mjs > /tmp/p03f17-materializer.log
+
+          cat > /tmp/p03f17-expected.txt <<'EOF'
+          data/curriculum/public-generation/public_generation_capability_matrix.csv
+          data/curriculum/public-generation/public_generation_capability_matrix.json
+          data/curriculum/public-generation/ui_capability_binding_contract.json
+          data/curriculum/public-generation/ui_option_filter_matrix.csv
+          docs/curriculum/output/PGC-R01_capability_gap_report.md
+          docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          site/modules/curriculum/public/public-ui-capability-binding-base.js
+          tests/curriculum/p03f-slice004-tenth-decimal.test.js
+          tests/curriculum/p03f-slice005-equivalent-fraction.test.js
+          tests/curriculum/p03f-slice006-same-denominator-compare.test.js
+          tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js
+          tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js
+          tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js
+          tests/curriculum/p03f-slice010-hundredth-decimal.test.js
+          tests/curriculum/pgc-r00-public-generation-scope.test.js
+          tests/curriculum/pgc-r01-public-capability-matrix.test.js
+          tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+          tests/curriculum/pgc-r07-a00-surface-parity-scope.test.js
+          tools/curriculum/materialize-pgc-r01-public-capability-matrix-v2.mjs
+          tools/curriculum/materialize-pgc-r01-public-capability-matrix-v3.mjs
+          tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs
+          tools/curriculum/materialize-pgc-r01-public-capability-matrix.mjs
+          tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs
+          tools/curriculum/validate-p03f-slice011-product-admission.mjs
+          tools/curriculum/validate-p03f-slice012-product-admission.mjs
+          tools/curriculum/validate-p03f-slice013-product-admission.mjs
+          tools/curriculum/validate-p03f-slice014-product-admission.mjs
+          EOF
+
+          git diff --name-only | sort > /tmp/p03f17-actual.txt
+          sort -o /tmp/p03f17-expected.txt /tmp/p03f17-expected.txt
+          diff -u /tmp/p03f17-expected.txt /tmp/p03f17-actual.txt
+
+      - name: Remove temporary bootstrap from production branch state
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs = require('node:fs');
+          const file = 'package.json';
+          const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
+          const expected = 'node tools/curriculum/materialize-p03f17-current-authority-remediation.mjs';
+          if (pkg.scripts?.pretest !== expected) {
+            throw new Error(`Unexpected pretest: ${pkg.scripts?.pretest}`);
+          }
+          delete pkg.scripts.pretest;
+          fs.writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
+          NODE
+          rm tools/curriculum/materialize-p03f17-current-authority-remediation.mjs
+
+      - name: Commit one consolidated materialization
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "chore(p03f17): materialize validated current authority"
+          git push origin HEAD:p03f-w3-slice017
