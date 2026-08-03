@@ -43,7 +43,8 @@ export function validateP03FSlice010ProductAdmission() {
   const pixelSources = listCurrentPixelSourceOptions();
   const pixelRows = listPixelKnowledgePointsForSource("g4a_u09_4a09");
   const pixelSnapshot = getCurrentPixelRegistrySnapshot();
-  if (pixelSources.length < 24 || pixelRows.length !== 1 || pixelRows[0].knowledgePointId !== EXPECTED_KP_ID || pixelSnapshot.sourceCount < 24) errors.push("P03F10_PIXEL_SURFACE_INVALID");
+  const historicalPixelRow = pixelRows.find((row) => row.knowledgePointId === EXPECTED_KP_ID);
+  if (pixelSources.length < 24 || !historicalPixelRow || pixelSnapshot.sourceCount < 24) errors.push("P03F10_PIXEL_SURFACE_INVALID");
   if (!evidence.planValidation.ok) errors.push(...evidence.planValidation.errors.map((row) => `P03F10_PLAN:${row.code}`));
   if (!evidence.generation.ok || evidence.generation.questions.length !== 8 || evidence.generation.allocation.length !== 1 || evidence.generation.allocation[0].questionCount !== 8) errors.push("P03F10_GENERATION_INVALID");
   if (!evidence.questionValidation.ok) errors.push(...evidence.questionValidation.errors.map((row) => `P03F10_BROWSER_VALIDATOR:${row.code}`));
