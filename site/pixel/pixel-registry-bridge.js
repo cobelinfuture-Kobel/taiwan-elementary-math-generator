@@ -90,7 +90,7 @@ export function getS74PixelSourceSummary(sourceId) { return buildPixelSourceSumm
 function registrySnapshot(sources, visibleKnowledgePointCount) {
   return Object.freeze({
     sourceCount: sources.length, visibleKnowledgePointCount,
-    grades: [...new Set(sources.map((entry) => entry.grade)).sort((a, b) => a - b),
+    grades: [...new Set(sources.map((entry) => entry.grade))].sort((a, b) => a - b),
     sources,
     bySourceId: Object.freeze(Object.fromEntries(sources.map((source) => [source.sourceId, buildPixelSourceSummary(source)])),
   });
