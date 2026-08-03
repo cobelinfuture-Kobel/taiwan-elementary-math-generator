@@ -1,7 +1,6 @@
 import {
   PUBLIC_UI_SAFE_QUESTION_COUNT,
   PUBLIC_UI_SURFACES,
-  auditPublicUiCapabilityBinding as auditBasePublicUiCapabilityBinding,
   resolvePublicUiCapabilityBinding as resolveBasePublicUiCapabilityBinding,
 } from "./public-ui-capability-binding-base.js";
 import {
@@ -10,6 +9,7 @@ import {
 } from "./public-generator-capacity-registry.js";
 import {
   getVisiblePatternGroupsForKnowledgePoint,
+  listVisibleBatchAKnowledgePoints,
 } from "../registry/batch-a-selector-p03f17-extension.js";
 import {
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
@@ -26,6 +26,7 @@ export const PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION = Object.freeze({
 
 const SOURCE_UNIT_MODE = "sourceUnit";
 const SINGLE_KP_MODE = "singleKnowledgePoint";
+const SAME_UNIT_MIXED_MODE = "mixedKnowledgePointsSameUnit";
 const MIXED_MODE = "mixed";
 const CAPACITY_BLOCK_REASONS = new Set([
   "PUBLIC_CAPACITY_ROUTE_UNAVAILABLE",
@@ -79,7 +80,7 @@ function p03f17Binding(input = {}) {
     availableSelectionModes: Object.freeze([
       Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
       Object.freeze({ value: SINGLE_KP_MODE, enabled: true }),
-      Object.freeze({ value: "mixedKnowledgePointsSameUnit", enabled: false }),
+      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: false }),
       Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
     ]),
     selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
@@ -197,7 +198,45 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
 }
 
 export function auditPublicUiCapabilityBinding() {
-  return auditBasePublicUiCapabilityBinding();
+  const errors = [];
+  const surfaces = Object.values(PUBLIC_UI_SURFACES);
+  const visibleRows = listVisibleBatchAKnowledgePoints();
+  const sourceIds = [...new Set(visibleRows.map((entry) => entry.sourceId))];
+  let caseCount = 0;
+
+  for (const sourceId of sourceIds) {
+    const visible = visibleRows.filter((entry) => entry.sourceId === sourceId);
+    for (const surfaceId of surfaces) {
+      const sourceUnit = resolvePublicUiCapabilityBinding({ sourceId, surfaceId });
+      caseCount += 1;
+      if (sourceUnit.blocked) errors.push(`${sourceId}|${surfaceId}|sourceUnit:${sourceUnit.blockedReasons.join("|")}`);
+
+      for (const kp of visible) {
+        const single = resolvePublicUiCapabilityBinding({
+          sourceId,
+          surfaceId,
+          selectionMode: SINGLE_KP_MODE,
+          selectedKnowledgePointIds: [kp.knowledgePointId],
+        });
+        caseCount += 1;
+        if (single.blocked) errors.push(`${sourceId}|${surfaceId}|${kp.knowledgePointId}:${single.blockedReasons.join("|")}`);
+      }
+
+      if (visible.length >= 2) {
+        const mixed = resolvePublicUiCapabilityBinding({
+          sourceId,
+          surfaceId,
+          selectionMode: SAME_UNIT_MIXED_MODE,
+          selectedKnowledgePointIds: visible.map((kp) => kp.knowledgePointId),
+        });
+        caseCount += 1;
+        if (mixed.blocked) errors.push(`${sourceId}|${surfaceId}|mixed:${mixed.blockedReasons.join("|")}`);
+      }
+    }
+  }
+
+  const result = Object.freeze({ ok: errors.length === 0, caseCount, errors: Object.freeze(errors) });
+  return result;
 }
 
 // PGC-R06 A03 runtime capacity consumer reconciliation
