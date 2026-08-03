@@ -2,49 +2,27 @@
   "schemaVersion": "g5a-u08-r1-deployed-pages-smoke-v1",
   "task": "G5A_U08_R1_DeployedControlsAndPrintRecloseout",
   "status": "FAIL",
-  "deploymentSha": "9d10f8bd07c8eddc93806242811d3e1c19c902c8",
-  "message": "G5A_U08_R1_UNADMITTED_CONTROL_INTERSECTION_EXPOSED",
+  "deploymentSha": "b5419c77f10eb0a3422f1f51dcdeaad7abc722d3",
+  "message": "G5A_U08_R1_DEPLOYED_GENERATION_FAILED",
   "details": {
-    "label": "reasoning/mixed/mixed",
-    "row": {
-      "questionMode": "reasoning",
-      "depthMode": "mixed",
-      "contextMode": "mixed",
-      "expected": "block",
-      "publicAdmitted": false,
-      "canonicalAllocated": true,
-      "depthApplicable": false,
-      "contextApplicable": false,
-      "capacityRouteIds": [],
-      "patternGroupCount": 3,
-      "patternSpecCount": 5
-    },
-    "questions": [
-      "mixed",
-      "reasoning"
-    ],
-    "depths": [
-      "mixed",
-      "N",
-      "N_PLUS_1"
-    ],
-    "contexts": [
-      "mixed",
-      "daily_life",
-      "sdg"
-    ]
+    "label": "反向推算運算符號",
+    "status": "產生失敗，請檢查知識點、題目形式、深度、情境與題數設定。",
+    "validation": "G5A-U08 公開選擇沒有可用的 mode、depth 與 context 組合。Existing numeric generators produced 0 unique prompts for a 6-question request after 0 deterministic windows.",
+    "previewMeta": "產生失敗。"
   },
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g5a_u08_5a08&questionCount=6&ordering=groupedByPattern&answerKey=1&generationSeed=g5a-u08-r1-mixed-N_PLUS_1-sdg&columns=3&rowsPerPage=5&questionMode=mixed&depthMode=N_PLUS_1&contextMode=sdg&selectionMode=mixedKnowledgePointsSameUnit&kp=kp_g5a_u08_mixed_operation_order&kp=kp_g5a_u08_add_sub_equivalent_regroup&kp=kp_g5a_u08_mul_div_equivalent_regroup&kp=kp_g5a_u08_distributive_expand&kp=kp_g5a_u08_common_factor_extract&kp=kp_g5a_u08_near_round_add_compensation&kp=kp_g5a_u08_near_round_sub_compensation&kp=kp_g5a_u08_near_round_multiply_compensation&kp=kp_g5a_u08_missing_operator_inference&kp=kp_g5a_u08_equivalence_error_judgement&kp=kp_g5a_u08_average_inverse_update&pg=pg_g5a_u08_mixed_operation_order_numeric&pg=pg_g5a_u08_mixed_operation_order_application&pg=pg_g5a_u08_add_sub_regroup_numeric&pg=pg_g5a_u08_mul_div_regroup_numeric&pg=pg_g5a_u08_mul_div_regroup_application&pg=pg_g5a_u08_distributive_expand_numeric&pg=pg_g5a_u08_distributive_expand_application&pg=pg_g5a_u08_common_factor_numeric&pg=pg_g5a_u08_common_factor_application&pg=pg_g5a_u08_near_round_add_numeric&pg=pg_g5a_u08_near_round_sub_numeric&pg=pg_g5a_u08_near_round_multiply_numeric&pg=pg_g5a_u08_near_round_multiply_application&pg=pg_g5a_u08_missing_operator_reasoning&pg=pg_g5a_u08_equivalence_reasoning&pg=pg_g5a_u08_average_application&pg=pg_g5a_u08_average_reasoning",
-  "consoleErrors": [],
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g5a_u08_5a08&questionCount=6&ordering=groupedByPattern&answerKey=1&generationSeed=g5a-u08-r1-kp-9&columns=3&rowsPerPage=5&questionMode=numeric&depthMode=mixed&contextMode=mixed&selectionMode=singleKnowledgePoint&kp=kp_g5a_u08_missing_operator_inference&pg=pg_g5a_u08_missing_operator_reasoning",
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 503 ()"
+  ],
   "pageErrors": [],
   "workflow": "G5A-U08-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "30795974827",
-    "number": "326",
+    "id": "30796637132",
+    "number": "327",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30795974827"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30796637132"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-08-03T08:06:19.796Z"
+  "verifiedAt": "2026-08-03T08:16:03.760Z"
 }
