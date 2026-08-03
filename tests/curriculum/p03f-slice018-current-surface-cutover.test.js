@@ -5,6 +5,7 @@ import { buildBatchABrowserPlan } from "../../site/modules/curriculum/batch-a/ba
 import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router-p03f18.js";
 import { validateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator-p03f18.js";
 import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f18-extension.js";
+import { getCurrentPixelRegistrySnapshot, getCurrentPixelSourceSummary } from "../../site/pixel/pixel-registry-bridge.js";
 import { G4A_U09_DECIMAL_COMPOSE_SOURCE_ID, G4A_U09_DECIMAL_COMPOSE_KP_ID, G4A_U09_DECIMAL_COMPOSE_GROUP_ID, G4A_U09_DECIMAL_COMPOSE_PATTERN_SPEC_ID } from "../../site/modules/curriculum/registry/g4a-u09-decimal-compose-decompose-selector-projection.js";
 
 const options = {
@@ -42,4 +43,15 @@ test("P03F18 current planner generator validator and worksheet use the shared su
   assert.equal(worksheet.worksheetDocument.answerKeyItems.length, 12);
   assert.equal(worksheet.worksheetDocument.metadata.applicationExpansion, false);
   assert.equal(worksheet.worksheetDocument.metadata.worksheetAdapter.parallelPipeline, false);
+});
+
+test("P03F18 current Pixel registry consumes the Slice018 selector authority", () => {
+  const summary = getCurrentPixelSourceSummary(G4A_U09_DECIMAL_COMPOSE_SOURCE_ID);
+  assert.ok(summary);
+  assert.ok(summary.visibleKnowledgePoints.some((row) => row.knowledgePointId === G4A_U09_DECIMAL_COMPOSE_KP_ID));
+  const kp = summary.visibleKnowledgePoints.find((row) => row.knowledgePointId === G4A_U09_DECIMAL_COMPOSE_KP_ID);
+  assert.deepEqual(kp.patternSpecIds, [G4A_U09_DECIMAL_COMPOSE_PATTERN_SPEC_ID]);
+  const snapshot = getCurrentPixelRegistrySnapshot();
+  assert.ok(snapshot.bySourceId[G4A_U09_DECIMAL_COMPOSE_SOURCE_ID]);
+  assert.ok(snapshot.bySourceId[G4A_U09_DECIMAL_COMPOSE_SOURCE_ID].visibleKnowledgePoints.some((row) => row.knowledgePointId === G4A_U09_DECIMAL_COMPOSE_KP_ID));
 });
