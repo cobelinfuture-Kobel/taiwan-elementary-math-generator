@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { execFileSync, execSync } from "node:child_process";
 
@@ -83,15 +84,19 @@ for (const command of [
 }
 
 const changed = execSync("git diff --name-only", { encoding: "utf8" }).trim().split(/\r?\n/).filter(Boolean);
-fs.mkdirSync("tmp/p03f17-remediation-bundle", { recursive: true });
-fs.writeFileSync("tmp/p03f17-remediation-bundle/changed-files.txt", `${changed.join("\n")}\n`);
+const bundleRoot = path.join(os.tmpdir(), "p03f17-remediation-bundle");
+const bundleTar = path.join(os.tmpdir(), "p03f17-remediation-bundle.tar.gz");
+fs.rmSync(bundleRoot, { recursive: true, force: true });
+fs.rmSync(bundleTar, { force: true });
+fs.mkdirSync(bundleRoot, { recursive: true });
+fs.writeFileSync(path.join(bundleRoot, "changed-files.txt"), `${changed.join("\n")}\n`);
 for (const file of changed) {
   if (!fs.existsSync(file) || !fs.statSync(file).isFile()) continue;
-  const dest = path.join("tmp/p03f17-remediation-bundle/files", file);
+  const dest = path.join(bundleRoot, "files", file);
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   fs.copyFileSync(file, dest);
 }
-execSync("tar -czf tmp/p03f17-remediation-bundle.tar.gz -C tmp/p03f17-remediation-bundle changed-files.txt files");
-const payload = fs.readFileSync("tmp/p03f17-remediation-bundle.tar.gz").toString("base64");
+execSync(`tar -czf ${JSON.stringify(bundleTar)} -C ${JSON.stringify(bundleRoot)} changed-files.txt files`);
+const payload = fs.readFileSync(bundleTar).toString("base64");
 console.log(`P03F17_REMEDIATION_BUNDLE_BEGIN:${payload}:P03F17_REMEDIATION_BUNDLE_END`);
 console.log(`P03F17_REMEDIATION_CHANGED_FILES=${JSON.stringify(changed)}`);
