@@ -1,7 +1,7 @@
 export * from "./batch-a-browser-validator-p03f17.js";
 import { validateBatchABrowserPlan as validateBasePlan, validateBatchABrowserQuestion as validateBaseQuestion, validateBatchABrowserQuestions as validateBaseQuestions } from "./batch-a-browser-validator-p03f17.js";
 import { getBatchABrowserPatternDefinition } from "./source-pattern-full-product-p03f18-extension.js";
-import { validateG4AU09DecimalComposeDecomposeQuestion } from "./decimal-compose-decompose-runtime-p03f18.js";
+import { validateG4AU09DecimalComposeSlice018Question } from "./decimal-compose-decompose-runtime-p03f18.js";
 import { G4A_U09_DECIMAL_COMPOSE_SOURCE_ID, G4A_U09_DECIMAL_COMPOSE_PATTERN_SPEC_ID } from "../registry/g4a-u09-decimal-compose-decompose-selector-projection.js";
 
 const issue = (code, path) => ({ code, severity: "error", path, message: code });
@@ -20,7 +20,7 @@ export function validateBatchABrowserPlan(plan = {}) {
 }
 
 export function validateBatchABrowserQuestion(question = {}) {
-  return isP03F18(question) ? validateG4AU09DecimalComposeDecomposeQuestion(question) : validateBaseQuestion(question);
+  return isP03F18(question) ? validateG4AU09DecimalComposeSlice018Question(question) : validateBaseQuestion(question);
 }
 
 export function validateBatchABrowserQuestions(questions = []) {
