@@ -52,6 +52,18 @@ export const G4A_U09_DECIMAL_COMPOSE_ROWS = freeze([{
   productionUse: "full_product_w3_slice018_candidate",
 }]);
 
+export const G4A_U09_DECIMAL_COMPOSE_SELECTOR_PROJECTION = freeze({
+  taskId: "P03F_W3DirectProductVerticalSlice018Implementation",
+  sourceId: G4A_U09_DECIMAL_COMPOSE_SOURCE_ID,
+  status: "ONE_W3_KP_NUMERIC_PUBLIC_CANDIDATE",
+  knowledgePointCount: 1,
+  patternGroupCount: 1,
+  patternSpecCount: 1,
+  publicSelectionEnabled: true,
+  sharedPipelineRequired: true,
+  applicationModeAllowed: false,
+});
+
 export function listG4AU09DecimalComposeSelectorRows() { return clone(G4A_U09_DECIMAL_COMPOSE_ROWS); }
 export function getG4AU09DecimalComposeSelectorRow(id) { return clone(G4A_U09_DECIMAL_COMPOSE_ROWS.find((row) => row.knowledgePointId === id) ?? null); }
 export function listG4AU09DecimalComposePatternGroups(id) { return clone(G4A_U09_DECIMAL_COMPOSE_PATTERN_GROUPS.filter((row) => row.primaryKnowledgePointId === id)); }
@@ -63,3 +75,4 @@ export function auditG4AU09DecimalComposeProjection() {
   if (G4A_U09_DECIMAL_COMPOSE_PATTERN_GROUPS[0].patternSpecIds.length !== 1) errors.push("P03F18_SPEC_COUNT_INVALID");
   return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), counts: Object.freeze({ knowledgePoints: 1, patternGroups: 1, patternSpecs: 1 }) });
 }
+export function auditG4AU09DecimalComposeSelectorProjection() { return auditG4AU09DecimalComposeProjection(); }
