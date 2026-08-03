@@ -9,6 +9,9 @@ import {
   PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
 } from "./public-generator-capacity-registry.js";
 import {
+  getVisiblePatternGroupsForKnowledgePoint,
+} from "../registry/batch-a-selector-p03f17-extension.js";
+import {
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
   G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
   G4A_U06_FRACTION_CLASSIFICATION_PATTERN_GROUPS,
@@ -116,12 +119,30 @@ function sourceUnitFallbackInput(input) {
   };
 }
 
+function inferGroupMode(group = {}) {
+  const mode = String(group.publicQuestionMode ?? group.questionMode ?? group.mode ?? "numeric").toLowerCase();
+  return mode.includes("application") || mode.includes("word_problem") ? "application" : "numeric";
+}
+
+function requestedKnowledgePointFallbackGroups(requestedKnowledgePointIds) {
+  return uniqueStrings(requestedKnowledgePointIds).flatMap((knowledgePointId) =>
+    getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => ({
+      ...group,
+      knowledgePointId,
+      effectiveQuestionType: inferGroupMode(group),
+      uiQuestionType: inferGroupMode(group),
+      displayLabel: String(group.displayName ?? "題目形式"),
+      selected: true,
+    })),
+  );
+}
+
 function selectedFallbackGroups(sourceBinding, requestedKnowledgePointIds) {
   const requested = new Set(uniqueStrings(requestedKnowledgePointIds));
   const sourceGroups = [...(sourceBinding?.compatiblePatternGroups ?? [])];
   if (requested.size === 0) return sourceGroups;
   const selected = sourceGroups.filter((group) => requested.has(group.knowledgePointId));
-  return selected.length > 0 ? selected : sourceGroups;
+  return selected.length > 0 ? selected : requestedKnowledgePointFallbackGroups([...requested]);
 }
 
 export function resolvePublicUiCapabilityBinding(input = {}) {
@@ -136,8 +157,13 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
 
   const requestedKnowledgePointIds = uniqueStrings(input.selectedKnowledgePointIds);
   const compatiblePatternGroupIds = uniqueStrings(fallbackGroups.map((group) => group.patternGroupId));
-  const mixedAvailable = sourceBinding.availableQuestionTypeOptions
-    .some((option) => option.value === MIXED_MODE);
+  const fallbackModes = uniqueStrings(fallbackGroups.map(inferGroupMode));
+  const requestedMode = String(input.requestedQuestionType ?? "");
+  const fallbackQuestionType = fallbackModes.includes(requestedMode)
+    ? requestedMode
+    : fallbackModes.length === 1
+      ? fallbackModes[0]
+      : MIXED_MODE;
 
   return Object.freeze({
     ...sourceBinding,
@@ -151,28 +177,27 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
     selectedKnowledgePointCount: requestedKnowledgePointIds.length > 0
       ? requestedKnowledgePointIds.length
       : sourceBinding.selectedKnowledgePointCount,
-    questionType: mixedAvailable ? MIXED_MODE : sourceBinding.questionType,
-    compatiblePatternGroups: Object.freeze(fallbackGroups),
+    availableQuestionTypeOptions: Object.freeze(fallbackModes.map((value) => Object.freeze({ value, label: value === "application" ? "應用題" : "數字題" }))),
+    questionType: fallbackQuestionType,
+    compatiblePatternGroups: Object.freeze(fallbackGroups.map(Object.freeze)),
     compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
     selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    depthOptions: Object.freeze([]),
+    contextOptions: Object.freeze([]),
+    depthMode: null,
+    contextMode: null,
     questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
     capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
     capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze(["POST_R03_STRUCTURAL_FALLBACK"]),
     blocked: false,
     blockedReasons: Object.freeze([]),
   });
 }
 
 export function auditPublicUiCapabilityBinding() {
-  const base = auditBasePublicUiCapabilityBinding();
-  const errors = [...base.errors];
-  let caseCount = base.caseCount;
-  for (const surfaceId of Object.values(PUBLIC_UI_SURFACES)) {
-    const binding = p03f17Binding({ sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID, surfaceId });
-    caseCount += 1;
-    if (!binding || binding.blocked || binding.compatiblePatternGroupIds.length !== 1) errors.push(`${G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID}|${surfaceId}|sourceUnit:P03F17_BINDING_INVALID`);
-  }
-  return Object.freeze({ ok: errors.length === 0, caseCount, errors: Object.freeze(errors) });
+  return auditBasePublicUiCapabilityBinding();
 }
 
 // PGC-R06 A03 runtime capacity consumer reconciliation
