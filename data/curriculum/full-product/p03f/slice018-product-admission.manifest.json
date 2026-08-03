@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice018Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
   "expectedCounts": {
     "queuePosition": 18,
     "sourceNodeCount": 1,
@@ -92,7 +92,13 @@
     "finalNodeWorkflowHeadSha": "e1823675162c1a3c62ecea4a8be9432efde7b11f",
     "finalNodeWorkflowRunId": 30795336068,
     "finalNodeWorkflowJobId": 91627566495,
-    "finalNodeWorkflowConclusion": "success"
+    "finalNodeWorkflowConclusion": "success",
+    "closeoutPrNumber": 526,
+    "closeoutHeadSha": "dce2d5a28ccaab6b2f1ee49c30cc3bffe3e7b17b",
+    "closeoutNodeWorkflowRunId": 30795972050,
+    "closeoutNodeWorkflowJobId": 91629520667,
+    "closeoutNodeConclusion": "success",
+    "closeoutMergeSha": "b5419c77f10eb0a3422f1f51dcdeaad7abc722d3"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice018-decimal-compose-decompose-authority.json",
   "chromiumAcceptancePath": "tools/curriculum/render-p03f-slice018-product-acceptance.mjs",
