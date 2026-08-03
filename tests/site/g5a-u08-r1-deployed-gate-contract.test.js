@@ -35,6 +35,7 @@ test("G5A-U08-R1 deployed gate is armed through the capacity-aware GS01 runner",
   assert.match(gs01Runner, /assertNotExposed/);
   assert.match(gs01Runner, /actual: \"not_exposed\"/);
   assert.match(gs01Runner, /selectAvailableOption/);
+  assert.match(gs01Runner, /G5A_U08_R1_MATRIX_ROW_STATE_NOT_ISOLATED/);
 });
 
 test("GS01 accepts extended preview metadata without weakening required fields", () => {
@@ -43,7 +44,7 @@ test("GS01 accepts extended preview metadata without weakening required fields",
   assert.equal(previewMetaSatisfiesGS01Contract("Batch A｜6 題｜含答案頁｜null", 6, true).ok, false);
 });
 
-test("GS01 patches metadata, early preselection, matrix authority and blocked-row semantics", () => {
+test("GS01 patches metadata, early preselection, matrix authority and row-isolated blocked semantics", () => {
   const patched = patchG5AU08DeployedSmokeHarness(legacyHarness);
   assert.doesNotMatch(patched, /endsWith\(expectedSuffix\)/);
   assert.match(patched, /resolvePublicUiCapabilityBinding/);
@@ -51,6 +52,10 @@ test("GS01 patches metadata, early preselection, matrix authority and blocked-ro
   assert.match(patched, /capacityRouteIds/);
   assert.match(patched, /G5A_U08_R1_UNADMITTED_CONTROL_INTERSECTION_EXPOSED/);
   assert.match(patched, /actual: \"not_exposed\"/);
+  assert.match(patched, /rowUrl\.searchParams\.delete\("kp"\)/);
+  assert.match(patched, /rowUrl\.searchParams\.delete\("pg"\)/);
+  assert.match(patched, /G5A_U08_R1_MATRIX_ROW_STATE_NOT_ISOLATED/);
+  assert.match(patched, /page\.goto\(rowUrl\.href, \{ waitUntil: "networkidle", timeout: 120000 \}\)/);
   const singleModeIndex = patched.indexOf('selectOption("#batch-a-selection-mode-select", "singleKnowledgePoint")');
   const kpPanelIndex = patched.indexOf("const kpButtons");
   assert.ok(singleModeIndex >= 0 && kpPanelIndex > singleModeIndex);
