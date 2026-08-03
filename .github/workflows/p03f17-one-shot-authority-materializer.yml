@@ -74,11 +74,11 @@ jobs:
           const fs = require('node:fs');
           const file = 'package.json';
           const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
-          const expected = 'node tools/curriculum/materialize-p03f17-current-authority-remediation.mjs';
-          if (pkg.scripts?.pretest !== expected) {
+          const prefix = 'node tools/curriculum/materialize-p03f17-current-authority-remediation.mjs && ';
+          if (!pkg.scripts?.pretest?.startsWith(prefix)) {
             throw new Error(`Unexpected pretest: ${pkg.scripts?.pretest}`);
           }
-          delete pkg.scripts.pretest;
+          pkg.scripts.pretest = pkg.scripts.pretest.slice(prefix.length);
           fs.writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
           NODE
           rm tools/curriculum/materialize-p03f17-current-authority-remediation.mjs
