@@ -2,7 +2,7 @@
   "schemaVersion": "g5a-u08-r1-deployed-pages-smoke-v1",
   "task": "G5A_U08_R1_DeployedControlsAndPrintRecloseout",
   "status": "FAIL",
-  "deploymentSha": "05c3e28f5116bc0d263da03931adcd5bfa647314",
+  "deploymentSha": "66d810ce270396ffde88b67c3eacb302fe43bb1c",
   "message": "G5A_U08_R1_UNADMITTED_CONTROL_INTERSECTION_EXPOSED",
   "details": {
     "label": "reasoning/mixed/mixed",
@@ -39,12 +39,12 @@
   "pageErrors": [],
   "workflow": "G5A-U08-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "30788451512",
-    "number": "321",
+    "id": "30790312082",
+    "number": "322",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30788451512"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/30790312082"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-08-03T05:54:34.114Z"
+  "verifiedAt": "2026-08-03T06:29:21.143Z"
 }
