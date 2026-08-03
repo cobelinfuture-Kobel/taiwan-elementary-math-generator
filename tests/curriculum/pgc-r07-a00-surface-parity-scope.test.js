@@ -43,10 +43,11 @@ test("PGC-R07 A00 is selected only after the accepted R06 D0 closeout", () => {
   assert.equal(r07.taskId, "PGC-R07-A00_SurfaceRendererPrintAuthorityAndParityMatrixFreeze");
 });
 
-test("PGC-R07 A00 freezes the exact current public surfaces and capability counts", () => {
-  assert.equal(r07.summary.publicSourceCount, capabilityMatrix.summary.publicSourceCount);
-  assert.equal(r07.summary.publicVisibleKnowledgePointCount, capabilityMatrix.summary.publicVisibleKnowledgePointCount);
-  assert.equal(r07.summary.capabilitySurfaceRowCount, capabilityMatrix.summary.capabilityRowCount);
+test("PGC-R07 A00 preserves its historical freeze while current public authority advances monotonically", () => {
+  assert.equal(r07.summary.publicSourceCount, 26);
+  assert.ok(capabilityMatrix.summary.publicSourceCount >= r07.summary.publicSourceCount);
+  assert.ok(capabilityMatrix.summary.publicVisibleKnowledgePointCount >= r07.summary.publicVisibleKnowledgePointCount);
+  assert.ok(capabilityMatrix.summary.capabilityRowCount >= r07.summary.capabilitySurfaceRowCount);
   assert.equal(r07.summary.surfaceCount, capabilityMatrix.summary.surfaceCount);
   assert.equal(r07.summary.capacityRouteCount, r06.summary.capacityRouteCount);
 

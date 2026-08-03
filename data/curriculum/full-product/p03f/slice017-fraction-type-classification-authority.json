@@ -1,0 +1,75 @@
+{
+  "schemaName": "P03FSlice017FractionTypeClassificationAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice017Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 17,
+    "sliceId": "p03e_q017_r7_g4a_u06_4a06_profile_fraction_c1",
+    "previousSliceId": "p03e_q016_r7_g3b_u09_3b09_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 515,
+      "closeoutPr": 516,
+      "postMergeReconciliationPr": 517,
+      "implementationMergeSha": "8309237a9819a9fe102b5cef90aed443bff37808",
+      "closeoutMergeSha": "51c8cbf7f86ed07383e062e6dfade636f31d5b48",
+      "finalMainReconciliationMergeSha": "937a6095cfc8e7c11d921e9a1b3966aecab46411",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice016-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/knowledge/units/g4a_u06_4a06.knowledge-operation.json",
+    "sourceNodeId": "g4a_u06_4a06",
+    "sourceCode": "4a06",
+    "sourceTitle": "假分數與帶分數",
+    "grade": 4,
+    "semester": "upper",
+    "unitCode": "4A-U06",
+    "reviewMethod": "PAGE_EVIDENCED_W02_CANDIDATE_RECONCILIATION",
+    "reviewedPages": [1]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_fraction_true_improper_mixed_classification",
+      "sourceCandidateId": "kp_g4a_u06_fraction_type_classification",
+      "canonicalNameZh": "真分數、假分數與帶分數分類",
+      "capabilityStatement": "學生能依分子、分母與整數部分判定真分數、假分數或帶分數。",
+      "reasoningInvariant": "真分數需分子小於分母；假分數需分子大於或等於分母；帶分數由正整數部分與真分數部分共同表示。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "requiredW3CapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"]
+    }
+  ],
+  "sliceCapabilityUnion": ["cap_fraction_domain_validator", "cap_fraction_number_system"],
+  "formalMappingBoundary": {
+    "classificationTypes": ["proper_fraction", "improper_fraction", "mixed_number"],
+    "positiveDenominatorRequired": true,
+    "properFractionInvariant": "0 < numerator < denominator",
+    "improperFractionInvariant": "numerator >= denominator",
+    "mixedNumberInvariant": "whole > 0 and 0 < numerator < denominator",
+    "conversionRequired": false,
+    "comparisonRequired": false,
+    "numberLineRequired": false,
+    "arithmeticRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": false,
+    "newPublicSourceAllowed": true,
+    "sharedFractionNumberSystemRequired": true,
+    "sharedFractionDomainValidatorRequired": true,
+    "sharedFractionArithmeticRequired": false,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

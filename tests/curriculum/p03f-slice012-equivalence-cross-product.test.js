@@ -113,9 +113,9 @@ test("P03F12 selector remains two G4B-U08 KPs while current Pixel adds later sou
   const availability = listBatchAKnowledgePointAvailabilityBySource(G4B_U08_SOURCE_ID);
   assert.equal(availability.visibleCount, 2);
   assert.equal(availability.hiddenPendingCount, 5);
-  assert.equal(listCurrentPixelSourceOptions().length, 26);
+  assert.equal(listCurrentPixelSourceOptions().length, 27);
   assert.equal(listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID).length, 2);
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 26);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 27);
 });
 
 test("P03F12 shared worksheet and answer key render bounded pages", () => {

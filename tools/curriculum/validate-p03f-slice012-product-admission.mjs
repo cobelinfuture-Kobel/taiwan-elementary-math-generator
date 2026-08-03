@@ -68,10 +68,10 @@ export function validateP03FSlice012ProductAdmission() {
   const pixelSources = listCurrentPixelSourceOptions();
   const pixelRows = listPixelKnowledgePointsForSource(SOURCE);
   const pixelSnapshot = getCurrentPixelRegistrySnapshot();
-  if (pixelSources.length !== 26
+  if (pixelSources.length < 26
     || pixelRows.length !== 2
     || pixelRows[1]?.knowledgePointId !== KP
-    || pixelSnapshot.sourceCount !== 26) {
+    || pixelSnapshot.sourceCount < 26) {
     errors.push("P03F12_PIXEL_SURFACE_INVALID");
   }
   if (!evidence.planValidation.ok) errors.push(...evidence.planValidation.errors.map((row) => `P03F12_PLAN:${row.code}`));

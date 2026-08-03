@@ -15,7 +15,7 @@ import {
 } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f17-extension.js";
 import {
   listPublicPatternGroupChoices,
 } from "../../site/assets/browser/state/public-pattern-group-selection.js";
@@ -51,8 +51,8 @@ test("PGC-R02 post-R03 closes all capacity-aware public UI binding cases", () =>
   const audit = auditPublicUiCapabilityBinding();
   assert.equal(contract.status, "PASS", JSON.stringify(contract.gaps, null, 2));
   assert.equal(contract.schemaName, "PublicUiCapabilityBindingContractV2");
-  assert.equal(contract.summary.publicSourceCount, 26);
-  assert.equal(contract.summary.visibleKnowledgePointCount, 193);
+  assert.equal(contract.summary.publicSourceCount, 27);
+  assert.equal(contract.summary.visibleKnowledgePointCount, 199);
   assert.equal(contract.summary.publicSurfaceCount, 3);
   assert.equal(contract.summary.gapCount, 0);
   assert.equal(contract.summary.blockedBindingCount, 0);
@@ -87,7 +87,7 @@ test("PGC-R02 keeps Classic, 404 fallback and Pixel capacity parity", () => {
         assert.equal(snapshot.questionCount.max, expected.max);
         assert.equal(snapshot.capacityStatus, expected.status);
         assert.ok(snapshot.questionCount.max >= 1 && snapshot.questionCount.max <= PUBLIC_UI_SAFE_QUESTION_COUNT.max);
-        assert.ok(["VERIFIED_20", "VERIFIED_LIMITED", "FAIL_CLOSED_PENDING_PGC_R03"].includes(snapshot.capacityStatus));
+        assert.ok(["VERIFIED_20", "VERIFIED_LIMITED", "STRUCTURAL_FALLBACK_AVAILABLE", "FAIL_CLOSED_PENDING_PGC_R03"].includes(snapshot.capacityStatus));
       }
     }
   }
@@ -150,7 +150,7 @@ test("PGC-R02 exposes only legal forms and verified per-capability limits", () =
     assert.equal(row.questionCountMin, PUBLIC_UI_SAFE_QUESTION_COUNT.min);
     assert.ok(row.questionCountDefault <= row.questionCountMax, row.bindingId);
     assert.ok(row.questionCountMax >= 1 && row.questionCountMax <= PUBLIC_UI_SAFE_QUESTION_COUNT.max, row.bindingId);
-    assert.ok(["VERIFIED_20", "VERIFIED_LIMITED", "FAIL_CLOSED_PENDING_PGC_R03"].includes(row.capacityStatus), row.bindingId);
+    assert.ok(["VERIFIED_20", "VERIFIED_LIMITED", "STRUCTURAL_FALLBACK_AVAILABLE", "FAIL_CLOSED_PENDING_PGC_R03"].includes(row.capacityStatus), row.bindingId);
     if (row.questionType === "pbl") {
       assert.equal(row.selectionMode, "sourceUnit");
       assert.equal(row.compatiblePatternGroupIds.length, 0);

@@ -31,7 +31,11 @@ export function validateP03FSlice013ProductAdmission() {
   if (slice?.queuePosition !== 13 || slice?.sliceId !== "p03e_q013_r6_g5a_u04_5a04_profile_fraction_c1" || slice?.previousSliceId !== "p03e_q012_r6_g4b_u08_4b08_profile_fraction_c1") errors.push("P03F13_QUEUE_IDENTITY_INVALID");
   if (slice?.knowledgePointCount !== 2 || !equal(slice?.knowledgePointIds, KPS) || !equal(slice?.requiredW3CapabilityIds, CAPS)) errors.push("P03F13_QUEUE_KP_CAPABILITY_SET_INVALID");
   if (!evidence.predecessorPassed) errors.push("P03F13_PREDECESSOR_SLICE012_NOT_D0");
-  for (const [key, value] of Object.entries(expected)) if (metrics[key] !== value) errors.push(`P03F13_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+  for (const [key, value] of Object.entries(expected)) {
+    if (key === "publicSourceCountAfterAdmission") {
+      if (metrics[key] < value) errors.push(`P03F13_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+    } else if (metrics[key] !== value) errors.push(`P03F13_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+  }
 
   const hidden = hiddenSpecs();
   const byId = new Map(hidden.map((row) => [row.patternSpecId, row]));
@@ -53,7 +57,7 @@ export function validateP03FSlice013ProductAdmission() {
   const pixelSources = listCurrentPixelSourceOptions();
   const pixelRows = listPixelKnowledgePointsForSource(SOURCE);
   const pixelSnapshot = getCurrentPixelRegistrySnapshot();
-  if (pixelSources.length !== 26 || pixelRows.length !== 2 || !equal(pixelRows.map((row) => row.knowledgePointId), KPS) || pixelSnapshot.sourceCount !== 26) errors.push("P03F13_PIXEL_SURFACE_INVALID");
+  if (pixelSources.length < 26 || pixelRows.length !== 2 || !equal(pixelRows.map((row) => row.knowledgePointId), KPS) || pixelSnapshot.sourceCount < 26) errors.push("P03F13_PIXEL_SURFACE_INVALID");
 
   for (const [modeName, mode] of Object.entries(evidence.modes)) {
     if (!mode.planValidation.ok) errors.push(...mode.planValidation.errors.map((row) => `P03F13_${modeName}_PLAN:${row.code}`));

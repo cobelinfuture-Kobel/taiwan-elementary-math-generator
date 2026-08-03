@@ -38,14 +38,14 @@ function expectRoute(routeId, classification) {
   return route;
 }
 
-test("PGC-R00 freezes the exact 26-source public product authority", () => {
+test("PGC-R00 freezes the exact 26-source historical authority while current public sources may extend", () => {
   assert.equal(scope.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(scope.taskId, "PGC-R00_PublicGenerationScopeAndAuthorityFreeze");
   assert.equal(scope.currentAuthority.publicSourceCount, 26);
-  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 26);
+  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 27);
   assert.equal(
     new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size,
-    26,
+    27,
   );
 
   const selectorAudit = auditP03F13PublicSelectorComposition();

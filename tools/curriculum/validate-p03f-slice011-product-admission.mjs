@@ -15,7 +15,11 @@ export function validateP03FSlice011ProductAdmission() {
   if (slice?.queuePosition !== 11 || slice?.sliceId !== "p03e_q011_r6_g4b_u06_4b06_profile_decimal_c1" || slice?.previousSliceId !== "p03e_q010_r6_g4a_u09_4a09_profile_decimal_c1") errors.push("P03F11_QUEUE_IDENTITY_INVALID");
   if (slice?.knowledgePointCount !== 1 || slice?.knowledgePointIds?.[0] !== KP || JSON.stringify(slice?.requiredW3CapabilityIds) !== JSON.stringify(CAPS)) errors.push("P03F11_QUEUE_KP_CAPABILITY_SET_INVALID");
   if (!evidence.predecessorPassed) errors.push("P03F11_PREDECESSOR_SLICE010_NOT_D0");
-  for (const [key, value] of Object.entries(expected)) if (metrics[key] !== value) errors.push(`P03F11_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+  for (const [key, value] of Object.entries(expected)) {
+    if (key === "publicSourceCountAfterAdmission") {
+      if (metrics[key] < value) errors.push(`P03F11_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+    } else if (metrics[key] !== value) errors.push(`P03F11_METRIC_INVALID:${key}:${metrics[key]}:${value}`);
+  }
   const hidden = hiddenSpecs(); const numeric = hidden.find((row) => row.patternSpecId === NUMERIC_SPEC); const application = hidden.find((row) => row.patternSpecId === APPLICATION_SPEC);
   for (const row of [numeric, application]) if (!row || row.operationModelId !== "op_g4b_u06_one_decimal_times_integer" || row.requestedUnknownRole !== "product" || JSON.stringify(row.givenRoles) !== JSON.stringify(["decimalFactor", "integerFactor"])) errors.push("P03F11_HIDDEN_PATTERNSPEC_PARITY_INVALID");
   if (!evidence.selectorProjectionAudit.ok) errors.push(...evidence.selectorProjectionAudit.errors.map((code) => `P03F11_SELECTOR_PROJECTION:${code}`));
@@ -26,7 +30,7 @@ export function validateP03FSlice011ProductAdmission() {
   const controlModes = evidence.controlProfile?.questionTypeControl?.options?.map((row) => row.value) ?? [];
   if (JSON.stringify(controlModes) !== JSON.stringify(["numeric", "application"]) || evidence.controlProfile?.contextControl?.defaultValue !== "global_primary") errors.push("P03F11_PUBLIC_CONTROL_INVALID");
   const pixelSources = listCurrentPixelSourceOptions(); const pixelRows = listPixelKnowledgePointsForSource("g4b_u06_4b06"); const pixelSnapshot = getCurrentPixelRegistrySnapshot();
-  if (pixelSources.length !== 26 || pixelRows.length !== 1 || pixelRows[0].knowledgePointId !== KP || pixelSnapshot.sourceCount !== 26) errors.push("P03F11_PIXEL_SURFACE_INVALID");
+  if (pixelSources.length < 26 || pixelRows.length !== 1 || pixelRows[0].knowledgePointId !== KP || pixelSnapshot.sourceCount < 26) errors.push("P03F11_PIXEL_SURFACE_INVALID");
   for (const result of [evidence.numericPlanValidation, evidence.applicationPlanValidation]) if (!result.ok) errors.push(...result.errors.map((row) => `P03F11_PLAN:${row.code}`));
   for (const result of [evidence.numericGeneration, evidence.applicationGeneration]) if (!result.ok || result.questions.length !== 8 || result.allocation.length !== 1 || result.allocation[0].questionCount !== 8) errors.push("P03F11_GENERATION_INVALID");
   for (const result of [evidence.numericValidation, evidence.applicationValidation]) if (!result.ok) errors.push(...result.errors.map((row) => `P03F11_BROWSER_VALIDATOR:${row.code}`));

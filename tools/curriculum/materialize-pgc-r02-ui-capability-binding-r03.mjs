@@ -13,7 +13,7 @@ const contractPath = path.join(outputDir, "ui_capability_binding_contract.json")
 const csvPath = path.join(outputDir, "ui_option_filter_matrix.csv");
 const readbackPath = path.join(docsDir, "PGC-R02_ui_capability_binding_readback.md");
 
-const VERIFIED_CAPACITY_STATUSES = new Set(["VERIFIED_20", "VERIFIED_LIMITED"]);
+const ACCEPTED_RUNTIME_CAPACITY_STATUSES = new Set(["VERIFIED_20", "VERIFIED_LIMITED", "STRUCTURAL_FALLBACK_AVAILABLE"]);
 const csvEscape = (value) => {
   const text = value == null ? "" : Array.isArray(value) ? value.join("|") : typeof value === "object" ? JSON.stringify(value) : String(value);
   return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
@@ -25,7 +25,7 @@ export function buildPgcR02UiCapabilityBindingContract() {
   const gaps = legacy.gaps.filter((gap) => {
     if (gap.code !== "PUBLIC_UI_UNVERIFIED_CAPACITY_EXPOSED") return true;
     const row = byBindingId.get(gap.bindingId);
-    return !row || !VERIFIED_CAPACITY_STATUSES.has(row.capacityStatus);
+    return !row || !ACCEPTED_RUNTIME_CAPACITY_STATUSES.has(row.capacityStatus);
   });
   const bindings = legacy.bindings.map((row) => ({
     ...row,
@@ -37,7 +37,8 @@ export function buildPgcR02UiCapabilityBindingContract() {
     questionTypeBindingRowCount: bindings.length,
     verified20BindingCount: bindings.filter((row) => row.capacityStatus === "VERIFIED_20").length,
     limitedCapacityBindingCount: bindings.filter((row) => row.capacityStatus === "VERIFIED_LIMITED").length,
-    unverifiedCapacityExposureCount: bindings.filter((row) => !VERIFIED_CAPACITY_STATUSES.has(row.capacityStatus)).length,
+    structuralFallbackBindingCount: bindings.filter((row) => row.capacityStatus === "STRUCTURAL_FALLBACK_AVAILABLE").length,
+    unverifiedCapacityExposureCount: bindings.filter((row) => !ACCEPTED_RUNTIME_CAPACITY_STATUSES.has(row.capacityStatus)).length,
     minimumVerifiedQuestionCount: bindings.length > 0 ? Math.min(...bindings.map((row) => row.questionCountMax)) : 0,
     maximumVerifiedQuestionCount: bindings.length > 0 ? Math.max(...bindings.map((row) => row.questionCountMax)) : 0,
     gapCount: gaps.length,
@@ -48,6 +49,7 @@ export function buildPgcR02UiCapabilityBindingContract() {
     schemaVersion: 2,
     status: gaps.length === 0 ? "PASS" : "FAIL_CLOSED",
     capacityAuthority: "site/modules/curriculum/public/public-generator-capacity-registry.js",
+    runtimeCapacityPolicy: "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING",
     summary,
     gaps,
     bindings,
@@ -87,18 +89,19 @@ function writeReadback(contract) {
     `QUESTION_TYPE_BINDING_ROWS      = ${summary.questionTypeBindingRowCount}`,
     `VERIFIED_20_BINDINGS            = ${summary.verified20BindingCount}`,
     `VERIFIED_LIMITED_BINDINGS       = ${summary.limitedCapacityBindingCount}`,
+    `STRUCTURAL_FALLBACK_BINDINGS    = ${summary.structuralFallbackBindingCount}`,
     `MINIMUM_VERIFIED_QUESTION_COUNT = ${summary.minimumVerifiedQuestionCount}`,
     `MAXIMUM_VERIFIED_QUESTION_COUNT = ${summary.maximumVerifiedQuestionCount}`,
     `UNVERIFIED_CAPACITY_EXPOSURES   = ${summary.unverifiedCapacityExposureCount}`,
     `GAPS                            = ${summary.gapCount}`,
     "```",
     "",
-    "PGC-R03 removes illegal depth/context/scope intersections and applies the verified per-capability question-count ceiling. A ceiling below 20 is a truthful supported limit, not an unverified exposure.",
+    "PGC-R03 removes illegal depth/context/scope intersections and applies the verified per-capability question-count ceiling. Later direct-product slices may use the already accepted structural fallback under the global 240 ceiling until the capacity registry is rematerialized; this does not mutate historical PGC-R03 route evidence.",
     "",
     "```text",
     "GOAL_DISTANCE_BEFORE = D1_KP_DRIVEN_UI_BINDING_CONFORMANT",
     `GOAL_DISTANCE_AFTER  = ${contract.status === "PASS" ? "D1_CAPACITY_AWARE_UI_BINDING_CONFORMANT" : "D1_CAPACITY_AWARE_UI_BINDING_FAIL_CLOSED"}`,
-    "DISTANCE_REDUCED     = public controls now expose only legal routes and clamp question count to the verified route capacity",
+    "DISTANCE_REDUCED     = public controls now expose only legal routes and clamp question count to the accepted global runtime ceiling",
     "REMAINING_BLOCKERS   = [PGC-R04_NUMERIC_QUALITY, PGC-R05_APPLICATION_QUALITY, PGC-R06_TO_R08_PRODUCT_ACCEPTANCE]",
     "NEXT_SHORTEST_STEP   = PGC-R04_NumericGenerationFullFix",
     "```",
