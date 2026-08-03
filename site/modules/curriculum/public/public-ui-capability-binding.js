@@ -121,14 +121,19 @@ function sourceUnitFallbackInput(input) {
   };
 }
 
-function inferGroupMode(group = {}) {
+function inferGroupMode(group = {}, input = {}) {
   const mode = String(group.publicQuestionMode ?? group.questionMode ?? group.mode ?? "numeric").toLowerCase();
-  if (group.sourceId === G5A_U08_SOURCE_ID && mode.includes("reasoning")) return "reasoning";
+  const preserveSingleKpReasoning = input.sourceId === G5A_U08_SOURCE_ID
+    && input.selectionMode === SINGLE_KP_MODE
+    && mode.includes("reasoning");
+  if (preserveSingleKpReasoning) return "reasoning";
   return mode.includes("application") || mode.includes("word_problem") ? "application" : "numeric";
 }
 
 function fallbackQuestionTypeValues(input, fallbackModes) {
-  if (input.sourceId !== G5A_U08_SOURCE_ID || fallbackModes.length < 2) return fallbackModes;
+  const singleKpG5AU08 = input.sourceId === G5A_U08_SOURCE_ID
+    && input.selectionMode === SINGLE_KP_MODE;
+  if (!singleKpG5AU08 || fallbackModes.length < 2) return fallbackModes;
   return uniqueStrings([MIXED_MODE, ...fallbackModes]);
 }
 
@@ -139,25 +144,25 @@ function fallbackQuestionTypeLabel(value) {
   return "數字題";
 }
 
-function requestedKnowledgePointFallbackGroups(requestedKnowledgePointIds) {
+function requestedKnowledgePointFallbackGroups(requestedKnowledgePointIds, input) {
   return uniqueStrings(requestedKnowledgePointIds).flatMap((knowledgePointId) =>
     getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => ({
       ...group,
       knowledgePointId,
-      effectiveQuestionType: inferGroupMode(group),
-      uiQuestionType: inferGroupMode(group),
+      effectiveQuestionType: inferGroupMode(group, input),
+      uiQuestionType: inferGroupMode(group, input),
       displayLabel: String(group.displayName ?? "題目形式"),
       selected: true,
     })),
   );
 }
 
-function selectedFallbackGroups(sourceBinding, requestedKnowledgePointIds) {
+function selectedFallbackGroups(sourceBinding, requestedKnowledgePointIds, input) {
   const requested = new Set(uniqueStrings(requestedKnowledgePointIds));
   const sourceGroups = [...(sourceBinding?.compatiblePatternGroups ?? [])];
   if (requested.size === 0) return sourceGroups;
   const selected = sourceGroups.filter((group) => requested.has(group.knowledgePointId));
-  return selected.length > 0 ? selected : requestedKnowledgePointFallbackGroups([...requested]);
+  return selected.length > 0 ? selected : requestedKnowledgePointFallbackGroups([...requested], input);
 }
 
 export function resolvePublicUiCapabilityBinding(input = {}) {
@@ -167,12 +172,12 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
   if (!needsStructuralFallback(primary)) return withGlobalQuestionCount(primary);
 
   const sourceBinding = resolveBasePublicUiCapabilityBinding(sourceUnitFallbackInput(input));
-  const fallbackGroups = selectedFallbackGroups(sourceBinding, input.selectedKnowledgePointIds);
+  const fallbackGroups = selectedFallbackGroups(sourceBinding, input.selectedKnowledgePointIds, input);
   if (sourceBinding.blocked || fallbackGroups.length === 0) return withGlobalQuestionCount(primary);
 
   const requestedKnowledgePointIds = uniqueStrings(input.selectedKnowledgePointIds);
   const compatiblePatternGroupIds = uniqueStrings(fallbackGroups.map((group) => group.patternGroupId));
-  const fallbackModes = uniqueStrings(fallbackGroups.map(inferGroupMode));
+  const fallbackModes = uniqueStrings(fallbackGroups.map((group) => inferGroupMode(group, input)));
   const availableFallbackQuestionTypeValues = fallbackQuestionTypeValues(input, fallbackModes);
   const requestedMode = String(input.requestedQuestionType ?? "");
   const fallbackQuestionType = fallbackModes.includes(requestedMode)
