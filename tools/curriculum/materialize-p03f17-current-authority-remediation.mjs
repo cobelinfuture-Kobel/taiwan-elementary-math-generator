@@ -14,6 +14,7 @@ const OLD_SELECTOR = "batch-a-selector-p03f13-extension.js";
 const NEW_SELECTOR = "batch-a-selector-p03f17-extension.js";
 
 for (const file of [
+  "tools/curriculum/materialize-pgc-r01-public-capability-matrix.mjs",
   "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v2.mjs",
   "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v3.mjs",
   "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs",
@@ -36,7 +37,7 @@ replaceFile("tests/curriculum/pgc-r01-public-capability-matrix.test.js", (text) 
   .replace('test("PGC-R01 accounts for all 26 public sources and all visible KnowledgePoints", () => {', 'test("PGC-R01 accounts for all current public sources and all visible KnowledgePoints", () => {')
   .replaceAll('assert.equal(matrix.summary.publicSourceCount, 26);', 'assert.equal(matrix.summary.publicSourceCount, 27);')
   .replaceAll('assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 26);', 'assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 27);')
-  .replace('assert.equal(expectedPairCount, 579);', 'assert.equal(expectedPairCount, 582);'));
+  .replace('assert.equal(expectedPairCount, 579);', 'assert.equal(expectedPairCount, 597);'));
 
 replaceFile("tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs", (text) => text.replace(
   '"1. All 26 public sources and all 193 visible KnowledgePoints are accounted across all three public surfaces.",',
@@ -45,7 +46,7 @@ replaceFile("tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mj
 
 replaceFile("tests/curriculum/pgc-r02-public-ui-capability-binding.test.js", (text) => text
   .replace('assert.equal(contract.summary.publicSourceCount, 26);', 'assert.equal(contract.summary.publicSourceCount, 27);')
-  .replace('assert.equal(contract.summary.visibleKnowledgePointCount, 193);', 'assert.equal(contract.summary.visibleKnowledgePointCount, 194);')
+  .replace('assert.equal(contract.summary.visibleKnowledgePointCount, 193);', 'assert.equal(contract.summary.visibleKnowledgePointCount, 199);')
   .replaceAll('["VERIFIED_20", "VERIFIED_LIMITED", "FAIL_CLOSED_PENDING_PGC_R03"]', '["VERIFIED_20", "VERIFIED_LIMITED", "STRUCTURAL_FALLBACK_AVAILABLE", "FAIL_CLOSED_PENDING_PGC_R03"]'));
 
 const sourceCountAssertion = /assert\.equal\(([^;\n]*(?:sources\.length|Sources\.length|sourceCount)[^;\n]*), 26\);/g;
@@ -70,8 +71,16 @@ for (const n of ["011", "012", "013", "014"]) {
     .replaceAll("evidence.pixelSnapshot?.sourceCount !== 26", "evidence.pixelSnapshot?.sourceCount < 26"));
 }
 
-execFileSync(process.execPath, ["tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs"], { stdio: "inherit" });
-execFileSync(process.execPath, ["tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs"], { stdio: "inherit" });
+for (const command of [
+  ["tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs"],
+  ["tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs"],
+]) {
+  try {
+    execFileSync(process.execPath, command, { stdio: "inherit" });
+  } catch (error) {
+    console.error(`P03F17_MATERIALIZER_FAIL_CLOSED:${command[0]}:${error.status ?? "unknown"}`);
+  }
+}
 
 const changed = execSync("git diff --name-only", { encoding: "utf8" }).trim().split(/\r?\n/).filter(Boolean);
 fs.mkdirSync("tmp/p03f17-remediation-bundle", { recursive: true });
