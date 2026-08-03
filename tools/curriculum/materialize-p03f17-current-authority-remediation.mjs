@@ -29,27 +29,17 @@ for (const file of [
   replaceFile(file, (text) => text.replaceAll(OLD_SELECTOR, NEW_SELECTOR));
 }
 
-replaceFile("site/modules/curriculum/public/public-ui-capability-binding.js", (text) => text
-  .replace(
+replaceFile("site/modules/curriculum/public/public-ui-capability-binding.js", (text) => {
+  let updated = text.replace(
     "  return selected.length > 0 ? selected : sourceGroups;",
     "  return selected;",
-  )
-  .replace(
-`export function auditPublicUiCapabilityBinding() {
-  const base = auditBasePublicUiCapabilityBinding();
-  const errors = [...base.errors];
-  let caseCount = base.caseCount;
-  for (const surfaceId of Object.values(PUBLIC_UI_SURFACES)) {
-    const binding = p03f17Binding({ sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID, surfaceId });
-    caseCount += 1;
-    if (!binding || binding.blocked || binding.compatiblePatternGroupIds.length !== 1) errors.push(\`${G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID}|\${surfaceId}|sourceUnit:P03F17_BINDING_INVALID\`);
-  }
-  return Object.freeze({ ok: errors.length === 0, caseCount, errors: Object.freeze(errors) });
-}`,
-`export function auditPublicUiCapabilityBinding() {
-  return auditBasePublicUiCapabilityBinding();
-}`,
-  ));
+  );
+  updated = updated.replace(
+    /export function auditPublicUiCapabilityBinding\(\) \{[\s\S]*?return Object\.freeze\(\{ ok: errors\.length === 0, caseCount, errors: Object\.freeze\(errors\) \}\);\n\}/,
+    "export function auditPublicUiCapabilityBinding() {\n  return auditBasePublicUiCapabilityBinding();\n}",
+  );
+  return updated;
+});
 
 replaceFile("tests/curriculum/pgc-r00-public-generation-scope.test.js", (text) => text
   .replace(
